@@ -1798,7 +1798,7 @@ function sfsi_plus_get_feed_id()
         update_option('sfsi_plus_feed_id'        , sanitize_text_field($sfsiId->feed_id));
         update_option('sfsi_plus_redirect_url'   , sanitize_text_field($sfsiId->redirect_url));
         echo json_encode(array("res"=>"success",'feed_id'=>$sfsiId->feed_id));
-        sfsi_getverification_code();
+        sfsi_plus_getverification_code();
         exit;
     }else{
         echo json_encode(array("res"=>"success","feed_id"=>$feed_id));

@@ -228,7 +228,6 @@ class BMI_Database {
     if (BMP::isFunctionEnabled('ini_set')) {
       @ini_set('max_execution_time', '259200');
       @ini_set('max_input_time', '259200');
-      @ini_set('session.gc_maxlifetime', '1200');
     }
 
     $SQL_CONTENT = $file;

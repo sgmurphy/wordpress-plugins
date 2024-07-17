@@ -50,3 +50,14 @@
   padding: 15px;
   padding-right: 20px;
 }
+
+.ir-show-more{
+  font-size: 18px;
+  font-weight: 600;
+  color: #257671;
+}
+
+.ir-show-more:hover{
+  cursor: pointer;
+  color: #1b5551;
+}

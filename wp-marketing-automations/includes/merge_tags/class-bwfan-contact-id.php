@@ -70,7 +70,7 @@ if ( ! bwfan_is_autonami_pro_active() || version_compare( BWFAN_PRO_VERSION, '2.
 			$contact    = $this->get_contact_data();
 			$contact_id = 1;
 			/** check for contact instance and id */
-			if ( ! $contact instanceof WooFunnels_Contact && absint( $contact->get_id() ) === 0 ) {
+			if ( ! $contact instanceof WooFunnels_Contact || absint( $contact->get_id() ) === 0 ) {
 				return $contact_id;
 			}
 
@@ -79,11 +79,7 @@ if ( ! bwfan_is_autonami_pro_active() || version_compare( BWFAN_PRO_VERSION, '2.
 				return $contact_id;
 			}
 
-			$contact_id = $contact->get_id();
-
-			return $contact_id;
-
-
+			return $contact->get_id();
 		}
 	}
 

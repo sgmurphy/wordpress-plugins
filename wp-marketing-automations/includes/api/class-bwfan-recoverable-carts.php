@@ -395,4 +395,31 @@ class BWFAN_Recoverable_Carts {
 		$query = "DELETE FROM {$wpdb->prefix}bwfan_conversions WHERE `wcid` IN($ids) ";
 		$wpdb->query( $query );;
 	}
+
+	/**
+	 * Get currency data
+	 *
+	 * @param $item
+	 *
+	 * @return array
+	 */
+	public static function get_currency( $item ) {
+		if ( $item instanceof WC_Order ) {
+			$currency = ! is_null( $item->get_currency() ) ? $item->get_currency() : get_option( 'woocommerce_currency' );
+		} else {
+			$currency = ! is_null( $item->currency ) ? $item->currency : get_option( 'woocommerce_currency' );
+		}
+		$currency_symbol = get_woocommerce_currency_symbol( $currency );
+		$price_format    = apply_filters( 'bwfan_get_price_format_cart', get_woocommerce_price_format(), $currency );
+
+		return [
+			'code'              => $currency,
+			'precision'         => wc_get_price_decimals(),
+			'symbol'            => html_entity_decode( $currency_symbol ),
+			'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
+			'decimalSeparator'  => wc_get_price_decimal_separator(),
+			'thousandSeparator' => wc_get_price_thousand_separator(),
+			'priceFormat'       => html_entity_decode( $price_format ),
+		];
+	}
 }

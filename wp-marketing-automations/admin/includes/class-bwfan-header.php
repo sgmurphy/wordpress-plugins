@@ -280,6 +280,9 @@ final class BWFAN_Header {
 	}
 
 	public static function right_navigation() {
+		$urls        = BWFAN_Common::get_fk_site_links();
+		$support_url = add_query_arg( array( 'utm_medium' => 'Help+Support' ), $urls['support'] );
+		$docs_url    = add_query_arg( array( 'utm_medium' => 'Help+Docs' ), $urls['docs'] );
 
 		return array(
 			'community' => array(
@@ -293,25 +296,17 @@ final class BWFAN_Header {
 				'name'   => __( 'Get Help', 'wp-marketing-automations' ),
 				'desc'   => __( 'Contact support team', 'wp-marketing-automations' ),
 				'icon'   => 'support',
-				'link'   => self::prepare_web_url( 'https://funnelkit.com/support' ),
+				'link'   => $support_url,
 				'target' => '_blank',
 			),
 			'help'      => array(
 				'name'   => __( 'Read Docs', 'wp-marketing-automations' ),
 				'desc'   => __( 'Get help along the way', 'wp-marketing-automations' ),
 				'icon'   => 'help',
-				'link'   => self::prepare_web_url( 'https://funnelkit.com/docs/autonami-2/' ),
+				'link'   => $docs_url,
 				'target' => '_blank',
 			),
 		);
-	}
-
-	private static function prepare_web_url( $link ) {
-		return add_query_arg( array(
-			'utm_source'   => 'WordPress',
-			'utm_medium'   => 'Header+Menu',
-			'utm_campaign' => 'Lite+Plugin',
-		), $link );
 	}
 
 	public static function level_2_navigation_contacts() {
@@ -637,7 +632,7 @@ final class BWFAN_Header {
                             <path d="M14.3348 10.915C14.9768 9.53459 15.331 8.05295 15.3786 6.54899H18.4612C19.0109 6.54899 19.5188 6.2756 19.7937 5.83181C20.0683 5.38782 20.0683 4.84102 19.7937 4.39724C19.5188 3.95345 19.0109 3.68006 18.4612 3.68006H12.765L13.2795 3.38035C13.7501 3.106 14.0316 2.62185 14.0217 2.1045C14.0118 1.58709 13.7116 1.11258 13.2309 0.854169C12.7502 0.595767 12.1593 0.591345 11.6742 0.842641L4.46585 4.5769C4.36798 4.62743 4.3074 4.7233 4.3074 4.82743C4.3074 4.83818 4.30802 4.84875 4.30926 4.85932C4.51118 6.55441 4.51118 8.26503 4.30926 9.96007C4.29648 10.0667 4.34861 10.171 4.44442 10.2304C6.31962 11.3962 9.34967 11.9706 9.47784 11.9944C9.49762 11.9981 9.51781 12 9.53821 12H12.8472C13.6487 12 14.0325 11.4853 14.3348 10.915ZM9.56984 11.4264C9.2649 11.3666 6.63396 10.8323 4.94152 9.84675C5.12057 8.23085 5.12098 6.60201 4.94276 4.98611L11.9734 1.34427C12.2695 1.19076 12.6302 1.19345 12.9239 1.35118C13.2175 1.50891 13.4007 1.79863 13.4068 2.11465C13.4128 2.43049 13.2408 2.72619 12.9535 2.8937L11.5294 3.72366C11.4132 3.79168 11.3588 3.92289 11.3967 4.04604C11.4346 4.169 11.5551 4.25373 11.6924 4.25373H18.4614C18.7912 4.25373 19.096 4.4178 19.2608 4.68408C19.4256 4.95036 19.4256 5.2785 19.2608 5.54478C19.096 5.81106 18.7912 5.97513 18.4614 5.97513H15.0769C14.9078 5.97513 14.7705 6.10231 14.7691 6.25985C14.7606 7.77896 14.4227 9.28056 13.7762 10.6748C13.478 11.2366 13.2435 11.4264 12.8476 11.4264L9.56984 11.4264ZM2.7692 11.4264H0.923059C0.678488 11.426 0.443804 11.3353 0.270737 11.1739C0.0976691 11.0125 0.000411425 10.7937 0 10.5657V4.25354C0.000412111 4.02549 0.0976638 3.80667 0.270737 3.6453C0.44381 3.48392 0.678499 3.39323 0.923059 3.39285H2.7692C3.00903 3.39323 3.23939 3.48046 3.41165 3.63607C3.5839 3.79169 3.68446 4.00379 3.69208 4.22725C4.07161 6.33405 4.07161 8.48501 3.69208 10.592C3.68445 10.8154 3.5839 11.0275 3.41165 11.1832C3.2394 11.3388 3.00905 11.426 2.7692 11.4264ZM21.5386 5.40146V4.82759H24V5.40146H21.5386ZM20.6788 3.10467L22.6057 1.67625L22.9885 2.12543L21.0616 3.55385L20.6788 3.10467ZM20.6788 7.12438L21.0616 6.67521L22.9885 8.10343L22.6057 8.5528L20.6788 7.12438ZM19.3888 7.86537L19.8897 10.1126L19.287 10.2292L18.7861 7.98199L19.3888 7.86537ZM18.7861 2.24721L19.287 0L19.8897 0.116809L19.3888 2.36402L18.7861 2.24721Z" stroke="#ECA717"></path>
                         </svg>
                         <div class="bwf-migration-header-message">' . __( 'This automation is built using an older version of Automation Builder. Try Next-Gen Automation Builder.', 'wp-marketing-automations' ) . '</div>
-                        <a class="bwf-migration-header-button"  href="https://funnelkit.com/docs/autonami-2/automations/migrate-from-older-version/?utm_source=WordPress&utm_medium=Automation+Nextgen+Migrate&utm_campaign=Lite+Plugin" target="_blank">
+                        <a class="bwf-migration-header-button"  href="https://funnelkit.com/docs/autonami-2/automations/migrate-from-older-version/?utm_source=WordPress&utm_medium=Automation+Nextgen+Migrate&utm_campaign=FKA+Lite+Plugin" target="_blank">
                             ' . __( 'Learn about Migrating', 'wp-marketing-automations' ) . '
                         </a>
                         <a class="bwf-migration-header-button bwf-info" id="bwf-migration-header-button" href="#" data-izimodal-open="#modal-autonami-migrator-modal" data-izimodal-title="Migrate Automation" data-izimodal-transitionin="comingIn">

@@ -198,7 +198,27 @@ class UniteFunctionsUC{
 
 		return($firstValue);
 	}
-
+	
+	/**
+	 * the path is delimited by a dot: field3.2.1
+	 */
+	public static function getArrayValueByPath($arrData, $path){
+	  
+	  if(isset($arrData[$path]))
+	  	return($arrData[$path]);
+		
+	  $current = $arrData;
+	  $pathSegments = explode(".", $path);
+	
+	  foreach ($pathSegments as $segment) {
+	    if (isset($current[$segment])) {
+	      $current = $current[$segment];
+	    } else 
+	      return null; // Return null if a segment is not found
+	  }
+	
+	  return $current;
+	}	
 
 	/**
 	 * get first not empty key from array
@@ -2420,7 +2440,7 @@ class UniteFunctionsUC{
 	 * clear debug file
 	 */
 	public static function clearDebug($filepath = "debug.txt"){
-
+		
 		if(file_exists($filepath))
 			unlink($filepath);
 	}
@@ -2475,7 +2495,10 @@ class UniteFunctionsUC{
 			if(file_exists($filepath) == false)
 				continue;
 
-			unlink($filepath);
+			if(is_dir($filepath))
+				self::deleteDir($filepath);
+			else
+				unlink($filepath);
 		}
 
 	}

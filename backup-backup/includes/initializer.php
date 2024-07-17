@@ -18,6 +18,7 @@
   use BMI\Plugin\Scanner\BMI_BackupsScanner as Backups;
   use BMI\Plugin\Heart\BMI_Backup_Heart as Bypasser;
   use BMI\Plugin\Zipper\BMI_Zipper as Zipper;
+  use BMI\Plugin\Staging\BMI_Staging as Staging;
 
   // Uninstallator
   if (!function_exists('bmi_uninstall_handler')) {
@@ -84,7 +85,7 @@
 
       }
 
-      if (defined('BMI_RESTORE_SECRET') && defined('BMI_POST_CONTINUE_RESTORE') && BMI_POST_CONTINUE_RESTORE === true) {
+      if (defined('BMI_RESTORE_SECRET') && defined('BMI_POST_CONTINUE_RESTORE') && constant('BMI_POST_CONTINUE_RESTORE') === true) {
         
         if (!isset($_POST['bmi_restore_secret'])) exit;
         
@@ -236,7 +237,7 @@
     /**
      * hotFixPatches - Function which fixes things for "old" users
      *
-     * @return @void
+     * @return void
      */
     public function hotfix_patches() {
 
@@ -341,7 +342,6 @@
                 if ($this->isFunctionEnabled('ini_set')) {
                   @ini_set('max_execution_time', '259200');
                   @ini_set('max_input_time', '259200');
-                  @ini_set('session.gc_maxlifetime', '1200');
                 }
               }
             }
@@ -515,7 +515,7 @@
       $content = [$this, 'settings_page'];
 
       // Main menu hook
-      add_menu_page('Backup Migration', '<span id="bmi-menu">Backup Migration</span>', 'read', $parentSlug, $content, $icon_url, $position = 98);
+      add_menu_page('Backup Migration', '<span id="bmi-menu">Backup Migration</span>', 'read', $parentSlug, $content, $icon_url, 98);
 
       // Remove default submenu by menu
       remove_submenu_page($parentSlug, $parentSlug);
@@ -538,9 +538,9 @@
 
         // Handle offline tasks
         if (!class_exists('BMI_Pro_Offline')) {
-          if (file_exists(BMI_PRO_INC . 'offline.php')) {
-            require_once BMI_PRO_INC . 'offline.php';
-            $offline = new BMI_Pro_Offline();
+          if (file_exists(constant('BMI_PRO_INC') . 'offline.php')) {
+            require_once constant('BMI_PRO_INC') . 'offline.php';
+              new BMI_Pro_Offline();
           }
         }
 
@@ -592,7 +592,7 @@
       }
     }
 
-    public function email_error($msg) {
+    public static function email_error($msg) {
       Logger::log('Displaying some issues about email sending...');
       update_option('bmi_display_email_issues', $msg);
     }
@@ -609,10 +609,10 @@
       $message .= ' ' . __("(server time)", 'backup-backup');
 
       Logger::debug($message);
-      if (!$this->send_notification_mail($email, $subject, $message)) {
+      if (!self::send_notification_mail($email, $subject, $message)) {
         $issue = __("Couldn't send mail to you, please check server configuration.", 'backup-backup') . '<br>';
         $issue .= '<b>' . __("Message you missed because of this: ", 'backup-backup') . '</b>' . $message;
-        $this->email_error($issue);
+        self::email_error($issue);
       }
     }
 
@@ -677,7 +677,7 @@
           $message .= "\nError: " . $e;
         }
 
-        $this->send_notification_mail($email, $subject, $message);
+        self::send_notification_mail($email, $subject, $message);
       }
 
       if (file_exists(BMI_BACKUPS . '/.cron')) {
@@ -685,10 +685,10 @@
       }
     }
 
-    public function send_notification_mail($email, $subject, $message) {
+    public static function send_notification_mail($email, $subject, $message, $force = false) {
 
       $currentDate = date('Y-m-d');
-      if (get_option('bmi_last_email_notification', false) == $currentDate) {
+      if (get_option('bmi_last_email_notification', false) == $currentDate && $force === false) {
         Logger::log(__("Disallowing to send mail as today we already sent one.", 'backup-backup'));
         return;
       }
@@ -705,19 +705,19 @@
           return true;
         } else {
           Logger::error($email_fail);
-          $this->email_error(__("Couldn't send notification via email, please check the email and your server settings.", 'backup-backup'));
+          self::email_error(__("Couldn't send notification via email, please check the email and your server settings.", 'backup-backup'));
 
           return false;
         }
 
       } catch (\Exception $e) {
         Logger::error($email_fail);
-        $this->email_error(__("Couldn't send notification via email due to error, please check plugin logs for more details.", 'backup-backup'));
+        self::email_error(__("Couldn't send notification via email due to error, please check plugin logs for more details.", 'backup-backup'));
 
         return false;
       } catch (\Throwable $e) {
         Logger::error($email_fail);
-        $this->email_error(__("Couldn't send notification via email due to error, please check plugin logs for more details.", 'backup-backup'));
+        self::email_error(__("Couldn't send notification via email due to error, please check plugin logs for more details.", 'backup-backup'));
 
         return false;
       }
@@ -726,16 +726,18 @@
     public static function handle_after_cron() {
       require_once BMI_INCLUDES . DIRECTORY_SEPARATOR . 'scanner' . DIRECTORY_SEPARATOR . 'backups.php';
       $backups = new Backups();
-      $list = $backups->getAvailableBackups();
-      $list = $list['local'];
+      $availableBackups = $backups->getAvailableBackups();
+      $list = $availableBackups['local'];
 
       $cron_list = [];
       $cron_dates = [];
+      $sortedMD5s = [];
       foreach ($list as $key => $value) {
         if ($list[$key][6] == true) {
           if ($list[$key][5] == 'unlocked') {
             $cron_list[$list[$key][1]] = $list[$key][0];
             $cron_dates[] = $list[$key][1];
+            $sortedMD5s[] = [$list[$key][1], $list[$key][7]];
           }
         }
       }
@@ -750,6 +752,30 @@
         $name = explode('#%&', $name)[1];
         Logger::log(__("Removing backup due to keep rules: ", 'backup-backup') . $name);
         @unlink(BMI_BACKUPS . DIRECTORY_SEPARATOR . $name);
+      }
+
+      // Auto GDrive Removal 
+      if (isset($availableBackups['external']['gdrive'])) {
+        $gdrive = $availableBackups['external']['gdrive'];
+        foreach ($gdrive as $md5 => $data) {
+          if ($gdrive[$md5][6] == true && $gdrive[$md5][5] == 'unlocked') {
+            $sortedMD5s[] = [$gdrive[$md5][1], $md5];
+          }
+        }
+
+        $sortedMD5s = array_intersect_key($sortedMD5s, array_unique(array_map('serialize', $sortedMD5s)));
+        
+        usort($sortedMD5s, function ($a, $b) {
+          return (strtotime($a[0]) < strtotime($b[0])) ? -1 : 1;
+        });
+
+        $sortedMD5s = array_slice($sortedMD5s, 0, -(intval(Dashboard\bmi_get_config('CRON:KEEP'))));
+        foreach ($sortedMD5s as $index => $data) {
+          $md5 = $data[1];
+
+          do_action('bmi_premium_remove_backup_file', $md5);
+          do_action('bmi_premium_remove_backup_json_file', $md5 . '.json');
+        }
       }
     }
 
@@ -851,7 +877,6 @@
           if ($this->isFunctionEnabled('ini_set')) {
             @ini_set('max_execution_time', '259200');
             @ini_set('max_input_time', '259200');
-            @ini_set('session.gc_maxlifetime', '1200');
           }
         }
       }
@@ -888,6 +913,9 @@
             } else {
               Logger::log(__("Automatic backup successed", 'backup-backup'));
             }
+            $this->set_last_cron('1', $now);
+          } elseif ($backup['status'] == 'background') {
+            Logger::log(__('Scheduled backup is running in background: ', 'backup-backup') . $backup['filename']);
             $this->set_last_cron('1', $now);
           } elseif ($backup['status'] == 'msg') {
             $this->handle_cron_error($backup['why']);
@@ -945,7 +973,7 @@
         'stgStagingDefaultName' => __('staging', 'backup-backup'),
         'urlCopies' => __('URL copied successfully', 'backup-backup'),
         'maxUploadSize' => $this->getMaxUploadSize()
-      ], true);
+      ]);
 
     }
     
@@ -1130,7 +1158,6 @@
                   if ($this->isFunctionEnabled('ini_set')) {
                     @ini_set('max_execution_time', '259200');
                     @ini_set('max_input_time', '259200');
-                    @ini_set('session.gc_maxlifetime', '1200');
                     @ini_set('memory_limit', '-1');
                     if (@ini_get('zlib.output_compression')) {
                       @ini_set('zlib.output_compression', 'Off');
@@ -1275,7 +1302,8 @@
                   if (ob_get_level()) ob_end_clean();
                   readfile($progress);
                   echo "\n";
-                  $this->readFileSensitive($logs);
+                  if (isset($get_is_uncensored) && $get_is_uncensored && current_user_can('administrator')) readfile($logs);
+                  else $this->readFileSensitive($logs);
                   exit;
                 } else {
                   if (file_exists($progress) && !(time() - filemtime($progress)) < (60 * 1)) {
@@ -1341,7 +1369,6 @@
                   }
                 }
               }
-              exit;
             }
           } else if ($type == 'CURL_BACKUP') {
             
@@ -1595,7 +1622,66 @@
       }
     }
 
+    public static function getDefaultDisabledPaths() {
+        require_once BMI_INCLUDES . '/staging/controller.php';
+        $staging = new Staging('..ajax..');
+        $stagingSites = $staging->getStagingSites(true);
+    
+        $ignored_paths_default = [
+          BMI_CONFIG_DIR,
+          BMI_BACKUPS,
+          BMI_ROOT_DIR,
+          constant('BMI_PRO_ROOT_DIR'),
+          "***ABSPATH***/wp-content/ai1wm-backups",
+          "***ABSPATH***/wp-content/ai1wm-backups-old",
+          "***ABSPATH***/wp-content/mwp-download",
+          "***ABSPATH***/wp-content/uploads/wp-clone",
+          "***ABSPATH***/wp-content/updraft",
+          "***ABSPATH***/wp-content/backups-dup-pro",
+          "***ABSPATH***/wp-content/wpvividbackups",
+          "***ABSPATH***/wp-content/backup-guard",
+          "***ABSPATH***/wp-content/backuply",
+          "***ABSPATH***/wp-content/backups-dup-lite",
+          "***ABSPATH***/wp-content/uploads/backupbuddy_backups",
+          "***ABSPATH***/wp-content/uploads/wp-file-manager-pro",
+          "***ABSPATH***/wp-content/uploads/wp-file-manager",
+          "***ABSPATH***/wp-content/plugins/akeebabackupwp",
+          "***ABSPATH***/wp-content/uploads/jetbackup",
+          "***ABSPATH***/wp-content/uploads/backup-guard",
+          "***ABSPATH***/wp-content/uploads/wp-migrate-db",
+          "***ABSPATH***/wp-content/uploads/wpforms/.htaccess.cpmh3129",
+          "***ABSPATH***/wp-content/uploads/gravity_forms/.htaccess.cpmh3129",
+          "***ABSPATH***/.htaccess.cpmh3129",
+          "***ABSPATH***/logs/traffic.html/.md5sums",
+          "***ABSPATH***/wp-config.php",
+          "***ABSPATH***/wp-content/backup-migration-config.php",
+        ];
+        $ignored_paths = array_merge($ignored_paths_default, $stagingSites);
+        array_walk($ignored_paths, function(&$path){
+          $path = self::fixSlashes(str_replace('***ABSPATH***', ABSPATH, $path));
+        });
+        return $ignored_paths;
+    }
+
     private function get_asset($base = '', $asset = '') {
       return BMI_ASSETS . '/' . $base . '/' . $asset;
+    }
+
+    /**
+     * Extend the execution time for the plugin
+     * 
+     * @return void
+     */
+    public static function extend_execution_time() {
+      if (self::isFunctionEnabled('headers_sent') && self::isFunctionEnabled('session_status')) {
+        if (!headers_sent() && session_status() === PHP_SESSION_DISABLED) {
+          if (self::isFunctionEnabled('ignore_user_abort')) @ignore_user_abort(true);
+          if (self::isFunctionEnabled('set_time_limit')) @set_time_limit(16000);
+          if (self::isFunctionEnabled('ini_set')) {
+            @ini_set('max_execution_time', '259200');
+            @ini_set('max_input_time', '259200');
+          }
+        }
+      }
     }
   }

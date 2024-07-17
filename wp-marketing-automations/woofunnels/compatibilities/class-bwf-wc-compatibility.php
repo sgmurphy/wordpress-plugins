@@ -24,7 +24,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
-
 if ( ! class_exists( 'BWF_WC_Compatibility' ) ) :
 
 	/**

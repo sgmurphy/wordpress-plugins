@@ -156,9 +156,17 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 					unset( $filters['c'] );
 				}
 			}
+			/** Excludes Un-subscribers or not */
+			$unsubs_query = self::_get_unsubscribers_query( $status_filter, $exclude_unsubs, $additional_info );
 
 			/** Contact (wp) and Customer (wc) SQL Queries */
 			$filter_query = bwfan_is_autonami_pro_active() ? self::_get_filters_sql( $filters, $filter_match ) : [];
+
+			/** Include soft bounce, unverified and unsubscribe status. */
+			if ( ! empty( $additional_info['include_soft_bounce'] ) || ! empty( $additional_info['include_unverified'] ) || ! empty( $additional_info['include_unsubscribe'] ) ) {
+				$filter_query = self::get_modified_status_query( $filter_query, $additional_info, $unsubs_query );
+				$unsubs_query = ! empty( $additional_info['include_unsubscribe'] ) ? '' : $unsubs_query;
+			}
 
 			/** Columns needed and JOINS */
 			$wp_wc_columns = $should_send_wc ? 'DISTINCT c.*, wc.aov, wc.id as customer_id, wc.l_order_date,wc.f_order_date,wc.total_order_count, wc.total_order_value, wc.purchased_products, wc.purchased_products_cats, wc.purchased_products_tags, wc.used_coupons' : 'DISTINCT c.*';
@@ -233,8 +241,6 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 
 			/** Check if one of Email or Phone must not empty */
 			$empty_email_check = ( 2 === $contact_mode ) ? "AND ( c.contact_no != '' AND c.contact_no IS NOT NULL )" : "AND ( c.email != '' AND c.email IS NOT NULL )";
-			/** Excludes Un-subscribers or not */
-			$unsubs_query = self::_get_unsubscribers_query( $status_filter, $exclude_unsubs );
 			/** Order, Order By, Limit, Offset */
 			$order_column_alias = in_array( $order_by, self::$wc_filters ) ? 'wc' : 'c';
 			$order_by_query     = "ORDER BY {$order_column_alias}.{$order_by} {$order}";
@@ -272,7 +278,7 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			);
 		}
 
-		public static function _get_unsubscribers_query( $filter, $exclude_unsubs = false ) {
+		public static function _get_unsubscribers_query( $filter, $exclude_unsubs = false, $additional_info = [] ) {
 			$exclude_unsub_query = "  NOT EXISTS ";
 			$include_unsub_query = " EXISTS ";
 			global $wpdb;
@@ -281,6 +287,10 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 
 			if ( true === $exclude_unsubs ) {
 				return "AND " . "( $exclude_unsub_query  $email_query AND $exclude_unsub_query $contact_no_query )";
+			}
+
+			if ( ! empty( $additional_info['include_unsubscribe'] ) ) {
+				return "OR " . "( $include_unsub_query  $email_query AND $exclude_unsub_query $contact_no_query )";
 			}
 
 			/** Has to be valid filter */
@@ -398,9 +408,17 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 				$rule     = in_array( $filter['rule'], array( 'contains', 'is', 'any', 'all' ) ) ? 'LIKE' : 'NOT LIKE';
 				$sub_rule = ( 'LIKE' === $rule ) && ( 'all' !== $filter['rule'] ) ? 'OR' : 'AND';
 
-				$val_item = array_map( function ( $val ) use ( $rule, $key, $sub_rule, $filter_group_key ) {
-					return "$filter_group_key.$key $rule '%\"$val\"%'";
-				}, $val_item );
+				/** Filter hook to modify query */
+				$modified = apply_filters( 'bwfan_modify_json_query', false, $val_item, $filter, $filter_group_key );
+
+				if ( false === $modified ) {
+					$val_item = array_map( function ( $val ) use ( $rule, $key, $sub_rule, $filter_group_key ) {
+						return "$filter_group_key.$key $rule '%\"$val\"%'";
+					}, $val_item );
+				} else {
+					/** If query is modified then passed modified query */
+					$val_item = $modified;
+				}
 
 				$val_item = array_filter( $val_item );
 				$val_item = implode( " {$sub_rule} ", $val_item );
@@ -1140,7 +1158,10 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			global $wpdb;
 			/** Get Contacts */
 			$sql_queries = self::_get_contacts_sql( $search, $limit, $offset, $normalized_filters, $additional_info, $filter_match, true );
-			$contacts    = $wpdb->get_results( $sql_queries['base'], ARRAY_A );
+			self::set_log( $sql_queries );
+			self::log();
+
+			$contacts = $wpdb->get_results( $sql_queries['base'], ARRAY_A );
 
 			/** In case there is DB error and no contacts */
 			if ( empty( $contacts ) && ! empty( $wpdb->last_error ) ) {
@@ -1495,6 +1516,52 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			];
 
 			return BWFAN_Model_Message_Unsubscribe::get_message_unsubscribe_row( $data );
+		}
+
+		/**
+		 * Get modified status query
+		 *
+		 * @param $filter_query
+		 * @param $additional_info
+		 * @param $unsubs_query
+		 *
+		 * @return array|array[]|string[]|string[][]
+		 */
+		public static function get_modified_status_query( $filter_query, $additional_info, $unsubs_query ) {
+			if ( empty( $filter_query ) ) {
+				return [];
+			}
+
+			return array_map( function ( $filter ) use ( $additional_info, $unsubs_query ) {
+				if ( false !== strpos( $filter, 'c.status = 1' ) ) {
+					/** Include soft bounce status in query */
+					$filter = ! empty( $additional_info['include_soft_bounce'] ) ? str_replace( [
+						'c.status = 1 )',
+						'c.status = 0 )'
+					], [
+						'c.status = 1 OR c.status = ' . BWFCRM_Contact::$STATUS_SOFT_BOUNCED . ' )',
+						'c.status = 0 OR c.status = ' . BWFCRM_Contact::$STATUS_SOFT_BOUNCED . ' )'
+					], $filter ) : $filter;
+
+					/** Include unverified status in query */
+					$filter = ! empty( $additional_info['include_unverified'] ) ? str_replace( [
+						'c.status = 1 )',
+						'c.status = 4 )'
+					], [
+						'c.status = 1 OR c.status = ' . BWFCRM_Contact::$STATUS_NOT_OPTED_IN . ' )',
+						'c.status = 4 OR c.status = ' . BWFCRM_Contact::$STATUS_NOT_OPTED_IN . ' )'
+					], $filter ) : $filter;
+
+					/** Include unsubscribed status in query */
+					$filter = ! empty( $additional_info['include_unsubscribe'] ) ? str_replace( [ 'c.status = 1 )', 'c.status = 4 )', 'c.status = 0 )' ], [
+						'c.status = 1 ' . $unsubs_query . ' )',
+						'c.status = 4 ' . $unsubs_query . ' )',
+						'c.status = 0 ' . $unsubs_query . ' )'
+					], $filter ) : $filter;
+				}
+
+				return $filter;
+			}, $filter_query );
 		}
 	}
 }

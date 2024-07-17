@@ -28,7 +28,8 @@ class BWFAN_Api_Get_WC_Coupons extends BWFAN_API_Base {
 
 	public function process_api_call() {
 		$search  = ! empty( $this->get_sanitized_arg( 'search', 'text_field' ) ) ? $this->get_sanitized_arg( 'search', 'text_field' ) : '';
-		$coupons = $this->get_all_coupons( $search );
+		$exclude_autonami  = ! empty( $this->get_sanitized_arg( 'exclude_autonami', 'bool' ) ) ? $this->get_sanitized_arg( 'exclude_autonami', 'bool' ) : true;
+		$coupons = $this->get_all_coupons( $search, $exclude_autonami );
 
 		$this->response_code = 200;
 
@@ -40,15 +41,26 @@ class BWFAN_Api_Get_WC_Coupons extends BWFAN_API_Base {
 	 *
 	 * @return array
 	 */
-	public function get_all_coupons( $search ) {
-		$coupon_posts = get_posts( array(
+	public function get_all_coupons( $search, $exclude_autonami = false ) {
+		$args = array(
 			'posts_per_page' => 10,
 			'orderby'        => 'name',
 			'order'          => 'asc',
 			'post_type'      => 'shop_coupon',
 			'post_status'    => 'publish',
 			's'              => $search
-		) );
+		);
+
+		if ( $exclude_autonami ) {
+			$args[ 'meta_query' ] = [
+				[
+					'key'     => '_is_bwfan_coupon',
+					'compare' => 'NOT EXISTS', // this will exclude the coupons where _is_bwfan_coupon meta key exists
+				]
+			];
+		}
+
+		$coupon_posts = get_posts( $args );
 
 		$coupon_data = [];
 		foreach ( $coupon_posts as $coupon_post ) {

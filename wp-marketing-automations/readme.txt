@@ -2,9 +2,9 @@
 Contributors: xlplugins, amans2k
 Tags: cart abandonment, follow up emails, email marketing, email customizer, crm, woocommerce, newsletter, marketing automation
 Requires at least: 5.0
-Tested up to: 6.5.3
+Tested up to: 6.6.0
 Requires PHP: 7.0
-Stable tag: 3.0.3
+Stable tag: 3.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -415,6 +415,41 @@ FunnelKit Automations is 100% self-hosted and fully GDPR compliant.
 
 
 == Change log ==
+
+= 3.1.1 (Jul 17, 2024) =
+* Build updated as some setups were facing blank app screen since WordPress version 6.6.
+
+= 3.1.0 (Jul 16, 2024) =
+* Compatible upto WordPress 6.6.0
+* Compatible upto WooCommerce 9.1.2
+* Added: Two new statuses have been added to the contact: Soft Bounce and Complaint. Auto integration with AWS bounce handling. (#3054)
+* Added: WP Fastest Cache compatibility added. Disallow FK Automation endpoints from caching. (#3198)
+* Added: Optimize Engagement Tracking Meta table; New tool added. (#3044)
+* Added: Settings > Rest API, developer docs link added. (#3233)
+* Added: Automation Merge tags: Order shipping phone number & Order refunded items new tags added. (#3237, #3175)
+* Improved: Automation: Step contacts modal, UI improved in case contact name is big. (#3194)
+* Improved: Multi-currency sites improvements. Currency symbol in order items and cart items merge tag. (#3159, #3223)
+* Improved: Automation Actions: Send email action, disallow click tracking on social media links and mobile-friendly app links. (#3181)
+* Improved: Extra handling for free gift products during abandoned cart recovery. (#3235)
+* Improved: The site link dynamic merge tag was removed as it was causing confusion with the site URL merge tag. (#3092)
+* Improved: Automation Action: Send email action failure message changed for better understanding. (#3177)
+* Improved: App code optimized to increase page load speed. (#3187)
+* Improved: Automation: Contact activity 'Active' tab. Showing results order by next execution time. (#3166)
+* Improved: The contact preference page admin UI improved. Better user experience. (#3063)
+* Improved: RTL improvements. (#3036)
+* Improved: Translation related improvements. (->3065)
+* Improved: App UI improvements. (#3136, #3111, #3035)
+* Improved: General setting UI improved of the license section. (#3121)
+* Fixed: Automation Import: Goals are not updating during import. (#3115)
+* Fixed: Automation Rules: Order language rule wasn't working for Polylang, fixed. (#3038)
+* Fixed: Automation: Reset merge tag data during execution per contact. (#3113)
+* Fixed: Automation Merge tag: One-click unsubscribe link wasn't working for broadcast, fixed. (#3126)
+* Fixed: Automation Merge tag: Code handling in 'Contact ID' merge tag when contact object not available. (#3134)
+* Fixed: Rare issue where abandonment cart wasn't recovering. Added extra handling. (#3229)
+* Dev: New filter hook 'bwfan_email_review_button_text' improved, passed order item and order object. (#3073)
+* Dev: New filter hook 'bwfan_modify_json_query' added. Allow modification in the SQL query to use json methods. (#3130)
+* Dev: New filter hook 'bwfan_default_utm_params' added. Allow modification of default UTM values used in emails. (#3140)
+* Dev: New filter hook 'bwfan_get_price_format_cart' added. Allow modifying currency on the carts admin screen. (#3106)
 
 = 3.0.3 (May 22, 2024) =
 * Compatible upto WordPress 6.5.3

@@ -51,7 +51,7 @@ class AllMaskingRules {
 		ob_start();
 		$adCodeList = new AllMaskingRulesList();
 		$adCodeList->prepare_items();
-		echo '<form id="plugins-filter" method="get"><input type="hidden" name="page" value="' . $page . '" />';
+		echo '<form id="plugins-filter" method="get"><input type="hidden" name="page" value="' . \esc_attr( $page ) . '" />';
 		$adCodeList->views();
 		$adCodeList->search_box( __( 'Search Rule', 'real-time-auto-find-and-replace' ), '' );
 		$adCodeList->display();

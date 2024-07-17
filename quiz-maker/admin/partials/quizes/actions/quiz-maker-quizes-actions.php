@@ -250,6 +250,7 @@ $options = array(
     'quiz_quest_explanation_letter_spacing'     => 0,
     'quiz_right_answers_letter_spacing'         => 0,
     'quiz_wrong_answers_letter_spacing'         => 0,
+    'quiz_admin_note_font_weight'               => "normal",
 );
 
 $quiz_intervals_default = array(
@@ -1331,6 +1332,9 @@ $quiz_right_answers_letter_spacing = (isset($options[ 'quiz_right_answers_letter
 
 // Letter spacing | Wrong answer
 $quiz_wrong_answers_letter_spacing = (isset($options[ 'quiz_wrong_answers_letter_spacing' ]) && $options[ 'quiz_wrong_answers_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_wrong_answers_letter_spacing' ] ) ) : 0;
+
+// Admin Note font weight
+$quiz_admin_note_font_weight = (isset($options[ 'quiz_admin_note_font_weight' ]) && $options[ 'quiz_admin_note_font_weight' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_admin_note_font_weight' ] ) ) : 'normal';
 
 ?>
 <style id="ays_live_custom_css"></style>
@@ -3258,6 +3262,60 @@ $quiz_wrong_answers_letter_spacing = (isset($options[ 'quiz_wrong_answers_letter
                                     </div>
                                 </div>
                             </div><!-- Letter spacing -->
+                            <hr/>
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <label for="ays_quiz_admin_note_font_weight">
+                                        <?php echo __('Font weight',$this->plugin_name); ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Specify the font weight for the Admin Note. Note: By default, it is set as Normal.',$this->plugin_name); ?>">
+                                            <i class="ays_fa ays_fa_info_circle"></i>
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-7 ays_divider_left">
+                                    <select class="ays-text-input ays-text-input-short" id="ays_quiz_admin_note_font_weight" name="ays_quiz_admin_note_font_weight">
+                                        <option value="normal" <?php echo ($quiz_admin_note_font_weight == 'normal') ? 'selected' : ''; ?>>
+                                            <?php echo __('Normal',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="lighter" <?php echo ($quiz_admin_note_font_weight == 'lighter') ? 'selected' : ''; ?>>
+                                            <?php echo __('Lighter',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="bold" <?php echo ($quiz_admin_note_font_weight == 'bold')  ? 'selected' : ''; ?>>
+                                            <?php echo __('Bold',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="bolder" <?php echo ($quiz_admin_note_font_weight == 'bolder') ? 'selected' : ''; ?>>
+                                            <?php echo __('Bolder',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="100" <?php echo ($quiz_admin_note_font_weight == '100') ? 'selected' : ''; ?>>
+                                            <?php echo __('100',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="200" <?php echo ($quiz_admin_note_font_weight == '200') ? 'selected' : ''; ?>>
+                                            <?php echo __('200',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="300" <?php echo ($quiz_admin_note_font_weight == '300') ? 'selected' : ''; ?>>
+                                            <?php echo __('300',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="400" <?php echo ($quiz_admin_note_font_weight == '400') ? 'selected' : ''; ?>>
+                                            <?php echo __('400',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="500" <?php echo ($quiz_admin_note_font_weight == '500') ? 'selected' : ''; ?>>
+                                            <?php echo __('500',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="600" <?php echo ($quiz_admin_note_font_weight == '600') ? 'selected' : ''; ?>>
+                                            <?php echo __('600',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="700" <?php echo ($quiz_admin_note_font_weight == '700') ? 'selected' : ''; ?>>
+                                            <?php echo __('700',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="800" <?php echo ($quiz_admin_note_font_weight == '800') ? 'selected' : ''; ?>>
+                                            <?php echo __('800',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="900" <?php echo ($quiz_admin_note_font_weight == '900') ? 'selected' : ''; ?>>
+                                            <?php echo __('900',$this->plugin_name); ?>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div><!-- Admin note font weight -->
                         </div>
                         <hr/>
                         <div class="col-lg-5 col-sm-12 ays_divider_left" style="position:relative;"></div>

@@ -9,6 +9,10 @@
   $urlparts = parse_url(home_url());
   $domain = $urlparts['host'];
 
+  $backupTypeBase = __('%sThis feature is available in our premium extension!%s', 'backup-backup');
+  $backupType = $backupTypeBase . __('%sUpgrade to %sPremium%s today%s%s%sWe made it really affordable!%s', 'backup-backup');
+  $backupType = sprintf($backupType, '<div class="bmi-center-text">', '<br>', '<a href="' . BMI_AUTHOR_URI . '" target="_blank">', '<span class="bmi-premium-bg-stars">', '</span>', '</a>', '<br>', '<b>', '</b>', '</div>');
+
 ?>
 
 <div class="mm mt mbl">
@@ -22,7 +26,8 @@
     <div class="center f18">
       <div class="">
         <input type="text" id="backup_filename" class="bmi-text-input" value="<?php echo sanitize_text_field(bmi_get_config('BACKUP:NAME')); ?>">
-        <span class="oll mrr">.zip </span><a href="#" id="show-format-tip" class="nodec secondary hoverable"><?php _e("Huh? Explain this please", 'backup-backup'); ?></a>
+        <!-- <span class="oll mrr">.zip </span> -->
+        <a href="#" id="show-format-tip" class="nodec secondary hoverable"><?php _e("Huh? Explain this please", 'backup-backup'); ?></a>
       </div>
     </div>
   </div>
@@ -55,6 +60,10 @@
     <div class="format-entry"><b>%s</b> = <?php _e("Seconds with leading zeros", 'backup-backup'); ?></div>
     <div class="format-entry"><b>%hash</b> = <?php _e("16 character random hash", 'backup-backup'); ?></div>
     <div class="format-entry"><b>%domain</b> = <?php _e("Current domain name of the website.", 'backup-backup'); ?><?php echo " (" . str_replace('.', '-', sanitize_text_field($domain)) . ") "; ?></div>
+
+  </div>
+  <div class="lh30 f18 mtl">
+    <?php _e("Extension will be automatically appended to the name during backup creation.", 'backup-backup'); ?>
   </div>
   <div class="right-align">
     <a href="#" class="hoverable nodec secondary" id="hide-format-tip"><?php _e("Hide", 'backup-backup'); ?></a>
@@ -77,44 +86,48 @@
         <tr>
 
           <td>
+            <?php if (has_action('bmip_zipping_methods')) { ?>
+              <?php do_action('bmip_zipping_methods'); ?>
+            <?php } else { ?>
             <div class="lh30">
 
               <div class="mbll">
                 <label class="container-radio">
                   Zip
-                  <input type="radio" name="smart_exclusion_db" value="false" checked>
+                  <input type="radio" name="free_version_backup_type" value=".zip" checked>
                   <span class="checkmark-radio"></span>
                 </label>
               </div>
 
               <div class="mbll">
-                <span class="cf premium-wrapper">
+                <span class="cf premium-wrapper" tooltip="<?php echo esc_attr($backupType); ?>">
                   <label class="left container-radio ml25 not-allowed">
                     Tar
-                    <input type="radio" disabled name="smart_exclusion_db" value="true">
+                    <input type="radio" disabled name="free_version_backup_type" value=".tar">
                     <span class="checkmark-radio"></span>
                   </label>
-                  <span class="left premium premium-img premium-nt"></span>
+                  <span class="left premium premium-img premium-nt5"></span>
                 </span>
               </div>
 
-              <div class="">
-                <span class="cf premium-wrapper">
+              <div class="" style="width: 185px;">
+                <span class="cf premium-wrapper" tooltip="<?php echo esc_attr($backupType); ?>">
                   <label class="left container-radio ml25 not-allowed">
                     Tar GZip
-                    <input type="radio" disabled name="smart_exclusion_db" value="true">
+                    <input type="radio" disabled name="free_version_backup_type" value=".tar.gz">
                     <span class="checkmark-radio"></span>
                   </label>
-                  <span class="left premium premium-img premium-nt"></span>
+                  <span class="left premium premium-img premium-nt5"></span>
                 </span>
               </div>
 
             </div>
+            <?php } ?>
           </td>
 
           <td>
             <div class="f16 mw850 bol lh30">
-              <i><?php _e('“ZIP” is the standard choice (compression level 1). Use “Tar” (compression level 2) or Tar.gz (compression level 5) if you want to have more compression (i.e. smaller file sizes). However, this will also put more load on the backup creation.', 'backup-backup'); ?></i>
+              <i><?php _e('“ZIP” is the standard choice (compression level 1). Use “Tar” (compression level 2) or Tar.gz (compression level 5) if you want to have more compression (i.e. smaller file sizes). However, this will also put more load on the backup creation.', 'backup-backup'); ?> <?php _e('It will have no effect if the server does not support particular extensions.', 'backup-backup'); ?></i>
             </div>
           </td>
 

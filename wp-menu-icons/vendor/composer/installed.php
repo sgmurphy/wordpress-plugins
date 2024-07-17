@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'quadlayers/wp-menu-icons',
-        'pretty_version' => 'v3.2.3',
-        'version' => '3.2.3.0',
-        'reference' => 'a49c586378097bd88ea8635ac1a2bfd470c51009',
+        'pretty_version' => 'v3.2.4',
+        'version' => '3.2.4.0',
+        'reference' => '4b7149da6d263963e6be5619ca724d27ce68b1ba',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'automattic/jetpack-assets' => array(
-            'pretty_version' => 'v2.1.12',
-            'version' => '2.1.12.0',
-            'reference' => '229b447156dfdc8c3fcc84443feeb0ee36258b0f',
+            'pretty_version' => 'v2.1.13',
+            'version' => '2.1.13.0',
+            'reference' => 'be2738e899ca46648999a6e1a7744b4da5001533',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/automattic/jetpack-assets',
             'aliases' => array(),
@@ -47,9 +47,9 @@
             'dev_requirement' => false,
         ),
         'quadlayers/wp-menu-icons' => array(
-            'pretty_version' => 'v3.2.3',
-            'version' => '3.2.3.0',
-            'reference' => 'a49c586378097bd88ea8635ac1a2bfd470c51009',
+            'pretty_version' => 'v3.2.4',
+            'version' => '3.2.4.0',
+            'reference' => '4b7149da6d263963e6be5619ca724d27ce68b1ba',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

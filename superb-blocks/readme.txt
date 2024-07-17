@@ -2,9 +2,9 @@
 Contributors: SuPlugins, superbaddons
 Tags: block, gutenberg, full site editing, elementor, wordpress editor
 Requires at least: 3.0.1
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 6.0
-Stable tag: 3.2.9
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -202,6 +202,10 @@ With this powerful tool at your fingertips, you'll enjoy access to a vast collec
 4. Editor Highlight
 
 == Changelog ==
+= 3.3.0 =
+* Decimals are now allowed in individual rating bars in the Rating block.
+* WP 6.6 compatibility.
+
 = 3.2.9 =
 * Added "Round Overall Rating" option to the Rating block.
 * Fixed issue where the overall rating in the Rating Block could reset to 0 when editing.

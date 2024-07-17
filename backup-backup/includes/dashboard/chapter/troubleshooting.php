@@ -22,6 +22,11 @@
   $bmiTroubleshootingLogShareInfo = str_replace('%s4', '<a href="#" class="download-staging-log-url hoverable secondary" download="staging_logs.txt">', $bmiTroubleshootingLogShareInfo);
   $bmiTroubleshootingLogShareInfo = str_replace('%s2', '</a>', $bmiTroubleshootingLogShareInfo);
 
+  $pros = false;
+  if (defined('BMI_BACKUP_PRO') && BMI_BACKUP_PRO == 1) {
+    $pros = true;
+  }
+
 ?>
 
 <div class="mm mt mb f20 lh40">
@@ -33,7 +38,7 @@
   <table class="center-table trouble-section">
 
     <tr class="lh28">
-      <td style="width: 33%">
+      <td style="width: <?php echo $pros ? '50' : '33'?>%">
         <a href="https://wordpress.org/support/plugin/backup-backup/" target="_blank" class="nodec">
           <div class="shadow">
             <div class="flex flexcenter mtl mtb">
@@ -50,6 +55,7 @@
           </div>
         </a>
       </td>
+      <?php if (!$pros): ?>
       <td style="width: 33%">
         <a href="<?php echo BMI_AUTHOR_URI; ?>" target="_blank" class="nodec">
           <div class="shadow">
@@ -67,7 +73,8 @@
           </div>
         </a>
       </td>
-      <td style="width: 33%">
+      <?php endif; ?>
+      <td style="width: <?php echo $pros ? '50' : '33'?>%">
         <div class="shadow" id="open_trouble_extenstion">
           <div class="flex flexcenter mtl mtb">
             <div style="width: 70px; height: 63px;">

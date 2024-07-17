@@ -1376,7 +1376,7 @@ class Gen
 			}
 		}
 
-		Gen::FileAddLine( $file, gmdate( 'd M Y H:i:s', time() ) . ' GMT <' . $severity . '>' . "\t" . $requestId . ( is_string( $category ) ? ( "\t" . $category ) : '' ) . "\t" . $text );
+		Gen::FileAddLine( $file, gmdate( 'd M Y H:i:s', time() ) . " GMT\t" . '<' . $severity . '>' . "\t" . $requestId . ( is_string( $category ) ? ( "\t" . $category ) : '' ) . "\t" . $text );
 	}
 
 	static function LogClear( $file, $bHasSfx = false )

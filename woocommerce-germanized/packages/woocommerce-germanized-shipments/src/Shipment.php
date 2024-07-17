@@ -1319,16 +1319,10 @@ abstract class Shipment extends WC_Data {
 				$value = $provider->$getter( $context );
 			}
 		} else {
-			$key   = "woocommerce_gzd_shipments_shipper_address_{$prop}";
-			$value = get_option( $key, '' );
+			$sender_address = wc_gzd_get_shipment_setting_address_fields();
 
-			if ( 'country' === $prop ) {
-				$value = wc_format_country_state_string( $value )['country'];
-			} elseif ( 'state' === $prop ) {
-				$key   = 'woocommerce_gzd_shipments_shipper_address_country';
-				$value = get_option( $key, '' );
-
-				$value = wc_format_country_state_string( $value )['state'];
+			if ( array_key_exists( $prop, $sender_address ) ) {
+				$value = $sender_address[ $prop ];
 			}
 		}
 
@@ -2067,7 +2061,7 @@ abstract class Shipment extends WC_Data {
 	}
 
 	public function sync_packaging() {
-		$available_packaging = $this->get_selectable_packaging();
+		$available_packaging = $this->get_available_packaging();
 		$default_packaging   = $this->get_default_packaging();
 		$packaging_id        = $this->get_packaging_id( 'edit' );
 
@@ -2976,6 +2970,10 @@ abstract class Shipment extends WC_Data {
 					$this->data_store->create( $this );
 					$is_new = true;
 				}
+			}
+
+			if ( ! $this->get_id() ) {
+				throw new \Exception( 'Error while saving shipment.' );
 			}
 
 			$this->save_items();

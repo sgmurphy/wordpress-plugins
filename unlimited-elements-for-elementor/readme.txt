@@ -889,6 +889,63 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 == Changelog ==
 
 
+version 1.5.114: 2024-07-17
+
+Plugin Changes
+
+* Feature: implimented "advanced cache" option for "dynamic popup"
+* Feature: improved json/csv api usage in multisrouce, added paths as field names and data key selection
+* Feature: added option for disabled buttons in pagination
+* Change: updated freemius sdk version to the latest
+* Fix: removed "custom remote name" from background widgets style
+* Fix: Galleries - fixed fullscreen button on a slider that contains link
+* Fix: in filters fixed init pagination number after init request
+* Fix: fixed optin "is derect parent" in terms selection
+* Fix: fixed get titles with empty posts for in terms selector 
+* Fix: fixed some filters related php bug of empty request on sync with grid.
+
+Widget Changes
+
+* Feature: Woo Category Carousel (Pro) - Added 'Navigation Rewind' option. When disabled, it hides the navigation arrows on the first and last carousel items.
+* Feature: Team Member Carousel (Pro) - Added an Image Link option, allowing users to link images to specified URLs for enhanced navigation and user interaction.
+* Feature: Woo Product Grid (Pro) - Added typography and color styling options for text after prices.
+* Feature: Loop Carousel (Pro) - Added 'Navigation Rewind' option. When disabled, it hides the navigation arrows on the first and last carousel items.
+* Feature: Icon Box Accordion (Pro) - Added support for using the widget within the Template Switcher widget.
+* Feature: Dynamic Post Popup (Pro) - Added an "Advanced Cache" option that loads all popups content at once after the page load, improving performance and user experience by reducing subsequent load times and enhancing content delivery.
+* Feature: Unlimited Google Maps (Pro) - Added a "Phone Number As Link" option, allowing phone numbers to be automatically formatted as clickable links for improved user experience and functionality.
+* Feature: Semi Circle Progress Bar (Pro) - Added support for using the widget within the Template Switcher, enhancing functionality and providing more versatile template management options.
+* Feature: Price Range Filter (Pro) - Added 'Tooltip Thousand Separator' option to enable formatting of tooltip numbers.
+* Feature: Team Member Carousel (Pro) - Added support for Dynamic Post Popup within the widget, enabling enhanced interactive content display and user engagement.
+* Feature: Loop Grid (Pro) - Added styling options for the active element, allowing for customized appearance and enhanced user interface design for elements in their active state.
+* Feature: Woo Product Carousel (Pro) - Added 'Navigation Rewind' option. When disabled, it hides the navigation arrows on the first and last carousel items.
+* Feature: Taxonomy Terms (Pro) - Added an option to disable term links, allowing users to remove hyperlink functionality from term elements as needed.
+* Feature: Loop Grid (Pro) - Added Remote Connection options, enabling enhanced flexibility and functionality for remote integrations and communication between different widgets.
+* Feature: Checkbox Field (Pro) - Added the option to use Item Titles as values, allowing for more flexible and intuitive configuration of item properties based on their titles.
+* Feature: Content Switcher (Pro) - Added the 'Tab Hash ID' option in item and functionality, allowing users to open tabs using a hash link (e.g., if the 'Tab Hash ID' is set to 'my-second-tab' and the user opens the URL example.com/#my-second-tab, the second tab will open automatically).
+* Feature: Post Carousel (Pro) - Added 'Navigation Rewind' option. When disabled, it hides the navigation arrows on the first and last carousel items.
+* Change: NPS Field (Pro) - Changed the <form> tag to a <div> tag in the widget's HTML to improve layout structure and compatibility.
+* Change: Radio Button Field (Pro) - Changed the <form> tag to a <div> tag in the widget's HTML to improve layout structure and compatibility.
+* Change: Scale Field (Pro) - Changed the <form> tag to a <div> tag in the widget's HTML to improve layout structure and compatibility.
+* Change: Checkbox Field (Pro) - Changed handling for Checkbox Values with Text as the default values, ensuring consistent and expected behavior for checkbox inputs.
+* Change: Woo Product Grid (Pro) - Organized the pricing layout options into a new section titled 'Price Layout' for better usability and navigation.
+* Change: Simple Popup (Free) - Removed empty links from the link elements to ensure clean and functional HTML.
+* Change: Image Accordion (Pro) - Renamed the 'Transition' option to 'Transition Duration' and added support to select the value in milliseconds (ms).
+* Fix: Image Accordion (Pro) - Resolved the title positioning issue and added a new option, 'Title Hover Position,' to allow customization of the title's position on hover.
+* Fix: Unlimited Google Maps (Pro) - Fixed widgets behavior after applying filters to ensure consistent functionality and proper display of filtered content.
+* Fix: Logo Marquee (Pro) - Fixed the issue where the incorrect number of items was showing when the scrollbar was visible on the page. Previously, the width of the viewport was calculated excluding the scrollbar. Now, the actual viewport width is calculated including the scrollbar.
+* Fix: Team Member Carousel (Pro) - Optimized the HTML code of the widget for improved performance and cleaner structure.
+* Fix: Unlimited Timeline (Free) - Fixed an issue where images with an empty src attribute were still present in the DOM, ensuring that such elements are properly removed or handled to maintain clean and efficient HTML structure.
+* Fix: Post Magazine Grid (Pro) - Fixed an issue where the button hover color was not visible, ensuring proper visual feedback when users interact with buttons.
+* Fix: Toggle Text Button (Free) - Fixed an issue where, in some cases, clicking a button triggered the Elementor Page Transition animation.
+* Fix: One Page Scroll Navigation (Pro) - Fixed an issue where multiple scroll events were required to snap a section, ensuring that a single scroll event now properly snaps the section.
+* Fix: Parallax Background (Pro) - Added proper alt attributes for img elements to improve accessibility and SEO.
+* Fix: Audio Player (Pro) - Fixed an issue where clicking the Download button loaded a default audio file instead of the current one.
+* Fix: Liquid Button (Pro) - Added support for working within the Template Switcher widget, enhancing integration and functionality.
+* Fix: Confirm Field (Pro) - Fixed an issue where labels did not wrap to a second line on small screen widths, ensuring better readability and layout consistency on mobile devices.
+* Fix: Compact Gallery (Free) - Added a fix to address issues caused by early widget initialization, ensuring that widgets initialize at the correct time and function properly even in complex loading scenarios.
+* Fix: Liquid Full Screen Menu (Pro) - Fixed an issue where the fix for sticky containers was not working properly in conjunction with optimization plugins.
+
+
 version 1.5.113: 2024-07-04
 
 * Fix: fixed some small security issues found by wordfence

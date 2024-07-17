@@ -445,11 +445,11 @@ msgstr ""
 msgid "Fetch only media in a folder by folder id."
 msgstr ""
 
-#: inc/rest/Service.php:201
+#: inc/rest/Service.php:198
 msgid "Forbidden"
 msgstr ""
 
-#: inc/rest/Service.php:206
+#: inc/rest/Service.php:203
 msgid "Real Media Library is not active for the current user."
 msgstr ""
 

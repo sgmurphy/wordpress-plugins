@@ -225,10 +225,9 @@
   <?php require_once 'modals/backup-success-modal.php'; ?>
   <?php require_once 'modals/prenotice-modal.php'; ?>
   <?php require_once 'modals/pre-restore-modal.php'; ?>
-  <?php require_once 'modals/backup-error-modal.php'; ?>
+  <?php require_once 'modals/error-modal.php'; ?>
   <?php require_once 'modals/restore-progress-modal.php'; ?>
   <?php require_once 'modals/restore-success-modal.php'; ?>
-  <?php require_once 'modals/restore-error-modal.php'; ?>
   <?php require_once 'modals/upload-wrong-file-modal.php'; ?>
   <?php require_once 'modals/upload-exist-file-modal.php'; ?>
   <?php require_once 'modals/upload-success-modal.php'; ?>
@@ -243,8 +242,10 @@
   <?php require_once 'modals/bfs-modal.php'; ?>
   <?php require_once 'modals/after-logs-sent.php'; ?>
   <?php require_once 'modals/freeze-loading.php'; ?>
-  <?php require_once 'modals/backup-log-modal.php'; ?>
+  <?php require_once 'modals/logs-modal.php'; ?>
   <?php //require_once 'modals/logs-sharing-ask.php'; ?>
+  <?php require_once 'modals/supportive-restore-success-cont.php'; ?>
+  <?php require_once 'modals/supportive-restore-success-modal.php'; ?>
   <?php do_action('bmi_load_premium_modals'); ?>
 
   <!-- Other modules -->

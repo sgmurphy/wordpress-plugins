@@ -92,13 +92,13 @@ class ReplaceInDB {
 				'placeholder' => __( 'Select where to find and replace', 'real-time-auto-find-and-replace' ),
 				'desc_tip'    => __( 'Select where to find and replace. e.g : Database Tables', 'real-time-auto-find-and-replace' ),
 			),
-			'page_post_filters[]'                   => array(
+			'page_post_filters[]'                    => array(
 				'wrapper_class' => 'no-border page-post-filters-wrap force-hidden',
 				'title'         => __( 'Select Options / Filters', 'real-time-auto-find-and-replace' ),
 				'type'          => 'select',
 				'class'         => 'form-control page-post-filters',
 				'multiple'      => true,
-				'required'      => true,
+				'required'      => false,
 				'placeholder'   => __( 'Please select options', 'real-time-auto-find-and-replace' ),
 				'options'       => '', // loads dynamically
 				'desc_tip'      => __( 'Select / Enter option name where you want to replace. This will narrow down the search results to make them more accurate.. e.g : Page title.', 'real-time-auto-find-and-replace' ),
@@ -169,10 +169,13 @@ class ReplaceInDB {
 			),
 
 			'cs_db_string_replace[dry_run]'          => array(
-				'title'    => __( 'Dry run', 'real-time-auto-find-and-replace' ),
-				'type'     => 'checkbox',
-				'value'    => true,
-				'desc_tip' => __( 'By ticking this checkbox, you can preview the areas where the find and replace action will take place. The popup window will display a comprehensive list of the identified items and their respective replacements. The database will remain unchanged until you opt to uncheck this option.', 'real-time-auto-find-and-replace' ),
+				'title'             => __( 'Dry run', 'real-time-auto-find-and-replace' ),
+				'type'              => 'checkbox',
+				'value'             => true,
+				'custom_attributes' => array(
+					'checked' => true,
+				),
+				'desc_tip'          => __( 'By ticking this checkbox, you can preview the areas where the find and replace action will take place. The popup window will display a comprehensive list of the identified items and their respective replacements. The database will remain unchanged until you opt to uncheck this option.', 'real-time-auto-find-and-replace' ),
 			),
 		);
 

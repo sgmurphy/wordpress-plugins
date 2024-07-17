@@ -59,6 +59,18 @@ class BWFAN_API_Contact_Status_Change extends BWFAN_API_Base {
 					$message = __( 'Contact bounced', 'wp-marketing-automations' );
 				}
 				break;
+			case 'softbounced':
+				$result = $contact->mark_as_soft_bounced();
+				if ( true === $result || isset( $result['message'] ) ) {
+					$message = ! isset( $result['message'] ) ? __( 'Contact soft bounced', 'wp-marketing-automations' ) : $result['message'];
+				}
+				break;
+			case 'complaint':
+				$result = $contact->mark_as_complaint();
+				if ( true === $result ) {
+					$message = __( 'Contact complaint', 'wp-marketing-automations' );
+				}
+				break;
 		}
 
 		if ( ! $result ) {

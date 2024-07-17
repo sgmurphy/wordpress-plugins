@@ -92,7 +92,7 @@ class BWFAN_API_SendMessage extends BWFAN_API_Base {
 			'subject'  => ( empty( $title ) ? '' : $title ),
 			'template' => ( empty( $message ) ? '' : $message )
 		];
-		$conversation = $this->conversation->create_campaign_conversation( $contact_id, 0, 0, $author_id, $mode, true, $template );
+		$conversation = $this->conversation->create_campaign_conversation( $contact, 0, 0, $author_id, $mode, true, $template );
 
 		if ( empty( $conversation['conversation_id'] ) ) {
 			return $this->error_response( $conversation );

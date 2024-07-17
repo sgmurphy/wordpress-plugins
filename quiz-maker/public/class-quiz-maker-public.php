@@ -1257,6 +1257,9 @@ class Quiz_Maker_Public
         // Note letter spacing
         $quiz_admin_note_letter_spacing = (isset($options[ 'quiz_admin_note_letter_spacing' ]) && $options[ 'quiz_admin_note_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_admin_note_letter_spacing' ] ) ) : 0;
 
+        // Admin Note font weight
+        $quiz_admin_note_font_weight = (isset($options[ 'quiz_admin_note_font_weight' ]) && $options[ 'quiz_admin_note_font_weight' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_admin_note_font_weight' ] ) ) : 'normal';
+
         // Disable answer hover
         $options['disable_hover_effect'] = isset($options['disable_hover_effect']) ? $options['disable_hover_effect'] : 'off';
         $disable_hover_effect = (isset($options['disable_hover_effect']) && $options['disable_hover_effect'] == "on") ? true : false;
@@ -3423,6 +3426,7 @@ class Quiz_Maker_Public
                 text-transform:" . $quiz_admin_note_text_transform . ";
                 text-decoration: ". $quiz_admin_note_text_decoration .";
                 letter-spacing: ". $quiz_admin_note_letter_spacing ."px;
+                font-weight: ". $quiz_admin_note_font_weight .";
             }
             
             #ays-quiz-container-" . $id . " .ays_cb_and_a,

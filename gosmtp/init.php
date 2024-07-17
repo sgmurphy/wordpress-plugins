@@ -9,10 +9,8 @@
 if (!defined('ABSPATH')) exit;
 
 define('GOSMTP_BASE', plugin_basename(GOSMTP_FILE));
-define('GOSMTP_PRO_BASE', 'gosmtp-pro/gosmtp-pro.php');
-define('GOSMTP_VERSION', '1.0.6');
+define('GOSMTP_VERSION', '1.0.7');
 define('GOSMTP_DIR', dirname(GOSMTP_FILE));
-define('GOSMTP_PRO_DIR', GOSMTP_DIR .'/main/premium');
 define('GOSMTP_SLUG', 'gosmtp');
 define('GOSMTP_URL', plugins_url('', GOSMTP_FILE));
 define('GOSMTP_CSS', GOSMTP_URL.'/css');
@@ -20,14 +18,13 @@ define('GOSMTP_JS', GOSMTP_URL.'/js');
 define('GOSMTP_PRO_URL', 'https://gosmtp.net/pricing?from=plugin');
 define('GOSMTP_WWW_URL', 'https://gosmtp.net/');
 define('GOSMTP_DOCS', 'https://gosmtp.net/docs/');
-define('GOSMTP_API', 'https://api.gosmtp.net/');
 define('GOSMTP_DB_PREFIX', 'gosmtp_');
 
 include_once(GOSMTP_DIR.'/main/functions.php');
 
 spl_autoload_register('gosmtp_autoload_register');
 function gosmtp_autoload_register($class){
-	
+
 	if(!preg_match('/GOSMTP\\\\/', $class)){
 		return;
 	}
@@ -39,10 +36,10 @@ function gosmtp_autoload_register($class){
 	if(file_exists(GOSMTP_DIR.'/main/'.$file)){
 		include_once(GOSMTP_DIR.'/main/'.$file);
 	}
-	
+
 	// For Pro
-	if(file_exists(GOSMTP_PRO_DIR.'/'.$file)){
-		include_once(GOSMTP_PRO_DIR.'/'.$file);
+	if(defined('GOSMTP_PRO_DIR') && file_exists(GOSMTP_PRO_DIR.'/main/'.$file)){
+		include_once(GOSMTP_PRO_DIR.'/main/'.$file);
 	}
 	
 }
@@ -59,8 +56,6 @@ register_activation_hook(GOSMTP_FILE, 'gosmtp_activation');
 function gosmtp_activation(){
 	global $wpdb;
 
-	$sql = array();
-
 	add_option('gosmtp_version', GOSMTP_VERSION);
 
 }
@@ -69,7 +64,6 @@ function gosmtp_activation(){
 function gosmtp_update_check(){
 	global $wpdb;
 
-	$sql = array();
 	$current_version = get_option('gosmtp_version');
 	$version = (int) str_replace('.', '', $current_version);
 
@@ -281,28 +275,28 @@ function gosmtp_page_handler(){
 }
 
 function gosmtp_logs_handler(){
-	include_once GOSMTP_PRO_DIR .'/smtp-logs.php';
+	include_once GOSMTP_PRO_DIR .'/main/smtp-logs.php';
 }
 
 function gosmtp_email_reports_handler(){
-	include_once GOSMTP_PRO_DIR .'/email-reports.php';
+	include_once GOSMTP_PRO_DIR .'/main/email-reports.php';
 	gosmtp_reports_table();
 }
 
 function gosmtp_export_handler(){
-    include_once GOSMTP_PRO_DIR .'/export.php';
+    include_once GOSMTP_PRO_DIR .'/main/export.php';
 	gosmtp_export_page();
 }
 
 function gosmtp_weekly_email_handler(){
-	include_once GOSMTP_PRO_DIR .'/weekly_email_reports.php';
+	include_once GOSMTP_PRO_DIR .'/main/weekly_email_reports.php';
 	gosmtp_send_email_reports();
 }
 
 function gosmtp_license_handler(){
 	global $gosmtp;
 	
-	include_once GOSMTP_PRO_DIR .'/license.php';
+	include_once GOSMTP_PRO_DIR .'/main/license.php';
 }
 
 if(wp_doing_ajax()){	
@@ -313,8 +307,4 @@ add_action( 'admin_init', 'gosmtp_admin_init');
 function gosmtp_admin_init(){
 	wp_register_style( 'gosmtp-admin', GOSMTP_URL .'/css/admin.css', array(), GOSMTP_VERSION);
 	wp_register_script( 'gosmtp-admin', GOSMTP_URL .'/js/admin.js', array('jquery'), GOSMTP_VERSION);
-}
-
-if(file_exists(GOSMTP_PRO_DIR .'/premium.php')){
-	include_once GOSMTP_PRO_DIR .'/premium.php';
 }

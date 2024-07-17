@@ -108,7 +108,7 @@ abstract class Compatibility_Attribute {
      * The Comparision object to use for the comparison.
      * @var Comparision
      */
-    protected Comparision $comparision;
+    protected $comparision;
 
     /**
      * The error message for the compatibility check.
@@ -122,7 +122,7 @@ abstract class Compatibility_Attribute {
      * @param string|null $key The key to access the system value. (if null, the compatability check will be determined by the checkValue method)
      * @param Comparision $comparision The Comparision object to use for the comparison.
      */
-    public function __construct($recommendation, $key, Comparision $comparision)
+    public function __construct($recommendation, $key, $comparision)
     {
         $this->recommendation = $recommendation;
         $this->key = $key;
@@ -176,10 +176,10 @@ abstract class Compatibility_Attribute {
  */
 class PHP_Version extends Compatibility_Attribute {
 
-    function __construct($recommendation, $key, Comparision $comparision)
+    function __construct($recommendation, $key, $comparision)
     {
         parent::__construct($recommendation, $key, $comparision);
-        $this->error_message = __("It's recommended to use PHP version 7.4.", 'backup-backup');
+        $this->error_message = __("Your site is on PHP 8+, and some of your plugins are only compatible with older PHP versions, causing issues during the backup creation. Either disable those plugins or temporarily change to an earlier PHP version.", 'backup-backup');
 
     }
     protected function checkValue() {
@@ -193,7 +193,7 @@ class PHP_Version extends Compatibility_Attribute {
  */
 class WP_Debug_Enabled extends Compatibility_Attribute {
 
-    function __construct($recommendation, $key, Comparision $comparision)
+    function __construct($recommendation, $key, $comparision)
     {
         parent::__construct($recommendation, $key, $comparision);
         $this->error_message = __("The WP_DEBUG is not active. It is recommended to enable it.", 'backup-backup');
@@ -210,7 +210,7 @@ class WP_Debug_Enabled extends Compatibility_Attribute {
  */
 class KeepAlive_Timeout extends Compatibility_Attribute {
 
-    function __construct($recommendation, $key, Comparision $comparision)
+    function __construct($recommendation, $key, $comparision)
     {
         parent::__construct($recommendation, $key, $comparision);
         $this->error_message = __("The KeepAlive is not compatible. The recommended value is %s1.", 'backup-backup');
@@ -229,7 +229,7 @@ class KeepAlive_Timeout extends Compatibility_Attribute {
 
 class CURL_Enabled extends Compatibility_Attribute {
 
-    function __construct($recommendation, $key, Comparision $comparision)
+    function __construct($recommendation, $key, $comparision)
     {
         parent::__construct($recommendation, $key, $comparision);
         $this->error_message = __("The CURL is not enabled. It is recommended to enable it.", 'backup-backup');
@@ -244,7 +244,7 @@ class CURL_Enabled extends Compatibility_Attribute {
 
 class PHP_CLI_Enabled extends Compatibility_Attribute {
 
-    function __construct($recommendation, $key, Comparision $comparision)
+    function __construct($recommendation, $key, $comparision)
     {
         parent::__construct($recommendation, $key, $comparision);
         $this->error_message = __("The PHP CLI is not active. It is recommended to enable it.", 'backup-backup');
@@ -264,7 +264,7 @@ class Disk_Space extends Compatibility_Attribute {
 
     protected $available_space;
 
-    public function __construct($recommendation, $key, Comparision $comparision)
+    public function __construct($recommendation, $key, $comparision)
     {
         parent::__construct($recommendation, $key, $comparision);
         $this->available_space = $this->getDiskAvaialbleSpace();
@@ -325,7 +325,7 @@ class Disk_Space extends Compatibility_Attribute {
 
 class Normal_Attribute extends Compatibility_Attribute{
     
-    function __construct($recommendation, $key, Comparision $comparision, $error_message = '')
+    function __construct($recommendation, $key, $comparision, $error_message = '')
     {
         parent::__construct($recommendation, $key, $comparision);
         $this->error_message = $error_message != '' ? $error_message : __("The %s1 is not compatible. The recommended value is %s2.", 'backup-backup');
@@ -351,23 +351,57 @@ class Compatibility {
     protected $errors = [];
     protected $system_info;
 
+    protected $for;
+
     /**
      * Constructor to initialize the system information and add default compatibility strategies.
      */
-    public function __construct() {
+    public function __construct($for = 'backup') {
         require_once BMI_INCLUDES . DIRECTORY_SEPARATOR . 'check' . DIRECTORY_SEPARATOR . 'system_info.php';
         $system = new System_Info();
         $this->system_info = $system->to_array();
+        $this->for = $for;
         $this->addDefaultStrategies();
         $this->addMoreRecommendations();
     }
 
     /**
-     * Add default compatibility strategies.
+     * Add default compatibility strategies based on the type of operation.
      */
     public function addDefaultStrategies() {
+        if ($this->for == 'backup') {
+            $this->addBackupDefaultStrategies();
+        } else if ($this->for == 'migration') {
+            $this->addMigrationDefaultStrategies();
+        }
+    }
+
+    /**
+     * Add default compatibility strategies for migration.
+     */
+    public function addMigrationDefaultStrategies() {
+        $this->addStrategy(new Normal_Attribute(true, 'php_allow_url_fopen', new Bool_Comparision(), __("allow_url_fopen is not enabled.", 'backup-backup')));
+        $this->addStrategy(new Normal_Attribute('5.5', 'mysql_version', new Version_Comparision(), __("MySQL version is not compatible. recommended to use version 5.5+.", 'backup-backup')));
+        $this->addStrategy(new Normal_Attribute(['Apache', 'Nginx'], 'web_server_name', new In_Comparision(), __("We recommend using Apache/Nginx server type.", 'backup-backup')));
+        $this->addStrategy(new PHP_Version('8.0', null, new Version_Comparision()));
+
+        $max_execution_time = new Normal_Attribute('180', 'php_max_execution_time', new Int_Comparision());
+        $max_execution_time_error = __("PHP max execution time is %s1. The recommended value is %s2.", 'backup-backup');
+        $max_execution_time_error = str_replace(
+            ['%s1', '%s2'],
+            [$this->system_info['php_max_execution_time'], '180'],
+            $max_execution_time_error
+        );
+        $max_execution_time->setErrorMessage($max_execution_time_error);
+        $this->addStrategy($max_execution_time);
+    }
+
+    /**
+     * Add default compatibility strategies for backup.
+     */
+    public function addBackupDefaultStrategies() {
+
         $this->addStrategy(new CURL_Enabled(true, null, new Bool_Comparision()));
-        // $this->addStrategy(new Disk_Space($this->getBackupSize(), null, new Int_Comparision()));
         $this->addStrategy(new Normal_Attribute(true, 'php_allow_url_fopen', new Bool_Comparision(), __("allow_url_fopen is not enabled.", 'backup-backup')));
         $this->addStrategy(new Normal_Attribute('5.5', 'mysql_version', new Version_Comparision(), __("MySQL version is not compatible. recommended to use version 5.5+.", 'backup-backup')));
         $this->addStrategy(new Normal_Attribute(['Apache', 'Nginx'], 'web_server_name', new In_Comparision(), __("We recommend using Apache/Nginx server type.", 'backup-backup')));
@@ -391,6 +425,18 @@ class Compatibility {
     public function addMoreRecommendations() {
         // e.g.
         // $this->addRecommendation('missing space.', __("The disk space is not enough. Please free up some space.", 'backup-backup'));
+        if ($this->for == 'backup') {
+            $this->addBackupRecommendations();
+        } else if ($this->for == 'migration') {
+            $this->addMigrationRecommendations();
+        }
+    }
+
+    public function addMigrationRecommendations() {
+    }
+
+    public function addBackupRecommendations() {
+        $this->addRecommendation('Disk quota exceeded', __("There is not enough space for the backup, please free up some space.", 'backup-backup'));
     }
 
     /**

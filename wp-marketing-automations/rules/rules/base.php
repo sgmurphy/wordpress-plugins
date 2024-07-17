@@ -91,6 +91,38 @@ class BWFAN_Rule_Base {
 		);
 	}
 
+	/**
+	 * Get number rule operators
+	 *
+	 * @return array
+	 */
+	public function get_possible_number_rule_operators() {
+		return array(
+			'==' => __( 'is equal to', 'wp-marketing-automations' ),
+			'!=' => __( 'is not equal to', 'wp-marketing-automations' ),
+			'>'  => __( 'is greater than', 'wp-marketing-automations' ),
+			'<'  => __( 'is less than', 'wp-marketing-automations' ),
+			'>=' => __( 'is greater or equal to', 'wp-marketing-automations' ),
+			'<=' => __( 'is less or equal to', 'wp-marketing-automations' ),
+		);
+	}
+
+	/**
+	 * Get string rule operators
+	 *
+	 * @return array
+	 */
+	public function get_possible_string_rule_operators() {
+		return array(
+			'is'           => __( 'is', 'wp-marketing-automations' ),
+			'is_not'       => __( 'is not', 'wp-marketing-automations' ),
+			'contains'     => __( 'contains', 'wp-marketing-automations' ),
+			'not_contains' => __( 'not contains', 'wp-marketing-automations' ),
+			'starts_with'  => __( 'starts with', 'wp-marketing-automations' ),
+			'ends_with'    => __( 'ends with', 'wp-marketing-automations' ),
+		);
+	}
+
 	public function conditions_view() {
 		$condition_input_type = $this->get_condition_input_type();
 		$values               = $this->get_possible_rule_values();

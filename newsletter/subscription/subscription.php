@@ -32,6 +32,7 @@ class NewsletterSubscription extends NewsletterModule {
     function hook_init() {
 
         add_action('newsletter_action', [$this, 'hook_newsletter_action'], 10, 3);
+                add_action('newsletter_action_dummy', [$this, 'hook_newsletter_action_dummy'], 11, 3);
         add_filter('newsletter_page_text', [$this, 'hook_newsletter_page_text'], 10, 3);
 
         // The form is sometimes retrieved via AJAX
@@ -116,6 +117,12 @@ class NewsletterSubscription extends NewsletterModule {
                 . '</div>';
     }
 
+    function hook_newsletter_action_dummy($action, $user, $email) {
+        if ('c' === $action) {
+            $this->redirect($this->build_message_url(null, 'confirmed', $user));
+        }
+    }
+
     /**
      *
      * @global wpdb $wpdb
@@ -194,9 +201,9 @@ class NewsletterSubscription extends NewsletterModule {
                     $this->set_user_cookie($user);
 
                     if ($user->_activation) {
-                        $this->redirect_to_confirmation($user);
+                        $this->redirect_to_confirmation($user, $email);
                     } else {
-                        $this->redirect_to_confirmed($user);
+                        $this->redirect_to_confirmed($user, $email);
                     }
                 } else {
                     $language = $this->sanitize_language($_REQUEST['nlang'] ?? '');
@@ -248,7 +255,7 @@ class NewsletterSubscription extends NewsletterModule {
                 if ($this->antibot_form_check()) {
                     $user = $this->confirm($user);
                     $this->set_user_cookie($user);
-                    $this->redirect_to_confirmed($user);
+                    $this->redirect_to_confirmed($user, $email);
                 } else {
                     $this->antibot_subscription('Confirm');
                 }
@@ -874,7 +881,7 @@ class NewsletterSubscription extends NewsletterModule {
         return $this->mail($user, $subject, $message);
     }
 
-    function redirect_to_confirmed($user) {
+    function redirect_to_confirmed($user, $email = null) {
         if (!$user) {
             die('Subscriber not found.');
         }
@@ -900,11 +907,11 @@ class NewsletterSubscription extends NewsletterModule {
             }
         }
         $url = apply_filters('newsletter_welcome_url', $url, $user);
-        $url = Newsletter::instance()->build_message_url($url, 'confirmed', $user);
+        $url = Newsletter::instance()->build_message_url($url, 'confirmed', $user, $email);
         $this->redirect($url);
     }
 
-    function redirect_to_confirmation($user) {
+    function redirect_to_confirmation($user, $email = null) {
         if (!$user) {
             die('Subscriber not found.');
         }
@@ -917,7 +924,7 @@ class NewsletterSubscription extends NewsletterModule {
             // Per message custom URL from configuration (language variants could not be supported)
             $url = sanitize_url($this->get_option('confirmation_url'));
         }
-        $url = $this->build_message_url($url, 'confirmation', $user);
+        $url = $this->build_message_url($url, 'confirmation', $user, $email);
         $this->redirect($url);
     }
 

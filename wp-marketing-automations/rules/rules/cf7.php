@@ -9,7 +9,6 @@ if ( bwfan_is_cf7_active() ) {
 		}
 
 		/** v2 Methods: START */
-
 		public function get_options( $term = '' ) {
 			$meta    = $this->event_automation_meta;
 			$form_id = isset( $meta['bwfan-cf7_form_submit_form_id'] ) ? $meta['bwfan-cf7_form_submit_form_id'] : 0;
@@ -66,11 +65,23 @@ if ( bwfan_is_cf7_active() ) {
 					}
 					break;
 				case 'contains':
-					$value  = isset( $value[0] ) && ! empty( $value[0] ) ? $value[0] : '';
+					if ( is_array( $value ) ) {
+						$result = ! empty( array_filter( $value, function ( $element ) use ( $condition_value ) {
+							return strpos( $element, $condition_value ) !== false;
+						} ) );
+						break;
+					}
+
 					$result = strpos( $value, $condition_value ) !== false;
 					break;
 				case 'not_contains':
-					$value  = isset( $value[0] ) && ! empty( $value[0] ) ? $value[0] : '';
+					if ( is_array( $value ) ) {
+						$result = ! empty( array_filter( $value, function ( $element ) use ( $condition_value ) {
+							return strpos( $element, $condition_value ) === false;
+						} ) );
+						break;
+					}
+
 					$result = strpos( $value, $condition_value ) === false;
 					break;
 				case 'starts_with':
@@ -79,14 +90,19 @@ if ( bwfan_is_cf7_active() ) {
 					$result = substr( $value, 0, $length ) === $condition_value;
 					break;
 				case 'ends_with':
-					$value  = isset( $value[0] ) && ! empty( $value[0] ) ? $value[0] : '';
+					$value  = is_array( $value ) ? end( $value ) : $value;
 					$length = strlen( $condition_value );
-
-					if ( 0 === $length ) {
-						$result = true;
-					} else {
-						$result = substr( $value, - $length ) === $condition_value;
+					if ( 0 === $length || ( $length > strlen( $value ) ) ) {
+						$result = false;
+						break;
 					}
+					$result = substr( $value, - $length ) === $condition_value;
+					break;
+				case 'is_blank':
+					$result = empty( $value[0] );
+					break;
+				case 'is_not_blank':
+					$result = ! empty( $value[0] );
 					break;
 				default:
 					$result = false;

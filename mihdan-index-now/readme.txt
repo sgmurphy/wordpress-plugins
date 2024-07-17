@@ -3,7 +3,7 @@ Contributors: collizo4sky, properfraction
 Donate link: https://w3guy.com/
 Tags: SEO, indexnow, yandex, bing, google
 Requires at least: 5.9
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.6.5
 Requires PHP: 7.4
 License: GPLv2 or later

@@ -24,10 +24,10 @@ class RecentPostsController
             if (count($attributes['selectedCategories']) > 0) {
                 $recent_posts_args['category__in'] = $attributes['selectedCategories'];
             }
-
             if (count($attributes['selectedTags']) > 0) {
                 $recent_posts_args['tag__in'] = $attributes['selectedTags'];
             }
+            $recent_posts_args = apply_filters('superbaddons_recent_posts_block_args', $recent_posts_args, $attributes);
 
             $recent_posts = wp_get_recent_posts($recent_posts_args);
 

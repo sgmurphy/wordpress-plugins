@@ -12,7 +12,7 @@ require_once( __DIR__ . '/Cmn/Db.php' );
 require_once( __DIR__ . '/Cmn/Img.php' );
 require_once( __DIR__ . '/Cmn/Plugin.php' );
 
-const PLUGIN_SETT_VER								= 134;
+const PLUGIN_SETT_VER								= 135;
 const PLUGIN_DATA_VER								= 1;
 const PLUGIN_EULA_VER								= 1;
 const QUEUE_DB_VER									= 4;
@@ -779,6 +779,14 @@ function OnOptRead_Sett( $sett, $verFrom )
 		Gen::SetArrField( $sett, array( 'contPr', 'css', 'font', 'deinlLrgSize' ), 512 );
 	}
 
+	if( $verFrom && $verFrom < 135 )
+	{
+		Gen::SetArrField( $sett, array( 'cache', 'ctxContPr' ), true );
+		Gen::SetArrField( $sett, array( 'contPr', 'css', 'font', 'optLoadNameExpr' ), '' );
+		Gen::SetArrField( $sett, array( 'contPr', 'cp', 'elmntrWdgtPrmLott' ), false );
+		Gen::SetArrField( $sett, array( 'contPr', 'cp', 'diviDataAni' ), false );
+	}
+
 	return( $sett );
 }
 
@@ -1096,6 +1104,7 @@ function OnOptGetDef_Sett()
 			'ctx' => false,
 			'ctxSkip' => false,
 			'ctxSessSep' => true,
+			'ctxContPr' => true,
 			'ctxCliRefresh' => true,
 			'ctxGrps' => array(
 				'common' => array(
@@ -1355,6 +1364,7 @@ function OnOptGetDef_Sett()
 				'elmntrWdgtCntr' => true,
 				'elmntrWdgtAvoShcs' => true,
 				'elmntrWdgtLott' => true,
+				'elmntrWdgtPrmLott' => true,
 				'elmntrStck' => false,
 				'elmntrShe' => false,
 				'elmntrStrtch' => true,
@@ -1374,6 +1384,7 @@ function OnOptGetDef_Sett()
 				'diviPrld' => true,
 				'diviStck' => true,
 				'diviAni' => true,
+				'diviDataAni' => true,
 				'diviHdr' => true,
 				'brcksAni' => true,
 				'kdncThAni' => true,
@@ -1571,6 +1582,7 @@ function OnOptGetDef_Sett()
 				'font' => array(
 					'deinlLrg' => false,
 					'deinlLrgSize' => 512,
+					'optLoadNameExpr' => '',
 				),
 				'fontPreload' => false,
 
@@ -1602,6 +1614,7 @@ function OnOptGetDef_Sett()
 					'excl' => false,
 					'items' => array(),
 				),
+
 				'fontOptLoad' => true,
 				'fontOptLoadDisp' => 'swap',
 				'fontCrit' => false,
@@ -1628,13 +1641,13 @@ function OnOptGetDef_Sett()
 
 					'wp-block-ultimate-post-slider'	=> array( 'enable' => true,		'descr' => 'Block Ultimate Post Slider',	'data' => "[class*=wp-block-ultimate-post-post-slider] .ultp-block-items-wrap:not(.slick-initialized) > .ultp-block-item:not(:first-child)\n{\n\tdisplay: none!important;\n}" ),
 
-					'preloaders'	=> array( 'enable' => true,		'descr' => 'Preloaders',				'data' => "#preloader, #page_preloader, #page-preloader, #loader-wrapper, #royal_preloader, #loftloader-wrapper, #page-loading, #the7-body > #load, #loader, #loaded,\r\n.rokka-loader, .page-preloader-cover, .apus-page-loading, .medizco-preloder, e-page-transition, .loadercontent, .shadepro-preloader-wrap, .tslg-screen, .page-preloader, .pre-loading, .preloader-outer, .page-loader, .martfury-preloader, body.theme-dotdigital > .preloader, .loader-wrap {\r\n\tdisplay: none !important;\r\n}\r\n\r\nbody.royal_preloader {\r\n\tvisibility: hidden !important;\r\n}" ),
+					'preloaders'	=> array( 'enable' => true,		'descr' => 'Preloaders',				'data' => "#preloader, #page_preloader, #page-preloader, #loader-wrapper, #royal_preloader, #loftloader-wrapper, #page-loading, #the7-body > #load, #loader, #loaded, #loader-container,\r\n.rokka-loader, .page-preloader-cover, .apus-page-loading, .medizco-preloder, e-page-transition, .loadercontent, .shadepro-preloader-wrap, .tslg-screen, .page-preloader, .pre-loading, .preloader-outer, .page-loader, .martfury-preloader, body.theme-dotdigital > .preloader, .loader-wrap {\r\n\tdisplay: none !important;\r\n}\r\n\r\nbody.royal_preloader {\r\n\tvisibility: hidden !important;\r\n}" ),
 
 					'elementor-vis'		=> array( 'enable' => false, 'descr' => 'Elementor (visibility and animation)', 'data' => "body.seraph-accel-js-lzl-ing-ani .elementor-invisible {\r\n\tvisibility: visible !important;\r\n}\r\n\r\n.elementor-element[data-settings*=\"animation\\\"\"] {\r\n\tanimation-name: none !important;\r\n}" ),
 
 					'elementor'		=> array( 'enable' => true, 'descr' => 'Elementor', 'data' => ".vc_row[data-vc-full-width] {\r\n\tposition: relative;\r\n\twidth: var(--seraph-accel-client-width) !important;\r\n}\r\n\r\nhtml:not([dir=rtl]) .vc_row[data-vc-full-width] {\r\n\tleft: calc((100% - var(--seraph-accel-client-width)) / 2) !important;\r\n\tmargin-left: 0 !important;\r\n}\r\n\r\nhtml[dir=rtl] .vc_row[data-vc-full-width] {\r\n\tright: calc((100% - var(--seraph-accel-client-width)) / 2) !important;\r\n\tmargin-right: 0 !important;\r\n}\r\n\r\n.vc_row.wpb_row[data-vc-full-width]:not([data-vc-stretch-content=\"true\"]), .vc_row.mpc-row[data-vc-full-width]:not([data-vc-stretch-content=\"true\"]) {\r\n\t--pdd: calc((var(--seraph-accel-client-width) - (100% + 2*15px)) / 2);\r\n\tpadding-left: var(--pdd) !important;\r\n\tpadding-right: var(--pdd) !important;\r\n}\r\n\r\n.elementor-top-section.elementor-section-stretched[data-settings*=\"section-stretched\"] {\r\n\twidth: var(--seraph-accel-client-width) !important;\r\n}\r\n\r\nhtml:not([dir=rtl]) .elementor-top-section.elementor-section-stretched[data-settings*=\"section-stretched\"] {\r\n\tleft: calc(-1 * var(--lzl-strtch-offs-x)) !important;\r\n}\r\n\r\nhtml[dir=rtl] .elementor-top-section.elementor-section-stretched[data-settings*=\"section-stretched\"] {\r\n\tright: calc(-1 * var(--lzl-strtch-offs-x)) !important;\r\n}\r\n\r\nbody.seraph-accel-js-lzl-ing-ani .elementor-headline-dynamic-text.elementor-headline-text-active {\r\n\topacity: 1;\r\n}" ),
 
-					'et'			=> array( 'enable' => true,		'descr' => 'Divi',						'data' => ".et_animated:not(.et_pb_sticky_placeholder) {\r\n\topacity: 1 !important;\r\n}\r\n\r\n.et_pb_section_video_bg > video {\r\n\theight: 100%;\r\n}\r\n\r\n.et_pb_preload .et_pb_section_video_bg, .et_pb_preload > div {\r\n\tvisibility: visible !important;\r\n}\r\n\r\nbody:is(.seraph-accel-js-lzl-ing, .seraph-accel-js-lzl-ing-ani) .et_pb_gallery_grid .et_pb_gallery_item {\r\n\tdisplay: block !important;\r\n}\r\n\r\n/* Slider */\r\n/*.et_pb_slider:not([data-active-slide]) {\r\n\theight: 1px;\r\n}*/\r\n\r\n.et_pb_slider:not([data-active-slide]) .et_pb_slides,\r\n.et_pb_slider:not([data-active-slide]) .et_pb_slide:first-child,\r\n.et_pb_slider:not([data-active-slide]) .et_pb_slide:first-child .et_pb_container {\r\n\theight: 100%;\r\n}" ),
+					'et'			=> array( 'enable' => true,		'descr' => 'Divi',						'data' => ".et_animated:not(.et_pb_sticky_placeholder,.dani-lzl) {\r\n\topacity: 1 !important;\r\n}\r\n\r\n.et_pb_section_video_bg > video {\r\n\theight: 100%;\r\n}\r\n\r\n.et_pb_preload .et_pb_section_video_bg, .et_pb_preload > div {\r\n\tvisibility: visible !important;\r\n}\r\n\r\nbody:is(.seraph-accel-js-lzl-ing, .seraph-accel-js-lzl-ing-ani) .et_pb_gallery_grid .et_pb_gallery_item {\r\n\tdisplay: block !important;\r\n}\r\n\r\n/* Slider */\r\n/*.et_pb_slider:not([data-active-slide]) {\r\n\theight: 1px;\r\n}*/\r\n\r\n.et_pb_slider:not([data-active-slide]) .et_pb_slides,\r\n.et_pb_slider:not([data-active-slide]) .et_pb_slide:first-child,\r\n.et_pb_slider:not([data-active-slide]) .et_pb_slide:first-child .et_pb_container {\r\n\theight: 100%;\r\n}" ),
 
 					'tag-div'		=> array( 'enable' => true,		'descr' => 'tagDiv',					'data' => "body.td-animation-stack-type0 .td-animation-stack .entry-thumb,\nbody.td-animation-stack-type0 .post img:not(.woocommerce-product-gallery img):not(.rs-pzimg),\nbody.td-animation-stack-type0 .td-animation-stack .td-lazy-img,\n.tdb_header_menu .tdb-menu-items-pulldown.tdb-menu-items-pulldown-inactive {\n\topacity: 1!important;\n}" ),
 					'photonic-thumb'	=> array( 'enable' => true,		'descr' => 'Photonic Photo Gallery',	'data' => ".photonic-thumb,\r\n.photonic-thumb a img {\r\n\tdisplay: unset !important;\r\n}\r\n\r\n.photonic-loading {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.photonic-stream * {\r\n\tanimation-name: none !important;\r\n}" ),
@@ -1680,6 +1693,7 @@ function OnOptGetDef_Sett()
 						'enable' => 0,
 						'name' => 'Home',
 						'urisIncl' => array(),
+						'argsIncl' => array(),
 						'patterns' => array( './/body[contains(concat(" ",normalize-space(@class)," ")," home ")]' ),
 						'views' => array(),
 						'sklExcl' => array(),
@@ -1701,6 +1715,7 @@ function OnOptGetDef_Sett()
 						'enable' => 2,
 						'name' => 'Common',
 						'urisIncl' => array(),
+						'argsIncl' => array(),
 						'patterns' => array(),
 						'views' => array(),
 
@@ -1722,6 +1737,7 @@ function OnOptGetDef_Sett()
 						'enable' => 0,
 						'name' => 'Desktop',
 						'urisIncl' => array(),
+						'argsIncl' => array(),
 						'patterns' => array(),
 						'views' => array( 'cmn' ),
 						'sklSrch' => false,
@@ -3110,7 +3126,7 @@ function ContProcIsCompatView( $settCache, $userAgent  )
 
 function GetViewTypeUserAgent( $viewsDeviceGrp )
 {
-	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.15 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
+	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.1 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
 }
 
 function CorrectRequestScheme( &$serverArgs, $target = null )
@@ -3392,7 +3408,7 @@ function CacheInitQueueProcessor()
 	{
 		$time = $tmCur + ( 120 );
 		$time -= $time % ( 120 );
-		Plugin::AsyncTaskPost( 'CheckUpdatePostProcess', null, array( $time, 24 * 60 * 60 ), false, function( $args, $argsPrev ) { return( false ); } );
+		Plugin::AsyncFastTaskPost( 'CheckPostProcess', null, array( $time, 24 * 60 * 60 ), false, function( $args, $argsPrev ) { return( false ); } );
 	}
 }
 
@@ -4162,7 +4178,7 @@ function GetExtContents( $url, &$contMimeType = null, $userAgentCmn = true, $tim
 
 	$args = array( 'sslverify' => false, 'timeout' => $timeout );
 	if( $userAgentCmn )
-		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.15';
+		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.1';
 
 	global $seraph_accel_g_aGetExtContentsFailedSrvs;
 

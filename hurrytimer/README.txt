@@ -3,9 +3,9 @@ Contributors: nlemsieh
 Donate link: https://www.paypal.me/nlemsieh
 Tags: countdown timer, evergreen countdown, woocommerce countdown timer, recurring countdown timer, hurry, shipping timer, elementor countdown, divi countdown, urgency timer, scarcity timer, beaver timer, webinar timer
 Requires at least: 4.0
-Tested up to: 6.5
+Tested up to: 6.6
 WC requires at least: 3.0
-WC tested up to: 9.0
+WC tested up to: 9.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Requires PHP: 5.6

@@ -1,5 +1,11 @@
 ﻿== Changelog ==
 
+= 1.2.70.1 =
+* Added mo_new_publish_post_condition_check filter.
+* Fixed bug where whitespace in From and Replyto emails could lead to email campaign not sending.
+* Fixed bug with contextual display of getresponse settings field
+* Fixed: PHP Parse error: unexpected 'string' (T_STRING).
+
 = 1.2.70.0 =
 * Added [Elastic Email integration](https://mailoptin.io/article/connect-wordpress-elastic-email/).
 * Improved Block Editor support.

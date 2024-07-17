@@ -2,7 +2,7 @@
 Contributors: brainstormforce
 Tags: woocommerce variation swatches, woocommerce attributes, woocommerce variation, product attributes, product color, product size, variable product attributes, variation product swatches, color variation swatch, image variation swatch
 Requires at least: 5.4
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.0.8
 Requires PHP: 5.6
 License: GPLv2 or later

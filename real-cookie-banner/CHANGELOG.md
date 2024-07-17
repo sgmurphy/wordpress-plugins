@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.7.12 (2024-07-17)
+
+
+### Bug Fixes
+
+* no longer send referer via URL parameter as this lead to issues with Strato servers (dashboard no longer loads, CU-86954236z)
+
+
+<details><summary>Dependency updates @devowl-wp/cookie-consent-management 0.1.17</summary>
+
+
+**_Purpose of dependency:_** _Provide cookie consent management with adapters to your environment_
+##### Bug Fixes
+
+* no longer send referer via URL parameter as this lead to issues with Strato servers (dashboard no longer loads, CU-86954236z)</details>
+
+<details><summary>Dependency updates @devowl-wp/customize 1.12.7</summary>
+
+
+**_Purpose of dependency:_** _Abstract utility for live preview (customize)_
+##### Bug Fixes
+
+* no longer send referer via URL parameter as this lead to issues with Strato servers (dashboard no longer loads, CU-86954236z)</details>
+
+<details><summary>Dependency updates @devowl-wp/utils 1.19.7</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Bug Fixes
+
+* no longer send referer via URL parameter as this lead to issues with Strato servers (dashboard no longer loads, CU-86954236z)</details>
+
+
+
+
+
 ## 4.7.11 (2024-07-16)
 
 

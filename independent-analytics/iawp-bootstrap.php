@@ -20,7 +20,7 @@ use IAWP\WP_Option_Cache_Bust;
 use IAWPSCOPED\Illuminate\Support\Carbon;
 \define( 'IAWP_DIRECTORY', \rtrim( \plugin_dir_path( __FILE__ ), \DIRECTORY_SEPARATOR ) );
 \define( 'IAWP_URL', \rtrim( \plugin_dir_url( __FILE__ ), '/' ) );
-\define( 'IAWP_VERSION', '2.6.3' );
+\define( 'IAWP_VERSION', '2.6.4' );
 \define( 'IAWP_DATABASE_VERSION', '33' );
 \define( 'IAWP_LANGUAGES_DIRECTORY', \dirname( \plugin_basename( __FILE__ ) ) . '/languages' );
 \define( 'IAWP_PLUGIN_FILE', __DIR__ . '/iawp.php' );
@@ -139,9 +139,17 @@ function iawp_using_woocommerce() : bool {
     if ( \IAWPSCOPED\iawp_is_free() ) {
         return \false;
     }
-    $active_plugins = \get_option( 'active_plugins' );
-    if ( !\in_array( 'woocommerce/woocommerce.php', $active_plugins ) ) {
-        return \false;
+    if ( \is_multisite() ) {
+        $active_plugins = \get_option( 'active_plugins' );
+        $sitewide_plugins = \get_site_option( 'active_sitewide_plugins' );
+        if ( !\in_array( 'woocommerce/woocommerce.php', $active_plugins ) && !\array_key_exists( 'woocommerce/woocommerce.php', $sitewide_plugins ) ) {
+            return \false;
+        }
+    } else {
+        $active_plugins = \get_option( 'active_plugins' );
+        if ( !\in_array( 'woocommerce/woocommerce.php', $active_plugins ) ) {
+            return \false;
+        }
     }
     $table_name = $wpdb->prefix . 'wc_order_stats';
     $order_stats_table = $wpdb->get_row( $wpdb->prepare( '

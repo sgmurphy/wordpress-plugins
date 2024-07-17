@@ -705,7 +705,7 @@ function sfsi_copyLink(text) {
     return result;
 }
 
-document.querySelectorAll('a.sfsi_copylink').forEach(function (anchor) {
+document.querySelectorAll('a.sfsi_copylinksficn1').forEach(function (anchor) {
     anchor.addEventListener('click', function () {
         var page = window.location.href.replace(/#.*$/, '')
         sfsi_copyLink(page);

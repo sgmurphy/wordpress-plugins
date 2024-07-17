@@ -92,23 +92,30 @@ class BWFAN_Model_Automation_Contact extends BWFAN_Model {
 		if ( ! empty( $cid ) ) {
 			$where .= " AND cc.cid = $cid ";
 		}
+		$order_by = "ORDER BY cc.c_date DESC ";
 
 		/** If automation is inactive then no need to check automation contact status */
 		if ( ! empty( $status ) && 'inactive' !== $status ) {
 			if ( 'active' === $status ) {
-				$where .= " AND (cc.status = 1 OR cc.status = 4 OR cc.status = 6 ) ";
+				$where    .= " AND (cc.status = 1 OR cc.status = 4 OR cc.status = 6 ) ";
+				$order_by = " ORDER BY cc.c_date, cc.e_time  ASC ";
 			} elseif ( 'delayed' === $status ) {
-				$where .= " AND (cc.status = 1 OR cc.status = 6 ) ";
+				$where    .= " AND (cc.status = 1 OR cc.status = 6 ) ";
+				$order_by = " ORDER BY cc.e_time ASC ";
 			} else {
 				$status = self::get_status( $status );
 				$where  .= " AND cc.status = $status";
 			}
 		}
+
+		if ( 'inactive' === $status || 2 === intval( $status ) || 3 === intval( $status ) ) {
+			$order_by = " ORDER BY cc.last_time DESC ";
+		}
+
 		$automation_status = 'inactive' === $status ? " AND am.status = 2" : " AND am.status = 1";
 		global $wpdb;
-		$where .= " AND (EXISTS ( SELECT 1 FROM {$wpdb->prefix}bwfan_automations AS am WHERE am.ID = cc.aid $automation_status ) )";
-
-		$contacts = self::get_contacts( $where, $search, $limit, $offset, $more_data, $status );
+		$where    .= " AND (EXISTS ( SELECT 1 FROM {$wpdb->prefix}bwfan_automations AS am WHERE am.ID = cc.aid $automation_status ) )";
+		$contacts = self::get_contacts( $where, $search, $limit, $offset, $more_data, $status, false, $order_by );
 		if ( true === $contact_with_count ) {
 			return [
 				'contacts' => $contacts,
@@ -146,7 +153,7 @@ class BWFAN_Model_Automation_Contact extends BWFAN_Model {
 		return $status;
 	}
 
-	public static function get_contacts( $where, $search, $limit, $offset, $more_data, $status = '', $only_total = false ) {
+	public static function get_contacts( $where, $search, $limit, $offset, $more_data, $status = '', $only_total = false, $order_by = '' ) {
 		global $wpdb;
 		$table_name = self::_table();
 		$limit      = " LIMIT $limit OFFSET $offset";
@@ -165,7 +172,7 @@ class BWFAN_Model_Automation_Contact extends BWFAN_Model {
 			$more_columns = ", cc.e_time, cc.status, cc.last ";
 		}
 
-		$query    = "SELECT  cc.ID,cc.cid, cc.aid, cc.trail, cc.c_date, c.email, c.f_name, c.l_name, c.contact_no, c.creation_date as date $more_columns FROM $table_name as cc JOIN {$wpdb->prefix}bwf_contact AS c ON cc.cid = c.ID WHERE 1=1 $where  ORDER BY cc.c_date DESC $limit";
+		$query    = "SELECT  cc.ID,cc.cid, cc.aid, cc.trail, cc.c_date, c.email, c.f_name, c.l_name, c.contact_no, c.creation_date as date $more_columns FROM $table_name as cc JOIN {$wpdb->prefix}bwf_contact AS c ON cc.cid = c.ID WHERE 1=1 $where  $order_by $limit";
 		$contacts = $wpdb->get_results( $query, ARRAY_A );
 
 		return array_map( function ( $contact ) use ( $more_data, $status ) {

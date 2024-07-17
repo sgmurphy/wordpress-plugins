@@ -7,7 +7,7 @@ Author URI: https://inisev.com
 Plugin URI: https://ultimatelysocial.com
 Text Domain: ultimate-social-media-icons
 Domain Path: /languages
-Version: 2.9.1
+Version: 2.9.2
 License: GPLv2 or later
 */
 require_once 'analyst/main.php';
@@ -54,7 +54,7 @@ sfsi_error_reporting();
 
 global $wpdb;
 /* define the Root for URL and Document */
-define( 'SFSI_PLUGIN_VERSION', '2.9.1' );
+define( 'SFSI_PLUGIN_VERSION', '2.9.2' );
 define( 'SFSI_DOCROOT', dirname( __FILE__ ) );
 
 define( 'SFSI_PLUGURL', plugin_dir_url( __FILE__ ) );
@@ -1597,7 +1597,7 @@ function sfsi_plugin_redirect()
                 function sfsi_dismiss_lang_notice()
                 {
 
-                    if (!wp_verify_nonce($_POST['nonce'], "sfsi_dismiss_lang_notice'")) {
+                    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "sfsi_dismiss_lang_notice'")) {
 
                         echo  json_encode(array('res' => "error"));
                         exit;
@@ -1638,7 +1638,7 @@ function sfsi_plugin_redirect()
             function sfsi_dismiss_addthhis_removal_notice()
             {
 
-                if (!wp_verify_nonce($_POST['nonce'], "sfsi_dismiss_addThis_icon_notice")) {
+                if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "sfsi_dismiss_addThis_icon_notice")) {
 
                     echo  json_encode(array('res' => "error"));
                     exit;
@@ -1720,7 +1720,7 @@ window.addEventListener('sfsi_functions_loaded', function() {
 
         function sfsi_dismiss_error_reporting_notice() {
 
-            if (!wp_verify_nonce($_POST['nonce'], "sfsi_dismiss_error_reporting_notice")) {
+            if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "sfsi_dismiss_error_reporting_notice")) {
                 echo  json_encode(array('res' => "error"));
                 exit;
             }

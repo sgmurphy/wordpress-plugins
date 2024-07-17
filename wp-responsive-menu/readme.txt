@@ -5,7 +5,7 @@ Tags: responsive, mobile menu, hamburg, menu, mega menu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=pay@magnigeeks.com&item_name=wp-responsive-menu%20WordPress&return=http://wordpress.org/extend/plugins/wp-responsive-menu/
 Requires at least: 3.0
 Requires PHP: 5.4
-Tested up to: 6.5.3
+Tested up to: 6.6
 Stable tag: 3.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

@@ -132,7 +132,7 @@ add_action( 'wp_ajax_sfsi_hide_admin_forum_notification', 'sfsi_hide_admin_forum
 
 function sfsi_hide_admin_forum_notification_callback() {
   
-  if (!wp_verify_nonce($_POST['nonce'], 'usm_universal_nonce_icons')) return wp_send_json_error();
+  if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'usm_universal_nonce_icons')) return wp_send_json_error();
   if (!current_user_can('manage_options')) return wp_send_json_error();
   
 	$option_name = 'sfsi_hide_admin_forum_notification' ;
@@ -162,7 +162,7 @@ function sfsi_default_hide_admin_notification_callback() {
 	}
 
 	$option_name = 'sfsi_default_hide_admin_notification' ;
-	$new_value = $_POST['status'];
+	$new_value = sanitize_text_field($_POST['status']);
 
 	if ( get_option( $option_name ) !== false ) {
 		update_option( $option_name, $new_value );

@@ -468,7 +468,7 @@ class BWFAN_unsubscribe {
 
 		/** Security check */
 		$nonce = ( isset( $_POST['_nonce'] ) ) ? sanitize_text_field( $_POST['_nonce'] ) : ''; //phpcs:ignore WordPress.Security.NonceVerification
-		if ( false === $post && ! wp_verify_nonce( $nonce, 'bwfan-unsubscribe-nonce' ) ) {
+		if ( ! isset( $_POST['form_not_exist'] ) && false === $post && ! wp_verify_nonce( $nonce, 'bwfan-unsubscribe-nonce' ) ) {
 			$this->return_message( 7 );
 		}
 

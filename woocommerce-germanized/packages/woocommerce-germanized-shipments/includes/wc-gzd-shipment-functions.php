@@ -461,7 +461,6 @@ function wc_gzd_create_shipment( $order_shipment, $args = array() ) {
 
 function wc_gzd_create_shipment_item( $shipment, $order_item, $args = array() ) {
 	try {
-
 		if ( ! $order_item || ! is_a( $order_item, 'WC_Order_Item' ) ) {
 			throw new Exception( _x( 'Invalid order item', 'shipments', 'woocommerce-germanized' ) );
 		}
@@ -471,8 +470,10 @@ function wc_gzd_create_shipment_item( $shipment, $order_item, $args = array() ) 
 		$item->set_order_item_id( $order_item->get_id() );
 		$item->set_shipment( $shipment );
 		$item->sync( $args );
-		$item->save();
 
+		if ( $shipment->get_id() > 0 ) {
+			$item->save();
+		}
 	} catch ( Exception $e ) {
 		return new WP_Error( 'error', $e->getMessage() );
 	}
@@ -810,18 +811,37 @@ function wc_gzd_get_shipment_setting_default_address_fields( $type = 'shipper' )
  */
 function wc_gzd_get_shipment_setting_address_fields( $address_type = 'shipper' ) {
 	$default_address_fields = array_keys( wc_gzd_get_shipment_setting_default_address_fields( $address_type ) );
-	$default_address_data   = array();
 
 	if ( 'return' === $address_type ) {
 		$default_address_data = wc_gzd_get_shipment_setting_address_fields( 'shipper' );
+
+		if ( 'no' === Package::get_setting( 'use_alternate_return' ) ) {
+			return apply_filters( "woocommerce_gzd_shipment_{$address_type}_address_fields", $default_address_data, $address_type );
+		}
+
+		$default_address_data['country'] = $default_address_data['country'] . ':' . $default_address_data['state'];
+	} else {
+		$default_address_data = array(
+			'company'   => get_option( 'blogname', '' ),
+			'address_1' => get_option( 'woocommerce_store_address', '' ),
+			'address_2' => get_option( 'woocommerce_store_address_2', '' ),
+			'city'      => get_option( 'woocommerce_store_city', '' ),
+			'postcode'  => get_option( 'woocommerce_store_postcode', '' ),
+			'email'     => get_option( 'woocommerce_email_from_address', '' ),
+			'country'   => get_option( 'woocommerce_default_country', '' ),
+		);
 	}
 
 	foreach ( $default_address_fields as $prop ) {
 		$key   = "woocommerce_gzd_shipments_{$address_type}_address_{$prop}";
-		$value = get_option( $key, '' );
+		$value = get_option( $key, null );
 
-		if ( '' === $value && array_key_exists( $prop, $default_address_data ) ) {
-			$value = $default_address_data[ $prop ];
+		if ( null === $value ) {
+			if ( array_key_exists( $prop, $default_address_data ) && ! in_array( $prop, array( 'state' ), true ) ) {
+				$value = $default_address_data[ $prop ];
+			} else {
+				$value = '';
+			}
 		}
 
 		$address_fields[ $prop ] = $value;
@@ -1432,7 +1452,6 @@ function wc_gzd_customer_return_needs_manual_confirmation( $order ) {
  * @return array
  */
 function wc_gzd_get_account_shipments_actions( $shipment ) {
-
 	if ( ! is_object( $shipment ) ) {
 		$shipment_id = absint( $shipment );
 		$shipment    = wc_gzd_get_shipment( $shipment_id );

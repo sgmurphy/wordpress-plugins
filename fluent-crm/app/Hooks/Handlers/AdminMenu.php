@@ -820,7 +820,16 @@ class AdminMenu
 
     private function emailBuilderSettings()
     {
-        $coreSettings = get_block_editor_settings([], 'post');
+        if(class_exists('\WP_Block_Editor_Context')) {
+            $registery = new \WP_Block_Editor_Context([
+                'name' => 'fluent_crm_email'
+            ]);
+        } else {
+            $registery = 'post';
+        }
+
+        $coreSettings = get_block_editor_settings([], $registery);
+
         $wordpressCoreTypography = $coreSettings['__experimentalFeatures']['typography'];
         $coreExperimentalSpacing = $coreSettings['__experimentalFeatures']['spacing'];
 

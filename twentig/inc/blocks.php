@@ -254,167 +254,6 @@ function twentig_get_spacing_sizes() {
 }
 
 /**
- * Filters the columns block output.
- *
- * @param string $block_content The block content about to be appended.
- * @param array  $block         The full block, including name and attributes.
- */
-function twentig_filter_columns_block( $block_content, $block ) {
-
-	$attributes     = $block['attrs'] ?? array();
-	$classnames     = $attributes['className'] ?? '';
-	$gap            = $attributes['style']['spacing']['blockGap'] ?? null;
-	$horizontal_gap = is_array( $gap ) ? ( $gap['left'] ?? null ) : $gap;
-	$vertical_gap   = is_array( $gap ) ? ( $gap['top'] ?? null ) : $gap;
-	
-	$new_classnames = array();
-
-	if ( $vertical_gap && ! $horizontal_gap ) {
-		$new_classnames[] = 'tw-cols-h-gap';
-	}
-
-	if ( twentig_theme_supports_spacing() && $horizontal_gap && str_contains( $horizontal_gap, 'px' ) ) {
-		$gap_value = intval( $horizontal_gap );
-		if ( $gap_value > 32 ) {
-			$new_classnames[] = 'tw-large-gap';
-		}
-	}
-
-	if ( $new_classnames ) {
-		$tag_processor = new WP_HTML_Tag_Processor( $block_content );
-		$tag_processor->next_tag();
-		foreach ( $new_classnames as $class_name ) {
-			$tag_processor->add_class( $class_name );
-		}
-		$block_content = $tag_processor->get_updated_html();
-	}
-
-	if ( str_contains( $classnames, 'tw-cols-' ) || str_contains( $classnames, 'tw-row-gap' ) ) {
-		wp_enqueue_block_style(
-			'core/columns',
-			array(
-				'handle' => 'tw-block-columns-compat',
-				'src'    => TWENTIG_ASSETS_URI . '/blocks/columns/compat.css',
-				'path'   => TWENTIG_PATH . 'dist/blocks/columns/compat.css',
-			) 
-		);
-	}
-
-	return $block_content;
-}
-add_filter( 'render_block_core/columns', 'twentig_filter_columns_block', 10, 2 );
-
-/**
- * Filters the column block output to add a CSS var to store the width attribute.
- *
- * @param string $block_content The block content about to be appended.
- * @param array  $block         The full block, including name and attributes.
- */
-function twentig_filter_column_block( $block_content, $block ) {
-
-	if ( wp_should_load_separate_core_block_assets() ) {
-		return $block_content;
-	}
-
-	if ( isset( $block['attrs']['width'] ) ) {
-		$tag_processor = new WP_HTML_Tag_Processor( $block_content );
-		$tag_processor->next_tag();
-		
-		$style_attr = $tag_processor->get_attribute( 'style' );
-		$style      = '--col-width:' . $block['attrs']['width'] . ';' . $style_attr;
-		
-		$tag_processor->set_attribute( 'style', $style );
-		$block_content = $tag_processor->get_updated_html();
-	}
-
-	return $block_content;
-}
-add_filter( 'render_block_core/column', 'twentig_filter_column_block', 10, 2 );
-
-/**
- * Handles deprecation for our block settings by filtering the block before it's processed.
- *
- * @param array $parsed_block The block being rendered.
- */
-function twentig_filter_render_block_data( $parsed_block ) {
-
-	if ( 'core/post-author' === $parsed_block['blockName'] ) {
-		$attributes = $parsed_block['attrs'];
-		if( isset( $attributes['twIsLink'] ) && $attributes['twIsLink'] ) {
-			$parsed_block['attrs']['isLink'] = true;
-		}		
-	} elseif ( 'core/post-excerpt' === $parsed_block['blockName'] ) {
-		$attributes = $parsed_block['attrs'];
-		if ( isset( $attributes['twExcerptLength'] ) ) {
-			$parsed_block['attrs']['excerptLength'] = $attributes['twExcerptLength'];
-		}
-	}
-	
-	return $parsed_block;
-}
-add_filter( 'render_block_data', 'twentig_filter_render_block_data' );
-
-/**
- * Filters the query block output.
- *
- * @param string $block_content The block content about to be appended.
- * @param array  $block         The full block, including name and attributes.
- */
-function twentig_filter_query_block( $block_content, $block ) {
-
-	$attributes  = $block['attrs'] ?? array();
-	$layout      = $attributes['displayLayout']['type'] ?? null;
-	$class_names = array();
-	$style       = '';
-
-	$style .= isset( $attributes['twBlockGapVertical'] ) ? '--tw-gap-y:' . $attributes['twBlockGapVertical'] . ';' : '';
-	$style .= isset( $attributes['twBlockGapHorizontal'] ) ? '--tw-gap-x:' . $attributes['twBlockGapHorizontal'] . ';' : '';
-
-	if ( $style ) {
-		$class_names[] = 'tw-custom-gap';
-	}
-
-	if ( isset( $attributes['twVerticalAlignment'] ) ) {
-		$class_names[] = sanitize_title( 'tw-valign-' . $attributes['twVerticalAlignment'] );
-	}
-
-	if ( isset( $attributes['twColumnWidth'] ) ) {
-		if ( 'flex' === $layout ) {
-			$class_names[] = sanitize_title( 'tw-cols-' . $attributes['twColumnWidth'] );
-		} else {
-			$tag_processor = new WP_HTML_Tag_Processor( $block_content );
-			$tag_processor->next_tag( 'ul' );
-			$template_class = $tag_processor->get_attribute( 'class' );
-			if ( str_contains( $template_class, 'is-layout-grid' ) ) {
-				$tag_processor->add_class( $template_class . ' ' . sanitize_title( 'tw-cols-' . $attributes['twColumnWidth'] ) );
-			}
-			$block_content = $tag_processor->get_updated_html();
-		}
-	}
-
-	if ( $style || $class_names ) {
-		$tag_processor = new WP_HTML_Tag_Processor( $block_content );
-		$tag_processor->next_tag();
-		if ( $style ) {
-			$style_attr = $tag_processor->get_attribute( 'style' );
-			$style     .= $style_attr;
-			$tag_processor->set_attribute( 'style', $style );
-		}
-
-		if ( $class_names ) {
-			foreach ( $class_names as $class_name ) {
-				$tag_processor->add_class( $class_name );
-			}
-		}
-
-		$block_content = $tag_processor->get_updated_html();
-	}
-
-	return $block_content;
-}
-add_filter( 'render_block_core/query', 'twentig_filter_query_block', 10, 2 );
-
-/**
  * Filters the post template block output.
  *
  * @param string $block_content The block content about to be appended.
@@ -486,7 +325,6 @@ function twentig_filter_cover_block( $block_content, $block ) {
 			}
 		}
 	}
-	
 	return $block_content;
 }
 add_filter( 'render_block_core/cover', 'twentig_filter_cover_block', 10, 2 );
@@ -505,7 +343,7 @@ function twentig_filter_navigation_block( $block_content, $block ) {
 		$hover_style  = $attributes['twHoverStyle'] ?? '';
 		$active_style = $attributes['twActiveStyle'] ?? $hover_style;
 		$overlay_menu = $attributes['overlayMenu'] ?? 'mobile';
-		
+
 		$class_names  = array();
 
 		if ( $hover_style ) {
@@ -552,70 +390,6 @@ function twentig_filter_navigation_block( $block_content, $block ) {
 add_filter( 'render_block_core/navigation', 'twentig_filter_navigation_block', 10, 2 );
 
 /**
- * Filters the navigation link block output.
- *
- * @param string $block_content The block content about to be appended.
- * @param array  $block         The full block, including name and attributes.
- */
-function twentig_filter_navigation_link_block( $block_content, $block ) {
-
-	$attributes = $block['attrs'] ?? array();
-	$classnames = $attributes['className'] ?? '';
-
-	if ( str_contains( $classnames, 'is-style-tw-button-fill' ) || str_contains( $classnames, 'is-style-tw-button-outline' ) ) {
-		$tag_processor = new WP_HTML_Tag_Processor( $block_content );
-		$tag_processor->next_tag();
-		$tag_processor->add_class( 'wp-element-button' );
-		$block_content = $tag_processor->get_updated_html();
-
-		$buttons_colors     = wp_get_global_styles( array( 'elements', 'button', 'color' ) );
-		$buttons_colors_css = '';
-
-		if ( isset( $buttons_colors['background'] ) ) {
-			$buttons_colors_css .= 'background-color: ' . esc_attr( $buttons_colors['background'] ) . ';';
-		}
-
-		if ( isset( $buttons_colors['text'] ) ) {
-			$buttons_colors_css .= 'color: ' . esc_attr( $buttons_colors['text'] ) . ';';
-		}
-	
-		$style = 'wp-block-navigation-link.wp-element-button a::before {
-			content: none !important;
-		}
-
-		.wp-block-navigation-link.wp-element-button {
-			font: inherit;
-		}
-
-		.wp-block-navigation .wp-block-navigation-link.wp-element-button a {
-			padding: 0.625rem max(1rem,0.75em) !important;
-			text-decoration: none !important;
-			opacity: 1;
-			border: 2px solid currentcolor;
-			border-radius: inherit;
-		}
-
-		.wp-block-navigation .wp-block-navigation-link.is-style-tw-button-outline {
-			background-color: transparent;
-			background-image: none;
-			color: currentcolor !important;
-		}
-
-		.wp-block-navigation .wp-block-navigation-link.is-style-tw-button-fill a {
-			border-color: transparent;'
-			. $buttons_colors_css .';
-		}';
-		
-		add_action( 'wp_head', static function () use ( $style ) {
-			echo '<style>' . twentig_minify_css( $style ) . '</style>';
-		} );
-	}
-
-	return $block_content;
-}
-add_filter( 'render_block_core/navigation-link', 'twentig_filter_navigation_link_block', 10, 2 );
-
-/**
  * Filters the site logo block output.
  *
  * @param string $block_content The block content about to be appended.
@@ -640,48 +414,11 @@ function twentig_filter_site_logo_block( $block_content, $block ) {
 				echo "<style>$style</style>";
 			}
 		);
-		
+
 	}
 	return $block_content;
 }
 add_filter( 'render_block_core/site-logo', 'twentig_filter_site_logo_block', 10, 2 );
-
-/**
- * Filters the gallery block output.
- *
- * @param string $block_content The block content about to be appended.
- * @param array  $block         The full block, including name and attributes.
- */
-function twentig_filter_gallery_block( $block_content, $block ) {
-
-	if ( ! twentig_theme_supports_spacing() ) {
-		return $block_content;
-	}
-
-	$attributes = $block['attrs'] ?? array();
-	$gap = $attributes['style']['spacing']['blockGap'] ?? null;
-	$gap = is_array( $gap ) && isset( $gap['left'] ) ? $gap['left'] : null;
-	$gap = $gap ? $gap : '16px';
-
-	if ( $gap && str_contains( $gap, 'px' ) ) {
-		$class_names = array();
-		$gap_value   = intval( $gap );
-
-		if ( $gap_value > 32 ) {
-			$class_names[] = 'tw-large-gap';
-		} elseif ( $gap_value > 16 ) {
-			$class_names[] = 'tw-medium-gap';
-		}
-		if ( $class_names ) {
-			$tag_processor = new WP_HTML_Tag_Processor( $block_content );
-			$tag_processor->next_tag();
-			$tag_processor->add_class( implode( ' ', $class_names ) );
-			$block_content = $tag_processor->get_updated_html();
-		}
-	}
-	return $block_content;
-}
-add_filter( 'render_block_core/gallery', 'twentig_filter_gallery_block', 10, 2 );
 
 /**
  * Filters the separator block output.
@@ -691,46 +428,33 @@ add_filter( 'render_block_core/gallery', 'twentig_filter_gallery_block', 10, 2 )
  */
 function twentig_filter_separator_block( $block_content, $block ) {
 	$attributes = $block['attrs'] ?? array();
+	$width      = $attributes['twWidth'] ?? '';
+	$height     = $attributes['twHeight'] ?? '';
+	$style      = '';
 
-	if ( isset( $attributes['className'] )
-		&& 
-		( str_contains( $attributes['className'], 'is-style-dots' ) || str_contains( $attributes['className'], 'is-style-tw-asterisks' ) )
-	) {
+	if ( ( empty( $width ) && empty( $height ) ) || str_contains( $block_content, 'is-style-dots' ) || str_contains( $block_content, 'is-style-tw-asterisks' ) ) {
 		return $block_content;
 	}
-	
-	$class_names = array();
-	$style       = '';
 
-	if ( ! empty( $attributes['twWidth'] ) ) {
-		$style .= 'width:' . esc_attr( $attributes['twWidth'] ) . ';max-width:100%;';
+	$tag_processor = new WP_HTML_Tag_Processor( $block_content );
+	$tag_processor->next_tag();
+
+	if ( ! empty( $width ) ) {
+		$style .= 'width:' . esc_attr( $width ) . '; max-width:100%;';
 	}
 
-	if ( ! empty( $attributes['twHeight'] ) ) {
-		$style .= 'height:' . esc_attr( $attributes['twHeight'] ) . ';';
-		if ( ! empty( $attributes['twWidth'] ) && intval( $attributes['twHeight'] ) > intval($attributes['twWidth'] ) ) {
-			$class_names[] = 'is-vertical';
+	if ( ! empty( $height ) ) {
+		$style .= 'height:' . esc_attr( $height ) . ';';
+		if ( ! empty( $width ) && intval( $height ) > intval( $width ) ) {
+			$tag_processor->add_class( 'is-vertical' );
 		}
 	}
 
-	if ( $class_names || $style ) {
-		$tag_processor = new WP_HTML_Tag_Processor( $block_content );
-		$tag_processor->next_tag();
+	$style_attr = $tag_processor->get_attribute( 'style' );
+	$style     .= $style_attr;
+	$tag_processor->set_attribute( 'style', $style );
 
-		if ( $class_names ) {
-			$tag_processor->add_class( implode( ' ', $class_names ) );
-		}
-
-		if ( $style ) {
-			$style_attr = $tag_processor->get_attribute( 'style' );
-			$style     .= $style_attr;
-			$tag_processor->set_attribute( 'style', $style );
-		}
-
-		$block_content = $tag_processor->get_updated_html();
-	}
-
-	return $block_content;
+	return $tag_processor->get_updated_html();
 }
 add_filter( 'render_block_core/separator', 'twentig_filter_separator_block', 10, 2 );
 
@@ -780,30 +504,31 @@ add_filter( 'render_block_core/post-featured-image', 'twentig_filter_post_featur
  * @param array  $block         The full block, including name and attributes.
  */
 function twentig_filter_details_block( $block_content, $block ) {
-	if ( ! empty( $block['attrs']['twIcon'] ) ) {
-		$icon_type     = $block['attrs']['twIcon'];
-		$icon_position = $block['attrs']['twIconPosition'] ?? 'right' ;
-		
-		$tag_processor = new WP_HTML_Tag_Processor( $block_content );
-		$tag_processor->next_tag();
-		$tag_processor->add_class( 'tw-has-icon' );	
-
-		if ( 'left' === $icon_position ) {
-			$tag_processor->add_class( 'tw-has-icon-' . esc_html( $icon_position ) );	
-		}
-
-		$block_content = $tag_processor->get_updated_html();
-
-		$icon = '<svg class="details-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="true" focusable="false"><path d="m12 15.375-6-6 1.4-1.4 4.6 4.6 4.6-4.6 1.4 1.4-6 6Z"></path></svg>';
-		if ( 'plus' === $icon_type ) {
-			$icon = '<svg class="details-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="true" focusable="false"><path class="plus-vertical" d="M11 6h2v12h-2z"/><path d="M6 11h12v2H6z"/></svg>';
-		} elseif ( 'plus-circle' === $icon_type ) {
-			$icon = '<svg class="details-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="true" focusable="false"><path d="M12 3.75c4.55 0 8.25 3.7 8.25 8.25s-3.7 8.25-8.25 8.25-8.25-3.7-8.25-8.25S7.45 3.75 12 3.75M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2Z" /><path d="M11.125 7.5h1.75v9h-1.75z" class="plus-vertical" /><path d="M7.5 11.125h9v1.75h-9z" /></svg>';
-		}
-
-		return str_replace( '</summary>', $icon . '</summary>', $block_content );
+	$icon_type = $block['attrs']['twIcon'] ?? '';
+	
+	if ( empty( $icon_type ) ) {
+		return $block_content;
 	}
-	return $block_content;
+
+	$icon_position = $block['attrs']['twIconPosition'] ?? 'right';
+	$tag_processor = new WP_HTML_Tag_Processor( $block_content );
+	$tag_processor->next_tag();
+	$tag_processor->add_class( 'tw-has-icon' );
+
+	if ( 'left' === $icon_position ) {
+		$tag_processor->add_class( 'tw-has-icon-' . esc_html( $icon_position ) );
+	}
+
+	$block_content = $tag_processor->get_updated_html();
+
+	$icon = '<svg class="details-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="true" focusable="false"><path d="m12 15.375-6-6 1.4-1.4 4.6 4.6 4.6-4.6 1.4 1.4-6 6Z"></path></svg>';
+	if ( 'plus' === $icon_type ) {
+		$icon = '<svg class="details-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="true" focusable="false"><path class="plus-vertical" d="M11 6h2v12h-2z"/><path d="M6 11h12v2H6z"/></svg>';
+	} elseif ( 'plus-circle' === $icon_type ) {
+		$icon = '<svg class="details-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="true" focusable="false"><path d="M12 3.75c4.55 0 8.25 3.7 8.25 8.25s-3.7 8.25-8.25 8.25-8.25-3.7-8.25-8.25S7.45 3.75 12 3.75M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2Z" /><path d="M11.125 7.5h1.75v9h-1.75z" class="plus-vertical" /><path d="M7.5 11.125h9v1.75h-9z" /></svg>';
+	}
+
+	return str_replace( '</summary>', $icon . '</summary>', $block_content );
 }
 add_filter( 'render_block_core/details', 'twentig_filter_details_block', 10, 2 );
 
@@ -827,7 +552,6 @@ function twentig_add_block_animation( $block_content, $block ) {
 				'strategy'  => 'defer',
 			)
 		);
-		
 		$attributes = $block['attrs'];
 		$animation  = $attributes['twAnimation'];
 		$duration   = $attributes['twAnimationDuration'] ?? '';
@@ -848,7 +572,7 @@ function twentig_add_block_animation( $block_content, $block ) {
 			$tag_processor->set_attribute( 'style', esc_attr( $style ) );
 		}
 
-		return $tag_processor->get_updated_html();		
+		return $tag_processor->get_updated_html();
 	}
 
 	return $block_content;

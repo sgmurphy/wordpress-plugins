@@ -2,10 +2,10 @@
 Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
-Tested up to: 6.5
-Stable tag: 1.0.52
+Tested up to: 6.6
+Stable tag: 1.0.53
 Requires PHP: 5.6
-License: GPLv2 or later
+License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 SureTriggers is an all in one WordPress Automation Plugin & Platform. Automate tasks, connect apps & streamline workflows with NO CODE! Powerful & Easy-to-Use for WordPress & Beyond.
@@ -326,6 +326,9 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.53 - Wednesday, 17th July 2024 =
+* Improvement: Make WordPress 6.6 compatible
 
 = Version 1.0.52 - Friday, 12th July 2024 =
 * Improvement: "GiveWP" - Fixed pagination issue in form listing

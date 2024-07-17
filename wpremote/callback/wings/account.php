@@ -47,22 +47,22 @@ class BVAccountCallback extends BVCallbackBase {
 		$settings = $this->settings;
 		switch ($request->method) {
 		case "addacc":
-			WPRAccount::addAccount($this->settings, $params['public'], $params['secret']);
-			$resp = array("status" => WPRAccount::exists($this->settings, $params['public']));
+			WPRAccount::addAccount($settings, $params['public'], $params['secret']);
+			$resp = array("status" => WPRAccount::exists($settings, $params['public']));
 			break;
 		case "rmacc":
-			$resp = array("status" => WPRAccount::remove($this->settings, $params['public']));
+			$resp = array("status" => WPRAccount::remove($settings, $params['public']));
 			break;
 		case "updt":
 			$account->updateInfo($params);
-			$resp = array("status" => WPRAccount::exists($this->settings, $params['pubkey']));
+			$resp = array("status" => WPRAccount::exists($settings, $params['pubkey']));
 			break;
 		case "updtapikey":
-			WPRAccount::updateApiPublicKey($this->settings, $params['pubkey']);
-			$resp = array("status" => $this->settings->getOption(WPRAccount::$api_public_key));
+			WPRAccount::updateApiPublicKey($settings, $params['pubkey']);
+			$resp = array("status" => $settings->getOption(WPRAccount::$api_public_key));
 			break;
 		case "rmbvscrt":
-			$resp = array("status" => $settings->deleteOption('bvSecretKey'));
+			$resp = array("status" => WPRRecover::deleteDefaultSecret($settings));
 			break;
 		case "rmbvkeys":
 			$resp = array("status" => $settings->deleteOption('bvKeys'));
@@ -74,7 +74,7 @@ class BVAccountCallback extends BVCallbackBase {
 			$resp = array("status" => $settings->deleteOption('bvAccounts'));
 			break;
 		case "fetch":
-			$accounts = WPRAccount::allAccounts($this->settings);
+			$accounts = WPRAccount::allAccounts($settings);
 			if (!isset($params['full'])) {
 				foreach ($accounts as &$account) {
 					if (isset($account['secret'])) {

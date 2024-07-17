@@ -392,7 +392,13 @@
 
         if ($i == 0) {
 
-          $base = $base . DIRECTORY_SEPARATOR . $fileList[$i];
+          $dir = $base . DIRECTORY_SEPARATOR . $fileList[$i];
+          $base = $dir;
+          if (is_readable($dir)) {
+            if (sizeof(scandir($dir)) <= 2) {
+              $paths[] = $dir . ',0';
+            }
+          }
           continue;
 
         }

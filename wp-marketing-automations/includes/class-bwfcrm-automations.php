@@ -605,23 +605,23 @@ if ( ! class_exists( 'BWFCRM_Automations' ) && BWFAN_Common::is_pro_3_0() ) {
 
 			$tiles = [
 				[
-					'l' => 'Contacts',
+					'l' => __( 'Contacts', 'wp-marketing-automations' ),
 					'v' => '',
 				],
 				[
-					'l' => 'Sent',
+					'l' => __( 'Sent', 'wp-marketing-automations' ),
 					'v' => empty( $sent ) ? '-' : $sent,
 				],
 				[
-					'l' => 'Opened',
+					'l' => __( 'Opened', 'wp-marketing-automations' ),
 					'v' => empty( $open_count ) ? '-' : $open_count . ' (' . $open_rate . '%)',
 				],
 				[
-					'l' => 'Clicked',
+					'l' => __('Clicked', 'wp-marketing-automations' ),
 					'v' => empty( $click_count ) ? '-' : $click_count . ' (' . $click_rate . '%)',
 				],
 				[
-					'l' => 'Click to Open',
+					'l' => __( 'Click to Open', 'wp-marketing-automations' ),
 					'v' => empty( $click_to_open_rate ) ? '-' : $click_to_open_rate . '%',
 				]
 			];

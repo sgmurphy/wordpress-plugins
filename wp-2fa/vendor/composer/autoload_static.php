@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3050
+class ComposerStaticInit29692
 {
     public static $files = array (
         'a9ed0d27b5a698798a89181429f162c5' => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib/Common/customFunctions.php',
@@ -84,6 +84,7 @@ class ComposerStaticInit3050
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'WP2FA\\Admin\\Controllers\\Methods' => __DIR__ . '/../..' . '/includes/classes/Admin/Controllers/class-methods.php',
         'WP2FA\\Admin\\Controllers\\Settings' => __DIR__ . '/../..' . '/includes/classes/Admin/Controllers/class-settings.php',
+        'WP2FA\\Admin\\FlyOut\\FlyOut' => __DIR__ . '/../..' . '/includes/classes/Admin/Fly-Out/class-flyout.php',
         'WP2FA\\Admin\\Help_Contact_Us' => __DIR__ . '/../..' . '/includes/classes/Admin/class-help-contact-us.php',
         'WP2FA\\Admin\\Helpers\\Ajax_Helper' => __DIR__ . '/../..' . '/includes/classes/Admin/Helpers/class-ajax-helper.php',
         'WP2FA\\Admin\\Helpers\\Classes_Helper' => __DIR__ . '/../..' . '/includes/classes/Admin/Helpers/class-classes-helper.php',
@@ -160,6 +161,11 @@ class ComposerStaticInit3050
         
         
         
+        
+        
+        
+        
+        
         'WP2FA\\Methods\\Backup_Codes' => __DIR__ . '/../..' . '/includes/classes/Admin/Methods/class-backup-codes.php',
         'WP2FA\\Methods\\Email' => __DIR__ . '/../..' . '/includes/classes/Admin/Methods/class-email.php',
         'WP2FA\\Methods\\TOTP' => __DIR__ . '/../..' . '/includes/classes/Admin/Methods/class-totp.php',
@@ -174,6 +180,7 @@ class ComposerStaticInit3050
         'WP2FA\\Utils\\Request_Utils' => __DIR__ . '/../..' . '/includes/classes/Utils/class-request-utils.php',
         'WP2FA\\Utils\\Settings_Utils' => __DIR__ . '/../..' . '/includes/classes/Utils/class-settings-utils.php',
         'WP2FA\\Utils\\User_Utils' => __DIR__ . '/../..' . '/includes/classes/Utils/class-user-utils.php',
+        'WP2FA\\Utils\\White_Label' => __DIR__ . '/../..' . '/includes/classes/Utils/class-white-label.php',
         'WP2FA\\WP2FA' => __DIR__ . '/../..' . '/includes/classes/class-wp2fa.php',
         'WP2FA_Vendor\\Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
     );
@@ -181,9 +188,9 @@ class ComposerStaticInit3050
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3050::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3050::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit3050::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit29692::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit29692::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit29692::$classMap;
 
         }, null, ClassLoader::class);
     }

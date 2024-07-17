@@ -3,7 +3,7 @@ author: المنتور فارسی
 Contributors: mohammadr3z
 Tags: elementor,persian,المنتور
 Requires at least: 5.0
-Tested up to: 6.5.5
+Tested up to: 6.6.0
 Requires PHP: 7.4
 Stable tag: 2.7.6.2
 License: GPLv2 or later

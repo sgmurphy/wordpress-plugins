@@ -4,12 +4,12 @@ Donate link: https://quadlayers.com/products/woocommerce-checkout-manager/
 Tags: checkout field editor, woocommerce checkout field editor, checkout manager, woocommerce checkout manager, checkout field customizer, checkout form editor, checkout form customizer, checkout, WooCommerce checkout, checkout form designer, woocommerce checkout fields, woocommerce checkout addons
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 6.5
-Stable tag: 7.5.3
+Tested up to: 6.6
+Stable tag: 7.5.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 4.0
-WC tested up to: 9.0
+WC tested up to: 9.1
 
 Checkout Field Manager (Checkout Manager) for WooCommerce is the best plugin most advanced "Checkout Manager" to customize checkout fields on your WooCommerce checkout page.
 
@@ -152,6 +152,12 @@ Your Order data can be reviewed in each order within the default WooCommerce Ord
 10. Handle uploaded files in order admin dashboard.
 
 == Changelog ==
+
+=  7.5.5
+* WooCommerce compatibility
+
+=  7.5.4
+* Fix Timepicker checkout field
 
 =  7.5.3
 * Fix update my account fields

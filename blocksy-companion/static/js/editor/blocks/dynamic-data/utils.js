@@ -11,6 +11,7 @@ export const getLabelForProvider = (provider) => {
 			toolset: 'Toolset',
 			jetengine: 'Jet Engine',
 			pods: 'Pods',
+			acpt: 'ACPT',
 		}[provider] || __('Unknown', 'blocksy-companion')
 	)
 }

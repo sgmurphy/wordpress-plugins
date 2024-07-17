@@ -62,7 +62,7 @@ if($arilewp_project_disabled == true): ?>
 							</div>
 				<?php } } else { 
 				
-			if('InteriorPress' == $activate_theme || 'DecorPress' == $activate_theme || 'Interior Startup' == $activate_theme){					
+			if('InteriorPress' == $activate_theme || 'DecorPress' == $activate_theme || 'Interior Startup' == $activate_theme || 'Interior Space' == $activate_theme){					
 			    $project1_title = 'RESIDENTIAL DESIGN';
 				$project2_title = 'COMMERCIAL DESIGN';
 				$project3_title = 'HOUSING PROJECT';

@@ -7,10 +7,16 @@
   if (!defined('ABSPATH')) exit;
   
   $bmiGDriveBackupTooltip = 'Google Drive';
+  $bmiFtpBackupTooltip = 'FTP';
   if (!defined('BMI_PRO_INC')) {
     $bmiGDriveBackupTooltip = __('%sNever lose a backup by also saving it on Google Drive!%s%sUpgrade to %sPremium%s today%s%s%sWe made it really affordable!%s', 'backup-backup');
     $bmiGDriveBackupTooltip = sprintf($bmiGDriveBackupTooltip, '<div class="bmi-center-text">', '<br>', '<a href="' . BMI_AUTHOR_URI . '" target="_blank">', '<span class="bmi-premium-bg-stars">', '</span>', '</a>', '<br>', '<b>', '</b>', '</div>');
   }
+
+    if (!defined('BMI_PRO_INC')) {
+      $bmiFtpBackupTooltip = __('%sNever lose a backup by also saving it on FTP!%s%sUpgrade to %sPremium%s today%s%s%sWe made it really affordable!%s', 'backup-backup');
+      $bmiFtpBackupTooltip = sprintf($bmiFtpBackupTooltip, '<div class="bmi-center-text">', '<br>', '<a href="' . BMI_AUTHOR_URI . '" target="_blank">', '<span class="bmi-premium-bg-stars">', '</span>', '</a>', '<br>', '<b>', '</b>', '</div>');
+    }
 
 ?>
 
@@ -35,6 +41,10 @@
           <svg class="list-storage-img strg-gdrive tooltip-html" tooltip="<?php echo esc_attr( $bmiGDriveBackupTooltip ); ?>" data-top="5">
             <use xlink:href="<?php echo $this->get_asset('images', 'google-drive-mono.svg#img') ?>"></use>
           </svg>
+
+            <svg class="list-storage-img strg-ftp tooltip-html" tooltip="<?php echo esc_attr( $bmiFtpBackupTooltip ); ?>" data-top="5">
+                <use xlink:href="<?php echo $this->get_asset('images', 'ftp-mono.svg#img') ?>"></use>
+            </svg>
 
         </div>
         <?php if (defined('BMI_PRO_INC')): ?>

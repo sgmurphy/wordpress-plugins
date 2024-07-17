@@ -1,5 +1,15 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.34 - 2024-07-09
+
+### Fixes
+
+- Prevent Stripe race condition inserting duplicate payment records
+- Fix Customer Information Summary Twig Not Displaying Correctly
+- Formidable Forms fields and form not editable
+- Update twig - remove deprecated function twig_date_converter
+- Setup Wizard Gets 'Stuck' If Abandoned Before Appt Type is Saved
+
 ## SSA-VERSION-PREFIX.6.7.30 - 2024-06-25
 
 ### Fixes

@@ -21,13 +21,12 @@
   $domain = site_url();
   $tooltip_exclude_file = __("Enter the paths to the files you want to exclude from your backup (one per line).", 'backup-backup');
   $tooltip_exclude_path = __("Enter the paths to the directories/folders you want to exclude from your backup (one per line).", 'backup-backup');
-  $tooltip_premium_details = __("You can already exclude files based on filters (click on “Yes” below), however in the premium plugin you’ll also be able to browse through them.", 'backup-backup') . "<br><br>";
+  $tooltip_premium_details = __("You can already exclude files based on filters (click on “Yes” below), however in the premium plugin you’ll also be able to browse through them.", 'backup-backup');
 
   $tooltip_files = str_replace('"', '“', $tooltip_files);
   $tooltip_premium_details = str_replace('"', '“', $tooltip_premium_details);
 
   if (defined('BMI_PREMIUM_TOOLTIP')) {
-    $tooltip_premium_details .= str_replace('"', "'", BMI_PREMIUM_TOOLTIP);
     $tooltip_smart_exclusion = str_replace('"', "'", BMI_PREMIUM_TOOLTIP);
   }
 
@@ -36,6 +35,32 @@
   if (!function_exists('bmi_cb_collapsible')) {
     function bmi_cb_collapsible($c) {
       echo ' class="bmi_will_collapse" data-if-checked="' . $c . '"';
+    }
+  }
+
+  $pros = false;
+  if (defined('BMI_BACKUP_PRO') && BMI_BACKUP_PRO == 1) {
+    $pros = true;
+  }
+
+  if (!function_exists('bmi_pro_features')) {
+    function bmi_pro_features($pros, $ready, $tooltip) {
+      if ($pros) {
+        echo 'function';
+      } else {
+        if ($ready) {
+          $tooltipAttr = "data-ready";
+        } else {
+          if (defined('BMI_PREMIUM_TOOLTIP')) {
+            $tooltip .= "<br><br>";
+            $tooltip .= str_replace('"', "'", BMI_PREMIUM_TOOLTIP);
+          }
+          $tooltipAttr = "tooltip";
+
+          
+        }
+        echo 'wrapper"' . $tooltipAttr . '="' . $tooltip ;
+      }
     }
   }
 
@@ -69,98 +94,113 @@
   </div>
   <div class="flex file-checkboxes basic-file-exlusion">
 
-    <label for="files-group-plugins">
-      <div class="cf nm">
-        <div class="left nm" id="bmi-scan-plugins">
-          <input type="checkbox" id="files-group-plugins"<?php bmi_try_checked('BACKUP:FILES::PLUGINS'); ?>>
-          <span class="medium"><?php _e("Plugins", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
-        </div>
-        <div class="right mrr premium-wrapper nm" tooltip="<?php echo $tooltip_premium_details; ?>">
-          <div class="nm">
-            <span class="left f15">
-              <?php _e("Details", 'backup-backup'); ?>
-            </span>
-            <span class="right premium premium-img"></span>
+    <div class="backup-files-types">
+      <label for="files-group-plugins" class="fit-content">
+        <div class="cf nm">
+          <div class="left nm" id="bmi-scan-plugins">
+            <input type="checkbox" id="files-group-plugins"<?php bmi_try_checked('BACKUP:FILES::PLUGINS'); ?>>
+            <span class="medium"><?php _e("Plugins", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
           </div>
         </div>
-      </div>
-    </label>
+      </label>
 
-    <label for="files-group-uploads">
-      <div class="cf nm">
-        <div class="left nm" id="bmi-scan-plugins">
-          <input type="checkbox" id="files-group-uploads"<?php bmi_try_checked('BACKUP:FILES::UPLOADS'); ?>>
-          <span id="bmi-scan-uploads">
-            <span class="medium"><?php _e("Uploads", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
-          </span>
-        </div>
-        <div class="right mrr premium-wrapper nm" tooltip="<?php echo $tooltip_premium_details; ?>">
-          <div class="nm">
-            <span class="left f15">
-              <?php _e("Details", 'backup-backup'); ?>
-            </span>
-            <span class="right premium premium-img"></span>
-          </div>
+      <div class="flex right mrr nm premium-<?php bmi_pro_features($pros, true, $tooltip_premium_details); ?>">
+        <div class="nm">
+          <a class="left f15 browse-details pointer" data-browsing-path="plugins">
+            <?php _e("Details", 'backup-backup'); ?>
+          </a>
+          <span class="right premium premium-img"></span>
         </div>
       </div>
-    </label>
+    </div>
 
-    <label for="files-group-themes">
-      <div class="cf nm">
-        <div class="left nm" id="bmi-scan-plugins">
-          <input type="checkbox" id="files-group-themes"<?php bmi_try_checked('BACKUP:FILES::THEMES'); ?>>
-          <span id="bmi-scan-themes">
-            <span class="medium"><?php _e("Themes", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
-          </span>
-        </div>
-        <div class="right mrr premium-wrapper nm" tooltip="<?php echo $tooltip_premium_details; ?>">
-          <div class="nm">
-            <span class="left f15">
-              <?php _e("Details", 'backup-backup'); ?>
+    <div class="backup-files-types">
+      <label for="files-group-uploads" class="fit-content">
+        <div class="cf nm">
+          <div class="left nm" id="bmi-scan-plugins">
+            <input type="checkbox" id="files-group-uploads"<?php bmi_try_checked('BACKUP:FILES::UPLOADS'); ?>>
+            <span id="bmi-scan-uploads">
+              <span class="medium"><?php _e("Uploads", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
             </span>
-            <span class="right premium premium-img"></span>
           </div>
         </div>
+      </label>
+      <div class="flex right mrr nm premium-<?php bmi_pro_features($pros, true, $tooltip_premium_details); ?>">
+        <div class="nm">
+          <a class="left f15 browse-details pointer" data-browsing-path="uploads">
+            <?php _e("Details", 'backup-backup'); ?>
+          </a>
+          <span class="right premium premium-img"></span>
+        </div>
       </div>
-    </label>
+    </div>
 
-    <label for="files-group-other-contents">
-      <div class="cf nm">
-        <div class="left nm" id="bmi-scan-plugins">
-          <input type="checkbox" id="files-group-other-contents"<?php bmi_try_checked('BACKUP:FILES::OTHERS'); ?>>
-          <span id="bmi-scan-contents_others">
-            <span class="medium"><?php _e("Everything else in wp-content", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
-          </span>
-        </div>
-        <div class="right mrr premium-wrapper nm" tooltip="<?php echo $tooltip_premium_details; ?>">
-          <div class="nm">
-            <span class="left f15">
-              <?php _e("Details", 'backup-backup'); ?>
+    <div class="backup-files-types">
+      <label for="files-group-themes" class="fit-content">
+        <div class="cf nm">
+          <div class="left nm" id="bmi-scan-plugins">
+            <input type="checkbox" id="files-group-themes"<?php bmi_try_checked('BACKUP:FILES::THEMES'); ?>>
+            <span id="bmi-scan-themes">
+              <span class="medium"><?php _e("Themes", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
             </span>
-            <span class="right premium premium-img"></span>
           </div>
         </div>
+      </label>
+      <div class="flex right mrr nm premium-<?php bmi_pro_features($pros, true, $tooltip_premium_details); ?>">
+        <div class="nm">
+          <a class="left f15 browse-details pointer" data-browsing-path="themes">
+            <?php _e("Details", 'backup-backup'); ?>
+          </a>
+          <span class="right premium premium-img"></span>
+        </div>
       </div>
-    </label>
+    </div>
 
-    <label for="files-group-wp-install">
-      <div class="cf nm">
-        <div class="left nm" id="bmi-scan-plugins">
-          <input type="checkbox" id="files-group-wp-install"<?php bmi_try_checked('BACKUP:FILES::WP'); ?>>
-          <span id="bmi-scan-wordpress">
-            <span class="medium"><?php _e("WordPress installation", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
-          </span>
-        </div>
-        <div class="right mrr premium-wrapper nm" tooltip="<?php echo $tooltip_premium_details; ?>">
-          <div class="nm">
-            <span class="left f15">
-              <?php _e("Details", 'backup-backup'); ?>
+    <div class="backup-files-types">
+      <label for="files-group-other-contents" class="fit-content">
+        <div class="cf nm">
+          <div class="left nm" id="bmi-scan-plugins">
+            <input type="checkbox" id="files-group-other-contents"<?php bmi_try_checked('BACKUP:FILES::OTHERS'); ?>>
+            <span id="bmi-scan-contents_others">
+              <span class="medium"><?php _e("Everything else in wp-content", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
             </span>
-            <span class="right premium premium-img"></span>
           </div>
         </div>
+      </label>
+      <div class="flex right mrr nm premium-<?php bmi_pro_features($pros, true, $tooltip_premium_details); ?>">
+        <div class="nm">
+          <a class="left f15 browse-details pointer" data-browsing-path="other-contents">
+            <?php _e("Details", 'backup-backup'); ?>
+          </a>
+          <span class="right premium premium-img"></span>
+        </div>
       </div>
-    </label>
+    </div>
+
+    <div class="backup-files-types">
+      <label for="files-group-wp-install" class="fit-content">
+        <div class="cf nm">
+          <div class="left nm" id="bmi-scan-plugins">
+            <input type="checkbox" id="files-group-wp-install"<?php bmi_try_checked('BACKUP:FILES::WP'); ?>>
+            <span id="bmi-scan-wordpress">
+              <span class="medium"><?php _e("WordPress installation", 'backup-backup'); ?></span> <span class="value">(<div class="spinner-loader"></div>)</span>
+            </span>
+          </div>
+        </div>
+      </label>
+      <div class="flex right mrr nm premium-<?php bmi_pro_features($pros, true, $tooltip_premium_details); ?>">
+        <div class="nm">
+          <a class="left f15 browse-details pointer" data-browsing-path="wp-install">
+            <?php _e("Details", 'backup-backup'); ?>
+          </a>
+          <span class="right premium premium-img"></span>
+        </div>
+      </div>
+    </div>
+
+    <?php if(has_action('bmi_pro_files_exclude')): ?>
+      <?php do_action('bmi_pro_files_exclude'); ?>
+    <?php endif; ?>
 
   </div>
   <div class="mtl cf">

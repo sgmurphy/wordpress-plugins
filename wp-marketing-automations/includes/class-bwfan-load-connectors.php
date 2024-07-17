@@ -34,37 +34,12 @@ class BWFAN_Load_Connectors {
 	 * BWFAN_Load_Connectors constructor.
 	 */
 	public function __construct() {
-		add_action( 'plugins_loaded', [ $this, 'load_connectors' ], 8 );
+		add_action( 'plugins_loaded', [ $this, 'load_native_integrations' ], 8 );
 		add_action( 'plugins_loaded', [ $this, 'register_classes' ], 9 );
-	}
 
-	/**
-	 * Return the object of current class
-	 *
-	 * @return null|BWFAN_Load_Connectors
-	 */
-	public static function get_instance() {
-		if ( null === self::$ins ) {
-			self::$ins = new self();
-		}
-
-		return self::$ins;
-	}
-
-	/**
-	 * Include all the Sources's files
-	 */
-	public static function load_connectors() {
-		do_action( 'bwfan_before_automations_loaded' );
-		$integration_dir = __DIR__ . '/native-connectors';
-		foreach ( glob( $integration_dir . '/*/class-*.php' ) as $_field_filename ) {
-			require_once( $_field_filename );
-		}
-
-		if ( bwfan_is_autonami_pro_active() ) {
-
-			do_action( 'bwfan_automations_loaded' );
-		}
+		add_action( 'current_screen', [ $this, 'load_connectors' ], 9 );
+		add_action( 'rest_api_init', [ $this, 'load_connectors_rest_call' ] );
+		add_action( 'admin_init', [ $this, 'load_connectors_ajax_call' ] );
 	}
 
 	/**
@@ -95,6 +70,17 @@ class BWFAN_Load_Connectors {
 	}
 
 	/**
+	 * Include all the Sources's files
+	 */
+	public static function load_native_integrations() {
+		do_action( 'bwfan_before_automations_loaded' );
+		$integration_dir = __DIR__ . '/native-connectors';
+		foreach ( glob( $integration_dir . '/*/class-*.php' ) as $_field_filename ) {
+			require_once( $_field_filename );
+		}
+	}
+
+	/**
 	 * Registers every source as a system source
 	 */
 	public function register_classes() {
@@ -113,6 +99,67 @@ class BWFAN_Load_Connectors {
 	 */
 	public static function get_registered_sources() {
 		return self::$_registered_entity['active'];
+	}
+
+	/**
+	 * Return the object of current class
+	 *
+	 * @return null|BWFAN_Load_Connectors
+	 */
+	public static function get_instance() {
+		if ( null === self::$ins ) {
+			self::$ins = new self();
+		}
+
+		return self::$ins;
+	}
+
+	public function load_connectors() {
+		$screen = get_current_screen();
+		if ( ! is_object( $screen ) ) {
+			return;
+		}
+
+		if ( in_array( $screen->id, [ 'toplevel_page_autonami', 'funnelkit-automations_page_autonami-automations' ], true ) ) {
+			$this->run_connectors();
+		}
+	}
+
+	public function run_connectors() {
+		WFCO_Common::get_connectors_data();
+
+		do_action( 'bwfan_automations_loaded' );
+		do_action( 'bwfan_load_connector_rules' );
+	}
+
+	public function load_connectors_rest_call() {
+		$rest_route = isset( $_GET['rest_route'] ) ? $_GET['rest_route'] : '';
+		if ( empty( $rest_route ) ) {
+			$rest_route = $_SERVER['REQUEST_URI'];
+		}
+		if ( empty( $rest_route ) ) {
+			return;
+		}
+		if ( strpos( $rest_route, 'autonami/' ) === false && strpos( $rest_route, 'woofunnel_customer/' ) === false && strpos( $rest_route, 'funnelkit-app' ) === false && strpos( $rest_route, 'autonami-app' ) === false && strpos( $rest_route, 'funnelkit-automations' ) === false && strpos( $rest_route, 'autonami-webhook' ) === false && strpos( $rest_route, 'woofunnels/' ) === false ) {
+			return;
+		}
+
+		/** Include connectors code */
+		$this->run_connectors();
+	}
+
+	public function load_connectors_ajax_call() {
+		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+			return;
+		}
+		$ajax_action = $_POST['action'] ?? '';
+		$array       = [ 'wfco', 'bwfan' ];
+		foreach ( $array as $value ) {
+			if ( strpos( $ajax_action, $value ) !== false ) {
+				$this->run_connectors();
+				break;
+			}
+		}
 	}
 }
 

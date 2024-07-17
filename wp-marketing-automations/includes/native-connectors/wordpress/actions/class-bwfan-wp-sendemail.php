@@ -296,7 +296,8 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 	 */
 	private function prepare_email_content( $content ) {
 		$has_body      = stripos( $content, '<body' ) !== false;
-		$preview_class = $this->is_preview ? 'bwfan_email_preview' : '';
+		$mergetag_data = BWFAN_Merge_Tag_Loader::get_data();
+		$preview_class = isset( $mergetag_data['is_preview'] ) && true === $mergetag_data['is_preview'] && ! isset( $mergetag_data['send_test_mail'] ) ? 'bwfan-email-preview' : '';
 
 		/** Check if body tag exists */
 		if ( ! $has_body ) {
@@ -430,7 +431,7 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 			return $this->error_response( $result['message'] );
 		}
 
-		return $this->error_response( __( 'Unknown Error occurred during Send Email', 'wp-marketing-automations' ) );
+		return $this->error_response( __( 'Unable to send email via your SMTP. Check SMTP or Mailer settings.', 'wp-marketing-automations' ) );
 	}
 
 	public function check_language_support() {
@@ -560,7 +561,7 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 		}, $emails );
 
 		/** Include extra class before send mail process */
-		BWFAN_Common::bwfan_before_send_mail();
+		BWFAN_Common::bwfan_before_send_mail(isset( $this->data['template'] ) ? $this->data['template'] : '' );
 
 		if ( true === $this->is_preview ) {
 			$this->data['body'] = $this->preview_body;
@@ -586,7 +587,6 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 				$this->data['email'] = $email;
 
 				$this->data['body'] = BWFAN_Common::correct_shortcode_string( $this->data['body'], $this->data['template'] );
-
 				/** Modify email body for engagement tracking */
 				$data_for_engagement            = $this->data;
 				$data_for_engagement['subject'] = isset( $this->data['subject_raw'] ) && ! empty( $this->data['subject_raw'] ) ? $this->data['subject_raw'] : $this->data['subject'];
@@ -682,17 +682,10 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 		$pre_header = '<div class="preheader" style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">' . $pre_header . '</div>';
 
 		/** it will add the space after the pre-header to not show the email body content */
-		if ( true === apply_filters( 'bwfan_email_enable_pre_header_preview_only', false ) ) {
-			$pre_header .= '<div style="display: none; max-height: 0; overflow: hidden;">&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;
-							&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;
-							&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;
-							&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;
-							&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;
-							&#847;&zwnj;&nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;
-							&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;
-							&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;
-							&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;&#847; &zwnj; &nbsp;
-							</div>';
+		if ( apply_filters( 'bwfan_email_enable_pre_header_preview_only', false ) === true ) {
+			$pre_header .= '<div style="display: none; max-height: 0; overflow: hidden;">'
+			               . str_repeat('&#847;&zwnj;&nbsp;', 50) // Adding 50 instances to create enough hidden space
+			               . '</div>';
 		}
 
 		$appended_body = $pre_header . ' ' . $body;
@@ -812,7 +805,7 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 
 		return array(
 			'status'  => 4,
-			'message' => __( 'Unknown Error occurred during Send Email', 'wp-marketing-automations' ),
+			'message' => __( 'Unable to send email via your SMTP. Check SMTP or Mailer settings.', 'wp-marketing-automations' ),
 		);
 	}
 

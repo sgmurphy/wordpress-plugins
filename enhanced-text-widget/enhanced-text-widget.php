@@ -3,7 +3,7 @@
 Plugin Name: Enhanced Text Widget
 Plugin URI: http://wordpress.org/plugins/enhanced-text-widget/
 Description: An enhanced version of the default text widget where you may have Text, HTML, CSS, JavaScript, Flash, Shortcodes, and/or PHP as content with linkable widget title.
-Version: 1.6.6
+Version: 1.6.7
 Author: Clever Widgets
 Author URI: https://themecheck.info
 Text Domain: enhanced-text-widget

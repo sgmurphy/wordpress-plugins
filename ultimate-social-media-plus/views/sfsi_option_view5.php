@@ -49,10 +49,10 @@
 			: 29 => 'mastodon',
         (isset($option5['sfsi_plus_riaIcon_order']))
             ? $option5['sfsi_plus_riaIcon_order']
-            : 30 => 'ria',
+            : 31 => 'ria',
         (isset($option5['sfsi_plus_inhaIcon_order']))
             ? $option5['sfsi_plus_inhaIcon_order']
-            : 31 => 'inha',
+            : 32 => 'inha',
 	);
 	// var_dump($icons_order);
 

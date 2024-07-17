@@ -4,7 +4,7 @@ Tags: paypal, paylater, venmo, credit cards
 Requires at least: 4.7
 Tested up to: 6.6
 Requires PHP: 7.1
-Stable tag: 1.0.49
+Stable tag: 1.0.50
 Copyright: Payment Plugins
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,8 +45,10 @@ Our documentation has a step-by-step guide on how to connect the plugin to your 
 Payment Plugins is the team behind several of the highest reviewed and installed Payment integrations for WooCommerce.
 
 == Changelog ==
+= 1.0.50 - 07/16/24 =
+* Added - WordPress 6.6 compatibility
 = 1.0.49 - 07/10/24 =
-* Fixed - PayPal button still showing if side-cart emptied. [https://wordpress.org/support/topic/hide-paypal-on-funnelkit-checkout/](https://wordpress.org/support/topic/hide-paypal-on-funnelkit-checkout/)
+* Fixed - PayPal button still showing if side-cart emptied. [https://wordpress.org/support/topic/paypal-button-in-empty-minicart/](https://wordpress.org/support/topic/paypal-button-in-empty-minicart/)
 = 1.0.48 - 06/08/24 =
 * Added - ca_CA and fr_FR translation files added
 * Fixed - Notice "Your order can't be shipped to this address." when paying as a guest with card and address hadn't been fully filled out. Notice will only show once address has been

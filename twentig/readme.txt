@@ -2,10 +2,10 @@
 Contributors: twentig
 Donate link: https://www.paypal.com/donate?hosted_button_id=JTBTPQAFEA94E
 Tags: portfolio, gutenberg, gutenberg blocks, templates, twenty twenty four
-Requires at least: 6.3
-Tested up to: 6.5
+Requires at least: 6.4
+Tested up to: 6.6
 Requires PHP: 7.3
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -265,6 +265,13 @@ No, using the Gutenberg plugin on a production site is not recommended because s
 8. **Customize your footer.** Change the layout and style, edit the copyright, remove "Powered by WordPress", and more.
 
 == Changelog ==
+
+= 1.8.3 =
+Release date: July 17, 2024
+
+* Enhancement: Adjusts code for compatibility with WordPress 6.6.
+* Enhancement: Changes the dashboard initial tab for the WordPress playground.
+* Code Quality: Replaces classnames with clsx.
 
 = 1.8.2 =
 Release date: April 2, 2024

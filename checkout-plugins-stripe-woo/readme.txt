@@ -2,7 +2,7 @@
 Contributors: brainstormforce
 Tags: stripe, credit card, apple pay, google pay, express checkout
 Requires at least: 5.4
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.9.1
 Requires PHP: 5.6
 License: GPLv2 or later

@@ -339,7 +339,7 @@ class Ui
 		return( strtolower( substr( $v, 0, 5 ) ) === 'data:' );
 	}
 
-	static function GetSrcAttrData( $v, &$mimeType = null )
+	static function GetSrcAttrData( $v, &$mimeType = null, &$encoding = null )
 	{
 
 		$data = strpos( $v, ',' );
@@ -349,7 +349,8 @@ class Ui
 		$prms = explode( ';', substr( $v, 5, $data - 5 ) );
 		$data = trim( substr( $v, $data + 1 ) );
 		$mimeType = (isset($prms[ 0 ])?$prms[ 0 ]:null);
-		return( ( (isset($prms[ count( $prms ) - 1 ])?$prms[ count( $prms ) - 1 ]:null) == 'base64' ) ? base64_decode( $data ) : false );
+		$encoding = (isset($prms[ count( $prms ) - 1 ])?$prms[ count( $prms ) - 1 ]:null);
+		return( $encoding == 'base64' ? base64_decode( $data ) : false );
 	}
 
 	static function SetSrcAttrData( $data, $mimeType )
@@ -637,7 +638,7 @@ class Ui
 
 	static private function _maskDecode( $v )
 	{
-		$v = explode( ',', $v );
+		$v = strlen( $v ) ? explode( ',', $v ) : array();
 		for( $i = 0; $i < count( $v ); $i++ )
 			$v[ $i ] = function_exists( 'mb_chr' ) ? mb_chr( intval( $v[ $i ] ) ) : chr( intval( $v[ $i ] ) );
 		return( implode( '', $v ) );

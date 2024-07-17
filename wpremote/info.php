@@ -10,7 +10,7 @@ if (!class_exists('WPRInfo')) :
 		public $badgeinfo = 'wprbadge';
 		public $ip_header_option = 'wpripheader';
 		public $brand_option = 'bv_whitelabel_infos';
-		public $version = '5.56';
+		public $version = '5.65';
 		public $webpage = 'https://wpremote.com';
 		public $appurl = 'https://app.wpremote.com';
 		public $slug = 'wpremote/plugin.php';
@@ -60,7 +60,10 @@ if (!class_exists('WPRInfo')) :
 		public function getConnectionKey() {
 			require_once dirname( __FILE__ ) . '/recover.php';
 			$bvsiteinfo = new WPRWPSiteInfo();
-			return base64_encode(WPRRecover::defaultSecret($this->settings).":".$bvsiteinfo->siteurl());
+			$encoded_url = base64_encode($bvsiteinfo->siteurl());
+			$secret = WPRRecover::defaultSecret($this->settings);
+
+			return base64_encode("v1:".$secret.":".$encoded_url);
 		}
 
 		public function getDefaultSecret() {

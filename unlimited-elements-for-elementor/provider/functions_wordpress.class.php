@@ -4052,7 +4052,16 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 	public static function a___________OTHER_FUNCTIONS__________(){
 	}
-
+	
+	/**
+	 * clear all filters of wordpress
+	 * needed for some functionality not to be distrubting by other filters and hooks
+	 */
+	public static function clearAllWPFilters(){
+		global $wp_filter;
+		$wp_filter = array();
+	}
+	
 	/**
 	 * print registered includes
 	 */

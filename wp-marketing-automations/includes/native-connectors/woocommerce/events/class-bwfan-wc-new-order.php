@@ -238,10 +238,7 @@ final class BWFAN_WC_New_Order extends BWFAN_Event {
 		if ( intval( $user_id ) > 0 ) {
 			$data_to_send['global']['user_id'] = $user_id;
 		}
-		$order_lang = '';
-		if ( class_exists( 'woocommerce_wpml' ) && $this->order instanceof WC_Order ) {
-			$order_lang = $this->order->get_meta( 'wpml_language' );
-		}
+		$order_lang = BWFAN_Common::get_order_language( $this->order );
 
 		if ( ! empty( $order_lang ) ) {
 			$data_to_send['global']['language'] = $order_lang;

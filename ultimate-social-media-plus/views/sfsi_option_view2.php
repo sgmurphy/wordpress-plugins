@@ -304,7 +304,7 @@
 	            	<input type="email" name="email" value="<?php echo bloginfo('admin_email'); ?>"  />
 	            </div>
 	           	<div class='sfsi_plus_more_services_link'>
-	                <a class="pop-up" href="javascript:" id="getMeFullAccess" class="sfsi_plus_getMeFullAccess_class" data-nonce-fetch-feed-id="<?php echo wp_create_nonce( 'sfsi_plus_get_feed_id' );?>" title="Give me access">
+	                <a  href="javascript:" id="getMeFullAccess" class="pop-up sfsi_plus_getMeFullAccess_class" data-nonce-fetch-feed-id="<?php echo wp_create_nonce( 'sfsi_plus_get_feed_id' );?>" title="Give me access">
 						<?php _e( 'Click here to benefit from all advantages >', 'ultimate-social-media-plus' ); ?>
 					</a>
 	            </div>

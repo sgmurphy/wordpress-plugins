@@ -149,7 +149,7 @@
     
     // Get "remote_settings" from file created by the server
     public function getRemoteSettings($curlIdenty, $curl = false) : array {
-      $settings_name = 'currentBackupConfig.php';
+      $settings_name = 'currentBackupConfig.' . 'php';
       $settings_path = BMP::fixSlashes(BMI_TMP . DIRECTORY_SEPARATOR . $settings_name);
       
       if (!file_exists($settings_path) && $curl) {
@@ -180,7 +180,7 @@
     
     // Save remote setting for next batch
     public function saveRemoteSettings() {
-      $settings_name = 'currentBackupConfig.php';
+      $settings_name = 'currentBackupConfig.' . 'php';
       $settings_path = BMP::fixSlashes(BMI_TMP . DIRECTORY_SEPARATOR . $settings_name);
       
       $this->remote_settings['identy'] = $this->identy;
@@ -217,7 +217,6 @@
       if ($this->isFunctionEnabled('ini_set') && $this->isFunctionEnabled('session_status') && session_status() != PHP_SESSION_ACTIVE) {
         @ini_set('max_input_time', '259200');
         @ini_set('max_execution_time', '259200');
-        @ini_set('session.gc_maxlifetime', '1200');
       }
       
       if (!isset($this->remote_settings['browser'])) $this->remote_settings['browser'] = false;
@@ -357,6 +356,7 @@
       // Remove backup
       if (file_exists(BMI_BACKUPS . '/.running')) $this->unlinksafe(BMI_BACKUPS . '/.running');
       if (file_exists(BMI_BACKUPS . '/.abort')) $this->unlinksafe(BMI_BACKUPS . '/.abort');
+      if (file_exists(BMI_BACKUPS . '/.last_triggered')) $this->unlinksafe(BMI_BACKUPS . '/.last_triggered');
 
       // Remove group folder
       if (file_exists($this->identyFolder)) {
@@ -743,7 +743,11 @@
             for ($i = 0; $i < sizeof($files); ++$i) {
               
               // Add the file
-              $this->_zip->addFile($files[$i], $this->cutDir($files[$i]));
+              if (is_dir($files[$i])) {
+                $this->_zip->addEmptyDir($this->cutDir($files[$i]));
+              } else {
+                $this->_zip->addFile($files[$i], $this->cutDir($files[$i]));
+              }
               
             }
           } else { 
@@ -770,7 +774,11 @@
               $path = str_replace('\\', '/', $path);
               
               // Add the file
-              $this->_zip->addFile($files[$i], $path);
+              if (is_dir($files[$i])) {
+                $this->_zip->addEmptyDir($path);
+              } else { 
+                $this->_zip->addFile($files[$i], $path);
+              }
               
             }
             
@@ -922,11 +930,11 @@
           continue;
         }
 
-        if (filesize($file) === 0) {
-          $this->output->log('Removing this file from backup (file size is equal to 0 bytes): ' . $file, 'WARN');
-          $this->total_files--;
-          continue;
-        }
+        // if (filesize($file) === 0) {
+        //   $this->output->log('Removing this file from backup (file size is equal to 0 bytes): ' . $file, 'WARN');
+        //   $this->total_files--;
+        //   continue;
+        // }
 
         $parsed_files[] = $file;
         $total_size += $size;
@@ -1276,6 +1284,10 @@
       
       Logger::log("Backup file created successfully via backup-process.php");
       BMP::handle_after_cron();
+      
+      if (has_action('bmi_premium_after_process')){
+        do_action('bmi_premium_after_process', $success, 'backup');
+      }    
       
       return null;
 

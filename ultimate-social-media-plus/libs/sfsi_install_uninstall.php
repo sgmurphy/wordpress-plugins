@@ -430,6 +430,16 @@ function sfsi_plus_update_plugin()
 		if(!isset($option5['sfsi_plus_whatsappIcon_order'])){
 			$option5['sfsi_plus_whatsappIcon_order'] = '27';
 		}
+      if(!isset($option5['sfsi_plus_copylinkIcon_order'])){
+        $option5['sfsi_plus_copylinkIcon_order'] = '30';
+      }
+      if(!isset($option5['sfsi_plus_riaIcon_order'])){
+        $option5['sfsi_plus_riaIcon_order'] = '31';
+      }
+
+      if(!isset($option5['sfsi_plus_inhaIcon_order'])){
+        $option5['sfsi_plus_inhaIcon_order'] = '32';
+      }
         if(!isset($option5['sfsi_icons_suppress_errors'])){
 
         	$sup_errors = "no";
@@ -499,6 +509,15 @@ function sfsi_plus_update_plugin()
 		if(!isset($option1['sfsi_plus_mastodon_display'])){
 			$option1['sfsi_plus_mastodon_display'] = 'no';
 		}
+
+        if(!isset($option1['sfsi_plus_inha_display'])){
+			$option1['sfsi_plus_inha_display'] = 'no';
+		}
+
+      if(!isset($option1['sfsi_plus_ria_display'])){
+        $option1['sfsi_plus_ria_display'] = 'no';
+      }
+
 
 		update_option('sfsi_plus_section1_options', serialize($option1));
 	}
@@ -879,8 +898,9 @@ function sfsi_plus_activate_plugin()
 		'sfsi_plus_wechatIcon_order'=>'26',
 		'sfsi_plus_whatsappIcon_order'=>'27',
 		'sfsi_plus_mastodonIcon_order'=>'28',
-		'sfsi_plus_riaIcon_order'=>'29',
-		'sfsi_plus_inhaIcon_order'=>'30',
+        'sfsi_plus_copylinkIcon_order' => '30',
+		'sfsi_plus_riaIcon_order'=>'31',
+		'sfsi_plus_inhaIcon_order'=>'32',
         'sfsi_plus_CustomIcons_order'=>'',
         'sfsi_plus_rss_MouseOverText'=>'RSS',
         'sfsi_plus_email_MouseOverText'=>'Follow by Email',

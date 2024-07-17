@@ -95,11 +95,11 @@ class NoticeBuilder {
 						$dissmissUrl = ' data-dismiss-url="' . esc_url( $dismiss_url ) . '"';
 					}
 
-					?><div class="notice cs-notice notice-<?php echo $type . $canDissmiss; ?>" <?php echo $dissmissUrl; ?>>
+					?><div class="notice cs-notice notice-<?php echo \esc_attr( $type . $canDissmiss ); ?>" <?php echo \esc_attr( $dissmissUrl ); ?>>
 						<p>
-							<strong><?php echo CS_RTAFAR_PLUGIN_NAME; ?></strong>
+							<strong><?php echo \esc_html( CS_RTAFAR_PLUGIN_NAME ); ?></strong>
 						</p>
-						<p><?php echo $admin_notice->message; ?></p>
+						<p><?php echo \wp_kses_post( $admin_notice->message ); ?></p>
 
 					</div>
 						<?php

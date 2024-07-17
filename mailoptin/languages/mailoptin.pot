@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailOptin - Lite 1.2.70.0\n"
+"Project-Id-Version: MailOptin - Lite 1.2.70.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-14T09:21:43+00:00\n"
+"POT-Creation-Date: 2024-07-17T14:55:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: mailoptin\n"
@@ -125,8 +125,8 @@ msgstr ""
 #: src/connections/ZohoCRMConnect/Connect.php:95
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/SettingsFields.php:37
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:528
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:134
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:954
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:137
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:957
 #: src/core/src/Admin/SettingsPage/AddEmailCampaign.php:78
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:382
 #: src/core/src/AjaxHandler.php:1197
@@ -1939,7 +1939,7 @@ msgid "Job Title"
 msgstr ""
 
 #: src/connections/Ctctv3Connect/Connect.php:159
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:800
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:803
 msgid "Company Name"
 msgstr ""
 
@@ -2363,7 +2363,7 @@ msgstr ""
 msgid "Select a verified sender that will be used for sending emails to your E-Goi contacts."
 msgstr ""
 
-#: src/connections/ElasticEmailConnect/AbstractElasticEmailConnect.php:76
+#: src/connections/ElasticEmailConnect/AbstractElasticEmailConnect.php:74
 msgid "Elastic Email API Key not found."
 msgstr ""
 
@@ -2387,7 +2387,7 @@ msgstr ""
 #: src/connections/ElementorConnect/Elementor.php:90
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:554
 #: src/core/src/Admin/Customizer/CustomizerTrait.php:275
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:316
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:319
 msgid "Select Email List"
 msgstr ""
 
@@ -3966,8 +3966,8 @@ msgstr ""
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Image.php:64
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/SettingsFields.php:172
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:633
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1431
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1455
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1434
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1458
 msgid "Left"
 msgstr ""
 
@@ -3975,8 +3975,8 @@ msgstr ""
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Button.php:83
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Image.php:66
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:634
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1432
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1456
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1435
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1459
 msgid "Center"
 msgstr ""
 
@@ -3985,8 +3985,8 @@ msgstr ""
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Image.php:65
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/SettingsFields.php:164
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:635
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1433
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1457
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1436
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1460
 msgid "Right"
 msgstr ""
 
@@ -5307,7 +5307,7 @@ msgstr ""
 #: src/connections/WebHookConnect/Connect.php:139
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:84
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:606
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1343
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1346
 msgid "Date"
 msgstr ""
 
@@ -5933,11 +5933,11 @@ msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/AbstractElement.php:40
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Button.php:61
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1011
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1046
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1184
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1304
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1584
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1014
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1049
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1187
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1307
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1587
 #: src/core/src/Admin/Customizer/OptinForm/CustomizerControls.php:199
 msgid "Background Color"
 msgstr ""
@@ -6182,7 +6182,7 @@ msgid "Embed a list of posts."
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:49
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:231
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:234
 msgid "Select Post Type"
 msgstr ""
 
@@ -6199,22 +6199,22 @@ msgid "Post Content Length"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:72
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:224
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:227
 msgid "Number of words to limit the post content to. Set to \"0\" for full post content."
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:80
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1337
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1340
 msgid "Post Meta Data"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:83
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1341
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1344
 msgid "Author"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:85
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1342
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1345
 msgid "Categories"
 msgstr ""
 
@@ -6223,12 +6223,12 @@ msgid "Read More Link Text"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:96
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1374
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1377
 msgid "Remove Featured Image"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:101
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1363
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1366
 msgid "Remove Post Content"
 msgstr ""
 
@@ -6237,12 +6237,12 @@ msgid "Remove Read More Link"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:111
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1384
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1387
 msgid "Fallback Featured Image"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:116
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1315
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1318
 msgid "Post Title Color"
 msgstr ""
 
@@ -7037,466 +7037,466 @@ msgstr ""
 msgid "Send Test Email"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:114
-msgid "Available placeholders for use in subject line:%s %s %s %s"
-msgstr ""
-
 #: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:116
-msgid "title of new published post."
+msgid "Title of the new published post."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:118
-msgid "date email is sent out. Accept PHP date format like so {{date format=\"l jS\"}}"
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:119
+msgid "Date the email is sent out. Accepts PHP date format like this: {{date format=\"l jS\"}}"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:157
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:121
+msgid "Available placeholders for use in the subject line:"
+msgstr ""
+
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:160
 msgid "Automation Title"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:167
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:475
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:170
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:478
 #: src/core/src/Admin/SettingsPage/AddNewsletter.php:33
 msgid "Email Subject"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:170
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:173
 msgid "Enter a subject for the email."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:180
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:183
 msgid "Preview Text (Preheader)"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:183
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:186
 msgid "Think of it as a subtitle for your subject line. Typically displayed after the email subject."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:194
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:197
 msgid "Maximum Number of Posts"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:205
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:208
 msgid "Content Type"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:210
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:572
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:213
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:575
 msgid "Post Content"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:211
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:583
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:214
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:586
 msgid "Post Excerpt"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:221
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:224
 msgid "Content Length"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:234
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:237
 msgid "WordPress Posts"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:235
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:238
 msgid "By default, automation works with WordPress posts. To make it work with a custom post type instead? Select one."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:253
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:256
 msgid "Restrict to Post Categories"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:254
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:257
 msgid "Only include posts that has either of the selected categories."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:267
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:270
 msgid "Restrict to Post Tags"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:268
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:271
 msgid "Only include posts that has either of the selected tags."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:281
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:284
 msgid "Restrict to Post Authors"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:282
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:285
 msgid "Only include posts that are published by selected authors."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:294
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:297
 msgid "Recipient"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:305
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:308
 msgid "Select Connection"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:309
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:312
 msgid "Choose the email service or connection that newsletter will be sent to."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:320
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:323
 msgid "Email list that newsletter will be sent to."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:328
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:331
 msgid "Schedule"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:340
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:343
 msgid "Send Immediately"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:343
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:346
 msgid "Enable to send newsletter immediately after a post is published."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:352
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:355
 msgid "Send Email"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:366
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:369
 msgid "When should we send?"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:416
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:419
 msgid "Upgrade to %sMailOptin Pro%s to support custom post types and restrict by post categories, tags, authors and custom taxonomies."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:440
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:443
 msgid "%sUpgrade your MailOptin plan%s to send email campaigns directly to your list in Mailchimp, Campaign Monitor, AWeber, Constant Contact, Drip, MailerLite, ActiveCampaign etc. and to customers/users in WooCommerce, MemberPress, LearnDash, Paid Memberships Pro, Easy Digital Downloads, GiveWP, LifterLMS, Restrict Content Pro, Tutor LMS."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:550
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:553
 msgid "Post Tags"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:561
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:564
 msgid "Post Title"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:594
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:597
 msgid "Feature Image"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:597
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:600
 msgid "HTML image of post's featured image."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:606
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:609
 msgid "Feature Image URL"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:610
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:613
 msgid "URL of post's featured image. You can specify a default image if a post doesn't have feature image like so %s"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:620
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:623
 msgid "Post URL"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:631
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:634
 msgid "Post Categories"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:635
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:638
 msgid "Comma-separated list of post categories. Set \"link\" attribute to false to remove the link."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:643
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:646
 msgid "Post Taxonomy Terms"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:647
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:650
 msgid "Comma-separated list of post terms of a taxonomy. Set \"tax\" attribute to the taxonomy name. Set \"link\" attribute to false to remove the link."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:655
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:658
 msgid "Post Date"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:660
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:663
 msgid "Publish date of the post in your local time set in WordPress. You can customize or format the date like so %s[post-date format=\"F j, Y, g:i a\"]%s"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:670
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:673
 msgid "Post Date in GMT"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:675
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:678
 msgid "Publish date of the post in GMT/UTC. You can customize or format the date like so %s[post-date format=\"F j, Y, g:i a\"]%s"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:685
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:688
 msgid "Post Meta Value"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:689
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:692
 msgid "Post meta value of a certain \"meta_key\"."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:697
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:700
 msgid "ACF Field"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:701
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:704
 msgid "ACF value of a certain \"field_name\"."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:709
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:712
 msgid "Post ID"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:720
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:723
 msgid "Author Name"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:723
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:726
 msgid "Set \"link\" attribute to false to remove the link to author's website."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:732
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:735
 msgid "Author Website"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:743
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:746
 msgid "Author Email Address"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:754
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:757
 msgid "Author Profile Picture URL"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:765
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:768
 msgid "Campaign Tags"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:776
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:779
 msgid "Unsubscribe URL"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:780
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:783
 msgid "URL to unsubscribe. This must be in your email template."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:788
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:791
 msgid "Web Version URL"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:792
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:795
 msgid "URL to the web version."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:805
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:808
 msgid "Your company name as defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:815
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:818
 msgid "Company Address"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:820
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:823
 msgid "Your company address as defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:830
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:833
 msgid "Company Address 2"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:835
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:838
 msgid "Company address 2 defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:845
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:848
 msgid "Company City"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:850
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:853
 msgid "Your company city as defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:860
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:863
 msgid "Company State"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:865
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:868
 msgid "Your company state as defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:875
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:878
 msgid "Company Zip Code"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:880
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:883
 msgid "Zip or postal code as defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:890
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:893
 msgid "Company Country"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:895
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:898
 msgid "Your company country defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:963
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:966
 msgid "Preview Post"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:966
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:969
 msgid "Select a post to use as preview"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1000
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1003
 msgid "Send Test Email To"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1013
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1016
 msgid "%sSave changes after entering an email address%s before clicking the button to send the test email. If empty, it will be sent to "
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1061
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1064
 msgid "Upgrade to %sMailOptin Premium%s to access the Custom CSS feature that will allow you customize this template to your heart content."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1087
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1090
 msgid "Content Background Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1099
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1102
 msgid "Content Text Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1150
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1153
 msgid "Remove Header"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1162
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1165
 msgid "Logo"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1168
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1173
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1171
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1176
 msgid "Select Logo"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1169
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1172
 msgid "Change Logo"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1170
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1173
 msgid "Default"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1171
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1174
 msgid "Remove"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1172
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1175
 msgid "No logo selected"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1174
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1177
 msgid "Choose Logo"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1195
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1326
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1595
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1198
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1329
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1598
 msgid "Text Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1204
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1207
 msgid "Header Text"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1205
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1208
 msgid "This is used when template logo is not set."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1214
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1217
 msgid "Web Version Link Label"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1225
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1228
 msgid "Web Version Link Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1282
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1285
 msgid "Before Main Content"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1293
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1296
 msgid "After Main Content"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1353
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1356
 msgid "Remove Title & Image Link to Post"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1387
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1390
 msgid "Enter URL of an image to use when a post lacks a feature image."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1395
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1398
 msgid "Title Font Size"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1412
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1415
 msgid "Body Font Size"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1426
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1429
 msgid "Content Alignment"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1441
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1444
 msgid "Remove Read More Button"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1450
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1453
 msgid "Read More Button Alignment"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1465
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1468
 msgid "Read More Button Background Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1475
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1478
 msgid "Read More Button Text Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1482
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1485
 msgid "Read More Button Label"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1572
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1575
 msgid "Remove Footer"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1606
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1609
 msgid "Footer Font Size"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1621
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1624
 msgid "Copyright Line"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1630
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1633
 msgid "Mailing Address"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1639
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1642
 msgid "Unsubscribe Line"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1648
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1651
 msgid "Unsubscribe Link Label"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1660
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1663
 msgid "Unsubscribe Link Color"
 msgstr ""
 

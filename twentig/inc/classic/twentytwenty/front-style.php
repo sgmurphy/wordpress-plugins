@@ -18,7 +18,7 @@ function twentig_twentytwenty_theme_scripts() {
 
 	if ( $fonts_url ) {
 		if ( get_theme_mod( 'twentig_local_fonts', false ) ) {
-			require_once TWENTIG_PATH . 'inc/wptt-webfont-loader.php';
+			require_once TWENTIG_PATH . 'inc/compat/wptt-webfont-loader.php';
 			wp_register_style( 'twentig-webfonts', '' );
 			wp_enqueue_style( 'twentig-webfonts' );
 			wp_add_inline_style( 'twentig-webfonts', twentig_minify_css( wptt_get_webfont_styles( $fonts_url ) ) );

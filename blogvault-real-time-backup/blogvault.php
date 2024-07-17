@@ -5,7 +5,7 @@ Plugin URI: https://blogvault.net
 Description: Easiest way to backup & secure your WordPress site
 Author: Backup by BlogVault
 Author URI: https://blogvault.net
-Version: 5.56
+Version: 5.65
 Network: True
  */
 
@@ -85,6 +85,9 @@ if ((array_key_exists('bvreqmerge', $_POST)) || (array_key_exists('bvreqmerge', 
 	$_REQUEST = array_merge($_GET, $_POST);
 }
 
+require_once dirname( __FILE__ ) . '/php_error_monitoring/monitoring.php';
+BVWPPHPErrorMonitoring::init();
+
 if ($bvinfo->hasValidDBVersion()) {
 	if ($bvinfo->isServiceActive('activity_log')) {
 		require_once dirname( __FILE__ ) . '/wp_actlog.php';
@@ -129,6 +132,28 @@ if ((array_key_exists('bvplugname', $_REQUEST)) && ($_REQUEST['bvplugname'] == "
 
 			#handling of WP Forms plugin
 			add_filter('wpforms_process_bypass_captcha', '__return_true', PHP_INT_MAX, 3);
+
+			#handling of Forminator plugin
+			if (defined('WP_PLUGIN_DIR')) {
+				$abstractFrontActionFilePath = WP_PLUGIN_DIR . '/forminator/library/abstracts/abstract-class-front-action.php';
+				$frontActionFilePath = WP_PLUGIN_DIR . '/forminator/library/modules/custom-forms/front/front-action.php';
+
+				if (file_exists($abstractFrontActionFilePath) && file_exists($frontActionFilePath)) {
+					require_once $abstractFrontActionFilePath;
+					require_once $frontActionFilePath;
+					if (class_exists('Forminator_CForm_Front_Action')) {
+						Forminator_CForm_Front_Action::$hidden_fields[] = "bv-stripe-";
+					}
+				}
+			}
+
+			#handling of CleanTalk Antispam plugin
+			add_action('init', function() {
+				global $apbct;
+				if (isset($apbct) && is_object($apbct)) {
+					$apbct->settings['forms__contact_forms_test'] = 0;
+				}
+			});
 		} else {
 			define('BVBASEPATH', plugin_dir_path(__FILE__));
 
@@ -157,9 +182,9 @@ if ((array_key_exists('bvplugname', $_REQUEST)) && ($_REQUEST['bvplugname'] == "
 	if ($bvinfo->hasValidDBVersion()) {
 		if ($bvinfo->isProtectModuleEnabled()) {
 			require_once dirname( __FILE__ ) . '/protect/protect.php';
-			add_action('clear_pt_config', array('BVProtect_V556', 'uninstall'));
-			if ($bvinfo->isActivePlugin() && !(defined( 'WP_CLI' ) && WP_CLI)) {
-				BVProtect_V556::init(BVProtect_V556::MODE_WP);
+			add_action('clear_pt_config', array('BVProtect_V565', 'uninstall'));
+			if ($bvinfo->isActivePlugin()) {
+				BVProtect_V565::init(BVProtect_V565::MODE_WP);
 			}
 		}
 

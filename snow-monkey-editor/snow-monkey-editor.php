@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin name: Snow Monkey Editor
- * Version: 10.0.0
+ * Version: 10.0.2
  * Description: Extends gutenberg block editor
  * Author: inc2734
  * Author URI: https://2inc.org
@@ -78,6 +78,7 @@ class Bootstrap {
 		);
 
 		new App\Setup\Assets();
+		new App\Setup\BlockStyles();
 		new App\Setup\CurrentUser();
 		new App\Setup\Endpoint();
 	}

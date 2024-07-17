@@ -69,9 +69,4 @@ class SSA_Blackout_Dates_Settings extends SSA_Settings_Schema {
 
 		return $this->schema;
 	}
-
-	public function update( $new_settings ) {
-		$this->plugin->settings->update_section( $this->slug, $new_settings );
-	}
-
 }

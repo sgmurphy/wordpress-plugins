@@ -3,7 +3,7 @@
 add_action('wp_ajax_UploadSkins','sfsi_UploadSkins');
 function sfsi_UploadSkins()
 {
-	if ( !wp_verify_nonce( $_POST['nonce'], "UploadSkins")) {
+	if ( !wp_verify_nonce( sanitize_text_field($_POST['nonce']), "UploadSkins")) {
       echo  json_encode(array("wrong_nonce")); exit;
     }
     if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }
@@ -89,7 +89,7 @@ function sfsi_UploadSkins()
 add_action('wp_ajax_DeleteSkin','sfsi_DeleteSkin');
 function sfsi_DeleteSkin()
 {
-	if ( !wp_verify_nonce( $_POST['nonce'], "deleteCustomSkin")) {
+	if ( !wp_verify_nonce( sanitize_text_field($_POST['nonce']), "deleteCustomSkin")) {
 		echo  json_encode(array('res'=>"error")); exit;
 	} 
     if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }
@@ -131,7 +131,7 @@ add_action('wp_ajax_Iamdone','sfsi_Iamdone');
 function sfsi_Iamdone()
 {
 	 $return = '';
-	if ( !wp_verify_nonce( $_POST['nonce'], "Iamdone")) {
+	if ( !wp_verify_nonce( sanitize_text_field($_POST['nonce']), "Iamdone")) {
 		echo  json_encode(array('res'=>"error")); exit;
 	}
     if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }
@@ -265,7 +265,7 @@ add_action('wp_ajax_UploadIcons','sfsi_UploadIcons');
 /* uplaod custom icon {change by monad}*/
 function sfsi_UploadIcons()
 {
-	if ( !wp_verify_nonce( $_POST['nonce'], "UploadIcons")) {
+	if ( !wp_verify_nonce( sanitize_text_field($_POST['nonce']), "UploadIcons")) {
 		echo  json_encode(array('res'=>"error")); exit;
 	}
     if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }
@@ -363,7 +363,7 @@ add_action('wp_ajax_deleteIcons','sfsi_deleteIcons');
 
 function sfsi_deleteIcons()
 {
-	if ( !wp_verify_nonce( $_POST['nonce'], "deleteIcons")) {
+	if ( !wp_verify_nonce( sanitize_text_field($_POST['nonce']), "deleteIcons")) {
 		echo  json_encode(array('res'=>"error")); exit;
 	}
     if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }

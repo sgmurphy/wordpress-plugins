@@ -299,7 +299,7 @@ function userfeedback_ajax_activate_addon() {
 		} else {
 			$activate = activate_plugin( $post_data['plugin'] );
 		}
-		
+
 		// Disable MonsterInsights redirect
 		if(strstr($post_data['plugin'], 'google-analytics-for-wordpress')){
 			delete_transient( '_monsterinsights_activation_redirect' );
@@ -452,24 +452,3 @@ function userfeedback_parse_addon( $installed_plugins, $addons_type, $addon, $sl
 
 	return $addon;
 }
-
-
-/**
- * Deactivate unlicensed addons.
- *
- * @since 1.0.0
- */
-function userfeedback_deactivate_unlicensed_addons() {
-	$addons            = userfeedback_get_addons();
-	$unlicensed_addons = ($addons && is_array( $addons['unlicensed'] )) ? $addons['unlicensed'] : array();
-	if ( empty( $unlicensed_addons ) ) {
-		return false;
-	}
-	$deactivate = array();
-	foreach ( $unlicensed_addons as $unlicensed_addon ) {
-		$deactivate[] = "userfeedback-{$unlicensed_addon->slug}/userfeedback-{$unlicensed_addon->slug}.php";
-	}
-	deactivate_plugins( $deactivate );
-}
-
-add_action( 'admin_init', 'userfeedback_deactivate_unlicensed_addons' );

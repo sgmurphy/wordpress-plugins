@@ -110,7 +110,7 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 	 * get layouts array
 	 */
 	public function getArrAddonsShort($order = "", $params = array(), $addonType = null){
-
+		
 		if(empty($params))
 			$params = array();
 
@@ -175,7 +175,7 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 			$objAddon->initByDBRecord($record);
 			$arrAddons[] = $objAddon;
 		}
-
+		
 		return ($arrAddons);
 	}
 
@@ -478,7 +478,7 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 	 */
 	public function getAddonOutput($objAddon, $options = array()){
 		
-		$isWrap = UniteFunctionsUC::getVal($options, "wrap", true);
+		$isWrap = UniteFunctionsUC::getVal($options, "wrap", false);
 		$includeSelectors = UniteFunctionsUC::getVal($options, "selectors", false);
 		$rootId = UniteFunctionsUC::getVal($options, "root_id");
 		
@@ -510,8 +510,8 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 	/**
 	 * get addon output data
 	 */
-	public function getAddonOutputData($addonData){
-
+	public function getAddonOutputData($addonData, $isWrap = false){
+		
 		$objAddon = $this->prepareAddonByData($addonData);
 
 		$rootId = UniteFunctionsUC::getVal($addonData, "root_id");
@@ -521,6 +521,7 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 		return $this->getAddonOutput($objAddon, array(
 			"root_id" => $rootId,
 			"selectors" => $includeSelectors,
+			"wrap"=>$isWrap
 		));
 	}
 

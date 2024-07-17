@@ -337,7 +337,7 @@ class Custom_Login_Url {
 	}
 
 	/**
-	 * Displays an admin notice that additional backup codes have been generated.
+	 * Displays an admin notice that registration is enabled and registration custom URL should be selected.
 	 *
 	 * @since  1.1.0
 	 */
@@ -350,7 +350,7 @@ class Custom_Login_Url {
 		printf(
 			'<div class="notice notice-error" style="position: relative"><p>%1$s</p><button type="button" class="notice-dismiss dismiss-sg-security-notice" data-link="%2$s"><span class="screen-reader-text">Dismiss this notice.</span></button></div>',
 			__( 'You have enabled registration for your site, please <a href="' . admin_url( 'admin.php?page=login-settings' ) . '">select a custom registration URL</a>.', 'sg-security' ), // phpcs:ignore
-			admin_url( 'admin-ajax.php?action=dismiss_sg_security_notice&notice=show_signup_notice' ) // phpcs:ignore
+			wp_nonce_url( admin_url( 'admin-ajax.php?action=dismiss_sg_security_notice&notice=show_signup_notice' ), 'sg-security-signup-notice' ) // phpcs:ignore
 		);
 	}
 
@@ -371,11 +371,19 @@ class Custom_Login_Url {
 	 * @since  1.1.0
 	 */
 	public function hide_notice() {
-		if ( empty( $_GET['notice'] ) ) {
+		if ( empty( $_GET['notice'] ) || ! check_ajax_referer( 'sg-security-signup-notice', 'nonce', false ) ) {
 			return;
 		}
 
-		update_option( 'sg_security_' . $_GET['notice'], 0 ); // phpcs:ignore
+		if ( 'show_signup_notice' !== sanitize_text_field( $_GET['notice'] ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+
+		update_option( 'sg_security_show_signup_notice', 0 );
 
 		wp_send_json_success();
 	}

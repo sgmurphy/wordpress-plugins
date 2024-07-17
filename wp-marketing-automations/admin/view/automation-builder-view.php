@@ -516,7 +516,7 @@ echo '<script id="bwfanAutomationEvents">
                 <div class="bwf-modal-note">
                     <strong>Note: </strong>If you are unsure about migration, click here to read our step-by-step guide to migrating the automation. You can also contact our support for any further
                     questions.
-                    <a href="https://funnelkit.com/docs/autonami-2/automations/migrate-from-older-version/?utm_source=WordPress&utm_medium=Automation+Nextgen+Migrate&utm_campaign=Lite+Plugin" target="_blank" class="bwf-a-no-underline">Learn
+                    <a href="https://funnelkit.com/docs/autonami-2/automations/migrate-from-older-version/?utm_source=WordPress&utm_medium=Automation+Nextgen+Migrate&utm_campaign=FKA+Lite+Plugin" target="_blank" class="bwf-a-no-underline">Learn
                         More</a>
                 </div>
                 <div class="bwf-modal-action">

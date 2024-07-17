@@ -105,6 +105,27 @@
       </div>
       <?php } ?>
 
+        <?php
+        if (has_action('bmi_pro_ftp_template')) {
+
+            do_action('bmi_pro_ftp_template');
+        } else {
+            ?>
+            <div class="tab2-item">
+                <div class="not_ready"></div>
+                <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+                    <?php echo BMI_COMMING_SOON_FREE; ?>
+                </div>
+                <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'ftp.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">FTP</span></div>
+                <div class="ia-center">
+                    <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+                        <div class="bmi-knobs"><span></span></div>
+                        <div class="bmi-layer_str"></div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
       <?php
         if (has_action('bmi_pro_other_storage_options')) {
           do_action('bmi_pro_other_storage_options');

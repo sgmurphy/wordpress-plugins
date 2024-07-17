@@ -3,7 +3,7 @@ Contributors: martin7ba
 Donate link: https://www.martincv.com/whp-donate
 Tags: hide posts, hide, show, visibility, hide products
 Requires at least: 5.0
-Tested up to: 6.5.5
+Tested up to: 6.6
 Requires PHP: 7.3
 Stable tag: 1.1.1
 License: GPLv3 or later

@@ -202,6 +202,22 @@
       $this->backupStorage = str_replace('/', DIRECTORY_SEPARATOR, $this->backupStorage);
 
     }
+    
+    public function removeUnwantedFiles() {
+      $preventMoveFiles = [
+        'wp-config.php',
+        'debug.log',
+        '.user.ini',
+        'php.ini',
+        '.htaccess'
+      ];
+      
+      $base = $this->tmp . DIRECTORY_SEPARATOR . 'wordpress' . DIRECTORY_SEPARATOR;
+      
+      foreach ($preventMoveFiles as $idx => $value) {
+        if (file_exists($base . $value)) @unlink($base . $value);
+      }
+    }
 
     public function replacePath($path, $sub, $content) {
       $path .= DIRECTORY_SEPARATOR . 'wordpress' . $sub;
@@ -248,14 +264,6 @@
         }
       }
 
-      for ($i = 0; $i < sizeof($files); ++$i) {
-        if (in_array(basename($files[$i]), $preventMoveFiles) !== false) {
-          array_splice($files, $i, 1);
-
-          break;
-        }
-      }
-
       $max = sizeof($files);
       for ($i = 0; $i < $max; ++$i) {
         $src = $path . $files[$i];
@@ -267,7 +275,11 @@
 
         if (file_exists($src)) {
           $fileDest = BMP::fixSlashes($dest);
-          rename($src, $fileDest);
+          foreach ($preventMoveFiles as $idx => $preventedFile) {
+            if (strpos($src, $preventedFile) === false) {
+              rename($src, $fileDest);
+            }
+          }
         }
 
         if ($i % 100 === 0 || ($i == ($max - 1))) {
@@ -584,7 +596,8 @@
 
       }
 
-      return array_search(max($prefixes), $prefixes);
+      if (sizeof($prefixes) <= 0) return $manifestPrefix;
+      else return array_search(max($prefixes), $prefixes);
 
     }
 
@@ -1502,6 +1515,7 @@
 
           // Check if extracted files are not in backslashed Windows version, otherwise fix it
           $this->fixDumbWindowsSlashes();
+          $this->removeUnwantedFiles();
 
           // WP Config backup
           $this->makeWPConfigCopy();

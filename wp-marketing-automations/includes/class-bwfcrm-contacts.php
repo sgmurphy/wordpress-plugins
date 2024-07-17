@@ -24,11 +24,16 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 		public static $STATUS_NOT_OPTED_IN = 0;
 		public static $STATUS_OPTED_IN = 1;
 		public static $STATUS_BOUNCED = 2;
+		public static $STATUS_SOFT_BOUNCED = 4;
+		public static $STATUS_COMPLAINT = 5;
 
 		public static $DISPLAY_STATUS_SUBSCRIBED = 1;
 		public static $DISPLAY_STATUS_UNSUBSCRIBED = 2;
 		public static $DISPLAY_STATUS_UNVERIFIED = 3;
 		public static $DISPLAY_STATUS_BOUNCED = 4;
+		public static $DISPLAY_STATUS_SOFT_BOUNCED = 5;
+		public static $DISPLAY_STATUS_COMPLAINT = 6;
+
 		public $unsubscribe_date = null;
 
 		/** Temporary terms storage for hooks firing */
@@ -1348,7 +1353,7 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 
 			$field_array = array();
 			foreach ( $this->fields as $field_id => $field_value ) {
-				$field_value = ! is_null( $field_value ) ? trim( $field_value ) : '';
+				$field_value = ! is_null( $field_value ) && is_string( $field_value ) ? trim( $field_value ) : '';
 
 				/** Checkbox, Radio and Select field values alter */
 				$allowed_types = array(
@@ -1991,7 +1996,7 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			$author_id = get_current_user_id();
 
 			/** Create Engagement */
-			$conversation    = BWFAN_Core()->conversation->create_campaign_conversation( $note_data['cid'], $note_id, 0, $author_id, BWFAN_Email_Conversations::$MODE_EMAIL, true, array(
+			$conversation    = BWFAN_Core()->conversation->create_campaign_conversation( $this, $note_id, 0, $author_id, BWFAN_Email_Conversations::$MODE_EMAIL, true, array(
 				'subject'  => $note_data['title'],
 				'template' => $message,
 			), BWFAN_Email_Conversations::$TYPE_NOTE );
@@ -2325,6 +2330,14 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 				return self::$DISPLAY_STATUS_BOUNCED;
 			}
 
+			if ( self::$STATUS_SOFT_BOUNCED === $status ) {
+				return self::$DISPLAY_STATUS_SOFT_BOUNCED;
+			}
+
+			if ( self::$STATUS_COMPLAINT === $status ) {
+				return self::$DISPLAY_STATUS_COMPLAINT;
+			}
+
 			if ( self::$STATUS_NOT_OPTED_IN === $status ) {
 				return self::$DISPLAY_STATUS_UNVERIFIED;
 			}
@@ -2354,6 +2367,8 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 				do_action( 'bwfcrm_after_contact_subscribed', $this->contact );
 			}
 
+			$this->remove_soft_bounce_limit();
+
 			return $return;
 		}
 
@@ -2361,6 +2376,8 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			if ( ! $this->is_contact_exists() ) {
 				return false;
 			}
+
+			$this->remove_soft_bounce_limit();
 
 			if ( ! empty( $this->check_contact_unsubscribed() ) ) {
 				return true;
@@ -2670,6 +2687,8 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			$this->contact->set_last_modified( current_time( 'mysql', 1 ) );
 			$this->save();
 
+			$this->remove_soft_bounce_limit();
+
 			return true;
 		}
 
@@ -2688,7 +2707,7 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			/** Check if already bounced */
 			$is_already_bounced = null;
 			if ( false === $stop_hooks ) {
-				$is_already_bounced = ( self::$STATUS_BOUNCED === absint( $this->contact->get_status() ) ) && empty( $this->check_contact_unsubscribed() );
+				$is_already_bounced = self::$STATUS_BOUNCED === absint( $this->contact->get_status() );
 			}
 
 			/** Remove data from unsubscribe table */
@@ -2698,12 +2717,124 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			$this->contact->set_last_modified( current_time( 'mysql', 1 ) );
 			$this->save();
 
-			/** Check if contact is already bounced */
+			$this->remove_soft_bounce_limit();
+
+			/** Run action if contact earlier has a different status */
 			if ( false === $is_already_bounced && ! $stop_hooks ) {
 				do_action( 'bwfcrm_after_contact_bounced', $this->contact );
 			}
 
 			return true;
+		}
+
+		/**
+		 * Mark contact soft bounced
+		 *
+		 * @param $stop_hooks
+		 *
+		 * @return array|bool
+		 */
+		public function mark_as_soft_bounced( $stop_hooks = false ) {
+			if ( ! $this->is_contact_exists() ) {
+				return false;
+			}
+
+			$soft_bounce_limit = apply_filters( 'bwfan_contact_soft_bounce_limit', 3 );
+			$soft_bounce_limit = empty( $soft_bounce_limit ) ? 1 : intval( $soft_bounce_limit );
+
+			$soft_bounce_count = $this->contact->get_meta( 'soft_bounce_count' );
+			$soft_bounce_count = empty( $soft_bounce_count ) ? 0 : intval( $soft_bounce_count );
+
+			if ( $soft_bounce_count >= $soft_bounce_limit ) {
+				/** Soft bounce limit reached, mark contact bounced */
+
+				/** Remove data from unsubscribe table */
+				$this->remove_unsubscribe_data();
+
+				$this->contact->set_status( self::$STATUS_BOUNCED );
+				$this->contact->set_last_modified( current_time( 'mysql', 1 ) );
+				$this->save();
+
+				/** Run action if contact has a different status */
+				if ( ! $stop_hooks ) {
+					do_action( 'bwfcrm_after_contact_bounced', $this->contact );
+				}
+				$count = ( $soft_bounce_count > 1 ) ? "($soft_bounce_count times)" : 'once';
+
+				$soft_bounce_count ++;
+				$this->contact->set_meta( 'soft_bounce_count', $soft_bounce_count );
+				$this->contact->save_meta();
+
+				return [
+					'message' => __( "Status change to bounce as contact already soft bounce $count.", "wp-marketing-automations" )
+				];
+			}
+
+			/** Remove data from unsubscribe table */
+			$this->remove_unsubscribe_data();
+
+			/** Mark contact soft bounced */
+			$soft_bounce_count ++;
+			$this->contact->set_meta( 'soft_bounce_count', $soft_bounce_count );
+			$this->contact->set_status( self::$STATUS_SOFT_BOUNCED );
+			$this->contact->set_last_modified( current_time( 'mysql', 1 ) );
+
+			$this->save();
+			$this->contact->save_meta();
+
+			/** Check if contact is already bounced */
+			if ( ! $stop_hooks ) {
+				do_action( 'bwfcrm_after_contact_soft_bounced', $this->contact, $soft_bounce_count );
+			}
+
+			return true;
+		}
+
+		/**
+		 * Mark contact complaint
+		 *
+		 * @param $stop_hooks
+		 *
+		 * @return bool
+		 */
+		public function mark_as_complaint( $stop_hooks = false ) {
+			if ( ! $this->is_contact_exists() ) {
+				return false;
+			}
+
+			/** Check if already bounced */
+			$is_already_complaint = null;
+			if ( false === $stop_hooks ) {
+				$is_already_complaint = self::$STATUS_COMPLAINT === absint( $this->contact->get_status() );
+			}
+
+			/** Remove data from unsubscribe table */
+			$this->remove_unsubscribe_data();
+
+			$this->contact->set_status( self::$STATUS_COMPLAINT );
+			$this->contact->set_last_modified( current_time( 'mysql', 1 ) );
+			$this->save();
+
+			$this->remove_soft_bounce_limit();
+
+			/** Run action if contact earlier has a different status */
+			if ( false === $is_already_complaint && ! $stop_hooks ) {
+				do_action( 'bwfcrm_after_contact_complaint', $this->contact );
+			}
+
+			return true;
+		}
+
+		/**
+		 * Remove soft bounce limit meta
+		 *
+		 * @return void
+		 */
+		public function remove_soft_bounce_limit() {
+			$this->contact->delete_meta( 'soft_bounce_count' );
+
+			/** unset value */
+			$this->contact->unset_meta( 'soft_bounce_count' );
 		}
 
 		/**
@@ -2748,6 +2879,12 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 					break;
 				case BWFCRM_Contact::$DISPLAY_STATUS_BOUNCED:
 					$status = __( 'Bounced', 'wp-marketing-automations' );
+					break;
+				case BWFCRM_Contact::$DISPLAY_STATUS_SOFT_BOUNCED:
+					$status = __( 'Soft Bounced', 'wp-marketing-automations' );
+					break;
+				case BWFCRM_Contact::$DISPLAY_STATUS_COMPLAINT:
+					$status = __( 'Complaint', 'wp-marketing-automations' );
 					break;
 			}
 

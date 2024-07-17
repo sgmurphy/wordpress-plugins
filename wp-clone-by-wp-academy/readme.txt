@@ -4,8 +4,8 @@ Tags: migrate, clone, backup, migration, backups, copy, restore, recover, restor
 Author URI: https://backupbliss.com
 Requires PHP: 5.5
 Requires at least: 3.3
-Tested up to: 6.4.2
-Stable tag: 2.4.4
+Tested up to: 6.6
+Stable tag: 2.4.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -132,6 +132,11 @@ You can back up the website database only, if you navigate to the Advanced Setti
 Backup and migration FAQ are under construction
 
 == Changelog ==
+
+= 2.4.5 =
+* Tested with WordPress 6.6
+* Minor performance improvements 
+* Improvements for PHP 8 utilization
 
 = 2.4.4 =
 * [NOTE] Upgraded "TryItOut" module to latest version
@@ -273,6 +278,7 @@ Backup and migration FAQ are under construction
 1. Configuration Page
 
 == Upgrade Notice ==
-= 2.4.4 =
-* [NOTE] Upgraded "TryItOut" module to latest version
-* [NOTE] Upgraded analyst module to latest version
+= 2.4.5 =
+* Tested with WordPress 6.6
+* Minor performance improvements 
+* Improvements for PHP 8 utilization

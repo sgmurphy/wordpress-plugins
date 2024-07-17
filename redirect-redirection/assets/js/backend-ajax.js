@@ -1420,6 +1420,42 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    /**
+     * New logs pagination
+     */
+    $(document).on("click", ".ir-show-more", function (e) {
+        e.preventDefault();
+        const el = $(this);
+        const offset = parseInt(el.attr("data-offset"));
+        const logType = $.trim($(".ir-redirection_logs_filter").val());
+
+        if (Number.isInteger(offset) && !el.hasClass("ir-processed")) {
+            el.addClass("ir-processed");
+
+            const data = new FormData();
+            data.append("action", "irLogPageContent");
+            data.append("offset", offset);
+            data.append("log_type", logType);
+
+            const ajax = irGetAjax(data);
+
+            ajax.done(function (r) {
+                el.removeClass("ir-processed");
+                if (r.success) {
+                    $(".redirect-table .ir-redirect-table-tbody").append(r.data.content);
+
+                    el.attr("data-offset", offset + 1);
+                    if (el.attr("data-offset") >= el.attr("data-max-offset")) {
+                        el.addClass("ir-hidden");
+                    }
+                } else {
+                    console.error(r.data.status + ": " + r.data.message);
+                }
+            });
+        }
+    });
+
+
 
     $(document).on("change", ".redirect-table .ir-redirection_logs_filter:not(.ir-processed)", function (e) {
         e.preventDefault();

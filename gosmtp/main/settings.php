@@ -148,7 +148,7 @@ function gosmtp_settings_page(){
 	}
 	
 	if(defined('GOSMTP_PREMIUM')){
-		include_once GOSMTP_PRO_DIR .'/settings.php';
+		include_once GOSMTP_PRO_DIR .'/main/settings.php';
 	}
 	
 	$all_mailers = gosmtp_load_mailer_list();
@@ -567,8 +567,8 @@ function gosmtp_mailer_settings($smtp_options, $is_new_connection = false){
 			foreach($mailer_list as $key => $mailer){
 				$is_pro = $disabled = $after_icon = '';
 				$active_mailer = (isset($settings['mail_type']) && $settings['mail_type'] == $key) ? 'mail_active' : '';
-				$icon = isset($mailer['icon']) ? $mailer['icon'] : GOSMTP_URL .'/images/'.$key.'.svg';;
-					
+				$icon = isset($mailer['icon']) ? $mailer['icon'] : GOSMTP_URL .'/images/'.$key.'.svg';
+
 				if(!class_exists($mailer['class'])){
 					$is_pro = 'pro';
 					$disabled = 'disabled';

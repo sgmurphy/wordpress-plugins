@@ -3,7 +3,7 @@ Contributors: Ibericode, DvanKooten, hchouhan, lapzor
 Donate link: https://boxzillaplugin.com/#utm_source=wp-plugin-repo&utm_medium=boxzilla&utm_campaign=donate-link
 Tags: pop-up, optin, call to action, exit intent
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 3.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -136,7 +136,7 @@ Have a look at the [frequently asked questions](https://wordpress.org/plugins/bo
 - Minor performance improvements to plugin bootstrapping and autoloader implementation.
 - Fix link in license key form.
 - Move CSS out of JS file for improved parsing performance.
-- Move to webpack instead of Gulp for preparing client-side asset files. 
+- Move to webpack instead of Gulp for preparing client-side asset files.
 - Bump required PHP version to 7.0 or later.
 
 
@@ -145,7 +145,7 @@ Have a look at the [frequently asked questions](https://wordpress.org/plugins/bo
 - Fix scroll based trigger regression introduced in previous version.
 
 
-#### 3.2.26 - Mar 21, 2023 
+#### 3.2.26 - Mar 21, 2023
 
 - Check if `administrator` role exists before adding capabilities to it. Thanks [Jaime Martínez](https://jaimemartinez.nl/).
 - Fix "undefined array key href" warning on PHP8.

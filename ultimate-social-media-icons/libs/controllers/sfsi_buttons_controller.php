@@ -4,7 +4,7 @@
 add_action('wp_ajax_updateSrcn1', 'sfsi_options_updater1');
 function sfsi_options_updater1()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "update_step1")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "update_step1")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -80,7 +80,7 @@ add_action('wp_ajax_updateSrcn2', 'sfsi_options_updater2');
 function sfsi_options_updater2()
 {
 
-    if (!wp_verify_nonce($_POST['nonce'], "update_step2")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "update_step2")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -124,7 +124,7 @@ function sfsi_options_updater2()
     $sfsi_linkedin_recommendProductId = isset( $_POST["sfsi_linkedin_recommendProductId"] ) ? intval(trim($_POST["sfsi_linkedin_recommendProductId"] )) : '';
 
     $sfsi_youtubeusernameorid = isset( $_POST["sfsi_youtubeusernameorid"] ) ? sanitize_text_field(trim($_POST["sfsi_youtubeusernameorid"] )) : '';
-    $sfsi_ytube_user          = isset( $_POST["sfsi_ytube_user"] ) ? $_POST["sfsi_ytube_user"] : '';
+    $sfsi_ytube_user          = isset( $_POST["sfsi_ytube_user"] ) ? sanitize_text_field($_POST["sfsi_ytube_user"]) : '';
     $sfsi_ytube_chnlid        = isset( $_POST["sfsi_ytube_chnlid"] ) ? sanitize_text_field($_POST["sfsi_ytube_chnlid"] ) : '';
     
     $sfsi_telegram_msg_option = isset( $_POST["sfsi_telegram_msg_option"] ) ? sanitize_text_field( $_POST["sfsi_telegram_msg_option"] ) : 'no';
@@ -174,7 +174,7 @@ function sfsi_options_updater2()
         $sfsi_customIconsUrl = $_POST["sfsi_custom_links"];
 
         foreach ($sfsi_customIconsUrl as $key => $sfsi_customIconUrl) {
-            $esacpedUrls[$key] = esc_url($sfsi_customIconUrl);
+            $esacpedUrls[sanitize_text_field($key)] = sanitize_url($sfsi_customIconUrl);
         }
     } else {
         $esacpedUrls = '';
@@ -289,7 +289,7 @@ function sfsi_options_updater2()
 add_action('wp_ajax_updateSrcn3', 'sfsi_options_updater3');
 function sfsi_options_updater3()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "update_step3")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "update_step3")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -391,7 +391,7 @@ function sfsi_options_updater3()
 add_action('wp_ajax_updateSrcn4', 'sfsi_options_updater4');
 function sfsi_options_updater4()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "update_step4")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "update_step4")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -603,7 +603,7 @@ function sfsi_options_updater4()
 add_action('wp_ajax_updateSrcn5', 'sfsi_options_updater5');
 function sfsi_options_updater5()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "update_step5")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "update_step5")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -651,6 +651,7 @@ function sfsi_options_updater5()
     if (isset( $_POST["sfsi_custom_orders"] )) {
         $sfsi_custom_orders = array();
         foreach ($_POST["sfsi_custom_orders"] as $index => $custom_order) {
+            $index = sanitize_text_field($index);
             $sfsi_custom_orders[$index] = array();
             $sfsi_custom_orders[$index]["order"] = intval($_POST["sfsi_custom_orders"][$index]["order"] );
             $sfsi_custom_orders[$index]["ele"] = intval($_POST["sfsi_custom_orders"][$index]["ele"] );
@@ -686,6 +687,7 @@ function sfsi_options_updater5()
     if (isset( $_POST["sfsi_custom_MouseOverTexts"] )) {
         $sfsi_custom_MouseOverTexts = array();
         foreach ($_POST['sfsi_custom_MouseOverTexts'] as $index => $sfsi_custom_MouseOverText) {
+            $index = sanitize_text_field($index);
             $sfsi_custom_MouseOverTexts[$index] = sanitize_text_field($_POST["sfsi_custom_MouseOverTexts"][$index] );
         }
     }
@@ -791,7 +793,7 @@ function sfsi_options_updater5()
 add_action('wp_ajax_updateSrcn6', 'sfsi_options_updater6');
 function sfsi_options_updater6()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "update_step6")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "update_step6")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -842,16 +844,19 @@ function sfsi_options_updater6()
     // var_dump($_POST['sfsi_responsive_icons'] );
     if (isset( $_POST['sfsi_responsive_icons'] ) && is_array($_POST['sfsi_responsive_icons'] )) {
         foreach ($_POST['sfsi_responsive_icons'] as $key => $value) {
+            $key = sanitize_text_field($key);
             if (!is_array($value)) {
                 $sfsi_responsive_icons[$key] = sanitize_text_field($value);
             } else {
                 $sfsi_responsive_icons[$key] = array();
                 foreach ($value as $key2 => $value2) {
+                    $key2 = sanitize_text_field($key2);
                     if (!is_array($value2)) {
                         $sfsi_responsive_icons[$key][$key2] = sanitize_text_field($value2);
                     } else {
                         $sfsi_responsive_icons[$key][$key2] = array();
                         foreach ($value2 as $key3 => $value3) {
+                            $key3 = sanitize_text_field($key3);
                             if (!is_array($value3)) {
                                 $sfsi_responsive_icons[$key][$key2][$key3] = sanitize_text_field($value3);
                             }
@@ -944,7 +949,7 @@ function sfsi_options_updater6()
 add_action('wp_ajax_updateSrcn7', 'sfsi_options_updater7');
 function sfsi_options_updater7()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "update_step7")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "update_step7")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -966,6 +971,7 @@ function sfsi_options_updater7()
     if (isset( $_POST["sfsi_Show_popupOn_PageIDs"] )) {
         $sfsi_Show_popupOn_PageIDs_arr = array();
         foreach ($_POST["sfsi_Show_popupOn_PageIDs"] as $index => $sfsi_Show_popupOn_PageID) {
+            $index = sanitize_text_field($index);
             $sfsi_Show_popupOn_PageIDs_arr[$index] = intval($sfsi_Show_popupOn_PageID);
         }
     }
@@ -1010,7 +1016,7 @@ function sfsi_options_updater7()
 add_action('wp_ajax_updateSrcn8', 'sfsi_options_updater8');
 function sfsi_options_updater8()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "update_step8")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "update_step8")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -1092,7 +1098,7 @@ add_action('wp_ajax_updateSrcn9', 'sfsi_options_updater9');
 function sfsi_options_updater9()
 {
 
-    if (!wp_verify_nonce($_POST['nonce'], "update_step9")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "update_step9")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -1148,16 +1154,19 @@ function sfsi_options_updater9()
     
     if ( isset( $_POST['sfsi_sticky_icons'] ) && is_array( $_POST['sfsi_sticky_icons'] ) ) {
         foreach ( $_POST['sfsi_sticky_icons'] as $key => $value ) {
+            $key = sanitize_text_field( $key );
             if ( !is_array( $value ) ) {
                 $sfsi_sticky_icons[$key] = sanitize_text_field( $value );
             } else {
                 $sfsi_sticky_icons[$key] = array();
                 foreach ( $value as $key2 => $value2 ) {
+                    $key2 = sanitize_text_field( $key2 );
                     if ( !is_array( $value2 ) ) {
                         $sfsi_sticky_icons[$key][$key2] = sanitize_text_field( $value2 );
                     } else {
                         $sfsi_sticky_icons[$key][$key2] = array();
                         foreach ( $value2 as $key3 => $value3 ) {
+                            $key3 = sanitize_text_field( $key3 );
                             if ( !is_array( $value3 ) ) {
                                 $sfsi_sticky_icons[$key][$key2][$key3] = sanitize_text_field( $value3 );
                             }
@@ -1406,7 +1415,7 @@ function sfsi_getCounts($for_resposive = false)
 add_action('wp_ajax_activateFooter', 'sfsiActivateFooter');
 function sfsiActivateFooter()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "active_footer")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "active_footer")) {
         echo json_encode(array('res' => 'wrong_nonce'));
         exit;
     }
@@ -1422,7 +1431,7 @@ function sfsiActivateFooter()
 add_action('wp_ajax_removeFooter', 'sfsiremoveFooter');
 function sfsiremoveFooter()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "remove_footer")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "remove_footer")) {
         echo json_encode(array('res' => 'wrong_nonce'));
         exit;
     }
@@ -1438,7 +1447,7 @@ function sfsiremoveFooter()
 add_action("wp_ajax_notification_read", "notification_read");
 function notification_read()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "notification_read")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "notification_read")) {
         echo json_encode(array('res' => 'wrong_nonce'));
         exit;
     }
@@ -1454,7 +1463,7 @@ function notification_read()
 add_action("wp_ajax_new_notification_read", "new_notification_read");
 function new_notification_read()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "new_notification_read")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "new_notification_read")) {
         echo json_encode(array('res' => 'wrong_nonce'));
         exit;
     }
@@ -1493,7 +1502,7 @@ function sfsi_bannerOption()
 {
 
     error_reporting(0);
-    if (!wp_verify_nonce($_POST['nonce'], "bannerOption")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "bannerOption")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -1715,7 +1724,7 @@ add_action('wp_ajax_sfsiOfflineChatMessage', 'sfsi_OfflineChatMessage');
 function sfsi_OfflineChatMessage()
 {
     error_reporting(0);
-    if (!wp_verify_nonce($_POST['nonce'], "OfflineChatMessage")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "OfflineChatMessage")) {
         echo json_encode(array("wrong_nonce"));
         exit;
     }
@@ -1740,7 +1749,7 @@ add_action( 'wp_ajax_sfsi_get_feed_id', 'sfsi_get_feed_id' );
 
 function sfsi_get_feed_id()
 {
-    if (!wp_verify_nonce($_POST['nonce'], "sfsi_get_feed_id")) {
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), "sfsi_get_feed_id")) {
         echo json_encode(array('res' => 'wrong_nonce'));
         exit;
     }
@@ -1766,7 +1775,7 @@ function sfsi_get_feed_id()
 add_action('wp_ajax_sfsi_save_export', 'sfsi_save_export');
 function sfsi_save_export()
 {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_save_export')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_save_export')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
     $option1 = maybe_unserialize( get_option( 'sfsi_section1_options', false ) );
@@ -1801,10 +1810,10 @@ function sfsi_save_export()
 
 add_action( 'wp_ajax_sfsi_installDate', 'sfsi_installDate' );
 function sfsi_installDate() {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_installDate')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_installDate')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_installDate_value = isset( $_POST["sfsi_installDate"] ) ? $_POST["sfsi_installDate"] : '';
+    $sfsi_installDate_value = isset( $_POST["sfsi_installDate"] ) ? sanitize_text_field($_POST["sfsi_installDate"]) : '';
     update_option( 'sfsi_installDate', $sfsi_installDate_value );
     echo json_encode( array( "success" ) );
     exit;
@@ -1812,10 +1821,10 @@ function sfsi_installDate() {
 
 add_action( 'wp_ajax_sfsi_currentDate', 'sfsi_currentDate' );
 function sfsi_currentDate() {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_currentDate')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_currentDate')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_currentDate_value = isset( $_POST["sfsi_currentDate"] ) ? $_POST["sfsi_currentDate"] : '';
+    $sfsi_currentDate_value = isset( $_POST["sfsi_currentDate"] ) ? sanitize_text_field($_POST["sfsi_currentDate"]) : '';
     update_option( 'sfsi_currentDate', $sfsi_currentDate_value );
     echo json_encode( array( "success" ) );
     exit;
@@ -1823,10 +1832,10 @@ function sfsi_currentDate() {
 
 add_action( 'wp_ajax_sfsi_showNextBannerDate', 'sfsi_showNextBannerDate' );
 function sfsi_showNextBannerDate() {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_showNextBannerDate')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_showNextBannerDate')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_showNextBannerDate_value = isset( $_POST["sfsi_showNextBannerDate"] ) ? $_POST["sfsi_showNextBannerDate"] : '';
+    $sfsi_showNextBannerDate_value = isset( $_POST["sfsi_showNextBannerDate"] ) ? sanitize_text_field($_POST["sfsi_showNextBannerDate"]) : '';
     update_option( 'sfsi_showNextBannerDate', $sfsi_showNextBannerDate_value );
     echo json_encode( array( "success" ) );
     exit;
@@ -1834,10 +1843,10 @@ function sfsi_showNextBannerDate() {
 
 add_action( 'wp_ajax_sfsi_cycleDate', 'sfsi_cycleDate' );
 function sfsi_cycleDate() {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_cycleDate')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_cycleDate')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_cycleDate_value = isset( $_POST["sfsi_cycleDate"] ) ? $_POST["sfsi_cycleDate"] : '';
+    $sfsi_cycleDate_value = isset( $_POST["sfsi_cycleDate"] ) ? sanitize_text_field($_POST["sfsi_cycleDate"]) : '';
     update_option( 'sfsi_cycleDate',  $sfsi_cycleDate_value );
     echo json_encode( array( "success" ) );
     exit;
@@ -1845,10 +1854,10 @@ function sfsi_cycleDate() {
 
 add_action( 'wp_ajax_sfsi_loyaltyDate', 'sfsi_loyaltyDate' );
 function sfsi_loyaltyDate() {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_loyaltyDate')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_loyaltyDate')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_loyaltyDate_value   = isset( $_POST["sfsi_loyaltyDate"] ) ? $_POST["sfsi_loyaltyDate"] : '';
+    $sfsi_loyaltyDate_value   = isset( $_POST["sfsi_loyaltyDate"] ) ? sanitize_text_field($_POST["sfsi_loyaltyDate"]) : '';
     update_option( 'sfsi_loyaltyDate', $sfsi_loyaltyDate_value );
     echo json_encode( array( "success" ) );
     exit;
@@ -1857,10 +1866,10 @@ function sfsi_loyaltyDate() {
 add_action('wp_ajax_sfsi_banner_global_pinterest', 'sfsi_banner_global_pinterest');
 function sfsi_banner_global_pinterest()
 {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_banner_global_pinterest')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_banner_global_pinterest')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_banner_global_pinterest_value   = isset( $_POST["sfsi_banner_global_pinterest"] ) ? $_POST["sfsi_banner_global_pinterest"] : '';
+    $sfsi_banner_global_pinterest_value   = isset( $_POST["sfsi_banner_global_pinterest"] ) ? sanitize_text_field($_POST["sfsi_banner_global_pinterest"]) : '';
     $sfsi_banner_global_pinterest = maybe_unserialize(get_option('sfsi_banner_global_pinterest', false));
     $sfsi_banner_global_pinterest['timestamp'] = $sfsi_banner_global_pinterest_value;
     update_option('sfsi_banner_global_pinterest',  serialize($sfsi_banner_global_pinterest));
@@ -1871,10 +1880,10 @@ function sfsi_banner_global_pinterest()
 add_action('wp_ajax_sfsi_banner_global_firsttime_offer', 'sfsi_banner_global_firsttime_offer');
 function sfsi_banner_global_firsttime_offer()
 {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_banner_global_firsttime_offer')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_banner_global_firsttime_offer')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_banner_global_firsttime_offer_value   = isset( $_POST["sfsi_banner_global_firsttime_offer"] ) ? $_POST["sfsi_banner_global_firsttime_offer"] : '';
+    $sfsi_banner_global_firsttime_offer_value   = isset( $_POST["sfsi_banner_global_firsttime_offer"] ) ? sanitize_text_field($_POST["sfsi_banner_global_firsttime_offer"]) : '';
     $sfsi_banner_global_firsttime_offer = maybe_unserialize(get_option('sfsi_banner_global_firsttime_offer', false));
     $sfsi_banner_global_firsttime_offer['timestamp'] = $sfsi_banner_global_firsttime_offer_value;
     update_option('sfsi_banner_global_firsttime_offer',  serialize($sfsi_banner_global_firsttime_offer));
@@ -1885,10 +1894,10 @@ function sfsi_banner_global_firsttime_offer()
 add_action('wp_ajax_sfsi_banner_global_social', 'sfsi_banner_global_social');
 function sfsi_banner_global_social()
 {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_banner_global_social')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_banner_global_social')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_banner_global_social_value   = isset( $_POST["sfsi_banner_global_social"] ) ? $_POST["sfsi_banner_global_social"] : '';
+    $sfsi_banner_global_social_value   = isset( $_POST["sfsi_banner_global_social"] ) ? sanitize_text_field($_POST["sfsi_banner_global_social"]) : '';
     $sfsi_banner_global_social = maybe_unserialize(get_option('sfsi_banner_global_social', false));
     $sfsi_banner_global_social['timestamp'] = $sfsi_banner_global_social_value;
     update_option('sfsi_banner_global_social',  serialize($sfsi_banner_global_social));
@@ -1899,10 +1908,10 @@ function sfsi_banner_global_social()
 add_action('wp_ajax_sfsi_banner_global_load_faster', 'sfsi_banner_global_load_faster');
 function sfsi_banner_global_load_faster()
 {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_banner_global_load_faster')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_banner_global_load_faster')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_banner_global_load_faster_value   = isset( $_POST["sfsi_banner_global_load_faster"] ) ? $_POST["sfsi_banner_global_load_faster"] : '';
+    $sfsi_banner_global_load_faster_value   = isset( $_POST["sfsi_banner_global_load_faster"] ) ? sanitize_text_field($_POST["sfsi_banner_global_load_faster"]) : '';
     $sfsi_banner_global_load_faster = maybe_unserialize(get_option('sfsi_banner_global_load_faster', false));
     $sfsi_banner_global_load_faster['timestamp'] = $sfsi_banner_global_load_faster_value;
     update_option('sfsi_banner_global_load_faster',  serialize($sfsi_banner_global_load_faster));
@@ -1913,10 +1922,10 @@ function sfsi_banner_global_load_faster()
 add_action('wp_ajax_sfsi_banner_global_shares', 'sfsi_banner_global_shares');
 function sfsi_banner_global_shares()
 {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_banner_global_shares')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_banner_global_shares')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_banner_global_shares_value   = isset( $_POST["sfsi_banner_global_shares"] ) ? $_POST["sfsi_banner_global_shares"] : '';
+    $sfsi_banner_global_shares_value   = isset( $_POST["sfsi_banner_global_shares"] ) ? sanitize_text_field($_POST["sfsi_banner_global_shares"]) : '';
     $sfsi_banner_global_shares = maybe_unserialize(get_option('sfsi_banner_global_shares', false));
     $sfsi_banner_global_shares['timestamp'] = $sfsi_banner_global_shares_value;
     update_option('sfsi_banner_global_shares',  serialize($sfsi_banner_global_shares));
@@ -1928,10 +1937,10 @@ function sfsi_banner_global_shares()
 add_action('wp_ajax_sfsi_banner_global_gdpr', 'sfsi_banner_global_gdpr');
 function sfsi_banner_global_gdpr()
 {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_banner_global_gdpr')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_banner_global_gdpr')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_banner_global_gdpr_value   = isset( $_POST["sfsi_banner_global_gdpr"] ) ? $_POST["sfsi_banner_global_gdpr"] : '';
+    $sfsi_banner_global_gdpr_value   = isset( $_POST["sfsi_banner_global_gdpr"] ) ? sanitize_text_field($_POST["sfsi_banner_global_gdpr"]) : '';
     $sfsi_banner_global_gdpr = maybe_unserialize(get_option('sfsi_banner_global_gdpr', false));
     $sfsi_banner_global_gdpr['timestamp'] = $sfsi_banner_global_gdpr_value;
     update_option('sfsi_banner_global_gdpr',  serialize($sfsi_banner_global_gdpr));
@@ -1942,10 +1951,10 @@ function sfsi_banner_global_gdpr()
 add_action('wp_ajax_sfsi_banner_global_http', 'sfsi_banner_global_http');
 function sfsi_banner_global_http()
 {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_banner_global_http')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_banner_global_http')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_banner_global_http_value   = isset( $_POST["sfsi_banner_global_http"] ) ? $_POST["sfsi_banner_global_http"] : '';
+    $sfsi_banner_global_http_value   = isset( $_POST["sfsi_banner_global_http"] ) ? sanitize_text_field($_POST["sfsi_banner_global_http"]) : '';
     $sfsi_banner_global_http = maybe_unserialize(get_option('sfsi_banner_global_http', false));
     $sfsi_banner_global_http['timestamp'] = $sfsi_banner_global_http_value;
     update_option('sfsi_banner_global_http',  serialize($sfsi_banner_global_http));
@@ -1956,10 +1965,10 @@ function sfsi_banner_global_http()
 add_action('wp_ajax_sfsi_banner_global_upgrade', 'sfsi_banner_global_upgrade');
 function sfsi_banner_global_upgrade()
 {
-    if (!wp_verify_nonce($_POST['nonce'], 'sfsi_banner_global_upgrade')) return wp_send_json_error();
+    if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'sfsi_banner_global_upgrade')) return wp_send_json_error();
     if (!current_user_can('manage_options')) return wp_send_json_error();
     
-    $sfsi_banner_global_upgrade_value   = isset( $_POST["sfsi_banner_global_upgrade"] ) ? $_POST["sfsi_banner_global_upgrade"] : '';
+    $sfsi_banner_global_upgrade_value   = isset( $_POST["sfsi_banner_global_upgrade"] ) ? sanitize_text_field($_POST["sfsi_banner_global_upgrade"]) : '';
     $sfsi_banner_global_upgrade = maybe_unserialize(get_option('sfsi_banner_global_upgrade', false));
     $sfsi_banner_global_upgrade['timestamp'] = $sfsi_banner_global_upgrade_value;
     update_option('sfsi_banner_global_upgrade',  serialize($sfsi_banner_global_upgrade));
@@ -1969,7 +1978,7 @@ function sfsi_banner_global_upgrade()
 
 add_action( 'wp_ajax_sfsi_get_icon_preview', 'sfsi_get_icon_preview_callback' );
 function sfsi_get_icon_preview_callback() {
-    if ( !wp_verify_nonce( $_POST['nonce'], "getIconPreview" ) ) {
+    if ( !wp_verify_nonce( sanitize_text_field($_POST['nonce']), "getIconPreview" ) ) {
         echo json_encode(array('res' => 'wrong_nonce'));
         exit;
     }
@@ -1978,7 +1987,7 @@ function sfsi_get_icon_preview_callback() {
         exit;
     }
     $iconname = esc_url( $_POST['iconname'] );
-    $iconValue = sanitize_text_field( $_POST['iconValue'] );
+    $iconValue = esc_attr( $_POST['iconValue'] );
     echo '<img src="' . $iconname . "/icon_" . $iconValue . '.png" alt="' . $iconname . '" >';
     die;
 }

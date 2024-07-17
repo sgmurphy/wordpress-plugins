@@ -2,8 +2,8 @@
 Contributors: Migrate
 Tags: Migration, Backup, Staging, Migrate, Backups
 Requires at least: 4.6
-Tested up to: 6.5
-Stable tag: 1.4.5
+Tested up to: 6.6
+Stable tag: 1.4.6
 License: GPLv3
 Requires PHP: 5.6
 
@@ -163,6 +163,11 @@ Vietnamese: [Tạo sao lưu, khôi phục các bản sao lưu và di chuyển c�
 
 == Changelog ==
 
+= 1.4.6 =
+* Tested with WordPress 6.6
+* Minor performance improvements 
+* Improvements for PHP 8 utilization
+
 = 1.4.5 =
 * [FIX] Resolved issues with cURL backup method and false positive errors
 * [FIX] Fixed issues with small size backups (<=~10MB)
@@ -215,15 +220,6 @@ Vietnamese: [Tạo sao lưu, khôi phục các bản sao lưu và di chuyển c�
 * [CHANGE] Scheduled backups are now forced to use new CURL backup method
 * [CHANGE] Updated plugin welcome title to something more fancy
 * [CHANGE] New users will now have PHP CLI disabled by default
-* [FIX] Fixed issues caused by managed MySQL databases, that prevented backup/restoration from starting
-* [FIX] Table prefix replacement has been improved and should cause much less issues
-* [FIX] Fixed database restoration process with backups created before v1.2.2
-* [FIX] Fixed autologin script after creation of staging site
-* [NEW] Since this version backup process as well as restoration will have WP_DEBUG force enabled (only during the process)
-* [NEW] We added couple of new debug and more detailed error messages in browser console (on error)
-* [NEW] Restore search & replace process will now ignore tables that starts with unknown prefix
-* [NEW] Our plugin will display notice in unsupported environments such as WP Playground
-* [NEW] After restoration user will now see option to turn on scheduled weekly backups
 * [... and more ...]
 
 = previous =
@@ -231,43 +227,8 @@ Old changelog has been removed due to WordPress limitation of 5000 characters.
 
 == Upgrade Notice ==
 
-= 1.4.5 =
-What's new in 1.4.5?
-* [FIX] Resolved issues with cURL backup method and false positive errors
-* [FIX] Fixed issues with small size backups (<=~10MB)
-* [FIX] Prevented errors during space check
-* [FIX] Fixed issues with database backup
-* [NEW] Added "error translator" which tells the user what went wrong based on the live log - it will be extended during time
-* [NEW] Added size checks, if the batch decreased the ZIP size it will consider it as damaged and return error
-* [NEW] Backups list will now load until it can process all backups (for sites with low max execution time)
-* [NEW] Added support for flexible ZipArchive which will be prioritized over PCLZip (works out of the box)
-* [NEW] Our plugin will now ignore search replace on large tables that are known to be huge log tables
-* [NEW] Added VERBOSE messages about previous size of the backup and time taken between batches
-* [NEW] Within the error window user can now download uncensored logs (administrator only)
-* [NEW] Proper backup cleanup, our plugin will now REMOVE damaged backups to save space
-* [NEW] Upgraded error window which allows users to debug the problem or get our help
-* [NEW] Added recommendations in terms of server configuration after process failure
-* [NEW] Proper backup cleanup, our plugin will now properly regenerate backups cache
-* [NEW] Added "force cache disabled" to our plugin requests to bypass cache plugins
-* [NEW] ZipArchive will work now for PHP CLI process as well as browser method
-* [NEW] Refactored way how we communicate with back-end within our plugin
-* [NEW] Added smart issue resolver to error window
-* [CHANGE] Alternative disk space checking will now be used more often for smaller backups
-* [CHANGE] Improved path cutter to make sure proper slashes are applied for Windows/Linux
-* [CHANGE] Added more constant exclusions for third party plugins temporary directories
-* [CHANGE] Native backup processes will go through same validation as browser method
-* [CHANGE] Backup list refresh will now perform cleanup and list cache regeneration
-* [CHANGE] PCLZip will now use larger block sizes to support larger single files
-* [FIX] Added additional checks for broken permission files/directoriers to exclude them without error
-* [FIX] Fixed our upload area to display current percentage of the progress instead of delayed
-* [FIX] Success window will not show up now after aborting the process and starting it again
-* [FIX] Improved file scanner to prevent errors during scanning of files out of open_basedir
-* [FIX] Resolves issues with plugin tabs while using plugins that could conflict with ours
-* [FIX] Addedd ability to self-regenerate config file when it got damaged due to errors
-* [FIX] Improved security of public URLs such as URL for migration, censored live logs
-* [FIX] Increased possibility to display error window when something unknown happened
-* [FIX] Reviewed proper responses from backup-process.php after moving it to WP scope
-* [FIX] Fixed doubled responses from backup-process.php during browser backup method
-* [FIX] Decreased possibility of false positive success window during PHP CLI
-* [FIX] Improved session detection for sites with improper session setup 
-* [FIX] Fixed JSON parser to not fail on empty responses
+= 1.4.6 =
+What's new in 1.4.6?
+* Tested with WordPress 6.6
+* Minor performance improvements 
+* Improvements for PHP 8 utilization

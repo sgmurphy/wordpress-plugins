@@ -26,7 +26,7 @@ class nsc_bar_cookie_handler
             $expiryDate = $this->get_expiry_date($this->cookie_configs['name'], $this->cookie_configs['expirydays']);
 
             if (isset($_COOKIE[$this->cookie_configs['name']])) {
-                $this->set_cookie($this->cookie_configs['name'], $_COOKIE[$this->cookie_configs['name']], $expiryDate, $this->cookie_configs['path'], $this->cookie_configs['domain'], $this->cookie_configs['secure']);
+                $this->set_cookie($this->cookie_configs['name'], stripslashes($_COOKIE[$this->cookie_configs['name']]), $expiryDate, $this->cookie_configs['path'], $this->cookie_configs['domain'], $this->cookie_configs['secure']);
                 $this->set_cookie(ITP_SAVER_COOKIE_NAME, $this->cookie_configs['name'] . "---_---" . $expiryDate, $expiryDate, $this->cookie_configs['path'], $this->cookie_configs['domain'], $this->cookie_configs['secure'], true);
             }
 

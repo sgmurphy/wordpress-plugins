@@ -2,9 +2,9 @@
 Contributors: yonifre
 Donate link: paypal.me/yonifre
 Tags: spam, blacklist, antispam, contact form, security
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.0.5 - 16/07/2024 =
+* Bug Fix - Fix phone check
 
 = 2.0.4 - 16/07/2024 =
 * New Feature - Download Spam-log as CSV

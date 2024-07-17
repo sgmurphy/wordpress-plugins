@@ -2,8 +2,8 @@
 Contributors: CopyDeletePosts, copydelete
 Tags: Duplicate post, Copy posts, Copy pages, Duplicate posts, Duplicate pages, Clone posts, Clone pages, Delete posts, Delete pages, Duplicator, copy post, copy page
 Requires at least: 4.6
-Tested up to: 6.4.3
-Stable tag: 1.4.6
+Tested up to: 6.6
+Stable tag: 1.4.7
 License: GPLv3
 Requires PHP: 5.6
 
@@ -176,6 +176,12 @@ Vietnamese: [Sao chép bài đăng, sao chép trang, sao chép bài đăng tùy 
 8. Copy from Gutenberg editor
 
 == Changelog ==
+
+= 1.4.7 =
+* Tested with WordPress 6.6
+* Minor performance improvements 
+* Improvements for PHP 8 utilization
+* Fixed taxonomy field when editing with quick edit
 
 = 1.4.6 =
 * [NOTE] Changed plugin's author to our company name
@@ -453,8 +459,9 @@ Vietnamese: [Sao chép bài đăng, sao chép trang, sao chép bài đăng tùy 
 * Initial release
 
 == Upgrade Notice ==
-= 1.4.6 =
-What's new in 1.4.6?
-* [NOTE] Changed plugin's author to our company name
-* [NOTE] Tested up with WordPress v6.4.3 
-* [NOTE] Thank you so much for 300,000+ active installs 💚 (12.02.2024)
+= 1.4.7 =
+What's new in 1.4.7?
+* Tested with WordPress 6.6
+* Minor performance improvements 
+* Improvements for PHP 8 utilization
+* Fixed taxonomy field when editing with quick edit

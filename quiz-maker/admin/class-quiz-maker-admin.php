@@ -1477,6 +1477,13 @@ class Quiz_Maker_Admin
             'quiz_admin_note_text_decoration'           => "none",
             'quiz_quest_explanation_text_decoration'    => "none",
             'quiz_right_answers_text_decoration'        => "none",
+            'quiz_wrong_answers_text_decoration'        => "none",
+            'quiz_admin_note_letter_spacing'            => 0,
+            'quiz_bg_img_during_the_quiz'               => "off",
+            'quiz_quest_explanation_letter_spacing'     => 0,
+            'quiz_right_answers_letter_spacing'         => 0,
+            'quiz_wrong_answers_letter_spacing'         => 0,
+            'quiz_admin_note_font_weight'               => "normal",
         );
 
 

@@ -3,7 +3,7 @@
 	<div class="options_group wooccm-premium-field">
 	  <p class="form-field">
 		<label><?php esc_html_e( 'Enhance', 'woocommerce-checkout-manager' ); ?></label>
-		<input <# if ( data.select2 ) { #>checked="checked"<# } #> class="media-modal-render-panels" type="checkbox" name="select2" value="1">
+		<input id="datepicker-enhance-bahaviour" <# if ( data.select2 ) { #>checked="checked"<# } #> class="media-modal-render-panels" type="checkbox" name="select2" value="1">
 		  <span class="description hidden"><?php esc_html_e( 'Enhance time behaviour with timepicker.', 'woocommerce-checkout-manager' ); ?></span>
 		  <span class="description premium">(<?php esc_html_e( 'This is a premium feature', 'woocommerce-checkout-manager' ); ?>)</span>
 	  </p>
@@ -28,7 +28,7 @@
 	<div class="options_group wooccm-premium-field">
 	  <p class="form-field">
 		<label><?php esc_html_e( '24-hour format', 'woocommerce-checkout-manager' ); ?></label>
-		<input <# if ( data.time_format_ampm ) { #>checked="checked"<# } #> class="media-modal-render-panels" type="checkbox" name="time_format_ampm" value="1" >
+		<input <# if ( !data.select2 ) { #>disabled="disabled"<# } if ( data.time_format_ampm ) { #>checked="checked"<# } #> class="media-modal-render-panels" type="checkbox" name="time_format_ampm" value="1" >
 		  <span class="description hidden"><?php esc_html_e( 'Time Format AM/PM', 'woocommerce-checkout-manager' ); ?></span>
 		  <span class="description premium">(<?php esc_html_e( 'This is a premium feature', 'woocommerce-checkout-manager' ); ?>)</span>
 	  </p>

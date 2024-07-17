@@ -27,6 +27,10 @@ class BWF_AS_Action_Store extends ActionScheduler_Store {
 
 		$this->log( 'fetch running action id: ' . $action_id );
 
+		if ( class_exists( 'BWFAN_Merge_Tag_Loader' ) ) {
+			BWFAN_Merge_Tag_Loader::reset_data();
+		}
+
 		/**
 		 * Below code will run between these 2 hooks action_scheduler_begin_execute and action_scheduler_after_execute
 		 */

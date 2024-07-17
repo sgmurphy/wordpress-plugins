@@ -690,6 +690,18 @@ class BWFAN_Automation_Controller {
 		$result = $ins->traverse_setting;
 		$this->traverse_ins->log( $this->automation_contact['trail'] . ' - process_goal result: ' . $result );
 
+		/** Check if goal already met */
+		$event = isset( $ins->action_data['benchmark'] ) ? BWFAN_Core()->sources->get_event( $ins->action_data['benchmark'] ) : '';
+		if ( $event instanceof BWFAN_Event && method_exists( $event, 'pre_validate_goal' ) && $event->pre_validate_goal( $ins->step_data, $this->contact_id ) ) {
+			$this->set_trail_item( [ 'msg' => $result ] );
+			$this->status   = BWFAN_Automation_Controller::$STATUS_ACTIVE;
+			$this->attempts = 0;
+
+			$this->traverse_ins->log( $this->automation_contact['trail'] . ' - Goal pre met for event: ' . $event->get_name() );
+
+			return;
+		}
+
 		/** Traverse End */
 		if ( $result === BWFAN_Goal_Controller::$TRAVERSE_SETTING_END ) {
 			$this->set_trail_item( [ 'msg' => $result ] );

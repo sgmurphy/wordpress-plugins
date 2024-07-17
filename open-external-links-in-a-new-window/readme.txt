@@ -3,7 +3,7 @@ Contributors: WebFactory
 Tags: links, external links, target blank, new window, new tab
 Requires at least: 4.0
 Requires PHP: 5.2
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.44
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

@@ -700,13 +700,19 @@ class BWFAN_Automation_V2 {
 		$benchmark = [];
 		$result    = [];
 		foreach ( $steps as $step ) {
-			if ( isset( $step['type'] ) && $step['type'] == 'benchmark' && isset( $step['data'] ) && isset( $step['data']['benchmark'] ) ) {
-				$benchmark[ $step['stepId'] ] = $step['data']['benchmark'];
+			if ( isset( $step['type'] ) && $step['type'] == 'benchmark' ) {
+				$benchmark[ $step['stepId'] ] = '';
 			}
 			if ( isset( $step['type'] ) && ! in_array( $step['type'], [ 'yesNoNode', 'splitpath' ] ) && isset( $step['data'] ) && ! empty( $step['data'] ) ) {
 				$step['data'] = [];
 			}
 			$result[] = $step;
+		}
+
+		if ( ! empty( $benchmark ) ) {
+			$benchmark_step_ids = array_keys( $benchmark );
+
+			$benchmark = BWFAN_Model_Automation_Step::get_benchmark_events( $benchmark_step_ids );
 		}
 
 		$this->update_automation_main_table( [

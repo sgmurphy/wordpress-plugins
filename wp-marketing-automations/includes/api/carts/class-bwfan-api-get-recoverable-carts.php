@@ -77,7 +77,7 @@ class BWFAN_API_Get_Recoverable_Carts extends BWFAN_API_Base {
 				'status'        => ! is_null( $item->status ) ? $item->status : '',
 				'items'         => $this->get_items( $item ),
 				'total'         => ! is_null( $item->total ) ? $item->total : 0,
-				'currency'      => $this->get_currency( $item ),
+				'currency'      => BWFAN_Recoverable_Carts::get_currency( $item ),
 				'buyer_name'    => $this->get_order_name( $item ),
 				'order_id'      => $this->get_order_id( $item ),
 				'user_id'       => ! empty( $item->user_id ) ? $item->user_id : 0,
@@ -86,7 +86,7 @@ class BWFAN_API_Get_Recoverable_Carts extends BWFAN_API_Base {
 		}
 
 		$result           = BWFAN_Recoverable_Carts::populate_contact_info( $result );
-		$this->count_data = BWFAN_Common::get_carts_count();
+		$this->count_data = [];
 
 		return $this->success_response( $result, __( 'Recoverable carts found', 'wp-marketing-automations' ) );
 	}
@@ -211,11 +211,11 @@ class BWFAN_API_Get_Recoverable_Carts extends BWFAN_API_Base {
 		$data['products'] = $products;
 		$coupon_data      = maybe_unserialize( $item->coupons );
 		$data['currency'] = get_woocommerce_currency_symbol( $item->currency );
-		$data['discount'] = '';
+		$data['discount'] = 0;
 
 		if ( is_array( $coupon_data ) && 0 !== count( $coupon_data ) ) {
 			foreach ( $coupon_data as $key => $coupon ) {
-				$data['discount'] = isset( $coupon['discount_incl_tax'] ) ? number_format( $coupon['discount_incl_tax'], 2, '.', '' ) : 0;
+				$data['discount'] += isset( $coupon['discount_incl_tax'] ) ? number_format( $coupon['discount_incl_tax'], 2, '.', '' ) : 0;
 			}
 		}
 
@@ -251,21 +251,6 @@ class BWFAN_API_Get_Recoverable_Carts extends BWFAN_API_Base {
 		return $names;
 	}
 
-	function get_currency( $item ) {
-		$currency        = ! is_null( $item->currency ) ? $item->currency : get_option( 'woocommerce_currency' );
-		$symbols         = get_woocommerce_currency_symbols();
-		$currency_symbol = isset( $symbols[ $currency ] ) ? $symbols[ $currency ] : '';
-
-		return [
-			'code'              => $currency,
-			'precision'         => wc_get_price_decimals(),
-			'symbol'            => html_entity_decode( $currency_symbol ),
-			'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
-			'decimalSeparator'  => wc_get_price_decimal_separator(),
-			'thousandSeparator' => wc_get_price_thousand_separator(),
-			'priceFormat'       => html_entity_decode( get_woocommerce_price_format() ),
-		];
-	}
 
 	function get_order_name( $item ) {
 		if ( 0 === intval( $item->order_id ) ) {

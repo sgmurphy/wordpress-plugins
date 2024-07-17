@@ -20,6 +20,7 @@ class BWFAN_Rules_Loader extends BWFAN_Rules {
 
 	/** v2 Props */
 	public $slim_data = false;
+	protected $rule_types = null;
 
 	public function __construct() {
 
@@ -31,6 +32,7 @@ class BWFAN_Rules_Loader extends BWFAN_Rules {
 		add_filter( 'bwfan_admin_builder_localized_data', array( $this, 'add_rules_ui_prev_data' ) );
 		add_action( 'bwfan_automation_data_set_automation', array( $this, 'maybe_set_rules_ajax_select_names' ) );
 		add_action( 'init', array( $this, 'maybe_initiate_all_rules' ) );
+		add_filter( 'bwfan_modify_rule_class', [ $this, 'append_pruduct_taxonomy_rules' ], 10, 2 );
 	}
 
 	public static function get_instance() {
@@ -137,22 +139,9 @@ class BWFAN_Rules_Loader extends BWFAN_Rules {
 				'product_item_sku'          => __( 'Product SKU', 'wp-marketing-automations' ),
 			),
 			'wc_order'            => array(
-				'product_item'            => __( 'Ordered Products', 'wp-marketing-automations' ),
-				'order_category'          => __( 'Ordered Products Categories', 'wp-marketing-automations' ),
-				'order_tags'              => __( 'Ordered Products Tags', 'wp-marketing-automations' ),
-				'order_total'             => __( 'Order Total', 'wp-marketing-automations' ),
-				'order_coupons'           => __( 'Order Coupons', 'wp-marketing-automations' ),
-				'order_has_coupon'        => __( 'Order Has Coupon', 'wp-marketing-automations' ),
-				'order_coupon_text_match' => __( 'Order Coupon Text', 'wp-marketing-automations' ),
-				'order_payment_gateway'   => __( 'Order Payment Gateway', 'wp-marketing-automations' ),
-				'order_shipping_method'   => __( 'Order Shipping Method', 'wp-marketing-automations' ),
-				'order_billing_country'   => __( 'Order Billing Country', 'wp-marketing-automations' ),
-				'order_shipping_country'  => __( 'Order Shipping Country', 'wp-marketing-automations' ),
-				'order_custom_field'      => __( 'Order Custom Field', 'wp-marketing-automations' ),
-				'is_guest'                => __( 'Is Guest Order', 'wp-marketing-automations' ),
-				'is_first_order'          => __( 'Is First Order', 'wp-marketing-automations' ),
-				'order_status'            => __( 'Order Status', 'wp-marketing-automations' ),
-				'order_note_text_match'   => __( 'Order Note Text', 'wp-marketing-automations' ),
+				'product_item'   => __( 'Ordered Products', 'wp-marketing-automations' ),
+				'order_category' => __( 'Ordered Products Categories', 'wp-marketing-automations' ),
+				'order_tags'     => __( 'Ordered Products Tags', 'wp-marketing-automations' ),
 			),
 			'wc_order_items_data' => array(
 				'order_items_data' => __( 'Order Item Data', 'wp-marketing-automations' ),
@@ -184,11 +173,81 @@ class BWFAN_Rules_Loader extends BWFAN_Rules {
 			),
 		);
 
+		$product_taxonomies = $this->get_product_taxonomies();
+		if ( ! empty( $product_taxonomies ) ) {
+			$types['wc_order'] = array_merge( $types['wc_order'], $product_taxonomies );
+		}
+
+		$order_other_rules = [
+			'order_total'             => __( 'Order Total', 'wp-marketing-automations' ),
+			'order_sub_total'         => __( 'Order Subtotal', 'wp-marketing-automations' ),
+			'order_coupons'           => __( 'Order Coupons', 'wp-marketing-automations' ),
+			'order_has_coupon'        => __( 'Order Has Coupon', 'wp-marketing-automations' ),
+			'order_coupon_text_match' => __( 'Order Coupon Text', 'wp-marketing-automations' ),
+			'order_payment_gateway'   => __( 'Order Payment Gateway', 'wp-marketing-automations' ),
+			'order_shipping_method'   => __( 'Order Shipping Method', 'wp-marketing-automations' ),
+			'order_billing_country'   => __( 'Order Billing Country', 'wp-marketing-automations' ),
+			'order_shipping_country'  => __( 'Order Shipping Country', 'wp-marketing-automations' ),
+			'order_custom_field'      => __( 'Order Custom Field', 'wp-marketing-automations' ),
+			'is_guest'                => __( 'Is Guest Order', 'wp-marketing-automations' ),
+			'is_first_order'          => __( 'Is First Order', 'wp-marketing-automations' ),
+			'order_status'            => __( 'Order Status', 'wp-marketing-automations' ),
+			'order_note_text_match'   => __( 'Order Note Text', 'wp-marketing-automations' ),
+		];
+		$types['wc_order'] = array_merge( $types['wc_order'], $order_other_rules );
+
 		if ( bwfan_is_autonami_pro_active() ) {
 			$types['wc_comment']['customer_reviewed_product'] = __( 'Reviewed Product', 'wp-marketing-automations' );
 		}
 
 		return $types;
+	}
+
+	public function get_product_taxonomies() {
+		$taxonomies = $this->get_custom_taxonomy();
+		if ( empty( $taxonomies ) ) {
+			return [];
+		}
+
+		$data = [];
+		foreach ( $taxonomies as $key => $taxonomy ) {
+			if ( in_array( $key, [ 'product_type', 'product_cat', 'product_tag' ], true ) ) {
+				continue;
+			}
+			$data[ 'bwf_custom_taxonomy_' . $taxonomy->name ] = str_replace( 'Product', 'Ordered Products', $taxonomy->label );
+		}
+
+		return $data;
+	}
+
+	public function get_custom_taxonomy() {
+		$args = array(
+			'object_type' => array( 'product' )
+		);
+
+		return get_taxonomies( $args, '' );
+	}
+
+	/**
+	 * @param $val
+	 * @param $rule_type
+	 *
+	 * @return BWFAN_Rule_Custom_Taxonomy|mixed
+	 */
+	public function append_pruduct_taxonomy_rules( $val, $rule_type ) {
+		$types = $this->rule_types;
+		if ( is_null( $types ) ) {
+			$types = apply_filters( 'bwfan_rule_get_rule_types', array() );
+
+			$this->rule_types = $types;
+		}
+
+		if ( ! isset( $types['wc_order'] ) || ! isset( $types['wc_order'][ $rule_type ] ) || strpos( $rule_type, 'bwf_custom_taxonomy_' ) === false ) {
+			return $val;
+		}
+		$taxonomy = str_replace( 'bwf_custom_taxonomy_', '', $rule_type );
+
+		return new BWFAN_Rule_Custom_Taxonomy( $taxonomy, $rule_type );
 	}
 
 	public function add_rules_ui_prev_data( $localized_data ) {
@@ -359,6 +418,7 @@ class BWFAN_Rules_Loader extends BWFAN_Rules {
 			}, $rule_keys );
 
 			$event_rules[ $group ]['rules'] = array_filter( $event_rules[ $group ]['rules'] );
+			$event_rules[ $group ]['rules'] = array_values( $event_rules[ $group ]['rules'] );
 			if ( empty( $event_rules[ $group ]['rules'] ) ) {
 				unset( $event_rules[ $group ] );
 			}

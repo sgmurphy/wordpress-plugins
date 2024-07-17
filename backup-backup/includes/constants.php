@@ -96,6 +96,16 @@
       define('BMI_CLI_ENABLED', $cli_enabled);
     }
   }
+
+  if (Dashboard\bmi_get_config('OTHER:EXPERIMENT:TIMEOUT') === true) {
+    $disabled = explode(',', ini_get('disable_functions'));
+
+    if (!function_exists('curl_version') || !function_exists('curl_exec') || !function_exists('curl_init') || in_array('curl_exec', $disabled) || in_array('curl_init', $disabled) || in_array('curl_version', $disabled)) {
+      Dashboard\bmi_set_config('OTHER:EXPERIMENT:TIMEOUT', false);
+      Dashboard\bmi_set_config('OTHER:USE:TIMEOUT:NORMAL', true);
+    }
+  }
+
   if (!defined('BMI_LEGACY_VERSION')) {
     $legacy = (Dashboard\bmi_get_config('OTHER:EXPERIMENT:TIMEOUT') == 'true' || Dashboard\bmi_get_config('OTHER:EXPERIMENT:TIMEOUT') === true) ? false : true;
     define('BMI_LEGACY_VERSION', $legacy);

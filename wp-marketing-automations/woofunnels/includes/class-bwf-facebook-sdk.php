@@ -98,7 +98,7 @@ class BWF_Facebook_Sdk {
 	}
 
 	public function get_event_id() {
-		return $this->container['event_id'];
+		return isset( $this->container['event_id'] ) ? $this->container['event_id'] : '';
 	}
 
 	public function get_time() {

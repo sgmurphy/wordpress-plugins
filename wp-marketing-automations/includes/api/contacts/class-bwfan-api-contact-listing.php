@@ -74,32 +74,12 @@ class BWFAN_API_Contact_Listing extends BWFAN_API_Base {
 
 		$contacts = BWFCRM_Model_Contact::get_contact_listing( $search, $this->pagination->limit, $this->pagination->offset, $normalized_filters, $additional_info, $filter_match );
 
-		$this->count_data  = $this->get_contact_data_counts();
+		$this->count_data  = BWFAN_Common::get_contact_data_counts();
 		$this->total_count = $contacts['total'];
 
 		$this->response_code = 200;
 
 		return $this->success_response( $contacts['contacts'] );
-	}
-
-	public function get_contact_data_counts() {
-		$additional_info = [
-			'grab_totals' => true,
-			'only_count'  => true
-		];
-		$contacts_count  = BWFCRM_Contact::get_contacts( '', 0, 0, [], $additional_info );
-		$audience_count  = bwfan_is_autonami_pro_active() ? BWFAN_Model_Terms::get_terms_count( 3 ) : 0;
-		$list_count      = BWFAN_Model_Terms::get_terms_count( 2 );
-		$tag_count       = BWFAN_Model_Terms::get_terms_count();
-
-		return [
-			'contacts_contacts'         => $contacts_count['total_count'],
-			'contacts_manage_audiences' => $audience_count,
-			'contacts_manage_fields'    => BWFAN_Model_Fields::get_fields_count(),
-			'contacts_manage_lists'     => $list_count,
-			'contacts_manage_tags'      => $tag_count,
-			'contacts_bulk_actions'     => bwfan_is_autonami_pro_active() ? BWFAN_Model_Bulk_Action::get_bulk_actions_total_count( true ) : 0,
-		];
 	}
 
 	public function get_result_total_count() {

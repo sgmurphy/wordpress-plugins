@@ -507,6 +507,14 @@ class BWFAN_Abandoned_Cart {
 				continue;
 			}
 
+			/** If product from FK Cart  */
+			if ( isset( $item_data['_fkcart_free_gift'] ) && ! empty( $item_data['_fkcart_free_gift'] ) ) {
+				$is_freegift = $this->is_product_in_freegift( $item_data['product_id'] );
+				if ( false === $is_freegift ) {
+					continue;
+				}
+			}
+
 			$product_id     = 0;
 			$quantity       = 0;
 			$variation_id   = 0;
@@ -572,7 +580,9 @@ class BWFAN_Abandoned_Cart {
 		if ( ! is_null( WC()->session ) ) {
 			WC()->session->set( 'restored_cart_details', $cart_details );
 		}
-
+		if ( isset( $cart_details['email'] ) ) {
+			WC()->customer->set_billing_email( $cart_details['email'] );
+		}
 		/** Apply coupon if available through link - code is in common class auto_apply_wc_coupon() */
 		do_action( 'bwfan_abandoned_cart_restored', $cart_details );
 
@@ -1558,6 +1568,38 @@ class BWFAN_Abandoned_Cart {
 		}
 		unset( $session_data[ $cart_item_key ] );
 		WC()->session->set( 'bwfan_add_to_cart', $session_data );
+	}
+
+	/**
+	 * Is product in FK cart free gifts
+	 *
+	 * @param $product_id
+	 *
+	 * @return bool
+	 */
+	public function is_product_in_freegift( $product_id ) {
+		if ( ! class_exists( 'FKCart\Includes\Data' ) ) {
+			return false;
+		}
+		$settings = FKCart\Includes\Data::get_settings();
+		if ( empty( $settings['enable_cart'] ) ) {
+			return false;
+		}
+		$rewards = FKCart\Includes\Data::get_rewards();
+
+		$free_gifts = array_filter( $rewards['rewards'], function ( $reward ) {
+			return ( isset( $reward['type'] ) && 'freegift' === $reward['type'] );
+		} );
+
+		$free_products = [];
+		foreach ( $free_gifts as $free_gift ) {
+			if ( ! isset( $free_gift['freeProduct'] ) ) {
+				continue;
+			}
+			$free_products = array_merge( $free_products, array_column( $free_gift['freeProduct'], 'key' ) );
+		}
+
+		return in_array( $product_id, $free_products, true );
 	}
 }
 

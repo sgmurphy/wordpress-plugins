@@ -2,9 +2,9 @@
 Contributors: techjewel,adreastrian,heera,wpmanageninja
 Tags: email marketing, newsletter, crm, email newsletter, subscribers
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.1
-Stable tag: 2.9.0
+Stable tag: 2.9.01
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -260,6 +260,9 @@ You can report any security bugs found in the source code of FluentCRM plugins t
 10. Pro Integrations
 
 == Changelog ==
+
+= 2.9.01 (Date: Jul 17, 2024) =
+- Hotfix: Fixed the issue WordPress 6.6 compatibility issue for Block Editor
 
 = 2.9.0 (Date: May 29, 2024) =
 - New: Custom Fields on Company Module

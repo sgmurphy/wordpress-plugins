@@ -2,7 +2,7 @@
 Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, funnel builder, sales funnels, elementor, beaver builder
 Requires at least: 5.8
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.0.9
 Requires PHP: 7.2
 License: GPLv2 or later

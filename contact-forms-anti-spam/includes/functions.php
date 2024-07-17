@@ -1640,7 +1640,7 @@ function checkTelForSpam($field_value) {
     }
 
     if (empty($tel_formats)) {
-        return array('valid' => false, 'reason' => 'Empty formats', 'message' => 'Empty formats');
+        return array('valid' => true, 'reason' => 'Empty formats', 'message' => 'Empty formats');
     }
 
     $tel_formats = explode("\n", str_replace("\r", "", $tel_formats));

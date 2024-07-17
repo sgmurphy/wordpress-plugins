@@ -146,12 +146,11 @@ class DbReplacer {
 			$i          += $this->replace_urls( $find, $replace, $inWhichUrl );
 
 		} elseif ( $whereToReplace == 'page' || $whereToReplace == 'post' ) {
-// pre_print($whereToReplace);
-			$filters  = isset( $user_query['page_post_filters'] ) ? $user_query['page_post_filters'] : '';
+			// pre_print($whereToReplace);
+			$filters     = isset( $user_query['page_post_filters'] ) ? $user_query['page_post_filters'] : '';
 			$replaceType = 'text';
-			$i += $this->tbl_post( $find, $replace, $filters, $whereToReplace );
+			$i          += $this->tbl_post( $find, $replace, $filters, $whereToReplace );
 		}
-
 
 		$dryRunReport = array();
 		if ( isset( $this->settings['cs_db_string_replace']['dry_run'] ) ) {
@@ -199,43 +198,41 @@ class DbReplacer {
 	 */
 	private function tbl_post( $find, $replace, $is_page_post_filter = array(), $post_type = '' ) {
 		global $wpdb;
-		$i        = 0;
+		$i = 0;
 
 		$sql = '';
-		//check for page / post options filters
-		if( !empty( $is_page_post_filter ) ){
+		// check for page / post options filters
+		if ( ! empty( $is_page_post_filter ) ) {
 
-			$filterQuery = '';
-			$placeholders = [ $post_type ];
-			$selectColumns = [];
+			$filterQuery   = '';
+			$placeholders  = array( $post_type );
+			$selectColumns = array();
 
-			if( in_array( 'post_title', $is_page_post_filter ) ){
-				$filterQuery = "post_title LIKE %s";
-				$placeholders[] = '%' . $wpdb->esc_like($find) . '%';
+			if ( in_array( 'post_title', $is_page_post_filter ) ) {
+				$filterQuery     = 'post_title LIKE %s';
+				$placeholders[]  = '%' . $wpdb->esc_like( $find ) . '%';
 				$selectColumns[] = 'post_title';
 			}
 
-			if( in_array( 'post_content', $is_page_post_filter ) ){
-				$filterQuery .= empty($filterQuery) ? "post_content LIKE %s" : " OR post_content LIKE %s";
-				$placeholders[] = '%' . $wpdb->esc_like($find) . '%';
+			if ( in_array( 'post_content', $is_page_post_filter ) ) {
+				$filterQuery    .= empty( $filterQuery ) ? 'post_content LIKE %s' : ' OR post_content LIKE %s';
+				$placeholders[]  = '%' . $wpdb->esc_like( $find ) . '%';
 				$selectColumns[] = 'post_content';
 			}
 
-			if( in_array( 'post_excerpt', $is_page_post_filter ) ){
-				$filterQuery .= empty($filterQuery) ? "post_excerpt LIKE %s" : " OR post_excerpt LIKE %s";
-				$placeholders[] = '%' . $wpdb->esc_like($find) . '%';
+			if ( in_array( 'post_excerpt', $is_page_post_filter ) ) {
+				$filterQuery    .= empty( $filterQuery ) ? 'post_excerpt LIKE %s' : ' OR post_excerpt LIKE %s';
+				$placeholders[]  = '%' . $wpdb->esc_like( $find ) . '%';
 				$selectColumns[] = 'post_excerpt';
 			}
 
-
-			//PHP 7.0 or higher
-			$selectColumnsString = implode(', ', $selectColumns);
-			$sql = $wpdb->prepare("SELECT ID, $selectColumnsString FROM {$wpdb->posts} WHERE post_type = %s AND $filterQuery", $placeholders);
+			// PHP 7.0 or higher
+			$selectColumnsString = implode( ', ', $selectColumns );
+			$sql                 = $wpdb->prepare( "SELECT ID, $selectColumnsString FROM {$wpdb->posts} WHERE post_type = %s AND $filterQuery", $placeholders );
 
 			// pre_print( $sql );
 
-		}
-		else{
+		} else {
 			$sql = $wpdb->prepare(
 				"select * from {$wpdb->posts} where post_title LIKE %s or post_content LIKE %s or post_excerpt LIKE %s",
 				'%' . $wpdb->esc_like( $find ) . '%',
@@ -250,7 +247,7 @@ class DbReplacer {
 			foreach ( $get_data as $item ) {
 
 				// replace in post_title
-				if( isset( $item->post_title ) ){
+				if ( isset( $item->post_title ) ) {
 					$is_replaced = $this->bfrReplace(
 						$find,
 						$replace,
@@ -261,15 +258,14 @@ class DbReplacer {
 						'post_title',
 						array( 'ID' => $item->ID )
 					);
-	
+
 					if ( true === $is_replaced ) {
 						++$i;
 					}
 				}
 
-
 				// replace in post_content
-				if( isset($item->post_content ) ){
+				if ( isset( $item->post_content ) ) {
 					$is_replaced = $this->bfrReplace(
 						$find,
 						$replace,
@@ -280,14 +276,14 @@ class DbReplacer {
 						'post_content',
 						array( 'ID' => $item->ID )
 					);
-	
+
 					if ( true === $is_replaced ) {
 						++$i;
 					}
 				}
 
 				// replace in post_excerpt
-				if( isset($item->post_excerpt)){
+				if ( isset( $item->post_excerpt ) ) {
 					$is_replaced = $this->bfrReplace(
 						$find,
 						$replace,
@@ -298,12 +294,11 @@ class DbReplacer {
 						'post_excerpt',
 						array( 'ID' => $item->ID )
 					);
-	
+
 					if ( true === $is_replaced ) {
 						++$i;
 					}
 				}
-
 			}
 		}
 		return $i;
@@ -609,7 +604,7 @@ class DbReplacer {
 		);
 
 		// pre_print(
-		// 	$displayReplace
+		// $displayReplace
 		// );
 
 		$is_updated = false;
@@ -794,6 +789,8 @@ class DbReplacer {
 				is_string( $args['str'] ) && false === $args['has_escaped_serialized'] ) {
 
 			$temp = array();
+
+			$args['str'] = Util::check_evil_script( $args['str'] );
 
 			$uStr = \maybe_unserialize( $args['str'] );
 			if ( $uStr !== false ) {

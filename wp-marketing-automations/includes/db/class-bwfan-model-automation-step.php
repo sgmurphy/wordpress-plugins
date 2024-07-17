@@ -297,9 +297,44 @@ class BWFAN_Model_Automation_Step extends BWFAN_Model {
 		if ( empty( $step ) ) {
 			return [];
 		}
-		
+
 		$step['data'] = ! empty( $step['data'] ) ? json_decode( $step['data'], true ) : [];
 
 		return $step;
+	}
+
+	/**
+	 * Get Benchmark event name by step id
+	 *
+	 * @param $stepids
+	 *
+	 * @return array
+	 */
+	public static function get_benchmark_events( $stepids = [] ) {
+		if ( empty( $stepids ) ) {
+			return [];
+		}
+
+		global $wpdb;
+
+		$placeholder = array_fill( 0, count( $stepids ), '%d' );
+		$placeholder = implode( ", ", $placeholder );
+		$args        = $stepids;
+		$table_name  = self::_table();
+
+		$query = "SELECT `ID`, `action` FROM $table_name WHERE `ID` IN ($placeholder) AND `type` = 3;";
+		$query = $wpdb->prepare( $query, $args );
+
+		$results      = $wpdb->get_results( $query, ARRAY_A );
+		$return_array = [];
+		if ( is_array( $results ) && count( $results ) > 0 ) {
+			foreach ( $results as $val ) {
+				$benchmark                  = json_decode( $val['action'], true );
+				$benchmark                  = $benchmark['benchmark'];
+				$return_array[ $val['ID'] ] = $benchmark;
+			}
+		}
+
+		return $return_array;
 	}
 }

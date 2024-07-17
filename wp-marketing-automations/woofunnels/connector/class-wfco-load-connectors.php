@@ -15,7 +15,9 @@ class WFCO_Load_Connectors {
 	private static $registered_connectors_calls = array();
 
 	public function __construct() {
-		add_action( 'plugins_loaded', [ $this, 'load_connectors' ], 8 );
+		add_action( 'rest_api_init', [ $this, 'load_connectors_rest_call' ], 8 );
+		add_action( 'current_screen', [ $this, 'load_connectors_admin' ], 8 );
+		add_action( 'admin_init', [ $this, 'load_connectors_admin_ajax' ], 8 );
 	}
 
 	/**
@@ -32,10 +34,61 @@ class WFCO_Load_Connectors {
 	}
 
 	/**
-	 * Include all the connectors files
+	 * Include all connectors files on rest endpoints
+	 *
+	 * @return void
 	 */
-	public static function load_connectors() {
+	public static function load_connectors_rest_call() {
+		$rest_route = isset( $_GET['rest_route'] ) ? $_GET['rest_route'] : '';
+		if ( empty( $rest_route ) ) {
+			$rest_route = $_SERVER['REQUEST_URI'];
+		}
+		if ( empty( $rest_route ) ) {
+			return;
+		}
+		if ( strpos( $rest_route, 'autonami/' ) === false && strpos( $rest_route, 'woofunnel_customer/' ) === false && strpos( $rest_route, 'funnelkit-app' ) === false && strpos( $rest_route, 'autonami-app' ) === false && strpos( $rest_route, 'funnelkit-automations' ) === false && strpos( $rest_route, 'autonami-webhook' ) === false && strpos( $rest_route, 'woofunnels/' ) === false ) {
+			return;
+		}
+
 		do_action( 'wfco_load_connectors' );
+	}
+
+	/**
+	 * Include all connectors files on admin screen
+	 *
+	 * @return void
+	 */
+	public static function load_connectors_admin() {
+		$screen = get_current_screen();
+		if ( ! is_object( $screen ) ) {
+			return;
+		}
+		if ( empty( $screen->id ) || 'toplevel_page_autonami' !== $screen->id ) {
+			return;
+		}
+		do_action( 'wfco_load_connectors' );
+	}
+
+	/**
+	 * Include all connectors files on admin ajax call
+	 *
+	 * @return void
+	 */
+	public static function load_connectors_admin_ajax() {
+		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+			return;
+		}
+		$ajax_action = $_POST['action'] ?? '';
+		if ( empty( $ajax_action ) ) {
+			return;
+		}
+		$array = [ 'wfco', 'bwfan' ];
+		foreach ( $array as $value ) {
+			if ( strpos( $ajax_action, $value ) !== false ) {
+				do_action( 'wfco_load_connectors' );
+				break;
+			}
+		}
 	}
 
 	/**

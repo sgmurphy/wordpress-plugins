@@ -11,6 +11,7 @@ class BWFAN_One_Click_Unsubscribe_Link extends BWFAN_Merge_Tag {
 		$this->support_fallback = false;
 		$this->priority         = 25;
 		$this->support_v1       = false;
+		$this->is_crm_broadcast = true;
 	}
 
 	public static function get_instance() {
@@ -33,10 +34,11 @@ class BWFAN_One_Click_Unsubscribe_Link extends BWFAN_Merge_Tag {
 			return $this->get_dummy_preview();
 		}
 
-		$get_data   = BWFAN_Merge_Tag_Loader::get_data();
-		$user_id    = isset( $get_data['user_id'] ) ? $get_data['user_id'] : '';
-		$email      = isset( $get_data['email'] ) ? $get_data['email'] : '';
-		$contact_id = isset( $get_data['contact_id'] ) ? $get_data['contact_id'] : '';
+		$get_data     = BWFAN_Merge_Tag_Loader::get_data();
+		$user_id      = isset( $get_data['user_id'] ) ? $get_data['user_id'] : '';
+		$email        = isset( $get_data['email'] ) ? $get_data['email'] : '';
+		$contact_id   = isset( $get_data['contact_id'] ) ? $get_data['contact_id'] : '';
+		$broadcast_id = isset( $get_data['broadcast_id'] ) ? $get_data['broadcast_id'] : '';
 
 		$unsubscribe_link = $this->get_unsubscribe_page_url();
 
@@ -51,10 +53,13 @@ class BWFAN_One_Click_Unsubscribe_Link extends BWFAN_Merge_Tag {
 			}
 		}
 
+		$query_args = array( 'uid' => $uid );
+		if ( ! empty( $broadcast_id ) ) {
+			$query_args['bid'] = $broadcast_id;
+		}
+
 		if ( ! empty( $uid ) ) {
-			$unsubscribe_link = add_query_arg( array(
-				'uid' => $uid
-			), $unsubscribe_link );
+			$unsubscribe_link = add_query_arg( $query_args, $unsubscribe_link );
 		}
 
 		$unsubscribe_link = apply_filters( 'bwfan_unsubscribe_link', $unsubscribe_link, $attr );

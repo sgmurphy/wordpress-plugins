@@ -350,7 +350,7 @@ class BWFAN_Conversation {
 	}
 
 	/**
-	 * @param int $contact_id
+	 * @param BWFCRM_Contact $contact
 	 * @param int $campaign_id
 	 * @param int $template_id
 	 * @param int $author_id
@@ -362,8 +362,8 @@ class BWFAN_Conversation {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function create_campaign_conversation( $contact_id, $campaign_id, $template_id, $author_id, $conversation_mode = 1, $is_single = false, $template = array(), $single_type = 0, $status = 1 ) {
-		$contact = new BWFCRM_Contact( $contact_id );
+	public function create_campaign_conversation( $contact, $campaign_id, $template_id, $author_id, $conversation_mode = 1, $is_single = false, $template = array(), $single_type = 0, $status = 1 ) {
+		$contact = ( $contact instanceof BWFCRM_Contact ) ? $contact : new BWFCRM_Contact( $contact );
 		if ( ! $contact->is_contact_exists() ) {
 			return BWFAN_Common::crm_error( __( 'Unable to find contact', 'wp-marketing-automations' ) );
 		}

@@ -25,8 +25,8 @@ if( $arilewp_main_slider_disabled == true ): ?>
 			<?php } ?>
 			<?php if($title != '' || $img_description!= '' || $readmore_button!=''){ ?>
 				<div class="container theme-slider-content">
-					<div class="theme-text-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
-					<hr class="divider-sm-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
+					<div class="theme-text-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
+					<hr class="divider-sm-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
 					<?php if($title != ''){ ?>
 						<h1 class="title-large"><?php echo wp_kses_post( html_entity_decode( $title ) ); ?></h1>
 				    <?php } ?>
@@ -107,6 +107,10 @@ if( $arilewp_main_slider_disabled == true ): ?>
 					$image1_slide = 30;
 					$image2_slide = 16;
 			}
+			if('Interior Space' == $activate_theme){
+					$image1_slide = 31;
+					$image2_slide = 27;
+			}
 				
 			if('InteriorPress' == $activate_theme){	
 				$slide1_title = 'ELEGANT & COMFORTABLE';
@@ -152,6 +156,10 @@ if( $arilewp_main_slider_disabled == true ): ?>
 				$slide1_title = 'Make the Most of Creative Ideas';
 				$slide2_title = 'We Offer You A Digital Platform';
 			}
+			elseif('Interior Space' == $activate_theme){	
+				$slide1_title = 'MODERN HOME DECOR';
+				$slide2_title = 'AWARD WINNINGS DESIGN';
+			}
 			else{
 			    $slide1_title = 'We Create Amazing WordPress Themes';
 				$slide2_title = 'Best Digital Marketing Solutions';			
@@ -164,6 +172,9 @@ if( $arilewp_main_slider_disabled == true ): ?>
 		elseif('Agency Street' == $activate_theme || 'Agency Firm' == $activate_theme){
 			$slider_desc = "We build trust to expand your business at the next level. Our platform includes trust-building tools so you can make the most of your company grows.";
 		}
+		elseif('Interior Space' == $activate_theme){
+			$slider_desc = "We provide all types of interior and architecture design services such as exterior design, kitchen design, room design, furniture design, light design, etc. With the help of which you can build your dream home.";
+		}
 		else{
 			$slider_desc = "We are very happy to present to you ArileWP, the powerful and flexible multi-purpose WordPress theme. Not only does ArileWP outstand with many new features but suitable for all creatives and businesses. Join 2500+ customers.";
 		}
@@ -172,8 +183,8 @@ if( $arilewp_main_slider_disabled == true ): ?>
 			?>
 			<div class="item" style="background-image:url(<?php echo arile_extra_plugin_url; ?>/inc/arilewp/images/theme-slide<?php echo $image1_slide; ?>.jpg);">
 				<div class="container theme-slider-content">
-					<div class="theme-text-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
-					    <hr class="divider-sm-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
+					<div class="theme-text-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
+					    <hr class="divider-sm-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
 						<h1 class="title-large"><?php esc_html_e(''.$slide1_title.'','arile-extra'); ?></h1>
 						<p class="description"><?php esc_html_e(''.$slider_desc.'','arile-extra'); ?></p>
 						<div class="mt-4 pt-2">
@@ -188,8 +199,8 @@ if( $arilewp_main_slider_disabled == true ): ?>
 			
 			<div class="item" style="background-image:url(<?php echo arile_extra_plugin_url; ?>/inc/arilewp/images/theme-slide<?php echo $image2_slide; ?>.jpg);">
 				<div class="container theme-slider-content">
-					<div class="theme-text-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
-					    <hr class="divider-sm-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
+					<div class="theme-text-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
+					    <hr class="divider-sm-<?php if('Fresno' == $activate_theme || 'Sayre' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme){ echo 'left';}else{ echo 'center';} ?>">
 						<h1 class="title-large"><?php esc_html_e(''.$slide2_title.'','arile-extra'); ?></h1>
 						<p class="description"><?php esc_html_e(''.$slider_desc.'','arile-extra'); ?></p>
 						<div class="mt-4 pt-2">

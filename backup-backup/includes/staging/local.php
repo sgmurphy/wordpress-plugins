@@ -407,9 +407,24 @@
       global $wpdb;
 
       // Create new table
-      $sql = "CREATE TABLE %i AS SELECT * FROM %i;";
-      $sql = $wpdb->prepare($sql, [$destination, $source]);
-      $wpdb->query($sql);
+      $sql = "SHOW CREATE TABLE %i;";
+      $sql = $wpdb->prepare($sql, [$source]);
+      $sourceCreate = $wpdb->get_row($sql);
+      $isTable = isset($sourceCreate->{'Create Table'});
+      if ($isTable) {
+        $sourceCreate->{'Create Table'} = str_ireplace('CREATE TABLE `' . $source, 'CREATE TABLE IF NOT EXISTS `' . $destination, $sourceCreate->{'Create Table'});
+        $wpdb->query($sourceCreate->{'Create Table'});
+        //Insert data 
+        $sql = "INSERT INTO %i SELECT * from %i;";
+        $sql = $wpdb->prepare($sql, [$destination, $source]);
+        $wpdb->query($sql);
+      } else {
+        $sql = "CREATE TABLE %i AS SELECT * FROM %i;";
+        $sql = $wpdb->prepare($sql, [$destination, $source]);
+        $wpdb->query($sql);
+      }
+
+
 
       if ($wpdb->last_error !== '') {
         $this->duplicateTableAlternative($source, $destination);

@@ -211,7 +211,7 @@ function cdp_tooltip_content($profiles = array()) {
           <span><?php _e('Tags', 'copy-delete-posts'); ?></span>
         </label>
         <label>
-          <input class="cdp-input-dynamic" type="checkbox" name="taxonomy">
+          <input class="cdp-input-dynamic" type="checkbox" name="cdp_taxonomy">
           <span><?php _e('Taxonomies', 'copy-delete-posts'); ?></span>
         </label>
         <label>

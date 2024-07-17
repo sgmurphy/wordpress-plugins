@@ -159,6 +159,32 @@ abstract class BWFAN_Merge_Tag {
 		}
 	}
 
+	public static function maybe_parse_nested_merge_tags( $string ) {
+		$position_end = strpos( $string, ']' );
+		if ( false === $position_end ) {
+			return $string;
+		}
+
+		$split          = str_split( $string, $position_end );
+		$position_start = strrpos( $split[0], '[', - 1 );
+
+		if ( false === $position_start ) {
+			return $string;
+		}
+
+		$shortcode_array = explode( '[', $split[0] );
+		$shortcode       = end( $shortcode_array );
+		$result          = do_shortcode( '[' . $shortcode . ']' );
+
+		/** Handling in case shortcode is not available and the output again contains the shortcode that would results in infinite loop */
+		$result = str_replace( '[', '&#91;', $result );
+		$result = str_replace( ']', '&#93;', $result );
+
+		$string = str_replace( '[' . $shortcode . ']', $result, $string );
+
+		return unescape_invalid_shortcodes( self::maybe_parse_nested_merge_tags( $string ) );
+	}
+
 	public function format_datetime( $input, $parameters, $is_gmt = false ) {
 		if ( ! $input ) {
 			return false;

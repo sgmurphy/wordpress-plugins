@@ -46,7 +46,7 @@ function arileextra_arilewp_frontpage_sections_settings( $wp_customize ){
 	$activate_theme_data = wp_get_theme(); // getting current theme data
     $activate_theme = $activate_theme_data->name;
 	
-if('NewYork City' != $activate_theme && 'InteriorPress' != $activate_theme && 'DecorPress' != $activate_theme && 'Alberta' != $activate_theme && 'Interior Startup' != $activate_theme){
+if('NewYork City' != $activate_theme && 'InteriorPress' != $activate_theme && 'DecorPress' != $activate_theme && 'Alberta' != $activate_theme && 'Interior Startup' != $activate_theme && 'Interior Space' != $activate_theme){
 	/* Info Area */
 	$wp_customize->add_section( 'arilewp_theme_info_area' , array(
 		'title'      => __('Theme Info Area', 'arile-extra'),

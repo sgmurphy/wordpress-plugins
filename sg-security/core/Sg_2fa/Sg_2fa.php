@@ -308,9 +308,9 @@ class Sg_2fa {
 			require_once ABSPATH . '/wp-admin/includes/template.php';
 		}
 
-		// Jetpack SSO Hiding 2FA form.
-		if ( class_exists( 'Jetpack_SSO' ) ) {
-			remove_filter( 'login_body_class', array( \Jetpack_SSO::get_instance(), 'login_body_class' ) );
+		// JetPack SSO Hiding 2FA form.
+		if ( class_exists( 'Automattic\Jetpack\Connection\SSO' ) ) {
+			remove_filter( 'login_body_class', array( \Automattic\Jetpack\Connection\SSO::get_instance(), 'login_body_class' ) );
 		}
 
 		login_header();
@@ -567,7 +567,13 @@ class Sg_2fa {
 
 		$domain = empty( COOKIE_DOMAIN ) ? $_SERVER['SERVER_NAME'] : COOKIE_DOMAIN;
 
-		setcookie( 'sgs_2fa_login_nonce', $user->ID . '|' . $user_cookie_part, time() + DAY_IN_SECONDS, $difference . '/wp-login.php', $domain, true, true );
+		$slug = '/wp-login.php';
+		// Check if the WPS Hide Login Plugin is active, if so, check it's option to see if there's a custom login URL set and use it.
+		if ( \class_exists( 'WPS\WPS_Hide_Login\Plugin' ) ) {
+			$slug = \get_option( 'whl_page', '' ) ?: '/login';
+		}
+
+		setcookie( 'sgs_2fa_login_nonce', $user->ID . '|' . $user_cookie_part, time() + DAY_IN_SECONDS, $difference . $slug, $domain, true, true );
 
 		update_user_meta( $user->ID, 'sgs_2fa_login_nonce', wp_hash( $user_cookie_part ) );
 
@@ -921,7 +927,7 @@ class Sg_2fa {
 		printf(
 			'<div class="notice notice-error sg sg-section__content" style="position: relative; margin-top: 1em; display:block!important;"><p>%1$s</p><button type="button" class="notice-dismiss dismiss-sg-security-notice" data-link="%2$s"><span class="screen-reader-text">Dismiss this notice.</span></button></div>',
 			__( 'SG Security: We were not able to create encryption file used by 2FA, so the Two Factor Authentication service was disabled. Please check your website files and folders permissions or contact your hosting provider for assistance.', 'sg-security' ), // phpcs:ignore
-			admin_url( 'admin-ajax.php?action=dismiss_sgs_2fa_notice&notice=2fa_encryption_file_notice' ) // phpcs:ignore
+			wp_nonce_url( admin_url( 'admin-ajax.php?action=dismiss_sgs_2fa_notice&notice=2fa_encryption_file_notice' ), 'sg-security-2fa-file-notice' ) // phpcs:ignore
 		);
 	}
 
@@ -931,11 +937,19 @@ class Sg_2fa {
 	 * @since  1.3.6
 	 */
 	public function hide_notice() {
-		if ( empty( $_GET['notice'] ) ) {
+		if ( empty( $_GET['notice'] ) || ! check_ajax_referer( 'sg-security-2fa-file-notice', 'nonce', false ) ) {
 			return;
 		}
 
-		update_option( 'sg_security_' . $_GET['notice'], 0 ); // phpcs:ignore
+		if ( '2fa_encryption_file_notice' !== sanitize_text_field( $_GET['notice'] ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+
+		update_option( 'sg_security_2fa_encryption_file_notice', 0 );
 
 		wp_send_json_success();
 	}

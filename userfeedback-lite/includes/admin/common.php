@@ -160,7 +160,7 @@ function userfeedback_admin_styles() {
 			userfeedback_get_asset_version()
 		);
 	}
-	
+
 	if ( userfeedback_screen_is_smtp() ) {
 		wp_enqueue_style(
 			'userfeedback-vue-smtp',
@@ -295,7 +295,7 @@ function userfeedback_admin_scripts() {
 			userfeedback_get_common_script_localization_object()
 		);
 	}
-	
+
 	// --------------------------------------------------
 	// -------------- SMTP scripts ------------------
 	if ( userfeedback_screen_is_smtp() ) {
@@ -343,6 +343,8 @@ add_action( 'admin_enqueue_scripts', 'userfeedback_admin_scripts', 99 );
 // ----------------------------------------------------
 
 function userfeedback_get_common_script_localization_object() {
+	$is_onboarding_page = ( ! empty( $_GET['page'] ) && 'userfeedback_onboarding' == $_GET['page'] );
+
 	return apply_filters(
 		'userfeedback_admin_script_localization',
 		array(
@@ -367,7 +369,7 @@ function userfeedback_get_common_script_localization_object() {
 			'translations'              => wp_get_jed_locale_data( 'userfeedback' ),
 			'assets'                    => plugins_url( '/assets/vue', USERFEEDBACK_PLUGIN_FILE ),
 			'integrations'              => array(),
-			'addons'                    => userfeedback_get_parsed_addons(),
+			'addons'                    => $is_onboarding_page ? array() : userfeedback_get_parsed_addons(),
 			'notices'                   => apply_filters( 'userfeedback_vue_notices', array() ),
 			'wp_notices'                => apply_filters( 'userfeedback_vue_wp_notices', array() ),
 			'widget_settings'           => userfeedback_get_frontend_widget_settings()

@@ -2,7 +2,7 @@
 Tags: CF7 redirect, CF7 thank you page, redirect cf7, redirect CF7, CF7 success page, cf7 redirect, registration form, mailchimp, login form, conditional redirect, cms integration, conversions, save leads, paypal
 Contributors: codeinwp, themeisle, yuvalsabar, regevlio
 Requires at least: 5.2.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 3.1.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

@@ -31,10 +31,7 @@ add_action( 'bwfan_output_email_style', function () { ?>
 if ( ! isset( $this->order ) || ! $this->order instanceof WC_Order ) {
 	return;
 }
-$order_lang = '';
-if ( class_exists( 'woocommerce_wpml' ) ) {
-	$order_lang = $this->order->get_meta( 'wpml_language' );
-}
+$order_lang = BWFAN_Common::get_order_language( $this->order );
 do_action( 'bwfan_email_setup_locale', $order_lang );
 
 $show_downloads = $this->order->has_downloadable_item() && $this->order->is_download_permitted();

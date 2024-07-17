@@ -21,7 +21,7 @@ export const Home = () => {
 				)}>
 				<Button
 					variant="primary"
-					className="justify-center w-full"
+					className="w-full justify-center"
 					onClick={() => navigateTo('ai-image')}>
 					{__('Add a prompt', 'extendify-local')}
 				</Button>
@@ -37,7 +37,7 @@ export const Home = () => {
 				)}>
 				<Button
 					variant="primary"
-					className="justify-center w-full"
+					className="w-full justify-center"
 					onClick={() => navigateTo('unsplash')}>
 					{__('Search Unsplash', 'extendify-local')}
 				</Button>

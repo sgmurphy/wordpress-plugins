@@ -94,16 +94,7 @@ class BWFAN_Rule_Cart_Total extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		$operators = array(
-			'==' => __( 'is equal to', 'wp-marketing-automations' ),
-			'!=' => __( 'is not equal to', 'wp-marketing-automations' ),
-			'>'  => __( 'is greater than', 'wp-marketing-automations' ),
-			'<'  => __( 'is less than', 'wp-marketing-automations' ),
-			'>=' => __( 'is greater or equal to', 'wp-marketing-automations' ),
-			'<=' => __( 'is less or equal to', 'wp-marketing-automations' ),
-		);
-
-		return $operators;
+		return $this->get_possible_number_rule_operators();
 	}
 
 }
@@ -385,14 +376,12 @@ class BWFAN_Rule_Cart_Product extends BWFAN_Rule_Products {
 	}
 
 	public function get_possible_rule_operators() {
-		$operators = array(
+		return array(
 			'>'  => __( 'contains at least', 'wp-marketing-automations' ),
 			'<'  => __( 'contains less than', 'wp-marketing-automations' ),
 			'==' => __( 'contains exactly', 'wp-marketing-automations' ),
 			'!=' => __( 'does not contain', 'wp-marketing-automations' ),
 		);
-
-		return $operators;
 	}
 }
 
@@ -475,15 +464,11 @@ class BWFAN_Rule_Cart_Category extends BWFAN_Rule_Term_Taxonomy {
 	}
 
 	public function get_possible_rule_operators() {
-		$operators = array(
+		return array(
 			'any'  => __( 'matches any of', 'wp-marketing-automations' ),
 			'none' => __( 'matches none of', 'wp-marketing-automations' ),
 		);
-
-		return $operators;
 	}
-
-
 }
 
 class BWFAN_Rule_Cart_Items_Tag extends BWFAN_Rule_Term_Taxonomy {
@@ -564,15 +549,11 @@ class BWFAN_Rule_Cart_Items_Tag extends BWFAN_Rule_Term_Taxonomy {
 	}
 
 	public function get_possible_rule_operators() {
-		$operators = array(
+		return array(
 			'any'  => __( 'matches any of', 'wp-marketing-automations' ),
 			'none' => __( 'matches none of', 'wp-marketing-automations' ),
 		);
-
-		return $operators;
 	}
-
-
 }
 
 class BWFAN_Rule_Cart_Coupons extends BWFAN_Dynamic_Option_Base {
@@ -755,16 +736,12 @@ class BWFAN_Rule_Cart_Coupons extends BWFAN_Dynamic_Option_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		$operators = array(
+		return array(
 			'any'  => __( 'matches any of', 'wp-marketing-automations' ),
 			'all'  => __( 'matches all of ', 'wp-marketing-automations' ),
 			'none' => __( 'matches none of', 'wp-marketing-automations' ),
 		);
-
-		return $operators;
 	}
-
-
 }
 
 class BWFAN_Rule_Cart_Coupon_Text_Match extends BWFAN_Rule_Base {
@@ -824,17 +801,13 @@ class BWFAN_Rule_Cart_Coupon_Text_Match extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		$operators = array(
+		return array(
 			'contains'    => __( 'contains', 'wp-marketing-automations' ),
 			'is'          => __( 'matches exactly', 'wp-marketing-automations' ),
 			'starts_with' => __( 'starts with', 'wp-marketing-automations' ),
 			'ends_with'   => __( 'ends with', 'wp-marketing-automations' ),
-
 		);
-
-		return $operators;
 	}
-
 }
 
 class BWFAN_Rule_Cart_Contains_Coupon extends BWFAN_Rule_Base {
@@ -1018,16 +991,7 @@ class BWFAN_Rule_Cart_Item_Count extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		$operators = array(
-			'==' => __( 'is equal to', 'wp-marketing-automations' ),
-			'!=' => __( 'is not equal to', 'wp-marketing-automations' ),
-			'>'  => __( 'is greater than', 'wp-marketing-automations' ),
-			'<'  => __( 'is less than', 'wp-marketing-automations' ),
-			'>=' => __( 'is greater or equal to', 'wp-marketing-automations' ),
-			'<=' => __( 'is less or equal to', 'wp-marketing-automations' ),
-		);
-
-		return $operators;
+		return $this->get_possible_number_rule_operators();
 	}
 
 }

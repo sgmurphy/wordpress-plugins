@@ -593,13 +593,13 @@ class SSA_Templates {
 	public function strip_mustache_content($text) {
 		$mustachePattern = '/{{\s*([^}]+)\s*}}/';
 				$mustacheCallback = function ($matches) {
-				return '{{' . strip_tags($matches[1]) . '}}';
+				return '{{' . strip_tags(trim($matches[1])) . '}}';
 		};
 		$text = preg_replace_callback($mustachePattern, $mustacheCallback, $text);
 		
 		$templatePattern = '/{%\s*([^}]+)\s*%}/';
 		$templateCallback = function ($matches) {
-				return '{%' . strip_tags($matches[1]) . '%}';
+				return '{%' . strip_tags(trim($matches[1])) . '%}';
 		};
 		$text = preg_replace_callback($templatePattern, $templateCallback, $text);
 		

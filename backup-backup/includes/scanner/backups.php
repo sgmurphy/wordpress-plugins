@@ -90,6 +90,10 @@
         }
       }
 
+      if (is_string($md5summary)) {
+        @unlink($md5_file_summary_path);
+      }
+
       $md5s = [];
       $cached_md5 = false;
       if (isset($md5summary[$zip_name])) {
@@ -114,7 +118,8 @@
 
       } else {
 
-        $md5summary[$zip_name] = [];
+        if ($zip_name) $md5summary[$zip_name] = [];
+        else return false;
 
       }
 

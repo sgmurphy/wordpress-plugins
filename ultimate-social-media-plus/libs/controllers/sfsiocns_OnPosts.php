@@ -92,10 +92,14 @@ function sfsi_plus_social_buttons_below($content)
 					$counts = $sfsi_section4['sfsi_plus_facebook_manualCounts'];
 				} else if ($sfsi_section4['sfsi_plus_facebook_countsFrom'] == "likes") {
 					$counts = $socialObj->sfsi_get_fb($permalink, true);
-                    $counts = intval($counts->share_count);
+                    if (isset($counts->share_count)){
+                      $counts = intval($counts->share_count);
+                    }
 				} else if ($sfsi_section4['sfsi_plus_facebook_countsFrom'] == "followers") {
                     $counts = $socialObj->sfsi_get_fb($permalink, true);
+                  if (isset($counts->share_count)){
                     $counts = intval($counts->share_count);
+                  }
 				} else if ($sfsi_section4['sfsi_plus_facebook_countsFrom'] == "mypage") {
 					$current_url = $sfsi_section4['sfsi_plus_facebook_mypageCounts'];
 					$counts      = $socialObj->sfsi_get_fb_pagelike($current_url);

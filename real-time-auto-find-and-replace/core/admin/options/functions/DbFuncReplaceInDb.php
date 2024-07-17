@@ -67,14 +67,12 @@ class DbFuncReplaceInDb {
 			array(
 				'all'          => __( 'Select All', 'real-time-auto-find-and-replace' ),
 				'unselect_all' => __( 'Unselect All', 'real-time-auto-find-and-replace' ),
-				"post_title" => \ucwords( __( "{$type} Title", 'real-time-auto-find-and-replace' ) ),
-				"post_content" => \ucwords( __( "{$type} Content", 'real-time-auto-find-and-replace' ) ),
-				"post_excerpt" => \ucwords( __( "{$type} Excerpt", 'real-time-auto-find-and-replace' ) ),
+				'post_title'   => \ucwords( __( "{$type} Title", 'real-time-auto-find-and-replace' ) ),
+				'post_content' => \ucwords( __( "{$type} Content", 'real-time-auto-find-and-replace' ) ),
+				'post_excerpt' => \ucwords( __( "{$type} Excerpt", 'real-time-auto-find-and-replace' ) ),
 			)
 		);
 
 		return wp_send_json( array( 'urls' => $options ) );
 	}
-
-
 }

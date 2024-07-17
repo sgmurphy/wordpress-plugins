@@ -86,6 +86,10 @@ if ( ! function_exists( 'arileextra_arilewp_main_slider_default_content' ) ) :
 				$image1_slide = 30;
 				$image2_slide = 16;
 		}
+		if('Interior Space' == $activate_theme){
+				$image1_slide = 31;
+				$image2_slide = 27;
+		}
 			
 			if('InteriorPress' == $activate_theme){	
 				$slide1_title = 'ELEGANT & COMFORTABLE';
@@ -147,6 +151,10 @@ if ( ! function_exists( 'arileextra_arilewp_main_slider_default_content' ) ) :
 			$slide1_title = "Make the Most of Creative Ideas";
 			$slide2_title = 'We Offer You A Digital Platform';
 			}
+			elseif('Interior Space' == $activate_theme){	
+			$slide1_title = "MODERN HOME DECOR";
+			$slide2_title = 'AWARD WINNINGS DESIGN';
+			}
 			else{
 			    $slide1_title = 'We Create Amazing WordPress Themes';
 				$slide2_title = 'Best Digital Marketing Solutions';			
@@ -160,6 +168,9 @@ if ( ! function_exists( 'arileextra_arilewp_main_slider_default_content' ) ) :
 		}
 		elseif('Agency Street' == $activate_theme || 'Agency Firm' == $activate_theme){
 			$slider_desc = "We build trust to expand your business at the next level. Our platform includes trust-building tools so you can make the most of your company grows.";
+		}
+		elseif('Interior Space' == $activate_theme){
+			$slider_desc = "We provide all types of interior and architecture design services such as exterior design, kitchen design, room design, furniture design, light design, etc. With the help of which you can build your dream home.";
 		}
 		else{
 			$slider_desc = "We are very happy to present to you ArileWP, the powerful and flexible multi-purpose WordPress theme. Not only does ArileWP outstand with many new features but suitable for all creatives and businesses. Join 2500+ customers.";
@@ -237,7 +248,7 @@ if ( ! function_exists( 'arileextra_arilewp_service_default_content' ) ) :
 		$activate_theme_data = wp_get_theme(); // getting current theme data
         $activate_theme = $activate_theme_data->name;
 			
-			if('InteriorPress' == $activate_theme || 'DecorPress' == $activate_theme || 'Interior Startup' == $activate_theme){				
+			if('InteriorPress' == $activate_theme || 'DecorPress' == $activate_theme || 'Interior Startup' == $activate_theme || 'Interior Space' == $activate_theme){				
 				$service1_title = 'ARCHITECTURAL DESIGN';
 				$service2_title = 'INTERIOR DESIGN';
 				$service3_title = 'LIGHTING DESIGN';
@@ -348,7 +359,7 @@ if ( ! function_exists( 'arileextra_arilewp_project_default_content' ) ) :
 		$activate_theme_data = wp_get_theme(); // getting current theme data
         $activate_theme = $activate_theme_data->name;
 			
-			if('InteriorPress' == $activate_theme || 'DecorPress' == $activate_theme || 'Interior Startup' == $activate_theme){					
+			if('InteriorPress' == $activate_theme || 'DecorPress' == $activate_theme || 'Interior Startup' == $activate_theme || 'Interior Space' == $activate_theme){					
 			    $project1_title = 'RESIDENTIAL DESIGN';
 				$project2_title = 'COMMERCIAL DESIGN';
 				$project3_title = 'HOUSING PROJECT';

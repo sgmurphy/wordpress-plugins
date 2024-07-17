@@ -42,6 +42,10 @@ ob_start();
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
+    #body_content.bwfan-email-preview{
+    padding: 30px;
+    }
+
     #body_content table {
     margin: 0 0 16px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

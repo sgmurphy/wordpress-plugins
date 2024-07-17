@@ -40,7 +40,24 @@ class SSA_Settings_Global extends SSA_Settings_Schema {
 	 * @since  0.0.3
 	 */
 	public function hooks() {
+		// Maybe mark wizard steps as completed
+		add_action( 'ssa/appointment_type/after_insert', array( $this, 'maybe_mark_wizard_step_as_completed' ), 1000, 3 );
 	}
+	
+	/**
+	 * Mark wizard steps as completed
+	 * 
+	 * @param integer $appointment_type_id
+	 */
+	public function maybe_mark_wizard_step_as_completed( $appointment_type_id, $data_after, $data_before = null ) {
+		$settings = $this->plugin->settings->get();
+		if( empty( $settings['global']['wizard_completed'] ) ){
+			$settings['global']['wizard_completed'] = ssa_datetime()->format( 'Y-m-d H:i:s' );
+			$this->update( $settings['global'] );
+		}
+	}
+	
+	
 
 	protected $slug = 'global';
 
@@ -229,5 +246,4 @@ class SSA_Settings_Global extends SSA_Settings_Schema {
 
 		SSA_Utils::moment_to_php_format( $args['time_format'] );
 	}
-
 }

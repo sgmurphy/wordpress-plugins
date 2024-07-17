@@ -4,8 +4,8 @@ Donate link: https://mailoptin.io/pricing/
 Tags: popup, popup maker, popups, newsletter, mailchimp
 Requires at least: 5.8
 Requires PHP: 7.3
-Tested up to: 6.5
-Stable tag: 1.2.70.0
+Tested up to: 6.6
+Stable tag: 1.2.70.1
 License: GPL-2.0+
 
 Create popup, optin forms using easy form builder & popup maker. Send automated email to subscribers — Mailchimp, ActiveCampaign, Campaign Monitor etc
@@ -183,6 +183,12 @@ Yes, MailOptin has complete translation and localization support. All .mo and .p
 10. Elementor form integration with MailOptin
 
 == Changelog ==
+
+= 1.2.70.1 =
+* Added mo_new_publish_post_condition_check filter.
+* Fixed bug where whitespace in From and Replyto emails could lead to email campaign not sending.
+* Fixed bug with contextual display of getresponse settings field
+* Fixed: PHP Parse error: unexpected 'string' (T_STRING).
 
 = 1.2.70.0 =
 * Added [Elastic Email integration](https://mailoptin.io/article/connect-wordpress-elastic-email/).

@@ -538,6 +538,39 @@ var BWFAN_Public;
         }, 500);
     });
 
+    if (0 !== $('form#bwfan_unsubscribe_fields').length) {
+        return;
+    }
+
+    let urlParams = new URLSearchParams(window.location.search);
+    let automation_id = urlParams.get('automation_id');
+    let broadcast_id = urlParams.get('broadcast_id');
+    let form_feed_id = urlParams.get('form_feed_id');
+    let sid = urlParams.get('sid');
+    let uid = urlParams.get('uid');
+
+    if (uid === null || uid === '') {
+        return;
+    }
+
+    $.ajax({
+        method: 'post',
+        url: bwfanParamspublic.ajax_url,
+        datatype: "JSON",
+        data: {
+            action: 'bwfan_unsubscribe_user',
+            uid: uid,
+            automation_id: automation_id ? automation_id : 0,
+            broadcast_id: broadcast_id ? broadcast_id : 0,
+            form_feed_id: form_feed_id ? form_feed_id : 0,
+            sid: sid ? sid : 0,
+            form_not_exist: 1,
+            one_click: 1,
+        },
+        success: function (response) {
+
+        }
+    });
 })(jQuery);
 
 /* Deserialize the form object */

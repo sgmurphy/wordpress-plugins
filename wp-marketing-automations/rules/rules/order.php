@@ -1,7 +1,6 @@
 <?php
 
 class BWFAN_Rule_Order_Total extends BWFAN_Rule_Base {
-	public $supports = array( 'cart', 'order' );
 
 	public function __construct() {
 		$this->v2 = true;
@@ -103,20 +102,12 @@ class BWFAN_Rule_Order_Total extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		return array(
-			'==' => __( 'is equal to', 'wp-marketing-automations' ),
-			'!=' => __( 'is not equal to', 'wp-marketing-automations' ),
-			'>'  => __( 'is greater than', 'wp-marketing-automations' ),
-			'<'  => __( 'is less than', 'wp-marketing-automations' ),
-			'>=' => __( 'is greater or equal to', 'wp-marketing-automations' ),
-			'<=' => __( 'is less or equal to', 'wp-marketing-automations' ),
-		);
+		return $this->get_possible_number_rule_operators();
 	}
 
 }
 
 class BWFAN_Rule_Product_Stock extends BWFAN_Rule_Base {
-	public $supports = array( 'cart', 'order' );
 
 	public function __construct() {
 		$this->v2 = true;
@@ -232,19 +223,11 @@ class BWFAN_Rule_Product_Stock extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		return array(
-			'==' => __( 'is equal to', 'wp-marketing-automations' ),
-			'!=' => __( 'is not equal to', 'wp-marketing-automations' ),
-			'>'  => __( 'is greater than', 'wp-marketing-automations' ),
-			'<'  => __( 'is less than', 'wp-marketing-automations' ),
-			'>=' => __( 'is greater or equal to', 'wp-marketing-automations' ),
-			'<=' => __( 'is less or equal to', 'wp-marketing-automations' ),
-		);
+		return $this->get_possible_number_rule_operators();
 	}
 }
 
 class BWFAN_Rule_Product_Item extends BWFAN_Rule_Products {
-	public $supports = array( 'cart', 'order' );
 
 	public function __construct() {
 		$this->v2 = true;
@@ -281,6 +264,9 @@ class BWFAN_Rule_Product_Item extends BWFAN_Rule_Products {
 			foreach ( $order->get_items() as $item ) {
 				$found_ids = $this->get_product_ids( $found_ids, $order, $item );
 			}
+		}
+		if ( isset( $automation_data['global']['accepted_product_id'] ) ) {
+			$found_ids[] = $automation_data['global']['accepted_product_id'];
 		}
 
 		return $found_ids;
@@ -532,7 +518,6 @@ class BWFAN_Rule_Product_Tags extends BWFAN_Rule_Term_Taxonomy {
 }
 
 class BWFAN_Rule_Product_Item_Type extends BWFAN_Rule_Base {
-	public $supports = array( 'cart', 'order' );
 
 	public function __construct() {
 		$this->v2 = true;
@@ -818,14 +803,7 @@ class BWFAN_Rule_Product_Item_Count extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		return array(
-			'==' => __( 'is equal to', 'wp-marketing-automations' ),
-			'!=' => __( 'is not equal to', 'wp-marketing-automations' ),
-			'>'  => __( 'is greater than', 'wp-marketing-automations' ),
-			'<'  => __( 'is less than', 'wp-marketing-automations' ),
-			'>=' => __( 'is greater or equal to', 'wp-marketing-automations' ),
-			'<=' => __( 'is less or equal to', 'wp-marketing-automations' ),
-		);
+		return $this->get_possible_number_rule_operators();
 	}
 
 }
@@ -925,21 +903,11 @@ class BWFAN_Rule_Product_Item_Price extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		return array(
-			'==' => __( 'is equal to', 'wp-marketing-automations' ),
-			'!=' => __( 'is not equal to', 'wp-marketing-automations' ),
-			'>'  => __( 'is greater than', 'wp-marketing-automations' ),
-			'<'  => __( 'is less than', 'wp-marketing-automations' ),
-			'>=' => __( 'is greater or equal to', 'wp-marketing-automations' ),
-			'<=' => __( 'is less or equal to', 'wp-marketing-automations' ),
-		);
+		return $this->get_possible_number_rule_operators();
 	}
-
 }
 
 class BWFAN_Rule_Order_Item extends BWFAN_Rule_Products {
-	public $supports = array( 'cart', 'order' );
-
 	public function __construct() {
 		$this->v2 = true;
 		parent::__construct( 'order_item' );
@@ -1166,7 +1134,6 @@ class BWFAN_Rule_Order_Tags extends BWFAN_Rule_Term_Taxonomy {
 }
 
 class BWFAN_Rule_Order_Item_Type extends BWFAN_Rule_Base {
-	public $supports = array( 'cart', 'order' );
 
 	public function __construct() {
 		$this->v2 = true;
@@ -1449,16 +1416,8 @@ class BWFAN_Rule_Order_Item_Count extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		return array(
-			'==' => __( 'is equal to', 'wp-marketing-automations' ),
-			'!=' => __( 'is not equal to', 'wp-marketing-automations' ),
-			'>'  => __( 'is greater than', 'wp-marketing-automations' ),
-			'<'  => __( 'is less than', 'wp-marketing-automations' ),
-			'>=' => __( 'is greater or equal to', 'wp-marketing-automations' ),
-			'<=' => __( 'is less or equal to', 'wp-marketing-automations' ),
-		);
+		return $this->get_possible_number_rule_operators();
 	}
-
 }
 
 class BWFAN_Rule_Product_Item_Custom_Field extends BWFAN_Rule_Custom_Field {
@@ -1547,14 +1506,7 @@ class BWFAN_Rule_Product_Item_SKU extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		return array(
-			'is'           => __( 'is', 'wp-marketing-automations' ),
-			'is_not'       => __( 'is not', 'wp-marketing-automations' ),
-			'contains'     => __( 'contains', 'wp-marketing-automations' ),
-			'not_contains' => __( 'not contains', 'wp-marketing-automations' ),
-			'starts_with'  => __( 'starts with', 'wp-marketing-automations' ),
-			'ends_with'    => __( 'ends with', 'wp-marketing-automations' ),
-		);
+		return $this->get_possible_string_rule_operators();
 	}
 
 	public function ui_view() {
@@ -1892,7 +1844,6 @@ class BWFAN_Rule_Order_Payment_Gateway extends BWFAN_Rule_Base {
 
 class BWFAN_Rule_Order_Shipping_Country extends BWFAN_Rule_Country {
 
-	public $supports = array( 'cart', 'order' );
 
 	public function __construct() {
 		$this->v2 = true;
@@ -1928,7 +1879,6 @@ class BWFAN_Rule_Order_Shipping_Country extends BWFAN_Rule_Country {
 }
 
 class BWFAN_Rule_Order_Shipping_Method extends BWFAN_Rule_Base {
-	public $supports = array( 'cart', 'order' );
 
 	public function __construct() {
 		$this->v2 = true;
@@ -2075,7 +2025,6 @@ class BWFAN_Rule_Order_Shipping_Method extends BWFAN_Rule_Base {
 }
 
 class BWFAN_Rule_Order_Billing_Country extends BWFAN_Rule_Country {
-	public $supports = array( 'cart', 'order' );
 
 	public function __construct() {
 		$this->v2 = true;
@@ -2165,14 +2114,7 @@ class BWFAN_Rule_Order_Items_Data extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		return array(
-			'is'           => __( 'is', 'wp-marketing-automations' ),
-			'is_not'       => __( 'is not', 'wp-marketing-automations' ),
-			'contains'     => __( 'contains', 'wp-marketing-automations' ),
-			'not_contains' => __( 'does not contain', 'wp-marketing-automations' ),
-			'starts_with'  => __( 'starts with', 'wp-marketing-automations' ),
-			'ends_with'    => __( 'ends with', 'wp-marketing-automations' ),
-		);
+		return $this->get_possible_string_rule_operators();
 	}
 
 	/** v2 Methods: START */
@@ -2607,16 +2549,8 @@ class BWFAN_Rule_Comment_Count extends BWFAN_Rule_Base {
 	}
 
 	public function get_possible_rule_operators() {
-		return array(
-			'==' => __( 'is equal to', 'wp-marketing-automations' ),
-			'!=' => __( 'is not equal to', 'wp-marketing-automations' ),
-			'>'  => __( 'is greater than', 'wp-marketing-automations' ),
-			'<'  => __( 'is less than', 'wp-marketing-automations' ),
-			'>=' => __( 'is greater or equal to', 'wp-marketing-automations' ),
-			'<=' => __( 'is less or equal to', 'wp-marketing-automations' ),
-		);
+		return $this->get_possible_number_rule_operators();
 	}
-
 }
 
 class BWFAN_Rule_Order_Status extends BWFAN_Rule_Base {
@@ -2735,4 +2669,123 @@ class BWFAN_Rule_Order_Has_Coupon extends BWFAN_Rule_Base {
 	public function get_possible_rule_operators() {
 		return null;
 	}
+}
+
+class BWFAN_Rule_Order_Sub_Total extends BWFAN_Rule_Base {
+	public function __construct() {
+		$this->v2 = true;
+		$this->v1 = false;
+		parent::__construct( 'order_sub_total' );
+	}
+
+	/** v2 Methods: START */
+
+	public function is_match_v2( $automation_data, $rule_data ) {
+		if ( ! isset( $automation_data['global'] ) || ! is_array( $automation_data['global'] ) ) {
+			return $this->return_is_match( false, $rule_data );
+		}
+
+		if ( ! isset( $automation_data['global']['order_id'] ) ) {
+			return $this->return_is_match( false, $rule_data );
+		}
+
+		$order = BWFAN_Rules::get_order_object( $automation_data );
+		if ( ! $order instanceof WC_Order ) {
+			return $this->return_is_match( false, $rule_data );
+		}
+
+		$price = (float) $order->get_subtotal();
+		$value = (float) $rule_data['data'];
+
+		switch ( $rule_data['rule'] ) {
+			case '==':
+				$result = $price === $value;
+				break;
+			case '!=':
+				$result = $price !== $value;
+				break;
+			case '>':
+				$result = $price > $value;
+				break;
+			case '<':
+				$result = $price < $value;
+				break;
+			case '>=':
+				$result = $price >= $value;
+				break;
+			case '<=':
+				$result = $price <= $value;
+				break;
+			default:
+				$result = false;
+				break;
+		}
+
+		return $this->return_is_match( $result, $rule_data );
+	}
+
+	/** v2 Methods: END */
+
+	public function get_condition_input_type() {
+		return 'Text';
+	}
+
+	public function get_possible_rule_operators() {
+		return $this->get_possible_number_rule_operators();
+	}
+
+}
+
+
+class BWFAN_Rule_Custom_Taxonomy extends BWFAN_Rule_Term_Taxonomy {
+
+	public $taxonomy_name = '';
+
+	public function __construct( $taxonomy = '', $slug = '' ) {
+		$this->taxonomy_name = $taxonomy;
+		$this->v2            = true;
+		$this->v1            = false;
+		parent::__construct( $slug );
+	}
+
+	/** v2 Methods: START */
+	public function get_options( $search = '' ) {
+		return $this->get_search_results( $search, true );
+	}
+
+	public function get_rule_type() {
+		return 'Search';
+	}
+
+	/** v2 Methods: END */
+	public function get_term_ids( $automation_data = [] ) {
+		$all_terms = [];
+		$order     = null;
+		if ( ! empty( $automation_data ) && isset( $automation_data['global'] ) && is_array( $automation_data['global'] ) ) {
+			$cart_item = BWFAN_Rules::get_order_item_object( $automation_data );
+			$order     = BWFAN_Rules::get_order_object( $automation_data );
+		}
+
+		if ( ! empty( $cart_item ) ) {
+			return $this->get_product_terms( $all_terms, $order, $cart_item );
+		}
+
+		if ( empty( $order ) ) {
+			return [];
+		}
+
+		foreach ( $order->get_items() as $item ) {
+			$all_terms = $this->get_product_terms( $all_terms, $order, $item );
+		}
+
+		return $all_terms;
+	}
+
+	public function get_possible_rule_operators() {
+		return array(
+			'any'  => __( 'matches any of', 'wp-marketing-automations' ),
+			'none' => __( 'matches none of', 'wp-marketing-automations' ),
+		);
+	}
+
 }

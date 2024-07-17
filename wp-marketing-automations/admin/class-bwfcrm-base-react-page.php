@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 #[AllowDynamicProperties]
 abstract class BWFCRM_Base_React_Page {
-	public $frontend_dir = ( 1 === BWFCRM_REACT_ENVIRONMENT ) ? BWFAN_REACT_PROD_URL : BWFCRM_REACT_DEV_URL;
+	public $frontend_dir = ( 0 === BWFCRM_REACT_ENVIRONMENT ) ? BWFCRM_REACT_DEV_URL : BWFAN_REACT_PROD_URL;
 	public $admin_dir = BWFAN_PLUGIN_DIR . '/admin';
 	public $build_dir = BWFAN_PLUGIN_DIR . '/admin/frontend/dist';
 	public $page_data = [];
@@ -122,7 +122,7 @@ abstract class BWFCRM_Base_React_Page {
 		}
 		if ( class_exists( 'WooCommerce' ) ) {
 			$this->page_data['currency']        = function_exists( 'get_woocommerce_currency' ) ? get_woocommerce_currency() : 'USD';
-			$this->page_data['currency_symbol'] = function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol() : '$';
+			$this->page_data['currency_symbol'] = function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol( $this->page_data['currency'] ) : '$';
 			$this->page_data['is_wc_active']    = true;
 			$this->page_data['currency']        = array(
 				'code'              => $this->page_data['currency'],
@@ -205,13 +205,24 @@ abstract class BWFCRM_Base_React_Page {
 		if ( empty( $export_user_data ) ) {
 			$export_user_data = [];
 		}
-		$this->page_data['export_data'] = $export_user_data;
-
-		$this->page_data['googleFonts'] = $this->get_google_fonts_array();
-
-		$this->page_data['bwf_global_block_editor_setting'] = get_option( 'bwf_global_block_editor_setting', BWFAN_Common::get_block_editor_default_setting() );
+		$this->page_data['export_data']                     = $export_user_data;
+		$this->page_data['bwf_global_block_editor_setting'] = BWFAN_Common::get_block_editor_settings();
 
 		$this->page_data['block_app_env'] = defined( 'BWFCRM_EDITOR_ENVIRONMENT' ) ? BWFCRM_EDITOR_ENVIRONMENT : 2;
+
+		$this->page_data['contactStatus'] = BWFAN_Common::get_contact_status_array_list();
+
+		$this->page_data['show_broadcast_unsub_field'] = apply_filters( 'bwfan_show_broadcast_unsubscribe_field', false );
+
+		$this->page_data['is_wcs_active'] = function_exists( 'bwfan_is_woocommerce_subscriptions_active' ) ? bwfan_is_woocommerce_subscriptions_active() : false;
+
+		$this->page_data['default_utm_params'] = apply_filters( 'bwfan_default_utm_params', [
+			'source'  => 'Newsletter',
+			'medium'  => 'email',
+			'name'    => '',
+			'content' => '',
+			'term'    => '',
+		] );
 
 		do_action( 'bwfan_admin_view_localize_data', $this );
 	}
@@ -222,11 +233,11 @@ abstract class BWFCRM_Base_React_Page {
 	 * @return array
 	 */
 	public function get_formatted_form_data() {
-		if( ! class_exists( 'BWFCRM_Core' ) ) {
+		if ( ! class_exists( 'BWFCRM_Core' ) ) {
 			return [];
 		}
 		$formatted_forms = [];
-		$forms          = BWFCRM_Core()->forms->get_forms_nice_names();
+		$forms           = BWFCRM_Core()->forms->get_forms_nice_names();
 		foreach ( $forms as $formKey => $formVal ) {
 			$formatted_forms[] = [
 				'value' => $formKey,
@@ -235,27 +246,6 @@ abstract class BWFCRM_Base_React_Page {
 		}
 
 		return $formatted_forms;
-	}
-
-	/**
-	 * Returns available google fonts for block editor
-	 *
-	 * @return array
-	 */
-	public function get_google_fonts_array() {
-		return apply_filters( 'bwfan_block_editor_google_fonts', [
-			'Arvo',
-			'Lato',
-			'Lora',
-			'Merriweather',
-			'Merriweather Sans',
-			'Noticia Text',
-			'Open Sans',
-			'Playfair Display',
-			'Roboto',
-			'Rubik',
-			'Source Sans Pro',
-		] );
 	}
 
 	public function get_header_data() {

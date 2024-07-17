@@ -189,6 +189,7 @@ if ( ! class_exists( 'BWFCRM_Fields' ) && BWFAN_Common::is_pro_3_0() ) {
 					'ID'         => $field['ID'],
 					'name'       => __( $field['name'], 'wp-marketing-automations' ),
 					'type'       => $field['type'],
+					'search'     => $field['search'],
 					'meta'       => json_decode( $field['meta'], true ),
 					'created_at' => $field['created_at'],
 					'slug'       => $field['slug'],

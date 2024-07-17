@@ -8,6 +8,26 @@
  */
 $is_pro = function_exists('blc_fs') && blc_fs()->can_use_premium_code();
 
+$visibility_option = [
+	'visibility' => [
+		'label' => __( 'Element Visibility', 'blocksy-companion' ),
+		'type' => 'ct-visibility',
+		'design' => 'block',
+		// 'allow_empty' => true,
+		'value' => [
+			'desktop' => true,
+			'tablet' => true,
+			'mobile' => true,
+		],
+
+		'choices' => blocksy_ordered_keys([
+			'desktop' => __( 'Desktop', 'blocksy-companion' ),
+			'tablet' => __( 'Tablet', 'blocksy-companion' ),
+			'mobile' => __( 'Mobile', 'blocksy-companion' ),
+		]),
+	],
+];
+
 $options = [
 	'title' => [
 		'type' => 'hidden',
@@ -108,6 +128,8 @@ $options = [
 							],
 						]
 						: [],
+
+					$visibility_option
 				],
 
 				'clone' => true,
@@ -171,6 +193,8 @@ $options = [
 							],
 						]
 						: [],
+
+					$visibility_option
 				],
 			],
 
@@ -232,6 +256,8 @@ $options = [
 							],
 						]
 						: [],
+
+					$visibility_option
 				],
 			],
 
@@ -293,6 +319,8 @@ $options = [
 							],
 						]
 						: [],
+
+					$visibility_option
 				],
 			],
 
@@ -354,6 +382,8 @@ $options = [
 							],
 						]
 						: [],
+
+					$visibility_option
 				],
 			],
 
@@ -415,6 +445,8 @@ $options = [
 							],
 						]
 						: [],
+
+					$visibility_option
 				],
 			],
 
@@ -476,6 +508,8 @@ $options = [
 							],
 						]
 						: [],
+
+					$visibility_option
 				],
 			],
 		],

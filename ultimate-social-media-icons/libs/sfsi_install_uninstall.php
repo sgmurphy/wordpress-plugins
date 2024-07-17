@@ -2098,7 +2098,7 @@ function sfsi_rating_msg() {
 
 add_action( 'wp_ajax_sfsi_hideRating', 'sfsi_HideRatingDiv', 0 );
 function sfsi_HideRatingDiv() {
-    if ( !wp_verify_nonce( $_POST['nonce'], "sfsi_hideRating" ) ) {
+    if ( !wp_verify_nonce( sanitize_text_field($_POST['nonce']), "sfsi_hideRating" ) ) {
         echo json_encode( array( 'res' => "error" ) );
         exit;
     }

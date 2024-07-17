@@ -40,7 +40,7 @@ function RunOpt( $op = 0, $push = true )
 
 function _AddMenus( $accepted = false )
 {
-	add_menu_page( Plugin::GetPluginString( 'TitleLong' ), Plugin::GetNavMenuTitle(), 'manage_options', 'seraph_accel_manage',																		$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent', Plugin::FileUri( 'icon.png?v=2.21.15', __FILE__ ) );
+	add_menu_page( Plugin::GetPluginString( 'TitleLong' ), Plugin::GetNavMenuTitle(), 'manage_options', 'seraph_accel_manage',																		$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent', Plugin::FileUri( 'icon.png?v=2.22.1', __FILE__ ) );
 	add_submenu_page( 'seraph_accel_manage', esc_html_x( 'Title', 'admin.Manage', 'seraphinite-accelerator' ), esc_html_x( 'Title', 'admin.Manage', 'seraphinite-accelerator' ), 'manage_options', 'seraph_accel_manage',	$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent' );
 	add_submenu_page( 'seraph_accel_manage', Wp::GetLocString( 'Settings' ), Wp::GetLocString( 'Settings' ), 'manage_options', 'seraph_accel_settings',										$accepted ? 'seraph_accel\\_SettingsPage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent' );
 }
@@ -540,6 +540,87 @@ function _CheckUpdatePostProcessAdd( $aPostUpdated )
 	Plugin::AsyncTaskPost( 'CheckUpdatePostProcess', null, 24 * 60 * 60, true, true );
 }
 
+function _CheckUpdatePostProcessRtn( $full = true )
+{
+	$lockGlobal = new Lock( 'upl', GetCacheDir() );
+	if( !$lockGlobal -> Acquire( false ) )
+		return;
+
+	$settCacheGlobal = Gen::GetArrField( Plugin::SettGetGlobal(), array( 'cache' ), array() );
+
+	$ctx = new AnyObj();
+	$ctx -> procWorkInt = (isset($settCacheGlobal[ 'procWorkInt' ])?$settCacheGlobal[ 'procWorkInt' ]:null);
+	$ctx -> procPauseInt = (isset($settCacheGlobal[ 'procPauseInt' ])?$settCacheGlobal[ 'procPauseInt' ]:null);
+	$ctx -> _isAborted =
+		function( $ctx )
+		{
+			return( PluginFileValues::GetEx( $ctx -> dirFileValues, 'up' ) === null );
+		};
+	$ctx -> isAborted = function( $ctx ) { return( !Gen::SliceExecTime( $ctx -> procWorkInt, $ctx -> procPauseInt, 5, array( $ctx, '_isAborted' ) ) ); };
+
+	unset( $settCacheGlobal );
+
+	$tmStart = time();
+	$launchNext = false;
+
+	for( ;; )
+	{
+		$continue = false;
+		foreach( GetSiteIds() as $siteId )
+		{
+			$dirQueue = GetCacheDir() . '/upq/' . $siteId;
+			$ctx -> dirFileValues = PluginFileValues::GetDirVar( $siteId );
+
+			$lock = new Lock( 'l', $dirQueue );
+			if( !$lock -> Acquire() )
+				continue;
+
+			$a = new ArrayOnFiles( $dirQueue . '/*.dat.gz' );
+			$aPostUpdated = $a -> splice( 0, 10 );
+			$a -> dispose(); unset( $a );
+
+			$lock -> Release();
+
+			if( !$aPostUpdated )
+			{
+				PluginFileValues::DelEx( $ctx -> dirFileValues, 'up' );
+				continue;
+			}
+
+			if( !$full )
+			{
+				$launchNext = true;
+				break;
+			}
+
+			if( PluginFileValues::GetEx( $ctx -> dirFileValues, 'up' ) === null )
+				PluginFileValues::SetEx( $ctx -> dirFileValues, 'up', count( $aPostUpdated ) );
+
+			$continue = true;
+
+			if( is_multisite() )
+				switch_to_blog( ( int )GetBlogIdFromSiteId( $siteId ) );
+
+			_CheckUpdatePostProcess( $aPostUpdated, null, array( $ctx, 'isAborted' ) );
+
+			if( time() - $tmStart > 60 )
+			{
+				$continue = false;
+				$launchNext = true;
+				break;
+			}
+		}
+
+		if( !$continue )
+			break;
+	}
+
+	$lockGlobal -> Release();
+
+	if( $launchNext )
+		Plugin::AsyncTaskPost( 'CheckUpdatePostProcess', null, 24 * 60 * 60, true, true );
+}
+
 function OnAsyncTask_CheckUpdatePostProcessAdd( $args )
 {
 	@set_time_limit( 1800 );
@@ -590,82 +671,19 @@ function OnAsyncTask_CheckUpdatePostProcessAddPostponed( $args )
 	_CheckUpdatePostProcessAdd( $aPostUpdated );
 }
 
+function OnAsyncTask_CheckPostProcess( $args )
+{
+	Gen::GarbageCollectorEnable( false );
+
+	_CheckUpdatePostProcessRtn( false );
+}
+
 function OnAsyncTask_CheckUpdatePostProcess( $args )
 {
 	@set_time_limit( 1800 );
 	Gen::GarbageCollectorEnable( false );
 
-	$lockGlobal = new Lock( 'upl', GetCacheDir() );
-	if( !$lockGlobal -> Acquire( false ) )
-		return;
-
-	$settCacheGlobal = Gen::GetArrField( Plugin::SettGetGlobal(), array( 'cache' ), array() );
-
-	$ctx = new AnyObj();
-	$ctx -> procWorkInt = (isset($settCacheGlobal[ 'procWorkInt' ])?$settCacheGlobal[ 'procWorkInt' ]:null);
-	$ctx -> procPauseInt = (isset($settCacheGlobal[ 'procPauseInt' ])?$settCacheGlobal[ 'procPauseInt' ]:null);
-	$ctx -> _isAborted =
-		function( $ctx )
-		{
-			return( PluginFileValues::GetEx( $ctx -> dirFileValues, 'up' ) === null );
-		};
-	$ctx -> isAborted = function( $ctx ) { return( !Gen::SliceExecTime( $ctx -> procWorkInt, $ctx -> procPauseInt, 5, array( $ctx, '_isAborted' ) ) ); };
-
-	unset( $settCacheGlobal );
-
-	$tmStart = time();
-	$launchNext = false;
-
-	for( ;; )
-	{
-		$continue = false;
-		foreach( GetSiteIds() as $siteId )
-		{
-			$dirQueue = GetCacheDir() . '/upq/' . $siteId;
-			$ctx -> dirFileValues = PluginFileValues::GetDirVar( $siteId );
-
-			$lock = new Lock( 'l', $dirQueue );
-			if( !$lock -> Acquire() )
-				continue;
-
-			$a = new ArrayOnFiles( $dirQueue . '/*.dat.gz' );
-			$aPostUpdated = $a -> splice( 0, 10 );
-			$a -> dispose(); unset( $a );
-
-			$lock -> Release();
-
-			if( !$aPostUpdated )
-			{
-				PluginFileValues::DelEx( $ctx -> dirFileValues, 'up' );
-				continue;
-			}
-
-			if( PluginFileValues::GetEx( $ctx -> dirFileValues, 'up' ) === null )
-				PluginFileValues::SetEx( $ctx -> dirFileValues, 'up', count( $aPostUpdated ) );
-
-			$continue = true;
-
-			if( is_multisite() )
-				switch_to_blog( ( int )GetBlogIdFromSiteId( $siteId ) );
-
-			_CheckUpdatePostProcess( $aPostUpdated, null, array( $ctx, 'isAborted' ) );
-
-			if( time() - $tmStart > 60 )
-			{
-				$continue = false;
-				$launchNext = true;
-				break;
-			}
-		}
-
-		if( !$continue )
-			break;
-	}
-
-	$lockGlobal -> Release();
-
-	if( $launchNext )
-		Plugin::AsyncTaskPost( 'CheckUpdatePostProcess', null, 24 * 60 * 60, true, true );
+	_CheckUpdatePostProcessRtn( true );
 }
 
 function _OnCheckUpdateGlob()
@@ -760,7 +778,7 @@ function _OnContentTest( $buffer )
 function _ManagePage()
 {
 	Plugin::CmnScripts( array( 'Cmn', 'Gen', 'Ui', 'Net', 'AdminUi' ) );
-	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.21.15' );
+	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.22.1' );
 	Plugin::Loc_ScriptLoad( Plugin::ScriptId( 'Admin' ) );
 	wp_enqueue_script( Plugin::ScriptId( 'Admin' ) );
 

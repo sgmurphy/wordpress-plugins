@@ -74,7 +74,7 @@ class IRRPHelperAjax implements IRRPConstants {
 
         if ($from && $to) {
             $disallowedSymbols = '#[\<\>\"\'\{\}\[\]\|\\,~\^`;@\$\!\*\(\)]+#isu';
-            if (preg_match($disallowedSymbols, $from) || preg_match($disallowedSymbols, $to)) {
+            if (preg_match($disallowedSymbols, rawurlencode($from)) || preg_match($disallowedSymbols, rawurlencode($to))) {
                 $response["status"] = "error";
                 $response["message"] = __("Please ensure your entry is valid!", "redirect-redirection");
                 wp_send_json_error($response);

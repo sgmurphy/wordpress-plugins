@@ -166,10 +166,9 @@ class BWFAN_Rules {
 		if ( isset( $woocommerce_bwfan_rule_rules[ $rule_type ] ) ) {
 			return $woocommerce_bwfan_rule_rules[ $rule_type ];
 		}
+
 		$class = 'bwfan_rule_' . $rule_type;
-
 		$class = apply_filters( 'bwfan_modify_rule_class', $class, $rule_type );
-
 		if ( $class instanceof BWFAN_Rule_Base ) {
 			$woocommerce_bwfan_rule_rules[ $rule_type ] = $class;
 
@@ -180,9 +179,9 @@ class BWFAN_Rules {
 			$woocommerce_bwfan_rule_rules[ $rule_type ] = new $class;
 
 			return $woocommerce_bwfan_rule_rules[ $rule_type ];
-		} else {
-			return null;
 		}
+
+		return null;
 	}
 
 	public function find_match() {

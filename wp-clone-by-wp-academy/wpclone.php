@@ -6,7 +6,7 @@
  *  Author URI: https://backupbliss.com
  *  Plugin URI: https://backupbliss.com
  * Text Domain: wp-clone
- *     Version: 2.4.4
+ *     Version: 2.4.5
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 // Exit on direct access

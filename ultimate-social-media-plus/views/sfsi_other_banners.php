@@ -34,6 +34,7 @@
         $sfsi_fb_count_check_for_shares =  $sfsi_fb_count > 0;
         ?>
        <?php
+      if (isset($sfsi_plus_dismiss_sharecount['show_banner'])){
             if (is_ssl() && $sfsi_fb_count_check_for_shares && ($sfsi_plus_dismiss_sharecount['show_banner'] == "yes" || false == $sfsi_plus_dismiss_sharecount)) {
                 // also check if there is likes on http page 
                 foreach ($google_analytics as $key => $sharecount_plugin) {
@@ -64,11 +65,13 @@
                     }
                 }
             }
+      }
             ?>
        <!---------------End check optimization plugins is active--------------->
 
        <!---------------Pinterest on mouse-over Check gallery plugins is active --------------->
        <?php
+      if (isset($sfsi_plus_dismiss_gallery['show_banner'])){
             if ($sfsi_plus_dismiss_gallery['show_banner'] == "yes" || false == $sfsi_plus_dismiss_gallery) {
                 foreach ($gallery_plugins as $key => $gallery_plugin) {
                     $sfsi_plus_show_gallery_banner = sfsi_plus_check_on_plugin_page($gallery_plugin['dir_slug'], $gallery_plugin['option_name'], $current_site_url);
@@ -107,12 +110,14 @@
                     }
                 }
             }
+      }
             ?>
        <!---------------End check gallery plugins is active --------------->
 
 
        <!---------------Website speed Check optimization plugins is active --------------->
        <?php
+      if(isset($sfsi_plus_dismiss_optimization['show_banner'])){
             if ($sfsi_plus_dismiss_optimization['show_banner'] == "yes" || false == $sfsi_plus_dismiss_optimization) {
                 foreach ($optimization_plugins as $key => $optimization_plugin) {
                     $sfsi_plus_show_optimization_banner = sfsi_plus_check_on_plugin_page($optimization_plugin['dir_slug'], $optimization_plugin['option_name']);
@@ -147,12 +152,14 @@
                     }
                 }
             }
+      }
             ?>
        <!---------------End check optimization plugins is active--------------->
 
 
        <!---------------GDPR compliance Check GDPR plugins is active--------------->
        <?php
+      if(isset($sfsi_plus_dismiss_gdpr['show_banner'])){
             if ($sfsi_plus_dismiss_gdpr['show_banner'] == "yes" || false == $sfsi_plus_dismiss_gdpr) {
 
                 foreach ($gdpr_plugins as $key => $gdpr_plugin) {
@@ -182,12 +189,14 @@
                     }
                 }
             }
+      }
             ?>
        <!---------------End check GDPR plugins is active--------------->
 
 
        <!---------------More traffic Check Google analytics plugin is active--------------->
        <?php
+      if (isset($sfsi_plus_dismiss_google_analytic['show_banner'])){
             if ($sfsi_plus_dismiss_google_analytic['show_banner'] == "yes" || false == $sfsi_plus_dismiss_google_analytic) {
                 foreach ($sharecount_plugins as $key => $google_analytic) {
                     $sfsi_plus_show_google_analytic_banner = sfsi_plus_check_on_plugin_page($google_analytic['dir_slug'], $google_analytic['option_name'], $current_site_url);
@@ -218,10 +227,12 @@
                     }
                 }
             }
+      }
             ?>
        <!---------------End Check Google analytics plugin is active--------------->
        <!---------------Check Woocommerce plugin is active--------------->
        <?php
+      if (isset($sfsi_plus_dismiss_woocommerce['show_banner'])){
             if ($sfsi_plus_dismiss_woocommerce['show_banner'] == "yes" || false == $sfsi_plus_dismiss_woocommerce) {
                 foreach ($woocommerce_plugins as $key => $woocommerce_plugin) {
                     $sfsi_show_woocommerce_banner = sfsi_plus_check_on_plugin_page($woocommerce_plugin['dir_slug'], $woocommerce_plugin['option_name']);
@@ -259,11 +270,13 @@
                     }
                 }
             }
+      }
             ?>
        <!---------------End Woocommerce plugin is active--------------->
 
        <!---------------Check Twitter plugin's is active--------------->
        <?php
+      if(isset($sfsi_plus_dismiss_twitter['show_banner'])){
             if ($sfsi_plus_dismiss_twitter['show_banner'] == "yes" || false == $sfsi_plus_dismiss_twitter) {
                 foreach ($twitter_plugins as $key => $twitter_plugin) {
                     $sfsi_show_twitter_banner = sfsi_plus_check_on_plugin_page($twitter_plugin['dir_slug'], $twitter_plugin['option_name']);
@@ -298,7 +311,7 @@
                     break;
                 }
             }
-        }
+        }    }
     }
     ?>
    <!---------------End Twitter plugin's is active--------------->

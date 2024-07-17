@@ -2,7 +2,7 @@
 Contributors: themeisle
 Tags: neve, templates, patterns, blocks, starter, sites, demo, content, import
 Requires at least: 5.5
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv3
@@ -490,7 +490,6 @@ Cloud storage for custom-built templates
 ##### Version 1.0.8
 
 * Initial production ready release
-
 
 
 

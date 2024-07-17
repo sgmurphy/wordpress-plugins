@@ -18,7 +18,7 @@ $arilewp_theme_blog_category = get_theme_mod('arilewp_theme_blog_category');
 $activate_theme_data = wp_get_theme(); // getting current theme data
 $activate_theme = $activate_theme_data->name;
 if($arilewp_blog_disabled == true): ?>
-	<section class="theme-block theme-blog <?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme) { echo 'list-view-news'; } ?>" id="theme-blog">
+	<section class="theme-block theme-blog <?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme) { echo 'list-view-news'; } ?>" id="theme-blog">
 	 <?php if($arilewp_blog_area_title != null || $arilewp_blog_area_des != null): ?>
 		<div class="container">
 			<div class="row">
@@ -45,15 +45,15 @@ if($arilewp_blog_disabled == true): ?>
 			{	
 				while(have_posts()):the_post();
 				{ ?>
-					<div class="col-lg-<?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme) { echo '6'; } elseif($activate_theme == 'Architect Design' || $activate_theme == 'Ariletech' || $activate_theme == 'DesignHub' || $activate_theme == 'Alberta' || $activate_theme == 'Agency Street' || 'Etowah' == $activate_theme || 'Roseville Blog' == $activate_theme || 'Zervin' == $activate_theme) { echo '4'; } else { echo '3';}   ?> col-md-6 col-sm-12">
-						<article class="post wow animate zoomIn <?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme) { echo 'media'; } ?>" data-wow-delay=".3s">
+					<div class="col-lg-<?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme) { echo '6'; } elseif($activate_theme == 'Architect Design' || $activate_theme == 'Ariletech' || $activate_theme == 'DesignHub' || $activate_theme == 'Alberta' || $activate_theme == 'Agency Street' || 'Etowah' == $activate_theme || 'Roseville Blog' == $activate_theme || 'Zervin' == $activate_theme) { echo '4'; } else { echo '3';}   ?> col-md-6 col-sm-12">
+						<article class="post wow animate zoomIn <?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme) { echo 'media'; } ?>" data-wow-delay=".3s">
                         <?php if(has_post_thumbnail()): ?>						
 							<figure class="post-thumbnail">
 							<?php $img_class =array('class' => "img-fluid");?>
 							<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('',$img_class);?></a>
 							</figure>
 						<?php endif; ?>	
-							<div class="<?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme) { echo 'media-body'; } ?> post-content">
+							<div class="<?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme) { echo 'media-body'; } ?> post-content">
 							<?php if($arilewp_home_blog_meta_disabled == true): ?>
 								<div class="entry-meta">
 									<?php $category_data = get_the_category_list();
@@ -66,7 +66,7 @@ if($arilewp_blog_disabled == true): ?>
 									<h5 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h5>
 								</header>
 								
-							<?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme) {	?>
+							<?php if($activate_theme == 'Business Street' || $activate_theme == 'InteriorPress' || $activate_theme == 'InnoPress' || 'Interior Startup' == $activate_theme || 'Agency Firm' == $activate_theme || 'Interior Space' == $activate_theme) {	?>
 							<?php if($arilewp_home_blog_meta_disabled == true): ?>
 								<div class="entry-meta">
 									<span class="author">

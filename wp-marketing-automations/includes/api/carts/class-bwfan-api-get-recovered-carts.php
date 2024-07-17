@@ -13,7 +13,7 @@ class BWFAN_API_Get_Recovered_Carts extends BWFAN_API_Base {
 		$this->pagination->limit  = 10;
 		$this->request_args       = array(
 			'search' => array(
-				'description' => __( '', 'wp-marketing-automations' ),
+				'description' => '',
 				'type'        => 'string',
 			),
 			'offset' => array(
@@ -50,7 +50,7 @@ class BWFAN_API_Get_Recovered_Carts extends BWFAN_API_Base {
 
 		$recovered_carts  = BWFAN_Recoverable_Carts::get_recovered_carts( $search, $offset, $limit );
 		$result           = [];
-		$this->count_data = BWFAN_Common::get_carts_count();
+		$this->count_data = [];
 
 		if ( ! isset( $recovered_carts['items'] ) ) {
 			return $this->success_response( [], __( 'No recovered carts found', 'wp-marketing-automations' ) );
@@ -77,7 +77,7 @@ class BWFAN_API_Get_Recovered_Carts extends BWFAN_API_Base {
 				'date'          => $order->get_date_created()->date( 'Y-m-d H:i:s' ),
 				'items'         => $this->get_items( $order ),
 				'total'         => $order->get_total(),
-				'currency'      => $this->get_currency( $order ),
+				'currency'      => BWFAN_Recoverable_Carts::get_currency( $order ),
 				'buyer_name'    => $this->get_order_name( $order ),
 				'user_id'       => ! empty( $order->get_customer_id() ) ? $order->get_customer_id() : 0,
 				'checkout_data' => ! is_null( $order->get_meta() ) ? $order->get_meta() : '',
@@ -177,23 +177,6 @@ class BWFAN_API_Get_Recovered_Carts extends BWFAN_API_Base {
 		$data['l_name'] = $order->get_billing_last_name();
 
 		return $data;
-	}
-
-	/**
-	 * @param $order WC_Order
-	 *
-	 * @return array
-	 */
-	public function get_currency( $order ) {
-		return [
-			'code'              => ! is_null( $order->get_currency() ) ? $order->get_currency() : get_option( 'woocommerce_currency' ),
-			'precision'         => wc_get_price_decimals(),
-			'symbol'            => html_entity_decode( get_woocommerce_currency_symbol( $order->get_currency() ) ),
-			'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
-			'decimalSeparator'  => wc_get_price_decimal_separator(),
-			'thousandSeparator' => wc_get_price_thousand_separator(),
-			'priceFormat'       => html_entity_decode( get_woocommerce_price_format() ),
-		];
 	}
 
 	/**

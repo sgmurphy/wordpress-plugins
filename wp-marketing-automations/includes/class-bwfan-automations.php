@@ -172,6 +172,8 @@ class BWFAN_Automations {
 	 * @return array
 	 */
 	public static function get_currency( $currency ) {
+		$price_format = apply_filters( 'bwfan_get_price_format_cart', get_woocommerce_price_format(), $currency );
+
 		return [
 			'code'              => ! empty( $currency ) ? $currency : get_option( 'woocommerce_currency' ),
 			'precision'         => wc_get_price_decimals(),
@@ -179,7 +181,7 @@ class BWFAN_Automations {
 			'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
 			'decimalSeparator'  => wc_get_price_decimal_separator(),
 			'thousandSeparator' => wc_get_price_thousand_separator(),
-			'priceFormat'       => html_entity_decode( get_woocommerce_price_format() ),
+			'priceFormat'       => html_entity_decode( $price_format ),
 		];
 	}
 
@@ -688,12 +690,17 @@ class BWFAN_Automations {
 			/**Get all steps data for create duplicate steps */
 			$steps_data = self::get_steps_data( $post['meta']['steps'] );
 		}
-		$links = isset( $post['meta']['links'] ) ? $post['meta']['links'] : [];
+		$links          = isset( $post['meta']['links'] ) ? $post['meta']['links'] : [];
+		$benchmark_data = [];
 		foreach ( $post['meta'] as $key => $auto_meta ) {
 			if ( 'steps' === $key ) {
 				$start_node_id = self::get_start_node_id( $links );
 
 				$auto_meta = $this->get_prepared_steps( $steps_data, $auto_meta, $automation_id, $start_node_id );
+				if ( isset( $auto_meta['benchmark_steps'] ) ) {
+					$benchmark_data = $auto_meta['benchmark_steps'];
+					unset( $auto_meta['benchmark_steps'] );
+				}
 			}
 
 			if ( is_array( $auto_meta ) ) {
@@ -719,6 +726,8 @@ class BWFAN_Automations {
 		$meta['meta_key'] = 'm_date';
 		BWFAN_Model_Automationmeta::insert( $meta );
 		BWFAN_Core()->automations->set_automation_data( 'm_date', $meta['meta_value'] );
+
+		$this->update_benchmark_column( $automation_id, $benchmark_data );
 
 		do_action( 'bwfan_automation_saved', $automation_id );
 
@@ -778,13 +787,16 @@ class BWFAN_Automations {
 		if ( ! is_array( $steps ) || empty( $steps ) ) {
 			return [];
 		}
-		$new_steps    = [];
-		$mapped_step  = [];
-		$sidebar_data = [];
+		$new_steps       = [];
+		$mapped_step     = [];
+		$sidebar_data    = [];
+		$benchmark_steps = [];
+
 		foreach ( $steps as $step ) {
 			if ( isset( $step['stepId'] ) ) {
 				$step_data = isset( $steps_data[ $step['stepId'] ] ) ? $steps_data[ $step['stepId'] ] : [];
 				$action    = isset( $step_data['action'] ) ? json_decode( $step_data['action'], true ) : [];
+
 				/** Append the global setting's footer in the email body while importing recipes */
 				if ( ! empty( $action ) && true === $is_recipe && isset( $action['action'] ) && 'wp_sendemail' === $action['action'] ) {
 					$step_data = self::append_footer_in_email_body( $step_data );
@@ -808,6 +820,10 @@ class BWFAN_Automations {
 				$step['data']['queued']    = 0;
 				$new_steps[]               = $step;
 
+				/** Benchmark steps */
+				if ( $step['type'] === 'benchmark' ) {
+					$benchmark_steps[ $new_step_id ] = $action['benchmark'];
+				}
 				continue;
 			}
 			$new_steps[] = $step;
@@ -815,8 +831,13 @@ class BWFAN_Automations {
 		/** Update jumped step id */
 		self::update_jumped_step_data( $mapped_step, $sidebar_data );
 
+		if ( ! empty( $benchmark_steps ) ) {
+			$new_steps['benchmark_steps'] = $benchmark_steps;
+		}
+
 		return $new_steps;
 	}
+
 
 	/**
 	 * Update new jump step id
@@ -936,13 +957,18 @@ class BWFAN_Automations {
 			if ( ! empty( $tips ) ) {
 				$import_data['meta']['tips'] = $tips;
 			}
-
+			$benchmark_data = [];
 			if ( ! empty( $import_data['meta'] ) ) {
 				foreach ( $import_data['meta'] as $key => $auto_meta ) {
 					if ( 'steps' === $key ) {
 						$start_node_id = self::get_start_node_id( $links );
 
 						$auto_meta = $this->get_prepared_steps( $import_data['step_data'], $auto_meta, $automation_id, $start_node_id, $is_recipe );
+						if ( isset( $auto_meta['benchmark_steps'] ) ) {
+							$benchmark_data = $auto_meta['benchmark_steps'];
+							unset( $auto_meta['benchmark_steps'] );
+						}
+
 					}
 
 					if ( is_array( $auto_meta ) ) {
@@ -955,7 +981,9 @@ class BWFAN_Automations {
 					BWFAN_Model_Automationmeta::insert( $meta );
 					BWFAN_Core()->automations->set_automation_data( $key, $meta['meta_value'] );
 				}
+				$this->update_benchmark_column( $automation_id, $benchmark_data );
 			}
+
 
 			$meta = array(
 				'bwfan_automation_id' => $automation_id,
@@ -973,6 +1001,25 @@ class BWFAN_Automations {
 		}
 
 		return $automation_id;
+	}
+
+	/**
+	 * Update benchmark in automation table
+	 *
+	 * @param $automation_id
+	 * @param $benchmark_data
+	 *
+	 * @return void
+	 */
+	public function update_benchmark_column( $automation_id, $benchmark_data ) {
+		if ( empty( $benchmark_data ) ) {
+			return;
+		}
+		$data = array( 'benchmark' => json_encode( $benchmark_data ) );
+		global $wpdb;
+		$wpdb->update( "{$wpdb->prefix}bwfan_automations", $data, [
+			'ID' => $automation_id
+		] );
 	}
 
 	public static function get_start_node_id( $links ) {

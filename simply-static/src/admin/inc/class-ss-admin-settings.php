@@ -4,6 +4,13 @@ namespace Simply_Static;
 
 class Admin_Settings {
 	/**
+	 * Contains the number of failed tests.
+	 *
+	 * @var int
+	 */
+	public int $failed_tests = 0;
+
+	/**
 	 * Contains instance or null
 	 *
 	 * @var object|null
@@ -31,10 +38,8 @@ class Admin_Settings {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_action( 'rest_api_init', array( $this, 'rest_api_init' ) );
-		add_action( 'admin_bar_menu', array( $this, 'add_admin_bar_item' ), 100 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_bar_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'add_admin_bar_scripts' ) );
-		add_action( 'wp_ajax_ss_admin_get_status', array( $this, 'get_export_status' ) );
+
+		$this->failed_tests = intval( get_transient( 'simply_static_failed_tests' ) );
 	}
 
 	/**
@@ -68,33 +73,8 @@ class Admin_Settings {
 
 		add_action( "admin_print_scripts-{$generate_suffix}", array( $this, 'add_settings_scripts' ) );
 
-		// Diagnostics settings page.
-		$system_status = $this->get_system_status();
-		$failed_tests  = 0;
-
-		foreach ( $system_status as $test ) {
-			foreach ( $test as $key => $value ) {
-				if ( ! $value['test'] ) {
-					$failed_tests ++;
-				}
-			}
-		}
-
-		$notifications = sprintf( '<span class="update-plugins diagnostics-error"><span class="plugin-count" aria-hidden="true">%s</span><span class="screen-reader-text">errors in diagnostics</span></span>', $failed_tests );
-
-		$generate_suffix = add_submenu_page(
-			'simply-static-generate',
-			__( 'Diagnostics', 'simply-static' ),
-			$failed_tests > 0 ? __( 'Diagnostics', 'simply-static' ) . ' ' . wp_kses_post( $notifications ) : __( 'Diagnostics', 'simply-static' ),
-			apply_filters( 'ss_user_capability', 'publish_pages', 'generate' ),
-			'simply-static-diagnostics',
-			array( $this, 'render_settings' )
-		);
-
-		add_action( "admin_print_scripts-{$generate_suffix}", array( $this, 'add_settings_scripts' ) );
-
-		// General settings page.
 		if ( ! is_network_admin() ) {
+			// Add settings page.
 			$settings_suffix = add_submenu_page(
 				'simply-static-generate',
 				__( 'Settings', 'simply-static' ),
@@ -105,6 +85,20 @@ class Admin_Settings {
 			);
 
 			add_action( "admin_print_scripts-{$settings_suffix}", array( $this, 'add_settings_scripts' ) );
+
+			$notifications = sprintf( '<span class="update-plugins diagnostics-error"><span class="plugin-count" aria-hidden="true">%s</span><span class="screen-reader-text">errors in diagnostics</span></span>', $this->failed_tests );
+
+			// Add diagnostics page.
+			$diagnostics_suffix = add_submenu_page(
+				'simply-static-generate',
+				__( 'Diagnostics', 'simply-static' ),
+				$this->failed_tests > 0 ? __( 'Diagnostics', 'simply-static' ) . ' ' . wp_kses_post( $notifications ) : __( 'Diagnostics', 'simply-static' ),
+				apply_filters( 'ss_user_capability', 'publish_pages', 'generate' ),
+				'simply-static-diagnostics',
+				array( $this, 'render_settings' )
+			);
+
+			add_action( "admin_print_scripts-{$diagnostics_suffix}", array( $this, 'add_settings_scripts' ) );
 		}
 	}
 
@@ -159,6 +153,11 @@ class Admin_Settings {
 				'blog_id'        => get_current_blog_id(),
 				'need_upgrade'   => 'no',
 				'builds'         => array(),
+				'integrations'   => array_map( function ( $item ) {
+					$object = new $item;
+
+					return $object->js_object();
+				}, Plugin::instance()->get_integrations() ),
 			)
 		);
 
@@ -229,82 +228,6 @@ class Admin_Settings {
 		<?php
 	}
 
-	public function add_admin_bar_item( $admin_bar ) {
-		// Get settings page.
-		$generate_settings = esc_url( get_admin_url() . 'admin.php?page=simply-static-generate' );
-
-		$admin_bar->add_node( [
-			'id'    => 'ss-admin-bar',
-			'title' => __( 'Static Generation: Waiting..', 'simply-static' ),
-			'href'  => $generate_settings,
-			'meta'  => [
-				'id'    => 'ss-admin-bar',
-				'title' => __( 'Static Generation: Waiting..', 'simply-static' ),
-			],
-		] );
-	}
-
-	/**
-	 * Add scripts for admin bar.
-	 *
-	 * @return void
-	 */
-	public function add_admin_bar_scripts() {
-		// exit if user is not logged in.
-		if ( ! is_user_logged_in() ) {
-			return;
-		}
-
-		// Diagnostics settings page.
-		$system_status = $this->get_system_status();
-		$failed_tests  = 0;
-
-		foreach ( $system_status as $test ) {
-			foreach ( $test as $key => $value ) {
-				if ( ! $value['test'] ) {
-					$failed_tests ++;
-				}
-			}
-		}
-
-		wp_enqueue_script( 'ss-admin-bar-script', SIMPLY_STATIC_URL . '/assets/admin-bar.js', [ 'jquery' ], '1.0', true );
-		wp_localize_script( 'ss-admin-bar-script', 'ss_admin_status_object', [
-			'ajax_url'     => admin_url( 'admin-ajax.php' ),
-			'nonce'        => wp_create_nonce( 'ss-admin-bar-nonce' ),
-			'tests_failed' => max( $failed_tests, 0 ),
-			'translations' => [
-				'label'   => __( 'Static Generation:', 'simply-static' ),
-				'running' => __( 'Running..', 'simply-static' ),
-				'idle'    => __( 'Idle', 'simply-static' ),
-				'error'   => __( 'Error', 'simply-static' ),
-			]
-		] );
-	}
-
-	/**
-	 * Get information if an export is running.
-	 *
-	 * @return void
-	 */
-	public function get_export_status() {
-		// Validate nonce.
-		if ( ! wp_verify_nonce( $_POST['security'], 'ss-admin-bar-nonce' ) ) {
-			wp_die( 'Security check failed' );
-		}
-
-		// Check if Simply Static is running
-		$status = 'error';
-
-		if ( class_exists( 'Simply_Static\Archive_Creation_Job' ) ) {
-			$job    = new Archive_Creation_Job();
-			$status = ( $job->is_running() ) ? 'running' : 'idle';
-			wp_send_json_success( [ 'status' => $status ] );
-		} else {
-			wp_send_json_error( [ 'status' => $status ] );
-		}
-		wp_send_json_success( [ 'status' => $status ] );
-	}
-
 	/**
 	 * Setup Rest API endpoints.
 	 *
@@ -354,6 +277,14 @@ class Admin_Settings {
 		register_rest_route( 'simplystatic/v1', '/migrate', array(
 			'methods'             => 'POST',
 			'callback'            => [ $this, 'migrate_settings' ],
+			'permission_callback' => function () {
+				return current_user_can( apply_filters( 'ss_user_capability', 'manage_options', 'settings' ) );
+			},
+		) );
+
+		register_rest_route( 'simplystatic/v1', '/reset-diagnostics', array(
+			'methods'             => 'POST',
+			'callback'            => [ $this, 'reset_diagnostics' ],
 			'permission_callback' => function () {
 				return current_user_can( apply_filters( 'ss_user_capability', 'manage_options', 'settings' ) );
 			},
@@ -430,7 +361,13 @@ class Admin_Settings {
 	 * @return false|mixed|null
 	 */
 	public function get_settings() {
-		return get_option( 'simply-static' );
+		$settings = get_option( 'simply-static' );
+		if ( empty( $settings['integrations'] ) ) {
+			$integrations             = Plugin::instance()->get_integrations();
+			$settings['integrations'] = array_keys( $integrations );
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -439,9 +376,26 @@ class Admin_Settings {
 	 * @return array[]
 	 */
 	public function get_system_status() {
-		$diagnostics = new Diagnostic();
+		$checks = get_transient( 'simply_static_checks' );
 
-		return $diagnostics->get_checks();
+		if ( ! $checks ) {
+			$diagnostics = new Diagnostic();
+			$checks      = $diagnostics->get_checks();
+		}
+
+		return $checks;
+	}
+
+	/**
+	 * Clear transient for diagnostics.
+	 *
+	 * @return string
+	 */
+	public function reset_diagnostics() {
+		delete_transient( 'simply_static_checks' );
+		delete_transient( 'simply_static_failed_tests' );
+
+		return json_encode( [ 'status' => 200 ] );
 	}
 
 	/**
@@ -482,13 +436,18 @@ class Admin_Settings {
 				'additional_files',
 				'urls_to_exclude',
 				'search_excludable',
-				'iframe_urls'
+				'iframe_urls',
+				'whitelist_plugins'
 			];
+
+			$array_fields = [ 'integrations' ];
 
 			// Sanitize each key/value pair in options.
 			foreach ( $options as $key => $value ) {
 				if ( in_array( $key, $multiline_fields ) ) {
 					$options[ $key ] = sanitize_textarea_field( $value );
+				} elseif ( in_array( $key, $array_fields ) ) {
+					$options[ $key ] = array_map( 'sanitize_text_field', $value );
 				} else {
 					// Exclude Basic Auth fields from sanitize.
 					if ( $key === 'http_basic_auth_username' || $key === 'http_basic_auth_password' ) {

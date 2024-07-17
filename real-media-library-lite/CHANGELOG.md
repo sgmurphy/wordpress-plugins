@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.19 (2024-07-17)
+
+
+### Bug Fixes
+
+* no longer send referer via URL parameter as this lead to issues with Strato servers (dashboard no longer loads, CU-86954236z)
+
+
+<details><summary>Dependency updates @devowl-wp/utils 1.19.7</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Bug Fixes
+
+* no longer send referer via URL parameter as this lead to issues with Strato servers (dashboard no longer loads, CU-86954236z)</details>
+
+
+
+
+
 ## 4.22.18 (2024-07-16)
 
 

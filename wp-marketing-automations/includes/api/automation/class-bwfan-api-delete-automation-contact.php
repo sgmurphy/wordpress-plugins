@@ -47,7 +47,7 @@ class BWFAN_API_Delete_Automation_Contacts extends BWFAN_API_Base {
 			}
 			$this->response_code = 200;
 
-			return $this->success_response( $trail_id, __( '', 'wp-marketing-automations' ) );
+			return $this->success_response( $trail_id, '' );
 		}
 
 		/** Search for automation contact complete row */

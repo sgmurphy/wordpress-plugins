@@ -8,7 +8,7 @@ use SG_Security\Helper\Helper;
 class Activity_Log_Unknown extends Activity_Log_Helper {
 
 	/**
-	 * Known crawlers arraay.
+	 * Known crawlers array.
 	 *
 	 * @var array
 	 */
@@ -24,6 +24,7 @@ class Activity_Log_Unknown extends Activity_Log_Helper {
 		'ia_archiver',
 		'petalbot',
 		'jetmon',
+		'semrushbot'
 	);
 
 	/**
@@ -301,7 +302,7 @@ class Activity_Log_Unknown extends Activity_Log_Helper {
 			return;
 		}
 
-		// Get the curent user ip.
+		// Get the current user IP.
 		$ip = Helper::get_current_user_ip();
 
 		// Prepare the arguments for writing to db.

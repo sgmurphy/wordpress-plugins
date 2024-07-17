@@ -51,7 +51,7 @@
           return false;
         }
 
-        return true;
+        return $lala;
       } catch (\Throwable $e) {
 
         // Error print

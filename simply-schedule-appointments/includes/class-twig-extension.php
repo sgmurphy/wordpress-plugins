@@ -34,8 +34,15 @@ class SSA_Twig_Extension extends Twig\Extension\AbstractExtension {
 			// should it be handled here in the date filter? or in a different filter?
 			ssa()->translation->set_programmatic_locale( $locale );
 		}
-
-		$formatted_date = twig_date_converter( $env, $date, $timezone )->format($format);
+		
+		// attempt to keep the syntax compatible with older versions of twig - may be loaded by other plugins
+		if ( version_compare( \Twig\Environment::VERSION, '3.9', '<' ) ) {
+			$formatted_date = twig_date_converter( $env, $date, $timezone )->format($format);
+		} else {
+			$formatted_date = $env->getExtension( \Twig\Extension\CoreExtension::class )->convertDate($date, $timezone)->format($format);
+		}
+		
+		
 		$formatted_date = SSA_Utils::translate_formatted_date( $formatted_date );
 
 		if(! empty( $locale ) ) {

@@ -47,14 +47,6 @@ class BWFAN_API_Campaign_Email_Preview extends BWFAN_API_Base {
 			$content = $this->args['content'];
 		}
 		$data = [];
-		BWFAN_Common::bwfan_before_send_mail();
-		BWFAN_Merge_Tag_Loader::set_data( array(
-			'is_preview' => true,
-		) );
-
-		$body = BWFAN_Common::correct_shortcode_string( $content, $type );
-		$body = BWFAN_Common::decode_merge_tags( $body );
-		$body = BWFAN_Common::bwfan_correct_protocol_url( $body );
 
 		/** getting the template type in id */
 		switch ( $type ) {
@@ -82,6 +74,15 @@ class BWFAN_API_Campaign_Email_Preview extends BWFAN_API_Base {
 			default:
 				$data['template'] = 1;
 		}
+
+		BWFAN_Common::bwfan_before_send_mail( $type );
+		BWFAN_Merge_Tag_Loader::set_data( array(
+			'is_preview' => true,
+		) );
+
+		$body = BWFAN_Common::correct_shortcode_string( $content, $type );
+		$body = BWFAN_Common::decode_merge_tags( $body );
+		$body = BWFAN_Common::bwfan_correct_protocol_url( $body );
 
 		$data['body']        = $body;
 		$action_object       = BWFAN_Core()->integration->get_action( 'wp_sendemail' );

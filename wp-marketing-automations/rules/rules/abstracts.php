@@ -389,9 +389,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 				'fields' => 'ids',
 			) );
 
-			$all_terms = array_merge( $all_terms, $terms );
-
-			return $all_terms;
+			return array_merge( $all_terms, $terms );
 		}
 
 		public function ui_view() {

@@ -116,7 +116,7 @@ export const LaunchPage = () => {
 			}}>
 			<div
 				style={{ zIndex: 99999 + 1 }} // 1 more than the library
-				className="h-screen w-screen fixed inset-0 overflow-y-auto md:overflow-hidden bg-white">
+				className="fixed inset-0 h-screen w-screen overflow-y-auto bg-white md:overflow-hidden">
 				{page()}
 			</div>
 			<RetryNotice show={retrying} />

@@ -167,16 +167,16 @@ class RTAFAR_RegisterMenu {
 		if ( current_user_can( 'manage_options' ) || current_user_can( 'administrator' ) || current_user_can( self::$nav_cap['add_masking_rule'] ) ) {
 			$AddNewRule = $this->pages->AddNewRule();
 			if ( is_object( $AddNewRule ) ) {
-				echo $AddNewRule->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ), $option );
+				echo \wp_kses( $AddNewRule->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ), $option ), Util::cs_allowed_html() );
 			} else {
-				echo $AddNewRule;
+				echo \wp_kses( $AddNewRule, Util::cs_allowed_html() );
 			}
 		} else {
 			$AccessDenied = $this->pages->AccessDenied();
 			if ( is_object( $AccessDenied ) ) {
-				echo $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
+				echo \wp_kses( $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
 			} else {
-				echo $AccessDenied;
+				echo \wp_kses( $AccessDenied, Util::cs_allowed_html() );
 			}
 		}
 	}
@@ -190,16 +190,17 @@ class RTAFAR_RegisterMenu {
 		if ( current_user_can( 'manage_options' ) || current_user_can( 'administrator' ) || current_user_can( self::$nav_cap['all_masking_rules'] ) ) {
 			$AllMaskingRules = $this->pages->AllMaskingRules();
 			if ( is_object( $AllMaskingRules ) ) {
-				echo $AllMaskingRules->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
+				// echo $AllMaskingRules->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
+				echo \wp_kses( $AllMaskingRules->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
 			} else {
-				echo $AllMaskingRules;
+				echo \wp_kses( $AllMaskingRules, Util::cs_allowed_html() );
 			}
 		} else {
 			$AccessDenied = $this->pages->AccessDenied();
 			if ( is_object( $AccessDenied ) ) {
-				echo $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
+				echo \wp_kses( $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
 			} else {
-				echo $AccessDenied;
+				echo \wp_kses( $AccessDenied, Util::cs_allowed_html() );
 			}
 		}
 	}
@@ -218,16 +219,17 @@ class RTAFAR_RegisterMenu {
 		if ( current_user_can( 'manage_options' ) || current_user_can( 'administrator' ) || current_user_can( self::$nav_cap['replace_in_db'] ) ) {
 			$Default_Settings = $this->pages->ReplaceInDB();
 			if ( is_object( $Default_Settings ) ) {
-				echo $Default_Settings->generate_default_settings( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
+				// echo $Default_Settings->generate_default_settings( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
+				echo \wp_kses( $Default_Settings->generate_default_settings( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
 			} else {
-				echo $Default_Settings;
+				echo \wp_kses( $Default_Settings, Util::cs_allowed_html() );
 			}
 		} else {
 			$AccessDenied = $this->pages->AccessDenied();
-			if ( is_object( $AccessDenied ) ) {
-				echo $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
+			if ( \is_object( $AccessDenied ) ) {
+				echo \wp_kses( $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
 			} else {
-				echo $AccessDenied;
+				echo \wp_kses( $AccessDenied, Util::cs_allowed_html() );
 			}
 		}
 	}
@@ -245,14 +247,14 @@ class RTAFAR_RegisterMenu {
 
 		if ( current_user_can( 'manage_options' ) || current_user_can( 'administrator' ) || current_user_can( self::$nav_cap['restore_in_db'] ) ) {
 			?>
-				<img src="<?php echo CS_RTAFAR_PLUGIN_ASSET_URI; ?>img/restore-db-pro.png" style="width: 99%" />
+				<img src="<?php echo \esc_html( CS_RTAFAR_PLUGIN_ASSET_URI ); ?>img/restore-db-pro.png" style="width: 99%" />
 			<?php
 		} else {
 			$AccessDenied = $this->pages->AccessDenied();
 			if ( \is_object( $AccessDenied ) ) {
-				echo $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
+				echo \wp_kses( $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
 			} else {
-				echo $AccessDenied;
+				echo \wp_kses( $AccessDenied, Util::cs_allowed_html() );
 			}
 		}
 	}
@@ -311,7 +313,7 @@ class RTAFAR_RegisterMenu {
 		}
 
 		if ( 'cs-bfar-go-pro' === $_GET['page'] ) {
-			_e( 'Please wait a while redirecting..', 'real-time-auto-find-and-replace' );
+			esc_html_e( 'Please wait a while redirecting..', 'real-time-auto-find-and-replace' );
 
 			add_action(
 				'admin_footer',
@@ -319,7 +321,7 @@ class RTAFAR_RegisterMenu {
 					$redirect_url = Util::cs_get_pro_link( Util::cs_pro_link() . '?utm_source=wp-menu&utm_campaign=gopro&utm_medium=wp-dash' );
 					?>
 					<script type="text/javascript">
-						window.location.href = '<?php echo $redirect_url; ?>';
+						window.location.href = '<?php echo \esc_url( $redirect_url ); ?>';
 					</script>
 					<?php
 				}

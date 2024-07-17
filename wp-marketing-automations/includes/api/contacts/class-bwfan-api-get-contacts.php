@@ -62,6 +62,8 @@ class BWFAN_API_Get_Contacts extends BWFAN_API_Base {
 			'exclude_unsubs'       => $this->get_sanitized_arg( 'exclude_unsubs', 'bool' ),
 			'exclude_unsubs_lists' => $this->get_sanitized_arg( 'exclude_unsubs_lists', 'bool' ),
 			'grab_custom_fields'   => $this->get_sanitized_arg( 'grab_custom_fields', 'bool' ),
+			'include_soft_bounce'  => $this->get_sanitized_arg( 'includeSoftBounce', 'bool' ),
+			'include_unverified'   => $this->get_sanitized_arg( 'includeUnverified', 'bool' ),
 		);
 
 		/** Un-Open contacts case */

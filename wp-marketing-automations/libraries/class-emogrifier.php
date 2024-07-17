@@ -1420,7 +1420,10 @@ class Emogrifier
 		/** @var \DOMNode $styleNode */
 		foreach ($styleNodes as $styleNode) {
 			$css .= "\n\n" . $styleNode->nodeValue;
-			$styleNode->parentNode->removeChild($styleNode);
+			preg_match_all('/@font-face\s*{[^}]*}/i', $css, $matches);
+			if ( empty( $matches ) ) {
+				$styleNode->parentNode->removeChild($styleNode);
+			}
 		}
 
 		return $css;

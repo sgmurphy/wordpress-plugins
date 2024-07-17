@@ -182,6 +182,21 @@
   <div id="bmi-backup-file-name">
     <?php _e("Name of file on server:", 'backup-backup') ?>
   </div>
+  <div id="bmi-file-disabled">
+    <?php _e("You cannot backup this, it's disabled in settings.", 'backup-backup') ?>
+  </div>
+  <div id="bmi-backup-logs-modal-title">
+    <?php _e("Backup logs", 'backup-backup') ?>
+  </div>
+  <div id="bmi-restore-logs-modal-title">
+    <?php _e("Restore logs", 'backup-backup') ?>
+  </div>
+  <div id="bmi-error-modal-title">
+    <?php _e("Backup creation failed", 'backup-backup') ?>
+  </div>
+  <div id="bmi-restore-error-modal-title">
+    <?php _e("Restore failed", 'backup-backup') ?>
+  </div>
   <?php if (false) { ?>
   <div id="bmi-share-logs-thank-you">
     <?php _e("Thank you very much for your support!", 'backup-backup') ?>
@@ -194,5 +209,6 @@
   <div id="BMI_BLOG_URL"><?php echo get_site_url(); ?></div>
   <div id="BMI_REV"><?php echo BMI_REV; ?></div>
   <div id="BMI_SECRET_KEY"><?php echo bmi_get_config('REQUEST:SECRET'); ?></div>
+  <div id="BMI_ASSETS"><?php echo BMI_ASSETS; ?></div>
   <div><input type="text" id="bmi-support-url-translation" value="<?php echo BMI_CHAT_SUPPORT_URL ?>" hidden></div>
 </div>

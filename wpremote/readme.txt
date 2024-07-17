@@ -4,9 +4,9 @@ Tags: wpremote, remote administration, multiple wordpress, backup, wordpress bac
 Plugin URI: https://wpremote.com/
 Donate link: https://wpremote.com/
 Requires at least: 4.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6.0
-Stable tag: 5.56
+Stable tag: 5.65
 License: GPLv2 or later
 License URI: [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -41,6 +41,12 @@ Having an account is necessary to use our service, and your email address serves
 In addition, we may use your email address to notify you about any changes or updates that we make to our service, as well as any new features or services that we may offer to help enhance your user experience.
 
 == CHANGELOG ==
+= 5.65 =
+* New: Introduced Domain Monitoring feature
+* New: Introduced PHP Error Monitoring feature
+* Tweak: Implemented Captcha bypass support for Forminator and Gravity Forms
+* Tweak: Enhanced Firewall
+
 = 5.56 =
 * Better handling for Activate Redirect
 

@@ -2,8 +2,8 @@
 Contributors: socialdude, socialtech
 Tags: share, social, share icons, social media, widget
 Requires at least: 3.5
-Tested up to: 6.5.3
-Stable tag: 2.9.1
+Tested up to: 6.6
+Stable tag: 2.9.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -302,6 +302,13 @@ It depends on which language you speak :) however probably the answer is â€œyesâ
 
 == Changelog ==
 
+= 2.9.2 =
+* Resolved CVE-2024-37552
+* Tested with WordPress 6.6
+* Minor performance improvements 
+* Improvements for PHP 8 utilization
+* Fixed copy url icon in Edge cases
+
 = 2.9.1 =
 * Added new icons 
 * Improved email filter
@@ -394,10 +401,9 @@ It depends on which language you speak :) however probably the answer is â€œyesâ
 
 == Upgrade Notice ==
 
-= 2.9.1 =
-* Added new icons 
-* Improved email filter
-* Tested with WordPress 6.5.3
-* Better calibration of icons  
-* Fixed bugs with icon sizes
-* Fixed translation lines
+= 2.9.2 =
+* Resolved CVE-2024-37552
+* Tested with WordPress 6.6
+* Minor performance improvements 
+* Improvements for PHP 8 utilization
+* Fixed copy url icon in Edge cases

@@ -144,7 +144,7 @@ class BWFAN_API_Get_Contact_Orders extends BWFAN_API_Base {
 				$order_data = wc_get_order( $order_id );
 				if ( $order_data instanceof WC_Order ) {
 					$conv_order['coupons']       = $order_data->get_coupon_codes();
-					$conv_order['currency']      = $this->get_currency( $order_data->get_currency() );
+					$conv_order['currency']      = BWFAN_Automations::get_currency( $order_data->get_currency() );
 					$conv_order['customer_info'] = [
 						'email'            => $order_data->get_billing_email(),
 						'phone'            => $order_data->get_billing_phone(),
@@ -169,8 +169,7 @@ class BWFAN_API_Get_Contact_Orders extends BWFAN_API_Base {
 
 	function get_currency( $currency ) {
 		$currency        = ! is_null( $currency ) ? $currency : get_option( 'woocommerce_currency' );
-		$symbols         = get_woocommerce_currency_symbols();
-		$currency_symbol = isset( $symbols[ $currency ] ) ? $symbols[ $currency ] : '';
+		$currency_symbol = get_woocommerce_currency_symbol( $currency );
 
 		return [
 			'code'              => $currency,

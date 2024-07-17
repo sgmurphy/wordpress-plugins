@@ -92,7 +92,7 @@ class AllMaskingRulesList extends \WP_List_Table {
 		}
 
 		echo '<div class="row-actions"><span class="edit">';
-		echo '<a href="' . $edit_link . '">Edit</a>';
+		echo '<a href="' . \esc_url( $edit_link ) . '">Edit</a>';
 		echo '</span></div>';
 	}
 
@@ -173,7 +173,7 @@ class AllMaskingRulesList extends \WP_List_Table {
 
 
 	public function no_items() {
-		_e( 'Sorry! No Rule Found!', 'real-time-auto-find-and-replace' );
+		esc_html_e( 'Sorry! No Rule Found!', 'real-time-auto-find-and-replace' );
 	}
 
 	function get_views() {
@@ -273,7 +273,7 @@ class AllMaskingRulesList extends \WP_List_Table {
 	public function success_admin_notice() {
 		?>
 		<div class="updated">
-			<p><?php _e( 'Rule has been deleted successfully!', 'real-time-auto-find-and-replace' ); ?></p>
+			<p><?php esc_html_e( 'Rule has been deleted successfully!', 'real-time-auto-find-and-replace' ); ?></p>
 		</div>
 		<?php
 	}

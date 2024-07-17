@@ -264,6 +264,7 @@ class BWFAN_DB {
 			'3.0.0'    => '3_0_0',
 			'3.0.1'    => '3_0_1',
 			'3.0.1.1'  => '3_0_1_1',
+			'3.0.4'    => '3_0_4',
 		);
 		$db_version = get_option( 'bwfan_db', '2.0' );
 
@@ -1001,6 +1002,23 @@ class BWFAN_DB {
 		/** Log if any mysql errors */
 		if ( ! empty( $db_errors ) ) {
 			BWFAN_Common::log_test_data( array_merge( [ __FUNCTION__ ], $db_errors ), 'db-creation-errors' );
+		}
+
+		/** Updating version key */
+		update_option( 'bwfan_db', $version_key, true );
+	}
+
+	public function db_update_3_0_4( $version_key ) {
+		if ( is_array( $this->method_run ) && in_array( '1.0.0', $this->method_run, true ) ) {
+			update_option( 'bwfan_db', $version_key, true );
+			$this->method_run[] = $version_key;
+
+			return;
+		}
+
+		/** Cache handling */
+		if ( class_exists( 'BWF_JSON_Cache' ) && method_exists( 'BWF_JSON_Cache', 'run_json_endpoints_cache_handling' ) ) {
+			BWF_JSON_Cache::run_json_endpoints_cache_handling();
 		}
 
 		/** Updating version key */

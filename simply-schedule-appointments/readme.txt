@@ -3,8 +3,8 @@ Contributors:      croixhaug, nataliemac, simplyscheduleappointments
 Donate link:       https://simplyscheduleappointments.com
 Tags:              booking system, appointments, booking, scheduling, appointment booking
 Requires at least: 5.1
-Tested up to:      6.5
-Stable tag:        1.6.7.32
+Tested up to:      6.6
+Stable tag:        1.6.7.34
 Requires PHP:      7.4
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -237,6 +237,16 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 
 === Changelog ===
 
+== 1.6.7.34 - 2024-07-09 ==
+
+= Fixes =
+
+- Prevent Stripe race condition inserting duplicate payment records
+- Fix Customer Information Summary Twig Not Displaying Correctly
+- Formidable Forms fields and form not editable
+- Update twig - remove deprecated function twig_date_converter
+- Setup Wizard Gets 'Stuck' If Abandoned Before Appt Type is Saved
+
 == 1.6.7.30 - 2024-06-25 ==
 
 = Fixes =
@@ -295,15 +305,6 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 - Stripe modal placement fix
 - Fixed deprecated twig date format function.
 - Holiday calendars not being checked for conflicts in Google Calendar
-
-= Features and Improvements =
-
-- Updated the button styles for availability time picker option component.
-- Fixed availability button styles on Old Admin App.
-
-== 1.6.7.22 - 2024-05-28 ==
-
-= Fixes =
 
 
 For older changelog entries, please see the [additional CHANGELOG.md file](https://plugins.svn.wordpress.org/simply-schedule-appointments/trunk/CHANGELOG.md) delivered with the plugin.

@@ -141,6 +141,20 @@ class Activity_Log_Users extends Activity_Log_Helper {
 	 */
 	public function get_user_description( $user_id, $activity ) {
 		$user = get_user_by( 'id', $user_id );
+
+		//  If user value is null, log just the activity.
+		if ( ! isset( $user ) ) {
+			return $activity;
+		}
+
+		if ( ! isset( $user->data ) ) {
+			return $activity;
+		}
+
+		if ( ! isset( $user->data->user_login ) ) {
+			return $activity;
+		}
+
 		return $activity . ' - ' . $user->data->user_login;
 	}
 }

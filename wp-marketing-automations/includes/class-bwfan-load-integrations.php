@@ -157,7 +157,7 @@ class BWFAN_Load_Integrations {
 			'wp_createuser'                        => __( 'Create User', 'wp-marketing-automations' ),
 			'wp_custom_callback'                   => __( 'Custom Callback', 'wp-marketing-automations' ),
 			'wp_debug'                             => __( 'Debug', 'wp-marketing-automations' ),
-			'wp_http_post'                         => __( 'HTTP Request', 'wp-marketing-automations' ),
+			'wp_http_post'                         => __( 'Send Data To Any Source (HTTP Request)', 'wp-marketing-automations' ),
 			'wp_update_user_meta'                  => __( 'Update User Meta', 'wp-marketing-automations' ),
 			'wp_update_user_role'                  => __( 'Update User Role', 'wp-marketing-automations' ),
 			'za_send_data'                         => __( 'Send Data To Zapier', 'wp-marketing-automations' ),
@@ -719,7 +719,7 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'zapier'         => [
-				'POST'   => [
+				'General'   => [
 					'wp_http_post',
 				],
 				'Zapier' => [

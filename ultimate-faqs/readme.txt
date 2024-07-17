@@ -2,8 +2,8 @@
 Contributors: rustaurius
 Tags: faq, faqs, woocommerce faq, faq block, faq shortcode, accordion, documentation, knowledge base, mobile faq, responsive faq
 Requires at least: 6.0
-Tested up to: 6.5
-Stable tag: 2.2.14
+Tested up to: 6.6
+Stable tag: 2.2.15
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -212,7 +212,7 @@ For more info on installing and activating the plugin, and on the walk-through, 
 
 == Changelog ==
 
-= 2.2.14 (2024-05-30) =
-- Fix for styling/layout issue with the menu in the admin dashboard on certain screen sizes.
+= 2.2.15 (2024-07-16) =
+- Tested with WordPress 6.6.
 
 [See changelog for all versions](https://www.etoilewebdesign.com/changelogs/ultimate-faqs.txt).

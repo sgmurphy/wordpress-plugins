@@ -10,7 +10,7 @@ class Connect extends AbstractElasticEmailConnect implements ConnectionInterface
     /**
      * @var string key of connection service. its important all connection name ends with "Connect"
      */
-    public static string $connectionName = 'ElasticEmailConnect';
+    public static $connectionName = 'ElasticEmailConnect';
 
     public function __construct()
     {

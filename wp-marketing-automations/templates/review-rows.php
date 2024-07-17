@@ -57,7 +57,7 @@ if ( is_array( $products ) ) :
                             <!--[if mso]>
                             <i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:30pt" hidden>&nbsp;</i>
                             <![endif]-->
-                            <span style="mso-text-raise:15pt;"><?php echo apply_filters( 'bwfan_email_review_button_text', esc_html__( 'Leave a review', 'wp-marketing-automations' ) ); ?></span>
+                            <span style="mso-text-raise:15pt;"><?php echo apply_filters( 'bwfan_email_review_button_text', esc_html__( 'Leave a review', 'wp-marketing-automations' ), $product, $order ); ?></span>
                             <!--[if mso]>
                             <i style="letter-spacing: 25px;mso-font-width:-100%" hidden>&nbsp;</i>
                             <![endif]-->

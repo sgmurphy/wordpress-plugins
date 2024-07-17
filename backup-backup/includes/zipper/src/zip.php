@@ -184,7 +184,7 @@ class Zip {
   }
   
   public function saveRemoteSettings($settings) {
-    $settings_name = 'currentBackupConfig.php';
+    $settings_name = 'currentBackupConfig.' . 'php';
     $settings_path = BMP::fixSlashes(BMI_TMP . DIRECTORY_SEPARATOR . $settings_name);
     
     if (file_exists($settings_path)) @unlink($settings_path);
@@ -223,14 +223,14 @@ class Zip {
     $memory_limit = (intval($this->return_bytes(ini_get('memory_limit'))) / 1024 / 1024);
     $maxwp = (intval($this->return_bytes($maxwp)) / 1024 / 1024);
 
-    if ($maxwp > $memory_limit) $memory_limit = $maxwp;
+    if ($maxwp < $memory_limit) $memory_limit = $maxwp;
     $this->zip_progress->log(str_replace('%s', $memory_limit, __("There is %s MBs of memory to use", 'backup-backup')), 'INFO');
     $this->zip_progress->log(str_replace('%s', $maxwp, __("WordPress memory limit: %s MBs", 'backup-backup')), 'INFO');
     $safe_limit = intval($memory_limit / 4);
-    if ($safe_limit > 64) $safe_limit = 64;
-    if ($memory_limit === 384) $safe_limit = 96;
-    if ($memory_limit >= 512) $safe_limit = 128;
-    if ($memory_limit >= 1024) $safe_limit = 256;
+    if ($safe_limit >= 1024) $safe_limit = 256;
+    else if ($safe_limit >= 512) $safe_limit = 128;
+    else if ($safe_limit === 384) $safe_limit = 96;
+    else if ($safe_limit > 64) $safe_limit = 64;
 
     // $real_memory = intval(memory_get_usage() * 0.9 / 1024 / 1024);
     // if ($real_memory < $safe_limit) $safe_limit = $real_memory;
@@ -410,7 +410,7 @@ class Zip {
           'final_made' => false,
           'final_batch' => false,
           'dbitJustFinished' => false,
-          'useragent' => $_SERVER['HTTP_USER_AGENT']
+          'useragent' => isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'WordPress.org Site Self Request'
         ];
         $fix = true;
         $Xfiles = glob(BMI_TMP . DIRECTORY_SEPARATOR . '.BMI-*');
@@ -569,7 +569,7 @@ class Zip {
           }
           
           $files = array_filter($files, function ($path) {
-            if (is_readable($path) && file_exists($path) && !is_link($path)) return true;
+            if (is_readable($path) && is_writable($path) && !is_link($path)) return true;
             else {
               $this->zip_progress->log(sprintf(__("Excluding file that cannot be read: %s", 'backup-backup'), $path), 'warn');
               return false;
@@ -581,7 +581,11 @@ class Zip {
               for ($i = 0; $i < sizeof($files); ++$i) {
                 
                 // Add the file
-                $zip->addFile($files[$i], $this->cutDir($files[$i]));
+                if (is_dir($files[$i])) {
+                  $zip->addEmptyDir($this->cutDir($files[$i]));
+                } else {
+                  $zip->addFile($files[$i], $this->cutDir($files[$i]));
+                }
                 
               }
               
@@ -675,7 +679,11 @@ class Zip {
                 
                 // Add the file
                 $path = str_replace('\\', '/', $path);
-                $zip->addFile($chunk[$j], $path);
+                if (is_dir($chunk[$j])) {
+                  $zip->addEmptyDir($path);
+                } else {
+                  $zip->addFile($chunk[$j], $path);
+                }
                 
               }
               
@@ -702,8 +710,10 @@ class Zip {
           $curfile = (($i * $splitby) + $splitby);
           $this->zip_progress->progress($curfile . '/' . $max);
           if ($curfile % $milestoneby === 0 && $curfile < $max) {
-            
-            $currentBackupSize = filesize(BMI_BACKUPS . DIRECTORY_SEPARATOR . $this->new_file_path);
+            if (!file_exists($this->new_file_path)) 
+              return $this->zip_failed('Expected backup file does not exist, there could be some issue or the backup was removed by third parties.');
+
+            $currentBackupSize = filesize($this->new_file_path);
             if ($backupSize > $currentBackupSize)
               return $this->zip_failed('Backup size is smaller than it should be, it has been damaged, it may not be restorable, abort recommended.');
             
@@ -769,7 +779,11 @@ class Zip {
             for ($i = 0; $i < sizeof($files); ++$i) {
               
               // Add the file
-              $zip->addFile($files[$i], $this->cutDir($files[$i]));
+              if (is_dir($files[$i])) {
+                $zip->addEmptyDir($this->cutDir($files[$i]));
+              } else {
+                $zip->addFile($files[$i], $this->cutDir($files[$i]));
+              }
               
             }
             

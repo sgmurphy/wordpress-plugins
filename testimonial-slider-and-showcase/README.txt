@@ -3,7 +3,7 @@ Contributors: techlabpro1
 Donate link:
 Tags: testimonial, testimonial slider, testimonial showcase, customer review, star ratings
 Requires at least: 5.6
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.3.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -22,7 +22,7 @@ This testimonial slider plugin is full customizable and allows you to generate s
 
 You also get to customize the testimonials fields, style, color, and general appearance. With this WordPress testimonial plugin, you can control whether the profile images on the testimonials you display are square or rounded. The Testimonial Slider and Showcase Pro allow you to customize the image size. It also lets you order testimonials by date, title, or id.
 
-[https://www.youtube.com/watch?v=g7x9k15SMLM]
+[youtube https://www.youtube.com/watch?v=g7x9k15SMLM]
 
 Here are the features that make this testimonial slider plugin so endearing:
 
@@ -78,20 +78,17 @@ here is how you go about it.
 3.Now, use the shortcode in the page or post you want it to go using Gutenberg or Elementor addon. Alternatively, just copy the shortcode and paste it on the page or post.
 
 == 🏆 How to use Testimonial Slider Elementor Addon ==
-
 We introduce Elementor Addon for Testimonial Slider so now you can easily use in Elementor addon.
 
-[https://www.youtube.com/watch?v=kK_0-5RSoQg]
+[youtube https://www.youtube.com/watch?v=kK_0-5RSoQg]
 
 == 🏆 How to Enable Front End Submission ==
-
 From front end user can submit testimonial 
 
-[https://www.youtube.com/watch?v=3Gd0cHI2uUc]
+[youtube https://www.youtube.com/watch?v=3Gd0cHI2uUc]
 
 
 == 🏆 Available Testimonial Fields ==
-
 The following are the fields that this plugin allows you to have on your testimonials:
 
 * Title or name of the user
@@ -105,7 +102,6 @@ The following are the fields that this plugin allows you to have on your testimo
 * Front End Submission [Pro]
 
 == 🏆 Features of the Pro Version of the Testimonial Slider and Showcase ==
-
 * **Layouts:** The premium version of this plugin comes with 9 additional grid layouts, 11 sliders, and 6 isotope filter layouts.
 
 * **Detail Page Popup:** The testimonial detail page can have multiple, single, or smart popups.

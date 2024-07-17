@@ -1,4 +1,5 @@
 <?php
+
 #[AllowDynamicProperties]
 abstract class Merge_Tag_Abstract_Product_Display extends BWFAN_Merge_Tag {
 	public $support_limit_field = false;
@@ -144,6 +145,10 @@ abstract class Merge_Tag_Abstract_Product_Display extends BWFAN_Merge_Tag {
 				$type = $attr['type'];
 			}
 			$this->template = $this->template . '-' . $type;
+		}
+
+		if ( isset( $data['currency'] ) && ! empty( $data['currency'] ) ) {
+			remove_all_filters( 'woocommerce_currency_symbol' );
 		}
 
 		$file_path = BWFAN_PLUGIN_DIR . '/templates/' . $this->template . '.php';

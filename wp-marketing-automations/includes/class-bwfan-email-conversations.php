@@ -837,27 +837,25 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 			if ( ! is_array( $template ) || empty( $template ) || ! isset( $template['ID'] ) ) {
 				return array( 'error' => __( 'Template attached to Email not found', 'wp-marketing-automations' ) );
 			}
-			if ( isset( $template['type'] ) && $template['type'] == 1 ) {
-				BWFAN_Common::bwfan_before_send_mail();
-			}
 
 			$subject                      = isset( $template['subject'] ) ? $template['subject'] : '';
-			$template_mode                = isset( $template['mode'] ) ? absint( $template['mode'] ) : 0;
+			$template_type                = isset( $template['mode'] ) ? absint( $template['mode'] ) : 0;
 			$template                     = isset( $template['template'] ) ? $template['template'] : '';
-			$template_type                = isset( $template['type'] ) ? $template['type'] : '';
 			$template                     = BWFAN_Common::correct_shortcode_string( $template, $template_type );
 			$interaction                  = array();
 			$interaction['o_interaction'] = isset( $con['o_interaction'] ) && ! empty( $con['o_interaction'] ) ? json_decode( $con['o_interaction'], true ) : array();
 			$interaction['c_interaction'] = isset( $con['c_interaction'] ) && ! empty( $con['c_interaction'] ) ? json_decode( $con['c_interaction'], true ) : array();
+
+			BWFAN_Common::bwfan_before_send_mail( $template_type );
 
 			$final_data = array();
 			if ( ! empty( $interaction ) ) {
 				foreach ( $interaction as $interaction_key => $interaction_data ) {
 					foreach ( $interaction_data as $data ) {
 						if ( 'o_interaction' === $interaction_key ) {
-							$final_data[ $data ] = 'Opened';
+							$final_data[ $data ] = __( 'Opened', 'wp-marketing-automations' );
 						} else {
-							$final_data[ $data ] = 'Clicked';
+							$final_data[ $data ] = __( 'Clicked', 'wp-marketing-automations' );
 						}
 					}
 				}
@@ -873,7 +871,12 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 				$template = $this->parse_email_merge_tags( $template, $merge_tags, $con['cid'] );
 			}
 
-			if ( class_exists( 'BWFCRM_Block_Editor' ) ) {
+			if ( false !== strpos( $template, '{{contact_first_name}}' ) || false !== strpos( $template, '{{contact_last_name}}' ) ) {
+				$bwf_contact = new WooFunnels_Contact( '', '', '', $con['cid'] );
+				$template    = str_replace( [ '{{contact_first_name}}', '{{contact_last_name}}' ], [ $bwf_contact->get_f_name(), $bwf_contact->get_l_name() ], $template );
+			}
+
+			if ( intval( $template_type ) === 5 && class_exists( 'BWFCRM_Block_Editor' ) ) {
 				$global_val = BWFCRM_Block_Editor::$global_settings_var;
 				if ( ! empty( $global_val ) ) {
 					$global_val_k = array_keys( $global_val );
@@ -882,7 +885,7 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 				}
 			}
 
-			return array(
+			$data = array(
 				'oid'           => $con['oid'],
 				'type'          => $con['type'],
 				'o_interaction' => ! empty( $con['o_interaction'] ) ? json_decode( $con['o_interaction'], true ) : [],
@@ -893,6 +896,12 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 				'mode'          => $con['mode'],
 				'template_mode' => $template_mode,
 			);
+
+			if ( empty( $merge_tags ) ) {
+				$data['merge_tags'] = 0;
+			}
+
+			return $data;
 		}
 
 		public function get_conversations_total_by_cid( $cid ) {
@@ -1045,7 +1054,7 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 					if ( ! $user instanceof WP_User ) {
 						return array(
 							'name' => __( 'USER NOT FOUND', 'wp-marketing-automations' ),
-							'type' => __( '', 'wp-marketing-automations' ),
+							'type' => '',
 						);
 					}
 

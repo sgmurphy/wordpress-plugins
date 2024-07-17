@@ -150,7 +150,7 @@ function cdp_modal($screen = '', $profiles = array()) {
             <span><?php _e('Tags', 'copy-delete-posts'); ?></span>
           </label>
           <label>
-            <input class="cdp-modal-option-r cdp-input-dynamic" type="checkbox" name="taxonomy">
+            <input class="cdp-modal-option-r cdp-input-dynamic" type="checkbox" name="cdp_taxonomy">
             <span><?php _e('Taxonomies', 'copy-delete-posts'); ?></span>
           </label>
           <label>

@@ -1,3 +1,6 @@
+Version 1.0.53 - Wednesday, 17th July 2024
+- Improvement: Make WordPress 6.6 compatible
+
 Version 1.0.52 - Friday, 12th July 2024
 - Improvement: "GiveWP" - Fixed pagination issue in form listing
 - Improvement: "WooCommerce" - Added new "Get Order Details by Order ID" Action

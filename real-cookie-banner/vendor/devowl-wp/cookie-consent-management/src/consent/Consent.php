@@ -285,7 +285,20 @@ class Consent
         if ($multisite->isConsentForwarding() && !$transaction->markAsDoNotTrack) {
             $endpoints = $multisite->getConfiguredEndpoints();
             if (\count($endpoints) > 0) {
-                $data = ['uuid' => $this->getUuid(), 'consentId' => $persistId, 'blocker' => $transaction->blocker, 'buttonClicked' => $transaction->buttonClicked, 'viewPortWidth' => $transaction->viewPortWidth, 'viewPortHeight' => $transaction->viewPortHeight, 'cookies' => $multisite->mapDecisionToUniqueNames($this->getDecision()), 'tcfString' => $this->getTcfString(), 'gcmConsent' => $this->getGcmConsent(), '_wp_http_referer' => $transaction->referer];
+                $data = [
+                    'uuid' => $this->getUuid(),
+                    'consentId' => $persistId,
+                    'blocker' => $transaction->blocker,
+                    'buttonClicked' => $transaction->buttonClicked,
+                    'viewPortWidth' => $transaction->viewPortWidth,
+                    'viewPortHeight' => $transaction->viewPortHeight,
+                    'cookies' => $multisite->mapDecisionToUniqueNames($this->getDecision()),
+                    'tcfString' => $this->getTcfString(),
+                    'gcmConsent' => $this->getGcmConsent(),
+                    'referer' => $transaction->referer,
+                    // Make wp_get_raw_referer work in WordPress
+                    '_wp_http_referer' => $transaction->referer,
+                ];
                 // Remove `null` data
                 foreach ($data as $key => $value) {
                     if ($value === null) {

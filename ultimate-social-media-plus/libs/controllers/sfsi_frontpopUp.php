@@ -170,6 +170,7 @@ function sfsi_plus_FrontPopupDiv() {
 		$sfsi_section5['sfsi_plus_wechatIcon_order'] => 'wechat',
 		$sfsi_section5['sfsi_plus_whatsappIcon_order'] => 'whatsapp',
 		$sfsi_section5['sfsi_plus_mastodonIcon_order'] => 'mastodon',
+		$sfsi_section5['sfsi_plus_copylinkIcon_order'] => 'copylink',
 		$sfsi_section5['sfsi_plus_riaIcon_order'] => 'ria',
 		$sfsi_section5['sfsi_plus_inhaIcon_order'] => 'inha',
 		(isset($sfsi_section5['sfsi_plus_houzzIcon_order']))

@@ -58,6 +58,9 @@ abstract class BWFAN_Event {
 	protected $automation_add = false;
 	protected $automation_add_desc = '';
 
+	/** @var string Disable adding default field in event schema */
+	protected $disable_default_fields = false;
+
 	public function is_goal() {
 		return $this->is_goal;
 	}
@@ -1017,8 +1020,8 @@ abstract class BWFAN_Event {
 		$fields         = method_exists( $this, 'get_fields_schema' ) ? $this->get_fields_schema() : [];
 		$default_values = method_exists( $this, 'get_default_values' ) ? $this->get_default_values() : [];
 
-		$data['fields']         = array_merge( $fields, $default_event_field );
-		$data['default_values'] = array_merge( $default_values, $default_run_value );
+		$data['fields']         = $this->disable_default_fields ? $fields : array_merge( $fields, $default_event_field );
+		$data['default_values'] = $this->disable_default_fields ? $default_values : array_merge( $default_values, $default_run_value );
 
 		return $data;
 	}

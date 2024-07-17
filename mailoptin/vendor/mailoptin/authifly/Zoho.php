@@ -146,7 +146,14 @@ class Zoho extends OAuth2
         }
 
         // calculate when the access token expire
-        // for zoho, expires_in is in milliseconds. Instead we use expires_in_sec
+        if ($collection->exists('expires_in')) {
+            $expires_at = time() + (int) $collection->get('expires_in');
+
+            $this->storeData('expires_in', $collection->get('expires_in'));
+            $this->storeData('expires_at', $expires_at);
+        }
+
+        // for zoho, expires_in can be in milliseconds. Instead we use expires_in_sec
         if ($collection->exists('expires_in_sec')) {
             $expires_at = time() + (int)$collection->get('expires_in_sec');
 

@@ -1,39 +1,39 @@
 <?php
 if (!defined('ABSPATH') && !defined('MCDATAPATH')) exit;
 
-if (!class_exists('BVProtectIpstore_V556')) :
+if (!class_exists('BVProtectIpstore_V565')) :
 require_once dirname( __FILE__ ) . '/request.php';
 require_once dirname( __FILE__ ) . '/ipstore/fs.php';
 require_once dirname( __FILE__ ) . '/ipstore/db.php';
 
-class BVProtectIpstore_V556 {
+class BVProtectIpstore_V565 {
 	private $storage;
 	private $storage_type;
 
 	const STORAGE_TYPE_FS = 0;
 	const STORAGE_TYPE_DB = 1;
 
-	function __construct($storage_type = BVProtectIpstore_V556::STORAGE_TYPE_DB) {
+	function __construct($storage_type = BVProtectIpstore_V565::STORAGE_TYPE_DB) {
 		$this->storage_type = $storage_type;
-		if ($this->storage_type == BVProtectIpstore_V556::STORAGE_TYPE_FS) {
-			$this->storage = new BVProtectIpstoreFS_V556();
+		if ($this->storage_type == BVProtectIpstore_V565::STORAGE_TYPE_FS) {
+			$this->storage = new BVProtectIpstoreFS_V565();
 		} else {
-			$this->storage = new BVProtectIpstoreDB_V556();
+			$this->storage = new BVProtectIpstoreDB_V565();
 		}
 	}
 
 	public static function uninstall() {
-		BVProtectIpstoreDB_V556::uninstall();
+		BVProtectIpstoreDB_V565::uninstall();
 	}
 
 	public function isLPIPBlacklisted($ip) {
-		if ($this->storage_type == BVProtectIpstore_V556::STORAGE_TYPE_DB) {
+		if ($this->storage_type == BVProtectIpstore_V565::STORAGE_TYPE_DB) {
 			return $this->storage->isLPIPBlacklisted($ip);
 		}
 	}
 
 	public function isLPIPWhitelisted($ip) {
-		if ($this->storage_type == BVProtectIpstore_V556::STORAGE_TYPE_DB) {
+		if ($this->storage_type == BVProtectIpstore_V565::STORAGE_TYPE_DB) {
 			return $this->storage->isLPIPWhitelisted($ip);
 		}
 	}

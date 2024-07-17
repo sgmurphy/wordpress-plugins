@@ -325,6 +325,7 @@ class NewsletterDefaultMailer extends NewsletterMailer {
         $this->last_error = null;
 
         $this->current_message = $message;
+        error_clear_last();
         $r = wp_mail($message->to, $message->subject, $body, $wp_mail_headers);
         $this->current_message = null;
 
