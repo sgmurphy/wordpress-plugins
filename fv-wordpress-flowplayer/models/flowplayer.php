@@ -1385,7 +1385,7 @@ class flowplayer extends FV_Wordpress_Flowplayer_Plugin_Private {
       .flowplayer .fp-logo { display: block; opacity: 1; }
     <?php endif; ?>
       
-    .wpfp_custom_background { display: none; }  
+    .wpfp_custom_background { display: none; position: absolute; background-position: center center; background-repeat: no-repeat; background-size: contain; width: 100%; height: 100%; z-index: 1 }  
     .wpfp_custom_popup { position: absolute; top: 10%; z-index: 20; text-align: center; width: 100%; color: #fff; }
     .wpfp_custom_popup h1, .wpfp_custom_popup h2, .wpfp_custom_popup h3, .wpfp_custom_popup h4 { color: #fff; }
     .is-finished .wpfp_custom_background { display: block; }  
@@ -1590,6 +1590,24 @@ class flowplayer extends FV_Wordpress_Flowplayer_Plugin_Private {
     }
 
     $sCSSCurrent = preg_replace_callback( '~url\(.*?\)~', array( $this, 'css_relative_paths_fix' ), $sCSSCurrent );
+
+    /**
+     * Only keep relative paths by replacing the https://domain.com with an empty string
+     */
+    $home_url_parsed = wp_parse_url( home_url() );
+
+    if ( ! empty( $home_url_parsed['path'] ) ) {
+      unset( $home_url_parsed['path'] );
+    }
+
+    // reverse wp_parse_url for $home_url_parsed
+    $home_url_without_path = $home_url_parsed['scheme'] . '://' . $home_url_parsed['host'] . ( isset( $home_url_parsed['port'] ) ? ':' . $home_url_parsed['port'] : '' );
+
+    $sCSSCurrent = str_replace( $home_url_without_path, '', $sCSSCurrent );
+
+    /**
+     * Replace any left-over URLs with protocol agnostic URLs
+     */
     $sCSSCurrent = str_replace( array('http://', 'https://'), array('//','//'), $sCSSCurrent );
 
     if( !$wp_filesystem->put_contents( $filename, "/*\nFV Flowplayer custom styles\n\nWarning: This file is not mean to be edited. Please put your custom CSS into your theme stylesheet or any custom CSS field of your template.\n*/\n\n".$sCSSCurrent.$sCSS, FS_CHMOD_FILE) ) {
@@ -2250,6 +2268,7 @@ class flowplayer extends FV_Wordpress_Flowplayer_Plugin_Private {
         case 'm3u8' :
           $output = 'application/'.$output;
           break;
+        case 'flac' :
         case 'mp3' :
         case 'ogg' :
         case 'wav' :

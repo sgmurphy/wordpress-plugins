@@ -123,7 +123,7 @@ if ( ! class_exists( 'MO2f_Utility' ) ) {
 			$partialemail = substr( $email, 0, 1 );
 			$temp         = strrpos( $email, '@' );
 			$endemail     = substr( $email, $temp - 1, $emailsize );
-			for ( $i = 1; $i < $temp - 1; $i ++ ) {
+			for ( $i = 1; $i < $temp; $i ++ ) {
 				$partialemail = $partialemail . 'x';
 			}
 			$hiddenemail = $partialemail . $endemail;
@@ -565,53 +565,6 @@ if ( ! class_exists( 'MO2f_Utility' ) ) {
 			}
 		}
 		/**
-		 * This function is for get codes on email.
-		 *
-		 * @param array $codes It will carry the code value .
-		 * @return string
-		 */
-		public static function get_codes_email_content( $codes ) {
-			global $image_path;
-			$message   = '<table cellpadding="25" style="margin:0px auto">
-        <tbody>
-        <tr>
-        <td>
-        <table cellpadding="24" width="584px" style="margin:0 auto;max-width:584px;background-color:#f6f4f4;border:1px solid #a8adad">
-        <tbody>
-        <tr>
-        <td><img src="' . $image_path . 'includes/images/xecurify-logo.png" alt="Xecurify" style="color:#5fb336;text-decoration:none;display:block;width:auto;height:auto;max-height:35px" class="CToWUd"></td>
-        </tr>
-        </tbody>
-        </table>
-        <table cellpadding="24" style="background:#fff;border:1px solid #a8adad;width:584px;border-top:none;color:#4d4b48;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px">
-        <tbody>
-        <tr>
-        <td>
-        <p style="margin-top:0;margin-bottom:20px">Dear Customer,</p>
-        <p style="margin-top:0;margin-bottom:10px">You initiated a transaction from <b>WordPress 2 Factor Authentication Plugin</b>:</p>
-        <p style="margin-top:0;margin-bottom:10px">Your backup codes are:-
-        <table cellspacing="10">
-            <tr>';
-			$code_size = count( $codes );
-			for ( $x = 0; $x < $code_size; $x++ ) {
-				$message = $message . '<td>' . $codes[ $x ] . '</td>';
-			}
-			$message = $message . '</table></p>
-        <p style="margin-top:0;margin-bottom:10px">Please use this carefully as each code can only be used once. Please do not share these codes with anyone.</p>
-        <p style="margin-top:0;margin-bottom:10px">Also, we would highly recommend you to reconfigure your two-factor after logging in.</p>
-        <p style="margin-top:0;margin-bottom:15px">Thank you,<br>miniOrange Team</p>
-        <p style="margin-top:0;margin-bottom:0px;font-size:11px">Disclaimer: This email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed.</p>
-        </div></div></td>
-        </tr>
-        </tbody>
-        </table>
-        </td>
-        </tr>
-        </tbody>
-        </table>';
-			return $message;
-		}
-		/**
 		 * This function will show the warning message over email
 		 *
 		 * @param string $codes_remaining It will show the code remaining.
@@ -656,9 +609,14 @@ if ( ! class_exists( 'MO2f_Utility' ) ) {
 		 * @return string .
 		 */
 		public static function mo2f_email_backup_codes( $codes, $mo2f_user_email ) {
-			$subject = '2-Factor Authentication(Backup Codes)';
+			$subject = MoWpnsUtility::get_mo2f_db_option( 'mo2f_2fa_backup_code_email_subject', 'site_option' );
 			$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-			$message = self::get_codes_email_content( $codes );
+			$message = MoWpnsUtility::get_mo2f_db_option( 'mo2f_backup_code_email_template', 'site_option' );
+			$message = str_replace( '##code1##', isset( $codes[0] ) ? $codes[0] : '', $message );
+			$message = str_replace( '##code2##', isset( $codes[1] ) ? $codes[1] : '', $message );
+			$message = str_replace( '##code3##', isset( $codes[2] ) ? $codes[2] : '', $message );
+			$message = str_replace( '##code4##', isset( $codes[3] ) ? $codes[3] : '', $message );
+			$message = str_replace( '##code5##', isset( $codes[4] ) ? $codes[4] : '', $message );
 			$result  = wp_mail( $mo2f_user_email, $subject, $message, $headers );
 			return $result;
 		}

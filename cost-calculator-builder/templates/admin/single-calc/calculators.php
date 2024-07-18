@@ -29,7 +29,7 @@ $modal_types = array(
 	</div>
 	<div class="ccb-create-calc-content">
 		<div class="ccb-not-allowed ccb-create-calc-content-fields">
-			<div class="ccb-fields-container ccb-hint-fields-container" :class="{'ccb-container-empty': $store.getters.getBuilder.length === 0}">
+			<div class="ccb-fields-container ccb-hint-fields-container" :class="{'ccb-container-empty': $store.getters.getBuilder?.length === 0}">
 				<div class="ccb-fields-header">
 					<div class="ccb-fields-header-box">
 						<div class="ccb-fields-header-box-calculator-title">
@@ -48,7 +48,7 @@ $modal_types = array(
 						<button class="ccb-button success ccb-settings" @click="openTemplateSettings"><?php esc_html_e( 'Config', 'cost-calculator-builder' ); ?></button>
 					<?php endif; ?>
 				</div>
-				<div class="ccb-fields-wrapper ccb-custom-scrollbar " :class="{'ccb-disable-scroll': $store.getters.getBuilder.length === 0}">
+				<div class="ccb-fields-wrapper ccb-custom-scrollbar " :class="{'ccb-disable-scroll': $store.getters.getBuilder?.length === 0}">
 					<field-row
 						v-model="builderFields"
 						group="fields"

@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\Factory_Processing_109;
+namespace WBCR\Factory_Processing_110;
 
 use WP_Error;
 

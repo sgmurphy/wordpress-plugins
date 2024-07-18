@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510
+class ComposerStaticInit54a872d6901e5bb3bef8995b7080a9e4
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -46,8 +46,10 @@ class ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510
         'TEC\\Tickets\\Commerce\\Abstract_Order' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Abstract_Order.php',
         'TEC\\Tickets\\Commerce\\Admin\\Featured_Settings' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin/Featured_Settings.php',
         'TEC\\Tickets\\Commerce\\Admin\\Notices' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin/Notices.php',
+        'TEC\\Tickets\\Commerce\\Admin\\Orders_Page' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin/Orders_Page.php',
         'TEC\\Tickets\\Commerce\\Admin_Tables\\Attendees' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin_Tables/Attendees.php',
         'TEC\\Tickets\\Commerce\\Admin_Tables\\Orders' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin_Tables/Orders.php',
+        'TEC\\Tickets\\Commerce\\Admin_Tables\\Orders_Table' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin_Tables/Orders_Table.php',
         'TEC\\Tickets\\Commerce\\Assets' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Assets.php',
         'TEC\\Tickets\\Commerce\\Attendee' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Attendee.php',
         'TEC\\Tickets\\Commerce\\Cart' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Cart.php',
@@ -187,7 +189,9 @@ class ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510
         'TEC\\Tickets\\Commerce\\Status\\Status_Abstract' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Status/Status_Abstract.php',
         'TEC\\Tickets\\Commerce\\Status\\Status_Handler' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Status/Status_Handler.php',
         'TEC\\Tickets\\Commerce\\Status\\Status_Interface' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Status/Status_Interface.php',
+        'TEC\\Tickets\\Commerce\\Status\\Trashed' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Status/Trashed.php',
         'TEC\\Tickets\\Commerce\\Status\\Undefined' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Status/Undefined.php',
+        'TEC\\Tickets\\Commerce\\Status\\Unsupported' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Status/Unsupported.php',
         'TEC\\Tickets\\Commerce\\Status\\Voided' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Status/Voided.php',
         'TEC\\Tickets\\Commerce\\Success' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Success.php',
         'TEC\\Tickets\\Commerce\\Ticket' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Ticket.php',
@@ -330,9 +334,9 @@ class ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit54a872d6901e5bb3bef8995b7080a9e4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit54a872d6901e5bb3bef8995b7080a9e4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit54a872d6901e5bb3bef8995b7080a9e4::$classMap;
 
         }, null, ClassLoader::class);
     }

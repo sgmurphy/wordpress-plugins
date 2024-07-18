@@ -89,7 +89,7 @@ div.tec__tickets-my-tickets-rsvp-attendee-list-wrapper {
 }
 
 .tribe-rsvp-list > .tribe-item {
-		align-items: start;
+		align-items: flex-start;
 		background-color: var(--tec-color-background);
 		border: 1px solid var(--tec-color-border-default);
 		border-bottom: 0;

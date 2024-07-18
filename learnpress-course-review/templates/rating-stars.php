@@ -16,7 +16,7 @@ if ( ! isset( $rated ) ) {
 	return;
 }
 
-$percent = min( 100, $rated * 20 );
+$percent = min( 100, (float) $rated * 20 );
 $title   = sprintf( __( '%s out of 5 stars', 'learnpress-course-review' ), $rated );
 LP_Addon_Course_Review_Preload::$addon->check_load_file_style();
 ?>

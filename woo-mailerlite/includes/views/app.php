@@ -137,19 +137,6 @@ $currentGroup = MailerLiteSettings::getInstance()->getCurrentSelectedGroup();
                     <?php } ?>
                 </div>
                 <div class="form-group-ml vertical">
-                    <label for="wooMlSubGroup" class="settings-label mb-3-ml"> Resubscribe</label>
-                    <div class="checkbox-text-ml">
-                        <input type="checkbox"
-                               class="woo-ml-form-checkbox" <?php echo $this->settings['resubscribe'] == 'yes' ? 'checked' : ''; ?>
-                               name="resubscribe"
-                               value="yes"
-                               id="resubscribe_checkbox"
-                        />
-                        <label for="resubscribe_checkbox" class="settings-label-medium"> Allow unsubscribers to rejoin the email list if they
-                            resubscribe via the checkout page.</label>
-                    </div>
-                </div>
-                <div class="form-group-ml vertical">
                     <label for="wooMlSubGroup" class="settings-label flex-ml align-items-center-ml mb-3-ml">Add language
                         field
                         <div class="tooltip-ml">
@@ -259,6 +246,19 @@ $currentGroup = MailerLiteSettings::getInstance()->getCurrentSelectedGroup();
                     </div>
                 </div>
                 <div class="checkout-settings-group" style="display: <?php echo $checkoutDisabled ? "none;" : "block;" ?>">
+                    <div class="form-group-ml vertical">
+                        <label for="wooMlSubGroup" class="settings-label mb-3-ml"> Resubscribe</label>
+                        <div class="checkbox-text-ml">
+                            <input type="checkbox"
+                                   class="woo-ml-form-checkbox" <?php echo $this->settings['resubscribe'] == 'yes' ? 'checked' : ''; ?>
+                                   name="resubscribe"
+                                   value="yes"
+                                   id="resubscribe_checkbox"
+                            />
+                            <label for="resubscribe_checkbox" class="settings-label-medium"> Allow unsubscribers to rejoin the email list if they
+                                resubscribe via the checkout page.</label>
+                        </div>
+                    </div>
                     <div class="form-group-ml vertical">
                         <label for="wooMlSubGroup" class="settings-label mb-3-ml">Subscribe checkbox position</label>
                         <label class="input-mailerlite">

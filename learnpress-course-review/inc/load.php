@@ -9,6 +9,7 @@
 
 // Prevent loading this file directly
 use LearnPress\Helpers\Template;
+use LearnPress\Models\CourseModel;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -119,6 +120,7 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 					$lp_course_reviews_cache->clean_rating( $post_id );
 				}
 			);
+			add_filter( 'learnPress/prepare_struct_courses_response/courseObjPrepare', [ $this, 'rest_api_courses' ], 10, 2 );
 
 			$this->init_comment_table();
 			$this->calculate_rating_average_courses();
@@ -569,6 +571,22 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 		public static function get_svg_star() {
 			//return wp_remote_fopen( LP_Addon_Course_Review_Preload::$addon->get_plugin_url( 'assets/images/svg-star.svg' ) );
 			return file_get_contents( LP_ADDON_COURSE_REVIEW_PATH. '/assets/images/svg-star.svg' );
+		}
+
+		/**
+		 * Hook get rating for API of APP.
+		 *
+		 * @param stdClass|mixed $courseObjPrepare
+		 * @param CourseModel $course form LP v4.2.6.9
+		 *
+		 * @return stdClass|mixed
+		 * @since 4.1.3
+		 * @version 1.0.0
+		 */
+		public function rest_api_courses( $courseObjPrepare, CourseModel $course ) {
+			$courseObjPrepare->rating = learn_press_get_course_rate( $course->get_id() );
+
+			return $courseObjPrepare;
 		}
 	}
 }

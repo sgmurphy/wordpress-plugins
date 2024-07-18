@@ -151,7 +151,7 @@ $get_date_format  = get_option( 'date_format' );
 								<cost-total :value="item.total" :discount="item.discount" :field="item.data" :id="calc_data.id" @condition-apply="renderCondition"></cost-total>
 							</template>
 							<template v-for="item in formulaConst">
-								<div v-if="formulaConst.length === 1 && typeof formulaConst[0].alias === 'undefined'" style="display: flex" class="sub-list-item total">
+								<div v-if="formulaConst?.length === 1 && typeof formulaConst[0].alias === 'undefined'" style="display: flex" class="sub-list-item total">
 									<span class="sub-item-title"><?php esc_html_e( 'Total', 'cost-calculator-builder' ); ?></span>
 									<span class="sub-item-value" style="white-space: nowrap">{{ item.data.converted }}</span>
 								</div>
@@ -175,8 +175,8 @@ $get_date_format  = get_option( 'date_format' );
 									<template v-if="showPromocode">
 										<div class="calc-promocode-container">
 											<div class="calc-input-wrapper ccb-field" :class="{required: discountError !== ''}">
-												<span v-if="discountError === 'invalid'" :class="{active: discountError !== ''}" class="ccb-error-tip front default" v-text="'<?php esc_html_e( 'Invalid promocode', 'cost-calculator-builder' ); ?>'"></span>
-												<span v-if="discountError === 'not_exist'" :class="{active: discountError !== ''}" class="ccb-error-tip front default" v-text="'<?php esc_html_e( 'Promocode not exists', 'cost-calculator-builder' ); ?>'"></span>
+												<span v-if="discountError === 'invalid'" :class="{active: discountError !== ''}" class="ccb-error-tip front default"><?php esc_html_e( 'Invalid promocode', 'cost-calculator-builder' ); ?></span>
+												<span v-if="discountError === 'not_exist'" :class="{active: discountError !== ''}" class="ccb-error-tip front default"><?php esc_html_e( 'Promocode not exists', 'cost-calculator-builder' ); ?></span>
 												<input type="text" v-model="promocode" @input="discountError = ''" class="calc-input ccb-field ccb-appearance-field">
 											</div>
 											<button class="calc-btn-action ispro-wrapper success" @click.stop="applyPromocode">

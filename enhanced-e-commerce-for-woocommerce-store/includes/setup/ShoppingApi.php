@@ -7,6 +7,8 @@ class ShoppingApi {
     private $apiDomain;
     private $token;
     protected $TVC_Admin_Helper;
+    private $customApiObj;
+    private $subscriptionId;
 
     public function __construct() {
         $this->TVC_Admin_Helper = new TVC_Admin_Helper();

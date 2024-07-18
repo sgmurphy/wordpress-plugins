@@ -82,7 +82,7 @@ class Wf_Woocommerce_Packing_List_Migrator
 			'woocommerce_wf_add_rtl_support'=>'No',
 		),
 		'invoice'=>array(
-        	'woocommerce_wf_generate_for_orderstatus'=>array('wc-completed'),
+        	'woocommerce_wf_generate_for_orderstatus'=>array('wc-completed','wc-processing'),
         	'woocommerce_wf_attach_invoice'=>array(),
         	'woocommerce_wf_packinglist_logo'=>'',
         	'woocommerce_wf_add_invoice_in_mail'=>'No',

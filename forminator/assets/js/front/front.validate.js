@@ -73,9 +73,11 @@
 				ignore( index, element ) {
 					// Add support for hidden required fields (uploads, wp_editor) and for skipping pagination when required.
 					return (
-						$( element ).is( ':hidden:not(.do-validate)' ) &&
-						! $( element ).closest( '.forminator-pagination' )
-							.length
+						( $( element ).is( ':hidden:not(.do-validate)' ) &&
+								! $( element ).closest(
+									'.forminator-pagination'
+								).length ) ||
+							$( element ).closest( '.forminator-hidden' ).length
 					);
 				},
 

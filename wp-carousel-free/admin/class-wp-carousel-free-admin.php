@@ -153,7 +153,7 @@ class WP_Carousel_Free_Admin {
 
 			array_unshift( $links, $ui_links );
 
-			$links['go_pro'] = sprintf( '<a target="_blank" href="%1$s" style="color: #35b747; font-weight: 700;">Go Pro!</a>', 'https://wordpresscarousel.com/pricing/?ref=1' );
+			$links['go_pro'] = sprintf( '<a target="_blank" href="%1$s" style="color: #35b747; font-weight: 700;">Go Pro!</a>', 'https://wpcarousel.io/pricing/?ref=1' );
 		}
 
 		return $links;
@@ -179,7 +179,7 @@ class WP_Carousel_Free_Admin {
 	public function plugin_row_meta( $plugin_meta, $plugin_file ) {
 		if ( WPCAROUSELF_BASENAME === $plugin_file ) {
 			$row_meta = array(
-				'docs' => '<a href="https://wordpresscarousel.com/wp-carousel-free-demo/" aria-label="' . esc_attr( __( 'Live Demo', 'wp-carousel-free' ) ) . '" target="_blank">' . __( 'Live Demo', 'wp-carousel-free' ) . '</a>',
+				'docs' => '<a href="https://wpcarousel.io/wp-carousel-free-demo/" aria-label="' . esc_attr( __( 'Live Demo', 'wp-carousel-free' ) ) . '" target="_blank">' . __( 'Live Demo', 'wp-carousel-free' ) . '</a>',
 				'ideo' => '<a href="https://docs.shapedplugin.com/docs/wordpress-carousel/introduction/" aria-label="' . esc_attr( __( 'View WP Carousel Video Tutorials', 'wp-carousel-free' ) ) . '" target="_blank">' . __( 'Docs & Video Tutorials', 'wp-carousel-free' ) . '</a>',
 			);
 

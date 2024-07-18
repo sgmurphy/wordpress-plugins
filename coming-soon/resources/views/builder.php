@@ -601,8 +601,10 @@ $seedprod_data = array(
 	// Check if ACF is active
 	if ( ( in_array( 'advanced-custom-fields/acf.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || in_array( 'advanced-custom-fields-pro/acf.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) && function_exists( 'acf_get_field_groups' ) ) {
 		$seedprod_data['acf_active'] = true;
+
 		// Get ACF options.
-		$seedprod_data['acf_groups'] = seedprod_lite_get_acf_option_fields();
+		$seedprod_data['acf_groups'] = [];
+
 	} else {
 		$seedprod_data['acf_active'] = false;
 		$seedprod_data['acf_groups'] = [];

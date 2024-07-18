@@ -349,72 +349,76 @@ $conv_data = $TVC_Admin_Helper->get_store_data();
                             <div class="col-12 row bg-white m-0 p-0 mb-3">
                                 <div class="col-12  attributeDiv" style="overflow-y: auto; max-height:550px; position: relative;">
                                     <form id="attribute_mapping" class="row">
-                                        <?php foreach ($gmcAttributes as $key => $attribute) {
-                                            unset($tempAddAttr[$attribute["field"]]);
-                                            $sel_val = ""; ?>
-                                            <div class="col-6 mt-2">
-                                                <span class="ps-3 fw-400 text-color fs-12">
-                                                    <?php echo esc_attr($attribute["field"]) . " " . (isset($attribute["required"]) === TRUE && esc_attr($attribute["required"]) === '1' ? '<span class="text-color fs-6"> *</span>' : ""); ?>
-                                                    <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip"
-                                                        data-bs-placement="right"
-                                                        title="<?php echo (isset($attribute['desc']) === TRUE ? esc_attr($attribute['desc']) : ''); ?>">
-                                                        info
+                                        <?php 
+                                        if (is_array($gmcAttributes)) {
+                                            foreach ($gmcAttributes as $key => $attribute) {
+                                                if( isset($tempAddAttr[$attribute["field"]]) )
+                                                unset($tempAddAttr[$attribute["field"]]);
+                                                $sel_val = ""; ?>
+                                                <div class="col-6 mt-2">
+                                                    <span class="ps-3 fw-400 text-color fs-12">
+                                                        <?php echo esc_attr($attribute["field"]) . " " . (isset($attribute["required"]) === TRUE && esc_attr($attribute["required"]) === '1' ? '<span class="text-color fs-6"> *</span>' : ""); ?>
+                                                        <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip"
+                                                            data-bs-placement="right"
+                                                            title="<?php echo (isset($attribute['desc']) === TRUE ? esc_attr($attribute['desc']) : ''); ?>">
+                                                            info
+                                                        </span>
                                                     </span>
-                                                </span>
-                                            </div>
-                                            <div class="col-5 mt-2">
-                                                <?php
-                                                $ee_select_option = $TVC_Admin_Helper->add_additional_option_in_tvc_select($wooCommerceAttributes, $attribute["field"]);
-                                                $require = FALSE;
-                                                if (isset($attribute['required']) === TRUE) {
-                                                    $require = TRUE;
-                                                }
-                                                $sel_val_def = "";
-                                                if (isset($attribute['wAttribute']) === TRUE) {
-                                                    $sel_val_def = $attribute['wAttribute'];
-                                                }
-                                                if ($attribute["field"] === 'link') {
-                                                    "product link";
-                                                } else if ($attribute["field"] === 'shipping') {
-                                                    $sel_val = esc_attr($sel_val_def);
-                                                    if (isset($ee_mapped_attrs[$attribute["field"]]) === TRUE) {
-                                                        $sel_val = esc_attr($ee_mapped_attrs[$attribute["field"]]);
+                                                </div>
+                                                <div class="col-5 mt-2">
+                                                    <?php
+                                                    $ee_select_option = $TVC_Admin_Helper->add_additional_option_in_tvc_select($wooCommerceAttributes, $attribute["field"]);
+                                                    $require = FALSE;
+                                                    if (isset($attribute['required']) === TRUE) {
+                                                        $require = TRUE;
                                                     }
-
-                                                    $TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', esc_html__('Add shipping flat rate', 'product-feed-manager-for-woocommerce'), $sel_val, $require);
-                                                } else if ($attribute["field"] === 'tax') {
-                                                    $sel_val = esc_attr($sel_val_def);
-                                                    if (isset($ee_mapped_attrs[$attribute["field"]]) === TRUE) {
-                                                        $sel_val = esc_attr($ee_mapped_attrs[$attribute["field"]]);
+                                                    $sel_val_def = "";
+                                                    if (isset($attribute['wAttribute']) === TRUE) {
+                                                        $sel_val_def = $attribute['wAttribute'];
                                                     }
-
-                                                    $TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', 'Add TAX flat (%)', $sel_val, $require);
-                                                } else if ($attribute["field"] === 'content_language') {
-                                                    $TVC_Admin_Helper->tvc_language_select($attribute["field"], 'content_language', esc_html__('Please Select Attribute', 'product-feed-manager-for-woocommerce'), 'en', $require);
-                                                } else if ($attribute["field"] === 'target_country') {
-                                                    $TVC_Admin_Helper->tvc_countries_select($attribute["field"], 'target_country', esc_html__('Please Select Attribute', 'product-feed-manager-for-woocommerce'), $require);
-                                                } else {
-                                                    if (isset($attribute['fixed_options']) === TRUE && $attribute['fixed_options'] !== "") {
-                                                        $ee_select_option_t = explode(",", $attribute['fixed_options']);
-                                                        $ee_select_option = [];
-                                                        foreach ($ee_select_option_t as $o_val) {
-                                                            $ee_select_option[]['field'] = esc_attr($o_val);
-                                                        }
-
-                                                        $sel_val = $sel_val_def;
-                                                        $TVC_Admin_Helper->tvc_select($attribute["field"], $attribute["field"], esc_html__('Please Select Attribute', 'product-feed-manager-for-woocommerce'), $sel_val, $require, $ee_select_option);
-                                                    } else {
+                                                    if ($attribute["field"] === 'link') {
+                                                        "product link";
+                                                    } else if ($attribute["field"] === 'shipping') {
                                                         $sel_val = esc_attr($sel_val_def);
                                                         if (isset($ee_mapped_attrs[$attribute["field"]]) === TRUE) {
                                                             $sel_val = esc_attr($ee_mapped_attrs[$attribute["field"]]);
                                                         }
-                                                        $TVC_Admin_Helper->tvc_select($attribute["field"], $attribute["field"], esc_html__('Please Select Attribute', 'product-feed-manager-for-woocommerce'), $sel_val, $require, $ee_select_option);
-                                                    }
-                                                } //end attribute if                                                
-                                                ?>
-                                            </div>
-                                           
-                                        <?php } //end gmcAttributes foreach 
+
+                                                        $TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', esc_html__('Add shipping flat rate', 'product-feed-manager-for-woocommerce'), $sel_val, $require);
+                                                    } else if ($attribute["field"] === 'tax') {
+                                                        $sel_val = esc_attr($sel_val_def);
+                                                        if (isset($ee_mapped_attrs[$attribute["field"]]) === TRUE) {
+                                                            $sel_val = esc_attr($ee_mapped_attrs[$attribute["field"]]);
+                                                        }
+
+                                                        $TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', 'Add TAX flat (%)', $sel_val, $require);
+                                                    } else if ($attribute["field"] === 'content_language') {
+                                                        $TVC_Admin_Helper->tvc_language_select($attribute["field"], 'content_language', esc_html__('Please Select Attribute', 'product-feed-manager-for-woocommerce'), 'en', $require);
+                                                    } else if ($attribute["field"] === 'target_country') {
+                                                        $TVC_Admin_Helper->tvc_countries_select($attribute["field"], 'target_country', esc_html__('Please Select Attribute', 'product-feed-manager-for-woocommerce'), $require);
+                                                    } else {
+                                                        if (isset($attribute['fixed_options']) === TRUE && $attribute['fixed_options'] !== "") {
+                                                            $ee_select_option_t = explode(",", $attribute['fixed_options']);
+                                                            $ee_select_option = [];
+                                                            foreach ($ee_select_option_t as $o_val) {
+                                                                $ee_select_option[]['field'] = esc_attr($o_val);
+                                                            }
+
+                                                            $sel_val = $sel_val_def;
+                                                            $TVC_Admin_Helper->tvc_select($attribute["field"], $attribute["field"], esc_html__('Please Select Attribute', 'product-feed-manager-for-woocommerce'), $sel_val, $require, $ee_select_option);
+                                                        } else {
+                                                            $sel_val = esc_attr($sel_val_def);
+                                                            if (isset($ee_mapped_attrs[$attribute["field"]]) === TRUE) {
+                                                                $sel_val = esc_attr($ee_mapped_attrs[$attribute["field"]]);
+                                                            }
+                                                            $TVC_Admin_Helper->tvc_select($attribute["field"], $attribute["field"], esc_html__('Please Select Attribute', 'product-feed-manager-for-woocommerce'), $sel_val, $require, $ee_select_option);
+                                                        }
+                                                    } //end attribute if                                                
+                                                    ?>
+                                                </div>
+                                            <?php 
+                                            } //end gmcAttributes foreach 
+                                        }
                                         ?>
                                         <div class="col-12 m-0 p-0 additinal_attr_main_div">                                            
                                             <?php

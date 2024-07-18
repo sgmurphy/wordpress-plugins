@@ -835,50 +835,14 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         <?php
     }
 
-    private function get_max_id() {
-        global $wpdb;
-        $pb_table = $wpdb->prefix."ays_pb";
-
-        $sql = "SELECT max(id) FROM {$pb_table}";
-
-        $result = $wpdb->get_var($sql);
-
-        return $result;
-    }
-
     public function duplicate_popupbox($id) {
         global $wpdb;
+
         $pb_table = $wpdb->prefix . "ays_pb";
         $popup = $this->get_popupbox_by_id($id);
 
-        $user_id = get_current_user_id();
-        $user = get_userdata($user_id);
-        $author = json_encode(array(
-            'id' => $user->ID."",
-            'name' => $user->data->display_name
-        ), JSON_UNESCAPED_SLASHES);
-
-        $max_id = $this->get_max_id();
-
-        $options = json_decode($popup['options'], true);
-
-        $options['create_date'] = date("Y-m-d H:i:s");
-        $options['author'] = $author;
-
-        // Custom HTML
-        if (is_multisite()) {
-            if (is_super_admin()) {
-                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes($popup['custom_html']) : '';
-            } else {
-                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
-            }
-        } else {
-            if (current_user_can('unfiltered_html')) {
-                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes($popup['custom_html']) : '';
-            } else {
-                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
-            }
-        }
+        // Popup Name
+        $popup_name = ( isset($popup['popup_name']) && $popup['popup_name'] != '' ) ? 'Copy - ' . sanitize_text_field($popup['popup_name']) : '';
 
         //Description
         if (is_multisite()) {
@@ -895,59 +859,89 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             }
         }
 
+        // Custom HTML
+        if (is_multisite()) {
+            if (is_super_admin()) {
+                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes($popup['custom_html']) : '';
+            } else {
+                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
+            }
+        } else {
+            if (current_user_can('unfiltered_html')) {
+                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes($popup['custom_html']) : '';
+            } else {
+                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
+            }
+        }
+
+        // Update popup author and creation date info
+        $user_id = get_current_user_id();
+        $user = get_userdata($user_id);
+        $author = json_encode(array(
+            'id' => $user->ID."",
+            'name' => $user->data->display_name
+        ), JSON_UNESCAPED_SLASHES);
+
+        $options = json_decode($popup['options'], true);
+
+        $options['create_date'] = date("Y-m-d H:i:s");
+        $options['author'] = $author;
+
         $result = $wpdb->insert(
             $pb_table,
             array(
-                "title" => "Copy - ".$popup['title'],
+                "title" => "Copy - " . stripslashes( sanitize_text_field($popup['title']) ),
+                "popup_name" => $popup_name,
                 "description" => $description,
-                "category_id" => $popup['category_id'],
-                "autoclose" => intval($popup['autoclose']),
-                "cookie" => intval($popup['cookie']),
-                "width" => intval($popup['width']),
-                "height" => intval($popup['height']),
-                "bgcolor" => stripslashes(sanitize_text_field($popup['bgcolor'])),
-                "textcolor" => stripslashes(sanitize_text_field($popup['textcolor'])),
-                "bordersize" => abs(intval($popup['bordersize'])),
-                "bordercolor" => stripslashes(sanitize_text_field($popup['bordercolor'])),
-                "border_radius" => abs(intval($popup['border_radius'])),
-                "shortcode" => $popup['shortcode'],
-                "custom_class" => $popup['custom_class'],
-                "custom_css" => $popup['custom_css'],
+                "category_id" => absint( intval($popup['category_id']) ),
+                "autoclose" => absint( intval($popup['autoclose']) ),
+                "cookie" => absint( intval($popup['cookie']) ),
+                "width" => absint( intval($popup['width']) ),
+                "height" => absint( intval($popup['height']) ),
+                "bgcolor" => stripslashes( sanitize_text_field($popup['bgcolor']) ),
+                "textcolor" => stripslashes( sanitize_text_field($popup['textcolor']) ),
+                "bordersize" => absint( intval($popup['bordersize']) ),
+                "bordercolor" => stripslashes( sanitize_text_field($popup['bordercolor']) ),
+                "border_radius" => absint( intval($popup['border_radius']) ),
+                "shortcode" => wp_unslash( sanitize_text_field($popup['shortcode']) ),
+                "users_role" => stripslashes( sanitize_text_field($popup['users_role']) ),
+                "custom_class" => stripslashes( sanitize_text_field($popup['custom_class']) ),
+                "custom_css" => stripslashes( sanitize_textarea_field($popup['custom_css']) ),
                 "custom_html" => $popup_custom_html,
-                "onoffswitch" => $popup['onoffswitch'],
-                "show_only_for_author" => $popup['show_only_for_author'],
-                "show_all" => $popup['show_all'],
-                "delay" => abs(intval($popup['delay'])),
-                "scroll_top" => intval($popup['scroll_top']),
-                "animate_in" => $popup['animate_in'],
-                "animate_out" => $popup['animate_out'],
-                "action_button" => $popup['action_button'],
-                "view_place" => $popup['view_place'],
-                "action_button_type" => $popup['action_button_type'],
-                "modal_content" => $popup['modal_content'],
-                "view_type" => $popup['view_type'],
-                "onoffoverlay" => $popup['onoffoverlay'],
-                "overlay_opacity" => stripslashes(sanitize_text_field(($popup['overlay_opacity']))),
-                "show_popup_title" => $popup['show_popup_title'],
-                "show_popup_desc" => $popup['show_popup_desc'],
-                "close_button" => $popup['close_button'],
-                "header_bgcolor" => stripslashes(sanitize_text_field($popup['header_bgcolor'])),
-                "bg_image" => $popup['bg_image'],
-                "log_user" => $popup['log_user'],
-                "guest" => $popup['guest'],
-                "active_date_check" => $popup['active_date_check'],
-                "activeInterval" => $popup['activeInterval'],
-                "deactiveInterval" => $popup['deactiveInterval'],
-                "pb_position" => $popup['pb_position'],
-                "pb_margin" => $popup['pb_margin'],
-                "users_role" => $popup['users_role'],
-                'options' => json_encode($options)
+                "onoffswitch" => stripslashes( sanitize_text_field($popup['onoffswitch']) ),
+                "show_only_for_author" => stripslashes( sanitize_text_field($popup['show_only_for_author']) ),
+                "show_all" => stripslashes( sanitize_text_field($popup['show_all']) ),
+                "delay" => absint( intval($popup['delay']) ),
+                "scroll_top" => absint( intval($popup['scroll_top']) ),
+                "animate_in" => stripslashes( sanitize_text_field($popup['animate_in']) ),
+                "animate_out" => stripslashes( sanitize_text_field($popup['animate_out']) ),
+                "action_button" => stripslashes( sanitize_text_field($popup['action_button']) ),
+                "view_place" => stripslashes( sanitize_text_field($popup['view_place']) ),
+                "action_button_type" => stripslashes( sanitize_text_field($popup['action_button_type']) ),
+                "modal_content" => stripslashes( sanitize_text_field($popup['modal_content']) ),
+                "view_type" => stripslashes( sanitize_text_field($popup['view_type']) ),
+                "onoffoverlay" => stripslashes( sanitize_text_field($popup['onoffoverlay']) ),
+                "overlay_opacity" => stripslashes( sanitize_text_field($popup['overlay_opacity']) ),
+                "show_popup_title" => stripslashes( sanitize_text_field($popup['show_popup_title']) ),
+                "show_popup_desc" => stripslashes( sanitize_text_field($popup['show_popup_desc']) ),
+                "close_button" => stripslashes( sanitize_text_field($popup['close_button']) ),
+                "header_bgcolor" => stripslashes( sanitize_text_field($popup['header_bgcolor']) ),
+                "bg_image" => sanitize_url($popup['bg_image']),
+                "log_user" => stripslashes( sanitize_text_field($popup['log_user']) ),
+                "guest" => stripslashes( sanitize_text_field($popup['guest']) ),
+                "active_date_check" => stripslashes( sanitize_text_field($popup['active_date_check']) ),
+                "activeInterval" => sanitize_text_field($popup['activeInterval']),
+                "deactiveInterval" => sanitize_text_field($popup['deactiveInterval']),
+                "pb_position" => stripslashes( sanitize_text_field($popup['pb_position']) ),
+                "pb_margin" => absint( intval($popup['pb_margin']) ),
+                "options" => json_encode($options)
             ),
             array(
-                '%s', // Title
+                '%s', // title
+                '%s', // popup_name
                 '%s', // description
                 '%d', // cat_id
-                '%d', //autoclose
+                '%d', // autoclose
                 '%d', // cookie
                 '%d', // width
                 '%d', // height
@@ -957,6 +951,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
                 '%s', // bordercolor
                 '%d', // border_radius
                 '%s', // shortcode
+                '%s', // users_roles
                 '%s', // custom_class
                 '%s', // custom_css
                 '%s', // custom_html
@@ -986,23 +981,21 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
                 '%s', // deactiveInterval
                 '%s', // pb_position
                 '%d', // pb_margin
-                '%s', // users_roles
                 '%s', // options
             )
         );
-        if( $result >= 0 ){
-            $message = "duplicated";
-            $url = esc_url_raw( remove_query_arg(array('action', 'popupbox')  ) ) . '&status=' . $message;
-            wp_redirect( $url );
-        }
 
+        if ($result >= 0) {
+            $message = "duplicated";
+            $url = esc_url_raw( remove_query_arg(array('action', 'popupbox')) ) . '&status=' . $message;
+            wp_redirect($url);
+        }
     }
 
-    public function get_popupbox_by_id( $id ) {
+    public function get_popupbox_by_id($id) {
         global $wpdb;
 
-        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb WHERE id=" . absint( sanitize_text_field( $id ) ). " ORDER BY id ASC";
-
+        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb WHERE id=" . absint( sanitize_text_field($id) ) . " ORDER BY id ASC";
         $result = $wpdb->get_row($sql, "ARRAY_A");
 
         return $result;

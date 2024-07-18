@@ -1,17 +1,17 @@
-# Copyright (C) 2023 StoreApps
+# Copyright (C) 2024 StoreApps
 # This file is distributed under the GNU General Public License v2.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Stock Manager for WooCommerce 3.0.0\n"
+"Project-Id-Version: Stock Manager for WooCommerce 3.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-stock-manager\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-01T13:45:31+05:30\n"
+"POT-Creation-Date: 2024-07-18T10:59:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: woocommerce-stock-manager\n"
 
 #. Plugin Name of the plugin
@@ -34,99 +34,99 @@ msgstr ""
 msgid "https://www.storeapps.org/"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:143
+#: admin/class-stock-manager-admin.php:157
 msgid "No shipping class"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:160
+#: admin/class-stock-manager-admin.php:174
 msgid "Taxable"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:161
+#: admin/class-stock-manager-admin.php:175
 msgid "Shipping only"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:162
+#: admin/class-stock-manager-admin.php:176
 msgctxt "Tax status"
 msgid "None"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:165
+#: admin/class-stock-manager-admin.php:179
 msgid "No"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:166
+#: admin/class-stock-manager-admin.php:180
 msgid "Notify"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:167
+#: admin/class-stock-manager-admin.php:181
 msgid "Yes"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:198
-#: admin/class-stock-manager-admin.php:268
-#: admin/class-stock-manager-admin.php:269
+#: admin/class-stock-manager-admin.php:212
+#: admin/class-stock-manager-admin.php:282
+#: admin/class-stock-manager-admin.php:283
 msgid "Stock Manager"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:203
+#: admin/class-stock-manager-admin.php:217
 msgctxt "product meta box"
 msgid "Stock log"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:226
+#: admin/class-stock-manager-admin.php:240
 msgctxt "product list"
 msgid "Stock log"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:292
-#: admin/class-stock-manager-admin.php:293
+#: admin/class-stock-manager-admin.php:306
+#: admin/class-stock-manager-admin.php:307
 msgid "Import/Export"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:300
-#: admin/class-stock-manager-admin.php:301
+#: admin/class-stock-manager-admin.php:314
+#: admin/class-stock-manager-admin.php:315
 msgid "Stock log"
 msgstr ""
 
-#: admin/class-stock-manager-admin.php:308
-#: admin/class-stock-manager-admin.php:309
+#: admin/class-stock-manager-admin.php:322
+#: admin/class-stock-manager-admin.php:323
 msgid "StoreApps Plugins"
 msgstr ""
 
 #. translators: %1$s & %2$s: Opening & closing strong tag. %3$s: link to Stock Manager for WooCommerce on WordPress.org
-#: admin/class-stock-manager-admin.php:451
+#: admin/class-stock-manager-admin.php:465
 msgid "If you are liking %1$sStock Manager for WooCommerce%2$s, please rate us %3$s. A huge thanks from StoreApps in advance!"
 msgstr ""
 
-#: admin/views/import-export.php:121
+#: admin/views/import-export.php:114
 msgid "Import"
 msgstr ""
 
-#: admin/views/import-export.php:124
+#: admin/views/import-export.php:117
 msgid "You can upload csv file, with your stock data. "
 msgstr ""
 
-#: admin/views/import-export.php:125
+#: admin/views/import-export.php:118
 msgid "CSV file must be in this format, or you can export file with exist data and edit them. "
 msgstr ""
 
-#: admin/views/import-export.php:126
+#: admin/views/import-export.php:119
 msgid "If you have a lot of products and export/import not working, increase memory limit.. "
 msgstr ""
 
-#: admin/views/import-export.php:127
+#: admin/views/import-export.php:120
 msgid "File format"
 msgstr ""
 
-#: admin/views/import-export.php:130
-#: admin/views/import-export.php:153
+#: admin/views/import-export.php:123
+#: admin/views/import-export.php:146
 #: admin/assets/src/components/Products.js:93
 msgid "ID"
 msgstr ""
 
-#: admin/views/import-export.php:131
-#: admin/views/import-export.php:154
+#: admin/views/import-export.php:124
+#: admin/views/import-export.php:147
 #: admin/views/log.php:29
 #: admin/assets/src/components/ProductFilter.js:64
 #: admin/assets/src/components/Products.js:99
@@ -134,36 +134,36 @@ msgstr ""
 msgid "SKU"
 msgstr ""
 
-#: admin/views/import-export.php:132
+#: admin/views/import-export.php:125
 #: admin/assets/src/components/Products.js:115
 #: admin/assets/src/components/ScreenOptions.js:48
 msgid "Product name"
 msgstr ""
 
-#: admin/views/import-export.php:133
-#: admin/views/import-export.php:155
+#: admin/views/import-export.php:126
+#: admin/views/import-export.php:148
 #: admin/assets/src/components/Products.js:139
 #: admin/assets/src/components/ScreenOptions.js:68
 msgid "Manage stock"
 msgstr ""
 
-#: admin/views/import-export.php:134
-#: admin/views/import-export.php:156
+#: admin/views/import-export.php:127
+#: admin/views/import-export.php:149
 #: admin/assets/src/components/ProductFilter.js:112
 #: admin/assets/src/components/Products.js:142
 #: admin/assets/src/components/ScreenOptions.js:73
 msgid "Stock status"
 msgstr ""
 
-#: admin/views/import-export.php:135
-#: admin/views/import-export.php:157
+#: admin/views/import-export.php:128
+#: admin/views/import-export.php:150
 #: admin/assets/src/components/Products.js:145
 #: admin/assets/src/components/ScreenOptions.js:78
 msgid "Backorders"
 msgstr ""
 
-#: admin/views/import-export.php:136
-#: admin/views/import-export.php:158
+#: admin/views/import-export.php:129
+#: admin/views/import-export.php:151
 #: admin/views/log-history.php:49
 #: admin/views/log.php:33
 #: admin/assets/src/components/Products.js:148
@@ -171,102 +171,102 @@ msgstr ""
 msgid "Stock"
 msgstr ""
 
-#: admin/views/import-export.php:137
+#: admin/views/import-export.php:130
 #: admin/views/log.php:31
 #: admin/assets/src/components/Products.js:97
 msgid "Product type"
 msgstr ""
 
-#: admin/views/import-export.php:138
+#: admin/views/import-export.php:131
 #: admin/views/log.php:32
 msgid "Parent ID"
 msgstr ""
 
-#: admin/views/import-export.php:141
+#: admin/views/import-export.php:134
 msgid "123"
 msgstr ""
 
-#: admin/views/import-export.php:142
+#: admin/views/import-export.php:135
 msgid "abc111"
 msgstr ""
 
-#: admin/views/import-export.php:143
+#: admin/views/import-export.php:136
 msgid "T-shirt"
 msgstr ""
 
-#: admin/views/import-export.php:144
-#: admin/views/import-export.php:146
+#: admin/views/import-export.php:137
+#: admin/views/import-export.php:139
 msgid "yes"
 msgstr ""
 
-#: admin/views/import-export.php:145
+#: admin/views/import-export.php:138
 msgid "instock"
 msgstr ""
 
-#: admin/views/import-export.php:147
+#: admin/views/import-export.php:140
 msgid "10"
 msgstr ""
 
-#: admin/views/import-export.php:148
+#: admin/views/import-export.php:141
 msgid "simple"
 msgstr ""
 
-#: admin/views/import-export.php:153
+#: admin/views/import-export.php:146
 msgid "product id, required. Neccessary for import and export."
 msgstr ""
 
-#: admin/views/import-export.php:154
+#: admin/views/import-export.php:147
 msgid "product unique identificator."
 msgstr ""
 
-#: admin/views/import-export.php:155
-#: admin/views/import-export.php:157
+#: admin/views/import-export.php:148
+#: admin/views/import-export.php:150
 msgid "values: \"yes\", \"notify\", \"no\". If is empty \"no\" will be save."
 msgstr ""
 
-#: admin/views/import-export.php:156
+#: admin/views/import-export.php:149
 msgid "values: \"instock\", \"outofstock\". If is empty \"outofstock\" will be save."
 msgstr ""
 
-#: admin/views/import-export.php:158
+#: admin/views/import-export.php:151
 msgid "quantity value. If is empty, 0 will be save."
 msgstr ""
 
-#: admin/views/import-export.php:163
+#: admin/views/import-export.php:156
 msgid "Upload csv file"
 msgstr ""
 
-#: admin/views/import-export.php:172
+#: admin/views/import-export.php:165
 msgid "Upload"
 msgstr ""
 
 #. translators: 1: Uploaded file name
-#: admin/views/import-export.php:195
+#: admin/views/import-export.php:188
 msgid "The file %1$s has been uploaded"
 msgstr ""
 
 #. translators: 1: P tag opening 2: Updated Product ID 3. Closing p tag
-#: admin/views/import-export.php:225
+#: admin/views/import-export.php:218
 msgid "%1$s Product with ID %2$s was updated. %3$s"
 msgstr ""
 
-#: admin/views/import-export.php:234
+#: admin/views/import-export.php:227
 msgid "Sorry, there was an error uploading your file."
 msgstr ""
 
-#: admin/views/import-export.php:237
+#: admin/views/import-export.php:230
 msgid "Error: You have not uploaded a CSV file."
 msgstr ""
 
-#: admin/views/import-export.php:251
+#: admin/views/import-export.php:244
 msgid "Export"
 msgstr ""
 
-#: admin/views/import-export.php:254
+#: admin/views/import-export.php:247
 msgid "You can download csv file, with your stock data. "
 msgstr ""
 
-#: admin/views/import-export.php:255
+#: admin/views/import-export.php:248
 msgid "Create export file"
 msgstr ""
 
@@ -304,19 +304,19 @@ msgstr ""
 msgid "Hide this"
 msgstr ""
 
-#: woocommerce-stock-manager.php:76
+#: woocommerce-stock-manager.php:77
 msgid "Alert!"
 msgstr ""
 
-#: woocommerce-stock-manager.php:76
+#: woocommerce-stock-manager.php:77
 msgid "Stock Manager for WooCommerce needs following versions of WordPress and WooCommerce:"
 msgstr ""
 
-#: woocommerce-stock-manager.php:89
+#: woocommerce-stock-manager.php:90
 msgid "Please update WordPress and WooCommerce to the above versions before updating Stock Manager for WooCommerce."
 msgstr ""
 
-#: woocommerce-stock-manager.php:272
+#: woocommerce-stock-manager.php:273
 msgid "All done! Close."
 msgstr ""
 

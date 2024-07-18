@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
 }
 ?>
 <style type="text/css">
-.wf_loader_bg{background:rgba(255,255,255,.5) url(<?php echo WF_PKLIST_PLUGIN_URL;?>assets/images/loading.gif) center no-repeat;}
-.wf_cst_loader{ box-sizing:border-box; position:absolute; z-index:1000; width:inherit; height:800px; left:0px; display:none; }
+.wf_loader_bg{background:rgba(255,255,255,.5) url(<?php echo WF_PKLIST_PLUGIN_URL;?>assets/images/wt_logo_loading.gif) center no-repeat;}
+.wf_cst_loader{ box-sizing:border-box; position:absolute; z-index:1000; width:inherit; height:800px; left:0px; display:none; top: 0; }
 .wf_cst_warn_box{padding:20px; padding-bottom:0px;}
 .wf_cst_warn{ display:inline-block; width:100%; box-sizing:border-box; padding:10px; background-color:#fff8e5; border-left:solid 2px #ffb900; color:#333; }
 .wf_new_template_wrn_sub{ display:none; }
@@ -88,8 +88,6 @@ if (!defined('ABSPATH')) {
 .wt_pklist_dc_save_activate_btn {background: #5abd70;color: #fff;font-size: 13px;line-height: 2.15384615;min-height: 30px;margin: 0;padding: 0 10px;cursor: pointer;border-width: 1px;border-style: solid;border-radius: 3px;border: navajowhite;white-space: nowrap;box-sizing: border-box;}
 </style>
 <div class="wf_cst_loader wf_loader_bg"></div>
-
-
 <div class="wf_my_template wf_pklist_popup">
 	<div class="wf_pklist_popup_hd">
 		<span style="line-height:40px;" class="dashicons dashicons-list-view"></span> <?php _e('Templates','print-invoices-packing-slip-labels-for-woocommerce');?>
@@ -274,7 +272,7 @@ if (!defined('ABSPATH')) {
 			<div class="wf_cst_tabhead_vis wf_cst_tabhead <?php echo esc_attr($tooltip_conf['class']); ?>" data-target="wf_customize_vis_container" <?php echo $tooltip_conf['text']; ?>><?php _e('Visual','print-invoices-packing-slip-labels-for-woocommerce');?></div>
 			<?php if(apply_filters('wt_pklist_show_code_view_al',true,$template_type)){
 				?>
-				<div class="wf_cst_tabhead_code wf_cst_tabhead" data-target="wf_customize_vis_container" style="opacity:.5; cursor:not-allowed;"><?php _e('Code','print-invoices-packing-slip-labels-for-woocommerce');?> <span style="color:red;">(<?php _e('Pro version','print-invoices-packing-slip-labels-for-woocommerce');?>)</span></div>
+				<div class="wf_cst_tabhead_code wf_cst_tabhead wt_customizer_promotion_popup_btn" data-target="wf_customize_vis_container"><?php _e('Code','print-invoices-packing-slip-labels-for-woocommerce');?> <span class="wt_customizer_pro_text" style="color:red;">(<?php _e('Pro version','print-invoices-packing-slip-labels-for-woocommerce');?>)</span></div>
 				<?php
 			}?>
 		</div>

@@ -1,3 +1,10 @@
+<h4>2.8.3.2 - 07/09/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Fix JS error in Outline panel caused by modules that are disabled or no longer exist (#3488)</li>
+	<li>Clear cache subscription data when a license key is saved (#3482)</li>
+</ul>
+
 <h4>2.8.3.1 - 07/01/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

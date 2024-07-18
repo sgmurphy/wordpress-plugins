@@ -17,10 +17,10 @@ if(!is_plugin_active($pro_invoice_path)){
     $pro_installed = false;
     $invoice_pro_feature_list = array(
         __("Multiple premium invoice templates to choose from","print-invoices-packing-slip-labels-for-woocommerce"),
+        __("Add custom data like product meta, order meta, attributes etc","print-invoices-packing-slip-labels-for-woocommerce"),
         __("Enable customers to Pay Later at checkout","print-invoices-packing-slip-labels-for-woocommerce"),
         __("Collect payments with a payment link on the invoice","print-invoices-packing-slip-labels-for-woocommerce"),
         __("Show different taxes in separate columns","print-invoices-packing-slip-labels-for-woocommerce"),
-        __("Add product meta fields & attributes to invoices","print-invoices-packing-slip-labels-for-woocommerce"),
         __("Group products by category","print-invoices-packing-slip-labels-for-woocommerce"),
         __("Sort order items in the product table ","print-invoices-packing-slip-labels-for-woocommerce"),
         __("Show variation data for variable products","print-invoices-packing-slip-labels-for-woocommerce"),
@@ -109,5 +109,6 @@ if(!is_plugin_active($pro_invoice_path)){
         <?php do_action('wf_pklist_module_out_settings_form',array(
             'module_id'=>$this->module_base
         ));?>
+        <?php include_once WF_PKLIST_PLUGIN_PATH . 'admin/views/customizer-promotion-popup.php'; ?>
     </div>
 </div>

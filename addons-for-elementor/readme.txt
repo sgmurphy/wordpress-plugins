@@ -3,11 +3,11 @@ Author URI: https://livemeshelementor.com
 Plugin URI: https://livemeshelementor.com
 Donate link: https://livemeshelementor.com/
 Contributors: livemesh, elementoraddons, freemius
-Tags: elementor, elementor addons, elementor extensions, elementor widgets, page builder, woocommerce elementor, elementor ui kit
+Tags: elementor, elementor addons, elementor extensions, elementor widgets, page builder
 Requires at least: 5.8
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.8
-Stable Tag: 8.3.7
+Stable Tag: 8.4.2
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -191,7 +191,6 @@ You can view the change log for the Premium version of the plugin at <a href="ht
 
 1. Install and activate the Elementor page builder.
 2. Unzip the downloaded addons-for-elementor.zip file and upload to the `/wp-content/plugins/` directory or install the Livemesh Addons for Elementor by Livemesh plugin from WordPress repository. Activate the plugin through the 'Plugins' menu in WordPress.
-
 4. For Portfolio element, install and activate the <strong>optional plugin</strong> <a href="https://wordpress.org/plugins/portfolio-post-type/" title="Portfolio Post Type">Portfolio Post Type plugin</a>. The Portfolio addon can be built using custom post type registered by this plugin.
 
 For a more detailed explanation, check out our getting started guide
@@ -259,8 +258,15 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 == Changelog ==
 
+= 8.4.2 =
+* Fixed - The marquee text widget using the incorrect escape function as reported by review team.
 
+= 8.4.1 =
+* Added - Escaping the style attribute to prevent directory traversal for template files.
 
+= 8.4 =
+* Added - Escaping the data output for posts grid, clients, services, timeline, team members, sliders, carousels, testimonials widgets for enhanced validation of user input.
+* Added - Compatibility with WordPress 6.6 and Elementor 3.22
 
 = 8.3.7 =
 * Added - Escaping the data output for posts grid, posts gridbox slider, posts multislider, posts slider, heading, marquee text, tab slider widgets for enhanced validation of user input.
@@ -285,7 +291,7 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 * Freemius SDK update to 2.6.1
 
 = 8.2.2 =
-* Added - A new template for the testimonials slider widget
+* Added - One new style for the testimonials slider widget
 
 = 8.2.1 =
 * Added - Three new styles for the testimonials slider widget

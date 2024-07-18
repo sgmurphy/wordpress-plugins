@@ -1535,7 +1535,7 @@ input[type="checkbox"] {
   flex: 1;
 }
 .promobandmsg {
-  font-size: 14px;
+  font-size: 16px;
   color: #ffffff;
   line-height: 22px;
 }
@@ -1543,7 +1543,6 @@ input[type="checkbox"] {
   display: flex;
   padding: 0 20px 0 15px;
   align-items: center;
-  max-width: 185px;
 }
 .prmoupgrdbtn .upgradebtn {
   font-size: 14px;

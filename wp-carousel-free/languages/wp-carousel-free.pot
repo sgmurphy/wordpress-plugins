@@ -721,7 +721,7 @@ msgstr ""
 #: admin/views/metabox-config.php:809
 msgid ""
 "To unlock the following <strong>28+ amazing Lightbox</strong> options, <a "
-"href=\"https://wordpresscarousel.com/\" "
+"href=\"https://wpcarousel.io/\" "
 "target=\"_blank\"><b>Upgrade To Pro!</b></a>"
 msgstr ""
 

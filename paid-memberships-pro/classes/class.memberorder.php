@@ -182,13 +182,13 @@
 		private $subscription_transaction_id = '';
 
 		/**
-		 * The time the order was created (UTC YYYY-MM-DD HH:MM:SS)
+		 * The time the order was created as a Unix timestamp.
 		 *
 		 * @since 2.9
 		 *
-		 * @var string
+		 * @var int
 		 */
-		private $timestamp = '';
+		private $timestamp = 0;
 
 		/**
 		 * The Affiliate ID 
@@ -1859,5 +1859,68 @@
 			}
 		
 			return false;
+		}
+
+		/**
+		 * Get the formatted total for this order.
+		 *
+		 * @since 3.1
+		 *
+		 * @return string
+		 */
+		public function get_formatted_total() {
+			$formatted_total = pmpro_formatPrice( $this->total );
+
+			/**
+			 * Filter the formatted total for this order.
+			 *
+			 * @since 3.1
+			 *
+			 * @param string $formatted_total The formatted total for this order.
+			 * @param MemberOrder $this The order object.
+			 */
+			return apply_filters( 'pmpro_order_formatted_total', $formatted_total, $this );
+		}
+
+		/**
+		 * Get the formatted subtotal for this order.
+		 *
+		 * @since 3.1
+		 *
+		 * @return string
+		 */
+		public function get_formatted_subtotal() {
+			$formatted_subtotal = pmpro_formatPrice( $this->subtotal );
+
+			/**
+			 * Filter the formatted subtotal for this order.
+			 *
+			 * @since 3.1
+			 *
+			 * @param string $formatted_subtotal The formatted subtotal for this order.
+			 * @param MemberOrder $this The order object.
+			 */
+			return apply_filters( 'pmpro_order_formatted_subtotal', $formatted_subtotal, $this );
+		}
+
+		/**
+		 * Get the formatted tax for this order.
+		 *
+		 * @since 3.1
+		 *
+		 * @return string
+		 */
+		public function get_formatted_tax() {
+			$formatted_tax = pmpro_formatPrice( $this->tax );
+
+			/**
+			 * Filter the formatted tax for this order.
+			 *
+			 * @since 3.1
+			 *
+			 * @param string $formatted_tax The formatted tax for this order.
+			 * @param MemberOrder $this The order object.
+			 */
+			return apply_filters( 'pmpro_order_formatted_tax', $formatted_tax, $this );
 		}
 	} // End of Class

@@ -9,12 +9,14 @@ if ( ! class_exists( 'TVC_Survey' ) ) {
 		protected $TVC_Admin_DB_Helper;
 		protected $apiCustomerId;
 		protected $subscriptionId;
+		protected $TVC_Admin_Helper;
 		public function __construct( $name = '', $plugin = '' ){
+			// @since 7.1.2 From now we are also taking local user feedback.
+			/*if ( $this->is_dev_url() ) {
+				return;
+			}*/
 			$this->name   = $name;
 			$this->plugin = $plugin;
-			if ( $this->is_dev_url() ) {
-				return;
-			}
 			$this->TVC_Admin_Helper = new TVC_Admin_Helper();
 			$this->apiCustomerId = $this->TVC_Admin_Helper->get_api_customer_id();
  			$this->subscriptionId = $this->TVC_Admin_Helper->get_subscriptionId();
@@ -88,35 +90,38 @@ if ( ! class_exists( 'TVC_Survey' ) ) {
 					event.preventDefault();
 					$overlay.css('display', 'table');
 					formOpen = true;
-					$form.find('.ee-survey-option:first-of-type input[type=radio]').focus();
-				});
-				// Survey radio option selected.
-				$form.on('change', 'input[type=radio]', function(event) {
-					event.preventDefault();
-					$form.find('input[type=text], .error').hide();
-					$form.find('.ee-survey-option').removeClass('selected');
-					jQuery(this).closest('.ee-survey-option').addClass('selected').find('input[type=text]').show();
 				});
 				// Survey Skip & Deactivate.
 				$form.on('click', '.ee-survey-deactivate', function(event) {
 					event.preventDefault();
 					$overlay.css('display', 'none');
 				});
+				$form.on('click', '.feedback-footer .skip', function(event) {
+					jQuery(".ee-survey-modal").hide();
+					$overlay.css('display', 'none');
+					location.href = $deactivateLink.attr('href');	
+				});
+				
 				// Survey submit.
 				$form.submit(function(event) {
 					event.preventDefault();
-					if (! $form.find('input[type=radio]:checked').val()) {
-						$form.find('.ee-survey-footer').prepend('<span class="error"><?php echo esc_js( esc_html__( 'Please select an option', 'enhanced-e-commerce-for-woocommerce-store' ) ); ?></span>');
+					if (!$form.find('.feedback-reason').hasClass('active')) {
+						$form.find('p.description').addClass('feedback-error').focus();
+						$form.find('p.description').css('animation','shake 0.5s');
+						$form.find('p.description').on('animationend', function() {
+							$form.find('p.description').css('animation', '');
+							$form.find('p.description').off('animationend');
+						});
 						return;
 					}
 					var data = {
 						action:'tvc_call_add_survey',
 						customer_id:'<?php echo esc_attr($this->apiCustomerId); ?>',
 						subscription_id:'<?php echo esc_attr($this->subscriptionId); ?>',
-						radio_option_val: $form.find('.selected input[type=radio]').val(),
-						other_reason: $form.find('.selected input[type=text]').val(),
+						radio_option_val: $form.find('.feedback-reason.active p').text(),
+						other_reason: 'New message - ' + $form.find('textarea').val(),
 						site_url: '<?php echo esc_url( home_url() ); ?>',
-						plugin_name: 'ee-woocommerce',
+						plugin_name: 'ee-woocommerce-new',
 						tvc_call_add_survey : "<?php echo esc_attr(wp_create_nonce('tvc_call_add_survey-nonce')); ?>"
 					}
 					add_survey(data);
@@ -131,22 +136,32 @@ if ( ! class_exists( 'TVC_Survey' ) ) {
 				});
 				function add_survey(data){
 					$.ajax({
-		        type: "POST",
-		        dataType: "json",
-		        url: '<?php echo esc_url(admin_url( 'admin-ajax.php' )); ?>',
-		        data: data,
-		        beforeSend: function(){
-		        	//jQuery('.ee-survey-submit').html("Thanks..");
-		        	jQuery('.ee-survey-submit').prop('disabled', true);
-		        	jQuery('.ee-survey-deactivate').hide();
-		        },
-		        success: function(response){
-		          jQuery(".ee-survey-modal").hide();
+						type: "POST",
+						dataType: "json",
+						url: '<?php echo esc_url(admin_url( 'admin-ajax.php' )); ?>',
+						data: data,
+						beforeSend: function(){
+							jQuery('.feedback-footer .submit').text("Thanks..").css('pointer-events','none');
+							//jQuery('.feedback-footer .submit').prop('disabled', true);
+							jQuery('.ee-survey-deactivate').hide();
+						},
+						success: function(response){
+							jQuery(".ee-survey-modal").hide();
 							location.href = $deactivateLink.attr('href');		          
-		        }
-		      });
+						}
+					});
 				}
 			});
+			function selectReason(element) {
+				jQuery('.feedback-reason').removeClass('active');
+				jQuery(element).addClass('active');
+				jQuery('.ee-survey p').removeClass('feedback-error');
+				jQuery('textarea#question-text').attr('required',true);
+				var questionText = jQuery('.feedback-reason.active').data('question');
+    			jQuery('textarea#question-text').attr('placeholder', questionText);
+				jQuery('#question-container').show();
+				jQuery('.description.text-note').show();
+			}
 			</script>
 			<?php
 		}
@@ -156,143 +171,51 @@ if ( ! class_exists( 'TVC_Survey' ) ) {
 				return;
 			}
 			?>
-			<style type="text/css">
-			.ee-survey-modal {
-				width: 100%;
-				height: 100%;
-				display: none;
-				table-layout: fixed;
-				position: fixed;
-				z-index: 9999;				
-				text-align: center;
-				font-size: 14px;
-				top: 0;
-				left: 0;
-				background: rgba(0,0,0,0.8);
-			}
-			.ee-survey-wrap {
-				display: table-cell;
-				vertical-align: middle;
-			}
-			.ee-survey {
-				background-color: #fff;
-				padding: 32px;
-				max-width: 540px;
-				margin: 0 auto;				
-				text-align: left;
-				border-radius: 40px;
-			}
-			.ee-survey .error {
-				display: block;
-				color: red;
-				margin: 0 0 10px 0;
-			}
-			.ee-survey-title {
-				display: block;
-				font-size: 18px;
-				font-weight: 700;
-				text-transform: uppercase;
-				border-bottom: 1px solid #ddd;
-				padding: 0 0 15px 0;
-				margin: 0 0 15px 0;
-			}
-			.ee-survey-title span {
-				color: #999;
-				margin-right: 10px;
-			}
-			.ee-survey-desc {
-				display: block;
-				font-weight: 600;
-				margin: 0 0 15px 0;
-			}
-			.ee-survey-option {
-				margin: 0 0 10px 0;
-			}
-			.ee-survey-option-input {
-				margin-right: 10px !important;
-			}
-			.ee-survey-option-details {
-				display: none;
-				width: 90%;
-				margin: 10px 0 0 30px;
-			}
-			.ee-survey-footer {
-				margin-top: 15px;
-			}
-			.ee-survey-deactivate {
-				font-size: 13px;
-		    color: #ccc;
-		    text-decoration: none;		    
-		    margin-top: 7px;
-		    float: right;
-		    position: relative;
-		    display: inline-block;
-			}
-			.ee-survey-wrap .dashicons{
-				font-size: 24px;
-    		color: #3C434A;
-			}
-			</style>
+			<style type="text/css">.ee-survey-modal { width: 100%; height: 100%; display: none; table-layout: fixed; position: fixed; z-index: 9999; text-align: center; font-size: 14px; top: 0; left: 0; background: rgba(0,0,0,0.8); } .ee-survey-wrap { display: table-cell; vertical-align: middle; } .ee-survey { background-color: #fff; padding: 24px; width: 80%; max-width: 1100px; margin: 0 auto; text-align: left; border-radius: 10px; } .ee-survey p.description { color: #333538; font-size:14px; margin: 0; } .ee-survey-title { display: block; font-size: 20px; font-weight: 500; border-bottom: 1px solid #ddd; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(221, 221, 221); padding: 0 0 15px 0; margin: 0 0 15px 0; font-family: inter; color: #333538; } @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } } .feedback-error{color:#a70000 !important;} .feedback-header { font-size: 18px; margin-bottom: 20px; } .feedback-reasons { display: flex; flex-wrap: nowrap; column-gap: 16px; } .feedback-reason { cursor: pointer; border: 1px solid #ddd; padding: 11px; border-radius: 5px; text-align: center; margin-bottom: 15px; transition: all 0.3s ease-in-out; position: relative; display: flex; width: 200px; align-items: center; justify-content: center; } .feedback-reason:hover { border-color: #1085F1; background-color: #1085F1; color: white; } .feedback-reason:hover .dashicons { color: white; } .feedback-reason .dashicons { font-size: 30px; margin-right: 5px; width: 30px; height: 30px; color:#1085F1; } .feedback-reason.active { border-color: #1085F1; background-color: #1085F1; } .feedback-reason.active, .feedback-reason.active .dashicons { color: white; } .feedback-reason.active::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid #1085F1; } .feedback-footer { display: flex; justify-content: flex-end; margin-top: 20px; margin-top: 15px; border-top: 1px solid #ddd; padding-top: 24px; } .feedback-footer .button { margin-left: 10px; padding: 8px 16px; background-color: #f1f1f1; color: #555; } .feedback-footer .cancel { border-color: #D6D6D6 !important; } .feedback-footer .cancel:hover, .feedback-footer .cancel:focus { background-color: #ffffff; color: #1085F1; } .feedback-footer .button-primary { background-color: #1085F1; border-color: #1085F1 !important; color: #fff; } .feedback-footer .button-primary:hover,.feedback-footer .button-primary:focus { background-color: #0e74d2; border-color: #0e74d2 !important; } button.button.cancel { background: transparent; } #question-container textarea { width: 100%; margin-bottom: 12px 0 8px 0; padding: 16px; background: #f6f6f6; border: 1px solid #71AEFA; height: 100px; } #question-container textarea:focus { box-shadow: 0 0 0 1px #71AEFA; } .feedback-reason p { margin: 0; text-align: left; font-size:14px; } .feedback-footer .skip, .feedback-footer .skip:hover, .feedback-footer .skip:focus { background: transparent !important; border: 0; color: #c9c9c9; } .feedback-footer .skip:hover, .feedback-footer .skip:focus  { color: #1085F1; } .feedback-reason:focus { border-color: #1085F1; border-width: 2px; transition: none; } @media (max-width: 930px) { .feedback-reasons { flex-wrap: wrap; } .feedback-reason.active{ color: white; order: 1; /*flex-direction: row-reverse;*/ transition: none; justify-content: center; } .feedback-reason{ transition: none; } }</style>
 			<?php
 		}
 		public function tvc_modal() {
-
 			if ( ! $this->is_plugin_page() ) {
 				return;
 			}
-
-			$options = array(
-				1 => array(
-					"title"   => esc_html__("No longer need the plugin","enhanced-e-commerce-for-woocommerce-store"),
-				),
-				2 => array(
-					'title'   => esc_html__("Switching to a different plugin","enhanced-e-commerce-for-woocommerce-store"),
-					'details' => esc_html__( 'Please share which plugin', 'enhanced-e-commerce-for-woocommerce-store' ),
-				),
-				3 => array(
-					'title'   => esc_html__("Couldn't get the plugin to work","enhanced-e-commerce-for-woocommerce-store"),
-				),
-				4 => array(
-					'title'   => esc_html__("It's a temporary deactivation","enhanced-e-commerce-for-woocommerce-store"),
-				),
-				5 => array(
-					'title'   => esc_html__("Other","enhanced-e-commerce-for-woocommerce-store"),
-					'details' => esc_html__( 'Please share the reason', 'enhanced-e-commerce-for-woocommerce-store' ),
-				),
-			);
 			?>
 			<div class="ee-survey-modal" id="ee-survey-<?php echo esc_html($this->plugin); ?>">
 				<div class="ee-survey-wrap">
 					<form class="ee-survey" method="post">
-						<span class="ee-survey-title"><span class="dashicons dashicons-admin-customizer"></span><?php echo ' ' . esc_html__( 'Quick Feedback', 'enhanced-e-commerce-for-woocommerce-store' ); ?></span>
-						<span class="ee-survey-desc">
-							<?php
-							// Translators: Placeholder for the plugin name.
-							echo sprintf( esc_html__('If you have a moment, please share why you are deactivating %s:', 'enhanced-e-commerce-for-woocommerce-store' ), esc_attr($this->name) );
-							?>
-						</span>
-						<div class="ee-survey-options">
-							<?php foreach ( $options as $id => $option ) : 
-								$slug = sanitize_title($option['title']); ?>
-							<div class="ee-survey-option">
-								<label for="ee-survey-option-<?php echo esc_html($this->plugin); ?>-<?php echo esc_html($id); ?>" class="ee-survey-option-label">
-									<input id="ee-survey-option-<?php echo esc_attr($this->plugin); ?>-<?php echo esc_attr($id); ?>" class="ee-survey-option-input" type="radio" name="code" value="<?php echo esc_html($slug); ?>" />
-									<span class="ee-survey-option-reason"><?php echo esc_html($option['title']); ?></span>
-								</label>
-								<?php if ( ! empty( $option['details'] ) ) : ?>
-								<input class="ee-survey-option-details" type="text" placeholder="<?php echo esc_html($option['details']); ?>" />
-								<?php endif; ?>
+						<span class="ee-survey-title"><?php echo ' ' . esc_html__( 'We appreciate your feedback on how we can improve.', 'enhanced-e-commerce-for-woocommerce-store' ); ?></span>
+						<div class="feedback-reasons">
+							<div tabindex="0" class="feedback-reason" onclick="selectReason(this)" data-question="<?php esc_html_e('Which plugin are you considering?', 'enhanced-e-commerce-for-woocommerce-store') ?>">
+								<span class="dashicons dashicons-search"></span>
+								<p><?php esc_html_e('Found a better Plugin', 'enhanced-e-commerce-for-woocommerce-store') ?></p>
 							</div>
-							<?php endforeach; ?>
+							<div tabindex="0" class="feedback-reason" onclick="selectReason(this)" data-question='<?php esc_html_e("Could you please share more information about the limitations you are experiencing with the product?", 'enhanced-e-commerce-for-woocommerce-store') ?>'>
+								<span class="dashicons dashicons-products"></span>
+								<p><?php esc_html_e('Product Limit', 'enhanced-e-commerce-for-woocommerce-store') ?></p>
+							</div>
+							<div tabindex="0" class="feedback-reason" onclick="selectReason(this)" data-question="<?php esc_html_e("Please provide us with some information of what you didn't understand", 'enhanced-e-commerce-for-woocommerce-store') ?>">
+								<span class="dashicons dashicons-editor-help"></span>
+								<p><?php esc_html_e("Couldn't Understand", 'enhanced-e-commerce-for-woocommerce-store') ?></p>
+							</div>
+							<div tabindex="0" class="feedback-reason" onclick="selectReason(this)" data-question="<?php esc_html_e('Could you provide some details about the specific feature that is absent in the product? (It will help us to improve our product)', 'enhanced-e-commerce-for-woocommerce-store') ?>">
+								<span class="dashicons dashicons-admin-generic"></span>
+								<p><?php esc_html_e('Missing a Specific Feature', 'enhanced-e-commerce-for-woocommerce-store') ?></p>
+							</div>
+							<div tabindex="0" class="feedback-reason" onclick="selectReason(this)" data-question="<?php esc_html_e('Could you kindly elaborate on the issue you experienced?', 'enhanced-e-commerce-for-woocommerce-store') ?>">
+								<span class="dashicons dashicons-warning"></span>
+								<p><?php esc_html_e('Bugs', 'enhanced-e-commerce-for-woocommerce-store') ?></p>
+							</div>
 						</div>
-						<div class="ee-survey-footer">
-							<button type="submit" class="ee-survey-submit button button-primary button-large">
-								<?php echo sprintf( esc_html__('Submit %s Deactivate', 'enhanced-e-commerce-for-woocommerce-store' ), '&amp;' );	?>
-							</button>
-							<a href="#" class="ee-survey-deactivate">
-								<?php	echo esc_html__('Close', 'enhanced-e-commerce-for-woocommerce-store' ); ?>
-							</a>
+						<div class="form-field" id="question-container" style="display: none;">
+							<textarea class="regular-text" id="question-text" rows="3" placeholder="What is your feedback?"></textarea>
 						</div>
+						<p class="description text-danger mt-3"><span style="color:red">*</span><?php esc_html_e("Please, select one reason and submit.", 'enhanced-e-commerce-for-woocommerce-store') ?></p>
+						<p class="description text-note mt-3" style="color:#FE4E4E; margin-top:8px; display:none;"><b><?php esc_html_e("NOTE:", 'enhanced-e-commerce-for-woocommerce-store') ?></b>&nbsp;&nbsp;&nbsp;<?php esc_html_e("If you deactivate the plugin, the automatic scheduling of your product feed will also be turned off.", 'enhanced-e-commerce-for-woocommerce-store') ?></p>
+						<div class="feedback-footer">
+							<button type="button" class="button skip">Skip &amp; Deactivate</button>
+							<button type="button" class="button cancel ee-survey-deactivate">Cancel</button>
+							<button type="submit" class="button submit button-primary" style="width: 154px;">Submit & Deactivate</button>
+						</div>
+
 					</form>
 				</div>
 			</div>

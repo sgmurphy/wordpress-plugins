@@ -9,7 +9,7 @@
 				<i class="fas fa-file-import"></i>
 				<span><?php esc_html_e( 'Import calculators', 'cost-calculator-builder' ); ?></span>
 			</button>
-			<a class="white" style="margin-left: 20px" v-if="$store.getters.getExisting.length" href="<?php echo esc_url( get_site_url() ) . '/wp-admin/admin-ajax.php?action=cost-calculator-custom-export-run&ccb_nonce=' . esc_attr( wp_create_nonce( 'ccb_export_nonce' ) ); ?>">
+			<a class="white" style="margin-left: 20px" v-if="$store.getters.getExisting?.length" href="<?php echo esc_url( get_site_url() ) . '/wp-admin/admin-ajax.php?action=cost-calculator-custom-export-run&ccb_nonce=' . esc_attr( wp_create_nonce( 'ccb_export_nonce' ) ); ?>">
 				<i class="fas fa-file-export"></i>
 				<span><?php esc_html_e( 'Export calculators', 'cost-calculator-builder' ); ?></span>
 			</a>
@@ -54,7 +54,7 @@
 
 				</div>
 			</div>
-			<p v-if="!$store.getters.getExisting.length" style="text-align: center; font-size: 17px; margin: 100px auto"><?php esc_html_e( 'No Calculators yet! Please create new or Import Calculators.', 'cost-calculator-builder' ); ?></p>
+			<p v-if="!$store.getters.getExisting?.length" style="text-align: center; font-size: 17px; margin: 100px auto"><?php esc_html_e( 'No Calculators yet! Please create new or Import Calculators.', 'cost-calculator-builder' ); ?></p>
 		</div>
 	</template>
 	<template v-else>
@@ -65,7 +65,7 @@
 </div>
 
 <div class="existing-footer" v-if="$store.getters.getIsExisting">
-	<div class="bulk-actions" v-if="$store.getters.getExisting.length > 0">
+	<div class="bulk-actions" v-if="$store.getters.getExisting?.length > 0">
 		<select name="actionType" id="actionType">
 			<option value="-1"><?php esc_html_e( 'Bulk actions', 'cost-calculator-builder' ); ?></option>
 			<option value="duplicate" class="hide-if-no-js"><?php esc_html_e( 'Duplicate', 'cost-calculator-builder' ); ?></option>

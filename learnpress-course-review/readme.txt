@@ -4,8 +4,8 @@ Donate link:
 Tags: lms, education, e-learning, learning management system, review.
 Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 6.5.3
-Stable tag: 4.1.2
+Tested up to: 6.6
+Stable tag: 4.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,10 @@ Check out <a href="http://docs.thimpress.com/learnpress" target="_blank">LearnPr
 1. LearnPress Course Review screenshot.
 
 == Changelog ==
+
+= 4.1.3 (2024-07-18) =
+~ Fixed: error stars on review form.
+~ Compatible WP v6.6
 
 = 4.1.2 (2024-05-13) =
 ~ Added: feature to filter courses by star review.

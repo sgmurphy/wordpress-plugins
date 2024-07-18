@@ -2,9 +2,9 @@
 
 Contributors: theeventscalendar, brianjessee, camwynsp, redscar, tribalmike, rafsuntaskin, aguseo, bordoni, borkweb, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: tickets, event registration, RSVP, ticket sales, attendee management
+Stable tag: 5.12.0
 Requires at least: 6.3
 Tested up to: 6.6
-Stable tag: 5.11.0.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -202,7 +202,16 @@ Make sure you are reporting in a safe and responsible way. We take security very
 
 Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on using, tweaking, and troubleshooting our plugins.
 
+
 == Changelog ==
+
+= [5.12.0] 2024-07-18 =
+
+* Feature - Added new Orders Management page to view and manage all Tickets Commerce orders from one location. [ET-2117]
+* Fix - Ensure Stripe refunds are recorded in WordPress. [ET-2142]
+* Tweak - Added filters: `tribe_tickets_admin_order_page_page_title`, `tribe_tickets_admin_order_page_menu_title`, `tribe_tickets_admin_order_page_capability`, `tribe_tickets_admin_order_page_menu_slug`, `tribe_tickets_admin_order_page_position`, `tec_tickets_commerce_orders_table_classes`, `tec_tickets_commerce_orders_table_no_items`, `tec_tc_order_search_types`, `tec_tc_orders_disable_date_range_dropdown`, `tec_tc_orders_disable_gateways_dropdown`, `tec_tc_orders_pre_gateways_dropdown_query`, `tec_tc_orders_gateways_dropdown_results`, `tec_tc_orders_disable_post_parent_dropdown`, `tec_tc_orders_disable_customer_dropdown`
+* Tweak - Added actions: `restrict_manage_posts`, `manage_posts_extra_tablenav`
+* Language - 18 new strings added, 26 updated, 1 fuzzied, and 2 obsoleted
 
 = [5.11.0.5] 2024-07-11 =
 
@@ -213,6 +222,7 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 
 * Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located.[TECTRIA-91]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
 
 = [5.11.0.3] 2024-06-14 =
 
@@ -227,7 +237,7 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 = [5.11.0.1] 2024-06-13 =
 
 * Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
-* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 
 = [5.11.0] 2024-06-11 =
 

@@ -1,7 +1,7 @@
 === WCBoost - Products Compare ===
 Contributors: wcboost
 Tags: woocommerce, compare, product, product compare, woocommerce compare
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.0.5
 Requires PHP: 7.0
 Requires at least: 4.5

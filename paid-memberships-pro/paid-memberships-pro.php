@@ -3,7 +3,7 @@
  * Plugin Name: Paid Memberships Pro
  * Plugin URI: https://www.paidmembershipspro.com
  * Description: The most complete member management and membership subscriptions plugin for WordPress.
- * Version: 3.0.6
+ * Version: 3.1
  * Author: Paid Memberships Pro
  * Author URI: https://www.paidmembershipspro.com
  * Text Domain: paid-memberships-pro
@@ -16,7 +16,7 @@
  */
 
 // version constant
-define( 'PMPRO_VERSION', '3.0.6' );
+define( 'PMPRO_VERSION', '3.1' );
 define( 'PMPRO_USER_AGENT', 'Paid Memberships Pro v' . PMPRO_VERSION . '; ' . site_url() );
 define( 'PMPRO_MIN_PHP_VERSION', '5.6' );
 
@@ -84,7 +84,7 @@ require_once( PMPRO_DIR . '/includes/scripts.php' );                // enqueue f
 require_once( PMPRO_DIR . '/includes/terms.php' );                  // allow restricting terms by membership level
 require_once( PMPRO_DIR . '/includes/page-templates.php' );         // page templates
 
-require_once( PMPRO_DIR . '/includes/content.php' );                // code to check for memebrship and protect content
+require_once( PMPRO_DIR . '/includes/content.php' );                // code to check for membership and protect content
 require_once( PMPRO_DIR . '/includes/compatibility.php' );          // code to support compatibility for popular page builders
 require_once( PMPRO_DIR . '/includes/email.php' );                  // code related to email
 require_once( PMPRO_DIR . '/includes/fields.php' );                  // user fields

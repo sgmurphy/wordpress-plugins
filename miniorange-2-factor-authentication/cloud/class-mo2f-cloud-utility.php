@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This library is miniOrange Authentication Service.
  * Contains Request Calls to Customer service.
  */
-
+require_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'helper' . DIRECTORY_SEPARATOR . 'class-mo2f-api.php';
 if ( ! class_exists( 'Mo2f_Cloud_Validate' ) ) {
 
 	/**

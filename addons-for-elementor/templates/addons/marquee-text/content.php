@@ -21,11 +21,11 @@ $item_class = 'elementor-repeater-item-' . esc_attr($marquee_text_item['_id']);
         <?php $target = $marquee_text_item['marquee_text_link']['is_external'] ? 'target="_blank"' : ''; ?>
 
         <a class="lae-marquee-text" href="<?php echo esc_url($marquee_text_item['marquee_text_link']['url']); ?>"
-           title="<?php echo esc_html($marquee_text_item['marquee_text']); ?>" <?php echo esc_attr($target); ?>><?php echo htmlspecialchars_decode(wp_kses_post($marquee_text_item['marquee_text'])); ?></a>
+           title="<?php echo esc_attr($marquee_text_item['marquee_text']); ?>" <?php echo esc_attr($target); ?>><?php echo wp_kses_post(htmlspecialchars_decode($marquee_text_item['marquee_text'])); ?></a>
 
     <?php else: ?>
 
-        <div class="lae-marquee-text"><?php echo htmlspecialchars_decode(wp_kses_post($marquee_text_item['marquee_text'])); ?></div>
+        <div class="lae-marquee-text"><?php echo wp_kses_post(htmlspecialchars_decode($marquee_text_item['marquee_text'])); ?></div>
 
     <?php endif; ?>
 

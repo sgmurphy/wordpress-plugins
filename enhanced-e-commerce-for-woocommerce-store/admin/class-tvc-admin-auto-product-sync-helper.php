@@ -10,8 +10,10 @@ if ( ! class_exists( 'TVC_Admin_Auto_Product_sync_Helper' ) ) {
   	protected $TVC_Admin_Helper;
   	protected $TVC_Admin_DB_Helper;
     protected $time_space;
+    private $timestamp;
     private $apiDomain;
     protected $batch_size;
+    private $customApiObj;
   	public function __construct() {
   		$this->TVC_Admin_Helper = new TVC_Admin_Helper();
   		$this->TVC_Admin_DB_Helper = new TVC_Admin_DB_Helper();

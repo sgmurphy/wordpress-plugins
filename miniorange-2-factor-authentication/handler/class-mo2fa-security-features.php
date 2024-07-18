@@ -50,19 +50,16 @@ if ( ! class_exists( 'Mo2fa_Security_Features' ) ) {
 		 * @return void
 		 */
 		public function wpns_2fa_with_network_security( $postvalue ) {
-			$show_message              = new MoWpnsMessages();
-			$nonce = isset( $_POST['mo_security_features_nonce'] ) ? sanitize_key( wp_unslash( $_POST['mo_security_features_nonce'] ) ) : '';
-
+			$show_message = new MoWpnsMessages();
+			$nonce        = isset( $_POST['mo_security_features_nonce'] ) ? sanitize_key( wp_unslash( $_POST['mo_security_features_nonce'] ) ) : '';
 			if ( wp_verify_nonce( $nonce, 'mo_2fa_security_features_nonce' ) ) {
 				$enable_newtwork_security_features = isset( $postvalue['mo_wpns_2fa_with_network_security'] ) ? true : false;
-
 				update_option( 'mo_wpns_2fa_with_network_security', $enable_newtwork_security_features );
-
 				if ( $enable_newtwork_security_features ) {
-					$mo2f_enable_all_enable = new Mo2f_ajax_dashboard();
-					$mo2f_enable_all_enable->mo2f_handle_all_enable( 1 );
+					$show_message->mo2f_show_message( MoWpnsMessages::lang_translate( MoWpnsMessages::ALL_ENABLED ), 'SUCCESS' );
+				} else {
+					$show_message->mo2f_show_message( MoWpnsMessages::lang_translate( MoWpnsMessages::ALL_DISABLED ), 'ERROR' );
 				}
-
 				update_option( 'mo_wpns_2fa_with_network_security_popup_visible', 0 );
 				?>
 			<script>window.location.href="admin.php?page=mo_2fa_two_fa";</script>
@@ -71,6 +68,7 @@ if ( ! class_exists( 'Mo2fa_Security_Features' ) ) {
 				$show_message->mo2f_show_message( MoWpnsMessages::lang_translate( MoWpnsMessages::SOMETHING_WENT_WRONG ), 'ERROR' );
 			}
 		}
+
 	}new Mo2fa_Security_Features();
 }
 ?>

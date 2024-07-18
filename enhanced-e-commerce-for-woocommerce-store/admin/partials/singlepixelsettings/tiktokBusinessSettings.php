@@ -75,7 +75,7 @@ $contData = json_decode($getCountris);
     /**************Tiktok Auth start ********************************************************/
     $confirm_url = "admin.php?page=conversios-google-shopping-feed&subpage=tiktokBusinessSettings";
     $state = ['confirm_url' => admin_url() . $confirm_url, 'subscription_id' => $subscriptionId];
-    $tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://laraveldev.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=q6uerfg9osn&state=" . urlencode(json_encode($state));
+    $tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://connect.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=q6uerfg9osn&state=" . urlencode(json_encode($state));
     
     //$tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://laravelapi.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=tee9ehl4mwc&state=" . urlencode(json_encode($state));
 

@@ -47,7 +47,7 @@ class Wt_Pklist_Dompdf
         $paper_orientation  = ( true === $dompdf_options_set && isset( $dompdf_options['paper_orientation'] ) && !empty( $dompdf_options['paper_orientation'] ) ) ? $dompdf_options['paper_orientation'] : $dompdf_options_default['paper_orientation'];
 
         // initiate dompdf option.
-        $this->option = new Wtpklistpdf\Dompdf\Options();
+        $this->option = new \Wtpklistpdf\Dompdf\Options();
         $this->option->set('isHtml5ParserEnabled', true);
         $this->option->set('enableCssFloat', true);
         $this->option->set('isRemoteEnabled', true);
@@ -55,6 +55,11 @@ class Wt_Pklist_Dompdf
         $this->option->set('fontHeightRatio','1.0');
         $this->option->set('enable_font_subsetting', true);
         $this->option->set('isFontSubsettingEnabled',true);
+
+
+        // Use additional font library for currency.
+        $this->option->set('fontDir', __DIR__ . '/pdf-assets/fonts');
+        $this->option->set('fontCache', __DIR__ . '/pdf-assets/fonts');
         $this->option = apply_filters( 'wt_pklist_alter_dompdf_options', $this->option, $template_type);
        
         // initialize the dompdf with required options.

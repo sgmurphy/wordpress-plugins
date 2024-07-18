@@ -25,7 +25,7 @@ $modal_types = array(
 							<span>
 								<?php echo esc_html( $ccb_page['title'] ); ?>
 								<?php if ( isset( $ccb_page['component'] ) ) : ?>
-								<span class="ccb-fields-required" v-if="'<?php echo esc_attr( $ccb_page['component'] ); ?>' === 'confirmation-page' && isError('thankYouPage').length > 0">{{ isError('thankYouPage').length }}</span>
+								<span class="ccb-fields-required" v-if="'<?php echo esc_attr( $ccb_page['component'] ); ?>' === 'confirmation-page' && isError('thankYouPage')?.length > 0">{{ isError('thankYouPage').length }}</span>
 									<?php if ( ! defined( 'CCB_PRO_VERSION' ) ) { ?>
 										<a href="https://stylemixthemes.com/cost-calculator-plugin/pricing/?utm_source=calcwpadmin&utm_medium=freetoprobutton&utm_campaign=confirmationpage-pro-label" class="ccb-link-reset" target="_blank">
 											<span class="ccb-item-lock-inner" style="left: 0;"><i class="ccb-icon-Path-3482"></i> <span>PRO</span></span>

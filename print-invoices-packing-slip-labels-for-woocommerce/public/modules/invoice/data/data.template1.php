@@ -24,7 +24,7 @@ body, html{margin:0px; padding:0px; font-family:"Helvetica Neue", Roboto, Arial,
 
 .wfte_company_logo_img_box{ margin-bottom:10px; }
 .wfte_company_logo_img{ width:150px; max-width:100%; }
-.wfte_doc_title{ color:#23a8f9; font-size:30px; font-weight:bold; height:auto; width:100%; line-height:22px;}
+.wfte_doc_title{ color:#263140; font-size:30px; font-weight:bold; height:auto; width:100%; line-height:22px;}
 .wfte_company_name{ font-size:18px; font-weight:bold; }
 .wfte_company_logo_extra_details{ font-size:12px; margin-top:3px;}
 .wfte_invoice_data div span:first-child, .wfte_extra_fields span:first-child{ font-weight:bold; }

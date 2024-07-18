@@ -338,7 +338,7 @@ $is_refresh_token_expire = false;
                         /**************Tiktok Auth start ********************************************************/
                         $confirm_url = "admin.php?page=conversios&wizard=productFeedEven_tiktoksetting";
                         $state = ['confirm_url' => admin_url() . $confirm_url, 'subscription_id' => $subscriptionId];
-                        $tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://laraveldev.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=q6uerfg9osn&state=" . urlencode(wp_json_encode($state));
+                        $tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://connect.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=q6uerfg9osn&state=" . urlencode(wp_json_encode($state));
                         ?>
                         <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/conv_tiktok_logo.png'); ?>">
                         <span class="span-text"><?php esc_html_e("TikTok Business Account", "enhanced-e-commerce-for-woocommerce-store"); ?></span>

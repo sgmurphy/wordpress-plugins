@@ -232,7 +232,7 @@ if ( ! class_exists( 'MoWpnsUtility' ) ) {
 			}
 
 			$plugin_configuration = $plugin_configuration . $space . 'PHP_version:' . phpversion();
-			if ( 'on' === get_site_option( 'mo2f_grace_period' ) ) {
+			if ( get_site_option( 'mo2f_grace_period' ) ) {
 				$plugin_configuration = $plugin_configuration . $space . 'Grace Period: ' . esc_html( get_site_option( 'mo2f_grace_period_value' ) ) . '<span>&nbsp;</span>' . esc_html( get_site_option( 'mo2f_grace_period_type' ) );
 			}
 			$mo2f_wizard_skipped = get_option( 'mo2f_wizard_selected_method' ) ? esc_html( get_option( 'mo2f_wizard_selected_method' ) ) : esc_html( get_option( 'mo2f_wizard_skipped' ) );
@@ -290,8 +290,7 @@ if ( ! class_exists( 'MoWpnsUtility' ) ) {
 			}
 
 			$from_email = get_option( 'mo2f_email' );
-			$subject    = 'Sign in from new location for your user account | ' . get_bloginfo();
-
+			$subject    = self::get_mo2f_db_option( 'mo2f_2fa_new_ip_detected_email_subject', 'site_option' );
 			if ( get_option( 'custom_user_template' ) ) {
 				$content = get_option( 'custom_user_template' );
 				$content = str_replace( '##ipaddress##', $ip_adress, $content );
@@ -326,7 +325,8 @@ if ( ! class_exists( 'MoWpnsUtility' ) ) {
 					$content = 'Hello,<br><br>The user with IP Address <b>' . $ip_adress . '</b> has blocked by admin and we have blocked his IP address for further access to website.<br><br>You can login to your WordPress dashaboard to check more details.<br><br>Thanks,<br>miniOrange';
 					return $content;
 				case MoWpnsConstants::LOGGED_IN_FROM_NEW_IP:
-					$content = 'Hello ' . $username . ',<br><br>Your account was logged in from new IP Address <b>' . $ip_adress . '</b> on website <b>' . get_bloginfo() . "</b>. Please <a href='mailto:" . $from_email . "'>contact us</a> if you don't recognise this activity.<br><br>Thanks,<br>" . get_bloginfo();
+					$content = self::get_mo2f_db_option( 'mo2f_new_ip_detected_email_template', 'site_option' );
+					$content = str_replace( '##ipaddress##', $ip_adress, $content );
 					return $content;
 				case MoWpnsConstants::FAILED_LOGIN_ATTEMPTS_FROM_NEW_IP:
 					$subject = 'Someone trying to access you account | ' . get_bloginfo();

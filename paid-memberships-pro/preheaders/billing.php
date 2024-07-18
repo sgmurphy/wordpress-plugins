@@ -87,7 +87,7 @@ if ( ! empty( $pmpro_billing_order->gateway ) ) {
 }
 
 //enqueue some scripts
-wp_enqueue_script( 'jquery.creditCardValidator', plugins_url( '/js/jquery.creditCardValidator.js', dirname( __FILE__ ) ), array( 'jquery' ) );
+wp_enqueue_script( 'jquery.creditCardValidator', plugins_url( '/js/jquery.creditCardValidator.js', dirname( __FILE__ ) ), array( 'jquery' ), '1.2' );
 
 //action to run extra code for gateways/etc
 do_action( 'pmpro_billing_preheader' );
@@ -272,7 +272,7 @@ if ($submit) {
             $pmproemail = new PMProEmail();
             $pmproemail->sendBillingAdminEmail($current_user, $pmpro_billing_order);
 
-            // Save billing info ect, as user meta.
+            // Save billing info etc, as user meta.
 			$meta_keys   = array();
 			$meta_values = array();
 

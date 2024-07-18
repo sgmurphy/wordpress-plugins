@@ -474,7 +474,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gspb_interactions',
 		GREENSHIFT_DIR_URL . 'libs/interactionlayer/index.js',
 		array(),
-		'2.2',
+		'2.3',
 		true
 	);
 
@@ -483,25 +483,25 @@ function gspb_greenShift_register_scripts_blocks(){
 		'greenShift-library-editor',
 		GREENSHIFT_DIR_URL . 'build/gspbLibrary.css',
 		'',
-		'9.0'
+		'9.1'
 	);
 	wp_register_style(
 		'greenShift-block-css', // Handle.
 		GREENSHIFT_DIR_URL . 'build/index.css', // Block editor CSS.
 		array('greenShift-library-editor', 'wp-edit-blocks'),
-		'9.0'
+		'9.1'
 	);
 	wp_register_style(
 		'greenShift-stylebook-css', // Handle.
 		GREENSHIFT_DIR_URL . 'build/gspbStylebook.css', // Block editor CSS.
 		array(),
-		'9.0'
+		'9.1'
 	);
 	wp_register_style(
 		'greenShift-admin-css', // Handle.
 		GREENSHIFT_DIR_URL . 'templates/admin/style.css', // admin css
 		array(),
-		'9.0'
+		'9.1'
 	);
 
 	//Script for ajax reusable loading
@@ -871,6 +871,19 @@ function gspb_greenShift_block_script_assets($html, $block)
 			if (function_exists('GSPB_make_dynamic_link') && !empty($block['attrs']['dynamicEnable'])) {
 				$field = !empty($block['attrs']['dynamicField']) ? $block['attrs']['dynamicField'] : '';
 				$html = GSPB_make_dynamic_link($html, $block['attrs'], $block, $field, $block['attrs']['containerLink']);
+			}
+			if(!empty($block['attrs']['isVariation']) && $block['attrs']['isVariation'] == 'marquee'){
+				$pattern = '/<div class="gspb_marquee_content">.*?<\/div>/s';
+				$html = preg_replace_callback($pattern, function ($matches) {
+					// Original div
+					$originalDiv = $matches[0];
+					
+					// Duplicated div with aria-hidden="true"
+					$duplicatedDiv = preg_replace('/<div/', '<div aria-hidden="true"', $originalDiv, 1);
+				
+					// Return original and duplicated div
+					return $originalDiv . $duplicatedDiv;
+				}, $html);
 			}
 		}
 

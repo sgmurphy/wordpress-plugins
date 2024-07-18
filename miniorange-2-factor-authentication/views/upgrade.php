@@ -16,14 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $mo2fdb_queries, $main_dir;
 $user                   = wp_get_current_user();
-$is_customer_registered = 'MO_2_FACTOR_PLUGIN_SETTINGS' === get_option( 'mo_2factor_user_registration_status' );
+$is_customer_registered = 'MO_2_FACTOR_CUSTOMER_REGISTERED_SUCCESS' === get_option( 'mo_2factor_admin_registration_status' );
 
-if ( isset( $_GET['page'] ) && sanitize_text_field( ( wp_unslash( $_GET['page'] ) ) ) === 'mo_2fa_upgrade' ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended -- Reading GET parameter from the URL for checking the tab name, doesn't require nonce verification.
-	?><br><br>
-	<?php
-}
-echo '
-<a class="mo2f_back_button" style="font-size: 16px; color: #000;" href="' . esc_url( $two_fa ) . '"><span class="dashicons dashicons-arrow-left-alt" style="vertical-align: bottom;"></span> Back To Plugin Configuration</a>';
 ?>
 <br><br>
 
@@ -232,14 +226,7 @@ global $image_path;
 		</div>
 
 		<div class="flex-row-align-center mt-4">
-			<br>
-		</div>
-
-		<div class="flex-row-align-center mt-4">
-			<br>
-		</div>
-		<div class="flex-row-align-center mt-4">
-			<br>
+			<br><br><br>
 		</div>
 
 		<div class="flex-read-more-align mt-4">
@@ -269,7 +256,14 @@ global $image_path;
 		);
 		?>
 	</div>
+
+<form style="display:none;" id="mo2fa_loginform" action="<?php echo esc_url( MO_HOST_NAME . '/moas/login' ); ?>" target="_blank" method="post">
+	<input type="text" name="redirectUrl" value="<?php echo esc_url( MO_HOST_NAME . '/moas/initializepayment' ); ?>">
+	<input type="text" name="requestOrigin" id="requestOrigin" value="">
+</form>
+
 <script>
+	jQuery("#mo_2fa_upgrade").addClass("side-nav-active");
 	jQuery("dollar_mo_basic_price").click();
 	jQuery("dollar_mo_ecommerce_price").click();
 	jQuery("dollar_mo_all_inclusive_price").click();
@@ -307,10 +301,9 @@ global $image_path;
 			'nonce'   :nonce
 		}
 		localStorage.setItem("2fa_last_tab", 'my_account_2fa');
-		window.location.href = '<?php echo esc_url( admin_url() . 'admin.php?page=mo_2fa_two_fa' ); ?>';
+		window.location.href = '<?php echo esc_url( admin_url() ); ?>' + 'admin.php?page=mo_2fa_my_account';
 		jQuery.post(ajaxurl, data, function(response) {});
 	}
-   
 	function showData(e){
 		var parent = e.parentElement
 		var x = GetElementInsideContainer(parent, "plugin-features");
@@ -342,7 +335,7 @@ global $image_path;
 </script>
 
 <div class="mo2fa-plan-comparision-outer-box saml-scroll">
-	<h2 class="mo2fa-heading-plan-comparision">Detailed <span class="mo2fa-text-red">Feature Comparison Of Plans</span></h2>
+	<br><h2 class="mo2fa-heading-plan-comparision">Detailed <span class="mo2fa-text-red">Feature Comparison Of Plans</span></h2>
 	<p class="mo2fa-text-center">Compare What you get In Every Plan WordPress 2FA or WordPress Two-Factor Authentication Plans</p>
 <br>
 	<div class="plan-comparison">
@@ -709,7 +702,7 @@ global $image_path;
 
 
 
-<div class="mo2f_table_layout mo2fa-font-text-table" style="width: 90%;margin-left:3%">
+<div class="mo2f-table-layout mo2fa-font-text-table" style="width: 90%;margin-left:3%">
 	<div>
 		<h2><?php esc_html_e( 'Steps to upgrade to the Premium Plan :', 'miniorange-2-factor-authentication' ); ?></h2>
 		<ol class="mo2f_licensing_plans_ol">
@@ -820,7 +813,7 @@ global $image_path;
 			),
 			'<b class="mo2fa_note">',
 			'</b>',
-			'<a href="https://plugins.miniorange.com/end-user-license-agreement/#v5-software-warranty-refund-policy" target="blank">',
+			'<a href="https://plugins.miniorange.com/end-user-license-agreement" target="blank">',
 			'</a>'
 		);
 		?>
@@ -903,7 +896,7 @@ global $image_path;
 		?>
 	</div>
 </div>
-<div id="mo2f_payment_option" class="mo2f_table_layout mo2fa-supported-payment-method" style="width: 90%;margin-left:3%">
+<div id="mo2f_payment_option" class="mo2f-table-layout mo2fa-supported-payment-method" style="width: 90%;margin-left:3%">
 	<div>
 		<h3>Supported Payment Methods</h3>
 		<hr>
@@ -941,3 +934,8 @@ global $image_path;
 		</div>
 	</div>
 </div>
+<form class="mo2f_display_none_forms" id="mo2fa_loginform" action="<?php echo esc_url( MO_HOST_NAME . '/moas/login' ); ?>" target="_blank" method="post">
+	<input type="email" name="username" value="<?php echo esc_url( get_option( 'mo2f_email' ) ); ?>" />
+	<input type="text" name="redirectUrl" value="<?php echo esc_url( MO_HOST_NAME . '/moas/initializepayment' ); ?>" />
+	<input type="text" name="requestOrigin" id="requestOrigin" />
+</form>

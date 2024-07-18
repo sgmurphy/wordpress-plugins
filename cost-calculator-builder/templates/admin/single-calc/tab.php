@@ -27,8 +27,8 @@ $calc_tabs = \cBuilder\Classes\CCBSettingsData::get_tab_data();
 								<i class="<?php echo esc_attr( $c_tab['icon'] ); ?>"></i>
 								<span class="ccb-heading-5" style="display: flex; align-items: center;">
 									<?php echo esc_html( $c_tab['label'] ); ?>
-									<span class="ccb-fields-required" v-if="'<?php echo esc_attr( $c_tab['component'] ); ?>' === 'ccb-calculator-tab' && $store.getters.getGlobalErrors.length > 0">{{ $store.getters.getGlobalErrors.length }}</span>
-									<span class="ccb-fields-required" v-if="'<?php echo esc_attr( $c_tab['component'] ); ?>' === 'ccb-settings-tab' && $store.getters.getSettingsError.length > 0">{{ $store.getters.getSettingsError.length }}</span>
+									<span class="ccb-fields-required" v-if="'<?php echo esc_attr( $c_tab['component'] ); ?>' === 'ccb-calculator-tab' && $store.getters.getGlobalErrors?.length > 0">{{ $store.getters.getGlobalErrors.length }}</span>
+									<span class="ccb-fields-required" v-if="'<?php echo esc_attr( $c_tab['component'] ); ?>' === 'ccb-settings-tab' && $store.getters.getSettingsError?.length > 0">{{ $store.getters.getSettingsError.length }}</span>
 								</span>
 							</span>
 						<?php endforeach; ?>
@@ -37,7 +37,7 @@ $calc_tabs = \cBuilder\Classes\CCBSettingsData::get_tab_data();
 				<div class="ccb-header-right" style="position: relative">
 					<?php if ( defined( 'CCB_PRO' ) ) : ?>
 					<span class="ccb-options-tooltip bottom">
-						<button class="ccb-button default icon" v-if="$store.getters.getGeneralSettings.backup_settings.auto_backup" @click="history" :class="{disabled: !$store.getters.getSpList.length}">
+						<button class="ccb-button default icon" v-if="$store.getters.getGeneralSettings.backup_settings.auto_backup" @click="history" :class="{disabled: !$store.getters.getSpList?.length}">
 							<i class="ccb-icon-History" style="color: rgba(0, 25, 49, 0.7)"></i>
 						</button>
 						<span class="ccb-options-tooltip__text" v-if="$store.getters.getSpList?.length"><?php esc_html_e( 'Previous saved backup', 'cost-calculator-builder' ); ?></span>

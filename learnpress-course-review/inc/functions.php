@@ -96,6 +96,8 @@ function _learn_press_get_ratings( $course_id ) {
 
 
 /**
+ * Get the rating info of a course
+ *
  * @param $course_id
  * @param $field
  *

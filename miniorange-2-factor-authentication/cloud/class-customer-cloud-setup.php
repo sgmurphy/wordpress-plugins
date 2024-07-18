@@ -28,13 +28,13 @@ use TwoFA\Traits\Instance;
 use TwoFA\Helper\MocURL;
 use TwoFA\Onprem\Miniorange_Password_2Factor_Login;
 use TwoFA\Onprem\MO2f_Utility;
-use TwoFA\Onprem\Two_Factor_Setup_Onprem_Cloud;
 use TwoFA\Helper\MoWpnsMessages;
 use WP_Error;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
 /**
  * This library is miniOrange Authentication Service.
  * Contains Request Calls to Customer service.
@@ -86,39 +86,50 @@ if ( ! class_exists( 'Customer_Cloud_Setup' ) ) {
 			$this->mo2f_api = Mo2f_Api::instance();
 		}
 		/**
-		 * Function to add the customer on miniOrange idp.
+		 * Undocumented function
 		 *
-		 * @return string
+		 * @return array
 		 */
-		public function create_customer() {
-			global $mo2fdb_queries;
-			$url = MO_HOST_NAME . '/moas/rest/customer/add';
-			global $user;
-			$user        = wp_get_current_user();
-			$this->email = get_option( 'mo2f_email' );
-			$this->phone = $mo2fdb_queries->get_user_detail( 'mo2f_user_phone', $user->ID );
-			$password    = get_option( 'mo_wpns_password' );
-			$company     = get_option( 'mo_wpns_company' ) !== '' ? get_option( 'mo_wpns_company' ) : ( isset( $_SERVER['SERVER_NAME'] ) ? esc_url_raw( wp_unslash( $_SERVER['SERVER_NAME'] ) ) : null );
-
-			$fields       = array(
-				'companyName'     => $company,
-				'areaOfInterest'  => 'WordPress 2 Factor Authentication Plugin',
-				'productInterest' => '',
-				'email'           => $this->email,
-				'phone'           => $this->phone,
-				'password'        => $password,
+		public function mo2f_plan_methods() {
+			$two_factor_methods_details = array(
+				MoWpnsConstants::GOOGLE_AUTHENTICATOR => array(
+					'doc'   => MoWpnsConstants::GA_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::GA_YOUTUBE,
+					'desc'  => 'Use One Time Password shown in <b>Google/Authy/Microsoft Authenticator App</b> to login',
+				),
+				MoWpnsConstants::OTP_OVER_SMS         => array(
+					'doc'   => MoWpnsConstants::OTP_OVER_SMS_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::OTP_OVER_SMS_YOUTUBE,
+					'desc'  => 'A One Time Passcode (OTP) will be sent to your Phone number',
+				),
+				MoWpnsConstants::OTP_OVER_EMAIL       => array(
+					'doc'   => MoWpnsConstants::OTP_OVER_EMAIL_DOCUMENT_LINK,
+					'video' => null,
+					'desc'  => 'A One Time Passcode (OTP) will be sent to your Email address',
+				),
+				MoWpnsConstants::OUT_OF_BAND_EMAIL    => array(
+					'doc'   => MoWpnsConstants::EMAIL_VERIFICATION_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::EMAIL_VERIFICATION_YOUTUBE,
+					'desc'  => 'Accept the verification link sent to your email address',
+				),
+				MoWpnsConstants::OTP_OVER_TELEGRAM    => array(
+					'doc'   => MoWpnsConstants::OTP_OVER_TELEGRAM_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::OTP_OVER_TELEGRAM_YOUTUBE,
+					'desc'  => 'Enter the One Time Passcode sent to your Telegram account',
+				),
+				MoWpnsConstants::SECURITY_QUESTIONS   => array(
+					'doc'   => MoWpnsConstants::KBA_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::KBA_YOUTUBE,
+					'desc'  => 'Configure and Answer Three Security Questions to login',
+				),
+				MoWpnsConstants::OTP_OVER_WHATSAPP    => array(
+					'doc'   => MoWpnsConstants::OTP_OVER_WA_DOCUMENT_LINK,
+					'video' => null,
+					'desc'  => 'Enter the One Time Passcode sent to your WhatsApp account.',
+					'crown' => true,
+				),
 			);
-			$field_string = wp_json_encode( $fields );
-
-			$headers = array(
-				'Content-Type'  => 'application/json',
-				'charset'       => 'UTF-8',
-				'Authorization' => 'Basic',
-			);
-
-			$content = $this->mo2f_api->mo2f_http_request( $url, $field_string, $headers );
-
-			return $content;
+			return $two_factor_methods_details;
 		}
 
 		/**
@@ -167,7 +178,6 @@ if ( ! class_exists( 'Customer_Cloud_Setup' ) ) {
 		public function mo2f_update_user_info( $user_id, $config_status, $twofa_method, $user_registration, $twofa_reg_status, $twofa_by_user, $email, $phone = null, $transaction_name = null, $enable_admin_2fa = null ) {
 			$mocurl  = new MocURL();
 			$content = $mocurl->mo2f_update_user_info( $email, $twofa_method, $phone, $transaction_name, $enable_admin_2fa );
-
 			if ( isset( $user_id ) ) {
 				$update_details = new Miniorange_Password_2Factor_Login();
 				$update_details->mo2fa_update_user_details( $user_id, $config_status, $twofa_method, $user_registration, $twofa_reg_status, $twofa_by_user, $email, $phone );
@@ -179,56 +189,15 @@ if ( ! class_exists( 'Customer_Cloud_Setup' ) ) {
 		/**
 		 * Function to send otp to the user via miniOrange service.
 		 *
-		 * @param string $u_key It can be a phone number or email id to which the otp to be sent.
+		 * @param string $phone Phone.
+		 * @param string $email Email ID.
 		 * @param string $auth_type Authentication method of the user.
-		 * @param string $customer_key Customer key of the user.
-		 * @param string $api_key Api key of the user.
 		 * @param object $currentuser Contains details of current user.
 		 * @return string
 		 */
-		public function send_otp_token( $u_key, $auth_type, $customer_key, $api_key, $currentuser ) {
-			$url     = MO_HOST_NAME . '/moas/api/auth/challenge';
-			$headers = $this->mo2f_api->get_http_header_array();
-			$fields  = '';
-			if ( MoWpnsConstants::OTP_OVER_EMAIL === $auth_type || MoWpnsConstants::OUT_OF_BAND_EMAIL === $auth_type ) {
-				$fields = array(
-					'customerKey'     => $customer_key,
-					'email'           => $u_key,
-					'authType'        => $auth_type,
-					'transactionName' => 'WordPress 2 Factor Authentication Plugin',
-				);
-			} elseif ( MoWpnsConstants::OTP_OVER_SMS === $auth_type ) {
-				$fields = array(
-					'customerKey' => $customer_key,
-					'phone'       => $u_key,
-					'authType'    => $auth_type,
-				);
-			} elseif ( MoWpnsConstants::OTP_OVER_TELEGRAM === $auth_type ) {
-				$mo2f_onprem_cloud_api = new Two_Factor_Setup_Onprem_Cloud();
-				return $mo2f_onprem_cloud_api->mo2f_send_telegram_otp( $u_key, $currentuser );
-			} else {
-				$fields = array(
-					'customerKey'     => $customer_key,
-					'username'        => $u_key,
-					'authType'        => $auth_type,
-					'transactionName' => 'WordPress 2 Factor Authentication Plugin',
-				);
-			}
-
-			$field_string = wp_json_encode( $fields );
-
-			$content = $this->mo2f_api->mo2f_http_request( $url, $field_string, $headers );
-
-			$content1 = json_decode( $content, true );
-			if ( 'SUCCESS' === $content1['status'] ) {
-				if ( 4 === get_site_option( 'cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z' ) && MoWpnsConstants::OTP_OVER_SMS === $auth_type ) {
-					Miniorange_Authentication::mo2f_low_otp_alert( 'sms' );
-				}
-				if ( 5 === get_site_option( 'cmVtYWluaW5nT1RQ' ) && ( MoWpnsConstants::OTP_OVER_EMAIL === $auth_type || MoWpnsConstants::OUT_OF_BAND_EMAIL === $auth_type ) ) {
-					Miniorange_Authentication::mo2f_low_otp_alert( 'email' );
-				}
-			}
-
+		public function send_otp_token( $phone, $email, $auth_type, $currentuser ) {
+			$mo2f_send_otp = new MocURL();
+			$content       = $mo2f_send_otp->send_otp_token( $auth_type, $phone, $email );
 			return $content;
 		}
 
@@ -239,64 +208,12 @@ if ( ! class_exists( 'Customer_Cloud_Setup' ) ) {
 		 * @param string $username Username of user.
 		 * @param string $transaction_id Transaction id which is used to validate the sent otp token.
 		 * @param string $otp_token OTP token received by user.
-		 * @param string $c_key Customer key of user.
-		 * @param string $customer_api_key Customer api key assigned by IDP to the user.
 		 * @param object $current_user Contains details of current user.
 		 * @return string
 		 */
-		public function validate_otp_token( $auth_type, $username, $transaction_id, $otp_token, $c_key, $customer_api_key, $current_user = null ) {
-			$content = '';
-			$url     = MO_HOST_NAME . '/moas/api/auth/validate';
-			/* The customer Key provided to you */
-			$customer_key = $c_key;
-
-			/* The customer API Key provided to you */
-			$api_key = $customer_api_key;
-
-			/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
-			$current_time_in_millis = $this->mo2f_api->get_timestamp();
-
-			/* Creating the Hash using SHA-512 algorithm */
-			$string_to_hash = $customer_key . $current_time_in_millis . $api_key;
-			$hash_value     = hash( 'sha512', $string_to_hash );
-
-			$headers = $this->mo2f_api->get_http_header_array();
-			$fields  = '';
-			if ( MoWpnsConstants::SOFT_TOKEN === $auth_type || MoWpnsConstants::GOOGLE_AUTHENTICATOR === $auth_type ) {
-				/*check for soft token*/
-				$fields = array(
-					'customerKey' => $customer_key,
-					'username'    => $username,
-					'token'       => $otp_token,
-					'authType'    => $auth_type,
-				);
-			} elseif ( MoWpnsConstants::SECURITY_QUESTIONS === $auth_type ) {
-				$fields = array(
-					'txId'    => $transaction_id,
-					'answers' => array(
-						array(
-							'question' => $otp_token[0],
-							'answer'   => $otp_token[1],
-						),
-						array(
-							'question' => $otp_token[2],
-							'answer'   => $otp_token[3],
-						),
-					),
-				);
-			} elseif ( MoWpnsConstants::OTP_OVER_TELEGRAM === $auth_type ) {
-				$mo2f_onprem_cloud_api = new Two_Factor_Setup_Onprem_Cloud();
-				return $mo2f_onprem_cloud_api->mo2f_validate_telegram_code( $auth_type, $otp_token, $current_user );
-			} else {
-				// *check for otp over sms/email
-				$fields = array(
-					'txId'  => $transaction_id,
-					'token' => $otp_token,
-				);
-			}
-			$field_string = wp_json_encode( $fields );
-
-			$content = $this->mo2f_api->mo2f_http_request( $url, $field_string, $headers );
+		public function validate_otp_token( $auth_type, $username, $transaction_id, $otp_token, $current_user = null ) {
+			$mo2f_validate_otp = new MocURL();
+			$content           = $mo2f_validate_otp->validate_otp_token( $transaction_id, $otp_token, $username, $auth_type );
 			return $content;
 		}
 		/**
@@ -356,20 +273,120 @@ if ( ! class_exists( 'Customer_Cloud_Setup' ) ) {
 			$cloud_setup = new Mo2f_Cloud_Challenge();
 			$cloud_setup->mo2f_gauth_setup( $user, $session_id );
 		}
+
 		/**
 		 * Sends email verification link to the users email.
 		 *
 		 * @param string $user_email user email.
 		 * @param string $mo2f_second_factor 2FA method of user.
-		 * @param string $mo2f_customer_key customer key of the miniorange customer.
-		 * @param string $mo2f_api_key API key.
 		 * @param string $current_user Current User.
 		 * @return mixed
 		 */
-		public function mo2f_send_verification_link( $user_email, $mo2f_second_factor, $mo2f_customer_key, $mo2f_api_key, $current_user ) {
-			$content = $this->send_otp_token( $user_email, $mo2f_second_factor, $mo2f_customer_key, $mo2f_api_key, $current_user );
+		public function mo2f_send_verification_link( $user_email, $mo2f_second_factor, $current_user ) {
+			$content = $this->send_otp_token( null, $user_email, $mo2f_second_factor, $current_user );
 			return $content;
 		}
+
+		/**
+		 * Sends email verification link to the users email.
+		 *
+		 * @param string $request_type user email.
+		 * @param string $transaction_id 2FA method of user.
+		 * @return mixed
+		 */
+		public function mo2f_oobe_get_dashboard_script( $request_type, $transaction_id ) {
+			$script = '<script>
+            var calls = 0;
+            var requestType = "' . esc_js( $request_type ) . '";
+            var transId = "' . esc_js( $transaction_id ) . '";
+            emailVerificationPoll();
+            function emailVerificationPoll()
+            {
+                calls = calls + 1;
+                var data = {"txId":"' . esc_js( $transaction_id ) . '"};
+                jQuery.ajax({
+                    url: "' . esc_url( MO_HOST_NAME ) . '/moas/api/auth/auth-status",
+                    type: "POST",
+                    dataType: "json",
+                    data: JSON.stringify(data), // Stringify JSON data
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        var status = result.status;
+                        if (status === "SUCCESS") {
+                            if (requestType === "configure_2fa") {
+                                jQuery("#mo2f_2factor_test_prompt_cross").submit();
+                            } else {
+                                jQuery("#mo2f_2fa_popup_dashboard").css("display", "none");
+                                success_msg("You have successfully completed the test.");
+                            }
+                        } else if (status === "ERROR" || status === "FAILED" || status === "DENIED" || status === 0) {
+                            jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
+                            closeVerification = true;
+                            error_msg("You have denied the transaction.");
+                        } else {
+                            if (calls < 300)
+                            {
+                                timeout = setTimeout(emailVerificationPoll, 1000);
+                            }
+                            else
+                            {
+                                jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
+                                closeVerification = true;
+                                error_msg("Session timeout.");
+                            }
+                        }
+                    }
+                });
+            }
+          </script>';
+			return $script;
+		}
+
+		/**
+		 * Sends email verification link to the users email.
+		 *
+		 * @param string $request_type user email.
+		 * @param string $transaction_id 2FA method of user.
+		 * @return mixed
+		 */
+		public function mo2f_oobe_get_login_script( $request_type, $transaction_id ) {
+			$script = '<script>
+            var calls = 0;
+            var requestType = "' . esc_js( $request_type ) . '";
+            var transId = "' . esc_js( $transaction_id ) . '";
+            emailVerificationPoll();
+            function emailVerificationPoll()
+            {
+                calls = calls + 1;
+                var data = {"txId":"' . esc_js( $transaction_id ) . '"};
+                jQuery.ajax({
+                    url: "' . esc_url( MO_HOST_NAME ) . '/moas/api/auth/auth-status",
+                    type: "POST",
+                    dataType: "json",
+                    data: JSON.stringify(data), // Stringify JSON data
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        var status = result.status;
+                   		if (status === "SUCCESS") {
+							jQuery("#mo2f_mobile_validation_form").submit();
+						} else if (status === "ERROR" || status === "FAILED" || status === "DENIED" || status === 0) {
+							jQuery("#mo2f_email_verification_failed_form").submit();
+						} else {
+							if(calls<300)
+							{
+								timeout = setTimeout(emailVerificationPoll, 1000);
+							}
+							else
+							{	jQuery("#mo2f_email_verification_failed_form").submit();
+							}
+						}
+                    }
+                });
+            }
+          </script>';
+			return $script;
+		}
+
 		/**
 		 * Set Google authenticator secret key.
 		 *
@@ -388,13 +405,11 @@ if ( ! class_exists( 'Customer_Cloud_Setup' ) ) {
 		 * Set Up email verification
 		 *
 		 * @param object $current_user current user object.
-		 * @param string $default_customer_key customer key.
-		 * @param string $default_api_key API key.
 		 * @return void
 		 */
-		public function mo2f_email_verification_call( $current_user, $default_customer_key, $default_api_key ) {
+		public function mo2f_email_verification_call( $current_user ) {
 			$email        = $current_user->user_email;
-			$content      = $this->send_otp_token( $email, MoWpnsConstants::OUT_OF_BAND_EMAIL, $default_customer_key, $default_api_key, $current_user );
+			$content      = $this->send_otp_token( null, $email, MoWpnsConstants::OUT_OF_BAND_EMAIL, $current_user );
 			$response     = json_decode( $content, true );
 			$show_message = new MoWpnsMessages();
 			if ( json_last_error() === JSON_ERROR_NONE ) { /* Generate out of band email */
@@ -530,21 +545,7 @@ if ( ! class_exists( 'Customer_Cloud_Setup' ) ) {
 				'mo2fa_login_message' => $mo2fa_login_message,
 			);
 		}
-		/**
-		 * Google authenticator screen in inline registration.
-		 *
-		 * @param object $user currently logged in user.
-		 * @return void
-		 */
-		public function mo2f_show_gauth_screen( $user ) {
-			Mo2f_Cloud_Utility::mo2f_get_g_a_parameters( $user );
-			echo '<div class="mo2f_table_layout mo2f_table_layout1">';
-			$setup_dir_name = dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'twofa' . DIRECTORY_SEPARATOR . 'setup' . DIRECTORY_SEPARATOR;
-			require_once $setup_dir_name . 'setup-google-authenticator.php';
-			mo2f_configure_google_authenticator_cloud( $user );
-			echo '</div>';
 
-		}
 		/**
 		 * Set 2fa method for a user
 		 *
@@ -558,16 +559,17 @@ if ( ! class_exists( 'Customer_Cloud_Setup' ) ) {
 			$current_user        = get_userdata( $current_user->ID );
 			$email               = $current_user->user_email;
 			$mo2fa_login_message = '';
+			$mo2fa_login_status  = '';
 			$response            = $twofactor_login->create_user_in_miniorange( $current_user->ID, $email, $selected_method );
 			if ( ! is_null( $response ) && 'ERROR' === $response['status'] ) {
-				$mo2fa_login_status  = MoWpnsConstants::MO_2_FACTOR_PROMPT_USER_FOR_2FA_METHODS;
-				$mo2fa_login_message = $response['message'] . 'Skip the two-factor for login';
+				$mo2fa_login_message = $response['message'];
 			} else {
+				$mo2fa_login_status = MoWpnsConstants::MO_2_FACTOR_PROMPT_USER_FOR_2FA_METHODS;
 				$mo2fdb_queries->update_user_details( $current_user->ID, array( 'mo2f_configured_2fa_method' => $selected_method ) );
 			}
 
 			return array(
-				'mo2fa_login_status'  => MoWpnsConstants::MO_2_FACTOR_PROMPT_USER_FOR_2FA_METHODS,
+				'mo2fa_login_status'  => $mo2fa_login_status,
 				'mo2fa_login_message' => $mo2fa_login_message,
 			);
 		}
@@ -668,6 +670,54 @@ if ( ! class_exists( 'Customer_Cloud_Setup' ) ) {
 			$content  = $customer->mo2f_google_auth_validate( $useremail, $otptoken, $secret );
 
 			return $content;
+		}
+
+		/**
+		 * Creates user in miniOrange.
+		 *
+		 * @param object $user user.
+		 * @param string $email Email address.
+		 * @return void
+		 */
+		public function mo2f_create_user_in_miniorange( $user, $email ) {
+			global $mo2fdb_queries;
+			$mocurl       = new MocURL();
+			$show_message = new MoWpnsMessages();
+			$check_user   = json_decode( $mocurl->mo_check_user_already_exist( $email ), true );
+			if ( json_last_error() === JSON_ERROR_NONE ) {
+				if ( 'ERROR' === $check_user['status'] ) {
+					$show_message->mo2f_show_message( MoWpnsMessages::lang_translate( $check_user['message'] ), 'ERROR' );
+					return;
+				} elseif ( strcasecmp( $check_user['status'], 'USER_FOUND' ) === 0 ) {
+					$mo2fdb_queries->update_user_details(
+						$user->ID,
+						array(
+							'user_registration_with_miniorange' => 'SUCCESS',
+							'mo2f_user_email' => $email,
+						)
+					);
+					update_site_option( base64_encode( 'totalUsersCloud' ), intval( get_site_option( base64_encode( 'totalUsersCloud' ) ) ) + 1 ); //phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+				} elseif ( strcasecmp( $check_user['status'], 'USER_NOT_FOUND' ) === 0 ) {
+					$content = json_decode( $mocurl->mo_create_user( $user, $email ), true );
+					if ( json_last_error() === JSON_ERROR_NONE ) {
+						if ( strcasecmp( $content['status'], 'SUCCESS' ) === 0 ) {
+							update_site_option( base64_encode( 'totalUsersCloud' ), intval( get_site_option( base64_encode( 'totalUsersCloud' ) ) ) + 1 ); //phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+							$mo2fdb_queries->update_user_details(
+								$user->ID,
+								array(
+									'user_registration_with_miniorange' => 'SUCCESS',
+									'mo2f_user_email' => $email,
+								)
+							);
+						}
+					}
+				} elseif ( strcasecmp( $check_user['status'], 'USER_FOUND_UNDER_DIFFERENT_CUSTOMER' ) === 0 ) {
+					$mo2fa_login_message = esc_html__( 'The email associated with your account is already registered in miniOrange. Please Choose another email or contact miniOrange.', 'miniorange-2-factor-authentication' );
+					$show_message->mo2f_show_message( $mo2fa_login_message, 'ERROR' );
+					return;
+				}
+			}
+
 		}
 	}
 }

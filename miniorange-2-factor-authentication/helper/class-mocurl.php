@@ -23,7 +23,7 @@ namespace TwoFA\Helper;
 use TwoFA\Helper\MoWpnsConstants;
 use TwoFA\Helper\MoWpnsUtility;
 use TwoFA\Onprem\Mo2f_Api;
-
+use TwoFA\Onprem\Miniorange_Authentication;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -63,8 +63,7 @@ if ( ! class_exists( 'MocURL' ) ) {
 			$url          = MO_HOST_NAME . '/moas/rest/customer/add';
 			$customer_key = MoWpnsConstants::DEFAULT_CUSTOMER_KEY;
 			$api_key      = MoWpnsConstants::DEFAULT_API_KEY;
-
-			$fields      = array(
+			$fields       = array(
 				'companyName'    => $company,
 				'areaOfInterest' => 'WordPress 2 Factor Authentication Plugin',
 				'firstname'      => $first_name,
@@ -73,11 +72,12 @@ if ( ! class_exists( 'MocURL' ) ) {
 				'phone'          => $phone,
 				'password'       => $password,
 			);
-			$json        = wp_json_encode( $fields );
-			$auth_header = self::create_auth_header( $customer_key, $api_key );
-			$response    = self::call_api( $url, $json, $auth_header );
+			$json         = wp_json_encode( $fields );
+			$auth_header  = self::create_auth_header( $customer_key, $api_key );
+			$response     = self::call_api( $url, $json, $auth_header );
 			return $response;
 		}
+
 		/**
 		 * It will help to get customer key
 		 *
@@ -155,26 +155,43 @@ if ( ! class_exists( 'MocURL' ) ) {
 			$response = self::call_api( $url, $json );
 			return $response;
 		}
+
 		/**
-		 * It is use for sending the otp token
+		 * Sends OTP/verification link to users SMS/Email.
 		 *
-		 * @param string $auth_type .
-		 * @param string $phone .
-		 * @return string
+		 * @param string $auth_type Authnetication method.
+		 * @param string $phone Phone.
+		 * @param string $email Email ID.
+		 * @return mixed.
 		 */
-		public function send_otp_token( $auth_type, $phone ) {
-			$url          = MO_HOST_NAME . '/moas/api/auth/challenge';
-			$customer_key = get_site_option( 'mo2f_customerKey' );
-			$api_key      = get_site_option( 'mo2f_api_key' );
-			$fields       = array(
-				'customerKey'     => $customer_key,
+		public function send_otp_token( $auth_type, $phone = null, $email = null ) {
+			$c_key       = get_option( 'mo2f_customerKey' );
+			$api_key     = get_option( 'mo2f_api_key' );
+			$url         = MO_HOST_NAME . '/moas/api/auth/challenge';
+			$fields      = array(
+				'customerKey'     => $c_key,
+				'email'           => $email,
 				'phone'           => $phone,
+				'username'        => $email,
 				'authType'        => $auth_type,
-				'transactionName' => 'miniOrange 2-Factor',
+				'transactionName' => 'WordPress 2 Factor Authentication Plugin',
 			);
-			$json         = wp_json_encode( $fields );
-			$auth_header  = $this->create_auth_header( $customer_key, $api_key );
-			$response     = self::call_api( $url, $json, $auth_header );
+			$json        = wp_json_encode( $fields );
+			$auth_header = $this->create_auth_header( $c_key, $api_key );
+			$response    = self::call_api( $url, $json, $auth_header );
+			$content     = json_decode( $response, true );
+			if ( 'SUCCESS' === $content['status'] ) {
+				$cmvtywluaw5nt1rqsms = get_site_option( 'cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z' );
+				update_site_option( 'cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z', $cmvtywluaw5nt1rqsms - 1 );
+				$cmvtywluaw5nt1rq = get_site_option( 'cmVtYWluaW5nT1RQ' );
+				update_site_option( 'cmVtYWluaW5nT1RQ', $cmvtywluaw5nt1rq - 1 );
+				if ( '4' === get_site_option( 'cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z' ) && MoWpnsConstants::OTP_OVER_SMS === $auth_type ) {
+					Miniorange_Authentication::mo2f_low_otp_alert( 'sms' );
+				}
+				if ( '5' === get_site_option( 'cmVtYWluaW5nT1RQ' ) && ( MoWpnsConstants::OTP_OVER_EMAIL === $auth_type || MoWpnsConstants::OUT_OF_BAND_EMAIL === $auth_type ) ) {
+					Miniorange_Authentication::mo2f_low_otp_alert( 'email' );
+				}
+			}
 			return $response;
 		}
 
@@ -210,54 +227,40 @@ if ( ! class_exists( 'MocURL' ) ) {
 
 			return $content;
 		}
+
 		/**
-		 * Miniorange authenticator validation.
+		 * Validates otp token.
 		 *
-		 * @param string $auth_type Authentication method of user.
-		 * @param string $username Username of user.
-		 * @param string $otp_token OTP token received by user.
-		 * @param string $c_key Customer key of user.
-		 * @return string
+		 * @param string $transaction_id Transaction id.
+		 * @param mixed  $otp_token OTP token.
+		 * @param string $username Username.
+		 * @param string $auth_type Auth type.
+		 * @return array
 		 */
-		public function miniorange_authenticator_validate( $auth_type, $username, $otp_token, $c_key ) {
-			$content = '';
-			$url     = MO_HOST_NAME . '/moas/api/auth/validate';
-			/* The customer Key provided to you */
-			$customer_key = $c_key;
-			$mo2f_api     = new Mo2f_Api();
-			$headers      = $mo2f_api->get_http_header_array();
+		public function validate_otp_token( $transaction_id, $otp_token, $username, $auth_type ) {
+			$url          = MO_HOST_NAME . '/moas/api/auth/validate';
+			$customer_key = get_option( 'mo2f_customerKey' );
+			$api_key      = get_option( 'mo2f_api_key' );
 			$fields       = array(
 				'customerKey' => $customer_key,
 				'username'    => $username,
-				'token'       => $otp_token,
 				'authType'    => $auth_type,
+				'txId'        => $transaction_id,
+				'token'       => ! is_array( $otp_token ) ? $otp_token : null,
+				'answers'     => is_array( $otp_token ) ? array(
+					array(
+						'question' => $otp_token[0],
+						'answer'   => $otp_token[1],
+					),
+					array(
+						'question' => $otp_token[2],
+						'answer'   => $otp_token[3],
+					),
+				) : null,
 			);
-			$field_string = wp_json_encode( $fields );
-
-			$content = $mo2f_api->mo2f_http_request( $url, $field_string, $headers );
-
-			return $content;
-		}
-		/**
-		 * It will be use for validating the otp
-		 *
-		 * @param string $transaction_id .
-		 * @param string $otp_token .
-		 * @return string .
-		 */
-		public function validate_otp_token( $transaction_id, $otp_token ) {
-			$url          = MO_HOST_NAME . '/moas/api/auth/validate';
-			$customer_key = MoWpnsConstants::DEFAULT_CUSTOMER_KEY;
-			$api_key      = MoWpnsConstants::DEFAULT_API_KEY;
-
-			$fields = array(
-				'txId'  => $transaction_id,
-				'token' => $otp_token,
-			);
-
-			$json        = wp_json_encode( $fields );
-			$auth_header = $this->create_auth_header( $customer_key, $api_key );
-			$response    = self::call_api( $url, $json, $auth_header );
+			$json         = wp_json_encode( $fields );
+			$auth_header  = $this->create_auth_header( $customer_key, $api_key );
+			$response     = self::call_api( $url, $json, $auth_header );
 			return $response;
 		}
 		/**
@@ -406,6 +409,7 @@ if ( ! class_exists( 'MocURL' ) ) {
 			);
 			return $header;
 		}
+
 		/**
 		 * The api function will be called for curl
 		 *
@@ -446,7 +450,7 @@ if ( ! class_exists( 'MocURL' ) ) {
 		public function mo_2f_generate_backup_codes( $mo2f_user_email, $site_url ) {
 			$url = MoWpnsConstants::GENERATE_BACK_CODE;
 
-			$data = $this->mo_2f_autnetication_backup_code_request( $mo2f_user_email, $site_url );
+			$data = $this->mo_2f_authentication_backup_code_request( $mo2f_user_email, $site_url );
 
 			$postdata = array(
 				'mo2f_email'                 => $mo2f_user_email,
@@ -467,7 +471,7 @@ if ( ! class_exists( 'MocURL' ) ) {
 		public function mo2f_validate_backup_codes( $mo2f_backup_code, $mo2f_user_email ) {
 			$url      = MoWpnsConstants::VALIDATE_BACKUP_CODE;
 			$site_url = site_url();
-			$data     = $this->mo_2f_autnetication_backup_code_request( $mo2f_user_email, $site_url );
+			$data     = $this->mo_2f_authentication_backup_code_request( $mo2f_user_email, $site_url );
 
 			$postdata = array(
 				'mo2f_otp_token'     => $mo2f_backup_code,
@@ -497,7 +501,7 @@ if ( ! class_exists( 'MocURL' ) ) {
 		 * @param string $site_url Domain of the user.
 		 * @return array
 		 */
-		public function mo_2f_autnetication_backup_code_request( $mo2f_user_email, $site_url ) {
+		public function mo_2f_authentication_backup_code_request( $mo2f_user_email, $site_url ) {
 			$url = MoWpnsConstants::AUTHENTICATE_REQUEST;
 
 			$postdata = array(
@@ -590,6 +594,154 @@ if ( ! class_exists( 'MocURL' ) ) {
 			} else {
 				return $data;
 			}
+		}
+
+		/**
+		 * Function to check user email already exist with miniOrange or not.
+		 *
+		 * @param string $email Email id of user.
+		 * @return string
+		 */
+		public function mo_check_user_already_exist( $email ) {
+
+			$url               = MO_HOST_NAME . '/moas/api/admin/users/search';
+			$customer_key      = get_option( 'mo2f_customerKey' );
+			$fields            = array(
+				'customerKey' => $customer_key,
+				'username'    => $email,
+			);
+			$http_header_array = $this->mo2f_api->get_http_header_array();
+
+			return $this->mo2f_api->mo2f_http_request( $url, $fields, $http_header_array );
+		}
+
+		/**
+		 * Function to create user with miniOrange.
+		 *
+		 * @param object $currentuser Contains details of current user.
+		 * @param string $email Email id of user.
+		 * @return string
+		 */
+		public function mo_create_user( $currentuser, $email ) {
+
+			$url               = MO_HOST_NAME . '/moas/api/admin/users/create';
+			$customer_key      = get_option( 'mo2f_customerKey' );
+			$fields            = array(
+				'customerKey' => $customer_key,
+				'username'    => $email,
+				'firstName'   => $currentuser->user_firstname,
+				'lastName'    => $currentuser->user_lastname,
+			);
+			$http_header_array = $this->mo2f_api->get_http_header_array();
+
+			return $this->mo2f_api->mo2f_http_request( $url, $fields, $http_header_array );
+		}
+
+		/**
+		 * Function to get remaining otp transactions of the user.
+		 *
+		 * @param int    $c_key Customer key of the user.
+		 * @param string $api_key Api key of the user.
+		 * @param string $license_type License type assigned by miniOrange to check whether the user is onPremise or cloud.
+		 * @return string
+		 */
+		public function get_customer_transactions( $c_key, $api_key, $license_type ) {
+			$url = MO_HOST_NAME . '/moas/rest/customer/license';
+
+			$customer_key = $c_key;
+			$api_key      = $api_key;
+
+			$fields = '';
+			if ( 'DEMO' === $license_type ) {
+				$fields = array(
+					'customerId'      => $customer_key,
+					'applicationName' => '-1',
+					'licenseType'     => $license_type,
+				);
+			} else {
+				$fields = array(
+					'customerId'      => $customer_key,
+					'applicationName' => 'otp_recharge_plan',
+					'licenseType'     => $license_type,
+				);
+			}
+
+			$field_string = wp_json_encode( $fields );
+
+			$headers = $this->mo2f_api->get_http_header_array();
+
+			$content = $this->mo2f_api->mo2f_http_request( $url, $field_string, $headers );
+
+			return $content;
+		}
+
+		/**
+		 * Sends the OTP over Telegram.
+		 *
+		 * @param string $u_key Email.
+		 * @return array
+		 */
+		public function mo2f_send_telegram_otp( $u_key ) {
+			$otp_token = '';
+			for ( $i = 1; $i < 7; $i++ ) {
+				$otp_token .= wp_rand( 0, 9 );
+			}
+			$transaction_id = MoWpnsUtility::rand();
+			TwoFAMoSessions::add_session_var( 'mo2f_otp_token', $transaction_id . $otp_token );
+			TwoFAMoSessions::add_session_var( 'mo2f_telegram_time', time() );
+			$url      = esc_url( MoWpnsConstants::TELEGRAM_OTP_LINK );
+			$postdata = array(
+				'mo2f_otp_token' => $otp_token,
+				'mo2f_chatid'    => $u_key,
+			);
+
+			$args = array(
+				'method'    => 'POST',
+				'timeout'   => 10,
+				'sslverify' => false,
+				'headers'   => array(),
+				'body'      => $postdata,
+			);
+
+			$mo2f_api = new Mo2f_Api();
+			$data     = $mo2f_api->mo2f_wp_remote_post( $url, $args );
+			$content  = array(
+				'status' => $data,
+				'txId'   => $transaction_id,
+			);
+
+			return $content;
+		}
+
+		/**
+		 * Validates OTP for Telegram.
+		 *
+		 * @param string $otp_token Otp token.
+		 * @param string $mo2f_transaction_id Transaction id.
+		 * @return array
+		 */
+		public function mo2f_validate_telegram_code( $otp_token, $mo2f_transaction_id ) {
+			$valid_token   = TwoFAMoSessions::get_session_var( 'mo2f_otp_token' );
+			$time          = TwoFAMoSessions::get_session_var( 'mo2f_telegram_time' );
+			$accepted_time = time() - 300;
+			$time          = (int) $time;
+			if ( (string) ( $mo2f_transaction_id . $otp_token ) === (string) $valid_token ) {
+				if ( $accepted_time < $time ) {
+					$content = array( 'status' => 'SUCCESS' );
+
+				} else {
+					$content = array(
+						'status'  => 'ERROR',
+						'message' => 'OTP has been expired please reinitiate another transaction.',
+					);
+				}
+			} else {
+				$content = array(
+					'status'  => 'INVALID_OTP',
+					'message' => MoWpnsMessages::lang_translate( MoWpnsMessages::INVALID_OTP ),
+				);
+			}
+			return $content;
 		}
 	}
 }

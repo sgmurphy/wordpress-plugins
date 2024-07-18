@@ -2,9 +2,9 @@
 Contributors: thimpress, leehld, phamtungpth
 Donate link: https://thimpress.com/
 Tags: event, event management, events, registration, bookings, tickets, locations, google maps
-Requires at least: 4.6
-Tested up to: 6.3
-Stable tag: 2.1.10
+Requires at least: 6.3
+Tested up to: 6.6
+Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

@@ -11,7 +11,7 @@
  * License:     GPL3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 4.5
- * Tested up to: 6.3
+ * Tested up to: 6.6
  *
  * Text Domain: woo-product-feed-pro
  * Domain Path: /languages

@@ -116,8 +116,8 @@ class Wf_Woocommerce_Packing_List {
 			self::$base_version = WF_PKLIST_VERSION;
 		}else 
 		{
-			$this->version = '4.5.3';
-			self::$base_version = '4.5.3';
+			$this->version = '4.6.0';
+			self::$base_version = '4.6.0';
 		}
 		if(defined('WF_PKLIST_PLUGIN_NAME'))
 		{
@@ -404,6 +404,11 @@ class Wf_Woocommerce_Packing_List {
 		 *  @since 4.2.1
 		 */
 		$this->loader->add_filter( "wt_promotion_banner_screens", $this->plugin_admin, "wt_promotion_banner_screens" );
+
+		/**
+		 * @since 4.6.0 - Filter to add the pre requisites filter for html rendering of the documents.
+		 */
+		$this->loader->add_filter( 'wt_pklist_add_filters_before_rendering_pdf', $this->plugin_admin, 'pdf_before_rendering_filters', 10, 3 );
 	}
 
 	private function define_common_hooks() {
@@ -646,6 +651,8 @@ class Wf_Woocommerce_Packing_List {
 			'wt_pklist_print_button_access_for'					=> 'logged_in',
 			'wt_pklist_common_print_button_enable'				=> 'Yes',
 			'wt_pklist_separate_print_button_enable'			=> array('invoice','packinglist'),
+			'wt_pklist_show_currency_code'						=> 'No',
+			'wt_pklist_additional_currency_font_support'		=> 'No',
 		);
 		
 		$base_id	= ( "" === $base_id ) ? "main" : $base_id; // for the pro addons use
@@ -712,6 +719,8 @@ class Wf_Woocommerce_Packing_List {
 			'woocommerce_wf_state_code_disable' => "no",
 			'woocommerce_wf_add_rtl_support' => "No",
 			'wt_pklist_common_print_button_enable' => 'No',
+			'wt_pklist_show_currency_code' => 'No',
+			'wt_pklist_additional_currency_font_support' => 'No',
 		);
 
 		$base_id = ("" === $base_id) ? "main" : $base_id; // for the pro addons use

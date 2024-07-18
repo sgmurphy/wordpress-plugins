@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) {
 }
 
 $plugin_data = get_plugin_data(GREENSHIFT_DIR_PATH . 'plugin.php');
+//delete_option('gspb_global_settings');
 
 if (isset($plugin_data['Version'])) {
     $plugin_version = $plugin_data['Version'];

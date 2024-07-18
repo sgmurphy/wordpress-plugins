@@ -910,7 +910,7 @@ if ( ! class_exists( 'Icegram' ) ) {
 		}
 
 		function display_messages() {
-
+			
 			$skip_others               = $preview_mode = false;
 			$campaign_ids              = $message_ids = array();
 			$this->shortcode_instances = ( $this->cache_compatibility == 'yes' && ! empty( $_REQUEST['shortcodes'] ) ) ? $_REQUEST['shortcodes'] : $this->shortcode_instances;
@@ -926,7 +926,7 @@ if ( ! class_exists( 'Icegram' ) ) {
 					$message_ids  = array_merge( $message_ids, $mids );
 				}
 			}
-			if ( ! empty( $_REQUEST['campaign_preview_id'] ) && intval( $_REQUEST['campaign_preview_id'] ) && ( 'edit_posts' ) ) {
+			if ( ! empty( $_REQUEST['campaign_preview_id'] ) && intval( $_REQUEST['campaign_preview_id'] ) && current_user_can( 'edit_post', ig_get_request_data( 'campaign_preview_id' ) ) ) {
 				$campaign_ids = array( intval( $_REQUEST['campaign_preview_id'] ) );
 				$preview_mode = true;
 			}
@@ -2156,7 +2156,7 @@ if ( ! class_exists( 'Icegram' ) ) {
 			$duplicate_id = Icegram::duplicate_in_db( $original_id );
 			$location     = admin_url( 'post.php?post=' . $duplicate_id . '&action=edit' );
 			header( 'Location:' . $location );
-			exit;			
+			exit;
 		}
 
 		public static function form_submission_validate_request( $request_data ) {
@@ -2350,7 +2350,7 @@ if ( ! class_exists( 'Icegram' ) ) {
 							<?php
 						}
 					} else{
-						echo esc_html( '-' , 'icegram');
+						echo esc_html( '-');
 					}
 					break;
 				case 'status' : 
@@ -2389,7 +2389,8 @@ if ( ! class_exists( 'Icegram' ) ) {
 						  				$from_date = ! empty( $campaign_target_rules['from'] ) ? $campaign_target_rules['from'] : date( 'Y-m-d' ); 
 						  				$to_date = ! empty( $campaign_target_rules['to'] ) ? $campaign_target_rules['to'] : date( 'Y-m-d' ); 
 
-						  				echo esc_html(' : ' . $from_date . ' to ' . $to_date );
+						  				echo esc_html(' : ') . esc_html($from_date) . esc_html(' to ') . esc_html($to_date);
+
 						  			} 					  				
 					  			}
 

@@ -261,7 +261,10 @@ class STMMailChimpBase {
 			'admin-ajax.php?' . http_build_query( [ 'action' => 'stm_mailchimp_integration_not_allowed_' . self::$pluginSlug ] )
 		);
 
-		$noticeText = sprintf( 'Want to help make %1$s even more awesome? Allow %1$s to collect non-sensitive diagnostic data and usage information.', self::$pluginTitle );
+		$noticeText = sprintf(
+			__( 'Want to help make %1$s even more awesome? Allow %1$s to collect non-sensitive diagnostic data and usage information.', self::$pluginSlug ),
+			self::$pluginTitle
+		);
 
 		$init_data = array(
 			'notice_type'          => 'mailchimp-notice',

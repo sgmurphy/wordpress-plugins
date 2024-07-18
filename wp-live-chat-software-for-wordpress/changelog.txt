@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 4.5.22 =
+* checked plugin compatibility with WordPress 6.6
+
 = 4.5.21 =
 * fixed deprecation warnings for PHP 8.2+
 

@@ -34,12 +34,12 @@ $export_link = esc_url( get_site_url() ) . '/wp-admin/admin-ajax.php?action=cost
 						</span>
 						<input type="checkbox" class="ccb-btn-dropdown-input">
 						<ul class="ccb-btn-dropdown-list">
-							<li class="ccb-export-list ccb-default-title ccb-bold" :class="{'ccb-list-disabled': checkedCalculatorIds.length === 0}">
-								<a class="ccb-export-link" :href="'<?php echo esc_url( $export_link ); ?>&calculator_ids=' + checkedCalculatorIds.join(',')" v-if="checkedCalculatorIds.length">
-									<?php esc_html_e( 'Selected', 'cost-calculator-builder' ); ?> <span class="ccb-ids-selected">{{ checkedCalculatorIds.length }}</span>
+							<li class="ccb-export-list ccb-default-title ccb-bold" :class="{'ccb-list-disabled': checkedCalculatorIds?.length === 0}">
+								<a class="ccb-export-link" :href="'<?php echo esc_url( $export_link ); ?>&calculator_ids=' + checkedCalculatorIds.join(',')" v-if="checkedCalculatorIds?.length">
+									<?php esc_html_e( 'Selected', 'cost-calculator-builder' ); ?> <span class="ccb-ids-selected">{{ checkedCalculatorIds?.length }}</span>
 								</a>
 								<a href="#" class="ccb-export-link" v-else>
-									<?php esc_html_e( 'Selected', 'cost-calculator-builder' ); ?> <span class="ccb-ids-selected">{{ checkedCalculatorIds.length }}</span>
+									<?php esc_html_e( 'Selected', 'cost-calculator-builder' ); ?> <span class="ccb-ids-selected">{{ checkedCalculatorIds?.length }}</span>
 								</a>
 							</li>
 							<li class="ccb-export-list ccb-default-title ccb-bold">

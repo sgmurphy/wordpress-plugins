@@ -96,9 +96,13 @@ class Wf_Woocommerce_Packing_List_Box_packing_Basic
             $product_id = (WC()->version < '2.7.0') ? $product->id : $product->get_id();
             $_product = wc_get_product($product_id);                        
             $item_meta = array();
-            if (((WC()->version < '2.7.0') ? $product->id : $product->get_id()) == ((WC()->version < '2.7.0') ? $_product->id : $_product->get_id())) {
-                $item_meta = function_exists('wc_get_order_item_meta') ? wc_get_order_item_meta($id, '', false) : $order->get_item_meta($id);
-                   }
+            if($_product) 
+            {
+                if (((WC()->version < '2.7.0') ? $product->id : $product->get_id()) == ((WC()->version < '2.7.0') ? $_product->id : $_product->get_id())) 
+                {
+                    $item_meta = function_exists('wc_get_order_item_meta') ? wc_get_order_item_meta($id, '', false) : $order->get_item_meta($id);
+                }
+            }
             $extra_meta_details = apply_filters('wf_print_invoice_variation_add', $item_meta);
         }
         return $extra_meta_details;

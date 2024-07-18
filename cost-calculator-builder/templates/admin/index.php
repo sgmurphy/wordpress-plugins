@@ -37,7 +37,7 @@ wp_localize_script(
 							<?php require_once CALC_PATH . '/templates/admin/pages/settings.php'; ?>
 						</general-settings>
 					<?php else : ?>
-						<div class="ccb-field-overlay" v-if="$store.getters.getType.length !== 0"></div>
+						<div class="ccb-field-overlay" v-if="$store.getters.getType?.length !== 0"></div>
 						<calculators-page inline-template>
 							<?php require_once CALC_PATH . '/templates/admin/pages/calculator.php'; ?>
 						</calculators-page>

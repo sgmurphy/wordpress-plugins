@@ -270,21 +270,6 @@ $premium_ext_lists = array(
                     
                 ),
             ),
-            'backup_and_migration_plugin' => array(
-                'file_path'     => 'wp-migration-duplicator-pro/wp-migration-duplicator-pro.php',
-                'logo'          => $wf_admin_img_path_os.'/WordPress-backup-and-migration-plugin.png',
-                'title'         => __('WordPress Backup and Migration', 'print-invoices-packing-slip-labels-for-woocommerce'),
-                'page_link'     => 'https://www.webtoffee.com/product/wordpress-backup-and-migration/?utm_source=other_solution_page&utm_medium=free_plugin&utm_campaign=WordPress_Backup',
-                'features_list' => array(
-                    __("One-click backup and restore","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Multiple storage locations","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("URL import supported","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Email notifications support","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Multiple file formats supported","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Auto delete backups","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Exclude specific DB tables","print-invoices-packing-slip-labels-for-woocommerce"),
-                ),
-            ),
         ),
     ),
     'promotion' => array(
@@ -292,22 +277,6 @@ $premium_ext_lists = array(
         'domain_caption' => __("Create and run successful promotional campaigns with the best tools for WooCommerce","print-invoices-packing-slip-labels-for-woocommerce"),
         'domain_logo' => $wf_admin_img_path.'/pro_addons/promotion_cat_logo.png',
         'plugins' => array(
-            'diplay_discount'   => array(
-                'file_path'     => 'wt-display-discounts-for-woocommerce/wt_display_discounts_for_woocommerce.php',
-                'logo'          => $wf_admin_img_path_os.'/display-discounts.png',
-                'title'         => __('Display Discounts for WooCommerce', 'print-invoices-packing-slip-labels-for-woocommerce'),
-                'page_link'     => 'https://www.webtoffee.com/product/display-woocommerce-discounts/?utm_source=other_solution_page&utm_medium=free_plugin&utm_campaign=Display_Discounts',
-                'features_list' => array(
-                    __("Display available coupons on the product pages","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Customize the coupon template","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Show countdown timers for time-limited coupons","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Show restriction info within the coupon","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Limit the number of coupons to display on a page","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Hide discount display section from guest users","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Hide coupons without restrictions","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Adjust the discounts section location","print-invoices-packing-slip-labels-for-woocommerce"),                    
-                ),    
-            ),
             'giftcards_plugin'  => array(
                 'file_path'     => 'wt-woocommerce-gift-cards/wt-woocommerce-gift-cards.php',
                 'logo'          => $wf_admin_img_path_os.'/giftcards_plugin.png',
@@ -374,22 +343,6 @@ $premium_ext_lists = array(
                     __("Set up a redirect page","print-invoices-packing-slip-labels-for-woocommerce"),
                     __("Automatically add products","print-invoices-packing-slip-labels-for-woocommerce"),
                     __("Create QR code coupons","print-invoices-packing-slip-labels-for-woocommerce"),                    
-                ),
-            ),
-            'best_sellers_plugin' => array(
-                'file_path'     => 'wt-woocommerce-best-seller/wt-woocommerce-best-sellers.php',
-                'logo'          => $wf_admin_img_path_os.'/bestsellers_plugin.png',
-                'title'         => __('WebToffee WooCommerce Best Sellers', 'print-invoices-packing-slip-labels-for-woocommerce'),
-                'page_link'     => 'https://www.webtoffee.com/product/woocommerce-best-sellers/?utm_source=other_solution_page&utm_medium=free_plugin&utm_campaign=WooCommerce_Best_Sellers',
-                'features_list' => array(
-                    __("Create a best seller page for displaying best selling products","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Add best seller labels to WooCommerce products","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Rank products based on sales","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Supports simple and variable products","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Create a best seller slider on store pages","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Add a custom best seller seal","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Customize slider view for WooCommerce best sellers","print-invoices-packing-slip-labels-for-woocommerce"),
-                    __("Set product limit for best sellers","print-invoices-packing-slip-labels-for-woocommerce"),
                 ),
             ),
         ),

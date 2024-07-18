@@ -27,7 +27,7 @@ use TwoFA\Onprem\Mo2f_Api;
  * Contains Request Calls to Customer service.
  */
 
-require_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . 'class-mo2f-api.php';
+require_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'helper' . DIRECTORY_SEPARATOR . 'class-mo2f-api.php';
 
 if ( ! class_exists( 'Two_Factor_Setup' ) ) {
 	/**

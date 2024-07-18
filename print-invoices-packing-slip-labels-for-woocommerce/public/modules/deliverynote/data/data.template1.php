@@ -1,12 +1,13 @@
 <!-- DC ready -->
 <style type="text/css">
-body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
+body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;line-height: 1.5;}
 .clearfix::after{ display:block; clear:both; content:""; }
 
-.wfte_invoice-main{ color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; width:100%; height:auto; }
+.wfte_invoice-main{ color:#2A3646; font-size:12px; font-weight:400; box-sizing:border-box; width:100%; height:auto; }
 .wfte_invoice-main *{ box-sizing:border-box;}
-.template_footer{color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; padding:30px 0px; height:auto;}
+.template_footer{color:#2A3646; font-size:12px; font-weight:400; box-sizing:border-box; padding:30px 0px; height:auto;}
 .template_footer *{ box-sizing:border-box;}
+
 
 .wfte_row{ width:100%; display:block; }
 .wfte_sub_row{ width:100%; display:block; }
@@ -17,26 +18,43 @@ body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif
 .wfte_col-6{ width:30%; display:block;}
 .wfte_col-7{ width:69%; display:block;}
 
-.float_left{ float:left; }
-.float_right{ float:right; }
+.wfte_hr{ height:1px; font-size:0px; padding:0px; background:#cccccc; margin-bottom: 20px;}
 
 .wfte_company_logo_img_box{ margin-bottom:10px; }
 .wfte_company_logo_img{ width:150px; max-width:100%; }
-.wfte_doc_title{ color:#23a8f9; font-size:30px; font-weight:bold; height:auto; width:100%; line-height:22px;}
+.wfte_doc_title{ color:#263140; font-size:30px; font-weight:bold; height:auto; width:100%;line-height: 1;}
+.wfte_company_name{ font-size:18px; font-weight:bold; }
+.wfte_company_logo_extra_details{ font-size:12px; margin-top:3px;}
 .wfte_invoice_data div span:first-child, .wfte_extra_fields span:first-child{ font-weight:bold; }
-.wfte_invoice_data{ line-height:16px; font-size:12px; }
-
-.wfte_address-field-header{ font-weight:bold; font-size:12px; color:#000; padding:3px; padding-left:0px;}
-.wfte_addrss_field_main{ padding-top:15px;}
+.wfte_invoice_data{ font-size:12px; }
+.wfte_shipping_address{ width:95%;}
+.wfte_billing_address{ width:95%; }
+.wfte_address-field-header{ font-weight:bold; font-size:12px; color:#2A3646;}
 
 .wfte_product_table{ width:100%; border-collapse:collapse; margin:0px; }
-.wfte_product_table_head th{ height:36px; padding:0px 5px; font-size:.75rem; text-align:left; line-height:10px; border-bottom:solid 1px #D7DBDF; font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
-.wfte_product_table_head_product{width: 30%;}
-.wfte_product_table_body td, .wfte_payment_summary_table_body td{ font-size:12px; line-height:15px;}
-.wfte_product_table_body td{ padding:10px 5px; border-bottom:solid 1px #dddee0;}
-.wfte_product_table_body .product_td b{ font-weight:normal; }
-.product_td b{line-height: 15px;} 
+.wfte_table_head_color{ color:#2A3646; }
 
+.wfte_product_table_head th{ height:36px; padding:0px 5px; font-size:.75rem; text-align:left; border-bottom:solid 1px #D7DBDF; font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
+.wfte_product_table_body td, .wfte_payment_summary_table_body td{ font-size:12px;}
+.wfte_product_table_body td{ padding:10px 5px; border-bottom:solid 1px #dddee0;}
+.wfte_product_table .wfte_right_column{ width:20%;}
+.wfte_product_table_body .product_td b{ font-weight:normal; }
+.wfte_product_table_head_product{width: 30%;}
+
+/* .product_td b{line-height: 15px;}  */
+
+/* for mPdf */
+.wfte_invoice_data{ border:solid 0px #fff; }
+.wfte_invoice_data td, .wfte_extra_fields td{ font-size:12px; font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
+.wfte_invoice_data tr td:nth-child(1), .wfte_extra_fields tr td:nth-child(1){ font-weight:bold; }
+.wfte_return_policy{width:100%; height:auto; border-bottom:solid 1px #dfd5d5; margin-top:5px; }
+.wfte_footer{width:100%; height:auto; margin-top:5px;font-size: 12px;}
+
+.float_left{ float:left; }
+.float_right{ float:right; }
+
+/* .wfte_product_table_category_row td{ padding:10px 5px;} */
+table.wfte_product_table th, table.wfte_product_table td{ line-height: 1.6; padding:5px 5px;}
 </style>
 <div class="wfte_rtl_main wfte_invoice-main wfte_invoice_basic_main" style="padding-top:30px; padding-right:30px; padding-bottom:30px; padding-left:30px; margin-top: 0px; margin-bottom:0px; margin-left:0px; margin-right:0px;">
     <div class="wfte_row clearfix">

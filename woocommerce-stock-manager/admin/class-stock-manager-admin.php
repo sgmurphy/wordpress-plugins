@@ -3,7 +3,7 @@
  * Main class for Stock Manager.
  *
  * @package  woocommerce-stock-manager/admin/
- * @version  3.0.0
+ * @version  3.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,6 +21,20 @@ class Stock_Manager_Admin {
 	 * @var      object
 	 */
 	protected static $instance = null;
+
+	/**
+	 * Current page name.
+	 *
+	 * @var string
+	 */
+	public $page = '';
+
+	/**
+	 * Product ID.
+	 *
+	 * @var int
+	 */
+	public $product_id = 0;
 
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a settings page and menu.

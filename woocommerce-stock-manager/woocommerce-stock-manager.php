@@ -3,21 +3,22 @@
  * Plugin Name: Stock Manager for WooCommerce
  * Plugin URI: https://www.storeapps.org/woocommerce-plugins/
  * Description: Manage product's stock and price in your WooCommerce store. Export/Import inventory, track history, sort and more...
- * Version: 3.0.0
+ * Version: 3.1.0
  * Author: StoreApps
  * Author URI: https://www.storeapps.org/
  * Developer: StoreApps
  * Developer URI: https://www.storeapps.org/
  * Requires at least: 5.0.0
- * Tested up to: 6.2.2
+ * Tested up to: 6.6
  * Requires PHP: 5.6+
  * WC requires at least: 3.5.0
- * WC tested up to: 7.9.0
+ * WC tested up to: 9.1.2
+ * Requires Plugins: woocommerce
  * Text Domain: woocommerce-stock-manager
  * Domain Path: /languages/
  * License: GNU General Public License v2.0
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Copyright (c) 2020-2023 StoreApps. All rights reserved.
+ * Copyright (c) 2020-2024 StoreApps. All rights reserved.
  *
  * @package woocommerce-stock-manager
  */
@@ -130,7 +131,7 @@ function wsm_get_products_or_export() {
 	check_ajax_referer( 'sa-wsm-export', 'security' );
 
 	$passed_offset  = ( ! empty( $_POST['offset'] ) ) ? intval( wc_clean( wp_unslash( $_POST['offset'] ) ) ) : 0; // phpcs:ignore
-	$posts_per_page = 10; // TODO: would need to increase and handle logic to get all products in export.
+	$posts_per_page = -1;
 	$args           = array(
 		'post_type'      => 'product',
 		'posts_status'   => 'publish',

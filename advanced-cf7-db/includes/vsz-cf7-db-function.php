@@ -532,6 +532,7 @@ function vsz_field_type_info($fid){
 	$fid = intval($fid);
 	$obj_form = vsz_cf7_get_the_form_list($fid);
 	//get pre define fields information
+	// if(empty($obj_form)) return ;
 	$arr_form_tag = $obj_form[0]->scan_form_tags();
 	$arr_field_type = array();
 	if(!empty($arr_form_tag)){

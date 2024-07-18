@@ -4,7 +4,7 @@ Tags: WordPress Block Editor, Gutenberg Blocks Plugin, WooCommerce, Gutenberg Te
 Requires at least: 5.8
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 4.8.1
+Stable tag: 4.8.2
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -225,6 +225,10 @@ Yes, you can effortlessly display your WooCommerce products on your store websit
 If you found the recent version of Essential Blocks isn’t working or conflicting with other plugins, then you can use earlier versions of the plugin.
 
 == Changelog ==
+
+= 4.8.2 - 11/07/2024 =
+- Fixed: Resolved an error in the editor for WordPress 6.6
+- Minor bug fixes & improvements
 
 = 4.8.1 - 11/07/2024 =
 - Fixed: Slider || URL not working

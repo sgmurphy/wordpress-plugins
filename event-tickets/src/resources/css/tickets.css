@@ -924,7 +924,7 @@
 	}
 
 .event-tickets .tribe-tickets__tickets-item-extra-price, .entry .entry-content .event-tickets .tribe-tickets__tickets-item-extra-price {
-		align-items: end;
+		align-items: flex-end;
 		display: flex;
 		flex-direction: row;
 		grid-gap: var(--tec-spacer-1);

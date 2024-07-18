@@ -40,7 +40,6 @@ if ( ( ! get_user_meta( $user_id, 'mo_backup_code_generated', true ) || ( 5 === 
 }
 ?>
 <?php
-if ( isset( $_GET['page'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) ) !== 'mo_2fa_upgrade' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading GET parameter from the URL for checking the tab name, doesn't require nonce verification.
 			echo '<div style="display:flex; flex-direction:column; margin-left:-20px;">
 			<div class="wrap mo2f-header">';
 
@@ -50,8 +49,8 @@ if ( isset( $_GET['page'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) 
 				$date2           = gmdate( 'Y-m-d' );
 				$date_timestamp2 = strtotime( $date2 );
 
-	if ( $date_timestamp2 <= $date_timestamp1 && ( $user_id === $onprem_admin ) && ! get_site_option( 'mo2f_banner_never_show_again' ) ) {
-		echo '<div class="mo2f_offer_main_div">
+if ( $date_timestamp2 <= $date_timestamp1 && ( $user_id === $onprem_admin ) && ! get_site_option( 'mo2f_banner_never_show_again' ) ) {
+	echo '<div class="mo2f_offer_main_div">
 
 					
 
@@ -69,26 +68,15 @@ if ( isset( $_GET['page'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) 
 					<div id="mo2f_offer_last_section" class="mo2f_offer_last_section"><button class="mo2f_banner_never_show_again mo2f_close">CLOSE <span class=" mo2f_cross">X</span></button><a class="mo2f_offer_contact_us" href="' . esc_url( $request_offer_url ) . '">Contact Us</a></p></div>
 
 					</div><br><br>';
-	}
-				echo ' <div class="mo2f-admin-options"> <div> <img width="50" height="50" src="' . esc_url( $logo_url ) . '"></div>';
+}
+				echo ' <div class="mo2f-admin-options"> <div class="mx-mo-3"> <img width="30" height="30" src="' . esc_url( $logo_url ) . '"></div>';
 
-	if ( ! current_user_can( 'administrator' ) ) {
-		echo ' <div><h3 style="padding:0">miniOrange 2 Factor Authentication</h3></div>';
-	}
-
-	if ( current_user_can( 'administrator' ) ) {
-		echo '
-						<a class="add-new-h2"  href="' . esc_url( $help_url ) . '">FAQs</a>
-						<a class="add-new-h2"  href="' . esc_url( $addons_url ) . '">AddOns Plans</a>
-						<a class="add-new-h2" 
-							style="background-color:#ffcc44"
-							id ="mo_2fa_upgrade_tour" href="' . esc_url( $upgrade_url ) . '">See Plans and Pricing</a>';
-	}
+	echo '<span class="mo2f-plugin-name">Two-Factor Authentication</span>';
 	echo '</div>';
-	if ( current_user_can( 'administrator' ) && get_site_option( 'mo_wpns_2fa_with_network_security' ) || get_site_option( 'mo2f_is_old_customer' ) ) {
-				update_site_option( 'mo2f_is_old_customer', 1 );
+if ( current_user_can( 'administrator' ) && get_site_option( 'mo_wpns_2fa_with_network_security' ) || get_site_option( 'mo2f_is_old_customer' ) ) {
+			update_site_option( 'mo2f_is_old_customer', 1 );
 
-				echo '	<form id="mo_wpns_2fa_with_network_security" method="post" action="">
+			echo '	<form id="mo_wpns_2fa_with_network_security" method="post" action="">
 								<div class="mo2f-security-toggle"> 
 
 								
@@ -107,35 +95,9 @@ if ( isset( $_GET['page'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) 
 									
 									</div>
 									</form>';
-	}
+}
 
 
 					echo '</div></div>';
 					echo '<div id = "wpns_nav_message"></div>';
 
-	if ( current_user_can( 'administrator' ) && $is_miniorange_auth_confgured ) {
-		echo wp_kses_post( MoWpnsMessages::show_message( 'MO_AUTHENTICATOR_NOTICE' ) );
-	}
-
-	?>
-
-
-		<?php
-		if ( MoWpnsUtility::get_mo2f_db_option( 'mo_wpns_2fa_with_network_security', 'get_option' ) && current_user_can( 'administrator' ) ) {
-			?>
-			<?php
-			if ( sanitize_text_field( wp_unslash( $_GET['page'] ) ) !== 'mo_2fa_troubleshooting' && sanitize_text_field( wp_unslash( $_GET['page'] ) ) !== 'mo_2fa_addons' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading GET parameter from the URL for checking the tab name, doesn't require nonce verification.
-				?>
-				<div class="nav-tab-wrapper">
-					<?php
-
-								echo '<a id="mo_2fa_2fa" class="nav-tab" href="' . esc_url( $two_fa ) . '" >Two Factor</a>';
-
-								echo '<a id="adv_block_tab" class="nav-tab"  href="' . esc_url( $advance_block ) . '">IP Blocking</a>';
-					?>
-				</div>
-				<?php
-			}
-		}
-}
-?>

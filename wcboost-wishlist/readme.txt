@@ -1,7 +1,7 @@
 === WCBoost - Wishlist ===
 Contributors: wcboost
 Tags: woocommerce wishlist, wishlist, products, e-commerce, woocommerce
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.1.0
 Requires PHP: 7.0
 Requires at least: 4.5

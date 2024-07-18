@@ -130,7 +130,7 @@ class ProductsManager
         return $data;
     }
 
-    public function product_viewed($product_id)
+    public function product_viewed($product_id = null)
     {
         $settings = $this->api_manager->get_settings();
 

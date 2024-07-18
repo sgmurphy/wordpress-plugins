@@ -27,7 +27,7 @@ if ( ! class_exists( 'TwoFACustomRegFormShortcode' ) ) {
 		 * Constructor function
 		 */
 		public function __construct() {
-			if ( 'true' === get_option( 'enable_form_shortcode' ) ) {
+			if ( 'true' === get_site_option( 'enable_form_shortcode' ) ) {
 				add_action( 'woocommerce_created_customer', array( $this, 'wc_post_registration' ), 1, 3 );
 			}
 		}

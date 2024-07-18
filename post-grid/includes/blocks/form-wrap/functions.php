@@ -322,8 +322,6 @@ function form_wrap_process_termSubmitForm($formFields, $onprocessargs, $request)
         $new_term_id = isset($new_term['term_id']) ? $new_term['term_id'] : '';
         $thumbnail_id = isset($request->get_file_params()['thumbnail_id']) ? $request->get_file_params()['thumbnail_id'] : "";
 
-        error_log(serialize($new_term));
-        error_log($new_term_id);
 
 
         if ($thumbnail_id) {
@@ -2491,7 +2489,6 @@ function form_wrap_process_passwordResetFrom($formFields, $onprocessargs, $reque
 
   $username = isset($formFields['username']) ? sanitize_text_field($formFields['username']) : '';
 
-  error_log($username);
 
 
   $email_data = [];
@@ -2625,7 +2622,6 @@ function form_wrap_process_passwordUpdateFrom($formFields, $onprocessargs, $requ
 
   $username = isset($formFields['username']) ? sanitize_text_field($formFields['username']) : '';
 
-  error_log($username);
 
 
   $email_data = [];
@@ -3242,6 +3238,121 @@ function form_wrap_process_appointmentForm($formFields, $onprocessargs, $request
   return $response;
 }
 
+
+add_filter('form_wrap_process_postsFilter', 'form_wrap_process_postsFilter', 99, 3);
+
+function form_wrap_process_postsFilter($formFields, $onprocessargs, $request)
+{
+
+
+  $response = [];
+  $entryData = [];
+
+  //$post_title = isset($formFields['post_title']) ? sanitize_text_field($formFields['post_title']) : '';
+
+
+  if (!empty($response['errors'])) {
+    return $response;
+  }
+
+
+
+
+
+  // Collect entry data
+  $entryData['id'] = 'postSubmit';
+  $entryData['formFields'] = $formFields;
+
+
+
+  if (!empty($onprocessargs))
+    foreach ($onprocessargs as $arg) {
+
+      $id = $arg->id;
+
+
+      if ($id == 'queryPosts') {
+      }
+
+      if ($id == 'doAction') {
+
+        $actionName = isset($arg->actionName) ? $arg->actionName : '';
+        do_action($actionName, $request);
+      }
+
+
+      if ($id == 'webhookRequest') {
+
+        $url = isset($arg->url) ? $arg->url : '';
+        $requestHeader = isset($arg->requestHeader) ? $arg->requestHeader : true;
+        $method = isset($arg->method) ? $arg->method : 'POST';
+        $format = isset($arg->format) ? $arg->format : '';
+        $fields = isset($arg->fields) ? $arg->fields : [];
+
+        $requestPrams =  $request->get_params();
+
+        unset($requestPrams['onprocessargs']);
+        unset($requestPrams['formFieldNames']);
+
+
+        // Encode the data as JSON
+        $payload = json_encode($requestPrams);
+
+        // Prepare headers
+        $headers = [
+          'Content-Type: application/json',
+          'Content-Length: ' . strlen($payload)
+        ];
+
+        // Initialize curl session
+        $ch = curl_init($url);
+
+        // Set curl options
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        // Execute curl session
+        $response = curl_exec($ch);
+
+        // Check for errors
+        if (curl_errno($ch)) {
+          echo 'Webhook delivery failed: ' . curl_error($ch);
+        } else {
+          echo 'Webhook sent successfully. Response: ' . $response;
+        }
+
+        // Close curl session
+        curl_close($ch);
+      }
+
+
+
+
+
+      if ($id == 'createEntry') {
+        $status = form_wrap_process_create_entry($entryData);
+
+
+        if ($status) {
+          $response['success']['createEntry'] = __('Create entry success', 'post-grid');
+        } else {
+          $response['errors']['createEntry'] = __('Create entry failed', 'post-grid');
+        }
+      }
+    }
+
+
+
+
+
+
+
+
+
+  return $response;
+}
 
 
 

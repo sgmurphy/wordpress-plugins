@@ -6,7 +6,7 @@
  * Version:                  3.6.0
  * Author:                   WPChill
  * Author URI:               https://wpchill.com
- * Tested up to:             6.5
+ * Tested up to:             6.6
  * Requires:                 5.2 or higher
  * License:                  GPLv3 or later
  * License URI:              http://www.gnu.org/licenses/gpl-3.0.html

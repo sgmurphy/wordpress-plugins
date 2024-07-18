@@ -1,9 +1,9 @@
 === Advanced Contact form 7 DB ===
 Contributors: vsourz1td
-Tags: contact form 7 db, contact form db, advanced cf7 db, contact form 7 database, contact form db, contact form 7, save form data, save contact form, save cf7, database, cf7db, save-contact-form, Save-Forms-Data, import-cf7, export-contact-data, view-cf7-entry
+Tags: contact form 7 db, contact form db, advanced cf7 db, contact form 7, database
 Requires at least: 4.0
 Tested up to: 6.5.5
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -82,25 +82,6 @@ Download Advanced CF7 DB – User Access Manager plugin from <a target="_blank" 
 = Advanced CF7 DB - User Access Manager Plugin Features =
 * Provide access of CF7 DB to view & update data to individual users or user groups
 * Provide access to single user for creating single/multiple forms
-
-
-**mountstride CRM**
-Do you want to effectively manage your end to end customer engagement and want to automate your business workflow?
-
-Looking for CRM that Collaborates, Saves Time & Makes Work Easier for You.
-
-Try mountstride!
-
-mountstride is a simple, efficient & easy to use solution for managing, prioritising and organising your leads.
-
-We empower Salespeople by focusing on providing Simple tools to effectively capture, nurture and convert their leads. With less time spent on trying to stay organised your Sales Teams can focus on winning more deals.
-
-Free for up to 5 users, no fixed contracts, no credit card required.
-
-Start collaborating as a team, as you always wanted to. - <a target="_blank" href="https://www.mountstride.com/contact/">Contact Us</a>.
-
-Download Integration of Contact form 7 to mountstride CRM plugin from <a target="_blank" href="https://wordpress.org/plugins/cf7-mountstride-crm-integration/">here</a>
-
 
 == Plugin Customization ==
 Restrict IP address storage – Various countries restrict websites to store end users IP address. We have a provision to Restrict IP address storage. Now, IP address can be neglected while storing form’s data into database.
@@ -192,6 +173,9 @@ return $contact_form_ids;
 
 
 == Changelog ==
+
+= 2.0.5 =
+* Minor bug fixing
 
 = 2.0.4 =
 * We have upgraded with Security patches

@@ -6012,10 +6012,14 @@ var getModuleConfig = function getModuleConfig(id) {
   var _getConfig3 = (0,api__WEBPACK_IMPORTED_MODULE_1__.getConfig)(),
       contentItems = _getConfig3.contentItems;
 
-  var node = (0,data__WEBPACK_IMPORTED_MODULE_2__.getNode)(id);
-  return contentItems.module.filter(function (config) {
+  var node = (0,data__WEBPACK_IMPORTED_MODULE_2__.getNode)(id); // A check in case of undefined or missing module definitions from other plugins or add-ons
+
+  var hasDefinition = moduleHasDefinition(node.settings.type);
+  return hasDefinition ? contentItems.module.filter(function (config) {
     return !config.alias && node.settings.type === config.slug;
-  }).pop();
+  }).pop() : {
+    accepts: false
+  };
 };
 var moduleHasDefinition = function moduleHasDefinition(key) {
   var keys = getModuleTypeKeys();

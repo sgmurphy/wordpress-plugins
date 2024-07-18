@@ -167,6 +167,13 @@ First check the questions mentioned in the FAQ tab inside the plugin settings pa
 
 == Changelog ==
 
+#####   Version 4.7.13 (2024-07-18)
+
+- Fixed Zone ID selection for creating Cache Rule where the correct domain was not picked
+
+
+
+
 #####   Version 4.7.12 (2024-07-15)
 
 - Fixed fatal error when calling get_objects() method

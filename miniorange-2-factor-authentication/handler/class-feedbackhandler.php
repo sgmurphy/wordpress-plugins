@@ -177,6 +177,7 @@ if ( ! class_exists( 'FeedbackHandler' ) ) {
 						exit;
 					}
 				} else {
+					$show_message = new MoWpnsMessages();
 					$show_message->mo2f_show_message( MoWpnsMessages::lang_translate( MoWpnsMessages::FILE_NOT_EXISTS ), 'ERROR' );
 				}
 			}

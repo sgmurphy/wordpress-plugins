@@ -3,7 +3,7 @@ Contributors: thimpress, tunnhn, kendy73
 Donate link:
 Tags: lms, elearning, e-learning, learning management system, education, course, courses, quiz, quizzes, questions, training, guru, sell courses
 Requires at least: 6.3
-Tested up to: 6.4.3
+Tested up to: 6.6
 Requires PHP: 7.4
 Stable tag: 4.0.7
 License: GPLv2 or later

@@ -419,6 +419,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Anton SC": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Antonio": {
     "variants": ["100", "200", "300", "regular", "500", "600", "700"],
     "fallback": "sans-serif"
@@ -510,6 +515,11 @@
   }
 }, {
   "Arsenal": {
+    "variants": ["regular", "italic", "700", "700italic"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Arsenal SC": {
     "variants": ["regular", "italic", "700", "700italic"],
     "fallback": "sans-serif"
   }
@@ -809,6 +819,11 @@
     "fallback": "serif"
   }
 }, {
+  "Baskervville SC": {
+    "variants": ["regular"],
+    "fallback": "serif"
+  }
+}, {
   "Battambang": {
     "variants": ["100", "300", "regular", "700", "900"],
     "fallback": "sans-serif"
@@ -836,6 +851,11 @@
 }, {
   "Bebas Neue": {
     "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Beiruti": {
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "sans-serif"
   }
 }, {
@@ -1029,12 +1049,22 @@
     "fallback": "serif"
   }
 }, {
+  "Bodoni Moda SC": {
+    "variants": ["regular", "500", "600", "700", "800", "900", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
+    "fallback": "serif"
+  }
+}, {
   "Bokor": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {
   "Bona Nova": {
+    "variants": ["regular", "italic", "700"],
+    "fallback": "serif"
+  }
+}, {
+  "Bona Nova SC": {
     "variants": ["regular", "italic", "700"],
     "fallback": "serif"
   }
@@ -2329,6 +2359,11 @@
     "fallback": "cursive"
   }
 }, {
+  "Fustat": {
+    "variants": ["200", "300", "regular", "500", "600", "700", "800"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Fuzzy Bubbles": {
     "variants": ["regular", "700"],
     "fallback": "cursive"
@@ -2341,6 +2376,11 @@
 }, {
   "GFS Neohellenic": {
     "variants": ["regular", "italic", "700", "700italic"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Ga Maamli": {
+    "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {
@@ -8212,6 +8252,11 @@
   "Wire One": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Wittgenstein": {
+    "variants": ["regular", "500", "600", "700", "800", "900", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
+    "fallback": "serif"
   }
 }, {
   "Wix Madefor Display": {

@@ -215,7 +215,7 @@ SP_WPCF::createSection(
 				'type'    => 'notice',
 				'style'   => 'normal',
 				'class'   => 'watermark-pro-notice',
-				'content' => __( 'To unlock Essential Watermark Settings', 'wp-carousel-free' ) . ', <a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade To Pro', 'wp-carousel-free' ) . '!</b></a>',
+				'content' => __( 'To unlock Essential Watermark Settings', 'wp-carousel-free' ) . ', <a href="https://wpcarousel.io/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade To Pro', 'wp-carousel-free' ) . '!</b></a>',
 			),
 		),
 	)

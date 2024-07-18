@@ -377,9 +377,9 @@
 
 			//setup some values for the emails
 			if(!empty($morder))
-				$invoice = new MemberOrder($morder->id);
+				$order = new MemberOrder($morder->id);
 			else
-				$invoice = NULL;
+				$order = NULL;
 
 			inslog("CHANGEMEMBERSHIPLEVEL: ORDER: " . var_export($morder, true) . "\n---\n");
 
@@ -391,11 +391,11 @@
 
 			//send email to member
 			$pmproemail = new PMProEmail();
-			$pmproemail->sendCheckoutEmail($user, $invoice);
+			$pmproemail->sendCheckoutEmail($user, $order);
 
 			//send email to admin
 			$pmproemail = new PMProEmail();
-			$pmproemail->sendCheckoutAdminEmail($user, $invoice);
+			$pmproemail->sendCheckoutAdminEmail($user, $order);
 
 			return true;
 		}
@@ -467,7 +467,7 @@
 			$morder->saveOrder();
 			$morder->getMemberOrderByID( $morder->id );
 
-			//email the user their invoice
+			//email the user their order
 			$pmproemail = new PMProEmail();
 			$pmproemail->sendInvoiceEmail( get_userdata( $last_order->user_id ), $morder );
 
@@ -490,7 +490,7 @@
 		global $pmpro_error;
 		//hook to do other stuff when payments stop		
 		do_action( 'pmpro_subscription_recurring_stopped', $morder );
-	do_action( 'pmpro_subscription_recuring_stopped', $morder );    // Keeping the mispelled version in case. Will deprecate.
+		do_action( 'pmpro_subscription_recuring_stopped', $morder );    // Keeping the misspelled version in case. Will deprecate.
 	
 		$worked = pmpro_cancelMembershipLevel( $morder->membership_level->id, $morder->user->ID, 'inactive' );
 		if( $worked === true ) {

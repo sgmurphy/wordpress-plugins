@@ -25,6 +25,7 @@ class TVC_Admin_Helper
   protected $store_data;
   protected $api_subscription_data;
   protected $onboarding_page_url;
+  protected $plan_id;
   public function __construct()
   {
     $this->includes();

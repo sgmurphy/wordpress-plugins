@@ -16,7 +16,8 @@ $value = get_option( 'mo_wpns_registration_status' );
 if ( isset( $value ) || ! empty( $value ) ) {
 	delete_option( 'mo2f_email' );
 }
-update_option( 'mo2f_activate_plugin', 1 );
+delete_option( 'mo2f_activate_plugin' );
+delete_option( 'mo2f_multi_factor_authentication' );
 delete_option( 'mo_wpns_transactionId' );
 delete_option( 'mo_wpns_registration_status' );
 delete_option( 'mo_wpns_customer_token' );
@@ -124,7 +125,7 @@ delete_site_option( 'mo_2fa_pnp' );
 
 if ( ! is_multisite() ) {
 	delete_option( 'user_phone' );
-	delete_option( 'mo_2factor_admin_registration_status' );
+	delete_site_option( 'mo_2factor_admin_registration_status' );
 	delete_option( 'mo_2f_login_type_enabled' );
 	delete_option( 'mo2_admin_last_name' );
 	delete_option( 'kba_questions' );

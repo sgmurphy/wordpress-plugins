@@ -16,7 +16,7 @@
  * Plugin Name:       Conversios.io - All-in-one Google Analytics, Pixels and Product Feed Manager for WooCommerce
  * Plugin URI:        https://www.conversios.io/
  * Description:       Track ecommerce events and conversions for GA4 and for the ad channels like Google Ads, Facebook, Tiktok, Snapchat and more. Automate end to end server side tracking. Create quality feeds for google shopping, tiktok, facebook and more. Leverage data driven decision making by enhanced ecommerce reporting and AI powered insights to increase sales.
- * Version:           7.1.1
+ * Version:           7.1.2
  * Author:            Conversios
  * Author URI:        conversios.io
  * License:           GPLv3
@@ -79,6 +79,9 @@ function deactivate_enhanced_ecommerce_google_analytics()
     require_once plugin_dir_path(__FILE__) . 'includes/class-enhanced-ecommerce-google-analytics-deactivator.php';
     Enhanced_Ecommerce_Google_Analytics_Deactivator::deactivate();
     wp_clear_scheduled_hook('tvc_add_cron_interval_for_product_sync');
+    as_unschedule_all_actions('ee_auto_product_sync_check');
+    as_unschedule_all_actions('auto_feed_wise_product_sync_process_scheduler_ee');
+    as_unschedule_all_actions('init_feed_wise_product_sync_process_scheduler_ee');
 }
 register_activation_hook(__FILE__, 'activate_enhanced_ecommerce_google_analytics');
 register_deactivation_hook(__FILE__, 'deactivate_enhanced_ecommerce_google_analytics');
@@ -89,7 +92,7 @@ if (is_EeAioPro_active()) {
 }
 
 
-define('PLUGIN_TVC_VERSION', '7.1.1');
+define('PLUGIN_TVC_VERSION', '7.1.2');
 $fullName = plugin_basename(__FILE__);
 $dir = str_replace('/enhanced-ecommerce-google-analytics.php', '', $fullName);
 

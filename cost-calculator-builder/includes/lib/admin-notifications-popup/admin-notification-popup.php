@@ -19,7 +19,7 @@ if ( $position !== false ) {
 	$parts = explode( '/', $plugin_path );
 	$product_name['plugin_name'] = $parts[0];
 } else {
-	$product_name['plugin_name'] = wp_get_theme()->get( 'TextDomain' );
+	$product_name['plugin_name'] = wp_get_theme( get_template() )->get( 'TextDomain' );
 }
 
 if ( ! class_exists( 'NotificationInit' ) ) {

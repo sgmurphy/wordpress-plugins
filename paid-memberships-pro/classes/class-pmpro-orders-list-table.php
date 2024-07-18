@@ -1007,7 +1007,7 @@ class PMPro_Orders_List_Table extends WP_List_Table {
 				'email'   => sprintf(
 					'<a title="%1$s" href="%2$s" data-order="%3$s" class="thickbox email_link">%4$s</a>',
 					esc_attr__( 'Email', 'paid-memberships-pro' ),
-					'#TB_inline?width=600&height=200&inlineId=email_invoice',
+					'#TB_inline?width=600&height=200&inlineId=email_order',
 					esc_attr( $item->id ),
 					esc_html__( 'Email', 'paid-memberships-pro' )
 				),
@@ -1080,7 +1080,7 @@ class PMPro_Orders_List_Table extends WP_List_Table {
 		if ( ! empty( $level ) ) {
 			echo esc_html( $level->name );
 		} elseif ( $item->membership_id > 0 ) {
-			echo '['. esc_html( 'deleted', 'paid-memberships-pro' ).']';
+			echo '['. esc_html__( 'deleted', 'paid-memberships-pro' ).']';
 		} else {
 			esc_html_e( '&#8212;', 'paid-memberships-pro' );
 		}
@@ -1096,7 +1096,7 @@ class PMPro_Orders_List_Table extends WP_List_Table {
 	 */
 	public function column_total( $item ) {
 
-		echo pmpro_escape_price( pmpro_formatPrice( $item->total ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo pmpro_escape_price( $item->get_formatted_total() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// If there is a discount code, show it.
 		if ( $item->getDiscountCode() ) {

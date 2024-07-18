@@ -82,7 +82,7 @@ if (!class_exists('Conversios_Footer')) {
 
 			<!-- GA360 form modal -->
 			<!-- Modal -->
-			<div class="modal fade" id="convga360modal" tabindex="-1" aria-labelledby="convga360modalLabel" aria-hidden="true">
+			<!-- <div class="modal fade" id="convga360modal" tabindex="-1" aria-labelledby="convga360modalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-body p-0">
@@ -161,7 +161,7 @@ if (!class_exists('Conversios_Footer')) {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!-- ga360 modal end -->
 
 			<!-- new feature notes modal start -->

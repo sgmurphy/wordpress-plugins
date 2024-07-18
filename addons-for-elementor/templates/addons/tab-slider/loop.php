@@ -30,8 +30,8 @@ $slider_settings = [
 
 ?>
 
-<div<?php echo $dir . $rtl_style; ?> class="lae-tab-slider lae-<?php echo esc_attr($widget_template); ?>"
-                                     data-settings='<?php echo wp_json_encode($slider_settings); ?>'>
+<div<?php echo esc_attr($dir . $rtl_style); ?> class="lae-tab-slider lae-<?php echo esc_attr($widget_template); ?>"
+                                     data-settings='<?php echo esc_attr(wp_json_encode($slider_settings)); ?>'>
 
     <?php foreach ($settings['tabs'] as $tab) : ?>
 

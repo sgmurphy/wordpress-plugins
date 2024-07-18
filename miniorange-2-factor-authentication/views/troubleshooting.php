@@ -16,9 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	        <div class="mo_wpns_setting_layout">
         <h3>
         	Frequenty Asked Questions
-        	<div style="float: right;">
-                <a class="button button-primary button-large" href="' . esc_url( $two_fa ) . '">Back</a> 
-            </div>
         </h3><br><hr>
 			<table class="mo_wpns_help">
 						<tbody><tr>
@@ -176,4 +173,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</tbody></table>
 					<h4>If you have any other queries, Contact us at <a href="mailto:mfasupport@xecurify.com" target="blank">mfasupport@xecurify.com</a></h4>
 		    </div>
-		</div>';
+		</div>
+		<script>
+		jQuery("#mo_2fa_troubleshooting").addClass("side-nav-active");
+		</script>';

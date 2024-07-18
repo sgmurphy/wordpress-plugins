@@ -71,7 +71,14 @@ class Con_Settings
     protected $hotjar_pixel_id;
     protected $crazyegg_pixel_id;
     protected $msclarity_pixel_id;
-
+    protected $ga_excT;
+    protected $exception_tracking;
+    protected $ga_elaT;
+    protected $google_ads_conversion_tracking;
+    protected $tiktok_business_id;
+    protected $snapchat_access_token;
+    protected $gads_conversions;
+    protected $conv_disabled_users;
     protected $google_ads_currency;
 
     public function __construct()

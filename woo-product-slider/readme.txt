@@ -2,7 +2,7 @@
 Contributors: shapedplugin, rubel_miah, shamimmiashuhagh, khalilu
 Tags: woocommerce product slider, woocommerce product grid, woocommerce product carousel, product table, product gallery
 Requires at least: 5.0
-Tested up to: 6.5.5
+Tested up to: 6.6
 Requires PHP: 5.6
 WC requires at least: 4.5
 WC tested up to: 9.0.2

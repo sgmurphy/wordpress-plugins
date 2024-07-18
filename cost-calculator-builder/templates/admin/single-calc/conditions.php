@@ -36,7 +36,7 @@ $modal_types = array(
 				</div>
 				<div class="ccb-condition-elements ccb-custom-scrollbar">
 					<div class="ccb-sidebar-header">
-						<span class="ccb-default-title large ccb-bold" v-if="getElements.length"><?php esc_html_e( 'Add elements', 'cost-calculator-builder' ); ?></span>
+						<span class="ccb-default-title large ccb-bold" v-if="getElements?.length"><?php esc_html_e( 'Add elements', 'cost-calculator-builder' ); ?></span>
 						<span class="ccb-condition-elements-empty" v-else>
 							<span class="ccb-default-title large ccb-bold" style="color: #878787"><?php esc_html_e( 'As per current', 'cost-calculator-builder' ); ?></span>
 							<span class="ccb-default-title large ccb-bold" style="color: #878787"><?php esc_html_e( 'Nothing will be changed', 'cost-calculator-builder' ); ?></span>
@@ -49,7 +49,7 @@ $modal_types = array(
 									<i :class="field.icon"></i>
 								</span>
 								<span class="ccb-conditions-item-box">
-									<span class="ccb-default-title ccb-bold" v-if="field.label && field.label.length">{{ field.label | to-short }}</span>
+									<span class="ccb-default-title ccb-bold" v-if="field.label && field.label?.length">{{ field.label | to-short }}</span>
 									<span class="ccb-default-description">{{ field.alias | to-format }}</span>
 								</span>
 								<span class="ccb-icon-Path-3493 ccb-conditions-item-add" @click.prevent="newNode(field)"></span>

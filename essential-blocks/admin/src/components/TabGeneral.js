@@ -277,7 +277,7 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.8.1", "essential-blocks")}
+                                    {__("Version: 4.8.2", "essential-blocks")}
                                     <span className="changelog-date">
                                         {__("16/07/2024", "essential-blocks")}
                                     </span>
@@ -285,19 +285,13 @@ export default function TabGeneral() {
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Slider || URL not working",
+                                            "Fixed: Resolved an error in the editor for WordPress 6.6",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Popup || Add 'VH' unit in height control",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Custom CSS editor not working in RTL",
+                                            "Minor bug fixes & improvements",
                                             "essential-blocks"
                                         )}
                                     </li>

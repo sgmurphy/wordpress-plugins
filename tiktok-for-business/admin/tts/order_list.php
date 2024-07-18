@@ -17,7 +17,7 @@ class OrderList {
 	public static function init() {
 		// check for woo install
 		self::modify_table();
-		self::add_tiktok_filter();
+		// self::add_tiktok_filter();
 		self::load_style_and_script();
 	}
 
@@ -197,7 +197,7 @@ class OrderList {
 					[
 						'page'     => $curr_page,
 						'paginate' => true,
-						'limit'    => 100,
+						'limit'    => 10,
 						'meta_key' => 'tiktok_order',
 						'type'     => 'shop_order',
 					]
@@ -207,7 +207,7 @@ class OrderList {
 					$new_orders = wc_get_orders(
 						[
 							'page'     => $curr_page,
-							'limit'    => 100,
+							'limit'    => 10,
 							'meta_key' => 'tiktok_order',
 							'type'     => 'shop_order',
 						]

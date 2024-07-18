@@ -64,19 +64,16 @@ if (class_exists('Conversios_Header') === FALSE) {
 					<div class="d-flex justify-content-between fixedcontainer_conversios_notice align-items-center">
 						<div class="promoleft">
 							<div class="promobandmsg text-white">
-								<?php esc_html_e("Unlock even deeper insights with ", "enhanced-e-commerce-for-woocommerce-store"); ?>
-								<b><?php esc_html_e("GA4 360", "enhanced-e-commerce-for-woocommerce-store"); ?></b>
-								<?php esc_html_e("alongside your trusted Conversios experience!", "enhanced-e-commerce-for-woocommerce-store"); ?>
-								<span><?php esc_html_e("Upgrade to GA4 360 Now.", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+								<?php esc_html_e("Limited Time: Save $116 on Premium!", "enhanced-e-commerce-for-woocommerce-store"); ?>
+								<span><?php esc_html_e("Upgrade Now and Get 65% Off", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
 							</div>
 						</div>
 						<div class="promoright">
 
 							<div class="prmoupgrdbtn">
-								<button data-bs-toggle="modal" data-bs-target="#convga360modal">
-									<?php esc_html_e("Know More", "enhanced-e-commerce-for-woocommerce-store"); ?>
-									&#8594;
-									</a>
+								<a class="btn button" target="_blank" href="https://bit.ly/46dN4gH">
+									<?php esc_html_e("Use coupon code", "enhanced-e-commerce-for-woocommerce-store"); ?>&nbsp;<b><?php esc_html_e("CONVSTARTER65", "enhanced-e-commerce-for-woocommerce-store"); ?></b>
+								</a>
 							</div>
 						</div>
 					</div>

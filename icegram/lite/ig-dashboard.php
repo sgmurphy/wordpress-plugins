@@ -164,7 +164,7 @@ $topics_indexes = array_rand( $topics, 3 );
 						<div class="block-description pt-4" style="width: calc(100% - 4rem)">
 							<a id="ig-<?php echo esc_attr( $tips ); ?>-cta" href="post-new.php?post_type=ig_campaign&use_case=<?php echo esc_html($data['goals']) ?>&message_type=<?php echo esc_html($data['message-type']) ?>" target="_blank" class="font-medium hover:underline tips-templates">
 
-								<?php echo esc_html( 'Add now', 'icegram' ); ?> &rarr;
+								<?php echo esc_html__( 'Add now', 'icegram' ); ?> &rarr;
 							</a>
 						</div>
 					</div>

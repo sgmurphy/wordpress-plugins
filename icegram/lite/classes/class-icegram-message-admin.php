@@ -1056,12 +1056,23 @@ if ( ! class_exists( 'Icegram_Message_Admin' ) ) {
 				if ( $post->post_type != 'ig_message' ) {
 					return $actions;
 				}
-				$actions['duplicate_message'] = '<a class="ig-duplicate-message"  href="post.php?message_id=' . $post->ID . '&action=duplicate-message" >' . __( 'Duplicate', 'icegram' ) . '</a>';
+				
+				$nonce = wp_create_nonce( 'ig_messages' );
+
+				$actions['duplicate_message'] = '<a class="ig-duplicate-message"  href="post.php?message_id=' . $post->ID . '&action=duplicate-message&_wpnonce='. $nonce .'" >' . __( 'Duplicate', 'icegram' ) . '</a>';
 
 				return $actions;
 			}
 
 			function duplicate_message() {
+				if ( !wp_verify_nonce( ig_get_request_data( '_wpnonce' ), 'ig_messages' ) ) {
+					return;
+				}
+
+				if ( !current_user_can( 'edit_post', ig_get_request_data( 'message_id' ) ) ) {
+					return;
+				}
+				
 				if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'duplicate-message' && ! empty( $_REQUEST['message_id'] ) ) {
 					Icegram::duplicate( sanitize_text_field( $_REQUEST['message_id'] ) );
 				}

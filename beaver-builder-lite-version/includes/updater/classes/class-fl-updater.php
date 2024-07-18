@@ -422,6 +422,10 @@ final class FLUpdater {
 		}
 		update_site_option( 'fl_themes_subscription_email', $license );
 		delete_transient( 'fl_get_subscription_info' );
+		if ( $license ) {
+			delete_site_transient( 'update_plugins' );
+			delete_site_transient( 'update_themes' );
+		}
 		return $response;
 	}
 

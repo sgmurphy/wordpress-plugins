@@ -5,8 +5,8 @@ Donate link: https://stylemixthemes.com
 Tags: cost calculator, calculator, calculator form builder, cost estimation, shipping calculator, taxi fare calculator, price calculator, tax calculation
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 6.5.5
-Stable tag: 3.2.17
+Tested up to: 6.5.6
+Stable tag: 3.2.18
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,17 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.18 =
+- Enhancement: Send a quote and invoice to customer's email - now does not display PDF and Send Quote (Pro).
+- Enhancement: Show calculations on Summary block - now does not display PDF and Send Quote (Pro).
+- Enhancement: Added new option, displays PDF and Send Quote depending on Show button setting only after making payment in PDF (Pro).
+- Enhancement: Added word hyphenation for title in ‘Show Summary with calculations after adding contact info’ setting(Pro).
+- Fix: Paired brackets in a condition become uncoloured if there is a space after IF (IF/Else, brackets).
+- Fix: The Color picker in the Container shadow setting in Appearance is trimmed.
+- Fix: Due to presence of Formula elements with the same start id (id_11 and id_1) Formula in common Formula is no longer displayed and incorrect calculations occur.
+- Fix: After deleting Default value in Quantity field Formula is no longer calculated.
+- Fix: The calculators page is not displayed in French.
 
 = 3.2.17 =
 - Enhancement: Added key features when clicking Upgrade in the calculator.

@@ -24,6 +24,7 @@ use TwoFA\Onprem\MO2f_Utility;
 use TwoFA\Onprem\Miniorange_Password_2Factor_Login;
 use TwoFA\Helper\MoWpnsConstants;
 use TwoFA\Onprem\Mo2f_Api;
+use TwoFA\Helper\TwoFAMoSessions;
 use WP_Error;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -77,24 +78,18 @@ if ( ! class_exists( 'Mo2f_Cloud_Validate' ) ) {
 			global $mo2fdb_queries, $mo2f_onprem_cloud_obj;
 			$pass2fa_login = new Miniorange_Password_2Factor_Login();
 			$user_email    = $mo2fdb_queries->get_user_detail( 'mo2f_user_email', $user_id );
-			$content       = $mo2f_onprem_cloud_obj->send_otp_token( $user_email, MoWpnsConstants::SECURITY_QUESTIONS, get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) );
+			$content       = $mo2f_onprem_cloud_obj->send_otp_token( null, $user_email, MoWpnsConstants::SECURITY_QUESTIONS );
 			$response      = json_decode( $content, true );
 			if ( JSON_ERROR_NONE === json_last_error() ) { /* Generate Qr code */
 				if ( 'SUCCESS' === $response['status'] ) {
 					MO2f_Utility::mo2f_set_transient( $session_id, 'mo2f_transactionId', $response['txId'] );
-					$questions    = array();
-					$questions[0] = $response['questions'][0];
-					$questions[1] = $response['questions'][1];
-					MO2f_Utility::mo2f_set_transient( $session_id, 'mo_2_factor_kba_questions', $questions );
-					$mo2f_kbaquestions   = $questions;
-					$mo2fa_login_message = 'Please answer the following questions:';
-					$mo2fa_login_status  = 'MO_2_FACTOR_CHALLENGE_KBA_AUTHENTICATION';
-					$pass2fa_login->miniorange_pass2login_form_fields( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, null, $session_id, $mo2f_kbaquestions );
+					$questions = array( $response['questions'][0]['question'], $response['questions'][1]['question'] );
+					TwoFAMoSessions::add_session_var( 'mo_2_factor_kba_questions', $questions );
+					return $questions;
 				} elseif ( 'ERROR' === $response['status'] ) {
 					$pass2fa_login->remove_current_activity( $session_id );
 					$error = new WP_Error();
 					$error->add( 'empty_username', __( '<strong>ERROR</strong>: An error occured while processing your request. Please Try again.' ) );
-
 					return $error;
 				}
 			} else {

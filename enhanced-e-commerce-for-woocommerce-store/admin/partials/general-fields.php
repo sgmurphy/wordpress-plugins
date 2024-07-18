@@ -3,7 +3,7 @@
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 $TVC_Admin_Helper = new TVC_Admin_Helper();
-$this->customApiObj = new CustomApi();
+//$this->customApiObj = new CustomApi();
 $class = "";
 $message_p = "";
 $validate_pixels = array();
@@ -19,7 +19,7 @@ if (isset($google_detail['setting'])) {
 
 $data = unserialize(get_option('ee_options'));
 $conv_selected_events = unserialize(get_option('conv_selected_events'));
-$this->current_customer_id = $TVC_Admin_Helper->get_currentCustomerId();
+//$this->current_customer_id = $TVC_Admin_Helper->get_currentCustomerId();
 $subscription_id = $TVC_Admin_Helper->get_subscriptionId();
 
 $TVC_Admin_Helper->add_spinner_html();

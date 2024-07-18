@@ -176,6 +176,18 @@ $print_separate_button_for_documents    = apply_filters('wt_pklist_individual_pr
                             'tooltip' => true,
                         ),
 
+                        'wt_pklist_show_currency_code' => array(
+                            'type' => 'wt_single_checkbox',
+                            'label' => __("Display currency code","print-invoices-packing-slip-labels-for-woocommerce"),
+                            'id' => 'wt_pklist_show_currency_code',
+                            'name' => 'wt_pklist_show_currency_code',
+                            'value' => "Yes",
+                            'checkbox_fields' => array('Yes'=> __("Enable to show currency code instead of currency symbol","print-invoices-packing-slip-labels-for-woocommerce")),
+                            'class' => "wt_pklist_show_currency_code",
+                            'col' => 3,
+                            'tooltip' => true,
+                        ),
+
                         'woocommerce_wf_packinglist_preview' => array(
                             'type' => 'wt_single_checkbox',
                             'label' => __("Preview before printing","print-invoices-packing-slip-labels-for-woocommerce"),
@@ -215,9 +227,47 @@ $print_separate_button_for_documents    = apply_filters('wt_pklist_individual_pr
                             'name'  =>  "active_pdf_library",
                             'radio_fields'  =>  $pdf_libs_form_arr,
                             'tooltip' => true,
+                            'form_toggler'=>array(
+                                'type'=>'parent',
+                                'target'=>'wt_pklist_additional_currency_font_support',
+                            ),
+                        );
+
+                        $settings_arr['advanced_option']['wt_pklist_additional_currency_font_support'] = array(
+                            'type'              => 'wt_single_checkbox',
+                            'label'             => sprintf('%1$s',
+                                __("Enable additional currency font support","print-invoices-packing-slip-labels-for-woocommerce"),
+                            ),
+                            'id'                => 'wt_pklist_additional_currency_font_support',
+                            'name'              => 'wt_pklist_additional_currency_font_support',
+                            'value'             => "Yes",
+                            'checkbox_fields'   => array('Yes'=> __("Enable to use additional font library to support the currency symbol in pdf","print-invoices-packing-slip-labels-for-woocommerce")),
+                            'class'             => "wt_pklist_additional_currency_font_support",
+                            'col'               => 3,
+                            'tooltip'           => true,
+                            'form_toggler'=>array(
+                                'type'  => 'child',
+                                'val'   => 'dompdf',
+                                'id'    => 'wt_pklist_additional_currency_font_support',
+                                'lvl'   => 2,
+                            ),
+                        );
+                    } else {
+                        $settings_arr['advanced_option']['wt_pklist_additional_currency_font_support'] = array(
+                            'type'              => 'wt_single_checkbox',
+                            'label'             => sprintf('%1$s',
+                                __("Enable additional currency font support","print-invoices-packing-slip-labels-for-woocommerce"),
+                            ),
+                            'id'                => 'wt_pklist_additional_currency_font_support',
+                            'name'              => 'wt_pklist_additional_currency_font_support',
+                            'value'             => "Yes",
+                            'checkbox_fields'   => array('Yes'=> __("Enable to use additional font library to support the currency symbol in pdf","print-invoices-packing-slip-labels-for-woocommerce")),
+                            'class'             => "wt_pklist_additional_currency_font_support",
+                            'col'               => 3,
+                            'tooltip'           => true,
                         );
                     }
-                                        
+
                     $settings_arr['print_options']  = array(
                         'wt_pklist_common_print_button_enable' => array(
                             'type'              => 'wt_single_checkbox',

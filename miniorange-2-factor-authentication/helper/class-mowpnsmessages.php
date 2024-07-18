@@ -15,6 +15,14 @@ if ( ! class_exists( 'MoWpnsMessages' ) ) {
 	 * This Class has all the notifications that are shown throughout the plugin.
 	 */
 	class MoWpnsMessages {
+
+		/**
+		 * Constructor.
+		 */
+		public function __construct() {
+			add_action( 'admin_notices', array( $this, 'mo2f_show_message_strip' ) );
+		}
+
 		const EMAIL_SAVED            = 'Email ID saved successfully.';
 		const IP_ALREADY_WHITELISTED = 'IP Address is already Whitelisted.';
 		const IP_IN_WHITELISTED      = 'IP Address is Whitelisted. Please remove it from the whitelisted list.';
@@ -25,29 +33,30 @@ if ( ! class_exists( 'MoWpnsMessages' ) ) {
 		const DEACTIVATE_PLUGIN = 'Plugin deactivated successfully';
 
 		// common messages.
-		const GET_BACKUP_CODES           = "<div class='mo2f-custom-notice notice notice-warning backupcodes-notice'><p><p class='notice-message'><b>Please download backup codes using the 'Get backup codes' button to avoid getting locked out. Backup codes will be emailed as well as downloaded.</b></p><button class='backup_codes_dismiss notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
-		const REG_SUCCESS                = 'Your account has been retrieved successfully.';
-		const ACCOUNT_EXISTS             = 'You already have an account with miniOrange. Please enter a valid password.';
-		const ACCOUNT_EXISTS_SETUPWIZARD = 'You already have an account with miniOrange. Please click on "Already have an account?" to continue.';
+		const GET_BACKUP_CODES       = "<div class='mo2f-custom-notice notice notice-warning backupcodes-notice'><p><p class='notice-message'><b>Please download backup codes using the 'Get backup codes' button to avoid getting locked out. Backup codes will be emailed as well as downloaded.</b></p><button class='backup_codes_dismiss notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
+		const REG_SUCCESS            = 'Your account has been retrieved successfully.';
+		const ACCOUNT_EXISTS         = 'You already have an account with miniOrange. Please enter a valid password.';
+		const ALREADY_ACCOUNT_EXISTS = 'You already have an account with miniOrange. Please click on "Already have an account?" to continue.';
 
-		const INVALID_OTP   = 'Invalid one time passcode. Please enter a valid passcode.';
-		const INVALID_PHONE = 'Please enter a valid phone number.';
-		const INVALID_INPUT = 'Please enter a valid value in the input fields.';
-		const INVALID_CREDS = 'Invalid username or password. Please try again.';
-		const ALL_ENABLED   = 'All Website security features are available.';
-		const ALL_DISABLED  = 'All Website security features are disabled.';
-		const LOGIN_ENABLE  = 'Login security and spam protection features are available. Configure it in the Login and Spam tab.';
-		const DELETE_FILE   = 'Someone has deleted the backup by going to directory please refreash the page';
-		const NOT_ADMIN     = 'You are not a admin. Only admin can download';
+		const INVALID_OTP           = 'Invalid one time passcode. Please enter a valid passcode.';
+		const INVALID_PHONE         = 'Please enter a valid phone number.';
+		const INVALID_INPUT         = 'Please enter a valid value in the input fields.';
+		const INVALID_CREDS         = 'Invalid username or password. Please try again.';
+		const ALL_ENABLED           = 'All Website security features are available.';
+		const IP_BLOCK_RANGE_ADDED  = 'Blocked IP range added successfully!';
+		const ALL_DISABLED          = 'All Website security features are disabled.';
+		const LOGIN_ENABLE          = 'Login security and spam protection features are available. Configure it in the Login and Spam tab.';
+		const DELETE_FILE           = 'Someone has deleted the backup by going to directory please refreash the page';
+		const NOT_ADMIN             = 'You are not a admin. Only admin can download';
+		const PHONE_NUMBER_MISMATCH = 'The current phone number is different from the phone number on which OTP is sent. Please enter the phone number and click on \'Verify\' button again.';
+		const CHAT_ID_MISMATCH      = 'The current Chat ID is different from the Chat ID on which OTP is sent. Please enter the Chat ID and click on \'Verify\' button again.';
 
-		const WHITELIST_SELF          = "<div class='mo2f-custom-notice notice notice-warning whitelistself-notice MOWrn'><p><p class='notice-message'>It looks like you have not whitelisted your IP. Whitelist your IP as you can get blocked from your site.</p><button class='whitelist_self notice-button'><i>WhiteList</i></button></p></div>";
-		const ADMIN_IP_WHITELISTED    = "<div class='mo2f-custom-notice notice notice-warning MOWrn'>
+		const WHITELIST_SELF       = "<div class='mo2f-custom-notice notice notice-warning whitelistself-notice MOWrn'><p><p class='notice-message'>It looks like you have not whitelisted your IP. Whitelist your IP as you can get blocked from your site.</p><button class='whitelist_self notice-button'><i>WhiteList</i></button></p></div>";
+		const ADMIN_IP_WHITELISTED = "<div class='mo2f-custom-notice notice notice-warning MOWrn'>
                                                        <p class='notice-message'>Your IP has been whitelisted. In the IP Blocking settings, you can remove your IP address from the whitelist if you want to do so.</p>
                                                    </div>";
-		const MO_AUTHENTICATOR_NOTICE = "<div class='mo2f-custom-notice notice notice-warning MOWrn mo_authenticator-notice'>
-                                                       <p class='notice-message' style='width:100%'>The miniOrange Authenticator method will be removed in the next release. Please configure any other authentication method if you have configured miniOrange Authenticator or ignore if you haven't.</p>
-                                                   </div>";
-		const LOW_SMS_TRANSACTIONS    = "<div class='mo2f-custom-notice notice notice-warning low_sms-notice MOWrn'><p><p class='notice-message'><img style='width:15px;' src='" . MO2F_PLUGIN_URL . '/includes/images/miniorange_icon.png' . "'>&nbsp;&nbsp;You have left very few SMS transaction. We advise you to recharge or change 2FA method before you have no SMS left.</p><a class='notice-button' href='" . MoWpnsConstants::RECHARGELINK . "' target='_blank' style='margin-right: 15px;'>RECHARGE</a><a class='notice-button' href='admin.php?page=mo_2fa_two_fa' id='setuptwofa_redirect' style='margin-right: 15px;'>SET UP ANOTHER 2FA</a><button class='sms_low_dismiss notice-button' style='margin-right: 15px;'><i>DISMISS</i></button><button class='sms_low_dismiss_always notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
+
+		const LOW_SMS_TRANSACTIONS = "<div class='mo2f-custom-notice notice notice-warning low_sms-notice MOWrn'><p><p class='notice-message'><img style='width:15px;' src='" . MO2F_PLUGIN_URL . '/includes/images/miniorange_icon.png' . "'>&nbsp;&nbsp;You have left very few SMS transaction. We advise you to recharge or change 2FA method before you have no SMS left.</p><a class='notice-button' href='" . MoWpnsConstants::RECHARGELINK . "' target='_blank' style='margin-right: 15px;'>RECHARGE</a><a class='notice-button' href='admin.php?page=mo_2fa_two_fa' id='setuptwofa_redirect' style='margin-right: 15px;'>SET UP ANOTHER 2FA</a><button class='sms_low_dismiss notice-button' style='margin-right: 15px;'><i>DISMISS</i></button><button class='sms_low_dismiss_always notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
 
 		const LOW_EMAIL_TRANSACTIONS = "<div class='mo2f-custom-notice notice notice-warning low_email-notice MOWrn'><p><p class='notice-message'><img style='width:15px;' src='" . MO2F_PLUGIN_URL . '/includes/images/miniorange_icon.png' . "'>&nbsp;&nbsp;You have left very few Email transaction. We advise you to recharge or change 2FA method before you have no Email left.</p><a class='notice-button' href='" . MoWpnsConstants::RECHARGELINK . "' target='_blank' style='margin-right: 15px;'>RECHARGE</a><a class='notice-button' href='admin.php?page=mo_2fa_two_fa' id='setuptwofa_redirect' style='margin-right: 15px;'>SET UP ANOTHER 2FA</a><button class='email_low_dismiss notice-button' style='margin-right: 15px;'><i>DISMISS</i></button><button class='email_low_dismiss_always notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
 
@@ -77,6 +86,10 @@ if ( ! class_exists( 'MoWpnsMessages' ) ) {
 		const PASS_MISMATCH                    = 'Password and Confirm Password do not match.';
 		const RESET_PASS                       = 'You password has been reset successfully and sent to your registered email. Please check your mailbox.';
 		const SUPPORT_FORM_VALUES              = 'Please submit your query along with email.';
+		const EXPECTED_GRACE_PERIOD_VALUE      = 'Please enter grace period value greater than 0';
+		const SETTINGS_SAVED_SUCCESSFULLY      = 'Settings saved successfully!';
+		const EMAIL_TEMPLATE_SAVED             = 'Email template saved successfully!';
+		const EMAIL_TEMPLATE_RESET             = 'Email template reset successfully!';
 		const SUPPORT_FORM_SENT                = 'Thanks for getting in touch! We shall get back to you shortly.';
 		const QUERY_SUBMITTED                  = 'Your query is already submitted.';
 		const SUPPORT_FORM_ERROR               = 'Your query could not be submitted. Please try again.';
@@ -101,13 +114,19 @@ if ( ! class_exists( 'MoWpnsMessages' ) ) {
 		const ERROR_DURING_PROCESS             = 'An error occured while processing your request. Please try again or contact site administrator.';
 		const ERROR_IN_SENDING_PN              = 'An error occured while sending push notification to your app. You can click on <b>Phone is Offline</b> button to enter soft token from app or <b>Forgot your phone</b> button to receive OTP to your registered email.';
 		const SCAN_QR_CODE                     = 'Please scan the QR code.';
-		const OTP_SENT                         = 'One Time Passcode has been sent for verification to ';
+		const GET_FREE_TRANSACTIONS            = 'You have reached your limit of free SMS transactions. In case you did not receive free transactions, please contact us at <a href="mailto:mfasupport@xecurify.com" target="blank">mfasupport@xecurify.com</a>.';
+		const NEW_OTP_SENT                     = 'A new one-time passcode has been sent to ';
+		const OTP_SENT                         = 'One-time passcode has been sent to ';
 		const ENTER_YOUR_EMAIL_PASSWORD        = 'Please enter your registered email and password.';
 		const INTERNET_CONNECTIVITY_ERROR      = 'Unable to generate backup codes. Please check your internet and try again.';
 		const USED_ALL_BACKUP_CODES            = 'You have used all of the backup codes.';
-		const BACKUP_CODE_INVALID_REQUEST      = 'Invalid request.';
-		const BACKUP_CODE_DOMAIN_LIMIT_REACH   = 'User Limit is reached for your domain.';
-		const BACKUP_CODE_LIMIT_REACH          = 'You have already downloaded the backup codes for this domain.';
+		const BACKUP_CODES_SENT_SUCCESS        = 'An email containing the backup codes has been sent. Please click on \'Use Backup Codes\' to login using the backup codes.';
+		const BACKUP_CODE_INVALID_REQUEST      = 'Invalid request. Please try again.';
+		const BACKUP_CODE_SENT_ERROR           = 'An error ocurred while sending the backup codes on the email. Please contact site administrator.';
+		const BACKUP_CODE_DOMAIN_LIMIT_REACH   = 'Backup code generation limit has reached for this domain.';
+		const BACKUP_CODE_LIMIT_REACH          = 'Backup code generation limit has reached for this user.';
+		const BACKUP_CODE_ALL_USED             = 'You have already used all the backup codes for this user and domain.';
+		const BACKUP_CODE_INTERNET_ISSUE       = 'An error ocurred while sending backup codes. Please try after some time.';
 		const ANSWER_SECURITY_QUESTIONS        = 'Please answer the following security questions.';
 		const ERROR_WHILE_SAVING_KBA           = 'Error occured while saving your kba details. Please try again.';
 		const SETTINGS_SAVED                   = 'Your settings are saved successfully.';
@@ -122,7 +141,9 @@ if ( ! class_exists( 'MoWpnsMessages' ) ) {
 		const PUSH_NOTIFICATION_SENT           = 'A Push notification has been sent to your miniOrange Authenticator App.';
 		const ERROR_IN_SENDING_OTP_ONPREM      = 'There was an error in sending one-time passcode. Please check your SMTP Setup and remaining transactions.';
 		const ERROR_IN_SENDING_OTP             = 'There was an error in sending one-time passcode. Your transaction limit might have exceeded.';
-		const ENTER_OTP                        = 'Please enter the 2FA code below.';
+		const ENTER_OTP                        = 'Please enter below the code inorder to ';
+		const VERIFY_YOURSELF                  = 'verify yourself.';
+		const SET_THE_2FA                      = 'set the 2FA.';
 		const ENTER_VALUE                      = 'Please enter a value to test your authentication.';
 		const REGISTER_WITH_MO                 = 'Invalid request. Please register with miniOrange before configuring your mobile.';
 		const AUTHENTICATION_FAILED            = 'Authentication failed. Please try again to test the configuration.';
@@ -130,7 +151,6 @@ if ( ! class_exists( 'MoWpnsMessages' ) ) {
 		const ACCOUNT_CREATED                  = 'Your account has been created successfully.';
 		const ACCEPT_LINK_TO_VERIFY_EMAIL      = 'Please click on accept link to verify your email.';
 		const VERIFICATION_EMAIL_SENT          = 'A verification email is sent to';
-		const SET_2FA_OTP                      = 'is set as your Two-Factor method.';
 		const SET_2FA                          = 'is set as your Two-Factor method.';
 		const TEST_AUTHY_2FA                   = 'to test Authy 2-Factor Authentication method.';
 		const ONLY_DIGITS_ALLOWED              = 'Only digits are allowed. Please enter again.';
@@ -149,6 +169,7 @@ if ( ! class_exists( 'MoWpnsMessages' ) ) {
 		const CLICK_HERE                       = 'Click Here';
 		const PHONE_NOT_CONFIGURED             = 'Your phone number is not configured. Please configure it before selecting OTP Over SMS as your 2-factor method.';
 		const CONFIGURE_2FA                    = 'to configure another 2 Factor authentication method.';
+		const ADD_MINIORANGE_ACCOUNT           = 'Please sign in using your miniOrange account in order to set the 2FA.';
 		const ACCOUNT_ALREADY_EXISTS           = 'You already have an account with miniOrange, please sign in.';
 		const INVALID_REQUEST                  = 'Invalid request. Please register with miniOrange and configure 2-Factor to save your login settings.';
 		const PASS_LENGTH_LIMIT                = 'Password length between 6 - 15 characters. Only following symbols (!@#.$%^&*-_) should be present.';
@@ -156,6 +177,7 @@ if ( ! class_exists( 'MoWpnsMessages' ) ) {
 		const SOMETHING_WENT_WRONG             = 'Something went wrong';
 		const ENTER_SENT_OTP                   = '. Please enter the OTP you received to Validate.';
 		const USER_LIMIT_EXCEEDED              = 'Your limit of 3 users has exceeded. Please upgrade to premium plans for more users.';
+		const USER_PROFILE_SETUP_SMTP          = 'Please setup SMTP on your site inorder set the 2FA for your users.';
 
 		/**
 		 * Return actual messages according to the key.
@@ -173,26 +195,42 @@ if ( ! class_exists( 'MoWpnsMessages' ) ) {
 		 *
 		 * @param string $content - message to be shown on dashboard.
 		 * @param string $type - type of message to be shown.
-		 * @param array  $allowed_protocols - List of tags and attributes that needs to ignore while escaping.
 		 * @return void
 		 */
-		public function mo2f_show_message( $content, $type, $allowed_protocols = array() ) {
-			$notification_type = array(
-				'CUSTOM_MESSAGE' => 'success',
-				'NOTICE'         => 'error',
-				'ERROR'          => 'error',
-				'SUCCESS'        => 'success',
-			);
-			echo '<div class="overlay_not_JQ_' . esc_attr( $notification_type[ $type ] ) . '" id = "pop_up_' . esc_attr( $notification_type[ $type ] ) . '" ><p class ="popup_text_not_JQ">' . wp_kses_post( $content ) . '</p></div>';
-			?>
-			<script type="text/javascript">
-				setTimeout(function() {
-					var element = document.getElementById( "pop_up_" + "<?php echo esc_js( $notification_type[ $type ] ); ?>" );
-					element.classList.toggle("overlay_not_JQ_" + "<?php echo esc_js( $notification_type[ $type ] ); ?>" );
-					element.innerHTML = "";
-				}, 7000);
-			</script>
-				<?php
+		public function mo2f_show_message( $content, $type ) {
+			set_site_transient( 'mo2f_show_notification' . wp_get_current_user()->ID, $type . '=' . $content, 30 );
+		}
+
+		/**
+		 * Shows success and error messages after saving the settings.
+		 *
+		 * @return void
+		 */
+		public function mo2f_show_message_strip() {
+			$user_id             = wp_get_current_user()->ID;
+			$is_settings_updated = get_site_transient( 'mo2f_show_notification' . $user_id );
+			if ( $is_settings_updated ) {
+				$data              = explode( '=', $is_settings_updated );
+				$content           = $data[1];
+				$type              = $data[0];
+				$notification_type = array(
+					'CUSTOM_MESSAGE' => 'success',
+					'NOTICE'         => 'error',
+					'ERROR'          => 'error',
+					'SUCCESS'        => 'success',
+				);
+				echo '<div class="overlay_not_JQ_' . esc_attr( $notification_type[ $type ] ) . '" id = "pop_up_' . esc_attr( $notification_type[ $type ] ) . '" > <p class ="popup_text_not_JQ"> ' . wp_kses_post( $content ) . '</p> </div>';
+				echo '<script type="text/javascript">
+        setTimeout(function() {
+            var element = document.getElementById("pop_up_' . esc_js( $notification_type[ $type ] ) . '");
+            if (element) {
+                element.classList.toggle("overlay_not_JQ_' . esc_js( $notification_type[ $type ] ) . '");
+                element.innerHTML = "";
+            }
+        }, 7000);
+    </script>';
+			}
+			delete_site_transient( 'mo2f_show_notification' . $user_id );
 		}
 
 		/**

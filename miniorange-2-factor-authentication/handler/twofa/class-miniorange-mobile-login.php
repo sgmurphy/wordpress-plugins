@@ -20,8 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Contains Request Calls to Customer service.
  */
 require dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'helper' . DIRECTORY_SEPARATOR . 'mo2f-common-login-onprem-cloud.php';
-require dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'helper' . DIRECTORY_SEPARATOR . 'mo2f-common-cloud-login.php';
-require dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR . 'twofa' . DIRECTORY_SEPARATOR . 'mo2fa-inline-registration.php';
 
 if ( ! class_exists( 'Miniorange_Mobile_Login' ) ) {
 	/**

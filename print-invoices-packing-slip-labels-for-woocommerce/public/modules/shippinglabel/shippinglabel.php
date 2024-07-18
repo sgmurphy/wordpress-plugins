@@ -155,13 +155,14 @@ class Wf_Woocommerce_Packing_List_Shippinglabel
 	{
 		if($base_id === $this->module_id)
 		{
-			$only_pro_html='<span style="color:red;"> ('.__('Pro version','print-invoices-packing-slip-labels-for-woocommerce').')</span>';
+			$only_pro_html='<span class="wt_customizer_pro_text" style="color:red;"> ('.__('Pro version','print-invoices-packing-slip-labels-for-woocommerce').')</span>';
 			//these fields are the classname in template Eg: `company_logo` will point to `wfte_company_logo`
 			$settings = array(
-				'company_logo'=>__('Company Logo','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+				'company_logo_pro_element'=>__('Company Logo','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
 				'from_address'=>__('From Address','print-invoices-packing-slip-labels-for-woocommerce'),
 				'shipping_address'=>__('To Address','print-invoices-packing-slip-labels-for-woocommerce'),				
-				'order_number'=>__('Order Number','print-invoices-packing-slip-labels-for-woocommerce'),				
+				'order_number'=>__('Order Number','print-invoices-packing-slip-labels-for-woocommerce'),	
+				'order_date'=>__('Order Date','print-invoices-packing-slip-labels-for-woocommerce'),				
 				'weight'=>__('Weight','print-invoices-packing-slip-labels-for-woocommerce'),	
 				'shipping_method'=>__('Shipping Method','print-invoices-packing-slip-labels-for-woocommerce'),	
 				'email'=>__('Email Field','print-invoices-packing-slip-labels-for-woocommerce'),
@@ -170,16 +171,16 @@ class Wf_Woocommerce_Packing_List_Shippinglabel
 				'ssn_number'=>__('SSN number','print-invoices-packing-slip-labels-for-woocommerce'),
 				'customer_note'=>__('Customer note','print-invoices-packing-slip-labels-for-woocommerce'),
 				'footer' => __('Footer','print-invoices-packing-slip-labels-for-woocommerce'),
-				'barcode_pro' => __('Barcode','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'tracking_number_pro' => __('Tracking Number','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'package_no_pro' => __('Package Number','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-                'box_name_pro' => __('Box name','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-                'total_no_of_items_pro' => __('No of Items','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-                'fragile_pro'=>__('Fragile','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-                'thiswayup_pro'=>__('This way up','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-                'keepdry_pro'=>__('Keep dry','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+				'barcode_pro_element' => __('Barcode','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+				'tracking_number_pro_element' => __('Tracking Number','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+				'package_no_pro_element' => __('Package Number','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+                'box_name_pro_element' => __('Box name','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+                'total_no_of_items_pro_element' => __('No of Items','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+                'fragile_pro_element'=>__('Fragile','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+                'thiswayup_pro_element'=>__('This way up','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+                'keepdry_pro_element'=>__('Keep dry','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
 			);
-			$settings['return_policy'] = __('Return Policy','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html;
+			$settings['return_policy_pro_element'] = __('Return Policy','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html;
 			return $settings;
 		}
 		return $settings;
@@ -475,6 +476,13 @@ class Wf_Woocommerce_Packing_List_Shippinglabel
 	        foreach ($orders as $order_id)
 	        {
 	        	$order = ( WC()->version < '2.7.0' ) ? new WC_Order($order_id) : new wf_order($order_id);
+
+				/**
+				 * @since 4.6.0 - Added filter to add before preparing the order package and rendering the html.
+				 */
+				$pdf_filters = apply_filters( 'wt_pklist_add_filters_before_rendering_pdf', array(), $this->module_base, $order );
+				Wt_Pklist_Common::wt_pklist_pdf_add_filters( $pdf_filters );
+
 				$order_packages=null;
 				$order_packages=$box_packing->wf_pklist_create_order_single_package($order);
 				$number_of_order_package=count($order_packages);
@@ -509,6 +517,11 @@ class Wf_Woocommerce_Packing_List_Shippinglabel
 				{
 					wp_die(__("Unable to print Packing slip. Please check the items in the order.",'print-invoices-packing-slip-labels-for-woocommerce'), "", array());
 				}
+
+				/**
+				 * @since 4.6.0 - Remove the filters which were added before preparing the order package and rendering the html.
+				 */
+				Wt_Pklist_Common::wt_pklist_pdf_remove_filters( $pdf_filters );
 			}
 			if("Yes" === $is_single_page_print)
 			{

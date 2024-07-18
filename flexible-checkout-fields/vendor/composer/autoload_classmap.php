@@ -366,6 +366,7 @@ return array(
     'WPDesk\\FCF\\Free\\Field\\Type\\Wc\\WcStateType' => $baseDir . '/src/Field/Type/Wc/WcStateType.php',
     'WPDesk\\FCF\\Free\\Field\\Types' => $baseDir . '/src/Field/Types.php',
     'WPDesk\\FCF\\Free\\Form\\Assets' => $baseDir . '/src/Form/Assets.php',
+    'WPDesk\\FCF\\Free\\Form\\FormModifier' => $baseDir . '/src/Form/FormModifier.php',
     'WPDesk\\FCF\\Free\\Integration\\Field' => $baseDir . '/src/Integration/Field.php',
     'WPDesk\\FCF\\Free\\Integration\\FieldInterface' => $baseDir . '/src/Integration/FieldInterface.php',
     'WPDesk\\FCF\\Free\\Integration\\Fields' => $baseDir . '/src/Integration/Fields.php',

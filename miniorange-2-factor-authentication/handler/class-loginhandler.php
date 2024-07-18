@@ -111,38 +111,6 @@ if ( ! class_exists( 'LoginHandler' ) ) {
 		}
 
 		/**
-		 * New IP detected alert email will be sent on user's email ID.
-		 *
-		 * @return void
-		 */
-		public function mo2f_ip_email_send() {
-			global $mo_wpns_utility, $mo2fdb_queries;
-			$user_ip  = $mo_wpns_utility->get_client_ip();
-			$user_ip  = sanitize_text_field( $user_ip );
-			$user     = wp_get_current_user();
-			$user_id  = $user->ID;
-			$meta_key = 'mo2f_user_IP';
-			add_user_meta( $user->ID, $meta_key, $user_ip );
-			$email = $mo2fdb_queries->get_user_detail( 'mo2f_user_email', $user->ID );
-			if ( empty( $email ) ) {
-				$email = $user->user_email;
-			}
-			if ( get_user_meta( $user->ID, $meta_key ) ) {
-				$check_ip = get_user_meta( $user->ID, $meta_key )[0];
-
-				if ( $check_ip !== $user_ip ) {
-					$subject = 'Alert: New IP Detected';
-					$message = mo_i_p_template();
-					$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-					if ( is_email( $email ) ) {
-						wp_mail( $email, $subject, $message, $headers );
-					}
-				}
-			}
-		}
-
-
-		/**
 		 * Adds transaction report to network transaction table and updates the users with password option in the options table.
 		 *
 		 * @param string $username Username of the user.
@@ -150,27 +118,24 @@ if ( ! class_exists( 'LoginHandler' ) ) {
 		 */
 		public function mo_wpns_login_success( $username ) {
 			global $mo_wpns_utility, $mo2fdb_queries;
-			if ( get_site_option( 'mo2f_mail_notify' ) === 'on' ) {
-				$this->mo2f_ip_email_send();
-				$mo_wpns_config = new MoWpnsHandler();
-				$user_ip        = $mo_wpns_utility->get_client_ip();
-				$mo_wpns_config->move_failed_transactions_to_past_failed( $user_ip );
-				$user              = get_user_by( 'login', $username );
-				$user_roles        = get_userdata( $user->ID )->roles;
-				$user_role_enabled = 0;
-				foreach ( $user_roles as $user_role ) {
-					if ( get_site_option( 'mo2fa_' . $user_role ) ) {
-						$user_role_enabled = 1;
-						break;
-					}
+			$mo_wpns_config = new MoWpnsHandler();
+			$user_ip        = $mo_wpns_utility->get_client_ip();
+			$mo_wpns_config->move_failed_transactions_to_past_failed( $user_ip );
+			$user              = get_user_by( 'login', $username );
+			$user_roles        = get_userdata( $user->ID )->roles;
+			$user_role_enabled = 0;
+			foreach ( $user_roles as $user_role ) {
+				if ( get_site_option( 'mo2fa_' . $user_role ) ) {
+					$user_role_enabled = 1;
+					break;
 				}
-				$is_customer_registered = 'SUCCESS' === $mo2fdb_queries->get_user_detail( 'user_registration_with_miniorange', $user->ID );
-				if ( get_option( 'mo_wpns_enable_unusual_activity_email_to_user' ) && $user_role_enabled && $is_customer_registered ) {
-					$mo_wpns_utility->send_notification_to_user_for_unusual_activities( $username, $user_ip, MoWpnsConstants::LOGGED_IN_FROM_NEW_IP );
-				}
-				if ( 'true' === get_site_option( 'mo2f_enable_login_report' ) ) {
-					$mo_wpns_config->add_transactions( $user_ip, $username, MoWpnsConstants::LOGIN_TRANSACTION, MoWpnsConstants::SUCCESS );
-				}
+			}
+			$is_customer_registered = 'SUCCESS' === $mo2fdb_queries->get_user_detail( 'user_registration_with_miniorange', $user->ID );
+			if ( get_option( 'mo_wpns_enable_unusual_activity_email_to_user' ) && $user_role_enabled && $is_customer_registered ) {
+				$mo_wpns_utility->send_notification_to_user_for_unusual_activities( $username, $user_ip, MoWpnsConstants::LOGGED_IN_FROM_NEW_IP );
+			}
+			if ( 'true' === get_site_option( 'mo2f_enable_login_report' ) ) {
+				$mo_wpns_config->add_transactions( $user_ip, $username, MoWpnsConstants::LOGIN_TRANSACTION, MoWpnsConstants::SUCCESS );
 			}
 
 		}

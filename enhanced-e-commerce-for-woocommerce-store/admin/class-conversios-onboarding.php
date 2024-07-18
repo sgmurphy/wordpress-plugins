@@ -34,13 +34,13 @@ if (!class_exists('Conversios_Onboarding')) {
 			$this->customApiObj = new CustomApi();
 			$this->TVC_Admin_Helper = new TVC_Admin_Helper();
 			$ee_additional_data = $this->TVC_Admin_Helper->get_ee_additional_data();
-			$this->url = $this->TVC_Admin_Helper->get_onboarding_page_url();
+			//$this->url = $this->TVC_Admin_Helper->get_onboarding_page_url();
 			$this->connect_url =  $this->TVC_Admin_Helper->get_connect_url();
 			$this->tvc_data = $this->TVC_Admin_Helper->get_store_data();
 			$this->is_refresh_token_expire = false;
 			//get last onboarded user settings
 			$this->ee_options = $this->TVC_Admin_Helper->get_ee_options_settings();
-			$this->convBadgeVal = isset($this->ee_options['conv_show_badge']) ? $this->ee_options['conv_show_badge'] : "";
+			//$this->convBadgeVal = isset($this->ee_options['conv_show_badge']) ? $this->ee_options['conv_show_badge'] : "";
 
 			if (isset($ee_additional_data['ee_last_login']) && $ee_additional_data['ee_last_login'] != "") {
 				$this->last_login = $ee_additional_data['ee_last_login'];

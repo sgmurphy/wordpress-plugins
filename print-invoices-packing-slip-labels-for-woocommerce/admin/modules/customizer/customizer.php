@@ -1153,9 +1153,10 @@ class Wf_Woocommerce_Packing_List_Customizer
 	{
 		//convert translation html
 		$html=preg_replace_callback('/__\[(.*?)\]__/s',array($this,'convert_translation_strings'),$html);
+		
 		//customizer functions
 		include_once plugin_dir_path(__FILE__)."classes/class-customizer.php";
-
+		
 		if($this->rtl_css_added===false)
 		{
 			$html=$this->toggle_rtl($html); //this method uses funtion in above included file
@@ -1658,6 +1659,7 @@ class Wf_Woocommerce_Packing_List_Customizer
         $meta_data_formated_arr=array();
         foreach ($meta_data as $id => $value) 
         {
+			$current_item = '';
 			if(intval($id)===$id) //numeric array
 			{
 				if(is_array($value))
@@ -1669,9 +1671,15 @@ class Wf_Woocommerce_Packing_List_Customizer
 				}
 			}else
 			{
-				$current_item='<label>'.wp_kses_post(rawurldecode($id)) . '</label> : ' . wp_kses_post(rawurldecode($value)) . ' ';
-			} 
-			$current_item='<span class="wt_pklist_meta_item" data-meta-id="'.esc_attr($meta_key_arr[$id]).'">'.$current_item.'</span>';            	
+				if ( 'wt_give_away_product' !== $value ) {
+					$current_item='<label>'.wp_kses_post(rawurldecode($id)) . '</label> : ' . wp_kses_post(rawurldecode($value)) . ' ';
+				}
+			}
+			
+			if( '' !== trim( $current_item )) {
+				$current_item='<span class="wt_pklist_meta_item" data-meta-id="'.esc_attr($meta_key_arr[$id]).'">'.$current_item.'</span>';       
+			}
+
         	$meta_data_formated_arr[]= apply_filters('wf_alter_line_item_variation_data', $current_item, $meta_data, $id, $value);
         }
 

@@ -60,6 +60,10 @@ class GSToc{
             'type' => 'boolean',
             'default' => false
         ),
+        'offset' => array(
+            'type' => 'number',
+            'default' => 50
+        ),
 	);
 
 	public function render_block($settings = array(), $inner_content=''){
@@ -75,7 +79,7 @@ class GSToc{
             $headings = self::get_headings($post->post_content, $settings);
             if (empty($headings)) {
             } else {
-                $out = '<div id="'.$blockId.'"'.$seotype.' class="'.$blockClassName.'"'.gspb_AnimationRenderProps($animation).'>';
+                $out = '<div id="'.$blockId.'"'.$seotype.' data-offset="'.$offset.'" class="'.$blockClassName.'"'.gspb_AnimationRenderProps($animation).'>';
                     $key = 0;
                     $schematype = ' itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"';
                     if(!$stickyPanelOnly){

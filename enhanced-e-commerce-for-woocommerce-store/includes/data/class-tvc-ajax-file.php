@@ -3120,8 +3120,8 @@ if (!class_exists('TVC_Ajax_File')) :
           $customer_subscription_id['customer_subscription_id'] = sanitize_text_field($_POST['subscriptionId']);
           $customObj = new CustomApi();
           $result = $customObj->get_tiktok_business_account($customer_subscription_id);
-          if ($result->status === 200 && is_array($result->data) && $result->data != '') {
-            $tikTokData = [];
+          $tikTokData = [];
+          if (isset($result->status) && $result->status === 200 && is_array($result->data) && $result->data != '') {            
             foreach ($result->data as $value) {
               if ($value->bc_info->status === 'ENABLE') {
                 $tikTokData[$value->bc_info->bc_id] = $value->bc_info->name;
@@ -3155,8 +3155,8 @@ if (!class_exists('TVC_Ajax_File')) :
           $customer_subscription_id['business_id'] = sanitize_text_field($_POST['business_id']);
           $customObj = new CustomApi();
           $result = $customObj->get_tiktok_user_catalogs($customer_subscription_id);
-          if ($result->status === 200 && is_array($result->data) && $result->data != '') {
-            $tikTokData = [];
+          $tikTokData = [];
+          if (isset($result->status) && $result->status === 200 && is_array($result->data) && $result->data != '') {            
             foreach ($result->data as $key => $value) {
               $tikTokData[$value->catalog_conf->country][$value->catalog_id] = $value->catalog_name;
             }
@@ -3166,6 +3166,8 @@ if (!class_exists('TVC_Ajax_File')) :
             }
 
             echo wp_json_encode(array("error" => false, "data" => $tikTokData));
+          } else {
+            echo wp_json_encode(array("error" => true, "message" => esc_html__("Error: Business Account not found", "enhanced-e-commerce-for-woocommerce-store")));
           }
         } else {
           echo wp_json_encode(array("error" => true, "message" => esc_html__("Error: Business Account not found", "enhanced-e-commerce-for-woocommerce-store")));
@@ -3443,7 +3445,9 @@ if (!class_exists('TVC_Ajax_File')) :
 
         $countries_list = $str ? json_decode($str, true) : [];
         foreach ($gmcAttributes as $key => $attribute) {
-          unset($tempAddAttr[$attribute["field"]]);
+          if (is_array($tempAddAttr)) {
+            unset($tempAddAttr[$attribute["field"]]);
+          }
           $html .= '<div class="col-6 mt-2" style="text-align: left">
                   <span class="ps-3 fw-400 text-color fs-12">
                       ' . esc_attr($attribute["field"]) . '' . (isset($attribute["required"]) === TRUE && esc_attr($attribute["required"]) === '1' ? '<span class="text-color fs-6"> *</span>' : "") . '

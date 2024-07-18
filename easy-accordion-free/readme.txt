@@ -2,7 +2,7 @@
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: nested accordion, faq, expand collapse, horizontal accordion, product faq
 Requires at least: 4.7
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

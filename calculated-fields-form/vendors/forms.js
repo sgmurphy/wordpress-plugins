@@ -145,6 +145,11 @@ cff_forms_templates = {
             "description": "Calculates the daily calories you should eat to reach a weight goal.",
             "id": 29
         }, {
+            "title": "Hip-to-Waist Ratio",
+            "category": "Health",
+            "description": "Hip to Waist Ratio (HWR) is an essential indicator of the body’s fat distribution and overall health.",
+            "id": 46
+        }, {
             "title": "Lease Calculator",
             "category": "Financial",
             "description": "Lease calculator based on loan amount, residual value, interest rate, and time interval.",
@@ -184,6 +189,16 @@ cff_forms_templates = {
             "category": "Financial",
             "description": "Life Insurance Calculator calculate life insurance based on age, annual income, number of dependents, and current liabilities.",
             "id": 43
+        }, {
+            "title": "Home Energy Savings",
+            "category": "Financial",
+            "description": "Calculate the potential savings from undergoing a home energy improvement.",
+            "id": 47
+        }, {
+            "title": "Car Payment Calculator",
+            "category": "Financial",
+            "description": "Tool for dealerships looking to assist customers with automobile financing.",
+            "id": 48
         }
     ],
     "pro": [

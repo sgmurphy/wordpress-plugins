@@ -169,7 +169,7 @@ class Advanced_Cf7_Db_Admin {
 		add_submenu_page( 'contact-form-listing', __('Import CSV', 'advanced-cf7-db'), __('Import CSV', ' advanced-cf7-db'), $cap, 'import_cf7_csv',array($this,'vsz_import_cf7_csv') );
 		add_submenu_page( 'contact-form-listing', __('Developer Support', 'advanced-cf7-db'), __('Developer Support', ' advanced-cf7-db'), $cap, 'shortcode',array($this,'vsz_shortcode') );
 		add_submenu_page( 'contact-form-listing', __('Add-ons', 'advanced-cf7-db'), __('Add-ons', ' advanced-cf7-db'), $cap, 'extentions',array($this,'vsz_extension') );
-		add_submenu_page( 'contact-form-listing', __('mounstride CRM', 'advanced-cf7-db'), __('mounstride CRM', ' advanced-cf7-db'), $cap, 'mounstride-CRM',array($this,'vsz_mounstride_CRM') );
+		
 	}
 
 	/**
@@ -210,16 +210,7 @@ class Advanced_Cf7_Db_Admin {
 
 	}
 
-	/*
-	mounstride CRM landing page
-	*/
-
-	function vsz_mounstride_CRM(){
-
-		wp_enqueue_style('mounstride-CRM-css');
-		require_once plugin_dir_path( __FILE__ ) . 'partials/mounstride-CRM.php';
-	}
-
+	
 	/**
 	 * Callback function for Import CSV screen
 	 */
@@ -1577,7 +1568,7 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 	$table_name = sanitize_text_field(VSZ_CF7_DATA_ENTRY_TABLE_NAME);
 
 	//Create Export Query on the basis of Listing screen filter
-
+	// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	//Check any search related filter active or not
 	if(isset($_POST['search_cf7_value']) && !empty($_POST['search_cf7_value']) && isset($_POST['start_date']) && isset($_POST['end_date']) && empty($_POST['start_date']) && empty($_POST['end_date'])){
 
@@ -1585,10 +1576,10 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 
 		if(!empty($search) && !empty($ids_export)){
 
-			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $ids_export, $cf7d_entry_order_by, $cf7d_entry_order_by));
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $ids_export));
 			
 		}else if(!empty($search) && empty($ids_export)){
-			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s  GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s" , $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $cf7d_entry_order_by, $cf7d_entry_order_by));
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s  GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}" , $fid, $fid, '%' . $wpdb->esc_like($search) . '%'));
 		}
 	}
 	//Check date wise filter active or not
@@ -1602,11 +1593,11 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 
 		if(!empty($ids_export)){
 
-			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s AND FIND_IN_SET(data_id , %s) GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, $start_date, $end_date, $ids_export, $cf7d_entry_order_by, $cf7d_entry_order_by));
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s AND FIND_IN_SET(data_id , %s) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $start_date, $end_date, $ids_export));
 
 		}else if(empty($ids_export)){
 
-			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, $start_date, $end_date, $cf7d_entry_order_by, $cf7d_entry_order_by));
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $start_date, $end_date));
 
 		}
 
@@ -1642,7 +1633,7 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 			$data_ids = rtrim($data_ids,',');
 		}
 
-		$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s) temp_table) ORDER BY %s", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $data_ids, $cf7d_entry_order_by, $cf7d_entry_order_by));
+		$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by}) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $data_ids));
 
 	}
 	//Not active any filter on listing screen
@@ -1650,16 +1641,16 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 
 		if(!empty($ids_export)){
 
-			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, $ids_export, $cf7d_entry_order_by, $cf7d_entry_order_by));
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $ids_export));
 
 		}else{
 
-			$query =  $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, $cf7d_entry_order_by, $cf7d_entry_order_by));
+			$query =  $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid));
 
 		}
 
 	}
-
+	// phpcs:enable
 	//Execuste query
 	$data = $query;
 

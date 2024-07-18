@@ -229,16 +229,11 @@
   border-bottom: none;
   width: auto;
   height: auto;
-}
-.review-stars > li span:before {
-  width: 22px;
-  height: 24px;
-  content: "☆";
-}
-.review-stars > li span.hover:before {
-  content: "★" !important;
-  color: #f2b827;
   cursor: pointer;
+}
+.review-stars > li span.hover svg {
+  fill: #f2b827;
+  stroke: #f2b827;
 }
 .review-stars > li a:visited, .review-stars > li a:focus {
   border: none;

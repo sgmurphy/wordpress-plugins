@@ -536,7 +536,7 @@ class Util {
 	 * @return array
 	 */
 	public static function add_archive_status_message( $messages, $task_name, $message ) {
-		if( ! is_array( $messages ) ) {
+		if ( ! is_array( $messages ) ) {
 			$messages = array();
 		}
 

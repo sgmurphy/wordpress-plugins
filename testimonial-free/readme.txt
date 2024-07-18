@@ -2,7 +2,7 @@
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: testimonials, testimonial slider, customer reviews, social proof, review form
 Requires at least: 4.7
-Tested up to: 6.5.2
+Tested up to: 6.6
 Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

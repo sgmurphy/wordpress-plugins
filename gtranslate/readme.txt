@@ -1,9 +1,9 @@
 === Translate Wordpress with GTranslate ===
 Contributors: edo888
 Author: Translate AI Multilingual Solutions
-Tags: translate, translate wordpress, multilingual, translation, translate language, bilingual, localization, translation proxy, localisation, multilanguage, google translate
+Tags: translate, translator, multilingual, translation, multilanguage
 Requires at least: 2.8.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 3.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

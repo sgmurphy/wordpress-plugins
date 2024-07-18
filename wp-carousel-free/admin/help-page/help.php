@@ -401,7 +401,7 @@ class WP_Carousel_Free_Help {
 			<!-- Header section start -->
 			<section class="spwpcp__help header">
 				<div class="spwpcp-header-area-top">
-					<p>You’re currently using <b>WP Carousel Lite</b>. To access additional features, consider <a target="_blank" href="https://wordpresscarousel.com/pricing/?ref=1" ><b>upgrading to Pro!</b></a> 🚀</p>
+					<p>You’re currently using <b>WP Carousel Lite</b>. To access additional features, consider <a target="_blank" href="https://wpcarousel.io/pricing/?ref=1" ><b>upgrading to Pro!</b></a> 🚀</p>
 				</div>
 				<div class="spwpcp-header-area">
 					<div class="spwpcp-container">
@@ -439,8 +439,8 @@ class WP_Carousel_Free_Help {
 							<iframe width="724" height="405" src="https://www.youtube.com/embed/7kb94-CJp54?si=L7gnWecSoFBhg9mD" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 							<ul>
 								<li><a class='spwpcp-medium-btn' href="<?php echo esc_url( home_url( '/' ) . 'wp-admin/post-new.php?post_type=sp_wp_carousel' ); ?>">Create a Carousel</a></li>
-								<li><a target="_blank" class='spwpcp-medium-btn' href="https://wordpresscarousel.com/wp-carousel-free-demo/">Live Demo</a></li>
-								<li><a target="_blank" class='spwpcp-medium-btn arrow-btn' href="https://wordpresscarousel.com">Explore WP Carousel <i class="spwpcp-icon-button-arrow-icon"></i></a></li>
+								<li><a target="_blank" class='spwpcp-medium-btn' href="https://wpcarousel.io/wp-carousel-free-demo/">Live Demo</a></li>
+								<li><a target="_blank" class='spwpcp-medium-btn arrow-btn' href="https://wpcarousel.io">Explore WP Carousel <i class="spwpcp-icon-button-arrow-icon"></i></a></li>
 							</ul>
 						</div>
 						<div class="spwpcp-start-page-sidebar">
@@ -475,7 +475,7 @@ class WP_Carousel_Free_Help {
 				<div class="spwpcp-container">
 					<div class="spwpcp-call-to-action-top">
 						<h2 class="spwpcp-section-title">Lite vs Pro Comparison</h2>
-						<a target="_blank" href="https://wordpresscarousel.com/pricing/?ref=1" class='spwpcp-big-btn'>Upgrade to Pro Now!</a>
+						<a target="_blank" href="https://wpcarousel.io/pricing/?ref=1" class='spwpcp-big-btn'>Upgrade to Pro Now!</a>
 					</div>
 					<div class="spwpcp-lite-to-pro-wrap">
 						<div class="spwpcp-features">
@@ -632,11 +632,11 @@ class WP_Carousel_Free_Help {
 							<span class='spwpcp-section-subtitle'>Already, <b>70000+</b> people are using WP Carousel on their websites to create beautiful carousels, sliders, and galleries; why won’t you!</span>
 							<div class="spwpcp-upgrade-to-pro-btn">
 								<div class="spwpcp-action-btn">
-									<a target="_blank" href="https://wordpresscarousel.com/pricing/?ref=1" class='spwpcp-big-btn'>Upgrade to Pro Now!</a>
+									<a target="_blank" href="https://wpcarousel.io/pricing/?ref=1" class='spwpcp-big-btn'>Upgrade to Pro Now!</a>
 									<span class='spwpcp-small-paragraph'>14-Day No-Questions-Asked <a target="_blank" href="https://shapedplugin.com/refund-policy/">Refund Policy</a></span>
 								</div>
-								<a target="_blank" href="https://wordpresscarousel.com" class='spwpcp-big-btn-border'>See All Features</a>
-								<a target="_blank" href="https://wordpresscarousel.com/simple-image-carousel/" class="spwpcp-big-btn-border spwpcp-pro-live-demo-btn">Pro Live Demo</a>
+								<a target="_blank" href="https://wpcarousel.io" class='spwpcp-big-btn-border'>See All Features</a>
+								<a target="_blank" href="https://wpcarousel.io/simple-image-carousel/" class="spwpcp-big-btn-border spwpcp-pro-live-demo-btn">Pro Live Demo</a>
 							</div>
 						</div>
 					</div>
@@ -722,7 +722,7 @@ class WP_Carousel_Free_Help {
 							<p>At <b>ShapedPlugin LLC</b>, we have been searching for the best way to display various types of WordPress content, such as images, posts, products, videos, audio, and external sources on WordPress sites. Regrettably, we couldn't find any suitable plugin that is easy to use yet simple. Hence, we set out with a simple goal: to develop a powerful WordPress Carousel, Slider, and Gallery plugin that is both user-friendly and efficient.</p>
 							<p>Our goal is to provide the easiest way to beautifully showcase diverse content types in WordPress. Explore it now and see the difference!</p>
 							<div class="spwpcp-about-btn">
-								<a target="_blank" href="https://wordpresscarousel.com" class='spwpcp-medium-btn'>Explore WP Carousel</a>
+								<a target="_blank" href="https://wpcarousel.io" class='spwpcp-medium-btn'>Explore WP Carousel</a>
 								<a target="_blank" href="https://shapedplugin.com/about-us/" class='spwpcp-medium-btn spwpcp-arrow-btn'>More About Us <i class="spwpcp-icon-button-arrow-icon"></i></a>
 							</div>
 						</div>
@@ -734,7 +734,7 @@ class WP_Carousel_Free_Help {
 					<div class="spwpcp-our-plugin-list">
 						<h3 class="spwpcp-section-title">Upgrade your Website with our High-quality Plugins!</h3>
 						<div class="spwpcp-our-plugin-list-wrap">
-							<a target="_blank" class="spwpcp-our-plugin-list-box" href="https://wordpresscarousel.com/">
+							<a target="_blank" class="spwpcp-our-plugin-list-box" href="https://wpcarousel.io/">
 								<i class="spwpcp-icon-button-arrow-icon"></i>
 								<img src="https://ps.w.org/wp-carousel-free/assets/icon-256x256.png" alt="">
 								<h4>WP Carousel</h4>

@@ -445,7 +445,12 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 	*   Get tax inclusive text.
 	*/
 	public static function get_tax_incl_text( $template_type, $order, $text_for = 'total_price' ) {
-		$incl_tax_text = __( 'incl. tax', 'print-invoices-packing-slip-labels-for-woocommerce' );
+		if ( !empty( $order ) && !empty( $order->get_taxes() )  ) {
+			$incl_tax_text = __( 'incl. tax', 'print-invoices-packing-slip-labels-for-woocommerce' );
+		} else {
+			$incl_tax_text = '';
+		}
+		
 		return apply_filters( 'wf_pklist_alter_tax_inclusive_text', $incl_tax_text, $template_type, $order, $text_for );
 	}
 
@@ -686,7 +691,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 									$tmcart_option_name     = $epo['name'];
 									$tmcart_option_value    = $epo['value'];
 									$tmcart_option_price    = Wf_Woocommerce_Packing_List_Admin::wf_display_price( $user_currency, $order, $epo['price'] );
-									$tmcart_option_qty      = $epo['quantity'];
+									$tmcart_option_qty      = (float)$epo['quantity'];
 									$addional_product_meta .= '<small style="line-height:18px;"><span style="white-space: pre-wrap;">' . wp_kses_post( $tmcart_option_name ) . ' : ' . wp_kses_post( $tmcart_option_value ) . '</span><br><span style="white-space: pre-wrap;">Cost : ' . wp_kses_post( $tmcart_option_price ) . '</span><br><span style="white-space: pre-wrap;">Qty : ' . wp_kses_post( $tmcart_option_qty ) . '</span><br></small>';
 								}
 							}
@@ -728,7 +733,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 				$column_data = Wf_Woocommerce_Packing_List_Admin::wf_display_price( $user_currency, $order, $col_unit_price );
 			} elseif ( 'total_price' === $columns_key || '-total_price' === $columns_key ) {
 				$item_price = Wf_Woocommerce_Packing_List_Admin::wf_convert_to_user_currency( $item['price'], $user_currency, $order );
-				$product_total = (int) $item['quantity'] * (float) $item_price;
+				$product_total	= (float) $item['quantity'] * (float) $item_price;
 				$currency        = get_woocommerce_currency();
 				$currency_symbol = get_woocommerce_currency_symbol( $currency );
 				if ( empty( $_product ) ) {
@@ -963,7 +968,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 											$tmcart_option_name       = $epo['name'];
 											$tmcart_option_value      = $epo['value'];
 											$tmcart_option_price      = Wf_Woocommerce_Packing_List_Admin::wf_display_price( $user_currency, $order, $epo['price'] );
-											$tmcart_option_qty        = $epo['quantity'];
+											$tmcart_option_qty        = (float) $epo['quantity'];
 											$meta_data_formated_arr[] = '<small style="line-height:18px;"><span style="white-space: pre-wrap;">' . wp_kses_post( $tmcart_option_name ) . ' : ' . wp_kses_post( $tmcart_option_value ) . '</span><br><span style="white-space: pre-wrap;">Cost : ' . wp_kses_post( $tmcart_option_price ) . '</span><br><span style="white-space: pre-wrap;">Qty : ' . wp_kses_post( $tmcart_option_qty ) . '</span><br></small>';
 										}
 									}
@@ -1287,7 +1292,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 				$find_replace['[wfte_weight]'] = __( 'n/a', 'print-invoices-packing-slip-labels-for-woocommerce' );
 				if ( $order_items ) {
 					foreach ( $order_items as $item ) {
-						$quantity = (int) $item->get_quantity(); // get quantity
+						$quantity = (float) $item->get_quantity(); // get quantity
 						$product  = $item->get_product(); // get the WC_Product object
 						if ( ! empty( $product ) ) {
 							$weight = (float) $product->get_weight(); // get the product weight
@@ -1319,7 +1324,12 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 		}
 
 		if ( 'tel' === $key || 'contact_number' === $key ) {
-			$order_phone = ( 0 === $wc_version ? $order->billing_phone : $order->get_billing_phone() );
+			if ( 'shippinglabel' === $template_type && "" !== ( ( WC()->version < '5.6.0' ) ? '' : $order->get_shipping_phone() ) ) {
+				$order_phone = $order->get_shipping_phone();
+			} else {
+				$order_phone = ( 0 === $wc_version ? $order->billing_phone : $order->get_billing_phone() );
+			}
+
 			return wp_kses_post( ! empty( $order_phone ) ? $order_phone : '' );
 		}
 
@@ -1531,7 +1541,10 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 			$order_id				= ( WC()->version < '2.7.0' ) ? $order->id : $order->get_id();
 			$shipping_phone        	= ( WC()->version < '5.6.0' ) ? '' : Wt_Pklist_Common::get_order_meta( $order_id, '_shipping_phone', true );
 			if ( '' !== trim( $shipping_phone ) ) {
-				$shipping_phone = __( 'Phone:', 'print-invoices-packing-slip-labels-for-woocommerce' ) . ' ' . $shipping_phone;
+				$shipping_phone_label = apply_filters( 'wt_pklist_alter_shipping_address_phone_number_label', '', $template_type, $order );
+				if ( !empty( $shipping_phone_label ) ) {
+					$shipping_phone = $shipping_phone_label . ' ' . $shipping_phone;  
+				}
 			}
 			if(!has_filter('wf_pklist_alter_shipping_address')){
 				$wc_formatted_shipping_address = $order->get_formatted_shipping_address();

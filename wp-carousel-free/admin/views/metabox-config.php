@@ -271,7 +271,7 @@ SP_WPCF::createSection(
 				'type'     => 'image_select',
 				'title'    => __( 'Layout Type', 'wp-carousel-free' ),
 				'subtitle' => __( 'Choose a layout type.', 'wp-carousel-free' ),
-				'desc'     => __( 'Want to take your content to the next level with stunning <a href="https://wordpresscarousel.com/layout-types/" target="_blank"><b>layouts</b></a></a> and advanced customizations? <b><a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank">Upgrade To Pro!</b></a></br>', 'wp-carousel-free' ),
+				'desc'     => __( 'Want to take your content to the next level with stunning <a href="https://wpcarousel.io/layout-types/" target="_blank"><b>layouts</b></a></a> and advanced customizations? <b><a href="https://wpcarousel.io/pricing/?ref=1" target="_blank">Upgrade To Pro!</b></a></br>', 'wp-carousel-free' ),
 				'options'  => array(
 					'carousel'          => array(
 						'image' => plugin_dir_url( __DIR__ ) . 'img/layouts/carousel.svg',
@@ -309,7 +309,7 @@ SP_WPCF::createSection(
 				'class'      => 'wpcf_carousel_mode',
 				'type'       => 'image_select',
 				'title'      => __( 'Carousel Mode', 'wp-carousel-free' ),
-				'title_help' => __( '<div class="sp_wpcp-info-label">Carousel Mode</div><div class="sp_wpcp-short-content">Choose <b>Standard</b> for a classic display, <b>Ticker</b> for continuous scrolling, or <b>Center</b> for a focused and immersive view.</div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-configure-carousel-mode/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wordpresscarousel.com/carousel-modes/" target="_blank">Live Demo</a>', 'wp-carousel-free' ),
+				'title_help' => __( '<div class="sp_wpcp-info-label">Carousel Mode</div><div class="sp_wpcp-short-content">Choose <b>Standard</b> for a classic display, <b>Ticker</b> for continuous scrolling, or <b>Center</b> for a focused and immersive view.</div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-configure-carousel-mode/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wpcarousel.io/carousel-modes/" target="_blank">Live Demo</a>', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Set a mode for the carousel.', 'wp-carousel-free' ),
 				'options'    => array(
 					'standard' => array(
@@ -449,7 +449,7 @@ SP_WPCF::createSection(
 				'class'      => 'wpcf_show_hide',
 				'title'      => __( 'Scheduling', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Enable it to schedule sliders/galleries to show at specific time intervals.', 'wp-carousel-free' ),
-				'title_help' => __( '<div class="sp_wpcp-info-label">Scheduling</div><div class="sp_wpcp-short-content">Enable the scheduling feature to set the specific date and time for your carousel sliders or galleries to be displayed (perfect for highlighting time-sensitive content).</div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-configure-the-scheduling-feature/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wordpresscarousel.com/scheduled-carousel/" target="_blank">Live Demo</a>', 'wp-carousel-free' ),
+				'title_help' => __( '<div class="sp_wpcp-info-label">Scheduling</div><div class="sp_wpcp-short-content">Enable the scheduling feature to set the specific date and time for your carousel sliders or galleries to be displayed (perfect for highlighting time-sensitive content).</div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-configure-the-scheduling-feature/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wpcarousel.io/scheduled-carousel/" target="_blank">Live Demo</a>', 'wp-carousel-free' ),
 				'default'    => false,
 				'text_on'    => __( 'Enabled', 'wp-carousel-free' ),
 				'text_off'   => __( 'Disabled', 'wp-carousel-free' ),
@@ -635,7 +635,7 @@ SP_WPCF::createSection(
 				'type'       => 'notice',
 				'style'      => 'normal',
 				'class'      => 'sp-settings-pro-notice',
-				'content'    => __( 'Want to unleash the power of Ajax Paginations and take your website UX to the next level? <a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
+				'content'    => __( 'Want to unleash the power of Ajax Paginations and take your website UX to the next level? <a href="https://wpcarousel.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
 				'dependency' => array( 'wpcp_layout|wpcp_source_pagination', '==|==', 'grid|true', true ),
 			),
 		), // Fields array end.
@@ -669,7 +669,7 @@ SP_WPCF::createSection(
 				'type'       => 'image_select',
 				'title'      => __( 'Items Style', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Select an item or card style for the title, description, meta etc.', 'wp-carousel-free' ),
-				'desc'       => __( 'Want to unlock amazing <a href="https://wordpresscarousel.com/item-styles/" target="_blank"><b>Item Styles</b></a> and unleash your creativity? <a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
+				'desc'       => __( 'Want to unlock amazing <a href="https://wpcarousel.io/item-styles/" target="_blank"><b>Item Styles</b></a> and unleash your creativity? <a href="https://wpcarousel.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
 				'options'    => array(
 					'default'          => array(
 						'image' => plugin_dir_url( __DIR__ ) . 'img/default/default-bottom.svg',
@@ -1064,7 +1064,7 @@ SP_WPCF::createSection(
 				'class'      => 'wpcf_show_hide',
 				'title'      => __( 'Variable Width', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Enable/Disable variable width. Number of column(s) depends on image width.', 'wp-carousel-free' ),
-				'title_help' => '<div class="sp_wpcp-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . 'img/help-visuals/variable-width.svg" alt="Variable Width"></div><div class="sp_wpcp-info-label">' . __( 'Variable Width', 'wp-carousel-free' ) . '</div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-enable-the-variable-width/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wordpresscarousel.com/variable-width/" target="_blank">Live Demo</a>',
+				'title_help' => '<div class="sp_wpcp-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . 'img/help-visuals/variable-width.svg" alt="Variable Width"></div><div class="sp_wpcp-info-label">' . __( 'Variable Width', 'wp-carousel-free' ) . '</div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-enable-the-variable-width/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wpcarousel.io/variable-width/" target="_blank">Live Demo</a>',
 				'default'    => false,
 				'text_on'    => __( 'Enabled', 'wp-carousel-free' ),
 				'text_off'   => __( 'Disabled', 'wp-carousel-free' ),
@@ -1116,7 +1116,7 @@ SP_WPCF::createSection(
 				'type'       => 'select',
 				'title'      => __( 'Zoom', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Set a zoom effect on hover the image.', 'wp-carousel-free' ),
-				'title_help' => __( '<div class="sp_wpcp-info-label">Zoom</div><div class="sp_wpcp-short-content">This feature lets you choose a specific zoom effect when hovering over an image for an engaging experience.</div><a class="sp_wpcp-open-live-demo" href="https://wordpresscarousel.com/post-carousel-zoom-image-modes/" target="_blank">Live Demo</a>', 'wp-carousel-free' ),
+				'title_help' => __( '<div class="sp_wpcp-info-label">Zoom</div><div class="sp_wpcp-short-content">This feature lets you choose a specific zoom effect when hovering over an image for an engaging experience.</div><a class="sp_wpcp-open-live-demo" href="https://wpcarousel.io/post-carousel-zoom-image-modes/" target="_blank">Live Demo</a>', 'wp-carousel-free' ),
 				'options'    => array(
 					''         => __( 'None', 'wp-carousel-free' ),
 					'zoom_in'  => __( 'Zoom In', 'wp-carousel-free' ),
@@ -1149,7 +1149,7 @@ SP_WPCF::createSection(
 				'text_width' => 100,
 				'title'      => __( 'Watermark', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Enable/Disable watermark for the image.', 'wp-carousel-free' ),
-				'title_help' => '<div class="sp_wpcp-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . 'img/help-visuals/watermark.svg" alt="Watermark"></div><div class="sp_wpcp-info-label">' . __( 'Watermark', 'wp-carousel-free' ) . '</div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-configure-the-watermark/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wordpresscarousel.com/watermark-protection/" target="_blank">Live Demo</a>',
+				'title_help' => '<div class="sp_wpcp-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . 'img/help-visuals/watermark.svg" alt="Watermark"></div><div class="sp_wpcp-info-label">' . __( 'Watermark', 'wp-carousel-free' ) . '</div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-configure-the-watermark/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wpcarousel.io/watermark-protection/" target="_blank">Live Demo</a>',
 				'default'    => false,
 				'dependency' => array( 'wpcp_carousel_type', '==', 'image-carousel', true ),
 			),
@@ -1181,7 +1181,7 @@ SP_WPCF::createSection(
 				'type'    => 'notice',
 				'style'   => 'normal',
 				'class'   => 'image-settings-tab-notice',
-				'content' => __( 'Want to take your image editing experience to the next level with <b>Image Variable Width, Watermark, Protection from Right-click, Grayscale, Custom Color, and Custom Size? </b><a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
+				'content' => __( 'Want to take your image editing experience to the next level with <b>Image Variable Width, Watermark, Protection from Right-click, Grayscale, Custom Color, and Custom Size? </b><a href="https://wpcarousel.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
 
 			),
 		),
@@ -1210,7 +1210,7 @@ SP_WPCF::createSection(
 								'type'    => 'notice',
 								'style'   => 'normal',
 								'class'   => 'wpc-lightbox-general',
-								'content' => __( 'Want to unleash the full potential of your images with <b>28+ Pro Lightbox</b> options? <a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
+								'content' => __( 'Want to unleash the full potential of your images with <b>28+ Pro Lightbox</b> options? <a href="https://wpcarousel.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
 							),
 							array(
 								'id'         => 'l_box_autoplay',
@@ -1655,7 +1655,7 @@ SP_WPCF::createSection(
 								'title_help' => __(
 									'<div class="sp_wpcp-info-label">Carousel Orientation</div><div class="sp_wpcp-short-content">Choose the carousel slide movement:<br>
 									<strong style="font-weight: 700;">Horizontal</strong>: If you want the slides to transition horizontally, select <b>Horizontal</b>.<br>
-									<strong style="font-weight: 700;">Vertical</strong>:  If you want the slides to transition vertically, select <b>Vertical</b></div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-configure-the-carousel-orientation/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wordpresscarousel.com/carousel-orientations/" target="_blank">Live Demo</a>',
+									<strong style="font-weight: 700;">Vertical</strong>:  If you want the slides to transition vertically, select <b>Vertical</b></div><a class="sp_wpcp-open-docs" href="https://docs.shapedplugin.com/docs/wordpress-carousel-pro/configurations/how-to-configure-the-carousel-orientation/" target="_blank">Open Docs</a><a class="sp_wpcp-open-live-demo" href="https://wpcarousel.io/carousel-orientations/" target="_blank">Live Demo</a>',
 									'wp-carousel-free'
 								),
 								'options'    => array(
@@ -1774,7 +1774,7 @@ SP_WPCF::createSection(
 								'title'      => __( 'Slide Effect', 'wp-carousel-free' ),
 								'subtitle'   => __( 'Select a sliding effect.', 'wp-carousel-free' ),
 								'title_help' => __(
-									'<div class="sp_wpcp-info-label">Slide Effect</div><div class="sp_wpcp-short-content">Enhance your slide transition with charming Slide Effects to add elegance and dynamic motion to your slides.</div><a class="sp_wpcp-open-live-demo" href="https://wordpresscarousel.com/slider-sliding-effects/" target="_blank">Live Demo</a>',
+									'<div class="sp_wpcp-info-label">Slide Effect</div><div class="sp_wpcp-short-content">Enhance your slide transition with charming Slide Effects to add elegance and dynamic motion to your slides.</div><a class="sp_wpcp-open-live-demo" href="https://wpcarousel.io/slider-sliding-effects/" target="_blank">Live Demo</a>',
 									'wp-carousel-free'
 								),
 								'options'    => array(
@@ -1806,7 +1806,7 @@ SP_WPCF::createSection(
 								'type'    => 'notice',
 								'style'   => 'normal',
 								'class'   => 'watermark-pro-notice sp-settings-pro-notice',
-								'content' => __( 'Ready to fascinate your audience with beautiful image transitions, like <b>Fade, Coverflow, Flip, Cube, Kenburn,</b> and create <b>Vertical</b> and <b>Multi-row Sliders</b>? <a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
+								'content' => __( 'Ready to fascinate your audience with beautiful image transitions, like <b>Fade, Coverflow, Flip, Cube, Kenburn,</b> and create <b>Vertical</b> and <b>Multi-row Sliders</b>? <a href="https://wpcarousel.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
 							),
 						),
 					),
@@ -1995,7 +1995,7 @@ SP_WPCF::createSection(
 								'type'       => 'notice',
 								'style'      => 'normal',
 								'class'      => 'watermark-pro-notice sp-settings-pro-notice',
-								'content'    => __( 'Want even more fine-tuned control over your <b>Carousel Navigation</b> display? <a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
+								'content'    => __( 'Want even more fine-tuned control over your <b>Carousel Navigation</b> display? <a href="https://wpcarousel.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
 								'dependency' => array( 'wpcp_navigation', '!=', 'false' ),
 							),
 						),
@@ -2122,7 +2122,7 @@ SP_WPCF::createSection(
 								'type'       => 'notice',
 								'style'      => 'normal',
 								'class'      => 'watermark-pro-notice sp-settings-pro-notice',
-								'content'    => __( 'Want even more fine-tuned control over your <b>Carousel Pagination</b> display? <a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
+								'content'    => __( 'Want even more fine-tuned control over your <b>Carousel Pagination</b> display? <a href="https://wpcarousel.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
 								'dependency' => array( 'wpcp_pagination', '!=', 'false' ),
 							),
 						),
@@ -2158,7 +2158,7 @@ SP_WPCF::createSection(
 								'type'       => 'switcher',
 								'title'      => __( 'Free Mode', 'wp-carousel-free' ),
 								'subtitle'   => __( 'Enable/Disable free mode slider.', 'wp-carousel-free' ),
-								'title_help' => __( '<div class="sp_wpcp-info-label">Free Mode</div><div class="sp_wpcp-short-content">Enable this feature to allow users to freely scroll and position the slides at anywhere instead of specific positions.</div><a class="sp_wpcp-open-live-demo" href="https://wordpresscarousel.com/free-mode-carousel/" target="_blank">Live Demo</a>', 'wp-carousel-free' ),
+								'title_help' => __( '<div class="sp_wpcp-info-label">Free Mode</div><div class="sp_wpcp-short-content">Enable this feature to allow users to freely scroll and position the slides at anywhere instead of specific positions.</div><a class="sp_wpcp-open-live-demo" href="https://wpcarousel.io/free-mode-carousel/" target="_blank">Live Demo</a>', 'wp-carousel-free' ),
 								'default'    => false,
 								'text_on'    => __( 'Enabled', 'wp-carousel-free' ),
 								'text_off'   => __( 'Disabled', 'wp-carousel-free' ),
@@ -2199,7 +2199,7 @@ SP_WPCF::createSection(
 				'type'    => 'notice',
 				'style'   => 'normal',
 				'class'   => 'watermark-pro-notice typography-pro-notice',
-				'content' => __( 'Want to customize everything <b>(Colors and Typography)</b> easily? <a href="https://wordpresscarousel.com/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
+				'content' => __( 'Want to customize everything <b>(Colors and Typography)</b> easily? <a href="https://wpcarousel.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'wp-carousel-free' ),
 			),
 			array(
 				'id'         => 'section_title_font_load',

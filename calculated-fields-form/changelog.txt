@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.21 =
+
+* Improve user experience with the forms builder by applying tooltips to the drag-and-drop handler and columns' icons.
+* Includes Reply To attributes in the notification and confirmation email sessions to enter explicit reply-to email addresses.
+* Adds new form templates.
+
 = 5.2.20 =
 
 * Identifies fields with col-... or column... class names assigned with a top-right icon.

@@ -186,6 +186,7 @@ return array(
     'AIOSEO\\Plugin\\Common\\Social\\Output' => $baseDir . '/app/Common/Social/Output.php',
     'AIOSEO\\Plugin\\Common\\Social\\Social' => $baseDir . '/app/Common/Social/Social.php',
     'AIOSEO\\Plugin\\Common\\Social\\Twitter' => $baseDir . '/app/Common/Social/Twitter.php',
+    'AIOSEO\\Plugin\\Common\\Standalone\\AdminBarNoindexWarning' => $baseDir . '/app/Common/Standalone/AdminBarNoindexWarning.php',
     'AIOSEO\\Plugin\\Common\\Standalone\\Blocks\\Blocks' => $baseDir . '/app/Common/Standalone/Blocks/Blocks.php',
     'AIOSEO\\Plugin\\Common\\Standalone\\Blocks\\FaqPage' => $baseDir . '/app/Common/Standalone/Blocks/FaqPage.php',
     'AIOSEO\\Plugin\\Common\\Standalone\\Blocks\\TableOfContents' => $baseDir . '/app/Common/Standalone/Blocks/TableOfContents.php',

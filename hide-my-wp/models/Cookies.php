@@ -266,29 +266,23 @@ class HMWP_Models_Cookies
         $domain = $this->getWpCookieDomain();
 
         //on multisite without doman cookie
-        if (HMWP_Classes_Tools::isMultisites() && !$domain) {
+        if ( HMWP_Classes_Tools::isMultisites() ) {
 
             //get current domain
             global $blog_id;
-            $host = preg_replace('|^www\.|', '', parse_url(get_site_url($blog_id), PHP_URL_HOST));
 
-            //set the current network domain
-            $current_network = get_network();
-            if (! empty($current_network->cookie_domain) ) {
-                $domain = $current_network->cookie_domain;
-            } else {
-                $domain = $current_network->domain;
-            }
-
-            //change the cookie for the current domain
-            if( $host && strpos($domain, $host) === false ){
-                $domain = $host;
+            if($host = preg_replace('|^www\.|', '', parse_url(get_site_url($blog_id), PHP_URL_HOST))){
+                //change the cookie for the current domain
+                if( !$domain || strpos($domain, $host) === false ){
+                    $domain = $host;
+                }
             }
 
         }
 
         return $domain;
     }
+
 
     /**
      * Return WordPress default Cookie Domain
@@ -298,7 +292,7 @@ class HMWP_Models_Cookies
     public function getWpCookieDomain()
     {
 
-        if ( ! defined('COOKIE_DOMAIN') && HMWP_Classes_Tools::isMultisites() && is_subdomain_install() ) {
+        if ( ! defined('COOKIE_DOMAIN') && HMWP_Classes_Tools::isMultisites() ) {
 
             $current_network = get_network();
             if (!empty($current_network->cookie_domain)) {

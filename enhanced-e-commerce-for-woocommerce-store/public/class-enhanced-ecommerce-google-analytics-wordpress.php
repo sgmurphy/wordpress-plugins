@@ -29,6 +29,7 @@ class Enhanced_Ecommerce_Google_Analytics_Wordpress extends Con_Settings
   protected $plugin_name;
   protected $version;
   protected $fb_page_view_event_id;
+  protected $gtm;
 
   /**
    * Enhanced_Ecommerce_Google_Analytics_Public constructor.

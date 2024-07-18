@@ -2013,10 +2013,18 @@ class Forminator_Admin_AJAX {
 				$template_vars['live_secret_error'] = esc_html__( 'Please input live secret key', 'forminator' );
 			}
 			if ( Forminator_Gateway_Stripe::INVALID_TEST_SECRET_EXCEPTION === $e->getCode() ) {
-				$template_vars['test_secret_error'] = esc_html__( 'You\'ve entered an invalid test secret key', 'forminator' );
+				if ( ! empty( $test_secret ) && 'sk_' === substr( $test_secret, 0, 3 ) ) {
+					$template_vars['test_secret_error'] = esc_html__( 'You\'ve entered an invalid test secret key', 'forminator' );
+				} else {
+					$template_vars['test_secret_error'] = esc_html__( 'You\'ve entered an invalid test restricted key', 'forminator' );
+				}
 			}
 			if ( Forminator_Gateway_Stripe::INVALID_LIVE_SECRET_EXCEPTION === $e->getCode() ) {
-				$template_vars['live_secret_error'] = esc_html__( 'You\'ve entered an invalid live secret key', 'forminator' );
+				if ( ! empty( $live_secret ) && 'sk_' === substr( $live_secret, 0, 3 ) ) {
+					$template_vars['live_secret_error'] = esc_html__( 'You\'ve entered an invalid live secret key', 'forminator' );
+				} else {
+					$template_vars['live_secret_error'] = esc_html__( 'You\'ve entered an invalid live restricted key', 'forminator' );
+				}
 			}
 			if ( Forminator_Gateway_Stripe::INVALID_TEST_KEY_EXCEPTION === $e->getCode() ) {
 				$template_vars['test_key_error'] = esc_html__( 'You\'ve entered an invalid test publishable key', 'forminator' );

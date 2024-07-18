@@ -143,10 +143,10 @@ function saswp_reset_all_settings() {
         wp_die();           
 }
 
-add_action('wp_ajax_saswp_reset_all_settings', 'saswp_reset_all_settings');
+add_action( 'wp_ajax_saswp_reset_all_settings', 'saswp_reset_all_settings' );
 
-function saswp_load_plugin_textdomain() {
-  
+function saswp_load_plugin_textdomain() {    
+
     load_plugin_textdomain( 'schema-and-structured-data-for-wp', false, basename( dirname( __FILE__ ) ) . '/languages/' );
     
 }

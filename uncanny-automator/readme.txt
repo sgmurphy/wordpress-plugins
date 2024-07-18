@@ -1,8 +1,8 @@
-=== Uncanny Automator – Automate everything with the #1 automation, integration & webhooks plugin ===
+=== Uncanny Automator - Easy Automation, Integration, Webhooks & Workflow Builder Plugin ===
 Contributors: uncannyautomator, uncannyowl, smub
 Tags: automation, google sheets, openai, learndash, webhooks
 Requires at least: 5.4
-Tested up to: 6.5.5
+Tested up to: 6.6
 Requires PHP: 7.0
 Stable tag: 5.9.1
 License: GPLv3
@@ -88,6 +88,7 @@ The free version of Automator is incredibly powerful and comes with built-in aut
 - [Microsoft Teams](https://automatorplugin.com/integration/microsoft-teams/?utm_source=wp_repo_automator&utm_medium=readme&utm_content=free_integrations_list)
 - [Notion](https://automatorplugin.com/integration/notion/?utm_source=wp_repo_automator&utm_medium=readme&utm_content=free_integrations_list)
 - [OpenAI and GPT](https://automatorplugin.com/integration/openai/?utm_source=wp_repo_automator&utm_medium=readme&utm_content=free_integrations_list)
+- [Salesforce](https://automatorplugin.com/integration/salesforce/?utm_source=wp_repo_automator&utm_medium=readme&utm_content=free_integrations_list) (Elite)
 - [Sendy](https://automatorplugin.com/integration/sendy/?utm_source=wp_repo_automator&utm_medium=readme&utm_content=free_integrations_list)
 - [Slack](https://automatorplugin.com/integration/slack/?utm_source=wp_repo_automator&utm_medium=readme&utm_content=free_integrations_list)
 - [Telegram](https://automatorplugin.com/integration/telegram/?utm_source=wp_repo_automator&utm_medium=readme&utm_content=free_integrations_list)

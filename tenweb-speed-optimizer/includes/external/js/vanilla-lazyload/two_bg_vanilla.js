@@ -8,6 +8,40 @@ window.addEventListener( 'elementor/frontend/init', () => {
     } );
 } );
 
+let twbb_slides_wrapper = document.querySelectorAll(".twbb_slides-wrapper , .e-flex.elementor-element");
+if (twbb_slides_wrapper.length > 0) {
+    window.onscroll = function() {
+        two_calculate_position(twbb_slides_wrapper);
+    }
+
+}
+
+
+function two_calculate_position(lazy_elements) {
+    lazy_elements.forEach(function(element) {
+        if(!element.classList.contains("two_bg_lazy_init")){
+            let scrollPosition = window.scrollY || document.documentElement.scrollTop;
+            let element_top = two_get_element_position(element).top;
+            if(parseInt(element_top) < parseInt(scrollPosition)+500){
+                element.classList.add("two_bg_lazy_init");
+                two_replace_backgrounds();
+                two_lazyLoadInstance.update();
+            }
+        }
+    });
+}
+
+function two_get_element_position(element) {
+    const rect = element.getBoundingClientRect();
+    const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    return {
+        top: rect.top + scrollTop,
+        left: rect.left + scrollLeft
+    };
+}
+
+
 function two_replace_backgrounds(elementor_elements = false) {
     let two_elements_list;
     if(!elementor_elements){

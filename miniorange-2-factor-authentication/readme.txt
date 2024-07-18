@@ -4,9 +4,9 @@ Contributors: twofactor, twofactorauthentication, hsn97, cyberlord92
 Tags: google authenticator, WP 2FA, 2FA, 2-factor authentication, two-factor authentication
 Donate link: https://miniorange.com/
 Requires at least: 3.0.1
-Tested up to: 6.5
-Requires PHP: 5.3.0
-Stable tag: 5.8.4
+Tested up to: 6.5.5
+Requires PHP: 7.2.24
+Stable tag: 6.0.0
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -215,6 +215,16 @@ You should go to <b>2FA For Me</b> Tab and click on <b>Reconfigure</b> to reconf
 
 == Changelog ==
 
+= 6.0.0 =
+* Updated UI/UX of the plugin dashboard
+* Added configuration for customizations of all email notifications White Labelling > Email Templates
+* Added 2FA reconfiguration link over email as a backup method
+* Added Cusotm Redirect URL after login feature
+* Extended grace period functionality
+* Removed miniOrange Authenticator 2FA method
+* Removed DUO Authenticator 2FA method
+* Shifted Google Authenticator Custom App name to White Labelling > 2FA Customizations
+
 = 5.8.4 =
 * Updated jquery jquery.dataTables.min.js version to latest version
 * Bug fixes- Getting error on user account creation on WooCommerce
@@ -314,6 +324,16 @@ You should go to <b>2FA For Me</b> Tab and click on <b>Reconfigure</b> to reconf
 For older changelog entries, please see the [additional changelog.txt file](https://plugins.svn.wordpress.org/miniorange-2-factor-authentication/trunk/changelog.txt) provided with the plugin.
 
 == Upgrade Notice ==
+
+= 6.0.0 =
+* Updated UI/UX of the plugin dashboard
+* Added configuration for customizations of all email notifications White Labelling > Email Templates
+* Added 2FA reconfiguration link over email as a backup method
+* Added Cusotm Redirect URL after login feature
+* Extended grace period functionality
+* Removed miniOrange Authenticator 2FA method
+* Removed DUO Authenticator 2FA method
+* Shifted Google Authenticator Custom App name to White Labelling > 2FA Customizations
 
 = 5.8.4 =
 * Updated jquery jquery.dataTables.min.js version to latest version

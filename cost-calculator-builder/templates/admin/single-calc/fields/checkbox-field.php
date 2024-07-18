@@ -63,10 +63,10 @@
 								handle=".ccb-option-drag"
 						>
 							<div class="ccb-option" v-for="(option, index) in fieldOptions" :key="index">
-								<div class="ccb-option-drag" :class="{disabled: fieldOptions.length === 1}">
+								<div class="ccb-option-drag" :class="{disabled: fieldOptions?.length === 1}">
 									<i class="ccb-icon-drag-dots"></i>
 								</div>
-								<div class="ccb-option-delete" @click.prevent="removeOption(index, option.optionValue)" :class="{disabled: fieldOptions.length === 1}">
+								<div class="ccb-option-delete" @click.prevent="removeOption(index, option.optionValue)" :class="{disabled: fieldOptions?.length === 1}">
 									<i class="ccb-icon-close"></i>
 								</div>
 								<div class="ccb-option-inner label-input">
@@ -103,7 +103,7 @@
 					<span class="ccb-select-label"><?php esc_html_e( 'Default Value(s)', 'cost-calculator-builder' ); ?></span>
 					<div class="ccb-multi-select" tabindex="100" @click.prevent="multiselectShow(event)">
 						<i :class="['ccb-icon-Path-3485 ccb-select-arrow', {'ccb-arrow-up': multiselectOpened}]"></i>
-						<span v-if="checkboxField.hasOwnProperty('default') && checkboxField.default.length > 0 && checkboxField.default.split(',').length <= 3" class="anchor ccb-heading-5 ccb-light-3 ccb-selected">
+						<span v-if="checkboxField.hasOwnProperty('default') && checkboxField.default?.length > 0 && checkboxField.default.split(',').length <= 3" class="anchor ccb-heading-5 ccb-light-3 ccb-selected">
 							<span class="selected" v-for="choosenOption in checkboxField.default.split(',')" >
 								{{ getOptionTextByChoosenOption(choosenOption) }}
 								<i class="ccb-icon-close" @click.self="removeFromDefaultValueByChoosenOption(choosenOption)" ></i>

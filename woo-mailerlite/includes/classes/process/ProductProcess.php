@@ -174,8 +174,11 @@ class ProductProcess extends Singleton
 
         $categories = get_the_terms($productID, 'product_cat');
 
-        $productCategories = [];
+        if (!$categories || is_wp_error($categories)) {
+            $categories = [];
+        }
 
+        $productCategories = [];
         foreach ($categories as $category) {
 
             if (isset($category->term_id) && is_numeric($category->term_id)) {

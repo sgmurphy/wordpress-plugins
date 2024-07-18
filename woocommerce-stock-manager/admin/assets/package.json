@@ -29,7 +29,8 @@
         {
           "output": "../../languages/stock-manager.po"
         }
-      ]
+      ],
+      "@babel/plugin-transform-runtime"
     ]
   },
   "postcss": {
@@ -98,6 +99,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.24.7",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "@wordpress/babel-plugin-makepot": "^3.1.0",

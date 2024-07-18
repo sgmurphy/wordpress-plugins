@@ -521,13 +521,14 @@
 		 * @return Freemius
 		 * @throws Freemius_Exception
 		 */
-		function fs_dynamic_init( $module ) {
-			$fs = Freemius::instance( $module['id'], $module['slug'], true );
-			$fs->dynamic_init( $module );
+		if ( ! function_exists( 'fs_dynamic_init' ) ) {
+			function fs_dynamic_init( $module ) {
+				$fs = Freemius::instance( $module['id'], $module['slug'], true );
+				$fs->dynamic_init( $module );
 
-			return $fs;
+				return $fs;
+			}
 		}
-
 		function fs_dump_log() {
 			FS_Logger::dump();
 		}

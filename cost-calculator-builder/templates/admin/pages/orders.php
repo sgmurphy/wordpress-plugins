@@ -92,7 +92,7 @@ wp_localize_script(
 									<div class="ccb-input-wrapper">
 										<i class="ccb-icon-Search-Magnifier ccb-search-magnifier"></i>
 										<input type="text" v-model="search.searchInput" class="ccb-search-input" ref="searchInput" placeholder=<?php esc_html_e( 'Search', 'cost-calculator-builder' ); ?>>
-										<i v-if="search.searchInput.length > 0" class="ccb-icon-close-x ccb-search-close" @click="resetSearch"></i>
+										<i v-if="search.searchInput?.length > 0" class="ccb-icon-close-x ccb-search-close" @click="resetSearch"></i>
 									</div>
 									<div class="ccb-select-wrapper">
 										<i class="ccb-icon-Path-3485 ccb-select-arrow"></i>

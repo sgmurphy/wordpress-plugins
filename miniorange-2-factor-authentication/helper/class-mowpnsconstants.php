@@ -62,7 +62,7 @@ if ( ! class_exists( 'MoWpnsConstants' ) ) {
 		const CURRENT_BROWSER      = '<span style="font-size:10px;color:red;">( Current Browser )</span>';
 
 		// urls .
-		const VIEW_TRANSACTIONS     = 'https://portal.miniorange.com/home';
+		const VIEW_TRANSACTIONS     = MO_HOST_NAME . '/moas/login?redirectUrl=' . MO_HOST_NAME . '/moas/viewtransactions';
 		const MO2F_PLUGINS_PAGE_URL = 'https://plugins.miniorange.com';
 
 		// plugins .
@@ -73,31 +73,38 @@ if ( ! class_exists( 'MoWpnsConstants' ) ) {
 		const OTP_OVER_WHATSAPP_PAGE_LINK = 'https://bit.ly/3iWKyH7';
 
 		// Constants for method names.
-		const OTP_OVER_EMAIL           = 'EMAIL';
-		const OTP_OVER_SMS             = 'SMS';
-		const OTP_OVER_SMS_AND_EMAIL   = 'SMS AND EMAIL';
-		const OTP_OVER_TELEGRAM        = 'TELEGRAM';
-		const OTP_OVER_WHATSAPP        = 'WHATSAPP';
-		const GOOGLE_AUTHENTICATOR     = 'GOOGLE AUTHENTICATOR';
-		const AUTHY_AUTHENTICATOR      = 'AUTHY AUTHENTICATOR';
-		const MSFT_AUTHENTICATOR       = 'MICROSOFT AUTHENTICATOR';
-		const FREEOTP_AUTHENTICATOR    = 'FREEOTP AUTHENTICATOR';
-		const LASTPASS_AUTHENTICATOR   = 'LASTPASS AUTHENTICATOR';
-		const DUO_AUTHENTICATOR        = 'DUO AUTHENTICATOR';
-		const OUT_OF_BAND_EMAIL        = 'OUT OF BAND EMAIL';
-		const SECURITY_QUESTIONS       = 'KBA';
-		const SOFT_TOKEN               = 'SOFT TOKEN';
-		const PUSH_NOTIFICATIONS       = 'PUSH NOTIFICATIONS';
-		const MOBILE_AUTHENTICATION    = 'MOBILE AUTHENTICATION';
-		const HARDWARE_TOKEN           = 'HARDWARE TOKEN';
-		const MINIORANGE_AUTHENTICATOR = 'MINIORANGE AUTHENTICATOR';
+		const OTP_OVER_EMAIL         = 'EMAIL';
+		const OTP_OVER_SMS           = 'SMS';
+		const OTP_OVER_SMS_AND_EMAIL = 'SMS AND EMAIL';
+		const OTP_OVER_TELEGRAM      = 'TELEGRAM';
+		const OTP_OVER_WHATSAPP      = 'WHATSAPP';
+		const GOOGLE_AUTHENTICATOR   = 'GOOGLE AUTHENTICATOR';
+		const AUTHY_AUTHENTICATOR    = 'AUTHY AUTHENTICATOR';
+		const MSFT_AUTHENTICATOR     = 'MICROSOFT AUTHENTICATOR';
+		const FREEOTP_AUTHENTICATOR  = 'FREEOTP AUTHENTICATOR';
+		const LASTPASS_AUTHENTICATOR = 'LASTPASS AUTHENTICATOR';
+		const DUO_AUTHENTICATOR      = 'DUO AUTHENTICATOR';
+		const OUT_OF_BAND_EMAIL      = 'OUT OF BAND EMAIL';
+		const SECURITY_QUESTIONS     = 'KBA';
+		const HARDWARE_TOKEN         = 'HARDWARE TOKEN';
 		// 2fa registration status
-		const MO_2_FACTOR_PROMPT_USER_FOR_2FA_METHODS = 'MO_2_FACTOR_PROMPT_USER_FOR_2FA_METHODS';
-		const MO_2_FACTOR_PLUGIN_SETTINGS             = 'MO_2_FACTOR_PLUGIN_SETTINGS';
-		const INLINE_2FA_FLOW                         = 'mo2f_inline_flow';
-		const MSFT_AUTH                               = 'msft_authenticator';
-		const SETUPWIZARD_2FA_FLOW                    = 'mo2f_setupwizard_flow';
-		const DASHBOARD_2FA_FLOW                      = 'mo2f_dashboard_flow';
+		const MO_2_FACTOR_PROMPT_USER_FOR_2FA_METHODS     = 'MO_2_FACTOR_PROMPT_USER_FOR_2FA_METHODS';
+		const MO_2_FACTOR_PLUGIN_SETTINGS                 = 'MO_2_FACTOR_PLUGIN_SETTINGS';
+		const MO_2_FACTOR_INITIALIZE_TWO_FACTOR           = 'MO_2_FACTOR_INITIALIZE_TWO_FACTOR';
+		const MO_2_FACTOR_RECONFIGURATION_LINK_SENT       = 'MO_2_FACTOR_RECONFIGURATION_LINK_SENT';
+		const MO_2_FACTOR_USE_BACKUP_CODES                = 'MO_2_FACTOR_USE_BACKUP_CODES';
+		const MO2F_ERROR_MESSAGE_PROMPT                   = 'MO2F_ERROR_MESSAGE_PROMPT';
+		const MO2F_USER_BLOCKED_PROMPT                    = 'MO2F_USER_BLOCKED_PROMPT';
+		const MO_2_FACTOR_CHALLENGE_OTP_OVER_EMAIL        = 'MO_2_FACTOR_CHALLENGE_OTP_OVER_EMAIL';
+		const MO_2_FACTOR_CHALLENGE_OTP_OVER_TELEGRAM     = 'MO_2_FACTOR_CHALLENGE_OTP_OVER_TELEGRAM';
+		const MO_2_FACTOR_CHALLENGE_GOOGLE_AUTHENTICATION = 'MO_2_FACTOR_CHALLENGE_GOOGLE_AUTHENTICATION';
+		const MO_2_FACTOR_CHALLENGE_OTP_OVER_SMS          = 'MO_2_FACTOR_CHALLENGE_OTP_OVER_SMS';
+		const MO_2_FACTOR_CHALLENGE_OOB_EMAIL             = 'MO_2_FACTOR_CHALLENGE_OOB_EMAIL';
+		const MO_2_FACTOR_CHALLENGE_KBA_AUTHENTICATION    = 'MO_2_FACTOR_CHALLENGE_KBA_AUTHENTICATION';
+		const INLINE_2FA_FLOW                             = 'mo2f_inline_flow';
+		const MSFT_AUTH                                   = 'msft_authenticator';
+		const SETUPWIZARD_2FA_FLOW                        = 'mo2f_setupwizard_flow';
+		const DASHBOARD_2FA_FLOW                          = 'mo2f_dashboard_flow';
 
 		// arrays .
 		/**
@@ -155,12 +162,6 @@ if ( ! class_exists( 'MoWpnsConstants' ) ) {
 		 * @var array
 		 */
 		public static $mo2f_otp_method_components = array(
-			self::SOFT_TOKEN           => array(
-				'selected_2fa_method'      => self::SOFT_TOKEN,
-				'test_method_instructions' => 'verification code from the configured account in your miniOrange Authenticator App.',
-				'option_name'              => 'mo2f_validate_soft_token',
-				'nonce_name'               => 'mo2f-validate-soft-token-nonce',
-			),
 			self::OTP_OVER_SMS         => array(
 				'selected_2fa_method'      => self::OTP_OVER_SMS,
 				'test_method_instructions' => 'one time passcode sent to your registered mobile number.',
@@ -199,24 +200,20 @@ if ( ! class_exists( 'MoWpnsConstants' ) ) {
 		 * @var array
 		 */
 		public static $mo2f_cap_to_small = array(
-			self::MOBILE_AUTHENTICATION    => 'miniOrange QR Code Authentication',
-			self::SOFT_TOKEN               => 'miniOrange Soft Token',
-			self::PUSH_NOTIFICATIONS       => 'miniOrange Push Notification',
-			self::MINIORANGE_AUTHENTICATOR => 'miniOrange Authenticator',
-			self::GOOGLE_AUTHENTICATOR     => 'Google Authenticator',
-			self::SECURITY_QUESTIONS       => 'Security Questions',
-			self::OUT_OF_BAND_EMAIL        => 'Email Verification',
-			self::OTP_OVER_SMS             => 'OTP Over SMS',
-			self::OTP_OVER_EMAIL           => 'OTP Over Email',
-			self::OTP_OVER_TELEGRAM        => 'OTP Over Telegram',
-			self::AUTHY_AUTHENTICATOR      => 'Authy Authenticator',
-			self::MSFT_AUTHENTICATOR       => 'Microsoft Authenticator',
-			self::FREEOTP_AUTHENTICATOR    => 'Freeotp Authenticator',
-			self::LASTPASS_AUTHENTICATOR   => 'Lastpass Authenticator',
-			self::DUO_AUTHENTICATOR        => 'Duo Authenticator',
-			self::OTP_OVER_SMS_AND_EMAIL   => 'OTP Over SMS and Email',
-			self::OTP_OVER_WHATSAPP        => 'OTP Over Whatsapp',
-			self::HARDWARE_TOKEN           => 'Hardware Token',
+			self::GOOGLE_AUTHENTICATOR   => 'Google Authenticator',
+			self::SECURITY_QUESTIONS     => 'Security Questions',
+			self::OUT_OF_BAND_EMAIL      => 'Email Verification',
+			self::OTP_OVER_SMS           => 'OTP Over SMS',
+			self::OTP_OVER_EMAIL         => 'OTP Over Email',
+			self::OTP_OVER_TELEGRAM      => 'OTP Over Telegram',
+			self::AUTHY_AUTHENTICATOR    => 'Authy Authenticator',
+			self::MSFT_AUTHENTICATOR     => 'Microsoft Authenticator',
+			self::FREEOTP_AUTHENTICATOR  => 'Freeotp Authenticator',
+			self::LASTPASS_AUTHENTICATOR => 'Lastpass Authenticator',
+			self::DUO_AUTHENTICATOR      => 'Duo Authenticator',
+			self::OTP_OVER_SMS_AND_EMAIL => 'OTP Over SMS and Email',
+			self::OTP_OVER_WHATSAPP      => 'OTP Over Whatsapp',
+			self::HARDWARE_TOKEN         => 'Hardware Token',
 		);
 
 		/**
@@ -225,17 +222,14 @@ if ( ! class_exists( 'MoWpnsConstants' ) ) {
 		 * @var array
 		 */
 		public static $mo2f_pascal_to_cap = array(
-			'miniOrangeQRCodeAuthentication' => self::MOBILE_AUTHENTICATION,
-			'miniOrangeSoftToken'            => self::SOFT_TOKEN,
-			'miniOrangePushNotification'     => self::PUSH_NOTIFICATIONS,
-			'GoogleAuthenticator'            => self::GOOGLE_AUTHENTICATOR,
-			'AuthyAuthenticator'             => self::AUTHY_AUTHENTICATOR,
-			'SecurityQuestions'              => self::SECURITY_QUESTIONS,
-			'EmailVerification'              => self::OUT_OF_BAND_EMAIL,
-			'OTPOverSMS'                     => self::OTP_OVER_SMS,
-			'OTPOverEmail'                   => self::OTP_OVER_EMAIL,
-			'DuoAuthenticator'               => self::DUO_AUTHENTICATOR,
-			'OTPOverTelegram'                => self::OTP_OVER_TELEGRAM,
+			'GoogleAuthenticator' => self::GOOGLE_AUTHENTICATOR,
+			'AuthyAuthenticator'  => self::AUTHY_AUTHENTICATOR,
+			'SecurityQuestions'   => self::SECURITY_QUESTIONS,
+			'EmailVerification'   => self::OUT_OF_BAND_EMAIL,
+			'OTPOverSMS'          => self::OTP_OVER_SMS,
+			'OTPOverEmail'        => self::OTP_OVER_EMAIL,
+			'DuoAuthenticator'    => self::DUO_AUTHENTICATOR,
+			'OTPOverTelegram'     => self::OTP_OVER_TELEGRAM,
 		);
 
 		/**
@@ -244,16 +238,13 @@ if ( ! class_exists( 'MoWpnsConstants' ) ) {
 		 * @var array
 		 */
 		public static $mo2f_small_to_cap = array(
-			'miniOrange QR Code Authentication' => self::MOBILE_AUTHENTICATION,
-			'miniOrange Soft Token'             => self::SOFT_TOKEN,
-			'miniOrange Push Notification'      => self::PUSH_NOTIFICATIONS,
-			'Google Authenticator'              => self::GOOGLE_AUTHENTICATOR,
-			'Authy Authenticator'               => self::AUTHY_AUTHENTICATOR,
-			'Security Questions'                => self::SECURITY_QUESTIONS,
-			'Email Verification'                => self::OUT_OF_BAND_EMAIL,
-			'OTP Over SMS'                      => self::OTP_OVER_SMS,
-			'OTP Over Email'                    => self::OTP_OVER_EMAIL,
-			'OTP Over Telegram'                 => self::OTP_OVER_TELEGRAM,
+			'Google Authenticator' => self::GOOGLE_AUTHENTICATOR,
+			'Authy Authenticator'  => self::AUTHY_AUTHENTICATOR,
+			'Security Questions'   => self::SECURITY_QUESTIONS,
+			'Email Verification'   => self::OUT_OF_BAND_EMAIL,
+			'OTP Over SMS'         => self::OTP_OVER_SMS,
+			'OTP Over Email'       => self::OTP_OVER_EMAIL,
+			'OTP Over Telegram'    => self::OTP_OVER_TELEGRAM,
 		);
 
 		/**

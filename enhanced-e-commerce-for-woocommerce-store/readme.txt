@@ -6,10 +6,10 @@ Tags: google analytics 4, meta pixel, google tag manager, tiktok pixel, facebook
 Author URI: https://conversios.io/
 Author: Conversios
 Requires at least: 4.6
-Tested up to: 6.5.3
+Tested up to: 6.6.0
 Requires PHP: 5.6
-Stable tag: 7.1.1
-Version: 7.1.1
+Stable tag: 7.1.2
+Version: 7.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

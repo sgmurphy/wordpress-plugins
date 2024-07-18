@@ -1,111 +1,273 @@
-=== Change WP Admin Login ===
-Tags:              login url, login, wp admin, wp login, custom login
-Contributors:      wpexpertsio
-Author: wpexpertsio
-Requires at least: 4.5
-Tested up to:      6.5.5
-Stable tag:        1.1.9
-License:           GPL-2.0+
+=== AIO Login — WordPress Login Security Plugin to Protect and Customize WP Admin ===
+Contributors: wpexpertsio
+Tags: login url, login, wp admin, wp login, custom login
+Requires at least: 4.6
+Tested up to: 6.5.5
+Requires PHP: 7.4
+Stable tag: 2.0.0
+License: GPLv2 or later
 
+Do you want to secure and customize WordPress login page (wp-admin)❓ Download AIO Login plugin for ultimate WordPress login security and customization.
 
 == Description ==
 
-*Change WP Admin Login* is an easy-to-use WordPress plugin that allows you to safely change your WordPress website's admin login URL to anything you want. 
+Looking for a one-stop solution to protect and customize your WordPress login page (wp-admin)? If that's what you need, then✨**Download AIO Login Plugin NOW**✨
 
-The plugin's simple two-step process ensures the safety of your WordPress admin login URL within seconds, and all of this without any coding. 
+Over **90,000 website owners** already use AIO Login for their WordPress login security and customization. 🎉
 
-**Security against malicious activity** - Anyone can find your WordPress website's default login page, and this can increase the chances of security breaches like brute force attacks and other cyber threats. Change wp-admin Login plugin allows you to change your admin login URL and redirect any user to a redirection URL.   
+And the reason for that is obvious! 👇
 
-Change wp-admin Login plugin does not rename or change files in the core but instead simply intercepts page requests and redirects to another URL. 
+AIO Login is a **top-notch WordPress admin security plugin** that empowers you to secure and customize WordPress login page (wp-admin) at the same time. Which means it offers robust security features and extensive customization options. 🤯
 
-= Why use Change wp-admin Login plugin? =
-- Protect your WordPress website from brute force attacks.
-- Quick two-step process that doesn't require coding.
-- Easy to secure your WordPress website from hackers and cyber attacks.
-- Only grant access to people you trust.
-- Hide your login page from malicious activity. 
-- Easier than creating a custom login Url.
+So, if you really want to level up your WordPress login security, then **AIO Login is a must-have plugin**.💯
 
-== New Feature ==
+From changing the WP-Admin URL to integrating Google reCAPTCHA, **AIO Login provides everything you need** to secure and customize your WordPress login page design.
 
-**Redirect Custom Field**
+Isn’t that amazing? Wait until you see its features❕ 😃 🚀
 
-Accessing the wp-login.php page or the wp-admin directory without logging in will redirect you to the page defined on the redirect custom field. Leaving the redirect custom field empty will activate the default settings (redirect to the website's homepage).
 
-= How it works? =
 
-Go under Settings, click "Permalinks" and change your URL under "Change wp-admin login".
+== Key Features Our Users 🤍 About AIO Login ==
 
-Step 1: Add a new login URL
-Step 2: Add redirect URL
+The AIO Login plugin includes all the essential features that ensure the best WordPress Login Security and customization.
 
-**Note** - After you activate this plugin, the wp-admin directory and wp-login.php page will become unavailable, so you should bookmark or remember the URL. Disabling this plugin brings your site back exactly to its previous state.
+Let's explore some of its key features: 👇
 
-== Support ==
+**✔️ Change WP-Admin URL**
 
-**Like this plugin?** Please [Rate It](https://wordpress.org/support/plugin/change-wp-admin-login/reviews/?filter=5)
+The default WP-Admin URL is an easy target for hackers, which means your WordPress login page is always vulnerable to attacks.
 
-**Have a problem?** Please write a message in the [WordPress Support Forum](https://wordpress.org/support/plugin/change-wp-admin-login/)
+But don't worry❗ 
 
-**ATTENTION! 🚨**
+AIO Login lets you change the WP-Admin URL, making it difficult for attackers to locate your login page. This simple change significantly improves your WordPress Admin Login Security and protects your site from unauthorized access attempts.
 
-We have rebranded the **Change WP Admin Login plugin** as **AIO Login** with many new exciting features, such as:
+**✔️ WordPress Login Customization [Free + Pro]**
 
-- Limit login attempts 
-- Google reCAPTCHA,
-- WP login page customization and more.
+Personalize your WordPress login page with extensive customization options. Use pre-built templates, change the background image, add your logo, and even use custom CSS for WP-Admin.
 
-👉 [Try out the Beta version of AIO Login now!](https://downloads.wordpress.org/plugin/change-wp-admin-login.2.0.0-beta.3.zip) The full version is coming soon.
-Don’t forget to provide your valuable feedback so we can improve.
+A customized login page not only enhances your brand but also provides a unique and engaging user experience.
 
-👉 [Click here](https://wordpress.org/support/topic/good-news-explore-new-exciting-features-with-the-rebrand/) to submit your suggestions.
+**✔️ Ban User/IP Address [Pro]**
+
+Want to prevent certain users from accessing your WordPress login page❓
+
+Using AIO Login, you can instantly block specific users or IP addresses with just a few clicks. This way, you can prevent unauthorized access and keep your WordPress login page safe from hackers.
+
+**✔️ Google reCAPTCHA**
+
+Prevent your WordPress login page from spam and bots.
+
+Integrate Google reCAPTCHA to protect against unauthorized logins. You can choose between reCAPTCHA v2 or v3 and adjust the settings accordingly.
+
+Google reCAPTCHA helps distinguish between human users and bots, effectively reducing spam and automated login attempts. Thus, it enhances the security and integrity of your WordPress login page.
+
+**✔️ App-Based 2FA [Pro]**
+
+Step up your WordPress login security with App-Based 2FA.
+
+Two-factor authentication (2FA) adds an extra layer of security. AIO Login supports app-based 2FA using Google Authenticator, FreeOTP, or Authy. By requiring a time-based one-time password (TOTP) alongside the usual login credentials, you make sure only authorized users can access your WP Admin.
+
+Therefore, this feature greatly improves your WordPress Login Security, making it extremely difficult for unauthorized users to break in.
+
+**✔️ Temp Access URL [Pro]**
+
+Need to provide temporary access to specific users❔
+
+AIO Login allows you to generate a Temp Access URL for designated users. This feature is perfect for granting short-term access without compromising security. You can set the maximum number of visits and toggle 2FA for each temporary URL.
+
+With Temp Access URLs, you maintain control over temporary user access, which ensures that they can no longer log in once their access period expires.
+
+**✔️ Limit Login Attempts**
+
+Protect your WordPress login page against a Brute-force attack.
+
+AIO Login lets you limit failed login attempts. Lock out users after a specified number of failed attempts to protect your WP Admin from brute force attacks. This prevents attackers from continuously guessing passwords and protects your WP Admin from unauthorized access.
+
+
+**✔️ Whitelist IP Addresses [Pro]**
+
+If you only want to allow login access to trusted IPs, then AIO Login Pro is for you❗
+
+By allowing only trusted IP addresses to access your login page, you can prevent unauthorized users from even attempting to log in. This adds an additional layer of security to your WordPress Admin Login, making sure that only users from approved IP addresses can gain entry.
+
+
+### 7 Key Reasons to Choose AIO Login for Better WP-Admin Protection😎
+
+⚡ **Reason #1: Greater Security for Your WP-Admin**
+
+AIO Login provides robust security features to protect your WP Admin page.
+
+* **Change WP-Admin URL:** Customize the WordPress default login path.
+
+* **Ban User/IP Address:** Block unauthorized access instantly.
+
+* **Detailed Activity Logs:** Monitor all login attempts
+
+* **Limit Login Attempts:** Prevent brute force attacks..
+
+* **Whitelist IP Addresses:** Restrict access to trusted IPs.
+
+
+⚡ **Reason #2: Intuitive Branding and User Engagement**
+
+Create a better user experience with a customized WordPress login page.
+
+* **Custom Templates:** Choose from a variety of templates.
+
+* **Logo and Background:** Add your branding elements.
+
+* **Color Customization:** Personalize color schemes.
+
+* **Custom CSS:** Advanced customization for WP-Admin.
+
+* **User Engagement:** Create a more engaging login page.
+
+
+⚡ **Reason #3: Brute Force Protection**
+
+Protect your WordPress login page (wp-admin) from brute force attacks.
+
+* **Failed Login Limits:** Set limits on login attempts.
+
+* **User Lockout:** Lock out users after failed attempts.
+
+* **Custom Lockout Settings:** Customize lockout duration.
+
+* **Prevent Unauthorized Access:** Secure your WP Admin.
+
+* **Real-time Monitoring:** Track login attempts and threats.
+
+
+⚡ **Reason #4: Spam Prevention and User Verification**
+
+Prevent spam and unauthorized logins with Google reCAPTCHA integration.
+
+* **reCAPTCHA Integration:** Add an extra layer of security.
+
+* **Customizable Settings:** Choose between v2 and v3.
+
+* **Bot Prevention:** Keep your login page spam-free.
+
+* **User Verification:** Ensure only legitimate users access your site.
+
+* **Enhanced Security:** Protect against automated attacks.
+
+
+
+⚡ **Reason #5: Comprehensive Activity Monitoring**
+
+Monitor all login activities for enhanced WordPress login security. See the username, IP address, date, time, lockout list, and more.
+
+* **IP Address Ban:** Block specific IPs.
+
+* **User Ban:** Prevent specific users from logging in.
+
+* **Custom Messages:** Display messages for banned users.
+
+* **Enhanced Control:** Manage who can access your site.
+
+* **Immediate Action:** Take action against threats swiftly.
+
+
+⚡ **Reason #6: Immediate Blocking of Suspicious Users**
+
+Block suspicious users instantly to prevent unauthorized access to your WordPress login page and set a custom message on display for banned users.
+
+* Real-time Logs: Track login attempts in real time.
+
+* User Activity: Monitor user activities.
+
+* IP Address Tracking: Review IP addresses.
+
+* Failed Login Attempts: Get details on failed attempts.
+
+* Security Audits: Conduct thorough security audits.
+
+
+⚡ **Reason #7: Additional Layer of Security with Mobile-Based 2FA**
+
+Add an extra layer of security with mobile-based 2FA.
+
+* **TOTP Apps Support:** Use Google Authenticator, FreeOTP, or Authy.
+
+* **Two-Factor Authentication:** Secure your login process.
+
+* **Improved Security:** Ensure only authorized access.
+
+* **Convenient Setup:** Easy to set up and use.
+
+* **Enhanced Protection:** Strengthen your WP Admin security.
+
+== Technical Documentation ==
+
+[Click here](https://aiologin.com/documentation) to check out our detailed step-by-step technical documentation to completely secure and customer your WordPress login page (wp-admin). 
+
+== Need Help? Get Expert Assistance ==
+
+Having trouble securing or customizing your WordPress login page (WP-Admin URL)? Don't worry, our expert support team is here to help! 🤝
+
+Our dedicated support team is here to guide you through any issues, answer your questions, and assist you in using the plugin to its full potential. Reach out anytime for fast, reliable help. We're here for you! 📞
+
+
 
 == Installation ==
 
+To install and activate this plugin...
+
 1. Go to Plugins, and click on "Add New".
-2. Search for *Change wp-admin login*.
+2. Search for *AIO Login*.
 3. Download, install, and activate it.
-4. Go under Settings and then click on "Permalinks" and change your URL under "Change wp-admin login"
-5. You can change this anytime; just go back to Settings > Permalinks > Change wp-admin login.
+4. Get the AIO Login setting page in WordPress side menu.
+
 
 == Frequently Asked Questions ==
 
-= I can't log in? =
-In case you forgot the login URL or for any other reason you can't log in on the website, you will need to delete the plugin via SFT/FTP or cPanel on your hosting.
+= Can I use the AIO Login plugin for free? =
+Yes, you can install the free version of AIO Login, which offers unique features such as the change of the WP-Admin URL, block login attempts, Google reCAPTCHA, detailed activity logs, and even custom login design for customizing and securing your WordPress login page.
 
-Path for the plugin folder:
-/wp-content/plugins/change-wp-admin-login
+= Is AIO Login compatible with all WordPress themes? =
+Yes, you can easily customize the WordPress admin URL with AIO Login, enhancing security by making it harder for attackers to find your login page.
 
-Advanced users:
-Go to your MySQL database and look for the value of rwl_page in the options table
+= Can I customize the WordPress admin URL? =
+Yes, you can easily customize the WordPress admin URL with AIO Login, enhancing security by making it harder for attackers to find your login page.
 
-Advanced users (multisite):
-Go to your MySQL database and look for the rwl_page option will be in the site meta table or options table.
+= How does App-Based 2FA protect WP-Admin? =
+App-Based 2FA adds an extra layer of security by requiring a second form of authentication via mobile apps like Google Authenticator. This makes unauthorized access significantly more difficult.
 
-= Does it work with TranslatePress? =
-You need to select the option NO "Use a subdirectory for the default language".
+=Is AIO Login compatible with other security plugins? =
+AIO Login is generally compatible with all other security plugins, such as Jetpack, Wordfence Security, Security Ninja, etc.
 
-= Does it work with Polylang? =
-Yes, it works, but not been tested with the URL option "The language is set from different domains".
+= Can I track login activity with AIO Login? =
+Yes, AIO Login allows you to track all login attempts and activity logs in real-time. You can monitor user activity, review IP addresses, and see details on failed login attempts.
 
-= Does it work on WordPress Multisite with Subdirectories? =
-Yes, it does work. You should set up the login URL in each website (Settings-->Permalinks)
+= Is AIO Login required for WP-Admin security? =
+Even though it is not mandatory, using AIO Login can significantly enhance the security of your WP-Admin login page against unauthorized access.
 
-= Does it work on WordPress Multisite with Subdomains? =
-Yes, it does work. You should set up the login URL in each website (Settings-->Permalinks)
 
-= Does it work with Buddyboss? =
-No, Buddyboss has its own wp-admin redirect functions.
+== Screenshots ==
 
-= Does it work with BuddyPress? =
-No, BuddyPress has its own wp-admin redirect functions.
+1. Your AIO Login Dashboard to access everything at a glance.
+2. Change WP-Admin Login URL to protect WordPress login page.
+3. Protect WP admin against brute force with limit login attempts.
+4. Integrate Google reCAPTCHA (v2 or v3) to avoid spam
+5. Change background image for your WordPress login page
+6. Add custom CSS for WP-Admin for further customization
+
 
 == Changelog ==
-= 1.1.9 =
-* Fixed: url breaking when forgetting the password.
+
+= 2.0.0 =
+* Fixed - Forgot password link breaking.
+* New - Improved the UI.
+* New - Added new Dashboard
+* New - Added Limit login Attempts feature
+* New - Added activity logs for failed login attempts
+* New - Added activity logs for lockout users
+* New - Added Google reCAPTCHA functionality
+* New - Added login page customization options
 
 = 1.1.8 =
-* Fixed: compatibility issues with WPForms, WordFence
+* Fixed: compatibility issues with WPForms, WordFence 
 
 = 1.1.7 =
 * Fixed: Redirection to wp-admin when trying to access admin pages directly.
@@ -114,7 +276,7 @@ No, BuddyPress has its own wp-admin redirect functions.
 * Fixed: The recent commit has been reverted to address conflicts in various cases
 
 = 1.1.5 =
-* Fixed: Resolved the issue undefined “is_user_logged_in” function error in certain cases.
+* Fixed: Resolved the issue undefined â€œis_user_logged_inâ€ function error in certain cases.
 
 = 1.1.4 =
 * Fixed: Redirection to wp-admin when trying to access admin pages directly.

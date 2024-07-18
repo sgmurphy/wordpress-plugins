@@ -120,6 +120,11 @@ class SQ_Controllers_Sitemaps extends SQ_Classes_FrontController
                     $request_uri = str_replace('sitemap_index.xml','sitemap.xml', $request_uri);
                 }
 
+				//Compatibility with WordPress sitemap
+	            if(strpos($request_uri, '/wp-sitemap.xml') !== false){
+		            $request_uri = str_replace('wp-sitemap.xml','sitemap.xml', $request_uri);
+	            }
+
                 $parseurl = parse_url($request_uri);
 	            $stemaplist = SQ_Classes_Helpers_Tools::getOption('sq_sitemap');
 

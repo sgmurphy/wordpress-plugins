@@ -918,8 +918,19 @@ class Wf_Woocommerce_Packing_List_Admin {
 			{
 				remove_action('wp_footer', 'wp_admin_bar_render', 1000);
 				$action = (isset($_GET['type']) ? sanitize_text_field($_GET['type']) : '');
+
+				// Removes the WooCommerce filter, that is validating the quantity to be an int
+				remove_filter('woocommerce_stock_amount', 'intval');
+
+				// Add a filter, that validates the quantity to be a float
+				add_filter('woocommerce_stock_amount', 'floatval');
+				
 				//action for modules to hook print function
 				do_action('wt_print_doc', $orders, $action);
+
+				// remove the filter from rendering html
+				remove_filter('woocommerce_stock_amount', 'floatval');
+				add_filter('woocommerce_stock_amount', 'intval');
 			}
 		}
 		exit();
@@ -1034,8 +1045,20 @@ class Wf_Woocommerce_Packing_List_Admin {
 			{
 				remove_action('wp_footer', 'wp_admin_bar_render', 1000);
 				$action = (isset($_GET['type']) ? sanitize_text_field($_GET['type']) : '');
+				
+				// Removes the WooCommerce filter, that is validating the quantity to be an int
+				remove_filter('woocommerce_stock_amount', 'intval');
+
+				// Add a filter, that validates the quantity to be a float
+				add_filter('woocommerce_stock_amount', 'floatval');
+				
 				//action for modules to hook print function
 				do_action('wt_print_doc', $orders, $action);
+
+				// remove the filter from rendering html
+				remove_filter('woocommerce_stock_amount', 'floatval');
+				add_filter('woocommerce_stock_amount', 'intval');
+
 			}
 		}
 		exit();
@@ -1743,7 +1766,10 @@ class Wf_Woocommerce_Packing_List_Admin {
 		$decimal			= ( "" === trim( $decimal ) ) ? 0 : $decimal;
 		$decimal_sep 		= ( "" === trim( $decimal_sep ) ) ? "." : $decimal_sep;
 		$thousand_sep		= ( "" === trim( $thousand_sep ) ) ? ',' : $thousand_sep;
+
+		$wc_currency_symbol = apply_filters( 'woocommerce_currency_symbol', $wc_currency_symbol, $user_currency );
 		$wc_currency_symbol = apply_filters( 'wt_pklist_alter_currency_symbol', $wc_currency_symbol, $symbols, $user_currency, $order, $price );
+
 		$currency_pos 		= apply_filters( 'wt_pklist_alter_currency_symbol_position', $currency_pos, $symbols, $wc_currency_symbol, $user_currency, $order, $price );
 		$decimal 			= apply_filters( 'wt_pklist_alter_currency_decimal', $decimal, $wc_currency_symbol, $user_currency, $order, $price );
 		$decimal_sep 		= apply_filters( 'wt_pklist_alter_currency_decimal_seperator', $decimal_sep, $symbols, $wc_currency_symbol, $user_currency, $order, $price );
@@ -4689,6 +4715,7 @@ class Wf_Woocommerce_Packing_List_Admin {
 			$general_module_fields = array(
 				'woocommerce_wf_packinglist_companyname',
 				'woocommerce_wf_packinglist_sender_address_line1',
+				'woocommerce_wf_packinglist_sender_address_line2',
 				'woocommerce_wf_packinglist_sender_city',
 				'wf_country',
 				'woocommerce_wf_packinglist_sender_postalcode',
@@ -4720,7 +4747,7 @@ class Wf_Woocommerce_Packing_List_Admin {
 						$invoice_gen_status = $_POST['woocommerce_wf_add_invoice_in_customer_mail'];
 						$i_val = $_POST['woocommerce_wf_add_invoice_in_customer_mail'];
 					}else{
-						$invoice_gen_status = array('wc-completed');
+						$invoice_gen_status = array('wc-completed','wc-processing');
 						$i_val = array();
 					}
 					Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_generate_for_orderstatus',$invoice_gen_status,$invoice_module_id);
@@ -4787,6 +4814,45 @@ class Wf_Woocommerce_Packing_List_Admin {
 
 		$wt_pklist_plugin_data = apply_filters('wt_pklist_get_plugin_data', $wt_pklist_plugin_data, $page_param);
 		return $wt_pklist_plugin_data;
+	}
+
+	/**
+	 * Adds the filter to customize before rendering the pdf
+	 *
+	 * @since 4.6.0
+	 * @param array $filters
+	 * @return array
+	 */
+	public function pdf_before_rendering_filters( $filters, $template_type, $order ) {
+		$filters[] = array( 'woocommerce_currency_symbol', array( $this, 'alter_currency_symbol' ), 10, 2 );
+		return $filters;
+	}
+
+	/**
+	 * Alters the currency symbol in all the documents as per the plugin settings.
+	 *
+	 * @param string $currency_symbol
+	 * @param string $currency
+	 * @return string
+	 */
+	public function alter_currency_symbol( $currency_symbol, $currency ) {
+		
+		// show currency code instead of currency symbol.
+		if ( 'Yes' === Wf_Woocommerce_Packing_List::get_option( 'wt_pklist_show_currency_code' ) ) {
+			return $currency;
+		}
+
+		// use extended font library for currency symbol.
+		if ( 
+			'Yes' !== Wf_Woocommerce_Packing_List::get_option( 'wt_pklist_show_currency_code' ) && 
+			'Yes' === Wf_Woocommerce_Packing_List::get_option( 'wt_pklist_additional_currency_font_support' ) &&
+			false === self::check_if_mpdf_used()
+		) {
+			$currency_symbol = sprintf( '<span class="wt_pdf_currency_symbol">%s</span>', $currency_symbol );
+			return $currency_symbol;
+		}
+		
+		return $currency_symbol;
 	}
 
 }

@@ -64,6 +64,7 @@ class STMDashboard {
 							'notice_desc'          => $notice['post_content'],
 							'notice_btn_one'       => esc_url( $notice['button_url_post'] ),
 							'notice_btn_one_title' => $notice['button_text_post'],
+							'notice_btn_one_class' => 'notice-show-again',
 						);
 						stm_admin_notices_init( $init_data );
 					}
@@ -87,9 +88,10 @@ class STMDashboard {
 			if ( false === $this->json_data || get_option('_transient_timeout_' . $transient_name ) < current_time( 'timestamp' ) ) {
 				$json_response   = wp_remote_get( $this->json_file_path );
 				$this->json_data = array();
+				$json_data       = json_decode( wp_remote_retrieve_body( $json_response ), true );
 
-				if ( ! empty( json_decode( wp_remote_retrieve_body( $json_response ) ) ) ) {
-					$this->json_data = array_merge( $this->json_data, json_decode( wp_remote_retrieve_body( $json_response ), true ) );
+				if ( ! empty( $json_data ) ) {
+					$this->json_data = array_merge( $this->json_data, $json_data );
 				}
 
 				set_transient( $transient_name, $this->json_data, HOUR_IN_SECONDS * 12 );

@@ -1,9 +1,9 @@
 <!-- DC ready -->
 <style type="text/css">
-body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
+body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;line-height: 1.5;}
 .clearfix::after{ display:block; clear:both; content:""; }
 
-.wfte_invoice-main{ color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; height:auto;width: auto; }
+.wfte_invoice-main{ color:#2A3646; font-size:12px; font-weight:400; box-sizing:border-box; height:auto;width: auto; }
 .wfte_invoice-main *{ box-sizing:border-box;}
 
 .wfte_row{ width:100%; display:block; }
@@ -16,7 +16,7 @@ body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif
 .wfte_col-7{ width:69%; display:block;}
 
 .wfte_invoice_data div span:first-child, .wfte_extra_fields span:first-child{ font-weight:bold; }
-.wfte_invoice_data{ line-height:16px; font-size:12px; }
+.wfte_invoice_data{ font-size:12px; }
 
 .float_left{ float:left; }
 .float_right{ float:right; }

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.20
+Stable tag: 5.2.21
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,8 +56,11 @@ Insert as many calculated fields in the form as you need.
 * Distributed with several predefined forms that you can use as a starting point for your projects.
 * Includes several [design templates](https://cff.dwbooster.com/templates).
 * Supports multi-pages forms by inserting page break controls between fields belonging to different pages.
-* Allows the grouping of fields inside container controls (Div and Fieldset).
 * Possible to define [dependency rules](https://cff.dwbooster.com/blog/2020/03/01/dependencies/) between fields in the form, which is very useful in the design of wizards.
+* Allows the grouping of fields inside container controls (Div, Fieldset, and Popups).
+* Enables formatting the form into columns for a more organized layout.
+
+[youtube https://www.youtube.com/watch?v=NSac2cAN8RE]
 
 The "Calculated Fields Form" plugin includes integration with popular page builders:
 
@@ -452,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.21 =
+
+* Improve user experience with the forms builder by applying tooltips to the drag-and-drop handler and columns' icons.
+* Includes Reply To attributes in the notification and confirmation email sessions to enter explicit reply-to email addresses.
+* Adds new form templates.
+
 = 5.2.20 =
 
 * Identifies fields with col-... or column... class names assigned with a top-right icon.
@@ -484,11 +493,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the installation module to create a JSON backup file of the forms structures before updating the database.
 * Adds new form templates.
 * Modifies the CFF Elementor Block.
-
-= 5.2.15 =
-
-* Fixes an issue processing the notification email attachments in the free plugin distribution.
-* Modifies the Form Settings tab, making it easier to customize the form design.
-* Moves the Customize Form Design CSS editor to the Advanced Settings tab in the form settings.
-* Implements new forms template.
-* Modifies the data sources fields (Developer and Platinum plugin versions).

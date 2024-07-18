@@ -13,6 +13,8 @@ class TVC_PMaxEdit {
   protected $campaign;
   protected $campaign_budget;
   protected $campaign_id;
+  protected $PMax_Helper;
+  protected $subscription_data;
   public function __construct() {
     $this->includes();
     $this->site_url = "admin.php?page=conversios-pmax";
@@ -25,9 +27,9 @@ class TVC_PMaxEdit {
     if(isset($this->subscription_data->google_ads_id) && $this->subscription_data->google_ads_id != ""){
       $this->google_ads_id = $this->subscription_data->google_ads_id;
     }
-    $this->campaign_id = (isset($_GET['id']))?sanitize_text_field($_GET['id']):"";
+    $this->campaign_id = (isset($_GET['id']))?sanitize_text_field($_GET['id']):"";    
     if($this->campaign_id && $this->google_ads_id){
-      $rs = $this->PMax_Helper->campaign_pmax_detail($this->google_ads_id, $this->campaign_id);
+      $rs = $this->PMax_Helper->campaign_pmax_detail($this->google_ads_id, $this->campaign_id);   
       if(isset($rs->data->campaign)){
         $this->campaign = $rs->data->campaign;
       }
@@ -92,6 +94,7 @@ class TVC_PMaxEdit {
     //print_r($this->campaign_budget);
     $sale_country = isset($this->campaign->shoppingSetting->salesCountry)?$this->campaign->shoppingSetting->salesCountry:"";
     $budget_micro = isset($this->campaign_budget->amountMicros)?$this->campaign_budget->amountMicros:"";
+    $budget = '';
     if($budget_micro > 0){
       $budget = $budget_micro / 1000000;
     }

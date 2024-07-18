@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . 'class-mo2f-api.php';
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'helper' . DIRECTORY_SEPARATOR . 'class-mo2f-api.php';
 
 
 if ( ! class_exists( 'MO2f_Cloud_Onprem_Interface' ) ) {
@@ -69,6 +69,12 @@ if ( ! class_exists( 'MO2f_Cloud_Onprem_Interface' ) ) {
 			'Mo2f_OnPrem' => 'TwoFA\OnPrem\Mo2f_Onprem_Setup',
 			'Mo2f_Cloud'  => 'TwoFA\Cloud\Customer_Cloud_Setup',
 		);
+		/**
+		 * Plan methods
+		 *
+		 * @var array
+		 */
+		public $mo2f_plan_methods;
 
 		/**
 		 * Constructor of the class.
@@ -78,20 +84,26 @@ if ( ! class_exists( 'MO2f_Cloud_Onprem_Interface' ) ) {
 			$plugin_type        = $this->plugin_type_to_class[ $mo2f_plugin_type ];
 			$this->class_object = $plugin_type::instance();
 		}
+		/**
+		 * Undocumented function
+		 *
+		 * @return array
+		 */
+		public function mo2f_plan_methods() {
+			return $this->class_object->mo2f_plan_methods();
+		}
 
 		/**
 		 * Function to send otp token.
 		 *
-		 * @param string $u_key It can be a phone number or email id to which the otp to be sent.
+		 * @param string $phone Phone.
+		 * @param string $email Email ID.
 		 * @param string $auth_type Authentication method of the user.
-		 * @param string $c_key Customer key of the user.
-		 * @param string $api_key Api key of the user.
 		 * @param object $currentuser Contains details of current user.
-		 * @return string
+		 * @return array
 		 */
-		public function send_otp_token( $u_key, $auth_type, $c_key, $api_key, $currentuser = null ) {
-			$content = $this->class_object->send_otp_token( $u_key, $auth_type, $c_key, $api_key, $currentuser );
-
+		public function send_otp_token( $phone, $email, $auth_type, $currentuser = null ) {
+			$content = $this->class_object->send_otp_token( $phone, $email, $auth_type, $currentuser );
 			return $content;
 		}
 
@@ -102,15 +114,12 @@ if ( ! class_exists( 'MO2f_Cloud_Onprem_Interface' ) ) {
 		 * @param string $username Username of user.
 		 * @param string $transaction_id Transaction id which is used to validate the sent otp token.
 		 * @param string $otp_token OTP token received by user.
-		 * @param string $c_key Customer key of user.
-		 * @param string $customer_api_key Customer api key assigned by IDP to the user.
 		 * @param object $current_user Contains details of current user.
 		 * @return string
 		 */
-		public function validate_otp_token( $auth_type, $username, $transaction_id, $otp_token, $c_key, $customer_api_key, $current_user = null ) {
+		public function validate_otp_token( $auth_type, $username, $transaction_id, $otp_token, $current_user = null ) {
 
-			$content = $this->class_object->validate_otp_token( $auth_type, $username, $transaction_id, $otp_token, $c_key, $customer_api_key, $current_user );
-
+			$content = $this->class_object->validate_otp_token( $auth_type, $username, $transaction_id, $otp_token, $current_user );
 			return $content;
 		}
 
@@ -171,8 +180,8 @@ if ( ! class_exists( 'MO2f_Cloud_Onprem_Interface' ) ) {
 		 * It will handle kba validation
 		 *
 		 * @param object $currentuser current user .
-		 * @param string $redirect_to It will carry the redirect url .
-		 * @param string $mo2f_second_factor 2FA method name .
+		 * @param string $mo2f_second_factor Twofa method.
+		 * @param string $redirect_to It will carry the redirect url.
 		 * @param string $session_id It will carry the session id .
 		 * @return mixed
 		 */
@@ -181,7 +190,6 @@ if ( ! class_exists( 'MO2f_Cloud_Onprem_Interface' ) ) {
 			if ( is_null( $session_id ) ) {
 				$session_id = $pass2fa_login->create_session();
 			}
-
 			$content = $this->class_object->mo2f_login_kba_verification( $currentuser->ID, $session_id, $redirect_to );
 			return $content;
 		}
@@ -215,13 +223,36 @@ if ( ! class_exists( 'MO2f_Cloud_Onprem_Interface' ) ) {
 		 *
 		 * @param object $current_user Current user.
 		 * @param string $mo2f_second_factor 2FA method of a user.
-		 * @param string $client_ip IP of the user.
+		 * @param string $email User email.
 		 * @return mixed
 		 */
-		public function mo2f_push_email_verification( $current_user, $mo2f_second_factor, $client_ip ) {
-			MO2f_Utility::mo2f_debug_file( 'Push notification has sent successfully for ' . $mo2f_second_factor . ' User_IP-' . $client_ip . ' User_Id-' . $current_user->ID . ' Email-' . $current_user->user_email );
-			$content = $this->class_object->mo2f_send_verification_link( $current_user->user_email, $mo2f_second_factor, get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ), $current_user );
+		public function mo2f_send_link( $current_user, $mo2f_second_factor, $email ) {
+			MO2f_Utility::mo2f_debug_file( 'Email verification link has been sent successfully for ' . $mo2f_second_factor . ' User_Id-' . $current_user->ID . ' Email-' . $current_user->user_email );
+			$content = $this->class_object->mo2f_send_verification_link( $email, $mo2f_second_factor, $current_user );
+			return $content;
+		}
 
+		/**
+		 * Gets the script for dashboard.
+		 *
+		 * @param string $request_type 2FA method of a user.
+		 * @param string $transaction_id User email.
+		 * @return mixed
+		 */
+		public function mo2f_oobe_get_dashboard_script( $request_type, $transaction_id ) {
+			$content = $this->class_object->mo2f_oobe_get_dashboard_script( $request_type, $transaction_id );
+			return $content;
+		}
+
+		/**
+		 * Gets the script.
+		 *
+		 * @param string $request_type 2FA method of a user.
+		 * @param string $transaction_id User email.
+		 * @return mixed
+		 */
+		public function mo2f_oobe_get_login_script( $request_type, $transaction_id ) {
+			$content = $this->class_object->mo2f_oobe_get_login_script( $request_type, $transaction_id );
 			return $content;
 		}
 
@@ -232,7 +263,7 @@ if ( ! class_exists( 'MO2f_Cloud_Onprem_Interface' ) ) {
 		 * @return void
 		 */
 		public function mo2f_email_verification_call( $current_user ) {
-			$this->class_object->mo2f_email_verification_call( $current_user, $this->default_customer_key, $this->default_api_key );
+			$this->class_object->mo2f_email_verification_call( $current_user );
 
 		}
 		/**
@@ -298,15 +329,6 @@ if ( ! class_exists( 'MO2f_Cloud_Onprem_Interface' ) ) {
 				'mo2fa_login_status'  => $response['mo2fa_login_status'],
 				'mo2fa_login_message' => $response['mo2fa_login_message'],
 			) : null;
-		}
-		/**
-		 * Google authenticator screen in inline registration.
-		 *
-		 * @param object $user currently logged in user.
-		 * @return void
-		 */
-		public function mo2f_show_gauth_screen( $user ) {
-			$this->class_object->mo2f_show_gauth_screen( $user );
 		}
 
 		/**

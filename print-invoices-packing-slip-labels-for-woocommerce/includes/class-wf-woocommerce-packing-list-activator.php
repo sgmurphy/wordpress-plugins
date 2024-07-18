@@ -84,17 +84,23 @@ class Wf_Woocommerce_Packing_List_Activator {
         if(class_exists('Wf_Woocommerce_Packing_List'))
         {
             /* all fields are empty. */
-            if((Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_sender_address_line1')=='' && 
-                Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_sender_address_line2') == '' && 
-                Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_sender_city') == '' && 
-                Wf_Woocommerce_Packing_List::get_option('wf_country') == '' && 
-                Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_sender_postalcode') == '')) 
+            if(
+                '' === Wf_Woocommerce_Packing_List::get_option( 'woocommerce_wf_packinglist_companyname' ) &&
+                '' === Wf_Woocommerce_Packing_List::get_option( 'woocommerce_wf_packinglist_sender_name' ) &&
+                '' === Wf_Woocommerce_Packing_List::get_option( 'woocommerce_wf_packinglist_sender_address_line1' ) && 
+                '' === Wf_Woocommerce_Packing_List::get_option( 'woocommerce_wf_packinglist_sender_address_line2' ) && 
+                '' === Wf_Woocommerce_Packing_List::get_option( 'woocommerce_wf_packinglist_sender_city' ) && 
+                '' === Wf_Woocommerce_Packing_List::get_option( 'wf_country' ) && 
+                '' === Wf_Woocommerce_Packing_List::get_option( 'woocommerce_wf_packinglist_sender_postalcode' )
+            ) 
             {
-                Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_packinglist_sender_address_line1', get_option('woocommerce_store_address'));
-                Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_packinglist_sender_address_line2', get_option('woocommerce_store_address_2'));
-                Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_packinglist_sender_city', get_option('woocommerce_store_city'));
-                Wf_Woocommerce_Packing_List::update_option('wf_country', get_option('woocommerce_default_country'));
-                Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_packinglist_sender_postalcode', get_option('woocommerce_store_postcode'));
+                Wf_Woocommerce_Packing_List::update_option( 'woocommerce_wf_packinglist_companyname', get_bloginfo('name') );
+                Wf_Woocommerce_Packing_List::update_option( 'woocommerce_wf_packinglist_sender_name', get_bloginfo('name') );
+                Wf_Woocommerce_Packing_List::update_option( 'woocommerce_wf_packinglist_sender_address_line1', get_option('woocommerce_store_address') );
+                Wf_Woocommerce_Packing_List::update_option( 'woocommerce_wf_packinglist_sender_address_line2', get_option('woocommerce_store_address_2') );
+                Wf_Woocommerce_Packing_List::update_option( 'woocommerce_wf_packinglist_sender_city', get_option('woocommerce_store_city') );
+                Wf_Woocommerce_Packing_List::update_option( 'wf_country', get_option('woocommerce_default_country'));
+                Wf_Woocommerce_Packing_List::update_option( 'woocommerce_wf_packinglist_sender_postalcode', get_option('woocommerce_store_postcode') );
             }
         }
     }

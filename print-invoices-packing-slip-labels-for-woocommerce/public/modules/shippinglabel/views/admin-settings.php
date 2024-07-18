@@ -52,6 +52,7 @@ $pro_installed = false;
         <?php do_action('wf_pklist_module_out_settings_form',array(
             'module_id'=>$this->module_base
         ));?>
+        <?php include_once WF_PKLIST_PLUGIN_PATH . 'admin/views/customizer-promotion-popup.php'; ?>
         <?php
         if(false === $pro_installed){
             $sidebar_pro_link = 'https://www.webtoffee.com/product/woocommerce-shipping-labels-delivery-notes/?utm_source=free_plugin_sidebar&utm_medium=pdf_basic&utm_campaign=Shipping_Label&utm_content='.WF_PKLIST_VERSION;

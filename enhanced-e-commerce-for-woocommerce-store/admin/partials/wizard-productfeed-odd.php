@@ -332,7 +332,7 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
                         /**************Tiktok Auth start ********************************************************/    
                         $confirm_url = "admin.php?page=conversios&wizard=productFeedOdd_tiktoksetting";
                         $state = ['confirm_url' => admin_url() . $confirm_url, 'subscription_id' => $subscriptionId];
-                        $tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://laraveldev.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=q6uerfg9osn&state=" . urlencode(wp_json_encode($state)); 
+                        $tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://connect.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=q6uerfg9osn&state=" . urlencode(wp_json_encode($state)); 
                         ?>
                         <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/conv_tiktok_logo.png'); ?>">
                         <span class="span-text"><?php esc_html_e("TikTok Business Account", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
@@ -389,6 +389,7 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
                                                     </span>
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="tiktok_business_id-value" id="tiktok_business_id-value" value="<?php echo esc_attr($tiktok_business_id) ?>">
                                         </li>
                                         <li class="tiktok-catalog-step <?php echo (is_array($catalogData) && !empty($catalogData)) ? "" : "disable"; ?>" style="min-height:68px;">
                                             <div class="step-box">
@@ -514,7 +515,9 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
                                 <button class="btn btn-primary fs-14 saveFB px-5 ms-3" disabled>
                                     <span class="spinner-border text-light spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                                     Save
-                                </button>                               
+                                </button>     
+                                <input type="hidden" name="fb_business_id-value" id="fb_business_id-value" value="<?php echo esc_attr($fb_business_id) ?>">  
+                                <input type="hidden" name="fb_catalog_id-value" id="fb_catalog_id-value" value="<?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? esc_attr($ee_options['facebook_setting']['fb_catalog_id']) : '' ?> ">                        
                             </div>
                         </div>
                         <div style="display: flex; justify-content: end">                            
@@ -1710,7 +1713,7 @@ $str = json_decode($str);;
                         text: "Select TikTok Business Account Id"
                     }));
                     if (response.data) {
-                        var tiktok_business_id = "<?php echo esc_attr($tiktok_business_id) ?>";
+                        var tiktok_business_id = jQuery('#tiktok_business_id-value').val();
                         jQuery.each(response.data, function (key, value) {
                             jQuery('#tiktok_business_id').append(jQuery('<option>', {
                                 value: key,
@@ -2123,6 +2126,8 @@ $str = json_decode($str);;
                 if(Channel == 'FB'){
                     jQuery('.saveFB').prop('disabled', true)
                     jQuery('.saveFB').text('Saving...')
+                    jQuery('#fb_business_id-value').val(jQuery('#fb_business_id').find(":selected").val());
+                    jQuery('#fb_catalog_id-value').val(jQuery('#fb_catalog_id').find(":selected").val());
                 }
                 if(Channel == 'Tiktok'){
                     jQuery(".signIn, #tiktok_business_id, .channelTabSave, .saveTiktok").css("pointer-events", "none");
@@ -2130,6 +2135,7 @@ $str = json_decode($str);;
                     jQuery('.saveTiktok > span').removeClass('d-none')
                     jQuery('.tiktok-catalog-step').removeClass('disable')
                     jQuery('.tiktok-step').removeClass('disable')
+                    jQuery('#tiktok_business_id-value').val(jQuery('#tiktok_business_id').find(":selected").val())
                 }
             },
             success: function (response) {
@@ -2159,7 +2165,7 @@ $str = json_decode($str);;
                     jQuery(".signIn, #tiktok_business_id, .channelTabSave, .saveTiktok").css("pointer-events", "auto");
                     jQuery('.saveTiktok > span').addClass('d-none')
                     jQuery('#tiktok_business_id').attr('disabled', true) 
-                    jQuery('.gettitokList').removeClass('d-none')
+                    jQuery('.gettitokList').removeClass('d-none')                    
                 }
                 checkProgressBar('channel');
                 openOverlayLoader('openshow');
@@ -2339,7 +2345,7 @@ $str = json_decode($str);;
                 success: function(response){
                     if(Object.keys(response).length > 0) {
                         // jQuery('#fb_business_id').removeAttr('disabled')
-                        var cat_id = "<?php echo isset($ee_options['facebook_setting']['fb_business_id']) ? esc_js($ee_options['facebook_setting']['fb_business_id']) : '' ?>";                      
+                        var cat_id = jQuery('#fb_business_id-value').val();                      
                         var html = '<option value="">Select Catalog Id</option>';
                         jQuery.each(response, function(index, value){
                             var selected = (index == cat_id ) ? 'selected' : '';                        
@@ -2372,7 +2378,7 @@ $str = json_decode($str);;
                 },
                 success: function(response){ 
                     // jQuery('#fb_catalog_id').removeAttr('disabled')
-                    var cat_id = "<?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? esc_js($ee_options['facebook_setting']['fb_catalog_id']) : '' ?>";                      
+                    var cat_id = jQuery('#fb_catalog_id-value').val();                 
                     var html = '<option value="">Select Catalog Id</option>';
                     jQuery.each(response, function(index, value){
                         var selected = (value.id == cat_id ) ? 'selected' : '';                        

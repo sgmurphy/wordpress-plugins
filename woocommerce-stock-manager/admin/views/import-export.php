@@ -3,7 +3,7 @@
  * Import & Export product data
  *
  * @package   woocommerce-stock-manager/admin/views/
- * @version   2.8.0
+ * @version   3.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -72,22 +72,16 @@ function stock_auto_utf( $s ) {
 				};
 				jQuery.post(ajaxurl, data, function( response ) {
 					var result = jQuery.parseJSON( response );
-					if( result.status != 'finish' ){
 						var jsonObject = JSON.stringify(result.data);
 						jsonObject = jsonObject.slice( 1 );
 						jsonObject = jsonObject.slice(0, -1);
-						jQuery( '.export-output' ).append( jsonObject + ',' );
-						wsm_export_products( result.offset );
-					} else {
-						var string = jQuery( '.export-output' ).text();
-						string = string.slice(0, -1);
-						string = '{' + string + '}';
+						jsonObject = '{' + jsonObject + '}';
 						jQuery( '#csv' ).empty();
 						jQuery( '#csv' ).append( 'All done!' );
 						var data = {
 							'action'   : 'wsm_get_csv_file',
 							'security' : '<?php echo esc_html( wp_create_nonce( 'sa-wsm-get-csv' ) ); ?>',
-							'data'     : string
+							'data'     : jsonObject
 						};
 						jQuery.post(ajaxurl, data, function( response ) {
 							var data, filename, link;
@@ -105,7 +99,6 @@ function stock_auto_utf( $s ) {
 							link.setAttribute('download', filename);
 							link.click();
 						});
-					}
 				});
 			}
 		});

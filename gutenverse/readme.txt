@@ -1,9 +1,9 @@
 === Gutenverse - Gutenberg Blocks - Page Builder for Site Editor ===
 Contributors: Jegstudio
 Tags: gutenberg blocks, page builder, form, full-site-editing, popup
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.9.3
+Stable tag: 1.9.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -187,6 +187,10 @@ Gutenverse should be compatible with other Gutenberg plugins, some popular plugi
 Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builder for Gutenberg Editor & FSE, Essential Blocks for Gutenberg, Stackable – Page Builder Gutenberg Blocks, Gutenberg Blocks by Kadence Blocks – Page Builder Features
 
 == Changelog ==
+
+= 1.9.4 - 2024-07-18 =
+##### Bug Fixes
+* **Compatibility**, Fix compatibility with WordPress versin 6.6
 
 = 1.9.3 - 2024-07-16 =
 ##### Bug Fixes

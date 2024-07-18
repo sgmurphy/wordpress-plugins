@@ -500,7 +500,7 @@ class OptimizerScripts extends OptimizerBase
             $this->delayed_js = array_merge($delayJSExecution, $this->delayed_js);
         }
 
-        $delayJSExecutionFromHook = apply_filters('two_modify_exclude_js_from_delay', $this->delayed_js, 10, 1);
+        $delayJSExecutionFromHook = apply_filters('two_modify_delay_execution', $this->delayed_js, 10, 1);
 
         if (is_array($delayJSExecutionFromHook)) {
             $this->delayed_js = $delayJSExecutionFromHook;
@@ -656,6 +656,7 @@ class OptimizerScripts extends OptimizerBase
                         // phpcs:ignore Squiz.PHP.CommentedOutCode.Found
                         //$newTag = '<script type="text/javascript" '.self::TWO_DELAYED_JS_ATTRIBUTE.'="'.$url.'"></script>';
                         $newTag = str_replace('src=', self::TWO_DELAYED_JS_ATTRIBUTE . '=', $tag);
+
                         $this->content = str_replace($tag, $newTag, $this->content);
                         $this->cacheStructure->addToTagsToReplace($tag, $newTag);
 

@@ -2,7 +2,7 @@
 Contributors: shapedplugin, rubel_miah, shamimmiashuhagh, khalilu
 Tags: post slider, news carousel, post grid, latest post slider, post timeline
 Requires at least: 4.7
-Tested up to: 6.5
+Tested up to: 6.6
 WC requires at least: 5.0
 WC tested up to: 9.1.0
 Stable tag: 3.0.0

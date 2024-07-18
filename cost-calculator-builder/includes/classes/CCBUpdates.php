@@ -105,7 +105,7 @@ class CCBUpdates {
 		'3.2.15' => array(
 			'ccb_total_field_hidden_calculate',
 		),
-		'3.2.17' => array(
+		'3.2.18' => array(
 			'ccb_add_summary_view_to_image_checkbox_field',
 		),
 	);

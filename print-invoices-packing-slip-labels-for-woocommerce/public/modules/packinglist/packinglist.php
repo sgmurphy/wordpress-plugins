@@ -349,6 +349,13 @@ class Wf_Woocommerce_Packing_List_Packinglist
 	        foreach ($orders as $order_id)
 	        {
 	        	$order = ( WC()->version < '2.7.0' ) ? new WC_Order($order_id) : new wf_order($order_id);
+
+				/**
+				 * @since 4.6.0 - Added filter to add before preparing the order package and rendering the html.
+				 */
+				$pdf_filters = apply_filters( 'wt_pklist_add_filters_before_rendering_pdf', array(), $this->module_base, $order );
+				Wt_Pklist_Common::wt_pklist_pdf_add_filters( $pdf_filters );
+
 				$order_packages=null;
 				$order_packages=$box_packing->wf_pklist_create_order_single_package($order);
 				$number_of_order_package=count($order_packages);
@@ -366,6 +373,11 @@ class Wf_Woocommerce_Packing_List_Packinglist
 				{
 					wp_die(__("Unable to print Packing slip. Please check the items in the order.",'print-invoices-packing-slip-labels-for-woocommerce'), "", array());
 				}
+
+				/**
+				 * @since 4.6.0 - Remove the filters which were added before preparing the order package and rendering the html.
+				 */
+				Wt_Pklist_Common::wt_pklist_pdf_remove_filters( $pdf_filters );
 			}
 			$out=implode('<p class="pagebreak"></p>',$out_arr).'<p class="no-page-break"></p>';
 

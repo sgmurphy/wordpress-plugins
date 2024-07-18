@@ -673,7 +673,8 @@ if (!class_exists('Conversios_Onboarding_ApiCall')) {
       $merchantInfo = json_decode($filesystem->get_contents(ENHANCAD_PLUGIN_DIR . 'includes/setup/json/merchant-info.json'), true);
 
       $this->refresh_token = $refresh_token;
-      $this->access_token = base64_encode($this->generateAccessToken(base64_decode($access_token), base64_decode($this->refresh_token)));
+      $access_token_value = $this->generateAccessToken(base64_decode($access_token ?? ''), base64_decode($this->refresh_token ?? ''));
+      $this->access_token = base64_encode($access_token_value);
       $this->apiDomain = TVC_API_CALL_URL;
       $this->token = 'MTIzNA==';
       $this->merchantId = sanitize_text_field($merchantInfo['merchantId']);

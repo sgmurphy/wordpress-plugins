@@ -1911,7 +1911,7 @@ input[type="checkbox"] {
 }
 
 #conversioshead_notice {
-    background: #19357c !important;
+    background: #006BCD !important;
 }
 
 #convga360modal .container-fluid {
@@ -1921,7 +1921,7 @@ input[type="checkbox"] {
 .fixedcontainer_conversios_notice {
     max-width: 900px;
     margin: auto;
-    height: 40px;
+    padding: 6px 0;
 }
 
 .prmoupgrdbtn button {
@@ -1950,13 +1950,14 @@ input[type="checkbox"] {
 }
 
 .prmoupgrdbtn button {
-    color: #19357c;
+    color: #1085F1;
     background: #fff;
     border: none;
     outline: none;
-    padding: 5px 6px;
-    border-radius: 3px;
-    font-size: 13px;
+    padding: 6px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 22px;
 }
 
 #convga360_left {

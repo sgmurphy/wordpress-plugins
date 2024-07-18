@@ -532,6 +532,19 @@ if ( ! class_exists( 'Mo2FDB' ) ) {
 		}
 
 		/**
+		 * Fetches user id from reset token.
+		 *
+		 * @param string $reset_token Reset token.
+		 * @return string
+		 */
+		public function mo2f_get_userid_from_reset_token( $reset_token ) {
+			global $wpdb;
+
+			$user_details = $wpdb->get_results( $wpdb->prepare( 'SELECT user_id  FROM %1s WHERE meta_key = %s and meta_value = %s;', array( $wpdb->base_prefix . 'usermeta', 'mo2f_reset_token', $reset_token ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder -- DB Direct Query is necessary here.
+			return $user_details[0]->user_id;
+		}
+
+		/**
 		 * Gets distinct configured methods.
 		 *
 		 * @return array

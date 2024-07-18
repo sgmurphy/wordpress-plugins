@@ -5,14 +5,10 @@
 		die( esc_html__("You do not have permissions to perform this action.", 'paid-memberships-pro' ));
 	}	
 	
-	global $wpdb, $msg, $msgt;
+	global $wpdb, $msg, $msgt, $pmpro_email_templates_defaults, $current_user, $pmpro_pages;
 	
-	//get/set settings
-	global $pmpro_pages;
-
-	global $pmpro_email_templates_defaults, $current_user;	
 				
-	require_once(dirname(__FILE__) . "/admin_header.php");		
+	require_once(dirname(__FILE__) . "/admin_header.php");	
 ?>
 <form action="" method="post" enctype="multipart/form-data"> 
 	<?php wp_nonce_field('savesettings', 'pmpro_emailsettings_nonce');?>
@@ -44,10 +40,26 @@
 						<select name="pmpro_email_template_switcher" id="pmpro_email_template_switcher">
 							<option value="" selected="selected"><?php echo '--- ' . esc_html__( 'Select a Template to Edit', 'paid-memberships-pro' ) . ' ---'; ?></option>
 
-						<?php foreach ( $pmpro_email_templates_defaults as $key => $template ): ?>
-							<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $template['description'] ); ?></option>
+							<?php
+							/**
+							 * Filter to show the "default" email template in the dropdown.
+							 *
+							 * @since 3.1
+							 *
+							 * @param bool $show_default_email_template Whether to show the default email template in the dropdown.
+							 */
+							$show_default_email_template = apply_filters( 'pmpro_show_default_email_template_in_dropdown', false );
+							foreach ( $pmpro_email_templates_defaults as $key => $template ) {
+								// If the template is the default template and we're not showing it in the dropdown, skip it.
+								if ( 'default' === $key && ! $show_default_email_template ) {
+									continue;
+								}
+								?>
+								<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $template['description'] ); ?></option>
 
-						<?php endforeach; ?>
+								<?php
+							}
+							?>
 						</select>
 						<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" id="pmproet-spinner" style="display:none;"/>
 
@@ -174,10 +186,10 @@
 						'!!expirationyear!!'  => __( 'Credit Card Expiration Year (yyyy format)', 'paid-memberships-pro' ),
 						'!!membership_cost!!' => __( 'Membership Level Cost Text', 'paid-memberships-pro' ),
 						'!!instructions!!'    => __( 'Payment Instructions (used in Checkout - Email Template)', 'paid-memberships-pro' ),
-						'!!invoice_id!!'      => __( 'Invoice ID', 'paid-memberships-pro' ),
-						'!!invoice_total!!'   => __( 'Invoice Total', 'paid-memberships-pro' ),
-						'!!invoice_date!!'    => __( 'Invoice Date', 'paid-memberships-pro' ),
-						'!!invoice_url!!'    => __( 'Invoice Page URL', 'paid-memberships-pro' ),
+						'!!order_id!!'        => __( 'Order ID', 'paid-memberships-pro' ),
+						'!!order_total!!  '   => __( 'Order Total', 'paid-memberships-pro' ),
+						'!!order_date!!'      => __( 'Order Date', 'paid-memberships-pro' ),
+						'!!order_url!!'       => __( 'Order Page URL', 'paid-memberships-pro' ),
 						'!!discount_code!!'   => __( 'Discount Code Applied', 'paid-memberships-pro' ),
 						'!!membership_level_confirmation_message!!' => __( 'Custom Level Confirmation Message', 'paid-memberships-pro' ),
 					];

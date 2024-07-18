@@ -23,6 +23,9 @@ $deactivate_reasons           = array(
 	'Conflicts with other plugins',
 	'Redirecting back to login page after Authentication',
 );
+$message                      = (
+	'We are sad to see you go!  Help us to improve our plugin by giving your opinion.'
+);
 if ( strlen( $mo2f_configured_2_f_a_method ) ) {
 	array_push( $deactivate_reasons, "Couldn't understand how to make it work" );
 } elseif ( strpos( $mo2f_configured_2_f_a_method, MoWpnsConstants::GOOGLE_AUTHENTICATOR ) !== false ) {
@@ -30,7 +33,7 @@ if ( strlen( $mo2f_configured_2_f_a_method ) ) {
 } elseif ( strpos( $mo2f_configured_2_f_a_method, MoWpnsConstants::OTP_OVER_SMS ) !== false || strpos( $mo2f_configured_2_f_a_method, MoWpnsConstants::OTP_OVER_EMAIL ) !== false ) {
 	array_push( $deactivate_reasons, 'Exhausted Email or SMS transactions' );
 }
-if ( 'MO_2_FACTOR_PLUGIN_SETTINGS' !== get_option( 'mo_2factor_user_registration_status' ) ) {
+if ( 'MO_2_FACTOR_CUSTOMER_REGISTERED_SUCCESS' !== get_option( 'mo_2factor_admin_registration_status' ) ) {
 	array_push( $deactivate_reasons, 'Did not want to create an account' );
 }
 if ( get_site_option( 'mo2fa_visit' ) ) {
@@ -45,27 +48,29 @@ array_push( $deactivate_reasons, 'Other Reasons:' );
 
 <body>
 	<div id="mo_wpns_feedback_modal" class="mo_modal">
-		<div class="mo_wpns_modal-content">
-			<h3>
-				<b>Your feedback</b>
-				<span class="mo_wpns_close">&times;</span>
-			</h3>
-			<hr>
-			<form name="f" method="post" action="" id="mo_wpns_feedback">
+	<div class="mo2f_deactivation_popup_container" id="mo2f_otp_feedback_modal" >
+				<div id="mo2f_deactivation_popup_wrapper rounded-md" class="mo2f_deactivation_popup_wrapper" tabindex="-1" role="dialog" >
+
+				<div style="border-bottom: 1px solid; border-color:#dadada;">
+					<h3>
+						<b>Your feedback</b>
+						<span class="mo_wpns_close mr-mo-4 ml-mo-4">&times;</span>
+					</h3>
+				</div>
+
+			<form class="p-mo-6 flex flex-col gap-mo-6" name="f" method="post" action="" id="mo_wpns_feedback">
 				<input type="hidden" id="mo_wpns_feedback_nonce" name="mo_wpns_feedback_nonce" value="<?php echo esc_attr( wp_create_nonce( 'mo-wpns-feedback-nonce' ) ); ?>"/>
 				<input type="hidden" name="option" value="mo_wpns_feedback" />
-				<div>
-					<h4>Please help us to improve our plugin by giving your
-						opinion.<br></h4>
+				<div class="deactivation_message"><?php echo esc_attr( $message ); ?></div>
 
-				</div>
-				<div class="mo2f_feedback_text">
+				<div class="mo_feedback_text">
 					<span id="mo2f_link_id"></span>
+					<div id="feedback_reasons" style="margin-top:20px;margin-bottom:20px;">
 					<?php
 
 					foreach ( $deactivate_reasons as $deactivate_reason ) {
 						?>
-						<div>
+						<div style="margin:8px;">
 							<label for="<?php echo esc_attr( $deactivate_reason ); ?>">
 								<input type="radio" name="mo_wpns_deactivate_plugin" value="<?php echo esc_attr( $deactivate_reason ); ?>" required>
 								<?php echo esc_attr( $deactivate_reason ); ?>
@@ -80,20 +85,20 @@ array_push( $deactivate_reasons, 'Other Reasons:' );
 							</label>
 						</div>
 					<?php } ?>
-					<br>
-					<textarea id="wpns_query_feedback" name="wpns_query_feedback" rows="4" cols="50" placeholder="Write your query here"></textarea>
-					<div class="mo2f_modal-footer">
-						<div>
+								</div>
+					<div class="mo-input-wrapper">   
+						<textarea id="wpns_query_feedback" name="wpns_query_feedback" class="mo-textarea h-[100px]" style="resize: vertical; width:100%" cols="52" rows="4" placeholder="Write your query here..."></textarea>
+					</div> 
 
+					<div class="mo2f_modal-footer">
+						<div class="my-mo-3" style="margin-bottom: 1rem;">
 							<input type="checkbox" name="mo2f_get_reply" value="1" checked />
 							<label for="mo2f_get_reply">Send plugin Configuration</label>
 							</input>
 						</div>
-
-						<input type="submit" name="miniorange_feedback_submit" class="button button-primary button-large" style="float:right" value="Submit" />
-						<input type="button" name="miniorange_feedback_skip" class="button button-primary button-large" style="float:left" value="Skip & Deactivate" onclick="document.getElementById('mo_wpns_feedback_form_close').submit();" />
+						<input type="button" name="miniorange_feedback_skip" class="mo2f-reset-settings-button" style="float:left" value="Skip & Deactivate" onclick="document.getElementById('mo_wpns_feedback_form_close').submit();" />
+						<input type="submit" name="miniorange_2fa_feedback_submit" class="mo2f-save-settings-button" style="float:right" value="Submit"/>
 					</div>
-					<br><br>
 				</div>
 			</form>
 			<form name="f" method="post" action="" id="mo_wpns_feedback_form_close">
@@ -101,7 +106,9 @@ array_push( $deactivate_reasons, 'Other Reasons:' );
 				<input type="hidden" name="option" value="mo_wpns_skip_feedback" />
 			</form>
 
+
 		</div>
+	</div>
 
 	</div>
 	<script>

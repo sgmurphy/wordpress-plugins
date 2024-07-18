@@ -5,9 +5,9 @@ Author URI: https://www.storeapps.org/woocommerce-plugins/?utm_source=wprepo&utm
 Plugin URI: https://www.storeapps.org/woocommerce-plugins/?utm_source=wprepo&utm_medium=web&utm_campaign=wsm_readme
 Tags: woocommerce stock management, woocommerce stock manager, woocommerce product stock manager, woocommerce stock management free, woocommerce inventory management
 Requires at least: 5.0.0
-Tested up to: 6.2.2
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPLv2
 
 Best WooCommerce stock management plugin to manage and edit product stock and their variables from a single dashboard. Stock log, import/export, filters and more...
@@ -150,6 +150,14 @@ Be sure, that you have active stock manager.
 4. Product stock as on date
 
 == Changelog ==
+
+= 3.1.0 (18.07.2024) =
+* New: WordPress 6.6 compatible
+* New: WooCommerce 9.1.2 compatible
+* Fix: Stock Manager page loading blank screen on WordPress 6.6+
+* Fix: Creation of dynamic property Stock_Manager_Admin::$page and Stock_Manager_Admin::$product_id are deprecated in PHP v8.0.0+
+* Fix: Export functionality not exporting all products in Import/Export page
+* Update: POT file
 
 = 3.0.0 (01.08.2023) =
 * New: Declare Stock Manager for WooCommerce compatible with High-Performance Order Storage (HPOS)
@@ -308,6 +316,9 @@ Be sure, that you have active stock manager.
 For the changelog of earlier versions, please refer to the separate [changelog.txt](https://plugins.svn.wordpress.org/woocommerce-stock-manager/trunk/changelog.txt) file.
 
 == Upgrade Notice ==
+
+= 3.1.0 =
+WordPress 6.6 compatible, WooCommerce 9.1.2 compatible, Fixes related to Stock Manager page loading blank screen on WordPress 6.6+, Creation of dynamic property Stock_Manager_Admin::$page and Stock_Manager_Admin::$product_id are deprecated in PHP v8.0.0+, Export functionality not exporting all products in Import/Export page. Recommended upgrade.
 
 = 3.0.0 =
 Declare Stock Manager for WooCommerce compatible with High-Performance Order Storage (HPOS), WooCommerce 7.9.0 compatible, Access Stock log page from product list and edit page (Thanks to Eric Caron), POT file. Recommended upgrade.

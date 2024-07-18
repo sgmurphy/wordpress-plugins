@@ -66,778 +66,783 @@ Find everything you need in one convenient package and supercharge your <strong>
 
 === Creative Widgets for Elementor ===
 
-1. [Flip Box Widget for Elementor (Free)](https://unlimited-elements.com/flip-box-widget-for-elementor/) 
+1. [Flip Box (Free)](https://unlimited-elements.com/flip-box-widget-for-elementor/) 
 
-2. [SVG Animation Widget for Elementor (Free)](https://unlimited-elements.com/svg-animation-widget-for-elementor) 
+2. [SVG Animation (Free)](https://unlimited-elements.com/svg-animation-widget-for-elementor) 
 
-3. [Animated Hamburger Icon Widget for Elementor (Free)](https://unlimited-elements.com/animated-hamburger-icon-for-elementor/) 
+3. [Animated Hamburger Icon (Free)](https://unlimited-elements.com/animated-hamburger-icon-for-elementor/) 
 
-4. [Timeline Bullets Widget for Elementor (Free)](https://unlimited-elements.com/timeline-bullets-widget-for-elementor/) 
+4. [Timeline Bullets (Free)](https://unlimited-elements.com/timeline-bullets-widget-for-elementor/) 
 
-5. [Lordicon: Animated Icons Widget for Elementor (Free)](https://unlimited-elements.com/lordicon-animated-icons-widget-for-elementor/) 
+5. [Lordicon: Animated Icons (Free)](https://unlimited-elements.com/lordicon-animated-icons-widget-for-elementor/) 
 
-6. [Blob Shapes Widget for Elementor (Free)](https://unlimited-elements.com/blob-shape-widget-for-elementor/) 
+6. [Blob Shapes (Free)](https://unlimited-elements.com/blob-shape-widget-for-elementor/) 
 
-7. [Number Box Widget for Elementor (Free)](https://unlimited-elements.com/number-box-widget-widget-for-elementor/) 
+7. [Number Box (Free)](https://unlimited-elements.com/number-box-widget-widget-for-elementor/) 
 
-8. [Icon Bullets Widget for Elementor (Free)](https://unlimited-elements.com/docs/icon-bullets/) 
+8. [Icon Bullets (Free)](https://unlimited-elements.com/docs/icon-bullets/) 
 
-9. [Image Shapes Widget for Elementor (Pro)](https://unlimited-elements.com/image-shapes-for-elementor-page-builder/) 
+9. [Image Shapes (Pro)](https://unlimited-elements.com/image-shapes-for-elementor-page-builder/) 
 
-10. [Scroll Sequence Widget for Elementor (Pro)](https://unlimited-elements.com/scroll-sequence-widget-for-elementor/) 
+10. [Scroll Sequence (Pro)](https://unlimited-elements.com/scroll-sequence-widget-for-elementor/) 
 
-11. [Christmas Icons Widget for Elementor (Pro)](https://unlimited-elements.com/christmas-icons-widget-for-elementor/) 
+11. [Christmas Icons (Pro)](https://unlimited-elements.com/christmas-icons-widget-for-elementor/) 
 
-12. [Icon Box Accordion Widget for Elementor (Pro)](https://unlimited-elements.com/icon-box-accordion-widget-for-elementor/) 
+12. [Icon Box Accordion (Pro)](https://unlimited-elements.com/icon-box-accordion-widget-for-elementor/) 
 
-13. [Morph Slider Widget for Elementor (Pro)](https://unlimited-elements.com/morph-slider-widget-for-elementor/) 
+13. [Morph Slider (Pro)](https://unlimited-elements.com/morph-slider-widget-for-elementor/) 
 
-14. [Scroll Image Reveal Widget for Elementor (Pro)](https://unlimited-elements.com/image-reveal-on-scroll-widget-for-elementor) 
+14. [Scroll Image Reveal (Pro)](https://unlimited-elements.com/image-reveal-on-scroll-widget-for-elementor) 
 
-15. [Image Accordion Widget for Elementor (Pro)](https://unlimited-elements.com/image-accordion-widget-for-elementor/) 
+15. [Image Accordion (Pro)](https://unlimited-elements.com/image-accordion-widget-for-elementor/) 
 
-16. [Image Zoom Magnifier Widget for Elementor (Pro)](https://unlimited-elements.com/image-zoom-magnifier-widget-for-elementor/) 
+16. [Image Zoom Magnifier (Pro)](https://unlimited-elements.com/image-zoom-magnifier-widget-for-elementor/) 
 
-17. [Particle Image Widget for Elementor (Pro)](https://unlimited-elements.com/image-particle-widget-for-elementor/) 
+17. [Particle Image (Pro)](https://unlimited-elements.com/image-particle-widget-for-elementor/) 
 
-18. [Icon Accordion Widget for Elementor (Pro)](https://unlimited-elements.com/icon-accordion-widget-for-elementor/) 
+18. [Icon Accordion (Pro)](https://unlimited-elements.com/icon-accordion-widget-for-elementor/) 
 
-19. [Background Switcher Widget for Elementor (Pro)](https://unlimited-elements.com/background-switcher-widget-for-elementor/) 
+19. [Background Switcher (Pro)](https://unlimited-elements.com/background-switcher-widget-for-elementor/) 
 
-20. [Icon Tabs Widget for Elementor (Pro)](https://unlimited-elements.com/icon-tabs-widget-for-elementor) 
+20. [Icon Tabs (Pro)](https://unlimited-elements.com/icon-tabs-widget-for-elementor) 
 
-21. [Before After Widget for Elementor (Pro)](https://unlimited-elements.com/before-after-widget-for-elementor/) 
+21. [Before After (Pro)](https://unlimited-elements.com/before-after-widget-for-elementor/) 
 
-22. [Shape Bullets Widget for Elementor (Pro)](https://unlimited-elements.com/shape-bullets-widget-for-elementor/) 
+22. [Shape Bullets (Pro)](https://unlimited-elements.com/shape-bullets-widget-for-elementor/) 
 
-23. [Flip Box Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/flip-box-carousel-widget-for-elementor/) 
+23. [Flip Box Carousel (Pro)](https://unlimited-elements.com/flip-box-carousel-widget-for-elementor/) 
 
-24. [Rhombus Grid Widget for Elementor (Pro)](https://unlimited-elements.com/rhombus-grid-widget-for-elementor/) 
+24. [Rhombus Grid (Pro)](https://unlimited-elements.com/rhombus-grid-widget-for-elementor/) 
 
-25. [Custom Cursor Widget for Elementor (Pro)](https://unlimited-elements.com/custom-cursor-widget-for-elementor/) 
+25. [Custom Cursor (Pro)](https://unlimited-elements.com/custom-cursor-widget-for-elementor/) 
 
 
 === Tools for Elementor ===
 
-1. [Contact Form 7 Widget for Elementor (Free)](https://unlimited-elements.com/contact-form-7-widget-for-elementor/) 
+1. [Contact Form 7 (Free)](https://unlimited-elements.com/contact-form-7-widget-for-elementor/) 
 
-2. [Animated Mouse Scroll Icon Widget for Elementor (Free)](https://unlimited-elements.com/animated-mouse-scroll-icon-widget-for-elementor/) 
+2. [Image Tooltip (Free)](https://unlimited-elements.com/image-tooltip-widget-for-elementor/) 
 
-3. [Image Tooltip Widget for Elementor (Free)](https://unlimited-elements.com/image-tooltip-widget-for-elementor/) 
+3. [Event Box (Free)](https://unlimited-elements.com/event-box-widget-for-elementor) 
 
-4. [Event Box Widget for Elementor (Free)](https://unlimited-elements.com/event-box-widget-for-elementor) 
+4. [Notification (Free)](https://unlimited-elements.com/notification-widget-for-elementor) 
 
-5. [Notification Widget for Elementor (Free)](https://unlimited-elements.com/notification-widget-for-elementor) 
+5. [Animated Mouse Scroll Icon (Free)](https://unlimited-elements.com/animated-mouse-scroll-icon-widget-for-elementor/) 
 
-6. [Calendar Widget for Elementor (Pro)](https://unlimited-elements.com/calendar-widget-for-elementor/) 
+6. [PDF Viewer (Pro)](https://unlimited-elements.com/pdf-viewer-widget-for-elementor/) 
 
-7. [Smooth Scroll Widget for Elementor (Pro)](https://unlimited-elements.com/smooth-scroll-widget-for-elementor/) 
+7. [Calendar (Pro)](https://unlimited-elements.com/calendar-widget-for-elementor/) 
 
-8. [QR Code Widget for Elementor (Pro)](https://unlimited-elements.com/qr-code-widget-for-elementor/) 
+8. [Smooth Scroll (Pro)](https://unlimited-elements.com/smooth-scroll-widget-for-elementor/) 
 
-9. [Layers Widget for Elementor (Pro)](https://unlimited-elements.com/layers-widget-for-elementor/) 
+9. [QR Code (Pro)](https://unlimited-elements.com/qr-code-widget-for-elementor/) 
 
-10. [360° Product Viewer Widget for Elementor (Pro)](https://unlimited-elements.com/360-product-viewer-widget-for-elementor/) 
+10. [360 Panorama Virtual Tour (Pro)](https://unlimited-elements.com/360-panorama-virtual-tour-widget-for-elementor/) 
 
-11. [360 Panorama Virtual Tour Widget for Elementor (Pro)](https://unlimited-elements.com/360-panorama-virtual-tour-widget-for-elementor/) 
+11. [Layers (Pro)](https://unlimited-elements.com/layers-widget-for-elementor/) 
 
-12. [Hotspots Widget for Elementor (Pro)](https://unlimited-elements.com/hotspots-for-elementor-page-builder/) 
+12. [Hotspots (Pro)](https://unlimited-elements.com/hotspots-for-elementor-page-builder/) 
 
-13. [Event List Widget for Elementor (Pro)](https://unlimited-elements.com/event-list-widget-for-elementor/) 
+13. [Event List (Pro)](https://unlimited-elements.com/event-list-widget-for-elementor/) 
 
-14. [Weather Widget for Elementor (Pro)](https://unlimited-elements.com/weather-widget-for-elementor/) 
+14. [Weather (Pro)](https://unlimited-elements.com/weather-widget-for-elementor/) 
 
-15. [Job Listing Widget for Elementor (Pro)](https://unlimited-elements.com/job-listing-widget-for-elementor/) 
+15. [Job Listing (Pro)](https://unlimited-elements.com/job-listing-widget-for-elementor/) 
 
-16. [Image Scroll Widget for Elementor (Pro)](https://unlimited-elements.com/image-scroll-widget-for-elementor/) 
+16. [Image Scroll (Pro)](https://unlimited-elements.com/image-scroll-widget-for-elementor/) 
 
-17. [Currency Converter Widget for Elementor (Pro)](https://unlimited-elements.com/currency-converter-widget-for-elementor/) 
+17. [Currency Converter (Pro)](https://unlimited-elements.com/currency-converter-widget-for-elementor/) 
 
-18. [Age Verification Widget for Elementor (Pro)](https://unlimited-elements.com/age-verification-widget-for-elementor/) 
+18. [360° Product Viewer (Pro)](https://unlimited-elements.com/360-product-viewer-widget-for-elementor/) 
+
+19. [Age Verification (Pro)](https://unlimited-elements.com/age-verification-widget-for-elementor/) 
 
 
 === Post Widgets for Elementor ===
 
-1. [Post Tabs Widget for Elementor (Free)](https://unlimited-elements.com/post-tabs-for-elementor/) 
+1. [Post Tabs (Free)](https://unlimited-elements.com/post-tabs-for-elementor/) 
 
-2. [Post Accordion Widget for Elementor (Free)](https://unlimited-elements.com/post-accordions-for-elementor/) 
+2. [Post Accordion (Free)](https://unlimited-elements.com/post-accordion-widget-for-elementor/) 
 
-3. [Post Carousel Lite Widget for Elementor (Free)](https://unlimited-elements.com/post-carousel-lite-widget-for-elementor) 
+3. [Post Carousel Lite (Free)](https://unlimited-elements.com/post-carousel-lite-widget-for-elementor) 
 
-4. [Post Blocks Widget for Elementor (Free)](https://unlimited-elements.com/post-blocks-widget-for-elementor) 
+4. [Post Blocks (Free)](https://unlimited-elements.com/post-blocks-widget-for-elementor) 
 
-5. [Post List Widget for Elementor (Free)](https://unlimited-elements.com/post-list-widget-for-elementor) 
+5. [Post List (Free)](https://unlimited-elements.com/post-list-widget-for-elementor) 
 
-6. [Post Ticker Widget for Elementor (Free)](https://unlimited-elements.com/post-news-ticker-widget-for-elementor) 
+6. [Post Ticker (Free)](https://unlimited-elements.com/post-news-ticker-widget-for-elementor) 
 
-7. [Tag Cloud Widget for Elementor (Pro)](https://unlimited-elements.com/tag-cloud-widget-for-elementor/) 
+7. [Tag Cloud (Pro)](https://unlimited-elements.com/tag-cloud-widget-for-elementor/) 
 
-8. [Post Horizontal Timeline Widget for Elementor (Pro)](https://unlimited-elements.com/post-horizontal-timeline-widget-for-elementor/) 
+8. [Post Horizontal Timeline (Pro)](https://unlimited-elements.com/post-horizontal-timeline-widget-for-elementor/) 
 
-9. [Author List Widget for Elementor (Pro)](https://unlimited-elements.com/elementor-author-list-widget/) 
+9. [Author List (Pro)](https://unlimited-elements.com/elementor-author-list-widget/) 
 
-10. [Post Tile Widget for Elementor (Pro)](https://unlimited-elements.com/post-tiles-widget-for-elementor) 
+10. [Post Tile (Pro)](https://unlimited-elements.com/post-tiles-widget-for-elementor) 
 
-11. [Post Slider Widget for Elementor (Pro)](https://unlimited-elements.com/post-sliders/) 
+11. [Post Slider (Pro)](https://unlimited-elements.com/post-slider-widget-for-elementor/) 
 
-12. [Post Grid Widget for Elementor (Pro)](https://unlimited-elements.com/post-grid-widget-for-elementor/) 
+12. [Post Grid (Pro)](https://unlimited-elements.com/post-grid-widget-for-elementor/) 
 
-13. [Post Card Slider Widget for Elementor (Pro)](https://unlimited-elements.com/blog-card-slider-widget-for-elementor) 
+13. [Post Card Slider (Pro)](https://unlimited-elements.com/blog-card-slider-widget-for-elementor) 
 
-14. [Post Magazine Grid Widget for Elementor (Pro)](https://unlimited-elements.com/post-magazine-grid-widget-for-elementor/) 
+14. [Post Magazine Grid (Pro)](https://unlimited-elements.com/post-magazine-grid-widget-for-elementor/) 
 
-15. [Post Timeline Widget for Elementor (Pro)](https://unlimited-elements.com/post-timeline-widget-for-elementor/) 
+15. [Post Timeline (Pro)](https://unlimited-elements.com/post-timeline-widget-for-elementor/) 
 
-16. [Post Scroll Widget for Elementor (Pro)](https://unlimited-elements.com/post-scroll-widget-for-elementor) 
+16. [Post Scroll (Pro)](https://unlimited-elements.com/post-scroll-widget-for-elementor) 
 
-17. [Taxonomy Terms Widget for Elementor (Pro)](https://unlimited-elements.com/taxonomy-terms-widget-for-elementor/) 
+17. [Taxonomy Terms (Pro)](https://unlimited-elements.com/taxonomy-terms-widget-for-elementor/) 
 
-18. [Post Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/post-carousel-widget-for-elementor/) 
+18. [Post Carousel (Pro)](https://unlimited-elements.com/post-carousel-widget-for-elementor/) 
 
-19. [Masonry Post Grid Widget for Elementor (Pro)](https://unlimited-elements.com/masonry-post-grid-widget-for-elementor) 
+19. [Masonry Post Grid (Pro)](https://unlimited-elements.com/masonry-post-grid-widget-for-elementor) 
 
 
 === Post Filters & Tools for Elementor ===
 
-1. [Post Pagination Widget for Elementor (Free)](https://unlimited-elements.com/post-pagination-widget-for-elementor/) 
+1. [Post Navigation (Free)](https://unlimited-elements.com/post-navigation-widget-for-elementor/) 
 
-2. [Post Navigation Widget for Elementor (Free)](https://unlimited-elements.com/post-navigation-widget-for-elementor/) 
+2. [Post Pagination (Free)](https://unlimited-elements.com/post-pagination-widget-for-elementor/) 
 
-3. [AJAX Search Widget for Elementor (Pro)](https://unlimited-elements.com/ajax-search-widget-for-elementor/) 
+3. [AJAX Search (Pro)](https://unlimited-elements.com/ajax-search-widget-for-elementor/) 
 
-4. [Dynamic Post Popup Widget for Elementor (Pro)](https://unlimited-elements.com/dynamic-post-popup-widget-for-elementor/) 
+4. [Dynamic Post Popup (Pro)](https://unlimited-elements.com/dynamic-post-popup-widget-for-elementor/) 
 
-5. [Tabs Filter Widget for Elementor (Pro)](https://unlimited-elements.com/tabs-filter-widget-for-elementor/) 
+5. [Tabs Filter (Pro)](https://unlimited-elements.com/tabs-filter-widget-for-elementor/) 
 
-6. [Checkboxes Filter Widget for Elementor (Pro)](https://unlimited-elements.com/checkboxes-filter-widget-for-elementor/) 
+6. [Checkboxes Filter (Pro)](https://unlimited-elements.com/checkboxes-filter-widget-for-elementor/) 
 
-7. [Active Filters Widget for Elementor (Pro)](https://unlimited-elements.com/active-filters-widget-for-elementor/) 
+7. [Active Filters (Pro)](https://unlimited-elements.com/active-filters-widget-for-elementor/) 
 
-8. [Clear Filters Widget for Elementor (Pro)](https://unlimited-elements.com/clear-filters-widget-for-elementor/) 
+8. [Clear Filters (Pro)](https://unlimited-elements.com/clear-filters-widget-for-elementor/) 
 
-9. [Select Dropdown Filter Widget for Elementor (Pro)](https://unlimited-elements.com/select-dropdown-filter-widget-for-elementor/) 
+9. [Select Dropdown Filter (Pro)](https://unlimited-elements.com/select-dropdown-filter-widget-for-elementor/) 
 
-10. [Post Query Summary Widget for Elementor (Pro)](https://unlimited-elements.com/post-query-summary-widget-for-elementor/) 
+10. [Post Query Summary (Pro)](https://unlimited-elements.com/post-query-summary-widget-for-elementor/) 
 
-11. [Search Filter Widget for Elementor (Pro)](https://unlimited-elements.com/search-filter-widget-for-elementor/) 
+11. [Search Filter (Pro)](https://unlimited-elements.com/search-filter-widget-for-elementor/) 
 
-12. [Load More / Infinite Scroll Widget for Elementor (Pro)](https://unlimited-elements.com/load-more-infinite-scroll-widget-for-elementor/) 
+12. [Load More / Infinite Scroll (Pro)](https://unlimited-elements.com/load-more-infinite-scroll-widget-for-elementor/) 
 
-13. [Sorting Filter Widget for Elementor (Pro)](https://unlimited-elements.com/sorting-filter-widget-for-elementor/) 
+13. [Sorting Filter (Pro)](https://unlimited-elements.com/sorting-filter-widget-for-elementor/) 
 
-14. [Price Range Filter Widget for Elementor (Pro)](https://unlimited-elements.com/price-range-filter-widget-for-elementor/) 
+14. [Price Range Filter (Pro)](https://unlimited-elements.com/price-range-filter-widget-for-elementor/) 
+
+15. [Off Canvas Filters (Pro)](https://unlimited-elements.com/off-canvas-filters-widget-for-elementor/) 
 
 
 === Form Builder for Elementor ===
 
-1. [Text Field Widget for Elementor (Free)](https://unlimited-elements.com/form-builder/) 
+1. [Text Field (Free)](https://unlimited-elements.com/form-builder/) 
 
-2. [Submit Button Widget for Elementor (Free)](https://unlimited-elements.com/form-builder/) 
+2. [Submit Button (Free)](https://unlimited-elements.com/form-builder/) 
 
-3. [Textarea Field Widget for Elementor (Free)](https://unlimited-elements.com/form-builder/) 
+3. [Textarea Field (Free)](https://unlimited-elements.com/form-builder/) 
 
-4. [Slider Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+4. [Slider Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-5. [Scale Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+5. [Scale Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-6. [NPS Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+6. [NPS Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-7. [Star Rating Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+7. [Star Rating Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-8. [Multi Step Form Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+8. [Multi Step Form (Pro)](https://unlimited-elements.com/form-builder/) 
 
-9. [Confirm Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+9. [Confirm Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-10. [Message Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+10. [Message Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-11. [Radio Button Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+11. [Radio Button Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-12. [Phone Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+12. [Phone Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-13. [Date Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+13. [Date Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-14. [Number Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+14. [Number Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-15. [Email Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+15. [Email Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-16. [File Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+16. [File Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-17. [Checkbox Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+17. [Checkbox Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-18. [Dropdown Field Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+18. [Dropdown Field (Pro)](https://unlimited-elements.com/form-builder/) 
 
-19. [Likert Scale Widget for Elementor (Pro)](https://unlimited-elements.com/form-builder/) 
+19. [Likert Scale (Pro)](https://unlimited-elements.com/form-builder/) 
 
 
 === Woo Widgets for Elementor ===
 
-1. [Woo Product List Widget for Elementor (Free)](https://unlimited-elements.com/woo-product-list-widget-for-elementor/) 
+1. [Woo Product List (Free)](https://unlimited-elements.com/woo-product-list-widget-for-elementor/) 
 
-2. [Woo Mini Cart Widget for Elementor (Pro)](https://unlimited-elements.com/woocommerce-mini-cart-widget-for-elementor/) 
+2. [Woo Mini Cart (Pro)](https://unlimited-elements.com/woocommerce-mini-cart-widget-for-elementor/) 
 
-3. [Woo Product Grid Widget for Elementor (Pro)](https://unlimited-elements.com/woo-product-grid-widget-for-elementor/) 
+3. [Woo Product Grid (Pro)](https://unlimited-elements.com/woo-product-grid-widget-for-elementor/) 
 
-4. [Woo Product Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/woocommerce-product-carousel-widget-for-elementor) 
+4. [Woo Product Carousel (Pro)](https://unlimited-elements.com/woocommerce-product-carousel-widget-for-elementor) 
 
-5. [Woo AJAX Search Widget for Elementor (Pro)](https://work.unlimited-elements.com/woocommerce-ajax-search/) 
+5. [Woo AJAX Search (Pro)](https://unlimited-elements.com/woo-ajax-search-widget-for-elementor/) 
 
-6. [Woo Product Slider Widget for Elementor (Pro)](https://unlimited-elements.com/woocommerce-product-slider-widget-for-elementor) 
+6. [Woo Product Slider (Pro)](https://unlimited-elements.com/woo-product-slider-widget-for-elementor/) 
 
-7. [Woo Category Grid Widget for Elementor (Pro)](https://unlimited-elements.com/woocommerce-category-grid-for-elemenetor/) 
+7. [Woo Category Grid (Pro)](https://unlimited-elements.com/woo-category-grid-for-elemenetor/) 
 
-8. [Woo Category Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/woocommerce-category-carousel-widget-for-elementor/) 
+8. [Woo Category Carousel (Pro)](https://unlimited-elements.com/woo-category-carousel-widget-for-elementor/) 
 
-9. [Quantity Increment Buttons Widget for Elementor (Pro)](https://unlimited-elements.com/woocommerce-product-grid-widget-for-elementor/) 
+9. [Quantity Increment Buttons (Pro)](https://unlimited-elements.com/woocommerce-product-grid-widget-for-elementor/) 
 
 
 === Marketing Widgets for Elementor ===
 
-1. [Call To Action Button Widget for Elementor (Free)](https://unlimited-elements.com/call-to-action-button-widget-for-elementor/) 
+1. [Call To Action Button (Free)](https://unlimited-elements.com/call-to-action-button-widget-for-elementor/) 
 
-2. [Business Hours Widget for Elementor (Free)](https://unlimited-elements.com/business-hours-widget-for-elementor) 
+2. [Business Hours (Free)](https://unlimited-elements.com/business-hours-widget-for-elementor) 
 
-3. [Counter Widget for Elementor (Free)](https://unlimited-elements.com/statistic-counters-for-elementor) 
+3. [Counter (Free)](https://unlimited-elements.com/statistic-counters-for-elementor) 
 
-4. [Product Card Widget for Elementor (Free)](http://unlimited-elements.com/food-menu-box-widget-for-elementor/) 
+4. [Product Card (Free)](http://unlimited-elements.com/food-menu-box-widget-for-elementor/) 
 
-5. [Review Box Widget for Elementor (Free)](https://unlimited-elements.com/review-box-widget-for-elementor) 
+5. [Review Box (Free)](https://unlimited-elements.com/review-box-widget-for-elementor) 
 
-6. [Timer Countdown Widget for Elementor (Free)](https://unlimited-elements.com/timer-countdowns-for-elementor-page-builder/) 
+6. [Timer Countdown (Free)](https://unlimited-elements.com/timer-countdowns-for-elementor-page-builder/) 
 
-7. [List Widget for Elementor (Free)](https://unlimited-elements.com/list-widget-for-elementor/) 
+7. [List (Free)](https://unlimited-elements.com/list-widget-for-elementor/) 
 
-8. [Overlay Product Box Widget for Elementor (Free)](https://unlimited-elements.com/overlay-product-box-widget-for-elementor/) 
+8. [Overlay Product Box (Free)](https://unlimited-elements.com/overlay-product-box-widget-for-elementor/) 
 
-9. [Pricing Table Widget for Elementor (Free)](https://unlimited-elements.com/pricing-table-widget-for-elementor/) 
+9. [Pricing Table (Free)](https://unlimited-elements.com/pricing-table-widget-for-elementor/) 
 
-10. [Price List Widget for Elementor (Free)](https://unlimited-elements.com/price-list-widget-for-elementor/) 
+10. [Price List (Free)](https://unlimited-elements.com/price-list-widget-for-elementor/) 
 
-11. [Product Box Widget for Elementor (Free)](https://unlimited-elements.com/product-box-widget-for-elementor/) 
+11. [Product Box (Free)](https://unlimited-elements.com/product-box-widget-for-elementor/) 
 
-12. [Copy Coupon Code Widget for Elementor (Pro)](https://unlimited-elements.com/copy-coupon-code-widget-for-elementor) 
+12. [Copy Coupon Code (Pro)](https://unlimited-elements.com/copy-coupon-code-widget-for-elementor) 
 
-13. [Telegram Chat Widget for Elementor (Pro)](https://unlimited-elements.com/telegram-chat-widget-for-elementor) 
+13. [Telegram Chat (Pro)](https://unlimited-elements.com/telegram-chat-widget-for-elementor) 
 
-14. [Timer Countdown Banner Widget for Elementor (Pro)](https://unlimited-elements.com/timer-countdown-banner-widget-for-elementor) 
+14. [Timer Countdown Banner (Pro)](https://unlimited-elements.com/timer-countdown-banner-widget-for-elementor) 
 
-15. [Review Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/review-carousel-widget-for-elementor/) 
+15. [Review Carousel (Pro)](https://unlimited-elements.com/review-carousel-widget-for-elementor/) 
 
-16. [List Marquee Widget for Elementor (Pro)](https://unlimited-elements.com/list-marquee-widget-for-elementor/) 
+16. [List Marquee (Pro)](https://unlimited-elements.com/list-marquee-widget-for-elementor/) 
 
-17. [Pricing Table Flip Box Widget for Elementor (Pro)](https://unlimited-elements.com/pricing-flip-box-widget-for-elementor/) 
+17. [Pricing Table Flip Box (Pro)](https://unlimited-elements.com/pricing-flip-box-widget-for-elementor/) 
 
-18. [Unlimited Google Maps Widget for Elementor (Pro)](https://unlimited-elements.com/google-maps-widget-for-elementor) 
+18. [Unlimited Google Maps (Pro)](https://unlimited-elements.com/google-maps-widget-for-elementor) 
 
-19. [Product Bullets Widget for Elementor (Pro)](https://unlimited-elements.com/product-bullets-widget-for-elementor) 
+19. [Product Bullets (Pro)](https://unlimited-elements.com/product-bullets-widget-for-elementor) 
 
-20. [Icon Mobile Menu Widget for Elementor (Pro)](https://unlimited-elements.com/icon-mobile-menu-for-elementor) 
+20. [Icon Mobile Menu (Pro)](https://unlimited-elements.com/icon-mobile-menu-for-elementor) 
 
-21. [Price Box Widget for Elementor (Pro)](https://unlimited-elements.com/price-box-widget-for-elementor/) 
+21. [Price Box (Pro)](https://unlimited-elements.com/price-box-widget-for-elementor/) 
 
-22. [Product Highlights Widget for Elementor (Pro)](https://unlimited-elements.com/two-column-product-bullets-widget-for-elementor/) 
+22. [Product Highlights (Pro)](https://unlimited-elements.com/product-highlights-widget-for-elementor/) 
 
-23. [Memory Game Widget for Elementor (Pro)](https://unlimited-elements.com/memory-game-widget-for-elementor/) 
+23. [Memory Game (Pro)](https://unlimited-elements.com/memory-game-widget-for-elementor/) 
 
-24. [Pricing Plans Widget for Elementor (Pro)](https://unlimited-elements.com/pricing-plans-widget-for-elementor) 
+24. [Pricing Plans (Pro)](https://unlimited-elements.com/pricing-plans-widget-for-elementor) 
 
-25. [vCard Widget for Elementor (Pro)](https://unlimited-elements.com/vcard-widget-for-elementor/) 
+25. [vCard (Pro)](https://unlimited-elements.com/vcard-widget-for-elementor/) 
 
-26. [Floating Chat Buttons Widget for Elementor (Pro)](https://unlimited-elements.com/floating-chat-buttons-widget-for-elementor) 
+26. [Floating Chat Buttons (Pro)](https://unlimited-elements.com/floating-chat-buttons-widget-for-elementor) 
 
-27. [WhatsApp Chat Widget for Elementor (Pro)](https://unlimited-elements.com/whatsapp-chat-widget-for-elementor) 
+27. [WhatsApp Chat (Pro)](https://unlimited-elements.com/whatsapp-chat-widget-for-elementor) 
 
-28. [Product Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/product-carousel-widget-for-elementor) 
+28. [Product Carousel (Pro)](https://unlimited-elements.com/product-carousel-widget-for-elementor) 
 
 
 === Loop Builder for Elementor ===
 
-1. [Loop Grid Widget for Elementor (Pro)](https://unlimited-elements.com/loop-grid-widget-for-elementor/) 
+1. [Loop Grid (Pro)](https://unlimited-elements.com/loop-grid-widget-for-elementor/) 
 
-2. [Loop Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/loop-carousel-widget-for-elementor/) 
+2. [Loop Carousel (Pro)](https://unlimited-elements.com/loop-carousel-widget-for-elementor/) 
 
-3. [Loop Tabs Widget for Elementor (Pro)](https://unlimited-elements.com/loop-tabs-widget-for-elementor/) 
+3. [Loop Tabs (Pro)](https://unlimited-elements.com/loop-tabs-widget-for-elementor/) 
 
-4. [Loop Accordion Widget for Elementor (Pro)](https://unlimited-elements.com/loop-accordion-widget-for-elementor/) 
+4. [Loop Accordion (Pro)](https://unlimited-elements.com/loop-accordion-widget-for-elementor/) 
 
-5. [Loop Slider Widget for Elementor (Pro)](https://unlimited-elements.com/loop-slider-widget-for-elementor/) 
+5. [Loop Slider (Pro)](https://unlimited-elements.com/loop-slider-widget-for-elementor/) 
 
-6. [Dynamic Popup Button Widget for Elementor (Pro)](https://unlimited-elements.com/loop-grid-widget-for-elementor/) 
+6. [Dynamic Popup Button (Pro)](https://unlimited-elements.com/loop-grid-widget-for-elementor/) 
 
 
 === Remote Control Widgets for Elementor ===
 
-1. [Remote Arrows Widget for Elementor (Free)](https://unlimited-elements.com/remote-arrows-widget-for-elementor/) 
+1. [Remote Arrows (Free)](https://unlimited-elements.com/remote-arrows-widget-for-elementor/) 
 
-2. [Remote Bullets Widget for Elementor (Free)](https://unlimited-elements.com/remote-bullets-widget-for-elementor/) 
+2. [Remote Bullets (Free)](https://unlimited-elements.com/remote-bullets-widget-for-elementor/) 
 
-3. [Remote Counter Widget for Elementor (Free)](https://unlimited-elements.com/remote-counter-widget-for-elementor/) 
+3. [Remote Counter (Free)](https://unlimited-elements.com/remote-counter-widget-for-elementor/) 
 
-4. [Remote Play Pause Widget for Elementor (Free)](https://unlimited-elements.com/remote-control-widgets) 
+4. [Remote Play Pause (Free)](https://unlimited-elements.com/remote-control-widgets) 
 
-5. [Remote Tabs Widget for Elementor (Pro)](https://unlimited-elements.com/remote-tabs-widget-for-elementor) 
+5. [Remote Tabs (Pro)](https://unlimited-elements.com/remote-tabs-widget-for-elementor) 
 
-6. [Remote Dropdown Widget for Elementor (Pro)](https://unlimited-elements.com/remote-dropdown-widget-for-elementor/) 
+6. [Remote Dropdown (Pro)](https://unlimited-elements.com/remote-dropdown-widget-for-elementor/) 
 
-7. [Remote Link Widget for Elementor (Pro)](https://unlimited-elements.com/remote-link-widget-for-elementor) 
+7. [Remote Link (Pro)](https://unlimited-elements.com/remote-link-widget-for-elementor) 
 
-8. [Remote Item Navigation Widget for Elementor (Pro)](https://unlimited-elements.com/remote-item-navigation-widget-for-elementor/) 
+8. [Remote Item Navigation (Pro)](https://unlimited-elements.com/remote-item-navigation-widget-for-elementor/) 
 
-9. [Remote Scroll Widget for Elementor (Pro)](https://unlimited-elements.com/remote-scroll-widget-for-elementor/) 
+9. [Remote Scroll (Pro)](https://unlimited-elements.com/remote-scroll-widget-for-elementor/) 
 
 
 === Menu Widgets for Elementor ===
 
-1. [WordPress Menu Widget for Elementor (Free)](https://unlimited-elements.com/wordpress-menu-widget-for-elementor/) 
+1. [WordPress Menu (Free)](https://unlimited-elements.com/wordpress-menu-widget-for-elementor/) 
 
-2. [Fullscreen Menu Widget for Elementor (Free)](https://unlimited-elements.com/fullscreen-menu-widget-for-elementor/) 
+2. [Fullscreen Menu (Free)](https://unlimited-elements.com/fullscreen-menu-widget-for-elementor/) 
 
-3. [List Menu Widget for Elementor (Free)](https://unlimited-elements.com/simple-list-menu-widget-for-elementor) 
+3. [List Menu (Free)](https://unlimited-elements.com/simple-list-menu-widget-for-elementor) 
 
-4. [Mega Menu Widget for Elementor (Pro)](https://unlimited-elements.com/mega-menu-widget-for-elementor/) 
+4. [Mega Menu (Pro)](https://unlimited-elements.com/mega-menu-widget-for-elementor/) 
 
-5. [Mega Menu Inner Links Widget for Elementor (Pro)](https://unlimited-elements.com/mega-menu-inner-links-widget-for-elementor/) 
+5. [Mega Menu Inner Links (Pro)](https://unlimited-elements.com/mega-menu-inner-links-widget-for-elementor/) 
 
-6. [Side Menu Widget for Elementor (Pro)](http://unlimited-elements.com/side-menu-widget-for-elementor) 
+6. [Side Menu (Pro)](http://unlimited-elements.com/side-menu-widget-for-elementor) 
 
-7. [Liquid Full Screen Menu Widget for Elementor (Pro)](https://unlimited-elements.com/liquid-fullscreen-menu-widget-for-elementor) 
+7. [Liquid Full Screen Menu (Pro)](https://unlimited-elements.com/liquid-fullscreen-menu-widget-for-elementor) 
 
-8. [One Page Scroll Navigation Widget for Elementor (Pro)](https://unlimited-elements.com/one-page-scroll-navigation-widget-for-elementor) 
+8. [One Page Scroll Navigation (Pro)](https://unlimited-elements.com/one-page-scroll-navigation-widget-for-elementor) 
 
-9. [Circle Menu Widget for Elementor (Pro)](http://unlimited-elements.com/circle-menu-widget-for-elementor) 
+9. [Circle Menu (Pro)](http://unlimited-elements.com/circle-menu-widget-for-elementor) 
 
-10. [Accordion Menu Widget for Elementor (Pro)](https://unlimited-elements.com/accordion-menu-widget-for-elementor) 
+10. [Accordion Menu (Pro)](https://unlimited-elements.com/accordion-menu-widget-for-elementor) 
 
 
 === Content Widgets for Elementor ===
 
-1. [Content Accordion Widget for Elementor (Free)](https://unlimited-elements.com/content-accordion-widget-for-elementor/) 
+1. [Content Accordion (Free)](https://unlimited-elements.com/content-accordion-widget-for-elementor/) 
 
-2. [Simple Popup Widget for Elementor (Free)](https://unlimited-elements.com/simple-popup-widget-for-elementor/) 
+2. [Simple Popup (Free)](https://unlimited-elements.com/simple-popup-widget-for-elementor/) 
 
-3. [Content Tabs Widget for Elementor (Free)](https://unlimited-elements.com/content-tabs-widget-for-elementor/) 
+3. [Content Tabs (Free)](https://unlimited-elements.com/content-tabs-widget-for-elementor/) 
 
-4. [Expanding Content Cards Widget for Elementor (Pro)](https://unlimited-elements.com/expanding-content-cards-widget-for-elementor/) 
+4. [Expanding Content Cards (Pro)](https://unlimited-elements.com/expanding-content-cards-widget-for-elementor/) 
 
-5. [Content Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/content-carousel-widget-for-elementor/) 
+5. [Content Carousel (Pro)](https://unlimited-elements.com/content-carousel-widget-for-elementor/) 
 
-6. [Content Grid Widget for Elementor (Pro)](https://unlimited-elements.com/content-grid-widget-for-elementor/) 
+6. [Content Grid (Pro)](https://unlimited-elements.com/content-grid-widget-for-elementor/) 
 
-7. [Mega Slider Widget for Elementor (Pro)](https://unlimited-elements.com/mega-slider-widget-for-elementor/) 
+7. [Mega Slider (Pro)](https://unlimited-elements.com/mega-slider-widget-for-elementor/) 
 
-8. [Unfold Content Widget for Elementor (Pro)](https://unlimited-elements.com/unfold-content-widget-for-elementor/) 
+8. [Unfold Content (Pro)](https://unlimited-elements.com/unfold-content-widget-for-elementor/) 
 
-9. [Content Slider Widget for Elementor (Pro)](https://unlimited-elements.com/content-slider-widget-for-elementor) 
+9. [Content Slider (Pro)](https://unlimited-elements.com/content-slider-widget-for-elementor) 
 
-10. [Content Switcher Widget for Elementor (Pro)](https://unlimited-elements.com/content-switcher-widget-for-elementor/) 
+10. [Content Switcher (Pro)](https://unlimited-elements.com/content-switcher-widget-for-elementor/) 
 
-11. [Unlimited Table Widget for Elementor (Pro)](http://unlimited-elements.com/unlimited-table-widget-for-elementor/) 
+11. [Unlimited Table (Pro)](http://unlimited-elements.com/unlimited-table-widget-for-elementor/) 
 
-12. [Toggle Box Widget for Elementor (Pro)](https://unlimited-elements.com/toggle-box-widget-for-elementor/) 
+12. [Toggle Box (Pro)](https://unlimited-elements.com/toggle-box-widget-for-elementor/) 
 
-13. [Unlimited Grid Widget for Elementor (Pro)](https://unlimited-elements.com/unlimited-grid-widget-for-elementor/) 
+13. [Unlimited Grid (Pro)](https://unlimited-elements.com/unlimited-grid-widget-for-elementor/) 
 
-14. [Content Ticker Widget for Elementor (Pro)](https://unlimited-elements.com/content-ticker-widget-for-elementor/) 
+14. [Content Ticker (Pro)](https://unlimited-elements.com/content-ticker-widget-for-elementor/) 
 
 
 === Media Widgets for Elementor ===
 
-1. [Slider Gallery Widget for Elementor (Free)](https://unlimited-elements.com/slider-gallery-widget-for-elementor/) 
+1. [Slider Gallery (Free)](https://unlimited-elements.com/slider-gallery-widget-for-elementor/) 
 
-2. [Tile Gallery Widget for Elementor (Free)](https://unlimited-elements.com/tile-gallery-widget-for-elementor/) 
+2. [Tile Gallery (Free)](https://unlimited-elements.com/tile-gallery-widget-for-elementor/) 
 
-3. [Compact Gallery Widget for Elementor (Free)](https://unlimited-elements.com/compact-gallery-widget-for-elementor/) 
+3. [Compact Gallery (Free)](https://unlimited-elements.com/compact-gallery-widget-for-elementor/) 
 
-4. [Simple Slider Widget for Elementor (Free)](https://unlimited-elements.com/simple-slider-widget-for-elementor/) 
+4. [Simple Slider (Free)](https://unlimited-elements.com/simple-slider-widget-for-elementor/) 
 
-5. [Random Image Widget for Elementor (Free)](https://unlimited-elements.com/random-image-widget-for-elementor/) 
+5. [Random Image (Free)](https://unlimited-elements.com/random-image-widget-for-elementor/) 
 
-6. [Grid Gallery Widget for Elementor (Pro)](https://unlimited-elements.com/grid-gallery-widget-for-elementor/) 
+6. [Grid Gallery (Pro)](https://unlimited-elements.com/grid-gallery-widget-for-elementor/) 
 
-7. [Masonry Gallery Widget for Elementor (Pro)](https://unlimited-elements.com/masonry-gallery-widget-for-elementor/) 
+7. [Masonry Gallery (Pro)](https://unlimited-elements.com/masonry-gallery-widget-for-elementor/) 
 
-8. [Carousel Gallery Widget for Elementor (Pro)](https://unlimited-elements.com/carousel-gallery-widget-for-elementor/) 
+8. [Carousel Gallery (Pro)](https://unlimited-elements.com/carousel-gallery-widget-for-elementor/) 
 
-9. [Thumbnail Gallery Widget for Elementor (Pro)](https://unlimited-elements.com/unlimited-gallery-widget-for-elementor/) 
+9. [Thumbnail Gallery (Pro)](https://unlimited-elements.com/unlimited-gallery-widget-for-elementor/) 
 
-10. [Audio Playlist Widget for Elementor (Pro)](https://unlimited-elements.com/audio-playlist-widget-for-elementor) 
+10. [Audio Playlist (Pro)](https://unlimited-elements.com/audio-playlist-widget-for-elementor) 
 
-11. [Audio Player Widget for Elementor (Pro)](https://unlimited-elements.com/audio-player-widget-for-elementor/) 
+11. [Audio Player (Pro)](https://unlimited-elements.com/audio-player-widget-for-elementor/) 
 
-12. [Thumbnail Slider Widget for Elementor (Pro)](https://unlimited-elements.com/thumbnail-slider-widget-for-elementor/) 
+12. [Thumbnail Slider (Pro)](https://unlimited-elements.com/thumbnail-slider-widget-for-elementor/) 
 
-13. [Image and Video Content Slider Widget for Elementor (Pro)](https://unlimited-elements.com/image-video-content-slider-widget-for-elementor) 
+13. [Image and Video Slider (Pro)](https://unlimited-elements.com/image-and-video-slider-widget-for-elementor/) 
 
-14. [Video Playlist Widget for Elementor (Pro)](https://unlimited-elements.com/video-playlist-widget-for-elementor/) 
+14. [Video Playlist (Pro)](https://unlimited-elements.com/video-playlist-widget-for-elementor/) 
 
 
 === Carousel Widgets for Elementor ===
 
-1. [Card Carousel Widget for Elementor (Free)](https://unlimited-elements.com/card-carousel-widget-for-elementor/) 
+1. [Card Carousel (Free)](https://unlimited-elements.com/card-carousel-widget-for-elementor/) 
 
-2. [Unlimited Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/unlimited-carousel-widget-for-elementor) 
+2. [Unlimited Carousel (Pro)](https://unlimited-elements.com/unlimited-carousel-widget-for-elementor) 
 
-3. [Coverflow Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/coverflow-carousel-widget-for-elementor/) 
+3. [Coverflow Carousel (Pro)](https://unlimited-elements.com/coverflow-carousel-widget-for-elementor/) 
 
-4. [Icon Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/icon-carousel-widget-for-elementor/) 
+4. [Icon Carousel (Pro)](https://unlimited-elements.com/icon-carousel-widget-for-elementor/) 
 
-5. [Material Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/material-carousel-widget-for-elementor/) 
+5. [Material Carousel (Pro)](https://unlimited-elements.com/material-carousel-widget-for-elementor/) 
 
-6. [Overlay Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/overlay-carousel-widget-for-elementor) 
+6. [Overlay Carousel (Pro)](https://unlimited-elements.com/overlay-carousel-widget-for-elementor) 
 
-7. [Swipe Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/swipe-carousel-widget-for-elementor/) 
+7. [Justified Image Carousel (Pro)](https://unlimited-elements.com/justified-image-carousel-widget-for-elementor/) 
 
-8. [Portfolio Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/portfolio-carousel-widget-for-elementor/) 
+8. [Swipe Carousel (Pro)](https://unlimited-elements.com/swipe-carousel-widget-for-elementor/) 
 
-9. [Justified Image Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/justified-image-carousel-widget-for-elementor/) 
+9. [Portfolio Carousel (Pro)](https://unlimited-elements.com/portfolio-carousel-widget-for-elementor/) 
 
 
 === Infographic Widgets for Elementor ===
 
-1. [Unlimited Timeline Widget for Elementor (Free)](https://unlimited-elements.com/unlimited-timeline-widget-for-elementor) 
+1. [Unlimited Timeline (Free)](https://unlimited-elements.com/unlimited-timeline-widget-for-elementor) 
 
-2. [Linear Progress Bar Widget for Elementor (Free)](https://unlimited-elements.com/linear-progress-bar-widget-for-elementor) 
+2. [Linear Progress Bar (Free)](https://unlimited-elements.com/linear-progress-bar-widget-for-elementor) 
 
-3. [Pie chart Widget for Elementor (Free)](https://unlimited-elements.com/pie-chart-for-elementor) 
+3. [Pie chart (Free)](https://unlimited-elements.com/pie-chart-for-elementor) 
 
-4. [Line Chart Widget for Elementor (Free)](https://unlimited-elements.com/unlimited-charts-widget-for-elementor/) 
+4. [Line Chart (Free)](https://unlimited-elements.com/unlimited-charts-widget-for-elementor/) 
 
-5. [Interactive Circle Infographic Widget for Elementor (Pro)](https://unlimited-elements.com/interactive-circle-infographic-widget-for-elementor/) 
+5. [Interactive Circle Infographic (Pro)](https://unlimited-elements.com/interactive-circle-infographic-widget-for-elementor/) 
 
-6. [Unlimited Charts Widget for Elementor (Pro)](https://unlimited-elements.com/unlimited-charts-widget-for-elementor) 
+6. [Unlimited Charts (Pro)](https://unlimited-elements.com/unlimited-charts-widget-for-elementor) 
 
-7. [Funnel & Pyramid Widget for Elementor (Pro)](https://unlimited-elements.com/funnel-pyramid-widget-for-elementor/) 
+7. [Funnel & Pyramid (Pro)](https://unlimited-elements.com/funnel-pyramid-widget-for-elementor/) 
 
-8. [Step Process Widget for Elementor (Pro)](https://unlimited-elements.com/step-process-widget-for-elementor) 
+8. [Step Process (Pro)](https://unlimited-elements.com/step-process-widget-for-elementor) 
 
-9. [Circle Progress Bar Widget for Elementor (Pro)](https://unlimited-elements.com/circle-progress-bar-widget-for-elementor/) 
+9. [Circle Progress Bar (Pro)](https://unlimited-elements.com/circle-progress-bar-widget-for-elementor/) 
 
-10. [Semi Circle Progress Bar Widget for Elementor (Pro)](https://unlimited-elements.com/semi-circle-progress-bar-widget-for-elementor/) 
+10. [Semi Circle Progress Bar (Pro)](https://unlimited-elements.com/semi-circle-progress-bar-widget-for-elementor/) 
 
-11. [Vertical Progress Bar Widget for Elementor (Pro)](https://unlimited-elements.com/vertical-progress-bar-widget-for-elementor) 
+11. [Vertical Progress Bar (Pro)](https://unlimited-elements.com/vertical-progress-bar-widget-for-elementor) 
 
 
 === Testimonials for Elementor ===
 
-1. [Testimonial Box Widget for Elementor (Free)](https://unlimited-elements.com/box-testimonial-widget-for-elementor/) 
+1. [Testimonial Box (Free)](https://unlimited-elements.com/box-testimonial-widget-for-elementor/) 
 
-2. [Testimonial Card Widget for Elementor (Free)](https://unlimited-elements.com/logo-card-testimonial-widget-for-elementor) 
+2. [Testimonial Card (Free)](https://unlimited-elements.com/logo-card-testimonial-widget-for-elementor) 
 
-3. [Testimonial Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/testimonial-carousel-widget-for-elementor/) 
+3. [Testimonial Carousel (Pro)](https://unlimited-elements.com/testimonial-carousel-widget-for-elementor/) 
 
 
 === Team Members for Elementor ===
 
-1. [Team Member Card Widget for Elementor (Free)](http://unlimited-elements.com/team-member-card-widget-for-elementor/) 
+1. [Team Member Card (Free)](http://unlimited-elements.com/team-member-card-widget-for-elementor/) 
 
-2. [Team Member Box Widget for Elementor (Free)](https://unlimited-elements.com/team-member-box-overlay-widget-for-elementor) 
+2. [Team Member Box (Free)](https://unlimited-elements.com/team-member-box-overlay-widget-for-elementor) 
 
-3. [Team Member Carousel Widget for Elementor (Pro)](http://unlimited-elements.com/team-member-carousel-widget-for-elementor/) 
+3. [Team Member Carousel (Pro)](http://unlimited-elements.com/team-member-carousel-widget-for-elementor/) 
 
-4. [Team Member Icon Effect Widget for Elementor (Pro)](https://unlimited-elements.com/icon-team-member-widget-for-elementor) 
+4. [Team Member Icon Effect (Pro)](https://unlimited-elements.com/icon-team-member-widget-for-elementor) 
 
-5. [Team Member Grid Widget for Elementor (Pro)](http://unlimited-elements.com/team-member-grid-widget-for-elementor/) 
+5. [Team Member Grid (Pro)](http://unlimited-elements.com/team-member-grid-widget-for-elementor/) 
 
-6. [Team Member Sliding Effect Widget for Elementor (Pro)](https://unlimited-elements.com/sliding-effect-team-member-widget-for-elementor) 
+6. [Team Member Sliding Effect (Pro)](https://unlimited-elements.com/team-member-sliding-effect-widget-for-elementor/) 
 
 
 === Content Boxes for Elementor ===
 
-1. [Image Zoom Content Box Widget for Elementor (Free)](https://unlimited-elements.com/image-zoom-content-box-widget-for-elementor/) 
+1. [Content Reveal on Hover (Free)](https://unlimited-elements.com/content-reveal-on-hover-widget-for-elementor/) 
 
-2. [Image Card Widget for Elementor (Free)](https://unlimited-elements.com/image-card-content-box-widget-for-elementor/) 
+2. [Image Zoom Content Box (Free)](https://unlimited-elements.com/image-zoom-content-box-widget-for-elementor/) 
 
-3. [Content Box Hover Text Reveal Widget for Elementor (Free)](https://unlimited-elements.com/hover-text-reveal-content-box-widget-for-elementor/) 
+3. [Image Card (Free)](https://unlimited-elements.com/image-card-content-box-widget-for-elementor/) 
 
-4. [Icon Image Content Box Widget for Elementor (Free)](https://unlimited-elements.com/icon-image-content-box-widget-for-elementor) 
+4. [Icon Image Content Box (Free)](https://unlimited-elements.com/icon-image-content-box-widget-for-elementor) 
 
-5. [Icon Content Box Widget for Elementor (Free)](https://unlimited-elements.com/icon-content-box-widget-for-elementor) 
+5. [Icon Content Box (Free)](https://unlimited-elements.com/icon-content-box-widget-for-elementor) 
 
-6. [Content Box Zoom Caption Reveal Widget for Elementor (Pro)](https://unlimited-elements.com/zoom-caption-reveal-content-box-widget-for-elementor) 
+6. [Content Box Zoom Caption Reveal (Pro)](https://unlimited-elements.com/zoom-caption-reveal-content-box-widget-for-elementor) 
 
-7. [Content Box Overlay Widget for Elementor (Pro)](https://unlimited-elements.com/subtle-overlay-content-box-widget-for-elementor/) 
+7. [Content Box Overlay (Pro)](https://unlimited-elements.com/subtle-overlay-content-box-widget-for-elementor/) 
 
-8. [Animated Border Content Box Widget for Elementor (Pro)](https://unlimited-elements.com/animated-border-content-box-widget-for-elementor) 
+8. [Animated Border Content Box (Pro)](https://unlimited-elements.com/animated-border-content-box-widget-for-elementor) 
 
-9. [Content Box Sliding Effect Widget for Elementor (Pro)](https://unlimited-elements.com/sliding-content-box-widget-for-elementor/) 
+9. [Content Box Sliding Effect (Pro)](https://unlimited-elements.com/sliding-content-box-widget-for-elementor/) 
 
 
 === Instagram Widgets for Elementor ===
 
-1. [Instagram Latest Image Widget for Elementor (Free)](https://unlimited-elements.com/latest-instagram-image-widget-for-elementor) 
+1. [Instagram Latest Image (Free)](https://unlimited-elements.com/latest-instagram-image-widget-for-elementor) 
 
-2. [Instagram Feed Widget for Elementor (Pro)](https://unlimited-elements.com/instagram-feed-widget-for-elementor/) 
+2. [Instagram Feed (Pro)](https://unlimited-elements.com/instagram-feed-widget-for-elementor/) 
 
-3. [Instagram Box Widget for Elementor (Pro)](https://unlimited-elements.com/instagram-teaser-box-for-elementor/) 
+3. [Instagram Box (Pro)](https://unlimited-elements.com/instagram-teaser-box-for-elementor/) 
 
-4. [Instagram Card Widget for Elementor (Pro)](https://unlimited-elements.com/instagram-card-widget-for-elementor/) 
+4. [Instagram Card (Pro)](https://unlimited-elements.com/instagram-card-widget-for-elementor/) 
 
-5. [Instagram Metro Grid Widget for Elementor (Pro)](https://unlimited-elements.com/metro-instagram-widget-for-elementor) 
+5. [Instagram Metro Grid (Pro)](https://unlimited-elements.com/metro-instagram-widget-for-elementor) 
 
 
 === Logo Widgets for Elementor ===
 
-1. [Logo Grid Widget for Elementor (Free)](https://unlimited-elements.com/logo-grid-widget-for-elementor/) 
+1. [Logo Grid (Free)](https://unlimited-elements.com/logo-grid-widget-for-elementor/) 
 
-2. [Logo Card Widget for Elementor (Free)](https://unlimited-elements.com/logo-card-widget-for-elementor) 
+2. [Logo Card (Free)](https://unlimited-elements.com/logo-card-widget-for-elementor) 
 
-3. [Logo Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/logo-carousel-widget-for-elementor/) 
+3. [Logo Carousel (Pro)](https://unlimited-elements.com/logo-carousel-widget-for-elementor/) 
 
-4. [Logo Marquee Widget for Elementor (Pro)](https://unlimited-elements.com/logo-marquee-widget-for-elementor) 
+4. [Logo Marquee (Pro)](https://unlimited-elements.com/logo-marquee-widget-for-elementor) 
 
 
 === Hover Effects for Elementor ===
 
-1. [Rollover Image Effect Widget for Elementor (Free)](https://unlimited-elements.com/rollover-image-effect-widget-for-elementor/) 
+1. [Rollover Image Effect (Free)](https://unlimited-elements.com/rollover-image-effect-widget-for-elementor/) 
 
-2. [Link Hover Effects Widget for Elementor (Free)](https://unlimited-elements.com/link-hover-effects/) 
+2. [Link Hover Effects (Free)](https://unlimited-elements.com/link-hover-effects/) 
 
-3. [Icon Hover Effects Widget for Elementor (Free)](https://unlimited-elements.com/icon-hover-effects-for-elementor/) 
+3. [Icon Hover Effects (Free)](https://unlimited-elements.com/icon-hover-effects-for-elementor/) 
 
-4. [Creative Button Hovers Widget for Elementor (Free)](https://unlimited-elements.com/creative-button-hover-widget-for-elementor/) 
+4. [Creative Button Hovers (Free)](https://unlimited-elements.com/creative-button-hover-widget-for-elementor/) 
 
-5. [Caption Hover Effects Widget for Elementor (Free)](https://unlimited-elements.com/caption-hover-effects/) 
+5. [Caption Hover Effects (Free)](https://unlimited-elements.com/caption-hover-effects/) 
 
-6. [Banner Hover Effects Widget for Elementor (Pro)](https://unlimited-elements.com/banner-hover-effect-widgets-for-elementor/) 
+6. [Banner Hover Effects (Pro)](https://unlimited-elements.com/banner-hover-effect-widgets-for-elementor/) 
 
-7. [iHover Effect Widget for Elementor (Pro)](https://unlimited-elements.com/ihover-for-elementor/) 
+7. [iHover Effect (Pro)](https://unlimited-elements.com/ihover-for-elementor/) 
 
-8. [Border Link Hover Effects Widget for Elementor (Pro)](https://unlimited-elements.com/border-link-hover-effects-widget-for-elementor/) 
+8. [Border Link Hover Effects (Pro)](https://unlimited-elements.com/border-link-hover-effects-widget-for-elementor/) 
 
 
 === Button Widgets for Elementor ===
 
-1. [Button Group Widget for Elementor (Free)](https://unlimited-elements.com/button-group-widget-for-elementor/) 
+1. [Button Group (Free)](https://unlimited-elements.com/button-group-widget-for-elementor/) 
 
-2. [Gradient Button Widget for Elementor (Free)](https://unlimited-elements.com/gradient-button-widget-for-elementor/) 
+2. [Gradient Button (Free)](https://unlimited-elements.com/gradient-button-widget-for-elementor/) 
 
-3. [Video Play Button Widget for Elementor (Free)](https://unlimited-elements.com/video-play-button-popup-widget-for-elementor/) 
+3. [Video Play Button (Free)](https://unlimited-elements.com/video-play-button-popup-widget-for-elementor/) 
 
-4. [Overlay Button Widget for Elementor (Free)](https://unlimited-elements.com/overlay-button-widget-for-elementor/) 
+4. [Overlay Button (Free)](https://unlimited-elements.com/overlay-button-widget-for-elementor/) 
 
-5. [Parallelogram Button Widget for Elementor (Free)](https://unlimited-elements.com/parellogram-button-widget-for-elementor/) 
+5. [Parallelogram Button (Free)](https://unlimited-elements.com/parellogram-button-widget-for-elementor/) 
 
-6. [Underline Animated Button Widget for Elementor (Free)](https://unlimited-elements.com/underline-animated-button-widget-for-elementor/) 
+6. [Underline Animated Button (Free)](https://unlimited-elements.com/underline-animated-button-widget-for-elementor/) 
 
-7. [Multi Line Button Widget for Elementor (Free)](https://unlimited-elements.com/multi-line-button-widget-for-elementor/) 
+7. [Multi Line Button (Free)](https://unlimited-elements.com/multi-line-button-widget-for-elementor/) 
 
-8. [Toggle Text Button Widget for Elementor (Free)](https://unlimited-elements.com/toggle-text-button-widget-for-elementor/) 
+8. [Toggle Text Button (Free)](https://unlimited-elements.com/toggle-text-button-widget-for-elementor/) 
 
-9. [Scroll To Top Widget for Elementor (Free)](unlimited-elements.com/scroll-to-top-widget-for-elementor) 
+9. [Scroll To Top (Free)](unlimited-elements.com/scroll-to-top-widget-for-elementor) 
 
-10. [Dark Mode Widget for Elementor (Free)](https://unlimited-elements.com/dark-mode-widget-for-elementor/) 
+10. [Dark Mode (Free)](https://unlimited-elements.com/dark-mode-widget-for-elementor/) 
 
-11. [Button Icon Hover Effect Widget for Elementor (Pro)](https://unlimited-elements.com/icon-hover-effect-button-widget-for-elementor/) 
+11. [Button Icon Hover Effect (Pro)](https://unlimited-elements.com/icon-hover-effect-button-widget-for-elementor/) 
 
-12. [Glare Button Effect Widget for Elementor (Pro)](https://unlimited-elements.com/glare-effect-button-widget-for-elementor/) 
+12. [Glare Button Effect (Pro)](https://unlimited-elements.com/glare-effect-button-widget-for-elementor/) 
 
-13. [Gradient Hover Effect Button Widget for Elementor (Pro)](https://unlimited-elements.com/gradient-hover-effect-button-widget-for-elementor/) 
+13. [Gradient Hover Effect Button (Pro)](https://unlimited-elements.com/gradient-hover-effect-button-widget-for-elementor/) 
 
-14. [Liquid Button Widget for Elementor (Pro)](https://unlimited-elements.com/liquid-button-widget-for-elementor/) 
+14. [Liquid Button (Pro)](https://unlimited-elements.com/liquid-button-widget-for-elementor/) 
 
-15. [Dropdown Button Widget for Elementor (Pro)](https://unlimited-elements.com/dropdown-button-widget-for-elementor/) 
+15. [Dropdown Button (Pro)](https://unlimited-elements.com/dropdown-button-widget-for-elementor/) 
 
-16. [Border Button Effect Widget for Elementor (Pro)](https://unlimited-elements.com/border-button-effect-widget-for-elementor/) 
+16. [Border Button Effect (Pro)](https://unlimited-elements.com/border-button-effect-widget-for-elementor/) 
 
-17. [Icon Pointer Button Widget for Elementor (Pro)](https://unlimited-elements.com/icon-pointer-button-widget-for-elementor/) 
+17. [Icon Pointer Button (Pro)](https://unlimited-elements.com/icon-pointer-button-widget-for-elementor/) 
 
-18. [Simple Artistic Button Widget for Elementor (Pro)](https://unlimited-elements.com/simple-artistic-button-widget-for-elementor/) 
+18. [Simple Artistic Button (Pro)](https://unlimited-elements.com/simple-artistic-button-widget-for-elementor/) 
 
-19. [Underline Link Hover Effect Widget for Elementor (Pro)](http://unlimited-elements.com/underline-link-hover-effect-widget-for-elementor) 
+19. [Underline Link Hover Effect (Pro)](http://unlimited-elements.com/underline-link-hover-effect-widget-for-elementor) 
 
-20. [Neon Glowing Button Effect Widget for Elementor (Pro)](https://unlimited-elements.com/neon-glowing-button-effect-widget-for-elementor/) 
+20. [Neon Glowing Button Effect (Pro)](https://unlimited-elements.com/neon-glowing-button-effect-widget-for-elementor/) 
 
-21. [Christmas Button Widget for Elementor (Pro)](https://unlimited-elements.com/christmas-button-widget-for-elementor) 
+21. [Christmas Button (Pro)](https://unlimited-elements.com/christmas-button-widget-for-elementor) 
 
 
 === Typography for Elementor ===
 
-1. [Text Rotator Widget for Elementor (Free)](https://unlimited-elements.com/text-rotator-for-elementor-page-builder/) 
+1. [Text Rotator (Free)](https://unlimited-elements.com/text-rotator-for-elementor-page-builder/) 
 
-2. [3D Text Widget for Elementor (Free)](https://unlimited-elements.com/3d-text-effect-for-elementor/) 
+2. [3D Text (Free)](https://unlimited-elements.com/3d-text-effect-for-elementor/) 
 
-3. [Gradient Underline Text Effect Widget for Elementor (Free)](https://unlimited-elements.com/gradient-underline-text-effect-widget-for-elementor/) 
+3. [Gradient Underline Text Effect (Free)](https://unlimited-elements.com/gradient-underline-text-effect-widget-for-elementor/) 
 
-4. [Dual Color Heading Widget for Elementor (Free)](https://unlimited-elements.com/dual-color-heading-widget-for-elementor/) 
+4. [Dual Color Heading (Free)](https://unlimited-elements.com/dual-color-heading-widget-for-elementor/) 
 
-5. [Stroke Text Effect Widget for Elementor (Free)](https://unlimited-elements.com/stroke-text-effect-widget-for-elementor/) 
+5. [Stroke Text Effect (Free)](https://unlimited-elements.com/stroke-text-effect-widget-for-elementor/) 
 
-6. [Gradient Text Effect Widget for Elementor (Free)](https://unlimited-elements.com/gradient-text-effect-for-elementor/) 
+6. [Gradient Text Effect (Free)](https://unlimited-elements.com/gradient-text-effect-for-elementor/) 
 
-7. [Text Marquee Effect Widget for Elementor (Free)](https://unlimited-elements.com/text-marquee-for-elementor/) 
+7. [Text Marquee Effect (Free)](https://unlimited-elements.com/text-marquee-for-elementor/) 
 
-8. [Scroll Text Reveal Widget for Elementor (Pro)](https://unlimited-elements.com/scroll-reveal-text-widget-for-elementor/) 
+8. [Scroll Text Reveal (Pro)](https://unlimited-elements.com/scroll-reveal-text-widget-for-elementor/) 
 
-9. [Futuristic Typing Text Effect Widget for Elementor (Pro)](https://unlimited-elements.com/futuristic-typing-text-effect-widget-for-elementor/) 
+9. [Futuristic Typing Text Effect (Pro)](https://unlimited-elements.com/futuristic-typing-text-effect-widget-for-elementor/) 
 
-10. [Animated Split Text Widget for Elementor (Pro)](https://unlimited-elements.com/animated-split-text-widget-for-elementor/) 
+10. [Animated Split Text (Pro)](https://unlimited-elements.com/animated-split-text-widget-for-elementor/) 
 
-11. [Sideways Vertical Text Widget for Elementor (Pro)](https://unlimited-elements.com/sideways-vertical-text-widget-for-elementor) 
+11. [Sideways Vertical Text (Pro)](https://unlimited-elements.com/sideways-vertical-text-widget-for-elementor) 
 
-12. [Image Background Text Effect Widget for Elementor (Pro)](https://unlimited-elements.com/image-background-text-effect-widget-for-elementor/) 
+12. [Image Background Text Effect (Pro)](https://unlimited-elements.com/image-background-text-effect-widget-for-elementor/) 
 
-13. [Typewriter Text Effect Widget for Elementor (Pro)](https://unlimited-elements.com/typewriter-text-effect-for-elementor/) 
+13. [Typewriter Text Effect (Pro)](https://unlimited-elements.com/typewriter-text-effect-for-elementor/) 
 
-14. [Side Line Heading Widget for Elementor (Pro)](https://unlimited-elements.com/side-line-heading-widget-for-elementor/) 
+14. [Side Line Heading (Pro)](https://unlimited-elements.com/side-line-heading-widget-for-elementor/) 
 
-15. [Christmas Text Widget for Elementor (Pro)](https://unlimited-elements.com/christmas-text-widget-for-elementor) 
+15. [Christmas Text (Pro)](https://unlimited-elements.com/christmas-text-widget-for-elementor) 
 
 
 === Icon Boxes for Elementor ===
 
-1. [Icon Box Widget for Elementor (Free)](https://unlimited-elements.com/icon-box-widget-for-elementor/) 
+1. [Icon Box (Free)](https://unlimited-elements.com/icon-box-widget-for-elementor/) 
 
-2. [Icon Card Widget for Elementor (Free)](https://unlimited-elements.com/material-footer-card-widget-for-elementor) 
+2. [Icon Card (Free)](https://unlimited-elements.com/material-footer-card-widget-for-elementor) 
 
-3. [Icon Number Box Widget for Elementor (Free)](https://unlimited-elements.com/icon-button-number-box-widget-for-elementor) 
+3. [Icon Number Box (Free)](https://unlimited-elements.com/icon-button-number-box-widget-for-elementor) 
 
-4. [Twist Hover Icon Box Widget for Elementor (Free)](https://unlimited-elements.com/twist-hover-icon-box-widget-for-elementor/) 
+4. [Twist Hover Icon Box (Free)](https://unlimited-elements.com/twist-hover-icon-box-widget-for-elementor/) 
 
-5. [Sliding Icon Box Widget for Elementor (Free)](https://unlimited-elements.com/sliding-icon-box-widget-for-elementor/) 
+5. [Sliding Icon Box (Free)](https://unlimited-elements.com/sliding-icon-box-widget-for-elementor/) 
 
-6. [Animated Icon Box Widget for Elementor (Pro)](https://unlimited-elements.com/animated-icon-box-widget-for-elementor/) 
+6. [Animated Icon Box (Pro)](https://unlimited-elements.com/animated-icon-box-widget-for-elementor/) 
 
-7. [Icon Box Hover Effect Widget for Elementor (Pro)](https://unlimited-elements.com/icon-box-hover-effect-widget-for-elementor/) 
+7. [Icon Box Hover Effect (Pro)](https://unlimited-elements.com/icon-box-hover-effect-widget-for-elementor/) 
 
-8. [Animated Border Icon Box Widget for Elementor (Pro)](https://unlimited-elements.com/animated-border-icon-box-widget-for-elementor/) 
+8. [Animated Border Icon Box (Pro)](https://unlimited-elements.com/animated-border-icon-box-widget-for-elementor/) 
 
-9. [Icon Box Content Reveal Widget for Elementor (Pro)](https://unlimited-elements.com/content-reveal-icon-box-widget-for-elementor/) 
+9. [Icon Box Content Reveal (Pro)](https://unlimited-elements.com/content-reveal-icon-box-widget-for-elementor/) 
 
-10. [Overlay Icon Box Widget for Elementor (Pro)](https://unlimited-elements.com/solid-color-overlay-icon-box-widget-for-elementor) 
+10. [Overlay Icon Box (Pro)](https://unlimited-elements.com/solid-color-overlay-icon-box-widget-for-elementor) 
 
 
 === Block Quotes for Elementor ===
 
-1. [Block Quote Box Widget for Elementor (Free)](https://unlimited-elements.com/block-quote-box-widget-for-elementor) 
+1. [Block Quote Box (Free)](https://unlimited-elements.com/block-quote-box-widget-for-elementor) 
 
-2. [Block Quote Card Widget for Elementor (Free)](https://unlimited-elements.com/material-block-quote-widget-for-elementor/) 
+2. [Block Quote Card (Free)](https://unlimited-elements.com/material-block-quote-widget-for-elementor/) 
 
-3. [Block Quote Carousel Box Widget for Elementor (Free)](https://unlimited-elements.com/block-quote-carousel-box-widget-for-elementor) 
+3. [Block Quote Carousel Box (Free)](https://unlimited-elements.com/block-quote-carousel-box-widget-for-elementor) 
 
-4. [Block Quote Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/block-quote-carousel-widget-for-elementor/) 
+4. [Block Quote Carousel (Pro)](https://unlimited-elements.com/block-quote-carousel-widget-for-elementor/) 
 
-5. [Block Quote Slider Widget for Elementor (Pro)](https://unlimited-elements.com/block-quote-slider-widget-for-elementor) 
+5. [Block Quote Slider (Pro)](https://unlimited-elements.com/block-quote-slider-widget-for-elementor) 
 
 
 === Social Network Icons for Elementor ===
 
-1. [Social Icons Glare Effect Widget for Elementor (Free)](https://unlimited-elements.com/glare-social-icons-widget-for-elementor/) 
+1. [Social Icons Glare Effect (Free)](https://unlimited-elements.com/glare-social-icons-widget-for-elementor/) 
 
-2. [3d Social Icon Buttons Widget for Elementor (Free)](https://unlimited-elements.com/3d-social-icon-buttons-widget-for-elementor) 
+2. [3d Social Icon Buttons (Free)](https://unlimited-elements.com/3d-social-icon-buttons-widget-for-elementor) 
 
-3. [Square to Circle Social Icons Widget for Elementor (Free)](https://unlimited-elements.com/square-to-circle-social-icon-button-widgets-for-elementor) 
+3. [Square to Circle Social Icons (Free)](https://unlimited-elements.com/square-to-circle-social-icon-button-widgets-for-elementor) 
 
-4. [Rotating Social Icons Widget for Elementor (Free)](https://unlimited-elements.com/rotating-social-icon-button-widgets-for-elementor) 
+4. [Rotating Social Icons (Free)](https://unlimited-elements.com/rotating-social-icon-button-widgets-for-elementor) 
 
-5. [Social Icons With Label Widget for Elementor (Free)](https://unlimited-elements.com/label-social-icon-button-widgets-for-elementor) 
+5. [Social Icons With Label (Free)](https://unlimited-elements.com/label-social-icon-button-widgets-for-elementor) 
 
-6. [Shape Social Icons Widget for Elementor (Pro)](https://unlimited-elements.com/shape-social-icon-button-widgets-for-elementor) 
+6. [Shape Social Icons (Pro)](https://unlimited-elements.com/shape-social-icon-button-widgets-for-elementor) 
 
-7. [Social Icons With Circle Fill Effect Widget for Elementor (Pro)](https://unlimited-elements.com/circle-fill-social-icon-button-widgets-for-elementor) 
+7. [Social Icons With Circle Fill Effect (Pro)](https://unlimited-elements.com/circle-fill-social-icon-button-widgets-for-elementor) 
 
 
 === Separators and Dividers for Elementor ===
 
-1. [Unlimited Separator Divider Widget for Elementor (Free)](https://unlimited-elements.com/unlimited-separator-divider-widgets-for-elementor/) 
+1. [Unlimited Separator Divider (Free)](https://unlimited-elements.com/unlimited-separator-divider-widgets-for-elementor/) 
 
-2. [Line Diamond Separator Widget for Elementor (Free)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
+2. [Line Diamond Separator (Free)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
 
-3. [Line Text Divider Widget for Elementor (Free)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
+3. [Line Text Divider (Free)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
 
-4. [Triangle Separator Widget for Elementor (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
+4. [Triangle Separator (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
 
-5. [Zigzag Wave Seperator Widget for Elementor (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
+5. [Zigzag Wave Seperator (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
 
-6. [Three Icons Separator Widget for Elementor (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
+6. [Three Icons Separator (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
 
-7. [Animated Wave Separator Widget for Elementor (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
+7. [Animated Wave Separator (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
 
-8. [Christmas Candy Separator Widget for Elementor (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
+8. [Christmas Candy Separator (Pro)](https://unlimited-elements.com/separator-and-dividers-widgets-for-elementor/) 
 
-9. [Christmas Lights Widget for Elementor (Pro)](https://unlimited-elements.com/christmas-lights-widget-for-elementor/) 
+9. [Christmas Lights (Pro)](https://unlimited-elements.com/christmas-lights-widget-for-elementor/) 
 
 
 === Hero Widgets for Elementor ===
 
-1. [Title Hero Widget for Elementor (Free)](https://unlimited-elements.com/title-hero-widget-for-elementor) 
+1. [Title Hero (Free)](https://unlimited-elements.com/title-hero-widget-for-elementor) 
 
-2. [Box Hero Widget for Elementor (Free)](https://unlimited-elements.com/box-hero-widget-for-elementor/) 
+2. [Box Hero (Free)](https://unlimited-elements.com/box-hero-widget-for-elementor/) 
 
-3. [Split Hero Widget for Elementor (Free)](https://unlimited-elements.com/split-hero-widget-for-elementor) 
+3. [Split Hero (Free)](https://unlimited-elements.com/split-hero-widget-for-elementor) 
 
-4. [Transparent Split Hero Widget for Elementor (Free)](https://unlimited-elements.com/transparent-split-hero-widget-for-elementor) 
+4. [Transparent Split Hero (Free)](https://unlimited-elements.com/transparent-split-hero-widget-for-elementor) 
 
-5. [Border Hero Widget for Elementor (Free)](https://unlimited-elements.com/border-hero-widget-for-elementor) 
+5. [Border Hero (Free)](https://unlimited-elements.com/border-hero-widget-for-elementor) 
 
-6. [Video Hero Widget for Elementor (Pro)](https://unlimited-elements.com/video-hero-widget-for-elementor/) 
+6. [Video Hero (Pro)](https://unlimited-elements.com/video-hero-widget-for-elementor/) 
 
-7. [Split Video Hero Widget for Elementor (Pro)](https://unlimited-elements.com/split-video-hero-widget-for-elementor) 
+7. [Split Video Hero (Pro)](https://unlimited-elements.com/split-video-hero-widget-for-elementor) 
 
-8. [Diagonal Hero Widget for Elementor (Pro)](https://unlimited-elements.com/diagonal-hero-widget-for-elementor/) 
+8. [Diagonal Hero (Pro)](https://unlimited-elements.com/diagonal-hero-widget-for-elementor/) 
 
-9. [Quote Hero Widget for Elementor (Pro)](https://unlimited-elements.com/quote-hero-widget-for-elementor) 
+9. [Quote Hero (Pro)](https://unlimited-elements.com/quote-hero-widget-for-elementor) 
 
-10. [Persona Hero Widget for Elementor (Pro)](https://unlimited-elements.com/persona-hero-widget-for-elementor) 
+10. [Persona Hero (Pro)](https://unlimited-elements.com/persona-hero-widget-for-elementor) 
 
-11. [Service Box Hero Widget for Elementor (Pro)](https://unlimited-elements.com/service-box-hero-widget-for-elementor) 
+11. [Service Box Hero (Pro)](https://unlimited-elements.com/service-box-hero-widget-for-elementor) 
 
-12. [Solid Color Hero Widget for Elementor (Pro)](https://unlimited-elements.com/solid-color-hero-widget-for-elementor) 
+12. [Solid Color Hero (Pro)](https://unlimited-elements.com/solid-color-hero-widget-for-elementor) 
 
 
 === Background Widgets for Elementor ===
 
-1. [Animated Gradient Background Widget for Elementor (Free)](https://unlimited-elements.com/animated-gradient-background-widget-for-elementor/) 
+1. [Animated Gradient Background (Free)](https://unlimited-elements.com/animated-gradient-background-widget-for-elementor/) 
 
-2. [Bubble Float Widget for Elementor (Free)](https://unlimited-elements.com/bubble-float-background-for-elementor/) 
+2. [Bubble Float (Free)](https://unlimited-elements.com/bubble-float-background-for-elementor/) 
 
-3. [Diamond Pattern Widget for Elementor (Free)](https://unlimited-elements.com/diamond-pattern-background-for-elementor/) 
+3. [Diamond Pattern (Free)](https://unlimited-elements.com/diamond-pattern-background-for-elementor/) 
 
-4. [Clouds Widget for Elementor (Free)](https://unlimited-elements.com/clouds-background-for-elementor/) 
+4. [Clouds (Free)](https://unlimited-elements.com/clouds-background-for-elementor/) 
 
-5. [Snow Flakes Background Widget for Elementor (Free)](https://unlimited-elements.com/elementor-snow-flakes-background/) 
+5. [Snow Flakes Background (Free)](https://unlimited-elements.com/elementor-snow-flakes-background/) 
 
-6. [Alternating Colors Widget for Elementor (Free)](https://unlimited-elements.com/alternating-colors-background-for-elementor/) 
+6. [Alternating Colors (Free)](https://unlimited-elements.com/alternating-colors-background-for-elementor/) 
 
-7. [Retro Blocks Widget for Elementor (Free)](https://unlimited-elements.com/retro-blocks-background-for-elementor/) 
+7. [Retro Blocks (Free)](https://unlimited-elements.com/retro-blocks-background-for-elementor/) 
 
-8. [Moving Stripes Widget for Elementor (Free)](https://unlimited-elements.com/moving-stripes-elementor-background/) 
+8. [Moving Stripes (Free)](https://unlimited-elements.com/moving-stripes-elementor-background/) 
 
-9. [Wave Animation Widget for Elementor (Free)](https://unlimited-elements.com/waves-animation-background-for-elementor/) 
+9. [Wave Animation (Free)](https://unlimited-elements.com/waves-animation-background-for-elementor/) 
 
-10. [Fireworks Background Widget for Elementor (Pro)](https://unlimited-elements.com/fireworks-background-widget-for-elementor/) 
+10. [Fireworks Background (Pro)](https://unlimited-elements.com/fireworks-background-widget-for-elementor/) 
 
-11. [Confetti Background Widget for Elementor (Pro)](https://unlimited-elements.com/elementor-confetti-background/) 
+11. [Confetti Background (Pro)](https://unlimited-elements.com/elementor-confetti-background/) 
 
-12. [Parallax Background Widget for Elementor (Pro)](https://unlimited-elements.com/parallax-background-widget-for-elementor/) 
+12. [Parallax Background (Pro)](https://unlimited-elements.com/parallax-background-widget-for-elementor/) 
 
-13. [Blob Animation Widget for Elementor (Pro)](https://unlimited-elements.com/elementor-blob-animation-background/) 
+13. [Blob Animation (Pro)](https://unlimited-elements.com/elementor-blob-animation-background/) 
 
-14. [Animated Squares Widget for Elementor (Pro)](https://unlimited-elements.com/elementor-animated-squares-background/) 
+14. [Animated Squares (Pro)](https://unlimited-elements.com/elementor-animated-squares-background/) 
 
-15. [Background Slider Widget for Elementor (Pro)](https://unlimited-elements.com/elementor-section-backgrounds/) 
+15. [Background Slider (Pro)](https://unlimited-elements.com/elementor-section-backgrounds/) 
 
-16. [Sliding Diagonals Widget for Elementor (Pro)](https://unlimited-elements.com/elementor-sliding-diagonals-background/) 
+16. [Sliding Diagonals (Pro)](https://unlimited-elements.com/elementor-sliding-diagonals-background/) 
 
-17. [Particles Background Widget for Elementor (Pro)](https://unlimited-elements.com/particles-background-widget-for-elementor/) 
+17. [Particles Background (Pro)](https://unlimited-elements.com/particles-background-widget-for-elementor/) 
 
-18. [Smoke Background Effect Widget for Elementor (Pro)](https://unlimited-elements.com/smoke-background-effect-widget-for-elementor/) 
+18. [Smoke Background Effect (Pro)](https://unlimited-elements.com/smoke-background-effect-widget-for-elementor/) 
 
-19. [Snow Background Widget for Elementor (Pro)](https://unlimited-elements.com/snow-background-widget-for-elementor/) 
+19. [Snow Background (Pro)](https://unlimited-elements.com/snow-background-widget-for-elementor/) 
 
-20. [Masks & Patterns Background Widget for Elementor (Pro)](https://unlimited-elements.com/mask-and-pattern-background-widget-for-elementor/) 
+20. [Masks & Patterns Background (Pro)](https://unlimited-elements.com/mask-and-pattern-background-widget-for-elementor/) 
 
-21. [Shooting Lights Widget for Elementor (Pro)](https://unlimited-elements.com/shooting-lights-background-for-elementor/) 
+21. [Shooting Lights (Pro)](https://unlimited-elements.com/shooting-lights-background-for-elementor/) 
 
-22. [Bokeh Widget for Elementor (Pro)](https://unlimited-elements.com/bokeh-background-for-elementor/) 
+22. [Bokeh (Pro)](https://unlimited-elements.com/bokeh-background-for-elementor/) 
 
-23. [Huge Shapes Widget for Elementor (Pro)](https://unlimited-elements.com/elementor-huge-shapes-background/) 
+23. [Huge Shapes (Pro)](https://unlimited-elements.com/elementor-huge-shapes-background/) 
 
-24. [Random Background Widget for Elementor (Pro)](https://unlimited-elements.com/random-background-widget-for-elementor/) 
+24. [Random Background (Pro)](https://unlimited-elements.com/random-background-widget-for-elementor/) 
 
-25. [Morph Background Slider Widget for Elementor (Pro)](https://unlimited-elements.com/morph-background-slider-widget-for-elementor/) 
+25. [Morph Background Slider (Pro)](https://unlimited-elements.com/morph-background-slider-widget-for-elementor/) 
 
-26. [Animated Ripples Widget for Elementor (Pro)](https://unlimited-elements.com/animated-ripples-elementor-background/) 
+26. [Animated Ripples (Pro)](https://unlimited-elements.com/animated-ripples-elementor-background/) 
 
-27. [Stars Background Widget for Elementor (Pro)](https://unlimited-elements.com/star-particles-background-for-elementor/) 
+27. [Stars Background (Pro)](https://unlimited-elements.com/star-particles-background-for-elementor/) 
+
 
 
 
@@ -888,19 +893,18 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
-
 version 1.5.114: 2024-07-17
 
 Plugin Changes
 
-* Feature: implimented "advanced cache" option for "dynamic popup"
+* Feature: implimented &quot;advanced cache&quot; option for &quot;dynamic popup&quot;
 * Feature: improved json/csv api usage in multisrouce, added paths as field names and data key selection
 * Feature: added option for disabled buttons in pagination
 * Change: updated freemius sdk version to the latest
-* Fix: removed "custom remote name" from background widgets style
+* Fix: removed &quot;custom remote name&quot; from background widgets style
 * Fix: Galleries - fixed fullscreen button on a slider that contains link
 * Fix: in filters fixed init pagination number after init request
-* Fix: fixed optin "is derect parent" in terms selection
+* Fix: fixed optin &quot;is derect parent&quot; in terms selection
 * Fix: fixed get titles with empty posts for in terms selector 
 * Fix: fixed some filters related php bug of empty request on sync with grid.
 
@@ -911,8 +915,8 @@ Widget Changes
 * Feature: Woo Product Grid (Pro) - Added typography and color styling options for text after prices.
 * Feature: Loop Carousel (Pro) - Added 'Navigation Rewind' option. When disabled, it hides the navigation arrows on the first and last carousel items.
 * Feature: Icon Box Accordion (Pro) - Added support for using the widget within the Template Switcher widget.
-* Feature: Dynamic Post Popup (Pro) - Added an "Advanced Cache" option that loads all popups content at once after the page load, improving performance and user experience by reducing subsequent load times and enhancing content delivery.
-* Feature: Unlimited Google Maps (Pro) - Added a "Phone Number As Link" option, allowing phone numbers to be automatically formatted as clickable links for improved user experience and functionality.
+* Feature: Dynamic Post Popup (Pro) - Added an &quot;Advanced Cache&quot; option that loads all popups content at once after the page load, improving performance and user experience by reducing subsequent load times and enhancing content delivery.
+* Feature: Unlimited Google Maps (Pro) - Added a &quot;Phone Number As Link&quot; option, allowing phone numbers to be automatically formatted as clickable links for improved user experience and functionality.
 * Feature: Semi Circle Progress Bar (Pro) - Added support for using the widget within the Template Switcher, enhancing functionality and providing more versatile template management options.
 * Feature: Price Range Filter (Pro) - Added 'Tooltip Thousand Separator' option to enable formatting of tooltip numbers.
 * Feature: Team Member Carousel (Pro) - Added support for Dynamic Post Popup within the widget, enabling enhanced interactive content display and user engagement.
@@ -923,9 +927,9 @@ Widget Changes
 * Feature: Checkbox Field (Pro) - Added the option to use Item Titles as values, allowing for more flexible and intuitive configuration of item properties based on their titles.
 * Feature: Content Switcher (Pro) - Added the 'Tab Hash ID' option in item and functionality, allowing users to open tabs using a hash link (e.g., if the 'Tab Hash ID' is set to 'my-second-tab' and the user opens the URL example.com/#my-second-tab, the second tab will open automatically).
 * Feature: Post Carousel (Pro) - Added 'Navigation Rewind' option. When disabled, it hides the navigation arrows on the first and last carousel items.
-* Change: NPS Field (Pro) - Changed the <form> tag to a <div> tag in the widget's HTML to improve layout structure and compatibility.
-* Change: Radio Button Field (Pro) - Changed the <form> tag to a <div> tag in the widget's HTML to improve layout structure and compatibility.
-* Change: Scale Field (Pro) - Changed the <form> tag to a <div> tag in the widget's HTML to improve layout structure and compatibility.
+* Change: NPS Field (Pro) - Changed the &lt;form&gt; tag to a &lt;div&gt; tag in the widget's HTML to improve layout structure and compatibility.
+* Change: Radio Button Field (Pro) - Changed the &lt;form&gt; tag to a &lt;div&gt; tag in the widget's HTML to improve layout structure and compatibility.
+* Change: Scale Field (Pro) - Changed the &lt;form&gt; tag to a &lt;div&gt; tag in the widget's HTML to improve layout structure and compatibility.
 * Change: Checkbox Field (Pro) - Changed handling for Checkbox Values with Text as the default values, ensuring consistent and expected behavior for checkbox inputs.
 * Change: Woo Product Grid (Pro) - Organized the pricing layout options into a new section titled 'Price Layout' for better usability and navigation.
 * Change: Simple Popup (Free) - Removed empty links from the link elements to ensure clean and functional HTML.
@@ -957,8 +961,8 @@ version 1.5.112: 2024-07-01
 Plugin Changes:
 
 * Feature: made a small integration with simple author box plugin
-* Feature: added "timezone" for google events api
-* Feature: added "current product gallery" as a gallery source for WooCommerce
+* Feature: added &quot;timezone&quot; for google events api
+* Feature: added &quot;current product gallery&quot; as a gallery source for WooCommerce
 * Feature: added option for dynamic popup advanced cache
 * Feature: added integration for fvplayer
 * Feature: added links to woo minicart title and image
@@ -969,9 +973,9 @@ Widget Changes:
 * Feature: Pricing Table (Free) - Introduced Tooltip functionality, allowing users to add tooltips to each list item.
 * Feature: Post Magazine Grid (Pro) - New values were added to the Show Categories option, including byTaxonomy and by Last level Taxonomy, providing users with more granular control over category display settings.
 * Feature: Blob Shapes (Free) - Enhanced the Shadow options by adding shadow size, shadow blur, shadow color type, and shadow shift settings.
-* Feature: Image Accordion (Pro) - Added the "Link All Items" option to enhance functionality and provide users with the ability to link all items collectively.
+* Feature: Image Accordion (Pro) - Added the &quot;Link All Items&quot; option to enhance functionality and provide users with the ability to link all items collectively.
 * Feature: Calendar (Pro) - Separated the Locale option into a new tab and introduced an 'Other' option in the locale list, enabling users to manually add a locale not listed, thereby extending support for 96 locales.
-* Feature: Calendar (Pro) - Added "Open Event Link in New Tab" option to allow users to open event links in a new tab.
+* Feature: Calendar (Pro) - Added &quot;Open Event Link in New Tab&quot; option to allow users to open event links in a new tab.
 * Feature: Checkboxes Filter (Pro) - Added functionality to hide the dropdown when no items are found inside.
 * Feature: Icon Accordion (Pro) - A new feature was introduced that includes the addition of an option to adjust the Icon Margin, providing users with more customization options for their interface.
 * Feature: Radio Button Field (Pro) - Added functionality to handle and process values selected from radio buttons in the form, ensuring users' selections are captured and correctly stored.
@@ -981,7 +985,7 @@ Widget Changes:
 * Change: AJAX Search (Pro) - Added a name attribute for the search button element to enhance form handling and improve accessibility.
 * Change: Swipe Carousel (Pro) - An improvement was made by adding the aria-label attribute to the item link, enhancing accessibility and ensuring that all links have discernible names for better user experience.
 * Fix: Logo Marquee (Pro) - Fixed the text alignment issue and added new options: Text Align and Text Shadow.
-* Fix: Icon Accordion (Pro) - Fixed a bug where the accordions were not closing when the "Close Others on Open" option was disabled.
+* Fix: Icon Accordion (Pro) - Fixed a bug where the accordions were not closing when the &quot;Close Others on Open&quot; option was disabled.
 * Fix: Copy Coupon Code (Pro) - Resolved a problem where the copy operation was failing in some cases. This fix ensures that the copy functionality now works reliably across all scenarios.
 * Fix: Quantity Increment Buttons (Pro) - Resolved a problem where the product quantity was not reset to 1 after adding to the cart.
 * Fix: Liquid Full Screen Menu (Pro) - Implemented a fix to address the issue where the widget was not functioning correctly within sticky containers, ensuring consistent behavior and improved user experience.
@@ -995,9 +999,9 @@ Plugin Changes:
 * Feature: added option in general settings: 'Taxonomy Separator Sign in Ajax Filter' for backward compatability
 * Fix: fixed getting elementor dynamic item fields in ajax 
 * Fix: background widgets didn't worked with rocket lazy load
-* Changed - changed the default taxonomy saparator to ":" instead of "~"
+* Changed - changed the default taxonomy saparator to &quot;:&quot; instead of &quot;~&quot;
 * Feature: added option in general settings: 'Taxonomy Separator Sign in Ajax Filter' for backward compatability
-* Changed - changed the default taxonomy saparator to ":" instead of "~"
+* Changed - changed the default taxonomy saparator to &quot;:&quot; instead of &quot;~&quot;
 * Fix: fixed getting elementor dynamic item fields in ajax 
 * Fix: background widgets didn't worked with rocket lazy load
 * Fix: filters checkboxes wasn't visible in some cases
@@ -1008,13 +1012,13 @@ Widget Changes:
 
 * Feature: List (Free) - Added Override Color Title/Text options for each item, allowing for individualized customization.
 * Feature: List (Free) - Added an Icon Margin option for enhanced layout control.
-* Feature: Card Carousel (Free) - Added a new value "Above Image" to the Show Title option.
+* Feature: Card Carousel (Free) - Added a new value &quot;Above Image&quot; to the Show Title option.
 * Feature: Content Accordion (Free) - Added support for integrating the widget within carousel widgets, enhancing its functionality and allowing for greater flexibility in design layouts.
 * Feature: Calendar (Pro) - Added Italian (it) to the available locales for enhanced language support.
-* Feature: Product Bullets (Pro) - Added "Column" and "Column Reverse" values to the Content Direction option for improved layout flexibility.
-* Change: Content Slider (Pro) - Changed the display CSS property from 'flex' to 'block' for cases where the Content Source option in an item is set to "template."
+* Feature: Product Bullets (Pro) - Added &quot;Column&quot; and &quot;Column Reverse&quot; values to the Content Direction option for improved layout flexibility.
+* Change: Content Slider (Pro) - Changed the display CSS property from 'flex' to 'block' for cases where the Content Source option in an item is set to &quot;template.&quot;
 * Change: One Page Scroll Navigation (Pro) - Changed method of calling the wheel event from jQuery to JavaScript.
-* Change: Content Accordion (Free) - Changed heading's HTML tag from <div> to <a> and added role attribute for accessibility, enabling users to open and close accordions using keyboards and accessibility devices.
+* Change: Content Accordion (Free) - Changed heading's HTML tag from &lt;div&gt; to &lt;a&gt; and added role attribute for accessibility, enabling users to open and close accordions using keyboards and accessibility devices.
 * Change: Event List (Pro) - Added description to Time Zone option.
 * Fix: Mega Menu (Pro) - Resolved an issue where menu items were overlapping each other in iOS device.
 * Fix: Mega Menu (Pro) - Fixed an issue where mobile menu items displayed only a white background color.
@@ -1042,8 +1046,8 @@ Widgets Changes:
 * Feature: Email Field (Pro) - Added Asterisk Size option, allowing customization of asterisk size for better design flexibility and emphasis.
 * Feature: Phone Field (Pro) - Added Asterisk Size option, allowing customization of asterisk size for better design flexibility and emphasis.
 * Feature: Event List (Pro) - Added Timezone option, ensuring that expired and upcoming events are counted according to the specified timezone for accurate event scheduling and display.
-* Feature: Number Field (Pro) - Added "Limit Number of Digits" option, allowing users to restrict the number of digits displayed for better control and readability of numerical data.
-* Feature: Phone Field (Pro) - Added "Limit Number of Digits" option, allowing users to restrict the number of digits displayed for better control and readability of numerical data.
+* Feature: Number Field (Pro) - Added &quot;Limit Number of Digits&quot; option, allowing users to restrict the number of digits displayed for better control and readability of numerical data.
+* Feature: Phone Field (Pro) - Added &quot;Limit Number of Digits&quot; option, allowing users to restrict the number of digits displayed for better control and readability of numerical data.
 * Feature: Transparent Split Hero (Free) - Added options to enable or disable widget contents like title, subtitle, etc., and introduced an option to add an image or logo for greater customization and flexibility.
 * Feature: Unlimited Charts (Pro) - Added Line Chart Background Color option, allowing customization of the background color for line charts to enhance visual appeal.
 * Fix: Submit Button (Free) - Added validation function for the phone field to ensure correct email format and improve data accuracy.
@@ -1061,7 +1065,7 @@ version 1.5.109: 2024-05-29
 Plugin Changes:
 
 * Feature: added option to get page views of some post using WPP plugin
-* Feature: added option for "show db tables" in troubleshooting
+* Feature: added option for &quot;show db tables&quot; in troubleshooting
 * Fix: fixed form editor form validation, excluded placeholders
 * Fix: fixed get filters based on wpml language with post count
 * Fix: Fixed some remote connection code items click code
@@ -1071,7 +1075,7 @@ Plugin Changes:
 Widgets Changes: 
  
 * Feature: Email Field (Pro) - Added validation function for the email field to ensure correct email format and improve data accuracy.
-* Feature: Number Field (Pro) - ​Introduced the "Disable Calculation in Editor" debug option to prevent the page from crashing or becoming unresponsive when multiple fields are set to calculation mode, enhancing stability during editing.​
+* Feature: Number Field (Pro) - ​Introduced the &quot;Disable Calculation in Editor&quot; debug option to prevent the page from crashing or becoming unresponsive when multiple fields are set to calculation mode, enhancing stability during editing.​
 * Feature: AJAX Search (Pro) - Added Show Post Image option to enable or disable the display of images in posts, providing more control over post appearance
 * Feature: Submit Button (Free) - Added validation function for the email field to ensure correct email format and improve data accuracy.
 * Feature: Team Member Card (Free) - Added Icon Size Inner option to adjust the height of the icon itself, providing more precise control over icon dimensions.
@@ -1104,7 +1108,7 @@ Widget Changes:
 * Feature: Dark Mode (Free) - Introduced 'Do not affect SVG' option to prevent SVG images from inverting when toggling dark mode, ensuring correct image display.
 * Feature: Load More / Infinite Scroll (Pro) - Added Button Hover Animation option to enable animations when hovering over button, enhancing interactivity and visual appeal.
 * Feature: Load More / Infinite Scroll (Pro) - Added Icon Position option, allowing users to customize the placement of icons for better design flexibility.
-* Feature: Woo Product Grid (Pro) - Added "Show Only Lowest Variable Price" option to display only the lowest price for variable products, enhancing price visibility and simplicity for users.
+* Feature: Woo Product Grid (Pro) - Added &quot;Show Only Lowest Variable Price&quot; option to display only the lowest price for variable products, enhancing price visibility and simplicity for users.
 * Fix: Dynamic Post Popup (Pro) - Fixed Navigation Arrows functionality issue when Animation option was enabled, ensuring smooth and consistent navigation experience.
 * Fix: Dynamic Popup Button (Pro) - Added suppot for Loop Carousel widget with enabled Loop option.
 * Fix: Woo Mini Cart (Pro) - Fixed widgets behaviour for Shop pages when page name is different then default.
@@ -1127,12 +1131,12 @@ Plugin Changes:
 
 Widget Changes:
 
-* Feature: Event List (Pro) - Added "Remove All Upcoming Events Except Next One" functionality, facilitating the removal of all upcoming events except for the next scheduled event for streamlined event management.
+* Feature: Event List (Pro) - Added &quot;Remove All Upcoming Events Except Next One&quot; functionality, facilitating the removal of all upcoming events except for the next scheduled event for streamlined event management.
 * Feature: Animated Icon Box (Pro) - Added Description Opacity option to customize the opacity level of descriptions for enhanced visual aesthetics and readability.
 * Feature: Underline Animated Button (Free) - Added Animation Move Amount option, enabling users to customize the amount of movement in animations for enhanced visual effects.
 * Feature: Remote Tabs (Pro) - Added Item Min Height option for better customization; users can now set a minimum height for items displayed.
-* Feature: Load More / Infinite Scroll (Pro) - Added the "Show Load More Button Icon" option to enhance interface; users can now customize the icon displayed for the load more button.
-* Feature: Mega Menu (Pro) - Added a new functionality enabling "Expand / Collapse Visible On" option, allowing expansion or collapse of visibility based on specific criteria.
+* Feature: Load More / Infinite Scroll (Pro) - Added the &quot;Show Load More Button Icon&quot; option to enhance interface; users can now customize the icon displayed for the load more button.
+* Feature: Mega Menu (Pro) - Added a new functionality enabling &quot;Expand / Collapse Visible On&quot; option, allowing expansion or collapse of visibility based on specific criteria.
 * Feature: Side Menu (Pro) - Added Menu Padding option. This new feature allows to add padding to the container of the Menu items.
 * Feature: Woo Product Grid (Pro) - Made Content Padding, Category Label Spacing, and Title Spacing options responsive for improved adaptability across various screen sizes and devices.
 * Feature: Icon Image Content Box (Free) - Implemented functionality to link Icon and Title to the same destination as the Image.
@@ -1146,7 +1150,7 @@ Widget Changes:
 * Fix: Expanding Content Cards (Pro) - Addressed CSS filter issue where it was displaying incorrectly on mobile devices, ensuring proper rendering and display consistency across all devices.
 * Fix: Post Grid (Pro) - Fixed issue where Typography option was not functioning as expected, ensuring proper functionality and usability.
 * Fix: Justified Image Carousel (Pro) - Fixed issue where width of images was incorrectly set in certain cases, ensuring proper display and functionality across all scenarios.
-* Fix: Layers (Pro) - Resolved issue with the "Item Shadow" option. This fix ensures that the item shadow is applied correctly within the widget.
+* Fix: Layers (Pro) - Resolved issue with the &quot;Item Shadow&quot; option. This fix ensures that the item shadow is applied correctly within the widget.
 
 
 version 1.5.106: 2024-05-12
@@ -1179,7 +1183,7 @@ Widget Changes:
 * Feature: Taxonomy Terms (Pro) - Implemented styling options for 1st and 2nd level of Child Term Elements. This new functionality allows users to customize the appearance of Child Term Elements at different hierarchical levels, providing greater design flexibility and control.
 * Feature: Content Carousel (Pro) - Implemented 'Image Border Radius' option. This new functionality allows users to specify the border radius for images within the widget, enabling them to create rounded or custom-shaped images for a more visually appealing design.
 * Feature: Coverflow Carousel (Pro) - Implemented 'Custom Navigation Arrows' option. This new functionality allows users to customize the navigation arrows used within the widget, enabling them to use custom-designed arrows for a more personalized look and feel.
-* Feature: One Page Scroll Navigation (Pro) - Enhanced widget flexibility to support other sections apart from the one with the tag <section>. This improvement expands compatibility with different section types, providing users with more options for integrating the widget into their website layouts.
+* Feature: One Page Scroll Navigation (Pro) - Enhanced widget flexibility to support other sections apart from the one with the tag &lt;section&gt;. This improvement expands compatibility with different section types, providing users with more options for integrating the widget into their website layouts.
 * Change: Animated Icon Box (Pro) - Replaced old font edit option with new typography and color options for enhanced customization and design control.
 * Change: Call To Action Button (Free) - Moved ripple 'Transition Timing' from Button Icon to Button Icon tab and renamed it to 'Ripple Timing' for improved organization and clarity.
 
@@ -1189,7 +1193,7 @@ version 1.5.104: 2024-04-24
 Plugin Changes:
 
 * Feature: added support for unselect items in sync functionality
-* Feature: added feature - sort terms by parent -> children, and levels number class
+* Feature: added feature - sort terms by parent -&gt; children, and levels number class
 * Fix: fixed some load more issue with dynamic template loop and post lists inside
 * Fix: fixed woo category image not fetched bug
 * Fix: fixed some cases of sticky elementor elements with filters
@@ -1262,8 +1266,8 @@ version 1.5.101: 2024-04-03
 
 Plugin Changes:
 
-* Feature - added "date time" attribute to items attributes list
-* Feature - made some integration for "relevanssi" plugin
+* Feature - added &quot;date time&quot; attribute to items attributes list
+* Feature - made some integration for &quot;relevanssi&quot; plugin
 * Feature - added woo rating stars to multisource fields
 * Feature - added visual text that showing the form fields conditions
 * Fix - fixed filters mode init mode
@@ -1278,8 +1282,8 @@ Widgets Changes:
 * Feature: Radio Button Field (Pro) - Implemented 'Set First Item Selected' option. This new functionality allows users to automatically select the first item in the widget.
 * Feature: Fullscreen Menu (Free) - Implemented 'Open Current Submenu On Page Load' option. This new functionality allows users to automatically expand the current submenu on page load, providing immediate access to relevant content.
 * Feature: Background Slider (Pro) - Introduced 'Add SEO Tags' option, allowing users to include alt and title attributes for images for improved search engine optimization of the widget content.
-* Feature: Floating Chat Buttons (Pro) - Introduced "Close Message Box After Send" option, allowing automatic closure of the message box after clicking the send button for improved user experience and convenience.
-* Feature: Floating Chat Buttons (Pro) - Introduced "Close Button After Click" option, enabling automatic closure of the buttons after clicking any button, eliminating the need for manual closure for enhanced user convenience and interaction.
+* Feature: Floating Chat Buttons (Pro) - Introduced &quot;Close Message Box After Send&quot; option, allowing automatic closure of the message box after clicking the send button for improved user experience and convenience.
+* Feature: Floating Chat Buttons (Pro) - Introduced &quot;Close Button After Click&quot; option, enabling automatic closure of the buttons after clicking any button, eliminating the need for manual closure for enhanced user convenience and interaction.
 * Feature: Content Grid (Pro) - Implemented 'Description' option. This new functionality allows users to add a description to the widget, providing additional context or instructions.
 * Feature: SVG Animation (Free) - Optimized widget for Elementor Popup compatibility. This update ensures seamless integration and improved performance when using the widget within Elementor Popups.
 * Feature: Animated Ripples (Pro) - Introduced 'Ripple Scale' option, enabling users to control the size of the ripples for enhanced visual customization and effect.
@@ -1299,12 +1303,12 @@ Widgets Changes:
 * Change: Checkboxes Filter (Pro) - Added 'aria-label' attribute to links. This new functionality enhances accessibility by providing descriptive labels for elements.
 * Change: Post Carousel (Pro) - Added 'alt' and 'title' attributes to the image for improved SEO optimization and accessibility.
 * Change: Flip Box Carousel (Pro) - Changed some selectors in CSS to avoid empty items appearing on live page.
-* Change: Underline Animated Button (Free) - Changed <section> tag to <div>. This update improves the semantic structure of the widget, ensuring better compatibility with various screen readers and accessibility standards.
+* Change: Underline Animated Button (Free) - Changed &lt;section&gt; tag to &lt;div&gt;. This update improves the semantic structure of the widget, ensuring better compatibility with various screen readers and accessibility standards.
 * Change: Unlimited Charts (Pro) - Updated the animation option to trigger animation when the chart comes into view instead of upon initial load, improving user experience and visual appeal.
 * Change: Submit Button (Free) - Changed the position of Empty Field Errors to be grouped after the submit button. This update enhances the layout and organization of error messages, providing users with a clearer indication of missing information before submission.
 * Change: Post Blocks (Free) - Changed CSS selector for Typography option for better accessibility. This update improves the accessibility of the Typography option by using a more descriptive and accessible CSS selector.
 * Change: List Marquee (Pro) - Increased speed limit to 1000. This update enhances the speed capabilities of the widget, allowing for faster performance and smoother animations.
-* Change: Checkbox Field (Pro) - Increased accessibility by adding IDs to input elements and "for" attributes to label elements. This update improves accessibility by associating labels with their corresponding form controls, making it easier for screen readers and other assistive technologies to interpret and navigate the form.
+* Change: Checkbox Field (Pro) - Increased accessibility by adding IDs to input elements and &quot;for&quot; attributes to label elements. This update improves accessibility by associating labels with their corresponding form controls, making it easier for screen readers and other assistive technologies to interpret and navigate the form.
 * Change: Masonry Gallery (Pro) - Implemented 'Autoplay Video In Lightbox' option. This new functionality allows users to enable autoplay for videos displayed within the lightbox, providing a more dynamic and engaging viewing experience.
 * Change: WhatsApp Chat (Pro) - Added 'aria-label' attribute to links. This new functionality enhances accessibility by providing descriptive labels for elements.
 * Fix: Number Field (Pro) - Implemented CSS protection from the max-width CSS property. This new functionality safeguards against unintended styling conflicts or overrides caused by the max-width property.
@@ -1318,7 +1322,7 @@ Plugin Changes:
 
 * Feature: added option to connect the filters to some specific grid group
 * Fix: fixed js run for background output not always happend
-* Fix: filters was shown only related to grid taxonomies after changing to "all" 
+* Fix: filters was shown only related to grid taxonomies after changing to &quot;all&quot; 
 * Fix: returned some tiles gallery images that was missing
 
 Widgets Changes:
@@ -1414,7 +1418,7 @@ Widgets Updates:
 * Fix: Unlimited Timeline (Free) - Optimized CSS code. This update improves performance and reduces the overall footprint of the stylesheet, enhancing efficiency and loading times.
 * Fix: Remote Link (Pro) - Resolved issue where the Text Shadow option was erroneously interpreted as Box Shadow. The fix ensures that the Text Shadow option now functions correctly, providing the intended text shadow effect.
 * Fix: Scroll Sequence (Pro) - Revised and improved descriptions of the widget fields for better clarity.
-* Fix: Post Magazine Grid (Pro) - Added 'raw' tag to category names to fix the display issue where the '&' symbol in category names was not displaying correctly.
+* Fix: Post Magazine Grid (Pro) - Added 'raw' tag to category names to fix the display issue where the '&amp;' symbol in category names was not displaying correctly.
 * Fix: Before After (Pro) - Improved widget interaction with Elementor's Popups. This update ensures seamless integration and optimal performance when using the widget within Elementor's Popup functionality.
 * Fix: Grid Gallery (Pro) - Resolved an issue where the widget was not extending to full width within Elementor Container.
 * Fix: Particle Image (Pro) - Added protection from lazy load. This update ensures compatibility and proper functionality, mitigating potential issues related to lazy loading on various platforms.
@@ -1422,7 +1426,7 @@ Widgets Updates:
 
 version 1.5.95: 2024-02-12:
 
-* Feature: Ensure that the blog displayed on the "Home" page of the plugin is always up-to-date.
+* Feature: Ensure that the blog displayed on the &quot;Home&quot; page of the plugin is always up-to-date.
 * Feature: Implemented support for tags in the widget catalog.
 * Feature: Added an option for galleries to play videos in muted mode.
 * Feature: Integrated weather forecast data preparation for the widget.
@@ -1539,10 +1543,10 @@ version 1.5.93: 2024-01-18:
 * Feature: Added functionality for the price range filter.
 * Change: Updated the Freemius version.
 * Change: Modified the text format for the export change log.
-* Change: Restored the "import with images" feature after incorporating file type checks for security.
+* Change: Restored the &quot;import with images&quot; feature after incorporating file type checks for security.
 * Fix: Enhanced the handling of multiple user records for the 'exclude users' option in the users query (Ajax-based).
 * Fix: Corrected URL CSS and JS inclusion issues in Elementor editor.
-* Fix: Corrected a bug related to "mini cart widget" in PHP in specific cases.
+* Fix: Corrected a bug related to &quot;mini cart widget&quot; in PHP in specific cases.
 
 * Feature - Card Carousel (Free) - Introduced 'Hide Item' option. This new functionality allows users to hide items instead of deleting them permanently, offering a more reversible and flexible approach to item management.
 * Feature - Post Grid (Pro) - Implemented 'Layout Type: Above' option. This new functionality allows users to change the position of the content box to above the image.
@@ -1560,7 +1564,7 @@ version 1.5.93: 2024-01-18:
 * Fix - Post Carousel (Pro) - Resolved issue with the side-by-side layout.
 * Feature - Logo Grid (Free) - Enhanced responsiveness for item 'Padding' option. This update ensures that item padding adjusts effectively across various screen sizes and device resolutions for a consistent layout.
 * Feature - Logo Grid (Free) - Implemented 'Direction' option. This new feature is particularly useful for RTL (Right-to-Left) websites, allowing users to specify the direction of the widget's layout for improved compatibility.
-* Feature - Content Accordion (Free) - Introduced a new feature that allows the expansion of all accordion items by clicking on an external element with the class "ue-content-accordion-expand-all".
+* Feature - Content Accordion (Free) - Introduced a new feature that allows the expansion of all accordion items by clicking on an external element with the class &quot;ue-content-accordion-expand-all&quot;.
 * Feature - Memory Game (Pro) - Introduced template option for success message, Allowing users to show Elementor template as success message.
 * Feature - Memory Game (Pro) - Added 'Completion Time' option, enabling users to show the time it took to complete the game for a more informative and engaging experience.
 * Feature - Content Accordion (Free) - Introduced 'Additional Header Content' option in the accordion, allowing users to include additional content after the header title.
@@ -1573,10 +1577,10 @@ version 1.5.92: 2024-01-04:
 * Feature: Introduced the change log option in the widget editor.
 * Feature: Introduced the ability to connect with Google API for multi-source options.
 * Feature: Included an option to link with Google Sheets under the general settings for forms.
-* Feature: Integrated a "show globals" feature in troubleshooting for enhanced diagnostics.
+* Feature: Integrated a &quot;show globals&quot; feature in troubleshooting for enhanced diagnostics.
 * Feature: Implemented the capability to output cart fragments for the woo mini cart.
-* Feature: Provided an option for "none" under lightbox-type in galleries, allowing users to disable the lightbox.
-* Feature: Added an "excerpt" field to post fields within the widget editor for more detailed posts.
+* Feature: Provided an option for &quot;none&quot; under lightbox-type in galleries, allowing users to disable the lightbox.
+* Feature: Added an &quot;excerpt&quot; field to post fields within the widget editor for more detailed posts.
 * Fix: Replaced site_url() with home_url() in global variables for better website navigation.
 * Fix: Resolved a conflict with another select2 on the admin side, ensuring smoother operations.
 * Fix: Rectified an error with multiple order by clauses in post queries to improve data sorting.
@@ -1614,16 +1618,16 @@ version 1.5.90: 2023-12-18:
 version 1.5.89: 2023-12-17:
 
 * Fix: fixed some post filters detection issues on the page
-* Fix: fixed some "$type not found" message in php
-* Fix: fixed some "infinite template found: " message in php (emtpy template load protection)
+* Fix: fixed some &quot;$type not found&quot; message in php
+* Fix: fixed some &quot;infinite template found: &quot; message in php (emtpy template load protection)
 * Change: added instagram api access error message
-* Change: removed "import with images" functionality. replaced by doubly plugin.
+* Change: removed &quot;import with images&quot; functionality. replaced by doubly plugin.
 
 
 version 1.5.88: 2023-12-11:
 
-* Feature: added "iframe" gallery type to the gallery items
-* Fix: fixed the "show/hide edit html button" option from general settings
+* Feature: added &quot;iframe&quot; gallery type to the gallery items
+* Fix: fixed the &quot;show/hide edit html button&quot; option from general settings
 * Fix: fixed the general_settings.xml php error
 * Fix: fixed some issue with gallery loading on pages and current meta keys
 * Fix: fixed default value in datetime control
@@ -1664,7 +1668,7 @@ version 1.5.84: 2023-09-20
 * Feature: changed the admin view to new design (added designed header and menu)
 * Feature: added option to enable animation on swipe to owl carousel js
 * Feature: added woo mini cart functionality
-* Feature: added option: "current query as a base" to post selection -> include by
+* Feature: added option: &quot;current query as a base&quot; to post selection -&gt; include by
 
 * Fix: added support for webp in the manager
 * Fix: allow fetching images from media library post type for the galleries 
@@ -1699,10 +1703,10 @@ version 1.5.81:  2023-08-10
 
 version 1.5.80:  2023-08-07
 
-* Feature: added option to get "all taxonomy terms" from a post 
+* Feature: added option to get &quot;all taxonomy terms&quot; from a post 
 * Feature: added html preperations for the woocommerce minicart
-* Feature: added "this week" to the date selection query
-* Feature: added "grouping" mode in the "related posts"
+* Feature: added &quot;this week&quot; to the date selection query
+* Feature: added &quot;grouping&quot; mode in the &quot;related posts&quot;
 * Fix: the pagination now works on top of the grid
 * Fix: fixed some init ajax filters multiple issues
 * Fix: fixed the error with the assets path set
@@ -1711,7 +1715,7 @@ version 1.5.80:  2023-08-07
 version 1.5.79:  2023-07-24
 
 * Fix: changed name for area-label to aria-label
-* Fix: in filters - refresh single filter if "all" selected and there are hidden items
+* Fix: in filters - refresh single filter if &quot;all&quot; selected and there are hidden items
 * Fix: changed protection against inifnite loop to 200
 * Fix: show child filters at start if there are selected items
 * Fix: date time attribute processor - if no date given - don't take current time
@@ -1729,13 +1733,13 @@ version 1.5.77: 2023-07-13
 
 * Fix: fixed dropzone collision in widget editor view
 * Fix: fixed sort filter price filtering
-* Fix: fixed max number in addons db table. from "int" to "bigint"
+* Fix: fixed max number in addons db table. from &quot;int&quot; to &quot;bigint&quot;
 * Fix: replaced some deprecated by elementor codes
 
 
 version 1.5.76: 2023-07-12
 
-* Feature: added "rem" unit in slider attribute
+* Feature: added &quot;rem&quot; unit in slider attribute
 * Fix: fixed some small bug with remote sync debug
 * Fix: fixed the truncate in multisource
 * Fix: fixed some small bugs related to remote controls
@@ -1763,7 +1767,7 @@ version 1.5.73: 2023-06-26
 * Feature: added options for revisions in widget editor
 * Fix: added support for wordpress proxy in api calling
 * Fix: fixed empty post in query result
-* Fix: fixed "wrong template ID" elementor error in post accordion
+* Fix: fixed &quot;wrong template ID&quot; elementor error in post accordion
 
 
 version 1.5.72: 2023-06-21
@@ -1777,19 +1781,19 @@ version 1.5.71: 2023-06-20
 
 * Change: removed js includes of the forms and filters from backend editor
 * Change: changed colors of the free version notification in dark mode
-* Fix: fix the "link" type in wpml integration automatic translation
+* Fix: fix the &quot;link&quot; type in wpml integration automatic translation
 * Feature: add support for the conditions in ue forms
 
 
 version 1.5.70 2023-06-19:
 
-* Change: added some "birthday sale" banner
-* Feature: added "truncate text" modifier to multisource fields
+* Change: added some &quot;birthday sale&quot; banner
+* Feature: added &quot;truncate text&quot; modifier to multisource fields
 * Feature: dynamic tags now works inside posts and products related widgets
 * Feature: added twig highlighting in codemirror editor
 * Fix: fixed sequence animation sliders bug (fields didn't loaded in elementor)
 * Fix: change the comment from // to /* */ in filters js output to allow proper page compression.
-* Fix: the "time ago" string is now translatable 
+* Fix: the &quot;time ago&quot; string is now translatable 
 * Fix: fixed the wpml elementor template id output
 * Fix: fixed backgrounds bug with containers in editor
 * Fix: fixed some small bugs with the checkbox filter
@@ -1804,12 +1808,12 @@ version 1.5.69: 2023-06-08:
 version 1.5.68: 2023-06-06:
 
 * Change: added functionality for sort filter 
-* Feature: added field: "form conditions" for the upcoming form
+* Feature: added field: &quot;form conditions&quot; for the upcoming form
 * Feature: added link translation to wpml integration
 * Feature: added link_attributes field to post list fields in twig
 * Fix: fixed slider control min max values in case of multiple units
 * Fix: add do shortcode from ajax items response
-* Fix: fixed posts grid output with "product" taxonomy without woocommerce
+* Fix: fixed posts grid output with &quot;product&quot; taxonomy without woocommerce
 * Fix: fixed getting cross sell products query in product list
 
 
@@ -1840,12 +1844,12 @@ version 1.5.63 2023-05-23:
 * Fix: fixed the dynamic popup with multiple fields code 
 * Fix: fixed some sync if the clicked item is link
 * Feature: added support for sort post filter
-* Feature: hide "show only insalled" checkbox in widgets manager if no widget installed.
+* Feature: hide &quot;show only insalled&quot; checkbox in widgets manager if no widget installed.
 
 
 version 1.5.62 2023-05-14:
 
-* Feature: added "edit template" link in template selector
+* Feature: added &quot;edit template&quot; link in template selector
 * Feature: added hidden template edit button to top bar
 * Feature: added option for dynamic popup link to connect to many links in the widget
 * Fix: solved some php error with parse dynamic settings in php 8.1
@@ -1869,7 +1873,7 @@ version 1.5.60 - 2023-04-30:
 * Fix: fixed link field settings for multisoure
 * Fix: fixed some bugs with regular price in woocommerce widgets
 * Fix: filters js file loaded in editor as well
-* Fix: fixed some small php bug regarding "pathBase"
+* Fix: fixed some small php bug regarding &quot;pathBase&quot;
 * Fix: fixed conditions in multiple select control
 * Change: updated unite gallery version
 * Change: disabled autoload in update_option for the catalog variable
@@ -1899,7 +1903,7 @@ version 1.5.57: 2023-03-20
 
 * Feature: improved the multisource selectors
 * Feature: added option to get image from post meta in post fields - widget editor
-* Fix: added "skins" folder to unite gallery
+* Fix: added &quot;skins&quot; folder to unite gallery
 * Fix: added more compatability to woo commerce grids with discounts plugins
 * Fix: fixed same uc_id in dynamic templates
 
@@ -1914,7 +1918,7 @@ version 1.5.56: 2023-03-13:
 * Fix: fixed responsive css in dynamic loop
 * Fix: fixed dynamic loop with jet engine acf fields
 * Fix: fixed slider control units for vh, vx and % 
-* Fix: added "before today" for past year in date qury
+* Fix: added &quot;before today&quot; for past year in date qury
 * Change: the uc_id will not change now when page refresh
 
 
@@ -1933,9 +1937,9 @@ version 1.5.55: 2023-02-23:
 version 1.5.54: 2023-02-15
 
 * Change: added some define variable that indicate the under ajax search
-* Change: added "collect", and "output" to schema types in content accordion widget for example
+* Change: added &quot;collect&quot;, and &quot;output&quot; to schema types in content accordion widget for example
 * Feature: added wpml auto translate integration
-* Feature: added option to select "all taxonomies" in exclude terms in terms selection
+* Feature: added option to select &quot;all taxonomies&quot; in exclude terms in terms selection
 * Feature: added option - only direct children to terms select include by
 * Feature: added option to post select to get posts by terms from curent meta field
 * Fix: preserve tags when truncate
@@ -1944,7 +1948,7 @@ version 1.5.54: 2023-02-15
 
 version 1.5.53: 2023-02-07
 
-* Fix: keep exclude terms in grid when filtering with "override terms" mode
+* Fix: keep exclude terms in grid when filtering with &quot;override terms&quot; mode
 * Fix: fixed get_terms() not found php error from 1.5.52 version
 
 
@@ -1967,7 +1971,7 @@ version 1.5.51: 2023-01-31
 
 version 1.5.50: 2023-01-24
 
-* Feature: added "media" to post types select in advanced post query
+* Feature: added &quot;media&quot; to post types select in advanced post query
 * Feature: improved the date time attribute
 
 
@@ -1993,7 +1997,7 @@ version 1.5.48: 2023-01-19
 version 1.5.47: 2023-01-10
 
 * Feature: added more units to slider attribute
-* Feature: added "any" post type to post types select
+* Feature: added &quot;any&quot; post type to post types select
 * Feature: added include and exclude current post terms in terms selection
 * Feature: added option to carousel - scroll to head - force
 * Feature: allow import widgets with theme activate
@@ -2079,7 +2083,7 @@ version 1.5.38: 2022-11-10
 * Fix: fixed galleries default sizes with post filters
 * Fix: fixed hidden option in select filter in safari browser
 * Fix: fixed non ssl assets url
-* Feature: added "schema" special attribute
+* Feature: added &quot;schema&quot; special attribute
 * Fix: fixed false autoplay in carousel
 
 
@@ -2180,7 +2184,7 @@ version 1.5.27: 2022-09-02
 * Fix: removed some console logs in filter.js file
 * Fix: fixed ajax pagination jump
 * Fix: fixed unitegallery strict standards bugs
-* Change: renamed field - "use dynamic fields" to "use current post data" in widget editor
+* Change: renamed field - &quot;use dynamic fields&quot; to &quot;use current post data&quot; in widget editor
 * Change: updated freemius sdk to: 2.4.5
 
 
@@ -2303,7 +2307,7 @@ version 1.5.14: 2022-05-24
 version 1.5.13: 2022-05-23
 
 
-* Feature: added integration with "sticky posts switch" plugin
+* Feature: added integration with &quot;sticky posts switch&quot; plugin
 * Feature: added special attribute type - entrance animation
 
 * Fix: fixed sync bug between two similar elements
@@ -2320,8 +2324,8 @@ version 1.5.12: 2022-05-08
 
 * Feature: added integration for wpml media change
 * Feature: bug fix: fixed hover animations setting don't work on front in some cases
-* Feature: in post selection by date added options for "future from today", and "future from tomorrow".
-* Feature: added new function: "put_hide_ids_css" to hide some css comma saparated id's from css tab.
+* Feature: in post selection by date added options for &quot;future from today&quot;, and &quot;future from tomorrow&quot;.
+* Feature: added new function: &quot;put_hide_ids_css&quot; to hide some css comma saparated id's from css tab.
 * Feature: added support for ajax refresh for multiple synced grids together
 * Feature: added option to test instagram data
 * Feature: added phpinfo view in settings - troubleshooting 
@@ -2336,7 +2340,7 @@ version 1.5.11: 2022-04-13
 
 * Feature: made option to put elementor post_content inside post widget if the post made by elementor
 * Feature: added additional fields to getPostAuthor function like avatar url and author meta
-* Feature: show the "no posts" message with filters in post list / grid
+* Feature: show the &quot;no posts&quot; message with filters in post list / grid
 * Feature: add background location (back/front) to background widgets
 * Feature: done option to get post parent with the posts in posts selection
 * Fix: set prices display in woocommerce widgets including tax
@@ -2352,7 +2356,7 @@ version 1.5.10: 2022-04-04
 
 * Fix: fixed title and description source in gallery source selection
 * Fix: fixed the dropdown attribute php filter for elementor
-* Feature: added "menu_id" for various uses as menu attribute output
+* Feature: added &quot;menu_id&quot; for various uses as menu attribute output
 * Feature: added option for side offset in owl carousel
 * Feature: added option for second items html refresh in ajax filters
 
@@ -2402,7 +2406,7 @@ Fix: fix: fixed jquery include for remote widgets
 version 1.5.4 =  2022-03-06:
 
 * Feature: added roles to post filter: single, main and child
-* Feature: added option "placeholder" and "disable dynamic" for text field control
+* Feature: added option &quot;placeholder&quot; and &quot;disable dynamic&quot; for text field control
 * Feature: added option for debug meta fields in post list, post grid
 * Fix: fixed some pagination widget buttons related issues
 * Fix: fixed non clickable items in some widgets
@@ -2431,12 +2435,12 @@ version 1.5.1 =	2022-02-21:
 * Feature: improved post pagination debug and added force options
 * Feature: added code for the button filters
 * Feature: added option to shuffle owl carousel
-* Feature: added option for general "shuffle" in items
+* Feature: added option for general &quot;shuffle&quot; in items
 * Feature: made option for text modify, and get the current page url and current page title
 * Feature: get feature image of a product from a first gallery image if featured image not exists
-* Feature: added function "one_random" and "first" to get_items twig function
+* Feature: added function &quot;one_random&quot; and &quot;first&quot; to get_items twig function
 * Feature: added support for jet listing item
-* Change: changed the "choose template" setting text to attirbute title
+* Change: changed the &quot;choose template&quot; setting text to attirbute title
 * Fix: fixed load more if offset turned on in the grid
 * Fix: fixed link control attributes parsing
 * Fix: fixed sync general api related bugs in elementor editor
@@ -2452,7 +2456,7 @@ version 1.5.0 =  2022-02-02:
 
 version 1.4.99:  2022-01-27:
 
-* Feature: added option for disable content filtering in general settings->troubleshooting
+* Feature: added option for disable content filtering in general settings-&gt;troubleshooting
 * Feature: added taxonomies in widget debug output
 * Fix: fixed some gallery lazy load related js bugs
 
@@ -2503,7 +2507,7 @@ version 1.4.94 = 2021-12-14:
 * Fix: added content filtering by filter widget_text_content for all the embed and other content modifications
 * Fix: fixed edit defaulsin widget settings
 * Fix: fixed some polylang issues with the template in dynamic template widgets
-* Fix: [security] remove the "duplicate layout" functionality (not used in the plugin) that had some security issues 
+* Fix: [security] remove the &quot;duplicate layout&quot; functionality (not used in the plugin) that had some security issues 
 
 
 version 1.4.93 = 2021-12-03:
@@ -2529,8 +2533,8 @@ version 1.4.91 = 2021-11-23:
 version 1.4.90 = 2021-11-22:
 
 * Addition: added black friday banner discount banner and link
-* Change: improved "sync widgets" editor experience
-* Fix: fixed depricated "post" attribute bug
+* Change: improved &quot;sync widgets&quot; editor experience
+* Fix: fixed depricated &quot;post&quot; attribute bug
 * Fix: modified zip extracting error messages
 
 
@@ -2576,7 +2580,7 @@ version 1.4.84 = 2021-10-13:
 
 * Feature: added taxonomy terms full query debug option
 * Feature: improved full debug type in posts query
-* Feature: added items support in editor->background switcher
+* Feature: added items support in editor-&gt;background switcher
 * Feature: added support for remote controls
 * Feature: functionality to posts load more
 * Feature: added second condition
@@ -2603,13 +2607,13 @@ version 1.4.82 = 2021-09-20:
 * Feature: added dynamic group attributes for galleries, including image and video
 * Feature: added option to convert one date string to another with ucdate filter
 * Feature: added option to use items in background widgets
-* Feature: added ucfunc("set") and ucfunc("get") functions in twig for remember and retrieve variables
-* Feature: added include by option: "children of current term" to category selection options
+* Feature: added ucfunc(&quot;set&quot;) and ucfunc(&quot;get&quot;) functions in twig for remember and retrieve variables
+* Feature: added include by option: &quot;children of current term&quot; to category selection options
 * Feature: added option to pull woo product variations in twig
 * Feature: added placeholder: link_withprefix, link_noprefix for link attribute
 * Fix: fixed error when exists dynamic link in dynamic loop widgets
 * Fix: enabled pagination in a single type in dynamic template grid
-* Fix: the "not equal" attributes condition now works
+* Fix: the &quot;not equal&quot; attributes condition now works
 * Fix: fixed not editable empty dropdown attribute in widget editor
 * Fix: fixed mb_string absence php bug
 * Fix: fixed heading attribute label
@@ -2640,7 +2644,7 @@ version 1.4.80 = 2021-08-09:
 * Feature: added heading text option for items section
 * Feature: added extra fields to image base gallery options
 * Feature: added php filter option for variable
-* Feature: added twig functions "get_post_term" and "is_post_has_term". The examples visible when you click on item.posts.putPostTerm placeholder
+* Feature: added twig functions &quot;get_post_term&quot; and &quot;is_post_has_term&quot;. The examples visible when you click on item.posts.putPostTerm placeholder
 * Fix: fixed some test widgets output relate bugs
 * Fix: conditions settings was not affected typography controls
 * Fix: fixed template dynamic background image didn't displayed bug in dynamic loops
@@ -2693,7 +2697,7 @@ version 1.4.74 = 2021-06-02
 
 * Feature: added function put_date_range to twig functions. good for events widgets
 * Feature: added integration with google map
-* Feature: added function: "run_code_once" for twig
+* Feature: added function: &quot;run_code_once&quot; for twig
 * Feature: added grouped options for the gallery
 * Feature: added option to get posts by date from custom ACF field
 * Feature: added gallery settings options for dynamic settings attribute
@@ -2703,11 +2707,11 @@ version 1.4.74 = 2021-06-02
 
 version 1.4.73 = 2021-05-20
 
-* Feature: added twig function: "put_attributes_json" that available in js tab in widget editor
+* Feature: added twig function: &quot;put_attributes_json&quot; that available in js tab in widget editor
 * Feature: added constant - uc_inside_editor - for distinquish between editor and site front
 * Feature: added multiple select attribute
 * Feature: added listing attribute support
-* Fix: fixed "request too long" message on a widget preview - shortened preview url
+* Fix: fixed &quot;request too long&quot; message on a widget preview - shortened preview url
 * Fix: fixed several bugs with condition field in widgets editor
 * Fix: fixed hidden image size select on item attributes
 * Fix: fixed acf group field output
@@ -2751,9 +2755,9 @@ version 1.4.69 = 2021-04-04
 
 * Feature: added extra query debug options for custom post types selector
 * Feature: added choose image size select option to image attribute
-* Feature: added "image_attributes" placeholder for image output in widget editor
+* Feature: added &quot;image_attributes&quot; placeholder for image output in widget editor
 * Change: added default values select to hover animations attribute
-* Change: changed button "add to cart" to "select options" for variable products in woocommerce list widgets
+* Change: changed button &quot;add to cart&quot; to &quot;select options&quot; for variable products in woocommerce list widgets
 * Fix: fixed border radius attribute from width to radius
 * Fix: added missing thumb sizes for image select
 
@@ -2783,7 +2787,7 @@ version 1.4.67 = 2021-03-12
 
 version 1.4.66 = 2021-02-18
 
-* Feature: added "box shadow" attribute type
+* Feature: added &quot;box shadow&quot; attribute type
 * Feature: added url_posts and num_posts to users output
 * Feature: added option for selector 2 and selector 3 in several attributes
 * Feature: added copy / paste attributes sections in widget editor
@@ -2811,7 +2815,7 @@ version 1.4.65 = 2021-02-03
 
 version 1.4.64 = 2021-02-02
 
-* Change: moved "edit widget html" button to advanced section in general tab
+* Change: moved &quot;edit widget html&quot; button to advanced section in general tab
 * Feature:  added option to exclude products on sale in products query section in widget settings
 * Feature:  added option to exclude specific posts in post selection widget settings
 * Feature:  added woocommerce related products select in post selection
@@ -2822,7 +2826,7 @@ version 1.4.64 = 2021-02-02
 * Feature:  added offset setting to widget posts selection
 * Feature:  added author url and author post count to users fields
 * Feature:  added max number of users to user selection attribute
-* Feature:  added "elementor template" attribute
+* Feature:  added &quot;elementor template&quot; attribute
 * Fix:  fixed small php bug in post selection control
 * Fix: fixed js bug in items repeater
 * Fix: fixed exclude role not worked in user selection attribute
@@ -2837,18 +2841,18 @@ version 1.4.63 = 2021-01-26
 * Feature: added exclude by term setting in widget post selection
 * Change: moved debug data from advaned to general folder in elementor widget settings
 * Fix: fixed woo commerce prices number format
-* Fix: fixed refresh posts on "post query" section open in widget post settings
+* Fix: fixed refresh posts on &quot;post query&quot; section open in widget post settings
 * Fix: fixed manual posts selection default order
 
 
 version 1.4.62 = 2021-01-21
 
 * Feature: added text shadow field
-* Feature: added "manual selection" in posts query
+* Feature: added &quot;manual selection&quot; in posts query
 * Feature: added compatability tag
-* Fix: fixed image size thumb name with "-" sign inside
+* Fix: fixed image size thumb name with &quot;-&quot; sign inside
 * Fix: fixed some php warning related to array to string conversion, happening in php 8
-* Change: show woo commerce placeholders if selected "for woocommerce products" checkbox in post list attribute
+* Change: show woo commerce placeholders if selected &quot;for woocommerce products&quot; checkbox in post list attribute
 * Change: improved woo category output placeholder help, added getTermCustomFields function
 
 
@@ -2866,14 +2870,14 @@ version 1.4.61 = 2021-01-14
 version 1.4.60 = 2020-12-30
 
 * Feature: added option for third party integration for woocommerce grid
-* Feature: added integration for "advanced labels for woocommerce" plugin
+* Feature: added integration for &quot;advanced labels for woocommerce&quot; plugin
 * Feature: added view file button in assets manager
 * Feature: added svg icon option together with font icon for elementor panel widget box
 * Feature: added preview image on mouseover inside elementor panel widget box
-* Feature: added option for disabling "edit widget html" from widget settings
+* Feature: added option for disabling &quot;edit widget html&quot; from widget settings
 
 * Fix: fixed empty settings when there are gallery item setting only
-* Fix: added "no settings" heading in case that no attributes in the widget
+* Fix: added &quot;no settings&quot; heading in case that no attributes in the widget
 * Fix: fixed some php warnings for php 8.0
 
 
@@ -2984,7 +2988,7 @@ version 1.4.43 - 2020-09-22 =
 
 * Feature: added option to group attributes into sections
 * Feature: done instagram access token auto renew
-* Feature: added "selector" to color picker attribute
+* Feature: added &quot;selector&quot; to color picker attribute
 * Fix: improved consolidate widgets option protection
 * Fix: fixed select default widget images
 * Fix: fixed default items in gallery item (image base fields)
@@ -2996,26 +3000,26 @@ version 1.4.42 - 2020-08-06 =
 
 * Feature: added option to get grouped woocomerce products
 * Feature: added instagram connect to official API
-* Feature: added function: getUserData(), added into "twig code examples" panel
-* Feature: added "printVar" and "showDebug" functions "twig code examples" panel
-* Feature: done "login with instagram" in general settings, and get data from instgram API
-* Fix: sorted "overwrite widgets" issue on import
+* Feature: added function: getUserData(), added into &quot;twig code examples&quot; panel
+* Feature: added &quot;printVar&quot; and &quot;showDebug&quot; functions &quot;twig code examples&quot; panel
+* Feature: done &quot;login with instagram&quot; in general settings, and get data from instgram API
+* Fix: sorted &quot;overwrite widgets&quot; issue on import
 * Fix: fixed dropdown attribute when work with html data
 
 
 version 1.4.41 - 2020-06-18 =
 
-* Feature: added additional controls to "number" attribute
-* Feature: added "exclude uncategorized category" to woocommerce categories select 
+* Feature: added additional controls to &quot;number&quot; attribute
+* Feature: added &quot;exclude uncategorized category&quot; to woocommerce categories select 
 * Feature: added responsive controls to slider attribute
 * Fix: fixed template type variable issues in elementor integration
-* Fix: show pagination only when "current query" is available
+* Fix: show pagination only when &quot;current query&quot; is available
 * Fix: fixed select2 field min width in posts query
 
 version 1.4.40 - 2020-06-10 =
 
-* Change: hided "consolidate widgets" general setting
-* Feature: added "show/hide wrapping html comments" to general settings
+* Change: hided &quot;consolidate widgets&quot; general setting
+* Feature: added &quot;show/hide wrapping html comments&quot; to general settings
 * Fix: fixed export template filename
 
 version 1.4.39 - 2020-06-02 =
@@ -3031,9 +3035,9 @@ version 1.4.36 - 2020-05-21 =
 * Feature: added support for pods panda repeater
 * Fix: done some solution for max_execution_time issues when installing template
 * Fix: fixed rtl on templates dialog popup
-* Fix: corrected the naming near the "number" field
-* Fix: cleared "twig" library from some not needed files.
-* Change: removed "image view" file from framework.
+* Fix: corrected the naming near the &quot;number&quot; field
+* Fix: cleared &quot;twig&quot; library from some not needed files.
+* Change: removed &quot;image view&quot; file from framework.
 
 
 version 1.4.35 - 2020-05-11 =
@@ -3041,14 +3045,14 @@ version 1.4.35 - 2020-05-11 =
 * Feature: added term custom fields support
 * Feature: added term meta fields support
 * Change: moved composer vendor folder to plugin root
-* Change: fixed empty templates list bug when "show only installed widget" checkbox checked
+* Change: fixed empty templates list bug when &quot;show only installed widget&quot; checkbox checked
 * Fix: sorted out some of the templates import bugs
 
 
 version 1.4.34 - 2020-05-06 =
 
 * Fix: removed category ations from templates section
-* Fix: show "putPostMeta" function even if no example post available
+* Fix: show &quot;putPostMeta&quot; function even if no example post available
 * Fix: fixed finally all the DB not installed issues on elementor and admin pages
 
 
@@ -3084,8 +3088,8 @@ version 1.4.28 - 2020-04-10 =
 version 1.4.27 - 2020-04-01 =
 
 Fix: fixed widget default icon in manager
-Feature: added "getPostMeta, putPostMeta, printPostMeta" functions
-Feature: added "getPostData" function for acf related posts, that get's all the data from the related post including custom fields
+Feature: added &quot;getPostMeta, putPostMeta, printPostMeta&quot; functions
+Feature: added &quot;getPostData&quot; function for acf related posts, that get's all the data from the related post including custom fields
 
 
 version 1.4.26 - 2020-03-28 =
@@ -3098,24 +3102,24 @@ version 1.4.26 - 2020-03-28 =
 
 version 1.4.25 - 2020-03-09 =
 
-* Feature: added "responsive controls" to margin and padding setting
-* Feature: made "refresh catalog" button
-* Feature: added "num_items" variable to the widget editor
-* Change: removed the "default fonts" from widget defaults screen
-* Fix: fixed some php bug in "implode" function
+* Feature: added &quot;responsive controls&quot; to margin and padding setting
+* Feature: made &quot;refresh catalog&quot; button
+* Feature: added &quot;num_items&quot; variable to the widget editor
+* Change: removed the &quot;default fonts&quot; from widget defaults screen
+* Fix: fixed some php bug in &quot;implode&quot; function
 * Fix: fixed posts from sub categories in post list
 
 
 version 1.4.24 - 2020-02-14 =
 
-* Feature: made "export with images" option in templates
+* Feature: made &quot;export with images&quot; option in templates
 * Fix: fixed import category widgets
 * Fix: fixed icon html output placeholder
 
 version 1.4.23 - 2020-02-02 =
 
 * Feature: improved the slider attribute
-* Feature: added "menu" attribute
+* Feature: added &quot;menu&quot; attribute
 
 version 1.4.22 - 2020-01-28 =
 
@@ -3151,8 +3155,8 @@ version 1.4.20 - 2020-01-15 =
 version 1.4.19 - 2019-12-31 =
 
 * Feature: added filter by slug to terms attribute
-* Feature: changed repeater items titles to the ones from "title" field instead of "Item1", "Item2" etc.
-* Feature: added automated styling for date field, added "ucdate" filter for that.
+* Feature: changed repeater items titles to the ones from &quot;title&quot; field instead of &quot;Item1&quot;, &quot;Item2&quot; etc.
+* Feature: added automated styling for date field, added &quot;ucdate&quot; filter for that.
 * Feature: done functionality for display post author
 * Change: changed the font awesome attribute to fa5
 * Change: added strip html tags from truncate function
@@ -3161,10 +3165,10 @@ version 1.4.19 - 2019-12-31 =
 version 1.4.18 - 2019-12-31 =
 
 * Feature: added all image sizes to posts
-* Feature: added "putPostTerms" function to posts
+* Feature: added &quot;putPostTerms&quot; function to posts
 * Feature: added wpautop filter to twig
 * Feature: added option for custom twig PHP functinoality for PRO version
-* Feature: hide "edit widget html" button for user that don't have capability to see the plugin 
+* Feature: hide &quot;edit widget html&quot; button for user that don't have capability to see the plugin 
 * Feature: added wpml compatablity
 * Feature: added related posts in posts list
 * Feature: added padding and margin controls (pro)
@@ -3179,7 +3183,7 @@ version 1.4.16 - 2019-08-12 =
 
 * Feature: added post query relation (and, or) chooser
 * Change: update to freemius sdk 2.3.1
-* Feature: added "trancate" filter
+* Feature: added &quot;trancate&quot; filter
 * Fix: fixed editor permissions PHP Error
 
 version 1.4.15 - 2019-19-11 =
@@ -3353,7 +3357,7 @@ version 1.4.10 - 2019-28-9 =
 
 = 1.3.23 - 2019-05-01 =
 * Feature: Added dynamic fields to all text controls
-* Feature: Added "edit html" button to all widgets
+* Feature: Added &quot;edit html&quot; button to all widgets
 * Fix: Fixed consolidated addons render bugs
 
 = 1.3.22 - 2019-04-25 =
@@ -3495,7 +3499,7 @@ Yes, you get 25% discount for all annual plan automatic renewals. The renewal pr
 
 = How do I install and activate the 'Unlimited Elements for Elementor' plugin on WordPress? =
 
-To install the 'Unlimited Elements' plugin on your WordPress site, access your WordPress Dashboard and go to Plugins -> Add New. In the search box, enter 'Unlimited Elements.' Locate the plugin in the search results and click on the 'Install Now' button. Once the installation is finished, click on the 'Activate' button, and 'Unlimited Elements for Elementor' will be successfully activated on your WordPress site.
+To install the 'Unlimited Elements' plugin on your WordPress site, access your WordPress Dashboard and go to Plugins -&gt; Add New. In the search box, enter 'Unlimited Elements.' Locate the plugin in the search results and click on the 'Install Now' button. Once the installation is finished, click on the 'Activate' button, and 'Unlimited Elements for Elementor' will be successfully activated on your WordPress site.
 
 = Do I need to know code to use Unlimited Elements? =
 

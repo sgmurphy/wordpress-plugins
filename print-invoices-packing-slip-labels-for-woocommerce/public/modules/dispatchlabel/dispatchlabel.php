@@ -310,6 +310,13 @@ class Wf_Woocommerce_Packing_List_Dispatchlabel
 			{
 				$order_inc++;
 				$order=( WC()->version < '2.7.0' ) ? new WC_Order($order_id) : new wf_order($order_id);
+
+				/**
+				 * @since 4.6.0 - Added filter to add before preparing the order package and rendering the html.
+				 */
+				$pdf_filters = apply_filters( 'wt_pklist_add_filters_before_rendering_pdf', array(), $this->module_base, $order );
+				Wt_Pklist_Common::wt_pklist_pdf_add_filters( $pdf_filters );
+				
 				$out.=$this->customizer->generate_template_html($html,$template_type,$order);
 				$document_created = Wf_Woocommerce_Packing_List_Admin::created_document_count($order_id,$template_type);
 				if($number_of_orders>1 && $order_inc<$number_of_orders)
@@ -319,6 +326,11 @@ class Wf_Woocommerce_Packing_List_Dispatchlabel
 	            {
 	                //$out.='<p class="no-page-break"></p>';
 	            }
+
+				/**
+				 * @since 4.6.0 - Remove the filters which were added before preparing the order package and rendering the html.
+				 */
+				Wt_Pklist_Common::wt_pklist_pdf_remove_filters( $pdf_filters );
 			}
 			$out=$this->customizer->append_style_blocks($out,$style_blocks);
 			$out=$this->customizer->append_header_and_footer_html($out,$template_type,$page_title);

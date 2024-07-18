@@ -27,6 +27,8 @@ use TwoFA\Helper\MocURL;
 use TwoFA\Helper\MoWpnsConstants;
 use TwoFA\Onprem\Miniorange_Password_2Factor_Login;
 use TwoFA\Onprem\MO2f_Utility;
+use TwoFA\Helper\MoWpnsMessages;
+use TwoFA\Helper\TwoFAMoSessions;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -48,28 +50,78 @@ if ( ! class_exists( 'Mo2f_Onprem_Setup' ) ) {
 		use Instance;
 
 		/**
+		 * Undocumented function
+		 *
+		 * @return array
+		 */
+		public function mo2f_plan_methods() {
+			$two_factor_methods_details = array(
+				MoWpnsConstants::GOOGLE_AUTHENTICATOR => array(
+					'doc'   => MoWpnsConstants::GA_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::GA_YOUTUBE,
+					'desc'  => 'Use One Time Password shown in <b>Google/Authy/Microsoft Authenticator App</b> to login',
+					'crown' => false,
+				),
+				MoWpnsConstants::OTP_OVER_SMS         => array(
+					'doc'   => MoWpnsConstants::OTP_OVER_SMS_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::OTP_OVER_SMS_YOUTUBE,
+					'desc'  => 'A One Time Passcode (OTP) will be sent to your Phone number',
+					'crown' => false,
+				),
+				MoWpnsConstants::OTP_OVER_EMAIL       => array(
+					'doc'   => MoWpnsConstants::OTP_OVER_EMAIL_DOCUMENT_LINK,
+					'video' => null,
+					'desc'  => 'A One Time Passcode (OTP) will be sent to your Email address',
+					'crown' => false,
+				),
+				MoWpnsConstants::OUT_OF_BAND_EMAIL    => array(
+					'doc'   => MoWpnsConstants::EMAIL_VERIFICATION_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::EMAIL_VERIFICATION_YOUTUBE,
+					'desc'  => 'Accept the verification link sent to your email address',
+					'crown' => false,
+				),
+				MoWpnsConstants::OTP_OVER_TELEGRAM    => array(
+					'doc'   => MoWpnsConstants::OTP_OVER_TELEGRAM_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::OTP_OVER_TELEGRAM_YOUTUBE,
+					'desc'  => 'Enter the One Time Passcode sent to your Telegram account',
+					'crown' => false,
+				),
+				MoWpnsConstants::SECURITY_QUESTIONS   => array(
+					'doc'   => MoWpnsConstants::KBA_DOCUMENT_LINK,
+					'video' => MoWpnsConstants::KBA_YOUTUBE,
+					'desc'  => 'Configure and Answer Three Security Questions to login',
+					'crown' => false,
+				),
+				MoWpnsConstants::OTP_OVER_WHATSAPP    => array(
+					'doc'   => MoWpnsConstants::OTP_OVER_WA_DOCUMENT_LINK,
+					'video' => null,
+					'desc'  => 'Enter the One Time Passcode sent to your WhatsApp account.',
+					'crown' => true,
+				),
+			);
+			return $two_factor_methods_details;
+		}
+
+		/**
 		 * Send OTP token according to different authentication methods
 		 *
-		 * @param string $u_key end user's unique key.
+		 * @param string $phone Phone number.
+		 * @param string $email Email ID.
 		 * @param string $auth_type authentication type.
-		 * @param string $c_key customer key.
-		 * @param string $api_key customer api key.
 		 * @param mixed  $currentuser current user object.
 		 * @return mixed
 		 */
-		public function send_otp_token( $u_key, $auth_type, $c_key = null, $api_key = null, $currentuser = null ) {
+		public function send_otp_token( $phone, $email, $auth_type, $currentuser = null ) {
 			if ( is_null( $currentuser ) || ! isset( $currentuser ) ) {
 				$currentuser = wp_get_current_user();
 			}
-			
 			if ( MoWpnsConstants::OTP_OVER_SMS === $auth_type ) {
 				$mo2f_sms_mo2f_curl_redirect = new MocURL();
-				$content                     = $mo2f_sms_mo2f_curl_redirect->send_otp_token( $auth_type, $u_key );
+				$content                     = $mo2f_sms_mo2f_curl_redirect->send_otp_token( $auth_type, $phone, $email );
 			} else {
 				$mo2f_email_on_prem_redirect = new Mo2f_OnPremRedirect();
-				$content                     = $mo2f_email_on_prem_redirect->on_prem_send_redirect( $u_key, $auth_type, $currentuser );
+				$content                     = $mo2f_email_on_prem_redirect->on_prem_send_redirect( $email, $auth_type, $currentuser );
 			}
-
 			return $content;
 		}
 
@@ -80,24 +132,19 @@ if ( ! class_exists( 'Mo2f_Onprem_Setup' ) ) {
 		 * @param string $username user's name.
 		 * @param string $transaction_id transaction ID.
 		 * @param string $otp_token OTP token.
-		 * @param string $c_key customer key.
-		 * @param string $customer_api_key customer api key.
 		 * @param object $current_user current user object.
 		 * @return mixed
 		 */
-		public function validate_otp_token( $auth_type, $username, $transaction_id, $otp_token, $c_key, $customer_api_key, $current_user = null ) {
+		public function validate_otp_token( $auth_type, $username, $transaction_id, $otp_token, $current_user = null ) {
 			if ( ! isset( $current_user ) || is_null( $current_user ) ) {
 				$current_user = wp_get_current_user();
 			}
 			if ( MoWpnsConstants::OTP_OVER_SMS === $auth_type ) {
 				$mo2f_sms_mo2f_curl_redirect = new MocURL();
-				$content                     = $mo2f_sms_mo2f_curl_redirect->validate_otp_token( $transaction_id, $otp_token );
-			} elseif ( MoWpnsConstants::SOFT_TOKEN === $auth_type ) {
-				$mo2f_sms_mo2f_curl_redirect = new MocURL();
-				$content                     = $mo2f_sms_mo2f_curl_redirect->miniorange_authenticator_validate( $auth_type, $username, $otp_token, $c_key );
+				$content                     = $mo2f_sms_mo2f_curl_redirect->validate_otp_token( $transaction_id, $otp_token, $username, $auth_type );
 			} else {
 				$mo2f_email_on_prem_redirect = new Mo2f_OnPremRedirect();
-				$content                     = $mo2f_email_on_prem_redirect->on_prem_validate_redirect( $auth_type, $otp_token, $current_user );
+				$content                     = $mo2f_email_on_prem_redirect->on_prem_validate_redirect( $auth_type, $otp_token, $transaction_id, $current_user );
 
 			}
 			return $content;
@@ -116,7 +163,7 @@ if ( ! class_exists( 'Mo2f_Onprem_Setup' ) ) {
 			include_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'handler' . DIRECTORY_SEPARATOR . 'twofa' . DIRECTORY_SEPARATOR . 'class-google-auth-onpremise.php';
 			$gauth_obj          = new Google_auth_onpremise();
 			$session_id_encrypt = isset( $_POST['mo2f_session_id'] ) ? sanitize_text_field( wp_unslash( $_POST['mo2f_session_id'] ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification has been performed.
-			$secret_ga          = isset( $session_id_encrypt ) ? MO2f_Utility::mo2f_get_transient( $session_id_encrypt, 'secret_ga' ) : $secret;
+			$secret_ga          = ! empty( $session_id_encrypt ) ? MO2f_Utility::mo2f_get_transient( $session_id_encrypt, 'secret_ga' ) : $secret;
 			$content            = $gauth_obj->mo2f_verify_code( $secret_ga, $otptoken );
 			$value              = json_decode( $content, true );
 			if ( 'SUCCESS' === $value['status'] ) {
@@ -187,7 +234,7 @@ if ( ! class_exists( 'Mo2f_Onprem_Setup' ) ) {
 		 * @param int    $user_id User ID.
 		 * @param string $session_id Session ID.
 		 * @param string $redirect_to Redirect URL.
-		 * @return void
+		 * @return array
 		 */
 		public function mo2f_login_kba_verification( $user_id, $session_id, $redirect_to ) {
 			$question_answers    = is_array( get_user_meta( $user_id, 'mo2f_kba_challenge', true ) ) ? get_user_meta( $user_id, 'mo2f_kba_challenge', true ) : array();
@@ -195,15 +242,9 @@ if ( ! class_exists( 'Mo2f_Onprem_Setup' ) ) {
 			$random_keys         = array_rand( $challenge_questions, 2 );
 			$challenge_ques1     = $challenge_questions[ $random_keys[0] ];
 			$challenge_ques2     = $challenge_questions[ $random_keys[1] ];
-			$questions[0]        = array( 'question' => addslashes( $challenge_ques1 ) );
-			$questions[1]        = array( 'question' => addslashes( $challenge_ques2 ) );
-			update_user_meta( $user_id, 'kba_questions_user', $questions );
-			$mo2fa_login_message = 'Please answer the following questions:';
-			$mo2fa_login_status  = 'MO_2_FACTOR_CHALLENGE_KBA_AUTHENTICATION';
-			$mo2f_kbaquestions   = $questions;
-			MO2f_Utility::mo2f_set_transient( $session_id, 'mo_2_factor_kba_questions', $questions );
-			$pass2fa_login = new Miniorange_Password_2Factor_Login();
-			$pass2fa_login->miniorange_pass2login_form_fields( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, null, $session_id, $mo2f_kbaquestions );
+			$questions           = array( $challenge_ques1, $challenge_ques2 );
+			TwoFAMoSessions::add_session_var( 'mo_2_factor_kba_questions', $questions );
+			return $questions;
 		}
 
 		/**
@@ -229,17 +270,161 @@ if ( ! class_exists( 'Mo2f_Onprem_Setup' ) ) {
 		 *
 		 * @param string $user_email user email.
 		 * @param string $mo2f_second_factor 2FA method of user.
-		 * @param string $mo2f_customer_key customer key of the miniorange customer.
-		 * @param string $mo2f_api_key API key.
 		 * @param string $current_user Current user.
 		 * @return mixed
 		 */
-		public function mo2f_send_verification_link( $user_email, $mo2f_second_factor, $mo2f_customer_key, $mo2f_api_key, $current_user ) {
-			MO2f_Utility::mo2f_debug_file( 'Push notification has sent successfully for ' . $mo2f_second_factor . ' Email-' . $user_email . ' customer key: ' . $mo2f_customer_key . ' API key: ' . $mo2f_api_key );
+		public function mo2f_send_verification_link( $user_email, $mo2f_second_factor, $current_user ) {
+			MO2f_Utility::mo2f_debug_file( 'Email verification link has been sent successfully for ' . $mo2f_second_factor . ' Email-' . $user_email );
 			$mo2f_on_prem_redirect = new Mo2f_OnPremRedirect();
-			$content               = $mo2f_on_prem_redirect->mo2f_pass2login_push_email_onpremise( $current_user );
+			if ( ! $mo2f_on_prem_redirect->mo2f_check_if_email_transactions_exists() ) {
+				$content = array(
+					'status'  => 'ERROR',
+					'message' => MoWpnsMessages::ERROR_DURING_PROCESS_EMAIL,
+				);
+			} else {
+				$content = $mo2f_on_prem_redirect->mo2f_pass2login_push_email_onpremise( $current_user, $user_email );
+			}
+			$content = is_array( $content ) ? wp_json_encode( $content ) : $content;
 			return $content;
 		}
+
+		/**
+		 * Sends email verification link to the users email.
+		 *
+		 * @param string $request_type user email.
+		 * @param string $transaction_id 2FA method of user.
+		 * @return mixed
+		 */
+		public function mo2f_oobe_get_dashboard_script( $request_type, $transaction_id ) {
+			$script = '<script>
+			jQuery("#mo2f_validateotp_form").css("display","none");
+			var calls = 0;
+			var requestType = "' . esc_js( $request_type ) . '";
+			var ajax_url = "' . esc_url( admin_url( 'admin-ajax.php' ) ) . '";
+			function emailVerificationPoll()
+			{
+				calls = calls + 1;
+				var data = {\'mo2f_out_of_band_email\':\'test_polling\'};
+				jQuery.ajax({
+					url: "' . esc_url( get_site_option( 'siteurl' ) ) . '/wp-login.php",
+					type: "POST",
+					data: data,
+					success: function (result) {
+						var status = result;
+						if (status == 1) {
+							if ( requestType == "configure_2fa") {
+								jQuery("#mo2f_2factor_test_prompt_cross").submit();
+							} else if( requestType == "setupwizard") {
+								window.location.href ="' . esc_url( admin_url() ) . '" + \'admin.php?page=mo2f-setup-wizard&current-step=step_4_of_4\';
+							} else {
+								jQuery("#mo2f_2fa_popup_dashboard").css("display", "none");
+								success_msg("You have successfully completed the test.");
+							}
+						} else if (status == \'ERROR\' || status == \'FAILED\' || status == \'DENIED\' || status == 0) {
+							if( requestType == "setupwizard") {
+								mo2f_show_message("You have denied the transaction. Please click on Skip Setup to proceed.");
+								jQuery("#showPushImage").css("display","none");
+								jQuery("#verify").css("display","block");
+							} else{
+								jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
+								closeVerification = true;
+								error_msg("You have denied the transaction.");
+							}
+						} else {
+							if(calls<300)
+							{
+								timeout = setTimeout(emailVerificationPoll, 1000);
+							}
+							else
+							{	if( requestType == "setupwizard") {
+									mo2f_show_message("Session timeout. Please click on Skip Setup to proceed.");
+									jQuery("#showPushImage").css("display","none");
+									jQuery("#verify").css("display","block");
+							    } else{
+									jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
+									closeVerification = true;
+									error_msg("Session timeout.");
+								}
+							}
+						}
+					}
+				});
+			}
+			function success_msg(msg) {
+				jQuery("#wpns_nav_message").empty();
+				jQuery("#wpns_nav_message").append(
+					"<div id=\'notice_div\' class=\'overlay_success\' style=\'z-index:9999\'><div class=\'popup_text\'>" +
+						msg +
+						"</div></div>"
+				);
+				window.onload = nav_popup();
+			}
+			
+			function error_msg(msg) {
+				jQuery("#wpns_nav_message").empty();
+				jQuery("#wpns_nav_message").append(
+					"<div id=\'notice_div\' class=\'overlay_error\'><div class=\'popup_text\'>" +
+						msg +
+						"</div></div>"
+				);
+				window.onload = nav_popup();
+			}
+			
+			function nav_popup() {
+				if (document.getElementById("notice_div") !== null) {
+					document.getElementById("notice_div").style.width = "40%";
+					setTimeout(function () {
+						jQuery("#notice_div").fadeOut("slow");
+					}, 3000);
+				}
+			}</script>';
+			return $script;
+		}
+
+		/**
+		 * Sends email verification link to the users email.
+		 *
+		 * @param string $request_type user email.
+		 * @param string $transaction_id 2FA method of user.
+		 * @return mixed
+		 */
+		public function mo2f_oobe_get_login_script( $request_type, $transaction_id ) {
+			$script = '<script>
+			var calls = 0;
+			var flow = "' . esc_js( $request_type ) . '";
+			if(flow=="direct_login"){
+				emailVerificationPoll();
+			}
+			function emailVerificationPoll()
+			{
+				calls = calls + 1;
+				var data = {\'mo2f_out_of_band_email\':\'login_polling\'};
+				jQuery.ajax({
+					url: "' . esc_url( get_site_option( 'siteurl' ) ) . '/wp-login.php",
+					type: "POST",
+					data: data,
+					success: function (result) {
+						var status = result;
+						if (status == 1) {
+							jQuery("#mo2f_mobile_validation_form").submit();
+						} else if (status == \'ERROR\' || status == \'FAILED\' || status == \'DENIED\' || status == 0) {
+							jQuery("#mo2f_email_verification_failed_form").submit();
+						} else {
+							if(calls<300)
+							{
+								timeout = setTimeout(emailVerificationPoll, 1000);
+							}
+							else
+							{	jQuery("#mo2f_email_verification_failed_form").submit();
+							}
+						}
+					}
+				});
+			}
+</script>';
+			return $script;
+		}
+
 		/**
 		 * Set Google authenticator secret key.
 		 *
@@ -321,26 +506,15 @@ if ( ! class_exists( 'Mo2f_Onprem_Setup' ) ) {
 			$gauth_obj = new Google_auth_onpremise();
 
 			$onpremise_secret              = $gauth_obj->mo2f_create_secret();
-			$issuer                        = get_site_option( 'mo2f_google_appname', DEFAULT_GOOGLE_APPNAME );
+			$issuer                        = $google_account_name;
 			$url                           = $gauth_obj->mo2f_geturl( $onpremise_secret, $issuer, $current_user->user_email );
 			$mo2f_google_auth              = array();
 			$mo2f_google_auth['ga_qrCode'] = $url;
 			$mo2f_google_auth['ga_secret'] = $onpremise_secret;
-
 			MO2f_Utility::mo2f_set_transient( $session_id_encrypt, 'secret_ga', $onpremise_secret );
 			MO2f_Utility::mo2f_set_transient( $session_id_encrypt, 'ga_qrCode', $url );
 		}
-		/**
-		 * Google authenticator screen in inline registration.
-		 *
-		 * @param object $user currently logged in user.
-		 * @return void
-		 */
-		public function mo2f_show_gauth_screen( $user ) {
-			include_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'handler' . DIRECTORY_SEPARATOR . 'twofa' . DIRECTORY_SEPARATOR . 'class-google-auth-onpremise.php';
-			$obj = new Google_auth_onpremise();
-			$obj->mo_g_auth_get_details();
-		}
+
 		/**
 		 * Set 2fa method for a user
 		 *

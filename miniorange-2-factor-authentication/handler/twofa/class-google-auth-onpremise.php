@@ -39,40 +39,6 @@ if ( ! class_exists( 'Google_Auth_Onpremise' ) ) {
 		}
 
 		/**
-		 * Gets the google authenticator details.
-		 *
-		 * @param boolean $setup_wizard Boolean value if GA setup through setupwizard.
-		 * @return void
-		 */
-		public function mo_g_auth_get_details( $setup_wizard = false ) {
-			$user = wp_get_current_user();
-
-			$nonce = isset( $_POST['nonce'] ) ? sanitize_key( wp_unslash( $_POST['nonce'] ) ) : '';
-			if ( isset( $_POST['mo2f_session_id'] ) && isset( $_POST['mo2f_session_id'] ) && true === $setup_wizard && wp_verify_nonce( $nonce, 'mo-two-factor-ajax-nonce' ) ) {
-				$session_id_encrypt = sanitize_text_field( wp_unslash( $_POST['mo2f_session_id'] ) );
-			} else {
-				$session_id_encrypt = MO2f_Utility::random_str( 20 );
-			}
-			$secret_ga = MO2f_Utility::mo2f_get_transient( $session_id_encrypt, 'secret_ga' );
-			if ( ! $secret_ga ) {
-				$secret_ga = $this->mo2f_create_secret();
-				MO2f_Utility::mo2f_set_transient( $session_id_encrypt, 'secret_ga', $secret_ga );
-			}
-
-			$issuer  = get_option( 'mo2f_google_appname', DEFAULT_GOOGLE_APPNAME );
-			$email   = $user->user_email;
-			$otpcode = $this->mo2f_get_code( $secret_ga );
-			$url     = $this->mo2f_geturl( $secret_ga, $issuer, $email );
-			if ( ! $setup_wizard ) {
-				echo '<div class="mo2f_table_layout mo2f_table_layout1">';
-				mo2f_configure_google_authenticator_onprem( $secret_ga, $url, $session_id_encrypt );
-				echo '</div>';
-			} else {
-				mo2f_configure_google_authenticator_setupwizard( $secret_ga, $url, $otpcode, $session_id_encrypt );
-			}
-		}
-
-		/**
 		 * Sets the google authenticator secret.
 		 *
 		 * @param integer $user_id User id of the user.

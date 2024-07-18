@@ -1,10 +1,10 @@
 === WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels ===
 Contributors: WebToffee
-Version: 4.5.3
+Version: 4.6.0
 Tags: WooCommerce PDF invoices, WooCommerce invoice, packing slips, shipping label, print invoice
 Requires at least: 3.0.1
-Tested up to: 6.5
-Stable tag: 4.5.3
+Tested up to: 6.6
+Stable tag: 4.6.0
 Requires PHP: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ When you sell internationally, it is a standard requirement in many countries to
 
 Furthermore, it establishes an extra line of communication between you and the customer and adds a human touch.
 
-&#9989; Tested OK with WooCommerce 8.9.3
+&#9989; Tested OK with WooCommerce 9.1.2
 &#9989; Tested OK up to PHP 8.2
 
 = New updates =
@@ -280,7 +280,25 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
 
 == Changelog ==
 
-= 4.5.3 2024-06-15 =
+= 4.6.0 2024-07-18 =
+* [New] - Added an option to use currency code instead of currency symbol in all documents
+* [New] - Added an option to use an extended library to support the currency symbol
+* [Tweak] - Use shipping phone number in the Tel field instead of billing phone number on the shipping label, if the shipping phone number is available
+* [Tweak] - Hide unnecessary data when using the Smart Coupon Bogo feature by WebToffee
+* [Tweak] - Remove the shipping address phone number label by default
+* [Tweak] - Maintain consistency in line heights
+* [Tweak] - Changed the document title color in all templates
+* [Tweak] - Hide the "inclusive of tax" text when the order has no tax
+* [Tweak] - Document PDF names should use the sequence number instead of the post ID when the prefix is set to the order number
+* [Tweak] - Fetch the site name as the company name and department name during the first installation
+* [Tweak] - Added the address line 2 field in the form wizard for the first installation
+* [Tweak] - Added the processing and completed statuses in automatic invoice creation option by default
+* [Enhancement] - Decimal quantity support
+* [Enhancement] - Sort orders when doing bulk print or download of documents
+* [Compatibility] - Tested OK with WordPress v6.6
+* [Compatibility] - Tested OK with WooCommerce v9.1.2
+
+= 4.5.3 2024-06-14 =
 * [Tweak] - Upgraded the Dompdf library to version 3.0.0
 
 = 4.5.2 2024-06-10 =
@@ -972,5 +990,20 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
  
 == Upgrade Notice ==
 
-= 4.5.3 =
-* [Tweak] - Upgraded the Dompdf library to version 3.0.0
+= 4.6.0 =
+* [New] - Added an option to use currency code instead of currency symbol in all documents
+* [New] - Added an option to use an extended library to support the currency symbol
+* [Tweak] - Use shipping phone number in the Tel field instead of billing phone number on the shipping label, if the shipping phone number is available
+* [Tweak] - Hide unnecessary data when using the Smart Coupon Bogo feature by WebToffee
+* [Tweak] - Remove the shipping address phone number label by default
+* [Tweak] - Maintain consistency in line heights
+* [Tweak] - Changed the document title color in all templates
+* [Tweak] - Hide the "inclusive of tax" text when the order has no tax
+* [Tweak] - Document PDF names should use the sequence number instead of the post ID when the prefix is set to the order number
+* [Tweak] - Fetch the site name as the company name and department name during the first installation
+* [Tweak] - Added the address line 2 field in the form wizard for the first installation
+* [Tweak] - Added the processing and completed statuses in automatic invoice creation option by default
+* [Enhancement] - Decimal quantity support
+* [Enhancement] - Sort orders when doing bulk print or download of documents
+* [Compatibility] - Tested OK with WordPress v6.6
+* [Compatibility] - Tested OK with WooCommerce v9.1.2

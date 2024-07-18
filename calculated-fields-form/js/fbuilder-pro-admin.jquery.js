@@ -646,7 +646,12 @@
 				else
 				{
 					var	email_str = '', // email fields list
-						cu_user_email_field = ($('#cu_user_email_field').attr("def") || '').split( ',' ),
+						cu_user_email_field = $('#cu_user_email_field'),
+						cu_user_email_fields_list = (
+							cu_user_email_field.find('option').length
+							? cu_user_email_field.val()
+							: (cu_user_email_field.attr("def") || '').split( ',' )
+						),
 
 						cost_str = '', // fields list for paypal request
 						request_cost = $('#request_cost').attr("def"),
@@ -698,7 +703,7 @@
 						// Email fields
 						if (item.ftype=="femail" || item.ftype=="femailds")
 						{
-                            email_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( $.inArray( item.name, cu_user_email_field ) != -1 ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+' ('+cff_sanitize(item.title)+')')+'</option>';
+							email_str += '<option value="'+cff_esc_attr(item.name)+'" '+( ( cu_user_email_fields_list.indexOf( item.name ) != -1 ) ? "selected" : "" )+'>'+cff_esc_attr(item.name+' ('+cff_sanitize(item.title)+')')+'</option>';
 						}
 						else
 						{
@@ -722,7 +727,7 @@
 					$.fbuilder[ 'purgeDeletedFields' ]();
 
 					// Assign the email fields to the "cu_user_email_field" list
-					$('#cu_user_email_field').html(email_str);
+					cu_user_email_field.html(email_str);
 
 					// Assign the fields to the "request_cost" list
 					$('#request_cost').html(cost_str);
@@ -742,6 +747,8 @@
 				ffunct.saveData("form_structure");
 // console.timeEnd('debugging');
                 $(document).trigger('cff_reloadItems', items);
+				$(document).on('mouseover', '.arrow.ui-icon.ui-icon-grip-dotted-vertical', function(){ $(this).attr('title', 'Drag and drop handler')});
+				$(document).on('mouseover', '.sticker i', function(){ $(this).attr('title', 'Column identifier')});
 			};
 
 		var fform=function(){};

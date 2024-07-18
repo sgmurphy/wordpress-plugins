@@ -1157,8 +1157,8 @@ class Wf_Woocommerce_Packing_List_Invoice
 		$is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$this->module_base,false,$this->module_base);
 		if($base_id === $this->module_id)
 		{
-			$only_pro_html='<span style="color:red;"> ('.__('Pro version','print-invoices-packing-slip-labels-for-woocommerce').')</span>';
-			$only_pro_addon_html='<span style="color:red;"> ('.__('Pro Add-on','print-invoices-packing-slip-labels-for-woocommerce').')</span>';
+			$only_pro_html='<span class="wt_customizer_pro_text" style="color:red;"> ('.__('Pro version','print-invoices-packing-slip-labels-for-woocommerce').')</span>';
+			$only_pro_addon_html='<span class="wt_customizer_pro_text" style="color:red;"> ('.__('Pro Add-on','print-invoices-packing-slip-labels-for-woocommerce').')</span>';
 			//these fields are the classname in template Eg: `company_logo` will point to `wfte_company_logo`
 			
 			$settings = array(
@@ -1193,25 +1193,21 @@ class Wf_Woocommerce_Packing_List_Invoice
 				$settings['footer'] = __('Footer','print-invoices-packing-slip-labels-for-woocommerce');
 			}
 			
-
-			$pro_features = array(
-				'tracking_number_disabled'=>__('Tracking Number','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'product_table_subtotal_disabled'=>__('Subtotal','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'product_table_shipping_disabled'=>__('Shipping','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'product_table_cart_discount_disabled'=>__('Cart Discount','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'product_table_order_discount_disabled'=>__('Order Discount','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'product_table_total_tax_disabled'=>__('Total Tax','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'product_table_fee_disabled'=>__('Fee','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'product_table_coupon_disabled'=>__('Coupon info','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'product_table_payment_method_disabled'=>__('Payment Method','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-				'product_table_payment_total_disabled'=>__('Total','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
-			);
-			
-
-			$settings = array_merge($settings, $pro_features);
-
-			//these fields are the classname in template Eg: `company_logo` will point to `wfte_company_logo`
-			return $settings;
+			if ( false === $is_pro_customizer ) {
+				$pro_features = array(
+					'tracking_number_pro_element'=>__('Tracking Number','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+					'product_table_subtotal_pro_element'=>__('Subtotal','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+					'product_table_shipping_pro_element'=>__('Shipping','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+					'product_table_cart_discount_pro_element'=>__('Cart Discount','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+					'product_table_order_discount_pro_element'=>__('Order Discount','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+					'product_table_total_tax_pro_element'=>__('Total Tax','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+					'product_table_fee_pro_element'=>__('Fee','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+					'product_table_coupon_pro_element'=>__('Coupon info','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+					'product_table_payment_method_pro_element'=>__('Payment Method','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+					'product_table_payment_total_pro_element'=>__('Total','print-invoices-packing-slip-labels-for-woocommerce').$only_pro_html,
+				);
+				$settings = array_merge($settings, $pro_features);
+			}
 		}
 		return $settings;
 	}
@@ -1262,7 +1258,7 @@ class Wf_Woocommerce_Packing_List_Invoice
 		if($base_id === $this->module_id)
 		{
 			$settings = array(
-	        	'woocommerce_wf_generate_for_orderstatus'=>array('wc-completed'),
+	        	'woocommerce_wf_generate_for_orderstatus'=>array('wc-completed','wc-processing'),
 	        	'woocommerce_wf_attach_invoice'=>array(),
 	        	'woocommerce_wf_packinglist_logo'=>'',
 	        	'woocommerce_wf_add_invoice_in_mail'=>'No',
@@ -1747,6 +1743,11 @@ class Wf_Woocommerce_Packing_List_Invoice
     	$use_latest_settings_invoice	= Wf_Woocommerce_Packing_List::get_option('woocommerce_wt_use_latest_settings_invoice', $this->module_id);
     	$template_type	= $this->module_base;
     	$order			= Wt_Pklist_Common::get_order($order_id);
+		/**
+		 * @since 4.6.0 - Added filter to add before preparing the order package and rendering the html.
+		 */
+		$pdf_filters = apply_filters( 'wt_pklist_add_filters_before_rendering_pdf', array(), $this->module_base, $order );
+		Wt_Pklist_Common::wt_pklist_pdf_add_filters( $pdf_filters );
 		$invoice_html 	= Wt_Pklist_Common::get_order_meta($order_id, 'wf_invoice_html', true);
 		$order_id_arr[] = $order_id;
 		$pdf_name		= $this->customizer->generate_pdf_name($this->module_base, $order_id_arr);
@@ -1861,6 +1862,12 @@ class Wf_Woocommerce_Packing_List_Invoice
 				Wt_Pklist_Common::update_order_meta($order_id,'wf_invoice_html',$file_name);
 	        }
 		}
+		
+		/**
+		 * @since 4.6.0 - Remove the filters which were added before preparing the order package and rendering the html.
+		 */
+		Wt_Pklist_Common::wt_pklist_pdf_remove_filters( $pdf_filters );
+		
 		return $out;
     }
 

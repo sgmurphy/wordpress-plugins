@@ -33,6 +33,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public extends Con_Settings
   protected $plugin_name;
   protected $version;
   protected $fb_page_view_event_id;
+  protected $gtm;
 
   /**
    * Enhanced_Ecommerce_Google_Analytics_Public constructor.
@@ -937,7 +938,7 @@ class Con_GTM_WC_Tracking extends Con_Settings
 
       $checkout_step_2_selector = (isset($this->c_t_o['tvc_checkout_step_2_selector']) && $this->c_t_o['tvc_checkout_step_2_selector'] == "custom") ? $this->c_t_o : array();
       $checkout_step_2_selector = $this->get_selector_val_from_array_for_gmt($checkout_step_2_selector, 'tvc_checkout_step_2_selector');
-      $checkout_step_2_selector = ($checkout_step_2_selector) ? $checkout_step_2_selector : "input[name=billing_first_name], .wc-block-checkout__form #shipping-first_name";
+      $checkout_step_2_selector = ($checkout_step_2_selector) ? $checkout_step_2_selector : "input[name=billing_first_name], .wc-block-checkout__form #shipping-first_name, .wc-block-checkout__form #billing-first_name";
 
       $checkout_step_3_selector = (isset($this->c_t_o['tvc_checkout_step_3_selector']) && $this->c_t_o['tvc_checkout_step_3_selector'] == "custom") ? $this->c_t_o : array();
       $checkout_step_3_selector = $this->get_selector_val_from_array_for_gmt($checkout_step_3_selector, 'tvc_checkout_step_3_selector');

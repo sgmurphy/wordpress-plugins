@@ -2989,10 +2989,9 @@ class Ays_Pb_Public {
                 }
 
                 if ($show_popup) {
-                    $current_url = $_SERVER['REQUEST_URI'];
-                    $elementor_editor_slug = 'elementor';
+                    $is_elementor_editor_active = Ays_Pb_Data::ays_pb_is_elementor_editor_active();
 
-                    if (strpos($current_url, $elementor_editor_slug) === false) {
+                    if (!$is_elementor_editor_active) {
                         $shortcode2 = "[ays_pb id={$i['id']} w={$i['width']} h={$i['height']} ]";
                         $ays_search_shortcode = $this->ays_has_shortcode_in_posts($i['id']);
                         if ($ays_search_shortcode !== true){

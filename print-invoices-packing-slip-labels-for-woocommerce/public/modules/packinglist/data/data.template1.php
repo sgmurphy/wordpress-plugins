@@ -1,6 +1,6 @@
 <!-- DC ready -->
 <style type="text/css">
-body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
+body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif; line-height: 1.5;}
 .clearfix::after{ display:block; clear:both; content:""; }
 
 .wfte_invoice-main{ color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; width:100%; height:auto; }
@@ -22,30 +22,33 @@ body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif
 
 .wfte_company_logo_img_box{ margin-bottom:10px; }
 .wfte_company_logo_img{ width:150px; max-width:100%; }
-.wfte_doc_title{ color:#23a8f9; font-size:30px; font-weight:bold; height:auto; width:100%; line-height:22px;}
+.wfte_doc_title{ color:#263140; font-size:30px; font-weight:bold; height:auto; width:100%; line-height:1;}
 .wfte_invoice_data div span:first-child, .wfte_extra_fields span:first-child{ font-weight:bold; }
-.wfte_invoice_data{ line-height:16px; font-size:12px; }
+.wfte_invoice_data{ font-size:12px; }
 
 .wfte_address-field-header{ font-weight:bold; font-size:12px; color:#000; padding:3px; padding-left:0px;}
 .wfte_addrss_field_main{ padding-top:15px;}
 
-.wfte_received_seal{ position:absolute; z-index:10; margin-top:90px; margin-left:0px; width:130px; border-radius:5px; font-size:22px; height:40px; line-height:28px; border:solid 5px #00ccc5; color:#00ccc5; font-weight:900; text-align:center; transform:rotate(-45deg); opacity:.5; }
+.wfte_received_seal{ position:absolute; z-index:10; margin-top:90px; margin-left:0px; width:130px; border-radius:5px; font-size:22px; height:40px; border:solid 5px #00ccc5; color:#00ccc5; font-weight:900; text-align:center; transform:rotate(-45deg); opacity:.5; }
 
 .wfte_product_table{ width:100%; border-collapse:collapse; margin:0px; }
-.wfte_product_table_head th{ height:36px; padding:0px 5px; font-size:.75rem; text-align:left; line-height:10px; border-bottom:solid 1px #D7DBDF; font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
+.wfte_product_table_head th{ height:36px; font-size:.75rem; text-align:left; border-bottom:solid 1px #D7DBDF; font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
 .wfte_product_table_head_product{width: 30%;}
-.wfte_product_table_body td, .wfte_payment_summary_table_body td{ font-size:12px; line-height:15px;}
-.wfte_product_table_body td{ padding:10px 5px; border-bottom:solid 1px #dddee0;}
+.wfte_product_table_body td, .wfte_payment_summary_table_body td{ font-size:12px; }
+.wfte_product_table_body td{ border-bottom:solid 1px #dddee0;}
 .wfte_product_table_body .product_td b{ font-weight:normal; }
-.product_td b{line-height: 15px;} 
+/* .product_td b{line-height: 15px;}  */
 
 .wfte_return_policy{width:100%; height:auto; border-bottom:solid 1px #dfd5d5; padding:5px 0px; margin-top:5px; }
 .wfte_footer{width:100%; height:auto; padding:5px 0px; margin-top:5px;font-size: 12px;}
 
 /* for mPdf */
 .wfte_invoice_data{ border:solid 0px #fff; }
-.wfte_invoice_data td, .wfte_extra_fields td{ font-size:12px; padding:0px; font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif; line-height:14px;}
+.wfte_invoice_data td, .wfte_extra_fields td{ font-size:12px; padding:0px; font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
 .wfte_invoice_data tr td:nth-child(1), .wfte_extra_fields tr td:nth-child(1){ font-weight:bold; }
+
+table.wfte_product_table th, table.wfte_product_table td{ line-height: 1.6; padding:5px 5px;}
+table.wfte_payment_summary_table th, table.wfte_payment_summary_table td{ line-height: 1.6; padding:5px 5px;}
 </style>
 <div class="wfte_rtl_main wfte_invoice-main wfte_invoice_basic_main" style="padding-top:30px; padding-right:30px; padding-bottom:30px; padding-left:30px; margin-top: 0px; margin-bottom:0px; margin-left:0px; margin-right:0px;">
     <div class="wfte_row clearfix">

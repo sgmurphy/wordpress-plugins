@@ -8,6 +8,7 @@ $order_statuses = wc_get_order_statuses();
 $invoice_module_id = Wf_Woocommerce_Packing_List::get_module_id('invoice');
 $company_name           = Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_companyname');
 $street         = Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_sender_address_line1');
+$street_line_2  = Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_sender_address_line2');
 $city           = Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_sender_city');
 $country_arr    = Wf_Woocommerce_Packing_List::get_option('wf_country');
 $postal_code    = Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_sender_postalcode');
@@ -163,15 +164,20 @@ ul.progress-bar li.stop_active::after{
                         </div>
                         <div class="wt_form_wizard_field_row">
                             <div class="wt_form_wizard_field_col_2 wt_form_wizard_field_col">
-                                <label><?php _e("Street address","print-invoices-packing-slip-labels-for-woocommerce"); ?></label>
+                                <label><?php _e("Address line 1","print-invoices-packing-slip-labels-for-woocommerce"); ?></label>
                                 <input type="text" name="woocommerce_wf_packinglist_sender_address_line1" class="wt_pklist_form_wizard_field" value="<?php esc_attr_e($street); ?>">
                             </div>
+                            <div class="wt_form_wizard_field_col_2 wt_form_wizard_field_col">
+                                <label><?php _e("Address line 2","print-invoices-packing-slip-labels-for-woocommerce"); ?></label>
+                                <input type="text" name="woocommerce_wf_packinglist_sender_address_line2" class="wt_pklist_form_wizard_field" value="<?php esc_attr_e($street_line_2); ?>">
+                            </div>
+                            
+                        </div>
+                        <div class="wt_form_wizard_field_row">
                             <div class="wt_form_wizard_field_col_2 wt_form_wizard_field_col">
                                 <label><?php _e("City","print-invoices-packing-slip-labels-for-woocommerce"); ?></label>
                                 <input type="text" name="woocommerce_wf_packinglist_sender_city" class="wt_pklist_form_wizard_field" value="<?php esc_attr_e($city); ?>">
                             </div>
-                        </div>
-                        <div class="wt_form_wizard_field_row">
                             <div class="wt_form_wizard_field_col_2 wt_form_wizard_field_col">
                                 <label><?php _e("Country/State","print-invoices-packing-slip-labels-for-woocommerce"); ?></label>
                                 <select name="wf_country" class="wt_pklist_form_wizard_field">
@@ -184,16 +190,18 @@ ul.progress-bar li.stop_active::after{
                                     ?>
                                 </select>
                             </div>
-                            <div class="wt_form_wizard_field_col_3 wt_form_wizard_field_col">
+                        </div>
+                        <div class="wt_form_wizard_field_row">
+                            <div class="wt_form_wizard_field_col_4 wt_form_wizard_field_col">
                                 <label><?php _e("Postal code","print-invoices-packing-slip-labels-for-woocommerce"); ?></label>
                                 <input type="text" name="woocommerce_wf_packinglist_sender_postalcode" class="wt_pklist_form_wizard_field" value="<?php esc_attr_e($postal_code); ?>">
                             </div>
-                        </div>
-                        <div class="wt_form_wizard_field_row">
-                            <div class="wt_form_wizard_field_col_2 wt_form_wizard_field_col">
+                            <div class="wt_form_wizard_field_col_3 wt_form_wizard_field_col">
                                 <label><?php _e("Phone number","print-invoices-packing-slip-labels-for-woocommerce"); ?></label>
                                 <input type="text" name="woocommerce_wf_packinglist_sender_contact_number" class="wt_pklist_form_wizard_field" value="<?php esc_attr_e($phone_no); ?>">
                             </div>
+                        </div>
+                        <div class="wt_form_wizard_field_row">
                             <div class="wt_form_wizard_field_col_2 wt_form_wizard_field_col">
                                 <label><?php _e("Tax ID","print-invoices-packing-slip-labels-for-woocommerce"); ?></label>
                                 <input type="text" name="woocommerce_wf_packinglist_sender_vat" class="wt_pklist_form_wizard_field" value="<?php esc_attr_e($company_tax_id); ?>">

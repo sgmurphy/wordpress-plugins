@@ -208,6 +208,26 @@ if ( ! class_exists( 'MoWpnsDB' ) ) {
 			return $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %1s', array( $this->blocked_ips_table ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery , WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder -- Ignoring the warnings related to DB caching, Dirct DB access, and complex placeholder
 		}
 
+		/**
+		 * Clears login report.
+		 *
+		 * @return void
+		 */
+		public function mo_wpns_clear_login_report() {
+			global $wpdb;
+			$wpdb->query( 'DELETE FROM ' . $wpdb->prefix . "mo2f_network_transactions WHERE Status='success' or Status= 'pastfailed' or Status='failed' " ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, Direct database call without caching detected -- DB Direct Query is necessary here.
+		}
+
+		/**
+		 * Clears error report.
+		 *
+		 * @return void
+		 */
+		public function mo_wpns_clear_error_report() {
+			global $wpdb;
+			$wpdb->query( 'DELETE FROM ' . $wpdb->prefix . "mo2f_network_transactions WHERE Status='accessDenied'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- DB Direct Query is necessary here. 
+		}
+
 
 		/**
 		 * Returns if IP blocked

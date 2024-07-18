@@ -111,7 +111,7 @@ class CCBSettingsData {
 					'enable'              => false,
 					'form_title'          => 'You will get a quote and invoice after submitting the form',
 					'submit_btn_text'     => 'Get a quote',
-					'action_after_submit' => 'send_to_email', // show_summary_block
+					'action_after_submit' => 'send_to_email',
 				),
 			),
 			'woo_products'    => array(
@@ -298,7 +298,7 @@ class CCBSettingsData {
 					'use_in_all'          => false,
 					'form_title'          => 'You will get a quote and invoice after submitting the form',
 					'submit_btn_text'     => 'Get a quote',
-					'action_after_submit' => 'send_to_email', // show_summary_block
+					'action_after_submit' => 'send_to_email',
 				),
 			),
 			'backup_settings' => array(
