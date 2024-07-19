@@ -9,15 +9,12 @@
 if(!defined('ABSPATH')) exit;
 
 define('FILEORGANIZER_DIR', dirname( FILEORGANIZER_FILE ));
-define('FILEORGANIZER_PRO_DIR', FILEORGANIZER_DIR .'/main/premium');
 define('FILEORGANIZER_BASE', plugin_basename(FILEORGANIZER_FILE));
-define('FILEORGANIZER_PRO_BASE', 'fileorganizer-pro/fileorganizer-pro.php');
 define('FILEORGANIZER_URL', plugins_url('', FILEORGANIZER_FILE));
 define('FILEORGANIZER_BASE_NAME', basename(FILEORGANIZER_DIR));
-define('FILEORGANIZER_VERSION', '1.0.8');
+define('FILEORGANIZER_VERSION', '1.0.9');
 define('FILEORGANIZER_WP_CONTENT_DIR', defined('WP_CONTENT_FOLDERNAME') ? WP_CONTENT_FOLDERNAME : 'wp-content');
 define('FILEORGANIZER_DEV', file_exists(dirname(__FILE__).'/dev.php') ? 1 : 0);
-define('FILEORGANIZER_API', 'https://api.fileorganizer.net/');
 
 function fileorganizer_died(){
 	print_r(error_get_last());
@@ -28,8 +25,10 @@ if(FILEORGANIZER_DEV){
 	//register_shutdown_function('fileorganizer_died');
 }
 
+if(!class_exists('FileOrganizer')){
 class FileOrganizer{
 	public $options = array();
+}
 }
 
 function fileorganizer_autoloader($class){
@@ -44,8 +43,8 @@ function fileorganizer_autoloader($class){
 	}
 	
 	// For Pro
-	if(file_exists(FILEORGANIZER_PRO_DIR.'/'.strtolower($m[1]).'.php')){
-		include_once(FILEORGANIZER_PRO_DIR.'/'.strtolower($m[1]).'.php');
+	if(defined('FILEORGANIZER_PRO_DIR') && file_exists(FILEORGANIZER_PRO_DIR.'/main/'.strtolower($m[1]).'.php')){
+		include_once(FILEORGANIZER_PRO_DIR.'/main/'.strtolower($m[1]).'.php');
 	}
 }
 
@@ -247,16 +246,16 @@ function fileorganizer_settings_handler(){
 }
 
 function fileorganizer_restrictions_handler(){
-	include_once FILEORGANIZER_PRO_DIR .'/user_restrictions.php';
+	include_once FILEORGANIZER_PRO_DIR .'/main/user_restrictions.php';
 	fileorganizer_user_restriction_render();
 }
 
 function fileorganizer_role_restrictions_handler(){
-	include_once FILEORGANIZER_PRO_DIR .'/role_restrictions.php';
+	include_once FILEORGANIZER_PRO_DIR .'/main/role_restrictions.php';
 }
 
 function fileorganizer_license_handler(){
-	include_once FILEORGANIZER_PRO_DIR .'/license.php';
+	include_once FILEORGANIZER_PRO_DIR .'/main/license.php';
 }
 
 // Check if a field is posted via GET else return default value
@@ -322,11 +321,6 @@ function fileorganizer_get_capability(){
 // Load ajax
 if(wp_doing_ajax()){
 	include_once FILEORGANIZER_DIR . '/main/ajax.php';
-}
-
-// Load premium file if exists
-if(file_exists(FILEORGANIZER_PRO_DIR .'/premium.php')){
-	include_once FILEORGANIZER_PRO_DIR .'/premium.php';
 }
 
 // Show the promo

@@ -430,7 +430,7 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 				return false;
 			}
 
-			$tracking_data = BWF_WC_Compatibility::get_order_meta( '_wffn_tracking_data' );
+			$tracking_data = BWF_WC_Compatibility::get_order_meta( $order, '_wffn_tracking_data' );
 
 			if ( empty( $tracking_data ) || ! is_array( $tracking_data ) ) {
 				return false;
@@ -443,12 +443,12 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 			 * condition2: Thankyou page hook with pending status ran on this order
 			 * condition3: In case thankyou page not open and order mark complete by IPN
 			 */
-			if ( in_array( $payment_method, $ipn_gateways, true ) || 'yes' === BWF_WC_Compatibility::get_order_meta( '_wffn_need_normalize' ) || ( class_exists( 'WC_Geolocation' ) && ( $order->get_customer_ip_address() !== WC_Geolocation::get_ip_address() ) ) ) {
+			if ( in_array( $payment_method, $ipn_gateways, true ) || 'yes' === BWF_WC_Compatibility::get_order_meta( $order, '_wffn_need_normalize' ) || ( class_exists( 'WC_Geolocation' ) && ( $order->get_customer_ip_address() !== WC_Geolocation::get_ip_address() ) ) ) {
 				/**
 				 * reaching this code means, 1) we have a ipn gateway OR 2) we have meta stored during thankyou
 				 */
 				if ( $order_id > 0 && in_array( $to, wc_get_is_paid_statuses(), true ) ) {
-					$offer_id = BWF_WC_Compatibility::get_order_meta( '_wfocu_offer_id' );
+					$offer_id = BWF_WC_Compatibility::get_order_meta( $order, '_wfocu_offer_id' );
 					if ( ! empty( $offer_id ) ) {
 						$this->insert_tracking_data( $tracking_data );
 						$order->delete_meta_data( '_wffn_need_normalize' );

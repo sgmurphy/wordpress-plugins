@@ -24,11 +24,11 @@ function efas_validation_process ( $record, $ajax_handler ) {
   $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
   $error_message = cfas_get_error_text($message);
 
-  $NeedPageurl =  get_option( 'NeedPageurl' ) ;   
+    $NeedPageurl =  maspik_get_settings("NeedPageurl");   
   
-  if ( efas_get_spam_api('NeedPageurl') ){
-    $NeedPageurl = $NeedPageurl ? $NeedPageurl : efas_get_spam_api('block_empty_source',"bool");
-  }
+    if ( efas_get_spam_api('NeedPageurl') ){
+        $NeedPageurl = $NeedPageurl ? $NeedPageurl : efas_get_spam_api('NeedPageurl',"bool");
+    }
 
 
   if( !array_key_exists('referrer', $_POST ) && $NeedPageurl ){

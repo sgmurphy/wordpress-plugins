@@ -46,6 +46,7 @@
 	$currenttemplate->template_misc ="";
 	$currenttemplate->read_more ="";
 	$currenttemplate->read_more_text ="read more";
+	$currenttemplate->slidermobileview ="";
 	
 	//echo $this->_token;
 	//if token = wp-google-reviews then using free version
@@ -101,7 +102,10 @@
 		
 		$read_more = sanitize_text_field($_POST['wprevpro_t_read_more']);
 		$read_more_text = sanitize_text_field($_POST['wprevpro_t_read_more_text']);
-		
+		$slidermobileview ="";
+		if(isset($_POST['wprevpro_slidermobileview'])){
+		$slidermobileview = sanitize_text_field($_POST['wprevpro_slidermobileview']);
+		}
 
 		
 		//santize
@@ -127,6 +131,7 @@
 		$templatemiscarray['bradius']=sanitize_text_field($_POST['wprevpro_template_misc_bradius']);
 		$templatemiscarray['showmedia']=sanitize_text_field($_POST['wprevpro_t_showmedia']);
 		$templatemiscarray['verified']=sanitize_text_field($_POST['wprevpro_template_misc_verified']);
+		
 		
 		/*
 		$templatemiscarray['showstars']=sanitize_text_field($_POST['wprevpro_template_misc_showstars']);
@@ -194,7 +199,8 @@
 				'showreviewsbyid' => "$showreviewsbyid",
 				'template_misc' => "$templatemiscjson",
 				'read_more' => "$read_more",
-				'read_more_text' => "$read_more_text"
+				'read_more_text' => "$read_more_text",
+				'slidermobileview' => "$slidermobileview",
 				);
 			$format = array( 
 					'%s',
@@ -218,6 +224,7 @@
 					'%s',
 					'%s',
 					'%d',
+					'%s',
 					'%s',
 					'%s',
 					'%s',
@@ -530,7 +537,7 @@ echo $dbmsg;
 					<?php _e('Number of Reviews:', 'wp-google-reviews'); ?>
 				</th>
 				<td><div class="divtemplatestyles">
-					<label for="wpfbr_t_display_num"><?php _e('How many per a row?', 'wp-google-reviews'); ?></label>
+					<label for="wpfbr_t_display_num"><?php _e('How many per a row?', 'wp-google-reviews'); ?>&nbsp;</label>
 					<select name="wpfbr_t_display_num" id="wpfbr_t_display_num">
 					  <option value="1" <?php if($currenttemplate->display_num==1){echo "selected";} ?>>1</option>
 					  <option value="2" <?php if($currenttemplate->display_num==2){echo "selected";} ?>>2</option>
@@ -538,7 +545,7 @@ echo $dbmsg;
 					  <option value="4" <?php if($currenttemplate->display_num==4){echo "selected";} ?>>4</option>
 					</select>
 					
-					<label for="wpfbr_t_display_num_rows"><?php _e('How many total rows?', 'wp-google-reviews'); ?></label>
+					<label for="wpfbr_t_display_num_rows"><?php _e('How many total rows?', 'wp-google-reviews'); ?>&nbsp;</label>
 					<input id="wpfbr_t_display_num_rows" type="number" name="wpfbr_t_display_num_rows" placeholder="" value="<?php if($currenttemplate->display_num_rows>0){echo $currenttemplate->display_num_rows;} else {echo "1";}?>">
 					
 					</div>
@@ -602,13 +609,13 @@ echo $dbmsg;
 				</th>
 				<td>
 					<div class="divtemplatestyles">
-						<label for="wpfbr_t_createslider"><?php _e('Display reviews in slider?', 'wp-google-reviews'); ?></label>
+						<label for="wpfbr_t_createslider"><?php _e('Display reviews in slider?', 'wp-google-reviews'); ?>&nbsp;</label>
 						<select name="wpfbr_t_createslider" id="wpfbr_t_createslider">
 							<option value="no" <?php if($currenttemplate->createslider=="no"){echo "selected";} ?>><?php _e('No', 'wp-google-reviews'); ?></option>
 							<option value="yes" <?php if($currenttemplate->createslider=="yes"){echo "selected";} ?>><?php _e('Yes', 'wp-google-reviews'); ?></option>
 						</select>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label for="wpfbr_t_display_num_rows"><?php _e('How many total slides?', 'wp-google-reviews'); ?></label>
+						<label for="wpfbr_t_display_num_rows"><?php _e('How many total slides?', 'wp-google-reviews'); ?>&nbsp;</label>
 						<select name="wpfbr_t_numslides" id="wpfbr_t_numslides">
 							<option value="2" <?php if($currenttemplate->numslides=="2"){echo "selected";} ?>>2</option>
 							<option value="3" <?php if($currenttemplate->numslides=="3"){echo "selected";} ?>>3</option>
@@ -620,6 +627,9 @@ echo $dbmsg;
 							<option value="9" <?php if($currenttemplate->numslides=="9"){echo "selected";} ?>>9</option>
 							<option value="10" <?php if($currenttemplate->numslides=="10"){echo "selected";} ?>>10</option>
 						</select>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" id="wprevpro_slidermobileview" name="wprevpro_slidermobileview" value="one" <?php if($currenttemplate->slidermobileview== "one"){echo 'checked="checked"';}?>>
+						<label for="wprevpro_slidermobileview"> <?php _e('One review on mobile.', 'wp-google-reviews'); ?></label>
 					
 					</div>
 					<p class="description">
@@ -647,7 +657,7 @@ echo $dbmsg;
 						<option value="no" <?php if($currenttemplate->read_more=='no' || $currenttemplate->read_more==''){echo "selected";} ?>>No</option>
 						<option value="yes" <?php if($currenttemplate->read_more=='yes'){echo "selected";} ?>>Yes</option>
 					</select>
-					<label for="wprevpro_t_read_more_text">&nbsp;&nbsp;<?php _e('Read More Text:', 'wp-google-reviews'); ?></label>
+					<label for="wprevpro_t_read_more_text">&nbsp;&nbsp;<?php _e('Read More Text:', 'wp-google-reviews'); ?>&nbsp;</label>
 					<input id="wprevpro_t_read_more_text" type="text" name="wprevpro_t_read_more_text" placeholder="read more" value="<?php if($currenttemplate->read_more_text!=''){echo $currenttemplate->read_more_text;} else {echo "read more";}?>" style="width: 6em">
 					</div>
 					<p class="description">

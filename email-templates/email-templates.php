@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Plugin Name:       Email Templates
  * Plugin URI:        http://wordpress.org/plugins/email-templates
  * Description:       Beautify WordPress default emails
- * Version:           1.4.3
+ * Version:           1.4.4
  * Author:            wpexpertsio
  * Author URI:        https://www.wpexperts.io/
  * License:           GPL-2.0+

@@ -172,6 +172,7 @@ class WP_Google_Reviews_Activator {
 				string_text varchar(300) DEFAULT '' NOT NULL,
 				string_textnot varchar(300) DEFAULT '' NOT NULL,
 				showreviewsbyid_sel varchar(9) DEFAULT '' NOT NULL,
+				slidermobileview varchar(5) DEFAULT '' NOT NULL,
 				UNIQUE KEY id (id),
 				PRIMARY KEY (id)
 			) $charset_collate;";

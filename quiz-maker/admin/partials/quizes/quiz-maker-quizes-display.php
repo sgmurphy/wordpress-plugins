@@ -841,6 +841,22 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         </select>
                                     </div>
                                 </div><!-- Progress live bar style -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quick_quiz_buttons_position">
+                                            <?php echo __('Buttons position',$this->plugin_name); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <select id="ays_quick_quiz_buttons_position" name="ays_quick_quiz_buttons_position" class="ays-text-input ays-text-input-short">
+                                            <option selected value="center"><?php echo __( 'Center', $this->plugin_name); ?></option>
+                                            <option value="flex-start"><?php echo __( 'Left', $this->plugin_name); ?></option>
+                                            <option value="flex-end"><?php echo __( 'Right', $this->plugin_name); ?></option>
+                                            <option value="space-between"><?php echo __( 'Space Between', $this->plugin_name); ?></option>
+                                        </select>
+                                    </div>
+                                </div><!-- Buttons position -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

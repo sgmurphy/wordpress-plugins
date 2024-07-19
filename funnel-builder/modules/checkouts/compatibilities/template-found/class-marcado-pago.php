@@ -111,6 +111,7 @@ class WFACP_Compatibility_With_Brazillian_Gateway {
                 bottom: auto;
                 margin: 0 0 4px;
             }
+
             body #wfacp-sec-wrapper #checkout .wfacp_custom_field_multiselect span.select2-selection.select2-selection--multiple {
                 padding: 0;
                 min-height: 48px;
@@ -181,6 +182,7 @@ class WFACP_Compatibility_With_Brazillian_Gateway {
                 display: block;
                 clear: unset;
             }
+
             /* -------------------------------------------Auto Complete Address ------------------------------------------*/
 
             body #wfacp-sec-wrapper #checkout .wfacp_autocomplete_active .woocommerce-input-wrapper {
@@ -195,6 +197,16 @@ class WFACP_Compatibility_With_Brazillian_Gateway {
 
             body #wfacp-sec-wrapper #checkout .wfacp_collapsible_enable .select2-container {
                 width: 100% !important;
+            }
+
+            
+            body #wfacp-sec-wrapper .wfacp_main_form.woocommerce .mp-input-radio-radio:checked,
+            body #wfacp-sec-wrapper .wfacp_main_form.woocommerce .mp-input-radio-radio:not(:checked) {
+                opacity: 1 !important;
+            }
+
+            body #wfacp-sec-wrapper .wfacp_main_form.woocommerce .mp-input-table-row-text {
+                padding-left: 0 !important;
             }
 
             @media (min-width: 768px)and (max-width: 1024px) {
@@ -274,6 +286,6 @@ class WFACP_Compatibility_With_Brazillian_Gateway {
 }
 
 
-	WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_Brazillian_Gateway(), 'brazilian_gateway' );
+WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_Brazillian_Gateway(), 'brazilian_gateway' );
 
 

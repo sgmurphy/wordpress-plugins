@@ -385,12 +385,12 @@ class WFACP_OXY_Form extends WFACP_OXY_HTML_BLOCK {
 			if ( in_array( $field_key, $skipKey ) ) {//phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				continue;
 			}
-            $options = $this->get_class_options();
+			$options = $this->get_class_options();
 			if ( isset( $field['type'] ) && 'wfacp_html' === $field['type'] ) {
 				$options           = [ 'wfacp-col-full' => __( 'Full', 'woofunnels-aero-checkout' ), ];
 				$field_default_cls = 'wfacp-col-full';
 			}
-            $options = apply_filters('wfacp_widget_fields_classes', $options, $field, $this->get_class_options());
+			$options = apply_filters( 'wfacp_widget_fields_classes', $options, $field, $this->get_class_options() );
 			$this->add_select( $tab_instance, 'wfacp_' . $template_slug . '_' . $field_key . '_field', $field['label'], $options, $field_default_cls );
 		}
 
@@ -733,8 +733,7 @@ class WFACP_OXY_Form extends WFACP_OXY_HTML_BLOCK {
 
 		$selector        = [
 			'#wfacp-e-form .wfacp_main_form.woocommerce .wfacp-next-btn-wrap button',
-			'#wfacp-e-form .wfacp_main_form.woocommerce #payment button#place_order',
-			'#wfacp-e-form .wfacp_main_form.woocommerce  button#place_order',
+			'#wfacp-e-form .wfacp_main_form.woocommerce button#place_order',
 			'#wfacp-e-form .wfacp_main_form.woocommerce  #ppcp-hosted-fields .button',
 			'#wfacp-e-form .wfacp_main_form.woocommerce .button.button#place_order',
 			'#wfacp-e-form .wfacp_main_form.woocommerce .button.wfacp_next_page_button',
@@ -771,7 +770,6 @@ class WFACP_OXY_Form extends WFACP_OXY_HTML_BLOCK {
 
 		$hover_color = [
 			'#wfacp-e-form .wfacp_main_form.woocommerce .wfacp-next-btn-wrap button:hover',
-			'#wfacp-e-form .wfacp_main_form.woocommerce #payment button#place_order:hover',
 			'#wfacp-e-form .wfacp_main_form.woocommerce  button#place_order:hover',
 			'#wfacp_qr_model_wrap .wfacp_qr_wrap .wfacp_qv-summary .button:hover',
 			'#wfacp-e-form .wfacp_main_form.woocommerce  #ppcp-hosted-fields .button:hover',
@@ -805,7 +803,6 @@ class WFACP_OXY_Form extends WFACP_OXY_HTML_BLOCK {
 		$this->add_background_color( $tab_id, 'additional_bg_color', '#wfacp-e-form .wfacp_main_form.woocommerce .wfacp-payment-dec', "", 'Background' );
 		$this->ajax_session_settings[] = 'wfacp_make_button_sticky_on_mobile';
 	}
-
 
 
 	private function payment_method_styling( $tab_id ) {
@@ -1242,18 +1239,18 @@ class WFACP_OXY_Form extends WFACP_OXY_HTML_BLOCK {
 
 		$this->add_heading( $tab_id, __( 'Terms & Conditions', 'woofunnels-aero-checkout' ) );
 
-
 		$typo = [
 			'#wfacp-e-form .woocommerce-terms-and-conditions-wrapper .form-row label',
 			'#wfacp-e-form .woocommerce-terms-and-conditions-wrapper .form-row label span',
 			'#wfacp-e-form .woocommerce-terms-and-conditions-wrapper .form-row label a',
+			'#wfacp-e-form .wc-gzd-checkbox-placeholder *:not(a)',
 		];
 
-
 		$color = [
-			'#wfacp-e-form .wfacp-form .wfacp_main_form.woocommerce .woocommerce-terms-and-conditions-wrapper .form-row',
-			'#wfacp-e-form .wfacp-form .wfacp_main_form.woocommerce .woocommerce-terms-and-conditions-wrapper .woocommerce-terms-and-conditions-checkbox-text',
-			'#wfacp-e-form .wfacp-form .wfacp_main_form.woocommerce label.woocommerce-form__label .woocommerce-terms-and-conditions-checkbox-text',
+			'#wfacp-e-form .woocommerce-terms-and-conditions-wrapper .form-row',
+			'#wfacp-e-form .woocommerce-terms-and-conditions-wrapper .woocommerce-terms-and-conditions-checkbox-text',
+			'#wfacp-e-form .wc-gzd-checkbox-placeholder .woocommerce-gzd-legal-checkbox-text',
+			'#wfacp-e-form .wfacp_main_form  #wfacp_checkout_form .checkbox-legal label.woocommerce-form__label span.woocommerce-gzd-legal-checkbox-text'
 		];
 
 		$default = 14;
@@ -1338,7 +1335,7 @@ class WFACP_OXY_Form extends WFACP_OXY_HTML_BLOCK {
 		if ( ! isset( $_GET['action'] ) || $_GET['action'] != "ct_save_components_tree" ) {
 			return;
 		}
-		$data = get_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), true );
+		$data = get_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix( 'ct_builder_shortcodes' ), true );
 		if ( ! is_null( $data ) ) {
 			if ( false !== strpos( $data, 'wfacp-modern-label' ) ) {
 				$field_label = 'wfacp-modern-label';

@@ -3,7 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
+/**
+ * FooEvents for WooCommerce for FooEvents (1.19.22)
+ */
 #[AllowDynamicProperties]
 class WFACP_Compatibility_With_FooEvent {
 
@@ -43,15 +45,27 @@ class WFACP_Compatibility_With_FooEvent {
 			return;
 		}
 
-        add_action('wp_enqueue_scripts',function(){
-	        wp_enqueue_style( 'dashicons' );
-        },999);
+		add_action( 'wp_enqueue_scripts', function () {
+			wp_enqueue_style( 'dashicons' );
+		}, 999 );
 
 		add_action( 'wfacp_after_order_comments_field', [ $this, 'get_attendee_checkout' ] );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
-		add_filter( 'woocommerce_update_order_review_fragments', [ $this, 'register_fragment' ] );
+
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
+		add_action( 'woocommerce_update_order_review_fragments', [ $this, 'add_fragment' ], 100 );
+
+	}
+
+	public function add_fragment( $fragments ) {
+
+
+		ob_start();
+		$this->get_attendee_checkout();
+		$fragments['.foo_event_wrap'] = ob_get_clean();
+
+		return $fragments;
 	}
 
 	public function internal_css() {
@@ -92,21 +106,17 @@ class WFACP_Compatibility_With_FooEvent {
                 padding-right: <?php echo $px; ?>;
             }
 
-            body #wfacp-sec-wrapper .fooevents-copy-from-purchaser:before {
-                display: none;
-            }
 
             body #wfacp-sec-wrapper .fooevents-checkout-attendee-info + p {
                 width: auto;
                 padding-left: <?php echo $px; ?>;
                 padding-right: <?php echo $px; ?>;
             }
+
             body #wfacp-sec-wrapper .foo_event_wrap .dashicons, .dashicons-before:before {
                 font-family: dashicons !important;
             }
-   body #wfacp-sec-wrapper .fooevents-attendee a:empty {
-                display: none;
-            }
+
 
         </style>
         <script>
@@ -172,16 +182,6 @@ class WFACP_Compatibility_With_FooEvent {
 		return $args;
 	}
 
-	public function register_fragment( $fragments ) {
-
-		ob_start();
-		$this->get_attendee_checkout();
-		$attendee_html                = ob_get_clean();
-		$fragments['.foo_event_wrap'] = $attendee_html;
-
-		return $fragments;
-
-	}
 
 	public function get_attendee_checkout() {
 		echo '<div class=foo_event_wrap>';

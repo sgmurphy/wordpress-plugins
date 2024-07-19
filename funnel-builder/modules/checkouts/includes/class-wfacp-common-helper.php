@@ -2901,7 +2901,6 @@ abstract class WFACP_Common_Helper {
 	 * @return void
 	 */
 	public static function override_block_cart_checkout() {
-		$wc_cart_page     = get_post( wc_get_page_id( 'cart' ) );
 		$wc_checkout_page = get_post( wc_get_page_id( 'checkout' ) );
 
 		if ( has_block( 'woocommerce/checkout', $wc_checkout_page ) ) {
@@ -2911,11 +2910,6 @@ abstract class WFACP_Common_Helper {
 			) );
 		}
 
-		if ( has_block( 'woocommerce/cart', $wc_cart_page ) ) {
-			wp_update_post( array(
-				'ID'           => $wc_cart_page->ID,
-				'post_content' => '<!-- wp:woocommerce/classic-shortcode {"shortcode":"cart"} /-->',
-			) );
-		}
+
 	}
 }

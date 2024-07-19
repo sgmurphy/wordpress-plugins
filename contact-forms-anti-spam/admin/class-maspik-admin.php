@@ -138,7 +138,8 @@ function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manu
                 <input type='checkbox' id=". esc_attr($id) ." name='". esc_attr($name) . "' " . esc_attr($checked) . " class='". esc_attr($class) ."'> 
                 <span class='maspik-toggle-slider'></span>
                 </label>";
-
+    $apitext = __('Active from Dashboard', 'contact-forms-anti-spam');
+    $toggle .= maspik_is_contain_api($api_array) ? "<span class='limit-api-value'>$apitext</span>" : "";
     return $toggle;
 }
 

@@ -1,8 +1,8 @@
 === Gravity Forms Zero Spam ===
 Contributors: gravityview
-Tags: gravityforms, gravity forms, anti-spam, antispam, spam, spam-blocker, spambot, spammer, add-ons, honeypot
+Tags: gravity forms, gravityforms, spam, anti-spam, antispam
 Requires at least: 3.0.1
-Tested up to: 6.4.1
+Tested up to: 6.6
 Stable tag: trunk
 Requires PHP: 5.2.6
 License: GPLv2 or later
@@ -13,7 +13,7 @@ Enhance your Gravity Forms to include anti-spam measures originally based on the
 
 == Description ==
 
-This Gravity Forms add-on blocks spam using a non-obtrusive anti-spam measure and can email a spam report summary.
+This Gravity Forms add-on blocks spam using a non-obtrusive anti-spam measure and can email a **spam report summary**.
 
 
 ## Spam blocking
@@ -22,7 +22,7 @@ To get started, all you need to do is activate the plugin!
 
 ### Is the Gravity Forms honeypot field not working for you? 🍯 🐝
 
-Zero Spam is better than the Gravity Forms anti-spam honeypot field. If you're getting spammed, try this plugin.
+Gravity Forms Zero Spam is better than the Gravity Forms anti-spam honeypot field. If you're getting spammed, try this plugin.
 
 ### Use instead of reCaptcha
 
@@ -32,7 +32,7 @@ Zero Spam is better than the Gravity Forms anti-spam honeypot field. If you're g
 
 If you only want the plugin for specific forms, that's possible! The plugin adds a simple "Prevent spam using Gravity Forms Zero Spam" setting to each form (requires Gravity Forms 2.5 or newer).
 
-## Spam report emails
+## Gravity Forms spam report emails
 
 Spam summary report emails are disabled by default. Once enabled, a spam summary that includes the number of entries per-form will be sent via email.
 

@@ -122,22 +122,3 @@ add_action( 'wpforms_process_validate_textarea', function( $field_id, $field_sub
 
 //Disable because not stable yet 
 //add_action('wpforms_display_submit_before', 'maspik_add_field_wpforms');
-function maspik_add_field_wpforms($form_data) {
-    if (!get_option('Maspik_human_verification')) {
-        return;
-    }
-    $ajax_url = admin_url('admin-ajax.php') . '?action=cfas_pixel_submit';
-    ?>
-    <div class="maspik-captcha"></div>
-    <style>
-        .maspik-captcha {
-            width: 1px;
-            height: 1px;
-        }
-        form:focus-within .maspik-captcha {
-            background-image: url('<?php echo esc_url($ajax_url); ?>');
-            /* Add other background properties if necessary */
-        }
-    </style>
-    <?php
-}

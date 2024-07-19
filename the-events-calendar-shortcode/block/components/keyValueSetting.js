@@ -59,7 +59,7 @@ class KeyValueSetting extends Component {
 				</div>
                 <div className={ 'ecs-setting-help' }>
                     <a
-                        href={ 'https://eventcalendarnewsletter.com/events-calendar-shortcode-pro-options/?utm_source=plugin&utm_medium=link&utm_campaign=block-advanced-help&utm_content=description' }
+                        href={ 'https://eventcalendarnewsletter.com/events-calendar-shortcode-pro-options/?utm_source=plugin&utm_medium=link&utm_campaign=block-advanced-help&utm_content=description&free=1' }
                         target={ '_blank' }
                     >{ __( 'View documentation on available options', 'the-events-calendar-shortcode' ) }</a>
                     { __( ' where key="value" in the shortcode can be entered in the boxes above', 'the-events-calendar-shortcode' ) }

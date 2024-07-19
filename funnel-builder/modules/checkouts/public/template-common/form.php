@@ -280,23 +280,22 @@ $is_theme_builder = WFACP_Common::is_theme_builder();
 				do_action( 'wfacp_after_checkout_form_fields', $checkout );
 				if ( function_exists( 'wc_get_container' ) && class_exists( '\Automattic\WooCommerce\Internal\Orders\OrderAttributionController' ) && class_exists( 'Automattic\WooCommerce\Internal\Features\FeaturesController' ) && $container = wc_get_container() ) {
 					$order_attribute_instance = $container->get( \Automattic\WooCommerce\Internal\Orders\OrderAttributionController::class );
-
 					if ( $order_attribute_instance instanceof \Automattic\WooCommerce\Internal\Orders\OrderAttributionController ) {
-
 						$feature_enabled = $container->get( Automattic\WooCommerce\Internal\Features\FeaturesController::class );
-
 						if ( $feature_enabled->feature_is_enabled( 'order_attribution' ) ) {
-
-							if ( method_exists( $order_attribute_instance, 'get_fields' ) ) {
-								foreach ( $order_attribute_instance->get_fields() as $field ) {
-									printf( '<input type="hidden" name="%s" form="wfacp_checkout_form" value="" />', esc_attr( $order_attribute_instance->get_prefixed_field( $field ) ) );
-								}
-							} elseif ( method_exists( $order_attribute_instance, 'get_field_names' ) ) {
-								foreach ( $order_attribute_instance->get_field_names() as $field ) {
-									printf( '<input type="hidden" name="%s" form="wfacp_checkout_form" value="" />', esc_attr( $order_attribute_instance->get_prefixed_field_name( $field ) ) );
+							if ( method_exists( $order_attribute_instance, 'stamp_html_element' ) ) {
+								$order_attribute_instance->stamp_html_element();
+							} else {
+								if ( method_exists( $order_attribute_instance, 'get_fields' ) ) {
+									foreach ( $order_attribute_instance->get_fields() as $field ) {
+										printf( '<input type="hidden" name="%s" form="wfacp_checkout_form" value="" />', esc_attr( $order_attribute_instance->get_prefixed_field( $field ) ) );
+									}
+								} elseif ( method_exists( $order_attribute_instance, 'get_field_names' ) ) {
+									foreach ( $order_attribute_instance->get_field_names() as $field ) {
+										printf( '<input type="hidden" name="%s" form="wfacp_checkout_form" value="" />', esc_attr( $order_attribute_instance->get_prefixed_field_name( $field ) ) );
+									}
 								}
 							}
-
 						}
 					}
 				}

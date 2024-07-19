@@ -7,10 +7,10 @@ Donate link: https://gotmls.net/donate/
 Tags: anti-malware, security, scanner, brute-force, firewall
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html#license-text
-Version: 4.23.68
-Stable tag: 4.23.68
+Version: 4.23.69
+Stable tag: 4.23.69
 Requires at least: 3.3
-Tested up to: 6.5.5
+Tested up to: 6.6
 
 This Anti-Malware scanner searches for Malware, Viruses, and other security threats and vulnerabilities on your server and it helps you fix them.
 
@@ -99,6 +99,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 5. The Quarantine showing threats that have been fix already.
 
 == Changelog ==
+
+= 4.23.69 =
+* Updated Brute-Force Login Protection to integrate better with login forms from other plugins like WP User Manager and StranoWeb Ajax Login.
+* Added option to hide the Brute-Force Login Protection logo on the login page.
+* Checked code for compatibility with WordPress 6.6.
 
 = 4.23.68 =
 * Updated Brute-Force Login Protection to integrate better with login forms from other plugins like WooCommerce and Ultimate Membership.
@@ -480,6 +485,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * First versions available for WordPress (code removed, no longer compatible).
 
 == Upgrade Notice ==
+
+= 4.23.69 =
+Updated Brute-Force Login Protection to integrate better with login forms from other plugins, added option to hide the Brute-Force Login Protection logo on the login page, and checked code for compatibility with WordPress 6.6.
 
 = 4.23.68 =
 Updated Brute-Force Login Protection to integrate better with login forms from other plugins, fixed static wp_posts table name in whitelist query, and checked code for compatibility with WordPress 6.5.5 and ClassicPress 2.1.1.

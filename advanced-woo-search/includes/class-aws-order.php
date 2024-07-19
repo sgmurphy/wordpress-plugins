@@ -122,6 +122,10 @@ if ( ! class_exists( 'AWS_Order' ) ) :
                             continue;
                         }
 
+                        if ( isset( $taxonomy_query['operator'] ) && $taxonomy_query['operator'] !== 'IN' && $taxonomy_query['operator'] !== 'AND' ) {
+                            continue;
+                        }
+
                         if ( strpos( $taxonomy, 'pa_' ) === 0 ) {
 
                             $attr_filter[$taxonomy] = $taxonomy_query;

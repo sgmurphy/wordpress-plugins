@@ -5,17 +5,17 @@ Tags: shortcode, event, the events calendar, events, calendar
 Requires at least: 6.3
 Requires PHP: 7.4
 Tested up to: 6.6
-Stable tag: 2.8.5
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Add shortcode and block functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
+Add shortcode, block and Elementor widget functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
 
 == Description ==
 
-**Get your events displayed in a customizable list wherever you need them, with The Events Calendar Shortcode and Block!** This plugin fully integrates with The Events Calendar Plugin (free version) by Modern Tribe.
+**Get your events displayed in a customizable list wherever you need them, with The Events Calendar Shortcode & Block!** This plugin fully integrates with The Events Calendar Plugin (free version) by StellarWP, formerly Modern Tribe.
 
-This plugin adds a shortcode, a WordPress block, and an Elementor block for use with The Events Calendar WordPress Plugin (by StellarWP, formerly Modern Tribe).
+This plugin adds a shortcode, a WordPress block (Gutenberg editor), and now an **Elementor** widget for use with The Events Calendar WordPress Plugin.
 
 Display a list of your events by either adding a block in the new editor, or adding a shortcode to any post, page, or widget.
 
@@ -31,7 +31,7 @@ You get the same full integration with The Events Calendar, plus premium support
 <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Check out the Pro version today</a>
 </blockquote>
 
-Trusted by 20,000+ WordPress sites and a 4.5 star rating on WordPress.org, The Events Calendar Shortcode and Block is the solution you’ve been after :)
+Trusted by 20,000+ WordPress sites and a 4.5 star rating on WordPress.org, The Events Calendar Shortcode & Block is the solution you’ve been after :)
 
 == How to use The Events Calendar Shortcode ==
 
@@ -174,7 +174,7 @@ You can put the shortcode in a text widget.
 
 = Can I use this plugin to list my events using Elementor? =
 
-Yes! Just place the shortcode inside an Elementor HTML widget. While the Elementor Shortcode widget may work, <a href="https://eventcalendarnewsletter.com/how-to-fix-the-events-calendar-shortcode-not-working/#elementor">the HTML widget is recommended</a>.
+Yes! This plugin <a href="https://eventcalendarnewsletter.com/how-to-use-the-events-calendar-shortcode-with-elementor/?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme-faq-options-bottom&utm_content=description">includes an Elementor Widget</a>.
 
 = What are the classes for styling the list of events? =
 

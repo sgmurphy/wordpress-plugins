@@ -1326,11 +1326,14 @@ class WFACP_Divi_Form extends WFACP_Divi_HTML_BLOCK {
 			'%%order_class%% #wfacp-e-form #payment  .woocommerce-terms-and-conditions-wrapper .form-row label',
 			'%%order_class%% #wfacp-e-form #payment .woocommerce-terms-and-conditions-wrapper .form-row label span',
 			'%%order_class%% #wfacp-e-form #payment .woocommerce-terms-and-conditions-wrapper .form-row label a',
+			'%%order_class%% #wfacp-e-form .wc-gzd-checkbox-placeholder *:not(a)',
 		];
 
 		$color = [
 			'%%order_class%% #wfacp-e-form .wfacp_main_form.woocommerce  #payment .woocommerce-terms-and-conditions-wrapper .form-row',
 			'%%order_class%% #wfacp-e-form .wfacp_main_form.woocommerce #payment .woocommerce-terms-and-conditions-wrapper .woocommerce-terms-and-conditions-checkbox-text',
+			'%%order_class%% #wfacp-e-form .wc-gzd-checkbox-placeholder .woocommerce-gzd-legal-checkbox-text',
+			'%%order_class%% #wfacp-e-form .wfacp_main_form  #wfacp_checkout_form .checkbox-legal label.woocommerce-form__label span.woocommerce-gzd-legal-checkbox-text',
 		];
 
 

@@ -288,7 +288,7 @@ if ( ! class_exists( 'WFFN_Admin' ) ) {
 
 
 				if ( WFFN_Core()->admin->is_wffn_flex_page() ) {
-					$this->load_react_app( 'main' );
+					$this->load_react_app( 'main-1721393666' ); //phpcs:ignore WordPressVIPMinimum.Security.Mustache.OutputNotation
 					if ( isset( $_GET['page'] ) && $_GET['page'] === 'bwf' && method_exists( 'BWF_Admin_General_Settings', 'get_localized_bwf_data' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						wp_localize_script( 'wffn-contact-admin', 'bwfAdminGen', BWF_Admin_General_Settings::get_instance()->get_localized_bwf_data() );
 
@@ -312,6 +312,7 @@ if ( ! class_exists( 'WFFN_Admin' ) ) {
 		}
 
 		public function load_react_app( $app_name = 'main' ) {
+			$app_name = str_replace('-{{{APP_VERSION}}}', '', $app_name); //phpcs:ignore WordPressVIPMinimum.Security.Mustache.OutputNotation
 			$min    = 60 * get_option( 'gmt_offset' );
 			$sign   = $min < 0 ? "-" : "+";
 			$absmin = abs( $min );

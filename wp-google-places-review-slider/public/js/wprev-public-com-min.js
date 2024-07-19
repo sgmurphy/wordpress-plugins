@@ -10,6 +10,54 @@ void 0!==jQuery.event.swipe||function(e){"function"==typeof define&&define.amd?d
 
 	//document ready
 	$(function(){
+		
+		//only show one review per a slide on mobile
+		//get the attribute if it is set and this is in fact a slider
+		$(".wprev-slider").each(function(){
+			var oneonmobile = $(this).attr( "data-onemobil" );
+			if(oneonmobile=='yes'){
+				if (/Mobi|Android/i.test(navigator.userAgent) || $(window).width()<600) {
+					/* this is a mobile device, continue */
+					//get all the slider li elements, each li is a slide
+					var li_elements_old = $(this).children('ul');
+					console.log(li_elements_old);
+					if(li_elements_old.length>0){
+						//get array of all the divs containing the individual slide
+						var divrevs = li_elements_old.find('.w3_wprs-col');
+						var divrevarray = divrevs.get();
+						//get the classes of the 2 divs under the li
+						var div1class = divrevs.parent().attr('class');
+						var div2class = divrevs.attr('class');
+						console.log("div2class: "+div2class);
+						//only continue if finding the divs
+						if(typeof div2class !== "undefined"){
+							//remove the l2, l3, l4, l5 , l6
+							div2class = div2class.replace(/[a-z]\d\b/g, 'l12');
+							//use the divrevarray to make new li elements with one review in each
+							var newulhtml = '';
+							var i;
+							for (i = 0; i < divrevarray.length; i++) { 
+								if(i==0){
+									newulhtml += '<li class="wprs_unslider-active"><div class="'+div1class+'"><div class="'+div2class+'">'+divrevarray[i].innerHTML + '</div></div></li>';
+								} else {
+									newulhtml += '<li><div class="'+div1class+'"><div class="'+div2class+'">'+divrevarray[i].innerHTML + '</div></div></li>';
+								}
+							}
+							//add the load more button if found
+							if($(this).find('.wprevpro_load_more_div')[0]!== undefined){
+								newulhtml += '<li>'+$(this).find('.wprevpro_load_more_div')[0].outerHTML+'</li>';
+							}
+							newulhtml +='';
+							//replace the old li with the new
+							li_elements_old.html(newulhtml);
+							//re-initialize the slider if we need to
+						}
+					}
+				}
+			}
+		});
+		//}
+		//----------------------
 	 
 			
 			$( ".wprs_rd_more" ).click(function() {
@@ -98,6 +146,8 @@ void 0!==jQuery.event.swipe||function(e){"function"==typeof define&&define.amd?d
 				});
 			}
 		}
+
+		
 			
 
 

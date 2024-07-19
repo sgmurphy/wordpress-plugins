@@ -1,19 +1,19 @@
-=== AIO Login — WordPress Login Security Plugin to Protect and Customize WP Admin ===
+=== All In One Login — WordPress Login Security Plugin to Protect and Customize WP Admin ===
 Contributors: wpexpertsio
 Tags: login url, login, wp admin, wp login, custom login
 Requires at least: 4.6
-Tested up to: 6.5.5
+Tested up to: 6.5
 Requires PHP: 7.4
 Stable tag: 2.0.0
 License: GPLv2 or later
 
-Do you want to secure and customize WordPress login page (wp-admin)❓ Download AIO Login plugin for ultimate WordPress login security and customization.
+Do you want to secure and customize WordPress login page (wp-admin)❓ Download All in One Login plugin for ultimate WordPress login security and customization.
 
 == Description ==
 
-Looking for a one-stop solution to protect and customize your WordPress login page (wp-admin)? If that's what you need, then✨**Download AIO Login Plugin NOW**✨
+Looking for a one-stop solution to protect and customize your WordPress login page (wp-admin)? If that's what you need, then✨**Download All in One Login Plugin NOW**✨
 
-Over **90,000 website owners** already use AIO Login for their WordPress login security and customization. 🎉
+Over **90,000 website owners** already use All in One Login for their WordPress login security and customization. 🎉
 
 And the reason for that is obvious! 👇
 
@@ -27,9 +27,9 @@ Isn’t that amazing? Wait until you see its features❕ 😃 🚀
 
 
 
-== Key Features Our Users 🤍 About AIO Login ==
+== Key Features Our Users 🤍 About All In One Login ==
 
-The AIO Login plugin includes all the essential features that ensure the best WordPress Login Security and customization.
+The All in One Login plugin includes all the essential features that ensure the best WordPress Login Security and customization.
 
 Let's explore some of its key features: 👇
 
@@ -39,7 +39,7 @@ The default WP-Admin URL is an easy target for hackers, which means your WordPre
 
 But don't worry❗ 
 
-AIO Login lets you change the WP-Admin URL, making it difficult for attackers to locate your login page. This simple change significantly improves your WordPress Admin Login Security and protects your site from unauthorized access attempts.
+All in One Login lets you change the WP-Admin URL, making it difficult for attackers to locate your login page. This simple change significantly improves your WordPress Admin Login Security and protects your site from unauthorized access attempts.
 
 **✔️ WordPress Login Customization [Free + Pro]**
 
@@ -47,11 +47,11 @@ Personalize your WordPress login page with extensive customization options. Use 
 
 A customized login page not only enhances your brand but also provides a unique and engaging user experience.
 
-**✔️ Ban User/IP Address [Pro]**
+**✔️ Ban User/IP Address [Pro]L**
 
 Want to prevent certain users from accessing your WordPress login page❓
 
-Using AIO Login, you can instantly block specific users or IP addresses with just a few clicks. This way, you can prevent unauthorized access and keep your WordPress login page safe from hackers.
+Using All in One Login, you can instantly block specific users or IP addresses with just a few clicks. This way, you can prevent unauthorized access and keep your WordPress login page safe from hackers.
 
 **✔️ Google reCAPTCHA**
 
@@ -65,7 +65,7 @@ Google reCAPTCHA helps distinguish between human users and bots, effectively red
 
 Step up your WordPress login security with App-Based 2FA.
 
-Two-factor authentication (2FA) adds an extra layer of security. AIO Login supports app-based 2FA using Google Authenticator, FreeOTP, or Authy. By requiring a time-based one-time password (TOTP) alongside the usual login credentials, you make sure only authorized users can access your WP Admin.
+Two-factor authentication (2FA) adds an extra layer of security. All in One Login supports app-based 2FA using Google Authenticator, FreeOTP, or Authy. By requiring a time-based one-time password (TOTP) alongside the usual login credentials, you make sure only authorized users can access your WP Admin.
 
 Therefore, this feature greatly improves your WordPress Login Security, making it extremely difficult for unauthorized users to break in.
 
@@ -73,7 +73,7 @@ Therefore, this feature greatly improves your WordPress Login Security, making i
 
 Need to provide temporary access to specific users❔
 
-AIO Login allows you to generate a Temp Access URL for designated users. This feature is perfect for granting short-term access without compromising security. You can set the maximum number of visits and toggle 2FA for each temporary URL.
+All in One Login allows you to generate a Temp Access URL for designated users. This feature is perfect for granting short-term access without compromising security. You can set the maximum number of visits and toggle 2FA for each temporary URL.
 
 With Temp Access URLs, you maintain control over temporary user access, which ensures that they can no longer log in once their access period expires.
 
@@ -91,7 +91,7 @@ If you only want to allow login access to trusted IPs, then AIO Login Pro is for
 By allowing only trusted IP addresses to access your login page, you can prevent unauthorized users from even attempting to log in. This adds an additional layer of security to your WordPress Admin Login, making sure that only users from approved IP addresses can gain entry.
 
 
-### 7 Key Reasons to Choose AIO Login for Better WP-Admin Protection😎
+### 7 Key Reasons to Choose All In One Login for Better WP-Admin Protection😎
 
 ⚡ **Reason #1: Greater Security for Your WP-Admin**
 
@@ -222,7 +222,7 @@ To install and activate this plugin...
 
 == Frequently Asked Questions ==
 
-= Can I use the AIO Login plugin for free? =
+= Can I use the All in One Login plugin for free? =
 Yes, you can install the free version of AIO Login, which offers unique features such as the change of the WP-Admin URL, block login attempts, Google reCAPTCHA, detailed activity logs, and even custom login design for customizing and securing your WordPress login page.
 
 = Is AIO Login compatible with all WordPress themes? =

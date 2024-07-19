@@ -70,7 +70,7 @@ class WP_Google_Reviews {
 	public function __construct() {
 
 		$this->_token = 'wp-google-reviews';
-		$this->version = '14.1';
+		$this->version = '14.4';
 		//using this for development
 		//$this->version = time();
 
@@ -213,6 +213,7 @@ class WP_Google_Reviews {
 				string_text varchar(300) DEFAULT '' NOT NULL,
 				string_textnot varchar(300) DEFAULT '' NOT NULL,
 				showreviewsbyid_sel varchar(9) DEFAULT '' NOT NULL,
+				slidermobileview varchar(5) DEFAULT '' NOT NULL,
 				UNIQUE KEY id (id),
 				PRIMARY KEY (id)
 			) $charset_collate;";

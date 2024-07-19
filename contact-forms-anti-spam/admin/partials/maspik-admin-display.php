@@ -265,7 +265,7 @@ $spamcounter = maspik_spam_count();
                 } //main list
                 
 
-                if( maspik_save_settings( 'AllowedOrBlockCountries' , sanitize_text_field( $_POST['AllowedOrBlockCountries'] )) != "success" ){ 
+                if( maspik_save_settings( 'AllowedOrBlockCountries' , sanitize_text_field( isset( $_POST['AllowedOrBlockCountries'] ) ?  $_POST['AllowedOrBlockCountries'] : "block") ) != "success" ){ 
                     $error_message .= $result_check . " ";
                 } //Allow or block dropdown
 
@@ -659,7 +659,7 @@ $spamcounter = maspik_spam_count();
                             <?php 
                             maspik_tooltip("If the text value is EQUAL to one of the values above, MASPIK will tag it as spam and it will be blocked.");
                                 
-                            maspik_popup("georginahaynes620@gmail.com|ericjonesonline@outlook.com|*.ru|/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.ru\b/|eric*@*.com|xrumer888@outlook.com", "Email field", "See examples" ,"visibility");
+                            maspik_popup("georginahaynes620@gmail.com|ericjonesonline@outlook.com|*.ru|*+*@*.*|/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.ru\b/|eric*@*.com|xrumer888@outlook.com", "Email field", "See examples" ,"visibility");
                                 ?>
                         </div> <!--end of maspik-setting-info-->
                             
@@ -672,10 +672,8 @@ $spamcounter = maspik_spam_count();
                             ?>      
 
                         </div> <!-- end of maspik-main-list-wrap -->
-                        <span class="maspik-subtext"><?php _e('
-                            Email Domains are accepted. Ex: <em>@gmail.com will block all the email coming from @gmail.com (xyz@gmail.com)</em>
-                            <br>Wildcard patterns are accepted. asterisk * symbol is necessary for the recognition of the wildcard.
-                            <br>Regex must start and end with a slash /', 'contact-forms-anti-spam'); ?>
+                        <span class="maspik-subtext"><?php _e('Wildcard patterns are accepted. asterisk * Or question mark ? symbol are necessary for the recognition of the wildcard.', 'contact-forms-anti-spam'); ?><br>
+                        <?php _e('Regex must start and end with a slash /', 'contact-forms-anti-spam'); ?>
 
                         </span>
                                 

@@ -21,7 +21,7 @@ DearFlip is a stunning 3D flipbook alternative for your flat lifeless PDF viewer
 
 >Important Notice: DearFlip (also known as dFlip) is now sold on [dearflip.com](https://dearflip.com/go/wp-lite-full-version) instead of CodeCanyon.net
 
-[youtube https://youtu.be/vPXKZpQb5n0?t=11s]
+[youtube https://youtu.be/-yuABFt_-0I?si=H9wLA1vJ3j9GMvEx]
 
 [WordPress Flipbook Live Demo](https://dearflip.com/go/wp-lite-demo)
 [Online Documentation](https://dearflip.com/go/wp-lite-docs)

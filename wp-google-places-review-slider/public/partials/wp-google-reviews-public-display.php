@@ -106,7 +106,11 @@
 			//make sure we have enough to create a show here
 			if($totalreviews>$reviewsperpage){
 				$makingslideshow = true;
-				echo '<div class="wprev-slider" id="wprev-slider-'.$currentform[0]->id.'"><ul>';
+				$oneonmobile = "";
+				if($currentform[0]->slidermobileview == "one"){
+					$oneonmobile = "yes";
+				}
+				echo '<div class="wprev-slider" id="wprev-slider-'.$currentform[0]->id.'" data-onemobil="'.$oneonmobile.'" ><ul>';
 			}
 		} else {
 			echo '<div class="wprev-no-slider" id="wprev-slider-'.$currentform[0]->id.'">';

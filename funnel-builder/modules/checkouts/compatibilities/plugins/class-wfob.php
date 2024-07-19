@@ -19,6 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					unset( $positions['wfacp_below_mini_cart_items'] );
 				}
 			}
+
+			if ( $detect->istablet() ) {
+				if ( isset( $positions['wfacp_below_mini_cart_items'] ) ) {
+					unset( $positions['wfacp_below_mini_cart_items'] );
+				}
+			}
 		}
 
 		return $positions;

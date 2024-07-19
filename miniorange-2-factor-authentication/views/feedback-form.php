@@ -61,7 +61,7 @@ array_push( $deactivate_reasons, 'Other Reasons:' );
 			<form class="p-mo-6 flex flex-col gap-mo-6" name="f" method="post" action="" id="mo_wpns_feedback">
 				<input type="hidden" id="mo_wpns_feedback_nonce" name="mo_wpns_feedback_nonce" value="<?php echo esc_attr( wp_create_nonce( 'mo-wpns-feedback-nonce' ) ); ?>"/>
 				<input type="hidden" name="option" value="mo_wpns_feedback" />
-				<div class="deactivation_message"><?php echo esc_attr( $message ); ?></div>
+				<div class="mo2f_deactivation_message"><?php echo esc_attr( $message ); ?></div>
 
 				<div class="mo_feedback_text">
 					<span id="mo2f_link_id"></span>

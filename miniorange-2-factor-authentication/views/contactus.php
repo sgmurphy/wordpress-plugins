@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $image_path;
 echo '
-<div class="w-[296px] contact-us-container" style="transition-duration: 300ms;"> 
+<div class="w-[296px] mo2f-contact-us-container" style="transition-duration: 300ms;"> 
     <div id="mo_contact_us" class="flex relative justify-end" style="gap: 1rem;">
         <input id="contact-us-toggle" type="checkbox" class="peer sr-only" style="display:none;" />
 

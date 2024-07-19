@@ -1,20 +1,18 @@
 <?php
-/***
- Plugin Name: The Events Calendar Shortcode & Block
- Plugin URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
- Description: An addon to add shortcode and new editor block functionality for The Events Calendar Plugin by StellarWP (formerly Modern Tribe)
- Version: 2.8.5
- Author: Event Calendar Newsletter
- Author URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
- Contributors: brianhogg
- License: GPL2 or later
- License URI: http://www.gnu.org/licenses/gpl-2.0.html
- Text Domain: the-events-calendar-shortcode
- Requires at least: 6.2
- Requires PHP: 7.4
+/**
+ * Plugin Name: The Events Calendar Shortcode & Block
+ * Plugin URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
+ * Description: An addon to add shortcode and new editor block functionality for The Events Calendar Plugin by StellarWP (formerly Modern Tribe)
+ * Version: 3.0.0
+ * Author: Event Calendar Newsletter
+ * Author URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
+ * Contributors: brianhogg
+ * License: GPL2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: the-events-calendar-shortcode
+ * Requires at least: 6.2
+ * Requires PHP: 7.4
  */
-
-// Avoid direct calls to this file
 if ( !defined( 'ABSPATH' ) ) {
     header( 'Status: 403 Forbidden' );
     header( 'HTTP/1.1 403 Forbidden' );
@@ -30,6 +28,26 @@ include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/block/init.php';
 include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/ajax-endpoints.php';
 include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/notices/rating.php';
 include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/admin/class-getting-started.php';
+
+if ( ! function_exists( 'ecs_load_core_elementor_is_active' ) ) {
+    function ecs_load_core_elementor_is_active() {
+        include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/elementor/elementor-widget.php';
+        \Elementor\Plugin::instance()->widgets_manager->register( new TECS_Elementor_Widget() );
+    }
+    add_action( 'elementor/widgets/widgets_registered', 'ecs_load_core_elementor_is_active' );
+}
+
+if ( ! function_exists( 'ecs_elementor_add_icon' ) ) {
+    function ecs_elementor_add_icon() {
+        wp_enqueue_style(
+            'ecs-custom-elementor-admin-css',
+            plugins_url( 'includes/elementor/static/admin.css', TECS_CORE_PLUGIN_FILE ),
+            [],
+            Events_Calendar_Shortcode::VERSION
+        );
+    }
+    add_action( 'elementor/editor/before_enqueue_scripts', 'ecs_elementor_add_icon' );
+}
 
 if ( ! function_exists( 'tecs_get_capability' ) ) {
     function tecs_get_capability() {
@@ -47,12 +65,7 @@ if ( ! function_exists( 'tecs_get_capability' ) ) {
 if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
     class Events_Calendar_Shortcode {
 
-        /**
-                 * Current version of the plugin.
-                 *
-                 * @since 1.0.0
-                 */
-        const VERSION = '2.8.5';
+        const VERSION = '3.0.0';
 
         private $admin_page = null;
 
@@ -334,7 +347,7 @@ if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
                 'meta_key' => ( ( trim( $atts['orderby'] ) and 'title' != $atts['orderby'] ) ? $atts['orderby'] : $atts['key'] ),
                 'orderby' => ( $atts['orderby'] == 'title' ? 'title' : 'event_date' ),
                 'author' => $atts['author'],
-                'order' => $atts['order'],
+                'order' => 'DESC' === strtoupper( $atts['order'] ) ? 'DESC' : 'ASC',
                 'meta_query' => apply_filters( 'ecs_get_meta_query', [ $atts['meta_date'] ], $atts, $meta_date_date, $meta_date_compare ),
             ], $atts, $meta_date_date, $meta_date_compare );
 

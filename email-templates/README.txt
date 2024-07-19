@@ -2,13 +2,15 @@
 Contributors: wpexpertsio
 Tags: Email templates, email designer, email customizer, email, woocommerce email
 Requires at least: 7.4
-Tested up to: 6.3.2
-Stable tag: 1.4.3
+Tested up to: 6.5
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Design and send custom emails with Email Templates plugin for WordPress and WooCommerce
 == Description ==
+
+[Download Beta v1.5](https://downloads.wordpress.org/plugin/email-templates.1.5-beta.1.zip)
 
 Email Templates is a WordPress plugin that allows you to customize your WooCommerce and WordPress website’s default transactional email designs and templates. 
 
@@ -79,6 +81,24 @@ Send your translations to [Transifex](https://www.transifex.com/projects/p/wp-em
 
 = Collaborate in Github = - [https://github.com/wpexpertsio/wordpress-email-templates](https://github.com/wpexpertsio/wordpress-email-templates)
 
+== 🚀 Email Template Beta v1.5 is available ==
+
+We are delighted to announce the release of the beta version of our plugin that has new exciting features that could be utilized to enhance your email customization experience. Newly launched Beta has loads of new features including but not limited to:
+
+**Customizable WooCommerce Email Template:**
+
+Users can now completely customize their WooCommerce email templates to better suit the brand and enhance customer engagement.
+
+**Advanced Personalization options:**
+
+Users can now personalize the header of their WP and WooCommerce generated emails, by adding custom text & images and making them more visually appealing for customers.
+
+**Tailored Fonts attributes:**
+
+Users can now alter the font styles, size and weight to make the mails more interactive and easy to wade through the emails.
+
+*Note: Your kind feedback is invaluable in shaping our products to make them more user friendly and improve user experience. [Click here](https://wordpress.org/support/plugin/email-templates/) to share your suggestions for the beta version and use “BETA” in the topic title to clarify it.*
+
 == Installation ==
 
 1. Upload the plugin in /wp-admin/plugin-install.php
@@ -107,6 +127,9 @@ Copy the templates folder into your theme, then in functions.php add the followi
 7. Font Family
 
 == Changelog ==
+
+= 1.4.4 =
+* Compatible with WordPress v6.5
 
 = 1.4.3 =
 * Improvement - Code Optimization.

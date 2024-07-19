@@ -662,9 +662,8 @@ if ( ! class_exists( 'WFFN_Funnel' ) ) {
 
 		public function get_status() {
 			$funnel_status = WFFN_Core()->get_dB()->get_meta( $this->id, 'status' );
-			$status        = ! empty( $funnel_status ) && true === wffn_string_to_bool( $funnel_status ) ? __( 'Published', 'funnel-builder' ) : __( 'Draft', 'funnel-builder' );
 
-			return $status;
+			return wffn_string_to_bool( $funnel_status );
 		}
 
 		/**

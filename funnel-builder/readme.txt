@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.4.5
+Stable tag: 3.4.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,12 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.4.6 (Jul 19, 2024) =
+* Improved: Checkout: Compatibility with FooEvents for WooCommerce for FooEvents updated. (#6448)
+* Improved: Checkout: Compatibility with MercadoPago gateway updated. (#5498)
+* Fixed: Checkout: WooCommerce Order attribution was not working for a few cases after WooCommerce v9.1 (#6467)
+* Fixed: Checkout: The corner radius for the place order button was not working with Oxygen Builder. (#6419)
 
 = 3.4.5 (Jul 15, 2024) =
 * Added: Compatibility with WordPress version 6.6.(#6422)

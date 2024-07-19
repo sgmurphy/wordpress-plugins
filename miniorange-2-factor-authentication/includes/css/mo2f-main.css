@@ -862,11 +862,11 @@ input[type="number"] {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
-.toggle-btn {
+.mo2f-toggle-btn {
   transition: all 0.3s ease-in-out;
 }
 
-.active {
+.mo2f-active {
   background-color: white !important;
 }
 
@@ -963,7 +963,7 @@ input[type="number"] {
   padding: 1.5rem;
 }
 
-.contact-us-container {
+.mo2f-contact-us-container {
   position: fixed;
   right: 2rem;
   bottom: 2.5rem;
@@ -1232,7 +1232,7 @@ input[type="number"] {
   padding: 0;
 }
 
-.deactivation_message {
+.mo2f_deactivation_message {
   border: 1px solid;
   border-radius: 4px;
   --tw-border-opacity: 1;
@@ -1272,12 +1272,6 @@ input[type="number"] {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 500;
-}
-
-hr {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-bottom: 1rem;
 }
 
 .mo2f-tw-top-content {

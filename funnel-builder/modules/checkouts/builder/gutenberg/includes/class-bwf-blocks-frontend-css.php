@@ -1274,7 +1274,7 @@ class WFACP_Blocks_Frontend_CSS {
 
 
 			/** Terms & Condition Styling */
-			$css->set_selector( $this->add_wrapper( '{{WRAPPER}} #wfacp-e-form #payment .woocommerce-terms-and-conditions-wrapper .form-row label, {{WRAPPER}} #wfacp-e-form #payment .woocommerce-terms-and-conditions-wrapper .form-row label span, {{WRAPPER}} #wfacp-e-form #payment .woocommerce-terms-and-conditions-wrapper .form-row label a', $unique_class ) );
+			$css->set_selector( $this->add_wrapper( '{{WRAPPER}} #wfacp-e-form #payment .woocommerce-terms-and-conditions-wrapper .form-row label, {{WRAPPER}} #wfacp-e-form #payment .woocommerce-terms-and-conditions-wrapper .form-row label span, {{WRAPPER}} #wfacp-e-form #payment .woocommerce-terms-and-conditions-wrapper .form-row label a, {{WRAPPER}} #wfacp-e-form .wc-gzd-checkbox-placeholder *:not(a)', $unique_class ) );
 			$css->add_property( 'font', $this->has_attr( $attr, 'wfacpTermsFont', $screen ) );
 
 			$css->set_selector( $this->add_wrapper( '{{WRAPPER}} #wfacp-e-form #payment .woocommerce-terms-and-conditions-wrapper .form-row, {{WRAPPER}} #wfacp-e-form #payment .woocommerce-terms-and-conditions-checkbox-text', $unique_class ) );
