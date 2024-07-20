@@ -6,91 +6,86 @@ use PrestoPlayer\Attachment;
 use PrestoPlayer\Support\Block;
 use PrestoPlayer\Models\CurrentUser;
 
-class SelfHostedBlock extends Block
-{
-    /**
-     * Block name
-     *
-     * @var string
-     */
-    protected $name = 'self-hosted';
+class SelfHostedBlock extends Block {
 
-    /**
-     * Translated block title
-     */
-    protected $title;
+	/**
+	 * Block name
+	 *
+	 * @var string
+	 */
+	protected $name = 'self-hosted';
 
-    public function __construct(bool $isPremium = false, $version = 1)
-    {
-        parent::__construct($isPremium, $version);
-        $this->title = __('Self-hosted', 'presto-player');
-    }
+	/**
+	 * Translated block title
+	 */
+	protected $title;
 
-    /**
-     * Register the block type.
-     *
-     * @return void
-     */
-    public function registerBlockType()
-    {
-        register_block_type(
-            PRESTO_PLAYER_PLUGIN_DIR . 'src/admin/blocks/blocks/hosted',
-            array(
-                'render_callback' => [$this, 'html'],
-            )
-        );
-    }
+	public function __construct( bool $isPremium = false, $version = 1 ) {
+		parent::__construct( $isPremium, $version );
+		$this->title = __( 'Self-hosted', 'presto-player' );
+	}
 
-    /**
-     * Bail if user cannot access video
-     *
-     * @return void
-     */
-    public function middleware($attributes, $content)
-    {
-        // if private and user cannot access video, don't load
-        if (!empty($attributes['visibility']) && 'private' === $attributes['visibility']) {
-            if (!CurrentUser::canAccessVideo($attributes['id'])) {
-                return false;
-            }
-        }
+	/**
+	 * Register the block type.
+	 *
+	 * @return void
+	 */
+	public function registerBlockType() {
+		register_block_type(
+			PRESTO_PLAYER_PLUGIN_DIR . 'src/admin/blocks/blocks/hosted',
+			array(
+				'render_callback' => array( $this, 'html' ),
+			)
+		);
+	}
 
-        return parent::middleware($attributes, $content);
-    }
+	/**
+	 * Bail if user cannot access video
+	 *
+	 * @return void
+	 */
+	public function middleware( $attributes, $content ) {
+		// if private and user cannot access video, don't load
+		if ( ! empty( $attributes['visibility'] ) && 'private' === $attributes['visibility'] ) {
+			if ( ! CurrentUser::canAccessVideo( $attributes['id'] ) ) {
+				return false;
+			}
+		}
 
-    /**
-     * Add src to video
-     *
-     * @param array $attributes
-     * @return void
-     */
-    public function sanitizeAttributes($attributes, $default_config)
-    {
-        $src = !empty($attributes['src']) ? $attributes['src'] : '';
+		return parent::middleware( $attributes, $content );
+	}
 
-        if (!empty($this->isHls($src))) {
-            wp_enqueue_script('hls.js');
-        }
+	/**
+	 * Add src to video
+	 *
+	 * @param array $attributes
+	 * @return void
+	 */
+	public function sanitizeAttributes( $attributes, $default_config ) {
+		$src = ! empty( $attributes['src'] ) ? $attributes['src'] : '';
 
-        return [
-            'src'   => !empty($attributes['attachment_id']) ? Attachment::getSrc($attributes['attachment_id']) : $src,
-        ];
-    }
+		if ( ! empty( $this->isHls( $src ) ) ) {
+			wp_enqueue_script( 'hls.js' );
+		}
 
-    /**
-     * Override attributes
-     *
-     * @param array $attributes
-     * @return array
-     */
-    public function overrideAttributes($attributes)
-    {
-        $load = $this->middleware($attributes, '');
+		return array(
+			'src' => ! empty( $attributes['attachment_id'] ) ? Attachment::getSrc( $attributes['attachment_id'] ) : $src,
+		);
+	}
 
-        if (!$load) {
-            return array();
-        }
+	/**
+	 * Override attributes
+	 *
+	 * @param array $attributes
+	 * @return array
+	 */
+	public function overrideAttributes( $attributes ) {
+		$load = $this->middleware( $attributes, '' );
 
-        return $attributes;
-    }
+		if ( ! $load ) {
+			return array();
+		}
+
+		return $attributes;
+	}
 }

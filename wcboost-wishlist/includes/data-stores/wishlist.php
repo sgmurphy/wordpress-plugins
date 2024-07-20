@@ -10,13 +10,19 @@ defined( 'ABSPATH' ) || exit;
 class Wishlist {
 
 	/**
+	 * Is reading data from the database.
+	 *
+	 * @var bool
+	 */
+	private $is_reading = false;
+
+	/**
 	 * Method to create a new wishlist in the database
 	 *
 	 * @since 1.0.0
 	 *
 	 * @global wpdb $wpdb
 	 * @param \WCBoost\Wishlist\Wishlist $wishlist
-	 * @todo Generate slug, token
 	 */
 	public function create( &$wishlist ) {
 		global $wpdb;
@@ -204,6 +210,8 @@ class Wishlist {
 			$data = wp_cache_get( 'wcboost-wishlist-' . $token, 'wishlists' );
 		}
 
+		$this->set_is_reading( true );
+
 		if ( false === $data ) {
 			if ( $id ) {
 				$data = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wcboost_wishlists WHERE wishlist_id = %d LIMIT 1;", $id ) );
@@ -239,6 +247,7 @@ class Wishlist {
 
 		$wishlist->set_id( $data->wishlist_id );
 		$wishlist->set_object_read();
+		$this->set_is_reading( false );
 	}
 
 	/**
@@ -256,6 +265,8 @@ class Wishlist {
 			throw new \Exception( __( 'Invalid wishlist.', 'wcboost-wishlist' ) );
 		}
 
+		$this->set_is_reading( true );
+
 		$items = wp_cache_get( 'wcboost-wishlist-items-' . $wishlist_id, 'wishlists' );
 
 		if ( false === $items ) {
@@ -272,9 +283,11 @@ class Wishlist {
 			if ( $item->get_status() == 'trash' ) {
 				$wishlist->add_item_to_trash( $item );
 			} else {
-				$wishlist->add_item( $item );
+				$wishlist->add_item( $item, [ 'silence' => true ] );
 			}
 		}
+
+		$this->set_is_reading( false );
 	}
 
 	/**
@@ -403,5 +416,30 @@ class Wishlist {
 		} elseif ( $wishlist->get_wishlist_token() ) {
 			wp_cache_delete( 'wcboost-wishlist-' . $wishlist->get_wishlist_token(), 'wishlists' );
 		}
+	}
+
+	/**
+	 * Set the status to determine if is reading data.
+	 * This method is called when initialization is on running.
+	 *
+	 * @since 1.1.1
+	 *
+	 * @param  bool $reading
+	 *
+	 * @return void
+	 */
+	private function set_is_reading( $reading = false ) {
+		$this->is_reading = wc_string_to_bool( $reading );
+	}
+
+	/**
+	 * Get the reading_db status
+	 *
+	 * @since 1.1.1
+	 *
+	 * @return bool
+	 */
+	public function is_reading() {
+		return $this->is_reading;
 	}
 }

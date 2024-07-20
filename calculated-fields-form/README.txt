@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.21
+Stable tag: 5.2.22
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.22 =
+
+* Fixes an issue with the CSS Editor associated with the Customize Form Design attribute.
+
 = 5.2.21 =
 
 * Improve user experience with the forms builder by applying tooltips to the drag-and-drop handler and columns' icons.
@@ -487,9 +491,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Includes a close button in QRCode controls to close the scan dialog.
 * Escape style tags and attributes in form fields to prevent them from affecting the forms builder's functionality.
 * Enhances user experience by automatically scrolling the properties sidebar to the top when selecting a field for editing.
-
-= 5.2.16 =
-
-* Modifies the installation module to create a JSON backup file of the forms structures before updating the database.
-* Adds new form templates.
-* Modifies the CFF Elementor Block.

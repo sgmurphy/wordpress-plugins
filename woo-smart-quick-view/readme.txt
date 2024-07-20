@@ -3,9 +3,9 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, quickview, quick-view
 Requires at least: 4.0
-Tested up to: 6.5
-Version: 4.0.5
-Stable tag: 4.0.5
+Tested up to: 6.6
+Version: 4.0.6
+Stable tag: 4.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,10 @@ Example:
 });`
 
 == Changelog ==
+
+= 4.0.6 =
+* Fixed: Minor issues in backend
+* Updated: Compatible with WP 6.6 & Woo 9.1
 
 = 4.0.5 =
 * Fixed: Minor issues in backend

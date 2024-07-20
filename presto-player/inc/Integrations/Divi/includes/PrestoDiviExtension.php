@@ -1,7 +1,7 @@
 <?php
 
-class PrestoDiviExtension extends DiviExtension
-{
+class PrestoDiviExtension extends DiviExtension {
+
 
 	/**
 	 * The gettext domain for the extension's translations.
@@ -36,12 +36,11 @@ class PrestoDiviExtension extends DiviExtension
 	 * @param string $name
 	 * @param array  $args
 	 */
-	public function __construct($name = 'presto-player', $args = array())
-	{
-		$this->plugin_dir     = plugin_dir_path(__FILE__);
-		$this->plugin_dir_url = plugin_dir_url($this->plugin_dir);
+	public function __construct( $name = 'presto-player', $args = array() ) {
+		$this->plugin_dir     = plugin_dir_path( __FILE__ );
+		$this->plugin_dir_url = plugin_dir_url( $this->plugin_dir );
 
-		parent::__construct($name, $args);
+		parent::__construct( $name, $args );
 	}
 
 	/**
@@ -49,17 +48,14 @@ class PrestoDiviExtension extends DiviExtension
 	 *
 	 * @since 3.1
 	 */
-	protected function _enqueue_bundles()
-	{
+	protected function _enqueue_bundles() {
 	}
 
-	protected function _enqueue_backend_styles()
-	{
+	protected function _enqueue_backend_styles() {
 	}
 
-	public function wp_hook_enqueue_scripts()
-	{
+	public function wp_hook_enqueue_scripts() {
 	}
 }
 
-new PrestoDiviExtension;
+new PrestoDiviExtension();

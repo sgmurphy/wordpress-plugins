@@ -4,7 +4,7 @@ Donate link: https://wpplugin.org/donate/
 Tags: donation, donate, charity, paypal, ecommerce
 Author URI: https://wpplugin.org
 Requires at least: 3.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.4
 Stable tag: 1.4.2
 License: GPLv2 or later

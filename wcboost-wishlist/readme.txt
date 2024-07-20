@@ -2,11 +2,11 @@
 Contributors: wcboost
 Tags: woocommerce wishlist, wishlist, products, e-commerce, woocommerce
 Tested up to: 6.6
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 7.0
 Requires at least: 4.5
 WC requires at least: 3.0.0
-WC tested up to: 9.0
+WC tested up to: 9.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,13 +94,18 @@ Following the standards of WordPress and WooCommerce, you can find all the setti
 
 == Changelog ==
 
-= 1.1.0
+= 1.1.1 =
+- Tweak - Improve caching to dynamically update wishlist fragments.
+- Tweak - WordPress 6.6 compatibility.
+- Tweak – WooCommerce 9.1 compatibility.
+
+= 1.1.0 =
 - Enhancement - Improve performance with the new client caching.
 - Fix - Fix the installation issue.
 - Tweak - WordPress 6.5 compatibility.
 - Tweak – WooCommerce 9.0 compatibility.
 
-= 1.0.13
+= 1.0.13 =
 - Tweak - Improve themes compatibility
 - Fix - Fix issues that may occur when installing the plugin.
 

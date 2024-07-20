@@ -71,7 +71,7 @@ class Ajax_Handler {
 
 			wp_send_json_success( [
 				'fragments'      => self::get_refreshed_fragments(),
-				'wishlist_hash'  => $wishlist->get_id() ? md5( get_current_blog_id() . '_' . $wishlist->get_id() . '_' . $wishlist->get_wishlist_token() ) : '',
+				'wishlist_hash'  => $wishlist->get_hash(),
 				'wishlist_url'   => $wishlist->get_public_url(),
 				'wishlist_items' => self::get_wishlist_items( $wishlist_id ),
 				'remove_url'     => $item->get_remove_url(),
@@ -96,7 +96,7 @@ class Ajax_Handler {
 		if ( $was_removed && ! is_wp_error( $was_removed ) ) {
 			wp_send_json_success( [
 				'fragments'      => self::get_refreshed_fragments(),
-				'wishlist_hash'  => $wishlist->get_id() ? md5( get_current_blog_id() . '_' . $wishlist->get_id() . '_' . $wishlist->get_wishlist_token() ) : '',
+				'wishlist_hash'  => $wishlist->get_hash(),
 				'wishlist_url'   => $wishlist->get_public_url(),
 				'wishlist_items' => self::get_wishlist_items( $wishlist_id ),
 				'restore_url'    => $item->get_restore_url(),
@@ -132,7 +132,7 @@ class Ajax_Handler {
 
 		wp_send_json_success( [
 			'fragments'      => $fragments,
-			'wishlist_hash'  => $wishlist->get_id() ? md5( get_current_blog_id() . '_' . $wishlist->get_id() . '_' . $wishlist->get_wishlist_token() ) : '',
+			'wishlist_hash'  => $wishlist->get_hash(),
 			'wishlist_items' => self::get_wishlist_items(),
 		] );
 	}

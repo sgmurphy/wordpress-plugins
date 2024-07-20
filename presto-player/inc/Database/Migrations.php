@@ -11,51 +11,49 @@ use PrestoPlayer\Database\Upgrades\Upgrades;
 use PrestoPlayer\Database\Upgrades\PerformanceUpgrade;
 use PrestoPlayer\Services\RewriteRulesManager;
 
-class Migrations
-{
-    public static function run()
-    {
-        // order of this one is important
-        $performance = new PerformanceUpgrade();
-        $performance->migrate();
+class Migrations {
 
-        $visits = new Visits(new Table());
-        $visits->install();
+	public static function run() {
+		// order of this one is important
+		$performance = new PerformanceUpgrade();
+		$performance->migrate();
 
-        $presets = new Presets(new Table());
-        $presets->install();
+		$visits = new Visits( new Table() );
+		$visits->install();
 
-        $audio_presets = new AudioPresets(new Table());
-        $audio_presets->install();
+		$presets = new Presets( new Table() );
+		$presets->install();
 
-        $videos = new Videos(new Table());
-        $videos->install();
+		$audio_presets = new AudioPresets( new Table() );
+		$audio_presets->install();
 
-        $videos = new EmailCollection(new Table());
-        $videos->install();
+		$videos = new Videos( new Table() );
+		$videos->install();
 
-        $audio_presets = new Webhooks(new Table());
-        $audio_presets->install();
+		$videos = new EmailCollection( new Table() );
+		$videos->install();
 
-        $upgrades = new Upgrades();
-        $upgrades->migrate();
+		$audio_presets = new Webhooks( new Table() );
+		$audio_presets->install();
 
-        $rewrite_rules_manager = new RewriteRulesManager();
-        $rewrite_rules_manager->bootstrap();
-    }
+		$upgrades = new Upgrades();
+		$upgrades->migrate();
 
-    public static function remove()
-    {
-        $visits = new Visits(new Table());
-        $visits->uninstall();
+		$rewrite_rules_manager = new RewriteRulesManager();
+		$rewrite_rules_manager->bootstrap();
+	}
 
-        $presets = new Presets(new Table());
-        $presets->uninstall();
+	public static function remove() {
+		$visits = new Visits( new Table() );
+		$visits->uninstall();
 
-        $audio_presets = new AudioPresets(new Table());
-        $audio_presets->uninstall();
+		$presets = new Presets( new Table() );
+		$presets->uninstall();
 
-        $videos = new Videos(new Table());
-        $videos->uninstall();
-    }
+		$audio_presets = new AudioPresets( new Table() );
+		$audio_presets->uninstall();
+
+		$videos = new Videos( new Table() );
+		$videos->uninstall();
+	}
 }

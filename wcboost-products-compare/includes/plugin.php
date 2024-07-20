@@ -65,19 +65,15 @@ final class Plugin {
 	 * @return mixed
 	 */
 	public function __get( $prop ) {
-		$value = null;
-
 		switch ( $prop ) {
 			case 'version':
 				if ( empty( $this->props['version'] ) ) {
 					$plugin = get_plugin_data( WCBOOST_PRODUCTS_COMPARE_FILE );
 					$this->props['version'] = $plugin['Version'];
 				}
-				$value = $this->props['version'];
+				return $this->props['version'];
 				break;
 		}
-
-		return $value;
 	}
 
 	/**
@@ -143,6 +139,7 @@ final class Plugin {
 	 * @return void
 	 */
 	protected function init() {
+		$this->initialize_list();
 		$this->init_hooks();
 
 		Install::init();
@@ -160,11 +157,13 @@ final class Plugin {
 	 */
 	protected function init_hooks() {
 		add_action( 'init', [ $this, 'load_translation' ] );
-		add_action( 'init', [ $this, 'initialize_list' ] );
+		// add_action( 'init', [ $this, 'initialize_list' ] );
 
 		add_action( 'widgets_init', [ $this, 'register_widgets' ] );
 
 		add_filter( 'woocommerce_get_compare_page_id', [ $this, 'compare_page_id' ] );
+
+		add_action( 'wp_login', [ $this, 'user_logged_in' ], 10, 2 );
 	}
 
 	/**
@@ -181,6 +180,8 @@ final class Plugin {
 	 */
 	public function initialize_list() {
 		$this->list = new Compare_List();
+
+		$this->list->init();
 	}
 
 	/**
@@ -217,5 +218,16 @@ final class Plugin {
 		$page_id = apply_filters( 'wpml_object_id', $page_id, 'page', false, null );
 
 		return $page_id;
+	}
+
+	/**
+	 * Update logic triggered on login.
+	 *
+	 * @since 1.0.6
+	 * @param string $user_login User login.
+	 * @param object $user       User.
+	 */
+	public function user_logged_in( $user_login, $user ) {
+		update_user_meta( $user->ID, '_wcboost_products_compare_load_after_login', 1 );
 	}
 }

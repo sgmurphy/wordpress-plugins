@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-06T11:55:38+00:00\n"
+"POT-Creation-Date: 2024-07-20T04:44:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: wcboost-wishlist\n"
@@ -150,7 +150,7 @@ msgstr ""
 #: includes/admin/settings.php:130
 #: includes/customizer/customizer.php:326
 #: includes/form-handler.php:96
-#: includes/frontend.php:644
+#: includes/frontend.php:650
 #: includes/helper.php:213
 msgid "View wishlist"
 msgstr ""
@@ -245,7 +245,7 @@ msgid "The default wishlist title"
 msgstr ""
 
 #: includes/admin/settings.php:192
-#: includes/data-stores/wishlist.php:26
+#: includes/data-stores/wishlist.php:32
 msgid "My Wishlist"
 msgstr ""
 
@@ -360,7 +360,7 @@ msgid "Endpoints are appended to the page URL to handle specific actions on the 
 msgstr ""
 
 #: includes/admin/settings.php:380
-#: includes/frontend.php:357
+#: includes/frontend.php:363
 msgid "Edit wishlist"
 msgstr ""
 
@@ -502,9 +502,9 @@ msgstr ""
 msgid "No item found with given id."
 msgstr ""
 
-#: includes/data-stores/wishlist.php:197
-#: includes/data-stores/wishlist.php:215
-#: includes/data-stores/wishlist.php:256
+#: includes/data-stores/wishlist.php:203
+#: includes/data-stores/wishlist.php:223
+#: includes/data-stores/wishlist.php:265
 msgid "Invalid wishlist."
 msgstr ""
 
@@ -564,41 +564,41 @@ msgstr ""
 msgid "Wishlist deleted"
 msgstr ""
 
-#: includes/frontend.php:137
+#: includes/frontend.php:143
 msgid "The wishlist link is copied to clipboard"
 msgstr ""
 
-#: includes/frontend.php:138
+#: includes/frontend.php:144
 msgid "Close"
 msgstr ""
 
-#: includes/frontend.php:335
+#: includes/frontend.php:341
 msgid "Share"
 msgstr ""
 
-#: includes/frontend.php:393
+#: includes/frontend.php:399
 msgid "You cannot delete your default wishlist. You have to set another list as default to delete this one."
 msgstr ""
 
-#: includes/frontend.php:395
+#: includes/frontend.php:401
 msgid "This action moves the wishlist to Trash. It will be kept in Trash for 30 days."
 msgstr ""
 
-#: includes/frontend.php:399
+#: includes/frontend.php:405
 msgid "Delete this wishlist"
 msgstr ""
 
 #. translators: %s product name
-#: includes/frontend.php:504
+#: includes/frontend.php:510
 msgid "Add %s to the wishlist"
 msgstr ""
 
 #. translators: %s product name
-#: includes/frontend.php:540
+#: includes/frontend.php:546
 msgid "Remove %s from the wishlist"
 msgstr ""
 
-#: includes/frontend.php:546
+#: includes/frontend.php:552
 msgid "Open the wishlist"
 msgstr ""
 
@@ -671,13 +671,13 @@ msgstr ""
 msgid "This item already exists"
 msgstr ""
 
-#: includes/wishlist.php:484
-#: includes/wishlist.php:515
+#: includes/wishlist.php:486
+#: includes/wishlist.php:517
 msgid "You are not allowed to edit the wishlist"
 msgstr ""
 
-#: includes/wishlist.php:488
-#: includes/wishlist.php:521
+#: includes/wishlist.php:490
+#: includes/wishlist.php:523
 msgid "Invalid wishlist item"
 msgstr ""
 

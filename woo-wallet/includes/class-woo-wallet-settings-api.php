@@ -202,7 +202,7 @@ if ( ! class_exists( 'Woo_Wallet_Settings_API' ) ) :
 		public function callback_rand( $args ) {
 			$value = wp_rand();
 			?>
-			<input type="hidden" id="<?php echo esc_attr( $args['section'] ); ?>-<?php echo esc_attr( $args['id'] ); ?>" name="<?php echo esc_attr( $args['section'] ); ?>-<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_html( $value ); ?>" />
+			<input type="hidden" id="<?php echo esc_attr( $args['section'] ); ?>-<?php echo esc_attr( $args['id'] ); ?>" name="<?php echo esc_attr( $args['section'] ); ?>[<?php echo esc_attr( $args['id'] ); ?>]" value="<?php echo esc_html( $value ); ?>" />
 			<?php
 		}
 
@@ -518,7 +518,7 @@ if ( ! class_exists( 'Woo_Wallet_Settings_API' ) ) :
 		 * @param string $option  settings field name.
 		 * @param string $section the section name this field belongs to.
 		 * @param string $default default text if it's not found.
-		 * @return string
+		 * @return mixed
 		 */
 		public function get_option( $option, $section, $default = '' ) {
 

@@ -1,3 +1,3 @@
 <div class="fl-presto-player-video">
-    <?php $module->display(); ?>
+	<?php $module->display(); ?>
 </div>

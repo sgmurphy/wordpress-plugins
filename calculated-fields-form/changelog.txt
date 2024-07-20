@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.2.22 =
+
+* Fixes an issue with the CSS Editor associated with the Customize Form Design attribute.
+
 = 5.2.21 =
 
 * Improve user experience with the forms builder by applying tooltips to the drag-and-drop handler and columns' icons.

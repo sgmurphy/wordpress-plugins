@@ -89,7 +89,7 @@ if ( ! class_exists( 'WPCleverKit' ) ) {
 					'timeout' => 30,
 					'request' => serialize( $args )
 				];
-				//https://codex.wordpress.org/WordPress.org_API
+				// https://codex.wordpress.org/WordPress.org_API
 				$url      = 'http://api.wordpress.org/plugins/info/1.0/';
 				$response = wp_remote_post( $url, [ 'body' => $request ] );
 

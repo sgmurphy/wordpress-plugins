@@ -422,6 +422,7 @@
 					setTimeout(function(){
 						if( 'codeEditor' in wp)
 						{
+							if($('#tabs-3 .CodeMirror').length) return;
 							var cssEditorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {},
 								editor;
 							cssEditorSettings.codemirror = _.extend(

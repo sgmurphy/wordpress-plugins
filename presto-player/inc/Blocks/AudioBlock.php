@@ -6,74 +6,70 @@ use PrestoPlayer\Attachment;
 use PrestoPlayer\Models\CurrentUser;
 use PrestoPlayer\Support\Block;
 
-class AudioBlock extends Block
-{
-  /**
-   * Block name
-   *
-   * @var string
-   */
-  protected $name = 'audio';
+class AudioBlock extends Block {
 
-  /**
-   * Translated block title
-   */
-  protected $title;
+	/**
+	 * Block name
+	 *
+	 * @var string
+	 */
+	protected $name = 'audio';
 
-  public function __construct(bool $isPremium = false, $version = 1)
-  {
-    parent::__construct($isPremium, $version);
-    $this->title = __('Audio', 'presto-player');
-  }
+	/**
+	 * Translated block title
+	 */
+	protected $title;
 
-  /**
-   * Bail if user cannot access video
-   *
-   * @return void
-   */
-  public function middleware($attributes, $content)
-  {
-    // if private and user cannot access video, don't load
-    if (!empty($attributes['visibility']) && 'private' === $attributes['visibility']) {
-      if (empty($attributes['id'])) {
-        return false;
-      }
-      if (!CurrentUser::canAccessVideo($attributes['id'])) {
-        return false;
-      }
-    }
+	public function __construct( bool $isPremium = false, $version = 1 ) {
+		parent::__construct( $isPremium, $version );
+		$this->title = __( 'Audio', 'presto-player' );
+	}
 
-    return parent::middleware($attributes, $content);
-  }
+	/**
+	 * Bail if user cannot access video
+	 *
+	 * @return void
+	 */
+	public function middleware( $attributes, $content ) {
+		// if private and user cannot access video, don't load
+		if ( ! empty( $attributes['visibility'] ) && 'private' === $attributes['visibility'] ) {
+			if ( empty( $attributes['id'] ) ) {
+				return false;
+			}
+			if ( ! CurrentUser::canAccessVideo( $attributes['id'] ) ) {
+				return false;
+			}
+		}
 
-  /**
-   * Add curtain styles.
-   *
-   * @return void
-   */
-  public function sanitizeAttributes($attributes, $default_config)
-  {
+		return parent::middleware( $attributes, $content );
+	}
 
-    $src = !empty($attributes['src']) ? $attributes['src'] : '';
+	/**
+	 * Add curtain styles.
+	 *
+	 * @return void
+	 */
+	public function sanitizeAttributes( $attributes, $default_config ) {
 
-    return [
-      'src'   => !empty($attributes['attachment_id']) ? Attachment::getSrc($attributes['attachment_id']) : $src,
-      'styles' => $default_config['styles'] . ' --presto-curtain-size: 25%',
-    ];
-  }
+		$src = ! empty( $attributes['src'] ) ? $attributes['src'] : '';
 
-  /**
-     * Register the block type.
-     *
-     * @return void
-     */
-    public function registerBlockType()
-    {
-        register_block_type(
-            PRESTO_PLAYER_PLUGIN_DIR . 'src/admin/blocks/blocks/audio',
-            array(
-                'render_callback' => [$this, 'html'],
-            )
-        );
-    }
+		return array(
+			'src'    => ! empty( $attributes['attachment_id'] ) ? Attachment::getSrc( $attributes['attachment_id'] ) : $src,
+			'styles' => $default_config['styles'] . ' --presto-curtain-size: 25%',
+		);
+	}
+
+	/**
+	 * Register the block type.
+	 *
+	 * @return void
+	 */
+	public function registerBlockType() {
+		register_block_type(
+			PRESTO_PLAYER_PLUGIN_DIR . 'src/admin/blocks/blocks/audio',
+			array(
+				'render_callback' => array( $this, 'html' ),
+			)
+		);
+	}
 }

@@ -3,7 +3,7 @@ Contributors: symptote, owleads
 Tags: database, reset database, reset, clean, restore
 Requires at least: 4.0
 Requires PHP: 7.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -145,8 +145,6 @@ Advanced WordPress Reset is designed to cater to a wide range of users and scena
 
 **Hacked site Recovery:** Picture this: It's 6 a.m., and you are woken up by a frantic client reporting a site outage or worse, a ransom message on their homepage. With a sense of urgency, you navigate to the backend to locate the latest snapshot and swiftly restore it with a few clicks. Just like that, the site is back to normal, and you dial the client with reassuring news. As a developer or webmaster, you are well aware that attacks and technical glitches are much more frequent than we think, that’s why you had enabled the auto snapshot feature of advanced WordPress reset and scheduled it for run daily. While snapshots are not as comprehensive as backups, they are more reliable, faster to create, and take up less disk space making them a great alternative to backups.
 
-**Security Audits and Baseline Resets:** Perform regular resets to establish a secure baseline for security audits. By starting with a clean slate, you can ensure that no malicious code or vulnerabilities from previous configurations linger, enhancing your site's security posture.
-
 **Performance Benchmarking & Troubleshooting:** Your site is slow and you’re unsure if it’s the server, your site configuration, the theme, some plugins, PHP… By measuring the site speed in different states, the picture will become much clearer. Using Site Resets, Custom Resets, and Nuclear Resets, you can go as far as you need to until your performance issues disappear. This will help you quickly identify the root cause of the performance slump. Once the root cause is known, you can undo your actions and focus your efforts on fixing the exact problem causing the performance degradation. In this scenario, the smart combination of Resets and Snapshot restoration makes for a perfect toolset for performance benchmarking and troubleshooting.
 
 **WordPress Update Rollback:** Like most WordPress users, it’s hard to resist that update WordPress button. However, it’s not uncommon for an update to break something in your site. Unfortunately, once that happens, your choices are limited as there is no cancel update button! You can either spend hours trying to identify the cause and fix it or restore a full backup of the site if you have one. With WP Switcher, you now have one more option, downgrading your WordPress version until you find a working version.
@@ -154,14 +152,6 @@ Advanced WordPress Reset is designed to cater to a wide range of users and scena
 **Client Site Recovery:** It’s not uncommon for clients to mess things up and blame you for it. Whether your client's site faces unexpected issues or requires a do-over, this plugin simplifies the recovery process. Quickly restore their site to its default state or rebuild it entirely, fostering efficient communication and client satisfaction.
 
 **Demo Site Automatic Reset:** Imagine you have a demo site for people to test drive your plugin or theme. After a few hours or days, you’ll certainly end up with a few pages, posts, and customizations made by users who are trying to get a feel for your tools. Instead of reinstalling the whole system again every now and then or running through everything to clean up the mess, you can simply create automatic partial resets and cleanups using Collection automation and scheduling. In addition to saving you time, you’ll also be able to increase frequency to improve user experience. tracking what they do, you can just schedule a collection to clean everything up and reset the whole demo site as it should be every 2 hours for example.
-
-**Database Exploration and Analysis:** Study database changes caused by updates, user input, plugins, and themes by comparing your current database to any previous snapshot.
-
-**Educational Environments Reset:** In educational settings, students should all be presented with the exact same baseline environment. With classes of tens or hundreds of students, it’s impractical to do it all by hand, let alone the potential for errors. Using site Resets, you are 100% sure all learning or demo environments are back to where they should be for all students and in record time.
-
-**Video tutorial creation:** As a content creator for YouTube, TikTok, or any other platform, you need your WordPress interface to be as clean as possible with no extra menus or options that could distract your viewers from the plugin or theme of the day. Using Advanced WordPress Reset, you can improve productivity by instantly Resetting your WordPress over and over again while only keeping the components you’ll need for the next video. 
-
-Unlock these versatile use cases and tap into the full potential of Advanced WordPress Reset. From seamless resets and recoveries to creative explorations and efficient optimizations, this plugin is your ultimate companion in WordPress site management.
 
 ### Do more with Advanced WordPress Reset PRO
 

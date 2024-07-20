@@ -4,7 +4,7 @@ Contributors: diana_burduja
 Email: diana@burduja.eu
 Tags: zoom, image zoom, magnify image, image magnifier, woocommerce zoom 
 Requires at least: 3.0.1
-Tested up to: 6.5 
+Tested up to: 6.6 
 Stable tag: 1.57
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
