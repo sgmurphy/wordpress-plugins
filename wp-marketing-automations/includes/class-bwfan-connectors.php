@@ -106,7 +106,19 @@ class BWFAN_Connectors {
 	}
 
 	public function is_connected( $slug ) {
-		$connector    = WFCO_Load_Connectors::get_connector( $slug );
+		$connector = WFCO_Load_Connectors::get_connector( $slug );
+		if ( is_null( $connector ) ) {
+			/** Try loading connectors files */
+			if ( method_exists( 'WFCO_Load_Connectors', 'load_connectors_direct' ) ) {
+				WFCO_Load_Connectors::load_connectors_direct();
+				$connector = WFCO_Load_Connectors::get_connector( $slug );
+			}
+
+			if ( is_null( $connector ) ) {
+				return false;
+			}
+		}
+
 		$is_connected = isset( WFCO_Common::$connectors_saved_data[ $slug ] ) && ! is_null( $connector ) && true === $connector->has_settings();
 
 		/** For Bitly */

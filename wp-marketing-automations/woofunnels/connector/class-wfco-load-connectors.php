@@ -34,6 +34,15 @@ class WFCO_Load_Connectors {
 	}
 
 	/**
+	 * Include all connectors files directly
+	 *
+	 * @return void
+	 */
+	public static function load_connectors_direct() {
+		do_action( 'wfco_load_connectors' );
+	}
+
+	/**
 	 * Include all connectors files on rest endpoints
 	 *
 	 * @return void
@@ -63,7 +72,7 @@ class WFCO_Load_Connectors {
 		if ( ! is_object( $screen ) ) {
 			return;
 		}
-		if ( empty( $screen->id ) || 'toplevel_page_autonami' !== $screen->id ) {
+		if ( empty( $screen->id ) || ( 'toplevel_page_autonami' !== $screen->id && 'funnelkit-automations_page_autonami-automations' !== $screen->id ) ) {
 			return;
 		}
 		do_action( 'wfco_load_connectors' );

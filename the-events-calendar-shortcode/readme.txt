@@ -33,11 +33,15 @@ You get the same full integration with The Events Calendar, plus premium support
 
 Trusted by 20,000+ WordPress sites and a 4.5 star rating on WordPress.org, The Events Calendar Shortcode & Block is the solution you’ve been after :)
 
-== How to use The Events Calendar Shortcode ==
+== How to use The Events Calendar Shortcode & Block ==
 
 You can use the shortcode or block to add a list of your events, filtered by various options. Here’s an example of how you’d show the next 8 events in the category festival:
 
 `[ecs-list-events cat="festival" limit="8"]`
+
+With the WordPress block editor, just add a block and search for The Events Calendar Shortcode.
+
+When editing a post or page with Elementor, you can add The Events Calendar Shortcode widget (under "General") and customize the display options.
 
 You can also filter the events in the shortcode and choose from the following options:
 
@@ -203,9 +207,10 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 == Screenshots ==
 
 1. Show your events from The Events Calendar (by StellarWP, formerly Modern Tribe) in a list, and customize specifically which events you’re displaying
-2. Add a block in the page or post where you want your events to appear, and select the display options you want (new WordPress 5.0 editor or Gutenberg plugin)
-3. You can also add the shortcode where you want the list of events to appear on any WordPress post, page, or widget
-4. Many settings you can use in the shortcode to change what details appear in the events listing
+2. Add a block in the page or post where you want your events to appear, and select the display options you want (new default WordPress editor or Gutenberg plugin)
+3. Add a widget in Elementor to show your events in a page or post, and customize the display options you want
+4. You can also add the shortcode where you want the list of events to appear on any WordPress post, page, or widget
+5. Many settings you can use in the shortcode to change what details appear in the events listing
 
 == Upgrade Notice ==
 

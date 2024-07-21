@@ -2,8 +2,8 @@
 Contributors: wppochipp
 Tags: affiliate, block
 Requires at least: 5.6
-Tested up to: 6.5
-Stable tag: 1.14.1
+Tested up to: 6.6
+Stable tag: 1.15.0
 Requires PHP: 7.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -64,6 +64,11 @@ Terms: https://af.moshimo.com/af/www/terms/shop
 
 
 == Changelog ==
+
+= 1.15.0 =
+
+- WordPress 6.6対応
+- インラインリンクに出力される半角スペースの削除
 
 = 1.14.1 =
 

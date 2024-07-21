@@ -1,7 +1,7 @@
 <?php
 class iWorks_OpenGraph {
 	private $youtube_meta_name = 'iworks_yt_thumbnails';
-	private $version           = '3.3.0';
+	private $version           = '3.3.1';
 	private $debug             = false;
 	private $locale            = null;
 

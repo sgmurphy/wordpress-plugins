@@ -1264,5 +1264,5 @@
     }
   })();
 })();
-//1.0.20
+//1.0.26
 //# sourceMappingURL=public-debug.js.map

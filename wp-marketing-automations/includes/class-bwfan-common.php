@@ -233,6 +233,11 @@ class BWFAN_Common {
 		}
 
 		$general_options = self::get_global_settings();
+		$wc_endpoint     = filter_input( INPUT_GET, 'wc-ajax' );
+		if ( ! is_null( $wc_endpoint ) ) {
+			return;
+		}
+
 		/** showing consent text on checkout page */
 		if ( isset( $general_options['bwfan_user_consent_position'] ) && 'below_term' === $general_options['bwfan_user_consent_position'] ) {
 			add_action( 'woocommerce_checkout_after_terms_and_conditions', function () {
@@ -7301,7 +7306,7 @@ class BWFAN_Common {
 	}
 
 	public static function decode_merge_tags( $string, $is_crm = false ) {
-		if ( empty( $string ) ) {
+		if ( trim( $string ) === '' ) {
 			return '';
 		}
 		// Check if the body is excluded from decoding the merge tags

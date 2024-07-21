@@ -157,29 +157,24 @@ function render_pochipp_element( $btn_data = [] ) {
 		// 追加クラス
 		$add_class = 'pochipp-inline__btnwrap -custom_2';
 	}
+	$url = esc_url( $url );
 
-	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-	?>
-	<?php if ( ! $url ) : ?>
-		<!-- ここは入らない想定 -->
-	<?php elseif ( $type === 'button' ) : ?>
-		<span class="<?php echo $add_class; ?>"<?php echo $ex_props; ?>>
-			<a href="<?php echo esc_url( $url ); ?>" class="pochipp-inline__btn" <?php echo $rel_target; ?>>
-				<?php echo $btn_text; ?>
-			</a>
-			<?php echo $imp_tag; ?>
-		</span>
-	<?php elseif ( $type === 'link' ) : ?>
-		<a href="<?php echo esc_url( $url ); ?>" <?php echo $ex_props; ?> <?php echo $rel_target; ?>>
-			<?php echo $btn_text; ?>
-		</a>
-		<?php echo $imp_tag; ?>
-	<?php elseif ( $type === 'img' ) : ?>
-		<a href="<?php echo esc_url( $url ); ?>" <?php echo $rel_target; ?>>
-			<?php echo $item_image; // ignore:phpcs ?>
-		</a>
-		<?php echo $imp_tag; ?>
-	<?php endif; ?>
-	<?php
-	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+	if ( ! $url ) {
+		return '';
+	}
+	if ( $type === 'button' ) {
+		echo "
+			<span class=\"$add_class\" $ex_props>
+				<a href=\"$url\" class=\"pochipp-inline__btn\" $rel_target>
+					$btn_text
+				</a>
+				$imp_tag
+			</span>";
+	}
+	if ( $type === 'link' ) {
+		echo "<a href=\"$url\" $ex_props $rel_target>$btn_text</a>$imp_tag";
+	}
+	if ( $type === 'img' ) {
+		echo "<a href=\"$url\" $rel_target>$item_image</a>$imp_tag";
+	}
 }

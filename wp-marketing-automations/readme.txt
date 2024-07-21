@@ -4,7 +4,7 @@ Tags: cart abandonment, follow up emails, email marketing, email customizer, crm
 Requires at least: 5.0
 Tested up to: 6.6.0
 Requires PHP: 7.0
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -415,6 +415,9 @@ FunnelKit Automations is 100% self-hosted and fully GDPR compliant.
 
 
 == Change log ==
+
+= 3.1.2 (Jul 20, 2024) =
+* Fixed: Legacy automation screen were throwing PHP error, fixed. (#3262)
 
 = 3.1.1 (Jul 17, 2024) =
 * Build updated as some setups were facing blank app screen since WordPress version 6.6.

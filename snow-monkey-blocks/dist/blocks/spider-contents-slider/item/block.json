@@ -59,7 +59,8 @@
     "html": false,
     "color": {
       "text": true,
-      "gradients": true
+      "background": true,
+      "gradients": false
     },
     "layout": {
       "allowSwitching": false,

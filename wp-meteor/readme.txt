@@ -114,6 +114,7 @@ Use the `wpmeteor-frontend-adjust-wpmeteor` filter in the following way:
 
 == Changelog ==
 
+3.4.4 - Security fix
 3.4.3 - Major improvement, script unblocking rewritten using inplace modifications. Hopefully, addresses [Bug](https://wordpress.org/support/topic/elementor-forms-and-popup-were-stopped-working/)
 3.4.2 - Minor, updating links to [FastPixel Website Accelerator](https://wordpress.org/plugins/fastpixel-website-accelerator/) as it is now live in Wordpress Plugin directory
 3.4.1 - Better compatibility with Smush, backport optimization code from [FastPixel Website Accelerator](https://wordpress.org/plugins/fastpixel-website-accelerator/)
