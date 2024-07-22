@@ -77,8 +77,8 @@ class Class_Pi_Sales_Notification_Product{
 
     function tab(){
         ?>
-        <a class="  pi-side-menu   <?php echo ($this->active_tab == $this->this_tab ? 'bg-primary' : 'bg-secondary'); ?>" href="<?php echo admin_url( 'admin.php?page='.sanitize_text_field($_GET['page']).'&tab='.$this->this_tab ); ?>">
-        <span class="dashicons dashicons-products"></span> <?php _e( $this->tab_name); ?> 
+        <a class="  pi-side-menu  <?php echo ($this->active_tab == $this->this_tab ? 'bg-primary' : 'bg-secondary'); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page='.sanitize_text_field($_GET['page']).'&tab='.$this->this_tab ) ); ?>">
+        <span class="dashicons dashicons-dashboard"></span> <?php echo esc_html( $this->tab_name ); ?>
         </a>
         <?php
     }
@@ -113,7 +113,7 @@ class Class_Pi_Sales_Notification_Product{
                         <?php 
                             $order_status = wc_get_order_statuses(); 
                             foreach($order_status as $key=>$val){
-                                echo '<option value="'.$key.'" '.(in_array($key, $selected_order_status) ? ' selected="selected" ': '').'>'.$val.'</option>';
+                                echo '<option value="'.esc_attr( $key ).'" '.(in_array($key, $selected_order_status) ? ' selected="selected" ': '').'>'.esc_html( $val ).'</option>';
                             }
                         ?>
                     </select>
@@ -135,7 +135,7 @@ class Class_Pi_Sales_Notification_Product{
                         <?php
                         if(is_array($selected_products)):
                             foreach($selected_products as $product){
-                                echo '<option value="'.$product.'" selected="selected">'.pisol_sn_common::getTitle($product)." (ID: {$product})".'</option>';
+                                echo '<option value="'.esc_attr( $product ).'" selected="selected">'.esc_html( pisol_sn_common::getTitle($product)." (ID: {$product})" ).'</option>';
                             }
                         endif;
                         ?>
@@ -158,7 +158,7 @@ class Class_Pi_Sales_Notification_Product{
                             foreach($selected_categories as $category_id){
                                 $obj = get_term_by( 'id', $category_id, 'product_cat' );
                                 if(!is_object($obj)) continue;
-                                echo '<option value="'.$category_id.'" selected="selected">'.$obj->name ." (ID: {$category_id})".'</option>';
+                                echo '<option value="'.esc_attr( $category_id ).'" selected="selected">'.esc_html( $obj->name ." (ID: {$category_id})" ).'</option>';
                             }
                         endif;
                         ?>
@@ -218,10 +218,10 @@ class Class_Pi_Sales_Notification_Product{
                     <label for="pi_sn_order_status" class="h6">Show orders placed in last<br> e.g: 1 day: will show order placed in last one day <br>e.g: 1 hour: will show order placed in last one hour</label>
                 </div>
                 <div class="col-12 col-md-10">
-                    <input type="number" min="1" step="1" name="pi_sn_time_value" value="<?php echo $pi_sn_time_value; ?>"  class="form-control">
+                    <input type="number" min="1" step="1" name="pi_sn_time_value" value="<?php echo esc_attr( $pi_sn_time_value ); ?>"  class="form-control">
                 </div>
                 <div class="col-12 col-md-2">
-                    <select name="pi_sn_time_unit" value="<?php echo $pi_sn_time_unit; ?>" class="form-control">
+                    <select name="pi_sn_time_unit" value="<?php echo esc_attr( $pi_sn_time_unit ); ?>" class="form-control">
                         <option value="hour" <?php echo $pi_sn_time_unit == "hour" ? " selected='selected' ": ""; ?>>Hour</option>
                         <option value="day" <?php echo $pi_sn_time_unit == "day" ? " selected='selected' ": ""; ?>>Day</option>
                         <option value="week" <?php echo $pi_sn_time_unit == "week" ? " selected='selected' ": ""; ?>>Week</option>
@@ -238,7 +238,7 @@ class Class_Pi_Sales_Notification_Product{
             <div class="row py-4 border-bottom align-items-center ">
                 <div class="col-12 col-md-12">
                     <label for="pi_sn_order_status" class="h6">How many notification to show (make sure number is grater then 1)</label>
-                    <input type="number" min="1" step="1" id="pi_sn_max_product_show" name="pi_sn_max_product_show" value="<?php echo $pi_sn_max_product_show; ?>"  class="form-control">
+                    <input type="number" min="1" step="1" id="pi_sn_max_product_show" name="pi_sn_max_product_show" value="<?php echo esc_attr( $pi_sn_max_product_show ); ?>"  class="form-control">
                     <small>For virtual orders this many notification will be created, but for original orders if it is less then this number no virtual order will be created</small>
                 </div>
                 

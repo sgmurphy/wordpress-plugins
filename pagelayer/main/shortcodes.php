@@ -11377,8 +11377,5 @@ foreach($GLOBALS['wp_widget_factory']->widgets as $widget_key => $widget){
 }
 //}
 
-// Its premium
-if(defined('PAGELAYER_PREMIUM')){
-	include_once(dirname(__FILE__).'/freemium.php');
-	include_once(dirname(__FILE__).'/premium.php');
-}
+// Apply filter to load custom widgets after shortcodes
+do_action('pagelayer_after_add_shortcode');

@@ -44,7 +44,7 @@ class Cnb_Button_List_Table extends WP_List_Table {
             'singular' => 'cnb_list_button', //Singular label
             'plural'   => 'cnb_list_buttons', //plural label, also this well be one of the table css class
             'ajax'     => false, //We won't support Ajax for this table
-            'screen'   => 'call-now-button-buttons' // Screen name for bulk actions, etc
+            'screen'   => 'call-now-button-buttons', // Screen name for bulk actions, etc
         ) );
 
         $this->cnb_utils = new CnbUtils();
@@ -118,7 +118,7 @@ class Cnb_Button_List_Table extends WP_List_Table {
 
         return array(
             'all'    => "<a href='" . esc_url( $all_link ) . "' " . ( ! $current_view_is_active ? "class='current'" : '' ) . "'>" . __( 'All' ) . $all_count_str . '</a>',
-            'active' => "<a href='" . esc_url( $active_link ) . "' " . ( $current_view_is_active ? "class='current'" : '' ) . "'>" . __( 'Active' ) . $active_count_str . '</a>'
+            'active' => "<a href='" . esc_url( $active_link ) . "' " . ( $current_view_is_active ? "class='current'" : '' ) . "'>" . __( 'Active' ) . $active_count_str . '</a>',
         );
     }
 
@@ -201,7 +201,7 @@ class Cnb_Button_List_Table extends WP_List_Table {
 	                case 'DOTS':
                         $button_types   = $adminFunctions->cnb_get_button_types();
 
-	                    $flower = str_contains($item->options->cssClasses, 'cnb-multi-flower');
+	                    $flower = !empty( $item->options->cssClasses ) && str_contains($item->options->cssClasses, 'cnb-multi-flower');
                         return $button_types[ $item->type ] . ($flower ? ' (flower)' : '');
                     default:
                         return esc_html( $item->type );
@@ -249,6 +249,11 @@ class Cnb_Button_List_Table extends WP_List_Table {
         foreach ( $actions as $action ) {
             $actionValue = ! empty( $action->actionValue ) ? esc_html( $action->actionValue ) : '<em>No value</em>';
             $actionTypes = ( new CnbAdminFunctions() )->cnb_get_action_types();
+			// In case the action type is not found, display an error message
+            if ( !array_key_exists($action->actionType, $actionTypes) ) {
+	            $actionMsg   .= '<em> ' . esc_html($action->actionType) . ' is invalid</em><br />';
+				continue;
+            }
             $actionType  = $actionTypes[ $action->actionType ];
             $actionMsg   .= esc_html($actionType->name) . ' (' . esc_html($actionValue) . ')<br />';
         }
@@ -349,7 +354,7 @@ class Cnb_Button_List_Table extends WP_List_Table {
                     'page'   => 'call-now-button',
                     'action' => 'edit',
                     'type'   => strtolower( $item->type ),
-                    'id'     => $item->id
+                    'id'     => $item->id,
                 ),
                 $url );
         $edit_url  = esc_url( $edit_link );
@@ -362,7 +367,7 @@ class Cnb_Button_List_Table extends WP_List_Table {
                 array(
                     'page'   => 'call-now-button',
                     'action' => $item->active == true ? 'disable' : 'enable',
-                    'id'     => $item->id
+                    'id'     => $item->id,
                 ),
                 $url ),
             'cnb_enable_disable_button' );
@@ -377,7 +382,7 @@ class Cnb_Button_List_Table extends WP_List_Table {
             add_query_arg( array(
                 'page'   => 'call-now-button',
                 'action' => 'cnb_delete_button',
-                'id'     => $item->id
+                'id'     => $item->id,
             ), admin_url( 'admin-post.php' ) ),
             'cnb_delete_button' );
         $delete_url        = esc_url( $delete_link );

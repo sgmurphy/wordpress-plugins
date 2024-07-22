@@ -54,8 +54,11 @@ class PageLayer_LiveEditor{
 		// Build the Shortcodes MD5 for cache
 		$scmd5 = md5(json_encode($pagelayer->shortcodes).json_encode($pagelayer->groups).json_encode($pagelayer->styles));
 		
+		$premium_js = apply_filters('pagelayer_editor_give_js', '');
+		$premium_css = apply_filters('pagelayer_editor_give_css', '');
+		
 		// Enqueue our Editor's JS
-		wp_register_script('pagelayer-editor', admin_url( 'admin-ajax.php?action=pagelayer_givejs' ).'&give=pagelayer-editor.js,widgets.js,'.(defined('PAGELAYER_PREMIUM') ? 'premium.js,' : '').'properties.js,base-64.min.js,slimscroll.js,vanilla-picker.min.js,trumbowyg.js,trumbowyg.fontfamily.js,trumbowyg-pagelayer.js,tlite.min.js,pagelayer-pen.js,&pagelayer_nonce=1&scmd5='.$scmd5, array('jquery'), PAGELAYER_VERSION);
+		wp_register_script('pagelayer-editor', admin_url( 'admin-ajax.php?action=pagelayer_givejs' ).'&give=pagelayer-editor.js,widgets.js,properties.js,base-64.min.js,slimscroll.js,vanilla-picker.min.js,trumbowyg.js,trumbowyg.fontfamily.js,trumbowyg-pagelayer.js,tlite.min.js,pagelayer-pen.js'.$premium_js.'&pagelayer_nonce=1&scmd5='.$scmd5, array('jquery'), PAGELAYER_VERSION);
 		
 		wp_enqueue_script('pagelayer-editor');
 
@@ -65,7 +68,7 @@ class PageLayer_LiveEditor{
 		}
 
 		// Enqueue the Editor's CSS
-		wp_register_style('pagelayer-editor', $css_url.'give=pagelayer-editor-frontend.css,pagelayer-pen.css,'.(defined('PAGELAYER_PREMIUM') ? ',owl.theme.default.min.css,owl.carousel.min.css' : ''), array(), PAGELAYER_VERSION);
+		wp_register_style('pagelayer-editor', $css_url.'give=pagelayer-editor-frontend.css,pagelayer-pen.css,'.(defined('PAGELAYER_PREMIUM') ? ',owl.theme.default.min.css,owl.carousel.min.css' : '').$premium_css, array(), PAGELAYER_VERSION);
 		wp_enqueue_style('pagelayer-editor');
 
 		// Enqueue the DateTime picker CSS
@@ -117,7 +120,7 @@ class PageLayer_LiveEditor{
 		// Get CAPTCHA site key
 		$pagelayer_recaptch_site_key = get_option('pagelayer_google_captcha');
 		
-		$pro_url = defined('POPULARFX_PRO_URL') ? POPULARFX_PRO_URL : PAGELAYER_PRO_URL;
+		$pro_url = defined('POPULARFX_PRO_URL') ? POPULARFX_PRO_URL : PAGELAYER_PRO_PRICE_URL;
 		$pro_txt = defined('POPULARFX_PRO_URL') ? 'PopularFX Pro' : 'Pagelayer Pro';
 		$post_type = get_post_type_object($post->post_type);
 		$post_type_name = (!empty($post_type->labels->singular_name)) ? $post_type->labels->singular_name : ucfirst($post_type->name);
@@ -140,7 +143,7 @@ class PageLayer_LiveEditor{
 pagelayer_ver = "'.PAGELAYER_VERSION.'";
 pagelayer_block_prefix = "'.PAGELAYER_BLOCK_PREFIX.'";
 pagelayer_pro = '.(int)defined('PAGELAYER_PREMIUM').';
-pagelayer_pro_url = "'.PAGELAYER_PRO_URL.'";
+pagelayer_pro_url = "'.PAGELAYER_PRO_PRICE_URL.'";
 pagelayer_pro_txt = "'.addslashes('This feature is a part of <a href="'.$pro_url.'" target="_blank">'.$pro_txt.'</a>. You will need purchase <a href="'.$pro_url.'" target="_blank">'.$pro_txt.'</a> to use this feature.').'";
 pagelayer_api_url = "'.PAGELAYER_API.'";
 pagelayer_ajax_url = "'.admin_url( 'admin-ajax.php' ).'?&";

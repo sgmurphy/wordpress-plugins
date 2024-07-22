@@ -133,7 +133,7 @@ class CnbDomainViewUpgradeOverview {
                             .</div>
                     <?php if ( $cnb_coupon->redeemByDate ) { ?>
                         <div class="cnb_align_right cnb-coupon-timer" id="cnb-coupon-expiration-countdown"
-                             data-coupon-expiration-time="<?php echo esc_attr( $cnb_coupon->redeemBy ); ?>">
+                            data-coupon-expiration-time="<?php echo esc_attr( $cnb_coupon->redeemBy ); ?>">
                             Coupon expires in <?php echo esc_html( $cnb_coupon->get_redeem_by() ) ?>
                         </div>
                     <?php } else { ?>
@@ -186,11 +186,11 @@ class CnbDomainViewUpgradeOverview {
             <div class="cnb-currency-toggle">
                 <span class="cnb_currency_active cnb_currency_active_eur" style="font-weight:bold">EUR</span>
                 <input id="cnb-currency-toggle-proAccount"
-                       class="cnb-currency-toggle-cb cnb_toggle_checkbox" name="currency" type="checkbox"
-                       value="usd"/>
+                        class="cnb-currency-toggle-cb cnb_toggle_checkbox" name="currency" type="checkbox"
+                        value="usd"/>
                 <label for="cnb-currency-toggle-proAccount" class="cnb_toggle_label">Toggle</label>
                 <span style="display: inline-block; margin-left: 4px;"
-                      class="cnb_currency_active cnb_currency_active_usd">USD</span>
+                        class="cnb_currency_active cnb_currency_active_usd">USD</span>
             </div>
         <?php } ?>
 
@@ -215,7 +215,7 @@ class CnbDomainViewUpgradeOverview {
 
             </div>
             <div class="currency-box currency-box-usd cnb-flexbox"
-                 style="<?php if ( $active_currency !== 'usd' ) { ?>display:none<?php } ?>">
+                style="<?php if ( $active_currency !== 'usd' ) { ?>display:none<?php } ?>">
 
                 <div class="cnb-pricebox cnb-currency-box currency-box-active">
                     <h3 class="cnb-price-usd">PRO Account</h3>
@@ -260,11 +260,11 @@ class CnbDomainViewUpgradeOverview {
             <div class="cnb-currency-toggle">
                 <span class="cnb_currency_active cnb_currency_active_eur" style="font-weight:bold">EUR</span>
                 <input id="cnb-currency-toggle<?php echo esc_attr( $additional_id_value ) ?>"
-                       class="cnb-currency-toggle-cb cnb_toggle_checkbox" name="currency" type="checkbox"
-                       value="usd"/>
+                        class="cnb-currency-toggle-cb cnb_toggle_checkbox" name="currency" type="checkbox"
+                        value="usd"/>
                 <label for="cnb-currency-toggle<?php echo esc_attr( $additional_id_value ) ?>" class="cnb_toggle_label">Toggle</label>
                 <span style="display: inline-block; margin-left: 4px;"
-                      class="cnb_currency_active cnb_currency_active_usd">USD</span>
+                        class="cnb_currency_active cnb_currency_active_usd">USD</span>
             </div>
         <?php } ?>
         <form class="wp_domain_upgrade" method="post">
@@ -295,11 +295,11 @@ class CnbDomainViewUpgradeOverview {
 
                         <?php if ( $plan_year->trialPeriodDays && $plan_year->trialPeriodDays > 0 ) { ?>
                             <a class="button button-primary button-upgrade powered-by-eur-yearly" href="#"
-                               onclick="cnb_get_checkout('<?php echo esc_js( $plan_year->id ) ?>')">Try <?php echo esc_html( $plan_year->trialPeriodDays ) ?>
+                                onclick="cnb_get_checkout('<?php echo esc_js( $plan_year->id ) ?>')">Try <?php echo esc_html( $plan_year->trialPeriodDays ) ?>
                                 days free</a>
                         <?php } else { ?>
                             <a class="button button-primary button-upgrade powered-by-eur-yearly" href="#"
-                               onclick="cnb_get_checkout('<?php echo esc_js( $plan_year->id ) ?>')">Upgrade now</a>
+                                onclick="cnb_get_checkout('<?php echo esc_js( $plan_year->id ) ?>')">Upgrade now</a>
                         <?php } ?>
                     </div>
                     <?php
@@ -320,17 +320,17 @@ class CnbDomainViewUpgradeOverview {
 
                         <?php if ( $plan_year->trialPeriodDays && $plan_year->trialPeriodDays > 0 ) { ?>
                             <a class="button button-primary button-upgrade powered-by-eur-monthly" href="#"
-                               onclick="cnb_get_checkout('<?php echo esc_js( $plan->id ) ?>')">Try <?php echo esc_html( $plan_year->trialPeriodDays ) ?>
+                                onclick="cnb_get_checkout('<?php echo esc_js( $plan->id ) ?>')">Try <?php echo esc_html( $plan_year->trialPeriodDays ) ?>
                                 days free</a>
                         <?php } else { ?>
                             <a class="button button-primary button-upgrade powered-by-eur-monthly" href="#"
-                               onclick="cnb_get_checkout('<?php echo esc_js( $plan->id ) ?>')">Upgrade now</a>
+                                onclick="cnb_get_checkout('<?php echo esc_js( $plan->id ) ?>')">Upgrade now</a>
                         <?php } ?>
                     </div>
 
                 </div>
                 <div class="currency-box currency-box-usd cnb-flexbox"
-                     style="<?php if ( $active_currency !== 'usd' ) { ?>display:none<?php } ?>">
+                    style="<?php if ( $active_currency !== 'usd' ) { ?>display:none<?php } ?>">
                     <?php
                     $plan_year         = $this->get_plan( $cnb_plans, 'powered-by-usd-yearly' );
                     $plan_year_monthly = $plan_year->price / 12;
@@ -351,11 +351,11 @@ class CnbDomainViewUpgradeOverview {
 
                         <?php if ( $plan_year->trialPeriodDays && $plan_year->trialPeriodDays > 0 ) { ?>
                             <a class="button button-primary button-upgrade powered-by-usd-yearly" href="#"
-                               onclick="cnb_get_checkout('<?php echo esc_js( $plan_year->id ) ?>')">Try <?php echo esc_html( $plan_year->trialPeriodDays ) ?>
+                                onclick="cnb_get_checkout('<?php echo esc_js( $plan_year->id ) ?>')">Try <?php echo esc_html( $plan_year->trialPeriodDays ) ?>
                                 days free</a>
                         <?php } else { ?>
                             <a class="button button-primary button-upgrade powered-by-usd-yearly" href="#"
-                               onclick="cnb_get_checkout('<?php echo esc_js( $plan_year->id ) ?>')">Upgrade now</a>
+                                onclick="cnb_get_checkout('<?php echo esc_js( $plan_year->id ) ?>')">Upgrade now</a>
                         <?php } ?>
                     </div>
 
@@ -377,11 +377,11 @@ class CnbDomainViewUpgradeOverview {
 
                         <?php if ( $plan_year->trialPeriodDays && $plan_year->trialPeriodDays > 0 ) { ?>
                             <a class="button button-primary button-upgrade powered-by-usd-monthly" href="#"
-                               onclick="cnb_get_checkout('<?php echo esc_js( $plan->id ) ?>')">Try <?php echo esc_html( $plan_year->trialPeriodDays ) ?>
+                                onclick="cnb_get_checkout('<?php echo esc_js( $plan->id ) ?>')">Try <?php echo esc_html( $plan_year->trialPeriodDays ) ?>
                                 days free</a>
                         <?php } else { ?>
                             <a class="button button-primary button-upgrade powered-by-usd-monthly" href="#"
-                               onclick="cnb_get_checkout('<?php echo esc_js( $plan->id ) ?>')">Upgrade now</a>
+                                onclick="cnb_get_checkout('<?php echo esc_js( $plan->id ) ?>')">Upgrade now</a>
                         <?php } ?>
                     </div>
 
@@ -413,29 +413,29 @@ class CnbDomainViewUpgradeOverview {
             <br>
             <h2>The scheduler</h2>
             <img src="<?php echo esc_url( plugins_url( 'resources/images/button-scheduler.png', CNB_PLUGINS_URL_BASE ) ); ?>"
-                 alt="The scheduler">
+                alt="The scheduler">
             <p>Control exactly when your buttons are displayed. Maybe a call button during business hours and a mail
                 buttons when you're closed.</p>
             <div class="cnb-divider"></div>
             <h2>Icon selection with each action</h2>
             <img class="cnb-width-80 cnb-extra-space"
-                 src="<?php echo esc_url( plugins_url( 'resources/images/cnb-icons-actions.png', CNB_PLUGINS_URL_BASE ) ); ?>"
-                 alt="WhatsApp modal">
+                src="<?php echo esc_url( plugins_url( 'resources/images/cnb-icons-actions.png', CNB_PLUGINS_URL_BASE ) ); ?>"
+                alt="WhatsApp modal">
             <p>Pick the icon that works best for your situation. And if you want to be completely original, you can use your own image as well.</p>
 
             <div class="cnb-divider"></div>
 
             <h2>Add WhatsApp Chat to your website</h2>
             <img src="<?php echo esc_url( plugins_url( 'resources/images/whatsapp-modal.png', CNB_PLUGINS_URL_BASE ) ); ?>"
-                 alt="WhatsApp modal">
+                alt="WhatsApp modal">
             <p>Start the WhatsApp conversation on your website.</p>
 
             <div class="cnb-divider"></div>
 
             <h2>Multibutton</h2>
             <img class="cnb-width-80"
-                 src="<?php echo esc_url( plugins_url( 'resources/images/multibutton.png', CNB_PLUGINS_URL_BASE ) ); ?>"
-                 alt="Multibutton">
+                src="<?php echo esc_url( plugins_url( 'resources/images/multibutton.png', CNB_PLUGINS_URL_BASE ) ); ?>"
+                alt="Multibutton">
             <p>Takes up little space but reveals a treasure of options. Add an infinite number of actions to the
                 Multibutton.</p>
 
@@ -443,8 +443,8 @@ class CnbDomainViewUpgradeOverview {
 
             <h2>Buttonbar</h2>
             <img class="cnb-width-80"
-                 src="<?php echo esc_url( plugins_url( 'resources/images/buttonbar.png', CNB_PLUGINS_URL_BASE ) ); ?>"
-                 alt="Buttonbar">
+                src="<?php echo esc_url( plugins_url( 'resources/images/buttonbar.png', CNB_PLUGINS_URL_BASE ) ); ?>"
+                alt="Buttonbar">
             <p>Create a web app experience on your website with the Buttonbar. Add up to 5 actions to the Buttonbar that
                 sits fixed at the bottom or top of your page.</p>
 
@@ -452,16 +452,16 @@ class CnbDomainViewUpgradeOverview {
 
             <h2>Button Flower</h2>
             <img class="cnb-width-80"
-                 src="<?php echo esc_url( plugins_url( 'resources/images/button-flower.png', CNB_PLUGINS_URL_BASE ) ); ?>"
-                 alt="Buttonbar">
+                src="<?php echo esc_url( plugins_url( 'resources/images/button-flower.png', CNB_PLUGINS_URL_BASE ) ); ?>"
+                alt="Buttonbar">
             <p>The Button Flower is a circular spread of buttons around a center button. It unfolds when it's pressed.<br>Delicate and unintrusive while making your website so much more fun and easy to navigate.</p>
 
             <div class="cnb-divider"></div>
 
             <h2>Button Dots</h2>
             <img class="cnb-width-80"
-                 src="<?php echo esc_url( plugins_url( 'resources/images/dots.png', CNB_PLUGINS_URL_BASE ) ); ?>"
-                 alt="Buttonbar">
+                src="<?php echo esc_url( plugins_url( 'resources/images/dots.png', CNB_PLUGINS_URL_BASE ) ); ?>"
+                alt="Buttonbar">
             <p>No words, just clear icons that guide your visitors exactly where they need to go. Increase conversions while boosting your site's UX.</p>
 
         </div>

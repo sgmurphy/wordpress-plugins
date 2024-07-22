@@ -311,7 +311,7 @@ class AIOVG_Widget_Videos extends WP_Widget {
 						$instance[ $field_name ] = 0;
 					}
 				} elseif ( 'url' == $field['type'] ) {
-					$instance[ $field_name ] = ! empty( $new_instance[ $field_name ] ) ? esc_url_raw( $new_instance[ $field_name ] ) : '';
+					$instance[ $field_name ] = ! empty( $new_instance[ $field_name ] ) ? aiovg_sanitize_url( $new_instance[ $field_name ] ) : '';
 				} elseif ( 'checkbox' == $field['type'] ) {
 					$instance[ $field_name ] = isset( $new_instance[ $field_name ] ) ? (int) $new_instance[ $field_name ] : 0;
 				} else {

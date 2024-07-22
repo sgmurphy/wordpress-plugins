@@ -55,7 +55,7 @@ class ActionSettingsFacebook {
             add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'upgrade',
-                'id'     => $button->domain->id
+                'id'     => $button->domain->id,
             ),
                 admin_url( 'admin.php' ) );
 
@@ -126,8 +126,8 @@ class ActionSettingsFacebook {
                         ? $action->properties->{'facebook-widget-app-id'} : '';
                     ?>
                     <input id="cnb-action-facebook-widget-app-id" type="text"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][facebook-widget-app-id]"
-                           value="<?php echo esc_attr( $value ) ?>" placeholder="Optional"/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][facebook-widget-app-id]"
+                            value="<?php echo esc_attr( $value ) ?>" placeholder="Optional"/>
                     <p class="description">If you use an App (instead of the Chat Plugin), enter your App ID below. </p>
                     <ol class="description ol-decimal">
                         <li>Go to your app via <a href="https://developers.facebook.com/apps" target="_blank">https://developers.facebook.com/apps</a></li>

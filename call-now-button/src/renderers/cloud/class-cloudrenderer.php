@@ -46,7 +46,7 @@ class CloudRenderer extends Renderer {
      * @return void
      */
     function renderComment($id) {
-        echo sprintf( '<!-- Call Now Button %1$s (https://callnowbutton.com) [renderer:cloud, id:%2$s]-->%3$s',
+        printf( '<!-- Call Now Button %1$s (https://callnowbutton.com) [renderer:cloud, id:%2$s]-->%3$s',
             esc_attr( CNB_VERSION ),
             esc_attr( $id ),
             "\n"
@@ -69,7 +69,7 @@ class CloudRenderer extends Renderer {
             // We echo this ourselves instead of via "wp_enqueue_script",
             // since we want/seed the async feature, which is unsupported by "wp_enqueue_script"
             // phpcs:ignore WordPress.WP
-            echo sprintf( '<script data-cnb-version="%1$s" type="text/javascript" async="async" src="%2$s"></script>%3$s',
+            printf( '<script data-cnb-version="%1$s" type="text/javascript" async="async" src="%2$s"></script>%3$s',
                 esc_attr( CNB_VERSION ),
                 esc_url( $url ),
                 "\n"

@@ -12,6 +12,7 @@ use cnb\admin\condition\CnbCondition;
 use cnb\notices\CnbAdminNotices;
 use cnb\notices\CnbNotice;
 use cnb\utils\CnbUtils;
+use WP_Error;
 
 class CnbButtonController {
 
@@ -22,8 +23,8 @@ class CnbButtonController {
     public function create() {
         do_action( 'cnb_init', __METHOD__ );
         /**
-         * @param $button CnbButton
-         * @param $actions CnbAction[]
+         * @param $button CnbButton|WP_Error
+         * @param $actions (CnbAction|WP_Error)[]
          *
          * @return void
          */
@@ -58,7 +59,7 @@ class CnbButtonController {
                         'type'   => $new_button_type,
                         'id'     => $new_button_id,
                         'tid'    => $transient_id,
-                        'tab'    => $tab
+                        'tab'    => $tab,
                     ),
                     $url );
             $redirect_url  = esc_url_raw( $redirect_link );
@@ -113,11 +114,11 @@ class CnbButtonController {
 						'type'   => $new_button_type,
 						'id'     => $new_button_id,
 						'tid'    => $transient_id,
-						'tab'    => $tab
+						'tab'    => $tab,
 					),
 					$url );
 			do_action( 'cnb_finish' );
-			wp_send_json(['redirect_link' => $redirect_link]);
+			wp_send_json(array( 'redirect_link' => $redirect_link ));
 			exit;
 		};
 
@@ -132,9 +133,9 @@ class CnbButtonController {
     public function update() {
         do_action( 'cnb_init', __METHOD__ );
         /**
-         * @param $button CnbButton
-         * @param $actions CnbAction[]
-         * @param $conditions CnbCondition[]
+         * @param $button CnbButton|WP_Error
+         * @param $actions (CnbAction|WP_Error)[]
+         * @param $conditions (CnbCondition|WP_Error)[]
          *
          * @return void
          */
@@ -157,7 +158,7 @@ class CnbButtonController {
                         'type'   => strtolower( $button->type ),
                         'id'     => $button->id,
                         'tid'    => $transient_id,
-                        'tab'    => $tab
+                        'tab'    => $tab,
                     ),
                     $url );
             $redirect_url  = esc_url_raw( $redirect_link );
@@ -293,7 +294,7 @@ class CnbButtonController {
                 add_query_arg(
                     array(
                         'page' => 'call-now-button',
-                        'tid'  => $transient_id
+                        'tid'  => $transient_id,
                     ),
                     $url );
             $redirect_url  = esc_url_raw( $redirect_link );
@@ -380,7 +381,7 @@ class CnbButtonController {
 			add_query_arg(
 				array(
 					'page' => 'call-now-button',
-					'tid'  => $transient_id
+					'tid'  => $transient_id,
 				),
 				admin_url( 'admin.php' ) );
 		$redirect_url  = esc_url_raw( $redirect_link );

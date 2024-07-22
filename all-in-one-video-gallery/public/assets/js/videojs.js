@@ -208,7 +208,7 @@
 				}
 
 				overlays.push({
-					content: '<a href="' + settings.download.url + '" class="vjs-download-button" title="Download" target="_blank" style="text-decoration:none;"><span class="aiovg-icon-download" aria-hidden="true"></span><span class="vjs-control-text" aria-live="polite">Download</span></a>',
+					content: '<a href="' + settings.download.url + '" class="vjs-download-button" title="Download" target="_blank"><span class="vjs-icon-file-download" aria-hidden="true"></span><span class="vjs-control-text" aria-live="polite">Download</span></a>',
 					class: className,
 					align: 'top-right',
 					start: 'controlsshown',
@@ -219,37 +219,28 @@
 
 			// Logo
 			if ( settings.hasOwnProperty( 'logo' ) ) {
-				var attributes = [];
-				attributes['src'] = settings.logo.image;
-
 				if ( settings.logo.margin ) {
 					settings.logo.margin = settings.logo.margin - 5;
 				}
-
+				
+				var style = 'margin: ' + settings.logo.margin + 'px;';
 				var align = 'bottom-left';
-				attributes['style'] = 'margin: ' + settings.logo.margin + 'px;';
 
 				switch ( settings.logo.position ) {
-					case 'topleft':
+					case 'topleft':						
 						align = 'top-left';
-						attributes['style'] = 'margin: ' + settings.logo.margin + 'px;';
 						break;
 
-					case 'topright':
+					case 'topright':						
 						align = 'top-right';
-						attributes['style'] = 'margin: ' + settings.logo.margin + 'px;';
 						break;
 
 					case 'bottomright':
 						align = 'bottom-right';
-						attributes['style'] = 'margin: ' + settings.logo.margin + 'px;';
 						break;				
 				}
 
-				var logo = '<img ' +  mergeAttributes( attributes ) + ' alt="" />';
-				if ( settings.logo.link ) {
-					logo = '<a href="' + settings.logo.link + '" style="text-decoration:none;">' + logo  + '</a>';
-				}
+				var logo = '<a href="' + settings.logo.link + '" style="' + style + '"><img src="' + settings.logo.image + '" alt="" /><span class="vjs-control-text" aria-live="polite">Logo</span></a>';
 
 				overlays.push({
 					content: logo,
@@ -493,7 +484,7 @@
 	 */
 	function addMarkers( player, markers ) {
 		var total   = player.duration();
-		var seekBar = document.querySelector( '.vjs-progress-control .vjs-progress-holder' );
+		var seekBar = player.el_.querySelector( '.vjs-progress-control .vjs-progress-holder' );
 
 		if ( seekBar !== null ) {
 			for ( var i = 0; i < markers.length; i++ ) {

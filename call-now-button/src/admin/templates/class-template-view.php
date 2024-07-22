@@ -37,14 +37,14 @@ class Template_View {
 		if ( $this->templates && ! is_wp_error( $this->templates ) ) {
 			wp_localize_script( CNB_SLUG . '-templates', 'cnb_templates_data', $this->templates );
 			wp_localize_script( CNB_SLUG . '-templates', 'cnb_templates_ajax_data',
-                [
+                array(
                         'ajaxUrl' => admin_url( 'admin-ajax.php' ),
                         'nonce' => wp_create_nonce( 'cnb-button-edit' ),
 	                    'actionTypes' => $admin_functions->cnb_get_action_types(),
 	                    'displayModes' => $admin_functions->get_display_modes(),
 	                    'currentDomain' => $cnb_domain,
 	                    'upgradeLink' => (new CnbUtils())->get_cnb_domain_upgrade(),
-                ] );
+                ) );
 		}
 
 		add_action( 'cnb_header_name', array( $this, 'header' ) );

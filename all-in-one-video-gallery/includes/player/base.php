@@ -383,6 +383,7 @@ class AIOVG_Player_Base {
 			'speed'               => isset( $player_settings['controls']['speed'] ),
 			'quality'             => isset( $player_settings['controls']['quality'] ),			
 			'volume'              => isset( $player_settings['controls']['volume'] ),
+			'pip'                 => isset( $player_settings['controls']['pip'] ),
 			'fullscreen'          => isset( $player_settings['controls']['fullscreen'] ),
 			'share'			      => isset( $player_settings['controls']['share'] ),
 			'embed'			      => isset( $player_settings['controls']['embed'] ),
@@ -659,7 +660,7 @@ class AIOVG_Player_Base {
 		$html = sprintf(
 			'<div class="aiovg-player-raw" data-params=\'%s\'>%s</div>',
 			wp_json_encode( $settings ),
-			$videos['embedcode']			
+			do_shortcode( $videos['embedcode'] )		
 		);
 
 		return $html;
@@ -700,8 +701,8 @@ class AIOVG_Player_Base {
 		$attributes = array(
 			'class'       => 'aiovg-player-element',
 			'title'       => esc_attr( $this->post_title ),
-			'src'         => esc_attr( $videos['iframe'] ),
-			'poster'      => esc_attr( $poster ),
+			'src'         => esc_url( $videos['iframe'] ),
+			'poster'      => esc_url( $poster ),
 			'ratio'       => (float) $player_settings['ratio'],
 			'post_id'     => (int) $this->post_id,
 			'post_type'   => esc_attr( $this->post_type )
@@ -716,7 +717,7 @@ class AIOVG_Player_Base {
 		}
 
 		if ( ( $this->post_id > 0 && 'aiovg_videos' == $this->post_type ) || isset( $attributes['cookieconsent'] ) ) {
-			$attributes['ajax_url'] = esc_attr( admin_url( 'admin-ajax.php' ) );
+			$attributes['ajax_url'] = esc_url( admin_url( 'admin-ajax.php' ) );
 			$attributes['ajax_nonce'] = esc_attr( wp_create_nonce( 'aiovg_ajax_nonce' ) );
 		}
 
@@ -734,7 +735,7 @@ class AIOVG_Player_Base {
 
 		if ( isset( $attributes['cookieconsent'] ) ) { // Cookie consent			
 			$html .= sprintf( '<div slot="cookieconsent-message">%s</div>', wp_kses_post( trim( $privacy_settings['consent_message'] ) ) );
-			$html .= sprintf( '<span slot="cookieconsent-button-label">%s</span>', esc_attr( $privacy_settings['consent_button_label'] ) );
+			$html .= sprintf( '<span slot="cookieconsent-button-label">%s</span>', esc_html( $privacy_settings['consent_button_label'] ) );
 		}
 
 		$html .= sprintf( '</aiovg-%s>', $provider );
@@ -756,7 +757,7 @@ class AIOVG_Player_Base {
 
 		parse_str( $url, $queries );
 
-		$url = 'https://www.youtube.com/embed/' . aiovg_get_youtube_id_from_url( $url ) . '?modestbranding=1&showinfo=0&rel=0&iv_load_policy=3';									
+		$url = 'https://www.youtube.com/embed/' . aiovg_get_youtube_id_from_url( $url ) . '?iv_load_policy=3&modestbranding=1&rel=0&showinfo=0';									
 		
 		if ( isset( $queries['start'] ) ) {
 			$url = add_query_arg( 'start', (int) $queries['start'], $url );
@@ -770,16 +771,18 @@ class AIOVG_Player_Base {
 			$url = add_query_arg( 'end', (int) $queries['end'], $url );
 		}
 
-		if ( empty( $player_settings['controls'] ) ) {
-			$url = add_query_arg( 'controls', 0, $url );
-		}
-
-		if ( empty( $player_settings['fullscreen'] ) ) {
-			$url = add_query_arg( 'fs', 0, $url );
-		}
-
 		if ( ! empty( $player_settings['autoplay'] ) ) {
 			$url = add_query_arg( 'autoplay', 1, $url );
+		}
+
+		$url = add_query_arg( 'cc_load_policy', (int) $player_settings['cc_load_policy'], $url );
+
+		if ( empty( $player_settings['controls'] ) ) {
+			$url = add_query_arg( 'controls', 0, $url );
+		}		
+		
+		if ( empty( $player_settings['fullscreen'] ) ) {
+			$url = add_query_arg( 'fs', 0, $url );
 		}
 
 		if ( ! empty( $player_settings['loop'] ) ) {
@@ -787,12 +790,10 @@ class AIOVG_Player_Base {
 		}
 
 		if ( ! empty( $player_settings['muted'] ) ) {
-			$url = add_query_arg( 'muted', 1, $url );
+			$url = add_query_arg( 'mute', 1, $url );
 		}
 
-		$url = add_query_arg( 'cc_load_policy', (int) $player_settings['cc_load_policy'], $url );
-
-		$url = add_query_arg( 'playsinline', (int) $player_settings['playsinline'], $url );
+		$url = add_query_arg( 'playsinline', (int) $player_settings['playsinline'], $url );				
 
 		return $url;
 	}
@@ -808,21 +809,21 @@ class AIOVG_Player_Base {
 		$player_settings = $this->get_player_settings();
 
 		$oembed = aiovg_get_vimeo_oembed_data( $url );
-		$url = 'https://player.vimeo.com/video/' . $oembed['video_id'] . '?title=0&byline=0&portrait=0';
+
+		$url = 'https://player.vimeo.com/video/' . $oembed['video_id'] . '?byline=0&portrait=0&title=0&vimeo_logo=0';
 
 		if ( ! empty( $oembed['html'] ) ) {
-			$iframe_src = aiovg_extract_iframe_src( $oembed['html'] );
-			if ( $iframe_src ) {
+			if ( $iframe_src = aiovg_extract_iframe_src( $oembed['html'] ) ) {
 				$parsed_url = parse_url( $iframe_src, PHP_URL_QUERY );
 				parse_str( $parsed_url, $queries );
-
-				if ( isset( $queries['h'] ) ) {
-					$url = add_query_arg( 'h', $queries['h'], $url );
-				}
 
 				if ( isset( $queries['app_id'] ) ) {
 					$url = add_query_arg( 'app_id', $queries['app_id'], $url );
 				}
+
+				if ( isset( $queries['h'] ) ) {
+					$url = add_query_arg( 'h', $queries['h'], $url );
+				}				
 			}
 		}
 
@@ -835,7 +836,7 @@ class AIOVG_Player_Base {
 		}
 
 		if ( ! empty( $player_settings['muted'] ) ) {
-			$url = add_query_arg( 'mute', 1, $url );
+			$url = add_query_arg( 'muted', 1, $url );
 		}
 
 		$url = add_query_arg( 'playsinline', (int) $player_settings['playsinline'], $url );
@@ -864,7 +865,7 @@ class AIOVG_Player_Base {
 		}
 
 		if ( ! empty( $player_settings['muted'] ) ) {
-			$url = add_query_arg( 'muted', 1, $url );
+			$url = add_query_arg( 'mute', 1, $url );
 		}
 
 		return $url;
@@ -883,8 +884,7 @@ class AIOVG_Player_Base {
 		$oembed = aiovg_get_rumble_oembed_data( $url );
 
 		if ( ! empty( $oembed['html'] ) ) {
-			$iframe_src = aiovg_extract_iframe_src( $oembed['html'] );
-			if ( $iframe_src ) {
+			if ( $iframe_src = aiovg_extract_iframe_src( $oembed['html'] ) ) {
 				$url = add_query_arg( 'rel', 0, $iframe_src );	
 
 				if ( ! empty( $player_settings['autoplay'] ) ) {

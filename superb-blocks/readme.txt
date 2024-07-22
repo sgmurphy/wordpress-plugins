@@ -4,7 +4,7 @@ Tags: block, gutenberg, full site editing, elementor, wordpress editor
 Requires at least: 3.0.1
 Tested up to: 6.6
 Requires PHP: 6.0
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -202,6 +202,9 @@ With this powerful tool at your fingertips, you'll enjoy access to a vast collec
 4. Editor Highlight
 
 == Changelog ==
+= 3.3.1 =
+* Compatibility fix for older versions of WordPress prior to 5.9.
+
 = 3.3.0 =
 * Decimals are now allowed in individual rating bars in the Rating block.
 * WP 6.6 compatibility.

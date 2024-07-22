@@ -53,9 +53,9 @@ class ActionSettingsIntercom {
             <th scope="row"><label for="cnb-action-properties-intercom-horizontal-padding">Horizontal padding</label>
             </th>
             <td><input placeholder="Optional" id="cnb-action-properties-intercom-horizontal-padding"
-                       name="actions[<?php echo esc_attr( $action->id ) ?>][properties][intercom-horizontal-padding]"
-                       type="number" min="0"
-                       value="<?php echo esc_attr( $horizontal_padding ) ?>"/>
+                        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][intercom-horizontal-padding]"
+                        type="number" min="0"
+                        value="<?php echo esc_attr( $horizontal_padding ) ?>"/>
                 <p class="description">Horizontal padding (in whole numbers (<code>px</code>), defaults to
                     <code>0</code>.</p>
             </td>
@@ -63,9 +63,9 @@ class ActionSettingsIntercom {
         <tr class="cnb-action-properties cnb-action-properties-INTERCOM cnb_advanced_view">
             <th scope="row"><label for="cnb-action-properties-intercom-vertical-padding">Vertical padding</label></th>
             <td><input placeholder="Optional" id="cnb-action-properties-intercom-vertical-padding"
-                       name="actions[<?php echo esc_attr( $action->id ) ?>][properties][intercom-vertical-padding]"
-                       type="number" min="0"
-                       value="<?php echo esc_attr( $vertical_padding ) ?>"/>
+                        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][intercom-vertical-padding]"
+                        type="number" min="0"
+                        value="<?php echo esc_attr( $vertical_padding ) ?>"/>
                 <p class="description">Vertical padding (in whole numbers (<code>px</code>)), defaults to <code>0</code>.
                 </p>
             </td>

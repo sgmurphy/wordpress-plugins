@@ -33,7 +33,7 @@ add_action( 'enqueue_block_assets', 'corpex_enqueue_block_assets' );
 function corpex_register() {
     // Resister script in editor
 	 wp_register_script( 'corpex_editor_script', CLEVERFOX_PLUGIN_URL . '/inc/corpex/block/dist/editor.js', array( 'wp-blob', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-html-entities', 'wp-i18n', 'wp-rich-text', 'font-awesome-kit' ), '1.0', false ); 
-    wp_register_style( 'corpex_editor_style', CLEVERFOX_PLUGIN_URL . '/inc/corpex/block/dist/editor.css', array( 'wp-edit-blocks'), '0.0' );
+    wp_register_style( 'corpex_editor_style', CLEVERFOX_PLUGIN_URL . '/inc/corpex/block/dist/editor.css', array( 'wp-edit-blocks'), null );
 
     // Register Blocks
     corpex_wp_register_script( 'infos', array( 'render_callback' => 'render_corpex_infos' ) );
@@ -66,41 +66,37 @@ class CorpexInfoStyleGenerator {
 
 // Render Infos
 function render_corpex_infos($attributes, $content){
-    $cId = isset($attributes['cId']) ? esc_attr($attributes['cId']) : '';
+    extract( $attributes );
+
+    $cId = $cId ?? '';
 
     // Generate Styles
     $infosStyle = new CorpexInfoStyleGenerator();
 
-    ob_start(); // Start output buffering
-    ?>
-    <div class='av-columns-area info-section info-section-one wow fadeInUp'>
-        <?php echo wp_kses_post($infosStyle::renderStyle()); ?>
-        <?php echo wp_kses_post($content); ?>
-    </div>
-    <?php
-    $output = ob_get_clean(); // Get buffered content and clean buffer
+    ob_start(); // Echo the content
+    echo "<div class='av-columns-area info-section info-section-one wow fadeInUp'>". $infosStyle::renderStyle() ."</style>". $content ."</div>";
+	//echo  $content;
 
-    $infosStyle::$styles = array(); // Empty styles before returning
-
-    return $output;
+    $infosStyle::$styles = array(); // Empty before blocks styles in after blocks
+    return ob_get_clean();
 }
 
 // Render Info
 function render_corpex_info( $attributes ) {
     extract( $attributes );
 
-    $cId = isset($cId) ? esc_attr($cId) : ''; // Escaping dynamic content
-    $columns = isset($columns) ? $columns : array( 'desktop' => 2, 'tablet'  => 2, 'mobile'  => 1 );
-    $isIcon = isset($isIcon) ? (bool) $isIcon : true; // Ensuring boolean value
-    $icon = isset($icon) ? array_map('esc_attr', $icon) : array('class' => 'fa fa-wordpress', 'fontSize' => 70); // Escaping and ensuring safe attributes
-    $isTitle = isset($isTitle) ? (bool) $isTitle : true; // Ensuring boolean value
-    $title = isset($title) ? esc_html($title) : 'Info title'; // Escaping HTML
-    $isDesc = isset($isDesc) ? (bool) $isDesc : true; // Ensuring boolean value
-    $desc = isset($desc) ? esc_html($desc) : 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus, fuga.'; // Escaping HTML
-    $isLink = isset($isLink) ? (bool) $isLink : true; // Ensuring boolean value
-    $link = isset($link) ? esc_url($link) : '#'; // Escaping URL
-    $isInfoType = isset($isInfoType) ? (bool) $isInfoType : true; // Ensuring boolean value
-    $infoType = isset($infoType) ? esc_attr($infoType) : 'Style 1'; // Escaping dynamic content
+    $cId = $cId ?? '';
+	$columns = $columns ?? array( 'desktop' => 2, 'tablet'  => 2, 'mobile'  => 1 );
+    $isIcon = $isIcon ?? true;
+    $icon = $icon ?? array('class' => 'fa fa-wordpress', 'fontSize' => 70);
+    $isTitle = $isTitle ?? true;
+    $title = $title ?? 'Info title';
+    $isDesc = $isDesc ?? true;
+    $desc = $desc ?? 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus, fuga.';
+	$isLink = $isLink ?? true;
+    $link = $link ?? '#';
+	$isInfoType = $isInfoType ?? true;
+    $infoType = $infoType ?? 'Style 1';
 	if($infoType =='Style 2'){
 		$infoTypes='info-wrapper2';
 	}elseif($infoType =='Style 3'){
@@ -116,16 +112,16 @@ function render_corpex_info( $attributes ) {
     ));
 
     // Components
-	$linkEl = $isLink ? esc_url($link) : ''; // Escaping URL
-    $iconEl = $isIcon && $icon['class'] ? "<div class='contact-icon'><i class='".esc_attr($icon['class'])."'></i></div>" : '';
-
-    if ($infoType == 'Style 2' || $infoType == 'Style 3') {
-        $titleEl = $isTitle ? "<a href='".esc_url($linkEl)."' class='contact-info'><span class='text'>".esc_html($title)."</span>" : '';
-        $descEl = $isDesc ? "<span class='description title'>".esc_html($desc)."</span></a>" : '';
-    } else {
-        $titleEl = $isTitle ? "<a href='".esc_url($linkEl)."' class='contact-info'><span class='title'>".esc_html($title)."</span></a>" : '';
-        $descEl = $isDesc ? "<span class='description text'>".esc_html($desc)."</span>" : '';
-    }	
+	$linkEl = $isLink ? "$link" : '';
+    $iconEl = $isIcon && $icon['class'] ? "<div class='contact-icon'><i class='".$icon['class']."'></i></div>" : '';
+	
+	if($infoType =='Style 2' || $infoType =='Style 3'){
+		$titleEl = $isTitle ? "<a href='". $linkEl ."' class='contact-info'><span class='text'>$title</span>" : '';
+		$descEl = $isDesc ? "<span class='description title'>$desc</span></a>" : '';
+	}else{
+		$titleEl = $isTitle ? "<a href='". $linkEl ."' class='contact-info'><span class='title'>$title</span></a>" : '';
+		$descEl = $isDesc ? "<span class='description text'>$desc</span>" : '';
+	}	
 
     ob_start(); // Echo the content
     // echo "<div class='av-column-".$columns['desktop']." ".$infoTypes."' id='corpexInfo-$cId'>
@@ -137,14 +133,13 @@ function render_corpex_info( $attributes ) {
 		// </aside>
     // </div>";
 	
-	echo "<div class='av-column-" . esc_attr($columns['desktop']) . " " . esc_attr($infoTypes) . "' id='corpexInfo-" . esc_attr($cId) . "'>
-        <aside class='widget widget-contact'>
-            <div class='contact-area'>
-                " . wp_kses_post($iconEl) . " " . wp_kses_post($titleEl) . " " . wp_kses_post($descEl) . "
-            </div>  
-        </aside>
-    </div>";
-
+	echo "<div class='av-column-".$columns['desktop']." ".$infoTypes."' id='corpexInfo-$cId'>
+			<aside class='widget widget-contact'>
+				<div class='contact-area'>
+					$iconEl $titleEl $descEl 
+				</div>	
+			</aside>
+		</div>";
 
     $infoStyle::$styles = array(); // Empty before blocks styles in after blocks
     return ob_get_clean();

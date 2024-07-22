@@ -126,6 +126,7 @@ class AIOVG_Blocks {
 				'speed'                        => __( 'Speed Control', 'all-in-one-video-gallery' ),
 				'quality'                      => __( 'Quality Selector', 'all-in-one-video-gallery' ),
 				'volume'                       => __( 'Volume Button', 'all-in-one-video-gallery' ),
+				'pip'                          => __( 'Picture-in-Picture Button', 'all-in-one-video-gallery' ),
 				'fullscreen'                   => __( 'Fullscreen Button', 'all-in-one-video-gallery' ),
 				'share'                        => __( 'Share Buttons', 'all-in-one-video-gallery' ),
 				'embed'                        => __( 'Embed Button', 'all-in-one-video-gallery' ),
@@ -160,6 +161,7 @@ class AIOVG_Blocks {
 				'speed'            => isset( $player_settings['controls']['speed'] ),
 				'quality'          => isset( $player_settings['controls']['quality'] ),					
 				'volume'           => isset( $player_settings['controls']['volume'] ),
+				'pip'              => isset( $player_settings['controls']['pip'] ),
 				'fullscreen'       => isset( $player_settings['controls']['fullscreen'] ),
 				'share'            => isset( $player_settings['controls']['share'] ),
 				'embed'            => isset( $player_settings['controls']['embed'] ),
@@ -298,6 +300,9 @@ class AIOVG_Blocks {
 				'type' => 'boolean'
 			),				
 			'volume' => array(
+				'type' => 'boolean'
+			),
+			'pip' => array(
 				'type' => 'boolean'
 			),
 			'fullscreen' => array(

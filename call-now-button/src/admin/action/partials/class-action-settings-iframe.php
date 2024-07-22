@@ -54,10 +54,10 @@ class ActionSettingsIframe {
         <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY cnb-action-properties-CHAT">
             <th scope="row"><label for="cnb-action-properties-iframe-title">Title</label></th>
             <td><input placeholder="Optional" id="cnb-action-properties-iframe-title"
-                       name="actions[<?php echo esc_attr( $action->id ) ?>][properties][iframe-title]" type="text"
-                       value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'iframe-title'} ) ) {
-                           echo esc_attr( $action->properties->{'iframe-title'} );
-                       } ?>"/>
+                        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][iframe-title]" type="text"
+                        value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'iframe-title'} ) ) {
+                            echo esc_attr( $action->properties->{'iframe-title'} );
+                        } ?>"/>
 
             </td>
         </tr>
@@ -118,11 +118,11 @@ class ActionSettingsIframe {
                 <div id="cnb-action-properties-modal-height-slider">
                     <label class="cnb_slider_value" id="cnb-action-properties-modal-height-value-min"></label>
                     <input id="cnb-action-properties-modal-height-value"
-                           type="range"
-                           min="10"
-                           max="2000"
-                           step="5"
-                           value="<?php echo esc_attr( $action_properties_modal_height_value ) ?>"/>
+                            type="range"
+                            min="10"
+                            max="2000"
+                            step="5"
+                            value="<?php echo esc_attr( $action_properties_modal_height_value ) ?>"/>
                     <label class="cnb_slider_value" id="cnb-action-properties-modal-height-value-max"></label>
                     <select id="cnb-action-properties-modal-height-unit">
                         <option value="px" <?php selected( 'px', $action_properties_modal_height_unit ) ?>>px</option>

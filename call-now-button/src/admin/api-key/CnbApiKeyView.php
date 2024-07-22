@@ -42,7 +42,7 @@ class CnbApiKeyView {
         wp_enqueue_script( CNB_SLUG . '-form-bulk-rewrite' );
 
         do_action( 'cnb_header' );
-        echo sprintf( '<form class="cnb_list_event" action="%s" method="post">', esc_url( admin_url( 'admin-post.php' ) ) );
+        printf( '<form class="cnb_list_event" action="%s" method="post">', esc_url( admin_url( 'admin-post.php' ) ) );
         echo '<input type="hidden" name="page" value="call-now-button-apikeys" />';
         echo '<input type="hidden" name="action" value="cnb_apikey_bulk" />';
         $wp_list_table->display();
@@ -61,7 +61,7 @@ class CnbApiKeyView {
                 <input type="hidden" name="page" value="call-now-button-apikeys"/>
                 <input type="hidden" name="action" value="cnb_apikey_create"/>
                 <input type="hidden" name="_wpnonce"
-                       value="<?php echo esc_attr( wp_create_nonce( 'cnb_apikey_create' ) ) ?>"/>
+                        value="<?php echo esc_attr( wp_create_nonce( 'cnb_apikey_create' ) ) ?>"/>
 
                 <table>
                     <tbody>

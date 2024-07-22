@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-15T19:52:48+00:00\n"
+"POT-Creation-Date: 2024-07-22T18:27:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -114,7 +114,7 @@ msgid ""
 "This will change the form to %2$s for EVERYONE, and %3$s cart contents will be used - your cart contents may not transfer."
 msgstr ""
 
-#: src/Cart/CartService.php:205
+#: src/Cart/CartService.php:206
 #: src/WordPress/Admin/Menus/AdminMenuPageService.php:210
 #: cart.php:6
 #: shop.php:6
@@ -1425,7 +1425,7 @@ msgstr ""
 #: sc-shipping-choices2.js:60
 #: sc-shipping-choices2.js:64
 #: sc-shipping-choices2.js:66
-#: sc-subscription-next-payment2.js:106
+#: sc-subscription-next-payment2.js:107
 msgid "Shipping"
 msgstr ""
 
@@ -1765,7 +1765,7 @@ msgstr ""
 #: settings/export/ExportSettings.js:43
 #: settings/subscription/SubscriptionSettings.js:64
 #: subscriptions/show/ShowSubscription.js:370
-#: sc-subscriptions-list.js:150
+#: sc-subscriptions-list.js:140
 msgid "Subscriptions"
 msgstr ""
 
@@ -2489,6 +2489,31 @@ msgstr[1] ""
 
 #: src/Models/Customer.php:167
 msgid "No customer ID or email provided."
+msgstr ""
+
+#: src/Models/LineItem.php:90
+msgid "No longer available"
+msgstr ""
+
+#: src/Models/LineItem.php:91
+#: src/Models/LineItem.php:93
+msgid "Price has changed"
+msgstr ""
+
+#: src/Models/LineItem.php:92
+msgid "Options no longer available"
+msgstr ""
+
+#: src/Models/LineItem.php:94
+msgid "Item no longer available"
+msgstr ""
+
+#: src/Models/LineItem.php:95
+msgid "Out of stock"
+msgstr ""
+
+#: src/Models/LineItem.php:96
+msgid "Exceeds purchase limit"
 msgstr ""
 
 #: src/Models/ProvisionalAccount.php:47
@@ -3911,8 +3936,33 @@ msgstr ""
 msgid "The minimum order amount for the processor is %s."
 msgstr ""
 
-#: src/Support/Errors/ErrorsTranslationService.php:144
-#: src/Support/Errors/ErrorsTranslationService.php:159
+#: src/Support/Errors/ErrorsTranslationService.php:96
+msgid "One or more items in your cart is no longer available. Please update your cart and try again."
+msgstr ""
+
+#: src/Support/Errors/ErrorsTranslationService.php:97
+msgid "The price of one of the items on cart has changed. Please review and try again."
+msgstr ""
+
+#: src/Support/Errors/ErrorsTranslationService.php:98
+#: src/Support/Errors/ErrorsTranslationService.php:99
+msgid "One of the items on cart is no longer available. Please review and try again."
+msgstr ""
+
+#: src/Support/Errors/ErrorsTranslationService.php:100
+msgid "One of the items on cart has changed. Please review and try again."
+msgstr ""
+
+#: src/Support/Errors/ErrorsTranslationService.php:101
+msgid "One of the items on cart is out of stock. Please review and try again."
+msgstr ""
+
+#: src/Support/Errors/ErrorsTranslationService.php:102
+msgid "One or more items in your cart exceed the purchase limit. Please adjust the quantity or remove the item to proceed with the checkout."
+msgstr ""
+
+#: src/Support/Errors/ErrorsTranslationService.php:162
+#: src/Support/Errors/ErrorsTranslationService.php:177
 msgid "Error."
 msgstr ""
 
@@ -3986,7 +4036,7 @@ msgstr ""
 #: src/Support/Errors/Translations/codes.php:32
 #: src/Support/Errors/Translations/codes.php:45
 #: src/Support/Errors/Translations/codes.php:61
-#: src/Support/Errors/Translations/codes.php:124
+#: src/Support/Errors/Translations/codes.php:123
 msgid "Please fill out your address."
 msgstr ""
 
@@ -4133,262 +4183,257 @@ msgid "This product is no longer purchaseable."
 msgstr ""
 
 #: src/Support/Errors/Translations/codes.php:77
-#: sc-session-provider2.js:387
-msgid "Some products in your order were outdated and have been updated. Please review your order summary before proceeding to payment."
-msgstr ""
-
-#: src/Support/Errors/Translations/codes.php:78
 msgid "This price is currently being used in subscriptions or checkout sessions. Please archive the price and create another one."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:79
+#: src/Support/Errors/Translations/codes.php:78
 msgid "The maximum price must be smaller."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:80
+#: src/Support/Errors/Translations/codes.php:79
 msgid "The minimum price must be smaller."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:81
+#: src/Support/Errors/Translations/codes.php:80
 msgid "The maximum price must be greater than the minimum price."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:82
+#: src/Support/Errors/Translations/codes.php:81
 msgid "You are already collecting tax for this zone."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:83
+#: src/Support/Errors/Translations/codes.php:82
 msgid "You cannot enable EU Micro Exemption if your address is outside of the EU."
+msgstr ""
+
+#: src/Support/Errors/Translations/codes.php:83
+#: src/Support/Errors/Translations/codes.php:90
+msgid "You cannot enable taxes unless a valid tax address is provided"
 msgstr ""
 
 #: src/Support/Errors/Translations/codes.php:84
 #: src/Support/Errors/Translations/codes.php:91
-msgid "You cannot enable taxes unless a valid tax address is provided"
-msgstr ""
-
-#: src/Support/Errors/Translations/codes.php:85
-#: src/Support/Errors/Translations/codes.php:92
 msgid "You cannot delete this media item because it is currently being used."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:86
+#: src/Support/Errors/Translations/codes.php:85
 msgid "This file type is not supported."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:87
+#: src/Support/Errors/Translations/codes.php:86
 msgid "Your storage limit has been reached. Please remove some media items before adding more."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:88
-#: src/Support/Errors/Translations/codes.php:93
+#: src/Support/Errors/Translations/codes.php:87
+#: src/Support/Errors/Translations/codes.php:92
 msgid "You have already requested a code in the last 60 seconds. Please wait before requesting again."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:89
+#: src/Support/Errors/Translations/codes.php:88
 msgid "This option name is already taken. Please use a different name."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:90
+#: src/Support/Errors/Translations/codes.php:89
 msgid "You have reached the maximum number of options for this product."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:94
+#: src/Support/Errors/Translations/codes.php:93
 msgid "This name is already taken. Please choose another name."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:95
+#: src/Support/Errors/Translations/codes.php:94
 msgid "The name cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:96
+#: src/Support/Errors/Translations/codes.php:95
 msgid "This URL part is already taken. Please choose another URL part."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:97
+#: src/Support/Errors/Translations/codes.php:96
 msgid "We don't currently ship to your address."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:98
+#: src/Support/Errors/Translations/codes.php:97
 msgid "The shipping method name is already in use ."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:99
+#: src/Support/Errors/Translations/codes.php:98
 msgid "The shipping profile name cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:100
+#: src/Support/Errors/Translations/codes.php:99
 msgid "The shipping profile name is too long. Please enter a shorter name."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:101
+#: src/Support/Errors/Translations/codes.php:100
 msgid "The shipping zone name cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:102
+#: src/Support/Errors/Translations/codes.php:101
 msgid "The shipping zone name is already in use."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:103
+#: src/Support/Errors/Translations/codes.php:102
 msgid "The shipping zone name is too long. Please enter a shorter name."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:104
+#: src/Support/Errors/Translations/codes.php:103
 msgid "The selected countries are already used in another shipping zone."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:105
+#: src/Support/Errors/Translations/codes.php:104
 msgid "The selected countries are not valid."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:106
+#: src/Support/Errors/Translations/codes.php:105
 msgid "The shipping method name cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:107
+#: src/Support/Errors/Translations/codes.php:106
 msgid "The shipping method name is too long. Please enter a shorter name."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:108
+#: src/Support/Errors/Translations/codes.php:107
 msgid "The shipping method name is already in use."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:109
+#: src/Support/Errors/Translations/codes.php:108
 msgid "The shipping method description is too long. Please enter a shorter description."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:110
+#: src/Support/Errors/Translations/codes.php:109
 msgid "The shipping rate type cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:111
+#: src/Support/Errors/Translations/codes.php:110
 msgid "The shipping rate type is not valid."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:112
+#: src/Support/Errors/Translations/codes.php:111
 msgid "The shipping weight unit cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:113
+#: src/Support/Errors/Translations/codes.php:112
 msgid "The shipping weight unit is not valid."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:114
+#: src/Support/Errors/Translations/codes.php:113
 msgid "The shipping method cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:115
+#: src/Support/Errors/Translations/codes.php:114
 msgid "The maximum weight must be greater than or equal to the minimum weight."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:116
+#: src/Support/Errors/Translations/codes.php:115
 msgid "The maximum weight must be a number."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:117
+#: src/Support/Errors/Translations/codes.php:116
 msgid "The minimum weight must be greater than or equal to zero."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:118
+#: src/Support/Errors/Translations/codes.php:117
 msgid "The minimum weight must be a number."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:119
+#: src/Support/Errors/Translations/codes.php:118
 msgid "The maximum amount must be greater than or equal to the minimum amount."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:120
+#: src/Support/Errors/Translations/codes.php:119
 msgid "The maximum amount must be a number."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:121
+#: src/Support/Errors/Translations/codes.php:120
 msgid "The minimum amount must be greater than or equal to zero."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:122
+#: src/Support/Errors/Translations/codes.php:121
 msgid "The minimum amount must be a number."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:123
+#: src/Support/Errors/Translations/codes.php:122
 msgid "This coupon is not applicable to this subscription."
 msgstr ""
 
+#: src/Support/Errors/Translations/codes.php:124
 #: src/Support/Errors/Translations/codes.php:125
-#: src/Support/Errors/Translations/codes.php:126
 msgid "This payment method is not valid or reusable."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:127
+#: src/Support/Errors/Translations/codes.php:126
 msgid "This payment method cannot be deleted because there are no other valid or reusable saved payment methods available."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:128
+#: src/Support/Errors/Translations/codes.php:127
 msgid "There are no applicable referrals for this payout."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:129
-#: src/Support/Errors/Translations/codes.php:131
+#: src/Support/Errors/Translations/codes.php:128
+#: src/Support/Errors/Translations/codes.php:130
 msgid "You have exceeded the purchase limit for this product."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:130
+#: src/Support/Errors/Translations/codes.php:129
 msgid "This amount is outside the allowed amount."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:132
+#: src/Support/Errors/Translations/codes.php:131
 msgid "This product is out of stock."
 msgstr ""
 
+#: src/Support/Errors/Translations/codes.php:132
 #: src/Support/Errors/Translations/codes.php:133
-#: src/Support/Errors/Translations/codes.php:134
 msgid "This product is no longer available for purchase."
 msgstr ""
 
+#: src/Support/Errors/Translations/codes.php:134
 #: src/Support/Errors/Translations/codes.php:135
-#: src/Support/Errors/Translations/codes.php:136
 msgid "The currency of this product's price is different from the store currency."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:137
+#: src/Support/Errors/Translations/codes.php:136
 msgid "The quantity returned is greater than the quantity fulfilled."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:138
+#: src/Support/Errors/Translations/codes.php:137
 msgid "This email is already in use."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:139
+#: src/Support/Errors/Translations/codes.php:138
 msgid "This upsell has already been applied."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:140
+#: src/Support/Errors/Translations/codes.php:139
 msgid "This upsell has expired."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:141
+#: src/Support/Errors/Translations/codes.php:140
 msgid "Please select an initial upsell offer."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:142
+#: src/Support/Errors/Translations/codes.php:141
 msgid "The affiliate request's name cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:143
+#: src/Support/Errors/Translations/codes.php:142
 msgid "The affiliate request's email cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:144
+#: src/Support/Errors/Translations/codes.php:143
 msgid "The affiliate request's bio cannot be blank."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:145
+#: src/Support/Errors/Translations/codes.php:144
 msgid "The affiliate request's email is already in use."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:146
+#: src/Support/Errors/Translations/codes.php:145
 msgid "Affiliate commission already exists for this product. Please choose a different product."
 msgstr ""
 
-#: src/Support/Errors/Translations/codes.php:147
+#: src/Support/Errors/Translations/codes.php:146
 msgid "No affiliates have earned more than the minimum commission amount within the selected date range."
 msgstr ""
 
@@ -5534,7 +5579,7 @@ msgstr ""
 
 #: src/WordPress/Pages/PageService.php:128
 #: confirmation/order-confirmation.php:6
-#: settings/customer/CustomerSettings.js:321
+#: settings/customer/CustomerSettings.js:330
 msgid "Order Confirmation"
 msgstr ""
 
@@ -6521,7 +6566,7 @@ msgstr ""
 #: web/dashboard/orders/show.php:34
 #: checkouts/modules/Payment.js:263
 #: invoices/modules/Refunds.js:11
-#: sc-subscription-next-payment2.js:106
+#: sc-subscription-next-payment2.js:107
 #: sc-upcoming-invoice.js:223
 msgid "Payment"
 msgstr ""
@@ -6574,7 +6619,7 @@ msgstr ""
 #: sc-line-item-total2.js:34
 #: sc-order-confirmation-totals2.js:35
 #: sc-order.js:141
-#: sc-subscription-next-payment2.js:106
+#: sc-subscription-next-payment2.js:107
 #: sc-upcoming-invoice.js:223
 #: sc-upsell-totals.js:24
 msgid "Subtotal"
@@ -6591,7 +6636,7 @@ msgstr ""
 
 #: web/buy-template.php:119
 #: invoices/modules/LineItems.js:187
-#: sc-subscription-next-payment2.js:106
+#: sc-subscription-next-payment2.js:112
 #: sc-upcoming-invoice.js:225
 msgid "Total Due"
 msgstr ""
@@ -6994,7 +7039,7 @@ msgstr ""
 #: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:230
 #: subscriptions/show/modules/LineItems/index.js:97
 #: sc-order.js:147
-#: sc-subscription-next-payment2.js:106
+#: sc-subscription-next-payment2.js:107
 #: sc-upcoming-invoice.js:223
 msgid "Applied Balance"
 msgstr ""
@@ -7005,7 +7050,7 @@ msgstr ""
 #: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:249
 #: subscriptions/show/modules/LineItems/index.js:113
 #: subscriptions/show/modules/SubscriptionItems.js:95
-#: sc-subscription-next-payment2.js:106
+#: sc-subscription-next-payment2.js:107
 msgid "Discounts"
 msgstr ""
 
@@ -7896,7 +7941,7 @@ msgstr ""
 #: Blocks/Total/edit.js:79
 #: Blocks/Total/save.js:30
 #: sc-line-item-total2.js:55
-#: sc-subscription-next-payment2.js:106
+#: sc-subscription-next-payment2.js:107
 #: sc-upcoming-invoice.js:223
 #: sc-upsell-totals.js:20
 msgid "Trial"
@@ -7956,6 +8001,8 @@ msgstr ""
 #: Controllers/PaymentMethodController.php:176
 #: Controllers/PaymentMethodController.php:181
 #: sc-mollie-add-method.js:102
+#: sc-subscription-next-payment2.js:112
+#: sc-subscription.js:191
 msgid "Add Payment Method"
 msgstr ""
 
@@ -8215,7 +8262,7 @@ msgstr ""
 #: components/data-tables/charges-data-table/index.js:48
 #: components/data-tables/charges-data-table/Refund.js:126
 #: components/data-tables/charges-data-table/Refund.js:254
-#: settings/customer/CustomerSettings.js:424
+#: settings/customer/CustomerSettings.js:433
 #: store/add-entities.js:278
 msgid "Refund"
 msgstr ""
@@ -8313,7 +8360,7 @@ msgid "Load More"
 msgstr ""
 
 #: components/data-tables/purchases-data-table/purchase-item.js:33
-#: sc-product-line-item2.js:54
+#: sc-product-line-item2.js:60
 msgid "Qty:"
 msgstr ""
 
@@ -9475,7 +9522,7 @@ msgid "Amount Paid"
 msgstr ""
 
 #: invoices/modules/LineItems.js:150
-#: sc-subscription-next-payment2.js:106
+#: sc-subscription-next-payment2.js:107
 #: sc-upcoming-invoice.js:223
 msgid "Proration Credit"
 msgstr ""
@@ -10866,7 +10913,7 @@ msgstr ""
 
 #: products/modules/integrations/Price.js:155
 #: ui/LineItemLabel.js:34
-#: sc-product-line-item2.js:54
+#: sc-product-line-item2.js:60
 msgid "SKU:"
 msgstr ""
 
@@ -12276,7 +12323,7 @@ msgid "Post Purchase Offer Accepted Emails"
 msgstr ""
 
 #: settings/customer/CustomerSettings.js:169
-#: settings/customer/CustomerSettings.js:334
+#: settings/customer/CustomerSettings.js:343
 msgid "Sent when a post purchase offer is accepted and the order is updated."
 msgstr ""
 
@@ -12352,124 +12399,132 @@ msgstr ""
 msgid "Third (final) email sent when a checkout is abandoned."
 msgstr ""
 
+#: settings/customer/CustomerSettings.js:321
+msgid "Card Expiration"
+msgstr ""
+
 #: settings/customer/CustomerSettings.js:322
+msgid "Sent one month before a customer's card expires."
+msgstr ""
+
+#: settings/customer/CustomerSettings.js:331
 msgid "Sent after an order is placed."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:330
+#: settings/customer/CustomerSettings.js:339
 msgid "Post Purchase Offer Accepted"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:342
+#: settings/customer/CustomerSettings.js:351
 msgid "Email Verification Code"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:343
+#: settings/customer/CustomerSettings.js:352
 msgid "Sent to customers to login to the customer portal without a password."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:350
+#: settings/customer/CustomerSettings.js:359
 msgid "Fulfillment Confirmation"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:351
+#: settings/customer/CustomerSettings.js:360
 msgid "Sent to when a fulfillment is created (i.e. your order is on the way)."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:359
+#: settings/customer/CustomerSettings.js:368
 msgid "Fulfillment Updated"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:360
+#: settings/customer/CustomerSettings.js:369
 msgid "Sent to when a fulfillment is updated or a tracking number is added."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:368
+#: settings/customer/CustomerSettings.js:377
 msgid "Fulfillment Delivered"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:369
+#: settings/customer/CustomerSettings.js:378
 msgid "Sent when a fulfillment is marked as delivered."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:377
+#: settings/customer/CustomerSettings.js:386
 msgid "Subscription Recovery"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:378
+#: settings/customer/CustomerSettings.js:387
 msgid "Sent to customers when their subscription's payment method fails."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:389
+#: settings/customer/CustomerSettings.js:398
 msgid "Subscription Reminder"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:390
+#: settings/customer/CustomerSettings.js:399
 msgid "Sent to customers 3 days before a subscription renews."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:398
+#: settings/customer/CustomerSettings.js:407
 msgid "Subscription Renewal"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:399
+#: settings/customer/CustomerSettings.js:408
 msgid "Sent to customers when their subscription renews."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:407
-#: settings/customer/CustomerSettings.js:458
+#: settings/customer/CustomerSettings.js:416
+#: settings/customer/CustomerSettings.js:467
 msgid "Subscription Cancellation"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:408
+#: settings/customer/CustomerSettings.js:417
 msgid "Sent to customers when their subscription cancellation."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:416
+#: settings/customer/CustomerSettings.js:425
 msgid "Product Access"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:417
+#: settings/customer/CustomerSettings.js:426
 msgid "Sent to customers when a purchase is downloadable or has a license."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:425
+#: settings/customer/CustomerSettings.js:434
 msgid "Sent to customers when a charge is refunded."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:436
+#: settings/customer/CustomerSettings.js:445
 msgid "Store Emails"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:437
+#: settings/customer/CustomerSettings.js:446
 msgid "These are the emails that are sent to you and other team members of this store."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:448
+#: settings/customer/CustomerSettings.js:457
 msgid "New Order"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:449
+#: settings/customer/CustomerSettings.js:458
 msgid "Sent when an order is created."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:459
+#: settings/customer/CustomerSettings.js:468
 msgid "Sent when a subscription is canceled."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:468
+#: settings/customer/CustomerSettings.js:477
 msgid "Subscription Payment"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:469
+#: settings/customer/CustomerSettings.js:478
 msgid "Sent when a subscription renews."
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:478
+#: settings/customer/CustomerSettings.js:487
 msgid "Subscription Payment Failure"
 msgstr ""
 
-#: settings/customer/CustomerSettings.js:482
+#: settings/customer/CustomerSettings.js:491
 msgid "Sent when a subscription payment fails."
 msgstr ""
 
@@ -14052,7 +14107,7 @@ msgstr ""
 #: Controllers/SubscriptionController.php:309
 #: sc-subscription-payment-method.js:170
 #: sc-subscription-payment-method.js:189
-#: sc-subscription.js:185
+#: sc-subscription.js:186
 msgid "Update Payment Method"
 msgstr ""
 
@@ -14834,7 +14889,7 @@ msgstr ""
 #: Controllers/SubscriptionController.php:187
 #: Controllers/SubscriptionController.php:319
 #: sc-subscription-switch.js:196
-#: sc-subscription.js:185
+#: sc-subscription.js:186
 msgid "Current Plan"
 msgstr ""
 
@@ -15782,7 +15837,7 @@ msgstr ""
 #: sc-licenses-list.js:128
 #: sc-orders-list.js:156
 #: sc-purchase-downloads-list2.js:68
-#: sc-subscriptions-list.js:150
+#: sc-subscriptions-list.js:140
 msgid "View all"
 msgstr ""
 
@@ -20280,7 +20335,7 @@ msgid "Download Receipt/Invoice"
 msgstr ""
 
 #: sc-orders-list.js:156
-#: sc-subscriptions-list.js:150
+#: sc-subscriptions-list.js:140
 msgid "View all %s"
 msgstr ""
 
@@ -20598,28 +20653,28 @@ msgstr ""
 msgid "No more products to browse."
 msgstr ""
 
-#: sc-product-line-item2.js:41
+#: sc-product-line-item2.js:42
 msgid "%d day free"
 msgid_plural "%d days free"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 30 days free, Then $99 per month.
-#: sc-product-line-item2.js:43
+#: sc-product-line-item2.js:44
 msgid "Then"
 msgstr ""
 
-#: sc-product-line-item2.js:43
+#: sc-product-line-item2.js:44
 msgid "starting in %d day"
 msgid_plural "starting in %d days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sc-product-line-item2.js:54
+#: sc-product-line-item2.js:60
 msgid "Change Quantity - %s %s"
 msgstr ""
 
-#: sc-product-line-item2.js:58
+#: sc-product-line-item2.js:64
 msgid "Remove Item - %s %s"
 msgstr ""
 
@@ -20703,6 +20758,10 @@ msgstr ""
 msgid "Payment canceled. Please try again."
 msgstr ""
 
+#: sc-session-provider2.js:387
+msgid "Some products in your order were outdated and have been updated. Please review your order summary before proceeding to payment."
+msgstr ""
+
 #: sc-shipping-choices2.js:39
 msgid "Shipping choice updated."
 msgstr ""
@@ -20764,7 +20823,7 @@ msgid "Cancel your plan"
 msgstr ""
 
 #: sc-subscription-cancel2.js:66
-#: sc-subscription.js:187
+#: sc-subscription.js:193
 msgid "Cancel Plan"
 msgstr ""
 
@@ -20830,7 +20889,7 @@ msgstr ""
 msgid "Payment Method Missing"
 msgstr ""
 
-#: sc-subscription-next-payment2.js:102
+#: sc-subscription-next-payment2.js:103
 msgid "Your next payment is"
 msgstr ""
 
@@ -20848,7 +20907,7 @@ msgid "Select a payment method"
 msgstr ""
 
 #: sc-subscription-reactivate2.js:82
-#: sc-subscription.js:193
+#: sc-subscription.js:199
 msgid "Resubscribe"
 msgstr ""
 
@@ -20913,11 +20972,11 @@ msgstr ""
 msgid "This subscription does not exist."
 msgstr ""
 
-#: sc-subscription.js:185
+#: sc-subscription.js:191
 msgid "Cancel Scheduled Update"
 msgstr ""
 
-#: sc-subscription.js:185
+#: sc-subscription.js:191
 msgid "Restore Plan"
 msgstr ""
 

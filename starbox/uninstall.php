@@ -1,2 +1,2 @@
-<?php defined('ABSPATH') || die('Cheatin\' uh?'); ?>
+<?php defined('ABSPATH') || die('Cheatin\' uh?');
 

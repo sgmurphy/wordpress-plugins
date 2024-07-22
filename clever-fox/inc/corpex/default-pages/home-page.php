@@ -4,7 +4,7 @@
 		  'comment_status' => 'closed',
 		  'ping_status' =>  'closed' ,
 		  'post_author' => 1,
-		  'post_date' => gmdate('Y-m-d H:i:s'),
+		  'post_date' => date('Y-m-d H:i:s'),
 		  'post_name' => 'Home',
 		  'post_status' => 'publish' ,
 		  'post_title' => 'Home',

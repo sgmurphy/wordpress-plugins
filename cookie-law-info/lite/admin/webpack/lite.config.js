@@ -1,9 +1,12 @@
 const path = require('path')
 module.exports = {
 	mode: 'production',
-	entry: path.resolve(__dirname, '../../frontend/js/script.js'),
+	entry: {
+		script: path.resolve(__dirname, '../../frontend/js/script.js'),
+		gcm: path.resolve(__dirname, '../../frontend/js/gcm.js'),
+	},
 	output: {
 		path: path.resolve(__dirname, '../../frontend/js/'),
-		filename: 'script.min.js',
+		filename: '[name].min.js',
 	},
 };

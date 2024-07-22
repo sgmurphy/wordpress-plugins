@@ -47,7 +47,7 @@ class Button_Edit_Table {
                     'action' => 'new',
                     'id'     => 'new',
                     'tab'    => 'basic_options',
-                    'bid'    => $button->id
+                    'bid'    => $button->id,
                 ),
                 $url );
 
@@ -55,7 +55,7 @@ class Button_Edit_Table {
             add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'upgrade',
-                'id'     => $default_domain->id
+                'id'     => $default_domain->id,
             ),
                 $url );
 
@@ -77,12 +77,12 @@ class Button_Edit_Table {
             <td class="activated">
                 <input type="hidden" name="button[active]" value="0"/>
                 <input id="cnb-enable" class="cnb_toggle_checkbox" type="checkbox" name="button[active]"
-                       value="1" <?php checked( true, $button->active ); ?> />
+                        value="1" <?php checked( true, $button->active ); ?> />
                 <label for="cnb-enable" class="cnb_toggle_label">Toggle</label>
                 <span data-cnb_toggle_state_label="cnb-enable"
-                      class="cnb_toggle_state cnb_toggle_false">(Inactive)</span>
+                        class="cnb_toggle_state cnb_toggle_false">(Inactive)</span>
                 <span data-cnb_toggle_state_label="cnb-enable"
-                      class="cnb_toggle_state cnb_toggle_true">Active</span>
+                        class="cnb_toggle_state cnb_toggle_true">Active</span>
             </td>
         </tr>
 	    <?php if ( $button->id === 'new' ) {
@@ -98,7 +98,7 @@ class Button_Edit_Table {
 
             <td class="activated">
                 <input type="text" name="button[name]" id="button_name" required="required"
-                       value="<?php echo esc_attr( $button->name ); ?>" placeholder="My new button"/>
+                        value="<?php echo esc_attr( $button->name ); ?>" placeholder="My new button"/>
             </td>
         </tr>
         <tr class="cnb_hide_on_modal cnb_advanced_view">
@@ -159,7 +159,7 @@ class Button_Edit_Table {
                 <th></th>
                 <td>
                 <input type="hidden" name="actions[<?php echo esc_attr( $action->id ) ?>][id]"
-                       value="<?php echo esc_attr( $action->id ) ?>"/>
+                        value="<?php echo esc_attr( $action->id ) ?>"/>
             <?php }
 
 	        /**
@@ -212,13 +212,13 @@ class Button_Edit_Table {
                 <td colspan="2">
                     <div class="cnb_type_selector cnb_type_selector_container">
                         <div class="cnb_type_selector cnb_type_selector_item cnb_type_selector_single cnb_type_selector_active"
-                             data-cnb-selection="single">
-                             <div class="cnb-phone-outside">
+                            data-cnb-selection="single">
+                            <div class="cnb-phone-outside">
                                 <div class="cnb-phone-inside">
                                 <img style="max-width:100%;" alt="Select the Single button"
-                                 src="<?php echo esc_url( $cnb_single_image_url ) ?>">          
+                                src="<?php echo esc_url( $cnb_single_image_url ) ?>">          
                                 </div>
-                             </div>
+                            </div>
                             
                             <div style="text-align:center">Single<span class="cnb-hide-on-mobile"> button</span></div>
                         </div>
@@ -228,13 +228,13 @@ class Button_Edit_Table {
                         // And FULL is basically (and technically) the same as the FULL WIDTH
                         if ( $default_domain->type !== 'PRO' ) { ?>
                         <div class="cnb_type_selector cnb_type_selector_item cnb_type_selector_full"
-                             data-cnb-selection="full">
+                            data-cnb-selection="full">
                             <div class="cnb-phone-outside">
                                 <div class="cnb-phone-inside">
                                 <img style="max-width:100%;" alt="Select the Full width button"
-                                 src="<?php echo esc_url( $cnb_full_single_image_url ) ?>"> 
+                                src="<?php echo esc_url( $cnb_full_single_image_url ) ?>"> 
                                 </div>
-                             </div>
+                            </div>
                             
                             <div style="text-align:center">
                                 Full width<span class="cnb-hide-on-mobile"> button</span>
@@ -243,13 +243,13 @@ class Button_Edit_Table {
                         <?php } ?>
 
                         <div class="cnb_type_selector <?php if ( $default_domain->type !== 'STARTER' ) { ?>cnb_type_selector_item<?php } else { ?>cnb_type_only_pro<?php } ?> cnb_type_selector_multi"
-                             data-cnb-selection="multi">
-                             <div class="cnb-phone-outside">
+                            data-cnb-selection="multi">
+                            <div class="cnb-phone-outside">
                                 <div class="cnb-phone-inside">
                                 <img style="max-width:100%;" alt="Select the Multibutton"
-                                 src="<?php echo esc_url( $cnb_multi_image_url ) ?>">         
+                                src="<?php echo esc_url( $cnb_multi_image_url ) ?>">         
                                 </div>
-                             </div>
+                            </div>
                             
                             <div style="text-align:center">
                                 Multibutton
@@ -257,24 +257,24 @@ class Button_Edit_Table {
                                         class="cnb-pro-badge">Pro</span><?php } ?>
                             </div>
                             <?php if ( $default_domain->type === 'STARTER' ) { ?>
-                              <div class="cnb-pro-overlay">
+                                <div class="cnb-pro-overlay">
                                 <p class="description">
                                     Multibutton is a <span class="cnb-pro-badge">Pro</span> feature.
                                     <a href="<?php echo esc_url( $upgrade_link ) ?>">Upgrade</a> here.
                                 </p>
-                              </div>
+                                </div>
                             <?php } ?>
                         </div>
 
                         <div class="cnb_type_selector <?php if ( $default_domain->type === 'PRO' ) { ?>cnb_type_selector_item<?php } else { ?>cnb_type_only_pro<?php } ?> cnb_type_selector_multi_flower"
-                             data-cnb-selection="multi">
+                            data-cnb-selection="multi">
 
-                             <div class="cnb-phone-outside">
+                            <div class="cnb-phone-outside">
                                 <div class="cnb-phone-inside">
                                 <img style="max-width:100%;" alt="Select Flower"
-                                 src="<?php echo esc_url( $cnb_multi_flower_image_url ) ?>">
+                                src="<?php echo esc_url( $cnb_multi_flower_image_url ) ?>">
                                 </div>
-                             </div>
+                            </div>
                             
                             <div style="text-align:center">
                                 Flower<span class="cnb-hide-on-mobile"> button</span>
@@ -292,13 +292,13 @@ class Button_Edit_Table {
                         </div>
 
                         <div class="cnb_type_selector <?php if ( $default_domain->type === 'PRO' ) { ?>cnb_type_selector_item<?php } else { ?>cnb_type_only_pro<?php } ?> cnb_type_selector_full"
-                             data-cnb-selection="full">
-                             <div class="cnb-phone-outside">
+                            data-cnb-selection="full">
+                            <div class="cnb-phone-outside">
                                 <div class="cnb-phone-inside">
                                     <img style="max-width:100%;" alt="Select the Buttonbar"
-                                 src="<?php echo esc_url( $cnb_full_image_url ) ?>">       
+                                src="<?php echo esc_url( $cnb_full_image_url ) ?>">       
                                 </div>
-                             </div>
+                            </div>
                             
                             <div style="text-align:center">
                                 Buttonbar
@@ -316,14 +316,14 @@ class Button_Edit_Table {
                         </div>
 
                         <div class="cnb_type_selector <?php if ( $default_domain->type === 'PRO' ) { ?>cnb_type_selector_item<?php } else { ?>cnb_type_only_pro<?php } ?> cnb_type_selector_dots"
-                             data-cnb-selection="dots">
+                            data-cnb-selection="dots">
 
-                             <div class="cnb-phone-outside">
+                            <div class="cnb-phone-outside">
                                 <div class="cnb-phone-inside">
                                     <img style="max-width:100%;" alt="Select Dots"
-                                 src="<?php echo esc_url( $cnb_dots_image_url ) ?>">
+                                src="<?php echo esc_url( $cnb_dots_image_url ) ?>">
                                 </div>
-                             </div>
+                            </div>
                             
                             <div style="text-align:center">
                                 Dots
@@ -366,31 +366,31 @@ class Button_Edit_Table {
             add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'upgrade',
-                'id'     => $button->domain->id
+                'id'     => $button->domain->id,
             ),
                 admin_url( 'admin.php' ) );
 
-        ?>
+	    // Migration note:
+	    //- we move from button.options.iconBackgroundColor to action.backgroundColor
+	    //- we move from button.options.iconColor to action.iconColor
+	    // So for now, "button" take priority, but once the new value is saved, we blank the button options
+	    $backgroundColor = $this->get_background_color( $button, $action );
+	    $iconColor       = $this->get_icon_color( $button, $action );
+
+	    ?>
         <table class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'extra_options' ) ) ?>"
-               data-tab-name="extra_options">
+                data-tab-name="extra_options">
             <?php if ( $button->type === 'FULL' ) { ?>
                 <tr class="cnb_advanced_view">
                     <th colspan="2">
                         <h2>Colors for the Buttonbar are defined via the individual Action(s).</h2>
                         <input name="button[options][iconBackgroundColor]" type="hidden"
-                               value="<?php echo esc_attr( $button->options->iconBackgroundColor ); ?>"/>
+                                value="<?php echo esc_attr( $button->options->iconBackgroundColor ); ?>"/>
                         <input name="button[options][iconColor]" type="hidden"
-                               value="<?php echo esc_attr( $button->options->iconColor ); ?>"/>
+                                value="<?php echo esc_attr( $button->options->iconColor ); ?>"/>
                     </th>
                 </tr>
-            <?php } else if ( $button->type === 'SINGLE' ) {
-                // Migration note:
-                //- we move from button.options.iconBackgroundColor to action.backgroundColor
-                //- we move from button.options.iconColor to action.iconColor
-                // So for now, "button" take priority, but once the new value is saved, we blank the button options
-                $backgroundColor = ( $button && $button->options && $button->options->iconBackgroundColor ) ? $button->options->iconBackgroundColor : ( $action->backgroundColor ?: '#009900' );
-                $iconColor       = ( $button && $button->options && $button->options->iconColor ) ? $button->options->iconColor : ( $action->iconColor ?: '#FFFFFF' );
-                ?>
+            <?php } else if ( $button->type === 'SINGLE' ) { ?>
                 <tr class="cnb_hide_on_modal">
                     <th></th>
                     <td>
@@ -398,25 +398,25 @@ class Button_Edit_Table {
                         <input name="button[options][iconColor]" type="hidden" value=""/>
                         <!-- We always enable the icon when the type if SINGLE, original value is "<?php echo esc_attr( $action->iconEnabled ) ?>" -->
                         <input name="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]" type="hidden"
-                               value="1"/>
+                                value="1"/>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="actions-options-iconBackgroundColor">Button color</label></th>
                     <td>
                         <input name="actions[<?php echo esc_attr( $action->id ) ?>][backgroundColor]"
-                               id="actions-options-iconBackgroundColor" type="text"
-                               value="<?php echo esc_attr( $backgroundColor ); ?>" class="cnb-color-field"
-                               data-default-color="#009900"/>
+                                id="actions-options-iconBackgroundColor" type="text"
+                                value="<?php echo esc_attr( $backgroundColor ); ?>" class="cnb-color-field"
+                                data-default-color="#009900"/>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="actions-options-iconColor">Icon color</label></th>
                     <td>
                         <input name="actions[<?php echo esc_attr( $action->id ) ?>][iconColor]"
-                               id="actions-options-iconColor" type="text"
-                               value="<?php echo esc_attr( $iconColor ); ?>" class="cnb-color-field"
-                               data-default-color="#FFFFFF"/>
+                                id="actions-options-iconColor" type="text"
+                                value="<?php echo esc_attr( $iconColor ); ?>" class="cnb-color-field"
+                                data-default-color="#FFFFFF"/>
                     </td>
                 </tr>
 
@@ -442,28 +442,28 @@ class Button_Edit_Table {
                         <?php if ( $button->type === 'FULL' ) { ?>
                             <div class="cnb-radio-item">
                                 <input type="radio" id="appearance1" name="button[options][placement]"
-                                       value="TOP_CENTER" <?php checked( 'TOP_CENTER', $button->options->placement ); ?>>
+                                        value="TOP_CENTER" <?php checked( 'TOP_CENTER', $button->options->placement ); ?>>
                                 <label title="top-center" for="appearance1">Top</label>
                             </div>
                             <div class="cnb-radio-item">
                                 <input type="radio" id="appearance2" name="button[options][placement]"
-                                       value="BOTTOM_CENTER" <?php checked( 'BOTTOM_CENTER', $button->options->placement ); ?>>
+                                        value="BOTTOM_CENTER" <?php checked( 'BOTTOM_CENTER', $button->options->placement ); ?>>
                                 <label title="bottom-center" for="appearance2">Bottom</label>
                             </div>
                         <?php } else { ?>
                             <div class="cnb-radio-item">
                                 <input type="radio" id="appearance1" name="button[options][placement]"
-                                       value="BOTTOM_RIGHT" <?php checked( 'BOTTOM_RIGHT', $button->options->placement ); ?>>
+                                        value="BOTTOM_RIGHT" <?php checked( 'BOTTOM_RIGHT', $button->options->placement ); ?>>
                                 <label title="bottom-right" for="appearance1">Right corner</label>
                             </div>
                             <div class="cnb-radio-item">
                                 <input type="radio" id="appearance2" name="button[options][placement]"
-                                       value="BOTTOM_LEFT" <?php checked( 'BOTTOM_LEFT', $button->options->placement ); ?>>
+                                        value="BOTTOM_LEFT" <?php checked( 'BOTTOM_LEFT', $button->options->placement ); ?>>
                                 <label title="bottom-left" for="appearance2">Left corner</label>
                             </div>
                             <div class="cnb-radio-item">
                                 <input type="radio" id="appearance3" name="button[options][placement]"
-                                       value="BOTTOM_CENTER" <?php checked( 'BOTTOM_CENTER', $button->options->placement ); ?>>
+                                        value="BOTTOM_CENTER" <?php checked( 'BOTTOM_CENTER', $button->options->placement ); ?>>
                                 <label title="bottom-center" for="appearance3">Center</label>
                             </div>
 
@@ -471,28 +471,28 @@ class Button_Edit_Table {
                             <br class="cnb-extra-placement">
                             <div class="cnb-radio-item cnb-extra-placement <?php echo $button->options->placement == 'MIDDLE_RIGHT' ? 'cnb-extra-active' : ''; ?>">
                                 <input type="radio" id="appearance5" name="button[options][placement]"
-                                       value="MIDDLE_RIGHT" <?php checked( 'MIDDLE_RIGHT', $button->options->placement ); ?>>
+                                        value="MIDDLE_RIGHT" <?php checked( 'MIDDLE_RIGHT', $button->options->placement ); ?>>
                                 <label title="middle-right" for="appearance5">Middle right</label>
                             </div>
                             <div class="cnb-radio-item cnb-extra-placement <?php echo $button->options->placement == 'MIDDLE_LEFT' ? 'cnb-extra-active' : ''; ?>">
                                 <input type="radio" id="appearance6" name="button[options][placement]"
-                                       value="MIDDLE_LEFT" <?php checked( 'MIDDLE_LEFT', $button->options->placement ); ?>>
+                                        value="MIDDLE_LEFT" <?php checked( 'MIDDLE_LEFT', $button->options->placement ); ?>>
                                 <label title="middle-left" for="appearance6">Middle left </label>
                             </div>
                             <br class="cnb-extra-placement">
                             <div class="cnb-radio-item cnb-extra-placement <?php echo $button->options->placement == 'TOP_RIGHT' ? 'cnb-extra-active' : ''; ?>">
                                 <input type="radio" id="appearance7" name="button[options][placement]"
-                                       value="TOP_RIGHT" <?php checked( 'TOP_RIGHT', $button->options->placement ); ?>>
+                                        value="TOP_RIGHT" <?php checked( 'TOP_RIGHT', $button->options->placement ); ?>>
                                 <label title="top-right" for="appearance7">Top right corner</label>
                             </div>
                             <div class="cnb-radio-item cnb-extra-placement <?php echo $button->options->placement == 'TOP_LEFT' ? 'cnb-extra-active' : ''; ?>">
                                 <input type="radio" id="appearance8" name="button[options][placement]"
-                                       value="TOP_LEFT" <?php checked( 'TOP_LEFT', $button->options->placement ); ?>>
+                                        value="TOP_LEFT" <?php checked( 'TOP_LEFT', $button->options->placement ); ?>>
                                 <label title="top-left" for="appearance8">Top left corner</label>
                             </div>
                             <div class="cnb-radio-item cnb-extra-placement <?php echo $button->options->placement == 'TOP_CENTER' ? 'cnb-extra-active' : ''; ?>">
                                 <input type="radio" id="appearance9" name="button[options][placement]"
-                                       value="TOP_CENTER" <?php checked( 'TOP_CENTER', $button->options->placement ); ?>>
+                                        value="TOP_CENTER" <?php checked( 'TOP_CENTER', $button->options->placement ); ?>>
                                 <label title="top-center" for="appearance9">Center top</label>
                             </div>
                             <a href="#" id="button-more-placements">More placement options...</a>
@@ -511,7 +511,7 @@ class Button_Edit_Table {
                             <?php if ( $button->domain->type === 'STARTER' ) { ?>
                                 <a href="<?php echo esc_url( $upgrade_link ) ?>"><span class="cnb-pro-badge">Pro</span></a>
                             <?php } ?>
-                          </th>
+                            </th>
                     <td>
                         <select
                                 name="button[options][animation]"
@@ -543,6 +543,26 @@ class Button_Edit_Table {
         <?php
     }
 
+    private function get_background_color( $button, $action) {
+        if ( $button && $button->options && $button->options->iconBackgroundColor ){
+            return $button->options->iconBackgroundColor;
+        }
+        if ( $action->backgroundColor ) {
+            return $action->backgroundColor;
+        }
+        return '#009900';
+    }
+
+    private function get_icon_color( $button, $action ) {
+        if ( $button && $button->options && $button->options->iconColor ) {
+            return $button->options->iconColor;
+        }
+        if ( $action->iconColor ) {
+            return $action->iconColor;
+        }
+        return '#FFFFFF';
+    }
+
     function render_tab_visibility( $button ) {
         $adminFunctions = new CnbAdminFunctions();
 
@@ -553,13 +573,13 @@ class Button_Edit_Table {
                     'page'   => 'call-now-button-conditions',
                     'action' => 'new',
                     'id'     => 'new',
-                    'bid'    => $button->id
+                    'bid'    => $button->id,
                 ),
                 $url );
 
         ?>
         <table class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'visibility' ) ) ?>"
-               data-tab-name="visibility">
+                data-tab-name="visibility">
             <tbody id="cnb_form_table_visibility">
             <tr>
                 <th></th>
@@ -626,16 +646,16 @@ class Button_Edit_Table {
         <tr class="cnb_hide_on_modal">
             <?php $reveal_at_height = $button->options->scroll ? $button->options->scroll->revealAtHeight : 0 ?>
             <th><label for="cnb-button-options-scroll-revealatheight">Reveal after scrolling</label>
-              <?php if ( ! $isPro ) {
-                  $upgrade_link =
-                      add_query_arg( array(
-                          'page'   => 'call-now-button-domains',
-                          'action' => 'upgrade',
-                          'id'     => $cnb_domain->id
-                      ),
-                          admin_url( 'admin.php' ) );
-                  ?>
-                  <a href="<?php echo esc_url( $upgrade_link ) ?>"><span class="cnb-pro-badge">Pro</span></a></th>
+                <?php if ( ! $isPro ) {
+                    $upgrade_link =
+                        add_query_arg( array(
+                            'page'   => 'call-now-button-domains',
+                            'action' => 'upgrade',
+                            'id'     => $cnb_domain->id,
+                        ),
+                            admin_url( 'admin.php' ) );
+                    ?>
+                    <a href="<?php echo esc_url( $upgrade_link ) ?>"><span class="cnb-pro-badge">Pro</span></a></th>
                 <?php } ?>
             <td>
                 <input
@@ -653,7 +673,7 @@ class Button_Edit_Table {
             <th><label for="cnb-button-options-scroll-hideAtHeight">Hide after scrolling</label></th>
             <td>
                 <input name="button[options][scroll][hideAtHeight]" id="cnb-button-options-scroll-hideAtHeight"
-                       type="number" min="0" style="width: 80px" value="<?php echo esc_attr( $hide_at_height ) ?>">
+                        type="number" min="0" style="width: 80px" value="<?php echo esc_attr( $hide_at_height ) ?>">
                 pixels from the top
                 <p class="description">hideAtHeight</p>
             </td>
@@ -664,13 +684,13 @@ class Button_Edit_Table {
             <td>
                 <input type="hidden" name="button[options][scroll][neverHide]" value="0"/>
                 <input id="cnb-button-options-scroll-neverhide" class="cnb_toggle_checkbox" type="checkbox"
-                       name="button[options][scroll][neverHide]"
-                       value="1" <?php checked( true, $never_hide ); ?> />
+                        name="button[options][scroll][neverHide]"
+                        value="1" <?php checked( true, $never_hide ); ?> />
                 <label for="cnb-button-options-scroll-neverhide" class="cnb_toggle_label">Toggle</label>
                 <span data-cnb_toggle_state_label="cnb-button-options-scroll-neverhide"
-                      class="cnb_toggle_state cnb_toggle_false">(Inactive)</span>
+                        class="cnb_toggle_state cnb_toggle_false">(Inactive)</span>
                 <span data-cnb_toggle_state_label="cnb-button-options-scroll-neverhide"
-                      class="cnb_toggle_state cnb_toggle_true">Active</span>
+                        class="cnb_toggle_state cnb_toggle_true">Active</span>
                 <p class="description">Once this Button is revealed, it will not be hidden again.</p>
             </td>
         </tr>

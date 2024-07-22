@@ -205,7 +205,7 @@ class AIOVG_Widget_Categories extends WP_Widget {
 		$instance['hide_empty']       = isset( $new_instance['hide_empty'] ) ? (int) $new_instance['hide_empty'] : 0;
 		$instance['show_more']        = isset( $new_instance['show_more'] ) ? (int) $new_instance['show_more'] : 0;
 		$instance['more_label']       = isset( $new_instance['more_label'] ) ? sanitize_text_field( $new_instance['more_label'] ) : '';	
-		$instance['more_link']        = isset( $new_instance['more_link'] ) ? esc_url_raw( $new_instance['more_link'] ) : '';		
+		$instance['more_link']        = isset( $new_instance['more_link'] ) ? aiovg_sanitize_url( $new_instance['more_link'] ) : '';		
 		
 		return $instance;
 	}

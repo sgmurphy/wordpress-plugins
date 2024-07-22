@@ -18,18 +18,18 @@ class GettingStartedView {
         $link =
             add_query_arg(
                 array(
-                    'page'   => 'call-now-button'
+                    'page'   => 'call-now-button',
                 ),
                 $url );
         ?>
         <style>
-          @font-face {
+            @font-face {
             font-family: 'CNB Icons';
             font-style: normal;
             font-weight: 400;
             src: url("<?php echo esc_url(plugins_url('resources/font/cnb.woff', CNB_PLUGINS_URL_BASE)) ?>") format('woff2');
-          }
-          .cnb-font-icon i {
+            }
+            .cnb-font-icon i {
             font-family: 'CNB Icons';
             outline: none;
             font-style: normal;
@@ -43,20 +43,20 @@ class GettingStartedView {
             text-rendering: optimizeLegibility;
             -webkit-font-feature-settings: 'liga';
             font-size:250%;
-          }
-          .action-item {
+            }
+            .action-item {
             display: inline-block;
             margin: 10px;
-          }
+            }
         </style>
         <div class="cnb-welcome-page">
-          <div class="cnb-welcome-blocks cnb-extra-top">
+            <div class="cnb-welcome-blocks cnb-extra-top">
 
             <img class="cnb-logo" src="<?php echo esc_url(plugins_url('resources/images/icon-256x256.png', CNB_PLUGINS_URL_BASE))?>" width="128" height="128" alt="Call Now Button icon" />
             <h1>Welcome to Call Now Button</h1>
             <h3>Thank you for choosing Call Now Button - The web's most popular click-to-call button</h3>
             <div class="cnb-block cnb-signup-box">
-              <br>
+                <br>
             <?php echo CnbHeaderNotices::cnb_settings_email_activation_input(); // phpcs:ignore WordPress.Security ?>
             </div>
             <div class="cnb-divider"></div>
@@ -64,9 +64,9 @@ class GettingStartedView {
             <div class="cnb-divider"></div>
             <br>
             <h2>✨ Connect with NowButtons.com to enable more actions: ✨</h2>
-              <div class="cnb-block">
+                <div class="cnb-block">
 
-                  <div style="line-height:1.9">
+                    <div style="line-height:1.9">
                     <div class="action-item cnb-font-icon"><i style="color:#25d366">whatsapp</i><br>WhatsApp</div>
                     <div class="action-item cnb-font-icon"><i style="color:#1778f2">facebook_messenger</i><br>Messenger</div>
                     <div class="action-item cnb-font-icon"><i style="color:#0088cc">telegram</i><br>Telegram</div>
@@ -83,50 +83,50 @@ class GettingStartedView {
                     <div class="action-item cnb-font-icon"><i style="color:#090">directions</i><br>Location</div>
                     <div class="action-item cnb-font-icon"><i style="color:#090">link</i><br>URLs</div>
                     <div class="action-item cnb-font-icon"><i style="color:#090">anchor</i><br>Scroll to Point</div><br>
-                  </div>
+                    </div>
 
-                  <br>
-                  <h2>...and enable more features!</h2>
-                  <br>
+                    <br>
+                    <h2>...and enable more features!</h2>
+                    <br>
 
 
-                  <h3>🆕 4 extra buttons</h3>
-                  <p>Get 5 buttons instead of 1</p>
-                  <h3>🖥️ All devices</h3>
-                  <p>Desktop/laptop and mobile support</p>
-                  <h3>🎯 Display rules</h3>
-                  <p>Create smarter rules for your buttons to appear</p>
+                    <h3>🆕 4 extra buttons</h3>
+                    <p>Get 5 buttons instead of 1</p>
+                    <h3>🖥️ All devices</h3>
+                    <p>Desktop/laptop and mobile support</p>
+                    <h3>🎯 Display rules</h3>
+                    <p>Create smarter rules for your buttons to appear</p>
 
-              </div>
-              <div class="cnb-block cnb-signup-box">
+                </div>
+                <div class="cnb-block cnb-signup-box">
                 <br>
                 <h2>Sign up now to enable all of this for free</h2>
                 <?php echo CnbHeaderNotices::cnb_settings_email_activation_input(); // phpcs:ignore WordPress.Security ?>
-              </div>
+                </div>
             </div>
             <div class="cnb-welcome-blocks cnb-welcome-blocks-plain">
-              <div class="cnb-block">
+                <div class="cnb-block">
                 <p><i>Only need a Call button? <a href="<?php echo esc_url( $link ) ?>">Continue without an account</a>.</i></p>
-              </div>
-          </div>
-          <div class="cnb-welcome-blocks">
-            <div class="cnb-block">
-              <h1>Why do I need an account?</h1>
-              <h3>With an account you enable the cloud features from nowbuttons.com.</h3>
-              <p>Once you've signed up you directly have access to the features described above. <strong>Completely FREE!</strong></p>
-              <div class="cnb-block cnb-signup-box">
-              <?php echo CnbHeaderNotices::cnb_settings_email_activation_input(); // phpcs:ignore WordPress.Security ?>
-              </div>
+                </div>
             </div>
-          </div>
-          <div class="cnb-welcome-blocks">
+            <div class="cnb-welcome-blocks">
+            <div class="cnb-block">
+                <h1>Why do I need an account?</h1>
+                <h3>With an account you enable the cloud features from nowbuttons.com.</h3>
+                <p>Once you've signed up you directly have access to the features described above. <strong>Completely FREE!</strong></p>
+                <div class="cnb-block cnb-signup-box">
+                <?php echo CnbHeaderNotices::cnb_settings_email_activation_input(); // phpcs:ignore WordPress.Security ?>
+                </div>
+            </div>
+            </div>
+            <div class="cnb-welcome-blocks">
             <div class="cnb-block">
                 <h1>Upgrade to PRO to get even more!</h1>
 
 
                 <br>
                 <h2>🎁 Icon selection with each action 🎁</h2>
-                  <img class="cnb-width-80 cnb-extra-space" src="<?php echo esc_url(plugins_url('resources/images/cnb-icons-actions.png', CNB_PLUGINS_URL_BASE)) ?>" alt="WhatsApp modal">
+                    <img class="cnb-width-80 cnb-extra-space" src="<?php echo esc_url(plugins_url('resources/images/cnb-icons-actions.png', CNB_PLUGINS_URL_BASE)) ?>" alt="WhatsApp modal">
 
                 <div class="cnb-divider"></div>
 
@@ -155,30 +155,30 @@ class GettingStartedView {
                 <br>
                 <h2>Plus...</h2>
                 <div class="cnb-center">
-                  <h3>🌼 More button types</h3>
-                  <h3>📄 Slide-in content windows</h3>
-                  <h3>📷 Use custom images on buttons</h3>
-                  <h3>🌍 Include and exclude countries</h3>
-                  <h3>↕️ Set scroll height for buttons to appear</h3>
-                  <h3>🔌 Intercom Chat integration</h3>
+                    <h3>🌼 More button types</h3>
+                    <h3>📄 Slide-in content windows</h3>
+                    <h3>📷 Use custom images on buttons</h3>
+                    <h3>🌍 Include and exclude countries</h3>
+                    <h3>↕️ Set scroll height for buttons to appear</h3>
+                    <h3>🔌 Intercom Chat integration</h3>
                 </div>
                 <h2>...and much more!</h2>
-              </div>
-          </div>
+                </div>
+            </div>
 
         </div>
         <div class="cnb-welcome-blocks">
-          <div class="cnb-block cnb-signup-box">
+            <div class="cnb-block cnb-signup-box">
             <h2>Create your free account and supercharge your Call Now Button.</h2>
             <?php echo CnbHeaderNotices::cnb_settings_email_activation_input(); // phpcs:ignore WordPress.Security ?>
-          </div>
+            </div>
         </div>
 
         <div class="cnb-welcome-blocks cnb-welcome-blocks-plain">
-          <div class="cnb-block cnb-signup-box">
-          <p><i>Only need a Call button? <a href="<?php echo esc_url( $link ) ?>">Continue without an account</a>.</i></p>
+            <div class="cnb-block cnb-signup-box">
+            <p><i>Only need a Call button? <a href="<?php echo esc_url( $link ) ?>">Continue without an account</a>.</i></p>
         </div>
-      </div>
+        </div>
 
-  <?php  }
+    <?php  }
 }

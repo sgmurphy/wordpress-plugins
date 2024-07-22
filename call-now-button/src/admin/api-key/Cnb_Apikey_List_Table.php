@@ -30,7 +30,7 @@ class Cnb_Apikey_List_Table extends WP_List_Table {
             'singular' => 'cnb_list_apikey', //Singular label
             'plural'   => 'cnb_list_apikeys', //plural label, also this well be one of the table css class
             'ajax'     => false, //We don't support Ajax for this table
-            'screen'   => 'call-now-button-apikeys' // Screen name for bulk actions, etc
+            'screen'   => 'call-now-button-apikeys', // Screen name for bulk actions, etc
         ) );
 
         $this->cnb_utils = new CnbUtils();

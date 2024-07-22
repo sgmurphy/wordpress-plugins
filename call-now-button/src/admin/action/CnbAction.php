@@ -220,6 +220,8 @@ class CnbAction implements JsonSerializable {
     /**
      * @return array
      */
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -238,6 +240,8 @@ class CnbActionProperties extends ArrayObject implements JsonSerializable {
     /**
      * @return array
      */
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -288,6 +292,8 @@ class CnbActionSchedule implements JsonSerializable {
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }

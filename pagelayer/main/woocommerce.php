@@ -736,6 +736,5 @@ function pagelayer_load_product_template($post = []){
 	wp_enqueue_style( 'woocommerce_prettyPhoto_css' );
 }
 
-if(defined('PAGELAYER_PREMIUM')){
-	include_once(dirname(__FILE__).'/premium-woocommerce.php');
-}
+// Apply filter to load extra woocommerce settings
+do_action('pagelayer_after_wc_customization');

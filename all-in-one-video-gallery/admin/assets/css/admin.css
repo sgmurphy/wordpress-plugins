@@ -545,6 +545,11 @@
 	}
 }
 
+/* Categories */
+#aiovg_categoriesdiv .categorydiv div.tabs-panel {
+    max-height: 240px;
+}
+
 /* Image */
 #aiovg-video-image-footer {
 	border: 1px solid #e5e7eb;

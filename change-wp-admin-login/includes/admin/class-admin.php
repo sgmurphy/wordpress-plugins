@@ -205,6 +205,7 @@ if ( ! class_exists( 'AIO_Login\Admin\Admin' ) ) {
 							),
 							admin_url( 'admin.php' )
 						),
+						'has_pro'                     => \AIO_Login\Aio_Login::has_pro() ? 'true' : 'false',
 					)
 				);
 
@@ -251,6 +252,10 @@ if ( ! class_exists( 'AIO_Login\Admin\Admin' ) ) {
 
 			foreach ( $tabs as $tab ) {
 				if ( 'dashboard' === $tab['slug'] ) {
+					continue;
+				}
+
+				if ( isset( $tab['is-pro'] ) && $tab['is-pro'] && ! \AIO_Login\Aio_Login::has_pro() ) {
 					continue;
 				}
 

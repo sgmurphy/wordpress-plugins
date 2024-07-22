@@ -35,7 +35,7 @@ class ModernRenderer extends Renderer {
     }
 
     private function render_comment() {
-        echo sprintf( '<!-- Call Now Button %1$s (https://callnowbutton.com) [renderer:modern]-->%2$s',
+        printf( '<!-- Call Now Button %1$s (https://callnowbutton.com) [renderer:modern]-->%2$s',
             esc_attr( CNB_VERSION ),
             "\n" );
     }
@@ -81,10 +81,8 @@ class ModernRenderer extends Renderer {
                 if ( is_single( $cnb_show_ids ) || is_page( $cnb_show_ids ) || $is_page_for_posts ) {
                     return 2;
                 }
-            } else {
-                if ( ! is_single( $cnb_show_ids ) && ! is_page( $cnb_show_ids ) && ! $is_page_for_posts ) {
+            } elseif ( ! is_single( $cnb_show_ids ) && ! is_page( $cnb_show_ids ) && ! $is_page_for_posts ) {
                     return 3;
-                }
             }
         } else {
             return 4;
@@ -172,7 +170,7 @@ class ModernRenderer extends Renderer {
         $this->enqueue_frontend_style();
 
         // We add priority 7 to ensure that we are loaded before wp_head renders the CSS (which is at priority >= 8)
-        add_action( 'wp_head', array( $this, 'cnb_head', ), 7 );
+        add_action( 'wp_head', array( $this, 'cnb_head' ), 7 );
 
         add_action( 'wp_footer', array( $this, 'cnb_footer' ) );
     }
@@ -228,7 +226,7 @@ class ModernRenderer extends Renderer {
                         'button_type'    => 'Single',
                         'action_value'   => $action_value,
                         'action_label'   => $action_label,
-                        'cnb_version'    => CNB_VERSION
+                        'cnb_version'    => CNB_VERSION,
                     ) );
 
                     return 'gtag("event", "Call Now Button", ' . $gtag_props . ');';
@@ -322,7 +320,7 @@ class ModernRenderer extends Renderer {
      */
     private function get_class_names() {
         $cnb_options    = get_option( 'cnb' );
-        $cnb_classnames = array('call-now-button');
+        $cnb_classnames = array( 'call-now-button' );
 
         // Button zoom
         $cnb_classnames[] = ' cnb-zoom-' . esc_attr( $this->get_zoom() );

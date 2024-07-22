@@ -24,6 +24,7 @@
 $data = '';
 $data_premium = '';
 $self_path = dirname(__FILE__);
+$plugins_path = dirname(dirname($self_path));
 $files = array(
 		// Admin CSS
 		'pagelayer-editor.css',
@@ -46,7 +47,8 @@ $files = array(
 $give = @$_REQUEST['give'];
 
 // Premium
-$premium = @$_REQUEST['premium'];
+$premium = !empty($_REQUEST['premium']) ? $_REQUEST['premium'] : '';
+$premium_path = $plugins_path.'/pagelayer-pro/css';
 
 if(!empty($give)){
 	
@@ -89,7 +91,7 @@ if(!empty($final_premium)){
 
 	foreach($final_premium as $k => $v){
 		//echo $k.'<br>';
-		$data_premium .= file_get_contents($self_path.'/'.$v)."\n\n";
+		$data_premium .= file_get_contents($premium_path.'/'.$v)."\n\n";
 	}
 
 }

@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.4.6
+Stable tag: 3.4.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,10 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.4.7 (Jul 22, 2024) =
+* Improved: Plugin security improved for logged in user executing ajax requests scenarios on legacy admin interfaces before version 3.0 (#5919)
+* Fixed: Compatibility with Bricks theme updated for the embed forms. (#6489)
 
 = 3.4.6 (Jul 19, 2024) =
 * Improved: Checkout: Compatibility with FooEvents for WooCommerce for FooEvents updated. (#6448)
@@ -1470,3 +1474,4 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 
 = 1.0.0 (Nov 26, 2020) =
 * Public Release Launch Date
+

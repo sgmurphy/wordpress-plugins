@@ -34,7 +34,7 @@ class CnbActivation {
     /**
      * @var CnbNotice[]
      */
-    public $notices = [];
+    public $notices = array();
     /**
      * The domain created / used
      * @var CnbDomain|WP_Error

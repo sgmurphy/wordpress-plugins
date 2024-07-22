@@ -97,7 +97,12 @@
 		}
  }
 
- 
+
+
+if (is_feed() && !headers_sent()) {
+    // Add the Access-Control-Allow-Origin header to allow all origins.
+    header("Access-Control-Allow-Origin: *");
+}
 header('Content-Type: application/rss+xml; charset=' . get_option('blog_charset'), true);
 $more = 1;
 

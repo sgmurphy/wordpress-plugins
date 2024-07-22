@@ -23,23 +23,23 @@ class Class_Pi_Sales_Notification_Control{
 
         $this->settings = array(
 
-            array('field'=>'pi_sn_show_all', 'label'=>__('Show popup on all pages of website', 'pisol-sales-notification'),'type'=>'switch', 'default'=>1,   'desc'=>__(''), 'pro'=>true),
+            array('field'=>'pi_sn_show_all', 'label'=>__('Show popup on all pages of website', 'pisol-sales-notification'),'type'=>'switch', 'default'=>1,   'desc'=>'', 'pro'=>true),
 
             array('field'=>'title', 'class'=> 'bg-primary text-light', 'class_title'=>'text-light font-weight-light h4', 'label'=>__("Show popup on selected page", 'pisol-sales-notification'), 'type'=>"setting_category"),
 
-            array('field'=>'pi_sn_show_front_page', 'label'=>__('Show on front page of the site (is_front_page)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>__(''), 'pro'=>true),
+            array('field'=>'pi_sn_show_front_page', 'label'=>__('Show on front page of the site (is_front_page)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>'', 'pro'=>true),
 
-            array('field'=>'pi_sn_show_is_product', 'label'=>__('Show on single product page (is_product)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>__(''), 'pro'=>true),
+            array('field'=>'pi_sn_show_is_product', 'label'=>__('Show on single product page (is_product)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>'', 'pro'=>true),
 
-            array('field'=>'pi_sn_show_is_cart', 'label'=>__('Show on cart page (is_cart)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>__(''), 'pro'=>true),
+            array('field'=>'pi_sn_show_is_cart', 'label'=>__('Show on cart page (is_cart)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>'', 'pro'=>true),
 
-            array('field'=>'pi_sn_show_is_checkout', 'label'=>__('Show on checkout page (is_checkout)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>__(''), 'pro'=>true),
+            array('field'=>'pi_sn_show_is_checkout', 'label'=>__('Show on checkout page (is_checkout)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>'', 'pro'=>true),
 
-            array('field'=>'pi_sn_show_is_shop', 'label'=>__('Show on shop page (is_shop)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>__(''), 'pro'=>true),
+            array('field'=>'pi_sn_show_is_shop', 'label'=>__('Show on shop page (is_shop)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>'', 'pro'=>true),
 
-            array('field'=>'pi_sn_show_is_product_category', 'label'=>__('Show on product category page (is_product_category)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>__(''), 'pro'=>true),
+            array('field'=>'pi_sn_show_is_product_category', 'label'=>__('Show on product category page (is_product_category)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>'', 'pro'=>true),
 
-            array('field'=>'pi_sn_show_is_product_tag', 'label'=>__('Show on product tag page (is_product_tag)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>__(''), 'pro'=>true),
+            array('field'=>'pi_sn_show_is_product_tag', 'label'=>__('Show on product tag page (is_product_tag)', 'pisol-sales-notification'),'type'=>'switch', 'default'=>0,   'desc'=>'', 'pro'=>true),
 
             array('field'=>'title2', 'class'=> 'bg-primary text-light', 'class_title'=>'text-light font-weight-light h4', 'label'=>__('Disable notification on this page', 'pisol-sales-notification'), 'type'=>'setting_category'),
 
@@ -85,8 +85,8 @@ class Class_Pi_Sales_Notification_Control{
 
     function tab(){
         ?>
-        <a class="  pi-side-menu hide-pro  <?php echo ($this->active_tab == $this->this_tab ? 'bg-primary' : 'bg-secondary'); ?>" href="<?php echo admin_url( 'admin.php?page='.sanitize_text_field($_GET['page']).'&tab='.$this->this_tab ); ?>">
-        <span class="dashicons dashicons-dashboard"></span> <?php _e( $this->tab_name); ?> 
+        <a class="  pi-side-menu hide-pro  <?php echo ($this->active_tab == $this->this_tab ? 'bg-primary' : 'bg-secondary'); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page='.sanitize_text_field($_GET['page']).'&tab='.$this->this_tab ) ); ?>">
+        <span class="dashicons dashicons-dashboard"></span> <?php echo esc_html( $this->tab_name ); ?> 
         </a>
         <?php
     }

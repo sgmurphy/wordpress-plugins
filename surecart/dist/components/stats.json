@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-07-15T19:49:20",
+  "timestamp": "2024-07-22T18:24:01",
   "compiler": {
     "name": "node",
     "version": "16.20.2"
@@ -2699,8 +2699,6 @@
           "./dist/surecart/p-37fb6554.entry.js.map",
           "./dist/surecart/p-38a11668.js",
           "./dist/surecart/p-38a11668.js.map",
-          "./dist/surecart/p-3f349466.entry.js",
-          "./dist/surecart/p-3f349466.entry.js.map",
           "./dist/surecart/p-3f50039d.entry.js",
           "./dist/surecart/p-3f50039d.entry.js.map",
           "./dist/surecart/p-413fb1fc.entry.js",
@@ -2725,14 +2723,14 @@
           "./dist/surecart/p-4e5e47e3.entry.js.map",
           "./dist/surecart/p-4e7b334d.entry.js",
           "./dist/surecart/p-4e7b334d.entry.js.map",
+          "./dist/surecart/p-4ff0be67.entry.js",
+          "./dist/surecart/p-4ff0be67.entry.js.map",
           "./dist/surecart/p-4ff67a6c.entry.js",
           "./dist/surecart/p-4ff67a6c.entry.js.map",
           "./dist/surecart/p-506cd98b.entry.js",
           "./dist/surecart/p-506cd98b.entry.js.map",
           "./dist/surecart/p-50da3ba3.js",
           "./dist/surecart/p-50da3ba3.js.map",
-          "./dist/surecart/p-51366d8d.entry.js",
-          "./dist/surecart/p-51366d8d.entry.js.map",
           "./dist/surecart/p-513c4884.entry.js",
           "./dist/surecart/p-513c4884.entry.js.map",
           "./dist/surecart/p-558b515b.entry.js",
@@ -2757,8 +2755,8 @@
           "./dist/surecart/p-5ee639db.entry.js.map",
           "./dist/surecart/p-60b562d9.entry.js",
           "./dist/surecart/p-60b562d9.entry.js.map",
-          "./dist/surecart/p-640ba7db.entry.js",
-          "./dist/surecart/p-640ba7db.entry.js.map",
+          "./dist/surecart/p-633a20f1.entry.js",
+          "./dist/surecart/p-633a20f1.entry.js.map",
           "./dist/surecart/p-64494b56.entry.js",
           "./dist/surecart/p-64494b56.entry.js.map",
           "./dist/surecart/p-6482e522.entry.js",
@@ -2801,6 +2799,8 @@
           "./dist/surecart/p-7ebf74bf.entry.js.map",
           "./dist/surecart/p-7ef0f71c.js",
           "./dist/surecart/p-7ef0f71c.js.map",
+          "./dist/surecart/p-8051d81e.entry.js",
+          "./dist/surecart/p-8051d81e.entry.js.map",
           "./dist/surecart/p-8266bbed.js",
           "./dist/surecart/p-8266bbed.js.map",
           "./dist/surecart/p-830ab1a3.js",
@@ -2811,10 +2811,14 @@
           "./dist/surecart/p-843fce65.entry.js.map",
           "./dist/surecart/p-8468fd6a.entry.js",
           "./dist/surecart/p-8468fd6a.entry.js.map",
+          "./dist/surecart/p-85c62756.entry.js",
+          "./dist/surecart/p-85c62756.entry.js.map",
           "./dist/surecart/p-8617d8eb.js",
           "./dist/surecart/p-8617d8eb.js.map",
           "./dist/surecart/p-89527bb6.entry.js",
           "./dist/surecart/p-89527bb6.entry.js.map",
+          "./dist/surecart/p-8b08f899.entry.js",
+          "./dist/surecart/p-8b08f899.entry.js.map",
           "./dist/surecart/p-8b92fc9e.entry.js",
           "./dist/surecart/p-8b92fc9e.entry.js.map",
           "./dist/surecart/p-8d4225f6.entry.js",
@@ -2841,8 +2845,6 @@
           "./dist/surecart/p-9a4e8e5d.entry.js.map",
           "./dist/surecart/p-9a558fd2.entry.js",
           "./dist/surecart/p-9a558fd2.entry.js.map",
-          "./dist/surecart/p-9c434bae.entry.js",
-          "./dist/surecart/p-9c434bae.entry.js.map",
           "./dist/surecart/p-9d515dcf.entry.js",
           "./dist/surecart/p-9d515dcf.entry.js.map",
           "./dist/surecart/p-9e1f3355.entry.js",
@@ -2863,6 +2865,8 @@
           "./dist/surecart/p-a67533d4.entry.js.map",
           "./dist/surecart/p-a75ca7e1.entry.js",
           "./dist/surecart/p-a75ca7e1.entry.js.map",
+          "./dist/surecart/p-a822c36c.entry.js",
+          "./dist/surecart/p-a822c36c.entry.js.map",
           "./dist/surecart/p-a88e1e7c.entry.js",
           "./dist/surecart/p-a88e1e7c.entry.js.map",
           "./dist/surecart/p-a928a778.entry.js",
@@ -2891,14 +2895,10 @@
           "./dist/surecart/p-b47f1240.entry.js.map",
           "./dist/surecart/p-b53606da.entry.js",
           "./dist/surecart/p-b53606da.entry.js.map",
-          "./dist/surecart/p-b6e8c9e8.entry.js",
-          "./dist/surecart/p-b6e8c9e8.entry.js.map",
           "./dist/surecart/p-b8e5d313.js",
           "./dist/surecart/p-b8e5d313.js.map",
           "./dist/surecart/p-b9717b79.entry.js",
           "./dist/surecart/p-b9717b79.entry.js.map",
-          "./dist/surecart/p-ba003d6d.entry.js",
-          "./dist/surecart/p-ba003d6d.entry.js.map",
           "./dist/surecart/p-ba37bf1e.entry.js",
           "./dist/surecart/p-ba37bf1e.entry.js.map",
           "./dist/surecart/p-bf662d81.entry.js",
@@ -2941,6 +2941,8 @@
           "./dist/surecart/p-cd5ca715.entry.js.map",
           "./dist/surecart/p-cd5e8447.entry.js",
           "./dist/surecart/p-cd5e8447.entry.js.map",
+          "./dist/surecart/p-cdce66b2.entry.js",
+          "./dist/surecart/p-cdce66b2.entry.js.map",
           "./dist/surecart/p-cf82debc.entry.js",
           "./dist/surecart/p-cf82debc.entry.js.map",
           "./dist/surecart/p-cf9590b4.entry.js",
@@ -3015,8 +3017,6 @@
           "./dist/surecart/p-f44ff36a.entry.js.map",
           "./dist/surecart/p-f4b40d59.entry.js",
           "./dist/surecart/p-f4b40d59.entry.js.map",
-          "./dist/surecart/p-f516b897.entry.js",
-          "./dist/surecart/p-f516b897.entry.js.map",
           "./dist/surecart/p-f5237f7a.entry.js",
           "./dist/surecart/p-f5237f7a.entry.js.map",
           "./dist/surecart/p-f5a2278e.entry.js",
@@ -3139,8 +3139,6 @@
           "./www/build/p-37fb6554.entry.js.map",
           "./www/build/p-38a11668.js",
           "./www/build/p-38a11668.js.map",
-          "./www/build/p-3f349466.entry.js",
-          "./www/build/p-3f349466.entry.js.map",
           "./www/build/p-3f50039d.entry.js",
           "./www/build/p-3f50039d.entry.js.map",
           "./www/build/p-413fb1fc.entry.js",
@@ -3165,14 +3163,14 @@
           "./www/build/p-4e5e47e3.entry.js.map",
           "./www/build/p-4e7b334d.entry.js",
           "./www/build/p-4e7b334d.entry.js.map",
+          "./www/build/p-4ff0be67.entry.js",
+          "./www/build/p-4ff0be67.entry.js.map",
           "./www/build/p-4ff67a6c.entry.js",
           "./www/build/p-4ff67a6c.entry.js.map",
           "./www/build/p-506cd98b.entry.js",
           "./www/build/p-506cd98b.entry.js.map",
           "./www/build/p-50da3ba3.js",
           "./www/build/p-50da3ba3.js.map",
-          "./www/build/p-51366d8d.entry.js",
-          "./www/build/p-51366d8d.entry.js.map",
           "./www/build/p-513c4884.entry.js",
           "./www/build/p-513c4884.entry.js.map",
           "./www/build/p-558b515b.entry.js",
@@ -3197,8 +3195,8 @@
           "./www/build/p-5ee639db.entry.js.map",
           "./www/build/p-60b562d9.entry.js",
           "./www/build/p-60b562d9.entry.js.map",
-          "./www/build/p-640ba7db.entry.js",
-          "./www/build/p-640ba7db.entry.js.map",
+          "./www/build/p-633a20f1.entry.js",
+          "./www/build/p-633a20f1.entry.js.map",
           "./www/build/p-64494b56.entry.js",
           "./www/build/p-64494b56.entry.js.map",
           "./www/build/p-6482e522.entry.js",
@@ -3241,6 +3239,8 @@
           "./www/build/p-7ebf74bf.entry.js.map",
           "./www/build/p-7ef0f71c.js",
           "./www/build/p-7ef0f71c.js.map",
+          "./www/build/p-8051d81e.entry.js",
+          "./www/build/p-8051d81e.entry.js.map",
           "./www/build/p-8266bbed.js",
           "./www/build/p-8266bbed.js.map",
           "./www/build/p-830ab1a3.js",
@@ -3251,10 +3251,14 @@
           "./www/build/p-843fce65.entry.js.map",
           "./www/build/p-8468fd6a.entry.js",
           "./www/build/p-8468fd6a.entry.js.map",
+          "./www/build/p-85c62756.entry.js",
+          "./www/build/p-85c62756.entry.js.map",
           "./www/build/p-8617d8eb.js",
           "./www/build/p-8617d8eb.js.map",
           "./www/build/p-89527bb6.entry.js",
           "./www/build/p-89527bb6.entry.js.map",
+          "./www/build/p-8b08f899.entry.js",
+          "./www/build/p-8b08f899.entry.js.map",
           "./www/build/p-8b92fc9e.entry.js",
           "./www/build/p-8b92fc9e.entry.js.map",
           "./www/build/p-8d4225f6.entry.js",
@@ -3281,8 +3285,6 @@
           "./www/build/p-9a4e8e5d.entry.js.map",
           "./www/build/p-9a558fd2.entry.js",
           "./www/build/p-9a558fd2.entry.js.map",
-          "./www/build/p-9c434bae.entry.js",
-          "./www/build/p-9c434bae.entry.js.map",
           "./www/build/p-9d515dcf.entry.js",
           "./www/build/p-9d515dcf.entry.js.map",
           "./www/build/p-9e1f3355.entry.js",
@@ -3303,6 +3305,8 @@
           "./www/build/p-a67533d4.entry.js.map",
           "./www/build/p-a75ca7e1.entry.js",
           "./www/build/p-a75ca7e1.entry.js.map",
+          "./www/build/p-a822c36c.entry.js",
+          "./www/build/p-a822c36c.entry.js.map",
           "./www/build/p-a88e1e7c.entry.js",
           "./www/build/p-a88e1e7c.entry.js.map",
           "./www/build/p-a928a778.entry.js",
@@ -3331,14 +3335,10 @@
           "./www/build/p-b47f1240.entry.js.map",
           "./www/build/p-b53606da.entry.js",
           "./www/build/p-b53606da.entry.js.map",
-          "./www/build/p-b6e8c9e8.entry.js",
-          "./www/build/p-b6e8c9e8.entry.js.map",
           "./www/build/p-b8e5d313.js",
           "./www/build/p-b8e5d313.js.map",
           "./www/build/p-b9717b79.entry.js",
           "./www/build/p-b9717b79.entry.js.map",
-          "./www/build/p-ba003d6d.entry.js",
-          "./www/build/p-ba003d6d.entry.js.map",
           "./www/build/p-ba37bf1e.entry.js",
           "./www/build/p-ba37bf1e.entry.js.map",
           "./www/build/p-bf662d81.entry.js",
@@ -3381,6 +3381,8 @@
           "./www/build/p-cd5ca715.entry.js.map",
           "./www/build/p-cd5e8447.entry.js",
           "./www/build/p-cd5e8447.entry.js.map",
+          "./www/build/p-cdce66b2.entry.js",
+          "./www/build/p-cdce66b2.entry.js.map",
           "./www/build/p-cf82debc.entry.js",
           "./www/build/p-cf82debc.entry.js.map",
           "./www/build/p-cf9590b4.entry.js",
@@ -3455,8 +3457,6 @@
           "./www/build/p-f44ff36a.entry.js.map",
           "./www/build/p-f4b40d59.entry.js",
           "./www/build/p-f4b40d59.entry.js.map",
-          "./www/build/p-f516b897.entry.js",
-          "./www/build/p-f516b897.entry.js.map",
           "./www/build/p-f5237f7a.entry.js",
           "./www/build/p-f5237f7a.entry.js.map",
           "./www/build/p-f5a2278e.entry.js",
@@ -4241,8 +4241,8 @@
         "components": [
           "sc-line-items"
         ],
-        "bundleId": "p-f516b897",
-        "fileName": "p-f516b897.entry.js",
+        "bundleId": "p-8051d81e",
+        "fileName": "p-8051d81e.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-24f06282.js",
@@ -4265,7 +4265,7 @@
           "p-5ec5df35.js",
           "p-18e45a13.js"
         ],
-        "originalByteSize": 5756
+        "originalByteSize": 5859
       },
       {
         "key": "sc-login-form.entry",
@@ -5109,8 +5109,8 @@
         "components": [
           "sc-subscription"
         ],
-        "bundleId": "p-640ba7db",
-        "fileName": "p-640ba7db.entry.js",
+        "bundleId": "p-4ff0be67",
+        "fileName": "p-4ff0be67.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-18e45a13.js",
@@ -5119,7 +5119,7 @@
           "p-1c2e2695.js",
           "p-7ef0f71c.js"
         ],
-        "originalByteSize": 8980
+        "originalByteSize": 9725
       },
       {
         "key": "sc-subscription-ad-hoc-confirm.entry",
@@ -5201,15 +5201,15 @@
         "components": [
           "sc-subscriptions-list"
         ],
-        "bundleId": "p-ba003d6d",
-        "fileName": "p-ba003d6d.entry.js",
+        "bundleId": "p-8b08f899",
+        "fileName": "p-8b08f899.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-18e45a13.js",
           "p-c2833cb1.js",
           "p-1c2e2695.js"
         ],
-        "originalByteSize": 6217
+        "originalByteSize": 5752
       },
       {
         "key": "sc-tab.entry",
@@ -5265,8 +5265,8 @@
         "components": [
           "sc-upcoming-invoice"
         ],
-        "bundleId": "p-9c434bae",
-        "fileName": "p-9c434bae.entry.js",
+        "bundleId": "p-85c62756",
+        "fileName": "p-85c62756.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-18e45a13.js",
@@ -5276,7 +5276,7 @@
           "p-1c2e2695.js",
           "p-7ef0f71c.js"
         ],
-        "originalByteSize": 12667
+        "originalByteSize": 12770
       },
       {
         "key": "sc-upgrade-required.entry",
@@ -5459,8 +5459,8 @@
           "sc-cancel-dialog",
           "sc-subscription-next-payment"
         ],
-        "bundleId": "p-51366d8d",
-        "fileName": "p-51366d8d.entry.js",
+        "bundleId": "p-633a20f1",
+        "fileName": "p-633a20f1.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-18e45a13.js",
@@ -5469,7 +5469,7 @@
           "p-1c2e2695.js",
           "p-7ef0f71c.js"
         ],
-        "originalByteSize": 11504
+        "originalByteSize": 12304
       },
       {
         "key": "sc-cart-session-provider.sc-drawer.sc-error.entry",
@@ -5612,8 +5612,8 @@
           "sc-order-confirmation-line-items",
           "sc-order-confirmation-totals"
         ],
-        "bundleId": "p-3f349466",
-        "fileName": "p-3f349466.entry.js",
+        "bundleId": "p-a822c36c",
+        "fileName": "p-a822c36c.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-2f9b1dd9.js",
@@ -5622,7 +5622,7 @@
           "p-15e31471.js",
           "p-7ef0f71c.js"
         ],
-        "originalByteSize": 7044
+        "originalByteSize": 7147
       },
       {
         "key": "sc-order-shipment-badge.entry",
@@ -6239,14 +6239,14 @@
           "sc-product-line-item",
           "sc-quantity-select"
         ],
-        "bundleId": "p-b6e8c9e8",
-        "fileName": "p-b6e8c9e8.entry.js",
+        "bundleId": "p-cdce66b2",
+        "fileName": "p-cdce66b2.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-d556eec7.js",
           "p-296b7340.js"
         ],
-        "originalByteSize": 16803
+        "originalByteSize": 17289
       },
       {
         "key": "sc-choice-container.entry",
@@ -7192,7 +7192,7 @@
           "index-d7508e37.js",
           "fetch-2525e763.js"
         ],
-        "originalByteSize": 5878
+        "originalByteSize": 5981
       },
       {
         "key": "sc-login-form.entry",
@@ -8046,7 +8046,7 @@
           "add-query-args-f4c5962b.js",
           "currency-728311ef.js"
         ],
-        "originalByteSize": 9015
+        "originalByteSize": 9760
       },
       {
         "key": "sc-subscription-ad-hoc-confirm.entry",
@@ -8136,7 +8136,7 @@
           "lazy-64c2bf3b.js",
           "add-query-args-f4c5962b.js"
         ],
-        "originalByteSize": 6241
+        "originalByteSize": 5776
       },
       {
         "key": "sc-tab.entry",
@@ -8203,7 +8203,7 @@
           "add-query-args-f4c5962b.js",
           "currency-728311ef.js"
         ],
-        "originalByteSize": 12704
+        "originalByteSize": 12807
       },
       {
         "key": "sc-upgrade-required.entry",
@@ -8396,7 +8396,7 @@
           "add-query-args-f4c5962b.js",
           "currency-728311ef.js"
         ],
-        "originalByteSize": 11538
+        "originalByteSize": 12338
       },
       {
         "key": "sc-cart-session-provider.sc-drawer.sc-error.entry",
@@ -8549,7 +8549,7 @@
           "tax-79350864.js",
           "currency-728311ef.js"
         ],
-        "originalByteSize": 7072
+        "originalByteSize": 7175
       },
       {
         "key": "sc-order-shipment-badge.entry",
@@ -9173,7 +9173,7 @@
           "page-align-8602c4c7.js",
           "media-8435dec0.js"
         ],
-        "originalByteSize": 16820
+        "originalByteSize": 17306
       },
       {
         "key": "sc-choice-container.entry",
@@ -10121,7 +10121,7 @@
           "index-a9c75016.js",
           "fetch-2dba325c.js"
         ],
-        "originalByteSize": 6079
+        "originalByteSize": 6182
       },
       {
         "key": "sc-login-form.entry",
@@ -10975,7 +10975,7 @@
           "add-query-args-17c551b6.js",
           "currency-ba038e2f.js"
         ],
-        "originalByteSize": 9276
+        "originalByteSize": 10046
       },
       {
         "key": "sc-subscription-ad-hoc-confirm.entry",
@@ -11065,7 +11065,7 @@
           "lazy-bc8baeab.js",
           "add-query-args-17c551b6.js"
         ],
-        "originalByteSize": 6456
+        "originalByteSize": 5978
       },
       {
         "key": "sc-tab.entry",
@@ -11132,7 +11132,7 @@
           "add-query-args-17c551b6.js",
           "currency-ba038e2f.js"
         ],
-        "originalByteSize": 13115
+        "originalByteSize": 13218
       },
       {
         "key": "sc-upgrade-required.entry",
@@ -11325,7 +11325,7 @@
           "add-query-args-17c551b6.js",
           "currency-ba038e2f.js"
         ],
-        "originalByteSize": 11908
+        "originalByteSize": 12727
       },
       {
         "key": "sc-cart-session-provider.sc-drawer.sc-error.entry",
@@ -11478,7 +11478,7 @@
           "tax-4f82e63a.js",
           "currency-ba038e2f.js"
         ],
-        "originalByteSize": 7305
+        "originalByteSize": 7408
       },
       {
         "key": "sc-order-shipment-badge.entry",
@@ -12102,7 +12102,7 @@
           "page-align-bf197eb4.js",
           "media-71bcf49e.js"
         ],
-        "originalByteSize": 17164
+        "originalByteSize": 17662
       },
       {
         "key": "sc-choice-container.entry",
@@ -41356,6 +41356,25 @@
             "text": "The SKU."
           },
           "internal": false
+        },
+        {
+          "name": "purchasableStatusDisplay",
+          "type": "string",
+          "attribute": "purchasable-status-display",
+          "reflect": false,
+          "mutable": false,
+          "required": false,
+          "optional": false,
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "docs": {
+            "tags": [],
+            "text": "The purchasable status display"
+          },
+          "internal": false
         }
       ],
       "shadowDelegatesFocus": false,
@@ -67821,6 +67840,7 @@
             "name",
             "priceName",
             "variantLabel",
+            "purchasableStatusDisplay",
             "editable",
             "removable",
             "quantity",
@@ -82375,6 +82395,7 @@
             "priceName",
             "variantLabel",
             "editable",
+            "purchasableStatusDisplay",
             "removable",
             "quantity",
             "amount",
@@ -84442,6 +84463,7 @@
             "quantity",
             "amount",
             "interval",
+            "purchasableStatusDisplay",
             "href",
             "justify-content",
             "align-items",
@@ -87738,7 +87760,8 @@
             "amount",
             "currency",
             "trialDurationDays",
-            "interval"
+            "interval",
+            "purchasableStatusDisplay"
           ],
           "htmlTagNames": [
             "sc-line-item",
@@ -106975,6 +106998,25 @@
                 "text": "The SKU."
               },
               "internal": false
+            },
+            {
+              "name": "purchasableStatusDisplay",
+              "type": "string",
+              "attribute": "purchasable-status-display",
+              "reflect": false,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "The purchasable status display"
+              },
+              "internal": false
             }
           ],
           "virtualProperties": [],
@@ -107209,6 +107251,8 @@
             "price",
             "price__amount",
             "price__description",
+            "price",
+            "price__amount",
             "base",
             "product-line-item",
             "image",

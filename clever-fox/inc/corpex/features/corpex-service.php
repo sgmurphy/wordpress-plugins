@@ -20,8 +20,8 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	   
 	   {
 	   ?>
-			<h3><?php esc_html_e('Section Documentation','clever-fox'); ?></h3>
-			<p><?php /* Translators: 1: anchor 2: end */printf(esc_html__('%1$s Click Here %2$s','clever-fox'),'<a href="#" style="background-color:rgba(223, 69, 44, 1); color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;">','</a>'); ?></p>
+			<h3><?php _e('Section Documentation','clever-fox'); ?></h3>
+			<p><a href="#" target="_blank" style="background-color:#0083E3; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php _e('Click Here','clever-fox');?></a></p>
 			
 		<?php
 	   }
@@ -184,7 +184,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				$theme = wp_get_theme(); // gets the current theme	
 				
 			?>
-				<a class="customizer_service_upgrade_section up-to-pro" href="https://www.nayrathemes.com/corpex-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_service_upgrade_section up-to-pro" href="https://www.nayrathemes.com/corpex-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }
 		}
@@ -211,7 +211,7 @@ add_action( 'customize_register', 'corpex_service_setting' );
 function corpex_home_service_section_partials( $wp_customize ){	
 	// service title
 	$wp_customize->selective_refresh->add_partial( 'service_title', array(
-		'selector'            => '.service-home .section-title h2 span',
+		'selector'            => '.service-home .section-title h2 ',
 		'settings'            => 'service_title',
 		'render_callback'  	  => 'corpex_service_title_render_callback',
 	) );

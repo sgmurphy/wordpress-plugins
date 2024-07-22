@@ -19,8 +19,12 @@ $post_title = '';
 $post_url   = '';
 $post_meta  = array();
 
-$embedded_sources = array( 'youtube', 'vimeo', 'dailymotion' );
-$player_template  = ( 'vidstack' == $player_settings['player'] ) ? 'vidstack' : 'videojs';
+$player_template = ( 'vidstack' == $player_settings['player'] ) ? 'vidstack' : 'videojs';
+
+$thirdparty_providers_with_api    = array( 'youtube', 'vimeo' );
+$thirdparty_providers_without_api = array( 'dailymotion', 'rumble', 'facebook' );
+$thirdparty_providers_all         = array_merge( $thirdparty_providers_with_api, $thirdparty_providers_without_api );
+$current_video_provider           = 'html5';
 
 if ( $post_id > 0 ) {
 	$post_type  = get_post_type( $post_id );
@@ -28,63 +32,53 @@ if ( $post_id > 0 ) {
     $post_url   = get_permalink( $post_id );
 		
 	if ( 'aiovg_videos' == $post_type ) {
-		$post_meta = get_post_meta( $post_id );
-
-		if ( 'rumble' == $post_meta['type'][0] ) {
-			$player_template = 'iframe';			
-		}
-
-		if ( 'facebook' == $post_meta['type'][0] ) {
-			$player_template = 'iframe';			
-		}
-
-		if ( 'embedcode' == $post_meta['type'][0] ) {
-			$player_template = 'iframe';			
-		}
+		$post_meta = get_post_meta( $post_id );		
 	}
 }
 
-if ( isset( $_GET['rumble'] ) ) {
-	$player_template = 'iframe';
-}	
+if ( ! empty( $post_meta ) ) {
+	$current_video_provider = $post_meta['type'][0];
 
-if ( isset( $_GET['facebook'] ) ) {
-	$player_template = 'iframe';
-}	
+	if ( in_array( $current_video_provider, $thirdparty_providers_with_api ) ) {
+		$use_native_controls = isset( $player_settings['use_native_controls'][ $current_video_provider ] );
+		$use_native_controls = apply_filters( 'aiovg_use_native_controls', $use_native_controls, $current_video_provider );
 
-foreach ( $embedded_sources as $source ) {
-	$use_native_controls = isset( $player_settings['use_native_controls'][ $source ] );
-
-	if ( 'vidstack' == $player_template && 'dailymotion' == $source ) {
-		$use_native_controls = true;
+		if ( $use_native_controls ) {
+			$player_template = 'iframe';
+		}
 	}
 
-	$use_native_controls = apply_filters( 'aiovg_use_native_controls', $use_native_controls, $source );
+	if ( in_array( $current_video_provider, $thirdparty_providers_without_api ) ) {
+		$player_template = 'iframe';
+	}
 
-	if ( $use_native_controls ) {
-		if ( ! empty( $post_meta ) ) {
-			if ( $source == $post_meta['type'][0] ) {
+	if ( 'embedcode' == $current_video_provider ) {
+		$player_template = 'iframe';			
+	}
+} else {
+	foreach ( $thirdparty_providers_with_api as $provider ) {
+		$use_native_controls = isset( $player_settings['use_native_controls'][ $provider ] );
+		$use_native_controls = apply_filters( 'aiovg_use_native_controls', $use_native_controls, $provider );
+	
+		if ( $use_native_controls ) {
+			if ( isset( $_GET[ $provider ] ) ) {
+				$current_video_provider = $provider;
 				$player_template = 'iframe';
-			}			
-		} elseif ( isset( $_GET[ $source ] ) ) {
+			}		
+		}
+	}
+
+	foreach ( $thirdparty_providers_without_api as $provider ) {
+		if ( isset( $_GET[ $provider ] ) ) {
+			$current_video_provider = $provider;
 			$player_template = 'iframe';
-		}		
+		}
 	}
 }
 
 if ( ! isset( $_COOKIE['aiovg_gdpr_consent'] ) && ! empty( $privacy_settings['show_consent'] ) && ! empty( $privacy_settings['consent_message'] ) && ! empty( $privacy_settings['consent_button_label'] ) ) {		
-	if ( 'iframe' == $player_template ) {
+	if ( in_array( $current_video_provider, $thirdparty_providers_all ) || 'iframe' == $player_template ) {
 		$player_template = 'gdpr';
-	} else {
-		foreach ( $embedded_sources as $source ) {
-			if ( ! empty( $post_meta ) ) {
-				if ( $source == $post_meta['type'][0] ) {
-					$player_template = 'gdpr';
-				}			
-			} elseif ( isset( $_GET[ $source ] ) ) {
-				$player_template = 'gdpr';
-			}		
-		}
 	}
 }
 

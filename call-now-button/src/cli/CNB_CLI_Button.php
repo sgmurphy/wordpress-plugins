@@ -87,7 +87,7 @@ class CNB_CLI_Button extends WP_CLI_Command {
                 'domain',
                 'actions',
                 'conditions',
-                'options'
+                'options',
             ) );
             WP_CLI::log( $fields );
             WP_CLI\Utils\format_items( $format, $items, $fields );

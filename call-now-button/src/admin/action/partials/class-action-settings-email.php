@@ -27,11 +27,11 @@ class ActionSettingsEmail {
                     <tr>
                         <th scope="row"><label for="action-properties-subject">Subject</label></th>
                         <td><input placeholder="Optional" id="action-properties-subject"
-                                   name="actions[<?php echo esc_attr( $action->id ) ?>][properties][subject]"
-                                   type="text"
-                                   value="<?php if ( isset( $action->properties ) && isset( $action->properties->subject ) ) {
-                                       echo esc_attr( $action->properties->subject );
-                                   } ?>"/></td>
+                                    name="actions[<?php echo esc_attr( $action->id ) ?>][properties][subject]"
+                                    type="text"
+                                    value="<?php if ( isset( $action->properties ) && isset( $action->properties->subject ) ) {
+                                        echo esc_attr( $action->properties->subject );
+                                    } ?>"/></td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="action-properties-body">Message template <a
@@ -40,9 +40,9 @@ class ActionSettingsEmail {
                                     <span class="dashicons dashicons-editor-help"></span>
                                 </a></label></th>
                         <td><textarea placeholder="Optional" id="action-properties-body"
-                                      name="actions[<?php echo esc_attr( $action->id ) ?>][properties][body]"
-                                      class="large-text code"
-                                      rows="3"><?php if ( isset( $action->properties ) && isset( $action->properties->body ) ) {
+                                        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][body]"
+                                        class="large-text code"
+                                        rows="3"><?php if ( isset( $action->properties ) && isset( $action->properties->body ) ) {
                                     echo esc_textarea( $action->properties->body );
                                 } ?></textarea></td>
 
@@ -50,18 +50,18 @@ class ActionSettingsEmail {
                     <tr>
                         <th scope="row"><label for="action-properties-cc">CC</label></th>
                         <td><input placeholder="Optional" id="action-properties-cc"
-                                   name="actions[<?php echo esc_attr( $action->id ) ?>][properties][cc]" type="text"
-                                   value="<?php if ( isset( $action->properties ) && isset( $action->properties->cc ) ) {
-                                       echo esc_attr( $action->properties->cc );
-                                   } ?>"/></td>
+                                    name="actions[<?php echo esc_attr( $action->id ) ?>][properties][cc]" type="text"
+                                    value="<?php if ( isset( $action->properties ) && isset( $action->properties->cc ) ) {
+                                        echo esc_attr( $action->properties->cc );
+                                    } ?>"/></td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="action-properties-bcc">BCC</label></th>
                         <td><input placeholder="Optional" id="action-properties-bcc"
-                                   name="actions[<?php echo esc_attr( $action->id ) ?>][properties][bcc]" type="text"
-                                   value="<?php if ( isset( $action->properties ) && isset( $action->properties->bcc ) ) {
-                                       echo esc_attr( $action->properties->bcc );
-                                   } ?>"/></td>
+                                    name="actions[<?php echo esc_attr( $action->id ) ?>][properties][bcc]" type="text"
+                                    value="<?php if ( isset( $action->properties ) && isset( $action->properties->bcc ) ) {
+                                        echo esc_attr( $action->properties->bcc );
+                                    } ?>"/></td>
                     </tr>
                 </table>
             </td>

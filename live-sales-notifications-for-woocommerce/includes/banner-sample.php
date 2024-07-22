@@ -60,7 +60,7 @@
        y="84.104927"
        x="13.872969"
        id="image18"
-       xlink:href="<?php echo plugin_dir_url(__FILE__); ?>/background.png"
+       xlink:href="<?php echo esc_url( plugin_dir_url(__FILE__) ); ?>/background.png"
        preserveAspectRatio="none"
        height="138.52826"
        width="182.67464"
@@ -75,7 +75,7 @@
          id="tspan837"
          x="105.26713"
          y="173.76625"
-         style="fill:#ff0000;stroke-width:0.26458335"><?php echo $date != "" ? $date : ""; ?></tspan></text>
+         style="fill:#ff0000;stroke-width:0.26458335"><?php echo esc_html( $date != "" ? $date : "" ); ?></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:11.21299362px;line-height:1.25;font-family:Impact;-inkscape-font-specification:'Impact, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.17270599"
@@ -97,7 +97,7 @@
          id="tspan849"
          x="105.12034"
          y="205.89409"
-         style="fill:#ff0000;stroke-width:0.26458335"><?php echo $coupon_code != "" ? $coupon_code : ""; ?></tspan></text>
+         style="fill:#ff0000;stroke-width:0.26458335"><?php echo esc_html( $coupon_code != "" ? $coupon_code : "" ); ?></tspan></text>
     <g
        id="g865"
        transform="matrix(0.88533135,0,0,0.88533135,9.793326,11.769822)">
@@ -111,7 +111,7 @@
            y="142.37138"
            x="70.503731"
            id="tspan853"
-           sodipodi:role="line"><?php echo $percent != "" ? $percent : ""; ?></tspan></text>
+           sodipodi:role="line"><?php echo esc_html( $percent != "" ? $percent : "" ); ?></tspan></text>
       <text
          id="text859"
          y="141.56055"
@@ -134,7 +134,7 @@
          id="tspan844"
          x="104.97174"
          y="155.73141"
-         style="fill:#ffffff;stroke-width:0.26458335"><?php echo $tagline != "" ? $tagline : ""; ?></tspan></text>
+         style="fill:#ffffff;stroke-width:0.26458335"><?php echo esc_html( $tagline != "" ? $tagline : "" ); ?></tspan></text>
     <g
        data-name="Layer 2"
        id="Layer_2"

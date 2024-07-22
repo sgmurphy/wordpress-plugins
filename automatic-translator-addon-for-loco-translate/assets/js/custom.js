@@ -435,6 +435,7 @@ const AutoTranslator = (function (window, $) {
         const gtPreviewImg = ATLT_URL + 'assets/images/' + extradata['gt_preview'];
         const dplPreviewImg = ATLT_URL + 'assets/images/' + extradata['dpl_preview'];
         const chatGPTPreviewImg = ATLT_URL + 'assets/images/' + extradata['chatGPT_preview'];
+        const geminiAIPreviewImg = ATLT_URL + 'assets/images/' + extradata['geminiAI_preview'];
         const getProLink = 'https://locoaddon.com/plugin/automatic-translate-addon-for-loco-translate-pro/?utm_source=atlt_plugin&utm_medium=inside&utm_campaign=get_pro&utm_content=popup_buy_pro';
 
         const modelHTML = `
@@ -472,11 +473,12 @@ const AutoTranslator = (function (window, $) {
                     </div>
                     <hr/>
     
-                    <ul style="margin: 0;">
-                        <li><span style="color:green">✔</span> Unlimited Translations</li>
-                        <li><span style="color:green">✔</span> No API Key Required</li>
-                        <li><span style="color:green">✔</span> Check Languages Support - <a href="https://yandex.com/support/translate/supported-langs.html" target="_blank">Yandex</a>, <a href="https://en.wikipedia.org/wiki/Google_Translate#Supported_languages" target="_blank">Google</a>, <a href="https://www.deepl.com/en/translator" target="_blank">DeepL</a></li>
-                    </ul>
+                    <strong class="atlt-heading">Translate Using GeminiAI API</strong>
+                    <div class="inputGroup">
+                        <button id="atlt_openAI_btn" disabled="disabled" class="notranslate button button-primary">GeminiAI Translate</button>
+                        <span class="proonly-button"><a href="${getProLink}" target="_blank" title="Buy Pro">PRO Only</a></span>
+                        <br/><a href="https://gemini.google.com/" target="_blank"><img  class="pro-features-img" src="${geminiAIPreviewImg}" alt="powered by GeminiAI Translate"></a>
+                    </div>
                 </div>
             </div>
         `;

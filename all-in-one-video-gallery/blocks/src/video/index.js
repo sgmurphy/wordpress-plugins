@@ -68,6 +68,10 @@ registerBlockType( metadata.name, {
 			type: 'boolean',
 			default: aiovg_blocks.video.volume
 		},
+		pip: {
+			type: 'boolean',
+			default: aiovg_blocks.video.pip
+		},
 		fullscreen: {
 			type: 'boolean',
 			default: aiovg_blocks.video.fullscreen

@@ -39,7 +39,7 @@ class CnbProfileEdit {
         $cnb_user_stripe_verification_pending = isset( $cnb_user->taxIds[0]->verification->status ) && $cnb_user->taxIds[0]->verification->status === 'pending';
         ?>
         <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ) ?>" method="post"
-              class="cnb-container cnb-settings-profile">
+                class="cnb-container cnb-settings-profile">
             <input type="hidden" name="page" value="call-now-button"/>
             <input type="hidden" name="action" value="cnb_profile_edit"/>
             <?php wp_nonce_field( 'cnb-profile-edit' ) ?>
@@ -64,8 +64,8 @@ class CnbProfileEdit {
                     <th scope="row"><label for="user_email">Email</label></th>
                     <td>
                         <input type="text" id="user_email" name="user[email]"
-                               value="<?php echo esc_attr( $cnb_user->email ) ?>"
-                               disabled class="regular-text ltr">
+                                value="<?php echo esc_attr( $cnb_user->email ) ?>"
+                                disabled class="regular-text ltr">
                         <p class="description">Contact support to change your account email address.</p>
                     </td>
                 </tr>
@@ -74,8 +74,8 @@ class CnbProfileEdit {
                     <th scope="row"><label for="user[name]">Full name<span class="cnb_required">*</span></label></th>
                     <td>
                         <input type="text" id="user[name]" name="user[name]"
-                               value="<?php echo esc_attr( $cnb_user->name ) ?>" required="required"
-                               class="regular-text ltr">
+                                value="<?php echo esc_attr( $cnb_user->name ) ?>" required="required"
+                                class="regular-text ltr">
                     </td>
                 </tr>
 
@@ -85,8 +85,8 @@ class CnbProfileEdit {
                     </th>
                     <td>
                         <input type="text" id="user[companyName]" name="user[companyName]"
-                               value="<?php echo esc_attr( $cnb_user->companyName ) ?>"
-                               class="regular-text ltr cnb_vat_companies_required">
+                                value="<?php echo esc_attr( $cnb_user->companyName ) ?>"
+                                class="regular-text ltr cnb_vat_companies_required">
                     </td>
                 </tr>
                 <tr>
@@ -104,7 +104,7 @@ class CnbProfileEdit {
                                         $user_country = $cnb_user->address->country;
                                     }
                                     /** @noinspection HtmlUnknownAttribute */
-                                    echo sprintf( '<option value="%1$s" %2$s>%3$s</option>',
+                                    printf( '<option value="%1$s" %2$s>%3$s</option>',
                                         esc_attr( $country['code'] ),
                                         selected( $country['code'], $user_country ),
                                         esc_html( $country['country'] )
@@ -122,7 +122,7 @@ class CnbProfileEdit {
                         <input type="hidden" name="user[euvatbusiness]" value="0">
                         <input id="cnb-euvatbusiness" type="checkbox" name="user[euvatbusiness]" value="1"
                             <?php checked( ! empty( $cnb_user->taxIds[0]->value ) ) ?>
-                               class="ltr cnb_eu_values_only">
+                                class="ltr cnb_eu_values_only">
                         <label for="cnb-euvatbusiness">Yes</label>
                     </td>
                 </tr>
@@ -132,27 +132,27 @@ class CnbProfileEdit {
                     </th>
                     <td>
                         <input type="text" id="user[address][line1]" name="user[address][line1]"
-                               value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->line1 : '' ) ?>"
-                               class="regular-text ltr cnb_vat_companies_required cnb_eu_values_only">
+                                value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->line1 : '' ) ?>"
+                                class="regular-text ltr cnb_vat_companies_required cnb_eu_values_only">
                     </td>
                 </tr>
                 <tr class="cnb_vat_companies_show" style="display:none">
                     <th scope="row"><label for="user[address][line2]">Building, apartment, etc.</label></th>
                     <td>
                         <input type="text" id="user[address][line2]" name="user[address][line2]"
-                               value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->line2 : '' ) ?>"
-                               class="regular-text ltr cnb_eu_values_only">
+                                value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->line2 : '' ) ?>"
+                                class="regular-text ltr cnb_eu_values_only">
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row"><label for="user[address][postalCode]"><span class="cnb_ie_only"
-                                                                                 style="display:none">Eircode/</span>Zip/Postal
+                                                                                style="display:none">Eircode/</span>Zip/Postal
                             code<span class="cnb_required">*</span></label></th>
                     <td>
                         <input type="text" id="user[address][postalCode]" name="user[address][postalCode]"
-                               value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->postalCode : '' ) ?>"
-                               class="regular-text ltr cnb_us_required cnb_vat_companies_required cnb_useu_values_only">
+                                value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->postalCode : '' ) ?>"
+                                class="regular-text ltr cnb_us_required cnb_vat_companies_required cnb_useu_values_only">
                     </td>
                 </tr>
 
@@ -161,8 +161,8 @@ class CnbProfileEdit {
                     </th>
                     <td>
                         <input type="text" id="user[address][city]" name="user[address][city]"
-                               value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->city : '' ) ?>"
-                               required="required" class="regular-text ltr">
+                                value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->city : '' ) ?>"
+                                required="required" class="regular-text ltr">
                     </td>
                 </tr>
 
@@ -171,8 +171,8 @@ class CnbProfileEdit {
                     </th>
                     <td>
                         <input type="text" id="user[address][state]" name="user[address][state]"
-                               value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->state : '' ) ?>"
-                               class="regular-text ltr cnb_us_required cnb_us_values_only">
+                                value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->state : '' ) ?>"
+                                class="regular-text ltr cnb_us_required cnb_us_values_only">
                     </td>
                 </tr>
 
@@ -182,10 +182,10 @@ class CnbProfileEdit {
                     </th>
                     <td>
                         <input id="cnb_profile_vat" type="text" name="user[taxIds][0][value]"
-                               value="<?php echo esc_attr( ( count( $cnb_user->taxIds ) > 0 ) ? $cnb_user->taxIds[0]->value : '' ) ?>"
-                               class="regular-text ltr cnb_vat_companies_required cnb_eu_values_only">
+                                value="<?php echo esc_attr( ( count( $cnb_user->taxIds ) > 0 ) ? $cnb_user->taxIds[0]->value : '' ) ?>"
+                                class="regular-text ltr cnb_vat_companies_required cnb_eu_values_only">
                         <input id="cnb_user_taxids_type" type="hidden" name="user[taxIds][0][type]" value="eu_vat"
-                               class="regular-text ltr cnb_vat_companies_required cnb_eu_values_only">
+                                class="regular-text ltr cnb_vat_companies_required cnb_eu_values_only">
 
                         <?php
                         if ( $cnb_user_stripe_verified ) {

@@ -30,7 +30,7 @@ class Cnb_Domain_List_Table extends WP_List_Table {
             'singular' => 'cnb_list_domain', //Singular label
             'plural'   => 'cnb_list_domains', //plural label, also this well be one of the table css class
             'ajax'     => false, //We won't support Ajax for this table
-            'screen'   => 'call-now-button-domains' // Screen name for bulk actions, etc
+            'screen'   => 'call-now-button-domains', // Screen name for bulk actions, etc
         ) );
 
         $this->cnb_utils = new CnbUtils();
@@ -50,7 +50,7 @@ class Cnb_Domain_List_Table extends WP_List_Table {
             'renew'           => __( 'Renew automatically' ),
             'timezone'        => __( 'Timezone' ),
             'trackGA'         => __( 'Google Analytics' ),
-            'trackConversion' => __( 'Google Ads' )
+            'trackConversion' => __( 'Google Ads' ),
         );
     }
 
@@ -213,7 +213,7 @@ class Cnb_Domain_List_Table extends WP_List_Table {
             add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'cnb_delete_domain',
-                'id'     => $item->id
+                'id'     => $item->id,
             ), admin_url( 'admin-post.php' ) ),
             'cnb_delete_domain' );
         $delete_url        = esc_url( $delete_link );
@@ -225,7 +225,7 @@ class Cnb_Domain_List_Table extends WP_List_Table {
                 add_query_arg( array(
                     'page'   => 'call-now-button-domains',
                     'action' => 'upgrade',
-                    'id'     => $item->id
+                    'id'     => $item->id,
                 ),
                     $url );
             $upgrade_url        = esc_url( $upgrade_link );

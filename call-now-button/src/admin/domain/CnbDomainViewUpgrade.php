@@ -11,7 +11,7 @@ use cnb\notices\CnbNotice;
 
 class CnbDomainViewUpgrade {
     function header() {
-      $domain = $this->get_domain();
+        $domain = $this->get_domain();
         echo 'Upgrade ' . esc_html( $domain->name ) . ' to PRO';
     }
 

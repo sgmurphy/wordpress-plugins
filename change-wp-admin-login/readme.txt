@@ -2,9 +2,9 @@
 Contributors: wpexpertsio
 Tags: login url, login, wp admin, wp login, custom login
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 
 Do you want to secure and customize WordPress login page (wp-admin)❓ Download All in One Login plugin for ultimate WordPress login security and customization.
@@ -47,7 +47,7 @@ Personalize your WordPress login page with extensive customization options. Use 
 
 A customized login page not only enhances your brand but also provides a unique and engaging user experience.
 
-**✔️ Ban User/IP Address [Pro]L**
+**✔️ Ban User/IP Address [Pro]**
 
 Want to prevent certain users from accessing your WordPress login page❓
 
@@ -255,6 +255,11 @@ Even though it is not mandatory, using AIO Login can significantly enhance the s
 
 
 == Changelog ==
+
+= 2.0.1 =
+* New - Added multisite compatibility
+* New - Added button to clear all failed & lockout logs
+* Fix - Resolved php error for older versions
 
 = 2.0.0 =
 * Fixed - Forgot password link breaking.

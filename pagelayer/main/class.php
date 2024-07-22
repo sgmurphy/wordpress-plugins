@@ -106,6 +106,9 @@ class PageLayer{
 		$this->l = @file_get_contents(PAGELAYER_DIR.'/languages/en.json');
 		$this->l = @json_decode($this->l, true);
 		
+		// Load the langs hook
+		$this->l = apply_filters('pagelayer_load_languages', $this->l);
+		
 		// Add after plugins_loaded
 		add_action('plugins_loaded', [ $this, 'load_extra_languages' ], 11);
 		

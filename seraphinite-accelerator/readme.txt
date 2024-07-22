@@ -4,8 +4,8 @@ Donate link: https://www.s-sols.com/products/wordpress/accelerator#offer
 Tags: optimize,pagespeed,performance,speed up,cache
 Requires PHP: 7.1
 Requires at least: 4.5
-Tested up to: 6.5
-Stable tag: 2.22.1
+Tested up to: 6.6
+Stable tag: 2.22.2
 License: GPLv2 or later (if another license is not provided)
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Privacy policy: https://www.s-sols.com/privacy-policy
@@ -161,6 +161,13 @@ We kindly ask you to [post reviews](https://wordpress.org/support/plugin/seraphi
 17. Settings - Advanced.
 
 == Changelog ==
+
+= 2.22.2 =
+
+Fixes:
+
+* HTML parsing: inlined SVG in inlined styles parsed incorrectly.
+* PHP warning: property $aComments.
 
 = 2.22.1 =
 

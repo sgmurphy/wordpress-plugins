@@ -406,6 +406,11 @@ function pagelayer_builder_post_type() {
 	// Register custom post type
 	register_post_type($pagelayer->builder['name'] , $args);
 	
+	// Init builder?
+	if(empty($pagelayer->builder['archives_templates'])){
+		return;
+	}
+	
 	// Add any other templates as well
 	$pagelayer->builder['archives_templates'] += pagelayer_builder_archives_conditions();	
 	$pagelayer->builder['singular_templates'] += pagelayer_builder_singular_conditions();
@@ -836,6 +841,8 @@ function pagelayer_builder_template_ids($type){
 	return $id_list;
 }
 
+add_action('plugins_loaded', 'pagelayer_free_templ_wizards', 1);
+function pagelayer_free_templ_wizards(){
 // Its Free
 if(!defined('PAGELAYER_PREMIUM')){
 	
@@ -849,6 +856,7 @@ if(!defined('PAGELAYER_PREMIUM')){
 		pagelayer_show_pro_div('Export Templates', 'With the Pagelayer Export wizard you can export your Headers, Footers, Singular, Archives and WooCommerce Templates. These templates can then be imported in any other WordPress site.');
 	}
 	
+}
 }
 
 // Fix the default blog template we insert for woocommerce

@@ -6,12 +6,12 @@ use cnb\cron\Cron;
 
 defined( 'ABSPATH' ) || die( '-1' );
 
-require_once dirname( __FILE__ ) . '/autoload.php';
-require_once dirname( __FILE__ ) . '/utils/cnb-backwards-compatible.php';
+require_once __DIR__ . '/autoload.php';
+require_once __DIR__ . '/utils/cnb-backwards-compatible.php';
 
 // Only include the WP_CLI suite when it is available
 if ( class_exists( 'WP_CLI' ) && class_exists( 'WP_CLI_Command' ) ) {
-	require_once dirname( __FILE__ ) . '/cli/CNB_CLI.php';
+	require_once __DIR__ . '/cli/CNB_CLI.php';
 }
 
 function cnb_add_actions() {

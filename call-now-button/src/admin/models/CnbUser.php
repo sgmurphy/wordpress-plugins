@@ -74,9 +74,9 @@ class CnbUser implements JsonSerializable {
 	}
 
 	/**
-     * If a stdClass is passed, it is transformed into a CnbButton.
+     * If a stdClass is passed, it is transformed into a CnbUser.
      * a WP_Error is ignored and returned immediately
-     * a null if converted into an (empty) CnbButton
+     * a null if converted into an (empty) CnbUser
      *
      * @param $object stdClass|array|WP_Error|null
      *
@@ -123,6 +123,8 @@ class CnbUser implements JsonSerializable {
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -165,10 +167,12 @@ class CnbUserTaxId implements JsonSerializable {
         return array(
             'value'        => $this->value,
             'type'         => $this->type,
-            'verification' => $this->verification
+            'verification' => $this->verification,
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -202,6 +206,8 @@ class CnbUserTaxIdVerification implements JsonSerializable {
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -246,6 +252,8 @@ class CnbUserAddress implements JsonSerializable {
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -280,6 +288,8 @@ class CnbUserStripeDetails implements JsonSerializable {
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -327,6 +337,8 @@ class CnbUserMarketingData implements JsonSerializable {
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }

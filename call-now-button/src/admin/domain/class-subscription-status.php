@@ -72,7 +72,7 @@ class SubscriptionStatus {
 		$payment_link =
 			add_query_arg( array(
 				'page'   => 'call-now-button-domains',
-				'action' => 'payment'
+				'action' => 'payment',
 			),
 				admin_url( 'admin.php' ) );
 		$domain_status = new SubscriptionStatus();
@@ -105,7 +105,7 @@ class SubscriptionStatus {
 	private function _has_outstanding_payment( $domain ) {
 		// If the domain property doesn't match this SubscriptionStatus, we can't tell, so no outstanding payment
 		if ($this->domainId !== $domain->id) return false;
-		return !!$this->invoiceUrl;
+		return (bool)$this->invoiceUrl;
 	}
 
 	/**

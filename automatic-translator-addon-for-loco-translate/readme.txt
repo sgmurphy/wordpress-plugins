@@ -1,12 +1,12 @@
 === Automatic Translate Addon For Loco Translate ===
 Contributors: narinder-singh, satindersingh
 Donate link: https://paypal.me/CoolPlugins/10USD/
-Tags: translate, translation, translator, localization, loco, loco translate, loco addon, google translate, deepl
+Tags: translate, AI Translation, Loco Translate Addon, google translate,ChatGPT Integration
 Requires at least:5.0
-Tested up to:6.5.2
+Tested up to:6.6
 Requires PHP: 5.6
-Loco Translate Tested Up to: 2.6.7
-Stable tag: 2.4.2
+Loco Translate Tested Up to: 2.6.11
+Stable tag: 2.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,17 +28,33 @@ The Automatic Translate Addon for Loco Translate is a must-have tool for anyone 
 
 ### 🤖 No Translate API Required! + Unlimited Translations!
 
-* Yes, it's true, there is no requirement to use any translate API key to use this addon for automatic translations, just install it and translate unlimited characters with one click.
+* Yes, it's true, there is no requirement to use any paid translate API key to use this addon for automatic translations, just install it and translate unlimited characters with one click.
 * Free version of this addon supports **[Yandex Page Translate Widget]**. By using this translate widget you can unlimitedly translate any plugin or theme translatable plain text strings.
-* Pro version provides support for the Google Translate widget, DeepL Doc Translator and ChatGPT. You can also use them without any API key unlimited times. DeepL Translate provides a limited number of free doc translations daily. It is better than Google, Yandex, or any other machine translation service provider - **[read a review by TechCrunch](https://techcrunch.com/2017/08/29/deepl-schools-other-online-translators-with-clever-machine-learning/)**
+* Pro version provides support for the Google Translate widget, DeepL Doc Translator, ChatGPT and Gemini. You can also use them without any paid API key unlimited times. DeepL Translate provides a limited number of free doc translations daily. It is better than Google, Yandex, or any other machine translation service provider - **[read a review by TechCrunch](https://techcrunch.com/2017/08/29/deepl-schools-other-online-translators-with-clever-machine-learning/)**
 
 ### ⚡ Loco Addon Features
 
 * One-click translate any plugin or theme for all translatable strings. It will only translate plain text strings means if a string will contain HTML or a special character then it will be skipped from automatic translations.
-* You can automatically translate **unlimited characters** free of cost without any API key. You just need to install this addon and click on the translate button to translate any plugin or theme strings.
+* You can automatically translate **unlimited characters** free of cost without any paid API key. You just need to install this addon and click on the translate button to translate any plugin or theme strings.
 * After auto translations, you can manually edit any machine-translated string inside Loco's built-in editor.
 
 > “If you spend too much time thinking about a thing, you'll never get it done. Stop wasting time, complete work smartly & quickly!”
+
+https://youtu.be/yNuOVKfwFcE?si=4hQResLF76ntAvzb
+
+https://youtu.be/6k8K6ZU2Rvo?si=UdiJr0n5zTwaDfXR
+
+The Automatic Translate Addon for Loco Translate now includes powerful new AI translation options: <strong>ChatGPT</strong> and <strong>Gemini AI</strong>. These integrations provide advanced, high-quality translations for your WordPress plugins and themes, leveraging the latest in AI technology.
+
+**Key Benefits**
+
+* **ChatGPT Translation:** ChatGPT brings conversational AI capabilities to your translation needs. It understands context better and provides more accurate translations, especially for complex phrases and sentences. This ensures your translated content is both natural and coherent.
+
+* **Gemini AI Translation:** Gemini AI offers state-of-the-art translation quality, known for its precision and fluency. It uses deep learning algorithms to deliver translations that are not only accurate but also contextually relevant, making it ideal for professional-grade translation tasks.
+
+* **Enhanced Accuracy:** Both ChatGPT and Gemini provide translations with improved accuracy and context understanding.
+* **Natural Language:** The AI models generate translations that sound natural and human-like.
+* **Time-Saving:** Automate your translation process with high efficiency and reliability.
 
 ### 🌟 FREE v/s Premium Addon Comparison
 
@@ -51,6 +67,7 @@ The Automatic Translate Addon for Loco Translate is a must-have tool for anyone 
 * ❌ **DeepL Doc Translator Support:** Not Available
 * ❌ **Premium Support:** Not Available
 * ❌ **ChatGPT Translation Support:** Not Available
+* ❌ **Gemini Translation Support:** Not Available
 
 **Premium License**
 
@@ -63,17 +80,12 @@ The Automatic Translate Addon for Loco Translate is a must-have tool for anyone 
 * ✅ **DeepL Doc Translator Support:** Available
 (Limited free docs translations/day or purchase DeepL Pro)
 * ✅ **ChatGPT Translation Support:** Available
+* ✅ **Gemini Translation Support:** Available
 * ✅ **Premium Support:** [Quick Support](https://coolplugins.net/support)
 (**Support time:- 24-48 hours**)
 * **Premium License:** [Buy Now 🛒](https://locoaddon.com/plugin/automatic-translate-addon-for-loco-translate-pro/?utm_source=LocoAutoTranslateAddon&utm_medium=link&utm_campaign=readme)
 
 > DeepL Doc Translator provides a limited number of free docs translations per day, you can purchase their pro license to increase this limit.
-
-**❗ Important Notice:** This addon only provides settings to use third-party auto-translation widgets and services(Yandex, Google, DeepL, etc.), it does not provide any translation service. So we don't guarantee 100% correctness, please check all translated text carefully before making it live on your production site. If any auto-translate provider stops providing auto-translation widgets or services in the future, in that case, the plugin will not support that translation provider.
-
-**Use AI(ChatGPT) to Quickly Translate Your Plugins and Themes Easily**
-
-https://youtu.be/yNuOVKfwFcE?si=4hQResLF76ntAvzb
 
 
 > “Many people make the mistake of saving money by wasting time.”
@@ -81,6 +93,7 @@ https://youtu.be/yNuOVKfwFcE?si=4hQResLF76ntAvzb
 
 In addition to its efficiency and ease of use, the Automatic Translate Addon also provides high-quality translations. Machine translation technology is constantly improving and is able to provide accurate translations for the most common use cases. This makes it a reliable solution for website owners who need to translate their content quickly, without sacrificing quality.
 
+**❗ Important Notice:** This addon only provides settings to use third-party auto-translation widgets and services(Yandex, Google, DeepL, etc.), it does not provide any translation service. So we don't guarantee 100% correctness, please check all translated text carefully before making it live on your production site. If any auto-translate provider stops providing auto-translation widgets or services in the future, in that case, the plugin will not support that translation provider.
 
 > **Important Notice:-** This plugin works as an auto-translate addon for the Loco Translate official plugin latest version(2.4.4 or higher).
 
@@ -120,7 +133,7 @@ All automatic translations will be machine translations, powered by third-party 
 
 4. Now edit any plugin or theme language file using the Loco build-in editor, you will find an auto translator button at the top to quickly translate all translatable strings with one click using Yandex Translate Widget.
 
-5. If you want to use Google Translate Widget, DeepL Doc Translator or ChatGPT for translation then you need to purchase [premium license key](https://locoaddon.com/addon/loco-automatic-translate-premium-license-key/). The pro version also provides better translations using DeepL, Google and AI's advanced machine translation technology.
+5. If you want to use Google Translate Widget, DeepL Doc Translator, ChatGPT or Gemini for translation then you need to purchase [premium license key](https://locoaddon.com/addon/loco-automatic-translate-premium-license-key/). The pro version also provides better translations using DeepL, Google and AI's advanced machine translation technology.
 
 == Frequently Asked Questions ==
 
@@ -128,27 +141,45 @@ All automatic translations will be machine translations, powered by third-party 
 This plugin works as an add-on for **Loco Translate** official plugin. First, you need to install and activate the free version of "Loco Translate" then install this addon and use one-click machine translations (supported by Yandex Translate Widget).
 
 = Are you using any language translation API❔ =
-No, there is no requirement for any translate API key to use this plugin free or pro version. It uses free page translation widgets and services for unlimited automatic translations.
+No, there is no requirement for any paid translate API key to use this plugin free or pro version. It uses free page translation widgets and services for unlimited automatic translations. But to use Gemini for translation [get free API key](https://ai.google.dev/gemini-api/docs/api-key).
 
-Free license users can use **[Yandex Translate Widget]** but if you are using a premium license then you can also use **Google Translate Widget**, **DeepL Doc Translator** and **ChatGPT**.
+Free license users can use **[Yandex Translate Widget]** but if you are using a premium license then you can also use **Google Translate Widget**, **DeepL Doc Translator**, **ChatGPT** and **Gemini**.
 
 = Is there any translation limit❔ =
-There is no limit. Yes, you can translate unlimited characters without any API key.
+There is no limit. Yes, you can translate unlimited characters without any paid API key.
 
 **Free license** users:- can translate unlimited characters only via Yandex Page Translate Widget.
 
-**Premium license** users:- can also use Google Page Translate Widget, DeepL Doc Translator & ChatGPT for unlimited translations. DeepL Doc Translator provides a limited number of free docs translations per day, you can purchase their pro license to increase this limit.
+**Premium license** users:- can also use Google Page Translate Widget, DeepL Doc Translator, ChatGPT & Gemini for unlimited translations. DeepL Doc Translator provides a limited number of free docs translations per day, you can purchase their pro license to increase this limit.
 
 > This addon only provides an interface to use third-party translation widgets and services, it does not provide any translation service. Any auto-translate provider can stop providing free translation widgets or services anytime in the future, in that case, the plugin will not support that auto-translate provider.
 
+= What are the benefits of using ChatGPT for translations?❔ =
+ChatGPT excels in understanding context and generating natural-sounding translations. It's particularly good at handling complex phrases and maintaining the intended tone and meaning of the original text.
+
+= How does Gemini AI improve translation quality?❔ =
+Gemini AI uses advanced deep learning techniques to provide translations that are highly accurate and contextually appropriate. It ensures that the translated text is fluent and professional.
+
+= Do I need any API key to use Gemini AI translations?❔ =
+
+Yes, to access Gemini AI translations, you will need to obtain Free API keys and this key can be entered in the plugin settings.
+
+= Do I need any API key to use ChatGPT translations?❔ =
+ No, you can use ChatGPT translations for free by visiting the [ChatGPT website](https://chatgpt.com/).
+ 
 == Screenshots ==
 
-1. Automatic Translate (No API Required)
+1. Automatic Translate (No paid API Required)
 2. Translate Using Yandex Translate Widget
 3. Free License v/s Premium License
 4. DeepL Doc Translator (Premium)
 
 == Changelog ==
+<strong>Version 2.4.3 |22/07/2024 </strong>
+<pre>
+Added:Gemini translation button inside popup.
+Tested Upto: WordPress 6.6.
+</pre>
 <strong>Version 2.4.2 |01/05/2024 </strong>
 <pre>
 Added: Support for Portuguese(Brazil)

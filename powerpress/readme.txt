@@ -4,7 +4,7 @@ Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts,
 Requires at least: 3.6
 Requires PHP: 5.2
 Tested up to: 6.5
-Stable tag: 11.9.12
+Stable tag: 11.9.13
 Donate link: https://blubrry.com/services/podcast-hosting/
 License: GPLv2 or later
 
@@ -162,11 +162,15 @@ If you are a fan of PowerPress, we would greatly appreciate it if you could take
 
 
 == Changelog ==
+= 11.9.13 =
+* Released on 07/22/2024
+* Bugfix related to the Access-Control-Allow-Origin header added last update
+* Delete unused files
+
 = 11.9.12 =
 * Released on 07/15/2024
 * Added course option to medium tag
 * Added 'Access-Control-Allow-Origin: *' to feeds
-* Delete unused files
 
 = 11.9.11 =
 * Released on 07/10/2024

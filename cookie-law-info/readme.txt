@@ -5,7 +5,7 @@ Tags: GDPR, CCPA, cookie notice, DSGVO, cookie consent, cookie banner, eu cookie
 Requires at least: 5.0.0
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 3.2.4
+Stable tag: 3.2.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -203,6 +203,11 @@ Every time we update the plugin, you will see a notification on the installed pl
 9. Privacy policy generator and cookie policy generator
 
 == Changelog ==
+
+= 3.2.5 =
+
+[Add] - Google Consent Mode implementation via UI.
+[Fix] - Minor bug fixes.
 
 = 3.2.4 =
 
@@ -706,6 +711,7 @@ Tested OK with WordPress version 6.2
 
 == Upgrade Notice ==
 
-= 3.2.4 =
+= 3.2.5 =
 
+[Add] - Google Consent Mode implementation via UI.
 [Fix] - Minor bug fixes.

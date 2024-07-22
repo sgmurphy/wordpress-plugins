@@ -84,9 +84,9 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 
 		$settings = array(
 			'post_id'     => $this->post_id,
-			'post_type'   => esc_attr( $this->post_type ),
-			'ajax_url'    => esc_attr( admin_url( 'admin-ajax.php' ) ),
-			'ajax_nonce'  => esc_attr( wp_create_nonce( 'aiovg_ajax_nonce' ) ),
+			'post_type'   => sanitize_text_field( $this->post_type ),
+			'ajax_url'    => sanitize_url( admin_url( 'admin-ajax.php' ) ),
+			'ajax_nonce'  => sanitize_text_field( wp_create_nonce( 'aiovg_ajax_nonce' ) ),
 			'lazyloading' => (int) $player_settings['lazyloading'],
 			'player'  => array(
 				'volume' => 0.5				
@@ -220,7 +220,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 		}
 
 		if ( ! empty( $poster ) ) {
-			$attributes['data-poster'] = aiovg_sanitize_url( $poster );
+			$attributes['data-poster'] = esc_url( $poster );
 		}			
 
 		$attributes = apply_filters( 'aiovg_vidstack_player_attributes', $attributes, $params );
@@ -290,6 +290,10 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 			);
 		}
 
+		if ( ! empty( $player_settings['pip'] ) ) {
+			$controls[] = 'pip';
+		}
+
 		if ( ! empty( $player_settings['fullscreen'] ) ) {
 			$controls[] = 'fullscreen';
 		}
@@ -313,8 +317,8 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 
 		if ( ! empty( $logo_settings['show_logo'] ) ) {
 			$settings['logo'] = array(
-				'image'    => aiovg_sanitize_url( $logo_settings['logo_image'] ),
-				'link'     => ! empty( $logo_settings['logo_link'] ) ? esc_url_raw( $logo_settings['logo_link'] ) : 'javascript:void(0)',
+				'image'    => esc_url( $logo_settings['logo_image'] ),
+				'link'     => ! empty( $logo_settings['logo_link'] ) ? esc_url( $logo_settings['logo_link'] ) : 'javascript:void(0)',
 				'position' => sanitize_text_field( $logo_settings['logo_position'] ),
 				'margin'   => ! empty( $logo_settings['logo_margin'] ) ? (int) $logo_settings['logo_margin'] : 15
 			);
@@ -322,7 +326,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 
 		if ( ! empty( $logo_settings['copyright_text'] ) ) {
 			$settings['contextmenu'] = array(
-				'content' => sanitize_text_field( htmlspecialchars( $logo_settings['copyright_text'] ) )
+				'content' => esc_attr( $logo_settings['copyright_text'] )
 			);
 		}	
 		
@@ -428,7 +432,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 				AIOVG_PLUGIN_SLUG . '-hls', 
 				AIOVG_PLUGIN_URL . 'vendor/vidstack/hls.min.js', 
 				array(), 
-				'1.4.3', 
+				'1.5.13', 
 				array( 'strategy' => 'defer' ) 
 			);	
 		}
@@ -438,7 +442,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 				AIOVG_PLUGIN_SLUG . '-dash', 
 				AIOVG_PLUGIN_URL . 'vendor/vidstack/dash.all.min.js', 
 				array(), 
-				AIOVG_PLUGIN_VERSION, 
+				'4.7.4', 
 				array( 'strategy' => 'defer' ) 
 			);
 		}
@@ -469,7 +473,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 				esc_attr( $attributes['id'] ),
 				esc_attr( $attributes['style'] ),
 				esc_attr( $video_id ),
-				( isset( $attributes['data-poster'] ) ? esc_attr( $attributes['data-poster'] ) : '' )
+				( isset( $attributes['data-poster'] ) ? esc_url( $attributes['data-poster'] ) : '' )
 			);
 		}
 
@@ -481,7 +485,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 				esc_attr( $attributes['id'] ),
 				esc_attr( $attributes['style'] ),
 				esc_attr( $video_id ),
-				( isset( $attributes['data-poster'] ) ? esc_attr( $attributes['data-poster'] ) : '' )
+				( isset( $attributes['data-poster'] ) ? esc_url( $attributes['data-poster'] ) : '' )
 			);
 		}
 
@@ -496,7 +500,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 				$player_html .= sprintf( 
 					'<source type="%s" src="%s" size="%d" />', 
 					esc_attr( $source['type'] ), 
-					esc_attr( $source['src'] ),
+					esc_url( $source['src'] ),
 					( isset( $source['label'] ) ? (int) $source['label'] : '' )
 				);
 			}		
@@ -504,7 +508,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 			foreach ( $tracks as $index => $track ) { // Tracks
 				$player_html .= sprintf( 
 					'<track kind="captions" src="%s" label="%s" srclang="%s" />', 
-					esc_attr( $track['src'] ),						 
+					esc_url( $track['src'] ),						 
 					esc_attr( $track['label'] ),
 					esc_attr( $track['srclang'] )
 				);
@@ -524,7 +528,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 				foreach ( $share_buttons as $button ) {
 					$player_html .= sprintf( 
 						'<a href="%s" class="plyr__share-button plyr__share-button-%s" target="_blank"><span class="%s"></span><span class="plyr__sr-only">%s</span></a>',							
-						esc_attr( $button['url'] ), 
+						esc_url( $button['url'] ), 
 						esc_attr( $button['service'] ),
 						esc_attr( $button['icon'] ),
 						esc_attr( $button['text'] )  
@@ -551,7 +555,7 @@ class AIOVG_Player_Vidstack extends AIOVG_Player_Base {
 		if ( isset( $settings['cookie_consent'] ) ) { // Cookie Consent
 			$player_html .= sprintf(
 				'<div class="aiovg-privacy-wrapper" data-poster="%s"><div class="aiovg-privacy-consent-block"><div class="aiovg-privacy-consent-message">%s</div><button type="button" class="aiovg-privacy-consent-button">%s</button></div></div>',
-				( isset( $attributes['data-poster'] ) ? esc_attr( $attributes['data-poster'] ) : '' ),
+				( isset( $attributes['data-poster'] ) ? esc_url( $attributes['data-poster'] ) : '' ),
 				wp_kses_post( trim( $privacy_settings['consent_message'] ) ),
 				esc_html( $privacy_settings['consent_button_label'] )
 			);

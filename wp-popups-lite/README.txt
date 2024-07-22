@@ -3,7 +3,7 @@ Contributors: timersys
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4T6L69EV9G2Q
 Tags:  wp popups,popups,wp popup,popup builder,popup maker
 Requires at least: 3.6
-Tested up to: 6.3
+Tested up to: 6.6
 Stable tag: 2.2.0.2
 Requires PHP: 5.7
 Text Domain: wp-popups-lite

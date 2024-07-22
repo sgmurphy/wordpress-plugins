@@ -147,7 +147,7 @@ class CnbDomainController {
                     add_query_arg(
                         array(
                             'page' => 'call-now-button-domains',
-                            'tid'  => $transient_id
+                            'tid'  => $transient_id,
                         ),
                         $url );
                 $redirect_url  = esc_url_raw( $redirect_link );
@@ -189,10 +189,11 @@ class CnbDomainController {
                 $cnb_domain->timezone = $timezone;
                 $notifications    = array();
                 CnbAdminCloud::cnb_update_domain( $notifications, $cnb_domain );
-                wp_send_json( array( 'success'      => true,
-                                     'domain'       => $cnb_domain,
-                                     'notification' => $notifications,
-                                     'timezone'     => esc_html( $timezone )
+                wp_send_json( array(
+'success'      => true,
+                                    'domain'       => $cnb_domain,
+                                    'notification' => $notifications,
+                                    'timezone'     => esc_html( $timezone ),
                 ) );
                 do_action( 'cnb_finish' );
                 return;
@@ -265,7 +266,7 @@ class CnbDomainController {
 			add_query_arg(
 				array(
 					'page' => 'call-now-button-domains',
-					'tid'  => $transient_id
+					'tid'  => $transient_id,
 				),
 				admin_url( 'admin.php' ) );
 		$redirect_url  = esc_url_raw( $redirect_link );
@@ -329,7 +330,7 @@ class CnbDomainController {
             4  => 2147,
             3  => 215,
             2  => 21,
-            1  => 2
+            1  => 2,
         );
     }
 

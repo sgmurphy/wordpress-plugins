@@ -2,9 +2,9 @@
 
 Contributors: yithemes
 Tags: zoom, magnifier, slider, carousel, woocommerce
-Requires at least: 6.3
-Tested up to: 6.5
-Stable tag: 2.34.0
+Requires at least: 6.4
+Tested up to: 6.6
+Stable tag: 2.35.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -63,6 +63,9 @@ Important: First of all, you have to download and activate WooCommerce plugin, w
 
 YITH WooCommerce Product Gallery & Image Zoom will add a new tab called "Product Gallery & Image Zoom" in "YITH" menu item. There, you will find all YITH plugins with quick access to plugin setting page.
 
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/yith-woocommerce-zoom-magnifier)
+
 == Screenshots ==
 
 1. The Zoom settings page. You can disable the zoom features for mobile devices and configure the zoom options.
@@ -74,6 +77,12 @@ YITH WooCommerce Product Gallery & Image Zoom will add a new tab called "Product
 7. The slider and arrows in the thumbnails gallery.
 
 == Changelog ==
+
+= Version 2.35.0 - Released: July 22, 2024 =
+
+* New: support for WordPress 6.6
+* New: support for WooCommerce 9.1
+* Update: YITH plugin Framework
 
 = Version 2.34.0 - Released: June 27, 2024 =
 

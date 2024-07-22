@@ -40,7 +40,7 @@ class CnbActionView {
                         'page'   => 'call-now-button-actions',
                         'action' => 'new',
                         'id'     => 'new',
-                        'bid'    => $bid
+                        'bid'    => $bid,
                     ),
                     $url );
 
@@ -80,7 +80,7 @@ class CnbActionView {
         wp_enqueue_script( CNB_SLUG . '-form-bulk-rewrite' );
 
         do_action( 'cnb_header' );
-        echo sprintf( '<form class="cnb_list_event" action="%s" method="post">', esc_url( admin_url( 'admin-post.php' ) ) );
+        printf( '<form class="cnb_list_event" action="%s" method="post">', esc_url( admin_url( 'admin-post.php' ) ) );
         echo '<input type="hidden" name="page" value="call-now-button-actions" />';
         echo '<input type="hidden" name="action" value="cnb_actions_bulk" />';
         $wp_list_table->display();

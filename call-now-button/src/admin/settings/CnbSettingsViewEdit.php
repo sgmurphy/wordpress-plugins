@@ -26,7 +26,7 @@ class CnbSettingsViewEdit {
         return add_query_arg(
             array(
                 'page' => 'call-now-button-settings',
-                'tab'  => $tab
+                'tab'  => $tab,
             ),
             $url );
     }
@@ -65,13 +65,13 @@ class CnbSettingsViewEdit {
             <td>
                 <input type="hidden" name="cnb[error_reporting]" value="0"/>
                 <input id="cnb-error-reporting" class="cnb_toggle_checkbox" type="checkbox"
-                       name="cnb[error_reporting]"
-                       value="1" <?php checked( $cnb_utils->is_reporting_enabled() ); ?> />
+                        name="cnb[error_reporting]"
+                        value="1" <?php checked( $cnb_utils->is_reporting_enabled() ); ?> />
                 <label for="cnb-error-reporting" class="cnb_toggle_label">Toggle</label>
                 <span data-cnb_toggle_state_label="cnb-error-reporting"
-                      class="cnb_toggle_state cnb_toggle_false">(Not sharing)</span>
+                        class="cnb_toggle_state cnb_toggle_false">(Not sharing)</span>
                 <span data-cnb_toggle_state_label="cnb-error-reporting"
-                      class="cnb_toggle_state cnb_toggle_true">Share</span>
+                        class="cnb_toggle_state cnb_toggle_true">Share</span>
                 <p class="description">Allows us to capture anonymous error reports and usage statistics to help us
                     improve the product.</p>
             </td>
@@ -93,7 +93,7 @@ class CnbSettingsViewEdit {
 
         ?>
         <table data-tab-name="account_options"
-               class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'account_options' ) ) ?>">
+                class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'account_options' ) ) ?>">
             <tr>
                 <th colspan="2"></th>
             </tr>
@@ -125,14 +125,14 @@ class CnbSettingsViewEdit {
                     <td>
                         <input type="hidden" name="cnb[user_marketing_email_opt_in]" value="0"/>
                         <input id="cnb_user_marketing_email_opt_in" class="cnb_toggle_checkbox"
-                               name="cnb[user_marketing_email_opt_in]"
-                               type="checkbox"
-                               value="1" <?php checked( $cnb_user->marketingData->emailOptIn ); ?> />
+                                name="cnb[user_marketing_email_opt_in]"
+                                type="checkbox"
+                                value="1" <?php checked( $cnb_user->marketingData->emailOptIn ); ?> />
                         <label for="cnb_user_marketing_email_opt_in" class="cnb_toggle_label">Receive e-mail</label>
                         <span data-cnb_toggle_state_label="cnb_user_marketing_email_opt_in"
-                              class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
+                                class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
                         <span data-cnb_toggle_state_label="user_marketing_email_opt_in"
-                              class="cnb_toggle_state cnb_toggle_true">Enabled</span>
+                                class="cnb_toggle_state cnb_toggle_true">Enabled</span>
                         <p class="description">Receive email updates on new features we're adding and how to use
                             them.</p>
                     </td>
@@ -144,8 +144,8 @@ class CnbSettingsViewEdit {
                     <?php if ( is_wp_error( $cnb_user ) || $show_advanced_view_only ) { ?>
                         <label>
                             <input type="text" class="regular-text" name="cnb[api_key]"
-                                   id="cnb_api_key"
-                                   placeholder="e.g. b52c3f83-38dc-4493-bc90-642da5be7e39"/>
+                                    id="cnb_api_key"
+                                    placeholder="e.g. b52c3f83-38dc-4493-bc90-642da5be7e39"/>
                         </label>
                         <p class="description">Get your API key at <a
                                     href="<?php echo esc_url( $cnb_utils->get_website_url( '', 'settings-account', 'get-api-key' ) ) ?>"><?php echo esc_html( CNB_WEBSITE ) ?></a>
@@ -159,9 +159,9 @@ class CnbSettingsViewEdit {
                             until you reconnect with a NowButtons.com account.
                             <br>
                             <input type="button" name="cnb_api_key_delete" id="cnb_api_key_delete"
-                                   class="button button-link"
-                                   value="<?php esc_attr_e( 'Disconnect account' ) ?>"
-                                   onclick="return cnb_delete_apikey();">
+                                    class="button button-link"
+                                    value="<?php esc_attr_e( 'Disconnect account' ) ?>"
+                                    onclick="return cnb_delete_apikey();">
                         </p>
                     <?php } ?>
                     <?php if ( ! is_wp_error( $cnb_user ) && isset( $cnb_options['api_key'] ) ) {
@@ -171,16 +171,16 @@ class CnbSettingsViewEdit {
                             The plugin is connected to your NowButtons.com account.</p>
                         <p>
                             <input type="button" name="cnb_api_key_delete" id="cnb_api_key_delete"
-                                   class="button button-secondary"
-                                   value="<?php esc_attr_e( 'Disconnect account' ) ?>"
-                                   onclick="return cnb_delete_apikey();"></p>
+                                    class="button button-secondary"
+                                    value="<?php esc_attr_e( 'Disconnect account' ) ?>"
+                                    onclick="return cnb_delete_apikey();"></p>
                         <p class="description">Clicking "Disconnect account" will drop the API key and disconnect the
                             plugin from your NowButtons.com account. You will lose access to your buttons and all cloud functionality
                             until you reconnect with a NowButtons.com account.</p>
 
 
                         <input type="hidden" name="cnb[api_key]" id="cnb_api_key" value="delete_me"
-                               disabled="disabled"/>
+                                disabled="disabled"/>
                     <?php } ?>
                 </td>
             </tr>
@@ -209,7 +209,7 @@ class CnbSettingsViewEdit {
         $switch = $cnb_settings->get_storage_type() === 'R2' ? 'GCS' : 'R2';
         ?>
         <table data-tab-name="advanced_options"
-               class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'advanced_options' ) ) ?>">
+                class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'advanced_options' ) ) ?>">
             <?php if ( isset( $cnb_domain ) && ! is_wp_error( $cnb_domain ) && $status === 'cloud' ) { ?>
                 <tr>
                     <th colspan="2">
@@ -228,13 +228,13 @@ class CnbSettingsViewEdit {
                 <td>
                     <input type="hidden" name="cnb[advanced_view]" value="0"/>
                     <input id="cnb-advanced-view" class="cnb_toggle_checkbox" type="checkbox"
-                           name="cnb[advanced_view]"
-                           value="1" <?php checked( '1', $cnb_options['advanced_view'] ); ?> />
+                            name="cnb[advanced_view]"
+                            value="1" <?php checked( '1', $cnb_options['advanced_view'] ); ?> />
                     <label for="cnb-advanced-view" class="cnb_toggle_label">Toggle</label>
                     <span data-cnb_toggle_state_label="cnb-advanced-view"
-                          class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
+                            class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
                     <span data-cnb_toggle_state_label="cnb-advanced-view"
-                          class="cnb_toggle_state cnb_toggle_true">Enabled</span>
+                            class="cnb_toggle_state cnb_toggle_true">Enabled</span>
                     <p class="description">For power users only.</p>
                 </td>
             </tr>
@@ -244,13 +244,13 @@ class CnbSettingsViewEdit {
                     <td>
                         <input type="hidden" name="cnb[footer_show_traces]" value="0"/>
                         <input id="cnb-show-traces" class="cnb_toggle_checkbox" type="checkbox"
-                               name="cnb[footer_show_traces]"
-                               value="1" <?php checked( '1', $cnb_options['footer_show_traces'] ); ?> />
+                                name="cnb[footer_show_traces]"
+                                value="1" <?php checked( '1', $cnb_options['footer_show_traces'] ); ?> />
                         <label for="cnb-show-traces" class="cnb_toggle_label">Toggle</label>
                         <span data-cnb_toggle_state_label="cnb-show-traces"
-                              class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
+                                class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
                         <span data-cnb_toggle_state_label="cnb-show-traces"
-                              class="cnb_toggle_state cnb_toggle_true">Enabled</span>
+                                class="cnb_toggle_state cnb_toggle_true">Enabled</span>
                         <p class="description">Display API calls and timings in the footer.</p>
                     </td>
                 </tr>
@@ -303,19 +303,46 @@ class CnbSettingsViewEdit {
                             </div>
                         </td>
                     </tr>
+    		    <?php } ?>
+	            <?php if ( ! is_wp_error( $cnb_user ) && isset( $cnb_domain ) ) { // Aliases ?>
+                    <tr class="when-cloud-enabled cnb_advanced_view">
+                        <th scope="row"><label for="add-alias-input">Aliases</label></th>
+                        <td>
+            			    <?php if (!empty($cnb_domain->aliases)) { ?>
+                            Current aliases:
+                            <ul>
+                                <?php foreach ($cnb_domain->aliases as $alias) { ?>
+                                    <li>
+                                        <input type="hidden" name="domain[aliases][]" value="<?php echo esc_attr($alias) ?>" />
+                                        <?php echo esc_html($alias) ?>
+                                        <input type="button" name="delete-alias-button" value="Delete" />
+                                    </li>
+                                <?php } ?>
+                            </ul>
+			                <?php } ?>
+                            <?php if (empty($cnb_domain->aliases)) { ?>
+                                <div>You have no aliases (yet?).</div>
+                            <?php } ?>
+                            <div id="add-alias-div">
+                                Add a new domain alias:
+                                <input type="text" id="add-alias-input" placeholder="Domain name">
+                                <a class="button" id="add-alias-button">Add domain</a>
+                            </div>
+                        </td>
+                    </tr>
                 <?php } ?>
                 <tr class="when-cloud-enabled cnb_advanced_view">
                     <th><label for="cnb-all-domains">Show all buttons</label></th>
                     <td>
                         <input type="hidden" name="cnb[show_all_buttons_for_domain]" value="0"/>
                         <input id="cnb-all-domains" class="cnb_toggle_checkbox" type="checkbox"
-                               name="cnb[show_all_buttons_for_domain]"
-                               value="1" <?php checked( '1', $cnb_options['show_all_buttons_for_domain'] ); ?> />
+                                name="cnb[show_all_buttons_for_domain]"
+                                value="1" <?php checked( '1', $cnb_options['show_all_buttons_for_domain'] ); ?> />
                         <label for="cnb-all-domains" class="cnb_toggle_label">Toggle</label>
                         <span data-cnb_toggle_state_label="cnb-all-domains"
-                              class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
+                                class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
                         <span data-cnb_toggle_state_label="cnb-all-domains"
-                              class="cnb_toggle_state cnb_toggle_true">Enabled</span>
+                                class="cnb_toggle_state cnb_toggle_true">Enabled</span>
                         <p class="description">When checked, the "All Buttons" overview shows all
                             buttons for this account, not just for the current domain.</p>
                     </td>
@@ -324,8 +351,8 @@ class CnbSettingsViewEdit {
                     <th><label for="cnb[api_base]">API endpoint</label></th>
                     <td><label>
                             <input type="text" id="cnb[api_base]" name="cnb[api_base]"
-                                   class="regular-text"
-                                   value="<?php echo esc_attr( CnbAppRemote::cnb_get_api_base() ) ?>"/>
+                                    class="regular-text"
+                                    value="<?php echo esc_attr( CnbAppRemote::cnb_get_api_base() ) ?>"/>
                         </label>
                         <p class="description">The API endpoint to use to communicate with the
                             CallNowButton Cloud service.<br/>
@@ -338,13 +365,13 @@ class CnbSettingsViewEdit {
                     <td>
                         <input type="hidden" name="cnb[api_caching]" value="0"/>
                         <input id="cnb-api-caching" class="cnb_toggle_checkbox" type="checkbox"
-                               name="cnb[api_caching]"
-                               value="1" <?php checked( '1', $cnb_options['api_caching'] ); ?> />
+                                name="cnb[api_caching]"
+                                value="1" <?php checked( '1', $cnb_options['api_caching'] ); ?> />
                         <label for="cnb-api-caching" class="cnb_toggle_label">Toggle</label>
                         <span data-cnb_toggle_state_label="cnb-api-caching"
-                              class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
+                                class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
                         <span data-cnb_toggle_state_label="cnb-api-caching"
-                              class="cnb_toggle_state cnb_toggle_true">Enabled</span>
+                                class="cnb_toggle_state cnb_toggle_true">Enabled</span>
                         <p class="description">Cache API requests (using WordPress transients)</p>
                     </td>
                 </tr>
@@ -488,7 +515,7 @@ class CnbSettingsViewEdit {
                 <label for="cnb_cloud_enabled">Connection
                     <?php if ( $cnb_options['cloud_enabled'] == 0 ) { ?>
                         <a href="<?php echo esc_url( ( new CnbAdminFunctions() )->cnb_legacy_upgrade_page() ) ?>"
-                           class="cnb-nounderscore">
+                            class="cnb-nounderscore">
                             <span class="dashicons dashicons-editor-help"></span>
                         </a>
                     <?php } ?>
@@ -497,13 +524,13 @@ class CnbSettingsViewEdit {
             <td>
                 <input type="hidden" name="cnb[cloud_enabled]" value="0"/>
                 <input id="cnb_cloud_enabled" class="cnb_toggle_checkbox" name="cnb[cloud_enabled]"
-                       type="checkbox"
-                       value="1" <?php checked( '1', $cnb_options['cloud_enabled'] ); ?> />
+                        type="checkbox"
+                        value="1" <?php checked( '1', $cnb_options['cloud_enabled'] ); ?> />
                 <label for="cnb_cloud_enabled" class="cnb_toggle_label">Enable Cloud</label>
                 <span data-cnb_toggle_state_label="cnb_cloud_enabled"
-                      class="cnb_toggle_state cnb_toggle_false">(Inactive)</span>
+                        class="cnb_toggle_state cnb_toggle_false">(Inactive)</span>
                 <span data-cnb_toggle_state_label="cnb_cloud_enabled"
-                      class="cnb_toggle_state cnb_toggle_true">Active</span>
+                        class="cnb_toggle_state cnb_toggle_true">Active</span>
                 <?php if ( $cnb_options['cloud_enabled'] == 0 ) { ?>
                     <p class="description"><a
                                 href="<?php echo esc_url( ( new CnbAdminFunctions() )->cnb_legacy_upgrade_page() ) ?>">Sign
@@ -521,7 +548,7 @@ class CnbSettingsViewEdit {
                 <?php } ?>
 
                 <?php if ( $cnb_options['cloud_enabled'] == 1 && $cloud_successful ) {
-                  $friends_image = plugins_url('resources/images/coworkers.png', CNB_PLUGINS_URL_BASE ); ?>
+                    $friends_image = plugins_url('resources/images/coworkers.png', CNB_PLUGINS_URL_BASE ); ?>
                     <div id="cnb_not_working_tips" class="cnb_inpage_notice">
                         <div>
                             <img src="<?php echo esc_url( $friends_image ) ?>" alt="Friends offering help">
@@ -567,22 +594,22 @@ class CnbSettingsViewEdit {
                 <div class="cnb-body-content">
                     <h2 class="nav-tab-wrapper">
                         <a data-tab-name="basic_options"
-                           href="<?php echo esc_url( $this->create_tab_url( 'basic_options' ) ) ?>"
-                           class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">General</a>
+                            href="<?php echo esc_url( $this->create_tab_url( 'basic_options' ) ) ?>"
+                            class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">General</a>
                         <?php if ( $use_cloud ) { ?>
                             <a data-tab-name="account_options"
-                               href="<?php echo esc_url( $this->create_tab_url( 'account_options' ) ) ?>"
-                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'account_options' ) ) ?>">Account</a>
+                                href="<?php echo esc_url( $this->create_tab_url( 'account_options' ) ) ?>"
+                                class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'account_options' ) ) ?>">Account</a>
                             <a data-tab-name="advanced_options"
-                               href="<?php echo esc_url( $this->create_tab_url( 'advanced_options' ) ) ?>"
-                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'advanced_options' ) ) ?>">Advanced</a>
+                                href="<?php echo esc_url( $this->create_tab_url( 'advanced_options' ) ) ?>"
+                                class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'advanced_options' ) ) ?>">Advanced</a>
                         <?php } ?>
                     </h2>
                     <form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ) ?>"
-                          class="cnb-container">
+                            class="cnb-container">
                         <?php settings_fields( 'cnb_options' ); ?>
                         <table data-tab-name="basic_options"
-                               class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">
+                                class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">
                             <?php
                             $this->render_premium_option( $cloud_successful, $cnb_domain );
                             if ( $status !== 'cloud' ) {

@@ -4,8 +4,8 @@ Donate link: https://callnowbutton.com/donate/
 Tags: call button, click to call, convert, call now button, contact button
 Requires at least: 4.1
 Requires PHP: 5.4
-Tested up to: 6.5
-Stable tag: 1.4.9
+Tested up to: 6.6
+Stable tag: 1.4.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,7 +39,7 @@ Connect the plugin to our cloud service NowButtons.com to unlock more features. 
 * 🤗 Social actions: WhatsApp, Messenger, Telegram, Signal, Zalo, Viber, Line, Skype, WeChat
 * 🆕 Create 5 different buttons (instead of 1)
 * 🎯 Create smarter rules to decide where buttons should appear
-* 👁️️Live preview
+* 👁️️ Live preview
 
 ### NowButtons PRO
 We also offer a paid version of NowButtons which you can try 14 days for free!
@@ -47,6 +47,7 @@ We also offer a paid version of NowButtons which you can try 14 days for free!
 The PRO plan offers the following extras:
 
 * 🧳 Create 100 unique buttons
+* 🤹🏽 Multiple buttons on a page
 * 🌼 Button templates
 * 💬 WhatsApp chat window
 * 💬 Messenger Chat Widget
@@ -136,6 +137,11 @@ Yes, you can connect the plugin to our cloud service NowButtons.com. That alread
 
 
 == Changelog ==
+= 1.4.10 =
+* Ready for WordPress 6.6
+* Improved compatibility with PHP 8.2
+* Added Blueprints for WordPress Playground
+
 = 1.4.9 =
 * Reverted to stable codebase due to inadvertent release of work-in-progress changes.
 * Includes fixes & improvements from 1.4.8

@@ -19,11 +19,12 @@ class CnbButtonViewEdit {
      * @param $button CnbButton Used to determine type if available
      */
     function header( $button ) {
-        $type = strtoupper( filter_input( INPUT_GET, 'type', @FILTER_SANITIZE_STRING ) );
-        $name = 'New Button';
         if ( $button && ! is_wp_error( $button ) ) {
             $type = $button->type;
             $name = $button->name;
+        } else {
+	        $name = 'New Button';
+	        $type = strtoupper( filter_input( INPUT_GET, 'type', @FILTER_SANITIZE_STRING ) );
         }
 
         // In case no type or Button could be found, bail early
@@ -50,7 +51,7 @@ class CnbButtonViewEdit {
                 'action' => 'edit',
                 'type'   => strtolower( $button->type ),
                 'id'     => $button->id,
-                'tab'    => $tab
+                'tab'    => $tab,
             ),
             $url );
     }
@@ -95,12 +96,12 @@ class CnbButtonViewEdit {
 	    (new Preview())->register_preview_data();
         ?>
         <form class="cnb-container <?php if ( ! $hide_on_modal ) { ?>cnb-validation<?php } ?>"
-              action="<?php echo esc_url( admin_url( 'admin-post.php' ) ) ?>" method="post">
+                action="<?php echo esc_url( admin_url( 'admin-post.php' ) ) ?>" method="post">
             <input type="hidden" name="page" value="call-now-button"/>
             <input type="hidden" name="action"
-                   value="<?php echo $button->id === 'new' ? 'cnb_create_' . esc_attr( strtolower( $button->type ) ) . '_button' : 'cnb_update_' . esc_attr( strtolower( $button->type ) ) . '_button' ?>"/>
+                    value="<?php echo $button->id === 'new' ? 'cnb_create_' . esc_attr( strtolower( $button->type ) ) . '_button' : 'cnb_update_' . esc_attr( strtolower( $button->type ) ) . '_button' ?>"/>
             <input type="hidden" name="_wpnonce_button"
-                   value="<?php echo esc_attr( wp_create_nonce( 'cnb-button-edit' ) ) ?>"/>
+                    value="<?php echo esc_attr( wp_create_nonce( 'cnb-button-edit' ) ) ?>"/>
             <input type="hidden" name="tab" value="<?php echo esc_attr( $adminFunctions->get_active_tab_name() ) ?>"/>
 
             <input type="hidden" name="button[id]" value="<?php echo esc_attr( $button->id ) ?>"/>
@@ -178,19 +179,19 @@ class CnbButtonViewEdit {
                 <div class="cnb-body-content">
                     <h2 class="nav-tab-wrapper">
                         <a href="<?php echo esc_url( $this->get_tab_url( $button, 'basic_options' ) ) ?>"
-                           class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>"
-                           data-tab-name="basic_options">Basics</a>
+                            class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>"
+                            data-tab-name="basic_options">Basics</a>
                         <?php if ( $button->id !== 'new' ) { ?>
                             <a href="<?php echo esc_url( $this->get_tab_url( $button, 'extra_options' ) ) ?>"
-                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'extra_options' ) ) ?>"
-                               data-tab-name="extra_options">Presentation</a>
+                                class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'extra_options' ) ) ?>"
+                                data-tab-name="extra_options">Presentation</a>
                             <a href="<?php echo esc_url( $this->get_tab_url( $button, 'visibility' ) ) ?>"
-                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'visibility' ) ) ?>"
-                               data-tab-name="visibility">Visibility</a>
+                                class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'visibility' ) ) ?>"
+                                data-tab-name="visibility">Visibility</a>
                             <?php if ( $button->type === 'SINGLE' ) { ?>
                                 <a href="<?php echo esc_url( $this->get_tab_url( $button, 'scheduler' ) ) ?>"
-                                   class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>"
-                                   data-tab-name="scheduler">Schedule</a>
+                                    class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>"
+                                    data-tab-name="scheduler">Schedule</a>
                             <?php } ?>
                         <?php } else { ?>
                             <a class="nav-tab"><i>Additional options available after saving</i></a>

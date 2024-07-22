@@ -45,7 +45,7 @@ class Cnb_Action_List_Table extends WP_List_Table {
             'singular' => 'cnb_list_action', //Singular label
             'plural'   => 'cnb_list_actions', //plural label, also this well be one of the table css class
             'ajax'     => true, // We support it, see _js_vars(),
-            'screen'   => 'call-now-button-actions' // Screen name for bulk actions, etc
+            'screen'   => 'call-now-button-actions', // Screen name for bulk actions, etc
         ) );
 
         $this->cnb_utils = new CnbUtils();
@@ -306,9 +306,9 @@ class Cnb_Action_List_Table extends WP_List_Table {
             // First 5 are true, last 2 are false == weekdays
             // Get first 5, filter for false/null, count
             $weekdays = ( count( array_filter( array_slice( $schedule->daysOfWeek, 0, 5 ) ) ) === 5 &&
-                          count( array_filter( array_slice( $schedule->daysOfWeek, 5, 2 ) ) ) === 0 );
+                            count( array_filter( array_slice( $schedule->daysOfWeek, 5, 2 ) ) ) === 0 );
             $weekend  = ( count( array_filter( array_slice( $schedule->daysOfWeek, 0, 5 ) ) ) === 0 &&
-                          count( array_filter( array_slice( $schedule->daysOfWeek, 5, 2 ) ) ) === 2 );
+                            count( array_filter( array_slice( $schedule->daysOfWeek, 5, 2 ) ) ) === 2 );
             if ( $weekdays ) {
                 $days = __( 'Weekdays only' );
             } else if ( $weekend ) {
@@ -386,7 +386,7 @@ class Cnb_Action_List_Table extends WP_List_Table {
                     'action' => 'edit',
                     'id'     => $item->id,
                     'bid'    => $bid,
-                    'tab'    => $tab
+                    'tab'    => $tab,
                 ),
                 $url );
         $edit_url        = esc_url( $edit_link );
@@ -400,7 +400,7 @@ class Cnb_Action_List_Table extends WP_List_Table {
                 'id'       => $item->id,
                 'bid'      => $bid,
                 '_wpnonce' => $nonce,
-                'refer'    => $screen->parent_file
+                'refer'    => $screen->parent_file,
             );
             $delete_url        = esc_url( add_query_arg( $args, admin_url( 'admin-ajax.php' ) ) );
             $actions['delete'] = '<a data-ajax="true" data-id="' . $item->id . '" data-bid="' . $bid . '" data-wpnonce="' . $nonce . '" href="' . $delete_url . '">' . __( 'Delete' ) . '</a>';
@@ -410,7 +410,7 @@ class Cnb_Action_List_Table extends WP_List_Table {
                     'page'   => 'call-now-button-actions',
                     'action' => 'cnb_delete_action',
                     'id'     => $item->id,
-                    'bid'    => $bid
+                    'bid'    => $bid,
                 ), admin_url( 'admin-post.php' ) ),
                 'cnb_delete_action' );
             $delete_url        = esc_url( $delete_link );

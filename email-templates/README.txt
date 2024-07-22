@@ -97,7 +97,7 @@ Users can now personalize the header of their WP and WooCommerce generated email
 
 Users can now alter the font styles, size and weight to make the mails more interactive and easy to wade through the emails.
 
-*Note: Your kind feedback is invaluable in shaping our products to make them more user friendly and improve user experience. [Click here](https://wordpress.org/support/plugin/email-templates/) to share your suggestions for the beta version and use “BETA” in the topic title to clarify it.*
+*Note: Your kind feedback is invaluable in shaping our products to make them more user friendly and improve user experience. [Click here](https://wordpress.org/support/plugin/email-templates/) to share your suggestions for the beta version and use “BETA” in the topic title to clarify it. [Download Beta](https://downloads.wordpress.org/plugin/email-templates.1.5-beta.1.zip)*
 
 == Installation ==
 

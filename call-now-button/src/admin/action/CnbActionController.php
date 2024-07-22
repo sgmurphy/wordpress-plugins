@@ -51,7 +51,7 @@ class CnbActionController {
         // We sent both the result and an updated button so the preview code can re-render the button
         $return = array(
             'result' => $result,
-            'button' => $cnb_remote->get_button( $button_id )->toArray( false )
+            'button' => $cnb_remote->get_button( $button_id )->toArray( false ),
         );
         wp_send_json( $return );
         do_action( 'cnb_finish' );
@@ -93,7 +93,7 @@ class CnbActionController {
 			add_query_arg(
 				array(
 					'page' => 'call-now-button-actions',
-					'tid'  => $transient_id
+					'tid'  => $transient_id,
 				),
 				admin_url( 'admin.php' ) );
 		$redirect_url  = esc_url_raw( $redirect_link );
@@ -166,7 +166,7 @@ class CnbActionController {
                             'action' => 'edit',
                             'id'     => $new_action_id,
                             'tid'    => $transient_id,
-                            'bid'    => $bid
+                            'bid'    => $bid,
                         ),
                         $url );
             }
@@ -234,7 +234,7 @@ class CnbActionController {
                             'action' => 'edit',
                             'id'     => $result->id,
                             'tid'    => $transient_id,
-                            'bid'    => $bid
+                            'bid'    => $bid,
                         ),
                         $url );
             }
@@ -292,7 +292,7 @@ class CnbActionController {
                     add_query_arg(
                         array(
                             'page' => 'call-now-button-actions',
-                            'tid'  => $transient_id
+                            'tid'  => $transient_id,
                         ),
                         $url );
                 $redirect_url  = esc_url_raw( $redirect_link );

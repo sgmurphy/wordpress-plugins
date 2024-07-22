@@ -30,7 +30,7 @@ class CnbAdminAjax {
                     'page'    => 'call-now-button-domains',
                     'action'  => 'upgrade',
                     'id'      => $domainId,
-                    'upgrade' => 'success'
+                    'upgrade' => 'success',
                 ),
                 $url );
         $callbackUri     = esc_url_raw( $redirect_link );
@@ -49,19 +49,19 @@ class CnbAdminAjax {
                 $message = str_replace( 'customer', 'domain', $message );
                 wp_send_json( array(
                     'status'  => 'error',
-                    'message' => $message
+                    'message' => $message,
                 ) );
             } else {
                 wp_send_json( array(
                     'status'  => 'error',
-                    'message' => $checkoutSession->get_error_message()
+                    'message' => $checkoutSession->get_error_message(),
                 ) );
             }
         } else {
             // Get link based on Stripe checkoutSessionId
             wp_send_json( array(
                 'status'  => 'success',
-                'url' => $checkoutSession->url
+                'url' => $checkoutSession->url,
             ) );
         }
         do_action( 'cnb_finish' );
@@ -184,7 +184,7 @@ class CnbAdminAjax {
             'usd_per_year'  => $usd_yearly_plan_year,
             'usd_per_month' => $usd_yearly_per_month,
             'usd_discount'  => $usd_discount,
-            'usd_trial_period_days' => $usd_trial_period_days
+            'usd_trial_period_days' => $usd_trial_period_days,
         ) );
         do_action( 'cnb_finish' );
         wp_die();

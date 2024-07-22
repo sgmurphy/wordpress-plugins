@@ -29,7 +29,7 @@ class CnbLegacyEdit {
             array(
                 'page'   => 'call-now-button',
                 'action' => 'edit',
-                'tab'    => $tab
+                'tab'    => $tab,
             ),
             $url );
     }
@@ -47,22 +47,22 @@ class CnbLegacyEdit {
             <td>
                 <div class="cnb-radio-item">
                     <input id="tracking3" type="radio" name="cnb[tracking]"
-                           value="0" <?php checked( '0', $cnb_options['tracking'] ); ?> />
+                            value="0" <?php checked( '0', $cnb_options['tracking'] ); ?> />
                     <label for="tracking3">Disabled</label>
                 </div>
                 <div class="cnb-radio-item">
                     <input id="tracking4" type="radio" name="cnb[tracking]"
-                           value="3" <?php checked( '3', $cnb_options['tracking'] ); ?> />
+                            value="3" <?php checked( '3', $cnb_options['tracking'] ); ?> />
                     <label for="tracking4">Latest Google Analytics (gtag.js)</label>
                 </div>
                 <div class="cnb-radio-item">
                     <input id="tracking1" type="radio" name="cnb[tracking]"
-                           value="2" <?php checked( '2', $cnb_options['tracking'] ); ?> />
+                            value="2" <?php checked( '2', $cnb_options['tracking'] ); ?> />
                     <label for="tracking1">Google Universal Analytics (analytics.js)</label>
                 </div>
                 <div class="cnb-radio-item">
                     <input id="tracking2" type="radio" name="cnb[tracking]"
-                           value="1" <?php checked( '1', $cnb_options['tracking'] ); ?> />
+                            value="1" <?php checked( '1', $cnb_options['tracking'] ); ?> />
                     <label for="tracking2">Classic Google Analytics (ga.js)</label>
                 </div>
                 <p class="description">Using Google Tag Manager? Set up click tracking in GTM. <a
@@ -86,17 +86,17 @@ class CnbLegacyEdit {
             <td class="conversions">
                 <div class="cnb-radio-item">
                     <input id="cnb_conversions_0" name="cnb[conversions]" type="radio"
-                           value="0" <?php checked( '0', $cnb_options['conversions'] ); ?> /> <label
+                            value="0" <?php checked( '0', $cnb_options['conversions'] ); ?> /> <label
                             for="cnb_conversions_0">Off </label>
                 </div>
                 <div class="cnb-radio-item">
                     <input id="cnb_conversions_1" name="cnb[conversions]" type="radio"
-                           value="1" <?php checked( '1', $cnb_options['conversions'] ); ?> /> <label
+                            value="1" <?php checked( '1', $cnb_options['conversions'] ); ?> /> <label
                             for="cnb_conversions_1">Conversion Tracking using Google's global site tag </label>
                 </div>
                 <div class="cnb-radio-item">
                     <input id="cnb_conversions_2" name="cnb[conversions]" type="radio"
-                           value="2" <?php checked( '2', $cnb_options['conversions'] ); ?> /> <label
+                            value="2" <?php checked( '2', $cnb_options['conversions'] ); ?> /> <label
                             for="cnb_conversions_2">Conversion Tracking using JavaScript</label>
                 </div>
                 <p class="description">Select this option if you want to track clicks on the button as Google Ads
@@ -116,7 +116,7 @@ class CnbLegacyEdit {
             <td>
                 <label class="cnb_slider_value">Smaller&nbsp;&laquo;&nbsp;</label>
                 <input type="range" min="0.7" max="1.3" name="cnb[zoom]"
-                       value="<?php echo esc_attr( $cnb_options['zoom'] ) ?>" class="slider" id="cnb_slider" step="0.1">
+                        value="<?php echo esc_attr( $cnb_options['zoom'] ) ?>" class="slider" id="cnb_slider" step="0.1">
                 <label class="cnb_slider_value">&nbsp;&raquo;&nbsp;Bigger</label>
             </td>
         </tr>
@@ -137,8 +137,8 @@ class CnbLegacyEdit {
             <td>
                 <label class="cnb_slider_value">Backwards&nbsp;&laquo;&nbsp;</label>
                 <input type="range" min="1" max="10" name="cnb[z-index]"
-                       value="<?php echo esc_attr( $cnb_options['z-index'] ) ?>" class="slider2" id="cnb_order_slider"
-                       step="1">
+                        value="<?php echo esc_attr( $cnb_options['z-index'] ) ?>" class="slider2" id="cnb_order_slider"
+                        step="1">
                 <label class="cnb_slider_value">&nbsp;&raquo;&nbsp;Front</label>
                 <p class="description">The default (and recommended) value is all the way to the front so the button
                     sits on top of everything else. In case you have a specific usecase where you want something else to
@@ -168,20 +168,20 @@ class CnbLegacyEdit {
 
                     <h2 class="nav-tab-wrapper">
                         <a href="<?php echo esc_url( $this->create_tab_url( 'basic_options' ) ) ?>"
-                           class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>"
-                           data-tab-name="basic_options">Basics</a>
+                            class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>"
+                            data-tab-name="basic_options">Basics</a>
                         <a href="<?php echo esc_url( $this->create_tab_url( 'extra_options' ) ) ?>"
-                           class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'extra_options' ) ) ?>"
-                           data-tab-name="extra_options">Presentation</a>
-                         <a href="<?php echo esc_url( $this->create_tab_url( 'scheduler' ) ) ?>" class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?> cnb_disabled_feature"
+                            class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'extra_options' ) ) ?>"
+                            data-tab-name="extra_options">Presentation</a>
+                        <a href="<?php echo esc_url( $this->create_tab_url( 'scheduler' ) ) ?>" class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?> cnb_disabled_feature"
                             data-tab-name="scheduler"><span class="dashicons dashicons-lock"></span> Scheduler</a>
                     </h2>
 
                     <form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ) ?>"
-                          class="cnb-container">
+                            class="cnb-container">
                         <?php settings_fields( 'cnb_options' ); ?>
                         <table class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>"
-                               data-tab-name="basic_options">
+                                data-tab-name="basic_options">
                             <tr>
                                 <th colspan="2"></th>
                             </tr>
@@ -192,33 +192,33 @@ class CnbLegacyEdit {
                                 <td>
                                     <input type="hidden" name="cnb[active]" value="0"/>
                                     <input id="cnb-active" class="cnb_toggle_checkbox" type="checkbox" name="cnb[active]"
-                                           value="1" <?php checked( '1', $cnb_options['active'] ); ?> />
+                                            value="1" <?php checked( '1', $cnb_options['active'] ); ?> />
                                     <label for="cnb-active" class="cnb_toggle_label">Toggle</label>
                                     <span data-cnb_toggle_state_label="cnb-active" class="cnb_toggle_state cnb_toggle_false">(Inactive)</span>
                                     <span data-cnb_toggle_state_label="cnb-active"
-                                          class="cnb_toggle_state cnb_toggle_true">Active</span>
+                                            class="cnb_toggle_state cnb_toggle_true">Active</span>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row"><label for="cnb_action_type">Button action</label></th>
                                 <td>
                                     <select>
-                                      <option selected="selected">Phone</option>
-                                      <option disabled>* Email</option>
-                                      <option disabled>* SMS/Text</option>
-                                      <option disabled>* WhatsApp</option>
-                                      <option disabled>* Messenger</option>
-                                      <option disabled>* Signal</option>
-                                      <option disabled>* Telegram</option>
-                                      <option disabled>* Link</option>
-                                      <option disabled>* Location</option>
-                                      <option disabled>* Scroll to point</option>
-                                      <option disabled>* Skype</option>
-                                      <option disabled>* Line</option>
-                                      <option disabled>* Viber</option>
-                                      <option disabled>* WeChat</option>
-                                      <option disabled>* Content Window</option>
-                                      <option disabled>* Tally form window</option>
+                                        <option selected="selected">Phone</option>
+                                        <option disabled>* Email</option>
+                                        <option disabled>* SMS/Text</option>
+                                        <option disabled>* WhatsApp</option>
+                                        <option disabled>* Messenger</option>
+                                        <option disabled>* Signal</option>
+                                        <option disabled>* Telegram</option>
+                                        <option disabled>* Link</option>
+                                        <option disabled>* Location</option>
+                                        <option disabled>* Scroll to point</option>
+                                        <option disabled>* Skype</option>
+                                        <option disabled>* Line</option>
+                                        <option disabled>* Viber</option>
+                                        <option disabled>* WeChat</option>
+                                        <option disabled>* Content Window</option>
+                                        <option disabled>* Tally form window</option>
                                     </select>
                                 </td>
                             </tr>
@@ -230,7 +230,7 @@ class CnbLegacyEdit {
                                         <span class="dashicons dashicons-editor-help"></span>
                                     </a></th>
                                 <td><input type="text" id="cnb-number" name="cnb[number]"
-                                           value="<?php echo esc_attr( $cnb_options['number'] ) ?>"/></td>
+                                            value="<?php echo esc_attr( $cnb_options['number'] ) ?>"/></td>
                             </tr>
                             <tr class="button-text">
                                 <th scope="row"><label for="buttonTextField">Button text</label><a
@@ -240,14 +240,14 @@ class CnbLegacyEdit {
                                     </a></th>
                                 <td>
                                     <input id="buttonTextField" type="text" name="cnb[text]"
-                                           value="<?php echo esc_attr( $cnb_options['text'] ) ?>" maxlength="30" placeholder="Optional"/>
+                                            value="<?php echo esc_attr( $cnb_options['text'] ) ?>" maxlength="30" placeholder="Optional"/>
                                     <p class="description">Leave this field empty to only show an icon.</p>
                                 </td>
                             </tr>
                         </table>
 
                         <table class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'extra_options' ) ) ?>"
-                               data-tab-name="extra_options">
+                                data-tab-name="extra_options">
                             <tr>
                                 <th colspan="2"></th>
                             </tr>
@@ -255,14 +255,14 @@ class CnbLegacyEdit {
                             <tr>
                                 <th scope="row"><label for="cnb-color">Button color</label></th>
                                 <td><input id="cnb-color" name="cnb[color]" type="text"
-                                           value="<?php echo esc_attr( $cnb_options['color'] ) ?>"
-                                           class="cnb-color-field" data-default-color="#009900"/></td>
+                                            value="<?php echo esc_attr( $cnb_options['color'] ) ?>"
+                                            class="cnb-color-field" data-default-color="#009900"/></td>
                             </tr>
                             <tr>
                                 <th scope="row"><label for="cnb-icon-color">Icon color</label></th>
                                 <td><input id="cnb-icon-color" name="cnb[iconcolor]" type="text"
-                                           value="<?php echo esc_attr( $cnb_options['iconcolor'] ) ?>"
-                                           class="cnb-color-field" data-default-color="#ffffff"/></td>
+                                            value="<?php echo esc_attr( $cnb_options['iconcolor'] ) ?>"
+                                            class="cnb-color-field" data-default-color="#ffffff"/></td>
                             </tr>
                             <tr>
                                 <th scope="row">Position <a
@@ -274,22 +274,22 @@ class CnbLegacyEdit {
                                     <div class="appearance-options">
                                         <div class="cnb-radio-item">
                                             <input type="radio" id="appearance1" name="cnb[appearance]"
-                                                   value="right" <?php checked( 'right', $cnb_options['appearance'] ); ?>>
+                                                    value="right" <?php checked( 'right', $cnb_options['appearance'] ); ?>>
                                             <label title="right" for="appearance1">Right corner</label>
                                         </div>
                                         <div class="cnb-radio-item">
                                             <input type="radio" id="appearance2" name="cnb[appearance]"
-                                                   value="left" <?php checked( 'left', $cnb_options['appearance'] ); ?>>
+                                                    value="left" <?php checked( 'left', $cnb_options['appearance'] ); ?>>
                                             <label title="left" for="appearance2">Left corner</label>
                                         </div>
                                         <div class="cnb-radio-item">
                                             <input type="radio" id="appearance3" name="cnb[appearance]"
-                                                   value="middle" <?php checked( 'middle', $cnb_options['appearance'] ); ?>>
+                                                    value="middle" <?php checked( 'middle', $cnb_options['appearance'] ); ?>>
                                             <label title="middle" for="appearance3">Center</label>
                                         </div>
                                         <div class="cnb-radio-item">
                                             <input type="radio" id="appearance4" name="cnb[appearance]"
-                                                   value="full" <?php checked( 'full', $cnb_options['appearance'] ); ?>>
+                                                    value="full" <?php checked( 'full', $cnb_options['appearance'] ); ?>>
                                             <label title="full" for="appearance4">Full bottom</label>
                                         </div>
 
@@ -297,33 +297,33 @@ class CnbLegacyEdit {
                                         <br class="cnb-extra-placement">
                                         <div class="cnb-radio-item cnb-extra-placement <?php echo $cnb_options['appearance'] == 'mright' ? 'cnb-extra-active' : ''; ?>">
                                             <input type="radio" id="appearance5" name="cnb[appearance]"
-                                                   value="mright" <?php checked( 'mright', $cnb_options['appearance'] ); ?>>
+                                                    value="mright" <?php checked( 'mright', $cnb_options['appearance'] ); ?>>
                                             <label title="mright" for="appearance5">Middle right</label>
                                         </div>
                                         <div class="cnb-radio-item cnb-extra-placement <?php echo $cnb_options['appearance'] == 'mleft' ? 'cnb-extra-active' : ''; ?>">
                                             <input type="radio" id="appearance6" name="cnb[appearance]"
-                                                   value="mleft" <?php checked( 'mleft', $cnb_options['appearance'] ); ?>>
+                                                    value="mleft" <?php checked( 'mleft', $cnb_options['appearance'] ); ?>>
                                             <label title="mleft" for="appearance6">Middle left </label>
                                         </div>
                                         <br class="cnb-extra-placement">
                                         <div class="cnb-radio-item cnb-extra-placement <?php echo $cnb_options['appearance'] == 'tright' ? 'cnb-extra-active' : ''; ?>">
                                             <input type="radio" id="appearance7" name="cnb[appearance]"
-                                                   value="tright" <?php checked( 'tright', $cnb_options['appearance'] ); ?>>
+                                                    value="tright" <?php checked( 'tright', $cnb_options['appearance'] ); ?>>
                                             <label title="tright" for="appearance7">Top right corner</label>
                                         </div>
                                         <div class="cnb-radio-item cnb-extra-placement <?php echo $cnb_options['appearance'] == 'tleft' ? 'cnb-extra-active' : ''; ?>">
                                             <input type="radio" id="appearance8" name="cnb[appearance]"
-                                                   value="tleft" <?php checked( 'tleft', $cnb_options['appearance'] ); ?>>
+                                                    value="tleft" <?php checked( 'tleft', $cnb_options['appearance'] ); ?>>
                                             <label title="tleft" for="appearance8">Top left corner</label>
                                         </div>
                                         <div class="cnb-radio-item cnb-extra-placement <?php echo $cnb_options['appearance'] == 'tmiddle' ? 'cnb-extra-active' : ''; ?>">
                                             <input type="radio" id="appearance9" name="cnb[appearance]"
-                                                   value="tmiddle" <?php checked( 'tmiddle', $cnb_options['appearance'] ); ?>>
+                                                    value="tmiddle" <?php checked( 'tmiddle', $cnb_options['appearance'] ); ?>>
                                             <label title="tmiddle" for="appearance9">Center top</label>
                                         </div>
                                         <div class="cnb-radio-item cnb-extra-placement <?php echo $cnb_options['appearance'] == 'tfull' ? 'cnb-extra-active' : ''; ?>">
                                             <input type="radio" id="appearance10" name="cnb[appearance]"
-                                                   value="tfull" <?php checked( 'tfull', $cnb_options['appearance'] ); ?>>
+                                                    value="tfull" <?php checked( 'tfull', $cnb_options['appearance'] ); ?>>
                                             <label title="tfull" for="appearance10">Full top</label>
                                         </div>
                                         <a href="#" id="button-more-placements">More placement options...</a>
@@ -334,7 +334,7 @@ class CnbLegacyEdit {
                                         <br>
                                         <input type="hidden" name="cnb[hideIcon]" value="0"/>
                                         <input id="hide_icon" type="checkbox" name="cnb[hideIcon]"
-                                               value="1" <?php checked( '1', $cnb_options['hideIcon'] ); ?>>
+                                                value="1" <?php checked( '1', $cnb_options['hideIcon'] ); ?>>
                                         <label title="right" for="hide_icon">Remove icon</label>
                                     </div>
                                 </td>
@@ -363,35 +363,35 @@ class CnbLegacyEdit {
                                     </a></th>
                                 <td>
                                     <input type="text" id="cnb-show" name="cnb[show]"
-                                           value="<?php echo esc_attr( $cnb_options['show'] ) ?>"
-                                           placeholder="E.g. 14, 345"/>
+                                            value="<?php echo esc_attr( $cnb_options['show'] ) ?>"
+                                            placeholder="E.g. 14, 345"/>
                                     <p class="description">Enter IDs of the posts &amp; pages, separated by commas
                                         (leave blank for all). <a
                                                 href="<?php echo esc_url( $cnb_utils->get_support_url( 'wordpress-free/presentation/limit-appearance/', 'legacy-presentation-description', 'limit-appearance', 'legacy' ) ) ?>"
                                                 target="_blank">Learn more...</a></p>
                                     <div class="cnb-radio-item">
                                         <input id="limit1" type="radio" name="cnb[limit]"
-                                               value="include" <?php checked( 'include', $cnb_options['limit'] ); ?> />
+                                                value="include" <?php checked( 'include', $cnb_options['limit'] ); ?> />
                                         <label for="limit1">Limit to these posts and pages.</label>
                                     </div>
                                     <div class="cnb-radio-item">
                                         <input id="limit2" type="radio" name="cnb[limit]"
-                                               value="exclude" <?php checked( 'exclude', $cnb_options['limit'] ); ?> />
+                                                value="exclude" <?php checked( 'exclude', $cnb_options['limit'] ); ?> />
                                         <label for="limit2">Exclude these posts and pages.</label>
                                     </div>
                                     <p class="description">Display Rules give you more control. <a href="<?php echo esc_url(( new CnbAdminFunctions() )->cnb_legacy_upgrade_page()); ?>">Sign up now</a> (it's free).</p>
                                 </td>
                             </tr>
                             <tr class="appearance">
-                              <th scope="row"><label for="cnb-show-fp">Show button on front page</label></th>
-                              <td>
+                                <th scope="row"><label for="cnb-show-fp">Show button on front page</label></th>
+                                <td>
                                     <input type="hidden" name="cnb[frontpage]" value="1"/>
                                     <input id="cnb-show-fp" class="cnb_toggle_checkbox" type="checkbox" name="cnb[frontpage]"
-                                           value="0" <?php checked( '0', $cnb_options['frontpage'] ); ?> />
+                                            value="0" <?php checked( '0', $cnb_options['frontpage'] ); ?> />
                                     <label for="cnb-show-fp" class="cnb_toggle_label">Toggle</label>
                                     <span data-cnb_toggle_state_label="cnb-show-fp" class="cnb_toggle_state cnb_toggle_false">(No)</span>
                                     <span data-cnb_toggle_state_label="cnb-show-fp"
-                                          class="cnb_toggle_state cnb_toggle_true">Yes</span>
+                                            class="cnb_toggle_state cnb_toggle_true">Yes</span>
                                 </td>
                             </tr>
 
@@ -399,56 +399,56 @@ class CnbLegacyEdit {
 
                         </table>
                         <table class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>" data-tab-name="scheduler">
-                          <tr>
-                              <th colspan="2"><a href="<?php echo esc_url(( new CnbAdminFunctions() )->cnb_legacy_upgrade_page()); ?>">Upgrade</a> to enable the scheduler.</th>
-                          </tr>
-                          <tr class="cnb_disabled_feature">
+                            <tr>
+                                <th colspan="2"><a href="<?php echo esc_url(( new CnbAdminFunctions() )->cnb_legacy_upgrade_page()); ?>">Upgrade</a> to enable the scheduler.</th>
+                            </tr>
+                            <tr class="cnb_disabled_feature">
                             <th scope="row">Show at all times</th>
                             <td>
-                              <input class="cnb_toggle_checkbox" type="checkbox" checked="checked" disabled>
-                              <label for="actions_schedule_show_always" class="cnb_toggle_label" style="background-color:#b3afaf">Toggle</label>
-                              <span data-cnb_toggle_state_label="actions_schedule_show_always" class="cnb_toggle_state cnb_toggle_true">Yes</span>
-                              <span data-cnb_toggle_state_label="actions_schedule_show_always" class="cnb_toggle_state cnb_toggle_false">(No)</span>
+                                <input class="cnb_toggle_checkbox" type="checkbox" checked="checked" disabled>
+                                <label for="actions_schedule_show_always" class="cnb_toggle_label" style="background-color:#b3afaf">Toggle</label>
+                                <span data-cnb_toggle_state_label="actions_schedule_show_always" class="cnb_toggle_state cnb_toggle_true">Yes</span>
+                                <span data-cnb_toggle_state_label="actions_schedule_show_always" class="cnb_toggle_state cnb_toggle_false">(No)</span>
                             </td>
-                          </tr>
-                          <tr class="cnb_disabled_feature">
+                            </tr>
+                            <tr class="cnb_disabled_feature">
                             <th>Set days</th>
                             <td>
-                              <input disabled class="cnb_day_selector" id="cnb_weekday_0" type="checkbox">
-                          	  <label title="Monday" class="cnb_day_selector" for="cnb_weekday_0">Mon</label>
+                                <input disabled class="cnb_day_selector" id="cnb_weekday_0" type="checkbox">
+								<label title="Monday" class="cnb_day_selector" for="cnb_weekday_0">Mon</label>
 
-                              <input disabled class="cnb_day_selector" id="cnb_weekday_1" type="checkbox">
-                          	  <label title="Tuesday" class="cnb_day_selector" for="cnb_weekday_1">Tue</label>
+                                <input disabled class="cnb_day_selector" id="cnb_weekday_1" type="checkbox">
+								<label title="Tuesday" class="cnb_day_selector" for="cnb_weekday_1">Tue</label>
 
-                              <input disabled class="cnb_day_selector" id="cnb_weekday_2" type="checkbox">
-                          	  <label title="Wednesday" class="cnb_day_selector" for="cnb_weekday_2">Wed</label>
+                                <input disabled class="cnb_day_selector" id="cnb_weekday_2" type="checkbox">
+								<label title="Wednesday" class="cnb_day_selector" for="cnb_weekday_2">Wed</label>
 
-                              <input disabled class="cnb_day_selector" id="cnb_weekday_3" type="checkbox">
-                          	  <label title="Thursday" class="cnb_day_selector" for="cnb_weekday_3">Thu</label>
+                                <input disabled class="cnb_day_selector" id="cnb_weekday_3" type="checkbox">
+								<label title="Thursday" class="cnb_day_selector" for="cnb_weekday_3">Thu</label>
 
-                              <input disabled class="cnb_day_selector" id="cnb_weekday_4" type="checkbox">
-                          	  <label title="Friday" class="cnb_day_selector" for="cnb_weekday_4">Fri</label>
+                                <input disabled class="cnb_day_selector" id="cnb_weekday_4" type="checkbox">
+								<label title="Friday" class="cnb_day_selector" for="cnb_weekday_4">Fri</label>
 
-                              <input disabled class="cnb_day_selector" id="cnb_weekday_5" type="checkbox">
-                          	  <label title="Saturday" class="cnb_day_selector" for="cnb_weekday_5">Sat</label>
+                                <input disabled class="cnb_day_selector" id="cnb_weekday_5" type="checkbox">
+								<label title="Saturday" class="cnb_day_selector" for="cnb_weekday_5">Sat</label>
 
-                              <input disabled class="cnb_day_selector" id="cnb_weekday_6" type="checkbox">
-                          	  <label title="Sunday" class="cnb_day_selector" for="cnb_weekday_6">Sun</label>
+                                <input disabled class="cnb_day_selector" id="cnb_weekday_6" type="checkbox">
+								<label title="Sunday" class="cnb_day_selector" for="cnb_weekday_6">Sun</label>
                             </td>
-                          </tr>
-                          <tr class="cnb_disabled_feature">
-                              <th><label for="actions_schedule_outside_hours">After hours</label></th>
-                              <td>
-                                  <input id="actions_schedule_outside_hours" disabled class="cnb_toggle_checkbox" type="checkbox">
-                                  <label for="actions_schedule_outside_hours" class="cnb_toggle_label">Toggle</label>
-                              </td>
-                          </tr>
-                          <tr class="cnb_disabled_feature">
-                              <th>Set times</th>
-                              <td class="cnb-scheduler-slider">
-                                  <p id="cnb-schedule-range-text">From <strong>8:00 am</strong> till <strong>5:00 pm</strong></p>
-                              </td>
-                          </tr>
+                            </tr>
+                            <tr class="cnb_disabled_feature">
+                                <th><label for="actions_schedule_outside_hours">After hours</label></th>
+                                <td>
+                                    <input id="actions_schedule_outside_hours" disabled class="cnb_toggle_checkbox" type="checkbox">
+                                    <label for="actions_schedule_outside_hours" class="cnb_toggle_label">Toggle</label>
+                                </td>
+                            </tr>
+                            <tr class="cnb_disabled_feature">
+                                <th>Set times</th>
+                                <td class="cnb-scheduler-slider">
+                                    <p id="cnb-schedule-range-text">From <strong>8:00 am</strong> till <strong>5:00 pm</strong></p>
+                                </td>
+                            </tr>
                         </table>
                         <table class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'advanced_options' ) ) ?>">
                             <tr>

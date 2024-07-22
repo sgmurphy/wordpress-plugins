@@ -122,11 +122,11 @@ class CacheHandler {
 
         // rocket_clean_minify is called to ensure our cached (Cloud) JS file is cleared
         if ( function_exists( 'rocket_clean_minify' ) ) {
-            rocket_clean_minify( [ 'js' ] );
+            rocket_clean_minify( array( 'js' ) );
         }
 
         if ( function_exists( 'rocket_clean_cache_busting' ) ) {
-            rocket_clean_cache_busting( [ 'js' ] );
+            rocket_clean_cache_busting( array( 'js' ) );
         }
     }
 

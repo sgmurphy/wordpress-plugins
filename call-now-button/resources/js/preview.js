@@ -4,15 +4,17 @@ function getCleanDomain() {
 
 function createButtonFromData(formData) {
     let domainType = 'STARTER'
+    let domainId = "domain"
     if (formData && formData.domain) {
         domainType = formData.domain.type
+        domainId = formData.domain.id
     }
 
     return {
         "userId": cnb_preview_data.user.id,
         "domains": [
             {
-                "id": "domain",
+                "id": domainId,
                 "user": cnb_preview_data.user.id,
                 "type": domainType,
                 "name": getCleanDomain()
@@ -22,7 +24,7 @@ function createButtonFromData(formData) {
             {
                 "id": "button",
                 "domain": getCleanDomain(),
-                "domainId": "domain",
+                "domainId": domainId,
                 "active": true,
                 "name": "Live preview",
                 "type": formData.button.type,

@@ -29,7 +29,7 @@ class CnbButtonView {
                     'page'      => 'call-now-button',
                     'action'    => 'new',
                     'type'      => 'single',
-                    'id'        => 'new'
+                    'id'        => 'new',
                 ),
                 $url );
     }
@@ -71,9 +71,9 @@ class CnbButtonView {
     private function set_button_filter( $domain, $table ) {
         $cnb_options = get_option( 'cnb' );
         if ( isset( $cnb_options['show_all_buttons_for_domain'] )
-             && $cnb_options['show_all_buttons_for_domain'] != 1
-             && $domain != null
-             && ! ( $domain instanceof WP_Error ) ) {
+            && $cnb_options['show_all_buttons_for_domain'] != 1
+            && $domain != null
+            && ! ( $domain instanceof WP_Error ) ) {
             $table->setOption( 'filter_buttons_for_domain', $domain->id );
         }
     }
@@ -137,7 +137,7 @@ class CnbButtonView {
         echo '<div class="cnb-body-column">';
         echo '<div class="cnb-body-content">';
 
-        echo sprintf( '<form class="cnb_list_event" action="%s" method="post">', esc_url( admin_url( 'admin-post.php' ) ) );
+        printf( '<form class="cnb_list_event" action="%s" method="post">', esc_url( admin_url( 'admin-post.php' ) ) );
         echo '<input type="hidden" name="page" value="call-now-button-buttons" />';
         echo '<input type="hidden" name="action" value="cnb_buttons_bulk" />';
         $wp_list_table->views();

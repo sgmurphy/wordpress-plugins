@@ -5,7 +5,7 @@ Plugin URI: https://www.mappresspro.com
 Author URI: https://www.mappresspro.com
 Pro Update URI: https://www.mappresspro.com
 Description: MapPress makes it easy to add Google Maps and Leaflet Maps to WordPress
-Version: 2.90.6
+Version: 2.92.1
 Author: Chris Richardson
 Text Domain: mappress-google-maps-for-wordpress
 Thanks to all the translators and to Scott DeJonge for his wonderful icons
@@ -41,7 +41,7 @@ if (is_dir(dirname( __FILE__ ) . '/pro')) {
 }
 
 class Mappress {
-	const VERSION = '2.90.6';
+	const VERSION = '2.92.1';
 
 	static
 		$api,
@@ -396,7 +396,6 @@ class Mappress {
 			<?php echo $content; ?>
 			<?php $scripts->do_items('mappress'); ?>
 			<?php Mappress_Template::print_footer_templates(); ?>
-			<script type='javascript'>mappload();</script>
 		</body>
 		</html>
 		<?php
@@ -645,13 +644,17 @@ class Mappress {
 	static function is_footer() {
 		if (defined('DOING_AJAX') && DOING_AJAX)
 			return false;
-		if (defined('REST_REQUEST') && REST_REQUEST)
+		// 2.91
 			return true;
-		if (is_admin())
-			return true;
-		if (self::$options->webComponent)   // WC needs to load after dom render
-			return true;
-		return self::$options->footer;
+		
+		//	2.91
+		//	    if (defined('REST_REQUEST') && REST_REQUEST)
+		//			return true;
+		//		if (is_admin())
+		//			return true;
+		//		if (self::$options->webComponent)   // WC needs to load after dom render
+		//			return true;
+		//		return self::$options->footer;
 	}
 
 	static function is_localhost() {
@@ -769,7 +772,7 @@ class Mappress {
 		'highlight', 'highlightIcon', 'iconScale', 'initialOpenInfo', 'layout', 'lines', 'lineOpts',
 		'mashupClick', 'menuControl', 'mini', 'poiFields', 'poiList', 'poiListKml', 'poiListOpen', 'poiListPageSize', 'poiListViewport', 'poiZoom', 'radius', 'scrollWheel', 'search',
 		'searchBox', 'searchParam', 'searchPlaceholder', 'size', 'sizes', 'sort', 'streetViewControl', 'style', 'thumbHeight', 'thumbWidth', 'thumbs', 'thumbsList', 'thumbsPopup', 
-		'tooltips', 'units', 'userLocation', 'webComponent');
+		'tooltips', 'units', 'userLocation');
 
 		foreach($options as $option) {
 			if (isset(self::$options->$option)) {

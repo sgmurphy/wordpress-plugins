@@ -142,7 +142,7 @@ class AIOVG_Public {
 			AIOVG_PLUGIN_SLUG . '-magnific-popup', 
 			AIOVG_PLUGIN_URL . 'vendor/magnific-popup/magnific-popup.min.css', 
 			array(), 
-			'1.1.0', 
+			'1.2.0', 
 			'all' 
 		);
 		
@@ -202,7 +202,7 @@ class AIOVG_Public {
 			AIOVG_PLUGIN_SLUG . '-magnific-popup', 
 			AIOVG_PLUGIN_URL . 'vendor/magnific-popup/magnific-popup.min.js', 
 			array( 'jquery' ), 
-			'1.1.0', 
+			'1.2.0', 
 			array( 'strategy' => 'defer' ) 
 		);		
 		

@@ -90,9 +90,11 @@ abstract class WFACP_Template_Common {
 		$this->url             = WFACP_PLUGIN_URL . '/public/templates/' . $this->get_template_slug() . '/views/';
 		$this->page_settings   = WFACP_Common::get_page_settings( WFACP_Common::get_id() );
 		$this->setup_data_hooks();
+
+
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'css_js_hooks' ], 100 );
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'setup_smart_buttons' ], 100 );
-        $this->checkout_fragments();
+		$this->checkout_fragments();
 		$this->woocommerce_field_hooks();
 		$this->remove_actions();
 		$this->address_i18_handling();
@@ -201,7 +203,6 @@ abstract class WFACP_Template_Common {
 		add_action( 'wp_head', [ $this, 'no_follow_no_index' ], - 1 );
 		add_action( 'wp_head', [ $this, 'add_header_script' ], 99 );
 		add_action( 'wp_print_styles', [ $this, 'remove_woocommerce_js_css' ], 99 );
-		add_action( 'wp_print_styles', [ $this, 'remove_theme_css_and_scripts' ], 100 );
 		add_action( 'wp_footer', [ $this, 'add_footer_script' ] );
 		add_action( 'wp_footer', [ $this, 'localize_locals' ] );
 		add_filter( 'body_class', [ $this, 'add_body_class' ] );

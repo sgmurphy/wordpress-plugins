@@ -94,7 +94,7 @@ class CnbSettingsController {
         $updated_options = array_merge(
             $cnb_options,
             array(
-                'changelog_version' => CNB_VERSION
+                'changelog_version' => CNB_VERSION,
             )
         );
         update_option( 'cnb', $updated_options );
@@ -134,13 +134,13 @@ class CnbSettingsController {
         // Cloud Domain settings can be set here as well
         // phpcs:ignore WordPress.Security
         if ( array_key_exists( 'domain', $_POST ) &&
-             array_key_exists( 'cloud_enabled', $input ) &&
-             $input['cloud_enabled'] == 1 ) {
+            array_key_exists( 'cloud_enabled', $input ) &&
+            $input['cloud_enabled'] == 1 ) {
             $message = ( new CnbDomainController() )->updateWithoutRedirect();
 
             // Only add the message to the results if something went wrong
             if ( is_array( $message ) && sizeof( $message ) === 1 &&
-                 $message[0] instanceof CnbNotice && $message[0]->type != 'success' ) {
+                $message[0] instanceof CnbNotice && $message[0]->type != 'success' ) {
                 $messages = array_merge( $messages, $message );
             }
 
@@ -155,7 +155,7 @@ class CnbSettingsController {
 
         // If api_key is "delete_me", this is the special value to trigger "forget this key"
         if ( ( isset( $input['api_key'] ) && $input['api_key'] === 'delete_me' ) ||
-             ( isset( $original_settings['api_key'] ) && $original_settings['api_key'] === 'delete_me' ) ) {
+            ( isset( $original_settings['api_key'] ) && $original_settings['api_key'] === 'delete_me' ) ) {
             $input['api_key']                  = '';
             $original_settings['api_key']      = '';
             $input['cloud_use_id']             = '';
@@ -207,10 +207,8 @@ class CnbSettingsController {
                 // But just in case, this is here for other unseen errors..
                 $messages[] = CnbAdminCloud::cnb_admin_get_error_message( 'save', 'settings', $check );
             }
-        } else {
-            if ($show_updated_notice) {
+        } elseif ($show_updated_notice) {
                 $messages[] = new CnbNotice( 'success', '<p>Your settings have been updated!</p>' );
-            }
         }
 
         $this->update_user_email_opt_in($original_settings, $input);
@@ -238,16 +236,16 @@ class CnbSettingsController {
 
     }
 
-    private function update_user_email_opt_in($current, $new) {
-        if (!key_exists('user_marketing_email_opt_in', $new)) {
+    private function update_user_email_opt_in($current, $input) {
+        if (!key_exists('user_marketing_email_opt_in', $input)) {
             return;
         }
         $cnb_remote = new CnbAppRemote();
 
         // Test if properties are there (if not in current or current != new, update CnbUser
-        if (!key_exists('user_marketing_email_opt_in', $current) || $current['user_marketing_email_opt_in'] != $new['user_marketing_email_opt_in']) {
+        if (!key_exists('user_marketing_email_opt_in', $current) || $current['user_marketing_email_opt_in'] != $input['user_marketing_email_opt_in']) {
             // phpcs:ignore PHPCompatibility.FunctionUse
-            if (boolval($new['user_marketing_email_opt_in'])) {
+            if (boolval($input['user_marketing_email_opt_in'])) {
                 $cnb_remote->enable_email_opt_in();
             } else {
                 $cnb_remote->disable_email_opt_in();
@@ -340,7 +338,7 @@ class CnbSettingsController {
         $success = 0;
         if ( $nonce && wp_verify_nonce( $nonce, 'cnb_set_default_settings' ) ) {
             $changelog_version   = filter_input( INPUT_POST, 'changelog_version', @FILTER_SANITIZE_STRING );
-            $options = ['changelog_version' => $changelog_version];
+            $options = array( 'changelog_version' => $changelog_version );
             update_option('cnb', $options);
             $success = 3;
         }

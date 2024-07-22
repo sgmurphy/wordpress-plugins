@@ -94,6 +94,8 @@ class CnbApiKey implements JsonSerializable {
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }

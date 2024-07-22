@@ -1,5 +1,7 @@
 <?php  
 	$info_contents 		= get_theme_mod('info_contents',corpex_get_info_default());
+	$hs_info				= get_theme_mod('hs_info','1');
+	if( $hs_info == '1' ) {
 ?>	
 <!-- info section -->
 <section class="info-section">
@@ -49,4 +51,5 @@
 			</div>
         </div>
 </section>
+<?php } ?>
 <!-- info section end -->

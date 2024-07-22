@@ -72,7 +72,7 @@ function pagelayer_page_footer($no_twitter = 0){
 			echo '
 			<div class="postbox" style="min-width:0px !important;">
 				<h2 class="hndle ui-sortable-handle">
-					<span><a target="_blank" href="'.PAGELAYER_PRO_URL.'"><img src="'.PAGELAYER_URL.'/images/pagelayer_product.png" width="100%" /></a></span>
+					<span><a target="_blank" href="'.PAGELAYER_PRO_PRICE_URL.'"><img src="'.PAGELAYER_URL.'/images/pagelayer_product.png" width="100%" /></a></span>
 				</h2>
 				<div class="inside">
 					<i>Upgrade to the premium version and get the following features </i>:<br>
@@ -87,7 +87,7 @@ function pagelayer_page_footer($no_twitter = 0){
 						<li>Popup Builder</li>
 						<li>And many more ...</li>
 					</ul>
-					<center><a class="button button-primary" target="_blank" href="'.PAGELAYER_PRO_URL.'">Upgrade</a></center>
+					<center><a class="button button-primary" target="_blank" href="'.PAGELAYER_PRO_PRICE_URL.'">Upgrade</a></center>
 				</div>
 			</div>';
 			

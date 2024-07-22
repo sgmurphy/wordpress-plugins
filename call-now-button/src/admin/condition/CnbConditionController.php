@@ -70,7 +70,7 @@ class CnbConditionController {
 			add_query_arg(
 				array(
 					'page' => 'call-now-button-conditions',
-					'tid'  => $transient_id
+					'tid'  => $transient_id,
 				),
 				admin_url( 'admin.php' ) );
 		$redirect_url  = esc_url_raw( $redirect_link );
@@ -134,7 +134,7 @@ class CnbConditionController {
                         'action' => 'edit',
                         'id'     => $conditions[0]->id,
                         'tid'    => $transient_id,
-                        'bid'    => $bid
+                        'bid'    => $bid,
                     ),
                     $url );
         }
@@ -281,7 +281,7 @@ class CnbConditionController {
                     add_query_arg(
                         array(
                             'page' => 'call-now-button-conditions',
-                            'tid'  => $transient_id
+                            'tid'  => $transient_id,
                         ),
                         $url );
                 $redirect_url  = esc_url_raw( $redirect_link );

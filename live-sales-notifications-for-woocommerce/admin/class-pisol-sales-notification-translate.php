@@ -64,8 +64,8 @@ class Class_Pi_Sales_Notification_Translate{
 
     function tab(){
         ?>
-        <a class="  pi-side-menu hide-pro  <?php echo ($this->active_tab == $this->this_tab ? 'bg-primary' : 'bg-secondary'); ?>" href="<?php echo admin_url( 'admin.php?page='.sanitize_text_field($_GET['page']).'&tab='.$this->this_tab ); ?>">
-        <span class="dashicons dashicons-translation"></span> <?php _e( $this->tab_name); ?> 
+        <a class="  pi-side-menu hide-pro  <?php echo ($this->active_tab == $this->this_tab ? 'bg-primary' : 'bg-secondary'); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page='.sanitize_text_field($_GET['page']).'&tab='.$this->this_tab ) ); ?>">
+        <span class="dashicons dashicons-translation"></span> <?php echo esc_html( $this->tab_name); ?> 
         </a>
         <?php
     }
@@ -83,7 +83,7 @@ class Class_Pi_Sales_Notification_Translate{
                 $languages = $this->getLanguages();
                 echo '<select name="pi_sn_translate_message[{{:count}}][language]" class="form-control">';
                     foreach($languages as $language){
-                        echo '<option value="'.$language['value'].'" lang="'.$language['lang'].'" {{if language == "'.$language['value'].'"}}selected="selected"{{/if}}>'.$language['name'].' - '.$language['value'].'</option>';
+                        echo '<option value="'.esc_attr( $language['value'] ).'" lang="'.esc_attr( $language['lang'] ).'" {{if language == "'.esc_attr( $language['value'] ).'"}}selected="selected"{{/if}}>'.esc_html( $language['name'].' - '.$language['value']).'</option>';
                     }
                 echo '</select>';
             ?>

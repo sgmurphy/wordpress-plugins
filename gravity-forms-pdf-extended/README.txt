@@ -5,7 +5,7 @@ Donate link: https://gravitypdf.com/donate-to-plugin/
 Tags: gravity forms, form, contact form, pdf, email
 Requires at least: 5.3
 Tested up to: 6.6
-Stable tag: 6.11.0
+Stable tag: 6.11.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.txt
@@ -107,6 +107,9 @@ Gravity PDF can be run on most modern shared web hosting without any issues. It 
 
 == Changelog ==
 
+= 6.11.1 =
+* Bug: Only process enabled notifications during form submission when using PDF Background Processing. Notifications are enabled if they are active and have conditional logic that passes.
+
 = 6.11.0 =
 * Housekeeping: Limit pages admin notices are displayed on to reduce notice fatigue
 * Housekeeping: Add specific check for the PHP extension `Ctype` when the plugin loads
@@ -114,6 +117,8 @@ Gravity PDF can be run on most modern shared web hosting without any issues. It 
 * Housekeeping: Remove downgrade notice to unsupported Gravity PDF v5.0 if minimum system requirements are not met for v6.0
 * Housekeeping: Improve log messages when creating and validating a Signed PDF URL
 * Housekeeping: Improve input sanitation for textarea, number, and custom paper size fields when saving the PDF Form Settings
+* Housekeeping: Improve PDF Background Processing so its compatible with Gravity Forms native async notification feature
+* Housekeeping: Correctly cleanup PDFs after a PDF Background Processing queue runs
 * Bug: Enforce a 1pt minimum value for the Default Font Size and Font Size settings
 * Bug: Self-heal the PDF signing secret key if it becomes invalid
 * Bug: Self-heal the Global PDF Settings if it becomes invalid

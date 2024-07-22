@@ -11,32 +11,32 @@ $aio_login__pro_features = array(
 	array(
 		'title'       => __( 'Ban User / IP', 'aio-login' ),
 		'icon'        => AIO_LOGIN__DIR_URL . 'assets/images/pro/block-user.png',
-		'description' => esc_html__( 'All-In-One Login includes a video sitemap generator, so you can rank in Google’s video carousel widget and grow your traffic.', 'aio-login' ),
+		'description' => esc_html__( 'Instantly ban WordPress user IP addresses to prevent unauthorized access', 'aio-login' ),
 	),
 	array(
 		'title'       => __( 'App Based 2FA', 'aio-login' ),
 		'icon'        => AIO_LOGIN__DIR_URL . 'assets/images/pro/app-based-2fa.png',
-		'description' => esc_html__( 'All-In-One Login includes a video sitemap generator, so you can rank in Google’s video carousel widget and grow your traffic.', 'aio-login' ),
+		'description' => esc_html__( 'Enable two-factor authentication via mobile apps for added security.', 'aio-login' ),
 	),
 	array(
 		'title'       => __( 'Temp Access URL', 'aio-login' ),
 		'icon'        => AIO_LOGIN__DIR_URL . 'assets/images/pro/temp-access-url.png',
-		'description' => esc_html__( 'All-In-One Login includes a video sitemap generator, so you can rank in Google’s video carousel widget and grow your traffic.', 'aio-login' ),
+		'description' => esc_html__( 'Generate WordPress temp access URL for specific users.', 'aio-login' ),
 	),
 	array(
 		'title'       => __( 'Customize Design Pro', 'aio-login' ),
 		'icon'        => AIO_LOGIN__DIR_URL . 'assets/images/pro/customize-design-pro.png',
-		'description' => esc_html__( 'All-In-One Login includes a video sitemap generator, so you can rank in Google’s video carousel widget and grow your traffic.', 'aio-login' ),
+		'description' => esc_html__( 'Take login page customization further with pre-built templates.', 'aio-login' ),
 	),
 	array(
 		'title'       => __( 'Whitelist IP Addresses', 'aio-login' ),
 		'icon'        => AIO_LOGIN__DIR_URL . 'assets/images/pro/wl-ip-addresses.png',
-		'description' => esc_html__( 'All-In-One Login includes a video sitemap generator, so you can rank in Google’s video carousel widget and grow your traffic.', 'aio-login' ),
+		'description' => esc_html__( 'Allow access to only whitelisted IP addresses to your WordPress login page.', 'aio-login' ),
 	),
 	array(
 		'title'       => __( 'Block Login Attempts', 'aio-login' ),
 		'icon'        => AIO_LOGIN__DIR_URL . 'assets/images/pro/block-login-attempts.png',
-		'description' => esc_html__( 'All-In-One Login includes a video sitemap generator, so you can rank in Google’s video carousel widget and grow your traffic.', 'aio-login' ),
+		'description' => esc_html__( 'You can block any user or IP address from accessing your wp-login page.', 'aio-login' ),
 	),
 );
 
@@ -44,7 +44,6 @@ $aio_login__pro_features = array(
 
 <div class="aio-login__pro-wrapper">
 	<h2 class="aio-login__pro-heading"><?php esc_attr_e( 'Pro Features', 'aio-login' ); ?></h2>
-	<p class="aio-login__pro-subtitle"><?php esc_attr_e( 'With Additional Free Features' ); ?></p>
 
 	<div class="aio-login__grid_section">
 		<?php foreach ( $aio_login__pro_features as $pro_feature ) : ?>

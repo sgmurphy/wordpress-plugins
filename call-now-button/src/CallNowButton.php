@@ -14,6 +14,8 @@ use cnb\admin\apikey\CnbApiKeyRouter;
 use cnb\admin\apikey\OttController;
 use cnb\admin\button\CnbButtonController;
 use cnb\admin\button\CnbButtonRouter;
+use cnb\admin\chat\CnbChatController;
+use cnb\admin\chat\CnbChatRouter;
 use cnb\admin\CnbAdminAjax;
 use cnb\admin\condition\CnbConditionController;
 use cnb\admin\condition\CnbConditionRouter;
@@ -111,7 +113,16 @@ class CallNowButton {
 				$template_controller = new Template_Controller();
 				add_submenu_page( CNB_SLUG, $plugin_title, 'Templates', 'manage_options', $template_controller->get_slug(), array(
 					$template_router,
-					'render'
+					'render',
+				) );
+			}
+
+			$chat_controller = new CnbChatController();
+			if ($chat_controller->has_chat_enabled()) {
+				$chat_router = new CnbChatRouter();
+				add_submenu_page( CNB_SLUG, $plugin_title, 'Chat', 'manage_options', $chat_router->get_slug(), array(
+					$chat_router,
+					'render',
 				) );
 			}
 
@@ -203,14 +214,14 @@ class CallNowButton {
             $button_link =
                 add_query_arg(
                     array(
-                        'page' => 'call-now-button'
+                        'page' => 'call-now-button',
                     ),
                     $url );
 
             $settings_link =
                 add_query_arg(
                     array(
-                        'page' => 'call-now-button-settings'
+                        'page' => 'call-now-button-settings',
                     ),
                     $url );
 
@@ -218,7 +229,7 @@ class CallNowButton {
             $cnb_new_links = array(
                 sprintf( '<a href="%s">%s</a>', esc_url( $button_link ), $link_name ),
                 sprintf( '<a href="%s">%s</a>', esc_url( $settings_link ), __( 'Settings' ) ),
-                sprintf( '<a href="%s">%s</a>', esc_url( $cnb_utils->get_support_url('', 'wp-plugins-page', 'support') ), __( 'Support' ) )
+                sprintf( '<a href="%s">%s</a>', esc_url( $cnb_utils->get_support_url('', 'wp-plugins-page', 'support') ), __( 'Support' ) ),
             );
             array_push(
                 $links,
@@ -240,7 +251,7 @@ class CallNowButton {
         $button_link =
             add_query_arg(
                 array(
-                    'page' => 'call-now-button'
+                    'page' => 'call-now-button',
                 ),
                 $url );
         $button_url  = esc_url( $button_link );
@@ -252,7 +263,7 @@ class CallNowButton {
             $upgrade_link =
                 add_query_arg(
                     array(
-                        'page' => 'call-now-button-upgrade'
+                        'page' => 'call-now-button-upgrade',
                     ),
                     $url );
             $upgrade_url  = esc_url( $upgrade_link );
@@ -273,7 +284,7 @@ class CallNowButton {
                 'type'              => 'array',
                 'description'       => 'Settings for the Legacy and Cloud version of the Call Now Button',
                 'sanitize_callback' => array( $settings_controller, 'validate_options' ),
-                'default'           => $settings_controller->get_defaults()
+                'default'           => $settings_controller->get_defaults(),
             ) );
     }
 
@@ -487,7 +498,7 @@ class CallNowButton {
         wp_register_script(
             CNB_SLUG . '-confetti',
             plugins_url('resources/js/js-confetti/js-confetti.browser.js', CNB_PLUGINS_URL_BASE ),
-            array(CNB_SLUG . '-domain-upgrade'),
+            array( CNB_SLUG . '-domain-upgrade' ),
             '0.11.0',
             true );
 
@@ -504,6 +515,12 @@ class CallNowButton {
 		    array( CNB_SLUG . '-templates-react-compiled' ),
 		    CNB_VERSION,
 		    true );
+	    wp_register_script(
+		    CNB_SLUG . '-chat',
+		    plugins_url('resources/js/chat.js', CNB_PLUGINS_URL_BASE ),
+		    array(),
+		    CNB_VERSION,
+		    true );
     }
 
     public function register_global_actions() {
@@ -518,7 +535,7 @@ class CallNowButton {
         add_action( 'admin_init', array( $this, 'register_styles_and_scripts' ) );
 
         $activation = new Activation();
-        add_action( 'admin_init', array($activation, 'redirect_to_welcome_page' ) );
+        add_action( 'admin_init', array( $activation, 'redirect_to_welcome_page' ) );
 
         $settings_controller = new CnbSettingsController();
         add_filter( 'option_cnb', array( $settings_controller, 'post_option_cnb' ) );
@@ -527,11 +544,11 @@ class CallNowButton {
         add_action( 'cnb_update_' . CNB_VERSION, array( $settings_controller, 'update_version' ) );
 
         $cnbSentry = new Cnb_Sentry();
-        add_action('cnb_init', array($cnbSentry, 'init'), 10, 2);
-        add_action('cnb_finish', array($cnbSentry, 'finish'));
+        add_action('cnb_init', array( $cnbSentry, 'init' ), 10, 2);
+        add_action('cnb_finish', array( $cnbSentry, 'finish' ));
 
         $cnb_remote = new CnbAppRemote();
-        add_action('cnb_init', array($cnb_remote, 'init'), 9);
+        add_action('cnb_init', array( $cnb_remote, 'init' ), 9);
 
 	    if ( CnbSettingsController::is_advanced_view() ) {
 		    $cnb_validation = new ValidationHooks();
@@ -635,6 +652,9 @@ class CallNowButton {
 
 		$user_controller = new CnbUserController();
 	    add_action( 'wp_ajax_cnb_set_user_storage_solution', array( $user_controller, 'set_storage_solution' ) );
+
+		$chat_controller = new CnbChatController();
+	    add_action( 'wp_ajax_cnb_create_chat_token', array( $chat_controller, 'create_chat_token_ajax' ) );
     }
 
 	/**

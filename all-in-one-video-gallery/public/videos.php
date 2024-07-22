@@ -133,7 +133,7 @@ class AIOVG_Public_Videos {
 			}
 
 			if ( ! empty( $term->description ) ) {
-				$content .= sprintf( '<div class="aiovg aiovg-category-description">%s</div>', wp_kses_post( nl2br( $term->description ) ) );
+				$content .= sprintf( '<div class="aiovg aiovg-category-description">%s</div>', wp_kses_post( wpautop( $term->description ) ) );
 			}
 
 			// Videos
@@ -199,7 +199,7 @@ class AIOVG_Public_Videos {
 			$content = '';
 	
 			if ( ! empty( $term->description ) ) {
-				$content .= sprintf( '<p class="aiovg-tag-description">%s</p>', wp_kses_post( nl2br( $term->description ) ) );
+				$content .= sprintf( '<p class="aiovg-tag-description">%s</p>', wp_kses_post( wpautop( $term->description ) ) );
 			}
 
 			// Videos

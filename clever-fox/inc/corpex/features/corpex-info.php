@@ -12,6 +12,26 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				'priority' => 2,
 			)
 		);
+		
+	//  Hide/ Show Setting // 
+	$wp_customize->add_setting( 
+		'hs_info' , 
+			array(
+			'default' => '1',
+			'sanitize_callback' => 'corpex_sanitize_checkbox',
+			'capability' => 'edit_theme_options',
+			'priority' => 2,
+		) 
+	);
+	
+	$wp_customize->add_control(
+	'hs_info', 
+		array(
+			'label'	      => esc_html__( 'Hide / Show Info', 'clever-fox' ),
+			'section'     => 'info_setting',
+			'type'        => 'checkbox'
+		) 
+	);
 	
 	/*=========================================
 	Info contents 
@@ -71,7 +91,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				$theme = wp_get_theme(); // gets the current theme	
 				
 			?>
-				<a class="customizer_info_upgrade_section up-to-pro" href="https://www.nayrathemes.com/corpex-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_info_upgrade_section up-to-pro" href="https://www.nayrathemes.com/corpex-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }
 		}

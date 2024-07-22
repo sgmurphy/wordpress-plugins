@@ -581,7 +581,7 @@ class AIOVG_Admin {
 			AIOVG_PLUGIN_SLUG . '-magnific-popup', 
 			AIOVG_PLUGIN_URL . 'vendor/magnific-popup/magnific-popup.min.css', 
 			array(), 
-			'1.1.0', 
+			'1.2.0', 
 			'all' 
 		);
 		
@@ -608,7 +608,7 @@ class AIOVG_Admin {
 			AIOVG_PLUGIN_SLUG . '-magnific-popup', 
 			AIOVG_PLUGIN_URL . 'vendor/magnific-popup/magnific-popup.min.js', 
 			array( 'jquery' ), 
-			'1.1.0', 
+			'1.2.0', 
 			array( 'strategy' => 'defer' ) 
 		);
 		
@@ -625,7 +625,7 @@ class AIOVG_Admin {
 			'aiovg_admin', 
 			array(
 				'ajax_nonce' => wp_create_nonce( 'aiovg_ajax_nonce' ),
-				'site_url'   => esc_url_raw( get_site_url() ),
+				'site_url'   => get_site_url(),
 				'i18n'       => array(
 					'copied'             => __( 'Copied!', 'all-in-one-video-gallery' ),
 					'no_issues_selected' => __( 'Please select at least one issue.', 'all-in-one-video-gallery' ),

@@ -70,8 +70,8 @@ class ActionSettingsChat {
                 <th scope="row"><label for="actionChatmodalWelcomeMessage">Welcome message</label></th>
                 <td>
                     <textarea id="actionChatmodalWelcomeMessage" rows="3"
-                              name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chatmodal-welcome-message]"
-                              placeholder="How can we help?"><?php if ( isset( $action->properties ) && isset( $action->properties->{'chatmodal-welcome-message'} ) ) {
+                                name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chatmodal-welcome-message]"
+                                placeholder="How can we help?"><?php if ( isset( $action->properties ) && isset( $action->properties->{'chatmodal-welcome-message'} ) ) {
                             echo esc_textarea( $action->properties->{'chatmodal-welcome-message'} );
                         } ?></textarea>
                     <p class="description">Start a new line by pressing the <code>Enter</code> key. Every line will
@@ -83,10 +83,10 @@ class ActionSettingsChat {
                 <th scope="row"><label for="actionChatmodalPlaceholderMessage">Placeholder visitor input</label></th>
                 <td>
                     <input id="actionChatmodalPlaceholderMessage" type="text"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chatmodal-placeholder-message]"
-                           value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chatmodal-placeholder-message'} ) ) {
-                               echo esc_attr( $action->properties->{'chatmodal-placeholder-message'} );
-                           } ?>" placeholder="Type your message"/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chatmodal-placeholder-message]"
+                            value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chatmodal-placeholder-message'} ) ) {
+                                echo esc_attr( $action->properties->{'chatmodal-placeholder-message'} );
+                            } ?>" placeholder="Type your message"/>
                 </td>
             </tr>
         </table>
@@ -104,10 +104,10 @@ class ActionSettingsChat {
             <tr class="cnb-action-properties cnb-action-properties-CHAT">
                 <th scope="row"><label for="cnb-action-properties-chat-agent-message">Average response time</label></th>
                 <td><input placeholder="Optional" id="cnb-action-properties-chat-agent-message"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-agent-message]" type="text"
-                           value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-agent-message'} ) ) {
-                               echo esc_attr( $action->properties->{'chat-agent-message'} );
-                           } ?>"/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-agent-message]" type="text"
+                            value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-agent-message'} ) ) {
+                                echo esc_attr( $action->properties->{'chat-agent-message'} );
+                            } ?>"/>
                     <p class="description">Inform your users about your average response times.</p>
                 </td>
             </tr>
@@ -121,16 +121,16 @@ class ActionSettingsChat {
                         : false;
                     ?>
                     <input type="hidden"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-enabled]"
-                           value=""/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-enabled]"
+                            value=""/>
                     <input id="cnb-action-chat-legal-enabled" class="cnb_toggle_checkbox" type="checkbox"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-enabled]"
-                           value="true" <?php checked( true, $chat_legal_enabled ); ?>>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-enabled]"
+                            value="true" <?php checked( true, $chat_legal_enabled ); ?>>
                     <label for="cnb-action-chat-legal-enabled" class="cnb_toggle_label">Toggle</label>
                     <span data-cnb_toggle_state_label="cnb-action-chat-legal-enabled"
-                          class="cnb_toggle_state cnb_toggle_false">(No)</span>
+                            class="cnb_toggle_state cnb_toggle_false">(No)</span>
                     <span data-cnb_toggle_state_label="cnb-action-chat-legal-enabled"
-                          class="cnb_toggle_state cnb_toggle_true">Yes</span>
+                            class="cnb_toggle_state cnb_toggle_true">Yes</span>
                     
                 </td>
             </tr>
@@ -149,7 +149,7 @@ class ActionSettingsChat {
                             rows="3"
                             class="large-text code"
                             name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-notice]"
-                              placeholder="How can we help?"><?php  echo esc_textarea( $legal_notice ); ?></textarea>
+                                placeholder="How can we help?"><?php  echo esc_textarea( $legal_notice ); ?></textarea>
 
                 </td>
             </tr>
@@ -169,42 +169,42 @@ class ActionSettingsChat {
                                 <td>{link1}</td>
                                 <td>
                                     <input placeholder="E.g. Privacy policy"
-                                           id="cnb-action-properties-chat-legal-link1-text"
-                                           type="text"
-                                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link1-text]"
-                                           value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link1-text'} ) ) {
-		                                       echo esc_attr( $action->properties->{'chat-legal-link1-text'} );
-	                                       } ?>"/>
+                                            id="cnb-action-properties-chat-legal-link1-text"
+                                            type="text"
+                                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link1-text]"
+                                            value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link1-text'} ) ) {
+												echo esc_attr( $action->properties->{'chat-legal-link1-text'} );
+											} ?>"/>
                                 </td>
                                 <td>
                                     <input placeholder="https://website.com/privacy.html"
-                                           id="cnb-action-properties-chat-legal-link1-link"
-                                           type="url"
-                                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link1-link]"
-                                           value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link1-link'} ) ) {
-		                                       echo esc_attr( $action->properties->{'chat-legal-link1-link'} );
-	                                       } ?>"/>
+                                            id="cnb-action-properties-chat-legal-link1-link"
+                                            type="url"
+                                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link1-link]"
+                                            value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link1-link'} ) ) {
+												echo esc_attr( $action->properties->{'chat-legal-link1-link'} );
+											} ?>"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>{link2}</td>
                                 <td>
                                     <input placeholder="E.g. Terms"
-                                           id="cnb-action-properties-chat-legal-link2-text"
-                                           type="text"
-                                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link2-text]"
-                                           value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link2-text'} ) ) {
-			                                   echo esc_attr( $action->properties->{'chat-legal-link2-text'} );
-		                                   } ?>"/>
+                                            id="cnb-action-properties-chat-legal-link2-text"
+                                            type="text"
+                                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link2-text]"
+                                            value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link2-text'} ) ) {
+												echo esc_attr( $action->properties->{'chat-legal-link2-text'} );
+											} ?>"/>
                                 </td>
                                 <td>
                                     <input placeholder="https://website.com/terms.html"
-                                           id="cnb-action-properties-chat-legal-link2-link"
-                                           type="url"
-                                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link2-link]"
-                                           value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link2-link'} ) ) {
-			                                   echo esc_attr( $action->properties->{'chat-legal-link2-link'} );
-		                                   } ?>"/>
+                                            id="cnb-action-properties-chat-legal-link2-link"
+                                            type="url"
+                                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link2-link]"
+                                            value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link2-link'} ) ) {
+												echo esc_attr( $action->properties->{'chat-legal-link2-link'} );
+											} ?>"/>
                                 </td>
                             </tr>
 
@@ -212,21 +212,21 @@ class ActionSettingsChat {
                                 <td>{link3}</td>
                                 <td>
                                     <input placeholder="E.g. GDPR statement"
-                                           id="cnb-action-properties-chat-legal-link3-text"
-                                           type="text"
-                                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link3-text]"
-                                           value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link3-text'} ) ) {
-			                                   echo esc_attr( $action->properties->{'chat-legal-link3-text'} );
-		                                   } ?>"/>
+                                            id="cnb-action-properties-chat-legal-link3-text"
+                                            type="text"
+                                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link3-text]"
+                                            value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link3-text'} ) ) {
+												echo esc_attr( $action->properties->{'chat-legal-link3-text'} );
+											} ?>"/>
                                 </td>
                                 <td>
                                     <input placeholder="https://website.com/gdpr.html"
-                                           id="cnb-action-properties-chat-legal-link3-link"
-                                           type="url"
-                                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link3-link]"
-                                           value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link3-link'} ) ) {
-			                                   echo esc_attr( $action->properties->{'chat-legal-link3-link'} );
-		                                   } ?>"/>
+                                            id="cnb-action-properties-chat-legal-link3-link"
+                                            type="url"
+                                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][chat-legal-link3-link]"
+                                            value="<?php if ( isset( $action->properties ) && isset( $action->properties->{'chat-legal-link3-link'} ) ) {
+												echo esc_attr( $action->properties->{'chat-legal-link3-link'} );
+											} ?>"/>
                                 </td>
                             </tr>
                         </tbody>

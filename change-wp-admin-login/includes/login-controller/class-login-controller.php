@@ -97,7 +97,7 @@ if ( ! class_exists( 'AIO_Login\\Login_Controller\\Login_Controller' ) ) {
 				'aio_login__limit_login_attempts',
 				__( 'Limit Login Attempts', 'aio-login' ),
 				'__return_null',
-				'page=aio-login&tab=security&sub-tab=limit-attempts',
+				'page=aio-login&tab=security&sub-tab=limit-attempts'
 			);
 
 			add_settings_field(
@@ -406,6 +406,7 @@ if ( ! class_exists( 'AIO_Login\\Login_Controller\\Login_Controller' ) ) {
 			<aio-login-data-table
 				type="failed_login_activity_logs"
 				id="failed_login_attempts"
+				delete-logs-title="Empty failed login attempts"
 				:headers="[
 					{ key: 'id', value: '<?php esc_attr_e( 'ID', 'aio-login' ); ?>' },
 					{ key: 'user_login', value: '<?php esc_attr_e( 'User Login', 'aio-login' ); ?>' },
@@ -432,6 +433,7 @@ if ( ! class_exists( 'AIO_Login\\Login_Controller\\Login_Controller' ) ) {
 			<aio-login-data-table
 				type="lockout_activity_logs"
 				id="lockout_activity_logs"
+                delete-logs-title="Empty lockout attempts logs"
 				:headers="[
 					{ key: 'time', value: '<?php esc_attr_e( 'Date & Time', 'aio-login' ); ?>' },
 					{ key: 'country', value: '<?php esc_attr_e( 'Country', 'aio-login' ); ?>' },
@@ -451,7 +453,7 @@ if ( ! class_exists( 'AIO_Login\\Login_Controller\\Login_Controller' ) ) {
 		public function is_enabled() {
 			$this->limit_attempts_enabled = apply_filters(
 				'aio_login__limit_attempts_enabled',
-				$this->limit_attempts_enabled,
+				$this->limit_attempts_enabled
 			);
 
 			return $this->limit_attempts_enabled;

@@ -78,7 +78,7 @@
             var valid = true;
 
             jQuery(formElem).find('.wfop_required').each(function () {
-                console.log( window.wffnfunnelVars );
+
                 var self = jQuery(this);
                 var message = null;
                 var error_msg = window.wffnfunnelVars.op_valid_text;

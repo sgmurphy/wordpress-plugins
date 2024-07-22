@@ -20,7 +20,7 @@ class CnbDomainViewUpgradeFinished {
         $tab_link =
             add_query_arg(
                 array(
-                    'page' => 'call-now-button-settings'
+                    'page' => 'call-now-button-settings',
                 ),
                 $url );
 
@@ -48,7 +48,7 @@ class CnbDomainViewUpgradeFinished {
                     'page'    => 'call-now-button-templates',
                 ),
                 admin_url( 'admin.php' ) );
-        echo sprintf( '
+        printf( '
             <div class="cnb-get-started cnb-plan-features cnb-center top-50">
             <h1 class="cnb-center"><strong>Let\'s get started</strong></h1><hr>
             <div class="cnb-flexbox">
@@ -90,7 +90,7 @@ class CnbDomainViewUpgradeFinished {
             </div>',
             esc_url( $this->get_button_overview_url() ),
             esc_url( $this->get_settings_url() )
-          );
+            );
     }
 
     /**
@@ -101,8 +101,8 @@ class CnbDomainViewUpgradeFinished {
      */
     function render( $domain, $notice = null ) {
         if($domain->type != 'PRO') {
-          echo '<p>Your domain <strong>' . esc_html( $domain->name ) . '</strong> ';
-          echo 'is currently on the <code>' . esc_html( $domain->type ) . '</code> cloud plan.</p>';
+            echo '<p>Your domain <strong>' . esc_html( $domain->name ) . '</strong> ';
+            echo 'is currently on the <code>' . esc_html( $domain->type ) . '</code> cloud plan.</p>';
         }
 
         // Render notice if JUST upgraded and show general information about domain (instead of upgrade form)
@@ -113,21 +113,21 @@ class CnbDomainViewUpgradeFinished {
             CnbAdminNotices::get_instance()->renderNotice( $notice );
             ?>
             <h1 class="cnb-upgrade-title">
-              <span style="font-size:30px; width:38px;" class="dashicons dashicons-yes-alt"></span>
-              Your domain <b><?php echo esc_html( $domain->name ); ?></b> was successfully upgraded to PRO!
+                <span style="font-size:30px; width:38px;" class="dashicons dashicons-yes-alt"></span>
+                Your domain <b><?php echo esc_html( $domain->name ); ?></b> was successfully upgraded to PRO!
             </h1>
             <div class="cnb-welcome-blocks">
-              <div class="cnb-block">
+                <div class="cnb-block">
                 <h1 style="padding-top:0">Congratulations!</h1>
                 <p style="font-size:16px;">Your domain is now on the PRO plan! This means you have access to every single feature including the scheduler, multi-action buttons, advanced display rules and much much more.</p>
                 <p style="font-size:16px;">If you have any questions, take a look at our <a target="_blank" href="<?php echo esc_url( $cnb_utils->get_support_url('wordpress/', 'upgrade-success-page', 'help-center') ); ?>">help center</a> or feel free to email us directly at <a href="mailto:hello@nowbuttons.com">hello@nowbuttons.com</a>.</p>                
-              </div>
+                </div>
             </div>
 
             <?php
             $this->render_lets_go();
             echo  '<br><br><br>';
-            add_filter('admin_footer_text', array($this, 'render_confetti_image_credits'));
+            add_filter('admin_footer_text', array( $this, 'render_confetti_image_credits' ));
         }
     }
 
@@ -136,7 +136,7 @@ class CnbDomainViewUpgradeFinished {
      *
      * @return void
      */
-     function render_confetti_image_credits() {
-         echo '<span id="footer-thankyou">Thanks to <a href="https://lordicon.com/" target="_blank">Lordicon</a> for the confetti animation.</span><script>jQuery(() => {cnb_confetti()})</script>';
-     }
+    function render_confetti_image_credits() {
+        echo '<span id="footer-thankyou">Thanks to <a href="https://lordicon.com/" target="_blank">Lordicon</a> for the confetti animation.</span><script>jQuery(() => {cnb_confetti()})</script>';
+    }
 }

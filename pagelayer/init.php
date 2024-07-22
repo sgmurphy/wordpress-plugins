@@ -4,14 +4,14 @@
 if (!defined('ABSPATH')) exit;
 
 define('PAGELAYER_BASE', plugin_basename(PAGELAYER_FILE));
-define('PAGELAYER_PRO_BASE', 'pagelayer-pro/pagelayer-pro.php');
-define('PAGELAYER_VERSION', '1.8.5');
+define('PAGELAYER_PREMIUM_BASE', 'pagelayer-pro/pagelayer-pro.php');
+define('PAGELAYER_VERSION', '1.8.6');
 define('PAGELAYER_DIR', dirname(PAGELAYER_FILE));
 define('PAGELAYER_SLUG', 'pagelayer');
 define('PAGELAYER_URL', plugins_url('', PAGELAYER_FILE));
 define('PAGELAYER_CSS', PAGELAYER_URL.'/css');
 define('PAGELAYER_JS', PAGELAYER_URL.'/js');
-define('PAGELAYER_PRO_URL', 'https://pagelayer.com/pricing?from=plugin');
+define('PAGELAYER_PRO_PRICE_URL', 'https://pagelayer.com/pricing?from=plugin');
 define('PAGELAYER_WWW_URL', 'https://pagelayer.com/');
 define('PAGELAYER_DOCS', 'https://pagelayer.com/docs/');
 define('PAGELAYER_API', 'https://api.pagelayer.com/');
@@ -141,7 +141,7 @@ global $wpdb;
 }
 
 // Add the action to load the plugin 
-add_action('plugins_loaded', 'pagelayer_load_plugin');
+add_action('plugins_loaded', 'pagelayer_load_plugin', 9);
 
 // The function that will be called when the plugin is loaded
 function pagelayer_load_plugin(){
@@ -191,38 +191,13 @@ function pagelayer_load_plugin(){
 	pagelayer_builder_array();
 	
 	// Its premium
-	if(defined('PAGELAYER_PREMIUM')){
-	
-		// Check for updates
-		include_once(PAGELAYER_DIR.'/main/plugin-update-checker.php');
-		$pagelayer_updater = Pagelayer_PucFactory::buildUpdateChecker(PAGELAYER_API.'updates.php?version='.PAGELAYER_VERSION, PAGELAYER_FILE);
+	if(!defined('PAGELAYER_PREMIUM')){
 		
-		// Add the license key to query arguments
-		$pagelayer_updater->addQueryArgFilter('pagelayer_updater_filter_args');
-		
-		// Show the text to install the license key
-		add_filter('puc_manual_final_check_link-pagelayer-pro', 'pagelayer_updater_check_link', 10, 1);
-		
-		// Load the template builder
-		include_once(PAGELAYER_DIR.'/main/template-builder.php');
-		
-		$pagelayer->allowed_mime_type = array(
-			'otf' => 'font/otf',
-			'ttf' => 'font/ttf',
-			'woff' => 'font/woff|application/font-woff|application/x-font-woff',
-			'woff2' => 'font/woff2|font/x-woff2'
-		);
-		
-		// Load the pagelayer custom fonts
-		include_once(PAGELAYER_DIR.'/main/custom_fonts.php');		
-	
-	}else{
-	
 		// Show the promo
 		pagelayer_maybe_promo([
 			'after' => 1,// In days
 			'interval' => 30,// In days
-			'pro_url' => PAGELAYER_PRO_URL,
+			'pro_url' => PAGELAYER_PRO_PRICE_URL,
 			'rating' => 'https://wordpress.org/plugins/pagelayer/#reviews',
 			'twitter' => 'https://twitter.com/pagelayer?status='.rawurlencode('I love #Pagelayer Site Builder by @pagelayer team for my #WordPress site - '.home_url()),
 			'facebook' => 'https://www.facebook.com/pagelayer',
@@ -264,30 +239,6 @@ function pagelayer_load_plugin(){
 		include_once(PAGELAYER_DIR.'/main/woocommerce.php');
 	}
 
-}
-
-// Add our license key if ANY
-function pagelayer_updater_filter_args($queryArgs) {
-	
-	global $pagelayer;
-	
-	if ( !empty($pagelayer->license['license']) ) {
-		$queryArgs['license'] = $pagelayer->license['license'];
-	}
-	
-	return $queryArgs;
-}
-
-// Handle the Check for update link and ask to install license key
-function pagelayer_updater_check_link($final_link){
-	
-	global $pagelayer;
-	
-	if(empty($pagelayer->license['license'])){
-		return '<a href="'.admin_url('admin.php?page=pagelayer_license').'">Install Pagelayer Pro License Key</a>';
-	}
-	
-	return $final_link;
 }
 
 // This adds the left menu in WordPress Admin page
@@ -342,7 +293,7 @@ function pagelayer_admin_menu() {
 	if(!defined('PAGELAYER_PREMIUM')){
 
 		// Go Pro link
-		add_submenu_page('pagelayer', __('Pagelayer Go Pro'), __('Go Pro'), $capability, PAGELAYER_PRO_URL);
+		add_submenu_page('pagelayer', __('Pagelayer Go Pro'), __('Go Pro'), $capability, PAGELAYER_PRO_PRICE_URL);
 
 	}
 
@@ -664,19 +615,11 @@ function pagelayer_enqueue_frontend($force = false){
 		// Load the global styles
 		add_action('wp_head', 'pagelayer_global_js', 2);
 		
-		$premium_js = '';
-		$premium_css = '';
-		if(defined('PAGELAYER_PREMIUM')){
-			$premium_js = ',chart.min.js,premium-frontend.js,shuffle.min.js';
-			$premium_css = ',premium-frontend.css';
-			
-			// Load this For audio widget
-			if($is_audio || pagelayer_is_live_iframe()){
-				wp_enqueue_script('wp-mediaelement');
-				wp_enqueue_style( 'wp-mediaelement' );
-				$pagelayer->sc_audio_enqueued = 1;
-			}
-		}
+		$premium_js = apply_filters('pagelayer_add_give_js', '');
+		$premium_css = apply_filters('pagelayer_add_give_css', '');
+		
+		// Load this For audio widget
+		do_action('pagelayer_load_audio_widget', $is_audio);
 		
 		if(pagelayer_enable_giver()){
 		
@@ -688,7 +631,7 @@ function pagelayer_enqueue_frontend($force = false){
 			}
 			
 			// Enqueue our Editor's Frontend JS
-			wp_register_script('pagelayer-frontend', PAGELAYER_JS.'/givejs.php?give=pagelayer-frontend.js,nivo-lightbox.min.js,wow.min.js,jquery-numerator.js,simpleParallax.min.js,owl.carousel.min.js&premium='.$premium_js.$write, array('jquery'), PAGELAYER_VERSION);
+			wp_register_script('pagelayer-frontend', PAGELAYER_JS.'/givejs.php?give=pagelayer-frontend.js,nivo-lightbox.min.js,wow.min.js,jquery-numerator.js,simpleParallax.min.js,owl.carousel.min.js'.$premium_js.$write, array('jquery'), PAGELAYER_VERSION);
 		
 			// Get list of enabled icons
 			$icons_css = '';
@@ -697,12 +640,12 @@ function pagelayer_enqueue_frontend($force = false){
 				$icons_css .= ','.$icon.'.min.css';
 			}
 
-			wp_register_style('pagelayer-frontend', PAGELAYER_CSS.'/givecss.php?give=pagelayer-frontend.css,nivo-lightbox.css,animate.min.css,owl.carousel.min.css,owl.theme.default.min.css'.$icons_css.'&premium='.$premium_css.$write, array(), PAGELAYER_VERSION);
+			wp_register_style('pagelayer-frontend', PAGELAYER_CSS.'/givecss.php?give=pagelayer-frontend.css,nivo-lightbox.css,animate.min.css,owl.carousel.min.css,owl.theme.default.min.css'.$icons_css.$premium_css.$write, array(), PAGELAYER_VERSION);
 		
 		// Static Files
 		}else{
 			
-			wp_register_script('pagelayer-frontend', PAGELAYER_JS.'/combined'.(!empty($premium_js) ? '.premium' : '').'.js', array('jquery'), PAGELAYER_VERSION);
+			wp_register_script('pagelayer-frontend', (empty($premium_js) ? PAGELAYER_JS : PAGELAYER_PRO_JS).'/combined.js', array('jquery'), PAGELAYER_VERSION);
 
 			wp_register_style('pagelayer-frontend', PAGELAYER_CSS.'/combined'.(!empty($premium_css) ? '.premium' : '').'.css', array(), PAGELAYER_VERSION);
 		}
@@ -779,20 +722,7 @@ function pagelayer_enqueue_fonts($suffix = '-header'){
 	if(!empty($url)){
 		$fonts_url = 'https://fonts.googleapis.com/css?family='.rawurlencode(implode('|', $url));
 		
-		// Is google font serve locally?
-		if(get_option('pagelayer_local_gfont') == 1){
-			$upload_dir = wp_upload_dir();
-			$local_font_md5 = md5($fonts_url);
-			$_fonts_url = $upload_dir['baseurl'].'/pl-google-fonts/'.$local_font_md5.'.css';
-			$_fonts_path = $upload_dir['basedir'].'/pl-google-fonts/'.$local_font_md5.'.css';
-			
-			if(!file_exists($_fonts_path) && file_exists(PAGELAYER_DIR.'/main/download_google_fonts.php')){
-				include_once(PAGELAYER_DIR.'/main/download_google_fonts.php');
-				pagelayer_download_google_fonts($fonts_url);
-			}
-			
-			$fonts_url = $_fonts_url;
-		}
+		$fonts_url = apply_filters('pagelayer_google_fonts_url', $fonts_url);
 		
 		wp_register_style('pagelayer-google-font'.$suffix, $fonts_url, array(), PAGELAYER_VERSION);
 		wp_enqueue_style('pagelayer-google-font'.$suffix);
@@ -1466,7 +1396,7 @@ add_filter('plugin_action_links_pagelayer/pagelayer.php', 'pagelayer_plugin_acti
 function pagelayer_plugin_action_links($links){
 	
 	if(!defined('PAGELAYER_PREMIUM')){
-		 $links[] = '<a href="'.PAGELAYER_PRO_URL.'" style="color:#3db634;" target="_blank">'._x('Go Pro', 'Upgrade to Pagelayer Pro for many more features', 'pagelayer').'</a>';
+		 $links[] = '<a href="'.PAGELAYER_PRO_PRICE_URL.'" style="color:#3db634;" target="_blank">'._x('Go Pro', 'Upgrade to Pagelayer Pro for many more features', 'pagelayer').'</a>';
 	}
 
 	$settings_link = '<a href="admin.php?page=pagelayer">Settings</a>';	

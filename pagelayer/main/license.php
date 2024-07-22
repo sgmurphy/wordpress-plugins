@@ -104,7 +104,7 @@ function pagelayer_license_T(){
 	}
 	
 	if(date('Ymd') <= 20200331 && !defined('PAGELAYER_PREMIUM')){
-		echo '<div class="updated"><p><span style="font-size: 14px"><b>Promotional Offer</b></span> : If you buy <a href="'.PAGELAYER_PRO_URL.'"><b>Pagelayer Pro</b></a> before <b>31st March, 2020</b> then you will get an additional year free and your license will expire on <b>31st March, 2022</b></p></div><br />.';
+		echo '<div class="updated"><p><span style="font-size: 14px"><b>Promotional Offer</b></span> : If you buy <a href="'.PAGELAYER_PRO_PRICE_URL.'"><b>Pagelayer Pro</b></a> before <b>31st March, 2020</b> then you will get an additional year free and your license will expire on <b>31st March, 2022</b></p></div><br />.';
 	}
 	
 	// Any errors ?

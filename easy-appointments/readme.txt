@@ -3,9 +3,9 @@ Contributors: loncar
 Donate link: https://easy-appointments.net/
 Tags: appointment, appointments, Booking, calendar, reservation
 Requires at least: 3.7
-Tested up to: 6.4
+Tested up to: 6.6
 Requires PHP: 5.3
-Stable tag: 3.11.20
+Stable tag: 3.11.21
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -212,6 +212,9 @@ Note: you can have only one calendar on one page.
 25. Admin panel - Report - Export page
 
 == Changelog ==
+
+= 3.11.21 (2024-06-09) =
+* Small style improvements on notification email for admin
 
 = 3.11.20 (2024-06-09) =
 * Fixed issue with warning messages inside log file

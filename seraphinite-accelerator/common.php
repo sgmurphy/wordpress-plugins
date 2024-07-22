@@ -1463,6 +1463,7 @@ function OnOptGetDef_Sett()
 
 					'exclDef' => array(
 						'.//a[@href="#"]',
+						'.//a[@href="#link-popup"]',
 
 						'.//*[starts-with(@href,"#elementor-action")]',
 						'.//a[contains(concat(" ",normalize-space(@class)," ")," mobile-menu ")]',
@@ -2115,7 +2116,7 @@ function CacheCw( $settCache, $siteRootPath, $dataPath, $composite, $content, $t
 			break;
 		}
 
-		if( CacheCvs( @filesize( $oiCf ), strlen( $content ) ) )
+		if( CacheCvs( Gen::FileSize( $oiCf ), strlen( $content ) ) )
 		{
 			$lock -> Release();
 			continue;
@@ -3126,7 +3127,7 @@ function ContProcIsCompatView( $settCache, $userAgent  )
 
 function GetViewTypeUserAgent( $viewsDeviceGrp )
 {
-	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.1 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
+	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.2 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
 }
 
 function CorrectRequestScheme( &$serverArgs, $target = null )
@@ -3622,7 +3623,7 @@ function OnAsyncTask_CacheProcessItem( $args )
 
 	$procTmLim = Gen::GetArrField( Plugin::SettGet(), array( 'cache', 'procTmLim' ), 570 );
 
-	@set_time_limit( $procTmLim + 30 );
+	Gen::SetTimeLimit( $procTmLim + 30 );
 
 	$fileCtlDir = ProcessCtlData_GetFullPath();
 	if( !( $fileCtl = ProcessCtlData_Init( $fileCtlDir, array() ) ) )
@@ -4178,7 +4179,7 @@ function GetExtContents( $url, &$contMimeType = null, $userAgentCmn = true, $tim
 
 	$args = array( 'sslverify' => false, 'timeout' => $timeout );
 	if( $userAgentCmn )
-		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.1';
+		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.2';
 
 	global $seraph_accel_g_aGetExtContentsFailedSrvs;
 

@@ -18,6 +18,7 @@ class Preview {
 				'apiRoot' => CnbAppRemote::cnb_get_api_base(),
 				'cssLocation' => CnbAppRemote::cnb_get_static_base(),
 				'options' => new stdClass(),
-				'user' => $cnb_user) );
+				'user' => $cnb_user,
+) );
 	}
 }

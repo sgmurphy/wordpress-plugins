@@ -47,9 +47,9 @@ class Cnb_Sentry {
             // Only do with permission AND PHP > 7 (since that's what Sentry (/composer) requires)
             // Verify this number is the same as used in src/vendor/composer/platform_check.php
             if ( version_compare( PHP_VERSION, '7.2.5', '>=' )
-                 && ! class_exists( 'Sentry\SentrySdk' )
-                 && key_exists( 'error_reporting', $cnb_options )
-                 && $cnb_options['error_reporting'] ) {
+                && ! class_exists( 'Sentry\SentrySdk' )
+                && key_exists( 'error_reporting', $cnb_options )
+                && $cnb_options['error_reporting'] ) {
                 $this->init_real( $op_name );
             }
         } catch (Error $e) {
@@ -63,13 +63,13 @@ class Cnb_Sentry {
         if ( $cnb_sentry_init ) {
             return;
         }
-        require_once dirname( __FILE__ ) . '/../vendor/autoload.php';
+        require_once __DIR__ . '/../vendor/autoload.php';
         \Sentry\init(
-            [
+            array(
                 'dsn'                => $this->dsn,
                 'release'            => CNB_VERSION,
                 'environment'        => WP_DEBUG ? 'development' : 'production',
-            ] );
+            ) );
 
         self::setup_global_transaction($op_name);
         $cnb_sentry_init = true;
@@ -80,9 +80,9 @@ class Cnb_Sentry {
             global $wp_version;
 
             $scope->setContext(
-                'WordPress', [
+                'WordPress', array(
                 'version' => $wp_version,
-            ]);
+            ));
         } );
     }
 
@@ -112,7 +112,7 @@ class Cnb_Sentry {
         $this->trace->end();
         $footer = new CnbFooter();
         if ($footer->is_show_traces()) {
-            $footer->print_traces( [ $this->trace ] );
+            $footer->print_traces( array( $this->trace ) );
         }
     }
 

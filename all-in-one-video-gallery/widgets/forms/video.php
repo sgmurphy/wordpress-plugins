@@ -171,6 +171,13 @@ global $pagenow;
 			</label>
 		</div>
 
+		<div class="aiovg-widget-field aiovg-widget-field-pip">		
+			<label for="<?php echo esc_attr( $this->get_field_id( 'pip' ) ); ?>">
+				<input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'pip' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'pip' ) ); ?>" class="aiovg-widget-input-pip" value="1" <?php checked( 1, $instance['pip'] ); ?> />
+				<?php esc_html_e( 'Picture-in-Picture Button', 'all-in-one-video-gallery' ); ?>
+			</label>
+		</div>
+
 		<div class="aiovg-widget-field aiovg-widget-field-fullscreen">		
 			<label for="<?php echo esc_attr( $this->get_field_id( 'fullscreen' ) ); ?>">
 				<input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'fullscreen' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'fullscreen' ) ); ?>" class="aiovg-widget-input-fullscreen" value="1" <?php checked( 1, $instance['fullscreen'] ); ?> />

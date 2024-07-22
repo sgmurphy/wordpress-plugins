@@ -50,6 +50,24 @@ class AIOVG_Public_Video {
 	}	
 	
 	/**
+	 * Remove admin bar from the AIOVG player page.
+	 *
+	 * @since  3.8.0
+	 * @param  bool  $show_admin_bar Whether the admin bar should be shown.
+	 * @return bool  $show_admin_bar Filtered value.
+	 */
+	public function remove_admin_bar( $show_admin_bar ) {
+		$page_settings = get_option( 'aiovg_page_settings' );
+
+		$player_page_id = apply_filters( 'wpml_object_id', (int) $page_settings['player'], 'page' );
+		if ( ! empty( $player_page_id ) && is_page( $player_page_id ) ) {
+			return false;
+		}
+
+		return $show_admin_bar;
+	}
+	
+	/**
 	 * Add support for HLS & MPEG-DASH.
 	 *
 	 * @since  3.0.0
@@ -135,29 +153,41 @@ class AIOVG_Public_Video {
 
 			foreach ( $supported_formats as $format ) {			
 				if ( isset( $attributes[ $format ] ) ) {
+					$attributes[ $format ] = aiovg_sanitize_url( $attributes[ $format ] );
 					$is_video_available = 1;
 					break;
 				}
 			}
+
+			if ( isset( $attributes['poster'] ) ) {
+				$attributes['poster'] = aiovg_sanitize_url( $attributes['poster'] );
+			}
 			
 			if ( 0 == $is_video_available ) {
-				$args = array(				
-					'post_type' => 'aiovg_videos',			
-					'post_status' => 'publish',
-					'posts_per_page' => 1,
-					'fields' => 'ids',
-					'no_found_rows' => true,
-					'update_post_term_cache' => false,
-					'update_post_meta_cache' => false
-				);
-		
-				$aiovg_query = new WP_Query( $args );
-				
-				if ( $aiovg_query->have_posts() ) {
-					$posts = $aiovg_query->posts;
-					$post_id = (int) $posts[0];
+				$in_the_loop   = apply_filters( 'aiovg_the_content_in_the_loop', in_the_loop() );
+				$is_main_query = apply_filters( 'aiovg_the_content_is_main_query', is_main_query() );
 
-					$attributes['id'] = $post_id;
+				if ( is_singular( 'aiovg_videos' ) && $in_the_loop && $is_main_query ) {
+					$attributes['id'] = get_the_ID();
+				} else {
+					$args = array(				
+						'post_type' => 'aiovg_videos',			
+						'post_status' => 'publish',
+						'posts_per_page' => 1,
+						'fields' => 'ids',
+						'no_found_rows' => true,
+						'update_post_term_cache' => false,
+						'update_post_meta_cache' => false
+					);
+			
+					$aiovg_query = new WP_Query( $args );
+					
+					if ( $aiovg_query->have_posts() ) {
+						$posts = $aiovg_query->posts;
+						$post_id = (int) $posts[0];
+
+						$attributes['id'] = $post_id;
+					}
 				}			
 			}			
 		}

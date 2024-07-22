@@ -927,6 +927,9 @@ class Quizes_List_Table extends WP_List_Table{
 
             // Admin Note font weight
             $quiz_admin_note_font_weight = (isset($_REQUEST['ays_quiz_admin_note_font_weight']) && $_REQUEST['ays_quiz_admin_note_font_weight'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quiz_admin_note_font_weight'] ) ) : 'normal';
+
+            // Question Explanation font weight
+            $quiz_quest_explanation_font_weight = (isset($_REQUEST['ays_quiz_quest_explanation_font_weight']) && $_REQUEST['ays_quiz_quest_explanation_font_weight'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quiz_quest_explanation_font_weight'] ) ) : 'normal';
             
 
             $options = array(
@@ -1167,6 +1170,7 @@ class Quizes_List_Table extends WP_List_Table{
                 'quiz_right_answers_letter_spacing'                 => $quiz_right_answers_letter_spacing,
                 'quiz_wrong_answers_letter_spacing'                 => $quiz_wrong_answers_letter_spacing,
                 'quiz_admin_note_font_weight'                       => $quiz_admin_note_font_weight,
+                'quiz_quest_explanation_font_weight'                => $quiz_quest_explanation_font_weight,
             );
 
             $options['required_fields'] = !isset($_POST['ays_required_field']) ? null : array_map( 'sanitize_text_field', $_POST['ays_required_field'] );

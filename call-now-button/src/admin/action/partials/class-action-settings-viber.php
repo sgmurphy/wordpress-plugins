@@ -112,8 +112,8 @@ class ActionSettingsViber {
                                 </label></th>
                             <td>
                                 <input placeholder="Optional" type="text" id="cnb-action-properties-viber-text"
-                                       name="actions[<?php echo esc_attr( $action->id ) ?>][properties][viber-text]"
-                                       value="<?php echo esc_attr( $this->viber_text ) ?>"/>
+                                        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][viber-text]"
+                                        value="<?php echo esc_attr( $this->viber_text ) ?>"/>
                             </td>
                         </tr>
                         <tr>
@@ -126,8 +126,8 @@ class ActionSettingsViber {
                                 </label></th>
                             <td>
                                 <input placeholder="Optional" type="text" id="cnb-action-properties-viber-content"
-                                       name="actions[<?php echo esc_attr( $action->id ) ?>][properties][viber-content]"
-                                       value="<?php echo esc_attr( $this->viber_content ) ?>"/>
+                                        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][viber-content]"
+                                        value="<?php echo esc_attr( $this->viber_content ) ?>"/>
                             </td>
                         </tr>
                     </table>
@@ -143,11 +143,11 @@ class ActionSettingsViber {
                             target="_blank" class="cnb-nounderscore">
                         <span class="dashicons dashicons-editor-help"></span>
                     </a>
-                     (defaults to "en")</label></th>
+                    (defaults to "en")</label></th>
                 <td>
                     <input placeholder="Optional" type="text" id="cnb-action-properties-viber-lang"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][viber-lang]"
-                           value="<?php echo esc_attr( $this->viber_lang ) ?>"/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][viber-lang]"
+                            value="<?php echo esc_attr( $this->viber_lang ) ?>"/>
                 </td>
             </tr>
         </tbody>

@@ -15,7 +15,7 @@ class CnbAppRemotePayment {
         $body = array(
             'plan'        => $planId,
             'domain'      => $domainId,
-            'callbackUri' => $callbackUri
+            'callbackUri' => $callbackUri,
         );
 
         $rest_endpoint = '/v1/subscription/v2';

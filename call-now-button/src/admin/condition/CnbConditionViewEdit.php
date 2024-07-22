@@ -42,7 +42,7 @@ class CnbConditionViewEdit {
             add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'upgrade',
-                'id'     => $cnb_domain->id
+                'id'     => $cnb_domain->id,
             ),
                 admin_url( 'admin.php' ) );
 
@@ -56,7 +56,7 @@ class CnbConditionViewEdit {
                         'page'   => 'call-now-button',
                         'action' => 'edit',
                         'tab'    => 'visibility',
-                        'id'     => $bid
+                        'id'     => $bid,
                     ),
                     $url ) );
             ?>
@@ -74,11 +74,11 @@ class CnbConditionViewEdit {
             <tr>
                 <th colspan="2">
                     <input type="hidden" name="conditions[<?php echo esc_attr( $condition->id ) ?>][id]"
-                           value="<?php if ( $condition->id !== null && $condition->id !== 'new' ) {
-                               echo esc_attr( $condition->id );
-                           } ?>"/>
+                            value="<?php if ( $condition->id !== null && $condition->id !== 'new' ) {
+                                echo esc_attr( $condition->id );
+                            } ?>"/>
                     <input type="hidden" name="conditions[<?php echo esc_attr( $condition->id ) ?>][delete]"
-                           id="cnb_condition_<?php echo esc_attr( $condition->id ) ?>_delete" value=""/>
+                            id="cnb_condition_<?php echo esc_attr( $condition->id ) ?>_delete" value=""/>
                 </th>
             </tr>
             <tr>
@@ -154,8 +154,8 @@ class CnbConditionViewEdit {
                 <th scope="row"><label for="cnb_condition_match_value">Match value</label></th>
                 <td>
                     <input type="text" id="cnb_condition_match_value" class="regular-text"
-                           name="conditions[<?php echo esc_attr( $condition->id ) ?>][matchValue]"
-                           value="<?php echo esc_attr( $condition->matchValue ) ?>"/>
+                            name="conditions[<?php echo esc_attr( $condition->id ) ?>][matchValue]"
+                            value="<?php echo esc_attr( $condition->matchValue ) ?>"/>
                 </td>
             </tr>
             </tbody>
@@ -189,7 +189,7 @@ class CnbConditionViewEdit {
                         'page'   => 'call-now-button',
                         'action' => 'edit',
                         'tab'    => 'visibility',
-                        'id'     => $bid
+                        'id'     => $bid,
                     ),
                     $url ) );
 
@@ -207,9 +207,9 @@ class CnbConditionViewEdit {
             <input type="hidden" name="bid" value="<?php echo esc_attr( $bid ) ?>"/>
             <input type="hidden" name="condition_id" value="<?php echo esc_attr( $condition->id ) ?>"/>
             <input type="hidden" name="action"
-                   value="<?php echo $condition_id === 'new' ? 'cnb_create_condition' : 'cnb_update_condition' ?>"/>
+                    value="<?php echo $condition_id === 'new' ? 'cnb_create_condition' : 'cnb_update_condition' ?>"/>
             <input type="hidden" name="_wpnonce"
-                   value="<?php echo esc_attr( wp_create_nonce( $condition->id === 'new' ? 'cnb_create_condition' : 'cnb_update_condition' ) ) ?>"/>
+                    value="<?php echo esc_attr( wp_create_nonce( $condition->id === 'new' ? 'cnb_create_condition' : 'cnb_update_condition' ) ) ?>"/>
             <?php
             $this->render_table( $condition );
             submit_button();

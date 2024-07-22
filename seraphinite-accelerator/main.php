@@ -40,7 +40,7 @@ function RunOpt( $op = 0, $push = true )
 
 function _AddMenus( $accepted = false )
 {
-	add_menu_page( Plugin::GetPluginString( 'TitleLong' ), Plugin::GetNavMenuTitle(), 'manage_options', 'seraph_accel_manage',																		$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent', Plugin::FileUri( 'icon.png?v=2.22.1', __FILE__ ) );
+	add_menu_page( Plugin::GetPluginString( 'TitleLong' ), Plugin::GetNavMenuTitle(), 'manage_options', 'seraph_accel_manage',																		$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent', Plugin::FileUri( 'icon.png?v=2.22.2', __FILE__ ) );
 	add_submenu_page( 'seraph_accel_manage', esc_html_x( 'Title', 'admin.Manage', 'seraphinite-accelerator' ), esc_html_x( 'Title', 'admin.Manage', 'seraphinite-accelerator' ), 'manage_options', 'seraph_accel_manage',	$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent' );
 	add_submenu_page( 'seraph_accel_manage', Wp::GetLocString( 'Settings' ), Wp::GetLocString( 'Settings' ), 'manage_options', 'seraph_accel_settings',										$accepted ? 'seraph_accel\\_SettingsPage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent' );
 }
@@ -623,7 +623,7 @@ function _CheckUpdatePostProcessRtn( $full = true )
 
 function OnAsyncTask_CheckUpdatePostProcessAdd( $args )
 {
-	@set_time_limit( 1800 );
+	Gen::SetTimeLimit( 1800 );
 	Gen::GarbageCollectorEnable( false );
 
 	$aPostUpdated = Gen::GetArrField( $args, array( 'a' ), array() );
@@ -653,7 +653,7 @@ function OnAsyncTask_CheckUpdatePostProcessAdd( $args )
 
 function OnAsyncTask_CheckUpdatePostProcessAddPostponed( $args )
 {
-	@set_time_limit( 1800 );
+	Gen::SetTimeLimit( 1800 );
 	Gen::GarbageCollectorEnable( false );
 
 	$dirQueue = GetCacheDir() . '/uppq/' . GetSiteId();
@@ -680,7 +680,7 @@ function OnAsyncTask_CheckPostProcess( $args )
 
 function OnAsyncTask_CheckUpdatePostProcess( $args )
 {
-	@set_time_limit( 1800 );
+	Gen::SetTimeLimit( 1800 );
 	Gen::GarbageCollectorEnable( false );
 
 	_CheckUpdatePostProcessRtn( true );
@@ -778,7 +778,7 @@ function _OnContentTest( $buffer )
 function _ManagePage()
 {
 	Plugin::CmnScripts( array( 'Cmn', 'Gen', 'Ui', 'Net', 'AdminUi' ) );
-	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.22.1' );
+	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.22.2' );
 	Plugin::Loc_ScriptLoad( Plugin::ScriptId( 'Admin' ) );
 	wp_enqueue_script( Plugin::ScriptId( 'Admin' ) );
 
@@ -1039,7 +1039,7 @@ function CacheInitClearProcessor( $force = false, $init = true )
 
 function OnAsyncTask_CacheClearPeriodically( $args )
 {
-	@set_time_limit( 1800 );
+	Gen::SetTimeLimit( 1800 );
 	Gen::GarbageCollectorEnable( false );
 
 	CacheInitClearProcessor();
@@ -1196,7 +1196,7 @@ function OnAsyncTask_CacheNextScheduledOp( $args )
 
 	CacheInitOperScheduler();
 
-	@set_time_limit( 1800 );
+	Gen::SetTimeLimit( 1800 );
 	Gen::GarbageCollectorEnable( false );
 
 	PluginFileValues::Set( 'schu', true );
@@ -1336,7 +1336,7 @@ function GetStatData( $siteId, $info = null )
 
 function OnAsyncTask_UpdateStat( $args )
 {
-	@set_time_limit( 1800 );
+	Gen::SetTimeLimit( 1800 );
 	Gen::GarbageCollectorEnable( false );
 
 	$siteId = GetSiteId();
@@ -1542,7 +1542,7 @@ function MsgUnpackLocIds( $v )
 
 function OnAsyncTask_CacheRevalidateAll( $args )
 {
-	@set_time_limit( 1800 );
+	Gen::SetTimeLimit( 1800 );
 	Gen::GarbageCollectorEnable( false );
 
 	$op = Gen::GetArrField( $args, array( 'op' ), 0 );
@@ -1553,7 +1553,7 @@ function OnAsyncTask_CacheRevalidateAll( $args )
 
 function OnAsyncTask_CacheOp( $args )
 {
-	@set_time_limit( 1800 );
+	Gen::SetTimeLimit( 1800 );
 	Gen::GarbageCollectorEnable( false );
 
 	$op = Gen::GetArrField( $args, array( 'op' ), 0 );
@@ -1642,7 +1642,7 @@ function OnAdminApi_HtmlCheck( $args )
 	if( !current_user_can( 'manage_options' ) )
 		return( array( 'err' => 'access_denied' ) );
 
-	@set_time_limit( 300 );
+	Gen::SetTimeLimit( 300 );
 	Gen::GarbageCollectorEnable( false );
 
 	$url = Wp::SanitizeUrl( (isset($args[ 'url' ])?$args[ 'url' ]:null) );

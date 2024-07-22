@@ -13,7 +13,7 @@ class NoopRenderer extends Renderer {
      * @return void
      */
     public function render() {
-        echo sprintf( '<!-- Call Now Button %1$s (https://callnowbutton.com) [renderer:noop]-->%2$s',
+        printf( '<!-- Call Now Button %1$s (https://callnowbutton.com) [renderer:noop]-->%2$s',
             esc_attr( CNB_VERSION ),
             "\n"
         );

@@ -401,8 +401,8 @@ class Pisol_Sales_Notification_Public {
 		$display_control = new pisol_sn_control_display();
 
 		if($this->pi_sn_enabled && $display_control->toShowHide()){
-			wp_enqueue_script( $this->plugin_name.'-popup', plugin_dir_url( __FILE__ ) . 'js/notification-popup.js', array( 'jquery' ), $this->version, false );
-			wp_enqueue_script( $this->plugin_name.'-runner', plugin_dir_url( __FILE__ ) . 'js/notification-runner.js', array( 'jquery', $this->plugin_name.'-popup' ), $this->version, false );
+			wp_enqueue_script( $this->plugin_name.'-popup', plugin_dir_url( __FILE__ ) . 'js/notification-popup.js', array( 'jquery' ), $this->version, true );
+			wp_enqueue_script( $this->plugin_name.'-runner', plugin_dir_url( __FILE__ ) . 'js/notification-runner.js', array( 'jquery', $this->plugin_name.'-popup' ), $this->version, true );
 			wp_localize_script($this->plugin_name.'-runner',"pi_notification_runner_setting", $this->popupRunnerGeneralSetting());
 			//wp_localize_script($this->plugin_name.'-runner',"pi_popups", $this->popupsContent());
 		}

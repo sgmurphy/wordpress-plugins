@@ -39,7 +39,7 @@ class Button_Label {
                     add_query_arg( array(
                         'page'   => 'call-now-button-domains',
                         'action' => 'upgrade',
-                        'id'     => $cnb_domain->id
+                        'id'     => $cnb_domain->id,
                     ),
                         admin_url( 'admin.php' ) );
                 ?>
@@ -65,9 +65,9 @@ class Button_Label {
             </th>
             <td>
                 <input name="button[multiButtonOptions][labelBackgroundColorOpen]"
-                       id="button-multiButtonOptions-labelBackgroundColorOpen" type="text"
-                       value="<?php echo esc_attr( $labelBackgroundColorOpen ); ?>"
-                       class="cnb-color-field" data-default-color="#3c434a"/>
+                        id="button-multiButtonOptions-labelBackgroundColorOpen" type="text"
+                        value="<?php echo esc_attr( $labelBackgroundColorOpen ); ?>"
+                        class="cnb-color-field" data-default-color="#3c434a"/>
             </td>
         </tr>
         <tr class="cnb_advanced_view">
@@ -78,9 +78,9 @@ class Button_Label {
             </th>
             <td>
                 <input name="button[multiButtonOptions][labelTextColorOpen]"
-                       id="button-multiButtonOptions-labelTextColorOpen" type="text"
-                       value="<?php echo esc_attr( $labelTextColorOpen ); ?>"
-                       class="cnb-color-field" data-default-color="#000000"/>
+                        id="button-multiButtonOptions-labelTextColorOpen" type="text"
+                        value="<?php echo esc_attr( $labelTextColorOpen ); ?>"
+                        class="cnb-color-field" data-default-color="#000000"/>
             </td>
         </tr>
         <?php
@@ -104,7 +104,7 @@ class Button_Label {
             </th>
             <td>
                 <input name="button[multiButtonOptions][labelTextClose]" id="button-multiButtonOptions-labelTextClose"
-                       type="text" value="<?php echo esc_attr( $labelTextClose ); ?>"/>
+                        type="text" value="<?php echo esc_attr( $labelTextClose ); ?>"/>
             </td>
         </tr>
         <tr class="cnb_advanced_view">
@@ -115,9 +115,9 @@ class Button_Label {
             </th>
             <td>
                 <input name="button[multiButtonOptions][labelBackgroundColorClose]"
-                       id="button-multiButtonOptions-labelBackgroundColorClose" type="text"
-                       value="<?php echo esc_attr( $labelBackgroundColorClose ); ?>"
-                       class="cnb-color-field" data-default-color="#3c434a"/>
+                        id="button-multiButtonOptions-labelBackgroundColorClose" type="text"
+                        value="<?php echo esc_attr( $labelBackgroundColorClose ); ?>"
+                        class="cnb-color-field" data-default-color="#3c434a"/>
             </td>
         </tr>
         <tr class="cnb_advanced_view">
@@ -128,9 +128,9 @@ class Button_Label {
             </th>
             <td>
                 <input name="button[multiButtonOptions][labelTextColorClose]"
-                       id="button-multiButtonOptions-labelTextColorClose" type="text"
-                       value="<?php echo esc_attr( $labelTextColorClose ); ?>"
-                       class="cnb-color-field" data-default-color="#000000"/>
+                        id="button-multiButtonOptions-labelTextColorClose" type="text"
+                        value="<?php echo esc_attr( $labelTextColorClose ); ?>"
+                        class="cnb-color-field" data-default-color="#000000"/>
             </td>
         </tr>
         <?php

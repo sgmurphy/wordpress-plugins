@@ -4,13 +4,13 @@ Contributors: plugins360, wpvideogallery, freemius
 Donate link: https://plugins360.com
 Tags: video player, video gallery, youtube gallery, vimeo gallery, live stream
 Requires at least: 6.3
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6.20
-Stable tag: 3.7.1
+Stable tag: 3.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The ultimate video player & video gallery plugin for YouTubers, Video Bloggers, Course Creators, Podcasters, Sales & Marketing Professionals, and anyone using video on a website.
+The ultimate video player & video gallery plugin for YouTubers, Video Bloggers, Course Creators, Podcasters, and anyone embedding videos on websites.
 
 == Description ==
 
@@ -25,7 +25,7 @@ No coding is required. Suitable for all kinds of websites that require a single 
 ### PLAYER FEATURES
 
 * A Custom HTML5 Video Player that supports **MP4**, **WebM**, **OGV**, **HLS**, **MPEG-DASH**, and embeddable players like **YouTube**, **Vimeo**, **Dailymotion**, **Rumble**, **Facebook** and more.
-* **Player Controls:** play/pause buttons, timer, progress bar, duration, speed control, quality switcher, volume button, fullscreen button, share buttons, embed button, download button, subtitles on/off, keyboard hotkeys
+* **Player Controls:** play/pause buttons, timer, progress bar, duration, speed control, quality switcher, volume button, picture-in-picture button, fullscreen button, share buttons, embed button, download button, subtitles on/off, keyboard hotkeys
 * **Playback Options:** autoplay, loop, muted, preload, playsinline
 * Subtitles & Captions (WebVTT).
 * Chapter Markers.
@@ -144,6 +144,17 @@ Also, the videos from third-party services like "YouTube", "Vimeo", "Dailymotion
 7. Plugin Settings.
 
 == Changelog ==
+
+= 3.8.3 =
+
+* Security Fix: "Authenticated (Contributor+) Stored Cross-Site Scripting via Video Shortcode" issue that was discovered by [Webbernaut](https://www.webbernaut.com/), and reported responsibly to us by Adam Goodlin (Customer Support Engineer) from [Wordfence](https://www.wordfence.com/).
+* New: Support for the PiP (Picture-in-Picture) feature in the video player.
+* Tweak: The source type formerly known as "Iframe Embed Code" in video forms has been rebranded as "Third-Party Player Code," which now includes support for third-party plugin shortcodes.
+* Tweak: Updated Video.js player library (8.16.1).
+* Tweak: Updated Magnific Popup library (1.2.0).
+* Tweak: Updated Freemius SDK (2.7.3).
+* Fix: WordPress 6.6 compatibility issues.
+* Fix: [+] a few minor bug fixes.
 
 = 3.7.1 =
 
@@ -432,6 +443,6 @@ For the changelog of earlier versions, please refer to the [changelog on plugins
 
 == Upgrade Notice ==
 
-= 3.7.1 =
+= 3.8.3 =
 
-Security Fix. [See changelog](https://wordpress.org/plugins/all-in-one-video-gallery/#developers)
+Introduces several new features, bug fixes & enhancements. [See changelog](https://wordpress.org/plugins/all-in-one-video-gallery/#developers)

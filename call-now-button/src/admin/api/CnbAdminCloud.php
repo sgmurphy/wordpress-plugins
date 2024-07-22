@@ -73,10 +73,9 @@ class CnbAdminCloud {
      * Since this is only used by the ButtonController (and the update one at that),
      * we ignore notices for Actions and Conditions
      *
-     * @param $button CnbButton
-     * @param $actions CnbAction[]
-     * @param $conditions CnbCondition[]
-     *
+     * @param $button CnbButton|WP_Error
+     * @param $actions (CnbAction|WP_Error)[]
+     * @param $conditions (CnbCondition|WP_Error)[]     *
      * @return array
      */
     public static function cnb_update_button_and_conditions( $button, $actions = array(), $conditions = array() ) {
@@ -95,10 +94,13 @@ class CnbAdminCloud {
             } else if ( $condition->id === '' ) {
                 // 2.2 Create new Conditions
                 $new_conditions[] = self::cnb_create_condition( $ignore_notices, $condition );
-            } else if ( $condition->id !== '' ) {
-                // 2.3 Update existing Conditions
-                $new_conditions[] = self::cnb_update_condition( $ignore_notices, $condition );
-            }
+	        } else if ( $condition->matchValue !== null ) {
+		        // 2.3 Update existing Conditions
+		        $new_conditions[] = self::cnb_update_condition( $ignore_notices, $condition );
+	        } else {
+		        // 2.4 No update needed, so pass on received (this happens on `CnbButtonController->update`, has nothing to do with Conditions)
+		        $new_conditions[] = $condition;
+	        }
         }
 
         // 2: Update the Action(s)

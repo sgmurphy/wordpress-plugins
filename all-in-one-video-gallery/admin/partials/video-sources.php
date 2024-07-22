@@ -229,10 +229,10 @@
 			</tr>
 			<tr class="aiovg-toggle-fields aiovg-type-embedcode">
 				<th scope="row">
-					<label for="aiovg-embedcode"><?php esc_html_e( 'Embed Code', 'all-in-one-video-gallery' ); ?></label>
+					<label for="aiovg-embedcode"><?php esc_html_e( 'Player Code', 'all-in-one-video-gallery' ); ?></label>
 				</th>
 				<td>
-					<textarea name="embedcode" id="aiovg-embedcode" class="widefat" rows="6" placeholder="<?php esc_attr_e( 'Enter your Iframe Embed Code', 'all-in-one-video-gallery' ); ?>"><?php echo esc_textarea( $embedcode ); ?></textarea>
+					<textarea name="embedcode" id="aiovg-embedcode" class="widefat" rows="6" placeholder="<?php esc_attr_e( 'Enter your Player Code', 'all-in-one-video-gallery' ); ?>"><?php echo esc_textarea( $embedcode ); ?></textarea>
 
 					<p class="description">
 						<?php

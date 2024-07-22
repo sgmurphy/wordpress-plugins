@@ -44,7 +44,7 @@ class CnbApiKeyController {
                 add_query_arg(
                     array(
                         'page' => 'call-now-button-apikeys',
-                        'tid'  => $transient_id
+                        'tid'  => $transient_id,
                     ),
                     $url );
             $redirect_url  = esc_url_raw( $redirect_link );
@@ -112,7 +112,7 @@ class CnbApiKeyController {
 			add_query_arg(
 				array(
 					'page' => 'call-now-button-settings',
-					'tid'  => $transient_id
+					'tid'  => $transient_id,
 				),
 				$url );
 		$redirect_url  = esc_url_raw( $redirect_link );
@@ -202,7 +202,7 @@ class CnbApiKeyController {
 					add_query_arg(
 						array(
 							'page' => 'call-now-button-apikeys',
-							'tid'  => $transient_id
+							'tid'  => $transient_id,
 						),
 						$url );
 				$redirect_url  = esc_url_raw( $redirect_link );

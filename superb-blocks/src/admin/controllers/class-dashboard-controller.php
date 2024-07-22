@@ -78,7 +78,7 @@ class DashboardController
     public function AdminMenuAdditions()
     {
         // Block theme related admin menu additions
-        if (!wp_is_block_theme()) return;
+        if (!function_exists('wp_is_block_theme') || !wp_is_block_theme()) return;
 
         $front_page_template = get_block_template(get_stylesheet() . "//front-page");
         if ($front_page_template && isset($front_page_template->id)) {

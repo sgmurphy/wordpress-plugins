@@ -104,7 +104,7 @@ class AIOVG_Player_AMP extends AIOVG_Player_Base {
 			'layout' => 'responsive'
 		);		
 
-		$attributes['src'] = esc_attr( $videos['iframe'] );
+		$attributes['src'] = esc_url( $videos['iframe'] );
 
 		$attributes['sandbox'] = 'allow-scripts allow-same-origin allow-popups';
 		$attributes['allowfullscreen'] = '';
@@ -114,7 +114,7 @@ class AIOVG_Player_AMP extends AIOVG_Player_Base {
 		if ( ! empty( $poster ) ) {
 			$placeholder = sprintf(
 				'<amp-img src="%s" layout="fill" placeholder></amp-img>',
-				esc_attr( $poster )
+				esc_url( $poster )
 			);
 		}
 
@@ -145,7 +145,7 @@ class AIOVG_Player_AMP extends AIOVG_Player_Base {
 			'layout' => 'responsive'
 		);
 
-		$src = esc_url_raw( $videos['youtube'] );
+		$src = $videos['youtube'];
 		$attributes['data-videoid'] = aiovg_get_youtube_id_from_url( $src );
 
 		$attributes['data-param-showinfo'] = 0;
@@ -191,7 +191,7 @@ class AIOVG_Player_AMP extends AIOVG_Player_Base {
 			'layout' => 'responsive'
 		);
 
-		$src = esc_url_raw( $videos['vimeo'] );
+		$src = $videos['vimeo'];
 		$attributes['data-videoid'] = aiovg_get_vimeo_id_from_url( $src );
 
 		if ( ! empty( $player_settings['autoplay'] ) ) {
@@ -221,7 +221,7 @@ class AIOVG_Player_AMP extends AIOVG_Player_Base {
 			'layout' => 'responsive'
 		);
 
-		$src = esc_url_raw( $videos['dailymotion'] );
+		$src = $videos['dailymotion'];
 		$attributes['data-videoid'] = aiovg_get_dailymotion_id_from_url( $src );
 
 		if ( empty( $player_settings['controls'] ) ) {
@@ -278,7 +278,7 @@ class AIOVG_Player_AMP extends AIOVG_Player_Base {
 		}            
 
 		if ( ! empty( $poster ) ) {
-			$attributes['poster'] = esc_attr( $poster );
+			$attributes['poster'] = esc_url( $poster );
 		}
 
 		// Videos
@@ -300,7 +300,7 @@ class AIOVG_Player_AMP extends AIOVG_Player_Base {
 			$sources[] = sprintf(
 				'<source type="%s" src="%s" />',
 				$mime_type,
-				esc_attr( $src )
+				esc_url( $src )
 			);
 		}			
 
@@ -313,7 +313,7 @@ class AIOVG_Player_AMP extends AIOVG_Player_Base {
 
 				$sources[] = sprintf( 
 					'<track src="%s" kind="subtitles" srclang="%s" label="%s">', 
-					esc_attr( $src ), 
+					esc_url( $src ), 
 					esc_attr( $track['srclang'] ), 
 					esc_attr( $track['label'] ) 
 				);

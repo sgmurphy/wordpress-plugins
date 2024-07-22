@@ -254,7 +254,7 @@ class CnbProfileController {
             array( 'country' => 'Wallis and Futuna', 'code' => 'WF' ),
             array( 'country' => 'Western Sahara', 'code' => 'EH' ),
             array( 'country' => 'Yemen', 'code' => 'YE' ),
-            array( 'country' => 'Zambia', 'code' => 'ZM' )
+            array( 'country' => 'Zambia', 'code' => 'ZM' ),
         );
     }
 
@@ -312,7 +312,7 @@ class CnbProfileController {
                 add_query_arg(
                     array(
                         'page' => CNB_SLUG . '-profile',
-                        'tid'  => $transient_id
+                        'tid'  => $transient_id,
                     ),
                     $url );
             $redirect_url  = esc_url_raw( $redirect_link );

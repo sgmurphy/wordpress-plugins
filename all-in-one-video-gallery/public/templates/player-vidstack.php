@@ -123,7 +123,7 @@ if ( ! empty( $post_meta ) ) {
 					$mime_type = "video/{$type}";
 			}
 
-			$src = aiovg_sanitize_url( $_GET[ $type ] );
+			$src = aiovg_sanitize_url( aiovg_resolve_url( $_GET[ $type ] ) );
 
 			$sources[ $type ] = array(
 				'type' => $mime_type,
@@ -235,6 +235,7 @@ $has_volume = isset( $_GET['volume'] ) ? (int) $_GET['volume'] : isset( $player_
 $has_quality_selector = isset( $_GET['quality'] ) ? (int) $_GET['quality'] : isset( $player_settings['controls']['quality'] );
 $has_captions = isset( $_GET['tracks'] ) ? (int) $_GET['tracks'] : isset( $player_settings['controls']['tracks'] );
 $has_speed_control = isset( $_GET['speed'] ) ? (int) $_GET['speed'] : isset( $player_settings['controls']['speed'] );
+$has_pip = isset( $_GET['pip'] ) ? (int) $_GET['pip'] : isset( $player_settings['controls']['pip'] );
 $has_fullscreen = isset( $_GET['fullscreen'] ) ? (int) $_GET['fullscreen'] : isset( $player_settings['controls']['fullscreen'] );
 
 $controls = array();
@@ -324,6 +325,10 @@ if ( isset( $sources['mp4'] ) ) {
 			'download' => esc_url( $download_url )
 		);
 	}
+}
+
+if ( $has_pip ) {
+	$controls[] = 'pip';
 }
 
 if ( $has_fullscreen ) {
@@ -519,8 +524,8 @@ if ( ! empty( $brand_settings ) ) {
 	$has_logo = ! empty( $brand_settings['logo_image'] ) ? (int) $brand_settings['show_logo'] : 0;
 	if ( $has_logo ) {
 		$settings['logo'] = array(
-			'image'    => aiovg_sanitize_url( aiovg_resolve_url( $brand_settings['logo_image'] ) ),
-			'link'     => ! empty( $brand_settings['logo_link'] ) ? esc_url_raw( $brand_settings['logo_link'] ) : 'javascript:void(0)',
+			'image'    => esc_url( aiovg_resolve_url( $brand_settings['logo_image'] ) ),
+			'link'     => ! empty( $brand_settings['logo_link'] ) ? esc_url( $brand_settings['logo_link'] ) : 'javascript:void(0)',
 			'position' => sanitize_text_field( $brand_settings['logo_position'] ),
 			'margin'   => ! empty( $brand_settings['logo_margin'] ) ? (int) $brand_settings['logo_margin'] : 15
 		);
@@ -528,8 +533,9 @@ if ( ! empty( $brand_settings ) ) {
 
 	$has_contextmenu = ! empty( $brand_settings['copyright_text'] ) ? 1 : 0;
 	if ( $has_contextmenu ) {
+		$copyright_text = apply_filters( 'aiovg_translate_strings', $brand_settings['copyright_text'], 'copyright_text' );
 		$settings['contextmenu'] = array(
-			'content' => apply_filters( 'aiovg_translate_strings', sanitize_text_field( $brand_settings['copyright_text'] ), 'copyright_text' )
+			'content' => esc_attr( $copyright_text )
 		);
 	}
 }
@@ -564,6 +570,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
             overflow: hidden;
         }			
 
+		/* Icons */
 		@font-face {
 			font-family: 'aiovg-icons';
 			src: url('<?php echo AIOVG_PLUGIN_URL; ?>public/assets/fonts/aiovg-icons.eot?2afx3z');
@@ -622,6 +629,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 			content: "\ea0f";
 		}		
 
+		/* Common */
 		.aiovg-player .plyr {
             width: 100%;
             height: 100%;
@@ -633,18 +641,21 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
             text-decoration: none;
         } 
 		
+		/* Ads */
 		.aiovg-player .plyr__ads .plyr__control--overlaid {
 			z-index: 999;
-		}
+		}		
 
-		.aiovg-player .plyr__cues {
-			visibility: hidden;
-		}
-
+		/* Progressbar */
 		.aiovg-player .plyr__progress .plyr__tooltip {
 			max-width: fit-content;
 		}
 
+		.aiovg-player .plyr__progress .plyr__cues {
+			visibility: hidden;
+		}
+
+		/* Share & Embed */
         .aiovg-player .plyr__share-embed-button {
 			position: absolute;  
 			top: 15px;		
@@ -657,7 +668,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 			opacity: 1;
 			z-index: 1;	
 			border-radius: 2px;
-			background: rgba(0, 0, 0, 0.5);
+			background: rgba( 0, 0, 0, 0.5 );
 			width: 35px;
 			height: 35px;	
 			text-align: center;  
@@ -800,6 +811,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
             border: 1px solid #fff;
         }
 
+		/* Custom Logo & Branding */
 		.aiovg-player .plyr__logo {			
             -webkit-transition: opacity .5s;
                -moz-transition: opacity .5s;
@@ -829,6 +841,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 			max-width: 150px;
 		}		
 
+		/* Custom ContextMenu */
 		.aiovg-player .plyr__contextmenu {
             position: absolute;
             top: 0;
@@ -836,7 +849,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 			z-index: 9999999999; /* make sure it shows on fullscreen */
             margin: 0;           
 			border-radius: 2px;
-			background: rgba(0, 0, 0, 0.5);
+			background: rgba( 0, 0, 0, 0.5 );
 			padding: 0;
         }
         
@@ -864,7 +877,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 			esc_attr( $attributes['id'] ),
 			esc_attr( $attributes['style'] ),
 			esc_attr( $video_id ),
-			( isset( $attributes['data-poster'] ) ? esc_attr( $attributes['data-poster'] ) : '' )
+			( isset( $attributes['data-poster'] ) ? esc_url( $attributes['data-poster'] ) : '' )
 		);
 	}
 
@@ -877,7 +890,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 			esc_attr( $attributes['id'] ),
 			esc_attr( $attributes['style'] ),
 			esc_attr( $video_id ),
-			( isset( $attributes['data-poster'] ) ? esc_attr( $attributes['data-poster'] ) : '' )
+			( isset( $attributes['data-poster'] ) ? esc_url( $attributes['data-poster'] ) : '' )
 		);
 	}
 
@@ -894,7 +907,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 		foreach ( $sources as $source ) {
 			printf( 
 				'<source src="%s" type="%s" size="%d" />', 				
-				esc_attr( aiovg_resolve_url( $source['src'] ) ),
+				esc_url( aiovg_resolve_url( $source['src'] ) ),
 				esc_attr( $source['type'] ), 
 				( isset( $source['label'] ) ? (int) $source['label'] : '' )
 			);
@@ -904,7 +917,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 		foreach ( $tracks as $index => $track ) {
         	printf( 
 				'<track kind="captions" src="%s" label="%s" srclang="%s" />', 
-				esc_attr( aiovg_resolve_url( $track['src'] ) ), 				
+				esc_url( aiovg_resolve_url( $track['src'] ) ), 				
 				esc_attr( $track['label'] ),
 				esc_attr( $track['srclang'] )
 			);
@@ -924,7 +937,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 						foreach ( $share_buttons as $button ) {
 							printf( 
 								'<a href="%s" class="plyr__share-button plyr__share-button-%s" target="_blank"><span class="%s"></span><span class="plyr__sr-only">%s</span></a>',							
-								esc_attr( $button['url'] ), 
+								esc_url( $button['url'] ), 
 								esc_attr( $button['service'] ),
 								esc_attr( $button['icon'] ),
 								esc_attr( $button['text'] )
@@ -951,11 +964,11 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 	<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/vidstack/plyr.polyfilled.js?v=3.7.8" type="text/javascript" defer></script>
 
 	<?php if ( isset( $sources['hls'] ) ) : ?>
-		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/vidstack/hls.min.js?v=1.4.3" type="text/javascript" defer></script>
+		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/vidstack/hls.min.js?v=1.5.13" type="text/javascript" defer></script>
 	<?php endif; ?>
 
 	<?php if ( isset( $sources['dash'] ) ) : ?>
-		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/vidstack/dash.all.min.js" type="text/javascript" defer></script>
+		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/vidstack/dash.all.min.js?v=4.7.4" type="text/javascript" defer></script>
 	<?php endif; ?>
 
 	<?php do_action( 'aiovg_iframe_vidstack_player_footer', $settings, $attributes, $sources, $tracks ); ?>
@@ -1080,7 +1093,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 
 					var logo = document.createElement( 'div' );
 					logo.className = 'plyr__logo';
-					logo.innerHTML = '<a href="' + settings.logo.link + '" style="' + style + '" target="_blank"><img src="' + settings.logo.image + '" alt="" /><span class="plyr__sr-only">Logo</span></a>';
+					logo.innerHTML = '<a href="' + settings.logo.link + '" target="_top" style="' + style + '"><img src="' + settings.logo.image + '" alt="" /><span class="plyr__sr-only">Logo</span></a>';
 
 					plyr.appendChild( logo );
 				}
@@ -1133,7 +1146,7 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 			// Dash
 			if ( settings.hasOwnProperty( 'dash' ) ) {
 				const dash = dashjs.MediaPlayer().create();
-				dash.initialize( video, settings.dash, true );
+				dash.initialize( video, settings.dash, settings.player.autoplay || false );
 				window.dash = dash;
 			}		
 
@@ -1174,12 +1187,6 @@ $settings = apply_filters( 'aiovg_iframe_vidstack_player_settings', $settings );
 						}, 1500);				
 					}														 
 				});
-				
-				if ( settings.hasOwnProperty( 'logo' ) ) {
-					contextmenu.addEventListener( 'click', function() {
-						top.window.location.href = settings.logo.link;
-					});
-				}
 				
 				document.addEventListener( 'click', function() {
 					contextmenu.style.display = 'none';								 

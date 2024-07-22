@@ -44,7 +44,7 @@ class CnbFooter {
             <div class="cnb-clear"></div>
             <p class="cnb-url cnb-center">
                 <a href="<?php echo esc_url( $cnb_utils->get_website_url( '', 'footer-links', 'branding' ) ) ?>"
-                   target="_blank">
+                    target="_blank">
                     <?php if ( $cnb_utils->isCloudActive( $cnb_options ) ) {
                         echo esc_html(CNB_CLOUD_NAME);
                         echo '<span>(' . esc_html(CNB_NAME) . ' ⚡ NowButtons.com)</span>';
@@ -55,10 +55,10 @@ class CnbFooter {
             <p class="cnb-center"><?php echo esc_html(CNB_NAME) ?> version <?php echo esc_attr( CNB_VERSION ) ?>
             <p class="cnb-center cnb-spacing">
                 <a href="<?php echo esc_url( $cnb_utils->get_support_url( 'wordpress/', 'footer-links', 'support' ) ) ?>"
-                   target="_blank"
-                   title="Support">Support</a> &middot;
+                    target="_blank"
+                    title="Support">Support</a> &middot;
                 <a href="<?php echo esc_url( $cnb_utils->get_support_url( 'feature-request/', 'footer-links', 'suggestions' ) ) ?>"
-                   target="_blank" title="Feature Requests">Suggestions</a>
+                    target="_blank" title="Feature Requests">Suggestions</a>
                 <?php if ( ! $cnb_utils->isCloudActive( $cnb_options ) ) { ?>
                     &middot; <strong><a href="<?php echo esc_url( $upgrade_link ) ?>"
                                         title="Unlock features"><?php echo esc_html(CNB_CLOUD_NAME); ?></a></strong>
@@ -81,7 +81,7 @@ class CnbFooter {
     private function add_usage_details() {
         global $wp_version;
         if ($this->utils->is_reporting_enabled()) {
-            echo sprintf('<template
+            printf('<template
                                     id="cnb-data"
                                     data-wordpress-version="%1$s"
                                     data-wordpress-environment="%2$s"
@@ -98,9 +98,9 @@ class CnbFooter {
         $cnb_options = get_option( 'cnb' );
         return ! wp_doing_ajax()
                // phpcs:ignore WordPress.Security
-               && empty( $_POST )
-               && isset( $cnb_options['footer_show_traces'] ) && $cnb_options['footer_show_traces'] == 1
-               && CnbSettingsController::is_advanced_view()
+                && empty( $_POST )
+                && isset( $cnb_options['footer_show_traces'] ) && $cnb_options['footer_show_traces'] == 1
+                && CnbSettingsController::is_advanced_view()
             ;
     }
 

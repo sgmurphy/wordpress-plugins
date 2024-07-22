@@ -22,8 +22,8 @@
 		define( 'WFACP_TEMPLATE_MODULE_DIR', __DIR__ . '/views/template-parts/sections' );
 		$this->url             = WFACP_PLUGIN_URL . '/builder/customizer/templates/embed_forms_1/views/';
 		$is_customizer_preview = WFACP_Common::is_customizer();
-		if ( false == $is_customizer_preview ) {
-			remove_action( 'wp_print_styles', [ $this, 'remove_theme_css_and_scripts' ], 100 );
+		if ( true == $is_customizer_preview ) {
+			add_action( 'wp_print_styles', [ $this, 'remove_theme_css_and_scripts' ], 100 );
 		}
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_style' ], 9999 );
 

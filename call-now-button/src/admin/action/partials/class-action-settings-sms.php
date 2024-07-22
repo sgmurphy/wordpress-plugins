@@ -34,9 +34,9 @@ class ActionSettingsSms {
                     </a></label></th>
             <td>
                     <textarea id="action-properties-message-sms"
-                              name="actions[<?php echo esc_attr( $action->id ) ?>][properties][message]" class="code"
-                              rows="3"
-                              placeholder="Optional"><?php if ( isset( $action->properties ) && isset( $action->properties->message ) ) {
+                                name="actions[<?php echo esc_attr( $action->id ) ?>][properties][message]" class="code"
+                                rows="3"
+                                placeholder="Optional"><?php if ( isset( $action->properties ) && isset( $action->properties->message ) ) {
                             echo esc_textarea( $action->properties->message );
                         } ?></textarea>
             </td>

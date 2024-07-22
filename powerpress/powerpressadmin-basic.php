@@ -1649,45 +1649,6 @@ function powerpressadmin_welcome($GeneralSettings, $FeedSettings, $NewPostQueryS
                     <?php echo __('CREATE NEW EPISODE', 'powerpress'); ?>
                 </div>
             </a>
-            <div class="pp-settings-podcast-status">
-                <p class="pp-settings-text-no-margin" style="margin-bottom: 2ch;"><?php echo __('Podcast Status', 'powerpress'); ?></p>
-
-                <?php if (!$GeneralSettings || (isset($GeneralSettings['pp_onboarding_incomplete']) && $GeneralSettings['pp_onboarding_incomplete'] == 1) && (isset($GeneralSettings['timestamp']) && $GeneralSettings['timestamp'] > 1576972800)) { ?>
-                    <p class="pp-settings-status-text"><a class="program-status-link" href="<?php echo admin_url("admin.php?page=powerpressadmin_onboarding.php"); ?>"><img src="<?php echo powerpress_get_root_url(); ?>images/status_incomplete.svg" class="pp-settings-icon-small"  alt="<?php echo __('Not done', 'powerpress'); ?>" />Finish Show Prep</a></p>
-                <?php } else { ?>
-                    <p class="pp-settings-status-text"><img src="<?php echo powerpress_get_root_url(); ?>images/status_complete.svg" class="pp-settings-icon-small"  alt="<?php echo __('Done!', 'powerpress'); ?>" />Finished Show Prep</p>
-                <?php }
-
-                if (empty($FeedSettings['itunes_image'])) { ?>
-                    <p id="pp-welcome-artwork-link" class="program-status-link" onclick="goToArtworkSettings();return false;"><img src="<?php echo powerpress_get_root_url(); ?>images/status_incomplete.svg" class="pp-settings-icon-small"  alt="<?php echo __('Not done', 'powerpress'); ?>" />Add Artwork to Show</p>
-                <?php } else { ?>
-                    <p class="pp-settings-status-text"><img src="<?php echo powerpress_get_root_url(); ?>images/status_complete.svg" class="pp-settings-icon-small"  alt="<?php echo __('Done!', 'powerpress'); ?>" />Added Artwork to Show</p>
-                <?php } ?>
-
-                <?php
-                // Check if at least one destination has been set
-                if(!empty($FeedSettings['itunes_url']) ||
-                    !empty($FeedSettings['google_url']) ||
-                    !empty($FeedSettings['spotify_url']) ||
-                    !empty($FeedSettings['amazon_url']) ||
-                    !empty($FeedSettings['android_url']) ||
-                    !empty($FeedSettings['pandora_url']) ||
-                    !empty($FeedSettings['iheart_url']) ||
-                    !empty($FeedSettings['blubrry_url']) ||
-                    !empty($FeedSettings['jiosaavn_url']) ||
-                    !empty($FeedSettings['podchaser_url']) ||
-                    !empty($FeedSettings['gaana_url']) ||
-                    !empty($FeedSettings['pcindex_url']) ||
-                    !empty($FeedSettings['tunein_url']) ||
-                    !empty($FeedSettings['deezer_url']) ||
-                    !empty($FeedSettings['anghami_url'])
-                ){ ?>
-                    <p id="pp-welcome-applesubmit-link" class="program-dest-welcome-link" onclick="goToDestinationSettings();return false;"><img src="<?php echo powerpress_get_root_url(); ?>images/status_complete.svg" class="pp-settings-icon-small"  alt="<?php echo __('Done!', 'powerpress'); ?>" />Set Destination Links</p>
-                <?php } else { ?>
-                    <p id="pp-welcome-applesubmit-link" class="program-status-link" onclick="goToDestinationSettings();return false;"><img src="<?php echo powerpress_get_root_url(); ?>images/status_incomplete.svg" class="pp-settings-icon-small"  alt="<?php echo __('Not done', 'powerpress'); ?>" />Set Destination Links</p>
-                <?php } ?>
-
-            </div>
         </div>
     </div>
 	<div class="powerpress-welcome-news">

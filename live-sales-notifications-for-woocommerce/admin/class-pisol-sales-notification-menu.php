@@ -36,16 +36,16 @@ class Pi_Sales_Menu{
 		wp_enqueue_style( $this->plugin_name."_bootstrap", plugin_dir_url( __FILE__ ) . 'css/bootstrap.css', array(), $this->version, 'all' );
 
         wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/pisol-sales-notification-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'select2', WC()->plugin_url() . '/assets/css/select2.css');
+		wp_enqueue_style( 'select2', WC()->plugin_url() . '/assets/css/select2.css', [], $this->version);
 
-        wp_enqueue_script( 'selectWoo', WC()->plugin_url() . '/assets/js/selectWoo/selectWoo.full.min.js', array( 'jquery' ), '1.0.4' );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/pisol-sales-notification-admin.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name.'_jsrender', plugin_dir_url( __FILE__ ) . 'js/jsrender.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name.'_translate', plugin_dir_url( __FILE__ ) . 'js/pisol-translate.js', array( 'jquery', $this->plugin_name.'_jsrender' ), $this->version, false );
+        wp_enqueue_script( 'selectWoo', WC()->plugin_url() . '/assets/js/selectWoo/selectWoo.full.min.js', array( 'jquery' ), '1.0.4', true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/pisol-sales-notification-admin.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name.'_jsrender', plugin_dir_url( __FILE__ ) . 'js/jsrender.min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name.'_translate', plugin_dir_url( __FILE__ ) . 'js/pisol-translate.js', array( 'jquery', $this->plugin_name.'_jsrender' ), $this->version, true );
 		
 		wp_localize_script( $this->plugin_name, 'pi_ajax_object',array( 'ajax_url' => admin_url( 'admin-ajax.php' )));
 
-        wp_enqueue_script( $this->plugin_name."_quick_save", plugin_dir_url( __FILE__ ) . 'js/pisol-quick-save.js', array('jquery'), $this->version, 'all' );
+        wp_enqueue_script( $this->plugin_name."_quick_save", plugin_dir_url( __FILE__ ) . 'js/pisol-quick-save.js', array('jquery'), $this->version, true );
 		
 	}
 
@@ -61,11 +61,11 @@ class Pi_Sales_Menu{
                         <div class='bg-dark'>
                         <div class="pisol-row">
                             <div class="col-12 col-sm-2 py-2">
-                                    <a href="https://www.piwebsolution.com/" target="_blank"><img class="img-fluid ml-2" src="<?php echo plugin_dir_url( __FILE__ ); ?>img/pi-web-solution.png"></a>
+                                    <a href="https://www.piwebsolution.com/" target="_blank"><img class="img-fluid ml-2" src="<?php echo esc_url( plugin_dir_url( __FILE__ ) ); ?>img/pi-web-solution.png"></a>
                             </div>
                             <div class="col-12 col-sm-10 text-right small d-flex align-items-center justify-content-end">
                             <a href="javascript:void(0)" class="btn btn-primary btn-sm mr-2" id="hid-pro-feature">Hide Pro Feature</a>
-                                <a class="btn btn-danger btn-sm text-uppercase mr-2" href="<?php echo  PI_SALES_NOTIFICATION_BUY_URL; ?>" target="_blank">GET PRO !!</a>
+                                <a class="btn btn-danger btn-sm text-uppercase mr-2" href="<?php echo  esc_url( PI_SALES_NOTIFICATION_BUY_URL ); ?>" target="_blank">GET PRO FOR <?php echo esc_html(PI_SALES_NOTIFICATION_PRICE); ?></a>
                             </div>
                         </div>
                         </div>
@@ -98,18 +98,17 @@ class Pi_Sales_Menu{
         ?>
         <div class="col-12 col-sm-12 col-md-4 pt-3">
             <div class="bg-primary text-light text-center mb-3">
-                <a class="" href="<?php echo PI_SALES_NOTIFICATION_BUY_URL; ?>" target="_blank">
+                <a class="" href="<?php echo esc_url( PI_SALES_NOTIFICATION_BUY_URL ); ?>" target="_blank">
                 <?php new pisol_promotion('live_sales_notification_installation_date'); ?>
                 </a>
             </div>
 
            <div class="pi-shadow">
             <div class="pi-top-content text-left">
-                <img id="pi-promotion-banner" src="<?php echo plugin_dir_url( __FILE__ ); ?>img/bg.svg">
-                <h2 id="pi-banner-tagline" class="text-light">LIMITED TIME OFFER <?php echo PI_SALES_NOTIFICATION_PRICE; ?></h2>
+                <img id="pi-promotion-banner" src="<?php echo esc_url( plugin_dir_url( __FILE__ ) ); ?>img/bg.svg">
+                <div class="p-2 text-center text-light bg-dark h6 mb-0">7 DAYS MONEY BACK GUARANTEE</div>
+                <h2 id="pi-banner-tagline" class="text-light">Limited time offer <?php echo esc_html( PI_SALES_NOTIFICATION_PRICE ); ?></h2>
             </div>
-                <!--<h2 class="text-light font-weight-light h4"><span>Get Pro For<br><h1 class="h2 font-weight-bold text-light my-1"><?php echo PI_SALES_NOTIFICATION_PRICE; ?></h1><strong class="text-primary">LIMITED</strong> PERIOD OFFER</span></h2>
-                <a class="btn btn-danger btn-sm text-uppercase" href="<?php echo PI_SALES_NOTIFICATION_BUY_URL; ?>" target="_blank">Click to Get Pro !!</a>-->
                 <div class="inside mt-2">
                     <ul class="text-left pisol-pro-feature-list">
                         <li class="border-top py-2"><strong class="text-primary">Privacy protection</strong> Give Option to the customer to exclude their info from the live feed</li>
@@ -133,7 +132,7 @@ class Pi_Sales_Menu{
                         <li class="border-top py-2">Add a <strong class="text-primary">place holder image</strong> for the product image</li>
                     </ul>
                     <div class="py-4 text-center">
-                        <a class="btn btn-primary" href="<?php echo PI_SALES_NOTIFICATION_BUY_URL; ?>" target="_blank">Get Pro Version</a>
+                        <a class="btn btn-primary" href="<?php echo esc_url( PI_SALES_NOTIFICATION_BUY_URL ); ?>" target="_blank">Get Pro Version</a>
                     </div>
                 </div>
             </div>

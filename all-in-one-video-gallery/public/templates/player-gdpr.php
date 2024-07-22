@@ -91,10 +91,10 @@ $consent_button_label = apply_filters( 'aiovg_translate_strings', $privacy_setti
             position: relative;
             top: 50%;
             left: 50%;
-            transform: translate3d(-50%, -50%, 0);
+            transform: translate3d( -50%, -50%, 0 );
             margin: 0;
             border-radius: 3px; 
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba( 0, 0, 0, 0.7 );
             padding: 15px;
             width: 90%;
             max-width: 640px;
@@ -129,7 +129,7 @@ $consent_button_label = apply_filters( 'aiovg_translate_strings', $privacy_setti
     </style>
 </head>
 <body>    
-	<div id="privacy-wrapper" style="background-image: url(<?php echo esc_attr( $image ); ?>);">
+	<div id="privacy-wrapper" style="background-image: url(<?php echo esc_url( $image ); ?>);">
 		<div id="privacy-consent-block" >
 			<div id="privacy-consent-message"><?php echo wp_kses_post( trim( $consent_message ) ); ?></div>
 			<button type="button" id="privacy-consent-button"><?php echo esc_html( $consent_button_label ); ?></button>

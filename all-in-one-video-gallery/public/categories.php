@@ -110,7 +110,7 @@ class AIOVG_Public_Categories {
 
 			if ( ! empty( $categories_li ) ) {
 				ob_start();
-				include apply_filters( 'aiovg_load_template', AIOVG_PLUGIN_DIR . "public/templates/categories-template-list.php" );
+				include apply_filters( 'aiovg_load_template', AIOVG_PLUGIN_DIR . 'public/templates/categories-template-list.php', $attributes );
 				return ob_get_clean();				
 			} else {
 				return sprintf(
@@ -120,7 +120,7 @@ class AIOVG_Public_Categories {
 			}
 		} elseif ( 'dropdown' == $template ) {		
 			ob_start();
-			include apply_filters( 'aiovg_load_template', AIOVG_PLUGIN_DIR . "public/templates/categories-template-dropdown.php" );
+			include apply_filters( 'aiovg_load_template', AIOVG_PLUGIN_DIR . 'public/templates/categories-template-dropdown.php', $attributes );
 			return ob_get_clean();	
 		} else {
 			$args = array(			
@@ -175,7 +175,7 @@ class AIOVG_Public_Categories {
 				}
 
 				ob_start();
-				include apply_filters( 'aiovg_load_template', AIOVG_PLUGIN_DIR . "public/templates/categories-template-grid.php" );
+				include apply_filters( 'aiovg_load_template', AIOVG_PLUGIN_DIR . 'public/templates/categories-template-grid.php', $attributes );
 				return ob_get_clean();		
 			} else {
 				return sprintf(

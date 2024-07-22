@@ -16,7 +16,7 @@
    sodipodi:docname="result.svg"
    inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)">
 	<defs>
-    <animate xlink:href="#path159" attributeName="fill" values="#000000;#FF725E" dur="3s" repeatCount="indefinite"></animate>
+    <animate xlink:href="#path159" attributeName="fill" values="#000000;#FF725E" dur="1s" repeatCount="indefinite"></animate>
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"

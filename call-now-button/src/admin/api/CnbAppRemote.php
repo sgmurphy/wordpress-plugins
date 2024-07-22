@@ -16,6 +16,7 @@ use cnb\admin\models\CnbUser;
 use cnb\admin\models\ValidationMessageWithId;
 use cnb\admin\settings\StripeBillingPortal;
 use cnb\admin\settings\UrlSettings;
+use cnb\admin\user\CnbUserCache;
 use cnb\coupons\CnbPromotionCode;
 use cnb\cron\Cron;
 use cnb\utils\CnbUtils;
@@ -440,6 +441,10 @@ class CnbAppRemote {
 		if ( isset( $data->subscriptionStatusData ) ) {
 			$cnb_subscription_data = SubscriptionStatus::from_object( $data->subscriptionStatusData );
 			$this->save_subscription_data($cnb_subscription_data);
+		}
+		if ( isset( $cnb_user ) && ! is_wp_error( $cnb_user ) ) {
+			$cnb_user_cache = new CnbUserCache();
+			$cnb_user_cache->save_user_data( $cnb_user );
 		}
 
 		// This updates the internal options, so that the new settings (if any) can be rendered on the front-end
@@ -966,7 +971,7 @@ class CnbAppRemote {
 				admin_url( 'admin.php' ) );
 
 		$body          = array(
-			'returnUrl' => $return_link
+			'returnUrl' => $return_link,
 		);
 		$rest_endpoint = '/v1/stripe/createBillingPortal';
 

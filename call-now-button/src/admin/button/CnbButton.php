@@ -152,7 +152,7 @@ class CnbButton implements JsonSerializable {
             'actions'            => $actions,
             'conditions'         => $conditions,
             'options'            => $options,
-            'multiButtonOptions' => $this->multiButtonOptions
+            'multiButtonOptions' => $this->multiButtonOptions,
         );
     }
 
@@ -235,6 +235,8 @@ class CnbButton implements JsonSerializable {
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -279,7 +281,7 @@ class CnbButtonOptions implements JsonSerializable {
             'TADA'        => 'Tada',
             'SHAKE'       => 'Shake',
             'SONAR_LIGHT' => 'Sonar light (for dark backgrounds)',
-            'SONAR_DARK'  => 'Sonar dark (for light backgrounds)'
+            'SONAR_DARK'  => 'Sonar dark (for light backgrounds)',
         );
     }
 
@@ -313,6 +315,8 @@ class CnbButtonOptions implements JsonSerializable {
         return $options;
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -409,6 +413,8 @@ class CnbMultiButtonOptions implements JsonSerializable {
         return $options;
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -451,6 +457,8 @@ class CnbScrollOptions implements JsonSerializable {
         return $options;
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }

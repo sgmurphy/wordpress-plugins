@@ -59,10 +59,13 @@ export declare class ScProductLineItem {
   max: number;
   /** The SKU. */
   sku: string;
+  /** The purchasable status display */
+  purchasableStatusDisplay: string;
   /** Emitted when the quantity changes. */
   scUpdateQuantity: EventEmitter<number>;
   /** Emitted when the quantity changes. */
   scRemove: EventEmitter<void>;
   renderPriceAndInterval(): any;
+  renderPurchasableStatus(): any;
   render(): any;
 }

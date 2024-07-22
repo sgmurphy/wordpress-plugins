@@ -2,7 +2,11 @@
 $theme = wp_get_theme(); // gets the current theme
 $theme_name = strtolower($theme->name);
 
-$footer_logo_default = CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images/logo.png';
+if($theme_name == 'profolio'){
+	$footer_logo_default = CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images/logo-light.png';
+}else{	
+	$footer_logo_default = CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images/logo.png';
+}
 	
 $activate = array(
         'corpex-sidebar-primary' => array(

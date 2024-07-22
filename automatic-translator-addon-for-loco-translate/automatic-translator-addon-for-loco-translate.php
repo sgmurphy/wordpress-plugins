@@ -2,7 +2,7 @@
 /*
 Plugin Name:Automatic Translate Addon For Loco Translate
 Description:Loco Translate plugin addon to automatic translate plugins and themes translatable string with one click in any language.
-Version:2.4.2
+Version:2.4.3
 License:GPL2
 Text Domain:loco-auto-translate
 Domain Path:languages
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ATLT_FILE', __FILE__ );
 define( 'ATLT_URL', plugin_dir_url( ATLT_FILE ) );
 define( 'ATLT_PATH', plugin_dir_path( ATLT_FILE ) );
-define( 'ATLT_VERSION', '2.4.2' );
+define( 'ATLT_VERSION', '2.4.3' );
 
 /**
  * @package Loco Automatic Translate Addon
@@ -394,6 +394,7 @@ if ( ! class_exists( 'LocoAutoTranslateAddon' ) ) {
 					$extraData['dpl_preview']     = 'powered-by-deepl.png';
 					$extraData['yt_preview']      = 'powered-by-yandex.png';
 					$extraData['chatGPT_preview'] = 'powered-by-chatGPT.png';
+					$extraData['geminiAI_preview'] = 'powered-by-geminiAI.png';
 					$extraData['extra_class']= is_rtl() ? 'atlt-rtl' : '';
 
 
@@ -530,7 +531,12 @@ if ( ! class_exists( 'LocoAutoTranslateAddon' ) ) {
 						<tr style="background:#fffb7a;font-weight: bold;">
 						<td>AI Translator Support<br/><img style="border: 1px solid;" src="<?php echo ATLT_URL . '/assets/images/powered-by-chatGPT.png'; ?>"/></td>
 						<td>❌ Not Available</td>
-						<td><span style="color:green;font-size:1.4em;">✔</span> Available<br/</td>
+						<td><span style="color:green;font-size:1.4em;">✔</span> Available<br/></td>
+						</tr>
+						<tr style="background:#fffb7a;font-weight: bold;">
+						<td>AI Translator Support<br/><img style="border: 1px solid;" src="<?php echo ATLT_URL . '/assets/images/powered-by-geminiAI.png'; ?>"/></td>
+						<td>❌ Not Available</td>
+						<td><span style="color:green;font-size:1.4em;">✔</span> Available<br/><span style="font-size:11px;font-weight:bold;"><a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank">(Get free API key)</a></span></td>
 						</tr>
 						<tr>
 						<td><strong>Premium Support</strong></td>
@@ -548,6 +554,7 @@ if ( ! class_exists( 'LocoAutoTranslateAddon' ) ) {
 						<li>If any auto-translation provider stops any of its free translation service then plugin will not support that translation service provider.</li>
 						<li>DeepL Translate provides better translations than Google, Yandex or other machine translation providers. <a href="https://techcrunch.com/2017/08/29/deepl-schools-other-online-translators-with-clever-machine-learning/" target="_blank"><b>Read review by Techcrunch!</b></a></li>
 						<li>Currently DeepL Doc Translator provides limited number of free docs translations per day. You can purchase to <a href="https://www.deepl.com/pro?cta=homepage-free-trial#pricing" target="_blank">DeepL Pro</a> to increase this limit.</li>
+						<li>To start translation using Gemini <a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank">get free Gemini API key</a></li>
 						</ol>
 						<br/>
 						<a class="button button-primary" href='https://locoaddon.com/plugin/automatic-translate-addon-for-loco-translate-pro/?utm_[%E2%80%A6]m_medium=inside&utm_campaign=get_pro&utm_content=d' target='_blank'>Buy Pro Plugin</a>

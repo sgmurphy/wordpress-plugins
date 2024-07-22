@@ -42,7 +42,7 @@ class Cnb_Condition_List_Table extends WP_List_Table {
             'singular' => 'cnb_list_condition', //Singular label
             'plural'   => 'cnb_list_conditions', //plural label, also this well be one of the table css class
             'ajax'     => false, //We won't support Ajax for this table
-            'screen'   => 'call-now-button-conditions' // Screen name for bulk actions, etc
+            'screen'   => 'call-now-button-conditions', // Screen name for bulk actions, etc
         ) );
 
         $this->cnb_utils = new CnbUtils();
@@ -281,7 +281,7 @@ class Cnb_Condition_List_Table extends WP_List_Table {
                     'action' => 'edit',
                     'id'     => $condition->id,
                     'bid'    => $bid,
-                    'tab'    => $tab
+                    'tab'    => $tab,
                 ),
                 $url );
 
@@ -311,7 +311,7 @@ class Cnb_Condition_List_Table extends WP_List_Table {
                 'id'       => $condition->id,
                 'bid'      => $bid,
                 '_wpnonce' => $nonce,
-                'refer'    => $screen->parent_file
+                'refer'    => $screen->parent_file,
             );
             $delete_url        = esc_url( add_query_arg( $args, admin_url( 'admin-ajax.php' ) ) );
             $actions['delete'] = '<a data-ajax="true" data-id="' . $condition->id . '" data-bid="' . $bid . '" data-wpnonce="' . $nonce . '" href="' . $delete_url . '">' . __( 'Delete' ) . '</a>';
@@ -321,7 +321,7 @@ class Cnb_Condition_List_Table extends WP_List_Table {
                     'page'   => 'call-now-button-conditions',
                     'action' => 'cnb_delete_condition',
                     'id'     => $condition->id,
-                    'bid'    => $bid
+                    'bid'    => $bid,
                 ), admin_url( 'admin-post.php' ) ),
                 'cnb_delete_condition' );
             $delete_url        = esc_url( $delete_link );

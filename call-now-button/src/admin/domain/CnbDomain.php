@@ -52,6 +52,10 @@ class CnbDomain implements JsonSerializable {
      * @var CnbDomainProperties
      */
     public $properties;
+	/**
+	 * @var string[]
+	 */
+	public $aliases;
 
     /**
      * If a stdClass is passed, it is transformed into a CnbDomain.
@@ -71,8 +75,8 @@ class CnbDomain implements JsonSerializable {
 
         $domain->id              = CnbUtils::getPropertyOrNull( $object, 'id' );
         $domain->name            = CnbUtils::getPropertyOrNull( $object, 'name' );
-        $domain->interval            = CnbUtils::getPropertyOrNull( $object, 'interval' );
-        $domain->status            = CnbUtils::getPropertyOrNull( $object, 'status' );
+        $domain->interval        = CnbUtils::getPropertyOrNull( $object, 'interval' );
+        $domain->status          = CnbUtils::getPropertyOrNull( $object, 'status' );
         $domain->timezone        = CnbUtils::getPropertyOrNull( $object, 'timezone' );
         $domain->type            = CnbUtils::getPropertyOrNull( $object, 'type' );
         $properties              = CnbUtils::getPropertyOrNull( $object, 'properties' );
@@ -86,6 +90,8 @@ class CnbDomain implements JsonSerializable {
         $domain->trackGA         = filter_var( $domain->trackGA, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
         $domain->trackConversion = filter_var( $domain->trackConversion, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
         $domain->renew           = filter_var( $domain->renew, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+
+		$domain->aliases         = CnbUtils::getPropertyOr( $object, 'aliases', array() );
 
         return $domain;
     }
@@ -129,7 +135,7 @@ class CnbDomain implements JsonSerializable {
             $domain = new CnbDomain();
         }
 
-        if ( strlen( $domain_id ) > 0 && $domain_id == 'new' && empty( $domain->id ) ) {
+	    if ( $domain_id !== null && strlen( $domain_id ) > 0 && $domain_id == 'new' && empty( $domain->id ) ) {
             $domain->id = null;
         }
         if ( empty( $domain->timezone ) ) {
@@ -160,6 +166,9 @@ class CnbDomain implements JsonSerializable {
         if ( ! isset( $domain->trackConversion ) ) {
             $domain->trackConversion = false;
         }
+	    if ( ! isset( $domain->aliases ) ) {
+		    $domain->aliases = array();
+	    }
 
         return $domain;
     }
@@ -176,9 +185,12 @@ class CnbDomain implements JsonSerializable {
             'trackGA'         => $this->trackGA,
             'trackConversion' => $this->trackConversion,
             'renew'           => $this->renew,
+            'aliases'         => $this->aliases,
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }
@@ -240,6 +252,8 @@ class CnbDomainProperties implements JsonSerializable {
         );
     }
 
+	/** @noinspection PhpLanguageLevelInspection */
+	#[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return $this->toArray();
     }

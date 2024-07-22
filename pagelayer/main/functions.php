@@ -641,7 +641,9 @@ function pagelayer_load_shortcodes(){
 	
 	// We have loaded
 	$pagelayer->shortcode_loaded = 1;
-
+	
+	do_action('pagelayer_before_load_shortcodes');
+	
 	// pQuery
 	include_once(PAGELAYER_DIR.'/lib/pquery/IQuery.php');
 	include_once(PAGELAYER_DIR.'/lib/pquery/gan_formatter.php');
@@ -653,10 +655,10 @@ function pagelayer_load_shortcodes(){
 	include_once(PAGELAYER_DIR.'/lib/pquery/pQuery.php');
 
 	include_once(PAGELAYER_DIR.'/main/shortcode_functions.php');
-	if(defined('PAGELAYER_PREMIUM')){
-		include_once(PAGELAYER_DIR.'/main/freemium_functions.php');
-		include_once(PAGELAYER_DIR.'/main/premium_functions.php');
-	}
+	
+	// Apply filter to load custom widgets functions
+	do_action('pagelayer_load_shortcode_functions');
+	
 	include_once(PAGELAYER_DIR.'/main/shortcodes.php');
 	
 	// Apply filter to load custom widgets
@@ -702,6 +704,8 @@ function pagelayer_load_shortcodes(){
 		$pagelayer->saved_sections = $global_widgets['section'];
 		$pagelayer->global_sections = $global_widgets['global_section'];
 	}
+	
+	do_action('pagelayer_after_load_shortcodes');
 }
 
 // Add the shortcodes to the pagelayer list
@@ -1495,7 +1499,7 @@ function pagelayer_show_pro_notice(){
 		return;
 	}
 	
-	echo '<div class="pagelayer-notice pagelayer-notice-info">'.__('This feature is a part of <a href="'.PAGELAYER_PRO_URL.'" target="_blank">Pagelayer Pro</a>. You will need to purchase <a href="'.PAGELAYER_PRO_URL.'" target="_blank">Pagelayer Pro</a> to use this feature.').'</div>';
+	echo '<div class="pagelayer-notice pagelayer-notice-info">'.__('This feature is a part of <a href="'.PAGELAYER_PRO_PRICE_URL.'" target="_blank">Pagelayer Pro</a>. You will need to purchase <a href="'.PAGELAYER_PRO_PRICE_URL.'" target="_blank">Pagelayer Pro</a> to use this feature.').'</div>';
 	
 }
 
@@ -1510,7 +1514,7 @@ function pagelayer_show_pro_div($head = '', $message = '', $admin_css = 1){
 		$pro_url = 'https://popularfx.com/pricing?from=pagelayer-plugin';
 		$pro_txt = 'PopularFX Pro';
 	}else{
-		$pro_url = PAGELAYER_PRO_URL;
+		$pro_url = PAGELAYER_PRO_PRICE_URL;
 		$pro_txt = 'Pagelayer Pro';
 	}
 	
@@ -2606,7 +2610,7 @@ function pagelayer_install_pro(){
 	
 	if ( !is_wp_error( $installed ) && $installed ) {
 		echo 'Activating Pagelayer Pro !';
-		$activate = activate_plugin(PAGELAYER_PRO_BASE);
+		$activate = activate_plugin(PAGELAYER_PREMIUM_BASE);
 		
 		if ( is_null($activate) ) {
 			echo '<div id="message" class="updated"><p>'. __('Done! Pagelayer Pro is now installed and activated.', 'pagelayer'). '</p></div><br />';
@@ -2621,7 +2625,7 @@ function pagelayer_install_pro(){
 // Prevent pro activate text for installer
 function pagelayer_install_plugin_complete_actions($install_actions, $api, $plugin_file){
 	
-	if($plugin_file == PAGELAYER_PRO_BASE){
+	if($plugin_file == PAGELAYER_PREMIUM_BASE){
 		return array();
 	}
 	

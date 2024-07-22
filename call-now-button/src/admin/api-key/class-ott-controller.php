@@ -33,7 +33,7 @@ class OttController {
 		$redirect_link =
 			add_query_arg(
 				array(
-					'page' => 'call-now-button-activated'
+					'page' => 'call-now-button-activated',
 				),
 				$url );
 		$redirect_url  = esc_url_raw( $redirect_link );

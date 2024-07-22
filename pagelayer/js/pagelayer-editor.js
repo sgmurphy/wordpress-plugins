@@ -4965,7 +4965,11 @@ function pagelayer_generate_sc(selector, selfEle){
 			// NOTE : Child selector should be very specific with immediate child selection at all levels
 			var child_selector = false;			
 			if('child_selector' in pagelayer_shortcodes[tag]){
-				sel = sel.find(pagelayer_shortcodes[tag]['child_selector']);
+				childSel = sel.find(pagelayer_shortcodes[tag]['child_selector']);
+				
+				if(childSel.length > 0){
+					sel = childSel;
+				}
 			}
 						
 			if(jQuery(sel).children(".pagelayer-ele-wrap").length < 1){

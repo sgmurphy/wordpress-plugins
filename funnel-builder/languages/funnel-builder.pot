@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: FunnelKit Funnel Builder 3.4.6\n"
+"Project-Id-Version: FunnelKit Funnel Builder 3.4.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/funnel-builder\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-19T18:24:41+05:30\n"
+"POT-Creation-Date: 2024-07-22T16:41:35+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: funnel-builder\n"
@@ -747,15 +747,15 @@ msgstr ""
 msgid "(no title)"
 msgstr ""
 
-#: admin/class-wffn-admin.php:2288
+#: admin/class-wffn-admin.php:2284
 msgid "<strong>Your FunnelKit Pro license has expired!</strong> We've extended its features until %s, after which they'll be limited. <a href=\"https://funnelkit.com/exclusive-offer/?utm_source=WordPress&utm_campaign=Lite+Plugin&utm_medium=Plugin+Inline+Notice\">Renew Now</a> or <a href=\"%s\">I have My License Key</a>"
 msgstr ""
 
-#: admin/class-wffn-admin.php:2311
+#: admin/class-wffn-admin.php:2307
 msgid "<strong>Your FunnelKit Pro license has expired!</strong> Please renew your license to continue using premium features without interruption. <a href=\"https://funnelkit.com/my-account/?utm_source=WordPress&utm_campaign=Lite+Plugin&utm_medium=Plugin+Inline+Notice\">Renew Now</a> or <a href=\"%s\">I have My License Key</a>"
 msgstr ""
 
-#: admin/class-wffn-admin.php:2384
+#: admin/class-wffn-admin.php:2380
 msgid "Renew Expired License"
 msgstr ""
 
@@ -2181,7 +2181,6 @@ msgstr ""
 
 #: admin/rest-api/class-wffn-rest-checkout-api-endpoint.php:2350
 #: admin/rest-api/class-wffn-rest-funnel-modules.php:2345
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:585
 msgid "Form Setting Saved"
 msgstr ""
 
@@ -2367,7 +2366,6 @@ msgstr ""
 #: admin/rest-api/class-wffn-rest-steps.php:534
 #: admin/rest-api/class-wffn-rest-steps.php:572
 #: admin/rest-api/class-wffn-rest-steps.php:610
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:1215
 #: modules/landing-pages/class-wffn-landing-pages.php:625
 #: modules/optins/modules/optin-pages/class-wffn-optin-pages.php:992
 #: modules/thankyou-pages/class-wffn-thank-you-wc-pages.php:696
@@ -2381,7 +2379,6 @@ msgstr ""
 #: admin/rest-api/class-wffn-rest-steps.php:560
 #: admin/rest-api/class-wffn-rest-steps.php:597
 #: admin/rest-api/class-wffn-rest-steps.php:639
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:1230
 #: modules/landing-pages/class-wffn-landing-pages.php:638
 #: modules/optins/modules/optin-pages/class-wffn-optin-pages.php:1003
 #: modules/thankyou-pages/class-wffn-thank-you-wc-pages.php:707
@@ -2392,7 +2389,6 @@ msgstr ""
 #: admin/rest-api/class-wffn-rest-funnel-modules.php:754
 #: admin/rest-api/class-wffn-rest-funnel-modules.php:1640
 #: admin/rest-api/class-wffn-rest-funnel-modules.php:1712
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:611
 #: modules/landing-pages/class-wffn-landing-pages.php:561
 #: modules/landing-pages/class-wffn-landing-pages.php:615
 #: modules/thankyou-pages/class-wffn-thank-you-wc-pages.php:641
@@ -4541,11 +4537,6 @@ msgstr ""
 msgid "Two Third"
 msgstr ""
 
-#: includes/class-wffn-ajax-controller.php:47
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:1254
-msgid "Plugin Successfully Activated"
-msgstr ""
-
 #. translators: %d: interval
 #: includes/class-wffn-background-process.php:182
 msgid "Every %d minutes"
@@ -5112,7 +5103,7 @@ msgstr ""
 #: modules/checkouts/includes/class-wfacp-common-helper.php:735
 #: modules/checkouts/includes/class-wfacp-common-helper.php:755
 #: modules/checkouts/includes/class-wfacp-common-helper.php:794
-#: modules/checkouts/includes/class-wfacp-template.php:992
+#: modules/checkouts/includes/class-wfacp-template.php:993
 #: admin/views/contact/dist/43.5f94e4f089dfe3bea235.js:3
 #: admin/views/contact/dist/43.5f94e4f089dfe3bea235.js:7
 #: admin/views/contact/dist/45.98182ede19ddf1fd2c77.js:3
@@ -5620,59 +5611,12 @@ msgstr ""
 msgid "Contact Information"
 msgstr ""
 
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:146
-msgid "Checkout Page not found"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:175
-msgid "Checkout Page Successfully Update"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:189
-msgid "Checkout Page Successfully Created"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:400
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:633
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:655
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:1422
+#: modules/checkouts/includes/class-wfacp-ajax-controller.php:159
 #: modules/checkouts/includes/class-wfacp-common-helper.php:756
 #: modules/landing-pages/class-wflp-admin.php:207
 #: modules/optins/modules/optin-pages/class-wffn-optin-pages.php:556
 #: modules/optins/modules/optin-pages/class-wffn-optin-pages.php:1502
 msgid "Changes saved"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:540
-msgid "Checkout Page status updated"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:567
-msgid "Template imported"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:687
-msgid "on Regular Price"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:688
-msgid "on Sale Price"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:709
-msgid "--"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:749
-msgid "No product is associated in the checkout form"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:855
-msgid "Something went wrong"
-msgstr ""
-
-#: modules/checkouts/includes/class-wfacp-ajax-controller.php:874
-msgid "Copy - "
 msgstr ""
 
 #: modules/checkouts/includes/class-wfacp-common-helper.php:132

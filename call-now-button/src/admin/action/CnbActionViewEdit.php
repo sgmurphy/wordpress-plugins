@@ -56,7 +56,7 @@ class CnbActionViewEdit {
                 'action' => 'edit',
                 'type'   => strtolower( $button->type ),
                 'id'     => $button->id,
-                'tab'    => $tab
+                'tab'    => $tab,
             ),
             $url );
     }
@@ -166,19 +166,19 @@ class CnbActionViewEdit {
             add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'upgrade',
-                'id'     => $button->domain->id
+                'id'     => $button->domain->id,
             ),
                 admin_url( 'admin.php' ) );
 
         ?>
         <input type="hidden" name="actions[<?php echo esc_attr( $action->id ) ?>][id]"
-               value="<?php if ( $action->id !== null && $action->id !== 'new' ) {
-                   echo esc_attr( $action->id );
-               } ?>"/>
+                value="<?php if ( $action->id !== null && $action->id !== 'new' ) {
+                    echo esc_attr( $action->id );
+                } ?>"/>
         <input type="hidden" name="actions[<?php echo esc_attr( $action->id ) ?>][delete]"
-               id="cnb_action_<?php echo esc_attr( $action->id ) ?>_delete" value=""/>
+                id="cnb_action_<?php echo esc_attr( $action->id ) ?>_delete" value=""/>
         <table data-tab-name="basic_options"
-               class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">
+                class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">
             <?php if ( ! $button ) { ?>
                 <tr>
                     <th colspan="2"><h2>Action Settings</h2>
@@ -196,7 +196,7 @@ class CnbActionViewEdit {
                                 <?php selected( $action_type_value->type, $action->actionType ) ?>
 	                            <?php if (!$isPro && !in_array($domain_type, $action_type_value->plans)) { echo ' disabled="disabled"'; } ?>>
 	                            <?php echo esc_html( $action_type_value->name ) ?>
-                              <?php if (!$isPro && !in_array($domain_type, $action_type_value->plans)) { echo ' (PRO)'; } ?>
+                                <?php if (!$isPro && !in_array($domain_type, $action_type_value->plans)) { echo ' (PRO)'; } ?>
                             </option>
                         <?php } ?>
                     </select>
@@ -212,8 +212,8 @@ class CnbActionViewEdit {
                 </th>
                 <td>
                     <input type="text" id="cnb_action_value_input"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][actionValue]"
-                           value="<?php echo esc_attr( $action->actionValue ) ?>"/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][actionValue]"
+                            value="<?php echo esc_attr( $action->actionValue ) ?>"/>
                     <p class="description cnb-action-properties cnb-action-properties-MAP">Preview on <a href="#"
                                                                                     onclick="cnb_action_update_map_link(this)"
                                                                                     target="_blank">Google Maps</a></p>
@@ -229,8 +229,8 @@ class CnbActionViewEdit {
                 <th scope="row"><label id="cnb_action_value_input_intl_input" for="cnb_action_value_input_whatsapp"></label></th>
                 <td>
                     <input type="tel" id="cnb_action_value_input_whatsapp"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][actionValueWhatsapp]"
-                           value="<?php echo esc_attr( $action->actionValue ) ?>"/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][actionValueWhatsapp]"
+                            value="<?php echo esc_attr( $action->actionValue ) ?>"/>
                     <p class="description" id="cnb-valid-msg">✓ Valid</p>
                     <p class="description" id="cnb-error-msg"></p>
                     <p class="description cnb-action-properties cnb-action-properties-VIBER cnb-action-properties-viber-chat">For Viber Bot change <i>Chat type</i> below.</p>
@@ -238,15 +238,15 @@ class CnbActionViewEdit {
             </tr>
 	        <?php if ($button->type === 'DOTS') { ?>
         <input id="buttonTextField" type="hidden"
-               name="actions[<?php echo esc_attr( $action->id ) ?>][labelText]"
-               value="<?php echo esc_attr( $action->labelText ) ?>"/>
+                name="actions[<?php echo esc_attr( $action->id ) ?>][labelText]"
+                value="<?php echo esc_attr( $action->labelText ) ?>"/>
 	        <?php } else { ?>
             <tr class="button-text cnb_hide_on_modal">
                 <th scope="row"><label for="buttonTextField">Button label</label></th>
                 <td>
                     <input id="buttonTextField" type="text"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][labelText]"
-                           value="<?php echo esc_attr( $action->labelText ) ?>" maxlength="30" placeholder="Optional"/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][labelText]"
+                            value="<?php echo esc_attr( $action->labelText ) ?>" maxlength="30" placeholder="Optional"/>
             <?php } ?>
                 </td>
             </tr>
@@ -255,7 +255,7 @@ class CnbActionViewEdit {
 
         </table>
         <table data-tab-name="scheduler"
-               class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>">
+                class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>">
             <tr class="cnb_hide_on_modal">
                 <th></th>
                 <td></td>
@@ -268,12 +268,12 @@ class CnbActionViewEdit {
 
                     if ( $timezone_set_correctly ) { ?>
                         <input name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]" type="hidden"
-                               value="<?php if ( $button->domain->type === 'STARTER' ) { echo 'true'; } else { echo 'false'; } ?>"/>
+                                value="<?php if ( $button->domain->type === 'STARTER' ) { echo 'true'; } else { echo 'false'; } ?>"/>
                         <input id="actions_schedule_show_always" class="cnb_toggle_checkbox"
-                               onchange="return cnb_hide_on_show_always();"
-                               name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
-                               type="checkbox"
-                               value="true"
+                                onchange="return cnb_hide_on_show_always();"
+                                name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
+                                type="checkbox"
+                                value="true"
                                 <?php if ( $button->domain->type === 'STARTER' ) {
                                     $showAlwaysValue = true;
                                     ?>disabled="disabled"<?php } ?>
@@ -281,28 +281,28 @@ class CnbActionViewEdit {
                         />
                         <label for="actions_schedule_show_always" class="cnb_toggle_label">Toggle</label>
                         <span data-cnb_toggle_state_label="actions_schedule_show_always"
-                              class="cnb_toggle_state cnb_toggle_true">Yes</span>
+                                class="cnb_toggle_state cnb_toggle_true">Yes</span>
                         <span data-cnb_toggle_state_label="actions_schedule_show_always"
-                              class="cnb_toggle_state cnb_toggle_false">(No)</span>
+                                class="cnb_toggle_state cnb_toggle_false">(No)</span>
                     <?php } else if ( $showAlwaysValue ) { ?>
                         <p class="description"><span class="dashicons dashicons-warning"></span>The scheduler is
                             disabled because your timezone is not set correctly yet.</p>
                         <input id="actions_schedule_show_always" class="cnb_toggle_checkbox"
-                               name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
-                               type="checkbox" value="true" checked="checked"/>
+                                name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
+                                type="checkbox" value="true" checked="checked"/>
                     <?php } else { ?>
                         <input name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]" type="hidden"
-                               value="false"/>
+                                value="false"/>
                         <input id="actions_schedule_show_always" class="cnb_toggle_checkbox"
-                               onchange="return cnb_hide_on_show_always();"
-                               name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
-                               type="checkbox"
-                               value="true"/>
+                                onchange="return cnb_hide_on_show_always();"
+                                name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
+                                type="checkbox"
+                                value="true"/>
                         <label for="actions_schedule_show_always" class="cnb_toggle_label">Toggle</label>
                         <span data-cnb_toggle_state_label="actions_schedule_show_always"
-                              class="cnb_toggle_state cnb_toggle_true">Yes</span>
+                                class="cnb_toggle_state cnb_toggle_true">Yes</span>
                         <span data-cnb_toggle_state_label="actions_schedule_show_always"
-                              class="cnb_toggle_state cnb_toggle_false">(No)</span>
+                                class="cnb_toggle_state cnb_toggle_false">(No)</span>
                         <p class="description"><span class="dashicons dashicons-warning"></span>Please set your timezone
                             before making any more changes. See the notice at the top of the page for more information.
                         </p>
@@ -340,13 +340,13 @@ class CnbActionViewEdit {
                 <th><label for="actions_schedule_outside_hours">After hours</label></th>
                 <td>
                     <input id="actions_schedule_outside_hours" class="cnb_toggle_checkbox"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][outsideHours]" type="checkbox"
-                           value="true" <?php checked( true, isset( $action->schedule ) && $action->schedule->outsideHours ); ?> />
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][outsideHours]" type="checkbox"
+                            value="true" <?php checked( true, isset( $action->schedule ) && $action->schedule->outsideHours ); ?> />
                     <label for="actions_schedule_outside_hours" class="cnb_toggle_label">Toggle</label>
                     <span data-cnb_toggle_state_label="actions_schedule_outside_hours"
-                          class="cnb_toggle_state cnb_toggle_true">Active</span>
+                            class="cnb_toggle_state cnb_toggle_true">Active</span>
                     <span data-cnb_toggle_state_label="actions_schedule_outside_hours"
-                          class="cnb_toggle_state cnb_toggle_false">(Off)</span>
+                            class="cnb_toggle_state cnb_toggle_false">(Off)</span>
                 </td>
             </tr>
             <tr class="cnb_hide_on_show_always">
@@ -359,14 +359,14 @@ class CnbActionViewEdit {
             <tr class="cnb_hide_on_show_always cnb_advanced_view">
                 <th><label for="actions-schedule-start">Start time</label></th>
                 <td><input type="time" name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][start]"
-                           id="actions-schedule-start" value="<?php if ( isset( $action->schedule ) ) {
+                            id="actions-schedule-start" value="<?php if ( isset( $action->schedule ) ) {
                         echo esc_attr( $action->schedule->start );
                     } ?>"></td>
             </tr>
             <tr class="cnb_hide_on_show_always cnb_advanced_view">
                 <th><label for="actions-schedule-stop">End time</label></th>
                 <td><input type="time" name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][stop]"
-                           id="actions-schedule-stop" value="<?php if ( isset( $action->schedule ) ) {
+                            id="actions-schedule-stop" value="<?php if ( isset( $action->schedule ) ) {
                         echo esc_attr( $action->schedule->stop );
                     } ?>"></td>
             </tr>
@@ -490,7 +490,7 @@ class CnbActionViewEdit {
                 array(
                     'page'   => 'call-now-button',
                     'action' => 'edit',
-                    'id'     => $bid
+                    'id'     => $bid,
                 ),
                 $url );
 
@@ -504,7 +504,7 @@ class CnbActionViewEdit {
         $form_action   = esc_url( $url );
         $redirect_link = add_query_arg(
             array(
-                'bid' => $bid
+                'bid' => $bid,
             ),
             $form_action
         );
@@ -536,11 +536,11 @@ class CnbActionViewEdit {
                             <a href="<?php echo esc_url( $back_to_button_link ); ?>" class="cnb-nav-tab"><span
                                         class="dashicons dashicons-arrow-left-alt"></span></a>
                             <a data-tab-name="basic_options"
-                               href="<?php echo esc_url( $this->create_tab_url( $button, 'basic_options' ) ) ?>"
-                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">Basics</a>
+                                href="<?php echo esc_url( $this->create_tab_url( $button, 'basic_options' ) ) ?>"
+                                class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">Basics</a>
                             <a data-tab-name="scheduler"
-                               href="<?php echo esc_url( $this->create_tab_url( $button, 'scheduler' ) ) ?>"
-                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>">Scheduling</a>
+                                href="<?php echo esc_url( $this->create_tab_url( $button, 'scheduler' ) ) ?>"
+                                class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>">Scheduling</a>
                         </h2>
                     <?php } ?>
                     <?php if ( $button ) { ?>
@@ -554,10 +554,10 @@ class CnbActionViewEdit {
                     <?php } ?>
 
                     <form class="cnb-container cnb-validation" action="<?php echo esc_url( $redirect_link ); ?>"
-                          method="post">
+                            method="post">
                         <input type="hidden" name="page" value="call-now-button-actions"/>
                         <input type="hidden" name="action"
-                               value="<?php echo $action->id === 'new' ? 'cnb_create_action' : 'cnb_update_action' ?>"/>
+                                value="<?php echo $action->id === 'new' ? 'cnb_create_action' : 'cnb_update_action' ?>"/>
                         <?php
                         $this->render_main( $action, $button );
                         submit_button();

@@ -99,7 +99,7 @@ if (!function_exists('str_contains')) {
  */
 function cnb_get_formatted_amount( $amount, $currency ) {
 	$locale = get_locale();
-	if ( class_exists( 'NumberFormatter' ) ) {
+	if ( class_exists( 'NumberFormatter' ) && $currency !== null ) {
 		$number_formatter = new NumberFormatter( $locale, NumberFormatter::CURRENCY );
 
 		return $number_formatter->formatCurrency( $amount, $currency );
@@ -109,6 +109,7 @@ function cnb_get_formatted_amount( $amount, $currency ) {
 }
 
 function _cnb_convert_currency_to_symbol( $currency ) {
+	if ($currency === null) return $currency;
 	if ( strtolower( $currency ) == 'eur' ) {
 		return '€';
 	}

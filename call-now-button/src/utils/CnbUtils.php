@@ -16,20 +16,24 @@ class CnbUtils {
      * @return mixed|null
      */
     public static function getPropertyOrNull( $object, $property ) {
-        if ( $object === null ) {
-            return null;
-        }
-
-        if ( is_array( $object ) && array_key_exists( $property, $object ) ) {
-            return $object[ $property ];
-        }
-
-        if ( $object instanceof stdClass && property_exists( $object, $property ) ) {
-            return $object->$property;
-        }
-
-        return null;
+        return CnbUtils::getPropertyOr( $object, $property, null);
     }
+
+	public static function getPropertyOr( $object, $property, $default ) {
+		if ( $object === null ) {
+			return $default;
+		}
+
+		if ( is_array( $object ) && array_key_exists( $property, $object ) ) {
+			return $object[ $property ];
+		}
+
+		if ( $object instanceof stdClass && property_exists( $object, $property ) ) {
+			return $object->$property;
+		}
+
+		return $default;
+	}
 
     /**
      * Returns true if the `active` flag is set and is enabled
@@ -117,7 +121,7 @@ class CnbUtils {
             'utm_source' => 'wp-plugin_' . str_replace(' ', '' , CNB_NAME) . '_' . CNB_VERSION,
             'utm_medium' => 'referral',
             'utm_campaign' => $utm_campaign,
-            'utm_term' => $utm_term
+            'utm_term' => $utm_term,
         );
     }
 
@@ -191,7 +195,7 @@ class CnbUtils {
             return add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'upgrade',
-                'id'     => $cnb_domain->id
+                'id'     => $cnb_domain->id,
             ),
                 $url );
         }
@@ -211,7 +215,7 @@ class CnbUtils {
         $plus_variants_domain = strripos( $timezone_string, '+' ) !== false;
         // Do not allow: utc or gmt variants
         $utc_variants_domain = strripos( $timezone_string, 'utc' ) !== false
-                               || strripos( $timezone_string, 'gmt' ) !== false;
+                                || strripos( $timezone_string, 'gmt' ) !== false;
 
         // We DO allow UTC itself as an exception
         $is_utc_exactly = strcasecmp( $timezone_string, 'utc' ) === 0;
@@ -226,36 +230,36 @@ class CnbUtils {
      * Similar to WP_Query get_query_val, but for admin pages (since get_query_val does not work outside The Loop).
      *
      * @param $key string The query parameter to get
-     * @param $default string
+     * @param $default_if_missing string
      *
      * @return string sanitized value of the $_GET parameter
      */
-    function get_query_val( $key, $default = '' ) {
+    function get_query_val( $key, $default_if_missing = '' ) {
         // phpcs:ignore WordPress.Security
         if ( key_exists( $key, $_GET ) && ! empty( $_GET[ $key ] ) ) {
             // phpcs:ignore WordPress.Security
             return sanitize_text_field( wp_unslash( $_GET[ $key ] ) );
         }
 
-        return $default;
+        return $default_if_missing;
     }
 
     /**
      * Similar to WP_Query get_query_val, but for admin pages (since get_query_val does not work outside The Loop).
      *
      * @param $key string The POST parameter to get
-     * @param $default string
+     * @param $default_if_missing string
      *
      * @return string sanitized value of the $_GET parameter
      */
-    function get_post_val( $key, $default = '' ) {
+    function get_post_val( $key, $default_if_missing = '' ) {
         // phpcs:ignore WordPress.Security
         if ( key_exists( $key, $_POST ) && ! empty( $_POST[ $key ] ) ) {
             // phpcs:ignore WordPress.Security
             return sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
         }
 
-        return $default;
+        return $default_if_missing;
     }
 
     /**

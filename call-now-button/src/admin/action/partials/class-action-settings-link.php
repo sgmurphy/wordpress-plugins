@@ -42,19 +42,19 @@ class ActionSettingsLink {
                 $action_download_value   = isset( $action->properties ) && isset( $action->properties->{'link-download'} ) ? $action->properties->{'link-download'} : null;
                 ?>
                 <p><input type="hidden"
-                          name="actions[<?php echo esc_attr( $action->id ) ?>][properties][link-download-enabled]"
-                          value="0"/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][link-download-enabled]"
+                            value="0"/>
                     <input id="cnb-action-link-download-enabled" class="cnb_toggle_checkbox" type="checkbox"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][properties][link-download-enabled]"
-                           value="true" <?php checked( true, $action_download_enabled ); ?>>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][link-download-enabled]"
+                            value="true" <?php checked( true, $action_download_enabled ); ?>>
                     <label for="cnb-action-link-download-enabled" class="cnb_toggle_label">Toggle</label>
                     <span data-cnb_toggle_state_label="cnb-action-link-download-enabled"
-                          class="cnb_toggle_state cnb_toggle_false">(No)</span>
+                            class="cnb_toggle_state cnb_toggle_false">(No)</span>
                     <span data-cnb_toggle_state_label="cnb-action-link-download-enabled"
-                          class="cnb_toggle_state cnb_toggle_true">Yes</span></p>
+                            class="cnb_toggle_state cnb_toggle_true">Yes</span></p>
                 <p><input id="actionLinkDownload" type="text"
-                          name="actions[<?php echo esc_attr( $action->id ) ?>][properties][link-download]"
-                          value="<?php echo esc_attr( $action_download_value ) ?>" placeholder="Download filename"/>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][link-download]"
+                            value="<?php echo esc_attr( $action_download_value ) ?>" placeholder="Download filename"/>
                 </p>
             </td>
         </tr>

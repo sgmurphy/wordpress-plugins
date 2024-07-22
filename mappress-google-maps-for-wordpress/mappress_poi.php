@@ -45,7 +45,10 @@ class Mappress_Poi extends Mappress_Obj {
 	}
 
 	function sanitize() {
-		$this->body = ($this->body) ? wp_kses_post($this->body) : $this->body;
+		// Allow iframes in body
+		$allowed_html = wp_kses_allowed_html('post');
+		$allowed_html['iframe'] = array('src' => true, 'width' => true, 'height' => true, 'frameborder' => true, 'allow' => true, 'allowfullscreen' => true, 'loading' => true);
+		$this->body = ($this->body) ? wp_kses($this->body, $allowed_html) : $this->body;
 		$this->title = ($this->title) ? wp_kses_post($this->title) : $this->title;
 	}
 		

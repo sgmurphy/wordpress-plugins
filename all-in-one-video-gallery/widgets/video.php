@@ -118,6 +118,7 @@ class AIOVG_Widget_Video extends WP_Widget {
 		$instance['speed']      = isset( $new_instance['speed'] ) ? (int) $new_instance['speed'] : 0;
 		$instance['quality']    = isset( $new_instance['quality'] ) ? (int) $new_instance['quality'] : 0;
 		$instance['volume']     = isset( $new_instance['volume'] ) ? (int) $new_instance['volume'] : 0;
+		$instance['pip']        = isset( $new_instance['pip'] ) ? (int) $new_instance['pip'] : 0;
 		$instance['fullscreen'] = isset( $new_instance['fullscreen'] ) ? (int) $new_instance['fullscreen'] : 0;
 		$instance['share']      = isset( $new_instance['share'] ) ? (int) $new_instance['share'] : 0;
 		$instance['embed']      = isset( $new_instance['embed'] ) ? (int) $new_instance['embed'] : 0;
@@ -153,6 +154,7 @@ class AIOVG_Widget_Video extends WP_Widget {
 			'speed'      => isset( $player_settings['controls']['speed'] ) ? 1 : 0,
 			'quality'    => isset( $player_settings['controls']['quality'] ) ? 1 : 0,
 			'volume'     => isset( $player_settings['controls']['volume'] ) ? 1 : 0,
+			'pip'        => isset( $player_settings['controls']['pip'] ) ? 1 : 0,
 			'fullscreen' => isset( $player_settings['controls']['fullscreen'] ) ? 1 : 0,
 			'share'      => isset( $player_settings['controls']['share'] ) ? 1 : 0,
 			'embed'      => isset( $player_settings['controls']['embed'] ) ? 1 : 0,

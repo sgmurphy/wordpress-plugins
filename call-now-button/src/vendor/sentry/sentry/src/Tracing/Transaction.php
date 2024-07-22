@@ -6,6 +6,7 @@ namespace Sentry\Tracing;
 
 use Sentry\Event;
 use Sentry\EventId;
+use Sentry\Profiling\Profiler;
 use Sentry\SentrySdk;
 use Sentry\State\HubInterface;
 
@@ -33,6 +34,11 @@ final class Transaction extends Span
      * @var TransactionMetadata
      */
     protected $metadata;
+
+    /**
+     * @var Profiler|null Reference instance to the {@see Profiler}
+     */
+    protected $profiler;
 
     /**
      * Span constructor.
@@ -64,10 +70,14 @@ final class Transaction extends Span
      * Sets the name of this transaction.
      *
      * @param string $name The name
+     *
+     * @return $this
      */
-    public function setName(string $name): void
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -83,7 +93,7 @@ final class Transaction extends Span
      */
     public function getDynamicSamplingContext(): DynamicSamplingContext
     {
-        if (null !== $this->metadata->getDynamicSamplingContext()) {
+        if ($this->metadata->getDynamicSamplingContext() !== null) {
             return $this->metadata->getDynamicSamplingContext();
         }
 
@@ -98,13 +108,39 @@ final class Transaction extends Span
      *
      * @param int $maxSpans The maximum number of spans that can be recorded
      */
-    public function initSpanRecorder(int $maxSpans = 1000): void
+    public function initSpanRecorder(int $maxSpans = 1000): self
     {
-        if (null === $this->spanRecorder) {
+        if ($this->spanRecorder === null) {
             $this->spanRecorder = new SpanRecorder($maxSpans);
         }
 
         $this->spanRecorder->add($this);
+
+        return $this;
+    }
+
+    public function initProfiler(): Profiler
+    {
+        if ($this->profiler === null) {
+            $client = $this->hub->getClient();
+            $options = $client !== null ? $client->getOptions() : null;
+
+            $this->profiler = new Profiler($options);
+        }
+
+        return $this->profiler;
+    }
+
+    public function getProfiler(): ?Profiler
+    {
+        return $this->profiler;
+    }
+
+    public function detachProfiler(): self
+    {
+        $this->profiler = null;
+
+        return $this;
     }
 
     /**
@@ -112,22 +148,26 @@ final class Transaction extends Span
      */
     public function finish(?float $endTimestamp = null): ?EventId
     {
-        if (null !== $this->endTimestamp) {
+        if ($this->profiler !== null) {
+            $this->profiler->stop();
+        }
+
+        if ($this->endTimestamp !== null) {
             // Transaction was already finished once and we don't want to re-flush it
             return null;
         }
 
         parent::finish($endTimestamp);
 
-        if (true !== $this->sampled) {
+        if ($this->sampled !== true) {
             return null;
         }
 
         $finishedSpans = [];
 
-        if (null !== $this->spanRecorder) {
+        if ($this->spanRecorder !== null) {
             foreach ($this->spanRecorder->getSpans() as $span) {
-                if ($span->getSpanId() !== $this->getSpanId() && null !== $span->getEndTimestamp()) {
+                if ($span->getSpanId() !== $this->getSpanId() && $span->getEndTimestamp() !== null) {
                     $finishedSpans[] = $span;
                 }
             }
@@ -142,6 +182,17 @@ final class Transaction extends Span
         $event->setContext('trace', $this->getTraceContext());
         $event->setSdkMetadata('dynamic_sampling_context', $this->getDynamicSamplingContext());
         $event->setSdkMetadata('transaction_metadata', $this->getMetadata());
+
+        if ($this->profiler !== null) {
+            $profile = $this->profiler->getProfile();
+            if ($profile !== null) {
+                $event->setSdkMetadata('profile', $profile);
+            }
+        }
+
+        if (!empty($this->getMetricsSummary())) {
+            $event->setMetricsSummary($this->getMetricsSummary());
+        }
 
         return $this->hub->captureEvent($event);
     }

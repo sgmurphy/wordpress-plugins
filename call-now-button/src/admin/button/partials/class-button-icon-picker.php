@@ -78,11 +78,11 @@ class Button_Icon_Picker {
             </th>
             <td>
                 <input name="button[multiButtonOptions][id]" type="hidden"
-                       value="<?php echo esc_attr( $multi_button_id ); ?>"/>
+                        value="<?php echo esc_attr( $multi_button_id ); ?>"/>
                 <input name="button[multiButtonOptions][iconBackgroundColorOpen]"
-                       id="button-multiButtonOptions-iconBackgroundColorOpen" type="text"
-                       value="<?php echo esc_attr( $iconBackgroundColorOpen ); ?>"
-                       class="cnb-color-field" data-default-color="#009900"/>
+                        id="button-multiButtonOptions-iconBackgroundColorOpen" type="text"
+                        value="<?php echo esc_attr( $iconBackgroundColorOpen ); ?>"
+                        class="cnb-color-field" data-default-color="#009900"/>
             </td>
         </tr>
         <tr>
@@ -93,8 +93,8 @@ class Button_Icon_Picker {
             </th>
             <td>
                 <input name="button[multiButtonOptions][iconColorOpen]" id="button-multiButtonOptions-iconColorOpen"
-                       type="text" value="<?php echo esc_attr( $iconColorOpen ); ?>"
-                       class="cnb-color-field" data-default-color="#FFFFFF"/>
+                        type="text" value="<?php echo esc_attr( $iconColorOpen ); ?>"
+                        class="cnb-color-field" data-default-color="#FFFFFF"/>
             </td>
         </tr>
         <tr>
@@ -105,18 +105,18 @@ class Button_Icon_Picker {
             </th>
             <td>
                 <div class="icon-text-options" id="icon-text-open"
-                     data-icon-text-target="button-multiButtonOptions-iconTextOpen"
-                     data-icon-type-target="button-multiButtonOptions-iconTypeOpen">
+                    data-icon-text-target="button-multiButtonOptions-iconTextOpen"
+                    data-icon-type-target="button-multiButtonOptions-iconTypeOpen">
                     <div class="cnb-button-icon">
                         <i class="cnb-font-icon" data-icon-type="FONT"
-                           data-icon-text="more_vert">more_vert</i>
+                            data-icon-text="more_vert">more_vert</i>
                     </div>
                     <div class="cnb-button-icon">
                         <i class="cnb-font-icon" data-icon-type="FONT" data-icon-text="menu">menu</i>
                     </div>
                     <div class="cnb-button-icon">
                         <i class="cnb-font-icon" data-icon-type="FONT"
-                           data-icon-text="communicate">communicate</i>
+                            data-icon-text="communicate">communicate</i>
                     </div>
                     <div class="cnb-button-icon">
                         <i class="cnb-font-icon" data-icon-type="FONT" data-icon-text="more_info">more_info</i>
@@ -188,14 +188,14 @@ class Button_Icon_Picker {
                             data-description="button-multiButtonOptions-iconTextOpen-description"
                             class="cnb_advanced_view">Use a custom icon</a>
                     <input name="button[multiButtonOptions][iconTextOpen]"
-                           id="button-multiButtonOptions-iconTextOpen" type="hidden"
-                           data-cnb-multi-do-not-expand="true"
-                           value="<?php echo esc_attr( $iconTextOpen ); ?>"/>
+                            id="button-multiButtonOptions-iconTextOpen" type="hidden"
+                            data-cnb-multi-do-not-expand="true"
+                            value="<?php echo esc_attr( $iconTextOpen ); ?>"/>
                     <input name="button[multiButtonOptions][iconTypeOpen]"
-                           id="button-multiButtonOptions-iconTypeOpen" type="hidden"
-                           value="<?php echo esc_attr( $iconTypeOpen ); ?>"/>
+                            id="button-multiButtonOptions-iconTypeOpen" type="hidden"
+                            value="<?php echo esc_attr( $iconTypeOpen ); ?>"/>
                     <p class="description" id="button-multiButtonOptions-iconTextOpen-description"
-                       style="display: none">
+                        style="display: none">
                         You can enter a custom Material Design font code here. Search the full library at <a
                                 href="https://fonts.google.com/icons" target="_blank">Google Fonts</a>.<br/>
                         The Call Now Button uses the <code>filled</code> version of icons.</p>
@@ -211,11 +211,11 @@ class Button_Icon_Picker {
             </th>
             <td>
                 <input name="button[multiButtonOptions][id]" type="hidden"
-                       value="<?php echo esc_attr( $multi_button_id ); ?>"/>
+                        value="<?php echo esc_attr( $multi_button_id ); ?>"/>
                 <input name="button[multiButtonOptions][iconBackgroundColorClose]"
-                       id="button-multiButtonOptions-iconBackgroundColorClose" type="text"
-                       value="<?php echo esc_attr( $iconBackgroundColorClose ); ?>"
-                       class="cnb-color-field" data-default-color="#009900"/>
+                        id="button-multiButtonOptions-iconBackgroundColorClose" type="text"
+                        value="<?php echo esc_attr( $iconBackgroundColorClose ); ?>"
+                        class="cnb-color-field" data-default-color="#009900"/>
             </td>
         </tr>
         <tr class="cnb_advanced_view">
@@ -226,8 +226,8 @@ class Button_Icon_Picker {
             </th>
             <td>
                 <input name="button[multiButtonOptions][iconColorClose]" id="button-multiButtonOptions-iconColorClose"
-                       type="text" value="<?php echo esc_attr( $iconColorClose ); ?>"
-                       class="cnb-color-field" data-default-color="#FFFFFF"/>
+                        type="text" value="<?php echo esc_attr( $iconColorClose ); ?>"
+                        class="cnb-color-field" data-default-color="#FFFFFF"/>
             </td>
         </tr>
         <tr class="cnb_advanced_view">
@@ -238,22 +238,22 @@ class Button_Icon_Picker {
             </th>
             <td>
                 <div class="icon-text-options" id="icon-text-close"
-                     data-icon-text-target="button-multiButtonOptions-iconTextClose"
-                     data-icon-type-target="button-multiButtonOptions-iconTypeClose">
+                    data-icon-text-target="button-multiButtonOptions-iconTextClose"
+                    data-icon-type-target="button-multiButtonOptions-iconTypeClose">
                     <div class="cnb-button-icon">
                         <i class="cnb-font-icon" data-icon-type="FONT" data-icon-text="close">close</i>
                     </div>
                     <div class="cnb-button-icon">
                         <i class="cnb-font-icon family-material" data-icon-type="FONT_MATERIAL"
-                           data-icon-text="cancel">cancel</i>
+                            data-icon-text="cancel">cancel</i>
                     </div>
                     <div class="cnb-button-icon">
                         <i class="cnb-font-icon family-material" data-icon-type="FONT_MATERIAL"
-                           data-icon-text="close">close</i>
+                            data-icon-text="close">close</i>
                     </div>
                     <div class="cnb-button-icon">
                         <i class="cnb-font-icon family-material" data-icon-type="FONT_MATERIAL"
-                           data-icon-text="zoom_in_map">zoom_in_map</i>
+                            data-icon-text="zoom_in_map">zoom_in_map</i>
                     </div>
                     <?php
                     $this->render_image_selector( 'iconBackgroundImageClose', $iconBackgroundImageClose );
@@ -268,13 +268,13 @@ class Button_Icon_Picker {
                         data-description="button-multiButtonOptions-iconTextClose-description"
                         class="cnb_advanced_view">Use a custom icon</a>
                 <input name="button[multiButtonOptions][iconTextClose]"
-                       id="button-multiButtonOptions-iconTextClose" type="hidden"
-                       value="<?php echo esc_attr( $iconTextClose ); ?>"/>
+                        id="button-multiButtonOptions-iconTextClose" type="hidden"
+                        value="<?php echo esc_attr( $iconTextClose ); ?>"/>
                 <input name="button[multiButtonOptions][iconTypeClose]"
-                       id="button-multiButtonOptions-iconTypeClose" type="hidden"
-                       value="<?php echo esc_attr( $iconTypeClose ); ?>"/>
+                        id="button-multiButtonOptions-iconTypeClose" type="hidden"
+                        value="<?php echo esc_attr( $iconTypeClose ); ?>"/>
                 <p class="description" id="button-multiButtonOptions-iconTextClose-description"
-                   style="display: none">
+                    style="display: none">
                     You can enter a custom Material Design font code here. Search the full library at <a
                             href="https://fonts.google.com/icons" target="_blank">Google Fonts</a>.<br/>
                     The Call Now Button uses the <code>filled</code> version of icons.</p>

@@ -48,11 +48,16 @@ if ( ! class_exists( 'AIO_Login\\Login_Controller\\Failed_Logins' ) ) {
 			global $wpdb;
 			$table_name = $wpdb->prefix . 'aio_login_login_attempts';
 
-			if ( is_array( $id ) ) {
-				$id = implode( ',', $id );
+			if ( 'all' === $id ) {
+				$sql = 'TRUNCATE TABLE %i';
+			} else {
+				if ( is_array( $id ) ) {
+					$id = implode( ',', $id );
+				}
+
+				$sql = 'DELETE FROM %i WHERE id IN (' . $id . ')';
 			}
 
-			$sql = 'DELETE FROM %i WHERE id IN (' . $id . ')';
 			$sql = $wpdb->prepare( $sql, $table_name ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			return $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared
 		}
@@ -68,11 +73,16 @@ if ( ! class_exists( 'AIO_Login\\Login_Controller\\Failed_Logins' ) ) {
 			global $wpdb;
 			$table_name = $wpdb->prefix . 'aio_login_login_lockouts';
 
-			if ( is_array( $id ) ) {
-				$id = implode( ',', $id );
+			if ( 'all' === $id ) {
+				$sql = 'TRUNCATE TABLE %i';
+			} else {
+				if ( is_array( $id ) ) {
+					$id = implode( ',', $id );
+				}
+
+				$sql = 'DELETE FROM %i WHERE id IN (' . $id . ')';
 			}
 
-			$sql = 'DELETE FROM %i WHERE id IN (' . $id . ')';
 			$sql = $wpdb->prepare( $sql, $table_name ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			return $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared
 		}

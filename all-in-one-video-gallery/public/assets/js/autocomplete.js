@@ -176,7 +176,13 @@
 	$(function() {	
 
 		$( '.aiovg-autocomplete' ).each(function() {
-			var uid   = $( this ).data( 'uid' );
+			var uid = $( this ).data( 'uid' );
+
+			var name = 'ta[]';
+			if ( typeof $( this ).data( 'name' ) !== 'undefined' ) {
+				name = $( this ).data( 'name' );
+			}
+
 			var items = [];			
 
 			$( 'option', '#aiovg-autocomplete-select-' + uid ).each(function() {
@@ -208,7 +214,7 @@
 						'</svg>';
 						html += label;
 						html += '</a>';
-						html += '<input type="hidden" name="ta[]" value="' + value + '" />';
+						html += '<input type="hidden" name="' + name + '" value="' + value + '" />';
 						html += '</span>';
 						
 						$tags.append( html );

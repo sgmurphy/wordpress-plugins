@@ -184,7 +184,7 @@ class CNB_CLI_Api extends WP_CLI_Command {
         $hide_chars = 12;
 
         return substr( $api_key, 0, - $hide_chars )
-               . str_repeat( 'x', $hide_chars );
+                . str_repeat( 'x', $hide_chars );
     }
 
     /**

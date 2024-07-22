@@ -373,25 +373,25 @@ class AIOVG_Admin_Videos {
 					update_post_meta( $post_id, 'sources', $values );
 				}
 
-				$hls = isset( $_POST['hls'] ) ? esc_url_raw( $_POST['hls'] ) : '';
+				$hls = isset( $_POST['hls'] ) ? aiovg_sanitize_url( $_POST['hls'] ) : '';
 				update_post_meta( $post_id, 'hls', $hls );
 				
-				$dash = isset( $_POST['dash'] ) ? esc_url_raw( $_POST['dash'] ) : '';
+				$dash = isset( $_POST['dash'] ) ? aiovg_sanitize_url( $_POST['dash'] ) : '';
 				update_post_meta( $post_id, 'dash', $dash );
 				
-				$youtube = isset( $_POST['youtube'] ) ? esc_url_raw( aiovg_resolve_youtube_url( $_POST['youtube'] ) ) : '';
+				$youtube = isset( $_POST['youtube'] ) ? aiovg_sanitize_url( aiovg_resolve_youtube_url( $_POST['youtube'] ) ) : '';
 				update_post_meta( $post_id, 'youtube', $youtube );
 				
-				$vimeo = isset( $_POST['vimeo'] ) ? esc_url_raw( $_POST['vimeo'] ) : '';
+				$vimeo = isset( $_POST['vimeo'] ) ? aiovg_sanitize_url( $_POST['vimeo'] ) : '';
 				update_post_meta( $post_id, 'vimeo', $vimeo );
 				
-				$dailymotion = isset( $_POST['dailymotion'] ) ? esc_url_raw( $_POST['dailymotion'] ) : '';
+				$dailymotion = isset( $_POST['dailymotion'] ) ? aiovg_sanitize_url( $_POST['dailymotion'] ) : '';
 				update_post_meta( $post_id, 'dailymotion', $dailymotion );
 
-				$rumble = isset( $_POST['rumble'] ) ? esc_url_raw( $_POST['rumble'] ) : '';
+				$rumble = isset( $_POST['rumble'] ) ? aiovg_sanitize_url( $_POST['rumble'] ) : '';
 				update_post_meta( $post_id, 'rumble', $rumble );
 				
-				$facebook = isset( $_POST['facebook'] ) ? esc_url_raw( $_POST['facebook'] ) : '';
+				$facebook = isset( $_POST['facebook'] ) ? aiovg_sanitize_url( $_POST['facebook'] ) : '';
 				update_post_meta( $post_id, 'facebook', $facebook );
 				
 				add_filter( 'wp_kses_allowed_html', 'aiovg_allow_iframe_script_tags' );

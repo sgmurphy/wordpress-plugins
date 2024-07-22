@@ -346,6 +346,7 @@ class AIOVG_Admin_Settings {
                         'speed'      => __( 'Speed Control', 'all-in-one-video-gallery' ),
                         'quality'    => __( 'Quality Selector', 'all-in-one-video-gallery' ),
 						'volume'     => __( 'Volume Button', 'all-in-one-video-gallery' ),
+                        'pip'        => __( 'Picture-in-Picture Button', 'all-in-one-video-gallery' ),
 						'fullscreen' => __( 'Fullscreen Button', 'all-in-one-video-gallery' ),
                         'share'      => __( 'Share Buttons', 'all-in-one-video-gallery' ),
                         'embed'      => __( 'Embed Button', 'all-in-one-video-gallery' ),
@@ -390,9 +391,8 @@ class AIOVG_Admin_Settings {
                     'description'       => __( 'Enables native player controls on the selected source types. For example, uses YouTube Player for playing YouTube videos & Vimeo Player for playing Vimeo videos. Note that none of our custom player features will work on the selected sources.', 'all-in-one-video-gallery' ),
                     'type'              => 'multicheck',
 					'options'           => array(
-						'youtube'     => __( 'YouTube', 'all-in-one-video-gallery' ),
-						'vimeo'       => __( 'Vimeo', 'all-in-one-video-gallery' ),
-						'dailymotion' => __( 'Dailymotion', 'all-in-one-video-gallery' )					
+						'youtube' => __( 'YouTube', 'all-in-one-video-gallery' ),
+						'vimeo'   => __( 'Vimeo', 'all-in-one-video-gallery' )
 					),
 					'sanitize_callback' => 'aiovg_sanitize_array'
                 ),
@@ -970,7 +970,7 @@ class AIOVG_Admin_Settings {
                     'label'             => __( 'Logo Link', 'all-in-one-video-gallery' ),
                     'description'       => __( 'The URL to visit when the watermark image is clicked. Clicking a logo will have no affect unless this is configured.', 'all-in-one-video-gallery' ),
                     'type'              => 'text',
-                    'sanitize_callback' => 'esc_url_raw'
+                    'sanitize_callback' => 'aiovg_sanitize_url'
                	),
 				array(
                     'name'              => 'logo_position',

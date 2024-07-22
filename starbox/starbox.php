@@ -1,5 +1,4 @@
-<?php defined('ABSPATH') || die('Cheatin\' uh?'); ?>
-<?php
+<?php defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 /*
 *  Copyright (c) 2013-2024, Squirrly Limited.
 *  The copyrights to the software code in this file are licensed under the (revised) BSD open source license.
@@ -26,39 +25,30 @@
 */
 
 /* SET THE CURRENT VERSION ABOVE AND BELOW */
-define('ABH_VERSION', '3.5.2');
+define( 'ABH_VERSION', '3.5.2' );
 
-if (!defined('ABHP_VERSION')) {
+if ( ! defined( 'ABHP_VERSION' ) ) {
 
-    /* Call config files */
-    require(dirname(__FILE__) . '/config/config.php');
+	/* Call config files */
+	require( dirname( __FILE__ ) . '/config/config.php' );
 
-    /* important to check the PHP version */
-    if (PHP_VERSION_ID >= 5100) {
-        /* inport main classes */
-        require_once(_ABH_CLASSES_DIR_ . 'ObjController.php');
-        require_once(_ABH_CLASSES_DIR_ . 'BlockController.php');
+	/* inport main classes */
+	require_once( _ABH_CLASSES_DIR_ . 'ObjController.php' );
+	require_once( _ABH_CLASSES_DIR_ . 'BlockController.php' );
 
-        /* Main class call */
-        ABH_Classes_ObjController::getController('ABH_Classes_FrontController')->run();
+	/* Main class call */
+	ABH_Classes_ObjController::getController( 'ABH_Classes_FrontController' )->run();
 
-        if (!is_admin()){
-            ABH_Classes_ObjController::getController('ABH_Controllers_Frontend');
-        }
+	if ( ! is_admin() ) {
+		ABH_Classes_ObjController::getController( 'ABH_Controllers_Frontend' );
+	}
 
-    } else {
-        /* Main class call */
-        add_action('admin_notices', array(ABH_Classes_ObjController::getController('ABH_Classes_FrontController'), 'phpVersionError'));
-    }
+	// Upgrade StarBox call.
+	register_activation_hook( __FILE__, 'abh_upgrade' );
 
-// --
-
-    // Upgrade StarBox call.
-    register_activation_hook(__FILE__, 'abh_upgrade');
-
-    function abh_upgrade() {
-        set_transient('abh_upgrade', true, 30);
-    }
+	function abh_upgrade() {
+		set_transient( 'abh_upgrade', true, 30 );
+	}
 }
 
 

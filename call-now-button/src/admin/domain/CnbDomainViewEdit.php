@@ -50,9 +50,9 @@ class CnbDomainViewEdit {
         <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ) ?>" method="post">
             <input type="hidden" name="page" value="call-now-button"/>
             <input type="hidden" name="action"
-                   value="<?php echo $domain_id === 'new' ? 'cnb_create_domain' : 'cnb_update_domain' ?>"/>
+                    value="<?php echo $domain_id === 'new' ? 'cnb_create_domain' : 'cnb_update_domain' ?>"/>
             <input type="hidden" name="_wpnonce"
-                   value="<?php echo esc_attr( wp_create_nonce( $domain_id === 'new' ? 'cnb_create_domain' : 'cnb_update_domain' ) ) ?>"/>
+                    value="<?php echo esc_attr( wp_create_nonce( $domain_id === 'new' ? 'cnb_create_domain' : 'cnb_update_domain' ) ) ?>"/>
 
             <table class="form-table nav-tab-active" role="presentation">
                 <?php $this->render_form( $domain ) ?>
@@ -77,13 +77,13 @@ class CnbDomainViewEdit {
             add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'upgrade',
-                'id'     => $domain->id
+                'id'     => $domain->id,
             ),
                 $url );
 	    $payment_link =
 		    add_query_arg( array(
 			    'page'   => 'call-now-button-domains',
-			    'action' => 'payment'
+			    'action' => 'payment',
 		    ),
 			    $url );
         ?>
@@ -102,18 +102,18 @@ class CnbDomainViewEdit {
                     echo '<p class="description"><a href="' . esc_url( $upgrade_link ) . '">Upgrade</a> to <span class="cnb-pro-badge">Pro</span> to get tons of buttons, more features and extra button types.</p>';
                 }
                 if ( $domain->status === 'TRIALING' && ! empty( $domain->expires ) ) { ?>
-                  <p class="description" id="domain_expires-description">
-                      <?php
-                      switch ($domain->renew) {
-                          case 1:
-                              echo ' Paid subscription is starting on ' . esc_html( $this->get_formatted_date( $domain->expires ) ) . '. To cancel your trial please visit the ';
-                              break;
-                          default:
-                              echo ' Your free trial has been cancelled and you are reverted to the free plan on ' . esc_html( $this->get_formatted_date( $domain->expires ) ) . '. To stay on the PRO plan go to the ';
-                      }
-                       ?>
-                      <a href="#" onclick="return cnb_goto_billing_portal()">billing portal</a>.
-                  </p>
+                    <p class="description" id="domain_expires-description">
+                        <?php
+                        switch ($domain->renew) {
+                            case 1:
+                                echo ' Paid subscription is starting on ' . esc_html( $this->get_formatted_date( $domain->expires ) ) . '. To cancel your trial please visit the ';
+                                break;
+                            default:
+                                echo ' Your free trial has been cancelled and you are reverted to the free plan on ' . esc_html( $this->get_formatted_date( $domain->expires ) ) . '. To stay on the PRO plan go to the ';
+                        }
+                        ?>
+                        <a href="#" onclick="return cnb_goto_billing_portal()">billing portal</a>.
+                    </p>
                 <?php
                     } ?>
             </td>
@@ -127,7 +127,7 @@ class CnbDomainViewEdit {
             <?php
             if ( ! empty( $domain->expires ) ) { ?>
                 <input id="cnb-renew" class="cnb_toggle_checkbox" name="domain[renew]" type="checkbox"
-                           value="true" <?php checked( true, $domain->renew ); ?> />
+                            value="true" <?php checked( true, $domain->renew ); ?> />
                 <label for="cnb-renew" class="cnb_toggle_label">Toggle</label>
                 <span data-cnb_toggle_state_label="cnb-renew" class="cnb_toggle_state cnb_toggle_false">(Off)</span>
                 <span data-cnb_toggle_state_label="cnb-renew" class="cnb_toggle_state cnb_toggle_true">On</span>
@@ -141,7 +141,7 @@ class CnbDomainViewEdit {
                 </td>
             </tr>
         <?php }
-      }
+        }
 
     function render_form_tracking( $domain ) {
         $cnb_utils = new CnbUtils();
@@ -154,7 +154,7 @@ class CnbDomainViewEdit {
             <td>
                 <input type="hidden" name="domain[trackGA]" value="0"/>
                 <input id="google_analytics" class="cnb_toggle_checkbox" name="domain[trackGA]" type="checkbox"
-                       value="true" <?php checked( true, $domain->trackGA ); ?> />
+                        value="true" <?php checked( true, $domain->trackGA ); ?> />
                 <label for="google_analytics" class="cnb_toggle_label">Enable GA tracking</label>
                 <span data-cnb_toggle_state_label="google_analytics" class="cnb_toggle_state cnb_toggle_false">(Click tracking inactive)</span>
                 <span data-cnb_toggle_state_label="google_analytics" class="cnb_toggle_state cnb_toggle_true">Click tracking active</span>
@@ -172,7 +172,7 @@ class CnbDomainViewEdit {
             <td>
                 <input type="hidden" name="domain[trackConversion]" value="0"/>
                 <input id="conversion_tracking" class="cnb_toggle_checkbox" name="domain[trackConversion]"
-                       type="checkbox" value="true" <?php checked( true, $domain->trackConversion ); ?> />
+                        type="checkbox" value="true" <?php checked( true, $domain->trackConversion ); ?> />
                 <label for="conversion_tracking" class="cnb_toggle_label">Enable Google Ads conversion tracking</label>
                 <span data-cnb_toggle_state_label="conversion_tracking" class="cnb_toggle_state cnb_toggle_false">(Conversion tracking inactive)</span>
                 <span data-cnb_toggle_state_label="conversion_tracking" class="cnb_toggle_state cnb_toggle_true">Conversion tracking active</span>
@@ -194,7 +194,7 @@ class CnbDomainViewEdit {
             add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'upgrade',
-                'id'     => $domain->id
+                'id'     => $domain->id,
             ),
                 admin_url( 'admin.php' ) );
 
@@ -207,11 +207,11 @@ class CnbDomainViewEdit {
             <td>
                 <fieldset>
                     <label class="cnb_slider_value" for="cnb_slider"
-                           onclick="jQuery('#cnb_slider:enabled')[0].stepDown();cnb_update_sliders()">Smaller&nbsp;&laquo;&nbsp;</label>
+                            onclick="jQuery('#cnb_slider:enabled')[0].stepDown();cnb_update_sliders()">Smaller&nbsp;&laquo;&nbsp;</label>
                     <input type="range" min="0.7" max="1.3" step="0.1" name="domain[properties][scale]"
-                           value="<?php echo esc_attr( $domain->properties->scale ) ?>" class="slider" id="cnb_slider">
+                            value="<?php echo esc_attr( $domain->properties->scale ) ?>" class="slider" id="cnb_slider">
                     <label class="cnb_slider_value" for="cnb_slider"
-                           onclick="jQuery('#cnb_slider:enabled')[0].stepUp();cnb_update_sliders()">&nbsp;&raquo;&nbsp;Bigger</label>
+                            onclick="jQuery('#cnb_slider:enabled')[0].stepUp();cnb_update_sliders()">&nbsp;&raquo;&nbsp;Bigger</label>
                 </fieldset>
             </td>
         </tr>
@@ -224,13 +224,13 @@ class CnbDomainViewEdit {
                 </a></th>
             <td>
                 <label class="cnb_slider_value" for="cnb_order_slider"
-                       onclick="jQuery('#cnb_order_slider:enabled')[0].stepDown();cnb_update_sliders()">Backwards&nbsp;&laquo;&nbsp;</label>
+                        onclick="jQuery('#cnb_order_slider:enabled')[0].stepDown();cnb_update_sliders()">Backwards&nbsp;&laquo;&nbsp;</label>
                 <input type="range" min="1" max="10" name="domain[properties][zindex]"
-                       value="<?php echo esc_attr( $domain_properties_zindex_order ) ?>" class="slider2"
-                       id="cnb_order_slider"
-                       step="1">
+                        value="<?php echo esc_attr( $domain_properties_zindex_order ) ?>" class="slider2"
+                        id="cnb_order_slider"
+                        step="1">
                 <label class="cnb_slider_value" for="cnb_order_slider"
-                       onclick="jQuery('#cnb_order_slider:enabled')[0].stepUp();cnb_update_sliders()">&nbsp;&raquo;&nbsp;Front</label>
+                        onclick="jQuery('#cnb_order_slider:enabled')[0].stepUp();cnb_update_sliders()">&nbsp;&raquo;&nbsp;Front</label>
                 <p class="description">The default (and recommended) value is all the way to the front so the
                     button sits on top of everything. <a
                             href="<?php echo esc_url( $cnb_utils->get_support_url( 'wordpress-free/settings/set-order/', 'domain-settings-question-mark', 'Order' ) ) ?>" target="_blank">Learn
@@ -239,9 +239,9 @@ class CnbDomainViewEdit {
         </tr>
         <tr>
             <th scope="row"><label for="domain_properties_allow_multiple_buttons">Multiple buttons per page</label>
-              <?php if ( $domain->type === 'STARTER' ) { ?>
+                <?php if ( $domain->type === 'STARTER' ) { ?>
                 <a href="<?php echo esc_url( $upgrade_link ) ?>"><span class="cnb-pro-badge">Pro</span></a>
-              <?php } ?>
+                <?php } ?>
             </th>
             <td>
                 <input type="hidden" name="domain[properties][allowMultipleButtons]" value="false"/>
@@ -259,9 +259,9 @@ class CnbDomainViewEdit {
                 <label for="domain_properties_allow_multiple_buttons" class="cnb_toggle_label">Allow multiple Buttons on
                     a single page</label>
                 <span data-cnb_toggle_state_label="domain_properties_allow_multiple_buttons"
-                      class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
+                        class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
                 <span data-cnb_toggle_state_label="domain_properties_allow_multiple_buttons"
-                      class="cnb_toggle_state cnb_toggle_true">Enabled</span>
+                        class="cnb_toggle_state cnb_toggle_true">Enabled</span>
                 <?php if ( $domain->type !== 'STARTER' ) { ?>
                     <p class="description">
                         When enabled, more than one button can be displayed on a single page.
@@ -292,15 +292,15 @@ class CnbDomainViewEdit {
                 <input type="hidden" name="domain[id]" value="<?php echo esc_attr( $domain->id ) ?>"/>
                 <?php if ( $show_advanced_view_only ) { ?>
                     <input type="text" id="domain_name" name="domain[name]"
-                           value="<?php echo esc_attr( $domain->name ) ?>"
-                           class="regular-text" <?php if ( ! empty( $domain->id ) ) {
+                            value="<?php echo esc_attr( $domain->name ) ?>"
+                            class="regular-text" <?php if ( ! empty( $domain->id ) ) {
                         echo 'disabled="disabled"';
                     } ?> />
                     <?php if ( ! empty( $domain->id ) ) { ?>
                         <p class="description">
                             <strong>Warning</strong>: Changing your domain name means remapping all existing Buttons for
                             that domain. Please use with caution. <a class="cnb_cursor_pointer"
-                                                                     onclick="return jQuery('#domain_name').prop('disabled', false);">Click
+                                                                    onclick="return jQuery('#domain_name').prop('disabled', false);">Click
                                 here to change your domain.</a>
                         </p>
                     <?php } ?>
@@ -323,7 +323,7 @@ class CnbDomainViewEdit {
             <td>
                 <input type="hidden" name="domain[properties][debug]" value="false"/>
                 <input id="domain_properties_debug" class="cnb_toggle_checkbox" name="domain[properties][debug]"
-                       type="checkbox" value="true" <?php checked( true, $domain->properties->debug ); ?> />
+                        type="checkbox" value="true" <?php checked( true, $domain->properties->debug ); ?> />
                 <label for="domain_properties_debug" class="cnb_toggle_label">Enable debugging mode</label>
                 <span data-cnb_toggle_state_label="domain_properties_debug" class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
                 <span data-cnb_toggle_state_label="domain_properties_debug" class="cnb_toggle_state cnb_toggle_true">Enabled</span>

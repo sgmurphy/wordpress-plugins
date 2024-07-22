@@ -665,6 +665,8 @@ class Gen
 
 	static function MakeDir( $path, $recursive = false, $mode = 0777 )
 	{
+		if( @file_exists( $path ) )
+		    return( Gen::S_OK );
 		if( @mkdir( $path, $mode, $recursive ) )
 			return( Gen::S_OK );
 		return( @is_dir( $path ) ? Gen::S_FALSE : Gen::E_FAIL );
@@ -792,9 +794,11 @@ class Gen
 
 	static private function _FileOpen( $filename, $mode, $use_include_path = false )
 	{
-		$nErrRepprev = @error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR );
+		if( strpos( $mode, 'r' ) !== false && !@file_exists( $filename ) )
+		    return( false );
+
 		$h = @fopen( $filename, $mode, $use_include_path );
-		@error_reporting( $nErrRepprev );
+
 		return( $h );
 	}
 
@@ -941,6 +945,11 @@ class Gen
 
 		@fclose( $h );
 		return( Gen::S_OK );
+	}
+
+	static function FileSize( $file )
+	{
+		return( @file_exists( $file ) ? @filesize( $file ) : false );
 	}
 
 	static function SetLastSlash( $filepath, $set = true, $slash = '/' )
@@ -1353,7 +1362,7 @@ class Gen
 				@file_put_contents( $fileHtaccess, 'Options -Indexes' );
 		}
 
-		if( @filesize( $file ) > ( 2 * 1024 * 1024 ) )
+		if( Gen::FileSize( $file ) > ( 2 * 1024 * 1024 ) )
 		{
 			$filePrev = Gen::GetFileName( $file, true, true ) . '.' . sprintf( '%08X', time() ) . '.' . Gen::GetFileExt( $file );
 			if( !@file_exists( $filePrev ) )
@@ -1771,6 +1780,13 @@ class Gen
 		}
 		else if( function_exists( 'gc_disable' ) )
 			gc_disable();
+	}
+
+	static function SetTimeLimit( $seconds )
+	{
+		if( !function_exists( 'set_time_limit' ) )
+			return( false );
+		return( @set_time_limit( $seconds ) );
 	}
 
 	static private $_lastErrDsc = null;

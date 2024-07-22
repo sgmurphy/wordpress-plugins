@@ -2,7 +2,7 @@
 Contributors: Gwolle, mpol
 Tags: guestbook, guest book, livre d'or, Gästebuch, review
 Requires at least: 4.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 4.6.2
 License: GPLv2 or later
 Requires PHP: 7.0

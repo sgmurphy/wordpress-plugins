@@ -711,6 +711,8 @@ border-bottom-left-radius: 3px;
 
 .pagelayer-elp-dimension{
 width:42% !important;
+margin-right: 0px;
+margin-left: 0px;
 }
 /* Dimension Control End */
 /* Icon Control Start */
@@ -890,6 +892,8 @@ position: relative;
 .pagelayer-elp-input-icon input{
 width: 85%;
 border-radius: 3px 0 0 3px !important;
+margin-left: 0px;
+margin-right: 1px;
 }
 
 .pagelayer-elp-input-icon i.pli{

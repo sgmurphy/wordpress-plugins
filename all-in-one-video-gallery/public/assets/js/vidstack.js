@@ -192,7 +192,7 @@ class AIOVGVideoElement extends HTMLElement {
 		// Dash
 		if ( this._params.hasOwnProperty( 'dash' ) ) {
 			const dash = dashjs.MediaPlayer().create();
-			dash.initialize( video, this._params.dash, true );
+			dash.initialize( video, this._params.dash, this._params.player.autoplay || false );
 			window.dash = dash;
 		}
 
@@ -259,7 +259,7 @@ class AIOVGVideoElement extends HTMLElement {
 		url = url.replace( '[post_excerpt]', encodeURIComponent( this._params.post_excerpt ) );
 		url = url.replace( '[video_file]', encodeURIComponent( this._player.source ) );
 		url = url.replace( '[video_duration]', this._player.duration || '' );
-		url = url.replace( '[autoplay]', this._params.player.autoplay );
+		url = url.replace( '[autoplay]', this._params.player.autoplay || false );
 
 		return url;
 	}
@@ -370,7 +370,7 @@ class AIOVGVideoElement extends HTMLElement {
 
 		let logo = document.createElement( 'div' );
 		logo.className = 'plyr__logo';
-		logo.innerHTML = '<a href="' + this._params.logo.link + '" style="' + style + '" target="_blank"><img src="' + this._params.logo.image + '" alt="" /><span class="plyr__sr-only">Logo</span></a>';
+		logo.innerHTML = '<a href="' + this._params.logo.link + '" style="' + style + '"><img src="' + this._params.logo.image + '" alt="" /><span class="plyr__sr-only">Logo</span></a>';
 
 		this._playerEl.appendChild( logo );	
 	}
@@ -415,12 +415,6 @@ class AIOVGVideoElement extends HTMLElement {
 				}, 1500 );				
 			}														 
 		});
-		
-		if ( this._params.hasOwnProperty( 'logo' ) ) {
-			contextmenuEl.addEventListener( 'click', () => {
-				window.location.href = this._params.logo.link;
-			});
-		}
 		
 		document.addEventListener( 'click', () => {
 			contextmenuEl.style.display = 'none';								 

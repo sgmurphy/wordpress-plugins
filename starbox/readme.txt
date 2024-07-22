@@ -2,7 +2,7 @@
 Contributors: cifi, calinvingan, florinmuresan
 Tags: author,author box,users,multiple authors,author bio
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
 Stable tag: trunk
 Donate link:  http://starbox.squirrly.co/starbox-the-author-box-for-humans/

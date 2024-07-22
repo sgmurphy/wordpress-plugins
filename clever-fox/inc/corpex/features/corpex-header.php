@@ -207,8 +207,8 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	   
 	   {
 	   ?>
-			<h3><?php esc_html_e('How to Add Mobile Details section :','clever-fox'); ?></h3>
-			<p><?php esc_html_e('Customizer > Above Header > Phone','clever-fox'); ?> <br><br> <?php /* Translators: 1: anchor 2: end */printf(esc_html__('%1$s Click Here %2$s','clever-fox'),'<a href="#" style="background-color:rgba(223, 69, 44, 1); color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;">','</a>'); ?></p>
+			<h3>How to Add Mobile Details section :</h3>
+			<p>Customizer > Above Header > Phone <br><br> <a href="#" style="background-color:rgba(223, 69, 44, 1);; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;">Click Here</a></p>
 			
 		<?php
 	   }
@@ -484,7 +484,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 					array(
 						'label'   => esc_html__('Social Icons','clever-fox'),
 						'section' => 'above_header',
-						'add_field_label'                   => esc_html__( 'Add New Soci', 'clever-fox' ),
+						'add_field_label'                   => esc_html__( 'Add New Social', 'clever-fox' ),
 						'item_name'                         => esc_html__( 'Social', 'clever-fox' ),
 						'customizer_repeater_icon_control' => true,
 						'customizer_repeater_link_control' => true,
@@ -498,7 +498,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				$theme = wp_get_theme(); // gets the current theme	
 				
 			?>
-				<a class="customizer_social_upgrade_section up-to-pro" href="https://www.nayrathemes.com/corpex-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_social_upgrade_section up-to-pro" href="https://www.nayrathemes.com/corpex-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }
 		}

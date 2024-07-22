@@ -42,7 +42,7 @@ class PaymentView {
                     
                     
                     <a class="button button-primary"
-                       href="<?php echo esc_url( $subscription_data->invoiceUrl ) ?>">
+                        href="<?php echo esc_url( $subscription_data->invoiceUrl ) ?>">
                         Pay now
                     </a>
                     <p><a href="<?php echo esc_url( $subscription_data->invoiceUrl ) ?>">Pay now</a> to restore all PRO features.</p>

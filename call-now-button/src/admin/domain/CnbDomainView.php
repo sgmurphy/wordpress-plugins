@@ -35,7 +35,7 @@ class CnbDomainView {
                     array(
                         'page'   => 'call-now-button-domains',
                         'action' => 'new',
-                        'id'     => 'new'
+                        'id'     => 'new',
                     ),
                     $url );
 
@@ -57,7 +57,7 @@ class CnbDomainView {
 
         do_action( 'cnb_header' );
 
-        echo sprintf( '<form class="cnb_list_event" action="%s" method="post">', esc_url( admin_url( 'admin-post.php' ) ) );
+        printf( '<form class="cnb_list_event" action="%s" method="post">', esc_url( admin_url( 'admin-post.php' ) ) );
         echo '<input type="hidden" name="page" value="call-now-button-domains" />';
         echo '<input type="hidden" name="action" value="cnb_domains_bulk" />';
         $wp_list_table->display();

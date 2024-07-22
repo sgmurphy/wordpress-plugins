@@ -91,6 +91,8 @@ class Soliloquy_Lite_Posttype_Admin {
 		add_action( 'quick_edit_custom_box', [ $this, 'quick_edit_custom_box' ], 10, 2 ); // Single Item.
 		add_action( 'bulk_edit_custom_box', [ $this, 'bulk_edit_custom_box' ], 10, 2 ); // Multiple Items.
 		add_action( 'post_updated', [ $this, 'bulk_edit_save' ] );
+
+		add_action( 'admin_init', [ $this, 'check_user_capability_on_edit' ] );
 	}
 
 	/**
@@ -644,6 +646,34 @@ class Soliloquy_Lite_Posttype_Admin {
 			<p><strong><?php echo esc_html( $fixed_sliders ) . esc_html__( ' slider(s) fixed successfully. This is a one time operation, and you don\'t need to do anything else.', 'soliloquy' ); ?></strong></p>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Check if the current user has the capability to edit the slider.
+	 *
+	 * @return void
+	 */
+	public function check_user_capability_on_edit() {
+		global $pagenow;
+		// phpcs:disable WordPress.Security.NonceVerification -- Not needed here.
+		// Check if we are on the post edit screen.
+		if ( 'post.php' === $pagenow && isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) {
+
+			$post_id = isset( $_GET['post'] ) ? (int) $_GET['post'] : false;
+			// phpcs:enable WordPress.Security.NonceVerification
+			if ( $post_id ) {
+				$post = get_post( $post_id );
+
+				if ( 'soliloquy' !== get_post_type( $post ) ) {
+					return;
+				}
+
+				// Check if the current user can edit others' posts or if they own this post.
+				if ( ! current_user_can( 'edit_others_posts' ) && ! current_user_can( 'edit_others_posts', $post_id ) ) {
+					wp_die( 'You do not have permission to edit this slider.' );
+				}
+			}
+		}
 	}
 
 	/**

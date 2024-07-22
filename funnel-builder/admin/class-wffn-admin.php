@@ -114,7 +114,7 @@ if ( ! class_exists( 'WFFN_Admin' ) ) {
 
 			add_action( 'after_plugin_row', [ $this, 'maybe_add_notice' ], 10 );
 			add_action( 'plugin_action_links', [ $this, 'plugin_action_link' ], 10, 2 );
-			add_action( 'current_screen', array( $this, 'conditional_includes' ),1 );
+			add_action( 'current_screen', array( $this, 'conditional_includes' ), 1 );
 
 		}
 
@@ -288,7 +288,7 @@ if ( ! class_exists( 'WFFN_Admin' ) ) {
 
 
 				if ( WFFN_Core()->admin->is_wffn_flex_page() ) {
-					$this->load_react_app( 'main-1721393666' ); //phpcs:ignore WordPressVIPMinimum.Security.Mustache.OutputNotation
+					$this->load_react_app( 'main-1721646685' ); //phpcs:ignore WordPressVIPMinimum.Security.Mustache.OutputNotation
 					if ( isset( $_GET['page'] ) && $_GET['page'] === 'bwf' && method_exists( 'BWF_Admin_General_Settings', 'get_localized_bwf_data' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						wp_localize_script( 'wffn-contact-admin', 'bwfAdminGen', BWF_Admin_General_Settings::get_instance()->get_localized_bwf_data() );
 
@@ -2000,15 +2000,11 @@ if ( ! class_exists( 'WFFN_Admin' ) ) {
 
 		public function blocks_incompatible_switch_to_classic_cart_checkout( $is_rest = false ) {
 
-			if ( ! class_exists( '\Automattic\WooCommerce\Blocks\BlockTypes\ClassicShortcode' )  // Make sure WC version is atleast 8.3. This class is added at version 8.3.
-			) {
+			if ( ! class_exists( '\Automattic\WooCommerce\Blocks\BlockTypes\ClassicShortcode' ) || // Make sure WC version is at least 8.3. This class is added at version 8.3.
+			     !current_user_can( 'manage_options' ) || ( empty( $is_rest ) && false === check_ajax_referer( 'wffn_blocks_incompatible_switch_to_classic', 'nonce', false ) ) ) {
 				return;
 			}
 
-
-			if ( empty( $is_rest ) && false === check_ajax_referer( 'wffn_blocks_incompatible_switch_to_classic', 'nonce', false ) ) {
-				return;
-			}
 			$wc_cart_page     = get_post( wc_get_page_id( 'cart' ) );
 			$wc_checkout_page = get_post( wc_get_page_id( 'checkout' ) );
 

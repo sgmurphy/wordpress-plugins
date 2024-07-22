@@ -61,8 +61,8 @@ class ActionSettingsLine {
             <th scope="row"><label for="cnb-action-properties-line-message">Message</label></th>
             <td>
                 <input placeholder="Optional" type="text" id="cnb-action-properties-line-message"
-                       name="actions[<?php echo esc_attr( $action->id ) ?>][properties][line-message]"
-                       value="<?php echo esc_attr( $this->line_message ) ?>"/>
+                        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][line-message]"
+                        value="<?php echo esc_attr( $this->line_message ) ?>"/>
             </td>
         </tr>
 		<?php

@@ -85,7 +85,6 @@ class Mappress_Options extends Mappress_Obj {
 		$tooltips = false,
 		$units = 'metric',
 		$userLocation = false,
-		$webComponent = true,
 		$wpml = true
 		;
 
@@ -97,12 +96,8 @@ class Mappress_Options extends Mappress_Obj {
 	static function get() {
 		$options = get_option('mappress_options');
 
-		// Force web component
-		if (isset($_REQUEST['mp_wc']))
-			$options['webComponent'] = ($_REQUEST['mp_wc']) ? true : false;
-	
 		// Force iframes
-		else if (Mappress_Settings::iframes_required())
+		if (Mappress_Settings::iframes_required())
 			$options['iframes'] = true;
 
 		if (isset($_REQUEST['mp_iframes']))

@@ -75,7 +75,6 @@ class WFACP_Plugin_Compatibilities {
 			'plugins/class-wcl-parcel.php'                                   => class_exists( 'WCMYPA' ),
 			'plugins/class-wf-cart-hooper-.php'                              => class_exists( 'WFCH_Core' ),
 			'plugins/class-wfacp-wc-membership.php'                          => class_exists( 'WC_Memberships_Loader' ),
-			'plugins/class-wfob.php'                                         => class_exists( 'WFOB_Core' ),
 			'plugins/class-woo-cart-abandonment-recovery.php'                => class_exists( 'CARTFLOWS_CA_Loader' ),
 			'plugins/class-woochimp.php'                                     => function_exists( 'SSWCMC' ) || function_exists( '_mc4wp_load_plugin' ) || class_exists( 'WooChimp' ),
 			'plugins/class-woocommerce-coupon-messages.php'                  => function_exists( 'woocommerce_coupon_messages_plugins_loaded' ),

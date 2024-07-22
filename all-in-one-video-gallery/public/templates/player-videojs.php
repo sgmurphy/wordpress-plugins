@@ -21,6 +21,7 @@ $settings = array(
 	'player' => array(
 		'controlBar'                => array(),
 		'playbackRates'             => array( 0.5, 0.75, 1, 1.5, 2 ),
+		'techCanOverridePoster'     => true,
 		'suppressNotSupportedError' => true
 	)
 );
@@ -32,7 +33,7 @@ if ( $autoadvance ) {
 
 // Video Sources
 $sources = array();
-$allowed_types = array( 'mp4', 'webm', 'ogv', 'hls', 'dash', 'youtube', 'vimeo', 'dailymotion' );
+$allowed_types = array( 'mp4', 'webm', 'ogv', 'hls', 'dash', 'youtube', 'vimeo' );
 
 if ( ! empty( $post_meta ) ) {
 	$type = $post_meta['type'][0];
@@ -130,7 +131,7 @@ if ( ! empty( $post_meta ) ) {
 					$mime_type = "video/{$type}";
 			}
 
-			$src = aiovg_sanitize_url( $_GET[ $type ] );
+			$src = aiovg_sanitize_url( aiovg_resolve_url( $_GET[ $type ] ) );
 
 			$sources[ $type ] = array(
 				'type' => $mime_type,
@@ -229,7 +230,7 @@ if ( isset( $_GET['poster'] ) ) {
 }
 
 if ( ! empty( $poster) ) {
-	$attributes['poster'] = aiovg_sanitize_url( aiovg_resolve_url( $poster ) );
+	$attributes['poster'] = esc_url( aiovg_resolve_url( $poster ) );
 }
 
 if ( ! empty( $brand_settings ) && ! empty( $brand_settings['copyright_text'] ) ) {
@@ -250,7 +251,8 @@ $controls = array(
 	'audio'      => 'AudioTrackButton',
 	'speed'      => 'PlaybackRateMenuButton', 
 	'quality'    => 'qualitySelector',	 
-	'volume'     => 'VolumePanel', 
+	'volume'     => 'VolumePanel',
+	'pip'        => 'PictureInPictureToggle', 
 	'fullscreen' => 'fullscreenToggle'
 );
 
@@ -259,6 +261,12 @@ foreach ( $controls as $index => $control ) {
 
 	if ( $enabled && 'tracks' == $index ) {
 		$player_settings['controls']['audio'] = 1;
+	}
+
+	if ( $enabled && 'pip' == $index ) {
+		if ( isset( $sources['youtube'] ) || isset( $sources['vimeo'] ) ) {
+			$enabled = 0;
+		}
 	}
 
 	if ( ! $enabled ) {	
@@ -305,11 +313,6 @@ if ( isset( $sources['vimeo'] ) ) {
 		$video_id = aiovg_get_vimeo_id_from_url( $sources['vimeo']['src'] );
 		$sources['vimeo']['src'] = 'https://vimeo.com/' . $video_id;
 	}
-}
-
-// Dailymotion
-if ( isset( $sources['dailymotion'] ) ) {
-	$settings['player']['techOrder'] = array( 'dailymotion' );
 }
 
 // Share
@@ -461,8 +464,8 @@ if ( ! empty( $brand_settings ) ) {
 	$has_logo = ! empty( $brand_settings['logo_image'] ) ? (int) $brand_settings['show_logo'] : 0;
 	if ( $has_logo ) {
 		$settings['logo'] = array(
-			'image'    => aiovg_sanitize_url( aiovg_resolve_url( $brand_settings['logo_image'] ) ),
-			'link'     => ! empty( $brand_settings['logo_link'] ) ? esc_url_raw( $brand_settings['logo_link'] ) : 'javascript:void(0)',
+			'image'    => esc_url( aiovg_resolve_url( $brand_settings['logo_image'] ) ),
+			'link'     => ! empty( $brand_settings['logo_link'] ) ? esc_url( $brand_settings['logo_link'] ) : 'javascript:void(0)',
 			'position' => sanitize_text_field( $brand_settings['logo_position'] ),
 			'margin'   => ! empty( $brand_settings['logo_margin'] ) ? (int) $brand_settings['logo_margin'] : 15
 		);
@@ -471,7 +474,7 @@ if ( ! empty( $brand_settings ) ) {
 	$has_contextmenu = ! empty( $brand_settings['copyright_text'] ) ? 1 : 0;
 	if ( $has_contextmenu ) {
 		$settings['contextmenu'] = array(
-			'content' => apply_filters( 'aiovg_translate_strings', sanitize_text_field( $brand_settings['copyright_text'] ), 'copyright_text' )
+			'content' => apply_filters( 'aiovg_translate_strings', $brand_settings['copyright_text'], 'copyright_text' )
 		);
 	}
 }
@@ -491,26 +494,25 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
         <link rel="canonical" href="<?php echo esc_url( $post_url ); ?>" />
     <?php endif; ?>
 
-	<link rel="stylesheet" href="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/video-js.min.css?v=7.21.1" />
+	<link rel="stylesheet" href="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/video-js.min.css?v=8.16.1" />
 
 	<?php if ( in_array( 'qualitySelector', $settings['player']['controlBar']['children'] ) ) : ?>
 		<?php if ( isset( $sources['mp4'] ) || isset( $sources['webm'] ) || isset( $sources['ogv'] ) ) : ?>
-			<link rel="stylesheet" href="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/quality-selector/quality-selector.min.css?v=1.2.5" />
+			<link rel="stylesheet" href="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/quality-selector/quality-selector.min.css?v=1.3.1" />
 		<?php endif; ?>
 
 		<?php if ( isset( $sources['hls'] ) || isset( $sources['dash'] ) ) : ?>
-			<link rel="stylesheet" href="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/videojs-quality-menu/videojs-quality-menu.min.css?v=2.0.1" />
+			<link rel="stylesheet" href="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/contrib-quality-menu/videojs-contrib-quality-menu.min.css?v=1.0.3" />
 		<?php endif; ?>
 	<?php endif; ?>
 
 	<?php if ( isset( $settings['share'] ) || isset( $settings['embed'] ) || isset( $settings['download'] ) || isset( $settings['logo'] ) ) : ?>
-		<link rel="stylesheet" href="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/overlay/videojs-overlay.min.css?v=2.1.5" />
+		<link rel="stylesheet" href="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/overlay/videojs-overlay.min.css?v=3.1.0" />
 	<?php endif; ?>
 
 	<style type="text/css">
         html, 
-        body,
-		.aiovg-player .video-js {
+        body {
 			margin: 0; 
             padding: 0; 
             width: 100%;
@@ -518,6 +520,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
             overflow: hidden;
         }
 
+		/* Icons */
 		@font-face {
 			font-family: 'aiovg-icons';
 			src: url('<?php echo AIOVG_PLUGIN_URL; ?>public/assets/fonts/aiovg-icons.eot?2afx3z');
@@ -544,14 +547,6 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			font-style: normal;
 		}
 
-		.aiovg-icon-download:before {
-			content: "\e9c7";
-		}
-
-		.aiovg-icon-share:before {
-			content: "\ea82";
-		}
-
 		.aiovg-icon-facebook:before {
 			content: "\ea90";
 		}
@@ -576,38 +571,34 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			content: "\ea93";
 		}
 
-		.aiovg-player .video-js.vjs-youtube-mobile .vjs-poster {
-			display: none;
-		}
+		/* Common */
+		.aiovg-player .video-js {
+            width: 100%;
+            height: 100%;
+        }
 
-		.aiovg-player .video-js.vjs-ended .vjs-poster {
-			display: block;
-		}		
+		.aiovg-player .video-js a,
+        .aiovg-player .video-js a:hover,
+        .aiovg-player .video-js a:focus {
+            text-decoration: none;
+        }
 
-		.aiovg-player .video-js:not(.vjs-has-started) .vjs-text-track-display {
-			display: none;
-		}
-
-		.aiovg-player .video-js.vjs-ended .vjs-text-track-display {
-			display: none;
-		}
-
-		.aiovg-player.vjs-waiting .vjs-loading-spinner {
-			display: block !important;
-		}
-
+		/* Spinner */
 		.aiovg-player .vjs-waiting.vjs-paused .vjs-loading-spinner {
 			display: none;
 		}
 
+		.aiovg-player.vjs-waiting .vjs-loading-spinner {
+			display: flex !important;
+		}
+
+		/* Big Play Button */
 		.aiovg-player .video-js .vjs-big-play-button {
-			top: 50%;
-			left: 50%;
-			transform: translate3d(-50%, -50%, 0);
-			transition: all 0.2s cubic-bezier(0, 0, 0.2, 1); 			
+			transform: translate3d( -50%, -50%, 0 );
+			margin: 0;
 			border: 0;
 			border-radius: 40px;
-			background-color: rgba(13, 13, 13, 0.6);
+			background-color: rgba( 13, 13, 13, 0.6 );
 			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.56047 5.09337C8.34001 4.9668 8.07015 4.96875 7.85254 5.10019C7.63398 5.23162 7.5 5.47113 7.5 5.73011L7.5 18.2698C7.5 18.5298 7.63398 18.7693 7.85254 18.9007C7.96372 18.9669 8.0882 19 8.21268 19C8.33241 19 8.45309 18.9688 8.56047 18.9075L18.1351 12.6377C18.3603 12.5082 18.5 12.2648 18.5 12C18.5 11.7361 18.3603 11.4917 18.1351 11.3632L8.56047 5.09337Z' fill='%23fff'%3E%3C/path%3E%3C/svg%3E");
 			background-position: center;
 			background-size: 64px;
@@ -618,22 +609,43 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 		.aiovg-player .video-js:hover .vjs-big-play-button,
 		.aiovg-player .video-js .vjs-big-play-button:focus {
 			opacity: 0.8;
-			background-color: rgba(13, 13, 13, 0.6);			
+			background-color: rgba( 13, 13, 13, 0.6 );			
 		}
 
 		.aiovg-player .video-js .vjs-big-play-button .vjs-icon-placeholder:before {
 			content: "";
-		}
-				
-		.aiovg-player.vjs-waiting .vjs-big-play-button {
-			display: none !important;
-		}
+		}		
 
 		.aiovg-player .vjs-waiting.vjs-paused .vjs-big-play-button,
 		.aiovg-player .video-js.vjs-ended .vjs-big-play-button {
 			display: block;
 		}
 
+		.aiovg-player.vjs-waiting .vjs-big-play-button {
+			display: none !important;
+		}
+
+		/* Poster */
+		.aiovg-player .video-js.vjs-ended .vjs-poster {
+			display: inline-block;
+		}		
+
+		/* Text Track */
+		.aiovg-player .video-js:not(.vjs-has-started) .vjs-text-track-display {
+			display: none;
+		}
+
+		.aiovg-player .video-js.vjs-ended .vjs-text-track-display {
+			display: none;
+		}
+
+		.aiovg-player .video-js .vjs-text-track-cue > div {  
+			background: transparent !important;
+			text-shadow: 0 0 .2em rgba( 0, 0, 0, 0.8 );
+			font-weight: 600;
+		}		
+
+		/* Control bar */
 		.aiovg-player .video-js.vjs-no-control-bar .vjs-control-bar {
 			display: none;
 		}		
@@ -642,40 +654,33 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			display: none;
 		}
 
+		/* Current time & Duration */
 		.aiovg-player .video-js .vjs-current-time,
 		.aiovg-player .video-js .vjs-duration {
 			display: block;
 		}
 
-		.aiovg-player .video-js .vjs-subtitles-button .vjs-icon-placeholder:before {
-			content: "\f10d";
+		/* Progressbar */
+		.aiovg-player .vjs-progress-control:hover .vjs-mouse-display .vjs-time-tooltip {
+			display: flex;
+			left: 50%;
+			gap: 0.2em;
+			transform: translateX( -50% );
+			width: max-content;
 		}
 
+		/* Chapters */
 		.aiovg-player .video-js .vjs-marker {
 			position: absolute;
 			top: 0;
 			bottom: 0;
+			opacity: 0.8;
 			z-index: 1;
 			background: #ffff00;
 			width: 4px;	
 		}
 
-		.aiovg-player .video-js .vjs-slider-bar::before {
-			z-index: 2;
-		}
-
-		.aiovg-player .video-js .vjs-progress-control .vjs-mouse-display {
-			z-index: 2;
-		}
-
-		.aiovg-player .vjs-progress-control:hover .vjs-mouse-display .vjs-time-tooltip {
-			display: flex;
-			left: 50%;
-			gap: 0.2em;
-			transform: translateX(-50%);
-			width: max-content;
-		}
-
+		/* Menu Items List */
 		.aiovg-player .video-js .vjs-menu li {
 			text-transform: Capitalize;
 		}
@@ -686,21 +691,18 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			color: #2b333f;
 		}
 
-		.aiovg-player .video-js.vjs-quality-menu .vjs-quality-menu-button-4K-flag:after, 
-		.aiovg-player .video-js.vjs-quality-menu .vjs-quality-menu-button-HD-flag:after {
-			background-color: #F00;
+		/* Subtitles Button */
+		.aiovg-player .video-js .vjs-subtitles-button .vjs-icon-placeholder:before {
+			content: "\f10c";
 		}
 
-		.aiovg-player .video-js .vjs-quality-selector .vjs-quality-menu-item-sub-label {			
-			position: absolute;
-			right: 0;
-			width: 4em;
-			text-align: center;
-			text-transform: none;	
-			font-size: 75%;
-			font-weight: bold;					
+		/* Playback Rate */
+		.aiovg-player .video-js .vjs-playback-rate .vjs-playback-rate-value {
+			line-height: 2.6em;
+			font-size: 1.2em;
 		}
 
+		/* Quality Selector (Self Hosted / External URL) */
 		.aiovg-player .video-js.vjs-4k .vjs-quality-selector:after, 
 		.aiovg-player .video-js.vjs-hd .vjs-quality-selector:after {
 			pointer-events: none; 
@@ -716,7 +718,6 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			letter-spacing: 0.1em;
 			line-height: 2.2em;
 			color: inherit;								 
-			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 			font-size: 0.7em;
 			font-weight: 300;   
 			content: "";			
@@ -728,13 +729,25 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 
 		.aiovg-player .video-js.vjs-hd .vjs-quality-selector:after {
 			content: "HD";
-		}	
+		}
 		
-		.aiovg-player .video-js .vjs-playback-rate .vjs-playback-rate-value {
-			line-height: 2.6em;
-			font-size: 1.2em;
+		.aiovg-player .video-js .vjs-quality-selector .vjs-menu .vjs-quality-menu-item-sub-label {			
+			position: absolute;
+			right: 0;
+			width: 4em;
+			text-align: center;
+			text-transform: none;	
+			font-size: 75%;
+			font-weight: bold;					
 		}
 
+		/* Quality Menu (HLS / MPEG-DASH) */
+		.aiovg-player .video-js.vjs-quality-menu .vjs-quality-menu-button-4K-flag:after, 
+		.aiovg-player .video-js.vjs-quality-menu .vjs-quality-menu-button-HD-flag:after {
+			background-color: #f00;
+		}
+
+		/* Share & Embed */
 		.aiovg-player .video-js .vjs-share {
 			margin: 5px;
 		}	
@@ -745,16 +758,16 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			border: 0;		
 			border-radius: 2px;
 			box-shadow: none;
-			background: rgba(0, 0, 0, 0.5);
+			background: rgba( 0, 0, 0, 0.5 );
 			cursor: pointer;	
 			padding: 10px;
 			line-height: 1;
 			color: #fff;
-			font-size: 15px;
+			font-size: 16px;
 		}
 
 		.aiovg-player .video-js .vjs-share:hover button {
-			background-color: rgba(0, 0, 0, 0.7);
+			background-color: rgba( 0, 0, 0, 0.7 );
 		}
 
 		.aiovg-player .video-js .vjs-share .vjs-icon-share {
@@ -763,13 +776,13 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 
 		.aiovg-player .video-js.vjs-has-started .vjs-share {
 			display: block;			
-			transition: visibility .1s,opacity .1s;
+			transition: visibility .1s, opacity .1s;
 			visibility: visible;
 			opacity: 1;
 		}
 
 		.aiovg-player .video-js.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-share {			
-			transition: visibility 1s,opacity 1s;
+			transition: visibility 1s, opacity 1s;
 			visibility: visible;
 			opacity: 0;
 		}		
@@ -808,12 +821,6 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			vertical-align: middle;
 			line-height: 1;
         }       
-
-        .aiovg-player .video-js .vjs-share-button,
-        .aiovg-player .video-js .vjs-share-button:hover,
-        .aiovg-player .video-js .vjs-share-button:focus {
-            text-decoration: none;
-        } 
 
 		.aiovg-player .video-js .vjs-share-button:hover {
             opacity: 0.9;
@@ -875,6 +882,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
             border: 1px solid #fff;
         }
 
+		/* Download Button */
 		.aiovg-player .video-js .vjs-download {
 			margin: 5px;
 			cursor: pointer;
@@ -888,34 +896,35 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			display: flex;
 			margin: 0;
 			border-radius: 2px;
-			background-color: rgba(0, 0, 0, 0.5);	
-			padding: 10px;
+			background-color: rgba( 0, 0, 0, 0.5 );	
+			padding: 8px;
 			line-height: 1;
 			color: #fff;
-			font-size: 15px;
+			font-size: 20px;
 		}	
 		
 		.aiovg-player .video-js .vjs-download:hover a {
-			background-color: rgba(0, 0, 0, 0.7);
+			background-color: rgba( 0, 0, 0, 0.7 );
 		}
 
-		.aiovg-player .video-js .vjs-download .aiovg-icon-download {
-			color: inherit;
-		}		
+		.aiovg-player .video-js .vjs-download .vjs-icon-file-download {
+			line-height: 1;
+		}
 
 		.aiovg-player .video-js.vjs-has-started .vjs-download {
 			display: block;			
-			transition: visibility .1s,opacity .1s;
+			transition: visibility .1s, opacity .1s;
 			visibility: visible;
 			opacity: 1;
 		}
 
 		.aiovg-player .video-js.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-download {
-			transition: visibility 1s,opacity 1s;
+			transition: visibility 1s, opacity 1s;
 			visibility: visible;
 			opacity: 0;
 		}	
 
+		/* Custom Logo & Branding */
 		.aiovg-player .video-js .vjs-logo {
 			opacity: 0;
 		}
@@ -935,6 +944,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 		}
 
 		.aiovg-player .video-js .vjs-logo a {
+			display: inline-block;
 			line-height: 1;
 		}
 
@@ -946,10 +956,12 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			display: none;
 		}	
 
+		/* Error Display */
 		.aiovg-player .video-js .vjs-error-display {
 			background: #222 !important;
 		}
 
+		/* Custom ContextMenu */
 		#aiovg-contextmenu {
             position: absolute;
             top: 0;
@@ -958,7 +970,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
             margin: 0;
 			border-radius: 2px;
             background-color: #2B333F;
-  			background-color: rgba(43, 51, 63, 0.7);
+  			background-color: rgba( 43, 51, 63, 0.7 );
             padding: 0;			
         }
         
@@ -984,7 +996,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			printf( 
 				'<source type="%s" src="%s" label="%s" />', 
 				esc_attr( $source['type'] ), 
-				esc_attr( aiovg_resolve_url( $source['src'] ) ),
+				esc_url( aiovg_resolve_url( $source['src'] ) ),
 				( isset( $source['label'] ) ? esc_attr( $source['label'] ) : '' ) 
 			);
 		}
@@ -993,7 +1005,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 		foreach ( $tracks as $index => $track ) {
         	printf( 
 				'<track kind="subtitles" src="%s" label="%s" srclang="%s" %s/>', 
-				esc_attr( aiovg_resolve_url( $track['src'] ) ), 				
+				esc_url( aiovg_resolve_url( $track['src'] ) ), 				
 				esc_attr( $track['label'] ),
 				esc_attr( $track['srclang'] ), 
 				( 0 == $index && 1 == $settings['cc_load_policy'] ? 'default' : '' )
@@ -1012,7 +1024,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 						foreach ( $share_buttons as $button ) {
 							printf( 
 								'<a href="%1$s" class="vjs-share-button vjs-share-button-%2$s" title="%3$s" target="_blank"><span class="%4$s" aria-hidden="true"></span><span class="vjs-control-text" aria-live="polite">%3$s</span></a>',							
-								esc_attr( $button['url'] ), 
+								esc_url( $button['url'] ), 
 								esc_attr( $button['service'] ),
 								esc_attr( $button['text'] ),
 								esc_attr( $button['icon'] )
@@ -1039,20 +1051,20 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
         </div>
 	<?php endif; ?>
     
-	<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/video.min.js?v=7.21.1" type="text/javascript" defer></script>
+	<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/video.min.js?v=8.16.1" type="text/javascript" defer></script>
 
 	<?php if ( in_array( 'qualitySelector', $settings['player']['controlBar']['children'] ) ) : ?>
 		<?php if ( isset( $sources['mp4'] ) || isset( $sources['webm'] ) || isset( $sources['ogv'] ) ) : ?>
-			<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/quality-selector/silvermine-videojs-quality-selector.min.js?v=1.2.5" type="text/javascript" defer></script>
+			<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/quality-selector/silvermine-videojs-quality-selector.min.js?v=1.3.1" type="text/javascript" defer></script>
 		<?php endif; ?>
 
 		<?php if ( isset( $sources['hls'] ) || isset( $sources['dash'] ) ) : ?>
-			<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/videojs-quality-menu/videojs-quality-menu.min.js?v=2.0.1" type="text/javascript" defer></script>
+			<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/contrib-quality-menu/videojs-contrib-quality-menu.min.js?v=1.0.3" type="text/javascript" defer></script>
 		<?php endif; ?>
 	<?php endif; ?>
 
 	<?php if ( isset( $sources['youtube'] ) ) : ?>
-		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/youtube/Youtube.min.js?v=2.6.1" type="text/javascript" defer></script>
+		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/youtube/Youtube.min.js?v=3.0.1" type="text/javascript" defer></script>
 	<?php endif; ?>
 
 	<?php if ( isset( $settings['start'] ) || isset( $settings['end'] ) ) : ?>
@@ -1060,15 +1072,11 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 	<?php endif; ?>
 
 	<?php if ( isset( $sources['vimeo'] ) ) : ?>
-		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/vimeo/videojs-vimeo2.min.js?v=2.0.0" type="text/javascript" defer></script>
-	<?php endif; ?>
-
-	<?php if ( isset( $sources['dailymotion'] ) ) : ?>
-		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/dailymotion/videojs-dailymotion.min.js?v=2.0.0" type="text/javascript" defer></script>
+		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/vimeo/Vimeo.min.js?v=3.0.0" type="text/javascript" defer></script>
 	<?php endif; ?>
 
 	<?php if ( isset( $settings['share'] ) || isset( $settings['embed'] ) || isset( $settings['download'] ) || isset( $settings['logo'] ) ) : ?>
-		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/overlay/videojs-overlay.min.js?v=2.1.5" type="text/javascript" defer></script>
+		<script src="<?php echo AIOVG_PLUGIN_URL; ?>vendor/videojs/plugins/overlay/videojs-overlay.min.js?v=3.1.0" type="text/javascript" defer></script>
 	<?php endif; ?>
 
 	<?php if ( ! empty( $settings['hotkeys'] ) ) : ?>
@@ -1094,7 +1102,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 		 */
 		function onPlayClicked() {
 			if ( ! hasVideoStarted ) {
-				body.className += ' vjs-waiting';
+				body.classList.add( 'vjs-waiting' );
 			}
 
 			playButton.removeEventListener( 'click', onPlayClicked );
@@ -1309,7 +1317,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 
 			// On player ready.
 			player.ready(function() {
-				body.className = 'aiovg-player';
+				body.classList.remove( 'vjs-waiting' );
 				
 				playButton = document.querySelector( '.vjs-big-play-button' );
 				if ( playButton !== null ) {
@@ -1406,7 +1414,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 			// Fired the first time a video is played.
 			player.one( 'play', function() {
 				hasVideoStarted = true;
-				body.className = 'aiovg-player';
+				body.classList.remove( 'vjs-waiting' );
 
 				if ( settings.post_type == 'aiovg_videos' ) {
 					updateViewsCount();
@@ -1495,7 +1503,7 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 				}
 
 				overlays.push({
-					content: '<a href="' + settings.download.url + '" id="vjs-download-button" class="vjs-download-button" title="Download" target="_blank" style="text-decoration:none;"><span class="aiovg-icon-download" aria-hidden="true"></span><span class="vjs-control-text" aria-live="polite">Download</span></a>',
+					content: '<a href="' + settings.download.url + '" id="vjs-download-button" class="vjs-download-button" title="Download" target="_blank"><span class="vjs-icon-file-download" aria-hidden="true"></span><span class="vjs-control-text" aria-live="polite">Download</span></a>',
 					class: className,
 					align: 'top-right',
 					start: 'controlsshown',
@@ -1506,37 +1514,28 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 
 			// Logo
 			if ( settings.hasOwnProperty( 'logo' ) ) {
-				var attributes = [];
-				attributes['src'] = settings.logo.image;
-
 				if ( settings.logo.margin ) {
 					settings.logo.margin = settings.logo.margin - 5;
 				}
-
+				
+				var style = 'margin: ' + settings.logo.margin + 'px;';
 				var align = 'bottom-left';
-				attributes['style'] = 'margin: ' + settings.logo.margin + 'px;';
 
 				switch ( settings.logo.position ) {
-					case 'topleft':
+					case 'topleft':						
 						align = 'top-left';
-						attributes['style'] = 'margin: ' + settings.logo.margin + 'px;';
 						break;
 
-					case 'topright':
+					case 'topright':						
 						align = 'top-right';
-						attributes['style'] = 'margin: ' + settings.logo.margin + 'px;';
 						break;		
 
-					case 'bottomright':
+					case 'bottomright':						
 						align = 'bottom-right';
-						attributes['style'] = 'margin: ' + settings.logo.margin + 'px;';
 						break;				
 				}
 
-				var logo = '<img ' +  combineAttributes( attributes ) + ' alt="" />';
-				if ( settings.logo.link ) {
-					logo = '<a href="' + settings.logo.link + '" style="text-decoration:none;">' + logo + '<span class="vjs-control-text" aria-live="polite">Logo</span></a>';
-				}
+				var logo = '<a href="' + settings.logo.link + '" target="_top" style="' + style + '"><img src="' + settings.logo.image + '" alt="" /><span class="vjs-control-text" aria-live="polite">Logo</span></a>';
 
 				overlays.push({
 					content: logo,
@@ -1623,12 +1622,6 @@ $settings = apply_filters( 'aiovg_iframe_videojs_player_settings', $settings );
 						}, 1500);				
 					}														 
 				});
-				
-				if ( settings.hasOwnProperty( 'logo' ) && settings.logo.link ) {
-					contextmenu.addEventListener( 'click', function() {
-						top.window.location.href = settings.logo.link;
-					});
-				}
 				
 				document.addEventListener( 'click', function() {
 					contextmenu.style.display = 'none';								 

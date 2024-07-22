@@ -57,25 +57,25 @@ class CnbAdminFunctions {
      */
     function cnb_get_action_types() {
         $all_types = array(
-            'PHONE'    => new CnbActionType('PHONE', '💬 Phone', ['STARTER', 'PRO', 'FREE']),
-            'EMAIL'    => new CnbActionType('EMAIL', '💬 Email', ['STARTER', 'PRO', 'FREE']),
-            'SMS'      => new CnbActionType('SMS', '💬 SMS/Text', ['STARTER', 'PRO', 'FREE']),
-            'WHATSAPP' => new CnbActionType('WHATSAPP', '💬 WhatsApp', ['STARTER', 'PRO', 'FREE']),
-            'FACEBOOK' => new CnbActionType('FACEBOOK', '💬 Messenger', ['STARTER', 'PRO', 'FREE']),
-            'SIGNAL'   => new CnbActionType('SIGNAL', '💬 Signal', ['STARTER', 'PRO', 'FREE']),
-            'TELEGRAM' => new CnbActionType('TELEGRAM', '💬 Telegram', ['STARTER', 'PRO', 'FREE']),
-            'ANCHOR'   => new CnbActionType('ANCHOR', '⏬ Scroll to  point', ['STARTER', 'PRO', 'FREE']),
-            'LINK'     => new CnbActionType('LINK', '🔗 Link', ['STARTER', 'PRO', 'FREE']),
-            'MAP'      => new CnbActionType('MAP', '📍 Location', ['STARTER', 'PRO', 'FREE']),
-            'TALLY'    => new CnbActionType('TALLY', '🔌 Tally form window', ['PRO', 'FREE']),
-            'IFRAME'   => new CnbActionType('IFRAME', '🔌 Content window', ['PRO']),
-            'INTERCOM' => new CnbActionType('INTERCOM', '🔌 Intercom chat', ['PRO']),
-            'SKYPE'    => new CnbActionType('SKYPE', '💬 Skype', ['STARTER', 'PRO', 'FREE']),
-            'ZALO'     => new CnbActionType('ZALO', '💬 Zalo', ['STARTER', 'PRO', 'FREE']),
-            'VIBER'    => new CnbActionType('VIBER', '💬 Viber', ['STARTER', 'PRO', 'FREE']),
-            'LINE'     => new CnbActionType('LINE', '💬 Line', ['STARTER', 'PRO', 'FREE']),
-            'WECHAT'   => new CnbActionType('WECHAT', '💬 WeChat', ['STARTER', 'PRO', 'FREE']),
-            'CHAT'     => new CnbActionType('CHAT', '💬 Live chat', ['PRO']),
+            'PHONE'    => new CnbActionType('PHONE', '💬 Phone', array( 'STARTER', 'PRO', 'FREE' )),
+            'EMAIL'    => new CnbActionType('EMAIL', '💬 Email', array( 'STARTER', 'PRO', 'FREE' )),
+            'SMS'      => new CnbActionType('SMS', '💬 SMS/Text', array( 'STARTER', 'PRO', 'FREE' )),
+            'WHATSAPP' => new CnbActionType('WHATSAPP', '💬 WhatsApp', array( 'STARTER', 'PRO', 'FREE' )),
+            'FACEBOOK' => new CnbActionType('FACEBOOK', '💬 Messenger', array( 'STARTER', 'PRO', 'FREE' )),
+            'SIGNAL'   => new CnbActionType('SIGNAL', '💬 Signal', array( 'STARTER', 'PRO', 'FREE' )),
+            'TELEGRAM' => new CnbActionType('TELEGRAM', '💬 Telegram', array( 'STARTER', 'PRO', 'FREE' )),
+            'ANCHOR'   => new CnbActionType('ANCHOR', '⏬ Scroll to  point', array( 'STARTER', 'PRO', 'FREE' )),
+            'LINK'     => new CnbActionType('LINK', '🔗 Link', array( 'STARTER', 'PRO', 'FREE' )),
+            'MAP'      => new CnbActionType('MAP', '📍 Location', array( 'STARTER', 'PRO', 'FREE' )),
+            'TALLY'    => new CnbActionType('TALLY', '🔌 Tally form window', array( 'PRO', 'FREE' )),
+            'IFRAME'   => new CnbActionType('IFRAME', '🔌 Content window', array( 'PRO' )),
+            'INTERCOM' => new CnbActionType('INTERCOM', '🔌 Intercom chat', array( 'PRO' )),
+            'SKYPE'    => new CnbActionType('SKYPE', '💬 Skype', array( 'STARTER', 'PRO', 'FREE' )),
+            'ZALO'     => new CnbActionType('ZALO', '💬 Zalo', array( 'STARTER', 'PRO', 'FREE' )),
+            'VIBER'    => new CnbActionType('VIBER', '💬 Viber', array( 'STARTER', 'PRO', 'FREE' )),
+            'LINE'     => new CnbActionType('LINE', '💬 Line', array( 'STARTER', 'PRO', 'FREE' )),
+            'WECHAT'   => new CnbActionType('WECHAT', '💬 WeChat', array( 'STARTER', 'PRO', 'FREE' )),
+            'CHAT'     => new CnbActionType('CHAT', '💬 Live chat', array( 'PRO' )),
         );
 
 		return apply_filters('cnb_get_action_types', $all_types);
@@ -85,7 +85,7 @@ class CnbAdminFunctions {
 		return array(
 			'MOBILE_ONLY' => 'Mobile only',
 			'DESKTOP_ONLY' => 'Desktop only',
-			'ALWAYS' => 'All screens'
+			'ALWAYS' => 'All screens',
 		);
 	}
 
@@ -98,14 +98,14 @@ class CnbAdminFunctions {
 
     function cnb_get_condition_types() {
         return array(
-            'URL' => [
+            'URL' => array(
                 'name' => 'Page URL',
-                'proOnly' => false
-                ],
-            'GEO' => [
+                'proOnly' => false,
+                ),
+            'GEO' => array(
                 'name' => 'Visitor location',
-                'proOnly' => true
-                ]
+                'proOnly' => true,
+                ),
         );
     }
 
@@ -115,22 +115,22 @@ class CnbAdminFunctions {
      */
     function cnb_get_condition_match_types_url() {
         return array(
-            'SIMPLE'    => [
+            'SIMPLE'    => array(
                 'name' => 'Page path starts with',
-                'plans' => ['STARTER', 'PRO', 'FREE']
-            ],
-            'EXACT'     => [
+                'plans' => array( 'STARTER', 'PRO', 'FREE' ),
+            ),
+            'EXACT'     => array(
                 'name' => 'Page URL is',
-                'plans' => ['STARTER', 'PRO', 'FREE']
-            ],
-            'SUBSTRING' => [
+                'plans' => array( 'STARTER', 'PRO', 'FREE' ),
+            ),
+            'SUBSTRING' => array(
                 'name' => 'Page URL contains',
-                'plans' => ['STARTER', 'PRO', 'FREE']
-            ],
-            'REGEX'     => [
+                'plans' => array( 'STARTER', 'PRO', 'FREE' ),
+            ),
+            'REGEX'     => array(
                 'name' => 'Page URL matches RegEx',
-                'plans' => ['PRO', 'FREE']
-            ]
+                'plans' => array( 'PRO', 'FREE' ),
+            ),
         );
     }
 
@@ -192,23 +192,23 @@ class CnbAdminFunctions {
                 <span class="dashicons dashicons-' . esc_attr( $icon ) . '"></span>
                 <h2 class="hndle">' .
              // phpcs:ignore WordPress.Security
-              $headline
-             . '</h2>
+                $headline
+            . '</h2>
             </div>
             <div class="inside">
                 <div class="cnb-promobox-copy">
                     <div class="cnb_promobox_item">' .
              // phpcs:ignore WordPress.Security
-             $body
-             . '</div>
+            $body
+            . '</div>
                     <div class="clear"></div>';
         if ( ! is_null( $cta_button_link ) || $cta_button_text == 'none' ) {
             echo '
                     <div class="cnb-promobox-action">
                         <div class="cnb-promobox-action-left">' .
                  // phpcs:ignore WordPress.Security
-                 $cta_pretext
-                 . '</div>';
+                $cta_pretext
+                . '</div>';
             if ( $cta_button_text != 'none' && $cta_button_link != 'disabled' ) {
                 echo '
                         <div class="cnb-promobox-action-right">

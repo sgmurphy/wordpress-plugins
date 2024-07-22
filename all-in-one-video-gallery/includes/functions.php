@@ -46,7 +46,7 @@ function aiovg_add_inline_script( $handle, $data, $position = 'before' ) {
 }
 
 /**
- * Allow iframe & script tags in the "Iframe Embed Code" field.
+ * Allow iframe & script tags in the "Third-Party Player Code" field.
  * 
  * @since  1.0.0
  * @param  array $allowed_tags Allowed HTML Tags.
@@ -581,9 +581,7 @@ function aiovg_get_default_settings() {
 			'hotkeys'        => 0,
 			'cc_load_policy' => 0,
 			'quality_levels' => implode( "\n", array( '360p', '480p', '720p', '1080p' ) ),
-			'use_native_controls'     => array( 
-				'dailymotion' => 'dailymotion'
-			),
+			'use_native_controls'     => array(),
 			'force_js_initialization' => 0,
 			'lazyloading'    => 1
 		),
@@ -693,10 +691,10 @@ function aiovg_get_default_settings() {
 }
 
 /**
- * Get image from the Iframe Embed Code.
+ * Get image from the Third-Party Player Code.
  *
  * @since  1.0.0
- * @param  string $embedcode Iframe Embed Code.
+ * @param  string $embedcode Player Code.
  * @return string $url       Image URL.
  */
 function aiovg_get_embedcode_image_url( $embedcode ) {
@@ -1188,6 +1186,7 @@ function aiovg_get_player_page_url( $post_id = 0, $atts = array() ) {
 				case 'speed':
 				case 'quality':
 				case 'volume':
+				case 'pip':
 				case 'fullscreen':
 				case 'share':
 				case 'embed':
@@ -1463,6 +1462,13 @@ function aiovg_get_shortcode_fields() {
 							'description' => '',
 							'type'        => 'checkbox',
 							'value'       => isset( $player_settings['controls']['volume'] )
+						),
+						array(
+							'name'        => 'pip',
+							'label'       => __( 'Picture-in-Picture Button', 'all-in-one-video-gallery' ),
+							'description' => '',
+							'type'        => 'checkbox',
+							'value'       => isset( $player_settings['controls']['pip'] )
 						),
 						array(
 							'name'        => 'fullscreen',
@@ -2067,7 +2073,7 @@ function aiovg_get_video_source_types( $is_admin = false ) {
 	);
 
 	if ( $is_admin && current_user_can( 'unfiltered_html' ) ) {
-		$types['embedcode'] = __( 'Iframe Embed Code', 'all-in-one-video-gallery' );
+		$types['embedcode'] = __( 'Third-Party Player Code', 'all-in-one-video-gallery' );
 	}
 	
 	return apply_filters( 'aiovg_video_source_types', $types );
@@ -2254,7 +2260,7 @@ function aiovg_get_youtube_id_from_url( $url ) {
 			
        	if ( empty( $id ) ) {
            	$url['path'] = explode( '/', substr( $url['path'], 1 ) );
-           	if ( in_array( $url['path'][0], array( 'e', 'embed', 'v', 'shorts' ) ) ) {
+           	if ( in_array( $url['path'][0], array( 'e', 'embed', 'v', 'shorts', 'live' ) ) ) {
                	$id = $url['path'][1];
            	}
        	}
@@ -2436,7 +2442,7 @@ function aiovg_remove_query_arg( $key, $query = false ) {
  * @return string $url Resolved YouTube URL.
  */
 function aiovg_resolve_youtube_url( $url ) {
-	if ( false !== strpos( $url, '/shorts/' ) ) {
+	if ( false !== strpos( $url, '/shorts/' ) || false !== strpos( $url, '/live/' ) ) {
 		$id = aiovg_get_youtube_id_from_url( $url );
 
 		if ( ! empty( $id ) ) {
@@ -2455,9 +2461,14 @@ function aiovg_resolve_youtube_url( $url ) {
  * @return string $url Absolute file URL.
  */
 function aiovg_resolve_url( $url ) {
-	$host = parse_url( $url, PHP_URL_HOST );
+	if ( empty( $url ) ) {
+		return $url;
+	}
+
+	$url = urldecode( $url );
 
 	// Is relative path?
+	$host = parse_url( $url, PHP_URL_HOST );
 	if ( empty( $host ) ) {
 		$url = get_site_url( null, $url );
 	}
@@ -2496,8 +2507,11 @@ function aiovg_sanitize_int( $value ) {
  * @return string        Sanitized value.
  */
 function aiovg_sanitize_url( $value ) {
-	$value = sanitize_text_field( urldecode( $value ) );
-	return $value;	
+	if ( ! empty( $value ) ) {
+		$value = trim( $value );
+	}
+	
+	return sanitize_url( $value );
 }
 
 /**
@@ -2732,6 +2746,7 @@ function the_aiovg_pagination( $numpages = '', $pagerange = '', $paged = '', $at
     	'add_fragment' => ''
   	);
 
+	$pagination_args = apply_filters( 'aiovg_pagination_args', $pagination_args, $numpages, $pagerange, $paged, $atts );
   	$paginate_links = paginate_links( $pagination_args );
 
   	if ( is_array( $paginate_links ) ) {

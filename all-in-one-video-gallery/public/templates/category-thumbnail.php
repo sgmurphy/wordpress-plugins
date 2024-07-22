@@ -43,7 +43,7 @@ $image_alt  = ! empty( $image_data['alt'] ) ? $image_data['alt'] : $term->name;
         
         <?php if ( ! empty( $attributes['show_description'] ) && $term->description ) : ?>
             <div class="aiovg-description">
-                <?php echo wp_kses_post( nl2br( $term->description ) ); ?>
+                <?php echo wp_kses_post( wpautop( $term->description ) ); ?>
             </div>
         <?php endif; ?>
     </div>            			

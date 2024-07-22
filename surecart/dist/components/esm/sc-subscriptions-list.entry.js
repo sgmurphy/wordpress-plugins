@@ -90,16 +90,6 @@ const ScSubscriptionsList = class {
     return (h("sc-card", { "no-padding": true, style: { '--overflow': 'hidden' } }, h("sc-stacked-list", null, h("sc-stacked-list-row", { style: { '--columns': '2' }, "mobile-size": 0 }, h("div", { style: { padding: '0.5em' } }, h("sc-skeleton", { style: { width: '30%', marginBottom: '0.75em' } }), h("sc-skeleton", { style: { width: '20%', marginBottom: '0.75em' } }), h("sc-skeleton", { style: { width: '40%' } }))))));
   }
   getSubscriptionLink(subscription) {
-    // If subscription has no payment_method,
-    // then, we'll redirect to add payment method page.
-    if (!subscription.payment_method && !subscription.manual_payment) {
-      return addQueryArgs(window.location.href, {
-        action: 'create',
-        model: 'payment_method',
-        id: subscription.id,
-        ...((subscription === null || subscription === void 0 ? void 0 : subscription.live_mode) === false ? { live_mode: false } : {}),
-      });
-    }
     return addQueryArgs(window.location.href, {
       action: 'edit',
       model: 'subscription',

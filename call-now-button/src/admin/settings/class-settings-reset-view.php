@@ -26,14 +26,14 @@ class Settings_Reset_view {
         <form action="<?php echo esc_attr(admin_url('admin-post.php')); ?>" method="post">
             <?php wp_nonce_field('cnb_delete_all_settings') ?>
             <input type="hidden" name="action" value="cnb_delete_all_settings">
-            <?php submit_button('Reset', 'primary', 'submit', true, ['data-cy-reset' => true]) ?>
+            <?php submit_button('Reset', 'primary', 'submit', true, array( 'data-cy-reset' => true )) ?>
         </form>
 
         <h1>Set default options</h1>
         <form action="<?php echo esc_attr(admin_url('admin-post.php')); ?>" method="post">
             <?php wp_nonce_field('cnb_set_default_settings') ?>
             <input type="hidden" name="action" value="cnb_set_default_settings">
-            <?php submit_button('Reset', 'primary', 'submit', true, ['data-cy-set-default-values' => true]) ?>
+            <?php submit_button('Reset', 'primary', 'submit', true, array( 'data-cy-set-default-values' => true )) ?>
         </form>
 
         <h1>Set changelog version</h1>
@@ -43,7 +43,7 @@ class Settings_Reset_view {
             <label>New version:
                 <input type="text" data-cy-changelog-version="1" name="changelog_version" value="<?php echo esc_attr($options['changelog_version']) ?>">
             </label>
-            <?php submit_button('Reset', 'primary', 'submit', true, ['data-cy-set-changelog-version' => true]) ?>
+            <?php submit_button('Reset', 'primary', 'submit', true, array( 'data-cy-set-changelog-version' => true )) ?>
         </form>
 
         <?php

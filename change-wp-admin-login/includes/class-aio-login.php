@@ -97,6 +97,10 @@ if ( ! class_exists( 'AIO_Login\\AIO_Login' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 			add_action( 'wp_ajax_aio_login', array( $this, 'ajax_handler' ) );
 			add_action( 'init', array( $this, 'if_activation_hook_not_triggered' ) );
+
+			if ( is_multisite() ) {
+				add_action( 'wp_initialize_site', array( $this, 'new_site_registered' ) );
+			}
 		}
 
 		/**
@@ -286,8 +290,12 @@ if ( ! class_exists( 'AIO_Login\\AIO_Login' ) ) {
 
 				if ( in_array( $method, array( 'delete_logs_failed_login_activity_logs', 'delete_logs_lockout_activity_logs' ), true ) ) {
 					$logs = array();
-					if ( isset( $_POST['logs'] ) && is_array( $_POST['logs'] ) ) {
-						$logs = array_map( 'sanitize_text_field', wp_unslash( $_POST['logs'] ) );
+					if ( isset( $_POST['logs'] ) ) {
+						if ( is_array( $_POST['logs'] ) ) {
+							$logs = array_map( 'sanitize_text_field', wp_unslash( $_POST['logs'] ) );
+						} else {
+							$logs = sanitize_text_field( wp_unslash( $_POST['logs'] ) );
+						}
 					}
 
 					if ( 'delete_logs_failed_login_activity_logs' === $method ) {
@@ -377,6 +385,18 @@ if ( ! class_exists( 'AIO_Login\\AIO_Login' ) ) {
 				update_option( 'aio_login__cwpal_enable', 'on' );
 			}
 
+		}
+
+		/**
+		 * New site registered.
+		 *
+		 * @param \WP_Site $new_site New site.
+		 */
+		 public function new_site_registered( $new_site ) {
+			$site_id = $new_site->blog_id;
+			switch_to_blog( $site_id );
+			$this->activate_plugin();
+			restore_current_blog();
 		}
 
 		/**

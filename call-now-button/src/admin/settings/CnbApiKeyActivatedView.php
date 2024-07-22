@@ -60,7 +60,7 @@ class CnbApiKeyActivatedView {
         return add_query_arg(
             array(
                 'page'   => 'call-now-button',
-                'action' => 'new'
+                'action' => 'new',
             ),
             $url );
     }
@@ -125,7 +125,7 @@ class CnbApiKeyActivatedView {
 
         $nonce_field    = wp_nonce_field( 'cnb_update_domain_timezone', '_wpnonce', true, false );
         $timezoneSelect = ( new CnbDomainViewEdit() )->getTimezoneSelect( $domain );
-        echo sprintf( '
+        printf( '
             <div class="cnb-get-started cnb-plan-features cnb-center top-50">
             <h1 class="cnb-center"><strong>Let\'s get started</strong></h1><hr>
             <div class="cnb-flexbox">
@@ -173,80 +173,80 @@ class CnbApiKeyActivatedView {
             <h1><strong>Quick start guide</strong></h1>
             <hr>
             <div class="cnb-slides-outer">
-              <div class="cnb-center cnb-slide-controls">
-                  <button class="button button-primary cnb-slide-prev"><span class="dashicons dashicons-arrow-left-alt2"></span>&nbsp;&nbsp;</button>
-              </div>
-              <div class="cnb-slides-inner">
+                <div class="cnb-center cnb-slide-controls">
+                    <button class="button button-primary cnb-slide-prev"><span class="dashicons dashicons-arrow-left-alt2"></span>&nbsp;&nbsp;</button>
+                </div>
+                <div class="cnb-slides-inner">
                 <div class="cnb-slide cnb-slide1 cnb-slide-active">
-                  <h2 class="cnb-left">Locating your buttons</h2>
-                  <p class="cnb-left">You can find the Buttons in the side nav of your WordPress dashboard.</p>
-                  <div class="cnb_screenshot">
+                    <h2 class="cnb-left">Locating your buttons</h2>
+                    <p class="cnb-left">You can find the Buttons in the side nav of your WordPress dashboard.</p>
+                    <div class="cnb_screenshot">
                     <img src="<?php echo esc_url( $img_nav_position ) ?>" alt="Find your Buttons in the side nav of your WordPress dashboard."></div>
 
                 </div>
                 <div class="cnb-slide cnb-slide2">
-                  <h2 class="cnb-left">Your buttons overview</h2>
-                  <p class="cnb-left">The buttons overview page where you can add, edit and remove buttons.</p> <p class="cnb-left">Click <strong>Add
-                          New</strong> at the top to create a new button.</p>
-                  <div class="cnb_screenshot">
+                    <h2 class="cnb-left">Your buttons overview</h2>
+                    <p class="cnb-left">The buttons overview page where you can add, edit and remove buttons.</p> <p class="cnb-left">Click <strong>Add
+                            New</strong> at the top to create a new button.</p>
+                    <div class="cnb_screenshot">
                     <img src="<?php echo esc_url( $img_buttons ) ?>" alt="The buttons overview page where you can add, edit and remove buttons.">
-                  </div>
+                    </div>
 
                 </div>
                 <div class="cnb-slide cnb-slide3">
-                  <h2 class="cnb-left">Create a new button</h2>
-                  <p class="cnb-left">When creating a new button, start with selecting your button type.</p>
-                  <div class="cnb_screenshot">
+                    <h2 class="cnb-left">Create a new button</h2>
+                    <p class="cnb-left">When creating a new button, start with selecting your button type.</p>
+                    <div class="cnb_screenshot">
                     <img src="<?php echo esc_url( $img_new_button ) ?>" alt="When creating a new button, start with selecting your button type.">
-                  </div>
+                    </div>
 
                 </div>
                 <div class="cnb-slide cnb-slide4">
-                  <h2 class="cnb-left">Add an action to your button</h2>
-                  <p class="cnb-left">Every button contains at least one action. The action is what the button does when it
-                      is clicked. For example a call button has a Phone action.</p>
-                  <div class="cnb_screenshot">
+                    <h2 class="cnb-left">Add an action to your button</h2>
+                    <p class="cnb-left">Every button contains at least one action. The action is what the button does when it
+                        is clicked. For example a call button has a Phone action.</p>
+                    <div class="cnb_screenshot">
                     <img src="<?php echo esc_url( $img_add_action ) ?>" alt="Every button contains one or more actions."></div>
 
                 </div>
                 <div class="cnb-slide cnb-slide5">
-                  <h2 class="cnb-left">Change the presentation of your button</h2>
-                  <p class="cnb-left">In the Presentation tab you can set placement and the colors of your button.</p>
-                  <div class="cnb_screenshot">
+                    <h2 class="cnb-left">Change the presentation of your button</h2>
+                    <p class="cnb-left">In the Presentation tab you can set placement and the colors of your button.</p>
+                    <div class="cnb_screenshot">
                     <img src="<?php echo esc_url( $img_presentation ) ?>" alt="In the Presentation tab you can set placement, the colors and pick an animation effect for your button.">
-                  </div>
+                    </div>
 
                 </div>
                 <div class="cnb-slide cnb-slide6">
-                  <h2 class="cnb-left">Decide where your button should appear</h2>
-                  <p class="cnb-left">On the Visibility tab you can decide where your button should appear. Here you also see
-                      an overview of all active Display Rules.</p>
-                  <div class="cnb_screenshot">
+                    <h2 class="cnb-left">Decide where your button should appear</h2>
+                    <p class="cnb-left">On the Visibility tab you can decide where your button should appear. Here you also see
+                        an overview of all active Display Rules.</p>
+                    <div class="cnb_screenshot">
                     <img src="<?php echo esc_url( $img_visibility ) ?>" alt="On the Visibility tab you can decide where your button should appear. Here you also see an overview of all active Display Rules.">
-                  </div>
+                    </div>
 
                 </div>
                 <div class="cnb-slide cnb-slide7">
-                  <h2 class="cnb-left">Adding Display Rules</h2>
-                  <p class="cnb-left">Add display rules to select the pages where the button should appear or not.</p>
-                  <div class="cnb_screenshot">
+                    <h2 class="cnb-left">Adding Display Rules</h2>
+                    <p class="cnb-left">Add display rules to select the pages where the button should appear or not.</p>
+                    <div class="cnb_screenshot">
                     <img src="<?php echo esc_url( $img_add_rule ) ?>" alt="Add display rules to select the pages where the button should appear or not.">
-                  </div>
+                    </div>
 
                 </div>
                 <div class="cnb-slide cnb-slide8">
-                  <h2 class="cnb-left">The preview phone</h2>
-                  <p class="cnb-left">A preview phone is always visible to validate your edits. The time in the phone can be
-                      changed to test your scheduled actions.</p>
-                  <div class="cnb_screenshot">
+                    <h2 class="cnb-left">The preview phone</h2>
+                    <p class="cnb-left">A preview phone is always visible to validate your edits. The time in the phone can be
+                        changed to test your scheduled actions.</p>
+                    <div class="cnb_screenshot">
                     <img src="<?php echo esc_url( $img_preview ) ?>" alt="A preview phone is always visible to validate your edits. The time in the phone can be changed to test your scheduled actions.">
-                  </div>
+                    </div>
 
                 </div>
-              </div>
-              <div class="cnb-center cnb-slide-controls">
+                </div>
+                <div class="cnb-center cnb-slide-controls">
                 <button class="button button-primary cnb-slide-next">&nbsp;<span class="dashicons dashicons-arrow-right-alt2"></span>&nbsp;</button>
-              </div>
+                </div>
             </div>
         </div>
 

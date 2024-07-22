@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sentry\Integration;
 
-use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UploadedFileInterface;
 use Sentry\Event;
@@ -42,15 +41,12 @@ final class RequestIntegration implements IntegrationInterface
     /**
      * This constant is a map of maximum allowed sizes for each value of the
      * `max_request_body_size` option.
-     *
-     * @deprecated The 'none' option is deprecated since version 3.10, to be removed in 4.0
      */
     private const MAX_REQUEST_BODY_SIZE_OPTION_TO_MAX_LENGTH_MAP = [
-        'none' => 0,
         'never' => 0,
         'small' => self::REQUEST_BODY_SMALL_MAX_CONTENT_LENGTH,
         'medium' => self::REQUEST_BODY_MEDIUM_MAX_CONTENT_LENGTH,
-        'always' => -1,
+        'always' => \PHP_INT_MAX,
     ];
 
     /**
@@ -111,7 +107,7 @@ final class RequestIntegration implements IntegrationInterface
 
             // The client bound to the current hub, if any, could not have this
             // integration enabled. If this is the case, bail out
-            if (null === $integration || null === $client) {
+            if ($integration === null || $client === null) {
                 return $event;
             }
 
@@ -125,7 +121,7 @@ final class RequestIntegration implements IntegrationInterface
     {
         $request = $this->requestFetcher->fetchRequest();
 
-        if (null === $request) {
+        if ($request === null) {
             return;
         }
 
@@ -145,9 +141,9 @@ final class RequestIntegration implements IntegrationInterface
                 $user = $event->getUser();
                 $requestData['env']['REMOTE_ADDR'] = $serverParams['REMOTE_ADDR'];
 
-                if (null === $user) {
+                if ($user === null) {
                     $user = UserDataBag::createFromUserIpAddress($serverParams['REMOTE_ADDR']);
-                } elseif (null === $user->getIpAddress()) {
+                } elseif ($user->getIpAddress() === null) {
                     $user->setIpAddress($serverParams['REMOTE_ADDR']);
                 }
 
@@ -215,7 +211,7 @@ final class RequestIntegration implements IntegrationInterface
         }
 
         $requestData = $request->getParsedBody();
-        $requestData = array_merge(
+        $requestData = array_replace(
             $this->parseUploadedFiles($request->getUploadedFiles()),
             \is_array($requestData) ? $requestData : []
         );
@@ -224,9 +220,21 @@ final class RequestIntegration implements IntegrationInterface
             return $requestData;
         }
 
-        $requestBody = Utils::copyToString($request->getBody(), self::MAX_REQUEST_BODY_SIZE_OPTION_TO_MAX_LENGTH_MAP[$maxRequestBodySize]);
+        $requestBody = '';
+        $maxLength = self::MAX_REQUEST_BODY_SIZE_OPTION_TO_MAX_LENGTH_MAP[$maxRequestBodySize];
 
-        if ('application/json' === $request->getHeaderLine('Content-Type')) {
+        if ($maxLength > 0) {
+            $stream = $request->getBody();
+            while ($maxLength > 0 && !$stream->eof()) {
+                if ('' === $buffer = $stream->read(min($maxLength, self::REQUEST_BODY_MEDIUM_MAX_CONTENT_LENGTH))) {
+                    break;
+                }
+                $requestBody .= $buffer;
+                $maxLength -= \strlen($buffer);
+            }
+        }
+
+        if ($request->getHeaderLine('Content-Type') === 'application/json') {
             try {
                 return JSON::decode($requestBody);
             } catch (JsonException $exception) {
@@ -272,15 +280,15 @@ final class RequestIntegration implements IntegrationInterface
             return false;
         }
 
-        if ('none' === $maxRequestBodySize || 'never' === $maxRequestBodySize) {
+        if ($maxRequestBodySize === 'none' || $maxRequestBodySize === 'never') {
             return false;
         }
 
-        if ('small' === $maxRequestBodySize && $requestBodySize > self::REQUEST_BODY_SMALL_MAX_CONTENT_LENGTH) {
+        if ($maxRequestBodySize === 'small' && $requestBodySize > self::REQUEST_BODY_SMALL_MAX_CONTENT_LENGTH) {
             return false;
         }
 
-        if ('medium' === $maxRequestBodySize && $requestBodySize > self::REQUEST_BODY_MEDIUM_MAX_CONTENT_LENGTH) {
+        if ($maxRequestBodySize === 'medium' && $requestBodySize > self::REQUEST_BODY_MEDIUM_MAX_CONTENT_LENGTH) {
             return false;
         }
 

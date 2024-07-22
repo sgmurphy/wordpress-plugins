@@ -285,6 +285,7 @@ class AIOVG_Init {
 		$this->loader->add_action( 'wp_ajax_aiovg_update_views_count', $video, 'ajax_callback_update_views_count' );
 		$this->loader->add_action( 'wp_ajax_nopriv_aiovg_update_views_count', $video, 'ajax_callback_update_views_count' );	
 
+		$this->loader->add_filter( 'show_admin_bar', $video, 'remove_admin_bar' );
 		$this->loader->add_filter( 'upload_mimes', $video, 'add_mime_types' );
 		$this->loader->add_filter( 'aiovg_videojs_player_sources', $video, 'player_sources', 10, 2 );
 		$this->loader->add_filter( 'aiovg_vidstack_player_sources', $video, 'player_sources', 10, 2 );

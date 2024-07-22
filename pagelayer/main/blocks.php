@@ -225,7 +225,7 @@ function pagelayer_block_global_js(){
 	
 	// Get CAPTCHA site key
 	$pagelayer_recaptch_site_key = get_option('pagelayer_google_captcha');
-	$pro_url = defined('POPULARFX_PRO_URL') ? POPULARFX_PRO_URL : PAGELAYER_PRO_URL;
+	$pro_url = defined('POPULARFX_PRO_URL') ? POPULARFX_PRO_URL : PAGELAYER_PRO_PRICE_URL;
 	$pro_txt = defined('POPULARFX_PRO_URL') ? 'PopularFX Pro' : 'Pagelayer Pro';
 	
 	echo '<script type="text/javascript" id="pagelayer-block-global-js">

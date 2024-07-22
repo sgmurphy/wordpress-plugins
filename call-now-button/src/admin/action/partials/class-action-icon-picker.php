@@ -33,118 +33,118 @@ class ActionIconPicker {
     public function __construct() {
         $this->icons = array(
 	        new ActionIcon('ANCHOR', array(
-		        array('type' => 'FONT', 'text' => 'anchor'),
-		        array('type' => 'FONT', 'text' => 'close_down'),
-		        array('type' => 'FONT', 'text' => 'anchor_up'),
+		        array( 'type' => 'FONT', 'text' => 'anchor' ),
+		        array( 'type' => 'FONT', 'text' => 'close_down' ),
+		        array( 'type' => 'FONT', 'text' => 'anchor_up' ),
 	        )),
 	        new ActionIcon('EMAIL', array(
-		        array('type' => 'FONT', 'text' => 'email'),
-		        array('type' => 'FONT', 'text' => 'mail2'),
-		        array('type' => 'FONT', 'text' => 'mail3'),
+		        array( 'type' => 'FONT', 'text' => 'email' ),
+		        array( 'type' => 'FONT', 'text' => 'mail2' ),
+		        array( 'type' => 'FONT', 'text' => 'mail3' ),
 	        )),
 	        new ActionIcon('HOURS', array(
-		        array('type' => 'FONT_MATERIAL', 'text' => 'access_time'),
-		        array('type' => 'FONT_MATERIAL', 'text' => 'access_time_filled'),
+		        array( 'type' => 'FONT_MATERIAL', 'text' => 'access_time' ),
+		        array( 'type' => 'FONT_MATERIAL', 'text' => 'access_time_filled' ),
 	        )),
 	        new ActionIcon('LINK', array(
-		        array('type' => 'FONT', 'text' => 'link'),
-		        array('type' => 'FONT', 'text' => 'link2'),
-		        array('type' => 'FONT', 'text' => 'link3'),
-		        array('type' => 'FONT', 'text' => 'link4'),
-		        array('type' => 'FONT', 'text' => 'link5'),
-		        array('type' => 'FONT', 'text' => 'calendar'),
-                array('type' => 'FONT', 'text' => 'call3'),
-                array('type' => 'FONT', 'text' => 'email'),
-                array('type' => 'FONT', 'text' => 'chat'),
-                array('type' => 'FONT', 'text' => 'directions3'),
-                array('type' => 'FONT', 'text' => 'communicate'),
-                array('type' => 'FONT', 'text' => 'conversation'),
-                array('type' => 'FONT', 'text' => 'more_info'),
-                array('type' => 'FONT', 'text' => 'call_back'),
-                array('type' => 'FONT', 'text' => 'donate'),
-                array('type' => 'FONT', 'text' => 'payment'),
-                array('type' => 'FONT', 'text' => 'fire'),
-                array('type' => 'FONT', 'text' => 'star'),
-                array('type' => 'FONT', 'text' => 'support'),
+		        array( 'type' => 'FONT', 'text' => 'link' ),
+		        array( 'type' => 'FONT', 'text' => 'link2' ),
+		        array( 'type' => 'FONT', 'text' => 'link3' ),
+		        array( 'type' => 'FONT', 'text' => 'link4' ),
+		        array( 'type' => 'FONT', 'text' => 'link5' ),
+		        array( 'type' => 'FONT', 'text' => 'calendar' ),
+                array( 'type' => 'FONT', 'text' => 'call3' ),
+                array( 'type' => 'FONT', 'text' => 'email' ),
+                array( 'type' => 'FONT', 'text' => 'chat' ),
+                array( 'type' => 'FONT', 'text' => 'directions3' ),
+                array( 'type' => 'FONT', 'text' => 'communicate' ),
+                array( 'type' => 'FONT', 'text' => 'conversation' ),
+                array( 'type' => 'FONT', 'text' => 'more_info' ),
+                array( 'type' => 'FONT', 'text' => 'call_back' ),
+                array( 'type' => 'FONT', 'text' => 'donate' ),
+                array( 'type' => 'FONT', 'text' => 'payment' ),
+                array( 'type' => 'FONT', 'text' => 'fire' ),
+                array( 'type' => 'FONT', 'text' => 'star' ),
+                array( 'type' => 'FONT', 'text' => 'support' ),
 	        )),
 	        new ActionIcon('MAP', array(
-		        array('type' => 'FONT', 'text' => 'directions'),
-		        array('type' => 'FONT', 'text' => 'directions2'),
-		        array('type' => 'FONT', 'text' => 'directions3'),
-		        array('type' => 'FONT', 'text' => 'directions4'),
-		        array('type' => 'FONT', 'text' => 'directions5'),
-		        array('type' => 'FONT', 'text' => 'directions6'),
+		        array( 'type' => 'FONT', 'text' => 'directions' ),
+		        array( 'type' => 'FONT', 'text' => 'directions2' ),
+		        array( 'type' => 'FONT', 'text' => 'directions3' ),
+		        array( 'type' => 'FONT', 'text' => 'directions4' ),
+		        array( 'type' => 'FONT', 'text' => 'directions5' ),
+		        array( 'type' => 'FONT', 'text' => 'directions6' ),
 	        )),
 	        new ActionIcon('PHONE', array(
-		        array('type' => 'FONT', 'text' => 'call'),
-		        array('type' => 'FONT', 'text' => 'call2'),
-		        array('type' => 'FONT', 'text' => 'call3'),
-		        array('type' => 'FONT', 'text' => 'call4'),
+		        array( 'type' => 'FONT', 'text' => 'call' ),
+		        array( 'type' => 'FONT', 'text' => 'call2' ),
+		        array( 'type' => 'FONT', 'text' => 'call3' ),
+		        array( 'type' => 'FONT', 'text' => 'call4' ),
 	        )),
 	        new ActionIcon('SMS', array(
-		        array('type' => 'FONT', 'text' => 'chat'),
-		        array('type' => 'FONT', 'text' => 'sms'),
+		        array( 'type' => 'FONT', 'text' => 'chat' ),
+		        array( 'type' => 'FONT', 'text' => 'sms' ),
 	        )),
 	        new ActionIcon('WHATSAPP', array(
-		        array('type' => 'FONT', 'text' => 'whatsapp'),
+		        array( 'type' => 'FONT', 'text' => 'whatsapp' ),
 	        )),
 	        new ActionIcon('FACEBOOK', array(
-		        array('type' => 'FONT', 'text' => 'facebook_messenger'),
+		        array( 'type' => 'FONT', 'text' => 'facebook_messenger' ),
 	        )),
 	        new ActionIcon('TELEGRAM', array(
-		        array('type' => 'FONT', 'text' => 'telegram'),
+		        array( 'type' => 'FONT', 'text' => 'telegram' ),
 	        )),
 	        new ActionIcon('SIGNAL', array(
-		        array('type' => 'FONT', 'text' => 'signal'),
+		        array( 'type' => 'FONT', 'text' => 'signal' ),
 	        )),
 	        new ActionIcon('IFRAME', array(
-		        array('type' => 'FONT', 'text' => 'open_modal'),
-		        array('type' => 'FONT', 'text' => 'calendar'),
-		        array('type' => 'FONT', 'text' => 'communicate'),
-                array('type' => 'FONT', 'text' => 'call3'),
-                array('type' => 'FONT', 'text' => 'chat'),
-		        array('type' => 'FONT', 'text' => 'conversation'),
-		        array('type' => 'FONT', 'text' => 'more_info'),
-		        array('type' => 'FONT', 'text' => 'call_back'),
-		        array('type' => 'FONT', 'text' => 'donate'),
-		        array('type' => 'FONT', 'text' => 'payment'),
-                array('type' => 'FONT', 'text' => 'email'),
-                array('type' => 'FONT', 'text' => 'mail2'),
-                array('type' => 'FONT', 'text' => 'directions3'),
-                array('type' => 'FONT', 'text' => 'support'),
+		        array( 'type' => 'FONT', 'text' => 'open_modal' ),
+		        array( 'type' => 'FONT', 'text' => 'calendar' ),
+		        array( 'type' => 'FONT', 'text' => 'communicate' ),
+                array( 'type' => 'FONT', 'text' => 'call3' ),
+                array( 'type' => 'FONT', 'text' => 'chat' ),
+		        array( 'type' => 'FONT', 'text' => 'conversation' ),
+		        array( 'type' => 'FONT', 'text' => 'more_info' ),
+		        array( 'type' => 'FONT', 'text' => 'call_back' ),
+		        array( 'type' => 'FONT', 'text' => 'donate' ),
+		        array( 'type' => 'FONT', 'text' => 'payment' ),
+                array( 'type' => 'FONT', 'text' => 'email' ),
+                array( 'type' => 'FONT', 'text' => 'mail2' ),
+                array( 'type' => 'FONT', 'text' => 'directions3' ),
+                array( 'type' => 'FONT', 'text' => 'support' ),
 	        )),
 	        new ActionIcon('TALLY', array(
-		        array('type' => 'FONT', 'text' => 'call3'),
-		        array('type' => 'FONT', 'text' => 'email'),
-		        array('type' => 'FONT', 'text' => 'chat'),
-		        array('type' => 'FONT', 'text' => 'communicate'),
-		        array('type' => 'FONT', 'text' => 'open_modal'),
-		        array('type' => 'FONT', 'text' => 'donate'),
-		        array('type' => 'FONT', 'text' => 'payment'),
+		        array( 'type' => 'FONT', 'text' => 'call3' ),
+		        array( 'type' => 'FONT', 'text' => 'email' ),
+		        array( 'type' => 'FONT', 'text' => 'chat' ),
+		        array( 'type' => 'FONT', 'text' => 'communicate' ),
+		        array( 'type' => 'FONT', 'text' => 'open_modal' ),
+		        array( 'type' => 'FONT', 'text' => 'donate' ),
+		        array( 'type' => 'FONT', 'text' => 'payment' ),
 	        )),
 	        new ActionIcon('INTERCOM', array(
-		        array('type' => 'FONT', 'text' => 'intercom'),
-                array('type' => 'FONT', 'text' => 'chat'),
-                array('type' => 'FONT', 'text' => 'conversation'),
+		        array( 'type' => 'FONT', 'text' => 'intercom' ),
+                array( 'type' => 'FONT', 'text' => 'chat' ),
+                array( 'type' => 'FONT', 'text' => 'conversation' ),
 	        )),
 	        new ActionIcon('SKYPE', array(
-		        array('type' => 'FONT', 'text' => 'skype'),
+		        array( 'type' => 'FONT', 'text' => 'skype' ),
 	        )),
 	        new ActionIcon('ZALO', array(
-		        array('type' => 'FONT', 'text' => 'zalo'),
+		        array( 'type' => 'FONT', 'text' => 'zalo' ),
 	        )),
 	        new ActionIcon('VIBER', array(
-		        array('type' => 'FONT', 'text' => 'viber'),
+		        array( 'type' => 'FONT', 'text' => 'viber' ),
 	        )),
 	        new ActionIcon('LINE', array(
-		        array('type' => 'FONT', 'text' => 'line'),
+		        array( 'type' => 'FONT', 'text' => 'line' ),
 	        )),
 	        new ActionIcon('WECHAT', array(
-		        array('type' => 'FONT', 'text' => 'wechat'),
+		        array( 'type' => 'FONT', 'text' => 'wechat' ),
 	        )),
 	        new ActionIcon('CHAT', array(
-                array('type' => 'FONT', 'text' => 'conversation'),
-		        array('type' => 'FONT', 'text' => 'chat'),
+                array( 'type' => 'FONT', 'text' => 'conversation' ),
+		        array( 'type' => 'FONT', 'text' => 'chat' ),
 	        )),
         );
     }
@@ -171,7 +171,7 @@ class ActionIconPicker {
             add_query_arg( array(
                 'page'   => 'call-now-button-domains',
                 'action' => 'upgrade',
-                'id'     => $button->domain->id
+                'id'     => $button->domain->id,
             ),
                 admin_url( 'admin.php' ) );
 
@@ -266,9 +266,9 @@ class ActionIconPicker {
             </th>
             <td>
                 <input name="actions[<?php echo esc_attr( $action->id ) ?>][backgroundColor]"
-                       id="actions[<?php echo esc_attr( $action->id ) ?>][backgroundColor]" type="text"
-                       value="<?php echo esc_attr( $action->backgroundColor ) ?>"
-                       class="cnb-color-field" data-default-color="#009900"/>
+                        id="actions[<?php echo esc_attr( $action->id ) ?>][backgroundColor]" type="text"
+                        value="<?php echo esc_attr( $action->backgroundColor ) ?>"
+                        class="cnb-color-field" data-default-color="#009900"/>
             </td>
         </tr>
         <tr>
@@ -279,9 +279,9 @@ class ActionIconPicker {
             </th>
             <td>
                 <input name="actions[<?php echo esc_attr( $action->id ) ?>][iconColor]"
-                       id="actions[<?php echo esc_attr( $action->id ) ?>][iconColor]" type="text"
-                       value="<?php echo esc_attr( $action->iconColor ) ?>"
-                       class="cnb-color-field" data-default-color="#FFFFFF"/>
+                        id="actions[<?php echo esc_attr( $action->id ) ?>][iconColor]" type="text"
+                        value="<?php echo esc_attr( $action->iconColor ) ?>"
+                        class="cnb-color-field" data-default-color="#FFFFFF"/>
             </td>
         </tr>
         <?php
@@ -295,16 +295,16 @@ class ActionIconPicker {
                 <th scope="row"></th>
                 <td>
                     <input type="hidden" name="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]"
-                           id="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]" value="0"/>
+                            id="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]" value="0"/>
                     <input id="cnb-action-icon-enabled" class="cnb_toggle_checkbox" type="checkbox"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]"
-                           id="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]"
-                           value="true" <?php checked( true, $action->iconEnabled ); ?>>
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]"
+                            id="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]"
+                            value="true" <?php checked( true, $action->iconEnabled ); ?>>
                     <label for="cnb-action-icon-enabled" class="cnb_toggle_label">Toggle</label>
                     <span data-cnb_toggle_state_label="cnb-action-icon-enabled"
-                          class="cnb_toggle_state cnb_toggle_false">Hide icon</span>
+                            class="cnb_toggle_state cnb_toggle_false">Hide icon</span>
                     <span data-cnb_toggle_state_label="cnb-action-icon-enabled"
-                          class="cnb_toggle_state cnb_toggle_true">Show icon</span>
+                            class="cnb_toggle_state cnb_toggle_true">Show icon</span>
                 </td>
             </tr>
         <?php

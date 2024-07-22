@@ -101,10 +101,44 @@ function cnb_user_storage_type() {
     return false
 }
 
+function cnb_add_domain_alias() {
+    jQuery('#add-alias-button').on('click', () => {
+        // Add a new input to #add-alias-div with the value of the add-alias-input text input
+        const alias = jQuery('#add-alias-input').val()?.trim().toLowerCase()
+        const escapedAlias = jQuery('<div>').text(alias).html();
+
+        if (!escapedAlias) return
+
+        jQuery('[data-add-domain-notice]').remove()
+
+        // Validate the new alias
+        // Should not start with http:// or https://
+        // Should not contain a / or a space
+        if (escapedAlias.startsWith('http://') || escapedAlias.startsWith('https://')) {
+            jQuery('#add-alias-div').append('<div class="notice notice-error notice-inline" data-add-domain-notice><p>Invalid domain alias <strong>'+escapedAlias+'</strong>. Please remove the protocol.</p></div>')
+            return
+        }
+        if (alias.includes('/') || alias.includes(' ')) {
+            jQuery('#add-alias-div').append('<div class="notice notice-error notice-inline" data-add-domain-notice><p>Invalid domain alias <strong>'+escapedAlias+'</strong>. Please do not use a path or spaces in your domain name.</p></div>')
+            return
+        }
+
+        jQuery('#add-alias-div').append('<input type="hidden" name="domain[aliases][]" value="' + escapedAlias + '" readonly>')
+        jQuery('#add-alias-div').append('<div class="notice notice-success notice-inline"><p>Domain <strong>' + escapedAlias + '</strong> added. Click "Save Changes" to make this permanent.</p></div>')
+        jQuery('#add-alias-input').val('')
+    })
+
+    jQuery('input[name="delete-alias-button"]').on('click', (e) => {
+        console.log(e)
+        jQuery(e.currentTarget).parent().remove()
+    })
+}
+
 jQuery(() => {
     init_settings();
     cnb_disable_api_key_when_cloud_hosting_is_disabled()
     cnb_ask_for_feedback_disable_cloud()
     cnb_show_tips_when_deactivating()
     add_onclick_cnb_user_storage_type()
+    cnb_add_domain_alias()
 })

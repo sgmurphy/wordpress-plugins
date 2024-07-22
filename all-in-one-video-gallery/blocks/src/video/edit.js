@@ -82,6 +82,7 @@ export default function Edit( { attributes, className, setAttributes } ) {
 		speed,
 		quality,
 		volume,
+		pip,
 		fullscreen,
 		share,
 		embed,
@@ -340,6 +341,14 @@ export default function Edit( { attributes, className, setAttributes } ) {
 							checked={ volume }
 							onChange={ () => setAttributes( { volume: ! volume } ) }
 						/>
+					</PanelRow>
+
+					<PanelRow>
+						<ToggleControl
+							label={ aiovg_blocks.i18n.pip }							
+							checked={ pip }
+							onChange={ () => setAttributes( { pip: ! pip } ) }
+						/>	
 					</PanelRow>
 
 					<PanelRow>

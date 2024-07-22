@@ -90,14 +90,14 @@ class CnbAdminNotices {
         $option = CNB_SLUG . '_dismissed_' . $notice->dismiss_option;
         if ( ! $notice->dismiss_option || ! get_option( $option ) ) {
             echo '<div class="notice notice-' . esc_attr( CNB_SLUG ) . ' notice-' . esc_attr( $notice->type ) .
-                 esc_attr( $dismiss_classes ) .
-                 '"' .
+                esc_attr( $dismiss_classes ) .
+                '"' .
                  // phpcs:ignore WordPress.Security
-                 ( $notice->dismissable === true && $notice->dismiss_option
-                     ? ' data-dismiss-option="' . esc_attr( $notice->dismiss_option ) . '"' .
-                       ' data-dismiss-nonce="' . esc_attr(wp_create_nonce('cnb_hide_notice')) . '"'
-                     : ''
-                 ) . '>';
+                ( $notice->dismissable === true && $notice->dismiss_option
+                    ? ' data-dismiss-option="' . esc_attr( $notice->dismiss_option ) . '"' .
+                        ' data-dismiss-nonce="' . esc_attr(wp_create_nonce('cnb_hide_notice')) . '"'
+                    : ''
+                ) . '>';
             // phpcs:ignore WordPress.Security
             echo $notice->message;
             echo '</div>';

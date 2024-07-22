@@ -13,6 +13,7 @@ namespace CookieYes\Lite\Frontend;
 
 use CookieYes\Lite\Admin\Modules\Banners\Includes\Controller;
 use CookieYes\Lite\Admin\Modules\Settings\Includes\Settings;
+use CookieYes\Lite\Admin\Modules\Gcm\Includes\Gcm_Settings;
 /**
  * The public-facing functionality of the plugin.
  *
@@ -77,6 +78,14 @@ class Frontend {
 	 * @var object
 	 */
 	protected $settings;
+
+	/**
+	 * Plugin settings
+	 *
+	 * @var object
+	 */
+	protected $gcm_settings;
+
 	/**
 	 * Banner template
 	 *
@@ -103,6 +112,7 @@ class Frontend {
 		$this->version     = $version;
 		$this->load_modules();
 		$this->settings = new Settings();
+		$this->gcm_settings = new Gcm_Settings();
 		add_action( 'init', array( $this, 'load_banner' ) );
 		add_action( 'wp_footer', array( $this, 'banner_html' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 1 );
@@ -190,6 +200,18 @@ class Frontend {
 		if ( false === $this->settings->is_connected() || true === cky_disable_banner() ) {
 			return;
 		}
+		if ( true === $this->gcm_settings->is_gcm_enabled() ) {
+			$gcm = $this->get_gcm_data();
+			$gcm_json = json_encode($gcm);
+			?>
+<script id="cookie-law-info-gcm-var-js">
+var _ckyGcm = <?php echo $gcm_json; ?>;
+</script>
+			<?php
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			$script_url = plugin_dir_url( __FILE__ ) . 'js/gcm' . $suffix . '.js';
+			echo '<script id="cookie-law-info-gcm-js" type="text/javascript" src="' . esc_url( $script_url ) . '"></script>';
+		}
 		echo '<script id="cookieyes" type="text/javascript" src="' . esc_url( $this->settings->get_script_url() ) . '"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 	}
 	/**
@@ -239,6 +261,19 @@ class Frontend {
 			$tag = '<script id="cookieyes" type="text/javascript" src="' . esc_attr( $this->settings->get_script_url() ) . '"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 		}
 		return $tag;
+	}
+	/**
+	 * Get gcm data
+	 *
+	 * @return array
+	 */
+	public function get_gcm_data() {
+		if ( ! $this->gcm_settings ) {
+			return;
+		}
+		$gcm          = $this->gcm_settings;
+		$gcm_settings = $gcm->get();
+		return $gcm_settings;
 	}
 	/**
 	 * Get store data
