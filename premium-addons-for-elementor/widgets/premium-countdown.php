@@ -689,7 +689,7 @@ class Premium_Countdown extends Widget_Base {
 				'label'     => __( 'Text', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::WYSIWYG,
 				'dynamic'   => array( 'active' => true ),
-				'default'   => __( 'Countdown Expired!', 'prmeium_elementor' ),
+				'default'   => __( 'Countdown Expired!', 'premium-addons-for-elementor' ),
 				'condition' => array(
 					'expiration_type' => 'text',
 				),

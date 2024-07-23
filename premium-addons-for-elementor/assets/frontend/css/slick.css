@@ -103,6 +103,7 @@
 .premium-hscroll-wrap a.carousel-arrow,
 .premium-twitter-feed-wrapper a.carousel-arrow,
 .premium-facebook-feed-wrapper a.carousel-arrow,
+.premium-woo-cats__list-wrap a.carousel-arrow,
 .premium-instafeed-container a.carousel-arrow,
 .premium-persons-container a.carousel-arrow,
 .premium-testimonial-box a.carousel-arrow,
@@ -146,6 +147,7 @@ div[class^="premium-"] .slick-arrow i {
 .premium-hscroll-wrap a.carousel-arrow,
 .premium-twitter-feed-wrapper a.carousel-arrow,
 .premium-facebook-feed-wrapper a.carousel-arrow,
+.premium-woo-cats__list-wrap a.carousel-arrow,
 .premium-instafeed-container a.carousel-arrow,
 .premium-persons-container a.carousel-arrow,
 .premium-testimonial-box a.carousel-arrow,
@@ -199,6 +201,7 @@ a.square-border {
 .premium-search__query-wrap ul.slick-dots,
 .premium-tiktok-feed__videos-wrapper ul.slick-dots,
 .premium-pinterest-feed__pins-wrapper ul.slick-dots,
+.premium-woo-cats__list-wrap ul.slick-dots,
 .premium-tcloud-container ul.slick-dots,
 .premium-fb-rev-reviews ul.slick-dots {
   position: relative;

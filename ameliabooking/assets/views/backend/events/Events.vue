@@ -825,7 +825,10 @@
 
         this.$http.get(`${this.$root.getAjaxUrl}/entities`, {
           params: this.getAppropriateUrlParams(
-            {types: ['locations', 'employees', 'tags', 'custom_fields', 'settings', 'coupons']}
+            {
+              lite: true,
+              types: ['locations', 'employees', 'tags', 'custom_fields', 'settings', 'coupons']
+            }
           )
         })
           .then(response => {

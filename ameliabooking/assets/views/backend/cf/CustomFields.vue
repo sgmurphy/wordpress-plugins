@@ -231,8 +231,10 @@
 
             let eventsIds = this.options.entities.events.map(event => event.id)
 
+            let $this = this
             customFields.forEach(function (customField) {
-              customField.events = customField.events.filter(event => eventsIds.indexOf(event.id) !== -1)
+              let eventsNotRetrieved = customField.events.filter(event => eventsIds.indexOf(event.id) === -1)
+              $this.options.entities.events = $this.options.entities.events.concat(eventsNotRetrieved)
             })
 
             this.customFields = customFields

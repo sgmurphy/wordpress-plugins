@@ -3,9 +3,9 @@ Contributors: mahdiy,nabiknet
 Tags: woocommerce,shipping,persian woocommerce,persian,ووکامرس فارسی
 Donate link: https://yun.ir/pws-pro?utm_source=donate
 Requires at least: 6.0.0
-Tested up to: 6.5.5
+Tested up to: 6.6.0
 Requires PHP: 7.4
-Stable tag: 4.1.1
+Stable tag: 4.1.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -101,6 +101,13 @@ Ask your questions in [Persian Woocommerce Shipping](https://nabik.net/contact/)
 6. Support Tapin dashboard
 
 == Changelog ==
+= 4.1.3 =
+* Fix: Save box size in edit order
+* Fix: Calculate Pishtaz shipping rate
+= 4.1.2 =
+* Tapin: Update tapin rate
+* Tapin: Add box size field
+* Remove: Sefareshi shipping methods
 = 4.1.1 =
 * Fix: Add manual order in HPOS mode
 = 4.1.0 =

@@ -24,14 +24,29 @@
 
             } else {
 
-                elementorFrontend.waypoint($scope, function () {
+                // unsing IntersectionObserverAPI.
+                var wheelObserver = new IntersectionObserver(function(entries) {
 
-                    runInfiniteAnimation();
-
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            runInfiniteAnimation();
+                            wheelObserver.unobserve(entry.target); // to only excecute the callback func once.
+                        }
+                    });
                 }, {
-                    offset: "100%",
-                    triggerOnce: true
+                    rootMargin: "100% 0px 0px 0px"
                 });
+
+                wheelObserver.observe($scope[0]);
+
+                // elementorFrontend.waypoint($scope, function () {
+
+                //     runInfiniteAnimation();
+
+                // }, {
+                //     offset: "100%",
+                //     triggerOnce: true
+                // });
             }
 
             $carouselContainer.css('visibility', 'inherit');
@@ -96,15 +111,35 @@
 
             if (settings.keyboard && !isSmallDevice) {
                 //Fix: keyboard nav won't start unless the elements is focused.
-                elementorFrontend.waypoint($carouselContainer, function () {
-                    $.fn.focusWithoutScrolling = function () {
-                        var x = window.scrollX, y = window.scrollY;
-                        this.focus();
-                        window.scrollTo(x, y);
-                    };
+                // elementorFrontend.waypoint($carouselContainer, function () {
+                //     $.fn.focusWithoutScrolling = function () {
+                //         var x = window.scrollX, y = window.scrollY;
+                //         this.focus();
+                //         window.scrollTo(x, y);
+                //     };
 
-                    $carouselContainer.focusWithoutScrolling();
+                //     $carouselContainer.focusWithoutScrolling();
+                // });
+
+                // unsing IntersectionObserverAPI.
+                var eleObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+
+                            $.fn.focusWithoutScrolling = function () {
+                                var x = window.scrollX, y = window.scrollY;
+                                this.focus();
+                                window.scrollTo(x, y);
+                            };
+
+                            $carouselContainer.focusWithoutScrolling();
+
+                            eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                        }
+                    });
                 });
+
+                eleObserver.observe($carouselContainer[0]);
             }
 
             // Fix: item click event when loop option is enabled navigates to the wrong slide.

@@ -22,7 +22,7 @@ use function ContentEgg\prnx;
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 class ModuleViewer
 {
@@ -178,7 +178,7 @@ class ModuleViewer
         {
             if ($params['sort'] == 'reverse')
                 $data = array_reverse($data);
-            elseif ($params['sort'] == 'price' || $params['sort'] == 'discount')
+            elseif ($params['sort'] == 'price' || $params['sort'] == 'discount' || $params['sort'] == 'total_price')
                 $data = TemplateHelper::sortByPrice($data, $params['order'], $params['sort']);
         }
 
@@ -242,7 +242,7 @@ class ModuleViewer
         return $tpl_manager->render($template, array('items' => $data, 'title' => $title, 'keyword' => $keyword, 'post_id' => $post_id, 'module_id' => $module_id, 'cols' => $cols, 'disable_features' => $disable_features, 'btn_text' => $btn_text, 'atts' => $params, 'content' => $content));
     }
 
-    public function viewBlockData(array $module_ids, $post_id = null, $params = array(), $content = '')
+    public function viewBlockData(array $module_ids, $post_id = null, $params = array(), $content = '', $only_return_data = false)
     {
         if (!$post_id)
         {
@@ -283,6 +283,8 @@ class ModuleViewer
                 {
                     foreach ($params['hide'] as $hide)
                     {
+                        if ($hide == 'title')
+                            $module_data[$key]['_alt'] = $module_data[$key]['title'];
                         if (isset($d[$hide]))
                             $module_data[$key][$hide] = '';
                     }
@@ -320,9 +322,12 @@ class ModuleViewer
             return;
 
         // template
-        $tpl_manager = BlockTemplateManager::getInstance();
-        if (empty($params['template']) || !$tpl_manager->isTemplateExists($params['template']))
-            return;
+        if ($params['template'] != 'block_greenshift')
+        {
+            $tpl_manager = BlockTemplateManager::getInstance();
+            if (empty($params['template']) || !$tpl_manager->isTemplateExists($params['template']))
+                return;
+        }
         $template = $params['template'];
 
         // next, limit, offset
@@ -363,6 +368,9 @@ class ModuleViewer
             $cols = $params['cols'];
         else
             $cols = 0;
+
+        if ($only_return_data)
+            return $data;
 
         return $tpl_manager->render($params['template'], array('data' => $data, 'post_id' => $post_id, 'params' => $params, 'title' => $title, 'cols' => $cols, 'sort' => $params['sort'], 'order' => $params['order'], 'groups' => $params['groups'], 'btn_text' => $params['btn_text'], 'atts' => $params, 'content' => $content));
     }

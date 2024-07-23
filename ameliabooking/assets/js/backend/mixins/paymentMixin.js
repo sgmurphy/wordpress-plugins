@@ -13,6 +13,10 @@ export default {
       return 'online'
     },
 
+    longNamePayments (gateway) {
+      return ['mollie', 'razorpay', 'square'].includes(gateway)
+    },
+
     getPaymentData (payment, appointment, event, pack) {
       let selectedPaymentModalData = {}
 
@@ -91,7 +95,29 @@ export default {
       }
     },
 
+    getPaymentClassName (payment) {
+      let method = payment.gateway
+
+      if (payment.gatewayTitle === 'oliver') {
+        method = 'oliver'
+      }
+
+      return 'am-appointment-payment am-appointment-payment-' + method
+    },
+
+    getPaymentIconName (payment) {
+      return (payment.gateway === 'onSite' || payment.gateway === 'stripe') && payment.gatewayTitle === 'oliver' ? 'oliver.png' : payment.gateway + '.svg'
+    },
+
     getPaymentGatewayNiceName (payment) {
+      if (payment.gateway === 'stripe' && payment.gatewayTitle === 'oliver') {
+        return this.$root.labels.oliver_on_line
+      }
+
+      if (payment.gateway === 'onSite' && payment.gatewayTitle === 'oliver') {
+        return this.$root.labels.oliver_on_site
+      }
+
       if (payment.gateway === 'onSite') {
         return this.$root.labels.on_site
       }
@@ -106,13 +132,16 @@ export default {
     },
 
     getPaymentIconWidth (paymentGateway) {
-      if (paymentGateway === 'razorpay') {
-        return '76px'
+      switch (paymentGateway) {
+        case 'razorpay':
+          return '76px'
+        case 'square':
+          return '70px'
+        case 'mollie':
+          return '38px'
+        default:
+          return '16px'
       }
-      if (paymentGateway === 'mollie') {
-        return '38px'
-      }
-      return '16px'
     }
   }
 

@@ -107,6 +107,8 @@
       </el-row>
     </div>
 
+
+
     <el-form-item :label="$root.labels.description_wc + ':'" v-show="data.wc.enabled">
       <el-row type="flex" align="middle" :gutter="24" style="margin-bottom: 10px;">
 
@@ -205,6 +207,14 @@
           type="textarea"
           :autosize="{ minRows: 4, maxRows: 6}"
           v-model="description_razorpay"
+      >
+      </el-input>
+    </el-form-item>
+    <el-form-item :label="$root.labels.description_square + ':'" v-show="data.square.enabled">
+      <el-input
+          type="textarea"
+          :autosize="{ minRows: 4, maxRows: 6}"
+          v-model="description_square"
       >
       </el-input>
     </el-form-item>
@@ -355,6 +365,14 @@ export default {
         this.data.mollie.description[this.tab] = newDescription
       }
     },
+    description_square: {
+      get () {
+        return this.data.square.description[this.tab]
+      },
+      set (newDescription) {
+        this.data.square.description[this.tab] = newDescription
+      }
+    },
     description_razorpay: {
       get () {
         return this.data.razorpay.description[this.tab]
@@ -394,7 +412,8 @@ export default {
         '%payment_link_paypal%',
         '%payment_link_stripe%',
         '%payment_link_mollie%',
-        '%payment_link_razorpay%'
+        '%payment_link_razorpay%',
+        '%payment_link_square%'
       ]
 
       switch (this.tab) {

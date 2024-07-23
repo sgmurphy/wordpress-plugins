@@ -7,7 +7,7 @@
  * Domain Path: /languages/
  * Author: InfornWeb
  * Author URI: https://premium.infornweb.com
- * Version: 3.4.6
+ * Version: 3.4.7
  * Requires at least: 4.7
  * Requires PHP: 5.4
 */
@@ -27,7 +27,7 @@ if ( function_exists( 'bdp_fs' ) ) {
  * @since 1.0.0
  */
 if( ! defined( 'BDP_VERSION' ) ) {
-	define( 'BDP_VERSION', '3.4.6' ); // Version of plugin
+	define( 'BDP_VERSION', '3.4.7' ); // Version of plugin
 }
 if( ! defined( 'BDP_DIR' ) ) {
 	define( 'BDP_DIR', dirname( __FILE__ ) ); // Plugin dir

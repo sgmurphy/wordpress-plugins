@@ -31,12 +31,12 @@
                 <span>{{ $root.labels.payment_method }}:</span>
             </el-col>
             <el-col :span="12">
-              <el-row v-for="(payment, index) in booking.payments" :key="payment.id">
-                  <span class="am-semi-strong" :key="payment.id">
-                      <img class="svg-amelia"  :style="{width: getPaymentIconWidth(payment.gateway)}"
-                           :src="$root.getUrl + 'public/img/payments/' + payment.gateway + '.svg'"/>
-                      <span v-if="payment.gateway !== 'razorpay'">{{ getPaymentGatewayNiceName(payment) }}</span>
-                    </span>
+              <el-row v-for="(payment, index) in booking.payments" :key="payment.id" align="center">
+                <span class="am-semi-strong" :key="payment.id">
+                    <img class="svg-amelia"  :style="{width: getPaymentIconWidth(payment.gateway), verticalAlign: 'middle'}"
+                         :src="$root.getUrl + 'public/img/payments/' + getPaymentIconName(payment)"/>
+                    <span v-if="!longNamePayments(payment.gateway)">{{ getPaymentGatewayNiceName(payment) }}</span>
+                  </span>
               </el-row>
             </el-col>
             <el-col :span="12" v-if="booking.payments.find(p => p.wcOrderId) && !isCabinet">

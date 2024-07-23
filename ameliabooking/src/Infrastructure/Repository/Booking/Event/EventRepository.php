@@ -503,6 +503,11 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
             !empty($criteria['itemsPerPage']) ? (int)$criteria['itemsPerPage'] : 0
         );
 
+        $groupBy = '';
+        if (!empty($limit)) {
+            $groupBy = 'GROUP BY e.id';
+        }
+
         try {
             $statement = $this->connection->prepare(
                 "SELECT
@@ -609,6 +614,7 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
                 {$paymentJoin}
                 {$tagJoin}
                 {$where}
+                {$groupBy}
                 ORDER BY ep.periodStart
                 {$limit}"
             );

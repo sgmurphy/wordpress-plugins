@@ -1096,7 +1096,7 @@ class Premium_Testimonials extends Widget_Base {
 		$this->add_control(
 			'star_size',
 			array(
-				'label'   => __( 'Star Size', 'premium-addons-pro' ),
+				'label'   => __( 'Star Size', 'premium-addons-for-elementor' ),
 				'type'    => Controls_Manager::NUMBER,
 				'min'     => 1,
 				'max'     => 50,
@@ -1107,7 +1107,7 @@ class Premium_Testimonials extends Widget_Base {
 		$this->add_control(
 			'fill',
 			array(
-				'label'   => __( 'Star Color', 'premium-addons-pro' ),
+				'label'   => __( 'Star Color', 'premium-addons-for-elementor' ),
 				'type'    => Controls_Manager::COLOR,
 				'global'  => false,
 				'default' => '#ffab40',
@@ -1117,7 +1117,7 @@ class Premium_Testimonials extends Widget_Base {
 		$this->add_control(
 			'empty',
 			array(
-				'label'  => __( 'Empty Star Color', 'premium-addons-pro' ),
+				'label'  => __( 'Empty Star Color', 'premium-addons-for-elementor' ),
 				'type'   => Controls_Manager::COLOR,
 				'global' => false,
 			)
@@ -1382,15 +1382,15 @@ class Premium_Testimonials extends Widget_Base {
 				'type'                 => Controls_Manager::CHOOSE,
 				'options'              => array(
 					'left'   => array(
-						'title' => __( 'Left', 'premium-addons-pro' ),
+						'title' => __( 'Left', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
-						'title' => __( 'Center', 'premium-addons-pro' ),
+						'title' => __( 'Center', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
-						'title' => __( 'Right', 'premium-addons-pro' ),
+						'title' => __( 'Right', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),

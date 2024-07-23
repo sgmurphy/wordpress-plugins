@@ -5,7 +5,7 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.6
 Requires PHP: 7.0
-Stable Tag: 4.10.37
+Stable Tag: 4.10.38
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -80,10 +80,10 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 ## Widgets & Addons Included
 
 ### Content Widgets
-* [**Carousel Widget**](https://premiumaddons.com/carousel-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: The best all purpose carousel widget. It can be used to create any kind of carousel you want like: Testimonials Carousel, Client Logos Carousel, and some of our users even used it as Advanced Slider in a combination with other widgets.
-* [**Blog Widget**](https://premiumaddons.com/blog-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Blog Posts Widget comes with a modern style, advanced posts filtering options, and also it allows you to create posts carousel.
+* [**Carousel Widget**](https://premiumaddons.com/carousel-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create a slider of any Elementor content.
+* [**Blog Widget**](https://premiumaddons.com/blog-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Showcase posts or any custom post type in 5 neat skins.
 
-* [**AJAX Search Widget**](https://premiumaddons.com/elementor-ajax-search-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Add search form to your website. It allows to create a custom search query and add post type select field and dozens of customization options.
+* [**AJAX Search Widget**](https://premiumaddons.com/elementor-ajax-search-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Add search form to your website with custom search query.
 
 * [**Smart Post Listing Widget**](https://premiumaddons.com/elementor-smart-post-listing-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create any posts layout you want using this widget. You can use it to create any grid layout to show your posts or any custom post type on your website.
 
@@ -93,35 +93,35 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 
 * [**News Ticker Widget**](https://premiumaddons.com/elementor-news-ticker-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Show your posts in an attractive way using this news ticker widget. Select between four different layouts. You can also use the widget to show Gold, Stock and Currencies prices.
 
-* [**Tags Cloud Widget**](https://premiumaddons.com/elementor-tags-cloud-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Showcase your WordPress tags and categories as cloud, sphere, labeled using this widget. It helps you to show your taxonomies in an outstanding way on your website.
+* [**Tags Cloud Widget**](https://premiumaddons.com/elementor-tags-cloud-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Showcase tags and categories as cloud, sphere, labeled.
 
 * [**Recent Posts Notification Widget**](https://premiumaddons.com/elementor-recent-posts-notification-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: This widget helps you to show a notification icon on your website to show the latest posts that your website users have not seen yet.
 
 * [**Google Maps Widget**](https://premiumaddons.com/google-maps-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Advanced Google Maps Widget comes with features like adding multiple markers, custom skins, and much more options.
 * [**Team Members Widget**](https://premiumaddons.com/persons-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Very good widget to list team members, co-workers, etc. Team Members Widget comes with many customization options.
 * [**Tabs Widget**](https://premiumaddons.com/elementor-tabs-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create both Vertical and Horizontal tabs with tons of styling features.
-* [**Content Switcher**](https://premiumaddons.com/content-switcher-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Present multiple content in a smart way using Content Switcher Widget. This widget is ideal for to present pricing plans. It works with simple text editor or Elementor templates.
+* [**Content Switcher**](https://premiumaddons.com/content-switcher-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Present multiple content in a smart way.
 * [**Animated Text Widget**](https://premiumaddons.com/elementor-animated-text-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: The animated Fancy Text Widget comes with very useful options to help you create attractive marketing messages.
 * [**Heading Widget**](https://premiumaddons.com/heading-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Heading Widget has many customization options and ready-made heading styles.
-* [**Dual Heading Widget**](https://premiumaddons.com/dual-header-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create a headeline with 2 different unique styles. Dual Heading Widget has numerous customization options.
+* [**Dual Heading Widget**](https://premiumaddons.com/dual-header-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create a headeline with 2 different unique styles.
 
 ### Image & Video Widgets
 * [**Site Logo Widget**](https://premiumaddons.com/elementor-site-logo-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create an attractive logo for your brand using an image, SVG shape, or Lottie Animation with tens of customization options.
 * [**Media Gallery Widget**](https://premiumaddons.com/grid-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Highly customizable gallery widget that can be used for creating attractive looking image galleries and portfolios.
-* [**Advanced Media Carousel Widget**](https://premiumaddons.com/elementor-advanced-carousel-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create advanced carousel using images, videos or Elementor templates. You can select between Coverflow, Flip, Flat and Infinite carousel effects.
+* [**Advanced Media Carousel Widget**](https://premiumaddons.com/elementor-advanced-carousel-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create advanced carousel using images, videos or Elementor templates.
 * [**Image Scroll Widget**](https://premiumaddons.com/elementor-image-scroll-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Allows you to represent your images in a brand new yet attractive way.
 * [**Image Comparison Widget**](https://premiumaddons.com/image-comparison-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create vertical or horizontal image comparisons easily using this amazing widget.
 * [**Image Hotspots Widget**](https://premiumaddons.com/image-hotspots-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: The only Image Hotspots Widget with 100% freehand design experience. Add hotspots to your image using mouse drag n' drop.
-* [**Image Layers Widget**](https://premiumaddons.com/image-layers-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Unleash your creativity with Image Layers Widget that allows you to combine multiple images, order them in layers and make them animated and/or interactive with mouse and/or with scrolling.
+* [**Image Layers Widget**](https://premiumaddons.com/image-layers-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Combine images, Lottie animations and texts.
 * [**Image Accordion Widget**](https://premiumaddons.com/elementor-image-accordion-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create eye-catching Image Accordions in both vertical and horizontal orientations.
 * [**Video Box Widget**](https://premiumaddons.com/video-box-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Bring videos from YouTube, Vimeo, Dailymotion, or upload your own using Video Box Widget. The widget comes with many customization features.
 
 ### Section/Column Addons & Widgets
-* [**Horizontal Scroll Widget**](https://premiumaddons.com/elementor-horizontal-scroll-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: The first ever advanced Horizontal Scroll Widget and WordPress that makes it easy to create horizontal scroll landing pages or even add horizontal scroll content within your page.
+* [**Horizontal Scroll Widget**](https://premiumaddons.com/elementor-horizontal-scroll-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create horizontal scroll websites with just few clicks.
 * [**Vertical Scroll Widget**](https://premiumaddons.com/vertical-scroll-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create beautiful vertical scroll pages with advanced responsive control options using Premium Vertical Scroll Widget.
-* [**Background Transition Widget**](https://premiumaddons.com/elementor-color-transition-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create fancy, colorful, and eye-catching webpages using background Color Transition Widget. It allows you to have a seamless transition between sections background colors.
-* [**Multi-Scroll Widget**](https://premiumaddons.com/multi-scroll-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: The only Elementor widget available that allows you to create attractive multi-scroll effect. It can be used to create full landing pages or use it inside any page.
-* [**Custom Mouse Cursor Global Addon**](https://premiumaddons.com/elementor-custom-mouse-cursor-global-feature/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Add a custom mouse cursor to any section, column, or widget. You can select between Font Awesome icon, custom SVGs, image or Lottie animation.
+* [**Background Transition Widget**](https://premiumaddons.com/elementor-color-transition-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create fancy, colorful, and eye-catching webpages.
+* [**Multi-Scroll Widget**](https://premiumaddons.com/multi-scroll-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create attractive multi-scroll effect.
+* [**Custom Mouse Cursor Global Addon**](https://premiumaddons.com/elementor-custom-mouse-cursor-global-feature/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Add a custom mouse cursor to any section, column, or widget.
 * [**Magic Scroll Global Addon**](https://premiumaddons.com/elementor-magic-scroll-global-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create outstanding scroll animations to any column/widget with just few clicks and control every single detail in the animation scene.
 * [**Animated Shape Divier Addon**](https://premiumaddons.com/elementor-animated-shape-divider-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create animated shape divider on containers, sections and columns. Select between tens of pre-made dividers or use your own.
 * [**Tooltips Global Addon**](https://premiumaddons.com/elementor-tooltip-global-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Add icon, image, Lottie animation or Elementor template as a tooltip for any Elementor container, section, column or widget element.
@@ -129,8 +129,8 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 * [**Animated Blob Generator**](https://premiumaddons.com/elementor-animated-blob-generator/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Add multiple animated blob layers to your sections with a wide range of smart customization options.
 * [**Lottie Animations Section Addon**](https://premiumaddons.com/elementor-lottie-animations-section-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Add multiple Lottie Animations easily to any section with allot of customization and interactivity options.
 * [**Parallax Section/Column Addon**](https://premiumaddons.com/parallax-section-addon-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: The only Parallax Section Addon that can be enabled for columns with freehand design experience and many styles to choose from.
-* [**Particles Section/Column Addon**](https://premiumaddons.com/particles-section-addon-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create eye-catching particles background using Premium Addons with many customization options. Also, you can enable it for any column.
-* [**Animated Gradient/Column Addon**](https://premiumaddons.com/animated-section-gradients-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Subtle animated gradients effect that makes your backgrounds super attractive. It's highly recommended for sections with call to actions. You can also enable it for any column.
+* [**Particles Section/Column Addon**](https://premiumaddons.com/particles-section-addon-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create eye-catching particles background with many customization options.
+* [**Animated Gradient/Column Addon**](https://premiumaddons.com/animated-section-gradients-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Subtle animated gradients effect that makes your backgrounds attractive.
 * [**Ken Burns Section/Column Addon**](https://premiumaddons.com/ken-burns-section-addon-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Add multiple images to your section or column background and animate them with the popular Ken Burns effect.
 
 ### Off-Grid Widgets
@@ -146,12 +146,12 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 * [**Yelp Reviews Widget**](https://premiumaddons.com/elementor-yelp-reviews-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*:  Show your business's Yelp Reviews in your website pages with this useful widget.
 
 ### Blurbs & CTA Widgets
-* [**Bullet List Widget**](https://premiumaddons.com/elementor-bullet-list-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: The first-ever Lottie-enabled Bullet List widget Page Builder. Bullet list widget can also utilize icons, images, and text tags beside Lottie animations.
+* [**Bullet List Widget**](https://premiumaddons.com/elementor-bullet-list-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create a bullet list with icons, images, and text tags beside Lottie animations.
 * [**Countdown Widget**](https://premiumaddons.com/countdown-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create sense of urgency with this widget. It's perfect for under construction pages, events, sale items, etc.
 * [**Banner Widget**](https://premiumaddons.com/banner-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Animated and interactive Banner Widget comes with multiple styles and customization features.
 * [**Button Widget**](https://premiumaddons.com/button-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Advanced Button Widget comes with lots of interactive animation, styling options, and onClick event option.
 * [**Image Button Widget**](https://premiumaddons.com/image-button-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Image Button Widget is a unique element that can be used for creative and innovative call to action ideas.
-* [**3D Hover Box Widget**](https://premiumaddons.com/3d-hover-box-flip-box-widget-for-elementor/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Flip Box Widget comes with 8 cool 3D interactive effects. This widget can be used as a banner, for listing your company's services, and much more uses.
+* [**3D Hover Box Widget**](https://premiumaddons.com/3d-hover-box-flip-box-widget-for-elementor/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Comes with 8 cool 3D interactive effects.
 * [**Icon Box Widget**](https://premiumaddons.com/icon-box-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: An advanced Icon Box Widgetwith endless customization options.
 * [**iHover Widget**](https://premiumaddons.com/ihover-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: The popular iHover Widget with various interactive animations and styling options.
 * [**Unfold Widget**](https://premiumaddons.com/unfold-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Advanced way to fit long text in small area. Unfold Widget is a great trick as it will make your layout design look better.
@@ -161,7 +161,7 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 * [**TikTok Feed Widget**](https://premiumaddons.com/elementor-tiktok-feed-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Get feed from your TikTok account and show them on your website. Advanced filtering options, three layouts and three skins.
 * [**Facebook Feed Widget**](https://premiumaddons.com/elementor-facebook-feed-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Show your Facebook Feed directly inside your website.
 * [**Twitter Feed Widget**](https://premiumaddons.com/twitter-feed-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Display your Twitter Feed on your website pages.
-* [**Instagram Feed Widget**](https://premiumaddons.com/instagram-feed-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Show your Instagram photos right on your webpage using Instagram Feed Widget. Premium Instagram Feed widget has a built-in Instagram Access Token Generator.
+* [**Instagram Feed Widget**](https://premiumaddons.com/instagram-feed-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Show your Instagram photos right on your webpage.
 * [**Behance Feed Widget**](https://premiumaddons.com/behance-feed-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Show off your amazing profolio projects using Behance Feed Widget.
 
 ### Tables, Charts & Anything Data Widgets
@@ -234,6 +234,12 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.38 =
+
+- New: Added WooCommerce Categories Listing widget - [here](https://premiumaddons.com/elementor-woocommerce-categories-widget/).
+- Tweak: Added Language option in World Clock widget.
+- Tweak: Use IntersectionObserver API instead of waypoints.js to improve performance.
 
 = 4.10.37 =
 

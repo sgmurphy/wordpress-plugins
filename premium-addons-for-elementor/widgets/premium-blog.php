@@ -179,7 +179,7 @@ class Premium_Blog extends Widget_Base {
 		$this->add_control(
 			'banner_skin_notice',
 			array(
-				'raw'             => __( 'If content height is larger than image height, then you may need to increase image height from Featured Image tab', 'premium-addons-for-elemeentor' ),
+				'raw'             => __( 'If content height is larger than image height, then you may need to increase image height from Featured Image tab', 'premium-addons-for-elementor' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				'condition'       => array(
@@ -252,7 +252,7 @@ class Premium_Blog extends Widget_Base {
 		$this->add_control(
 			'force_height_notice',
 			array(
-				'raw'             => __( 'Equal Height option uses JS to force all content boxes to take the same height, so you will need to make sure all featured images are the same height. You can set that from Featured Image tab.', 'premium-addons-for-elemeentor' ),
+				'raw'             => __( 'Equal Height option uses JS to force all content boxes to take the same height, so you will need to make sure all featured images are the same height. You can set that from Featured Image tab.', 'premium-addons-for-elementor' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				'condition'       => array(
@@ -934,7 +934,7 @@ class Premium_Blog extends Widget_Base {
 			array(
 				'label'              => __( 'Scroll After Pagination/Filter', 'premium-addons-for-elementor' ),
 				'type'               => Controls_Manager::SWITCHER,
-				'description'        => __( 'Enable this option to scroll to top offset of the widget after click pagination or filter tabs.', 'premium-addons-for-ele,entor' ),
+				'description'        => __( 'Enable this option to scroll to top offset of the widget after click pagination or filter tabs.', 'premium-addons-for-elementor' ),
 				'default'            => 'yes',
 				'conditions'         => array(
 					'relation' => 'or',
@@ -1148,7 +1148,7 @@ class Premium_Blog extends Widget_Base {
 		$this->add_control(
 			'filter_tabs_notice',
 			array(
-				'raw'             => __( 'Please make sure to select the categories/tags you need to show from Query tab.', 'premium-addons-for-elemeentor' ),
+				'raw'             => __( 'Please make sure to select the categories/tags you need to show from Query tab.', 'premium-addons-for-elementor' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				'condition'       => array(

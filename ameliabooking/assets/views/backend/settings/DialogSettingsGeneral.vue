@@ -269,10 +269,11 @@
                 :key="index"
                 :label="getLanguageLabel(lang)"
                 :value="lang"
+                :disabled="lang in settings.usedLanguages ? false : lang === $root.locale"
             >
             <span>
               <img class="option-languages-flag" :src="getLanguageFlag(lang)">
-              {{ getLanguageLabel(lang) }}
+              {{ getLanguageLabel(lang)  }}
             </span>
             </el-option>
           </el-select>

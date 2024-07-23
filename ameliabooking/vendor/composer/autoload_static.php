@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit958263fb862fe910c38e54a21ea4616f
+class ComposerStaticInit29b3bf4e38246b04de02d2323b7ef169
 {
     public static $files = array (
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
@@ -25,9 +25,17 @@ class ComposerStaticInit958263fb862fe910c38e54a21ea4616f
     );
 
     public static $prefixLengthsPsr4 = array (
+        'a' => 
+        array (
+            'apimatic\\jsonmapper\\' => 20,
+        ),
         'W' => 
         array (
             'Webmozart\\Assert\\' => 17,
+        ),
+        'U' => 
+        array (
+            'Unirest\\' => 8,
         ),
         'T' => 
         array (
@@ -44,6 +52,7 @@ class ComposerStaticInit958263fb862fe910c38e54a21ea4616f
             'Symfony\\Component\\OptionsResolver\\' => 34,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'AmeliaStripe\\' => 7,
+            'Square\\' => 7,
             'Slim\\' => 5,
         ),
         'R' => 
@@ -97,6 +106,8 @@ class ComposerStaticInit958263fb862fe910c38e54a21ea4616f
         ),
         'C' => 
         array (
+            'Core\\' => 5,
+            'CoreInterfaces\\' => 15,
             'AmeliaClue\\StreamFilter\\' => 18,
         ),
         'B' => 
@@ -112,9 +123,17 @@ class ComposerStaticInit958263fb862fe910c38e54a21ea4616f
     );
 
     public static $prefixDirsPsr4 = array (
+        'apimatic\\jsonmapper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/apimatic/jsonmapper/src',
+        ),
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Unirest\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/apimatic/unirest-php/src',
         ),
         'Tests\\' => 
         array (
@@ -155,6 +174,10 @@ class ComposerStaticInit958263fb862fe910c38e54a21ea4616f
         'AmeliaStripe\\' => 
         array (
             0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
+        ),
+        'Square\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/square/square/src',
         ),
         'Slim\\' => 
         array (
@@ -261,6 +284,14 @@ class ComposerStaticInit958263fb862fe910c38e54a21ea4616f
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
         ),
+        'Core\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/apimatic/core/src',
+        ),
+        'CoreInterfaces\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/apimatic/core-interfaces/src',
+        ),
         'AmeliaClue\\StreamFilter\\' => 
         array (
             0 => __DIR__ . '/..' . '/clue/stream-filter/src',
@@ -286,6 +317,10 @@ class ComposerStaticInit958263fb862fe910c38e54a21ea4616f
     public static $prefixesPsr0 = array (
         'R' => 
         array (
+            'Rs\\Json' => 
+            array (
+                0 => __DIR__ . '/..' . '/php-jsonpointer/php-jsonpointer/src',
+            ),
             'Requests' => 
             array (
                 0 => __DIR__ . '/..' . '/rmccue/requests/library',
@@ -373,10 +408,10 @@ class ComposerStaticInit958263fb862fe910c38e54a21ea4616f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit958263fb862fe910c38e54a21ea4616f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit958263fb862fe910c38e54a21ea4616f::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit958263fb862fe910c38e54a21ea4616f::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit958263fb862fe910c38e54a21ea4616f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit29b3bf4e38246b04de02d2323b7ef169::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit29b3bf4e38246b04de02d2323b7ef169::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit29b3bf4e38246b04de02d2323b7ef169::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit29b3bf4e38246b04de02d2323b7ef169::$classMap;
 
         }, null, ClassLoader::class);
     }

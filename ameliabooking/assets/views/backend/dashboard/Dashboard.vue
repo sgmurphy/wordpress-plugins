@@ -1240,7 +1240,7 @@
                 display: false
               },
               ticks: {
-                stepSize: 10,
+                stepSize: 100,
                 min: 0
               }
             }]

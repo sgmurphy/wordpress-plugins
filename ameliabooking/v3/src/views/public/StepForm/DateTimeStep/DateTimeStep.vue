@@ -244,7 +244,7 @@ watchEffect(() => {
 
     usePaymentError(store, '')
 
-    if (service.recurringCycle !== 'disabled' && notLastDay.value && cart.length <= 1) {
+    if (service.recurringCycle !== 'disabled' && service.recurringCycle !== null && notLastDay.value && cart.length <= 1) {
       recurringPopupVisibility.value = true
     } else {
       let bookingFailed = useFillAppointments(store)

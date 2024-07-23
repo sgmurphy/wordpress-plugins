@@ -38,14 +38,14 @@ class CF7_Skins_Admin {
 
 		// Push the styles and scripts to the admin header
 		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
-		
+
 		// Create metabox for CF7 Skins
 		// 'wpcf7_add_meta_boxes' hook removed from CF7 in v4.2
 		// @link https://contactform7.com/2015/05/18/contact-form-7-42-beta/
 		add_action( 'wpcf7_add_meta_boxes', array( &$this, 'add_meta_boxes' ) ); // CF7 < v4.2
 		add_action( 'wpcf7_admin_footer', array( &$this, 'add_meta_boxes_42' ) ); // CF7 >= v4.2 & WP < v5.5
 		add_action( 'wpcf7_admin_footer', array( &$this, 'add_meta_boxes_55' ) ); // WP >= v5.5
-		
+
 		// All other Addons should use this action hook
 		add_action( 'wpcf7_admin_footer', array( $this, 'cf7skins_admin_footer' ) ); // @since 1.1.1
 		add_filter( 'cf7s_visual_update_js_callbacks', array( $this, 'visual_update' ) ); // @since 2.0.0
@@ -240,14 +240,23 @@ class CF7_Skins_Admin {
 
 				// Create container id for JavaScript pointer
 				// This was previously added by add_meta_box() function
-				echo '<div class="wrap">';
-					echo '<div id="cf7skins-42" class="cf7skins-metabox postbox '. esc_attr( $postbox_class ) .'">';
-					echo '<input type="hidden" value="'. esc_attr( $postbox_class ) .'" class="cf7skins-42 cf7s-postbox" name="cf7s-postbox['. CF7SKINS_OPTIONS .']" />'; // postbox expand/collapse
-					echo '<div title="'. __('Click to toggle', 'contact-form-7-skins' ) .'" class="handlediv"><br></div>';
-						echo '<h3 class="hndle"><span>'. __('Skins', 'contact-form-7-skins' ) .'</span></h3>';
-						echo '<div class="inside">';
-							echo '<div id="cf7s" class="cf7-42">';
-								$this->generate_tab( $cf7, null ); // in tab.php
+				echo '<div id="poststuff">';
+					echo '<div class="wrap">';
+						echo '<div class="meta-box-sortables">';
+							echo '<div id="cf7skins-42" class="cf7skins-metabox postbox '. esc_attr( $postbox_class ) .'">';
+							echo '<input type="hidden" value="'. esc_attr( $postbox_class ) .'" class="cf7skins-42 cf7s-postbox" name="cf7s-postbox['. CF7SKINS_OPTIONS .']" />'; // postbox expand/collapse
+
+								echo '<button type="button" class="handlediv" aria-expanded="true">';
+								echo '<span class="screen-reader-text">' . sprintf( __( 'Toggle panel: %s' ), __('Skins', 'contact-form-7-skins' ) ) . '</span>';
+								echo '<span class="toggle-indicator" aria-hidden="true"></span>';
+								echo '</button>';
+
+								echo '<h2 class="hndle"><span>'. __('Skins', 'contact-form-7-skins' ) .'</span></h2>';
+								echo '<div class="inside">';
+									echo '<div id="cf7s" class="cf7s-wp-'. $wp_version_two_digits . ' cf7s-tab-container">';
+										$this->generate_tab( $cf7, null ); // in tab.php
+									echo '</div>';
+								echo '</div>';
 							echo '</div>';
 						echo '</div>';
 					echo '</div>';
@@ -289,7 +298,8 @@ class CF7_Skins_Admin {
 								</div>
 							</div>
 							<div class="inside">
-								<div id="cf7s" class="cf7-42">
+								<div id="cf7skins-tabs"></div>
+								<div id="cf7s" class="cf7-42 cf7s-tab-container">
 									<?php $this->generate_tab( $cf7, null ); // in tab.php ?>
 								</div>
 							</div>
@@ -299,7 +309,7 @@ class CF7_Skins_Admin {
 			</div>
 			<?php
 		}
-	}	
+	}
 
 	/**
 	 * Display the skins metabox. CF7 < v4.2 only

@@ -1,7 +1,8 @@
 <template>
   <div class="am-entity-settings">
-    <el-collapse v-model="generalSettingsCollapse" v-if="generalSettings !== null">
-      <el-collapse-item class="am-setting-box" name="generalSettings">
+
+    <el-collapse :class="licenceClass()" v-model="generalSettingsCollapse" v-if="generalSettings !== null">
+      <el-collapse-item :disabled="notInLicence()" class="am-setting-box" name="generalSettings">
         <template slot="title">
           <img :src="$root.getUrl + 'public/img/setting.svg'" class="svg-amelia" style="margin-right: 10px;"/> {{ $root.labels.general }}
         </template>
@@ -144,17 +145,23 @@
         </el-form-item>
 
       </el-collapse-item>
+
+      <LicenceBlock/>
     </el-collapse>
 
-    <el-collapse v-model="paymentsSettingsCollapse" v-if="paymentsSettings !== null" class="am-entity-settings-payments">
-      <el-collapse-item class="am-setting-box" name="paymentsSettings">
+
+    <el-collapse :class="licenceClass('starter')" v-model="paymentsSettingsCollapse" v-if="paymentsSettings !== null" class="am-entity-settings-payments">
+      <el-collapse-item :disabled="notInLicence('starter')" class="am-setting-box" name="paymentsSettings">
         <!-- Title -->
         <template slot="title">
           <img :src="$root.getUrl+'public/img/credit-card.svg'" class="svg-amelia" style="margin-right: 10px;"/> {{ $root.labels.payments }}
         </template>
 
         <!-- Payment Links -->
-        <div class="am-setting-box am-switch-box">
+        <div class="am-setting-box am-switch-box"
+             v-if="notInLicence('basic') ? licenceVisible() : true"
+             :class="licenceClass('basic')">
+
           <el-row type="flex" align="middle" :gutter="24">
             <el-col :span="16">
               <span>{{ $root.labels.payment_links_enable }}</span>
@@ -166,6 +173,7 @@
             <el-col :span="8" class="align-right">
               <el-switch
                 v-model="paymentsSettings.paymentLinks.enabled"
+                :disabled="notInLicence()"
               ></el-switch>
             </el-col>
           </el-row>
@@ -216,6 +224,8 @@
             :closable="false"
           >
           </el-alert>
+
+          <LicenceBlock/>
         </div>
 
         <!-- Service Paid On-site -->
@@ -236,7 +246,22 @@
         </div>
 
         <el-col :span="24" v-if="$root.settings.payments.wc.enabled">
-          <el-form-item label="placeholder">
+          <div class="am-setting-box am-switch-box" v-if="$root.settings.payments.onSite">
+            <el-row type="flex" align="middle" :gutter="24">
+              <el-col :span="16">
+                {{ $root.labels.wc_service }}
+              </el-col>
+              <el-col :span="8" class="align-right">
+                <el-switch
+                    v-model="paymentsSettings.wc.enabled"
+                    active-text=""
+                    inactive-text=""
+                >
+                </el-switch>
+              </el-col>
+            </el-row>
+          </div>
+          <el-form-item label="placeholder" v-if="paymentsSettings.wc.enabled">
             <label slot="label">
               {{ $root.labels.wc_product }}:
               <el-tooltip placement="top">
@@ -316,6 +341,23 @@
           </el-row>
         </div>
 
+        <!-- Service Paid Square -->
+        <div class="am-setting-box am-switch-box" v-if="$root.settings.payments.square.enabled">
+          <el-row type="flex" align="middle" :gutter="24">
+            <el-col :span="16">
+              <img class="svg-amelia" width="60px" :src="$root.getUrl + 'public/img/payments/square.svg'">
+            </el-col>
+            <el-col :span="8" class="align-right">
+              <el-switch
+                  v-model="paymentsSettings.square.enabled"
+                  active-text=""
+                  inactive-text=""
+              >
+              </el-switch>
+            </el-col>
+          </el-row>
+        </div>
+
         <!-- Service Paid Razorpay -->
         <div class="am-setting-box am-switch-box" v-if="$root.settings.payments.razorpay.enabled">
           <el-row type="flex" align="middle" :gutter="24">
@@ -334,11 +376,12 @@
         </div>
 
         <el-alert
-          v-if="!$root.settings.payments.wc.enabled &&
+          v-if="(!paymentsSettings.wc.enabled || (!$root.settings.payments.wc.enabled && paymentsSettings.wc.enabled)) &&
           (!paymentsSettings.onSite || (!$root.settings.payments.onSite && paymentsSettings.onSite)) &&
           (!paymentsSettings.payPal.enabled || (!$root.settings.payments.payPal.enabled && paymentsSettings.payPal.enabled)) &&
           (!paymentsSettings.stripe.enabled || (!$root.settings.payments.stripe.enabled && paymentsSettings.stripe.enabled)) &&
           (!paymentsSettings.mollie.enabled || (!$root.settings.payments.mollie.enabled && paymentsSettings.mollie.enabled)) &&
+          (!paymentsSettings.square.enabled || (!$root.settings.payments.square.enabled && paymentsSettings.square.enabled)) &&
           (!paymentsSettings.razorpay.enabled || (!$root.settings.payments.razorpay.enabled && paymentsSettings.razorpay.enabled))"
           type="warning"
           show-icon
@@ -349,10 +392,13 @@
         </el-alert>
 
       </el-collapse-item>
+
+      <LicenceBlock :licence="'starter'"/>
     </el-collapse>
 
-    <el-collapse v-model="integrationsSettingsCollapse" v-if="zoomSettings || lessonSpaceSettings || googleMeetSettings">
-      <el-collapse-item class="am-setting-box" name="integrationsSettings">
+
+    <el-collapse :class="licenceClass()" v-model="integrationsSettingsCollapse" v-if="zoomSettings || lessonSpaceSettings || googleMeetSettings">
+      <el-collapse-item :disabled="notInLicence()" class="am-setting-box" name="integrationsSettings">
         <!-- Title -->
         <template slot="title">
           <img :src="$root.getUrl+'public/img/web-hook.svg'" class="svg-amelia" style="margin-right: 10px;"/> {{ $root.labels.integrations_settings }}
@@ -420,12 +466,15 @@
         </div>
 
       </el-collapse-item>
+
+      <LicenceBlock/>
     </el-collapse>
 
   </div>
 </template>
 
 <script>
+  import licenceMixin from '../../../js/common/mixins/licenceMixin'
   export default {
 
     props: {
@@ -437,6 +486,8 @@
       settings: null,
       providers: null
     },
+
+    mixins: [licenceMixin],
 
     data () {
       let validateRedirectURL = (rule, input, callback) => {

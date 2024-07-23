@@ -257,13 +257,12 @@
                   </el-col>
 
                   <el-col :lg="14" :md="14" :sm="14" style="font-size: 16px">
-                    <div v-for="(payment, index) in app.bookings[key].payments">
+                    <div v-for="(payment, index) in app.bookings[key].payments" :class="getPaymentClassName(payment)">
                       <span v-if="app.bookings[key].payments.length > 1" class="am-value">{{ index + 1 }}. </span>
                       <img
-                          :src="$root.getUrl + 'public/img/payments/' + payment.gateway + '.svg'"
-                          :style="{width: payment.gateway === 'razorpay' || payment.gateway === 'mollie' ? '70px' : '25px'}"
+                          :src="$root.getUrl + 'public/img/payments/' + getPaymentIconName(payment)"
                       >
-                      <span class="am-value" v-if="payment.gateway !== 'razorpay' && payment.gateway !== 'mollie'">{{ getPaymentGatewayNiceName(payment) }}</span>
+                      <span class="am-value" v-if="!longNamePayments(payment.gateway)" style="align-self: self-end; margin-left: 5px;">{{ getPaymentGatewayNiceName(payment) }}</span>
                     </div>
                   </el-col>
                 </el-col>

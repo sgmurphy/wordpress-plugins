@@ -410,8 +410,8 @@ class CF7_Skin_Template extends CF7_Skin {
 						<img src="<?php echo file_exists( $imgpath ) ? esc_url( $imgurl ) : CF7SKINS_URL . 'images/no-preview.png'; ?>" />
 					</div>
 					<ul class="wp-clearfix skin-action">
-						<li><a class="select<?php echo esc_attr( $class ); ?> balloon" title="<?php _e( 'Select to apply the Template to your form - appears in the form editing area, where you can edit your requirements.','contact-form-7-skins' ); ?>" data-post="<?php echo esc_attr( $post ); ?>" data-locale="<?php echo esc_attr( $locale ); ?>" data-value="<?php esc_attr( $this->get_slug_name( $template ) ); ?>" href="#cf7s-template"><?php echo esc_attr( $select_text ); ?></a></li>
-						<li><a class="detail balloon" title="<?php _e( 'Show detailed information about this Template, with layout, description and usage details.' ,'contact-form-7-skins' ); ?>" href="#tpl-<?php esc_attr( $this->get_slug_name( $template ) ); ?>-detail"><?php _e('Details', 'contact-form-7-skins' ); ?></a></li>
+						<li><a class="select<?php echo esc_attr( $class ); ?> balloon" data-balloon-pos="up-left" data-balloon-length="medium" title="<?php _e( 'Select to apply the Template to your form - appears in the form editing area, where you can edit your requirements.','contact-form-7-skins' ); ?>" data-post="<?php echo esc_attr( $post ); ?>" data-locale="<?php echo esc_attr( $locale ); ?>" data-value="<?php esc_attr( $this->get_slug_name( $template ) ); ?>" href="#cf7s-template"><?php echo esc_attr( $select_text ); ?></a></li>
+						<li><a class="detail balloon" data-balloon-pos="up-left" data-balloon-length="medium" title="<?php _e( 'Show detailed information about this Template, with layout, description and usage details.' ,'contact-form-7-skins' ); ?>" href="#tpl-<?php esc_attr( $this->get_slug_name( $template ) ); ?>-detail"><?php _e('Details', 'contact-form-7-skins' ); ?></a></li>
 					</ul>
 				</div>
 			</div>

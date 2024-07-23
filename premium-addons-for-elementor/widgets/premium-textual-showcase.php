@@ -129,7 +129,6 @@ class Premium_Textual_Showcase extends Widget_Base {
 		return array_merge(
 			$draw_scripts,
 			array(
-				'elementor-waypoints',
 				'lottie-js',
 				'premium-addons',
 			)
@@ -2030,7 +2029,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 		$this->add_control(
 			'text_color',
 			array(
-				'label'     => __( 'Text Color', 'premium-addons-for-this$thisor' ),
+				'label'     => __( 'Text Color', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .pa-txt-sc__item-text' => 'color: {{VALUE}};',

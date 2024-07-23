@@ -279,15 +279,11 @@ class PWS_Status {
 
 		$order = ( $post_or_order_object instanceof WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
 
-		$order_uuid   = $order->get_meta( 'tapin_order_uuid' );
-		$tapin_weight = PWS_Order::get_weight( $order );
+		$order_uuid = $order->get_meta( 'tapin_order_uuid' );
 
-		$content_type = $order->get_meta( 'tapin_content_type' );
-
-		if ( empty( $content_type ) ) {
-			$content_type = PWS()->get_option( 'tapin.content_type', 4 );
-		}
-
+		$tapin_weight    = PWS_Order::get_weight( $order );
+		$content_type    = PWS_Order::get_content_type( $order );
+		$box_size        = PWS_Order::get_box_size( $order );
 		$shipping_method = PWS_Order::get_shipping_method( $order )
 
 		?>
@@ -307,6 +303,22 @@ class PWS_Status {
 					<option value="2" <?php selected( 2, $content_type ); ?>>شکستنی</option>
 					<option value="3" <?php selected( 3, $content_type ); ?>>مایعات</option>
 					<option value="4" <?php selected( 4, $content_type ); ?>>غیراستاندارد</option>
+				</select>
+			</p>
+
+			<p class="form-field-wide">
+				<label>حجم مرسوله:</label>
+				<select style="width: 100%" name="tapin_box_size" id="tapin_box_size">
+					<option value="1" <?php selected( 1, $box_size ); ?>>کارتن پستی سایز ۱</option>
+					<option value="2" <?php selected( 2, $box_size ); ?>>کارتن پستی سایز ۲</option>
+					<option value="3" <?php selected( 3, $box_size ); ?>>کارتن پستی سایز ۳</option>
+					<option value="4" <?php selected( 4, $box_size ); ?>>کارتن پستی سایز ۴</option>
+					<option value="5" <?php selected( 5, $box_size ); ?>>کارتن پستی سایز ۵</option>
+					<option value="6" <?php selected( 6, $box_size ); ?>>کارتن پستی سایز ۶</option>
+					<option value="7" <?php selected( 7, $box_size ); ?>>کارتن پستی سایز ۷</option>
+					<option value="8" <?php selected( 8, $box_size ); ?>>کارتن پستی سایز ۸</option>
+					<option value="9" <?php selected( 9, $box_size ); ?>>کارتن پستی سایز ۹</option>
+					<option value="10" <?php selected( 10, $box_size ); ?>>بزرگتر از کارتن پستی سایز ۹</option>
 				</select>
 			</p>
 
@@ -377,12 +389,13 @@ class PWS_Status {
 			return;
 		}
 
-		if ( ! isset( $_POST['tapin_weight'], $_POST['tapin_content_type'] ) ) {
+		if ( ! isset( $_POST['tapin_weight'], $_POST['tapin_content_type'], $_POST['tapin_box_size'] ) ) {
 			return;
 		}
 
 		$order->update_meta_data( 'tapin_weight', floatval( $_POST['tapin_weight'] ) );
 		$order->update_meta_data( 'tapin_content_type', intval( $_POST['tapin_content_type'] ) );
+		$order->update_meta_data( 'tapin_box_size', intval( $_POST['tapin_box_size'] ) );
 		$order->save_meta_data();
 	}
 
@@ -435,6 +448,10 @@ class PWS_Status {
 
 		if ( isset( $_POST['content_type'] ) ) {
 			$order->add_meta_data( 'tapin_content_type', intval( $_POST['content_type'] ), true );
+		}
+
+		if ( isset( $_POST['box_size'] ) ) {
+			$order->add_meta_data( 'tapin_box_size', intval( $_POST['box_size'] ), true );
 		}
 
 		$order->save_meta_data();
@@ -511,13 +528,9 @@ class PWS_Status {
 				];
 			}
 
-			$order_weight = PWS_Order::get_weight( $order );
-
-			$tapin_content_type = $order->get_meta( 'tapin_content_type' );
-
-			if ( empty( $tapin_content_type ) ) {
-				$tapin_content_type = PWS()->get_option( 'tapin.content_type', 4 );
-			}
+			$order_weight       = PWS_Order::get_weight( $order );
+			$tapin_content_type = PWS_Order::get_content_type( $order );
+			$tapin_box_size     = PWS_Order::get_box_size( $order );
 
 			$tapin_pay_type = 1;
 
@@ -572,6 +585,7 @@ class PWS_Status {
 				'pay_type'       => $tapin_pay_type,
 				'order_type'     => $tapin_post_type,
 				'content_type'   => $tapin_content_type,
+				'box_id'         => $tapin_box_size,
 				'package_weight' => $order_weight,
 				'products'       => $products,
 				'manual_id'      => $order_id,
@@ -631,6 +645,7 @@ class PWS_Status {
 			$order->update_meta_data( 'tapin_send_time', time() );
 			$order->update_meta_data( 'tapin_weight', $order_weight );
 			$order->update_meta_data( 'tapin_content_type', $tapin_content_type );
+			$order->update_meta_data( 'tapin_box_size', $tapin_box_size );
 			$order->update_meta_data( 'post_barcode', $response->entries->barcode );
 
 			$note = "بارکد پستی مرسوله شما: {$response->entries->barcode}

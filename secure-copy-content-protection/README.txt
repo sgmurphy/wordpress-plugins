@@ -4,7 +4,7 @@ Donate link: https://ays-pro.com/wordpress/secure-copy-content-protection
 Tags: content copy protection, content protection, copy protection, copyright, disable right click
 Requires at least: 4.0
 Tested up to: 6.6
-Stable tag: 4.1.6
+Stable tag: 4.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -261,6 +261,10 @@ Sure, you can! You can add your preferred CSS selector(s) and they will not be p
 
 
 == Changelog ==
+
+= 4.1.7 =
+* Fixed: The vulnerability issue on the admin dashboard
+* Updated: POT and Po files
 
 = 4.1.6 =
 * Added: Current Page Title message variable on the general settings

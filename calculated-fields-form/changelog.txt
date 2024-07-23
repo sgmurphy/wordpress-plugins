@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.2.23 =
+
+* Improves the user experience in creating forms by assigning placeholders to the form attributes.
+* Implements a fields filtering box in the fields list popup windows to facilitate searching the fields in the form.
+
 = 5.2.22 =
 
 * Fixes an issue with the CSS Editor associated with the Customize Form Design attribute.

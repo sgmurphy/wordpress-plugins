@@ -30,7 +30,7 @@
           class="am-ec__period-date__month"
           :class="[{'am-ghost': (eventStatus === 'canceled' || eventStatus === 'closed')}, responsiveClass]"
         >
-          {{ getEventFrontedFormattedDateMonth(props.event.periods[0].periodStart.split(' ')[0]) }}
+          {{ monthsTranslationsShort(localLanguage)[moment(props.event.periods[0].periodStart.split(' ')[0]).format('M')] }}
         </span>
       </p>
       <p
@@ -151,6 +151,9 @@ import {
   inject
 } from "vue";
 
+// * Libraries
+import moment from "moment";
+
 // * Composables
 import {
   useEventLocation,
@@ -161,14 +164,14 @@ import {
 } from "../../../../../assets/js/public/events.js";
 import {
   getEventFrontedFormattedTime,
-  getEventFrontedFormattedDateDay,
-  getEventFrontedFormattedDateMonth
+  getEventFrontedFormattedDateDay
 } from "../../../../../assets/js/common/date.js";
 import {
   useFormattedPrice
 } from "../../../../../assets/js/common/formatting";
 import { useColorTransparency } from "../../../../../assets/js/common/colorManipulation";
 import { useResponsiveClass } from "../../../../../assets/js/common/responsive";
+import { monthsTranslationsShort } from "../../../../../assets/js/common/translationsElementPlus";
 
 // * Component Properties
 let props = defineProps({
@@ -255,6 +258,9 @@ const emits = defineEmits(['click'])
 
 // * Root Settings
 const amSettings = inject('settings')
+
+// * Locale language long
+const localLanguage = inject('localLanguage')
 
 // * Container width
 let cWidth = inject('containerWidth')

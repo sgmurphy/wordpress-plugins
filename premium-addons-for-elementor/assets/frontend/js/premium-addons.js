@@ -152,14 +152,23 @@
                 PremiumProgressBarWidgetHandler($scope, "frontend");
             }
 
-            elementorFrontend.waypoint($scope, function () {
-                if ("dots" !== type) {
-                    PremiumProgressBarWidgetHandler($(this));
-                } else {
-                    PremiumProgressDotsHandler($(this));
-                }
+            // unsing IntersectionObserverAPI.
+            var eleObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
 
+                        if ("dots" !== type) {
+                            PremiumProgressBarWidgetHandler($(entry.target));
+                        } else {
+                            PremiumProgressDotsHandler($(entry.target));
+                        }
+
+                        eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                    }
+                });
             });
+
+            eleObserver.observe($scope[0]);
         };
 
         /****** Premium Video Box Handler ******/
@@ -949,13 +958,19 @@
                 iconElement = $counterElement.find(".icon");
 
             if (!isHScrollWidget.length) {
-                elementorFrontend.waypoint($counterElement, function () {
+                // unsing IntersectionObserverAPI.
+                var eleObserver = new IntersectionObserver(function($entry) {
+                    if ($entry[0].isIntersecting) {
 
-                    $(incrementElement).numerator(counterSettings);
+                        $(incrementElement).numerator(counterSettings);
 
-                    $(iconElement).addClass("animated " + iconElement.data("animation"));
+                        $(iconElement).addClass("animated " + iconElement.data("animation"));
 
+                        eleObserver.unobserve($entry[0].target); // to only excecute the callback func once.
+                    }
                 });
+
+                eleObserver.observe($counterElement[0]);
             } else {
 
                 $(window).on("scroll", function () {
@@ -1187,20 +1202,24 @@
                     var animationDelay = settings.delay || 4,
                         animationSpeed = settings.duration || 1.2;
 
-                    elementorFrontend.waypoint($elem, function () {
+                    // unsing IntersectionObserverAPI.
+                    var eleObserver = new IntersectionObserver(function($entry) {
+                        if ($entry[0].isIntersecting) {
 
-                        $elem.addClass('draw-shape');
+                            $elem.addClass('draw-shape');
+                            setInterval(function () {
+                                $elem.addClass('hide-shape');
 
-                        setInterval(function () {
-                            $elem.addClass('hide-shape');
+                                setTimeout(function () {
+                                    $elem.removeClass('hide-shape');
+                                }, 1000);
+                            }, 1000 * (animationSpeed + animationDelay));
 
-                            setTimeout(function () {
-                                $elem.removeClass('hide-shape');
-                            }, 1000);
-                        }, 1000 * (animationSpeed + animationDelay));
-
+                            eleObserver.unobserve($entry[0].target); // to only excecute the callback func once.
+                        }
                     });
 
+                    eleObserver.observe($elem[0]);
                 }
 
             }
@@ -1740,19 +1759,24 @@
             }
 
             if ($modal.data("modal-animation") && " " != $modal.data("modal-animation")) {
-
                 var animationDelay = $modal.data('delay-animation');
 
-                new Waypoint({
-                    element: $modal,
-                    handler: function () {
-                        setTimeout(function () {
-                            $modal.css("opacity", "1").addClass("animated " + $modal.data("modal-animation"));
-                        }, animationDelay * 1000);
-                        this.destroy();
-                    },
-                    offset: Waypoint.viewportHeight() - 150,
+                // unsing IntersectionObserverAPI.
+                var eleObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            setTimeout(function () {
+                                $modal.css("opacity", "1").addClass("animated " + $modal.data("modal-animation"));
+                            }, animationDelay * 1000);
+
+                            eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                        }
+                    });
+                }, {
+                    rootMargin: "0px 0px -150px 0px"
                 });
+
+                eleObserver.observe($modal[0]);
             }
         };
 
@@ -2522,12 +2546,11 @@
                 var $listItems = this.elements.$listItems,
                     $items = this.elements.$items;
 
-                $items.each(function (index, item) {
+                var eleObserver = new IntersectionObserver( function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
 
-                    if ($listItems.data("list-animation") && " " != $listItems.data("list-animation")) {
-                        elementorFrontend.waypoint($(item), function () {
-
-                            var element = $(item),
+                            var element = $(entry.target),
                                 delay = element.data('delay');
 
                             setTimeout(function () {
@@ -2537,11 +2560,19 @@
                                 element.css("opacity", "1").addClass("animated " + $listItems.data("list-animation"));
                             }, delay);
 
-                        });
+                            eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                        }
+                    });
+                });
+
+                $items.each(function (index, item) {
+
+                    if ($listItems.data("list-animation") && " " != $listItems.data("list-animation")) {
+
+                        eleObserver.observe($(item)[0]); // we need to apply this on each item
                     }
 
                 });
-
             },
 
             addRandomBadges: function () {
@@ -2626,7 +2657,7 @@
                 var target = '.premium-title-header';
                 $scope.find(target).find('.premium-title-icon, .premium-title-img').addClass('premium-mask-span');
 
-            } else if ('premium-textual-showcase.default' === $scope.data('widget_type')) {
+            } else if ('premium-textual-showcase.default' === $scope.data('widget_type') ) {
                 var target = '.pa-txt-sc__effect-min-mask';
 
             } else {
@@ -2645,15 +2676,25 @@
                 $(this).text('').append(html);
             });
 
-            elementorFrontend.waypoint($scope, function () {
-                if (txtShowcaseElem.length) {
+            // unsing IntersectionObserverAPI.
+            var eleObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
 
-                    $(txtShowcaseElem).addClass('premium-mask-active');
+                        if ( txtShowcaseElem.length ) {
 
-                } else {
-                    $($scope).addClass('premium-mask-active');
-                }
+                            $(txtShowcaseElem).addClass('premium-mask-active');
+
+                        } else {
+                            $($scope).addClass('premium-mask-active');
+                        }
+
+                        eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                    }
+                });
             });
+
+            eleObserver.observe($scope[0]);
         };
 
         var PremiumSVGDrawerHandler = ModuleHandler.extend({
@@ -2828,10 +2869,17 @@
                 setTimeout(function () {
 
                     if ('shape' === widgetSettings.words_order) {
-
-                        elementorFrontend.waypoint($canvas, function () {
-                            _this.renderWordCloud();
+                        // unsing IntersectionObserverAPI.
+                        var eleObserver = new IntersectionObserver(function(entries) {
+                            entries.forEach(function(entry) {
+                                if (entry.isIntersecting) {
+                                    _this.renderWordCloud();
+                                    eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                                }
+                            });
                         });
+
+                        eleObserver.observe($canvas[0]);
 
                     } else if ('sphere' === widgetSettings.words_order) {
 
@@ -3273,7 +3321,7 @@
                         meridiem: '',
                         date: '',
                     },
-                    dateTime = _.DateTime.local().setZone(settings.timezone);
+                    dateTime = _.DateTime.local().setLocale(settings.language || 'en').setZone(settings.timezone);
 
                 if (!dateTime.isValid) {
                     return false;
@@ -4072,14 +4120,19 @@
 
                 } else {
 
-                    elementorFrontend.waypoint($scope, function () {
-
-                        runInfiniteAnimation();
-
+                    // unsing IntersectionObserverAPI.
+                    var wheelObserver = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                runInfiniteAnimation();
+                                wheelObserver.unobserve(entry.target); // to only excecute the callback func once.
+                            }
+                        });
                     }, {
-                        offset: "100%",
-                        triggerOnce: true
+                        rootMargin: "100% 0px 0px 0px"
                     });
+
+                    wheelObserver.observe($scope[0]);
                 }
 
                 $carouselContainer.css('visibility', 'inherit');
@@ -4144,15 +4197,24 @@
 
                 if (settings.keyboard && !isSmallDevice) {
                     //Fix: keyboard nav won't start unless the elements is focused.
-                    elementorFrontend.waypoint($carouselContainer, function () {
-                        $.fn.focusWithoutScrolling = function () {
-                            var x = window.scrollX, y = window.scrollY;
-                            this.focus();
-                            window.scrollTo(x, y);
-                        };
+                    var eleObserver = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
 
-                        $carouselContainer.focusWithoutScrolling();
+                                $.fn.focusWithoutScrolling = function () {
+                                    var x = window.scrollX, y = window.scrollY;
+                                    this.focus();
+                                    window.scrollTo(x, y);
+                                };
+
+                                $carouselContainer.focusWithoutScrolling();
+
+                                eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                            }
+                        });
                     });
+
+                    eleObserver.observe($carouselContainer[0]);
                 }
 
                 // Fix: item click event when loop option is enabled navigates to the wrong slide.
@@ -4272,7 +4334,7 @@
                         accumlativeWidth = 0;
 
                     // clone the items till the width is equal to the viewport width
-                    while (horAlignWidth <= $scope.outerWidth(true) || (horAlignWidth - $scope.outerWidth(true) <= 400)) {
+                    while (horAlignWidth <= $scope.outerWidth(true) || ( horAlignWidth - $scope.outerWidth(true) <= 400 ) ) {
 
                         cloneItems();
                         // recalculate the full width.
@@ -4290,8 +4352,8 @@
                         }
                     });
 
+
                     var fullWidth = (horAlignWidth + ($scope.find('.premium-adv-carousel__item').length * parseFloat(slidesSpacing)));
-                    // var fullWidth = (horAlignWidth + (($mediaItem.length - 2) * parseFloat(slidesSpacing)));
                     var animation = gsap.to($scope.find('.premium-adv-carousel__item-outer-wrapper'), {
                         duration: settings.speed,
                         ease: "none",
@@ -4547,26 +4609,31 @@
             var trigger = $scope.find('.pa-txt-sc__outer-container').hasClass('pa-trigger-on-viewport') ? 'viewport' : 'hover',
                 hasGrowEffect = $scope.find('.pa-txt-sc__effect-grow').length;
 
-            if (hasGrowEffect) { // grow always triggered on viewport.
-                elementorFrontend.waypoint($scope, function () {
-                    $scope.find('.pa-txt-sc__effect-grow').css('clip-path', 'inset(0 0 0 0)');
-                }, {
-                    offset: '100%',
-                });
-            }
-
+            // unsing IntersectionObserverAPI.
             $scope.off('.PaTextualHandler');
 
-            if ('viewport' === trigger) {
+            var eleObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
 
-                elementorFrontend.waypoint($scope, function () {
-                    triggerItemsEffects();
-                }, {
-                    offset: '100%',
+                        if (hasGrowEffect) {// grow always triggered on viewport.
+                            $scope.find('.pa-txt-sc__effect-grow').css('clip-path', 'inset(0 0 0 0)');
+                        }
+
+                        if ('viewport' === trigger) {
+                            triggerItemsEffects();
+                        }
+
+                        eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                    }
                 });
+            }, {
+                rootMargin: "100% 0px 0px 0px"
+            });
 
-            } else {
+            eleObserver.observe($scope[0]);
 
+            if ('viewport' !== trigger) {
                 $scope.on("mouseenter.PaTextualHandler mouseleave.PaTextualHandler", function () {
                     triggerItemsEffects();
                 });
@@ -4576,7 +4643,6 @@
                 $scope.find('.pa-txt-sc__item-container:not(.pa-txt-sc__effect-none)').each(function () {
 
                     var effectName = this.className.match(/pa-txt-sc__effect-\S+/)[0].replace('pa-txt-sc__effect-', '');
-
                     if ('grow' === effectName) {
                         return true;
                     }

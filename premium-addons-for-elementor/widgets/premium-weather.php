@@ -1144,10 +1144,10 @@ class Premium_Weather extends Widget_Base {
 			$this->add_control(
 				'draw_svg',
 				array(
-					'label'       => __( 'Draw Icon', 'premium-addons-pro' ),
+					'label'       => __( 'Draw Icon', 'premium-addons-for-elementor' ),
 					'type'        => Controls_Manager::SWITCHER,
 					'classes'     => $draw_icon ? '' : 'editor-pa-control-disabled',
-					'description' => __( 'Use this option to draw your Font Awesome Custom Icons.', 'premium-addons-pro' ),
+					'description' => __( 'Use this option to draw your Font Awesome Custom Icons.', 'premium-addons-for-elementor' ),
 					'condition'   => array(
 						'enable_custom_icon' => 'yes',
 						'icons_source'       => 'custom',

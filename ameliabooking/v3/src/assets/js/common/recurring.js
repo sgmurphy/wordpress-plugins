@@ -32,11 +32,11 @@ function getGivenDateOfMonth (date, monthWeek, weekDay) {
   return resultDate
 }
 
-function useExpectedDates (store, startDate, endDate, count, type, interval, weekDays, monthRule) {
+function useExpectedDates (store, startDate, endDate, maxDays, type, interval, weekDays, monthRule) {
   let cartItem = useCartItem(store)
   let lastAvailableDate = cartItem.services[cartItem.serviceId].lastDate
 
-  let lastDate = endDate ? moment(endDate) : null
+  let lastDate = endDate ? moment(endDate) : moment().add(maxDays, 'days')
 
   let selectedDate = moment(startDate, 'YYYY-MM-DD')
 
@@ -116,8 +116,7 @@ function useExpectedDates (store, startDate, endDate, count, type, interval, wee
           break
       }
 
-      isValidExpected = lastDate ?
-        expectedDatesArray[i].isSameOrBefore(lastDate) : (count + 1) >= Object.keys(expectedDates).length
+      isValidExpected = expectedDatesArray[i].isSameOrBefore(lastDate)
 
       if (isValidExpected) {
         expectedDates[moment(expectedDatesArray[i]).format('YYYY-MM-DD')] = moment(expectedDatesArray[i])
@@ -128,7 +127,7 @@ function useExpectedDates (store, startDate, endDate, count, type, interval, wee
   return expectedDates
 }
 
-function useProposedDates (store, expectedDates, startDate, endDate, count) {
+function useProposedDates (store, slots, expectedDates, startDate, endDate, count) {
   let service = store.getters['entities/getService'](
     store.getters['booking/getServiceId']
   )
@@ -136,8 +135,6 @@ function useProposedDates (store, expectedDates, startDate, endDate, count) {
   let cartItem = useCartItem(store)
 
   let activeService = cartItem.services[cartItem.serviceId]
-
-  let slots = activeService.slots
 
   let startTime = activeService.list[0].time
 

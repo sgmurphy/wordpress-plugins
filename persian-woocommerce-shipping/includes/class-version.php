@@ -29,7 +29,9 @@ class PWS_Version {
 
 		set_transient( 'pws_admin_updating', 'yes', MINUTE_IN_SECONDS * 10 );
 
-		set_time_limit( 0 );
+		if ( function_exists( 'set_time_limit' ) ) {
+			set_time_limit( 0 );
+		}
 
 		$installed_version = (int) str_replace( '.', '', $installed_version );
 		$pws_version       = (int) str_replace( '.', '', PWS_VERSION );
@@ -64,11 +66,7 @@ class PWS_Version {
 
 			$settings = get_option( "woocommerce_WC_Tapin_Method_{$method->instance_id}_settings" );
 
-			if ( $settings['post_type'] == 1 ) {
-				$new_method = 'Tapin_Pishtaz_Method';
-			} else {
-				$new_method = 'Tapin_Sefareshi_Method';
-			}
+			$new_method = 'Tapin_Pishtaz_Method';
 
 			unset( $settings['post_type'] );
 
@@ -127,13 +125,7 @@ class PWS_Version {
 
 		foreach ( $post_meta as $order_id => $settings ) {
 
-			$settings = unserialize( $settings );
-
-			if ( $settings['post_type'] == 1 ) {
-				$new_method = 'Tapin_Pishtaz_Method';
-			} else {
-				$new_method = 'Tapin_Sefareshi_Method';
-			}
+			$new_method = 'Tapin_Pishtaz_Method';
 
 			$wpdb->update( $order_itemmeta, [
 				'meta_value' => $new_method,

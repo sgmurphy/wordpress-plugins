@@ -114,7 +114,7 @@
                 draggable: pws_map_neshan_marker_dragging,
             });
 
-            if (pws_map_neshan_user_has_location) {
+            if (pws_map_neshan_user_has_location && !pws_map_is_utm(pws_map_neshan_init_lat, pws_map_neshan_init_long)) {
                 pws_map_neshan_marker.setLngLat(pws_map_neshan_init_location)
                     .addTo(pws_map_neshan);
                 pws_map_neshan.setCenter(pws_map_neshan_init_location);
@@ -125,13 +125,39 @@
             /**
              * Enable GPS only for end user.
              * */
-            if (!pws_is_admin()) {
-                pws_map_neshan.addControl(new nmp_mapboxgl.GeolocateControl({
-                        positionOptions: {enableHighAccuracy: true},
-                        trackUserLocation: true,
-                        showUserHeading: true
-                    })
-                );
+            var pws_map_neshan_geolocate_control = new nmp_mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true,
+                    timeout: 20000
+                },
+                trackUserLocation: true,
+                showUserHeading: true
+            });
+
+            // GPS Shows only when the location input exists, also admin has no gps
+            if (!pws_is_admin() && $('#pws_map_location').length > 0) {
+                pws_map_neshan.addControl(pws_map_neshan_geolocate_control);
+                // Handle geolocation events
+                pws_map_neshan_geolocate_control.on('geolocate', function (event) {
+                    var {latitude, longitude} = event.coords;
+                    if ((latitude <= 0 || longitude <= 0) || pws_map_is_utm(latitude, longitude)) {
+                        console.log('لوکیشن به درستی یافت نشد.')
+                    }
+                    // Center the map on the user's location
+                    pws_map_neshan_marker.setLngLat([longitude, latitude]).addTo(pws_map_neshan);
+
+                    let pws_map_neshan_selected_location_array = [latitude, longitude];
+
+                    $('#pws_map_location').val(JSON.stringify(pws_map_neshan_selected_location_array));
+                    pws_map_neshan.setCenter([longitude, latitude]);
+                    pws_map_neshan.setZoom(pws_map_neshan_zoom);
+                });
+
+                pws_map_neshan_geolocate_control.on('error', function (error) {
+
+                    console.error(`Geolocation error: ${error.message}`);
+                });
+
             }
 
             /**

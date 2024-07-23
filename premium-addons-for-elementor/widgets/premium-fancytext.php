@@ -84,7 +84,6 @@ class Premium_Fancytext extends Widget_Base {
 	 */
 	public function get_script_depends() {
 		return array(
-			'elementor-waypoints',
 			'pa-typed',
 			'pa-vticker',
 			'premium-addons',
@@ -967,7 +966,7 @@ class Premium_Fancytext extends Widget_Base {
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'style'                           => 'switch',
-					'premium_fancy_text_cursor_text!' => '',
+					// 'premium_fancy_text_cursor_text!' => '',
 					'premium_fancy_text_effect'       => 'typing',
 				),
 			)

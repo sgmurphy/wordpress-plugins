@@ -12,7 +12,7 @@ defined('\ABSPATH') || exit;
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  *
  */
 class WpHttpClient
@@ -454,7 +454,7 @@ class WpHttpClient
 			{
 				$this->uri .= '?';
 			}
-			$this->uri .= http_build_query($this->paramsGet, null, '&');
+			$this->uri .= http_build_query($this->paramsGet, '', '&');
 		}
 
 		$this->last_response = \wp_remote_request($this->uri, $this->_prepareParams());

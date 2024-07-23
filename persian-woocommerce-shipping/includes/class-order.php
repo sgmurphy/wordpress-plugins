@@ -41,8 +41,6 @@ class PWS_Order {
 		foreach ( $order->get_shipping_methods() as $shipping_item ) {
 			if ( strpos( $shipping_item->get_method_id(), 'Tapin_Pishtaz_Method' ) === 0 ) {
 				$shipping_method = 1;
-			} else if ( strpos( $shipping_item->get_method_id(), 'Tapin_Sefareshi_Method' ) === 0 ) {
-				$shipping_method = 0;
 			}
 		}
 
@@ -56,6 +54,28 @@ class PWS_Order {
 		}
 
 		return $shipping_method;
+	}
+
+	public static function get_content_type( WC_Order $order ) {
+
+		$content_type = $order->get_meta( 'tapin_content_type' );
+
+		if ( empty( $content_type ) ) {
+			$content_type = PWS()->get_option( 'tapin.content_type', 4 );
+		}
+
+		return $content_type;
+	}
+
+	public static function get_box_size( WC_Order $order ) {
+
+		$box_size = $order->get_meta( 'tapin_box_size' );
+
+		if ( empty( $box_size ) ) {
+			$box_size = PWS()->get_option( 'tapin.box_size', 1 );
+		}
+
+		return $box_size;
 	}
 
 }

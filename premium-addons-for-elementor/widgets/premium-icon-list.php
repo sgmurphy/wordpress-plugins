@@ -119,7 +119,6 @@ class Premium_Icon_List extends Widget_Base {
 		return array_merge(
 			$draw_scripts,
 			array(
-				'elementor-waypoints',
 				'lottie-js',
 				'premium-addons',
 			)

@@ -52,7 +52,7 @@ function colibri_wrapper_state( $attrs, $content = null ) {
 		"state"   => $atts
 	) );
 	if ( $should_render ) {
-		return wp_kses_post(do_shortcode( $content ));
+		return do_shortcode( $content );
 	}
 }
 

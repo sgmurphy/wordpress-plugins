@@ -3,24 +3,16 @@
 namespace FernleafSystems\Wordpress\Plugin\Shield\ActionRouter\Actions\Debug;
 
 use FernleafSystems\Wordpress\Plugin\Shield\ActionRouter\Actions\BaseAction;
-use FernleafSystems\Wordpress\Plugin\Shield\ActionRouter\Actions\Render\Components\Email\InstantAlerts\EmailInstantAlertVulnerabilities;
 use FernleafSystems\Wordpress\Plugin\Shield\ActionRouter\Actions\Traits\SecurityAdminRequired;
 use FernleafSystems\Wordpress\Plugin\Shield\ActionRouter\Exceptions\ActionException;
-use FernleafSystems\Wordpress\Plugin\Shield\Controller\Email\EmailVO;
 use FernleafSystems\Wordpress\Plugin\Shield\DBs\Event\Ops\Select;
 use FernleafSystems\Wordpress\Plugin\Shield\Events\EventsParser;
 use FernleafSystems\Wordpress\Plugin\Shield\Modules\{
 	AuditTrail,
-	HackGuard\Lib\FileLocker\Exceptions\FileContentsEncodingFailure,
-	HackGuard\Lib\FileLocker\Exceptions\FileContentsEncryptionFailure,
-	HackGuard\Lib\FileLocker\Ops\BuildEncryptedFilePayload,
 	Plugin
 };
-use FernleafSystems\Wordpress\Plugin\Shield\ShieldNetApi\FileLocker\DecryptFile;
-use FernleafSystems\Wordpress\Plugin\Shield\ShieldNetApi\FileLocker\GetPublicKey;
 use FernleafSystems\Wordpress\Plugin\Shield\Tests\RunTests;
 use FernleafSystems\Wordpress\Services\Services;
-use FernleafSystems\Wordpress\Services\Utilities\Encrypt\OpenSslEncryptVo;
 use FernleafSystems\Wordpress\Services\Utilities\Integrations\WpHashes\Verify\Email;
 use FernleafSystems\Wordpress\Services\Utilities\Net\IpID;
 
@@ -48,7 +40,7 @@ class SimplePluginTests extends BaseAction {
 	}
 
 	private function dbg_eventsSum() {
-		$dbhEvents = self::con()->db_con->dbhEvents();
+		$dbhEvents = self::con()->db_con->events;
 		/** @var Select $select */
 		$select = $dbhEvents->getQuerySelector();
 		$res = $select->filterByBoundary( 1692677238, Services::Request()->carbon()->timestamp )
@@ -58,7 +50,7 @@ class SimplePluginTests extends BaseAction {
 
 	private function dbg_db() {
 		$column = 'data';
-		$schema = self::con()->db_con->dbhSnapshots()->getTableSchema();
+		$schema = self::con()->db_con->activity_snapshots->getTableSchema();
 		$state = Services::WpDb()->selectCustom( sprintf( 'DESCRIBE %s', $schema->table ) );
 		$def = $schema->getColumnDef( $column );
 

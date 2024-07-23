@@ -18730,10 +18730,22 @@
                 instance = new premiumLottieAnimations($item);
                 instance.init();
             } else {
-                elementorFrontend.waypoint($item, function () {
-                    instance = new premiumLottieAnimations($item);
-                    instance.init();
+                var lottieOvserver = new IntersectionObserver(function($entry) {
+                    if ($entry[0].isIntersecting) {
+
+                        instance = new premiumLottieAnimations($item);
+                        instance.init();
+
+                        lottieOvserver.unobserve($entry[0].target); // to only excecute the callback func once.
+                    }
                 });
+
+                lottieOvserver.observe($item[0]);
+
+                // elementorFrontend.waypoint($item, function () {
+                //     instance = new premiumLottieAnimations($item);
+                //     instance.init();
+                // });
             }
 
 
@@ -18758,9 +18770,19 @@
             return false;
         }
 
-        elementorFrontend.waypoint($scope, function () {
-            generateLottieAnimation();
+        // elementorFrontend.waypoint($scope, function () {
+        //     generateLottieAnimation();
+        // });
+
+        var lottieAddonOvserver = new IntersectionObserver(function($entry) {
+            if ($entry[0].isIntersecting) {
+
+                generateLottieAnimation();
+                lottieAddonOvserver.unobserve($entry[0].target); // to only excecute the callback func once.
+            }
         });
+
+        lottieAddonOvserver.observe($scope[0]);
 
         if (isEditor) {
 

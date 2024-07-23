@@ -6,7 +6,7 @@ Donate link: https://wpamelia.com/
 Requires at least: 4.5
 Tested up to: 6.5.2
 Requires PHP: 5.6
-Stable tag: 1.1.9
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,7 +55,7 @@ Many businesses and individuals who depend on stable appointment booking, servic
 
 Every event organizer and host praises Amelia for the easy-to-use and intuitive features the plugin offers.
 
-***⚠️ Important note:**  Online payments, integrations, unlimited number of employees, custom notifications, reminders, multilingual support, different ticket options for events and other features are not available in Amelia Lite. If you want to know more about Amelia premium versions, please visit our official [Amelia Booking home page](https://wpamelia.com/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org).*
+***⚠️ Important note:** Certain integrations, unlimited number of employees, custom notifications, reminders, multilingual support, different ticket options for events, and other features are not available in Amelia Lite. If you want to know more about Amelia premium versions, please visit our official [Amelia Booking home page](https://wpamelia.com/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org).*
 
 You can also try out Amelia before committing [Amelia Demo](https://wpamelia.com/demos/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org).
 
@@ -78,6 +78,8 @@ By choosing one of them, you can choose whether you want to show the booking flo
 - **No coding or design skills** are required to embed Amelia booking shortcode into your website - [Amelia Booking shortcode](https://wpamelia.com/step-by-step-booking-form-2-0/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org)
 
 - Easily embeddable event-booking form with the  **[ameliaeventslistbooking]** shortcode which allows you to show your events in the form of a list where all the most important information will be shown: Event date and time, location, capacity, status, price, etc.
+
+- Accept online payments through Square.
 
 - A convenient **Calendar view** on the back-end, giving a complete overview of all scheduled appointments end events – [Calendar Admin View](https://wpamelia.com/admin-calendar/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org)
 
@@ -107,6 +109,21 @@ Arabic, Belgian, Brazilian Portuguese, Chinese translation, Danish, Dutch, Finni
 
 - **Easy customization** of the booking form to fit your branding - [How to Customize](https://wpamelia.com/customize-amelia-design-2-0/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org)
 
+## ACCEPT ONLINE PAYMENTS FOR FREE
+
+We're thrilled to announce an exciting new integration between Square and Amelia, that brings free payment processing to your fingertips!
+
+Now, even in the free version of Amelia, you can effortlessly accept payments for bookings and events using Square.
+
+Download Amelia Lite today, integrate it with Square, and forget about missed payments!
+
+What does Amelia Premium and Square integration mean for you?
+
+By integrating Amelia with Square, you can effortlessly accept online payments, providing clients with a secure and easy payment experience.
+Collect payments online, request deposit payments to reduce no-shows, offer refunds, and maintain full control over your bookings and payments at all times.
+This powerful integration improves your business operations, ensures smooth transactions, and improves client satisfaction.
+
+
 ## PREMIUM APPOINTMENT AND EVENT BOOKING FEATURES  🚀
 
 - **Custom Service Duration ⏰** - Define a single Service with multiple durations your customers can choose from, define different prices for these durations, and define different prices for those durations per employee.
@@ -127,7 +144,7 @@ Arabic, Belgian, Brazilian Portuguese, Chinese translation, Danish, Dutch, Finni
 
 - **Integrations 🌐** - Zoom, Google Meet, Google Calendar, Outlook Calendar, Lesson Space, Facebook Pixel and Google Analytics.
 
-- Accept **online payments 💵** through PayPal, Stripe, WooCommerce, Mollie, and Razorpay.
+- Accept **online payments 💵**  through PayPal, Stripe, WooCommerce, Mollie, and Razorpay. Online payments through Square are part of the AMELIA LITE and are FREE.
 
 - Search the booking form for Appointments that give you the option to show the available appointments based on the **search criteria** 🔎
 
@@ -141,7 +158,7 @@ Arabic, Belgian, Brazilian Portuguese, Chinese translation, Danish, Dutch, Finni
 
 - More **customization 🎨** options to fully adjust your booking experience. Choosing colors, the order of the fields, and which fields will be mandatory.
 
-- **Custom options ⚙️** - Such as group booking, buffer times before and after the appointment, extras, deposit payments, and types of payments for each service and event.
+- **Custom options ⚙️** - Such as group booking, buffer times before and after the appointment, and extras.
 
 - **Customers panel** and **Employees panel** - For tracking and managing appointments and events.
 
@@ -171,6 +188,8 @@ Arabic, Belgian, Brazilian Portuguese, Chinese translation, Danish, Dutch, Finni
 
 - **Employee Badges 🎖️**- Elevate your booking experience by customizing badges for your employees.
 
+- **Hassle-Free Tax Management** - Effortlessly handle and automate tax management for all your bookings and events.
+
 
 ## HOW TO CONFIGURE AMELIA LITE BOOKING SYSTEM?
 
@@ -194,19 +213,13 @@ You can create an online reservation system for events or service appointment bo
 
 ***Note:** You can customize provider details and schedule on the [General Settings](https://wpamelia.com/general-settings/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) page.*
 
+### HIGH-CONVERTING BOOKING FORM ALERT
 
-## IMPORTANT NEWS! 📢
+Our appointment scheduling form is smoother, steps load faster and the **conversion rate is higher.**
 
-### NEW BOOKING FORM ALERT
+### What makes our booking form the best on the market 🏆
 
-New appointment scheduling form is smoother, steps load faster and the **conversion rate is higher**.
-
-
-### What makes new booking form the best on the market 🏆
-
-- **Modern design** - The design of the new booking form will help you convert more website visitors into customers.
-
-- **Category selection** - Navigation through a list of your services is easier compared to the old booking experience.
+- **Modern design** - The design of the Amelia’s booking form will help you convert more website visitors into customers.
 
 - **Smooth and animated step-to-step transition** - A step-to-step transition process is accelerated with modern loaders working from behind.
 
@@ -214,22 +227,9 @@ New appointment scheduling form is smoother, steps load faster and the **convers
 
 - **Sidebar with the selected booking-related details** - Display of the booking process in real-time is presented via sidebar. This is how we differentiate finished and unfinished steps.
 
-- **Larger booking calendar with available and unavailable time slots** - The booking calendar is larger, therefore each customer can easily see the difference between available and unavailable days.
-
-- **A better summary of the finished booking** - The improved form offers easy tracking of all past bookings recapitulation out of the client dashboard.
-
 - **Simple customization page** - You can effortlessly customize the form to extend where the look and feel match your brand needs.
 
-- **Improved loading speed** - By adding more up-to-date technology and logic, we’ve managed to speed up the loading process.
-
-- **Improved conversion rate** - The intuitive, simple, informative, and fast-loading form will give your customers the joy of smooth and effortless booking.
-
-### New Form vs Old Form
-
-Setting up the new booking form is easier, and the navigation is straightforward. And what's most important, the new and improved Amelia Booking System is inviting and conversion-optimized.
-
-
-***Note:** The old appointment booking form will be available until the total switch to the new form happens, which the users will be informed about in a timely manner.*
+- **Improved conversion rate** - The intuitive, simple, informative, and fast-loading form impresses customers and has higher conversion rates.
 
 ## FAQ
 
@@ -289,6 +289,16 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 
 
 == Changelog =
+V1.2
+* Feature: Square Integration - Simplify your transaction management with our Square integration, offering a reliable and efficient payment method for your services and events
+* Updated Turkish translation
+* BugFix: Fixed issue with the Go back button on the Catalog form when one service is preselected
+* BugFix: Fixed issue with appointments that go over 24:00 (last two days) on the Calendar page
+* BugFix: Fixed issue with the Catalog booking form and Iphone 14/15
+* BugFix: Fixed issue with displaying events in drop-downs on back-end pages
+* BugFix: Fixed issue with Divi shortcodes with preselected parameters
+* Other small bug fixes and stability improvements
+
 V1.1.9
 * BugFix: Fixed issue with Events filter on the Finance page
 * BugFix: Fixed issue with notifications when a customer cancels an appointment

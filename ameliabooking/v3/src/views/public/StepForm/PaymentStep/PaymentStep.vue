@@ -44,20 +44,19 @@
               :class="'am-fs__payments-main-button' + (paymentGateway === gateway ? ' am-fs__payments-main-button_selected' : '') + ' am-fs__payments-main-button-' + gateway"
               @click="setPaymentGateway(gateway)"
             >
-              <img v-if="available" :src="baseUrls.wpAmeliaPluginURL + '/v3/src/assets/img/icons/' + (gateway === 'mollie' ? 'stripe':gateway) + '.svg'">
+              <img
+                v-if="available"
+                :src="baseUrls.wpAmeliaPluginURL + '/v3/src/assets/img/icons/' + paymentsBtn.find(item => item.key === gateway).value.name"
+              >
               <div>
-                <p>{{ paymentsBtnText.filter(item => item.key === gateway)[0].text }}</p>
+                <p>{{ paymentsBtn.find(item => item.key === gateway).value.text }}</p>
               </div>
             </div>
           </template>
         </div>
       </div>
       <div class="am-fs__payments-sentence">
-        <p>
-          {{
-            paymentGateway === 'onSite' && !mandatoryOnSitePayment ? amLabels.payment_onsite_sentence :
-              (paymentGateway === 'mollie' || paymentGateway === 'wc') ? amLabels.payment_wc_mollie_sentence : ''
-          }}
+        <p>{{getPaymentSentence()}}
         </p>
       </div>
       <PaymentOnSite
@@ -159,6 +158,8 @@ const componentTypes = {
   cart: markRaw(CartInfo)
 }
 
+const shortcodeData = inject('shortcodeData')
+
 let paymentError = computed(() => store.getters['booking/getError'])
 
 // * Step Functions
@@ -187,6 +188,7 @@ const paymentTypes = {
   razorpay: markRaw(PaymentCommon),
   mollie: markRaw(PaymentCommon),
   wc: markRaw(PaymentWc),
+  square: markRaw(PaymentCommon)
 }
 
 let ready = computed(() => store.getters['entities/getReady'])
@@ -282,6 +284,7 @@ let availablePayments = computed(() => {
         payPal: false,
         wc: false,
         mollie: false,
+        square: false,
         razorpay: false,
       }
     }
@@ -306,19 +309,6 @@ let availablePayments = computed(() => {
 
     let entityPayments = entity && entity.settings ? JSON.parse(entity.settings)['payments'] : null
 
-    if (settings.payments.wc.enabled === true) {
-      store.commit('booking/setPaymentGateway', 'wc')
-
-      return {
-        onSite: false,
-        stripe: false,
-        payPal: false,
-        wc: true,
-        mollie: false,
-        razorpay: false,
-      }
-    }
-
 
     let payments = !entityPayments ? {
       onSite: settings.payments.onSite,
@@ -326,14 +316,16 @@ let availablePayments = computed(() => {
       payPal: settings.payments.payPal.enabled,
       wc: settings.payments.wc.enabled,
       mollie: settings.payments.mollie.enabled,
+      square: settings.payments.square.enabled,
       razorpay: settings.payments.razorpay.enabled,
     } : {
       onSite: 'onSite' in entityPayments ? entityPayments.onSite && settings.payments.onSite : settings.payments.onSite,
       stripe: 'stripe' in entityPayments ? entityPayments.stripe.enabled && settings.payments.stripe.enabled : settings.payments.stripe.enabled,
       payPal: 'payPal' in entityPayments ? entityPayments.payPal.enabled && settings.payments.payPal.enabled : settings.payments.payPal.enabled,
-      wc: settings.payments.wc.enabled,
+      wc: 'wc' in entityPayments ? (!('enabled' in entityPayments.wc) || entityPayments.wc.enabled) && settings.payments.wc.enabled : settings.payments.wc.enabled,
       mollie: 'mollie' in entityPayments ? entityPayments.mollie.enabled && settings.payments.mollie.enabled : settings.payments.mollie.enabled,
       razorpay: 'razorpay' in entityPayments ? entityPayments.razorpay.enabled && settings.payments.razorpay.enabled : settings.payments.razorpay.enabled,
+      square: 'square' in entityPayments ? entityPayments.square.enabled && settings.payments.square.enabled : settings.payments.square.enabled,
     }
 
     if (!payments.onSite &&
@@ -341,6 +333,7 @@ let availablePayments = computed(() => {
         !payments.payPal &&
         !payments.wc &&
         !payments.mollie &&
+        !payments.square &&
         !payments.razorpay
     ) {
       payments = {
@@ -349,6 +342,7 @@ let availablePayments = computed(() => {
         payPal: settings.payments.payPal.enabled,
         wc: settings.payments.wc.enabled,
         mollie: settings.payments.mollie.enabled,
+        square: settings.payments.square.enabled,
         razorpay: settings.payments.razorpay.enabled,
       }
     }
@@ -424,27 +418,34 @@ const cssVars = computed(() => {
   }
 })
 
-let paymentsBtnText = []
+let paymentsBtn = []
 
 Object.keys(availablePayments.value).forEach(key => {
-  paymentsBtnText.push({key, text:getPaymentBtnString(key)})
+  paymentsBtn.push({key, value: getPaymentBtn(key) })
 })
 
-function getPaymentBtnString (key) {
+function getPaymentBtn (key) {
   switch(key) {
     case 'onSite':
-      return amLabels.value['on_site']
+      return {text: amLabels.value['on_site'], name: 'onSite.svg'}
     case 'payPal':
-      return amLabels.value['pay_pal']
+      return {text: amLabels.value['pay_pal'], name: 'payPal.svg'}
     case 'stripe':
-      return amLabels.value['stripe']
+      return {text: amLabels.value['stripe'], name: 'stripe.svg'}
     case 'razorpay':
-      return amLabels.value['razorpay']
-    case 'mollie':
-      return amLabels.value['on_line']
+      return {text: amLabels.value['razorpay'], name: 'razorpay.svg'}
+    case 'mollie': case 'wc':
+      return {text: amLabels.value['on_line'], name: 'stripe.svg'}
+    case 'square':
+      return {text: amLabels.value['square'], name: 'square.svg'}
     default:
       return ''
   }
+}
+
+function getPaymentSentence () {
+  return paymentGateway.value === 'onSite' && !mandatoryOnSitePayment.value ? amLabels.value.payment_onsite_sentence :
+    (paymentGateway.value === 'mollie' || paymentGateway.value === 'wc' || paymentGateway.value === 'square') ? amLabels.value.payment_wc_mollie_sentence : ''
 }
 
 // responsive

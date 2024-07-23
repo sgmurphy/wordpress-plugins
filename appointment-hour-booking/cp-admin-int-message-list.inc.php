@@ -19,7 +19,17 @@ $records_per_page = 50;
 
 $message = "";
 
-if (isset($_GET['delmark']) && $_GET['delmark'] != '')
+if (isset($_GET['statusmark']) && $_GET['statusmark'] != '')
+{
+    $this->verify_nonce ( sanitize_text_field($_GET["anonce"]), 'cpappb_actions_booking');
+    for ($i=0; $i<=$records_per_page; $i++)
+    if (isset($_GET['c'.$i]) && $_GET['c'.$i] != '')   
+    {
+        $this->update_status( intval($_GET['c'.$i]), sanitize_text_field($_GET['sbmi']) );        
+    }
+    $message = __('Marked items status updated','appointment-hour-booking');
+}
+else if (isset($_GET['delmark']) && $_GET['delmark'] != '')
 {
     $this->verify_nonce ( sanitize_text_field($_GET["anonce"]), 'cpappb_actions_booking');
     for ($i=0; $i<=$records_per_page; $i++)
@@ -106,7 +116,7 @@ $nonce = wp_create_nonce( 'cpappb_actions_booking' );
 <script type="text/javascript">
  function cp_UpsItem(id)
  {
-     var status = document.getElementById("statusbox"+id).options[document.getElementById("statusbox"+id).selectedIndex].value;
+     var status = document.getElementById("sb"+id).options[document.getElementById("sb"+id).selectedIndex].value;
      document.location = 'admin.php?page=<?php echo esc_js($this->menu_parameter); ?>&anonce=<?php echo esc_js($nonce); ?>&cal=<?php echo intval($_GET["cal"]); ?>&list=1&ud='+id+'&status='+status+'&r='+Math.random();
  }
  function cp_updateMessageItem(id,status)
@@ -125,11 +135,23 @@ $nonce = wp_create_nonce( 'cpappb_actions_booking' );
     if (confirm('Are you sure that you want to delete the marked items?'))
         document.dex_table_form.submit();
  }
+ function cp_statusmarked()
+ {
+    if (confirm('Are you sure that you want to change the status of the marked items?')) 
+    {                
+        document.dex_table_form.delmark.value = '';
+        document.dex_table_form.statusmark.value = '1';
+        var status = document.getElementById("statusbox_markeditems").options[document.getElementById("statusbox_markeditems").selectedIndex].value;
+        document.dex_table_form.sbmi.value = status;        
+        document.dex_table_form.submit();
+    }
+ }  
  function cp_deleteall()
  {
     if (confirm('Are you sure that you want to delete ALL bookings for this form?'))
     {
-        document.location = 'admin.php?page=<?php echo esc_js($this->menu_parameter); ?>&cal=<?php echo intval($_GET["cal"]); ?>&list=1&del=all&anonce=<?php echo esc_js($nonce); ?>&r='+Math.random();
+        if (confirm('Please note that this action cannot be undone. ALL THE BOOKINGS of this form will be DELETED. Are you sure that you want to delete ALL bookings for this form?'))
+            document.location = 'admin.php?page=<?php echo esc_js($this->menu_parameter); ?>&cal=<?php echo intval($_GET["cal"]); ?>&list=1&del=all&anonce=<?php echo esc_js($nonce); ?>&r='+Math.random();
     }
  }
  function cp_markall()
@@ -210,6 +232,8 @@ echo paginate_links(  array(        // phpcs:ignore WordPress.Security.EscapeOut
  <input type="hidden" name="cal" value="<?php echo intval($_GET["cal"]); ?>" />
  <input type="hidden" name="list" value="1" />
  <input type="hidden" name="delmark" value="1" />
+ <input type="hidden" name="statusmark" value="" />
+ <input type="hidden" name="sbmi" value="" /> 
  <input type="hidden" name="anonce" value="<?php echo esc_attr($nonce); ?>" />
 <div class="ahb-orderssection-container" style="background:#f6f6f6;padding-bottom:20px;">
 <table border="0" style="width:100%;" class="ahb-orders-list" cellpadding="10" cellspacing="10">
@@ -261,7 +285,7 @@ echo paginate_links(  array(        // phpcs:ignore WordPress.Security.EscapeOut
           <input class="button" type="button" name="caldelete_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Toggle Payment','appointment-hour-booking'); ?>" onclick="cp_updateMessageItem(<?php echo intval($events[$i]->id); ?>,<?php echo (!empty($posted_data["paid"]) && $posted_data["paid"]?'0':'1'); ?>);" />
 		  <input class="button" type="button" name="caldelete_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Delete','appointment-hour-booking'); ?>" onclick="cp_deleteMessageItem(<?php echo intval($events[$i]->id); ?>);" />
           <hr />
-          <nobr><?php $this->render_status_box('statusbox'.intval($events[$i]->id), $status); ?><input class="button" type="button" name="calups_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Update Status','appointment-hour-booking'); ?>" onclick="cp_UpsItem(<?php echo intval($events[$i]->id); ?>);" /></nobr>
+          <nobr><?php $this->render_status_box('sb'.intval($events[$i]->id), $status); ?><input class="button" type="button" name="calups_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Update Status','appointment-hour-booking'); ?>" onclick="cp_UpsItem(<?php echo intval($events[$i]->id); ?>);" /></nobr>
 		</td>
       </tr>
      <?php } ?>
@@ -278,9 +302,23 @@ echo paginate_links(  array(        // phpcs:ignore WordPress.Security.EscapeOut
 </div>
 
 <div style="clear:both"></div>
-<p class="submit" style="float:left;"><input class="button" type="button" name="pbutton" value="<?php _e('Delete marked items','appointment-hour-booking'); ?>" onclick="cp_deletemarked();" /> &nbsp; &nbsp; &nbsp; </p>
-<p class="submit" style="float:left;"><input class="button" type="button" name="pbutton" value="<?php _e('Delete All Bookings','appointment-hour-booking'); ?>" onclick="cp_deleteall();" /></p>
+
+<div class="ahb-section-container"  style="background-color:#ffffee;">   
+	<div class="ahb-section">
+      <?php $this->render_status_box('statusbox_markeditems', ''); ?>
+      <input style="float:none" class="button" type="button" name="pbutton" value="<?php _e('Change status of marked items','appointment-hour-booking'); ?>" onclick="cp_statusmarked();" />
+    </div>  
+</div>    
 <div style="clear:both"></div>
+
+<div style="clear:both"></div>
+<div class="ahb-section-container" style="background-color:#ffcccc;">   
+	<div class="ahb-section">
+      <input style="margin-right:40px;" class="button" type="button" name="pbutton" value="<?php _e('Delete marked items','appointment-hour-booking'); ?>" onclick="cp_deletemarked();" /> 
+      <input class="button" type="button" name="pbutton" value="<?php _e('Delete All Bookings','appointment-hour-booking'); ?>" onclick="cp_deleteall();" />
+      <div style="clear:both"></div>
+    </div>  
+</div>   
 
 
 <script type="text/javascript">

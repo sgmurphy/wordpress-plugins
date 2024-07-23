@@ -49,8 +49,8 @@
   </template>
   <EmptyState
     v-else
-    heading="No Packages Found"
-    text="You don't have any packages"
+    :heading="amLabels.no_pack_found"
+    :text="amLabels.have_no_pack"
   ></EmptyState>
 </template>
 

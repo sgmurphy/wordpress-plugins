@@ -1,9 +1,12 @@
 <?php
+/*
+ * Name: Product card (no features)
+ * Modules:
+ * Module Types: PRODUCT
+ *
+ */
 
 defined('\ABSPATH') || exit;
-/*
-  Name: Product card (no features)
- */
 
 use ContentEgg\application\helpers\TemplateHelper;
 
@@ -14,7 +17,7 @@ use function ContentEgg\prnx;
 
   <?php foreach ($items as $item) : ?>
     <?php
-    if (TemplateHelper::isModuleDataExist($items, 'Amazon', 'AmazonNoApi'))
+    if (TemplateHelper::isModuleDataExist($items, array('Amazon', 'AmazonNoApi')))
       \wp_enqueue_script('cegg-frontend', \ContentEgg\PLUGIN_RES . '/js/frontend.js', array('jquery'));
     ?>
     <div class="egg-container egg-item">

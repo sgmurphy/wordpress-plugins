@@ -107,7 +107,6 @@ class Premium_Counter extends Widget_Base {
 			$draw_scripts,
 			array(
 				'jquery-numerator',
-				'elementor-waypoints',
 				'lottie-js',
 				'premium-addons',
 			)

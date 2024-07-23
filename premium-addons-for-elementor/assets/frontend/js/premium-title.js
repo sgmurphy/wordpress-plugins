@@ -30,17 +30,26 @@
             $(this).text('').append(html);
         });
 
-        elementorFrontend.waypoint($scope, function () {
-            if ( txtShowcaseElem.length ) {
+        // unsing IntersectionObserverAPI.
+        var eleObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
 
-                $(txtShowcaseElem).addClass('premium-mask-active');
+                    if ( txtShowcaseElem.length ) {
 
-            } else {
-                $($scope).addClass('premium-mask-active');
-            }
+                        $(txtShowcaseElem).addClass('premium-mask-active');
+
+                    } else {
+                        $($scope).addClass('premium-mask-active');
+                    }
+
+                    eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                }
+            });
         });
-    };
 
+        eleObserver.observe($scope[0]);
+    };
 
     var PremiumTitleHandler = function ($scope, $) {
 

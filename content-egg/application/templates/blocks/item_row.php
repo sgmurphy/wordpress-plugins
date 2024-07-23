@@ -3,8 +3,6 @@ defined('\ABSPATH') || exit;
 
 use ContentEgg\application\helpers\TemplateHelper;
 
-use function ContentEgg\prnx;
-
 ?>
 
 <div class="row">
@@ -20,7 +18,7 @@ use function ContentEgg\prnx;
         <?php if ($item['title']) : ?>
             <h3 class="cegg-item-title"><?php echo esc_html($item['title']); ?></h3>
         <?php endif; ?>
-        <?php if ($item['rating']) : ?>
+        <?php if (!empty($item['rating'])) : ?>
             <div class="cegg-mb5">
                 <?php TemplateHelper::printRating($item, 'default'); ?>
             </div>
@@ -28,7 +26,7 @@ use function ContentEgg\prnx;
 
         <div class="cegg-price-row">
 
-            <?php if ($item['price']) : ?>
+            <?php if (!empty($item['price'])) : ?>
                 <span class="cegg-price cegg-price-color">
                     <?php if ($item['priceOld']) : ?>
                         <small class="text-muted"><s><?php echo wp_kses(TemplateHelper::formatPriceCurrency($item['priceOld'], $item['currencyCode'], '<small>', '</small>'), array('small' => array())); ?></s></small>
@@ -42,8 +40,13 @@ use function ContentEgg\prnx;
                     &nbsp;<?php echo \esc_html($stock_status); ?>
                 </mark>
             <?php endif; ?>
+
             <?php if ($cashback_str = TemplateHelper::getCashbackStr($item)) : ?>
                 <div class="cegg-cashback"><?php echo esc_html(sprintf(TemplateHelper::__('Plus %s Cash Back'), $cashback_str)); ?></div>
+            <?php endif; ?>
+
+            <?php if (!empty($item['promo'])) : ?>
+                <div class="cegg-cashback"><?php echo esc_html($item['promo']); ?></div>
             <?php endif; ?>
         </div>
 
@@ -52,21 +55,36 @@ use function ContentEgg\prnx;
         <div class="cegg-btn-row cegg-mb5">
             <div>
                 <a<?php TemplateHelper::printRel(); ?> target="_blank" href="<?php echo esc_url_raw($item['url']); ?>" class="btn btn-danger cegg-btn-big"><?php TemplateHelper::buyNowBtnText(true, $item, $btn_text); ?></a>
+
             </div>
             <div class="title-case text-muted cegg-mt5">
                 <?php TemplateHelper::printMerchantInfo($item); ?>
+
+                <?php if (!$item['price']) : ?>
+                    <?php
+                    if ($module_id == 'Amazon' || $module_id == 'AmazonNoApi')
+                    {
+                        echo '<small>';
+                        TemplateHelper::printAmazonDisclaimer();
+                        echo '</small>';
+                    }
+                    ?>
+                <?php endif; ?>
             </div>
         </div>
         <div class="cegg-last-update-row cegg-mb15">
             <span class="text-muted">
                 <small>
-                    <?php echo esc_html(sprintf(TemplateHelper::__('as of %s'), TemplateHelper::getLastUpdateFormatted($module_id, $post_id))); ?>
-                    <?php
-                    if ($module_id == 'Amazon' || $module_id == 'AmazonNoApi')
-                    {
-                        TemplateHelper::printAmazonDisclaimer();
-                    }
-                    ?>
+                    <?php if ($item['price']) : ?>
+                        <?php echo esc_html(sprintf(TemplateHelper::__('as of %s'), TemplateHelper::getLastUpdateFormatted($module_id, $post_id))); ?>
+                        <?php
+                        if ($module_id == 'Amazon' || $module_id == 'AmazonNoApi')
+                        {
+                            TemplateHelper::printAmazonDisclaimer();
+                        }
+                        ?>
+                    <?php endif; ?>
+
                 </small>
             </span>
         </div>

@@ -362,7 +362,7 @@ class Module {
 			array(
 				'label'       => __( 'Short Axis (PX)', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SLIDER,
-				'description' => __( 'Use this option to change the height of the divider', 'premium-addons-pro' ),
+				'description' => __( 'Use this option to change the height of the divider', 'premium-addons-for-elementor' ),
 				'range'       => array(
 					'px' => array(
 						'min'  => 0,
@@ -388,7 +388,7 @@ class Module {
 			array(
 				'label'       => __( 'Long Axis', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SLIDER,
-				'description' => __( 'Use this option to change the width of the divider.', 'premium-addons-pro' ),
+				'description' => __( 'Use this option to change the width of the divider.', 'premium-addons-for-elementor' ),
 				'range'       => array(
 					'px' => array(
 						'min'  => 100,
@@ -416,7 +416,7 @@ class Module {
 			array(
 				'label'       => __( 'Long Axis', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SLIDER,
-				'description' => __( 'Use this option to change the width of the divider.', 'premium-addons-pro' ),
+				'description' => __( 'Use this option to change the width of the divider.', 'premium-addons-for-elementor' ),
 				'range'       => array(
 					'px' => array(
 						'min'  => 1.1,
@@ -489,7 +489,7 @@ class Module {
 			array(
 				'label'        => __( 'Prevent Stretch', 'premium-addons-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'description'  => __( 'This option is used if you want to animate the divider without stretching the SVG.', 'premium-addons-pro' ),
+				'description'  => __( 'This option is used if you want to animate the divider without stretching the SVG.', 'premium-addons-for-elementor' ),
 				'prefix_class' => 'premium-sh-no-stretch-',
 				'default'      => 'yes',
 				'render_type'  => 'template',
@@ -636,14 +636,14 @@ class Module {
 		$element->add_control(
 			'premium_gdivider_bg_type',
 			array(
-				'label'       => __( 'Fill', 'premium-addons-pro' ),
+				'label'       => __( 'Fill', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'render_type' => 'template',
 				'default'     => 'color',
 				'options'     => array(
-					'color'    => __( 'Color', 'premium-addons-pro' ),
-					'image'    => __( 'Image', 'premium-addons-pro' ),
-					'gradient' => __( 'Gradient', 'premium-addons-pro' ),
+					'color'    => __( 'Color', 'premium-addons-for-elementor' ),
+					'image'    => __( 'Image', 'premium-addons-for-elementor' ),
+					'gradient' => __( 'Gradient', 'premium-addons-for-elementor' ),
 				),
 				'condition'   => array(
 					'premium_global_divider_sw' => 'yes',

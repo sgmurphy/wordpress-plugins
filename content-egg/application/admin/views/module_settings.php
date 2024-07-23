@@ -48,11 +48,20 @@
                             <?php esc_html_e('Please', 'content-egg'); ?> <a target="_blank" href="https://ce-docs.keywordrush.com/modules/affiliate/amazon#why-amazon-module-is-not-available-in-ce-free-version"><?php esc_html_e('read more...', 'content-egg'); ?></a>
                         <?php endif; ?>
 
-                        <?php if ($module->getId() != 'Amazon') : ?>
+                        <?php if ($module->getId() != 'Amazon' && $module->getId() != 'AmazonNoApi') : ?>
                             <strong>
                                 <?php esc_html_e('WARNING:', 'content-egg'); ?>
                                 <?php esc_html_e('This module is deprecated', 'content-egg'); ?>
                                 (<a target="_blank" href="<?php echo esc_url_raw(\ContentEgg\application\Plugin::pluginDocsUrl()); ?>/modules/deprecatedmodules"><?php esc_html_e('what does this mean', 'content-egg'); ?></a>).
+                            </strong>
+                        <?php endif; ?>
+
+                        <?php if ($module->getId() == 'AmazonNoApi') : ?>
+                            <strong>
+                                <?php esc_html_e('WARNING:', 'content-egg'); ?>
+
+                                The AmazonNoAPI module is currently not fully operational. We are actively seeking solutions. For more information, please visit <a target="_blank" href="https://ce-docs.keywordrush.com/modules/affiliate/amazon-no-api-module">this links</a>.
+
                             </strong>
                         <?php endif; ?>
                     </div>

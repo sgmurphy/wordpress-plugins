@@ -9,7 +9,8 @@
                 {
                     parent::__construct();
                     
-                    add_action ( 'admin_enqueue_scripts', 'wp_enqueue_media' ); 
+                    if ( isset ( $_GET['page'] ) && $_GET['page']   ==  'wp-hide-admin' )
+                        add_action ( 'admin_enqueue_scripts', 'wp_enqueue_media' );
                     
                     $custom_logo_image_id =   $this->wph->functions->get_module_item_setting('custom_login_logo');
                     if ( ! empty ( $custom_logo_image_id ) )

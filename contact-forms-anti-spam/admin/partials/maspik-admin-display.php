@@ -298,6 +298,15 @@ $spamcounter = maspik_spam_count();
             //MASPIK API field END --
 
             //General field
+                if( maspik_save_settings( 'maspikHoneypot' , sanitize_text_field(isset( $_POST['maspikHoneypot'] )) ? 1 : 0) != "success" ){ 
+                    $error_message .= $result_check . " ";
+                } //honeypot
+                if( maspik_save_settings( 'maspikYearCheck' , sanitize_text_field(isset( $_POST['maspikYearCheck'] )) ? 1 : 0) != "success" ){ 
+                    $error_message .= $result_check . " ";
+                } //honeypot
+                if( maspik_save_settings( 'maspikTimeCheck' , sanitize_text_field(isset( $_POST['maspikTimeCheck'] )) ? 1 : 0) != "success" ){ 
+                    $error_message .= $result_check . " ";
+                } //honeypot
 
                 if( maspik_save_settings( 'NeedPageurl' , sanitize_text_field(isset( $_POST['NeedPageurl'] )) ? 1 : 0) != "success" ){ 
                     $error_message .= $result_check . " ";
@@ -1146,11 +1155,42 @@ $spamcounter = maspik_spam_count();
                     
                 <div class="maspik-accordion-content">
                     <div class="maspik-accordion-content-wrap hide-form-title">
+<?php
+echo '<p>' . __("Important: These three new features are operational on <strong>both client-side (browser) and server-side</strong>. However, we may not have identified all potential <strong>cache-related issues</strong> yet. If you choose to implement these features, we recommend <strong>testing them by submitting a form in incognito mode</strong> and <strong>reviewing your spam log</strong> to ensure proper functionality.", 'your-text-domain') . '</p>';
+?>
+                        <div class="maspik-txt-custom-msg-head togglewrap maspik-honeypot-wrap">
+                            <?php echo maspik_toggle_button('maspikHoneypot', 'maspikHoneypot', 'maspikHoneypot', 'maspik-honeypot togglebutton',"",""); ?>
+                                <div>
+                                    <h4> <?php _e('Honeypot Trap', 'contact-forms-anti-spam'); ?>
+                                        <span class="new"><?php _e('New', 'contact-forms-anti-spam'); ?></span> 
+                                    </h4>
+                                    <span><?php _e('Add honeypot field', 'contact-forms-anti-spam'); ?></span>
+                            </div>  
+                        </div><!-- end of maspik-honeypot-wrap -->
+                        <div class="maspik-txt-custom-msg-head togglewrap maspik-honeypot-wrap">
+                            <?php echo maspik_toggle_button('maspikTimeCheck', 'maspikTimeCheck', 'maspikTimeCheck', 'maspik-honeypot togglebutton',"",""); ?>
+                                <div>
+                                    <h4> <?php _e('Time Trap', 'contact-forms-anti-spam'); ?>
+                                        <span class="new"><?php _e('New', 'contact-forms-anti-spam'); ?></span> 
+                                    </h4>
+                                    <span><?php _e('Check time from visiting the site until form submit', 'contact-forms-anti-spam'); ?></span>
+                            </div>  
+                        </div><!-- end of maspik-maspikTimeCheck -->
+                        <div class="maspik-txt-custom-msg-head togglewrap maspik-honeypot-wrap">
+                            <?php echo maspik_toggle_button('maspikYearCheck', 'maspikYearCheck', 'maspikYearCheck', 'maspik-honeypot togglebutton',"",""); ?>
+                                <div>
+                                    <h4> <?php _e('JavaScript Trap', 'contact-forms-anti-spam'); ?> 
+                                        <span class="new"><?php _e('New', 'contact-forms-anti-spam'); ?></span> 
+                                    </h4>
+
+                                    <span><?php _e('Comper the local and server year', 'contact-forms-anti-spam'); ?></span>
+                            </div>  
+                        </div><!-- end of maspik-maspikYearCheck -->
 
                         <div class="maspik-txt-custom-msg-head togglewrap maspik-block-inquiry-wrap">
                             <?php echo maspik_toggle_button('NeedPageurl', 'NeedPageurl', 'NeedPageurl', 'maspik-needpageurl togglebutton',"","",['NeedPageurl']); ?>
                                 <div>
-                                    <h4> <?php _e('Maspik Spam trap (Recommended option!)', 'contact-forms-anti-spam'); ?> </h4>
+                                    <h4> <?php _e('Elementor Bot detector', 'contact-forms-anti-spam'); ?> </h4>
                                     <span><?php _e('In this option we block bots from sending spam automatically, its mostly succeed to catch about 30% of the spam', 'contact-forms-anti-spam'); ?></span>
                             </div>  
                         </div><!-- end of maspik-block-inquiry-wrap -->

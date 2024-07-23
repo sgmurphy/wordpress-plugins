@@ -273,6 +273,7 @@
             <fields>
                 <field name="World Clock: Title" editor_type="LINE">clock_title</field>
                 <field name="World Clock: Zone Name" editor_type="LINE">custom_tz</field>
+                <field name="World Clock: Language" editor_type="LINE">language_prefix</field>
             </fields>
         </widget>
 

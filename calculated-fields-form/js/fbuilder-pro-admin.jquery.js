@@ -66,7 +66,7 @@
 	};
 
     $.fbuilder['printFields'] = function(){
-		var h = '<style>*{font-family:sans-serif;font-size:14px;}.developer-note:not(:empty){font-style:italic;margin-top:5px;display:block;font-size:90%;clear:both;}.developer-note:not(:empty)::before{content: \'Developer note: \';font-weight:bold;}</style><div><b>field name (title) [Exclude from submission]</b></div><hr />',
+		var h = '<style>*{font-family:sans-serif;font-size:14px;}.developer-note:not(:empty){font-style:italic;margin-top:5px;display:block;font-size:90%;clear:both;}.developer-note:not(:empty)::before{content: \'Developer note: \';font-weight:bold;}</style><div><input type="search" name="cff-field-filter" style="width:100%;min-height:28px;" placeholder="Type field name or label" /></div><hr /><div><b>field name (title) [Exclude from submission]</b></div><hr />',
 			w,
 			o = {};
 
@@ -75,20 +75,33 @@
 			t = ( 'title' in item ) ? String( item.title ).trim() : '';
 			t = ( '' == t && 'shortlabel' in item ) ? String( item.shortlabel ).trim() : t;
 
-			o[item.name] = '<div style="border-bottom:1px solid #F0F0F0;padding:5px 0;"><a href="javascript:e=window.opener.document.getElementsByClassName(\''+item.name+'\')[0];while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView();e.click();">'+item.name+'</a>'+
+			o[item.name] = '<div style="border-bottom:1px solid #F0F0F0;padding:5px 0;" class="cff-field-information"><a href="javascript:e=window.opener.document.getElementsByClassName(\''+item.name+'\')[0];while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView();e.click();">'+item.name+'</a>'+
 						('' != t ? ' ('+$.fbuilder.htmlEncode(t)+')' : '')+
 						('exclude' in item && item.exclude ? '[EXCLUDED]' : '' )+
 						('_developerNotes' in item && ! /^\s*$/.test(item._developerNotes) ? '<span class="developer-note">'+$.fbuilder.htmlEncode(item._developerNotes)+'</span>' : '')+
 						'</div>';
         });
 
-		$('#fieldlist [class *="fieldname"]').each(function(){
+		$('#fieldlist [class*="fieldname"]').each(function(){
 			h += o[this.className.match(/fieldname\d+/)[0]];
 		});
 
         w = window.open("","cff-fieldlist-popup", "width=500,height=300,scrollbars=1,resizable=1,toolbar=0,titlebar=0,menubar=0");
         w.document.title = 'Fields List';
         w.document.body.innerHTML = h;
+		try {
+			let f = w.document.getElementsByName('cff-field-filter')[0];
+			f.addEventListener('input', function(evt){
+				let v = String( evt.currentTarget.value ).toLowerCase();
+				if ( v.length == 0 ) {
+					$( '.cff-field-information', w.document ).show();
+				} else {
+					$( '.cff-field-information', w.document ).hide();
+					$( '.cff-field-information:contains("' + v + '")', w.document ).show();
+				}
+			});
+		} catch ( err ) {}
+
     };
 
 	$.fbuilder[ 'htmlEncode' ] = window[ 'cff_esc_attr' ] = function(value)

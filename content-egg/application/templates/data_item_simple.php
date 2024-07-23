@@ -3,7 +3,7 @@ defined('\ABSPATH') || exit;
 
 use ContentEgg\application\helpers\TemplateHelper;
 
-if (TemplateHelper::isModuleDataExist($items, 'Amazon', 'AmazonNoApi'))
+if (TemplateHelper::isModuleDataExist($items, array('Amazon', 'AmazonNoApi')))
 {
     \wp_enqueue_script('cegg-frontend', \ContentEgg\PLUGIN_RES . '/js/frontend.js', array('jquery'));
 }

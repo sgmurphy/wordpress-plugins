@@ -31,9 +31,17 @@
             }
 
             if ('scroll' === addonSettings.trigger) {
-                elementorFrontend.waypoint($scope, function () {
-                    triggerEqualHeight();
+                // elementorFrontend.waypoint($scope, function () {
+                //     triggerEqualHeight();
+                // });
+                var eleObserver = new IntersectionObserver(function($entry) {
+                    if ($entry[0].isIntersecting) {
+                        triggerEqualHeight();
+                        eleObserver.unobserve($entry[0].target); // to only excecute the callback func once.
+                    }
                 });
+
+                eleObserver.observe($scope[0]);
             } else {
                 triggerEqualHeight();
             }

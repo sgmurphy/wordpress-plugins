@@ -157,10 +157,15 @@ class Addons_Integration {
 	 * @since 4.8.10
 	 */
 	public function update_template_title() {
+
 		check_ajax_referer( 'pa-live-editor', 'security' );
 
 		if ( ! isset( $_POST['title'] ) || ! isset( $_POST['id'] ) ) {
-			wp_send_json_error();
+			wp_send_json_error( 'Post has no title.' );
+		}
+
+        if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error( 'Insufficient user permission' );
 		}
 
 		$res = wp_update_post(
@@ -175,6 +180,7 @@ class Addons_Integration {
 
 	/**
 	 * Check Temp Validity.
+     *
 	 * Checks if the template is valid ( has content) or not,
 	 * And DELETE the post if it's invalid.
 	 *
@@ -187,6 +193,10 @@ class Addons_Integration {
 
 		if ( ! isset( $_POST['templateID'] ) ) {
 			wp_send_json_error( 'template ID is not set' );
+		}
+
+        if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error( 'Insufficient user permission' );
 		}
 
 		$temp_id   = sanitize_text_field( wp_unslash( $_POST['templateID'] ) );
@@ -727,7 +737,6 @@ class Addons_Integration {
 			PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/lottie' . $suffix . '.js',
 			array(
 				'jquery',
-				'elementor-waypoints',
 			),
 			PREMIUM_ADDONS_VERSION,
 			true
@@ -870,7 +879,6 @@ class Addons_Integration {
 			'pa-motionpath',
 			PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/motionpath' . $suffix . '.js',
 			array(
-				'elementor-waypoints',
 				'jquery',
 			),
 			PREMIUM_ADDONS_VERSION,
@@ -935,6 +943,35 @@ class Addons_Integration {
 				)
 			);
 		}
+
+        // Localize jQuery with required data for Global Add-ons.
+		if ( self::$modules['premium-countdown'] ) {
+
+			wp_localize_script(
+				'pa-countdown',
+				'premiumCountDownStrings',
+				array(
+					'singule' => [
+                        __('Year', 'premium-addons-for-elementor'),
+                        __('Month', 'premium-addons-for-elementor'),
+                        __('Week', 'premium-addons-for-elementor'),
+                        __('Day', 'premium-addons-for-elementor'),
+                        __('Hour', 'premium-addons-for-elementor'),
+                        __('Minute', 'premium-addons-for-elementor'),
+                        __('Second', 'premium-addons-for-elementor'),
+                    ],
+                    'plural' => [
+                        __('Years', 'premium-addons-for-elementor'),
+                        __('Months', 'premium-addons-for-elementor'),
+                        __('Weeks', 'premium-addons-for-elementor'),
+                        __('Days', 'premium-addons-for-elementor'),
+                        __('Hours', 'premium-addons-for-elementor'),
+                        __('Minutes', 'premium-addons-for-elementor'),
+                        __('Seconds', 'premium-addons-for-elementor')
+                    ]
+				)
+			);
+		}
 	}
 
 	/**
@@ -961,6 +998,14 @@ class Addons_Integration {
 			wp_register_script(
 				'premium-woocommerce',
 				PREMIUM_ADDONS_URL . 'assets/frontend/' . $directory . '/premium-woo-products' . $suffix . '.js',
+				array( 'jquery' ),
+				PREMIUM_ADDONS_VERSION,
+				true
+			);
+
+            wp_register_script(
+				'premium-woo-cats',
+				PREMIUM_ADDONS_URL . 'assets/frontend/' . $directory . '/premium-woo-categories' . $suffix . '.js',
 				array( 'jquery' ),
 				PREMIUM_ADDONS_VERSION,
 				true
@@ -1060,29 +1105,6 @@ class Addons_Integration {
 			$enabled = isset( $enabled_elements[ $slug ] ) ? $enabled_elements[ $slug ] : '';
 
 			if ( filter_var( $enabled, FILTER_VALIDATE_BOOLEAN ) || ! $enabled_elements ) {
-				$this->register_addon( $file );
-			}
-		}
-	}
-
-	/**
-	 * Register Woocommerce Widgets.
-	 *
-	 * @since 4.0.0
-	 * @access private
-	 */
-	private function woo_widgets_register() {
-
-		$enabled_elements = self::$modules;
-
-		foreach ( glob( PREMIUM_ADDONS_PATH . 'modules/woocommerce/widgets/*.php' ) as $file ) {
-
-			$slug = basename( $file, '.php' );
-
-			$enabled = isset( $enabled_elements[ $slug ] ) ? $enabled_elements[ $slug ] : '';
-
-			if ( filter_var( $enabled, FILTER_VALIDATE_BOOLEAN ) || ! $enabled_elements ) {
-
 				$this->register_addon( $file );
 			}
 		}
@@ -1414,7 +1436,7 @@ class Addons_Integration {
 		}
 
         if ( ! current_user_can( 'edit_posts' ) ) {
-			wp_send_json_error( 'Insufficient user role' );
+			wp_send_json_error( 'Insufficient user permission' );
 		}
 
 		$template_content = $this->template_instance->get_template_content( $template );
@@ -1590,7 +1612,7 @@ class Addons_Integration {
 			Floating_Effects::get_instance();
 		}
 
-		if ( class_exists( 'woocommerce' ) && self::$modules['woo-products'] ) {
+		if ( class_exists( 'woocommerce' ) && ( self::$modules['woo-products'] || self::$modules['woo-categories'] ) ) {
 			Woocommerce::get_instance();
 		}
 

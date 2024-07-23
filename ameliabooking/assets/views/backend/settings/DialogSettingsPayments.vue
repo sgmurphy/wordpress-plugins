@@ -125,28 +125,6 @@
         </div>
         <!-- /Custom Currency Symbol -->
 
-        <!-- Default Payment Method -->
-        <el-form-item
-            v-if="!settings.wc.enabled"
-        >
-          <label slot="label">
-            {{ $root.labels.default_payment_method }}:
-            <el-tooltip placement="top">
-              <div slot="content" v-html="$root.labels.payment_tooltip"></div>
-              <i class="el-icon-question am-tooltip-icon"></i>
-            </el-tooltip>
-          </label>
-          <el-select v-model="settings.defaultPaymentMethod">
-            <el-option
-                v-for="item in defaultPaymentMethods"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
-
         <!-- Cart -->
         <div
           v-if="notInLicence('pro') ? licenceVisible() : true"
@@ -331,6 +309,26 @@
         <div>
         </div>
 
+        <!-- Default Payment Method -->
+        <el-form-item>
+          <label slot="label">
+            {{ $root.labels.default_payment_method }}:
+            <el-tooltip placement="top">
+              <div slot="content" v-html="$root.labels.payment_tooltip"></div>
+              <i class="el-icon-question am-tooltip-icon"></i>
+            </el-tooltip>
+          </label>
+          <el-select v-model="settings.defaultPaymentMethod">
+            <el-option
+                v-for="item in defaultPaymentMethods"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+
         <!-- Service Paid On-site -->
         <div class="am-setting-box am-switch-box">
           <el-row type="flex" align="middle" :gutter="24">
@@ -340,7 +338,7 @@
             <el-col :span="8" class="align-right">
               <el-switch
                   v-model="settings.onSite"
-                  :disabled="(!this.settings.payPal.enabled && !this.settings.stripe.enabled && !this.settings.mollie.enabled && !this.settings.wc.enabled && !this.settings.razorpay.enabled) || this.settings.wc.enabled"
+                  :disabled="!this.settings.payPal.enabled && !this.settings.stripe.enabled && !this.settings.mollie.enabled && !this.settings.wc.enabled && !this.settings.razorpay.enabled && !this.settings.square.enabled"
                   active-text=""
                   inactive-text=""
                   @change="toggleOnSite"
@@ -349,6 +347,89 @@
             </el-col>
           </el-row>
         </div>
+
+
+        <!-- Service Square -->
+        <el-collapse v-model="squareCollapse" ref="square" >
+          <el-collapse-item class="am-setting-box" name="square" :class="{'am-setting-box-square-error' : squareError !== ''}">
+            <!-- Square Title -->
+            <template slot="title">
+              <el-col :span="16">
+                <img id="am-square" class="svg-amelia" :src="this.$root.getUrl + 'public/img/payments/square.svg'">
+              </el-col>
+              <i v-show="settings.square.enabled" class="el-icon-circle-check"></i>
+            </template>
+
+            <!-- Square Toggle -->
+            <el-row type="flex" align="middle" :gutter="24">
+              <el-col :span="16">
+                <p>{{ $root.labels.square_service }}:</p>
+              </el-col>
+              <el-col :span="8" class="align-right">
+                <el-switch
+                    v-model="settings.square.enabled"
+                    @change="toggleSquare"
+                    active-text=""
+                    inactive-text=""
+                    :disabled="this.settings.wc.enabled || this.settings.mollie.enabled || !squarePhpVersion"
+                >
+                </el-switch>
+              </el-col>
+            </el-row>
+
+            <el-alert
+                v-if="!squarePhpVersion"
+                type="warning"
+                show-icon
+                title=""
+                :description="$root.labels.square_php_version_error"
+                :closable="false"
+            >
+            </el-alert>
+
+            <el-form-item
+                v-show="settings.square.enabled === true && settings.square.accessToken && settings.square.accessToken.access_token"
+            >
+              <el-row :gutter="16" style="margin-bottom: 8px; margin-left: 0px">
+                {{ $root.labels.square_default_location }}:
+                <el-tooltip placement="top">
+                  <div slot="content" v-html="$root.labels.square_location_info"></div>
+                  <i class="el-icon-question am-tooltip-icon"></i>
+                </el-tooltip>
+              </el-row>
+              <el-row style="margin-bottom: 8px">
+                <el-select v-model="settings.square.locationId" :disabled="squareLoading">
+                  <el-option
+                      v-for="location in squareLocations"
+                      :key="location.id"
+                      :label="location.name"
+                      :value="location.id"
+                  >
+                  </el-option>
+                </el-select>
+              </el-row>
+            </el-form-item>
+
+            <el-row v-if="settings.square.enabled">
+              <!-- Square Log In Button -->
+              <el-button v-if="(!settings.square.accessToken || !settings.square.accessToken['access_token']) && !accessTokenSet"
+                         type="primary"
+                         :loading="squareLoading || squareBtnDisabled"
+                         @click="getSquareAuthUrl">
+                {{ $root.labels.log_in }}
+              </el-button>
+              <!-- Square Log Out Button -->
+              <el-button v-else @click="logOutFromSquare" :loading="squareLoading || squareBtnDisabled" type="danger">
+                {{ $root.labels.log_out }}
+              </el-button>
+
+              <span v-if="squareError !== ''" class="am-setting-box-square-error-text">{{ squareError }}</span>
+            </el-row>
+
+
+          </el-collapse-item>
+
+        </el-collapse>
 
         <!-- Service WooCommerce -->
         <el-collapse :class="licenceClass()" v-model="wooCommerceCollapse">
@@ -749,7 +830,7 @@
                     @change="toggleStripe"
                     active-text=""
                     inactive-text=""
-                    :disabled="this.settings.wc.enabled || this.settings.mollie.enabled"
+                    :disabled="isStripeDisabled()"
                 >
                 </el-switch>
               </el-col>
@@ -817,12 +898,12 @@
             </el-form-item>
 
             <div
-              v-if="notInLicence('pro') ? licenceVisible() : true"
+              v-if="settings.stripe.enabled === true && (notInLicence('pro') ? licenceVisible() : true)"
               :class="licenceClass('pro')"
             >
 
             <!-- Stripe Use Connect -->
-            <el-row type="flex" align="middle" :gutter="24" v-show="settings.stripe.enabled === true">
+            <el-row type="flex" align="middle" :gutter="24" style="margin-bottom: 10px">
               <el-col :span="16">
                 <p>{{ $root.labels.use_stripe_connect }}:</p>
               </el-col>
@@ -913,7 +994,7 @@
                     @change="toggleRazorpay"
                     active-text=""
                     inactive-text=""
-                    :disabled="this.settings.wc.enabled || this.settings.mollie.enabled"
+                    :disabled="this.settings.wc.enabled || this.settings.mollie.enabled || this.settings.square.enabled"
                 >
                 </el-switch>
               </el-col>
@@ -978,7 +1059,7 @@
 
 
         <!-- Set MetaData for Payment -->
-        <el-collapse v-show="(settings.wc.enabled || settings.stripe.enabled || settings.payPal.enabled || settings.mollie.enabled || settings.razorpay.enabled)">
+        <el-collapse v-show="(settings.wc.enabled || settings.stripe.enabled || settings.payPal.enabled || settings.mollie.enabled || settings.razorpay.enabled || settings.square.enabled)">
           <el-collapse-item class="am-setting-box">
             <template slot="title">
               <p>{{ $root.labels.set_metaData_and_description }}:</p>
@@ -1065,6 +1146,7 @@
   import SelectTranslate from '../parts/SelectTranslate'
   import propertiesMixin from '../../../js/common/mixins/propertiesMixin'
   import Extensions from '../parts/Extensions'
+  import notifyMixin from '../../../js/backend/mixins/notifyMixin'
 
   export default {
 
@@ -1072,7 +1154,8 @@
       licenceMixin,
       propertiesMixin,
       imageMixin,
-      priceMixin
+      priceMixin,
+      notifyMixin
     ],
 
     props: {
@@ -1088,7 +1171,19 @@
       payments: {
         type: Object
       },
-      defaultAppointmentStatus: ''
+      defaultAppointmentStatus: '',
+      squareLocations: {
+        type: Array,
+        default: () => []
+      },
+      accessTokenSet: {
+        type: Boolean,
+        default: false
+      },
+      openSquareCollapse: {
+        type: Boolean,
+        default: false
+      }
     },
 
     data () {
@@ -1155,14 +1250,21 @@
         rules: {
           stripe: {},
           mollie: {},
-          payPal: {}
+          payPal: {},
+          square: {}
         },
         stripeCollapse: '',
         payPalCollapse: '',
         wooCommerceCollapse: '',
         mollieCollapse: '',
+        squareCollapse: '',
         razorpayCollapse: '',
-        activeTab: 'appointments'
+        activeTab: 'appointments',
+        squareLoading: false,
+        squareGrantedAccess: false,
+        squareError: '',
+        squareBtnDisabled: false,
+        squarePhpVersion: true
       }
     },
 
@@ -1174,6 +1276,20 @@
       // Fallback for users that don't have enabled "On-site" option enabled. Remove in future versions.
       let paymentOption = this.defaultPaymentMethods.find(option => option.value === this.settings.defaultPaymentMethod)
       this.settings.defaultPaymentMethod = paymentOption ? paymentOption.value : this.defaultPaymentMethods[0].value
+
+      // redirected from Square login page
+      if (this.openSquareCollapse) {
+        this.squareCollapse = 'square'
+        this.settings.stripe.enabled = false
+        this.settings.wc.enabled = false
+        this.settings.razorpay.enabled = false
+        this.settings.mollie.enabled = false
+        if (this.$refs['square']) {
+          this.$refs['square'].$el.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+      let phpVersion = this.settings.square.phpVersion
+      this.squarePhpVersion = phpVersion ? phpVersion.localeCompare('7.4', undefined, { numeric: true, sensitivity: 'base' }) > -1 : true
     },
 
     methods: {
@@ -1183,6 +1299,42 @@
 
       closeDialog () {
         this.$emit('closeDialogSettingsPayments')
+      },
+
+      logOutFromSquare () {
+        this.squareLoading = true
+        this.$http.post(
+          `${this.$root.getAjaxUrl}/square/disconnect`
+        ).then(() => {
+          this.settings.square.accessToken = null
+          this.squareLoading = false
+          this.notify(this.$root.labels.success, this.$root.labels.square_disconnected, 'success')
+        }).catch(e => {
+          this.notify(this.$root.labels.error, e.message, 'error')
+          this.squareLoading = false
+        })
+      },
+
+      getSquareAuthUrl () {
+        this.squareLoading = true
+        this.$http.get(`${this.$root.getAjaxUrl}/square/authorization/url`)
+          .then(response => {
+            window.location.href = response.data.data.authUrl
+          })
+          .catch(e => {
+            this.squareLoading = false
+            this.notify(this.$root.labels.error, e.message, 'error')
+          })
+      },
+
+      changeSquareTestMode () {
+        this.squareBtnDisabled = true
+        this.$emit('updateSettings', {'payments': this.settings}, null, true, () => {
+          this.squareBtnDisabled = false
+        })
+        if (this.settings.square.accessToken) {
+          this.logOutFromSquare()
+        }
       },
 
       onSubmit () {
@@ -1221,6 +1373,26 @@
 
         this.$refs.settings.validate((valid) => {
           if (valid) {
+            this.squareError = ''
+            if (this.settings.square && this.settings.square.enabled && !this.settings.square.accessToken) {
+              this.squareError = this.$root.labels.square_login_error
+              this.squareCollapse = 'square'
+              return
+            }
+            if (this.settings.square && this.settings.square.enabled && this.settings.square.accessToken && !this.settings.square.locationId) {
+              this.squareError = this.$root.labels.square_location_error
+              this.squareCollapse = 'square'
+              return
+            }
+            if (this.settings.square && this.settings.square.enabled && this.settings.square.locationId) {
+              let chosenLocation = this.squareLocations.find(s => s.id === this.settings.square.locationId)
+              if (chosenLocation && chosenLocation.currency !== this.settings.currency) {
+                this.$refs['square'].$el.scrollIntoView({ behavior: 'smooth' })
+                this.squareError = this.$root.labels.square_currency_error
+                this.squareCollapse = 'square'
+                return
+              }
+            }
             this.$emit('closeDialogSettingsPayments')
             this.$emit('updateSettings', {'payments': this.settings})
           } else {
@@ -1239,7 +1411,7 @@
                 this.mollieCollapse = 'mollie'
               }
 
-              if (this.settings.stripe.testMode && this.settings.mollie.testApiKey === '') {
+              if (this.settings.mollie.testMode && this.settings.mollie.testApiKey === '') {
                 this.mollieCollapse = 'mollie'
               }
             }
@@ -1270,7 +1442,7 @@
       },
 
       checkOnSitePayment () {
-        if (this.settings.payPal.enabled === false && this.settings.stripe.enabled === false && this.settings.wc.enabled === false) {
+        if (this.settings.razorpay.enabled === false && this.settings.mollie.enabled === false && this.settings.square.enabled === false && this.settings.payPal.enabled === false && this.settings.stripe.enabled === false && this.settings.wc.enabled === false) {
           this.settings.onSite = true
         }
       },
@@ -1280,6 +1452,10 @@
         if (this.settings.defaultPaymentMethod === 'onSite' && this.settings.onSite === false) {
           this.settings.defaultPaymentMethod = this.defaultPaymentMethods[0].value
         }
+      },
+
+      isStripeDisabled() {
+        return this.settings.wc.enabled || this.settings.mollie.enabled || this.settings.square.enabled
       },
 
       toggleStripe () {
@@ -1310,11 +1486,14 @@
       },
 
       toggleWooCommerce () {
-        this.settings.onSite = !this.settings.wc.enabled
+        if (!this.settings.wc.enabled) {
+          this.settings.onSite = true
+        }
         this.settings.stripe.enabled = false
         this.settings.payPal.enabled = false
         this.settings.mollie.enabled = false
         this.settings.razorpay.enabled = false
+        this.settings.square.enabled = false
         if (this.settings.defaultPaymentMethod === 'wc' && this.settings.wc.enabled === false) {
           this.settings.defaultPaymentMethod = this.defaultPaymentMethods[0].value
         }
@@ -1325,12 +1504,30 @@
         this.settings.payPal.enabled = false
         this.settings.wc.enabled = false
         this.settings.razorpay.enabled = false
+        this.settings.square.enabled = false
 
-        if (!this.settings.mollie.enabled) {
+        if (!this.settings.mollie.enabled && !this.settings.square.enabled) {
           this.settings.onSite = true
         }
 
         if (this.settings.defaultPaymentMethod === 'mollie' && this.settings.mollie.enabled === false) {
+          this.settings.defaultPaymentMethod = this.defaultPaymentMethods[0].value
+        }
+      },
+
+      toggleSquare () {
+        if (this.settings.square.enabled === false) {
+          this.squareError = ''
+        }
+
+        this.settings.stripe.enabled = false
+        this.settings.wc.enabled = false
+        this.settings.razorpay.enabled = false
+        this.settings.mollie.enabled = false
+
+        this.checkOnSitePayment()
+
+        if (this.settings.defaultPaymentMethod === 'square' && this.settings.square.enabled === false) {
           this.settings.defaultPaymentMethod = this.defaultPaymentMethods[0].value
         }
       },
@@ -1489,7 +1686,7 @@
 
         if (this.settings.wc.enabled) {
           methods.push({
-            label: this.$root.labels.wc,
+            label: this.$root.labels.wc_name,
             value: 'wc'
           })
         }
@@ -1505,6 +1702,13 @@
           methods.push({
             label: this.$root.labels.razorpay,
             value: 'razorpay'
+          })
+        }
+
+        if (this.settings.square.enabled) {
+          methods.push({
+            label: this.$root.labels.square,
+            value: 'square'
           })
         }
 

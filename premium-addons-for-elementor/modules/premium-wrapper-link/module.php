@@ -106,7 +106,7 @@ class Module {
 		$element->add_control(
 			'wrapper_link_notice',
 			array(
-				'raw'             => __( 'Please note that Wrapper Link works on the frontend.', 'premium-addons-for-elemeentor' ),
+				'raw'             => __( 'Please note that Wrapper Link works on the frontend.', 'premium-addons-for-elementor' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 			)

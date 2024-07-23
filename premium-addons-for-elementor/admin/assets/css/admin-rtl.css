@@ -2052,6 +2052,10 @@
     content: "\e93c";
 }
 
+.pa-dash-woo-categories:before {
+    content: "\e961";
+}
+
 .pa-dash-premium-global-cursor:before {
     content: "\e951";
 }

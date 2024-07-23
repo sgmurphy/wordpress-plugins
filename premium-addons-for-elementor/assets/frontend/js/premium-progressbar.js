@@ -147,14 +147,31 @@
             PremiumProgressBarWidgetHandler($scope, "frontend");
         }
 
-        elementorFrontend.waypoint($scope, function () {
-            if ("dots" !== type) {
-                PremiumProgressBarWidgetHandler($(this));
-            } else {
-                PremiumProgressDotsHandler($(this));
-            }
+        // elementorFrontend.waypoint($scope, function () {
+        //     if ("dots" !== type) {
+        //         PremiumProgressBarWidgetHandler($(this));
+        //     } else {
+        //         PremiumProgressDotsHandler($(this));
+        //     }
 
+        // });
+        // unsing IntersectionObserverAPI.
+        var eleObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+
+                    if ("dots" !== type) {
+                        PremiumProgressBarWidgetHandler($(entry.target));
+                    } else {
+                        PremiumProgressDotsHandler($(entry.target));
+                    }
+
+                    eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                }
+            });
         });
+
+        eleObserver.observe($scope[0]);
     };
 
     $(window).on('elementor/frontend/init', function () {

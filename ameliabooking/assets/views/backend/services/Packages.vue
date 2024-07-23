@@ -815,7 +815,8 @@ export default {
           this.fetched = true
           this.options.fetched = true
         }, {
-          types: ['locations', 'employees', 'categories', 'custom_fields', 'packages', 'coupons', 'customers', 'resources'],
+          types: ['locations', 'employees', 'categories', 'custom_fields', 'packages', 'coupons', 'resources'],
+          lite: true,
           page: 'appointments',
           isFrontEnd: false,
           isPanel: false
@@ -903,6 +904,11 @@ export default {
 
             if (emptyPackages) {
               for (let pack in emptyPackages) {
+                if (customersIds.indexOf(parseInt(emptyPackages[pack][0].packageCustomer.customer.id)) === -1) {
+                  customersIds.push(parseInt(emptyPackages[pack][0].packageCustomer.customer.id))
+                  customers.push(emptyPackages[pack][0].packageCustomer.customer)
+                }
+
                 let packageCustomerId = parseInt(pack)
 
                 if (emptyPackages.hasOwnProperty(packageCustomerId)) {
@@ -929,7 +935,7 @@ export default {
                         service: null,
                         id: null,
                         booking: {
-                          customer: this.options.entities.customers.find(c => c.id === emptyPackages[pack][0].packageCustomer.customerId),
+                          customer: emptyPackages[pack][0].packageCustomer.customer,
                           packageCustomerService: emptyPackages[pack][0],
                           id: packageCustomerId,
                           payments: emptyPackages[pack][0].packageCustomer.payments

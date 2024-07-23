@@ -13,7 +13,7 @@ use ContentEgg\application\admin\GeneralConfig;
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 class ModuleUpdateVisit
 {
@@ -34,6 +34,9 @@ class ModuleUpdateVisit
 
     public function init()
     {
+        if (defined('\WP_CLI') && \WP_CLI)
+            return;
+
         if (GeneralConfig::getInstance()->option('filter_bots'))
         {
             if (!class_exists('\Jaybizzle\CrawlerDetect'))

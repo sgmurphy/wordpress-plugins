@@ -61,10 +61,10 @@ class Admin_Notices {
 
 		self::$notices = array(
 			'pa-review',
-			'animated_text',
+			'woo_cats',
 		);
 
-		delete_option( 'mobile_menu' );
+		delete_option( 'animated_text' );
 
 	}
 
@@ -106,7 +106,7 @@ class Admin_Notices {
 			return;
 		}
 
-		$this->get_animated_text_notice();
+		$this->get_woo_cats_notice();
 
 	}
 
@@ -242,15 +242,15 @@ class Admin_Notices {
 	 *
 	 * @return void
 	 */
-	public function get_animated_text_notice() {
+	public function get_woo_cats_notice() {
 
-		$option = get_option( 'animated_text' );
+		$option = get_option( 'woo_cats' );
 
 		if ( '1' === $option ) {
 			return;
 		}
 
-		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-animated-text-widget', 'animated-text-notification', 'wp-dash', 'animated-text' );
+		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-woocommerce-categories-widget/', 'woo-categories-notification', 'wp-dash', 'woo-categories' );
 
 		?>
 
@@ -260,11 +260,11 @@ class Admin_Notices {
 			</div>
 			<div class="pa-text-wrap">
 				<p>
-					<strong><?php echo __( 'Elementor Fancy Text widget', 'premium-addons-for-elemetor' ); ?></strong>
-					<?php echo sprintf( __( 'got a huge update. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
+					<strong><?php echo __( 'Elementor WooCommerce Categories widget', 'premium-addons-for-elementor' ); ?></strong>
+					<?php echo sprintf( __( 'is now available in Premium Addons for Elementor. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
 				</p>
 			</div>
-			<div class="pa-notice-close" data-notice="animated-text">
+			<div class="pa-notice-close" data-notice="woo-cats">
 				<span class="dashicons dashicons-dismiss"></span>
 			</div>
 		</div>

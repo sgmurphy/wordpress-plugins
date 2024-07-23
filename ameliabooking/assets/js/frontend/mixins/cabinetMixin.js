@@ -158,6 +158,11 @@ export default {
           value: 'mollie',
           label: this.$root.labels.on_line
         })
+      } else if (this.$root.settings.payments.square.enabled && (!('square' in entitySettings) || entitySettings.square.enabled)) {
+        paymentOptions.push({
+          value: 'square',
+          label: this.$root.labels.on_line
+        })
       } else {
         if (this.$root.settings.payments.payPal.enabled && (!('payPal' in entitySettings) || entitySettings.payPal.enabled)) {
           paymentOptions.push({

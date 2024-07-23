@@ -156,7 +156,7 @@ export default {
       if (payload.loadEntities && !getEntitiesVariableName()) {
         httpClient.get(
           '/entities',
-          { params: useUrlParams({types: serverData.types}) }
+          { params: useUrlParams({types: serverData.types, lite: true}) }
         ).then(response => {
           window.ameliaEventEntities = response.data.data
 

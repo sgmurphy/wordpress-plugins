@@ -2,8 +2,8 @@
 Contributors: dotcamp, ultimateblocks, imtiazrayhan, istiakrayhan, erdembircan, alexius08
 Tags: blocks, gutenberg blocks, gutenberg, block editor, free
 Requires at least: 5.8
-Tested up to: 6.5
-Stable tag: 3.2.0
+Tested up to: 6.6
+Stable tag: 3.2.1
 Requires PHP: 5.6
 License: GPL3+
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -144,13 +144,24 @@ That's it. You're done!
 
 == Screenshot ==
 
-1. Countdown Block.
-2. Button Block.
-3. Content Toggle Block.
-4. Testimonial Block.
-5. Image Slider Block.
+1. Review Block (Schema Enabled).
+2. Table of Contents Block.
+3. Tabbed Content Block.
 
 == Changelog ==
+
+= 3.2.1 =
+
+* FIX: On Split not working on WP 6.6.
+* FIX: Review Block Schema error.
+* FIX: Content Filter multiple selection not working.
+* FIX: Content Toggle performance issue.
+* FIX: Post Excerpt null warning in post grid block.
+* FIX: Post image preserve aspect ratio not working properly on frontend.
+* IMPROVE: Run counter when it visible on the screen in the counter block.
+* IMPROVE: Image width in image slider.
+* NEW: Spacing between counter and label in counter block.
+* NEW: Top, Right, Bottom, and Left position for the text in star rating block.
 
 = 3.2.0 =
 

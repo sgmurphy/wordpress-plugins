@@ -104,7 +104,6 @@ class Premium_Videobox extends Widget_Base {
 	public function get_script_depends() {
 		return array(
 			'prettyPhoto-js',
-			'elementor-waypoints',
 			'jquery-ui-draggable',
 			'premium-addons',
 		);
@@ -1055,13 +1054,13 @@ class Premium_Videobox extends Widget_Base {
 		$this->add_responsive_control(
 			'object_fit',
 			array(
-				'label'     => __( 'Object Fit', 'premium-addons-pro' ),
+				'label'     => __( 'Object Fit', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => array(
-					''        => __( 'Default', 'premium-addons-pro' ),
-					'fill'    => __( 'Fill', 'premium-addons-pro' ),
-					'cover'   => __( 'Cover', 'premium-addons-pro' ),
-					'contain' => __( 'Contain', 'premium-addons-pro' ),
+					''        => __( 'Default', 'premium-addons-for-elementor' ),
+					'fill'    => __( 'Fill', 'premium-addons-for-elementor' ),
+					'cover'   => __( 'Cover', 'premium-addons-for-elementor' ),
+					'contain' => __( 'Contain', 'premium-addons-for-elementor' ),
 				),
 				'default'   => 'contain',
 				'selectors' => array(
@@ -3262,7 +3261,18 @@ class Premium_Videobox extends Widget_Base {
 
 			foreach ( $playlist_videos as $index => $video ) {
 
-				$id = 'playlist' === $source ? $video->snippet->resourceId->videoId : $video->id->videoId;
+
+				if( 'playlist' === $source ) {
+					$id = 	$video->snippet->resourceId->videoId;
+				} else {
+
+					if( ! isset( $video->id->videoId ) ) {
+						continue;
+					}
+
+					$id = $video->id->videoId;
+				}
+
 
 				if ( 'playlist' === $source && 'public' !== $video->status->privacyStatus ) {
 					continue;
@@ -3499,6 +3509,7 @@ class Premium_Videobox extends Widget_Base {
 		}
 
 		if ( 'playlist' === $settings['source'] ) {
+
 			$source  = $settings['playlist_id'];
 			$api_url = 'https://www.googleapis.com/youtube/v3/playlistItems?key=' . $api_key . '&playlistId=' . $source . '&part=snippet,id,status&order=date&maxResults=50';
 		} else {
@@ -3508,7 +3519,7 @@ class Premium_Videobox extends Widget_Base {
 
 		$transient_name = sprintf( 'pa_videos_%s_%s', $source, $widget_id );
 
-		$response_json = get_transient( $transient_name );
+		$response_json = false;
 
 		if ( false === $response_json ) {
 
@@ -3518,7 +3529,10 @@ class Premium_Videobox extends Widget_Base {
 
 			$response_data = $api_response['data'];
 
+
+
 			$response_json = rplg_json_decode( $response_data );
+
 
 			$transient = $settings['reload'];
 

@@ -13,12 +13,15 @@ use ContentEgg\application\helpers\CurrencyHelper;
 use ContentEgg\application\helpers\TemplateHelper;
 use ContentEgg\application\helpers\TextHelper;
 
+use function ContentEgg\prn;
+use function ContentEgg\prnx;
+
 /**
  * ContentManager class file
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 class ContentManager
 {
@@ -93,9 +96,18 @@ class ContentManager
         }
         $data = self::setIds($data);
         // Sanitize content for allowed HTML tags and more.
-        array_walk_recursive($data, array('self', 'sanitizeData'));
+        array_walk_recursive($data, array(__CLASS__, 'sanitizeData'));
         $module = ModuleManager::getInstance()->factory($module_id);
         $data = $module->presavePrepare($data, $post_id);
+
+        foreach ($data as $id => $d)
+        {
+            foreach ($d as $field => $r)
+            {
+                if ($field[0] == '_')
+                    $data[$id][$field] = null;
+            }
+        }
 
         return $data;
     }
@@ -280,8 +292,9 @@ class ContentManager
             {
                 if (isset($d['stock_status']) && $d['stock_status'] == ContentProduct::STOCK_STATUS_OUT_OF_STOCK)
                 {
-                    $data[$key]['price'] = 0;
-                    $data[$key]['priceOld'] = 0;
+                    $data[$key]['price'] = '';
+                    $data[$key]['priceOld'] = '';
+                    $data[$key]['total_price'] = '';
                 }
             }
         }
@@ -376,6 +389,16 @@ class ContentManager
         $is_ssl = \is_ssl();
         foreach ($data as $key => $d)
         {
+            if ($module_id == 'Amazon' && !empty($d['extra']['IsEligibleForSuperSaverShipping']))
+                $data[$key]['shipping_cost'] = '0.00';
+
+            if (isset($d['shipping_cost']) && isset($d['price']))
+                $data[$key]['total_price'] = (float) $data[$key]['price'] + (float) $data[$key]['shipping_cost'];
+            elseif (isset($d['price']))
+                $data[$key]['total_price'] = (float) $data[$key]['price'];
+            else
+                $data[$key]['total_price'] = '';
+
             if (!empty($data[$key]['title']))
             {
                 // replace non-breaking space
@@ -426,6 +449,9 @@ class ContentManager
                 $data[$key]['rating'] = $d['extra']['data']['rating'];
             }
 
+            if (isset($d['price']) && isset($d['priceOld']) && $d['price'] == $d['priceOld'])
+                $data[$key]['priceOld'] = 0;
+
             if (isset($data[$key]['rating']))
             {
                 $data[$key]['rating'] = (float) $data[$key]['rating'];
@@ -450,6 +476,7 @@ class ContentManager
 
         // local redirect & other
         $module = ModuleManager::getInstance()->factory($module_id);
+
         if ($module->isParser())
         {
             $data = $module->viewDataPrepare($data);
@@ -482,15 +509,22 @@ class ContentManager
         return null;
     }
 
-    public static function updateByKeyword($post_id, $module_id, $is_last_interation = true)
+    public static function updateByKeyword($post_id, $module_id, $is_last_interation = true, $force_feed_import = false)
     {
         if (!$keyword = ContentManager::getAutoupdateKeyword($post_id, $module_id))
-            return;
+        {
+            // fix
+            \delete_post_meta($post_id, self::META_PREFIX_LAST_BYKEYWORD_UPDATE . $module_id);
+            return 0;
+        }
 
         if (!$updateParams = \get_post_meta($post_id, ContentManager::META_PREFIX_UPDATE_PARAMS . $module_id, true))
             $updateParams = array();
 
         $module = ModuleManager::getInstance()->factory($module_id);
+
+        if ($force_feed_import && $module->isFeedModule())
+            $module->setLastImportDate(0);
 
         ContentManager::touchUpdateTime($post_id, $module_id, false);
 
@@ -499,17 +533,18 @@ class ContentManager
             if (!$data = $module->doMultipleRequests($keyword, $updateParams, true))
             {
                 \do_action('cegg_keyword_update_no_data', $post_id, $module_id);
-                return;
+                return -1;
             }
         }
         catch (\Exception $e)
         {
-            return;
+            return 0;
         }
 
-        $data = array_map(array('self', 'object2Array'), $data);
+        $data = array_map(array(__CLASS__, 'object2Array'), $data);
 
         ContentManager::saveData($data, $module_id, $post_id, $is_last_interation);
+        return 1;
     }
 
     public static function updateItems($post_id, $module_id)
@@ -521,7 +556,11 @@ class ContentManager
         $items = ContentManager::getData($post_id, $module_id);
 
         if (!$items || !is_array($items))
+        {
+            // fix
+            \delete_post_meta($post_id, self::META_PREFIX_LAST_ITEMS_UPDATE . $module_id);
             return;
+        }
 
         try
         {
@@ -925,7 +964,7 @@ class ContentManager
         }
 
         $keywords = array_map('trim', $keywords);
-        $keywords = array_map('self::sanitizeKeyword', $keywords);
+        $keywords = array_map(array(__CLASS__, 'sanitizeKeyword'), $keywords);
 
         $groups = array_map('sanitize_text_field', $groups);
         $groups = array_map('trim', $groups);

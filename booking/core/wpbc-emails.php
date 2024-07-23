@@ -175,10 +175,17 @@ function wpbc_get_email_parts( $email ) {
 }
 
 
+	function wpbc_tooltip_help__fix_quote( $field_val ) {
+
+		$field_val = str_replace( '"', "'", $field_val );
+
+		return $field_val;
+	}
+
 // Get Emails Help Shortcodes for Settings pages
 function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_example = '') {
 
-	$icn = '<a 	href="https://wpbookingcalendar.com/faq/#available_shortcodes" 
+	$icn = '<a 	href="https://wpbookingcalendar.com/faq/email-shortcodes/#available_shortcodes" 
 				class="tooltip_top wpbc-bi-question-circle wpbc_help_tooltip_icon_left" 				 
 				data-original-title="%2$s"></a> %1$s';
 
@@ -192,42 +199,42 @@ function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_exa
     
     // [content]
 	if ( class_exists( 'wpdev_bk_personal' ) ) {
-		$fields[] = sprintf( $icn, '<code>[content]</code>', sprintf( __( '%s - inserting data info about the booking, which you configured in the content form at Settings Fields page', 'booking' ), '[content]' ) );
+		$fields[] = sprintf( $icn, '<code>[content]</code>', wpbc_tooltip_help__fix_quote( sprintf( __( '%s - inserting data info about the booking, which you configured in the content form at Settings Fields page', 'booking' ), '[content]' ) ) );
 	} else {
-		$fields[] = sprintf( $icn, '<code>[content]</code>', sprintf( __( '%s - inserting data info about the booking', 'booking' ), '[content]' ) );
+		$fields[] = sprintf( $icn, '<code>[content]</code>', wpbc_tooltip_help__fix_quote( sprintf( __( '%s - inserting data info about the booking', 'booking' ), '[content]' ) ) );
 	}
 
 
     // [dates]    
-    $fields[] = sprintf( $icn, '<code>[dates]</code>', sprintf( __('%s - inserting the dates of booking' ,'booking'), '[dates]' ) );
-    $fields[] = sprintf( $icn, '<code>[only_dates]</code>', sprintf( __('%s - inserting only booking dates without times' ,'booking'), '[only_dates]' ) );
+    $fields[] = sprintf( $icn, '<code>[dates]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting the dates of booking' ,'booking'), '[dates]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[only_dates]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting only booking dates without times' ,'booking'), '[only_dates]' ) ) );
 
     // [check_in_date]
     if ( ! in_array( 'check_in_date', $skip_shortcodes ) ) {
-	    $fields[] = sprintf( $icn, '<code>[check_in_date]</code>', sprintf(  __( '%s - inserting check-in date (first day of reservation),', 'booking' ), '[check_in_date]' ) );
-	    $fields[] = sprintf( $icn, '<code>[check_in_only_date]</code>', sprintf(  __( '%s - inserting check-in date (only date without time) (first day of reservation),', 'booking' ), '[check_in_only_date]' ) );	//FixIn: 8.7.2.5
+	    $fields[] = sprintf( $icn, '<code>[check_in_date]</code>', wpbc_tooltip_help__fix_quote( sprintf(  __( '%s - inserting check-in date (first day of reservation),', 'booking' ), '[check_in_date]' ) ) );
+	    $fields[] = sprintf( $icn, '<code>[check_in_only_date]</code>', wpbc_tooltip_help__fix_quote( sprintf(  __( '%s - inserting check-in date (only date without time) (first day of reservation),', 'booking' ), '[check_in_only_date]' ) ) );	//FixIn: 8.7.2.5
     }
     // [check_out_date] [check_out_plus1day]
     if ( ! in_array( 'check_out_date', $skip_shortcodes ) ) {
-        $fields[] = sprintf( $icn, '<code>[check_out_date]</code>', sprintf( __('%s - inserting check-out date (last day of reservation),' ,'booking'), '[check_out_date]' ) );
-        $fields[] = sprintf( $icn, '<code>[check_out_only_date]</code>', sprintf( __('%s - inserting check-out date (only date without time) (last day of reservation),' ,'booking'), '[check_out_only_date]' ) );		//FixIn: 8.7.2.5
-        $fields[] = sprintf( $icn, '<code>[check_out_plus1day]</code>', sprintf( __('%s - inserting check-out date (last day of reservation),' ,'booking'), '[check_out_plus1day]') .  ' + 1 ' . __('day', 'booking') );
+        $fields[] = sprintf( $icn, '<code>[check_out_date]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting check-out date (last day of reservation),' ,'booking'), '[check_out_date]' ) ) );
+        $fields[] = sprintf( $icn, '<code>[check_out_only_date]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting check-out date (only date without time) (last day of reservation),' ,'booking'), '[check_out_only_date]' ) ) );		//FixIn: 8.7.2.5
+        $fields[] = sprintf( $icn, '<code>[check_out_plus1day]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting check-out date (last day of reservation),' ,'booking'), '[check_out_plus1day]') .  ' + 1 ' . __('day', 'booking') ) );
     }
     
     // [dates_count]
     if ( ! in_array( 'dates_count', $skip_shortcodes ) )
-        $fields[] = sprintf( $icn, '<code>[dates_count]</code>', sprintf( __('%s - inserting the number of booking dates ' ,'booking'), '[dates_count]' ) );
+        $fields[] = sprintf( $icn, '<code>[dates_count]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting the number of booking dates ' ,'booking'), '[dates_count]' ) ) );
     
     $fields[] = '<hr/>';
 
     
     // [id]
-    $fields[] = sprintf( $icn, '<code>[booking_id]</code>', sprintf( __('%s - inserting ID of booking ' ,'booking'), '[id], [booking_id]' ) );
+    $fields[] = sprintf( $icn, '<code>[booking_id]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting ID of booking ' ,'booking'), '[id], [booking_id]' )  ) );
     
     // [resource_title]  [bookingtype]
 	if ( class_exists( 'wpdev_bk_personal' ) ) {
 		if ( ! in_array( 'bookingtype', $skip_shortcodes ) ) {
-			$fields[] = sprintf( $icn, '<code>[resource_title]</code>', sprintf( __( '%s or %s - inserting the title of the booking resource ', 'booking' ), '[resource_title]', '[bookingtype]' ) );
+			$fields[] = sprintf( $icn, '<code>[resource_title]</code>', wpbc_tooltip_help__fix_quote( sprintf( __( '%s or %s - inserting the title of the booking resource ', 'booking' ), '[resource_title]', '[bookingtype]' ) ) );
 		}
 	}
     
@@ -235,55 +242,55 @@ function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_exa
     // [cost]    
     if ( class_exists('wpdev_bk_biz_s') )     
         if ( ! in_array( 'cost', $skip_shortcodes ) )
-            $fields[] = sprintf( $icn, '<code>[cost]</code>', sprintf( __('%s - inserting the cost of  booking ' ,'booking'), '[cost]' ) );
+            $fields[] = sprintf( $icn, '<code>[cost]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting the cost of  booking ' ,'booking'), '[cost]' ) ) );
     
     $fields[] = '<hr/>';   
 
     // [siteurl]
-    $fields[] = sprintf( $icn, '<code>[siteurl]</code>', sprintf( __('%s - inserting your site URL ' ,'booking'), '[siteurl]' ) );
+    $fields[] = sprintf( $icn, '<code>[siteurl]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting your site URL ' ,'booking'), '[siteurl]' ) ) );
     
     if ( class_exists('wpdev_bk_personal') ) {    
-        $fields[] = sprintf( $icn, '<code>[remote_ip]</code>', sprintf( __('%s - inserting IP address of the user who made this action ' ,'booking'), '[remote_ip]' ) );
-        $fields[] = sprintf( $icn, '<code>[user_agent]</code>', sprintf( __('%s - inserting contents of the User-Agent: header from the current request, if there is one ' ,'booking'), '[user_agent]' ) );
-        $fields[] = sprintf( $icn, '<code>[request_url]</code>', sprintf( __('%s - inserting address of the page (if any), where visitor make this action ' ,'booking'), '[request_url]' ) );
-        $fields[] = sprintf( $icn, '<code>[current_time]</code>', sprintf( __('%s - inserting time of this action ' ,'booking'), '[current_time]' ) );
+        $fields[] = sprintf( $icn, '<code>[remote_ip]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting IP address of the user who made this action ' ,'booking'), '[remote_ip]' ) ) );
+        $fields[] = sprintf( $icn, '<code>[user_agent]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting contents of the User-Agent: header from the current request, if there is one ' ,'booking'), '[user_agent]' ) ) );
+        $fields[] = sprintf( $icn, '<code>[request_url]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting address of the page (if any), where visitor make this action ' ,'booking'), '[request_url]' ) ) );
+        $fields[] = sprintf( $icn, '<code>[current_time]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting time of this action ' ,'booking'), '[current_time]' ) ) );
     }
 
-    $fields[] = sprintf( $icn, '<code>[current_date]</code>', sprintf( __('%s - inserting date of this action ' ,'booking'), '[current_date]' ) );
+    $fields[] = sprintf( $icn, '<code>[current_date]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting date of this action ' ,'booking'), '[current_date]' ) ) );
 
-    $fields[] = sprintf( $icn, '<code>[modification_date]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_date]' ) );
-    $fields[] = sprintf( $icn, '<code>[modification_year]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_year]' ) );
-    $fields[] = sprintf( $icn, '<code>[modification_month]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_month]' ) );
-    $fields[] = sprintf( $icn, '<code>[modification_day]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_day]' ) );
-    $fields[] = sprintf( $icn, '<code>[modification_hour]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_hour]' ) );
-    $fields[] = sprintf( $icn, '<code>[modification_minutes]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_minutes]' ) );
-    $fields[] = sprintf( $icn, '<code>[modification_seconds]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_seconds]' ) );
+    $fields[] = sprintf( $icn, '<code>[modification_date]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_date]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[modification_year]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_year]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[modification_month]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_month]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[modification_day]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_day]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[modification_hour]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_hour]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[modification_minutes]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_minutes]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[modification_seconds]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_seconds]' ) ) );
 	//FixIn: 10.0.0.34
-    $fields[] = sprintf( $icn, '<code>[creation_date]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_date]' ) );
-    $fields[] = sprintf( $icn, '<code>[creation_year]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_year]' ) );
-    $fields[] = sprintf( $icn, '<code>[creation_month]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_month]' ) );
-    $fields[] = sprintf( $icn, '<code>[creation_day]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_day]' ) );
-    $fields[] = sprintf( $icn, '<code>[creation_hour]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_hour]' ) );
-    $fields[] = sprintf( $icn, '<code>[creation_minutes]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_minutes]' ) );
-    $fields[] = sprintf( $icn, '<code>[creation_seconds]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_seconds]' ) );
+    $fields[] = sprintf( $icn, '<code>[creation_date]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_date]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[creation_year]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_year]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[creation_month]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_month]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[creation_day]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_day]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[creation_hour]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_hour]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[creation_minutes]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_minutes]' ) ) );
+    $fields[] = sprintf( $icn, '<code>[creation_seconds]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_seconds]' ) ) );
 
 
 
     // [moderatelink]
     if ( ! in_array( 'moderatelink', $skip_shortcodes ) ) {
-        $fields[] = sprintf( $icn, '<code>[moderatelink]</code>', sprintf( __('%s - inserting moderate link of new booking ' ,'booking'), '[moderatelink]' ) );
+        $fields[] = sprintf( $icn, '<code>[moderatelink]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting moderate link of new booking ' ,'booking'), '[moderatelink]' ) ) );
 
         //FixIn: 8.4.7.25
-        $fields[] = sprintf( $icn, '<code>[click2approve]</code>', sprintf( __('%s - inserting link to approve booking in 1 mouse click ' ,'booking'), '[click2approve]' ) );
-        $fields[] = sprintf( $icn, '<code>[click2decline]</code>', sprintf( __('%s - inserting link to set booking as pending in 1 mouse click ' ,'booking'), '[click2decline]' ) );
-        $fields[] = sprintf( $icn, '<code>[click2trash]</code>', sprintf( __('%s - inserting link for move booking to trash in 1 mouse click ' ,'booking'), '[click2trash]' ) );
+        $fields[] = sprintf( $icn, '<code>[click2approve]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting link to approve booking in 1 mouse click ' ,'booking'), '[click2approve]' ) ) );
+        $fields[] = sprintf( $icn, '<code>[click2decline]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting link to set booking as pending in 1 mouse click ' ,'booking'), '[click2decline]' ) ) );
+        $fields[] = sprintf( $icn, '<code>[click2trash]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting link for move booking to trash in 1 mouse click ' ,'booking'), '[click2trash]' ) ) );
 
 	}
 
 	//FixIn: 9.6.3.8
     if ( ! in_array( 'add_to_google_cal_button', $skip_shortcodes ) ) {
-        $fields[] = sprintf( $icn, '<code>[add_to_google_cal_button]</code>', sprintf( __('%s - inserting link for export booking to' ,'booking'), '[add_to_google_cal_button]') . ' Google Calendar' );
-        $fields[] = sprintf( $icn, '<code>[add_to_google_cal_url]</code>', sprintf( __('%s - inserting URL for export booking to' ,'booking'), '[add_to_google_cal_url]') . ' Google Calendar' );
+        $fields[] = sprintf( $icn, '<code>[add_to_google_cal_button]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting link for export booking to' ,'booking'), '[add_to_google_cal_button]') . ' Google Calendar' ) );
+        $fields[] = sprintf( $icn, '<code>[add_to_google_cal_url]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting URL for export booking to' ,'booking'), '[add_to_google_cal_url]') . ' Google Calendar' ) );
 
 	}
 
@@ -292,29 +299,38 @@ function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_exa
 
     	//FixIn: 8.1.3.5.1
         if ( ! in_array( 'visitorbookingslisting', $skip_shortcodes ) )
-            $fields[] = sprintf( $icn, '<code>[visitorbookingslisting]</code>', sprintf( __('%s - inserting link to the page where visitor can see listing of own bookings,  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingslisting]', '"url"', 'URL', '[visitorbookingslisting url="http://www.server.com/custom-page/"]' ) );
+            $fields[] = sprintf( $icn, '<code>[visitorbookingslisting]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting link to the page where visitor can see listing of own bookings,  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingslisting]', '"url"', 'URL', '[visitorbookingslisting url="http://www.server.com/custom-page/"]' )
+			 . ' ' . sprintf( __('Example of HTML a link usage: %s )' ,'booking'), '[visitorbookingslisting url="http://www.server.com/listing-custom-page/" type="link" title="Listing"]]' )
+			) );
 
         if ( ! in_array( 'visitorbookingediturl', $skip_shortcodes ) )
-            $fields[] = sprintf( $icn, '<code>[visitorbookingediturl]</code>', sprintf( __('%s - inserting link to the page where visitor can edit the reservation,  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingediturl]', '"url"', 'URL', '[visitorbookingediturl url="http://www.server.com/custom-page/"]' ) );
+            $fields[] = sprintf( $icn, '<code>[visitorbookingediturl]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting link to the page where visitor can edit the reservation,  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingediturl]', '"url"', 'URL', '[visitorbookingediturl url="http://www.server.com/custom-page/"]' )
+			. ' ' . sprintf( __('Example of HTML a link usage: %s )' ,'booking'), '[visitorbookingediturl url="http://www.server.com/edit-custom-page/" type="link" title="Edit Booking"]]' )
+			) );
 
         // [visitorbookingcancelurl]
-        if ( ! in_array( 'visitorbookingcancelurl', $skip_shortcodes ) ) 
-            $fields[] = sprintf( $icn, '<code>[visitorbookingcancelurl]</code>', sprintf( __('%s - inserting link to the page where visitor can cancel the reservation, (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingcancelurl]', '"url"', 'URL', '[visitorbookingcancelurl url="http://www.server.com/custom-page/"]' ) );
+	    if ( ! in_array( 'visitorbookingcancelurl', $skip_shortcodes ) ) {
+		    $fields[] = sprintf( $icn, '<code>[visitorbookingcancelurl]</code>', wpbc_tooltip_help__fix_quote( sprintf( __( '%s - inserting link to the page where visitor can cancel the reservation, (possible to use the %s parameter for setting different %s of this page. Example: %s )', 'booking' ), '[visitorbookingcancelurl]', '"url"', 'URL', '[visitorbookingcancelurl url="http://www.server.com/custom-page/"]' )
+			. ' ' . sprintf( __('Example of HTML a link usage: %s )' ,'booking'), '[visitorbookingcancelurl url="http://www.server.com/cancel-custom-page/" type="link" title="Cancel Booking"]]' )
+			) );
+	    }
         
         if ( class_exists('wpdev_bk_biz_s') )  {
             // [visitorbookingpayurl]
             if ( ! in_array( 'visitorbookingpayurl', $skip_shortcodes ) ) 
-                $fields[] = sprintf( $icn, '<code>[visitorbookingpayurl]</code>', sprintf( __('%s - inserting link to payment page where visitor can pay for the reservation  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingpayurl]', '"url"', 'URL', '[visitorbookingpayurl url="http://www.server.com/custom-page/"]' ) );
+                $fields[] = sprintf( $icn, '<code>[visitorbookingpayurl]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - inserting link to payment page where visitor can pay for the reservation  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingpayurl]', '"url"', 'URL', '[visitorbookingpayurl url="http://www.server.com/custom-page/"]' )
+				. ' ' . sprintf( __('Example of HTML a link usage: %s )' ,'booking'), '[visitorbookingpayurl url="http://www.server.com/payment-custom-page/" type="link" title="Pay Now"]]' )
+				) );
             
             // [paymentreason]
             if ( ! in_array( 'paymentreason', $skip_shortcodes ) ) 
-                $fields[] = sprintf( $icn, '<code>[paymentreason]</code>', sprintf( __('%s - add the reason for booking payment, you can enter it before sending email, ' ,'booking'), '[paymentreason]' ) );
+                $fields[] = sprintf( $icn, '<code>[paymentreason]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - add the reason for booking payment, you can enter it before sending email, ' ,'booking'), '[paymentreason]' ) ) );
         }
     }
     
     // [denyreason]
     if ( ! in_array( 'denyreason', $skip_shortcodes ) )     
-        $fields[] = sprintf( $icn, '<code>[denyreason]</code>', sprintf( __('%s - add the reason booking was cancelled, you can enter it before sending email, ' ,'booking'), '[denyreason]' ) );
+        $fields[] = sprintf( $icn, '<code>[denyreason]</code>', wpbc_tooltip_help__fix_quote( sprintf( __('%s - add the reason booking was cancelled, you can enter it before sending email, ' ,'booking'), '[denyreason]' ) ) );
     
     
     //$fields[] = __('HTML tags is accepted.' ,'booking');
@@ -326,9 +342,9 @@ function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_exa
     $fields[] = sprintf(__('%s - start new translation section, where %s - locale of translation' ,'booking'),'<code>[lang=LOCALE]</code>','<code>LOCALE</code>');
     $fields[] = sprintf(__('Example #1: %s - start French translation section' ,'booking'),'<code>[lang=fr_FR]</code>');
     $fields[] = sprintf(__('Example #2: "%s" - English and French translation of some message' ,'booking'),'<code>Thank you for your booking.[lang=fr_FR]Je vous remercie de votre reservation.</code>');
-    
 
-    return $fields;           
+
+    return $fields;
 }
 
 

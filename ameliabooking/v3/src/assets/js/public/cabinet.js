@@ -44,15 +44,15 @@ function usePaymentLink (store, method, reservation, packageCustomerId = null) {
       if (!response.data.data.error && response.data.data.paymentLink) {
         window.location.href = response.data.data.paymentLink
       } else {
-        // TO DO add error notification (labels.payment_link_error)
+        store.commit('cabinet/setPaymentLinkError', {value: true, type: reservation.type})
       }
     }).catch(error => {
-      // TO DO add error notification (e.message)
+      store.commit('cabinet/setPaymentLinkError', {value: true, type: reservation.type})
+    }).finally(() => {
+      store.commit('cabinet/setPaymentLinkLoader', null)
       if (reservation.type === 'package') store.commit('cabinet/setPackageLoading', false)
       if (reservation.type === 'appointment') store.commit('cabinet/setAppointmentsLoading', false)
       if (reservation.type === 'event') store.commit('cabinet/setEventsLoading', false)
-    }).finally(() => {
-      store.commit('cabinet/setPaymentLinkLoader', null)
     })
 }
 
@@ -136,6 +136,13 @@ function usePaymentMethods (entitySettings) {
         label: globalLabels.razorpay
       })
     }
+
+    if (settings.payments.square.enabled && (!('square' in entitySettings) || entitySettings.square.enabled)) {
+      paymentOptions.push({
+        value: 'square',
+        label: globalLabels.square
+      })
+    }
   }
 
   return paymentOptions
@@ -158,13 +165,13 @@ function usePayable (store, reservation) {
         false
       )
 
-      return amountData.total - amountData.discount + amountData.tax > reservation.bookings[0].payments.reduce((partialSum, a) => partialSum + a.amount, 0)
+      return amountData.total - amountData.discount + amountData.tax > reservation.bookings[0].payments.filter(p => p.status !== 'refunded' && p.status !== 'pending').reduce((partialSum, a) => partialSum + a.amount, 0)
     }
 
     case ('event'):
-      return useEventBookingsPrice(reservation) > reservation.bookings[0].payments.reduce((partialSum, a) => partialSum + a.amount, 0)
+      return useEventBookingsPrice(reservation) > reservation.bookings[0].payments.filter(p => p.status !== 'refunded' && p.status !== 'pending').reduce((partialSum, a) => partialSum + a.amount, 0)
     case ('package'):
-      return usePackageBookingPrice(reservation) > reservation.payments.reduce((partialSum, a) => partialSum + a.amount, 0)
+      return usePackageBookingPrice(reservation) > reservation.payments.filter(p => p.status !== 'refunded' && p.status !== 'pending').reduce((partialSum, a) => partialSum + a.amount, 0)
   }
 }
 

@@ -55,7 +55,7 @@ class wpdev_booking {
 	    add_shortcode( 'bookingresource',       array( &$this, 'bookingresource_shortcode' ) );
 	    add_shortcode( 'bookingtimeline',       array( &$this, 'bookingtimeline_shortcode' ) );
 	    add_shortcode( 'bookingcustomerlisting', array( &$this, 'bookingcustomerlisting_shortcode' ) );					//FixIn: 8.1.3.5
-	    add_shortcode( 'booking_test_speed',    array( &$this, 'booking_test_speed_shortcode' ) );                      //FixIn: 8.7.11.13
+
 	}
 	
 	
@@ -597,10 +597,8 @@ class wpdev_booking {
     // </editor-fold>
 
 
-    // <editor-fold defaultstate="collapsed" desc="   S H O R T    C O D E S ">
-
 	//FixIn: 8.7.11.13
-	function booking_test_speed_shortcode( $attr ) {
+	function wpbc_test_speed_shortcode( $attr ) {
 
 	    if ( wpbc_is_on_edit_page() ) {
 		    return wpbc_get_preview_for_shortcode( 'booking_test_speed', $attr );      //FixIn: 9.9.0.39
@@ -631,6 +629,9 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
     	 echo '<hr/>';
 	}
 
+
+    // <editor-fold defaultstate="collapsed" desc="   S H O R T    C O D E S ">
+
 	//FixIn: 8.1.3.5
 	/** Listing customners bookings in timeline view
 	 *
@@ -639,6 +640,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
 	 * @return mixed|string|void
 	 */
 	function bookingcustomerlisting_shortcode( $attr ){
+
+		if ( ! class_exists( 'wpdev_bk_personal' ) ) {
+			return '<strong>' . __('This shortcode available in Pro versions,  only!' ,'booking') . '</strong> ';
+		}
 
 	    if ( wpbc_is_on_edit_page() ) {
 		    return wpbc_get_preview_for_shortcode( 'bookingcustomerlisting', $attr );      //FixIn: 9.9.0.39
@@ -745,131 +750,143 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
 		return $timeline_results;
     }
     
-    // Replace MARK at post with content at client side   -----    [booking nummonths='1' type='1']
-    function booking_shortcode($attr) {
+		    // Replace MARK at post with content at client side   -----    [booking nummonths='1' type='1']
+		    function booking_shortcode($attr) {
 
-	    if ( wpbc_is_on_edit_page() ) {
-		    return wpbc_get_preview_for_shortcode( 'booking', $attr );      //FixIn: 9.9.0.39
-	    }
+			    if ( wpbc_is_on_edit_page() ) {
+				    return wpbc_get_preview_for_shortcode( 'booking', $attr );      //FixIn: 9.9.0.39
+			    }
 
-		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
+				$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
-	    if ( isset( $_GET['booking_hash'] ) ) {
-		    return
-		        __( 'You need to use special shortcode [bookingedit] for booking editing.', 'booking' )
-			    . ' '
-		        . sprintf( __( 'Please check FAQ instruction how to configure it here %s', 'booking' )
-				           , '<a href="https://wpbookingcalendar.com/faq/configure-editing-cancel-payment-bookings-for-visitors/">https://wpbookingcalendar.com/faq/configure-editing-cancel-payment-bookings-for-visitors/</a>'
-		                );
-	    }
+			    if ( isset( $_GET['booking_hash'] ) ) {
+				    return
+				        __( 'You need to use special shortcode [bookingedit] for booking editing.', 'booking' )
+					    . ' '
+				        . sprintf( __( 'Please check FAQ instruction how to configure it here %s', 'booking' )
+						           , '<a href="https://wpbookingcalendar.com/faq/configure-editing-cancel-payment-bookings-for-visitors/">https://wpbookingcalendar.com/faq/configure-editing-cancel-payment-bookings-for-visitors/</a>'
+				                );
+			    }
 
-        //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
-        
-        $my_boook_count = get_bk_option( 'booking_client_cal_count' );
-        $my_boook_type = 1;
-        $my_booking_form = 'standard';
-        $start_month_calendar = false;
-        $bk_otions = array();
+		        //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
 
-        if ( isset( $attr['nummonths'] ) ) { $my_boook_count = $attr['nummonths'];  }
+		        $my_boook_count = get_bk_option( 'booking_client_cal_count' );
+		        $my_boook_type = 1;
+		        $my_booking_form = 'standard';
+		        $start_month_calendar = false;
+		        $bk_otions = array();
 
-	    if ( isset( $attr['resource_id'] ) ) {  $attr['type']  = $attr['resource_id']; }
-	    if ( isset( $attr['type'] ) ) {         $my_boook_type = $attr['type']; }
+		        if ( isset( $attr['nummonths'] ) ) { $my_boook_count = $attr['nummonths'];  }
 
-        if ( isset( $attr['form_type'] ) ) { $my_booking_form = $attr['form_type']; }
+			    if ( isset( $attr['resource_id'] ) ) {
+				    $attr['type'] = intval( $attr['resource_id'] );         //FixIn: 10.2.2.2
+			    }
+			    if ( isset( $attr['type'] ) ) {
+				    $my_boook_type = intval( $attr['type'] );               //FixIn: 10.2.2.2
+			    }
 
-        if ( isset( $attr['agregate'] )  && (! empty( $attr['agregate'] )) ) {
-            $additional_bk_types = $attr['agregate'];
-            $my_boook_type .= ';'.$additional_bk_types;
-        }
-        if ( isset( $attr['aggregate'] )  && (! empty( $attr['aggregate'] )) ) {
-            $additional_bk_types = $attr['aggregate'];
-            $my_boook_type .= ';'.$additional_bk_types;
-        }
+		        if ( isset( $attr['form_type'] ) ) { $my_booking_form = $attr['form_type']; }
 
-
-        if ( isset( $attr['startmonth'] ) ) { // Set start month of calendar, fomrat: '2011-1'
-
-            $start_month_calendar = explode( '-', $attr['startmonth'] );
-            if ( (is_array($start_month_calendar))  && ( count($start_month_calendar) > 1) ) { }
-            else $start_month_calendar = false;
-
-        }
-
-        if ( isset( $attr['options'] ) ) { $bk_otions = $attr['options']; }
-
-	    $res = $this->add_booking_form_action( $my_boook_type, $my_boook_count, 0, $my_booking_form, '', $start_month_calendar, $bk_otions );
-
-        return $res;
-    }
+		        if ( isset( $attr['agregate'] )  && (! empty( $attr['agregate'] )) ) {
+		            $additional_bk_types = $attr['agregate'];
+		            $my_boook_type .= ';'.$additional_bk_types;
+		        }
+		        if ( isset( $attr['aggregate'] )  && (! empty( $attr['aggregate'] )) ) {
+		            $additional_bk_types = $attr['aggregate'];
+		            $my_boook_type .= ';'.$additional_bk_types;
+		        }
 
 
-    // Replace MARK at post with content at client side   -----    [booking nummonths='1' type='1']
-    function booking_calendar_only_shortcode($attr) {
+		        if ( isset( $attr['startmonth'] ) ) { // Set start month of calendar, fomrat: '2011-1'
 
-	    if ( wpbc_is_on_edit_page() ) {
-		    return wpbc_get_preview_for_shortcode( 'bookingcalendar', $attr );      //FixIn: 9.9.0.39
-	    }
+		            $start_month_calendar = explode( '-', $attr['startmonth'] );
+		            if ( (is_array($start_month_calendar))  && ( count($start_month_calendar) > 1) ) { }
+		            else $start_month_calendar = false;
 
-		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
+		        }
 
-        //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
+		        if ( isset( $attr['options'] ) ) { $bk_otions = $attr['options']; }
 
-        $my_boook_count = get_bk_option( 'booking_client_cal_count' );
-        $my_boook_type = 1;
-        $start_month_calendar = false;
-        $bk_otions = array();
-        if ( isset( $attr['nummonths'] ) ) { $my_boook_count = $attr['nummonths']; }
-		if ( isset( $attr['resource_id'] ) ) {  $attr['type']  = $attr['resource_id']; }
-        if ( isset( $attr['type'] ) )         { $my_boook_type = $attr['type'];       }
-        if ( isset( $attr['agregate'] )  && (! empty( $attr['agregate'] )) ) {
-            $additional_bk_types = $attr['agregate'];
-            $my_boook_type .= ';'.$additional_bk_types;
-        }
-        if ( isset( $attr['aggregate'] )  && (! empty( $attr['aggregate'] )) ) {                                        //FixIn: 8.3.3.8
-            $additional_bk_types = $attr['aggregate'];
-            $my_boook_type .= ';'.$additional_bk_types;
-        }
+			    $res = $this->add_booking_form_action( $my_boook_type, $my_boook_count, 0, $my_booking_form, '', $start_month_calendar, $bk_otions );
 
-        if ( isset( $attr['startmonth'] ) ) { // Set start month of calendar, fomrat: '2011-1'
-            $start_month_calendar = explode( '-', $attr['startmonth'] );
-            if ( (is_array($start_month_calendar))  && ( count($start_month_calendar) > 1) ) { }
-            else $start_month_calendar = false;
-        }
-        
-        if ( isset( $attr['options'] ) ) { $bk_otions = $attr['options']; }
-        $res = $this->add_calendar_action($my_boook_type,$my_boook_count, 0, $start_month_calendar, $bk_otions  );
+		        return $res;
+		    }
+
+		    // Replace MARK at post with content at client side   -----    [booking nummonths='1' type='1']
+		    function booking_calendar_only_shortcode($attr) {
+
+			    if ( wpbc_is_on_edit_page() ) {
+				    return wpbc_get_preview_for_shortcode( 'bookingcalendar', $attr );      //FixIn: 9.9.0.39
+			    }
+
+				$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
+
+		        //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
+
+		        $my_boook_count = get_bk_option( 'booking_client_cal_count' );
+		        $my_boook_type = 1;
+		        $start_month_calendar = false;
+		        $bk_otions = array();
+		        if ( isset( $attr['nummonths'] ) ) { $my_boook_count = $attr['nummonths']; }
+			    if ( isset( $attr['resource_id'] ) ) {
+				    $attr['type'] = intval( $attr['resource_id'] );                 //FixIn: 10.2.2.2
+			    }
+			    if ( isset( $attr['type'] ) ) {
+				    $my_boook_type = intval( $attr['type'] );                       //FixIn: 10.2.2.2
+			    }
+		        if ( isset( $attr['agregate'] )  && (! empty( $attr['agregate'] )) ) {
+		            $additional_bk_types = $attr['agregate'];
+		            $my_boook_type .= ';'.$additional_bk_types;
+		        }
+		        if ( isset( $attr['aggregate'] )  && (! empty( $attr['aggregate'] )) ) {                                        //FixIn: 8.3.3.8
+		            $additional_bk_types = $attr['aggregate'];
+		            $my_boook_type .= ';'.$additional_bk_types;
+		        }
+
+		        if ( isset( $attr['startmonth'] ) ) { // Set start month of calendar, fomrat: '2011-1'
+		            $start_month_calendar = explode( '-', $attr['startmonth'] );
+		            if ( (is_array($start_month_calendar))  && ( count($start_month_calendar) > 1) ) { }
+		            else $start_month_calendar = false;
+		        }
+
+		        if ( isset( $attr['options'] ) ) { $bk_otions = $attr['options']; }
+		        $res = $this->add_calendar_action($my_boook_type,$my_boook_count, 0, $start_month_calendar, $bk_otions  );
 
 
-        $start_script_code = "<div id='calendar_booking_unselectable".$my_boook_type."'></div>";
-	    return "<div class='wpbc_only_calendar wpbc_container'>" . $start_script_code . $res . '</div>';                               //FixIn: 8.0.1.2
-    }
+		        $start_script_code = "<div id='calendar_booking_unselectable".$my_boook_type."'></div>";
+			    return "<div class='wpbc_only_calendar wpbc_container'>" . $start_script_code . $res . '</div>';                               //FixIn: 8.0.1.2
+		    }
 
-    // Show only booking form, with already selected dates
-    function bookingform_shortcode($attr) {
+		    // Show only booking form, with already selected dates
+		    function bookingform_shortcode($attr) {
 
-	    if ( wpbc_is_on_edit_page() ) {
-		    return wpbc_get_preview_for_shortcode( 'bookingform', $attr );      //FixIn: 9.9.0.39
-	    }
+			    if ( wpbc_is_on_edit_page() ) {
+				    return wpbc_get_preview_for_shortcode( 'bookingform', $attr );      //FixIn: 9.9.0.39
+			    }
 
-		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
+				$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
-        //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
-        
-        $my_boook_type = 1;
-        $my_booking_form = 'standard';
-        $my_boook_count = 1;
-        $my_selected_dates_without_calendar = '';
+		        //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
 
-		if ( isset( $attr['resource_id'] ) )   {  $attr['type']  = $attr['resource_id']; }
-        if ( isset( $attr['type'] ) )           { $my_boook_type = $attr['type'];                                }
-        if ( isset( $attr['form_type'] ) )      { $my_booking_form = $attr['form_type'];                         }
-        if ( isset( $attr['selected_dates'] ) ) { $my_selected_dates_without_calendar = $attr['selected_dates']; }  //$my_selected_dates_without_calendar = '20.08.2010, 29.08.2010';
+		        $my_boook_type = 1;
+		        $my_booking_form = 'standard';
+		        $my_boook_count = 1;
+		        $my_selected_dates_without_calendar = '';
 
-        $res = $this->add_booking_form_action($my_boook_type,$my_boook_count, 0 , $my_booking_form, $my_selected_dates_without_calendar, false );
+			    if ( isset( $attr['resource_id'] ) ) {
+				    $attr['type'] = intval( $attr['resource_id'] );           //FixIn: 10.2.2.2
+			    }
+			    if ( isset( $attr['type'] ) ) {
+				    $my_boook_type = intval( $attr['type'] );                //FixIn: 10.2.2.2
+			    }
+		        if ( isset( $attr['form_type'] ) )      { $my_booking_form = $attr['form_type'];                         }
+		        if ( isset( $attr['selected_dates'] ) ) { $my_selected_dates_without_calendar = $attr['selected_dates']; }  //$my_selected_dates_without_calendar = '20.08.2010, 29.08.2010';
 
-        return $res;
-    }
+		        $res = $this->add_booking_form_action($my_boook_type,$my_boook_count, 0 , $my_booking_form, $my_selected_dates_without_calendar, false );
+
+		        return $res;
+		    }
+
 
     // Show booking form for editing
     function bookingedit_shortcode($attr) {
@@ -956,6 +973,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
     // Search form
     function bookingsearch_shortcode($attr) {
 
+	    if ( ! class_exists( 'wpdev_bk_personal' ) ) {
+		    return '<strong>' . __( 'This shortcode available in Pro versions,  only!', 'booking' ) . '</strong> ';
+	    }
+
 	    if ( wpbc_is_on_edit_page() ) {
 		    return wpbc_get_preview_for_shortcode( 'bookingsearch', $attr );      //FixIn: 9.9.0.39
 	    }
@@ -987,6 +1008,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
 	 */
     function bookingsearchresults_shortcode($attr) {
 
+		if ( ! class_exists( 'wpdev_bk_personal' ) ) {
+			return '<strong>' . __('This shortcode available in Pro versions,  only!' ,'booking') . '</strong> ';
+		}
+
 	    if ( wpbc_is_on_edit_page() ) {
 		    return wpbc_get_preview_for_shortcode( 'bookingsearchresults', $attr );                                     //FixIn: 9.9.0.39
 	    }
@@ -1012,6 +1037,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
     // Select Booking form using the selectbox
     function bookingselect_shortcode($attr) {
 
+		if ( ! class_exists( 'wpdev_bk_personal' ) ) {
+			return '<strong>' . __('This shortcode available in Pro versions,  only!' ,'booking') . '</strong> ';
+		}
+
 	    if ( wpbc_is_on_edit_page() ) {
 		    return wpbc_get_preview_for_shortcode( 'bookingselect', $attr );      //FixIn: 9.9.0.39
 	    }
@@ -1027,6 +1056,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
 
     // Select Booking form using the selectbox
     function bookingresource_shortcode($attr) {
+
+		if ( ! class_exists( 'wpdev_bk_personal' ) ) {
+			return '<strong>' . __('This shortcode available in Pro versions,  only!' ,'booking') . '</strong> ';
+		}
 
 	    if ( wpbc_is_on_edit_page() ) {
 		    return wpbc_get_preview_for_shortcode( 'bookingresource', $attr );      //FixIn: 9.9.0.39

@@ -262,20 +262,24 @@ let eventPersonsNumber = computed(() => {
 let amountData = computed(() => {
   let price = 0
 
+  let bookingPersons = 0
+
   if (selectedEvent.value.customPricing) {
     tickets.value.forEach(t => {
       if (t.persons) {
         price += selectedEvent.value.aggregatedPrice ? t.price * t.persons : t.price
+        bookingPersons += t.persons
       }
     })
   } else {
+    bookingPersons = persons.value
     price = selectedEvent.value.aggregatedPrice ? selectedEvent.value.price * persons.value : selectedEvent.value.price
   }
 
   let tax = useEntityTax(store, store.getters['eventBooking/getSelectedEventId'], 'event')
 
   return useAmount(
-    selectedEvent.value,
+    Object.assign(selectedEvent.value, {persons: bookingPersons}),
     store.getters['coupon/getCoupon'],
       tax && amSettings.payments.taxes.enabled ? Object.assign({}, tax, {excluded: amSettings.payments.taxes.excluded}) : null,
     price,

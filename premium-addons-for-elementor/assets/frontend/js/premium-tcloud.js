@@ -56,9 +56,20 @@
 
                     if ('shape' === widgetSettings.words_order) {
 
-                        elementorFrontend.waypoint($canvas, function () {
-                            _this.renderWordCloud();
+                        // elementorFrontend.waypoint($canvas, function () {
+                        //     _this.renderWordCloud();
+                        // });
+                        // unsing IntersectionObserverAPI.
+                        var eleObserver = new IntersectionObserver(function(entries) {
+                            entries.forEach(function(entry) {
+                                if (entry.isIntersecting) {
+                                    _this.renderWordCloud();
+                                    eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                                }
+                            });
                         });
+
+                        eleObserver.observe($canvas[0]);
 
                     } else if ('sphere' === widgetSettings.words_order) {
 

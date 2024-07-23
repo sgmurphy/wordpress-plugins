@@ -1417,7 +1417,7 @@ class Premium_Post_Ticker extends Widget_Base {
 		$text_repeater->add_control(
 			'text',
 			array(
-				'label'       => __( 'Text', 'premium-addons-pro' ),
+				'label'       => __( 'Text', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'dynamic'     => array( 'active' => true ),
 				'label_block' => true,
@@ -1633,7 +1633,7 @@ class Premium_Post_Ticker extends Widget_Base {
 		$this->add_control(
 			'text_content',
 			array(
-				'label'         => __( 'Text', 'premium-addons-pro' ),
+				'label'         => __( 'Text', 'premium-addons-for-elementor' ),
 				'type'          => Controls_Manager::REPEATER,
 				'default'       => array(
 					array(

@@ -29,7 +29,7 @@
                 :key="index"
                 :label="getLanguageLabel(lang)"
                 :value="lang"
-                :disabled="usedLanguages.indexOf(lang) !== -1"
+                :disabled="usedLanguages.indexOf(lang) !== -1 || lang === $root.locale"
               >
                 <span>
                   <img class="option-languages-flag" :src="getLanguageFlag(lang)">

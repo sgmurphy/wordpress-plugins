@@ -2,8 +2,8 @@
 
 @font-face {
   font-family: "pa-elements";
-  src: url("../../editor/fonts/pa-elements.eot?wwysq2");
-  src: url("../../editor/fonts/pa-elements.eot?wwysq2#iefix") format("embedded-opentype"), url("../../editor/fonts/pa-elements.ttf?wwysq2") format("truetype"), url("../../editor/fonts/pa-elements.woff?wwysq2") format("woff"), url("../../editor/fonts/pa-elements.svg?wwysq2#pa-elements") format("svg");
+  src: url("../../editor/fonts/pa-elements.eot?v5piwz");
+  src: url("../../editor/fonts/pa-elements.eot?v5piwz#iefix") format("embedded-opentype"), url("../../editor/fonts/pa-elements.ttf?v5piwz") format("truetype"), url("../../editor/fonts/pa-elements.woff?v5piwz") format("woff"), url("../../editor/fonts/pa-elements.svg?v5piwz#pa-elements") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -46,8 +46,8 @@
 }
 
 .premium-banner-img-wrap .premium-banner-ib-img {
-  -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
+  -webkit-flex-shrink: 0;
   flex-shrink: 0;
 }
 
@@ -99,10 +99,10 @@
   width: calc(100% + 50px) !important;
   max-width: -webkit-calc(100% + 50px) !important;
   max-width: calc(100% + 50px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(-40px, 0, 0);
   transform: translate3d(-40px, 0, 0);
 }
@@ -113,10 +113,10 @@
   top: 50%;
   left: 0;
   width: 100%;
-  -webkit-transition: color 0.35s, -webkit-transform 0.35s;
-  transition: color 0.35s, -webkit-transform 0.35s;
-  transition: transform 0.35s, color 0.35s;
-  transition: transform 0.35s, color 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: color 0.35s, -webkit-transform 0.35s;
+  transition: color 0.35s, -webkit-transform 0.35s;
+  transition: transform 0.35s, color 0.35s;
+  transition: transform 0.35s, color 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(0, -50%, 0);
   transform: translate3d(0, -50%, 0);
 }
@@ -152,10 +152,10 @@
 .premium-banner-animation1 .premium-banner-read-more {
   margin-top: 10px;
   opacity: 0;
-  -webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
-  transition: opacity 0.2s, -webkit-transform 0.35s;
-  transition: opacity 0.2s, transform 0.35s;
-  transition: opacity 0.2s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
+  transition: opacity 0.2s, -webkit-transform 0.35s;
+  transition: opacity 0.2s, transform 0.35s;
+  transition: opacity 0.2s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation1:hover .premium-banner-ib-content,
@@ -239,10 +239,10 @@
 .premium-banner-animation2 .premium-banner-ib-content,
 .premium-banner-animation2 .premium-banner-read-more,
 .premium-banner-animation2 .premium-banner-ib-desc::before {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation2 .premium-banner-ib-content,
@@ -319,10 +319,10 @@
   width: calc(100% + 40px) !important;
   max-width: -webkit-calc(100% + 40px) !important;
   max-width: calc(100% + 40px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation4 .premium-banner-ib-desc {
@@ -380,10 +380,10 @@
   overflow: hidden;
   -webkit-transform: translate3d(0, -10px, 0);
   transform: translate3d(0, -10px, 0);
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation4 .premium-banner-ib-title,
@@ -400,10 +400,10 @@
 
 .premium-banner-animation4 .premium-banner-ib-desc::after,
 .premium-banner-animation4 .premium-banner-ib-desc::before {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation4:hover .premium-banner-ib-desc::after,
@@ -504,19 +504,19 @@
 }
 
 .premium-banner-animation5 img {
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation2 img,
 .premium-banner-animation4 img,
 .premium-banner-animation6 img {
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation5.zoomout img,
@@ -610,10 +610,10 @@
 .premium-banner-animation6 .premium-banner-read-more,
 .premium-banner-animation6 .premium-banner-ib-desc::before {
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
   transform: scale(0);
@@ -675,10 +675,10 @@
   bottom: 60px;
   left: 60px;
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(0, -100px, 0);
   transform: translate3d(0, -100px, 0);
 }
@@ -695,10 +695,10 @@
   width: calc(100% + 20px) !important;
   max-width: -webkit-calc(100% + 20px) !important;
   max-width: calc(100% + 20px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(-10px, 0, 0);
   transform: translate3d(-10px, 0, 0);
   -webkit-backface-visibility: hidden;
@@ -822,10 +822,10 @@
 .premium-banner-animation13 .premium-banner-read-more {
   padding: 15px 0;
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
 }
@@ -854,10 +854,10 @@
   width: calc(100% + 40px) !important;
   max-width: -webkit-calc(100% + 40px) !important;
   max-width: calc(100% + 40px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation7 .premium-banner-brlr {
@@ -939,20 +939,20 @@
 
 .premium-banner-animation7 .premium-banner-ib-desc::after,
 .premium-banner-animation7 .premium-banner-ib-desc::before {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation7 .premium-banner-ib-title,
 .premium-banner-animation7 .premium-banner-ib-content,
 .premium-banner-animation7 .premium-banner-read-more {
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation7:hover .premium-banner-ib-content,
@@ -1003,10 +1003,10 @@
   width: calc(100% + 40px) !important;
   max-width: -webkit-calc(100% + 40px) !important;
   max-width: calc(100% + 40px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation8 .premium-banner-brlr {
@@ -1096,19 +1096,19 @@
 
 .premium-banner-animation8 .premium-banner-ib-desc::after,
 .premium-banner-animation8 .premium-banner-ib-desc::before {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation8 .premium-banner-ib-title,
 .premium-banner-animation8 .premium-banner-ib-content,
 .premium-banner-animation8 .premium-banner-read-more {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   opacity: 0;
 }
 
@@ -1160,10 +1160,10 @@
   width: calc(100% + 20px) !important;
   max-width: -webkit-calc(100% + 20px) !important;
   max-width: calc(100% + 20px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
   -webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
   transform: scale(1.2);
@@ -1182,10 +1182,10 @@
   height: 1px;
   background: #fff;
   content: "";
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
 }
@@ -1198,10 +1198,10 @@
   height: 1px;
   background: #fff;
   content: "";
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
 }
@@ -1279,10 +1279,10 @@
   width: calc(100% + 20px) !important;
   max-width: -webkit-calc(100% + 20px) !important;
   max-width: calc(100% + 20px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation10 .premium-banner-ib-title {
@@ -1309,10 +1309,10 @@
   opacity: 0;
   -webkit-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation10:hover .premium-banner-ib-title,
@@ -1338,10 +1338,10 @@
 .premium-banner-animation10 .premium-banner-read-more {
   padding-top: 15px;
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
 }
@@ -1387,10 +1387,10 @@
 
 .premium-banner-animation11 img {
   width: 100%;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation11 .premium-banner-ib-title {
@@ -2697,6 +2697,18 @@
 
 .premium-cf-anim-label .wpcf7-form-control::-ms-input-placeholder,
 .premium-cf-anim-label-pos-back .wpcf7-form-control::-ms-input-placeholder {
+  color: transparent !important;
+}
+
+.premium-cf-anim-label .wpcf7-form-control::-webkit-input-placeholder, .premium-cf-anim-label-pos-back .wpcf7-form-control::-webkit-input-placeholder {
+  color: transparent !important;
+}
+
+.premium-cf-anim-label .wpcf7-form-control:-ms-input-placeholder, .premium-cf-anim-label-pos-back .wpcf7-form-control:-ms-input-placeholder {
+  color: transparent !important;
+}
+
+.premium-cf-anim-label .wpcf7-form-control::-ms-input-placeholder, .premium-cf-anim-label-pos-back .wpcf7-form-control::-ms-input-placeholder {
   color: transparent !important;
 }
 
@@ -5447,8 +5459,8 @@ ul[data-list-animation*="animated-"] .premium-bullet-list-divider-inline {
 
 @font-face {
   font-family: "pa-elements";
-  src: url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.eot?wwysq2");
-  src: url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.eot?wwysq2#iefix") format("embedded-opentype"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.ttf?wwysq2") format("truetype"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.woff?wwysq2") format("woff"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.svg?wwysq2#pa-elements") format("svg");
+  src: url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.eot?v5piwz");
+  src: url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.eot?v5piwz#iefix") format("embedded-opentype"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.ttf?v5piwz") format("truetype"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.woff?v5piwz") format("woff"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.svg?v5piwz#pa-elements") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -6573,8 +6585,8 @@ ul[data-list-animation*="animated-"] .premium-bullet-list-divider-inline {
 .premium-adv-carousel__item-outer-wrapper {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
+  -webkit-flex-shrink: 0;
   flex-shrink: 0;
 }
 
@@ -6620,8 +6632,8 @@ ul[data-list-animation*="animated-"] .premium-bullet-list-divider-inline {
 .premium-adv-carousel__infinite .premium-adv-carousel__item {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
+  -webkit-flex-shrink: 0;
   flex-shrink: 0;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -9457,6 +9469,7 @@ ul.premium-person-social-list {
 }
 
 .premium-pinterest-feed__pin-outer-wrapper {
+  padding: 0 -webkit-calc(5px / 2);
   padding: 0 calc(5px / 2);
 }
 
@@ -11659,6 +11672,18 @@ ul.premium-person-social-list {
   color: transparent !important;
 }
 
+.premium-search-anim-label .premium-search__input::-webkit-input-placeholder, .premium-search-anim-label-pos-back .premium-search__input::-webkit-input-placeholder {
+  color: transparent !important;
+}
+
+.premium-search-anim-label .premium-search__input:-ms-input-placeholder, .premium-search-anim-label-pos-back .premium-search__input:-ms-input-placeholder {
+  color: transparent !important;
+}
+
+.premium-search-anim-label .premium-search__input::-ms-input-placeholder, .premium-search-anim-label-pos-back .premium-search__input::-ms-input-placeholder {
+  color: transparent !important;
+}
+
 .premium-search-anim-label .premium-search__input::placeholder,
 .premium-search-anim-label-pos-back .premium-search__input::placeholder {
   color: transparent !important;
@@ -12564,6 +12589,7 @@ ul.premium-person-social-list {
 }
 
 .premium-tiktok-feed__video-outer-wrapper {
+  padding: -webkit-calc(5px / 2);
   padding: calc(5px / 2);
 }
 
@@ -13335,345 +13361,345 @@ ul.premium-person-social-list {
 
 @-webkit-keyframes pa-noise-anim-1 {
   0% {
-    clip: rect(52px, 9999px, 268px, 0);
+    clip: rect(52px, 9999px, 124px, 0);
   }
 
   5% {
-    clip: rect(88px, 9999px, 93px, 0);
+    clip: rect(88px, 9999px, 273px, 0);
   }
 
   10% {
-    clip: rect(81px, 9999px, 67px, 0);
+    clip: rect(81px, 9999px, 272px, 0);
   }
 
   15% {
-    clip: rect(38px, 9999px, 220px, 0);
+    clip: rect(38px, 9999px, 195px, 0);
   }
 
   20% {
-    clip: rect(62px, 9999px, 275px, 0);
+    clip: rect(62px, 9999px, 153px, 0);
   }
 
   25% {
-    clip: rect(5px, 9999px, 142px, 0);
+    clip: rect(5px, 9999px, 42px, 0);
   }
 
   30% {
-    clip: rect(9px, 9999px, 131px, 0);
+    clip: rect(9px, 9999px, 155px, 0);
   }
 
   35% {
-    clip: rect(17px, 9999px, 242px, 0);
+    clip: rect(17px, 9999px, 39px, 0);
   }
 
   40% {
-    clip: rect(97px, 9999px, 297px, 0);
+    clip: rect(97px, 9999px, 113px, 0);
   }
 
   45% {
-    clip: rect(9px, 9999px, 151px, 0);
+    clip: rect(9px, 9999px, 125px, 0);
   }
 
   50% {
-    clip: rect(94px, 9999px, 219px, 0);
+    clip: rect(94px, 9999px, 39px, 0);
   }
 
   55% {
-    clip: rect(53px, 9999px, 213px, 0);
+    clip: rect(53px, 9999px, 171px, 0);
   }
 
   60% {
-    clip: rect(2px, 9999px, 155px, 0);
+    clip: rect(2px, 9999px, 157px, 0);
   }
 
   65% {
-    clip: rect(24px, 9999px, 114px, 0);
+    clip: rect(24px, 9999px, 126px, 0);
   }
 
   70% {
-    clip: rect(45px, 9999px, 68px, 0);
+    clip: rect(45px, 9999px, 167px, 0);
   }
 
   75% {
-    clip: rect(75px, 9999px, 28px, 0);
+    clip: rect(75px, 9999px, 11px, 0);
   }
 
   80% {
-    clip: rect(9px, 9999px, 77px, 0);
+    clip: rect(9px, 9999px, 227px, 0);
   }
 
   85% {
-    clip: rect(56px, 9999px, 203px, 0);
+    clip: rect(56px, 9999px, 186px, 0);
   }
 
   90% {
-    clip: rect(53px, 9999px, 49px, 0);
+    clip: rect(53px, 9999px, 146px, 0);
   }
 
   95% {
-    clip: rect(86px, 9999px, 120px, 0);
+    clip: rect(86px, 9999px, 167px, 0);
   }
 
   100% {
-    clip: rect(63px, 9999px, 156px, 0);
+    clip: rect(63px, 9999px, 200px, 0);
   }
 }
 
 @keyframes pa-noise-anim-1 {
   0% {
-    clip: rect(52px, 9999px, 268px, 0);
+    clip: rect(52px, 9999px, 124px, 0);
   }
 
   5% {
-    clip: rect(88px, 9999px, 93px, 0);
+    clip: rect(88px, 9999px, 273px, 0);
   }
 
   10% {
-    clip: rect(81px, 9999px, 67px, 0);
+    clip: rect(81px, 9999px, 272px, 0);
   }
 
   15% {
-    clip: rect(38px, 9999px, 220px, 0);
+    clip: rect(38px, 9999px, 195px, 0);
   }
 
   20% {
-    clip: rect(62px, 9999px, 275px, 0);
+    clip: rect(62px, 9999px, 153px, 0);
   }
 
   25% {
-    clip: rect(5px, 9999px, 142px, 0);
+    clip: rect(5px, 9999px, 42px, 0);
   }
 
   30% {
-    clip: rect(9px, 9999px, 131px, 0);
+    clip: rect(9px, 9999px, 155px, 0);
   }
 
   35% {
-    clip: rect(17px, 9999px, 242px, 0);
+    clip: rect(17px, 9999px, 39px, 0);
   }
 
   40% {
-    clip: rect(97px, 9999px, 297px, 0);
+    clip: rect(97px, 9999px, 113px, 0);
   }
 
   45% {
-    clip: rect(9px, 9999px, 151px, 0);
+    clip: rect(9px, 9999px, 125px, 0);
   }
 
   50% {
-    clip: rect(94px, 9999px, 219px, 0);
+    clip: rect(94px, 9999px, 39px, 0);
   }
 
   55% {
-    clip: rect(53px, 9999px, 213px, 0);
+    clip: rect(53px, 9999px, 171px, 0);
   }
 
   60% {
-    clip: rect(2px, 9999px, 155px, 0);
+    clip: rect(2px, 9999px, 157px, 0);
   }
 
   65% {
-    clip: rect(24px, 9999px, 114px, 0);
+    clip: rect(24px, 9999px, 126px, 0);
   }
 
   70% {
-    clip: rect(45px, 9999px, 68px, 0);
+    clip: rect(45px, 9999px, 167px, 0);
   }
 
   75% {
-    clip: rect(75px, 9999px, 28px, 0);
+    clip: rect(75px, 9999px, 11px, 0);
   }
 
   80% {
-    clip: rect(9px, 9999px, 77px, 0);
+    clip: rect(9px, 9999px, 227px, 0);
   }
 
   85% {
-    clip: rect(56px, 9999px, 203px, 0);
+    clip: rect(56px, 9999px, 186px, 0);
   }
 
   90% {
-    clip: rect(53px, 9999px, 49px, 0);
+    clip: rect(53px, 9999px, 146px, 0);
   }
 
   95% {
-    clip: rect(86px, 9999px, 120px, 0);
+    clip: rect(86px, 9999px, 167px, 0);
   }
 
   100% {
-    clip: rect(63px, 9999px, 156px, 0);
+    clip: rect(63px, 9999px, 200px, 0);
   }
 }
 
 @-webkit-keyframes pa-noise-anim-2 {
   0% {
-    clip: rect(14px, 9999px, 23px, 0);
+    clip: rect(14px, 9999px, 278px, 0);
   }
 
   5% {
-    clip: rect(19px, 9999px, 105px, 0);
+    clip: rect(19px, 9999px, 36px, 0);
   }
 
   10% {
-    clip: rect(17px, 9999px, 226px, 0);
+    clip: rect(17px, 9999px, 281px, 0);
   }
 
   15% {
-    clip: rect(46px, 9999px, 200px, 0);
+    clip: rect(46px, 9999px, 65px, 0);
   }
 
   20% {
-    clip: rect(28px, 9999px, 196px, 0);
+    clip: rect(28px, 9999px, 272px, 0);
   }
 
   25% {
-    clip: rect(64px, 9999px, 47px, 0);
+    clip: rect(64px, 9999px, 263px, 0);
   }
 
   30% {
-    clip: rect(58px, 9999px, 136px, 0);
+    clip: rect(58px, 9999px, 254px, 0);
   }
 
   35% {
-    clip: rect(18px, 9999px, 288px, 0);
+    clip: rect(18px, 9999px, 186px, 0);
   }
 
   40% {
-    clip: rect(61px, 9999px, 147px, 0);
+    clip: rect(61px, 9999px, 240px, 0);
   }
 
   45% {
-    clip: rect(63px, 9999px, 70px, 0);
+    clip: rect(63px, 9999px, 181px, 0);
   }
 
   50% {
-    clip: rect(59px, 9999px, 235px, 0);
+    clip: rect(59px, 9999px, 129px, 0);
   }
 
   55% {
-    clip: rect(20px, 9999px, 127px, 0);
+    clip: rect(20px, 9999px, 89px, 0);
   }
 
   60% {
-    clip: rect(49px, 9999px, 90px, 0);
+    clip: rect(49px, 9999px, 254px, 0);
   }
 
   65% {
-    clip: rect(70px, 9999px, 101px, 0);
+    clip: rect(70px, 9999px, 242px, 0);
   }
 
   70% {
-    clip: rect(70px, 9999px, 28px, 0);
+    clip: rect(70px, 9999px, 170px, 0);
   }
 
   75% {
-    clip: rect(82px, 9999px, 250px, 0);
+    clip: rect(82px, 9999px, 121px, 0);
   }
 
   80% {
-    clip: rect(25px, 9999px, 297px, 0);
+    clip: rect(25px, 9999px, 52px, 0);
   }
 
   85% {
-    clip: rect(76px, 9999px, 108px, 0);
+    clip: rect(76px, 9999px, 84px, 0);
   }
 
   90% {
-    clip: rect(2px, 9999px, 32px, 0);
+    clip: rect(2px, 9999px, 277px, 0);
   }
 
   95% {
-    clip: rect(9px, 9999px, 165px, 0);
+    clip: rect(9px, 9999px, 181px, 0);
   }
 
   100% {
-    clip: rect(41px, 9999px, 97px, 0);
+    clip: rect(41px, 9999px, 98px, 0);
   }
 }
 
 @keyframes pa-noise-anim-2 {
   0% {
-    clip: rect(14px, 9999px, 23px, 0);
+    clip: rect(14px, 9999px, 278px, 0);
   }
 
   5% {
-    clip: rect(19px, 9999px, 105px, 0);
+    clip: rect(19px, 9999px, 36px, 0);
   }
 
   10% {
-    clip: rect(17px, 9999px, 226px, 0);
+    clip: rect(17px, 9999px, 281px, 0);
   }
 
   15% {
-    clip: rect(46px, 9999px, 200px, 0);
+    clip: rect(46px, 9999px, 65px, 0);
   }
 
   20% {
-    clip: rect(28px, 9999px, 196px, 0);
+    clip: rect(28px, 9999px, 272px, 0);
   }
 
   25% {
-    clip: rect(64px, 9999px, 47px, 0);
+    clip: rect(64px, 9999px, 263px, 0);
   }
 
   30% {
-    clip: rect(58px, 9999px, 136px, 0);
+    clip: rect(58px, 9999px, 254px, 0);
   }
 
   35% {
-    clip: rect(18px, 9999px, 288px, 0);
+    clip: rect(18px, 9999px, 186px, 0);
   }
 
   40% {
-    clip: rect(61px, 9999px, 147px, 0);
+    clip: rect(61px, 9999px, 240px, 0);
   }
 
   45% {
-    clip: rect(63px, 9999px, 70px, 0);
+    clip: rect(63px, 9999px, 181px, 0);
   }
 
   50% {
-    clip: rect(59px, 9999px, 235px, 0);
+    clip: rect(59px, 9999px, 129px, 0);
   }
 
   55% {
-    clip: rect(20px, 9999px, 127px, 0);
+    clip: rect(20px, 9999px, 89px, 0);
   }
 
   60% {
-    clip: rect(49px, 9999px, 90px, 0);
+    clip: rect(49px, 9999px, 254px, 0);
   }
 
   65% {
-    clip: rect(70px, 9999px, 101px, 0);
+    clip: rect(70px, 9999px, 242px, 0);
   }
 
   70% {
-    clip: rect(70px, 9999px, 28px, 0);
+    clip: rect(70px, 9999px, 170px, 0);
   }
 
   75% {
-    clip: rect(82px, 9999px, 250px, 0);
+    clip: rect(82px, 9999px, 121px, 0);
   }
 
   80% {
-    clip: rect(25px, 9999px, 297px, 0);
+    clip: rect(25px, 9999px, 52px, 0);
   }
 
   85% {
-    clip: rect(76px, 9999px, 108px, 0);
+    clip: rect(76px, 9999px, 84px, 0);
   }
 
   90% {
-    clip: rect(2px, 9999px, 32px, 0);
+    clip: rect(2px, 9999px, 277px, 0);
   }
 
   95% {
-    clip: rect(9px, 9999px, 165px, 0);
+    clip: rect(9px, 9999px, 181px, 0);
   }
 
   100% {
-    clip: rect(41px, 9999px, 97px, 0);
+    clip: rect(41px, 9999px, 98px, 0);
   }
 }
 
@@ -15566,6 +15592,175 @@ ul.premium-person-social-list {
 }
 
 /**End of Current Weather Responsive*/
+
+.premium-woo-cats__list li.product-category {
+  width: 100%;
+}
+
+.premium-woo-cats__list-wrap ul.products {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none outside;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.premium-woo-cats__list-wrap .woocommerce-loop-category__title {
+  margin: 10px 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-woo-cats__list-wrap .woocommerce-loop-category__title sup {
+  margin-left: 5px;
+}
+
+.premium-woo-cats__list-wrap ul.slick-dots {
+  width: 100%;
+}
+
+.premium-woo-cats__category {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.premium-woo-cats__img-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-woo-cats__img-wrap img {
+  width: 100%;
+  display: block;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-woo-cats__img-overlay {
+  position: absolute;
+  inset: 0;
+  -webkit-transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.premium-woo-cats__content-wrap {
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-woo-cats__count {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-woo-cats__desc {
+  margin: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-woo-cats__img-zoomout img {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.premium-woo-cats__img-zoomout li.product:hover img {
+  -webkit-transform: none;
+  -ms-transform: none;
+  transform: none;
+}
+
+.premium-woo-cats__img-zoomin img {
+  -webkit-transform: none;
+  -ms-transform: none;
+  transform: none;
+}
+
+.premium-woo-cats__img-zoomin li.product:hover img {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.premium-woo-cats__img-gray img {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.premium-woo-cats__img-gray li.product:hover img {
+  -webkit-filter: grayscale(0%);
+  filter: grayscale(0%);
+}
+
+.premium-woo-cats__img-sepia img {
+  -webkit-filter: sepia(30%);
+  filter: sepia(30%);
+}
+
+.premium-woo-cats__img-sepia li.product:hover img {
+  -webkit-filter: sepia(0%);
+  filter: sepia(0%);
+}
+
+.premium-woo-cats__img-bright img {
+  -webkit-filter: brightness(1);
+  filter: brightness(1);
+}
+
+.premium-woo-cats__img-bright li.product:hover img {
+  -webkit-filter: brightness(1.2);
+  filter: brightness(1.2);
+}
+
+.premium-woo-cats__img-trans img {
+  -webkit-transform: translateX(-15px) scale(1.1);
+  -ms-transform: translateX(-15px) scale(1.1);
+  transform: translateX(-15px) scale(1.1);
+}
+
+.premium-woo-cats__img-trans li.product:hover img {
+  -webkit-transform: translateX(0px) scale(1.1);
+  -ms-transform: translateX(0px) scale(1.1);
+  transform: translateX(0px) scale(1.1);
+}
+
+.premium-woo-cats__img-scale li.product:hover img {
+  -webkit-transform: scaleX(1.3) scaleY(1.3) rotate(5deg);
+  -ms-transform: scaleX(1.3) scaleY(1.3) rotate(5deg);
+  transform: scaleX(1.3) scaleY(1.3) rotate(5deg);
+}
+
+.premium-woo-cats__content-below .premium-woo-cats__category {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.premium-woo-cats__content-above .premium-woo-cats__category {
+  -webkit-flex-direction: column-reverse;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+}
+
+.premium-woo-cats__content-next .premium-woo-cats__category {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
 
 /********** Premium Woo Products **********/
 
@@ -17746,8 +17941,8 @@ because it's rendered as div with custom SVG code.
 .premium-pinterest-share-item i,
 .premium-tiktok-share-item i {
   text-align: center;
-  -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
+  -webkit-flex-shrink: 0;
   flex-shrink: 0;
   width: 1.25em;
 }

@@ -17,11 +17,22 @@ jQuery(window).on("elementor/frontend/init", function () {
 
             var $closestSection = $scope.closest('.elementor-top-section, .e-con');
 
-            elementorFrontend.waypoint($closestSection, function () {
-                premiumMap = newMap(mapElement, mapSettings, mapStyle);
+            var eleObserver = new IntersectionObserver(function($entry) {
+                if ($entry[0].isIntersecting) {
+                    premiumMap = newMap(mapElement, mapSettings, mapStyle);
+                    eleObserver.unobserve($entry[0].target); // to only excecute the callback func once.
+                }
             }, {
-                offset: '70%'
+                rootMargin: '70% 0px 0px 0px'
             });
+
+            eleObserver.observe($closestSection[0]);
+
+            // elementorFrontend.waypoint($closestSection, function () {
+            //     premiumMap = newMap(mapElement, mapSettings, mapStyle);
+            // }, {
+            //     offset: '70%'
+            // });
 
         } else {
             premiumMap = newMap(mapElement, mapSettings, mapStyle);

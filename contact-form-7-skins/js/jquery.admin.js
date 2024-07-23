@@ -122,7 +122,7 @@
 			$(e).addClass("nav-tab-active");
 			$(".nav-tab-content > div").removeClass("tab-active");
 			$(id).addClass("tab-active");
-			
+
 			// Get #cf7s and add data-tab attribute
 			var cf7s = $( e ).closest( "#cf7s" );
 
@@ -232,6 +232,9 @@
 			$(inp).val("").trigger('change'); // empty the skin hidden input value and trigger change for saving
 			
 			$(e).attr( "data-balloon", $(e).attr( "data-title" ) ); // back to original tooltip
+
+			select_tip = $(e).attr("href").indexOf( "template" ) != -1 ? l10n.select_template : l10n.select_style; // get select tip text for style or template
+			$(".select", wrap).attr( "data-balloon", select_tip ); // update select tooltip text			
 			
 			select_tip = $(e).attr("href").indexOf( "template" ) != -1 ? l10n.select_template : l10n.select_style; // get select tip text for style or template
 			$(".select", wrap).attr( "data-balloon", select_tip ); // update select tooltip text					

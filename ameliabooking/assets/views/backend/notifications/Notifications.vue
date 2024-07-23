@@ -187,6 +187,7 @@
       getEntities () {
         this.$http.get(`${this.$root.getAjaxUrl}/entities`, {
           params: this.getAppropriateUrlParams({
+            lite: true,
             types: ['custom_fields', 'categories', 'coupons', 'settings', 'events']
           })
         }).then(response => {

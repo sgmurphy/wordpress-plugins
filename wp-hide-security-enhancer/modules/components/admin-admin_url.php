@@ -117,6 +117,8 @@
                     add_filter('user_admin_url',    array($this, 'wp_core_update_user_admin_url'), 999, 2);
                     add_filter('admin_url',         array($this, 'wp_core_update_admin_url'),      999, 3);
                     
+                    add_filter('self_admin_url',    array($this, 'self_admin_url'),      999, 3);
+                    
                     //ensure admin_url() return correct url
                     add_filter('admin_url',         array($this, 'update_admin_url'),      999, 3);
                                         
@@ -320,6 +322,16 @@
                        
                 }
                 
+            
+            function self_admin_url( $url, $path, $scheme )
+                {
+                    //replace the wp-admin with custom slug
+                    $admin_url     =   $this->wph->functions->get_module_item_setting('admin_url');
+                    
+                    $url    =   str_replace('/wp-admin', '/' . $admin_url, $url);
+                    
+                    return $url;   
+                }
             
             function update_admin_url( $url, $path, $blog_id )
                 {

@@ -23,8 +23,8 @@ class WC_Forehand_Method extends PWS_Shipping_Method {
 
 		$this->id                 = 'WC_Forehand_Method';
 		$this->instance_id        = absint( $instance_id );
-		$this->method_title       =  'پست پیشتاز' ;
-		$this->method_description =  'ارسال کالا با استفاده از پست پیشتاز' ;
+		$this->method_title       = 'پست پیشتاز';
+		$this->method_description = 'ارسال کالا با استفاده از پست پیشتاز';
 
 		parent::__construct();
 	}
@@ -128,17 +128,11 @@ class WC_Forehand_Method extends PWS_Shipping_Method {
 				break;
 		}
 
-		$checked_state = PWS()->check_states_beside( $this->source_state, $package['destination']['state'] );
-
-		if ( $checked_state == false ) {
-			return;
-		}
-
 		// calculate
 		if ( $weight_indicator != '9999' ) {
-			$cost = $rate_price[ $weight_indicator ][ $checked_state ];
+			$cost = $rate_price[ $weight_indicator ]['out'];
 		} else {
-			$cost = $rate_price['2000'][ $checked_state ] + ( $rate_price[ $weight_indicator ] * ceil( ( $weight - 2000 ) / 1000 ) );
+			$cost = $rate_price['2000']['out'] + ( $rate_price[ $weight_indicator ] * ceil( ( $weight - 2000 ) / 1000 ) );
 		}
 
 		$cost += self::INSURANCE;

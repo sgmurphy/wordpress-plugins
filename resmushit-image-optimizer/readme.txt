@@ -3,7 +3,7 @@ Contributors: ShortPixel, resmushit
 Donate link: https://ko-fi.com/resmushit
 Tags: image, optimizer, image optimization, smush, free image optimization
 Requires at least: 4.0.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: 1.0.3
 License: GPLv2 or later

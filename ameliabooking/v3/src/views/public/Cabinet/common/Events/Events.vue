@@ -15,7 +15,7 @@
       @trigger-close="closeAlert"
     >
       <template #title>
-        <span class="am-icon-checkmark-circle-full"></span> {{ successMessage }}
+        <span class="am-icon-checkmark-circle-full"></span> {{ alertMessage }}
       </template>
     </AmAlert>
 
@@ -78,8 +78,8 @@
 
       <EmptyState
         v-if="dateGroupedEvents === null || Object.keys(dateGroupedEvents).length === 0"
-        heading="No Events Found"
-        text="You don't have any events"
+        :heading="amLabels.no_evt_found"
+        :text="amLabels.have_no_evt"
       ></EmptyState>
 
       <CancelPopup
@@ -202,19 +202,6 @@ let responsiveClass = computed(() => {
   return useResponsiveClass(pageWidth.value)
 })
 
-// * Alert block
-let alertContainer = ref(null)
-let alertVisibility = ref(false)
-let alertType = ref('success')
-
-// * Success message
-let successMessage = ref('')
-
-function closeAlert () {
-  alertVisibility.value = false
-  successMessage.value = ''
-}
-
 // * Root Settings
 const amSettings = inject('settings')
 
@@ -248,6 +235,18 @@ let amLabels = computed(() => {
 })
 
 provide('amLabels', amLabels)
+
+// * Alert block
+let alertContainer = ref(null)
+let alertVisibility = ref(false)
+let alertType = ref('success')
+
+let alertMessage = ref('')
+
+function closeAlert () {
+  alertVisibility.value = false
+  store.commit('cabinet/setPaymentLinkError', {value: false, type: 'event'})
+}
 
 function customizedLabels (step) {
   let computedLabels = reactive({...labels})
@@ -357,7 +356,7 @@ function cancelBooking () {
     getEvents()
 
     alertVisibility.value = true
-    successMessage.value = amLabels.value.event_canceled
+    alertMessage.value = amLabels.value.event_canceled
 
     if (pageContainer.value && alertContainer.value) {
       setTimeout(function () {
@@ -367,7 +366,7 @@ function cancelBooking () {
   }).catch((error) => {
     if (!('data' in error.response.data) && 'message' in error.response.data) {
       alertVisibility.value = true
-      successMessage.value = error.response.data.message
+      alertMessage.value = error.response.data.message
 
       if (pageContainer.value && alertContainer.value) {
         setTimeout(function () {

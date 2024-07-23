@@ -4,13 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171
+class ComposerStaticInit02db0068ea2dc6ab76e4bf0a1a3e371c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'a4ecaeafb8cfb009ad0e052c90355e98' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/functions.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        'a4ecaeafb8cfb009ad0e052c90355e98' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/functions.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
@@ -135,7 +135,6 @@ class ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171
         ),
         'R' => 
         array (
-            'ReCaptcha\\' => 10,
             'Ramsey\\Uuid\\' => 12,
         ),
         'P' => 
@@ -151,6 +150,10 @@ class ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171
         array (
             'Nyholm\\Psr7\\' => 12,
             'Nyholm\\Psr7Server\\' => 18,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
         ),
         'L' => 
         array (
@@ -211,7 +214,6 @@ class ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171
         ),
         'Twig\\' => 
         array (
-            0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
@@ -246,10 +248,6 @@ class ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171
             0 => __DIR__ . '/..' . '/thecodingmachine/safe/lib',
             1 => __DIR__ . '/..' . '/thecodingmachine/safe/deprecated',
             2 => __DIR__ . '/..' . '/thecodingmachine/safe/generated',
-        ),
-        'ReCaptcha\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -287,6 +285,10 @@ class ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171
         'Nyholm\\Psr7Server\\' => 
         array (
             0 => __DIR__ . '/..' . '/nyholm/psr7-server/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'League\\Uri\\' => 
         array (
@@ -364,13 +366,6 @@ class ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171
     );
 
     public static $prefixesPsr0 = array (
-        'T' => 
-        array (
-            'Twig_' => 
-            array (
-                0 => __DIR__ . '/..' . '/twig/twig/lib',
-            ),
-        ),
         'P' => 
         array (
             'Pimple' => 
@@ -399,11 +394,11 @@ class ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit4fc2c6daaffaf40b64b79b6d26830171::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit02db0068ea2dc6ab76e4bf0a1a3e371c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit02db0068ea2dc6ab76e4bf0a1a3e371c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit02db0068ea2dc6ab76e4bf0a1a3e371c::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit02db0068ea2dc6ab76e4bf0a1a3e371c::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit02db0068ea2dc6ab76e4bf0a1a3e371c::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -3,8 +3,8 @@ Contributors: mossifer
 Donate link: http://mosswebworks.com/donate/
 Tags: scheduled posts, missed schedule, missed scheduled posts, missed posts
 Requires at least: 4.2
-Tested up to: 6.4.3
-Stable tag: 6.4.3
+Tested up to: 6.6
+Stable tag: 6.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

@@ -91,7 +91,8 @@ class Order
      */
     public function order_item_get_formatted_meta_data($formatted_meta, $item)
     {
-        if (Config::get_config('show_meta_in_order') && did_action('woocommerce_before_order_itemmeta') > 0) {
+        $count = is_admin()? 0: 1;
+        if (Config::get_config('show_meta_in_order') && did_action('woocommerce_before_order_itemmeta') > $count) {
             foreach ($formatted_meta as $meta_id => $v) {
                 if ($this->wcpa_meta_by_meta_id($item, $meta_id)) {
                     unset($formatted_meta[$meta_id]);

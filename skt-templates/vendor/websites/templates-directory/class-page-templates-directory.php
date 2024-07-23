@@ -404,6 +404,15 @@ if ( ! class_exists( '\SktThemes\PageTemplatesDirectory' ) ) {
 					'import_file' => esc_url('https://demosktthemes.com/free/vet-clinic-lite/vet-clinic-lite.json'),
 					'keywords'    => __( ' veterinary, animals center, animal care, cats clinic, clinic medic, dogs kennel, animal hospital, lab, medicine, pet adoption, pet grooming, pets care, vet clinic, veterinary doctor, zoo, pet stores, vet shop, cat training classes, animal care shelters, breeders, pet hotels, vet clinic lite'),
 			),
+			'free-parallax-elementor'              => array(
+					'title'       => __( 'Parallax Me', 'skt-templates' ),
+					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
+					'theme_url'   => esc_url('https://www.sktthemes.org/shop/skt_parallax_me/'),						
+					'demo_url'    => esc_url('https://demosktthemes.com/free/parallax/'),
+					'screenshot'  => esc_url('https://demosktthemes.com/free/parallax/free-parallax.jpg'),
+					'import_file' => esc_url('https://demosktthemes.com/free/parallax/free-parallax.json'),
+					'keywords'    => __( ' corporate, business, consulting, agency, people, meeting, communal, working, workforce, office, Parallax Me, me, me time', 'skt-templates' ),
+			),			
 			'skt-yogi-lite-elementor'              => array(
 					'title'       => __( 'SKT Yogi Lite', 'skt-templates' ),
 					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
@@ -1778,15 +1787,6 @@ if ( ! class_exists( '\SktThemes\PageTemplatesDirectory' ) ) {
 					'screenshot'  => esc_url('https://demosktthemes.com/free/exceptiona/exceptiona-lite.jpg'),
 					'import_file' => esc_url('https://demosktthemes.com/free/exceptiona/exceptiona-lite.json'),
 					'keywords'    => __( ' corporate, business, consulting, agency, people, meeting, communal, working, workforce, office, accounting, lawyer, coaching, advocate, advice, suggestion, therapy, mental wellness, Exceptiona', 'skt-templates' ),
-				),
-				'free-parallax-elementor'              => array(
-					'title'       => __( 'Parallax Me', 'skt-templates' ),
-					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
-					'theme_url'   => esc_url('https://www.sktthemes.org/shop/skt_parallax_me/'),						
-					'demo_url'    => esc_url('https://demosktthemes.com/free/parallax/'),
-					'screenshot'  => esc_url('https://demosktthemes.com/free/parallax/free-parallax.jpg'),
-					'import_file' => esc_url('https://demosktthemes.com/free/parallax/free-parallax.json'),
-					'keywords'    => __( ' corporate, business, consulting, agency, people, meeting, communal, working, workforce, office, Parallax Me, me, me time', 'skt-templates' ),
 				),
 				'free-build-elementor'              => array(
 					'title'       => __( 'Build', 'skt-templates' ),

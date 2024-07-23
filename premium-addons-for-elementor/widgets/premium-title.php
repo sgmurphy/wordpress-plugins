@@ -126,7 +126,6 @@ class Premium_Title extends Widget_Base {
 			$draw_scripts,
 			array(
 				'premium-addons',
-				'elementor-waypoints',
 				'lottie-js',
 			)
 		);
@@ -1116,7 +1115,7 @@ class Premium_Title extends Widget_Base {
 		$this->add_control(
 			'premium_title_blur_color',
 			array(
-				'label'     => __( 'Blur Color', 'booster-addons' ),
+				'label'     => __( 'Blur Color', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#000',
 				'selectors' => array( '{{WRAPPER}} .premium-title-header' => '--shadow-color: {{VALUE}};' ),
@@ -1326,7 +1325,7 @@ class Premium_Title extends Widget_Base {
 		$this->add_control(
 			'premium_title_shadow_value',
 			array(
-				'label'     => esc_html__( 'Blur Shadow Value (px)', 'booster-addons' ),
+				'label'     => esc_html__( 'Blur Shadow Value (px)', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => '10',
 				'max'       => '500',

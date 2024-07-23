@@ -9,12 +9,15 @@ use ContentEgg\application\components\BlockTemplateManager;
 use ContentEgg\application\helpers\TextHelper;
 use ContentEgg\application\helpers\TemplateHelper;
 
+use function ContentEgg\prn;
+use function ContentEgg\prnx;
+
 /**
  * BlockShortcode class file
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 class BlockShortcode
 {
@@ -32,7 +35,7 @@ class BlockShortcode
 
     private function __construct()
     {
-        \add_shortcode(self::shortcode, array($this, 'viewData'));
+        \add_shortcode(self::shortcode, array($this, 'viewDataShortcode'));
     }
 
     private function prepareAttr($atts)
@@ -75,7 +78,7 @@ class BlockShortcode
         $a['groups'] = \sanitize_text_field($a['groups']);
         $a['group'] = \sanitize_text_field($a['group']);
         $a['hide'] = TemplateHelper::hideParamPrepare($a['hide']);
-        $a['show'] = strtolower(TextHelper::clear($a['show']));
+        $a['show'] = strtolower(sanitize_text_field($a['show']));
         $a['btn_text'] = \wp_strip_all_tags($a['btn_text'], true);
         $a['btn_class'] = \sanitize_text_field($a['btn_class']);
         $a['add_query_arg'] = \sanitize_text_field(\wp_strip_all_tags($a['add_query_arg'], true));
@@ -94,7 +97,7 @@ class BlockShortcode
         if ($a['add_query_arg'])
             parse_str($a['add_query_arg'], $a['add_query_arg']);
 
-        $allowed_sort = array('price', 'discount', 'reverse');
+        $allowed_sort = array('price', 'discount', 'reverse', 'total_price');
         $allowed_order = array('asc', 'desc');
         $a['sort'] = strtolower($a['sort']);
         $a['order'] = strtolower($a['order']);
@@ -128,7 +131,12 @@ class BlockShortcode
         return $a;
     }
 
-    public function viewData($atts, $content = "")
+    public function viewDataShortcode($atts, $content = '')
+    {
+        return $this->viewData($atts, $content);
+    }
+
+    public function viewData($atts, $content = '', $only_return_data = false)
     {
         $a = $this->prepareAttr($atts);
 
@@ -143,30 +151,41 @@ class BlockShortcode
         else
             $post_id = $a['post_id'];
 
-        $tpl_manager = BlockTemplateManager::getInstance();
-        if (empty($a['template']) || !$tpl_manager->isTemplateExists($a['template']))
+        if (empty($a['template']))
             return;
 
-        if (!$template_file = $tpl_manager->getViewPath($a['template']))
-            return '';
-
-        // Get supported modules for this tpl
-        $headers = \get_file_data($template_file, array('module_ids' => 'Modules', 'module_types' => 'Module Types', 'shortcoded' => 'Shortcoded'));
-        $supported_module_ids = array();
-        if ($headers && !empty($headers['module_ids']))
+        if ($a['template'] != 'block_greenshift')
         {
-            $supported_module_ids = explode(',', $headers['module_ids']);
-            $supported_module_ids = array_map('trim', $supported_module_ids);
-        }
-        elseif ($headers && !empty($headers['module_types']))
-        {
-            $module_types = explode(',', $headers['module_types']);
-            $module_types = array_map('trim', $module_types);
-            $supported_module_ids = ModuleManager::getInstance()->getParserModuleIdsByTypes($module_types, true);
-        }
+            $tpl_manager = BlockTemplateManager::getInstance();
+            if (!$tpl_manager->isTemplateExists($a['template']))
+                return;
 
-        if ($headers && !empty($headers['shortcoded']))
-            $a['shortcoded'] = filter_var($headers['shortcoded'], FILTER_VALIDATE_BOOLEAN);
+            if (!$template_file = $tpl_manager->getViewPath($a['template']))
+                return '';
+
+            // Get supported modules for this tpl
+            $headers = \get_file_data($template_file, array('module_ids' => 'Modules', 'module_types' => 'Module Types', 'shortcoded' => 'Shortcoded'));
+            $supported_module_ids = array();
+            if ($headers && !empty($headers['module_ids']))
+            {
+                $supported_module_ids = explode(',', $headers['module_ids']);
+                $supported_module_ids = array_map('trim', $supported_module_ids);
+            }
+            elseif ($headers && !empty($headers['module_types']))
+            {
+                $module_types = explode(',', $headers['module_types']);
+                $module_types = array_map('trim', $module_types);
+                $supported_module_ids = ModuleManager::getInstance()->getParserModuleIdsByTypes($module_types, true);
+            }
+
+            if ($headers && !empty($headers['shortcoded']))
+                $a['shortcoded'] = filter_var($headers['shortcoded'], FILTER_VALIDATE_BOOLEAN);
+        }
+        else
+        {
+            $a['shortcoded'] = true;
+            $supported_module_ids = ModuleManager::getInstance()->getParserModuleIdsByTypes('PRODUCT', true);
+        }
 
         if ($a['modules'])
             $module_ids = $a['modules'];
@@ -176,6 +195,6 @@ class BlockShortcode
         if ($supported_module_ids)
             $module_ids = array_intersect($module_ids, $supported_module_ids);
 
-        return ModuleViewer::getInstance()->viewBlockData($module_ids, $post_id, $a, $content);
+        return ModuleViewer::getInstance()->viewBlockData($module_ids, $post_id, $a, $content, $only_return_data);
     }
 }

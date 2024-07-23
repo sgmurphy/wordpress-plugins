@@ -1,5 +1,5 @@
-=== Branda – White Label WordPress, Custom Login Page Customizer ===
-Plugin Name: Branda – White Label WordPress, Custom Login Page Customizer
+=== Branda – White Label & Branding, Custom Login Page Customizer ===
+Plugin Name: Branda – White Label & Branding, Custom Login Page Customizer
 Version: 3.4.19
 Author: WPMU DEV
 Author URI: https://profiles.wordpress.org/wpmudev/

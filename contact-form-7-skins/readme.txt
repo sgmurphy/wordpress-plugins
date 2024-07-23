@@ -2,9 +2,9 @@
 Contributors: buzztone
 Tags: contact form 7, contact form 7 addon, contact form 7 extension, contact form 7 template, contact form 7 style
 Requires at least: 4.3
-Tested up to: 6.5.3
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.6.3
+Stable tag: 2.6.4
 Author URI: https://cf7skins.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,8 +24,6 @@ Each **Template** acts as an easy to follow guide, which can be adapted to your 
 CF7 Skins is highly customizable and easy to learn, even for beginners.
 
 > CF7 Skins now includes a **[drag & drop Visual Editor](https://cf7skins.com/visual-editor/?utm_source=wporg&utm_medium=link&utm_campaign=freeversion&utm_content=description)** to help make building your Contact Form 7 forms much easier.
-
-https://youtu.be/UJ-2k6mw3vY
 
 = CF7 Skins Features =
 
@@ -117,6 +115,11 @@ Absolutely not. You can create and manage Contact Form 7 forms without any codin
 7. Completed **CF7 Skins Form**
 
 == Changelog ==
+
+= 2.6.4 - 2024-07-15 =
+
+* FIX: Ensure HTML field button visible
+* FIX: Ensure Logic working for Multi tabs
 
 = 2.6.3 - 2024-04-25 =
 

@@ -281,7 +281,7 @@ class Premium_Nav_Menu extends Widget_Base {
 			$this->add_control(
 				'custom_nav_notice',
 				array(
-					'raw'             => __( 'It\'s not recommended to use Elementor Template and Link Submenu Items together under the same menu item', 'premium-addons-for-elemeentor' ),
+					'raw'             => __( 'It\'s not recommended to use Elementor Template and Link Submenu Items together under the same menu item', 'premium-addons-for-elementor' ),
 					'type'            => Controls_Manager::RAW_HTML,
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 					'condition'       => array(

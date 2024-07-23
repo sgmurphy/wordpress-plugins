@@ -25,9 +25,12 @@
                     <li>
                         <?php echo __( "Select the popup type.", "ays-popup-box" ); ?>
                         <ul>
-                            <li><?php echo '<strong>' . __( "Shortcode", "ays-popup-box" ) .'</strong> '; ?></li>
                             <li><?php echo '<strong>' . __( "Custom Content", "ays-popup-box" ) .'</strong> '; ?></li>
+                            <li><?php echo '<strong>' . __( "Shortcode", "ays-popup-box" ) .'</strong> '; ?></li>
                             <li><?php echo '<strong>' . __( "Video", "ays-popup-box" ) .'</strong> '; ?></li>
+                            <li><?php echo '<strong>' . __( "Image", "ays-popup-box" ) .'</strong> '; ?></li>
+                            <li><?php echo '<strong>' . __( "Facebook", "ays-popup-box" ) .'</strong> '; ?></li>
+                            <li><?php echo '<strong>' . __( "Notification", "ays-popup-box" ) .'</strong> '; ?></li>
                         </ul>
                     </li>
                     <li>

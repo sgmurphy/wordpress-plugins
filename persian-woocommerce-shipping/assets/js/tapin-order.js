@@ -30,6 +30,7 @@ jQuery(document).ready(function ($) {
             'status': status,
             'weight': $('#tapin_weight').val(),
             'content_type': $('#tapin_content_type').val(),
+            'box_size': $('#tapin_box_size').val(),
             'id': id
         };
 

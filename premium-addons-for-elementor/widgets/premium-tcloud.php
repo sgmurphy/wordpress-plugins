@@ -79,7 +79,6 @@ class Premium_Tcloud extends Widget_Base {
 	public function get_script_depends() {
 
 		return array(
-			'elementor-waypoints',
 			'pa-awesomecloud',
 			'pa-tagcanvas',
 			'premium-addons',
@@ -390,7 +389,7 @@ class Premium_Tcloud extends Widget_Base {
 		$this->add_control(
 			'no_tax_notice',
 			array(
-				'raw'             => __( 'This post type has no taxonomies to show.', 'premium-addons-for-elemeentor' ),
+				'raw'             => __( 'This post type has no taxonomies to show.', 'premium-addons-for-elementor' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'classes'         => 'premium-live-temp-title control-hidden',
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',

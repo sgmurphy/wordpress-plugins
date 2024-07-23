@@ -769,7 +769,27 @@ This message does not have an option for responding. If you need additional info
                     'event'         => null,
                     'cart'          => '',
                 ],
-            ]
+            ],
+            'square'                     => [
+                'enabled'            => false,
+                'locationId'         => '',
+                'accessToken'        => '',
+                'testMode'           => AMELIA_MIDDLEWARE_IS_SANDBOX,
+                'description'        => [
+                    'enabled'     => false,
+                    'appointment' => '',
+                    'package'     => '',
+                    'event'       => '',
+                    'cart'        => ''
+                ],
+                'metaData'           => [
+                    'enabled'     => false,
+                    'appointment' => null,
+                    'package'     => null,
+                    'event'       => null,
+                    'cart'        => null
+                ],
+            ],
         ];
     }
 

@@ -177,6 +177,15 @@ export default {
           elite: true
         },
         {
+          feature: 'Square Integration',
+          lite: true,
+          starter: true,
+          standard: true,
+          pro: true,
+          elite: true,
+          tag: 'New'
+        },
+        {
           feature: 'Group Appointment Bookings',
           lite: false,
           starter: true,
@@ -231,6 +240,15 @@ export default {
           standard: true,
           pro: true,
           elite: true
+        },
+        {
+          feature: 'Tax feature',
+          lite: false,
+          starter: false,
+          standard: true,
+          pro: true,
+          elite: true,
+          tag: 'New'
         },
         {
           feature: 'Recurring Appointments and Events',
@@ -349,6 +367,15 @@ export default {
         },
         {
           feature: 'Cart',
+          lite: false,
+          starter: false,
+          standard: false,
+          pro: true,
+          elite: true,
+          tag: 'New'
+        },
+        {
+          feature: 'Stripe Connect',
           lite: false,
           starter: false,
           standard: false,

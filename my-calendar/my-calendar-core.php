@@ -539,6 +539,13 @@ function mc_head() {
 
 		echo PHP_EOL . '<script type="application/ld+json">' . PHP_EOL . '[' . json_encode( map_deep( $schema, 'esc_html' ), JSON_UNESCAPED_SLASHES ) . ']' . PHP_EOL . '</script>' . PHP_EOL;
 	}
+
+	$page_id = mc_get_option( 'uri_id' );
+	$is_page = ( is_single( $page_id ) || is_page( $page_id ) ) ? true : false;
+	// Force noindex on calendar archive pages as long as they are not the home, front page, or individual event view.
+	if ( ( $page_id && $is_page ) && ! ( isset( $_GET['mc_id'] ) || is_front_page() ) ) {
+		echo PHP_EOL . '<meta name="robots" content="noindex,follow" />' . PHP_EOL;
+	}
 }
 
 /**
@@ -906,7 +913,7 @@ function mc_admin_head() {
 	$styles     = (array) mc_get_option( 'style_vars' );
 	$style_vars = '';
 	foreach ( $styles as $key => $var ) {
-		if ( 'text' === $key ) {
+		if ( 'text' === $key && is_array( $var ) ) {
 			foreach ( $var as $variable => $text ) {
 				if ( $variable ) {
 					$style_vars .= sanitize_key( $variable ) . ': ' . esc_html( $text ) . '; ';
@@ -1352,6 +1359,23 @@ function mc_add_adminbar_link( $mc_id ) {
 	$wp_admin_bar->add_node( $args );
 }
 add_action( 'admin_bar_menu', 'mc_admin_bar', 200 );
+
+
+/**
+ * Add primary adminbar link.
+ *
+ * @param array $classes An array of body class names.
+ */
+function mc_primary_page_class( $classes ) {
+	$mc_id = mc_get_option( 'uri_id' );
+	if ( is_page( $mc_id ) ) {
+		$classes[] = 'my-calendar';
+	}
+
+	return $classes;
+}
+add_filter( 'body_class', 'mc_primary_page_class', 10, 1 );
+
 /**
  * Set up adminbar links
  */

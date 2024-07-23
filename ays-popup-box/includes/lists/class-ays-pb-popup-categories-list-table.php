@@ -3,27 +3,54 @@ ob_start();
 class Popup_Categories_List_Table extends WP_List_Table {
     private $plugin_name;
     private $title_length;
+
     /** Class constructor */
     public function __construct($plugin_name) {
         $this->plugin_name = $plugin_name;
         $this->title_length = Ays_Pb_Admin::get_listtables_title_length('categories');
+
         parent::__construct( array(
-            'singular' => __( 'Category', "ays-popup-box" ), //singular name of the listed records
-            'plural'   => __( 'Categories', "ays-popup-box" ), //plural name of the listed records
-            'ajax'     => false //does this table support ajax?
+            'singular' => __( 'Category', "ays-popup-box" ), // singular name of the listed records
+            'plural' => __( 'Categories', "ays-popup-box" ), // plural name of the listed records
+            'ajax' => false // does this table support ajax?
         ) );
-        add_action( 'admin_notices', array( $this, 'popup_category_notices' ) );
 
+        add_action( 'admin_notices', array($this, 'popup_category_notices') );
     }
-    
 
-     protected function get_views() {
+    public function popup_category_notices() {
+        $status = isset($_REQUEST['status']) ? sanitize_text_field($_REQUEST['status']) : '';
+
+        if (empty($status)) return;
+
+        if ('created' == $status)
+            $updated_message = esc_html( __('Popup category created.', "ays-popup-box") );
+        elseif ('updated' == $status)
+            $updated_message = esc_html( __('Popup category saved.', "ays-popup-box") );
+        elseif ('deleted' == $status)
+            $updated_message = esc_html( __('Popup category deleted.', "ays-popup-box") );
+         elseif ('published' == $status)
+            $updated_message = esc_html( __('Popup category(s) published.', "ays-popup-box") );
+        elseif ('unpublished' == $status)
+            $updated_message = esc_html( __('Popup category(s) unpublished.', "ays-popup-box") );
+
+        if (empty($updated_message)) return;
+
+        ?>
+        <div class="notice notice-success is-dismissible">
+            <p> <?php echo $updated_message; ?> </p>
+        </div>
+        <?php
+    }
+
+    protected function get_views() {
         $published_count = $this->published_popup_categories_count();
         $unpublished_count = $this->unpublished_popup_categories_count();
         $all_count = $this->all_record_count();
         $selected_all = "";
         $selected_0 = "";
         $selected_1 = "";
+
         if( isset( $_REQUEST['fstatus'] ) && is_numeric( $_REQUEST['fstatus'] ) && ! is_null( sanitize_text_field( $_REQUEST['fstatus'] ) ) ){
             switch( sanitize_text_field( $_GET['fstatus'] ) ){
                 case "0":
@@ -46,7 +73,6 @@ class Popup_Categories_List_Table extends WP_List_Table {
         );
         return $status_links;
     }
-
     
     /**
      * Retrieve customers data from the database
@@ -543,33 +569,5 @@ class Popup_Categories_List_Table extends WP_List_Table {
             $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')  ) ) . '&status=unpublished';
             wp_redirect( $url );
         }
-    }
-
-    public function popup_category_notices(){
-        $status = (isset($_REQUEST['status'])) ? sanitize_text_field( $_REQUEST['status'] ) : '';
-
-        if ( empty( $status ) )
-            return;
-
-        if ( 'created' == $status )
-            $updated_message = esc_html( __( 'Popup category created.', "ays-popup-box" ) );
-        elseif ( 'updated' == $status )
-            $updated_message = esc_html( __( 'Popup category saved.', "ays-popup-box" ) );
-        elseif ( 'deleted' == $status )
-            $updated_message = esc_html( __( 'Popup category deleted.', "ays-popup-box" ) );
-         elseif ( 'published' == $status )
-            $updated_message = esc_html( __( 'Popup category(s) published.', "ays-popup-box" ) );
-        elseif ( 'unpublished' == $status )
-            $updated_message = esc_html( __( 'Popup category(s) unpublished.', "ays-popup-box" ) );
-
-
-        if ( empty( $updated_message ) )
-            return;
-
-        ?>
-        <div class="notice notice-success is-dismissible">
-            <p> <?php echo $updated_message; ?> </p>
-        </div>
-        <?php
     }
 }

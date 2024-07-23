@@ -7,11 +7,28 @@
  */
 
 use ContentEgg\application\helpers\TemplateHelper;
+use ContentEgg\application\helpers\ArrayHelper;
+
+use function ContentEgg\prn;
 
 $all_items = TemplateHelper::mergeAll($data, $order);
 if (TemplateHelper::isNumbered($all_items))
     $all_items = TemplateHelper::sortByNumber($all_items, $order);
 $ratings = TemplateHelper::generateStaticRatings(count($all_items));
+
+foreach ($all_items as $i => $item)
+{
+    if (empty($item['ratingDecimal']) && isset($item['extra']['data']['ratingDecimal']))
+        $all_items[$i]['ratingDecimal'] = $item['ratingDecimal'] = round(TemplateHelper::convertRatingScale($item['extra']['data']['ratingDecimal']), 1);
+
+    if (empty($item['ratingDecimal']))
+        $all_items[$i]['ratingDecimal'] = $ratings[$i];
+    elseif ($item['ratingDecimal'] && $item['group'] !== 'Roundup')
+        $all_items[$i]['ratingDecimal'] = round(TemplateHelper::convertRatingScale($item['ratingDecimal']), 1);
+}
+if ($item['group'] !== 'Roundup')
+    $all_items = ArrayHelper::sortByField($all_items, 'ratingDecimal', 'desc');
+
 ?>
 
 <div class="egg-container cegg-top-listing">
@@ -64,6 +81,7 @@ $ratings = TemplateHelper::generateStaticRatings(count($all_items));
                 <div class="col-md-2 col-sm-2 col-xs-3">
 
                     <?php
+
                     if (!empty($item['ratingDecimal']))
                         TemplateHelper::printProgressRing($item['ratingDecimal']);
                     else

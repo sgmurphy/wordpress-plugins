@@ -4,7 +4,7 @@
   Plugin URI: https://bulk-editor.com/
   Description: Tools for managing and bulk edit <strong>WooCommerce Products</strong> data in the reliable and flexible way! Be professionals with managing data of your e-shop!
   Requires at least: WP 4.9
-  Tested up to: WP 6.5
+  Tested up to: WP 6.6
   Author: realmag777
   Author URI: https://pluginus.net/
   Version: 1.1.4.4
@@ -13,7 +13,7 @@
   Text Domain: woo-bulk-editor
   Domain Path: /languages
   WC requires at least: 3.6
-  WC tested up to: 9.0
+  WC tested up to: 9.1
   Forum URI: https://pluginus.net/support/forum/woobe-woocommerce-bulk-editor-professional/
  */
 

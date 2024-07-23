@@ -91,7 +91,7 @@
             /**
              * Easily add marker to the map
              * */
-            function addMarker(coordinate) {
+            function pws_map_osm_add_marker(coordinate) {
 
                 const pws_map_osm_marker = new ol.Feature({
                     geometry: new ol.geom.Point(coordinate),
@@ -101,7 +101,7 @@
                 /*currentMarker = new ol.Feature({
                     geometry: new ol.geom.Point(ol.proj.fromLonLat(coordinate))
                 });*/
-                console.log(pws_map_osm_marker_url);
+
                 // Set a custom icon style for the marker
                 const pws_map_osm_maker_icon_style = new ol.style.Style({
                     image: new ol.style.Icon({
@@ -127,7 +127,7 @@
             if (pws_map_osm_user_has_location) {
                 $('#pws_map_location').val(JSON.stringify(pws_map_osm_init_location));
 
-                addMarker(ol.proj.fromLonLat(pws_map_osm_init_location.slice().reverse()));
+                pws_map_osm_add_marker(ol.proj.fromLonLat(pws_map_osm_init_location.slice().reverse()));
                 pws_map_osm.setView(
                     new ol.View({
                         center: ol.proj.fromLonLat(pws_map_osm_init_location.slice().reverse()),
@@ -149,6 +149,7 @@
                 const pws_map_osm_geolocation = new Geolocation({
                     trackingOptions: {
                         enableHighAccuracy: true,
+                        timeout: 20000,
                     },
                     projection: pws_map_osm_gps_view.getProjection(),
                 });
@@ -157,14 +158,28 @@
                     pws_map_osm_geolocation.setTracking(this.checked);
                 });
 
-                pws_map_osm_geolocation.on('change', function () {
-                    let pws_map_osm_gps_location = pws_map_osm_geolocation.getPosition();
-                    $('#pws_map_location').val(JSON.stringify(pws_map_osm_gps_location.slice().reverse()));
+                pws_map_osm_geolocation.on('error', function (error) {
+                    console.log(error.message);
                 });
 
-                pws_map_osm_geolocation.on('error', function (error) {
-                    $('#pws-osm__map__info').html(error.message);
-                    $('#pws-osm__map__info').show();
+                pws_map_osm_geolocation.on('change', function () {
+                    let pws_map_osm_gps_location = pws_map_osm_geolocation.getPosition();
+                    // If there's no location coordinates do nothing
+                    if (!pws_map_osm_gps_location) {
+                        return;
+                    }
+                    let pws_map_osm_gps_location_standard = ol.proj.transform(pws_map_osm_gps_location, 'EPSG:3857', 'EPSG:4326');
+                    let longitude = pws_map_osm_gps_location_standard[0];
+                    let latitude = pws_map_osm_gps_location_standard[1];
+
+                    if ((latitude <= 0 || longitude <= 0) || pws_map_is_utm(latitude, longitude)) {
+                        console.log('لوکیشن به درستی یافت نشد.')
+                        return;
+                    }
+
+                    $('#pws_map_location').val(JSON.stringify(pws_map_osm_gps_location_standard));
+                    pws_map_osm_add_marker(pws_map_osm_gps_location);
+
                 });
 
                 const pws_map_osm_accuracy_feature = new Feature();
@@ -205,7 +220,6 @@
                 });
             }
 
-
             /**
              * Update the map current location if address got changed
              * @return void
@@ -239,7 +253,7 @@
 
                 $('#pws_map_location').val(JSON.stringify(pws_map_osm_selected_location_standard.slice().reverse()));
 
-                addMarker(pws_map_osm_selected_location);
+                pws_map_osm_add_marker(pws_map_osm_selected_location);
 
                 pws_map_osm.setView(
                     new ol.View({
@@ -336,11 +350,10 @@
         pws_style_tag.text(pws_osm_css_customization);
         $('head').append(pws_style_tag);
 
-        if ($("#pws_map_location").val() == 'null'){
+        if ($("#pws_map_location").val() == 'null') {
             $('#pws-map__osm__track').prop('checked', true);
             $('#pws-map__osm__track').trigger('change');
         }
-
 
     });/*End document ready*/
 }(jQuery));/*End jQuery initalize*/

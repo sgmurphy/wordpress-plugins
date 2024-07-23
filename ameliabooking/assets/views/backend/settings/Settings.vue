@@ -309,6 +309,9 @@
               :coupons="coupons"
               :payments="settings.payments"
               :default-appointment-status="settings.general.defaultAppointmentStatus"
+              :square-locations="squareLocations"
+              :open-square-collapse="squareOpenCollapse"
+              :access-token-set="accessTokenSet"
           >
           </dialog-settings-payments>
         </el-dialog>
@@ -648,7 +651,10 @@
         categories: [],
         employees: [],
         coupons: [],
-        settings: {}
+        settings: {},
+        squareLocations: [],
+        accessTokenSet: false,
+        squareOpenCollapse: false
       }
     },
 
@@ -812,7 +818,7 @@
           })
       },
 
-      updateSettings (settings, message = null, notify = true) {
+      updateSettings (settings, message = null, notify = true, callback = null) {
         for (let category in settings) {
           if (settings.hasOwnProperty(category) && category !== 'weekSchedule') {
             this.settings[category] = settings[category]
@@ -834,6 +840,10 @@
           .then(response => {
             this.$root.settings = Object.assign(this.$root.settings, response.data.data.settings)
             this.settings.apiKeys = JSON.parse(JSON.stringify(this.$root.settings.apiKeys))
+
+            if (callback) {
+              callback()
+            }
 
             if (notify === true) {
               this.notify(
@@ -967,7 +977,8 @@
       getEntities () {
         this.$http.get(`${this.$root.getAjaxUrl}/entities`, {
           params: this.getAppropriateUrlParams({
-            types: ['custom_fields', 'categories', 'coupons', 'settings', 'employees']
+            lite: true,
+            types: ['custom_fields', 'categories', 'coupons', 'settings', 'employees', 'squareLocations']
           })
         }).then(response => {
           this.customFields = response.data.data.customFields
@@ -975,6 +986,8 @@
           this.categories = response.data.data.categories
           this.languagesData = response.data.data.settings.languages
           this.employees = response.data.data.employees
+          this.squareLocations = response.data.data.settings.squareLocations
+          this.squareLocations = Array.isArray(this.squareLocations) ? this.squareLocations : Object.values(this.squareLocations)
         }).catch(e => {
           console.log(e.message)
         })
@@ -1087,6 +1100,15 @@
             let redirectURL = this.removeURLParameter(window.location.href, 'activeSetting')
             history.pushState(null, null, redirectURL + '#/settings')
           }
+        } else if (queryParams['square']) {
+          if (queryParams['square_error']) {
+            this.notify(this.$root.labels.error, this.$root.labels.square_login_failed, 'error')
+          }
+          let redirectURL = this.removeURLParameter(window.location.href, 'square_error')
+          redirectURL = this.removeURLParameter(redirectURL, 'square')
+          history.pushState(null, null, redirectURL + '#/settings')
+          this.dialogSettingsPayments = true
+          this.squareOpenCollapse = true
         }
       },
 

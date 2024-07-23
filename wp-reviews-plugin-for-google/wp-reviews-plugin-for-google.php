@@ -9,7 +9,7 @@ Author: Trustindex.io <support@trustindex.io>
 Author URI: https://www.trustindex.io/
 Contributors: trustindex
 License: GPLv2 or later
-Version: 11.9
+Version: 12.0
 Text Domain: wp-reviews-plugin-for-google
 Domain Path: /languages
 Donate link: https://www.trustindex.io/prices/
@@ -18,8 +18,9 @@ Donate link: https://www.trustindex.io/prices/
 Copyright 2019 Trustindex Kft (email: support@trustindex.io)
 */
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
-require_once plugin_dir_path( __FILE__ ) . 'trustindex-plugin.class.php';
-$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.9", "Widgets for Google Reviews", "Google");
+require_once plugin_dir_path(__FILE__) . 'include' . DIRECTORY_SEPARATOR . 'cache-plugin-filters.php';
+require_once plugin_dir_path(__FILE__) . 'trustindex-plugin.class.php';
+$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "12.0", "Widgets for Google Reviews", "Google");
 $pluginManagerInstance = $trustindex_pm_google;
 register_activation_hook(__FILE__, [ $pluginManagerInstance, 'activate' ]);
 register_deactivation_hook(__FILE__, [ $pluginManagerInstance, 'deactivate' ]);
@@ -40,21 +41,6 @@ $path = str_replace('http://', 'https://', $path);
 wp_register_style('ti-widget-css-'. $pluginManagerInstance->getShortName(), $path, [], filemtime($pluginManagerInstance->getCssFile()));
 });
 }
-if (!function_exists('ti_exclude_js')) {
-function ti_exclude_js($list) {
-$list []= 'trustindex.io';
-return $list;
-}
-}
-add_filter('rocket_exclude_js', 'ti_exclude_js');
-add_filter('litespeed_optimize_js_excludes', 'ti_exclude_js');
-if (!function_exists('ti_exclude_inline_js')) {
-function ti_exclude_inline_js($list) {
-$list []= 'Trustindex.init_pager';
-return $list;
-}
-}
-add_filter('rocket_excluded_inline_js_content', 'ti_exclude_inline_js');
 add_action('init', [ $pluginManagerInstance, 'init_shortcode' ]);
 add_filter('script_loader_tag', function($tag, $handle) {
 if (strpos($tag, 'trustindex.io/loader.js') !== false && strpos($tag, 'defer async') === false) {

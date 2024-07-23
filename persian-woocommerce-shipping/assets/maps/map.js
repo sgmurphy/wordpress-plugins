@@ -140,9 +140,24 @@ function pws_map_admin_editing_enabled() {
         return true;
     }
     return jQuery('#pws-map-admin-edit').is(':checked');
-
 }
 
+/**
+ * Check if a number is utm!
+ * */
+function pws_map_is_utm(latitude, longitude) {
+    // Check if either coordinate is outside the typical longitude/latitude ranges
+    if (longitude > 180 || longitude < -180 || latitude > 90 || latitude < -90) {
+        return true;
+    }
+
+    // Heuristic check: UTM coordinates are much larger, often in the range of tens of thousands
+    if (Math.abs(longitude) > 10000 || Math.abs(latitude) > 10000) {
+        return true;
+    }
+
+    return false;
+}
 (function ($) {
     $(document).ready(function () {
         /**

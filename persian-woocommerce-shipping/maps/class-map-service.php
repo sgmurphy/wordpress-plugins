@@ -280,4 +280,8 @@ class PWS_Map_Service {
         $this->map_params[ $key ] = $value;
     }
 
+	public function is_admin_tools_page() {
+		return is_admin() && isset( $_GET['page'] ) && $_GET['page'] == 'pws-tools';
+	}
+
 }

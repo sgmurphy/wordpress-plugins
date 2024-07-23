@@ -43,19 +43,27 @@ final class PWS_Map_Neshan extends PWS_Map_Service {
     }
 
     public function enqueue_scripts( $hook_suffix = '' ) {
-        // Check if it's the WooCommerce Orders admin page
-        $is_wc_orders_admin_page = is_admin() && 'woocommerce_page_wc-orders' === $hook_suffix;
-        // Check if it's the Checkout page
-        $is_checkout_page = ! is_admin() && function_exists( 'is_checkout' ) && is_checkout();
+	    // Get the current screen, this method is only available in admin area
+	    $screen = is_admin() ? get_current_screen() : null;
 
-        // Return early if user is not on either of these pages
-        if ( ! ($is_wc_orders_admin_page || $is_checkout_page) ) {
-            return;
-        }
+	    // Check if it's the WooCommerce Orders admin page
+	    // The is_admin() condition is already on $screen variable, so I won't repeat it here
+	    $is_wc_orders_admin_page = !empty($screen) && isset($screen->id) && $screen->id === 'shop_order';
 
-        parent::enqueue_scripts( $hook_suffix );
+	    // Check if it's the Checkout page
+	    $is_checkout_page = ! is_admin() && function_exists( 'is_checkout' ) && is_checkout();
+	    // Check if it's my account page
+	    $is_my_account_page = is_account_page();
 
-        wp_enqueue_script(
+		// Check if it's in admin settings
+	    // Return early if user is not on either of these pages
+	    if ( ! ( $this->is_admin_tools_page() || $is_wc_orders_admin_page || $is_checkout_page || $is_my_account_page ) ) {
+		    return;
+	    }
+
+	    parent::enqueue_scripts( $hook_suffix );
+
+	    wp_enqueue_script(
             'pws-map-neshan-mapboxgl',
             PWS_URL . 'assets/maps/neshan/mapboxgl/mapboxgl.js',
             [],

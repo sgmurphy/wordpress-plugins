@@ -43,7 +43,9 @@ function cf7skins_sanitize_visual_data( $raw_data ) {
 				case 'expanded':
 					$data[ $index ]->$key = (bool) $value;
 					break;
-				case 'cf7sContent':
+				case 'cf7sContent': // paragraph
+					$data[ $index ]->$key = wp_kses( $value, 'user_description' );
+					break;
 				case 'cf7Content': // acceptance
 					$data[ $index ]->$key = sanitize_textarea_field( $value );
 					break;

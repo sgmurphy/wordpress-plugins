@@ -120,7 +120,7 @@ function continueWithBooking () {
 
   let bookingData = useBookingData(
     store,
-    gateway === 'mollie' ? formData : null,
+    gateway === 'mollie' || gateway === 'square' ? formData : null,
     false,
     {},
     null
@@ -136,6 +136,17 @@ function continueWithBooking () {
         function (response) {
           window.location = response.data.data.redirectUrl
         }
+      )
+
+      break
+
+    case ('square'):
+      payment(
+          '/payment/square',
+          bookingData,
+          function (response) {
+            window.location = response.data.data.redirectUrl
+          }
       )
 
       break

@@ -4,7 +4,7 @@
  * Plugin Name: IP2Location Country Blocker
  * Plugin URI: https://ip2location.com/resources/wordpress-ip2location-country-blocker
  * Description: Block visitors from accessing your website or admin area by their country.
- * Version: 2.35.1
+ * Version: 2.36.0
  * Author: IP2Location
  * Author URI: https://www.ip2location.com
  * Text Domain: ip2location-country-blocker.
@@ -1314,6 +1314,18 @@ class IP2LocationCountryBlocker
 
 		$settings_status = '';
 
+		$real_ip_headers = [
+			'REMOTE_ADDR',
+			'HTTP_CF_CONNECTING_IP',
+			'HTTP_CLIENT_IP',
+			'HTTP_FORWARDED',
+			'HTTP_INCAP_CLIENT_IP',
+			'HTTP_X_FORWARDED',
+			'HTTP_X_FORWARDED_FOR',
+			'HTTP_X_REAL_IP',
+			'HTTP_X_SUCURI_CLIENTIP',
+		];
+
 		$lookup_mode = (isset($_POST['lookup_mode'])) ? sanitize_text_field($_POST['lookup_mode']) : get_option('ip2location_country_blocker_lookup_mode');
 		$px_lookup_mode = (isset($_POST['px_lookup_mode'])) ? sanitize_text_field($_POST['px_lookup_mode']) : get_option('ip2location_country_blocker_px_lookup_mode');
 		$api_key = (isset($_POST['api_key'])) ? sanitize_text_field($_POST['api_key']) : get_option('ip2location_country_blocker_api_key');
@@ -1323,6 +1335,11 @@ class IP2LocationCountryBlocker
 		$detect_forwarder_ip = (isset($_POST['submit']) && isset($_POST['detect_forwarder_ip'])) ? 1 : ((isset($_POST['submit']) && !isset($_POST['detect_forwarder_ip'])) ? 0 : get_option('ip2location_country_blocker_detect_forwarder_ip'));
 		$enable_log = (isset($_POST['submit']) && isset($_POST['enable_log'])) ? 1 : ((isset($_POST['submit']) && !isset($_POST['enable_log'])) ? 0 : get_option('ip2location_country_blocker_log_enabled'));
 		$enable_debug_log = (isset($_POST['submit']) && isset($_POST['enable_debug_log'])) ? 1 : ((isset($_POST['submit']) && !isset($_POST['enable_debug_log'])) ? 0 : get_option('ip2location_country_blocker_debug_log_enabled'));
+		$real_ip_header = (isset($_POST['real_ip_header'])) ? sanitize_text_field($_POST['real_ip_header']) : get_option('ip2location_country_blocker_real_ip_header');
+
+		if (!in_array($real_ip_header, array_values($real_ip_headers))) {
+			$real_ip_header = '';
+		}
 
 		if (isset($_POST['lookup_mode'])) {
 			check_admin_referer('settings');
@@ -1448,6 +1465,7 @@ class IP2LocationCountryBlocker
 				update_option('ip2location_country_blocker_detect_forwarder_ip', $detect_forwarder_ip);
 				update_option('ip2location_country_blocker_log_enabled', $enable_log);
 				update_option('ip2location_country_blocker_debug_log_enabled', $enable_debug_log);
+				update_option('ip2location_country_blocker_real_ip_header', $real_ip_header);
 
 				$settings_status = '
 				<div class="updated">
@@ -1774,6 +1792,28 @@ class IP2LocationCountryBlocker
 									<strong>For security concerns, please disable this option after completed debugging process.</strong>
 								</p>
 							</label>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label>' . __('Real IP Detection', 'ip2location-country-blocker') . '</label>
+						</th>
+						<td>
+							<select name="real_ip_header" id="real_ip_header">
+								<option value=""' . ((empty($real_ip_header)) ? ' selected' : '') . '> No Override</option>';
+		foreach ($real_ip_headers as $value) {
+			echo '
+								<option value="' . $value . '"' . (($real_ip_header == $value) ? ' selected' : '') . '> ' . $value . '</option>';
+		}
+
+		echo '
+							</select>
+							<p class="description">
+								' . __('If your WordPress is installed behind a reverse proxy or load balancer, the real IP address of the visitors may not forwarded correctly and causing inaccurate country results. Use this option to override the IP detected by IP2Location.', 'ip2location-country-blocker') . '
+							</p>
+							<p class="description">
+								' . __('Detected IP: <strong>' . $this->get_ip() . '</strong>.', 'ip2location-country-blocker') . '
+							</p>
 						</td>
 					</tr>
 					<tr>
@@ -2368,6 +2408,7 @@ class IP2LocationCountryBlocker
 		add_option('ip2location_country_blocker_px_lookup_mode', '');
 		add_option('ip2location_country_blocker_token', '');
 		add_option('ip2location_country_blocker_download_ipv4_only', '0');
+		add_option('ip2location_country_blocker_real_ip_header', '');
 
 		$this->create_table();
 
@@ -2865,10 +2906,6 @@ class IP2LocationCountryBlocker
 	{
 		wp_enqueue_style('iplcb-styles-css', untrailingslashit(plugins_url('/', __FILE__)) . '/assets/css/styles.css', []);
 
-		// die($hook);
-
-		wp_enqueue_script('iplcb-settings-js', plugins_url('/assets/js/settings.js', __FILE__), ['jquery'], null, true);
-
 		switch ($hook) {
 			case 'plugins.php':
 				wp_enqueue_script('jquery-ui-dialog');
@@ -3137,6 +3174,10 @@ class IP2LocationCountryBlocker
 
 	private function get_ip()
 	{
+		if (get_option('ip2location_country_blocker_real_ip_header')) {
+			return $_SERVER[get_option('ip2location_country_blocker_real_ip_header')] ?? $_SERVER['REMOTE_ADDR'];
+		}
+
 		// Possible using CloudFlare service
 		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
 			// Make sure originated IP is coming from CloudFlare network

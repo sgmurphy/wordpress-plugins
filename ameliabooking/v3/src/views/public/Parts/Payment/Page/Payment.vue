@@ -60,7 +60,7 @@
           >
             <img
               v-if="available"
-              :src="`${baseUrls.wpAmeliaPluginURL}/v3/src/assets/img/icons/${gateway === 'mollie' ? 'stripe' : gateway}.svg`"
+              :src="`${baseUrls.wpAmeliaPluginURL}/v3/src/assets/img/icons/${gateway === 'mollie' || gateway === 'wc' ? 'stripe' : gateway}.svg`"
             >
             <div>
               <p>{{ paymentsBtnText.filter(item => item.key === gateway)[0].text }}</p>
@@ -131,6 +131,7 @@ import useAction from "../../../../../assets/js/public/actions";
 import { useColorTransparency } from "../../../../../assets/js/common/colorManipulation";
 import { usePrepaidPrice } from "../../../../../assets/js/common/appointments";
 import { useResponsiveClass } from "../../../../../assets/js/common/responsive";
+import {settings} from "../../../../../plugins/settings";
 
 // * Properties
 let props = defineProps({
@@ -205,6 +206,7 @@ const paymentTypes = {
   razorpay: markRaw(PaymentCommon),
   mollie: markRaw(PaymentCommon),
   wc: markRaw(PaymentWc),
+  square: markRaw(PaymentCommon)
 }
 
 let ready = computed(() => store.getters['getReady'])
@@ -242,7 +244,7 @@ let paymentSentence = computed(() => {
   let sentence = ''
   if (paymentGateway.value === 'onSite' && !mandatoryOnSitePayment.value) {
     sentence = amLabels.payment_onsite_sentence
-  } else if (paymentGateway.value === 'mollie' || paymentGateway.value === 'wc') {
+  } else if (paymentGateway.value === 'mollie' || paymentGateway.value === 'wc' || paymentGateway.value === 'square') {
     sentence = amLabels.payment_wc_mollie_sentence
   }
 
@@ -275,25 +277,13 @@ let availablePayments = computed(() => {
         wc: false,
         mollie: false,
         razorpay: false,
+        square: false
       }
     }
 
     let entity = props.selectedItem
 
     let entityPayments = entity.settings ? JSON.parse(entity.settings)['payments'] : null
-
-    if (amSettings.value.payments.wc.enabled === true) {
-      store.commit('payment/setPaymentGateway', 'wc')
-
-      return {
-        onSite: false,
-        stripe: false,
-        payPal: false,
-        wc: true,
-        mollie: false,
-        razorpay: false,
-      }
-    }
 
     let payments = !entityPayments ? {
       onSite: amSettings.value.payments.onSite,
@@ -302,13 +292,15 @@ let availablePayments = computed(() => {
       wc: amSettings.value.payments.wc.enabled,
       mollie: amSettings.value.payments.mollie.enabled,
       razorpay: amSettings.value.payments.razorpay.enabled,
+      square: settings.payments.square.enabled,
     } : {
       onSite: 'onSite' in entityPayments ? entityPayments.onSite && amSettings.value.payments.onSite : amSettings.value.payments.onSite,
       stripe: 'stripe' in entityPayments ? entityPayments.stripe.enabled && amSettings.value.payments.stripe.enabled : amSettings.value.payments.stripe.enabled,
       payPal: 'payPal' in entityPayments ? entityPayments.payPal.enabled && amSettings.value.payments.payPal.enabled : amSettings.value.payments.payPal.enabled,
-      wc: amSettings.value.payments.wc.enabled,
+      wc: 'wc' in entityPayments ? (!('enabled' in entityPayments.wc) || entityPayments.wc.enabled) && amSettings.value.payments.wc.enabled : amSettings.value.payments.wc.enabled,
       mollie: 'mollie' in entityPayments ? entityPayments.mollie.enabled && amSettings.value.payments.mollie.enabled : amSettings.value.payments.mollie.enabled,
       razorpay: 'razorpay' in entityPayments ? entityPayments.razorpay.enabled && amSettings.value.payments.razorpay.enabled : amSettings.value.payments.razorpay.enabled,
+      square: 'square' in entityPayments ? entityPayments.square.enabled && settings.payments.square.enabled : settings.payments.square.enabled,
     }
 
     if (!payments.onSite &&
@@ -316,6 +308,7 @@ let availablePayments = computed(() => {
       !payments.payPal &&
       !payments.wc &&
       !payments.mollie &&
+      !payments.square &&
       !payments.razorpay
     ) {
       payments = {
@@ -324,6 +317,7 @@ let availablePayments = computed(() => {
         payPal: amSettings.value.payments.payPal.enabled,
         wc: amSettings.value.payments.wc.enabled,
         mollie: amSettings.value.payments.mollie.enabled,
+        square: settings.payments.square.enabled,
         razorpay: amSettings.value.payments.razorpay.enabled,
       }
     }
@@ -425,6 +419,8 @@ Object.keys(availablePayments.value).forEach(key => {
 
 function getPaymentBtnString (key) {
   switch(key) {
+    case 'square':
+      return amLabels['square']
     case 'onSite':
       return amLabels['on_site']
     case 'payPal':
@@ -433,7 +429,7 @@ function getPaymentBtnString (key) {
       return amLabels['stripe']
     case 'razorpay':
       return amLabels['razorpay']
-    case 'mollie':
+    case 'mollie': case 'wc':
       return amLabels['on_line']
     default:
       return ''

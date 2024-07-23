@@ -415,19 +415,19 @@ class GoogleFontsLocalLoader {
 			return NONCE_KEY;
 		}
 
-		if ( define( 'SECURE_AUTH_KEY' ) ) {
+		if ( defined( 'SECURE_AUTH_KEY' ) ) {
 			return SECURE_AUTH_KEY;
 		}
 
-		if ( define( 'AUTH_KEY' ) ) {
+		if ( defined( 'AUTH_KEY' ) ) {
 			return AUTH_KEY;
 		}
 
-		if ( define( 'SECURE_AUTH_SALT' ) ) {
+		if ( defined( 'SECURE_AUTH_SALT' ) ) {
 			return SECURE_AUTH_SALT;
 		}
 
-		if ( define( 'AUTH_SALT' ) ) {
+		if ( defined( 'AUTH_SALT' ) ) {
 			return AUTH_SALT;
 		}
 

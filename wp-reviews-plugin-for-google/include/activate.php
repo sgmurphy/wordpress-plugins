@@ -34,5 +34,4 @@ sprintf(__('We got the following error from %s:', 'trustindex-plugin'), __('data
 ));
 }
 update_option($this->get_option_name('active'), '1');
-update_option($this->get_option_name('version'), $this->version);
 ?>

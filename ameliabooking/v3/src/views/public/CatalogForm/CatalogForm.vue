@@ -177,13 +177,36 @@ function removeItemFromStepArray (arr, identifier) {
   arr.splice(identifier, 1)
 }
 
+function iOS() {
+  return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+    // iPad on iOS 13 detection
+    || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
+
 function nextPage () {
   pageIndex.value = pageIndex.value + 1
-  let scrollHeightElement = ameliaContainer.value.getBoundingClientRect().top + window.pageYOffset - offsetFromTop.value
-  window.scrollTo({
-    top: scrollHeightElement,
-    behavior: "smooth"
-  })
+  if (iOS()) {
+    setTimeout(() => {
+      let scrollHeightElement = ameliaContainer.value.getBoundingClientRect().top + window.pageYOffset - offsetFromTop.value
+      window.scrollTo({
+        top: scrollHeightElement,
+        behavior: "smooth"
+      })
+    }, 500)
+  } else {
+    let scrollHeightElement = ameliaContainer.value.getBoundingClientRect().top + window.pageYOffset - offsetFromTop.value
+    window.scrollTo({
+      top: scrollHeightElement,
+      behavior: "smooth"
+    })
+  }
 }
 
 function previousPage () {

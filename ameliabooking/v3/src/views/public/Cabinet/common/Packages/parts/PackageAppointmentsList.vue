@@ -3,6 +3,21 @@
     class="am-cappa"
     :style="cssVars"
   >
+    <AmAlert
+        v-if="alertVisibility"
+        ref="alertContainer"
+        :type= "alertType"
+        :show-border="true"
+        :close-after="5000"
+        custom-class="am-cap__alert"
+        @close="closeAlert"
+        @trigger-close="closeAlert"
+    >
+      <template #title>
+        <span class="am-icon-checkmark-circle-full"></span> {{ alertMessage }}
+      </template>
+    </AmAlert>
+
     <div class="am-cappa__back">
       <AmButton
         custom-class="am-cappa__back-btn"
@@ -228,6 +243,7 @@ import CancelPopup from "../../parts/CancelPopup.vue";
 import AppointmentsList from "../../Appointments/parts/AppointmentsList.vue";
 import AppointmentBooking from "../../parts/AppointmentBooking.vue";
 import PaymentButton from "../../parts/PaymentButton.vue";
+import AmAlert from "../../../../../_components/alert/AmAlert.vue";
 
 // * Component props
 let props = defineProps({
@@ -561,6 +577,19 @@ let amLabels = computed(() => {
 })
 
 provide('amLabels', amLabels)
+
+
+let alertVisibility = computed(() => {
+  return store.getters['cabinet/getPaymentLinkError'].package
+})
+let alertType = ref('error')
+
+let alertMessage = ref(amLabels.value.payment_link_error)
+
+function closeAlert () {
+  alertVisibility.value = false
+  store.commit('cabinet/setPaymentLinkError', {value: false, type: 'package'})
+}
 
 function customizedLabels (step) {
   let computedLabels = reactive({...labels})

@@ -236,6 +236,17 @@ function elementPlusTranslations (lang) {
   return translation
 }
 
+function monthsTranslationsShort (lang) {
+  let months = {}
+  let obj = elementPlusTranslations(lang).el.datepicker.months
+  Object.keys(obj).forEach((month, index) => {
+    months[index+1] = obj[month]
+  })
+
+  return months
+}
+
 export {
-  elementPlusTranslations
+  elementPlusTranslations,
+  monthsTranslationsShort
 }

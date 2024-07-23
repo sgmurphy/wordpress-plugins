@@ -855,8 +855,7 @@ final class BigInteger extends BigNumber
     }
 
     /**
-     * Returns the number of bits in the minimal two's-complement representation of this BigInteger, excluding a sign
-     * bit.
+     * Returns the number of bits in the minimal two's-complement representation of this BigInteger, excluding a sign bit.
      *
      * For positive BigIntegers, this is equivalent to the number of bits in the ordinary binary representation.
      * Computes (ceil(log2(this < 0 ? -this : this+1))).
@@ -1164,12 +1163,4 @@ final class BigInteger extends BigNumber
 
         $this->value = $value;
     }
-
-	public function __serialize() {
-		$this->serialize();
-	}
-
-	public function __unserialize( $data ) {
-		$this->unserialize( $data );
-	}
 }

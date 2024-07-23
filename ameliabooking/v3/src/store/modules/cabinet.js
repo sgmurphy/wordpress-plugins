@@ -6,7 +6,12 @@ export default {
     timeZone: null,
     appointmentsLoading: false,
     packageLoading: false,
-    eventsLoading: false
+    eventsLoading: false,
+    paymentLinkError: {
+      appointment: false,
+      event: false,
+      package: false
+    }
   }),
 
   getters: {
@@ -25,6 +30,9 @@ export default {
     getEventsLoading (state) {
       return state.eventsLoading
     },
+    getPaymentLinkError (state) {
+      return state.paymentLinkError
+    },
   },
 
   mutations: {
@@ -42,6 +50,9 @@ export default {
     },
     setEventsLoading (state, payload) {
       state.eventsLoading = payload
+    },
+    setPaymentLinkError (state, payload) {
+      state.paymentLinkError[payload.type] = payload.value
     },
   },
 

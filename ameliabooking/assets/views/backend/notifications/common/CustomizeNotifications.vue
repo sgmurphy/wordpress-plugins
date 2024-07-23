@@ -1481,7 +1481,8 @@
                 '%payment_link_stripe%',
                 '%payment_link_paypal%',
                 '%payment_link_mollie%',
-                '%payment_link_razorpay%'
+                '%payment_link_razorpay%',
+                '%payment_link_square%'
               ]
             }
 
@@ -1537,6 +1538,7 @@
           excludedPlaceholders.paymentPlaceholders.push('%payment_link_mollie%')
           excludedPlaceholders.paymentPlaceholders.push('%payment_link_paypal%')
           excludedPlaceholders.paymentPlaceholders.push('%payment_link_razorpay%')
+          excludedPlaceholders.paymentPlaceholders.push('%payment_link_square%')
         }
 
         if (notification && notification.type !== 'whatsapp') {
@@ -1569,7 +1571,8 @@
               '%payment_link_stripe%',
               '%payment_link_paypal%',
               '%payment_link_mollie%',
-              '%payment_link_razorpay%'
+              '%payment_link_razorpay%',
+              '%payment_link_square%'
             ]
           }
         }
@@ -1614,7 +1617,8 @@
             '%payment_link_stripe%',
             '%payment_link_paypal%',
             '%payment_link_mollie%',
-            '%payment_link_razorpay%'
+            '%payment_link_razorpay%',
+            '%payment_link_square%'
           ])
         }
 
@@ -1690,7 +1694,8 @@
       getInlinePlaceholdersNames (notification) {
         let common = [
           'customerPlaceholders',
-          'companyPlaceholders'
+          'companyPlaceholders',
+          'paymentPlaceholders'
         ]
 
         if (['provider_cart'].indexOf(notification.name) !== -1) {

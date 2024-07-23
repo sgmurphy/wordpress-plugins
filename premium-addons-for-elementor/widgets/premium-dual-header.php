@@ -91,7 +91,6 @@ class Premium_Dual_Header extends Widget_Base {
 	public function get_script_depends() {
 		return array(
 			'premium-addons',
-			'elementor-waypoints',
 		);
 	}
 

@@ -258,28 +258,52 @@
 
                 var $section = sections[section].selector;
 
-                elementorFrontend.waypoint(
-                    $section,
-                    function () {
+                new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
 
-                        var $this = $(this),
-                            sectionId = $this.attr("id");
+                            var $this = $(entry.target),
+                                sectionId = $this.attr("id");
 
-                        if (!isScrolling) {
+                            if (!isScrolling) {
 
-                            currentSection = sectionId;
+                                currentSection = sectionId;
 
-                            $itemsList.removeClass("active");
-                            $menuItems.removeClass("active");
+                                $itemsList.removeClass("active");
+                                $menuItems.removeClass("active");
 
-                            $("[data-menuanchor=" + sectionId + "]", $instance).addClass("active");
+                                $("[data-menuanchor=" + sectionId + "]", $instance).addClass("active");
+                            }
 
+                            observer.unobserve(entry.target); // to only excecute the callback func once.
                         }
-                    }, {
-                    offset: 0 !== index ? "0%" : "-1%",
-                    triggerOnce: false
-                }
-                );
+                    });
+                }, {
+                    rootMargin: 0 !== index ? "0%" : "-1% 0px 0px 0px"
+                }).observe($section[0]);
+
+                // elementorFrontend.waypoint(
+                //     $section,
+                //     function () {
+
+                //         var $this = $(this),
+                //             sectionId = $this.attr("id");
+
+                //         if (!isScrolling) {
+
+                //             currentSection = sectionId;
+
+                //             $itemsList.removeClass("active");
+                //             $menuItems.removeClass("active");
+
+                //             $("[data-menuanchor=" + sectionId + "]", $instance).addClass("active");
+                //         }
+                //     }, {
+                //         offset: 0 !== index ? "0%" : "-1%",
+                //         triggerOnce: false
+                //     }
+                // );
+
                 index++;
             }
 

@@ -10,6 +10,8 @@ class Find {
 	/**
 	 * These must align with the keys in plugins.json[identifiers]
 	 */
+	public const ARFORMS_LITE = 'arforms_lite';
+	public const ARMEMBER_LITE = 'armember_lite';
 	public const BUDDYBOSS = 'buddyboss';
 	public const BUDDYPRESS = 'buddypress';
 	public const CALDERA_FORMS = 'calderaforms';

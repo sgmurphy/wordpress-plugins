@@ -63,7 +63,6 @@ function setStarterService () {
   return {
     timeAfter: '',
     timeBefore: '',
-    settings: null,
     deposit: 0,
     depositPayment: 'disabled',
     depositPerPerson: 1,
@@ -751,7 +750,7 @@ export default {
       let types = payload.types
 
       if (payload.loadEntities && !getEntitiesVariableName()) {
-        httpClient.get('/entities', { params: useUrlParams({ types }) }).then(response => {
+        httpClient.get('/entities', { params: useUrlParams({types: types, lite: true}) }).then(response => {
           window.ameliaAppointmentEntities = response.data.data
 
           let entities = JSON.parse(JSON.stringify(window.ameliaAppointmentEntities))

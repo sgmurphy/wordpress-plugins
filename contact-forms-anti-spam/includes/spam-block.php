@@ -14,7 +14,73 @@ if (!defined('ABSPATH')) exit;
 * Genegal block
 **/
 
-function CountryCheck($ip, &$spam, &$reason) {
+function maspik_make_extra_spam_check($post) {
+
+    // Honeypot check
+    if (maspik_get_settings('maspikHoneypot') && isset($post['full-name-maspik-hp']) && !empty($post['full-name-maspik-hp'])) {
+        return [
+            'spam' => true,
+            'reason' => "Honeypot Triggered",
+            'message' => cfas_get_error_text()
+        ];
+    }
+
+    // Year check
+    if (maspik_get_settings('maspikYearCheck') && isset($post['Maspik-currentYear'])) {
+        $serverYear = intval(date('Y'));
+        if ($post['Maspik-currentYear'] != $serverYear) {
+            return [
+                'spam' => true,
+                'reason' => "Maspik Spam Trap - Server year and local year did not match",
+                'message' => cfas_get_error_text()
+            ];
+        }
+    }
+
+    // Time check
+    if (maspik_get_settings('maspikTimeCheck') && isset($post['Maspik-exactTime']) && is_numeric($post['Maspik-exactTime'])) {
+        $inputTime = (int)$post['Maspik-exactTime'];
+        $currentTime = time();
+        $timeDifference = $currentTime - $inputTime;
+
+        if ($timeDifference < maspik_submit_buffer()) {
+            return [
+                'spam' => true,
+                'reason' => "Maspik Spam Trap - Submitted too fast, Only $timeDifference seconds (" . $currentTime . " - $inputTime)",
+                'message' => cfas_get_error_text()
+            ];
+        }
+    }
+
+    // If we've made it this far, it's not spam
+    return [
+        'spam' => false,
+        'reason' => false,
+        'message' => cfas_get_error_text()
+    ];
+}
+
+function maspik_submit_buffer(){
+    return 5;
+}
+
+
+function maspik_HP_name(){
+    return "full-name-maspik-hp";
+}
+
+function CountryCheck($ip, &$spam, &$reason, $post = "") {
+    $to_do_extra_spam_check = maspik_get_settings('maspikHoneypot') || maspik_get_settings('maspikTimeCheck') || maspik_get_settings('maspikYearCheck');
+    if( is_array($post) && $to_do_extra_spam_check ){
+        $extra_spam_check =  maspik_make_extra_spam_check($post) ;
+        $is_spam = isset($extra_spam_check['spam']) ? $extra_spam_check['spam'] : $spam ;
+        if($is_spam){
+            $reason = isset($extra_spam_check['reason']) ? $extra_spam_check['reason'] : $reason ;
+            $message = $extra_spam_check['message'] ? $extra_spam_check['message'] : 0 ;
+            return array('spam' => true, 'reason' => $reason, 'message' => $message);
+        }
+    }
+        
     $message = 0;
     $opt_value = maspik_get_dbvalue();
     $ip_blacklist = maspik_get_settings('ip_blacklist') ? efas_makeArray(maspik_get_settings('ip_blacklist')) : array();
@@ -34,7 +100,9 @@ function CountryCheck($ip, &$spam, &$reason) {
     }
 
         // Countries API
-    if (efas_get_spam_api('country_blacklist') && efas_get_spam_api('AllowedOrBlockCountries',"string") != 'ignore') {
+    if (efas_get_spam_api('country_blacklist') && 
+        (efas_get_spam_api('AllowedOrBlockCountries',"string") == 'allow' || 
+         efas_get_spam_api('AllowedOrBlockCountries',"string") == 'block')) {
         $countries_blacklist_api = efas_get_spam_api('country_blacklist');
         $AllowedOrBlockCountries = efas_get_spam_api('AllowedOrBlockCountries',"string");
         $country_blacklist = $countries_blacklist_api;

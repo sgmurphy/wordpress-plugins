@@ -978,11 +978,8 @@
             </div>
           </el-tab-pane>
 
-          <el-tab-pane v-if="notInLicence() ? licenceVisible() : true" :label="$root.labels.settings" name="settings">
-            <LicenceBlockHeader/>
-
+          <el-tab-pane :label="$root.labels.settings" name="settings">
             <entity-settings
-                :class="licenceClassDisabled()"
                 :settings="settings"
                 :paymentsSettings="service.settings.payments"
                 :generalSettings="service.settings.general"
@@ -1413,6 +1410,10 @@
 
           if (this.employees.length === 1) {
             this.service.providers = [this.employees[0]]
+          }
+
+          if (!this.service.recurringCycle) {
+            this.service.recurringCycle = 'disabled'
           }
 
           this.dialogLoading = false

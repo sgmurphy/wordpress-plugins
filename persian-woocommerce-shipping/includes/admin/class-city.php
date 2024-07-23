@@ -161,7 +161,6 @@ class PWS_City {
 			'tipax'         => 'هزینه پایه تیپاکس',
 			'courier_on'    => '<input type="checkbox" title="فعالسازی/غیرفعالسازی پیک‌موتوری" data-scope="courier_on">',
 			'courier'       => 'هزینه پایه پیک‌موتوری',
-			'custom_cost'   => 'هزینه ثابت پست‌سفارشی',
 			'forehand_cost' => 'هزینه ثابت پست‌پیشتاز',
 		] );
 
@@ -206,7 +205,6 @@ class PWS_City {
 							'tipax_cost'    => null,
 							'courier_on'    => false,
 							'courier_cost'  => null,
-							'custom_cost'   => null,
 							'forehand_cost' => null,
 						] );
 
@@ -221,7 +219,6 @@ class PWS_City {
 							'tipax_cost'    => "<input type='text' name='%s' title='%s' class='%s' value='{$term_option['tipax_cost']}'>",
 							'courier_on'    => "<input type='checkbox' name='%s' title='%s' class='%s' value='1' {$courier_checked} data-parent='{$term->parent}'>",
 							'courier_cost'  => "<input type='text' name='%s' title='%s' class='%s' value='{$term_option['courier_cost']}'>",
-							'custom_cost'   => "<input type='text' name='%s' title='%s' class='%s' value='{$term_option['custom_cost']}'>",
 							'forehand_cost' => "<input type='text' name='%s' title='%s' class='%s'  value='{$term_option['forehand_cost']}'>",
 						];
 

@@ -832,7 +832,7 @@
                     </el-col>
                   </el-row>
 
-                  <el-row v-if="(event.maxCapacity > 1 || getTicketsSpots() > 1 || maxCustomCapacityNum > 1) && depositPayment === 'fixed' && depositEnabled">
+                  <el-row v-if="(event.maxCapacity > 1 || getTicketsSpots() > 1 || maxCustomCapacityNum > 1) && depositPayment === 'fixed' && depositEnabled && event.aggregatedPrice">
                     <el-col>
                       <el-checkbox v-model="event.depositPerPerson">
                         {{$root.labels.deposit_per_person}}
@@ -1312,11 +1312,8 @@
 
           </el-tab-pane>
 
-          <el-tab-pane v-if="isCabinet ? !notInLicence() : (notInLicence() ? licenceVisible() : true)" :label="$root.labels.settings" name="settings">
-            <LicenceBlockHeader/>
-
+          <el-tab-pane :label="$root.labels.settings" name="settings">
             <entity-settings
-              :class="licenceClassDisabled()"
               :settings="settings"
               :paymentsSettings="event.settings.payments"
               :generalSettings="event.settings.general"

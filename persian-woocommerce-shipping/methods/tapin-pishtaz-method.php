@@ -38,11 +38,14 @@ class Tapin_Pishtaz_Method extends PWS_Tapin_Method {
 		if ( $gateway == 'tapin' ) {
 
 			if ( $args['from_province'] == $args['to_province'] ) {
-				$cost   = 148400;
-				$per_kg = 45000;
+				$cost   = 183000;
+				$per_kg = 57000;
+			} elseif ( PWS()->check_states_beside( $args['from_province'], $args['to_province'] )  ) {
+				$cost   = 260000;
+				$per_kg = 60000;
 			} else {
-				$cost   = 223727;
-				$per_kg = 47000;
+				$cost   = 282000;
+				$per_kg = 62000;
 			}
 
 			// calculate
@@ -51,7 +54,7 @@ class Tapin_Pishtaz_Method extends PWS_Tapin_Method {
 			}
 
 			if ( in_array( $args['to_city'], [ 1, 91, 61, 51, 71, 81, 31 ] ) ) {
-				$cost *= 1.1;
+				$cost *= 1.15;
 			}
 
 		} else {
@@ -80,15 +83,46 @@ class Tapin_Pishtaz_Method extends PWS_Tapin_Method {
 
 		}
 
-		if ( $args['content_type'] != 1 || $weight >= 2500 ) {
-			$cost *= 1.25;
+		$additions = [ 1 ];
+
+		if ( $weight >= 2500 ) {
+			$additions[] = 1.25;
 		}
 
+		if ( $args['content_type'] != 1 ) {
+			$additions[] = 1.25;
+		}
+
+		if ( in_array( $args['box_size'], range( 4, 8 ) ) ) {
+			$additions[] = 1.25;
+		} elseif ( in_array( $args['box_size'], [ 9, 10 ] ) ) {
+			$additions[] = 1.5;
+		}
+
+		$cost *= max( $additions );
+
 		// INSURANCE
-		if ( $args['price'] >= 20000000 ) {
-			$cost += $args['price'] * 0.002;
+		if ( $args['price'] >= 40000000 ) {
+
+			switch ( true ) {
+				case $args['price'] >= 700000000:
+					$rate = 0.0035;
+					break;
+				case $args['price'] >= 500000000:
+					$rate = 0.003;
+					break;
+				case $args['price'] >= 300000000:
+					$rate = 0.0025;
+					break;
+				default:
+					$rate = 0.002;
+					break;
+			}
+
+			$cost += $args['price'] * $rate;
+
 		} else {
-			$cost += 20000;
+			$cost += 40000;
 		}
 
 		// COD

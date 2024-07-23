@@ -25,7 +25,7 @@ class MKS_Author_Widget extends WP_Widget {
 
 		//Allow themes or plugins to modify default parameters
 		$defaults = apply_filters('mks_author_widget_modify_defaults',array( 
-				'title' => __('About Author', 'meks-smart-author-widget'),
+				'title' => esc_html__('About Author', 'meks-smart-author-widget'),
 				'author' => 0,
 				'auto_detect' => 0,
 				'display_name' => 1,
@@ -68,7 +68,7 @@ class MKS_Author_Widget extends WP_Widget {
 	
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = wp_strip_all_tags( $new_instance['title'] );
 		$instance['author'] = absint( $new_instance['author'] );
 		$instance['auto_detect'] = !empty($new_instance['auto_detect']) ? 1 : 0;
 		$instance['display_name'] = !empty($new_instance['display_name']) ? 1 : 0;
@@ -78,7 +78,7 @@ class MKS_Author_Widget extends WP_Widget {
 		$instance['name_to_title'] = !empty($new_instance['name_to_title']) ? 1 : 0;
 		$instance['link_to_name'] = !empty($new_instance['link_to_name']) ? 1 : 0;
 		$instance['link_to_avatar'] = !empty($new_instance['link_to_avatar']) ? 1 : 0;
-		$instance['link_text'] = strip_tags( $new_instance['link_text'] );
+		$instance['link_text'] = wp_strip_all_tags( $new_instance['link_text'] );
 		$instance['link_url'] = !empty( $new_instance['link_url'] ) ? esc_url($new_instance['link_url']) : '';
 		$instance['avatar_size'] = !empty($new_instance['avatar_size']) ? absint($new_instance['avatar_size']) : 64;
 		$instance['limit_chars'] = !empty( $new_instance['limit_chars'] ) ? absint($new_instance['limit_chars']) : '';
@@ -92,8 +92,8 @@ class MKS_Author_Widget extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $this->defaults );?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title', 'meks-smart-author-widget'); ?>:</label>
-			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'title' )); ?>"><?php esc_html_e('Title', 'meks-smart-author-widget'); ?>:</label>
+			<input id="<?php echo esc_attr($this->get_field_id( 'title' )); ?>" type="text" name="<?php echo esc_attr($this->get_field_name( 'title' )); ?>" value="<?php echo esc_attr($instance['title']); ?>" class="widefat" />
 		</p>
 
 		<p>
@@ -101,85 +101,85 @@ class MKS_Author_Widget extends WP_Widget {
 			<?php if( $this->count_users() <= $this->users_split_at ) : ?>
 			
 			<?php $authors = get_users(); ?>
-			<label for="<?php echo $this->get_field_id( 'author' ); ?>"><?php _e('Choose author/user', 'meks-smart-author-widget'); ?>:</label>
-			<select name="<?php echo $this->get_field_name( 'author' ); ?>" id="<?php echo $this->get_field_id( 'author' ); ?>" class="widefat">
+			<label for="<?php echo esc_attr($this->get_field_id( 'author' )); ?>"><?php esc_html_e('Choose author/user', 'meks-smart-author-widget'); ?>:</label>
+			<select name="<?php echo esc_attr($this->get_field_name( 'author' )); ?>" id="<?php echo esc_attr($this->get_field_id( 'author' )); ?>" class="widefat">
 			<?php foreach($authors as $author) : ?>
-				<option value="<?php echo $author->ID; ?>" <?php selected($author->ID, $instance['author']); ?>><?php echo $author->data->user_login; ?></option>
+				<option value="<?php echo esc_attr($author->ID); ?>" <?php selected($author->ID, $instance['author']); ?>><?php echo esc_attr($author->data->user_login); ?></option>
 			<?php endforeach; ?>
 			</select>
 			
 			<?php else: ?>
 			
-			<label for="<?php echo $this->get_field_id( 'author' ); ?>"><?php _e('Enter author/user ID', 'meks-smart-author-widget'); ?>:</label>
-			<input id="<?php echo $this->get_field_id( 'author' ); ?>" type="text" name="<?php echo $this->get_field_name( 'author' ); ?>" value="<?php echo $instance['author']; ?>" class="small-text" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'author' )); ?>"><?php esc_html_e('Enter author/user ID', 'meks-smart-author-widget'); ?>:</label>
+			<input id="<?php echo esc_attr($this->get_field_id( 'author' )); ?>" type="text" name="<?php echo esc_attr($this->get_field_name( 'author' )); ?>" value="<?php echo esc_attr($instance['author']); ?>" class="small-text" />
 			
 			<?php endif; ?>
 			
 		</p>
 
 		<p>
-		  	<input class="checkbox" id="<?php echo $this->get_field_id( 'auto_detect' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'auto_detect' ); ?>" <?php checked(1, $instance['auto_detect']); ?>/>
-		  	<label for="<?php echo $this->get_field_id( 'auto_detect' ); ?>"><?php _e('Automatically detect author', 'meks-smart-author-widget'); ?></label>
-		  	<small class="howto"><?php _e('Use this option to automatically detect author if this sidebar is used on single post template or author template', 'meks-smart-author-widget'); ?></small>
+		  	<input class="checkbox" id="<?php echo esc_attr($this->get_field_id( 'auto_detect' )); ?>" type="checkbox" name="<?php echo esc_attr($this->get_field_name( 'auto_detect' )); ?>" <?php checked(1, $instance['auto_detect']); ?>/>
+		  	<label for="<?php echo esc_attr($this->get_field_id( 'auto_detect' )); ?>"><?php esc_html_e('Automatically detect author', 'meks-smart-author-widget'); ?></label>
+		  	<small class="howto"><?php esc_html_e('Use this option to automatically detect author if this sidebar is used on single post template or author template', 'meks-smart-author-widget'); ?></small>
 		</p>
-		<h4><?php _e('Display Options', 'meks-smart-author-widget'); ?></h4>
+		<h4><?php esc_html_e('Display Options', 'meks-smart-author-widget'); ?></h4>
 		<ul>
 			<li>
-				<input class="checkbox" id="<?php echo $this->get_field_id( 'display_avatar' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'display_avatar' ); ?>" <?php checked(1, $instance['display_avatar']); ?>/>
-				<label for="<?php echo $this->get_field_id( 'display_avatar' ); ?>"><?php _e('Display author avatar', 'meks-smart-author-widget'); ?></label>
+				<input class="checkbox" id="<?php echo esc_attr($this->get_field_id( 'display_avatar' )); ?>" type="checkbox" name="<?php echo esc_attr($this->get_field_name( 'display_avatar' )); ?>" <?php checked(1, $instance['display_avatar']); ?>/>
+				<label for="<?php echo esc_attr($this->get_field_id( 'display_avatar' )); ?>"><?php esc_html_e('Display author avatar', 'meks-smart-author-widget'); ?></label>
 			</li>
 			<li class="meks-avatar-size-field">
-				<label for="<?php echo $this->get_field_id( 'avatar_size' ); ?>"><?php _e('Avatar size:', 'meks-smart-author-widget'); ?></label>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'avatar_size' ); ?>" type="text" name="<?php echo $this->get_field_name( 'avatar_size' ); ?>" value="<?php echo $instance['avatar_size']; ?>" class="small-text"/>
-				<small class="howto"><?php _e('Avatar size in pixels', 'meks-smart-author-widget'); ?></small>
+				<label for="<?php echo esc_attr($this->get_field_id( 'avatar_size' )); ?>"><?php esc_html_e('Avatar size:', 'meks-smart-author-widget'); ?></label>
+				<input class="widefat" id="<?php echo esc_attr($this->get_field_id( 'avatar_size' )); ?>" type="text" name="<?php echo esc_attr($this->get_field_name( 'avatar_size' )); ?>" value="<?php echo esc_attr($instance['avatar_size']); ?>" class="small-text"/>
+				<small class="howto"><?php esc_html_e('Avatar size in pixels', 'meks-smart-author-widget'); ?></small>
 			</li>
 		</ul>
 		
 		<ul>
 			<li>
-				<input class="checkbox" id="<?php echo $this->get_field_id( 'display_name' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'display_name' ); ?>" <?php checked(1, $instance['display_name']); ?>/>
-				<label for="<?php echo $this->get_field_id( 'display_name' ); ?>"><?php _e('Display author name', 'meks-smart-author-widget'); ?></label>
+				<input class="checkbox" id="<?php echo esc_attr($this->get_field_id( 'display_name' )); ?>" type="checkbox" name="<?php echo esc_attr($this->get_field_name( 'display_name' )); ?>" <?php checked(1, $instance['display_name']); ?>/>
+				<label for="<?php echo esc_attr($this->get_field_id( 'display_name' )); ?>"><?php esc_html_e('Display author name', 'meks-smart-author-widget'); ?></label>
 			</li>
 			<li>
-				<input class="checkbox" id="<?php echo $this->get_field_id( 'name_to_title' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'name_to_title' ); ?>" <?php checked(1, $instance['name_to_title']); ?>/>
-				<label for="<?php echo $this->get_field_id( 'name_to_title' ); ?>"><?php _e('Overwrite widget title with author name', 'meks-smart-author-widget'); ?></label>
-			</li>
-		</ul>
-		
-		<ul>
-			<li>
-				<input class="checkbox" id="<?php echo $this->get_field_id( 'display_desc' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'display_desc' ); ?>" <?php checked(1, $instance['display_desc']); ?>/>
-				<label for="<?php echo $this->get_field_id( 'display_desc' ); ?>"><?php _e('Display author description', 'meks-smart-author-widget'); ?></label>
-			</li>
-			<li>
-				<label for="<?php echo $this->get_field_id( 'limit_chars' ); ?>"><?php _e('Limit description:', 'meks-smart-author-widget'); ?></label>
-				<input id="<?php echo $this->get_field_id( 'limit_chars' ); ?>" type="number" name="<?php echo $this->get_field_name( 'limit_chars' ); ?>" value="<?php echo $instance['limit_chars']; ?>" class="widefat" />
-				<small class="howto"><?php _e('Specify number of characters to limit author description length', 'meks-smart-author-widget'); ?></small>
+				<input class="checkbox" id="<?php echo esc_attr($this->get_field_id( 'name_to_title' )); ?>" type="checkbox" name="<?php echo esc_attr($this->get_field_name( 'name_to_title' )); ?>" <?php checked(1, $instance['name_to_title']); ?>/>
+				<label for="<?php echo esc_attr($this->get_field_id( 'name_to_title' )); ?>"><?php esc_html_e('Overwrite widget title with author name', 'meks-smart-author-widget'); ?></label>
 			</li>
 		</ul>
 		
 		<ul>
 			<li>
-				<input class="checkbox" id="<?php echo $this->get_field_id( 'link_to_name' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'link_to_name' ); ?>" <?php checked(1, $instance['link_to_name']); ?>/>
-				<label for="<?php echo $this->get_field_id( 'link_to_name' ); ?>"><?php _e('Link author name', 'meks-smart-author-widget'); ?></label>
+				<input class="checkbox" id="<?php echo esc_attr($this->get_field_id( 'display_desc' )); ?>" type="checkbox" name="<?php echo esc_attr($this->get_field_name( 'display_desc' )); ?>" <?php checked(1, $instance['display_desc']); ?>/>
+				<label for="<?php echo esc_attr($this->get_field_id( 'display_desc' )); ?>"><?php esc_html_e('Display author description', 'meks-smart-author-widget'); ?></label>
 			</li>
 			<li>
-				<input class="checkbox" id="<?php echo $this->get_field_id( 'link_to_avatar' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'link_to_avatar' ); ?>" <?php checked(1, $instance['link_to_avatar']); ?>/>
-				<label for="<?php echo $this->get_field_id( 'link_to_avatar' ); ?>"><?php _e('Link author avatar', 'meks-smart-author-widget'); ?></label>
+				<label for="<?php echo esc_attr($this->get_field_id( 'limit_chars' )); ?>"><?php esc_html_e('Limit description:', 'meks-smart-author-widget'); ?></label>
+				<input id="<?php echo esc_attr($this->get_field_id( 'limit_chars' )); ?>" type="number" name="<?php echo esc_attr($this->get_field_name( 'limit_chars' )); ?>" value="<?php echo esc_attr($instance['limit_chars']); ?>" class="widefat" />
+				<small class="howto"><?php esc_html_e('Specify number of characters to limit author description length', 'meks-smart-author-widget'); ?></small>
+			</li>
+		</ul>
+		
+		<ul>
+			<li>
+				<input class="checkbox" id="<?php echo esc_attr($this->get_field_id( 'link_to_name' )); ?>" type="checkbox" name="<?php echo esc_attr($this->get_field_name( 'link_to_name' )); ?>" <?php checked(1, $instance['link_to_name']); ?>/>
+				<label for="<?php echo esc_attr($this->get_field_id( 'link_to_name' )); ?>"><?php esc_html_e('Link author name', 'meks-smart-author-widget'); ?></label>
 			</li>
 			<li>
-				<input class="checkbox" id="<?php echo $this->get_field_id( 'display_all_posts' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'display_all_posts' ); ?>" <?php checked(1, $instance['display_all_posts']); ?>/>
-				<label for="<?php echo $this->get_field_id( 'display_all_posts' ); ?>"><?php _e('Display author "all posts" archive link', 'meks-smart-author-widget'); ?></label>
+				<input class="checkbox" id="<?php echo esc_attr($this->get_field_id( 'link_to_avatar' )); ?>" type="checkbox" name="<?php echo esc_attr($this->get_field_name( 'link_to_avatar' )); ?>" <?php checked(1, $instance['link_to_avatar']); ?>/>
+				<label for="<?php echo esc_attr($this->get_field_id( 'link_to_avatar' )); ?>"><?php esc_html_e('Link author avatar', 'meks-smart-author-widget'); ?></label>
 			</li>
 			<li>
-				<label for="<?php echo $this->get_field_id( 'link_text' ); ?>"><?php _e('Link text:', 'meks-smart-author-widget'); ?></label>
-				<input id="<?php echo $this->get_field_id( 'link_text' ); ?>" type="text" name="<?php echo $this->get_field_name( 'link_text' ); ?>" value="<?php echo $instance['link_text']; ?>" class="widefat"/>
-				<small class="howto"><?php _e('Specify text for "all posts" link if you want to show separate link', 'meks-smart-author-widget'); ?></small>
+				<input class="checkbox" id="<?php echo esc_attr($this->get_field_id( 'display_all_posts' )); ?>" type="checkbox" name="<?php echo esc_attr($this->get_field_name( 'display_all_posts' )); ?>" <?php checked(1, $instance['display_all_posts']); ?>/>
+				<label for="<?php echo esc_attr($this->get_field_id( 'display_all_posts' )); ?>"><?php esc_html_e('Display author "all posts" archive link', 'meks-smart-author-widget'); ?></label>
 			</li>
 			<li>
-				<label for="<?php echo $this->get_field_id( 'link_url' ); ?>"><?php _e('Override author link URL:', 'meks-smart-author-widget'); ?></label>
-				<input id="<?php echo $this->get_field_id( 'link_url' ); ?>" type="text" name="<?php echo $this->get_field_name( 'link_url' ); ?>" value="<?php echo $instance['link_url']; ?>" class="widefat"/>
-				<small class="howto"><?php _e('Specify custom URL if you want to override default author archive link', 'meks-smart-author-widget'); ?></small>
+				<label for="<?php echo esc_attr($this->get_field_id( 'link_text' )); ?>"><?php esc_html_e('Link text:', 'meks-smart-author-widget'); ?></label>
+				<input id="<?php echo esc_attr($this->get_field_id( 'link_text' )); ?>" type="text" name="<?php echo esc_attr($this->get_field_name( 'link_text' )); ?>" value="<?php echo esc_attr($instance['link_text']); ?>" class="widefat"/>
+				<small class="howto"><?php esc_html_e('Specify text for "all posts" link if you want to show separate link', 'meks-smart-author-widget'); ?></small>
+			</li>
+			<li>
+				<label for="<?php echo esc_attr($this->get_field_id( 'link_url' )); ?>"><?php esc_html_e('Override author link URL:', 'meks-smart-author-widget'); ?></label>
+				<input id="<?php echo esc_attr($this->get_field_id( 'link_url' )); ?>" type="text" name="<?php echo esc_attr($this->get_field_name( 'link_url' )); ?>" value="<?php echo esc_attr($instance['link_url']); ?>" class="widefat"/>
+				<small class="howto"><?php esc_html_e('Specify custom URL if you want to override default author archive link', 'meks-smart-author-widget'); ?></small>
 			</li>
 		</ul>
 
@@ -198,8 +198,8 @@ class MKS_Author_Widget extends WP_Widget {
 		return 0;
 	}
 
-	private function meks_get_template($template)
-	{
+	private function meks_get_template($template){
+		
 		$template_slug = rtrim($template, '.php');
 		$template = $template_slug . '.php';
 

@@ -458,25 +458,35 @@
                           <el-col :lg="0" :sm="1" class="hide-on-mobile"></el-col>
 
                           <!-- Type -->
-                          <el-col class="am-finance-payment-gateway" :lg="12" :sm="14">
+                          <el-col class="am-finance-payment-gateway" :lg="8" :sm="8">
                             <p class="am-data">{{ $root.labels.method }}:</p>
-                            <img :src="$root.getUrl + 'public/img/payments/' + payment.gateway + '.svg'" :style="{width: getPaymentIconWidth(payment.gateway)}">
-                            <p class="am-value" v-if="payment.gateway !== 'razorpay'">{{ getPaymentGatewayNiceName(payment) }}</p>
-                            <div v-for="payment2 in payment.secondaryPayments">
-                              <img :src="$root.getUrl + 'public/img/payments/' + payment2.gateway + '.svg'" :style="{width: getPaymentIconWidth(payment2.gateway)}">
-                              <p class="am-value" v-if="payment2.gateway !== 'razorpay'">{{ getPaymentGatewayNiceName(payment2) }}</p>
+                            <div style="margin-bottom: 8px">
+                              <img :src="$root.getUrl + 'public/img/payments/' + getPaymentIconName(payment)" :style="{width: getPaymentIconWidth(payment.gateway)}">
+                              <p class="am-value" v-if="!longNamePayments(payment.gateway)">{{ getPaymentGatewayNiceName(payment) }}</p>
+                            </div>
+                            <div v-for="payment2 in payment.secondaryPayments.filter(p => p.status !== 'pending' && p.status !== 'refunded')" style="margin-bottom: 8px">
+                              <img :src="$root.getUrl + 'public/img/payments/' + getPaymentIconName(payment2)" :style="{width: getPaymentIconWidth(payment2.gateway)}">
+                              <p class="am-value" v-if="!longNamePayments(payment2.gateway)">{{ getPaymentGatewayNiceName(payment2) }}</p>
                             </div>
                           </el-col>
 
                           <!-- Amount -->
-                          <el-col :lg="12" :sm="10">
+                          <el-col :lg="8" :sm="8">
                             <p class="am-data">{{ $root.labels.amount }}:</p>
                             <p class="am-value">{{ getFormattedPrice(payment.status === 'paid' || payment.status === 'partiallyPaid' ? payment.amount : 0) }}</p>
-                            <div v-for="payment2 in payment.secondaryPayments">
+                            <div v-for="payment2 in payment.secondaryPayments.filter(p => p.status !== 'pending' && p.status !== 'refunded')">
                               <p class="am-value">{{ getFormattedPrice(payment.status === 'paid' || payment.status === 'partiallyPaid' ? payment2.amount : 0) }}</p>
                             </div>
                           </el-col>
 
+                          <!-- ID -->
+                          <el-col :lg="8" :sm="8">
+                            <p class="am-data">{{ $root.labels.id }}:</p>
+                            <p class="am-value">{{ payment.id }}</p>
+                            <div v-for="payment2 in payment.secondaryPayments.filter(p => p.status !== 'pending' && p.status !== 'refunded')">
+                              <p class="am-value">{{ payment2.id }}</p>
+                            </div>
+                          </el-col>
                         </el-row>
                       </el-col>
 

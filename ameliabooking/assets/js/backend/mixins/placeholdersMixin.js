@@ -175,6 +175,10 @@ export default {
             value: '%payment_link_razorpay%',
             label: this.$root.labels.ph_payment_link_razorpay
           },
+          {
+            value: '%payment_link_square%',
+            label: this.$root.labels.ph_payment_link_square
+          }
         ],
 
         categoryPlaceholders: [

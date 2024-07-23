@@ -509,6 +509,70 @@ function wpbc_get_form_fields_free() {
 
 
 /**
+ * Hook for definition  of the different DEFAULT parameters for single booking resource, that  was just  created by  user at  the Booking > Resources page.
+ * In this example,  you need to uncomment this line:
+ *      //add_action('wpbc_resource_created','wpbc_resource_created__add_other_params', 10, 1);
+ * And the following function add Duration-Based Costs for the exist  booking resources and some Search Filters.
+ */
+//add_action('wpbc_resource_created','wpbc_resource_created__add_other_params', 10, 1);
+function wpbc_resource_created__add_other_params( $resource_id ) {
+
+	global $wpdb;
+
+	// -----------------------------------------------------------------------------------------------------------------
+	// Add default 'Duration-Based Costs'
+	// -----------------------------------------------------------------------------------------------------------------
+	$wp_queries   = array();
+
+	//WP Booking Calendar > Prices > Daily Costs page -> section Duration-Based Costs
+	$season_id = 4;
+	$meta_arr = array(
+						array( 'active' => 'On', 'type' => 'summ', 'from' => 7, 'to' => 14, 'cost' => 90, 'cost_apply_to' => '%' ,'season_filter' => $season_id ),
+						array( 'active' => 'On', 'type' => '>', 'from' => 8, 'to' => 27, 'cost' => 90, 'cost_apply_to' => '%' ,'season_filter' => $season_id ),
+						array( 'active' => 'On', 'type' => 'summ', 'from' => 28, 'to' => 14, 'cost' => 75, 'cost_apply_to' => '%' ,'season_filter' => $season_id ),
+						array( 'active' => 'On', 'type' => '>', 'from' => 29, 'to' => 60, 'cost' => 75, 'cost_apply_to' => '%' ,'season_filter' => $season_id ),
+						array( 'active' => 'On', 'type' => '=', 'from' => 'LAST', 'to' => 14, 'cost' => 0, 'cost_apply_to' => 'fixed' ,'season_filter' => $season_id )
+					);
+	$meta_str = maybe_serialize($meta_arr);
+	$wp_queries[] = "INSERT INTO  {$wpdb->prefix}booking_types_meta ( type_id, meta_key, meta_value ) VALUES ( {$resource_id}, 'costs_depends', '{$meta_str}' );";
+
+	//	// WP Booking Calendar > Prices > Daily Costs page -> section Seasonal Pricing
+	//	$meta_str = "a:3:{s:6:\"filter\";a:3:{i:3;s:3:\"Off\";i:2;s:3:\"Off\";i:1;s:2:\"On\";}s:4:\"rate\";a:3:{i:3;s:1:\"0\";i:2;s:1:\"0\";i:1;s:3:\"200\";}s:9:\"rate_type\";a:3:{i:3;s:1:\"%\";i:2;s:1:\"%\";i:1;s:1:\"%\";}}";
+	//  $wp_queries[] = "INSERT INTO  {$wpdb->prefix}booking_types_meta ( type_id, meta_key, meta_value ) VALUES ( {$resource_id}, 'rates', '{$meta_str}' );";
+	//
+	//	//WP Booking Calendar > Availability > Season Availability page
+	//	$meta_str = "a:2:{s:7:\"general\";s:2:\"On\";s:6:\"filter\";a:3:{i:3;s:3:\"Off\";i:2;s:2:\"On\";i:1;s:3:\"Off\";}}";
+	//  $wp_queries[] = "INSERT INTO  {$wpdb->prefix}booking_types_meta ( type_id, meta_key, meta_value ) VALUES ( {$resource_id}, 'availability', '{$meta_str}' );";
+
+	foreach ( $wp_queries as $wp_q ) {
+		$wpdb->query( $wp_q );
+	}
+
+	// -----------------------------------------------------------------------------------------------------------------
+	// Add default 'Searchable Filters':
+	// -----------------------------------------------------------------------------------------------------------------
+	// Get search options  for all booking resources
+	$search_options_arr = wpbc_searchable_resources__get_all_options();
+
+	// Booking Calendar Business Large version
+	$demo_examples = array();
+	$demo_examples[ $resource_id ] = array();
+	$demo_examples[ $resource_id ]['is_searchable'] = 'On';
+	//	$demo_examples[ $resource_id ]['title']         = 'General Consultation';
+	//	$demo_examples[ $resource_id ]['url']           = get_site_url() . '/demo/service-a/#main';
+	//	$demo_examples[ $resource_id ]['picture']       = get_site_url() . '/demo_assets/service-a.jpg';
+	//	$demo_examples[ $resource_id ]['description']   = '...';
+	$demo_examples[ $resource_id ]['options']       = 'neighborhood^=^La Ecovilla~housing_type^=^Entire home~price_range^=^$150-$199~bedrooms^<=^1~my_contribution^=^1';
+
+	foreach ( $demo_examples as $res_id => $res_options ) {
+		$search_options_arr[ $res_id ] = $res_options;
+	}
+	wpbc_searchable_resources__save_all_options( $search_options_arr );
+
+}
+
+
+/**
  * DEPRECATED :: Hook action after creation  new booking
  * @param int $booking_id
  * @param int $resource_id

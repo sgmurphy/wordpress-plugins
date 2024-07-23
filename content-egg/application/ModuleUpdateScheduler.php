@@ -14,7 +14,7 @@ use ContentEgg\application\components\stopwatch\Stopwatch;
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 class ModuleUpdateScheduler extends Scheduler
 {
@@ -142,7 +142,6 @@ class ModuleUpdateScheduler extends Scheduler
             if (!$results)
                 continue;
 
-            // update!
             foreach ($results as $r)
             {
                 ContentManager::updateItems($r->post_id, $module_id);

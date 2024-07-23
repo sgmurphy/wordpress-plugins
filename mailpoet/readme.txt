@@ -1,9 +1,9 @@
 === MailPoet - Newsletters, Email Marketing, and Automation ===
 Contributors: mailpoet, woocommerce, automattic
 Tags: email marketing, post notification, woocommerce emails, email automation, newsletter
-Requires at least: 6.4
-Tested up to: 6.5
-Stable tag: 4.56.0
+Requires at least: 6.5
+Tested up to: 6.6
+Stable tag: 4.57.0
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -33,6 +33,7 @@ Trusted by 700,000 WordPress websites since 2011.
 * Send automated welcome emails
 * Behavior and interest-based subscriber segmentation options
 * Pre-built and customizable email and subscription form templates
+* Multiple subscription form placements: below pages, fixed bar, popup, slide-in, shortcode, on exit intent
 * WooCommerce emails: abandoned cart, first purchase, specific product, product category
 * Customize WooCommerce transactional emails
 * Reliable email delivery with MailPoet Sending Service (available for free – plan required)
@@ -228,13 +229,8 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 
 == Changelog ==
 
-= 4.56.0 - 2024-07-15 =
-* Updated: react dependencies;
-* Improved: email validation on email listing page;
-* Improved: email validation in automations editor;
-* Improved: hiding WooCommerce list when WooCommerce plugin is not active;
-* Fixed: stopping automation when it is canceled;
-* Fixed: displaying text in square brackets in post notifications;
-* Fixed: links to privacy policy in forms.
+= 4.57.0 - 2024-07-22 =
+* Fixed: formatting tags in post titles are allowed;
+* Fixed: externally hosted images are displayed in template thumbnails.
 
 [See the changelog for all versions.](https://github.com/mailpoet/mailpoet/blob/trunk/mailpoet/CHANGELOG.md)

@@ -17,7 +17,7 @@ use ContentEgg\application\helpers\TemplateHelper;
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 class AmazonModule extends AffiliateParserModule
 {
@@ -444,7 +444,6 @@ class AmazonModule extends AffiliateParserModule
 					$r['ImageSets'] = $r['ImageSets']['ImageSet'];
 				}
 
-
 				foreach ($r['ImageSets'] as $image_r)
 				{
 					$image                 = new ExtraAmazonImageSet;
@@ -745,7 +744,6 @@ class AmazonModule extends AffiliateParserModule
 			$r['Price'] = $r['OfferSummary']['LowestNewPrice'];
 		}
 
-
 		if ((!isset($r['Price']) || !$r['Price']) && isset($r['ItemAttributes']['ListPrice']))
 		{
 			$r['Price'] = $r['ItemAttributes']['ListPrice'];
@@ -935,7 +933,7 @@ class AmazonModule extends AffiliateParserModule
 
 	private static function parseAsinFromUrl($url)
 	{
-		$regex = '~(?:www\.)?ama?zo?n\.(?:com|ca|co\.uk|co\.jp|de|fr|in|es|com\.mx)/(?:exec/obidos/ASIN/|o/|gp/product/|(?:(?:[^"\'/]*)/)?dp/|)(B[0-9]{2}[0-9A-Z]{7}|[0-9]{9}(X|0-9]))(?:(?:/|\?|\#)(?:[^"\'\s]*))?~isx';
+		$regex = '~/(?:exec/obidos/ASIN/|o/|gp/product/|gp/offer-listing/|(?:(?:[^"\'/]*)/)?dp/|)([0-9A-Z]{10})(?:(?:/|\?|\#)(?:[^"\'\s]*))?~isx';
 
 		if (preg_match($regex, $url, $matches))
 		{

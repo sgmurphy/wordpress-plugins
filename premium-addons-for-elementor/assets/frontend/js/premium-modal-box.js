@@ -22,16 +22,33 @@
 
             var animationDelay = $modal.data('delay-animation');
 
-            new Waypoint({
-                element: $modal,
-                handler: function () {
-                    setTimeout(function () {
-                        $modal.css("opacity", "1").addClass("animated " + $modal.data("modal-animation"));
-                    }, animationDelay * 1000);
-                    this.destroy();
-                },
-                offset: Waypoint.viewportHeight() - 150,
+            // new Waypoint({
+            //     element: $modal,
+            //     handler: function () {
+            //         setTimeout(function () {
+            //             $modal.css("opacity", "1").addClass("animated " + $modal.data("modal-animation"));
+            //         }, animationDelay * 1000);
+            //         this.destroy();
+            //     },
+            //     offset: Waypoint.viewportHeight() - 150,
+            // });
+
+            // unsing IntersectionObserverAPI.
+            var eleObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        setTimeout(function () {
+                            $modal.css("opacity", "1").addClass("animated " + $modal.data("modal-animation"));
+                        }, animationDelay * 1000);
+
+                        eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                    }
+                });
+            }, {
+                rootMargin: "0px 0px -150px 0px"
             });
+
+            eleObserver.observe($modal[0]);
         }
     };
 

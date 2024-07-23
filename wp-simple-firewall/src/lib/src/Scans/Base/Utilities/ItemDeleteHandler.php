@@ -2,8 +2,8 @@
 
 namespace FernleafSystems\Wordpress\Plugin\Shield\Scans\Base\Utilities;
 
-use FernleafSystems\Wordpress\Plugin\Shield\Modules\HackGuard\ModConsumer;
 use FernleafSystems\Wordpress\Plugin\Shield\Modules\HackGuard\Scan\Controller;
+use FernleafSystems\Wordpress\Plugin\Shield\Modules\PluginControllerConsumer;
 use FernleafSystems\Wordpress\Plugin\Shield\Scans\{
 	Afs\ResultItem,
 	Base\FileResultItem
@@ -13,7 +13,7 @@ use FernleafSystems\Wordpress\Services\Services;
 
 class ItemDeleteHandler {
 
-	use ModConsumer;
+	use PluginControllerConsumer;
 	use ScanItemConsumer;
 
 	/**

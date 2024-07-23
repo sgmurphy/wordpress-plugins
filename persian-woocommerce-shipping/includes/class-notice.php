@@ -114,7 +114,7 @@ class PWS_Notice {
 			],
 			[
 				'id'        => 'tapin_shipping',
-				'content'   => '<b>تاپین:</b> هزینه پست سفارشی و پیشتاز را بصورت دقیق محاسبه کنید و بدون مراجعه به پست، بارکد پستی بگیرید و بسته هایتان را ارسال کنید. از <a href="https://yun.ir/pwsts" target="_blank">اینجا</a> راهنمای نصب و پیکربندی آن را مطالعه کنید.',
+				'content'   => '<b>تاپین:</b> هزینه پست پیشتاز را بصورت دقیق محاسبه کنید و بدون مراجعه به پست، بارکد پستی بگیرید و بسته هایتان را ارسال کنید. از <a href="https://yun.ir/pwsts" target="_blank">اینجا</a> راهنمای نصب و پیکربندی آن را مطالعه کنید.',
 				'condition' => ! PWS_Tapin::is_enable() && $page == 'wc-settings' && $tab == 'shipping',
 				'dismiss'   => 6 * MONTH_IN_SECONDS,
 			],

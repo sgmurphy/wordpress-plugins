@@ -560,6 +560,7 @@ export default {
     fetchEntities (callback, options) {
       let config = {
         params: this.getAppropriateUrlParams({
+          lite: true,
           types: options.types
         })
       }

@@ -259,7 +259,7 @@ watch(() => props.appointment, (current) => {
   let init = JSON.parse(JSON.stringify(current))
   if (init && init.bookingStart) {
     appointmentDate.value = init.bookingStart.split(' ')[0]
-    appointmentTime.value = init.bookingStart.split(' ')[1]
+    appointmentTime.value = init.bookingStart.split(' ')[1].substring(0, 5)
   }
 })
 
@@ -671,9 +671,15 @@ function setBookingData () {
   let slots = Object.keys(dateSlots.value[appointmentDate.value])
 
   if (slots.length) {
-    appointmentProviderId.value = dateSlots.value[appointmentDate.value][slots[0]][0][0]
+    appointmentProviderId.value =
+        appointmentTime.value && dateSlots.value[appointmentDate.value][appointmentTime.value] ?
+            dateSlots.value[appointmentDate.value][appointmentTime.value][0][0]
+            : dateSlots.value[appointmentDate.value][slots[0]][0][0]
 
-    appointmentLocationId.value = dateSlots.value[appointmentDate.value][slots[0]][0][1]
+    appointmentLocationId.value =
+        appointmentTime.value && dateSlots.value[appointmentDate.value][appointmentTime.value] ?
+            dateSlots.value[appointmentDate.value][appointmentTime.value][0][1]
+            : dateSlots.value[appointmentDate.value][slots[0]][0][1]
   }
 }
 
@@ -683,7 +689,7 @@ provide('useSelectedDate', (store, date) => {
   appointmentDate.value = date
 
   if (props.appointment && props.appointment.bookingStart) {
-    appointmentTime.value = props.appointment.bookingStart.split(' ')[1]
+    appointmentTime.value = props.appointment.bookingStart.split(' ')[1].substring(0, 5)
   }
 
   setBookingData()
@@ -692,7 +698,7 @@ provide('useSelectedDate', (store, date) => {
 })
 
 provide('useSelectedTime', (store, time) => {
-  appointmentTime.value = time
+  appointmentTime.value = time.substring(0, 5)
 
   if (appointmentDate.value) {
     setBookingData()

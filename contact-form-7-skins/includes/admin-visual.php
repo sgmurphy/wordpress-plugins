@@ -897,6 +897,10 @@ Class CF7_Skins_Admin_Visual {
 		$versions['wp'] = $wp_version;
 		$versions['cf7'] = WPCF7_VERSION;
 
+		foreach( wp_kses_allowed_html() as $tag => $attributes ) {
+			$allowed_html_tags[] = $tag;
+		}		
+
 		// Localize script filter
 		$localize = apply_filters( 'cf7svisual_localize_script', array( 
 			'ajaxurl'		=> admin_url('admin-ajax.php'),
@@ -913,6 +917,7 @@ Class CF7_Skins_Admin_Visual {
 				'form' 		=> CF7SKINS_ELEMENTS_FORM,
 				'textarea' 	=> CF7SKINS_ELEMENTS_TEXTAREA,
 			),
+			'allowed_tags'	=> $allowed_html_tags,			
 		) );
 
 		// Output visual items as a JS var

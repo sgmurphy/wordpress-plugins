@@ -1471,6 +1471,7 @@ export default {
           this.appointment.payment.gateway === 'payPal' ||
           this.appointment.payment.gateway === 'stripe' ||
           this.appointment.payment.gateway === 'mollie' ||
+          this.appointment.payment.gateway === 'square' ||
           this.appointment.payment.gateway === 'razorpay' ||
           (this.appointment.payment.gateway === 'wc' && 'ameliaBooking' in window && 'wc' in window.ameliaBooking && 'bookIfPriceIsZero' in window.ameliaBooking.wc && window.ameliaBooking.wc.bookIfPriceIsZero === true) ||
           (this.appointment.payment.gateway === 'wc' && this.$root.settings.payments.wc.onSiteIfFree)
@@ -1534,7 +1535,9 @@ export default {
               break
             case 'mollie':
               this.goToMolliePaymentPage()
-
+              break
+            case 'square':
+              this.goToSquarePaymentPage()
               break
             case 'razorpay':
               this.razorPayCreateOrder()
@@ -1683,6 +1686,16 @@ export default {
       let requestData = this.getRequestData(false)
 
       this.$http.post(`${this.$root.getAjaxUrl}/payment/mollie`, requestData.data, requestData.options).then(response => {
+        window.location = response.data.data.redirectUrl
+      }).catch(e => {
+        this.handleSaveBookingErrors(e.response.data)
+      })
+    },
+
+    goToSquarePaymentPage () {
+      let requestData = this.getRequestData(false)
+
+      this.$http.post(`${this.$root.getAjaxUrl}/payment/square`, requestData.data, requestData.options).then(response => {
         window.location = response.data.data.redirectUrl
       }).catch(e => {
         this.handleSaveBookingErrors(e.response.data)
@@ -2797,6 +2810,13 @@ export default {
         })
       }
 
+      if (this.$root.settings.payments.square.enabled) {
+        paymentOptions.push({
+          value: 'square',
+          label: this.$root.labels.square
+        })
+      }
+
       if (this.$root.settings.payments.razorpay.enabled) {
         paymentOptions.push({
           value: 'razorpay',
@@ -2811,6 +2831,7 @@ export default {
       return this.appointment.payment.gateway === 'onSite' ||
         this.appointment.payment.gateway === 'wc' ||
         this.appointment.payment.gateway === 'mollie' ||
+        this.appointment.payment.gateway === 'square' ||
         this.appointment.payment.gateway === 'stripe' ||
         this.appointment.payment.gateway === 'razorpay' ||
         (this.appointment.payment.gateway === 'payPal' && this.getTotalPrice() === 0)

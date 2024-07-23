@@ -14,6 +14,7 @@ use ContentEgg\application\helpers\TextHelper;
 use ContentEgg\application\libs\amazon\AmazonLocales;
 use ContentEgg\application\Translator;
 
+use function ContentEgg\prn;
 use function ContentEgg\prnx;
 
 /**
@@ -21,7 +22,7 @@ use function ContentEgg\prnx;
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  *
  */
 class TemplateHelper
@@ -41,6 +42,9 @@ class TemplateHelper
 
     public static function formatPriceCurrency($price, $currencyCode, $before_symbol = '', $after_symbol = '')
     {
+        if (!$price)
+            return '';
+
         $decimal_sep = __('number_format_decimal_point', 'content-egg-tpl');
         $thousand_sep = __('number_format_thousands_sep', 'content-egg-tpl');
         if ($decimal_sep == 'number_format_decimal_point')
@@ -242,6 +246,8 @@ class TemplateHelper
         if (!$post_id)
         {
             global $post;
+            if (!$post)
+                return 0;
             $post_id = $post->ID;
         }
 
@@ -255,6 +261,18 @@ class TemplateHelper
             $res = time();
 
         return $res;
+    }
+
+    public static function dateFormatFromGmtAmazon($module_id, $timestamp, $time = true)
+    {
+        if ($module_id == 'AmazonNoApi')
+        {
+            $module = ModuleManager::factory($module_id);
+            if ($module->config('hide_prices') == 'hide')
+                return '';
+        }
+
+        return self::dateFormatFromGmt($timestamp, $time);
     }
 
     public static function dateFormatFromGmt($timestamp, $time = true)
@@ -279,6 +297,10 @@ class TemplateHelper
         }
         elseif (isset($data['AmazonNoApi']))
         {
+            $module = ModuleManager::factory('AmazonNoApi');
+            if ($module->config('hide_prices') == 'hide')
+                return '';
+
             $item = current($data['AmazonNoApi']);
         }
         else
@@ -298,6 +320,13 @@ class TemplateHelper
 
     public static function getLastUpdateFormatted($module_id, $post_id = null, $time = true)
     {
+        if ($module_id == 'AmazonNoApi')
+        {
+            $module = ModuleManager::factory('AmazonNoApi');
+            if ($module->config('hide_prices') == 'hide')
+                return '';
+        }
+
         if (!$post_id || $post_id === true) // $post_id === true - fix func params...
         {
             global $post;
@@ -420,22 +449,17 @@ class TemplateHelper
         $params = array(
             'select' => 'date(create_date) as date, price as price',
             'where' => $where . ' AND TIMESTAMPDIFF( DAY, create_date, "' . \current_time('mysql') . '") <= ' . $days,
-            //'group' => 'date',
             'order' => 'date ASC'
         );
         $results = PriceHistoryModel::model()->findAll($params);
         $results = array_reverse($results);
         $prices = array();
-        /**
-         * php fix for selecting non-aggregate columns
-         * @see: https://stackoverflow.com/questions/1066453/mysql-group-by-and-order-by
-         */
+
         foreach ($results as $key => $r)
         {
             if ($key > 0 && $results[$key - 1]['date'] == $r['date'])
-            {
                 continue;
-            }
+
             $price = array(
                 'date' => $r['date'],
                 'price' => $r['price'],
@@ -443,15 +467,27 @@ class TemplateHelper
             $prices[] = $price;
         }
 
-        //add last known price to the chart
-        /*
-          $price = array(
-          'date' => $r['date'],
-          'price' => $r['price'],
-          );
-          $prices[] = $price;
-         *
-         */
+        if (!$prices)
+        {
+            global $post;
+            if (empty($post))
+                return;
+
+            $item = ContentManager::getProductbyUniqueId($unique_id, $module_id, $post->ID);
+            if ($item['price'])
+            {
+                $prices[] = array(
+                    'date' => date('Y-m-d'),
+                    'price' => $item['price']
+                );
+
+                $prices[] = array(
+                    'date' => date('Y-m-d', strtotime(sprintf('-%d days', $days))),
+                    'price' => $item['price']
+                );
+            }
+        }
+
         $data = array(
             'chartType' => 'Area',
             'data' => $prices,
@@ -620,7 +656,7 @@ class TemplateHelper
         }
     }
 
-    public static function getMerhantLogoUrl(array $item, $blank_on_error = false)
+    public static function getMerchantLogoUrl(array $item, $blank_on_error = false)
     {
         $prefix = '';
         if (!empty($item['module_id']))
@@ -649,7 +685,12 @@ class TemplateHelper
         return self::getMerchantImageUrl($item, $prefix, $remote_url, $blank_on_error);
     }
 
-    public static function getMerhantIconUrl(array $item, $blank_on_error = false)
+    public static function getMerhantLogoUrl(array $item, $blank_on_error = false)
+    {
+        return self::getMerchantLogoUrl($item, $blank_on_error);
+    }
+
+    public static function getMerchantIconUrl(array $item, $blank_on_error = false)
     {
         $prefix = 'icon_';
         if (!empty($item['module_id']))
@@ -665,6 +706,11 @@ class TemplateHelper
         $remote_url = 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://' . urlencode($item['domain']) . '&size=16';
 
         return self::getMerchantImageUrl($item, $prefix, $remote_url, $blank_on_error);
+    }
+
+    public static function getMerhantIconUrl(array $item, $blank_on_error = false)
+    {
+        return self::getMerchantIconUrl($item, $blank_on_error);
     }
 
     public static function getMerchantName(array $item, $print = false)
@@ -703,6 +749,9 @@ class TemplateHelper
         {
             $name = '';
         }
+
+        if ($name == 'eBay' && $item['merchant'] != 'eBay')
+            return $item['merchant'];
 
         if ($print)
         {
@@ -825,32 +874,22 @@ class TemplateHelper
     public static function sortByPrice(array $data, $order = 'asc', $field = 'price')
     {
         if (!in_array($order, array('asc', 'desc')))
-        {
             $order = 'asc';
-        }
 
-        if (!in_array($field, array('price', 'discount')))
-        {
+        if (!in_array($field, array('price', 'discount', 'total_price')))
             $field = 'price';
-        }
 
         // convert all prices to one currency
         $currency_codes = array();
         foreach ($data as $d)
         {
             if (empty($d['currencyCode']))
-            {
                 continue;
-            }
 
             if (!isset($currency_codes[$d['currencyCode']]))
-            {
                 $currency_codes[$d['currencyCode']] = 1;
-            }
             else
-            {
                 $currency_codes[$d['currencyCode']]++;
-            }
         }
         arsort($currency_codes);
         $base_currency = key($currency_codes);
@@ -858,51 +897,38 @@ class TemplateHelper
         {
             $rate = 1;
             if (!empty($d['currencyCode']) && $d['currencyCode'] != $base_currency)
-            {
                 $rate = CurrencyHelper::getCurrencyRate($d['currencyCode'], $base_currency);
-            }
+
             if (!$rate)
-            {
                 $rate = 1;
-            }
 
             if (isset($d['price']))
             {
                 if ($field == 'discount')
                 {
                     if (!empty($d['priceOld']))
-                    {
                         $data[$key]['converted_price'] = (float) ($d['priceOld'] - $d['price']) * $rate;
-                    }
                     else
-                    {
                         $data[$key]['converted_price'] = 0.00001;
-                    }
                 }
+                elseif ($field == 'total_price')
+                    $data[$key]['converted_price'] = ((float) $d['price'] + (float) $d['shipping_cost']) * $rate;
                 else
-                {
                     $data[$key]['converted_price'] = (float) $d['price'] * $rate;
-                }
             }
             else
             {
                 $data[$key]['converted_price'] = 0;
                 $data[$key]['price'] = 0;
-                if ($field == 'discount')
-                {
+                if ($field == 'discount' || $field == 'total_price')
                     $data[$key]['converted_price'] = 99999999999;
-                }
             }
             if (isset($d['stock_status']) && $d['stock_status'] == ContentProduct::STOCK_STATUS_OUT_OF_STOCK)
             {
                 if ($field == 'discount')
-                {
                     $data[$key]['converted_price'] = -1;
-                }
                 else
-                {
                     $data[$key]['converted_price'] = 0;
-                }
             }
         }
 
@@ -913,13 +939,10 @@ class TemplateHelper
             $module_id = $d['module_id'];
 
             if (isset($modules_priority[$module_id]))
-            {
                 continue;
-            }
+
             if (!ModuleManager::getInstance()->moduleExists($module_id))
-            {
                 continue;
-            }
 
             $module = ModuleManager::getInstance()->factory($module_id);
             $modules_priority[$module_id] = (int) $module->config('priority');
@@ -928,42 +951,29 @@ class TemplateHelper
         // sort by price and priority
         usort($data, function ($a, $b) use ($modules_priority)
         {
-
             if (!$a['price'] && !$b['price'])
-            {
                 return $modules_priority[$a['module_id']] - $modules_priority[$b['module_id']];
-            }
 
             if (!$a['converted_price'])
-            {
                 return 1;
-            }
 
             if (!$b['converted_price'])
-            {
                 return -1;
-            }
 
             if ($a['converted_price'] == $b['converted_price'])
-            {
                 return $modules_priority[$a['module_id']] - $modules_priority[$b['module_id']];
-            }
 
             if ($modules_priority[$a['module_id']] != $modules_priority[$b['module_id']])
             {
                 if ($a['converted_price'] >= 30 && $b['converted_price'] >= 30 && abs($a['converted_price'] - $b['converted_price']) < 1)
-                {
                     return $modules_priority[$a['module_id']] - $modules_priority[$b['module_id']];
-                }
             }
 
             return ($a['converted_price'] < $b['converted_price']) ? -1 : 1;
         });
 
         if ($order == 'desc')
-        {
             $data = array_reverse($data);
-        }
 
         return $data;
     }
@@ -1314,19 +1324,20 @@ class TemplateHelper
         return $prefix . self::$global_id++;
     }
 
-    public static function isModuleDataExist($items, $module_id)
+    public static function isModuleDataExist($items, $module_ids)
     {
-        foreach ($items as $item)
+        if (!is_array($module_ids))
+            $module_ids = array($module_ids);
+
+        foreach ($module_ids as $module_id)
         {
-            if (isset($item['module_id']) && $item['module_id'] == $module_id)
+            foreach ($items as $item)
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                if (isset($item['module_id']) && $item['module_id'] == $module_id)
+                    return true;
             }
         }
+        return false;
     }
 
     public static function isCashbackTrakerActive()
@@ -1567,18 +1578,18 @@ class TemplateHelper
 
         $params['src'] = self::getOptimizedImage($item, $max_width, $max_height);
 
+        $params['decoding'] = 'async';
+        $params['loading'] = 'lazy';
+
         if (!empty($item['title']))
-        {
             $params['alt'] = $item['title'];
-        }
         elseif (!empty($item['_alt']))
-        {
             $params['alt'] = $item['_alt'];
-        }
+
+        /*
         if ($sizes = self::getImageSizesRatio($item, $max_width, $max_height))
-        {
             $params = array_merge($params, $sizes);
-        }
+        */
 
         echo '<img ' . self::buildTagParams($params) . ' />'; // phpcs:ignore
     }
@@ -1638,6 +1649,9 @@ class TemplateHelper
 
     public static function getOptimizedImage(array $item, $max_width, $max_height)
     {
+        $item['img'] = preg_replace('/\._AC_SL\d+_\./', '._SS520_.', $item['img']);
+        $item['img'] = preg_replace('/\._SL\d+_\./', '._SS520_.', $item['img']);
+
         if ($item['module_id'] == 'Amazon' && strpos($item['img'], 'https://m.media-amazon.com') !== false)
         {
             if (!isset($item['extra']['primaryImages']))
@@ -1689,9 +1703,7 @@ class TemplateHelper
     public static function printProgressRing($value)
     {
         if ($value <= 0)
-        {
             return;
-        }
 
         $p = round($value * 100 / 10);
         $r1 = round($p * 314 / 100);
@@ -1984,5 +1996,29 @@ class TemplateHelper
         }
 
         return $images;
+    }
+
+    public static function convertRatingScale($OldValue, $OldMin = 1, $OldMax = 5, $NewMin = 1, $NewMax = 10)
+    {
+        if (!$OldValue)
+            return 0;
+
+        $r =  ((($OldValue - $OldMin) * ($NewMax - $NewMin)) / ($OldMax - $OldMin)) + $NewMin;
+
+        if ($r >= $NewMax)
+            return $OldValue;
+
+        return $r;
+    }
+
+    public static function isPriceAvailable(array $items)
+    {
+        foreach ($items as $item)
+        {
+            if ($item['price'])
+                return true;
+        }
+
+        return false;
     }
 }

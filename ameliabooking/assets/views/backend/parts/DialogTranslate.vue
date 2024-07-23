@@ -145,7 +145,7 @@
                 :key="index"
                 :label="getLanguageLabel(lang, false)"
                 :value="lang"
-                :disabled="lang in oldTranslations"
+                :disabled="lang in oldTranslations || lang === $root.locale"
               >
                 <span>
                   <img class="am-dialog-translate-flag" :src="getLanguageFlag(lang)">

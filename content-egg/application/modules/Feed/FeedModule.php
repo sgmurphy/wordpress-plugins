@@ -11,12 +11,15 @@ use ContentEgg\application\helpers\TextHelper;
 use ContentEgg\application\components\ContentProduct;
 use ContentEgg\application\components\LinkHandler;
 
+use function ContentEgg\prn;
+use function ContentEgg\prnx;
+
 /**
  * FeedModule class file
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 class FeedModule extends AffiliateFeedParserModule
 {
@@ -187,6 +190,7 @@ class FeedModule extends AffiliateFeedParserModule
         {
             $product['orig_url'] = $mapped_data['affiliate link'];
         }
+
         $product['product'] = serialize($data);
 
         return $product;
@@ -255,6 +259,14 @@ class FeedModule extends AffiliateFeedParserModule
             if (isset($r['availability']))
                 $items[$key]['availability'] = $r['availability'];
 
+            if (isset($r['image ​​link']))
+                $items[$key]['img'] = $r['image ​​link'];
+
+            if (isset($r['shipping cost']))
+                $items[$key]['shipping_cost'] = self::extractShippingCost($r['shipping cost']);
+            else
+                $items[$key]['shipping_cost'] = null;
+
             $items[$key]['stock_status'] = $product['stock_status'];
             if (!empty($r['sale price']))
             {
@@ -270,18 +282,13 @@ class FeedModule extends AffiliateFeedParserModule
                 $items[$key]['priceOld'] = 0;
             }
 
+            $items[$key]['url'] = $r['affiliate link'];
+
             if ($deeplink)
-            {
                 $items[$key]['url'] = LinkHandler::createAffUrl($items[$key]['orig_url'], $deeplink, $item);
-            }
 
             if (!empty($r['description']) && \apply_filters('cegg_feed_description_update', false))
-            {
                 $items[$key]['description'] = $r['description'];
-            }
-
-            if (!empty($r['affiliate link']))
-                $items[$key]['affiliate link'] = $r['affiliate link'];
         }
 
         return $items;
@@ -349,6 +356,11 @@ class FeedModule extends AffiliateFeedParserModule
                 $content->short_description = $r['short description'];
             }
 
+            if (isset($r['shipping cost']))
+                $content->shipping_cost = self::extractShippingCost($r['shipping cost']);
+            else
+                $content->shipping_cost = null;
+
             if (isset($r['brand']))
             {
                 $content->manufacturer = $r['brand'];
@@ -392,6 +404,8 @@ class FeedModule extends AffiliateFeedParserModule
             {
                 $content->domain = $this->config('domain');
             }
+
+            $content->merchant = \apply_filters('cegg_feed_merchant_name', '', $content->domain);
 
             if ($deeplink)
             {
@@ -453,5 +467,33 @@ class FeedModule extends AffiliateFeedParserModule
         }
 
         return $mapped_data;
+    }
+
+    public static function extractShippingCost($shipping_cost)
+    {
+        $shipping_cost = \apply_filters('cegg_shipping_cost_value', $shipping_cost);
+
+        if (strstr($shipping_cost, ':') && strstr($shipping_cost, ','))
+        {
+            $parts = explode(',', $shipping_cost);
+            $shipping_cost = reset($parts);
+        }
+        elseif (strstr($shipping_cost, ':'))
+        {
+            $parts = explode(':', $shipping_cost);
+            foreach ($parts as $p)
+            {
+                if (strstr($p, 'EUR') || strstr($p, 'USD'))
+                {
+                    $shipping_cost = $p;
+                    break;
+                }
+            }
+        }
+
+        if ($shipping_cost == '')
+            return '';
+
+        return (float) TextHelper::parsePriceAmount($shipping_cost);
     }
 }

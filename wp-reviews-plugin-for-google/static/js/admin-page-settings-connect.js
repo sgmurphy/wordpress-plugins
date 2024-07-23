@@ -144,8 +144,7 @@ jQuery(document).ready(function($) {
 					type: 'POST',
 					data: {
 						_wpnonce: btn.data('nonce'),
-						page_details: JSON.stringify(place),
-						review_download_timestamp: place.timestamp
+						download_data: JSON.stringify(place)
 					}
 				}).always(() => location.reload());
 			}

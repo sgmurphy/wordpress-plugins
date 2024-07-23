@@ -266,7 +266,8 @@
           dates: [],
           locations: [],
           providers: [],
-          services: []
+          services: [],
+          source: 'calendar'
         },
         selectedDate: moment().toDate(),
         selectedPaymentModalData: null

@@ -38,6 +38,7 @@ class GetSettingsCommandHandler extends CommandHandler
             $settings['activation']['purchaseCodeStore'] = null;
         }
 
+        $settings['payments']['square']['phpVersion'] = phpversion();
 
         $result->setResult(CommandResult::RESULT_SUCCESS);
         $result->setMessage('Successfully retrieved settings.');

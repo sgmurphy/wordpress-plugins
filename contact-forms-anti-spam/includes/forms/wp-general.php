@@ -22,9 +22,10 @@ function maspik_comments_checker( array $data ){
   // ip
   $ip = efas_getRealIpAddr();
   $reason = false;
+
     
   // Country IP Check 
-  $CountryCheck = CountryCheck($ip,$spam,$reason);
+  $CountryCheck = CountryCheck($ip,$spam,$reason,$_POST);
   $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
   $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
   $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
@@ -92,7 +93,7 @@ function maspik_check_wp_registration_form($errors) {
     $reason = "";
 
     // Country IP Check 
-    $CountryCheck = CountryCheck($ip, $spam, $reason);
+    $CountryCheck = CountryCheck($ip, $spam, $reason,$_POST);
     $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
     $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
     $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
@@ -146,7 +147,7 @@ function maspik_register_form_honeypot_check_in_woocommerce_registration( $error
     $reason = "";
 
     // Country IP Check 
-    $CountryCheck = CountryCheck($ip, $spam, $reason);
+    $CountryCheck = CountryCheck($ip, $spam, $reason,$_POST);
     $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
     $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
     $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;

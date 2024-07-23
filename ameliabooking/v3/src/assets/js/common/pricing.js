@@ -78,7 +78,7 @@ function useDepositAmount (totalAmount, entity) {
   if (entity.depositPayment !== 'disabled') {
     switch (entity.depositPayment) {
       case ('fixed'):
-        depositAmount = entity.deposit
+        depositAmount = (entity.depositPerPerson && entity.aggregatedPrice && entity.persons ? entity.persons : 1) * entity.deposit
 
         break
 

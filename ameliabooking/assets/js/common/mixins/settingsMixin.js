@@ -17,6 +17,7 @@ export default {
           },
           onSite: this.$root.settings.payments.onSite,
           wc: {
+            enabled: this.$root.settings.payments.wc.enabled,
             productId: this.$root.settings.payments.wc.productId
           },
           payPal: {
@@ -27,6 +28,9 @@ export default {
           },
           mollie: {
             enabled: this.$root.settings.payments.mollie.enabled
+          },
+          square: {
+            enabled: this.$root.settings.payments.square.enabled
           },
           razorpay: {
             enabled: this.$root.settings.payments.razorpay.enabled
@@ -94,11 +98,13 @@ export default {
     },
 
     updateSettings (entitySettingsJson) {
+      //  on frontend
       if (this.$root.clonedSettings.payments.onSite &&
         !this.$root.clonedSettings.payments.stripe.enabled &&
         !this.$root.clonedSettings.payments.payPal.enabled &&
         !this.$root.clonedSettings.payments.wc.enabled &&
         !this.$root.clonedSettings.payments.mollie.enabled &&
+        !this.$root.clonedSettings.payments.square.enabled &&
         !this.$root.clonedSettings.payments.razorpay.enabled
       ) {
         return
@@ -111,7 +117,7 @@ export default {
           entitySettings.payments = {}
         }
 
-        ['onSite', 'stripe', 'payPal', 'wc', 'mollie', 'razorpay'].forEach((type) => {
+        ['onSite', 'stripe', 'payPal', 'wc', 'mollie', 'razorpay', 'square'].forEach((type) => {
           if ((!(type in entitySettings.payments))) {
             entitySettings.payments[type] = this.$root.clonedSettings.payments[type]
           }
@@ -122,6 +128,10 @@ export default {
 
         if (!this.$root.clonedSettings.payments.onSite) {
           entitySettings.payments.onSite = this.$root.clonedSettings.payments.onSite
+        }
+
+        if (!this.$root.clonedSettings.payments.square) {
+          entitySettings.payments.square = this.$root.clonedSettings.payments.square
         }
 
         if (!this.$root.clonedSettings.payments.payPal.enabled) {
@@ -140,7 +150,8 @@ export default {
           ('payPal' in entitySettings.payments ? entitySettings.payments.payPal.enabled && this.$root.clonedSettings.payments.payPal.enabled : this.$root.clonedSettings.payments.payPal.enabled) &&
           ('stripe' in entitySettings.payments ? entitySettings.payments.stripe.enabled && this.$root.clonedSettings.payments.stripe.enabled : this.$root.clonedSettings.payments.stripe.enabled) &&
           ('mollie' in entitySettings.payments ? entitySettings.payments.mollie.enabled && this.$root.clonedSettings.payments.mollie.enabled : this.$root.clonedSettings.payments.mollie.enabled) &&
-          ('razorpay' in entitySettings.payments ? entitySettings.payments.razorpay.enabled && this.$root.clonedSettings.payments.razorpay.enabled : this.$root.clonedSettings.payments.razorpay.enabled)
+          ('razorpay' in entitySettings.payments ? entitySettings.payments.razorpay.enabled && this.$root.clonedSettings.payments.razorpay.enabled : this.$root.clonedSettings.payments.razorpay.enabled) &&
+          ('square' in entitySettings.payments ? entitySettings.payments.square.enabled && this.$root.clonedSettings.payments.square.enabled : this.$root.clonedSettings.payments.square.enabled)
         ) {
           entitySettings.payments = this.$root.clonedSettings.payments
         }
@@ -159,6 +170,7 @@ export default {
         entitySettings.payments.stripe = this.$root.clonedSettings.payments.stripe
         entitySettings.payments.payPal = this.$root.clonedSettings.payments.payPal
         entitySettings.payments.mollie = this.$root.clonedSettings.payments.mollie
+        entitySettings.payments.square = this.$root.clonedSettings.payments.square
         entitySettings.payments.razorpay = this.$root.clonedSettings.payments.razorpay
 
         entitySettingsJson = JSON.stringify(entitySettings)
@@ -183,6 +195,36 @@ export default {
         entitySettingsJson = JSON.stringify(entitySettings)
       }
 
+      if (this.$root.clonedSettings.payments.square.enabled === true && entitySettingsJson !== null) {
+        let entitySettings = JSON.parse(entitySettingsJson)
+
+        if (!('payments' in entitySettings)) {
+          entitySettings.payments = {}
+        }
+
+        if (!this.$root.clonedSettings.payments.onSite) {
+          entitySettings.payments.onSite = this.$root.clonedSettings.payments.onSite
+          entitySettings.payments.square = this.$root.clonedSettings.payments.square
+        }
+
+        entitySettings.payments.stripe = this.$root.clonedSettings.payments.stripe
+        entitySettings.payments.payPal = this.$root.clonedSettings.payments.payPal
+        entitySettings.payments.razorpay = this.$root.clonedSettings.payments.razorpay
+
+        entitySettingsJson = JSON.stringify(entitySettings)
+      }
+
+      if ('oliverPos' in this.$root.shortcodeData && this.$root.shortcodeData.oliverPos) {
+        entitySettingsJson = JSON.parse(entitySettingsJson)
+
+        entitySettingsJson.payments.onSite = true
+        entitySettingsJson.payments.stripe.enabled = false
+        entitySettingsJson.payments.payPal.enabled = false
+        entitySettingsJson.payments.razorpay.enabled = false
+
+        entitySettingsJson = JSON.stringify(entitySettingsJson)
+      }
+
       this.replaceExistingObjectProperties(this.$root.settings, entitySettingsJson !== null ? JSON.parse(entitySettingsJson) : this.$root.clonedSettings)
     },
 
@@ -196,7 +238,7 @@ export default {
           payments.onSite = bookableEntitySettings.payments.onSite
         }
 
-        ['stripe', 'payPal', 'razorpay', 'mollie'].forEach((paymentType) => {
+        ['stripe', 'payPal', 'razorpay', 'mollie', 'square'].forEach((paymentType) => {
           if (paymentType in bookableEntitySettings.payments &&
             bookableEntitySettings.payments[paymentType].enabled !== this.$root.settings.payments[paymentType].enabled
           ) {
@@ -205,8 +247,10 @@ export default {
         })
 
         if ('wc' in bookableEntitySettings.payments &&
-          'productId' in bookableEntitySettings.payments.wc &&
-          bookableEntitySettings.payments.wc.productId !== this.$root.settings.payments.wc.productId
+            (bookableEntitySettings.payments.wc.enabled !== this.$root.settings.payments.wc.enabled ||
+                ('productId' in bookableEntitySettings.payments.wc &&
+                    bookableEntitySettings.payments.wc.productId !== this.$root.settings.payments.wc.productId)
+            )
         ) {
           payments.wc = bookableEntitySettings.payments.wc
         }
@@ -221,10 +265,6 @@ export default {
 
     prepareServiceSettingsForSave (service) {
       let serviceSettings = JSON.parse(JSON.stringify(service.settings))
-
-      if (serviceSettings.payments.wc.productId === this.$root.settings.payments.wc.productId) {
-        delete serviceSettings.payments.wc
-      }
 
       if ('general' in serviceSettings) {
         if (!serviceSettings.general.redirectUrlAfterAppointment) {

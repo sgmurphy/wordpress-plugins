@@ -45,12 +45,11 @@
                 var $listItems = this.elements.$listItems,
                     $items = this.elements.$items;
 
-                $items.each(function (index, item) {
+                var eleObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
 
-                    if ($listItems.data("list-animation") && " " != $listItems.data("list-animation")) {
-                        elementorFrontend.waypoint($(item), function () {
-
-                            var element = $(item),
+                            var element = $(entry.target),
                                 delay = element.data('delay');
 
                             setTimeout(function () {
@@ -60,11 +59,33 @@
                                 element.css("opacity", "1").addClass("animated " + $listItems.data("list-animation"));
                             }, delay);
 
-                        });
+                            eleObserver.unobserve(entry.target); // to only excecute the callback func once.
+                        }
+                    });
+                });
+
+                $items.each(function (index, item) {
+
+                    if ($listItems.data("list-animation") && " " != $listItems.data("list-animation")) {
+
+                        eleObserver.observe($(item)[0]); // we need to apply this on each item
+
+                        // elementorFrontend.waypoint($(item), function () {
+
+                        //     var element = $(item),
+                        //         delay = element.data('delay');
+
+                        //     setTimeout(function () {
+                        //         element.next('.premium-bullet-list-divider , .premium-bullet-list-divider-inline').css("opacity", "1");
+                        //         element.next('.premium-bullet-list-divider-inline , .premium-bullet-list-divider').addClass("animated " + $listItems.data("list-animation"));
+
+                        //         element.css("opacity", "1").addClass("animated " + $listItems.data("list-animation"));
+                        //     }, delay);
+
+                        // });
                     }
 
                 });
-
             },
 
             addRandomBadges: function () {

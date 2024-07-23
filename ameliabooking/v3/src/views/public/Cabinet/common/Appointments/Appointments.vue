@@ -14,7 +14,7 @@
       @trigger-close="closeAlert"
     >
       <template #title>
-        <span class="am-icon-checkmark-circle-full"></span> {{ successMessage }}
+        <span class="am-icon-checkmark-circle-full"></span> {{ alertMessage }}
       </template>
     </AmAlert>
 
@@ -37,8 +37,8 @@
       ></AppointmentsList>
       <EmptyState
         v-else
-        heading="No Appointments Found"
-        text="You don't have any appointments"
+        :heading="amLabels.no_app_found"
+        :text="amLabels.have_no_app"
       ></EmptyState>
     </template>
     <Skeleton v-else></Skeleton>
@@ -178,12 +178,11 @@ let alertContainer = ref(null)
 let alertVisibility = ref(false)
 let alertType = ref('success')
 
-// * Success message
-let successMessage = ref('')
+let alertMessage = ref('')
 
 function closeAlert () {
   alertVisibility.value = false
-  successMessage.value = ''
+  store.commit('cabinet/setPaymentLinkError', {value: false, type: 'appointment'})
 }
 
 /********
@@ -252,7 +251,7 @@ function getAppointments (passedData = null) {
     store.commit('cabinet/setAppointmentsLoading', false)
     if (passedData && 'message' in passedData) {
       alertVisibility.value = true
-      successMessage.value = passedData.message
+      alertMessage.value = passedData.message
 
       if (pageContainer.value && alertContainer.value) {
         setTimeout(function () {

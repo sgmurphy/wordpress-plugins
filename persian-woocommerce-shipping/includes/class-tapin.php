@@ -37,7 +37,6 @@ class PWS_Tapin extends PWS_Core {
 		self::$methods = [
 			'WC_Courier_Method',
 			'WC_Tipax_Method',
-			'Tapin_Sefareshi_Method',
 			'Tapin_Pishtaz_Method',
 		];
 
@@ -373,10 +372,10 @@ class PWS_Tapin extends PWS_Core {
 		return $cities[ $city_id ] ?? null;
 	}
 
-	public function check_states_beside( $source, $destination ) {
+	public function check_states_beside( $source, $destination ): bool {
 
 		if ( $source == $destination ) {
-			return 'in';
+			return false;
 		}
 
 		$is_beside[3][16] = true;
@@ -557,7 +556,7 @@ class PWS_Tapin extends PWS_Core {
 		$is_beside[25][22] = true;
 		$is_beside[25][30] = true;
 
-		return isset( $is_beside[ $source ][ $destination ] ) && $is_beside[ $source ][ $destination ] === true ? 'beside' : 'out';
+		return $is_beside[ $source ][ $destination ] ?? false;
 	}
 
 	public function get_term_option( $term_id ): array {

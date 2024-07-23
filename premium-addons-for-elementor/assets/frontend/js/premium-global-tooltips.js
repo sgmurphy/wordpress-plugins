@@ -27,13 +27,29 @@
             generateGlobalTooltip();
 
             if ('viewport' === settings.trigger) {
-                elementorFrontend.waypoint($scope, function () {
-                    if ('' !== settings.target) {
-                        $scope.find(settings.target).tooltipster('open');
-                    } else {
-                        $scope.tooltipster('open');
+                // unsing IntersectionObserverAPI.
+                var eleObserver = new IntersectionObserver(function($entry) {
+                    if ($entry[0].isIntersecting) {
+
+                        if ('' !== settings.target) {
+                            $scope.find(settings.target).tooltipster('open');
+                        } else {
+                            $scope.tooltipster('open');
+                        }
+
+                        eleObserver.unobserve($entry[0].target); // to only excecute the callback func once.
                     }
                 });
+
+                eleObserver.observe($scope[0]);
+
+                // elementorFrontend.waypoint($scope, function () {
+                //     if ('' !== settings.target) {
+                //         $scope.find(settings.target).tooltipster('open');
+                //     } else {
+                //         $scope.tooltipster('open');
+                //     }
+                // });
             }
 
             /**

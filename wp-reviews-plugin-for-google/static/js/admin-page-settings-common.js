@@ -235,18 +235,6 @@ jQuery(document).ready(function() {
 				Trustindex.resize_widgets();
 			}
 		}
-
-		// ajax save
-		if (init !== true) {
-			jQuery.post('', {
-				command: 'save-filter',
-				_wpnonce: jQuery('#ti-filter-star').data('nonce'),
-				filter: JSON.stringify({
-					'stars': stars,
-					'only-ratings': showOnlyRatings
-				})
-			});
-		}
 	}
 
 	// hooks
@@ -474,7 +462,7 @@ jQuery(document).ready(function() {
 		// generate reply with AI if not edit
 		if (replyBox.attr('data-state') === 'reply' || replyBox.attr('data-state') === 'copy-reply') {
 			let data = JSON.parse(replyBox.next().html());
-			generateAiReply(data.review.text, function(reply) {
+			generateAiReply(data.review.text || "", function(reply) {
 				btn.removeClass('ti-btn-loading');
 
 				// popup closed
@@ -491,7 +479,7 @@ jQuery(document).ready(function() {
 				let textarea = replyBox.find('.state-'+ replyBox.attr('data-state') +' textarea');
 				textarea.val(reply).focus().expand();
 
-				if (!data.review.text.trim()) {
+				if (!data.review.text || data.review.text.trim() === "") {
 					replyBox.find('.ti-alert.ti-alert-empty-review').removeClass('d-none');
 				}
 

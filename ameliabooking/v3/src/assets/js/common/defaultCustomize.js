@@ -2467,6 +2467,13 @@ let defaultTranslations = {
           appointment_rescheduled: null,
           appointment_canceled: null,
         }
+      },
+      emptyState: {
+        name: globalLabels.cust_empty_state,
+        labels: {
+          no_app_found: null,
+          have_no_app: null
+        }
       }
     },
     rescheduleAppointment: {
@@ -2568,6 +2575,13 @@ let defaultTranslations = {
         labels: {
           event_canceled: null
         }
+      },
+      emptyState: {
+        name: globalLabels.cust_empty_state,
+        labels: {
+          no_evt_found: null,
+          have_no_evt: null
+        }
       }
     },
     cancelEvent: {
@@ -2619,6 +2633,13 @@ let defaultTranslations = {
           package_deal_expire_in: null,
           expires_days: null,
           appointments_deal_expire: null,
+        }
+      },
+      emptyState: {
+        name: globalLabels.cust_empty_state,
+        labels: {
+          no_pack_found: null,
+          have_no_pack: null
         }
       }
     },

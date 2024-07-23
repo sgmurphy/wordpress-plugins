@@ -214,19 +214,38 @@
                 var animationDelay = settings.delay || 4,
                     animationSpeed = settings.duration || 1.2;
 
-                elementorFrontend.waypoint($elem, function () {
+                // unsing IntersectionObserverAPI.
+                var eleObserver = new IntersectionObserver(function($entry) {
+                    if ($entry[0].isIntersecting) {
 
-                    $elem.addClass('draw-shape');
+                        $elem.addClass('draw-shape');
+                        setInterval(function () {
+                            $elem.addClass('hide-shape');
 
-                    setInterval(function () {
-                        $elem.addClass('hide-shape');
+                            setTimeout(function () {
+                                $elem.removeClass('hide-shape');
+                            }, 1000);
+                        }, 1000 * (animationSpeed + animationDelay));
 
-                        setTimeout(function () {
-                            $elem.removeClass('hide-shape');
-                        }, 1000);
-                    }, 1000 * (animationSpeed + animationDelay));
-
+                        eleObserver.unobserve($entry[0].target); // to only excecute the callback func once.
+                    }
                 });
+
+                eleObserver.observe($elem[0]);
+
+                // elementorFrontend.waypoint($elem, function () {
+
+                //     $elem.addClass('draw-shape');
+
+                //     setInterval(function () {
+                //         $elem.addClass('hide-shape');
+
+                //         setTimeout(function () {
+                //             $elem.removeClass('hide-shape');
+                //         }, 1000);
+                //     }, 1000 * (animationSpeed + animationDelay));
+
+                // });
 
             }
 

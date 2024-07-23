@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.22
+Stable tag: 5.2.23
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.23 =
+
+* Improves the user experience in creating forms by assigning placeholders to the form attributes.
+* Implements a fields filtering box in the fields list popup windows to facilitate searching the fields in the form.
+
 = 5.2.22 =
 
 * Fixes an issue with the CSS Editor associated with the Customize Form Design attribute.
@@ -484,10 +489,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Introduces new form templates.
 * Enhances user interaction by displaying a cursor pointer for radio buttons and checkboxes.
 * Disables the link functionality when a form is embedded within an anchor.
-
-= 5.2.17 =
-
-* Implements the predefined class names col-xs-0, col-sm-0, col-md-0, and col-lg-0 to allow hiding fields on mobiles, tables, desktops, and large screens, respectively.
-* Includes a close button in QRCode controls to close the scan dialog.
-* Escape style tags and attributes in form fields to prevent them from affecting the forms builder's functionality.
-* Enhances user experience by automatically scrolling the properties sidebar to the top when selecting a field for editing.

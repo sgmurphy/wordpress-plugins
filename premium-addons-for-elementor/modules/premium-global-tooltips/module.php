@@ -119,10 +119,6 @@ class Module {
 	 */
 	public function enqueue_scripts() {
 
-		if ( ! wp_script_is( 'elementor-waypoints', 'enqueued' ) ) {
-			wp_enqueue_script( 'elementor-waypoints' );
-		}
-
 		if ( ! wp_script_is( 'lottie-js', 'enqueued' ) ) {
 			wp_enqueue_script( 'lottie-js' );
 		}

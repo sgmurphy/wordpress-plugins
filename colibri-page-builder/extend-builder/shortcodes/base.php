@@ -37,6 +37,6 @@ add_shortcode( 'colibri_layout_wrapper', function ( $attrs , $content = null) {
     );
 
     $name = $atts['name'];
-    $escaped_content = wp_kses_post(do_shortcode( $content ));
+    $escaped_content = do_shortcode( $content );
     return apply_filters('colibri_layout_wrapper_output_' . $name, $escaped_content);
 } );

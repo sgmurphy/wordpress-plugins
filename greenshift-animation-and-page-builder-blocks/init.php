@@ -770,6 +770,7 @@ function gspb_greenShift_block_script_assets($html, $block)
 				if($blockname == 'greenshift-blocks/buttonbox'){
 					$html = str_replace('class="gspb_slidingPanel"', 'aria-hidden="true"  class="gspb_slidingPanel"', $html);
 					$html = str_replace('class="gspb_slidingPanel-close"', 'tabindex="0"  class="gspb_slidingPanel-close"', $html);
+					$html = str_replace('href="#"', 'href="javascript:void(0)"', $html);
 				}
 			}
 			if (!empty($block['attrs']['buttonLink'])) {
@@ -873,13 +874,13 @@ function gspb_greenShift_block_script_assets($html, $block)
 				$html = GSPB_make_dynamic_link($html, $block['attrs'], $block, $field, $block['attrs']['containerLink']);
 			}
 			if(!empty($block['attrs']['isVariation']) && $block['attrs']['isVariation'] == 'marquee'){
-				$pattern = '/<div class="gspb_marquee_content">.*?<\/div>/s';
+				$pattern = '/<div class="gspb_marquee_content">(.*?)<span class="gspb_marquee_content_end"><\/span><\/div>/s';
 				$html = preg_replace_callback($pattern, function ($matches) {
 					// Original div
-					$originalDiv = $matches[0];
+					$originalDiv = '<div class="gspb_marquee_content">'.$matches[1].'</div>';
 					
 					// Duplicated div with aria-hidden="true"
-					$duplicatedDiv = preg_replace('/<div/', '<div aria-hidden="true"', $originalDiv, 1);
+					$duplicatedDiv = '<div class="gspb_marquee_content" aria-hidden="true">'.$matches[1].'</div>';
 				
 					// Return original and duplicated div
 					return $originalDiv . $duplicatedDiv;

@@ -648,6 +648,13 @@ $elements = array(
 				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-woocommerce-products/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-woocommerce-products-listing-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 			),
+            array(
+				'key'   => 'woo-categories',
+				'title' => __( 'Woo Categories', 'premium-addons-for-elementor' ),
+				'name'  => 'premium-woo-categories',
+				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-woocommerce-categories-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-woocommerce-products-listing-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+			),
 			array(
 				'key'   => 'premium-world-clock',
 				'name'  => 'premium-world-clock',

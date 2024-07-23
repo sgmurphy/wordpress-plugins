@@ -406,8 +406,8 @@ class CF7_Skin_Style extends CF7_Skin {
 						<img src="<?php echo file_exists( $imgpath ) ? esc_url( $imgurl ) : CF7SKINS_URL . 'images/no-preview.png'; ?>" />
 					</div>
 					<ul class="wp-clearfix skin-action">
-						<li><a class="select<?php echo esc_attr( $class ); ?> balloon" title="<?php _e( 'Select to apply the Style to your form - is applied to your form once you Save.','contact-form-7-skins' ); ?>" data-value="<?php $this->get_slug_name( $style ); ?>" href="#cf7s-style"><?php echo esc_attr( $select_text ); ?></a></li>
-						<li><a class="detail balloon" title="<?php _e( 'Show detailed information about this Style - overview of the appearance and layout with description and usage details.' ,'contact-form-7-skins' ); ?>" href="#<?php $this->get_slug_name( $style ); ?>"><?php _e('Details', 'contact-form-7-skins' ); ?></a></li>
+						<li><a class="select<?php echo esc_attr( $class ); ?> balloon" data-balloon-pos="up-left" data-balloon-length="medium" title="<?php _e( 'Select to apply the Style to your form - is applied to your form once you Save.','contact-form-7-skins' ); ?>" data-value="<?php $this->get_slug_name( $style ); ?>" href="#cf7s-style"><?php echo esc_attr( $select_text ); ?></a></li>
+						<li><a class="detail balloon" data-balloon-pos="up-left" data-balloon-length="medium" title="<?php _e( 'Show detailed information about this Style - overview of the appearance and layout with description and usage details.' ,'contact-form-7-skins' ); ?>" href="#<?php $this->get_slug_name( $style ); ?>"><?php _e('Details', 'contact-form-7-skins' ); ?></a></li>
 					</ul>
 				</div>
 			</div>

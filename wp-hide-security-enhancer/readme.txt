@@ -3,13 +3,18 @@ Contributors: nsp-code, tdgu
 Donate link: https://www.nsp-code.com/
 Tags: wordpress hide, security, security headers, custom login, login hide
 Requires at least: 2.8
-Tested up to: 6.5.4
-Stable tag: 2.4
+Tested up to: 6.6
+Stable tag: 2.4.2
 License: GPLv2 or later
 
-Hide WordPress, wp-content, wp-includes, wp-admin, login URL, plugins, themes etc. Block the default URLs. Security Headers etc.
+Secure your site by hiding exploitable WordPress traces ( plugins, themes, wp-content, wp-includes, wp-admin, login URL). Enhanced Security Headers.
 
 == Description ==
+
+Effortlessly conceal your WordPress site from detection! With over 99.99% of hacks targeting specific plugin and theme vulnerabilities, this plugin significantly boosts site security by making it invisible to hackers' web scanners. 
+
+By removing all traces of WordPress, including themes and plugins, potential exploits are rendered harmless. This method ensures that your site is safe without affecting SEO; in fact, it can enhance certain SEO aspects when used strategically.
+
 
 WP-Hide has launched the **easiest way to completely hide your WordPress** core files, login page, theme and plugins paths from being shown on front side. This is a huge improvement over Site Security, since no one will know whether you are running or not a WordPress. It also provides a simple way to clean up html by removing all WordPress fingerprints.
 
@@ -411,6 +416,14 @@ Please get in touch with us and we’ll do our best to include it inthe next ver
 2. Sample front html code.
 
 == Changelog ==
+
+= 2.4.2 =
+* Undefined function fix.
+
+= 2.4.1 =
+* Add self_admin_url filter for components like WordPress update routine.
+* Check if the correct page before add the admin_enqueue_scripts action, for the custom logo interface.
+* WordPress 6.6 compatibility check and tag update. 
 
 = 2.4 =
 * New feature: Block common Theme / Plugin detectors and scanners  https://wp-hide.com/documentation/block-theme-plugin-detectors/

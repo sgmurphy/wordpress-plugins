@@ -61,6 +61,7 @@ $options = array(
     'notification_button_1_bg_hover_color' => '#F66123',
     'notification_button_1_text_color' => '#FFFFFF',
     'notification_button_1_text_hover_color' => '#FFFFFF',
+    'notification_button_1_letter_spacing' => 0,
     'notification_button_1_font_size' => 15,
     'notification_button_1_border_radius' => 6,
     'notification_button_1_border_width' => 0,
@@ -422,6 +423,9 @@ $notification_button_1_text_color = (isset($options['notification_button_1_text_
 
 // Notification type | Button 1 text hover color
 $notification_button_1_text_hover_color = (isset($options['notification_button_1_text_hover_color']) && $options['notification_button_1_text_hover_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_hover_color']) ) : $notification_button_1_text_color;
+
+// Notification type | Button 1 letter spacing
+$notification_button_1_letter_spacing = (isset($options['notification_button_1_letter_spacing']) && $options['notification_button_1_letter_spacing'] != '') ? absint( esc_attr($options['notification_button_1_letter_spacing']) ) : 0;
 
 // Notification type | Button 1 font size
 $notification_button_1_font_size = (isset($options['notification_button_1_font_size']) && $options['notification_button_1_font_size'] != '') ? absint( esc_attr($options['notification_button_1_font_size']) ) : 15;
@@ -1889,6 +1893,20 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                                 <div class="col-sm-9">
                                     <input type="text" id="ays_pb_notification_button_1_text_hover_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_text_hover_color" value="<?php echo $notification_button_1_text_hover_color ?>" data-default-color="#FFFFFF" data-alpha="true" />
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="ays_pb_notification_button_1_letter_spacing">
+                                        <?php  echo __('Letter spacing', "ays-popup-box" ) ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Define the space between the letters of the button in pixels.", "ays-popup-box"); ?>" >
+                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input id="ays_pb_notification_button_1_letter_spacing" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_letter_spacing" type="number" value="<?php echo $notification_button_1_letter_spacing; ?>">
                                 </div>
                             </div>
                             <hr>

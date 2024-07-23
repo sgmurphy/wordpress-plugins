@@ -16,7 +16,7 @@ use ContentEgg\application\helpers\TemplateHelper;
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 class EggShortcode
 {
@@ -96,7 +96,7 @@ class EggShortcode
             $a['products'] = TextHelper::getArrayFromCommaList($a['products']);
         if ($a['add_query_arg'])
             parse_str($a['add_query_arg'], $a['add_query_arg']);
-        $allowed_sort = array('price', 'discount', 'reverse');
+        $allowed_sort = array('price', 'discount', 'reverse', 'total_price');
         $allowed_order = array('asc', 'desc');
         $a['sort'] = strtolower($a['sort']);
         $a['order'] = strtolower($a['order']);

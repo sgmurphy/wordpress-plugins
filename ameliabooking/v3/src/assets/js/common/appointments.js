@@ -641,9 +641,9 @@ function useAvailableSlots (store) {
         let service = services.find(i => i.id === parseInt(serviceId))
 
         cartItem.services[serviceId].list.forEach((i, selectedListIndex) => {
-          let isCurrentAppointment = selectedCartIndex === parseInt(cartIndex) && selectedListIndex === parseInt(cart[cartIndex].index)
-
-
+          let isCurrentAppointment = selectedCartIndex === parseInt(cartIndex) &&
+              selectedListIndex === parseInt(cart[cartIndex].index) &&
+              (cartItem.packageId ? parseInt(cartItem.serviceId) === parseInt(serviceId) : true)
 
           if (i.date && i.date === activeAppointment.date && i.time && !isCurrentAppointment) {
             selectedSlots.push({
@@ -680,7 +680,7 @@ function useAvailableSlots (store) {
         }
       }
 
-      if (isFreeSlot || defaultSlots[i] === activeAppointment.time) {
+      if (isFreeSlot) {
         availableSlots[defaultSlots[i]] = useTimeInSeconds(defaultSlots[i])
       }
     }
@@ -857,25 +857,6 @@ function useAppointmentsPayments (store, serviceId, appointments) {
     prepaid: appointments.slice(0, prepaidCount),
     postpaid: appointments.slice(prepaidCount),
   }
-}
-
-function useServicePrices (store, serviceId, appointments) {
-  let data = {}
-
-  appointments.map(i => i.providerId).forEach((providerId) => {
-    let service = store.getters['entities/getEmployeeService'](
-      providerId,
-      serviceId
-    )
-
-    if (!(service.price in data)) {
-      data[service.price] = 0
-    }
-
-    data[service.price]++
-  })
-
-  return data
 }
 
 function setPreferredEntitiesData (bookings, store, serviceId, chosenEmployees) {

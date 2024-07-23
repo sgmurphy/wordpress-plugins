@@ -522,7 +522,7 @@ class Premium_Vscroll extends Widget_Base {
 		$this->add_control(
 			'cube_effect_note',
 			array(
-				'raw'             => __( 'Full Section scroll option is enabled by default for Cube effect for better UX.', 'premium-addons-for-elemeentor' ),
+				'raw'             => __( 'Full Section scroll option is enabled by default for Cube effect for better UX.', 'premium-addons-for-elementor' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				'condition'       => array(
@@ -537,7 +537,7 @@ class Premium_Vscroll extends Widget_Base {
 				'raw'             => __(
 					'Please note that the
 				animation will automatically be changed to default on touch devices for better performance.',
-					'premium-addons-for-elemeentor'
+					'premium-addons-for-elementor'
 				),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',

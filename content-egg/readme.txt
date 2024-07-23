@@ -1,10 +1,10 @@
 === Content Egg ===
 Contributors: keywordrush
-Tags: content, affiliate, autoblogging, affilinet, coupons, linkshare, shareasale, amazon, flickr, youtube, commission junction, aliexpress, cj, images, wikipedia, freebase, ecommerce, links, shortcode, monetize, search engine optimization, ebay, zanox, moneymaking, price comparison, google images, timesaving, clickbank, linkshare, pixabay, admitad, affilitewindow, optimisemedia, tradedoubler, flipkart, paytm, price alert, tracker, impactradius, pepperjam, udemy, envato, tradetracker, viglink, skimlinks
+Tags: affiliate marketing, price comparison, csv import, ai content generation, autoblogging
 Requires at least: 4.6.1
-Tested up to: 6.3
+Tested up to: 6.6.1
 Requires PHP: 5.4
-Stable tag: 6.0.0
+Stable tag: 7.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,17 +14,16 @@ All in one solution for creating affiliate websites.
 
 = What is this plugin for? =
 
-* Product reviews and niche blog
-* Price comparison site
-* Daily deals website
-* WooCommerce directories
-* Sites on autopilot
+✔ Product reviews and niche blog
+✔ Price comparison site
+✔ Daily deals website
+✔ WooCommerce directories
+✔ Sites on autopilot
 
 Official website: [www.keywordrush.com/contentegg](https://www.keywordrush.com/contentegg "Content Egg Pro WP Plugin")
 Demo: [demo.keywordrush.com](https://demo.keywordrush.com/content-egg-pro-output-demo/ "Content Egg output demo")
 Documentation: [ce-docs.keywordrush.com](https://ce-docs.keywordrush.com/ "Content Egg output demo")
 AI Power: [www.keywordrush.com/toomuchniche](https://www.keywordrush.com/toomuchniche "Too Much Niche WP Plugin")
-
 
 = How it works? =
 
@@ -36,45 +35,75 @@ AI Power: [www.keywordrush.com/toomuchniche](https://www.keywordrush.com/toomuch
 
 = Plugin features =
 
-* Easily adding offers from different affiliate systems by keyword.
-* Special module to work with CSV feeds.
-* Search and add to post additional relevant content: videos, images, news, etc.
-* Autoblogging.
-* Multilanguage: make site on any language.
-* Automatic updating prices and offers.
-* WooCommerce products synchronization.
-* WooCommerce autoblogging.
-* Option to generate auto updating price comparison lists of actual offers by keyword.
-* Options to set search filters for modules (price range, discount, categories, best offers, CC license, etc).
-* Automatically adds your partner ID to links.
-* Price tracker and price alert.
-* Easy interface: add all content from post admin page.
-* Custom output templates.
+* Easily add offers from various affiliate systems by keywords or URLs.
+* Special module for CSV, XML, JSON product feeds.
+* Search and add relevant content: videos, images, news.
+* Autoblogging: Automatically generate posts by keywords.
+* Multilanguage support for any language.
+* Custom Templates: Create with ChatGPT.
+* Compatible with any WordPress theme.
+* High Conversion Templates: Pre-designed or custom.
+* Price Comparison Blocks: Multiple network offers in one block.
+* Automatic price and offer updates.
+* WooCommerce products synchronization and autoblogging.
+* Set search filters for modules (price, discount, categories, etc.).
+* Automatically add partner ID to links.
+* Price tracker and alerts.
+* Easy interface from the post admin page.
 * Affiliate Egg integration.
-* Works with any theme.
-* Works through official API.
-* Works with Wordpress shortcodes. 
+* Uses official APIs.
+* Supports WordPress shortcodes.
 
 = Import products in Woocommerce from CSV =
 
-Content Egg has special module to work with product feeds.
+Content Egg includes a special module to work with product feeds.
 
 [youtube https://www.youtube.com/watch?v=dfs9ojO_OD8]
 
-> <strong>Content Egg PRO version</strong><br>
->Do you want to get even more? Pro version offers tons of additional modules and extended features. 
->
->Modules of free version: CSV Feed, CJ Links, Coupon, GdeSlon, GoogleImages, Offer, Pixabay, Related Keywords, RSS Fetcher, Skimlinks Coupons, Viglink, Youtube.
->
->Additional modules of PRO version: Aliexpress, Amazon, Avantlink, AWIN, Bol.com, CityAds, CJ Products, Clickbank, Daisycon, eBay, Envato, Flipkart, Impactradius, Kelkoogroup, Rakuten LinkShare, Linkwise, Lomadee.com, Paytm.com, Pepperjam, Shareasale, Tradedoubler, Tradetracker, Udemy, Walmart, Webgains.
->
->Visit us at [www.keywordrush.com/contentegg](https://www.keywordrush.com/contentegg "Content Egg PRO").
+= Content Egg PRO Version =
+
+Do you want to get even more? The Pro version offers numerous additional modules and extended features.
+
+**Modules of the Free Version:** CSV Feed, CJ Links, Coupon, GdeSlon, Google Images, Offer, Pixabay, Related Keywords, RSS Fetcher, Skimlinks Coupons, Viglink (Sovrn), YouTube.
+
+**Additional Modules of the PRO Version:** Aliexpress, Amazon, Amazon NoAPI, Avantlink, AWIN, BestBuy, Bol.com, CJ Products, CityAds.com, Clickbank, Daisycon, eBay, Envato, Flipkart, Impact Radius, Kelkoogroup, Kieskeurig.nl, Linkwise, Lomadee.com, Paytm.com, Pepperjam, Rakuten (LinkShare), Shareasale, Shopeeh, Walmart, Webgains.
+
+Visit us at [www.keywordrush.com/contentegg](https://www.keywordrush.com/contentegg "Content Egg PRO")
 
 = Autoblogging =
 
-Content Egg plugin can create sites on autopilot! Everything you need - it's just setup once autoblogging, type keywords and plugin will find products, images, videos and other content based on your schedule. 
+Content Egg plugin can create sites on autopilot! Everything you need - it's just setup once autoblogging, type keywords and plugin will find products, images, videos and other content based on your schedule.
 
 [youtube https://www.youtube.com/watch?v=-TjUgbm0Oks]
+
+= Price Comparison Features =
+
+* **Price Blocks**: Combine offers from multiple networks into one block.
+* **Historical Price Data**: Display past prices to help users find the best purchase times.
+* **Dynamic Charts**: Create charts showing price changes over time.
+* **Price Drop Alerts**: Email alerts for price drops.
+* **EAN Search**: Merge products into a single comparison list using EANs.
+
+= AI Content Generation =
+
+Enhance your affiliate product content effortlessly with our advanced AI integration! Generate unique and valuable content with just one click:
+
+* Product Reviews
+* How-to-Use Instructions
+* Buyer’s Guides
+* Product Descriptions
+* Text Translations
+* Summarizations
+* Rewrites
+* And More...
+
+Customize prompts with dynamic variables for tailored content creation. Our supported AI models include GPT-4, GPT-3.5, GPT 4o-mini, GPT 4o, Claude 3: Haiku, Claude 3.5: Sonnet, and more.
+
+= Real-World Usage of the Content Egg Plugin on Live Sites =
+
+* [frolicflock.com](https://frolicflock.com "frolicflock.com")
+* [ceramiclemon.com](https://ceramiclemon.com "ceramiclemon.com")
+* [dreamtravelhotels.com](https://dreamtravelhotels.com "dreamtravelhotels.com")
 
 == Installation ==
 
@@ -83,23 +112,85 @@ Content Egg plugin can create sites on autopilot! Everything you need - it's jus
 * PHP version 5.4 or higher.
 * Wordpress 4.6.1 or higher.
 
-This section describes how to install the plugin and get it working.
+Installation Instructions
 
-1. Upload `content-egg` folder to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Configure plugin settings 
-1. You can find manual how to configure each module - [Content Egg User Guide](https://ce-docs.keywordrush.com/)
+1. Upload the content-egg folder to the /wp-content/plugins/ directory.
+1. Activate the plugin through the 'Plugins' menu in WordPress.
+1. Configure the plugin settings.
+1. For detailed configuration instructions, refer to the [Content Egg User Guide](https://ce-docs.keywordrush.com/)
+
+== Frequently Asked Questions ==
+
+= What if my advertiser is not yet supported? =
+
+If your advertiser isn't listed among our supported modules, we offer several flexible solutions:
+
+* **Feed Modules**: Work with any CSV or XML product feeds.
+* **Offer Module**: Manually add any products.
+* **Affiliate Egg Integration**: Use custom Affiliate Egg parsers for additional support.
+
+For more information, read: [My network isn't listed](https://ce-docs.keywordrush.com/modules/my-network-isnt-listed).
+
+= How many individual Feed modules can I create? =
+
+* **Free Version**: Create up to 3 separate feed modules.
+* **Pro Version**: Create up to 50 separate feed modules.
+
+Additionally, you can use merged feeds for multiple merchants, as many affiliate networks provide this option.
+
+= Is Amazon supported? =
+
+Amazon is supported in the Pro version with two available modules:
+
+* **Amazon via Official PA API**: Integrate directly with Amazon's Product Advertising API.
+* **NoAPI Module**: Designed for beginners, this module allows you to make your first 3 sales and gain API access.
+
+= Can I create custom output templates? =
+
+Yes, you can create custom templates. Here are two ways to do it:
+
+1. **Manual Customization**: You'll need skills in PHP, HTML, and CSS. The default templates use the Bootstrap CSS framework.
+2. **AI Assistance**: Use a specially trained ChatGPT to create a custom template. Simply describe what you need, and the AI will generate the code for you instantly.
+
+= What's the difference between Content Egg and Affiliate Egg? =
+
+* **Content Egg**: Operates through official product APIs and offers numerous modules for various affiliate networks. Ideal for product review blogs, price comparison websites, and daily deals websites.
+
+* **Affiliate Egg**: Functions as a web parser, requiring no API access. It allows you to use Affiliate Egg parsers as separate modules within the Content Egg plugin.
+
+For more details, read: [Content Egg vs. Affiliate Egg](https://ei-docs.keywordrush.com/integration/ei-vs-ce-vs-ae).
 
 == Screenshots ==
 
 1. Modules
 2. Feed module settings
-3. Products search 
+3. Products search
 4. Output demo 1
 5. Output demo 2
 6. Price history
 
 == Changelog ==
+
+= 7.0.0 =
+
+* New: AI features to generate unique product content.
+* New: Sovrn (Viglink) module updated with the new Sovrn Product API.
+* New: Clear, compact interface for CE metabox.
+* New: 'Description only' template added.
+* New: ChatGTP Template Creator.
+* New: Preparation for integration with the GreenShift plugin.
+* New: Greenshift template: Grid template added.
+* New: Shipping cost field mapping for the Feed module.
+* New: New template "Sorted list with store logos and shipping price".
+* New: New template "Sorted list with store logos and shipping price + group pills".
+* New: Sorting parameter by total_price.
+* New: Implemented WP-CLI command to trigger updates by keyword.
+* New: Added large image format to the Pixabay module.
+* New: Added a button to copy product IDs for use in Too Much Niche articles.
+* Improvement: Implementation of module priority for selecting featured images.
+* Improvement: Added 'img+url' show parameter for the "Customizable" template.
+* Improvement: Enhanced grid templates.
+* Improvement: Price history charts.
 
 = 6.0.0 =
 
@@ -107,7 +198,7 @@ This section describes how to install the plugin and get it working.
 * New: EAN synchronization for WooCommerce.
 * New: ISBN synchronization for WooCommerce.
 * New: Autoblogging: Avoid product duplicates by EAN/ISBN.
-* New: Feed modules: XML mapping: xPath syntax is allowed. 
+* New: Feed modules: XML mapping: xPath syntax is allowed.
 * New: Feed module: Exact phrase search.
 * New: Feed module: Strict mode for full text search.
 * New: Feed module: Option to search products in stock only.
@@ -127,7 +218,7 @@ This section describes how to install the plugin and get it working.
 * New: "Update prices" button on post edit pages.
 * New: "Refresh listings" button on post edit pages.
 * New: Displaying EAN codes on post edit pages.
-* New: Option to add Product/AggregateOffer markup to posts. 
+* New: Option to add Product/AggregateOffer markup to posts.
 * Improvement: Extra product data for for autoblogging tags.
 * Improvement: Block shortcodes: Sorting is applied before limit/offset.
 * Improvement: Frontend search: Support for the latest WP version.
@@ -184,7 +275,7 @@ This section describes how to install the plugin and get it working.
 * New: Price alerts option: General alert for all products in a post.
 * New: Frontend text settings.
 * Improvement: Compatibility with WooCommerce 5.1.0.
-* Improvement: Glyphicons are no longer used on frontend. 
+* Improvement: Glyphicons are no longer used on frontend.
 
 = 5.1.0 =
 
@@ -411,7 +502,7 @@ This section describes how to install the plugin and get it working.
 * New: Block template: All offers list with logos.
 * Improvement: Module templates.
 
-= 2.8.0 = 
+= 2.8.0 =
 
 * New: Price tracker.
 * New: Price alert.
@@ -420,23 +511,23 @@ This section describes how to install the plugin and get it working.
 * Fix: Admitad Products search.
 * Fix: Same Amazon ASIN in different locales.
 
-= 2.7.0 = 
+= 2.7.0 =
 
 * New: Admitad Products module.
 * New: 301 local redirect for outbound affiliate links.
 
-= 2.6.0 = 
+= 2.6.0 =
 
 * New: Autoblogging batch creation.
 * Improvement: Fill utility now works for all post types that are checked in the general CE settings.
 * Improvement: Fill utility now works for post statuses: 'publish', 'future'.
 
-= 2.5.0 = 
+= 2.5.0 =
 
 * New: Affiliate Egg plugin integration.
 * Fix: Bug Fixes.
 
-= 2.4.0 = 
+= 2.4.0 =
 
 * New: Ability to add modules to existing posts.
 * New: Locale parameter for amazon shortcode: [content-egg module=Amazon locale=US]
@@ -488,16 +579,23 @@ This section describes how to install the plugin and get it working.
 * New: Content egg block shortcodes.
 * Fix: Amazon IN/BR locale products search.
 
-= 1.7.1 = 
+= 1.7.1 =
 
 * New: CJ Links module.
 * Enhancement: Module templates.
 * Fix: Admin panel interface.
 
-= 1.6.1 = 
+= 1.6.1 =
 
 * Fix: Error in uninstallation process.
 
 = 1.6.0 =
 
 * Initial release.
+
+== Upgrade Notice ==
+
+= 7.0.0 =
+
+* Introduced AI features for creating product content, including reviews, descriptions, buyer's guides, and more.
+* Reintroduced the Sovrn (Viglink) module with a new API integration.

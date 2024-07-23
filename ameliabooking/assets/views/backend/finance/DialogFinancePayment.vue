@@ -66,12 +66,13 @@
             <p>{{ $root.labels.payment_method }}</p>
             <p v-if="singlePayment.wcOrderId">{{ $root.labels.wc_order }}:</p>
             <p>{{ $root.labels.status }}</p>
+            <p>{{ $root.labels.id }}</p>
           </el-col>
           <el-col :span="12">
             <p class="am-semi-strong">{{ getFrontedFormattedDate(singlePayment.dateTime) }}</p>
             <p class="am-semi-strong">
-              <img class="svg-amelia" :style="{width: getPaymentIconWidth(singlePayment.gateway)}" :src="$root.getUrl + 'public/img/payments/' + singlePayment.gateway + '.svg'">
-              <span v-if="singlePayment.gateway !== 'razorpay'">{{ getPaymentGatewayNiceName(singlePayment) }}</span>
+              <img class="svg-amelia" :style="{width: getPaymentIconWidth(singlePayment.gateway), verticalAlign: 'middle'}" :src="$root.getUrl + 'public/img/payments/' + getPaymentIconName(singlePayment)">
+              <span v-if="!longNamePayments(singlePayment.gateway)">{{ getPaymentGatewayNiceName(singlePayment) }}</span>
             </p>
             <p v-if="singlePayment.wcOrderId">
               <a :href="singlePayment.wcOrderUrl" target="_blank">
@@ -84,6 +85,7 @@
                 <span>{{ getPaymentStatusNiceName(singlePayment.status) }}</span>
               </p>
             </div>
+            <p class="am-semi-strong">{{ singlePayment.id }}</p>
           </el-col>
         </el-row>
 
@@ -124,9 +126,9 @@
             <p>{{ $root.labels.discount_amount }}</p>
             <p v-if="finance.tax">{{ $root.labels.tax }}</p>
             <p v-if="payments.filter(p => (p.wcOrderId && p.wcItemTaxValue)).length > 0">{{ $root.labels.tax }} (Woo)</p>
-            <p v-if="payments.length === 1">{{ $root.labels.paid }}</p>
-            <p v-if="payments.length > 1">{{ $root.labels.paid_deposit }}</p>
-            <p v-if="payments.length > 1">{{ $root.labels.paid_remaining_amount }}</p>
+            <p v-if="payments.filter(p => p.status !== 'pending' || p.gateway !== 'square').length === 1">{{ $root.labels.paid }}</p>
+            <p v-if="payments.filter(p => p.status !== 'pending' || p.gateway !== 'square').length > 1">{{ $root.labels.paid_deposit }}</p>
+            <p v-if="payments.filter(p => p.status !== 'pending' || p.gateway !== 'square').length > 1">{{ $root.labels.paid_remaining_amount }}</p>
             <p v-if="finance.refunded > 0">{{ $root.labels.refunded }}</p>
             <p>{{ $root.labels.due }}</p>
             <p class="am-payment-total">{{ $root.labels.total }}</p>
@@ -139,9 +141,9 @@
             <p class="am-semi-strong">{{ getFormattedPrice(finance.discountTotal > finance.subTotal ? finance.subTotal : finance.discountTotal ) }}</p>
             <p v-if="finance.tax" class="am-semi-strong">{{ getFormattedPrice(finance.tax) }}</p>
             <p v-if="payments.filter(p => (p.wcOrderId && p.wcItemTaxValue)).length > 0" class="am-semi-strong">{{ getFormattedPrice(finance.wcTax) }}</p>
-            <p class="am-semi-strong" v-if="payments.length === 1">{{ getFormattedPrice(finance.paidRemaining + finance.paidDeposit) }}</p>
-            <p class="am-semi-strong" v-if="payments.length > 1">{{ getFormattedPrice(finance.paidDeposit) }}</p>
-            <p class="am-semi-strong" v-if="payments.length > 1">{{ getFormattedPrice(finance.paidRemaining) }}</p>
+            <p class="am-semi-strong" v-if="payments.filter(p => p.status !== 'pending' || p.gateway !== 'square').length === 1">{{ getFormattedPrice(finance.paidRemaining + finance.paidDeposit) }}</p>
+            <p class="am-semi-strong" v-if="payments.filter(p => p.status !== 'pending' || p.gateway !== 'square').length > 1">{{ getFormattedPrice(finance.paidDeposit) }}</p>
+            <p class="am-semi-strong" v-if="payments.filter(p => p.status !== 'pending' || p.gateway !== 'square').length > 1">{{ getFormattedPrice(finance.paidRemaining) }}</p>
             <p class="am-semi-strong" v-if="finance.refunded > 0">{{getFormattedPrice(finance.refunded) }}</p>
             <p class="am-semi-strong">{{getFormattedPrice(finance.due) + (payments[0].wcItemTaxValue && finance.due > 0 ? $root.labels.plus_tax : '') }}</p>
             <p class="am-semi-strong am-payment-total">{{ getFormattedPrice(finance.total) + (payments[0].wcItemTaxValue && finance.due > 0 ? $root.labels.plus_tax : '') }}</p>
@@ -626,7 +628,19 @@ export default {
           })
       },
 
+      getPaymentIconName (payment) {
+        return (payment.gateway === 'onSite' || payment.gateway === 'stripe') && payment.gatewayTitle === 'oliver' ? 'oliver.png' : payment.gateway + '.svg'
+      },
+
       getPaymentGatewayNiceName (payment) {
+        if (payment.gateway === 'stripe' && payment.gatewayTitle === 'oliver') {
+          return this.$root.labels.oliver_on_line
+        }
+
+        if (payment.gateway === 'onSite' && payment.gatewayTitle === 'oliver') {
+          return this.$root.labels.oliver_on_site
+        }
+
         if (payment.gateway === 'onSite') {
           return this.$root.labels.on_site
         }

@@ -18,13 +18,13 @@ function efas_validation_process ( $record, $ajax_handler ) {
   $ip =  $meta['remote_ip']['value'] ?   $meta['remote_ip']['value'] : efas_getRealIpAddr();
 
   // Country IP Check 
-  $CountryCheck = CountryCheck($ip,$spam,$reason);
+  $CountryCheck = CountryCheck($ip,$spam,$reason,$_POST);
   $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
   $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
   $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
   $error_message = cfas_get_error_text($message);
 
-    $NeedPageurl =  maspik_get_settings("NeedPageurl");   
+  $NeedPageurl =  maspik_get_settings("NeedPageurl");   
   
     if ( efas_get_spam_api('NeedPageurl') ){
         $NeedPageurl = $NeedPageurl ? $NeedPageurl : efas_get_spam_api('NeedPageurl',"bool");

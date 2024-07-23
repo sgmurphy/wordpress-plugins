@@ -3,7 +3,7 @@ Contributors: RealMag777
 Donate link: https://pluginus.net/affiliate/woocommerce-bulk-editor
 Tags: woocommerce, bulk edit, bulk, products editor, products manager
 Requires at least: 4.9
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.2
 Stable tag: 1.1.4.4
 

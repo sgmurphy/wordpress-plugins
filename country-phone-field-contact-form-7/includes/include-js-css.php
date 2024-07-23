@@ -110,9 +110,9 @@ function nb_cpf_embedCssJs() {
 					if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
 	
 						$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
-							var dial_code = $(".intl-tel-input").find(".country-list li.active span.dial-code").text();
+							var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
 							if(dial_code == "")
-							var dial_code = $(".intl-tel-input").find(".country-list li.highlight span.dial-code").text();
+							var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
 							var value   = $(this).val();
 							//console.log(dial_code, value);
 							$(this).val(dial_code + value.substring(dial_code.length));
@@ -180,9 +180,9 @@ function nb_cpf_embedCssJs() {
 							if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
 
 								$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
-									var dial_code = $(".intl-tel-input").find(".country-list li.active span.dial-code").text();
+									var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
 									if(dial_code == "")
-									var dial_code = $(".intl-tel-input").find(".country-list li.highlight span.dial-code").text();
+									var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
 									var value   = $(this).val();
 									//console.log(dial_code, value);
 									$(this).val(dial_code + value.substring(dial_code.length));
@@ -248,9 +248,9 @@ function nb_cpf_embedCssJs() {
 				if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
 
 					$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
-						var dial_code = $(".intl-tel-input").find(".country-list li.active span.dial-code").text();
+						var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
 						if(dial_code == "")
-						var dial_code = $(".intl-tel-input").find(".country-list li.highlight span.dial-code").text();
+						var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
 						var value   = $(this).val();
 						//console.log(dial_code, value);
 						$(this).val(dial_code + value.substring(dial_code.length));

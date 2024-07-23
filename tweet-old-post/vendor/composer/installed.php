@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/tweet-old-post',
-        'pretty_version' => 'v9.1.0',
-        'version' => '9.1.0.0',
-        'reference' => '50825a606e222df5990d55019c10fe7de8df7986',
+        'pretty_version' => 'v9.1.1',
+        'version' => '9.1.1.0',
+        'reference' => '339dc85fe8cfcb7dbbb847012298487b1f85034a',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'codeinwp/tweet-old-post' => array(
-            'pretty_version' => 'v9.1.0',
-            'version' => '9.1.0.0',
-            'reference' => '50825a606e222df5990d55019c10fe7de8df7986',
+            'pretty_version' => 'v9.1.1',
+            'version' => '9.1.1.0',
+            'reference' => '339dc85fe8cfcb7dbbb847012298487b1f85034a',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

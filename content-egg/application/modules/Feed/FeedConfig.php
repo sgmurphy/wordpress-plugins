@@ -13,7 +13,7 @@ use ContentEgg\application\helpers\TextHelper;
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 class FeedConfig extends AffiliateFeedParserModuleConfig
 {
@@ -191,9 +191,7 @@ class FeedConfig extends AffiliateFeedParserModuleConfig
     public function render_mapping_block($args)
     {
         if (!$args['value'])
-        {
             $args['value'] = array();
-        }
 
         foreach (array_keys(self::mappingFields()) as $str)
         {
@@ -202,10 +200,9 @@ class FeedConfig extends AffiliateFeedParserModuleConfig
             $this->render_mapping_row($args);
             echo '</div>';
         }
+
         if ($args['description'])
-        {
             echo '<p class="description">' . esc_html($args['description']) . '</p>';
-        }
     }
 
     public static function mappingFields()
@@ -228,6 +225,7 @@ class FeedConfig extends AffiliateFeedParserModuleConfig
             'short description' => false,
             'isbn' => false,
             'gtin' => false,
+            'shipping cost' => false
         );
     }
 

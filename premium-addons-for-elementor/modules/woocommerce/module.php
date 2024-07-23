@@ -62,6 +62,7 @@ class Module extends Module_Base {
 	public function get_widgets() {
 		return array(
 			'Woo_Products',
+            'Woo_Categories',
 		);
 	}
 

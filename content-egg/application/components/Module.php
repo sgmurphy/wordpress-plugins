@@ -9,12 +9,14 @@ use ContentEgg\application\helpers\TextHelper;
 use ContentEgg\application\admin\PluginAdmin;
 use ContentEgg\application\Plugin;
 
+use function ContentEgg\prn;
+
 /**
  * Module abstract class file
  *
  * @author keywordrush.com <support@keywordrush.com>
  * @link https://www.keywordrush.com
- * @copyright Copyright &copy; 2023 keywordrush.com
+ * @copyright Copyright &copy; 2024 keywordrush.com
  */
 abstract class Module
 {
@@ -75,7 +77,7 @@ abstract class Module
 
 	public function getName()
 	{
-		return $this->name;
+		return \apply_filters('cegg_module_backend_display_name', $this->name);
 	}
 
 	public function getDir()
@@ -156,7 +158,7 @@ abstract class Module
 
 	public function presavePrepare($data, $post_id)
 	{
-		return $data;
+		return \apply_filters('cegg_presave_prepare', $data, $this->getId(), $post_id);
 	}
 
 	public function getConfigInstance()

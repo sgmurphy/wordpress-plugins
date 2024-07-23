@@ -74,6 +74,7 @@ export default {
       if (this.$root.hasApiCall && !this.entitiesLoaded()) {
         this.$http.get(`${this.$root.getAjaxUrl}/entities`, {
           params: this.getAppropriateUrlParams({
+            lite: true,
             types: ['locations', 'tags', 'custom_fields', 'employees', 'taxes']
           })
         }).then(response => {

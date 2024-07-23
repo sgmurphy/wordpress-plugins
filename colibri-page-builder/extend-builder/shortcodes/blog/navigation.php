@@ -144,7 +144,7 @@ function numbers_pagination( $args, $atts ) {
             <div class="nav-links"><div class="numbers-navigation">'
           . $nav_links . '</div></div>
             </div>';
-      echo wp_kses_post($template);
+      echo $template;
   }
 }
 

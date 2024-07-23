@@ -358,7 +358,7 @@ class Premium_Contactform extends Widget_Base {
 		$this->add_control(
 			'label_display_notice',
 			array(
-				'raw'             => __( 'You may need to change this if labels margin option is not working. Note that this will not change the layout.', 'premium-addons-for-elemeentor' ),
+				'raw'             => __( 'You may need to change this if labels margin option is not working. Note that this will not change the layout.', 'premium-addons-for-elementor' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)

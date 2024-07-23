@@ -159,9 +159,14 @@ function jsDateFormat () {
 }
 
 function momentDateFormat () {
+  // Fix for Portuguese "j \d\e F, Y" format
+  if (settings.wordpress.dateFormat === 'j \\d\\e F, Y') {
+    return 'D MMMM, YYYY'
+  }
+
   // Fix for Spanish/Catalan "j \d\e F \d\e Y" format
   if (settings.wordpress.dateFormat === 'j \\d\\e F \\d\\e Y') {
-    return 'd MMMM YYYY'
+    return 'D MMMM YYYY'
   }
 
   return settings.wordpress.dateFormat.replace(formatRegex.formatEx, function (phpStr) {

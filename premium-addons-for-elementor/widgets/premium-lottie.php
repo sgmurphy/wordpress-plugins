@@ -460,7 +460,7 @@ class Premium_Lottie extends Widget_Base {
 		$this->add_control(
 			'render_notice',
 			array(
-				'raw'             => __( 'Set render type to canvas if you\'re having performance issues on the page.', 'premium-addons-for-elemeentor' ),
+				'raw'             => __( 'Set render type to canvas if you\'re having performance issues on the page.', 'premium-addons-for-elementor' ),
 				'type'            => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)

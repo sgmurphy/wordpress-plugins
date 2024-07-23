@@ -215,3 +215,6 @@ Please use contact form 7 standard featured minlength and maxlength option. It w
 
 2.5.0
 * Fixed country dial code issue.
+
+2.5.1
+* Fixed country dial code dropdown issue fixed.

@@ -58,6 +58,7 @@ class GoogleAuthenticator
         $time = isset($this->options["time"]) ? $this->options["time"] : time();
 
         $window = $this->options["window"];
+
         for ($i = -$window; $i <= $window; $i++) {
             $timeSlice = $this->getTimeSlice($time, $i);
 

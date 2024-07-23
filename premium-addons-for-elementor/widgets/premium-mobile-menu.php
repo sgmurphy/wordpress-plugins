@@ -278,7 +278,7 @@ class Premium_Mobile_Menu extends Widget_Base {
 		$repeater->add_control(
 			'lottie_url',
 			array(
-				'label'       => __( 'Animation JSON URL', 'premium-addons-pro' ),
+				'label'       => __( 'Animation JSON URL', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'dynamic'     => array( 'active' => true ),
 				'description' => 'Get JSON code URL from <a href="https://lottiefiles.com/" target="_blank">here</a>',
@@ -914,23 +914,23 @@ class Premium_Mobile_Menu extends Widget_Base {
 		$this->add_responsive_control(
 			'menu_hpos',
 			array(
-				'label'        => __( 'Horizontal Position', 'premium-addons-pro' ),
+				'label'        => __( 'Horizontal Position', 'premium-addons-for-elementor' ),
 				'type'         => Controls_Manager::CHOOSE,
 				'options'      => array(
 					'left'   => array(
-						'title' => __( 'Left', 'premium-addons-pro' ),
+						'title' => __( 'Left', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
-						'title' => __( 'Center', 'premium-addons-pro' ),
+						'title' => __( 'Center', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
-						'title' => __( 'Right', 'premium-addons-pro' ),
+						'title' => __( 'Right', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 					'custom' => array(
-						'title' => __( 'Custom', 'premium-addons-pro' ),
+						'title' => __( 'Custom', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-cog',
 					),
 				),
@@ -946,7 +946,7 @@ class Premium_Mobile_Menu extends Widget_Base {
 		$this->add_responsive_control(
 			'menu_custom_hpos',
 			array(
-				'label'      => __( 'Horizontal Offset', 'premium-addons-pro' ),
+				'label'      => __( 'Horizontal Offset', 'premium-addons-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array(
@@ -972,19 +972,19 @@ class Premium_Mobile_Menu extends Widget_Base {
 		$this->add_responsive_control(
 			'menu_vpos',
 			array(
-				'label'        => __( 'Vertical Position', 'premium-addons-pro' ),
+				'label'        => __( 'Vertical Position', 'premium-addons-for-elementor' ),
 				'type'         => Controls_Manager::CHOOSE,
 				'options'      => array(
 					'top'    => array(
-						'title' => __( 'Top', 'premium-addons-pro' ),
+						'title' => __( 'Top', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-arrow-up',
 					),
 					'bottom' => array(
-						'title' => __( 'Bottom', 'premium-addons-pro' ),
+						'title' => __( 'Bottom', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-arrow-down',
 					),
 					'custom' => array(
-						'title' => __( 'Custom', 'premium-addons-pro' ),
+						'title' => __( 'Custom', 'premium-addons-for-elementor' ),
 						'icon'  => 'eicon-cog',
 					),
 				),
@@ -1000,7 +1000,7 @@ class Premium_Mobile_Menu extends Widget_Base {
 		$this->add_responsive_control(
 			'menu_custom_vpos',
 			array(
-				'label'     => __( 'Vertical Offset (%)', 'premium-addons-pro' ),
+				'label'     => __( 'Vertical Offset (%)', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::SLIDER,
 				'default'   => array(
 					'size' => 0,

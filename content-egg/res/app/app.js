@@ -1,10 +1,11 @@
-var contentEgg = angular.module('contentEgg', ['ui.bootstrap', 'ui.sortable']);
+var contentEgg = angular.module('contentEgg', ['ui.sortable', 'ngSanitize', 'ui.tinymce']);
 
-contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
+contentEgg.controller('ContentEggController', function ($scope, $element, ModuleService, $rootScope, $timeout) {
 
     $scope.models = {};
     $scope.query_params = {};
     $scope.keywords = {};
+    $scope.selected = {};
     $scope.updateKeywords = {};
     $scope.updateParams = {};
     $scope.activeSearchTabs = {};
@@ -12,6 +13,8 @@ contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
     $scope.shortcodes = {};
     $scope.productGroups = [];
     $scope.newProductGroup = '';
+    $scope.aiProcessingTitle = {};
+    $scope.aiProcessingDescription = [];
 
     $scope.blockShortcodeBuillder = {
         'template': '',
@@ -21,10 +24,37 @@ contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
         'next': '',
     };
 
+    $timeout(function() {
+        $rootScope.$broadcast('$tinymce:refresh');
+    }, 1000);
+
+    $scope.tinymceOptions = {
+        height: 100,
+        plugins: 'code,lists,link',
+        toolbar: 'undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist blockquote hr | link unlink wplink | formatselect | code',
+        menubar: false,
+        branding: false,
+    };
+
+    $scope.isHtmlContent = function (content) {
+        var div = document.createElement('div');
+        div.innerHTML = content;
+        return div.children.length > 0;
+    };
+
     $scope.processCounter = 0;
     $scope.blockShortcode = '[content-egg-block]';
     $scope.active_modules = contentegg_params.active_modules;
     $scope.productGroups = contentegg_params.initProductGroups;
+
+    $scope.sortableOptions = {
+        handle: '.cegg-item-handle',
+        stop: function(e, ui) {
+            $timeout(function () {
+                $rootScope.$broadcast('$tinymce:refresh');
+            }, 0);
+      }
+    };
 
     angular.forEach($scope.active_modules, function (module_id, key) {
         $scope.models[module_id] = new ModuleService(module_id);
@@ -32,16 +62,18 @@ contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
         $scope.updateKeywords[module_id] = '';
         $scope.updateParams[module_id] = {};
         $scope.shortcodes[module_id] = '[content-egg module=' + module_id + ']';
+        $scope.aiProcessingTitle[module_id] = false;
+        $scope.aiProcessingDescription[module_id] = false;
+        $scope.selected[module_id] = 0;
 
-        // init modules options
+        // init module options
         $scope.query_params[module_id] = {};
         angular.forEach(contentegg_params.modulesOptions[module_id], function (value, option) {
             $scope.query_params[module_id][option] = value;
         });
 
         // init post metadata
-        if (contentegg_params.initData[module_id])
-        {
+        if (contentegg_params.initData[module_id]) {
             $scope.models[module_id].added = contentegg_params.initData[module_id];
             $scope.activeSearchTabs[module_id] = false;
             $scope.activeResultTabs[module_id] = true;
@@ -51,16 +83,64 @@ contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
         }
 
         // init keywords
-        if (contentegg_params.initKeywords[module_id])
-        {
+        if (contentegg_params.initKeywords[module_id]) {
             $scope.updateKeywords[module_id] = contentegg_params.initKeywords[module_id];
         }
-        if (contentegg_params.initUpdateParams[module_id])
-        {
+        if (contentegg_params.initUpdateParams[module_id]) {
             $scope.updateParams[module_id] = contentegg_params.initUpdateParams[module_id];
         }
 
     });
+
+    $scope.ai = function (module_id, title_method, description_method) {
+        if (!$scope.models[module_id].added)
+            return;
+
+        if (title_method)
+            $scope.aiProcessingTitle[module_id] = true;
+
+        if (description_method)
+            $scope.aiProcessingDescription[module_id] = true;
+
+        var moduleElement = $element[0].querySelector('#' + module_id);
+        if (moduleElement) {
+            angular.element(moduleElement).addClass('cegg_wait');
+        }
+
+        var ai_tools_links = angular.element(document.querySelectorAll('.cegg-ai-tools a'));
+        ai_tools_links.each(function(index, el) {
+          angular.element(el).addClass('disabled');
+        });
+
+        $scope.models[module_id].aiError = '';
+
+        var ai_params = {};
+
+        ai_params.data = $scope.models[module_id].added;
+        ai_params.title_method = title_method;
+        ai_params.description_method = description_method;
+        $scope.models[module_id].ai(ai_params).then(function (response) {
+            if (moduleElement) {
+                angular.element(moduleElement).removeClass('cegg_wait');
+            }
+            ai_tools_links.each(function(index, el) {
+            angular.element(el).removeClass('disabled');
+            });
+
+            $scope.aiProcessingTitle[module_id] = false;
+            $scope.aiProcessingDescription[module_id] = false;
+        });
+    };
+
+    $scope.selectedCount = function (module_id) {
+        var count = 0;
+        angular.forEach($scope.models[module_id].added, function (item, key) {
+            if (item._selected)
+                count++;
+        });
+        $scope.selected[module_id] = count;
+        return count;
+    };
 
     $scope.find = function (module_id) {
         if (!$scope.keywords[module_id])
@@ -88,8 +168,7 @@ contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
         $scope.models[module_id].added_changed = true;
     };
 
-    $scope.addBlank = function (module_id, type = 'contentProduct')
-    {
+    $scope.addBlank = function (module_id, type = 'contentProduct') {
         if (type != 'contentProduct' && type != 'contentCoupon')
             return;
         var contentProduct = angular.copy(contentegg_params[type]);
@@ -117,6 +196,71 @@ contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
         $scope.models[module_id].added = [];
         $scope.models[module_id].added_changed = true;
         $scope.activeSearchTabs[module_id] = true;
+        $scope.activeResultTabs[module_id] = false;
+    };
+
+    $scope.copyKeywordProductIdsToClipboard = function (module_id, event) {
+
+        let keyword = $scope.keywords[module_id];
+        $scope.copyProductIdsToClipboard(module_id, event, keyword);
+    }
+
+    $scope.copyProductIdsToClipboard = function (module_id, event, keyword = '') {
+
+        var icon = angular.element(event.currentTarget).find('i');
+        icon.removeClass('bi-magnet').addClass('bi-check');
+
+        setTimeout(() => {
+            icon.removeClass('bi-check').addClass('bi-magnet');
+        }, 1000);
+
+        var product_ids = [];
+
+        angular.forEach($scope.models[module_id].added, function (product, index) {
+
+            if (module_id.indexOf("AE__") !== -1) {
+                var asin = product['url'].match("/([a-zA-Z0-9]{10})(?:[/?]|$)");
+                if (asin) {
+                    product_ids.push(asin[1]);
+                    return;
+                }
+            }
+
+            if (module_id == 'Bolcom') {
+                if (product['ean']) {
+                    product_ids.push(product['ean']);
+                    return;
+                }
+            }
+
+            var parts = product['unique_id'].split('-', 2);
+            if (parts.length == 2)
+                product_ids.push(parts[1]);
+            else
+                product_ids.push(parts[0]);
+
+        });
+
+        let res = keyword;
+        if (res)
+            res = res + ' ';
+        res = res + JSON.stringify(product_ids);
+
+        navigator.clipboard.writeText(res);
+
+    };
+
+    $scope.copyDescriptionShortcode = function (module_id, unique_id, event) {
+
+        var icon = angular.element(event.currentTarget).find('i');
+        icon.removeClass('bi-code-square').addClass('bi-check');
+
+        setTimeout(() => {
+            icon.removeClass('bi-check').addClass('bi-code-square');
+        }, 1000);
+
+        var res = '[content-egg module='+module_id+' template=description products="'+unique_id+'"]';
+        navigator.clipboard.writeText(res);
     };
 
     $scope.global_findAll = function () {
@@ -125,6 +269,7 @@ contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
         angular.forEach($scope.models, function (service, module_id) {
             $scope.keywords[module_id] = $scope.global_keywords;
             $scope.activeSearchTabs[module_id] = true;
+            $scope.activeResultTabs[module_id] = false;
             $scope.find(module_id);
         });
     };
@@ -159,13 +304,27 @@ contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
         return false;
     };
 
+    $scope.aiUndo = function (module_id) {
+        if ($scope.models[module_id].undo.length)
+            $scope.models[module_id].added = $scope.models[module_id].undo;
+        $scope.models[module_id].undo = [];
+    };
+
     $scope.getYoutubeUri = function (id) {
         return 'https://www.youtube.com/embed/' + id;
     };
 
-    $scope.setUpdateKeyword = function (module_id) {
+    $scope.setUpdateKeyword = function (module_id, event) {
+
+        var icon = angular.element(event.currentTarget).find('i');
+        icon.removeClass('bi-plus-circle-dotted').addClass('bi-check');
+
+        setTimeout(() => {
+            icon.removeClass('bi-check').addClass('bi-plus-circle-dotted');
+        }, 1000);
+
         $scope.updateKeywords[module_id] = $scope.keywords[module_id];
-        $scope.activeResultTabs[module_id] = true;
+        //$scope.activeResultTabs[module_id] = true;
     };
 
     $scope.buildShortcode = function (module_id, template = '', group = '', product = '') {
@@ -185,8 +344,7 @@ contentEgg.controller('ContentEggController', function ($scope, ModuleService) {
         $scope.blockShortcode = '[content-egg-block template=' + $scope.blockShortcodeBuillder.template;
         if ($scope.blockShortcodeBuillder.group)
             $scope.blockShortcode += ' groups="' + $scope.blockShortcodeBuillder.group + '"';
-        if ($scope.blockShortcodeBuillder.next)
-        {
+        if ($scope.blockShortcodeBuillder.next) {
             var next = parseInt($scope.blockShortcodeBuillder.next);
             if (next)
                 $scope.blockShortcode += ' next=' + next;
@@ -242,7 +400,6 @@ contentEgg.directive('onEnter', function () {
             }
         });
     };
-
     return {
         link: linkFn
     };
@@ -250,9 +407,7 @@ contentEgg.directive('onEnter', function () {
 
 contentEgg.directive('imageloaded', [
     function () {
-
         'use strict';
-
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -267,34 +422,34 @@ contentEgg.directive('imageloaded', [
 ]);
 
 contentEgg.directive('justifiedGallery', ['$timeout', function ($timeout) {
-        return {
-            restrict: 'A',
-            link: function (scope, el, attrs) {
-                scope.$watch('$last', function (n, o) {
-                    if (n) {
-                        $timeout(function () {
-                            angular.element(el).justifiedGallery(scope.$eval(attrs.justifiedGallery)).on('jg.complete', function (e) {
-                                //alert('on complete');
-                            });
-                            scope.$last = false;
+    return {
+        restrict: 'A',
+        link: function (scope, el, attrs) {
+            scope.$watch('$last', function (n, o) {
+                if (n) {
+                    $timeout(function () {
+                        angular.element(el).justifiedGallery(scope.$eval(attrs.justifiedGallery)).on('jg.complete', function (e) {
+                            //alert('on complete');
                         });
-                    }
-                });
-            }
-        };
-    }]);
+                        scope.$last = false;
+                    });
+                }
+            });
+        }
+    };
+}]);
 
 contentEgg.directive('repeatDone', [function () {
-        return {
-            restrict: 'A',
-            link: function (scope, element, iAttrs) {
-                var parentScope = element.parent().scope();
-                if (scope.$last) {
-                    parentScope.$last = true;
-                }
+    return {
+        restrict: 'A',
+        link: function (scope, element, iAttrs) {
+            var parentScope = element.parent().scope();
+            if (scope.$last) {
+                parentScope.$last = true;
             }
-        };
-    }]);
+        }
+    };
+}]);
 
 contentEgg.directive('ngConfirmClick', function () {
     return {
@@ -336,4 +491,3 @@ contentEgg.directive('convertToNumber', function () {
         }
     };
 });
-

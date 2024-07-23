@@ -69,7 +69,8 @@ export default {
       searchCounter: 0,
       loadingEvents: false,
       searchEventsTimer: null,
-      searchedEvents: []
+      searchedEvents: [],
+      searchEventsQuery: ''
     }
   },
 
@@ -340,6 +341,7 @@ export default {
     },
 
     searchEvents (query, groupEvents = false) {
+      this.searchEventsQuery = query
       clearTimeout(this.searchEventsTimer)
 
       this.loadingEvents = true
@@ -349,7 +351,7 @@ export default {
         let lastSearchCounter = this.searchCounter
 
         this.$http.get(`${this.$root.getAjaxUrl}/events`, {
-          params: {search: query, page: 1, limit: 100, skipCount: 1, dates: [moment().format('YYYY-MM-DD')]}
+          params: {search: query, page: 1, limit: 10000, skipCount: 1, dates: [moment().format('YYYY-MM-DD')]}
         })
         .then(response => {
           if (lastSearchCounter >= this.searchCounter) {

@@ -254,19 +254,19 @@ function useBookingData (store, formData, mandatoryJson = false, paymentData = {
   let bookingData = jsonData
   let requestOptions = {}
 
-  if (Object.keys(attachments).length && !mandatoryJson) {
-    if (
+  if (
       bookingData.componentProps
       && bookingData.componentProps.state
       && bookableType !== 'event'
-    ) {
-      bookingData.componentProps.state.appointments.forEach(a => {
-        Object.keys(a.services).forEach(s => {
-           a.services[s].slots = [];
-        })
+  ) {
+    bookingData.componentProps.state.appointments.forEach(a => {
+      Object.keys(a.services).forEach(s => {
+        a.services[s].slots = [];
       })
-    }
+    })
+  }
 
+  if (Object.keys(attachments).length && !mandatoryJson) {
     bookingData = new FormData()
 
     buildFormData(bookingData, jsonData)
@@ -444,7 +444,11 @@ function useBookingError (response, store) {
     } else if ('couponMissing' in response.data && response.data.couponMissing === true) {
       message = globalLabels['coupon_missing']
     } else if ('paymentSuccessful' in response.data && response.data.paymentSuccessful === false) {
-      message = globalLabels['payment_error']
+      if (response.data.message) {
+        message = response.data.message
+      } else {
+        message = globalLabels['payment_error']
+      }
     } else if ('bookingAlreadyInWcCart' in response.data && response.data.bookingAlreadyInWcCart === true) {
       message = globalLabels['booking_already_in_wc_cart']
     } else if ('wcError' in response.data && response.data.wcError === true) {

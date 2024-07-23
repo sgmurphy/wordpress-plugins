@@ -113,7 +113,6 @@ class Premium_Maps extends Widget_Base {
 	 */
 	public function get_script_depends() {
 		return array(
-			'elementor-waypoints',
 			'pa-maps-cluster',
 			'pa-maps',
 			'pa-maps-api',

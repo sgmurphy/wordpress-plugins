@@ -180,7 +180,7 @@ class Ays_Pb_Admin {
 
     public function ays_pb_update_banner_time() {
         $date = time() + ( 3 * 24 * 60 * 60 ) + (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS);
-        $next_3_days = date('M d, Y H:i:s', $date);
+        $next_3_days = gmdate('M d, Y H:i:s', $date);
 
         $ays_pb_banner_time = get_option('ays_pb_banner_time');
 
@@ -252,11 +252,20 @@ class Ays_Pb_Admin {
         add_action( "load-$hook_popupbox", array($this, 'add_tabs') );
     }
 
-    /**
-     * Render the settings page for this plugin.
-     *
-     * @since    1.0.0
-     */
+    public function add_plugin_categories_submenu() {
+        $hook_categories = add_submenu_page(
+            $this->plugin_name,
+            __('Categories', "ays-popup-box"),
+            __('Categories', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-categories',
+            array($this, 'display_plugin_categories_page')
+        );
+
+        add_action( "load-$hook_categories", array($this, 'screen_option_categories') );
+        add_action( "load-$hook_categories", array($this, 'add_tabs') );
+    }
+
     public function display_plugin_setup_page() {
 		$action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
 
@@ -268,6 +277,19 @@ class Ays_Pb_Admin {
             default:
                 include_once('partials/ays-pb-admin-display.php');
                 break;
+        }
+    }
+
+    public function display_plugin_categories_page() {
+        $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
+
+        switch ($action) {
+            case 'add':
+            case 'edit':
+                include_once('partials/actions/ays-pb-categories-actions.php');
+                break;
+            default:
+                include_once('partials/ays-pb-categories-display.php');
         }
     }
 
@@ -283,6 +305,19 @@ class Ays_Pb_Admin {
 		$this->popupbox_obj = new Ays_PopupBox_List_Table($this->plugin_name);
         $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
 	}
+
+    public function screen_option_categories() {
+        $option = 'per_page';
+        $args = array(
+            'label' => __('Categories', "ays-popup-box"),
+            'default' => 20,
+            'option' => 'popup_categories_per_page'
+        );
+
+        add_screen_option($option, $args);
+        $this->popup_categories_obj = new Popup_Categories_List_Table($this->plugin_name);
+        $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
+    }
 
     public function add_tabs() {
 		$screen = get_current_screen();
@@ -321,8 +356,12 @@ class Ays_Pb_Admin {
         global $wpdb;
 
         $settings_table = $wpdb->prefix . "ays_pb_settings";
-        $sql = "SELECT meta_value FROM " . $settings_table . " WHERE meta_key = 'options'";
-        $result = $wpdb->get_var($sql);
+        $result = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT meta_value 
+                 FROM {$settings_table}
+                 WHERE meta_key = %s", 'options')
+        );
         $options = ($result == "") ? array() : json_decode(stripcslashes($result), true);
         $listtable_title_length = 5;
 
@@ -395,21 +434,6 @@ class Ays_Pb_Admin {
 
             wp_enqueue_style('wp-codemirror');
         }
-    }
-
-    public function add_plugin_categories_submenu() {
-
-        $hook_categories = add_submenu_page(
-            $this->plugin_name,
-            __('Categories', "ays-popup-box"),
-            __('Categories', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-categories',
-            array($this, 'display_plugin_categories_page')
-        );
-
-        add_action( "load-$hook_categories", array( $this, 'screen_option_categories' ) );
-        add_action( "load-$hook_categories", array( $this, 'add_tabs' ));
     }
 
     public function add_plugin_pro_features_submenu(){
@@ -544,21 +568,6 @@ class Ays_Pb_Admin {
         return $meta;
     }
 
-    public function display_plugin_categories_page(){
-        $action = (isset($_GET['action'])) ? sanitize_text_field($_GET['action']) : '';
-
-        switch ($action) {
-            case 'add':
-                include_once('partials/actions/ays-pb-categories-actions.php');
-                break;
-            case 'edit':
-                include_once('partials/actions/ays-pb-categories-actions.php');
-                break;
-            default:
-                include_once('partials/ays-pb-categories-display.php');
-        }
-    }
-
     public function display_plugin_attributes_page(){
         $action = (isset($_GET['action'])) ? sanitize_text_field($_GET['action']) : '';
 
@@ -597,19 +606,6 @@ class Ays_Pb_Admin {
     }
     public function display_plugin_featured_plugins_page(){
         include_once('partials/features/ays-pb-plugin-featured-display.php');
-    }
-
-    public function screen_option_categories() {
-        $option = 'per_page';
-        $args   = array(
-            'label'   => __('Categories', "ays-popup-box"),
-            'default' => 20,
-            'option'  => 'popup_categories_per_page'
-        );
-
-        add_screen_option($option, $args);
-        $this->popup_categories_obj = new Popup_Categories_List_Table($this->plugin_name);
-        $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
     }
 
     public function screen_option_settings() {

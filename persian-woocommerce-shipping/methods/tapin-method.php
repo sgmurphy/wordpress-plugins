@@ -77,7 +77,7 @@ class PWS_Tapin_Method extends PWS_Shipping_Method {
 		}
 
 		$options = PWS()->get_terms_option( $this->get_destination( $package ) );
-		$options = array_column( $options, get_called_class() == 'Tapin_Pishtaz_Method' ? 'forehand_cost' : 'custom_cost' );
+		$options = array_column( $options,  'forehand_cost' );
 
 		foreach ( $options as $option ) {
 			if ( $option != '' ) {
@@ -118,7 +118,7 @@ class PWS_Tapin_Method extends PWS_Shipping_Method {
 
 		$args = [
 			'gateway'       => PWS()->get_option( 'tapin.gateway', 'tapin' ),
-			'price'         => min( $price, 300000000 ), // Max insurance: 30MT
+			'price'         => min( $price, 1000000000 ), // Max insurance: 100MT
 			'weight'        => ceil( $weight ),
 			'is_cod'        => $is_cod,
 			'to_province'   => intval( $destination['state'] ),
@@ -126,6 +126,7 @@ class PWS_Tapin_Method extends PWS_Shipping_Method {
 			'to_city'       => intval( $destination['city'] ),
 			'from_city'     => intval( $shop->city_code ?? 1 ),
 			'content_type'  => PWS()->get_option( 'tapin.content_type', 4 ),
+			'box_size'      => PWS()->get_option( 'tapin.box_size', 1 ),
 		];
 
 		$args = apply_filters( 'pws_tapin_calculate_rates_args', $args, $package, $this );

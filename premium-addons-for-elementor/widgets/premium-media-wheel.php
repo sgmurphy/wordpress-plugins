@@ -129,7 +129,6 @@ class Premium_Media_Wheel extends Widget_Base {
 	public function get_script_depends() {
 		return array(
 			'pa-tweenmax',
-			'elementor-waypoints',
 			'mousewheel-js',
 			'pa-flipster',
 			'prettyPhoto-js',
@@ -603,7 +602,7 @@ class Premium_Media_Wheel extends Widget_Base {
 		$repeater->add_control(
 			'section_template',
 			array(
-				'label'       => __( 'Elementor Template', 'premium-addons-pro' ),
+				'label'       => __( 'Elementor Template', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SELECT2,
 				'options'     => $this->getTemplateInstance()->get_elementor_page_list(),
 				'multiple'    => false,

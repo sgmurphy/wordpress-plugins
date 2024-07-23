@@ -137,10 +137,10 @@ class CF7_Skin {
 		
 				switch ($skin) {
 					case "template":
-						return $template_name;
+						echo $template_name;
 					break;
 					case "style":
-						return $style_name;
+						echo $style_name;
 					break;
 					default: 
 						echo "bug";

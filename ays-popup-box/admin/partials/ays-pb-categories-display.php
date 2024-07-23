@@ -6,7 +6,7 @@
  * Time: 3:34 PM
  */
 
-    $plus_icon_svg = "<span><img src='". AYS_PB_ADMIN_URL ."/images/icons/plus-icon.svg'></span>";
+    $plus_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/plus-icon.svg'></span>";
 
 ?>
 
@@ -18,7 +18,7 @@
                 <span><?php echo __("View Documentation", "ays-popup-box"); ?></span>
             </a>
         </div>
-    </div> 
+    </div>
     <h1 class="wp-heading-inline">
         <?php
             echo esc_html(get_admin_page_title());
@@ -26,7 +26,7 @@
     </h1>
     <div class="ays-pb-add-new-button-box">
         <?php
-            echo sprintf( '<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s ' . __('Add New', "ays-popup-box") . '</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg);
+            echo sprintf('<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s ' . __('Add New', "ays-popup-box") . '</a>', esc_attr($_REQUEST['page']), 'add', $plus_icon_svg);
         ?>
     </div>
     <div id="poststuff">
@@ -50,7 +50,7 @@
     </div>
     <div class="ays-pb-add-new-button-box">
         <?php
-            echo sprintf( '<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s ' . __('Add New', "ays-popup-box") . '</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg);
+            echo sprintf('<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s ' . __('Add New', "ays-popup-box") . '</a>', esc_attr($_REQUEST['page']), 'add', $plus_icon_svg);
         ?>
     </div>
 </div>

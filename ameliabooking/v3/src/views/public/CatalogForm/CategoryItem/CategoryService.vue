@@ -13,7 +13,7 @@
         <Header
           :btn-string="amLabels.back_btn"
           :btn-type="customizedOptions.backBtn.buttonType"
-          :back-btn-visibility="preselected.service.length !== 1"
+          :back-btn-visibility="backBtnVisibility"
           :cart-btn-visibility="cartBtnVisibility"
           :cart-items-number="cartItemsNumber"
           @go-back="goBack"
@@ -776,6 +776,10 @@ function selectServicePackage(pack) {
 
 // * Shortcode
 const preselected = computed(() => store.getters['entities/getPreselected'])
+
+let backBtnVisibility = computed(() => {
+  return amEntities.value.services.length !== 1 && preselected.value.service.length !== 1
+})
 
 let stepName = ref('')
 provide('stepName', stepName)

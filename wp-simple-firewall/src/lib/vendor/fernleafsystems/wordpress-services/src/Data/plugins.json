@@ -1,4 +1,36 @@
 {
+  "arforms_lite":            {
+    "identifiers": {
+      "classes":   [
+        "\\arflitemaincontroller"
+      ],
+      "constants": [
+        "\\ARFLITE_PLUGIN_BASE_FILE"
+      ]
+    },
+    "properties":  {
+      "wporg_slug": "arforms-form-builder"
+    }
+  },
+  "armember_lite":           {
+    "identifiers": {
+      "classes":   [
+        "\\ARMemberlite"
+      ],
+      "constants": [
+        "\\MEMBERSHIPLITE_CORE_DIR"
+      ],
+      "methods":   [
+        [
+          "\\ARMemberlite",
+          "install"
+        ]
+      ]
+    },
+    "properties":  {
+      "wporg_slug": "armember-membership"
+    }
+  },
   "buddyboss":               {
     "identifiers": {
       "classes":   [
@@ -257,7 +289,7 @@
       "wporg_slug": "profile-builder"
     }
   },
-  "profilepress":          {
+  "profilepress":            {
     "identifiers": {
       "classes":   [
         "\\ProfilePress\\Core\\Base"
@@ -383,9 +415,9 @@
       "wporg_slug": "woocommerce"
     }
   },
-  "wordfence":             {
+  "wordfence":               {
     "identifiers": {
-      "classes": [
+      "classes":   [
         "\\wordfence"
       ],
       "constants": [
@@ -435,7 +467,7 @@
       "wporg_slug": null
     }
   },
-  "wpumbrella":               {
+  "wpumbrella":              {
     "identifiers": {
       "functions": [
         "\\wp_umbrella_load_plugin"

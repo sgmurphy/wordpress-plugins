@@ -3,7 +3,7 @@ Contributors: narinder-singh,satindersingh,coolplugins
 Tags: timeline, history, roadmap, horizontal timeline, vertical timeline
 Donate link: https://cooltimeline.com
 Requires at least:5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag:2.9.3
 Requires PHP: 5.6
 License: GPLv2 or later

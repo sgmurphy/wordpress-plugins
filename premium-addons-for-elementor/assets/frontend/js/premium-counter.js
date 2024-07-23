@@ -9,13 +9,26 @@
             iconElement = $counterElement.find(".icon");
 
         if (!isHScrollWidget.length) {
-            elementorFrontend.waypoint($counterElement, function () {
+            // unsing IntersectionObserverAPI.
+            var eleObserver = new IntersectionObserver(function($entry) {
+                if ($entry[0].isIntersecting) {
 
-                $(incrementElement).numerator(counterSettings);
+                    $(incrementElement).numerator(counterSettings);
 
-                $(iconElement).addClass("animated " + iconElement.data("animation"));
+                    $(iconElement).addClass("animated " + iconElement.data("animation"));
 
+                    eleObserver.unobserve($entry[0].target); // to only excecute the callback func once.
+                }
             });
+
+            eleObserver.observe($counterElement[0]);
+            // elementorFrontend.waypoint($counterElement, function () {
+
+            //     $(incrementElement).numerator(counterSettings);
+
+            //     $(iconElement).addClass("animated " + iconElement.data("animation"));
+
+            // });
         } else {
 
             $(window).on("scroll", function () {

@@ -118,7 +118,6 @@ class Premium_Progressbar extends Widget_Base {
 		return array_merge(
 			$draw_scripts,
 			array(
-				'elementor-waypoints',
 				'lottie-js',
 				'premium-addons',
 			)
@@ -813,7 +812,7 @@ class Premium_Progressbar extends Widget_Base {
 		$this->add_control(
 			'premium_progressbar_more_labels_align',
 			array(
-				'label'     => __( 'Labels Alignment', 'premuim-addons-for-elementor' ),
+				'label'     => __( 'Labels Alignment', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'left'   => array(
@@ -1422,7 +1421,7 @@ class Premium_Progressbar extends Widget_Base {
 		$this->add_control(
 			'premium_progressbar_arrow_color',
 			array(
-				'label'     => __( 'Color', 'premium_elementor' ),
+				'label'     => __( 'Color', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => array(
 					'default' => Global_Colors::COLOR_PRIMARY,

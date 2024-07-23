@@ -5,7 +5,7 @@ $ti_command_list = [
 'save-page',
 'delete-page',
 'save-style',
-'save-filter',
+'save-filter-stars',
 'save-set',
 'save-language',
 'save-dateformat',
@@ -84,19 +84,10 @@ $wpdb->insert($tableName, [
 'reply' => isset($row['reply']) ? $row['reply'] : ""
 ]);
 }
-if (count($reviews) === (int)$pageDetails['rating_number'] || count($reviews) === 10) {
-$timestamp = time() + (86400 * 10);
-if (isset($pageDetails['timestamp'])) {
-if ($pageDetails['timestamp']) {
-$timestamp = $pageDetails['timestamp'];
-}
-unset($pageDetails['timestamp']);
-}
-update_option($pluginManagerInstance->get_option_name('download-timestamp'), $timestamp, false);
+update_option($pluginManagerInstance->get_option_name('download-timestamp'), time() + (86400 * 10), false);
 delete_option($pluginManagerInstance->get_option_name('review-download-inprogress'));
 delete_option($pluginManagerInstance->get_option_name('review-manual-download'));
 update_option($pluginManagerInstance->get_option_name('review-download-modal'), 0, false);
-}
 }
 update_option($pluginManagerInstance->get_option_name('page-details'), $pageDetails, false);
 $GLOBALS['wp_object_cache']->delete( $pluginManagerInstance->get_option_name('page-details'), 'options' );
@@ -164,6 +155,10 @@ $optionsToDelete = [
 'footer-filter-text',
 'top-rated-type',
 'top-rated-date',
+'show-arrows',
+'show-header-button',
+'reviews-load-more',
+'dateformat',
 ];
 foreach ($optionsToDelete as $name) {
 delete_option($pluginManagerInstance->get_option_name($name));
@@ -217,10 +212,10 @@ header('Location: admin.php?page='. sanitize_text_field($_GET['page']) .'&tab=fr
 }
 exit;
 }
-else if ($ti_command === 'save-filter') {
-check_admin_referer('ti-save-filter');
-$filter = isset($_POST['filter']) ? sanitize_text_field($_POST['filter']) : null;
-$filter = json_decode(stripcslashes($filter), true);
+else if ($ti_command === 'save-filter-stars') {
+check_admin_referer('ti-save-filter-stars');
+$filter = $pluginManagerInstance->getWidgetOption('filter');
+$filter['stars'] = isset($_POST['stars']) ? explode(',', sanitize_text_field($_POST['stars'])) : $pluginManagerInstance->getWidgetOption('filter', false, true)['stars'];
 update_option($pluginManagerInstance->get_option_name('filter'), $filter, false);
 exit;
 }
@@ -246,6 +241,7 @@ update_option($pluginManagerInstance->get_option_name('top-rated-date'), sanitiz
 exit;
 }
 else if ($ti_command === 'save-options') {
+$scssSet = get_option($pluginManagerInstance->get_option_name('scss-set'));
 check_admin_referer('ti-save-options');
 $r = 0;
 if (isset($_POST['verified-icon'])) {
@@ -302,20 +298,19 @@ if (isset($_POST['footer-filter-text'])) {
 $r = sanitize_text_field($_POST['footer-filter-text']);
 }
 update_option($pluginManagerInstance->get_option_name('footer-filter-text'), $r, false);
-delete_option($pluginManagerInstance->get_option_name('review-content'));
-$pluginManagerInstance->noreg_save_css(true);
+$filter = $pluginManagerInstance->getWidgetOption('filter');
+$filter['only-ratings'] = isset($_POST['only-ratings']) ? (bool)$_POST['only-ratings'] : $pluginManagerInstance->getWidgetOption('filter', false, true)['only-ratings'];
+update_option($pluginManagerInstance->get_option_name('filter'), $filter, false);
 exit;
 }
 else if ($ti_command === 'save-align') {
 check_admin_referer('ti-save-align');
 update_option($pluginManagerInstance->get_option_name('align'), sanitize_text_field($_POST['align']), false);
-$pluginManagerInstance->noreg_save_css(true);
 exit;
 }
 else if ($ti_command === 'save-review-text-mode') {
 check_admin_referer('ti-save-review-text-mode');
 update_option($pluginManagerInstance->get_option_name('review-text-mode'), sanitize_text_field($_POST['review_text_mode']), false);
-$pluginManagerInstance->noreg_save_css(true);
 exit;
 }
 else if ($ti_command === 'save-amp-notice-hide') {
@@ -339,28 +334,9 @@ if ($pluginManagerInstance->is_noreg_linked()) {
 $reviews = $wpdb->get_results('SELECT * FROM `'. $pluginManagerInstance->get_tablename('reviews') .'` ORDER BY date DESC');
 }
 $isReviewDownloadInProgress = $pluginManagerInstance->is_review_download_in_progress();
-$styleId = get_option($pluginManagerInstance->get_option_name('style-id'));
-$scssSet = get_option($pluginManagerInstance->get_option_name('scss-set'));
-$lang = get_option($pluginManagerInstance->get_option_name('lang'), 'en');
-$dateformat = get_option($pluginManagerInstance->get_option_name('dateformat'), 'Y-m-d');
-$noRatingText = get_option($pluginManagerInstance->get_option_name('no-rating-text'), $pluginManagerInstance->get_default_no_rating_text($styleId, $scssSet));
-$filter = get_option($pluginManagerInstance->get_option_name('filter'), $pluginManagerInstance->get_widget_default_filter());
-$verifiedIcon = get_option($pluginManagerInstance->get_option_name('verified-icon'), in_array($styleId, [5,34]) ? 1 : 0);
-$enableAnimation = get_option($pluginManagerInstance->get_option_name('enable-animation'), 1);
-$showArrows = get_option($pluginManagerInstance->get_option_name('show-arrows'), 1);
-$showHeaderButton = get_option($pluginManagerInstance->get_option_name('show-header-button'), 1);
-$reviewsLoadMore = get_option($pluginManagerInstance->get_option_name('reviews-load-more'), 1);
-$widgetSettedUp = get_option($pluginManagerInstance->get_option_name('widget-setted-up'), 0);
-$disableFont = get_option($pluginManagerInstance->get_option_name('disable-font'), 0);
-$align = get_option($pluginManagerInstance->get_option_name('align'), in_array($styleId, [ 36, 37, 38, 39 ]) ? 'center' : 'left');
-$reviewTextMode = get_option($pluginManagerInstance->get_option_name('review-text-mode'), 'readmore');
-$footerFilterText = get_option($pluginManagerInstance->get_option_name('footer-filter-text'), 0);
-$topRatedType = get_option($pluginManagerInstance->get_option_name('top-rated-type'), 'Service');
-$topRatedDate = get_option($pluginManagerInstance->get_option_name('top-rated-date'), in_array($styleId, [98, 100, 102, 104]) ? 'hide' : '');
-$scssSetTmp = $scssSet ? $scssSet : 'light-background';
-$showReviewersPhoto = get_option($pluginManagerInstance->get_option_name('show-reviewers-photo'), $pluginManager::$widget_styles[ $scssSetTmp ]['reviewer-photo'] ? 1 : 0);
-$showLogos = get_option($pluginManagerInstance->get_option_name('show-logos'), $pluginManager::$widget_styles[ $scssSetTmp ]['hide-logos'] ? 0 : 1);
-$showStars = get_option($pluginManagerInstance->get_option_name('show-stars'), $pluginManager::$widget_styles[ $scssSetTmp ]['hide-stars'] ? 0 : 1);
+$styleId = (int)$pluginManagerInstance->getWidgetOption('style-id', true);
+$scssSet = $pluginManagerInstance->getWidgetOption('scss-set', true);
+$widgetSettedUp = $pluginManagerInstance->getWidgetOption('widget-setted-up');
 if (!$pluginManagerInstance->is_noreg_linked()) {
 $styleId = null;
 $scssSet = null;
@@ -469,7 +445,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <input type="hidden" id="ti-noreg-connect-token" name="ti-noreg-connect-token" value="<?php echo $reviewDownloadToken; ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->getWebhookUrl(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.9" />
+<input type="hidden" id="ti-noreg-version" value="<?php echo esc_attr($pluginManagerInstance->getVersion()); ?>" />
 <input type="hidden" id="ti-noreg-review-download" name="review_download" value="0" />
 <input type="hidden" id="ti-noreg-review-request-id" name="review_request_id" value="" />
 <input type="hidden" id="ti-noreg-manual-download" name="manual_download" value=0 />
@@ -524,7 +500,6 @@ $set = 'drop-shadow';
 }
 if ($template['is-top-rated-badge']) {
 $set = 'light-minimal';
-
 if (isset($template['params']['top-rated-badge-border']) && $template['params']['top-rated-badge-border']) {
 $set = 'ligth-border';
 }
@@ -643,6 +618,7 @@ $widgetHasReviews = !in_array($widgetType, ['button', 'badge']) || in_array($sty
 </div>
 </div>
 </div>
+<?php $filter = $pluginManagerInstance->getWidgetOption('filter'); ?>
 <div class="ti-preview-boxes-container">
 <div class="ti-full-width">
 <div class="ti-box">
@@ -652,14 +628,15 @@ $widgetHasReviews = !in_array($widgetType, ['button', 'badge']) || in_array($sty
 <?php if ($widgetHasReviews): ?>
 <div class="ti-form-group">
 <label><?php echo __('Filter your ratings', 'trustindex-plugin'); ?></label>
-<div class="ti-select" id="ti-filter-star" data-platform="google" data-nonce="<?php echo wp_create_nonce('ti-save-filter'); ?>">
-<font></font>
-<ul>
-<li data-value="1,2,3,4,5"<?php if (count($filter['stars']) > 2): ?> class="ti-selected"<?php endif; ?>><?php echo __('Show all', 'trustindex-plugin'); ?></li>
-<li data-value="4,5"<?php if (count($filter['stars']) === 2): ?> class="ti-selected"<?php endif; ?>>&starf;&starf;&starf;&starf; - &starf;&starf;&starf;&starf;&starf;</li>
-<li data-value="5"<?php if (count($filter['stars']) === 1): ?> class="ti-selected"<?php endif; ?>><?php echo __('only', 'trustindex-plugin'); ?> &starf;&starf;&starf;&starf;&starf;</li>
-</ul>
-</div>
+<form method="post" action="">
+<input type="hidden" name="command" value="save-filter-stars" />
+<?php wp_nonce_field('ti-save-filter-stars'); ?>
+<select class="ti-form-control" name="stars">
+<option value="1,2,3,4,5"<?php if (count($filter['stars']) > 2): ?> selected<?php endif; ?>><?php echo esc_html(__('Show all', 'trustindex-plugin')); ?></option>
+<option value="4,5"<?php if (count($filter['stars']) === 2): ?> selected<?php endif; ?>>&starf;&starf;&starf;&starf; - &starf;&starf;&starf;&starf;&starf;</option>
+<option value="5"<?php if (count($filter['stars']) === 1): ?> selected<?php endif; ?>><?php echo __('only', 'trustindex-plugin'); ?> &starf;&starf;&starf;&starf;&starf;</option>
+</select>
+</form>
 </div>
 <?php endif; ?>
 <div class="ti-form-group">
@@ -669,7 +646,7 @@ $widgetHasReviews = !in_array($widgetType, ['button', 'badge']) || in_array($sty
 <?php wp_nonce_field('ti-save-language'); ?>
 <select class="ti-form-control" name="lang">
 <?php foreach ($pluginManager::$widget_languages as $id => $name): ?>
-<option value="<?php echo esc_attr($id); ?>" <?php echo $lang == $id ? 'selected' : ''; ?>><?php echo esc_html($name); ?></option>
+<option value="<?php echo esc_attr($id); ?>" <?php echo $pluginManagerInstance->getWidgetOption('lang') == $id ? 'selected' : ''; ?>><?php echo esc_html($name); ?></option>
 <?php endforeach; ?>
 </select>
 </form>
@@ -682,14 +659,14 @@ $widgetHasReviews = !in_array($widgetType, ['button', 'badge']) || in_array($sty
 <?php wp_nonce_field('ti-save-dateformat'); ?>
 <select class="ti-form-control" name="dateformat">
 <?php foreach ($pluginManager::$widget_dateformats as $format): ?>
-<option value="<?php echo esc_attr($format); ?>" <?php echo $dateformat == $format ? 'selected' : ''; ?>><?php
+<option value="<?php echo esc_attr($format); ?>" <?php echo $pluginManagerInstance->getWidgetOption('dateformat') == $format ? 'selected' : ''; ?>><?php
 switch ($format) {
 case 'modern':
 $lang = substr(get_locale(), 0, 2);
 if (!in_array($lang, array_keys($pluginManager::$widget_date_format_locales))) {
 $lang = 'en';
 }
-$tmp = explode('|', $pluginManager::$widget_date_format_locales[ $lang ]);
+$tmp = explode('|', $pluginManager::$widget_date_format_locales[$lang]);
 echo str_replace([ '%d', '%s' ], [ 2, $tmp[3] ], $tmp[0]);
 break;
 case 'hide':
@@ -711,8 +688,8 @@ break;
 <input type="hidden" name="command" value="save-align" />
 <?php wp_nonce_field('ti-save-align'); ?>
 <select class="ti-form-control" name="align">
-<?php foreach ([ 'left', 'center', 'right', 'justify' ] as $alignType): ?>
-<option value="<?php echo esc_attr($alignType); ?>" <?php echo $alignType == $align ? 'selected' : ''; ?>><?php echo __($alignType, 'trustindex-plugin'); ?></option>
+<?php foreach ([ 'left', 'center', 'right', 'justify' ] as $type): ?>
+<option value="<?php echo esc_attr($type); ?>" <?php echo $pluginManagerInstance->getWidgetOption('align') == $type ? 'selected' : ''; ?>><?php echo __($type, 'trustindex-plugin'); ?></option>
 <?php endforeach; ?>
 </select>
 </form>
@@ -728,7 +705,7 @@ break;
 'readmore' => 'Read more',
 'truncated' => 'Truncated'
 ] as $type => $translated): ?>
-<option value="<?php echo esc_attr($type); ?>" <?php echo $type == $reviewTextMode ? 'selected' : ''; ?>><?php echo __($translated, 'trustindex-plugin'); ?></option>
+<option value="<?php echo esc_attr($type); ?>" <?php echo $pluginManagerInstance->getWidgetOption('review-text-mode') == $type ? 'selected' : ''; ?>><?php echo __($translated, 'trustindex-plugin'); ?></option>
 <?php endforeach; ?>
 </select>
 </form>
@@ -743,7 +720,7 @@ break;
 <?php wp_nonce_field('ti-save-top-rated-type'); ?>
 <select class="ti-form-control" name="type">
 <?php foreach ($pluginManager::$widget_top_rated_titles as $type => $langs): ?>
-<option value="<?php echo esc_attr($type); ?>" <?php echo $topRatedType == $type ? 'selected' : ''; ?>><?php echo esc_html(__($type, 'trustindex-plugin')); ?></option>
+<option value="<?php echo esc_attr($type); ?>" <?php echo $pluginManagerInstance->getWidgetOption('top-rated-type') == $type ? 'selected' : ''; ?>><?php echo esc_html(__($type, 'trustindex-plugin')); ?></option>
 <?php endforeach; ?>
 </select>
 </form>
@@ -753,6 +730,7 @@ break;
 <form method="post" action="">
 <input type="hidden" name="command" value="save-top-rated-date" />
 <?php wp_nonce_field('ti-save-top-rated-date'); ?>
+<?php $topRatedDate = $pluginManagerInstance->getWidgetOption('top-rated-date'); ?>
 <select class="ti-form-control" name="date">
 <option value="hide"<?php if ($topRatedDate === 'hide'): ?> selected<?php endif; ?>><?php echo esc_html(__("Hide", 'trustindex-plugin')); ?></option>
 <option value="last-year"<?php if ($topRatedDate === 'last-year'): ?> selected<?php endif; ?>><?php echo esc_html(__("Last year", 'trustindex-plugin')); ?></option>
@@ -768,49 +746,49 @@ break;
 <?php wp_nonce_field('ti-save-options'); ?>
 <?php if ($widgetHasReviews): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" id="ti-filter-only-ratings" class="no-form-update" name="only-ratings" value="1"<?php if ($filter['only-ratings']): ?> checked<?php endif; ?> />
+<input type="checkbox" name="only-ratings" value="1"<?php if ($filter['only-ratings']): ?> checked<?php endif; ?> />
 <label><?php echo __('Hide reviews without comments', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
 <?php if (in_array($styleId, [ 4, 6, 7, 15, 16, 19, 31, 33, 36, 37, 38, 39, 44 ])): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="no-rating-text" value="1"<?php if ($noRatingText): ?> checked<?php endif; ?> />
+<input type="checkbox" name="no-rating-text" value="1"<?php if ($pluginManagerInstance->getWidgetOption('no-rating-text')): ?> checked<?php endif; ?> />
 <label><?php echo __('Hide rating text', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
-<?php if ($widgetHasReviews): ?>
+<?php if ($widgetHasReviews && (!in_array($widgetType, ['floating']) || $styleId === 53)): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="footer-filter-text" value="1"<?php if ($footerFilterText): ?> checked<?php endif; ?> />
+<input type="checkbox" name="footer-filter-text" value="1"<?php if ($pluginManagerInstance->getWidgetOption('footer-filter-text')): ?> checked<?php endif; ?> />
 <label><?php echo __('Show minimum review filter condition', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
 <?php if (in_array($styleId, [ 8, 10, 13 ])): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="show-header-button" value="1"<?php if ($showHeaderButton): ?> checked<?php endif; ?> />
+<input type="checkbox" name="show-header-button" value="1"<?php if ($pluginManagerInstance->getWidgetOption('show-header-button')): ?> checked<?php endif; ?> />
 <label><?php echo __('Show write review button', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
 <?php if (in_array($styleId, [ 8, 16, 18, 31, 33 ])): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="reviews-load-more" value="1"<?php if ($reviewsLoadMore): ?> checked<?php endif; ?> />
+<input type="checkbox" name="reviews-load-more" value="1"<?php if ($pluginManagerInstance->getWidgetOption('reviews-load-more')): ?> checked<?php endif; ?> />
 <label><?php echo __('Show "Load more" button', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
-<?php if ($widgetHasReviews): ?>
+<?php if ($widgetHasReviews && !in_array($styleId, [53,54])): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="verified-icon" value="1"<?php if ($verifiedIcon): ?> checked<?php endif; ?> />
+<input type="checkbox" name="verified-icon" value="1"<?php if ($pluginManagerInstance->getWidgetOption('verified-icon')): ?> checked<?php endif; ?> />
 <label><?php echo __('Show verified review icon', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
 <?php if (in_array($widgetType, [ 'slider', 'sidebar' ]) && !in_array($styleId, [ 8, 9, 10, 18, 19, 37, 54 ])): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="show-arrows" value="1"<?php if ($showArrows): ?> checked<?php endif; ?> />
+<input type="checkbox" name="show-arrows" value="1"<?php if ($pluginManagerInstance->getWidgetOption('show-arrows')): ?> checked<?php endif; ?> />
 <label><?php echo __('Show navigation arrows', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
 <?php if ($widgetHasReviews && $styleId != 52): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="show-reviewers-photo" value="1"<?php if ($showReviewersPhoto): ?> checked<?php endif; ?> />
+<input type="checkbox" name="show-reviewers-photo" value="1"<?php if ($pluginManagerInstance->getWidgetOption('show-reviewers-photo')): ?> checked<?php endif; ?> />
 <label><?php echo __("Show reviewers' photo", 'trustindex-plugin'); ?></label>
 </span>
 <span class="ti-checkbox ti-checkbox-row ti-disabled">
@@ -821,24 +799,24 @@ break;
 </label>
 </span>
 <?php endif; ?>
-<?php if (!in_array($widgetType, [ 'floating' ]) && !$isTopRatedBadge): ?>
+<?php if (!in_array($widgetType, [ 'floating' ]) && !$isTopRatedBadge && $scssSet !== 'drop-shadow' && $styleId != 54): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="enable-animation" value="1"<?php if ($enableAnimation): ?> checked<?php endif; ?> />
+<input type="checkbox" name="enable-animation" value="1"<?php if ($pluginManagerInstance->getWidgetOption('enable-animation')): ?> checked<?php endif; ?> />
 <label><?php echo __('Enable mouseover animation', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="disable-font" value="1"<?php if ($disableFont): ?> checked<?php endif; ?> />
+<input type="checkbox" name="disable-font" value="1"<?php if ($pluginManagerInstance->getWidgetOption('disable-font')): ?> checked<?php endif; ?> />
 <label><?php echo __("Use site's font", 'trustindex-plugin'); ?></label>
 </span>
 <?php if ($widgetHasReviews): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="show-logos" value="1"<?php if ($showLogos): ?> checked<?php endif;?> />
+<input type="checkbox" name="show-logos" value="1"<?php if ($pluginManagerInstance->getWidgetOption('show-logos')): ?> checked<?php endif;?> />
 <label><?php echo __('Show platform logos', 'trustindex-plugin'); ?></label>
 </span>
 <?php if (!$pluginManagerInstance->is_ten_scale_rating_platform()): ?>
 <span class="ti-checkbox ti-checkbox-row">
-<input type="checkbox" name="show-stars" value="1"<?php if ($showStars): ?> checked<?php endif;?> />
+<input type="checkbox" name="show-stars" value="1"<?php if ($pluginManagerInstance->getWidgetOption('show-stars')): ?> checked<?php endif;?> />
 <label><?php echo __('Show platform stars', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>

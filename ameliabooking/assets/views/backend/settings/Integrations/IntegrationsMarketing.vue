@@ -164,6 +164,7 @@ export default {
         {value: 'SelectService', label: this.$root.labels.tracking_SelectService},
         {value: 'SelectEmployee', label: this.$root.labels.tracking_SelectEmployee},
         {value: 'SelectLocation', label: this.$root.labels.tracking_SelectLocation},
+        {value: 'InitInfoStep', label: this.$root.labels.tracking_InitInfoStep},
         {value: 'InitiateCheckout', label: this.$root.labels.tracking_InitiateCheckout},
         {value: 'Schedule', label: this.$root.labels.tracking_Schedule},
         {value: 'Purchase', label: this.$root.labels.tracking_Purchase}
@@ -171,6 +172,7 @@ export default {
       packageActions: [
         {value: 'ViewContent', label: this.$root.labels.tracking_ViewContent},
         {value: 'SelectPackage', label: this.$root.labels.tracking_SelectPackage},
+        {value: 'InitInfoStep', label: this.$root.labels.tracking_InitInfoStep},
         {value: 'InitiateCheckout', label: this.$root.labels.tracking_InitiateCheckout},
         {value: 'Schedule', label: this.$root.labels.tracking_Schedule},
         {value: 'Purchase', label: this.$root.labels.tracking_Purchase}
@@ -178,6 +180,7 @@ export default {
       eventActions: [
         {value: 'ViewContent', label: this.$root.labels.tracking_ViewContent},
         {value: 'SelectEvent', label: this.$root.labels.tracking_SelectEvent},
+        {value: 'InitInfoStep', label: this.$root.labels.tracking_InitInfoStep},
         {value: 'InitiateCheckout', label: this.$root.labels.tracking_InitiateCheckout},
         {value: 'Schedule', label: this.$root.labels.tracking_Schedule},
         {value: 'Purchase', label: this.$root.labels.tracking_Purchase}

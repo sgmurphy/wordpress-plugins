@@ -331,6 +331,7 @@ class FreeCachedContainer extends Container
             'MailPoet\\Migrator\\Store' => 'getStoreService',
             'MailPoet\\NewsletterTemplates\\BrandStyles' => 'getBrandStylesService',
             'MailPoet\\NewsletterTemplates\\NewsletterTemplatesRepository' => 'getNewsletterTemplatesRepositoryService',
+            'MailPoet\\NewsletterTemplates\\TemplateImageLoader' => 'getTemplateImageLoaderService',
             'MailPoet\\NewsletterTemplates\\ThumbnailSaver' => 'getThumbnailSaverService',
             'MailPoet\\Newsletter\\ApiDataSanitizer' => 'getApiDataSanitizer2Service',
             'MailPoet\\Newsletter\\AutomatedLatestContent' => 'getAutomatedLatestContent2Service',
@@ -379,6 +380,7 @@ class FreeCachedContainer extends Container
             'MailPoet\\Router\\Endpoints\\CronDaemon' => 'getCronDaemonService',
             'MailPoet\\Router\\Endpoints\\FormPreview' => 'getFormPreviewService',
             'MailPoet\\Router\\Endpoints\\Subscription' => 'getSubscriptionService',
+            'MailPoet\\Router\\Endpoints\\TemplateImage' => 'getTemplateImageService',
             'MailPoet\\Router\\Endpoints\\Track' => 'getTrackService',
             'MailPoet\\Router\\Endpoints\\ViewInBrowser' => 'getViewInBrowserService',
             'MailPoet\\Segments\\DynamicSegments\\DynamicSegmentFilterRepository' => 'getDynamicSegmentFilterRepositoryService',
@@ -3813,6 +3815,16 @@ class FreeCachedContainer extends Container
     }
 
     /**
+     * Gets the public 'MailPoet\NewsletterTemplates\TemplateImageLoader' shared autowired service.
+     *
+     * @return \MailPoet\NewsletterTemplates\TemplateImageLoader
+     */
+    protected function getTemplateImageLoaderService()
+    {
+        return $this->services['MailPoet\\NewsletterTemplates\\TemplateImageLoader'] = new \MailPoet\NewsletterTemplates\TemplateImageLoader(($this->services['MailPoet\\WP\\Functions'] ?? ($this->services['MailPoet\\WP\\Functions'] = new \MailPoet\WP\Functions())));
+    }
+
+    /**
      * Gets the public 'MailPoet\NewsletterTemplates\ThumbnailSaver' shared autowired service.
      *
      * @return \MailPoet\NewsletterTemplates\ThumbnailSaver
@@ -4294,6 +4306,16 @@ class FreeCachedContainer extends Container
         $a = ($this->services['MailPoet\\WP\\Functions'] ?? ($this->services['MailPoet\\WP\\Functions'] = new \MailPoet\WP\Functions()));
 
         return $this->services['MailPoet\\Router\\Endpoints\\Subscription'] = new \MailPoet\Router\Endpoints\Subscription(new \MailPoet\Subscription\Pages(($this->services['MailPoet\\Subscribers\\NewSubscriberNotificationMailer'] ?? $this->getNewSubscriberNotificationMailerService()), $a, ($this->services['MailPoet\\Subscription\\CaptchaFormRenderer'] ?? $this->getCaptchaFormRendererService()), ($this->services['MailPoet\\Newsletter\\Scheduler\\WelcomeScheduler'] ?? $this->getWelcomeSchedulerService()), ($this->services['MailPoet\\Subscribers\\LinkTokens'] ?? $this->getLinkTokensService()), ($this->services['MailPoet\\Subscription\\SubscriptionUrlFactory'] ?? $this->getSubscriptionUrlFactoryService()), ($this->services['MailPoet\\Form\\AssetsController'] ?? $this->getAssetsController2Service()), ($this->services['MailPoet\\Config\\Renderer'] ?? $this->getRendererService()), ($this->services['MailPoet\\Statistics\\Track\\Unsubscribes'] ?? $this->getUnsubscribesService()), ($this->services['MailPoet\\Subscription\\ManageSubscriptionFormRenderer'] ?? $this->getManageSubscriptionFormRendererService()), ($this->services['MailPoet\\Statistics\\Track\\SubscriberHandler'] ?? $this->getSubscriberHandlerService()), ($this->services['MailPoet\\Subscribers\\SubscribersRepository'] ?? $this->getSubscribersRepositoryService()), ($this->services['MailPoet\\Settings\\TrackingConfig'] ?? $this->getTrackingConfigService()), ($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()), ($this->services['MailPoet\\Subscribers\\SubscriberSaveController'] ?? $this->getSubscriberSaveControllerService()), ($this->services['MailPoet\\Subscribers\\SubscriberSegmentRepository'] ?? $this->getSubscriberSegmentRepositoryService()), ($this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] ?? $this->getNewsletterLinkRepositoryService()), ($this->services['MailPoet\\Statistics\\StatisticsClicksRepository'] ?? $this->getStatisticsClicksRepositoryService()), ($this->services['MailPoet\\Newsletter\\Sending\\SendingQueuesRepository'] ?? $this->getSendingQueuesRepositoryService())), $a, ($this->services['MailPoet\\Subscription\\Captcha\\CaptchaRenderer'] ?? $this->getCaptchaRendererService()), ($this->services['MailPoet\\Util\\Request'] ?? ($this->services['MailPoet\\Util\\Request'] = new \MailPoet\Util\Request())));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Router\Endpoints\TemplateImage' shared autowired service.
+     *
+     * @return \MailPoet\Router\Endpoints\TemplateImage
+     */
+    protected function getTemplateImageService()
+    {
+        return $this->services['MailPoet\\Router\\Endpoints\\TemplateImage'] = new \MailPoet\Router\Endpoints\TemplateImage(($this->services['MailPoet\\NewsletterTemplates\\TemplateImageLoader'] ?? $this->getTemplateImageLoaderService()));
     }
 
     /**

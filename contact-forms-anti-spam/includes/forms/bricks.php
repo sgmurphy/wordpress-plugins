@@ -16,8 +16,53 @@ function maspik_validate_bricks_form($errors, $form) {
     $reason ="";
     $ip =  efas_getRealIpAddr();
 
+//Honeypot
+
+  $form_name = "Bricks";
+
+  if($_POST['full-name-maspik-hp']){
+    efas_add_to_log($type = "General", "Honeypot Triggered", $_POST , $form_name );
+    $errors[] = cfas_get_error_text();
+  }
+
+    // Get the current server year
+    $serverYear = intval(date('Y'));
+  
+    if($_POST['Maspik-currentYear'] != $serverYear){
+      efas_add_to_log($type = "General", "Honeypot Triggered - Server year local year did not match", $_POST , $form_name );
+      $errors[] = cfas_get_error_text();
+    }
+
+
+    $inputTime = $_POST['Maspik-exactTime'];
+
+    list($minutes, $seconds) = explode(':', $inputTime);
+
+    // Calculate input time in seconds
+    $inputTimeInSeconds = ($minutes * 60) + $seconds;
+
+    // Get current server time
+    $currentTime = time();
+    
+    // Get the current minute and second
+    $currentMinute = date('i', $currentTime);
+    $currentSecond = date('s', $currentTime);
+    
+   
+    $currentTimeInSeconds = ($currentMinute * 60) + $currentSecond;
+    $timeDifference = $currentTimeInSeconds - $inputTimeInSeconds;
+
+    if($timeDifference < maspik_submit_buffer()){
+      efas_add_to_log($type = "General", "Honeypot Triggered - Submitted too fast", $_POST , $form_name );
+      $errors[] = cfas_get_error_text();
+    }
+  
+  //Honeypot END
+
+
+
     // Country IP Check 
-    $CountryCheck = CountryCheck($ip,$spam,$reason);
+    $CountryCheck = CountryCheck($ip,$spam,$reason,$_POST);
     $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
     $reason = $CountryCheck['reason']? $CountryCheck['reason'] : false ;
     $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;

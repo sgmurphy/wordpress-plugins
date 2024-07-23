@@ -1391,6 +1391,15 @@ class Premium_World_Clock extends Widget_Base {
 			)
 		);
 
+        $this->add_control(
+			'language_prefix',
+			array(
+				'label'       => __( 'Language', 'premium-addons-pro' ),
+				'type'        => Controls_Manager::TEXT,
+				'description' => __( 'Enter language prefix, eg. en for English, ja for Japanese, if you don\'t know your language prefix, please check <a href="https://developers.google.com/maps/faq#languagesupport" target="_blank">here</a>' ),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -3003,6 +3012,7 @@ class Premium_World_Clock extends Widget_Base {
 			'gmtOffset'    => $show_timezone,
 			'showClockNum' => $show_clock_numbers,
 			'equalWidth'   => 'yes' === $settings['equal_width'] && in_array( $skin, array( 'skin-2', 'skin-3', 'skin-4' ), true ) ? true : false,
+            'language'     => $settings['language_prefix']
 		);
 
 		if ( $show_date ) {

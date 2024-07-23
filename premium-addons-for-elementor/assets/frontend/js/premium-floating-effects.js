@@ -68,12 +68,24 @@
                 //     return false;
                 // }
 
-                elementorFrontend.waypoint(
-                    _this.$element,
-                    function () {
+                // unsing IntersectionObserverAPI.
+                var eleObserver = new IntersectionObserver(function($entry) {
+                    if ($entry[0].isIntersecting) {
+
                         _this.applyEffects(eleSettings);
+
+                        eleObserver.unobserve($entry[0].target); // to only excecute the callback func once.
                     }
-                );
+                });
+
+                eleObserver.observe(_this.$element[0]);
+
+                // elementorFrontend.waypoint(
+                //     _this.$element,
+                //     function () {
+                //         _this.applyEffects(eleSettings);
+                //     }
+                // );
             },
 
             getEffectSettings: function() {

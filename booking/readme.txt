@@ -5,7 +5,7 @@ Tags: booking calendar, bookings, booking, appointments, events
 Requires at least: 5.3
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 10.2
+Stable tag: 10.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -288,6 +288,19 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 
 
 == Changelog ==
+= 10.2.2 =
+- Changes in **all** versions:
+	* **Fix** Additional sanitizing of 'type' attribute within the plugin's bookingform shortcode.
+- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
+	* **Fix**  issue of incorrectly  searching for not selected dates in search  forms. (10.2.2.1)
+	* **Under hood** Ability to use HTML A links, instead of URLS for shortcodes: [visitorbookingediturl], [visitorbookingcancelurl], [visitorbookingpayurl], [visitorbookingslisting] in format such as this: [visitorbookingpayurl type="link" url="http://server.com/pay-now/" title="Pay booking"]
+
+= 10.2.1 =
+- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
+	* **Under hood** Added new hook before showing cost/dates hints. To bind this event use this JS:  jQuery( ".booking_form_div" ).on( 'before_show_cost_hints', function(event, bk_type ) { ... } );
+	* **Under hood** Added 2 new hooks after creation  of the new booking resources by users: do_action( 'wpbc_resource_created', $resource_id );  and  do_action( 'wpbc_resources_created', $num_rows ); (10.2.1.2)
+	* **Fix** Fixed the issue where search results would not display additional costs (Form Options Costs) on a separate page if custom search filter options were used in the search form. (10.2.1.1) *(Business Large, MultiUser)*
+
 = 10.2 =
 - Changes in **all** versions:
 	* **New** New: Added a configurable Confirmation section. You can now decide what to show in the "Confirmation Window" after a booking is created. Enable or disable content and configure it with shortcodes to display information in the "Personal Information" and "Booking Details" sections of the Booking Confirmation window.
@@ -310,7 +323,7 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 	* **Improvement**  Updated the spinners for cost and date hints in the booking form to improve user experience and clarity. *(Business Medium/Large, MultiUser)*
 	* **Under hood**: Introduced a new hook 'wpbc_visitor_action__booking_trash' that triggers when visitors cancel their own booking. Example usage: function your_cust_func_wpbc_visitor_action__booking_trash ( $booking_id, $resource_id ) { /* Your code here */ } add_action( 'wpbc_visitor_action__booking_trash', 'your_cust_func_wpbc_visitor_action__booking_trash', 100, 2 );  (10.2.0.3)
 	* **Fix** Resolved functionality to allow the unchecking of exclusive checkboxes in group checkbox options. (10.1.5.1) *(Personal, Business Small/Medium/Large, MultiUser)*
-	* **Fix** Fixed the issue where search results would not display on a separate page if custom search filter options were used in the search form. (10.2.0.2) *(Personal, Business Large, MultiUser)*
+	* **Fix** Fixed the issue where search results would not display on a separate page if custom search filter options were used in the search form. (10.2.0.2) *(Business Large, MultiUser)*
 	* **Fix** Fixed the issue where popovers were not showing in the timeline on the front-end during initial page loading with an active cache plugin. (10.2.0.4)
 
 = 10.1.4 =
