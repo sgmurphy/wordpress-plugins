@@ -48,7 +48,19 @@ $modal_types = array(
 						<button class="ccb-button success ccb-settings" @click="openTemplateSettings"><?php esc_html_e( 'Config', 'cost-calculator-builder' ); ?></button>
 					<?php endif; ?>
 				</div>
-				<div class="ccb-fields-wrapper ccb-custom-scrollbar " :class="{'ccb-disable-scroll': $store.getters.getBuilder?.length === 0}">
+				<div class="ccb-fields-wrapper ccb-custom-scrollbar " :class="{'ccb-disable-scroll': $store.getters.getBuilder.length === 0}">
+					<div class="ccb-page-navigation" @click.stop="e => editField(e, 'page-navigation')" v-if="enoughPages">
+						<div class="ccb-page-navigation__title">
+							<?php esc_html_e( 'Page breaker settings', 'cost-calculator-builder' ); ?>
+						</div>
+						<div class="ccb-page-navigation__hide" v-if="this.$store.getters.getSettings.page_break.pagination_type === 'hidden'">
+							<i class="ccb-icon-no-preview"></i>
+							<span><?php esc_attr_e( 'Hidden', 'cost-calculator-builder' ); ?></span>
+						</div>
+						<div class="ccb-page-navigation__settings">
+							<i class="ccb-icon-Union-28"></i>
+						</div>
+					</div>
 					<field-row
 						v-model="builderFields"
 						group="fields"
@@ -94,6 +106,7 @@ $modal_types = array(
 		v-if="confirmPopup"
 		:status="confirmPopup"
 		@close-confirm="removeFromBuilder"
+		:page-count="pageCount"
 		:field="currentFieldId"
 		:group-element-alias="groupElementAlias"
 		cancel="<?php esc_html_e( 'Cancel', 'cost-calculator-builder' ); ?>"
@@ -101,6 +114,7 @@ $modal_types = array(
 	>
 		<slot>
 			<span slot="description"><?php esc_html_e( 'Are you sure you want to delete this field and all data associated with it?', 'cost-calculator-builder' ); ?></span>
+			<span slot="pageDescription"><?php esc_html_e( 'Are you sure you want to delete this page and all data associated with it? Fields on this page will be moved to the next/previous page.', 'cost-calculator-builder' ); ?></span>
 		</slot>
 	</ccb-confirm-popup>
 	<ccb-confirm-condition-popup

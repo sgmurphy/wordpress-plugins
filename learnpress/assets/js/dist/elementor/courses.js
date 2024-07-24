@@ -154,8 +154,6 @@ const Cookie = {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!********************************************!*\
   !*** ./assets/src/js/elementor/courses.js ***!
   \********************************************/
@@ -543,8 +541,6 @@ window.lpElWidgetCoursesByPage = (() => {
 document.addEventListener('DOMContentLoaded', function () {
   window.lpElWidgetCoursesByPage.init();
 });
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=courses.js.map

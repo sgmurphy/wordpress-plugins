@@ -18,7 +18,6 @@ use WP_Defender\Component\Product_Analytics;
  */
 abstract class Event extends Controller {
 
-
 	/**
 	 * Location of the event
 	 *

@@ -18,8 +18,7 @@ use WP_Defender\Model\Setting\Scan as Scan_Setting;
  */
 class Scan extends Event {
 
-
-	const EVENT_SCAN_FAILED = 'def_scan_failed';
+	const EVENT_SCAN_FAILED = 'def_scan_failed_new';
 
 	const EVENT_SCAN_FAILED_PROP = 'Failure reason';
 

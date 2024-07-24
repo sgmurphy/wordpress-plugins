@@ -14,6 +14,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div id="paoc_welcome_tabs" class="paoc-vtab-cnt paoc_welcome_tabs paoc-clearfix">	
 
+	<div class="poac-deal-offer-wrap">
+		<h3 style="font-weight: bold; font-size: 30px; color: red; text-align:center; margin: 15px 0 5px 0;">Why invest time for the free version?</h3>
+
+		<h3 style="font-size: 18px; text-align:center; margin:0;">Immediately Explore Popup Anything Pro with Essential Bundle Free for 5 Days.</h3>			
+
+		<div class="poac-deal-free-offer">
+			<a href="<?php echo esc_url( POPUPAOC_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="popupaoc-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
+		</div>
+	</div>
+
 	<div class="popupaoc-solutions-section popupaoc-top-rsn popupaoc-left">
 		<h1 class="popupaoc-heading">Top 4 Reasons Why People Love <span class="popupaoc-blue">PopupAnything</span> Including in <span class="popupaoc-blue">Essential Plugin Bundle</span></h1>
 		<div class="popupaoc-sf-cont popupaoc-center">Here's why business owners <span class="popupaoc-blue">love PopupAnything</span>, and you will too!</div>

@@ -288,6 +288,13 @@
 	 
 	 */
 	public function get_events_from_calendar( $calendar_id, $options = array() ) {
+		// if is a holiday caledar, pull events in english locale so that we have a way to identiy public holidays
+		if( false !== strpos( $calendar_id, 'holiday' ) ){
+			$calendar_id_parts = explode( '.', $calendar_id );
+			array_shift( $calendar_id_parts );
+			$calendar_id = 'en.' . implode( '.', $calendar_id_parts );
+		}
+		
 		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . urlencode( $calendar_id ) . "/events?" . $this->get_params_from_options( $options );
 
 		try {
@@ -301,7 +308,6 @@
 
 			if ( is_wp_error($response) || wp_remote_retrieve_response_code($response) > 299 ) {
 				if( wp_remote_retrieve_response_code($response) == 404 ){
-					// some 404 errors are expected, on holidays calendars for example
 					ssa_debug_log( 'Received 404, getting events for ' . $calendar_id . " from " . $gcal_api_endpoint . " working with staff id " . $this->staff_id ); // phpcs:ignore
 					ssa_debug_log( ssa_get_stack_trace(), 10 );
 				} else {

@@ -6,7 +6,7 @@ Tags: blocks, gutenberg blocks, page-builder, gutenberg editor, WordPress blocks
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 5.6.20
-Stable tag: 3.3.2
+Stable tag: 3.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -338,6 +338,10 @@ Yes, We provide Free Support via [WordPress Support Forum](https://wordpress.org
 9. Gutentor Blocks: Gutentor provide complete site-building blocks and elements
 
 == Changelog ==
+
+= 3.3.3 - 2024-07-24 =
+* Fixed:    Creating patterns on all possible blocks
+* Fixed:    Few design issue
 
 = 3.3.2 - 2024-07-18 =
 * Updated:  WordPress latest compatibility

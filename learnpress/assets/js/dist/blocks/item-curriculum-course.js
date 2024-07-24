@@ -223,8 +223,6 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*******************************************************************!*\
   !*** ./assets/src/apps/js/blocks/item-curriculum-course/index.js ***!
   \*******************************************************************/
@@ -246,8 +244,6 @@ __webpack_require__.r(__webpack_exports__);
   edit: _edit__WEBPACK_IMPORTED_MODULE_0__.edit,
   save: _save__WEBPACK_IMPORTED_MODULE_1__.save
 });
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=item-curriculum-course.js.map

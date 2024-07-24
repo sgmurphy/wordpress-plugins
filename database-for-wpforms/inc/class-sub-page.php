@@ -35,7 +35,7 @@ class WPFormsDB_Wp_Sub_Page
         ?>
             <div class="wrap">
                 <div id="icon-users" class="icon32"></div>
-                <h2><?php echo get_the_title( $this->form_post_id ); ?></h2>
+                <h2><?php echo esc_html( get_the_title( $this->form_post_id ) ); ?></h2>
                 <form method="post" action="">
 
                     <?php $ListTable->search_box('Search', 'search'); ?>
@@ -57,6 +57,7 @@ class WPFormsDB_List_Table extends WP_List_Table
 {
     private $form_post_id;
     private $column_titles;
+    private $search;
 
     public function __construct() {
 
@@ -189,9 +190,9 @@ class WPFormsDB_List_Table extends WP_List_Table
     public function get_bulk_actions() {
 
         return array(
-            'read'   => __( 'Read', 'contact-form-WPFormsDB' ),
-            'unread' => __( 'Unread', 'contact-form-WPFormsDB' ),
-            'delete' => __( 'Delete', 'contact-form-WPFormsDB' )
+            'read'   => __( 'Read', 'database-for-wpforms' ),
+            'unread' => __( 'Unread', 'database-for-wpforms' ),
+            'delete' => __( 'Delete', 'database-for-wpforms' )
         );
 
     }
@@ -286,7 +287,7 @@ class WPFormsDB_List_Table extends WP_List_Table
 
         if ( isset( $_POST['_wpnonce'] ) && ! empty( $_POST['_wpnonce'] ) ) {
 
-            $nonce        = filter_input( INPUT_POST, '_wpnonce', FILTER_SANITIZE_STRING );
+            $nonce        = sanitize_text_field( $_POST['_wpnonce'] );
             $nonce_action = 'bulk-' . $this->_args['plural'];
 
             if ( !wp_verify_nonce( $nonce, $nonce_action ) ){
@@ -432,9 +433,9 @@ class WPFormsDB_List_Table extends WP_List_Table
         if ( empty( $this->_actions ) )
             return;
 
-        echo '<label for="bulk-action-selector-' . esc_attr( $which ) . '" class="screen-reader-text">' . __( 'Select bulk action', 'contact-form-WPFormsDB' ) . '</label>';
+        echo '<label for="bulk-action-selector-' . esc_attr( $which ) . '" class="screen-reader-text">' . esc_html__( 'Select bulk action', 'database-for-wpforms' ) . '</label>';
         echo '<select name="action' . esc_attr( $two ) . '" id="bulk-action-selector-' . esc_attr( $which ) . "\">\n";
-        echo '<option value="-1">' . __( 'Bulk Actions', 'contact-form-WPFormsDB' ) . "</option>\n";
+        echo '<option value="-1">' . esc_html__( 'Bulk Actions', 'database-for-wpforms' ) . "</option>\n";
 
         foreach ( $this->_actions as $name => $title ) {
             $class = 'edit' === $name ? ' class="hide-if-no-js"' : '';
@@ -444,11 +445,11 @@ class WPFormsDB_List_Table extends WP_List_Table
 
         echo "</select>\n";
 
-        submit_button( __( 'Apply', 'contact-form-WPFormsDB' ), 'action', '', false, array( 'id' => "doaction$two" ) );
+        submit_button( __( 'Apply', 'database-for-wpforms' ), 'action', '', false, array( 'id' => "doaction$two" ) );
         echo "\n";
         $nonce = wp_create_nonce( 'dnonce' );
-        echo "<a href='".$_SERVER['REQUEST_URI']."&wpforms-csv=true&nonce=".$nonce."' style='float:right; margin:0;' class='button'>";
-        _e( 'Export CSV', 'contact-form-WPFormsDB' );
+        echo "<a href='". esc_url( $_SERVER['REQUEST_URI'] )."&wpforms-csv=true&nonce=".$nonce."' style='float:right; margin:0;' class='button'>";
+        esc_html_e( 'Export CSV', 'database-for-wpforms' );
         echo '</a>';
         do_action('WPFormsDB_after_export_button');
     }

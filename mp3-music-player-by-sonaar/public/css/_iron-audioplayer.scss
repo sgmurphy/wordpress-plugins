@@ -1,3 +1,4 @@
+$plugin-version: "5.6"; // Update this version number as needed
 $breakpoint-mobile: 480px;
 $breakpoint-tablet: 768px;
 
@@ -269,7 +270,7 @@ article div.iron-audioplayer ol li {
       cursor: pointer;
     }
 
-    .sricon-shuffle, .sricon-volume, .sricon-back, .sricon-forward  { 
+    .sricon-shuffle, .sricon-volume, .sricon-back, .sricon-forward, .srp_repeat  { 
       font-size: 18px;
       line-height: 1;
     }
@@ -1485,6 +1486,10 @@ a.tracklist-item-title:hover {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    transition: opacity 0.3s;
+    &.srp_hide{
+      opacity: 0;
+    }
   }
 
   .album-player {
@@ -1721,14 +1726,15 @@ a.tracklist-item-title:hover {
 
   
 }
+
 @font-face {
   font-family: "sricons";
-  src: url("../../public/webfonts/sricons/font/sricons.eot?1b5ca7");
-  src: url("../../public/webfonts/sricons/font/sricons.eot?1b5ca7#iefix") format("embedded-opentype"),
-    url("../../public/webfonts/sricons/font/sricons.woff2?1b5ca7") format("woff2"),
-    url("../../public/webfonts/sricons/font/sricons.woff?1b5ca7") format("woff"),
-    url("../../public/webfonts/sricons/font/sricons.ttf?1b5ca7") format("truetype"),
-    url("../../public/webfonts/sricons/font/sricons.svg?1b5ca7#sricons") format("svg");
+  src: url("../../public/webfonts/sricons/font/sricons.eot?#{$plugin-version}");
+  src: url("../../public/webfonts/sricons/font/sricons.eot?#{$plugin-version}#iefix") format("embedded-opentype"),
+    url("../../public/webfonts/sricons/font/sricons.woff2?#{$plugin-version}") format("woff2"),
+    url("../../public/webfonts/sricons/font/sricons.woff?#{$plugin-version}") format("woff"),
+    url("../../public/webfonts/sricons/font/sricons.ttf?#{$plugin-version}") format("truetype"),
+    url("../../public/webfonts/sricons/font/sricons.svg?#{$plugin-version}#sricons") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;

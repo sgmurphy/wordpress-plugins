@@ -34,11 +34,11 @@ $tab = isset( $_GET['tab'] ) ? '#'.$_GET['tab'] : '#wpsisac_welcome_tabs';
 		.wpsisac-vtab-nav-wrap .wpsisac-vtab-nav a:hover {box-shadow: 5px 0 0 0 #6c63ff inset !important; }
 
 		/**** commod deal offer ****/
-		.wpsisac-deal-offer-wrap{position: relative;padding: 0.75rem 1.25rem;margin-bottom: 1rem;border: 1px solid transparent;border-radius: 0.25rem; color: #000;background-color: #ffd104;border-color: #ffd104;margin-top: 20px;}
+		.wpsisac-deal-offer-wrap{position: relative;padding: 0 1.25rem;margin-bottom: 1rem;border: 1px solid transparent;border-radius: 0.25rem; color: #000;background-color: #ffd104;border-color: #ffd104;margin-top: 20px;}
 
 
-		.wpsisac-deal-offer{display:flex;align-items: center; margin-top: 15px;}
-		.wpsisac-inn-deal-offer{flex-basis:60%; padding: 20px; text-align:left;}
+		.wpsisac-deal-offer{display:flex;align-items: center;}
+		.wpsisac-inn-deal-offer{flex-basis:60%; padding: 0 20px; text-align:left;}
 		.wpsisac-inn-deal-hedding{font-size: 22px;}
 		.wpsisac-inn-deal-hedding span{color:#6c63ff;}
 
@@ -103,6 +103,8 @@ $tab = isset( $_GET['tab'] ) ? '#'.$_GET['tab'] : '#wpsisac_welcome_tabs';
 		.wpsisac-favourite-section span i{color: #50c621; font-weight: 600; vertical-align: middle;}
 		.wpsisac-favourite-section span img{display: inline-block; vertical-align: middle; max-width: 100%; height: auto;}
 		.wpsisac-upgrade-image-wrap img{width: 100%; margin-bottom:30px;}
+
+		.wpsisac-deal-free-offer{ margin: 20px; text-align:center; }
 
 	</style>
 	<div class="wpsisac-vtab-wrap wpsisac-cnt-wrap wpsisac-clearfix">

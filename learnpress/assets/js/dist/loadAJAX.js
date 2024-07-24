@@ -235,8 +235,6 @@ const lpAjaxParseJsonOld = data => {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!***********************************!*\
   !*** ./assets/src/js/loadAJAX.js ***!
   \***********************************/
@@ -244,9 +242,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./assets/src/js/utils.js");
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api */ "./assets/src/js/api.js");
-var _apiData$apiAJAX;
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./assets/src/js/utils.js");
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api.js */ "./assets/src/js/api.js");
 /**
  * Load all you need via AJAX
  *
@@ -258,11 +255,11 @@ var _apiData$apiAJAX;
 
 
 // Handle general parameter in the Frontend and Backend
-let apiData = _api__WEBPACK_IMPORTED_MODULE_1__["default"].admin;
+let apiData = _api_js__WEBPACK_IMPORTED_MODULE_1__["default"].admin;
 if ('undefined' === typeof apiData) {
-  apiData = _api__WEBPACK_IMPORTED_MODULE_1__["default"].frontend;
+  apiData = _api_js__WEBPACK_IMPORTED_MODULE_1__["default"].frontend;
 }
-const urlAPI = (_apiData$apiAJAX = apiData.apiAJAX) !== null && _apiData$apiAJAX !== void 0 ? _apiData$apiAJAX : '';
+const urlAPI = apiData.hasOwnProperty('apiAJAX') ? apiData.apiAJAX : '';
 let lpSettings = {};
 if ('undefined' !== typeof lpDataAdmin) {
   lpSettings = lpDataAdmin;
@@ -297,9 +294,9 @@ const lpAJAX = () => {
       } else {
         params.args = JSON.stringify(params.args);
         params.callback = JSON.stringify(params.callback);
-        url = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.lpAddQueryArgs)(url, params);
+        url = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpAddQueryArgs)(url, params);
       }
-      (0,_utils__WEBPACK_IMPORTED_MODULE_0__.lpFetchAPI)(url, option, callBack);
+      (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpFetchAPI)(url, option, callBack);
     },
     getElements: () => {
       //console.log( 'getElements' );
@@ -311,7 +308,7 @@ const lpAJAX = () => {
           element.classList.add('loaded');
           let url = urlAPI;
           if (lpSettings.urlParams.hasOwnProperty('lang')) {
-            url = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.lpAddQueryArgs)(url, {
+            url = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpAddQueryArgs)(url, {
               lang: lpSettings.urlParams.lang
             });
           }
@@ -368,8 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.lpAJAXG.getElements();
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (lpAJAX);
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=loadAJAX.js.map

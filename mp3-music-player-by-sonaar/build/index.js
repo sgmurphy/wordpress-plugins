@@ -328,6 +328,7 @@ __webpack_require__.r(__webpack_exports__);
       var trueFalseDefault = attributes.trueFalseDefault;
       var show_track_publish_date = '';
       var show_volume_bt = '';
+      var show_miniplayer_note_bt = '';
       var show_speed_bt = '';
       var show_shuffle_bt = '';
       var show_repeat_bt = '';
@@ -633,6 +634,7 @@ __webpack_require__.r(__webpack_exports__);
         show_repeat_bt = attributes.show_repeat_bt;
         show_speed_bt = attributes.show_speed_bt;
         show_volume_bt = attributes.show_volume_bt;
+        show_miniplayer_note_bt = attributes.show_miniplayer_note_bt;
       }
 
       style_changes();
@@ -930,7 +932,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (audio_player_controls_color != '' && audio_player_controls_color != undefined) {
           custom_css += ' #block-' + clientId + ' .iron-audioplayer .control .sr_speedRate div, #block-' + clientId + ' .srp-play-button .sricon-play { color: ' + audio_player_controls_color + '; border-color: ' + audio_player_controls_color + ';}';
-          custom_css += ' #block-' + clientId + ' .iron-audioplayer .control, #block-' + clientId + ' .iron-audioplayer .control .play .sricon-play{ color: ' + audio_player_controls_color + ';}';
+          custom_css += ' #block-' + clientId + ' .iron-audioplayer .control, #block-' + clientId + ' .iron-audioplayer .control .play .sricon-play, #block-' + clientId + ' .iron-audioplayer .srp_player_boxed .srp_noteButton{ color: ' + audio_player_controls_color + ';}';
           custom_css += ' #block-' + clientId + ' .iron-audioplayer .srp-play-circle { border-color: ' + audio_player_controls_color + ';}';
           custom_css += ' #block-' + clientId + ' .iron-audioplayer .srp-play-button-label-container { background: ' + audio_player_controls_color + ';}';
         }
@@ -4254,6 +4256,18 @@ __webpack_require__.r(__webpack_exports__);
           setIronAudioplayers();
           style_load = false;
         }
+      }), createElement(SelectControl, {
+        label: __('Show Info Icon', 'sonaar-music'),
+        options: trueFalseDefault,
+        value: show_miniplayer_note_bt,
+        onChange: function onChange(show_miniplayer_note_bt) {
+          setAttributes({
+            show_miniplayer_note_bt: show_miniplayer_note_bt
+          });
+          ironAudioplayersLoaded = false;
+          setIronAudioplayers();
+          style_load = false;
+        }
       })), createElement(PanelBody, {
         title: __('Extra Shortcode Parameters', 'sonaar-music'),
         initialOpen: false,
@@ -4312,6 +4326,7 @@ __webpack_require__.r(__webpack_exports__);
           show_repeat_bt: show_repeat_bt,
           show_speed_bt: show_speed_bt,
           show_volume_bt: show_volume_bt,
+          show_miniplayer_note_bt: show_miniplayer_note_bt,
           post_link: post_link,
           cta_track_show_label: cta_track_show_label,
           show_publish_date: show_publish_date,

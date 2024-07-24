@@ -1,4 +1,5 @@
 (function($) {
+
 	document.addEventListener('keydown', function(e) {
 		if (!$("[class*='option-srmp3_settings_']").length) {
 			return;
@@ -35,11 +36,14 @@
 	});
 
 
+	var hasChanges = false;
 
 	$(document).ready(function() {
 		init_adminSubMenu_separator();
 		var $myRepeatGroup = $('#alb_tracklist_repeat');
+
 		if ($myRepeatGroup.length) {
+
 			//only execute if we are in presence of album repeater group.
 			init_TrackTitleOnRepeater();
 			addTrackTitletoTrackRepeater();
@@ -1137,7 +1141,8 @@
 		});
 	}
 	function init_srmp3_generate_bt(){
-		if($('.srmp3-generate-bt').length && $('#acf_albums_infos .ffmpeg-not-installed').length === 0){
+		//Used for Audio Previews AND Tracks Indexation
+		if($('.srmp3-generate-bt').length){
 			const url = new URL(window.location.href);
 			var posts_in = url.searchParams.get("posts_in");
 			//seperate the post ids with commas
@@ -1145,28 +1150,31 @@
 				//count how many posts_in are set
 				var posts_in_count = posts_in.split(',').length;
 				posts_in = posts_in.replace(/,/g, ', ');
-				$('.nav-tab-wrapper').after('<h1 style="color:#7500df;font-size:18px;" class="audiopreview_posts_in_notice"><strong>Action required!</strong> ' + posts_in_count + ' posts are ready to have their audio previews generated.<br>Review the settings below and click <strong>Generate</strong> Button.</h3><div style="font-size:10px;">Posts: ' + posts_in + '</div>');
+				$('#audiopreview-settings-title').after(
+					'<div style="width: fit-content;" class="notice notice-warning is-dismissible audiopreview_posts_in_notice">' +
+					'<h2>' +
+					'<strong>Action required!</strong> ' + posts_in_count + ' posts are ready to have their audio previews generated.' +
+					'</h2>' +
+					'<p>Review the settings below and click <strong>Generate</strong> Button.</p>' +
+					'<p style="font-size:10px;">Posts: ' + posts_in + '</p>' +
+					'</div>'
+				);
 				$('#srmp3_indexTracks_status').text('We will proceed with ' + posts_in_count + ' posts.');
 			}
-			setTimeout(function(){ // timeout needed to allow jquery datepicker to load
-				// Select all the input fields and checkboxes within your DOM structure
-				const inputsAndCheckboxes = document.querySelectorAll('.cmb-row input, .cmb-row select, #ui-datepicker-div');
-				// Add an event listener to each input and checkbox
-				inputsAndCheckboxes.forEach(function(input) {
-					if (input.type === 'text') {
-						input.addEventListener('input', handleInputChange);
-					} else {
-						input.addEventListener('change', handleInputChange);
-					}
-				});
-				// Add the event listener for the upload and remove actions
-				document.querySelectorAll('.file-status, .cmb2-upload-button, .cmb2-remove-file-button').forEach(function(element) {
-					element.addEventListener('click', handleInputChange);
-				});
+			setTimeout(function() {
+				// Delegate event handling for inputs, checkboxes, and datepicker
+				$(document).on('input', '.cmb-row input[type="text"], .cmb-row select', handleInputChange);
+				$(document).on('change', '.cmb-row input, .cmb-row select', handleInputChange);
+				$(document).on('click', '#ui-datepicker-div', handleInputChange);
+	
+				// Delegate event handling for file upload and remove buttons
+				$(document).on('click', '.file-status, .cmb2-upload-button, .cmb2-remove-file-button', handleInputChange);
 			}, 2000);
-			
 			function handleInputChange(event) {
-				
+				hasChanges = true;
+
+				if($('#alb_tracklist_repeat, .option-srmp3_settings_audiopreview').length) return;
+
 				const excludedIds = ['peaks_overwrite1', 'peaks_overwrite2']; // Add more IDs as needed
 
 				// Check if the target element has an ID and if that ID is in the exclusion list
@@ -1585,24 +1593,14 @@
 		}else{
 			return;
 		}
+
 		//console.log("INIT SRMP3 AUDIOREVIEW");
 		// For audio preview generation
-
 		var continueIndexing = true;
 		var completed;
 		var originalText;
-
-		if ($('.option-srmp3_settings_audiopreview .ffmpeg-not-installed').length) {
-			$('.option-srmp3_settings_audiopreview .ffmpeg_field').css('opacity', '0.5').css('pointer-events', 'none');
-			$('.option-srmp3_settings_audiopreview .cmb2-id-audiopreview-generate-settings-title').css('opacity', '0.5').css('pointer-events', 'none');
-		}
-
-		if ($('#acf_albums_infos .ffmpeg-not-installed').length) {
-			$('#acf_albums_infos .ffmpeg_field:not(.srmp3-settings-generate-bt-container)').css('opacity', '0.5').css('pointer-events', 'none');
-			$('#acf_albums_infos .srmp3-generate-bt').css('opacity', '0.5').css('pointer-events', 'none');
-			$('#acf_albums_infos .srmp3-generate-bt').after('<span class="ffmpeg-required" style="font-size:10px;margin-left:10px; color:#9d0000;">FFMpeg Library required to generate preview automatically  <a href="https://sonaar.io/docs/how-to-add-audio-preview-in-wordpress/" target="_blank">Learn More</a></span>');
-			$('#acf_albums_infos .ffmpeg-required').css('opacity', '0.7');
-		}
+		let timerInterval;
+        let startTime;
 
 		if ($('.option-srmp3_settings_audiopreview .audiopreview-denied').length) {
 			$('.option-srmp3_settings_audiopreview .cmb-row:not(:first-child):not(:nth-child(2))').css('opacity', '0.5').css('pointer-events', 'none');
@@ -1617,6 +1615,7 @@
 
 		$('.srmp3-post-all-audiopreview-bt').click(function(e) {
 			// GENERATE BT POST ALL
+			startTimer($(this));
 			trackLength = $('.srmp3-audiopreview-bt').length;
 			e.preventDefault(); // Prevent any default behavior of the button
 			var userConfirmation = confirm("Are you sure you want to proceed?\n\nWe will generate " + trackLength + " preview files.");
@@ -1629,24 +1628,30 @@
 			} // Trigger click event on all elements with the class srmp3-audiopreview-bt
 		});
 
-		$('.srmp3-audiopreview-bt').click(function(e) {
+		$(document).on('click', '.srmp3-audiopreview-bt', function(e) {
+			
 			// GENERATE BT SPECIFIC TRACK
-			$(this).css('opacity', '0.5').css('pointer-events', 'none');
-			var parentRow = $(this).closest('.cmb-row');
 			e.preventDefault();
+			const $this = $(this);
 
-			$(this).siblings('#indexationProgress').css('display', 'inline-block').val(0);
-			originalText = $(this).text();
-			$(this).text("Generating the file(s)...");
-			$(this).addClass('spinningIcon showSpinner').removeClass('showCheckmark');
+			$this.css('opacity', '0.5').css('pointer-events', 'none');
+			var parentRow = $this.closest('.cmb-row');
+		
+			$this.siblings('#indexationProgress').css('display', 'inline-block').val(0);
+			originalText = $this.text();
+			$this.text("Generating the file(s)...");
+			$this.addClass('spinningIcon showSpinner').removeClass('showCheckmark');
 
-			if (!$(this).siblings('#stopIndexingButton').length) {
-				$(this).after('<button id="stopIndexingButton" class="srmp3-stopgenerate-bt">Stop</button>');
+			if (!$this.siblings('#stopIndexingButton').length) {
+				$this.after('<button id="stopIndexingButton" class="srmp3-stopgenerate-bt">Stop</button>');
 			}
-			$(this).siblings('#srmp3_indexTracks_status').text('Processing...');
+			$this.siblings('#srmp3_indexTracks_status').text('Processing...');
 			var posts_in;
 			var postID = $('#post_ID').val();
 			var index = null;
+
+			startTimer($this);
+
 			if (postID) {
 				//console.log('we are in a POST !!');
 				var selectElem = parentRow.prevAll('.cmb-row').find('select.cmb2_select[name^="alb_tracklist["]').first();
@@ -1658,14 +1663,32 @@
 				} else {
 					console.error("Select element not found!");
 				}
+
+				const isSaving = wp.data.select('core/editor').isSavingPost();
+				const hasContentChanges = wp.data.select('core/editor').hasChangedContent();
+
+				if (!isSaving && (hasContentChanges || hasChanges)) {
+					wp.data.dispatch('core/editor').savePost().then(() => {
+						//console.log("saved!");
+						hasChanges = false;
+						indexAudioPreview_AJAX(0, originalText, postID, index, $(this), posts_in);
+					}).catch(error => {
+						console.error("Failed to save the post:", error);
+					});
+				}else {
+					//console.log("No changes detected or post is currently being saved.");
+					indexAudioPreview_AJAX(0, originalText, postID, index, $(this), posts_in);
+				}
+
 			}else{
 				//check if we have post_id in the URL query
 				const url = new URL(window.location.href);
 				var posts_in = url.searchParams.get("posts_in");
+				indexAudioPreview_AJAX(0, originalText, postID, index, $(this), posts_in);
 
 			}
 
-			indexAudioPreview_AJAX(0, originalText, postID, index, $(this), posts_in);
+			
 		});
 
 
@@ -1680,6 +1703,7 @@
 				.css('pointer-events', 'initial');
 
 			btn.siblings('#srmp3_indexTracks_status').text('Stopped by user. ');
+			stopTimer($(btn));
 			
 			$('#indexationProgress').css('display', 'none');
 			$(this).remove();
@@ -1688,7 +1712,7 @@
 		var delete_bt_originalText = $('#srmp3-bulkRemove-bt').html();
 
 		function countFiles_AJAX(){
-			if($('.ffmpeg-not-installed').length || $('.audiopreview-denied').length) return;
+			if($('.audiopreview-denied').length) return;
 
 			//need a better check here should move it up
 			if(!$('.option-srmp3_settings_audiopreview').length) return; 
@@ -1712,6 +1736,7 @@
 			});
 		}
 		countFiles_AJAX();
+
 		$('#srmp3-bulkRemove-bt').click(function(e) {
 			e.preventDefault();
 
@@ -1770,6 +1795,46 @@
 				return;
 			}
 
+			//* start of Post EDIT */ 
+			let customData = {};
+			let audiourl = clickedButton.closest('.cmb-repeatable-grouping').find('.srmp3-admin-track-player-container audio source').attr('src');
+			let audioTitle = clickedButton.closest('.cmb-repeatable-grouping').find('#alb_tracklist_' + index + '_stream_title').val();
+			
+			var $clickedButton = clickedButton.closest('.cmb-repeatable-grouping');
+			var $targetElement = $clickedButton.find('#alb_tracklist_' + index + '_post_trimstart').closest('.cmb-row');
+
+			if ($targetElement.length && $targetElement.css('display') !== 'none') {
+				customData = {
+					trimstart: clickedButton.closest('.cmb-repeatable-grouping').find('#alb_tracklist_' + index + '_post_trimstart').val(),
+					previewLength: clickedButton.closest('.cmb-repeatable-grouping').find('#alb_tracklist_' + index + '_post_audiopreview_duration').val(),
+					fadein: clickedButton.closest('.cmb-repeatable-grouping').find('#alb_tracklist_' + index + '_post_fadein_duration').val(),
+					fadeout: clickedButton.closest('.cmb-repeatable-grouping').find('#alb_tracklist_' + index + '_post_fadeout_duration').val(),
+					watermarkFile: clickedButton.closest('.cmb-repeatable-grouping').find('#alb_tracklist_' + index + '_post_audio_watermark').val(),
+					watermarkGap: clickedButton.closest('.cmb-repeatable-grouping').find('#alb_tracklist_' + index + '_post_audio_watermark_gap').val(),
+					prerollFile: clickedButton.closest('.cmb-repeatable-grouping').find('#alb_tracklist_' + index + '_post_ad_preroll').val(),
+					postrollFile: clickedButton.closest('.cmb-repeatable-grouping').find('#alb_tracklist_' + index + '_post_ad_postroll').val()
+				};
+			}
+			//* end of Post EDIT */ 
+
+			//* start of Bulk Option Page */ 
+			let optionData = {};
+
+			$optionElement = clickedButton.closest('.option-srmp3_settings_audiopreview');
+			if ($optionElement.length) {
+				optionData = {
+					trimstart: $optionElement.find('#trimstart').val(),
+					previewLength: $optionElement.find('#audiopreview_duration').val(),
+					fadein: $optionElement.find('#fadein_duration').val(),
+					fadeout: $optionElement.find('#fadeout_duration').val(),
+					watermarkFile: $optionElement.find('#audio_watermark').val(),
+					watermarkGap: $optionElement.find('#watermark_spacegap').val(),
+					prerollFile: $optionElement.find('#ad_preroll').val(),
+					postrollFile: $optionElement.find('#ad_postroll').val(),
+				};
+			}
+			//* end of Bulk Option Page */
+
 			$.ajax({
 				url: sonaar_admin_ajax.ajax.ajax_url,
 				type: 'post',
@@ -1780,7 +1845,11 @@
 					offset: offset,
 					post_id: postID,
 					posts_in: posts_in,
-					index: index
+					index: index,
+					audioUrl: audiourl,
+					audioTitle: audioTitle,
+					customData: customData,
+					optionData: optionData,
 				},
 				success: function(response) {
 					countFiles_AJAX();
@@ -1814,16 +1883,23 @@
 							if(indexPos == trackLength){
 								completed = true;
 								$('.srmp3-post-all-audiopreview-bt').siblings('#srmp3_indexTracks_status').html('Showtime! 🎉 ( ' + indexPos + ' / ' + indexPos + ' ) <em>Don\'t forget to <strong>save</strong> this post.</em>');
-							}
+								stopTimer($('.srmp3-post-all-audiopreview-bt'));
 
+							}
+							
 							if (response.file_output != null && response.file_output != ''){
-								clickableLink = '<a href="' + file_path + '" target="_blank">Listen Preview</a>';
+								var timestamp = new Date().getTime();
+								clickableLink = '<a href="' + file_path + '?_=' + timestamp + '" target="_blank">Listen Preview</a>';
 								clickedButton.siblings('#progressText').text('');
 								clickedButton.siblings('#srmp3_indexTracks_status').html('Success! 🎉 (' + clickableLink + ') <em>Don\'t forget to <strong>save</strong> this post.</em>').css('margin-right', '10px');
+								stopTimer(clickedButton);
+
 							}else{
 								clickedButton.siblings('#srmp3_indexTracks_status').html('Showtime! 🎉').css('margin-right', '10px');
+								stopTimer(clickedButton);
 							}
 						}else{
+							stopTimer(clickedButton);
 							// There is an error!
 							clickedButton.siblings('#srmp3_indexTracks_status').html('<span style=color:red;>' + response.message + '</span>').css('margin-right', '10px');
 							
@@ -1832,6 +1908,8 @@
 						clickedButton.siblings('#stopIndexingButton').remove();
 
 						clickedButton.siblings('#indexationProgress').css('display', 'none');
+						
+
 						$('.srmp3-post-all-audiopreview-bt')
 							.removeClass('showSpinner spinningIcon')
 							.addClass('showCheckmark')
@@ -1867,8 +1945,61 @@
 						.css('opacity', '1')
 						.css('pointer-events', 'initial');
 				}
+			}).always(function() {
+				// Code to execute after the AJAX request completes
+				//console.log('AJAX request completed');
 			});
 		}
+
+		function createTimerDiv(parentElement) {
+            const timerDiv = document.createElement('div');
+            timerDiv.className = 'timer';
+            timerDiv.innerText = '0.00';
+            parentElement.before(timerDiv);
+			timerDiv.style.display = 'inline-block';
+			//set font family monospace
+			timerDiv.style.fontFamily = 'monospace';
+			//font size 11px
+			timerDiv.style.fontSize = '11px';
+
+            return timerDiv;
+        }
+
+        function removeTimerDiv(parentElement) {
+            const timerDiv = parentElement.previousElementSibling;
+            if (timerDiv && timerDiv.className === 'timer') {
+                timerDiv.remove();
+            }
+        }
+
+		function updateTimer(timerDiv, startTime) {
+			return function() {
+				const currentTime = Date.now();
+				const timeElapsed = (currentTime - startTime);
+				const seconds = (timeElapsed / 1000).toFixed(2);
+				timerDiv.innerText = seconds;
+			}
+		}
+		
+		function startTimer(button) {
+			const parentRow = button.closest('.cmb-row')[0];
+			const indexationProgress = parentRow.querySelector('#srmp3_indexTracks_status');
+			removeTimerDiv(indexationProgress); // Ensure previous timer is removed
+			const timerDiv = createTimerDiv(indexationProgress);
+			const startTime = Date.now();
+			const timerInterval = setInterval(updateTimer(timerDiv, startTime), 1); // Update every 10ms for higher precision
+			button.data('timerInterval', timerInterval);
+		}
+
+        function stopTimer(button) {
+            const parentRow = button.closest('.cmb-row')[0];
+            const indexationProgress = parentRow.querySelector('#srmp3_indexTracks_status');
+            if (button.data('timerInterval')) {
+                clearInterval(button.data('timerInterval'));
+                button.removeData('timerInterval');
+            }
+            removeTimerDiv(indexationProgress);
+        }
 
 	}
 
@@ -2126,64 +2257,6 @@
 				trackTitle.appendChild(fileNameSpan);
 			}
 		});
-	}
-
-	function srmp3_option_page_accordeons_tabs(){
-		if($('.cmb2-options-page').length && !$('body.sr_playlist_page_srmp3_settings_tools').length){
-			$('.cmb2-options-page').addClass('srmp3-option-pages-tabbed');
-			// Function to get a URL parameter
-			function getUrlParameter(url, name) {
-				name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-				var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-				var results = regex.exec(url);
-				return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-			}
-		
-			// Function to set a URL parameter
-			function setUrlParameter(url, key, value) {
-				var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-				var separator = url.indexOf('?') !== -1 ? "&" : "?";
-				if (url.match(re)) {
-					return url.replace(re, '$1' + key + "=" + value + '$2');
-				} else {
-					return url + separator + key + "=" + value;
-				}
-			}
-		
-			// Hide all sections
-			function hideAllSections() {
-				$('.cmb-row:not(.cmb-type-title)').hide();
-			}
-		
-			// Toggle section based on title
-			function toggleSection($title) {
-				$title.nextUntil('.cmb-row.cmb-type-title').toggle();
-			}
-		
-			// Check if there's a 'tab' parameter in the URL
-			let openedTabId = getUrlParameter(window.location.href, 'tab');
-		
-			hideAllSections();
-		
-			if (openedTabId) {
-				// Show the section corresponding to the tab parameter
-				toggleSection($('#' + openedTabId).closest('.cmb-row.cmb-type-title'));
-			} else {
-				// Show the first section by default
-				toggleSection($('.cmb-row.cmb-type-title').first());
-			}
-		
-			$('.cmb-row.cmb-type-title').on('click', function() {
-				let $this = $(this);
-		
-				// Update the URL with the tab ID
-				let tabId = $this.find('.cmb2-metabox-title').attr('id');
-				let newUrl = setUrlParameter(window.location.href, 'tab', tabId);
-				history.pushState(null, '', newUrl);
-		
-				toggleSection($this);
-			});
-		}
 	}
 
 	//Load Music player Content (For Gutenberg ?!)

@@ -97,10 +97,10 @@ $tab = isset( $_GET['tab'] ) ? '#'.$_GET['tab'] : '#paoc_welcome_tabs';
 		.poac-upgrade-image-wrap img{width: 100%; margin-bottom:30px;}
 
 		/**** commod deal offer ****/
-		 .poac-deal-offer-wrap{position: relative;padding: 0.75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: 0.25rem; color: #000; background-color: #ffd104; border-color: #ffd104; margin-top: 20px;}
+		 .poac-deal-offer-wrap{position: relative;padding: 0 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: 0.25rem; color: #000; background-color: #ffd104; border-color: #ffd104; margin-top: 20px;}
 
-		.poac-deal-offer{display:flex;align-items: center; margin-top: 15px;}
-		.poac-inn-deal-offer{flex-basis:60%; padding: 20px; text-align:left;}
+		.poac-deal-offer{display:flex;align-items: center;}
+		.poac-inn-deal-offer{flex-basis:60%; padding:0 20px; text-align:left;}
 		.poac-inn-deal-hedding{font-size: 22px;}
 		.poac-inn-deal-hedding span{color:#6c63ff;}
 
@@ -110,6 +110,10 @@ $tab = isset( $_GET['tab'] ) ? '#'.$_GET['tab'] : '#paoc_welcome_tabs';
 		.poac-inn-deal-code span{display: inline-block; padding:15px 60px; border: 1px #000 dashed; color: #FF1000; font-weight: 700; font-size: 18px; background-color: #FAFAD2;}
 		.poac-inn-deal-offer-btn{flex-basis:40%; padding:20px;text-align: center;}
 		.poac-inn-deal-offer-btn a{border-radius: unset; padding: 20px;}
+
+		.poac-deal-free-offer{ margin: 20px; text-align:center; }
+
+
 	</style>
 	<div class="paoc-vtab-wrap paoc-cnt-wrap paoc-clearfix">
 		<ul class="paoc-vtab-nav-wrap">

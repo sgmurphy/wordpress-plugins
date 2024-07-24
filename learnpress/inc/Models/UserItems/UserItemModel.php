@@ -12,6 +12,8 @@
 namespace LearnPress\Models\UserItems;
 
 use Exception;
+use LearnPress\Models\CoursePostModel;
+use LearnPress\Models\PostModel;
 use LearnPress\Models\UserItemMeta\UserItemMetaModel;
 use LP_Datetime;
 use LP_User;
@@ -85,6 +87,10 @@ class UserItemModel {
 	 */
 	public $parent_id = 0;
 	/**
+	 * @var null|PostModel|CoursePostModel
+	 */
+	public $item;
+	/**
 	 * @var LP_User|null
 	 */
 	public $user;
@@ -144,7 +150,8 @@ class UserItemModel {
 	 * Map array, object data to UserItemModel.
 	 * Use for data get from database.
 	 *
-	 * @param  array|object|mixed $data
+	 * @param array|object|mixed $data
+	 *
 	 * @return UserItemModel
 	 */
 	public function map_to_object( $data ): UserItemModel {
@@ -158,12 +165,30 @@ class UserItemModel {
 	}
 
 	/**
+	 * Find User Item by user_id, item_id, item_type.
+	 *
+	 * @param array $data
+	 * @param bool $no_cache
+	 *
+	 * @return false|UserItemModel|static
+	 */
+	public static function find( array $data = [], bool $no_cache = true ) {
+		$filter            = new LP_User_Items_Filter();
+		$filter->user_id   = $data['user_id'] ?? 0;
+		$filter->item_id   = $data['item_id'] ?? 0;
+		$filter->item_type = $data['item_type'] ?? '';
+
+		return static::get_user_item_model_from_db( $filter, $no_cache );
+	}
+
+	/**
 	 * Get user item from database by user_id, item_id, item_type.
 	 * If not exists, return false.
 	 * If exists, return UserItemModel.
 	 *
 	 * @param LP_User_Items_Filter $filter
 	 * @param bool $no_cache
+	 *
 	 * @return UserItemModel|false|static
 	 */
 	public static function get_user_item_model_from_db( LP_User_Items_Filter $filter, bool $no_cache = true ) {
@@ -194,6 +219,7 @@ class UserItemModel {
 	 * Get user item metadata from object meta_data or database by user_item_id, meta_key.
 	 *
 	 * @param string $key
+	 *
 	 * @return false|UserItemMetaModel
 	 */
 	public function get_meta_model_from_key( string $key ) {
@@ -201,7 +227,7 @@ class UserItemModel {
 
 		// Check object meta_data has value of key.
 		if ( $this->meta_data instanceof stdClass
-			&& property_exists( $this->meta_data, $key ) ) {
+		     && property_exists( $this->meta_data, $key ) ) {
 			$user_item_metadata = $this->meta_data->{$key};
 		} else { // Get from DB
 			$filter                          = new LP_User_Item_Meta_Filter();
@@ -218,6 +244,7 @@ class UserItemModel {
 	 *
 	 * @param string $key
 	 * @param bool $get_extra
+	 *
 	 * @return false|string
 	 */
 	public function get_meta_value_from_key( string $key, bool $get_extra = false ) {
@@ -307,6 +334,33 @@ class UserItemModel {
 		$end   = new LP_Datetime( $this->end_time );
 
 		return $end->getTimestamp() - $start->getTimestamp();
+	}
+
+	/**
+	 * Get expiration time.
+	 *
+	 * @return null|LP_Datetime $time
+	 * @since 3.3.0
+	 * @version 3.3.3
+	 */
+	public function get_expiration_time() {
+		$duration = get_post_meta( $this->item_id, '_lp_duration', true );
+
+		if ( ! absint( $duration ) || empty( $this->start_time ) ) {
+			$expire = null;
+		} else {
+			$start      = new LP_Datetime( $this->start_time );
+			$start_time = $start->getTimestamp();
+			// Convert duration from string to seconds.
+			if ( ! is_numeric( $duration ) ) {
+				$duration = strtotime( $duration ) - time();
+			}
+
+			$expire_time = $start_time + $duration;
+			$expire      = new LP_Datetime( $expire_time );
+		}
+
+		return apply_filters( 'learnPress/user-item/expiration-time', $expire, $duration, $this );
 	}
 
 	/**

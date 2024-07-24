@@ -3139,6 +3139,7 @@ body .content-item-summary .form-button-finish-course, body .lp-quiz-buttons .fo
   margin-bottom: 16px;
   border: 1px solid rgba(204, 204, 204, 0.3);
   border-radius: var(--lp-border-radius, 3px);
+  width: 100%;
 }
 .course-extra-box.active .course-extra-box__content {
   height: auto;
@@ -7024,6 +7025,10 @@ body.lp-sidebar-toggle__close #popup-header, body.lp-sidebar-toggle__close #popu
   align-items: center;
   justify-content: center;
 }
+.lp-modal-dialog .learn-press-message {
+  width: auto;
+  margin: 0 !important;
+}
 .lp-modal-dialog .lp-modal-content {
   display: inline-block;
   overflow: hidden;
@@ -7035,6 +7040,15 @@ body.lp-sidebar-toggle__close #popup-header, body.lp-sidebar-toggle__close #popu
   vertical-align: middle;
   background: white;
   color: black;
+}
+.lp-modal-dialog .lp-modal-content h2, .lp-modal-dialog .lp-modal-content h3 {
+  margin: 0;
+}
+.lp-modal-dialog .lp-modal-content .lp-group-step h3 {
+  border-bottom: 1px solid #eee;
+}
+.lp-modal-dialog .lp-modal-content .main-content .terms-upgrade .pd-2em {
+  padding: 0 1em;
 }
 .lp-modal-dialog .lp-modal-header {
   background: #7c60d9;
@@ -7049,6 +7063,7 @@ body.lp-sidebar-toggle__close #popup-header, body.lp-sidebar-toggle__close #popu
 .lp-modal-dialog .lp-modal-body .main-content {
   max-height: 500px;
   overflow: auto;
+  overscroll-behavior: contain;
 }
 .lp-modal-dialog .lp-modal-body .main-content h3, .lp-modal-dialog .lp-modal-body .main-content h2, .lp-modal-dialog .lp-modal-body .main-content .pd-2em {
   padding: 1em;

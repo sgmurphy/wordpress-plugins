@@ -1,9 +1,9 @@
-﻿=== Plugin Name ===
+﻿=== Media Library Categories ===
 Contributors: jeffrey-wp
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SSNQMST6R28Q2
-Tags: category, categories, media, library, medialibrary, image, images, media category, media categories
+Tags: category, categories, media, library, medialibrary
 Requires at least: 4.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -23,7 +23,7 @@ There is even an option to filter on categories when using the gallery shortcode
 * filter on categories in the media library
 * filter on categories in the gallery shortcode
 * taxonomy filter
-* support for WordPress 4.0 – 6.5
+* support for WordPress 4.0 – 6.6
 
 > <strong>Try Premium version - 100% money back guarantee</strong>
 > WordPress Media Library Categories Premium adds the option to filter on categories when inserting media into a post or page.

@@ -16,7 +16,7 @@ $types      = array(
 	<div class="ccb-sidebar-item-container">
 		<span class="ccb-sidebar-item-type"><?php echo esc_html( $type_value ); ?></span>
 		<draggable @start="start" @end="end" :sort="false" @change="log" :move="onMove" handle=".ccb-sidebar-item" class="ccb-sidebar-item-list" :list="$store.getters.getFields" :group="{ name: 'fields', pull: 'clone', put: false }">
-			<div class="ccb-sidebar-item" :style="getCalcSidebarItemStyleForElementStyleTourStep(field.type)" :class="[field.type, {'lock': getProFields.includes(field.tag) && '<?php echo esc_attr( $pro_active ); ?>' === ''}]" @click="addField(field)" :key="field.type" v-for="( field, index ) in $store.getters.getFields" v-if="'<?php echo esc_attr( $type_idx ); ?>' === field.sort_type">
+			<div class="ccb-sidebar-item" :style="getCalcSidebarItemStyleForElementStyleTourStep(field.type)" :class="[field.type, {'lock': getProFields.includes(field.tag) && '<?php echo esc_attr( $pro_active ); ?>' === ''}, { 'disable': getDisableFields.includes(field.tag) && getTourStep === '.calc-quick-tour-elements' && '<?php echo esc_attr( $pro_active ); ?>' !== '' }]" @click="addField(field)" :key="field.type" v-for="( field, index ) in $store.getters.getFields" v-if="'<?php echo esc_attr( $type_idx ); ?>' === field.sort_type && field.type !== 'page-navigation'">
 				<span class="ccb-sidebar-item-lock" v-if="getProFields.includes(field.tag) && '<?php echo esc_attr( $pro_active ); ?>' === ''">
 					<a :href="utmElementsGeneratedLink(field.type)" target="_blank" @click.stop>
 						<span class="ccb-item-lock-inner">
@@ -37,7 +37,6 @@ $types      = array(
 					<i class="ccb-icon-drag-dots"></i>
 				</span>
 				<span class="ccb-sidebar-item-box">
-
 					<span class="ccb-default-title ccb-bold">{{ field.name }}</span>
 				</span>
 			</div>

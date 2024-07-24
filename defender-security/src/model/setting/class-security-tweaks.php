@@ -14,7 +14,6 @@ use Calotes\Model\Setting;
  */
 class Security_Tweaks extends Setting {
 
-
 	/**
 	 * Option name.
 	 *

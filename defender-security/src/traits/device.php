@@ -10,7 +10,6 @@ namespace WP_Defender\Traits;
 
 trait Device {
 
-
 	/**
 	 * Detect if the device is a tablet.
 	 *

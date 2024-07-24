@@ -235,8 +235,6 @@ const lpAjaxParseJsonOld = data => {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*************************************************!*\
   !*** ./assets/src/js/frontend/course-filter.js ***!
   \*************************************************/
@@ -627,8 +625,6 @@ window.lpCourseFilter = {
     }
   }
 };
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=course-filter.js.map

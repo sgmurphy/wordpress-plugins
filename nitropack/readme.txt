@@ -2,9 +2,9 @@
 Contributors: nitropack
 Tags: speed, cache, performance, optimize pagespeed, lazy load, cdn, cache, critical css
 Requires at least: 4.7
-Tested up to: 6.6
+Tested up to: 6.6.1
 Requires PHP: 5.6
-Stable tag: 1.16.3
+Stable tag: 1.16.4
 License: GNU General Public License, version 2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -278,6 +278,12 @@ Yes, the plugin uses the [Intercom Chat Widget](https://widget.intercom.io), whi
 
 
 == Changelog ==
+= 1.16.4 =
+* Improvement: Untrashing now invalidates related pages.
+* Improvement: Cache Warmup now optimizes newly published CPT.
+* Bug fix: Fix "Dismiss" button for notifications coming from the NitroPack app.
+* Bug fix: General notification visual fixes and improvements.
+
 = 1.16.3 =
 * Bug fix: Compatibility with WPML when connecting NitroPack.
 

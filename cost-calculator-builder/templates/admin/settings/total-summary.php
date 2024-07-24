@@ -128,7 +128,7 @@
 					</div>
 				</div>
 			<?php endif; ?>
-			<div class="row ccb-p-t-15">
+			<div class="row ccb-p-t-15 ccb-p-b-20">
 				<div class="col col-3">
 					<div class="ccb-input-wrapper" style="max-width: 330px;">
 						<span class="ccb-input-label"><?php esc_html_e( 'Grand Total Title', 'cost-calculator-builder' ); ?></span>

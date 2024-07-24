@@ -71,8 +71,7 @@ class WPForms_Export_CSV{
 
         if( isset($_REQUEST['wpforms-csv']) && isset( $_REQUEST['nonce'] ) ){
 
-            $nonce =  $_REQUEST['nonce'];
-            if ( ! wp_verify_nonce( $nonce, 'dnonce')) {
+            if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'dnonce')) {
 
                 wp_die( 'Not Valid.. Download nonce..!! ' );
             }
@@ -88,7 +87,7 @@ class WPForms_Export_CSV{
             $per_query    = 1000;
             $total_query  = ( $total_rows / $per_query );
 
-            $this->download_send_headers( "WPFormsDB-" . date("Y-m-d") . ".csv" );
+            $this->download_send_headers( "WPFormsDB-" . gmdate("Y-m-d") . ".csv" );
             $df = fopen("php://output", 'w');
             ob_start();
 
@@ -126,7 +125,7 @@ class WPForms_Export_CSV{
 
             }
             echo ob_get_clean();
-            fclose( $df );
+            fclose( $df ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
             die();
         }
     }

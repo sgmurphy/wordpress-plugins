@@ -655,6 +655,7 @@ jQuery(document).ready(function ($) {
                                 }, animateDelay);
                             }
                             runCallbacks(r, wcForm);
+                            $(document.body).trigger('wpdiscuz_comment_posted', [r.data.new_comment_id, r.data.wc_all_comments_count_new]);
                         } else if (r.data) {
                             wpdiscuzAjaxObj.setCommentMessage(wpdiscuzAjaxObj.applyFilterOnPhrase(wpdiscuzAjaxObj[r.data], r.data, wcForm), 'error');
                             runCallbacks(r, wcForm);
@@ -671,6 +672,16 @@ jQuery(document).ready(function ($) {
                     $('#wpdiscuz-loading-bar').fadeOut(250);
                 });
     }
+
+    $(document.body).on('wpdiscuz_comment_posted', function(e, commentID, commentsCount) {
+        const threadFilter = $('.wpd-thread-filter');
+
+        if (isNaN(commentsCount) || (typeof commentsCount === 'undefined') || !commentsCount) {
+            threadFilter.find('.wpd-filter').addClass('wpdiscuz-hidden');
+        } else {
+            threadFilter.find('.wpd-filter').removeClass('wpdiscuz-hidden');
+        }
+    });
 
     function notifySubscribers(r) {
         if (!r.data.held_moderate) {

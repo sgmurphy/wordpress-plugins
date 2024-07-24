@@ -160,14 +160,14 @@ function kubio_post_edit_add_button() {
 		}
 	);
 
-	$label = base64_encode( wp_kses_post( KUBIO_LOGO_SVG ) . '<span>' . esc_html__( 'Edit with Kubio', 'kubio' ) . '</span>' );
 	ob_start();
 	?>
 
 	<script>
-		(function (data) {
-			const url = data.url;
-			const label = data.label;
+		(function () {
+			const url = <?php echo wp_json_encode( $edit_url ); ?>;
+			const icon = <?php echo wp_json_encode( base64_encode( KUBIO_LOGO_SVG ) ); ?>;
+			const label = <?php echo wp_json_encode( '<span>' . esc_html__( 'Edit with Kubio', 'kubio' ) . '</span>' ); ?>;
 			let unsubscribe = null;
 			
 			const createButton = () => {
@@ -185,7 +185,7 @@ function kubio_post_edit_add_button() {
 						) {
 							const link = document.createElement('a');
 							link.href = url;
-							link.innerHTML = atob(label);
+							link.innerHTML = atob(icon) + label;
 							link.setAttribute(
 								'class',
 								'components-button edit-in-kubio is-primary'
@@ -224,14 +224,7 @@ function kubio_post_edit_add_button() {
 
 			unsubscribe = wp.data.subscribe(createButton);
 		})(
-		<?php
-			echo wp_json_encode(
-				array(
-					'url'   => $edit_url,
-					'label' => $label,
-				)
-			);
-		?>
+		
 			);
 	</script>
 	<?php

@@ -7,6 +7,10 @@
  * @return bool
  */
 function userfeedback_is_plugin_our_addon( $plugin_file ) {
+	if ( ! userfeedback_is_pro_version() ) {
+		return false;
+	}
+
 	$addons_data = userfeedback_get_addons();
 
 	if ( ! is_array( $addons_data ) ) {

@@ -121,7 +121,7 @@ input[type="text"], textarea, select {
 				<td scope="row" valign="top">
 					<label for="lz_passwordless_sub"><?php echo __('Email Subject', 'loginizer'); ?></label><br>
 					<span class="exp"><?php echo __('Set blank to reset to the default subject', 'loginizer'); ?></span>
-					<br />Default : <?php echo @$loginizer['pl_d_sub']; ?>
+					<br />Default : <?php echo (!empty($loginizer['pl_d_sub']) ? $loginizer['pl_d_sub'] : ''); ?>
 				</td>
 				<td valign="top">
 					<input type="text" size="40" value="<?php echo lz_htmlizer(!empty($_POST['lz_passwordless_sub']) ? stripslashes($_POST['lz_passwordless_sub']) : (empty($lz_options['passwordless_sub']) ? '' : $lz_options['passwordless_sub'])); ?>" name="lz_passwordless_sub" id="lz_passwordless_sub" />
@@ -131,7 +131,7 @@ input[type="text"], textarea, select {
 				<td scope="row" valign="top">
 					<label for="lz_passwordless_msg"><?php echo __('Email Body', 'loginizer'); ?></label><br>
 					<span class="exp"><?php echo __('Set blank to reset to the default message', 'loginizer'); ?></span>
-					<br />Default : <pre style="font-size:10px"><?php echo @$loginizer['pl_d_msg']; ?></pre>
+					<br />Default : <pre style="font-size:10px"><?php echo (!empty($loginizer['pl_d_msg']) ? $loginizer['pl_d_msg'] : '') ; ?></pre>
 				</td>
 				<td valign="top">
 					<textarea rows="10" name="lz_passwordless_msg" id="lz_passwordless_msg"><?php echo lz_htmlizer(!empty($_POST['lz_passwordless_msg']) ? stripslashes($_POST['lz_passwordless_msg']) : (empty($lz_options['passwordless_msg']) ? '' : $lz_options['passwordless_msg'])); ?></textarea>

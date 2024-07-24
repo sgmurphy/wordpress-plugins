@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'ccb-fonts';
-  src:  url('fonts/ccb-fonts.eot?hv25p6');
-  src:  url('fonts/ccb-fonts.eot?hv25p6#iefix') format('embedded-opentype'),
-    url('fonts/ccb-fonts.ttf?hv25p6') format('truetype'),
-    url('fonts/ccb-fonts.woff?hv25p6') format('woff'),
-    url('fonts/ccb-fonts.svg?hv25p6#ccb-fonts') format('svg');
+  src:  url('fonts/ccb-fonts.eot?eo48nb');
+  src:  url('fonts/ccb-fonts.eot?eo48nb#iefix') format('embedded-opentype'),
+    url('fonts/ccb-fonts.ttf?eo48nb') format('truetype'),
+    url('fonts/ccb-fonts.woff?eo48nb') format('woff'),
+    url('fonts/ccb-fonts.svg?eo48nb#ccb-fonts') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -840,4 +840,10 @@
 }
 .ccb-icon-plus-lite:before {
   content: "\ea08";
+}
+.ccb-icon-page-break:before {
+  content: "\ea0d";
+}
+.ccb-icon-radius-check:before {
+  content: "\ea0e";
 }

@@ -235,8 +235,6 @@ const lpAjaxParseJsonOld = data => {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*******************************************!*\
   !*** ./assets/src/js/frontend/widgets.js ***!
   \*******************************************/
@@ -314,8 +312,6 @@ document.addEventListener('readystatechange', event => {
 document.addEventListener('DOMContentLoaded', () => {
   widgetRestAPI();
 });
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=widgets.js.map

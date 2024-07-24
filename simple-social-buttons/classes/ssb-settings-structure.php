@@ -425,7 +425,7 @@ if ( ! class_exists( 'Ssb_Settings_Structure' ) ) :
 			 <ul id="ssb_active_icons" class="items" style="min-height:35px">
 			   <?php
 				 $ssb_icons_order = array();
-				 $arrKnownButtons = array( 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber', 'fblike', 'messenger', 'email', 'print', 'tumblr' );
+				 $arrKnownButtons = array( 'twitter', 'pinterest', 'fbshare', 'linkedin', 'reddit', 'whatsapp', 'viber', 'fblike', 'messenger', 'email' , 'copylink' , 'print', 'tumblr' );
 				foreach ( $arrKnownButtons as $button_name ) {
 					$ssb_icons_order[ $button_name ] = isset( $settings[ $button_name ] ) ? $settings[ $button_name ] : 0;
 				}
@@ -484,7 +484,7 @@ if ( ! class_exists( 'Ssb_Settings_Structure' ) ) :
 			?>
 	<div class="postbox-container ssb_right_sidebar">
 	  <div id="poststuff">
-		<div class="postbox ssb_social_links_wrapper">
+		<div class="postbox ssb_social_links_wrapper ssb_spread_word">
 		  <div class="sidebar postbox">
 			<h2><?php _e( 'Spread the Word', 'simple-social-buttons' ); ?></h2>
 			<ul class="ssb_social_links">
@@ -492,21 +492,21 @@ if ( ! class_exists( 'Ssb_Settings_Structure' ) ) :
 				<a href="https://twitter.com/intent/tweet?text=Check out this (FREE) Amazing Social Share Plugin for WordPress&amp;url=https://wordpress.org/plugins/simple-social-buttons/" data-count="none" class="button twitter" target="_blank" title="Post to Twitter Now"><?php _e( 'Share on X', 'simple-social-buttons' ); ?><span class="dashicons ssb-x-icon"></span></a>
 			  </li>
 			  <li>
-				<a href="https://www.facebook.com/sharer/sharer.php?u=https://wordpress.org/plugins/simple-social-buttons/" class="button facebook" target="_blank" title="Check out this (FREE) Amazing Social Share Plugin for WordPress"><?php _e( 'Share on Facebook', 'simple-social-buttons' ); ?><span class="dashicons dashicons-facebook"></span>
+				<a href="https://www.facebook.com/sharer/sharer.php?u=https://wordpress.org/plugins/simple-social-buttons/" class="button facebook" target="_blank" title="Check out this (FREE) Amazing Social Share Plugin for WordPress"><?php _e( 'Share on Facebook', 'simple-social-buttons' ); ?><span class="dashicons dashicons-facebook-alt"></span>
 				</a>
 			  </li>
 			  <li>
-				<a href="https://wordpress.org/plugins/simple-social-buttons/?filter=5" class="button wordpress" target="_blank" title="Rate on WordPress.org"><?php _e( 'Rate on WordPress.org', 'simple-social-buttons' ); ?><span class="dashicons dashicons-wordpress"></span>
+				<a href="https://wordpress.org/support/plugin/simple-social-buttons/reviews/?filter=5" class="button wordpress" target="_blank" title="Rate on WordPress.org"><?php _e( 'Rate on WordPress.org', 'simple-social-buttons' ); ?><span class="dashicons dashicons-wordpress"></span>
 				</a>
 			  </li>
 			</ul>
 		  </div>
 		</div>
 
-		<div class="postbox ssb_social_links_wrapper">
+		<div class="postbox ssb_social_links_wrapper ssb_newsletter">
 		  <div class="sidebar postbox">
 			<h2><?php _e( 'Subscribe Newsletter', 'simple-social-buttons' ); ?></h2>
-			<ul>
+			<ul class="postbox-newsletter">
 			  <li>
 				<label for=""><?php _e( 'Email', 'simple-social-buttons' ); ?></label>
 				<input type="email" name="subscriber_mail" value="<?php echo get_option( 'admin_email' ); ?>" id="ssb_subscribe_mail">
@@ -527,21 +527,21 @@ if ( ! class_exists( 'Ssb_Settings_Structure' ) ) :
 		  </div>
 		</div>
 
-		<div class="postbox ssb_social_links_wrapper">
+		<div class="postbox ssb_social_links_wrapper ssb_other_plugin">
 		  <div class="sidebar postbox">
 			<h2><?php _e( 'Recommended Plugins', 'simple-social-buttons' ); ?></h2>
 			<ul class="plugins_lists">
 			  <li>
-				<a href="https://loginpress.pro/?utm_source=ssb-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="Post to Twitter Now">Customize WordPress Login Page</a>
+				<a href="https://loginpress.pro/?utm_source=ssb-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade&utm_content=text-link" target="_blank" title="Post to Twitter Now">Customize WordPress Login Page</a>
 			  </li>
 			  <li>
-				<a href="https://analytify.io/ref/73/?utm_source=ssb-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="Share with your facebook friends about this awesome plugin.">Simplify Google Analytics in WordPress</a>
+				<a href="https://analytify.io/ref/73/?utm_source=ssb-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade&utm_content=text-link" target="_blank" title="Share with your facebook friends about this awesome plugin.">Simplify Google Analytics in WordPress</a>
 			  </li>
 			  <li>
-				<a href="https://wpbrigade.com/wordpress/plugins/related-posts/?utm_source=ssb-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="Related Posts Thumbnails">Related Posts Thumbnails</a>
+				<a href="https://wpbrigade.com/wordpress/plugins/related-posts/?utm_source=ssb-lite&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade&utm_content=text-link" target="_blank" title="Related Posts Thumbnails">Related Posts Thumbnails</a>
 			  </li>
 			  <li>
-				<a href="https://wpbrigade.com/recommend/maintenance-mode" target="_blank" title="Under Construction &amp; Maintenance mode">Under Construction &amp; Maintenance mode
+				<a href="https://wpbrigade.com/recommend/maintenance-mode&utm_content=text-link" target="_blank" title="Under Construction &amp; Maintenance mode">Under Construction &amp; Maintenance mode
 				</a>
 			  </li>
 			</ul>
@@ -910,7 +910,7 @@ if ( ! class_exists( 'Ssb_Settings_Structure' ) ) :
 				$tabs[] = array(
 					'id'    => 'ssb_go_pro',
 					'title' => '<span class="dashicons dashicons-star-filled"></span>Upgrade To Pro For More Features',
-					'link'  => 'https://wpbrigade.com/wordpress/plugins/simple-social-buttons-pro/?utm_source=simple-social-buttons-lite&utm_medium=tab&utm_campaign=pro-upgrade',
+					'link'  => 'https://simplesocialbuttons.com/pricing/?utm_source=simple-social-buttons-lite&utm_medium=tab&utm_campaign=pro-upgrade',
 				);
 			}
 			foreach ( $tabs as $tab ) {

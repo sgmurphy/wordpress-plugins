@@ -16,7 +16,6 @@ use WP_Error;
  */
 class Server_Factory {
 
-
 	/**
 	 * Server name holder for showing notice.
 	 *

@@ -334,6 +334,7 @@ class SRMP3_ShortcodeBuilder {
             'show_repeat_bt',
             'show_speed_bt',
             'show_volume_bt',
+            'show_miniplayer_note_bt',
             
             'progress_bar_style',
             'wave_bar_width',
@@ -444,6 +445,7 @@ class SRMP3_ShortcodeBuilder {
             unset($_POST['show_repeat_bt']);
             unset($_POST['show_speed_bt']);
             unset($_POST['show_volume_bt']);
+            unset($_POST['show_miniplayer_note_bt']);
             unset($_POST['hide_progressbar']);
             unset($_POST['hide_times']);
             unset($_POST['hide_times_typo']);
@@ -1001,6 +1003,7 @@ class SRMP3_ShortcodeBuilder {
                             strpos($key, 'show_repeat_bt') !== false ||
                             strpos($key, 'show_speed_bt') !== false ||
                             strpos($key, 'show_volume_bt') !== false ||
+                            strpos($key, 'show_miniplayer_note_bt') !== false ||
                             strpos($key, 'show_track_publish_date') !== false
                             ) {
                             $shortcode .= ' ' . $key . '="false"';
@@ -1806,7 +1809,7 @@ class SRMP3_ShortcodeBuilder {
                 'alpha'         => false,
             ),
             'attributes'  => array(
-                'data-target-selector' => '.control div, .control i, .srp-play-button .sricon-play, .srp_noteButton{color:{{VALUE}}; } .control .play, .srp-play-circle, .sr_speedRate div{ border-color:{{VALUE}}; }',
+                'data-target-selector' => '.control div, .control i, .srp-play-button .sricon-play, .album-player .srp_noteButton{color:{{VALUE}}; } .control .play, .srp-play-circle, .sr_speedRate div{ border-color:{{VALUE}}; }',
                 'data-conditional-id'    => 'show_mini_player',
                 'data-conditional-value' => 'true', 
                 'data-colorpicker' => setDefaultColorPalettes(),
@@ -2340,6 +2343,35 @@ class SRMP3_ShortcodeBuilder {
             'attributes'  => array(
                 'data-conditional-id'    => 'show_mini_player',
                 'data-conditional-value' => 'true', 
+            ),
+            'classes_cb'    => array('Sonaar_Music_Admin', 'pro_feature_class_cb'),
+            'plan_required' => 'starter',
+            'before'        => array('Sonaar_Music_Admin', 'promo_ad_text_cb'),
+        ) );
+        $shortcode_options->add_field( array(
+            'name'          => esc_html__('Show Info Icon', 'sonaar-music'),
+            'id'            => 'show_miniplayer_note_bt',
+            'type'          => 'select',
+            'options'       => array(
+                'default'   => esc_html__('Default', 'sonaar-music'),
+                'true'      => esc_html__('Yes', 'sonaar-music'),
+                'false'     => esc_html__('No', 'sonaar-music'),
+            ),
+            'default'       => 'default',
+            'attributes'  => array(
+                'data-conditional' => wp_json_encode(array(
+                    'logic' => 'AND', // Could be 'OR'
+                    'conditions' => array(
+                        array(
+                            'id'    => 'player_layout',
+                            'value' => 'skin_boxed_tracklist'
+                        ),
+                        array(
+                            'id'    => 'show_mini_player',
+                            'value' => 'true'
+                        )
+                    ),
+                )),
             ),
             'classes_cb'    => array('Sonaar_Music_Admin', 'pro_feature_class_cb'),
             'plan_required' => 'starter',
@@ -2941,7 +2973,7 @@ class SRMP3_ShortcodeBuilder {
             'id'            => 'hide_info_icon',
             'type'          => 'switch',
             'attributes'  => array(
-                'data-target-selector' => '.srp_noteButton, .srp_info_spacer{ display:none; }',
+                'data-target-selector' => '.srp_tracklist .srp_noteButton, .srp_info_spacer{ display:none; }',
                 'data-target-unit'     => 'px',
                 'data-conditional-id'    => 'scbuilder_show_playlist',
                 'data-conditional-value' => 'true', 
@@ -2964,7 +2996,7 @@ class SRMP3_ShortcodeBuilder {
                 
             ),
             'attributes'  => array(
-                'data-target-selector' => '.srp_note_title',
+                'data-target-selector' => '.playlist .srp_note_title',
                 'data-conditional' => wp_json_encode(array(
                     'logic' => 'AND', // Could be 'OR'
                     'conditions' => array(
@@ -2998,7 +3030,7 @@ class SRMP3_ShortcodeBuilder {
                 
             ),
             'attributes'  => array(
-                'data-target-selector' => '.srp_note',
+                'data-target-selector' => '.playlist .srp_note',
                 'data-conditional' => wp_json_encode(array(
                     'logic' => 'AND', // Could be 'OR'
                     'conditions' => array(
@@ -3027,7 +3059,7 @@ class SRMP3_ShortcodeBuilder {
                 'alpha'         => false,
             ),
             'attributes'  => array(
-                'data-target-selector' => '.srp_note{background-color:{{VALUE}}; }',
+                'data-target-selector' => '.playlist .srp_note{background-color:{{VALUE}}; }',
                 'data-conditional' => wp_json_encode(array(
                     'logic' => 'AND', // Could be 'OR'
                     'conditions' => array(

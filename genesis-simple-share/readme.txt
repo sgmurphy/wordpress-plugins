@@ -2,7 +2,7 @@
 Contributors: nathanrice, studiopress, wpmuguru, nick_thegeek, bgardner, marksabbath, osompress, esther_sola, nahuai
 Tags: genesis, share, share buttons, facebook, twitter, pinterest, stumbleupon, linkedin, social
 Requires at least: 3.7
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

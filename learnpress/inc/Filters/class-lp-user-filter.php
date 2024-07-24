@@ -12,10 +12,6 @@
  */
 defined( 'ABSPATH' ) || exit();
 
-if ( class_exists( 'LP_Question_Filter' ) ) {
-	return;
-}
-
 class LP_User_Filter extends LP_Filter {
 	/**
 	 * @var string[] List of fields can be filtered.
@@ -27,6 +23,10 @@ class LP_User_Filter extends LP_Filter {
 		'user_email',
 		'display_name',
 	];
+	/**
+	 * @var int user id.
+	 */
+	public $ID = 0;
 	/**
 	 * @var int[] List of user ids.
 	 */

@@ -14,7 +14,6 @@ use Calotes\Model\Setting;
  */
 class Global_Ip_Lockout extends Setting {
 
-
 	/**
 	 * Option name.
 	 *

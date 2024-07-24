@@ -2,19 +2,19 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+ $plugin-version: "5.6"; // Update this version number as needed
  :root {
     --srp-admin-color: #7501e0;
     --srp-admin-color2: #0c999b;
   }
- @font-face {
+  @font-face {
     font-family: "sricons";
-    src: url("../../public/webfonts/sricons/font/sricons.eot?1b5ca7");
-    src: url("../../public/webfonts/sricons/font/sricons.eot?1b5ca7#iefix")
-        format("embedded-opentype"),
-      url("../../public/webfonts/sricons/font/sricons.woff2?1b5ca7") format("woff2"),
-      url("../../public/webfonts/sricons/font/sricons.ttf?1b5ca7") format("truetype"),
-      url("../../public/webfonts/sricons/font/sricons.woff?1b5ca7") format("woff"),
-      url("../../public/webfonts/sricons/font/sricons.svg?1b5ca7#sricons") format("svg");
+    src: url("../../public/webfonts/sricons/font/sricons.eot?#{$plugin-version}");
+    src: url("../../public/webfonts/sricons/font/sricons.eot?#{$plugin-version}#iefix") format("embedded-opentype"),
+      url("../../public/webfonts/sricons/font/sricons.woff2?#{$plugin-version}") format("woff2"),
+      url("../../public/webfonts/sricons/font/sricons.woff?#{$plugin-version}") format("woff"),
+      url("../../public/webfonts/sricons/font/sricons.ttf?#{$plugin-version}") format("truetype"),
+      url("../../public/webfonts/sricons/font/sricons.svg?#{$plugin-version}#sricons") format("svg");
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -161,23 +161,29 @@
     max-width:370px;
 }
 
-
-
 *[class*="page_srmp3_settings"] .nav-tab {
     float: left;
     border: unset;
     margin-left: 0px;
     padding: 5px 10px;
     font-size: 15px;
-    line-height: 1.71428571;
+    line-height: 18px;
     font-weight: 400;
     background: unset;
     border-radius: 0px 6px 6px 0px;
     color: #50575e;
     text-decoration: none;
     white-space: nowrap;
-    background-color: #fff;
+    background-color: #f8f8f8;
     padding: 10px 15px 10px 15px;
+    
+    .srmp3-nav-tab-desc{
+        font-size:11px;
+        font-weight:400;
+    }
+}
+*[class*="page_srmp3_settings"] #ui-datepicker-div{
+    z-index: 2!important;
 }
 *[class*="page_srmp3_settings"] .nav-tab-active {
     border-left: 2px solid #7401df;
@@ -187,10 +193,11 @@
 
 }
 *[class*="page_srmp3_settings"] .nav-tab:hover {
-    background-color: #f7f7f7;
+    color:#7401df;
+    background-color: #f8f3fe;
 }
 *[class*="page_srmp3_settings"] .nav-tab:focus {
-    color: inherit;
+   // color: inherit;
     box-shadow: unset;
     outline: unset;
 }
@@ -346,6 +353,9 @@ margin-right:4px;
     margin-left: -70px;
     opacity: 0;
     transition: all 0.3s;
+    .srmp3_tooltip_desc{
+        font-weight:initial;
+    }
 }
   /* Tooltip arrow */
 .cmb2-wrap .srmp3_tooltip .srmp3_tooltiptext::after {
@@ -1296,9 +1306,33 @@ body.admin-color-fresh #adminmenu #menu-posts-sr_playlist a[href="?page=go_pro"]
 .srmp3-cmb2-preview-file .file-status span{
     display:none;
 }
-.srmp3-generate-bt {
+/*.srmp3-generate-bt {
     font-size: 14px;
     padding: 5px 10px;
+}*/
+.srmp3-admin-small-bt{
+    vertical-align: middle;
+    background-color: #f6f7f7;
+    color: #2371b1;
+    font-size: 11px;
+    padding: 4px 10px;
+    border: 1px solid #2371b1;
+    text-decoration: none;
+    border-radius: 2px;
+}
+.srmp3-generate-bt {
+    transition: 250ms ease;
+    background-color: #7501E0;
+    cursor: pointer;
+    font-weight: 400;
+    color: #fff;
+    border: unset;
+    border-radius: 4px;
+    font-size: 13px;
+    padding: 8px 20px;
+    &:hover {
+        background-color: #942cf4;
+    }
 }
 .srmp3-generate-bt.showSpinner:before {
     content: "\f463";
@@ -1310,7 +1344,7 @@ body.admin-color-fresh #adminmenu #menu-posts-sr_playlist a[href="?page=go_pro"]
     vertical-align: middle;
 }
 .srmp3-generate-bt.showCheckmark:before {
-    color: green;
+    color: rgb(255, 255, 255);
     content: "\f15e";
     font-family: 'dashicons';
     font-size: 16px;

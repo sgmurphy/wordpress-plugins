@@ -359,13 +359,13 @@ const upgradeDB = () => {
   const elStatusUpgrade = elToolUpgradeDB.find('.wrapper-lp-status-upgrade');
   const elWrapperUpgradeMessage = elToolUpgradeDB.find('.wrapper-lp-upgrade-message');
   let checkValidBeforeUpgrade = null;
+  const elMessageUpgrading = $('input[name=message-when-upgrading]').val();
   if (elWrapperTermsUpgrade.length) {
     // Show Terms Upgrade.
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elWrapperTermsUpgrade.html());
     const elTermUpdate = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.find('.terms-upgrade');
     const elLPAgreeTerm = elTermUpdate.find('input[name=lp-agree-term]');
     const elTermMessage = elTermUpdate.find('.error');
-    const elMessageUpgrading = $('input[name=message-when-upgrading]').val();
     checkValidBeforeUpgrade = function () {
       elTermMessage.hide();
       elTermMessage.removeClass('learn-press-message');
@@ -374,7 +374,6 @@ const upgradeDB = () => {
           agree_terms: 1
         }, {});
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.find('.learn-press-notice').remove();
-        _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.prepend('<span class="learn-press-notice">' + elMessageUpgrading + '</span>');
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elStatusUpgrade.html());
         return true;
       }
@@ -395,10 +394,15 @@ const upgradeDB = () => {
   _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setTitleModal(elToolUpgradeDB.find('h2').html());
   _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes.text('Upgrade');
   _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes.show();
-  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.text('close');
-  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = function () {
+  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.text('Cancel');
+  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = function (e) {
     if (!checkValidBeforeUpgrade()) {
       return;
+    }
+    const target = e.target;
+    // Show message note when upgrading.
+    if (target.innerText === 'Upgrade') {
+      _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.prepend('<span class="learn-press-notice">' + elMessageUpgrading + '</span>');
     }
     isUpgrading = 1;
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes.hide();
@@ -465,6 +469,7 @@ const upgradeDB = () => {
             _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elWrapperUpgradeMessage.html());
           }, 1000);
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.find('.learn-press-notice').remove();
+          _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.text('Close');
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.show();
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.on('click', () => {
             window.location.reload();
@@ -917,7 +922,7 @@ const lpModalOverlay = {
       e.preventDefault();
       e.stopPropagation();
       if ('function' === typeof lpModalOverlay.callBackYes) {
-        lpModalOverlay.callBackYes();
+        lpModalOverlay.callBackYes(e);
       }
     });
     this.instance = this;
@@ -1019,8 +1024,6 @@ module.exports = window["React"];
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/tools.js ***!
   \*************************************************/
@@ -1131,8 +1134,6 @@ __webpack_require__.r(__webpack_exports__);
     $doc.on('click', '.lp-install-sample__install', installSampleCourse).on('click', '.lp-install-sample__uninstall', uninstallSampleCourse).on('click', '#learn-press-clear-cache', clearHardCache).on('click', 'input[name="enable_hard_cache"]', toggleHardCache).on('click', '.lp-install-sample__toggle-options', toggleOptions);
   });
 })(jQuery);
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=tools.js.map

@@ -10,7 +10,7 @@ if (!class_exists('DHInfo')) :
 		public $badgeinfo = 'dhbadge';
 		public $ip_header_option = 'dhipheader';
 		public $brand_option = 'dhbrand';
-		public $version = '5.56';
+		public $version = '5.65';
 		public $webpage = 'https://www.dreamhost.com';
 		public $appurl = 'https://migrate.blogvault.net';
 		public $slug = 'dreamhost-automated-migration/dreamhost.php';
@@ -60,7 +60,10 @@ if (!class_exists('DHInfo')) :
 		public function getConnectionKey() {
 			require_once dirname( __FILE__ ) . '/recover.php';
 			$bvsiteinfo = new DHWPSiteInfo();
-			return base64_encode(DHRecover::defaultSecret($this->settings).":".$bvsiteinfo->siteurl());
+			$encoded_url = base64_encode($bvsiteinfo->siteurl());
+			$secret = DHRecover::defaultSecret($this->settings);
+
+			return base64_encode("v1:".$secret.":".$encoded_url);
 		}
 
 		public function getDefaultSecret() {

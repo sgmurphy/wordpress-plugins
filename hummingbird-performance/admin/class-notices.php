@@ -554,6 +554,7 @@ class Notices {
 			$recheck_file_url = add_query_arg(
 				array(
 					'recheck-files' => 'true',
+					'_wpnonce'      => wp_create_nonce( 'wphb-recheck-files' ),
 				),
 				Utils::get_admin_menu_url( 'minification' )
 			);

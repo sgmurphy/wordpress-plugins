@@ -1,4 +1,11 @@
 <?php
+
+use LearnPress\Models\CourseModel;
+use LearnPress\Models\CoursePostModel;
+use LearnPress\Models\Courses;
+use LearnPress\Models\UserItems\UserCourseModel;
+use LearnPress\Models\UserModel;
+
 class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 	protected $namespace = 'learnpress/v1';
 
@@ -15,7 +22,7 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 			array(
 				array(
 					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_items' ),
+					'callback'            => array( $this, 'get_courses' ),
 					'permission_callback' => array( $this, 'get_items_permissions_check' ),
 					'args'                => $this->get_collection_params(),
 				),
@@ -183,10 +190,10 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 	 *
 	 * Correctly handles courses with the inherit status.
 	 *
-	 * @author Nhamdv
-	 *
 	 * @return bool Whether the post can be read.
-	 * */
+	 * *@author Nhamdv
+	 *
+	 */
 	public function check_read_permission( $post_id ) {
 		if ( empty( absint( $post_id ) ) ) {
 			return false;
@@ -377,6 +384,208 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 		return rest_ensure_response( $response );
 	}
 
+	/**
+	 * Convert params App to query courses.
+	 *
+	 * @param $params
+	 *
+	 * @return array|mixed
+	 */
+	public function convert_params_query_courses( $params = [] ) {
+		$params['limit'] = $params['per_page'] ?? 10;
+
+		$params['paged'] = $params['page'] ?? 1;
+
+		if ( ! empty( $params['popular'] ) ) {
+			$params['order_by'] = 'popular';
+		} else {
+			$params['order_by'] = $params['orderby'] ?? 'menu_order';
+			switch ( $params['order_by'] ) {
+				case 'date':
+					$params['order_by'] = 'post_date';
+					$params['order']    = $params['order'] ?? 'DESC';
+					break;
+				case 'title':
+					$params['order_by'] = 'post_title';
+					break;
+				case 'price':
+					if ( ! empty( $params['order'] ) && 'asc' === $params['order'] ) {
+						$params['order_by'] = 'price_low';
+					}
+					break;
+				default:
+					$params['order'] = $params['order'] ?? 'DESC';
+					break;
+			}
+		}
+
+		if ( ! empty( $params['search'] ) ) {
+			$params['c_search'] = trim( $params['search'] );
+		}
+
+		if ( ! empty( $params['user'] ) ) {
+			$params['c_author'] = $params['user'];
+		}
+
+		if ( ! empty( $params['on_sale'] ) ) {
+			$params['sort_by'] = 'on_sale';
+		}
+
+		$params['return_type']   = 'json';
+		$params['c_only_fields'] = empty( $params['c_only_fields'] ) ? '' : explode( ',', $params['c_only_fields'] );
+		$params['term_id']       = empty( $params['category'] ) || 'all' === $params['category'] ? '' : implode( ',', $params['category'] );
+
+		return $params;
+	}
+
+	public function get_courses( WP_REST_Request $request ) {
+		$res         = new LP_REST_Response();
+		$courses     = [];
+		$total       = 0;
+		$total_pages = 0;
+		try {
+			$filter = new LP_Course_Filter();
+			$params = $request->get_params();
+			$params = $this->convert_params_query_courses( $params );
+			if ( ! empty( $params['c_only_fields'] ) ) {
+				$filter->only_fields = $params['c_only_fields'];
+			}
+
+			Courses::handle_params_for_query_courses( $filter, $params );
+			$key_cache             = 'api/' . md5( json_encode( $params ) );
+			$key_cache_total       = $key_cache . '_total';
+			$key_cache_total_pages = $key_cache . '_total_pages';
+			$lp_courses_cache      = new LP_Courses_Cache( true );
+
+			if ( ! empty( $params['learned'] ) ) {
+				$user_id = get_current_user_id();
+				// For tst user hard code
+				// $user_id = ! empty( $params['user_id'] ) ? $params['user_id'] : get_current_user_id();
+				if ( $user_id <= 0 ) {
+					$user_id = - 1;
+				}
+				// Get courses that user has learned
+				/*$lp_user_courses                         = LP_User_Items_DB::getInstance();
+				$filter_user_course                      = new LP_User_Items_Filter();
+				$filter_user_course->only_fields         = array( 'DISTINCT(item_id) AS ID' );
+				$filter_user_course->user_id             = $user_id;
+				$filter_user_course->item_type           = LP_COURSE_CPT;
+				$filter_user_course->return_string_query = true;
+				$user_courses_query                      = $lp_user_courses->get_user_items( $filter_user_course );
+				$params                                  = $lp_user_courses->get_user_items( $filter_user_course );
+				$filter->where[] = "AND p.ID IN ({$user_courses_query})";*/
+
+				$lp_user_items_db = LP_User_Items_DB::getInstance();
+				$filter->fields[] = 'ui.user_item_id, ui.user_id, ui.item_id, ui.start_time, ui.end_time, ui.item_type, ui.graduation, ui.status';
+				$filter->join[]   = "LEFT JOIN $lp_user_items_db->tb_lp_user_items AS ui ON p.ID = ui.item_id";
+				$filter->where[]  = $lp_user_items_db->wpdb->prepare( "AND ui.user_id = %s", $user_id );
+				$filter->where[]  = $lp_user_items_db->wpdb->prepare( "AND ui.item_type = %s", LP_COURSE_CPT );
+				if ( ! empty( $params['course_filter'] ) ) {
+					$filter->where[] = $lp_user_items_db->wpdb->prepare( "AND ui.graduation = %s", $params['course_filter'] );
+				}
+			} else {
+				// Check cache with case not learned
+				$courses_cache = $lp_courses_cache->get_cache( $key_cache );
+				if ( $courses_cache !== false ) {
+					$courses     = json_decode( $courses_cache, true );
+					$total       = (int) $lp_courses_cache->get_cache( $key_cache_total );
+					$total_pages = (int) $lp_courses_cache->get_cache( $key_cache_total_pages );
+
+					$response = rest_ensure_response( $courses );
+					$response->header( 'X-WP-Total', $total );
+					$response->header( 'X-WP-TotalPages', $total_pages );
+
+					return $response;
+				}
+			}
+
+			$rs_courses  = Courses::get_courses( $filter, $total );
+			$courses     = $this->prepare_struct_courses_response( $rs_courses, $params );
+			$total_pages = LP_Database::get_total_pages( $filter->limit, $total );
+		} catch ( Throwable $e ) {
+			$res->message = $e->getMessage();
+
+			return $res;
+		}
+
+		$response = rest_ensure_response( $courses );
+		$response->header( 'X-WP-Total', $total );
+		$response->header( 'X-WP-TotalPages', $total_pages );
+
+		// Set cache with case not learned
+		if ( empty( $params['learned'] ) ) {
+			$lp_courses_cache->set_cache( $key_cache, json_encode( $courses, JSON_UNESCAPED_UNICODE ) );
+			$lp_courses_cache->save_cache_keys( LP_Courses_Cache::KEYS_QUERY_COURSES_APP, $key_cache );
+			$lp_courses_cache->set_cache( $key_cache_total, $total );
+			$lp_courses_cache->save_cache_keys( LP_Courses_Cache::KEYS_QUERY_COURSES_APP, $key_cache_total );
+			$lp_courses_cache->set_cache( $key_cache_total_pages, $total_pages );
+			$lp_courses_cache->save_cache_keys( LP_Courses_Cache::KEYS_QUERY_COURSES_APP, $key_cache_total_pages );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public function prepare_struct_courses_response( $courses, $params ): array {
+		$data = [];
+		foreach ( $courses as $courseObj ) {
+			$course = CourseModel::find( $courseObj->ID );
+			if ( empty( $course ) ) {
+				// For course not save on table learnpress_courses but still can use object has course ID
+				$course = new CourseModel( $courseObj );
+			}
+
+			$courseObjPrepare                        = new stdClass();
+			$courseObjPrepare->id                    = (int) $courseObj->ID;
+			$courseObjPrepare->name                  = $courseObj->post_title;
+			$courseObjPrepare->image                 = $course->get_image_url();
+			$author                                  = $course->get_author_model();
+			$courseObjPrepare->instructor            = ! empty( $author ) ? $this->get_author_info( $author ) : [];
+			$courseObjPrepare->categories            = $course->get_categories();
+			$courseObjPrepare->price                 = $course->get_price();
+			$courseObjPrepare->price_rendered        = $this->render_course_price( $course );
+			$courseObjPrepare->origin_price          = $course->get_regular_price();
+			$courseObjPrepare->origin_price_rendered = html_entity_decode(
+				learn_press_format_price( $courseObjPrepare->origin_price, true )
+			);
+			$courseObjPrepare->on_sale               = $course->has_sale_price();
+			$courseObjPrepare->sale_price            = (float) $course->get_sale_price();
+			$courseObjPrepare->sale_price_rendered   = html_entity_decode(
+				learn_press_format_price( $course->get_sale_price(), true )
+			);
+			// When release Addon Course Review v4.1.3 a long time, we will remove this code.
+			$courseObjPrepare->rating                           = $this->get_course_rating( $courseObj->ID );
+			$courseObjPrepare->meta_data                        = new stdClass();
+			$courseObjPrepare->meta_data->_lp_passing_condition = $course->get_meta_value_by_key( CoursePostModel::META_KEY_PASSING_CONDITION );
+
+
+			// Add more fields
+			if ( ! empty( $params['learned'] ) ) {
+				$courseObjPrepare->course_data               = new stdClass();
+				$courseObjPrepare->course_data->user_item_id = $courseObj->user_item_id ?? 0;
+				$courseObjPrepare->course_data->user_id      = $courseObj->user_id ?? 0;
+				$courseObjPrepare->course_data->item_id      = $courseObj->item_id ?? 0;
+				$courseObjPrepare->course_data->item_type    = $courseObj->item_type ?? 0;
+				$courseObjPrepare->course_data->status       = $courseObj->status ?? '';
+				$courseObjPrepare->course_data->graduation   = $courseObj->graduation ?? '';
+				$courseObjPrepare->course_data->start_time   = $courseObj->start_time ?? '';
+				$courseObjPrepare->course_data->end_time     = $courseObj->end_time ?? '';
+
+				$userCourse                                     = new UserCourseModel( $courseObjPrepare->course_data );
+				$expirationTime                                 = $userCourse->get_expiration_time();
+				$courseObjPrepare->course_data->expiration_time = $expirationTime ? $expirationTime->format( LP_Datetime::I18N_FORMAT ) : __( 'Lifetime', 'learnpress' );
+				$courseObjPrepare->course_data->result          = $userCourse->calculate_course_results();
+			}
+
+			$courseObjPrepare = apply_filters( 'learnPress/prepare_struct_courses_response/courseObjPrepare', $courseObjPrepare, $course );
+			$data[]           = $courseObjPrepare;
+		}
+
+		return $data;
+	}
+
 	public function enroll_course( $request ) {
 		if ( ! class_exists( 'LP_REST_Courses_Controller' ) ) {
 			include_once LP_PLUGIN_PATH . 'inc/rest-api/v1/frontend/class-lp-rest-courses-controller.php';
@@ -424,19 +633,25 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 	public function retake_course( $request ) {
 		$response = new LP_REST_Response();
 
-		if ( ! class_exists( 'LP_REST_Courses_Controller' ) ) {
-			include_once LP_PLUGIN_PATH . 'inc/rest-api/v1/frontend/class-lp-rest-courses-controller.php';
+		try {
+			if ( ! class_exists( 'LP_REST_Courses_Controller' ) ) {
+				include_once LP_PLUGIN_PATH . 'inc/rest-api/v1/frontend/class-lp-rest-courses-controller.php';
+			}
+
+			$course_controller = new LP_REST_Courses_Controller();
+			$response          = $course_controller->retake_course( $request );
+		} catch ( Throwable $e ) {
+			$response->message = $e->getMessage();
 		}
 
-		$course_controller = new LP_REST_Courses_Controller();
-
-		return $course_controller->retake_course( $request );
+		return $response;
 	}
 
 	/**
 	 * Create a single product.
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function create_item( $request ) {
@@ -589,7 +804,7 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 					$data['tags'] = $this->get_course_taxonomy( $id, 'course_tag' );
 					break;
 				case 'instructor':
-					$data['instructor'] = $this->get_instructor_info( $id, $request, $course );
+					$data['instructor'] = $this->get_instructor_info( $course );
 					break;
 				case 'sections':
 					$data['sections'] = $this->get_all_items( $course );
@@ -624,6 +839,32 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 		$data['meta_data'] = $this->get_course_meta( $id );
 
 		return $data;
+	}
+
+	/**
+	 * Handle price course return to App
+	 *
+	 * @param CourseModel $course
+	 *
+	 * @return string
+	 * @throws Exception
+	 * @version 1.0.0
+	 * @since 4.2.6.9
+	 */
+	public function render_course_price( CourseModel $course ): string {
+		$price_string = '';
+
+		if ( $course->is_free() ) {
+			$price_string = apply_filters(
+				'learn_press_course_price_html_free',
+				esc_html__( 'Free', 'learnpress' ),
+				$this
+			);
+		} else {
+			$price_string .= learn_press_format_price( $course->get_price() );
+		}
+
+		return html_entity_decode( $price_string );
 	}
 
 	public function get_retaken_count( $id ) {
@@ -701,8 +942,15 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 		return false;
 	}
 
-	public function get_instructor_info( $id, $request, $course ) {
-		$user_id = get_post_meta( $id, '_lp_course_author', true );
+	/**
+	 * Get instructor info
+	 *
+	 * @param LP_Course $course
+	 *
+	 * @return array
+	 */
+	public function get_instructor_info( $course ) {
+		$user_id = get_post_meta( $course->get_id(), '_lp_course_author', true );
 
 		$output = array();
 
@@ -722,6 +970,23 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 				$output['social']      = $extra_info;
 			}
 		}
+
+		return $output;
+	}
+
+	/**
+	 * Get instructor info
+	 *
+	 * @param UserModel $author
+	 *
+	 * @return array
+	 */
+	public function get_author_info( $author ): array {
+		$output                = [];
+		$output['avatar']      = $author->get_image_url();
+		$output['id']          = $author->get_id();
+		$output['name']        = $author->display_name;
+		$output['description'] = $author->get_description();
 
 		return $output;
 	}
@@ -795,6 +1060,8 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 
 	/**
 	 * Get Items of sections
+	 *
+	 * @param LP_Course $course
 	 *
 	 * @throws Exception
 	 * @editor tungnx

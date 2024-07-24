@@ -1,5 +1,9 @@
 <?php
 
+if(!defined('ABSPATH')){
+	die('HACKING ATTEMPT!');
+}
+
 include_once(LOGINIZER_DIR.'/lib/IPv6/IPv6.php');
 
 // Get the client IP

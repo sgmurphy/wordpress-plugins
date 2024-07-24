@@ -409,6 +409,8 @@ class Admin {
 			return;
 		}
 
+		check_admin_referer( 'wphb-clear-cache' );
+
 		WP_Hummingbird::flush_cache();
 		Utils::get_module( 'page_cache' )->toggle_service( false );
 

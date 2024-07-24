@@ -4,9 +4,9 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: Database backup, db backup, cloud backup, files backup, wordpress backup.
 Requires at least: 3.1+
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6.20
-Stable tag: 6.11
+Stable tag: 6.12
 
 Create & Restore Database Backup easily on single click. Manual or automated backups (backup to Dropbox, Google drive, Amazon s3,FTP,Email).
 
@@ -77,9 +77,15 @@ Bug reports for WP Database Backup  are [welcomed on GitHub](https://github.com/
 
 == Changelog ==
 
+= 6.12 =
+* 24-07-2024
+* Improvement: Code & Performance Improvement according to Plugin check #90
+* Compatibility: Tested with WordPress version 6.6
+* Fixed: Multiple backups are getting created #89
+
 = 6.11 =
 * 13-06-2024
-* Added: Support for backblaze S2 Storage. #85
+* Improvement: Added support for backblaze. #85
 
 = 6.10 =
 * 24-05-2024
@@ -196,3 +202,28 @@ Also Please make sure that you have write permission to Backup folder and also c
 
 == Upgrade Notice ==
 * Sanitised multiple inputs and escape output to remove further risk of cross site script security.
+
+== Credits ==
+
+This plugin uses the following third-party libraries:
+
+1. <strong> Google APIs Client Library for PHP </strong>
+   - Author: Google
+   - URL: https://github.com/googleapis/google-api-php-client
+   - License: Apache License, Version 2.0 (the "License")
+   - License URL: http://www.apache.org/licenses/LICENSE-2.0
+
+2. <strong> PHP Secure Communications Library </strong>
+   - Author: phpseclib
+   - URL:https://github.com/phpseclib/phpseclib
+   - License: MIT License (or any other applicable license)
+   - License URL: http://opensource.org/licenses/MIT
+
+3. <strong>PhpConcept Library - Zip Module </strong>
+   - Author: Vincent Blavet
+   - URL:http://www.phpconcept.net
+   - License: License GNU/LGPL
+
+4.  <strong>phpFileTree </strong>
+   - Author: Cory S.N. LaViska's
+   - URL: https://www.abeautifulsite.net/blog/2007/06/php-file-tree/

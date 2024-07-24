@@ -3,8 +3,8 @@ Contributors: wpdesk,dyszczo,grola,piotrpo,marcinkolanko,mateuszgbiorczyk,sebast
 Donate link: https://www.wpdesk.net/flexible-checkout-fields-woocommerce/
 Tags: woocommerce checkout fields, woocommerce checkout manager, woocommerce checkout editor, woocommerce custom checkout fields, checkout field customizer
 Requires at least: 5.2
-Tested up to: 6.5
-Stable tag: 4.1.10
+Tested up to: 6.6
+Stable tag: 4.1.11
 Requires PHP: 7.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,25 +35,25 @@ Add WooCommerce additional fields to your checkout page with your new WooCommerc
 
 * [Text](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Text)
 * [Textarea](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Textarea)
-* [Number](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Number) 
-* [E-mail](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Email) 
-* [Phone](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Phone) 
-* [URL](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#URL) 
+* [Number](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Number)
+* [E-mail](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Email)
+* [Phone](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Phone)
+* [URL](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#URL)
 * [Checkbox](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Checkbox)
 * [Color](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Color)
 * [Headline](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Headline)
-* [Paragraph](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Paragraph) 
-* [Image](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Image) 
+* [Paragraph](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Paragraph)
+* [Image](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Image)
 * [HTML](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#HTML)
 
 #### **PRO**
 
-* [Multi-checkbox](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Multi-checkbox) 
+* [Multi-checkbox](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Multi-checkbox)
 * [Select](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Select)
 * [Multi-select](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Multi-select)
 * [Radio](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio)
-* [Radio with images](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio_with_images) 
-* [Radio with colors](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio_with_colors) 
+* [Radio with images](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio_with_images)
+* [Radio with colors](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio_with_colors)
 * [Date](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Date)
 * [Time](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Time)
 * [File Upload](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#File_Upload)
@@ -158,15 +158,15 @@ For example, set a VAT field to be required if the customer selects the company 
 
 Enable conditional logic (show, hide, set as required or perform no action) for fields based on:
 
-#### 🧩 Shipping Methods 
+#### 🧩 Shipping Methods
 
 Enable conditional logic (show, hide, set as required or perform no action) for fields based on selected shipping method.
 
-#### 🧩 Payment Methods 
+#### 🧩 Payment Methods
 
 Enable conditional logic (show, hide, set as required or perform no action) for fields based on selected payment method.
 
-#### 🧩 Products and Categories in Cart 
+#### 🧩 Products and Categories in Cart
 
 Enable conditional logic (show, hide, set as required or perform no action) for fields based on products and/or categories in the cart, i.e.:
 
@@ -606,6 +606,10 @@ Yes 😊.
 If you are upgrading from the old WooCommerce Checkout Fields version (1.1, woocommerce-checkout-fields) make sure to completely delete the old version first. Your settings will be kept. If you install the new version without deleting the old one you may break your WordPress installation.
 
 == Changelog ==
+
+= 4.1.11 - 2024-07-24 =
+* Added support for WordPress 6.6
+* Fixed hook names (both flexible_chekout_fields_fields, and flexible_checkout_fields_fields are deprecated)
 
 = 4.1.10 - 2024-07-18 =
 * Removed unnecessary title

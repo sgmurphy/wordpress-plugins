@@ -299,8 +299,6 @@ const Cookies = {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*******************************************!*\
   !*** ./assets/src/js/frontend/courses.js ***!
   \*******************************************/
@@ -850,8 +848,6 @@ document.addEventListener('DOMContentLoaded', function () {
   window.lpCourseList.init();
   window.lpCourseList.ajaxEnableLoadPage();
 });
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=courses.js.map

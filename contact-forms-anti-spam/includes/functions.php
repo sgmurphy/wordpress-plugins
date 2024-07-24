@@ -126,7 +126,7 @@ function maspik_get_settings($data_name, $type = '', $table_var = 'new'){
             }
         }
     } else { 
-        $data = " --- "; 
+        $data = ""; 
     }
     
     return $data;
@@ -1342,9 +1342,7 @@ function cfas_get_error_text($field = "error_message") {
 
     return sanitize_text_field($text);
 }
-
 function get_maspik_footer(){
-    
     ?> 
     <footer class="maspik-footer" style="background: #FFBBA6;padding: 20px;text-align: center;margin-top: 30px;border-radius: 20px;">
         <h3><?php _e('DO YOU LIKE MASPIK?', 'contact-forms-anti-spam'); ?></h3>

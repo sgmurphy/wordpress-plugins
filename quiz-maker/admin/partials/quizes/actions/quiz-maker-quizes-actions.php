@@ -161,6 +161,7 @@ $options = array(
     'disable_hover_effect'                      => 'off',
     'quiz_loader_custom_gif_width'              => 100,
     'show_answers_numbering'                    => 'none',
+    'quiz_title_transformation'                 => 'uppercase',
     'quiz_box_shadow_x_offset'                  => 0,
     'quiz_box_shadow_y_offset'                  => 0,
     'quiz_box_shadow_z_offset'                  => 15,

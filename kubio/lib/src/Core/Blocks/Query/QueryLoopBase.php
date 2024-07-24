@@ -5,6 +5,7 @@ namespace Kubio\Core\Blocks\Query;
 use Kubio\Core\Blocks\BlockContainerBase;
 use Kubio\Core\Layout\LayoutHelper;
 use Kubio\Core\LodashBasic;
+use IlluminateAgnostic\Arr\Support\Arr;
 
 class QueryLoopBase extends BlockContainerBase {
 	const CONTAINER  = 'container';
@@ -124,7 +125,7 @@ class QueryLoopBase extends BlockContainerBase {
 
 		/** @noinspection PhpParamsInspection */
 		$query_args                        = build_query_vars_from_query_block( (object) array( 'context' => $context ), $page );
-		$query_args['ignore_sticky_posts'] = $context['query']['sticky'] ? false : true;
+		$query_args['ignore_sticky_posts'] = Arr::get( $context, 'query.sticky' ) ? false : true;
 		$query                             = new \WP_Query( $query_args );
 
 		return $query->posts;

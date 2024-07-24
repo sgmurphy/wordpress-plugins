@@ -1074,7 +1074,7 @@ trait SettingsTrait {
 
 		// The Gutenberg FSE editor will not load CSS in the iframe if the file does not contain
 		// .wp-block. So ensure all MT CSS has this.
-		$fseFix = '.wp-block {} /*  Ensures MT files load in FSE */' . "\n";
+		$fseFix = $this->supportAdminAssets() ?  '.wp-block {} /*  (.wp-block {} ensures MT files load in Gutenberg editor) */' . "\n" : '';
 
 		// we only minified published assets, if that preferences is set (on by default)
 		/*$minifyCSS = !empty($this->preferences['minify_css']);

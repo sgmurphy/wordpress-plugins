@@ -334,6 +334,10 @@ if ( ! class_exists( 'ES_Install' ) ) {
 				'ig_es_maybe_send_ess_used_limit',
 				'ig_es_update_5727_db_version',
 			),
+			'5.7.28' => array(
+				'ig_es_schedule_trial_expires_reminder_cron',
+				'ig_es_update_5728_db_version',
+			),
 		);
 
 		/**

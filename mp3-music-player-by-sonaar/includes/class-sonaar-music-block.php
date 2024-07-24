@@ -136,6 +136,7 @@ class Sonaar_Block {
 		$show_repeat_bt = ( isset( $attributes['show_repeat_bt'] ) && $attributes['show_repeat_bt'] ) ? $attributes['show_repeat_bt'] : 'default';
 		$show_speed_bt = ( isset( $attributes['show_speed_bt'] ) && $attributes['show_speed_bt'] ) ? $attributes['show_speed_bt'] : 'default';
 		$show_volume_bt = ( isset( $attributes['show_volume_bt'] ) && $attributes['show_volume_bt'] ) ? $attributes['show_volume_bt'] : 'default';
+		$show_miniplayer_note_bt = ( isset( $attributes['show_miniplayer_note_bt'] ) && $attributes['show_miniplayer_note_bt'] ) ? $attributes['show_miniplayer_note_bt'] : 'default';
         $playlist_show_album_market = ( isset( $attributes['playlist_show_album_market'] ) && $attributes['playlist_show_album_market'] ) ? true : false;
 		$sr_player_on_artwork = ( isset( $attributes['sr_player_on_artwork'] ) && $attributes['sr_player_on_artwork'] ) ? true : false;
 		$hide_trackdesc = ( isset( $attributes['hide_trackdesc'] ) && $attributes['hide_trackdesc'] ) ? true : false;
@@ -494,6 +495,10 @@ class Sonaar_Block {
 
 		if( $show_volume_bt && function_exists( 'run_sonaar_music_pro' ) ) {
 			$shortcode .= 'show_volume_bt="'.$show_volume_bt.'" ';
+		}
+
+		if( $show_miniplayer_note_bt && function_exists( 'run_sonaar_music_pro' ) ) {
+			$shortcode .= 'show_miniplayer_note_bt="'.$show_miniplayer_note_bt.'" ';
 		}
 
 		if( $show_speed_bt && function_exists( 'run_sonaar_music_pro' ) ) {
@@ -1055,6 +1060,10 @@ class Sonaar_Block {
 				'default' => 'default',
 			),
 			'show_volume_bt' => array(
+				'type' => 'string',
+				'default' => 'default',
+			),
+			'show_miniplayer_note_bt' => array(
 				'type' => 'string',
 				'default' => 'default',
 			),

@@ -220,3 +220,7 @@ Fixed
 
 3.0.4 (2024-07-09)
 - Vendor autoload fix
+
+3.0.5 (2024-07-24)
+- PHP version card change
+- Translations

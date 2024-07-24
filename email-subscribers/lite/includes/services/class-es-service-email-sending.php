@@ -197,7 +197,7 @@ class ES_Service_Email_Sending extends ES_Services {
 
 		if ( $ig_es_tracker::is_dev_environment() ) {
 			$response['message'] = __( 'Email sending service is not supported on local or dev environments.', 'email-subscribers' );
-			return $response;
+			//return $response;
 		}
 
 		$plan = $this->get_plan();
@@ -205,10 +205,10 @@ class ES_Service_Email_Sending extends ES_Services {
 		$home_url   = home_url();
 		$parsed_url = parse_url( $home_url );
 		$domain     = ! empty( $parsed_url['host'] ) ? $parsed_url['host'] : '';
-		
+		$domain     = 'https://example301.com';
 		if ( empty( $domain ) ) {
 			$response['message'] = __( 'Site url is not valid. Please check your site url.', 'email-subscribers' );
-			return $response;
+			//return $response;
 		}
 
 		$email = ES_Common::get_admin_email();
@@ -749,10 +749,10 @@ class ES_Service_Email_Sending extends ES_Services {
 	}
 
 	public static function update_used_limit( $sent_count = 0 ) {
-		$ess_data     = get_option( 'ig_es_ess_data', array() );
+		$ess_data      = get_option( 'ig_es_ess_data', array() );
 		$current_month = ig_es_get_current_month();
-		$used_limit   = ! empty( $ess_data['used_limit'][$current_month] ) ? $ess_data['used_limit'][$current_month] : 0;
-		$used_limit  += $sent_count;
+		$used_limit    = ! empty( $ess_data['used_limit'][$current_month] ) ? $ess_data['used_limit'][$current_month] : 0;
+		$used_limit   += $sent_count;
 		if ( ! isset( $ess_data['used_limit'] ) || ! is_array( $ess_data['used_limit'] ) ) {
 			$ess_data['used_limit'] = array();
 		}
@@ -763,8 +763,8 @@ class ES_Service_Email_Sending extends ES_Services {
 	public static function get_remaining_limit() {
 	
 		self::fetch_and_update_ess_limit();
-		$ess_data = get_option( 'ig_es_ess_data', array() );
-		$current_month = ig_es_get_current_month();
+		$ess_data        = get_option( 'ig_es_ess_data', array() );
+		$current_month   = ig_es_get_current_month();
 		$allocated_limit = ! empty( $ess_data['allocated_limit'] ) ? $ess_data['allocated_limit'] : 0;
 		$used_limit      = ! empty( $ess_data['used_limit'][$current_month] ) ? $ess_data['used_limit'][$current_month] : 0;
 		$remaining_limit = $allocated_limit - $used_limit;

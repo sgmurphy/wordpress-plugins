@@ -10,7 +10,6 @@ namespace WP_Defender\Traits;
 
 trait Continent {
 
-
 	/**
 	 * Copy the list from https://en.wikipedia.org/wiki/United_Nations_geoscheme.
 	 * It's without specific places:

@@ -1,9 +1,9 @@
 ﻿=== WP Logo Showcase Responsive Slider and Carousel ===
 Contributors: wponlinesupport, anoopranawat, pratik-jain, patelketan, piyushpatel123
-Tags: logo slider, logo, client logo carousel, client logo slider, client, customer,  image carousel, carousel, logo showcase, Responsive logo slider, Responsive logo carousel, WordPress logo slider, WordPress logo carousel, slick carousel, Best logo showcase, easy logo slider, logo carousel wordpress, logo slider wordpress, sponsors, sponsors slider, sponsors carousel
+Tags: logo slider, client logo carousel, image carousel, logo showcase, Responsive logo slider
 Requires at least: 4.0
-Tested up to: 6.5.5
-Stable tag: 3.8
+Tested up to: 6.6.1
+Stable tag: 3.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,6 +137,9 @@ Where limit define the number of posts to display.
 7. Gutenberg block preview and options.
 
 == Changelog ==
+
+= 3.8.1 (24 July 2024) =
+* [*] Check compatibility with WordPress version 6.6.1
 
 = 3.8 (08, July 2024) =
 * [*] Update – Improve escaping functions for better security.

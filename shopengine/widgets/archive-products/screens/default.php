@@ -40,16 +40,19 @@ $editor_mode = ( \Elementor\Plugin::$instance->editor->is_edit_mode() || is_prev
 	<?php endif;
 ?>
 	<?php
-	function custom_shopengine_product_title($header_size) {
-		global $product;
-		if ($product) {
-			shopengine_content_render(
-				sprintf(
-				'<%1$s class="woocommerce-loop-product__title">%2$s</%1$s>',
-				esc_attr($header_size),
-				esc_html(get_the_title($product->get_id()))
-			) );
 
+	if( !function_exists( 'custom_shopengine_product_title' ) ){		
+		function custom_shopengine_product_title($header_size) {
+			global $product;
+			if ($product) {
+				shopengine_content_render(
+					sprintf(
+					'<%1$s class="woocommerce-loop-product__title">%2$s</%1$s>',
+					esc_attr($header_size),
+					esc_html(get_the_title($product->get_id()))
+				) );
+	
+			}
 		}
 	}
 
@@ -57,7 +60,12 @@ $editor_mode = ( \Elementor\Plugin::$instance->editor->is_edit_mode() || is_prev
 	remove_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10);
 	add_action('woocommerce_shop_loop_item_title', function() use ($settings_to_pass) {
 		$header_size = isset($settings_to_pass['shopengine_archive_product_title_header_size']) ? $settings_to_pass['shopengine_archive_product_title_header_size'] : 'h1';
-		custom_shopengine_product_title($header_size);
+		
+		if( function_exists( 'custom_shopengine_product_title' ) ) {			
+
+			custom_shopengine_product_title($header_size);
+		}
+
 	}, 10);
 
 	?>

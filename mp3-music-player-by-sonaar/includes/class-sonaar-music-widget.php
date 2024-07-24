@@ -392,7 +392,7 @@ class Sonaar_Music_Widget extends WP_Widget{
             $notrackskip = (bool) ( isset( $this->shortcodeParams['notrackskip'] ) )? $this->shortcodeParams['notrackskip']: false;
             $progressbar_inline = (bool) ( isset( $this->shortcodeParams['progressbar_inline'] ) )? $this->shortcodeParams['progressbar_inline']: false;
             $sticky_player = (bool)( isset( $this->shortcodeParams['sticky_player'] ) )? $this->shortcodeParams['sticky_player']: false;
-            $shuffle = (bool)( isset( $this->shortcodeParams['shuffle'] ) )? $this->shortcodeParams['shuffle']: false;
+            $shuffle = (bool)( isset( $this->shortcodeParams['shuffle'] ) && ($this->shortcodeParams['shuffle'] == '1' || strtolower($this->shortcodeParams['shuffle'])  == 'true') )? 'true' : 'false';
             $wave_color = (bool)( isset( $this->shortcodeParams['wave_color'] ) )? $this->shortcodeParams['wave_color']: false;
             $wave_progress_color = (bool)( isset( $this->shortcodeParams['wave_progress_color'] ) )? $this->shortcodeParams['wave_progress_color']: false;
             $spectro = (function_exists('run_sonaar_music_pro') && isset($this->shortcodeParams['spectro']) && $this->shortcodeParams['spectro'] != '') ? $this->shortcodeParams['spectro'] : false;
@@ -1455,11 +1455,11 @@ class Sonaar_Music_Widget extends WP_Widget{
                 </div>
                 </div>';
             }
-        
+
         $trackTitle = (isset($trackTitle)) ? $trackTitle : '';
         $widgetPart_control .= ($playerWidgetTemplate == 'skin_boxed_tracklist' &&  ! $show_playlist )? '<div class="srp_track_cta"></div>': '';
+        $widgetPart_control .= ($playerWidgetTemplate == 'skin_boxed_tracklist' && $this->getOptionValue('show_miniplayer_note_bt') )? $this->addNoteButton() :'';
         $widgetPart_control .= '</div>'; //End DIV .control
-        $widgetPart_control .= ($playerWidgetTemplate == 'skin_boxed_tracklist' && ! $show_playlist )? $this->addNoteButton( $albums, '0', $trackTitle) :'';
         $widgetPart_control .= ($playerWidgetTemplate == 'skin_float_tracklist' ||  ! $show_playlist )?'</div>':''; //End DIV .srp_main_control
         
         $class_player ='player ';
@@ -2365,7 +2365,7 @@ class Sonaar_Music_Widget extends WP_Widget{
     }
 
     /* Return the notebutton HTML or NULL */
-    private function addNoteButton($postID, $trackPosition, $trackTitle, $trackdescEscapedValue = null, $excerptTrimmed = null, $track_desc_postcontent = null){
+    private function addNoteButton($postID = '', $trackPosition = '', $trackTitle = '', $trackdescEscapedValue = null, $excerptTrimmed = null, $track_desc_postcontent = null){
         /*parameters:
         -$postID: playlist post ID
         -$trackPosition: track position in the playlist post, not in the track list.
@@ -2375,16 +2375,17 @@ class Sonaar_Music_Widget extends WP_Widget{
         */
         $returnValue = null;
         if( function_exists( 'run_sonaar_music_pro' ) ){
-            if($track_desc_postcontent){
-                $post = get_post($postID); 
-                $trackFields = $post->post_content;
-            }else{
-                $postObject = get_post_meta($postID, 'alb_tracklist', true );
-                $trackFields = (isset($postObject[$trackPosition]['track_description']))?$postObject[$trackPosition]['track_description'] : '';
-
+            if($postID != ''){
+                if($track_desc_postcontent){
+                    $post = get_post($postID); 
+                    $trackFields = $post->post_content;
+                }else{
+                    $postObject = get_post_meta($postID, 'alb_tracklist', true );
+                    $trackFields = (isset($postObject[$trackPosition]['track_description']))?$postObject[$trackPosition]['track_description'] : '';
+                }
             }
-            if( isset($trackFields) && $trackFields != ''){
-                if ( ($trackdescEscapedValue && substr(strip_tags($trackdescEscapedValue), -1 * (strlen($excerptTrimmed))) == $excerptTrimmed) || $trackdescEscapedValue == null ){ // Check if the Excerpt display the whole description or if it is cuted/ended by the $excerptTrimmed[...].
+            if( isset($trackFields) && $trackFields != '' || $postID === ''){
+                if ( ($trackdescEscapedValue && substr(strip_tags($trackdescEscapedValue), -1 * (strlen($excerptTrimmed))) == $excerptTrimmed) || $trackdescEscapedValue == null || $postID === '' ){ // Check if the Excerpt display the whole description or if it is cuted/ended by the $excerptTrimmed[...].
                     $returnValue = '<div class="srp_noteButton"><i class="sricon-info"  data-source-post-id="' . esc_attr( $postID ) . '" data-track-position="' . esc_attr( $trackPosition ) . '" data-track-title="' . esc_attr( $trackTitle ) . '" data-track-use-postcontent="' . esc_attr( $track_desc_postcontent ) . '"></i></div>';
                 }
             }
@@ -3544,7 +3545,18 @@ class Sonaar_Music_Widget extends WP_Widget{
         }
         return $field;
     }
-
+    private function urlExists($url) {
+        $headers = @get_headers($url);
+        if (!$headers) {
+            return false;
+        }
+        foreach ($headers as $header) {
+            if (strpos($header, '200 OK') !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
     private function get_playlist($album_ids = array(), $category = null, $posts_not_in = null, $category_not_in = null, $title = null, $feed_title = null, $feed = null, $feed_img = null, $el_widget_id = null, $artwork = null, $posts_per_pages = null, $all_category = null, $single_playlist = false, $reverse_tracklist = false, $audio_meta_field = null, $repeater_meta_field = null, $player = 'widget', $track_desc_postcontent  = null, $import_file = null, $rss_items = -1, $rss_item_title = null, $isPlayer_Favorite = null, $isPlayer_recentlyPlayed = null) {
         // Capture the start time
         // $start_time = microtime(true);
@@ -4277,21 +4289,31 @@ class Sonaar_Music_Widget extends WP_Widget{
                         }
                         $isPreview = false;
                         if ($isPreviewEnabled) {
-                           if(isset($album_tracks[$i]["audio_preview"]) && $album_tracks[$i]["audio_preview"] != ''){
-                                $file_path = str_replace($upload_dir['baseurl'], $upload_dir['basedir'], $album_tracks[$i]["audio_preview"]);
-                                // Check for non-logged-in users
-                                if (!$isUserLoggedIn) {
+                            if (isset($album_tracks[$i]["audio_preview"]) && $album_tracks[$i]["audio_preview"] != '') {
+                                $audio_preview_url = $album_tracks[$i]["audio_preview"];
+                                $file_path = str_replace($upload_dir['baseurl'], $upload_dir['basedir'], $audio_preview_url);
+                            
+                                // Determine if the URL is external
+                                $isExternal = filter_var($audio_preview_url, FILTER_VALIDATE_URL) && strpos($audio_preview_url, $upload_dir['baseurl']) === false;
+                            
+                                $fileExists = false;
+                                if ($isExternal) {
+                                    // Check if external file exists using urlExists function
+                                    if ($this->urlExists($audio_preview_url)) {
+                                        $fileExists = true;
+                                    }
+                                } else {
+                                    // Check if local file exists
                                     if (file_exists($file_path)) {
+                                        $fileExists = true;
+                                    }
+                                }
+                            
+                                // Check for non-logged-in users or allowed roles
+                                if ($fileExists) {
+                                    if (!$isUserLoggedIn || array_intersect($user->roles, $allowed_roles)) {
                                         $isPreview = true;
-                                        $audioSrc = $album_tracks[$i]["audio_preview"];
-                                    }         
-                                }else {
-                                    // Check if user role is in the allowed roles for audio preview
-                                    if (array_intersect($user->roles, $allowed_roles)) {
-                                        if (file_exists($file_path)) {
-                                            $isPreview = true;
-                                            $audioSrc = $album_tracks[$i]["audio_preview"];
-                                        }
+                                        $audioSrc = $audio_preview_url;
                                     }
                                 }
                             }

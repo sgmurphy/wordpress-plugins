@@ -119,8 +119,6 @@ const searchThemesAddons = () => {};
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*********************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/themes-addons.js ***!
   \*********************************************************/
@@ -130,8 +128,6 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', function (event) {
   (0,_addons_search_lp_addons_themes__WEBPACK_IMPORTED_MODULE_0__["default"])();
 });
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=themes-addons.js.map

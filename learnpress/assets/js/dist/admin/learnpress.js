@@ -192,8 +192,6 @@ const lpAjaxParseJsonOld = data => {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*******************************************!*\
   !*** ./assets/src/js/admin/learnpress.js ***!
   \*******************************************/
@@ -908,8 +906,6 @@ const onReady = function onReady() {
   $(document).on('click', '.learn-press-payments .status .dashicons', togglePaymentStatus).on('click', '.change-email-status', updateEmailStatus).on('click', '.learn-press-filter-template', callbackFilterTemplates).on('click', '#learn-press-enable-emails, #learn-press-disable-emails', toggleEmails);
 };
 $(document).ready(onReady);
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=learnpress.js.map

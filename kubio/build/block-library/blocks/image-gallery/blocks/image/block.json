@@ -34,7 +34,6 @@
 		}
 	},
 	"supports": {
-		"inseter": false,
 		"kubio": {
 			"appearanceEffect": true,
 			"assetsURLImporterMap": {

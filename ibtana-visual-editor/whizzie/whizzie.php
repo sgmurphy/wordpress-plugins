@@ -126,7 +126,7 @@ class Free_Whizzie
 			array(
 				'ajaxurl' 		=> admin_url('admin-ajax.php'),
 				'wpnonce' 		=> wp_create_nonce('whizzie_nonce'),
-				'verify_text'	=> esc_html('verifying', 'whizzie')
+				'verify_text'	=> esc_html__('verifying', 'ibtana-visual-editor')
 			)
 		);
 		wp_enqueue_script('whizzie');

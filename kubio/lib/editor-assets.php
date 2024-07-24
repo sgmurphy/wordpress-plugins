@@ -24,7 +24,8 @@ function kubio_override_script( $scripts, $handle, $src, $deps = array(), $ver =
 	}
 
 	if ( in_array( 'wp-i18n', $deps, true ) ) {
-		$scripts->set_translations( $handle, 'kubio' );
+		$translation_path = wp_normalize_path( KUBIO_ROOT_DIR . '/languages' );
+		$scripts->set_translations( $handle, 'kubio', $translation_path );
 	}
 }
 
@@ -94,6 +95,8 @@ function kubio_enqueue_frontend_scripts() {
 function kubio_register_packages_scripts() {
 
 	$registered = array();
+
+	$translation_path = wp_normalize_path( KUBIO_ROOT_DIR . '/languages' );
 
 	$paths = glob( KUBIO_ROOT_DIR . 'build/*/index.js' );
 	foreach ( $paths as $path ) {
@@ -180,6 +183,7 @@ function kubio_register_packages_scripts() {
 			}
 
 			call_user_func_array( 'wp_register_script', $script );
+			\wp_set_script_translations( $script[0], 'kubio', $translation_path );
 			do_action( 'kubio_registered_script', $script[0], $script[3] );
 		}
 	}
@@ -382,7 +386,7 @@ add_action(
 						'last_imported_starter'         => Flags::get( 'last_imported_starter' ),
 						'demo_site_ajax_nonce'          => wp_create_nonce( 'kubio-ajax-demo-site-verification' ),
 						'ajax_url'                      => admin_url( 'admin-ajax.php' ),
-						'kubio_ajax_nonce' 					=> wp_create_nonce( 'kubio_ajax_nonce' ),
+						'kubio_ajax_nonce'              => wp_create_nonce( 'kubio_ajax_nonce' ),
 						'enable_starter_sites'          => apply_filters( 'kubio/starter-sites/enabled', true ),
 						'wpVersion'                     => preg_replace( '/([0-9]+).([0-9]+).*/', '$1.$2', $wp_version ),
 						'enable_try_online'             => Utils::isTryOnlineEnabled(),
@@ -413,9 +417,9 @@ add_action(
 
 			$url = add_query_arg(
 				array(
-					'action' => 'kubio_style_manager_web_worker',
-					'_wpnonce' =>  wp_create_nonce( 'kubio_style_manager_web_worker_nonce' ),
-					'v'      => filemtime( KUBIO_ROOT_DIR . '/defaults/style-manager-web-worker-template.js' ) . '-' . ( Utils::isDebug() ? time() : KUBIO_VERSION . '-' . $wp_version ),
+					'action'   => 'kubio_style_manager_web_worker',
+					'_wpnonce' => wp_create_nonce( 'kubio_style_manager_web_worker_nonce' ),
+					'v'        => filemtime( KUBIO_ROOT_DIR . '/defaults/style-manager-web-worker-template.js' ) . '-' . ( Utils::isDebug() ? time() : KUBIO_VERSION . '-' . $wp_version ),
 				),
 				admin_url( 'admin-ajax.php' )
 			);
@@ -432,7 +436,7 @@ add_action(
 );
 
 function kubio_print_style_manager_web_worker() {
-	check_ajax_referer('kubio_style_manager_web_worker_nonce');
+	check_ajax_referer( 'kubio_style_manager_web_worker_nonce' );
 	header( 'content-type: application/javascript' );
 
 	$script = '';

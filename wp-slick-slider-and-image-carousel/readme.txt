@@ -2,8 +2,8 @@
 Contributors: wponlinesupport, anoopranawat, pratik-jain, patelketan
 Tags: slick, image slider, slick slider, slick image slider, slider, image slider, header image slider, responsive image slider, responsive content slider, carousel, image carousel, carousel slider, content slider, coin slider, touch slider, text slider, responsive slider, responsive slideshow, Responsive Touch Slider, wp slider, wp image slider, wp header image slider, photo slider, responsive photo slider  
 Requires at least: 4.0
-Tested up to: 6.5.3
-Stable tag: 3.7
+Tested up to: 6.6.1
+Stable tag: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,9 @@ Where designs are : design-1, design-2, design-3, design-4, design-5. You can us
 9. Also added Gutenberg block support.
 
 == Changelog ==
+
+= 3.7.1 (24 July 2024) =
+* [*] Check compatibility with WordPress version 6.6.1
 
 = 3.7 (10 June 2024) =
 * [*] Check compatibility with WordPress version 6.5.3

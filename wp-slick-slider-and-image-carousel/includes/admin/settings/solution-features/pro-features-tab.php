@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<!-- End - Slick Slider - Features -->
 
-	<div class="wpsisac-deal-offer-wrap">
+	<!-- <div class="wpsisac-deal-offer-wrap">
 		<div class="wpsisac-deal-offer"> 
 			<div class="wpsisac-inn-deal-offer">
 				<h3 class="wpsisac-inn-deal-hedding"><span>Buy Slick Slider Pro</span> today and unlock all the powerful features.</h3>
@@ -50,8 +50,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="wpsisac-inn-deal-offer-btn">
 				<div class="wpsisac-inn-deal-code"><span>EPSEXTRA</span></div>
-				<a href="<?php echo esc_url(WPSISAC_PLUGIN_BUNDLE_LINK); ?>"  target="_blank" class="wpsisac-sf-btn wpsisac-sf-btn-orange"><span class="dashicons dashicons-cart"></span> Get Essential Bundle Now</a>
+				<a href="<?php // echo esc_url(WPSISAC_PLUGIN_BUNDLE_LINK); ?>"  target="_blank" class="wpsisac-sf-btn wpsisac-sf-btn-orange"><span class="dashicons dashicons-cart"></span> Get Essential Bundle Now</a>
 				<em class="risk-free-guarantee"><span class="heading">Risk-Free Guarantee </span> - We offer a <span>30-day money back guarantee on all purchases</span>. If you are not happy with your purchases, we will refund your purchase. No questions asked!</em>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="wpsisac-deal-offer-wrap">
+		<div class="wpsisac-deal-offer"> 
+			<div class="wpsisac-inn-deal-offer">
+				<h3 class="wpsisac-inn-deal-hedding"><span>Try Slick Slider Pro</span> in Essential Bundle Free For 5 Days.</h3>
+			</div>
+			<div class="wpsisac-deal-free-offer">
+				<a href="<?php echo esc_url( WPSISAC_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="wpsisac-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
 			</div>
 		</div>
 	</div>

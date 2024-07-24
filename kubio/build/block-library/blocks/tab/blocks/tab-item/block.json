@@ -22,7 +22,7 @@
 		}
 	},
 	"supports": {
-		"inseter": false,
+		"inserter": false,
 		"kubio": {
 			"appearanceEffect": true,
 			"elementsEnum": {

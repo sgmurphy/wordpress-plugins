@@ -857,6 +857,22 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         </select>
                                     </div>
                                 </div><!-- Buttons position -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quick_quiz_title_transformation">
+                                            <?php echo __('Quiz title transformation', $this->plugin_name ); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <select name="ays_quick_quiz_title_transformation" id="ays_quick_quiz_title_transformation" class="ays-text-input ays-text-input-short" style="display:block;">
+                                            <option value="uppercase" selected><?php echo __( "Uppercase", $this->plugin_name ); ?></option>
+                                            <option value="lowercase"><?php echo __( "Lowercase", $this->plugin_name ); ?></option>
+                                            <option value="capitalize"><?php echo __( "Capitalize", $this->plugin_name ); ?></option>
+                                            <option value="none"><?php echo __( "None", $this->plugin_name ); ?></option>
+                                        </select>
+                                    </div>
+                                </div><!-- Quiz title transformation -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

@@ -425,6 +425,10 @@ class CCBFrontController {
 
 		$template_variables['template'] = \cBuilder\Classes\CCBTemplate::load( 'frontend/partials/calc-builder', $template_params ); // phpcs:ignore
 
+		if ( ! empty( $settings['formFields']['contactFormId'] ) ) {
+			$template_variables['cf7_form'] = do_shortcode( '[contact-form-7 id="' . $settings['formFields']['contactFormId'] . '"]' );
+		}
+
 		$is_elementor = false;
 		if ( class_exists( '\Elementor\Plugin' ) ) {
 			$document = \Elementor\Plugin::instance()->documents->get( get_the_ID() );

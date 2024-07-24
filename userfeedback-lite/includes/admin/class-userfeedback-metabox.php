@@ -148,7 +148,7 @@ if (!class_exists('UserFeedback_Metabox')) {
             $specific_survey = get_post_meta($post->ID, '_uf_show_specific_survey', true);
             wp_nonce_field('userfeedback_metabox', 'userfeedback_metabox_nonce');
 
-            $addons = userfeedback_get_parsed_addons();
+            $addons = userfeedback_is_pro_version() ? userfeedback_get_parsed_addons() : [];
 
             $query = UserFeedback_Survey::where(
                 array(

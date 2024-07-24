@@ -14,7 +14,6 @@ namespace WP_Defender\Component\Security_Tweaks\Servers;
  */
 class Server {
 
-
 	/**
 	 * Create a new instance of the Server_Factory class.
 	 *

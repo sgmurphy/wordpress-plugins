@@ -73,7 +73,8 @@ abstract class LP_Abstract_Post_Type {
 			$this->_post_type = $post_type;
 		}
 		add_action( 'init', array( $this, '_do_register' ) );
-		add_action( 'save_post', array( $this, '_do_save_post' ), 10, 2 );
+		add_action( 'save_post', array( $this, '_do_save_post' ), - 1, 3 );
+		add_action( 'wp_after_insert_post', [ $this, 'wp_after_insert_post' ], - 1, 3 );
 		add_action( 'before_delete_post', array( $this, '_before_delete_post' ) );
 		add_action( 'deleted_post', array( $this, '_deleted_post' ) );
 		add_action( 'wp_trash_post', array( $this, '_before_trash_post' ) );
@@ -176,12 +177,13 @@ abstract class LP_Abstract_Post_Type {
 	 *
 	 * @param int $post_id
 	 * @param WP_Post $post
+	 * @param bool $is_update
 	 *
 	 * @editor tungnx
 	 * @since modify 4.0.9
-	 * @version 4.0.1
+	 * @version 4.0.2
 	 */
-	final function _do_save_post( int $post_id = 0, WP_Post $post = null ) {
+	final function _do_save_post( int $post_id = 0, WP_Post $post = null, bool $is_update = false ) {
 		// Maybe remove
 		$this->maybe_remove_assigned( $post );
 
@@ -190,6 +192,7 @@ abstract class LP_Abstract_Post_Type {
 		}
 
 		$this->save( $post_id, $post );
+		$this->save_post( $post_id, $post, $is_update );
 	}
 
 	/**
@@ -203,27 +206,78 @@ abstract class LP_Abstract_Post_Type {
 	}
 
 	/**
-	 * Hook before delete post
-	 * Only on receiver 1 param $post_id, can't get param $post - don't know why
+	 * Function for child class handle when post has just saved
+	 * This function provides the argument `$update` to determine whether a post is updated or new.
+	 * Replace for function save only has two args
 	 *
 	 * @param int $post_id
+	 * @param WP_Post $post
+	 * @param bool $is_update
 	 *
-	 * @editor tungnx
-	 * @since modify 4.0.9
+	 * @since 4.2.6.9
+	 * @version 1.0.0
 	 */
-	final function _before_delete_post( int $post_id ) {
-		// Todo: check is pages of LP
-		if ( 'page' === get_post_type( $post_id ) ) {
-			// Clear cache LP settings
-			$lp_settings_cache = new LP_Settings_Cache( true );
-			$lp_settings_cache->clean_lp_settings();
-		}
+	public function save_post( int $post_id, WP_Post $post = null, bool $is_update = false ) {
+		// Implement from child
+	}
 
+	/**
+	 * Callback hook 'wp_after_insert_post'
+	 *
+	 * @param $post_id
+	 * @param $post
+	 * @param $update
+	 *
+	 * @return void
+	 * @since 4.2.6.9
+	 * @version 1.0.0
+	 */
+	final function wp_after_insert_post( $post_id, $post, $update ) {
 		if ( ! $this->check_post( $post_id ) ) {
 			return;
 		}
 
-		$this->before_delete( $post_id );
+		$this->after_insert_post( $post_id, $post, $update );
+	}
+
+	/**
+	 * Function for child class handle when post has just saved
+	 *
+	 * @param int $post_id
+	 * @param WP_Post|null $post
+	 * @param bool $update
+	 */
+	public function after_insert_post( int $post_id, WP_Post $post = null, bool $update = false ) {
+		// Implement from child
+	}
+
+	/**
+	 * Hook before delete post
+	 * Only on receiver 1 param $post_id, can't get param $post - don't know why
+	 *
+	 * @param int $post_id
+	 * @param WP_Post|null $post
+	 *
+	 * @editor tungnx
+	 * @since modify 4.0.9
+	 */
+	final function _before_delete_post( int $post_id, WP_Post $post = null ) {
+		try {
+			// Todo: check is pages of LP
+			if ( 'page' === get_post_type( $post_id ) ) {
+				// Clear cache LP settings
+				$lp_settings_cache = new LP_Settings_Cache( true );
+				$lp_settings_cache->clean_lp_settings();
+			}
+
+			if ( ! $this->check_post( $post_id ) ) {
+				return;
+			}
+
+			$this->before_delete( $post_id );
+		} catch ( Throwable $e ) {
+			error_log( __METHOD__ . ': ' . $e->getMessage() );
+		}
 	}
 
 	/**
@@ -269,7 +323,7 @@ abstract class LP_Abstract_Post_Type {
 	 * @version 1.0.0
 	 */
 	final function _before_trash_post( int $post_id ) {
-		if ( ! $this->check_post() ) {
+		if ( ! $this->check_post( $post_id ) ) {
 			return;
 		}
 
@@ -316,7 +370,7 @@ abstract class LP_Abstract_Post_Type {
 	 * @version 1.0.0
 	 */
 	final function _trashed_post( int $post_id ) {
-		if ( ! $this->check_post() ) {
+		if ( ! $this->check_post( $post_id ) ) {
 			return;
 		}
 
@@ -640,7 +694,10 @@ abstract class LP_Abstract_Post_Type {
 	public function _check_post(): bool {
 		global $pagenow, $post_type;
 
-		if ( ! is_admin() || ( ! in_array( $pagenow, array( 'edit.php', 'post.php' ) ) ) || ( $this->_post_type != $post_type ) ) {
+		if ( ! is_admin() || ( ! in_array( $pagenow, array(
+				'edit.php',
+				'post.php'
+			) ) ) || ( $this->_post_type != $post_type ) ) {
 			return false;
 		}
 
@@ -662,7 +719,6 @@ abstract class LP_Abstract_Post_Type {
 		try {
 			$post = get_post( $post_id );
 			if ( ! $post ) {
-				//throw new Exception( 'Post is invalid' );
 				return false;
 			}
 
@@ -672,7 +728,7 @@ abstract class LP_Abstract_Post_Type {
 			}
 
 			if ( ! current_user_can( ADMIN_ROLE ) &&
-				get_current_user_id() !== (int) $post->post_author ) {
+				 get_current_user_id() !== (int) $post->post_author ) {
 				$can_save = false;
 			}
 
@@ -895,7 +951,8 @@ abstract class LP_Abstract_Post_Type {
 	 * Show actions on list post
 	 *
 	 * @param string[] $actions
-	 * @param WP_Post  $post
+	 * @param WP_Post $post
+	 *
 	 * @return array|false|mixed
 	 */
 	public function _post_row_actions( $actions, $post ) {
@@ -964,7 +1021,7 @@ abstract class LP_Abstract_Post_Type {
 
 			$preview_permalink = learn_press_get_preview_url( $post->ID );
 
-			$preview_link                       = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url_raw( $preview_permalink ), sprintf( '%s %s', __( 'Preview', 'learnpress' ), $post_type_object->labels->singular_name ) );
+			$preview_link                      = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url_raw( $preview_permalink ), sprintf( '%s %s', __( 'Preview', 'learnpress' ), $post_type_object->labels->singular_name ) );
 			$messages[ $this->_post_type ][8]  .= $preview_link;
 			$messages[ $this->_post_type ][10] .= $preview_link;
 		}

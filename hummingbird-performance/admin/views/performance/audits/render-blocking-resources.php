@@ -12,6 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$url = add_query_arg(
+	array(
+		'enable-advanced-settings' => 'true',
+		'_wpnonce'                 => wp_create_nonce( 'wphb-enable-advanced-settings' ),
+	),
+	\Hummingbird\Core\Utils::get_admin_menu_url( 'minification' )
+);
+
 ?>
 
 <h4><?php esc_html_e( 'Overview', 'wphb' ); ?></h4>
@@ -76,8 +84,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<li><?php esc_html_e( 'After making any initial optimization, switch to the "Inline CSS" option to inline the styles which are critical for first paint of your page. Combine as many of the non-critical styles as you can, compress them and then move them to the footer.', 'wphb' ); ?></li>
 		<li><?php esc_html_e( 'Move critical scripts to the footer and defer the non-critical scripts using the option "Force load this file after the page has loaded".', 'wphb' ); ?></li>
 	</ol>
-	<?php if ( $url = \Hummingbird\Core\Utils::get_admin_menu_url( 'minification' ) ) : ?>
-		<a href="<?php echo esc_url( $url . '&enable-advanced-settings=true' ); ?>" class="sui-button">
+	<?php if ( $url ) : ?>
+		<a href="<?php echo esc_url( $url ); ?>" class="sui-button">
 			<?php esc_html_e( 'Configure Asset Optimization', 'wphb' ); ?>
 		</a>
 	<?php endif; ?>

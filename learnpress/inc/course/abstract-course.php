@@ -303,11 +303,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			}
 
 			if ( ! $url ) {
-				if ( 'course_thumbnail' == $size ) {
-					$url = LearnPress::instance()->image( 'no-image.png' );
-				} else {
-					$url = LearnPress::instance()->image( 'placeholder-500x300' );
-				}
+				$url = LearnPress::instance()->image( 'no-image.png' );
 			}
 
 			return apply_filters( 'learn-press/course-thumbnail-url', $url, $this->get_id(), $size );
@@ -623,7 +619,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		public function get_regular_price_html() {
 			$price = learn_press_format_price( $this->get_regular_price(), true );
 
-			return apply_filters( 'learn-press/course/regular-price', $price, $this->get_id() );
+			return apply_filters( 'learn-press/course/regular-price-html', $price, $this->get_id() );
 		}
 
 		/**
@@ -851,7 +847,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			$max_allowed = $this->get_max_students();
 
 			if ( $max_allowed ) {
-				$in_stock = $max_allowed > $this->get_total_user_enrolled();
+				$in_stock = $max_allowed > $this->get_total_user_enrolled_or_purchased();
 			}
 
 			return apply_filters( 'learn-press/is-in-stock', $in_stock, $this->get_id() );
@@ -884,7 +880,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * @Todo: view and rewrite this function
 		 */
 		public function count_students(): int {
-			$total  = $this->get_total_user_enrolled();
+			$total  = $this->get_total_user_enrolled_or_purchased();
 			$total += $this->get_fake_students();
 
 			return $total;

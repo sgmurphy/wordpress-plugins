@@ -245,8 +245,6 @@ const lpAddQueryArgs = (endpoint, args) => {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!****************************************************!*\
   !*** ./assets/src/apps/js/frontend/instructors.js ***!
   \****************************************************/
@@ -254,8 +252,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _instructors_instructor_list__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instructors/instructor-list */ "./assets/src/apps/js/frontend/instructors/instructor-list.js");
 
 (0,_instructors_instructor_list__WEBPACK_IMPORTED_MODULE_0__["default"])();
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=instructors.js.map

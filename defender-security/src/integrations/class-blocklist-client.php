@@ -21,7 +21,6 @@ use WP_Defender\Behavior\WPMUDEV;
  */
 class Blocklist_Client {
 
-
 	/**
 	 * The base URL of the Blocklist API service.
 	 *

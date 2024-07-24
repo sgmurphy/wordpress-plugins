@@ -5,7 +5,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('LOGINIZER_VERSION', '1.8.8');
+define('LOGINIZER_VERSION', '1.8.9');
 define('LOGINIZER_DIR', dirname(LOGINIZER_FILE));
 define('LOGINIZER_URL', plugins_url('', LOGINIZER_FILE));
 define('LOGINIZER_PRO_URL', 'https://loginizer.com/features#compare');
@@ -25,7 +25,7 @@ function loginizer_activation(){
 	$sql = array();
 	
 	$sql[] = "DROP TABLE IF EXISTS `".$wpdb->prefix."loginizer_logs`";
-	
+
 	$sql[] = "CREATE TABLE `".$wpdb->prefix."loginizer_logs` (
 				`username` varchar(255) NOT NULL DEFAULT '',
 				`time` int(10) NOT NULL DEFAULT '0',
@@ -205,8 +205,12 @@ function loginizer_load_plugin(){
 	// Check if the installed version is outdated
 	loginizer_update_check();
 	
+	
+	
 	// Set the array
-	$loginizer = array();
+	if(empty($loginizer)){
+		$loginizer = array();
+	}
 	
 	$loginizer['prefix'] = !defined('SITEPAD') ? 'Loginizer ' : 'SitePad ';
 	$loginizer['app'] = !defined('SITEPAD') ? 'WordPress' : 'SitePad';
@@ -346,144 +350,6 @@ $sitename','loginizer');
 			add_action('login_form', 'loginizer_social_btn_login');
 		}
 	}
-	
-	// ----------------
-	// PRO INIT
-	// ----------------
-	
-	// Email to Login
-	$options = get_option('loginizer_epl');
-	$loginizer['pl_d_sub'] = __('Login at $site_name','loginizer');
-	$loginizer['pl_d_msg'] = __('Hi,
-
-A login request was submitted for your account $email at :
-$site_name - $site_url
-
-Login at $site_name by visiting this url : 
-$login_url
-
-If you have not requested for the Login URL, please ignore this email.
-
-Regards,
-$site_name','loginizer');
-	$loginizer['email_pass_less'] = empty($options['email_pass_less']) ? 0 : $options['email_pass_less'];
-	$loginizer['passwordless_sub'] = empty($options['passwordless_sub']) ? $loginizer['pl_d_sub'] : $options['passwordless_sub'];
-	$loginizer['passwordless_msg'] = empty($options['passwordless_msg']) ? $loginizer['pl_d_msg'] : $options['passwordless_msg'];
-	$loginizer['passwordless_msg_is_custom'] = empty($options['passwordless_msg']) ? 0 : 1;
-	$loginizer['passwordless_html'] = empty($options['passwordless_html']) ? 0 : $options['passwordless_html'];
-	$loginizer['passwordless_redirect'] = empty($options['passwordless_redirect']) ? 0 : $options['passwordless_redirect'];
-	$loginizer['passwordless_redirect_for'] = empty($options['passwordless_redirect_for']) ? 0 : $options['passwordless_redirect_for'];
-
-	// 2FA OTP Email to Login
-	$options = get_option('loginizer_2fa_email_template');
-	$loginizer['2fa_email_d_sub'] = 'OTP : Login at $site_name';
-	$loginizer['2fa_email_d_msg'] = 'Hi,
-
-A login request was submitted for your account $email at :
-$site_name - $site_url
-
-Please use the following One Time password (OTP) to login : 
-$otp
-
-Note : The OTP expires after 10 minutes.
-
-If you haven\'t requested for the OTP, please ignore this email.
-
-Regards,
-$site_name';
-
-	$loginizer['2fa_email_sub'] = empty($options['2fa_email_sub']) ? $loginizer['2fa_email_d_sub'] : $options['2fa_email_sub'];
-	$loginizer['2fa_email_msg'] = empty($options['2fa_email_msg']) ? $loginizer['2fa_email_d_msg'] : $options['2fa_email_msg'];
-	
-	// For SitePad its always on
-	if(defined('SITEPAD')){
-		$loginizer['email_pass_less'] = 1;
-	}
-	
-	// Captcha
-	$options = get_option('loginizer_captcha');
-	$loginizer['captcha_type'] = empty($options['captcha_type']) ? '' : $options['captcha_type'];
-	$loginizer['captcha_key'] = empty($options['captcha_key']) ? '' : $options['captcha_key'];
-	$loginizer['captcha_secret'] = empty($options['captcha_secret']) ? '' : $options['captcha_secret'];
-	$loginizer['captcha_theme'] = empty($options['captcha_theme']) ? 'light' : $options['captcha_theme'];
-	$loginizer['captcha_size'] = empty($options['captcha_size']) ? 'normal' : $options['captcha_size'];
-	$loginizer['captcha_lang'] = empty($options['captcha_lang']) ? '' : $options['captcha_lang'];
-	$loginizer['turn_captcha_key'] = empty($options['turn_captcha_key']) ? '' : $options['turn_captcha_key'];
-	$loginizer['turn_captcha_secret'] = empty($options['turn_captcha_secret']) ? '' : $options['turn_captcha_secret'];
-	$loginizer['turn_captcha_theme'] = empty($options['turn_captcha_theme']) ? 'light' : $options['turn_captcha_theme'];
-	$loginizer['turn_captcha_size'] = empty($options['turn_captcha_size']) ? 'normal' : $options['turn_captcha_size'];
-	$loginizer['turn_captcha_lang'] = empty($options['turn_captcha_lang']) ? '' : $options['turn_captcha_lang'];
-	$loginizer['captcha_user_hide'] = !isset($options['captcha_user_hide']) ? 0 : $options['captcha_user_hide'];
-	$loginizer['captcha_no_js'] = 1;
-	$loginizer['captcha_login'] = !isset($options['captcha_login']) ? 1 : $options['captcha_login'];
-	$loginizer['captcha_lostpass'] = !isset($options['captcha_lostpass']) ? 1 : $options['captcha_lostpass'];
-	$loginizer['captcha_resetpass'] = !isset($options['captcha_resetpass']) ? 1 : $options['captcha_resetpass'];
-	$loginizer['captcha_register'] = !isset($options['captcha_register']) ? 1 : $options['captcha_register'];
-	$loginizer['captcha_comment'] = !isset($options['captcha_comment']) ? 1 : $options['captcha_comment'];
-	$loginizer['captcha_wc_checkout'] = !isset($options['captcha_wc_checkout']) ? 1 : $options['captcha_wc_checkout'];
-	
-	$loginizer['captcha_no_google'] =  !isset($options['captcha_no_google']) ? 0 : $options['captcha_no_google'];
-	$loginizer['captcha_domain'] = empty($options['captcha_domain']) ? 'www.google.com' : $options['captcha_domain'];
-	
-	$loginizer['captcha_text'] =  empty($options['captcha_text']) ? __('Math Captcha', 'loginizer') : $options['captcha_text'];
-	$loginizer['captcha_time'] =  empty($options['captcha_time']) ? 300 : $options['captcha_time'];
-	$loginizer['captcha_words'] =  !isset($options['captcha_words']) ? 0 : $options['captcha_words'];
-	$loginizer['captcha_add'] =  !isset($options['captcha_add']) ? 1 : $options['captcha_add'];
-	$loginizer['captcha_subtract'] =  !isset($options['captcha_subtract']) ? 1 : $options['captcha_subtract'];
-	$loginizer['captcha_multiply'] =  !isset($options['captcha_multiply']) ? 0 : $options['captcha_multiply'];
-	$loginizer['captcha_divide'] =  !isset($options['captcha_divide']) ? 0 : $options['captcha_divide'];
-	$loginizer['captcha_status'] =  !isset($options['captcha_status']) ? 0 : $options['captcha_status'];
-
-	// hcaptcha
-	$loginizer['hcaptcha_secretkey'] =  !isset($options['hcaptcha_secretkey']) ? '' : $options['hcaptcha_secretkey'];
-	$loginizer['hcaptcha_sitekey'] =  !isset($options['hcaptcha_sitekey']) ? '' : $options['hcaptcha_sitekey'];
-	$loginizer['hcaptcha_theme'] = empty($options['hcaptcha_theme']) ? 'light' : $options['hcaptcha_theme'];
-	$loginizer['hcaptcha_lang'] = empty($options['hcaptcha_lang']) ? '' : $options['hcaptcha_lang'];
-	$loginizer['hcaptcha_size'] = empty($options['hcaptcha_size']) ? 'normal' : $options['hcaptcha_size'];
-
-	// 2fa/question
-	$options = get_option('loginizer_2fa');
-	$loginizer['2fa_app'] = !isset($options['2fa_app']) ? 0 : $options['2fa_app'];
-	$loginizer['2fa_email'] = !isset($options['2fa_email']) ? 0 : $options['2fa_email'];
-	$loginizer['2fa_email_force'] = !isset($options['2fa_email_force']) ? 0 : $options['2fa_email_force'];
-	$loginizer['2fa_sms'] = !isset($options['2fa_sms']) ? 0 : $options['2fa_sms'];
-	$loginizer['question'] = !isset($options['question']) ? 0 : $options['question'];
-	$loginizer['2fa_default'] = empty($options['2fa_default']) ? 'question' : $options['2fa_default'];
-	$loginizer['2fa_roles'] = empty($options['2fa_roles']) ? array() : $options['2fa_roles'];
-	
-	// Security Settings
-	$options = get_option('loginizer_security');
-	$loginizer['login_slug'] = empty($options['login_slug']) ? '' : $options['login_slug'];
-	$loginizer['rename_login_secret'] = empty($options['rename_login_secret']) ? '' : $options['rename_login_secret'];
-	$loginizer['xmlrpc_slug'] = empty($options['xmlrpc_slug']) ? '' : $options['xmlrpc_slug'];
-	$loginizer['xmlrpc_disable'] = empty($options['xmlrpc_disable']) ? '' : $options['xmlrpc_disable'];// Disable XML-RPC
-	$loginizer['pingbacks_disable'] = empty($options['pingbacks_disable']) ? '' : $options['pingbacks_disable'];// Disable Pingbacks
-	
-	// Admin Slug Settings
-	$options = get_option('loginizer_wp_admin');
-	$loginizer['admin_slug'] = empty($options['admin_slug']) ? '' : $options['admin_slug'];
-	$loginizer['restrict_wp_admin'] = empty($options['restrict_wp_admin']) ? '' : $options['restrict_wp_admin'];
-	$loginizer['wp_admin_msg'] = empty($options['wp_admin_msg']) ? '' : $options['wp_admin_msg'];
-	
-	// Checksum Settings
-	$options = get_option('loginizer_checksums');
-	$loginizer['disable_checksum'] = empty($options['disable_checksum']) ? '' : $options['disable_checksum'];
-	$loginizer['checksum_time'] = empty($options['checksum_time']) ? '' : $options['checksum_time'];
-	$loginizer['checksum_frequency'] = empty($options['checksum_frequency']) ? 7 : $options['checksum_frequency'];
-	$loginizer['no_checksum_email'] = empty($options['no_checksum_email']) ? '' : $options['no_checksum_email'];
-	$loginizer['checksums_last_run'] = get_option('loginizer_checksums_last_run');
-	
-	// Auto Blacklist Usernames
-	$loginizer['username_blacklist'] = get_option('loginizer_username_blacklist');
-	
-	$loginizer['domains_blacklist'] = get_option('loginizer_domains_blacklist');
-	
-	$loginizer['wp_admin_d_msg'] = __('LZ : Not allowed via WP-ADMIN. Please access over the new Admin URL', 'loginizer');
-	
-	// CSRF Protection
-	$loginizer['enable_csrf_protection'] = get_option('loginizer_csrf_protection');
-	$loginizer['2fa_custom_login_redirect'] = get_option('loginizer_2fa_custom_redirect');
-	$loginizer['limit_session'] = get_option('loginizer_limit_session');
 
 	if((function_exists('wp_doing_ajax') && wp_doing_ajax()) || (defined( 'DOING_AJAX' ) && DOING_AJAX)){
 		include_once LOGINIZER_DIR . '/main/ajax.php';
@@ -498,15 +364,7 @@ $site_name';
 	// ----------------
 	
 	// Is the premium features there ?
-	if(file_exists(LOGINIZER_DIR.'/premium.php')){
-		
-		// Include the file
-		include_once(LOGINIZER_DIR.'/premium.php');
-		
-		loginizer_security_init();
-	
-	// Its the free version
-	}else{
+	if(!defined('LOGINIZER_PREMIUM')){
 		
 		if(current_user_can('activate_plugins')){
 			// The promo time

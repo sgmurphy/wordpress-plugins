@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WordPress.com Editing Toolkit
  * Description: Enhances your page creation workflow within the Block Editor.
- * Version: 4.28277
+ * Version: 4.29247
  * Author: Automattic
  * Author URI: https://automattic.com/wordpress-plugins/
  * License: GPLv2 or later
@@ -42,7 +42,7 @@ namespace A8C\FSE;
  *
  * @var string
  */
-define( 'A8C_ETK_PLUGIN_VERSION', '4.28277' );
+define( 'A8C_ETK_PLUGIN_VERSION', '4.29247' );
 
 // Always include these helper files for dotcom FSE.
 require_once __DIR__ . '/dotcom-fse/helpers.php';
@@ -286,19 +286,6 @@ function load_mailerlite() {
 	require_once __DIR__ . '/mailerlite/subscriber-popup.php';
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\load_mailerlite' );
-
-/**
- * Load WPCOM block editor nav sidebar.
- */
-function load_wpcom_block_editor_sidebar() {
-	if (
-		( defined( 'WPCOM_BLOCK_EDITOR_SIDEBAR' ) && WPCOM_BLOCK_EDITOR_SIDEBAR ) ||
-		apply_filters( 'a8c_enable_nav_sidebar', false )
-	) {
-		require_once __DIR__ . '/wpcom-block-editor-nav-sidebar/class-wpcom-block-editor-nav-sidebar.php';
-	}
-}
-add_action( 'plugins_loaded', __NAMESPACE__ . '\load_wpcom_block_editor_sidebar' );
 
 /**
  * What's New section of the Tools menu.

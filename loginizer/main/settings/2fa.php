@@ -426,7 +426,7 @@ lz_roles_handle();
 				<td scope="row" valign="top" style="width:350px !important">
 					<label><?php echo __('Email Subject', 'loginizer'); ?></label><br>
 					<span class="exp"><?php echo __('Set blank to reset to the default subject', 'loginizer'); ?></span>
-					<br />Default : <?php echo @$loginizer['2fa_email_d_sub']; ?>
+					<br />Default : <?php echo (!empty($loginizer['2fa_email_d_sub']) ? $loginizer['2fa_email_d_sub'] : ''); ?>
 				</td>
 				<td valign="top">
 					<input type="text" size="40" value="<?php echo lz_htmlizer(!empty($_POST['lz_2fa_email_sub']) ? stripslashes($_POST['lz_2fa_email_sub']) : (empty($lz_options['2fa_email_sub']) ? '' : $lz_options['2fa_email_sub'])); ?>" name="lz_2fa_email_sub" />
@@ -436,7 +436,7 @@ lz_roles_handle();
 				<td scope="row" valign="top">
 					<label><?php echo __('Email Body', 'loginizer'); ?></label><br>
 					<span class="exp"><?php echo __('Set blank to reset to the default message', 'loginizer'); ?></span>
-					<br />Default : <pre style="font-size:10px"><?php echo @$loginizer['2fa_email_d_msg']; ?></pre>
+					<br />Default : <pre style="font-size:10px"><?php echo (!empty($loginizer['2fa_email_d_msg']) ? $loginizer['2fa_email_d_msg'] : ''); ?></pre>
 				</td>
 				<td valign="top">
 					<textarea rows="10" name="lz_2fa_email_msg"><?php echo lz_htmlizer(!empty($_POST['lz_2fa_email_msg']) ? stripslashes($_POST['lz_2fa_email_msg']) : (empty($lz_options['2fa_email_msg']) ? '' : $lz_options['2fa_email_msg'])); ?></textarea>

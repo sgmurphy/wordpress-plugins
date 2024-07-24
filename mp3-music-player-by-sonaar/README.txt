@@ -3,9 +3,9 @@ Contributors: sonaar, eduplessis
 Tags: MP3, music player, podcast player, audio player, woocommerce
 Donate link: https://sonaar.io
 Requires at least: 4.7
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 5.6
+Stable tag: 5.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -339,6 +339,18 @@ Yes, with the pro version, you can click on the 'Add to Favorite' icon to store 
 10. Shortcode Builder: Create, Import and Customize audio players using shortcodes in real-time
 
 == Changelog ==
+= 5.7 =
+New: Audio Previews, Audio Watermarks, Audio Ads, Fade-in and Fade-out audio generation in 1-click are now available for ALL our Business Plan (or higher) users without the needs to have FFMPEG installed! All audio processing is done off-site via our external API server, ensuring your audio files remain hosted on your own server while leveraging our external processing capabilities.
+New: Option to set an info icon button on the mini player widget to display the track description.
+Tweak: You can now set an external URL for the audio preview.
+Tweak: Unified the Repeat Icon size with the other control buttons.
+Fix: JS error related to srp_var in edit post area
+Fix: Prevent PHP error with third party plugins using CMB2 conditionals.
+Fix: Shuffle button not highlighted if Enable Shuffle is set on the player widget
+Fix: Avoid scrolling to top when using pagination. Add the class srp-scrolltotracklisttop-disable to the player to disable the auto scroll.
+Removed sonaar_events table creation on plugin activation. Built-in stats are officially deprecated.
+Code Optimization
+
 = 5.6 =
 New: Add Repeat Control Buttons in the widget players. You can enable it site-wide from WP-Admin > MP3 Player > Widget/Sticky Player > Display Repeat Button. Additionally, you can enable it for individual widget instances.
 New: Azuracast radio support to display whats currently playing

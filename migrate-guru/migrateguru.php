@@ -5,7 +5,7 @@ Plugin URI: https://www.migrateguru.com
 Description: Migrating your site(s) to any WordPress Hosting platform has never been so easy.
 Author: Migrate Guru
 Author URI: http://www.migrateguru.com
-Version: 5.56
+Version: 5.65
 Network: True
  */
 
@@ -90,6 +90,7 @@ if ((array_key_exists('bvreqmerge', $_POST)) || (array_key_exists('bvreqmerge', 
 	$_REQUEST = array_merge($_GET, $_POST);
 }
 
+##PHP_ERROR_MONITORING_MODULE##
 if ($bvinfo->hasValidDBVersion()) {
 	##ACTLOGMODULE##
 	##MAINTENANCEMODULE##

@@ -4,7 +4,7 @@
  * Plugin URI: http://thimpress.com/learnpress
  * Description: LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help you to create courses, lessons and quizzes.
  * Author: ThimPress
- * Version: 4.2.6.8.2
+ * Version: 4.2.6.9.1
  * Author URI: http://thimpress.com
  * Requires at least: 6.3
  * Requires PHP: 7.0
@@ -58,7 +58,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 *
 		 * @var int
 		 */
-		public $db_version = 4;
+		public $db_version = 5;
 
 		/**
 		 * The single instance of the class
@@ -247,7 +247,10 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			// Filter query .
 			include_once 'inc/Filters/class-lp-filter.php';
 			include_once 'inc/Filters/class-lp-post-type-filter.php';
+			include_once 'inc/Filters/class-lp-post-meta-filter.php';
+			include_once 'inc/Filters/class-lp-user-filter.php';
 			include_once 'inc/Filters/class-lp-course-filter.php';
+			include_once 'inc/Filters/class-lp-course-json-filter.php';
 			include_once 'inc/Filters/class-lp-order-filter.php';
 			include_once 'inc/Filters/class-lp-session-filter.php';
 			include_once 'inc/Filters/class-lp-section-filter.php';
@@ -261,7 +264,11 @@ if ( ! class_exists( 'LearnPress' ) ) {
 
 			// Query Database .
 			include_once 'inc/Databases/class-lp-db.php';
+			include_once 'inc/Databases/class-lp-course-json-db.php';
 			include_once 'inc/Databases/class-lp-order-db.php';
+			include_once 'inc/Databases/class-lp-post-db.php';
+			include_once 'inc/Databases/class-lp-post-meta-db.php';
+			include_once 'inc/Databases/class-lp-user-db.php';
 			include_once 'inc/Databases/class-lp-course-db.php';
 			include_once 'inc/Databases/class-lp-lesson-db.php';
 			include_once 'inc/Databases/class-lp-section-db.php';

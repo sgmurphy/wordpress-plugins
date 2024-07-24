@@ -20,7 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Dashboard_Whitelabel {
 
-
 	/**
 	 * Holds dashboard plugin white-label filter values.
 	 *

@@ -10,7 +10,7 @@ if (!class_exists('MGInfo')) :
 		public $badgeinfo = 'bvmgbadge';
 		public $ip_header_option = 'bvmgipheader';
 		public $brand_option = 'bvmgbrand';
-		public $version = '5.56';
+		public $version = '5.65';
 		public $webpage = 'https://www.migrateguru.com';
 		public $appurl = 'https://mg.blogvault.net';
 		public $slug = 'migrate-guru/migrateguru.php';
@@ -60,7 +60,10 @@ if (!class_exists('MGInfo')) :
 		public function getConnectionKey() {
 			require_once dirname( __FILE__ ) . '/recover.php';
 			$bvsiteinfo = new MGWPSiteInfo();
-			return base64_encode(MGRecover::defaultSecret($this->settings).":".$bvsiteinfo->siteurl());
+			$encoded_url = base64_encode($bvsiteinfo->siteurl());
+			$secret = MGRecover::defaultSecret($this->settings);
+
+			return base64_encode("v1:".$secret.":".$encoded_url);
 		}
 
 		public function getDefaultSecret() {

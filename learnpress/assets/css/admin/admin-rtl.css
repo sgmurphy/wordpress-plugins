@@ -448,15 +448,15 @@
 }
 
 .advanced-list {
-  padding: 5px 8px 0 0;
-  border: 1px solid #ddd;
+  width: 100%;
+  min-width: 200px;
   border-radius: var(--lp-border-radius);
   background: #fff;
   list-style: none;
 }
 .advanced-list li {
   display: inline-block;
-  margin: 0 -3px 5px 5px;
+  margin: 0 0 5px 5px;
   padding: 3px 8px;
   background: #eee;
   border-radius: var(--lp-border-radius);
@@ -546,6 +546,38 @@ ul .clearfix {
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
+}
+
+.search-box .ts-wrapper {
+  float: right;
+  margin-left: 4px;
+}
+.search-box .ts-wrapper .ts-control {
+  padding: 3px;
+  height: 30px;
+}
+.search-box .ts-wrapper .ts-control li {
+  margin: 0;
+}
+
+.ts-wrapper {
+  min-width: 200px;
+}
+.ts-wrapper .ts-control input[type=text] {
+  width: auto;
+}
+.ts-wrapper .ts-control li {
+  margin: 0 0 5px 5px;
+  padding: 3px 8px;
+  background: #eee;
+  border-radius: var(--lp-border-radius);
+}
+.ts-wrapper .ts-dropdown .spinner {
+  visibility: visible;
+}
+.ts-wrapper .ts-dropdown .spinner::after {
+  content: "";
+  border: none;
 }
 
 @-moz-keyframes lp-spinner {
@@ -2802,6 +2834,10 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   align-items: center;
   justify-content: center;
 }
+.lp-modal-dialog .learn-press-message {
+  width: auto;
+  margin: 0 !important;
+}
 .lp-modal-dialog .lp-modal-content {
   display: inline-block;
   overflow: hidden;
@@ -2813,6 +2849,15 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   vertical-align: middle;
   background: white;
   color: black;
+}
+.lp-modal-dialog .lp-modal-content h2, .lp-modal-dialog .lp-modal-content h3 {
+  margin: 0;
+}
+.lp-modal-dialog .lp-modal-content .lp-group-step h3 {
+  border-bottom: 1px solid #eee;
+}
+.lp-modal-dialog .lp-modal-content .main-content .terms-upgrade .pd-2em {
+  padding: 0 1em;
 }
 .lp-modal-dialog .lp-modal-header {
   background: #7c60d9;
@@ -2827,6 +2872,7 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
 .lp-modal-dialog .lp-modal-body .main-content {
   max-height: 500px;
   overflow: auto;
+  overscroll-behavior: contain;
 }
 .lp-modal-dialog .lp-modal-body .main-content h3, .lp-modal-dialog .lp-modal-body .main-content h2, .lp-modal-dialog .lp-modal-body .main-content .pd-2em {
   padding: 1em;
@@ -6016,7 +6062,7 @@ body.lp-item-moving {
   position: relative;
   min-height: 35px;
   margin: 0;
-  padding: 1em 0;
+  padding: 1em 0 1em 1em;
   border-top: 1px solid #eee;
   align-items: center;
   cursor: pointer;

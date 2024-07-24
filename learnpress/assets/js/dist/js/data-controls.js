@@ -81,8 +81,6 @@ module.exports = window["wp"]["apiFetch"];
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*********************************************!*\
   !*** ./assets/src/apps/js/data-controls.js ***!
   \*********************************************/
@@ -167,8 +165,6 @@ const controls = {
     return registry.dispatch(storeKey)[actionName](...args);
   })
 };
-})();
-
 (window.LP = window.LP || {}).dataControls = __webpack_exports__;
 /******/ })()
 ;

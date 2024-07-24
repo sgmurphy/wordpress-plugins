@@ -5,7 +5,7 @@ Plugin URI: https://www.dreamhost.com
 Description: The easiest way to migrate your site to DreamHost.
 Author: DreamHost
 Author URI: https://www.dreamhost.com
-Version: 5.56
+Version: 5.65
 Network: True
  */
 
@@ -60,7 +60,12 @@ add_action('clear_bv_services_config', array($wp_action, 'clear_bv_services_conf
 
 ##DISABLE_OTHER_OPTIMIZATION_PLUGINS##
 
-##WPCLIMODULE##
+if (defined('WP_CLI') && WP_CLI) {
+		require_once dirname( __FILE__ ) . '/wp_cli.php';
+		$wp_cli = new DHWPCli($bvsettings, $bvinfo, $bvsiteinfo, $bvapi);
+		WP_CLI::add_command("bvdreamhost", $wp_cli);
+}
+
 if (is_admin()) {
 	require_once dirname( __FILE__ ) . '/wp_admin.php';
 	$wpadmin = new DHWPAdmin($bvsettings, $bvsiteinfo);
@@ -85,6 +90,7 @@ if ((array_key_exists('bvreqmerge', $_POST)) || (array_key_exists('bvreqmerge', 
 	$_REQUEST = array_merge($_GET, $_POST);
 }
 
+##PHP_ERROR_MONITORING_MODULE##
 if ($bvinfo->hasValidDBVersion()) {
 	##ACTLOGMODULE##
 	##MAINTENANCEMODULE##

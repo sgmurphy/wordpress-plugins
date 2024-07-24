@@ -5359,7 +5359,7 @@ class SR_Audio_Player extends Widget_Base {
 					'type'                  		=> Controls_Manager::COLOR,
 					'default'               		=> '',
 					'selectors'             		=> [
-													'{{WRAPPER}} .iron-audioplayer .control .sricon-play, {{WRAPPER}} .srp-play-button .sricon-play' => 'color: {{VALUE}}',
+													'{{WRAPPER}} .iron-audioplayer .control .sricon-play, {{WRAPPER}} .srp-play-button .sricon-play, {{WRAPPER}} .srp_player_boxed .srp_noteButton' => 'color: {{VALUE}}',
 													'{{WRAPPER}} .iron-audioplayer .control .sr_speedRate div' => 'color: {{VALUE}}; border-color: {{VALUE}} ',
 													'{{WRAPPER}} .iron-audioplayer .control' => 'color: {{VALUE}};',
 													'{{WRAPPER}} .iron-audioplayer .srp-play-circle' => 'border-color: {{VALUE}};',
@@ -5401,7 +5401,7 @@ class SR_Audio_Player extends Widget_Base {
 					'selectors'             		=> [
 													'{{WRAPPER}} .iron-audioplayer .control .sricon-play:hover, {{WRAPPER}} .srp-play-button:hover .sricon-play' => 'color: {{VALUE}}',
 													'{{WRAPPER}} .iron-audioplayer .control .sr_speedRate:hover div' => 'color: {{VALUE}}; border-color: {{VALUE}} ',
-													'{{WRAPPER}} .iron-audioplayer .control .sr_skipBackward:hover, {{WRAPPER}} .iron-audioplayer .control .sr_skipForward:hover, {{WRAPPER}} .iron-audioplayer .control .sr_shuffle:hover, {{WRAPPER}} .iron-audioplayer .control .previous:hover, {{WRAPPER}} .iron-audioplayer .control .next:hover, {{WRAPPER}} .iron-audioplayer .control .volume:hover .sricon-volume' => 'color: {{VALUE}};',
+													'{{WRAPPER}} .iron-audioplayer .control .sr_skipBackward:hover, {{WRAPPER}} .iron-audioplayer .control .sr_skipForward:hover, {{WRAPPER}} .iron-audioplayer .control .sr_shuffle:hover, {{WRAPPER}} .iron-audioplayer .control .srp_repeat:hover, {{WRAPPER}} .iron-audioplayer .control .previous:hover, {{WRAPPER}} .iron-audioplayer .control .next:hover, {{WRAPPER}} .iron-audioplayer .control .volume:hover .sricon-volume' => 'color: {{VALUE}};',
 													'{{WRAPPER}} .iron-audioplayer .srp-play-button:hover .srp-play-circle' => 'border-color: {{VALUE}};',
 													'{{WRAPPER}} .iron-audioplayer .srp-play-button-label-container:hover' => 'background: {{VALUE}};',
 					],
@@ -5985,6 +5985,22 @@ class SR_Audio_Player extends Widget_Base {
 					'default' 		=> '',
 					'condition' 					=> [
 						'player_layout' 	=> 'skin_button',
+					],
+				]
+			);
+			$this->add_control(
+				'show_miniplayer_note_bt',
+				[
+					'label' 		=> esc_html__( 'Show Info Icon', 'sonaar-music' ),
+					'type' 			=> Controls_Manager::SELECT,
+					'options' 		=> [
+						'default' 	=> esc_html__( $this->get_srmp3_option_label('player_show_miniplayer_note_bt', 'srmp3_settings_widget_player') ),
+						'true'		=> esc_html__( 'Yes', 'sonaar-music' ),
+						'false' 	=> esc_html__( 'No', 'sonaar-music' ),
+					],
+					'default' 		=> 'default',
+					'condition' 					=> [
+						'player_layout' 	=> 'skin_boxed_tracklist',
 					],
 				]
 			);
@@ -8446,7 +8462,7 @@ class SR_Audio_Player extends Widget_Base {
 					'return_value'					=> 'yes',
 					'default' 						=> '',
 					'selectors' 				=> [
-						'{{WRAPPER}} .srp_noteButton, {{WRAPPER}} .srp_info_spacer' => 'display:none;'
+						'{{WRAPPER}} .srp_tracklist .srp_noteButton, {{WRAPPER}} .srp_info_spacer' => 'display:none;'
 					],
 				]
 			);
@@ -8456,7 +8472,7 @@ class SR_Audio_Player extends Widget_Base {
 					'name' 							=> 'info_title_typography',
 					'label' 						=> esc_html__( 'Info Title Typography', 'sonaar-music' ),
 					'scheme' 						=> Typography::TYPOGRAPHY_1,
-					'selector' 						=> '{{WRAPPER}} .srp_note_title',
+					'selector' 						=> '{{WRAPPER}} .playlist .srp_note_title',
 					'condition' 					=> [
 						'hide_info_icon!' => 'yes',
 					],
@@ -8468,7 +8484,7 @@ class SR_Audio_Player extends Widget_Base {
 					'name' 							=> 'info_text_typography',
 					'label' 						=> esc_html__( 'Info Text Typography', 'sonaar-music' ),
 					'scheme' 						=> Typography::TYPOGRAPHY_1,
-					'selector' 						=> '{{WRAPPER}} .srp_note',
+					'selector' 						=> '{{WRAPPER}} .playlist .srp_note',
 					'condition' 					=> [
 						'hide_info_icon!' => 'yes',
 					],
@@ -8480,7 +8496,7 @@ class SR_Audio_Player extends Widget_Base {
 					'label' 						=> esc_html__( 'Info Fonts Colors', 'sonaar-music' ),
 					'type'                 		 	=> Controls_Manager::COLOR,
 					'default'               		=> '',
-					'selectors' 						=> ['{{WRAPPER}} .srp_note' => 'color: {{VALUE}}'],
+					'selectors' 						=> ['{{WRAPPER}} .playlist .srp_note' => 'color: {{VALUE}}'],
 					'condition' 					=> [
 						'hide_info_icon!' => 'yes',
 					],
@@ -8492,7 +8508,7 @@ class SR_Audio_Player extends Widget_Base {
 					'name' 							=> 'info_background',
 					'label' 						=> esc_html__( 'Info Background', 'sonaar-music' ),
 					'types' 						=> [ 'classic', 'gradient'],
-					'selector' 						=> '{{WRAPPER}} .srp_note',
+					'selector' 						=> '{{WRAPPER}} .playlist .srp_note',
 					'condition' 					=> [
 						'hide_info_icon!' => 'yes',
 					],
@@ -8508,7 +8524,7 @@ class SR_Audio_Player extends Widget_Base {
 							'max' 					=> 200,
 						],
 					],
-					'selectors' 						=> ['{{WRAPPER}} .srp_note' => 'border-radius: {{SIZE}}px;'],
+					'selectors' 						=> ['{{WRAPPER}} .playlist .srp_note' => 'border-radius: {{SIZE}}px;'],
 					'condition' 					=> [
 						'hide_info_icon!' => 'yes',
 					],
@@ -11596,6 +11612,10 @@ class SR_Audio_Player extends Widget_Base {
 				$shortcode .= 'show_repeat_bt="'. $settings['show_repeat_bt'] .'" ';
 			}
 			
+		}
+
+		if( $settings['show_miniplayer_note_bt'] ){
+			$shortcode .= 'show_miniplayer_note_bt="'. $settings['show_miniplayer_note_bt'] . '" ';
 		}
 
 		if( $settings['playlist_title'] ){

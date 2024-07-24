@@ -1,18 +1,18 @@
 === Hummingbird Performance - Cache & Page Speed Optimization for Core Web Vitals | Critical CSS | Minify CSS | Defer CSS Javascript | CDN ===
 Plugin Name: Hummingbird Performance - Cache & Page Speed Optimization for Core Web Vitals | Critical CSS | Minify CSS | Defer CSS Javascript | CDN
-Version: 3.9.1
+Version: 3.9.2
 Author: WPMU DEV
 Author URI: https://wpmudev.com/
 Contributors: WPMUDEV
-Tags: cache, critical css, performance, delay javascript, minify css, defer css javascript, page cache, wordpress speed optimization, page speed, wordpress cache plugin, wordpress performance optimization, lazy load, performance optimization, seo, pagespeed, wp cache, delay javascript, brotli compression, generate critical css
-Requires at least: 5.2
+Tags: Cache, Caching, Performance, Critical CSS, Minify CSS
+Requires at least: 6.4
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.9.1
+Stable tag: 3.9.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-The best WP Caching Plugin - Boost PageSpeed Performance, Cache, Minify CSS & JavaScript, Optimize Critical CSS, Defer CSS & JS, Smush & Lazy Load images.
+The Best Performance Plugin – Boost PageSpeed Performance, Cache, Minify CSS & JavaScript, Optimize Critical CSS, Defer CSS & JS, Smush & Lazy Load.
 
 == Description ==
 
@@ -130,11 +130,11 @@ You get our WordPress performance optimization suite, which includes minificatio
 
 Hummingbird is built with ease-of-use in mind; it makes your WordPress site faster, but it’s also fast to set up. You can scan your site and implement recommended changes in one-click, getting a fast site in mere minutes.
 
-All the above is free and will speed up WordPress for you. **If you need the very fastest WordPress site, [you should get a WPMU DEV Membership](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme&utm_content=you_should_get_wpmudev_membership#trial).**
+All the above is free and will speed up WordPress for you. **If you need the very fastest WordPress site, [you should get a WPMU DEV Membership](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme&utm_content=you_should_get_wpmudev_membership).**
 
 Our Membership gives you access to Hummingbird Pro – which features automated scanning, uptime monitoring, enhanced minify compression (with 2x the regular optimization), CDN hosted minification – alongside Smush Pro image optimization, all our premium WordPress plugins, and 24/7 WordPress support.
 
-[It’s an incredible deal, and you can find out more here.](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme&utm_content=and_you_can_find_out_more_here#trial)
+[It’s an incredible deal, and you can find out more here.](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme&utm_content=and_you_can_find_out_more_here)
 
 = What do People say About Hummingbird? =
 
@@ -157,7 +157,7 @@ Hey! This is Hummingbird, your trusted solution to speed up WordPress. I’m par
 - [Forminator](https://wordpress.org/plugins/forminator/) - Form, Quiz, Poll and Survey Builder
 - [Hustle](https://wordpress.org/plugins/wordpress-popup/) - Pop-ups, Slide-ins and Email Opt-ins
 
-And if you need ALL our Pro plugins AND 24/7 WordPress support, get WPMU DEV membership! You can try it for free: [wpmudev.com](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme&utm_content=link_wpmudev#trial)
+And if you need ALL our Pro plugins AND 24/7 WordPress support, [get WPMU DEV membership!](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme&utm_content=link_wpmudev)
 
 My superhero friends run the WPMU DEV Blog, your source for the very best WordPress tutorials. If you need to be in the know about WordPress, check it out.
 
@@ -189,7 +189,7 @@ The free Hummingbird plugin is a powerful suite of WordPress speed optimization 
 
 Hummingbird Pro is available as part of the WPMU DEV Membership, and adds automated scanning, uptime monitoring, enhanced minify compression (with 2x the regular optimization), and CDN hosted minification. This will make your site even faster.
 
-Membership also gets you all our premium WordPress plugins, including Smush Pro, for the very best image optimization with image resizing, lazy load, and next-gen WebP convert, and 24/7 WordPress support. Hummingbird is a great free plugin, and Hummingbird Pro is even better. [You can find out more here.](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme&utm_content=you_can_find_out_more#trial)
+Membership also gets you all our premium WordPress plugins, including Smush Pro, for the very best image optimization with image resizing, lazy load, and next-gen WebP convert, and 24/7 WordPress support. Hummingbird is a great free plugin, and Hummingbird Pro is even better. [You can find out more here.](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme&utm_content=you_can_find_out_more)
 
 = Somebody help! I turned on Asset Optimization and it broke my site!? =
 
@@ -207,6 +207,9 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 4. Use suggestions to make improvements and speed up your site.
 
 == Changelog ==
+
+= 3.9.2 ( 2024-07-23 ) =
+- Improvement: Security hardening
 
 = 3.9.1 ( 2024-07-15 ) =
 - Fix: Whitelabel fixes
@@ -536,4 +539,4 @@ WPMU DEV is a premium supplier of quality WordPress plugins, services and suppor
 Don't forget to stay up to date on everything WordPress from the Internet's number one resource:
 [WPMU DEV Blog](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme&utm_content=wpmu_dev_blog_link)
 
-Hey, one more thing... we hope you enjoy our [free offerings](http://profiles.wordpress.org/WPMUDEV/) as much as we've loved making them for you!
+Hey, one more thing... we hope you enjoy our [free offerings](https://profiles.wordpress.org/wpmudev/#content-plugins) as much as we've loved making them for you!

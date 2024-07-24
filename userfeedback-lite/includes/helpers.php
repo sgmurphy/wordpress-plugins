@@ -262,6 +262,18 @@ function userfeedback_screen_is_settings()
 	return strpos($screen->id, 'userfeedback_settings') !== false;
 }
 
+function userfeedback_screen_is_addons()
+{
+	$screen = get_current_screen();
+	return strpos($screen->id, 'userfeedback_addons') !== false;
+}
+
+function userfeedback_screen_is_onboarding()
+{
+	$screen = get_current_screen();
+	return strpos($screen->id, 'userfeedback_onboarding') !== false;
+}
+
 function userfeedback_screen_is_smtp()
 {
 	$screen = get_current_screen();

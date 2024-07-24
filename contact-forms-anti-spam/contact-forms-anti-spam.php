@@ -4,7 +4,7 @@
  * Plugin Name:       Maspik - Advanced Spam Protection
  * Plugin URI:        https://wpmaspik.com/
  * Description:       Overall Spam block, blacklist words, IP, country, languages, from contact-forms and more...
- * Version:           2.1.0
+ * Version:           2.1.1
  * Author:            WpMaspik
  * Author URI:        https://wpmaspik.com/blog/
  * License:           GPL-2.0+
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) exit;
 /**
  * Currently plugin version.
  */
-define( 'MASPIK_VERSION', '2.1.0' );
+define( 'MASPIK_VERSION', '2.1.1' );
 
 /**
  * The code that runs during plugin activation.
@@ -84,30 +84,3 @@ function maspik_plugin_row_meta( $links, $file ) {
 	
 	return $links;
 }
-
-  
-  
-function enqueue_maspik_hp_script() {
-    $enablehp = maspik_get_settings('maspikHoneypot') || maspik_get_settings('maspikTimeCheck') || maspik_get_settings('maspikYearCheck');
-    if ($enablehp) {
-        // Define the path to your script
-        $script_path = plugin_dir_path(__FILE__) . 'public/js/maspik-hp.js';
-        $script_url = plugin_dir_url(__FILE__) . 'public/js/maspik-hp.js';
-
-        // Enqueue the JavaScript file
-        wp_enqueue_script(
-            'maspik-hp-script',
-            $script_url,
-            array(), 
-            filemtime($script_path), 
-            true 
-        );
-
-        // Pass PHP data to JavaScript
-        $php_data = array(
-            'honeypotName' => maspik_HP_name(),
-        );
-        wp_localize_script('maspik-hp-script', 'maspikData', $php_data);
-    }
-}
-add_action('wp_enqueue_scripts', 'enqueue_maspik_hp_script');

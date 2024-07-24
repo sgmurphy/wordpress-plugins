@@ -140,7 +140,9 @@ $loader_color		= isset( $design['loader_color'] )			? $design['loader_color']	: 
 						<tbody>
 							<tr>
 								<th colspan="2">
-									<div class="paoc-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php esc_html_e('Image & Color Settings', 'popup-anything-on-click'); ?> <span class="paoc-pro-tag"><?php esc_html_e('PRO','popup-anything-on-click');?></span><em><?php esc_html_e(' Utilize these Premium Features with Risk-Free 30 days money back guarantee.', 'popup-anything-on-click'); ?></em></div>
+									<!-- <div class="paoc-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php // esc_html_e('Image & Color Settings', 'popup-anything-on-click'); ?> <span class="paoc-pro-tag"><?php //esc_html_e('PRO','popup-anything-on-click');?></span><em><?php //esc_html_e(' Utilize these Premium Features with Risk-Free 30 days money back guarantee.', 'popup-anything-on-click'); ?></em></div> -->
+
+									<div class="paoc-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php esc_html_e('Image & Color Settings', 'popup-anything-on-click'); ?> <span class="paoc-pro-tag"><?php esc_html_e('PRO','popup-anything-on-click');?></span><em> <?php esc_html_e('Try This features in Essential Bundle Free For 5 Days.', 'popup-anything-on-click'); ?></em></div>
 								</th>
 							</tr>
 
@@ -191,7 +193,10 @@ $loader_color		= isset( $design['loader_color'] )			? $design['loader_color']	: 
 
 							<tr>
 								<th colspan="2">
-									<div class="paoc-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php esc_html_e('Heading Settings', 'popup-anything-on-click'); ?> <span class="paoc-pro-tag"><?php esc_html_e('PRO', 'popup-anything-on-click');?></span><em><?php esc_html_e(' Utilize these Premium Features with Risk-Free 30 days money back guarantee.', 'popup-anything-on-click'); ?></em></div>
+									<!-- <div class="paoc-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php //esc_html_e('Heading Settings', 'popup-anything-on-click'); ?> <span class="paoc-pro-tag"><?php //esc_html_e('PRO', 'popup-anything-on-click');?></span><em><?php //esc_html_e(' Utilize these Premium Features with Risk-Free 30 days money back guarantee.', 'popup-anything-on-click'); ?></em></div> -->
+
+									<div class="paoc-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php esc_html_e('Image & Color Settings', 'popup-anything-on-click'); ?> <span class="paoc-pro-tag"><?php esc_html_e('PRO','popup-anything-on-click');?></span><em> <?php esc_html_e('Try this features in Essential Bundle Free For 5 Days.', 'popup-anything-on-click'); ?></em></div>
+
 								</th>
 							</tr>
 							<tr>
@@ -232,7 +237,9 @@ $loader_color		= isset( $design['loader_color'] )			? $design['loader_color']	: 
 							</tr>
 							<tr>
 								<th colspan="2">
-									<div class="paoc-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php esc_html_e('Other Settings', 'popup-anything-on-click'); ?> <span class="paoc-pro-tag"><?php esc_html_e('PRO','popup-anything-on-click');?></span><em><?php esc_html_e(' Utilize these Premium Features with Risk-Free 30 days money back guarantee.', 'popup-anything-on-click'); ?></em></div>
+									<!-- <div class="paoc-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php //esc_html_e('Other Settings', 'popup-anything-on-click'); ?> <span class="paoc-pro-tag"><?php //esc_html_e('PRO','popup-anything-on-click');?></span><em><?php //esc_html_e(' Utilize these Premium Features with Risk-Free 30 days money back guarantee.', 'popup-anything-on-click'); ?></em></div> -->
+
+									<div class="paoc-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php esc_html_e('Image & Color Settings', 'popup-anything-on-click'); ?> <span class="paoc-pro-tag"><?php esc_html_e('PRO','popup-anything-on-click');?></span><em> <?php esc_html_e('Try This features in Essential Bundle Free For 5 Days.', 'popup-anything-on-click'); ?></em></div>	
 								</th>
 							</tr>
 							<tr>

@@ -1113,6 +1113,7 @@ class Quiz_Maker_Admin
         $quick_quiz_progress_bar_style                      = "third";
         $quick_quiz_progress_live_bar_style                 = "default";
         $quick_quiz_buttons_position                        = "center";
+        $quick_quiz_title_transformation                    = "uppercase";
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1210,6 +1211,9 @@ class Quiz_Maker_Admin
 
             // Buttons position
             $quick_quiz_buttons_position = (isset($_REQUEST['ays_quick_quiz_buttons_position']) && $_REQUEST['ays_quick_quiz_buttons_position'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_buttons_position'] ) ) : 'center';
+
+            // Quiz title transformation
+            $quick_quiz_title_transformation = (isset($_REQUEST['ays_quick_quiz_title_transformation']) && $_REQUEST['ays_quick_quiz_title_transformation'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_title_transformation'] ) ) : 'uppercase';
 
         }
         
@@ -1313,32 +1317,32 @@ class Quiz_Maker_Admin
             'author'                                        => $author,
             'autofill_user_data'                            => $quick_quiz_autofill_user_data,
             'display_fields_labels'                         => $quick_quiz_display_fields_labels,
-            'quest_animation'                           => 'shake',
-            'form_title'                                => '',
-            'enable_bg_music'                           => 'off',
-            'quiz_bg_music'                             => '',
-            'answers_font_size'                         => '15',
-            'show_create_date'                          => $quick_quiz_show_create_date,
-            'show_author'                               => $quick_quiz_show_author,
-            'enable_early_finish'                       => $quick_quiz_enable_early_finish,
-            'answers_rw_texts'                          => 'on_passing',
-            'disable_store_data'                        => $quick_quiz_disable_store_data,
-            'enable_background_gradient'                => 'off',
-            'background_gradient_color_1'               => '#000',
-            'background_gradient_color_2'               => '#fff',
-            'quiz_gradient_direction'                   => 'vertical',
-            'redirect_after_submit'                     => 'off',
-            'submit_redirect_url'                       => '',
-            'submit_redirect_delay'                     => '',
-            'progress_bar_style'                        => $quick_quiz_progress_bar_style,
-            'progress_live_bar_style'                   => $quick_quiz_progress_live_bar_style,
-            'enable_exit_button'                        => 'off',
-            'exit_redirect_url'                         => '',
-            'image_sizing'                              => 'cover',
-            'quiz_bg_image_position'                    => 'center center',
-            'custom_class'                              => '',
-            'enable_social_buttons'                     => 'off',
-            'enable_social_links'                       => 'off',
+            'quest_animation'                               => 'shake',
+            'form_title'                                    => '',
+            'enable_bg_music'                               => 'off',
+            'quiz_bg_music'                                 => '',
+            'answers_font_size'                             => '15',
+            'show_create_date'                              => $quick_quiz_show_create_date,
+            'show_author'                                   => $quick_quiz_show_author,
+            'enable_early_finish'                           => $quick_quiz_enable_early_finish,
+            'answers_rw_texts'                              => 'on_passing',
+            'disable_store_data'                            => $quick_quiz_disable_store_data,
+            'enable_background_gradient'                    => 'off',
+            'background_gradient_color_1'                   => '#000',
+            'background_gradient_color_2'                   => '#fff',
+            'quiz_gradient_direction'                       => 'vertical',
+            'redirect_after_submit'                         => 'off',
+            'submit_redirect_url'                           => '',
+            'submit_redirect_delay'                         => '',
+            'progress_bar_style'                            => $quick_quiz_progress_bar_style,
+            'progress_live_bar_style'                       => $quick_quiz_progress_live_bar_style,
+            'enable_exit_button'                            => 'off',
+            'exit_redirect_url'                             => '',
+            'image_sizing'                                  => 'cover',
+            'quiz_bg_image_position'                        => 'center center',
+            'custom_class'                                  => '',
+            'enable_social_buttons'                         => 'off',
+            'enable_social_links'                           => 'off',
             'social_links' => array(
                 'linkedin_link'     => '',
                 'facebook_link'     => '',
@@ -1396,6 +1400,7 @@ class Quiz_Maker_Admin
             'disable_hover_effect'                      => 'off',
             'quiz_loader_custom_gif_width'              => 100,
             'show_answers_numbering'                    => 'none',
+            'quiz_title_transformation'                 => $quick_quiz_title_transformation,
             'quiz_box_shadow_x_offset'                  => 0,
             'quiz_box_shadow_y_offset'                  => 0,
             'quiz_box_shadow_z_offset'                  => 15,

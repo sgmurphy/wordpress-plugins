@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div id="wpls_basic_tabs" class="wpls-vtab-cnt wpls_basic_tabs wpls-clearfix">
 	<h3 class="wpls-basic-heading">Compare <span class="wpls-blue">"Logo Showcase Responsive Slider"</span> Basic VS Pro</h3>
 
-	<div class="wpls-deal-offer-wrap">
+	<!-- <div class="wpls-deal-offer-wrap">
 		<div class="wpls-deal-offer"> 
 			<div class="wpls-inn-deal-offer">
 				<h3 class="wpls-inn-deal-hedding"><span>Buy Logo Showcase Pro</span> today and unlock all the powerful features.</h3>
@@ -22,8 +22,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="wpls-inn-deal-offer-btn">
 				<div class="wpls-inn-deal-code"><span>EPSEXTRA</span></div>
-				<a href="<?php echo esc_url(WPLS_PLUGIN_BUNDLE_LINK); ?>"  target="_blank" class="wpls-sf-btn wpls-sf-btn-orange"><span class="dashicons dashicons-cart"></span> Get Essential Bundle Now</a>
+				<a href="<?php // echo esc_url(WPLS_PLUGIN_BUNDLE_LINK); ?>"  target="_blank" class="wpls-sf-btn wpls-sf-btn-orange"><span class="dashicons dashicons-cart"></span> Get Essential Bundle Now</a>
 				<em class="risk-free-guarantee"><span class="heading">Risk-Free Guarantee </span> - We offer a <span>30-day money back guarantee on all purchases</span>. If you are not happy with your purchases, we will refund your purchase. No questions asked!</em>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="wpls-deal-offer-wrap">
+		<div class="wpls-deal-offer"> 
+			<div class="wpls-inn-deal-offer">
+				<h3 class="wpls-inn-deal-hedding"><span>Try WP Logo Showcase Responsive Slider and Carousel Pro</span> in Essential Bundle Free For 5 Days.</h3>
+			</div>
+			<div class="wpls-deal-free-offer">
+				<a href="<?php echo esc_url( WPLS_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="wpls-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
 			</div>
 		</div>
 	</div>
@@ -190,7 +201,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</tr>
 		</tbody>
 	</table>
-	<div class="wpls-deal-offer-wrap">
+	<!-- <div class="wpls-deal-offer-wrap">
 		<div class="wpls-deal-offer"> 
 			<div class="wpls-inn-deal-offer">
 				<h3 class="wpls-inn-deal-hedding"><span>Buy Logo Showcase Pro</span> today and unlock all the powerful features.</h3>
@@ -198,9 +209,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="wpls-inn-deal-offer-btn">
 				<div class="wpls-inn-deal-code"><span>EPSEXTRA</span></div>
-				<a href="<?php echo esc_url(WPLS_PLUGIN_BUNDLE_LINK); ?>"  target="_blank" class="wpls-sf-btn wpls-sf-btn-orange"><span class="dashicons dashicons-cart"></span> Get Essential Bundle Now</a>
+				<a href="<?php //echo esc_url(WPLS_PLUGIN_BUNDLE_LINK); ?>"  target="_blank" class="wpls-sf-btn wpls-sf-btn-orange"><span class="dashicons dashicons-cart"></span> Get Essential Bundle Now</a>
 				<em class="risk-free-guarantee"><span class="heading">Risk-Free Guarantee </span> - We offer a <span>30-day money back guarantee on all purchases</span>. If you are not happy with your purchases, we will refund your purchase. No questions asked!</em>
 			</div>
 		</div>
+	</div> -->
+
+	<div class="wpls-deal-offer-wrap">
+		<div class="wpls-deal-offer"> 
+			<div class="wpls-inn-deal-offer">
+				<h3 class="wpls-inn-deal-hedding"><span>Try WP Logo Showcase Responsive Slider and Carousel Pro</span> in Essential Bundle Free For 5 Days.</h3>
+			</div>
+			<div class="wpls-deal-free-offer">
+				<a href="<?php echo esc_url( WPLS_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="wpls-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
+			</div>
+		</div>
 	</div>
+
 </div>

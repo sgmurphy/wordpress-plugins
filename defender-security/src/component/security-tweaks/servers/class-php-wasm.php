@@ -14,7 +14,6 @@ namespace WP_Defender\Component\Security_Tweaks\Servers;
  */
 class PHP_Wasm {
 
-
 	/**
 	 * Service type.
 	 *

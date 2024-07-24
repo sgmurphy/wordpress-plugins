@@ -135,7 +135,7 @@ function srmp3_get_json_url() {
   $templatesList = srmp3_getTemplatesList($url);
   if($templatesList === null){
     echo '<br>';
-    echo '<div class="notice notice-error is-dismissible"><p>Error: Unable to fetch JSON data. Please contact Sonaar.io support team with Error Code 6621</p></div>';
+    echo '<div class="notice notice-error is-dismissible"><p>Error: Unable to fetch JSON data. Make sure \'allow_url_fopen\' is enabled in your PHP settings. If still not working, please contact Sonaar.io support with Error Code 6621</p></div>';
     echo '</div>'; // close srmp3_wrap_templates div
     return;
   }

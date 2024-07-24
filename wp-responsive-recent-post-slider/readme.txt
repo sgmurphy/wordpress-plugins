@@ -1,9 +1,9 @@
 ﻿=== WP Responsive Recent Post Slider/Carousel ===
 Contributors: wponlinesupport, anoopranawat, pratik-jain, patelketan, piyushpatel123
-Tags: post slider, posts slider, recent post slider, recent posts slider, slider, responsive post slider, responsive posts slider, responsive recent post slider, responsive recent posts slider, WordPress posts slider, post slideshow, posts slideshow, recent posts slideshow, shortcodes, wponlinesupport
+Tags: post slider, recent post slider, responsive post slider, responsive recent post slider, WordPress posts slider
 Requires at least: 4.0
-Tested up to: 6.5.4
-Stable tag: 3.6
+Tested up to: 6.6.1
+Stable tag: 3.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,9 @@ Where designs are : design-1, design-2, design-3, design-4. You can use same par
 8. Gutenberg Block Support
 
 == Changelog ==  
+
+= 3.6.1 (24 July 2024) =
+* [*] Check compatibility with WordPress version 6.6.1
 
 = 3.6 (21 June 2024) =
 * [*] Check compatibility with WordPress version 6.5.4

@@ -4,7 +4,7 @@ Donate link: http://ljapps.com/
 Tags: Google, reviews, slider, testimonials, Google Places reviews
 Requires at least: 3.0.1
 Tested up to: 6.6
-Stable tag: 14.4
+Stable tag: 14.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,7 +122,7 @@ We are always looking for features to add. Just post on the support forum or con
 7. Create as many templates as you like.
 
 == Changelog ==
-= 14.4 =
+= 14.5 =
 * small bug fix
 = 14.2 =
 * Added ability to show only one review per a slide on mobile.

@@ -234,25 +234,27 @@ if ( ! class_exists( 'CMB2_Conditionals', false ) ) {
 		 */
 		protected function filter_field_data_to_save( $data_to_save, $field_id, $conditional_id, $attributes ) {
 			if ( array_key_exists( 'data-conditional-value', $attributes ) ) {
+				$conditional_value = $attributes['data-conditional-value'];
 
-				$conditional_value         = $attributes['data-conditional-value'];
-				$decoded_conditional_value = @json_decode( $conditional_value );
-				if ( $decoded_conditional_value ) {
-					$conditional_value = $decoded_conditional_value;
+				if ( is_string( $conditional_value ) ) { // check if its a string. issue with some plugin. eg Progression Theme Elements - Aztec
+					$decoded_conditional_value = @json_decode( $conditional_value );
+					if ( $decoded_conditional_value !== null ) {
+						$conditional_value = $decoded_conditional_value;
+					}
 				}
-
+		
 				if ( ! isset( $data_to_save[ $conditional_id ] ) ) {
 					if ( 'off' !== $conditional_value ) {
 						unset( $data_to_save[ $field_id ] );
 					}
 					return $data_to_save;
 				}
-
+		
 				if ( ( ! is_array( $conditional_value ) && ! is_array( $data_to_save[ $conditional_id ] ) ) && $data_to_save[ $conditional_id ] != $conditional_value ) {
 					unset( $data_to_save[ $field_id ] );
 					return $data_to_save;
 				}
-
+		
 				if ( is_array( $conditional_value ) || is_array( $data_to_save[ $conditional_id ] ) ) {
 					$match = array_intersect( (array) $conditional_value, (array) $data_to_save[ $conditional_id ] );
 					if ( empty( $match ) ) {
@@ -261,13 +263,14 @@ if ( ! class_exists( 'CMB2_Conditionals', false ) ) {
 					}
 				}
 			}
-
+		
 			if ( ! isset( $data_to_save[ $conditional_id ] ) || ! $data_to_save[ $conditional_id ] ) {
 				unset( $data_to_save[ $field_id ] );
 			}
-
+		
 			return $data_to_save;
 		}
+		
 	} /* End of class. */
 
 

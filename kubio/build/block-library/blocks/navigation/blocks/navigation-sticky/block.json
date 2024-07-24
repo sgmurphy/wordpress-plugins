@@ -7,7 +7,7 @@
 	}
   },
   "supports": {
-	"inseter": false,
+	"inserter": false,
 	"kubio": {
 	  "elementsEnum": {
 		"OUTER": "outer"

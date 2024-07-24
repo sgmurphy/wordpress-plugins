@@ -6,9 +6,9 @@
 					<?php esc_html_e( 'Edit Link', 'cost-calculator-builder' ); ?>:
 				</span>
 				<span class="link-fields">
-					<span class="ccb-heading-5" style="color: #00b163;"> {{ getByAlias($store.getters.getConditionData.optionFrom).label || 'Element From' }}</span>
+					<span class="ccb-heading-5" style="color: #00b163;"> {{ getByAlias($store.getters.getConditionData.optionFrom)?.label || 'Element From' }}</span>
 					<i class="field-arrow" style="color: #333333"></i>
-					<span class="ccb-heading-5" style="color: #00b163;"> {{ getByAlias($store.getters.getConditionData.optionTo).label || 'Element To' }}</span>
+					<span class="ccb-heading-5" style="color: #00b163;"> {{ getByAlias($store.getters.getConditionData.optionTo)?.label || 'Element To' }}</span>
 				</span>
 			</div>
 		</div>

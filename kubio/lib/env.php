@@ -51,5 +51,5 @@ function kubio_is_pro() {
 	return apply_filters( 'kubio/is_pro', $is_pro );
 }
 function kubio_is_free() {
-return !kubio_is_pro();
+	return ! kubio_is_pro();
 }

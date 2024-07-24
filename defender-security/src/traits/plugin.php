@@ -12,7 +12,6 @@ use WP_Defender\Component\Quarantine as Quarantine_Component;
 
 trait Plugin {
 
-
 	/**
 	 * Version URL.
 	 *

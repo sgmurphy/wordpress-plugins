@@ -12,47 +12,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ assignUserCourse)
 /* harmony export */ });
-/* harmony import */ var tom_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tom-select */ "./node_modules/tom-select/dist/js/tom-select.complete.js");
-/* harmony import */ var tom_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tom_select__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils.js */ "./assets/src/js/utils.js");
-/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api.js */ "./assets/src/js/api.js");
+/* harmony import */ var _utils_admin_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils-admin.js */ "./assets/src/js/admin/utils-admin.js");
 /**
  * Assign user to course
  *
  * @since 4.2.5.6
- * @version 1.0.0
+ * @version 1.0.1
  */
 
-
-
 function assignUserCourse() {
-  let elFormAssignUserCourse, elTomSelectCourseAssign, elTomSelectUserAssign;
-  let elFormUnAssignUserCourse, elTomSelectCourseUnAssign, elTomSelectUserUnAssign;
+  let elFormAssignUserCourse;
+  let elFormUnAssignUserCourse;
+  let elUserUnAssign, elCourseUnAssign, elUserAssign, elCourseAssign;
   const limitHandle = 5;
   const getAllElements = () => {
     elFormAssignUserCourse = document.querySelector('#lp-assign-user-course-form');
     elFormUnAssignUserCourse = document.querySelector('#lp-unassign-user-course-form');
-  };
-  const buildTomSelect = (elTomSelect, options, fetchAPI) => {
-    if (!elTomSelect) {
-      return;
+    if (elFormAssignUserCourse) {
+      elUserUnAssign = elFormUnAssignUserCourse.querySelector('[name=user_ids]');
+      elCourseUnAssign = elFormUnAssignUserCourse.querySelector('[name=course_ids]');
     }
-    const optionDefault = {
-      options: [],
-      plugins: {
-        remove_button: {
-          title: 'Remove this item'
-        }
-      },
-      load(keySearch, callback) {
-        fetchAPI(keySearch, callback);
-      }
-    };
-    options = {
-      ...optionDefault,
-      ...options
-    };
-    return new (tom_select__WEBPACK_IMPORTED_MODULE_0___default())(elTomSelect, options);
+    if (elFormUnAssignUserCourse) {
+      elUserAssign = elFormAssignUserCourse.querySelector('[name=user_ids]');
+      elCourseAssign = elFormAssignUserCourse.querySelector('[name=course_ids]');
+    }
   };
   const events = () => {
     const elForm = document.querySelector('form');
@@ -127,100 +110,8 @@ function assignUserCourse() {
       totalPage
     };
   };
-  const fetchCourses = (keySearch = '', callback, elTomSelect) => {
-    const url = _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].admin.apiSearchCourses;
-    const params = {
-      headers: {
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': lpDataAdmin.nonce
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        c_search: keySearch
-      })
-    };
-    (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpFetchAPI)(url, params, {
-      success: response => {
-        const options = response.data.map(item => {
-          return {
-            value: item.ID,
-            text: item.post_title + `(#${item.ID})`
-          };
-        });
-
-        // Set data courses default first to Tom Select.
-        if (keySearch === '') {
-          const elCourseAssign = elFormAssignUserCourse.querySelector('[name=course_ids]');
-          if (elCourseAssign) {
-            elTomSelectCourseAssign = buildTomSelect(elCourseAssign, {
-              options
-            }, fetchCourses);
-          }
-          const elCourseUnAssign = elFormUnAssignUserCourse.querySelector('[name=course_ids]');
-          if (elCourseUnAssign) {
-            elTomSelectCourseUnAssign = buildTomSelect(elCourseUnAssign, {
-              options
-            }, fetchCourses);
-          }
-        }
-        if ('function' === typeof callback) {
-          if (callback.name === 'setupOptions') {
-            elTomSelect.setupOptions(options);
-          } else {
-            callback(options);
-          }
-        }
-      }
-    });
-  };
-  const fetchUsers = (keySearch = '', callback, elTomSelect) => {
-    const url = _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].admin.apiSearchUsers;
-    const params = {
-      headers: {
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': lpDataAdmin.nonce
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        search: keySearch
-      })
-    };
-    (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpFetchAPI)(url, params, {
-      success: response => {
-        const options = response.data.map(item => {
-          return {
-            value: item.ID,
-            text: `${item.display_name} (#${item.ID}) - ${item.user_email}`
-          };
-        });
-
-        // Set data users default first to Tom Select.
-        if (keySearch === '') {
-          const elUserAssign = elFormAssignUserCourse.querySelector('[name=user_ids]');
-          if (elUserAssign) {
-            elTomSelectUserAssign = buildTomSelect(elUserAssign, {
-              options
-            }, fetchUsers);
-          }
-          const elUserUnAssign = elFormUnAssignUserCourse.querySelector('[name=user_ids]');
-          if (elUserUnAssign) {
-            elTomSelectUserUnAssign = buildTomSelect(elUserUnAssign, {
-              options
-            }, fetchUsers);
-          }
-        }
-        if ('function' === typeof callback) {
-          if (callback.name === 'setupOptions') {
-            elTomSelect.setupOptions(options);
-          } else {
-            callback(options);
-          }
-        }
-      }
-    });
-  };
   const fetchAPIAssignCourse = (packages, data, page, totalPage) => {
-    const url = _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].admin.apiAssignUserCourse;
+    const url = _utils_admin_js__WEBPACK_IMPORTED_MODULE_0__.Api.admin.apiAssignUserCourse;
     const params = {
       headers: {
         'Content-Type': 'application/json',
@@ -237,7 +128,7 @@ function assignUserCourse() {
     const elButtonAssign = elFormAssignUserCourse.querySelector('.lp-button-assign-course');
     const elMessage = elFormAssignUserCourse.querySelector('.message');
     elButtonAssign.disabled = true;
-    (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpFetchAPI)(url, params, {
+    _utils_admin_js__WEBPACK_IMPORTED_MODULE_0__.Utils.lpFetchAPI(url, params, {
       success: response => {
         const {
           status,
@@ -259,8 +150,11 @@ function assignUserCourse() {
           }, 2000);
           elButtonAssign.disabled = false;
           // Clear data selected on Tom Select.
-          elTomSelectCourseAssign.clear();
-          elTomSelectUserAssign.clear();
+          if (!elUserAssign.tomselect || !elCourseAssign.tomselect) {
+            return;
+          }
+          elUserAssign.tomselect.clear();
+          elCourseAssign.tomselect.clear();
         } else if (status === 'error') {
           elButtonAssign.disabled = false;
           elMessage.style.color = 'red';
@@ -278,7 +172,7 @@ function assignUserCourse() {
     });
   };
   const fetchAPIUnAssignCourse = (packages, data, page, totalPage) => {
-    const url = _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].admin.apiUnAssignUserCourse;
+    const url = _utils_admin_js__WEBPACK_IMPORTED_MODULE_0__.Api.admin.apiUnAssignUserCourse;
     const params = {
       headers: {
         'Content-Type': 'application/json',
@@ -295,7 +189,7 @@ function assignUserCourse() {
     const elButtonAssign = elFormUnAssignUserCourse.querySelector('.lp-button-unassign-course');
     const elMessage = elFormUnAssignUserCourse.querySelector('.message');
     elButtonAssign.disabled = true;
-    (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpFetchAPI)(url, params, {
+    _utils_admin_js__WEBPACK_IMPORTED_MODULE_0__.Utils.lpFetchAPI(url, params, {
       success: response => {
         const {
           status,
@@ -317,8 +211,11 @@ function assignUserCourse() {
           }, 2000);
           elButtonAssign.disabled = false;
           // Clear data selected on Tom Select.
-          elTomSelectCourseUnAssign.clear();
-          elTomSelectUserUnAssign.clear();
+          if (!elUserUnAssign.tomselect || !elCourseUnAssign.tomselect) {
+            return;
+          }
+          elUserUnAssign.tomselect.clear();
+          elCourseUnAssign.tomselect.clear();
         } else if (status === 'error') {
           elButtonAssign.disabled = false;
           elMessage.style.color = 'red';
@@ -342,15 +239,117 @@ function assignUserCourse() {
     if (!elFormAssignUserCourse) {
       return;
     }
-
-    // Get list courses default first and build Tom Select.
-    fetchCourses();
-    // Get list users default first and build Tom Select.
-    fetchUsers();
-    // Events.
     events();
   });
 }
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/utils-admin.js":
+/*!********************************************!*\
+  !*** ./assets/src/js/admin/utils-admin.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   AdminUtilsFunctions: () => (/* binding */ AdminUtilsFunctions),
+/* harmony export */   Api: () => (/* reexport safe */ _api_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   Utils: () => (/* reexport module object */ _utils_js__WEBPACK_IMPORTED_MODULE_0__)
+/* harmony export */ });
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils.js */ "./assets/src/js/utils.js");
+/* harmony import */ var tom_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tom-select */ "./node_modules/tom-select/dist/js/tom-select.complete.js");
+/* harmony import */ var tom_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(tom_select__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.js */ "./assets/src/js/api.js");
+/**
+ * Library run on Admin
+ *
+ * @since 4.2.6.9
+ * @version 1.0.0
+ */
+
+
+
+const AdminUtilsFunctions = {
+  buildTomSelect(elTomSelect, options, fetchAPI, dataSend, callBackHandleData) {
+    if (!elTomSelect) {
+      return;
+    }
+    const optionDefault = {
+      options: [],
+      plugins: {
+        remove_button: {
+          title: 'Remove this item'
+        }
+      },
+      load(keySearch, callbackTom) {
+        fetchAPI(keySearch, dataSend, AdminUtilsFunctions.callBackTomSelectSearchAPI(callbackTom, callBackHandleData));
+      }
+    };
+    options = {
+      ...optionDefault,
+      ...options
+    };
+    if (options.options.length > 20) {
+      const currentIds = dataSend?.current_ids ? dataSend?.current_ids : '';
+      const chunkSize = 20;
+      const chunkedOptions = [];
+      for (let i = 0; i < options.options.length; i += chunkSize) {
+        chunkedOptions.push(options.options.slice(i, i + chunkSize));
+      }
+      options.options = chunkedOptions[0];
+      const tomSelect = new (tom_select__WEBPACK_IMPORTED_MODULE_1___default())(elTomSelect, options);
+      for (let i = 0; i < chunkedOptions.length; i++) {
+        setTimeout(() => {
+          chunkedOptions[i].forEach(option => {
+            tomSelect.addOption(option);
+          });
+          if (i === chunkedOptions.length - 1 && currentIds) {
+            tomSelect.setValue(currentIds.split(','));
+          }
+        }, 200 * i);
+      }
+      return tomSelect;
+    }
+    return new (tom_select__WEBPACK_IMPORTED_MODULE_1___default())(elTomSelect, options);
+  },
+  callBackTomSelectSearchAPI(callbackTom, callBackHandleData) {
+    return {
+      success: response => {
+        const options = callBackHandleData.success(response);
+        callbackTom(options);
+      }
+    };
+  },
+  fetchCourses(keySearch = '', dataSend = {}, callback) {
+    const url = _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].admin.apiSearchCourses;
+    dataSend.c_search = keySearch;
+    const params = {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-WP-Nonce': lpDataAdmin.nonce
+      },
+      method: 'POST',
+      body: JSON.stringify(dataSend)
+    };
+    _utils_js__WEBPACK_IMPORTED_MODULE_0__.lpFetchAPI(url, params, callback);
+  },
+  fetchUsers(keySearch = '', dataSend = {}, callback) {
+    const url = _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].admin.apiSearchUsers;
+    dataSend.search = keySearch;
+    const params = {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-WP-Nonce': lpDataAdmin.nonce
+      },
+      method: 'POST',
+      body: JSON.stringify(dataSend)
+    };
+    _utils_js__WEBPACK_IMPORTED_MODULE_0__.lpFetchAPI(url, params, callback);
+  }
+};
+
 
 /***/ }),
 

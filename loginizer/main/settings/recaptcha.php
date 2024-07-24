@@ -324,7 +324,7 @@ input[type="text"], textarea, select {
 				<?php echo __('Make sure you enter the correct keys as per the reCAPTCHA type selected above', 'loginizer'); ?>
 				</td>
 				<td>
-					<input type="text" size="50" value="<?php echo lz_optpost('hcaptcha_sitekey', $loginizer['hcaptcha_sitekey']); ?>" name="hcaptcha_sitekey" id="hcaptcha_sitekey" /><br />
+					<input type="text" size="50" value="<?php echo lz_optpost('hcaptcha_sitekey', (!empty($loginizer['hcaptcha_sitekey']) ? $loginizer['hcaptcha_sitekey'] : '')); ?>" name="hcaptcha_sitekey" id="hcaptcha_sitekey" /><br />
 					<?php echo __('Get the Site Key and Secret Key from <a href="https://www.hcaptcha.com/" target="_blank">hcaptcha</a>', 'loginizer'); ?>
 				</td>
 			</tr>
@@ -332,7 +332,7 @@ input[type="text"], textarea, select {
 			<tr class="hcaptcha">
 				<td scope="row" valign="top"><label for="hcaptcha_secretkey"><b><?php echo __('Secret Key', 'loginizer'); ?></b></label></td>
 				<td>
-					<input type="text" size="50" value="<?php echo lz_optpost('hcaptcha_secretkey', $loginizer['hcaptcha_secretkey']); ?>" name="hcaptcha_secretkey" id="hcaptcha_secretkey" />
+					<input type="text" size="50" value="<?php echo lz_optpost('hcaptcha_secretkey', (!empty($loginizer['hcaptcha_secretkey']) ? $loginizer['hcaptcha_secretkey'] : '')); ?>" name="hcaptcha_secretkey" id="hcaptcha_secretkey" />
 				</td>
 			</tr>
 			<tr class="hcaptcha">
@@ -341,7 +341,7 @@ input[type="text"], textarea, select {
 					<select name="hcaptcha_theme" id="hcaptcha_theme">
 						<?php
 							foreach($lz_env['theme'] as $k => $v){
-								echo '<option '.lz_POSTselect('hcaptcha_theme', $k, ($loginizer['hcaptcha_theme'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';
+								echo '<option '.lz_POSTselect('hcaptcha_theme', $k, ((!empty($loginizer['hcaptcha_theme']) && $loginizer['hcaptcha_theme'] == $k) ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';
 							}
 						?>
 					</select>
@@ -353,7 +353,7 @@ input[type="text"], textarea, select {
 					<select name="hcaptcha_lang" id="hcaptcha_lang">
 						<?php
 							foreach($lz_env['lang'] as $k => $v){
-								echo '<option '.lz_POSTselect('hcaptcha_lang', $k, ($loginizer['hcaptcha_lang'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_attr($v).'</value>';
+								echo '<option '.lz_POSTselect('hcaptcha_lang', $k, ((!empty($loginizer['hcaptcha_lang']) && $loginizer['hcaptcha_lang'] == $k) ? true : false)).' value="'.esc_attr($k).'">'.esc_attr($v).'</value>';
 							}
 						?>
 					</select>
@@ -366,7 +366,7 @@ input[type="text"], textarea, select {
 					<select name="hcaptcha_size" id="hcaptcha_size">
 						<?php
 							foreach($lz_env['size'] as $k => $v){
-								echo '<option '.lz_POSTselect('hcaptcha_size', $k, ($loginizer['hcaptcha_size'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';
+								echo '<option '.lz_POSTselect('hcaptcha_size', $k, ((!empty($loginizer['hcaptcha_size']) && $loginizer['hcaptcha_size'] == $k) ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';
 							}
 						?>
 					</select>
@@ -380,9 +380,9 @@ input[type="text"], textarea, select {
 				<?php echo __('<a href="https://g.co/recaptcha/sitetypes/" target="_blank">See Site Types for more details</a>', 'loginizer'); ?>
 				</td>
 				<td>
-					<input type="radio" value="v3" onchange="google_recaptcha_type()" <?php echo lz_POSTradio('captcha_type', 'v3', $loginizer['captcha_type']); ?> name="captcha_type" id="captcha_type_v3" /> <label for="captcha_type_v3"><?php echo __('reCAPTCHA v3', 'loginizer'); ?></label><br /><br />
-					<input type="radio" value="" onchange="google_recaptcha_type()" <?php echo lz_POSTradio('captcha_type', '', $loginizer['captcha_type']); ?> name="captcha_type" id="captcha_type_v2" /> <label for="captcha_type_v2"><?php echo __('reCAPTCHA v2 - Checkbox', 'loginizer'); ?></label><br /><br />
-					<input type="radio" value="v2_invisible" onchange="google_recaptcha_type()" <?php echo lz_POSTradio('captcha_type', 'v2_invisible', $loginizer['captcha_type']); ?> name="captcha_type" id="captcha_type_v2_invisible" /> <label for="captcha_type_v2_invisible"><?php echo __('reCAPTCHA v2 - Invisible', 'loginizer'); ?></label><br />
+					<input type="radio" value="v3" onchange="google_recaptcha_type()" <?php echo lz_POSTradio('captcha_type', 'v3', (!empty($loginizer['captcha_type']) ? $loginizer['captcha_type'] : '')); ?> name="captcha_type" id="captcha_type_v3" /> <label for="captcha_type_v3"><?php echo __('reCAPTCHA v3', 'loginizer'); ?></label><br /><br />
+					<input type="radio" value="" onchange="google_recaptcha_type()" <?php echo lz_POSTradio('captcha_type', '', (!empty($loginizer['captcha_type']) ? $loginizer['captcha_type'] : '')); ?> name="captcha_type" id="captcha_type_v2" /> <label for="captcha_type_v2"><?php echo __('reCAPTCHA v2 - Checkbox', 'loginizer'); ?></label><br /><br />
+					<input type="radio" value="v2_invisible" onchange="google_recaptcha_type()" <?php echo lz_POSTradio('captcha_type', 'v2_invisible', (!empty($loginizer['captcha_type']) ? $loginizer['captcha_type'] : '')); ?> name="captcha_type" id="captcha_type_v2_invisible" /> <label for="captcha_type_v2_invisible"><?php echo __('reCAPTCHA v2 - Invisible', 'loginizer'); ?></label><br />
 				</td>
 			</tr>
 			<tr class="lz_google_cap">
@@ -390,14 +390,14 @@ input[type="text"], textarea, select {
 				<?php echo __('Make sure you enter the correct keys as per the reCAPTCHA type selected above', 'loginizer'); ?>
 				</td>
 				<td>
-					<input type="text" size="50" value="<?php echo lz_optpost('captcha_key', $loginizer['captcha_key']); ?>" name="captcha_key" id="captcha_key" /><br />
+					<input type="text" size="50" value="<?php echo lz_optpost('captcha_key', (!empty($loginizer['captcha_key']) ? $loginizer['captcha_key'] : '')); ?>" name="captcha_key" id="captcha_key" /><br />
 					<?php echo __('Get the Site Key and Secret Key from <a href="https://www.google.com/recaptcha/admin/" target="_blank">Google</a>', 'loginizer'); ?>
 				</td>
 			</tr>
 			<tr class="lz_google_cap">
 				<td scope="row" valign="top"><label for="captcha_secret"><b><?php echo __('Secret Key', 'loginizer'); ?></b></label></td>
 				<td>
-					<input type="text" size="50" value="<?php echo lz_optpost('captcha_secret', $loginizer['captcha_secret']); ?>" name="captcha_secret" id="captcha_secret" />
+					<input type="text" size="50" value="<?php echo lz_optpost('captcha_secret', (!empty($loginizer['captcha_secret']) ? $loginizer['captcha_secret'] : '')); ?>" name="captcha_secret" id="captcha_secret" />
 				</td>
 			</tr>
 			<tr class="lz_google_cap">
@@ -406,7 +406,7 @@ input[type="text"], textarea, select {
 					<select name="captcha_theme" id="captcha_theme">
 						<?php
 							foreach($lz_env['theme'] as $k => $v){
-								echo '<option '.lz_POSTselect('captcha_theme', $k, ($loginizer['captcha_theme'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';								
+								echo '<option '.lz_POSTselect('captcha_theme', $k, ((!empty($loginizer['captcha_theme']) && $loginizer['captcha_theme'] == $k) ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';								
 							}
 						?>
 					</select>
@@ -418,7 +418,7 @@ input[type="text"], textarea, select {
 					<select name="captcha_lang" id="captcha_lang">
 						<?php
 							foreach($lz_env['lang'] as $k => $v){
-								echo '<option '.lz_POSTselect('captcha_lang', $k, ($loginizer['captcha_lang'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';								
+								echo '<option '.lz_POSTselect('captcha_lang', $k, ((!empty($loginizer['captcha_lang']) && $loginizer['captcha_lang'] == $k) ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';								
 							}
 						?>
 					</select>
@@ -430,7 +430,7 @@ input[type="text"], textarea, select {
 					<select name="captcha_size" id="captcha_size">
 						<?php
 							foreach($lz_env['size'] as $k => $v){
-								echo '<option '.lz_POSTselect('captcha_size', $k, ($loginizer['captcha_size'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';
+								echo '<option '.lz_POSTselect('captcha_size', $k, ((!empty($loginizer['captcha_size']) && $loginizer['captcha_size'] == $k) ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';
 							}
 						?>
 					</select>
@@ -445,7 +445,7 @@ input[type="text"], textarea, select {
 					<select name="captcha_domain" id="captcha_domain">
 						<?php
 							foreach($lz_env['captcha_domains'] as $k => $v){
-								echo '<option '.lz_POSTselect('captcha_domain', $k, ($loginizer['captcha_domain'] == $k ? true : false)).' value="'.$k.'">'.$v.($k == 'www.google.com' ? ' '.__('(Default)', 'loginizer') : '').'</value>';								
+								echo '<option '.lz_POSTselect('captcha_domain', $k, ((!empty($loginizer['captcha_domain']) && $loginizer['captcha_domain'] == $k) ? true : false)).' value="'.$k.'">'.$v.($k == 'www.google.com' ? ' '.__('(Default)', 'loginizer') : '').'</value>';								
 							}
 						?>
 					</select>
@@ -456,14 +456,14 @@ input[type="text"], textarea, select {
 				<td scope="row" valign="top"><label for="turn_captcha_key"><b><?php echo __('Site Key', 'loginizer'); ?></b></label><br>
 				</td>
 				<td>
-					<input type="text" size="50" value="<?php echo lz_optpost('turn_captcha_key', $loginizer['turn_captcha_key']); ?>" name="turn_captcha_key" id="turn_captcha_key" /><br />
+					<input type="text" size="50" value="<?php echo lz_optpost('turn_captcha_key', (!empty($loginizer['turn_captcha_key']) ? $loginizer['turn_captcha_key'] : '')); ?>" name="turn_captcha_key" id="turn_captcha_key" /><br />
 					<?php echo __('Get the Site Key and Secret Key from <a href="https://dash.cloudflare.com/sign-up?to=/:account/turnstile" target="_blank">Cloudflare Turnstile</a>', 'loginizer'); ?>
 				</td>
 			</tr>
 			<tr class="lz_turnstile_cap">
 				<td scope="row" valign="top"><label for="turn_captcha_secret"><b><?php echo __('Secret Key', 'loginizer'); ?></b></label></td>
 				<td>
-					<input type="password" size="50" value="<?php echo lz_optpost('turn_captcha_secret', $loginizer['turn_captcha_secret']); ?>" name="turn_captcha_secret" id="turn_captcha_secret" />
+					<input type="password" size="50" value="<?php echo lz_optpost('turn_captcha_secret', (!empty($loginizer['turn_captcha_secret']) ? $loginizer['turn_captcha_secret'] : '')); ?>" name="turn_captcha_secret" id="turn_captcha_secret" />
 				</td>
 			</tr>
 			<tr class="lz_turnstile_cap">
@@ -472,7 +472,7 @@ input[type="text"], textarea, select {
 					<select name="turn_captcha_theme" id="turn_captcha_theme">
 						<?php
 							foreach($lz_env['theme'] as $k => $v){
-								echo '<option '.lz_POSTselect('turn_captcha_theme', $k, ($loginizer['turn_captcha_theme'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';								
+								echo '<option '.lz_POSTselect('turn_captcha_theme', $k, ((!empty($loginizer['turn_captcha_theme']) && $loginizer['turn_captcha_theme'] == $k) ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';								
 							}
 						?>
 					</select>
@@ -485,7 +485,7 @@ input[type="text"], textarea, select {
 					<select name="turn_captcha_lang" id="turn_captcha_lang">
 						<?php
 							foreach($lz_env['lang'] as $k => $v){
-								echo '<option '.lz_POSTselect('turn_captcha_lang', $k, ($loginizer['turn_captcha_lang'] == $k ? true : false)).' value="'.$k.'">'.$v.'</value>';								
+								echo '<option '.lz_POSTselect('turn_captcha_lang', $k, ((!empty($loginizer['turn_captcha_lang']) && $loginizer['turn_captcha_lang'] == $k) ? true : false)).' value="'.$k.'">'.$v.'</value>';								
 							}
 						?>
 					</select>
@@ -497,7 +497,7 @@ input[type="text"], textarea, select {
 					<select name="turn_captcha_size" id="turn_captcha_size">
 						<?php
 							foreach($lz_env['size'] as $k => $v){
-								echo '<option '.lz_POSTselect('turn_captcha_size', $k, ($loginizer['turn_captcha_size'] == $k ? true : false)).' value="'.$k.'">'.$v.'</value>';								
+								echo '<option '.lz_POSTselect('turn_captcha_size', $k, ((!empty($loginizer['turn_captcha_size']) && $loginizer['turn_captcha_size'] == $k) ? true : false)).' value="'.$k.'">'.$v.'</value>';								
 							}
 						?>
 					</select>
@@ -510,7 +510,7 @@ input[type="text"], textarea, select {
 					<?php echo __('The text to be shown for the Captcha Field', 'loginizer'); ?>
 				</td>
 				<td>
-					<input type="text" size="30" value="<?php echo lz_optpost('captcha_text', @$loginizer['captcha_text']); ?>" name="captcha_text" id="captcha_text" />
+					<input type="text" size="30" value="<?php echo lz_optpost('captcha_text', (!empty($loginizer['captcha_text']) ? $loginizer['captcha_text'] : '')); ?>" name="captcha_text" id="captcha_text" />
 				</td>
 			</tr>
 			<tr class="lz_math_cap">
@@ -519,7 +519,7 @@ input[type="text"], textarea, select {
 					<?php echo __('Enter the number of seconds, a user has to enter captcha value.', 'loginizer'); ?>
 				</td>
 				<td>
-					<input type="text" size="30" value="<?php echo lz_optpost('captcha_time', @$loginizer['captcha_time']); ?>" name="captcha_time" id="captcha_time" />
+					<input type="text" size="30" value="<?php echo lz_optpost('captcha_time', (!empty($loginizer['captcha_time']) ? $loginizer['captcha_time'] : '')); ?>" name="captcha_time" id="captcha_time" />
 				</td>
 			</tr>
 			<tr class="lz_math_cap">

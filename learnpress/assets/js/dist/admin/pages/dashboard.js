@@ -81,8 +81,6 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*****************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/dashboard.js ***!
   \*****************************************************/
@@ -124,8 +122,6 @@ const interval = setInterval(() => {
     clearInterval(interval);
   }
 }, 1);
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=dashboard.js.map

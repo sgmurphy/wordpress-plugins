@@ -6,8 +6,13 @@
  *
  * @since 4.1.1
  * @author tungnx
- * @version 1.0.1
+ * @version 1.0.2
  */
+
+use LearnPress\Models\CourseModel;
+use LearnPress\Models\CoursePostModel;
+use LearnPress\Models\PostModel;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
@@ -15,7 +20,7 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 		protected $action = 'background_single_course';
 		protected static $instance;
 		/**
-		 * @var $lp_course LP_Course
+		 * @var $lp_course CourseModel
 		 */
 		protected $lp_course;
 		/**
@@ -25,7 +30,7 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 
 		/**
 		 * Get params via $_POST and handle
-		 * @in_array
+		 *
 		 * @see LP_Course_Post_Type::save
 		 */
 		protected function handle() {
@@ -37,10 +42,9 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 					return;
 				}
 
-				$this->lp_course = learn_press_get_course( $course_id );
-				$this->data      = LP_Request::get_param( 'data', '', 'text', 'post' );
-
-				if ( empty( $this->lp_course ) ) {
+				$this->data      = LP_Request::get_param( 'data', [], 'text', 'post' );
+				$this->lp_course = CourseModel::find( $course_id, false );
+				if ( ! $this->lp_course instanceof CourseModel ) {
 					return;
 				}
 
@@ -57,7 +61,7 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 		}
 
 		/**
-		 * Save course post data
+		 * Save course via post data
 		 *
 		 * @throws Exception
 		 */
@@ -66,12 +70,32 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 				error_log( 'Not permission save background course' );
 			}
 
-			$this->clean_data_invalid();
-			$this->save_price();
+			$courseModel = $this->lp_course;
+			// Unset value of keys for calculate again
+			unset( $courseModel->author );
+			unset( $courseModel->first_item_id );
+			unset( $courseModel->total_items );
+			unset( $courseModel->sections_items );
+			unset( $courseModel->meta_data->_lp_final_quiz );
+			unset( $courseModel->categories );
+			unset( $courseModel->image_url );
+			$courseModel->get_author_model();
+			$courseModel->get_first_item_id();
+			$courseModel->get_total_items();
+			$courseModel->get_section_items();
+			$courseModel->get_final_quiz();
+			$courseModel->get_categories();
+			$courseModel->get_image_url();
+			$courseModel->save();
+
 			$this->save_extra_info();
+			$this->clean_data_invalid();
 			$this->review_post_author();
 
-			do_action( 'lp/background/course/save', $this->lp_course, $this->data );
+			// Old hook, addon wpml and assignment is using
+			do_action( 'lp/background/course/save', learn_press_get_course( $this->lp_course->get_id() ), $this->data );
+			// New hook from v4.2.6.9
+			do_action( 'learnPress/background/course/save', $this->lp_course, $this->data );
 
 			/**
 			 * Clean cache courses
@@ -109,7 +133,7 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 		 *
 		 * @return void
 		 */
-		protected function save_price() {
+		protected function save_price_old() {
 			if ( ! isset( $this->data['_lp_regular_price'] ) ) {
 				return;
 			}
@@ -156,20 +180,57 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 		}
 
 		/**
+		 * Save price course
+		 *
+		 * @return void
+		 */
+		protected function save_price( CourseModel &$courseObj ) {
+			$coursePost = new CoursePostModel( $courseObj );
+
+			$regular_price = $courseObj->get_regular_price();
+			$sale_price    = $courseObj->get_sale_price();
+			if ( (float) $regular_price < 0 ) {
+				$courseObj->meta_data->{CoursePostModel::META_KEY_REGULAR_PRICE} = '';
+				$regular_price                                                   = $courseObj->get_regular_price();
+			}
+
+			if ( (float) $sale_price > (float) $regular_price ) {
+				$courseObj->meta_data->{CoursePostModel::META_KEY_SALE_PRICE} = '';
+				$sale_price                                                   = $courseObj->get_sale_price();
+			}
+
+			// Save sale regular price and sale price to table postmeta
+			$coursePost->save_meta_value_by_key( CoursePostModel::META_KEY_REGULAR_PRICE, $regular_price );
+			$coursePost->save_meta_value_by_key( CoursePostModel::META_KEY_SALE_PRICE, $sale_price );
+
+			$has_sale = $courseObj->has_sale_price();
+			if ( $has_sale ) {
+				$courseObj->is_sale = 1;
+				$coursePost->save_meta_value_by_key( CoursePostModel::META_KEY_IS_SALE, 1 );
+			} else {
+				$courseObj->is_sale = 0;
+				delete_post_meta( $courseObj->get_id(), CoursePostModel::META_KEY_IS_SALE );
+			}
+
+			// Set price to sort on lists.
+			$courseObj->price_to_sort = $courseObj->get_price();
+		}
+
+		/**
 		 * Save Extra info of course
 		 *
-		 * @author tungnx
+		 * @TODO after use value from CourseModel, will not use this function
 		 * @since 4.1.4.1
 		 * @version 1.0.1
 		 */
 		protected function save_extra_info() {
 			$lp_course_db    = LP_Course_DB::getInstance();
-			$lp_course       = $this->lp_course;
+			$lp_course       = learn_press_get_course( $this->lp_course->get_id() );
 			$lp_course_cache = LP_Course_Cache::instance();
 			$course_id       = $lp_course->get_id();
 
 			try {
-				$extra_info = $this->lp_course->get_info_extra_for_fast_query();
+				$extra_info = $lp_course->get_info_extra_for_fast_query();
 
 				// Get and set first item id
 				// Clean cache
@@ -193,7 +254,7 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 				$extra_info->sections_items = $sections_items;
 
 				// Check items removed course, will delete on 'learnpress_user_items', 'learnpress_user_item_results' table
-				$this->delete_user_items_data( $sections_items );
+				$this->delete_user_items_data();
 
 				// @since 4.2.1
 				do_action( 'lp/course/extra-info/before-save', $lp_course, $extra_info );
@@ -220,7 +281,7 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 			$lp_user_item_results_db = LP_User_Items_Result_DB::instance();
 
 			try {
-				$course = $this->lp_course;
+				$course = learn_press_get_course( $this->lp_course->get_id() );
 
 				// Get all items of course is attend
 				$filter_user_items              = new LP_User_Items_Filter();
@@ -272,7 +333,7 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 			$user            = learn_press_get_current_user();
 			$required_review = LP_Settings::get_option( 'required_review', 'yes' ) === 'yes';
 
-			if ( $user->is_instructor() && $required_review && $lp_course->get_status() === 'publish' ) {
+			if ( $user->is_instructor() && $required_review && $lp_course->post_status === 'publish' ) {
 				wp_update_post(
 					array(
 						'ID'          => $lp_course->get_id(),
@@ -282,6 +343,98 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 				);
 			}
 			// End
+		}
+
+		/**
+		 * Save all data course to table learnpress_courses
+		 *
+		 * @param stdClass $post_obj
+		 * @param bool $is_update Create new post is false, else update is true
+		 *
+		 * @return CourseModel|null
+		 * @throws Exception
+		 * @since 4.2.6.9
+		 * @version 1.0.0
+		 */
+		protected function save_data_to_table_courses( $post_obj, $is_update ) {
+			// Create/Update Course with data
+			$courseObj  = new CourseModel( $post_obj );
+			$coursePost = new CoursePostModel( $post_obj );
+			// Get all meta key and map
+			$lp_meta_box_course = new LP_Meta_Box_Course();
+			$ground_fields      = $lp_meta_box_course->metabox( $post_obj->ID );
+
+			// If is action is update post.
+			if ( $is_update ) {
+				// Get meta from table postmeta
+				$coursePost           = new CoursePostModel( $post_obj );
+				$courseObj->meta_data = $coursePost->get_all_metadata();
+
+				// Get from table learnpress_courses
+				$courseModel = CourseModel::find( $coursePost->ID );
+				// Merge meta data
+				if ( ! empty( $courseModel ) ) {
+					$courseModelMeta      = json_decode( $courseModel->json );
+					$courseObj->meta_data = (object) array_merge(
+						(array) $courseObj->meta_data,
+						(array) $courseModelMeta->meta_data
+					);
+				}
+			}
+
+			// Save meta fields
+			foreach ( $ground_fields as $fields ) {
+				if ( ! isset( $fields['content'] ) ) {
+					continue;
+				}
+				foreach ( $fields['content'] as $meta_key => $option ) {
+					$option->id = $meta_key;
+					if ( isset( $this->data[ $meta_key ] ) ) {
+						switch ( $meta_key ) {
+							case CoursePostModel::META_KEY_DURATION:
+								if ( is_array( $this->data[ $meta_key ] ) ) {
+									$this->data[ $meta_key ] = sprintf( '%s %s', $this->data[ $meta_key ][0], $this->data[ $meta_key ][1] );
+								}
+								break;
+							default:
+								break;
+						}
+
+						if ( $option instanceof LP_Meta_Box_Checkbox_Field ) {
+							$this->data[ $meta_key ] = 'yes';
+						}
+
+						if ( $option instanceof LP_Meta_Box_Extra_Faq_Field ) {
+							$option->save( $courseObj->get_id(), $this->data );
+							$this->data[ $meta_key ] = get_post_meta( $courseObj->get_id(), $meta_key, true );
+						}
+
+						$courseObj->meta_data->{$meta_key} = $this->data[ $meta_key ];
+						//Todo: save all meta key, after when optimize, not call direct key via get_post_meta, will remove
+						// Only save with key need to query list
+						// @since 4.2.6.9
+						$coursePost->save_meta_value_by_key( $meta_key, $courseObj->meta_data->{$meta_key} );
+					} elseif ( ! $is_update ) {
+						$courseObj->meta_data->{$meta_key} = $option->default ?? '';
+						//Todo: save all meta key, after when optimize, not call direct key via get_post_meta, will remove
+						// Only save with key need to query list
+						// @since 4.2.6.9
+						$coursePost->save_meta_value_by_key( $meta_key, $courseObj->meta_data->{$meta_key} );
+					}
+				}
+			}
+
+			$this->save_price( $courseObj );
+			$courseObj->get_image_url();
+			$courseObj->get_categories();
+			$courseObj->get_author_model();
+			$courseObj->get_first_item_id();
+			$courseObj->get_total_items();
+			$courseObj->get_section_items();
+			// End get all meta key and map
+			$courseObj->save();
+
+			return $courseObj;
 		}
 
 		/**

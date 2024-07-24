@@ -193,6 +193,11 @@ trait AdminInitTrait {
 		return !empty($this->preferences['buyer_validated']) and !empty($this->preferences['subscription']['capped_version']);
 	}
 
+	function supportAdminAssets(){
+		$p = $this->preferences;
+		return !empty($p['admin_asset_loading']) || !empty($p['admin_asset_editing']);
+	}
+
 	function getAllPluginPages(){
 
 		$this->all_pages = array(

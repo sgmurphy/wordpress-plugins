@@ -1,6 +1,7 @@
 <?php
 
 use LearnPress\Helpers\Template;
+use LearnPress\Models\CourseModel;
 
 /**
  * Class LP_Admin_Assets
@@ -15,7 +16,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 	 */
 	protected function __construct() {
 		add_action( 'admin_footer', array( $this, 'add_elements_global' ) );
-		add_action( 'admin_head', [ $this, 'load_scripts_styles_on_head' ], - 1 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'load_scripts_styles_on_head' ], - 1 );
 		parent::__construct();
 	}
 
@@ -36,25 +37,33 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 	 *
 	 * @return array
 	 * @since 4.2.5.6
-	 * @version 1.0.1
+	 * @version 1.0.2
 	 */
 	public function localize_data_global(): array {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		ob_start();
+		Template::instance()->get_admin_template( 'search-author-field.php' );
+		$html_search_author_field = ob_get_clean();
+
 		return apply_filters(
 			'learn-press/admin/localize-data-global',
 			[
-				'site_url'          => site_url(),
-				'user_id'           => get_current_user_id(),
-				'is_admin'          => current_user_can( ADMIN_ROLE ),
-				'theme'             => get_stylesheet(),
-				'lp_version'        => LP()->version,
-				'lp_rest_url'       => get_rest_url(),
-				'lp_rest_load_ajax' => get_rest_url( null, 'lp/v1/load_content_via_ajax/' ),
-				'nonce'             => wp_create_nonce( 'wp_rest' ),
-				'courses_url'       => learn_press_get_page_link( 'courses' ),
-				'urlParams'         => lp_archive_skeleton_get_args(),
-				'i18n'              => [
+				'site_url'                 => site_url(),
+				'user_id'                  => get_current_user_id(),
+				'is_admin'                 => current_user_can( ADMIN_ROLE ),
+				'theme'                    => get_stylesheet(),
+				'lp_version'               => LP()->version,
+				'lp_rest_url'              => get_rest_url(),
+				'lp_rest_load_ajax'        => get_rest_url( null, 'lp/v1/load_content_via_ajax/' ),
+				'nonce'                    => wp_create_nonce( 'wp_rest' ),
+				'courses_url'              => learn_press_get_page_link( 'courses' ),
+				'urlParams'                => lp_archive_skeleton_get_args(),
+				'i18n'                     => [
 					'select_page' => esc_html__( 'Select page', 'learnpress' ),
 				],
+				'current_screen'           => $screen ? $screen->id : '',
+				'show_search_author_field' => empty( $html_search_author_field ) ? 0 : $html_search_author_field
 			]
 		);
 	}
@@ -218,7 +227,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 						'vue-libs',
 						'advanced-list',
 						'lp-modal-search-courses',
-						'lp-modal-search-users',
+						//'lp-modal-search-users',
 					),
 					array( LP_ORDER_CPT ),
 					0,
@@ -262,13 +271,13 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					1,
 					1
 				),
-				'lp-modal-search-users'             => new LP_Asset_Key(
+				/*'lp-modal-search-users'             => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/admin/share/modal-search-users' . self::$_min_assets . '.js' ),
 					array( 'jquery' ),
 					array( LP_ORDER_CPT ),
 					1,
 					1
-				),
+				),*/
 				'lp-tools-course-tab'               => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/pages/tools' . self::$_min_assets . '.js' ),
 					array(
@@ -310,7 +319,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				),
 				'lp-admin-notices'                  => new LP_Asset_Key(
 					self::url( 'js/dist/admin/admin-notices' . self::$_min_assets . '.js' ),
-					[ 'wp-api-fetch' ],
+					[],
 					[],
 					1,
 					0,
@@ -409,7 +418,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				'lp-tom-select'         => new LP_Asset_Key(
 					'https://cdn.jsdelivr.net/npm/tom-select@2.2.3/dist/css/tom-select.css',
 					[],
-					array( 'learnpress_page_learn-press-tools' ),
+					[],
 					0
 				),
 			)
@@ -465,7 +474,13 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 			return [];
 		}
 
-		$course          = learn_press_get_course( $post->ID );
+		$course = CourseModel::find( $post->ID );
+		if ( $course ) {
+			$course_section_items = $course->get_section_items();
+		} else { // Code old if not found course on the table learnpress_courses.
+			$course               = learn_press_get_course( $post->ID );
+			$course_section_items = $course->get_curriculum_raw();
+		}
 		$hidden_sections = get_post_meta( $post->ID, '_admin_hidden_sections', true );
 
 		return apply_filters(
@@ -503,7 +518,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					'notice_invalid_date'    => __( 'Invalid date', 'learnpress' ),
 				),
 				'sections'    => array(
-					'sections'        => $course->get_curriculum_raw(),
+					'sections'        => $course_section_items,
 					'hidden_sections' => ! empty( $hidden_sections ) ? $hidden_sections : array(),
 					'urlEdit'         => admin_url( 'post.php?action=edit&post=' ),
 				),

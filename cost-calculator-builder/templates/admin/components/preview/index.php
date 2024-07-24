@@ -30,10 +30,21 @@ $default_img = CALC_URL . '/frontend/dist/img/default.png';
 							</span>
 						</div>
 					</div>
-					<?php require CALC_PATH . '/templates/admin/components/preview/preview-content.php'; ?>
+					<template v-if="!this.$store.getters.getPageBreakStatus">
+						<?php require CALC_PATH . '/templates/admin/components/preview/preview-content.php'; ?>
+					</template>
+					<template v-else>
+						<?php require CALC_PATH . '/templates/admin/components/preview/page-break-preview.php'; ?>
+					</template>
+
 				</div>
 				<template v-else>
-					<?php require CALC_PATH . '/templates/admin/components/preview/preview-content.php'; ?>
+					<template v-if="!this.$store.getters.getPageBreakStatus">
+						<?php require CALC_PATH . '/templates/admin/components/preview/preview-content.php'; ?>
+					</template>
+					<template v-else>
+						<?php require CALC_PATH . '/templates/admin/components/preview/page-break-preview.php'; ?>
+					</template>
 				</template>
 			</div>
 		</div>

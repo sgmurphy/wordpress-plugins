@@ -177,7 +177,7 @@ class Rest {
 			return true;
 		}
 
-		if ( current_user_can( 'edit_posts' ) ) {
+		if ( current_user_can( Utils::get_admin_capability() ) ) {
 			return true;
 		}
 

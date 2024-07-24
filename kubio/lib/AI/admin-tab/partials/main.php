@@ -12,6 +12,7 @@ $kubio_ai_key = kubio_ai_get_key();
 				<p class="spinner-holder">
 					<?php
 					printf(
+						// translators: %s: spinner icon
 						__( '%s Retrieving data...', 'kubio' ),
 						sprintf(
 							'<span class="loader">%s</span>',

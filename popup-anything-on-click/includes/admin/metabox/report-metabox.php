@@ -63,9 +63,16 @@ $display_rule_link = add_query_arg( array( 'post_type' => POPUPAOC_POST_TYPE, 'p
 	</div>
 	<br/>
 	<!-- Pro Notice -->
+	<!-- <div class="paoc-pro-notice">
+		<i class="dashicons dashicons-money-alt"></i>
+		<?php //	 echo sprintf( __( 'Utilize these <a href="%s" target="_blank">Premium Features with Risk-Free 30 days money back guarantee</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'popup-anything-on-click'), POPUPAOC_PLUGIN_LINK_UNLOCK); ?>
+	</div> -->
+
+
 	<div class="paoc-pro-notice">
 		<i class="dashicons dashicons-money-alt"></i>
-		<?php echo sprintf( __( 'Utilize these <a href="%s" target="_blank">Premium Features with Risk-Free 30 days money back guarantee</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'popup-anything-on-click'), POPUPAOC_PLUGIN_LINK_UNLOCK); ?>		
+		<?php echo sprintf( __( 'Try All These <a href="%s" target="_blank">PRO Features in Essential Bundle Free For 5 Days.</a>', 'popup-anything-on-click'), POPUPAOC_PRO_FREE_5_day_LINK); ?>		
 	</div>
+
 	<?php } ?>
 </div>

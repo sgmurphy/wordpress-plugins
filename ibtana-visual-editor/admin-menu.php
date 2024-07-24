@@ -1599,7 +1599,7 @@ class Ibtana_Visual_Editor_Menu_Class
 				'ajaxurl' 										=>	admin_url('admin-ajax.php'),
 				'adminUrl'										=>	admin_url(),
 				'wpnonce' 										=>	wp_create_nonce('ive_whizzie_nonce'),
-				'verify_text'									=>	esc_html('verifying', 'ibtana-visual-editor'),
+				'verify_text'									=>	esc_html__('verifying', 'ibtana-visual-editor'),
 				'IBTANA_LICENSE_API_ENDPOINT' =>	IBTANA_LICENSE_API_ENDPOINT,
 				'ive_license_key' 						=>	get_option('vw_pro_theme_key'),
 				'ive_add_on_keys'							=>	$ive_add_on_license_info,

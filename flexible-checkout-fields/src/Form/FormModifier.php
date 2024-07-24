@@ -24,7 +24,9 @@ class FormModifier implements Hookable {
 			return;
 		}
 
-		if ( 0 === count( $checkout->get_checkout_fields( 'order' ) ) ) {
+		$order_fields = $checkout->get_checkout_fields( 'order' );
+
+		if ( is_array( $order_fields ) && 0 === count( $order_fields ) ) {
 			add_filter( 'woocommerce_enable_order_notes_field', '__return_false' );
 		}
 	}

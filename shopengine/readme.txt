@@ -4,7 +4,7 @@ Contributors: xpeedstudio, Ataurr, emranio
 Tags: WooCommerce, WooCommerce Builder, Elementor, Elementor WooCommerce, Product Template, WooCommerce blocks, WooCommerce Product, Product Slider, Shopping Cart, Wishlist, Woo Builder, Variation Swatches
 
 Tested up to: 6.6
-Stable tag: 4.6.6
+Stable tag: 4.6.7
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -308,6 +308,9 @@ If you like using the ShopEngine WooCommerce template builder, then consider che
 Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best of WordPress with  [Tutorial, Tips & Tricks](https://wpmet.com/blog)!
 
 == Changelog ==
+v4.6.7// 24-07-2024
+Fixed: Archive product title control warning
+
 v4.6.6// 16-07-2024
 Added: Product title change control in archive product widget
 Fixed: Recently viewed product widget issues 

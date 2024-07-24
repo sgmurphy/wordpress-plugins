@@ -32,7 +32,7 @@ class WPFormsDB_Form_Details
         }
 
         if ( empty($results) ) {
-            wp_die( $message = 'Not valid contact form' );
+            wp_die( esc_html__( 'Not valid contact form', 'database-for-wpforms' ));
         }
         ?>
         <div class="wrap">
@@ -40,7 +40,7 @@ class WPFormsDB_Form_Details
                 <div class="cfdb7-panel-content">
                     <div class="welcome-panel-column-container">
                         <?php do_action('WPFormsDB_before_formdetails_title',$this->form_post_id ); ?>
-                        <h3><?php echo get_the_title( $this->form_post_id ); ?></h3>
+                        <h3><?php echo esc_html( get_the_title( $this->form_post_id ) ); ?></h3>
                         <?php do_action('WPFormsDB_after_formdetails_title', $this->form_post_id ); ?>
                         <p></span><?php echo esc_html( $results[0]->form_date ); ?></p>
                         <?php $form_data  = unserialize( $results[0]->form_value );

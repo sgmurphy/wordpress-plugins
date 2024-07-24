@@ -2,8 +2,8 @@
 Contributors: tytus-tytus, lucastidio, marcingwizdala, kkopaczyktidio, ksladek, adrianmtidio
 Tags: free live chat, live chat, chat, chatbot, livechat, tidio, widget, zendesk, mailchimp, messenger
 Requires at least: 4.7
-Tested up to: 6.5
-Stable tag: 6.0.20
+Tested up to: 6.6
+Stable tag: 6.0.21
 Requires PHP: 7.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -121,7 +121,7 @@ The pre-translated languages include:
 - Turkish / Türkçe
 
 
-##PRICING
+## PRICING
 
 Most of our powerful features are available in the **free plan**. If you want to test all of them, sign up for a 7-day free trial.
 
@@ -132,6 +132,8 @@ See all available pricing options on our [website](https://www.tidio.com/pricing
 **OpenSSL** (to increase security by encrypting your access tokens)
 **cURL**
 
+## HOT FEATURES
+- CC/BCC for tickets
 
 == Installation ==
 
@@ -196,6 +198,11 @@ Tidio offers six language versions: English, French, German, Spanish, Italian, a
 
 
 == Changelog ==
+
+= 6.0.21 =
+
+- Tested up to WordPress 6.6
+- Update description
 
 = 6.0.20 =
 

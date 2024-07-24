@@ -48,6 +48,19 @@ spl_autoload_register(
         // if the file exists, require it
         if (file_exists($file)) {
             require $file;
+			
+			return;
         }
+
+		if(!defined('LOGINIZER_PRO_DIR')) {
+			return;
+		}
+
+		$file = LOGINIZER_PRO_DIR . 'lib/hybridauth/'. str_replace('\\', DIRECTORY_SEPARATOR, $relative_class) . '.php';
+
+		if(file_exists($file)){
+			require $file;
+		}
+		
     }
 );

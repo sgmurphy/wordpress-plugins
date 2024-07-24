@@ -1,9 +1,9 @@
 ﻿=== Popup Anything - Popup for opt-ins and Lead Generation Conversions ===
-Contributors: wponlinesupport, anoopranawat, pratik-jain, piyushpatel123, patelketan
-Tags:  popup, optin, modal popup, email marketing, modal, newsletter, newsletter popup, marketing popup, exit popup, HTML popup, image popup, page load popup, popup on click, modal popup on click, full screen popup on click, on click popup
+Contributors: wponlinesupport, anoopranawat, pratik-jain, patelketan, piyushpatel123
+Tags: marketing popup, exit popup, image popup, page load popup, modal popup on click,
 Requires at least: 5.2
-Tested up to: 6.5.3
-Stable tag: 2.8.1
+Tested up to: 6.6.1
+Stable tag: 2.8.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -170,6 +170,9 @@ You can use <code>.paoc-popup-btn</code> class to change the button design as pe
 7) General Settings
 
 == Changelog ==
+
+= 2.8.2 (24, July 2024) =
+* [*] Check compatibility with WordPress version 6.6.1
 
 = 2.8.1 (12, March 2024) =
 * [*] Fixed preview screen security-related issue.

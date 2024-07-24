@@ -68,6 +68,7 @@ class Template {
 	public function get_frontend_template( string $file_name = '', array $args = array() ) {
 		$default_path          = LP_PLUGIN_PATH . "templates/{$file_name}";
 		$folder_name_rewrite   = learn_press_template_path();
+		$file_name             = sanitize_text_field( $file_name );
 		$from_child_theme_path = sprintf(
 			'%s/%s/%s',
 			get_stylesheet_directory(),
@@ -87,7 +88,11 @@ class Template {
 		} elseif ( file_exists( $from_theme_path ) ) {
 			$path_load = $from_theme_path;
 		}
-		$template = $this->get_template( $path_load, $args );
+
+		$template = '';
+		if ( realpath( $path_load ) ) {
+			$template = $this->get_template( $path_load, $args );
+		}
 
 		if ( ! $this->include ) {
 			return $template;
@@ -110,6 +115,7 @@ class Template {
 			$this->get_frontend_template( $file_name, $args );
 		}
 	}
+
 	/**
 	 * Include path file
 	 *
@@ -158,6 +164,7 @@ class Template {
 
 	/**
 	 * Check file template is overwritten
+	 *
 	 * @param string $file_name
 	 *
 	 * @return bool|string return false if not, path file if yes
@@ -242,6 +249,23 @@ class Template {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Combine html elements
+	 *
+	 * @param array $elms
+	 *
+	 * @return string
+	 * @since 4.2.6.9
+	 */
+	public static function combine_components( array $elms = [] ): string {
+		$html = '';
+		foreach ( $elms as $tag => $val ) {
+			$html .= $val;
+		}
+
+		return $html;
 	}
 }
 

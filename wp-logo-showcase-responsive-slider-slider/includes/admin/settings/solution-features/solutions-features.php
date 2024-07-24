@@ -32,10 +32,10 @@ $tab = isset( $_GET['tab'] ) ? '#'.$_GET['tab'] : '#wpls_welcome_tabs';
 		.wpls-vtab-nav-wrap .wpls-vtab-nav a:hover {box-shadow: 5px 0 0 0 #6c63ff inset !important; }
 
 		/**** commod deal offer ****/
-		.wpls-deal-offer-wrap{position: relative;padding: 0.75rem 1.25rem;margin-bottom: 1rem;border: 1px solid transparent;border-radius: 0.25rem; color: #000;background-color: #ffd104;border-color: #ffd104;margin-top: 20px;}
+		.wpls-deal-offer-wrap{position: relative;padding: 0 1.25rem;margin-bottom: 1rem;border: 1px solid transparent;border-radius: 0.25rem; color: #000;background-color: #ffd104;border-color: #ffd104;margin-top: 20px;}
 
-		.wpls-deal-offer{display:flex;align-items: center; margin-top: 15px;}
-		.wpls-inn-deal-offer{flex-basis:60%; padding: 20px; text-align:left;}
+		.wpls-deal-offer{display:flex;align-items: center;}
+		.wpls-inn-deal-offer{flex-basis:60%; padding:0 20px; text-align:left;}
 		.wpls-inn-deal-hedding{font-size: 22px;}
 		.wpls-inn-deal-hedding span{color:#6c63ff;}
 
@@ -45,6 +45,8 @@ $tab = isset( $_GET['tab'] ) ? '#'.$_GET['tab'] : '#wpls_welcome_tabs';
 		.wpls-inn-deal-code span{display: inline-block; padding:15px 60px; border: 1px #000 dashed; color: #FF1000; font-weight: 700; font-size: 18px; background-color: #FAFAD2;}
 		.wpls-inn-deal-offer-btn{flex-basis:40%; padding:20px;text-align: center;}
 		.wpls-inn-deal-offer-btn a{border-radius: unset; padding: 20px;}
+
+		.wpls-deal-free-offer{ margin: 20px; text-align:center; }
 
 		/****** Basic Vs Pro ******/
 		.wpls-basic-heading{text-align: center;}

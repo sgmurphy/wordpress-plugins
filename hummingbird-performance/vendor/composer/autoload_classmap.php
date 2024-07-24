@@ -53,6 +53,7 @@ return array(
     'Hummingbird\\Core\\Integration\\Defender' => $baseDir . '/core/integration/class-defender.php',
     'Hummingbird\\Core\\Integration\\Divi' => $baseDir . '/core/integration/class-divi.php',
     'Hummingbird\\Core\\Integration\\Google_Site_Kit' => $baseDir . '/core/integration/class-google-site-kit.php',
+    'Hummingbird\\Core\\Integration\\Gtranslate' => $baseDir . '/core/integration/class-gtranslate.php',
     'Hummingbird\\Core\\Integration\\Gutenberg' => $baseDir . '/core/integration/class-gutenberg.php',
     'Hummingbird\\Core\\Integration\\Opcache' => $baseDir . '/core/integration/class-opcache.php',
     'Hummingbird\\Core\\Integration\\OxygenBuilder' => $baseDir . '/core/integration/class-oxygenbuilder.php',

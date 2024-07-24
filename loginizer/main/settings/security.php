@@ -335,7 +335,7 @@ input[type="text"], textarea, select {
 					<span class="exp"><?php echo __('Set blank to reset to the original login URL', 'loginizer'); ?></span>
 				</td>
 				<td>
-					<input type="text" size="50" value="<?php echo lz_POSTval('login_slug', $loginizer['login_slug']); ?>" name="login_slug" />
+					<input type="text" size="50" value="<?php echo (!empty($loginizer['login_slug']) ? lz_POSTval('login_slug', $loginizer['login_slug']) : ''); ?>" name="login_slug" />
 				</td>
 			</tr>
 	
@@ -410,7 +410,7 @@ if(!defined('SITEPAD')){
 					<span class="exp"><?php echo __('Set blank to reset to the original XML-RPC URL', 'loginizer'); ?></span>
 				</td>
 				<td>
-					<input type="text" size="50" value="<?php echo lz_optpost('xmlrpc_slug', $loginizer['xmlrpc_slug']); ?>" name="xmlrpc_slug" />
+					<input type="text" size="50" value="<?php echo (!empty($loginizer['xmlrpc_slug']) ? lz_optpost('xmlrpc_slug', $loginizer['xmlrpc_slug']) : ''); ?>" name="xmlrpc_slug" />
 				</td>
 			</tr>
 		</table><br />
@@ -509,7 +509,7 @@ function lz_test_wp_admin(){
 					</tr>';
 				}
 				
-				if(file_exists(LOGINIZER_DIR.'/premium.php') && !empty($loginizer['enable_csrf_protection']) && empty($loginizer['admin_slug'])){
+				if(defined('LOGINIZER_PREMIUM') && !empty($loginizer['enable_csrf_protection']) && empty($loginizer['admin_slug'])){
 
 					echo '<div style="color: #856404; background-color: #fff3cd; border-color: #ffeeba; padding: 15px; font-size:1rem; font-weight:400;">'.esc_html__('Note: Be careful while changing the Admin name as your CSRF Protection is on', 'loginizer').'</div>';
 				
@@ -526,7 +526,7 @@ function lz_test_wp_admin(){
 					<span class="exp"><?php echo __('Set blank to reset to the original wp-admin URL', 'loginizer'); ?></span>
 				</td>
 				<td>
-					<input type="text" size="50" value="<?php echo lz_optpost('admin_slug', $loginizer['admin_slug']); ?>" name="admin_slug" id="lz_admin_slug" onchange="lz_update_htaccess_admin(this)"/>
+					<input type="text" size="50" value="<?php echo (!empty($loginizer['admin_slug']) ? lz_optpost('admin_slug', $loginizer['admin_slug']) : ''); ?>" name="admin_slug" id="lz_admin_slug" onchange="lz_update_htaccess_admin(this)"/>
 				</td>
 			</tr>
 			<tr>
@@ -541,10 +541,10 @@ function lz_test_wp_admin(){
 			<tr id="lz_wp_admin_msg_row" style="display:none">
 				<td scope="row" valign="top">
 					<label><?php echo __('WP-Admin Error Message', 'loginizer'); ?></label><br>
-					<span class="exp"><?php echo __('Error message to show if someone accesses wp-admin', 'loginizer'); ?></span> Default : <?php echo $loginizer['wp_admin_d_msg']; ?>
+					<span class="exp"><?php echo __('Error message to show if someone accesses wp-admin', 'loginizer'); ?></span> Default : <?php echo (!empty($loginizer['wp_admin_d_msg']) ? $loginizer['wp_admin_d_msg'] : ''); ?>
 				</td>
 				<td>
-					<input type="text" size="50" value="<?php echo lz_htmlizer(!empty($_POST['wp_admin_msg']) ? stripslashes($_POST['wp_admin_msg']) : @$loginizer['wp_admin_msg']); ?>" name="wp_admin_msg" id="lz_wp_admin_msg" />
+					<input type="text" size="50" value="<?php echo lz_htmlizer(!empty($_POST['wp_admin_msg']) ? stripslashes($_POST['wp_admin_msg']) : (!empty($loginizer['wp_admin_msg']) ? $loginizer['wp_admin_msg'] : '')); ?>" name="wp_admin_msg" id="lz_wp_admin_msg" />
 				</td>
 			</tr>
 
@@ -758,7 +758,7 @@ function add_lz_bl_users(){
 					<div id="lz_bl_users">
 					<?php
 					
-					$usernames = isset($_POST['lz_bl_users']) && is_array($_POST['lz_bl_users']) ? $_POST['lz_bl_users'] : $loginizer['username_blacklist'];
+					$usernames = isset($_POST['lz_bl_users']) && is_array($_POST['lz_bl_users']) ? $_POST['lz_bl_users'] : (!empty($loginizer['username_blacklist']) ? $loginizer['username_blacklist'] : []);
 					
 					if(empty($usernames)){
 						$usernames = array();
@@ -823,7 +823,7 @@ function add_lz_bl_domains(){
 					<div id="lz_bl_domains">
 					<?php
 					
-					$domains = isset($_POST['lz_bl_domains']) && is_array($_POST['lz_bl_domains']) ? $_POST['lz_bl_domains'] : $loginizer['domains_blacklist'];
+					$domains = isset($_POST['lz_bl_domains']) && is_array($_POST['lz_bl_domains']) ? $_POST['lz_bl_domains'] : (!empty($loginizer['domains_blacklist']) ? $loginizer['domains_blacklist'] : []);
 					
 					if(empty($domains)){
 						$domains = array();

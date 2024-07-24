@@ -1,5 +1,11 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.36 - 2024-07-16
+
+### Fixes
+
+- Holidays not being checked for conflicts in Google Calendar
+
 ## SSA-VERSION-PREFIX.6.7.34 - 2024-07-09
 
 ### Fixes

@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License (Version 2 - GPLv2).
 msgid ""
 msgstr ""
-"Project-Id-Version: Defender Pro 4.8.0\n"
+"Project-Id-Version: Defender Pro 4.8.1\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
-"POT-Creation-Date: 2024-07-15 10:41:11+00:00\n"
+"POT-Creation-Date: 2024-07-23 08:33:18+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -257,7 +257,7 @@ msgstr ""
 msgid "7 days"
 msgstr ""
 
-#: languages/vue-js.php:179 src/controller/class-mask-login.php:1176
+#: languages/vue-js.php:179 src/controller/class-mask-login.php:1195
 #: src/model/setting/class-mask-login.php:200
 msgid ""
 "A page already exists at this URL. Please enter a unique URL for your login "
@@ -282,7 +282,7 @@ msgstr ""
 msgid "Action All"
 msgstr ""
 
-#: languages/vue-js.php:199 src/model/setting/class-security-tweaks.php:122
+#: languages/vue-js.php:199 src/model/setting/class-security-tweaks.php:121
 msgid "Actioned"
 msgstr ""
 
@@ -329,8 +329,8 @@ msgstr ""
 #: src/controller/class-audit-logging.php:604
 #: src/controller/class-blocklist-monitor.php:232
 #: src/controller/class-blocklist-monitor.php:250
-#: src/controller/class-mask-login.php:837
-#: src/controller/class-mask-login.php:853
+#: src/controller/class-mask-login.php:856
+#: src/controller/class-mask-login.php:872
 #: src/controller/class-password-protection.php:356
 #: src/controller/class-password-protection.php:375
 #: src/controller/class-recaptcha.php:1259 src/controller/class-scan.php:986
@@ -2183,7 +2183,7 @@ msgstr ""
 msgid "Global IP Addresses"
 msgstr ""
 
-#: languages/vue-js.php:1716 src/model/setting/class-global-ip-lockout.php:68
+#: languages/vue-js.php:1716 src/model/setting/class-global-ip-lockout.php:67
 msgid "Global IP Blocker"
 msgstr ""
 
@@ -2423,7 +2423,7 @@ msgstr ""
 msgid "Ignore All"
 msgstr ""
 
-#: languages/vue-js.php:1888 src/model/setting/class-security-tweaks.php:124
+#: languages/vue-js.php:1888 src/model/setting/class-security-tweaks.php:123
 msgid "Ignored"
 msgstr ""
 
@@ -2461,8 +2461,8 @@ msgstr ""
 #: src/controller/class-audit-logging.php:613
 #: src/controller/class-blocklist-monitor.php:234
 #: src/controller/class-blocklist-monitor.php:251
-#: src/controller/class-mask-login.php:837
-#: src/controller/class-mask-login.php:853
+#: src/controller/class-mask-login.php:856
+#: src/controller/class-mask-login.php:872
 #: src/controller/class-password-protection.php:356
 #: src/controller/class-password-protection.php:370
 #: src/controller/class-password-protection.php:376
@@ -3244,7 +3244,7 @@ msgstr ""
 msgid "Permanent"
 msgstr ""
 
-#: languages/vue-js.php:2524 src/model/setting/class-global-ip-lockout.php:58
+#: languages/vue-js.php:2524 src/model/setting/class-global-ip-lockout.php:57
 msgid "Permanently Blocked IPs"
 msgstr ""
 
@@ -3534,7 +3534,7 @@ msgstr ""
 #: languages/vue-js.php:2759 src/component/class-mail.php:57
 #: src/controller/class-main-setting.php:788
 #: src/controller/class-security-tweaks.php:88
-#: src/model/setting/class-security-tweaks.php:123
+#: src/model/setting/class-security-tweaks.php:122
 msgid "Recommendations"
 msgstr ""
 
@@ -7075,8 +7075,8 @@ msgstr ""
 msgid "The file %s could not be loaded."
 msgstr ""
 
-#: src/component/security-tweaks/servers/class-server-factory.php:60
-#: src/component/security-tweaks/servers/class-server-factory.php:107
+#: src/component/security-tweaks/servers/class-server-factory.php:59
+#: src/component/security-tweaks/servers/class-server-factory.php:106
 #. translators: %s: Server name.
 msgid "The %s server is not supported yet."
 msgstr ""
@@ -7311,7 +7311,7 @@ msgstr ""
 #: src/controller/class-blacklist.php:224 src/controller/class-firewall.php:244
 #: src/controller/class-main-setting.php:148
 #: src/controller/class-mask-login.php:346
-#: src/controller/class-mask-login.php:1165
+#: src/controller/class-mask-login.php:1184
 #: src/controller/class-password-protection.php:244
 #: src/controller/class-password-reset.php:223
 #: src/controller/class-scan.php:547
@@ -8169,7 +8169,7 @@ msgstr ""
 msgid "Add new group"
 msgstr ""
 
-#: src/integrations/class-dashboard-whitelabel.php:83
+#: src/integrations/class-dashboard-whitelabel.php:82
 msgid "The WPMU DEV Team."
 msgstr ""
 
@@ -8474,14 +8474,14 @@ msgstr ""
 msgid "%s is not a valid IP address"
 msgstr ""
 
-#: src/model/setting/class-global-ip-lockout.php:79
+#: src/model/setting/class-global-ip-lockout.php:78
 #: src/model/setting/class-login-lockout.php:189
 #: src/model/setting/class-notfound-lockout.php:216
 #: src/model/setting/class-user-agent-lockout.php:307
 msgid "active"
 msgstr ""
 
-#: src/model/setting/class-global-ip-lockout.php:79
+#: src/model/setting/class-global-ip-lockout.php:78
 #: src/model/setting/class-login-lockout.php:189
 #: src/model/setting/class-notfound-lockout.php:216
 #: src/model/setting/class-user-agent-lockout.php:307
@@ -8741,111 +8741,111 @@ msgstr ""
 msgid "Force 2FA login warning message"
 msgstr ""
 
-#: src/traits/continent.php:32
+#: src/traits/continent.php:31
 msgid "Africa"
 msgstr ""
 
-#: src/traits/continent.php:35
+#: src/traits/continent.php:34
 msgid "Northern Africa"
 msgstr ""
 
-#: src/traits/continent.php:47
+#: src/traits/continent.php:46
 msgid "Eastern Africa"
 msgstr ""
 
-#: src/traits/continent.php:74
+#: src/traits/continent.php:73
 msgid "Western Africa"
 msgstr ""
 
-#: src/traits/continent.php:96
+#: src/traits/continent.php:95
 msgid "Central Africa"
 msgstr ""
 
-#: src/traits/continent.php:110
+#: src/traits/continent.php:109
 msgid "Southern Africa"
 msgstr ""
 
-#: src/traits/continent.php:122
+#: src/traits/continent.php:121
 msgid "Asia"
 msgstr ""
 
-#: src/traits/continent.php:125
+#: src/traits/continent.php:124
 msgid "Central Asia"
 msgstr ""
 
-#: src/traits/continent.php:135
+#: src/traits/continent.php:134
 msgid "Eastern Asia"
 msgstr ""
 
-#: src/traits/continent.php:148
+#: src/traits/continent.php:147
 msgid "South Asia"
 msgstr ""
 
-#: src/traits/continent.php:161
+#: src/traits/continent.php:160
 msgid "South-Eastern Asia"
 msgstr ""
 
-#: src/traits/continent.php:177
+#: src/traits/continent.php:176
 msgid "Western Asia"
 msgstr ""
 
-#: src/traits/continent.php:203
+#: src/traits/continent.php:202
 msgid "Europe"
 msgstr ""
 
-#: src/traits/continent.php:206
+#: src/traits/continent.php:205
 msgid "Eastern Europe"
 msgstr ""
 
-#: src/traits/continent.php:221
+#: src/traits/continent.php:220
 msgid "Northern Europe"
 msgstr ""
 
-#: src/traits/continent.php:242
+#: src/traits/continent.php:241
 msgid "Southern Europe"
 msgstr ""
 
-#: src/traits/continent.php:263
+#: src/traits/continent.php:262
 msgid "Western Europe"
 msgstr ""
 
-#: src/traits/continent.php:279
+#: src/traits/continent.php:278
 msgid "America"
 msgstr ""
 
-#: src/traits/continent.php:282
+#: src/traits/continent.php:281
 msgid "Central America"
 msgstr ""
 
-#: src/traits/continent.php:295
+#: src/traits/continent.php:294
 msgid "Caribbean"
 msgstr ""
 
-#: src/traits/continent.php:328
+#: src/traits/continent.php:327
 msgid "North America"
 msgstr ""
 
-#: src/traits/continent.php:339
+#: src/traits/continent.php:338
 msgid "South America"
 msgstr ""
 
-#: src/traits/continent.php:362
+#: src/traits/continent.php:361
 msgid "Oceania"
 msgstr ""
 
-#: src/traits/continent.php:365
+#: src/traits/continent.php:364
 msgid "Australia and New Zealand"
 msgstr ""
 
-#: src/traits/continent.php:375
+#: src/traits/continent.php:374
 msgid "Melanesia"
 msgstr ""
 
-#: src/traits/continent.php:385
+#: src/traits/continent.php:384
 msgid "Micronesia"
 msgstr ""
 
-#: src/traits/continent.php:397
+#: src/traits/continent.php:396
 msgid "Polynesia"
 msgstr ""
 
@@ -8924,15 +8924,15 @@ msgstr ""
 msgid "%s – address out of range"
 msgstr ""
 
-#: src/traits/plugin.php:110
+#: src/traits/plugin.php:109
 msgid "Plugin unknown error."
 msgstr ""
 
-#: src/traits/plugin.php:124
+#: src/traits/plugin.php:123
 msgid "Plugin response is not in expected format."
 msgstr ""
 
-#: src/traits/plugin.php:130
+#: src/traits/plugin.php:129
 msgid "Plugin exists in WordPress respository."
 msgstr ""
 

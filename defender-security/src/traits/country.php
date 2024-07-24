@@ -15,7 +15,6 @@ use WP_Defender\Model\Setting\Blacklist_Lockout;
 
 trait Country {
 
-
 	/**
 	 * Get country of the current user.
 	 *

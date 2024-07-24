@@ -14,7 +14,6 @@ use WP_Error;
  */
 class File {
 
-
 	/**
 	 * Check is two files identical.
 	 *

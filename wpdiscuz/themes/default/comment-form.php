@@ -12,10 +12,11 @@ do_action("wpdiscuz_before_load", $post, $currentUser);
 
 $load = apply_filters("wpdiscuz_load_template", true, $currentUser, $post);
 if (!post_password_required($post->ID) && $load) {
-    $commentsCount = get_comments_number();
-    $wpCommClasses = [];
-    $wpCommClasses[] = $currentUser && $currentUser->ID ? "wpdiscuz_auth" : "wpdiscuz_unauth";
-    $wpCommClasses[] = $wpdiscuz->options->thread_styles["theme"];
+    $commentsCount          = (int)get_comments_number();
+    $filtersVisibilityClass = $commentsCount === 0 ? 'wpdiscuz-hidden' : '';
+    $wpCommClasses          = [];
+    $wpCommClasses[]        = $currentUser && $currentUser->ID ? "wpdiscuz_auth" : "wpdiscuz_unauth";
+    $wpCommClasses[]        = $wpdiscuz->options->thread_styles["theme"];
 
     if (!$wpdiscuz->options->thread_layouts["showAvatars"] || !$wpdiscuz->options->wp["showAvatars"]) {
         $wpCommClasses[] = "wpdiscuz_no_avatar";
@@ -26,21 +27,21 @@ if (!post_password_required($post->ID) && $load) {
     $form = $wpdiscuz->wpdiscuzForm->getForm($post->ID);
 
     $wpCommClasses[] = "wpd-layout-" . $form->getLayout();
-    $commentsOpen = comments_open($post);
+    $commentsOpen    = comments_open($post);
     $wpCommClasses[] = $commentsOpen ? "wpd-comments-open" : "wpd-comments-closed";
-    $wpCommClasses = apply_filters("wpdiscuz_container_classes", $wpCommClasses);
+    $wpCommClasses   = apply_filters("wpdiscuz_container_classes", $wpCommClasses);
 
     $wpCommClasses = implode(" ", $wpCommClasses);
 
-    $currentUserId = 0;
+    $currentUserId    = 0;
     $currentUserEmail = isset($_COOKIE["comment_author_email_" . COOKIEHASH]) ? sanitize_email($_COOKIE["comment_author_email_" . COOKIEHASH]) : "";
     if ($currentUser && $currentUser->ID) {
-        $currentUserId = $currentUser->ID;
+        $currentUserId    = $currentUser->ID;
         $currentUserEmail = $currentUser->user_email;
     }
 
     $isShowSubscribeBar = $form->isShowSubscriptionBar() && WpdiscuzHelper::isUserCanFollowOrSubscribe($currentUserEmail);
-    $isPostmaticActive = !class_exists("Prompt_Comment_Form_Handling") || (class_exists("Prompt_Comment_Form_Handling") && !$wpdiscuz->options->subscription["usePostmaticForCommentNotification"]);
+    $isPostmaticActive  = !class_exists("Prompt_Comment_Form_Handling") || (class_exists("Prompt_Comment_Form_Handling") && !$wpdiscuz->options->subscription["usePostmaticForCommentNotification"]);
 
     $wpdiscuz->helper->superSocializerFix();
     if ($commentsOpen) {
@@ -82,8 +83,8 @@ if (!post_password_required($post->ID) && $load) {
                                 if ($wpdiscuz->options->login["showLoggedInUsername"]) {
                                     $user_url = get_author_posts_url($currentUser->ID);
                                     $user_url = $wpdiscuz->helper->getProfileUrl($user_url, $currentUser);
-                                    $logout = wp_loginout(get_permalink(), false);
-                                    $logout = preg_replace("!>([^<]+)!is", ">" . esc_html($wpdiscuz->options->getPhrase("wc_log_out")), $logout);
+                                    $logout   = wp_loginout(get_permalink(), false);
+                                    $logout   = preg_replace("!>([^<]+)!is", ">" . esc_html($wpdiscuz->options->getPhrase("wc_log_out")), $logout);
                                     if ($user_url) {
                                         $logout_text = esc_html($wpdiscuz->options->getPhrase("wc_logged_in_as")) . " <a href='" . esc_url_raw($user_url) . "'>" . esc_html($wpdiscuz->helper->getCurrentUserDisplayName($currentUser)) . "</a> | " . $logout;
                                     } else {
@@ -111,9 +112,9 @@ if (!post_password_required($post->ID) && $load) {
                 <?php
                 if ($isShowSubscribeBar && $isPostmaticActive) {
                     $wpdiscuz->subscriptionData = $wpdiscuz->dbManager->hasSubscription($post->ID, $currentUser->user_email);
-                    $subscriptionType = null;
+                    $subscriptionType           = null;
                     if ($wpdiscuz->subscriptionData) {
-                        $isConfirmed = $wpdiscuz->subscriptionData["confirm"];
+                        $isConfirmed      = $wpdiscuz->subscriptionData["confirm"];
                         $subscriptionType = $wpdiscuz->subscriptionData["type"];
                         if ($subscriptionType === WpdiscuzCore::SUBSCRIPTION_POST || $subscriptionType === WpdiscuzCore::SUBSCRIPTION_ALL_COMMENT) {
                             $unsubscribeLinkParams = $wpdiscuz->dbManager->getUnsubscribeLinkParams($post->ID, $currentUser->user_email);
@@ -236,21 +237,21 @@ if (!post_password_required($post->ID) && $load) {
                         do_action("wpdiscuz_filtering_buttons", $currentUser, $wpdiscuz->options);
                         if (!$wpdiscuz->options->wp["isPaginate"] && $wpdiscuz->options->inline["showInlineFilterButton"] && $wpdiscuz->dbManager->postHasFeedbackForms($post->ID)) {
                             ?>
-                            <div class="wpd-filter wpdf-inline wpd_not_clicked" data-filter-type="inline"
+                            <div class="wpd-filter wpdf-inline wpd_not_clicked <?php echo esc_attr($filtersVisibilityClass); ?>" data-filter-type="inline"
                                  wpd-tooltip="<?php echo esc_attr($wpdiscuz->options->getPhrase("wc_inline_comments")); ?>">
                                 <i class="fas fa-quote-left"></i></div>
                             <?php
                         }
                         if ($wpdiscuz->options->thread_display["showReactedFilterButton"]) {
                             ?>
-                            <div class="wpd-filter wpdf-reacted wpd_not_clicked"
+                            <div class="wpd-filter wpdf-reacted wpd_not_clicked <?php echo esc_attr($filtersVisibilityClass); ?>"
                                  wpd-tooltip="<?php echo esc_attr($wpdiscuz->options->getPhrase("wc_most_reacted_comment")); ?>">
                                 <i class="fas fa-bolt"></i></div>
                             <?php
                         }
                         if ($wpdiscuz->options->thread_display["showHottestFilterButton"]) {
                             ?>
-                            <div class="wpd-filter wpdf-hottest wpd_not_clicked"
+                            <div class="wpd-filter wpdf-hottest wpd_not_clicked <?php echo esc_attr($filtersVisibilityClass); ?>"
                                  wpd-tooltip="<?php echo esc_attr($wpdiscuz->options->getPhrase("wc_hottest_comment_thread")); ?>">
                                 <i class="fas fa-fire"></i></div>
                             <?php
@@ -262,36 +263,36 @@ if (!post_password_required($post->ID) && $load) {
                             $wpdiscuzCommentsOrderBy = $wpdiscuz->options->thread_display["orderCommentsBy"];
                         }
                         $wpdiscuzCommentsOrderBy = apply_filters("wpdiscuz_comments_order_by", $wpdiscuzCommentsOrderBy);
-                        $wpdiscuzCommentsOrder = apply_filters("wpdiscuz_comments_order", $wpdiscuzCommentsOrder);
-                        if ($commentsCount && $wpdiscuz->options->thread_display["showSortingButtons"] && !$wpdiscuz->options->wp["isPaginate"]) {
+                        $wpdiscuzCommentsOrder   = apply_filters("wpdiscuz_comments_order", $wpdiscuzCommentsOrder);
+                        if ($wpdiscuz->options->thread_display["showSortingButtons"] && !$wpdiscuz->options->wp["isPaginate"]) {
                             $sortingButtons = [
                                 [
                                     "orderBy" => $wpdiscuz->options->thread_display["orderCommentsBy"],
-                                    "order" => "desc",
-                                    "class" => "wpdiscuz-date-sort-desc",
-                                    "text" => $wpdiscuz->options->getPhrase("wc_newest"),
-                                    "type" => "newest",
+                                    "order"   => "desc",
+                                    "class"   => "wpdiscuz-date-sort-desc",
+                                    "text"    => $wpdiscuz->options->getPhrase("wc_newest"),
+                                    "type"    => "newest",
                                 ],
                                 [
                                     "orderBy" => $wpdiscuz->options->thread_display["orderCommentsBy"],
-                                    "order" => "asc",
-                                    "class" => "wpdiscuz-date-sort-asc",
-                                    "text" => $wpdiscuz->options->getPhrase("wc_oldest"),
-                                    "type" => "oldest",
+                                    "order"   => "asc",
+                                    "class"   => "wpdiscuz-date-sort-asc",
+                                    "text"    => $wpdiscuz->options->getPhrase("wc_oldest"),
+                                    "type"    => "oldest",
                                 ],
                             ];
                             if ($wpdiscuz->options->thread_layouts["showVotingButtons"]) {
                                 $sortingButtons[] = [
                                     "orderBy" => "by_vote",
-                                    "order" => $wpdiscuz->options->wp["commentOrder"],
-                                    "class" => "wpdiscuz-vote-sort-up",
-                                    "text" => $wpdiscuz->options->getPhrase("wc_most_voted"),
-                                    "type" => "by_vote",
+                                    "order"   => $wpdiscuz->options->wp["commentOrder"],
+                                    "class"   => "wpdiscuz-vote-sort-up",
+                                    "text"    => $wpdiscuz->options->getPhrase("wc_most_voted"),
+                                    "type"    => "by_vote",
                                 ];
                             }
                             $sortingButtons = apply_filters("wpdiscuz_sorting_buttons_array", $sortingButtons);
                             ?>
-                            <div class="wpd-filter wpdf-sorting">
+                            <div class="wpd-filter wpdf-sorting <?php echo esc_attr($filtersVisibilityClass); ?>">
                                 <?php
                                 foreach ($sortingButtons as $key => $value) {
                                     if ($wpdiscuzCommentsOrderBy === $value["orderBy"] && $wpdiscuzCommentsOrder === $value["order"]) {
@@ -331,10 +332,10 @@ if (!post_password_required($post->ID) && $load) {
                 <div class="wpd-thread-list">
                     <?php
                     if ($wpdiscuz->options->wp["isPaginate"] || !$wpdiscuz->options->thread_display["firstLoadWithAjax"]) {
-                        $args = [
+                        $args        = [
                             "first_load" => 1,
-                            "orderby" => $wpdiscuzCommentsOrderBy,
-                            "order" => $wpdiscuzCommentsOrder
+                            "orderby"    => $wpdiscuzCommentsOrderBy,
+                            "order"      => $wpdiscuzCommentsOrder
                         ];
                         $commentData = $wpdiscuz->getWPComments($args);
                         // $commentData["comment_list"] can not be escaped because this is returned by WP's wp_list_comments function
@@ -375,13 +376,13 @@ if (!post_password_required($post->ID) && $load) {
                                     <?php esc_html_e($loadMoreButtonText); ?>
                                     <?php
                                     if (apply_filters("wpdiscuz_show_comments_left", false) && !empty($commentData["comments_left"])) {
-                                        $commentsLeft = $commentData["comments_left"];
+                                        $commentsLeft     = $commentData["comments_left"];
                                         $commentsLeftText = apply_filters(
                                             "wpdiscuz_comments_left_text",
                                             "({$commentsLeft})",
                                             [
-                                                "post" => $post,
-                                                "user" => $currentUser,
+                                                "post"          => $post,
+                                                "user"          => $currentUser,
                                                 "comments_left" => $commentsLeft
                                             ]
                                         );

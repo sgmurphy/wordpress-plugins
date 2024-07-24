@@ -228,7 +228,13 @@ class Utils {
 					),
 					self::get_admin_menu_url( 'uptime' )
 				),
-				'resetSettings' => add_query_arg( 'wphb-clear', 'all', self::get_admin_menu_url() ),
+				'resetSettings'  => add_query_arg(
+					array(
+						'wphb-clear' => 'all',
+						'_wpnonce'   => wp_create_nonce( 'wphb-clear-cache' ),
+					),
+					self::get_admin_menu_url()
+				),
 			),
 		);
 

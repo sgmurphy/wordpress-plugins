@@ -13,6 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div id="wpls_welcome_tabs" class="wpls-vtab-cnt wpls_welcome_tabs wpls-clearfix">
+	
+	<div class="wpls-deal-offer-wrap">
+		<h3 style="font-weight: bold; font-size: 30px; color: red; text-align:center; margin: 15px 0 5px 0;">Why invest time for the free version?</h3>
+
+		<h3 style="font-size: 18px; text-align:center; margin:0;">Immediately Explore WP Logo Showcase Slider Pro with Essential Bundle Free for 5 Days.</h3>			
+
+		<div class="wpls-deal-free-offer">
+			<a href="<?php echo esc_url( WPLS_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="wpls-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
+		</div>
+	</div>
+
 	<!-- Start - Industry Wise Solutions -->
 	<div class="wpls-sf-solutions-section wpls-sf-top-rsn wpls-sf-left">
 		<h1 class="wpls-sf-heading">Top 4 Reasons Why People Love <span class="wpls-sf-blue">Logo Showcase </span>Including in <span class="wpls-sf-blue">Essential Plugin Bundle</span></h1>

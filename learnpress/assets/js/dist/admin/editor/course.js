@@ -978,8 +978,6 @@ const $ = window.jQuery || jQuery;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!***************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/course.js ***!
   \***************************************************/
@@ -1010,8 +1008,6 @@ $(document).ready(function () {
     });
   }, 100);
 });
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=course.js.map

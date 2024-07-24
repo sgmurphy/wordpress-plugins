@@ -135,7 +135,7 @@ class AssetAuth extends AssetLoad {
 		        '',
 		        array(
 			        'inline' => true,
-			        'code' => '.wp-block {}'
+			        'code' => $this->supportAdminAssets() ? '.wp-block {}' : ''
 		        )
 	        );
         }

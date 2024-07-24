@@ -360,6 +360,20 @@ class Minify extends Module {
 				continue;
 			}
 
+			/**
+			 * Filter to prevent adding a handle to the collection.
+			 *
+			 * @var bool false
+			 * @var string $handle     Source slug.
+			 * @var string $source_url Source URL.
+			 * @var string $type       scripts|styles
+			 */
+			if ( apply_filters( 'wphb_dont_add_handle_to_collection', false, $handle, $wp_dependencies->registered[ $handle ]->src, $type ) ) {
+				$return_to_wp = array_merge( $return_to_wp, array( $handle ) );
+				unset( $handles[ $key ] );
+				continue;
+			}
+
 			// Only show items that have a handle and a source.
 			if ( ! empty( $wp_dependencies->registered[ $handle ]->src ) ) {
 				$this->sources_collector->add_to_collection( $wp_dependencies->registered[ $handle ], $type );

@@ -35,7 +35,9 @@ $logo_link	= get_post_meta( $post->ID, 'wplss_slide_link', true );
 			<td>
 				<textarea name="<?php echo esc_attr($prefix); ?>logo_desc" class="large-text" rows="4" disabled></textarea><br/>
 				<span class="description"><?php esc_html_e('Enter logo description using default wordpress content editor.', 'wp-logo-showcase-responsive-slider-slider'); ?></span>
-				<strong><?php echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'wp-logo-showcase-responsive-slider-slider'), WPLS_PLUGIN_LINK_UNLOCK); ?></strong>
+				<!-- <strong><?php // echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'wp-logo-showcase-responsive-slider-slider'), WPLS_PLUGIN_LINK_UNLOCK); ?></strong> -->
+
+				<strong><?php echo sprintf( __( 'Try This features in <a href="%s" target="_blank"> Essential Bundle Free For 5 Days.</a>', 'wp-logo-showcase-responsive-slider-slider'), WPLS_PRO_FREE_5_day_LINK); ?></strong>
 			</td>
 		</tr>
 
@@ -46,7 +48,9 @@ $logo_link	= get_post_meta( $post->ID, 'wplss_slide_link', true );
 			<td>
 				<input type="url" value="" class="large-text wpls-logo-url" id="wpls-logo-url" name="<?php echo esc_attr( $prefix ); ?>logo_url" disabled /><br/>
 				<span class="description"><?php esc_html_e('Enter external URL of logo. If you don not want to use an image from your media gallery, you can set an URL for logo image here.', 'wp-logo-showcase-responsive-slider-slider'); ?></span>
-				<strong><?php echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'wp-logo-showcase-responsive-slider-slider'), WPLS_PLUGIN_LINK_UNLOCK); ?></strong>
+				<!-- <strong><?php //echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'wp-logo-showcase-responsive-slider-slider'), WPLS_PLUGIN_LINK_UNLOCK); ?></strong> -->
+
+				<strong><?php echo sprintf( __( 'Try This features in <a href="%s" target="_blank"> Essential Bundle Free For 5 Days.</a>', 'wp-logo-showcase-responsive-slider-slider'), WPLS_PRO_FREE_5_day_LINK); ?></strong>
 			</td>
 		</tr>
 	</tbody>

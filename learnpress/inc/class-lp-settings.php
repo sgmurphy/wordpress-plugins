@@ -31,7 +31,7 @@ class LP_Settings {
 	 * Constructor.
 	 *
 	 * @param array|mixed $data
-	 * @param string      $prefix
+	 * @param string $prefix
 	 */
 	protected function __construct( $data = false, $prefix = 'learn_press_' ) {
 		try {
@@ -73,6 +73,7 @@ class LP_Settings {
 		$lp_options        = $lp_settings_cache->get_lp_settings();
 		if ( false !== $lp_options ) {
 			$this->_options = LP_Helper::json_decode( $lp_options, true );
+
 			return;
 		}
 
@@ -91,9 +92,7 @@ class LP_Settings {
 			}
 
 			// Set cache
-			$lp_settings_cache
-				->set_action_thim_cache( Thim_Cache_DB::ACTION_INSERT )
-				->set_lp_settings( json_encode( $this->_options ) );
+			$lp_settings_cache->set_lp_settings( json_encode( $this->_options ) );
 		}
 	}
 
@@ -142,7 +141,7 @@ class LP_Settings {
 	 * Get option recurse separated by DOT
 	 *
 	 * @param string $var
-	 * @param mixed  $default
+	 * @param mixed $default
 	 *
 	 * @return mixed
 	 */
@@ -211,7 +210,7 @@ class LP_Settings {
 	 * Update option with default prefix is learn_press_
 	 *
 	 * @param string $name
-	 * @param mixed  $value
+	 * @param mixed $value
 	 * @param string $prefix
 	 */
 	public static function update_option( $name, $value, $prefix = 'learn_press_' ) {
@@ -224,7 +223,7 @@ class LP_Settings {
 	 * Get option with default prefix is learn_press_
 	 *
 	 * @param string $name
-	 * @param mixed  $default
+	 * @param mixed $default
 	 *
 	 * @return mixed
 	 * @since 3.2.8
@@ -336,6 +335,16 @@ class LP_Settings {
 	}
 
 	/**
+	 * Check table learnpress_course is created
+	 *
+	 * @return bool
+	 */
+	public static function is_created_tb_courses(): bool {
+		$lp_db = LP_Database::getInstance();
+		return $lp_db->check_table_exists( $lp_db->tb_lp_courses );
+	}
+
+	/**
 	 * Check table thim_cache is created
 	 *
 	 * @return bool
@@ -343,13 +352,16 @@ class LP_Settings {
 	public static function is_created_tb_thim_cache(): bool {
 		return get_option( 'thim_cache_tb_created' ) === 'yes';
 	}
+
 	/**
 	 * Check table learnpress_files is created
 	 * @return boolean
 	 */
 	public static function is_created_tb_material_files(): bool {
-		return get_option( 'table_learnpress_files_created' ) == 'yes';
+		$lp_db = LP_Database::getInstance();
+		return $lp_db->check_table_exists( $lp_db->tb_lp_files );
 	}
+
 	public static function lp_material_file_types(): array {
 		return array(
 			'txt'      => 'text/plain',
@@ -414,9 +426,9 @@ class LP_Settings {
 	/**
 	 * Check theme support load courses ajax
 	 *
-	 * @since 4.2.3.3
-	 * @version 1.0.0
 	 * @return string
+	 * @version 1.0.0
+	 * @since 4.2.3.3
 	 */
 	public static function get_permalink_single_course(): string {
 		$course_slug_default = 'courses';
@@ -436,9 +448,9 @@ class LP_Settings {
 	/**
 	 * Check theme support load courses ajax
 	 *
-	 * @since 4.2.3.3
-	 * @version 1.0.0
 	 * @return array
+	 * @version 1.0.0
+	 * @since 4.2.3.3
 	 */
 	public static function get_course_items_slug(): array {
 		/**
@@ -450,6 +462,7 @@ class LP_Settings {
 		 */
 		$lesson_slug = urldecode( sanitize_title_with_dashes( self::get_option( 'lesson_slug', 'lessons' ) ) );
 		$quiz_slug   = urldecode( sanitize_title_with_dashes( self::get_option( 'quiz_slug', 'quizzes' ) ) );
+
 		return apply_filters(
 			'learn-press/course-item-slugs/for-rewrite-rules',
 			array(

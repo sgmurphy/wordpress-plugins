@@ -293,8 +293,7 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 				$join .= " INNER JOIN {$lp_db->tb_lp_order_items} lpori ON {$wpdb->posts}.ID = lpori.order_id";
 			}
 
-			if ( ! empty( $wp_query->get( 'author' ) )
-				 || ! empty( $wp_query->get( 'orderby' ) ) ) {
+			if ( ! empty( $wp_query->get( 'author' ) ) ) {
 				$join .= " INNER JOIN {$lp_db->tb_postmeta} pm1 ON {$wpdb->posts}.ID = pm1.post_id AND pm1.meta_key = '_user_id'";
 				$join .= " INNER JOIN {$lp_db->tb_postmeta} pm2 ON {$wpdb->posts}.ID = pm2.post_id AND pm2.meta_key = '_order_total'";
 				$join .= " LEFT JOIN {$lp_db->tb_users} uu ON pm1.meta_value = uu.ID";
@@ -646,15 +645,17 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 
 				foreach ( $user_ids as $user_id ) {
 					delete_user_meta( $user_id, 'orders' );
+					$item_ids = $order->get_item_ids();
+					if ( ! empty( $item_ids ) ) {
+						foreach ( $order->get_item_ids() as $course_id ) {
+							// Check this order is the latest by user and course_id
+							$last_order_id = $lp_order_db->get_last_lp_order_id_of_user_course( $user_id, $course_id );
+							if ( $last_order_id && $last_order_id != $order->get_id() ) {
+								continue;
+							}
 
-					foreach ( $order->get_item_ids() as $course_id ) {
-						// Check this order is the latest by user and course_id
-						$last_order_id = $lp_order_db->get_last_lp_order_id_of_user_course( $user_id, $course_id );
-						if ( $last_order_id && $last_order_id != $order->get_id() ) {
-							continue;
+							$lp_user_items_db->delete_user_items_old( $user_id, $course_id );
 						}
-
-						$lp_user_items_db->delete_user_items_old( $user_id, $course_id );
 					}
 
 					do_action( 'learn-press/order/before-delete', $order, $user_id );

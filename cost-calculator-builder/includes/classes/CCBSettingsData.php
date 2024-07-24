@@ -212,6 +212,13 @@ class CCBSettingsData {
 			'notice'          => array(
 				'requiredField' => 'This field is required',
 			),
+			'page_break'      => array(
+				'total_in_page'           => false,
+				'summary_after_last_page' => false,
+				'pagination_type'         => 'circle_with_line',
+				'hide_pagination_title'   => false,
+				'formulas'                => array(),
+			),
 			'icon'            => 'fas fa-cogs',
 			'type'            => 'Cost Calculator Settings',
 		);

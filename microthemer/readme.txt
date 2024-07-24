@@ -79,6 +79,11 @@ I've been happily developing Microthemer and supporting users of varying technic
 
 == Changelog ==
 
+= 7.3.1.5 (July 24th, 2024) =
+
+# Enhancement
+* Microthemer adds an empty selector ".wp-block {}" at the top of a stylesheet to ensure that Microthemer files can be loaded in the Gutenberg editor iframe. It's a quirk of the block editor that certain selectors must be present for them to be allowable. However, this extra style rule is not necessary for users not making use of the recent Gutenberg integration, and so will not be added if you turn off the "Support admin area style loading" preference via Settings > General > Preferences > WORDPRESS ADMIN.
+
 = 7.3.1.4 (July 17th, 2024) =
 
 # Bugs fixed

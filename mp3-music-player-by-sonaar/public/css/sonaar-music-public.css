@@ -4806,7 +4806,7 @@ article div.iron-audioplayer ol li {
       width: 16px;
       height: 21.3px;
       cursor: pointer; }
-    .iron-audioplayer .control .sricon-shuffle, .iron-audioplayer .control .sricon-volume, .iron-audioplayer .control .sricon-back, .iron-audioplayer .control .sricon-forward {
+    .iron-audioplayer .control .sricon-shuffle, .iron-audioplayer .control .sricon-volume, .iron-audioplayer .control .sricon-back, .iron-audioplayer .control .sricon-forward, .iron-audioplayer .control .srp_repeat {
       font-size: 18px;
       line-height: 1; }
     .iron-audioplayer .control [class*="sricon-"]:before {
@@ -5608,7 +5608,10 @@ a.tracklist-item-title:hover {
     justify-content: flex-start;
     display: flex;
     justify-content: flex-end;
-    align-items: center; }
+    align-items: center;
+    transition: opacity 0.3s; }
+    .srp_player_boxed .srp_noteButton.srp_hide {
+      opacity: 0; }
   .srp_player_boxed .album-player .buttons-block {
     margin: 0px; }
     .srp_player_boxed .album-player .buttons-block .store-list li {
@@ -5783,8 +5786,8 @@ a.tracklist-item-title:hover {
 
 @font-face {
   font-family: "sricons";
-  src: url("../../public/webfonts/sricons/font/sricons.eot?1b5ca7");
-  src: url("../../public/webfonts/sricons/font/sricons.eot?1b5ca7#iefix") format("embedded-opentype"), url("../../public/webfonts/sricons/font/sricons.woff2?1b5ca7") format("woff2"), url("../../public/webfonts/sricons/font/sricons.woff?1b5ca7") format("woff"), url("../../public/webfonts/sricons/font/sricons.ttf?1b5ca7") format("truetype"), url("../../public/webfonts/sricons/font/sricons.svg?1b5ca7#sricons") format("svg");
+  src: url("../../public/webfonts/sricons/font/sricons.eot?5.6");
+  src: url("../../public/webfonts/sricons/font/sricons.eot?5.6#iefix") format("embedded-opentype"), url("../../public/webfonts/sricons/font/sricons.woff2?5.6") format("woff2"), url("../../public/webfonts/sricons/font/sricons.woff?5.6") format("woff"), url("../../public/webfonts/sricons/font/sricons.ttf?5.6") format("truetype"), url("../../public/webfonts/sricons/font/sricons.svg?5.6#sricons") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block; }

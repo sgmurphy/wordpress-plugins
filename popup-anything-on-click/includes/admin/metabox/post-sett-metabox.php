@@ -95,14 +95,18 @@ if( ! $enable ) { ?>
 
 		<!-- Pro Feature - Button -->
 		<li class="paoc-pro-tab-wrap">
-			<a href="<?php echo POPUPAOC_PLUGIN_LINK_UNLOCK; ?>" target="_blank" class="paoc-pro-upgrade-link">
+			<!-- <a href="<?php //echo POPUPAOC_PLUGIN_LINK_UNLOCK; ?>" target="_blank" class="paoc-pro-upgrade-link">
 				<i class="dashicons dashicons-money-alt"></i>
-				<?php esc_html_e('Upgrade to Premium', 'popup-anything-on-click'); ?>				
-			</a>
+				<?php //esc_html_e('Upgrade to Premium', 'popup-anything-on-click'); ?>				
+			</a> -->
+
+
+			<a href="<?php echo esc_url( POPUPAOC_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="paoc-pro-upgrade-link"><i class="dashicons dashicons dashicons-money-alt"></i> Try Free For 5 Days</a>
+			
+
 		</li>
-		<li class="paoc-pro-tab-wrap">			
-				<em>Use all pro features with <br /><span>Risk-Free 30-day money back guarantee</span>. If you are not happy, we will refund your purchase. <span>No questions asked!</span></em>
-		
+		<li class="paoc-pro-tab-wrap">
+			<em><b>Try All These</b><br/><span> PRO Features in Essential Bundle Free For 5 Days.</span></em>
 		</li>
 	</ul>
 

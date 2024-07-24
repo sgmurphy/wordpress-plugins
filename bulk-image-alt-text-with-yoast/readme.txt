@@ -3,7 +3,7 @@ Contributors: the-rock, pagup, freemius
 Tags: Alt Text, Alt Attribute, Alt tag, Google images, SEO
 Requires at least: 4.1
 Requires PHP: 5.6
-Tested up to: 6.5
+Tested up to: 6.6
 WC tested up to: 8.5
 Stable tag: 2.0.1
 License: GPLv2 or later

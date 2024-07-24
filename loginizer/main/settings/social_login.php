@@ -10,8 +10,8 @@ function loginizer_social_login(){
 		wp_die('Sorry, but you do not have permissions to change settings.');
 	}
 	
-	if(defined('LOGINIZER_PREMIUM') && file_exists(LOGINIZER_DIR . '/premium/social_login.php')){
-		include_once LOGINIZER_DIR . '/premium/social_login.php';
+	if(defined('LOGINIZER_PREMIUM') && file_exists(LOGINIZER_PRO_DIR . '/main/settings/social_login.php')){
+		include_once LOGINIZER_PRO_DIR . '/main/settings/social_login.php';
 	}
 
 	$script_data = [

@@ -47,22 +47,22 @@ class BVAccountCallback extends BVCallbackBase {
 		$settings = $this->settings;
 		switch ($request->method) {
 		case "addacc":
-			DHAccount::addAccount($this->settings, $params['public'], $params['secret']);
-			$resp = array("status" => DHAccount::exists($this->settings, $params['public']));
+			DHAccount::addAccount($settings, $params['public'], $params['secret']);
+			$resp = array("status" => DHAccount::exists($settings, $params['public']));
 			break;
 		case "rmacc":
-			$resp = array("status" => DHAccount::remove($this->settings, $params['public']));
+			$resp = array("status" => DHAccount::remove($settings, $params['public']));
 			break;
 		case "updt":
 			$account->updateInfo($params);
-			$resp = array("status" => DHAccount::exists($this->settings, $params['pubkey']));
+			$resp = array("status" => DHAccount::exists($settings, $params['pubkey']));
 			break;
 		case "updtapikey":
-			DHAccount::updateApiPublicKey($this->settings, $params['pubkey']);
-			$resp = array("status" => $this->settings->getOption(DHAccount::$api_public_key));
+			DHAccount::updateApiPublicKey($settings, $params['pubkey']);
+			$resp = array("status" => $settings->getOption(DHAccount::$api_public_key));
 			break;
 		case "rmbvscrt":
-			$resp = array("status" => $settings->deleteOption('bvSecretKey'));
+			$resp = array("status" => DHRecover::deleteDefaultSecret($settings));
 			break;
 		case "rmbvkeys":
 			$resp = array("status" => $settings->deleteOption('bvKeys'));
@@ -74,7 +74,7 @@ class BVAccountCallback extends BVCallbackBase {
 			$resp = array("status" => $settings->deleteOption('bvAccounts'));
 			break;
 		case "fetch":
-			$accounts = DHAccount::allAccounts($this->settings);
+			$accounts = DHAccount::allAccounts($settings);
 			if (!isset($params['full'])) {
 				foreach ($accounts as &$account) {
 					if (isset($account['secret'])) {

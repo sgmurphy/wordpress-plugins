@@ -784,8 +784,6 @@ module.exports = window["wp"]["i18n"];
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*******************************************************!*\
   !*** ./assets/src/apps/js/frontend/question-types.js ***!
   \*******************************************************/
@@ -802,8 +800,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_question_types_index__WEBPACK_IMPORTED_MODULE_0__["default"]);
-})();
-
 (window.LP = window.LP || {}).questionTypes = __webpack_exports__;
 /******/ })()
 ;

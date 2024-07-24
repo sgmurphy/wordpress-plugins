@@ -919,6 +919,11 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
     }
 
     public function generateThumbnails() {
+        if (!apply_filters("wpdiscuz_generate_thumbnails_check", true)) {
+            wp_clear_scheduled_hook(self::GENERATE_THUMBNAILS_ACTION);
+            return;
+        }
+
         set_time_limit(-1);
         $attachments = get_posts([
             "post_type"      => "attachment",
@@ -948,7 +953,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
 
         foreach ($attachments as $attachId) {
             $fileName = get_post_meta($attachId, "_wp_attached_file", true);
-            if (!$fileName) {
+            $is_wpdiscuz_attachment = (int)get_post_meta($attachId, '_wmu_comment_id', true);
+            if (!$fileName || !$is_wpdiscuz_attachment) {
                 continue;
             }
 

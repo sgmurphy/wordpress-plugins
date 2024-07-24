@@ -3,10 +3,21 @@
 Plugin Name:Database for WPforms
 Description: Save and manage WPForms submissions. Never lose important data. Database add-on for WPForms.
 Author: wpdebuglog
-Text Domain: contact-form-WPFormsDB
-Domain Path: /languages/
-Version: 1.0.4
+Text Domain: database-for-wpforms
+Version: 1.0.5
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
+
+if ( ! defined( 'ABSPATH' ) ) exit; 
+
+function wpforms_db_plugin_load(){
+
+	load_plugin_textdomain( 'database-for-wpforms', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' ); 
+}
+
+add_action('plugins_loaded', 'wpforms_db_plugin_load');
+
 
 add_action('init', 'wpforms_db_init');
 
@@ -19,9 +30,10 @@ function wpforms_db_init(){
 
         if( isset($_REQUEST['wpforms-csv']) && ( $_REQUEST['wpforms-csv'] == true ) && isset( $_REQUEST['nonce'] ) ) {
 
-            $nonce  = filter_input( INPUT_GET, 'nonce', FILTER_SANITIZE_STRING );
+            $nonce  = sanitize_text_field( $_REQUEST['nonce'] );
 
-            if ( ! wp_verify_nonce( $nonce, 'dnonce' ) ) wp_die('Invalid nonce..!!');
+            if ( ! wp_verify_nonce( $nonce, 'dnonce' ) ) 
+                wp_die( esc_html__( 'Invalid nonce..!!', 'database-for-wpforms' ) );
             $csv = new WPForms_Export_CSV();
             $csv->download_csv_file();
         }
@@ -52,7 +64,7 @@ function WPFormsDB_create_table(){
         dbDelta( $sql );
     }
 
-    add_option( 'WPFormsDB_view_install_date', date('Y-m-d G:i:s'), '', 'yes');
+    add_option( 'WPFormsDB_view_install_date', gmdate('Y-m-d G:i:s'), '', 'yes');
 
 }
 
@@ -165,7 +177,7 @@ function wpformsdb_admin_notice() {
 
     $install_date = get_option( 'WPFormsDB_view_install_date', '');
     $install_date = date_create( $install_date );
-    $date_now     = date_create( date('Y-m-d G:i:s') );
+    $date_now     = date_create( gmdate('Y-m-d G:i:s') );
     $date_diff    = date_diff( $install_date, $date_now );
 
     if ( $date_diff->format("%d") < 7 ) {
@@ -177,8 +189,13 @@ function wpformsdb_admin_notice() {
 
         echo '<div class="updated"><p>';
 
-        printf(__( 'Awesome, you\'ve been using <a href="admin.php?page=wp-forms-db-list.php">WPForms DB</a> for more than 1 week. May we ask you to give it a 5-star rating on WordPress? | <a href="%2$s" target="_blank">Ok, you deserved it</a> | <a href="%1$s">I already did</a> | <a href="%1$s">No, not good enough</a>', 'wpformsdb' ), '?page=wp-forms-db-list.php&wpformsdb-ignore-notice=0',
-        'https://wordpress.org/plugins/database-for-wpforms/');
+        printf( 
+            /* translators: 1: Settings URL, 2: Repository url */
+            esc_html__( 
+                'Awesome, you\'ve been using <a href="admin.php?page=wp-forms-db-list.php">WPForms DB</a> for more than 1 week. May we ask you to give it a 5-star rating on WordPress? | <a href="%2$s" target="_blank">Ok, you deserved it</a> | <a href="%1$s">I already did</a> | <a href="%1$s">No, not good enough</a>', 'database-for-wpforms' ), 
+                '?page=wp-forms-db-list.php&wpformsdb-ignore-notice=0',
+                'https://wordpress.org/plugins/database-for-wpforms/'
+            );
         echo "</p></div>";
     }
 } 

@@ -490,6 +490,25 @@ class Mask_Login extends Event {
 				if ( ! isset( $lp['scheme'] ) && isset( $lp['path'] ) ) {
 					$redirect_url = 'http://' . untrailingslashit( $redirect_url );
 				}
+				$parsed_url = wp_parse_url( $redirect_url, PHP_URL_HOST );
+				if ( is_string( $parsed_url ) ) {
+					/**
+					 * Filters the list of allowed hosts to redirect to.
+					 *
+					 * @param string[] $hosts An array of allowed host names.
+					 *
+					 * @return string[] An array of allowed host names.
+					 */
+					add_filter(
+						'allowed_redirect_hosts',
+						function ( array $hosts ) use ( $parsed_url ) {
+							$hosts[] = $parsed_url;
+
+							return $hosts;
+						},
+					);
+				}
+
 				wp_safe_redirect( $redirect_url );
 			} else {
 				wp_safe_redirect( home_url( $this->get_model()->redirect_traffic_url ) );

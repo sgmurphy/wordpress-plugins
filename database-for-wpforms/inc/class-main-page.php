@@ -65,7 +65,7 @@ class WPFormsDB_Wp_Main_Page
         ?>
             <div class="wrap">
                 <div id="icon-users" class="icon32"></div>
-                <h2><?php _e( 'WPForms List', 'contact-form-WPFormsDB' ); ?></h2>
+                <h2><?php esc_html_e( 'WPForms List', 'database-for-wpforms' ); ?></h2>
                 <?php $ListTable->display(); ?>
             </div>
         <?php

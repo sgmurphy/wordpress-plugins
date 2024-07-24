@@ -198,7 +198,7 @@ input[type="text"], textarea, select {
 		$failed_notice = __('Your website is under heavy brute-force attacks.<br/> <a href="https://loginizer.com/pricing?utm_source=stats_block" target="_blank">Upgrade to a premium version</a> for added protection if this trend persists. Act fast to secure your site.', 'loginizer');
 	}
 	
-	if(file_exists(LOGINIZER_DIR.'/premium.php')){
+	if(defined('LOGINIZER_PREMIUM')){
 		$failed_login_color = '#f53794';
 		$failed_notice = __('Your website is being protected by Loginizer Security.', 'loginizer');
 	}
@@ -267,9 +267,9 @@ input[type="text"], textarea, select {
 					<div style="float:right">
 						Method : 
 						<select name="lz_ip_method" id="lz_ip_method" style="font-size:11px; width:150px" onchange="lz_ip_method_handle()">
-							<option value="0" '.lz_POSTselect('lz_ip_method', 0, (@$loginizer['ip_method'] == 0)).'>REMOTE_ADDR</option>
-							<option value="1" '.lz_POSTselect('lz_ip_method', 1, (@$loginizer['ip_method'] == 1)).'>HTTP_X_FORWARDED_FOR</option>
-							<option value="2" '.lz_POSTselect('lz_ip_method', 2, (@$loginizer['ip_method'] == 2)).'>HTTP_CLIENT_IP</option>
+							<option value="0" '.lz_POSTselect('lz_ip_method', 0, (@$loginizer['ip_method'] == 0)).'>REMOTE_ADDR'.(!empty($_SERVER['REMOTE_ADDR']) ? '(' . esc_html($_SERVER['REMOTE_ADDR']) .')' : '').'</option>
+							<option value="1" '.lz_POSTselect('lz_ip_method', 1, (@$loginizer['ip_method'] == 1)).'>HTTP_X_FORWARDED_FOR'.(!empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '(' . esc_html($_SERVER['HTTP_X_FORWARDED_FOR']) .')' : '').'</option>
+							<option value="2" '.lz_POSTselect('lz_ip_method', 2, (@$loginizer['ip_method'] == 2)).'>HTTP_CLIENT_IP'.(!empty($_SERVER['HTTP_CLIENT_IP']) ? '(' . esc_html($_SERVER['HTTP_CLIENT_IP']) .')' : '').'</option>
 							<option value="3" '.lz_POSTselect('lz_ip_method', 3, (@$loginizer['ip_method'] == 3)).'>CUSTOM</option>
 						</select>
 						<input name="lz_custom_ip_method" id="lz_custom_ip_method" type="text" value="'.lz_optpost('lz_custom_ip_method',(empty($loginizer['custom_ip_method']) ? '' : $loginizer['custom_ip_method'])).'" style="font-size:11px; width:100px; display:none" />

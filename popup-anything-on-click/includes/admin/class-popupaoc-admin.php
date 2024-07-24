@@ -59,7 +59,7 @@ class Popupaoc_Admin {
 		add_submenu_page( 'edit.php?post_type='.POPUPAOC_POST_TYPE, __('Overview - Popup Anything On Click', 'popup-anything-on-click'), '<span style="color:#2ECC71">'. __('Overview', 'popup-anything-on-click').'</span>', 'manage_options', 'paoc-solutions-features', array($this, 'popupaoc_solutions_features_page') );
 
 		// Register plugin premium page
-		add_submenu_page( 'edit.php?post_type='.POPUPAOC_POST_TYPE, __('Upgrade To PRO - Popup Anything On Click', 'popup-anything-on-click'), '<span style="color:#ff2700">'.__('Upgrade To PRO', 'popup-anything-on-click').'</span>', 'manage_options', 'popupaoc-premium', array($this, 'popupaoc_premium_page') );
+		add_submenu_page( 'edit.php?post_type='.POPUPAOC_POST_TYPE, __('Upgrade To PRO - Popup Anything On Click', 'popup-anything-on-click'), '<span style="color:#ff2700">'.__('Upgrade To PRO - Try Free For 5 Days', 'popup-anything-on-click').'</span>', 'manage_options', 'popupaoc-premium', array($this, 'popupaoc_premium_page') );
 	}
 
 	/**

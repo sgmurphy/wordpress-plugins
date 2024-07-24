@@ -435,8 +435,6 @@ module.exports = window["wp"]["i18n"];
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!**********************************************!*\
   !*** ./assets/src/apps/js/frontend/modal.js ***!
   \**********************************************/
@@ -447,8 +445,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal/index */ "./assets/src/apps/js/frontend/modal/index.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_modal_index__WEBPACK_IMPORTED_MODULE_0__["default"]);
-})();
-
 (window.LP = window.LP || {}).modal = __webpack_exports__;
 /******/ })()
 ;

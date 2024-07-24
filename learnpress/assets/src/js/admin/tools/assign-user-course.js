@@ -2,42 +2,29 @@
  * Assign user to course
  *
  * @since 4.2.5.6
- * @version 1.0.0
+ * @version 1.0.1
  */
-import TomSelect from 'tom-select';
-import { lpFetchAPI } from '../../utils.js';
-import Api from '../../api.js';
+import * as AdminUtils from '../utils-admin.js';
 
 export default function assignUserCourse() {
-	let elFormAssignUserCourse, elTomSelectCourseAssign, elTomSelectUserAssign;
-	let elFormUnAssignUserCourse, elTomSelectCourseUnAssign, elTomSelectUserUnAssign;
+	let elFormAssignUserCourse;
+	let elFormUnAssignUserCourse;
+	let elUserUnAssign, elCourseUnAssign, elUserAssign, elCourseAssign;
 	const limitHandle = 5;
 
 	const getAllElements = () => {
 		elFormAssignUserCourse = document.querySelector( '#lp-assign-user-course-form' );
 		elFormUnAssignUserCourse = document.querySelector( '#lp-unassign-user-course-form' );
-	};
 
-	const buildTomSelect = ( elTomSelect, options, fetchAPI ) => {
-		if ( ! elTomSelect ) {
-			return;
+		if ( elFormAssignUserCourse ) {
+			elUserUnAssign = elFormUnAssignUserCourse.querySelector( '[name=user_ids]' );
+			elCourseUnAssign = elFormUnAssignUserCourse.querySelector( '[name=course_ids]' );
 		}
 
-		const optionDefault = {
-			options: [],
-			plugins: {
-				remove_button: {
-					title: 'Remove this item',
-				},
-			},
-			load( keySearch, callback ) {
-				fetchAPI( keySearch, callback );
-			},
-		};
-
-		options = { ...optionDefault, ...options };
-
-		return new TomSelect( elTomSelect, options );
+		if ( elFormUnAssignUserCourse ) {
+			elUserAssign = elFormAssignUserCourse.querySelector( '[name=user_ids]' );
+			elCourseAssign = elFormAssignUserCourse.querySelector( '[name=course_ids]' );
+		}
 	};
 
 	const events = () => {
@@ -111,96 +98,8 @@ export default function assignUserCourse() {
 		return { packages, data, totalPage };
 	};
 
-	const fetchCourses = ( keySearch = '', callback, elTomSelect ) => {
-		const url = Api.admin.apiSearchCourses;
-		const params = {
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': lpDataAdmin.nonce,
-			},
-			method: 'POST',
-			body: JSON.stringify( { c_search: keySearch } ),
-		};
-
-		lpFetchAPI( url, params, {
-			success: ( response ) => {
-				const options = response.data.map( ( item ) => {
-					return {
-						value: item.ID,
-						text: item.post_title + `(#${ item.ID })`,
-					};
-				} );
-
-				// Set data courses default first to Tom Select.
-				if ( keySearch === '' ) {
-					const elCourseAssign = elFormAssignUserCourse.querySelector( '[name=course_ids]' );
-					if ( elCourseAssign ) {
-						elTomSelectCourseAssign = buildTomSelect( elCourseAssign, { options }, fetchCourses );
-					}
-
-					const elCourseUnAssign = elFormUnAssignUserCourse.querySelector( '[name=course_ids]' );
-					if ( elCourseUnAssign ) {
-						elTomSelectCourseUnAssign = buildTomSelect( elCourseUnAssign, { options }, fetchCourses );
-					}
-				}
-
-				if ( 'function' === typeof callback ) {
-					if ( callback.name === 'setupOptions' ) {
-						elTomSelect.setupOptions( options );
-					} else {
-						callback( options );
-					}
-				}
-			},
-		} );
-	};
-
-	const fetchUsers = ( keySearch = '', callback, elTomSelect ) => {
-		const url = Api.admin.apiSearchUsers;
-		const params = {
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': lpDataAdmin.nonce,
-			},
-			method: 'POST',
-			body: JSON.stringify( { search: keySearch } ),
-		};
-
-		lpFetchAPI( url, params, {
-			success: ( response ) => {
-				const options = response.data.map( ( item ) => {
-					return {
-						value: item.ID,
-						text: `${ item.display_name } (#${ item.ID }) - ${ item.user_email }`,
-					};
-				} );
-
-				// Set data users default first to Tom Select.
-				if ( keySearch === '' ) {
-					const elUserAssign = elFormAssignUserCourse.querySelector( '[name=user_ids]' );
-					if ( elUserAssign ) {
-						elTomSelectUserAssign = buildTomSelect( elUserAssign, { options }, fetchUsers );
-					}
-
-					const elUserUnAssign = elFormUnAssignUserCourse.querySelector( '[name=user_ids]' );
-					if ( elUserUnAssign ) {
-						elTomSelectUserUnAssign = buildTomSelect( elUserUnAssign, { options }, fetchUsers );
-					}
-				}
-
-				if ( 'function' === typeof callback ) {
-					if ( callback.name === 'setupOptions' ) {
-						elTomSelect.setupOptions( options );
-					} else {
-						callback( options );
-					}
-				}
-			},
-		} );
-	};
-
 	const fetchAPIAssignCourse = ( packages, data, page, totalPage ) => {
-		const url = Api.admin.apiAssignUserCourse;
+		const url = AdminUtils.Api.admin.apiAssignUserCourse;
 		const params = {
 			headers: {
 				'Content-Type': 'application/json',
@@ -214,7 +113,7 @@ export default function assignUserCourse() {
 		const elMessage = elFormAssignUserCourse.querySelector( '.message' );
 		elButtonAssign.disabled = true;
 
-		lpFetchAPI( url, params, {
+		AdminUtils.Utils.lpFetchAPI( url, params, {
 			success: ( response ) => {
 				const { status, message } = response;
 				if ( status === 'success' ) {
@@ -233,8 +132,12 @@ export default function assignUserCourse() {
 					}, 2000 );
 					elButtonAssign.disabled = false;
 					// Clear data selected on Tom Select.
-					elTomSelectCourseAssign.clear();
-					elTomSelectUserAssign.clear();
+					if ( ! elUserAssign.tomselect || ! elCourseAssign.tomselect ) {
+						return;
+					}
+
+					elUserAssign.tomselect.clear();
+					elCourseAssign.tomselect.clear();
 				} else if ( status === 'error' ) {
 					elButtonAssign.disabled = false;
 					elMessage.style.color = 'red';
@@ -255,7 +158,7 @@ export default function assignUserCourse() {
 	};
 
 	const fetchAPIUnAssignCourse = ( packages, data, page, totalPage ) => {
-		const url = Api.admin.apiUnAssignUserCourse;
+		const url = AdminUtils.Api.admin.apiUnAssignUserCourse;
 		const params = {
 			headers: {
 				'Content-Type': 'application/json',
@@ -269,7 +172,7 @@ export default function assignUserCourse() {
 		const elMessage = elFormUnAssignUserCourse.querySelector( '.message' );
 		elButtonAssign.disabled = true;
 
-		lpFetchAPI( url, params, {
+		AdminUtils.Utils.lpFetchAPI( url, params, {
 			success: ( response ) => {
 				const { status, message } = response;
 				if ( status === 'success' ) {
@@ -288,8 +191,12 @@ export default function assignUserCourse() {
 					}, 2000 );
 					elButtonAssign.disabled = false;
 					// Clear data selected on Tom Select.
-					elTomSelectCourseUnAssign.clear();
-					elTomSelectUserUnAssign.clear();
+					if ( ! elUserUnAssign.tomselect || ! elCourseUnAssign.tomselect ) {
+						return;
+					}
+
+					elUserUnAssign.tomselect.clear();
+					elCourseUnAssign.tomselect.clear();
 				} else if ( status === 'error' ) {
 					elButtonAssign.disabled = false;
 					elMessage.style.color = 'red';
@@ -316,11 +223,6 @@ export default function assignUserCourse() {
 			return;
 		}
 
-		// Get list courses default first and build Tom Select.
-		fetchCourses();
-		// Get list users default first and build Tom Select.
-		fetchUsers();
-		// Events.
 		events();
 	} );
 }

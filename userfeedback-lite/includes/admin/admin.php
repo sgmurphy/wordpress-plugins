@@ -69,16 +69,17 @@ function userfeedback_admin_menu() {
 		'userfeedback_settings_page'
 	);
 
-	$settings_submenu_base = add_query_arg( 'page', $settings_menu_slug, admin_url( 'admin.php' ) );
-
 	// Addons
 	add_submenu_page(
 		$menu_slug,
 		__( 'Addons', 'userfeedback' ),
 		'<b style="color: ' . userfeedback_menu_highlight_color() . '">' . __( 'Addons', 'userfeedback' ) . '</b>',
-		'manage_options',
-		$settings_submenu_base . '#/addons'
+		'userfeedback_save_settings',
+		'userfeedback_addons',
+		'userfeedback_addons_page'
 	);
+
+	$settings_submenu_base = add_query_arg( 'page', $settings_menu_slug, admin_url( 'admin.php' ) );
 
 	//  Integrations
 	add_submenu_page(
@@ -150,6 +151,15 @@ function userfeedback_results_page() {
  */
 function userfeedback_settings_page() {
 	echo '<div id="userfeedback-settings"></div>';
+}
+
+/**
+ * Render UserFeedback Addons page
+ *
+ * @return void
+ */
+function userfeedback_addons_page() {
+	echo '<div id="userfeedback-addons"></div>';
 }
 
 /**

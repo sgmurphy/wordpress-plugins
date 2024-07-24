@@ -460,7 +460,7 @@ function loginizer_page_header($title = 'Loginizer'){
 	<tr>
 		<td valign="top">';
 		
-	if(file_exists(LOGINIZER_DIR.'/premium.php') && !empty($loginizer['enable_csrf_protection']) && !loginizer_is_csrf_prot_mod_set()){
+	if(defined('LOGINIZER_PREMIUM') && !empty($loginizer['enable_csrf_protection']) && !loginizer_is_csrf_prot_mod_set()){
 
 		$lz_error['csrf_mod'] = esc_html__('You have enabled CSRF protection but the .htaccess file has not been updated', 'loginizer');
 		

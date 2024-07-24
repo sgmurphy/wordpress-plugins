@@ -278,16 +278,20 @@ class Sonaar_Music_Admin {
 
     public function businessplan_required() {
         $screen = get_current_screen();
-        $sonaar_music_licence = get_site_option('sonaar_music_licence');
-
         // Check if you are on the desired options page. Replace 'your_options_page_slug' with the slug of your options page.
-        if ( $screen->id === 'sr_playlist_page_srmp3_settings_audiopreview' ) {
-            if ($sonaar_music_licence == '' || get_site_option('SRMP3_ecommerce') !== '1') {
+        if ($screen->id === 'sr_playlist_page_srmp3_settings_audiopreview'){
+
+            $sonaar_music_licence = get_site_option('sonaar_music_licence');
+            $srmp3_ecommerce = get_site_option('SRMP3_ecommerce');
+            $purchased_plan = get_site_option('SRMP3_purchased_plan');
+
+            if ( !function_exists('run_sonaar_music_pro') || empty($sonaar_music_licence) || false === $sonaar_music_licence || empty($purchased_plan) || $srmp3_ecommerce != '1') {
                 echo '
                 <div class="notice notice-error">
                     <p>MP3 Audio Player Pro - <strong>Business Plan or higher</strong> is required. </strong> <a href="https://sonaar.io/mp3-audio-player-pro/pricing/" target="_blank">View Pricing</a></p>
                 </div>';
-            }     
+                
+            }
         }
     }
 
@@ -581,15 +585,14 @@ class Sonaar_Music_Admin {
         function audiopreview_controller_classes( $field_args, $field ) {
             //Dont enable the options if not pro and ffmpeg not installed.
             $classes = array();
-            if (class_exists('Sonaar_Music_Pro_Admin') && 
-                method_exists('Sonaar_Music_Pro_Admin', 'is_ffmpeg_exist') && 
-                get_site_option('SRMP3_ecommerce') == '1') {
-            
-                $ffmpeg = Sonaar_Music_Pro_Admin::is_ffmpeg_exist();
-                if (!$ffmpeg){
-                    array_push($classes, 'ffmpeg-not-installed');
-                }
-            } else {
+
+            $sonaar_music_licence = get_site_option('sonaar_music_licence');
+            $srmp3_ecommerce = get_site_option('SRMP3_ecommerce');
+            $purchased_plan = get_site_option('SRMP3_purchased_plan');
+           
+    
+            // Check if you are on the desired options page. Replace 'your_options_page_slug' with the slug of your options page.
+            if ( !function_exists('run_sonaar_music_pro') || class_exists('Sonaar_Music_Pro_Admin') && (empty($sonaar_music_licence) || false === $sonaar_music_licence || empty($purchased_plan) || $srmp3_ecommerce != '1')) {
                 array_push($classes, 'audiopreview-denied');
             }
             
@@ -619,6 +622,7 @@ class Sonaar_Music_Admin {
                 
                 'div' => array(
                     'class' => array(),
+                    'style' => array(),
                 ),
                 'em' => array(),
                 'strong' => array(),
@@ -631,6 +635,10 @@ class Sonaar_Music_Admin {
                     'src' => array(),
                 ),
                 'br' => array(),
+                'span' => array(
+                    'class' => array(),
+                    'style' => array(),
+                ),
                 'i' => array(
                     'class' => array(),
                 ),
@@ -1428,6 +1436,20 @@ class Sonaar_Music_Admin {
                         'pro'       => true,
                     ),
                 ) );
+
+                $widget_player_options->add_field( array(
+                    'name'          => esc_html__('Display Info Icon', 'sonaar-music'),
+                    'id'            => 'player_show_miniplayer_note_bt',
+                    'type'          => 'switch',
+                    'default'       => 0,
+                    'after'         => 'srmp3_add_tooltip_to_label',
+                    'tooltip'       => array(
+                        'title'     => esc_html__('Default Info Icon', 'sonaar-music'),
+                        'text'      => esc_html__('Display a button that shows the audio track description in a popup.', 'sonaar-music'),
+                        'pro'       => true,
+                    ),
+                ) );
+
                 $widget_player_options->add_field( array(
                     'name'          => esc_html__('Display Date in the Player', 'sonaar-music'),
                     'id'            => 'player_show_publish_date',
@@ -4217,7 +4239,7 @@ class Sonaar_Music_Admin {
                     'option_key'   => 'srmp3_settings_audiopreview', // The option key and admin menu page slug. 'yourprefix_tertiary_options',
                     'parent_slug'  => 'edit.php?post_type=' . SR_PLAYLIST_CPT, // Make options page a submenu item of the themes menu. //'yourprefix_main_options',
                     'tab_group'    => 'yourprefix_main_options',
-                    'tab_title'    => esc_html__( 'Audio Preview & Restrictions', 'sonaar-music' ),
+                    'tab_title'    => __( 'Audio Preview & Restrictions<br><span class="srmp3-nav-tab-desc">Generate Previews, Ads, Watermarks & Fades</span>', 'sonaar-music' ),
                 );
 
                 // 'tab_group' property is supported in > 2.4.0.
@@ -4244,16 +4266,18 @@ class Sonaar_Music_Admin {
                         'tooltip'       => array(
                             'title'     => __('What is Audio Preview?', 'sonaar-music'),
                             'text'      => __('
-                            Audio Preview, also known as an <em>"audio snippet"</em> or <em>"sample"</em>, it is a brief segment from a longer audio recording. It provides listeners a glimpse of the full content without playing the entire track.<br><br>
-                            Used predominantly in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, these short clips, lasting from a few seconds to minutes, assist potential buyers in their purchasing decisions.<br><br>
-                            They also serve as a protective measure against <strong>unauthorized downloads</strong> by only showcasing a segment. Some previews might even include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
-                            When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download.<br><br>
-                            Remember: If you do not set audio preview, it\'s OK! In this case, the full track will be available.<br><br>
-                            If you want to provide full track access for a specific playlist or track, you can enable & disable those settings per individual post.<br><br>
-                            ---- IMPORTANT ----<br>
-                            This feature use FFMpeg Library. You must have a VPS or Dedicated Server to run FFMpeg <a href="https://sonaar.io/docs/how-to-add-audio-preview-in-wordpress/" target="_blank">(Learn More)</a><br><br>
-                            In addition, MP3 Audio Player Pro - Business Plan - is required <a href="https://sonaar.io/mp3-audio-player-pro/pricing/" target="_blank">(View Pricing)</a>
-                            
+                            Generate audio previews, audio watermarks, fade-in/fade-out, pre-roll and post-roll Ads of this audio automatically in 1 click!<br><br>
+                            <div class="srmp3_tooltip_title">Audio Preview</div>
+                            An Audio Preview, or <em>"audio snippet"</em>, is a brief segment of a longer recording. It offers listeners a glimpse of the full content, aiding decisions in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, and protecting against <strong>unauthorized downloads</strong>.<br><br>
+                            <div class="srmp3_tooltip_title">Audio Watermarks</div>
+                            Audio Watermarks may include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
+                            <div class="srmp3_tooltip_title">Audio Pre-roll / Post-roll Ads</div>
+                            Audio Pre-roll and Post-roll Ads play at the start or end of an audio track. Audio rolls engage listeners, leave a lasting impression, and aid in monetizing content.
+                            Popular in <strong>podcasts</strong> and <strong>music streaming services</strong>, these ads deliver targeted messages, enhance brand awareness, save editing time, and increase audience retention and recall.<br><br>
+                            <div class="srmp3_tooltip_title">How it works?</div>
+                            When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set the restricted role in MP3 Player > Settings > Audio Preview & Restrictions<br><br>
+                            <p>Learn more <a href="https://sonaar.io/docs/how-to-add-audio-preview-in-wordpress/" target="_blank">here</a></p><br><br>
+                            <p>An active license of MP3 Audio Player Pro - <strong>Business Plan or higher</strong> is required to use these features. </strong> <a href="https://sonaar.io/mp3-audio-player-pro/pricing/" target="_blank">View Pricing</a></p>
                             ', 'sonaar-music'),
                             'image'     => '',
                             'pro'       => true,
@@ -4270,142 +4294,13 @@ class Sonaar_Music_Admin {
                         ),
                         'default'       => ''
                     ) );
-                    $audiopreview_options->add_field( array(
-                        'id'            => 'audiopreview_ffmpeg_path',
-                        'name'          => __( 'FFMpeg Custom Path (Optional)', 'sonaar-music' ),
-                        'type'          => 'text_medium',
-                        'default'       => '',
-                        'attributes' => array(
-                            'placeholder' => esc_html__('/usr/local/bin/ffmpeg', 'sonaar_music'),
-                            'data-conditional-id'    => 'force_audio_preview',
-                            'data-conditional-value' => 'true',
-                        ),
-                    ) );
+                   
                     
-                    $ffmpeg_path_found = (get_option('srmp3_ffmpeg_path') !== '') ? ' ' . __('FFMpeg found in: ', 'sonaar-music') . ' <span style="color:green;">' . get_option('srmp3_ffmpeg_path') . ' </span>': ' FFMpeg not found';
                     $audiopreview_options->add_field( array(
-                        'name'          => esc_html__('Generate Previews with FFMPEG', 'sonaar-music'),
+                        'name'          => esc_html__('Generate Audio Previews', 'sonaar-music'),
                         'type'          => 'title',
                         'id'            => 'audiopreview_generate_settings_title',
-                        'after'         => '<span style="font-size:11px;">' . $ffmpeg_path_found . '</span>',
                         'classes_cb'    => 'audiopreview_controller_classes',
-                        'attributes' => array(
-                            'data-conditional-id'    => 'force_audio_preview',
-                            'data-conditional-value' => 'true',
-                        ),
-                    ) );
-                    $audiopreview_options->add_field( array(
-                        'name'          => __( 'Fade In Length', 'sonaar-music' ),
-                        'classes'       => 'ffmpeg_field',
-                        'id'            => 'fadein_duration',
-                        'default'       => 3,
-                        'attributes' => array(
-                            'data-conditional-id'    => 'force_audio_preview',
-                            'data-conditional-value' => 'true',
-                        ),
-                        'type'       	=> 'own_slider',
-                            'min'         => '0',
-                            'max'         => '30',
-                            'step'        => '1',
-                        'value_label' => esc_html__('Default 3 seconds', 'sonaar-music'),
-                        'value_suffix_label' => esc_html__('&nbsp;seconds', 'sonaar-music'),
-                    ) );
-                    $audiopreview_options->add_field( array(
-                        'name'          => __( 'Fade Out Length', 'sonaar-music' ),
-                        'classes'       => 'ffmpeg_field',
-                        'id'            => 'fadeout_duration',
-                        'default'       => 3,
-                        'attributes' => array(
-                            'data-conditional-id'    => 'force_audio_preview',
-                            'data-conditional-value' => 'true',
-                        ),
-                        'type'       	=> 'own_slider',
-                            'min'         => '0',
-                            'max'         => '30',
-                            'step'        => '1',
-                        'value_label' => esc_html__('Default 3 seconds', 'sonaar-music'),
-                        'value_suffix_label' => esc_html__('&nbsp;seconds', 'sonaar-music'),
-                    ) );
-                    $audiopreview_options->add_field( array(
-                        'id'            => 'audio_watermark',
-                        'name'          => esc_html__('Audio Watermark', 'sonaar-music'),
-                        'classes'       => 'ffmpeg_field',
-                        'description'   => esc_html__('Watermark will be added every 10 seconds','sonaar-music'),
-                        'type'          => 'file',
-                        'query_args'    => array(
-                            'type'          => 'audio',
-                        ),
-                        'options' => array(
-                            'url' => false, // Hide the text input for the url
-                        ),
-                        'label_cb'      => 'srmp3_add_tooltip_to_label',
-                        'tooltip'       => array(
-                            'title'     => '',
-                            'text'      => esc_html__('Audio Watermark can be set here. Keep it short and make sure it does not contain silences, Watermarks will be looped every 10 seconds.', 'sonaar-music'),
-                            'image'     => '',
-                        ),
-                        'attributes' => array(
-                            'data-conditional-id'    => 'force_audio_preview',
-                            'data-conditional-value' => 'true',
-                        ),
-                    ) );
-                    $audiopreview_options->add_field( array(
-                        'name'          => __( 'Loop Watermark every', 'sonaar-music' ),
-                        'classes'       => 'ffmpeg_field',
-                        'id'            => 'watermark_spacegap',
-                        'default'       => 6,
-                        'attributes' => array(
-                            'data-conditional-id'    => 'force_audio_preview',
-                            'data-conditional-value' => 'true',
-                        ),
-                        'type'       	=> 'own_slider',
-                            'min'         => '0',
-                            'max'         => '180',
-                            'step'        => '1',
-                        'value_label' => esc_html__('Default 3 seconds', 'sonaar-music'),
-                        'value_suffix_label' => esc_html__('&nbsp;seconds', 'sonaar-music'),
-                    ) );
-                    $audiopreview_options->add_field( array(
-                        'id'            => 'ad_preroll',
-                        'name'          => esc_html__('Pre-roll Ad (optional)', 'sonaar-music'),
-                        'classes'       => 'ffmpeg_field',
-                        'description'   => esc_html__('Recommended Format: MP3 file encoded at 320kbps with sample rate of 44.1kHz','sonaar-music'),
-                        'type'          => 'file',
-                        'query_args'    => array(
-                            'type'          => 'audio',
-                        ),
-                        'options' => array(
-                            'url' => false, // Hide the text input for the url
-                        ),
-                        'label_cb'      => 'srmp3_add_tooltip_to_label',
-                        'tooltip'       => array(
-                            'title'     => '',
-                            'text'      => esc_html__('Add a pre-roll audio advertising here. Keep it short and make sure it does not contain silences.', 'sonaar-music'),
-                            'image'     => '',
-                        ),
-                        'attributes' => array(
-                            'data-conditional-id'    => 'force_audio_preview',
-                            'data-conditional-value' => 'true',
-                        ),
-                    ) );
-                    $audiopreview_options->add_field( array(
-                        'id'            => 'ad_postroll',
-                        'name'          => esc_html__('Post-roll Ad (optional)', 'sonaar-music'),
-                        'classes'       => 'ffmpeg_field',
-                        'description'   => esc_html__('Recommended Format: MP3 file encoded at 320kbps with sample rate of 44.1kHz','sonaar-music'),
-                        'type'          => 'file',
-                        'query_args'    => array(
-                            'type'          => 'audio',
-                        ),
-                        'options' => array(
-                            'url' => false, // Hide the text input for the url
-                        ),
-                        'label_cb'      => 'srmp3_add_tooltip_to_label',
-                        'tooltip'       => array(
-                            'title'     => '',
-                            'text'      => esc_html__('Add a post-roll audio advertising here. Keep it short and make sure it does not contain silences.', 'sonaar-music'),
-                            'image'     => '',
-                        ),
                         'attributes' => array(
                             'data-conditional-id'    => 'force_audio_preview',
                             'data-conditional-value' => 'true',
@@ -4459,6 +4354,133 @@ class Sonaar_Music_Admin {
                             'image'     => '',
                         ),
                     ) );
+                    $audiopreview_options->add_field( array(
+                        'name'          => __( 'Fade In Length', 'sonaar-music' ),
+                        'classes'       => 'ffmpeg_field',
+                        'id'            => 'fadein_duration',
+                        'default'       => 3,
+                        'attributes' => array(
+                            'data-conditional-id'    => 'force_audio_preview',
+                            'data-conditional-value' => 'true',
+                        ),
+                        'type'       	=> 'own_slider',
+                            'min'         => '0',
+                            'max'         => '30',
+                            'step'        => '1',
+                        'value_label' => esc_html__('Default 3 seconds', 'sonaar-music'),
+                        'value_suffix_label' => esc_html__('&nbsp;seconds', 'sonaar-music'),
+                    ) );
+                    $audiopreview_options->add_field( array(
+                        'name'          => __( 'Fade Out Length', 'sonaar-music' ),
+                        'classes'       => 'ffmpeg_field',
+                        'id'            => 'fadeout_duration',
+                        'default'       => 3,
+                        'attributes' => array(
+                            'data-conditional-id'    => 'force_audio_preview',
+                            'data-conditional-value' => 'true',
+                        ),
+                        'type'       	=> 'own_slider',
+                            'min'         => '0',
+                            'max'         => '30',
+                            'step'        => '1',
+                        'value_label' => esc_html__('Default 3 seconds', 'sonaar-music'),
+                        'value_suffix_label' => esc_html__('&nbsp;seconds', 'sonaar-music'),
+                    ) );
+                    $audiopreview_options->add_field( array(
+                        'id'            => 'audio_watermark',
+                        'name'          => esc_html__('Audio Watermark', 'sonaar-music'),
+                        'classes'       => 'ffmpeg_field',
+                        'description'   => esc_html__('Recommended Format: MP3 file encoded at 320kbps with sample rate of 44.1kHz','sonaar-music'),
+                        'type'          => 'file',
+                        'text'              => array(
+                            'add_upload_file_text' => 'Upload Watermark MP3' // Change upload button text. Default: "Add or Upload File"
+                        ),
+                        'query_args'    => array(
+                            'type'          => 'audio',
+                        ),
+                        'options' => array(
+                            'url' => false, // Hide the text input for the url
+                        ),
+                        'label_cb'      => 'srmp3_add_tooltip_to_label',
+                        'tooltip'       => array(
+                            'title'     => '',
+                            'text'      => esc_html__('Audio Watermark can be set here. Keep it short and make sure it does not contain silences, Watermarks will be looped every 10 seconds.', 'sonaar-music'),
+                            'image'     => '',
+                        ),
+                        'attributes' => array(
+                            'data-conditional-id'    => 'force_audio_preview',
+                            'data-conditional-value' => 'true',
+                        ),
+                    ) );
+                    $audiopreview_options->add_field( array(
+                        'name'          => __( 'Loop Watermark every', 'sonaar-music' ),
+                        'classes'       => 'ffmpeg_field srmp3-settings--subitem',
+                        'id'            => 'watermark_spacegap',
+                        'default'       => 6,
+                        'attributes' => array(
+                            'data-conditional-id'    => 'force_audio_preview',
+                            'data-conditional-value' => 'true',
+                        ),
+                        'type'       	=> 'own_slider',
+                            'min'         => '0',
+                            'max'         => '180',
+                            'step'        => '1',
+                        'value_label' => esc_html__('Default 3 seconds', 'sonaar-music'),
+                        'value_suffix_label' => esc_html__('&nbsp;seconds', 'sonaar-music'),
+                    ) );
+                    $audiopreview_options->add_field( array(
+                        'id'            => 'ad_preroll',
+                        'name'          => esc_html__('Pre-roll Ad (optional)', 'sonaar-music'),
+                        'classes'       => 'ffmpeg_field',
+                        'description'   => esc_html__('Recommended Format: MP3 file encoded at 320kbps with sample rate of 44.1kHz','sonaar-music'),
+                        'type'          => 'file',
+                        'text'              => array(
+                            'add_upload_file_text' => 'Upload Pre-Roll MP3' // Change upload button text. Default: "Add or Upload File"
+                        ),
+                        'query_args'    => array(
+                            'type'          => 'audio',
+                        ),
+                        'options' => array(
+                            'url' => false, // Hide the text input for the url
+                        ),
+                        'label_cb'      => 'srmp3_add_tooltip_to_label',
+                        'tooltip'       => array(
+                            'title'     => '',
+                            'text'      => esc_html__('Add a pre-roll audio advertising here. Keep it short and make sure it does not contain silences.', 'sonaar-music'),
+                            'image'     => '',
+                        ),
+                        'attributes' => array(
+                            'data-conditional-id'    => 'force_audio_preview',
+                            'data-conditional-value' => 'true',
+                        ),
+                    ) );
+                    $audiopreview_options->add_field( array(
+                        'id'            => 'ad_postroll',
+                        'name'          => esc_html__('Post-roll Ad (optional)', 'sonaar-music'),
+                        'classes'       => 'ffmpeg_field',
+                        'description'   => esc_html__('Recommended Format: MP3 file encoded at 320kbps with sample rate of 44.1kHz','sonaar-music'),
+                        'type'          => 'file',
+                        'text'              => array(
+                            'add_upload_file_text' => 'Upload Post-Roll MP3' // Change upload button text. Default: "Add or Upload File"
+                        ),
+                        'query_args'    => array(
+                            'type'          => 'audio',
+                        ),
+                        'options' => array(
+                            'url' => false, // Hide the text input for the url
+                        ),
+                        'label_cb'      => 'srmp3_add_tooltip_to_label',
+                        'tooltip'       => array(
+                            'title'     => '',
+                            'text'      => esc_html__('Add a post-roll audio advertising here. Keep it short and make sure it does not contain silences.', 'sonaar-music'),
+                            'image'     => '',
+                        ),
+                        'attributes' => array(
+                            'data-conditional-id'    => 'force_audio_preview',
+                            'data-conditional-value' => 'true',
+                        ),
+                    ) );
+                    
                     $audiopreview_options->add_field( array(
                         'id'            => 'preview_overwrite',
                         'name'          => esc_html__('Overwrite existing files?', 'sonaar-music'),
@@ -5512,8 +5534,13 @@ class Sonaar_Music_Admin {
                 <div class="nav-tab-wrapper">
                    
                 <?php foreach ( $tabs as $option_key => $tab_data ) : ?>
-                    <?php if ( $option_key !== 'srmp3_settings_shortcodebuilder' && isset( $tab_data['title'] ) ) : ?> <!-- Exclude srmp3_settings_shortcodebuilder and check if the title key exists -->
-                        <a class="nav-tab<?php if ( $current_tab === $option_key ) : ?> nav-tab-active<?php endif; ?>" href="<?php echo esc_url( add_query_arg( 'page', $option_key, admin_url( 'admin.php' ) ) ); ?>"><?php echo esc_html( $tab_data['title'] ); ?></a>
+                    <?php if ( $option_key !== 'srmp3_settings_shortcodebuilder' && isset( $tab_data['title'] ) ) : ?>
+                        <a class="nav-tab<?php if ( $current_tab === $option_key ) : ?> nav-tab-active<?php endif; ?>" href="<?php echo esc_url( add_query_arg( 'page', $option_key, admin_url( 'admin.php' ) ) ); ?>"><?php echo wp_kses( $tab_data['title'],  array(
+                                'span' => array( 
+                                    'class' => array(), 
+                                ),
+                                'br' => array() // No attributes needed for <br>
+                            ) ); ?></a>
                         <?php if ( $current_tab === $option_key && !empty($tab_data['submenus']) ): ?>
                             <ul class="sr-option-submenus">
                                 <?php foreach ( $tab_data['submenus'] as $submenu_slug => $submenu_title ) : ?>
@@ -6185,7 +6212,7 @@ class Sonaar_Music_Admin {
             'description'   => 'Display tracklist in reverse order on the front-end',
             'type'          => 'checkbox'
         ));
-        if ( function_exists( 'run_sonaar_music_pro' ) && get_site_option('SRMP3_ecommerce') == '1' && Sonaar_Music::get_option('force_audio_preview', 'srmp3_settings_audiopreview') === 'true' ){
+        if ( function_exists( 'run_sonaar_music_pro' ) && get_site_option('SRMP3_purchased_plan') != false && get_site_option('SRMP3_ecommerce') == '1' && Sonaar_Music::get_option('force_audio_preview', 'srmp3_settings_audiopreview') === 'true' ){
             $cmb_album->add_field( array(
                 'name'          => esc_html__('Audio Preview', 'sonaar-music'),
                 'id'            => 'post_audiopreview_all',
@@ -6195,11 +6222,13 @@ class Sonaar_Music_Admin {
                 'label_cb'      => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => '',
-                    'text'      => __('Also known as an <em>"audio snippet"</em> or <em>"sample,"</em> it is a brief segment from a longer audio recording. It provides listeners a glimpse of the full content without playing the entire track.<br><br>
-                    Used predominantly in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, these short clips, lasting from a few seconds to minutes, assist potential buyers in their purchasing decisions.<br><br>
-                    They also serve as a protective measure against <strong>unauthorized downloads</strong> by only showcasing a segment. Some previews might even include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
-                    When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set the restricted role in WP-Admin > MP3 Player > Settings<br><br>You can also disable this audio preview to allow everyone to listen and download your full track.<br><br> Remember: If you do not set audio preview, it\'s OK! In this case, the full track will be available.', 'sonaar-music'),
-                    'image'     => '',
+                    'text' => sprintf(
+                        __('Also known as an <em>"audio snippet"</em> or <em>"sample,"</em> it is a brief segment from a longer audio recording. It provides listeners a glimpse of the full content without playing the entire track.<br><br>
+                        Used predominantly in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, these short clips, lasting from a few seconds to minutes, assist potential buyers in their purchasing decisions.<br><br>
+                        They also serve as a protective measure against <strong>unauthorized downloads</strong> by only showcasing a segment. Some previews might even include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
+                        When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set restricted roles in <a href="%s" target="_blank">Audio Preview & Restrictions</a><br><br>You can also disable this audio preview to allow everyone to listen and download your full track.<br><br> Remember: If you do not set audio preview, it\'s OK! In this case, the full track will be available.', 'sonaar-music'),
+                        esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview'))
+                    ),'image'     => '',
                 ),
                 'options'       => array(
                    // 'default'   => esc_html__('Default (Use options in the General Settings)', 'sonaar-music'),
@@ -6212,7 +6241,7 @@ class Sonaar_Music_Admin {
                 'classes'       => 'ffmpeg_field srmp3-settings-generate-bt-container srmp3-cmb2-row-mini',
                 'name'          => '_',
                 'description'   => __('
-                <button id="srmp3_index_audio_preview" class="srmp3-generate-bt srmp3-post-all-audiopreview-bt showSpinner">Generate Preview Files for all tracks below</button> 
+                <button id="srmp3_index_audio_preview" class="srmp3-generate-bt srmp3-post-all-audiopreview-bt showSpinner">Generate Preview Files for ALL TRACKS below</button> 
                 <span id="srmp3_indexTracks_status"></span><progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress>
                 <span id="progressText"></span>
                 ','sonaar-music'),
@@ -6475,18 +6504,52 @@ class Sonaar_Music_Admin {
                 'data-conditional-value' => 'icecast',
             )
         ));
-        if ( function_exists( 'run_sonaar_music_pro' ) && get_site_option('SRMP3_ecommerce') == '1' && Sonaar_Music::get_option('force_audio_preview', 'srmp3_settings_audiopreview') === 'true' ){
+        if ( !function_exists( 'run_sonaar_music_pro' ) || get_site_option('SRMP3_ecommerce') !== '1' || get_site_option('SRMP3_purchased_plan') == false ){
             $cmb_album->add_group_field($tracklist, array(
-                'name'          => esc_html__('Audio Preview', 'sonaar-music'),
+                'name'          => esc_html__('Audio Preview & Ads', 'sonaar-music'),
+                'id'            => 'post_audiopreview_promo',
+                'type'          => 'select',
+                'label_cb'      => 'srmp3_add_tooltip_to_label',
+                'tooltip'       => array(
+                    'title'     => '',
+                    'text' => sprintf(
+                        __('
+                        Generate audio previews, audio watermarks, fade-in/fade-out, pre-roll and post-roll Ads of this audio automatically in 1 click!<br><br>
+                        <div class="srmp3_tooltip_title">Audio Preview</div>
+                        An Audio Preview, or <em>"audio snippet"</em>, is a brief segment of a longer recording. It offers listeners a glimpse of the full content, aiding decisions in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, and protecting against <strong>unauthorized downloads</strong>.<br><br>
+                        <div class="srmp3_tooltip_title">Audio Watermarks</div>
+                        Audio Watermarks may include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
+                        <div class="srmp3_tooltip_title">Audio Pre-roll / Post-roll Ads</div>
+                        Audio Pre-roll and Post-roll Ads play at the start or end of an audio track. Audio rolls engage listeners, leave a lasting impression, and aid in monetizing content.
+                        Popular in <strong>podcasts</strong> and <strong>music streaming services</strong>, these ads deliver targeted messages, enhance brand awareness, save editing time, and increase audience retention and recall.<br><br>
+                        <div class="srmp3_tooltip_title">How it works?</div>
+                        When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set the restricted role in <a href="%s" target="_blank">Audio Preview & Restrictions</a><br><br>
+                        <p>Learn more <a href="https://sonaar.io/docs/how-to-add-audio-preview-in-wordpress/" target="_blank">here</a></p><br><br>
+                        <p>An active license of MP3 Audio Player Pro - <strong>Business Plan or higher</strong> is required to use these features. </strong> <a href="https://sonaar.io/mp3-audio-player-pro/pricing/" target="_blank">View Pricing</a></p>', 'sonaar-music'),
+                        esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview'))
+                    ),
+                    'image'     => '',
+                    'pro'       => true,
+                ),
+                'options'       => array(
+                    'disabled'     => esc_html__('Disabled', 'sonaar-music'),
+                ),
+            ) );
+        }else if ( function_exists( 'run_sonaar_music_pro' ) && get_site_option('SRMP3_ecommerce') == '1' && Sonaar_Music::get_option('force_audio_preview', 'srmp3_settings_audiopreview') === 'true' ){
+            $cmb_album->add_group_field($tracklist, array(
+                'name'          => esc_html__('Audio Preview & Ads', 'sonaar-music'),
                 'id'            => 'post_audiopreview',
                 'type'          => 'select',
                 'label_cb'      => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => '',
-                    'text'      => __('Also known as an <em>"audio snippet"</em> or <em>"sample,"</em> it is a brief segment from a longer audio recording. It provides listeners a glimpse of the full content without playing the entire track.<br><br>
-                    Used predominantly in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, these short clips, lasting from a few seconds to minutes, assist potential buyers in their purchasing decisions.<br><br>
-                    They also serve as a protective measure against <strong>unauthorized downloads</strong> by only showcasing a segment. Some previews might even include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
-                    When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set the restricted role in WP-Admin > MP3 Player > Settings<br><br>You can also disable this audio preview to allow everyone to listen and download your full track.<br><br> Remember: If you do not set audio preview, it\'s OK! In this case, the full track will be available.', 'sonaar-music'),
+                    'text' => sprintf(
+                        __('Also known as an <em>"audio snippet"</em> or <em>"sample,"</em> it is a brief segment from a longer audio recording. It provides listeners a glimpse of the full content without playing the entire track.<br><br>
+                        Used predominantly in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, these short clips, lasting from a few seconds to minutes, assist potential buyers in their purchasing decisions.<br><br>
+                        They also serve as a protective measure against <strong>unauthorized downloads</strong> by only showcasing a segment. Some previews might even include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
+                        When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set restricted roles in <a href="%s" target="_blank">Audio Preview & Restrictions</a><br><br>You can also disable this audio preview to allow everyone to listen and download your full track.<br><br> Remember: If you do not set audio preview, it\'s OK! In this case, the full track will be available.', 'sonaar-music'),
+                        esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview'))
+                    ),
                     'image'     => '',
                 ),
                 'options'       => array(
@@ -6508,9 +6571,21 @@ class Sonaar_Music_Admin {
                 ),
                 'default'       => 'default',
                 'label_cb'      => 'srmp3_add_tooltip_to_label',
+                'after'   => sprintf(
+                    ' <a class="" href="%s" target="_blank">%s</a>',
+                    esc_url( get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview') ),
+                    esc_html__('Edit General Settings', 'sonaar-music')
+                ),
                 'tooltip'       => array(
                     'title'     => '',
-                    'text'      => esc_html__('If you want to use a custom settings for this preview (and by-pass the general settings located in WP-Admin > MP3 Player > Settings), use Custom Settings.', 'sonaar-music'),
+                    'text'      => sprintf(
+                        __('Use Custom Settings if you want to use custom setup for this preview instead of the general <a href="%s" target="_blank">Audio Preview Settings</a>', 'sonaar-music'),
+                        esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview'))
+                    ),
+                    /*'text'      => sprintf(
+                        esc_html__('If you want to use custom settings for this preview (and by-pass the general settings located in WP-Admin > MP3 Player > <a href="%s" target="_blank">Audio Preview & Restrictions</a>), use Custom Settings.', 'sonaar-music'),
+                        esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview'))
+                    ),*/
                     'image'     => '',
                 ),
                 'attributes' => array(
@@ -6519,7 +6594,7 @@ class Sonaar_Music_Admin {
                 ),
             ) );
             $cmb_album->add_group_field($tracklist, array(
-                'classes'       => 'ffmpeg_field srmp3-settings--subitem',
+                'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem2',
                 'name'          => __( 'Trim Start at', 'sonaar-music' ),
                 'id'            => 'post_trimstart',
                 'type'          => 'text_small',
@@ -6537,7 +6612,7 @@ class Sonaar_Music_Admin {
                 ),
             ) );
             $cmb_album->add_group_field($tracklist, array(
-                'classes'       => 'ffmpeg_field srmp3-settings--subitem',
+                'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem2',
                 'name'          => __( 'Preview Length', 'sonaar-music' ),
                 'id'            => 'post_audiopreview_duration',
                 'type'          => 'text_small',
@@ -6555,7 +6630,7 @@ class Sonaar_Music_Admin {
                 ),
             ) );
             $cmb_album->add_group_field($tracklist, array(
-                'classes'       => 'ffmpeg_field srmp3-settings--subitem',
+                'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem2',
                 'name'          => __( 'Fade In Length', 'sonaar-music' ),
                 'id'            => 'post_fadein_duration',
                 'type'          => 'text_small',
@@ -6569,7 +6644,7 @@ class Sonaar_Music_Admin {
                 ),
             ) );
             $cmb_album->add_group_field($tracklist, array(
-                'classes'       => 'ffmpeg_field srmp3-settings--subitem',
+                'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem2',
                 'name'          => __( 'Fade Out Length', 'sonaar-music' ),
                 'id'            => 'post_fadeout_duration',
                 'type'          => 'text_small',
@@ -6583,10 +6658,13 @@ class Sonaar_Music_Admin {
                 ),
             ) );
             $cmb_album->add_group_field($tracklist, array(
-                'classes'       => 'ffmpeg_field srmp3-cmb2-file srmp3-settings--subitem',
+                'classes'       => 'ffmpeg_field srmp3-cmb2-file srmp3-settings--subitem srmp3-settings--subitem2',
                 'id'            => 'post_audio_watermark',
                 'name'          => esc_html__('Audio Watermark', 'sonaar-music'),
                 'type'          => 'file',
+                'text'              => array(
+                    'add_upload_file_text' => 'Upload Watermark MP3' // Change upload button text. Default: "Add or Upload File"
+                ),
                 'query_args'    => array(
                     'type'          => 'audio',
                 ),
@@ -6605,10 +6683,27 @@ class Sonaar_Music_Admin {
                 ),
             ) );
             $cmb_album->add_group_field($tracklist, array(
-                'classes'       => 'ffmpeg_field srmp3-cmb2-file srmp3-settings--subitem',
+                'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem3',
+                'name'          => __( 'Loop Watermark every', 'sonaar-music' ),
+                'id'            => 'post_audio_watermark_gap',
+                'type'          => 'text_small',
+                'default'       => 6,
+                'after'           => esc_html(' seconds', 'sonaar_music'),
+                'attributes' => array(
+                    'type' => 'number',
+                    'pattern' => '\d*',
+                    'data-conditional-id'    => wp_json_encode( array( $tracklist, 'post_audiopreview_settings' )),
+                    'data-conditional-value' => 'custom',
+                ),
+            ) );
+            $cmb_album->add_group_field($tracklist, array(
+                'classes'       => 'ffmpeg_field srmp3-cmb2-file srmp3-settings--subitem srmp3-settings--subitem2',
                 'id'            => 'post_ad_preroll',
                 'name'          => esc_html__('Pre-roll Ad (optional)', 'sonaar-music'),
                 'type'          => 'file',
+                'text'              => array(
+                    'add_upload_file_text' => 'Upload Pre-Roll MP3' // Change upload button text. Default: "Add or Upload File"
+                ),
                 'query_args'    => array(
                     'type'          => 'audio',
                 ),
@@ -6627,10 +6722,13 @@ class Sonaar_Music_Admin {
                 ),
             ) );
             $cmb_album->add_group_field($tracklist, array(
-                'classes'       => 'ffmpeg_field srmp3-settings--subitem',
+                'classes'       => 'ffmpeg_field srmp3-cmb2-file srmp3-settings--subitem srmp3-settings--subitem2',
                 'id'            => 'post_ad_postroll',
                 'name'          => esc_html__('Post-roll Ad (optional)', 'sonaar-music'),
                 'type'          => 'file',
+                'text'              => array(
+                    'add_upload_file_text' => 'Upload Post-Roll MP3' // Change upload button text. Default: "Add or Upload File"
+                ),
                 'query_args'    => array(
                     'type'          => 'audio',
                 ),
@@ -6659,6 +6757,10 @@ class Sonaar_Music_Admin {
                     'file_text' => 'File', // default: "File:"
                     'file_download_text' => 'Listen', // default: "Download"
                     'remove_text' => 'Remove', // default: "Remove"
+                    'add_upload_file_text' => 'Upload your own MP3 Preview',
+                ),
+                'query_args'    => array(
+                    'type'          => 'audio',
                 ),
                 'label_cb'      => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
@@ -6667,7 +6769,7 @@ class Sonaar_Music_Admin {
                     'image'     => '',
                 ),
                 'attributes' => array(
-                    'placeholder'   => __('No preview file set. Full track will be played.', 'sonaar-music'),
+                    'placeholder'   => __('No preview set. Full track will be played.', 'sonaar-music'),
                     'data-conditional-id'    => wp_json_encode( array( $tracklist, 'post_audiopreview' )),
                     'data-conditional-value' => 'enabled',
                 ),
@@ -7666,7 +7768,7 @@ class Sonaar_Music_Admin {
                                 'href' => array(), 
                                 'target' => array() 
                             ),
-                            'br' => array() // No attributes needed for <br>
+                            'br' => array()
                         )
                     ), 
                     '<a href="' . esc_url( admin_url( 'edit.php?post_type=sr_playlist&page=srmp3_settings_shortcodebuilder' ) ) . '" target="_blank">', 

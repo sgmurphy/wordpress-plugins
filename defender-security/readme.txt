@@ -1,13 +1,13 @@
 === Defender Security - Malware Scanner, Login Security & Firewall ===
 Plugin Name: Defender Security - Malware Scanner, Login Security & Firewall
-Version: 4.8.0
+Version: 4.8.1
 Author: WPMU DEV
 Author URI: https://wpmudev.com/
 Contributors: WPMUDEV
 Tags: security, malware, firewall, malware scanner, login security
 Requires at least: 5.2
 Tested up to: 6.6
-Stable tag: 4.8.0
+Stable tag: 4.8.1
 Requires PHP: 7.4
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -241,6 +241,11 @@ Please open a new thread in Defender's [support forum](https://wordpress.org/sup
 4. Done!
 
 == Changelog ==
+
+= 4.8.1 ( 2024-07-23 ) =
+
+- Enhance: Improvements for Known vulnerabilities
+- Fix: Multiple redirects when Mask Login Redirect Traffic is set to custom/external URL
 
 = 4.8.0 ( 2024-07-15 ) =
 

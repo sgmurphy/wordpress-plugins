@@ -53,6 +53,7 @@ class Minification extends Page {
 
 		// We are here from a performance report - enable advanced mode.
 		if ( isset( $_GET['enable-advanced-settings'] ) ) {
+			check_admin_referer( 'wphb-enable-advanced-settings' );
 			Settings::update_setting( 'view', 'advanced', 'minify' );
 			$redirect = true;
 		}
@@ -74,6 +75,7 @@ class Minification extends Page {
 
 		// Re-check files button clicked.
 		if ( isset( $_POST['recheck-files'] ) || isset( $_GET['recheck-files'] ) ) { // Input var ok.
+			check_admin_referer( 'wphb-recheck-files' );
 			$minify_module->clear_cache( false );
 
 			$collector = $minify_module->sources_collector;

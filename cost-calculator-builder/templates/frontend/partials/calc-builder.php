@@ -57,7 +57,7 @@ $get_date_format = get_option( 'date_format' );
 		<calc-thank-you-page :class="['calc-hidden', {'calc-loaded': loader}]" v-if="hideThankYouPage" @invoice="getInvoice" @send-pdf="showSendPdf" @reset="resetCalc" :invoice_status="false"></calc-thank-you-page>
 	<?php endif; ?>
 
-	<div v-show="hideCalculator" ref="calc" class="calc-container" data-calc-id="<?php echo esc_attr( $calc_id ); ?>" :class="[boxStyle, {demoSite: showDemoBoxStyle}]">
+	<div v-show="hideCalculator" ref="calc" class="calc-container" data-calc-id="<?php echo esc_attr( $calc_id ); ?>" :class="[boxStyle, {demoSite: showDemoBoxStyle}, {'has-title': showMultiStepCalcTitle}]" :style="fullWithStepCalc">
 		<loader-wrapper v-if="loader" idx="<?php echo esc_attr( $loader_idx ); ?>" width="60px" height="60px" scale="0.9" :front="true"></loader-wrapper>
 		<div class="ccb-demo-box-styles" :class="{active: showDemoBoxStyle}">
 			<div class="ccb-box-styles">
@@ -70,98 +70,66 @@ $get_date_format = get_option( 'date_format' );
 			</div>
 		</div>
 
-		<div class="calc-fields calc-list calc-list__indexed" :class="{loaded: !loader, 'payment' : getHideCalc}">
-			<div class="calc-list-inner">
-				<div class="calc-item-title">
-					<div class="ccb-calc-heading" v-text="getTheTitle"></div>
-				</div>
-				<div v-if="calc_data" class="calc-fields-container">
-					<?php if ( is_user_logged_in() && current_user_can( 'administrator' ) ) : ?>
-						<a href="<?php echo htmlspecialchars_decode( esc_url( admin_url( 'admin.php?page=cost_calculator_builder&action=edit&id=' . $calc_id ) ) ); //phpcs:ignore ?>" target="_blank" class="ccb-calc-edit">
-							<span><i class="ccb-icon-Path-3483"></i></span>
-							<span class="ccb-calc-edit__text"><?php esc_html_e( 'Edit', 'cost-calculator-builder' ); ?></span>
-						</a>
-					<?php endif; ?>
+		<div class="calc-multi-step-title" v-if="showMultiStepCalcTitle && !loader && pageBreakEnabled" v-text="getTheTitle"></div>
 
-					<template v-for="field in calc_data.fields">
-						<template v-if="field && field.alias && field.type !== 'Total' && !field.alias.includes('group')">
-							<component
-									format="<?php esc_attr( $get_date_format ); ?>"
-									text-days="<?php esc_attr_e( 'days', 'cost-calculator-builder' ); ?>"
-									v-if="fields[field.alias] && !field.group_id"
-									:is="field._tag"
-									:id="calc_data.id"
-									:field="field"
-									:converter="currencyFormat"
-									:disabled="fields[field.alias].disabled"
-									v-model="fields[field.alias].value"
-									v-on:change="change"
-									v-on:[field._event]="change"
-									v-on:condition-apply="renderCondition"
-									@delete-repeater="deleteRepeater"
-									@add-repeater="deleteRepeater"
-									:key="!field.hasNextTick ? field.alias : field.alias + '_' + fields[field.alias].nextTickCount"
-							>
-							</component>
-						</template>
-						<template v-if="field.alias && field.alias.includes('group')">
-							<component
-									format="<?php esc_attr( $get_date_format ); ?>"
-									text-days="<?php esc_attr_e( 'days', 'cost-calculator-builder' ); ?>"
-									v-if="fields[field.alias] && !field.group_id"
-									:is="field._tag"
-									:id="calc_data.id"
-									:field="field"
-									:converter="currencyFormat"
-									:disabled="fields[field.alias].disabled"
-									v-model="fields[field.alias].value"
-									v-on:change="change"
-									v-on:[field._event]="change"
-									v-on:condition-apply="renderCondition"
-									@delete-repeater="deleteRepeater"
-									@add-repeater="deleteRepeater"
-									:key="!field.hasNextTick ? field.alias : field.alias + '_' + fields[field.alias].nextTickCount"
-							>
-								<slot>
-									<template v-for="element in calc_data.fields">
-										<component
-												format="<?php esc_attr( $get_date_format ); ?>"
-												text-days="<?php esc_attr_e( 'days', 'cost-calculator-builder' ); ?>"
-												v-if="fields[element.alias] && element.group_id === field.alias"
-												:is="element._tag"
-												:id="calc_data.id"
-												:field="element"
-												:converter="currencyFormat"
-												:disabled="fields[element.alias].disabled"
-												v-model="fields[element.alias].value"
-												v-on:change="change"
-												v-on:[element._event]="change"
-												v-on:condition-apply="renderCondition"
-												@delete-repeater="deleteRepeater"
-												@add-repeater="deleteRepeater"
-												:key="!element.hasNextTick ? element.alias : element.alias + '_' + fields[element.alias].nextTickCount"
-										>
-										</component>
-									</template>
-								</slot>
-							</component>
-						</template>
-						<template v-else-if="field && !field.alias && field.type !== 'Total'">
-							<component
-									:id="calc_data.id"
-									style="boxStyle"
-									:is="field._tag"
-									:field="field"
-							>
-							</component>
-						</template>
-					</template>
+		<div class="calc-fields calc-list calc-list__indexed" :class="{loaded: !loader, 'payment' : getHideCalc}">
+			<?php if ( is_user_logged_in() && current_user_can( 'administrator' ) ) : ?>
+				<a href="<?php echo htmlspecialchars_decode( esc_url( admin_url( 'admin.php?page=cost_calculator_builder&action=edit&id=' . $calc_id ) ) ); //phpcs:ignore ?>"
+				target="_blank" class="ccb-calc-edit">
+					<span><i class="ccb-icon-Path-3483"></i></span>
+					<span class="ccb-calc-edit__text"><?php esc_html_e( 'Edit', 'cost-calculator-builder' ); ?></span>
+				</a>
+			<?php endif; ?>
+			<calc-page-navigation
+				:count="totalPages"
+				:index="activePageIndex"
+				:pages="getPages"
+				v-if="pageBreakEnabled"
+			>
+			</calc-page-navigation>
+
+			<template v-if="pageBreakEnabled">
+				<?php require_once CALC_DIR . '/templates/frontend/partials/multi-step.php'; ?>
+			</template>
+			<template v-else>
+				<?php require_once CALC_DIR . '/templates/frontend/partials/default.php'; ?>
+			</template>
+
+			<div class="calc-page-navigation" :class="{'show-totals': totalsInPages}" v-if="pageBreakEnabled">
+				<div class="calc-page-navigation__total" v-if="totalsInPages">
+					<div class="totals">
+						<div class="totals-item">
+							<template v-for="item in pageBreakRepeaterFormula">
+								<cost-total :value="item.total" :discount="item.discount" :field="item.data" :id="calc_data.id" @condition-apply="renderCondition"></cost-total>
+							</template>
+							<template v-for="item in pageBreakTotals">
+								<div v-if="formulaConst.length === 1 && typeof formulaConst[0].alias === 'undefined'" style="display: flex" class="sub-list-item total">
+									<span class="sub-item-title"><?php esc_html_e( 'Total', 'cost-calculator-builder' ); ?></span>
+									<span class="sub-item-value" style="white-space: nowrap">{{ item.data.converted }}</span>
+								</div>
+								{{ item.discount }}
+								<cost-total v-else :value="item.total" :discount="item.discount" :field="item.data" :id="calc_data.id" @condition-apply="renderCondition"></cost-total>
+							</template>
+						</div>
+					</div>
+					<div class="summary">
+						<span @click="showSummaryPopup">Show summary</span>
+					</div>
+				</div>
+				<div class="calc-page-navigation__actions">
+					<button class="back" @click="prevPage" v-if="activePageIndex !== 0 ">
+						<i class="ccb-icon-Arrow-Previous"></i>
+						<span>{{ currentPagePrevBtn }}</span>
+					</button>
+					<button class="next" :class="{'disable': !pageConditionResult}" @click="nextPage" v-if="activePageIndex + 1 !== totalPages">
+						<span>{{ currentPageNextBtn }}</span>
+						<i class="ccb-icon-Arrow-Previous" style="transform: rotate(180deg);"></i>
+					</button>
 				</div>
 			</div>
 		</div>
-
-		<div class="calc-subtotal calc-list" :id="getTotalStickyId" :class="{loaded: !loader}">
-			<div class="calc-subtotal-wrapper">
+		<div class="calc-subtotal calc-list" :id="getTotalStickyId" :class="{loaded: !loader}" v-if="!summaryInLastPage || !pageBreakEnabled">
+			<div class="calc-subtotal-wrapper" :class="{ 'calc-page-break-subtotal-wrapper': !checkLastPage && pageBreakEnabled}">
 				<div class="calc-list-inner">
 					<div class="calc-item-title calc-accordion" v-show="!summaryDisplay || showAfterSubmit">
 						<div class="ccb-calc-heading">
@@ -299,8 +267,8 @@ $get_date_format = get_option( 'date_format' );
 					<calc-notices :notice="noticeData"/>
 				</div>
 			</div>
-
-			<calc-invoice
+		</div>
+		<calc-invoice
 					ref="invoice"
 					company-name="<?php echo isset( $general_settings['invoice']['companyName'] ) ? esc_attr( $general_settings['invoice']['companyName'] ) : ''; ?>"
 					company-info="<?php echo isset( $general_settings['invoice']['companyInfo'] ) ? esc_attr( $general_settings['invoice']['companyInfo'] ) : ''; ?>"
@@ -313,6 +281,5 @@ $get_date_format = get_option( 'date_format' );
 					:summary-fields="getTotalSummaryFields"
 					site-lang="<?php echo esc_attr( get_bloginfo( 'language' ) ); ?>"
 			/>
-		</div>
 	</div>
 </div>

@@ -11,7 +11,14 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 	public $post_type = LP_COURSE_CPT;
 
 	public function add_meta_box() {
-		add_meta_box( 'course-settings', esc_html__( 'Course Settings', 'learnpress' ), array( $this, 'output' ), $this->post_type, 'normal', 'high' );
+		add_meta_box(
+			'course-settings',
+			esc_html__( 'Course Settings', 'learnpress' ),
+			array( $this, 'output' ),
+			$this->post_type,
+			'normal',
+			'high'
+		);
 	}
 
 	public function metabox( $post_id ) {
@@ -70,7 +77,7 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 		return $tabs;
 	}
 
-	public function general( $thepostid ) {
+	public function general( $post_id ) {
 		$repurchase_option_desc  = sprintf( '1. %s', __( 'Reset course progress: The course progress and results of student will be removed.' ) );
 		$repurchase_option_desc .= '<br/>' . sprintf( '2. %s', __( 'Keep course progress: The course progress and results of student will remain.' ) );
 		$repurchase_option_desc .= '<br/>' . sprintf( '3. %s', __( 'Open popup: The student can decide whether their course progress will be reset with the confirm popup.' ) );
@@ -196,10 +203,10 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 	 *
 	 * @param $post_id
 	 *
-	 * @author tungnx
+	 * @return array
 	 * @since 4.1.5
 	 * @version 1.0.0
-	 * @return array
+	 * @author tungnx
 	 */
 	public function lp_price( $post_id ): array {
 		$key_exists    = LP_Database::getInstance()->check_key_postmeta_exists( $post_id, '_lp_regular_price' );
@@ -269,33 +276,64 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 	public function author( $thepostid ) {
 		$post = get_post( $thepostid );
 
-		$author = $post ? $post->post_author : get_current_user_id();
+		$author_id = $post ? $post->post_author : get_current_user_id();
 
 		$options = array();
-		$role    = array( 'administrator', 'lp_teacher' );
+		// Code old only use for addon Frontend Editor v4.0.4
+		// Code old only use for addon Co-Instructor v4.0.2
+		$can_get_options_users = false;
+		if ( class_exists( 'LP_Addon_Frontend_Editor_Preload' )
+			&& defined( 'LP_ADDON_FRONTEND_EDITOR_VER' )
+			&& version_compare( LP_ADDON_FRONTEND_EDITOR_VER, '4.0.5', '<' ) ) {
+			$can_get_options_users = true;
+		}
 
-		$role = apply_filters( 'learn_press_course_author_role_meta_box', $role );
+		if ( $can_get_options_users ) {
+			$author_roles = array( ADMIN_ROLE, LP_TEACHER_ROLE );
+			$author_roles = apply_filters( 'learn_press_course_author_role_meta_box', $author_roles );
+			$authors      = get_users( [ 'role__in' => $author_roles ] );
 
-		foreach ( $role as $_role ) {
-			$users_by_role = get_users( array( 'role' => $_role ) );
-
-			if ( $users_by_role ) {
-				foreach ( $users_by_role as $user ) {
-					$options[ $user->get( 'ID' ) ] = $user->user_login;
-				}
+			/**
+			 * @var WP_User $author
+			 */
+			foreach ( $authors as $author ) {
+				$options[ $author->ID ] = $author->display_name . ' (#' . $author->ID . ')';
 			}
 		}
+		// Code old only use for addon Frontend Editor v4.0.4
+
+		$data_struct = [
+			'urlApi'      => get_rest_url( null, 'lp/v1/admin/tools/search-user' ),
+			'dataSendApi' => [
+				'role_in' => ADMIN_ROLE . ',' . LP_TEACHER_ROLE,
+			],
+			'dataType'    => 'users',
+			'keyGetValue' => [
+				'value'      => 'ID',
+				'text'       => '{{display_name}}(#{{ID}})',
+				'key_render' => [
+					'display_name' => 'display_name',
+					'user_email'   => 'user_email',
+					'ID'           => 'ID',
+				],
+			],
+			'setting'     => [
+				'plugins' => array(),
+			],
+		];
 
 		return apply_filters(
 			'lp/course/meta-box/fields/author',
 			array(
-				'_lp_course_author' => new LP_Meta_Box_Select_Field(
+				'post_author' => new LP_Meta_Box_Select_Field(
 					esc_html__( 'Author', 'learnpress' ),
 					'',
-					$author,
+					$author_id,
 					array(
-						'options' => $options,
-						'style'   => 'min-width:200px;',
+						'options'           => $options,
+						'style'             => 'min-width:200px;',
+						'tom_select'        => true,
+						'custom_attributes' => [ 'data-struct' => htmlentities2( json_encode( $data_struct ) ) ],
 					)
 				),
 			)
@@ -445,7 +483,8 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 							}
 							?>
 							<?php if ( isset( $tab_content['content'] ) ) { ?>
-								<div id="<?php echo esc_attr( $tab_content['target'] ); ?>" class="lp-meta-box-course-panels">
+								<div id="<?php echo esc_attr( $tab_content['target'] ); ?>"
+									class="lp-meta-box-course-panels">
 									<?php
 									do_action( 'learnpress/course-settings/before-' . $key );
 
@@ -476,7 +515,7 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 		<?php
 	}
 
-	public function save( $post_id ) {
+	/*public function save( $post_id ) {
 		if ( ! empty( $this->metabox( $post_id ) ) ) {
 			foreach ( $this->metabox( $post_id ) as $key => $tab_content ) {
 				if ( isset( $tab_content['content'] ) ) {
@@ -535,7 +574,7 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 
 			$wpdb->update( $wpdb->posts, array( 'post_author' => $author ), array( 'ID' => $post_id ) );
 		}
-	}
+	}*/
 
 	private static function data_tabs_sort( $a, $b ) {
 		if ( ! isset( $a['priority'], $b['priority'] ) ) {
@@ -547,113 +586,6 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 		}
 
 		return $a['priority'] < $b['priority'] ? - 1 : 1;
-	}
-
-	/**
-	 * In child theme use metabox in v3,
-	 * so need use for child theme.
-	 * function in child: thim_add_course_meta.
-	 *
-	 * @return void
-	 */
-	public static function eduma_child_metabox_v3( $meta_boxes ) {
-		if ( ! empty( $meta_boxes['fields'] ) ) {
-			foreach ( $meta_boxes['fields'] as $setting ) {
-				$field = wp_parse_args(
-					$setting,
-					array(
-						'id'   => '',
-						'name' => '',
-						'desc' => '',
-						'std'  => '',
-					)
-				);
-
-				switch ( $field['type'] ) {
-					case 'text':
-					case 'number':
-						lp_meta_box_text_input_field(
-							array(
-								'id'                => $field['id'],
-								'label'             => isset( $field['label'] ) ? $field['label'] : $field['name'],
-								'description'       => isset( $field['description'] ) ? $field['description'] : $field['desc'],
-								'type'              => $field['type'],
-								'default'           => isset( $field['default'] ) ? $field['default'] : $field['std'],
-								'custom_attributes' => isset( $field['custom_attributes'] ) ? $field['custom_attributes'] : '',
-							)
-						);
-						break;
-
-					case 'textarea':
-						lp_meta_box_textarea_field(
-							array(
-								'id'                => $field['id'],
-								'label'             => isset( $field['label'] ) ? $field['label'] : $field['name'],
-								'description'       => isset( $field['description'] ) ? $field['description'] : $field['desc'],
-								'default'           => isset( $field['default'] ) ? $field['default'] : $field['std'],
-								'custom_attributes' => isset( $field['custom_attributes'] ) ? $field['custom_attributes'] : '',
-							)
-						);
-						break;
-
-					case 'checkbox':
-						lp_meta_box_checkbox_field(
-							array(
-								'id'          => $field['id'],
-								'label'       => isset( $field['label'] ) ? $field['label'] : $field['name'],
-								'description' => isset( $field['description'] ) ? $field['description'] : $field['desc'],
-								'default'     => isset( $field['default'] ) ? $field['default'] : $field['std'],
-							)
-						);
-						break;
-
-					case 'duration':
-						lp_meta_box_duration_field(
-							array(
-								'id'                => $field['id'],
-								'label'             => isset( $field['label'] ) ? $field['label'] : $field['name'],
-								'default_time'      => $field['default_time'],
-								'default'           => isset( $field['default'] ) ? $field['default'] : $field['std'],
-								'description'       => isset( $field['description'] ) ? $field['description'] : $field['desc'],
-								'default'           => isset( $field['default'] ) ? $field['default'] : $field['std'],
-								'custom_attributes' => isset( $field['custom_attributes'] ) ? $field['custom_attributes'] : '',
-							)
-						);
-						break;
-
-					case 'select':
-						lp_meta_box_select_field(
-							array(
-								'id'                => $field['id'],
-								'label'             => isset( $field['label'] ) ? $field['label'] : $field['name'],
-								'default'           => isset( $field['default'] ) ? $field['default'] : $field['std'],
-								'description'       => isset( $field['description'] ) ? $field['description'] : $field['desc'],
-								'options'           => $field['options'],
-								'default'           => isset( $field['default'] ) ? $field['default'] : $field['std'],
-								'custom_attributes' => isset( $field['custom_attributes'] ) ? $field['custom_attributes'] : '',
-							)
-						);
-						break;
-
-					case 'select_advanced':
-						lp_meta_box_select_field(
-							array(
-								'id'                => $field['id'],
-								'label'             => isset( $field['label'] ) ? $field['label'] : $field['name'],
-								'default'           => isset( $field['default'] ) ? $field['default'] : $field['std'],
-								'description'       => isset( $field['description'] ) ? $field['description'] : $field['desc'],
-								'options'           => $field['options'],
-								'multiple'          => true,
-								'default'           => isset( $field['default'] ) ? $field['default'] : $field['std'],
-								'wrapper_class'     => 'lp-select-2',
-								'style'             => 'min-width: 200px',
-								'custom_attributes' => isset( $field['custom_attributes'] ) ? $field['custom_attributes'] : '',
-							)
-						);
-						break;
-				}
-			}
-		}
 	}
 
 	public static function save_eduma_child_metabox_v3( $post_id ) {

@@ -123,11 +123,11 @@ if (!class_exists('UserFeedbackGutenbergMetabox')) {
 					'supports_custom_fields'       => post_type_supports($posttype, 'custom-fields'),
 					'public_post_type'             => $posttype ? is_post_type_viewable($posttype) : 0,
 					'upgrade_url'                  => userfeedback_get_upgrade_link('lite-metabox', 'disable-all-surveys', 'https://www.userfeedback.com/lite/'),
-					'addons_url'                   => admin_url('admin.php?page=userfeedback_settings#/addons'),
+					'addons_url'                   => admin_url('admin.php?page=userfeedback_addons'),
 					'create_survey_link'           => admin_url('admin.php?page=userfeedback_surveys#/new/setup'),
 					'all_surveys_link'             => admin_url('admin.php?page=userfeedback_surveys'),
 					'isnetwork'                    => is_network_admin(),
-					'addons'                       => userfeedback_get_parsed_addons(),
+					'addons'                       => ! userfeedback_is_pro_version() ? array() : userfeedback_get_parsed_addons(),
 					'surveys'                      => $survey_options
 				))
 			);

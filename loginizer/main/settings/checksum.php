@@ -132,8 +132,10 @@ function loginizer_page_checksums_T(){
 	
 	loginizer_feature_available('File Checksum');
 	
-	wp_enqueue_script('jquery-clockpicker', LOGINIZER_URL.'/assets/js/jquery-clockpicker.min.js', array('jquery'), '0.0.7');
-	wp_enqueue_style('jquery-clockpicker', LOGINIZER_URL.'/assets/css/jquery-clockpicker.min.css', array(), '0.0.7');
+	if(defined('LOGINIZER_PRO_DIR_URL')){
+		wp_enqueue_script('jquery-clockpicker', LOGINIZER_PRO_DIR_URL.'/assets/js/jquery-clockpicker.min.js', array('jquery'), '0.0.7');
+		wp_enqueue_style('jquery-clockpicker', LOGINIZER_PRO_DIR_URL.'/assets/css/jquery-clockpicker.min.css', array(), '0.0.7');
+	}
 	
 	// Saved ?
 	if(!empty($GLOBALS['lz_saved'])){
@@ -215,7 +217,7 @@ function lz_apply_status(ele, the_class){
 					<select name="checksum_frequency">
 						<?php
 							foreach($lz_env['csum_freq'] as $k => $v){
-								echo '<option '.lz_POSTselect('checksum_frequency', $k, ($loginizer['checksum_frequency'] == $k ? true : false)).' value="'.$k.'">'.$v.'</value>';								
+								echo '<option '.lz_POSTselect('checksum_frequency', $k, ((!empty($loginizer['checksum_frequency']) && $loginizer['checksum_frequency'] == $k) ? true : false)).' value="'.$k.'">'.$v.'</value>';								
 							}
 						?>
 					</select>

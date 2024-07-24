@@ -39,7 +39,13 @@ class SocialIconBlock extends BlockBase {
 			self::LINK => array_merge(
 				$link_attributes,
 				array(
-					'aria-label' => esc_attr(sprintf( __( 'Social link: %s', 'kubio' ), Arr::get( $link, 'value', '' ) )),
+					'aria-label' => esc_attr(
+						sprintf(
+						// translators: %s: social link value
+							__( 'Social link: %s', 'kubio' ),
+							Arr::get( $link, 'value', '' )
+						)
+					),
 				)
 			),
 

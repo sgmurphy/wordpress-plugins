@@ -11,7 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="pro-notice"><strong><?php echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'wp-slick-slider-and-image-carousel'), WPSISAC_PLUGIN_LINK_UNLOCK); ?></strong></div>
+<!-- <div class="pro-notice"><strong><?php // echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'wp-slick-slider-and-image-carousel'), WPSISAC_PLUGIN_LINK_UNLOCK); ?></strong></div> -->
+
+<div class="pro-notice">
+	<strong>
+		<?php echo sprintf( __( 'Try All These <a href="%s" target="_blank">PRO Features in Essential Bundle Free For 5 Days.</a>', 'wp-slick-slider-and-image-carousel'), WPSISAC_PRO_FREE_5_day_LINK); ?>
+	</strong>
+</div>
 
 <table class="form-table wpsisac-metabox-table">
 	<tbody>
