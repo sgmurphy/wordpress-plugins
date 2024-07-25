@@ -391,6 +391,14 @@
     width: 64px;
     border-radius: 5px;
 }
+[id^=sb-reviews-container-] .sb-single-image {
+    background-position: center center;
+    background-size: cover;
+}
+[id^=sb-reviews-container-] .sb-single-image img{
+    opacity: 0;
+    visibility: hidden
+}
 [id^=sb-reviews-container-] .sb-btn {
     align-items: center;
     border: 0;

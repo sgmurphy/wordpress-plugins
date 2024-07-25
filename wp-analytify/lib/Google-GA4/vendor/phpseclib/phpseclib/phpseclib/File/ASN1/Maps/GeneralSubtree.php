@@ -10,9 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\File\ASN1\Maps;
 
-use Analytify\phpseclib3\File\ASN1;
+namespace phpseclib3\File\ASN1\Maps;
+
+use phpseclib3\File\ASN1;
+
 /**
  * GeneralSubtree
  *
@@ -20,5 +22,21 @@ use Analytify\phpseclib3\File\ASN1;
  */
 abstract class GeneralSubtree
 {
-    const MAP = ['type' => ASN1::TYPE_SEQUENCE, 'children' => ['base' => GeneralName::MAP, 'minimum' => ['constant' => 0, 'optional' => \true, 'implicit' => \true, 'default' => '0'] + BaseDistance::MAP, 'maximum' => ['constant' => 1, 'optional' => \true, 'implicit' => \true] + BaseDistance::MAP]];
+    const MAP = [
+        'type' => ASN1::TYPE_SEQUENCE,
+        'children' => [
+            'base' => GeneralName::MAP,
+            'minimum' => [
+                'constant' => 0,
+                'optional' => true,
+                'implicit' => true,
+                'default' => '0'
+            ] + BaseDistance::MAP,
+            'maximum' => [
+                'constant' => 1,
+                'optional' => true,
+                'implicit' => true,
+            ] + BaseDistance::MAP
+        ]
+    ];
 }

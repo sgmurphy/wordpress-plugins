@@ -9,6 +9,7 @@ namespace SmashBalloon\Reviews\Vendor\PhpDocReader\PhpParser;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Christian Kaps <christian.kaps@mohiva.com>
+ * @internal
  */
 class TokenParser
 {

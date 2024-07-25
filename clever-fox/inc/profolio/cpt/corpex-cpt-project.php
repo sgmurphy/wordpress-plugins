@@ -58,10 +58,10 @@
 
 			
 			<div class="inside">	
-				<p><label><?php _e('Project URL','clever-fox');?></label></p>
-				<p><input style="width:100%; height:40px; padding: 10px;"  name="project_button_link" placeholder="<?php _e('Project URL','clever-fox');?>" type="text" value="<?php if (!empty($project_button_link)) echo esc_attr($project_button_link);?>">&nbsp;</input></p>
+				<p><label><?php esc_html_e('Project URL','clever-fox');?></label></p>
+				<p><input style="width:100%; height:40px; padding: 10px;"  name="project_button_link" placeholder="<?php esc_attr_e('Project URL','clever-fox');?>" type="text" value="<?php if (!empty($project_button_link)) echo esc_attr($project_button_link);?>">&nbsp;</input></p>
 				<p> <input name="project_button_link_target" type="checkbox" <?php if(!empty($project_button_link_target)) echo "checked"; ?> > </input>
-				<label><?php _e('Open link in a new tab','clever-fox'); ?> </label> </p>
+				<label><?php esc_html_e('Open link in a new tab','clever-fox'); ?> </label> </p>
 			</div>				
 			
 		<?php 	
@@ -70,6 +70,11 @@
 
 		function corpex_meta_project_save($post_id) 
 		{
+			// Verify nonce
+			if (!isset($_POST['corpex_meta_project_nonce']) || !wp_verify_nonce($_POST['corpex_meta_project_nonce'], 'corpex_meta_project_nonce')) {
+				return;
+			}
+			
 			if(isset( $_POST['post_ID']))
 			{ 	
 				$post_ID = $_POST['post_ID'];				
@@ -101,35 +106,33 @@
 		//Default category id		
 		$defualt_tex_id = get_option('custom_texo_project_id');
 		//quick update category
-		if((isset($_POST['action'])) && (isset($_POST['taxonomy']))){		
-			wp_update_term($_POST['tax_ID'], 'project_categories', array(
-			  'name' => $_POST['name'],
-			  'slug' => $_POST['slug']
-			));	
-			update_option('custom_texo_project_id', $defualt_tex_id);
-		}
-		else 
-		{ 	//insert default category 
-			if(!$defualt_tex_id){
-				wp_insert_term('All','project_categories', array('description'=> 'Default Category','slug' => 'All'));
-				$Current_text_id = term_exists('All', 'project_categories');
-				update_option('custom_texo_project_id', $Current_text_id['term_id']);
+		if (isset($_POST['action'])) {
+        // Verify nonce
+			if (!isset($_POST['corpex_taxonomy_nonce']) || !wp_verify_nonce($_POST['corpex_taxonomy_nonce'], 'corpex_taxonomy_nonce')) {
+				return;
+			}
+
+			// Update or insert term based on action
+			if ($_POST['action'] === 'update-tag' && isset($_POST['taxonomy']) && $_POST['taxonomy'] === 'project_categories') {
+				wp_update_term($_POST['tag_ID'], 'project_categories', array(
+					'name' => sanitize_text_field($_POST['name']),
+					'slug' => sanitize_title($_POST['slug']),
+					'description' => sanitize_text_field($_POST['description'])
+				));
+			} elseif ($_POST['action'] === 'add-tag' && empty($default_tex_id)) {
+				$term = wp_insert_term('All', 'project_categories', array(
+					'description' => 'Default Category',
+					'slug' => 'all' // Ensure lowercase slug
+				));
+				if (!is_wp_error($term)) {
+					update_option('custom_texo_project_id', $term['term_id']);
+				}
 			}
 		}
-		//update category
-		if(isset($_POST['submit']) && isset($_POST['action']) )
-		{	wp_update_term(isset($_POST['tag_ID']), 'project_categories', array(
-			  'name' => isset($_POST['name']),
-			  'slug' => isset($_POST['slug']),
-			  'description' => isset($_POST['description'])
-			));
-		}
-		// Delete default category
-		if(isset($_POST['action']) && isset($_POST['tag_ID']) )
-		{	if(($_POST['tag_ID'] == $defualt_tex_id) && $_POST['action']	 =="delete-tag")
-			{	
-				delete_option('custom_texo_project_id'); 
-			} 
+
+		// Delete default category if requested
+		if (isset($_POST['action']) && $_POST['action'] === 'delete-tag' && isset($_POST['tag_ID']) && $_POST['tag_ID'] == $default_tex_id) {
+			delete_option('custom_texo_project_id');
 		}
 	}
 	add_action( 'init', 'corpex_project_taxonomy' );

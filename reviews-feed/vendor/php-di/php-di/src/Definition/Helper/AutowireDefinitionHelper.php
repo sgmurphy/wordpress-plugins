@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Helper;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\AutowireDefinition;
@@ -8,6 +8,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\AutowireDefinition;
  * Helps defining how to create an instance of a class using autowiring.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class AutowireDefinitionHelper extends CreateDefinitionHelper
 {

@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class ResponseWpf {
 	public $code = 0;
 	public $error = false;

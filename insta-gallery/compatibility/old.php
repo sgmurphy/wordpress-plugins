@@ -40,6 +40,10 @@ add_filter(
 	'option_insta_gallery_accounts',
 	function( $accounts ) {
 
+		if ( ! is_array( $accounts ) ) {
+			return array();
+		}
+
 		foreach ( $accounts as $i => $account ) {
 			$is_old = isset( $account['token_type'] );
 

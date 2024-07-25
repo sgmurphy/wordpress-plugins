@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.5.7
+Stable tag: 6.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -155,6 +155,11 @@ Categories are the essential key to get products into search results. It is best
 4. Category Mapping
 
 == Changelog ==
+
+= 6.5.8 (2024-07-25) =
+* Fixed: PHP notice error issue
+* Fixed: Status page loading issue for WooCommerce version before 9.0
+* Tweak: WordPress 6.6 compatibility checked.
 
 = 6.5.7 (2024-07-15) =
 * Fixed: Plugin security issue

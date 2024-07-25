@@ -136,7 +136,6 @@ const ClassicPreview = () => {
 					<PreviousStepLink
 						className="w-full"
 						onClick={ lastStep }
-						before
 						customizeStep={ true }
 					>
 						{ __( 'Back', 'astra-sites' ) }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * Copyright 2018 gRPC authors.
@@ -23,12 +22,13 @@ namespace Grpc\Gcp;
  * Represents an active call that sends a stream of messages and then gets
  * a single response.
  */
-class GCPClientStreamCall extends \Grpc\Gcp\GcpBaseCall
+class GCPClientStreamCall extends GcpBaseCall
 {
     protected function createRealCall($data = null)
     {
         $channel_ref = $this->_rpcPreProcess($data);
-        $this->real_call = new \Grpc\ClientStreamingCall($channel_ref->getRealChannel($this->gcp_channel->credentials), $this->method, $this->deserialize, $this->options);
+        $this->real_call = new \Grpc\ClientStreamingCall($channel_ref->getRealChannel(
+          $this->gcp_channel->credentials), $this->method, $this->deserialize, $this->options);
         $this->real_call->start($this->metadata_rpc);
         return $this->real_call;
     }
@@ -44,6 +44,7 @@ class GCPClientStreamCall extends \Grpc\Gcp\GcpBaseCall
         // from the channel pool.
         $this->metadata_rpc = $metadata;
     }
+
     /**
      * Write a single message to the server. This cannot be called after
      * wait is called.
@@ -56,10 +57,11 @@ class GCPClientStreamCall extends \Grpc\Gcp\GcpBaseCall
     {
         if (!$this->has_real_call) {
             $this->createRealCall($data);
-            $this->has_real_call = \true;
+            $this->has_real_call = true;
         }
         $this->real_call->write($data, $options);
     }
+
     /**
      * Wait for the server to respond with data and a status.
      *

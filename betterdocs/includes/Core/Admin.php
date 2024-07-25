@@ -284,7 +284,7 @@ class Admin extends Base {
                 'start'       => $notices->time(),
                 'recurrence'  => false,
                 'dismissible' => true,
-                'display_if'  => current_user_can( 'delete_users' )
+                //'display_if'  => current_user_can( 'delete_users' )
             ] );
         }
 
@@ -646,10 +646,6 @@ class Admin extends Base {
                 'admin_ui' => 'dnd'
             ] );
         }
-
-        // betterdocs()->views->get( 'admin/main', [
-        //     'admin_ui' => 'dnd'
-        // ] );
     }
 
     /**

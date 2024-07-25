@@ -9,6 +9,7 @@ const useBuildSiteController = () => {
 	const {
 		setWebsiteInfoAIStep,
 		setLimitExceedModal,
+		setApiErrorModal,
 		updateImportAiSiteData,
 	} = useDispatch( STORE_KEY );
 	const {
@@ -179,10 +180,38 @@ const useBuildSiteController = () => {
 			} );
 			nextStep();
 		} else {
-			// Handle error.
-			setLimitExceedModal( {
-				open: true,
-			} );
+			const error = response?.data?.data?.errors,
+				statusCode = response?.data?.http_status_code,
+				message = response?.data?.data?.message,
+				code = response?.data?.data?.code;
+
+			if ( 422 === statusCode || 403 === statusCode ) {
+				if ( error ) {
+					setApiErrorModal( {
+						open: true,
+						message,
+						error,
+					} );
+				} else if (
+					'site_creation_limit_exceeded' === code ||
+					message.includes( 'limit' )
+				) {
+					// Handle site limit exceed error.
+					setLimitExceedModal( {
+						open: true,
+					} );
+				} else {
+					setApiErrorModal( {
+						open: true,
+						error,
+					} );
+				}
+			} else {
+				setApiErrorModal( {
+					open: true,
+					error,
+				} );
+			}
 
 			setIsInProgress( false );
 		}

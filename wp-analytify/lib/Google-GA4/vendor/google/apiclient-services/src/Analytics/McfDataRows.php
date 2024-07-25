@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,46 +14,48 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\Analytics;
 
 class McfDataRows extends \Google\Collection
 {
-    protected $collection_key = 'conversionPathValue';
-    protected $conversionPathValueType = \Google\Service\Analytics\McfDataRowsConversionPathValue::class;
-    protected $conversionPathValueDataType = 'array';
-    public $conversionPathValue = [];
-    /**
-     * @var string
-     */
-    public $primitiveValue;
-    /**
-     * @param McfDataRowsConversionPathValue[]
-     */
-    public function setConversionPathValue($conversionPathValue)
-    {
-        $this->conversionPathValue = $conversionPathValue;
-    }
-    /**
-     * @return McfDataRowsConversionPathValue[]
-     */
-    public function getConversionPathValue()
-    {
-        return $this->conversionPathValue;
-    }
-    /**
-     * @param string
-     */
-    public function setPrimitiveValue($primitiveValue)
-    {
-        $this->primitiveValue = $primitiveValue;
-    }
-    /**
-     * @return string
-     */
-    public function getPrimitiveValue()
-    {
-        return $this->primitiveValue;
-    }
+  protected $collection_key = 'conversionPathValue';
+  protected $conversionPathValueType = McfDataRowsConversionPathValue::class;
+  protected $conversionPathValueDataType = 'array';
+  /**
+   * @var string
+   */
+  public $primitiveValue;
+
+  /**
+   * @param McfDataRowsConversionPathValue[]
+   */
+  public function setConversionPathValue($conversionPathValue)
+  {
+    $this->conversionPathValue = $conversionPathValue;
+  }
+  /**
+   * @return McfDataRowsConversionPathValue[]
+   */
+  public function getConversionPathValue()
+  {
+    return $this->conversionPathValue;
+  }
+  /**
+   * @param string
+   */
+  public function setPrimitiveValue($primitiveValue)
+  {
+    $this->primitiveValue = $primitiveValue;
+  }
+  /**
+   * @return string
+   */
+  public function getPrimitiveValue()
+  {
+    return $this->primitiveValue;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\Analytics\McfDataRows::class, 'Analytify\\Google_Service_Analytics_McfDataRows');
+class_alias(McfDataRows::class, 'Google_Service_Analytics_McfDataRows');

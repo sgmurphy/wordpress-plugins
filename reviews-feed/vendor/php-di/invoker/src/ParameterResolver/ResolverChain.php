@@ -9,6 +9,7 @@ use ReflectionFunctionAbstract;
  * Chain of responsibility pattern.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ResolverChain implements ParameterResolver
 {

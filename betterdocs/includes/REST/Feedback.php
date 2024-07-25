@@ -92,17 +92,30 @@ class Feedback extends BaseAPI {
 
     public function get_total_views( $object, $field_name, $request ) {
         $analytics = $this->analytics_by_post_id( $object['id'] );
-        return $analytics[0]->totalViews;
+
+        if ( ! empty( $analytics ) ) {
+            return isset( $analytics[0]->totalViews ) ? $analytics[0]->totalViews : 0;
+        } else {
+            return 0;
+        }
     }
 
     public function get_reaction_count( $object, $field_name, $request ) {
         $analytics = $this->analytics_by_post_id( $object['id'] );
 
-        return [
-            'happy'  => $analytics[0]->totalHappy,
-            'normal' => $analytics[0]->totalNormal,
-            'sad'    => $analytics[0]->totalSad
-        ];
+        if ( ! empty( $analytics ) ) {
+            return [
+                'happy'  => isset( $analytics[0]->totalHappy ) ? $analytics[0]->totalHappy : 0,
+                'normal' => isset( $analytics[0]->totalNormal ) ? $analytics[0]->totalNormal : 0,
+                'sad'    => isset( $analytics[0]->totalSad ) ? $analytics[0]->totalSad : 0
+            ];
+        } else {
+            return [
+                'happy'  => 0,
+                'normal' => 0,
+                'sad'    => 0
+            ];
+        }
     }
 
     public function save( WP_REST_Request $request ) {

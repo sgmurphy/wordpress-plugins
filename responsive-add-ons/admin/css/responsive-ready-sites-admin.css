@@ -1907,18 +1907,6 @@ input:checked + .ready-site-import-option-input-slider:before {
     top: -1px;
     width: 10px;
 }
-.ready-sites-import-progress-bar-bg .ready-sites-import-progress-bar.import-stage-1{
-	width: 25%;
-}
-.ready-sites-import-progress-bar-bg .ready-sites-import-progress-bar.import-stage-2{
-	width: 50%;
-}
-.ready-sites-import-progress-bar-bg .ready-sites-import-progress-bar.import-stage-3{
-	width: 75%;
-}
-.ready-sites-import-progress-bar-bg .ready-sites-import-progress-bar.import-stage-4{
-	width: 100%;
-}
 .ready-sites-import-progress-bar-bg .ready-sites-import-progress-bar.import-done{
 	background: #10B981;
 	width: 100%;

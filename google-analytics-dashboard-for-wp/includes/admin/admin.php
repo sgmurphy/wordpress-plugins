@@ -27,7 +27,7 @@ function exactmetrics_admin_menu()
 {
 	$hook             = exactmetrics_get_menu_hook();
 	$menu_icon_inline = exactmetrics_get_inline_menu_icon();
-	$newIndicator     = sprintf(
+	$new_indicator     = sprintf(
 		'<span class="exactmetrics-menu-new-indicator">&nbsp;%s</span>',
 		__( 'NEW', 'google-analytics-dashboard-for-wp' )
 	);
@@ -75,7 +75,11 @@ function exactmetrics_admin_menu()
 
 	$submenu_base = add_query_arg('page', 'exactmetrics_settings', admin_url('admin.php'));
 
+    //  Site Notes
 	add_submenu_page( $hook, __( 'Site Notes:', 'google-analytics-dashboard-for-wp' ), __( 'Site Notes', 'google-analytics-dashboard-for-wp' ), 'exactmetrics_save_settings', $submenu_base . '#/site-notes' );
+
+    //  AI Insights
+    add_submenu_page( $hook, __( 'AI Insights:', 'google-analytics-dashboard-for-wp' ), sprintf(__( '%s AI Insights', 'google-analytics-dashboard-for-wp' ), exactmetrics_get_ai_menu_icon()), 'exactmetrics_save_settings', 'admin.php?page=exactmetrics_reports#/ai-insights' );
 
 	// Add Popular Posts menu item.
 	add_submenu_page($hook, __('Popular Posts:', 'google-analytics-dashboard-for-wp'), __('Popular Posts', 'google-analytics-dashboard-for-wp'), 'exactmetrics_save_settings', $submenu_base . '#/popular-posts');
@@ -103,7 +107,7 @@ function exactmetrics_admin_menu()
 	add_submenu_page(
 		$hook,
 		__('UserFeedback:', 'google-analytics-dashboard-for-wp'),
-		__('UserFeedback', 'google-analytics-dashboard-for-wp') . $newIndicator,
+		__('UserFeedback', 'google-analytics-dashboard-for-wp') . $new_indicator,
 		'manage_options',
 		$submenu_base . '#/userfeedback'
 	);
@@ -789,13 +793,22 @@ add_filter("am_notifications_display", 'exactmetrics_am_notice_optout', 10, 1);
 function exactmetrics_admin_menu_inline_styles()
 {
 ?>
-	<style type="text/css">
+	<style>
 		#toplevel_page_exactmetrics_reports .wp-menu-image img,
 		#toplevel_page_exactmetrics_settings .wp-menu-image img,
 		#toplevel_page_exactmetrics_network .wp-menu-image img {
 			width: 18px;
 			height: auto;
 			padding-top: 7px;
+		}
+
+		#toplevel_page_exactmetrics_reports .wp-submenu li a {
+			display: flex;
+			align-items: center;
+		}
+
+		#toplevel_page_exactmetrics_reports .wp-submenu .exactmetrics-sidebar-icon {
+			padding-right: 6px;
 		}
 	</style>
 <?php

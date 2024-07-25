@@ -194,7 +194,7 @@ class MetaModelWpf extends ModelWpf {
 					continue;
 				}
 				$keyId      = $keyData['id'];
-				$status     = $keyData['status'];
+				$status     = empty($keyData['status']) ? 0 : $keyData['status'];
 				$needLock   = $isAllProducts;
 				$needRecalc = false;
 				if (2 == $status) {

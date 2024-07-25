@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition;
 
 /**
@@ -8,6 +8,7 @@ namespace SmashBalloon\Reviews\Vendor\DI\Definition;
  * value if the environment variable is not defined.
  *
  * @author James Harris <james.harris@icecave.com.au>
+ * @internal
  */
 class EnvironmentVariableDefinition implements Definition
 {

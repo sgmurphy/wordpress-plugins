@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,29 +14,32 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\Analytics;
 
 class AnalyticsDataimportDeleteUploadDataRequest extends \Google\Collection
 {
-    protected $collection_key = 'customDataImportUids';
-    /**
-     * @var string[]
-     */
-    public $customDataImportUids = [];
-    /**
-     * @param string[]
-     */
-    public function setCustomDataImportUids($customDataImportUids)
-    {
-        $this->customDataImportUids = $customDataImportUids;
-    }
-    /**
-     * @return string[]
-     */
-    public function getCustomDataImportUids()
-    {
-        return $this->customDataImportUids;
-    }
+  protected $collection_key = 'customDataImportUids';
+  /**
+   * @var string[]
+   */
+  public $customDataImportUids;
+
+  /**
+   * @param string[]
+   */
+  public function setCustomDataImportUids($customDataImportUids)
+  {
+    $this->customDataImportUids = $customDataImportUids;
+  }
+  /**
+   * @return string[]
+   */
+  public function getCustomDataImportUids()
+  {
+    return $this->customDataImportUids;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\Analytics\AnalyticsDataimportDeleteUploadDataRequest::class, 'Analytify\\Google_Service_Analytics_AnalyticsDataimportDeleteUploadDataRequest');
+class_alias(AnalyticsDataimportDeleteUploadDataRequest::class, 'Google_Service_Analytics_AnalyticsDataimportDeleteUploadDataRequest');

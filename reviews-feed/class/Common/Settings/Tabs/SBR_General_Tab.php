@@ -90,6 +90,18 @@ class SBR_General_Tab extends SB_SettingsPage_Tab {
                 'info'      => __('Export settings for one or more of your feeds','reviews-feed'),
                 'separator' => true
             ],
+
+            'importcollection_section' => [
+                'heading' => __('Import Collection', 'reviews-feed'),
+                'type' => 'importcollection',
+                'info'      => __('You will need a JSON file previously exported from the collections Reviews Feed Plugin','reviews-feed')
+            ],
+            'exportcollection_section' => [
+                'heading' => __('Export Collection', 'reviews-feed'),
+                'type' => 'exportcollection',
+                'info'      => __('Export collection reviews','reviews-feed'),
+                'separator' => true
+            ],
         ];
     }
 }

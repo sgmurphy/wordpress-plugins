@@ -10,9 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\File\ASN1\Maps;
 
-use Analytify\phpseclib3\File\ASN1;
+namespace phpseclib3\File\ASN1\Maps;
+
+use phpseclib3\File\ASN1;
+
 /**
  * DigestInfo
  *
@@ -22,5 +24,11 @@ use Analytify\phpseclib3\File\ASN1;
  */
 abstract class DigestInfo
 {
-    const MAP = ['type' => ASN1::TYPE_SEQUENCE, 'children' => ['digestAlgorithm' => AlgorithmIdentifier::MAP, 'digest' => ['type' => ASN1::TYPE_OCTET_STRING]]];
+    const MAP = [
+        'type' => ASN1::TYPE_SEQUENCE,
+        'children' => [
+            'digestAlgorithm' => AlgorithmIdentifier::MAP,
+            'digest' => ['type' => ASN1::TYPE_OCTET_STRING]
+        ]
+    ];
 }

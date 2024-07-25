@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -9,10 +8,14 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Analytify\Monolog\Handler;
 
-use Analytify\Monolog\Logger;
-use Analytify\Psr\Log\LogLevel;
+namespace Monolog\Handler;
+
+use Monolog\Level;
+use Psr\Log\LogLevel;
+use Monolog\Logger;
+use Monolog\LogRecord;
+
 /**
  * Blackhole
  *
@@ -20,37 +23,34 @@ use Analytify\Psr\Log\LogLevel;
  * to put on top of an existing stack to override it temporarily.
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
- *
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type LevelName from \Monolog\Logger
  */
 class NullHandler extends Handler
 {
+    private Level $level;
+
     /**
-     * @var int
-     */
-    private $level;
-    /**
-     * @param string|int $level The minimum logging level at which this handler will be triggered
+     * @param string|int|Level $level The minimum logging level at which this handler will be triggered
      *
-     * @phpstan-param Level|LevelName|LogLevel::* $level
+     * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      */
-    public function __construct($level = Logger::DEBUG)
+    public function __construct(string|int|Level $level = Level::Debug)
     {
         $this->level = Logger::toMonologLevel($level);
     }
+
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
-    public function isHandling(array $record) : bool
+    public function isHandling(LogRecord $record): bool
     {
-        return $record['level'] >= $this->level;
+        return $record->level->value >= $this->level->value;
     }
+
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
-    public function handle(array $record) : bool
+    public function handle(LogRecord $record): bool
     {
-        return $record['level'] >= $this->level;
+        return $record->level->value >= $this->level->value;
     }
 }

@@ -77,19 +77,20 @@ jQuery(document).ready(function($) {
 					}
 			});
 	});
-
 	// Send Stats via Email
 	$("#send_single_analytics").on('click', function (e) {
-
 		e.preventDefault();
+	
 		var start_date = $("#analytify_start").val();
 		start_date = moment(start_date, 'MMM DD, YYYY').format("YYYY-MM-DD");
-
+	
 		var end_date = $("#analytify_end").val();
 		end_date =  moment(end_date, 'MMM DD, YYYY').format("YYYY-MM-DD");
-
+	
 		var urlpost = $("#post_ID").val();
 
+		var recipient_email = $("#recipient_email").val();
+	
 		$.ajax({
 			type: 'POST',
 			url: ajaxurl,
@@ -98,6 +99,7 @@ jQuery(document).ready(function($) {
 				start_date: start_date,
 				end_date: end_date,
 				post_id: urlpost,
+				recipient_email: recipient_email,
 				nonce: wpanalytify_data.nonces.send_single_post_email
 			},
 			beforeSend: function () {
@@ -107,13 +109,16 @@ jQuery(document).ready(function($) {
 			success: function (data, textStatus, XMLHttpRequest) {
 				$('.send_email.stats_loading').css('display', 'none');
 				$('#send_single_analytics').removeAttr('disabled');
+				$("#recipient_email").val('').attr('placeholder', 'Enter recipient email');
+				$("#send_email_to_individual").prop('checked', false);
+				$("#recipient_email").css('display', 'none');
 			},
 			error: function (MLHttpRequest, textStatus, errorThrown) {
 				alert("Oops: Something is wrong, Please contact our support at analytify.io");
 			}
 		});
-
 	});
+	
 
 
 	$('#wp-analytify-email\\[analytif_email_cron_time\\]\\[value\\]').on('change', function(event) {

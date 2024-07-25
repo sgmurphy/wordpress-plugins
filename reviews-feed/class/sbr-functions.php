@@ -573,3 +573,67 @@ function sbr_encrypt_decrypt($action, $string)
 
 	return $output;
 }
+
+
+/**
+ * Returns a list of providers that needs
+ * the bulk history update
+ *
+ * @return array
+ *
+ * @since 1.5
+ */
+function sbr_get_bulk_providers()
+{
+	return [
+		'google',
+		'yelp'
+	];
+}
+
+/**
+ * Returns a list of providers that
+ * have media
+ *
+ * @return array
+ *
+ * @since 1.5
+ */
+function sbr_get_media_providers()
+{
+	return [
+		'yelp',
+		'tripadvisor',
+		'google'
+	];
+}
+
+/**
+ * Returns a list of providers that doesn't
+ * have media
+ *
+ * @return array
+ *
+ * @since 1.5
+ */
+function sbr_get_no_media_providers()
+{
+	return [
+		'facebook'
+	];
+}
+
+/**
+ * Returns a list of providers that have
+ * translations / languages Possibility
+ *
+ * @return array
+ *
+ * @since 1.5
+ */
+function sbr_get_lang_providers()
+{
+	return [
+		'google'
+	];
+}

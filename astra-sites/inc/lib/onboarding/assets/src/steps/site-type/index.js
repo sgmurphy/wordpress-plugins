@@ -161,7 +161,9 @@ const SiteType = () => {
 									className="w-full h-10"
 									onClick={ handleBuildWithAIPress }
 								>
-									<span>Try the New AI Builder</span>{ ' ' }
+									<span>
+										{ __( 'Build with AI', 'astra-sites' ) }
+									</span>{ ' ' }
 									<ArrowRightIcon className="w-5 h-5 ml-2" />
 								</Button>
 							</div>
@@ -211,7 +213,12 @@ const SiteType = () => {
 											);
 										} }
 									>
-										<span>Build with Templates</span>{ ' ' }
+										<span>
+											{ __(
+												'Build with Templates',
+												'astra-sites'
+											) }
+										</span>{ ' ' }
 										<ArrowRightIcon className="w-5 h-5 ml-2" />
 									</Button>
 								</div>

@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * Copyright 2020 gRPC authors.
@@ -17,6 +16,7 @@
  * limitations under the License.
  *
  */
+
 namespace Grpc;
 
 /**
@@ -25,26 +25,31 @@ namespace Grpc;
  *
  * DO NOT USE in production.
  */
+
 /**
  * Class Status
  * @package Grpc
  */
 class Status
 {
-    public static function status(int $code, string $details, array $metadata = null) : array
+    public static function status(int $code, string $details, array $metadata = null): array
     {
-        $status = ['code' => $code, 'details' => $details];
+        $status = [
+            'code' => $code,
+            'details' => $details,
+        ];
         if ($metadata) {
             $status['metadata'] = $metadata;
         }
         return $status;
     }
-    public static function ok(array $metadata = null) : array
+
+    public static function ok(array $metadata = null): array
     {
-        return \Grpc\Status::status(STATUS_OK, 'OK', $metadata);
+        return Status::status(STATUS_OK, 'OK', $metadata);
     }
-    public static function unimplemented() : array
+    public static function unimplemented(): array
     {
-        return \Grpc\Status::status(STATUS_UNIMPLEMENTED, 'UNIMPLEMENTED');
+        return Status::status(STATUS_UNIMPLEMENTED, 'UNIMPLEMENTED');
     }
 }

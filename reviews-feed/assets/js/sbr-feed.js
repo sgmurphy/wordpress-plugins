@@ -2262,7 +2262,7 @@ if(!sbr_js_exists) {
 
 		Owl2row.Defaults = {
 			owl2row: false,
-			owl2rowTarget: 'sbr_item',
+			owl2rowTarget: 'sb-post-item-wrap',
 			owl2rowContainer: 'sbr_owl2row-item',
 			owl2rowDirection: 'utd' // ltr
 		};
@@ -2950,7 +2950,7 @@ if(!sbr_js_exists) {
 						var $self = jQuery(feed.el);
 						$self.find('.sb-feed-posts.sbr_carousel').fadeIn();
 						setTimeout(function(){
-							//$self.find('#sbi_images.sbi_carousel .sbi_info, .sbi_owl2row-item,#sb_instagram #sbi_images.sbi_carousel').fadeIn();
+							$self.find('.sbr_owl2row-item, .sbr_carousel').fadeIn();
 						}, 50);
 
 						setTimeout(function(){
@@ -3781,7 +3781,6 @@ if(!sbr_js_exists) {
 			afterConsentToggled: function() {
 				if (this.checkConsent()) {
 					var feed = this;
-					window.sbr.maybeAddYTAPI();
 					feed.maybeRaiseImageResolution();
 					feed.applyFullFeatures();
 					setTimeout(function() {

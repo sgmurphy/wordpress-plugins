@@ -36,6 +36,11 @@ class Feed
 	 */
 	private $encryption;
 
+	/**
+	 * @var array|string[]
+	 */
+	protected $providers_no_media = [];
+
 
 	public function __construct($settings, $feed_id, FeedCache $feed_cache)
 	{
@@ -57,12 +62,8 @@ class Feed
             'google'
         ];
 
-		$this->providers_no_media = [
-			'facebook',
-			'google'
-		];
+		$this->providers_no_media = sbr_get_no_media_providers();
 		$this->encryption = new Data_Encryption();
-
 	}
 
 	public function init()
@@ -162,7 +163,13 @@ class Feed
 				$this->set_errors( $error_cache );
 			}
 
-			$posts = PostAggregator::remove_duplicated_posts_list( $posts, 'json');
+			$posts = PostAggregator::remove_duplicated_posts_list($posts, 'json');
+
+			if (empty($header_data)) {
+				$header_data = $this->update_header_cache_from_source();
+			}
+
+
 			$this->set_posts($posts);
 			$this->set_header_data($header_data);
 		}
@@ -249,6 +256,7 @@ class Feed
 			return array();
 		}
 		$remote_header_data = $this->get_remote_header_data($settings);
+
 		if (!empty($remote_header_data) && isset($remote_header_data[0]) && isset($remote_header_data[0]['info']) && isset($remote_header_data[0]['info']['id'])) {
 			$persistent_business_data_cache = new BusinessDataCache();
 			$persistent_business_data_cache->update_data($settings['sources'][0]['provider'], $remote_header_data[0]['info']['id'], $remote_header_data);
@@ -271,16 +279,24 @@ class Feed
 		if (empty($settings['sources'])) {
 			return array();
 		}
+		$total_rating = 0;
+		$rating = 0;
+		foreach ($settings['sources'] as $s_source) {
+			$total_rating += isset($s_source['info']['total_rating']) ? intval($s_source['info']['total_rating']) : 0;
+			$rating += isset($s_source['info']['rating']) ? $s_source['info']['rating'] : 0;
+		}
+		$rating_average = $rating > 0 ? $rating / sizeof($settings['sources']) : 0;
+
 		$remote_header_data = [
-				[
-					'info' => [
+			[
+				'info' => [
 					'id' => $settings['sources'][0]['info']['id'],
 					'name' => $settings['sources'][0]['info']['name'],
-					'rating' => $settings['sources'][0]['info']['rating'],
-					'total_rating' => $settings['sources'][0]['info']['total_rating'],
+					'rating' => $rating_average,
+					'total_rating' => $total_rating,
 					'url' => $settings['sources'][0]['info']['url']
 				]
-			]
+		]
 		];
 
 		$persistent_business_data_cache = new BusinessDataCache();
@@ -370,6 +386,7 @@ class Feed
 					}
 				}
 
+
 				if (isset($new_data['data'])) {
 					if ( ! empty( $new_data['data']['error'] ) ) {
 						$message = ! empty( ( $new_data['message'] ) ) ? wp_strip_all_tags( $new_data['message'] ) : 'An error has occurred when fetching new reviews';
@@ -436,6 +453,7 @@ class Feed
 	public function is_last_page($page)
 	{
 		$posts = $this->get_posts();
+		$posts_counts = count($posts);
 		$posts_per_page = $this->settings['numPostDesktop'];
 		if ($this->settings['numPostTablet'] > $this->settings['numPostDesktop']) {
 			$posts_per_page = $this->settings['numPostTablet'];
@@ -443,16 +461,21 @@ class Feed
 		if ($this->settings['numPostMobile'] > $this->settings['numPostTablet']) {
 			$posts_per_page = $this->settings['numPostMobile'];
 		}
-
-		return count($posts) <= ($page * (int) $posts_per_page);
+		$posts_per_page = (int) $posts_per_page;
+		return $posts_counts <= ($page * $posts_per_page);
 	}
 
     public function hydrate_sources()
     {
-        $db_sources = SBR_Sources::get_sources_list();
+
         if (!is_array($this->settings['sources'])) {
             $this->settings['sources'] = explode(',', $this->settings['sources']);
         }
+
+        $db_sources = SBR_Sources::get_sources_list([
+          'id' => $this->settings['sources']
+        ]);
+
         $hydrated_sources = array();
         foreach ($this->settings['sources'] as $single_source) {
             foreach ($db_sources as $db_source) {

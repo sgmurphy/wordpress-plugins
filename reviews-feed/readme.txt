@@ -2,13 +2,13 @@
 Contributors: smashballoon, craig-at-smash-balloon, am, smub
 Tags: Google reviews, reviews, testimonials, yelp, Google business
 Requires at least: 4.1
-Tested up to: 6.5
-Stable tag: 1.1.2
-Requires PHP: 7.1
+Tested up to: 6.6
+Stable tag: 1.2.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Display Google and Yelp reviews from real customers for any business in a clean, customizable feed on your site.
+Display Yelp and Google reviews from real customers for any business in a clean, customizable feed on your site.
 
 == Description ==
 
@@ -20,7 +20,7 @@ If a Google business listing has a physical location, you can display your lates
 
 Showing Google rating and Yelp reviews on your website is one of the best ways to convince site visitors to do business with you and boost your conversions. Customer testimonials are crucial to building positive brand trust for online businesses.
 
-Our plugin makes it easy to set up an automatically updating feed of Google and Yelp reviews. After installing the plugin, create a feed by visiting the Reviews Feed menu item that appears in your dashboard. Configure a source of reviews for your feed, customize the look and feel, then use a shortcode to display your reviews feed anywhere on your site. It takes less than a minute to get started.
+Our plugin makes it easy to set up an automatically updating feed of Yelp and Google reviews. After installing the plugin, create a feed by visiting the Reviews Feed menu item that appears in your dashboard. Configure a source of reviews for your feed, customize the look and feel, then use a shortcode to display your reviews feed anywhere on your site. It takes less than a minute to get started.
 
 = Features =
 * Super **simple to set up**
@@ -33,7 +33,7 @@ Our plugin makes it easy to set up an automatically updating feed of Google and 
 * Display the reviewer's name, date and start rating of each Google review or Yelp review
 * Show the **overall star rating** of your Google or Yelp listing in a customizable header at the top of the feed
 * Prompt site visitors to leave a review on Google or Yelp with a button in the header
-* Display your Google and Yelp reviews in chronological order or reverse chronological order.
+* Display your Yelp and Google reviews in chronological order or reverse chronological order.
 * Automatically show new reviews, collected daily when you enter you own API keys (free and easy to get)
 * Handy block for easily adding your reviews feed to posts and pages using the block editor
 
@@ -69,7 +69,7 @@ In order to maintain the free version of the plugin on an ongoing basis, and to 
 "The guys @smashballoon are the bomb! thank you! I’ve been looking for an Instagram plugin like yours forever! Thank you Thank you Thank you!" - ApisCera
 
 = Feedback or Support =
-We're dedicated to providing the most customizable, robust and well supported Google and Yelp reviews feed plugin in the world, so if you have an issue or have any feedback on how to improve the plugin, then please open a ticket in the [Support forum](http://wordpress.org/support/plugin/reviews-feed 'Reviews Feed Support Forum').
+We're dedicated to providing the most customizable, robust and well supported Yelp and Google reviews feed plugin in the world, so if you have an issue or have any feedback on how to improve the plugin, then please open a ticket in the [Support forum](http://wordpress.org/support/plugin/reviews-feed 'Reviews Feed Support Forum').
 
 For advanced review moderation by star rating or curated list, to display Yelp review images, display reviews in a carousel slider + more, check out the [Pro version](https://smashballoon.com/reviews-feed/?utm_source=reviews-free&utm_medium=readmefile&utm_campaign=readme-pro-features&utm_content=MoreAdvanced).
 
@@ -138,7 +138,7 @@ If you're still having an issue displaying your feed, then please open a ticket 
 
 = How do I get a Google business (Google Maps) API key? =
 
-It’s free and simple to get an API key for Google. This allows you to continue to get fresh Google reviews daily. [See our guide here](https://smashballoon.com/doc/creating-a-google-api-key/?reviews&utm_source=reviews-free&utm_medium=readmefile&utm_campaign=readme-google-key&utm_content=CreateKey).
+It’s free and simple to get an API key for Google reviews. This allows you to continue to get fresh Google reviews daily. [See our guide here](https://smashballoon.com/doc/creating-a-google-api-key/?reviews&utm_source=reviews-free&utm_medium=readmefile&utm_campaign=readme-google-key&utm_content=CreateKey).
 
 = How do I get a Yelp reviews API key? =
 
@@ -166,7 +166,7 @@ Our [Pro version](https://smashballoon.com/reviews-feed/?utm_source=reviews-free
 
 == Other Notes ==
 
-Build positive brand trust in your Google business or Yelp listing with real Google and Yelp reviews on your website. Super simple to set up and tons of customization options to seamlessly match the look and feel of your site.
+Build positive brand trust in your Google business or Yelp listing with real Yelp and Google reviews on your website. Super simple to set up and tons of customization options to seamlessly match the look and feel of your site.
 
 = Why do I need this? =
 
@@ -194,10 +194,16 @@ We understand that sometimes you need help, have issues or just have questions. 
 * Completely responsive and mobile ready –your reviews feed layout looks great on any screen size and in any container width
 * Display multiple reviews feeds on the same page or on different pages throughout your site by creating multiple feeds in our customizer
 * Choose a language for your Google reviews content to display in or leave reviews untranslated.
-* Collect and permanently store new Google and Yelp reviews over time. Use our feature to load more reviews on the page.
+* Collect and permanently store new Yelp and Google reviews over time. Use our feature to load more reviews on the page.
 * Encourage visitors to leave their own reviews with a link to Google or Yelp to rate your business.
 
 == Changelog ==
+= 1.2.0 =
+* Important: The minimum PHP version is now 7.4.
+* Fix: Plugin hardening.
+* Fix: Fixed an issue causing the cache to not work properly. Feeds and headers would not update.
+* Fix: Miscellaneous fixes and enhancements.
+
 = 1.1.2 =
 * Fix: Fixed an issue that would cause feed sources to update more frequently than intended.
 

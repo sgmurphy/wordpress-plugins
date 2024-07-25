@@ -57,6 +57,7 @@ class RemoteRequest {
         $relay    = new SBRelay( $settings );
 		$response = $relay->call( $this->endpoint . '/' . $this->provider, $args, 'GET', true );
 
+
         return $response;
 	}
 

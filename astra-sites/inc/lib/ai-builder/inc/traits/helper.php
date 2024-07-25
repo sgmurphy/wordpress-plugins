@@ -262,7 +262,21 @@ class Helper {
 			'notinstalled' => array(),
 		);
 
-		$required_plugins = astra_get_site_data( 'required-plugins' );
+		$id     = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : '';
+		$screen = isset( $_POST['screen'] ) ? sanitize_text_field( $_POST['screen'] ) : '';
+
+		if ( 'elementor' === $screen ) {
+			$imported_demo_data = get_option( 'astra_sites_import_elementor_data_' . $id, array() );
+			if ( isset( $imported_demo_data['type'] ) && 'astra-blocks' === $imported_demo_data['type'] ) { // @phpstan-ignore-line
+					// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+					$plugins          = unserialize( $imported_demo_data['post-meta']['astra-blocks-required-plugins'] ); // @phpstan-ignore-line
+					$required_plugins = false !== $plugins ? $plugins : array();
+			} else {
+					$required_plugins = isset( $imported_demo_data['site-pages-required-plugins'] ) ? $imported_demo_data['site-pages-required-plugins'] : array(); // @phpstan-ignore-line
+			}
+		} else {
+			$required_plugins = astra_get_site_data( 'required-plugins' );
+		}
 
 		$data = self::get_required_plugins_data( $response, $required_plugins ); // @phpstan-ignore-line
 

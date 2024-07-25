@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -30,14 +29,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore;
 
 use Google\ApiCore\ResourceTemplate\AbsoluteResourceTemplate;
 use Google\Protobuf\Internal\Message;
-use Analytify\GuzzleHttp\Psr7\Request;
-use Analytify\GuzzleHttp\Psr7\Utils;
-use Analytify\Psr\Http\Message\RequestInterface;
-use Analytify\Psr\Http\Message\UriInterface;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Utils;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\UriInterface;
+
 /**
  * Builds a PSR-7 request from a set of request information.
  *
@@ -45,11 +46,13 @@ use Analytify\Psr\Http\Message\UriInterface;
  */
 class RequestBuilder
 {
-    use \Google\ApiCore\ArrayTrait;
-    use \Google\ApiCore\UriTrait;
-    use \Google\ApiCore\ValidationTrait;
+    use ArrayTrait;
+    use UriTrait;
+    use ValidationTrait;
+
     private $baseUri;
     private $restConfig;
+
     /**
      * @param string $baseUri
      * @param string $restConfigPath
@@ -59,17 +62,19 @@ class RequestBuilder
     {
         self::validateFileExists($restConfigPath);
         $this->baseUri = $baseUri;
-        $this->restConfig = (require $restConfigPath);
+        $this->restConfig = require($restConfigPath);
     }
+
     /**
      * @param string $path
      * @return bool
      */
     public function pathExists(string $path)
     {
-        list($interface, $method) = \explode('/', $path);
+        list($interface, $method) = explode('/', $path);
         return isset($this->restConfig['interfaces'][$interface][$method]);
     }
+
     /**
      * @param string $path
      * @param Message $message
@@ -79,34 +84,58 @@ class RequestBuilder
      */
     public function build(string $path, Message $message, array $headers = [])
     {
-        list($interface, $method) = \explode('/', $path);
+        list($interface, $method) = explode('/', $path);
+
         if (!isset($this->restConfig['interfaces'][$interface][$method])) {
-            throw new \Google\ApiCore\ValidationException("Failed to build request, as the provided path ({$path}) was not found in the configuration.");
+            throw new ValidationException(
+                "Failed to build request, as the provided path ($path) was not found in the configuration."
+            );
         }
+
         $numericEnums = isset($this->restConfig['numericEnums']) && $this->restConfig['numericEnums'];
-        $methodConfig = $this->restConfig['interfaces'][$interface][$method] + ['placeholders' => [], 'body' => null, 'additionalBindings' => null];
+        $methodConfig = $this->restConfig['interfaces'][$interface][$method] + [
+            'placeholders' => [],
+            'body' => null,
+            'additionalBindings' => null,
+        ];
         $bindings = $this->buildBindings($methodConfig['placeholders'], $message);
         $uriTemplateConfigs = $this->getConfigsForUriTemplates($methodConfig);
+
         foreach ($uriTemplateConfigs as $config) {
             $pathTemplate = $this->tryRenderPathTemplate($config['uriTemplate'], $bindings);
+
             if ($pathTemplate) {
                 // We found a valid uriTemplate - now build and return the Request
+
                 list($body, $queryParams) = $this->constructBodyAndQueryParameters($message, $config);
+
                 // Request enum fields will be encoded as numbers rather than strings  (in the response).
                 if ($numericEnums) {
                     $queryParams['$alt'] = "json;enum-encoding=int";
                 }
+
                 $uri = $this->buildUri($pathTemplate, $queryParams);
-                return new Request($config['method'], $uri, ['Content-Type' => 'application/json'] + $headers, $body);
+
+                return new Request(
+                    $config['method'],
+                    $uri,
+                    ['Content-Type' => 'application/json'] + $headers,
+                    $body
+                );
             }
         }
+
         // No valid uriTemplate found - construct an exception
         $uriTemplates = [];
         foreach ($uriTemplateConfigs as $config) {
             $uriTemplates[] = $config['uriTemplate'];
         }
-        throw new \Google\ApiCore\ValidationException("Could not map bindings for {$path} to any Uri template.\n" . "Bindings: " . \print_r($bindings, \true) . "UriTemplates: " . \print_r($uriTemplates, \true));
+
+        throw new ValidationException("Could not map bindings for $path to any Uri template.\n" .
+            "Bindings: " . print_r($bindings, true) .
+            "UriTemplates: " . print_r($uriTemplates, true));
     }
+
     /**
      * Create a list of all possible configs using the additionalBindings
      *
@@ -116,13 +145,16 @@ class RequestBuilder
     private function getConfigsForUriTemplates(array $config)
     {
         $configs = [$config];
+
         if ($config['additionalBindings']) {
             foreach ($config['additionalBindings'] as $additionalBinding) {
                 $configs[] = $additionalBinding + $config;
             }
         }
+
         return $configs;
     }
+
     /**
      * @param Message $message
      * @param array $config
@@ -131,25 +163,29 @@ class RequestBuilder
     private function constructBodyAndQueryParameters(Message $message, array $config)
     {
         $messageDataJson = $message->serializeToJsonString();
+
         if ($config['body'] === '*') {
             return [$messageDataJson, []];
         }
+
         $body = null;
         $queryParams = [];
-        $messageData = \json_decode($messageDataJson, \true);
+        $messageData = json_decode($messageDataJson, true);
         foreach ($messageData as $name => $value) {
-            if (\array_key_exists($name, $config['placeholders'])) {
+            if (array_key_exists($name, $config['placeholders'])) {
                 continue;
             }
-            if (\Google\ApiCore\Serializer::toSnakeCase($name) === $config['body']) {
-                if (($bodyMessage = $message->{"get{$name}"}()) instanceof Message) {
+
+            if (Serializer::toSnakeCase($name) === $config['body']) {
+                if (($bodyMessage = $message->{"get$name"}()) instanceof Message) {
                     $body = $bodyMessage->serializeToJsonString();
                 } else {
-                    $body = \json_encode($value);
+                    $body = json_encode($value);
                 }
                 continue;
             }
-            if (\is_array($value) && $this->isAssoc($value)) {
+
+            if (is_array($value) && $this->isAssoc($value)) {
                 foreach ($value as $key => $value2) {
                     $queryParams[$name . '.' . $key] = $value2;
                 }
@@ -157,19 +193,20 @@ class RequestBuilder
                 $queryParams[$name] = $value;
             }
         }
+
         // Ensures required query params with default values are always sent
         // over the wire.
         if (isset($config['queryParams'])) {
             foreach ($config['queryParams'] as $requiredQueryParam) {
-                $requiredQueryParam = \Google\ApiCore\Serializer::toCamelCase($requiredQueryParam);
-                if (!\array_key_exists($requiredQueryParam, $queryParams)) {
-                    $getter = \Google\ApiCore\Serializer::getGetter($requiredQueryParam);
-                    $queryParamValue = $message->{$getter}();
+                $requiredQueryParam = Serializer::toCamelCase($requiredQueryParam);
+                if (!array_key_exists($requiredQueryParam, $queryParams)) {
+                    $getter = Serializer::getGetter($requiredQueryParam);
+                    $queryParamValue = $message->$getter();
                     if ($queryParamValue instanceof Message) {
                         // Decode message for the query parameter.
-                        $queryParamValue = \json_decode($queryParamValue->serializeToJsonString(), \true);
+                        $queryParamValue = json_decode($queryParamValue->serializeToJsonString(), true);
                     }
-                    if (\is_array($queryParamValue)) {
+                    if (is_array($queryParamValue)) {
                         // If the message has properties, add them as nested querystring values.
                         // NOTE: This only supports nesting at one level of depth.
                         foreach ($queryParamValue as $key => $value) {
@@ -181,8 +218,10 @@ class RequestBuilder
                 }
             }
         }
+
         return [$body, $queryParams];
     }
+
     /**
      * @param array $placeholders
      * @param Message $message
@@ -192,15 +231,21 @@ class RequestBuilder
     {
         $bindings = [];
         foreach ($placeholders as $placeholder => $metadata) {
-            $value = \array_reduce($metadata['getters'], function (Message $result = null, $getter) {
-                if ($result) {
-                    return $result->{$getter}();
-                }
-            }, $message);
+            $value = array_reduce(
+                $metadata['getters'],
+                function (Message $result = null, $getter) {
+                    if ($result) {
+                        return $result->$getter();
+                    }
+                },
+                $message
+            );
+
             $bindings[$placeholder] = $value;
         }
         return $bindings;
     }
+
     /**
      * Try to render the resource name. The rendered resource name will always contain a leading '/'
      *
@@ -212,12 +257,14 @@ class RequestBuilder
     private function tryRenderPathTemplate(string $uriTemplate, array $bindings)
     {
         $template = new AbsoluteResourceTemplate($uriTemplate);
+
         try {
             return $template->render($bindings);
-        } catch (\Google\ApiCore\ValidationException $e) {
+        } catch (ValidationException $e) {
             return null;
         }
     }
+
     /**
      * @param string $path
      * @param array $queryParams
@@ -225,9 +272,18 @@ class RequestBuilder
      */
     private function buildUri(string $path, array $queryParams)
     {
-        $uri = Utils::uriFor(\sprintf('https://%s%s', $this->baseUri, $path));
+        $uri = Utils::uriFor(
+            sprintf(
+                'https://%s%s',
+                $this->baseUri,
+                $path
+            )
+        );
         if ($queryParams) {
-            $uri = $this->buildUriWithQuery($uri, $queryParams);
+            $uri = $this->buildUriWithQuery(
+                $uri,
+                $queryParams
+            );
         }
         return $uri;
     }

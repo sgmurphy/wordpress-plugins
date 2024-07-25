@@ -166,11 +166,11 @@ class WOOMULTI_CURRENCYCompatibility
 	public function get_curreny_fixed_price($price, $product, $config, $regular_price, $sale_price, $price_type)
 	{ // phpcs:ignore
 		if ($price_type === 'price' && !empty($regular_price)) {
-			$price = $regular_price[$config->get_feed_currency()];
+			$price = isset($regular_price[$config->get_feed_currency()]) ? $regular_price[$config->get_feed_currency()] : $price ;
 		} elseif ($price_type === 'sale_price' && !empty($sale_price)) {
-			$price = $sale_price[$config->get_feed_currency()];
+			$price = isset($sale_price[$config->get_feed_currency()]) ? $sale_price[$config->get_feed_currency()] : $price;
 		} elseif ($price_type === 'regular_price' && !empty($regular_price)) {
-			$price = $regular_price[$config->get_feed_currency()];
+			$price = isset($regular_price[$config->get_feed_currency()]) ? $regular_price[$config->get_feed_currency()] : $price;
 		}
 
 		return $price;

@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
 }
 
 if (!defined('SBR_DBVERSION')) {
-	define('SBR_DBVERSION', '1.4');
+	define('SBR_DBVERSION', '1.5');
 }
 
 if (!defined('SBR_MENU_SLUG')) {
@@ -66,10 +66,8 @@ if (!defined('SBR_SETTINGSPAGE_TABS_NAMESPACE')) {
 
 //Relay Backend Name Space
 if (!defined('SBR_RELAY_BASE_URL')) {
-  define('SBR_RELAY_BASE_URL', 'https://reviews.smashballoon.com/api/v1.0/');
+ 	define('SBR_RELAY_BASE_URL', 'https://reviews.smashballoon.com/api/v1.0/');
 }
-
-
 
 if (!defined('SBR_CRON_UPDATE_CACHE_TIME')) {
 	define('SBR_CRON_UPDATE_CACHE_TIME', 60 * 60 * 24 * 60);

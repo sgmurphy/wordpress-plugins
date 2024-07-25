@@ -8,10 +8,12 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\Crypt\DH;
 
-use Analytify\phpseclib3\Crypt\Common;
-use Analytify\phpseclib3\Crypt\DH;
+namespace phpseclib3\Crypt\DH;
+
+use phpseclib3\Crypt\Common;
+use phpseclib3\Crypt\DH;
+
 /**
  * DH Public Key
  *
@@ -20,6 +22,7 @@ use Analytify\phpseclib3\Crypt\DH;
 final class PublicKey extends DH
 {
     use Common\Traits\Fingerprint;
+
     /**
      * Returns the public key
      *
@@ -30,8 +33,10 @@ final class PublicKey extends DH
     public function toString($type, array $options = [])
     {
         $type = self::validatePlugin('Keys', $type, 'savePublicKey');
+
         return $type::savePublicKey($this->prime, $this->base, $this->publicKey, $options);
     }
+
     /**
      * Returns the public key as a BigInteger
      *

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -30,9 +29,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore\Transport\Grpc;
 
 use Grpc\AbstractCall;
+
 /**
  * Class ForwardingCall wraps a \Grpc\AbstractCall.
  *
@@ -43,7 +44,8 @@ abstract class ForwardingCall
     /**
      * @var AbstractCall|ForwardingCall
      */
-    protected $innerCall;
+    protected object $innerCall;
+
     /**
      * ForwardingCall constructor.
      *
@@ -53,6 +55,7 @@ abstract class ForwardingCall
     {
         $this->innerCall = $innerCall;
     }
+
     /**
      * @return mixed The metadata sent by the server
      */
@@ -60,6 +63,7 @@ abstract class ForwardingCall
     {
         return $this->innerCall->getMetadata();
     }
+
     /**
      * @return mixed The trailing metadata sent by the server
      */
@@ -67,6 +71,7 @@ abstract class ForwardingCall
     {
         return $this->innerCall->getTrailingMetadata();
     }
+
     /**
      * @return string The URI of the endpoint
      */
@@ -74,6 +79,7 @@ abstract class ForwardingCall
     {
         return $this->innerCall->getPeer();
     }
+
     /**
      * Cancels the call.
      */

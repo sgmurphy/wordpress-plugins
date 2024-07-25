@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * Copyright 2015 gRPC authors.
@@ -17,13 +16,14 @@
  * limitations under the License.
  *
  */
+
 namespace Grpc;
 
 /**
  * Represents an active call that sends a single message and then gets a
  * stream of responses.
  */
-class ServerStreamingCall extends \Grpc\AbstractCall
+class ServerStreamingCall extends AbstractCall
 {
     /**
      * Start the call.
@@ -37,19 +37,24 @@ class ServerStreamingCall extends \Grpc\AbstractCall
     public function start($data, array $metadata = [], array $options = [])
     {
         $message_array = ['message' => $this->_serializeMessage($data)];
-        if (\array_key_exists('flags', $options)) {
+        if (array_key_exists('flags', $options)) {
             $message_array['flags'] = $options['flags'];
         }
-        $this->call->startBatch([OP_SEND_INITIAL_METADATA => $metadata, OP_SEND_MESSAGE => $message_array, OP_SEND_CLOSE_FROM_CLIENT => \true]);
+        $this->call->startBatch([
+            OP_SEND_INITIAL_METADATA => $metadata,
+            OP_SEND_MESSAGE => $message_array,
+            OP_SEND_CLOSE_FROM_CLIENT => true,
+        ]);
     }
+
     /**
      * @return mixed An iterator of response values
      */
     public function responses()
     {
-        $batch = [OP_RECV_MESSAGE => \true];
+        $batch = [OP_RECV_MESSAGE => true];
         if ($this->metadata === null) {
-            $batch[OP_RECV_INITIAL_METADATA] = \true;
+            $batch[OP_RECV_INITIAL_METADATA] = true;
         }
         $read_event = $this->call->startBatch($batch);
         if ($this->metadata === null) {
@@ -57,10 +62,13 @@ class ServerStreamingCall extends \Grpc\AbstractCall
         }
         $response = $read_event->message;
         while ($response !== null) {
-            (yield $this->_deserializeResponse($response));
-            $response = $this->call->startBatch([OP_RECV_MESSAGE => \true])->message;
+            yield $this->_deserializeResponse($response);
+            $response = $this->call->startBatch([
+                OP_RECV_MESSAGE => true,
+            ])->message;
         }
     }
+
     /**
      * Wait for the server to send the status, and return it.
      *
@@ -69,17 +77,22 @@ class ServerStreamingCall extends \Grpc\AbstractCall
      */
     public function getStatus()
     {
-        $status_event = $this->call->startBatch([OP_RECV_STATUS_ON_CLIENT => \true]);
+        $status_event = $this->call->startBatch([
+            OP_RECV_STATUS_ON_CLIENT => true,
+        ]);
+
         $this->trailing_metadata = $status_event->status->metadata;
+
         return $status_event->status;
     }
+
     /**
      * @return mixed The metadata sent by the server
      */
     public function getMetadata()
     {
         if ($this->metadata === null) {
-            $event = $this->call->startBatch([OP_RECV_INITIAL_METADATA => \true]);
+            $event = $this->call->startBatch([OP_RECV_INITIAL_METADATA => true]);
             $this->metadata = $event->metadata;
         }
         return $this->metadata;

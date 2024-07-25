@@ -37,7 +37,7 @@ const ExitConfirmationPopover = ( { onExit, placement = 'auto' } ) => {
 				>
 					<div className="w-full space-y-2">
 						<p className="!text-zip-app-heading !text-base !font-semibold">
-							Are you sure?
+							{ __( 'Are you sure?', 'ai-builder' ) }
 						</p>
 						<p className="!text-zip-body-text !text-sm !font-normal">
 							{ __(

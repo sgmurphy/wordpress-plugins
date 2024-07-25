@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -36,6 +35,7 @@ use Generator;
 use Google\Protobuf\Internal\MapField;
 use Google\Protobuf\Internal\Message;
 use IteratorAggregate;
+
 /**
  * A Page object wraps an API list method response and provides methods
  * to retrieve additional pages using the page token.
@@ -43,13 +43,16 @@ use IteratorAggregate;
 class Page implements IteratorAggregate
 {
     const FINAL_PAGE_TOKEN = "";
+
     private $call;
     private $callable;
     private $options;
     private $pageStreamingDescriptor;
-    private $pageToken;
-    // @phpstan-ignore-line
+
+    private $pageToken; // @phpstan-ignore-line
+
     private $response;
+
     /**
      * Page constructor.
      *
@@ -59,16 +62,23 @@ class Page implements IteratorAggregate
      * @param PageStreamingDescriptor $pageStreamingDescriptor
      * @param Message $response
      */
-    public function __construct(\Google\ApiCore\Call $call, array $options, callable $callable, \Google\ApiCore\PageStreamingDescriptor $pageStreamingDescriptor, Message $response)
-    {
+    public function __construct(
+        Call $call,
+        array $options,
+        callable $callable,
+        PageStreamingDescriptor $pageStreamingDescriptor,
+        Message $response
+    ) {
         $this->call = $call;
         $this->options = $options;
         $this->callable = $callable;
         $this->pageStreamingDescriptor = $pageStreamingDescriptor;
         $this->response = $response;
+
         $requestPageTokenGetMethod = $this->pageStreamingDescriptor->getRequestPageTokenGetMethod();
-        $this->pageToken = $this->call->getMessage()->{$requestPageTokenGetMethod}();
+        $this->pageToken = $this->call->getMessage()->$requestPageTokenGetMethod();
     }
+
     /**
      * Returns true if there are more pages that can be retrieved from the
      * API.
@@ -77,8 +87,9 @@ class Page implements IteratorAggregate
      */
     public function hasNextPage()
     {
-        return \strcmp($this->getNextPageToken(), \Google\ApiCore\Page::FINAL_PAGE_TOKEN) != 0;
+        return strcmp($this->getNextPageToken(), Page::FINAL_PAGE_TOKEN) != 0;
     }
+
     /**
      * Returns the next page token from the response.
      *
@@ -87,8 +98,9 @@ class Page implements IteratorAggregate
     public function getNextPageToken()
     {
         $responsePageTokenGetMethod = $this->pageStreamingDescriptor->getResponsePageTokenGetMethod();
-        return $this->getResponseObject()->{$responsePageTokenGetMethod}();
+        return $this->getResponseObject()->$responsePageTokenGetMethod();
     }
+
     /**
      * Retrieves the next Page object using the next page token.
      *
@@ -101,26 +113,47 @@ class Page implements IteratorAggregate
     public function getNextPage(int $pageSize = null)
     {
         if (!$this->hasNextPage()) {
-            throw new \Google\ApiCore\ValidationException('Could not complete getNextPage operation: ' . 'there are no more pages to retrieve.');
+            throw new ValidationException(
+                'Could not complete getNextPage operation: ' .
+                'there are no more pages to retrieve.'
+            );
         }
+
         $oldRequest = $this->getRequestObject();
-        $requestClass = \get_class($oldRequest);
+        $requestClass = get_class($oldRequest);
         $newRequest = new $requestClass();
         $newRequest->mergeFrom($oldRequest);
+
         $requestPageTokenSetMethod = $this->pageStreamingDescriptor->getRequestPageTokenSetMethod();
-        $newRequest->{$requestPageTokenSetMethod}($this->getNextPageToken());
+        $newRequest->$requestPageTokenSetMethod($this->getNextPageToken());
+
         if (isset($pageSize)) {
             if (!$this->pageStreamingDescriptor->requestHasPageSizeField()) {
-                throw new \Google\ApiCore\ValidationException('pageSize argument was defined, but the method does not ' . 'support a page size parameter in the optional array argument');
+                throw new ValidationException(
+                    'pageSize argument was defined, but the method does not ' .
+                    'support a page size parameter in the optional array argument'
+                );
             }
             $requestPageSizeSetMethod = $this->pageStreamingDescriptor->getRequestPageSizeSetMethod();
-            $newRequest->{$requestPageSizeSetMethod}($pageSize);
+            $newRequest->$requestPageSizeSetMethod($pageSize);
         }
         $this->call = $this->call->withMessage($newRequest);
+
         $callable = $this->callable;
-        $response = $callable($this->call, $this->options)->wait();
-        return new \Google\ApiCore\Page($this->call, $this->options, $this->callable, $this->pageStreamingDescriptor, $response);
+        $response = $callable(
+            $this->call,
+            $this->options
+        )->wait();
+
+        return new Page(
+            $this->call,
+            $this->options,
+            $this->callable,
+            $this->pageStreamingDescriptor,
+            $response
+        );
     }
+
     /**
      * Return the number of elements in the response.
      *
@@ -129,8 +162,9 @@ class Page implements IteratorAggregate
     public function getPageElementCount()
     {
         $resourcesGetMethod = $this->pageStreamingDescriptor->getResourcesGetMethod();
-        return \count($this->getResponseObject()->{$resourcesGetMethod}());
+        return count($this->getResponseObject()->$resourcesGetMethod());
     }
+
     /**
      * Return an iterator over the elements in the response.
      *
@@ -140,15 +174,16 @@ class Page implements IteratorAggregate
     public function getIterator()
     {
         $resourcesGetMethod = $this->pageStreamingDescriptor->getResourcesGetMethod();
-        $items = $this->getResponseObject()->{$resourcesGetMethod}();
+        $items = $this->getResponseObject()->$resourcesGetMethod();
         foreach ($items as $key => $element) {
             if ($items instanceof MapField) {
-                (yield $key => $element);
+                yield $key => $element;
             } else {
-                (yield $element);
+                yield $element;
             }
         }
     }
+
     /**
      * Return an iterator over Page objects, beginning with this object.
      * Additional Page objects are retrieved lazily via API calls until
@@ -161,12 +196,13 @@ class Page implements IteratorAggregate
     public function iteratePages()
     {
         $currentPage = $this;
-        (yield $this);
+        yield $this;
         while ($currentPage->hasNextPage()) {
             $currentPage = $currentPage->getNextPage();
-            (yield $currentPage);
+            yield $currentPage;
         }
     }
+
     /**
      * Gets the request object used to generate the Page.
      *
@@ -176,6 +212,7 @@ class Page implements IteratorAggregate
     {
         return $this->call->getMessage();
     }
+
     /**
      * Gets the API response object.
      *
@@ -185,6 +222,7 @@ class Page implements IteratorAggregate
     {
         return $this->response;
     }
+
     /**
      * Returns a collection of elements with a fixed size set by
      * the collectionSize parameter. The collection will only contain
@@ -204,17 +242,30 @@ class Page implements IteratorAggregate
     public function expandToFixedSizeCollection($collectionSize)
     {
         if (!$this->pageStreamingDescriptor->requestHasPageSizeField()) {
-            throw new \Google\ApiCore\ValidationException("FixedSizeCollection is not supported for this method, because " . "the method does not support an optional argument to set the " . "page size.");
+            throw new ValidationException(
+                "FixedSizeCollection is not supported for this method, because " .
+                "the method does not support an optional argument to set the " .
+                "page size."
+            );
         }
         $request = $this->getRequestObject();
         $pageSizeGetMethod = $this->pageStreamingDescriptor->getRequestPageSizeGetMethod();
-        $pageSize = $request->{$pageSizeGetMethod}();
-        if (\is_null($pageSize)) {
-            throw new \Google\ApiCore\ValidationException("Error while expanding Page to FixedSizeCollection: No page size " . "parameter found. The page size parameter must be set in the API " . "optional arguments array, and must be less than the collectionSize " . "parameter, in order to create a FixedSizeCollection object.");
+        $pageSize = $request->$pageSizeGetMethod();
+        if (is_null($pageSize)) {
+            throw new ValidationException(
+                "Error while expanding Page to FixedSizeCollection: No page size " .
+                "parameter found. The page size parameter must be set in the API " .
+                "optional arguments array, and must be less than the collectionSize " .
+                "parameter, in order to create a FixedSizeCollection object."
+            );
         }
         if ($pageSize > $collectionSize) {
-            throw new \Google\ApiCore\ValidationException("Error while expanding Page to FixedSizeCollection: collectionSize " . "parameter is less than the page size optional argument specified in " . "the API call. collectionSize: {$collectionSize}, page size: {$pageSize}");
+            throw new ValidationException(
+                "Error while expanding Page to FixedSizeCollection: collectionSize " .
+                "parameter is less than the page size optional argument specified in " .
+                "the API call. collectionSize: $collectionSize, page size: $pageSize"
+            );
         }
-        return new \Google\ApiCore\FixedSizeCollection($this, $collectionSize);
+        return new FixedSizeCollection($this, $collectionSize);
     }
 }

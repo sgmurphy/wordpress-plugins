@@ -4,7 +4,10 @@
 	$slider_hs 						= get_theme_mod('slider_hs','1');
 	$slider 						= get_theme_mod('slider',corpex_get_slider_default());
 	$slider_autoplay				= get_theme_mod('slider_autoplay', 'true');
-	wp_enqueue_script('profolio-slider',get_stylesheet_directory_uri().'/assets/js/slider.js',array('jquery'));
+	$theme = wp_get_theme();
+	if($theme -> name == 'Profolio'){
+		wp_enqueue_script('corpex-slider',get_stylesheet_directory_uri().'/assets/js/slider.js',array('jquery'), '0.0', true);
+	}
 	
 	if($slider_hs=='1'){
 ?>	
@@ -38,7 +41,7 @@
 							<?php else: ?>	
 								<?php if ( ! empty( $video_url )  ) : 
 									//echo esc_url( $video_url ); 
-									$parsedUrl  = parse_url($video_url);										
+									$parsedUrl  = wp_parse_url($video_url);										
 								 
 								if ( ! empty( $parsedUrl['host'] ) ) :
 									//YouTube URL
@@ -65,7 +68,7 @@
 									$embed_url = "https://www.youtube.com/embed/".$video_id;
 									
 									?>
-									<div class="overframe" ><iframe class="yt" id="slider_youtube-<?php echo $count; ?>"  src="<?php echo $embed_url; ?>?playlist=<?php echo $video_id; ?>&loop=1&mute=1&autoplay=1&rel=0&showinfo=0&controls=0&enablejsapi=1" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div>								
+									<div class="overframe" ><iframe class="yt" id="slider_youtube-<?php echo esc_attr($count); ?>"  src="<?php echo esc_url($embed_url); ?>?playlist=<?php echo esc_attr($video_id); ?>&loop=1&mute=1&autoplay=1&rel=0&showinfo=0&controls=0&enablejsapi=1" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div>								
 									<?php
 									} 
 									
@@ -82,7 +85,7 @@
 									}
 									?>
 									
-									<div class="overframe"><iframe class="vim" src="https://player.vimeo.com/video/<?php echo $video_id; ?>?autoplay=1&loop=1&title=0&byline=0&portrait=0&muted=1&controls=0" frameborder="0" allowfullscreen></iframe></div>
+									<div class="overframe"><iframe class="vim" src="https://player.vimeo.com/video/<?php echo esc_attr($video_id); ?>?autoplay=1&loop=1&title=0&byline=0&portrait=0&muted=1&controls=0" frameborder="0" allowfullscreen></iframe></div>
 									<?php
 									}
 									endif;	

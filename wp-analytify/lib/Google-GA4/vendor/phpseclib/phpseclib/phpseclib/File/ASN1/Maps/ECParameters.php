@@ -12,9 +12,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\File\ASN1\Maps;
 
-use Analytify\phpseclib3\File\ASN1;
+namespace phpseclib3\File\ASN1\Maps;
+
+use phpseclib3\File\ASN1;
+
 /**
  * ECParameters
  *
@@ -32,5 +34,12 @@ use Analytify\phpseclib3\File\ASN1;
  */
 abstract class ECParameters
 {
-    const MAP = ['type' => ASN1::TYPE_CHOICE, 'children' => ['namedCurve' => ['type' => ASN1::TYPE_OBJECT_IDENTIFIER], 'implicitCurve' => ['type' => ASN1::TYPE_NULL], 'specifiedCurve' => SpecifiedECDomain::MAP]];
+    const MAP = [
+        'type' => ASN1::TYPE_CHOICE,
+        'children' => [
+            'namedCurve' => ['type' => ASN1::TYPE_OBJECT_IDENTIFIER],
+            'implicitCurve' => ['type' => ASN1::TYPE_NULL],
+            'specifiedCurve' => SpecifiedECDomain::MAP
+        ]
+    ];
 }

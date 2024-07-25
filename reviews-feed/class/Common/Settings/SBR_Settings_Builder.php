@@ -77,7 +77,9 @@ class SBR_Settings_Builder extends Settings_Builder {
             'collectionsPageUrl' => admin_url('admin.php?page=sbr-collections'),
             'aboutPageUrl' => admin_url('admin.php?page=sbr-about'),
             'isDevUrl' => SBR_Upgrader::is_dev_url(  home_url() ),
-            'builderUrl'           => admin_url( 'admin.php?page=sbr')
+            'builderUrl'           => admin_url( 'admin.php?page=sbr'),
+            'collectionsList' => DB::get_collections_list(),
+            'bulkHistorySources'    => get_option('sbr_bulk_sources', [])
         ];
         if( isset( $_GET['manualsource'] ) && $_GET['manualsource'] == true){
 			$settings_data['manualSourcePopupInit'] = true;

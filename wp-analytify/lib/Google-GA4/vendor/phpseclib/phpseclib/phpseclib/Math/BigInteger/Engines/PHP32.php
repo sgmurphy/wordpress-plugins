@@ -10,7 +10,8 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  */
-namespace Analytify\phpseclib3\Math\BigInteger\Engines;
+
+namespace phpseclib3\Math\BigInteger\Engines;
 
 /**
  * Pure-PHP 32-bit Engine.
@@ -24,19 +25,22 @@ class PHP32 extends PHP
     // Constants used by PHP.php
     const BASE = 26;
     const BASE_FULL = 0x4000000;
-    const MAX_DIGIT = 0x3ffffff;
+    const MAX_DIGIT = 0x3FFFFFF;
     const MSB = 0x2000000;
+
     /**
      * MAX10 in greatest MAX10LEN satisfying
      * MAX10 = 10**MAX10LEN <= 2**BASE.
      */
     const MAX10 = 10000000;
+
     /**
      * MAX10LEN in greatest MAX10LEN satisfying
      * MAX10 = 10**MAX10LEN <= 2**BASE.
      */
     const MAX10LEN = 7;
     const MAX_DIGIT2 = 4503599627370496;
+
     /**
      * Initialize a PHP32 BigInteger Engine instance
      *
@@ -48,45 +52,48 @@ class PHP32 extends PHP
         if ($base != 256 && $base != -256) {
             return parent::initialize($base);
         }
+
         $val = $this->value;
         $this->value = [];
-        $vals =& $this->value;
-        $i = \strlen($val);
+        $vals = &$this->value;
+        $i = strlen($val);
         if (!$i) {
             return;
         }
-        while (\true) {
+
+        while (true) {
             $i -= 4;
             if ($i < 0) {
                 if ($i == -4) {
                     break;
                 }
-                $val = \substr($val, 0, 4 + $i);
-                $val = \str_pad($val, 4, "\x00", \STR_PAD_LEFT);
-                if ($val == "\x00\x00\x00\x00") {
+                $val = substr($val, 0, 4 + $i);
+                $val = str_pad($val, 4, "\0", STR_PAD_LEFT);
+                if ($val == "\0\0\0\0") {
                     break;
                 }
                 $i = 0;
             }
-            list(, $digit) = \unpack('N', \substr($val, $i, 4));
+            list(, $digit) = unpack('N', substr($val, $i, 4));
             if ($digit < 0) {
-                $digit += 0xffffffff + 1;
+                $digit += 0xFFFFFFFF + 1;
             }
-            $step = \count($vals) & 3;
+            $step = count($vals) & 3;
             if ($step) {
-                $digit = \floor($digit / \pow(2, 2 * $step));
+                $digit = (int) floor($digit / pow(2, 2 * $step));
             }
             if ($step != 3) {
-                $digit &= static::MAX_DIGIT;
+                $digit = (int) fmod($digit, static::BASE_FULL);
                 $i++;
             }
             $vals[] = $digit;
         }
-        while (\end($vals) === 0) {
-            \array_pop($vals);
+        while (end($vals) === 0) {
+            array_pop($vals);
         }
-        \reset($vals);
+        reset($vals);
     }
+
     /**
      * Test for engine validity
      *
@@ -95,8 +102,9 @@ class PHP32 extends PHP
      */
     public static function isValidEngine()
     {
-        return \PHP_INT_SIZE >= 4;
+        return PHP_INT_SIZE >= 4 && !self::testJITOnWindows();
     }
+
     /**
      * Adds two BigIntegers.
      *
@@ -106,8 +114,10 @@ class PHP32 extends PHP
     public function add(PHP32 $y)
     {
         $temp = self::addHelper($this->value, $this->is_negative, $y->value, $y->is_negative);
+
         return $this->convertToObj($temp);
     }
+
     /**
      * Subtracts two BigIntegers.
      *
@@ -117,8 +127,10 @@ class PHP32 extends PHP
     public function subtract(PHP32 $y)
     {
         $temp = self::subtractHelper($this->value, $this->is_negative, $y->value, $y->is_negative);
+
         return $this->convertToObj($temp);
     }
+
     /**
      * Multiplies two BigIntegers.
      *
@@ -128,8 +140,10 @@ class PHP32 extends PHP
     public function multiply(PHP32 $y)
     {
         $temp = self::multiplyHelper($this->value, $this->is_negative, $y->value, $y->is_negative);
+
         return $this->convertToObj($temp);
     }
+
     /**
      * Divides two BigIntegers.
      *
@@ -145,6 +159,7 @@ class PHP32 extends PHP
     {
         return $this->divideHelper($y);
     }
+
     /**
      * Calculates modular inverses.
      *
@@ -156,6 +171,7 @@ class PHP32 extends PHP
     {
         return $this->modInverseHelper($n);
     }
+
     /**
      * Calculates modular inverses.
      *
@@ -167,6 +183,7 @@ class PHP32 extends PHP
     {
         return $this->extendedGCDHelper($n);
     }
+
     /**
      * Calculates the greatest common divisor
      *
@@ -179,6 +196,7 @@ class PHP32 extends PHP
     {
         return $this->extendedGCD($n)['gcd'];
     }
+
     /**
      * Logical And
      *
@@ -189,6 +207,7 @@ class PHP32 extends PHP
     {
         return $this->bitwiseAndHelper($x);
     }
+
     /**
      * Logical Or
      *
@@ -199,6 +218,7 @@ class PHP32 extends PHP
     {
         return $this->bitwiseOrHelper($x);
     }
+
     /**
      * Logical Exclusive Or
      *
@@ -209,6 +229,7 @@ class PHP32 extends PHP
     {
         return $this->bitwiseXorHelper($x);
     }
+
     /**
      * Compares two numbers.
      *
@@ -231,6 +252,7 @@ class PHP32 extends PHP
     {
         return $this->compareHelper($this->value, $this->is_negative, $y->value, $y->is_negative);
     }
+
     /**
      * Tests the equality of two numbers.
      *
@@ -243,6 +265,7 @@ class PHP32 extends PHP
     {
         return $this->value === $x->value && $this->is_negative == $x->is_negative;
     }
+
     /**
      * Performs modular exponentiation.
      *
@@ -254,6 +277,7 @@ class PHP32 extends PHP
     {
         return $this->powModOuter($e, $n);
     }
+
     /**
      * Performs modular exponentiation.
      *
@@ -267,6 +291,7 @@ class PHP32 extends PHP
     {
         return $this->powModOuter($e, $n);
     }
+
     /**
      * Generate a random prime number between a range
      *
@@ -280,6 +305,7 @@ class PHP32 extends PHP
     {
         return self::randomRangePrimeOuter($min, $max);
     }
+
     /**
      * Generate a random number between a range
      *
@@ -297,6 +323,7 @@ class PHP32 extends PHP
     {
         return self::randomRangeHelper($min, $max);
     }
+
     /**
      * Performs exponentiation.
      *
@@ -307,6 +334,7 @@ class PHP32 extends PHP
     {
         return $this->powHelper($n);
     }
+
     /**
      * Return the minimum BigInteger between an arbitrary number of BigIntegers.
      *
@@ -317,6 +345,7 @@ class PHP32 extends PHP
     {
         return self::minHelper($nums);
     }
+
     /**
      * Return the maximum BigInteger between an arbitrary number of BigIntegers.
      *
@@ -327,6 +356,7 @@ class PHP32 extends PHP
     {
         return self::maxHelper($nums);
     }
+
     /**
      * Tests BigInteger to see if it is between two integers, inclusive
      *

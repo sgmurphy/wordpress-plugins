@@ -4,8 +4,8 @@ Donate link: https://wpastra.com/pro/
 Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
-Tested up to: 6.5
-Stable tag: 4.3.8
+Tested up to: 6.6.1
+Stable tag: 4.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,17 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.3.9 - 25-July-2024
+- Improvement: Improved the UI/UX.  
+- Improvement: AI Builder - Better error message handling.  
+- Improvement: AI Builder - Added new icon for the ecommerce feature.  
+- Improvement: Improved the way Starter Templates translate strings in the script.  
+- Fix: AI Builder - Fixed an issue where the template preview designs were showing ternary operation results as HTML.  
+- Fix: AI Builder - Required plugins data was incorrect on the Elementor templates screen.  
+- Fix: AI Builder - Social icons title was not translation-ready.  
+- Fix: AI Builder - Fixed an issue where the import process was failing after changing the site language.  
+- Fix: Resolved a fatal error encountered with the Ghost Kit plugin.
 
 v4.3.8 - 16-July-2024
 - New: AI Builder - Added script translation with a filter to update the text domain for script translation.

@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -9,7 +8,10 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Analytify\Monolog\Processor;
+
+namespace Monolog\Processor;
+
+use Monolog\LogRecord;
 
 /**
  * Injects memory_get_usage in all records
@@ -20,15 +22,18 @@ namespace Analytify\Monolog\Processor;
 class MemoryUsageProcessor extends MemoryProcessor
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
-    public function __invoke(array $record) : array
+    public function __invoke(LogRecord $record): LogRecord
     {
-        $usage = \memory_get_usage($this->realUsage);
+        $usage = memory_get_usage($this->realUsage);
+
         if ($this->useFormatting) {
             $usage = $this->formatBytes($usage);
         }
-        $record['extra']['memory_usage'] = $usage;
+
+        $record->extra['memory_usage'] = $usage;
+
         return $record;
     }
 }

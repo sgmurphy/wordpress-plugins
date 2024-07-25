@@ -88,11 +88,11 @@ class ConvertKit_ContactForm7 {
 		}
 
 		// Get ConvertKit Form ID mapped to this Contact Form 7 Form.
-		$contact_form_7_settings = new ConvertKit_ContactForm7_Settings();
-		$convertkit_form_id      = $contact_form_7_settings->get_convertkit_form_id_by_cf7_form_id( $contact_form->id() );
+		$contact_form_7_settings      = new ConvertKit_ContactForm7_Settings();
+		$convertkit_subscribe_setting = $contact_form_7_settings->get_convertkit_subscribe_setting_by_cf7_form_id( $contact_form->id() );
 
-		// If no ConvertKit Form is mapped to this Contact Form 7 Form, bail.
-		if ( ! $convertkit_form_id ) {
+		// If no ConvertKit subscribe setting is defined, bail.
+		if ( ! $convertkit_subscribe_setting ) {
 			return;
 		}
 
@@ -129,21 +129,54 @@ class ConvertKit_ContactForm7 {
 			'contact_form_7'
 		);
 
-		// For Legacy Forms, a different endpoint is used.
-		$forms = new ConvertKit_Resource_Forms();
-		if ( $forms->is_legacy( $convertkit_form_id ) ) {
-			return $api->legacy_form_subscribe(
-				$convertkit_form_id,
-				$email,
-				$first_name
-			);
+		// Subscribe the email address.
+		$subscriber = $api->create_subscriber( $email, $first_name );
+		if ( is_wp_error( $subscriber ) ) {
+			return;
 		}
 
-		return $api->form_subscribe(
-			$convertkit_form_id,
-			$email,
-			$first_name
-		);
+		// If the setting is 'Subscribe', no Form needs to be assigned to the subscriber.
+		if ( $convertkit_subscribe_setting === 'subscribe' ) {
+			return;
+		}
+
+		// Determine the resource type and ID to assign to the subscriber.
+		list( $resource_type, $resource_id ) = explode( ':', $convertkit_subscribe_setting );
+
+		// Cast ID.
+		$resource_id = absint( $resource_id );
+
+		// Add the subscriber to the resource type (form, tag etc).
+		switch ( $resource_type ) {
+
+			/**
+			 * Form
+			 */
+			case 'form':
+				// For Legacy Forms, a different endpoint is used.
+				$forms = new ConvertKit_Resource_Forms();
+				if ( $forms->is_legacy( $resource_id ) ) {
+					return $api->add_subscriber_to_legacy_form( $resource_id, $subscriber['subscriber']['id'] );
+				}
+
+				// Add subscriber to form.
+				return $api->add_subscriber_to_form( $resource_id, $subscriber['subscriber']['id'] );
+
+			/**
+			 * Sequence
+			 */
+			case 'sequence':
+				// Add subscriber to sequence.
+				return $api->add_subscriber_to_sequence( $resource_id, $subscriber['subscriber']['id'] );
+
+			/**
+			 * Tag
+			 */
+			case 'tag':
+				// Add subscriber to tag.
+				return $api->tag_subscriber( $resource_id, $subscriber['subscriber']['id'] );
+
+		}
 
 	}
 

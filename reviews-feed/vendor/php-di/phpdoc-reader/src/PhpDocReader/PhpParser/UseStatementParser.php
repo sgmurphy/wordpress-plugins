@@ -10,6 +10,7 @@ use SplFileObject;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Christian Kaps <christian.kaps@mohiva.com>
+ * @internal
  */
 class UseStatementParser
 {

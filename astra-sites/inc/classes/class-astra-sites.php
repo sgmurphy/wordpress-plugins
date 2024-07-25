@@ -142,6 +142,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_action( 'load-index.php', array( $this, 'admin_dashboard_notices' ) );
 			add_action( 'admin_notices', array( $this, 'check_filesystem_access_notice' ) );
 			add_filter( 'ai_builder_textdomain', array( $this, 'updat_ai_builder_textdomain' ), 10, 1 );
+			add_filter( 'ai_builder_languages_directory', array( $this, 'change_languages_directory' ), 10, 1 );
 
 			// AJAX.
 			$this->ajax = array(
@@ -183,6 +184,18 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 */
 		public function updat_ai_builder_textdomain( $textdomain ) {
 			return 'astra-sites';
+		}
+
+		/**
+		 * Change languages directory.
+		 *
+		 * @param string $lang_dir languages directory.
+		 *
+		 * @return string
+		 * @since 4.3.9
+		 */
+		public function change_languages_directory( $lang_dir ) {
+			return ASTRA_SITES_DIR . 'languages';
 		}
 
 		/**

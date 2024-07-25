@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition;
 
 use SmashBalloon\Reviews\Vendor\DI\Factory\RequestedEntry;

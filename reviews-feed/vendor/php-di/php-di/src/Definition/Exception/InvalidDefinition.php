@@ -1,15 +1,17 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Exception;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
+use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerExceptionInterface;
 /**
  * Invalid DI definitions.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
-class InvalidDefinition extends \Exception
+class InvalidDefinition extends \Exception implements ContainerExceptionInterface
 {
     public static function create(Definition $definition, string $message, \Exception $previous = null) : self
     {

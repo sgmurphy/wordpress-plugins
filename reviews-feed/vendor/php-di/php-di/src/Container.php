@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -15,6 +15,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\Source\DefinitionArray;
 use SmashBalloon\Reviews\Vendor\DI\Definition\Source\MutableDefinitionSource;
 use SmashBalloon\Reviews\Vendor\DI\Definition\Source\ReflectionBasedAutowiring;
 use SmashBalloon\Reviews\Vendor\DI\Definition\Source\SourceChain;
+use SmashBalloon\Reviews\Vendor\DI\Definition\ValueDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Invoker\DefinitionParameterResolver;
 use SmashBalloon\Reviews\Vendor\DI\Proxy\ProxyFactory;
 use InvalidArgumentException;
@@ -32,6 +33,7 @@ use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerInterface;
  * @api
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class Container implements ContainerInterface, FactoryInterface, InvokerInterface
 {
@@ -90,17 +92,17 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
         $this->proxyFactory = $proxyFactory ?: new ProxyFactory(\false);
         $this->definitionResolver = new ResolverDispatcher($this->delegateContainer, $this->proxyFactory);
         // Auto-register the container
-        $this->resolvedEntries = [self::class => $this, FactoryInterface::class => $this, InvokerInterface::class => $this, ContainerInterface::class => $this];
+        $this->resolvedEntries = [self::class => $this, ContainerInterface::class => $this->delegateContainer, FactoryInterface::class => $this, InvokerInterface::class => $this];
     }
     /**
      * Returns an entry of the container by its name.
      *
-     * @param string $name Entry name or a class name.
+     * @template T
+     * @param string|class-string<T> $name Entry name or a class name.
      *
-     * @throws InvalidArgumentException The name parameter must be of type string.
      * @throws DependencyException Error while resolving the entry.
      * @throws NotFoundException No entry found for the given name.
-     * @return mixed
+     * @return mixed|T
      */
     public function get($name)
     {
@@ -137,15 +139,16 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
      *
      * This method makes the container behave like a factory.
      *
-     * @param string $name       Entry name or a class name.
-     * @param array  $parameters Optional parameters to use to build the entry. Use this to force specific parameters
-     *                           to specific values. Parameters not defined in this array will be resolved using
-     *                           the container.
+     * @template T
+     * @param string|class-string<T> $name       Entry name or a class name.
+     * @param array                  $parameters Optional parameters to use to build the entry. Use this to force
+     *                                           specific parameters to specific values. Parameters not defined in this
+     *                                           array will be resolved using the container.
      *
      * @throws InvalidArgumentException The name parameter must be of type string.
      * @throws DependencyException Error while resolving the entry.
      * @throws NotFoundException No entry found for the given name.
-     * @return mixed
+     * @return mixed|T
      */
     public function make($name, array $parameters = [])
     {
@@ -187,17 +190,21 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
     /**
      * Inject all dependencies on an existing instance.
      *
-     * @param object $instance Object to perform injection upon
+     * @template T
+     * @param object|T $instance Object to perform injection upon
      * @throws InvalidArgumentException
      * @throws DependencyException Error while injecting dependencies
-     * @return object $instance Returns the same instance
+     * @return object|T $instance Returns the same instance
      */
     public function injectOn($instance)
     {
         if (!$instance) {
             return $instance;
         }
-        $objectDefinition = $this->definitionSource->getDefinition(\get_class($instance));
+        $className = \get_class($instance);
+        // If the class is anonymous, don't cache its definition
+        // Checking for anonymous classes is cleaner via Reflection, but also slower
+        $objectDefinition = \false !== \strpos($className, '@anonymous') ? $this->definitionSource->getDefinition($className) : $this->getDefinition($className);
         if (!$objectDefinition instanceof ObjectDefinition) {
             return $instance;
         }
@@ -234,7 +241,10 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
         } elseif ($value instanceof \Closure) {
             $value = new FactoryDefinition($name, $value);
         }
-        if ($value instanceof Definition) {
+        if ($value instanceof ValueDefinition) {
+            $this->resolvedEntries[$name] = $value->getValue();
+        } elseif ($value instanceof Definition) {
+            $value->setName($name);
             $this->setDefinition($name, $value);
         } else {
             $this->resolvedEntries[$name] = $value;

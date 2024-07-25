@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2018 Google LLC
  *
@@ -15,12 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Google\ApiCore\Testing;
 
 use Google\Protobuf\Internal\Message;
-use Analytify\SebastianBergmann\Comparator\Comparator;
-use Analytify\SebastianBergmann\Comparator\ComparisonFailure;
-use Analytify\SebastianBergmann\Exporter\Exporter;
+use SebastianBergmann\Comparator\Comparator;
+use SebastianBergmann\Comparator\ComparisonFailure;
+use SebastianBergmann\Exporter\Exporter;
+
 /**
  * @internal
  */
@@ -28,11 +29,13 @@ class ProtobufMessageComparator extends Comparator
 {
     /** @var Exporter */
     protected $exporter;
+
     public function __construct()
     {
         parent::__construct();
-        $this->exporter = new \Google\ApiCore\Testing\MessageAwareExporter();
+        $this->exporter = new MessageAwareExporter();
     }
+
     /**
      * Returns whether the comparator can compare two values.
      *
@@ -44,6 +47,7 @@ class ProtobufMessageComparator extends Comparator
     {
         return $expected instanceof Message && $actual instanceof Message;
     }
+
     /**
      * Asserts that two values are equal.
      *
@@ -59,10 +63,17 @@ class ProtobufMessageComparator extends Comparator
      *                           fails. Contains information about the
      *                           specific errors that lead to the failure.
      */
-    public function assertEquals($expected, $actual, $delta = 0, $canonicalize = \FALSE, $ignoreCase = \FALSE)
+    public function assertEquals($expected, $actual, $delta = 0, $canonicalize = FALSE, $ignoreCase = FALSE)
     {
         if ($expected->serializeToString() !== $actual->serializeToString()) {
-            throw new ComparisonFailure($expected, $actual, $this->exporter->shortenedExport($expected), $this->exporter->shortenedExport($actual), \false, 'Given 2 Message objects are not the same');
+            throw new ComparisonFailure(
+                $expected,
+                $actual,
+                $this->exporter->shortenedExport($expected),
+                $this->exporter->shortenedExport($actual),
+                false,
+                'Given 2 Message objects are not the same'
+            );
         }
     }
 }

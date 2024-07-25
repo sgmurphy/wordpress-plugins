@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Source;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\ArrayDefinition;
@@ -10,12 +10,14 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
 use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Definition\FactoryDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Definition\Helper\DefinitionHelper;
+use SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Definition\ValueDefinition;
 /**
  * Turns raw definitions/definition helpers into definitions ready
  * to be resolved or compiled.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class DefinitionNormalizer
 {
@@ -34,10 +36,11 @@ class DefinitionNormalizer
      *
      * @param mixed $definition
      * @param string $name The definition name.
+     * @param string[] $wildcardsReplacements Replacements for wildcard definitions.
      *
      * @throws InvalidDefinition
      */
-    public function normalizeRootDefinition($definition, string $name) : Definition
+    public function normalizeRootDefinition($definition, string $name, array $wildcardsReplacements = null) : Definition
     {
         if ($definition instanceof DefinitionHelper) {
             $definition = $definition->getDefinition($name);
@@ -47,6 +50,11 @@ class DefinitionNormalizer
             $definition = new FactoryDefinition($name, $definition);
         } elseif (!$definition instanceof Definition) {
             $definition = new ValueDefinition($definition);
+        }
+        // For a class definition, we replace * in the class name with the matches
+        // *Interface -> *Impl => FooInterface -> FooImpl
+        if ($wildcardsReplacements && $definition instanceof ObjectDefinition) {
+            $definition->replaceWildcards($wildcardsReplacements);
         }
         if ($definition instanceof AutowireDefinition) {
             $definition = $this->autowiring->autowire($name, $definition);

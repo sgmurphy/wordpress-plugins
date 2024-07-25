@@ -777,7 +777,12 @@ if ( ! class_exists( 'WP_Analytify_Settings' ) ) {
 				$html .= '<div class="analytify-multiselect-container">';
 				$html .= sprintf( '<select class="%1$s" name="%2$s[%3$s]['. $key .']" id="%2$s[%3$s][value]">', $size, $args['section'], $args['id'] );
 				foreach ( $args['options']['value'][$key] as $k => $v ) {
-					$html .= sprintf( '<option value="%s"%s>%s</option>', $k, selected( $k, $value[$key], false ), $v );
+				$html .= sprintf(
+					'<option value="%s"%s>%s</option>',
+					$k,
+					selected($k, isset($value) && is_array($value) && isset($value[$key]) ? $value[$key] : '', false),
+					$v
+				 );					
 				}
 				$html .= sprintf( '</select>' );
 				$html .= '<span class="analytify-multiselect-label">' . $label . '</span>';
@@ -1336,9 +1341,9 @@ if ( ! class_exists( 'WP_Analytify_Settings' ) ) {
 					<form action="" method="post">
 						<tbody>
 							<tr>
-							<?php 
-								wp_nonce_field( 'analytify_analytics_logout', 'analytify_analytics_logout_nonce' );
-							?>
+                                <?php
+                                wp_nonce_field( 'analytify_analytics_logout', 'analytify_analytics_logout_nonce' );
+                                ?>
 								<th scope="row"><label class="pt-20">Google Authentication</label></th>
 								<td>
 									<input type="submit" class="button-primary" value="Logout" name="wp_analytify_log_out" />
@@ -1357,7 +1362,7 @@ if ( ! class_exists( 'WP_Analytify_Settings' ) ) {
 
 							<th scope="row"><label class="pt-20">Google Authentication</label></th>
 							<td>
-								<a target="_self" title="Log in with your Google Analytics Account" 	class="button-primary authentication_btn" href="https://accounts.google.com/o/oauth2/auth?<?php echo WP_ANALYTIFY_FUNCTIONS::generate_login_url	(); ?>"><?php esc_html_e( 'Log in with your Google Analytics Account', 	'wp-analytify' ); ?></a>
+								<a target="_self" title="Log in with your Google Analytics Account" class="button-primary authentication_btn" href="https://accounts.google.com/o/oauth2/auth?<?php echo WP_ANALYTIFY_FUNCTIONS::generate_login_url(); ?>"><?php esc_html_e( 'Log in with your Google Analytics Account', 'wp-analytify' ); ?></a>
 								<p class="description">It is required to <a href="https://analytify.io/setup-account-google-analytics/" target="blank">Set up your account</a> and a website profile at <a href="https://analytics.google.com/" target="blank">Google Analytics</a> to see Analytify Dashboard reports.<br>If you don't want to see reports within WordPress Dashboard, Manually add UA or GA4 Tracking ID below.</p>
 							</td>
 						</tr>

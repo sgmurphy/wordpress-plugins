@@ -10,7 +10,8 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\Crypt\Common\Formats\Keys;
+
+namespace phpseclib3\Crypt\Common\Formats\Keys;
 
 /**
  * PKCS1 Formatted Key Handler
@@ -32,12 +33,14 @@ abstract class PKCS
      */
     const MODE_DER = 2;
     /**#@-*/
+
     /**
      * Is the key a base-64 encoded PEM, DER or should it be auto-detected?
      *
      * @var int
      */
     protected static $format = self::MODE_ANY;
+
     /**
      * Require base64-encoded PEM's be supplied
      *
@@ -46,6 +49,7 @@ abstract class PKCS
     {
         self::$format = self::MODE_PEM;
     }
+
     /**
      * Require raw DER's be supplied
      *
@@ -54,6 +58,7 @@ abstract class PKCS
     {
         self::$format = self::MODE_DER;
     }
+
     /**
      * Accept any format and auto detect the format
      *

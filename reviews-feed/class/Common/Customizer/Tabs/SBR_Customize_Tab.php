@@ -183,7 +183,7 @@ class SBR_Customize_Tab extends SB_Sidebar_Tab {
                         'label'             => __('Vertical', 'reviews-feed'),
                         'labelIcon'         => 'verticalspacing',
                         'unit'              => 'px',
-                        'style'             => [ '.sb-post-item-wrap' => 'margin-bottom:{{value}}px;' ]
+                        'style'             => [ '.sb-post-item-wrap' => 'margin-bottom:{{value}}px!important;' ]
                     ],
                     [
                         'type'              => 'slider',
@@ -353,6 +353,17 @@ class SBR_Customize_Tab extends SB_Sidebar_Tab {
                                 'max'           => 6,
                                 'leadingIcon'   => 'mobile',
                             ],
+                        ]
+                    ],
+                    [
+                        'type'          => 'select',
+                        'id'            => 'carouselDesktopRows',
+                        'min'           => 1,
+                        'max'           => 2,
+                        'heading'       => __( 'Number of Rows', 'reviews-feed' ),
+                        'options'       => [
+                            1 => __( '1', 'reviews-feed' ),
+                            2 => __( '2', 'reviews-feed' )
                         ]
                     ],
                     /*

@@ -1,3 +1,29 @@
+v1.1.18 - 24-July-2024
+- Improvement: Implemented detailed error message handling based on API responses.
+
+v1.1.17 - 22-July-2024
+- Improvement: Added new icon for ecommerce feature.
+
+v1.1.16 - 19-July-2024
+- Fix: Template preview designs showing ternary operation result HTML.
+- Fix: Required plugins data was incorrect for the elementor templates screen. 
+
+v1.1.15 - 17-July-2024
+- Improvement: Using message code instead of response code to check some condition.
+
+v1.1.14 - 17-July-2024
+- Fix: Excluded features title and description from translation.
+
+v1.1.13 - 17-July-2024
+- Fix: Social icons title was not translation ready.
+
+v1.1.12 - 17-July-2024
+- Fix: Some strings were not translation ready.
+- Fix: Import Process Not Working on site language Change.
+
+v1.1.11 - 16-July-2024
+- Improvement: Added required changes for script strings translation.
+
 v1.1.10 - 12-July-2024
 - New: Added script translation with a filter to update the text domain for script translation.
 

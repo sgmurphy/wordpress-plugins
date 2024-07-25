@@ -10,9 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  */
-namespace Analytify\phpseclib3\Math\BigInteger\Engines\PHP\Reductions;
 
-use Analytify\phpseclib3\Math\BigInteger\Engines\PHP\Base;
+namespace phpseclib3\Math\BigInteger\Engines\PHP\Reductions;
+
+use phpseclib3\Math\BigInteger\Engines\PHP\Base;
+
 /**
  * PHP Power Of Two Modular Exponentiation Engine
  *
@@ -32,6 +34,7 @@ abstract class PowerOfTwo extends Base
     {
         return self::reduce($x, $n, $class);
     }
+
     /**
      * Power Of Two Reduction
      *
@@ -46,8 +49,10 @@ abstract class PowerOfTwo extends Base
         $lhs->value = $x;
         $rhs = new $class();
         $rhs->value = $n;
+
         $temp = new $class();
         $temp->value = [1];
+
         $result = $lhs->bitwise_and($rhs->subtract($temp));
         return $result->value;
     }

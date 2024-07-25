@@ -3,8 +3,8 @@ Contributors: hiddenpearls
 Donate link: https://paypal.me/Analytify
 Tags: google analytics, google analytics dashboard, google analytics 4, WordPress Analytics, analytics
 Requires at least: 3.6
-Tested up to: 6.5
-Stable tag: 5.2.5
+Tested up to: 6.6
+Stable tag: 5.3.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,11 +12,11 @@ Analytify is the must-have Plugin for Google Analytics 4 Integration, Tracking, 
 
 == Description ==
 
-[Homepage](https://analytify.io/details) | [Documentation](https://analytify.io/documentation/) | [Support](https://analytify.io/support/) | [Demo](https://www.youtube.com/watch?v=D02R6eP3olM) | [Premium Version](https://analytify.io/pricing/?utm_source=analytify-lite&amp;utm_medium=readme-org-link&amp;utm_content=premium-version&amp;utm_campaign=pro-upgrade)
+[Homepage](https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=homepage-link) | [Documentation](https://analytify.io/documentation/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=documentation-link) | [Support](https://analytify.io/support/) | [Demo](https://www.youtube.com/watch?v=D02R6eP3olM) | [Premium Version](https://analytify.io/pricing/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=premium-version-link)
 
 = Google Analytics Dashboard =
 
-**[Google Analytics Dashboard Plugin for WordPress](https://analytify.io/details)** - by Analytify makes **Google Analytics** simple for everyone using WordPress. We know how important it is to keep track of website analytics.
+**[Google Analytics Dashboard Plugin for WordPress](https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=Google+Analytics+Dashboard+Plugin+for+WordPress)** - by Analytify makes **Google Analytics** simple for everyone using WordPress. We know how important it is to keep track of website analytics.
 
 `[youtube https://www.youtube.com/watch?v=ABMo5YxeEMM]`
 
@@ -35,7 +35,7 @@ Analytify is one of the few WordPress analytics plugins, which is the Google Ana
 **Analytify 4.0 is here! Discover Google Analytics Like Never Before! Must check those stunning [Screenshots](https://wordpress.org/plugins/wp-analytify/screenshots/)!**
 
 **ANALYTIFY PRO VERSION:**<br>
-> This is the free version of Analytify, there is a Premium version that comes with basic plus advanced features to help you get Google Analytics in WordPress. The Pro version is more easy to install, and shows **Real-Time Stats**, **Campaign Stats**, **ShortCodes**, **Front-end Stats** and more reports in backend and front-end. Also the premium version has better ecommerce tracking (Buy [Add-ons](https://analytify.io/add-ons/) with premium), and campaigns management. Get the affordable Premium Version from [analytify.io](https://analytify.io/upgrade-from-free) . Bundle price is also available with Addons.
+> This is the free version of Analytify, there is a Premium version that comes with basic plus advanced features to help you get Google Analytics in WordPress. The Pro version is more easy to install, and shows **Real-Time Stats**, **Campaign Stats**, **ShortCodes**, **Front-end Stats** and more reports in backend and front-end. Also the premium version has better ecommerce tracking (Buy [Add-ons](https://analytify.io/add-ons?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=addons-text-link) with premium), and campaigns management. Get the affordable Premium Version from [analytify.io](https://analytify.io/pricing/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=analytify+io) . Bundle price is also available with Addons.
 
 `[youtube https://www.youtube.com/watch?v=pKAyHHQul-Q]`
 
@@ -140,16 +140,16 @@ PREMIUM FEATURES
 * Google Analytics Stats (Full) under the single posts,pages & Custom Post Types as a block in wp-admin
 * ShortCodes (Simple and Advanced) for Custom Statistics of your own choice
 
-[WooCommerce Enhanced eCommerce tracking](https://analytify.io/go/WooCommerce) and report dashboard right inside your WordPress is now available. [Take a look.](https://analytify.io/go/WooCommerce)
+[WooCommerce Enhanced eCommerce tracking](https://analytify.io/add-ons/woocommerce/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=woocommerce-text-link) and report dashboard right inside your WordPress is now available. [Take a look.](https://analytify.io/add-ons/woocommerce/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=take-a-look)
 
 Following are the important add-ons which empower you to set up Google Analytics like a boss. It really helps your clients, online stores, etc.
 
-* Google Analytics [Goals Dashboard](https://analytify.io/add-ons/google-analytics-goals-wordpress/)
-* Google Analytics [eCommerce Tracking for WooCommerce](https://analytify.io/go/WooCommerce)
-* Google Analytics [eCommerce Tracking for Easy Digital Downloads](https://analytify.io/add-ons/easy-digital-downloads/)
-* [Automated Email Notifications](https://analytify.io/add-ons/email-notifications/)
-* Google Analytics [Campaigns Tracking](https://analytify.io/add-ons/campaigns/)
-* [Free] Google Analytics [Dashboard Widget](https://wordpress.org/plugins/analytify-analytics-dashboard-widget/)
+* Google Analytics [Goals Dashboard](https://analytify.io/add-ons/google-analytics-goals-wordpress/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=Goals+Dashboard)
+* Google Analytics [eCommerce Tracking for WooCommerce](https://analytify.io/add-ons/woocommerce/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=eCommerce+Tracking+for+WooCommerce)
+* Google Analytics [eCommerce Tracking for Easy Digital Downloads](https://analytify.io/add-ons/easy-digital-downloads/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=eCommerce+Tracking+for+Easy+Digital+Downloads)
+* Google Analytics [Automated Email Notifications](https://analytify.io/add-ons/email-notifications/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=Automated+Email+Notifications)
+* Google Analytics [Campaigns Tracking](https://analytify.io/add-ons/campaigns/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=Campaigns+Tracking)
+* [Free] Google Analytics [Dashboard Widget](https://analytify.io/add-ons/google-analytics-dashboard-widget-wordpress/?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=Dashboard+Widget)
 
 FOLLOWING IS A COMPLETE HIERARCHY STRUCTURE OF ANALYTIFY PRODUCTS SUITE
 
@@ -168,7 +168,7 @@ It is highly recommended by Google Analytics Team to use your own Custom API key
 
 Here is a short [Video guide](https://analytify.io/custom-api-keys-video) or a [tutorial](https://analytify.io/google-api-tutorial) to get your own ClientID, Client Secret and Redirect URL. Add these API Keys in Advanced Tab before connecting Analytify with Google Analytics.
 
-> This Google analytics plugin is also [available on github](https://github.com/Analytify/wp-analytify) and ready to take bugs and pull requests. For Support, you can buy the **[PRO version](https://analytify.io/details)**, this will give access to premium updates, support and features.
+> This Google analytics plugin is also [available on github](https://github.com/Analytify/wp-analytify) and ready to take bugs and pull requests. For Support, you can buy the **[PRO version](https://analytify.io/pricing?utm_source=wp-org&utm_medium=description&utm_campaign=pro-upgrade&utm_content=PRO+version)**, this will give access to premium updates, support and features.
 
 
 == Installation ==
@@ -198,7 +198,7 @@ This section describes how to install the Google Analytics Dashboard by Analytif
 A new upgraded version of Google Analytics introduced 4 key features: Smarter Insights, Deep integration with Google Ads, Customer-Centric data measurement, and Data controls. GA4 tracking id looks like G-XXXXXXXXXX. 
 
 = Does this plugin support Google Analytics4? =
-Yes, you can track data in GA4, but you must need Universal Analytics for reports to be visible in WordPress. So, We wrote an article to <a href="https://analytify.io/doc/integrate-google-analytics-4-with-universal-analytics/">create both properties in Google Analytics and connect each other</a>. i.e., Universal Analytics UA and Google Analytics GA4 property.
+Yes, you can track data in GA4, but you must need Universal Analytics for reports to be visible in WordPress. So, We wrote an article to <a href="https://analytify.io/doc/integrate-google-analytics-4-with-universal-analytics/?utm_source=wp-org&utm_medium=FAQ&utm_campaign=pro-upgrade&utm_content=Support+GA4">create both properties in Google Analytics and connect each other</a>. i.e., Universal Analytics UA and Google Analytics GA4 property.
 
 = Should I use the old Google Analytics UA script (analytics.js) or the new Global Site Tag (gtags.js) in 2021? =
 We recommend using gtag.js as the Google Analytics team also advises this. If you have written custom tracking scripts in Universal Analytics, you need to use UA analytics.js, and it is better to rewrite them in gtag.js as old UA analytics.js will obsolete. That's how we moved our tracking codes from analytics.js to gtag.js
@@ -221,7 +221,7 @@ If you check the source code of your pages and don't see the Google Analytics tr
 If the GA tracking code is still not displayed, there is likely interference from another plugin. Please submit a support request on our site or here.
 
 = Do I need to have an account on Google Analytics to start tracking my website? =
-Yes, a Google Analytics account is necessary to track your website. We wrote a detailed guide on <a href="https://analytify.io/how-to-setup-your-account-at-google-analytics/">How to set up a Google Analytics account</a>. It will help in understanding Google Analytics in particular.
+Yes, a Google Analytics account is necessary to track your website. We wrote a detailed guide on <a href="https://analytify.io/how-to-setup-your-account-at-google-analytics/?utm_source=wp-org&utm_medium=FAQ&utm_campaign=pro-upgrade&utm_content=Setup+Account">How to set up a Google Analytics account</a>. It will help in understanding Google Analytics in particular.
 
 = How to Authenticate and Connect my Google Analytics Account with Analytify? =
 Go to plugin Analytify->settings page and see the Authentication tab. Click the "Log in with Google Analytics Account" button, connect and give Analytify app access to your Google Analytics account.
@@ -235,30 +235,30 @@ Yes, It is Multilingual compatible, and this supports the WPML plugin too.
 = How to set up Google Optimize using this plugin = 
 With the Analytify plugin, you can easily connect Google optimize with Google Analytics for A/B testing. 
 
-We wrote a detailed guide on [Setting up Google Optimize.](https://analytify.io/doc/how-to-set-up-google-optimize-with-analytify/).
+We wrote a detailed guide on [Setting up Google Optimize.](https://analytify.io/doc/how-to-set-up-google-optimize-with-analytify/?utm_source=wp-org&utm_medium=FAQ&utm_campaign=pro-upgrade&utm_content=Google+Optimize).
 
 = How to enable Events Tracking in Google Analytics using this plugin? 
 Adding custom events will help you track and measure the most critical internal or external links (affiliate links, file downloads, calls, & email links tracking).
 
-Check out the [Events Tracking](https://analytify.io/doc/get-started-with-the-google-events-tracking-addon/)
+Check out the [Events Tracking](https://analytify.io/doc/get-started-with-the-google-events-tracking-addon/?utm_source=wp-org&utm_medium=FAQ&utm_campaign=pro-upgrade&utm_content=Events+Tracking)
 
 = How to set up WordPress Forms Tracking in Google Analytics? =
 We have integrations available for all the most popular forms and even custom forms, including Contact Form 7, Gravity Forms, WP Forms, Formidable Forms, etc. 
 
-Check out the [Forms Tracking](https://analytify.io/add-ons/forms-tracking/)
+Check out the [Forms Tracking](https://analytify.io/add-ons/forms-tracking/?utm_source=wp-org&utm_medium=FAQ&utm_campaign=pro-upgrade&utm_content=Forms+Tracking)
 
 = Enable Google Custom Dimensions to your site =
 You can select your custom data for tracking and display it in your Analytify WordPress dashboard with a custom dimensions addon.
 
-Check out the [Custom Dimensions here](https://analytify.io/add-ons/forms-tracking/)
+Check out the [Custom Dimensions here](https://analytify.io/doc/get-started-with-custom-dimensions-addon/?utm_source=wp-org&utm_medium=FAQ&utm_campaign=pro-upgrade&utm_content=Custom+Dimensions)
 
 = How to receive your website analytics via email, weekly or monthly? =
 Analytify sends weekly and monthly analytics reports to the email address you provided. Go through all the options in the plugin settings->Email Tab.
 
-Check out the [Email Notifications addon](https://analytify.io/add-ons/email-notifications/)
+Check out the [Email Notifications addon](https://analytify.io/add-ons/email-notifications/?utm_source=wp-org&utm_medium=FAQ&utm_campaign=pro-upgrade&utm_content=Email+Notifications+addon)
 
 = How to see my Google Analytics campaigns data in Analytify? =
-Check out the [UTM Campaigns Tracking](https://analytify.io/add-ons/campaigns/)
+Check out the [UTM Campaigns Tracking](https://analytify.io/add-ons/campaigns/?utm_source=wp-org&utm_medium=FAQ&utm_campaign=pro-upgrade&utm_content=UTM+Campaigns+addon)
 
 = How much time will it take to see the data in Google Analytics or Analytify Dashboards? =
 Wait till 24 hours, or better, you see the real-time analytics dashboard.
@@ -283,25 +283,30 @@ We listen to each of our users and are active (Monday to Friday) at the <a href=
 
 == Screenshots ==
 
-1. Google Analytics by Analytify - [Real Time Stats](https://analytify.io/pricing/?utm_source=analytify-lite&amp;utm_medium=readme-org-screenshots&amp;utm_content=realtime&amp;utm_campaign=pro-upgrade)
-2. Google Analytics by Analytify - General Statistics - It includes Google Analytics pageviews, Google Analytics sessions, Google Analytics visitors, Google Analytics BounceRate, Average Time of site from Google Analytics, New versus Returning visitors from Google Analytics.
-3. Google Analytics by Analytify - Top Countries
-4. Google Analytics by Analytify - Top Referrers/Browsers.
-5. Google Analytics by Analytify - Enhanced eCommerce Google Analytics Tracking for WooCommerce [Paid Add-on Required](https://analytify.io/add-ons/woocommerce/?utm_source=analytify-lite&amp;utm_medium=readme-org-screenshots&amp;utm_content=woocommerce&amp;utm_campaign=pro-upgrade).
-6. Google Analytics Dashboard By Analytify - Settings Screen.
-7. Google Analytics by Analytify - Automated Email Reports [Paid Add-on Required](https://analytify.io/add-ons/email-notifications/?utm_source=analytify-lite&amp;utm_medium=readme-org-screenshots&amp;utm_content=email-notifications&amp;utm_campaign=pro-upgrade).
-8. Google Analytics by Analytify - Shopping Behavior funnel for WooCommerce Google Analytics [Paid Add-on Required](https://analytify.io/add-ons/woocommerce/?utm_source=analytify-lite&amp;utm_medium=readme-org-screenshots&amp;utm_content=woocommerce-funnel&amp;utm_campaign=pro-upgrade).
-9. Google Analytics by Analytify - UTM Campaigns Dashboard [Add-on Required](https://analytify.io/add-ons/campaigns/?utm_source=analytify-lite&amp;utm_medium=readme-org-screenshots&amp;utm_content=campaigns&amp;utm_campaign=pro-upgrade).
-10. Google Analytics by Analytify - Google Analytics dashboard widget for WordPress [ Free Add-on](https://analytify.io/add-ons/google-analytics-dashboard-widget-wordpress/?utm_source=analytify-lite&amp;utm_medium=readme-org-screenshots&amp;utm_content=dashboard-widget&amp;utm_campaign=pro-upgrade).
-11. Google Analytics by Analytify - Google Custom Dimensions Dashboard.
-12. Google Analytics by Analytify - Events Tracking Dashboard.
-13. Google Analytics by Analytify - Forms Tracking Settings.
-14. Google Analytics by Analytify - Forms Tracking Dashboard.
-15. Google Analytics by Analytify - Google Custom Dimensions Tracking.
-16. Google Analytics by Analytify - Google Optimize A/B Testing.
+1. Google Analytics by Analytify - [Real Time Stats](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Real+Time+Stats)
+2. Google Analytics by Analytify - [General Statistics](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=General+Statistics)
+3. Google Analytics by Analytify - [Top Countries](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Top+Countries)
+4. Google Analytics by Analytify - [Top Referrers/Browsers](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Top+Browsers)
+5. Google Analytics by Analytify - [Enhanced eCommerce Google Analytics Tracking for WooCommerce](https://analytify.io/add-ons/woocommerce/?utm_source=wp-org&amp;utm_medium=screenshots&amp;utm_content=woocommerce&amp;utm_campaign=pro-upgrade)
+6. Google Analytics Dashboard By Analytify - [Settings Screen](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Settings)
+7. Google Analytics by Analytify - [Automated Email Reports](https://analytify.io/add-ons/email-notifications/?utm_source=wp-org&amp;utm_medium=screenshots&amp;utm_content=email-notifications&amp;utm_campaign=pro-upgrade)
+8. Google Analytics by Analytify - [Shopping Behavior funnel for WooCommerce Google Analytics](https://analytify.io/add-ons/woocommerce/?utm_source=wp-org&amp;utm_medium=readme-org-screenshots&amp;utm_content=woocommerce-funnel&amp;utm_campaign=pro-upgrade)
+9. Google Analytics by Analytify - [UTM Campaigns Dashboard](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=UTM+Campaigns+Dashboard)
+10. Google Analytics by Analytify - [Google Analytics dashboard widget for WordPress](https://analytify.io/add-ons/google-analytics-dashboard-widget-wordpress/?utm_source=analytify-lite&amp;utm_medium=readme-org-screenshots&amp;utm_content=dashboard-widget&amp;utm_campaign=pro-upgrade).
+11. Google Analytics by Analytify - [Google Custom Dimensions Dashboard](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Custom+Dimensions+Dashboard)
+12. Google Analytics by Analytify - [Events Tracking Dashboard](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Events+Tracking+Dashboard)
+13. Google Analytics by Analytify - [Forms Tracking Settings](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Forms+Tracking+Settings)
+14. Google Analytics by Analytify - [Forms Tracking Dashboard](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Forms+Tracking+Dashboard)
+15. Google Analytics by Analytify - [Google Custom Dimensions Tracking](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Custom+Dimensions+Tracking)
+16. Google Analytics by Analytify - [Google Optimize A/B Testing](https://analytify.io/pricing?utm_source=wp-org&utm_medium=screenshots&utm_campaign=pro-upgrade&utm_content=Google+Optimize)
 
 
 == Changelog ==
+
+= 5.3.0 - 2024-07-24 =
+* New Feature: Added Google Search Console (GSC) visitors, CTR, clicks in email notifications.
+* Enhancement: Google SDK Updated.
+* Compatibility: Compatible to WordPress 6.6
 
 = 5.2.5 - 2024-04-25 =
 * Enhancement: Single stats email bugfix and improvement.
@@ -997,7 +1002,7 @@ We listen to each of our users and are active (Monday to Friday) at the <a href=
 
 == Upgrade Notice ==
 
-= 5.2.5 =
+= 5.3.0 =
 * Update This Google Analytics Plugin Now.
 
 == Notes ==

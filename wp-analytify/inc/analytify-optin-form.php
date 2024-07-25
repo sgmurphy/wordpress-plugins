@@ -737,7 +737,7 @@ jQuery(document).ready(function(s) {
         </script>
         <?php
         echo '<div id="analytify-splash-footer">';
-        echo '<a target="_blank" href="https://analytify.io/pricing/">' . _x( 'Terms', 'as in terms and conditions', 'wp-analytify' ) . '</a> | <a target="_blank" href="https://analytify.io/pricing/">' . _x( 'Privacy', 'as in privacy policy', 'wp-analytify' ) . '</a> | ';
+        echo '<a target="_blank" href="https://analytify.io/terms-conditions/">' . _x( 'Terms', 'as in terms and conditions', 'wp-analytify' ) . '</a> | <a target="_blank" href="https://analytify.io/privacy-policy/">' . _x( 'Privacy', 'as in privacy policy', 'wp-analytify' ) . '</a> | ';
         echo '<a href="'. esc_url( admin_url( 'admin.php?page=analytify-settings') ) .'" > '. __( 'Go to Analytify Settings', 'wp-analytify' ) .'</a>  | ';
         echo '<a href="https://analytify.io/changelog/" > '. __( 'View the Full Changelog', 'wp-analytify' ) .'</a>';
         echo '</div>';

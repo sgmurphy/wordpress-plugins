@@ -30,6 +30,9 @@ const selectors = {
 	getLimitExceedModalInfo( { limitExceedModal } ) {
 		return limitExceedModal;
 	},
+	getApiErrorModalInfo( { apiErrorModal } ) {
+		return apiErrorModal;
+	},
 	getContinueProgressModalInfo( { continueProgressModal } ) {
 		return continueProgressModal;
 	},

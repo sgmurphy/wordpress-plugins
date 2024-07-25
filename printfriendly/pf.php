@@ -5,7 +5,7 @@
     Plugin URI: https://www.printfriendly.com
     Description: PrintFriendly & PDF button for your website. Optimizes your pages and brand for print, pdf, and email.
     Name and URL are included to ensure repeat visitors and new visitors when printed versions are shared.
-    Version: 5.5.2
+    Version: 5.5.5
     Author: Print, PDF, & Email by PrintFriendly
     Author URI: https://www.printfriendly.com
     Domain Path: /languages
@@ -40,7 +40,7 @@ if (! class_exists('PrintFriendly_WordPress')) {
          *
          * @var string
          */
-        var $plugin_version = '5.5.2';
+        var $plugin_version = '5.5.5';
         /**
          * The hook, used for text domain as well as hooks on pages and in get requests for admin.
          *
@@ -322,18 +322,18 @@ if (! class_exists('PrintFriendly_WordPress')) {
 						%s
 					}
 				}
-				
+
 				.pf-button-img {
 					border: none;
-					-webkit-box-shadow: none; 
-					-moz-box-shadow: none; 
-					box-shadow: none; 
-					padding: 0; 
+					-webkit-box-shadow: none;
+					-moz-box-shadow: none;
+					box-shadow: none;
+					padding: 0;
 					margin: 0;
-					display: inline; 
+					display: inline;
 					vertical-align: middle;
 				}
-			  
+
 				img.pf-button-img + .pf-button-text {
 					margin-left: 6px;
 				}
@@ -521,10 +521,10 @@ if (! class_exists('PrintFriendly_WordPress')) {
                         if(typeof(_gaq) === 'function') {
                             _gaq.push(['_trackEvent','PRINTFRIENDLY', 'print', title]);
                         }else if(typeof(ga) === 'function') {
-                            ga('send', 'event','PRINTFRIENDLY', 'print', title); 
-                        }else if(typeof(gtag) === 'function') { 
+                            ga('send', 'event','PRINTFRIENDLY', 'print', title);
+                        }else if(typeof(gtag) === 'function') {
                             gtag('event', 'printfriendly_button_click', {'event_category': 'printfriendly', 'event_label': title})
-                        }else if(typeof(dataLayer) === 'object') { 
+                        }else if(typeof(dataLayer) === 'object') {
                             dataLayer.push({
                                 'event': 'printfriendly_button_click',
                                 'pageTitle': title

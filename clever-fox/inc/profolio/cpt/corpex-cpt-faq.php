@@ -50,7 +50,7 @@
 		function corpex_meta_faq()
 		{
 			global $post;
-			
+			wp_nonce_field( 'corpex_meta_faq_nonce', 'corpex_meta_faq_nonce' );
 			
 		?>					
 			
@@ -60,6 +60,12 @@
 
 		function corpex_meta_faq_save($post_id) 
 		{
+		
+		 // Check if nonce is set and valid
+			if ( !isset($_POST['corpex_meta_faq_nonce']) || !wp_verify_nonce($_POST['corpex_meta_faq_nonce'], 'corpex_meta_faq_nonce') ) {
+				return;
+			}
+			
 			if(isset( $_POST['post_ID']))
 			{ 	
 				$post_ID = $_POST['post_ID'];				
@@ -90,35 +96,33 @@
 		//Default category id		
 		$defualt_tex_id = get_option('custom_texo_faq_id');
 		//quick update category
-		if((isset($_POST['action'])) && (isset($_POST['taxonomy']))){		
-			wp_update_term($_POST['tax_ID'], 'faq_categories', array(
-			  'name' => $_POST['name'],
-			  'slug' => $_POST['slug']
-			));	
-			update_option('custom_texo_faq_id', $defualt_tex_id);
-		}
-		else 
-		{ 	//insert default category 
-			if(!$defualt_tex_id){
-				wp_insert_term('All','faq_categories', array('description'=> 'Default Category','slug' => 'All'));
-				$Current_text_id = term_exists('All', 'faq_categories');
-				update_option('custom_texo_faq_id', $Current_text_id['term_id']);
+		if (isset($_POST['action'])) {
+        // Verify nonce
+			if (!isset($_POST['corpex_taxonomy_nonce']) || !wp_verify_nonce($_POST['corpex_taxonomy_nonce'], 'corpex_taxonomy_nonce')) {
+				return;
+			}
+
+			// Update or insert term based on action
+			if ($_POST['action'] === 'update-tag' && isset($_POST['taxonomy']) && $_POST['taxonomy'] === 'faq_categories') {
+				wp_update_term($_POST['tag_ID'], 'faq_categories', array(
+					'name' => sanitize_text_field($_POST['name']),
+					'slug' => sanitize_title($_POST['slug']),
+					'description' => sanitize_text_field($_POST['description'])
+				));
+			} elseif ($_POST['action'] === 'add-tag' && empty($default_tex_id)) {
+				$term = wp_insert_term('All', 'faq_categories', array(
+					'description' => 'Default Category',
+					'slug' => 'all' // Ensure lowercase slug
+				));
+				if (!is_wp_error($term)) {
+					update_option('custom_texo_faq_id', $term['term_id']);
+				}
 			}
 		}
-		//update category
-		if(isset($_POST['submit']) && isset($_POST['action']) )
-		{	wp_update_term(isset($_POST['tag_ID']), 'faq_categories', array(
-			  'name' => isset($_POST['name']),
-			  'slug' => isset($_POST['slug']),
-			  'description' => isset($_POST['description'])
-			));
-		}
-		// Delete default category
-		if(isset($_POST['action']) && isset($_POST['tag_ID']) )
-		{	if(($_POST['tag_ID'] == $defualt_tex_id) && $_POST['action']	 =="delete-tag")
-			{	
-				delete_option('custom_texo_faq_id'); 
-			} 
+
+		// Delete default category if requested
+		if (isset($_POST['action']) && $_POST['action'] === 'delete-tag' && isset($_POST['tag_ID']) && $_POST['tag_ID'] == $default_tex_id) {
+			delete_option('custom_texo_faq_id');
 		}
 	}
 	add_action( 'init', 'corpex_faq_taxonomy' );
@@ -156,7 +160,7 @@ function corpex_faq_manage_points_pin_columns( $column, $post_id ) {
 				
 	switch( $column ) {
 		case 'shortcode' :
-			echo '[corpex_faq id="'.$post->ID.'"]';
+			echo '[corpex_faq id="'.esc_html($post->ID).'"]';
 			break;
 		default :
 			break;

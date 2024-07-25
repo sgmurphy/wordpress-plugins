@@ -104,7 +104,7 @@ if ( ! class_exists( 'Astra_Sites_Onboarding_Setup' ) ) :
 		 * @return void
 		 */
 		public function temporary_cache_errors( $posted_data ) {
-			update_option( 'astra_sites_cached_import_error', $posted_data, 'no' );
+			update_option( 'astra_sites_cached_import_error', $posted_data, false );
 		}
 
 		/**

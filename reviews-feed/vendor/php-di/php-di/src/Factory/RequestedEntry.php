@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Factory;
 
 /**
@@ -12,6 +12,7 @@ namespace SmashBalloon\Reviews\Vendor\DI\Factory;
  * @api
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 interface RequestedEntry
 {

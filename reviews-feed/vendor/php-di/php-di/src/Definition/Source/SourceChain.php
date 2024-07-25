@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Source;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -9,6 +9,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\ExtendsPreviousDefinition;
  * Manages a chain of other definition sources.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class SourceChain implements DefinitionSource, MutableDefinitionSource
 {

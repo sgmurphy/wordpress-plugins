@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,46 +14,48 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole;
 
 class DetectedItems extends \Google\Collection
 {
-    protected $collection_key = 'items';
-    protected $itemsType = \Google\Service\SearchConsole\Item::class;
-    protected $itemsDataType = 'array';
-    public $items = [];
-    /**
-     * @var string
-     */
-    public $richResultType;
-    /**
-     * @param Item[]
-     */
-    public function setItems($items)
-    {
-        $this->items = $items;
-    }
-    /**
-     * @return Item[]
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-    /**
-     * @param string
-     */
-    public function setRichResultType($richResultType)
-    {
-        $this->richResultType = $richResultType;
-    }
-    /**
-     * @return string
-     */
-    public function getRichResultType()
-    {
-        return $this->richResultType;
-    }
+  protected $collection_key = 'items';
+  protected $itemsType = Item::class;
+  protected $itemsDataType = 'array';
+  /**
+   * @var string
+   */
+  public $richResultType;
+
+  /**
+   * @param Item[]
+   */
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  /**
+   * @return Item[]
+   */
+  public function getItems()
+  {
+    return $this->items;
+  }
+  /**
+   * @param string
+   */
+  public function setRichResultType($richResultType)
+  {
+    $this->richResultType = $richResultType;
+  }
+  /**
+   * @return string
+   */
+  public function getRichResultType()
+  {
+    return $this->richResultType;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\DetectedItems::class, 'Analytify\\Google_Service_SearchConsole_DetectedItems');
+class_alias(DetectedItems::class, 'Google_Service_SearchConsole_DetectedItems');

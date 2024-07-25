@@ -1,6 +1,6 @@
 <?php
 
-namespace Analytify\Firebase\JWT;
+namespace Firebase\JWT;
 
 class SignatureInvalidException extends \UnexpectedValueException
 {

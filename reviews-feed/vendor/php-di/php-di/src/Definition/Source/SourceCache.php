@@ -9,6 +9,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition;
  * Decorator that caches another definition source.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class SourceCache implements DefinitionSource, MutableDefinitionSource
 {
@@ -20,18 +21,23 @@ class SourceCache implements DefinitionSource, MutableDefinitionSource
      * @var DefinitionSource
      */
     private $cachedSource;
-    public function __construct(DefinitionSource $cachedSource)
+    /**
+     * @var string
+     */
+    private $cacheNamespace;
+    public function __construct(DefinitionSource $cachedSource, string $cacheNamespace = '')
     {
         $this->cachedSource = $cachedSource;
+        $this->cacheNamespace = $cacheNamespace;
     }
     public function getDefinition(string $name)
     {
-        $definition = \apcu_fetch(self::CACHE_KEY . $name);
+        $definition = \apcu_fetch($this->getCacheKey($name));
         if ($definition === \false) {
             $definition = $this->cachedSource->getDefinition($name);
             // Update the cache
             if ($this->shouldBeCached($definition)) {
-                \apcu_store(self::CACHE_KEY . $name, $definition);
+                \apcu_store($this->getCacheKey($name), $definition);
             }
         }
         return $definition;
@@ -46,6 +52,10 @@ class SourceCache implements DefinitionSource, MutableDefinitionSource
     public static function isSupported() : bool
     {
         return \function_exists('apcu_fetch') && \ini_get('apc.enabled') && !('cli' === \PHP_SAPI && !\ini_get('apc.enable_cli'));
+    }
+    public function getCacheKey(string $name) : string
+    {
+        return self::CACHE_KEY . $this->cacheNamespace . $name;
     }
     public function addDefinition(Definition $definition)
     {

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Source;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -9,6 +9,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidDefinition;
  * Source of definitions for entries of the container.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 interface DefinitionSource
 {

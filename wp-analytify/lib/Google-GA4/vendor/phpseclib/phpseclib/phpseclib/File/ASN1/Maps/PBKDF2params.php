@@ -10,9 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\File\ASN1\Maps;
 
-use Analytify\phpseclib3\File\ASN1;
+namespace phpseclib3\File\ASN1\Maps;
+
+use phpseclib3\File\ASN1;
+
 /**
  * PBKDF2params
  *
@@ -22,12 +24,18 @@ use Analytify\phpseclib3\File\ASN1;
  */
 abstract class PBKDF2params
 {
-    const MAP = ['type' => ASN1::TYPE_SEQUENCE, 'children' => [
-        // technically, this is a CHOICE in RFC2898 but the other "choice" is, currently, more of a placeholder
-        // in the RFC
-        'salt' => ['type' => ASN1::TYPE_OCTET_STRING],
-        'iterationCount' => ['type' => ASN1::TYPE_INTEGER],
-        'keyLength' => ['type' => ASN1::TYPE_INTEGER, 'optional' => \true],
-        'prf' => AlgorithmIdentifier::MAP + ['optional' => \true],
-    ]];
+    const MAP = [
+        'type' => ASN1::TYPE_SEQUENCE,
+        'children' => [
+            // technically, this is a CHOICE in RFC2898 but the other "choice" is, currently, more of a placeholder
+            // in the RFC
+            'salt' => ['type' => ASN1::TYPE_OCTET_STRING],
+            'iterationCount' => ['type' => ASN1::TYPE_INTEGER],
+            'keyLength' => [
+                'type' => ASN1::TYPE_INTEGER,
+                'optional' => true
+            ],
+            'prf' => AlgorithmIdentifier::MAP + ['optional' => true]
+        ]
+    ];
 }

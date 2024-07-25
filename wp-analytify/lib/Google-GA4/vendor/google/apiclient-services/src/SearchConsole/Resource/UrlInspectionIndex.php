@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,10 +14,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole\Resource;
 
 use Google\Service\SearchConsole\InspectUrlIndexRequest;
 use Google\Service\SearchConsole\InspectUrlIndexResponse;
+
 /**
  * The "index" collection of methods.
  * Typical usage is:
@@ -29,19 +30,21 @@ use Google\Service\SearchConsole\InspectUrlIndexResponse;
  */
 class UrlInspectionIndex extends \Google\Service\Resource
 {
-    /**
-     * Index inspection. (index.inspect)
-     *
-     * @param InspectUrlIndexRequest $postBody
-     * @param array $optParams Optional parameters.
-     * @return InspectUrlIndexResponse
-     */
-    public function inspect(InspectUrlIndexRequest $postBody, $optParams = [])
-    {
-        $params = ['postBody' => $postBody];
-        $params = \array_merge($params, $optParams);
-        return $this->call('inspect', [$params], InspectUrlIndexResponse::class);
-    }
+  /**
+   * Index inspection. (index.inspect)
+   *
+   * @param InspectUrlIndexRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return InspectUrlIndexResponse
+   * @throws \Google\Service\Exception
+   */
+  public function inspect(InspectUrlIndexRequest $postBody, $optParams = [])
+  {
+    $params = ['postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('inspect', [$params], InspectUrlIndexResponse::class);
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\Resource\UrlInspectionIndex::class, 'Analytify\\Google_Service_SearchConsole_Resource_UrlInspectionIndex');
+class_alias(UrlInspectionIndex::class, 'Google_Service_SearchConsole_Resource_UrlInspectionIndex');

@@ -1,7 +1,6 @@
 <?php
-
-declare (strict_types=1);
-namespace Analytify\ParagonIE\ConstantTime;
+declare(strict_types=1);
+namespace ParagonIE\ConstantTime;
 
 /**
  *  Copyright (c) 2016 - 2022 Paragon Initiative Enterprises.
@@ -25,6 +24,7 @@ namespace Analytify\ParagonIE\ConstantTime;
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  */
+
 /**
  * Interface EncoderInterface
  * @package ParagonIE\ConstantTime
@@ -38,7 +38,8 @@ interface EncoderInterface
      * @param string $binString (raw binary)
      * @return string
      */
-    public static function encode(string $binString) : string;
+    public static function encode(string $binString): string;
+
     /**
      * Convert a binary string into a hexadecimal string without cache-timing
      * leaks
@@ -47,5 +48,5 @@ interface EncoderInterface
      * @param bool $strictPadding Error on invalid padding
      * @return string (raw binary)
      */
-    public static function decode(string $encodedString, bool $strictPadding = \false) : string;
+    public static function decode(string $encodedString, bool $strictPadding = false): string;
 }

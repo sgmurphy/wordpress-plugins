@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Annotation;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidAnnotation;
@@ -15,6 +15,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidAnnotation;
  * @Target({"METHOD","PROPERTY"})
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 final class Inject
 {

@@ -331,7 +331,7 @@ class TRP_Translate_PressCompatibility {
 		$link = $output;
 		$feed_language = $config->feedLanguage;
 		$settings = get_option( 'trp_settings', false );
-		if( is_array( $settings ) && isset( $settings['url-slugs'] ) && is_array( $settings['url-slugs'] ) ){
+		if( is_array( $settings ) && isset( $settings['url-slugs'][ $feed_language ] ) && is_array( $settings['url-slugs'] ) ){
 			$url_slug = $settings['url-slugs'][ $feed_language ];
 			$trp           = TRP_Translate_Press::get_trp_instance();
 			$url_converter = $trp->get_component( 'url_converter' );

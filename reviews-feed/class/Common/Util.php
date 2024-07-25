@@ -1112,7 +1112,6 @@ class Util
 
     public static function is_facebook_collection_post($post)
     {
-        return (
-            isset($post['provider']) && isset($post['provider']['name']) && $post['provider']['name'] === 'facebook' &&  ((isset($post['provider_id']) && strpos($post['provider_id'], 'collection') === false ) || !isset($post['provider_id']))) === true;
+        return ( isset($post['provider']) && isset($post['provider']['name']) && $post['provider']['name'] === 'facebook' &&  isset($post['provider_id']) && strpos($post['provider_id'], 'collection') !== false ) === true;
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -35,9 +34,10 @@ namespace Google\ApiCore;
 use Exception;
 use Google\Protobuf\Internal\RepeatedField;
 use Google\Rpc\Status;
-use Analytify\GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\RequestException;
 use Google\ApiCore\Testing\MockStatus;
 use stdClass;
+
 /**
  * Represents an exception thrown during an RPC.
  */
@@ -47,6 +47,7 @@ class ApiException extends Exception
     private $metadata;
     private $basicMessage;
     private $decodedMetadataErrorInfo;
+
     /**
      * ApiException constructor.
      * @param string $message
@@ -58,9 +59,17 @@ class ApiException extends Exception
      *     @type string|null $basicMessage
      * }
      */
-    public function __construct(string $message, int $code, string $status = null, array $optionalArgs = [])
-    {
-        $optionalArgs += ['previous' => null, 'metadata' => null, 'basicMessage' => $message];
+    public function __construct(
+        string $message,
+        int $code,
+        string $status = null,
+        array $optionalArgs = []
+    ) {
+        $optionalArgs += [
+            'previous' => null,
+            'metadata' => null,
+            'basicMessage' => $message,
+        ];
         parent::__construct($message, $code, $optionalArgs['previous']);
         $this->status = $status;
         $this->metadata = $optionalArgs['metadata'];
@@ -69,10 +78,12 @@ class ApiException extends Exception
             $this->decodedMetadataErrorInfo = self::decodeMetadataErrorInfo($this->metadata);
         }
     }
+
     public function getStatus()
     {
         return $this->status;
     }
+
     /**
      * Returns null if metadata does not contain error info, or returns containsErrorInfo() array
      * if the metadata does contain error info.
@@ -87,51 +98,61 @@ class ApiException extends Exception
     {
         $details = [];
         // ApiExceptions created from RPC status have metadata that is an array of objects.
-        if (\is_object(\reset($metadata))) {
-            $metadataRpcStatus = \Google\ApiCore\Serializer::decodeAnyMessages($metadata);
+        if (is_object(reset($metadata))) {
+            $metadataRpcStatus = Serializer::decodeAnyMessages($metadata);
             $details = self::containsErrorInfo($metadataRpcStatus);
         } elseif (self::containsErrorInfo($metadata)) {
             $details = self::containsErrorInfo($metadata);
         } else {
             // For GRPC-based responses, the $metadata needs to be decoded.
-            $metadataGrpc = \Google\ApiCore\Serializer::decodeMetadata($metadata);
+            $metadataGrpc = Serializer::decodeMetadata($metadata);
             $details = self::containsErrorInfo($metadataGrpc);
         }
         return $details;
     }
+
     /**
      * Returns the `reason` in ErrorInfo for an exception, or null if there is no ErrorInfo.
      * @return string|null $reason
      */
     public function getReason()
     {
-        return $this->decodedMetadataErrorInfo ? $this->decodedMetadataErrorInfo['reason'] : null;
+        return ($this->decodedMetadataErrorInfo) ? $this->decodedMetadataErrorInfo['reason'] : null;
     }
+
     /**
      * Returns the `domain` in ErrorInfo for an exception, or null if there is no ErrorInfo.
      * @return string|null $domain
      */
     public function getDomain()
     {
-        return $this->decodedMetadataErrorInfo ? $this->decodedMetadataErrorInfo['domain'] : null;
+        return ($this->decodedMetadataErrorInfo) ? $this->decodedMetadataErrorInfo['domain'] : null;
     }
+
     /**
      * Returns the `metadata` in ErrorInfo for an exception, or null if there is no ErrorInfo.
      * @return array|null $errorInfoMetadata
      */
     public function getErrorInfoMetadata()
     {
-        return $this->decodedMetadataErrorInfo ? $this->decodedMetadataErrorInfo['errorInfoMetadata'] : null;
+        return ($this->decodedMetadataErrorInfo) ? $this->decodedMetadataErrorInfo['errorInfoMetadata'] : null;
     }
+
     /**
      * @param stdClass $status
      * @return ApiException
      */
     public static function createFromStdClass(stdClass $status)
     {
-        $metadata = \property_exists($status, 'metadata') ? $status->metadata : null;
-        return self::create($status->details, $status->code, $metadata, \Google\ApiCore\Serializer::decodeMetadata((array) $metadata));
+        $metadata = property_exists($status, 'metadata') ? $status->metadata : null;
+        return self::create(
+            $status->details,
+            $status->code,
+            $metadata,
+            Serializer::decodeMetadata((array) $metadata)
+        );
     }
+
     /**
      * @param string $basicMessage
      * @param int $rpcCode
@@ -139,10 +160,21 @@ class ApiException extends Exception
      * @param Exception $previous
      * @return ApiException
      */
-    public static function createFromApiResponse($basicMessage, $rpcCode, array $metadata = null, Exception $previous = null)
-    {
-        return self::create($basicMessage, $rpcCode, $metadata, \Google\ApiCore\Serializer::decodeMetadata((array) $metadata), $previous);
+    public static function createFromApiResponse(
+        $basicMessage,
+        $rpcCode,
+        array $metadata = null,
+        Exception $previous = null
+    ) {
+        return self::create(
+            $basicMessage,
+            $rpcCode,
+            $metadata,
+            Serializer::decodeMetadata((array) $metadata),
+            $previous
+        );
     }
+
     /**
      * For REST-based responses, the metadata does not need to be decoded.
      *
@@ -152,10 +184,21 @@ class ApiException extends Exception
      * @param Exception $previous
      * @return ApiException
      */
-    public static function createFromRestApiResponse($basicMessage, $rpcCode, array $metadata = null, Exception $previous = null)
-    {
-        return self::create($basicMessage, $rpcCode, $metadata, \is_null($metadata) ? [] : $metadata, $previous);
+    public static function createFromRestApiResponse(
+        $basicMessage,
+        $rpcCode,
+        array $metadata = null,
+        Exception $previous = null
+    ) {
+        return self::create(
+            $basicMessage,
+            $rpcCode,
+            $metadata,
+            is_null($metadata) ? [] : $metadata,
+            $previous
+        );
     }
+
     /**
      * Checks if decoded metadata includes errorInfo message.
      * If errorInfo is set, it will always contain `reason`, `domain`, and `metadata` keys.
@@ -174,11 +217,16 @@ class ApiException extends Exception
         foreach ($decodedMetadata as $value) {
             $isErrorInfoArray = isset($value['reason']) && isset($value['domain']) && isset($value['metadata']);
             if ($isErrorInfoArray) {
-                return ['reason' => $value['reason'], 'domain' => $value['domain'], 'errorInfoMetadata' => $value['metadata']];
+                return [
+                    'reason' => $value['reason'],
+                    'domain' => $value['domain'],
+                    'errorInfoMetadata' => $value['metadata'],
+                ];
             }
         }
         return [];
     }
+
     /**
      * Construct an ApiException with a useful message, including decoded metadata.
      * If the decoded metadata includes an errorInfo message, then the domain, reason,
@@ -191,28 +239,52 @@ class ApiException extends Exception
      * @param Exception|null $previous
      * @return ApiException
      */
-    private static function create(string $basicMessage, int $rpcCode, $metadata, array $decodedMetadata, Exception $previous = null)
-    {
+    private static function create(
+        string $basicMessage,
+        int $rpcCode,
+        $metadata,
+        array $decodedMetadata,
+        Exception $previous = null
+    ) {
         $containsErrorInfo = self::containsErrorInfo($decodedMetadata);
-        $rpcStatus = \Google\ApiCore\ApiStatus::statusFromRpcCode($rpcCode);
-        $messageData = ['message' => $basicMessage, 'code' => $rpcCode, 'status' => $rpcStatus, 'details' => $decodedMetadata];
+        $rpcStatus = ApiStatus::statusFromRpcCode($rpcCode);
+        $messageData = [
+            'message' => $basicMessage,
+            'code' => $rpcCode,
+            'status' => $rpcStatus,
+            'details' => $decodedMetadata
+        ];
         if ($containsErrorInfo) {
-            $messageData = \array_merge($containsErrorInfo, $messageData);
+            $messageData = array_merge($containsErrorInfo, $messageData);
         }
-        $message = \json_encode($messageData, \JSON_PRETTY_PRINT);
+
+        $message = json_encode($messageData, JSON_PRETTY_PRINT);
+
         if ($metadata instanceof RepeatedField) {
-            $metadata = \iterator_to_array($metadata);
+            $metadata = iterator_to_array($metadata);
         }
-        return new \Google\ApiCore\ApiException($message, $rpcCode, $rpcStatus, ['previous' => $previous, 'metadata' => $metadata, 'basicMessage' => $basicMessage]);
+
+        return new ApiException($message, $rpcCode, $rpcStatus, [
+            'previous' => $previous,
+            'metadata' => $metadata,
+            'basicMessage' => $basicMessage,
+        ]);
     }
+
     /**
      * @param Status $status
      * @return ApiException
      */
     public static function createFromRpcStatus(Status $status)
     {
-        return self::create($status->getMessage(), $status->getCode(), $status->getDetails(), \Google\ApiCore\Serializer::decodeAnyMessages($status->getDetails()));
+        return self::create(
+            $status->getMessage(),
+            $status->getCode(),
+            $status->getDetails(),
+            Serializer::decodeAnyMessages($status->getDetails())
+        );
     }
+
     /**
      * Creates an ApiException from a GuzzleHttp RequestException.
      *
@@ -221,27 +293,32 @@ class ApiException extends Exception
      * @return ApiException
      * @throws ValidationException
      */
-    public static function createFromRequestException(RequestException $ex, bool $isStream = \false)
+    public static function createFromRequestException(RequestException $ex, bool $isStream = false)
     {
         $res = $ex->getResponse();
         $body = (string) $res->getBody();
-        $decoded = \json_decode($body, \true);
+        $decoded = json_decode($body, true);
+
         // A streaming response body will return one error in an array. Parse
         // that first (and only) error message, if provided.
         if ($isStream && isset($decoded[0])) {
             $decoded = $decoded[0];
         }
+
         if (isset($decoded['error']) && $decoded['error']) {
             $error = $decoded['error'];
-            $basicMessage = isset($error['message']) ? $error['message'] : null;
-            $code = isset($error['status']) ? \Google\ApiCore\ApiStatus::rpcCodeFromStatus($error['status']) : $ex->getCode();
-            $metadata = isset($error['details']) ? $error['details'] : null;
+            $basicMessage = $error['message'] ?? '';
+            $code = isset($error['status'])
+                ? ApiStatus::rpcCodeFromStatus($error['status'])
+                : $ex->getCode();
+            $metadata = $error['details'] ?? null;
             return static::createFromRestApiResponse($basicMessage, $code, $metadata);
         }
         // Use the RPC code instead of the HTTP Status Code.
-        $code = \Google\ApiCore\ApiStatus::rpcCodeFromHttpStatusCode($res->getStatusCode());
+        $code = ApiStatus::rpcCodeFromHttpStatusCode($res->getStatusCode());
         return static::createFromApiResponse($body, $code);
     }
+
     /**
      * @return null|string
      */
@@ -249,6 +326,7 @@ class ApiException extends Exception
     {
         return $this->basicMessage;
     }
+
     /**
      * @return mixed[]
      */
@@ -256,12 +334,13 @@ class ApiException extends Exception
     {
         return $this->metadata;
     }
+
     /**
      * String representation of ApiException
      * @return string
      */
     public function __toString()
     {
-        return __CLASS__ . ": {$this->message}\n";
+        return __CLASS__ . ": $this->message\n";
     }
 }

@@ -16,7 +16,13 @@ const TemplateInfo = ( { template, position } ) => {
 		<div className="absolute bottom-0  w-full h-14 flex items-center justify-between bg-white px-5 shadow-template-info border-t border-b-0 border-x-0 border-solid border-border-tertiary">
 			<div className="zw-base-semibold text-app-heading capitalize select-none">
 				{ /* { template?.name || template?.domain?.split( '.' )?.[ 0 ] } */ }
-				{ position ? `Option ${ position }` : '' }
+				{ position
+					? sprintf(
+							/* translators: %s: Option number */
+							__( 'Option %s', 'ai-builder' ),
+							position
+					  )
+					: '' }
 			</div>
 			<div className="flex gap-4">
 				<Menu as="div" className="relative">

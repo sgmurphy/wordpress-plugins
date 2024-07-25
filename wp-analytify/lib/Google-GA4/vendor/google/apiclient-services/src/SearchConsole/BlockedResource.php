@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,28 +14,31 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole;
 
 class BlockedResource extends \Google\Model
 {
-    /**
-     * @var string
-     */
-    public $url;
-    /**
-     * @param string
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
-    /**
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
+  /**
+   * @var string
+   */
+  public $url;
+
+  /**
+   * @param string
+   */
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+  /**
+   * @return string
+   */
+  public function getUrl()
+  {
+    return $this->url;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\BlockedResource::class, 'Analytify\\Google_Service_SearchConsole_BlockedResource');
+class_alias(BlockedResource::class, 'Google_Service_SearchConsole_BlockedResource');

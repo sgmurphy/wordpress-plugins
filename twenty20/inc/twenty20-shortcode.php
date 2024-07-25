@@ -73,8 +73,8 @@ function twenty20_shortcode_init( $atts) {
 
     $output = '<div id="'.esc_attr($t20ID).'" class="twenty20" style="'. esc_attr($atts['width'] . $isLeft . $isRight) . '">';
     $output .= '<div class="twentytwenty-container '. esc_attr( $t20ID . ' ' . $yesHover ) .'"' . esc_attr( $isVertical ) . '>';
-    $output .= '<img class="skip-lazy" src="'. esc_url( wp_get_attachment_url( $atts['img1'] ) ) .'"'.$img1_alt.' />';
-    $output .= '<img class="skip-lazy" src="'. esc_url( wp_get_attachment_url( $atts['img2'] ) ) .'"'.$img2_alt.' />';
+    $output .= '<img src="'. esc_url( wp_get_attachment_url( $atts['img1'] ) ) .'"'.$img1_alt.' />';
+    $output .= '<img src="'. esc_url( wp_get_attachment_url( $atts['img2'] ) ) .'"'.$img2_alt.' />';
     $output .= '</div></div>';
     $script .= '<script>jQuery( document ).ready(function( $ ) {';
     if($atts['direction'] == "vertical"){

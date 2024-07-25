@@ -129,7 +129,7 @@ const BusinessContact = () => {
 		return (
 			<div>
 				{ __( 'How can people get in touch with ', 'ai-builder' ) }
-				<StyledText text={ businessName } />
+				<StyledText text={ businessName } /> { '?' }
 			</div>
 		);
 	};
@@ -186,7 +186,7 @@ const BusinessContact = () => {
 					rows={ 4 }
 					name="address"
 					id="address"
-					label="Address"
+					label={ __( 'Address', 'ai-builder' ) }
 					placeholder=""
 					register={ register }
 					error={ errors.address }

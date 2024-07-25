@@ -1,7 +1,7 @@
 {
     "require": {
-        "google/apiclient": "2.12.1",
-        "google/analytics-admin": "^0.10.0",
-        "google/analytics-data": "^0.9.4"
+        "google/apiclient": "^2.16",
+        "google/analytics-admin": "^0.22.3",
+        "google/analytics-data": "^0.16.3"
     }
 }

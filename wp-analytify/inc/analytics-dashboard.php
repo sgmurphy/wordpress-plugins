@@ -247,10 +247,10 @@ $report_date_range = WP_ANALYTIFY_FUNCTIONS::get_ga_report_range( $start_date, $
 											?>
 											<div class="analytify_general_status analytify_general_status-gif">
 												<span class="dashicons dashicons-no-alt analytify_general_status-icon"><?php _e( 'Dismiss', 'wp-analytify' ); ?></span>
-												<a href="https://analytify.io/upgrade-from-free" class="analytify_block" target="_blank">
+												<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=overview-dashboard&utm_campaign=pro-upgrade&utm_content=Upgrade-Banner-CTA" class="analytify_block" target="_blank">
 													<img src="<?php echo plugins_url( '../assets/img/analytify_compare.gif', __FILE__ ); ?>" alt="<?php _e( 'Upgrade to Pro', 'wp-analytify' ); ?>" style="width:100%">
 												</a>
-												<a href="https://analytify.io/upgrade-from-free" class="analytify_go_pro_overlay" target="_blank">
+												<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=overview-dashboard&utm_campaign=pro-upgrade&utm_content=Upgrade-Banner-CTA" class="analytify_go_pro_overlay" target="_blank">
 													<span class="analytify_go_pro_overlay_inner">
 														<span class="analytify_h2"><?php _e( 'Premium feature', 'wp-analytify' ); ?></span>
 														<span class="analytify_btn" target="_blank"><?php _e( 'Upgrade Now', 'wp-analytify' ); ?></span>

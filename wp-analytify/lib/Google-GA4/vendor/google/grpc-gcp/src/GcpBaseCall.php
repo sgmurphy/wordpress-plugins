@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * Copyright 2018 gRPC authors.
@@ -24,6 +23,8 @@ abstract class GcpBaseCall
     const BOUND = 'BOUND';
     const UNBIND = 'UNBIND';
     const BIND = 'BIND';
+
+
     protected $gcp_channel;
     // It has the Grpc\Channel and related ref_count information for this RPC.
     protected $channel_ref;
@@ -31,18 +32,23 @@ abstract class GcpBaseCall
     protected $affinity_key;
     // Array of [affinity_key, command]
     protected $_affinity;
+
     // Information needed to create Grpc\Call object when the RPC starts.
     protected $method;
     protected $argument;
     protected $metadata;
     protected $options;
+    protected $deserialize;
+
     // In GCP extension, it is when a RPC calls "start", we pick a channel.
     // Thus we need to save the $me
     protected $metadata_rpc = array();
     // first_rpc is used to check whether the first request is sent for client
     // streaming RPC.
     protected $has_real_call = null;
+
     protected $real_call;
+
     /**
      * Create a new Call wrapper object.
      *
@@ -60,10 +66,12 @@ abstract class GcpBaseCall
         $this->deserialize = $deserialize;
         $this->options = $options;
         $this->_affinity = null;
+
         if (isset($this->gcp_channel->affinity_conf['affinity_by_method'][$method])) {
             $this->_affinity = $this->gcp_channel->affinity_conf['affinity_by_method'][$method];
         }
     }
+
     /**
      * Pick a ChannelRef from the channel pool based on the request and
      * the affinity config.
@@ -85,6 +93,7 @@ abstract class GcpBaseCall
         $this->channel_ref->activeStreamRefIncr();
         return $this->channel_ref;
     }
+
     /**
      * Update ChannelRef when RPC finishes.
      *
@@ -108,6 +117,7 @@ abstract class GcpBaseCall
         }
         $this->channel_ref->activeStreamRefDecr();
     }
+
     /**
      * Get the affinity key based on the affinity config.
      *
@@ -119,15 +129,16 @@ abstract class GcpBaseCall
     {
         if ($this->_affinity) {
             $names = $this->_affinity['affinityKey'];
-            $names_arr = \explode(".", $names);
+            $names_arr = explode(".", $names);
             foreach ($names_arr as $name) {
-                $getAttrMethod = 'get' . \ucfirst($name);
-                $proto = \call_user_func_array(array($proto, $getAttrMethod), array());
+                $getAttrMethod = 'get' . ucfirst($name);
+                $proto = call_user_func_array(array($proto, $getAttrMethod), array());
             }
             return $proto;
         }
         echo "Cannot find the field in the proto\n";
     }
+
     /**
      * @return mixed The metadata sent by the server
      */
@@ -135,10 +146,11 @@ abstract class GcpBaseCall
     {
         if (!$this->has_real_call) {
             $this->createRealCall();
-            $this->has_real_call = \true;
+            $this->has_real_call = true;
         }
         return $this->real_call->getMetadata();
     }
+
     /**
      * @return mixed The trailing metadata sent by the server
      */
@@ -146,10 +158,11 @@ abstract class GcpBaseCall
     {
         if (!$this->has_real_call) {
             $this->createRealCall();
-            $this->has_real_call = \true;
+            $this->has_real_call = true;
         }
         return $this->real_call->getTrailingMetadata();
     }
+
     /**
      * @return string The URI of the endpoint
      */
@@ -157,21 +170,23 @@ abstract class GcpBaseCall
     {
         if (!$this->has_real_call) {
             $this->createRealCall();
-            $this->has_real_call = \true;
+            $this->has_real_call = true;
         }
         return $this->real_call->getPeer();
     }
+
     /**
      * Cancels the call.
      */
     public function cancel()
     {
         if (!$this->has_real_call) {
-            $this->has_real_call = \true;
+            $this->has_real_call = true;
             $this->createRealCall();
         }
         $this->real_call->cancel();
     }
+
     /**
      * Serialize a message to the protobuf binary format.
      *
@@ -183,6 +198,7 @@ abstract class GcpBaseCall
     {
         return $this->real_call->_serializeMessage($data);
     }
+
     /**
      * Deserialize a response value to an object.
      *
@@ -194,6 +210,7 @@ abstract class GcpBaseCall
     {
         return $this->real_call->_deserializeResponse($value);
     }
+
     /**
      * Set the CallCredentials for the underlying Call.
      *

@@ -7,6 +7,7 @@ use ReflectionFunctionAbstract;
  * Resolves the parameters to use to call the callable.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 interface ParameterResolver
 {

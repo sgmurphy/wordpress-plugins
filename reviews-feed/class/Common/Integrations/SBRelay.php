@@ -76,12 +76,9 @@ class SBRelay
             'headers' => $headers,
             'body' => $method === 'POST' ? json_encode($data) : $data
         ];
-
-
        if (in_array($endpoint, $this->slow_endpoints)){
             $args['timeout'] = 120;
         }
-
 
         $response = $callback($url, $args);
         $body = ! is_wp_error( $response )  ? json_decode(wp_remote_retrieve_body($response), true) : [];

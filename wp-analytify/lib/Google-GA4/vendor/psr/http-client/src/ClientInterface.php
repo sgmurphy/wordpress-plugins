@@ -1,9 +1,10 @@
 <?php
 
-namespace Analytify\Psr\Http\Client;
+namespace Psr\Http\Client;
 
-use Analytify\Psr\Http\Message\RequestInterface;
-use Analytify\Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
 interface ClientInterface
 {
     /**
@@ -15,5 +16,5 @@ interface ClientInterface
      *
      * @throws \Psr\Http\Client\ClientExceptionInterface If an error happens while processing the request.
      */
-    public function sendRequest(RequestInterface $request) : ResponseInterface;
+    public function sendRequest(RequestInterface $request): ResponseInterface;
 }

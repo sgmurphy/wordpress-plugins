@@ -21,6 +21,7 @@
 		_thisObj.filterLoadTypes = [];
 		_thisObj.defaultProductSelector = 'ul.products';
 		_thisObj.isAdminPreview = jQuery('#wpfFiltersEditForm').length > 0 || (typeof isElementorPreview != 'undefined' && isElementorPreview == 1);
+		_thisObj.moveFloatingElements();
 		_thisObj.checkForceFilters();
 		_thisObj.eventsPriceFilter();
 		_thisObj.disableLeerOptions();
@@ -44,6 +45,26 @@
 			setTimeout(function () {
 				_thisObj.hideFiltersLoader();
 			}, 100);
+		}
+	});
+	WpfFrontendPage.prototype.moveFloatingElements = (function () {
+		var _thisObj = this.$obj;
+		if (!_thisObj.isAdminPreview && jQuery('.wpfFloatingBlock').length == 0 && jQuery('.wpfFloatingWrapper').length == 1) {
+			jQuery('body').append('<div class="wpfFloatingBlock"></div>');
+			if (jQuery('.wpfFloatingSwitcher').length == 1) {
+				var button = $('.wpfFloatingSwitcher');
+				if (button.hasClass('wpfSwitcherRealFloat')) {
+					button.detach();
+					$('.wpfFloatingBlock').append(button);
+				}
+			}
+			if (jQuery('.wpfFloatingOverlay').length == 1) {
+				var overlay = $('.wpfFloatingOverlay').detach();
+				$('.wpfFloatingBlock').append(overlay);
+			}
+			var block = $('.wpfFloatingWrapper').detach();
+			$('.wpfFloatingBlock').append(block);
+			
 		}
 	});
 

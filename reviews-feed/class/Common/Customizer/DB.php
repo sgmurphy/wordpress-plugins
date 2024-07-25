@@ -5,6 +5,7 @@ namespace SmashBalloon\Reviews\Common\Customizer;
 use SmashBalloon\Reviews\Common\Builder\SBR_Sources;
 use SmashBalloon\Reviews\Common\Feed_Locator;
 use SmashBalloon\Reviews\Common\SBR_Settings;
+use SmashBalloon\Reviews\Common\Helpers\Data_Encryption;
 
 class DB extends \Smashballoon\Customizer\V2\DB{
 	protected $feeds_table = SBR_FEEDS_TABLE;
@@ -656,5 +657,71 @@ class DB extends \Smashballoon\Customizer\V2\DB{
 		}
 		$feeds_posts_table_name = $wpdb->prefix . 'sbr_reviews_posts';
 		$wpdb->update($feeds_posts_table_name, $data, $where, $format, $where_format);
+	}
+
+	/**
+	 * Get Collections List
+	 *
+	 * @return array
+	 *
+	 * @since X.X
+	 */
+	public static function get_collections_list()
+	{
+		global $wpdb;
+		$sources_table = $wpdb->prefix . SBR_SOURCES_TABLE;
+		$query = "SELECT * FROM $sources_table as s WHERE  s.provider = %s";
+		$sql = $wpdb->prepare(
+			$query,
+			'collection'
+		);
+		$results = $wpdb->get_results($sql, ARRAY_A);
+		return $results;
+	}
+
+	/**
+	 * Get All Collection Reviews
+	 *
+	 * @return array
+	 *
+	 * @since X.X
+	 */
+
+	 public static function get_collections_reviews($account_id)
+	{
+		global $wpdb;
+		$post_table = $wpdb->prefix . SBR_POSTS_TABLE;
+		$source_table = $wpdb->prefix . SBR_SOURCES_TABLE;
+
+		$collection = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT * FROM $source_table WHERE account_id = %s",
+				$account_id
+			)
+		, ARRAY_A);
+
+		if (!isset($collection['account_id'])) {
+			return [];
+		}
+
+		$posts_list = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM $post_table WHERE provider_id = %s",
+				$collection['account_id']
+			)
+		, ARRAY_A);
+
+		$posts_list_result = [];
+		//Loop over all posts to decrypt Facebook Posts
+		$encryption = new Data_Encryption();
+
+		foreach ($posts_list as $post) {
+			$post['post_content'] = $post['provider'] === 'facebook' ? $encryption->maybe_decrypt($post['post_content']) : $post['post_content'];
+			$post['json_data'] = $post['provider'] === 'facebook' ? $encryption->maybe_decrypt($post['json_data']) : $post['json_data'];
+			array_push($posts_list_result, $post);
+		}
+
+		$collection['reviewsList'] = $posts_list_result;
+		return $collection;
 	}
 }

@@ -240,15 +240,16 @@ if($hs_portfolio =='1'){
 							else:
 								$tax = '';
 							endif;
+							$tax = strtolower($tax);
 							?>
-							<div class="col-lg-4 col-md-6 st-filter-item <?php echo strtolower($tax); ?>">
+							<div class="col-lg-4 col-md-6 st-filter-item <?php echo esc_attr($tax); ?>">
 								<figure class="projects-item">
 									<div class="image">
 										<a href="<?php echo esc_url($project_link); ?>" class="projects-link-icon" <?php if ($project_button_link_target) {
 											   echo "target='_blank'";
 										   } ?>>
 											<?php if (has_post_thumbnail()) { ?>
-												<img src="<?php echo get_the_post_thumbnail_url(); ?>" class="card-img-top"
+												<img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" class="card-img-top"
 													alt="<?php echo esc_attr__('Project Image', 'clever-fox'); ?>">
 											<?php } ?>
 										</a>

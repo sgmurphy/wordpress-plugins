@@ -51,29 +51,251 @@ class Popup_Categories_List_Table extends WP_List_Table {
         $selected_0 = "";
         $selected_1 = "";
 
-        if( isset( $_REQUEST['fstatus'] ) && is_numeric( $_REQUEST['fstatus'] ) && ! is_null( sanitize_text_field( $_REQUEST['fstatus'] ) ) ){
-            switch( sanitize_text_field( $_GET['fstatus'] ) ){
-                case "0":
-                    $selected_0 = " style='font-weight:bold;' ";
+        if ( isset($_REQUEST['fstatus']) && is_numeric($_REQUEST['fstatus']) && ! is_null(sanitize_text_field($_REQUEST['fstatus'])) ) {
+            switch (sanitize_text_field($_GET['fstatus'])) {
+                case 0:
+                    $selected_0 = "style='font-weight:bold;'";
                     break;
-                case "1":
-                    $selected_1 = " style='font-weight:bold;' ";
+                case 1:
+                    $selected_1 = "style='font-weight:bold;'";
                     break;
                 default:
-                    $selected_all = " style='font-weight:bold;' ";
+                    $selected_all = "style='font-weight:bold;'";
                     break;
             }
-        }else{
-            $selected_all = " style='font-weight:bold;' ";
+        } else {
+            $selected_all = "style='font-weight:bold;'";
         }
+
+        $href = "?page=" . esc_attr($_REQUEST['page']);
+
+        if (isset($_REQUEST['s']) && $_REQUEST['s'] != '') {
+            $search = esc_sql(sanitize_text_field($_REQUEST['s']));
+            $href .= '&s=' . $search;
+        }
+
         $status_links = array(
-            "all" => "<a ".$selected_all." href='?page=".esc_attr( $_REQUEST['page'] )."'>". __( 'All', "ays-popup-box" )." (".$all_count.")</a>",
-            "published" => "<a ".$selected_1." href='?page=".esc_attr( $_REQUEST['page'] )."&fstatus=1'>". __( 'Published', "ays-popup-box" )." (".$published_count.")</a>",
-            "unpublished"   => "<a ".$selected_0." href='?page=".esc_attr( $_REQUEST['page'] )."&fstatus=0'>". __( 'Unpublished', "ays-popup-box" )." (".$unpublished_count.")</a>"
+            "all" => "<a " . $selected_all . " href='" . $href . "'>" . __('All', "ays-popup-box") . " (" . $all_count . ")</a>",
+            "published" => "<a " . $selected_1 . " href='" . $href . "&fstatus=1'>" . __('Published', "ays-popup-box") . " (" . $published_count . ")</a>",
+            "unpublished" => "<a " . $selected_0 . " href='" . $href . "&fstatus=0'>" . __('Unpublished', "ays-popup-box") . " (" . $unpublished_count . ")</a>"
         );
         return $status_links;
     }
-    
+
+    public static function published_popup_categories_count() {
+        global $wpdb;
+        $conditions = array();
+
+        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb_categories WHERE published=1";
+
+        if (isset($_REQUEST['s']) && $_REQUEST['s'] != '') {
+            $search = esc_sql(sanitize_text_field($_REQUEST['s']));
+            $conditions[] = sprintf("title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)));
+        }
+
+        if (!empty($conditions)) {
+            $sql .= " AND " . implode(" AND ", $conditions);
+        }
+
+        return $wpdb->get_var($sql);
+    }
+
+    public static function unpublished_popup_categories_count() {
+        global $wpdb;
+        $conditions = array();
+
+        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb_categories WHERE published=0";
+
+        if (isset($_REQUEST['s']) && $_REQUEST['s'] != '') {
+            $search = esc_sql(sanitize_text_field($_REQUEST['s']));
+            $conditions[] = sprintf("title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)));
+        }
+
+        if (!empty($conditions)) {
+            $sql .= " AND " . implode(" AND ", $conditions);
+        }
+
+        return $wpdb->get_var($sql);
+    }
+
+    public static function all_record_count() {
+        global $wpdb;
+        $conditions = array();
+
+        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb_categories WHERE 1=1";
+
+        if (isset($_REQUEST['s']) && $_REQUEST['s'] != '') {
+            $search = esc_sql(sanitize_text_field($_REQUEST['s']));
+            $conditions[] = sprintf("title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)));
+        }
+
+        if (!empty($conditions)) {
+            $sql .= " AND " . implode(" AND ", $conditions);
+        }
+
+        return $wpdb->get_var($sql);
+    }
+
+    /**
+     * Handles data query and filter, sorting, and pagination.
+     */
+    public function prepare_items() {
+        global $wpdb;
+
+        $this->_column_headers = $this->get_column_info();
+
+        /** Process bulk action */
+        $this->process_bulk_action();
+
+        $per_page = $this->get_items_per_page('popup_categories_per_page', 20);
+        $current_page = $this->get_pagenum();
+        $total_items = self::record_count();
+
+        $this->set_pagination_args( array(
+            "total_items" => $total_items, // WE have to calculate the total number of items
+            "per_page" => $per_page // WE have to determine how many items to show on a page
+        ) );
+
+        $search = isset($_REQUEST['s']) ? esc_sql( sanitize_text_field($_REQUEST['s']) ) : false;
+        $do_search = $search ? sprintf( " title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)) ) : '';
+
+        $this->items = self::get_popup_categories($per_page, $current_page, $do_search);
+    }
+
+    /** Text displayed when no customer data is available */
+    public function no_items() {
+        echo __('There are no popup categories yet.', "ays-popup-box");
+    }
+
+    /**
+     *  Associative array of columns
+     *
+     * @return array
+     */
+    function get_columns() {
+        $columns = array(
+            'cb' => '<input type="checkbox" />',
+            'title' => __('Title', "ays-popup-box"),
+            'description' => __('Description', "ays-popup-box"),
+            'items_count' => __('Popups Count', "ays-popup-box"),
+            'published' => __('Status', "ays-popup-box"),
+            'id' => __('ID', "ays-popup-box"),
+        );
+
+        return $columns;
+    }
+
+    /**
+     * Columns to make sortable.
+     *
+     * @return array
+     */
+    public function get_sortable_columns() {
+        $sortable_columns = array(
+            'title' => array('title', true),
+            'id' => array('id', true),
+        );
+
+        return $sortable_columns;
+    }
+
+    /**
+     * Render a column when no column specific method exist.
+     *
+     * @param array $item
+     * @param string $column_name
+     *
+     * @return mixed
+     */
+    public function column_default($item, $column_name) {
+        switch ($column_name) {
+            case 'title':
+            case 'description':
+            case 'items_count':
+            case 'published':
+            case 'id':
+                return $item[$column_name];
+                break;
+            default:
+                return print_r($item, true); // Show the whole array for troubleshooting purposes
+        }
+    }
+
+    /**
+     * Render the bulk edit checkbox
+     *
+     * @param array $item
+     *
+     * @return string
+     */
+    function column_cb($item) {
+        if (intval($item['id']) === 1) {
+            return;
+        }
+
+        return sprintf(
+            '<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['id']
+        );
+    }
+
+    /**
+     * Method for name column
+     *
+     * @param array $item an array of DB data
+     *
+     * @return string
+     */
+    function column_title($item) {
+        $delete_nonce = wp_create_nonce($this->plugin_name . '-delete-popup-category');
+
+        $categories_title_length = intval($this->title_length);
+
+        $restitle = Ays_Pb_Admin::ays_pb_restriction_string("word", $item["title"], $categories_title_length);
+
+        $title = sprintf('<a href="?page=%s&action=%s&popup_category=%d" title="%s"><strong>%s</strong></a>', esc_attr($_REQUEST['page']), 'edit', absint($item['id']), esc_attr($item['title']) ,$restitle);
+
+        $actions = array(
+            'edit' => sprintf( '<a href="?page=%s&action=%s&popup_category=%d">' . __('Edit', "ays-popup-box") . '</a>', esc_attr($_REQUEST['page']), 'edit', absint($item['id']) ),
+        );
+
+        if (intval($item['id']) !== 1) {
+            $actions['delete'] = sprintf('<a class="ays_confirm_del"  href="?page=%s&action=%s&popup_category=%s&_wpnonce=%s">' . __('Delete', "ays-popup-box") . '</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint($item['id']), $delete_nonce);
+        }
+
+        return $title . $this->row_actions($actions);
+    }
+
+    function column_items_count($item) {
+        global $wpdb;
+        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb WHERE category_id = " .  absint( esc_sql($item['id']) );
+        $result = $wpdb->get_var($sql);
+
+        if (isset($result) && $result > 0) {
+            $result = sprintf('<a href="?page=%s&filterby=%d" target="_blank">%s</a>', 'ays-pb', $item['id'], $result);
+        }
+
+        return "<p style='text-align:left;font-size:14px;'>" . $result . "</p>";
+    }
+
+    function column_published($item) {
+        $status = (isset($item['published']) && $item['published'] != '') ? absint( sanitize_text_field($item['published']) ) : '';
+
+        $status_html = '';
+        switch($status) {
+            case 1:
+                $status_html = '<span class="ays-pb-publish-status"><img src=' . AYS_PB_ADMIN_URL . "/images/icons/check-square.svg" . '></span>';
+                break;
+            case 0:
+                $status_html = '<span class="ays-pb-publish-status"><img src=' . AYS_PB_ADMIN_URL . "/images/icons/square.svg" . '></span>';
+                break;
+            default:
+                $status_html = '<span class="ays-pb-publish-status"><img src=' . AYS_PB_ADMIN_URL . "/images/icons/square.svg" . '></span>';
+                break;
+        }
+
+        return $status_html;
+    }
+
     /**
      * Retrieve customers data from the database
      *
@@ -287,174 +509,6 @@ class Popup_Categories_List_Table extends WP_List_Table {
 
         return $wpdb->get_var( $sql );
     }
-    
-    public static function all_record_count() {
-        global $wpdb;
-
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb_categories";
-
-        return $wpdb->get_var( $sql );
-    }
-
-    public static function published_popup_categories_count() {
-        global $wpdb;
-
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb_categories WHERE published=1";
-
-        return $wpdb->get_var( $sql );
-    }
-    
-    public static function unpublished_popup_categories_count() {
-        global $wpdb;
-
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb_categories WHERE published=0";
-
-        return $wpdb->get_var( $sql );
-    }
-
-
-
-    /** Text displayed when no customer data is available */
-    public function no_items() {
-        echo __( 'There are no popup categories yet.', "ays-popup-box" );
-    }
-
-
-    /**
-     * Render a column when no column specific method exist.
-     *
-     * @param array $item
-     * @param string $column_name
-     *
-     * @return mixed
-     */
-    public function column_default( $item, $column_name ) {
-        switch ( $column_name ) {
-            case 'title':
-            case 'description':
-            case 'items_count':
-            case 'published':
-            case 'id':
-                return $item[ $column_name ];
-                break;
-            default:
-                return print_r( $item, true ); //Show the whole array for troubleshooting purposes
-        }
-    }
-
-    /**
-     * Render the bulk edit checkbox
-     *
-     * @param array $item
-     *
-     * @return string
-     */
-    function column_cb( $item ) {
-        
-        if(intval($item['id']) === 1){
-            return;
-        }
-        
-        return sprintf(
-            '<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['id']
-        );
-    }
-
-
-    /**
-     * Method for name column
-     *
-     * @param array $item an array of DB data
-     *
-     * @return string
-     */
-    function column_title( $item ) {
-        $delete_nonce = wp_create_nonce( $this->plugin_name . '-delete-popup-category' );
-
-        $categories_title_length = intval( $this->title_length );
-
-        $restitle  = Ays_Pb_Admin::ays_pb_restriction_string("word",$item["title"], $categories_title_length);
-        
-
-        $title = sprintf( '<a href="?page=%s&action=%s&popup_category=%d" title="%s"><strong>%s</strong></a>', esc_attr( $_REQUEST['page'] ), 'edit', absint( $item['id'] ), esc_attr($item['title']) ,$restitle );
-
-        $actions = array(
-            'edit' => sprintf( '<a href="?page=%s&action=%s&popup_category=%d">'. __('Edit', "ays-popup-box") .'</a>', esc_attr( $_REQUEST['page'] ), 'edit', absint( $item['id'] ) ),
-        );
-        
-        if(intval($item['id']) !== 1){
-            $actions['delete'] = sprintf( '<a class="ays_confirm_del"  href="?page=%s&action=%s&popup_category=%s&_wpnonce=%s">'. __('Delete', "ays-popup-box") .'</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $delete_nonce );
-        }
-
-        return $title . $this->row_actions( $actions );
-    }
-
-
-    function column_published( $item ) {
-
-        $status = (isset( $item['published'] ) && $item['published'] != '') ? absint( sanitize_text_field( $item['published'] ) ) : '';
-
-        $status_html = '';
-        switch( $status ) {
-            case 1:
-                $status_html = '<span class="ays-pb-publish-status"><img src=' . AYS_PB_ADMIN_URL . "/images/icons/check-square.svg" . '></span>';
-                break;
-            case 0:
-                $status_html = '<span class="ays-pb-publish-status"><img src=' . AYS_PB_ADMIN_URL . "/images/icons/square.svg" . '></span>';
-                break;
-            default:
-                $status_html = '<span class="ays-pb-publish-status"><img src=' . AYS_PB_ADMIN_URL . "/images/icons/square.svg" . '></span>';
-                break;
-        }
-
-        return $status_html;
-    }
-
-    function column_items_count( $item ) {
-        global $wpdb;
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb WHERE category_id = " .  absint( esc_sql($item['id']) );
-        $result = $wpdb->get_var($sql);
-        
-        if ( isset($result) && $result > 0 ) {
-            $result = sprintf( '<a href="?page=%s&filterby=%d" target="_blank">%s</a>', 'ays-pb', $item['id'], $result );
-        }
-        
-        return "<p style='text-align:left;font-size:14px;'>" . $result . "</p>";
-    }
-
-
-    /**
-     *  Associative array of columns
-     *
-     * @return array
-     */
-    function get_columns() {
-        $columns = array(
-            'cb'            => '<input type="checkbox" />',
-            'title'         => __( 'Title', "ays-popup-box" ),
-            'description'   => __( 'Description', "ays-popup-box" ),
-            'items_count'   => __( 'Popups Count', "ays-popup-box" ),
-            'published'     => __( 'Status', "ays-popup-box" ),
-            'id'            => __( 'ID', "ays-popup-box" ),
-        );
-
-        return $columns;
-    }
-
-
-    /**
-     * Columns to make sortable.
-     *
-     * @return array
-     */
-    public function get_sortable_columns() {
-        $sortable_columns = array(
-            'title'         => array( 'title', true ),
-            'id'            => array( 'id', true ),
-        );
-
-        return $sortable_columns;
-    }
 
     /**
      * Returns an associative array containing the bulk action
@@ -469,33 +523,6 @@ class Popup_Categories_List_Table extends WP_List_Table {
         );
 
         return $actions;
-    }
-    
-
-    /**
-     * Handles data query and filter, sorting, and pagination.
-     */
-    public function prepare_items() {
-        global $wpdb;
-
-        $this->_column_headers = $this->get_column_info();
-
-        /** Process bulk action */
-        $this->process_bulk_action();
-
-        $per_page     = $this->get_items_per_page( 'popup_categories_per_page', 20 );
-        $current_page = $this->get_pagenum();
-        $total_items  = self::record_count();
-
-        $this->set_pagination_args( array(
-            'total_items' => $total_items, //WE have to calculate the total number of items
-            'per_page'    => $per_page //WE have to determine how many items to show on a page
-        ) );
-
-        $search = ( isset( $_REQUEST['s'] ) ) ? esc_sql( sanitize_text_field( $_REQUEST['s'] ) ) : false;
-        $do_search = ( $search ) ? sprintf(" title LIKE '%%%s%%' ", esc_sql( $wpdb->esc_like( $search ) ) ) : '';
-
-        $this->items = self::get_popup_categories( $per_page, $current_page, $do_search );
     }
 
     public function process_bulk_action() {

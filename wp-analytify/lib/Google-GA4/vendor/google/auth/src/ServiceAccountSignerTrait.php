@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2019 Google LLC
  *
@@ -15,9 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Google\Auth;
 
-use Analytify\phpseclib\Crypt\RSA;
+use phpseclib3\Crypt\PublicKeyLoader;
+use phpseclib3\Crypt\RSA;
+
 /**
  * Sign a string using a Service Account private key.
  */
@@ -31,23 +33,24 @@ trait ServiceAccountSignerTrait
      *        whether phpseclib is installed. **Defaults to** `false`.
      * @return string
      */
-    public function signBlob($stringToSign, $forceOpenssl = \false)
+    public function signBlob($stringToSign, $forceOpenssl = false)
     {
         $privateKey = $this->auth->getSigningKey();
+
         $signedString = '';
-        if (\class_exists('Analytify\\phpseclib\\Crypt\\RSA') && !$forceOpenssl) {
-            $rsa = new RSA();
-            $rsa->loadKey($privateKey);
-            $rsa->setSignatureMode(RSA::SIGNATURE_PKCS1);
-            $rsa->setHash('sha256');
+        if (class_exists(phpseclib3\Crypt\RSA::class) && !$forceOpenssl) {
+            $key = PublicKeyLoader::load($privateKey);
+            $rsa = $key->withHash('sha256')->withPadding(RSA::SIGNATURE_PKCS1);
+
             $signedString = $rsa->sign($stringToSign);
-        } elseif (\extension_loaded('openssl')) {
-            \openssl_sign($stringToSign, $signedString, $privateKey, 'sha256WithRSAEncryption');
+        } elseif (extension_loaded('openssl')) {
+            openssl_sign($stringToSign, $signedString, $privateKey, 'sha256WithRSAEncryption');
         } else {
             // @codeCoverageIgnoreStart
             throw new \RuntimeException('OpenSSL is not installed.');
         }
         // @codeCoverageIgnoreEnd
-        return \base64_encode($signedString);
+
+        return base64_encode($signedString);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Helper;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -12,6 +12,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition\PropertyInjection
  * Helps defining how to create an instance of a class.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class CreateDefinitionHelper implements DefinitionHelper
 {
@@ -67,7 +68,7 @@ class CreateDefinitionHelper implements DefinitionHelper
      * This method takes a variable number of arguments, example:
      *     ->constructor($param1, $param2, $param3)
      *
-     * @param mixed ... Parameters to use for calling the constructor of the class.
+     * @param mixed... $parameters Parameters to use for calling the constructor of the class.
      *
      * @return $this
      */
@@ -98,8 +99,8 @@ class CreateDefinitionHelper implements DefinitionHelper
      *
      * Can be used multiple times to declare multiple calls.
      *
-     * @param string $method Name of the method to call.
-     * @param mixed  ...     Parameters to use for calling the method.
+     * @param string $method       Name of the method to call.
+     * @param mixed... $parameters Parameters to use for calling the method.
      *
      * @return $this
      */

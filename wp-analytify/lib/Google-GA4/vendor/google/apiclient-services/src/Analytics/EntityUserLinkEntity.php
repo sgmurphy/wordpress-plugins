@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,61 +14,61 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\Analytics;
 
 class EntityUserLinkEntity extends \Google\Model
 {
-    protected $accountRefType = \Google\Service\Analytics\AccountRef::class;
-    protected $accountRefDataType = '';
-    public $accountRef;
-    protected $profileRefType = \Google\Service\Analytics\ProfileRef::class;
-    protected $profileRefDataType = '';
-    public $profileRef;
-    protected $webPropertyRefType = \Google\Service\Analytics\WebPropertyRef::class;
-    protected $webPropertyRefDataType = '';
-    public $webPropertyRef;
-    /**
-     * @param AccountRef
-     */
-    public function setAccountRef(\Google\Service\Analytics\AccountRef $accountRef)
-    {
-        $this->accountRef = $accountRef;
-    }
-    /**
-     * @return AccountRef
-     */
-    public function getAccountRef()
-    {
-        return $this->accountRef;
-    }
-    /**
-     * @param ProfileRef
-     */
-    public function setProfileRef(\Google\Service\Analytics\ProfileRef $profileRef)
-    {
-        $this->profileRef = $profileRef;
-    }
-    /**
-     * @return ProfileRef
-     */
-    public function getProfileRef()
-    {
-        return $this->profileRef;
-    }
-    /**
-     * @param WebPropertyRef
-     */
-    public function setWebPropertyRef(\Google\Service\Analytics\WebPropertyRef $webPropertyRef)
-    {
-        $this->webPropertyRef = $webPropertyRef;
-    }
-    /**
-     * @return WebPropertyRef
-     */
-    public function getWebPropertyRef()
-    {
-        return $this->webPropertyRef;
-    }
+  protected $accountRefType = AccountRef::class;
+  protected $accountRefDataType = '';
+  protected $profileRefType = ProfileRef::class;
+  protected $profileRefDataType = '';
+  protected $webPropertyRefType = WebPropertyRef::class;
+  protected $webPropertyRefDataType = '';
+
+  /**
+   * @param AccountRef
+   */
+  public function setAccountRef(AccountRef $accountRef)
+  {
+    $this->accountRef = $accountRef;
+  }
+  /**
+   * @return AccountRef
+   */
+  public function getAccountRef()
+  {
+    return $this->accountRef;
+  }
+  /**
+   * @param ProfileRef
+   */
+  public function setProfileRef(ProfileRef $profileRef)
+  {
+    $this->profileRef = $profileRef;
+  }
+  /**
+   * @return ProfileRef
+   */
+  public function getProfileRef()
+  {
+    return $this->profileRef;
+  }
+  /**
+   * @param WebPropertyRef
+   */
+  public function setWebPropertyRef(WebPropertyRef $webPropertyRef)
+  {
+    $this->webPropertyRef = $webPropertyRef;
+  }
+  /**
+   * @return WebPropertyRef
+   */
+  public function getWebPropertyRef()
+  {
+    return $this->webPropertyRef;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\Analytics\EntityUserLinkEntity::class, 'Analytify\\Google_Service_Analytics_EntityUserLinkEntity');
+class_alias(EntityUserLinkEntity::class, 'Google_Service_Analytics_EntityUserLinkEntity');

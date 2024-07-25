@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,28 +14,30 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole;
 
 class SitesListResponse extends \Google\Collection
 {
-    protected $collection_key = 'siteEntry';
-    protected $siteEntryType = \Google\Service\SearchConsole\WmxSite::class;
-    protected $siteEntryDataType = 'array';
-    public $siteEntry = [];
-    /**
-     * @param WmxSite[]
-     */
-    public function setSiteEntry($siteEntry)
-    {
-        $this->siteEntry = $siteEntry;
-    }
-    /**
-     * @return WmxSite[]
-     */
-    public function getSiteEntry()
-    {
-        return $this->siteEntry;
-    }
+  protected $collection_key = 'siteEntry';
+  protected $siteEntryType = WmxSite::class;
+  protected $siteEntryDataType = 'array';
+
+  /**
+   * @param WmxSite[]
+   */
+  public function setSiteEntry($siteEntry)
+  {
+    $this->siteEntry = $siteEntry;
+  }
+  /**
+   * @return WmxSite[]
+   */
+  public function getSiteEntry()
+  {
+    return $this->siteEntry;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\SitesListResponse::class, 'Analytify\\Google_Service_SearchConsole_SitesListResponse');
+class_alias(SitesListResponse::class, 'Google_Service_SearchConsole_SitesListResponse');

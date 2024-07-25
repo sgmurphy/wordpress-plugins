@@ -9,6 +9,7 @@ use ReflectionFunctionAbstract;
  * Inject entries from a DI container using the type-hints.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class TypeHintContainerResolver implements ParameterResolver
 {

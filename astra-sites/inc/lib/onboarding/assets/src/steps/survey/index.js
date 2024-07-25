@@ -583,7 +583,7 @@ const Survey = () => {
 						{ ' ' }
 						{ defaultStepContent }{ ' ' }
 					</div>
-					<PreviousStepLink before>
+					<PreviousStepLink>
 						{ __( 'Back', 'astra-sites' ) }
 					</PreviousStepLink>
 				</>

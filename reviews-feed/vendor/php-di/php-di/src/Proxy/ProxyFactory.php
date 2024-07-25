@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Proxy;
 
 use SmashBalloon\Reviews\Vendor\ProxyManager\Configuration;
@@ -18,6 +18,7 @@ use SmashBalloon\Reviews\Vendor\ProxyManager\Proxy\LazyLoadingInterface;
  *
  * @since  5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ProxyFactory
 {
@@ -52,6 +53,21 @@ class ProxyFactory
         $this->createProxyManager();
         return $this->proxyManager->createProxy($className, $initializer);
     }
+    /**
+     * Generates and writes the proxy class to file.
+     *
+     * @param string $className name of the class to be proxied
+     */
+    public function generateProxyClass(string $className)
+    {
+        // If proxy classes a written to file then we pre-generate the class
+        // If they are not written to file then there is no point to do this
+        if ($this->writeProxiesToFile) {
+            $this->createProxyManager();
+            $this->createProxy($className, function () {
+            });
+        }
+    }
     private function createProxyManager()
     {
         if ($this->proxyManager !== null) {
@@ -64,6 +80,7 @@ class ProxyFactory
         if ($this->writeProxiesToFile) {
             $config->setProxiesTargetDir($this->proxyDirectory);
             $config->setGeneratorStrategy(new FileWriterGeneratorStrategy(new FileLocator($this->proxyDirectory)));
+            // @phpstan-ignore-next-line
             \spl_autoload_register($config->getProxyAutoloader());
         } else {
             $config->setGeneratorStrategy(new EvaluatingGeneratorStrategy());

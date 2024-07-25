@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition;
 
 use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerInterface;
@@ -8,6 +8,7 @@ use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerInterface;
  * Represents a reference to another entry.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class Reference implements Definition, SelfResolvingDefinition
 {

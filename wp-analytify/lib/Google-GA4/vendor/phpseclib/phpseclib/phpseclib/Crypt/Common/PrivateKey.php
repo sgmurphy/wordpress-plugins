@@ -8,7 +8,8 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\Crypt\Common;
+
+namespace phpseclib3\Crypt\Common;
 
 /**
  * PrivateKey interface
@@ -21,9 +22,10 @@ interface PrivateKey
     //public function decrypt($ciphertext);
     public function getPublicKey();
     public function toString($type, array $options = []);
+
     /**
      * @param string|false $password
      * @return mixed
      */
-    public function withPassword($password = \false);
+    public function withPassword($password = false);
 }

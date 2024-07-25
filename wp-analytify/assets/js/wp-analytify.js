@@ -287,7 +287,97 @@ jQuery(document).ready(function ($) {
 									</div>
 								</div>`;
             }
-
+            if (response.general_stats.new_vs_returning) {
+              let total_visitors = 0;
+              for (const new_vs_returning_box_key in response.general_stats
+                .new_vs_returning) {
+                const new_vs_returning_box =
+                  response.general_stats.new_vs_returning[
+                    new_vs_returning_box_key
+                  ];
+                total_visitors =
+                  parseInt(new_vs_returning_box.stats.new.number) +
+                  parseInt(new_vs_returning_box.stats.returning.number);
+                markup += `<div class="analytify_general_status_boxes">
+                    <h4>${new_vs_returning_box.title}</h4>
+                        <div class="analytify_info_tooltip">
+                          <strong>${new_vs_returning_box.stats.new.label} = ${
+                  (new_vs_returning_box.stats.new.number / total_visitors) * 100 >
+                  0
+                    ? Math.round(
+                        (new_vs_returning_box.stats.new.number / total_visitors) *
+                        100
+                      )
+                    : 0
+                } %</strong><br>
+                            <strong>${
+                              new_vs_returning_box.stats.returning.label
+                            } = ${
+                  (new_vs_returning_box.stats.returning.number / total_visitors) *
+                    100 >
+                  0
+                    ? Math.round(
+                        (new_vs_returning_box.stats.returning.number /
+                          total_visitors) *
+                        100
+                      )
+                    : 0
+                } %</strong>
+                        </div>
+                  </div>`;
+              }
+            }
+            if (response.general_stats.device_visitors) {
+              let total_devices = 0;
+              for (const device_visitors_box_key in response.general_stats
+                .device_visitors) {
+                const device_visitors_box =
+                  response.general_stats.device_visitors[device_visitors_box_key];
+                total_devices =
+                  parseInt(device_visitors_box.stats.mobile.number) +
+                  parseInt(device_visitors_box.stats.tablet.number) +
+                  parseInt(device_visitors_box.stats.desktop.number);
+  
+                markup += `<div class="analytify_general_status_boxes">
+                    <h4>${device_visitors_box.title}</h4>
+                        <div class="analytify_info_tooltip">
+                        <strong>${device_visitors_box.stats.mobile.label} = ${
+                  (device_visitors_box.stats.mobile.number / total_devices) *
+                    100 >
+                  0
+                    ? Math.round(
+                        (device_visitors_box.stats.mobile.number /
+                          total_devices) *
+                        100
+                      )
+                    : 0
+                } %</strong><br>
+                        <strong>${device_visitors_box.stats.tablet.label} = ${
+                  (device_visitors_box.stats.tablet.number / total_devices) *
+                    100 >
+                  0
+                    ? Math.round(
+                        (device_visitors_box.stats.tablet.number /
+                          total_devices) *
+                        100
+                      )
+                    : 0
+                } %</strong><br>
+                        <strong>${device_visitors_box.stats.desktop.label} = ${
+                  (device_visitors_box.stats.desktop.number / total_devices) *
+                    100 >
+                  0
+                    ? Math.round(
+                        (device_visitors_box.stats.desktop.number /
+                          total_devices) *
+                        100
+                      )
+                    : 0
+                } %</strong>
+                        </div>
+                  </div>`;
+              }
+            }
             markup += `</div>
 							</div>
 							${
@@ -300,7 +390,7 @@ jQuery(document).ready(function ($) {
               }
 						</div>`;
           }
-
+          
           // scroll_depth
           if (response.scroll_depth) {
             markup += `<div class="analytify_general_status analytify_status_box_wraper">

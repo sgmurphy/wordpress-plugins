@@ -10,6 +10,7 @@ use ReflectionFunctionAbstract;
  * Tries to match type-hints with the parameters provided.
  *
  * @author Felix Becker <f.becker@outlook.com>
+ * @internal
  */
 class TypeHintResolver implements ParameterResolver
 {

@@ -10,8 +10,13 @@ const NpsRating = function () {
 	const { dispatch } = useStore();
 	const ratings = Array.from( { length: 10 }, ( _, i ) => i + 1 );
 	const [ processing, setProcessing ] = useState( false );
+	const [ selectedRating, setSelectedRating ] = useState( null );
 
 	const handleRatingResponse = async function ( number ) {
+		if ( selectedRating !== null ) {
+			return; // Prevent multiple submissions
+		}
+		setSelectedRating( number );
 		dispatch( {
 			type: 'SET_NPS_RATING',
 			payload: number,
@@ -58,7 +63,7 @@ const NpsRating = function () {
 							type="button"
 							key={ number }
 							onClick={ () => handleRatingResponse( number ) }
-							className="relative flex-1 inline-flex items-center justify-center bg-white py-1.5 text-sm font-medium text-nps-button-text hover:bg-gray-50 focus:z-10 border border-solid border-border-nps-primary rounded-md transition-colors ease-in-out duration-150"
+							className="relative flex-1 inline-flex items-center justify-center bg-white py-1.5 text-sm font-medium text-nps-button-text hover:bg-gray-50 focus:z-10 border border-solid border-border-nps-primary rounded-md transition-colors ease-in-out duration-150 hover:cursor-pointer"
 						>
 							{ number }
 						</button>

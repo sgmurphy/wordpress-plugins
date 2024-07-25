@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,64 +14,67 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole;
 
 class InspectUrlIndexRequest extends \Google\Model
 {
-    /**
-     * @var string
-     */
-    public $inspectionUrl;
-    /**
-     * @var string
-     */
-    public $languageCode;
-    /**
-     * @var string
-     */
-    public $siteUrl;
-    /**
-     * @param string
-     */
-    public function setInspectionUrl($inspectionUrl)
-    {
-        $this->inspectionUrl = $inspectionUrl;
-    }
-    /**
-     * @return string
-     */
-    public function getInspectionUrl()
-    {
-        return $this->inspectionUrl;
-    }
-    /**
-     * @param string
-     */
-    public function setLanguageCode($languageCode)
-    {
-        $this->languageCode = $languageCode;
-    }
-    /**
-     * @return string
-     */
-    public function getLanguageCode()
-    {
-        return $this->languageCode;
-    }
-    /**
-     * @param string
-     */
-    public function setSiteUrl($siteUrl)
-    {
-        $this->siteUrl = $siteUrl;
-    }
-    /**
-     * @return string
-     */
-    public function getSiteUrl()
-    {
-        return $this->siteUrl;
-    }
+  /**
+   * @var string
+   */
+  public $inspectionUrl;
+  /**
+   * @var string
+   */
+  public $languageCode;
+  /**
+   * @var string
+   */
+  public $siteUrl;
+
+  /**
+   * @param string
+   */
+  public function setInspectionUrl($inspectionUrl)
+  {
+    $this->inspectionUrl = $inspectionUrl;
+  }
+  /**
+   * @return string
+   */
+  public function getInspectionUrl()
+  {
+    return $this->inspectionUrl;
+  }
+  /**
+   * @param string
+   */
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  /**
+   * @return string
+   */
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+  /**
+   * @param string
+   */
+  public function setSiteUrl($siteUrl)
+  {
+    $this->siteUrl = $siteUrl;
+  }
+  /**
+   * @return string
+   */
+  public function getSiteUrl()
+  {
+    return $this->siteUrl;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\InspectUrlIndexRequest::class, 'Analytify\\Google_Service_SearchConsole_InspectUrlIndexRequest');
+class_alias(InspectUrlIndexRequest::class, 'Google_Service_SearchConsole_InspectUrlIndexRequest');

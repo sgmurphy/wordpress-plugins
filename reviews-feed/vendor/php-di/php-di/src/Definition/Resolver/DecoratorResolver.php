@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Resolver;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\DecoratorDefinition;
@@ -12,6 +12,7 @@ use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerInterface;
  *
  * @since 5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class DecoratorResolver implements DefinitionResolver
 {
@@ -40,8 +41,6 @@ class DecoratorResolver implements DefinitionResolver
      * This will call the callable of the definition and pass it the decorated entry.
      *
      * @param DecoratorDefinition $definition
-     *
-     * {@inheritdoc}
      */
     public function resolve(Definition $definition, array $parameters = [])
     {

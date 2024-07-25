@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Source;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidDefinition;
@@ -9,6 +9,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition;
  * Implementation used when autowiring is completely disabled.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class NoAutowiring implements Autowiring
 {

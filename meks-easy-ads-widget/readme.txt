@@ -1,10 +1,10 @@
 === Meks Easy Ads Widget ===
 Contributors: mekshq
 Donate link: http://mekshq.com/
-Tags: ad, ads, advertising, widget, affiliate, niche, advertisement, marketing, sidebar
+Tags: ad, ads, advertising, affiliate, widget
 Requires at least: 3.0
-Tested up to: 6.3
-Stable tag: 2.0.8
+Tested up to: 6.6
+Stable tag: 2.0.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -46,6 +46,10 @@ For any questions, error reports and suggestions please visit https://mekshq.com
 3. Widget in action example
 
 == Changelog ==
+
+= 2.0.9 =
+* WP 6.6 compatibility tested
+* Patched a minor security issue
 
 = 2.0.8 =
 * WP 6.3 compatibility tested

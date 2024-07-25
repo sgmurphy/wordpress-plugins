@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -33,6 +32,7 @@
 namespace Google\ApiCore;
 
 use Google\Rpc\Code;
+
 /**
  * ServerStream is the response object from a server streaming API call.
  */
@@ -40,6 +40,7 @@ class ServerStream
 {
     private $call;
     private $resourcesGetMethod;
+
     /**
      * ServerStream constructor.
      *
@@ -49,10 +50,11 @@ class ServerStream
     public function __construct($serverStreamingCall, array $streamingDescriptor = [])
     {
         $this->call = $serverStreamingCall;
-        if (\array_key_exists('resourcesGetMethod', $streamingDescriptor)) {
+        if (array_key_exists('resourcesGetMethod', $streamingDescriptor)) {
             $this->resourcesGetMethod = $streamingDescriptor['resourcesGetMethod'];
         }
     }
+
     /**
      * A generator which yields results from the server until the streaming call
      * completes. Throws an ApiException if the streaming call failed.
@@ -63,24 +65,26 @@ class ServerStream
     public function readAll()
     {
         $resourcesGetMethod = $this->resourcesGetMethod;
-        if (!\is_null($resourcesGetMethod)) {
+        if (!is_null($resourcesGetMethod)) {
             foreach ($this->call->responses() as $response) {
-                foreach ($response->{$resourcesGetMethod}() as $resource) {
-                    (yield $resource);
+                foreach ($response->$resourcesGetMethod() as $resource) {
+                    yield $resource;
                 }
             }
         } else {
             foreach ($this->call->responses() as $response) {
-                (yield $response);
+                yield $response;
             }
         }
+
         // Errors in the REST transport will be thrown from there and not reach
         // this handling. Successful REST server-streams will have an OK status.
         $status = $this->call->getStatus();
         if ($status->code !== Code::OK) {
-            throw \Google\ApiCore\ApiException::createFromStdClass($status);
+            throw ApiException::createFromStdClass($status);
         }
     }
+
     /**
      * Return the underlying call object.
      *

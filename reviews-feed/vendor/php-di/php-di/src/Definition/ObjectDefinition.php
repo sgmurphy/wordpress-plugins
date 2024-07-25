@@ -1,16 +1,18 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Dumper\ObjectDefinitionDumper;
 use SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition\MethodInjection;
 use SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition\PropertyInjection;
+use SmashBalloon\Reviews\Vendor\DI\Definition\Source\DefinitionArray;
 use ReflectionClass;
 /**
  * Defines how an object can be instantiated.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ObjectDefinition implements Definition
 {
@@ -187,6 +189,22 @@ class ObjectDefinition implements Definition
                 $methodInjection->replaceNestedDefinitions($replacer);
             });
         });
+    }
+    /**
+     * Replaces all the wildcards in the string with the given replacements.
+     *
+     * @param string[] $replacements
+     */
+    public function replaceWildcards(array $replacements)
+    {
+        $className = $this->getClassName();
+        foreach ($replacements as $replacement) {
+            $pos = \strpos($className, DefinitionArray::WILDCARD);
+            if ($pos !== \false) {
+                $className = \substr_replace($className, $replacement, $pos, 1);
+            }
+        }
+        $this->setClassName($className);
     }
     public function __toString()
     {

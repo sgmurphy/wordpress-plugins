@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -17,15 +16,17 @@
  */
 namespace Google\Auth\HttpHandler;
 
-use Analytify\GuzzleHttp\ClientInterface;
-use Analytify\Psr\Http\Message\RequestInterface;
-use Analytify\Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\ClientInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
 class Guzzle6HttpHandler
 {
     /**
      * @var ClientInterface
      */
     private $client;
+
     /**
      * @param ClientInterface $client
      */
@@ -33,6 +34,7 @@ class Guzzle6HttpHandler
     {
         $this->client = $client;
     }
+
     /**
      * Accepts a PSR-7 request and an array of options and returns a PSR-7 response.
      *
@@ -44,6 +46,7 @@ class Guzzle6HttpHandler
     {
         return $this->client->send($request, $options);
     }
+
     /**
      * Accepts a PSR-7 request and an array of options and returns a PromiseInterface
      *

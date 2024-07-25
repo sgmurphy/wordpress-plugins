@@ -1,11 +1,12 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Compiler;
 
 use SmashBalloon\Reviews\Vendor\DI\Factory\RequestedEntry;
 /**
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class RequestedEntryHolder implements RequestedEntry
 {

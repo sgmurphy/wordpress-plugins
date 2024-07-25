@@ -190,6 +190,8 @@ function exactmetrics_ajax_deactivate_addon() {
 		}
 	}
 
+	do_action( 'exactmetrics_after_ajax_deactivate_addon', sanitize_text_field( $_POST['plugin'] ) );
+
 	echo json_encode( true );
 	wp_die();
 }

@@ -7,6 +7,7 @@ use SmashBalloon\Reviews\Vendor\Invoker\Exception\NotCallableException;
  * Create a reflection object from a callable.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class CallableReflection
 {

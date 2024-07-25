@@ -15,6 +15,7 @@ use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerInterface;
  * Invoke a callable.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class Invoker implements InvokerInterface
 {

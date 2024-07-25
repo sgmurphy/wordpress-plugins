@@ -1,10 +1,17 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Resolver;
 
+use SmashBalloon\Reviews\Vendor\DI\Definition\ArrayDefinition;
+use SmashBalloon\Reviews\Vendor\DI\Definition\DecoratorDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
+use SmashBalloon\Reviews\Vendor\DI\Definition\EnvironmentVariableDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidDefinition;
+use SmashBalloon\Reviews\Vendor\DI\Definition\FactoryDefinition;
+use SmashBalloon\Reviews\Vendor\DI\Definition\InstanceDefinition;
+use SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition;
+use SmashBalloon\Reviews\Vendor\DI\Definition\SelfResolvingDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Proxy\ProxyFactory;
 use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerInterface;
 /**
@@ -14,6 +21,7 @@ use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerInterface;
  *
  * @since 5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ResolverDispatcher implements DefinitionResolver
 {
@@ -49,7 +57,7 @@ class ResolverDispatcher implements DefinitionResolver
     public function resolve(Definition $definition, array $parameters = [])
     {
         // Special case, tested early for speed
-        if ($definition instanceof \SmashBalloon\Reviews\Vendor\DI\Definition\SelfResolvingDefinition) {
+        if ($definition instanceof SelfResolvingDefinition) {
             return $definition->resolve($this->container);
         }
         $definitionResolver = $this->getDefinitionResolver($definition);
@@ -58,7 +66,7 @@ class ResolverDispatcher implements DefinitionResolver
     public function isResolvable(Definition $definition, array $parameters = []) : bool
     {
         // Special case, tested early for speed
-        if ($definition instanceof \SmashBalloon\Reviews\Vendor\DI\Definition\SelfResolvingDefinition) {
+        if ($definition instanceof SelfResolvingDefinition) {
             return $definition->isResolvable($this->container);
         }
         $definitionResolver = $this->getDefinitionResolver($definition);
@@ -72,32 +80,32 @@ class ResolverDispatcher implements DefinitionResolver
     private function getDefinitionResolver(Definition $definition) : DefinitionResolver
     {
         switch (\true) {
-            case $definition instanceof \SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition:
+            case $definition instanceof ObjectDefinition:
                 if (!$this->objectResolver) {
                     $this->objectResolver = new ObjectCreator($this, $this->proxyFactory);
                 }
                 return $this->objectResolver;
-            case $definition instanceof \SmashBalloon\Reviews\Vendor\DI\Definition\DecoratorDefinition:
+            case $definition instanceof DecoratorDefinition:
                 if (!$this->decoratorResolver) {
                     $this->decoratorResolver = new DecoratorResolver($this->container, $this);
                 }
                 return $this->decoratorResolver;
-            case $definition instanceof \SmashBalloon\Reviews\Vendor\DI\Definition\FactoryDefinition:
+            case $definition instanceof FactoryDefinition:
                 if (!$this->factoryResolver) {
                     $this->factoryResolver = new FactoryResolver($this->container, $this);
                 }
                 return $this->factoryResolver;
-            case $definition instanceof \SmashBalloon\Reviews\Vendor\DI\Definition\ArrayDefinition:
+            case $definition instanceof ArrayDefinition:
                 if (!$this->arrayResolver) {
                     $this->arrayResolver = new ArrayResolver($this);
                 }
                 return $this->arrayResolver;
-            case $definition instanceof \SmashBalloon\Reviews\Vendor\DI\Definition\EnvironmentVariableDefinition:
+            case $definition instanceof EnvironmentVariableDefinition:
                 if (!$this->envVariableResolver) {
                     $this->envVariableResolver = new EnvironmentVariableResolver($this);
                 }
                 return $this->envVariableResolver;
-            case $definition instanceof \SmashBalloon\Reviews\Vendor\DI\Definition\InstanceDefinition:
+            case $definition instanceof InstanceDefinition:
                 if (!$this->instanceResolver) {
                     $this->instanceResolver = new InstanceInjector($this, $this->proxyFactory);
                 }

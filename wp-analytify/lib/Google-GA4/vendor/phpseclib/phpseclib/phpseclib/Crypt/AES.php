@@ -44,7 +44,8 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\Crypt;
+
+namespace phpseclib3\Crypt;
 
 /**
  * Pure-PHP implementation of AES.
@@ -66,6 +67,7 @@ class AES extends Rijndael
     {
         throw new \BadMethodCallException('The block length cannot be set for AES.');
     }
+
     /**
      * Sets the key length
      *
@@ -87,6 +89,7 @@ class AES extends Rijndael
         }
         parent::setKeyLength($length);
     }
+
     /**
      * Sets the key.
      *
@@ -99,14 +102,15 @@ class AES extends Rijndael
      */
     public function setKey($key)
     {
-        switch (\strlen($key)) {
+        switch (strlen($key)) {
             case 16:
             case 24:
             case 32:
                 break;
             default:
-                throw new \LengthException('Key of size ' . \strlen($key) . ' not supported by this algorithm. Only keys of sizes 16, 24 or 32 supported');
+                throw new \LengthException('Key of size ' . strlen($key) . ' not supported by this algorithm. Only keys of sizes 16, 24 or 32 supported');
         }
+
         parent::setKey($key);
     }
 }

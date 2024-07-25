@@ -1,7 +1,4 @@
 <?php
-
-namespace Analytify;
-
 /**
  * Random_* Compatibility Library
  * for using the new PHP 7 random_* API in PHP 5 projects
@@ -31,4 +28,5 @@ namespace Analytify;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 // NOP

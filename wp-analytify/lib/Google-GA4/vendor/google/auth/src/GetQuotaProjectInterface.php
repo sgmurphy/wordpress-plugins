@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2019 Google LLC
  *
@@ -15,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Google\Auth;
 
 /**
@@ -23,6 +23,7 @@ namespace Google\Auth;
 interface GetQuotaProjectInterface
 {
     const X_GOOG_USER_PROJECT_HEADER = 'X-Goog-User-Project';
+
     /**
      * Get the quota project used for this API request
      *

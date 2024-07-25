@@ -10,9 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\File\ASN1\Maps;
 
-use Analytify\phpseclib3\File\ASN1;
+namespace phpseclib3\File\ASN1\Maps;
+
+use phpseclib3\File\ASN1;
+
 /**
  * BuiltInDomainDefinedAttribute
  *
@@ -20,5 +22,11 @@ use Analytify\phpseclib3\File\ASN1;
  */
 abstract class BuiltInDomainDefinedAttribute
 {
-    const MAP = ['type' => ASN1::TYPE_SEQUENCE, 'children' => ['type' => ['type' => ASN1::TYPE_PRINTABLE_STRING], 'value' => ['type' => ASN1::TYPE_PRINTABLE_STRING]]];
+    const MAP = [
+        'type' => ASN1::TYPE_SEQUENCE,
+        'children' => [
+            'type' => ['type' => ASN1::TYPE_PRINTABLE_STRING],
+            'value' => ['type' => ASN1::TYPE_PRINTABLE_STRING]
+        ]
+    ];
 }

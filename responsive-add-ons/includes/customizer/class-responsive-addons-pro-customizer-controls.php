@@ -33,8 +33,10 @@ if ( 'Responsive' === $theme->name || 'Responsive' === $theme->parent_theme ) {
 		if ( ! function_exists( 'rst_responsive_addons_register_options' ) ) {
 			function rst_responsive_addons_register_options( $wp_customize ) {
 
+				// Responsvie Theme Controls Path.
+				$dir = RESPONSIVE_THEME_DIR . 'core/includes/customizer/controls/';
+
 				// Load customize control classes.
-				require_once RESPONSIVE_ADDONS_DIR . 'includes/customizer/controls/palette/class-responsive-customizer-palette-control.php';
 				require_once RESPONSIVE_ADDONS_DIR . 'includes/customizer/controls/color/class-responsive-customizer-color-control.php';
 				require_once RESPONSIVE_ADDONS_DIR . 'includes/customizer/controls/range/class-responsive-customizer-range-control.php';
 				require_once RESPONSIVE_ADDONS_DIR . 'includes/customizer/controls/slider/class-responsive-customizer-slider-control.php';
@@ -45,9 +47,11 @@ if ( 'Responsive' === $theme->name || 'Responsive' === $theme->parent_theme ) {
 				require_once RESPONSIVE_ADDONS_DIR . 'includes/customizer/controls/heading/class-responsive-customizer-heading-control.php';
 				require_once RESPONSIVE_ADDONS_DIR . 'includes/customizer/controls/select/class-responsive-customizer-responsive-select-control.php';
 				require_once RESPONSIVE_ADDONS_DIR . 'includes/customizer/controls/checkbox/class-responsive-customizer-responsive-checkbox-control.php';
-				require_once RESPONSIVE_ADDONS_DIR . 'includes/customizer/controls/selectbtn/class-responsive-customizer-responsive-selectbtn-control.php';
+				// require_once RESPONSIVE_ADDONS_DIR . 'includes/customizer/controls/selectbtn/class-responsive-customizer-responsive-selectbtn-control.php';
+				require_once $dir . 'selectbtn/class-responsive-customizer-responsive-selectbtn-control.php';
+				require_once $dir . 'toggle/class-responsive-customizer-responsive-toggle-control.php';
+
 				// Register JS control types.
-				$wp_customize->register_control_type( 'Responsive_Customizer_Palette_Control' );
 				$wp_customize->register_control_type( 'Responsive_Customizer_Color_Control' );
 				$wp_customize->register_control_type( 'Responsive_Customizer_Range_Control' );
 				$wp_customize->register_control_type( 'Responsive_Customizer_Slider_Control' );
@@ -60,6 +64,7 @@ if ( 'Responsive' === $theme->name || 'Responsive' === $theme->parent_theme ) {
 				$wp_customize->register_control_type( 'Responsive_Customizer_Select_Control' );
 				$wp_customize->register_control_type( 'Responsive_Customizer_Checkbox_Control' );
 				$wp_customize->register_control_type( 'Responsive_Customizer_Select_Button_Control' );
+				$wp_customize->register_control_type( 'Responsive_Customizer_Toggle_Control' );
 			}
 		}
 

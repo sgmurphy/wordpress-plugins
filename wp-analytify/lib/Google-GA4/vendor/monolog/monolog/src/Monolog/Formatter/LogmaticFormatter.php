@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -9,7 +8,10 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Analytify\Monolog\Formatter;
+
+namespace Monolog\Formatter;
+
+use Monolog\LogRecord;
 
 /**
  * Encodes message information into JSON in a format compatible with Logmatic.
@@ -19,39 +21,50 @@ namespace Analytify\Monolog\Formatter;
 class LogmaticFormatter extends JsonFormatter
 {
     protected const MARKERS = ["sourcecode", "php"];
+
+    protected string $hostname = '';
+
+    protected string $appName = '';
+
     /**
-     * @var string
+     * @return $this
      */
-    protected $hostname = '';
-    /**
-     * @var string
-     */
-    protected $appname = '';
-    public function setHostname(string $hostname) : self
+    public function setHostname(string $hostname): self
     {
         $this->hostname = $hostname;
+
         return $this;
     }
-    public function setAppname(string $appname) : self
+
+    /**
+     * @return $this
+     */
+    public function setAppName(string $appName): self
     {
-        $this->appname = $appname;
+        $this->appName = $appName;
+
         return $this;
     }
+
     /**
      * Appends the 'hostname' and 'appname' parameter for indexing by Logmatic.
      *
      * @see http://doc.logmatic.io/docs/basics-to-send-data
      * @see \Monolog\Formatter\JsonFormatter::format()
      */
-    public function format(array $record) : string
+    public function normalizeRecord(LogRecord $record): array
     {
-        if (!empty($this->hostname)) {
+        $record = parent::normalizeRecord($record);
+
+        if ($this->hostname !== '') {
             $record["hostname"] = $this->hostname;
         }
-        if (!empty($this->appname)) {
-            $record["appname"] = $this->appname;
+        if ($this->appName !== '') {
+            $record["appname"] = $this->appName;
         }
+
         $record["@marker"] = static::MARKERS;
-        return parent::format($record);
+
+        return $record;
     }
 }

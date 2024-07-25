@@ -211,20 +211,16 @@
 											<div class="calc-promocode-container">
 												<div class="calc-input-wrapper ccb-field"
 													 :class="{required: discountError !== ''}">
-													<span v-if="discountError === 'invalid'"
-														  :class="{active: discountError !== ''}"
-														  class="ccb-error-tip front default"
-														  v-text="'<?php esc_html_e( 'Invalid promocode', 'cost-calculator-builder' ); ?>'"></span>
-													<span v-if="discountError === 'not_exist'"
-														  :class="{active: discountError !== ''}"
-														  class="ccb-error-tip front default"
-														  v-text="'<?php esc_html_e( 'Promocode not exists', 'cost-calculator-builder' ); ?>'"></span>
-													<span v-if="discountError === 'used'"
-														  :class="{active: discountError !== ''}"
-														  class="ccb-error-tip front default"
-														  v-text="'<?php esc_html_e( 'Promo code is already applied', 'cost-calculator-builder' ); ?>'"></span>
-													<input type="text" v-model="promocode" @input="discountError = ''"
-														   class="calc-input ccb-field ccb-appearance-field">
+													<span v-if="discountError === 'invalid'" :class="{active: discountError !== ''}" class="ccb-error-tip front default">
+														<?php esc_html_e( 'Invalid promocode', 'cost-calculator-builder' ); ?>
+													</span>
+													<span v-if="discountError === 'not_exist'" :class="{active: discountError !== ''}" class="ccb-error-tip front default">
+														<?php esc_html_e( 'Promocode not exists', 'cost-calculator-builder' ); ?>
+													</span>
+													<span v-if="discountError === 'used'" :class="{active: discountError !== ''}" class="ccb-error-tip front default">
+														<?php esc_html_e( 'Promo code is already applied', 'cost-calculator-builder' ); ?>
+													</span>
+													<input type="text" v-model="promocode" @input="discountError = ''" class="calc-input ccb-field ccb-appearance-field">
 												</div>
 												<button class="calc-btn-action ispro-wrapper success"
 														@click.stop="applyPromocode">

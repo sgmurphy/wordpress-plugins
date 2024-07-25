@@ -14,6 +14,7 @@ use ReflectionFunctionAbstract;
  * will be ignored.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class NumericArrayResolver implements ParameterResolver
 {

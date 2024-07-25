@@ -23,7 +23,7 @@ function corpex_faq_list ( $atts ) {
         while($loop->have_posts()) : $loop->the_post();
 	?>
 		<div class="av-columns-area faq-type">
-			<div class="av-column-12 faq-item <?php echo $idPost;?>">
+			<div class="av-column-12 faq-item <?php echo esc_attr($idPost);?>">
 				<div class="accordion accordion-default">
 					<div class="accordion-title"><button type="button" class="accordion-button"><span><?php the_title(); ?></span> <i class="fa fa-plus"></i></button></div>
 					<div class="accordion-content"><?php the_content(); ?></div>

@@ -2,50 +2,60 @@
 # This file is distributed under the same license as the Reviews Feed plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Reviews Feed 1.0.3\n"
+"Project-Id-Version: Reviews Feed 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sb-reviews\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-12T22:57:20+05:45\n"
+"POT-Creation-Date: 2024-05-07T16:40:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: reviews-feed\n"
 
 #. Plugin Name of the plugin
-#: class/Common/Admin/MenuService.php:35
+#: sb-reviews.php
+#: class/Common/Admin/MenuService.php:38
 msgid "Reviews Feed"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "http://smashballoon.com/reviews-feed"
+#: sb-reviews.php
+msgid "https://smashballoon.com/reviews-feed"
 msgstr ""
 
 #. Description of the plugin
-msgid "Reviews Feeds  allows you to display completely customizable Reviews feeds from many different providers."
+#: sb-reviews.php
+msgid "Reviews Feeds allows you to display completely customizable Reviews feeds from many different providers."
 msgstr ""
 
 #. Author of the plugin
+#: sb-reviews.php
 msgid "Smash Balloon"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "http://smashballoon.com/"
+#: sb-reviews.php
+msgid "https://smashballoon.com/"
 msgstr ""
 
-#: class/Common/Admin/MenuService.php:32
+#: class/Common/Admin/MenuService.php:35
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "All Feeds"
 msgstr ""
 
-#: class/Common/Admin/MenuService.php:32
+#: class/Common/Admin/MenuService.php:35
 msgid "Set up Plugin"
 msgstr ""
 
-#: class/Common/Admin/SBR_Admin_Notice.php:45
-msgid "You have reached the maximum sources limit for (%s), Please enter a valid API key to retrieve new sources. Please add API Key %shere%s"
+#: class/Common/Admin/SBR_Admin_Notice.php:47
+msgid "You have reached the review source limit for (%s). In order to add additional sources you'll need to create and enter an API key. Please add API key %shere%s."
+msgstr ""
+
+#: class/Common/Admin/SBR_Collections_Builder.php:31
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Collections"
 msgstr ""
 
 #: class/Common/Admin/SBR_New_User.php:302
@@ -55,13 +65,13 @@ msgstr ""
 
 #: class/Common/Admin/SBR_New_User.php:308
 #: class/Common/Admin/SBR_Notifications.php:636
-#: class/Common/Settings/Tabs/SBR_Feeds_Tab.php:57
+#: class/Common/Settings/Tabs/SBR_Feeds_Tab.php:58
 msgid "Yes"
 msgstr ""
 
 #: class/Common/Admin/SBR_New_User.php:314
 #: class/Common/Admin/SBR_Notifications.php:641
-#: class/Common/Settings/Tabs/SBR_Feeds_Tab.php:58
+#: class/Common/Settings/Tabs/SBR_Feeds_Tab.php:59
 msgid "No"
 msgstr ""
 
@@ -115,76 +125,76 @@ msgstr ""
 msgid "Could not deactivate the Plugin. Please deactivate from the Plugins page."
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:65
+#: class/Common/Admin/SBR_Support_Builder.php:67
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Getting Started"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:66
+#: class/Common/Admin/SBR_Support_Builder.php:68
 msgid "Some helpful resources to get you started"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:70
+#: class/Common/Admin/SBR_Support_Builder.php:72
 msgid "Getting Started with Reviews Feed"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:74
+#: class/Common/Admin/SBR_Support_Builder.php:76
 msgid "How to Create a Yelp API Key"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:78
+#: class/Common/Admin/SBR_Support_Builder.php:80
 msgid "How to Create a Google API Key"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:83
+#: class/Common/Admin/SBR_Support_Builder.php:85
 msgid "More help on Getting started"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:88
+#: class/Common/Admin/SBR_Support_Builder.php:90
 msgid "Docs & Troubleshooting"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:89
+#: class/Common/Admin/SBR_Support_Builder.php:91
 msgid "Run into an issue? Check out our help docs."
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:93
+#: class/Common/Admin/SBR_Support_Builder.php:95
 msgid "Why do I only see a few reviews?"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:97
+#: class/Common/Admin/SBR_Support_Builder.php:99
 msgid "How to Resolve Error Messages"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:101
+#: class/Common/Admin/SBR_Support_Builder.php:103
 msgid "Translating Google Reviews"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:106
+#: class/Common/Admin/SBR_Support_Builder.php:108
 msgid "View Documentation"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:111
+#: class/Common/Admin/SBR_Support_Builder.php:113
 msgid "Additional Resources"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:112
+#: class/Common/Admin/SBR_Support_Builder.php:114
 msgid "To help you get the most out of the plugin"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:116
+#: class/Common/Admin/SBR_Support_Builder.php:118
 msgid "Can I Display Multiple Reviews on One Page?"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:120
+#: class/Common/Admin/SBR_Support_Builder.php:122
 msgid "License Tiers Explained (additional review providers)"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:124
+#: class/Common/Admin/SBR_Support_Builder.php:126
 msgid "How do I Embed My Feed Directly in a Template?"
 msgstr ""
 
-#: class/Common/Admin/SBR_Support_Builder.php:129
+#: class/Common/Admin/SBR_Support_Builder.php:131
 msgid "View Blog"
 msgstr ""
 
@@ -197,73 +207,82 @@ msgstr ""
 msgid "Cannot get info"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Builder.php:129
+#: class/Common/Builder/SBR_Feed_Builder.php:132
 msgid "Default"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Builder.php:133
+#: class/Common/Builder/SBR_Feed_Builder.php:136
 msgid "Simple Cards"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Builder.php:138
+#: class/Common/Builder/SBR_Feed_Builder.php:141
 #: class/Common/Customizer/Tabs/SBR_Customize_Tab.php:165
 msgid "Masonry"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Builder.php:149
+#: class/Common/Builder/SBR_Feed_Builder.php:152
 msgid "Single Review"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Builder.php:154
+#: class/Common/Builder/SBR_Feed_Builder.php:157
 msgid "Showcase Carousel"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Builder.php:159
+#: class/Common/Builder/SBR_Feed_Builder.php:162
 #: class/Common/Customizer/Tabs/SBR_Customize_Tab.php:170
 msgid "Carousel"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Builder.php:164
+#: class/Common/Builder/SBR_Feed_Builder.php:167
 msgid "Grid Carousel"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Saver_Manager.php:459
+#: class/Common/Builder/SBR_Feed_Saver_Manager.php:496
 msgid "Supports only Json file"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Saver_Manager.php:464
+#: class/Common/Builder/SBR_Feed_Saver_Manager.php:501
 msgid "Don't have file, Please try again"
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Saver_Manager.php:850
+#: class/Common/Builder/SBR_Feed_Saver_Manager.php:904
 msgid "No feed source is included. Cannot upload feed."
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Saver_Manager.php:862
+#: class/Common/Builder/SBR_Feed_Saver_Manager.php:916
 msgid "Feed settings imported successfully."
 msgstr ""
 
-#: class/Common/Builder/SBR_Feed_Saver_Manager.php:867
+#: class/Common/Builder/SBR_Feed_Saver_Manager.php:921
 msgid "Could not import feed. Please try again"
 msgstr ""
 
-#: class/Common/Customizer/DB.php:421
+#: class/Common/Builder/SBR_Feed_Saver_Manager.php:1158
+#: class/Common/Builder/SBR_Feed_Saver_Manager.php:1264
+msgid "Please make sure the collection exists"
+msgstr ""
+
+#: class/Common/Builder/SBR_Feed_Saver_Manager.php:1436
+msgid "Cannot duplicate Collection, something went wrong!"
+msgstr ""
+
+#: class/Common/Customizer/DB.php:450
 #: class/Common/Customizer/Tabs/SBR_Customize_Tab.php:77
 #: class/Common/Feed_Locator.php:368
 msgid "Header"
 msgstr ""
 
-#: class/Common/Customizer/DB.php:423
+#: class/Common/Customizer/DB.php:452
 #: class/Common/Feed_Locator.php:378
 msgid "Footer"
 msgstr ""
 
-#: class/Common/Customizer/DB.php:425
+#: class/Common/Customizer/DB.php:454
 #: class/Common/Feed_Locator.php:373
 msgid "Sidebar"
 msgstr ""
 
-#: class/Common/Customizer/DB.php:427
+#: class/Common/Customizer/DB.php:456
 #: class/Common/Customizer/Tabs/SBR_Customize_Tab.php:592
 #: class/Common/Feed_Locator.php:364
 msgid "Content"
@@ -284,7 +303,6 @@ msgstr ""
 #: class/Common/Customizer/Tabs/SBR_Customize_Tab.php:83
 #: class/Common/FeedDisplay.php:105
 #: class/Common/FeedDisplay.php:113
-#: templates/frontend/pro/header.php:32
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Reviews"
 msgstr ""
@@ -364,8 +382,8 @@ msgid "Content Length"
 msgstr ""
 
 #: class/Common/Customizer/Tabs/SBR_Customize_Tab.php:494
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:335
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:346
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:338
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:349
 msgid "characters"
 msgstr ""
 
@@ -388,7 +406,7 @@ msgstr ""
 
 #: class/Common/Customizer/Tabs/SBR_Customize_Tab.php:567
 #: class/Common/Customizer/Tabs/SBR_Customize_Tab.php:938
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:373
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:376
 msgid "Enable"
 msgstr ""
 
@@ -632,12 +650,13 @@ msgid "2 days ago"
 msgstr ""
 
 #: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:29
-#: class/sbr-functions.php:434
+#: class/sbr-functions.php:452
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Settings"
 msgstr ""
 
 #: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:43
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Sources"
 msgstr ""
 
@@ -649,215 +668,216 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:57
+#. translators: %s: Opening and closing anchor HTML tags
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:58
 msgid "Upgrade to Pro to apply filters to your reviews feed. %sLearn More%s"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:65
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:66
 msgid "Moderation"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:70
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:73
 msgid "Upgrade to Pro to moderate your feed. %sLearn More%s"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:85
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:88
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:47
 msgid "Language"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:86
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:89
 msgid "Change language of what posts are displayed in"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:133
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:136
 msgid "By Date"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:151
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:154
 msgid "Latest Reviews First"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:152
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:155
 msgid "Oldest Reviews First"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:172
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:175
 msgid "By Rating"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:190
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:193
 msgid "Highest Rated First"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:191
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:194
 msgid "Lowest Rated First"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:209
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:212
 msgid "Randomize"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:210
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:213
 msgid "This will disable “By date” and “By rating” and randomly choose among the filtered reviews"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:270
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:273
 msgid "By Words"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:278
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:279
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:289
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:281
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:282
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:292
 msgid "Only show reviews containing"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:280
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:283
 msgid "Add words here to only show posts containing these words"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:288
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:291
 msgid "Do not show reviews containing"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:290
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:293
 msgid "Add words here to hide any posts containing these words"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:324
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:327
 msgid "By Character Count"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:334
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:337
 msgid "Minimum"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:345
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:348
 msgid "Maxiumum"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:347
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:350
 msgid "Unset"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:390
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:427
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:393
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:430
 msgid "Allow List"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:391
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:429
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:394
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:432
 msgid "Hides post by default so you can select the ones you want to show"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:395
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:433
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:398
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:436
 msgid "Block List"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:396
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:435
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:399
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:438
 msgid "Show all posts by default so you can select the ones you want to hide"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:412
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:415
 msgid "You can only view and filter through the last 100 reviews"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:413
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:416
 msgid "Due to platform API limitations, we cannot store and provide you with a complete repository of your reviews."
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:458
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:461
 #: class/Common/Settings/Tabs/SBR_Advanced_Tab.php:29
 msgid "Advanced"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:492
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:495
 #: class/Common/Settings/Tabs/SBR_Advanced_Tab.php:53
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Reset"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:500
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:503
 msgid "Limited Support"
 msgstr ""
 
-#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:501
+#: class/Common/Customizer/Tabs/SBR_Settings_Tab.php:504
 msgid "Only Google supports different languages. Reviews from other providers will still show up in English or the language they were submitted in."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:435
+#: class/Common/Error_Reporter.php:433
 msgid "Your access token could not be decrypted on this website. Reconnect this account or go to our website to learn how to prevent this."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:439
+#: class/Common/Error_Reporter.php:437
 msgid "API Error %s:"
 msgstr ""
 
-#: class/Common/Error_Reporter.php:440
+#: class/Common/Error_Reporter.php:438
 msgid "Error connecting to the Facebook API."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:448
-#: class/Common/Error_Reporter.php:449
-#: class/Common/Error_Reporter.php:452
-#: class/Common/Error_Reporter.php:453
+#: class/Common/Error_Reporter.php:446
+#: class/Common/Error_Reporter.php:447
+#: class/Common/Error_Reporter.php:450
+#: class/Common/Error_Reporter.php:451
 msgid "Directions on How to Resolve This Issue"
 msgstr ""
 
-#: class/Common/Error_Reporter.php:457
+#: class/Common/Error_Reporter.php:455
 msgid "An unknown error has occurred."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:497
+#: class/Common/Error_Reporter.php:495
 msgid "There's an Issue with a Reviews Feed on Your Website"
 msgstr ""
 
-#: class/Common/Error_Reporter.php:498
+#: class/Common/Error_Reporter.php:496
 msgid "A Custom Reviews Feed on your website is currently unable to connect to Facebook to retrieve new posts. Don't worry, your feed is still being displayed using a cached version, but is no longer able to display new posts."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:499
+#: class/Common/Error_Reporter.php:497
 msgid "This is caused by an issue with your Facebook account connecting to the Facebook API. For information on the exact issue and directions on how to resolve it, please visit the %sCustom Facebook Feed settings page%s on your website."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:528
+#: class/Common/Error_Reporter.php:526
 msgid "All Facebook Data has Been Remove."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:529
+#: class/Common/Error_Reporter.php:527
 msgid "An account admin has deauthorized the Smash Balloon app used to power the Facebook Feed plugin. The page was not reconnected within the 7 day limit and all Facebook data was automatically deleted on your website due to Facebook data privacy rules.<br/><br/>Due to API limitations your feeds will not show new reviews until you enter an API key on the settings page."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:536
+#: class/Common/Error_Reporter.php:534
 msgid "Action Required Within 7 Days:"
 msgstr ""
 
-#: class/Common/Error_Reporter.php:537
+#: class/Common/Error_Reporter.php:535
 msgid "Your Facebook Reviews feed has been not viewed in the last 14 days. Due to Facebook data privacy rules, all data for this feed will be deleted in 7 days time. To avoid automated data deletion, simply view the Facebook feed on your website within the next 7 days."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:554
+#: class/Common/Error_Reporter.php:552
 #: class/Pro/Platform_Data.php:315
 #: class/Pro/Platform_Data.php:333
 msgid "Action Required Within 7 Days"
 msgstr ""
 
-#: class/Common/Error_Reporter.php:556
+#: class/Common/Error_Reporter.php:554
 #: class/Pro/Platform_Data.php:350
 msgid "An account admin has deauthorized the Smash Balloon app used to power the Facebook Feed plugin."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:558
+#: class/Common/Error_Reporter.php:556
 msgid "Facebook Feed related data for the account(s) %s was removed due to permission for the Smash Balloon App on Facebook being revoked."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:561
+#: class/Common/Error_Reporter.php:559
 msgid "To prevent the automated data deletion for the account, please reconnect your account within 7 days."
 msgstr ""
 
-#: class/Common/Error_Reporter.php:562
+#: class/Common/Error_Reporter.php:560
 #: class/Pro/Platform_Data.php:320
 msgid "More Information"
 msgstr ""
@@ -867,38 +887,39 @@ msgstr ""
 msgid "No feed with the ID %d found."
 msgstr ""
 
+#. translators: %s: Opening and closing anchor HTML tags
 #: class/Common/Feed.php:71
-#: class/Pro/Feed.php:17
+#: class/Pro/Feed.php:18
 msgid "Please go to the %sReviews Feed%s settings page to create a feed."
 msgstr ""
 
 #: class/Common/Feed.php:75
-#: class/Pro/Feed.php:21
+#: class/Pro/Feed.php:22
 msgid "No sources available for this feed."
 msgstr ""
 
 #: class/Common/Feed.php:75
-#: class/Pro/Feed.php:21
+#: class/Pro/Feed.php:22
 msgid "Please go to the %sReviews Feed%s settings page add sources for this feed to use."
 msgstr ""
 
-#: class/Common/Feed.php:186
+#: class/Common/Feed.php:188
 msgid "No Posts Found."
 msgstr ""
 
-#: class/Common/Feed.php:188
+#: class/Common/Feed.php:190
 msgid "There were no posts that fit your filters. Try modifying the filters set or add more sources with reviews that fit the filter by %sediting your feed%s"
 msgstr ""
 
-#: class/Common/Feed.php:190
+#: class/Common/Feed.php:192
 msgid "There were no posts found for the sources selected. Make sure reviews are available for this source or change the source by %sediting your feed%s"
 msgstr ""
 
-#: class/Common/Feed.php:366
+#: class/Common/Feed.php:383
 msgid "This is affecting the source %s for %s. New reviews will not be fetched until this is resolved."
 msgstr ""
 
-#: class/Common/Feed.php:368
+#: class/Common/Feed.php:385
 msgid "Troubleshoot by visiting %serror message reference page%s."
 msgstr ""
 
@@ -909,105 +930,105 @@ msgstr ""
 msgid "Write a Review"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:238
+#: class/Common/FeedDisplay.php:237
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:77
 #: class/sbr-functions.php:262
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "second"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:239
+#: class/Common/FeedDisplay.php:238
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:82
 #: class/sbr-functions.php:263
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "seconds"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:240
+#: class/Common/FeedDisplay.php:239
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:87
 #: class/sbr-functions.php:264
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "minute"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:241
+#: class/Common/FeedDisplay.php:240
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:92
 #: class/sbr-functions.php:265
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "minutes"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:242
+#: class/Common/FeedDisplay.php:241
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:97
 #: class/sbr-functions.php:266
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "hour"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:243
+#: class/Common/FeedDisplay.php:242
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:102
 #: class/sbr-functions.php:267
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "hours"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:244
+#: class/Common/FeedDisplay.php:243
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:107
 #: class/sbr-functions.php:268
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "day"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:245
+#: class/Common/FeedDisplay.php:244
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:112
 #: class/sbr-functions.php:269
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "days"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:246
+#: class/Common/FeedDisplay.php:245
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:117
 #: class/sbr-functions.php:270
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "week"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:247
+#: class/Common/FeedDisplay.php:246
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:122
 #: class/sbr-functions.php:271
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "weeks"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:248
+#: class/Common/FeedDisplay.php:247
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:127
 #: class/sbr-functions.php:272
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "month"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:249
+#: class/Common/FeedDisplay.php:248
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:132
 #: class/sbr-functions.php:273
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "months"
 msgstr ""
 
+#: class/Common/FeedDisplay.php:249
 #: class/Common/FeedDisplay.php:250
-#: class/Common/FeedDisplay.php:251
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:142
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "years"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:252
+#: class/Common/FeedDisplay.php:251
 #: class/Common/Settings/Tabs/SBR_Translation_Tab.php:147
 #: class/sbr-functions.php:276
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "ago"
 msgstr ""
 
-#: class/Common/FeedDisplay.php:393
+#: class/Common/FeedDisplay.php:392
 #: class/Pro/FeedDisplay.php:158
 msgid "This error message is only visible to WordPress admins"
 msgstr ""
@@ -1145,6 +1166,7 @@ msgstr ""
 msgid "Optimize Images"
 msgstr ""
 
+#. translators: "It" refers to the optimize images feature
 #: class/Common/Settings/Tabs/SBR_Advanced_Tab.php:46
 msgid "It will create multiple local copies of images in different sizes and use smallest size based on where the image is being displayed"
 msgstr ""
@@ -1157,15 +1179,16 @@ msgstr ""
 msgid "Usage Tracking"
 msgstr ""
 
-#: class/Common/Settings/Tabs/SBR_Advanced_Tab.php:86
+#. translators: %s: Opening and closing anchor HTML tags
+#: class/Common/Settings/Tabs/SBR_Advanced_Tab.php:87
 msgid "This helps us prevent plugin and theme conflicts by sending a report in the background once per week about your settings and relevant site stats. It does not send sensitive information like access tokens, email addresses, or user info. This will not affect your site performace as well. %sLearn More%s"
 msgstr ""
 
-#: class/Common/Settings/Tabs/SBR_Advanced_Tab.php:98
+#: class/Common/Settings/Tabs/SBR_Advanced_Tab.php:99
 msgid "Enqueue JavaScript in head"
 msgstr ""
 
-#: class/Common/Settings/Tabs/SBR_Advanced_Tab.php:99
+#: class/Common/Settings/Tabs/SBR_Advanced_Tab.php:100
 msgid "Add the JavaScript file for the plugin in the header instead of the footer"
 msgstr ""
 
@@ -1181,11 +1204,12 @@ msgstr ""
 msgid "GDPR"
 msgstr ""
 
-#: class/Common/Settings/Tabs/SBR_Feeds_Tab.php:51
+#. translators: %s: Opening and closing anchor HTML tags
+#: class/Common/Settings/Tabs/SBR_Feeds_Tab.php:52
 msgid "We will automatically enable GDPR compliance if we detect a supported privacy consent plugin.%sLearn more%s."
 msgstr ""
 
-#: class/Common/Settings/Tabs/SBR_Feeds_Tab.php:56
+#: class/Common/Settings/Tabs/SBR_Feeds_Tab.php:57
 msgid "Automatic"
 msgstr ""
 
@@ -1336,6 +1360,15 @@ msgstr ""
 msgid "Used for “Posted a XXX ago”"
 msgstr ""
 
+#: class/Common/Settings/Tabs/SBR_Translation_Tab.php:152
+#: class/sbr-functions.php:278
+msgid "Over %s Reviews"
+msgstr ""
+
+#: class/Common/Settings/Tabs/SBR_Translation_Tab.php:153
+msgid "Used for header Reviews number “Over XXX Reviews”, make sure to add %s to be replaced with reviews number."
+msgstr ""
+
 #: class/Common/Tooltip_Wizard.php:122
 msgid "Add a Block"
 msgstr ""
@@ -1366,289 +1399,290 @@ msgstr ""
 msgid "Enter Place ID"
 msgstr ""
 
-#: class/Common/Util.php:34
-#: class/Common/Util.php:42
-#: class/Common/Util.php:50
-#: class/Common/Util.php:57
+#: class/Common/Util.php:35
+#: class/Common/Util.php:44
+#: class/Common/Util.php:52
+#: class/Common/Util.php:59
 msgid "Page URL"
 msgstr ""
 
-#: class/Common/Util.php:35
+#: class/Common/Util.php:36
 msgid "https://tripadvisor.com/..."
 msgstr ""
 
-#: class/Common/Util.php:43
+#: class/Common/Util.php:45
 msgid "https://yelp.com/..."
 msgstr ""
 
-#: class/Common/Util.php:51
+#: class/Common/Util.php:53
 msgid "https://trustpilot.com/review/..."
 msgstr ""
 
-#: class/Common/Util.php:58
+#: class/Common/Util.php:60
 msgid "https://wordpress.org/..."
 msgstr ""
 
-#: class/Common/Util.php:82
+#: class/Common/Util.php:93
 msgid "Unable to connect to Facebook to retrieve account information."
 msgstr ""
 
-#: class/Common/Util.php:122
+#: class/Common/Util.php:133
 msgid ""
 "Your server could not complete a remote request to Facebook's API. Your host may be blocking access or\n"
-"\t\t\t\t\tthere may be a problem with your server."
+"                    there may be a problem with your server."
 msgstr ""
 
-#: class/Common/Util.php:172
+#: class/Common/Util.php:183
 msgid "New reviews will not display until an API key is entered for your sources."
 msgstr ""
 
-#: class/Common/Util.php:173
+#: class/Common/Util.php:184
 msgid "Due to API limitations your feeds will not show new reviews until you enter an API key on the settings page."
 msgstr ""
 
-#: class/Common/Util.php:177
+#: class/Common/Util.php:188
 msgid "How to create an API key"
 msgstr ""
 
-#: class/Common/Util.php:182
+#: class/Common/Util.php:193
 msgid "Go to Settings page"
 msgstr ""
 
-#: class/Common/Util.php:195
+#: class/Common/Util.php:206
 msgid "You have reached the number of allowed sources."
 msgstr ""
 
-#: class/Common/Util.php:196
+#: class/Common/Util.php:207
 msgid "Due to API limitations your feeds will not show new reviews because you have reached the number of allowed sources."
 msgstr ""
 
-#: class/Common/Util.php:259
+#: class/Common/Util.php:265
 msgid "Custom Facebook Feed"
 msgstr ""
 
-#: class/Common/Util.php:260
+#: class/Common/Util.php:266
 msgid "Add Facebook posts from your timeline, albums and much more."
 msgstr ""
 
-#: class/Common/Util.php:269
+#: class/Common/Util.php:275
 msgid "Instagram Feed"
 msgstr ""
 
-#: class/Common/Util.php:270
+#: class/Common/Util.php:276
 msgid "A quick and elegant way to add your Instagram posts to your website. "
 msgstr ""
 
-#: class/Common/Util.php:279
+#: class/Common/Util.php:285
 msgid "Custom Twitter Feeds"
 msgstr ""
 
-#: class/Common/Util.php:280
+#: class/Common/Util.php:286
 msgid "A customizable way to display tweets from your Twitter account. "
 msgstr ""
 
-#: class/Common/Util.php:289
+#: class/Common/Util.php:295
 msgid "Feeds for YouTube"
 msgstr ""
 
-#: class/Common/Util.php:290
+#: class/Common/Util.php:296
 msgid "A simple yet powerful way to display videos from YouTube. "
 msgstr ""
 
-#: class/Common/Util.php:310
+#: class/Common/Util.php:316
 msgid "WPForms"
 msgstr ""
 
-#: class/Common/Util.php:311
+#: class/Common/Util.php:317
 msgid "The most beginner friendly drag & drop WordPress forms plugin allowing you to create beautiful contact forms, subscription forms, payment forms, and more in minutes, not hours!"
 msgstr ""
 
-#: class/Common/Util.php:319
+#: class/Common/Util.php:325
 msgid "MonsterInsights"
 msgstr ""
 
-#: class/Common/Util.php:320
+#: class/Common/Util.php:326
 msgid "MonsterInsights makes it “effortless” to properly connect your WordPress site with Google Analytics, so you can start making data-driven decisions to grow your business."
 msgstr ""
 
-#: class/Common/Util.php:328
+#: class/Common/Util.php:334
 msgid "OptinMonster"
 msgstr ""
 
-#: class/Common/Util.php:329
+#: class/Common/Util.php:335
 msgid "Our high-converting optin forms like Exit-Intent® popups, Fullscreen Welcome Mats, and Scroll boxes help you dramatically boost conversions and get more email subscribers."
 msgstr ""
 
-#: class/Common/Util.php:337
+#: class/Common/Util.php:343
 msgid "WP Mail SMTP"
 msgstr ""
 
-#: class/Common/Util.php:338
+#: class/Common/Util.php:344
 msgid "Make sure your website's emails reach the inbox. Our goal is to make email deliverability easy and reliable. Trusted by over 1 million websites."
 msgstr ""
 
-#: class/Common/Util.php:346
+#: class/Common/Util.php:352
 msgid "RafflePress"
 msgstr ""
 
-#: class/Common/Util.php:347
+#: class/Common/Util.php:353
 msgid "Turn your visitors into brand ambassadors! Easily grow your email list, website traffic, and social media followers with powerful viral giveaways & contests."
 msgstr ""
 
-#: class/Common/Util.php:355
+#: class/Common/Util.php:361
 msgid "All in One SEO Pack"
 msgstr ""
 
-#: class/Common/Util.php:356
+#: class/Common/Util.php:362
 msgid "Out-of-the-box SEO for WordPress. Features like XML Sitemaps, SEO for custom post types, SEO for blogs, business sites, or ecommerce sites, and much more."
 msgstr ""
 
-#: class/Common/Util.php:883
+#: class/Common/Util.php:889
 msgid "Upgrade to Pro to display Facebook reviews"
 msgstr ""
 
-#: class/Common/Util.php:884
+#: class/Common/Util.php:890
 msgid "Upgrade to our \"Plus\" tier to display reviews from the well known social media platform."
 msgstr ""
 
-#: class/Common/Util.php:895
+#: class/Common/Util.php:901
 msgid "Upgrade to Pro to display TrustPilot reviews"
 msgstr ""
 
-#: class/Common/Util.php:896
+#: class/Common/Util.php:902
 msgid "Upgrade to our \"Plus\" tier to display reviews from the well known business review site."
 msgstr ""
 
-#: class/Common/Util.php:905
+#: class/Common/Util.php:911
 msgid "Upgrade to Pro to display TripAdvisor reviews"
 msgstr ""
 
-#: class/Common/Util.php:906
+#: class/Common/Util.php:912
 msgid "Upgrade to our \"Elite\" tier to display reviews from the well known travel advice site."
 msgstr ""
 
-#: class/Common/Util.php:915
+#: class/Common/Util.php:921
 msgid "Upgrade to Pro to display WordPress.org reviews"
 msgstr ""
 
-#: class/Common/Util.php:916
+#: class/Common/Util.php:922
 msgid "Upgrade to our \"Elite\" tier to display reviews for plugins and themes."
 msgstr ""
 
-#: class/Common/Util.php:925
+#: class/Common/Util.php:931
 msgid "Upgrade to Pro to get Carousel layout"
 msgstr ""
 
-#: class/Common/Util.php:926
+#: class/Common/Util.php:932
 msgid "An eye-catching rotating slider of your videos to add extra content in minimal space on your website."
 msgstr ""
 
-#: class/Common/Util.php:935
+#: class/Common/Util.php:941
 msgid "Upgrade to Pro to display more reviews"
 msgstr ""
 
-#: class/Common/Util.php:936
+#: class/Common/Util.php:942
 msgid "More layout settings to customize the look and feel of your reviews even more."
 msgstr ""
 
-#: class/Common/Util.php:945
+#: class/Common/Util.php:951
 msgid "Upgrade to Pro to display average rating"
 msgstr ""
 
-#: class/Common/Util.php:946
+#: class/Common/Util.php:952
 msgid "Boost social proof to make more sales conversions with the number of ratings and an average rating."
 msgstr ""
 
-#: class/Common/Util.php:955
+#: class/Common/Util.php:961
 msgid "Upgrade to Pro to add load more functionality"
 msgstr ""
 
-#: class/Common/Util.php:956
+#: class/Common/Util.php:962
 msgid "Overwhelm (in a good way) your visitors with additional reviews loaded on the page with a click."
 msgstr ""
 
-#: class/Common/Util.php:965
+#: class/Common/Util.php:971
 msgid "Upgrade to Pro to add images"
 msgstr ""
 
-#: class/Common/Util.php:966
+#: class/Common/Util.php:972
 msgid "Display images from Yelp and Tripadvisor reviews."
 msgstr ""
 
-#: class/Common/Util.php:975
+#: class/Common/Util.php:981
 msgid "Upgrade to Pro to display author images"
 msgstr ""
 
-#: class/Common/Util.php:976
+#: class/Common/Util.php:982
 msgid "Build brand trust with positive reviews from real customers."
 msgstr ""
 
-#: class/Common/Util.php:985
+#: class/Common/Util.php:991
 msgid "Upgrade to Pro to filter your reviews"
 msgstr ""
 
-#: class/Common/Util.php:986
+#: class/Common/Util.php:992
 msgid "Show only the most positive reviews and build brand trust with review filtering."
 msgstr ""
 
-#: class/Common/Util.php:995
+#: class/Common/Util.php:1001
 msgid "Upgrade to Pro to moderate your reviews"
 msgstr ""
 
-#: class/Common/Util.php:996
+#: class/Common/Util.php:1002
 msgid "Take complete control of what reviews show in the feed using keyword filters and a visual moderation system."
 msgstr ""
 
-#: class/Common/Util.php:1005
+#: class/Common/Util.php:1011
 msgid "Upgrade to Pro to get one-click templates!"
 msgstr ""
 
-#: class/Common/Util.php:1006
+#: class/Common/Util.php:1012
 msgid "Quickly create and preview new feeds with pre-configured options based on popular feed types."
 msgstr ""
 
-#: class/Common/Util.php:1015
+#: class/Common/Util.php:1021
 msgid "Upgrade to Pro for responsive layouts"
 msgstr ""
 
-#: class/Common/Util.php:1016
+#: class/Common/Util.php:1022
 msgid "Take control of your feed layouts by customizing number of reviews & columns"
 msgstr ""
 
-#: class/Common/Util.php:1041
+#: class/Common/Util.php:1047
 msgid "Display images"
 msgstr ""
 
-#: class/Common/Util.php:1042
+#: class/Common/Util.php:1048
 msgid "With the Pro version enable images like avatars and review  photos"
 msgstr ""
 
-#: class/Common/Util.php:1047
+#: class/Common/Util.php:1053
 msgid "Get carousel layout"
 msgstr ""
 
-#: class/Common/Util.php:1048
+#: class/Common/Util.php:1054
 msgid "Show your reviews in a neat carousel with Review Feed Pro"
 msgstr ""
 
-#: class/Common/Util.php:1053
+#: class/Common/Util.php:1059
 msgid "Change your feed style with one-click templates!"
 msgstr ""
 
-#: class/Common/Util.php:1054
+#: class/Common/Util.php:1060
 msgid "Over 12 templates to choose from"
 msgstr ""
 
-#: class/Common/Util.php:1059
+#: class/Common/Util.php:1065
 msgid "Only show selected reviews with Moderation mode"
 msgstr ""
 
-#: class/Common/Util.php:1060
+#: class/Common/Util.php:1066
 msgid "Hide or show only certain reviews"
 msgstr ""
 
 #: class/Pro/FeedDisplay.php:74
 #: class/Pro/FeedDisplay.php:82
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Load More"
 msgstr ""
 
@@ -1708,18 +1742,18 @@ msgstr ""
 msgid "To fix your feeds, reconnect all accounts that were in use on the Settings page."
 msgstr ""
 
-#: class/sbr-functions.php:440
-#: class/sbr-functions.php:488
+#: class/sbr-functions.php:458
+#: class/sbr-functions.php:506
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: class/sbr-functions.php:447
+#: class/sbr-functions.php:465
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Support"
 msgstr ""
 
-#: class/sbr-functions.php:489
+#: class/sbr-functions.php:507
 msgid "<div class=\"sb-pro-upgradelink-bg\"></div><strong class=\"sb-pro-upgradelink\">Upgrade to Pro</strong>"
 msgstr ""
 
@@ -1764,10 +1798,6 @@ msgstr ""
 
 #: templates/email.php:93
 msgid "%sLog in and disable these emails%s"
-msgstr ""
-
-#: templates/frontend/pro/header.php:30
-msgid "Over"
 msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
@@ -2011,15 +2041,23 @@ msgid "ADVANCED SOURCES"
 msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Handpick reviews with collections"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Select among your reviews and organize them into a collection. Manually create a review for complete control. Once a collection is created, it will appear as a feed source."
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Create Collection"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "You have reached the allowed the number of sources for "
 msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Add an API Key for "
-msgstr ""
-
-#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
-msgid " (Optional)"
 msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
@@ -2040,10 +2078,6 @@ msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "How to Create an API key."
-msgstr ""
-
-#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
-msgid "Skip this step if you don't plan on purchasing your own API key."
 msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
@@ -2100,6 +2134,14 @@ msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Add New"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "of"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "New sources loaded"
 msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
@@ -2395,10 +2437,6 @@ msgid "Items"
 msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
-msgid "of"
-msgstr ""
-
-#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Shortcode"
 msgstr ""
 
@@ -2691,6 +2729,10 @@ msgid "Install Pro"
 msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Collection JSON exported!"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Settings saved succesfully"
 msgstr ""
 
@@ -2900,4 +2942,328 @@ msgstr ""
 
 #: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
 msgid "Video Demo"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add reviews to your collection"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Organize reviews into collections, embed collections on any page"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Collections help you organize your reviews in collections such as “Homepage reviews” or “Product reviews”. You can then use them as a reviews source in any feed."
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add your first review to this collection"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add reviews from Google, Facebook, TrustPilot or Yelp. Collections help you hand-pick reviews and embed them on pages."
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Lite Plugin Users get 50% OFF."
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "(auto-applied at checkout)"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "How it works"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Handpick reviews"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Create handpicked reviews collections to make the best first impression."
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add them manually"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add reviews manually"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Your reviews are not on Google, Yelp or Facebook? No problem. You can add reviews manually."
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Embed in a feed"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Embed on any feed"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add these collections as source on any feed. These work just like any other sources."
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Name your Collection"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Eg. Homepage Reviews"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "All Collections"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "What are collections?"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Review"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Duplicate "
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "By duplicating this collection, all the reviews created and added to this collection will be duplicated too!"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Duplicate Collection "
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Collection Duplicated!"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "By deleting this collection, all the reviews created and added for it will be deleted too"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Collection Deleted!"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Empty Collections Icon"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Showcase your best reviews with collections"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Create collections of handpicked reviews to showcase them on your website, reviews page or product page"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "New Collection created successfully"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Okay, got it"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Search list updated"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Clear Search"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Review deleted from collection"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "No reviews found!"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add Manually"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add the review by manually typing it out"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Or Add from existing source"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add the review from an existing source you have already connected"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Select Reviewer Avatar Image"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Use this media"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Select Reviews Image"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add Image to Review"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "You are about to edit this review"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "This review is displayed in"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "feeds. Editing it will change it on both those places. This action is irreversible."
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "User Avatar"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add Reviewer Image"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Replace Image"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "First Name"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "John"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Last Name"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Dow"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Review Title"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "The review title goes here"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Review Content"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "The content title goes here"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Link to the review (Optional)"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Posted on"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Select Date"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Review Selected"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Reviews Selected"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Search Source Reviews"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Load More Reviews"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "There are no reviews in this source, please select another source!"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Review Updated successfully"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add Review"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Add to Collection"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Selected Reviews added to your collection"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Collection Name Updated"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Back to All Collections"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Rename"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Update the Collection Name"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Collection Imported!"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Invalid JSON file!"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Import Review"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Create Feed"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Redirecting to Feed Editor"
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "We have created a feed and added this collection as a source."
+msgstr ""
+
+#: vendor/smashballoon/customizer/sb-common/sb-customizer/build/static/js/main.js:2
+msgid "Collections Reviews List"
 msgstr ""

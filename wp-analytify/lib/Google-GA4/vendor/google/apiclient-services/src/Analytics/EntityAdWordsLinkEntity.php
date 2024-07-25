@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,27 +14,29 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\Analytics;
 
 class EntityAdWordsLinkEntity extends \Google\Model
 {
-    protected $webPropertyRefType = \Google\Service\Analytics\WebPropertyRef::class;
-    protected $webPropertyRefDataType = '';
-    public $webPropertyRef;
-    /**
-     * @param WebPropertyRef
-     */
-    public function setWebPropertyRef(\Google\Service\Analytics\WebPropertyRef $webPropertyRef)
-    {
-        $this->webPropertyRef = $webPropertyRef;
-    }
-    /**
-     * @return WebPropertyRef
-     */
-    public function getWebPropertyRef()
-    {
-        return $this->webPropertyRef;
-    }
+  protected $webPropertyRefType = WebPropertyRef::class;
+  protected $webPropertyRefDataType = '';
+
+  /**
+   * @param WebPropertyRef
+   */
+  public function setWebPropertyRef(WebPropertyRef $webPropertyRef)
+  {
+    $this->webPropertyRef = $webPropertyRef;
+  }
+  /**
+   * @return WebPropertyRef
+   */
+  public function getWebPropertyRef()
+  {
+    return $this->webPropertyRef;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\Analytics\EntityAdWordsLinkEntity::class, 'Analytify\\Google_Service_Analytics_EntityAdWordsLinkEntity');
+class_alias(EntityAdWordsLinkEntity::class, 'Google_Service_Analytics_EntityAdWordsLinkEntity');

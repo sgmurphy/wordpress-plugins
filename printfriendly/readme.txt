@@ -2,8 +2,8 @@
 Contributors: printfriendly, joostdevalk, jrf, rozroz
 Tags: print, pdf, email, woocommerce print, woocommerce pdf, print plugin, print button, pdf plugin, pdf button
 Requires at least: 4.9
-Tested up to: 6.3
-Stable tag: 5.5.4
+Tested up to: 6.6
+Stable tag: 5.5.5
 
 
 The #1 Print, PDF, Email button. Stylish, full featured, customizable. Add custom header, footer, and more.
@@ -19,7 +19,7 @@ PrintFriendly is used by millions of people everyday to help them save paper and
 * Editable Preview - change text/image size, and delete to save even more paper and ink.
 * PDF - clickable links and custom paper sizes (A4 or Letter).
 * Reliable & Fast - Since 2009 we've optimized and improved.
-* [Compatible](https://support.printfriendly.com/wordpress/social-share-compatibility/) with **social share plugins** like Social Snap, Social Pug, NovaShare, Shareaholic 
+* [Compatible](https://support.printfriendly.com/wordpress/social-share-compatibility/) with **social share plugins** like Social Snap, Social Pug, NovaShare, Shareaholic
 
 **Benefits For Publishers**
 
@@ -143,6 +143,9 @@ Use the option in the Plugin settings. [See how](https://support.printfriendly.c
 
 
 == Changelog ==
+
+= 5.5.5 =
+* Tested against 6.6
 
 = 5.5.2 =
 * Fixed custom button input

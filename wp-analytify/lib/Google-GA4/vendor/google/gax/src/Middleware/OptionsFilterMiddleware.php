@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -34,25 +33,34 @@ namespace Google\ApiCore\Middleware;
 
 use Google\ApiCore\ArrayTrait;
 use Google\ApiCore\Call;
+use GuzzleHttp\Promise\PromiseInterface;
+
 /**
 * Middleware which filters the $options array.
 */
-class OptionsFilterMiddleware
+class OptionsFilterMiddleware implements MiddlewareInterface
 {
     use ArrayTrait;
+
     /** @var callable */
     private $nextHandler;
-    /** @var array */
-    private $permittedOptions;
-    public function __construct(callable $nextHandler, array $permittedOptions)
-    {
+    private array $permittedOptions;
+
+    public function __construct(
+        callable $nextHandler,
+        array $permittedOptions
+    ) {
         $this->nextHandler = $nextHandler;
         $this->permittedOptions = $permittedOptions;
     }
+
     public function __invoke(Call $call, array $options)
     {
         $next = $this->nextHandler;
         $filteredOptions = $this->pluckArray($this->permittedOptions, $options);
-        return $next($call, $filteredOptions);
+        return $next(
+            $call,
+            $filteredOptions
+        );
     }
 }

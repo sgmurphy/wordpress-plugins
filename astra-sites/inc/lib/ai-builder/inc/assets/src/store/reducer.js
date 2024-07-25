@@ -50,6 +50,9 @@ export const defaultOnboardingAIState = {
 	limitExceedModal: {
 		open: false,
 	},
+	apiErrorModal: {
+		open: false,
+	},
 	continueProgressModal: {
 		open: false,
 	},
@@ -134,7 +137,7 @@ updatedInitialValue = {
 	websiteInfo: aiStepValues?.websiteInfo || {},
 };
 
-const keysToIgnore = [ 'limitExceedModal' ];
+const keysToIgnore = [ 'limitExceedModal', 'apiErrorModal' ];
 // Saved AI onboarding state.
 let savedAiOnboardingState = getLocalStorageItem(
 	'ai-builder-onboarding-details'
@@ -174,6 +177,11 @@ const reducer = ( state = initialState, action ) => {
 			return {
 				...state,
 				limitExceedModal: action.payload,
+			};
+		case actionTypes.SET_API_ERROR_MODAL:
+			return {
+				...state,
+				apiErrorModal: action.payload,
 			};
 		case actionTypes.SET_CONTINUE_PROGRESS_MODAL:
 			return {

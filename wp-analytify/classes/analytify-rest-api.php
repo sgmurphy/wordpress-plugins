@@ -1582,11 +1582,12 @@ class Analytify_Rest_API {
 
 		if ( in_array( 'show-overall-dashboard', $show_settings, true ) ) {
 			$general_stats = $report->get_general_stats();
-
 			$sections['general_stats'] = array(
 				'title' => esc_html__( 'General Statistics', 'wp-analytify' ),
 				'type'  => 'boxes',
 				'stats' => $general_stats['boxes'],
+				'new_vs_returning' => $general_stats['new_vs_returning_boxes'],
+				'device_visitors' => $general_stats['device_visitors_boxes']
 				// TODO: add footer.
 				// 'footer' => apply_filters( 'analytify_general_stats_single_footer', $general_stats_footer, $post_id, $date ),
 			);

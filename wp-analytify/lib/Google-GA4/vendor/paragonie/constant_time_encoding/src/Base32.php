@@ -1,11 +1,11 @@
 <?php
-
-declare (strict_types=1);
-namespace Analytify\ParagonIE\ConstantTime;
+declare(strict_types=1);
+namespace ParagonIE\ConstantTime;
 
 use InvalidArgumentException;
 use RangeException;
 use TypeError;
+
 /**
  *  Copyright (c) 2016 - 2022 Paragon Initiative Enterprises.
  *  Copyright (c) 2014 Steve "Sc00bz" Thomas (steve at tobtu dot com)
@@ -28,6 +28,7 @@ use TypeError;
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  */
+
 /**
  * Class Base32
  * [A-Z][2-7]
@@ -43,10 +44,11 @@ abstract class Base32 implements EncoderInterface
      * @param bool $strictPadding
      * @return string
      */
-    public static function decode(string $encodedString, bool $strictPadding = \false) : string
+    public static function decode(string $encodedString, bool $strictPadding = false): string
     {
-        return static::doDecode($encodedString, \false, $strictPadding);
+        return static::doDecode($encodedString, false, $strictPadding);
     }
+
     /**
      * Decode an uppercase Base32-encoded string into raw binary
      *
@@ -54,10 +56,11 @@ abstract class Base32 implements EncoderInterface
      * @param bool $strictPadding
      * @return string
      */
-    public static function decodeUpper(string $src, bool $strictPadding = \false) : string
+    public static function decodeUpper(string $src, bool $strictPadding = false): string
     {
-        return static::doDecode($src, \true, $strictPadding);
+        return static::doDecode($src, true, $strictPadding);
     }
+
     /**
      * Encode into Base32 (RFC 4648)
      *
@@ -65,9 +68,9 @@ abstract class Base32 implements EncoderInterface
      * @return string
      * @throws TypeError
      */
-    public static function encode(string $binString) : string
+    public static function encode(string $binString): string
     {
-        return static::doEncode($binString, \false, \true);
+        return static::doEncode($binString, false, true);
     }
     /**
      * Encode into Base32 (RFC 4648)
@@ -76,10 +79,11 @@ abstract class Base32 implements EncoderInterface
      * @return string
      * @throws TypeError
      */
-    public static function encodeUnpadded(string $src) : string
+    public static function encodeUnpadded(string $src): string
     {
-        return static::doEncode($src, \false, \false);
+        return static::doEncode($src, false, false);
     }
+
     /**
      * Encode into uppercase Base32 (RFC 4648)
      *
@@ -87,10 +91,11 @@ abstract class Base32 implements EncoderInterface
      * @return string
      * @throws TypeError
      */
-    public static function encodeUpper(string $src) : string
+    public static function encodeUpper(string $src): string
     {
-        return static::doEncode($src, \true, \true);
+        return static::doEncode($src, true, true);
     }
+
     /**
      * Encode into uppercase Base32 (RFC 4648)
      *
@@ -98,10 +103,11 @@ abstract class Base32 implements EncoderInterface
      * @return string
      * @throws TypeError
      */
-    public static function encodeUpperUnpadded(string $src) : string
+    public static function encodeUpperUnpadded(string $src): string
     {
-        return static::doEncode($src, \true, \false);
+        return static::doEncode($src, true, false);
     }
+
     /**
      * Uses bitwise operators instead of table-lookups to turn 5-bit integers
      * into 8-bit integers.
@@ -109,15 +115,19 @@ abstract class Base32 implements EncoderInterface
      * @param int $src
      * @return int
      */
-    protected static function decode5Bits(int $src) : int
+    protected static function decode5Bits(int $src): int
     {
         $ret = -1;
+
         // if ($src > 96 && $src < 123) $ret += $src - 97 + 1; // -64
-        $ret += (0x60 - $src & $src - 0x7b) >> 8 & $src - 96;
+        $ret += (((0x60 - $src) & ($src - 0x7b)) >> 8) & ($src - 96);
+
         // if ($src > 0x31 && $src < 0x38) $ret += $src - 24 + 1; // -23
-        $ret += (0x31 - $src & $src - 0x38) >> 8 & $src - 23;
+        $ret += (((0x31 - $src) & ($src - 0x38)) >> 8) & ($src - 23);
+
         return $ret;
     }
+
     /**
      * Uses bitwise operators instead of table-lookups to turn 5-bit integers
      * into 8-bit integers.
@@ -127,15 +137,19 @@ abstract class Base32 implements EncoderInterface
      * @param int $src
      * @return int
      */
-    protected static function decode5BitsUpper(int $src) : int
+    protected static function decode5BitsUpper(int $src): int
     {
         $ret = -1;
+
         // if ($src > 64 && $src < 91) $ret += $src - 65 + 1; // -64
-        $ret += (0x40 - $src & $src - 0x5b) >> 8 & $src - 64;
+        $ret += (((0x40 - $src) & ($src - 0x5b)) >> 8) & ($src - 64);
+
         // if ($src > 0x31 && $src < 0x38) $ret += $src - 24 + 1; // -23
-        $ret += (0x31 - $src & $src - 0x38) >> 8 & $src - 23;
+        $ret += (((0x31 - $src) & ($src - 0x38)) >> 8) & ($src - 23);
+
         return $ret;
     }
+
     /**
      * Uses bitwise operators instead of table-lookups to turn 8-bit integers
      * into 5-bit integers.
@@ -143,13 +157,16 @@ abstract class Base32 implements EncoderInterface
      * @param int $src
      * @return string
      */
-    protected static function encode5Bits(int $src) : string
+    protected static function encode5Bits(int $src): string
     {
         $diff = 0x61;
+
         // if ($src > 25) $ret -= 72;
-        $diff -= 25 - $src >> 8 & 73;
+        $diff -= ((25 - $src) >> 8) & 73;
+
         return \pack('C', $src + $diff);
     }
+
     /**
      * Uses bitwise operators instead of table-lookups to turn 8-bit integers
      * into 5-bit integers.
@@ -159,19 +176,22 @@ abstract class Base32 implements EncoderInterface
      * @param int $src
      * @return string
      */
-    protected static function encode5BitsUpper(int $src) : string
+    protected static function encode5BitsUpper(int $src): string
     {
         $diff = 0x41;
+
         // if ($src > 25) $ret -= 40;
-        $diff -= 25 - $src >> 8 & 41;
+        $diff -= ((25 - $src) >> 8) & 41;
+
         return \pack('C', $src + $diff);
     }
+
     /**
      * @param string $encodedString
      * @param bool $upper
      * @return string
      */
-    public static function decodeNoPadding(string $encodedString, bool $upper = \false) : string
+    public static function decodeNoPadding(string $encodedString, bool $upper = false): string
     {
         $srcLen = Binary::safeStrlen($encodedString);
         if ($srcLen === 0) {
@@ -180,12 +200,19 @@ abstract class Base32 implements EncoderInterface
         if (($srcLen & 7) === 0) {
             for ($j = 0; $j < 7 && $j < $srcLen; ++$j) {
                 if ($encodedString[$srcLen - $j - 1] === '=') {
-                    throw new InvalidArgumentException("decodeNoPadding() doesn't tolerate padding");
+                    throw new InvalidArgumentException(
+                        "decodeNoPadding() doesn't tolerate padding"
+                    );
                 }
             }
         }
-        return static::doDecode($encodedString, $upper, \true);
+        return static::doDecode(
+            $encodedString,
+            $upper,
+            true
+        );
     }
+
     /**
      * Base32 decoding
      *
@@ -197,10 +224,16 @@ abstract class Base32 implements EncoderInterface
      * @throws TypeError
      * @psalm-suppress RedundantCondition
      */
-    protected static function doDecode(string $src, bool $upper = \false, bool $strictPadding = \false) : string
-    {
+    protected static function doDecode(
+        string $src,
+        bool $upper = false,
+        bool $strictPadding = false
+    ): string {
         // We do this to reduce code duplication:
-        $method = $upper ? 'decode5BitsUpper' : 'decode5Bits';
+        $method = $upper
+            ? 'decode5BitsUpper'
+            : 'decode5Bits';
+
         // Remove padding
         $srcLen = Binary::safeStrlen($src);
         if ($srcLen === 0) {
@@ -217,12 +250,15 @@ abstract class Base32 implements EncoderInterface
                 }
             }
             if (($srcLen & 7) === 1) {
-                throw new RangeException('Incorrect padding');
+                throw new RangeException(
+                    'Incorrect padding'
+                );
             }
         } else {
             $src = \rtrim($src, '=');
             $srcLen = Binary::safeStrlen($src);
         }
+
         $err = 0;
         $dest = '';
         // Main loop (no padding):
@@ -245,7 +281,15 @@ abstract class Base32 implements EncoderInterface
             $c6 = static::$method($chunk[7]);
             /** @var int $c7 */
             $c7 = static::$method($chunk[8]);
-            $dest .= \pack('CCCCC', ($c0 << 3 | $c1 >> 2) & 0xff, ($c1 << 6 | $c2 << 1 | $c3 >> 4) & 0xff, ($c3 << 4 | $c4 >> 1) & 0xff, ($c4 << 7 | $c5 << 2 | $c6 >> 3) & 0xff, ($c6 << 5 | $c7) & 0xff);
+
+            $dest .= \pack(
+                'CCCCC',
+                (($c0 << 3) | ($c1 >> 2)             ) & 0xff,
+                (($c1 << 6) | ($c2 << 1) | ($c3 >> 4)) & 0xff,
+                (($c3 << 4) | ($c4 >> 1)             ) & 0xff,
+                (($c4 << 7) | ($c5 << 2) | ($c6 >> 3)) & 0xff,
+                (($c6 << 5) | ($c7     )             ) & 0xff
+            );
             $err |= ($c0 | $c1 | $c2 | $c3 | $c4 | $c5 | $c6 | $c7) >> 8;
         }
         // The last chunk, which may have padding:
@@ -254,6 +298,7 @@ abstract class Base32 implements EncoderInterface
             $chunk = \unpack('C*', Binary::safeSubstr($src, $i, $srcLen - $i));
             /** @var int $c0 */
             $c0 = static::$method($chunk[1]);
+
             if ($i + 6 < $srcLen) {
                 /** @var int $c1 */
                 $c1 = static::$method($chunk[2]);
@@ -267,10 +312,17 @@ abstract class Base32 implements EncoderInterface
                 $c5 = static::$method($chunk[6]);
                 /** @var int $c6 */
                 $c6 = static::$method($chunk[7]);
-                $dest .= \pack('CCCC', ($c0 << 3 | $c1 >> 2) & 0xff, ($c1 << 6 | $c2 << 1 | $c3 >> 4) & 0xff, ($c3 << 4 | $c4 >> 1) & 0xff, ($c4 << 7 | $c5 << 2 | $c6 >> 3) & 0xff);
+
+                $dest .= \pack(
+                    'CCCC',
+                    (($c0 << 3) | ($c1 >> 2)             ) & 0xff,
+                    (($c1 << 6) | ($c2 << 1) | ($c3 >> 4)) & 0xff,
+                    (($c3 << 4) | ($c4 >> 1)             ) & 0xff,
+                    (($c4 << 7) | ($c5 << 2) | ($c6 >> 3)) & 0xff
+                );
                 $err |= ($c0 | $c1 | $c2 | $c3 | $c4 | $c5 | $c6) >> 8;
                 if ($strictPadding) {
-                    $err |= $c6 << 5 & 0xff;
+                    $err |= ($c6 << 5) & 0xff;
                 }
             } elseif ($i + 5 < $srcLen) {
                 /** @var int $c1 */
@@ -283,7 +335,14 @@ abstract class Base32 implements EncoderInterface
                 $c4 = static::$method($chunk[5]);
                 /** @var int $c5 */
                 $c5 = static::$method($chunk[6]);
-                $dest .= \pack('CCCC', ($c0 << 3 | $c1 >> 2) & 0xff, ($c1 << 6 | $c2 << 1 | $c3 >> 4) & 0xff, ($c3 << 4 | $c4 >> 1) & 0xff, ($c4 << 7 | $c5 << 2) & 0xff);
+
+                $dest .= \pack(
+                    'CCCC',
+                    (($c0 << 3) | ($c1 >> 2)             ) & 0xff,
+                    (($c1 << 6) | ($c2 << 1) | ($c3 >> 4)) & 0xff,
+                    (($c3 << 4) | ($c4 >> 1)             ) & 0xff,
+                    (($c4 << 7) | ($c5 << 2)             ) & 0xff
+                );
                 $err |= ($c0 | $c1 | $c2 | $c3 | $c4 | $c5) >> 8;
             } elseif ($i + 4 < $srcLen) {
                 /** @var int $c1 */
@@ -294,10 +353,16 @@ abstract class Base32 implements EncoderInterface
                 $c3 = static::$method($chunk[4]);
                 /** @var int $c4 */
                 $c4 = static::$method($chunk[5]);
-                $dest .= \pack('CCC', ($c0 << 3 | $c1 >> 2) & 0xff, ($c1 << 6 | $c2 << 1 | $c3 >> 4) & 0xff, ($c3 << 4 | $c4 >> 1) & 0xff);
+
+                $dest .= \pack(
+                    'CCC',
+                    (($c0 << 3) | ($c1 >> 2)             ) & 0xff,
+                    (($c1 << 6) | ($c2 << 1) | ($c3 >> 4)) & 0xff,
+                    (($c3 << 4) | ($c4 >> 1)             ) & 0xff
+                );
                 $err |= ($c0 | $c1 | $c2 | $c3 | $c4) >> 8;
                 if ($strictPadding) {
-                    $err |= $c4 << 7 & 0xff;
+                    $err |= ($c4 << 7) & 0xff;
                 }
             } elseif ($i + 3 < $srcLen) {
                 /** @var int $c1 */
@@ -306,40 +371,60 @@ abstract class Base32 implements EncoderInterface
                 $c2 = static::$method($chunk[3]);
                 /** @var int $c3 */
                 $c3 = static::$method($chunk[4]);
-                $dest .= \pack('CC', ($c0 << 3 | $c1 >> 2) & 0xff, ($c1 << 6 | $c2 << 1 | $c3 >> 4) & 0xff);
+
+                $dest .= \pack(
+                    'CC',
+                    (($c0 << 3) | ($c1 >> 2)             ) & 0xff,
+                    (($c1 << 6) | ($c2 << 1) | ($c3 >> 4)) & 0xff
+                );
                 $err |= ($c0 | $c1 | $c2 | $c3) >> 8;
                 if ($strictPadding) {
-                    $err |= $c3 << 4 & 0xff;
+                    $err |= ($c3 << 4) & 0xff;
                 }
             } elseif ($i + 2 < $srcLen) {
                 /** @var int $c1 */
                 $c1 = static::$method($chunk[2]);
                 /** @var int $c2 */
                 $c2 = static::$method($chunk[3]);
-                $dest .= \pack('CC', ($c0 << 3 | $c1 >> 2) & 0xff, ($c1 << 6 | $c2 << 1) & 0xff);
+
+                $dest .= \pack(
+                    'CC',
+                    (($c0 << 3) | ($c1 >> 2)             ) & 0xff,
+                    (($c1 << 6) | ($c2 << 1)             ) & 0xff
+                );
                 $err |= ($c0 | $c1 | $c2) >> 8;
                 if ($strictPadding) {
-                    $err |= $c2 << 6 & 0xff;
+                    $err |= ($c2 << 6) & 0xff;
                 }
             } elseif ($i + 1 < $srcLen) {
                 /** @var int $c1 */
                 $c1 = static::$method($chunk[2]);
-                $dest .= \pack('C', ($c0 << 3 | $c1 >> 2) & 0xff);
+
+                $dest .= \pack(
+                    'C',
+                    (($c0 << 3) | ($c1 >> 2)             ) & 0xff
+                );
                 $err |= ($c0 | $c1) >> 8;
                 if ($strictPadding) {
-                    $err |= $c1 << 6 & 0xff;
+                    $err |= ($c1 << 6) & 0xff;
                 }
             } else {
-                $dest .= \pack('C', $c0 << 3 & 0xff);
-                $err |= $c0 >> 8;
+                $dest .= \pack(
+                    'C',
+                    (($c0 << 3)                          ) & 0xff
+                );
+                $err |= ($c0) >> 8;
             }
         }
-        $check = $err === 0;
+        $check = ($err === 0);
         if (!$check) {
-            throw new RangeException('Base32::doDecode() only expects characters in the correct base32 alphabet');
+            throw new RangeException(
+                'Base32::doDecode() only expects characters in the correct base32 alphabet'
+            );
         }
         return $dest;
     }
+
     /**
      * Base32 Encoding
      *
@@ -349,12 +434,16 @@ abstract class Base32 implements EncoderInterface
      * @return string
      * @throws TypeError
      */
-    protected static function doEncode(string $src, bool $upper = \false, $pad = \true) : string
+    protected static function doEncode(string $src, bool $upper = false, $pad = true): string
     {
         // We do this to reduce code duplication:
-        $method = $upper ? 'encode5BitsUpper' : 'encode5Bits';
+        $method = $upper
+            ? 'encode5BitsUpper'
+            : 'encode5Bits';
+        
         $dest = '';
         $srcLen = Binary::safeStrlen($src);
+
         // Main loop (no padding):
         for ($i = 0; $i + 5 <= $srcLen; $i += 5) {
             /** @var array<int, int> $chunk */
@@ -364,7 +453,15 @@ abstract class Base32 implements EncoderInterface
             $b2 = $chunk[3];
             $b3 = $chunk[4];
             $b4 = $chunk[5];
-            $dest .= static::$method($b0 >> 3 & 31) . static::$method(($b0 << 2 | $b1 >> 6) & 31) . static::$method($b1 >> 1 & 31) . static::$method(($b1 << 4 | $b2 >> 4) & 31) . static::$method(($b2 << 1 | $b3 >> 7) & 31) . static::$method($b3 >> 2 & 31) . static::$method(($b3 << 3 | $b4 >> 5) & 31) . static::$method($b4 & 31);
+            $dest .=
+                static::$method(              ($b0 >> 3)  & 31) .
+                static::$method((($b0 << 2) | ($b1 >> 6)) & 31) .
+                static::$method((($b1 >> 1)             ) & 31) .
+                static::$method((($b1 << 4) | ($b2 >> 4)) & 31) .
+                static::$method((($b2 << 1) | ($b3 >> 7)) & 31) .
+                static::$method((($b3 >> 2)             ) & 31) .
+                static::$method((($b3 << 3) | ($b4 >> 5)) & 31) .
+                static::$method(  $b4                     & 31);
         }
         // The last chunk, which may have padding:
         if ($i < $srcLen) {
@@ -375,25 +472,43 @@ abstract class Base32 implements EncoderInterface
                 $b1 = $chunk[2];
                 $b2 = $chunk[3];
                 $b3 = $chunk[4];
-                $dest .= static::$method($b0 >> 3 & 31) . static::$method(($b0 << 2 | $b1 >> 6) & 31) . static::$method($b1 >> 1 & 31) . static::$method(($b1 << 4 | $b2 >> 4) & 31) . static::$method(($b2 << 1 | $b3 >> 7) & 31) . static::$method($b3 >> 2 & 31) . static::$method($b3 << 3 & 31);
+                $dest .=
+                    static::$method(              ($b0 >> 3)  & 31) .
+                    static::$method((($b0 << 2) | ($b1 >> 6)) & 31) .
+                    static::$method((($b1 >> 1)             ) & 31) .
+                    static::$method((($b1 << 4) | ($b2 >> 4)) & 31) .
+                    static::$method((($b2 << 1) | ($b3 >> 7)) & 31) .
+                    static::$method((($b3 >> 2)             ) & 31) .
+                    static::$method((($b3 << 3)             ) & 31);
                 if ($pad) {
                     $dest .= '=';
                 }
             } elseif ($i + 2 < $srcLen) {
                 $b1 = $chunk[2];
                 $b2 = $chunk[3];
-                $dest .= static::$method($b0 >> 3 & 31) . static::$method(($b0 << 2 | $b1 >> 6) & 31) . static::$method($b1 >> 1 & 31) . static::$method(($b1 << 4 | $b2 >> 4) & 31) . static::$method($b2 << 1 & 31);
+                $dest .=
+                    static::$method(              ($b0 >> 3)  & 31) .
+                    static::$method((($b0 << 2) | ($b1 >> 6)) & 31) .
+                    static::$method((($b1 >> 1)             ) & 31) .
+                    static::$method((($b1 << 4) | ($b2 >> 4)) & 31) .
+                    static::$method((($b2 << 1)             ) & 31);
                 if ($pad) {
                     $dest .= '===';
                 }
             } elseif ($i + 1 < $srcLen) {
                 $b1 = $chunk[2];
-                $dest .= static::$method($b0 >> 3 & 31) . static::$method(($b0 << 2 | $b1 >> 6) & 31) . static::$method($b1 >> 1 & 31) . static::$method($b1 << 4 & 31);
+                $dest .=
+                    static::$method(              ($b0 >> 3)  & 31) .
+                    static::$method((($b0 << 2) | ($b1 >> 6)) & 31) .
+                    static::$method((($b1 >> 1)             ) & 31) .
+                    static::$method((($b1 << 4)             ) & 31);
                 if ($pad) {
                     $dest .= '====';
                 }
             } else {
-                $dest .= static::$method($b0 >> 3 & 31) . static::$method($b0 << 2 & 31);
+                $dest .=
+                    static::$method(              ($b0 >> 3)  & 31) .
+                    static::$method( ($b0 << 2)               & 31);
                 if ($pad) {
                     $dest .= '======';
                 }

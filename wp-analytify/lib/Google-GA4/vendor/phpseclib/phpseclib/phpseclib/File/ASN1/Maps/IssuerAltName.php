@@ -10,7 +10,8 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\File\ASN1\Maps;
+
+namespace phpseclib3\File\ASN1\Maps;
 
 /**
  * IssuerAltName

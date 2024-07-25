@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Resolver;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -11,6 +11,7 @@ use SmashBalloon\Reviews\Vendor\Invoker\Exception\NotCallableException;
 use SmashBalloon\Reviews\Vendor\Invoker\Exception\NotEnoughParametersException;
 use SmashBalloon\Reviews\Vendor\Invoker\Invoker;
 use SmashBalloon\Reviews\Vendor\Invoker\ParameterResolver\AssociativeArrayResolver;
+use SmashBalloon\Reviews\Vendor\Invoker\ParameterResolver\DefaultValueResolver;
 use SmashBalloon\Reviews\Vendor\Invoker\ParameterResolver\NumericArrayResolver;
 use SmashBalloon\Reviews\Vendor\Invoker\ParameterResolver\ResolverChain;
 use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerInterface;
@@ -19,6 +20,7 @@ use SmashBalloon\Reviews\Vendor\Psr\Container\ContainerInterface;
  *
  * @since 4.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class FactoryResolver implements DefinitionResolver
 {
@@ -49,20 +51,18 @@ class FactoryResolver implements DefinitionResolver
      * This will call the callable of the definition.
      *
      * @param FactoryDefinition $definition
-     *
-     * {@inheritdoc}
      */
     public function resolve(Definition $definition, array $parameters = [])
     {
         if (!$this->invoker) {
-            $parameterResolver = new ResolverChain([new AssociativeArrayResolver(), new FactoryParameterResolver($this->container), new NumericArrayResolver()]);
+            $parameterResolver = new ResolverChain([new AssociativeArrayResolver(), new FactoryParameterResolver($this->container), new NumericArrayResolver(), new DefaultValueResolver()]);
             $this->invoker = new Invoker($parameterResolver, $this->container);
         }
         $callable = $definition->getCallable();
         try {
             $providedParams = [$this->container, $definition];
             $extraParams = $this->resolveExtraParams($definition->getParameters());
-            $providedParams = \array_merge($providedParams, $extraParams);
+            $providedParams = \array_merge($providedParams, $extraParams, $parameters);
             return $this->invoker->call($callable, $providedParams);
         } catch (NotCallableException $e) {
             // Custom error message to help debugging

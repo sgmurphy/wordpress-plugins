@@ -9,6 +9,7 @@ use ReflectionFunctionAbstract;
  * Inject entries from a DI container using the parameter names.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ParameterNameContainerResolver implements ParameterResolver
 {

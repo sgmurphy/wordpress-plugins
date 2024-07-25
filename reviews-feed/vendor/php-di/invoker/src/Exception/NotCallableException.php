@@ -6,6 +6,7 @@ namespace SmashBalloon\Reviews\Vendor\Invoker\Exception;
  * The given callable is not actually callable.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class NotCallableException extends InvocationException
 {

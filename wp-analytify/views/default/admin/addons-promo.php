@@ -47,7 +47,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 													<li>Track Formidable Forms</li>
 													<li>Track submissions, impressions and conversions.</li>
 												</ul>
-												<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Forms+Tracking+Dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + Forms Tracking bundle</a>
+												<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=Forms+Tracking" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + Forms Tracking bundle</a>
 
 											</div>
 										</div>
@@ -76,7 +76,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 														<li>File downloads Tracking</li>
 														<li>Track outbound links</li>
 													</ul>
-													<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Events+Tracking+Dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
+													<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=Events+Tracking" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
 
 												</div>
 											</div>
@@ -111,7 +111,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 															<li>WooCommerce & EDD Tracking</li>
 														</ul>
 														<p class="analytify-promo-popup-paragraph" style="padding-top: 10px;">Use the coupon code "GOPRO10" to get 10% discount.</p>
-														<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Campaigns-dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + Campaigns bundle</a>
+														<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=Campaigns" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + Campaigns bundle</a>
 
 													</div>
 												</div>
@@ -146,7 +146,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 																<li>WooCommerce & EDD Tracking</li>
 															</ul>
 															<p class="analytify-promo-popup-paragraph" style="padding-top: 10px;">Use the coupon code "GOPRO10" to get 10% discount.</p>
-															<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Goals-dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + Goals bundle</a>
+															<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=Goals" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + Goals bundle</a>
 
 														</div>
 													</div>
@@ -163,7 +163,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 														<div class="analytify-email-premium-overlay">
 															<div class="analytify-email-premium-popup">
 
-																<h3 class="analytify-promo-popup-heading">Setup enhanced ecommerce Google Analytics Tracking for WooCommerce</h3>
+																<h3 class="analytify-promo-popup-heading">Unlock Google Analytics Tracking for WooCommerce</h3>
 																<p class="analytify-promo-popup-paragraph">Upgrading to Analytify Premium plan gives access to a lot of amazing features.</p>
 																<ul class="analytify-promo-popup-list">
 																	<li>Real-Time Dashboard</li>
@@ -181,7 +181,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 																	<li>WooCommerce & EDD Tracking</li>
 																</ul>
 																<p class="analytify-promo-popup-paragraph" style="padding-top: 10px;">Use the coupon code "GOPRO10" to get 10% discount.</p>
-																<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Woocommerce-dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + WooCommerce Tracking bundle</a>
+																<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=WooCommerce" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + WooCommerce Tracking bundle</a>
 
 															</div>
 														</div>
@@ -199,7 +199,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 																<div class="analytify-email-premium-popup">
 
 
-																	<h3 class="analytify-promo-popup-heading">Setup enhanced ecommerce Google Analytics Tracking for EDD</h3>
+																	<h3 class="analytify-promo-popup-heading">Unlock Google Analytics Tracking for Easy Digital Downloads (EDD)</h3>
 																	<p class="analytify-promo-popup-paragraph">Upgrading to Analytify Premium plan gives access to a lot of amazing features.</p>
 																	<ul class="analytify-promo-popup-list">
 																		<li>Real-Time Dashboard</li>
@@ -217,7 +217,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 																		<li>WooCommerce & EDD Tracking</li>
 																	</ul>
 																	<p class="analytify-promo-popup-paragraph" style="padding-top: 10px;">Use the coupon code "GOPRO10" to get 10% discount.</p>
-																	<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Edd-dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + EDD Tracking bundle</a>
+																	<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=EDD" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + EDD Tracking bundle</a>
 
 																</div>
 															</div>
@@ -244,7 +244,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 																			<li>Average Time Spent</li>
 																			<li>Bounce Rate</li>
 																		</ul>
-																		<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Authors-dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + Authors Tracking bundle</a>
+																		<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=Authors" class="analytify-promo-popup-btn" target="_blank">Explore Analytify Pro + Authors Tracking bundle</a>
 
 																	</div>
 																</div>
@@ -279,7 +279,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 																				<li>WooCommerce & EDD Tracking</li>
 																			</ul>
 																			<p class="analytify-promo-popup-paragraph" style="padding-top: 10px;">Use the coupon code "GOPRO10" to get 10% discount.</p>
-																			<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Demographics-dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
+																			<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=Demographics" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
 
 																		</div>
 																	</div>
@@ -316,7 +316,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 																					<li>WooCommerce & EDD Tracking</li>
 																				</ul>
 																				<p class="analytify-promo-popup-paragraph" style="padding-top: 10px;">Use the coupon code "GOPRO10" to get 10% discount.</p>
-																				<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Search-terms-dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
+																				<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=Search+Terms" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
 
 																			</div>
 																		</div>
@@ -343,7 +343,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 																						<li>User-ID Tracking</li>
 																						<li>Track logged in activity</li>
 																					</ul>
-																					<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboardb&utm_content=Custom-dimensions&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
+																					<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=Dimensions" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
 
 																				</div>
 																			</div>
@@ -379,7 +379,7 @@ $addon_state	= $WP_ANALYTIFY->analytify_module_state( $addon ); ?>
 																							<li>WooCommerce & EDD Tracking</li>
 																						</ul>
 																						<p class="analytify-promo-popup-paragraph" style="padding-top: 10px;">Use the coupon code "GOPRO10" to get 10% discount.</p>
-																						<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_content=Real-time-dashboard&utm_campaign=pro-upgrade" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
+																						<a href="https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=dashboard&utm_campaign=pro-upgrade&utm_content=Real+Time" class="analytify-promo-popup-btn" target="_blank">Upgrade to Analytify Pro</a>
 
 																					</div>
 																				</div>

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google Inc.
  *
@@ -15,9 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Google\Auth\Cache;
 
-use Analytify\Psr\Cache\InvalidArgumentException as PsrInvalidArgumentException;
+use Psr\Cache\InvalidArgumentException as PsrInvalidArgumentException;
+
 class InvalidArgumentException extends \InvalidArgumentException implements PsrInvalidArgumentException
 {
 }

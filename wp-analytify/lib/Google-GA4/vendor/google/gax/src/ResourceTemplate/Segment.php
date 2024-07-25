@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -30,9 +29,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore\ResourceTemplate;
 
 use Google\ApiCore\ValidationException;
+
 /**
  * Represents a segment in a resource template. This is used internally by RelativeResourceTemplate,
  * but is not intended for public use and may change without notice.
@@ -45,18 +46,14 @@ class Segment
     const WILDCARD_SEGMENT = 1;
     const DOUBLE_WILDCARD_SEGMENT = 2;
     const VARIABLE_SEGMENT = 3;
-    /** @var int */
-    private $segmentType;
-    /** @var string|null */
-    private $value;
-    /** @var string|null */
-    private $key;
-    /** @var RelativeResourceTemplate|null */
-    private $template;
-    /** @var string */
-    private $stringRepr;
-    /** @var string */
-    private $separator;
+
+    private int $segmentType;
+    private ?string $value;
+    private ?string $key;
+    private ?RelativeResourceTemplate $template;
+    private ?string $stringRepr;
+    private ?string $separator;
+
     /**
      * Segment constructor.
      * @param int $segmentType
@@ -66,30 +63,39 @@ class Segment
      * @param string $separator The separator that belongs at the end of a segment. Ending segments should use '/'.
      * @throws ValidationException
      */
-    public function __construct(int $segmentType, string $value = null, string $key = null, \Google\ApiCore\ResourceTemplate\RelativeResourceTemplate $template = null, string $separator = '/')
-    {
+    public function __construct(
+        int $segmentType,
+        string $value = null,
+        string $key = null,
+        RelativeResourceTemplate $template = null,
+        string $separator = '/'
+    ) {
         $this->segmentType = $segmentType;
         $this->value = $value;
         $this->key = $key;
         $this->template = $template;
         $this->separator = $separator;
+
         switch ($this->segmentType) {
-            case \Google\ApiCore\ResourceTemplate\Segment::LITERAL_SEGMENT:
+            case Segment::LITERAL_SEGMENT:
                 $this->stringRepr = "{$this->value}";
                 break;
-            case \Google\ApiCore\ResourceTemplate\Segment::WILDCARD_SEGMENT:
+            case Segment::WILDCARD_SEGMENT:
                 $this->stringRepr = "*";
                 break;
-            case \Google\ApiCore\ResourceTemplate\Segment::DOUBLE_WILDCARD_SEGMENT:
+            case Segment::DOUBLE_WILDCARD_SEGMENT:
                 $this->stringRepr = "**";
                 break;
-            case \Google\ApiCore\ResourceTemplate\Segment::VARIABLE_SEGMENT:
+            case Segment::VARIABLE_SEGMENT:
                 $this->stringRepr = "{{$this->key}={$this->template}}";
                 break;
             default:
-                throw new ValidationException("Unexpected Segment type: {$this->segmentType}");
+                throw new ValidationException(
+                    "Unexpected Segment type: {$this->segmentType}"
+                );
         }
     }
+
     /**
      * @return string A string representation of the segment.
      */
@@ -97,6 +103,7 @@ class Segment
     {
         return $this->stringRepr;
     }
+
     /**
      * Checks if $value matches this Segment.
      *
@@ -107,18 +114,21 @@ class Segment
     public function matches(string $value)
     {
         switch ($this->segmentType) {
-            case \Google\ApiCore\ResourceTemplate\Segment::LITERAL_SEGMENT:
+            case Segment::LITERAL_SEGMENT:
                 return $this->value === $value;
-            case \Google\ApiCore\ResourceTemplate\Segment::WILDCARD_SEGMENT:
+            case Segment::WILDCARD_SEGMENT:
                 return self::isValidBinding($value);
-            case \Google\ApiCore\ResourceTemplate\Segment::DOUBLE_WILDCARD_SEGMENT:
+            case Segment::DOUBLE_WILDCARD_SEGMENT:
                 return self::isValidDoubleWildcardBinding($value);
-            case \Google\ApiCore\ResourceTemplate\Segment::VARIABLE_SEGMENT:
+            case Segment::VARIABLE_SEGMENT:
                 return $this->template->matches($value);
             default:
-                throw new ValidationException("Unexpected Segment type: {$this->segmentType}");
+                throw new ValidationException(
+                    "Unexpected Segment type: {$this->segmentType}"
+                );
         }
     }
+
     /**
      * @return int
      */
@@ -126,6 +136,7 @@ class Segment
     {
         return $this->segmentType;
     }
+
     /**
      * @return string|null
      */
@@ -133,6 +144,7 @@ class Segment
     {
         return $this->key;
     }
+
     /**
      * @return string|null
      */
@@ -140,6 +152,7 @@ class Segment
     {
         return $this->value;
     }
+
     /**
      * @return RelativeResourceTemplate|null
      */
@@ -147,6 +160,7 @@ class Segment
     {
         return $this->template;
     }
+
     /**
      * @return string
      */
@@ -154,6 +168,7 @@ class Segment
     {
         return $this->separator;
     }
+
     /**
      * Check if $binding is a valid segment binding. Segment bindings may contain any characters
      * except a forward slash ('/'), and may not be empty.
@@ -163,8 +178,9 @@ class Segment
      */
     private static function isValidBinding(string $binding)
     {
-        return \preg_match("-^[^/]+\$-", $binding) === 1;
+        return preg_match("-^[^/]+$-", $binding) === 1;
     }
+
     /**
      * Check if $binding is a valid double wildcard binding. Segment bindings may contain any
      * characters, but may not be empty.
@@ -174,6 +190,6 @@ class Segment
      */
     private static function isValidDoubleWildcardBinding(string $binding)
     {
-        return \preg_match("-^.+\$-", $binding) === 1;
+        return preg_match("-^.+$-", $binding) === 1;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Compiler;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidDefinition;
@@ -14,6 +14,7 @@ use ReflectionProperty;
  * Compiles an object definition into native PHP code that, when executed, creates the object.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ObjectCreationCompiler
 {
@@ -95,6 +96,7 @@ class ObjectCreationCompiler
         $subDefinition = clone $definition;
         $subDefinition->setLazy(\false);
         $subDefinition = $this->compiler->compileValue($subDefinition);
+        $this->compiler->getProxyFactory()->generateProxyClass($definition->getClassName());
         return <<<PHP
         \$object = \$this->proxyFactory->createProxy(
             '{$definition->getClassName()}',
@@ -132,12 +134,10 @@ PHP;
     }
     private function assertClassIsInstantiable(ObjectDefinition $definition)
     {
-        if (!$definition->isInstantiable()) {
-            // Check that the class exists
-            if (!$definition->classExists()) {
-                throw InvalidDefinition::create($definition, \sprintf('Entry "%s" cannot be compiled: the class doesn\'t exist', $definition->getName()));
-            }
-            throw InvalidDefinition::create($definition, \sprintf('Entry "%s" cannot be compiled: the class is not instantiable', $definition->getName()));
+        if ($definition->isInstantiable()) {
+            return;
         }
+        $message = !$definition->classExists() ? 'Entry "%s" cannot be compiled: the class doesn\'t exist' : 'Entry "%s" cannot be compiled: the class is not instantiable';
+        throw InvalidDefinition::create($definition, \sprintf($message, $definition->getName()));
     }
 }

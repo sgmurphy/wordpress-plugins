@@ -10,9 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\File\ASN1\Maps;
 
-use Analytify\phpseclib3\File\ASN1;
+namespace phpseclib3\File\ASN1\Maps;
+
+use phpseclib3\File\ASN1;
+
 /**
  * AnotherName
  *
@@ -20,5 +22,16 @@ use Analytify\phpseclib3\File\ASN1;
  */
 abstract class AnotherName
 {
-    const MAP = ['type' => ASN1::TYPE_SEQUENCE, 'children' => ['type-id' => ['type' => ASN1::TYPE_OBJECT_IDENTIFIER], 'value' => ['type' => ASN1::TYPE_ANY, 'constant' => 0, 'optional' => \true, 'explicit' => \true]]];
+    const MAP = [
+        'type' => ASN1::TYPE_SEQUENCE,
+        'children' => [
+            'type-id' => ['type' => ASN1::TYPE_OBJECT_IDENTIFIER],
+            'value' => [
+                'type' => ASN1::TYPE_ANY,
+                'constant' => 0,
+                'optional' => true,
+                'explicit' => true
+            ]
+        ]
+    ];
 }

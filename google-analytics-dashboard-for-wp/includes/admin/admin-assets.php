@@ -243,6 +243,8 @@ class ExactMetrics_Admin_Assets {
 				array(
 					'ajax'                => admin_url('admin-ajax.php'),
 					'nonce'               => wp_create_nonce('mi-admin-nonce'),
+					'rest_nonce'          => wp_create_nonce('wp_rest'),
+					'rest_url'            => get_rest_url(),
 					'network'             => is_network_admin(),
 					'translations'        => wp_get_jed_locale_data(exactmetrics_is_pro_version() ? 'exactmetrics-premium' : 'google-analytics-dashboard-for-wp'),
 					'assets'              => plugins_url($version_path . '/assets/vue', EXACTMETRICS_PLUGIN_FILE),
@@ -267,6 +269,10 @@ class ExactMetrics_Admin_Assets {
 					'migrated'            => exactmetrics_get_option('gadwp_migrated', 0),
 					'yearinreview'        => exactmetrics_yearinreview_dates(),
 					'reports_url'         => add_query_arg('page', 'exactmetrics_reports', admin_url('admin.php')),
+					'feedback'            => ExactMetrics_Feature_Feedback::get_settings(),
+					'addons_pre_check'	  => [
+						'ai_insights'	=> is_plugin_active('exactmetrics-ai-insights/exactmetrics-ai-insights.php'),
+					]
 				)
 			);
 

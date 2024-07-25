@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2018 Google LLC
  *
@@ -15,12 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Google\ApiCore\Testing;
 
 use Google\Protobuf\GPBEmpty;
 use Google\Protobuf\Internal\Message;
-use Analytify\SebastianBergmann\Comparator\Comparator;
-use Analytify\SebastianBergmann\Comparator\ComparisonFailure;
+use SebastianBergmann\Comparator\Comparator;
+use SebastianBergmann\Comparator\ComparisonFailure;
+
 /**
  * @internal
  */
@@ -35,8 +36,9 @@ class ProtobufGPBEmptyComparator extends Comparator
      */
     public function accepts($expected, $actual)
     {
-        return $expected instanceof GPBEmpty && $actual instanceof GPBEmpty;
+       return $expected instanceof GPBEmpty && $actual instanceof GPBEmpty;
     }
+
     /**
      * Asserts that two values are equal.
      *
@@ -52,7 +54,7 @@ class ProtobufGPBEmptyComparator extends Comparator
      *                           fails. Contains information about the
      *                           specific errors that lead to the failure.
      */
-    public function assertEquals($expected, $actual, $delta = 0, $canonicalize = \FALSE, $ignoreCase = \FALSE)
+    public function assertEquals($expected, $actual, $delta = 0, $canonicalize = FALSE, $ignoreCase = FALSE)
     {
         // No need to do anything here.
     }

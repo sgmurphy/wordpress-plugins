@@ -1,6 +1,6 @@
 <?php
 
-namespace Analytify\GuzzleHttp\Exception;
+namespace GuzzleHttp\Exception;
 
 final class InvalidArgumentException extends \InvalidArgumentException implements GuzzleException
 {

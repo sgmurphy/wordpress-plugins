@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,6 +14,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole\Resource;
 
 /**
@@ -28,5 +28,6 @@ namespace Google\Service\SearchConsole\Resource;
 class UrlTestingTools extends \Google\Service\Resource
 {
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\Resource\UrlTestingTools::class, 'Analytify\\Google_Service_SearchConsole_Resource_UrlTestingTools');
+class_alias(UrlTestingTools::class, 'Google_Service_SearchConsole_Resource_UrlTestingTools');

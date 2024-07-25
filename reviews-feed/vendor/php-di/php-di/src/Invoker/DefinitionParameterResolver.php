@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Invoker;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -13,6 +13,7 @@ use ReflectionFunctionAbstract;
  *
  * @since 5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class DefinitionParameterResolver implements ParameterResolver
 {

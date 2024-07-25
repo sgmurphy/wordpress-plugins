@@ -29,6 +29,13 @@ const actions = {
 			payload: limitExceedModal,
 		};
 	},
+
+	setApiErrorModal( apiErrorModal ) {
+		return {
+			type: actionsTypes.SET_API_ERROR_MODAL,
+			payload: apiErrorModal,
+		};
+	},
 	setContinueProgressModal( continueProgressModal ) {
 		return {
 			type: actionsTypes.SET_CONTINUE_PROGRESS_MODAL,

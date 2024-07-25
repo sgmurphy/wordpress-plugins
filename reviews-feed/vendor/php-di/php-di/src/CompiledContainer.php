@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI;
 
 use SmashBalloon\Reviews\Vendor\DI\Compiler\RequestedEntryHolder;
@@ -12,15 +12,22 @@ use SmashBalloon\Reviews\Vendor\Invoker\Exception\NotEnoughParametersException;
 use SmashBalloon\Reviews\Vendor\Invoker\Invoker;
 use SmashBalloon\Reviews\Vendor\Invoker\InvokerInterface;
 use SmashBalloon\Reviews\Vendor\Invoker\ParameterResolver\AssociativeArrayResolver;
+use SmashBalloon\Reviews\Vendor\Invoker\ParameterResolver\DefaultValueResolver;
 use SmashBalloon\Reviews\Vendor\Invoker\ParameterResolver\NumericArrayResolver;
 use SmashBalloon\Reviews\Vendor\Invoker\ParameterResolver\ResolverChain;
 /**
  * Compiled version of the dependency injection container.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 abstract class CompiledContainer extends Container
 {
+    /**
+     * This const is overridden in child classes (compiled containers).
+     * @var array
+     */
+    protected const METHOD_MAPPING = [];
     /**
      * @var InvokerInterface
      */
@@ -80,7 +87,7 @@ abstract class CompiledContainer extends Container
     {
         // Initialize the factory resolver
         if (!$this->factoryInvoker) {
-            $parameterResolver = new ResolverChain([new AssociativeArrayResolver(), new FactoryParameterResolver($this->delegateContainer), new NumericArrayResolver()]);
+            $parameterResolver = new ResolverChain([new AssociativeArrayResolver(), new FactoryParameterResolver($this->delegateContainer), new NumericArrayResolver(), new DefaultValueResolver()]);
             $this->factoryInvoker = new Invoker($parameterResolver, $this->delegateContainer);
         }
         $parameters = [$this->delegateContainer, new RequestedEntryHolder($entryName)];

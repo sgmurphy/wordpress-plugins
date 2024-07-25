@@ -2,7 +2,7 @@
 Contributors: gVectors Team
 Tags: comment, comments, ajax comments, comment form, comment fields
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 7.6.22
 Requires PHP: 5.6
 License: GPLv3

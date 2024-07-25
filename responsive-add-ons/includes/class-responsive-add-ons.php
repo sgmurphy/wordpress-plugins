@@ -236,8 +236,92 @@ class Responsive_Add_Ons {
 			add_action( 'after_setup_theme', array( $this, 'load_woocommerce' ) );
 		}
 
+		//Ask for review notice
+		add_action( 'admin_notices', array( $this, 'responsive_addons_ask_for_review_notice' ) );
+		add_action( 'admin_init', array( $this, 'responsive_addons_notice_dismissed' ) );
+		add_action( 'admin_init', array( $this, 'responsive_addons_notice_change_timeout' ) );
+
+
 		self::set_api_url();
 		self::set_rst_blocks_api_url();
+	}
+
+
+	 /**
+	 * Ask for Review.
+	 */
+	public function responsive_addons_ask_for_review_notice() {
+		if ( isset( $_GET['page'] ) && ( 'responsive' === $_GET['page'] ) ) {
+			return;
+		}
+
+		if ( false === get_option( 'responsive_addons_review_notice' ) ) {
+			set_transient( 'responsive_addons_ask_review_flag', true, DAY_IN_SECONDS * 7);
+			update_option( 'responsive_addons_review_notice', true );
+		} elseif ( false === (bool) get_transient( 'responsive_addons_ask_review_flag' ) && false === get_option( 'responsive_addons_review_notice_dismissed' ) ) {
+
+			$image_path = RESPONSIVE_ADDONS_DIR_URL . 'admin/images/svgs/responsive-starter-templates-thumbnail.svg';
+			echo sprintf(
+				'<div class="notice notice-warning rst-ask-for-review-notice">
+					<div class="rst-ask-for-review-notice-container">
+						<div class="rst-notice-image">
+							<img src="%1$s" class="custom-logo" alt="Responsive Addons for Elementor" itemprop="logo">
+						</div>
+						<div class="rst-notice-content">
+							<div class="rst-notice-heading">
+								%3$s
+							</div>
+							%4$s<br />
+							<div class="rst-review-notice-container">
+								<a href="%2$s" class="responsive-notice-close responsive-review-notice button-primary" target="_blank">
+								%5$s
+								</a>
+								<span class="dashicons dashicons-calendar"></span>
+								<a href="?responsive-addons-review-notice-change-timeout=true" data-repeat-notice-after="60" class="responsive-notice-close responsive-review-notice">
+								%6$s
+								</a>
+								<span class="dashicons dashicons-smiley"></span>
+								<a href="?responsive-addons-notice-dismissed=true" class="responsive-notice-close responsive-review-notice">
+								%7$s
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="rst-review-notice-dismiss">
+						<a href="?responsive-addons-notice-dismissed=true"><span class="dashicons dashicons-no"></span></a>
+					</div>
+				</div>',
+				esc_url( $image_path ),
+				'https://wordpress.org/support/theme/responsive/reviews/#new-post',
+				esc_html__( 'Hello! Seems like you have used Responsive Starter Templates plugin to build this website — Thanks a ton!', 'responsive-addons' ),
+				esc_html__( 'Could you please do us a BIG favor and give it a 5-star rating on WordPress? This would boost our motivation and help other users make a comfortable decision while choosing the Responsive Starter Templates plugin.', 'responsive-addons' ),
+				esc_html__( 'Ok, you deserve it', 'responsive-addons' ),
+				esc_html__( 'Nope, maybe later', 'responsive-addons' ),
+				esc_html__( 'I already did', 'responsive-addons' )
+			);
+			do_action( 'tag_review' );
+		}
+
+	}
+
+	/**
+	 * Removed Ask For Review Admin Notice when dismissed.
+	 */
+	public function responsive_addons_notice_dismissed() {
+		if ( isset( $_GET['responsive-addons-notice-dismissed'] ) ) {
+			update_option( 'responsive_addons_review_notice_dismissed', true );
+			wp_safe_redirect( remove_query_arg( array( 'responsive-addons-notice-dismissed' ), wp_get_referer() ) );
+		}
+	}
+
+	/**
+	 * Removed Ask For Review Admin Notice when dismissed.
+	 */
+	public function responsive_addons_notice_change_timeout() {
+		if ( isset( $_GET['responsive-addons-review-notice-change-timeout'] ) ) {
+			set_transient( 'responsive_addons_ask_review_flag', true, DAY_IN_SECONDS );
+			wp_safe_redirect( remove_query_arg( array( 'responsive-addons-review-notice-change-timeout' ), wp_get_referer() ) );
+		}
 	}
 
 	/**

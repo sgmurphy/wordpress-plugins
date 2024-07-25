@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Dumper;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -12,6 +12,7 @@ use ReflectionException;
  *
  * @since 4.1
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ObjectDefinitionDumper
 {
@@ -57,11 +58,7 @@ class ObjectDefinitionDumper
         $str = '';
         foreach ($definition->getPropertyInjections() as $propertyInjection) {
             $value = $propertyInjection->getValue();
-            if ($value instanceof Definition) {
-                $valueStr = (string) $value;
-            } else {
-                $valueStr = \var_export($value, \true);
-            }
+            $valueStr = $value instanceof Definition ? (string) $value : \var_export($value, \true);
             $str .= \sprintf(\PHP_EOL . '    $%s = %s', $propertyInjection->getPropertyName(), $valueStr);
         }
         return $str;
@@ -83,11 +80,7 @@ class ObjectDefinitionDumper
         foreach ($methodReflection->getParameters() as $index => $parameter) {
             if (\array_key_exists($index, $definitionParameters)) {
                 $value = $definitionParameters[$index];
-                if ($value instanceof Definition) {
-                    $valueStr = (string) $value;
-                } else {
-                    $valueStr = \var_export($value, \true);
-                }
+                $valueStr = $value instanceof Definition ? (string) $value : \var_export($value, \true);
                 $args[] = \sprintf('$%s = %s', $parameter->getName(), $valueStr);
                 continue;
             }

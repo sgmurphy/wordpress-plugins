@@ -56,35 +56,35 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Single_Product' ) ) :
 
 			// Distraction free.
 			$distraction_free_woocommerce = __( 'Enable Distraction free WooCommerce', 'responsive' );
-			responsive_addons_checkbox_control( $wp_customize, 'distraction_free_woocommerce', $distraction_free_woocommerce, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_active_site_layout_contained' );
+			responsive_toggle_control( $wp_customize, 'distraction_free_woocommerce', $distraction_free_woocommerce, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_active_site_layout_contained' );
 
 			// Disable header footer on shop page.
 			$disable_shop_header_footer = __( 'Disable Header & Footer on Shop Page?', 'responsive' );
-			responsive_addons_checkbox_control( $wp_customize, 'disable_shop_header_footer', $disable_shop_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
+			responsive_toggle_control( $wp_customize, 'disable_shop_header_footer', $disable_shop_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
 
 			// Disable header footer on single product page.
 			$disable_single_product_header_footer = __( 'Disable Header & Footer on Single Product Page?', 'responsive' );
-			responsive_addons_checkbox_control( $wp_customize, 'disable_single_product_header_footer', $disable_single_product_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
+			responsive_toggle_control( $wp_customize, 'disable_single_product_header_footer', $disable_single_product_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
 
 			// Disable header footer on cart page.
 			$disable_cart_header_footer = __( 'Disable Header & Footer on Cart Page?', 'responsive' );
-			responsive_addons_checkbox_control( $wp_customize, 'disable_cart_header_footer', $disable_cart_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
+			responsive_toggle_control( $wp_customize, 'disable_cart_header_footer', $disable_cart_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
 
 			// Disable header footer on cart page.
 			$disable_checkout_header_footer = __( 'Disable Header & Footer on Checkout Page?', 'responsive' );
-			responsive_addons_checkbox_control( $wp_customize, 'disable_checkout_header_footer', $disable_checkout_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
+			responsive_toggle_control( $wp_customize, 'disable_checkout_header_footer', $disable_checkout_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
 
 			// Disable header footer on account page.
 			$disable_account_header_footer = __( 'Disable Header & Footer on Account Page?', 'responsive' );
-			responsive_addons_checkbox_control( $wp_customize, 'disable_account_header_footer', $disable_account_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
+			responsive_toggle_control( $wp_customize, 'disable_account_header_footer', $disable_account_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
 
 			// Disable header footer on product_category page.
 			$disable_product_category_header_footer = __( 'Disable Header & Footer on Product Category Page?', 'responsive' );
-			responsive_addons_checkbox_control( $wp_customize, 'disable_product_category_header_footer', $disable_product_category_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
+			responsive_toggle_control( $wp_customize, 'disable_product_category_header_footer', $disable_product_category_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
 
 			// Disable header footer on product_tag page.
 			$disable_product_tag_header_footer = __( 'Disable Header & Footer on Product Tag Page?', 'responsive' );
-			responsive_addons_checkbox_control( $wp_customize, 'disable_product_tag_header_footer', $disable_product_tag_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
+			responsive_toggle_control( $wp_customize, 'disable_product_tag_header_footer', $disable_product_tag_header_footer, 'responsive_woocommerce_distraction_free', 10, 0, 'responsive_addons_distraction_free_woocommerce' );
 
 		}
 	}

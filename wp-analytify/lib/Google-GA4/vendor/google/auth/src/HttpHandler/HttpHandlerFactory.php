@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -17,25 +16,26 @@
  */
 namespace Google\Auth\HttpHandler;
 
-use Analytify\GuzzleHttp\BodySummarizer;
-use Analytify\GuzzleHttp\Client;
-use Analytify\GuzzleHttp\ClientInterface;
-use Analytify\GuzzleHttp\HandlerStack;
-use Analytify\GuzzleHttp\Middleware;
+use GuzzleHttp\BodySummarizer;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+
 class HttpHandlerFactory
 {
     /**
      * Builds out a default http handler for the installed version of guzzle.
      *
      * @param ClientInterface $client
-     * @return Guzzle5HttpHandler|Guzzle6HttpHandler|Guzzle7HttpHandler
+     * @return Guzzle6HttpHandler|Guzzle7HttpHandler
      * @throws \Exception
      */
     public static function build(ClientInterface $client = null)
     {
-        if (\is_null($client)) {
+        if (is_null($client)) {
             $stack = null;
-            if (\class_exists(BodySummarizer::class)) {
+            if (class_exists(BodySummarizer::class)) {
                 // double the # of characters before truncation by default
                 $bodySummarizer = new BodySummarizer(240);
                 $stack = HandlerStack::create();
@@ -44,19 +44,19 @@ class HttpHandlerFactory
             }
             $client = new Client(['handler' => $stack]);
         }
+
         $version = null;
-        if (\defined('Analytify\\GuzzleHttp\\ClientInterface::MAJOR_VERSION')) {
+        if (defined('GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
             $version = ClientInterface::MAJOR_VERSION;
-        } elseif (\defined('Analytify\\GuzzleHttp\\ClientInterface::VERSION')) {
-            $version = (int) \substr(ClientInterface::VERSION, 0, 1);
+        } elseif (defined('GuzzleHttp\ClientInterface::VERSION')) {
+            $version = (int) substr(ClientInterface::VERSION, 0, 1);
         }
+
         switch ($version) {
-            case 5:
-                return new \Google\Auth\HttpHandler\Guzzle5HttpHandler($client);
             case 6:
-                return new \Google\Auth\HttpHandler\Guzzle6HttpHandler($client);
+                return new Guzzle6HttpHandler($client);
             case 7:
-                return new \Google\Auth\HttpHandler\Guzzle7HttpHandler($client);
+                return new Guzzle7HttpHandler($client);
             default:
                 throw new \Exception('Version not supported');
         }

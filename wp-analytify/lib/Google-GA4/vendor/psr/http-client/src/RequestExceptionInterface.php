@@ -1,8 +1,9 @@
 <?php
 
-namespace Analytify\Psr\Http\Client;
+namespace Psr\Http\Client;
 
-use Analytify\Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
+
 /**
  * Exception for when a request failed.
  *
@@ -19,5 +20,5 @@ interface RequestExceptionInterface extends ClientExceptionInterface
      *
      * @return RequestInterface
      */
-    public function getRequest() : RequestInterface;
+    public function getRequest(): RequestInterface;
 }

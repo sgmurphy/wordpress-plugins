@@ -14,11 +14,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\Crypt\EC\Formats\Keys;
 
-use Analytify\phpseclib3\Crypt\EC\Curves\Ed25519;
-use Analytify\phpseclib3\Exception\UnsupportedFormatException;
-use Analytify\phpseclib3\Math\BigInteger;
+namespace phpseclib3\Crypt\EC\Formats\Keys;
+
+use phpseclib3\Crypt\EC\Curves\Ed25519;
+use phpseclib3\Exception\UnsupportedFormatException;
+use phpseclib3\Math\BigInteger;
+
 /**
  * libsodium Key Handler
  *
@@ -27,11 +29,13 @@ use Analytify\phpseclib3\Math\BigInteger;
 abstract class libsodium
 {
     use Common;
+
     /**
      * Is invisible flag
      *
      */
-    const IS_INVISIBLE = \true;
+    const IS_INVISIBLE = true;
+
     /**
      * Break a public or private key down into its constituent components
      *
@@ -41,24 +45,25 @@ abstract class libsodium
      */
     public static function load($key, $password = '')
     {
-        switch (\strlen($key)) {
+        switch (strlen($key)) {
             case 32:
                 $public = $key;
                 break;
             case 64:
-                $private = \substr($key, 0, 32);
-                $public = \substr($key, -32);
+                $private = substr($key, 0, 32);
+                $public = substr($key, -32);
                 break;
             case 96:
-                $public = \substr($key, -32);
-                if (\substr($key, 32, 32) != $public) {
+                $public = substr($key, -32);
+                if (substr($key, 32, 32) != $public) {
                     throw new \RuntimeException('Keys with 96 bytes should have the 2nd and 3rd set of 32 bytes match');
                 }
-                $private = \substr($key, 0, 32);
+                $private = substr($key, 0, 32);
                 break;
             default:
                 throw new \RuntimeException('libsodium keys need to either be 32 bytes long, 64 bytes long or 96 bytes long');
         }
+
         $curve = new Ed25519();
         $components = ['curve' => $curve];
         if (isset($private)) {
@@ -66,9 +71,13 @@ abstract class libsodium
             $components['dA'] = $arr['dA'];
             $components['secret'] = $arr['secret'];
         }
-        $components['QA'] = isset($public) ? self::extractPoint($public, $curve) : $curve->multiplyPoint($curve->getBasePoint(), $components['dA']);
+        $components['QA'] = isset($public) ?
+            self::extractPoint($public, $curve) :
+            $curve->multiplyPoint($curve->getBasePoint(), $components['dA']);
+
         return $components;
     }
+
     /**
      * Convert an EC public key to the appropriate format
      *
@@ -80,6 +89,7 @@ abstract class libsodium
     {
         return $curve->encodePoint($publicKey);
     }
+
     /**
      * Convert a private key to the appropriate format.
      *
@@ -95,10 +105,10 @@ abstract class libsodium
         if (!isset($secret)) {
             throw new \RuntimeException('Private Key does not have a secret set');
         }
-        if (\strlen($secret) != 32) {
+        if (strlen($secret) != 32) {
             throw new \RuntimeException('Private Key secret is not of the correct length');
         }
-        if (!empty($password) && \is_string($password)) {
+        if (!empty($password) && is_string($password)) {
             throw new UnsupportedFormatException('libsodium private keys do not support encryption');
         }
         return $secret . $curve->encodePoint($publicKey);

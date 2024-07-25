@@ -12,6 +12,7 @@ use ReflectionFunctionAbstract;
  * Parameters that are not indexed by a string are ignored.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class AssociativeArrayResolver implements ParameterResolver
 {

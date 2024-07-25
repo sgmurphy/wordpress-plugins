@@ -89,7 +89,7 @@ if ( ! class_exists( 'WP_Analytify_Addons' ) ) {
 				if ( isset( $extension->status ) &&	$extension->status != '' ) {
 					echo sprintf( esc_html__( '%1$s Download %2$s', 'wp-analytify' ), '<a target="_blank" href="' . $extension->url . '" class="button-primary">', '</a>' ); 
 				} else {
-					echo sprintf( esc_html__( '%1$s Get this add-on %2$s', 'wp-analytify' ), '<a target="_blank" href="' . $extension->url . '?utm_source=analytify-lite" class="button-primary">', '</a>' ); 
+					echo sprintf( esc_html__( '%1$s Get this add-on %2$s', 'wp-analytify' ), '<a target="_blank" href="' . $extension->url . '" class="button-primary">', '</a>' ); 
 				}
 			}
 		}
@@ -146,7 +146,7 @@ if ( ! class_exists( 'WP_Analytify_Addons' ) ) {
 
 			} else {
 	
-				echo sprintf( esc_html__( '%1$s Get this add-on %2$s', 'wp-analytify' ), '<a type="button" class="button-primary analytify-activate-module" href=" ' . $this->modules_list[$slug]['url'] . '?utm_source=analytify-lite" target="_blank">', '</a>' );
+				echo sprintf( esc_html__( '%1$s Get this add-on %2$s', 'wp-analytify' ), '<a type="button" class="button-primary analytify-activate-module" href=" ' . $this->modules_list[$slug]['url'] . '" target="_blank">', '</a>' );
 
 			}
 		}
@@ -249,7 +249,7 @@ $version = defined( 'ANALYTIFY_PRO_VERSION' ) ? ANALYTIFY_PRO_VERSION : ANALYTIF
 								foreach ( $addons as $name => $extension ) : ?>
 
 									<div class="wp-extension <?php echo $name; ?>">
-										<a target="_blank" href="<?php echo $extension->url; ?>?utm_source=analytify-lite">
+										<a target="_blank" href="<?php echo $extension->url; ?>">
 											<h3 style="background-image: url(<?php echo $extension->media->icon->url ?>);"><?php echo $extension->title; ?></h3>
 										</a>
 										<p><?php echo wpautop( wp_strip_all_tags( $extension->excerpt ) ) ?></p>
@@ -264,7 +264,7 @@ $version = defined( 'ANALYTIFY_PRO_VERSION' ) ? ANALYTIFY_PRO_VERSION : ANALYTIF
 								<?php foreach ( $modules as $module ) { ?>
 
 										<div class="wp-extension <?php echo $module['slug']; ?>">
-											<a target="_blank" href="<?php echo $module['url']; ?>?utm_source=analytify-lite">
+											<a target="_blank" href="<?php echo $module['url']; ?>">
 												<h3 style="background-size: 90px 90px; background-image: url(<?php echo $module['image'] ?>);"><?php echo $module['title']; ?></h3>
 											</a>
 											<p><?php echo $module['description'] ?></p>
@@ -273,29 +273,6 @@ $version = defined( 'ANALYTIFY_PRO_VERSION' ) ? ANALYTIFY_PRO_VERSION : ANALYTIF
 											<?php echo $obj_wp_analytify_addons->loaders( $module['title'], $module['image'] ); ?>
 
 										</div>
-
-									<!-- #TDOD: Fetch from API -->
-									<!-- <div class="wp-extension wp-analytify-forms-dashboard">
-										<a target="_blank" href="#">
-											<h3 style="background-image: url(https://analytify.io/wp-content/uploads/edd/2019/04/dashboard_icon.png);">Forms</h3>
-										</a>
-										<p>This Add-on will track custom forms in a unique and intiutive way which is very understandable even for non-technical WordPress users</p>
-										<p><?php // $obj_wp_analytify_addons->check_plugin_status( 'wp-analytify-forms', '' ); ?></p>
-
-										<?php // echo $obj_wp_analytify_addons->loaders( 'Forms', 'https://analytify.io/wp-content/uploads/edd/2019/04/dashboard_icon.png' ); ?>
-									</div> -->
-
-									<!-- #TDOD: Fetch from API -->
-									<!-- <div class="wp-extension wp-analytify-authors">
-										<a target="_blank" href="#">
-											<h3 style="background-image: url(https://analytify.io/wp-content/uploads/edd/2019/04/dashboard_icon.png);">Authors Dashboard</h3>
-										</a>
-										<p>This Add-on will show authors dashboard in a unique and intiutive way which is very understandable even for non-technical WordPress users.</p>
-										<p><?php // $obj_wp_analytify_addons->check_plugin_status( 'wp-analytify-authors', '' ); ?></p>
-
-										<?php // echo $obj_wp_analytify_addons->loaders( 'Authors Dashboard', 'https://analytify.io/wp-content/uploads/edd/2019/04/dashboard_icon.png' ); ?>
-									</div> -->
-
 <?php } ?>
 
 							</div>

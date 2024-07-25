@@ -609,7 +609,7 @@ const Images = () => {
 			onScroll={ handleScroll }
 		>
 			<Heading
-				heading="Select Images"
+				heading={ __( 'Select Images', 'ai-builder' ) }
 				className="px-5 md:px-10 lg:px-14 xl:px-15 pt-5 md:pt-10 lg:pt-12 xl:pt-12"
 			/>
 			<div className="pt-4 sticky top-0 space-y-4 z-[1] bg-zip-app-light-bg px-5 md:px-10 lg:px-14 xl:px-15">
@@ -703,7 +703,11 @@ const Images = () => {
 										data-disabled={ loadingNextStep }
 									>
 										<span className="text-sm font-normal text-body-text leading-[150%]">
-											Orientation: { '' }
+											{ __(
+												'Orientation',
+												'ai-builder'
+											) }
+											: { '' }
 											{ orientation.label }
 										</span>
 										<ChevronDownIcon className="w-5 h-5 text-app-inactive-icon" />

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -42,34 +41,37 @@ use Google\ApiCore\Transport\Rest\RestServerStreamingCall;
 use Google\ApiCore\ValidationException;
 use Google\ApiCore\ValidationTrait;
 use Google\Protobuf\Internal\Message;
-use Analytify\GuzzleHttp\Exception\RequestException;
-use Analytify\Psr\Http\Message\RequestInterface;
-use Analytify\Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * A REST based transport implementation.
  */
-class RestTransport implements \Google\ApiCore\Transport\TransportInterface
+class RestTransport implements TransportInterface
 {
     use ValidationTrait;
     use ServiceAddressTrait;
-    use \Google\ApiCore\Transport\HttpUnaryTransportTrait {
+    use HttpUnaryTransportTrait {
         startServerStreamingCall as protected unsupportedServerStreamingCall;
     }
-    /**
-     * @var RequestBuilder
-     */
-    private $requestBuilder;
+
+    private RequestBuilder $requestBuilder;
+
     /**
      * @param RequestBuilder $requestBuilder A builder responsible for creating
      *        a PSR-7 request from a set of request information.
      * @param callable $httpHandler A handler used to deliver PSR-7 requests.
      */
-    public function __construct(RequestBuilder $requestBuilder, callable $httpHandler)
-    {
+    public function __construct(
+        RequestBuilder $requestBuilder,
+        callable $httpHandler
+    ) {
         $this->requestBuilder = $requestBuilder;
         $this->httpHandler = $httpHandler;
         $this->transportName = 'REST';
     }
+
     /**
      * Builds a RestTransport.
      *
@@ -88,58 +90,86 @@ class RestTransport implements \Google\ApiCore\Transport\TransportInterface
      */
     public static function build(string $apiEndpoint, string $restConfigPath, array $config = [])
     {
-        $config += ['httpHandler' => null, 'clientCertSource' => null];
+        $config += [
+            'httpHandler'  => null,
+            'clientCertSource' => null,
+        ];
         list($baseUri, $port) = self::normalizeServiceAddress($apiEndpoint);
-        $requestBuilder = new RequestBuilder("{$baseUri}:{$port}", $restConfigPath);
+        $requestBuilder = new RequestBuilder("$baseUri:$port", $restConfigPath);
         $httpHandler = $config['httpHandler'] ?: self::buildHttpHandlerAsync();
-        $transport = new \Google\ApiCore\Transport\RestTransport($requestBuilder, $httpHandler);
+        $transport = new RestTransport($requestBuilder, $httpHandler);
         if ($config['clientCertSource']) {
             $transport->configureMtlsChannel($config['clientCertSource']);
         }
         return $transport;
     }
+
     /**
      * {@inheritdoc}
      */
     public function startUnaryCall(Call $call, array $options)
     {
         $headers = self::buildCommonHeaders($options);
+
         // call the HTTP handler
         $httpHandler = $this->httpHandler;
-        return $httpHandler($this->requestBuilder->build($call->getMethod(), $call->getMessage(), $headers), $this->getCallOptions($options))->then(function (ResponseInterface $response) use($call, $options) {
-            $decodeType = $call->getDecodeType();
-            /** @var Message $return */
-            $return = new $decodeType();
-            $body = (string) $response->getBody();
-            // In some rare cases LRO response metadata may not be loaded
-            // in the descriptor pool, triggering an exception. The catch
-            // statement handles this case and attempts to add the LRO
-            // metadata type to the pool by directly instantiating the
-            // metadata class.
-            try {
-                $return->mergeFromJsonString($body, \true);
-            } catch (\Exception $ex) {
-                if (!isset($options['metadataReturnType'])) {
-                    throw $ex;
+        return $httpHandler(
+            $this->requestBuilder->build(
+                $call->getMethod(),
+                $call->getMessage(),
+                $headers
+            ),
+            $this->getCallOptions($options)
+        )->then(
+            function (ResponseInterface $response) use ($call, $options) {
+                $decodeType = $call->getDecodeType();
+                /** @var Message $return */
+                $return = new $decodeType;
+                $body = (string) $response->getBody();
+
+                // In some rare cases LRO response metadata may not be loaded
+                // in the descriptor pool, triggering an exception. The catch
+                // statement handles this case and attempts to add the LRO
+                // metadata type to the pool by directly instantiating the
+                // metadata class.
+                try {
+                    $return->mergeFromJsonString(
+                        $body,
+                        true
+                    );
+                } catch (\Exception $ex) {
+                    if (!isset($options['metadataReturnType'])) {
+                        throw $ex;
+                    }
+
+                    if (strpos($ex->getMessage(), 'Error occurred during parsing:') !== 0) {
+                        throw $ex;
+                    }
+
+                    new $options['metadataReturnType']();
+                    $return->mergeFromJsonString(
+                        $body,
+                        true
+                    );
                 }
-                if (\strpos($ex->getMessage(), 'Error occurred during parsing:') !== 0) {
-                    throw $ex;
+
+                if (isset($options['metadataCallback'])) {
+                    $metadataCallback = $options['metadataCallback'];
+                    $metadataCallback($response->getHeaders());
                 }
-                new $options['metadataReturnType']();
-                $return->mergeFromJsonString($body, \true);
+
+                return $return;
+            },
+            function (\Throwable $ex) {
+                if ($ex instanceof RequestException && $ex->hasResponse()) {
+                    throw ApiException::createFromRequestException($ex);
+                }
+
+                throw $ex;
             }
-            if (isset($options['metadataCallback'])) {
-                $metadataCallback = $options['metadataCallback'];
-                $metadataCallback($response->getHeaders());
-            }
-            return $return;
-        }, function (\Exception $ex) {
-            if ($ex instanceof RequestException && $ex->hasResponse()) {
-                throw ApiException::createFromRequestException($ex);
-            }
-            throw $ex;
-        });
+        );
     }
+
     /**
      * {@inheritdoc}
      * @throws \BadMethodCallException for forwards compatibility with older GAPIC clients
@@ -150,20 +180,39 @@ class RestTransport implements \Google\ApiCore\Transport\TransportInterface
         if (!$message) {
             throw new \InvalidArgumentException('A message is required for ServerStreaming calls.');
         }
+
         // Maintain forwards compatibility with older GAPIC clients not configured for REST server streaming
         // @see https://github.com/googleapis/gax-php/issues/370
         if (!$this->requestBuilder->pathExists($call->getMethod())) {
             $this->unsupportedServerStreamingCall($call, $options);
         }
+
         $headers = self::buildCommonHeaders($options);
         $callOptions = $this->getCallOptions($options);
-        $request = $this->requestBuilder->build($call->getMethod(), $call->getMessage());
+        $request = $this->requestBuilder->build(
+            $call->getMethod(),
+            $call->getMessage()
+            // Exclude headers here because they will be added in _serverStreamRequest().
+        );
+
         $decoderOptions = [];
         if (isset($options['decoderOptions'])) {
             $decoderOptions = $options['decoderOptions'];
         }
-        return new ServerStream($this->_serverStreamRequest($this->httpHandler, $request, $headers, $call->getDecodeType(), $callOptions, $decoderOptions), $call->getDescriptor());
+
+        return new ServerStream(
+            $this->_serverStreamRequest(
+                $this->httpHandler,
+                $request,
+                $headers,
+                $call->getDecodeType(),
+                $callOptions,
+                $decoderOptions
+            ),
+            $call->getDescriptor()
+        );
     }
+
     /**
      * Creates and starts a RestServerStreamingCall.
      *
@@ -176,12 +225,24 @@ class RestTransport implements \Google\ApiCore\Transport\TransportInterface
      *
      * @return RestServerStreamingCall
      */
-    private function _serverStreamRequest($httpHandler, $request, $headers, $decodeType, $callOptions, $decoderOptions = [])
-    {
-        $call = new RestServerStreamingCall($httpHandler, $decodeType, $decoderOptions);
+    private function _serverStreamRequest(
+        $httpHandler,
+        $request,
+        $headers,
+        $decodeType,
+        $callOptions,
+        $decoderOptions = []
+    ) {
+        $call = new RestServerStreamingCall(
+            $httpHandler,
+            $decodeType,
+            $decoderOptions
+        );
         $call->start($request, $headers, $callOptions);
+
         return $call;
     }
+
     /**
      * @param array<mixed> $options
      *
@@ -189,15 +250,18 @@ class RestTransport implements \Google\ApiCore\Transport\TransportInterface
      */
     private function getCallOptions(array $options)
     {
-        $callOptions = isset($options['transportOptions']['restOptions']) ? $options['transportOptions']['restOptions'] : [];
+        $callOptions = $options['transportOptions']['restOptions'] ?? [];
+
         if (isset($options['timeoutMillis'])) {
             $callOptions['timeout'] = $options['timeoutMillis'] / 1000;
         }
+
         if ($this->clientCertSource) {
             list($cert, $key) = self::loadClientCertSource($this->clientCertSource);
             $callOptions['cert'] = $cert;
             $callOptions['key'] = $key;
         }
+
         return $callOptions;
     }
 }

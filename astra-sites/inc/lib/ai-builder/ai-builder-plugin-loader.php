@@ -100,7 +100,10 @@ class Ai_Builder_Plugin_Loader {
 
 		spl_autoload_register( [ $this, 'autoload' ] );
 		add_action( 'plugins_loaded', array( $this, 'load_plugin' ), 99 );
-		add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
+
+		/*
+			// add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
+		*/
 		add_action( 'admin_menu', [ $this, 'add_theme_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
@@ -257,7 +260,8 @@ class Ai_Builder_Plugin_Loader {
 			return;
 		}
 
-		$partner_id = apply_filters( 'zipwp_partner_url_param', '' );
+		$partner_id = get_option( 'zipwp_partner_url_param', '' );
+		$partner_id = is_string( $partner_id ) ? sanitize_text_field( $partner_id ) : '';
 		$zipwp_auth = array(
 			'screen_url'   => ZIPWP_APP,
 			'redirect_url' => admin_url( 'themes.php?page=ai-builder' ),
@@ -296,7 +300,10 @@ class Ai_Builder_Plugin_Loader {
 			)
 		);
 
-		wp_set_script_translations( 'ai-builder', apply_filters( 'ai_builder_textdomain', 'ai-builder' ) );
+		$text_domain = apply_filters( 'ai_builder_textdomain', 'ai-builder' );
+		$locale_path = apply_filters( 'ai_builder_languages_directory', '' );
+
+		wp_set_script_translations( 'ai-builder', $text_domain, $locale_path );
 
 		// Required for install theme.
 		wp_enqueue_script( 'ai-builder-install-theme', AI_BUILDER_URL . 'inc/assets/js/install-theme.js', array( 'jquery', 'updates' ), AI_BUILDER_VER, true );
@@ -377,15 +384,16 @@ class Ai_Builder_Plugin_Loader {
 
 		$plans = Ai_Builder_ZipWP_Api::Instance()->get_zip_plans();
 
-		$team_name = is_array( $plans['data'] ) && isset( $plans['data']['team']['name'] ) ? $plans['data']['team']['name'] : '';
-		$plan_name = is_array( $plans['data'] ) && isset( $plans['data']['active_plan']['slug'] ) ? $plans['data']['active_plan']['slug'] : '';
+		$team_name    = is_array( $plans['data'] ) && isset( $plans['data']['team']['name'] ) ? $plans['data']['team']['name'] : '';
+		$plan_name    = is_array( $plans['data'] ) && isset( $plans['data']['active_plan']['slug'] ) ? $plans['data']['active_plan']['slug'] : '';
+		$support_link = 'https://wpastra.com/starter-templates-support/?ip=' . $this->get_client_ip();
 
 		return array(
 			'ajax_url'           => admin_url( 'admin-ajax.php' ),
 			'_ajax_nonce'        => wp_create_nonce( 'astra-sites' ),
 			'adminUrl'           => admin_url(),
 			'imageDir'           => AI_BUILDER_URL . 'inc/assets/images/',
-			'supportLink'        => 'https://wpastra.com/starter-templates-support/?ip=' . $this->get_client_ip(),
+			'supportLink'        => $support_link,
 			'logoUrl'            => apply_filters( 'ai_builder_logo', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/st-logo-dark.svg' ),
 			'placeholder_images' => Helper::get_image_placeholders(),
 			'reportError'        => $this->should_report_error(),
@@ -410,7 +418,7 @@ class Ai_Builder_Plugin_Loader {
 			'filtered_data'      => apply_filters(
 				'ai_builder_limit_exceeded_popup_strings',
 				array(
-					'main_content'        => sprintf(
+					'main_content'      => sprintf(
 						/* translators: %1$s: team name, %2$s: plan name */
 						__(
 							'Your current active organization is %1$s, which is on the %2$s plan. You have reached the maximum number of sites allowed to be created on %2$s plan.',
@@ -419,7 +427,7 @@ class Ai_Builder_Plugin_Loader {
 						$team_name,
 						$plan_name
 					),
-					'secondary_content'   => sprintf(
+					'secondary_content' => sprintf(
 						/* translators: %1$s: team name */
 						__(
 							'Please upgrade the plan for %s in order to create more sites.',
@@ -427,8 +435,10 @@ class Ai_Builder_Plugin_Loader {
 						),
 						$team_name,
 					),
-					'cta_text'            => __( 'Unlock Full Power', 'astra-sites' ),
-					'cta_redirection_url' => 'https://app.zipwp.com/founders-deal',
+					'upgrade_text'      => __( 'Unlock Full Power', 'astra-sites' ),
+					'upgrade_url'       => 'https://app.zipwp.com/founders-deal',
+					'contact_url'       => $support_link,
+					'contact_text'      => __( 'Contact Support', 'astra-sites' ),
 				)
 			),
 		);

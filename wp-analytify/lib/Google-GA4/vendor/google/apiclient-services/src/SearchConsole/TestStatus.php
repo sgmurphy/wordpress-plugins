@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,46 +14,49 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole;
 
 class TestStatus extends \Google\Model
 {
-    /**
-     * @var string
-     */
-    public $details;
-    /**
-     * @var string
-     */
-    public $status;
-    /**
-     * @param string
-     */
-    public function setDetails($details)
-    {
-        $this->details = $details;
-    }
-    /**
-     * @return string
-     */
-    public function getDetails()
-    {
-        return $this->details;
-    }
-    /**
-     * @param string
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-    /**
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
+  /**
+   * @var string
+   */
+  public $details;
+  /**
+   * @var string
+   */
+  public $status;
+
+  /**
+   * @param string
+   */
+  public function setDetails($details)
+  {
+    $this->details = $details;
+  }
+  /**
+   * @return string
+   */
+  public function getDetails()
+  {
+    return $this->details;
+  }
+  /**
+   * @param string
+   */
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  /**
+   * @return string
+   */
+  public function getStatus()
+  {
+    return $this->status;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\TestStatus::class, 'Analytify\\Google_Service_SearchConsole_TestStatus');
+class_alias(TestStatus::class, 'Google_Service_SearchConsole_TestStatus');

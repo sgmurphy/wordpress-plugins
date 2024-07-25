@@ -10,9 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  */
-namespace Analytify\phpseclib3\Math\BigInteger\Engines\PHP\Reductions;
 
-use Analytify\phpseclib3\Math\BigInteger\Engines\PHP\Base;
+namespace phpseclib3\Math\BigInteger\Engines\PHP\Reductions;
+
+use phpseclib3\Math\BigInteger\Engines\PHP\Base;
+
 /**
  * PHP Classic Modular Exponentiation Engine
  *

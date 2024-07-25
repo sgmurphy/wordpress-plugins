@@ -1,12 +1,13 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Source;
 
 /**
  * Reads DI definitions from a file returning a PHP array.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class DefinitionFile extends DefinitionArray
 {

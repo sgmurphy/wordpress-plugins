@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * Copyright 2015 gRPC authors.
@@ -17,13 +16,14 @@
  * limitations under the License.
  *
  */
+
 namespace Grpc;
 
 /**
  * Represents an active call that sends a single message and then gets a
  * single response.
  */
-class UnaryCall extends \Grpc\AbstractCall
+class UnaryCall extends AbstractCall
 {
     /**
      * Start the call.
@@ -40,8 +40,13 @@ class UnaryCall extends \Grpc\AbstractCall
         if (isset($options['flags'])) {
             $message_array['flags'] = $options['flags'];
         }
-        $this->call->startBatch([OP_SEND_INITIAL_METADATA => $metadata, OP_SEND_MESSAGE => $message_array, OP_SEND_CLOSE_FROM_CLIENT => \true]);
+        $this->call->startBatch([
+            OP_SEND_INITIAL_METADATA => $metadata,
+            OP_SEND_MESSAGE => $message_array,
+            OP_SEND_CLOSE_FROM_CLIENT => true,
+        ]);
     }
+
     /**
      * Wait for the server to respond with data and a status.
      *
@@ -49,9 +54,12 @@ class UnaryCall extends \Grpc\AbstractCall
      */
     public function wait()
     {
-        $batch = [OP_RECV_MESSAGE => \true, OP_RECV_STATUS_ON_CLIENT => \true];
+        $batch = [
+            OP_RECV_MESSAGE => true,
+            OP_RECV_STATUS_ON_CLIENT => true,
+        ];
         if ($this->metadata === null) {
-            $batch[OP_RECV_INITIAL_METADATA] = \true;
+            $batch[OP_RECV_INITIAL_METADATA] = true;
         }
         $event = $this->call->startBatch($batch);
         if ($this->metadata === null) {
@@ -59,15 +67,17 @@ class UnaryCall extends \Grpc\AbstractCall
         }
         $status = $event->status;
         $this->trailing_metadata = $status->metadata;
+
         return [$this->_deserializeResponse($event->message), $status];
     }
+
     /**
      * @return mixed The metadata sent by the server
      */
     public function getMetadata()
     {
         if ($this->metadata === null) {
-            $event = $this->call->startBatch([OP_RECV_INITIAL_METADATA => \true]);
+            $event = $this->call->startBatch([OP_RECV_INITIAL_METADATA => true]);
             $this->metadata = $event->metadata;
         }
         return $this->metadata;

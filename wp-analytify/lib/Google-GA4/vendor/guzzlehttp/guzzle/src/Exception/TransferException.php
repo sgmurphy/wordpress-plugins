@@ -1,6 +1,6 @@
 <?php
 
-namespace Analytify\GuzzleHttp\Exception;
+namespace GuzzleHttp\Exception;
 
 class TransferException extends \RuntimeException implements GuzzleException
 {

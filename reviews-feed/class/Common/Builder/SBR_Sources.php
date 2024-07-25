@@ -215,4 +215,26 @@ class SBR_Sources{
 
 	}
 
+	/**
+	 * Get Sources List By Provider
+	 *
+	 * @param array $providers
+	 *
+	 * @return array
+	 *
+	 * @since 1.5
+	 */
+	public static function sources_by_providers($providers = [])
+	{
+		global $wpdb;
+		$source_table = $wpdb->prefix . SBR_SOURCES_TABLE;
+		$provider_list = implode(',', $providers);
+
+		$sql = $wpdb->prepare("
+			SELECT * FROM $source_table
+			WHERE provider IN (%d);",
+			$provider_list
+		);
+		return $wpdb->get_results($sql, ARRAY_A);
+	}
 }

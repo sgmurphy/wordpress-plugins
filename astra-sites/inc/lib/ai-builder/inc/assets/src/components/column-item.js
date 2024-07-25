@@ -156,15 +156,15 @@ export const ColumnItem = ( { template, position } ) => {
 						/>
 					</div>
 					{ template.is_premium &&
-						aiBuilderVars?.show_premium_badge && (
-							<div
-								className="absolute top-4 right-5 text-xs font-semibold text-white flex items-center
-                        justify-center rounded-3xl bg-gradient-1 py-1 pr-3 pl-2 pointer-events-none gap-1"
-							>
-								<GemIcon className="w-3 h-3" />
-								{ __( 'Premium', 'ai-builder' ) }
-							</div>
-						) }
+					aiBuilderVars?.show_premium_badge ? (
+						<div
+							className="absolute top-4 right-5 text-xs font-semibold text-white flex items-center
+                justify-center rounded-3xl bg-gradient-1 py-1 pr-3 pl-2 pointer-events-none gap-1"
+						>
+							<GemIcon className="w-3 h-3" />
+							{ __( 'Premium', 'ai-builder' ) }
+						</div>
+					) : null }
 					<div
 						className="absolute inset-0 w-full h-full bg-transparent cursor-pointer"
 						onClick={ () => {

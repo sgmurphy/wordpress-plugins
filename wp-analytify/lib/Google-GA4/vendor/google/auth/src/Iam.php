@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2019 Google LLC
  *
@@ -15,12 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Google\Auth;
 
 use Google\Auth\HttpHandler\HttpClientCache;
 use Google\Auth\HttpHandler\HttpHandlerFactory;
-use Analytify\GuzzleHttp\Psr7;
-use Analytify\GuzzleHttp\Psr7\Utils;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Psr7\Utils;
+
 /**
  * Tools for using the IAM API.
  *
@@ -28,20 +29,33 @@ use Analytify\GuzzleHttp\Psr7\Utils;
  */
 class Iam
 {
+    /**
+     * @deprecated
+     */
     const IAM_API_ROOT = 'https://iamcredentials.googleapis.com/v1';
     const SIGN_BLOB_PATH = '%s:signBlob?alt=json';
     const SERVICE_ACCOUNT_NAME = 'projects/-/serviceAccounts/%s';
+    private const IAM_API_ROOT_TEMPLATE = 'https://iamcredentials.UNIVERSE_DOMAIN/v1';
+
     /**
      * @var callable
      */
     private $httpHandler;
+
+    private string $universeDomain;
+
     /**
      * @param callable $httpHandler [optional] The HTTP Handler to send requests.
      */
-    public function __construct(callable $httpHandler = null)
-    {
-        $this->httpHandler = $httpHandler ?: HttpHandlerFactory::build(HttpClientCache::getHttpClient());
+    public function __construct(
+        callable $httpHandler = null,
+        string $universeDomain = GetUniverseDomainInterface::DEFAULT_UNIVERSE_DOMAIN
+    ) {
+        $this->httpHandler = $httpHandler
+            ?: HttpHandlerFactory::build(HttpClientCache::getHttpClient());
+        $this->universeDomain = $universeDomain;
     }
+
     /**
      * Sign a string using the IAM signBlob API.
      *
@@ -60,20 +74,37 @@ class Iam
     public function signBlob($email, $accessToken, $stringToSign, array $delegates = [])
     {
         $httpHandler = $this->httpHandler;
-        $name = \sprintf(self::SERVICE_ACCOUNT_NAME, $email);
-        $uri = self::IAM_API_ROOT . '/' . \sprintf(self::SIGN_BLOB_PATH, $name);
+        $name = sprintf(self::SERVICE_ACCOUNT_NAME, $email);
+        $apiRoot = str_replace('UNIVERSE_DOMAIN', $this->universeDomain, self::IAM_API_ROOT_TEMPLATE);
+        $uri = $apiRoot . '/' . sprintf(self::SIGN_BLOB_PATH, $name);
+
         if ($delegates) {
             foreach ($delegates as &$delegate) {
-                $delegate = \sprintf(self::SERVICE_ACCOUNT_NAME, $delegate);
+                $delegate = sprintf(self::SERVICE_ACCOUNT_NAME, $delegate);
             }
         } else {
             $delegates = [$name];
         }
-        $body = ['delegates' => $delegates, 'payload' => \base64_encode($stringToSign)];
-        $headers = ['Authorization' => 'Bearer ' . $accessToken];
-        $request = new Psr7\Request('POST', $uri, $headers, Utils::streamFor(\json_encode($body)));
+
+        $body = [
+            'delegates' => $delegates,
+            'payload' => base64_encode($stringToSign),
+        ];
+
+        $headers = [
+            'Authorization' => 'Bearer ' . $accessToken
+        ];
+
+        $request = new Psr7\Request(
+            'POST',
+            $uri,
+            $headers,
+            Utils::streamFor(json_encode($body))
+        );
+
         $res = $httpHandler($request);
-        $body = \json_decode((string) $res->getBody(), \true);
+        $body = json_decode((string) $res->getBody(), true);
+
         return $body['signedBlob'];
     }
 }

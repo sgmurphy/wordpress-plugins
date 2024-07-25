@@ -5,7 +5,7 @@ Tags:  docs, documentation, knowledge base, faq, chatgpt ai writer
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 3.6.3
+Stable tag: 3.6.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -218,6 +218,11 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 3.6.4 - 25/07/2024 =
+- Fixed: Throwing Error message related to Single Docs feedback
+- Fixed: "failed to open stream: No such file or directory" error
+- Few minor bug fixes and improvements
 
 = 3.6.3 - 16/07/2024 =
 - Fixed: Unequal height issue in 'Grid' layout mode for BetterDocs Category Grid Elementor widget.

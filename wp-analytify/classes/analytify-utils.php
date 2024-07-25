@@ -240,7 +240,7 @@ class WPANALYTIFY_Utils {
 			'title'       => __( 'Google Ads Tracking', 'wp-analytify' ),
 			'description' => __( 'This Addon Tracks Google Ads Conversions for Woocommerce and EDD.', 'wp-analytify' ),
 			'image'       =>  ANALYTIFY_PLUGIN_URL . 'assets/img/google-ads-logo.png',
-			'url'         => 'https://analytify.io/add-ons/'
+			'url'         => 'https://analytify.io/pricing?utm_source=analytify-lite&utm_medium=addons&utm_campaign=pro-upgrade&utm_content=Google+Ads'
 		);
 
 		/**

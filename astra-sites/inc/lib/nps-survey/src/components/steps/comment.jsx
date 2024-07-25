@@ -37,7 +37,10 @@ const Comment = function () {
 				</HeadingTitle>
 			</div>
 			<HeadingContent>
-				{ __( 'Please tell us how we can improve.', 'astra-sites' ) }
+				{ __(
+					'We value your input. How can we improve your experience?',
+					'astra-sites'
+				) }
 			</HeadingContent>
 			<div className="mt-5">
 				<form onSubmit={ handleCommentResponse }>

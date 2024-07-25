@@ -12,6 +12,7 @@ use Reflector;
  * PhpDoc reader
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class PhpDocReader
 {

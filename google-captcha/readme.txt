@@ -3,7 +3,7 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: anti-spam security, antispam, recaptcha, captcha, captha, Invisible reCaptcha, Invisible captcha, Invisibl reCaptcha, comment, cpatcha, google catcha, Invisible re captcha, recaptcha version3
 Requires at least: 5.6
-Tested up to: 6.5.2
+Tested up to: 6.6
 Stable tag: 1.75
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

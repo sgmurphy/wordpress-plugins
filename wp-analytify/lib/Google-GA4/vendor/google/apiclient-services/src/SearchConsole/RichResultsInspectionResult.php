@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,46 +14,48 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole;
 
 class RichResultsInspectionResult extends \Google\Collection
 {
-    protected $collection_key = 'detectedItems';
-    protected $detectedItemsType = \Google\Service\SearchConsole\DetectedItems::class;
-    protected $detectedItemsDataType = 'array';
-    public $detectedItems = [];
-    /**
-     * @var string
-     */
-    public $verdict;
-    /**
-     * @param DetectedItems[]
-     */
-    public function setDetectedItems($detectedItems)
-    {
-        $this->detectedItems = $detectedItems;
-    }
-    /**
-     * @return DetectedItems[]
-     */
-    public function getDetectedItems()
-    {
-        return $this->detectedItems;
-    }
-    /**
-     * @param string
-     */
-    public function setVerdict($verdict)
-    {
-        $this->verdict = $verdict;
-    }
-    /**
-     * @return string
-     */
-    public function getVerdict()
-    {
-        return $this->verdict;
-    }
+  protected $collection_key = 'detectedItems';
+  protected $detectedItemsType = DetectedItems::class;
+  protected $detectedItemsDataType = 'array';
+  /**
+   * @var string
+   */
+  public $verdict;
+
+  /**
+   * @param DetectedItems[]
+   */
+  public function setDetectedItems($detectedItems)
+  {
+    $this->detectedItems = $detectedItems;
+  }
+  /**
+   * @return DetectedItems[]
+   */
+  public function getDetectedItems()
+  {
+    return $this->detectedItems;
+  }
+  /**
+   * @param string
+   */
+  public function setVerdict($verdict)
+  {
+    $this->verdict = $verdict;
+  }
+  /**
+   * @return string
+   */
+  public function getVerdict()
+  {
+    return $this->verdict;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\RichResultsInspectionResult::class, 'Analytify\\Google_Service_SearchConsole_RichResultsInspectionResult');
+class_alias(RichResultsInspectionResult::class, 'Google_Service_SearchConsole_RichResultsInspectionResult');

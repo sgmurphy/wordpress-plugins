@@ -20,6 +20,7 @@ import { useNavigateSteps, steps, useValidateStep } from '../../router';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from '../../pages/error-boundary';
 import useEffectAfterMount from '../../hooks/use-effect-after-mount';
+import ApiErrorModel from '../api-error-model';
 
 const { logoUrlDark } = aiBuilderVars;
 
@@ -312,6 +313,7 @@ const OnboardingAI = () => {
 				</main>
 				<LimitExceedModal />
 				<ContinueProgressModal />
+				<ApiErrorModel />
 			</div>
 			<div className="absolute top-0 left-0 z-20">
 				<AnimatePresence>

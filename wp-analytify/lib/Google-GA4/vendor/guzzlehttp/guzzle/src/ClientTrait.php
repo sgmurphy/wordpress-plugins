@@ -1,11 +1,12 @@
 <?php
 
-namespace Analytify\GuzzleHttp;
+namespace GuzzleHttp;
 
-use Analytify\GuzzleHttp\Exception\GuzzleException;
-use Analytify\GuzzleHttp\Promise\PromiseInterface;
-use Analytify\Psr\Http\Message\ResponseInterface;
-use Analytify\Psr\Http\Message\UriInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Promise\PromiseInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 /**
  * Client interface for sending HTTP requests.
  */
@@ -24,7 +25,8 @@ trait ClientTrait
      *
      * @throws GuzzleException
      */
-    public abstract function request(string $method, $uri, array $options = []) : ResponseInterface;
+    abstract public function request(string $method, $uri, array $options = []): ResponseInterface;
+
     /**
      * Create and send an HTTP GET request.
      *
@@ -37,10 +39,11 @@ trait ClientTrait
      *
      * @throws GuzzleException
      */
-    public function get($uri, array $options = []) : ResponseInterface
+    public function get($uri, array $options = []): ResponseInterface
     {
         return $this->request('GET', $uri, $options);
     }
+
     /**
      * Create and send an HTTP HEAD request.
      *
@@ -53,10 +56,11 @@ trait ClientTrait
      *
      * @throws GuzzleException
      */
-    public function head($uri, array $options = []) : ResponseInterface
+    public function head($uri, array $options = []): ResponseInterface
     {
         return $this->request('HEAD', $uri, $options);
     }
+
     /**
      * Create and send an HTTP PUT request.
      *
@@ -69,10 +73,11 @@ trait ClientTrait
      *
      * @throws GuzzleException
      */
-    public function put($uri, array $options = []) : ResponseInterface
+    public function put($uri, array $options = []): ResponseInterface
     {
         return $this->request('PUT', $uri, $options);
     }
+
     /**
      * Create and send an HTTP POST request.
      *
@@ -85,10 +90,11 @@ trait ClientTrait
      *
      * @throws GuzzleException
      */
-    public function post($uri, array $options = []) : ResponseInterface
+    public function post($uri, array $options = []): ResponseInterface
     {
         return $this->request('POST', $uri, $options);
     }
+
     /**
      * Create and send an HTTP PATCH request.
      *
@@ -101,10 +107,11 @@ trait ClientTrait
      *
      * @throws GuzzleException
      */
-    public function patch($uri, array $options = []) : ResponseInterface
+    public function patch($uri, array $options = []): ResponseInterface
     {
         return $this->request('PATCH', $uri, $options);
     }
+
     /**
      * Create and send an HTTP DELETE request.
      *
@@ -117,10 +124,11 @@ trait ClientTrait
      *
      * @throws GuzzleException
      */
-    public function delete($uri, array $options = []) : ResponseInterface
+    public function delete($uri, array $options = []): ResponseInterface
     {
         return $this->request('DELETE', $uri, $options);
     }
+
     /**
      * Create and send an asynchronous HTTP request.
      *
@@ -133,7 +141,8 @@ trait ClientTrait
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      */
-    public abstract function requestAsync(string $method, $uri, array $options = []) : PromiseInterface;
+    abstract public function requestAsync(string $method, $uri, array $options = []): PromiseInterface;
+
     /**
      * Create and send an asynchronous HTTP GET request.
      *
@@ -145,10 +154,11 @@ trait ClientTrait
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      */
-    public function getAsync($uri, array $options = []) : PromiseInterface
+    public function getAsync($uri, array $options = []): PromiseInterface
     {
         return $this->requestAsync('GET', $uri, $options);
     }
+
     /**
      * Create and send an asynchronous HTTP HEAD request.
      *
@@ -160,10 +170,11 @@ trait ClientTrait
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      */
-    public function headAsync($uri, array $options = []) : PromiseInterface
+    public function headAsync($uri, array $options = []): PromiseInterface
     {
         return $this->requestAsync('HEAD', $uri, $options);
     }
+
     /**
      * Create and send an asynchronous HTTP PUT request.
      *
@@ -175,10 +186,11 @@ trait ClientTrait
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      */
-    public function putAsync($uri, array $options = []) : PromiseInterface
+    public function putAsync($uri, array $options = []): PromiseInterface
     {
         return $this->requestAsync('PUT', $uri, $options);
     }
+
     /**
      * Create and send an asynchronous HTTP POST request.
      *
@@ -190,10 +202,11 @@ trait ClientTrait
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      */
-    public function postAsync($uri, array $options = []) : PromiseInterface
+    public function postAsync($uri, array $options = []): PromiseInterface
     {
         return $this->requestAsync('POST', $uri, $options);
     }
+
     /**
      * Create and send an asynchronous HTTP PATCH request.
      *
@@ -205,10 +218,11 @@ trait ClientTrait
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      */
-    public function patchAsync($uri, array $options = []) : PromiseInterface
+    public function patchAsync($uri, array $options = []): PromiseInterface
     {
         return $this->requestAsync('PATCH', $uri, $options);
     }
+
     /**
      * Create and send an asynchronous HTTP DELETE request.
      *
@@ -220,7 +234,7 @@ trait ClientTrait
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      */
-    public function deleteAsync($uri, array $options = []) : PromiseInterface
+    public function deleteAsync($uri, array $options = []): PromiseInterface
     {
         return $this->requestAsync('DELETE', $uri, $options);
     }

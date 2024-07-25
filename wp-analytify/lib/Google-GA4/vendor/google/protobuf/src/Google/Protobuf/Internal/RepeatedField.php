@@ -2,48 +2,29 @@
 
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// https://developers.google.com/protocol-buffers/
 //
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file or at
+// https://developers.google.com/open-source/licenses/bsd
+
 /**
  * RepeatedField and RepeatedFieldIter are used by generated protocol message
  * classes to manipulate repeated fields.
  */
+
 namespace Google\Protobuf\Internal;
 
 use Google\Protobuf\Internal\GPBType;
 use Google\Protobuf\Internal\GPBUtil;
 use Traversable;
+
 /**
  * RepeatedField is used by generated protocol message classes to manipulate
  * repeated fields. It can be used like native PHP array.
  */
 class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
 {
+
     /**
      * @ignore
      */
@@ -60,6 +41,7 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
      * @ignore
      */
     private $legacy_klass;
+
     /**
      * Constructs an instance of RepeatedField.
      *
@@ -72,17 +54,17 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
         $this->container = [];
         $this->type = $type;
         if ($this->type == GPBType::MESSAGE) {
-            $pool = \Google\Protobuf\Internal\DescriptorPool::getGeneratedPool();
+            $pool = DescriptorPool::getGeneratedPool();
             $desc = $pool->getDescriptorByClassName($klass);
             if ($desc == NULL) {
-                new $klass();
-                // No msg class instance has been created before.
+                new $klass;  // No msg class instance has been created before.
                 $desc = $pool->getDescriptorByClassName($klass);
             }
             $this->klass = $desc->getClass();
             $this->legacy_klass = $desc->getLegacyClass();
         }
     }
+
     /**
      * @ignore
      */
@@ -90,6 +72,7 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
     {
         return $this->type;
     }
+
     /**
      * @ignore
      */
@@ -97,6 +80,7 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
     {
         return $this->klass;
     }
+
     /**
      * @ignore
      */
@@ -104,6 +88,7 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
     {
         return $this->legacy_klass;
     }
+
     /**
      * Return the element at the given index.
      *
@@ -120,6 +105,7 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
     {
         return $this->container[$offset];
     }
+
     /**
      * Assign the element at the given index.
      *
@@ -166,13 +152,13 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
                 GPBUtil::checkBool($value);
                 break;
             case GPBType::BYTES:
-                GPBUtil::checkString($value, \false);
+                GPBUtil::checkString($value, false);
                 break;
             case GPBType::STRING:
-                GPBUtil::checkString($value, \true);
+                GPBUtil::checkString($value, true);
                 break;
             case GPBType::MESSAGE:
-                if (\is_null($value)) {
+                if (is_null($value)) {
                     throw new \TypeError("RepeatedField element cannot be null.");
                 }
                 GPBUtil::checkMessage($value, $this->klass);
@@ -180,17 +166,20 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
             default:
                 break;
         }
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
-            $count = \count($this->container);
-            if (!\is_numeric($offset) || $offset < 0 || $offset >= $count) {
-                \trigger_error("Cannot modify element at the given index", \E_USER_ERROR);
+            $count = count($this->container);
+            if (!is_numeric($offset) || $offset < 0 || $offset >= $count) {
+                trigger_error(
+                    "Cannot modify element at the given index",
+                    E_USER_ERROR);
                 return;
             }
             $this->container[$offset] = $value;
         }
     }
+
     /**
      * Remove the element at the given index.
      *
@@ -206,13 +195,16 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
     #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
-        $count = \count($this->container);
-        if (!\is_numeric($offset) || $count === 0 || $offset !== $count - 1) {
-            \trigger_error("Cannot remove element at the given index", \E_USER_ERROR);
+        $count = count($this->container);
+        if (!is_numeric($offset) || $count === 0 || $offset < 0 || $offset >= $count) {
+            trigger_error(
+                "Cannot remove element at the given index",
+                E_USER_ERROR);
             return;
         }
-        \array_pop($this->container);
+        array_splice($this->container, $offset, 1);
     }
+
     /**
      * Check the existence of the element at the given index.
      *
@@ -222,17 +214,19 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
      * @return bool True if the element at the given offset exists.
      * @throws \ErrorException Invalid type for index.
      */
-    public function offsetExists($offset) : bool
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
+
     /**
      * @ignore
      */
-    public function getIterator() : Traversable
+    public function getIterator(): Traversable
     {
-        return new \Google\Protobuf\Internal\RepeatedFieldIter($this->container);
+        return new RepeatedFieldIter($this->container);
     }
+
     /**
      * Return the number of stored elements.
      *
@@ -240,8 +234,21 @@ class RepeatedField implements \ArrayAccess, \IteratorAggregate, \Countable
      *
      * @return integer The number of stored elements.
      */
-    public function count() : int
+    public function count(): int
     {
-        return \count($this->container);
+        return count($this->container);
+    }
+
+    public function __debugInfo()
+    {
+        return array_map(
+            function ($item) {
+                if ($item instanceof Message || $item instanceof RepeatedField) {
+                    return $item->__debugInfo();
+                }
+                return $item;
+            },
+            iterator_to_array($this)
+        );
     }
 }

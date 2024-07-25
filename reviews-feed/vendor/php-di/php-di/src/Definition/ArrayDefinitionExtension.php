@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidDefinition;
@@ -9,6 +9,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidDefinition;
  *
  * @since 5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ArrayDefinitionExtension extends ArrayDefinition implements ExtendsPreviousDefinition
 {

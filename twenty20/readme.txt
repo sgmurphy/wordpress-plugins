@@ -8,26 +8,24 @@ Requires PHP: 5.6
 Stable tag: 1.7.2
 License: GPLv2 or later
 
-Need to highlight the differences between two images? Makes it easy with Twenty20 plugin.
+Easily highlight differences between two images with the Twenty20 plugin.
 
 == Description ==
 
-This inspired several new ideas for how to achieve similar functionality for our own needs. The goal was to create a feature that allows users to swipe between two images to display "before" and "after" comparisons. Most importantly, it needed to be responsive.
+The Twenty20 plugin was created to allow users to swipe between two images, showcasing "before" and "after" comparisons. The plugin is designed to be fully responsive and user-friendly.
 
 **Features**
 
-* Fully responsive and functional across all devices.
-* No coding skills required; easy to use.
+* Fully responsive across all devices.
+* No coding skills required.
 * Clean and intuitive user interface.
-* Ability to add before-and-after comparisons to widgets.
+* Add before-and-after comparisons to widgets.
 * Compatible with popular page builders.
 * Utilizes WP Image alt as image alt and title attributes.
 
+**Supported Page Builders**
 
-**Support Page Builders**
-
-*   Elementor Page Builder.
-*   UX Builder by UXThemes.
+* Flatsome UX Builder by UXThemes.
 
 
 **Quick Example**
@@ -36,19 +34,17 @@ This inspired several new ideas for how to achieve similar functionality for our
 
 **Shortcode Parameters**
 
-*   `img1` - image id.
-*   `img1` - image id.
-*   `offset` - 0.1 to 1.0.
-*   `direction` - `horizontal|vertical`.
-*   `align` - `none|right|left`.
-*   `width` - Support both `px` and `%`.
-*   `before` - Text.
-*   `after` - Text.
-*   `hover` - true or false.
+* `img1` - image ID.
+* `img2` - image ID.
+* `offset` - range from 0.1 to 1.0.
+* `direction` - `horizontal|vertical`.
+* `align` - `none|right|left`.
+* `width` - supports both `px` and `%`.
+* `before` - text for the "before" label.
+* `after` - text for the "after" label.
+* `hover` - `true` or `false`.
 
-**Video Demo**
 
-https://www.youtube.com/watch?v=wOu-lEb9Gh0
 
 == Installation ==
 
@@ -72,41 +68,43 @@ Twenty20 works by stacking two images on top of each other. As the slider moves 
 `[twenty20 img1="" img2="" direction="vertical" offset="0.5" align="right" width="60%" before="Before" after="After" hover="true"]`
 
 = Shortcode Parameters =
-*   `img1 - image id`.
-*   `img1 - image id`.
-*   `offset - 0.1 to 1.0`.
-*   `direction - horizontal|vertical`.
-*   `align - none|right|left`.
-*   `width - Support both px and %`.
-*   `before - string text`.
-*   `after - string text`.
-*   `hover - true|false`.
+* `img1` - image ID.
+* `img2` - image ID.
+* `offset` - range from 0.1 to 1.0.
+* `direction` - `horizontal|vertical`.
+* `align` - `none|right|left`.
+* `width` - supports both px and %.
+* `before` - text for the "before" label.
+* `after` - text for the "after" label.
+* `hover` - `true` or `false`.
 
 = How to add before-after slider? =
 Check the demo [Video](https://www.youtube.com/watch?v=wOu-lEb9Gh0 "YouTube") demo.
 
-= How to add widget =
-Check the demo [Video](https://www.youtube.com/watch?v=wOu-lEb9Gh0 "YouTube") demo.
+= How do I add a widget? =
+Watch the [video demo](https://www.youtube.com/watch?v=wOu-lEb9Gh0) on YouTube.
 
-= Can I use more than one slider in single post or page =
-Yes, Twenty20 plugin allow user to add unlimited before-after slider.
-
+= Can I use more than one slider in a single post or page? =
+Yes, the Twenty20 plugin allows users to add unlimited before-after sliders.
 
 == Screenshots ==
 
-1. Add Twenty20 before-after image.
-2. Select any two images fro Media libray.
-3. Twenty20 Shortcode setting page.
-4. Shortcod.
+1. Add a Twenty20 before-after image.
+2. Select any two images from the Media Library.
+3. Twenty20 shortcode settings page.
+4. Shortcode.
 5. Twenty20 in action.
-6. Multiple slider in different direction.
-7. Twenty20 Widgest.
+6. Multiple sliders in different directions.
+7. Twenty20 widget.
 8. Widget in action.
 9. WP Bakery Visual Composer settings.
 10. Elementor element.
 11. UX Builder element.
 
 == Changelog ==
+
+= 1.7.3 =
+* Bug fixes
 
 = 1.7.2 =
 * Improve script

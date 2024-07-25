@@ -3,7 +3,7 @@
   Plugin Name: Twenty20 Image Before-After
   Plugin URI: https://wordpress.org/plugins/twenty20/
   Description: Need to highlight the differences between two images? Makes it easy with Twenty20 plugin.
-  Version: 1.7.2
+  Version: 1.7.3
   Author: Zayed Baloch
   Author URI: https://www.zayedbaloch.com/
   License: GPL2
@@ -24,8 +24,7 @@ add_action('init', 'twenty20_dir_init');
 $files_to_include = [
   'inc/enqueue.php',
   'inc/twenty20-shortcode.php',
-  'inc/widget-twenty20.php',
-  'inc/elementor-class.php'
+  'inc/widget-twenty20.php'
 ];
 
 foreach ($files_to_include as $file) {

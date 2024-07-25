@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -36,6 +35,7 @@ use Generator;
 use InvalidArgumentException;
 use IteratorAggregate;
 use LengthException;
+
 /**
  * A collection of elements retrieved using one or more API calls. The
  * collection will attempt to retrieve a fixed number of elements, and
@@ -46,23 +46,32 @@ class FixedSizeCollection implements IteratorAggregate
 {
     private $collectionSize;
     private $pageList;
+
     /**
      * FixedSizeCollection constructor.
      * @param Page $initialPage
      * @param int $collectionSize
      */
-    public function __construct(\Google\ApiCore\Page $initialPage, int $collectionSize)
+    public function __construct(Page $initialPage, int $collectionSize)
     {
         if ($collectionSize <= 0) {
-            throw new InvalidArgumentException("collectionSize must be > 0. collectionSize: {$collectionSize}");
+            throw new InvalidArgumentException(
+                "collectionSize must be > 0. collectionSize: $collectionSize"
+            );
         }
         if ($collectionSize < $initialPage->getPageElementCount()) {
             $ipc = $initialPage->getPageElementCount();
-            throw new InvalidArgumentException("collectionSize must be greater than or equal to the number of " . "elements in initialPage. collectionSize: {$collectionSize}, " . "initialPage size: {$ipc}");
+            throw new InvalidArgumentException(
+                "collectionSize must be greater than or equal to the number of " .
+                "elements in initialPage. collectionSize: $collectionSize, " .
+                "initialPage size: $ipc"
+            );
         }
         $this->collectionSize = $collectionSize;
-        $this->pageList = \Google\ApiCore\FixedSizeCollection::createPageArray($initialPage, $collectionSize);
+
+        $this->pageList = FixedSizeCollection::createPageArray($initialPage, $collectionSize);
     }
+
     /**
      * Returns the number of elements in the collection. This will be
      * equal to the collectionSize parameter used at construction
@@ -78,6 +87,7 @@ class FixedSizeCollection implements IteratorAggregate
         }
         return $size;
     }
+
     /**
      * Returns true if there are more elements that can be retrieved
      * from the API.
@@ -88,6 +98,7 @@ class FixedSizeCollection implements IteratorAggregate
     {
         return $this->getLastPage()->hasNextPage();
     }
+
     /**
      * Returns a page token that can be passed into the API list
      * method to retrieve additional elements.
@@ -98,6 +109,7 @@ class FixedSizeCollection implements IteratorAggregate
     {
         return $this->getLastPage()->getNextPageToken();
     }
+
     /**
      * Retrieves the next FixedSizeCollection using one or more API calls.
      *
@@ -107,8 +119,9 @@ class FixedSizeCollection implements IteratorAggregate
     {
         $lastPage = $this->getLastPage();
         $nextPage = $lastPage->getNextPage($this->collectionSize);
-        return new \Google\ApiCore\FixedSizeCollection($nextPage, $this->collectionSize);
+        return new FixedSizeCollection($nextPage, $this->collectionSize);
     }
+
     /**
      * Returns an iterator over the elements of the collection.
      *
@@ -119,10 +132,11 @@ class FixedSizeCollection implements IteratorAggregate
     {
         foreach ($this->pageList as $page) {
             foreach ($page as $element) {
-                (yield $element);
+                yield $element;
             }
         }
     }
+
     /**
      * Returns an iterator over FixedSizeCollections, starting with this
      * and making API calls as required until all of the elements have
@@ -133,26 +147,28 @@ class FixedSizeCollection implements IteratorAggregate
     public function iterateCollections()
     {
         $currentCollection = $this;
-        (yield $this);
+        yield $this;
         while ($currentCollection->hasNextCollection()) {
             $currentCollection = $currentCollection->getNextCollection();
-            (yield $currentCollection);
+            yield $currentCollection;
         }
     }
+
     private function getLastPage()
     {
         $pageList = $this->pageList;
         // Get last element in array...
-        $lastPage = \end($pageList);
-        \reset($pageList);
+        $lastPage = end($pageList);
+        reset($pageList);
         return $lastPage;
     }
+
     /**
      * @param Page $initialPage
      * @param int $collectionSize
      * @return Page[]
      */
-    private static function createPageArray(\Google\ApiCore\Page $initialPage, int $collectionSize)
+    private static function createPageArray(Page $initialPage, int $collectionSize)
     {
         $pageList = [$initialPage];
         $currentPage = $initialPage;
@@ -162,9 +178,11 @@ class FixedSizeCollection implements IteratorAggregate
             $currentPage = $currentPage->getNextPage($remainingCount);
             $rxElementCount = $currentPage->getPageElementCount();
             if ($rxElementCount > $remainingCount) {
-                throw new LengthException("API returned a number of elements " . "exceeding the specified page size limit. page size: " . "{$remainingCount}, elements received: {$rxElementCount}");
+                throw new LengthException("API returned a number of elements " .
+                    "exceeding the specified page size limit. page size: " .
+                    "$remainingCount, elements received: $rxElementCount");
             }
-            \array_push($pageList, $currentPage);
+            array_push($pageList, $currentPage);
             $itemCount += $rxElementCount;
         }
         return $pageList;

@@ -112,12 +112,12 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 							return;
 						}
 						window.open(
-							aiBuilderVars?.filtered_data?.cta_redirection_url,
+							aiBuilderVars?.filtered_data?.upgrade_url,
 							openTarget
 						);
 					} }
 				>
-					{ aiBuilderVars?.filtered_data?.cta_text }
+					{ aiBuilderVars?.filtered_data?.upgrade_text }
 				</Button>
 			</div>
 		</Modal>

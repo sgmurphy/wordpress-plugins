@@ -573,7 +573,7 @@ var ResponsiveSitesAjaxQueue = (function() {
 
 				// If it's not a duplicate, add it to the array
 				if (!isDuplicate) {
-					requiredPlugins.push(rbeaPlugin);
+					requiredPlugins.unshift(rbeaPlugin);
 				}
 
 			var template = wp.template( 'responsive-ready-sites-import-options-page' );
@@ -637,7 +637,7 @@ var ResponsiveSitesAjaxQueue = (function() {
 					});
 					// If it's not a duplicate, add it to the array
 					if (!isDuplicate) {
-						requiredPlugins.push(rbeaPlugin);
+						requiredPlugins.unshift(rbeaPlugin);
 					}
 				}
 
@@ -1746,7 +1746,7 @@ var ResponsiveSitesAjaxQueue = (function() {
 		 */
 		_importWPForms: function() {
 
-			ResponsiveSitesAdmin.import_progress_percent = 50;
+			ResponsiveSitesAdmin.import_progress_percent = ResponsiveSitesAdmin.import_progress_percent < 50 ? 50 : ResponsiveSitesAdmin.import_progress_percent;
 			ResponsiveSitesAdmin.import_progress_status_text = "Importing forms...";
 			ResponsiveSitesAdmin._updateImportProcessStatusText(ResponsiveSitesAdmin.import_progress_status_text);
 			$.ajax(
@@ -1828,7 +1828,6 @@ var ResponsiveSitesAjaxQueue = (function() {
 					.done(
 						function (xml_data) {
 
-							let _importXMLVar = 0;
 							// 2. Fail - Import XML Data.
 							if (false === xml_data.success) {
 								// log.
@@ -1848,16 +1847,14 @@ var ResponsiveSitesAjaxQueue = (function() {
 									var data = JSON.parse( message.data );
 									switch (data.action) {
 										case 'updateDelta':
-											_importXMLVar++;
-											_importXMLVar % 6 === 0 ? ResponsiveSitesAdmin.import_progress_percent += 1 : ResponsiveSitesAdmin.import_progress_percent;
-											// ResponsiveSitesAdmin.import_progress_percent += xmlImportProgressVar;
-											$('.ready-sites-import-progress-info-percent').text(ResponsiveSitesAdmin.import_progress_percent+"%");
 											wxrImport.updateDelta( data.type, data.delta );
 											break;
 											
 											case 'complete':
-											// _importXMLVar++;
 											evtSource.close();
+
+											ResponsiveSitesAdmin.import_progress_percent = ResponsiveSitesAdmin.import_progress_percent < 75 ? 75 : ResponsiveSitesAdmin.import_progress_percent;
+											ResponsiveSitesAdmin._updateImportProcessStatusText(ResponsiveSitesAdmin.import_progress_status_text);
 
 											$( document ).trigger( 'responsive-ready-sites-import-xml-done' );
 
@@ -2224,7 +2221,7 @@ var ResponsiveSitesAjaxQueue = (function() {
 
 			// If it's not a duplicate, add it to the array
 			if (!isDuplicate) {
-				required_plugins.push(rbeaPlugin);
+				required_plugins.unshift(rbeaPlugin);
 			}
 			
 			var includes_wp_forms = JSON.parse( $( '#single-pages' ).find( '.current_page' ).attr( 'data-includes-wp-forms' ) ) || false;
@@ -3345,21 +3342,12 @@ var ResponsiveSitesAjaxQueue = (function() {
 
 		_updateImportProcessStatusText: function (status_text) {
 			let importPercent = ResponsiveSitesAdmin.import_progress_percent;
-			if(importPercent < 25){
-				$('.ready-sites-import-progress-bar').addClass('import-stage-1');
-			} 
-			else if(importPercent > 35 && importPercent < 50){
-				$('.ready-sites-import-progress-bar').removeClass('import-stage-1');
-				$('.ready-sites-import-progress-bar').addClass('import-stage-2');
-			} 
-			else if(importPercent > 60 && importPercent < 76){
-				$('.ready-sites-import-progress-bar').removeClass('import-stage-2');
-				$('.ready-sites-import-progress-bar').addClass('import-stage-3');
+
+			$('.ready-sites-import-progress-bar').css('width', importPercent + '%');
+
+			if(importPercent === 100){
+				$('.ready-sites-import-progress-bar').addClass('import-done');
 			}
-			else if(importPercent > 76){
-				$('.ready-sites-import-progress-bar').removeClass('import-stage-3');
-				$('.ready-sites-import-progress-bar').addClass('import-stage-4 import-done');
-			} 
 			$('.ready-sites-import-progress-info-text').text(status_text);
 			$('.ready-sites-import-progress-info-percent').text(ResponsiveSitesAdmin.import_progress_percent+"%");
 		},

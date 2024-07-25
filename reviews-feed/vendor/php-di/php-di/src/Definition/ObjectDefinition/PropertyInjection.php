@@ -1,12 +1,13 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition;
 
 /**
  * Describe an injection in a class property.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class PropertyInjection
 {

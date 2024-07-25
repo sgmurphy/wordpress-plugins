@@ -23,11 +23,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  */
-namespace Analytify\phpseclib3\Crypt\EC\BaseCurves;
 
-use Analytify\phpseclib3\Math\BigInteger;
-use Analytify\phpseclib3\Math\PrimeField;
-use Analytify\phpseclib3\Math\PrimeField\Integer as PrimeInteger;
+namespace phpseclib3\Crypt\EC\BaseCurves;
+
+use phpseclib3\Math\BigInteger;
+use phpseclib3\Math\PrimeField;
+use phpseclib3\Math\PrimeField\Integer as PrimeInteger;
+
 /**
  * Curves over a*x^2 + y^2 = 1 + d*x^2*y^2
  *
@@ -41,42 +43,49 @@ class TwistedEdwards extends Base
      * @var BigInteger
      */
     protected $modulo;
+
     /**
      * Cofficient for x^2
      *
      * @var object
      */
     protected $a;
+
     /**
      * Cofficient for x^2*y^2
      *
      * @var object
      */
     protected $d;
+
     /**
      * Base Point
      *
      * @var object[]
      */
     protected $p;
+
     /**
      * The number zero over the specified finite field
      *
      * @var object
      */
     protected $zero;
+
     /**
      * The number one over the specified finite field
      *
      * @var object
      */
     protected $one;
+
     /**
      * The number two over the specified finite field
      *
      * @var object
      */
     protected $two;
+
     /**
      * Sets the modulo
      */
@@ -88,6 +97,7 @@ class TwistedEdwards extends Base
         $this->one = $this->factory->newInteger(new BigInteger(1));
         $this->two = $this->factory->newInteger(new BigInteger(2));
     }
+
     /**
      * Set coefficients a and b
      */
@@ -99,22 +109,27 @@ class TwistedEdwards extends Base
         $this->a = $this->factory->newInteger($a);
         $this->d = $this->factory->newInteger($d);
     }
+
     /**
      * Set x and y coordinates for the base point
      */
     public function setBasePoint($x, $y)
     {
-        switch (\true) {
+        switch (true) {
             case !$x instanceof BigInteger && !$x instanceof PrimeInteger:
-                throw new \UnexpectedValueException('Argument 1 passed to Prime::setBasePoint() must be an instance of either BigInteger or PrimeField\\Integer');
+                throw new \UnexpectedValueException('Argument 1 passed to Prime::setBasePoint() must be an instance of either BigInteger or PrimeField\Integer');
             case !$y instanceof BigInteger && !$y instanceof PrimeInteger:
-                throw new \UnexpectedValueException('Argument 2 passed to Prime::setBasePoint() must be an instance of either BigInteger or PrimeField\\Integer');
+                throw new \UnexpectedValueException('Argument 2 passed to Prime::setBasePoint() must be an instance of either BigInteger or PrimeField\Integer');
         }
         if (!isset($this->factory)) {
             throw new \RuntimeException('setModulo needs to be called before this method');
         }
-        $this->p = [$x instanceof BigInteger ? $this->factory->newInteger($x) : $x, $y instanceof BigInteger ? $this->factory->newInteger($y) : $y];
+        $this->p = [
+            $x instanceof BigInteger ? $this->factory->newInteger($x) : $x,
+            $y instanceof BigInteger ? $this->factory->newInteger($y) : $y
+        ];
     }
+
     /**
      * Returns the a coefficient
      *
@@ -124,6 +139,7 @@ class TwistedEdwards extends Base
     {
         return $this->a;
     }
+
     /**
      * Returns the a coefficient
      *
@@ -133,6 +149,7 @@ class TwistedEdwards extends Base
     {
         return $this->d;
     }
+
     /**
      * Retrieve the base point as an array
      *
@@ -150,6 +167,7 @@ class TwistedEdwards extends Base
         */
         return $this->p;
     }
+
     /**
      * Returns the affine point
      *
@@ -162,8 +180,12 @@ class TwistedEdwards extends Base
         }
         list($x, $y, $z) = $p;
         $z = $this->one->divide($z);
-        return [$x->multiply($z), $y->multiply($z)];
+        return [
+            $x->multiply($z),
+            $y->multiply($z)
+        ];
     }
+
     /**
      * Returns the modulo
      *
@@ -173,6 +195,7 @@ class TwistedEdwards extends Base
     {
         return $this->modulo;
     }
+
     /**
      * Tests whether or not the x / y values satisfy the equation
      *
@@ -183,8 +206,10 @@ class TwistedEdwards extends Base
         list($x, $y) = $p;
         $x2 = $x->multiply($x);
         $y2 = $y->multiply($y);
+
         $lhs = $this->a->multiply($x2)->add($y2);
         $rhs = $this->d->multiply($x2)->multiply($y2)->add($this->one);
+
         return $lhs->equals($rhs);
     }
 }

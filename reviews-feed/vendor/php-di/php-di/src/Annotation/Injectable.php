@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Annotation;
 
 /**
@@ -15,6 +15,7 @@ namespace SmashBalloon\Reviews\Vendor\DI\Annotation;
  *
  * @author Domenic Muskulus <domenic@muskulus.eu>
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 final class Injectable
 {

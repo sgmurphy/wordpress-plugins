@@ -758,9 +758,8 @@ if ( ! class_exists( 'Responsive_Ready_Sites_Importer' ) ) :
 					break;
 				}
 			}
-
 			if ( ! $plugin_exists ) {
-				$data['required_plugins'][] = $rbea_plugin;
+				array_unshift( $data['required_plugins'], $rbea_plugin );
 			}
 
 			if ( ! isset( $data['code'] ) ) {

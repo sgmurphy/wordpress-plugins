@@ -111,6 +111,14 @@ $generated_i18n_strings = [
 	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepSuccess.vue:16
 	__( '%1$sPlease Note:%2$s While Google Analytics is properly setup and tracking everything, it does not send the data back to WordPress immediately. Depending on the size of your website, it can take between a few hours to 24 hours for reports to populate.', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/reports/components/upsells/ReportUpsellOverlay.vue:65
+	// Translators: 1 - Opening bold tag, 2 - Closing bold tag, 3 - Opening link tag with a link to the upgrade page, 4 - Closing link tag.
+	__( '%1$sPlus%2$s, upgrading to %5$s will unlock %1$sall%2$s advanced reports, tracking, and integrations. %3$sLearn more about %5$s%4$s', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/reports/components/upsells/ReportUpsellOverlay.vue:50
+	// Translators: 1 - Opening bold tag, 2 - Closing bold tag, 3 - Opening link tag with a link to the upgrade page, 4 - Closing link tag.
+	__( '%1$sPlus%2$s, upgrading to Pro will unlock %1$sall%2$s advanced reports, tracking, and integrations. %3$sLearn more about Pro%4$s', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/reports/components/upsells/UpsellOverlay.vue:72
 	// Translators: 1 - Opening bold tag, 2 - Closing bold tag, 3 - Opening link tag with a link to the upgrade page, 4 - Closing link tag.
 	__( '%1$sPlus%2$s, you unlock %1$sall%2$s of ExactMetrics advanced Reports when you upgrade to Pro. %3$sLearn more about %5$s%4$s', 'google-analytics-dashboard-for-wp' ),
@@ -177,7 +185,7 @@ $generated_i18n_strings = [
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:217
 	__( '%s Visitors', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/reports/components/exactmetrics-ReportsNavigation.vue:50
+	// Reference: /src/modules/reports/components/exactmetrics-ReportsNavigation.vue:62
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:128
 	__( '%s Year in Review', 'google-analytics-dashboard-for-wp' ),
 
@@ -210,7 +218,7 @@ $generated_i18n_strings = [
 	// Reference: /src/modules/seo/components/common/client-logos.vue:8
 	__( '2,000,000+ use AIOSEO to Improve Their Website Search Rankings', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:147
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:155
 	__( '20+ Advanced Tracking', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/seo/components/aioseo.vue:27
@@ -419,7 +427,7 @@ $generated_i18n_strings = [
 	__( 'Advanced Publisher Reports & Tracking', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabLiteVsPro.vue:69
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:125
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:133
 	__( 'Advanced Reports', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabLiteVsPro.vue:30
@@ -439,6 +447,11 @@ $generated_i18n_strings = [
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEngagementOverview.vue:79
 	__( 'Age', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/core/AiInsightsViewer.vue:35
+	// Reference: /src/modules/reports/routes/modules/ai-insights.js:10
+	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:459
+	__( 'AI Insights', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/seo/components/yoast.vue:31
 	__( 'AIOSEO is the DIY Solution for Managing your SEO', 'google-analytics-dashboard-for-wp' ),
@@ -474,8 +487,11 @@ $generated_i18n_strings = [
 	// Reference: /src/modules/reports/components/upsells/InstallAndActivateAiseo.vue:23
 	__( 'All In One SEO is the most popular and best WordPress plugin to help you easily increase organic search traffic. Install it for free.', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:76
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:78
 	__( 'All In One SEO Toolkit', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:82
+	__( 'All In One SEO Toolkit is already installed', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/addons/components/AddonsFilter.vue:17
 	__( 'All Website Types', 'google-analytics-dashboard-for-wp' ),
@@ -526,6 +542,7 @@ $generated_i18n_strings = [
 	// Reference: /src/modules/seo/components/yoast.vue:34
 	__( 'Analyze your entire WordPress site to detect critical errors and get actionable insights to boost your SEO and get more traffic.', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/reports/components/upsells/ReportUpsellOverlay.vue:56
 	// Reference: /src/modules/site-notes/components/Integration-Lite.vue:21
 	__( 'And more!', 'google-analytics-dashboard-for-wp' ),
 
@@ -749,6 +766,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEngagementPages.vue:88
 	__( 'Bounce', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatStart.vue:31
+	__( 'Bounce rate', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEngagementOverview.vue:32
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEngagementPages.vue:27
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportOverview.vue:200
@@ -816,6 +836,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/user-journey/components/ExactMetricsUpsell.vue:30
 	__( 'Campaign Filtering', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:465
+	__( 'Campaign Insights', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/woocommerce-insights/woocommerce-insights-Lite.vue:49
 	__( 'Campaign Measurement', 'google-analytics-dashboard-for-wp' ),
 
@@ -841,7 +864,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	__( 'Campaign Term', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:39
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:161
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:167
 	__( 'Campaigns', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficCampaign.vue:24
@@ -1169,6 +1192,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Translators: Adds an arrow icon.
 	__( 'Continue %s', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/addon/AiAnalytics.vue:33
+	__( 'Conversations', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:323
 	__( 'Conversion Counts', 'google-analytics-dashboard-for-wp' ),
 
@@ -1196,7 +1222,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:420
 	__( 'Conversion Rates', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:89
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:93
 	__( 'Conversion Tools', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportForms.vue:74
@@ -1207,6 +1233,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/growth-tools/exactmetrics-growth-tools.vue:150
 	__( 'Convert and monetize more of your website traffic with engaging pop-up and gamified tools. Great for all types of websites.', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatMessage.vue:98
+	__( 'Copied to clipboard!', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/tools/components/ToolsTabVerifiedBadge.vue:25
 	__( 'Copy', 'google-analytics-dashboard-for-wp' ),
@@ -1422,6 +1451,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/popular-posts/components/PopularPostsWidget.vue:65
 	__( 'Default Styles %1$s- As seen above.%2$s', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/addon/sidebar/ChatItem.vue:43
+	__( 'Delete', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/site-notes/components/list.vue:270
 	// Reference: /src/modules/site-notes/components/list.vue:285
 	__( 'Delete Permanently', 'google-analytics-dashboard-for-wp' ),
@@ -1483,7 +1515,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportDimensions.vue:15
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportDimensions.vue:27
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:92
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:93
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:305
 	__( 'Dimensions Report', 'google-analytics-dashboard-for-wp' ),
 
@@ -1622,7 +1654,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:92
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEcommerce.vue:39
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:60
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:61
 	// Reference: /src/modules/settings/components/tabs/exactmetrics-SettingsTabsNavigation.vue:30
 	// Reference: /src/modules/settings/routes/site.js:64
 	__( 'eCommerce', 'google-analytics-dashboard-for-wp' ),
@@ -1635,14 +1667,14 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:407
 	__( 'eCommerce Conversion Rates', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:68
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:69
 	__( 'eCommerce Coupons Report', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/ecommerce/exactmetrics-ReportEcommerceFunnel-Lite.vue:14
 	__( 'eCommerce Funnel', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/ecommerce/exactmetrics-ReportEcommerceFunnel-Lite.vue:13
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:76
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:77
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:279
 	__( 'eCommerce Funnel Report', 'google-analytics-dashboard-for-wp' ),
 
@@ -1657,7 +1689,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabLiteVsPro.vue:46
 	// Reference: /src/modules/wizard-onboarding/components/exactmetrics-OnboardingBottomUpsell-Lite.vue:14
 	// Reference: /src/modules/wizard-onboarding/components/steps/MigrationStepUpsell.vue:16
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:136
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:144
 	// Reference: /src/modules/wizard-onboarding/exactmetrics-welcome-Lite.vue:99
 	__( 'eCommerce Tracking', 'google-analytics-dashboard-for-wp' ),
 
@@ -1851,7 +1883,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/api/index.js:36
 	__( 'Error loading report data', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:349
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:357
 	__( 'Error Processing', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/site-notes/api/index.js:132
@@ -1924,7 +1956,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:155
 	// Reference: /src/modules/reports/components/exceptions-report/exactmetrics-ExceptionsReport-Lite.vue:11
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:185
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:191
 	__( 'Exceptions', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/exceptions-report/exactmetrics-ExceptionsReport-Lite.vue:12
@@ -2004,6 +2036,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:87
 	__( 'February', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/common/FeedbackInputBox.vue:36
+	__( 'Feedback submitted will include your analytics data & insights provided so we can improve. Thank you!', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:39
 	__( 'Female', 'google-analytics-dashboard-for-wp' ),
 
@@ -2054,11 +2089,17 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:80
 	__( 'Follow Us!', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/core/InsightsItem.vue:53
+	__( 'For the week of March 18 to March 24, 2024, your website received 6,424 visitors. Comparing this to the previous week, March 11 to March 17, 2024, when you had 6,658 visitors, there was decrease of 234 visotors (-3.51%).', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/settings/components/input/tab-general/exactmetrics-SettingsInputAuthenticate-Lite.vue:42
 	__( 'Force Deauthenticate', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/addons/AddonsPage.vue:34
 	__( 'Form Conversion Reporting', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:467
+	__( 'Form Insights', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportForms.vue:72
 	__( 'Form Name or ID', 'google-analytics-dashboard-for-wp' ),
@@ -2071,7 +2112,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:127
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportForms.vue:70
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:100
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:101
 	__( 'Forms', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportForms.vue:69
@@ -2107,14 +2148,20 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/settings/routes/site.js:48
 	__( 'General', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/core/AiInsightsViewer.vue:36
+	__( 'Generate Insights', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/reports/components/exactmetrics-YearInReviewReportsPdfExport.vue:114
 	__( 'Generating PDF Report', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:126
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:134
 	__( 'Get access to advanced reports inside WordPress including search keywords report, real-time analytics dashboard, publishers / eCommerce report, custom dimensions, and more.', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:148
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:156
 	__( 'Get access to advanced tracking features like form conversion tracking, author tracking, custom dimensions, scroll tracking, and more.', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:460
+	__( 'Get Actionable Insights with the Power of AI', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/wizard-onboarding/components/steps/MigrationStepUpsell.vue:10
 	__( 'Get additional, actionable insights by going Pro.', 'google-analytics-dashboard-for-wp' ),
@@ -2148,7 +2195,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/woocommerce-insights/woocommerce-insights-Lite.vue:18
 	__( 'Get stats WooCommerce doesn’t give you like: Conversion Sources, Avg. Order Value, Revenue per Source, Total Add to Carts & More!', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:90
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:94
 	__( 'Get the #1 conversion optimization plugin to convert your growing website traffic into subscribers, leads and sales.', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/seo/components/aioseo.vue:51
@@ -2239,6 +2286,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/wizard-onboarding/exactmetrics-welcome-Lite.vue:96
 	__( 'Guides and Documentation:', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatStart.vue:17
+	__( 'Have a conversation with Google Analytics.', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabLiteVsPro.vue:93
 	// Reference: /src/modules/settings/components/tabs/exactmetrics-SettingsTabPublisher.vue:50
 	__( 'Headline Analyzer', 'google-analytics-dashboard-for-wp' ),
@@ -2246,7 +2296,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabAboutUs.vue:12
 	__( 'Hello and Welcome to ExactMetrics, the Best Google Analytics Plugin for WordPress.', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:115
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:123
 	__( 'Help Google Analytics become compliant with internet privacy laws like GDPR, PECR, and CCPA.', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/wizard-onboarding/components/inputs/OnboardingImprove-Lite.vue:11
@@ -2302,6 +2352,12 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/components/TheAppFTPForm.vue:48
 	__( 'Hostname', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatStart.vue:28
+	__( 'How many page views did I get last month?', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatStart.vue:24
+	__( 'How many visits did I get last week?', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabGettingStarted.vue:38
 	__( 'How to Connect to Google Analytics', 'google-analytics-dashboard-for-wp' ),
@@ -2551,7 +2607,19 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/wizard-onboarding/components/steps/OnboardingStepWpforms.vue:16
 	__( 'Installing...', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:137
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:81
+	__( 'Installs All In One SEO Toolkit', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:96
+	__( 'Installs OptinMonster', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:66
+	__( 'Installs UserFeedback', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:111
+	__( 'Installs WPForms', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:145
 	__( 'Instantly enable enhanced eCommerce tracking, so you can measure conversions, sales, and revenue stats. Works with WooCommerce, Easy Digital Downloads, MemberPress, and more.', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/user-journey/components/ExactMetricsUpsell.vue:15
@@ -2684,6 +2752,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/plugins/date-intervals.js:30
 	__( 'Last Month', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatStart.vue:27
+	__( 'Last month\'s page views', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/lib/components-plugin/components/table/AdminTableNavigation.vue:45
 	// Reference: /src/modules/user-journey/components/Pagination.vue:28
 	__( 'Last Page', 'google-analytics-dashboard-for-wp' ),
@@ -2693,6 +2764,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/plugins/date-intervals.js:22
 	__( 'Last Week', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatStart.vue:23
+	__( 'Last week\'s visitors', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/growth-tools/exactmetrics-growth-tools.vue:98
 	__( 'Launch giveaways and raffle campaigns to grow your email lists, increase traffic, and get more social media followers.', 'google-analytics-dashboard-for-wp' ),
@@ -2891,12 +2965,12 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	__( 'Media', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportMedia.vue:24
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:124
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:125
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:436
 	__( 'Media Report', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/settings/components/input/tab-publisher/exactmetrics-SettingsInputMedia-Lite.vue:15
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:158
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:166
 	__( 'Media Tracking', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/user-journey/components/ExactMetricsUpsell.vue:38
@@ -3021,6 +3095,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportOverview.vue:65
 	__( 'New', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/sidebar/AiAnalyticsSidebar.vue:29
+	__( 'New Conversation', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEcommerce.vue:83
 	// Reference: /src/modules/widget/store/index.js:119
@@ -3202,9 +3279,12 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/tools/components/exactmetrics-ToolsTabImportExport.vue:79
 	// Reference: /src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:114
 	// Reference: /src/modules/wizard-onboarding/components/inputs/OnboardingAuthenticate-Lite.vue:83
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:351
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:359
 	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepSuccess.vue:122
 	__( 'Ok', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:462
+	__( 'On Demand Insights', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/wizard-onboarding/components/steps/MigrationStepWelcome.vue:19
 	__( 'On the next step, you will be asked to re-authenticate with Google Analytics. Please %1$ssee our detailed post%2$s to learn why we need your help. Don\'t worry, your tracking will continue to work as-is even if you don\'t do this, but re-auth is required to see analytics reports inside WordPress dashboard.', 'google-analytics-dashboard-for-wp' ),
@@ -3326,6 +3406,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/wizard-onboarding/components/OnboardingAddon-Lite.vue:14
 	__( 'OptinMonster', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:97
+	__( 'OptinMonster is already installed', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabLiteVsPro.vue:114
 	__( 'Order Popular Posts by comments or shares with 3 simple theme choices.', 'google-analytics-dashboard-for-wp' ),
 
@@ -3337,6 +3420,10 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/settings/components/tabs/exactmetrics-SettingsTabPublisher.vue:48
 	__( 'Our affiliate link tracking works by setting path for internal links to track as outbound links.', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/AiAnalytics.vue:34
+	// Reference: /src/modules/ai-insights/components/core/AiInsightsViewer.vue:43
+	__( 'Our AI Insights Report includes:', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/settings/components/input/tab-advanced/exactmetrics-SettingsInputEmailSummaries-Lite.vue:17
 	__( 'Our email summaries feature sends a monthly summary of the most important site analytics information.', 'google-analytics-dashboard-for-wp' ),
@@ -3366,7 +3453,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:67
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:8
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:95
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:36
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:37
 	// Reference: /src/modules/widget/store/index.js:77
 	__( 'Overview', 'google-analytics-dashboard-for-wp' ),
 
@@ -3421,7 +3508,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:74
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEngagementPages.vue:20
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:52
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:53
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:253
 	__( 'Pages Report', 'google-analytics-dashboard-for-wp' ),
 
@@ -3483,6 +3570,12 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/settings/components/tabs/exactmetrics-SettingsTabAdvanced.vue:35
 	__( 'Permissions', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/sidebar/ChatItem.vue:41
+	__( 'Pin', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/sidebar/AiAnalyticsSidebar.vue:30
+	__( 'Pinned Conversations', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/seo/components/common/testimonials.vue:11
 	__( 'PJB Internet Marketing', 'google-analytics-dashboard-for-wp' ),
@@ -3556,6 +3649,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/site-notes/components/Integration-Lite.vue:16
 	__( 'Plugin Updates', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatStart.vue:35
+	__( 'Popular marketing campaign', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabLiteVsPro.vue:110
 	__( 'Popular Posts', 'google-analytics-dashboard-for-wp' ),
 
@@ -3622,7 +3718,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabLiteVsPro.vue:133
 	__( 'Priority Support', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:114
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:122
 	__( 'Privacy Compliance Addon', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/settings/components/input/tab-engagement/exactmetrics-SettingsInputPrivacyGuard-Lite.vue:14
@@ -3652,6 +3748,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEcommerce.vue:47
 	__( 'Product Name', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/feature-feedback/FeatureFeedback.vue:36
+	__( 'Provide Feedback', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:314
 	__( 'Publish Times', 'google-analytics-dashboard-for-wp' ),
 
@@ -3673,7 +3772,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:64
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEngagementOverview.vue:24
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:44
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:45
 	__( 'Publishers', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEngagementOverview.vue:25
@@ -3749,7 +3848,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	__( 'Real Time Report', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportRealTime.vue:110
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:108
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:109
 	__( 'Real-Time', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportRealTime.vue:109
@@ -3768,6 +3867,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/settings/components/exactmetrics-SettingsNetwork.vue:39
 	// Reference: /src/modules/settings/components/tabs/exactmetrics-SettingsTabGeneral-Lite.vue:57
 	__( 'Receive 50% off automatically applied at the checkout!', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/sidebar/AiAnalyticsSidebar.vue:31
+	__( 'Recent', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/tools/components/ToolsTabEEACompliance.vue:47
 	__( 'Recheck', 'google-analytics-dashboard-for-wp' ),
@@ -3821,6 +3923,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/settings/components/tabs/exactmetrics-SettingsTabAdvanced.vue:90
 	__( 'Remove specific URL query parameters from your reports by listing them here, separated by commas. Only use alphanumeric characters, hyphens, and underscores.', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/addon/sidebar/ChatItem.vue:42
+	__( 'Rename', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/widget/components/WidgetReminder.vue:22
 	__( 'Renew today to ensure Google Analytics continues to track properly.', 'google-analytics-dashboard-for-wp' ),
 
@@ -3856,6 +3961,12 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/site-notes/api/index.js:161
 	__( 'Restored successfully.', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatMessage.vue:89
+	__( 'Retrieving data from %s...', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/UserInputRetry.vue:15
+	__( 'Retry', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportOverview.vue:66
 	__( 'Returning', 'google-analytics-dashboard-for-wp' ),
@@ -3957,7 +4068,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:85
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportSearchConsole.vue:29
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportSearchConsole.vue:41
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:84
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:85
 	// Reference: /src/modules/wizard-onboarding/components/exactmetrics-OnboardingBottomUpsell-Lite.vue:23
 	// Reference: /src/modules/wizard-onboarding/components/steps/MigrationStepUpsell.vue:22
 	// Reference: /src/modules/wizard-onboarding/exactmetrics-welcome-Lite.vue:108
@@ -4106,6 +4217,12 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/growth-tools/exactmetrics-growth-tools.vue:119
 	__( 'SEMRUSH', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatMessageFeedback.vue:39
+	__( 'Send Feedback', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/UserInputForm.vue:24
+	__( 'Send Message', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/growth-tools/exactmetrics-growth-tools.vue:87
 	__( 'Send push notifications to your visitors to drive more traffic and boost sales.', 'google-analytics-dashboard-for-wp' ),
@@ -4312,7 +4429,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	__( 'Site Speed', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-SiteSpeed.vue:33
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:116
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:117
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:352
 	__( 'Site Speed Report', 'google-analytics-dashboard-for-wp' ),
 
@@ -4333,7 +4450,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/wizard-onboarding/components/steps/OnboardingStepWpforms.vue:14
 	__( 'Skip this Step', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:102
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:108
 	__( 'Smart Form Builder by WPForms', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/seo/components/aioseo.vue:42
@@ -4349,7 +4466,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	__( 'So, where did all of these visitors come from?', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:53
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:177
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:183
 	__( 'Social', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/traffic/exactmetrics-ReportTrafficSocial-Lite.vue:12
@@ -4378,7 +4495,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:46
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficSourceMedium.vue:143
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficSourceMedium.vue:48
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:169
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:175
 	__( 'Source / Medium', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficSourceMedium.vue:25
@@ -4404,6 +4521,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabLiteVsPro.vue:29
 	__( 'Standard Tracking', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/UserInputForm.vue:21
+	__( 'Start a conversation with %s', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/growth-tools/exactmetrics-growth-tools.vue:214
 	__( 'Start accepting one-time and recurring payments on your WordPress site without setting up a shopping cart. No code required.', 'google-analytics-dashboard-for-wp' ),
@@ -4462,8 +4582,15 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:230
 	__( 'Stop guessing about what content your visitors are interested in. ExactMetrics Publisher Report shows you exactly which content gets the most visits, so you can analyze and optimize it for higher conversions.', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:466
+	__( 'Store Insights', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/settings/routes/site.js:274
 	__( 'Sub menu item for WooCommerce Analytics', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/common/FeedbackInputBox.vue:37
+	// Reference: /src/modules/feature-feedback/FeatureFeedback.vue:39
+	__( 'Submit', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepSuccess.vue:22
 	__( 'Success', 'google-analytics-dashboard-for-wp' ),
@@ -4501,12 +4628,19 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/reports/components/ReportNavigationData.vue:25
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficTechnology.vue:20
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:153
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:159
 	__( 'Technology', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficTechnology.vue:21
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:390
 	__( 'Technology Report', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/common/FeedbackInputBox.vue:32
+	// Reference: /src/modules/ai-insights/components/core/AiInsightsViewer.vue:39
+	__( 'Tell us how this insight can be improved %s(Optional)%s', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/feature-feedback/FeatureFeedback.vue:38
+	__( 'Tell us in your words...', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportSearchConsole.vue:32
 	__( 'Terms', 'google-analytics-dashboard-for-wp' ),
@@ -4523,6 +4657,13 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:64
 	__( 'Thank you for using ExactMetrics!', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatMessageFeedback.vue:40
+	// Reference: /src/modules/ai-insights/components/common/FeedbackInputBox.vue:38
+	__( 'Thanks for your feedback!', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/feature-feedback/FeatureFeedback.vue:40
+	__( 'Thanks! We appreciate your feedback.', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:273
 	// Translators: Placeholder is the average of viewed pages per visitor.
@@ -4542,7 +4683,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/growth-tools/exactmetrics-growth-tools.vue:75
 	__( 'The best WordPress SEO plugin that works automatically with ExactMetrics.', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:77
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:79
 	__( 'The best WordPress SEO plugin that works with ExactMetrics to boost your rankings.', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:19
@@ -4579,7 +4720,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	__( 'The most popular pages on your website.', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/growth-tools/exactmetrics-growth-tools.vue:138
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:103
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:109
 	__( 'The most popular WordPress form plugin, trusted by over 6 million websites. Easily create contact forms, payment forms, surveys and more.', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/wizard-onboarding/components/steps/MigrationStepWelcome.vue:10
@@ -4644,6 +4785,12 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/popular-posts/components/input/PopularPostsInlinePlacement.vue:27
 	__( 'There are two ways to manual include the widget in your posts.', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/addon/sidebar/AiAnalyticsSidebar.vue:32
+	__( 'There aren\'t any pinned conversations', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/sidebar/AiAnalyticsSidebar.vue:33
+	__( 'There aren\'t any recent conversations', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/site-notes/components/list.vue:24
 	// Reference: /src/modules/site-notes/components/overview-report/list.vue:38
 	__( 'There aren’t any site notes. Go ahead and create one!', 'google-analytics-dashboard-for-wp' ),
@@ -4658,7 +4805,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/settings/components/tabs/exactmetrics-SettingsTabGeneral-Lite.vue:99
 	__( 'There was an error unlocking ExactMetrics PRO please try again or install manually.', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:350
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:358
 	__( 'There was an error while processing some features. Please try again or you can skip this process for now', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/addons/AddonsPage.vue:26
@@ -4908,7 +5055,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportEngagementOverview.vue:26
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficLandindPages.vue:26
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficLandindPages.vue:48
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:145
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:151
 	// Reference: /src/modules/widget/store/index.js:41
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:232
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:244
@@ -4998,7 +5145,7 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:320
 	__( 'Track Every Type of Web Form and Gain Visibility Into Your Customer Journey.', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:159
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:167
 	__( 'Track how your users interact with videos on your website.', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/settings/components/input/tab-publisher/exactmetrics-SettingsInputMedia-Lite.vue:16
@@ -5018,7 +5165,10 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficOverview.vue:25
 	__( 'Traffic Details', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:137
+	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:463
+	__( 'Traffic Insights', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:143
 	__( 'Traffic Overview', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-ReportTrafficOverview.vue:24
@@ -5110,12 +5260,16 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/popular-posts/components/PopularPostsUpgradeOverlay.vue:15
 	__( 'Unlock with %s', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/addon/sidebar/ChatItem.vue:41
+	__( 'Unpin', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/popular-posts/components/PopularPostsUpgradeOverlay.vue:16
 	// Reference: /src/modules/settings/components/SettingsAddonUpgrade.vue:23
 	// Reference: /src/modules/settings/components/input/tab-advanced/exactmetrics-SettingsInputPdfReports-Lite.vue:10
 	// Reference: /src/modules/settings/components/input/tab-setup-checklist/SettingsTabSetupChecklist.vue:79
 	__( 'Upgrade', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/reports/components/upsells/ReportUpsellOverlay.vue:45
 	// Reference: /src/modules/reports/components/upsells/UpsellOverlay.vue:46
 	// Reference: /src/modules/site-notes/components/Integration-Lite.vue:11
 	// Reference: /src/modules/site-notes/components/category-Lite.vue:11
@@ -5266,6 +5420,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/wizard-onboarding/components/OnboardingAddon-Lite.vue:15
 	__( 'UserFeedback', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:67
+	__( 'UserFeedback is already installed', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/userfeedback/userfeedback.vue:85
 	__( 'UserFeedback lets you easily collect feedback from your website in real time. You can use this important data to increase your traffic, sales, newsletter signups, engagement, and more.', 'google-analytics-dashboard-for-wp' ),
@@ -5465,6 +5622,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/settings/components/input/tab-setup-checklist/SettingsTabSetupChecklist.vue:44
 	__( 'Visit your Overview Report', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/plugins/exactmetrics-reports-helper-plugin.js:464
+	__( 'Visitor Insights', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:33
 	__( 'Visitors by Month', 'google-analytics-dashboard-for-wp' ),
 
@@ -5552,11 +5712,26 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/wizard-onboarding/components/steps/MigrationStepWelcome.vue:8
 	__( 'Welcome to the all-new ExactMetrics', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/ai-insights/components/core/AiInsightsViewer.vue:71
+	__( 'What do you think about Our AI Insights?', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/feature-feedback/FeatureFeedback.vue:37
+	__( 'What do you think about this feature?', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:62
 	__( 'What is Google Analytics Direct Traffic? (Complete GA4 Guide)', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:56
 	__( 'What keywords visitors searched for to find your site', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatStart.vue:36
+	__( 'What was my most popular marketing campaign last week?', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatStart.vue:32
+	__( 'What was the bounce rate from last week?', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/reports/components/upsells/ReportUpsellOverlay.vue:47
+	__( 'What’s in the %1$s?', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/upsells/UpsellOverlay.vue:86
 	__( 'What’s in the %s?', 'google-analytics-dashboard-for-wp' ),
@@ -5578,6 +5753,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 
 	// Reference: /src/modules/wizard-onboarding/components/steps/OnboardingStepAuthenticate.vue:17
 	__( 'Whoops, something went wrong and we weren\'t able to connect to ExactMetrics. Please enter your GA4 Measurement ID manually.', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatMessageFeedback.vue:34
+	__( 'Why didn\'t this response meet your expectations? %s(Optional)%s', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/popular-posts/components/input/PopularPostsWidgetThemePreview.vue:20
 	__( 'Wide', 'google-analytics-dashboard-for-wp' ),
@@ -5635,13 +5813,16 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/modules/wizard-onboarding/components/steps/OnboardingStepWpforms.vue:13
 	__( 'WPForms allow you to create beautiful contact forms, subscription forms, payment forms, and other types of forms for your site in minutes, not hours!', 'google-analytics-dashboard-for-wp' ),
 
+	// Reference: /src/modules/wizard-onboarding/components/steps/exactmetrics-OnboardingStepRecommendedAddons-Lite.vue:112
+	__( 'WPForms is already installed', 'google-analytics-dashboard-for-wp' ),
+
 	// Reference: /src/modules/about/components/exactmetrics-AboutTabLiteVsPro.vue:60
 	__( 'WPForms, Ninja Forms, Contact Form 7, Gravity Forms and any other WordPress form plugin', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:70
 	__( 'Write Review', 'google-analytics-dashboard-for-wp' ),
 
-	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:197
+	// Reference: /src/modules/reports/routes/exactmetrics-routes.js:203
 	__( 'Year in Review', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/reports/components/reports/exactmetrics-YearInReview-Lite.vue:155
@@ -5667,6 +5848,9 @@ For tips on how to speed up image loading time, check out', 'google-analytics-da
 	// Reference: /src/plugins/exactmetrics-compatibility-plugin.js:25
 	// Reference: /src/plugins/exactmetrics-compatibility-plugin.js:53
 	__( 'Yikes! WordPress Update Required', 'google-analytics-dashboard-for-wp' ),
+
+	// Reference: /src/modules/ai-insights/components/addon/chat/ChatMessage.vue:81
+	__( 'You', 'google-analytics-dashboard-for-wp' ),
 
 	// Reference: /src/modules/auth/api/index.js:107
 	// Reference: /src/modules/auth/api/index.js:137

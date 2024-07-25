@@ -10,9 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  */
-namespace Analytify\phpseclib3\Math\BigInteger\Engines\BCMath;
 
-use Analytify\phpseclib3\Math\BigInteger\Engines\OpenSSL as Progenitor;
+namespace phpseclib3\Math\BigInteger\Engines\BCMath;
+
+use phpseclib3\Math\BigInteger\Engines\OpenSSL as Progenitor;
+
 /**
  * OpenSSL Modular Exponentiation Engine
  *

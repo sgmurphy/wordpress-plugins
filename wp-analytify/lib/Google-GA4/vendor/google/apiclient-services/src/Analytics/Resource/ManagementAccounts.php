@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,9 +14,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\Analytics\Resource;
 
 use Google\Service\Analytics\Accounts;
+
 /**
  * The "accounts" collection of methods.
  * Typical usage is:
@@ -28,25 +29,27 @@ use Google\Service\Analytics\Accounts;
  */
 class ManagementAccounts extends \Google\Service\Resource
 {
-    /**
-     * Lists all accounts to which the user has access.
-     * (accounts.listManagementAccounts)
-     *
-     * @param array $optParams Optional parameters.
-     *
-     * @opt_param int max-results The maximum number of accounts to include in this
-     * response.
-     * @opt_param int start-index An index of the first account to retrieve. Use
-     * this parameter as a pagination mechanism along with the max-results
-     * parameter.
-     * @return Accounts
-     */
-    public function listManagementAccounts($optParams = [])
-    {
-        $params = [];
-        $params = \array_merge($params, $optParams);
-        return $this->call('list', [$params], Accounts::class);
-    }
+  /**
+   * Lists all accounts to which the user has access.
+   * (accounts.listManagementAccounts)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int max-results The maximum number of accounts to include in this
+   * response.
+   * @opt_param int start-index An index of the first account to retrieve. Use
+   * this parameter as a pagination mechanism along with the max-results
+   * parameter.
+   * @return Accounts
+   * @throws \Google\Service\Exception
+   */
+  public function listManagementAccounts($optParams = [])
+  {
+    $params = [];
+    $params = array_merge($params, $optParams);
+    return $this->call('list', [$params], Accounts::class);
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\Analytics\Resource\ManagementAccounts::class, 'Analytify\\Google_Service_Analytics_Resource_ManagementAccounts');
+class_alias(ManagementAccounts::class, 'Google_Service_Analytics_Resource_ManagementAccounts');

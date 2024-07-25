@@ -56,6 +56,11 @@ class SBR_Feed_Saver_Manager
 		add_action('wp_ajax_sbr_feed_saver_manager_advanced_search_reviews', array('SmashBalloon\Reviews\Common\Builder\SBR_Feed_Saver_Manager', 'advanced_search_reviews'));
 		add_action('wp_ajax_sbr_feed_saver_manager_duplicate_collection', array('SmashBalloon\Reviews\Common\Builder\SBR_Feed_Saver_Manager', 'duplicate_collection'));
 		add_action('wp_ajax_sbr_feed_saver_manager_load_more_sources', array('SmashBalloon\Reviews\Common\Builder\SBR_Feed_Saver_Manager', 'load_more_sources'));
+
+		add_action('wp_ajax_sbr_feed_saver_manager_export_collection', array('SmashBalloon\Reviews\Common\Builder\SBR_Feed_Saver_Manager', 'export_collection'));
+		add_action('wp_ajax_sbr_import_full_collection', array('SmashBalloon\Reviews\Common\Builder\SBR_Feed_Saver_Manager', 'import_full_collection'));
+		add_action('wp_ajax_sbr_import_reviews_collection', array('SmashBalloon\Reviews\Common\Builder\SBR_Feed_Saver_Manager', 'import_reviews_collection'));
+
 	}
 
 	/**
@@ -493,7 +498,7 @@ class SBR_Feed_Saver_Manager
 		$filename = $_FILES['feedFile']['name'];
 		$ext = pathinfo($filename, PATHINFO_EXTENSION);
 		if ('json' !== $ext) {
-			wp_send_json_error(['message' => __('Supports only Json file', 'reviews-feed')]);
+			wp_send_json_error(['message' => __('JSON file needed. Your file is not in the correct format.', 'reviews-feed')]);
 		}
 
 		$imported_settings = file_get_contents($_FILES['feedFile']['tmp_name']);
@@ -567,6 +572,7 @@ class SBR_Feed_Saver_Manager
 		$return = [];
 
 		if ($provider !== false) {
+			$providers_bulk = sbr_get_bulk_providers();
 			//If there is no providerIdUrl set, then the call is just for checking the API KEY
 			switch ($provider) {
 				case 'tripadvisor':
@@ -667,7 +673,6 @@ class SBR_Feed_Saver_Manager
 						$return['placeId'] = 'invalid';
 					}
 				}
-
 				if (isset($info['info']['id'])) {
 					$info['info']['provider'] = $provider;
 					$info['info']['name'] = htmlspecialchars_decode(html_entity_decode($info['info']['name']));
@@ -680,11 +685,22 @@ class SBR_Feed_Saver_Manager
 					$return['message'] = 'addedSource';
 					$return['newAddedSource'] = $info['info'];
 					SBR_Feed_Saver_Manager::update_api_limit($provider, 'delete');
+
+					if (Util::sbr_is_pro() && in_array($provider, $providers_bulk)) {
+						$bulk_reviews = new \SmashBalloon\Reviews\Pro\Services\BulkUpdate\Bulk_Reviews_Update();
+						$bulk_reviews->schedule_task([
+							'source_account_id' => $info['info']['id'],
+							'source_provider'	=> $provider
+						]);
+						if ($bulk_reviews->check_account_option($info['info']['id'])) {
+							$return['bulkStarted']      = true;
+						}
+					}
+
 				}
 				$return['apiKeys']      = get_option('sbr_apikeys', []);
 				$return['sourcesList']  = SBR_Sources::get_sources_list();
-
-			}else{
+			} else {
 				$return['error'] = 'unknown';
 			}
 		}
@@ -698,6 +714,13 @@ class SBR_Feed_Saver_Manager
 
 	public static function update_api_key($data)
 	{
+		if ( ! sbr_current_user_can( 'manage_reviews_feed_options' ) || ! check_ajax_referer( 'sbr-admin', 'nonce', false ) ) {
+			wp_send_json_error([
+				"error" => "Unauthorized Access",
+				"message" => "You are not allowed to perform this action."
+			]);
+		}
+
 		if (isset($_POST['provider']) && isset($_POST['apiKey'])) {
 			$data = array(
 				'provider' => sanitize_text_field($_POST['provider']),
@@ -938,6 +961,25 @@ class SBR_Feed_Saver_Manager
 		if (!sbr_current_user_can('manage_reviews_feed_options')) {
 			wp_send_json_error();
 		}
+
+		self::clear_plugin_cache();
+
+		echo wp_json_encode([
+			'success' => true
+		]);
+
+		wp_die();
+	}
+
+	/**
+	 * Clear All Plugin Caches
+	 *
+	 * @return void
+	 *
+	 * @since 1.0
+	 */
+	public static function clear_plugin_cache()
+	{
 		global $wpdb;
 
 		$cache_table_name = $wpdb->prefix . 'sbr_feed_caches';
@@ -947,6 +989,13 @@ class SBR_Feed_Saver_Manager
 		SET cache_value = ''
 		WHERE cache_key NOT IN ('posts_backup', 'header_backup');";
 		$wpdb->query($sql);
+
+		$posts_table_name = $wpdb->prefix . 'sbr_reviews_posts';
+
+		$sql_posts = "
+		UPDATE $posts_table_name
+		SET images_done = 0";
+		$wpdb->query($sql_posts);
 
 		$table_name = $wpdb->prefix . "options";
 		$wpdb->query("
@@ -1002,11 +1051,10 @@ class SBR_Feed_Saver_Manager
 		if (has_action('litespeed_purge_all')) {
 			do_action('litespeed_purge_all');
 		}
-		echo wp_json_encode([
-			'success' => true
-		]);
 
-		wp_die();
+		if (Util::sbr_is_pro()) {
+			\SmashBalloon\Reviews\Pro\Services\BulkUpdate\Bulk_Reviews_Update::schedule_needed_sources_history();
+		}
 	}
 
 	public static function sanitize_settings($raw_settings)
@@ -1074,7 +1122,10 @@ class SBR_Feed_Saver_Manager
 	{
 		$settings = wp_parse_args(get_option('sbr_settings', []), sbr_plugin_settings_defaults());
 		$lang = $settings['localization'];
-		$providers_no_media = ['facebook', 'google'];
+		$providers_no_media = sbr_get_no_media_providers();
+		$providers_lang = sbr_get_lang_providers();
+
+
 		foreach ($posts as $single_review) {
 			$single_review['source'] = $provider;
 			$single_post_cache = Util::sbr_is_pro() ?
@@ -1083,7 +1134,11 @@ class SBR_Feed_Saver_Manager
 
 			$single_post_cache->set_provider_id($provider['id']);
 
-			$single_post_cache->set_lang($lang);
+			if (in_array($provider['provider'], $providers_lang,  true)) {
+				$single_post_cache->set_lang($lang);
+			}
+
+	        $single_post_cache->check_api_media();
 
 			if (! $single_post_cache->db_record_exists()) {
 				$single_post_cache->resize_avatar(150);
@@ -1421,7 +1476,7 @@ class SBR_Feed_Saver_Manager
 		if (!sbr_current_user_can('manage_reviews_feed_options')) {
 			wp_send_json_error();
 		}
-		if (isset($_POST['collection_id']) && !empty($_POST['collection_id'])) {
+		if (!empty($_POST['collection_id'])) {
 			$collection_id = sanitize_text_field($_POST['collection_id']);
 
 			$db = new DB();
@@ -1541,7 +1596,188 @@ class SBR_Feed_Saver_Manager
 		wp_die();
 	}
 
+	/**
+	 * Export Single Collection Reviews
+	 *
+	 * @since 1.4
+	 */
+	public static function export_collection()
+	{
+		check_ajax_referer('sbr-admin', 'nonce');
+		if (!sbr_current_user_can('manage_reviews_feed_options')) {
+			wp_send_json_error();
+		}
+
+		if (!empty($_POST['collection_id'])) {
+			$collection_id = sanitize_text_field($_POST['collection_id']);
+			$collection_data = DB::get_collections_reviews($collection_id);
+			//Will Return Collection Data + The Reviews List
+			echo sbr_json_encode(
+				[
+					'collection' => $collection_data
+				]
+			);
+		}
+		wp_die();
+
+	}
 
 
+	/**
+	 * IMport Full Collection Data
+	 *
+	 *
+	 * @since 1.0
+	 */
+	public static function import_full_collection()
+	{
+		check_ajax_referer('sbr-admin', 'nonce');
+		if (!sbr_current_user_can('manage_reviews_feed_options')) {
+			wp_send_json_error();
+		}
 
+		$collection_json = self::parse_collection_json();
+		$info = json_decode($collection_json['info'], true);
+
+		if (!empty($info)) {
+			$collection_info = [
+				'id'   			=> sanitize_text_field($collection_json['account_id']),
+				'account_id'    => sanitize_text_field($collection_json['account_id']),
+				'name'          => sanitize_text_field($collection_json['name']),
+				'provider'      => 'collection',
+				'rating'        =>  absint($info['rating']),
+				'total_rating'  =>  absint($info['total_rating']),
+			];
+			SBR_Sources::update_or_insert($collection_info);
+
+			foreach ($collection_json['reviewsList'] as $single_review) {
+				unset($single_review['id']);
+				$single_review = json_decode($single_review['json_data'], true);
+				if (!empty($single_review)) {
+					$review_store = Util::parse_single_review($single_review, $collection_json['account_id'], $single_review['review_id']);
+					$review_store['json_data'] = $review_store;
+
+					$single_post_cache = new \SmashBalloon\Reviews\Pro\SinglePostCache($review_store, new \SmashBalloon\Reviews\Pro\MediaFinder($review_store['source']));
+					$single_post_cache->set_provider_id($collection_json['account_id']);
+					$single_post_cache->store();
+				}
+			}
+		}
+
+		echo sbr_json_encode(
+			[
+				'message' => __("Collection imported successfully", "reviews-feed")
+			]
+		);
+		wp_die();
+	}
+
+
+	/**
+	 * Import Only reviews to Collection
+	 *
+	 *
+	 * @since 1.0
+	 */
+	public static function import_reviews_collection()
+	{
+		check_ajax_referer('sbr-admin', 'nonce');
+		if (!sbr_current_user_can('manage_reviews_feed_options')) {
+			wp_send_json_error();
+		}
+
+		if (!empty($_POST['collection_id'])) {
+			$collection_json = self::parse_collection_json();
+			$collection_id = sanitize_text_field($_POST['collection_id']);
+			foreach ($collection_json['reviewsList'] as $single_review) {
+				unset($single_review['id']);
+				$single_review = json_decode($single_review['json_data'], true);
+				if (!empty($single_review)) {
+					$single_review['review_id'] = $collection_id . time() . wp_rand();
+					$single_review['retimeview_id'] = time();
+
+					$review_store = Util::parse_single_review($single_review, $collection_id, $single_review['review_id']);
+					$review_store['json_data'] = $review_store;
+
+					$single_post_cache = new \SmashBalloon\Reviews\Pro\SinglePostCache($review_store, new \SmashBalloon\Reviews\Pro\MediaFinder($review_store['source']));
+					$single_post_cache->set_provider_id($collection_id);
+					$single_post_cache->store();
+					if (isset($sanitized_review['media'])) {
+						$aggregator = new PostAggregator();
+						$single_post_cache->resize_images(array(640, 150));
+						$single_post_data = $single_post_cache->get_post_data();
+						$single_post_storage_data = $single_post_cache->get_storage_data();
+						$single_post_data = $aggregator->add_local_image_urls($single_post_data, $single_post_storage_data);
+						$single_post_cache->update(
+							[
+								array('images_done', 1, '%d'),
+								array('json_data', wp_json_encode($single_post_data), '%s')
+							]
+						);
+					}
+				}
+			}
+
+			SBR_Sources::update_collection_ratings($collection_id);
+			echo sbr_json_encode(
+				[
+					'postsList'   => PostAggregator::get_source_posts_list($collection_id, 1)
+				]
+			);
+		}
+
+		wp_die();
+
+	}
+
+
+	/**
+	 * Parse Collections JSON file
+	 *
+	 *
+	 * @since 1.0
+	 */
+	public static function parse_collection_json()
+	{
+		check_ajax_referer('sbr-admin', 'nonce');
+		if (!sbr_current_user_can('manage_reviews_feed_options')) {
+			wp_send_json_error();
+		}
+
+		if (empty($_FILES['feedFile'])) {
+			wp_send_json_error(
+				[
+					'message' => __('JSON file needed. Your file is not in the correct format.', 'reviews-feed')
+				]
+			);
+		}
+		$filename = $_FILES['feedFile']['name'];
+		$ext = pathinfo($filename, PATHINFO_EXTENSION);
+		if ('json' !== $ext) {
+			wp_send_json_error(
+				[
+					'message' => __('JSON file needed. Your file is not in the correct format.', 'reviews-feed')
+				]
+			);
+		}
+
+		$imported_file = file_get_contents($_FILES['feedFile']['tmp_name']);
+		if (empty($imported_file)) {
+			wp_send_json_error(
+				[
+					"message" => __("JSON file needed. Your file is not in the correct format.", "reviews-feed")
+				]
+			);
+		}
+		$collection_json = json_decode($imported_file, true);
+
+		if (empty($collection_json['reviewsList'])) {
+			wp_send_json_error(
+				[
+					"message" => __("Something went wrong. This doesn't look like a collections import file.", "reviews-feed")
+				]
+			);
+		}
+		return $collection_json;
+	}
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -15,34 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace Google\AuthHandler;
 
-use Analytify\GuzzleHttp\Client;
-use Analytify\GuzzleHttp\ClientInterface;
 use Exception;
+use GuzzleHttp\ClientInterface;
+
 class AuthHandlerFactory
 {
     /**
      * Builds out a default http handler for the installed version of guzzle.
      *
-     * @return Guzzle5AuthHandler|Guzzle6AuthHandler|Guzzle7AuthHandler
+     * @return Guzzle6AuthHandler|Guzzle7AuthHandler
      * @throws Exception
      */
     public static function build($cache = null, array $cacheConfig = [])
     {
         $guzzleVersion = null;
-        if (\defined('Analytify\\GuzzleHttp\\ClientInterface::MAJOR_VERSION')) {
+        if (defined('\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
             $guzzleVersion = ClientInterface::MAJOR_VERSION;
-        } elseif (\defined('Analytify\\GuzzleHttp\\ClientInterface::VERSION')) {
-            $guzzleVersion = (int) \substr(ClientInterface::VERSION, 0, 1);
+        } elseif (defined('\GuzzleHttp\ClientInterface::VERSION')) {
+            $guzzleVersion = (int) substr(ClientInterface::VERSION, 0, 1);
         }
+
         switch ($guzzleVersion) {
-            case 5:
-                return new \Google\AuthHandler\Guzzle5AuthHandler($cache, $cacheConfig);
             case 6:
-                return new \Google\AuthHandler\Guzzle6AuthHandler($cache, $cacheConfig);
+                return new Guzzle6AuthHandler($cache, $cacheConfig);
             case 7:
-                return new \Google\AuthHandler\Guzzle7AuthHandler($cache, $cacheConfig);
+                return new Guzzle7AuthHandler($cache, $cacheConfig);
             default:
                 throw new Exception('Version not supported');
         }

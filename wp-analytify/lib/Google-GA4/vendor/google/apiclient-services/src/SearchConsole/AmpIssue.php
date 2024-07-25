@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,46 +14,49 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole;
 
 class AmpIssue extends \Google\Model
 {
-    /**
-     * @var string
-     */
-    public $issueMessage;
-    /**
-     * @var string
-     */
-    public $severity;
-    /**
-     * @param string
-     */
-    public function setIssueMessage($issueMessage)
-    {
-        $this->issueMessage = $issueMessage;
-    }
-    /**
-     * @return string
-     */
-    public function getIssueMessage()
-    {
-        return $this->issueMessage;
-    }
-    /**
-     * @param string
-     */
-    public function setSeverity($severity)
-    {
-        $this->severity = $severity;
-    }
-    /**
-     * @return string
-     */
-    public function getSeverity()
-    {
-        return $this->severity;
-    }
+  /**
+   * @var string
+   */
+  public $issueMessage;
+  /**
+   * @var string
+   */
+  public $severity;
+
+  /**
+   * @param string
+   */
+  public function setIssueMessage($issueMessage)
+  {
+    $this->issueMessage = $issueMessage;
+  }
+  /**
+   * @return string
+   */
+  public function getIssueMessage()
+  {
+    return $this->issueMessage;
+  }
+  /**
+   * @param string
+   */
+  public function setSeverity($severity)
+  {
+    $this->severity = $severity;
+  }
+  /**
+   * @return string
+   */
+  public function getSeverity()
+  {
+    return $this->severity;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\AmpIssue::class, 'Analytify\\Google_Service_SearchConsole_AmpIssue');
+class_alias(AmpIssue::class, 'Google_Service_SearchConsole_AmpIssue');

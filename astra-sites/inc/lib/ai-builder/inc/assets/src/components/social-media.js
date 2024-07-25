@@ -145,37 +145,37 @@ const SocialMediaItem = ( { socialMedia, onRemove, onEdit } ) => {
 const SocialMediaAdd = ( { list, onChange } ) => {
 	const socialMediaList = [
 		{
-			name: 'Facebook',
+			name: __( 'Facebook', 'ai-builder' ),
 			id: 'facebook',
 			icon: FacebookIcon,
 		},
 		{
-			name: 'Twitter',
+			name: __( 'Twitter', 'ai-builder' ),
 			id: 'twitter',
 			icon: TwitterIcon,
 		},
 		{
-			name: 'Instagram',
+			name: __( 'Instagram', 'ai-builder' ),
 			id: 'instagram',
 			icon: InstagramIcon,
 		},
 		{
-			name: 'LinkedIn',
+			name: __( 'LinkedIn', 'ai-builder' ),
 			id: 'linkedin',
 			icon: LinkedInIcon,
 		},
 		{
-			name: 'YouTube',
+			name: __( 'YouTube', 'ai-builder' ),
 			id: 'youtube',
 			icon: YouTubeIcon,
 		},
 		{
-			name: 'Google My Business',
+			name: __( 'Google My Business', 'ai-builder' ),
 			id: 'google',
 			icon: GoogleIcon,
 		},
 		{
-			name: 'Yelp',
+			name: __( 'Yelp', 'ai-builder' ),
 			id: 'yelp',
 			icon: YelpIcon,
 		},

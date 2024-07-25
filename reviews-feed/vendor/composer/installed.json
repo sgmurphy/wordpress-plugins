@@ -1,6 +1,71 @@
 {
     "packages": [
         {
+            "name": "laravel\/serializable-closure",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/laravel\/serializable-closure.git",
+                "reference": "d715a63f39ba076acf8be1e4a0901acdcc92228b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/laravel\/serializable-closure\/zipball\/d715a63f39ba076acf8be1e4a0901acdcc92228b",
+                "reference": "d715a63f39ba076acf8be1e4a0901acdcc92228b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "illuminate\/support": "^8.0|^9.0|^10.0|^11.0",
+                "nesbot\/carbon": "^2.61|^3.0",
+                "pestphp\/pest": "^1.21.3",
+                "phpstan\/phpstan": "^1.8.2",
+                "symfony\/var-dumper": "^5.4.11|^6.2.0|^7.0.0"
+            },
+            "time": "2024-01-26T17:22:21+00:00",
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "SmashBalloon\\Reviews\\Vendor\\Laravel\\SerializableClosure\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Nuno Maduro",
+                    "email": "nuno@laravel.com"
+                }
+            ],
+            "description": "Laravel Serializable Closure provides an easy and secure way to serialize closures in PHP.",
+            "keywords": [
+                "closure",
+                "laravel",
+                "serializable"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/laravel\/serializable-closure\/issues",
+                "source": "https:\/\/github.com\/laravel\/serializable-closure"
+            },
+            "install-path": "..\/laravel\/serializable-closure"
+        },
+        {
             "name": "php-di\/invoker",
             "version": "2.0.0",
             "version_normalized": "2.0.0.0",
@@ -52,21 +117,22 @@
         },
         {
             "name": "php-di\/php-di",
-            "version": "6.0.0",
-            "version_normalized": "6.0.0.0",
+            "version": "6.4.x-dev",
+            "version_normalized": "6.4.9999999.9999999-dev",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/PHP-DI\/PHP-DI.git",
-                "reference": "4773f7644b0c98ebfc22a1368e519ab5ac2e076c"
+                "reference": "ae0f1b3b03d8b29dff81747063cbfd6276246cc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/PHP-DI\/PHP-DI\/zipball\/4773f7644b0c98ebfc22a1368e519ab5ac2e076c",
-                "reference": "4773f7644b0c98ebfc22a1368e519ab5ac2e076c",
+                "url": "https:\/\/api.github.com\/repos\/PHP-DI\/PHP-DI\/zipball\/ae0f1b3b03d8b29dff81747063cbfd6276246cc4",
+                "reference": "ae0f1b3b03d8b29dff81747063cbfd6276246cc4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "laravel\/serializable-closure": "^1.0",
+                "php": ">=7.4.0",
                 "php-di\/invoker": "^2.0",
                 "php-di\/phpdoc-reader": "^2.0.1",
                 "psr\/container": "^1.0"
@@ -75,17 +141,18 @@
                 "psr\/container-implementation": "^1.0"
             },
             "require-dev": {
-                "doctrine\/annotations": "~1.2",
+                "doctrine\/annotations": "~1.10",
                 "friendsofphp\/php-cs-fixer": "^2.4",
-                "mnapoli\/phpunit-easymock": "~1.0",
-                "ocramius\/proxy-manager": "~2.0.2",
-                "phpunit\/phpunit": "~6.4"
+                "mnapoli\/phpunit-easymock": "^1.2",
+                "ocramius\/proxy-manager": "^2.11.2",
+                "phpstan\/phpstan": "^0.12",
+                "phpunit\/phpunit": "^9.5"
             },
             "suggest": {
                 "doctrine\/annotations": "Install it if you want to use annotations (version ~1.2)",
                 "ocramius\/proxy-manager": "Install it if you want to use lazy injection (version ~2.0)"
             },
-            "time": "2018-02-20T07:27:46+00:00",
+            "time": "2022-04-09T16:46:38+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -101,7 +168,7 @@
                 "MIT"
             ],
             "description": "The dependency injection container for humans",
-            "homepage": "http:\/\/php-di.org\/",
+            "homepage": "https:\/\/php-di.org\/",
             "keywords": [
                 "PSR-11",
                 "container",
@@ -113,8 +180,18 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/PHP-DI\/PHP-DI\/issues",
-                "source": "https:\/\/github.com\/PHP-DI\/PHP-DI\/tree\/master"
+                "source": "https:\/\/github.com\/PHP-DI\/PHP-DI\/tree\/6.4.0"
             },
+            "funding": [
+                {
+                    "url": "https:\/\/github.com\/mnapoli",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/php-di\/php-di",
+                    "type": "tidelift"
+                }
+            ],
             "install-path": "..\/php-di\/php-di"
         },
         {
@@ -224,13 +301,13 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:awesomemotive\/sb-customizer.git",
-                "reference": "eebc17ac9a7cb46be92f421f19df7cb3b5d82fea"
+                "reference": "3d66f82e5a168158a055f083ff8dcbaf353e544d"
             },
             "require": {
-                "php-di\/php-di": "6.0.0",
+                "php-di\/php-di": "^6.1.0",
                 "smashballoon\/stubs": "dev-master"
             },
-            "time": "2024-03-27T17:03:34+00:00",
+            "time": "2024-07-24T19:51:18+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -284,6 +361,6 @@
             "install-path": "..\/smashballoon\/stubs"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

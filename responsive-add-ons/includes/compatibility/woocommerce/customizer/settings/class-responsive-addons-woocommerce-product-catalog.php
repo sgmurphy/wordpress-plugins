@@ -46,7 +46,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Product_Catalog' ) ) :
 					)
 				);
 				$wp_customize->add_control(
-					new Responsive_Customizer_Checkbox_Control(
+					new Responsive_Customizer_Toggle_Control(
 						$wp_customize,
 						'breadcrumbs_options',
 						array(
@@ -66,7 +66,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Product_Catalog' ) ) :
 					)
 				);
 				$wp_customize->add_control(
-					new Responsive_Customizer_Checkbox_Control(
+					new Responsive_Customizer_Toggle_Control(
 						$wp_customize,
 						'toolbar_options',
 						array(
@@ -188,12 +188,12 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Product_Catalog' ) ) :
 
 				// Enable Popup.
 				$enable_popup = esc_html__( 'Enable Popup', 'responsive-addons-pro' );
-				responsive_addons_checkbox_control( $wp_customize, 'enable_native_cart_popup', $enable_popup, 'responsive_woocommerce_shop_layout', 150, 0, null, 'refresh' );
+				responsive_toggle_control( $wp_customize, 'enable_native_cart_popup', $enable_popup, 'responsive_woocommerce_shop_layout', 150, 0, null, 'refresh' );
 
 				// Display Popup in customizer.
 				$display_popup = esc_html__( 'Preview Popup In Customizer', 'responsive-addons-pro' );
 				$desc          = 'This checkbox is just to allow you to display the popup in the customizer preview.';
-				responsive_addons_checkbox_control( $wp_customize, 'native_cart_popup_display', $display_popup, 'responsive_woocommerce_shop_layout', 150, 0, null, 'postMessage', $desc );
+				responsive_toggle_control( $wp_customize, 'native_cart_popup_display', $display_popup, 'responsive_woocommerce_shop_layout', 150, 0, null, 'postMessage', $desc );
 
 				// Positioning of popup elements.
 				$elements = apply_filters(

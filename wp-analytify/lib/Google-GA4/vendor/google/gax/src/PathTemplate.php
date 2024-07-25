@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -30,11 +29,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore;
 
 use Google\ApiCore\ResourceTemplate\AbsoluteResourceTemplate;
 use Google\ApiCore\ResourceTemplate\RelativeResourceTemplate;
 use Google\ApiCore\ResourceTemplate\ResourceTemplateInterface;
+
 /**
  * Represents a path template.
  *
@@ -46,6 +47,7 @@ use Google\ApiCore\ResourceTemplate\ResourceTemplateInterface;
 class PathTemplate implements ResourceTemplateInterface
 {
     private $resourceTemplate;
+
     /**
      * PathTemplate constructor.
      *
@@ -55,14 +57,16 @@ class PathTemplate implements ResourceTemplateInterface
     public function __construct(string $path = null)
     {
         if (empty($path)) {
-            throw new \Google\ApiCore\ValidationException('Cannot construct PathTemplate from empty string');
+            throw new ValidationException('Cannot construct PathTemplate from empty string');
         }
+
         if ($path[0] === '/') {
             $this->resourceTemplate = new AbsoluteResourceTemplate($path);
         } else {
             $this->resourceTemplate = new RelativeResourceTemplate($path);
         }
     }
+
     /**
      * @return string A string representation of the path template
      */
@@ -70,6 +74,7 @@ class PathTemplate implements ResourceTemplateInterface
     {
         return $this->resourceTemplate->__toString();
     }
+
     /**
      * Renders a path template using the provided bindings.
      *
@@ -82,6 +87,7 @@ class PathTemplate implements ResourceTemplateInterface
     {
         return $this->resourceTemplate->render($bindings);
     }
+
     /**
      * Check if $path matches a resource string.
      *
@@ -92,6 +98,7 @@ class PathTemplate implements ResourceTemplateInterface
     {
         return $this->resourceTemplate->matches($path);
     }
+
     /**
      * Matches a fully qualified path template string.
      *

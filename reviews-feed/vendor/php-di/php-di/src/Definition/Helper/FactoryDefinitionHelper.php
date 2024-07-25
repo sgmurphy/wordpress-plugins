@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Helper;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\DecoratorDefinition;
@@ -10,6 +10,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\FactoryDefinition;
  * Helps defining how to create an instance of a class using a factory (callable).
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class FactoryDefinitionHelper implements DefinitionHelper
 {

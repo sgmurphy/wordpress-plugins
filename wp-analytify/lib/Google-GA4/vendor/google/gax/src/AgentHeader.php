@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -30,6 +29,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore;
 
 /**
@@ -39,6 +39,7 @@ class AgentHeader
 {
     const AGENT_HEADER_KEY = 'x-goog-api-client';
     const UNKNOWN_VERSION = '';
+
     /**
      * @param array $headerInfo {
      *     Optional.
@@ -61,6 +62,7 @@ class AgentHeader
     public static function buildAgentHeader(array $headerInfo)
     {
         $metricsHeaders = [];
+
         // The ordering of the headers is important. We use the fact that $metricsHeaders is an
         // ordered dict. The desired ordering is:
         //      - phpVersion (gl-php/)
@@ -70,16 +72,18 @@ class AgentHeader
         //      - grpcVersion (grpc/)
         //      - restVersion (rest/)
         //      - protobufVersion (pb/)
-        $phpVersion = isset($headerInfo['phpVersion']) ? $headerInfo['phpVersion'] : \phpversion();
-        $metricsHeaders['gl-php'] = $phpVersion;
+
+        $metricsHeaders['gl-php'] = $headerInfo['phpVersion'] ?? phpversion();
+
         if (isset($headerInfo['libName'])) {
-            $clientVersion = isset($headerInfo['libVersion']) ? $headerInfo['libVersion'] : self::UNKNOWN_VERSION;
-            $metricsHeaders[$headerInfo['libName']] = $clientVersion;
+            $metricsHeaders[$headerInfo['libName']] =
+                $headerInfo['libVersion'] ?? self::UNKNOWN_VERSION;
         }
-        $codeGenVersion = isset($headerInfo['gapicVersion']) ? $headerInfo['gapicVersion'] : self::UNKNOWN_VERSION;
-        $metricsHeaders['gapic'] = $codeGenVersion;
-        $apiCoreVersion = isset($headerInfo['apiCoreVersion']) ? $headerInfo['apiCoreVersion'] : \Google\ApiCore\Version::getApiCoreVersion();
+
+        $apiCoreVersion = $headerInfo['apiCoreVersion'] ?? Version::getApiCoreVersion();
+        $metricsHeaders['gapic'] = $headerInfo['gapicVersion'] ?? self::UNKNOWN_VERSION;
         $metricsHeaders['gax'] = $apiCoreVersion;
+
         // Context on library type identification (between gRPC+REST and REST-only):
         // This uses the gRPC extension's version if 'grpcVersion' is not set, so we
         // cannot use the presence of 'grpcVersion' to determine whether or not a library
@@ -87,20 +91,21 @@ class AgentHeader
         // either, since some clients may have the extension installed but opt to use a
         // REST-only library (e.g. GCE).
         // TODO: Should we stop sending empty gRPC headers?
-        $grpcVersion = isset($headerInfo['grpcVersion']) ? $headerInfo['grpcVersion'] : \phpversion('grpc');
-        $metricsHeaders['grpc'] = $grpcVersion;
-        $restVersion = isset($headerInfo['restVersion']) ? $headerInfo['restVersion'] : $apiCoreVersion;
-        $metricsHeaders['rest'] = $restVersion;
+        $metricsHeaders['grpc'] = $headerInfo['grpcVersion'] ?? phpversion('grpc');
+        $metricsHeaders['rest'] = $headerInfo['restVersion'] ?? $apiCoreVersion;
+
         // The native version is not set by default because it is complex and costly to retrieve.
         // Users can override this default behavior if needed.
-        $protobufVersion = isset($headerInfo['protobufVersion']) ? $headerInfo['protobufVersion'] : (\phpversion('protobuf') ? \phpversion('protobuf') . '+c' : '+n');
-        $metricsHeaders['pb'] = $protobufVersion;
+        $metricsHeaders['pb'] = $headerInfo['protobufVersion']
+            ?? (phpversion('protobuf') ? phpversion('protobuf') . '+c' : '+n');
+
         $metricsList = [];
         foreach ($metricsHeaders as $key => $value) {
             $metricsList[] = $key . "/" . $value;
         }
-        return [self::AGENT_HEADER_KEY => [\implode(" ", $metricsList)]];
+        return [self::AGENT_HEADER_KEY => [implode(" ", $metricsList)]];
     }
+
     /**
      * Reads the gapic version string from a VERSION file. In order to determine the file
      * location, this method follows this procedure:
@@ -116,7 +121,12 @@ class AgentHeader
     public static function readGapicVersionFromFile(string $callingClass)
     {
         $callingClassFile = (new \ReflectionClass($callingClass))->getFileName();
-        $versionFile = \substr($callingClassFile, 0, \strrpos($callingClassFile, \DIRECTORY_SEPARATOR . 'src' . \DIRECTORY_SEPARATOR)) . \DIRECTORY_SEPARATOR . 'VERSION';
-        return \Google\ApiCore\Version::readVersionFile($versionFile);
+        $versionFile = substr(
+            $callingClassFile,
+            0,
+            strrpos($callingClassFile, DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR)
+        ) . DIRECTORY_SEPARATOR . 'VERSION';
+
+        return Version::readVersionFile($versionFile);
     }
 }

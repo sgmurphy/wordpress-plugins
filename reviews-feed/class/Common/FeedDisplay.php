@@ -126,6 +126,7 @@ class FeedDisplay {
 		}
 		$header_data = isset( $header_data[0] ) ? $header_data[0] : $header_data;
 		$source_data = isset( $settings['sources'][0] ) ? $settings['sources'][0] : [];
+
 		return $this->parser->get_review_url(
 			$header_data,
 			$source_data

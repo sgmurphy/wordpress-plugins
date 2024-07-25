@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition;
 
 /**
@@ -8,6 +8,7 @@ namespace SmashBalloon\Reviews\Vendor\DI\Definition;
  *
  * @since 5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ArrayDefinition implements Definition
 {

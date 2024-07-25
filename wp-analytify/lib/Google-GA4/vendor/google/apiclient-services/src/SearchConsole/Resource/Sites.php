@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,10 +14,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole\Resource;
 
 use Google\Service\SearchConsole\SitesListResponse;
 use Google\Service\SearchConsole\WmxSite;
+
 /**
  * The "sites" collection of methods.
  * Typical usage is:
@@ -29,58 +30,63 @@ use Google\Service\SearchConsole\WmxSite;
  */
 class Sites extends \Google\Service\Resource
 {
-    /**
-     * Adds a site to the set of the user's sites in Search Console. (sites.add)
-     *
-     * @param string $siteUrl The URL of the site to add.
-     * @param array $optParams Optional parameters.
-     */
-    public function add($siteUrl, $optParams = [])
-    {
-        $params = ['siteUrl' => $siteUrl];
-        $params = \array_merge($params, $optParams);
-        return $this->call('add', [$params]);
-    }
-    /**
-     * Removes a site from the set of the user's Search Console sites.
-     * (sites.delete)
-     *
-     * @param string $siteUrl The URI of the property as defined in Search Console.
-     * **Examples:** `http://www.example.com/` or `sc-domain:example.com`.
-     * @param array $optParams Optional parameters.
-     */
-    public function delete($siteUrl, $optParams = [])
-    {
-        $params = ['siteUrl' => $siteUrl];
-        $params = \array_merge($params, $optParams);
-        return $this->call('delete', [$params]);
-    }
-    /**
-     * Retrieves information about specific site. (sites.get)
-     *
-     * @param string $siteUrl The URI of the property as defined in Search Console.
-     * **Examples:** `http://www.example.com/` or `sc-domain:example.com`.
-     * @param array $optParams Optional parameters.
-     * @return WmxSite
-     */
-    public function get($siteUrl, $optParams = [])
-    {
-        $params = ['siteUrl' => $siteUrl];
-        $params = \array_merge($params, $optParams);
-        return $this->call('get', [$params], WmxSite::class);
-    }
-    /**
-     * Lists the user's Search Console sites. (sites.listSites)
-     *
-     * @param array $optParams Optional parameters.
-     * @return SitesListResponse
-     */
-    public function listSites($optParams = [])
-    {
-        $params = [];
-        $params = \array_merge($params, $optParams);
-        return $this->call('list', [$params], SitesListResponse::class);
-    }
+  /**
+   * Adds a site to the set of the user's sites in Search Console. (sites.add)
+   *
+   * @param string $siteUrl The URL of the site to add.
+   * @param array $optParams Optional parameters.
+   * @throws \Google\Service\Exception
+   */
+  public function add($siteUrl, $optParams = [])
+  {
+    $params = ['siteUrl' => $siteUrl];
+    $params = array_merge($params, $optParams);
+    return $this->call('add', [$params]);
+  }
+  /**
+   * Removes a site from the set of the user's Search Console sites.
+   * (sites.delete)
+   *
+   * @param string $siteUrl The URI of the property as defined in Search Console.
+   * **Examples:** `http://www.example.com/` or `sc-domain:example.com`.
+   * @param array $optParams Optional parameters.
+   * @throws \Google\Service\Exception
+   */
+  public function delete($siteUrl, $optParams = [])
+  {
+    $params = ['siteUrl' => $siteUrl];
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', [$params]);
+  }
+  /**
+   * Retrieves information about specific site. (sites.get)
+   *
+   * @param string $siteUrl The URI of the property as defined in Search Console.
+   * **Examples:** `http://www.example.com/` or `sc-domain:example.com`.
+   * @param array $optParams Optional parameters.
+   * @return WmxSite
+   * @throws \Google\Service\Exception
+   */
+  public function get($siteUrl, $optParams = [])
+  {
+    $params = ['siteUrl' => $siteUrl];
+    $params = array_merge($params, $optParams);
+    return $this->call('get', [$params], WmxSite::class);
+  }
+  /**
+   * Lists the user's Search Console sites. (sites.listSites)
+   *
+   * @param array $optParams Optional parameters.
+   * @return SitesListResponse
+   * @throws \Google\Service\Exception
+   */
+  public function listSites($optParams = [])
+  {
+    $params = [];
+    $params = array_merge($params, $optParams);
+    return $this->call('list', [$params], SitesListResponse::class);
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\Resource\Sites::class, 'Analytify\\Google_Service_SearchConsole_Resource_Sites');
+class_alias(Sites::class, 'Google_Service_SearchConsole_Resource_Sites');

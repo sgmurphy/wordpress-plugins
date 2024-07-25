@@ -1,8 +1,9 @@
 <?php
 
-namespace Analytify\GuzzleHttp\Exception;
+namespace GuzzleHttp\Exception;
 
-use Analytify\Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\ClientExceptionInterface;
+
 interface GuzzleException extends ClientExceptionInterface
 {
 }

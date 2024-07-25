@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -30,11 +29,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore;
 
-use Analytify\GuzzleHttp\Psr7\Query;
-use Analytify\GuzzleHttp\Psr7\Utils;
-use Analytify\Psr\Http\Message\UriInterface;
+use GuzzleHttp\Psr7\Query;
+use GuzzleHttp\Psr7\Utils;
+use Psr\Http\Message\UriInterface;
+
 /**
  * Provides a light wrapper around often used URI related functions.
  *
@@ -49,15 +50,20 @@ trait UriTrait
      */
     public function buildUriWithQuery($uri, array $query)
     {
-        $query = \array_filter($query, function ($v) {
+        $query = array_filter($query, function ($v) {
             return $v !== null;
         });
+
         // Casts bools to their string representation
         foreach ($query as $k => &$v) {
-            if (\is_bool($v)) {
+            if (is_bool($v)) {
                 $v = $v ? 'true' : 'false';
             }
         }
-        return Utils::uriFor($uri)->withQuery(Query::build($query));
+
+        return Utils::uriFor($uri)
+            ->withQuery(
+                Query::build($query)
+            );
     }
 }

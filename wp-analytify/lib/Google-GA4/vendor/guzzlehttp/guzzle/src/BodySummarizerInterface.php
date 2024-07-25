@@ -1,12 +1,13 @@
 <?php
 
-namespace Analytify\GuzzleHttp;
+namespace GuzzleHttp;
 
-use Analytify\Psr\Http\Message\MessageInterface;
+use Psr\Http\Message\MessageInterface;
+
 interface BodySummarizerInterface
 {
     /**
      * Returns a summarized message body.
      */
-    public function summarize(MessageInterface $message) : ?string;
+    public function summarize(MessageInterface $message): ?string;
 }

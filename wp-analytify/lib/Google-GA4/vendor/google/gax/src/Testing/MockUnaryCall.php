@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -30,11 +29,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore\Testing;
 
 use Google\Rpc\Code;
 use Google\Protobuf\Internal\Message;
 use stdClass;
+
 /**
  * The MockUnaryCall class is used to mock out the \Grpc\UnaryCall class
  * (https://github.com/grpc/grpc/blob/master/src/php/lib/Grpc/UnaryCall.php)
@@ -47,9 +48,11 @@ use stdClass;
  */
 class MockUnaryCall extends \Grpc\UnaryCall
 {
-    use \Google\ApiCore\Testing\SerializationTrait;
+    use SerializationTrait;
+
     private $response;
     private $status;
+
     /**
      * MockUnaryCall constructor.
      * @param Message|string|null $response The response object.
@@ -60,17 +63,21 @@ class MockUnaryCall extends \Grpc\UnaryCall
     {
         $this->response = $response;
         $this->deserialize = $deserialize;
-        if (\is_null($status)) {
-            $status = new \Google\ApiCore\Testing\MockStatus(Code::OK);
+        if (is_null($status)) {
+            $status = new MockStatus(Code::OK);
         }
         $this->status = $status;
     }
+
     /**
      * Immediately return the preset response object and status.
      * @return array The response object and status.
      */
     public function wait()
     {
-        return [$this->deserializeMessage($this->response, $this->deserialize), $this->status];
+        return [
+            $this->deserializeMessage($this->response, $this->deserialize),
+            $this->status,
+        ];
     }
 }

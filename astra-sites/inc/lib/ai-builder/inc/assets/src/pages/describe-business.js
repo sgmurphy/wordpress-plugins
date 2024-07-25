@@ -17,7 +17,7 @@ import Divider from '../components/divider';
 import { STORE_KEY } from '../store';
 import { adjustTextAreaHeight } from '../utils/helpers';
 import StyledText from '../components/styled-text';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useNavigateSteps } from '../router';
 
 const DescribeBusiness = () => {
@@ -151,75 +151,114 @@ const DescribeBusiness = () => {
 			setIsFetchingKeywords( false );
 		}
 	};
-
-	const getTitle = ( strings, name ) => {
-		if ( name === 'name' ) {
-			name = businessName;
-		}
+	const STYLED_TEXT_PLACEHOLDER = '{{STYLED_TEXT}}';
+	const getTitle = () => {
+		const format =
+			CATEGORY_DATA[ categoryKey ]?.questionFormat ||
+			CATEGORY_DATA.unknown.questionFormat;
+		const translatedText = sprintf( format, STYLED_TEXT_PLACEHOLDER );
+		const parts = translatedText.split( STYLED_TEXT_PLACEHOLDER );
 
 		return (
 			<>
-				{ strings[ 0 ] }
+				{ parts[ 0 ] }
 				<StyledText text={ businessName } />
-				{ strings[ 1 ] }
+				{ parts[ 1 ] }
 			</>
 		);
 	};
 
 	const CATEGORY_DATA = {
 		business: {
-			question: getTitle`What is ${ 'name' }? Please describe the business.`,
-			description:
+			questionFormat:
+				/* translators: %s: business name */
+				__( 'What is %s? Please describe the business.', 'ai-builder' ),
+			description: __(
 				'Please be as descriptive as you can. Share details such as services, products, goals, etc.',
+				'ai-builder'
+			),
 		},
 		'personal-website': {
-			question: getTitle`Who is ${ 'name' }? Tell us more about the person.`,
-			description:
+			questionFormat:
+				/* translators: %s: person name */
+				__( 'Who is %s? Tell us more about the person.', 'ai-builder' ),
+			description: __(
 				'Please be as descriptive as you can. Share details such as what they do, their expertise, offerings, etc.',
+				'ai-builder'
+			),
 		},
 		organisation: {
-			question: getTitle`What is ${ 'name' }? Please describe the organisation.`,
-			description:
+			questionFormat:
+				/* translators: %s: organisation name */
+				__(
+					'What is %s? Please describe the organisation.',
+					'ai-builder'
+				),
+			description: __(
 				'Please be as descriptive as you can. Share details such as services, programs, mission, vision, etc.',
+				'ai-builder'
+			),
 		},
 		restaurant: {
-			question: getTitle`What is ${ 'name' }? Tell us more about the restaurant.`,
-			description:
+			questionFormat:
+				/* translators: %s: restaurant name */
+				__(
+					'What is %s? Tell us more about the restaurant.',
+					'ai-builder'
+				),
+			description: __(
 				'Please be as descriptive as you can. Share details such as a brief about the restaurant, specialty, menu, etc.',
+				'ai-builder'
+			),
 		},
 		product: {
-			question: getTitle`What is ${ 'name' }? Share more details about the product.`,
-			description:
+			questionFormat:
+				/* translators: %s: product name */
+				__(
+					'What is %s? Share more details about the product.',
+					'ai-builder'
+				),
+			description: __(
 				'Please be as descriptive as you can. Share details such as a brief about the product, features, some USPs, etc.',
+				'ai-builder'
+			),
 		},
 		event: {
-			question: getTitle`Tell us more about ${ 'name' }.`,
-			description:
+			questionFormat:
+				/* translators: %s: event name */
+				__( 'Tell us more about %s.', 'ai-builder' ),
+			description: __(
 				'Please be as descriptive as you can. Share details such as Event information date, venue, some highlights, etc.',
+				'ai-builder'
+			),
 		},
 		'landing-page': {
-			question: getTitle`Share more details about ${ 'name' }.`,
-			description:
+			questionFormat:
+				/* translators: %s: landing page name */
+				__( 'Share more details about %s.', 'ai-builder' ),
+			description: __(
 				'Please be as descriptive as you can. Share details such as a brief about the product, features, some USPs, etc.',
+				'ai-builder'
+			),
 		},
 		medical: {
-			question: getTitle`Tell us more about the  ${ 'name' }.`,
-			description:
+			questionFormat:
+				/* translators: %s: medical facility name */
+				__( 'Tell us more about the %s.', 'ai-builder' ),
+			description: __(
 				'Please be as descriptive as you can. Share details such as treatments, procedures, facilities, etc.',
+				'ai-builder'
+			),
 		},
 		unknown: {
-			question: getTitle`Please describe ${ 'name' } in a few words.`,
-		},
-	};
-
-	const getDescription = ( type ) => {
-		return (
-			CATEGORY_DATA[ type ]?.description ??
-			__(
+			questionFormat:
+				/* translators: %s: entity name */
+				__( 'Please describe %s in a few words.', 'ai-builder' ),
+			description: __(
 				'The best way to describe anything is by answering a few WH questions. Who, What, Where, Why, When, etc.',
 				'ai-builder'
-			)
-		);
+			),
+		},
 	};
 
 	useEffect( () => {
@@ -323,11 +362,11 @@ const DescribeBusiness = () => {
 			onSubmit={ handleSubmit( handleFormSubmit ) }
 		>
 			<Heading
-				heading={
-					CATEGORY_DATA[ categoryKey ]?.question ??
-					CATEGORY_DATA.unknown.question
+				heading={ getTitle( categoryKey ) || getTitle( 'unknown' ) }
+				subHeading={
+					CATEGORY_DATA[ categoryKey ]?.description ||
+					CATEGORY_DATA.unknown.description
 				}
-				subHeading={ getDescription( categoryKey ) }
 			/>
 			<div>
 				<Textarea
@@ -364,8 +403,11 @@ const DescribeBusiness = () => {
 								<WandIcon className="w-5 h-5 transition duration-150 ease-in-out text-accent-st" />
 								<span className="font-semibold text-sm transition duration-150 ease-in-out text-accent-st">
 									{ formBusinessDetails?.trim() === ''
-										? 'Write Using AI'
-										: 'Improve Using AI' }
+										? __( 'Write Using AI', 'ai-builder' )
+										: __(
+												'Improve Using AI',
+												'ai-builder'
+										  ) }
 								</span>
 							</div>
 

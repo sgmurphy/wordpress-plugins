@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -41,26 +40,38 @@ namespace Google\ApiCore\Testing;
 class ReceivedRequest
 {
     private $actualCall;
+
     public function __construct($funcCall, $requestObject, $deserialize = null, $metadata = [], $options = [])
     {
-        $this->actualCall = ['funcCall' => $funcCall, 'request' => $requestObject, 'deserialize' => $deserialize, 'metadata' => $metadata, 'options' => $options];
+        $this->actualCall = [
+            'funcCall' => $funcCall,
+            'request' => $requestObject,
+            'deserialize' => $deserialize,
+            'metadata' => $metadata,
+            'options' => $options,
+        ];
     }
+
     public function getArray()
     {
         return $this->actualCall;
     }
+
     public function getFuncCall()
     {
         return $this->actualCall['funcCall'];
     }
+
     public function getRequestObject()
     {
         return $this->actualCall['request'];
     }
+
     public function getMetadata()
     {
         return $this->actualCall['metadata'];
     }
+
     public function getOptions()
     {
         return $this->actualCall['options'];

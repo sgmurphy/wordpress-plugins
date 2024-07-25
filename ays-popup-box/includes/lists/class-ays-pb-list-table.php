@@ -141,8 +141,8 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $conditions[] = 'modal_content = "' . $ays_pb_type . '"';
         }
 
-        if (isset($_GET['s']) && $_GET['s'] != '') {
-            $search = esc_sql(sanitize_text_field($_GET['s']));
+        if (isset($_REQUEST['s']) && $_REQUEST['s'] != '') {
+            $search = esc_sql(sanitize_text_field($_REQUEST['s']));
             $conditions[] = sprintf("title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)));
         }
 
@@ -194,7 +194,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         ) );
 
         $search = isset($_REQUEST['s']) ? esc_sql( sanitize_text_field($_REQUEST['s']) ) : false;
-        $do_search = $search ? sprintf(" title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)) ) : '';
+        $do_search = $search ? sprintf( " title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)) ) : '';
 
         $this->items = self::get_ays_popupboxes($per_page, $current_page, $do_search);
     }
@@ -270,7 +270,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
                 return $item[$column_name];
                 break;
             default:
-                return print_r($item, true); //Show the whole array for troubleshooting purposes
+                return print_r($item, true); // Show the whole array for troubleshooting purposes
         }
     }
 

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -36,6 +35,7 @@ use Exception;
 use Google\ApiCore\Call;
 use Google\ApiCore\ValidationException;
 use Google\Auth\HttpHandler\HttpHandlerFactory;
+
 /**
  * A trait for shared functionality between transports that support only unary RPCs using simple
  * HTTP requests.
@@ -47,6 +47,7 @@ trait HttpUnaryTransportTrait
     private $httpHandler;
     private $transportName;
     private $clientCertSource;
+
     /**
      * {@inheritdoc}
      * @return never
@@ -56,6 +57,7 @@ trait HttpUnaryTransportTrait
     {
         $this->throwUnsupportedException();
     }
+
     /**
      * {@inheritdoc}
      * @return never
@@ -65,6 +67,7 @@ trait HttpUnaryTransportTrait
     {
         $this->throwUnsupportedException();
     }
+
     /**
      * {@inheritdoc}
      * @return never
@@ -74,6 +77,7 @@ trait HttpUnaryTransportTrait
     {
         $this->throwUnsupportedException();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -81,32 +85,43 @@ trait HttpUnaryTransportTrait
     {
         // Nothing to do.
     }
+
     /**
      * @param array $options
      * @return array
      */
     private static function buildCommonHeaders(array $options)
     {
-        $headers = isset($options['headers']) ? $options['headers'] : [];
-        if (!\is_array($headers)) {
-            throw new \InvalidArgumentException('The "headers" option must be an array');
+        $headers = $options['headers'] ?? [];
+
+        if (!is_array($headers)) {
+            throw new \InvalidArgumentException(
+                'The "headers" option must be an array'
+            );
         }
+
         // If not already set, add an auth header to the request
         if (!isset($headers['Authorization']) && isset($options['credentialsWrapper'])) {
             $credentialsWrapper = $options['credentialsWrapper'];
-            $audience = isset($options['audience']) ? $options['audience'] : null;
-            $callback = $credentialsWrapper->getAuthorizationHeaderCallback($audience);
+            $audience = $options['audience'] ?? null;
+            $callback = $credentialsWrapper
+                ->getAuthorizationHeaderCallback($audience);
             // Prevent unexpected behavior, as the authorization header callback
             // uses lowercase "authorization"
             unset($headers['authorization']);
-            $authHeaders = $callback();
-            if (!\is_array($authHeaders)) {
-                throw new \UnexpectedValueException('Expected array response from authorization header callback');
+            // Mitigate scenario where InsecureCredentialsWrapper returns null.
+            $authHeaders = empty($callback) ? [] : $callback();
+            if (!is_array($authHeaders)) {
+                throw new \UnexpectedValueException(
+                    'Expected array response from authorization header callback'
+                );
             }
             $headers += $authHeaders;
         }
+
         return $headers;
     }
+
     /**
      * @return callable
      * @throws ValidationException
@@ -119,6 +134,7 @@ trait HttpUnaryTransportTrait
             throw new ValidationException("Failed to build HttpHandler", $ex->getCode(), $ex);
         }
     }
+
     /**
      * Set the path to a client certificate.
      *
@@ -128,21 +144,26 @@ trait HttpUnaryTransportTrait
     {
         $this->clientCertSource = $clientCertSource;
     }
+
     /**
      * @return never
      * @throws \BadMethodCallException
      */
     private function throwUnsupportedException()
     {
-        throw new \BadMethodCallException("Streaming calls are not supported while using the {$this->transportName} transport.");
+        throw new \BadMethodCallException(
+            "Streaming calls are not supported while using the {$this->transportName} transport."
+        );
     }
+
     private static function loadClientCertSource(callable $clientCertSource)
     {
-        $certFile = \tempnam(\sys_get_temp_dir(), 'cert');
-        $keyFile = \tempnam(\sys_get_temp_dir(), 'key');
-        list($cert, $key) = \call_user_func($clientCertSource);
-        \file_put_contents($certFile, $cert);
-        \file_put_contents($keyFile, $key);
+        $certFile = tempnam(sys_get_temp_dir(), 'cert');
+        $keyFile = tempnam(sys_get_temp_dir(), 'key');
+        list($cert, $key) = call_user_func($clientCertSource);
+        file_put_contents($certFile, $cert);
+        file_put_contents($keyFile, $key);
+
         // the key and the cert are returned in one temporary file
         return [$certFile, $keyFile];
     }

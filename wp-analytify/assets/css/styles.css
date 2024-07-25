@@ -1630,6 +1630,9 @@ transition: all .25s ease-in;
 .analytify_firefox {
     background-position:-106px 0px;
 }
+.analytify_mozilla {
+    background-position:-106px 0px;
+}
 .analytify_android {
     background-position:-142px 0px;
 }

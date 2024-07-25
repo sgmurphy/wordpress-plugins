@@ -3,7 +3,7 @@ Contributors: andrewza, yoohooplugins, travislima
 Tags: last login, user login, user login time, when last login, login record
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4GC4JEZH7KSKL
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.2
 Stable tag: 1.2.2
 License: GPLv2 or later

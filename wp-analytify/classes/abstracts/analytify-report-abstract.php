@@ -142,6 +142,47 @@ if ( ! class_exists( 'Analytify_Report_Abstract' ) ) {
 				),
 			);
 		}
+
+		protected function new_vs_returning(){
+			return array(
+				'new_vs_returning_visitors' => array(
+					'title'  => esc_html__( 'New vs Returning Visitors', 'wp-analytify' ),
+					'stats'  => array(
+						'new'       => array(
+							'label'  => esc_html__( 'New', 'wp-analytify' ),
+							'number' => 0,
+						),
+						'returning' => array(
+							'label'  => esc_html__( 'Returning', 'wp-analytify' ),
+							'number' => 0,
+						),
+					),
+				),
+			);
+	
+		}
+		protected function visitor_devices() {
+			return array(
+				'visitor_devices' => array(
+					'title'  => esc_html__( 'Devices of Visitors', 'wp-analytify' ),
+					'stats'  => array(
+						'mobile'  => array(
+							'label'  => esc_html__( 'Mobile', 'wp-analytify' ),
+							'number' => 0,
+						),
+						'tablet'  => array(
+							'label'  => esc_html__( 'Tablet', 'wp-analytify' ),
+							'number' => 0,
+						),
+						'desktop' => array(
+							'label'  => esc_html__( 'Desktop', 'wp-analytify' ),
+							'number' => 0,
+						),
+					),
+				)
+			);
+		}	
+
 		protected function total_time_for_send_email()
 		{
 			return array(
@@ -153,6 +194,7 @@ if ( ! class_exists( 'Analytify_Report_Abstract' ) ) {
 				),
 			);
 		}
+
 		/**
 		 * Attaches post URL dimension.
 		 * Only if the dashboard type is 'single_post'.
@@ -160,8 +202,8 @@ if ( ! class_exists( 'Analytify_Report_Abstract' ) ) {
 		 * @param array $dimensions Dimensions.
 		 * @return array
 		 */
-		protected function attach_post_url_dimension( $dimensions = array() ) {
-			if ( 'single_post' === $this->dashboard_type ) {
+		protected function attach_post_url_dimension($dimensions = array()) {
+			if ($this->dashboard_type === 'single_post') {
 				$dimensions[] = 'pagePath';
 			}
 			return $dimensions;

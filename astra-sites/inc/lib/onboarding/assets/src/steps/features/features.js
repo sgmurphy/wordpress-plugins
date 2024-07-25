@@ -185,9 +185,7 @@ const ClassicFeatures = () => {
 					</a>
 				</div>
 			</div>
-			<PreviousStepLink before>
-				{ __( 'Back', 'astra-sites' ) }
-			</PreviousStepLink>
+			<PreviousStepLink>{ __( 'Back', 'astra-sites' ) }</PreviousStepLink>
 		</div>
 	);
 };

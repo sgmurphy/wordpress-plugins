@@ -24,9 +24,9 @@ class Analytify_Report extends Analytify_Report_Abstract {
 	public function get_general_stats() {
 
 		$cache_key = $this->cache_key( 'general-stats' );
-
+		$device_cache_key = $this->cache_key( 'device-stats' );
 		if ( $this->is_ga4 ) {
-			return $this->general_stats_ga4( $cache_key );
+			return $this->general_stats_ga4( $cache_key , $device_cache_key );
 		} else {
 			return $this->general_stats_ua( $cache_key );
 		}
@@ -39,26 +39,31 @@ class Analytify_Report extends Analytify_Report_Abstract {
 	 * @param string $cache_key Cache key.
 	 * @return array
 	 */
-	protected function general_stats_ga4( $cache_key ) {
+	protected function general_stats_ga4( $cache_key , $device_cache_key ) {
 
 		$boxes = $this->general_stats_boxes();
 		$send_email_total_time = $this->total_time_for_send_email();
 		unset( $boxes['new_sessions'] );
-
+		$new_vs_returning_boxes = $this->new_vs_returning();
+		$device_visitors_boxes = $this->visitor_devices();
 		$dimensions = array();
+		$device_dimensions = array(
+			'deviceCategory',
+		);
 		$filters    = array();
-
 		$raw = $this->wp_analytify->get_reports(
 			$cache_key,
 			array(
 				'sessions',
 				'totalUsers',
 				'screenPageViews',
-				'engagementRate',
 				'bounceRate',
 				'screenPageViewsPerSession',
+				'engagedSessions',
+				'userEngagementDuration',
+				'newUsers',
+				'activeUsers',
 				'averageSessionDuration',
-				'userEngagementDuration'
 			),
 			$this->get_dates(),
 			$this->attach_post_url_dimension( $dimensions ),
@@ -68,7 +73,6 @@ class Analytify_Report extends Analytify_Report_Abstract {
 				'filters' => $this->attach_post_url_filter( $filters ),
 			)
 		);
-
 		if ( isset( $raw['aggregations']['sessions'] ) ) {
 			$boxes['sessions']['value']    = WPANALYTIFY_Utils::pretty_numbers( $raw['aggregations']['sessions'] );
 			$general_stats_num['sessions'] = $raw['aggregations']['sessions'];
@@ -93,12 +97,40 @@ class Analytify_Report extends Analytify_Report_Abstract {
 			$boxes['view_per_session']['value']    = WPANALYTIFY_Utils::pretty_numbers( $raw['aggregations']['screenPageViewsPerSession'] );
 			$general_stats_num['view_per_session'] = $raw['aggregations']['screenPageViewsPerSession'];
 		}
-		if (isset($raw['aggregations']['userEngagementDuration'])) {
+
+		if ( isset( $raw['aggregations']['newUsers'] ) ) {
+			$new_vs_returning_boxes['new_vs_returning_visitors']['stats']['new']['number'] = WPANALYTIFY_Utils::pretty_numbers($raw['aggregations']['newUsers']);
+		}
+		if ( isset( $raw['aggregations']['activeUsers'] ) ) {
+			$new_vs_returning_boxes['new_vs_returning_visitors']['stats']['returning']['number'] = WPANALYTIFY_Utils::pretty_numbers($raw['aggregations']['activeUsers']);
+		}
+		
+		$device_stats = $this->wp_analytify->get_reports(
+			$device_cache_key,
+			array('sessions'),
+			$this->get_dates(),
+			$this->attach_post_url_dimension($device_dimensions),
+			array(),
+			array(
+				'logic' => 'AND',
+				'filters' => $this->attach_post_url_filter($filters),
+			)
+		);
+		if ( isset( $device_stats['rows'] ) && $device_stats['rows'] ) {
+			foreach ( $device_stats['rows'] as $device ) {
+				$device_visitors_boxes['visitor_devices']['stats'][ $device['deviceCategory'] ]['number'] = $device['sessions'];
+			}
+		}
+    
+    if (isset($raw['aggregations']['userEngagementDuration'])) {
 			$send_email_total_time['total_time']['value']    = WPANALYTIFY_Utils::pretty_time($raw['aggregations']['userEngagementDuration']);
 		}
+    
 		return array(
 			'boxes' => $boxes,
-			'total_time_spent' => $send_email_total_time
+			'new_vs_returning_boxes' => $new_vs_returning_boxes,
+			'device_visitors_boxes' => $device_visitors_boxes,
+      'total_time_spent' => $send_email_total_time
 		);
 	}
 

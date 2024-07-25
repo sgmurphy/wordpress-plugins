@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Resolver;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -19,6 +19,7 @@ use ReflectionProperty;
  *
  * @since 4.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ObjectCreator implements DefinitionResolver
 {
@@ -49,8 +50,6 @@ class ObjectCreator implements DefinitionResolver
      *
      * This will create a new instance of the class using the injections points defined.
      *
-     * {@inheritdoc}
-     *
      * @param ObjectDefinition $definition
      *
      * @return object|null
@@ -68,8 +67,6 @@ class ObjectCreator implements DefinitionResolver
      * or if the class doesn't exist.
      *
      * @param ObjectDefinition $definition
-     *
-     * {@inheritdoc}
      */
     public function isResolvable(Definition $definition, array $parameters = []) : bool
     {

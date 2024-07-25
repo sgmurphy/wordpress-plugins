@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Resolver;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -10,6 +10,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidDefinition;
  * Resolves a environment variable definition to a value.
  *
  * @author James Harris <james.harris@icecave.com.au>
+ * @internal
  */
 class EnvironmentVariableResolver implements DefinitionResolver
 {
@@ -21,17 +22,15 @@ class EnvironmentVariableResolver implements DefinitionResolver
      * @var callable
      */
     private $variableReader;
-    public function __construct(DefinitionResolver $definitionResolver, $variableReader = 'getenv')
+    public function __construct(DefinitionResolver $definitionResolver, $variableReader = null)
     {
         $this->definitionResolver = $definitionResolver;
-        $this->variableReader = $variableReader;
+        $this->variableReader = $variableReader ?? [$this, 'getEnvVariable'];
     }
     /**
      * Resolve an environment variable definition to a value.
      *
      * @param EnvironmentVariableDefinition $definition
-     *
-     * {@inheritdoc}
      */
     public function resolve(Definition $definition, array $parameters = [])
     {
@@ -52,5 +51,14 @@ class EnvironmentVariableResolver implements DefinitionResolver
     public function isResolvable(Definition $definition, array $parameters = []) : bool
     {
         return \true;
+    }
+    protected function getEnvVariable(string $variableName)
+    {
+        if (isset($_ENV[$variableName])) {
+            return $_ENV[$variableName];
+        } elseif (isset($_SERVER[$variableName])) {
+            return $_SERVER[$variableName];
+        }
+        return \getenv($variableName);
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -30,9 +29,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore;
 
 use Google\Protobuf\Internal\Message;
+
 /**
  * Contains information necessary to manage a network request.
  */
@@ -44,11 +45,13 @@ class Call
     const SERVER_STREAMING_CALL = 3;
     const LONGRUNNING_CALL = 4;
     const PAGINATED_CALL = 5;
+
     private $method;
     private $callType;
     private $decodeType;
     private $message;
     private $descriptor;
+
     /**
      * @param string $method
      * @param string $decodeType
@@ -56,14 +59,20 @@ class Call
      * @param array|null $descriptor
      * @param int $callType
      */
-    public function __construct(string $method, string $decodeType = null, $message = null, $descriptor = [], int $callType = \Google\ApiCore\Call::UNARY_CALL)
-    {
+    public function __construct(
+        string $method,
+        string $decodeType = null,
+        $message = null,
+        $descriptor = [],
+        int $callType = Call::UNARY_CALL
+    ) {
         $this->method = $method;
         $this->decodeType = $decodeType;
         $this->message = $message;
         $this->descriptor = $descriptor;
         $this->callType = $callType;
     }
+
     /**
      * @return string
      */
@@ -71,6 +80,7 @@ class Call
     {
         return $this->method;
     }
+
     /**
      * @return int
      */
@@ -78,6 +88,7 @@ class Call
     {
         return $this->callType;
     }
+
     /**
      * @return string
      */
@@ -85,6 +96,7 @@ class Call
     {
         return $this->decodeType;
     }
+
     /**
      * @return mixed|Message
      */
@@ -92,6 +104,7 @@ class Call
     {
         return $this->message;
     }
+
     /**
      * @return array|null
      */
@@ -99,6 +112,7 @@ class Call
     {
         return $this->descriptor;
     }
+
     /**
      * @param mixed|Message $message
      * @return Call
@@ -106,6 +120,12 @@ class Call
     public function withMessage($message)
     {
         // @phpstan-ignore-next-line
-        return new static($this->method, $this->decodeType, $message, $this->descriptor, $this->callType);
+        return new static(
+            $this->method,
+            $this->decodeType,
+            $message,
+            $this->descriptor,
+            $this->callType
+        );
     }
 }

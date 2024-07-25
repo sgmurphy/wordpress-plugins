@@ -114,6 +114,7 @@ class Nps_Survey_Script {
 		);
 
 		wp_enqueue_style( 'nps-survey-style', $build_url . '/style-main.css', array(), ASTRA_SITES_VER );
+		wp_style_add_data( 'nps-survey-style', 'rtl', 'replace' );
 
 	}
 

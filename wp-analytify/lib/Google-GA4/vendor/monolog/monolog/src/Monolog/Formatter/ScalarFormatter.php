@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -9,10 +8,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Analytify\Monolog\Formatter;
+
+namespace Monolog\Formatter;
+
+use Monolog\LogRecord;
 
 /**
- * Formats data into an associative array of scalar values.
+ * Formats data into an associative array of scalar (+ null) values.
  * Objects and arrays will be JSON encoded.
  *
  * @author Andrew Lawson <adlawson@gmail.com>
@@ -20,28 +22,28 @@ namespace Analytify\Monolog\Formatter;
 class ScalarFormatter extends NormalizerFormatter
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      *
      * @phpstan-return array<string, scalar|null> $record
      */
-    public function format(array $record) : array
+    public function format(LogRecord $record): array
     {
         $result = [];
-        foreach ($record as $key => $value) {
-            $result[$key] = $this->normalizeValue($value);
+        foreach ($record->toArray() as $key => $value) {
+            $result[$key] = $this->toScalar($value);
         }
+
         return $result;
     }
-    /**
-     * @param  mixed                      $value
-     * @return scalar|null
-     */
-    protected function normalizeValue($value)
+
+    protected function toScalar(mixed $value): string|int|float|bool|null
     {
         $normalized = $this->normalize($value);
-        if (\is_array($normalized)) {
-            return $this->toJson($normalized, \true);
+
+        if (is_array($normalized)) {
+            return $this->toJson($normalized, true);
         }
+
         return $normalized;
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Compiler;
 
+use function chmod;
 use SmashBalloon\Reviews\Vendor\DI\Definition\ArrayDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Definition\DecoratorDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -15,14 +16,20 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\Source\DefinitionSource;
 use SmashBalloon\Reviews\Vendor\DI\Definition\StringDefinition;
 use SmashBalloon\Reviews\Vendor\DI\Definition\ValueDefinition;
 use SmashBalloon\Reviews\Vendor\DI\DependencyException;
+use SmashBalloon\Reviews\Vendor\DI\Proxy\ProxyFactory;
+use function dirname;
+use function file_put_contents;
 use InvalidArgumentException;
-use SmashBalloon\Reviews\Vendor\PhpParser\Node\Expr\Closure;
-use SmashBalloon\Reviews\Vendor\SuperClosure\Analyzer\AstAnalyzer;
-use SmashBalloon\Reviews\Vendor\SuperClosure\Exception\ClosureAnalysisException;
+use SmashBalloon\Reviews\Vendor\Laravel\SerializableClosure\Support\ReflectionClosure;
+use function rename;
+use function sprintf;
+use function tempnam;
+use function unlink;
 /**
  * Compiles the container into PHP code much more optimized for performances.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class Compiler
 {
@@ -43,6 +50,26 @@ class Compiler
      */
     private $entriesToCompile;
     /**
+     * Progressive counter for definitions.
+     *
+     * Each key in $entriesToCompile is defined as 'SubEntry' + counter
+     * and each definition has always the same key in the CompiledContainer
+     * if PHP-DI configuration does not change.
+     *
+     * @var int
+     */
+    private $subEntryCounter;
+    /**
+     * Progressive counter for CompiledContainer get methods.
+     *
+     * Each CompiledContainer method name is defined as 'get' + counter
+     * and remains the same after each recompilation
+     * if PHP-DI configuration does not change.
+     *
+     * @var int
+     */
+    private $methodMappingCounter;
+    /**
      * Map of entry names to method names.
      *
      * @var string[]
@@ -56,6 +83,18 @@ class Compiler
      * @var bool
      */
     private $autowiringEnabled;
+    /**
+     * @var ProxyFactory
+     */
+    private $proxyFactory;
+    public function __construct(ProxyFactory $proxyFactory)
+    {
+        $this->proxyFactory = $proxyFactory;
+    }
+    public function getProxyFactory() : ProxyFactory
+    {
+        return $this->proxyFactory;
+    }
     /**
      * Compile the container.
      *
@@ -110,12 +149,31 @@ class Compiler
         $this->containerParentClass = $parentClassName;
         \ob_start();
         require __DIR__ . '/Template.php';
-        $fileContent = \ob_get_contents();
-        \ob_end_clean();
+        $fileContent = \ob_get_clean();
         $fileContent = "<?php\n" . $fileContent;
-        $this->createCompilationDirectory(\dirname($fileName));
-        \file_put_contents($fileName, $fileContent);
+        $this->createCompilationDirectory(dirname($fileName));
+        $this->writeFileAtomic($fileName, $fileContent);
         return $fileName;
+    }
+    private function writeFileAtomic(string $fileName, string $content) : int
+    {
+        $tmpFile = @tempnam(dirname($fileName), 'swap-compile');
+        if ($tmpFile === \false) {
+            throw new InvalidArgumentException(sprintf('Error while creating temporary file in %s', dirname($fileName)));
+        }
+        @chmod($tmpFile, 0666);
+        $written = file_put_contents($tmpFile, $content);
+        if ($written === \false) {
+            @unlink($tmpFile);
+            throw new InvalidArgumentException(sprintf('Error while writing to %s', $tmpFile));
+        }
+        @chmod($tmpFile, 0666);
+        $renamed = @rename($tmpFile, $fileName);
+        if (!$renamed) {
+            @unlink($tmpFile);
+            throw new InvalidArgumentException(sprintf('Error while renaming %s to %s', $tmpFile, $fileName));
+        }
+        return $written;
     }
     /**
      * @throws DependencyException
@@ -125,7 +183,7 @@ class Compiler
     private function compileDefinition(string $entryName, Definition $definition) : string
     {
         // Generate a unique method name
-        $methodName = \str_replace('.', '', \uniqid('get', \true));
+        $methodName = 'get' . ++$this->methodMappingCounter;
         $this->entryToMethodMapping[$entryName] = $methodName;
         switch (\true) {
             case $definition instanceof ValueDefinition:
@@ -150,7 +208,7 @@ class Compiler
                 $isOptional = $this->compileValue($definition->isOptional());
                 $defaultValue = $this->compileValue($definition->getDefaultValue());
                 $code = <<<PHP
-        \$value = getenv({$variableName});
+        \$value = \$_ENV[{$variableName}] ?? \$_SERVER[{$variableName}] ?? getenv({$variableName});
         if (false !== \$value) return \$value;
         if (!{$isOptional}) {
             throw new \\DI\\Definition\\Exception\\InvalidDefinition("The environment variable '{$definition->getVariableName()}' has not been defined");
@@ -162,7 +220,7 @@ PHP;
                 try {
                     $code = 'return ' . $this->compileValue($definition->getValues()) . ';';
                 } catch (\Exception $e) {
-                    throw new DependencyException(\sprintf('Error while compiling %s. %s', $definition->getName(), $e->getMessage()), 0, $e);
+                    throw new DependencyException(sprintf('Error while compiling %s. %s', $definition->getName(), $e->getMessage()), 0, $e);
                 }
                 break;
             case $definition instanceof ObjectDefinition:
@@ -176,22 +234,22 @@ PHP;
                     if (!$definition->getName()) {
                         throw new InvalidDefinition('Decorators cannot be nested in another definition');
                     }
-                    throw new InvalidDefinition(\sprintf('Entry "%s" decorates nothing: no previous definition with the same name was found', $definition->getName()));
+                    throw new InvalidDefinition(sprintf('Entry "%s" decorates nothing: no previous definition with the same name was found', $definition->getName()));
                 }
-                $code = \sprintf('return call_user_func(%s, %s, $this->delegateContainer);', $this->compileValue($definition->getCallable()), $this->compileValue($decoratedDefinition));
+                $code = sprintf('return call_user_func(%s, %s, $this->delegateContainer);', $this->compileValue($definition->getCallable()), $this->compileValue($decoratedDefinition));
                 break;
             case $definition instanceof FactoryDefinition:
                 $value = $definition->getCallable();
                 // Custom error message to help debugging
                 $isInvokableClass = \is_string($value) && \class_exists($value) && \method_exists($value, '__invoke');
                 if ($isInvokableClass && !$this->autowiringEnabled) {
-                    throw new InvalidDefinition(\sprintf('Entry "%s" cannot be compiled. Invokable classes cannot be automatically resolved if autowiring is disabled on the container, you need to enable autowiring or define the entry manually.', $entryName));
+                    throw new InvalidDefinition(sprintf('Entry "%s" cannot be compiled. Invokable classes cannot be automatically resolved if autowiring is disabled on the container, you need to enable autowiring or define the entry manually.', $entryName));
                 }
                 $definitionParameters = '';
                 if (!empty($definition->getParameters())) {
                     $definitionParameters = ', ' . $this->compileValue($definition->getParameters());
                 }
-                $code = \sprintf('return $this->resolveFactory(%s, %s%s);', $this->compileValue($value), \var_export($entryName, \true), $definitionParameters);
+                $code = sprintf('return $this->resolveFactory(%s, %s%s);', $this->compileValue($value), \var_export($entryName, \true), $definitionParameters);
                 break;
             default:
                 // This case should not happen (so it cannot be tested)
@@ -205,11 +263,11 @@ PHP;
         // Check that the value can be compiled
         $errorMessage = $this->isCompilable($value);
         if ($errorMessage !== \true) {
-            throw new InvalidDefinition((string) $errorMessage);
+            throw new InvalidDefinition($errorMessage);
         }
         if ($value instanceof Definition) {
             // Give it an arbitrary unique name
-            $subEntryName = \uniqid('SubEntry');
+            $subEntryName = 'subEntry' . ++$this->subEntryCounter;
             // Compile the sub-definition in another method
             $methodName = $this->compileDefinition($subEntryName, $value);
             // The value is now a method call to that method (which returns the value)
@@ -231,15 +289,15 @@ PHP;
     }
     private function createCompilationDirectory(string $directory)
     {
-        if (!\is_dir($directory) && !@\mkdir($directory, 0777, \true)) {
-            throw new InvalidArgumentException(\sprintf('Compilation directory does not exist and cannot be created: %s.', $directory));
+        if (!\is_dir($directory) && !@\mkdir($directory, 0777, \true) && !\is_dir($directory)) {
+            throw new InvalidArgumentException(sprintf('Compilation directory does not exist and cannot be created: %s.', $directory));
         }
         if (!\is_writable($directory)) {
-            throw new InvalidArgumentException(\sprintf('Compilation directory is not writable: %s.', $directory));
+            throw new InvalidArgumentException(sprintf('Compilation directory is not writable: %s.', $directory));
         }
     }
     /**
-     * @return string|true If null is returned that means that the value is compilable.
+     * @return string|true If true is returned that means that the value is compilable.
      */
     private function isCompilable($value)
     {
@@ -266,28 +324,21 @@ PHP;
         }
         return \true;
     }
+    /**
+     * @throws \DI\Definition\Exception\InvalidDefinition
+     */
     private function compileClosure(\Closure $closure) : string
     {
-        $closureAnalyzer = new AstAnalyzer();
-        try {
-            $closureData = $closureAnalyzer->analyze($closure);
-        } catch (ClosureAnalysisException $e) {
-            if (\stripos($e->getMessage(), 'Two closures were declared on the same line') !== \false) {
-                throw new InvalidDefinition('Cannot compile closures when two closures are defined on the same line', 0, $e);
-            }
-            throw $e;
-        }
-        /** @var Closure $ast */
-        $ast = $closureData['ast'];
-        // Force all closures to be static (add the `static` keyword), i.e. they can't use
-        // $this, which makes sense since their code is copied into another class.
-        $ast->static = \true;
-        // Check if the closure imports variables with `use`
-        if (!empty($ast->uses)) {
+        $reflector = new ReflectionClosure($closure);
+        if ($reflector->getUseVariables()) {
             throw new InvalidDefinition('Cannot compile closures which import variables using the `use` keyword');
         }
-        $code = (new \SmashBalloon\Reviews\Vendor\PhpParser\PrettyPrinter\Standard())->prettyPrint([$ast]);
-        // Trim spaces and the last `;`
+        if ($reflector->isBindingRequired() || $reflector->isScopeRequired()) {
+            throw new InvalidDefinition('Cannot compile closures which use $this or self/static/parent references');
+        }
+        // Force all closures to be static (add the `static` keyword), i.e. they can't use
+        // $this, which makes sense since their code is copied into another class.
+        $code = ($reflector->isStatic() ? '' : 'static ') . $reflector->getCode();
         $code = \trim($code, "\t\n\r;");
         return $code;
     }

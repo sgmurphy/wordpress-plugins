@@ -10,9 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
-namespace Analytify\phpseclib3\File\ASN1\Maps;
 
-use Analytify\phpseclib3\File\ASN1;
+namespace phpseclib3\File\ASN1\Maps;
+
+use phpseclib3\File\ASN1;
+
 /**
  * DisplayText
  *
@@ -20,5 +22,13 @@ use Analytify\phpseclib3\File\ASN1;
  */
 abstract class DisplayText
 {
-    const MAP = ['type' => ASN1::TYPE_CHOICE, 'children' => ['ia5String' => ['type' => ASN1::TYPE_IA5_STRING], 'visibleString' => ['type' => ASN1::TYPE_VISIBLE_STRING], 'bmpString' => ['type' => ASN1::TYPE_BMP_STRING], 'utf8String' => ['type' => ASN1::TYPE_UTF8_STRING]]];
+    const MAP = [
+        'type' => ASN1::TYPE_CHOICE,
+        'children' => [
+            'ia5String' => ['type' => ASN1::TYPE_IA5_STRING],
+            'visibleString' => ['type' => ASN1::TYPE_VISIBLE_STRING],
+            'bmpString' => ['type' => ASN1::TYPE_BMP_STRING],
+            'utf8String' => ['type' => ASN1::TYPE_UTF8_STRING]
+        ]
+    ];
 }

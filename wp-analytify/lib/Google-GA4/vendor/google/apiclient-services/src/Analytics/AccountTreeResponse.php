@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,79 +14,79 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\Analytics;
 
 class AccountTreeResponse extends \Google\Model
 {
-    protected $accountType = \Google\Service\Analytics\Account::class;
-    protected $accountDataType = '';
-    public $account;
-    /**
-     * @var string
-     */
-    public $kind;
-    protected $profileType = \Google\Service\Analytics\Profile::class;
-    protected $profileDataType = '';
-    public $profile;
-    protected $webpropertyType = \Google\Service\Analytics\Webproperty::class;
-    protected $webpropertyDataType = '';
-    public $webproperty;
-    /**
-     * @param Account
-     */
-    public function setAccount(\Google\Service\Analytics\Account $account)
-    {
-        $this->account = $account;
-    }
-    /**
-     * @return Account
-     */
-    public function getAccount()
-    {
-        return $this->account;
-    }
-    /**
-     * @param string
-     */
-    public function setKind($kind)
-    {
-        $this->kind = $kind;
-    }
-    /**
-     * @return string
-     */
-    public function getKind()
-    {
-        return $this->kind;
-    }
-    /**
-     * @param Profile
-     */
-    public function setProfile(\Google\Service\Analytics\Profile $profile)
-    {
-        $this->profile = $profile;
-    }
-    /**
-     * @return Profile
-     */
-    public function getProfile()
-    {
-        return $this->profile;
-    }
-    /**
-     * @param Webproperty
-     */
-    public function setWebproperty(\Google\Service\Analytics\Webproperty $webproperty)
-    {
-        $this->webproperty = $webproperty;
-    }
-    /**
-     * @return Webproperty
-     */
-    public function getWebproperty()
-    {
-        return $this->webproperty;
-    }
+  protected $accountType = Account::class;
+  protected $accountDataType = '';
+  /**
+   * @var string
+   */
+  public $kind;
+  protected $profileType = Profile::class;
+  protected $profileDataType = '';
+  protected $webpropertyType = Webproperty::class;
+  protected $webpropertyDataType = '';
+
+  /**
+   * @param Account
+   */
+  public function setAccount(Account $account)
+  {
+    $this->account = $account;
+  }
+  /**
+   * @return Account
+   */
+  public function getAccount()
+  {
+    return $this->account;
+  }
+  /**
+   * @param string
+   */
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  /**
+   * @return string
+   */
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  /**
+   * @param Profile
+   */
+  public function setProfile(Profile $profile)
+  {
+    $this->profile = $profile;
+  }
+  /**
+   * @return Profile
+   */
+  public function getProfile()
+  {
+    return $this->profile;
+  }
+  /**
+   * @param Webproperty
+   */
+  public function setWebproperty(Webproperty $webproperty)
+  {
+    $this->webproperty = $webproperty;
+  }
+  /**
+   * @return Webproperty
+   */
+  public function getWebproperty()
+  {
+    return $this->webproperty;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\Analytics\AccountTreeResponse::class, 'Analytify\\Google_Service_Analytics_AccountTreeResponse');
+class_alias(AccountTreeResponse::class, 'Google_Service_Analytics_AccountTreeResponse');

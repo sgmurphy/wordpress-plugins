@@ -1,12 +1,13 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition;
 
 /**
  * Definition of a value or class with a factory.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class FactoryDefinition implements Definition
 {

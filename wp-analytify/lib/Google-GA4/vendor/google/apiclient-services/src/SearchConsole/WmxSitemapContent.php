@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,64 +14,67 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole;
 
 class WmxSitemapContent extends \Google\Model
 {
-    /**
-     * @var string
-     */
-    public $indexed;
-    /**
-     * @var string
-     */
-    public $submitted;
-    /**
-     * @var string
-     */
-    public $type;
-    /**
-     * @param string
-     */
-    public function setIndexed($indexed)
-    {
-        $this->indexed = $indexed;
-    }
-    /**
-     * @return string
-     */
-    public function getIndexed()
-    {
-        return $this->indexed;
-    }
-    /**
-     * @param string
-     */
-    public function setSubmitted($submitted)
-    {
-        $this->submitted = $submitted;
-    }
-    /**
-     * @return string
-     */
-    public function getSubmitted()
-    {
-        return $this->submitted;
-    }
-    /**
-     * @param string
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
+  /**
+   * @var string
+   */
+  public $indexed;
+  /**
+   * @var string
+   */
+  public $submitted;
+  /**
+   * @var string
+   */
+  public $type;
+
+  /**
+   * @param string
+   */
+  public function setIndexed($indexed)
+  {
+    $this->indexed = $indexed;
+  }
+  /**
+   * @return string
+   */
+  public function getIndexed()
+  {
+    return $this->indexed;
+  }
+  /**
+   * @param string
+   */
+  public function setSubmitted($submitted)
+  {
+    $this->submitted = $submitted;
+  }
+  /**
+   * @return string
+   */
+  public function getSubmitted()
+  {
+    return $this->submitted;
+  }
+  /**
+   * @param string
+   */
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  /**
+   * @return string
+   */
+  public function getType()
+  {
+    return $this->type;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\WmxSitemapContent::class, 'Analytify\\Google_Service_SearchConsole_WmxSitemapContent');
+class_alias(WmxSitemapContent::class, 'Google_Service_SearchConsole_WmxSitemapContent');

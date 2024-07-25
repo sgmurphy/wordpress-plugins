@@ -1777,13 +1777,30 @@ class WoofiltersWpf extends ModuleWpf {
 					$displayVariation = isset( $filterSettings['display_product_variations'] ) ? $filterSettings['display_product_variations'] : false;
 					$isGroupBy        = $displayVariation || ! empty( $clauses['having'] );
 
-					$sql = 'SELECT ' . ( $isGroupBy ? '' : 'DISTINCT' ) . ' p.post_parent as id' . ( $displayVariation ? ', min(p.id) as var_id, count(DISTINCT p.id) as var_cnt' : '' ) . ' FROM `' . $wpdb->posts . '` AS p';
+					$sql = 'SELECT ' . ( $isGroupBy ? '' : 'DISTINCT' ) . ' p.post_parent as id' . 
+						( $displayVariation ? ', min(p.id) as var_id, count(DISTINCT p.id) as var_cnt' : '' ) .
+						' FROM `' . $wpdb->posts . '` AS p';
 
 					$this->clausesByParam['variation']['base_request'][1] = $sql;
+					
+					if ($displayVariation && isset($options['display_one_price']) && '1' === $options['display_one_price']['value']) {
+						$metaKeyId = $this->getMetaKeyId( '_price' );
+						if ( $metaKeyId ) {
+							$i ++;
+							$clauses['join'] .= ' LEFT JOIN `' . $metaDataTable . '` md_price ON (md_price.product_id=p.ID AND md_price.key_id=' . $metaKeyId . ')';
+							$selectOnePrice = ', min(md_price.val_dec) as var_price, count(DISTINCT md_price.val_dec) as var_cnt_price';
+						} else {
+							$selectOnePrice = ', 0 as var_price, 0 as var_cnt_price';
+						}
+						$sql = str_replace(' FROM ', $selectOnePrice . ' FROM ', $sql); 
+						$this->clausesByParam['display_one_price'] = 1;
+					}
+					
 					$query = $sql . $clauses['join'];
 
 					$sql = " WHERE p.post_type='product_variation'";
 					$this->clausesByParam['variation']['base_request'][2] = $sql;
+					
 					$query .= $sql;
 					$this->clausesByParam['variation']['base_request'][3] = '';
 
@@ -1799,6 +1816,7 @@ class WoofiltersWpf extends ModuleWpf {
 					}
 
 					$varTable = $this->createTemporaryTable( $this->tempVarTable, $query );
+
 					$this->clausesByParam['variation']['original_request'][ $this->tempVarTable ] = $query;
 
 					if ( ! empty( $varTable ) ) {

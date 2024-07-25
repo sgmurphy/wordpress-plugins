@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\ObjectDefinition;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -8,6 +8,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
  * Describe an injection in an object method.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class MethodInjection implements Definition
 {
@@ -21,7 +22,7 @@ class MethodInjection implements Definition
     private $parameters = [];
     public function __construct(string $methodName, array $parameters = [])
     {
-        $this->methodName = (string) $methodName;
+        $this->methodName = $methodName;
         $this->parameters = $parameters;
     }
     public static function constructor(array $parameters = []) : self

@@ -8,6 +8,7 @@ use ReflectionFunctionAbstract;
  * Finds the default value for a parameter, *if it exists*.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class DefaultValueResolver implements ParameterResolver
 {

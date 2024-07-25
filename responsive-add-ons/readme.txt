@@ -3,9 +3,9 @@ Contributors: cyberchimps
 Donate Link: https://cyberchimps.com
 Tags: elementor templates, block templates, elementor, templates, gutenberg
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 3.0.7
+Stable tag: 3.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -235,6 +235,10 @@ If you like Responsive Addons Plugin, consider checking out our other WordPress 
 8. Responsive Addons advanced features.
 
 == Changelog ==
+
+= 3.0.8 - 25th July 2024 =
+* Improvement : UI Changes.
+* Fix: Made Compatible with latest responsive theme.
 
 = 3.0.7 - 10th June 2024 =
 * Improvement : Strengthened the codebase.

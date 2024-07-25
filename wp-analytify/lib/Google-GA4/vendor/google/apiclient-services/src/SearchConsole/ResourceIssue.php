@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2014 Google Inc.
  *
@@ -15,27 +14,29 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 namespace Google\Service\SearchConsole;
 
 class ResourceIssue extends \Google\Model
 {
-    protected $blockedResourceType = \Google\Service\SearchConsole\BlockedResource::class;
-    protected $blockedResourceDataType = '';
-    public $blockedResource;
-    /**
-     * @param BlockedResource
-     */
-    public function setBlockedResource(\Google\Service\SearchConsole\BlockedResource $blockedResource)
-    {
-        $this->blockedResource = $blockedResource;
-    }
-    /**
-     * @return BlockedResource
-     */
-    public function getBlockedResource()
-    {
-        return $this->blockedResource;
-    }
+  protected $blockedResourceType = BlockedResource::class;
+  protected $blockedResourceDataType = '';
+
+  /**
+   * @param BlockedResource
+   */
+  public function setBlockedResource(BlockedResource $blockedResource)
+  {
+    $this->blockedResource = $blockedResource;
+  }
+  /**
+   * @return BlockedResource
+   */
+  public function getBlockedResource()
+  {
+    return $this->blockedResource;
+  }
 }
+
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\Google\Service\SearchConsole\ResourceIssue::class, 'Analytify\\Google_Service_SearchConsole_ResourceIssue');
+class_alias(ResourceIssue::class, 'Google_Service_SearchConsole_ResourceIssue');

@@ -3,7 +3,7 @@
 Contributors: gmulti, truchot
 Tags: monitoring, backups, backup, restoration, update
 Requires at least: 5.8
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.2
 Stable tag: v2.15.4
 License: GPLv2 or later

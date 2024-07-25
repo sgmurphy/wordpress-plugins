@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name: Analytify Dashboard
- * Plugin URI: https://analytify.io/details
+ * Plugin URI: https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=plugin-uri
  * Description: Analytify brings a brand new and modern feeling of Google Analytics superbly integrated within the WordPress.
- * Version: 5.2.5
+ * Version: 5.3.0
  * Author: Analytify
- * Author URI: https://analytify.io/details
+ * Author URI: https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=author-uri
  * License: GPLv3
  * Text Domain: wp-analytify
- * Tested up to: 6.5
+ * Tested up to: 6.6
  * Domain Path: /languages
  *
  * @package WP_ANALYTIFY
@@ -122,37 +122,45 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 		 * @since       1.2.2
 		 * @return      void
 		 */
-		private function includes() {
-			require_once ANALYTIFY_LIB_PATH . 'logs/class-analytify-log-handler-interface.php';
-			require_once ANALYTIFY_LIB_PATH . 'logs/class-analytify-logger-interface.php';
-			require_once ANALYTIFY_LIB_PATH . 'logs/class-analytify-log-levels.php';
-			require_once ANALYTIFY_LIB_PATH . 'logs/class-analytify-logger.php';
-			require_once ANALYTIFY_LIB_PATH . 'logs/abstract-analytify-log-handler.php';
-			require_once ANALYTIFY_LIB_PATH . 'logs/class-analytify-log-handler-file.php';
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/analytify-logs.php';
+		private function includes()
+        {
+            $files = [
+                ANALYTIFY_LIB_PATH . 'logs/class-analytify-log-handler-interface.php',
+                ANALYTIFY_LIB_PATH . 'logs/class-analytify-logger-interface.php',
+                ANALYTIFY_LIB_PATH . 'logs/class-analytify-log-levels.php',
+                ANALYTIFY_LIB_PATH . 'logs/class-analytify-logger.php',
+                ANALYTIFY_LIB_PATH . 'logs/abstract-analytify-log-handler.php',
+                ANALYTIFY_LIB_PATH . 'logs/class-analytify-log-handler-file.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/analytify-logs.php',
+                ANALYTIFY_PLUGIN_DIR . '/inc/wpa-core-functions.php',
+                ANALYTIFY_PLUGIN_DIR . '/inc/class-wpa-adminbar.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/abstracts/analytify-report-abstract.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/abstracts/analytify-host-analytics-abstract.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/analytify-host-analytics.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/analytify-report-core.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/analytify-rest-api.php',
+                ANALYTIFY_PLUGIN_DIR . '/inc/class-wpa-ajax.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/class.upgrade.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/analytify-dashboard-widget.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/analytify-gdpr-compliance.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/user_optout.php',
+                ANALYTIFY_PLUGIN_DIR . '/classes/analytify-email.php',
+            ];
 
-			include_once ANALYTIFY_PLUGIN_DIR . '/inc/wpa-core-functions.php';
+            foreach ($files as $file) {
+                if (file_exists($file)) {
+                    include_once $file;
+                } else {
+                    error_log("File missing: $file");
+                    echo '<div class="notice notice-error"><p>A critical file is missing: ' . esc_html($file) . '. The Analytify plugin needs to be deactivated and re-installed.</p></div>';
+                    return;
+                }
+            }
 
-			include_once ANALYTIFY_PLUGIN_DIR . '/inc/class-wpa-adminbar.php';
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/abstracts/analytify-report-abstract.php';
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/abstracts/analytify-host-analytics-abstract.php';
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/analytify-host-analytics.php';
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/analytify-report-core.php';
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/analytify-rest-api.php';
-			include_once ANALYTIFY_PLUGIN_DIR . '/inc/class-wpa-ajax.php';
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/class.upgrade.php';
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/analytify-dashboard-widget.php';
-
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/analytify-gdpr-compliance.php';
-
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/user_optout.php';
-
-			include_once ANALYTIFY_PLUGIN_DIR . '/classes/analytify-email.php';
-
-			if ( $this->is_request( 'ajax' ) ) {
-				$this->ajax_includes();
-			}
-		}
+            if ($this->is_request('ajax')) {
+                $this->ajax_includes();
+            }
+        }
 
 		/**
 		 * Run action and filter hooks
@@ -322,9 +330,10 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 			if ( ! isset( $post ) ) {
 				return false;
 			}
+			$display_draft_posts = apply_filters('analytify_filter_to_display_draft_posts', false);
 
 			// Don't show statistics on posts which are not published.
-			if ( 'publish' !== $post->post_status ) {
+			if ( 'publish'!== $post->post_status &&!$display_draft_posts) {
 				return false;
 			}
 
@@ -438,7 +447,6 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 						
 						<?php WPANALYTIFY_Utils::date_form( $start_date, $end_date, array( 'input_submit_id' => 'view_analytics' ) ); ?>
 						<?php do_action( 'after_single_view_stats_buttons' ); ?>
-
 					</div>
 				</div>
 
@@ -733,7 +741,7 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 			$settings_link .= sprintf( esc_html__( '%1$s Support %2$s | ', 'wp-analytify' ), '<a target="blank" href="https://wordpress.org/support/plugin/wp-analytify">', '</a>' );
 
 			if ( ! class_exists( 'WP_Analytify_Pro' ) ) {
-				$settings_link .= sprintf( esc_html__( '%1$s Get Analytify Pro %2$s |', 'wp-analytify' ), '<a  href="https://analytify.io/pricing/?utm_source=analytify-lite&utm_medium=plugin-action-link&utm_campaign=pro-upgrade" target="_blank" style="color:#3db634;">', '</a>' );
+				$settings_link .= sprintf( esc_html__( '%1$s Get Analytify Pro %2$s |', 'wp-analytify' ), '<a  href="https://analytify.io/pricing/?utm_source=analytify-lite&utm_medium=plugin-action-link&utm_campaign=pro-upgrade&utm_content=Get+Analytify+Pro" target="_blank" style="color:#3db634;">', '</a>' );
 			}
 
 			if ( 'yes' == get_option( '_analytify_optin' ) ) {
@@ -2248,8 +2256,9 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 			if( 'on' !== $this->disable_post_stats ) {
 				return $actions;
 			}
+			$display_draft_posts = apply_filters('analytify_filter_to_display_draft_posts', false);
 
-			if ( 'publish' === $post->post_status ) {
+			if ( 'publish' === $post->post_status || $display_draft_posts === true) {
 				$actions['post_row_stats'] = '<a href="' . admin_url( 'post.php?post=' . $post->ID . '&action=edit#pa-single-admin-analytics' ) . '" title="View Stats of “' . get_the_title( $post ) . '”">Stats</a>';
 			}
 
@@ -2265,8 +2274,14 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 		 * @since 1.3.5
 		 */
 		public function post_submitbox_stats_action( $post ) {
-			if ( 'publish' === $post->post_status && in_array( $post->post_type, $this->settings->get_option( 'show_analytics_post_types_back_end', 'wp-analytify-admin', array() ) ) ) {
-				echo '<a id="view_stats_analytify" href="' . esc_url( admin_url( 'post.php?post=' . esc_html( $post->ID ) . '&action=edit#pa-single-admin-analytics' ) ) . '" title="View Stats of “' . get_the_title( $post ) . '”" class="button button-primary button-large" style="float:left">View Stats</a>';
+
+			$display_draft_posts = apply_filters('analytify_filter_to_display_draft_posts', false);
+
+    		// Check if the post is published or if the filter allows displaying draft posts
+			if ( 'publish' === $post->post_status || $display_draft_posts ) {
+				if (in_array($post->post_type, $this->settings->get_option('show_analytics_post_types_back_end', 'wp-analytify-admin', array()))) {
+					echo '<a id="view_stats_analytify" href="'. esc_url(admin_url('post.php?post='. esc_html($post->ID). '&action=edit#pa-single-admin-analytics')). '" title="View Stats of “'. get_the_title($post). '”" class="button button-primary button-large" style="float:left">View Stats</a>';
+				}
 			}
 		}
 
@@ -2715,7 +2730,7 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 						<?php _e( 'This is a PRO feature.', 'wp-analytify' ); ?>
 					</span>
 					<div class="analytify-metabox-pro-badge-upgrade">
-						<a href="<?php echo esc_url( 'https://analytify.io/pricing/?utm_source=analytify-lite&amp;utm_medium=blocks&amp;utm_content=blocks&amp;utm_campaign=pro-upgrade' ); ?>" target="_blank" rel="noopener">
+						<a href="<?php echo esc_url( 'https://analytify.io/pricing/?utm_source=analytify-lite&amp;utm_medium=blocks-settings&amp;utm_content=Blocks&amp;utm_campaign=pro-upgrade' ); ?>" target="_blank" rel="noopener">
 							<?php _e( 'Upgrade to Analytify Pro', 'wp-analytify' ); ?>
 						</a>
 					</div>

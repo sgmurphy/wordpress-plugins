@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Resolver;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\ArrayDefinition;
@@ -12,6 +12,7 @@ use Exception;
  *
  * @since 5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class ArrayResolver implements DefinitionResolver
 {
@@ -30,8 +31,6 @@ class ArrayResolver implements DefinitionResolver
      * Resolve an array definition to a value.
      *
      * An array definition can contain simple values or references to other entries.
-     *
-     * {@inheritdoc}
      *
      * @param ArrayDefinition $definition
      */

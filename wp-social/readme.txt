@@ -2,8 +2,8 @@
 Contributors: XpeedStudio, Ataurr, emranio
 Tags: Social login, WordPress Social login and register, Social share,  Social counter, Social,  WooCommerce social login and register
 Requires at least: 5.0
-Tested up to: 6.5 
-Stable tag: 3.0.3
+Tested up to: 6.6
+Stable tag: 3.0.4
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -162,6 +162,9 @@ Visit [wpmet](https://wpmet.com) to learn more about how to get the best of Word
 
 
 == Changelog ==
+Version 3.0.4 // 2024-07-25
+-Fixed: Warning notice on block editor
+
 Version 3.0.3 // 2024-06-23
 -Added: Option to disable promotional content.
 -Improved: Admin UI.

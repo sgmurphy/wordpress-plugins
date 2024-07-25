@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -30,6 +29,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore;
 
 /**
@@ -44,15 +44,20 @@ trait GrpcSupportTrait
      */
     private static function getGrpcDependencyStatus()
     {
-        return \extension_loaded('grpc');
+        return extension_loaded('grpc');
     }
+
     /**
      * @throws ValidationException
      */
     private static function validateGrpcSupport()
     {
         if (!self::getGrpcDependencyStatus()) {
-            throw new \Google\ApiCore\ValidationException('gRPC support has been requested but required dependencies ' . 'have not been found. For details on how to install the ' . 'gRPC extension please see https://cloud.google.com/php/grpc.');
+            throw new ValidationException(
+                'gRPC support has been requested but required dependencies ' .
+                'have not been found. For details on how to install the ' .
+                'gRPC extension please see https://cloud.google.com/php/grpc.'
+            );
         }
     }
 }

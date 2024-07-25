@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2021 Google LLC
  * All rights reserved.
@@ -30,6 +29,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore;
 
 /**
@@ -37,6 +37,7 @@ namespace Google\ApiCore;
  */
 interface ServerStreamingCallInterface
 {
+
     /**
      * Start the call.
      *
@@ -48,34 +49,41 @@ interface ServerStreamingCallInterface
      * @return void
      */
     public function start($data, array $metadata = [], array $options = []);
+
     /**
      * @return mixed An iterator of response values.
      */
     public function responses();
+
     /**
      * Return the status of the server stream.
      *
      * @return \stdClass The API status.
      */
     public function getStatus();
+
     /**
      * @return mixed The metadata sent by the server.
      */
     public function getMetadata();
+
     /**
      * @return mixed The trailing metadata sent by the server.
      */
     public function getTrailingMetadata();
+
     /**
      * @return string The URI of the endpoint.
      */
     public function getPeer();
+
     /**
      * Cancels the call.
      *
      * @return void
      */
     public function cancel();
+
     /**
      * Set the CallCredentials for the underlying Call.
      *

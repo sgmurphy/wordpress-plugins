@@ -141,7 +141,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Cart' ) ) :
 				);
 
 				$wp_customize->add_control(
-					new Responsive_Customizer_Checkbox_Control(
+					new Responsive_Customizer_Toggle_Control(
 						$wp_customize,
 						'responsive_cart_title',
 						array(
@@ -168,7 +168,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Cart' ) ) :
 				);
 
 				$wp_customize->add_control(
-					new Responsive_Customizer_Checkbox_Control(
+					new Responsive_Customizer_Toggle_Control(
 						$wp_customize,
 						'responsive_cart_count',
 						array(

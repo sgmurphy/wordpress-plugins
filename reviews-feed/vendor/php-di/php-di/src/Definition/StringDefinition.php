@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition;
 
 use SmashBalloon\Reviews\Vendor\DI\DependencyException;
@@ -11,6 +11,7 @@ use SmashBalloon\Reviews\Vendor\Psr\Container\NotFoundExceptionInterface;
  *
  * @since 5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 class StringDefinition implements Definition, SelfResolvingDefinition
 {

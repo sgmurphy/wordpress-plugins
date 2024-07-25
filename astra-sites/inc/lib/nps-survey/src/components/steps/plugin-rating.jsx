@@ -24,12 +24,15 @@ const PluginRating = function () {
 		<div>
 			<div className="flex justify-between">
 				<HeadingTitle>
-					{ __( 'Thank a ton for your feedback! 😍', 'astra-sites' ) }
+					{ __(
+						'Thanks a lot for your feedback! 😍',
+						'astra-sites'
+					) }
 				</HeadingTitle>
 			</div>
 			<HeadingContent>
 				{ __(
-					'Could you please do us a big favor and give us a 5-star rating on WordPress? It will help others choose Starter Templates with confidence. Thank you!',
+					'Could you please do us a favor and give us a 5-star rating on WordPress? It would help others choose Starter Templates with confidence. Thank you!',
 					'astra-sites'
 				) }
 			</HeadingContent>

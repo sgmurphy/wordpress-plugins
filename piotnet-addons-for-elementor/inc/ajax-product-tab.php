@@ -1,4 +1,6 @@
 <?php
+    if ( ! defined( 'ABSPATH' ) ) { exit; }
+
 	add_action( 'wp_ajax_pafe_product_tabs', 'pafe_product_tabs' );
 	add_action( 'wp_ajax_nopriv_pafe_product_tabs', 'pafe_product_tabs' );
 	function pafe_product_tabs() {

@@ -535,3 +535,33 @@ function convertkit_get_file_contents( $local_file ) {
 	return $contents;
 
 }
+
+/**
+ * Returns a dropdown field commonly used for settings, comprising of:
+ * - Do not subscribe
+ * - Subscribe
+ * - Subscribe to Form
+ *
+ * @since   2.5.2
+ *
+ * @param   string $name        Field name.
+ * @param   string $value       Field value.
+ * @param   string $id          Field ID attribute.
+ * @param   string $css_class   Field CSS class(es).
+ * @param   string $context     Resource context.
+ */
+function convertkit_get_subscription_dropdown_field( $name, $value, $id, $css_class = '', $context = '' ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+
+	// Load resource classes.
+	$forms     = new ConvertKit_Resource_Forms( $context );
+	$tags      = new ConvertKit_Resource_Tags( $context );
+	$sequences = new ConvertKit_Resource_Sequences( $context );
+
+	ob_start();
+	include CONVERTKIT_PLUGIN_PATH . '/views/backend/subscription-dropdown-field.php';
+	$output = trim( ob_get_clean() );
+
+	// Return output.
+	return $output;
+
+}

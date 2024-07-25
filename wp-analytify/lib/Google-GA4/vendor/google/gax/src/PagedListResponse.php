@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -34,6 +33,7 @@ namespace Google\ApiCore;
 
 use Generator;
 use IteratorAggregate;
+
 /**
  * Response object for paged results from a list API method
  *
@@ -82,15 +82,18 @@ use IteratorAggregate;
 class PagedListResponse implements IteratorAggregate
 {
     private $firstPage;
+
     /**
      * PagedListResponse constructor.
      *
      * @param Page $firstPage A page containing response details.
      */
-    public function __construct(\Google\ApiCore\Page $firstPage)
-    {
+    public function __construct(
+        Page $firstPage
+    ) {
         $this->firstPage = $firstPage;
     }
+
     /**
      * Returns an iterator over the full list of elements. If the
      * API response contains a (non-empty) next page token, then
@@ -108,6 +111,7 @@ class PagedListResponse implements IteratorAggregate
     {
         return $this->getIterator();
     }
+
     /**
      * Returns an iterator over the full list of elements. If the
      * API response contains a (non-empty) next page token, then
@@ -122,10 +126,11 @@ class PagedListResponse implements IteratorAggregate
     {
         foreach ($this->iteratePages() as $page) {
             foreach ($page as $key => $element) {
-                (yield $key => $element);
+                yield $key => $element;
             }
         }
     }
+
     /**
      * Return the current page of results.
      *
@@ -135,6 +140,7 @@ class PagedListResponse implements IteratorAggregate
     {
         return $this->firstPage;
     }
+
     /**
      * Returns an iterator over pages of results. The pages are
      * retrieved lazily from the underlying API.
@@ -146,6 +152,7 @@ class PagedListResponse implements IteratorAggregate
     {
         return $this->getPage()->iteratePages();
     }
+
     /**
      * Returns a collection of elements with a fixed size set by
      * the collectionSize parameter. The collection will only contain
@@ -165,6 +172,7 @@ class PagedListResponse implements IteratorAggregate
     {
         return $this->getPage()->expandToFixedSizeCollection($collectionSize);
     }
+
     /**
      * Returns an iterator over fixed size collections of results.
      * The collections are retrieved lazily from the underlying API.

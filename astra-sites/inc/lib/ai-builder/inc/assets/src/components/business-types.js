@@ -6,6 +6,7 @@ import {
 	useLayoutEffect,
 } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 import { useForm } from 'react-hook-form';
 import apiFetch from '@wordpress/api-fetch';
 import { motion } from 'framer-motion';
@@ -311,7 +312,7 @@ const BusinessTypes = () => {
 				<input
 					className="!p-0 !mx-0 !border-0 !rounded-none !min-h-0 !shadow-none !leading-[1.375rem] focus:!outline-none focus:!shadow-none w-full text-base placeholder:!text-zip-app-inactive-icon placeholder:!text-base focus:ring-0"
 					type="text"
-					placeholder="Type to search"
+					placeholder={ __( 'Type to search', 'ai-builder' ) }
 					onFocus={ () => setOpenSuggestions( true ) }
 					autoComplete="off"
 					onKeyDown={ ( event ) => {

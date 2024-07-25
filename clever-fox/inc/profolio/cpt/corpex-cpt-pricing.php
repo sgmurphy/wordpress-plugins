@@ -5,7 +5,7 @@
 			$corpex_pricing_slug = get_theme_mod('pricing_slug','pricing'); 
 			register_post_type( 'corpex_pricing',
 				array(
-					'labels' => array(
+				'labels' => array(
 						'name' => __('Pricing', 'clever-fox'),
 						'singular_name' => __('Pricing', 'clever-fox'),
 						'add_new' => __('Add New', 'clever-fox'),
@@ -51,6 +51,7 @@
 		function corpex_meta_pricing()
 		{
 			global $post;
+			wp_nonce_field('pricing_meta_nonce', 'pricing_meta_nonce');
 			
 			$plans_currency 		= sanitize_text_field( get_post_meta( get_the_ID(),'plans_currency', true ));
 			$plans_price 			= sanitize_text_field( get_post_meta( get_the_ID(),'plans_price', true ));
@@ -63,17 +64,17 @@
 			
 			<div class="inside">
 				
-				<p><label><?php _e('Plans Currency','clever-fox');?></label></p>
-				<p><input style="width:40%; height:40px; padding: 10px;" name="plans_currency" placeholder="<?php _e('Plans Currency','clever-fox');?>" type="text" value="<?php if (!empty($plans_currency)) echo esc_attr($plans_currency);?>"> </input></p>
+				<p><label><?php esc_html_e('Plans Currency','clever-fox');?></label></p>
+				<p><input style="width:40%; height:40px; padding: 10px;" name="plans_currency" placeholder="<?php esc_attr_e('Plans Currency','clever-fox');?>" type="text" value="<?php if (!empty($plans_currency)) echo esc_attr($plans_currency);?>"> </input></p>
 
-				<p><label><?php _e('Plans Price','clever-fox');?></label></p>
-				<p><input style="width:40%; height:40px; padding: 10px;" name="plans_price" placeholder="<?php _e('Plans Price','clever-fox');?>" type="text" value="<?php if (!empty($plans_price)) echo esc_attr($plans_price);?>"> </input></p>
+				<p><label><?php esc_html_e('Plans Price','clever-fox');?></label></p>
+				<p><input style="width:40%; height:40px; padding: 10px;" name="plans_price" placeholder="<?php esc_attr_e('Plans Price','clever-fox');?>" type="text" value="<?php if (!empty($plans_price)) echo esc_attr($plans_price);?>"> </input></p>
 				
 			</div>
 			
 			<div class="inside">	
 				<div class="input_fields_wrap">
-				<p><label><?php _e('Pricing Content','clever-fox');?></label></p>
+				<p><label><?php esc_html_e('Pricing Content','clever-fox');?></label></p>
 					<?php
 					if(isset($price_content) && is_array($price_content)) {
 						$i = 1;
@@ -84,28 +85,28 @@
 							if( $i !== 1 && $i > 1 ) $output .= '<a href="#" class="remove_field">✘</a></div>';
 							else $output .= '</div>';
 							
-							echo $output;
+							echo esc_html($output);
 							$i++;
 						}
 					} else {
 						echo '<div><input style="width:40%; height:40px; padding: 10px;margin-bottom:20px;" type="text" name="price_content[]"></div>';
 					}
 					?>
-					<div style="margin: 20px 0;"><a class="add_field_button button button-primary"><?php _e('Add Field','clever-fox');?></a></div>
+					<div style="margin: 20px 0;"><a class="add_field_button button button-primary"><?php esc_html_e('Add Field','clever-fox');?></a></div>
 			</div>
 			
 			<div class="inside">
 				
-				<p><label><?php _e('Plans Button Label','clever-fox');?></label></p>
-				<p><input style="width:100%; height:40px; padding: 10px;" name="plans_button_label" placeholder="<?php _e('Plans Button Label','clever-fox');?>" type="text" value="<?php if (!empty($plans_button_label)) echo esc_attr($plans_button_label);?>"> </input></p>
+				<p><label><?php esc_html_e('Plans Button Label','clever-fox');?></label></p>
+				<p><input style="width:100%; height:40px; padding: 10px;" name="plans_button_label" placeholder="<?php esc_attr_e('Plans Button Label','clever-fox');?>" type="text" value="<?php if (!empty($plans_button_label)) echo esc_attr($plans_button_label);?>"> </input></p>
 				
-				<p><label><?php _e('recommend','clever-fox');?></label></p>
-				<p><input style="width:40%; height:40px; padding: 10px;" name="price_recomended" placeholder="<?php _e('recommend','clever-fox');?>" type="text" value="<?php if (!empty($price_recomended)) echo esc_attr($price_recomended);?>"> </input></p>
+				<p><label><?php esc_html_e('recommend','clever-fox');?></label></p>
+				<p><input style="width:40%; height:40px; padding: 10px;" name="price_recomended" placeholder="<?php esc_attr_e('recommend','clever-fox');?>" type="text" value="<?php if (!empty($price_recomended)) echo esc_attr($price_recomended);?>"> </input></p>
 			
-				<p><label><?php _e('Plans Custom URL','clever-fox');?></label></p>
-				<p><input style="width:100%; height:40px; padding: 10px;"  name="plans_button_link" placeholder="<?php _e('Plans Custom URL','clever-fox');?>" type="text" value="<?php if (!empty($plans_button_link)) echo esc_attr($plans_button_link);?>">&nbsp;</input></p>
+				<p><label><?php esc_html_e('Plans Custom URL','clever-fox');?></label></p>
+				<p><input style="width:100%; height:40px; padding: 10px;"  name="plans_button_link" placeholder="<?php esc_attr_e('Plans Custom URL','clever-fox');?>" type="text" value="<?php if (!empty($plans_button_link)) echo esc_attr($plans_button_link);?>">&nbsp;</input></p>
 				<p> <input name="plans_button_link_target" type="checkbox" <?php if(!empty($plans_button_link_target)) echo "checked"; ?> > </input>
-				<label><?php _e(' Open link in a new tab','clever-fox'); ?> </label> </p>
+				<label><?php esc_html_e(' Open link in a new tab','clever-fox'); ?> </label> </p>
 				
 				
 				
@@ -119,6 +120,11 @@
 
 		function pricing_meta_save($post_id) 
 		{
+			// Verify nonce
+			if (!isset($_POST['pricing_meta_nonce']) || !wp_verify_nonce($_POST['pricing_meta_nonce'], 'pricing_meta_nonce')) {
+				return;
+			}
+			
 			if((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || (defined('DOING_AJAX') && DOING_AJAX) || isset($_REQUEST['bulk_edit']))
 				return;
 			
@@ -131,8 +137,6 @@
 				$post_type=get_post_type($post_ID);
 				if($post_type=='corpex_pricing')
 				{	
-					
-					
 					update_post_meta($post_ID, 'plans_currency', sanitize_text_field($_POST['plans_currency']));
 					update_post_meta($post_ID, 'plans_price', sanitize_text_field($_POST['plans_price']));
 					update_post_meta( $post_id, 'price_content', $_POST['price_content'] );
@@ -167,7 +171,7 @@ function corpex_pricing_script() {
 					var wrapper         = $(".input_fields_wrap"); //Fields wrapper
 					var add_button      = $(".add_field_button"); //Add button ID
 					
-					var x = '.$x.'; //initlal text box count
+					var x = '.esc_html($x).'; //initlal text box count
 					$(add_button).click(function(e){ //on add input button click
 						e.preventDefault();
 						if(x < max_fields){ //max input box allowed

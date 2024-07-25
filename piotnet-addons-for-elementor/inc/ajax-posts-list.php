@@ -1,4 +1,6 @@
 <?php
+    if ( ! defined( 'ABSPATH' ) ) { exit; }
+    
 	add_action( 'wp_ajax_pafe_posts_list', 'pafe_posts_list' );
 	add_action( 'wp_ajax_nopriv_pafe_posts_list', 'pafe_posts_list' );
 	function pafe_posts_list() {
@@ -15,7 +17,8 @@
 			$args = array();
 			if (!empty($post_type) && !empty($posts_per_page)) {
 				$args['post_type'] = $post_type;			
-			    $args['posts_per_page'] = $posts_per_page;	
+			    $args['posts_per_page'] = $posts_per_page;
+                $args['post_status'] = 'publish';
 			    if ( $term_id != 0 ) {
 				    $args['tax_query'] = array(			    	
 					    array(
@@ -24,7 +27,7 @@
 						    'terms' => $term_id
 					    ),
 					);
-				}	 
+				}
 			}		 
 ?>	
 <div class="<?php if ($layout == 'layout_1') {

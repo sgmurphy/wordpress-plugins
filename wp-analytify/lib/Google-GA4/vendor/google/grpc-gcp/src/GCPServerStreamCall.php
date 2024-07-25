@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * Copyright 2018 gRPC authors.
@@ -23,15 +22,17 @@ namespace Grpc\Gcp;
  * Represents an active call that sends a single message and then gets a
  * stream of responses.
  */
-class GCPServerStreamCall extends \Grpc\Gcp\GcpBaseCall
+class GCPServerStreamCall extends GcpBaseCall
 {
     private $response = null;
+
     protected function createRealCall($channel)
     {
         $this->real_call = new \Grpc\ServerStreamingCall($channel, $this->method, $this->deserialize, $this->options);
-        $this->has_real_call = \true;
+        $this->has_real_call = true;
         return $this->real_call;
     }
+
     /**
      * Pick a channel and start the call.
      *
@@ -44,9 +45,11 @@ class GCPServerStreamCall extends \Grpc\Gcp\GcpBaseCall
     public function start($argument, $metadata, $options)
     {
         $channel_ref = $this->_rpcPreProcess($argument);
-        $this->createRealCall($channel_ref->getRealChannel($this->gcp_channel->credentials));
+        $this->createRealCall($channel_ref->getRealChannel(
+            $this->gcp_channel->credentials));
         $this->real_call->start($argument, $metadata, $options);
     }
+
     /**
      * @return mixed An iterator of response values
      */
@@ -62,6 +65,7 @@ class GCPServerStreamCall extends \Grpc\Gcp\GcpBaseCall
         }
         return $response;
     }
+
     /**
      * Wait for the server to send the status, and return it.
      *
@@ -74,6 +78,7 @@ class GCPServerStreamCall extends \Grpc\Gcp\GcpBaseCall
         $this->_rpcPostProcess($status, $this->response);
         return $status;
     }
+
     /**
      * @return mixed The metadata sent by the server
      */

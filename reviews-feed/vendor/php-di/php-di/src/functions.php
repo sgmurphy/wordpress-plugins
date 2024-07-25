@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\ArrayDefinitionExtension;
@@ -16,6 +16,7 @@ if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\value')) {
      * Helper for defining a value.
      *
      * @param mixed $value
+     * @internal
      */
     function value($value) : ValueDefinition
     {
@@ -28,6 +29,7 @@ if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\create')) {
      *
      * @param string|null $className Class name of the object.
      *                               If null, the name of the entry (in the container) will be used as class name.
+     * @internal
      */
     function create(string $className = null) : CreateDefinitionHelper
     {
@@ -40,6 +42,7 @@ if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\autowire')) {
      *
      * @param string|null $className Class name of the object.
      *                               If null, the name of the entry (in the container) will be used as class name.
+     * @internal
      */
     function autowire(string $className = null) : AutowireDefinitionHelper
     {
@@ -52,6 +55,7 @@ if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\factory')) {
      *
      * @param callable $factory The factory is a callable that takes the container as parameter
      *                          and returns the value to register in the container.
+     * @internal
      */
     function factory($factory) : FactoryDefinitionHelper
     {
@@ -70,6 +74,7 @@ if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\decorate')) {
      *
      * @param callable $callable The callable takes the decorated object as first parameter and
      *                           the container as second.
+     * @internal
      */
     function decorate($callable) : FactoryDefinitionHelper
     {
@@ -79,6 +84,7 @@ if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\decorate')) {
 if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\get')) {
     /**
      * Helper for referencing another container entry in an object definition.
+     * @internal
      */
     function get(string $entryName) : Reference
     {
@@ -91,6 +97,7 @@ if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\env')) {
      *
      * @param string $variableName The name of the environment variable.
      * @param mixed $defaultValue The default value to be used if the environment variable is not defined.
+     * @internal
      */
     function env(string $variableName, $defaultValue = null) : EnvironmentVariableDefinition
     {
@@ -116,6 +123,7 @@ if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\add')) {
      * @param mixed|array $values A value or an array of values to add to the array.
      *
      * @since 5.0
+     * @internal
      */
     function add($values) : ArrayDefinitionExtension
     {
@@ -136,6 +144,7 @@ if (!\function_exists('SmashBalloon\\Reviews\\Vendor\\DI\\string')) {
      * @param string $expression A string expression. Use the `{}` placeholders to reference other container entries.
      *
      * @since 5.0
+     * @internal
      */
     function string(string $expression) : StringDefinition
     {

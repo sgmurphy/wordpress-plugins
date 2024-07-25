@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * Copyright 2020 gRPC authors.
@@ -17,6 +16,7 @@
  * limitations under the License.
  *
  */
+
 namespace Grpc;
 
 /**
@@ -25,12 +25,14 @@ namespace Grpc;
  *
  * DO NOT USE in production.
  */
+
 class ServerContext
 {
     public function __construct($event)
     {
         $this->event = $event;
     }
+
     public function clientMetadata()
     {
         return $this->event->metadata;
@@ -47,22 +49,27 @@ class ServerContext
     {
         return $this->event->method;
     }
+
     public function setInitialMetadata($initialMetadata)
     {
         $this->initialMetadata_ = $initialMetadata;
     }
+
     public function initialMetadata()
     {
         return $this->initialMetadata_;
     }
+
     public function setStatus($status)
     {
         $this->status_ = $status;
     }
+
     public function status()
     {
         return $this->status_;
     }
+
     private $event;
     private $initialMetadata_;
     private $status_;

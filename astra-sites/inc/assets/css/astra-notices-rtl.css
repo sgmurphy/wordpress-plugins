@@ -93,6 +93,8 @@
 	color: #475569;
 	font-size: 13px;
 	font-weight: 400;
+	display: inline-block;
+	width: fit-content;
 	line-height: 20px;
 }
 

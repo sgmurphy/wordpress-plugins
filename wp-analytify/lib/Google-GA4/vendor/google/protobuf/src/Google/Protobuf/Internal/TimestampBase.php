@@ -18,6 +18,7 @@ class TimestampBase extends \Google\Protobuf\Internal\Message
         $this->seconds = $datetime->getTimestamp();
         $this->nanos = 1000 * $datetime->format('u');
     }
+
     /**
      * Converts Timestamp to PHP DateTime.
      *
@@ -25,7 +26,7 @@ class TimestampBase extends \Google\Protobuf\Internal\Message
      */
     public function toDateTime()
     {
-        $time = \sprintf('%s.%06d', $this->seconds, $this->nanos / 1000);
+        $time = sprintf('%s.%06d', $this->seconds, $this->nanos / 1000);
         return \DateTime::createFromFormat('U.u', $time);
     }
 }

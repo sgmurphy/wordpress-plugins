@@ -1,9 +1,9 @@
 <?php
-
-declare (strict_types=1);
-namespace Analytify\ParagonIE\ConstantTime;
+declare(strict_types=1);
+namespace ParagonIE\ConstantTime;
 
 use TypeError;
+
 /**
  *  Copyright (c) 2016 - 2022 Paragon Initiative Enterprises.
  *  Copyright (c) 2014 Steve "Sc00bz" Thomas (steve at tobtu dot com)
@@ -26,6 +26,7 @@ use TypeError;
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  */
+
 /**
  * Class RFC4648
  *
@@ -45,10 +46,11 @@ abstract class RFC4648
      *
      * @throws TypeError
      */
-    public static function base64Encode(string $str) : string
+    public static function base64Encode(string $str): string
     {
         return Base64::encode($str);
     }
+
     /**
      * RFC 4648 Base64 decoding
      *
@@ -59,10 +61,11 @@ abstract class RFC4648
      *
      * @throws TypeError
      */
-    public static function base64Decode(string $str) : string
+    public static function base64Decode(string $str): string
     {
-        return Base64::decode($str, \true);
+        return Base64::decode($str, true);
     }
+
     /**
      * RFC 4648 Base64 (URL Safe) encoding
      *
@@ -73,10 +76,11 @@ abstract class RFC4648
      *
      * @throws TypeError
      */
-    public static function base64UrlSafeEncode(string $str) : string
+    public static function base64UrlSafeEncode(string $str): string
     {
         return Base64UrlSafe::encode($str);
     }
+
     /**
      * RFC 4648 Base64 (URL Safe) decoding
      *
@@ -87,10 +91,11 @@ abstract class RFC4648
      *
      * @throws TypeError
      */
-    public static function base64UrlSafeDecode(string $str) : string
+    public static function base64UrlSafeDecode(string $str): string
     {
-        return Base64UrlSafe::decode($str, \true);
+        return Base64UrlSafe::decode($str, true);
     }
+
     /**
      * RFC 4648 Base32 encoding
      *
@@ -101,10 +106,11 @@ abstract class RFC4648
      *
      * @throws TypeError
      */
-    public static function base32Encode(string $str) : string
+    public static function base32Encode(string $str): string
     {
         return Base32::encodeUpper($str);
     }
+
     /**
      * RFC 4648 Base32 encoding
      *
@@ -115,10 +121,11 @@ abstract class RFC4648
      *
      * @throws TypeError
      */
-    public static function base32Decode(string $str) : string
+    public static function base32Decode(string $str): string
     {
-        return Base32::decodeUpper($str, \true);
+        return Base32::decodeUpper($str, true);
     }
+
     /**
      * RFC 4648 Base32-Hex encoding
      *
@@ -129,10 +136,11 @@ abstract class RFC4648
      *
      * @throws TypeError
      */
-    public static function base32HexEncode(string $str) : string
+    public static function base32HexEncode(string $str): string
     {
         return Base32::encodeUpper($str);
     }
+
     /**
      * RFC 4648 Base32-Hex decoding
      *
@@ -143,10 +151,11 @@ abstract class RFC4648
      *
      * @throws TypeError
      */
-    public static function base32HexDecode(string $str) : string
+    public static function base32HexDecode(string $str): string
     {
-        return Base32::decodeUpper($str, \true);
+        return Base32::decodeUpper($str, true);
     }
+
     /**
      * RFC 4648 Base16 decoding
      *
@@ -157,10 +166,11 @@ abstract class RFC4648
      *
      * @throws TypeError
      */
-    public static function base16Encode(string $str) : string
+    public static function base16Encode(string $str): string
     {
         return Hex::encodeUpper($str);
     }
+
     /**
      * RFC 4648 Base16 decoding
      *
@@ -169,8 +179,8 @@ abstract class RFC4648
      * @param string $str
      * @return string
      */
-    public static function base16Decode(string $str) : string
+    public static function base16Decode(string $str): string
     {
-        return Hex::decode($str, \true);
+        return Hex::decode($str, true);
     }
 }

@@ -3,7 +3,7 @@ Contributors: gsplugins, itszaman, samdani, itsariful, devshakhawat
 Donate link: https://www.paypal.com/donate/?hosted_button_id=K7K8YF4U3SCNQ
 Tags: Logo Slider, logo carousel, logo carousel slider, logo wordpress plugin, client logo
 Requires at least: 4.3
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: 3.6.9
 License: GPLv2 or later

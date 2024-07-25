@@ -15,7 +15,7 @@ define( 'ANALYTIFY_LIB_PATH', dirname( __FILE__ ) . '/lib/' );
 define( 'ANALYTIFY_ID', 'wp-analytify-options' );
 define( 'ANALYTIFY_NICK', 'Analytify' );
 define( 'ANALYTIFY_ROOT_PATH', dirname( __FILE__ ) );
-define( 'ANALYTIFY_VERSION', '5.2.5' );
+define( 'ANALYTIFY_VERSION', '5.3.0' );
 define( 'ANALYTIFY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ANALYTIFY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -1159,59 +1159,69 @@ if ( ! class_exists( 'Analytify_General' ) ) {
 		 * 
 		 * @since 5.0.0
 		 */
-		public function get_search_console_stats( $transient_name, $dates = [], $limit = 10 ) {
-			$response = array(
-				'error' => array(),
-			);
-			$search_console       = new Google\Service\SearchConsole($this->client);
+		public function get_search_console_stats($transient_name, $dates = [], $limit = 10) {
+			$response = [
+				'error' => []
+			];
+			$logger = analytify_get_logger();
+			$search_console = new Google\Service\SearchConsole($this->client);
+
 			$tracking_stream_info = get_option('analytify_tracking_property_info');
+			try {
+				$stream_url = !empty($tracking_stream_info['url']) ? $tracking_stream_info['url'] : null;
 
-			$stream_url           = ! empty( $tracking_stream_info['url'] ) ? $tracking_stream_info['url'] : null;
-
-			if ( empty( $stream_url ) ) {
-				$response['error'] = array(
-					'status'  => 'No Stats Available',
-					'message' => __( "No URL found for the selected stream", 'wp-analytify' ),
-				);
+			} catch (\Throwable $th) {
+				$logger->warning("Error Fetching Stream URL: " . $th->getMessage(), ['source' => 'analytify_fetch_stream_url']);
+				if (empty($stream_url)) {
+					$response['error'] = [
+						'status' => 'No Stats Available',
+						'message' => __("No URL found for the selected stream", 'wp-analytify')
+					];
+					return $response;
+				}
 			}
 
-			$http_stream_url      = $stream_url;
-
-			// Prepare the url for search console domain property type.
-			$domain_stream_url_filtered    = preg_replace("(^(https?:\/\/([wW]{3}\.)?)?)", "", $stream_url );
-			$domain_stream_url             = "sc-domain:$domain_stream_url_filtered";
+			$domain_stream_url_filtered = preg_replace("(^(https?:\/\/([wW]{3}\.)?)?)", "", $stream_url);
+			$domain_stream_url = "sc-domain:$domain_stream_url_filtered";
 			
-			// In the first trun it will request the api using sc-domain type.
-			try {
-				$request = new Google\Service\SearchConsole\SearchAnalyticsQueryRequest();
-				$request->setStartDate( isset($dates['start']) ? $dates['start'] : 'yesterday' );
-				$request->setEndDate( isset($dates['end']) ? $dates['end'] : 'today' );
-				$request->setDimensions(['QUERY']);
-				$request->setRowLimit($limit);
-				
-				$response['response'] = $search_console->searchanalytics->query($domain_stream_url, $request);
-			} catch(\Throwable $th) {				
-				
+			$urls = [
+				$domain_stream_url,
+				'https://' . preg_replace("(^(https?:\/\/([wW]{3}\.)?)?)", "", $domain_stream_url_filtered),
+				'https://' . preg_replace("(^(https?:\/\/([wW]{3}\.)?)?)", "www.", $domain_stream_url_filtered),
+				'http://' . preg_replace("(^(https?:\/\/([wW]{3}\.)?)?)", "", $domain_stream_url_filtered),
+				'http://' . preg_replace("(^(https?:\/\/([wW]{3}\.)?)?)", "www.", $domain_stream_url_filtered)
+			];
+
+			foreach ($urls as $url) {
 				try {
 					$request = new Google\Service\SearchConsole\SearchAnalyticsQueryRequest();
 					$request->setStartDate(isset($dates['start']) ? $dates['start'] : 'yesterday');
 					$request->setEndDate(isset($dates['end']) ? $dates['end'] : 'today');
 					$request->setDimensions(['QUERY']);
 					$request->setRowLimit($limit);
-					$response['response'] = $search_console->searchanalytics->query($http_stream_url, $request);
+
+					$response['response'] = $search_console->searchanalytics->query($url, $request);
+
+					// Clear error if successful
 					unset($response['error']);
-				} catch(\Throwable $th) {
-					$logger = analytify_get_logger();
-					$logger->warning( $th->getMessage(), array( 'source' => 'analytify_fetch_search_console_stats' ) );
-					$response['error'] = [
-						'status'  => "No Stats Available for $domain_stream_url_filtered",
-						'message' => __( "Analytify gets GA4 Keyword stats from Search Console. Make sure you've verified and have owner access to your site in Search Console.", 'wp-analytify' ),
-					];
+					return $response;
+				} catch (\Throwable $th) {
+					// Log error with context
+					$logger->warning("Error querying $url: " . $th->getMessage(), ['source' => 'analytify_fetch_search_console_stats']);
+
+					// Continue to next URL if error is transient
+					continue;
 				}
 			}
-			
+			// Set error response if all URLs failed
+			$response['error'] = [
+				'status'  => "No Stats Available for $domain_stream_url_filtered",
+				'message' => __("Analytify gets GA4 Keyword stats from Search Console. Make sure you've verified and have owner access to your site in Search Console.", 'wp-analytify'),
+			];
+
 			return $response;
-		}
+	}
+
 
 		/**
 		 * This function grabs the data from Google Analytics for individual posts/pages.

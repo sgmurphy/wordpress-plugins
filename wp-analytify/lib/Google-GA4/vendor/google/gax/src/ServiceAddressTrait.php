@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -30,6 +29,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Google\ApiCore;
 
 /**
@@ -42,6 +42,7 @@ namespace Google\ApiCore;
 trait ServiceAddressTrait
 {
     private static $defaultPort = 443;
+
     /**
      * @param string $apiEndpoint
      * @return array
@@ -49,15 +50,15 @@ trait ServiceAddressTrait
      */
     private static function normalizeServiceAddress(string $apiEndpoint)
     {
-        $components = \explode(':', $apiEndpoint);
-        if (\count($components) == 2) {
+        $components = explode(':', $apiEndpoint);
+        if (count($components) == 2) {
             // Port is included in service address
             return [$components[0], $components[1]];
-        } elseif (\count($components) == 1) {
+        } elseif (count($components) == 1) {
             // Port is not included - append default port
             return [$components[0], self::$defaultPort];
         } else {
-            throw new \Google\ApiCore\ValidationException("Invalid apiEndpoint: {$apiEndpoint}");
+            throw new ValidationException("Invalid apiEndpoint: $apiEndpoint");
         }
     }
 }

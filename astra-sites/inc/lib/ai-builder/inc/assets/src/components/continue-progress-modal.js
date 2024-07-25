@@ -51,7 +51,10 @@ const ContinueProgressModal = () => {
 
 				<div className="mt-5">
 					<div className="text-zip-body-text text-base font-normal leading-6">
-						{ `It appears that your previous website building session was interrupted. Would you like to pick up where you left off?` }
+						{ __(
+							'It appears that your previous website building session was interrupted. Would you like to pick up where you left off?',
+							'ai-builder'
+						) }
 					</div>
 					<div className="flex items-center gap-3 justify-center mt-8">
 						<Button

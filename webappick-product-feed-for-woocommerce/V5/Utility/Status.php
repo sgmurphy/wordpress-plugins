@@ -331,8 +331,14 @@ class Status {
 	 * @return array
 	 */
 	private function server_info( ) {
-		$report = wc_get_container()->get( RestApiUtil::class )->get_endpoint_data( '/wc/v3/system_status' );
 
+		$installed_version = (function_exists('WC')) ? WC()->version : '1.0.0';
+
+		if ( version_compare($installed_version,'9.0','>') ) {
+			$report = wc_get_container()->get(RestApiUtil::class)->get_endpoint_data('/wc/v3/system_status');
+		}else{
+			$report = wc()->api->get_endpoint_data( '/wc/v3/system_status' );
+		}
 		$environment        = $report['environment'];
 		$theme              = $report['theme'];
 		$active_plugins     = $report['active_plugins'];

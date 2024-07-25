@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+
 namespace SmashBalloon\Reviews\Vendor\DI\Definition\Resolver;
 
 use SmashBalloon\Reviews\Vendor\DI\Definition\Definition;
@@ -10,6 +10,7 @@ use SmashBalloon\Reviews\Vendor\DI\Definition\Exception\InvalidDefinition;
  *
  * @since 4.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
+ * @internal
  */
 interface DefinitionResolver
 {
@@ -29,8 +30,6 @@ interface DefinitionResolver
      *
      * @param Definition $definition Object that defines how the value should be obtained.
      * @param array      $parameters Optional parameters to use to build the entry.
-     *
-     * @return bool
      */
     public function isResolvable(Definition $definition, array $parameters = []) : bool;
 }

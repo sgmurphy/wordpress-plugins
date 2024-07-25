@@ -50,7 +50,12 @@ class SBR_Feed_Builder extends Feed_Builder {
 
     protected $plugin_status;
 
-    public function __construct(){
+	/**
+	 * @var array
+	 */
+	protected $menu;
+
+	public function __construct(){
         $this->menu = [
             'parent_menu_slug' => SBR_MENU_SLUG,
             'page_title' => "Reviews Feed",
@@ -92,7 +97,8 @@ class SBR_Feed_Builder extends Feed_Builder {
             'themeSupportsWidgets' => current_theme_supports( 'widgets' ),
             'collectionsPageUrl' => admin_url('admin.php?page=sbr-collections'),
             'aboutPageUrl' => admin_url('admin.php?page=sbr-about'),
-            'builderUrl'           => admin_url( 'admin.php?page=sbr')
+            'builderUrl'           => admin_url( 'admin.php?page=sbr'),
+            'bulkHistorySources'    => get_option('sbr_bulk_sources', [])
         ];
         if( isset( $_GET['manualsource'] ) && $_GET['manualsource'] == true){
 			$builder_data['manualSourcePopupInit'] = true;
