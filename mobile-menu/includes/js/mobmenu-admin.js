@@ -567,6 +567,7 @@
                 url: ajaxurl,
                 data: {
                     action: 'save_menu_item_icon',
+                    security: mobmenu_admin_obj.security_menu_item,
                     menu_item_id: $( '.mobmenu-icons-content' ).attr( 'data-menu-item-id' ),
                     menu_item_icon: ""
                     },
@@ -603,6 +604,7 @@
                 url: ajaxurl,
                 data: {
                     action: "save_menu_item_icon",
+                    security: mobmenu_admin_obj.security_menu_item,
                     menu_item_id: $( ".mobmenu-icons-content" ).attr( "data-menu-item-id" ),
                     menu_item_icon: icon_key
                     },

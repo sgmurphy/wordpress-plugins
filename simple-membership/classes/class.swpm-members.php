@@ -18,15 +18,16 @@ class SwpmMembers extends WP_List_Table {
 	function get_columns() {
 		$columns = array(
 			'cb'                  => '<input type="checkbox" />',
-			'member_id'           => SwpmUtils::_( 'ID' ),
-			'user_name'           => SwpmUtils::_( 'Username' ),
-			'first_name'          => SwpmUtils::_( 'First Name' ),
-			'last_name'           => SwpmUtils::_( 'Last Name' ),
-			'email'               => SwpmUtils::_( 'Email' ),
-			'alias'               => SwpmUtils::_( 'Membership Level' ),
-			'subscription_starts' => SwpmUtils::_( 'Access Starts' ),
-			'account_state'       => SwpmUtils::_( 'Account State' ),
-			'last_accessed'       => SwpmUtils::_( 'Last Login Date' ),
+			'member_id'           => __('ID' , 'simple-membership'),
+			'user_name'           => __('Username' , 'simple-membership'),
+			'first_name'          => __('First Name' , 'simple-membership'),
+			'last_name'           => __('Last Name' , 'simple-membership'),
+			'email'               => __('Email' , 'simple-membership'),
+			'alias'               => __('Membership Level' , 'simple-membership'),
+			'subscription_starts' => __('Access Starts' , 'simple-membership'),
+			'account_state'       => __('Account State' , 'simple-membership'),
+			'last_accessed'       => __('Last Login Date' , 'simple-membership'),
+			'admin_notes'         => __('Notes' , 'simple-membership'),
 		);
 		return apply_filters( 'swpm_admin_members_table_columns', $columns );
 	}
@@ -92,6 +93,38 @@ class SwpmMembers extends WP_List_Table {
 		return $user_name;
 	}
 
+	function column_admin_notes( $item ) {
+		$admin_notes = isset($item['notes']) ? $item['notes'] : '';
+		if ( empty( $admin_notes ) ) {
+			//Admin notes not found for this member.
+			return '&mdash;';
+		}
+
+		//Truncate the admin notes if it is too long.
+		$max_length = 256;
+		if (strlen($admin_notes) > $max_length) {
+			$admin_notes_text = substr($admin_notes, 0, $max_length) . ' ... ';
+		} else {
+			$admin_notes_text = $admin_notes;
+		}
+		
+		//Display the notes in a tooltip.
+		$member_id = intval($item['member_id']);
+		$notes_tooltip_id = 'swpm_note_tooltip_' . $member_id;
+        ob_start();
+        ?>
+        <div class="swpm-tooltip-notes-container">
+			<a href="javascript:void(0)" onclick="const tooltip=document.getElementById('<?php echo $notes_tooltip_id; ?>'); tooltip.style.display = (tooltip.style.display === 'block' ? 'none' : 'block');">
+    		<?php _e('Show/Hide Notes', 'simple-membership'); ?>
+			</a>
+            <div class="swpm-tooltip-notes-style-1" id="<?php echo esc_attr($notes_tooltip_id)?>" onclick="this.style.display='none'">
+				<?php echo esc_attr($admin_notes_text) ?>
+			</div>
+        </div>
+        <?php
+	    return ob_get_clean();
+    }
+
 	function column_cb( $item ) {
 		return sprintf(
 			'<input type="checkbox" name="members[]" value="%s" />',
@@ -104,7 +137,7 @@ class SwpmMembers extends WP_List_Table {
 
 		$this->process_bulk_action();
 
-		$records_query_head = 'SELECT member_id,user_name,first_name,last_name,email,alias,subscription_starts,account_state,last_accessed';
+		$records_query_head = 'SELECT member_id,user_name,first_name,last_name,email,alias,subscription_starts,account_state,notes,last_accessed';
 		$count_query_head   = 'SELECT COUNT(member_id)';
 
 		$query  = ' ';

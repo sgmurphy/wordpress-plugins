@@ -5,10 +5,10 @@ Plugin URI: https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-st
 Tags: google analytics 4, google ads, meta pixel, google tag manager, tiktok pixel, facebook pixel, ecommerce tracking ,lead Generation tracking , campaign creation , audience building.
 Author: Conversios
 Requires at least: 4.6
-Tested up to: 6.6.0
+Tested up to: 6.6.1
 Requires PHP: 5.6
-Stable tag: 7.1.2
-Version: 7.1.2
+Stable tag: 7.1.3
+Version: 7.1.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -173,6 +173,10 @@ Conversios works seamlessly with popular GDPR compliance plugins like CookieYes 
 3. Complete the onboarding once activated the plugin.
 
 == Changelog ==
+= 7.1.3 - 26/07/2024 =
+* Easy setup for the Google Analytics, Google Ads, Google merchant center and Meta Facebook Pixel.
+* Google Analytics report dashboard.
+
 = 7.1.0 - 20/06/2024 =
 * Woocommerce event tracking added.
 * Lead Generation event tracking for Email Link Click, Address Link Click and Phone Number Link Click.

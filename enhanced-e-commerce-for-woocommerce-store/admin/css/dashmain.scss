@@ -95,7 +95,7 @@
   }
 
   .common-btn {
-    background-color: #1085f1;
+    background-color: #1967D2;
     border-radius: 4px;
     font-style: normal;
     font-weight: 400;
@@ -114,8 +114,8 @@
 
     &:hover {
       background-color: transparent;
-      border: 1px solid #1085f1;
-      color: #1085f1;
+      border: 1px solid #1967D2;
+      color: #1967D2;
     }
   }
 
@@ -134,7 +134,7 @@
 }
 
 .conv-blue-text {
-  color: #1085F1;
+  color: #1967D2;
   text-shadow: 0px 1px #000;
 }
 
@@ -265,13 +265,13 @@
   .common-btn {
     margin-top: 24px;
     width: 180px;
-    background-color: #1085f1;
+    background-color: #1967D2;
     color: white;
 
     &:hover {
       background-color: transparent;
-      border: 1px solid #1085f1;
-      color: #1085f1;
+      border: 1px solid #1967D2;
+      color: #1967D2;
     }
   }
 }
@@ -295,7 +295,7 @@
         border-radius: 4px;
 
         .progress-bar {
-          background: linear-gradient(90deg, #1085f1 0%, #1085f1 100%);
+          background: linear-gradient(90deg, #1967D2 0%, #1967D2 100%);
         }
       }
     }
@@ -398,7 +398,7 @@
           content: counter(list);
           width: 32px;
           height: 32px;
-          background-color: #1085f1;
+          background-color: #1967D2;
           color: white;
           border-radius: 50%;
           display: flex;
@@ -533,8 +533,8 @@
 
         &:hover {
           background-color: transparent;
-          color: #1085f1;
-          border: 1px solid #1085f1;
+          color: #1967D2;
+          border: 1px solid #1967D2;
         }
       }
     }
@@ -547,8 +547,8 @@
 // }
 .product-feed .card-body .progress-steps li.disable::after {
   background-color: #F1F2F4;
-  color: #1085f1;
-  border: 1px solid #1085f1;
+  color: #1967D2;
+  border: 1px solid #1967D2;
 }
 
 // campaign management
@@ -715,7 +715,7 @@
     transform: translateY(0px);
 
     &:hover {
-      background-color: #1085f1;
+      background-color: #1967D2;
       color: white;
       transform: scale(1.2);
       transform: translateY(-5px);
@@ -831,7 +831,7 @@
               transition: all 0.3s ease;
 
               &:hover {
-                background-color: #1085f1;
+                background-color: #1967D2;
                 color: white;
               }
             }
@@ -891,7 +891,7 @@
 
 
       &:hover span {
-        color: #1085F1;
+        color: #1967D2;
       }
 
       img {
@@ -905,7 +905,7 @@
         font-weight: normal;
         font-size: 14px;
         line-height: 25px;
-        color: #1085F1;
+        color: #1967D2;
       }
     }
   }
@@ -962,13 +962,13 @@
   .book-demo {
     .common-btn {
       background-color: transparent;
-      color: #1085f1;
-      border: 1px solid #1085f1;
+      color: #1967D2;
+      border: 1px solid #1967D2;
 
       &:hover {
-        background-color: #1085f1;
+        background-color: #1967D2;
         color: white;
-        border: 1px solid #1085f1;
+        border: 1px solid #1967D2;
       }
     }
   }
@@ -997,12 +997,12 @@
 
     .common-btn {
       width: 100%;
-      background-color: #1085f1;
+      background-color: #1967D2;
       color: white;
 
       &:hover {
         background-color: transparent;
-        color: #1085f1;
+        color: #1967D2;
       }
     }
   }
@@ -1390,7 +1390,7 @@
     width: 240px;
     height: 40px;
     border-radius: 4px;
-    background: #1085F1;
+    background: #1967D2;
     color: #FFF;
     text-align: center;
     font-size: 16px;
@@ -1447,7 +1447,7 @@
     line-height: 22px;
     letter-spacing: 0em;
     text-align: center;
-    color: #1085F1;
+    color: #1967D2;
 
   }
 
@@ -1547,7 +1547,7 @@
         .common-btn {
           width: auto;
           background-color: transparent;
-          color: #1085F1;
+          color: #1967D2;
           padding: 0px 0px;
           display: flex;
           justify-content: flex-start;
@@ -1570,7 +1570,7 @@
         line-height: 30px;
         letter-spacing: 0px;
         text-align: left;
-        color: #1085F1;
+        color: #1967D2;
         margin-bottom: 8px;
       }
       .nav-pills {
@@ -1602,7 +1602,7 @@
               transition: all .3s ease
             }
             &.active {
-              color: #1085F1;
+              color: #1967D2;
               &::before {
                 content: url('../images/reporting-images/selected.png');
                 position: absolute;
@@ -1798,7 +1798,7 @@
         box-shadow: none !important;
 
         &.add {
-          border: 1px solid #1085F1 !important;
+          border: 1px solid #1967D2 !important;
           border-radius: 4px;
           background-color: white;
 
@@ -1808,7 +1808,7 @@
       .input-group-text {
         margin-left: 16px !important;
         border-radius: 4px !important;
-        border: 1px solid #1085F1;
+        border: 1px solid #1967D2;
         background-color: #FFF;
 
         &.edit {
@@ -1855,7 +1855,7 @@
       width: auto;
       background-color: transparent;
       border: none;
-      color: #1085F1;
+      color: #1967D2;
       padding: 0px 0px;
 
       &:hover {
@@ -2068,8 +2068,8 @@
             background-color: #FFF;
             margin-right: 25px;
             &.active {
-              color: #1085F1;
-              border: 1px solid #1085F1;
+              color: #1967D2;
+              border: 1px solid #1967D2;
             }
             .nav-link {
               font-size: 12px;
@@ -2082,14 +2082,14 @@
               padding-right: 36px;
               border: 1px solid transparent;
               &.active {
-                color: #1085F1;
-                border: 1px solid #1085F1;
+                color: #1967D2;
+                border: 1px solid #1967D2;
               }
             }
             .refresh-btn {
               position: absolute;
               cursor: pointer;
-              background-color: #1085F1;
+              background-color: #1967D2;
               right: 0;
               top: 0;
               bottom: 0;
@@ -2181,7 +2181,7 @@
               line-height: 30px;
               letter-spacing: 0px;
               text-align: left;
-              color: #1085F1;
+              color: #1967D2;
               margin-bottom: 8px;
           }
       }
@@ -2357,7 +2357,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
-  border: 1px solid #1085F1;
+  border: 1px solid #1967D2;
 }
 
 .gasettings .progress-steps li {
@@ -2380,19 +2380,19 @@
   height: 53px;
   left: 15px;
   top: 0;
-  background-color: var(--primary-blue, #1085F1);
+  background-color: var(--primary-blue, #1967D2);
   z-index: -1;
   margin-top: 22px;
 }
 
 .gasettings .progress-steps li.active::before {
-  background-color: #1085F1;
+  background-color: #1967D2;
   color: #e0f1fb;
 }
 
 .gasettings .progress-steps li.not-active::before {
   background-color: #e0f1fb;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .step-wholebox {
@@ -2428,7 +2428,7 @@
         border-radius: 4px;
 
         .progress-bar {
-          background: linear-gradient(90deg, #1085f1 0%, #1085f1 100%);
+          background: linear-gradient(90deg, #1967D2 0%, #1967D2 100%);
         }
       }
     }
@@ -2443,7 +2443,7 @@
   &:hover {
     .hover-text {
       display: block;
-      color: #1085F1
+      color: #1967D2
     }
   }
 }
@@ -2452,7 +2452,7 @@
   &:hover {
     .hover-text {
       display: block;
-      color: #1085F1
+      color: #1967D2
     }
   }
 }
@@ -2461,7 +2461,7 @@
   &:hover {
     .hover-text {
       display: block;
-      color: #1085F1;
+      color: #1967D2;
     }
   }
 }
@@ -2470,7 +2470,7 @@
   &:hover {
     .hover-text {
       display: block;
-      color: #1085F1;
+      color: #1967D2;
     }
   }
 }
@@ -2479,7 +2479,7 @@
   &:hover {
     .hover-text {
       display: block;
-      color: #1085F1;
+      color: #1967D2;
     }
   }
 }
@@ -2488,7 +2488,7 @@
   &:hover {
     .hover-text {
       display: block;
-      color: #1085F1;
+      color: #1967D2;
     }
   }
 }
@@ -2497,7 +2497,7 @@
   &:hover {
     .hover-text {
       display: block;
-      color: #1085F1;
+      color: #1967D2;
     }
   }
 }
@@ -2506,7 +2506,7 @@
   &:hover {
     .hover-text {
       display: block;
-      color: #1085F1;
+      color: #1967D2;
     }
   }
 }

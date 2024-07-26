@@ -1,12 +1,12 @@
 === Smart Coupons For WooCommerce - Create WooCommerce Coupons, BOGO Coupons, Discount Rules, URL Coupons ===
 Contributors: WebToffee
-Version: 1.8.0
+Version: 1.8.1
 Donate link:https://www.webtoffee.com/plugins/
 Tags: WooCommerce coupons, discounts, BOGO, smart coupons, advanced coupons
 Requires at least: 3.3
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -202,6 +202,13 @@ Yes. You can create coupons that get applied as per the purchase amount of a cus
 
 
 == Changelog ==
+
+= 1.8.1 - 2024-07-26 =
+* [Fix] Auto coupons not replaced by the highest priority coupon.
+* [Fix] UI issue in the free product choosing section when changing coupon type (backend).
+* [Fix] Incorrect coupon discount amount when the coupon has 'Maximum discount value' and a free product.
+* [Compatibility] - Tested OK with WordPress 6.6
+* [Compatibility] - Tested OK with WooCommerce 9.1
 
 = 1.8.0 - 2024-06-14 =
 * [FIX] Coupon style not applied for used coupons via shortcode
@@ -539,10 +546,9 @@ Yes. You can create coupons that get applied as per the purchase amount of a cus
 
 == Upgrade Notice ==
 
-= 1.8.0 =
-* [FIX] Coupon style not applied for used coupons via shortcode
-* [FIX] Coupon template missing in general settings
-* [FIX] Auto coupons are not removed when individual coupons are applied.
-* [FIX] High-priority auto coupons are not replacing other low-priority auto coupons.
-* [Compatibility] - Tested OK with WordPress 6.5
-* [Compatibility] - Tested OK with WooCommerce 8.9 
+= 1.8.1 =
+* [Fix] Auto coupons not replaced by the highest priority coupon.
+* [Fix] UI issue in the free product choosing section when changing coupon type (backend).
+* [Fix] Incorrect coupon discount amount when the coupon has 'Maximum discount value' and a free product.
+* [Compatibility] - Tested OK with WordPress 6.6
+* [Compatibility] - Tested OK with WooCommerce 9.1

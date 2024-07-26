@@ -107,6 +107,21 @@
     cursor: pointer;
 }
 
+/* Tooltip or note styles that we can toggle on/off */
+.swpm-tooltip-notes-container{
+    position: relative;
+    display: inline-block;
+}
+.swpm-tooltip-notes-style-1 {
+    display: none;
+    margin-top: 5px;
+    padding: 4px 7px;
+    border-radius: 3px;
+    background-color: #2d2d2d;
+    color: #FFFFFF;
+    z-index: 9999;
+}
+
 /* Block related */
 .swpm-payment-block-ic-wrapper{
     padding: 16px;

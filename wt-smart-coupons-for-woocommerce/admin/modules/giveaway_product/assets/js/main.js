@@ -32,7 +32,6 @@
 					$('.wt_sc_coupon_category_restriction_fields select#product_categories').val(null).trigger('change');
 					$('.wt_sc_coupon_category_restriction_fields .wt_sc_meta_item_tb_delete_row').trigger('click');
 
-					$('[name="_wt_free_product_ids[]"]').attr('multiple', 'multiple');
 					wt_sc_coupon_edit_meta_item_table.set_val_to_parent_elm($('.wt_sc_bogo_products_fieldset').find('.wt_sc_select2:eq(0)'));
 
 				}else
@@ -45,9 +44,8 @@
 
 					$('._wt_product_condition_field, .wt_sc_coupon_category_restriction_fields').show();
 
-					$('[name="_wt_free_product_ids[]"]').removeAttr('multiple');
 					$('[name="_wt_free_product_ids[]"] option:gt(0)').remove();
-
+					
 				}
 			});
 			$('#discount_type').trigger('change'); /* toggle visibility on page load */

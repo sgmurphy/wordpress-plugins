@@ -402,7 +402,7 @@ if (!class_exists('TVC_Ajax_File')) :
         $data_middleware = array();
 
         $data_eeoptions['conv_options_data']['google_ads_id'] = $conv_options_data['google_ads_id'];
-        if ($conv_options_data['ga_GMC'] == '1') {
+        if (isset($conv_options_data['ga_GMC']) && $conv_options_data['ga_GMC'] == '1') {
           $data_eeoptions['conv_options_data']['ga_GMC'] = sanitize_text_field($conv_options_data['ga_GMC']);
         }
         $this->conv_save_data_eeoption($data_eeoptions);
@@ -418,7 +418,7 @@ if (!class_exists('TVC_Ajax_File')) :
         $TVC_Admin_Helper = new TVC_Admin_Helper();
         $TVC_Admin_Helper->update_remarketing_snippets();
         $TVC_Admin_Helper->update_app_status();
-        if ($conv_options_data['ga_GMC'] == '1') {
+        if (isset($conv_options_data['ga_GMC']) && $conv_options_data['ga_GMC'] == '1') {
           $access_token = $this->get_tvc_access_token();
           $refresh_token = $this->get_tvc_refresh_token();
           $api_obj = new Conversios_Onboarding_ApiCall(sanitize_text_field($access_token), sanitize_text_field($refresh_token));

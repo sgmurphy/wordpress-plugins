@@ -2,9 +2,9 @@
 
 namespace QuadLayers\IGG;
 
-use QuadLayers\IGG\Backend\Load as Backend;
-use QuadLayers\IGG\Frontend\Load as Frontend;
-use QuadLayers\IGG\Gutenberg\Load as Gutenberg;
+use QuadLayers\IGG\Controllers\Backend;
+use QuadLayers\IGG\Controllers\Frontend;
+use QuadLayers\IGG\Controllers\Gutenberg;
 use QuadLayers\IGG\Models\Account as Models_Account;
 use QuadLayers\IGG\Models\Setting as Models_Setting;
 

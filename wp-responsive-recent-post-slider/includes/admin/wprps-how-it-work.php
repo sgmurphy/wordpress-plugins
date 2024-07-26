@@ -177,7 +177,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<li><?php esc_html_e( '100% Multi language', 'wp-responsive-recent-post-slider' ); ?></li>
 							</ul>
 							<div class="upgrade-to-pro"><?php echo __( 'Gain access to <strong>Responsive Recent Post Slider</strong> included in <br/><strong>Essential Plugin Bundle', 'wp-responsive-recent-post-slider' ); ?></div>
-							<a class="button button-primary wpos-button-full button-orange" href="<?php echo esc_url(WPRPS_PLUGIN_LINK_UNLOCK); ?>" target="_blank"><?php esc_html_e('Grab Recent Post Slider Now', 'wp-responsive-recent-post-slider'); ?></a>
+							<a class="button button-primary wpos-button-full button-orange" href="<?php echo esc_url(WPRPS_PLUGIN_LINK_UNLOCK); ?>" target="_blank"><?php esc_html_e('Try Pro For 5 Days Free', 'wp-responsive-recent-post-slider'); ?></a>
 						</div><!-- .inside -->
 					</div><!-- #general -->
 				</div><!-- .meta-box-sortables -->

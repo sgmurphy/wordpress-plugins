@@ -1,9 +1,9 @@
-=== SureTriggers: All-in-One WordPress Automation Plugin ===
+=== SureTriggers: All-in-One WordPress Automation ===
 Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 1.0.53
+Stable tag: 1.0.54
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,13 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.54 - Friday, 26th July 2024 =
+* Improvement: "Advanced Custom Fields" - Fixed issue and enhanced "Field Updated on Post" Trigger
+* Improvement: "The Events Calendar" - Added two new Triggers
+* Improvement: "LatePoint" - Enhanced WP user support in "Create Agent" Action
+* Improvement: "SureFeedback" - Enhanced Triggers response and added new Action
+* Improvement: "Presto Player" - Enhanced Triggers response
 
 = Version 1.0.53 - Wednesday, 17th July 2024 =
 * Improvement: Make WordPress 6.6 compatible

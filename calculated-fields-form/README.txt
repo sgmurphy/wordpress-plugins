@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.23
+Stable tag: 5.2.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.24 =
+
+* Adds new predefined form templates.
+
 = 5.2.23 =
 
 * Improves the user experience in creating forms by assigning placeholders to the form attributes.
@@ -482,10 +486,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Allows controlling the design of the DIV tags that contain the fields' components.
 * Fixes a minor issue in the CSS rules applied to the form title and description.
 * Introduces new form templates for the Pay Raise Percent Calculator and Life Insurance Calculator.
-
-= 5.2.18 =
-
-* Refines CSS styling for form titles and descriptions.
-* Introduces new form templates.
-* Enhances user interaction by displaying a cursor pointer for radio buttons and checkboxes.
-* Disables the link functionality when a form is embedded within an anchor.

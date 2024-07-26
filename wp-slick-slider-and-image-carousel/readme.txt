@@ -1,6 +1,6 @@
 === WP Slick Slider and Image Carousel ===
 Contributors: wponlinesupport, anoopranawat, pratik-jain, patelketan
-Tags: slick, image slider, slick slider, slick image slider, slider, image slider, header image slider, responsive image slider, responsive content slider, carousel, image carousel, carousel slider, content slider, coin slider, touch slider, text slider, responsive slider, responsive slideshow, Responsive Touch Slider, wp slider, wp image slider, wp header image slider, photo slider, responsive photo slider  
+Tags: slick image slider, responsive header image slider, carousel slider, responsive slider, wp header image slider
 Requires at least: 4.0
 Tested up to: 6.6.1
 Stable tag: 3.7.1

@@ -173,11 +173,13 @@ class Wt_Smart_Coupon_Limit_Max_Discount_Admin
 
                 $subtotal_for_available_product = array_sum( array_column( $subtotal_quantity_arr, 'price' ) ); // Prepare the subtotal
                 $product_price = $this->get_product_cart_item_price( $cart_item['data'] );
-                $discount_percent = ( $product_price * $cart_item_qty ) / $subtotal_for_available_product;            
+                $discount_percent = ( $product_price * $cart_item_qty ) / $subtotal_for_available_product;      
+                $balance_discount = 0;               
 
             }else  // Fixed product coupon
             {
                 $quantity_arr   = $this->get_allowed_prodcuts_from_cart( $coupon, 'quantity_arr' ); // Take all allowed quantity of applicable cart items as array.
+                $quantity_arr_count = array_sum( $quantity_arr );
                 $cart_item_qty  = isset($quantity_arr[ $cart_item['key'] ]) ? $quantity_arr[ $cart_item['key'] ] : 0; // Take the allowed quantity    
                 
                 if(0 === $cart_item_qty) {
@@ -185,10 +187,44 @@ class Wt_Smart_Coupon_Limit_Max_Discount_Admin
                 }
 
                 $coupon_amount      = $coupon->get_amount();
-                $discount_percent   = ( $coupon_amount * $cart_item_qty ) / ( $coupon_amount * array_sum( $quantity_arr ) );              
+
+                //If a giveaway product which price is less than discount, add balance giveaway amount to other products
+                $balance_discount = 0;
+                $quantity_arr_count_temp = $quantity_arr_count;
+                foreach( WC()->cart->get_cart() as $cart_item_key => $cart_item_temp ) 
+                {
+                    if ( ! $coupon->is_valid_for_product( wc_get_product( $cart_item_temp['product_id'] ), $cart_item_temp ) && ! $coupon->is_valid_for_cart() ) {
+                        continue;
+                    }
+
+                    if( $cart_item_key === $cart_item['key'] ) continue;
+                    $cart_item_qty_temp = $quantity_arr[$cart_item_temp['key']] ?? 0;
+                
+                    if( 0 === $cart_item_qty_temp ) {
+                        break; 
+                    }
+
+                    $product_price = $cart_item_temp['data']->get_price();
+                    
+                    // Calculating the discount before the actual calculation, to check whether the discount amount is less than the product price.
+                    $discount_percent_temp = ( $coupon_amount * $cart_item_qty_temp ) / ( $coupon_amount * $quantity_arr_count );  
+                    $_discount_temp = $max_discount * $discount_percent_temp;
+                    // If the discount amount is less than the product price, store the balance discount amount, which will be added to the final total discount.
+                    if( $product_price < $_discount_temp ){
+                        $balance_discount += $_discount_temp - $product_price;
+                        $quantity_arr_count_temp -= $cart_item_temp['quantity'];
+                    }
+                }
+
+                $discount_percent   = ( $coupon_amount * $cart_item_qty ) / ( $coupon_amount * $quantity_arr_count );     
+                
+                $balance_disc_add = ( $balance_discount / $quantity_arr_count_temp ) * $cart_item['quantity'];
             }
 
             $_discount = ( $max_discount * $discount_percent );
+            if( $balance_discount > 0 ){
+                $_discount += $balance_disc_add;
+            }
             $discount = min( $_discount, $discount );
         }
     
@@ -221,6 +257,7 @@ class Wt_Smart_Coupon_Limit_Max_Discount_Admin
         foreach($items as $cart_item_key => $item ) 
         {         
             $cart_item = $item->object;   
+            if( 0 >= $cart_item['data']->get_price() ) continue; //Exclude if full giveaway.
             $cart_item_qty = isset($cart_item['quantity']) ? $cart_item['quantity'] : 1;
 
             if($limit_usage_qty)

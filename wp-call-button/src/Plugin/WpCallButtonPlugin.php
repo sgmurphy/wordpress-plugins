@@ -161,7 +161,9 @@ class WpCallButtonPlugin {
 			[
 				'plugin_name'         => $this->plugin_name,
 				'data_call_btn_text'  => $this->plugin_settings['wpcallbtn_button_text'],
+                'wpcallbtn_phone_num' => $this->plugin_settings['wpcallbtn_phone_num'],
 				'data_call_btn_phone' => WpCallButtonHelpers::get_phone_image(),
+                'settingsUrl'         => admin_url( 'admin.php?page=wp-call-button' ),
 			]
 		);
 

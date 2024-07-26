@@ -31,7 +31,7 @@ class Omnisend_Cart_Event {
 				'attributes'   => $variation,
 			);
 
-			$cart_item = WC()->cart->get_cart()[ $cart_item_key ];
+			$cart_item = WC()->cart->get_cart()[ $cart_item_key ] ?? null;
 
 			if ( ! is_null( $cart_item ) ) {
 				$added_item['link'] = $cart_item['data']->get_permalink( $cart_item );

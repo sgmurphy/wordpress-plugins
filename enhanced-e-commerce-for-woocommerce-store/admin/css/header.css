@@ -109,7 +109,7 @@ body {
     font-weight: 500;
     line-height: 22px;
     border-radius: 4px;
-    background-color: #1085F1;
+    background-color: #1967D2;
     width: 196px;
     height: 41px;
     color: white;
@@ -168,7 +168,7 @@ body {
     0%{top:-6px}
     100%{top:-10px}
 }
-.btn-soft-primary{ background-color: #1085f1; color: #fff; border-color: #1085f1; }
+.btn-soft-primary{ background-color: #1967D2; color: #fff; border-color: #1967D2; }
 .btn-soft-primary:hover, .btn-soft-primary:focus, .btn-soft-primary:active, .btn-soft-primary.active, .open>.dropdown-toggle.btn-soft-primary {
     color: #fff;
     background-color: #0d6efd;

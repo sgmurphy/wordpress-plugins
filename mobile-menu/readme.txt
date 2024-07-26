@@ -3,8 +3,8 @@ Contributors: takanakui, freemius, freshlightlab
 link: http://profiles.wordpress.org/takanakui
 Tags:   mobile, responsive, menu,  responsive menu, mobile menu
 Requires at least: 4.4
-Tested up to: 6.5
-Stable tag: 2.8.4.4
+Tested up to: 6.6
+Stable tag: 2.8.5
 Requires PHP: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -135,6 +135,9 @@ Not available at the moment
 == Changelog ==
 
 
+
+= 2.8.5 =
+* Fix! - Security fix
 
 = 2.8.4.4 =
 * Fix! - Security fix

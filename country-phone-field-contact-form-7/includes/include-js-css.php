@@ -85,10 +85,10 @@ function nb_cpf_embedCssJs() {
 						'.$defaultCountry.''.$onlyCountries.''.$preferredCountries.''.$excludeCountries.'
 					});
 					$(".wpcf7-phonetext").intlTelInput({
-						autoHideDialCode: false,
-						autoPlaceholder: "off",
+						autoHideDialCode: true,
+						autoPlaceholder: true,
 						nationalMode: '.$phone_nationalMode.',
-						separateDialCode: false,
+						separateDialCode: true,
 						hiddenInput: "full_number",
 						'.$phone_defaultCountry.''.$phone_onlyCountries.''.$phone_preferredCountries.''.$phone_excludeCountries.'	
 					});
@@ -109,14 +109,20 @@ function nb_cpf_embedCssJs() {
 	
 					if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
 	
-						$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
-							var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
-							if(dial_code == "")
-							var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
+						$custom_inline_js .= '
+						$(".wpcf7-phonetext").on("keyup", function() {
+							var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+							
 							var value   = $(this).val();
 							//console.log(dial_code, value);
-							$(this).val(dial_code + value.substring(dial_code.length));
-						 });';
+							if(value == "+")
+								$(this).val("");
+							else if(value.indexOf("+") == "-1")
+								$(this).val(dial_code + value);
+							else if(value.indexOf("+") > 0)
+								$(this).val(dial_code + value.substring(dial_code.length));
+						});
+						';
 	
 					}
 	
@@ -152,10 +158,10 @@ function nb_cpf_embedCssJs() {
 							$custom_inline_js .= $onlyCountries.''.$preferredCountries.''.$excludeCountries.'
 							});
 							$(".wpcf7-phonetext").intlTelInput({
-								autoHideDialCode: false,
-								autoPlaceholder: "off",
+								autoHideDialCode: true,
+								autoPlaceholder: true,
 								nationalMode: '.$phone_nationalMode.',
-								separateDialCode: false,
+								separateDialCode: true,
 								hiddenInput: "full_number",';
 							$custom_inline_js .= isset( $nb_cpf_settings_options['phone_auto_select'] ) 
 							&& $nb_cpf_settings_options['phone_auto_select'] == 1 ?
@@ -179,13 +185,19 @@ function nb_cpf_embedCssJs() {
 
 							if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
 
-								$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
-									var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
-									if(dial_code == "")
-									var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
+								$custom_inline_js .= '
+								
+								$(".wpcf7-phonetext").on("keyup", function() {
+									var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+									
 									var value   = $(this).val();
-									//console.log(dial_code, value);
-									$(this).val(dial_code + value.substring(dial_code.length));
+									if(value == "+")
+										$(this).val("");
+									else if(value.indexOf("+") == "-1")
+										$(this).val(dial_code + value);
+									else if(value.indexOf("+") > 0)
+										$(this).val(dial_code + value.substring(dial_code.length));
+								
 								});';
 
 							}
@@ -223,10 +235,10 @@ function nb_cpf_embedCssJs() {
 					'.$defaultCountry.''.$onlyCountries.''.$preferredCountries.''.$excludeCountries.'
 				});
 				$(".wpcf7-phonetext").intlTelInput({
-					autoHideDialCode: false,
-					autoPlaceholder: "off",
+					autoHideDialCode: true,
+					autoPlaceholder: true,
 					nationalMode: '.$phone_nationalMode.',
-					separateDialCode: false,
+					separateDialCode: true,
 					hiddenInput: "full_number",
 					'.$phone_defaultCountry.''.$phone_onlyCountries.''.$phone_preferredCountries.''.$phone_excludeCountries.'	
 				});
@@ -247,14 +259,20 @@ function nb_cpf_embedCssJs() {
 
 				if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
 
-					$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
-						var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
-						if(dial_code == "")
-						var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
+					$custom_inline_js .= '
+					
+					var isMobile = /Android.+Mobile|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+					$(".wpcf7-phonetext").on("keyup", function() {
+						var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+						
 						var value   = $(this).val();
-						//console.log(dial_code, value);
-						$(this).val(dial_code + value.substring(dial_code.length));
-					 });';
+						if(value == "+")
+							$(this).val("");
+						else if(value.indexOf("+") == "-1")
+							$(this).val(dial_code + value);
+						else if(value.indexOf("+") > 0)
+							$(this).val(dial_code + value.substring(dial_code.length));
+					});';
 
 				}
 

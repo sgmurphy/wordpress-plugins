@@ -35,7 +35,7 @@ class ProjectHuddle extends Integrations {
 	 * SureTrigger constructor.
 	 */
 	public function __construct() {
-		$this->name        = __( 'ProjectHuddle', 'suretriggers' );
+		$this->name        = __( 'SureFeedback', 'suretriggers' );
 		$this->description = __( 'A WordPress plugin for Website & Design feedback.', 'suretriggers' );
 		$this->icon_url    = SURE_TRIGGERS_URL . 'assets/icons/projecthuddle.png';
 		add_action( 'ph_website_pre_rest_update_thread_attribute', [ $this, 'ph_after_comment_resolved' ], 10, 3 );

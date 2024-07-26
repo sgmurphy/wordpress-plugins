@@ -4,7 +4,7 @@
  * Plugin Name:       WP Call Button
  * Plugin URI:        https://www.wpbeginner.com/
  * Description:       This plugin enables visitors on your website to call your business phone number by adding a call button at a prominent location on your website.
- * Version:           1.4.1
+ * Version:           1.4.2
  * Author:            Syed Balkhi
  * Author URI:        https://www.wpbeginner.com/
  * License:           GPL-2.0+
@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
 	exit;
 }
 
-define( 'WP_CALL_BUTTON_VERSION', '1.4.1' );
+define( 'WP_CALL_BUTTON_VERSION', '1.4.2' );
 define( 'WP_CALL_BUTTON_FILE', __FILE__ );
 
 // Include the PHP-FIG PSR-4 Compliant class loader.

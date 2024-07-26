@@ -742,7 +742,7 @@ $spamcounter = maspik_spam_count();
                             </div>
 
                             <div class="maspik-limit-char-box togglebox">
-                                <?php echo create_maspik_numbox("text_limit_link", "contain_links", "link-limit" , "Maximum number of Links", "", "") ?>
+                                <?php echo create_maspik_numbox("text_limit_link", "contain_links", "link-limit" , "Maximum number of Links", "", "0") ?>
 
                         </div><!-- end of maspik-limit-link-wrap -->
                                     

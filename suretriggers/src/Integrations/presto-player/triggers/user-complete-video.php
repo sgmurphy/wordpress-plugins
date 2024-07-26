@@ -76,7 +76,7 @@ if ( ! class_exists( 'UserCompleteVideo' ) ) :
 				'common_action' => 'presto_player_progress',
 				'function'      => [ $this, 'trigger_listener' ],
 				'priority'      => 10,
-				'accepted_args' => 2,
+				'accepted_args' => 3,
 			];
 
 			return $triggers;
@@ -88,18 +88,32 @@ if ( ! class_exists( 'UserCompleteVideo' ) ) :
 		 *
 		 * @param array $video_id The entry that was just created.
 		 * @param int   $percent The current form.
+		 * @param int   $visit_time Visit time.
 		 * @since 1.0.0
 		 *
 		 * @return void
 		 */
-		public function trigger_listener( $video_id, $percent ) {
+		public function trigger_listener( $video_id, $percent, $visit_time ) {
 			if ( 100 === $percent ) {
 
 				$user_id                        = ap_get_current_user_id();
 				$context                        = WordPress::get_user_context( $user_id );
 				$context['pp_video']            = $video_id;
 				$context['pp_video_percentage'] = $percent;
-				$context['video']               = ( new Video( $video_id ) )->toArray();
+				$video_data                     = ( new Video( $video_id ) )->toArray();
+				$context['video']               = $video_data;
+				if ( is_array( $video_data ) && array_key_exists( 'post_id', $video_data ) ) {
+					$media_tags = get_the_terms( $video_data['post_id'], 'pp_video_tag' );
+					if ( ! empty( $media_tags ) && is_array( $media_tags ) && isset( $media_tags[0] ) ) {
+						$tag_name = [];
+						foreach ( $media_tags as $tag ) {
+							$tag_name[] = $tag->name;
+						}
+						$context['media']['tag'] = $tag_name;
+					}
+					$mediahub_data = WordPress::get_post_context( $video_data['post_id'] );
+					$context       = array_merge( $context, $mediahub_data );
+				}
 
 				AutomationController::sure_trigger_handle_trigger(
 					[

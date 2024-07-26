@@ -172,7 +172,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<li><?php esc_html_e( '100% Multi language', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
 							</ul>
 							<div class="upgrade-to-pro"><?php esc_html_e( 'Gain access to', 'wp-logo-showcase-responsive-slider-slider'); ?> <strong><?php esc_html_e('Logo Showcase Responsive Slider', 'wp-logo-showcase-responsive-slider-slider'); ?></strong></div>
-							<a class="button button-primary wpos-button-full button-orange" href="<?php echo esc_url(WPLS_PLUGIN_LINK_UNLOCK); ?>" target="_blank"><?php esc_html_e('Grab Logo Showcase Now', 'wp-logo-showcase-responsive-slider-slider'); ?></a>
+							<a class="button button-primary wpos-button-full button-orange" href="<?php echo esc_url(WPLS_PLUGIN_LINK_UNLOCK); ?>" target="_blank"><?php esc_html_e('Try Pro For 5 Days Free', 'wp-logo-showcase-responsive-slider-slider'); ?></a>
 						</div><!-- .inside -->
 					</div><!-- #general -->
 				</div><!-- .meta-box-sortables -->

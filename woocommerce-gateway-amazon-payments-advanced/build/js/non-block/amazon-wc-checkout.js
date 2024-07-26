@@ -23,6 +23,17 @@ module.exports = entryVirtual('Array').find;
 
 /***/ }),
 
+/***/ 991:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(7690);
+var entryVirtual = __webpack_require__(5703);
+
+module.exports = entryVirtual('Array').includes;
+
+
+/***/ }),
+
 /***/ 2480:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -55,6 +66,27 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ 8557:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isPrototypeOf = __webpack_require__(7046);
+var arrayMethod = __webpack_require__(991);
+var stringMethod = __webpack_require__(1631);
+
+var ArrayPrototype = Array.prototype;
+var StringPrototype = String.prototype;
+
+module.exports = function (it) {
+  var own = it.includes;
+  if (it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.includes)) return arrayMethod;
+  if (typeof it == 'string' || it === StringPrototype || (isPrototypeOf(StringPrototype, it) && own === StringPrototype.includes)) {
+    return stringMethod;
+  } return own;
+};
+
+
+/***/ }),
+
 /***/ 4426:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -69,6 +101,28 @@ if (!path.JSON) path.JSON = { stringify: JSON.stringify };
 module.exports = function stringify(it, replacer, space) {
   return apply(path.JSON.stringify, null, arguments);
 };
+
+
+/***/ }),
+
+/***/ 8524:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(4038);
+var path = __webpack_require__(4058);
+
+module.exports = path.parseInt;
+
+
+/***/ }),
+
+/***/ 1631:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(1035);
+var entryVirtual = __webpack_require__(5703);
+
+module.exports = entryVirtual('String').includes;
 
 
 /***/ }),
@@ -464,6 +518,28 @@ module.exports = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
     : CORRECT_ARGUMENTS ? classofRaw(O)
     // ES3 arguments fallback
     : (result = classofRaw(O)) == 'Object' && isCallable(O.callee) ? 'Arguments' : result;
+};
+
+
+/***/ }),
+
+/***/ 7772:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var wellKnownSymbol = __webpack_require__(9813);
+
+var MATCH = wellKnownSymbol('match');
+
+module.exports = function (METHOD_NAME) {
+  var regexp = /./;
+  try {
+    '/./'[METHOD_NAME](regexp);
+  } catch (error1) {
+    try {
+      regexp[MATCH] = false;
+      return '/./'[METHOD_NAME](regexp);
+    } catch (error2) { /* empty */ }
+  } return false;
 };
 
 
@@ -1495,6 +1571,25 @@ module.exports = true;
 
 /***/ }),
 
+/***/ 685:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isObject = __webpack_require__(941);
+var classof = __webpack_require__(2532);
+var wellKnownSymbol = __webpack_require__(9813);
+
+var MATCH = wellKnownSymbol('match');
+
+// `IsRegExp` abstract operation
+// https://tc39.es/ecma262/#sec-isregexp
+module.exports = function (it) {
+  var isRegExp;
+  return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : classof(it) == 'RegExp');
+};
+
+
+/***/ }),
+
 /***/ 6664:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -1738,6 +1833,51 @@ module.exports = Math.trunc || function trunc(x) {
   var n = +x;
   return (n > 0 ? floor : ceil)(n);
 };
+
+
+/***/ }),
+
+/***/ 344:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isRegExp = __webpack_require__(685);
+
+var $TypeError = TypeError;
+
+module.exports = function (it) {
+  if (isRegExp(it)) {
+    throw $TypeError("The method doesn't accept regular expressions");
+  } return it;
+};
+
+
+/***/ }),
+
+/***/ 9806:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var global = __webpack_require__(1899);
+var fails = __webpack_require__(5981);
+var uncurryThis = __webpack_require__(5329);
+var toString = __webpack_require__(5803);
+var trim = (__webpack_require__(4853).trim);
+var whitespaces = __webpack_require__(3483);
+
+var $parseInt = global.parseInt;
+var Symbol = global.Symbol;
+var ITERATOR = Symbol && Symbol.iterator;
+var hex = /^[+-]?0x/i;
+var exec = uncurryThis(hex.exec);
+var FORCED = $parseInt(whitespaces + '08') !== 8 || $parseInt(whitespaces + '0x16') !== 22
+  // MS Edge 18- broken with boxed symbols
+  || (ITERATOR && !fails(function () { $parseInt(Object(ITERATOR)); }));
+
+// `parseInt` method
+// https://tc39.es/ecma262/#sec-parseint-string-radix
+module.exports = FORCED ? function parseInt(string, radix) {
+  var S = trim(toString(string));
+  return $parseInt(S, (radix >>> 0) || (exec(hex, S) ? 16 : 10));
+} : $parseInt;
 
 
 /***/ }),
@@ -2213,6 +2353,43 @@ var store = __webpack_require__(3030);
 
 /***/ }),
 
+/***/ 4853:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var uncurryThis = __webpack_require__(5329);
+var requireObjectCoercible = __webpack_require__(8219);
+var toString = __webpack_require__(5803);
+var whitespaces = __webpack_require__(3483);
+
+var replace = uncurryThis(''.replace);
+var ltrim = RegExp('^[' + whitespaces + ']+');
+var rtrim = RegExp('(^|[^' + whitespaces + '])[' + whitespaces + ']+$');
+
+// `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
+var createMethod = function (TYPE) {
+  return function ($this) {
+    var string = toString(requireObjectCoercible($this));
+    if (TYPE & 1) string = replace(string, ltrim, '');
+    if (TYPE & 2) string = replace(string, rtrim, '$1');
+    return string;
+  };
+};
+
+module.exports = {
+  // `String.prototype.{ trimLeft, trimStart }` methods
+  // https://tc39.es/ecma262/#sec-string.prototype.trimstart
+  start: createMethod(1),
+  // `String.prototype.{ trimRight, trimEnd }` methods
+  // https://tc39.es/ecma262/#sec-string.prototype.trimend
+  end: createMethod(2),
+  // `String.prototype.trim` method
+  // https://tc39.es/ecma262/#sec-string.prototype.trim
+  trim: createMethod(3)
+};
+
+
+/***/ }),
+
 /***/ 3405:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -2555,6 +2732,16 @@ module.exports = function (name) {
 
 /***/ }),
 
+/***/ 3483:
+/***/ ((module) => {
+
+// a string of all valid unicode whitespaces
+module.exports = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002' +
+  '\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
+
+
+/***/ }),
+
 /***/ 1501:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -2604,6 +2791,36 @@ $({ target: 'Array', proto: true, forced: SKIPS_HOLES }, {
 
 // https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
 addToUnscopables(FIND);
+
+
+/***/ }),
+
+/***/ 7690:
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(6887);
+var $includes = (__webpack_require__(1692).includes);
+var fails = __webpack_require__(5981);
+var addToUnscopables = __webpack_require__(8479);
+
+// FF99+ bug
+var BROKEN_ON_SPARSE = fails(function () {
+  // eslint-disable-next-line es/no-array-prototype-includes -- detection
+  return !Array(1).includes();
+});
+
+// `Array.prototype.includes` method
+// https://tc39.es/ecma262/#sec-array.prototype.includes
+$({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
+  includes: function includes(el /* , fromIndex = 0 */) {
+    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+addToUnscopables('includes');
 
 
 /***/ }),
@@ -2753,6 +2970,50 @@ if ($stringify) {
     }
   });
 }
+
+
+/***/ }),
+
+/***/ 4038:
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+var $ = __webpack_require__(6887);
+var $parseInt = __webpack_require__(9806);
+
+// `parseInt` method
+// https://tc39.es/ecma262/#sec-parseint-string-radix
+$({ global: true, forced: parseInt != $parseInt }, {
+  parseInt: $parseInt
+});
+
+
+/***/ }),
+
+/***/ 1035:
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(6887);
+var uncurryThis = __webpack_require__(5329);
+var notARegExp = __webpack_require__(344);
+var requireObjectCoercible = __webpack_require__(8219);
+var toString = __webpack_require__(5803);
+var correctIsRegExpLogic = __webpack_require__(7772);
+
+var stringIndexOf = uncurryThis(''.indexOf);
+
+// `String.prototype.includes` method
+// https://tc39.es/ecma262/#sec-string.prototype.includes
+$({ target: 'String', proto: true, forced: !correctIsRegExpLogic('includes') }, {
+  includes: function includes(searchString /* , position = 0 */) {
+    return !!~stringIndexOf(
+      toString(requireObjectCoercible(this)),
+      toString(notARegExp(searchString)),
+      arguments.length > 1 ? arguments[1] : undefined
+    );
+  }
+});
 
 
 /***/ }),
@@ -3234,10 +3495,30 @@ module.exports = parent;
 
 /***/ }),
 
+/***/ 3778:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var parent = __webpack_require__(8557);
+
+module.exports = parent;
+
+
+/***/ }),
+
 /***/ 8933:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var parent = __webpack_require__(4426);
+
+module.exports = parent;
+
+
+/***/ }),
+
+/***/ 4888:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var parent = __webpack_require__(8524);
 
 module.exports = parent;
 
@@ -3281,10 +3562,24 @@ module.exports = __webpack_require__(1577);
 
 /***/ }),
 
+/***/ 8118:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(3778);
+
+/***/ }),
+
 /***/ 5627:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__(8933);
+
+/***/ }),
+
+/***/ 40:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(4888);
 
 /***/ }),
 
@@ -3370,12 +3665,18 @@ var __webpack_exports__ = {};
 "use strict";
 /* harmony import */ var _babel_runtime_corejs3_core_js_stable_url_search_params__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7659);
 /* harmony import */ var _babel_runtime_corejs3_core_js_stable_url_search_params__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_url_search_params__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_corejs3_core_js_stable_json_stringify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5627);
-/* harmony import */ var _babel_runtime_corejs3_core_js_stable_json_stringify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_json_stringify__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_filter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4418);
-/* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_filter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_instance_filter__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_includes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8118);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_includes__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_instance_includes__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_parse_int__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_parse_int__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_parse_int__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_find__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1679);
 /* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_find__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_instance_find__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_json_stringify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5627);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_json_stringify__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_json_stringify__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_filter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(4418);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_filter__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_instance_filter__WEBPACK_IMPORTED_MODULE_5__);
+
+
 
 
 
@@ -3416,6 +3717,9 @@ var __webpack_exports__ = {};
           success: function (result) {
             unblock($('form#order_review'));
             try {
+              if (result.data && result.data.result) {
+                result = result.data;
+              }
               if ('success' === result.result && 'undefined' !== typeof result.amazonCreateCheckoutParams && $(classicButtonId).length > 0) {
                 amazonCreateCheckoutConfig = JSON.parse(result.amazonCreateCheckoutParams);
                 amazonEstimatedOrderAmount = 'undefined' !== typeof result.amazonEstimatedOrderAmount && result.amazonEstimatedOrderAmount ? JSON.parse(result.amazonEstimatedOrderAmount) : null;
@@ -3467,6 +3771,28 @@ var __webpack_exports__ = {};
 
     var amazonProductButtonContainer = $('#pay_with_amazon_product');
     if (amazonProductButtonContainer.length > 0) {
+      renderProductButton();
+      $(document.body).on('woocommerce_variation_has_changed', function () {
+        $('#pay_with_amazon_product').each(function () {
+          $(this).data('amazonRenderedSettings', null);
+        });
+        renderProductButton();
+      });
+    }
+    function submit_error($element, errorMessage) {
+      $('.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message').remove();
+      $element.prepend('<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">' + errorMessage + '</div>'); // eslint-disable-line max-len
+      $element.removeClass('processing').unblock();
+    }
+    function renderAndInitAmazonCheckout(buttonId, flag, checkoutConfig) {
+      var amazonClassicButton = renderButton(buttonId, flag);
+      if (null !== amazonClassicButton) {
+        amazonClassicButton.initCheckout({
+          createCheckoutSessionConfig: checkoutConfig
+        });
+      }
+    }
+    function renderProductButton() {
       var amazonProductButton = renderButton('#pay_with_amazon_product', 'product');
       if (null !== amazonProductButton) {
         amazonProductButton.onClick(function () {
@@ -3485,8 +3811,14 @@ var __webpack_exports__ = {};
             _change_carts_nonce: amazon_payments_advanced.change_cart_ajax_nonce
           };
           $.each(singleAddToCart.closest('form.cart').serializeArray(), function (index, object) {
-            if ('add-to-cart' === object.name) {
+            var _context;
+            if (_babel_runtime_corejs3_core_js_stable_instance_includes__WEBPACK_IMPORTED_MODULE_1___default()(_context = ['add-to-cart', 'product_id']).call(_context, object.name)) {
               data.product_id = object.value;
+            } else if ('undefined' !== typeof data[object.name]) {
+              if (!$.isArray(data[object.name])) {
+                data[object.name] = [data[object.name]];
+              }
+              data[object.name].push(object.value);
             } else {
               data[object.name] = object.value;
             }
@@ -3496,10 +3828,10 @@ var __webpack_exports__ = {};
           data.product_id = data.product_id || pid;
           $.ajax({
             url: amazon_payments_advanced.ajax_url,
-            type: 'get',
+            type: 'post',
             data: $.param(data),
             success: function (result) {
-              if (result.data.create_checkout_session_config) {
+              if ('undefined' !== typeof result.data && result.data.create_checkout_session_config) {
                 if (result.data.estimated_order_amount) {
                   var productsEstimatedOrderAmount = JSON.parse(result.data.estimated_order_amount);
                   if ('undefined' !== typeof productsEstimatedOrderAmount.amount && 'undefined' !== typeof productsEstimatedOrderAmount.currencyCode) {
@@ -3519,19 +3851,6 @@ var __webpack_exports__ = {};
               unblock(elementToBlock);
             }
           });
-        });
-      }
-    }
-    function submit_error($element, errorMessage) {
-      $('.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message').remove();
-      $element.prepend('<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">' + errorMessage + '</div>'); // eslint-disable-line max-len
-      $element.removeClass('processing').unblock();
-    }
-    function renderAndInitAmazonCheckout(buttonId, flag, checkoutConfig) {
-      var amazonClassicButton = renderButton(buttonId, flag);
-      if (null !== amazonClassicButton) {
-        amazonClassicButton.initCheckout({
-          createCheckoutSessionConfig: checkoutConfig
         });
       }
     }
@@ -3617,6 +3936,21 @@ var __webpack_exports__ = {};
     function isAmazonClassic() {
       return !$('.wc-apa-widget-change').length && 'amazon_payments_advanced' === $('input[name=payment_method]:checked').val();
     }
+    function getCurrentProductType() {
+      var productType = amazon_payments_advanced.product_action;
+      const variations_form = $('form.variations_form');
+      if (variations_form.length > 0) {
+        const current_variation = _babel_runtime_corejs3_core_js_stable_parse_int__WEBPACK_IMPORTED_MODULE_2___default()(_babel_runtime_corejs3_core_js_stable_instance_find__WEBPACK_IMPORTED_MODULE_3___default()(variations_form).call(variations_form, 'input[name="variation_id"]').val());
+        if (current_variation) {
+          $.each(variations_form.data('product_variations'), function (index, variation) {
+            if (current_variation === _babel_runtime_corejs3_core_js_stable_parse_int__WEBPACK_IMPORTED_MODULE_2___default()(variation.variation_id) && 'undefined' !== typeof variation.wc_amazon_product_type) {
+              productType = variation.wc_amazon_product_type;
+            }
+          });
+        }
+      }
+      return productType;
+    }
     function getButtonSettings(buttonSettingsFlag) {
       var obj = {
         // set checkout environment
@@ -3630,10 +3964,10 @@ var __webpack_exports__ = {};
         productType: amazon_payments_advanced.action
       };
       if ('product' === buttonSettingsFlag) {
-        obj.productType = amazon_payments_advanced.product_action;
+        obj.productType = getCurrentProductType();
       } else if ('classic' === buttonSettingsFlag && null !== amazonCreateCheckoutConfig) {
         obj.productType = 'undefined' !== typeof amazonCreateCheckoutConfig.payloadJSON.addressDetails ? 'PayAndShip' : 'PayOnly';
-        amazonCreateCheckoutConfig.payloadJSON = _babel_runtime_corejs3_core_js_stable_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(amazonCreateCheckoutConfig.payloadJSON);
+        amazonCreateCheckoutConfig.payloadJSON = _babel_runtime_corejs3_core_js_stable_json_stringify__WEBPACK_IMPORTED_MODULE_4___default()(amazonCreateCheckoutConfig.payloadJSON);
         if (null !== amazonEstimatedOrderAmount && 'undefined' !== typeof amazonEstimatedOrderAmount.amount && 'undefined' !== typeof amazonEstimatedOrderAmount.currencyCode) {
           obj.estimatedOrderAmount = amazonEstimatedOrderAmount;
         }
@@ -3644,8 +3978,8 @@ var __webpack_exports__ = {};
       return obj;
     }
     function toggleDetailsVisibility(detailsListName) {
-      var _context;
-      var visibleFields = _babel_runtime_corejs3_core_js_stable_instance_filter__WEBPACK_IMPORTED_MODULE_2___default()(_context = $('.' + detailsListName + '__field-wrapper').children()).call(_context, function () {
+      var _context2;
+      var visibleFields = _babel_runtime_corejs3_core_js_stable_instance_filter__WEBPACK_IMPORTED_MODULE_5___default()(_context2 = $('.' + detailsListName + '__field-wrapper').children()).call(_context2, function () {
         return $(this).is(':not(.hidden)') && $(this).css('display') !== 'none';
       });
       if (visibleFields.length === 0) {

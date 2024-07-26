@@ -1650,7 +1650,6 @@
 			var postID = $('#post_ID').val();
 			var index = null;
 
-			startTimer($this);
 
 			if (postID) {
 				//console.log('we are in a POST !!');
@@ -1664,26 +1663,48 @@
 					console.error("Select element not found!");
 				}
 
-				const isSaving = wp.data.select('core/editor').isSavingPost();
-				const hasContentChanges = wp.data.select('core/editor').hasChangedContent();
+				const hasCMB2Changes = hasChanges;
+				
+				if (isGutenbergActive()) {
+					startTimer($this);
 
-				if (!isSaving && (hasContentChanges || hasChanges)) {
-					wp.data.dispatch('core/editor').savePost().then(() => {
-						//console.log("saved!");
-						hasChanges = false;
+					const isSaving = wp.data.select('core/editor').isSavingPost();
+					const hasContentChanges = wp.data.select('core/editor').hasChangedContent();
+				
+					if (!isSaving && (hasContentChanges || hasCMB2Changes)) {
+						wp.data.dispatch('core/editor').savePost().then(() => {
+							hasChanges = false;
+							indexAudioPreview_AJAX(0, originalText, postID, index, $(this), posts_in);
+						}).catch(error => {
+							stopTimer($this);
+							console.error("Failed to save the post:", error);
+						});
+					} else {
+						// console.log("No changes detected or post is currently being saved.");
 						indexAudioPreview_AJAX(0, originalText, postID, index, $(this), posts_in);
-					}).catch(error => {
-						console.error("Failed to save the post:", error);
-					});
-				}else {
-					//console.log("No changes detected or post is currently being saved.");
-					indexAudioPreview_AJAX(0, originalText, postID, index, $(this), posts_in);
+					}
+				} else {
+					if (hasCMB2Changes) {
+						const publishButton = document.getElementById('publish');
+						if (publishButton) {
+							if (confirm("We must save the post first. Please click the Generate Preview again once the save is complete.")) {
+								publishButton.click();
+							} else {
+								console.log("User canceled the save operation.");
+								// Handle the cancel action if necessary
+							}
+						}
+					} else {
+						startTimer($this);
+						indexAudioPreview_AJAX(0, originalText, postID, index, $(this), posts_in);
+					}
 				}
 
 			}else{
 				//check if we have post_id in the URL query
 				const url = new URL(window.location.href);
 				var posts_in = url.searchParams.get("posts_in");
+				startTimer($this);
 				indexAudioPreview_AJAX(0, originalText, postID, index, $(this), posts_in);
 
 			}
@@ -1691,6 +1712,9 @@
 			
 		});
 
+		function isGutenbergActive() {
+			return document.body.classList.contains('block-editor-page');
+		}
 
 		$(document).on('click', '#stopIndexingButton', function() {
 			continueIndexing = false;

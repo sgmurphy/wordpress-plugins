@@ -4,7 +4,7 @@ Contributors: twofactor, twofactorauthentication, hsn97, cyberlord92
 Tags: google authenticator, WP 2FA, 2FA, 2-factor authentication, two-factor authentication
 Donate link: https://miniorange.com/
 Requires at least: 3.0.1
-Tested up to: 6.5.5
+Tested up to: 6.6.1
 Requires PHP: 7.2.24
 Stable tag: 6.0.1
 License: MIT/Expat

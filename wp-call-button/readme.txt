@@ -2,8 +2,8 @@
 Contributors: Wpbeginner, smub, yanivmasjedi
 Tags: call button, click to call button, call now button, call, phone, clickable phone numbers, call me wordpress plugin, woocommerce call button
 Requires at least: 4.9
-Tested up to: 6.3.1
-Stable tag: 1.4.1
+Tested up to: 6.6.1
+Stable tag: 1.4.2
 Requires PHP: 5.6
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -129,6 +129,11 @@ Yes. You can easily customize the color, text, placement, and everything else re
 Yes. We have the option to only display call now button to mobile users only.
 
 == Changelog ==
+
+= 1.4.2 =
+* WordPress 6.6.1 support.
+* PHP 8.1 support.
+* Display a warning in the block settings when the phone number is not set in the admin settings.
 
 = 1.4.1 =
 * Add a five-star click-to-action in the plugin

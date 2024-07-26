@@ -145,8 +145,8 @@ $plan_id = 1;
         padding: 8px 10px 8px 10px;
         gap: 10px;
         color: #FFF;
-        background-color: #1085F1;
-        border-color: #1085F1;
+        background-color: #1967D2;
+        border-color: #1967D2;
     }
     .btn-channel-primary:hover {
         color: #FFF;
@@ -158,8 +158,8 @@ $plan_id = 1;
         padding: 8px 10px 8px 10px;
         gap: 10px;
         color: #FFF;
-        background-color: #1085F1;
-        border-color: #1085F1;
+        background-color: #1967D2;
+        border-color: #1967D2;
     }
     .btn-channel:hover {
         color: #FFF;
@@ -207,7 +207,7 @@ $plan_id = 1;
         text-align: left;
         padding-left: 24px;
         white-space: nowrap;
-        background: #1085F1;
+        background: #1967D2;
         transition: width 0.6s ease;
         border-radius: 100px;
     }
@@ -309,7 +309,7 @@ $plan_id = 1;
                 <span><?php esc_html_e("Exit Wizard", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
             </div>
         </div>
-        <div class="mx-auto convcard p-0 mt-0 rounded-3 shadow-lg" style="max-width:903px">
+        <div class="mx-auto convcard p-0 mt-0 rounded-3 shadow-lg" style="max-width:1072px">
             <ul class="nav nav-tabs border-0 p-3 pb-0" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">                    
                     <button style="pointer-events: none;" class="d-inline-flex align-items-center pawizard_tab_but border-0 nav-link active ps-0" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">

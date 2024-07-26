@@ -30,23 +30,6 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
 
   <form id="gtmsettings_form">
 
-    <div class="py-2 convwiz_border card mw-100">
-      <label class="form-check-label h6 mb-0">
-          <?php esc_html_e("V2 Consent", "enhanced-e-commerce-for-woocommerce-store"); ?>
-          <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
-              <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-              <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
-          </span>
-      </label>
-      <small><strong style="color:#0AB17B"><?php esc_html_e("Recommended:", "enhanced-e-commerce-for-woocommerce-store"); ?></strong>&nbsp; 
-        <?php esc_html_e("Conversios support Google V2 Consent & is compatible with", "enhanced-e-commerce-for-woocommerce-store"); ?>&nbsp;
-        <a class="conv-link-blue" href="https://www.conversios.io/docs/how-to-set-up-real-cookie-banner-with-conversios-plugin/" target="_black">Real Cookie Banner,</a>
-        <a class="conv-link-blue" href="https://www.conversios.io/docs/how-to-set-up-gdpr-cookie-compliance-with-conversios-plugin/" target="_black">GDPR Cookie Compliance,</a>
-        <a class="conv-link-blue" href="https://www.conversios.io/docs/how-to-set-up-cookiebot-consent-with-conversios-plugin/" target="_black">CookieBot</a> and
-        <a class="conv-link-blue" href="https://www.conversios.io/docs/how-to-set-up-cookieyes-consent-with-conversios-plugin/" target="_black">CookieYes.</a>
-      </small>
-    </div>
-
     <div class="convpixsetting-inner-box mt-4">
       <h5 class="fw-normal mb-1">
         <?php esc_html_e("Select Google Tag Manager Container:", "enhanced-e-commerce-for-woocommerce-store"); ?>
@@ -60,13 +43,13 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
       $use_your_gtm_id = isset($ee_options['use_your_gtm_id']) ? $ee_options['use_your_gtm_id'] : "";
       ?>
       <div>
-        <div class="py-1">
+        <div class="py-2">
           <input type="radio" <?php echo esc_attr(($want_to_use_your_gtm == "0" || $want_to_use_your_gtm == "1") ? 'checked="checked"' : ''); ?> name="want_to_use_your_gtm" id="want_to_use_your_gtm_default" value="0">
           <label class="form-check-label ps-2" for="want_to_use_your_gtm_default">
             <?php esc_html_e("Conversios Global Container (GTM-K7X94DG)", "enhanced-e-commerce-for-woocommerce-store"); ?>
           </label>
         </div>
-        <div class="py-1">
+        <div class="py-4">
           <input type="radio" name="want_to_use_your_gtm" id="want_to_use_your_gtm_own" value="0" readonly disabled class="align-top">
           <label class="form-check-label ps-2" for="want_to_use_your_gtm_own">
             <?php esc_html_e("Use Your Google Tag Manager Container", "enhanced-e-commerce-for-woocommerce-store"); ?>

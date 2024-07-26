@@ -84,7 +84,7 @@
   border: 1px solid #e4e4e4 !important;
 }
 .dash-convo .common-btn {
-  background-color: #1085f1;
+  background-color: #1967D2;
   border-radius: 4px;
   font-style: normal;
   font-weight: 400;
@@ -103,8 +103,8 @@
 }
 .dash-convo .common-btn:hover {
   background-color: transparent;
-  border: 1px solid #1085f1;
-  color: #1085f1;
+  border: 1px solid #1967D2;
+  color: #1967D2;
 }
 .dash-convo table {
   border-collapse: collapse;
@@ -120,7 +120,7 @@
 }
 
 .conv-blue-text {
-  color: #1085F1;
+  color: #1967D2;
   text-shadow: 0px 1px #000;
 }
 
@@ -202,13 +202,13 @@
 .integrate-btn .common-btn {
   margin-top: 24px;
   width: 180px;
-  background-color: #1085f1;
+  background-color: #1967D2;
   color: white;
 }
 .integrate-btn .common-btn:hover {
   background-color: transparent;
-  border: 1px solid #1085f1;
-  color: #1085f1;
+  border: 1px solid #1967D2;
+  color: #1967D2;
 }
 
 .product-feed .card-body .feed-box {
@@ -226,7 +226,7 @@
   border-radius: 4px;
 }
 .product-feed .card-body .feed-box .progress .progress-bar {
-  background: linear-gradient(90deg, #1085f1 0%, #1085f1 100%);
+  background: linear-gradient(90deg, #1967D2 0%, #1967D2 100%);
 }
 .product-feed .card-body p {
   margin: 24px 0px;
@@ -309,7 +309,7 @@
   content: counter(list);
   width: 32px;
   height: 32px;
-  background-color: #1085f1;
+  background-color: #1967D2;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -424,14 +424,14 @@
 }
 .product-feed .card-body .start-btn .common-btn:hover {
   background-color: transparent;
-  color: #1085f1;
-  border: 1px solid #1085f1;
+  color: #1967D2;
+  border: 1px solid #1967D2;
 }
 
 .product-feed .card-body .progress-steps li.disable::after {
   background-color: #F1F2F4;
-  color: #1085f1;
-  border: 1px solid #1085f1;
+  color: #1967D2;
+  border: 1px solid #1967D2;
 }
 
 .campaign-manage {
@@ -555,7 +555,7 @@
   transform: translateY(0px);
 }
 .genrated-box .revenue-box:hover {
-  background-color: #1085f1;
+  background-color: #1967D2;
   color: white;
   transform: scale(1.2);
   transform: translateY(-5px);
@@ -641,7 +641,7 @@
   transition: all 0.3s ease;
 }
 .videocard .card-body .title-dropdown .three-dots .dropdown-menu li a:hover {
-  background-color: #1085f1;
+  background-color: #1967D2;
   color: white;
 }
 .videocard .card-body .card-content p {
@@ -682,7 +682,7 @@
   position: relative;
 }
 .recent-post .card-content a:hover span {
-  color: #1085F1;
+  color: #1967D2;
 }
 .recent-post .card-content a img {
   margin-right: 8px;
@@ -694,7 +694,7 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 25px;
-  color: #1085F1;
+  color: #1967D2;
 }
 .recent-post .visit-blog .common-btn {
   width: 100%;
@@ -730,13 +730,13 @@
 }
 .need-help .book-demo .common-btn {
   background-color: transparent;
-  color: #1085f1;
-  border: 1px solid #1085f1;
+  color: #1967D2;
+  border: 1px solid #1967D2;
 }
 .need-help .book-demo .common-btn:hover {
-  background-color: #1085f1;
+  background-color: #1967D2;
   color: white;
-  border: 1px solid #1085f1;
+  border: 1px solid #1967D2;
 }
 
 .subscribe-news .card-body {
@@ -756,12 +756,12 @@
 }
 .subscribe-news .form-box .common-btn {
   width: 100%;
-  background-color: #1085f1;
+  background-color: #1967D2;
   color: white;
 }
 .subscribe-news .form-box .common-btn:hover {
   background-color: transparent;
-  color: #1085f1;
+  color: #1967D2;
 }
 
 .table-box {
@@ -1086,7 +1086,7 @@
   width: 240px;
   height: 40px;
   border-radius: 4px;
-  background: #1085F1;
+  background: #1967D2;
   color: #FFF;
   text-align: center;
   font-size: 16px;
@@ -1148,7 +1148,7 @@
   line-height: 22px;
   letter-spacing: 0em;
   text-align: center;
-  color: #1085F1;
+  color: #1967D2;
 }
 .dash-ga4 .card {
   width: 100%;
@@ -1225,7 +1225,7 @@
 .dash-ga4 .smartprompt-card .smart-promptbox .genrate-insights .common-btn {
   width: auto;
   background-color: transparent;
-  color: #1085F1;
+  color: #1967D2;
   padding: 0px 0px;
   display: flex;
   justify-content: flex-start;
@@ -1245,7 +1245,7 @@
   line-height: 30px;
   letter-spacing: 0px;
   text-align: left;
-  color: #1085F1;
+  color: #1967D2;
   margin-bottom: 8px;
 }
 .dash-ga4 .smartprompt-card .prompttab-box .nav-pills {
@@ -1280,7 +1280,7 @@
   transition: all 0.3s ease;
 }
 .dash-ga4 .smartprompt-card .prompttab-box .nav-pills .nav-item .nav-link.active {
-  color: #1085F1;
+  color: #1967D2;
 }
 .dash-ga4 .smartprompt-card .prompttab-box .nav-pills .nav-item .nav-link.active::before {
   content: url("../images/reporting-images/selected.png");
@@ -1457,14 +1457,14 @@
   box-shadow: none !important;
 }
 .custom-modal .prompt-form .form-box .icontrol.add {
-  border: 1px solid #1085F1 !important;
+  border: 1px solid #1967D2 !important;
   border-radius: 4px;
   background-color: white;
 }
 .custom-modal .prompt-form .form-box .input-group-text {
   margin-left: 16px !important;
   border-radius: 4px !important;
-  border: 1px solid #1085F1;
+  border: 1px solid #1967D2;
   background-color: #FFF;
 }
 .custom-modal .prompt-form .form-box .input-group-text.edit {
@@ -1502,7 +1502,7 @@
   width: auto;
   background-color: transparent;
   border: none;
-  color: #1085F1;
+  color: #1967D2;
   padding: 0px 0px;
 }
 .custom-modal .add-more .common-btn:hover {
@@ -1676,8 +1676,8 @@
   margin-right: 25px;
 }
 .dash-convo .ai-poweredcard .card-body .prompttab-box .nav-pills .nav-item.active {
-  color: #1085F1;
-  border: 1px solid #1085F1;
+  color: #1967D2;
+  border: 1px solid #1967D2;
 }
 .dash-convo .ai-poweredcard .card-body .prompttab-box .nav-pills .nav-item .nav-link {
   font-size: 12px;
@@ -1691,13 +1691,13 @@
   border: 1px solid transparent;
 }
 .dash-convo .ai-poweredcard .card-body .prompttab-box .nav-pills .nav-item .nav-link.active {
-  color: #1085F1;
-  border: 1px solid #1085F1;
+  color: #1967D2;
+  border: 1px solid #1967D2;
 }
 .dash-convo .ai-poweredcard .card-body .prompttab-box .nav-pills .nav-item .refresh-btn {
   position: absolute;
   cursor: pointer;
-  background-color: #1085F1;
+  background-color: #1967D2;
   right: 0;
   top: 0;
   bottom: 0;
@@ -1780,7 +1780,7 @@
   line-height: 30px;
   letter-spacing: 0px;
   text-align: left;
-  color: #1085F1;
+  color: #1967D2;
   margin-bottom: 8px;
 }
 
@@ -1907,7 +1907,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
-  border: 1px solid #1085F1;
+  border: 1px solid #1967D2;
 }
 
 .gasettings .progress-steps li {
@@ -1930,19 +1930,19 @@
   height: 53px;
   left: 15px;
   top: 0;
-  background-color: var(--primary-blue, #1085F1);
+  background-color: var(--primary-blue, #1967D2);
   z-index: -1;
   margin-top: 22px;
 }
 
 .gasettings .progress-steps li.active::before {
-  background-color: #1085F1;
+  background-color: #1967D2;
   color: #e0f1fb;
 }
 
 .gasettings .progress-steps li.not-active::before {
   background-color: #e0f1fb;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .step-wholebox {
@@ -1973,7 +1973,7 @@
   border-radius: 4px;
 }
 .pixel-setup .card-body .feed-box .progress .progress-bar {
-  background: linear-gradient(90deg, #1085f1 0%, #1085f1 100%);
+  background: linear-gradient(90deg, #1967D2 0%, #1967D2 100%);
 }
 
 .hover-text {
@@ -1982,42 +1982,42 @@
 
 .pixel-box-gasettings:hover .hover-text {
   display: block;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .pixel-box-gadssettings:hover .hover-text {
   display: block;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .pixel-box-fbsettings:hover .hover-text {
   display: block;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .pixel-box-bingsettings:hover .hover-text {
   display: block;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .pixel-box-twittersettings:hover .hover-text {
   display: block;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .pixel-box-pintrestsettings:hover .hover-text {
   display: block;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .pixel-box-snapchatsettings:hover .hover-text {
   display: block;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .pixel-box-tiktoksettings:hover .hover-text {
   display: block;
-  color: #1085F1;
+  color: #1967D2;
 }
 
 .conv-text-green {
@@ -2144,3 +2144,9 @@
   border-radius: 50%;
   margin: 2px;
 }/*# sourceMappingURL=dashmain.css.map */
+
+.alt-btn-reports:hover {
+  color: #fff;
+  background-color: #1085f1 !important;
+  border-color: #1085f1 !important;
+}

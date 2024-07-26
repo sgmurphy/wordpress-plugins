@@ -41,20 +41,24 @@ if( ! defined( 'WPLS_META_PREFIX' ) ) {
 	define( 'WPLS_META_PREFIX', '_wpls_' ); // Plugin metabox prefix
 }
 
-if( ! defined( 'WPLS_PLUGIN_BUNDLE_LINK' ) ) {
-	define('WPLS_PLUGIN_BUNDLE_LINK', 'https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Logoshowcase&utm_campaign=Welcome-Screen'); // Plugin link
-}
+// if( ! defined( 'WPLS_PLUGIN_BUNDLE_LINK' ) ) {
+// 	define('WPLS_PLUGIN_BUNDLE_LINK', 'https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Logoshowcase&utm_campaign=Welcome-Screen'); // Plugin link
+// }
 
-if( ! defined( 'WPLS_PLUGIN_LINK_UNLOCK' ) ) {
-	define('WPLS_PLUGIN_LINK_UNLOCK', 'https://www.essentialplugin.com/essential-plugin-bundle-pricing/?utm_source=WP&utm_medium=Logoshowcase&utm_campaign=Features-PRO'); // Plugin link
-}
+// if( ! defined( 'WPLS_PLUGIN_LINK_UNLOCK' ) ) {
+// 	define('WPLS_PLUGIN_LINK_UNLOCK', 'https://www.essentialplugin.com/essential-plugin-bundle-pricing/?utm_source=WP&utm_medium=Logoshowcase&utm_campaign=Features-PRO'); // Plugin link
+// }
 
 if( ! defined( 'WPLS_PLUGIN_LINK_UPGRADE' ) ) {
 	define('WPLS_PLUGIN_LINK_UPGRADE', 'https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Logoshowcase&utm_campaign=Upgrade-PRO'); // Plugin Check link
 }
 
-if( ! defined( 'WPLS_PRO_FREE_5_day_LINK' ) ) {
-	define('WPLS_PRO_FREE_5_day_LINK', 'https://www.wponlinesupport.com/checkout/?edd_action=add_to_cart&download_id=14791&edd_options[price_id]=7&wpos_cart_flush=1' ); // Popup pro link
+if( ! defined( 'WPLS_PLUGIN_BUNDLE_LINK' ) ) {
+	define('WPLS_PLUGIN_BUNDLE_LINK', 'https://www.wponlinesupport.com/checkout/?edd_action=add_to_cart&download_id=14791&edd_options[price_id]=7&wpos_cart_flush=1&utm_source=WP&utm_medium=Logoshowcase&utm_campaign=Welcome-Screen'); // Plugin link
+}
+
+if( ! defined( 'WPLS_PLUGIN_LINK_UNLOCK' ) ) {
+	define('WPLS_PLUGIN_LINK_UNLOCK', 'https://www.wponlinesupport.com/checkout/?edd_action=add_to_cart&download_id=14791&edd_options[price_id]=7&wpos_cart_flush=1&utm_source=WP&utm_medium=Logoshowcase&utm_campaign=Features-PRO'); // Plugin link
 }
 
 /**

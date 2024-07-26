@@ -98,7 +98,7 @@ if ( !class_exists( 'ewdufaqAJAX' ) ) {
 
 			wp_send_json_success(
 				array(
-					'output' 			=> $output,
+					'output' 		=> $output,
 					'pagination' 	=> $pagination,
 					'faq_count' 	=> $faqs->faq_count,
 					'max_page'		=> $faqs->max_page,

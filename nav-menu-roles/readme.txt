@@ -6,7 +6,7 @@ Tags: menu, menus, nav menu, nav menus
 Requires at least: 4.5.0
 Tested up to: 6.5.0
 Requires PHP: 5.3.2
-Stable tag: 2.1.2
+Stable tag: 2.1.3-beta.1
 License: GPLv3
 
 Hide custom menu items based on user roles. PLEASE READ THE FAQ IF YOU ARE NOT SEEING THE SETTINGS.
@@ -156,12 +156,12 @@ If your membership plugin is not listed here, you may be able to use the above b
 The roles in NMR are filterable distinct from the global `$wp_roles`. This allows for compatibility to be added between plugins that don't use the core roles to determine access, like some membership plugins. 
 
 `
-/*
+/**
  * Add custom roles to Nav Menu Roles menu list
  * param: $roles an array of all available roles, by default is global $wp_roles 
  * return: array
  */
-function kia_new_roles( $roles ){
+function kia_new_roles( $roles ) {
   $roles['new-role-key'] = 'new-role';
   return $roles;
 }
@@ -173,16 +173,17 @@ Note, if you want to add a WordPress capability the above is literally all you n
 In case you *do* need to check your visibility status against something very custom, here is how you'd go about it:
 
 `
-/*
- * Change visibility of each menu item
- * param: $visible boolean
- * param: $item object, the complete menu object. Nav Menu Roles adds its info to $item->roles
- * $item->roles can be "in" (all logged in), "out" (all logged out) or an array of specific roles
- * return boolean
- */
-function kia_item_visibility( $visible, $item ){
-  if( isset( $item->roles ) && is_array( $item->roles ) && in_array( 'new-role-key', $item->roles ) ){
-  /*  if ( // your own custom check on the current user versus 'new-role' status ){
+/**
+  * Change visibility of each menu item
+  * @param bool $visible
+  * @param obj $item The complete menu object. Nav Menu Roles adds its info to the following keys {
+  *        	roles - Possible value: "in" (all logged in) | "out" (all logged out) | an array of specific roles, ex: [ "administrator", "editor" ]
+  *   		display_mode - Possible values: "show" (show if conditions met) | "hide" (hide if conditions met)
+  * return boolean
+  */
+function kia_item_visibility( $visible, $item ) {
+  if ( isset( $item->roles ) && is_array( $item->roles ) && in_array( 'new-role-key', $item->roles ) ) {
+  /*  if ( // your own custom check on the current user versus 'new-role' status ) {
         $visible = true;
       } else {
         $visible = false;
@@ -205,8 +206,8 @@ Add the following snippet to your theme's `functions.php` file:
  * @param: $roles an array of all available roles with ID=>Name
  * @return: array
  */
-function kia_sort_roles( $roles ){
-  if( is_admin() ) {
+function kia_sort_roles( $roles ) {
+  if ( is_admin() ) {
     $array_lowercase = array_map( 'strtolower', $roles );
     array_multisort( $array_lowercase, SORT_ASC, SORT_STRING, $roles );
     return $roles;
@@ -264,6 +265,9 @@ However, the Import plugin only imports certain post meta for menu items.  As of
 Yes, but manually. WPML developers have informed me that the meta data for nav menu items is **not** synced by WPML, meaning that menus copied into a new language will not bring their custom Nav Menu Roles settings. However, if you manually reconfigure the settings, the new language menu will work as expected.
 
 == Changelog ==
+
+= 2.1.3 = 
+* Fix: RTL layout style.
 
 = 2.1.2 = 
 * Fix: Typos.

@@ -91,6 +91,12 @@ class CreateAgent extends AutomateAction {
 			}
 		}
 
+		if ( is_array( $selected_options['wp_user_id'] ) && ! empty( $selected_options['wp_user_id'] ) ) {
+			$wp_user_id = $selected_options['wp_user_id']['value'];
+		} else {
+			$wp_user_id = isset( $selected_options['wp_user_id'] ) ? $selected_options['wp_user_id'] : '';
+		}
+
 		$agent_params = [
 			'first_name'   => isset( $selected_options['first_name'] ) ? $selected_options['first_name'] : '',
 			'last_name'    => isset( $selected_options['last_name'] ) ? $selected_options['last_name'] : '',
@@ -98,7 +104,7 @@ class CreateAgent extends AutomateAction {
 			'email'        => isset( $selected_options['email'] ) ? $selected_options['email'] : '',
 			'phone'        => isset( $selected_options['phone'] ) ? $selected_options['phone'] : '',
 			'status'       => isset( $selected_options['status'] ) ? $selected_options['status'] : 'active',
-			'wp_user_id'   => isset( $selected_options['wp_user_id'] ) ? $selected_options['wp_user_id'] : '',
+			'wp_user_id'   => $wp_user_id,
 			'extra_emails' => isset( $selected_options['extra_emails'] ) ? $selected_options['extra_emails'] : '',
 			'extra_phones' => isset( $selected_options['extra_phones'] ) ? $selected_options['extra_phones'] : '',
 			'title'        => isset( $selected_options['title'] ) ? $selected_options['title'] : '',
@@ -122,6 +128,9 @@ class CreateAgent extends AutomateAction {
 				];
 			}
 			$selected_options['services'] = $new_agent_services;
+			if ( isset( $selected_options['switchableFields'] ) ) {
+				unset( $selected_options['switchableFields'] );
+			}
 			return $selected_options;
 		} else {
 			$errors    = $agent->get_error_messages();

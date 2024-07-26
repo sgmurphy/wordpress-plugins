@@ -141,14 +141,7 @@
             let urlforga = '<?php echo esc_url($connect_url_gagads); ?>';
 
             var selected_tabb = jQuery(".pawizard_tab_but.active").attr("id");
-            if(selected_tabb == "webpixbox-tab")
-            {
-                urlforga = '<?php echo esc_url($connect_url_gaa); ?>';
-            } 
-            if(selected_tabb == "webadsbox-tab")
-            {
-                urlforga = '<?php echo esc_url($connect_url_gadss); ?>';
-            } 
+            urlforga = '<?php echo esc_url($connect_url_gaa); ?>';
             urlforga = urlforga.replace(/&amp;/g, '&');
             urlforga = urlforga.replaceAll('&#038;', '&');
 

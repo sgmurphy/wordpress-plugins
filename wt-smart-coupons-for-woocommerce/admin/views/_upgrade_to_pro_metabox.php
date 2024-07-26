@@ -47,7 +47,7 @@ $custom_tick = '<img src="'. esc_url( WT_SMARTCOUPON_MAIN_URL ) .'admin/images/t
     <p class="wt-sc-pro-features-view-less"><?php _e( 'View less...', 'wt-smart-coupons-for-woocommerce' );?></p>
 </ul>
 <div style="text-align: center;">
-    <a href="<?php echo esc_attr('https://www.webtoffee.com/product/smart-coupons-for-woocommerce/?utm_source=free_plugin_marketing_sidebar&utm_medium=smart_coupons_basic&utm_campaign=smart_coupons&utm_content=' . WEBTOFFEE_SMARTCOUPON_VERSION) ; ?>" class="wt-sc-metabox-upgrade-to-pro-btn" target="_blank">
+    <a href="<?php echo esc_attr( 'https://www.webtoffee.com/product/smart-coupons-for-woocommerce/?utm_source=free_plugin_marketing_sidebar&utm_medium=smart_coupons_basic&utm_campaign=smart_coupons' ) ; ?>" class="wt-sc-metabox-upgrade-to-pro-btn" target="_blank">
         <?php _e( 'Check Out Premium', 'wt-smart-coupons-for-woocommerce' );?><span class="dashicons dashicons-arrow-right-alt" style="margin-top:16px;font-size:16px;"></span>
     </a>
 </div>

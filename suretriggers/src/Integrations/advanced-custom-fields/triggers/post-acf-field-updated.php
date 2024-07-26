@@ -72,10 +72,10 @@ if ( ! class_exists( 'PostAcfFieldUpdated' ) ) :
 			$triggers[ $this->integration ][ $this->trigger ] = [
 				'label'         => __( 'Field Updated On Post', 'suretriggers' ),
 				'action'        => $this->trigger,
-				'common_action' => 'acf/save_post',
+				'common_action' => 'updated_post_meta',
 				'function'      => [ $this, 'trigger_listener' ],
-				'priority'      => 10,
-				'accepted_args' => 1,
+				'priority'      => 99,
+				'accepted_args' => 4,
 			];
 
 			return $triggers;
@@ -84,39 +84,52 @@ if ( ! class_exists( 'PostAcfFieldUpdated' ) ) :
 		/**
 		 * Trigger listener
 		 *
+		 * @param int $meta_id  Meta ID.
 		 * @param int $post_id  Post ID.
+		 * @param int $meta_key  Meta Key.
+		 * @param int $meta_value  Meta Value.
 		 * @return void|bool
 		 */
-		public function trigger_listener( $post_id ) {
+		public function trigger_listener( $meta_id, $post_id, $meta_key, $meta_value ) {
 
-			if ( ! is_int( $post_id ) ) {
-				return;
-			}
+			// Check if updated meta key is not edit_lock and current action.
+			if ( 'updated_post_meta' === current_action() && '_edit_lock' !== $meta_key ) {
+				if ( ! is_int( $post_id ) ) {
+					return;
+				}
 
-            $post_data = $_POST; // @codingStandardsIgnoreLine
+				$post_data = $_POST; // @codingStandardsIgnoreLine
 
-			// Check and update $_POST data.
-			if ( $post_data['acf'] ) {
-				if ( function_exists( 'get_fields' ) ) {
-					$fields = get_fields( $post_id );
-					foreach ( $fields as $key => $field ) {
-						$context['field_id'] = $key;
+				// Check and update $_POST data.
+				if ( ! empty( $post_data['acf'] ) && isset( $post_data['acf'] ) ) {
+					if ( function_exists( 'get_fields' ) ) {
+						$fields = get_fields( $post_id );
+						if ( is_array( $fields ) && ! empty( $fields ) ) {
+							$fields_keys = array_keys( $fields );
+							if ( ! in_array( $meta_key, $fields_keys, true ) ) {
+								return;
+							}
+						}
+
+						$context['field_id'] = $meta_key;
 						if ( function_exists( 'get_field' ) ) {
-							$context[ $key ] = get_field( $key, $post_id );
+							$context[ $meta_key ] = get_field( $meta_key, $post_id );
 						}
 					}
+				} else {
+					return;
 				}
-			} else {
-				return;
+				$context['post']         = WordPress::get_post_context( $post_id );
+				$context['wp_post']      = $post_id;
+				$context['wp_post_type'] = get_post_type( $post_id );
+
+				AutomationController::sure_trigger_handle_trigger(
+					[
+						'trigger' => $this->trigger,
+						'context' => $context,
+					]
+				);
 			}
-			$context['post'] = WordPress::get_post_context( $post_id );
-			
-			AutomationController::sure_trigger_handle_trigger(
-				[
-					'trigger' => $this->trigger,
-					'context' => $context,
-				]
-			);
 		}
 	}
 

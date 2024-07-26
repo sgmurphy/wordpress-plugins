@@ -97,12 +97,23 @@ $tab = isset( $_GET['tab'] ) ? '#'.$_GET['tab'] : '#paoc_welcome_tabs';
 		.poac-upgrade-image-wrap img{width: 100%; margin-bottom:30px;}
 
 		/**** commod deal offer ****/
-		 .poac-deal-offer-wrap{position: relative;padding: 0 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: 0.25rem; color: #000; background-color: #ffd104; border-color: #ffd104; margin-top: 20px;}
+		/* .poac-deal-offer-wrap{position: relative;padding: 0.75rem 1.25rem;margin-bottom: 1rem;border: 1px solid transparent;border-radius: 0.25rem; color: #000;background-color: #ffd104;border-color: #ffd104;margin-top: 20px;}
+		.poac-deal-offer{display:flex;align-items: center; margin-top: 15px;}
+		.poac-inn-deal-offer{flex-basis:60%; padding: 20px; text-align:left;}
+		.poac-inn-deal-hedding span{color:#6c63ff;} */
 
+		/***free 5 day offer new CSS START***/
+		.poac-deal-offer-wrap{position: relative;padding:0 1.25rem;margin-bottom: 1rem;border: 1px solid transparent;border-radius: 0.25rem; color: #000;background-color: #6c63ff;border-color: #6c63ff;margin-top: 20px;}
 		.poac-deal-offer{display:flex;align-items: center;}
 		.poac-inn-deal-offer{flex-basis:60%; padding:0 20px; text-align:left;}
+		.poac-deal-free-offer{ margin: 20px; text-align:center; }
+		.poac-inn-deal-hedding{color:#fff;}
+		.poac-inn-deal-hedding span{color:#ffef00;}
+		.poac-sf-free-btn{display: inline-block; font-size: 18px; padding: 10px 25px; border-radius: 100px;  background-color: #ffef00 ; border-color: #ffef00 ; color: #000; font-weight: 600; text-decoration: none;}
+		.poac-sf-free-btn:hover, .poac-sf-free-btn:focus{ color: #000; }
+		/***free 5 day offer new CSS END***/
+
 		.poac-inn-deal-hedding{font-size: 22px;}
-		.poac-inn-deal-hedding span{color:#6c63ff;}
 
 		.poac-inn-deal-sub-hedding{font-size: 18px;}
 		.poac-inn-deal-sub-hedding span{font-size:20px; color: #6c63ff;}

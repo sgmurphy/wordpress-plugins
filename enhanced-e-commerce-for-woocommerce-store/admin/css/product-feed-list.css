@@ -50,7 +50,7 @@ table.dataTable thead .sorting_desc { background-image: url(https://datatables.n
 .fs-20 { font-size: 20px; }
 .fs-12 { font-size: 12px; }
 .fs-10 { font-size: 10px; }
-.btn-soft-primary{ background-color: #1085f1; color: #fff; border-color: #1085f1; }
+.btn-soft-primary{ background-color: #1967D2; color: #fff; border-color: #1967D2; }
 .btn-soft-primary:hover, .btn-soft-primary:focus, .btn-soft-primary:active, .btn-soft-primary.active, .open>.dropdown-toggle.btn-soft-primary {
     color: #fff;
     background-color: #0d6efd;

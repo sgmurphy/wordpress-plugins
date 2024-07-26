@@ -110,7 +110,13 @@ if ( ! class_exists( 'CommentResolved' ) ) :
 			$meta_value            = get_comment_meta( $comment_id, 'project_id', true );
 			$context['website_id'] = $meta_value;
 			
-			$context = $comment;
+			$context         = $comment;
+			$comment_item_id = get_comment_meta( $comment_id, 'item_id' );
+			if ( ! empty( $comment_item_id ) && is_array( $comment_item_id ) ) {
+				$context['comment_item_id']         = $comment_item_id[0];
+				$context['comment_item_page_title'] = get_the_title( (int) $comment_item_id[0] );
+				$context['comment_item_page_url']   = get_post_meta( (int) $comment_item_id[0], 'page_url', true );
+			}
 			
 			AutomationController::sure_trigger_handle_trigger(
 				[

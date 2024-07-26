@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div id="wpsisac_welcome_tabs" class="wpsisac-vtab-cnt wpsisac_welcome_tabs wpsisac-clearfix">
 	
 	<div class="wpsisac-deal-offer-wrap">
-		<h3 style="font-weight: bold; font-size: 30px; color: red; text-align:center; margin: 15px 0 5px 0;">Why invest time for the free version?</h3>
+		<h3 style="font-weight: bold; font-size: 30px; color:#ffef00; text-align:center; margin: 15px 0 5px 0;">Why Invest Time On Free Version?</h3>
 
-		<h3 style="font-size: 18px; text-align:center; margin:0;">Immediately Explore Slick Slider Pro with Essential Bundle Free for 5 Days.</h3>			
+		<h3 style="font-size: 18px; text-align:center; margin:0; color:#fff;">Explore WP Blog and Widgets Pro with Essential Bundle Free for 5 Days.</h3>			
 
 		<div class="wpsisac-deal-free-offer">
-			<a href="<?php echo esc_url( WPSISAC_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="wpsisac-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
+			<a href="<?php echo esc_url( WPSISAC_PLUGIN_BUNDLE_LINK ); ?>" target="_blank" class="wpsisac-sf-free-btn"><span class="dashicons dashicons-cart"></span> Try Pro For 5 Days Free</a>
 		</div>
 	</div>
 

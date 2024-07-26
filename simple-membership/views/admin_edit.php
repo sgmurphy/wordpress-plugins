@@ -133,6 +133,7 @@
                     <p class="description indicator-hint"><?php echo SwpmUtils::_('This value gets updated when this member logs into your site.') ?></p>
         </td>
 	</tr>
+
     <?php if( isset($extra_info) && !empty($extra_info) ){ ?>
     <tr class="swpm-admin-edit-any-extra-info">
 		<th scope="row"><label for="extra_info"><?php echo  SwpmUtils::_('System-related Additional Data') ?> </label></th>

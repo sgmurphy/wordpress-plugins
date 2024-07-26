@@ -218,3 +218,9 @@ Please use contact form 7 standard featured minlength and maxlength option. It w
 
 2.5.1
 * Fixed country dial code dropdown issue fixed.
+
+2.5.2
+* Fixed phone dial code placeholder and remove dial code issue.
+
+2.5.3
+* Country dial code input debug.

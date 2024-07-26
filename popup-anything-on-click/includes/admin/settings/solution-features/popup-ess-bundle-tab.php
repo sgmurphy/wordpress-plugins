@@ -108,7 +108,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h3 class="poac-inn-deal-hedding"><span>Try Popup Anything Pro</span> in Essential Bundle Free For 5 Days.</h3>
 			</div>
 			<div class="poac-deal-free-offer">
-				<a href="<?php echo esc_url( POPUPAOC_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="popupaoc-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
+				<a href="<?php echo esc_url( POPUPAOC_PLUGIN_BUNDLE_LINK ); ?>" target="_blank" class="poac-sf-free-btn"><span class="dashicons dashicons-cart"></span> Try Pro For 5 Days Free</a>
 			</div>
 		</div>
 	</div>

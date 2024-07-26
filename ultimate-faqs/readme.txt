@@ -3,7 +3,7 @@ Contributors: rustaurius
 Tags: faq, faqs, woocommerce faq, faq block, faq shortcode, accordion, documentation, knowledge base, mobile faq, responsive faq
 Requires at least: 6.0
 Tested up to: 6.6
-Stable tag: 2.2.15
+Stable tag: 2.3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -55,6 +55,16 @@ Statistics and view counts are automatically enabled, so you can easily keep tra
 ### FAQ Comments
 
 We've included the ability for you to enable comments on FAQs, giving you a platform to communicate with your users/customers and help improve not only your knowledge base, but your overall product or service. The FAQ comments make use of WordPress's built-in comment engine, which means seamless integration and you can use WordPress's comment and moderation settings to fine tune the experience.
+
+### Use AI to Generate FAQs
+
+You no longer need to manually create all your FAQs. Let the plugin do the heavy lifting for you! We now offer Open AI integration, via which the plugin will automatically generate new FAQs for you. You just need to specify which page or post should be used and the plugin will automatically create the FAQ based on the content of it. You can also choose to automatically assign an FAQ to a category. You then get a chance to review the generated content before publishing it to your site. 
+
+#### Premium AI-generated FAQs
+
+In the premium version you will get access to create up to 20 AI-generated FAQs at a time as well as to specify multiple pages and/or posts from which the content should be pulled to generate the FAQs.
+
+*Privacy note: The plugin sends post or page content to our server, which is forwarded to Open AI when using the AI FAQ generation feature. No other data is sent to external sources.*
 
 ### Powerful FAQ Search (Requires Premium)
 
@@ -212,7 +222,7 @@ For more info on installing and activating the plugin, and on the walk-through, 
 
 == Changelog ==
 
-= 2.2.15 (2024-07-16) =
-- Tested with WordPress 6.6.
+= 2.3.0 (2024-07-25) =
+- Introducing AI-generated FAQs. Instead of manually creating all your FAQs, you can now let the plugin automatically create them for you using Open AI integration. Read more [here](https://doc.etoilewebdesign.com/plugins/ultimate-faq/user/faqs/ai).
 
 [See changelog for all versions](https://www.etoilewebdesign.com/changelogs/ultimate-faqs.txt).

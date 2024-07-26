@@ -1,3 +1,10 @@
+Version 1.0.54 - Friday, 26th July 2024
+- Improvement: "Advanced Custom Fields" - Fixed issue and enhanced "Field Updated on Post" Trigger
+- Improvement: "The Events Calendar" - Added two new Triggers
+- Improvement: "LatePoint" - Enhanced WP user support in "Create Agent" Action
+- Improvement: "SureFeedback" - Enhanced Triggers response and added new Action
+- Improvement: "Presto Player" - Enhanced Triggers response
+
 Version 1.0.53 - Wednesday, 17th July 2024
 - Improvement: Make WordPress 6.6 compatible
 

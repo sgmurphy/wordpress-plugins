@@ -32,12 +32,23 @@ $tab = isset( $_GET['tab'] ) ? '#'.$_GET['tab'] : '#wpls_welcome_tabs';
 		.wpls-vtab-nav-wrap .wpls-vtab-nav a:hover {box-shadow: 5px 0 0 0 #6c63ff inset !important; }
 
 		/**** commod deal offer ****/
-		.wpls-deal-offer-wrap{position: relative;padding: 0 1.25rem;margin-bottom: 1rem;border: 1px solid transparent;border-radius: 0.25rem; color: #000;background-color: #ffd104;border-color: #ffd104;margin-top: 20px;}
+		/*.wpls-deal-offer-wrap{position: relative;padding: 0.75rem 1.25rem;margin-bottom: 1rem;border: 1px solid transparent;border-radius: 0.25rem; color: #000;background-color: #ffd104;border-color: #ffd104;margin-top: 20px;}
+		.wpls-deal-offer{display:flex;align-items: center; margin-top: 15px;}
+		.wpls-inn-deal-offer{flex-basis:60%; padding:20px; text-align:left;}
+		.wpls-inn-deal-hedding span{color:#6c63ff;}*/
 
+		/***free 5 day offer new CSS START***/
+		.wpls-deal-offer-wrap{position: relative;padding:0 1.25rem;margin-bottom: 1rem;border: 1px solid transparent;border-radius: 0.25rem; color: #000;background-color: #6c63ff;border-color: #6c63ff;margin-top: 20px;}
 		.wpls-deal-offer{display:flex;align-items: center;}
 		.wpls-inn-deal-offer{flex-basis:60%; padding:0 20px; text-align:left;}
+		.wpls-deal-free-offer{ margin: 20px; text-align:center; }
+		.wpls-inn-deal-hedding{color:#fff;}
+		.wpls-inn-deal-hedding span{color:#ffef00;}
+		.wpls-sf-free-btn{display: inline-block; font-size: 18px; padding: 10px 25px; border-radius: 100px;  background-color: #ffef00 ; border-color: #ffef00 ; color: #000; font-weight: 600; text-decoration: none;}
+		.wpls-sf-free-btn:hover, .wpls-sf-free-btn:focus{ color: #000; }
+		/***free 5 day offer new CSS END***/
+
 		.wpls-inn-deal-hedding{font-size: 22px;}
-		.wpls-inn-deal-hedding span{color:#6c63ff;}
 
 		.wpls-inn-deal-sub-hedding{font-size: 18px;}
 		.wpls-inn-deal-sub-hedding span{font-size:20px; color: #6c63ff;}

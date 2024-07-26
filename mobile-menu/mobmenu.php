@@ -3,11 +3,11 @@
 /**
  * Plugin Name: Mobile Menu
  * Description: An easy to use WordPress responsive mobile menu. Keep your mobile visitors engaged.
- * Version: 2.8.4.4
+ * Version: 2.8.5
  * Plugin URI: https://www.wpmobilemenu.com/
  * Author: Freshlight Lab
  * Author URI: https://www.freshlightlab.com/
- * Tested up to: 6.5
+ * Tested up to: 6.6
  * Text Domain: mobile-menu
  * Domain Path: /languages/
  * License: GPLv2
@@ -16,7 +16,7 @@
 if ( !defined( 'ABSPATH' ) ) {
     die;
 }
-define( 'WP_MOBILE_MENU_VERSION', '2.8.4.4' );
+define( 'WP_MOBILE_MENU_VERSION', '2.8.5' );
 define( 'WP_MOBILE_MENU_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_MOBILE_MENU_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 if ( !class_exists( 'WP_Mobile_Menu' ) ) {
@@ -189,7 +189,6 @@ if ( !class_exists( 'WP_Mobile_Menu' ) ) {
             add_action( 'wp_ajax_nopriv_get_icons_html', array($this->mobmenu_core, 'get_icons_html') );
             add_action( 'wp_ajax_save_menu_item_icon', array($this->mobmenu_core, 'save_menu_item_icon') );
             add_action( 'wp_ajax_dismiss_wp_mobile_upgrade_notice', array($this->mobmenu_core, 'dismiss_wp_mobile_upgrade_notice') );
-            add_action( 'wp_ajax_nopriv_save_menu_item_icon', array($this->mobmenu_core, 'save_menu_item_icon') );
             add_action( 'wp_ajax_mobile_menu_search__premium_only', array($this->mobmenu_core, 'mobile_menu_search__premium_only') );
             add_action( 'wp_ajax_nopriv_mobile_menu_search__premium_only', array($this->mobmenu_core, 'mobile_menu_search__premium_only') );
         }
@@ -225,8 +224,9 @@ if ( !class_exists( 'WP_Mobile_Menu' ) ) {
                 );
                 wp_enqueue_script( 'mobmenu-admin-js' );
                 wp_localize_script( 'mobmenu-admin-js', 'mobmenu_admin_obj', array(
-                    'ajax_url' => admin_url( 'admin-ajax.php' ),
-                    'security' => wp_create_nonce( 'mobmenu-importer-exporter-nonce' ),
+                    'ajax_url'           => admin_url( 'admin-ajax.php' ),
+                    'security'           => wp_create_nonce( 'mobmenu-importer-exporter-nonce' ),
+                    'security_menu_item' => wp_create_nonce( 'mobmenu-save-menuitem-nonce' ),
                 ) );
             }
             // Export Settings.

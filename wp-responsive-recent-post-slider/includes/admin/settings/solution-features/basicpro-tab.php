@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h3 class="wppsac-inn-deal-hedding"><span>Try WP Responsive Recent Post Slider Pro</span> in Essential Bundle Free For 5 Days.</h3>
 			</div>
 			<div class="wppsac-deal-free-offer">
-				<a href="<?php echo esc_url( WPRPS_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="wppsac-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
+				<a href="<?php echo esc_url( WPRPS_PLUGIN_BUNDLE_LINK ); ?>" target="_blank" class="wppsac-sf-free-btn"><span class="dashicons dashicons-cart"></span> Try Pro For 5 Days Free</a>
 			</div>
 		</div>
 	</div>
@@ -213,7 +213,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h3 class="wppsac-inn-deal-hedding"><span>Try WP Responsive Recent Post Slider Pro</span> in Essential Bundle Free For 5 Days.</h3>
 			</div>
 			<div class="wppsac-deal-free-offer">
-				<a href="<?php echo esc_url( WPRPS_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="wppsac-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
+				<a href="<?php echo esc_url( WPRPS_PLUGIN_BUNDLE_LINK ); ?>" target="_blank" class="wppsac-sf-free-btn"><span class="dashicons dashicons-cart"></span> Try Pro For 5 Days Free</a>
 			</div>
 		</div>
 	</div>

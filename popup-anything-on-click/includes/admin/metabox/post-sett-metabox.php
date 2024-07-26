@@ -101,7 +101,7 @@ if( ! $enable ) { ?>
 			</a> -->
 
 
-			<a href="<?php echo esc_url( POPUPAOC_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="paoc-pro-upgrade-link"><i class="dashicons dashicons dashicons-money-alt"></i> Try Free For 5 Days</a>
+			<a href="<?php echo esc_url( POPUPAOC_PLUGIN_LINK_UNLOCK ); ?>" target="_blank" class="paoc-pro-upgrade-link"><i class="dashicons dashicons dashicons-money-alt"></i> Try Pro For 5 Days Free</a>
 			
 
 		</li>

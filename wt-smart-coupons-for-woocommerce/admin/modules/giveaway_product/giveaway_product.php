@@ -65,7 +65,7 @@ class Wt_Smart_Coupon_Giveaway_Product_Admin extends Wt_Smart_Coupon_Giveaway_Pr
      */
     public function process_shop_coupon_meta_give_away($post_id, $post)
     {
-        
+
         if(!current_user_can('manage_woocommerce')) 
         {
             wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce'));
@@ -149,6 +149,16 @@ class Wt_Smart_Coupon_Giveaway_Product_Admin extends Wt_Smart_Coupon_Giveaway_Pr
             {
                 $default=(isset($meta_info['default']) ? $meta_info['default'] : '');
                 update_post_meta($post_id, $mata_key, $default);
+            }
+        }
+
+        if( $discount_type === self::$bogo_coupon_type_name )
+        {
+
+            if( isset( $_POST['_wt_sc_bogo_free_product_ids'] ) && '' !== $_POST['_wt_sc_bogo_free_product_ids'] )
+            {
+                $free_product_ids = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_sc_bogo_free_product_ids'], 'int_arr' );
+                update_post_meta( $post_id, '_wt_free_product_ids', implode( ',', $free_product_ids ) );
             }
         }
     }

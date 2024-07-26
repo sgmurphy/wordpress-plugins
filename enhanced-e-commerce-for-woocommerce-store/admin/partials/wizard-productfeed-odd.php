@@ -160,8 +160,8 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
         padding: 8px 10px 8px 10px;
         gap: 10px;
         color: #FFF;
-        background-color: #1085F1;
-        border-color: #1085F1;
+        background-color: #1967D2;
+        border-color: #1967D2;
     }
     .btn-channel-primary:hover {
         color: #FFF;
@@ -173,8 +173,8 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
         padding: 8px 10px 8px 10px;
         gap: 10px;
         color: #FFF;
-        background-color: #1085F1;
-        border-color: #1085F1;
+        background-color: #1967D2;
+        border-color: #1967D2;
     }
     .btn-channel:hover {
         color: #FFF;
@@ -231,7 +231,7 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
         text-align: left;
         padding-left: 24px;
         white-space: nowrap;
-        background: #1085F1;
+        background: #1967D2;
         transition: width 0.6s ease;
         border-radius: 100px;
     }
@@ -264,7 +264,7 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
                 <span><?php esc_html_e("Exit Wizard", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
             </div>
         </div>
-        <div class="mx-auto convcard p-0 mt-0 rounded-3 shadow-lg" style="max-width:903px">
+        <div class="mx-auto convcard p-0 mt-0 rounded-3 shadow-lg" style="max-width:1072px">
             <ul class="nav nav-tabs border-0 p-3 pb-0" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="d-inline-flex align-items-center pawizard_tab_but border-0 nav-link active ps-0" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
@@ -469,7 +469,7 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
                                                     <span class="fs-14 fw-normal text-grey">
                                                         <?php echo esc_html($fb_mail) ?>
                                                         <span class="conv-link-blue ps-2 facebookLogin" id="facebookLogin">                                                    
-                                                            <a onclick="window.open('<?php echo esc_url($facebook_auth_url) ?>','MyWindow','width=800,height=700,left=300, top=150'); return false;" href="#" style="color:#1085F1">
+                                                            <a onclick="window.open('<?php echo esc_url($facebook_auth_url) ?>','MyWindow','width=800,height=700,left=300, top=150'); return false;" href="#" style="color:#1967D2">
                                                                 <?php echo $signIn; ?>
                                                             </a>
                                                         </span>

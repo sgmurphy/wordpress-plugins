@@ -58,10 +58,29 @@ class TheEventCalendar extends Integrations {
 			return [];
 		}
 
+		// Fetch unique values + all attendee details.
+		$attendee_details = [];
+		foreach ( $attendees as $attendee ) {
+			foreach ( $attendee as $key => $value ) {
+				if ( ! isset( $attendee_details[ $key ] ) ) {
+					$attendee_details[ $key ] = $value;
+				} else {
+					if ( $attendee_details[ $key ] !== $value ) {
+						if ( ! is_array( $attendee_details[ $key ] ) ) {
+							$attendee_details[ $key ] = [ $attendee_details[ $key ] ];
+						}
+						if ( ! in_array( $value, $attendee_details[ $key ] ) ) {
+							$attendee_details[ $key ][] = $value;
+						}
+					}
+				}
+			}
+		}
+
 		return [
 			'event_id'  => $event->ID,
 			'event'     => $event,
-			'attendies' => isset( $attendees[0] ) ? $attendees[0] : [],
+			'attendies' => $attendee_details,
 		];
 	}
 

@@ -4,7 +4,7 @@ Donate link: paypal.me/yonifre
 Tags: spam, blacklist, antispam, contact form, security
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,6 +137,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.1.2 - 26/07/2024 =
+* Bug Fix - Fix error when Max links set on 0 
 
 = 2.1.1 - 24/07/2024 =
 * Improvement - Improve Honeypot check for Elementor + CF7 + Comments + Woocommerce Review + Registration 

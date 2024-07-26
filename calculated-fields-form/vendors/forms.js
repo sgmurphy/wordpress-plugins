@@ -199,6 +199,11 @@ cff_forms_templates = {
             "category": "Financial",
             "description": "Tool for dealerships looking to assist customers with automobile financing.",
             "id": 48
+        }, {
+            "title": "Retirement Age Calculator",
+            "category": "Financial",
+            "description": "Calculate the age when the person will meet the minimum required years of work.",
+            "id": 49
         }
     ],
     "pro": [

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit38833a7b4782ade4be511940b06e8dd0
+class ComposerStaticInit48d2d2c185334968b01b74c4d453261c
 {
     public static $files = array (
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
@@ -184,6 +184,7 @@ class ComposerStaticInit38833a7b4782ade4be511940b06e8dd0
         'phpseclib3\\Crypt\\EC\\Formats\\Keys\\XML' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/XML.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Keys\\libsodium' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/libsodium.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Signature\\ASN1' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Signature/ASN1.php',
+        'phpseclib3\\Crypt\\EC\\Formats\\Signature\\IEEE' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Signature/IEEE.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Signature\\Raw' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Signature/Raw.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Signature\\SSH2' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Signature/SSH2.php',
         'phpseclib3\\Crypt\\EC\\Parameters' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Parameters.php',
@@ -394,9 +395,9 @@ class ComposerStaticInit38833a7b4782ade4be511940b06e8dd0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit38833a7b4782ade4be511940b06e8dd0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit38833a7b4782ade4be511940b06e8dd0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit38833a7b4782ade4be511940b06e8dd0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit48d2d2c185334968b01b74c4d453261c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit48d2d2c185334968b01b74c4d453261c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit48d2d2c185334968b01b74c4d453261c::$classMap;
 
         }, null, ClassLoader::class);
     }

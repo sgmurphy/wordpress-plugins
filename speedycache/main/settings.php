@@ -954,7 +954,9 @@ function speedycache_save_bloat(){
 function speedycache_settings_page(){
 	global $speedycache;
 
-	speedycache_options_page_request();
+	if(!empty($_POST['speedycache_page'])){
+		speedycache_options_page_request();
+	}
 
 	$cloudflare_integration_exist = false;
 
@@ -2648,7 +2650,7 @@ function speedycache_settings_page(){
 						<h2 id="delete-cache-h2"><?php esc_html_e('Delete Cache', 'speedycache'); ?></h2>
 					</div>
 					<form method="post">
-						<?php wp_nonce_field('speedycache_group', 'security'); ?>
+						<?php wp_nonce_field('speedycache_nonce', 'security'); ?>
 						
 						<div class="speedycache-option-wrap">
 							<label for="speedycache_delete_minified" class="speedycache-custom-checkbox">
@@ -3895,27 +3897,24 @@ function speedycache_promotion_tmpl(){
 }
 
 function speedycache_options_page_request(){
+
+	if(!wp_verify_nonce($_POST['security'], 'speedycache_nonce')){
+		speedycache_notify(array('Security Check Failed', 'error'));
+		return;
+	}
+
+	if(!current_user_can('manage_options')){
+		speedycache_notify(array('Must be admin to perform this task', 'error'));
+		return;
+	}
 	
 	$post = speedycache_clean($_POST);
-	
+
 	if(empty($post)){
 		return;
 	}
 	
 	if(empty($post['speedycache_page'])){
-		return;
-	}
-
-	include_once ABSPATH .WPINC. '/capabilities.php';
-	include_once ABSPATH .WPINC. '/pluggable.php';
-
-	if(isset($post['submit']) && !wp_verify_nonce($post['security'], 'speedycache_nonce')){
-		speedycache_notify(array('Security Check Failed', 'error'));
-		return;
-	}
-	
-	if(!current_user_can('manage_options')){
-		speedycache_notify(array('Must be admin to perform this task', 'error'));
 		return;
 	}
 	

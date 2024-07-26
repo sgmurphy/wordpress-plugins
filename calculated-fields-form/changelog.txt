@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.2.24 =
+
+* Adds new predefined form templates.
+
 = 5.2.23 =
 
 * Improves the user experience in creating forms by assigning placeholders to the form attributes.

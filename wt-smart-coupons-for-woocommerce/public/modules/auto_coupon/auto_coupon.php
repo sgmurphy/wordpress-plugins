@@ -67,11 +67,13 @@ class Wt_Smart_Coupon_Auto_Coupon_Public extends Wt_Smart_Coupon_Auto_Coupon_Com
 
         add_action( 'woocommerce_applied_coupon', array( $this, 'add_individual_coupons_to_session' ) );
 
-        add_filter( 'wt_sc_auto_coupons_list', array( $this, 'make_auto_coupons_empty_individual' ) );
+        add_filter( 'wt_sc_auto_coupons_list', array( $this, 'make_auto_coupons_list_empty' ) );
 
         add_action( 'woocommerce_removed_coupon', array( $this, 'remove_individual_coupons_from_session' ) );
 
         add_action( 'woocommerce_thankyou', array( $this, 'remove_individual_coupons_from_session' ) );
+
+        add_action( 'woocommerce_thankyou', array( $this, 'unset_unnecessary_sessions' ) );
     }
 
     /**
@@ -426,6 +428,9 @@ class Wt_Smart_Coupon_Auto_Coupon_Public extends Wt_Smart_Coupon_Auto_Coupon_Com
         
         if(is_object($cart) && is_callable(array($cart, 'is_empty')) && !$cart->is_empty())
         {
+            if( 'woocommerce_after_calculate_totals' === current_filter() ){
+                WC()->session->set( 'wbte_sc_auto_applied_coupons_fetched', true );
+            }
             $available_coupons = $this->get_available_auto_coupons();
                   
             if($this->remove_unmatched_autocoupons(array_keys($available_coupons)))
@@ -666,17 +671,29 @@ class Wt_Smart_Coupon_Auto_Coupon_Public extends Wt_Smart_Coupon_Auto_Coupon_Com
     }
 
     /**
-     *  Make the auto coupons list false when, an applied individual coupon exists in the session.
+     *  Make the auto coupons list false.
      *  Hooked into: wt_sc_auto_coupons_list
+     * 
+     *  Scenarios when making the list empty are needed.:
+     *  An applied individual coupon exists in the session. @since 1.8.0
+     *  'wbte_sc_auto_applied_coupons_fetched' is true, already fetched list making error in removing auto coupons. @since 1.8.1
      *  
      *  @since  1.8.0
-     *  @param  array       $auto_coupons_array   Auto coupon list
-     *  @return array|bool                        False if an individual coupon exists in the session else return parameter $auto_coupons_array
+     *  @since  1.8.1         Return false when 'wbte_sc_auto_applied_coupons_fetched' is true.
+     *  @param  array         $auto_coupons_array   Auto coupon list
+     *  @return array|bool                          False if needed to make the list empty, else return the parameter $auto_coupons_array.
      */
-    public function make_auto_coupons_empty_individual( $auto_coupons_array ){
+    public function make_auto_coupons_list_empty( $auto_coupons_array ){
+        
         if( false != WC()->session->get( 'wbte_sc_applied_individual_coupon', false ) ){
             return false;
         }
+
+        if( true === WC()->session->get( 'wbte_sc_auto_applied_coupons_fetched', false ) ){
+            WC()->session->__unset( 'wbte_sc_auto_applied_coupons_fetched' );
+            return false;
+        }
+
         return $auto_coupons_array;
     }
 
@@ -692,6 +709,17 @@ class Wt_Smart_Coupon_Auto_Coupon_Public extends Wt_Smart_Coupon_Auto_Coupon_Com
             WC()->session->__unset( 'wbte_sc_applied_individual_coupon' );
         }
         
+    }
+
+    /**
+     *  Remove unnecessary sessions
+     *  Hooked into: woocommerce_thankyou
+     *  
+     *  @since  1.8.1
+     *  @param  int       $arg         Order id
+     */
+    public function unset_unnecessary_sessions( $order_id ){
+        WC()->session->__unset( 'wbte_sc_auto_applied_coupons_fetched' );
     }
 }
 Wt_Smart_Coupon_Auto_Coupon_Public::get_instance();

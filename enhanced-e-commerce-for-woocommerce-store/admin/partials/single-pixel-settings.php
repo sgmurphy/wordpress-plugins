@@ -400,7 +400,7 @@ if ($subscriptionId != "") {
         }
     }
 
-    function getAlertMessageAll(type = 'Success', title = 'Success', message = '', icon = 'success', buttonText = 'Ok, Done', buttonColor = '#1085F1', iconImageTag = '') {
+    function getAlertMessageAll(type = 'Success', title = 'Success', message = '', icon = 'success', buttonText = 'Ok, Done', buttonColor = '#1967D2', iconImageTag = '') {
 
         Swal.fire({
             type: type,

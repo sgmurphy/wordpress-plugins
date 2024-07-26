@@ -717,5 +717,26 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Common' ) ) {
              */
             return (bool) apply_filters( 'wbte_sc_is_coupon_activated', true, $coupon );
         }
+
+        /**
+         * Delete coupon row from coupon lookup table when coupon permenantly deleted.
+         * 
+         * @since 1.8.1
+         * @param int       $post_id Post ID of the deleted coupon.
+         * @param object    $post    Post object of the deleted coupon.
+         */
+        public static function coupon_delete_from_lookup_table_when_deleted( $post_id, $post )
+        {
+            if( 'shop_coupon' === get_post_type( $post ) )
+            {
+                global $wpdb;
+                $lookup_tb = Wt_Smart_Coupon::get_lookup_table_name();
+
+                if( Wt_Smart_Coupon::is_table_exists( $lookup_tb ) )  
+                {
+                    $wpdb->delete( $lookup_tb, array( 'coupon_id' => $post_id ), array( '%d' ) );
+                }
+            }
+        }
     }
 }

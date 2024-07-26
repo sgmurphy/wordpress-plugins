@@ -1,11 +1,12 @@
 === Hostinger Tools ===
-Tags: hostinger, tools, maintenance, security, redirects, https, xml-rpc
+Tags: hostinger, tools, maintenance, security, redirects
 Requires at least: 5.5
 Tested up to: 6.5
 Requires PHP: 8.0
 Stable tag: 3.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Hostinger Tools is an all-in-one WordPress plugin for managing site info, maintenance mode, security, and redirects.
 
 == Description ==
 

@@ -40,13 +40,13 @@ if( ! defined( 'POPUPAOC_META_PREFIX' ) ) {
 	define('POPUPAOC_META_PREFIX','_aoc_'); // Plugin metabox prefix
 }
 
-if( ! defined( 'POPUPAOC_PLUGIN_BUNDLE_LINK' ) ) {
-	define('POPUPAOC_PLUGIN_BUNDLE_LINK','https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Popup-Anything&utm_campaign=Welcome-Screen'); // Plugin link
-}
+// if( ! defined( 'POPUPAOC_PLUGIN_BUNDLE_LINK' ) ) {
+// 	define('POPUPAOC_PLUGIN_BUNDLE_LINK','https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Popup-Anything&utm_campaign=Welcome-Screen'); // Plugin link
+// }
 
-if( ! defined( 'POPUPAOC_PLUGIN_LINK_UNLOCK' ) ) {
-	define('POPUPAOC_PLUGIN_LINK_UNLOCK','https://www.essentialplugin.com/essential-plugin-bundle-pricing/?utm_source=WP&utm_medium=Popup-Anything&utm_campaign=Features-PRO'); // Plugin link
-}
+// if( ! defined( 'POPUPAOC_PLUGIN_LINK_UNLOCK' ) ) {
+// 	define('POPUPAOC_PLUGIN_LINK_UNLOCK','https://www.essentialplugin.com/essential-plugin-bundle-pricing/?utm_source=WP&utm_medium=Popup-Anything&utm_campaign=Features-PRO'); // Plugin link
+// }
 
 if( ! defined( 'POPUPAOC_PLUGIN_LINK_UPGRADE' ) ) {
 	define('POPUPAOC_PLUGIN_LINK_UPGRADE','https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Popup-Anything&utm_campaign=Upgrade-PRO'); // Plugin Check link
@@ -60,8 +60,12 @@ if( ! defined( 'POPUPAOC_PREVIEW_LINK' ) ) {
 	define('POPUPAOC_PREVIEW_LINK', add_query_arg( array('paoc-popup-preview' => 1), site_url('index.php') ) ); // Popup Preview Link
 }
 
-if( ! defined( 'POPUPAOC_PRO_FREE_5_day_LINK' ) ) {
-	define('POPUPAOC_PRO_FREE_5_day_LINK', 'https://www.wponlinesupport.com/checkout/?edd_action=add_to_cart&download_id=14791&edd_options[price_id]=7&wpos_cart_flush=1' ); // Popup pro link
+if( ! defined( 'POPUPAOC_PLUGIN_BUNDLE_LINK' ) ) {
+	define('POPUPAOC_PLUGIN_BUNDLE_LINK', 'https://www.wponlinesupport.com/checkout/?edd_action=add_to_cart&download_id=14791&edd_options[price_id]=7&wpos_cart_flush=1&utm_source=WP&utm_medium=Popup-Anything&utm_campaign=Welcome-Screen'); // Plugin link
+}
+
+if( ! defined( 'POPUPAOC_PLUGIN_LINK_UNLOCK' ) ) {
+	define('POPUPAOC_PLUGIN_LINK_UNLOCK', 'https://www.wponlinesupport.com/checkout/?edd_action=add_to_cart&download_id=14791&edd_options[price_id]=7&wpos_cart_flush=1&utm_source=WP&utm_medium=Popup-Anything&utm_campaign=Features-PRO'); // Plugin link
 }
 
 /**

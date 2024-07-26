@@ -85,7 +85,7 @@ if( ! class_exists('Wt_Smart_Coupon') ) {
 			if ( defined( 'WEBTOFFEE_SMARTCOUPON_VERSION' ) ) {
 				$this->version = WEBTOFFEE_SMARTCOUPON_VERSION;
 			} else {
-				$this->version = '1.8.0';
+				$this->version = '1.8.1';
 			}
 			$this->plugin_name = WT_SC_PLUGIN_NAME;
 	
@@ -261,6 +261,12 @@ if( ! class_exists('Wt_Smart_Coupon') ) {
 			 * 	@since 1.4.4
 			 */
 			$this->loader->add_action('init', $this->plugin_common, 'check_and_update_lookup_table', 1);
+
+			/**
+			 * 	@since 1.8.1
+			 * 	Delete coupon row from coupon lookup table when coupon permenantly deleted.
+			 */
+			$this->loader->add_action( 'delete_post', $this->plugin_common, 'coupon_delete_from_lookup_table_when_deleted', 10, 2 );
 		}
 	
 		/**

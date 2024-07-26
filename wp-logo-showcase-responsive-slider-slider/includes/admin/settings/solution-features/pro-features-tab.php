@@ -65,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h3 class="wpls-inn-deal-hedding"><span>Try WP Logo Showcase Responsive Slider and Carousel Pro</span> in Essential Bundle Free For 5 Days.</h3>
 			</div>
 			<div class="wpls-deal-free-offer">
-				<a href="<?php echo esc_url( WPLS_PRO_FREE_5_day_LINK ); ?>" target="_blank" class="wpls-sf-btn"><span class="dashicons dashicons-cart"></span> Try Free For 5 Days</a>
+				<a href="<?php echo esc_url( WPLS_PLUGIN_BUNDLE_LINK ); ?>" target="_blank" class="wpls-sf-free-btn"><span class="dashicons dashicons-cart"></span> Try Pro For 5 Days Free</a>
 			</div>
 		</div>
 	</div>

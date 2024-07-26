@@ -22,6 +22,10 @@ Google Analytics Dashboard, simple analytics tracking code setup, free site stat
 
 Fill your WordPress dashboard with valuable visitor data with just a click. Install, connect and create dashboards for your users.
 
+**Get more from your WordPress website analytics from the start with [Beehive Pro](https://wpmudev.com/project/beehive-analytics-pro/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=beehive-readme-above-the-fold&utm_content=beehive-analytics-pro).**
+
+Level up immediately with exclusive Pro features like white label site analytics and automated client reporting + access to the full suite of WPMU DEV plugins and site management tools. [Learn more about Pro](https://wpmudev.com/project/beehive-analytics-pro/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=beehive-readme-above-the-fold&utm_content=learn_more). 
+
 ### Add Analytics Information Reports Including:
 * Analytics Overview - Users and Page Views for the current day, yesterday, 7 days, 30 days, 90 days or year.
 * Session Report - Number of interactions with your website that take place within a given time frame.
@@ -93,8 +97,6 @@ Hey! This is Beehive, your trusted analytics dashboard and reporting for WordPre
 - [Hustle](https://wordpress.org/plugins/wordpress-popup/) - Pop-ups, Slide-ins and Email Opt-ins
 - [Defender](https://wordpress.org/plugins/defender-security/) - Security, Monitoring and Hack Protection
 - [SmartCrawl](https://wordpress.org/plugins/smartcrawl-seo/) - SEO Checker, Analyzer, and Optimizer
-
-And if you need ALL our Pro plugins, services, AND 24/7 WordPress support, get WPMU DEV membership! You can try it free for 7 days: [wpmudev.com](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=beehive-readme&utm_content=link_wpmudev#trial)
 
 My superhero friends run the WPMU DEV Blog, your source for the very best WordPress tutorials. If you need to be in the know about WordPress, check it out.
 

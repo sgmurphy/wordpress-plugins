@@ -301,10 +301,10 @@ if (!class_exists('Conversios_Footer')) {
 					});
 
 					//New feature modal popup initiate
-					if (!document.cookie.includes('conv_popup_newfeature') && jQuery('#convnewfeaturemodal').data('userdata') != 'yes') {
-						// First visit, display popup
-						jQuery("#convnewfeaturemodal").modal('show');
-					}
+					// if (!document.cookie.includes('conv_popup_newfeature') && jQuery('#convnewfeaturemodal').data('userdata') != 'yes') {
+					// 	// First visit, display popup
+					// 	jQuery("#convnewfeaturemodal").modal('show');
+					// }
 					jQuery('#conv_close_popup').click(function() {
 						// Set cookie to expire in 24 hours
 						document.cookie = "conv_popup_newfeature=true; expires=" + new Date(Date.now() + 24 * 60 * 60 * 1000).toUTCString() + "; path=/";

@@ -498,19 +498,20 @@ function checkTextareaForSpam($field_value) {
             }
         }
             
-    }
+    } 
     
-    $max_links = maspik_get_settings('contain_links') ? maspik_get_settings('contain_links') : efas_get_spam_api('contain_links',$type = "bool");
-
     // Check for maximum number of links
-    if ($max_links >= 0) {
+    $max_linksAPI = is_numeric( efas_get_spam_api('contain_links', $type = "bool") ) ? efas_get_spam_api('contain_links', $type = "bool") : false;
+    $max_links = is_numeric( maspik_get_settings('contain_links') ) ? maspik_get_settings('contain_links') : $max_linksAPI ;
+    if (is_numeric($max_links) && maspik_get_settings('textarea_link_limit_toggle') ) {
+        $max_links = intval($max_links);
         $reg_exUrl = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
         $num_links = preg_match_all($reg_exUrl, $field_value);
-        if ( $num_links > $max_links ) {
+        if ($num_links > $max_links) {
             return array('spam' => "Contains <u>more than $max_links links</u>", 'message' => "contain_links");
         }
     }
-    
+
     // Get the maximum character limit from the spam API or options
     $MaxCharacters = maspik_get_settings('MaxCharactersInTextAreaField') ? maspik_get_settings('MaxCharactersInTextAreaField') : efas_get_spam_api('MaxCharactersInTextAreaField',$type = "bool");
     $MinCharacters = maspik_get_settings('MinCharactersInTextAreaField') ? maspik_get_settings('MinCharactersInTextAreaField') : efas_get_spam_api('MinCharactersInTextAreaField',$type = "bool");

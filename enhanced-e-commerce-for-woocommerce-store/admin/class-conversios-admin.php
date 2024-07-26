@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 /**
  * The admin-specific functionality of the plugin.
@@ -223,7 +223,7 @@ if (class_exists('Conversios_Admin') === FALSE) {
         if (sanitize_text_field(wp_unslash(filter_input(INPUT_GET, 'wizard'))) == "campaignManagement") {
           wp_register_style('tvc-dataTables-css', esc_url(ENHANCAD_PLUGIN_URL . '/admin/css/dataTables.bootstrap5.min.css'));
           wp_enqueue_style('tvc-dataTables-css');
-        }        
+        }
       }
     }
 
@@ -240,7 +240,7 @@ if (class_exists('Conversios_Admin') === FALSE) {
         wp_enqueue_script('conversios-chart-js', esc_url(ENHANCAD_PLUGIN_URL . '/admin/js/chart.js'));
         wp_enqueue_script('conversios-chart-datalabels-js', esc_url(ENHANCAD_PLUGIN_URL . '/admin/js/chartjs-plugin-datalabels.js'));
         wp_enqueue_script('conversios-basictable-js', esc_url(ENHANCAD_PLUGIN_URL . '/admin/js/jquery.basictable.min.js'));
-        if ( ! wp_script_is( 'moment', 'enqueued' ) ) {
+        if (!wp_script_is('moment', 'enqueued')) {
           // Enqueue Moment.js only if it's not already enqueued
           wp_enqueue_script('conversios-moment-js', ENHANCAD_PLUGIN_URL . '/admin/js/moment.min.js', array(), '2.22.1', false);
         }
@@ -254,11 +254,11 @@ if (class_exists('Conversios_Admin') === FALSE) {
         wp_enqueue_script('tvc-ee-dataTables-js', esc_url(ENHANCAD_PLUGIN_URL . '/admin/js/jquery.dataTables.min.js'), array('jquery'), esc_attr($this->version), false);
         wp_enqueue_script('tvc-ee-dataTables-v5-js', esc_url(ENHANCAD_PLUGIN_URL . '/admin/js/dataTables.bootstrap5.min.js'), array('jquery'), esc_attr($this->version), false);
       } else if (isset($_GET['page']) === TRUE && sanitize_text_field($_GET['page']) === "conversios") {
-        if ( ! wp_script_is( 'moment', 'enqueued' ) ) {
+        if (!wp_script_is('moment', 'enqueued')) {
           // Enqueue Moment.js only if it's not already enqueued
           wp_enqueue_script('conversios-moment-js', ENHANCAD_PLUGIN_URL . '/admin/js/moment.min.js', array(), '2.22.1', false);
         }
-      }      
+      }
     }
 
     /**
@@ -362,14 +362,14 @@ if (class_exists('Conversios_Admin') === FALSE) {
           3
         );
       } else { // When no wc
-          
+
         add_submenu_page(
           CONV_MENU_SLUG,
           esc_html__('Reports & Insights', 'enhanced-e-commerce-for-woocommerce-store'),
           esc_html__('Reports & Insights', 'enhanced-e-commerce-for-woocommerce-store'),
           'manage_options',
-          'conversios-web-reports',
-          array($this, 'callback_conversios_web_reports'),
+          'conversios-analytics-reports',
+          array($this, 'showPage'),
           1
         );
       }
@@ -391,7 +391,7 @@ if (class_exists('Conversios_Admin') === FALSE) {
       if (method_exists($this, $get_action)) {
         $this->$get_action();
       }
-      $html = $this->get_tvc_popup_message(); 
+      $html = $this->get_tvc_popup_message();
       echo wp_kses($html, array(
         "div" => array(
           'class' => array(),
@@ -423,18 +423,18 @@ if (class_exists('Conversios_Admin') === FALSE) {
     public function callback_conversios_web_reports()
     {
       do_action('add_conversios_header');
-      ?>
+?>
       <div style="position:relative;">
         <div class="card coming-soon-card shadow-lg" style="position: fixed; top: 25%; left: 40%; z-index: 999;max-width: 400px; margin: 2rem auto; text-align: center;">
-            <div class="card-body" style="padding: 2rem;">
-                <h5 class="card-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Feature Coming Soon</h5>
-                <p class="card-text" style="font-size: 1rem; margin-bottom: 1.5rem;">We're working hard to bring this feature to you. Stay tuned!</p>
-                <a target="_blank" href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=use_your_own_gtm&utm_campaign=pixel_list" class="btn btn-primary">Learn More</a>
-            </div>
+          <div class="card-body" style="padding: 2rem;">
+            <h5 class="card-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Feature Coming Soon</h5>
+            <p class="card-text" style="font-size: 1rem; margin-bottom: 1.5rem;">We're working hard to bring this feature to you. Stay tuned!</p>
+            <a target="_blank" href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=use_your_own_gtm&utm_campaign=pixel_list" class="btn btn-primary">Learn More</a>
+          </div>
         </div>
         <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/web-reports-placeholder.png'); ?>" alt="reports" style="filter:opacity(0.7) blur(2px); margin-top:20px;" />
       </div>
-      <?php
+<?php
       do_action('add_conversios_footer');
     }
 
@@ -533,7 +533,7 @@ if (class_exists('Conversios_Admin') === FALSE) {
         require_once ENHANCAD_PLUGIN_DIR . 'includes/setup/class-tvc-product-sync-helper.php';
         require_once(ENHANCAD_PLUGIN_DIR . 'includes/setup/help-html.php');
         //require_once 'partials/product-feed-list.php';
-        require_once('partials/general-fields-product-feed.php'); 
+        require_once('partials/general-fields-product-feed.php');
       }
     }
     public function gaa_config_page()

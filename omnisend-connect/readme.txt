@@ -5,7 +5,7 @@ Tags: Email Marketing, SMS, Marketing, Newsletter, WooCommerce
 Requires at least: 4.7.0
 Tested up to: 6.5
 Requires PHP: 7.1
-Stable tag: 1.15.14
+Stable tag: 1.15.15
 License: GPLv3 or later License
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -306,7 +306,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 1.15.13 =
+= 1.15.15 =
+
+* Handle undefined array key while getting cart item.
+
+= 1.15.14 =
 
 * Add possibility to restore wpc bundle and composite product carts.
 

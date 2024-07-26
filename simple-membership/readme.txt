@@ -3,9 +3,9 @@ Contributors: smp7, wp.insider
 Donate link: https://simple-membership-plugin.com/
 Tags: member, members, members only, membership, memberships, register, WordPress membership plugin, content, content protection, paypal, restrict, restrict access, Restrict content, admin, access control, subscription, teaser, protection, profile, login, login page, bbpress, stripe, braintree
 Requires at least: 5.0
-Requires PHP: 5.6
+Requires PHP: 7.4
 Tested up to: 6.6
-Stable tag: 4.4.9
+Stable tag: 4.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,7 @@ You can create a free forum user account and ask your questions.
 * Search for a member's profile in your WP admin dashboard.
 * Filter members list by account status.
 * Filter members list by membership level.
+* Site admins can save private notes about members, providing a convenient way to keep track of important information.
 * Can be translated to any language.
 * Hide the admin toolbar from the frontend of your site.
 * Allow your members to delete their membership accounts.
@@ -169,6 +170,15 @@ Please visit the membership plugin page to view screenshots:
 https://simple-membership-plugin.com/
 
 == Changelog ==
+
+= 4.5.0 =
+- Added membership level specific default account status feature.
+- New admin notes feature added. It can be used to save private notes about members.
+- Added new 'login' API endpoint to the free SWPM API addon.
+- PHP 8.2 compatibility related improvements.
+- New two filter hooks added to the mini/compact login shortcode.
+- The custom messages addon can now be used to customize the output of the mini/compact login shortcode's output.
+- Added a new action hook "swpm_login_failed". This is equivalent to the "wp_login_failed" action hook.
 
 = 4.4.9 =
 - Minor update to the German language file.

@@ -166,7 +166,6 @@ SimpleWpMembership::enqueue_validation_scripts_v2(
                     </td>
                 </tr>
             <?php } ?>
-
         </table>
 
         <?php include('admin_member_form_common_js.php'); ?>

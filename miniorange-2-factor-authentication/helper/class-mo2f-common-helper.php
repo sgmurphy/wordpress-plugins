@@ -1067,6 +1067,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 							$html             .= $skeleton['##miniorangelogo##'];
 						$html                 .= '</div>
 				</div>
+				<div id="mo2f_2fa_popup_dashboard_loader" class="modal" hidden></div>
 			<form name="f" method="post" action="" id="mo2f_goto_two_factor_form" >              
 				<input type="hidden" name="option" value="miniorange_back_inline"/>
 				<input type="hidden" name="miniorange_inline_two_factor_setup" value="' . esc_attr( wp_create_nonce( 'miniorange-2-factor-inline-setup-nonce' ) ) . '" />
@@ -1098,6 +1099,8 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 			var ajaxurl = "' . esc_url( admin_url( 'admin-ajax.php' ) ) . '";	
 			jQuery("#mo2f_login").click(function() {
 				var nonce = "' . wp_create_nonce( 'mo-two-factor-ajax-nonce' ) . '";
+				jQuery("#mo2f_2fa_popup_dashboard_loader").html("<span class=\'mo2f_loader\' id=\'mo2f_loader\'></span>");
+				jQuery("#mo2f_2fa_popup_dashboard_loader").css("display", "block");
 				var data = {
 					action: "mo_two_factor_ajax",
 					mo_2f_two_factor_ajax: "mo2f_miniorange_sign_in",
@@ -1106,6 +1109,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 					nonce: nonce,
 				};
 				jQuery.post(ajaxurl, data, function(response) {
+				    jQuery("#mo2f_2fa_popup_dashboard_loader").css("display", "none");
 					if (response.success) {
 						' . call_user_func( $success_response ) . '
 					} else {
@@ -1115,6 +1119,8 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 			});';
 			$html                             .= 'jQuery("#mo2f_register").click(function() {
 				var nonce = "' . wp_create_nonce( 'mo-two-factor-ajax-nonce' ) . '";
+				jQuery("#mo2f_2fa_popup_dashboard_loader").html("<span class=\'mo2f_loader\' id=\'mo2f_loader\'></span>");
+				jQuery("#mo2f_2fa_popup_dashboard_loader").css("display", "block");
 				var data = {
 					action: "mo_two_factor_ajax",
 					mo_2f_two_factor_ajax: "mo2f_miniorange_sign_up",
@@ -1124,6 +1130,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 					nonce: nonce,
 				};
 				jQuery.post(ajaxurl, data, function(response) {
+				jQuery("#mo2f_2fa_popup_dashboard_loader").css("display", "none");
 					if (response.success) {
 						' . call_user_func( $success_response ) . '
 					} else {

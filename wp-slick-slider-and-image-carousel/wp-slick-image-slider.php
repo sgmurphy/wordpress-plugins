@@ -32,18 +32,22 @@ if( ! defined( 'WPSISAC_POST_TYPE' ) ) {
 // if( ! defined( 'WPSISAC_META_PREFIX' ) ) {
 // 	define( 'WPSISAC_META_PREFIX', '_wpsisac_' ); // Plugin post type
 // }
-if( ! defined( 'WPSISAC_PLUGIN_BUNDLE_LINK' ) ) {
-	define('WPSISAC_PLUGIN_BUNDLE_LINK','https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Slick-Slider&utm_campaign=Welcome-Screen'); // Plugin link
-}
-if( ! defined( 'WPSISAC_PLUGIN_LINK_UNLOCK' ) ) {
-	define('WPSISAC_PLUGIN_LINK_UNLOCK','https://www.essentialplugin.com/essential-plugin-bundle-pricing/?utm_source=WP&utm_medium=Slick-Slider&utm_campaign=Features-PRO'); // Plugin link
-}
+// if( ! defined( 'WPSISAC_PLUGIN_BUNDLE_LINK' ) ) {
+// 	define('WPSISAC_PLUGIN_BUNDLE_LINK','https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Slick-Slider&utm_campaign=Welcome-Screen'); // Plugin link
+// }
+// if( ! defined( 'WPSISAC_PLUGIN_LINK_UNLOCK' ) ) {
+// 	define('WPSISAC_PLUGIN_LINK_UNLOCK','https://www.essentialplugin.com/essential-plugin-bundle-pricing/?utm_source=WP&utm_medium=Slick-Slider&utm_campaign=Features-PRO'); // Plugin link
+// }
 if( ! defined( 'WPSISAC_PLUGIN_LINK_UPGRADE' ) ) {
 	define('WPSISAC_PLUGIN_LINK_UPGRADE','https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Slick-Slider&utm_campaign=Upgrade-PRO'); // Plugin Check link
 }
 
-if( ! defined( 'WPSISAC_PRO_FREE_5_day_LINK' ) ) {
-	define('WPSISAC_PRO_FREE_5_day_LINK', 'https://www.wponlinesupport.com/checkout/?edd_action=add_to_cart&download_id=14791&edd_options[price_id]=7&wpos_cart_flush=1' ); // Popup pro link
+if( ! defined( 'WPSISAC_PLUGIN_BUNDLE_LINK' ) ) {
+	define('WPSISAC_PLUGIN_BUNDLE_LINK', 'https://www.wponlinesupport.com/checkout/?edd_action=add_to_cart&download_id=14791&edd_options[price_id]=7&wpos_cart_flush=1&utm_source=WP&utm_medium=Slick-Slider&utm_campaign=Welcome-Screen'); // Plugin link
+}
+
+if( ! defined( 'WPSISAC_PLUGIN_LINK_UNLOCK' ) ) {
+	define('WPSISAC_PLUGIN_LINK_UNLOCK', 'https://www.wponlinesupport.com/checkout/?edd_action=add_to_cart&download_id=14791&edd_options[price_id]=7&wpos_cart_flush=1&utm_source=WP&utm_medium=Slick-Slider&utm_campaign=Features-PRO'); // Plugin link
 }
 
 /**

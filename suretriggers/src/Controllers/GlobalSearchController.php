@@ -3615,6 +3615,37 @@ class GlobalSearchController {
 	}
 
 	/**
+	 * Get all events tickets
+	 *
+	 * @param array $data Data array.
+	 *
+	 * @return array
+	 */
+	public function search_event_calendar_event_tickets( $data ) {
+		$event_id = $data['dynamic'];
+		$options  = [];
+
+		if ( ! class_exists( 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main' ) ) {
+			return [];
+		}
+		
+		$tickets = \Tribe__Tickets_Plus__Commerce__WooCommerce__Main::get_instance()->get_all_event_tickets( $event_id );
+		if ( ! empty( $tickets ) ) {
+			foreach ( $tickets as $ticket_object ) {
+				$options[] = [
+					'label' => $ticket_object->name,
+					'value' => $ticket_object->ID,
+				];
+			}
+		}
+
+		return [
+			'options' => $options,
+			'hasMore' => false,
+		];
+	}
+
+	/**
 	 * Prepare rsvp event calendar events.
 	 *
 	 * @param array $data Search Params.
@@ -4694,19 +4725,50 @@ class GlobalSearchController {
 			'video_deleted_at'    => '',
 		];
 
+		$mediahub_data = [
+			'post_id'      => '1',
+			'activity_id'  => '2',
+			'post_author'  => '1',
+			'post_content' => 'New sample post...!',
+			'post_title'   => 'Sample Post',
+			'post_excerpt' => 'sample',
+			'post_status'  => 'publish',
+			'post_type'    => 'pp_video_block',
+		];
+
 		$videos = ( new Video() )->all();
 
 		if ( count( $videos ) > 0 ) {
-			$video_id                          = '-1' === $data['filter']['pp_video']['value'] ? $videos[0]->id : $data['filter']['pp_video']['value'];
-			$video_data                        = ( new Video( $video_id ) )->toArray();
+			$video_id = $data['filter']['pp_video']['value'];
+			if ( -1 === $video_id ) {
+				$args     = [
+					'numberposts' => 1,
+					'orderby'     => 'rand',
+					'post_type'   => 'pp_video_block',
+				];
+				$posts    = get_posts( $args );
+				$video_id = $posts[0]->ID;
+			}
+			$video_data['video'] = ( new Video( $video_id ) )->toArray();
+			if ( is_array( $video_data ) && array_key_exists( 'video_post_id', $video_data ) ) {
+				$mediahub_data = WordPress::get_post_context( (int) $video_data['video_post_id'] );
+				$media_tags    = get_the_terms( (int) $video_data['video_post_id'], 'pp_video_tag' );
+				if ( ! empty( $media_tags ) && is_array( $media_tags ) && isset( $media_tags[0] ) ) {
+					$tag_name = [];
+					foreach ( $media_tags as $tag ) {
+						$tag_name[] = $tag->name;
+					}
+					$video_data['media']['tag'] = $tag_name;
+				}
+			}
 			$video_data['pp_video']            = $video_id;
 			$video_data['pp_video_percentage'] = isset( $data['filter']['pp_video_percentage']['value'] ) ? $data['filter']['pp_video_percentage']['value'] : '100';
-			$user_data                         = WordPress::get_user_context( $video_data['created_by'] );
+			$user_data                         = WordPress::get_user_context( (int) $video_data['video_created_by'] );
 
 			$context['response_type'] = 'live';
 		}
 
-		$context['pluggable_data'] = array_merge( $user_data, $video_data );
+		$context['pluggable_data'] = array_merge( $user_data, $video_data, $mediahub_data );
 
 		return $context;
 	}
@@ -5274,7 +5336,7 @@ class GlobalSearchController {
 		$event_id = (int) ( isset( $data['filter']['event_id']['value'] ) ? $data['filter']['event_id']['value'] : '-1' );
 		$term     = $data['search_term'];
 
-		if ( 'event_register' === $term ) {
+		if ( 'event_register' === $term || 'attendee_registered_event' === $term ) {
 			$args = [
 				'post_type'   => 'tribe_rsvp_attendees',
 				'orderby'     => 'ID',
@@ -5394,6 +5456,72 @@ class GlobalSearchController {
 					'ticket_exists'      => 1,
 				];
 				$event_data = array_merge( $order, $event_data );
+			}
+		} elseif ( 'event_attendee_wc_register' === $term ) {
+			if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
+				return [];
+			}
+			if ( -1 === $event_id ) {
+				$args     = [
+					'numberposts' => 1,
+					'orderby'     => 'rand',
+					'post_type'   => 'tribe_events',
+				];
+				$posts    = get_posts( $args );
+				$event_id = $posts[0]->ID;
+			}
+			$event_ticket_id = (int) ( isset( $data['filter']['event_ticket_id']['value'] ) ? $data['filter']['event_ticket_id']['value'] : '-1' );
+			if ( -1 === $event_ticket_id ) {
+				$tickets         = \Tribe__Tickets__Tickets::get_all_event_tickets( $event_id );
+				$random_key      = array_rand( $tickets );
+				$random_value    = $tickets[ $random_key ];
+				$event_ticket_id = $random_value;
+			}
+			$args = [
+				'post_type'   => 'tribe_wooticket',
+				'orderby'     => 'ID',
+				'order'       => 'DESC',
+				'post_status' => 'publish',
+				'meta_query'  => [
+					'relation' => 'AND',
+					[
+						'key'     => '_tribe_wooticket_event',
+						'value'   => $event_id,
+						'compare' => '=',
+					],
+					[
+						'key'     => '_tribe_wooticket_product',
+						'value'   => $event_ticket_id,
+						'compare' => '=',
+					],
+				],
+			];
+
+			$woo_attendees = get_posts( $args );
+			if ( ! empty( $woo_attendees ) ) {
+				$attendee    = $woo_attendees[0];
+				$attendee_id = $attendee->ID;
+				/**
+				 *
+				 * Ignore line
+				 *
+				 * @phpstan-ignore-next-line
+				 */
+				$attendee_details = tribe_tickets_get_attendees( $attendee_id, 'rsvp_order' );
+				foreach ( $attendee_details as $detail ) {
+					if ( (int) $detail['attendee_id'] !== (int) $attendee_id ) {
+						continue;
+					}
+					$attendee = $detail;
+				}
+				$order_id      = get_post_meta( $attendee_id, '_tribe_wooticket_order', true );
+				$product_id    = get_post_meta( $attendee_id, '_tribe_wooticket_product', true );
+				$event_context = TheEventCalendar::get_event_context( $product_id, $order_id );
+				if ( ! empty( $event_context ) ) {
+					$event_data               = $event_context;
+					$context['response_type'] = 'live';
+				}
+				$context['response_type'] = 'live';
 			}
 		}
 
@@ -8710,13 +8838,20 @@ class GlobalSearchController {
 
 				$comments['comment_type'] = isset( $comment_id['comment_type'] ) ? $comment_id['comment_type'] : '';
 
+				$comment_item_id = get_comment_meta( $comment_result['comment_ID'], 'item_id' );
+				if ( ! empty( $comment_item_id ) && is_array( $comment_item_id ) ) {
+					$comments['comment_item_id']         = $comment_item_id[0];
+					$comments['comment_item_page_title'] = get_the_title( (int) $comment_item_id[0] );
+					$comments['comment_item_page_url']   = get_post_meta( (int) $comment_item_id[0], 'page_url', true );
+				}
+
 				$context['pluggable_data'] = $comments;
 				$context['response_type']  = 'live';
 			} else {
 				$context = json_decode( '{"response_type":"sample","pluggable_data":{"comment_ID":"1","comment_post_ID":"1","comment_author":"test","comment_author_email":"test@test.com","comment_date":"2023-03-27 13:44:26","comment_content":"<p>Leave comment<\/p>","comment_type":"ph_comment"}}', true );
 			}
 		} else {
-			$context = json_decode( '{"response_type":"sample","pluggable_data":{"comment_ID":"1","comment_post_ID":"1","comment_author":"test","comment_author_email":"test@test.com","comment_date":"2023-03-27 13:44:26","comment_content":"<p>Leave comment<\/p>","comment_type":"ph_comment"}}', true );
+			$context = json_decode( '{"response_type":"sample","pluggable_data":{"comment_ID":"1","comment_post_ID":"1","comment_author":"test","comment_author_email":"test@test.com","comment_date":"2023-03-27 13:44:26","comment_content":"<p>Leave comment<\/p>","comment_type":"ph_comment","comment_item_id": 9579, "comment_item_page_title": "About Us","comment_item_page_url": "https://example.com/abotu-us"}}', true );
 		}
 
 		return $context;
@@ -8764,10 +8899,16 @@ class GlobalSearchController {
 			$comments['comment_content']      = isset( $actual_comment['comment_content'] ) ? $actual_comment['comment_content'] : '';
 			$comments['comment_type']         = isset( $actual_comment['comment_type'] ) ? $actual_comment['comment_type'] : '';
 			$comments['comment_status']       = $get_comments->comment_content;
-			$context['pluggable_data']        = $comments;
-			$context['response_type']         = 'live';
+			$comment_item_id                  = get_comment_meta( $comment_result['comment_ID'], 'item_id' );
+			if ( ! empty( $comment_item_id ) && is_array( $comment_item_id ) ) {
+				$comments['comment_item_id']         = $comment_item_id[0];
+				$comments['comment_item_page_title'] = get_the_title( (int) $comment_item_id[0] );
+				$comments['comment_item_page_url']   = get_post_meta( (int) $comment_item_id[0], 'page_url', true );
+			}
+			$context['pluggable_data'] = $comments;
+			$context['response_type']  = 'live';
 		} else {
-			$context = json_decode( '{"response_type":"sample","pluggable_data":{"comment_ID":"1","comment_post_ID":"1","comment_author":"test","comment_author_email":"test@test.com","comment_date":"2023-03-27 13:44:26","comment_content":"<p>Leave comment<\/p>","comment_type":"ph_comment","comment_status":"Resolved"}}', true );
+			$context = json_decode( '{"response_type":"sample","pluggable_data":{"comment_ID":"1","comment_post_ID":"1","comment_author":"test","comment_author_email":"test@test.com","comment_date":"2023-03-27 13:44:26","comment_content":"<p>Leave comment<\/p>","comment_type":"ph_comment","comment_status":"Resolved","comment_item_id": 9579, "comment_item_page_title": "About Us","comment_item_page_url": "https://example.com/abotu-us" }}', true );
 		}
 
 		return $context;
@@ -11343,8 +11484,9 @@ class GlobalSearchController {
 
 		if ( ! empty( $posts ) ) {
 			foreach ( $posts as $post ) {
+				$title     = html_entity_decode( get_the_title( $post ), ENT_QUOTES, 'UTF-8' );
 				$options[] = [
-					'label' => get_the_title( $post ),
+					'label' => $title,
 					'value' => $post,
 				];
 			}
@@ -11684,7 +11826,19 @@ class GlobalSearchController {
 	 */
 	public function search_acf_post_field_list( $data ) {
 		
-		$post_id = $data['dynamic'];
+		$post_id            = $data['dynamic']['wp_post'];
+		$selected_post_type = $data['dynamic']['wp_post_type'];
+
+		if ( '-1' === $post_id ) {
+			$args    = [
+				'numberposts' => 1,
+				'fields'      => 'ids',
+				'orderby'     => 'rand',
+				'post_type'   => $selected_post_type,
+			];
+			$posts   = get_posts( $args );
+			$post_id = $posts[0];
+		}
 
 		$args = [
 			'post_id' => $post_id,
@@ -11864,6 +12018,16 @@ class GlobalSearchController {
 		$post_type = $data['filter']['wp_post_type']['value'];
 		$post      = $data['filter']['wp_post']['value'];
 
+		if ( -1 === $post ) {
+			$args  = [
+				'numberposts' => 1,
+				'fields'      => 'ids',
+				'orderby'     => 'rand',
+				'post_type'   => $post_type,
+			];
+			$posts = get_posts( $args );
+			$post  = $posts[0];
+		}
 		if ( -1 === $field ) {
 			$args = [
 				'post_id' => $post,
@@ -11885,8 +12049,9 @@ class GlobalSearchController {
 				}
 			}
 			if ( ! empty( $fields ) ) {
-				$random_key = array_rand( $fields );
-				$field      = $random_key;
+				$random_key = array_rand( $fields[0] );
+				$field_key  = $fields[0][ $random_key ];
+				$field      = $field_key['name'];
 			} else {
 				$result = '';
 			}

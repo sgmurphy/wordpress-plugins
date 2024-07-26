@@ -807,7 +807,10 @@ class WP_Mobile_Menu_Core {
      * @since 2.0
      */
     public function save_menu_item_icon() {
-        if ( isset( $_POST['menu_item_id'] ) ) {
+        if ( isset( $_REQUEST['security'] ) ) {
+            $security = wp_verify_nonce( $_REQUEST['security'], 'mobmenu-save-menuitem-nonce' );
+        }
+        if ( $security >= 1 && isset( $_POST['menu_item_id'] ) && current_user_can( 'manage_options' ) ) {
             $menu_item_id = absint( esc_attr( $_POST['menu_item_id'] ) );
             $menu_item_icon = esc_attr( $_POST['menu_item_icon'] );
             if ( $menu_item_id > 0 ) {

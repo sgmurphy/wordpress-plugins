@@ -105,406 +105,6 @@ class ShoppingApi {
         }
     }
 
-    public function accountPerformance( $from_date = '', $to_date = '') {
-        try {
-           /* $days_diff = 0;
-            if ($date_range_type == 2) {
-                $days_diff = strtotime($to_date) - strtotime($from_date);
-                $days_diff = abs(round($days_diff / 86400));
-            }*/
-
-            $url = $this->apiDomain . '/reports/account-performance';
-            $data = [
-                'customer_id' => sanitize_text_field($this->customerId),
-                /*'graph_type' => sanitize_text_field(($date_range_type == 2 && $days_diff > 31) ? 'month' : 'day'),
-                'date_range_type' => sanitize_text_field($date_range_type),
-                'days' => sanitize_text_field($days),*/
-                'from_date' => sanitize_text_field($from_date),
-                'to_date' => sanitize_text_field($to_date),
-                'subscription_id' => sanitize_text_field($this->subscriptionId)
-            ];
-            $args = array(
-              'timeout' => 300,
-                'headers' => array(
-                    'Authorization' => "Bearer $this->token",
-                    'Content-Type' => 'application/json'
-                ),
-                'body' => wp_json_encode($data)
-            );
-
-
-
-            // Send remote request
-            $request = wp_remote_post(esc_url_raw($url), $args);
-
-            // Retrieve information
-            $response_code = wp_remote_retrieve_response_code($request);
-            $response_message = wp_remote_retrieve_response_message($request);
-            $response_body = json_decode(wp_remote_retrieve_body($request));
-            if (!is_wp_error($request) && (isset($response_body->error) && $response_body->error == '')) {
-                return new WP_REST_Response(
-                        array(
-                    'status' => $response_code,
-                    'message' => esc_attr($response_message),
-                    'data' => $response_body->data
-                        )
-                );
-            } else {
-                return new WP_Error($response_code, $response_message, $response_body);
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function accountPerformance_for_dashboard( $from_date = '', $to_date = '') {
-        try {
-            /*$days_diff = 0;
-            if ($date_range_type == 2) {
-                $days_diff = strtotime($to_date) - strtotime($from_date);
-                $days_diff = abs(round($days_diff / 86400));
-            }*/
-            $url = $this->apiDomain . '/reports/account-performance';
-            $data = [
-                'customer_id' => sanitize_text_field($this->customerId),
-                /*'graph_type' => sanitize_text_field(($date_range_type == 2 && $days_diff > 61) ? 'month' : 'day'),
-                'date_range_type' => sanitize_text_field($date_range_type),
-                'days' => sanitize_text_field($days),*/
-                'from_date' => sanitize_text_field($from_date),
-                'to_date' => sanitize_text_field($to_date),
-                'subscription_id' => sanitize_text_field($this->subscriptionId)
-            ];
-
-            $header = array(
-                "Authorization: Bearer $this->token",
-                "Content-Type" => "application/json"
-            );
-            $args = array(
-              'timeout' => 300,
-              'headers' =>$header,
-              'method' => 'POST',
-              'body' => wp_json_encode($data)
-            );
-            // Send remote request
-            $request = wp_remote_post(esc_url_raw($url), $args);
-
-            // Retrieve information
-            $response_code = wp_remote_retrieve_response_code($request);
-            $response_message = wp_remote_retrieve_response_message($request);
-            $result = json_decode(wp_remote_retrieve_body($request));
-            return $result;
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-    public function campaign_performance($date_range_type, $days = 0, $from_date = '', $to_date = '') {
-        try {
-            $url = $this->apiDomain . '/reports/campaign-performance';
-            $days_diff = 0;
-            if ($date_range_type == 2) {
-                $days_diff = strtotime($to_date) - strtotime($from_date);
-                $days_diff = abs(round($days_diff / 86400));
-            }
-            $data = [
-                'customer_id' => sanitize_text_field($this->customerId),
-                'graph_type' => sanitize_text_field(($date_range_type == 2 && $days_diff > 61) ? 'month' : 'day'),
-                'date_range_type' => sanitize_text_field($date_range_type),
-                'days' => sanitize_text_field($days),
-                'from_date' => sanitize_text_field($from_date),
-                'to_date' => sanitize_text_field($to_date),
-                'subscription_id' => sanitize_text_field($this->subscriptionId)
-            ];
-            $header = array(
-                "Authorization: Bearer $this->token",
-                "Content-Type" => "application/json"
-            );
-            $args = array(
-                'timeout' => 300,
-              'headers' =>$header,
-              'method' => 'POST',
-              'body' => wp_json_encode($data)
-            );
-            // Send remote request
-            $request = wp_remote_post(esc_url_raw($url), $args);
-
-            // Retrieve information
-            $response_code = wp_remote_retrieve_response_code($request);
-            $response_message = wp_remote_retrieve_response_message($request);
-            $result = json_decode(wp_remote_retrieve_body($request));
-            $return = new \stdClass();
-            if ((isset($result->error) && $result->error == '')) {
-              $return->data = $result->data;
-              //$return->data->graph_type = isset($data['graph_type'])?$data['graph_type']:"";
-              $return->error = false;
-              return $return;
-            }else{
-              $return->error = true;
-              $return->data = $result->data;
-              $return->errors = $result->errors;
-              $return->status = $response_code;
-              return $return;
-            }
-            
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function campaignPerformance($date_range_type, $days = 0, $from_date = '', $to_date = '') {
-        try {
-            $url = $this->apiDomain . '/reports/campaign-performance';
-            $days_diff = 0;
-            if ($date_range_type == 2) {
-                $days_diff = strtotime($to_date) - strtotime($from_date);
-                $days_diff = abs(round($days_diff / 86400));
-            }
-            $data = [
-                'customer_id' => sanitize_text_field($this->customerId),
-                'graph_type' => sanitize_text_field(($date_range_type == 2 && $days_diff > 31) ? 'month' : 'day'),
-                'date_range_type' => sanitize_text_field($date_range_type),
-                'days' => sanitize_text_field($days),
-                'from_date' => sanitize_text_field($from_date),
-                'to_date' => sanitize_text_field($to_date)
-            ];
-
-            $args = array(
-                'timeout' => 300,
-                'headers' => array(
-                    'Authorization' => "Bearer $this->token",
-                    'Content-Type' => 'application/json'
-                ),
-                'body' => wp_json_encode($data)
-            );
-
-            // Send remote request
-            $request = wp_remote_post(esc_url_raw($url), $args);
-
-            // Retrieve information
-            $response_code = wp_remote_retrieve_response_code($request);
-            $response_message = wp_remote_retrieve_response_message($request);
-            $response_body = json_decode(wp_remote_retrieve_body($request));
-            if (!is_wp_error($request) && (isset($response_body->error) && $response_body->error == '')) {
-                // Change ordring base on status
-                $active_list = array(); $deactive_list = array();
-                foreach ($response_body->data as $key => $value) {
-                   if(isset($value->active) && $value->active == 1){
-                    $active_list[] = $value;
-                   }else{
-                    $deactive_list[] = $value;
-                   }
-                }
-                $response_body->data = array_merge($active_list, $deactive_list);
-                return new WP_REST_Response(
-                        array(
-                    'status' => $response_code,
-                    'message' => esc_attr($response_message),
-                    'data' => $response_body->data
-                        )
-                );
-            } else {
-                return new WP_Error($response_code, $response_message, $response_body);
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-    public function order_performance($from_date = '', $to_date = '', $limit = 5, $offset = 0, $dimensionNamefilter = '', $domain = '')
-    {
-        try {
-            $url = $this->apiDomain . '/actionable-dashboard/order-performance-report-ga4';
-           
-            $data = [
-                'start_date' => sanitize_text_field($from_date),
-                'end_date' => sanitize_text_field($to_date),
-                'subscription_id' => sanitize_text_field($this->subscriptionId),
-                'limit' => sanitize_text_field($limit),
-                'offset' => sanitize_text_field($offset),
-                'dimensionNamefilter' => $dimensionNamefilter,
-                'domain' => $domain,
-            ];
-            $header = array(
-                "Authorization: Bearer $this->token",
-                "Content-Type" => "application/json"
-            );
-            $args = array(
-                'timeout' => 300,
-                'headers' => $header,
-                'method' => 'POST',
-                'body' => wp_json_encode($data)
-            );
-            // Send remote request
-            $request = wp_remote_post(esc_url_raw($url), $args);
-
-            // Retrieve information
-            $response_code = wp_remote_retrieve_response_code($request);
-            $response_message = wp_remote_retrieve_response_message($request);
-            $result = json_decode(wp_remote_retrieve_body($request));
-            //print_r($result); die;
-            $return = new \stdClass();
-            if ((isset($result->error) && $result->error == '')) {
-                $return->data = $result->data;
-                //$return->data->graph_type = isset($data['graph_type'])?$data['graph_type']:"";
-                $return->error = false;
-                return $return;
-            } else {
-                $return->error = true;
-                $return->data = $result->data;
-                $return->errors = $result->errors;
-                $return->status = $response_code;
-                return $return;
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-    public function ecommerce_checkout_funnel($from_date = '', $to_date = '', $domain = '')
-    {
-        try {
-            $url = $this->apiDomain . '/actionable-dashboard/ecomm-checkout-funnel-ga4';
-            $data = [
-                'start_date' => sanitize_text_field($from_date),
-                'end_date' => sanitize_text_field($to_date),
-                'subscription_id' => sanitize_text_field($this->subscriptionId),
-                'domain' => $domain
-            ];
-            $header = array(
-                "Authorization: Bearer $this->token",
-                "Content-Type" => "application/json"
-            );
-            $args = array(
-                'timeout' => 300,
-                'headers' => $header,
-                'method' => 'POST',
-                'body' => wp_json_encode($data)
-            );
-            // Send remote request
-            $request = wp_remote_post(esc_url_raw($url), $args);
-
-            // Retrieve information
-            $response_code = wp_remote_retrieve_response_code($request);
-            $response_message = wp_remote_retrieve_response_message($request);
-            $result = json_decode(wp_remote_retrieve_body($request));
-            //print_r($result); die;
-            $return = new \stdClass();
-            if ((isset($result->error) && $result->error == '')) {
-                $return->data = $result->data;
-                $return->error = false;
-                return $return;
-            } else {
-                $return->error = true;
-                $return->data = $result->data;
-                $return->errors = $result->errors;
-                $return->status = $response_code;
-                return $return;
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-    public function productPerformance($campaign_id = '', $date_range_type='', $days = 30, $from_date = '', $to_date = '', $adGroupId = '') {
-        try {
-            $url = $this->apiDomain . '/reports/product-performance';
-
-            /*$data = [
-                'merchant_id' => sanitize_text_field($this->merchantId),
-                'customer_id' => sanitize_text_field($this->customerId),
-                'campaign_id' => sanitize_text_field($campaign_id),
-                'date_range_type' => sanitize_text_field($date_range_type),
-                'days' => sanitize_text_field($days),
-                'from_date' => sanitize_text_field($from_date),
-                'to_date' => sanitize_text_field($to_date)
-            ];*/
-            $data = [
-                'customer_id' => sanitize_text_field($this->customerId),
-                'campaign_id' => sanitize_text_field($campaign_id),
-                "adgroup_id" => sanitize_text_field($adGroupId),
-                'date_range_type' => sanitize_text_field($date_range_type),
-                'days' => sanitize_text_field($days),
-                'from_date' => sanitize_text_field($from_date),
-                'to_date' => sanitize_text_field($to_date)
-            ];
-
-            $args = array(
-                'timeout' => 300,
-                'headers' => array(
-                    'Authorization' => "Bearer $this->token",
-                    'Content-Type' => 'application/json'
-                ),
-                'body' => wp_json_encode($data)
-            );
-            
-            // Send remote request
-            $request = wp_remote_post(esc_url_raw($url), $args);
-
-            // Retrieve information
-            $response_code = wp_remote_retrieve_response_code($request);
-            $response_message = wp_remote_retrieve_response_message($request);
-            $response_body = json_decode(wp_remote_retrieve_body($request));
-            //print_r($response_body);
-            if (!is_wp_error($request) && (isset($response_body->error) && $response_body->error == '')) {
-                return new WP_REST_Response(
-                        array(
-                    'status' => $response_code,
-                    'message' => esc_attr($response_message),
-                    'data' => $response_body->data
-                        )
-                );
-            } else {
-                return new WP_Error($response_code, $response_message, $response_body);
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function productPartitionPerformance($campaign_id = '', $date_range_type='', $days = 0, $from_date = '', $to_date = '', $adGroupId = '') {
-        try {
-            $url = $this->apiDomain . '/reports/product-partition-performance';
-
-            $data = [
-                //'merchant_id' => sanitize_text_field($this->merchantId),
-                'customer_id' => sanitize_text_field($this->customerId),
-                'campaign_id' => sanitize_text_field($campaign_id),
-                "adgroup_id" => sanitize_text_field($adGroupId),
-                'date_range_type' => sanitize_text_field($date_range_type),
-                'days' => sanitize_text_field($days),
-                'from_date' => sanitize_text_field($from_date),
-                'to_date' => sanitize_text_field($to_date)
-            ];
-
-            $args = array(
-                'timeout' => 300,
-                'headers' => array(
-                    'Authorization' => "Bearer $this->token",
-                    'Content-Type' => 'application/json'
-                ),
-                'body' => wp_json_encode($data)
-            );
-
-            // Send remote request
-            $request = wp_remote_post(esc_url_raw($url), $args);
-
-            // Retrieve information
-            $response_code = wp_remote_retrieve_response_code($request);
-            $response_message = wp_remote_retrieve_response_message($request);
-            $response_body = json_decode(wp_remote_retrieve_body($request));
-
-            if (!is_wp_error($request) && (isset($response_body->error) && $response_body->error == '')) {
-                return new WP_REST_Response(
-                        array(
-                    'status' => $response_code,
-                    'message' => esc_attr($response_message),
-                    'data' => $response_body->data
-                        )
-                );
-            } else {
-                return new WP_Error($response_code, $response_message, $response_body);
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
     public function getCampaignDetails($campaign_id = '') {
         try {
             $url = $this->apiDomain . '/campaigns/detail';
@@ -680,112 +280,313 @@ class ShoppingApi {
             return $e->getMessage();
         }
     } 
-    /* Save all reports data for ai module */
-    public function save_all_reports($subscription_id,$start_date,$end_date, $domain, $ga4_analytic_account_id ='', $ga4_property_id ='', $google_ads_id='', $measurement_id='') 
+
+     //ga4general reports
+    public function ga4_general_grid_report($from_date = '', $to_date = '', $domain = '')
     {
         try {
-            $data = array('subscription_id' => $subscription_id, 'start_date' => $start_date, 'end_date'=> $end_date, 'domain'=> $domain,'ga4_analytic_account_id' => $ga4_analytic_account_id, 'ga4_property_id' => $ga4_property_id, 'google_ads_id'=> $google_ads_id, 'measurement_id'=> $measurement_id);
-            $curl_url = $this->apiDomain . '/aireporting/save_all_reports';
+            $url = $this->apiDomain . '/ga-general-reports/get-ga-grid-report';
+            $data = [
+                'start_date' => sanitize_text_field($from_date),
+                'end_date' => sanitize_text_field($to_date),
+                'subscription_id' => sanitize_text_field($this->subscriptionId),
+                'domain' => $domain
+            ];
             $header = array(
                 "Authorization: Bearer $this->token",
                 "Content-Type" => "application/json"
             );
             $args = array(
-                'timeout' => 300,
+                'timeout' => 10000,
                 'headers' => $header,
                 'method' => 'POST',
                 'body' => wp_json_encode($data)
             );
-            $request = wp_remote_post(esc_url_raw($curl_url), $args);
+            // Send remote request
+            $request = wp_remote_post(esc_url_raw($url), $args);
+
+            // Retrieve information
             $response_code = wp_remote_retrieve_response_code($request);
             $response_message = wp_remote_retrieve_response_message($request);
-            $response = json_decode(wp_remote_retrieve_body($request));
+            $result = json_decode(wp_remote_retrieve_body($request));
             $return = new \stdClass();
-            if (isset($response->error) && $response->error == false) {
+            if ((isset($result->error) && $result->error == '')) {
+                $return->data = $result->data;
                 $return->error = false;
-                $return->message = esc_attr($response->message);
-                $return->data = $response->data;
                 return $return;
             } else {
                 $return->error = true;
-                $return->errors = $response->errors;
+                $return->data = $result->data;
+                $return->errors = $result->errors;
+                $return->status = $response_code;
                 return $return;
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
-    /*Generate AI response from middleware*/
-    public function generate_ai_response($subscription_id, $key, $domain,$ai_flag = '0')
-    {
+    public function ga4_realtime_report($domain = ''){
         try {
-            $data = array('promptIndex' => $key, 'subscription_id' => $subscription_id, 'domain'=> $domain, 'ai_flag'=> $ai_flag);
-    
-            $curl_url = $this->apiDomain . '/aireporting/get-prompt-response';
+            $url = $this->apiDomain . '/ga-general-reports/get-ga-realtime-reports';
+            $data = [
+                'subscription_id' => sanitize_text_field($this->subscriptionId),
+                'domain' => $domain
+            ];
             $header = array(
                 "Authorization: Bearer $this->token",
                 "Content-Type" => "application/json"
             );
             $args = array(
-                'timeout' => 300,
+                'timeout' => 10000,
                 'headers' => $header,
                 'method' => 'POST',
                 'body' => wp_json_encode($data)
             );
-            $request = wp_remote_post(esc_url_raw($curl_url), $args);
+            // Send remote request
+            $request = wp_remote_post(esc_url_raw($url), $args);
+
+            // Retrieve information
             $response_code = wp_remote_retrieve_response_code($request);
             $response_message = wp_remote_retrieve_response_message($request);
-            $response = json_decode(wp_remote_retrieve_body($request));
+            $result = json_decode(wp_remote_retrieve_body($request));
             $return = new \stdClass();
-            if (isset($response->error) && $response->error == false) {
+            if ((isset($result->error) && $result->error == '')) {
+                $return->data = $result->data;
                 $return->error = false;
-                $return->message = esc_attr($response->message);
-                $return->data = $response->data;
                 return $return;
             } else {
                 $return->error = true;
-                $return->errors = $response->errors;
+                $return->data = $result->data;
+                $return->errors = $result->errors;
+                $return->status = $response_code;
                 return $return;
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
-        /*Save Prompt Suggestions*/
-        public function save_suggestions($subscription_id, $suggestions, $domain)
-        {
-            try {
-                $data = array('suggestions' => $suggestions, 'subscription_id' => $subscription_id, 'domain'=> $domain);
+    public function ga4_general_daily_visitors_report($from_date = '', $to_date = '', $domain = ''){
+        try {
+            $url = $this->apiDomain . '/ga-general-reports/get-ga-daily-visitors-report';
+            $data = [
+                'start_date' => sanitize_text_field($from_date),
+                'end_date' => sanitize_text_field($to_date),
+                'subscription_id' => sanitize_text_field($this->subscriptionId),
+                'domain' => $domain
+            ];
+            $header = array(
+                "Authorization: Bearer $this->token",
+                "Content-Type" => "application/json"
+            );
+            $args = array(
+                'timeout' => 10000,
+                'headers' => $header,
+                'method' => 'POST',
+                'body' => wp_json_encode($data)
+            );
+            // Send remote request
+            $request = wp_remote_post(esc_url_raw($url), $args);
+
+            // Retrieve information
+            $response_code = wp_remote_retrieve_response_code($request);
+            $response_message = wp_remote_retrieve_response_message($request);
+            $result = json_decode(wp_remote_retrieve_body($request));
+            $return = new \stdClass();
+            if ((isset($result->error) && $result->error == '')) {
+                $return->data = $result->data;
+                $return->error = false;
+                return $return;
+            } else {
+                $return->error = true;
+                $return->data = $result->data;
+                $return->errors = $result->errors;
+                $return->status = $response_code;
+                return $return;
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function ga4_general_audience_report($from_date = '', $to_date = '', $domain = ''){
+        try {
+            $url = $this->apiDomain . '/ga-general-reports/get-ga-audience-report';
+            $data = [
+                'start_date' => sanitize_text_field($from_date),
+                'end_date' => sanitize_text_field($to_date),
+                'subscription_id' => sanitize_text_field($this->subscriptionId),
+                'domain' => $domain
+            ];
+            $header = array(
+                "Authorization: Bearer $this->token",
+                "Content-Type" => "application/json"
+            );
+            $args = array(
+                'timeout' => 10000,
+                'headers' => $header,
+                'method' => 'POST',
+                'body' => wp_json_encode($data)
+            );
+            // Send remote request
+            $request = wp_remote_post(esc_url_raw($url), $args);
+
+            // Retrieve information
+            $response_code = wp_remote_retrieve_response_code($request);
+            $response_message = wp_remote_retrieve_response_message($request);
+            $result = json_decode(wp_remote_retrieve_body($request));
+            $return = new \stdClass();
+            if ((isset($result->error) && $result->error == '')) {
+                $return->data = $result->data;
+                $return->error = false;
+                return $return;
+            } else {
+                $return->error = true;
+                $return->data = $result->data;
+                $return->errors = $result->errors;
+                $return->status = $response_code;
+                return $return;
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function ga4_demographics_report($from_date = '', $to_date = '', $domain = '',$report_name = ''){
+        try {
+           
+            $url = $this->apiDomain.'/ga-general-reports/get-ga-demographics-reports';
+            $data = [
+                'start_date' => sanitize_text_field($from_date),
+                'end_date' => sanitize_text_field($to_date),
+                'subscription_id' => sanitize_text_field($this->subscriptionId),
+                'domain' => $domain,
+                'dimension' => $report_name,
+                'limit' => 5
+            ];
+            $header = array(
+                "Authorization: Bearer $this->token",
+                "Content-Type" => "application/json"
+            );
+            $args = array(
+                'timeout' => 10000,
+                'headers' => $header,
+                'method' => 'POST',
+                'body' => wp_json_encode($data)
+            );
+            // Send remote request
+            $request = wp_remote_post(esc_url_raw($url), $args);
+
+            // Retrieve information
+            $response_code = wp_remote_retrieve_response_code($request);
+            $response_message = wp_remote_retrieve_response_message($request);
+            $result = json_decode(wp_remote_retrieve_body($request));
+            $return = new \stdClass();
+            if ((isset($result->error) && $result->error == '')) {
+                $return->data = $result->data;
+                $return->error = false;
+                return $return;
+            } else {
+                $return->error = true;
+                $return->data = $result->data;
+                $return->errors = $result->errors;
+                $return->status = $response_code;
+                return $return;
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function ga4_general_donut_report($from_date = '', $to_date = '', $domain = '',$report_name = ''){
+        try {
+            $endpoint = "get-ga-devicebreakdown-report";
+            if($report_name == "conv_users_chart"){
+                $endpoint = "get-ga-users-report";
+            }
+            $url = $this->apiDomain.'/ga-general-reports/'.$endpoint;
+            $data = [
+                'start_date' => sanitize_text_field($from_date),
+                'end_date' => sanitize_text_field($to_date),
+                'subscription_id' => sanitize_text_field($this->subscriptionId),
+                'domain' => $domain
+            ];
+            $header = array(
+                "Authorization: Bearer $this->token",
+                "Content-Type" => "application/json"
+            );
+            $args = array(
+                'timeout' => 10000,
+                'headers' => $header,
+                'method' => 'POST',
+                'body' => wp_json_encode($data)
+            );
+            // Send remote request
+            $request = wp_remote_post(esc_url_raw($url), $args);
+
+            // Retrieve information
+            $response_code = wp_remote_retrieve_response_code($request);
+            $response_message = wp_remote_retrieve_response_message($request);
+            $result = json_decode(wp_remote_retrieve_body($request));
+            $return = new \stdClass();
+            if ((isset($result->error) && $result->error == '')) {
+                $return->data = $result->data;
+                $return->error = false;
+                return $return;
+            } else {
+                $return->error = true;
+                $return->data = $result->data;
+                $return->errors = $result->errors;
+                $return->status = $response_code;
+                return $return;
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function ga4_page_report($from_date = '', $to_date = '', $domain = '', $limit = ''){
         
-                $curl_url = $this->apiDomain . '/aireporting/suggest-prompt';
+            try {
+                $url = $this->apiDomain . '/ga-general-reports/get-ga-pages-report';
+                $data = [
+                    'start_date' => sanitize_text_field($from_date),
+                    'end_date' => sanitize_text_field($to_date),
+                    'subscription_id' => sanitize_text_field($this->subscriptionId),
+                    'domain' => $domain,
+                    'dimension' => 'pagePath',
+                    'limit' => $limit,
+                    'orderbymetric' => 'screenPageViews',
+                    'offset' => '0'
+                ];
                 $header = array(
                     "Authorization: Bearer $this->token",
                     "Content-Type" => "application/json"
                 );
                 $args = array(
-                    'timeout' => 300,
+                    'timeout' => 10000,
                     'headers' => $header,
                     'method' => 'POST',
                     'body' => wp_json_encode($data)
                 );
-                $request = wp_remote_post(esc_url_raw($curl_url), $args);
+                // Send remote request
+                $request = wp_remote_post(esc_url_raw($url), $args);
+    
+                // Retrieve information
                 $response_code = wp_remote_retrieve_response_code($request);
                 $response_message = wp_remote_retrieve_response_message($request);
-                $response = json_decode(wp_remote_retrieve_body($request));
+                $result = json_decode(wp_remote_retrieve_body($request));
                 $return = new \stdClass();
-                if (isset($response->error) && $response->error == false) {
+                if ((isset($result->error) && $result->error == '')) {
+                    $return->data = $result->data;
                     $return->error = false;
-                    $return->message = esc_attr($response->message);
-                    $return->data = $response->data;
                     return $return;
                 } else {
                     $return->error = true;
-                    $return->errors = $response->errors;
+                    $return->data = $result->data;
+                    $return->errors = $result->errors;
+                    $return->status = $response_code;
                     return $return;
                 }
             } catch (Exception $e) {
                 return $e->getMessage();
             }
-        }
+    }
   
 }

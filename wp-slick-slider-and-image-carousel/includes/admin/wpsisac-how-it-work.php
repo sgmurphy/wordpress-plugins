@@ -168,7 +168,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<li><?php esc_html_e( '100% Multi language', 'wp-slick-slider-and-image-carousel'); ?></li>
 							</ul>
 							<div class="upgrade-to-pro"><?php esc_html_e( 'Gain access to', 'wp-slick-slider-and-image-carousel'); ?> <strong><?php esc_html_e( 'WP Slick Slider and Image Carousel', 'wp-slick-slider-and-image-carousel'); ?></strong></div>
-							<a class="button button-primary wpos-button-full button-orange" href="<?php echo esc_url(WPSISAC_PLUGIN_LINK_UNLOCK); ?>" target="_blank"><?php esc_html_e( 'Grab Slick Slider Now', 'wp-slick-slider-and-image-carousel' ); ?></a>
+							<a class="button button-primary wpos-button-full button-orange" href="<?php echo esc_url(WPSISAC_PLUGIN_LINK_UNLOCK); ?>" target="_blank"><?php esc_html_e( 'Try Pro For 5 Days Free', 'wp-slick-slider-and-image-carousel' ); ?></a>
 						</div>
 					</div>
 				</div>

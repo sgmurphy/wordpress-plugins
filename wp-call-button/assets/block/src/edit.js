@@ -6,6 +6,8 @@ import {
 	FontSizePicker,
 	ToggleControl,
 	PanelBody,
+    Notice,
+    Button
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -18,7 +20,7 @@ import { __ } from '@wordpress/i18n';
 const {
 	InspectorControls,
 	PanelColorSettings,
-	RichText,
+	RichText
 } = window.wpcallbtnshim;
 
 const edit = ( { attributes, setAttributes } ) => {
@@ -90,11 +92,20 @@ const edit = ( { attributes, setAttributes } ) => {
 		} );
 	};
 
+    const {wpcallbtn_phone_num, settingsUrl} = window.wpcallbtn_block_vars;
+
 	return (
 		<>
 			<InspectorControls key="controls">
 				<PanelBody>
-					<FontSizePicker
+                    {!wpcallbtn_phone_num && <Notice status="error" isDismissible={false}>
+                        <p>{__('Please set the phone number in the global settings.', 'wp-call-button')}</p>
+                        <Button isPrimary isSmall href={settingsUrl}>{__('Go to settings', 'wp-call-button')}</Button>
+                    </Notice>}
+
+                    <hr/>
+
+                    <FontSizePicker
 						fontSizes={ fontSizes }
 						onChange={ onFontSizeChange }
 						value={ btnFontSize }

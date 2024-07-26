@@ -11614,7 +11614,7 @@ class SR_Audio_Player extends Widget_Base {
 			
 		}
 
-		if( $settings['show_miniplayer_note_bt'] ){
+		if( isset($settings['show_miniplayer_note_bt']) ){
 			$shortcode .= 'show_miniplayer_note_bt="'. $settings['show_miniplayer_note_bt'] . '" ';
 		}
 

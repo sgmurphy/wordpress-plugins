@@ -432,12 +432,9 @@ if (!class_exists('Conversios_Onboarding_Helper')) :
         }
         $subscription_id = isset($_POST['subscription_id']) ? sanitize_text_field($_POST['subscription_id']) : '';
 
-        $return_url = $this->save_wp_setting_from_subscription_api($api_obj, $tvc_data, $subscription_id, $data_value);
-
         $form_data = array("subscription_id" => $subscription_id);
-        $return_rs = $api_obj->updateSetupTimeToSubscription($form_data);
-        $return_rs->return_url = $return_url;
-        echo wp_json_encode($return_rs);
+        $api_obj->updateSetupTimeToSubscription($form_data);
+        echo "1";
         wp_die();
       } else {
         echo esc_html__("Admin security nonce is not verified.", "enhanced-e-commerce-for-woocommerce-store");
@@ -828,7 +825,7 @@ if (!class_exists('Conversios_Onboarding_ApiCall')) {
         return $e->getMessage();
       }
     }
-    
+
     public function getGoogleAdsAccountList()
     {
       try {
@@ -1204,6 +1201,7 @@ if (!class_exists('Conversios_Onboarding_ApiCall')) {
           'subscription_id' => sanitize_text_field((isset($postData['subscription_id'])) ? $postData['subscription_id'] : ''),
           'setup_end_time' => gmdate('Y-m-d H:i:s')
         ];
+
         $args = array(
           'timeout' => 300,
           'headers' => array(
@@ -1216,7 +1214,6 @@ if (!class_exists('Conversios_Onboarding_ApiCall')) {
 
         // Send remote request
         $request = wp_remote_post(esc_url($url), $args);
-
         // Retrieve information
         $response_code = wp_remote_retrieve_response_code($request);
         $response_message = wp_remote_retrieve_response_message($request);

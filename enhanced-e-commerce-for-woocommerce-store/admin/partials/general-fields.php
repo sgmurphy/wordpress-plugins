@@ -34,15 +34,6 @@ $is_show_tracking_method_options =  true; //$TVC_Admin_Helper->is_show_tracking_
     <!-- Main col8 center -->
     <div class="convfixedcontainermid col-md-8 col-xs-12 m-0 p-0">
 
-      <div class="pt-4 pb-4 conv-heading-box">
-        <h3>
-          <?php esc_html_e("IMPLEMENTATION METHOD", "enhanced-e-commerce-for-woocommerce-store"); ?>
-        </h3>
-        <span>
-          <?php esc_html_e("Connect your Google Tag Manager account to start configuring Google Analytics and/or pixel tracking.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-        </span>
-      </div>
-
       <!-- GTM Card -->
       <?php
       $tracking_method = (isset($data['tracking_method']) && $data['tracking_method'] != "") ? $data['tracking_method'] : "";

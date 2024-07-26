@@ -5,7 +5,7 @@ Donate link: https://sonaar.io
 Requires at least: 4.7
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 5.7
+Stable tag: 5.7.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -339,6 +339,10 @@ Yes, with the pro version, you can click on the 'Add to Favorite' icon to store 
 10. Shortcode Builder: Create, Import and Customize audio players using shortcodes in real-time
 
 == Changelog ==
+= 5.7.0.1 =
+Fix: Audio Preview not generating with WooCommerce or Classic Editor Post
+Fix: Warning: Undefined array key "show_miniplayer_note_bt"
+
 = 5.7 =
 New: Audio Previews, Audio Watermarks, Audio Ads, Fade-in and Fade-out audio generation in 1-click are now available for ALL our Business Plan (or higher) users without the needs to have FFMPEG installed! All audio processing is done off-site via our external API server, ensuring your audio files remain hosted on your own server while leveraging our external processing capabilities.
 New: Option to set an info icon button on the mini player widget to display the track description.
