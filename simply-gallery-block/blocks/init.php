@@ -116,7 +116,7 @@ function pgc_sgb_render_callback(  $atr, $content  ) {
     }
     $className = PGC_SGB_BLOCK_PREF . sanitize_html_class( $skinType ) . ' ' . sanitize_html_class( $align );
     if ( isset( $atr['className'] ) ) {
-        $className = $className . ' ' . sanitize_html_class( $atr['className'] );
+        $className = $className . ' ' . $atr['className'];
     }
     if ( $skinType === 'slider' || $skinType === 'splitcarousel' || $skinType === 'horizon' || $skinType === 'accordion' || $skinType === 'showcase' ) {
         $minHeight = ( isset( $atr['sliderMaxHeight'] ) ? esc_attr( $atr['sliderMaxHeight'] ) : 400 );

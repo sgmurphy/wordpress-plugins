@@ -2773,7 +2773,7 @@ final class S3Request
 		if (!preg_match("/^[0-9a-z]/", $bucket)) return false;
 		if (!preg_match("/[0-9a-z]$/", $bucket)) return false;
 
-		// For Minio as minio as it provides self hosted S3 compatible storage
+		// For Minio as it provides self hosted S3 compatible storage
 		$host = $this->bucket.'.'.$this->endpoint;
 		if(gethostbyname($host) == $host){
 			return false;
@@ -3031,6 +3031,7 @@ class bcloud extends S3 {
 			'body' => array(
 				'license' => $license,
 				'url' => $host,
+				'action' => 'add_location',
 				'bcloud_key' => $backuply_cloud_key
 			),
 			'sslverify' => false

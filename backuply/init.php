@@ -10,7 +10,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('BACKUPLY_VERSION', '1.3.2');
+define('BACKUPLY_VERSION', '1.3.3');
 define('BACKUPLY_DIR', dirname(BACKUPLY_FILE));
 define('BACKUPLY_URL', plugins_url('', BACKUPLY_FILE));
 define('BACKUPLY_BACKUP_DIR', str_replace('\\' , '/', WP_CONTENT_DIR).'/backuply/');
@@ -48,7 +48,7 @@ function backuply_died() {
 	
 	// To show maximum time out error.
 	if(!empty($last_error['message']) && strpos($last_error['message'], 'Maximum execution time') !== FALSE){
-		backuply_status_log('The Backup Failed because the script reached Maximum Execution time while waiting for response from remote server', 'error');
+		backuply_status_log($last_error['message'], 'error');
 		backuply_kill_process();
 	}
 
@@ -120,6 +120,7 @@ function backuply_load_plugin(){
 	
 	if(is_admin() && current_user_can('install_plugins')){
 		add_filter('upload_mimes', 'backuply_add_mime_types'); // In case tar or gz are not supported
+		add_action('admin_post_backuply_download_backup', 'backuply_direct_download_file');
 
 		if(isset($_REQUEST['backuply_trial_promo']) && (int)$_REQUEST['backuply_trial_promo'] == 0 ){
 			if(!wp_verify_nonce(backuply_optreq('security'), 'backuply_trial_nonce')) {
@@ -138,7 +139,7 @@ function backuply_load_plugin(){
 			update_option('backuply_hide_trial', $trial_time, false);
 		}
 
-		if($trial_time >= 0 && empty($backuply['bcloud_key']) && $trial_time < (time() - (86400))){
+		if($trial_time >= 0 && empty($backuply['bcloud_key']) && $trial_time < (time() - (86400)) && isset($_GET['page']) && $_GET['page'] === 'backuply'){
 			$showing_promo = true;
 			add_action('admin_notices', 'backuply_free_trial_promo');
 		}
@@ -254,7 +255,7 @@ function backuply_load_plugin(){
 			update_option('backuply_license_notice', $backuply_license_notice);
 		}
 
-		// Here we are making sure that we have license is there and Cloud trial has ended and if dismissed it does not shows for next 2 months.
+		// Here we are making sure that we have license and Cloud trial has ended and if dismissed it does not shows for next 2 months.
 		if(!empty($backuply['license']) && !empty($backuply['license']['expires']) && isset($_GET['page']) && strpos($_GET['page'], 'backuply') !== FALSE && get_option('bcloud_trial_time', 0) <= 0 && ($backuply_license_notice > 0 || (abs($backuply_license_notice) + MONTH_IN_SECONDS * 2) < time())){
 			$current_timestamp = time();
 			$expiration_timestamp = strtotime($backuply['license']['expires']);

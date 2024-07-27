@@ -1941,8 +1941,7 @@ if(file_exists(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php')){
 							<td style="text-align:center;">
 								<?php if($backup_loc_name == 'Local') {
 									?>
-									<button class="button button-primary backuply-download-backup" data-name="<?php echo esc_attr($all_info->name .'.'. $all_info->ext); ?>"><?php esc_html_e('Download', 'backuply'); ?></button>
-									<div class="button button-primary backuply-download-progress" style="display:none;">0 % <?php esc_html_e('Downloading', 'backuply'); ?></div>
+									<a class="button button-primary" href="<?php echo admin_url('admin-post.php?backup_name='.esc_attr($all_info->name .'.'. $all_info->ext) . '&security='.wp_create_nonce('backuply_download_security').'&action=backuply_download_backup'); ?>" download><?php esc_html_e('Download', 'backuply'); ?></a>
 								<?php
 								}else if($backup_loc_name == 'Backuply Cloud'){
 									echo '<button type="button" class="button button-primary backuply-download-bcloud" data-name="'.esc_attr($all_info->name .'.'. $all_info->ext).'">'.esc_html__('Download', 'backuply').'</button>';
@@ -2005,6 +2004,7 @@ if(file_exists(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php')){
 		</div>
 		<div class="backuply-settings-block">
 			You can contact the Backuply Team via email. Our email address is <a href="mailto:support@backuply.com">support@backuply.com</a> or through Our <a href="https://softaculous.deskuss.com/open.php?topicId=17" target="_blank">Support Ticket System</a>
+			<p>You can also check the docs <a href="https://backuply.com/docs/" target="_blank">https://backuply.com/docs/</a> to review some common issues. You might find something helpful there.</p>
 		</div>
 	</div>
 	<?php 

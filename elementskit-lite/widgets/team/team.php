@@ -40,7 +40,9 @@ class ElementsKit_Widget_Team extends Widget_Base {
     public function get_help_url() {
         return 'https://wpmet.com/doc/team-2/';
     }
-
+    protected function is_dynamic_content(): bool {
+        return false;
+    }
     protected function register_controls() {
 
         // Team Content

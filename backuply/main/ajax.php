@@ -66,6 +66,7 @@ function backuply_ajax_nonce_verify($key = 'security'){
 }
 
 // AJAX handle to download backup
+// TODO:: Delete this after pushing out the direct download version.
 function backuply_download_backup() {
 	
 	backuply_ajax_nonce_verify();

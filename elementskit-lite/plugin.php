@@ -311,7 +311,7 @@ class Plugin {
 		 * @since 3.1.4
 		 */
 		if ($user_consent && class_exists('\ElementsKit_Lite\Libs\Template_Library\Init') && !did_action('gutenkit/init')) {
-			// new \ElementsKit_Lite\Libs\Template_Library\Init();
+			new \ElementsKit_Lite\Libs\Template_Library\Init();
 		}
 	}
 

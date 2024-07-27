@@ -371,7 +371,7 @@ jQuery(function($) {
     $('.bmplug__install-link').on('click', function () {
       $('.bmplug__install-link').css({'filter': 'grayscale(1)', 'pointer-events': 'none'});
       $('.bmplug__install-link').text('Installing...');
-      $.post(ajaxurl, { action: 'wpclone-install_new' }).done((res) => {
+      $.post(ajaxurl, { action: 'wpclone-install_new', nonce: wpclone.nonce}).done((res) => {
 
         $('.bmplug__install-link').text('Redirecting...');
         if (isJsonString(res)) res = jsonParse(res);

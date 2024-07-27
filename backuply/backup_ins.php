@@ -6,10 +6,8 @@
 */
 
 //PHP Options
-$keepalive = 25;
 if(!set_time_limit(300)){
 	set_time_limit(60);
-	$keepalive = 25;
 }
 error_reporting(E_ALL);
 ignore_user_abort(true);
@@ -1758,7 +1756,7 @@ backuply_backup_stop_checkpoint();
 
 // We need to stop execution in 25 secs.. We will be called again if the process is incomplete
 // Set default value
-//$keepalive = 25;
+$keepalive = 25;
 $GLOBALS['end'] = (int) time() + $keepalive;
 
 $name = $data['name'];
@@ -1976,7 +1974,6 @@ if(empty($GLOBALS['error']) && (!empty($f_list) || !empty($post_soft_list) || !e
 	
 	backuply_backup_stop_checkpoint();
 	backuply_status_log('Starting to create archive', 'info', 60);
-	
 	if(!backuply_tar_archive($zipfile, $f_list, true)){
 		backuply_clean($data);
 		

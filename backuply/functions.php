@@ -18,7 +18,7 @@ function backuply_get_protocols(){
 	
 	if(defined('BACKUPLY_PRO')) {
 		
-		if(!function_exists('backuply_get_pro_backups')) {
+		if(!function_exists('backuply_get_pro_backups') && defined('BACKUPLY_PRO_DIR')) {
 			include_once(BACKUPLY_PRO_DIR . '/functions.php');
 		}
 		
@@ -1867,4 +1867,38 @@ function backuply_sanitize_filename($filename){
 	$filename = str_replace('_.', '.', $filename);
 
 	return $filename;
+}
+
+function backuply_direct_download_file(){
+	check_admin_referer('backuply_download_security', 'security');
+
+	if(!current_user_can('manage_options')){
+		wp_die('You do not have required privilege to download the file');
+	}
+	
+	@set_time_limit(0);
+
+	$filename = backuply_optget('backup_name');
+	$filename = backuply_sanitize_filename($filename);
+	$backups_dir = backuply_glob('backups');
+	
+	$file_path = $backups_dir . '/'. $filename;
+
+	if(!file_exists($file_path)){
+		wp_die('File does not exists');
+	}
+
+	wp_ob_end_flush_all();
+
+	// Get the file size
+	$file_size = filesize($file_path);
+
+	// Handle range requests
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
+	header('Content-Transfer-Encoding: binary');
+	header('Content-Length: ' . $file_size);
+
+	readfile($file_path);
+	die();
 }

@@ -5,7 +5,10 @@
 * (c) Backuply Team
 */
 
-set_time_limit(60);
+if(!set_time_limit(300)){
+	set_time_limit(60);
+}
+
 ignore_user_abort(true); // Dont abort if user aborts
 //error_reporting(E_ALL);
 

@@ -35,6 +35,9 @@ class ElementsKit_Widget_Accordion extends Widget_Base {
         return 'https://wpmet.com/doc/accordion/';
     }
 
+    protected function is_dynamic_content(): bool {
+        return false;
+    }
     protected function register_controls() {
         
 

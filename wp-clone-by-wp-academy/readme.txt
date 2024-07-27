@@ -4,8 +4,8 @@ Tags: migrate, clone, backup, migration, backups, copy, restore, recover, restor
 Author URI: https://backupbliss.com
 Requires PHP: 5.5
 Requires at least: 3.3
-Tested up to: 6.6
-Stable tag: 2.4.5
+Tested up to: 6.6.1
+Stable tag: 2.4.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -132,6 +132,11 @@ You can back up the website database only, if you navigate to the Advanced Setti
 Backup and migration FAQ are under construction
 
 == Changelog ==
+
+= 2.4.6 =
+* Tested with WordPress 6.6.1
+* Security fixes
+* Fixed an issue with TryOut plugin installation
 
 = 2.4.5 =
 * Tested with WordPress 6.6
@@ -265,12 +270,6 @@ Backup and migration FAQ are under construction
 * Fixed: When javascript is disabled,submit button shows "Create Backup" but the plugin attempts to do a restore
 * Changed: The temporary directory location during the backup restore process from '/wp-content/' to '/wp-content/wpclone-temp/'
 
-= 2.1.3 =
-* Added: An option to backup the database using WordPress' WPDB class
-* Removed: The need to keep the original backup names intact
-* Changed: The backup name structure
-* Changed: Backup file downloads are now handled using WP core functions
-
 = 2.0.2 =
 * Initial release
 
@@ -278,7 +277,7 @@ Backup and migration FAQ are under construction
 1. Configuration Page
 
 == Upgrade Notice ==
-= 2.4.5 =
-* Tested with WordPress 6.6
-* Minor performance improvements 
-* Improvements for PHP 8 utilization
+= 2.4.6 =
+* Tested with WordPress 6.6.1
+* Security fixes
+* Fixed an issue with TryOut plugin installation

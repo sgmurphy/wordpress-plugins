@@ -598,7 +598,7 @@
         }
 
         // Install plugin (handler)
-        private function _install($directory_slug, $slug) {
+        public function install($directory_slug, $slug) {
 
           // Prepare the URLs and full slug
           $plugin_slug = $slug;
@@ -701,19 +701,19 @@
 
           if (strpos($classes, '-1') !== false) {
 
-            if ($method == 'install') $this->_install('pop-up-pop-up', $this->mpu_slug);
+            if ($method == 'install') $this->install('pop-up-pop-up', $this->mpu_slug);
             else if ($method == 'dismiss') $this->_dismiss('mpu');
             else if ($method == 'remind') $this->_remind('mpu');
 
           } else if (strpos($classes, '-2') !== false) {
 
-            if ($method == 'install') $this->_install('backup-backup', $this->bmi_slug);
+            if ($method == 'install') $this->install('backup-backup', $this->bmi_slug);
             else if ($method == 'dismiss') $this->_dismiss('bmi');
             else if ($method == 'remind') $this->_remind('bmi');
 
           } else if (strpos($classes, '-3') !== false) {
 
-            if ($method == 'install') $this->_install('copy-delete-posts', $this->cdp_slug);
+            if ($method == 'install') $this->install('copy-delete-posts', $this->cdp_slug);
             else if ($method == 'dismiss') $this->_dismiss('cdp');
             else if ($method == 'remind') $this->_remind('cdp');
 

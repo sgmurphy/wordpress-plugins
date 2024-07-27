@@ -47,6 +47,9 @@ class ElementsKit_Widget_Funfact extends Widget_Base {
     public function get_help_url() {
         return 'https://wpmet.com/doc/funfact/';
     }
+    protected function is_dynamic_content(): bool {
+        return false;
+    }
 
 	protected function register_controls() {
 
