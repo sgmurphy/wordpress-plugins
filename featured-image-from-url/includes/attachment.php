@@ -101,7 +101,8 @@ function fifu_replace_attachment_image_src($image, $att_id, $size) {
     $original_url = fifu_main_image_url(get_queried_object_id(), true);
     if (fifu_should_hide() && ($original_url == $image[0] || ($prev_url && $prev_url == $original_url))) {
         if (!in_array($original_url, $FIFU_SESSION['att_img_src'])) {
-            $FIFU_SESSION['att_img_src'][] = $original_url;
+            $aux = is_array($size) ? implode(',', $size) : $size;
+            $FIFU_SESSION['att_img_src'][] = $original_url . $aux;
             return null;
         }
     }

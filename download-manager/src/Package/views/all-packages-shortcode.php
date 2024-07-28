@@ -1,12 +1,13 @@
 <?php
 if (!defined('ABSPATH')) die();
 global $btnclass;
+
 if(!is_array($params)) $params = array();
 $p = serialize($params);
 $tid = md5($p);
 if(!isset($params['items_per_page'])) $params['items_per_page'] = 20;
-$cols = isset($params['cols'])?$params['cols']:'page_link,file_count,download_count|categories|update_date|download_link';
-$colheads = isset($params['colheads'])?$params['colheads']:'Title|Categories|Update Date|Download';
+$cols = isset($params['cols'])?esc_attr($params['cols']):'page_link,file_count,download_count|categories|update_date|download_link';
+$colheads = isset($params['colheads'])?esc_attr($params['colheads']):'Title|Categories|Update Date|Download';
 $cols = explode("|", $cols);
 $colheads = explode("|", $colheads);
 foreach ($cols as $index => &$col){
@@ -199,7 +200,7 @@ if(isset($params['jstable']) && $params['jstable']==1):
                     $_colhead = explode("::", $colhead);
                     $width = (isset($_colhead[1]))?"width: {$_colhead[1]} !important;max-width: {$_colhead[1]} !important;":"";
                     ?>
-                <th style="<?php echo esc_attr($width); ?>"  id="<?php echo esc_attr($cols[$ix][0]); ?>" class="<?php if($ix > 0) echo 'hidden-sm hidden-xs'; ?>"><?php esc_attr_e($_colhead[0],'download-manager'); ?></th>
+                <th style="<?php echo esc_attr($width); ?>"  id="<?php echo esc_attr(wpdm_valueof($cols, "{$ix}/0", [], 'alphanum')); ?>" class="<?php if($ix > 0) echo 'hidden-sm hidden-xs'; ?>"><?php esc_attr_e($_colhead[0],'download-manager'); ?></th>
                 <?php } ?>
 
             </tr>
@@ -299,7 +300,7 @@ if(isset($params['jstable']) && $params['jstable']==1):
                         foreach ($cols as $colx => $cold){
                             $dor = array('publish_date' => strtotime(get_the_date('Y-m-d')), 'create_date' => strtotime(get_the_date('Y-m-d')), 'update_date' => strtotime(get_the_modified_date('Y-m-d', get_the_ID())), 'package_size' => \WPDM\__\__::convertToBytes($data['package_size']));
                             ?>
-                        <td <?php if(in_array($cold[0], array('publish_date', 'update_date','create_date', 'package_size'))) { ?> data-order="<?php echo $dor[$cold[0]]; ?>" <?php } ?> class="__dt_col_<?php echo $colx; ?> __dt_col __dt_col_<?php echo $cold[0]; ?>" <?php if($colx == 0) { ?>style="background-image: url('<?php echo $ext ; ?>');background-size: 36px;background-position: 5px 8px;background-repeat:  no-repeat;padding-left: 52px;line-height: normal;"<?php } ?>>
+                        <td <?php if(in_array($cold[0], array('publish_date', 'update_date','create_date', 'package_size'))) { ?> data-order="<?php echo esc_attr($dor[$cold[0]]); ?>" <?php } ?> class="__dt_col_<?php echo esc_attr($colx); ?> __dt_col __dt_col_<?php echo esc_attr($cold[0]); ?>" <?php if($colx == 0) { ?>style="background-image: url('<?php echo esc_attr($ext) ; ?>');background-size: 36px;background-position: 5px 8px;background-repeat:  no-repeat;padding-left: 52px;line-height: normal;"<?php } ?>>
                             <?php
 
                             foreach ($cold as $cx => $c){

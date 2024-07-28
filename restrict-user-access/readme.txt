@@ -4,7 +4,7 @@ Donate link: #
 Tags: content-restriction, membership, access-control, permissions, member, bbpress
 Requires at least: 5.5
 Requires PHP: 7.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.7
 License: GPLv3
 

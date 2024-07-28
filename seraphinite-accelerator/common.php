@@ -1555,6 +1555,8 @@ function OnOptGetDef_Sett()
 					),
 
 					'items' => array(
+
+						'src:@\\.cookiebot\\.com@',
 					),
 				),
 
@@ -2643,6 +2645,8 @@ function GetContCacheEarlySkipData( &$pathOrig = null , &$path = null , &$pathIs
 			$seraph_accel_g_cacheSkipData = array( 'skipped', array( 'reason' => 'htaccess' ) );
 		else if( strpos( '/' . $path, '/wp-' ) !== false )
 			$seraph_accel_g_cacheSkipData = array( 'skipped', array( 'reason' => 'wpUrl' ) );
+		else if( isset( $_SERVER[ 'HTTP_LINGUISE_ORIGINAL_LANGUAGE' ] ) )
+			$seraph_accel_g_cacheSkipData = array( 'skipped', array( 'reason' => 'linguiseGetOrig' ) );
 	}
 
 	return( $seraph_accel_g_cacheSkipData );
@@ -3127,7 +3131,7 @@ function ContProcIsCompatView( $settCache, $userAgent  )
 
 function GetViewTypeUserAgent( $viewsDeviceGrp )
 {
-	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.2 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
+	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.3 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
 }
 
 function CorrectRequestScheme( &$serverArgs, $target = null )
@@ -4179,7 +4183,7 @@ function GetExtContents( $url, &$contMimeType = null, $userAgentCmn = true, $tim
 
 	$args = array( 'sslverify' => false, 'timeout' => $timeout );
 	if( $userAgentCmn )
-		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.2';
+		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.3';
 
 	global $seraph_accel_g_aGetExtContentsFailedSrvs;
 

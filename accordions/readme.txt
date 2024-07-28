@@ -3,8 +3,8 @@
 	Donate link: https://pickplugins.com/accordions/
 	Tags: accordion, tabs, FAQ, WooCommerce FAQ Tab, accordions
 	Requires at least: 3.8
-	Tested up to: 6.5
-	Stable tag: 2.2.98
+	Tested up to: 6.6
+	Stable tag: 2.2.99
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,9 +19,9 @@ Accordions is easy and powerful tool to create accordion, faq, tabs, tab content
 ### Accordions by http://pickplugins.com
 
 * [Accordions - Premium &raquo;](https://pickplugins.com/accordions/)
-* [Live Demo &raquo;](https://www.pickplugins.com/demo/accordions/?ref=wordpress.org)
-* [Support &raquo;](https://www.pickplugins.com/support/?ref=wordpress.org)
-* [Documentation &raquo;](https://www.pickplugins.com/documentation/accordions/?ref=wordpress.org)
+* [Live Demo &raquo;](https://www.pickplugins.com/demo/accordions/)
+* [Support &raquo;](https://www.pickplugins.com/support/)
+* [Documentation &raquo;](https://www.pickplugins.com/documentation/accordions/)
 
 
 ###Plugin Features
@@ -140,9 +140,12 @@ then paste this shortcode anywhere in your page to display accordions<br />
 == Changelog ==
 
 
+	= 2.2.99 =
+    * 2024-07-28 - fix - compatibility with 6.6 issue checked
+    * 2024-07-28 - update - Plugin page link updated
+
 	= 2.2.98 =
     * 2024-05-05 - fix - compatibility with 6.5 issue checked
-
 
 	= 2.2.97 =
     * 2024-03-13 - fix - Duplicate accordions minor security issue fixed.

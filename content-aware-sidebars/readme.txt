@@ -4,7 +4,7 @@ Donate link: #
 Tags: custom sidebars, sidebar, classic widgets, widget, bbpress, buddypress, sidebar manager
 Requires at least: 5.5
 Requires PHP: 7.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 3.20
 License: GPLv3
 

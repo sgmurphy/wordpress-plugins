@@ -56,7 +56,7 @@ if( class_exists( 'SKELET' ) ) {
   SKELET::createSection( $prefix, array(
     'parent' => 'general_setting', // The slug id of the parent section
     'icon'  => 'fa fa-plug',
-    'title'  => 'XMP-RPC',
+    'title'  => 'Secure XMP-RPC',
     'fields' => array(
 	// A Submessage
 	array(
@@ -156,72 +156,6 @@ Back in 2013, attackers sent Pingback requests through xmlrpc.php of approximate
 
     )
   ) );
-  
-   //
-  /// sub menu 
-  SKELET::createSection( $prefix, array(
-    'parent' => 'general_setting', // The slug id of the parent section
-    'icon'  => 'fas fa-shield-virus',
-    'title'  => 'WPS Firewall',
-    'fields' => array(
-	array(
-	  'type'    => 'subheading',
-	  'content' => 'Prevent hackers to access your site. It will protect you against XSS, XXE, SQL injection, bad bots, username fishing, and more ',
-	),
-		/* Enable firewall */
-	array(
-  'type'    => 'notice',
-  'style'   => 'info',
-  'content' => 'You can find this setting and more security options in WP Security Guard plugin <a target="_blank" href="http://neatma.com/wpsg-plugin/">Lean More</a>.',
-		),
-	)
-  ) );
-
-
-  //
-  /// sub menu 
-  SKELET::createSection( $prefix, array(
-    'parent' => 'general_setting', // The slug id of the parent section
-    'icon'  => 'fas fa-comment-slash',
-    'title'  => 'Anti Spam Comments',
-    'fields' => array(
-	array(
-	  'type'    => 'subheading',
-	  'content' => 'Prevent robots to add comments to your posts with javascript method',
-	),
-		/* Enable comments antispam */
-
-	array(
-  'type'    => 'notice',
-  'style'   => 'info',
-  'content' => 'You can find this setting and more security options in WP Security Guard plugin <a target="_blank" href="http://neatma.com/wpsg-plugin/">Lean More</a>.',
-		),
-	)
-  ) );
-
-
-  
-   //
-  /// sub menu 
-  SKELET::createSection( $prefix, array(
-    'parent' => 'general_setting', // The slug id of the parent section
-    'icon'  => 'fas fa-key',
-    'title'  => 'Hide Login Page',
-    'fields' => array(
-		array(
-	  'type'    => 'subheading',
-	  'content' => 'Change your wp-login slug to anything you want and prevent robots to access it easily',
-	),
-	// A Content Field Example
-	array(
-  'type'    => 'notice',
-  'style'   => 'info',
-  'content' => 'You can find this setting and more security options in WP Security Guard plugin <a target="_blank" href="http://neatma.com/wpsg-plugin/">Lean More</a>.',
-		),
-
-	
-	)
-  ) );
 
   
      //
@@ -229,13 +163,13 @@ Back in 2013, attackers sent Pingback requests through xmlrpc.php of approximate
   SKELET::createSection( $prefix, array(
   //  'parent' => 'general_setting', // The slug id of the parent section
     'icon'  => 'fas fa-shield-alt',
-    'title'  => 'Security Settings',
+    'title'  => 'Extra Security',
     'fields' => array(
 	array(
 	  'id'      => 'json-rest-api',
 	  'type'    => 'switcher',
 	  'title'   => 'Disable JSON REST API',
-	  'desc'    => 'disable the JSON REST API for not logged in users',
+	  'desc'    => 'Disable the JSON REST API for not logged in users',
 	  'default' => false,
 	),
 	array(
@@ -272,7 +206,6 @@ Back in 2013, attackers sent Pingback requests through xmlrpc.php of approximate
   ) );
   
   
-  
 
   //
   /// top-tab 
@@ -291,7 +224,7 @@ Back in 2013, attackers sent Pingback requests through xmlrpc.php of approximate
 	  'id'      => 'hotlink-fix',
 	  'type'    => 'switcher',
 	  'title'   => 'Hotlink Fix',
-	  'desc'    => 'Disable Hotlinking and Leaching of Your Content (On means it will prevent hotlinking)',
+	  'desc'    => 'Disable Hotlinking and leaching of your Content, prevent other websites to use your images and other files on their site (works only with .htaccess)',
 	  'help'    => 'disable hotlinking of images with forbidden',
 	  'default' => false,
 	),
@@ -299,7 +232,7 @@ Back in 2013, attackers sent Pingback requests through xmlrpc.php of approximate
 	  'id'      => 'remove-emojis',
 	  'type'    => 'switcher',
 	  'title'   => 'Remove built in emojis',
-	  'desc'    => 'If you dont use emojis you can diable it in here',
+	  'desc'    => 'This option will disbale default wordpress emojis',
 	  'default' => true,
 	  
 	),
@@ -307,7 +240,7 @@ Back in 2013, attackers sent Pingback requests through xmlrpc.php of approximate
 	  'id'      => 'remove-rss',
 	  'type'    => 'switcher',
 	  'title'   => 'Remove RSS and RSD',
-	  'desc'    => 'RSS is outdated technology and should be removed',
+	  'desc'    => 'This option will disable RSS and RSD on your website',
 	  'default' => false,
 	  
 	),

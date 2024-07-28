@@ -78,6 +78,10 @@ class General extends Widget_Base {
 		$this->add_skin( new Skins\Skin_Meteor( $this ) );
 	}
 
+	protected function is_dynamic_content(): bool {
+		return false;
+	}
+
 	protected function register_controls() {
 		$reveal_effects = prime_slider_option( 'reveal-effects', 'prime_slider_other_settings', 'off' );
 
@@ -763,6 +767,20 @@ class General extends Widget_Base {
 				'default'   => '',
 				'selectors' => [ 
 					'{{WRAPPER}} .bdt-prime-slider-skin-slide .bdt-slide-shape' => 'background: {{VALUE}};',
+				],
+				'condition' => [ 
+					'_skin' => 'slide',
+				],
+			]
+		);
+		$this->add_control(
+			'secondary_shape_color',
+			[ 
+				'label'     => __( 'Secondary Shape Color', 'bdthemes-prime-slider' ) . BDTPS_CORE_NC,
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => [ 
+					'{{WRAPPER}} .bdt-prime-slider-skin-slide:after' => 'background: {{VALUE}};',
 				],
 				'condition' => [ 
 					'_skin' => 'slide',

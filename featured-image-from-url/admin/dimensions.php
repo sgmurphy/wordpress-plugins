@@ -114,6 +114,11 @@ function fifu_image_downsize($out, $att_id, $size) {
             $FIFU_SESSION['cdn-new-old'][$new_url] = $original_image_url;
             return array($new_url, $new_width, $new_height, false);
         } else {
+            if (is_front_page() || is_home()) {
+                if (isset($FIFU_SESSION['cdn-new-old']) && !empty($FIFU_SESSION['cdn-new-old']))
+                    return $out;
+            }
+
             // Save dimensions
             fifu_sizes_schedule_task($image_url, $att_id);
 

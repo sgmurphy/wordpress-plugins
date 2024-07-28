@@ -1,16 +1,19 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
 <div class="wrap fma" style="background:#fff; padding: 20px; border:1px solid #ccc;">
-<h3><?php _e('Shortcodes','file-manager-advanced')?> <a href="https://advancedfilemanager.com/documentation/" class="button" target="_blank"><?php _e('Documentation','file-manager-advanced')?></a></h3> 
+<h3><?php _e('Shortcodes','file-manager-advanced')?> <a href="https://advancedfilemanager.com/documentation/" class="button" target="_blank">
+    
+<?php _e('Documentation','file-manager-advanced')?></a>
+
+</h3> 
 <?php echo class_fma_admin_menus::shortcodeUpdateNotice();?>
 <?php if(class_exists('file_manager_advanced_shortcode')) { ?>
-<div id="setting-error-settings_updated" class="updated settings-error notice">
-<p><strong><?php _e('Congratulations,','file-manager-advanced')?> </strong><?php _e('You have Installed Advanced File Manager Shortcode Successfully. Start working with shortcode.','file-manager-advanced')?></p>
-</div>
+    <div id="setting-error-settings_updated" class="updated settings-error notice">
+    <p><strong><?php _e('Congratulations,','file-manager-advanced')?> </strong><?php _e('You have Installed Advanced File Manager Shortcode Successfully. Start working with shortcode.','file-manager-advanced')?></p>
+    </div>
 <?php } else { ?>
-<div id="setting-error-settings_updated" class="error settings-error notice">
-<p style="color:red"><strong><?php _e('This is Pro Feature of Advanced File Manager, Please Buy <a href="https://advancedfilemanager.com/pricing" target="_blank">Advanced File Manager Shortcode</a> Addon to make shortcode work for frontend. <a href="https://advancedfilemanager.com/pricing" target="_blank" class="button button-primary">Buy Now</a>','file-manager-advanced')?></strong></p>
-</div>
-<?php } ?>
+    <div id="setting-error-settings_updated" class="error settings-error notice">
+    <p style="color:red"><strong><?php _e('This is Pro Feature of Advanced File Manager, Please Buy <a href="https://advancedfilemanager.com/pricing" target="_blank">Advanced File Manager Shortcode</a> Addon to make shortcode work for frontend. <a href="https://advancedfilemanager.com/pricing" target="_blank" class="button button-primary">Buy Now</a>','file-manager-advanced')?></strong></p>
+    </div>
 <h3><?php _e('Shortcode Addon Demo:', 'file-manager-advanced'); ?></h3>
 <p><?php _e('If you want to check the demo of shortcode addon then click on link given below.', 'file-manager-advanced');?></p>
 <a href="https://advancedfilemanager.com/shortcode-demo/" target="_blank" class="">Click here for demo</a>
@@ -210,4 +213,5 @@
 	</tr>
 	<?php } ?>
 </table>
+<?php } ?>
 </div>

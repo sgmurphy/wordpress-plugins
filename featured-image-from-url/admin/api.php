@@ -810,7 +810,6 @@ function fifu_enable_fake_api(WP_REST_Request $request) {
 }
 
 function fifu_disable_fake_api(WP_REST_Request $request) {
-    update_option('fifu_fake_created', false, 'no');
     update_option('fifu_fake_stop', true, 'no');
     return json_encode(array());
 }
