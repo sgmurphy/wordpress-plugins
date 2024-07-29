@@ -1,3 +1,7 @@
+Version 1.0.55 - Monday, 29th July 2024
+- Improvement: "Advanced Custom Fields" - Fixed "Any Field" issue for "Field Updated on Post" Trigger
+- Improvement: "Presto Player" - Fixed fetch data issue for Trigger response and added new Action
+
 Version 1.0.54 - Friday, 26th July 2024
 - Improvement: "Advanced Custom Fields" - Fixed issue and enhanced "Field Updated on Post" Trigger
 - Improvement: "The Events Calendar" - Added two new Triggers

@@ -13,7 +13,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Aruba HiSpeed Cache
- * Version:           2.0.11
+ * Version:           2.0.12
  * Plugin URI:        https://hosting.aruba.it/wordpress.aspx
  *
  * @phpcs:ignore Generic.Files.LineLength.TooLong
@@ -23,10 +23,9 @@
  * Text Domain:       aruba-hispeed-cache
  * Domain Path:       languages
  * License:           GPL v3
- * Requires at least: 5.4
- * Tested up to:      6.5
+ * Tested up to:      6.6
  * Requires PHP:      5.6
- *
+ * Requires at least: 5.4
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -230,10 +229,11 @@ add_action( 'wp_ajax_ahcs_clear_cache',  'ahsc_tool_bar_purge' , 100 );
  * @SuppressWarnings(PHPMD.ElseExpression)
  */
 function ahsc_tool_bar_purge() {
+if(is_user_logged_in() && current_user_can( 'edit_posts' ) && isset( $_POST['ahsc_nonce'] )){
 
-	if ( isset( $_POST['ahsc_nonce'] ) && ! \wp_verify_nonce( \sanitize_text_field( \wp_unslash( $_POST['ahsc_nonce'] ) ), 'ahsc-purge-cache' ) ) {
+	if ( ! \wp_verify_nonce( \sanitize_text_field( \wp_unslash( $_POST['ahsc_nonce'] ) ), 'ahsc-purge-cache' ) ) {
 		wp_die( wp_json_encode( AHSC_AJAX['security_error'] ) );
-	}
+	}else{
 
 	$cleaner= new \ArubaSPA\HiSpeedCache\Purger\WpPurger() ;
 	$cleaner->setPurger( AHSC_PURGER );
@@ -249,9 +249,12 @@ function ahsc_tool_bar_purge() {
 		// Don't forget to stop execution afterward.
 		wp_die( wp_json_encode( AHSC_AJAX['success']) );
 	}
-
 	// Don't forget to stop execution afterward.
 	wp_die( wp_json_encode(  AHSC_AJAX['warning'] ) );
+    }
+}else{
+    wp_die( wp_json_encode( AHSC_AJAX['security_error'] ) );
+}
 }
 
 if(is_multisite()){

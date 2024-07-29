@@ -176,12 +176,16 @@ final class Plugin {
 	/**
 	 * Initialize the list of compare products
 	 *
+	 * @param bool $force Force initialization
+	 *
 	 * @return void
 	 */
-	public function initialize_list() {
-		$this->list = new Compare_List();
+	public function initialize_list( $force = false ) {
+		if ( ! $this->list || $force ) {
+			$this->list = new Compare_List();
 
-		$this->list->init();
+			$this->list->init();
+		}
 	}
 
 	/**
@@ -195,7 +199,7 @@ final class Plugin {
 		$this->list->empty( $reset_db );
 
 		if ( $reset_db ) {
-			$this->initialize_list();
+			$this->initialize_list( true );
 		}
 	}
 

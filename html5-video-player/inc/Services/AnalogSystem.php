@@ -23,6 +23,8 @@ class AnalogSystem{
 
     static function parsePlaylistData($id){
         $videos = self::get_videos($id, 'h5vp_playlist', []);
+        $meta = get_post_meta($id, 'h5vp_playlist', true);
+        $options_meta = get_post_meta($id, 'h5vp_playlist_options', true);
         //GPM = get playlist metadat
         $controls = [
             'play-large' => self::GPM($id, 'h5vp_hide_large_play_btn', 'show'),
@@ -53,6 +55,7 @@ class AnalogSystem{
             'seekTime' => (int)self::GPM($id, 'h5vp_seek_time_playerio', '10'),
             'hideControls' => (boolean)self::GPM($id, 'h5vp_auto_hide_control_playerio', '1', true),
             'resetOnEnd' => true,
+            'autoplayNextVideo' => $options_meta['h5vp_play_nextvideo'] === 'yes' ?? false,
         ];
 
         return [
@@ -61,14 +64,16 @@ class AnalogSystem{
             'videos' => $videos,
             'styles' => [
                 'h5vp_playlist_container' => [
-                    'background' =>self::GPML($id, 'listbg', '#fff')
+                    // 'background' =>self::GPML($id, 'listbg', '#fff'),
+                    'width' => $options_meta['h5vp_player_width_playerio'] ? $options_meta['h5vp_player_width_playerio'].'px' : '100%',
+                    'max-width' => '100%'
                 ],
-                'video-block__title' => [
-                    'color' =>self::GPML($id, 'text_color', '#333')
-                ],
-                'video-block__content' => [
-                    'color' =>self::GPML($id, 'text_color', '#333')
-                ]
+                // 'video-block__title' => [
+                //     'color' =>self::GPML($id, 'text_color', '#333')
+                // ],
+                // 'video-block__content' => [
+                //     'color' =>self::GPML($id, 'text_color', '#333')
+                // ]
             ]
         ];
     }
@@ -76,8 +81,8 @@ class AnalogSystem{
     public static function parseArgs($data){
         $default = DefaultArgs::get();
         $data['options'] = wp_parse_args( $data['options'], $default['options'] );
-        $infos = wp_parse_args( $infos, $default['infos'] );
-        $template = wp_parse_args( $template, $default['template'] );
+        $infos = wp_parse_args( $data['infos'], $default['infos'] );
+        $template = wp_parse_args( $data['template'], $default['template'] );
 
         return wp_parse_args( $data, $default );
     }
@@ -114,7 +119,7 @@ class AnalogSystem{
             'progress' => self::get_post_meta($id, 'h5vp_hide_video_progressbar', 'show'),
             'current-time' => self::get_post_meta($id, 'h5vp_hide_current_time', 'show'),
             'duration' => self::get_post_meta($id, 'h5vp_hide_video_duration', 'mobile'),
-            'mute' => self::get_post_meta($id, 'h5vp_hide_mute_btn', 'show') ,
+            'mute' => self::get_post_meta($id, 'h5vp_hide_mute_btn', 'show'),
             'volume' => self::get_post_meta($id, 'h5vp_hide_volume_control', 'show'),
             'captions' => 'show',
             'settings' => self::get_post_meta($id, 'h5vp_hide_Setting_btn', 'show'),
@@ -130,9 +135,7 @@ class AnalogSystem{
                 array_push($final_controls, $key);
             }
         }
-
-
-
+        
         $chapters = self::get_post_meta($id, 'h5vp_chapters', []);
 
         $markers = [];
@@ -207,6 +210,7 @@ class AnalogSystem{
         ];
 
         $branding_logo = get_post_meta($id,'h5vp_overlay_logo', true);
+        
         $template = array(
             'branding' => (boolean)get_post_meta($id,'h5vp_enable_overlay', true),
             'branding_type' => get_post_meta($id,'h5vp_overlay_type', true) === '1' ? 'text' : 'logo',
@@ -300,7 +304,12 @@ class AnalogSystem{
                     'btnStyle' => [],
                 ],
                 'playWhenVisible' => false,
-                'hideLoadingPlaceholder' => self::get_post_meta($id, 'h5vp_hide_loading_placeholder', false)
+                'hideLoadingPlaceholder' => self::get_post_meta($id, 'h5vp_hide_loading_placeholder', false),
+                'passwordProtected' => [
+                    'enabled' => self::get_post_meta($id, 'h5vp_password_protected', false) == '1'? true : false,
+                    'key' => "propagans_$id",
+                    'heading' => self::get_post_meta($id, 'h5vp_protected_password_text', ''),
+                ]
             ],
             'data' => [
                 
@@ -324,6 +333,12 @@ class AnalogSystem{
                 ]
             ]
         ]); 
+
+        $finalData['styles'] = wp_parse_args($finalData['styles'], [
+            'plyr--video' => [
+                    '--plyr-color-main' => DefaultArgs::brandColor()
+                ],
+            ]);
 
         return $finalData;
     }

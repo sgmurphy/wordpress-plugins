@@ -335,6 +335,93 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
                 ],
             ]
         );
+            $this->add_responsive_control(
+                'video_button_height',
+                [
+                    'label' => __( 'Height', 'htmega-addons' ),
+                    'type' => Controls_Manager::NUMBER,
+                    'default' => '',
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-player-container .magnify-video-active' => 'height: {{VALUE}}px;',
+                    ],
+                ]
+            );
+            $this->add_responsive_control(
+                'video_button_width',
+                [
+                    'label' => __( 'Width', 'htmega-addons' ),
+                    'type' => Controls_Manager::NUMBER,
+                    'default' => '',
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-player-container .magnify-video-active' => 'width: {{VALUE}}px;',
+                    ],
+                ]
+            );
+            $this->add_responsive_control(
+                'video_button_fontsize',
+                [
+                    'label' => __( 'Font Size', 'htmega-addons' ),
+                    'type' => Controls_Manager::SLIDER,
+                    'size_units' => [ 'px', '%' ],
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        '%' => [
+                            'min' => 0,
+                            'max' => 100,
+                        ],
+                    ],
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 40,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-player-container .magnify-video-active' => 'font-size: {{SIZE}}{{UNIT}};',
+                        '{{WRAPPER}} .htmega-player-container .magnify-video-active svg' => 'width: {{SIZE}}{{UNIT}};',
+                    ],
+                ]
+            );
+
+
+            $this->add_responsive_control(
+                'video_button_margin',
+                [
+                    'label' => __( 'Margin', 'htmega-addons' ),
+                    'type' => Controls_Manager::DIMENSIONS,
+                    'size_units' => [ 'px', '%', 'em' ],
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-player-container .magnify-video-active' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                        '{{WRAPPER}} .htmega-player-container .magnify-video-active svg' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                    'separator' =>'before',
+                ]
+            );
+
+            $this->add_responsive_control(
+                'video_button_padding',
+                [
+                    'label' => __( 'Padding', 'htmega-addons' ),
+                    'type' => Controls_Manager::DIMENSIONS,
+                    'size_units' => [ 'px', '%', 'em' ],
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-player-container .magnify-video-active' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                    'separator' =>'before',
+                ]
+            );
+
+
+            $this->add_control(
+                'color_border_heading',
+                [
+                    'label' => __( 'Colors and Border', 'htmega-addons' ),
+                    'type' => Controls_Manager::HEADING,
+                    'separator' => 'before',
+                ]
+            );
             $this->start_controls_tabs('video_button_style_tabs');
                 $this->start_controls_tab(
                     'video_button_style_normal_tab',
@@ -366,81 +453,12 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
                     ]
                 );
 
-                $this->add_control(
-                    'video_button_fontsize',
-                    [
-                        'label' => __( 'Font Size', 'htmega-addons' ),
-                        'type' => Controls_Manager::SLIDER,
-                        'size_units' => [ 'px', '%' ],
-                        'range' => [
-                            'px' => [
-                                'min' => 0,
-                                'max' => 100,
-                                'step' => 1,
-                            ],
-                            '%' => [
-                                'min' => 0,
-                                'max' => 100,
-                            ],
-                        ],
-                        'default' => [
-                            'unit' => 'px',
-                            'size' => 40,
-                        ],
-                        'selectors' => [
-                            '{{WRAPPER}} .htmega-player-container .magnify-video-active' => 'font-size: {{SIZE}}{{UNIT}};',
-                            '{{WRAPPER}} .htmega-player-container .magnify-video-active svg' => 'width: {{SIZE}}{{UNIT}};',
-                        ],
-                    ]
-                );
-
-                $this->add_responsive_control(
-                    'video_button_margin',
-                    [
-                        'label' => __( 'Margin', 'htmega-addons' ),
-                        'type' => Controls_Manager::DIMENSIONS,
-                        'size_units' => [ 'px', '%', 'em' ],
-                        'selectors' => [
-                            '{{WRAPPER}} .htmega-player-container .magnify-video-active' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                            '{{WRAPPER}} .htmega-player-container .magnify-video-active svg' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                        ],
-                        'separator' =>'before',
-                    ]
-                );
-
-                $this->add_responsive_control(
-                    'video_button_padding',
-                    [
-                        'label' => __( 'Padding', 'htmega-addons' ),
-                        'type' => Controls_Manager::DIMENSIONS,
-                        'size_units' => [ 'px', '%', 'em' ],
-                        'selectors' => [
-                            '{{WRAPPER}} .htmega-player-container .magnify-video-active' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                        ],
-                        'separator' =>'before',
-                    ]
-                );
-
                 $this->add_group_control(
                     Group_Control_Border::get_type(),
                     [
                         'name' => 'video_button_border',
                         'label' => __( 'Border', 'htmega-addons' ),
                         'selector' => '{{WRAPPER}} .htmega-player-container .magnify-video-active',
-                    ]
-                );
-                $this->add_control(
-                    'video_button_animation_color',
-                    [
-                        'label' => __( 'Animation Border Color', 'htmega-addons' ),
-                        'type' => Controls_Manager::COLOR,
-                        'default' => '#ffffff',
-                        'selectors' => [
-                            '{{WRAPPER}} .htmega-video-mark .htmega-wave-pulse::after, {{WRAPPER}} .htmega-video-mark .htmega-wave-pulse::before' => 'border-color: {{VALUE}};',
-                        ],
-                        'condition' =>[
-                            'controleranimation' =>'yes',
-                        ],
                     ]
                 );
                 $this->add_responsive_control(
@@ -453,7 +471,7 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
                         ],
                     ]
                 );
-
+                
             $this->end_controls_tab();// Normal Tab
 
             // Hover Tab
@@ -504,6 +522,53 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
                 );
 
             $this->end_controls_tabs(); // Hover tab end
+        $this->end_controls_section();
+        // Button animation style
+        $this->start_controls_section(
+            'video_button_animate_style',
+            [
+                'label' => __( 'Button Animation', 'htmega-addons' ),
+                'tab' => Controls_Manager::TAB_STYLE,
+                'condition' =>[
+                    'videocontainer' =>'popup',
+                    'controleranimation' =>'yes',
+                ],
+            ]
+        );
+        $this->add_control(
+            'video_button_animation_color',
+            [
+                'label' => __( 'Border Color', 'htmega-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#ffffff',
+                'selectors' => [
+                    '{{WRAPPER}} .htmega-video-mark .htmega-wave-pulse::after, {{WRAPPER}} .htmega-video-mark .htmega-wave-pulse::before' => 'border-color: {{VALUE}};',
+                ],
+            ]
+        );
+        $this->add_responsive_control(
+            'video_animate_circle_range',
+            [
+                'label' => __( 'Circle Range', 'htmega-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => [ 'px' ],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 1000,
+                        'step' => 1,
+                    ],
+                ],
+                'default' => [
+                    'unit' => 'px',
+                    'size' => 200,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .htmega-video-mark .htmega-wave-pulse::after, 
+                    {{WRAPPER}} .htmega-video-mark .htmega-wave-pulse::before' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
         $this->end_controls_section();
     }
 

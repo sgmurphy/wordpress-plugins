@@ -52,8 +52,22 @@ class VideoTemplate{
 
             } 
         }
+
+        
+        unset($data['features']['passwordProtected']['password']);
+        if($data['features']['passwordProtected']['enabled'] ?? null){
+            unset($data['quality']);
+            unset($data['qualities']);
+            $data['source'] = 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4';
+            
+        }
         
         ob_start();
+
+        // echo '<pre>';
+        // print_r( $data['styles'] );
+        // echo '</pre>';
+        // echo "working fine";
         ?>
 
         <div class='html5_video_players' style="width:<?php echo esc_attr($data['styles']['plyr_wrapper']['width'] ?? '100%') ?>;" data-nonce="<?php echo esc_attr(wp_create_nonce('wp_ajax')) ?>" data-attributes="<?php echo esc_attr(wp_json_encode($data)) ?>">

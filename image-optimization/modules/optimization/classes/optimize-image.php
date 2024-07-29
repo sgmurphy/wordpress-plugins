@@ -12,11 +12,11 @@ use ImageOptimization\Classes\Image\{
 	Exceptions\Invalid_Image_Exception,
 	Image,
 	Image_Backup,
+	Image_Conversion,
 	Image_DB_Update,
 	Image_Meta,
 	Image_Status,
-	WP_Image_Meta
-};
+	WP_Image_Meta};
 use ImageOptimization\Classes\Logger;
 use ImageOptimization\Classes\Utils;
 use ImageOptimization\Classes\Exceptions\Quota_Exceeded_Error;
@@ -51,9 +51,9 @@ class Optimize_Image {
 	protected ?string $bulk_token;
 	private string $current_image_path;
 	private string $current_image_size;
-	private bool $convert_to_webp;
 	private bool $keep_backups;
 	private array $current_size_duplicates;
+	protected Image_Conversion $image_conversion;
 
 	/**
 	 * @throws Quota_Exceeded_Error|Bulk_Token_Expired_Error|Image_File_Already_Exists_Error|Image_Optimization_Error
@@ -170,7 +170,7 @@ class Optimize_Image {
 
 		$optimization_options = [
 			'compression_level' => Settings::get( Settings::COMPRESSION_LEVEL_OPTION_NAME ),
-			'convert_to_webp' => $this->convert_to_webp,
+			'convert_to_format' => $this->image_conversion->get_current_conversion_option(),
 			'strip_exif' => Settings::get( Settings::STRIP_EXIF_METADATA_OPTION_NAME ),
 		];
 
@@ -236,16 +236,16 @@ class Optimize_Image {
 
 		File_System::put_contents( $tmp_path, $file_data );
 
-		if ( $this->convert_to_webp ) {
-			$webp_path = File_Utils::replace_extension( $tmp_path, 'webp' );
-			$original_file_is_webp = strtolower( $path ) === strtolower( $webp_path );
+		if ( $this->image_conversion->is_enabled() ) {
+			$converted_path = File_Utils::replace_extension( $tmp_path, $this->image_conversion->get_current_file_extension() );
+			$original_is_already_converted = strtolower( $path ) === strtolower( $converted_path );
 
-			if ( ! $original_file_is_webp && File_System::exists( $webp_path ) ) {
+			if ( ! $original_is_already_converted && File_System::exists( $converted_path ) ) {
 				throw new Image_File_Already_Exists_Error();
 			}
 
 			// We want to keep both original as a fallback and optimized webp to prevent 404s
-			if ( ! $original_file_is_webp ) {
+			if ( ! $original_is_already_converted ) {
 				$this->keep_backups = true;
 
 				( new Image_Meta( $this->image->get_id() ) )
@@ -253,13 +253,13 @@ class Optimize_Image {
 					->save();
 			}
 
-			if ( $original_file_is_webp ) {
+			if ( $original_is_already_converted ) {
 				Image_Backup::create( $this->image->get_id(), $this->current_image_size, $this->current_image_path );
 			}
 
-			File_System::move( $tmp_path, $webp_path, true );
+			File_System::move( $tmp_path, $converted_path, true );
 
-			$path = $webp_path;
+			$path = $converted_path;
 		} else {
 			Image_Backup::create( $this->image->get_id(), $this->current_image_size, $this->current_image_path );
 
@@ -283,11 +283,15 @@ class Optimize_Image {
 	private function update_attachment_post() {
 		$update_query = [];
 
-		if ( $this->convert_to_webp ) {
+		if ( $this->image_conversion->is_enabled() ) {
 			$attachment_object = $this->image->get_attachment_object();
 
-			$update_query['guid'] = File_Utils::replace_extension( $attachment_object->guid, 'webp' );
-			$update_query['post_mime_type'] = 'image/webp';
+			$update_query['guid'] = File_Utils::replace_extension(
+				$attachment_object->guid,
+				$this->image_conversion->get_current_file_extension()
+			);
+
+			$update_query['post_mime_type'] = $this->image_conversion->get_current_mime_type();
 		}
 
 		$update_query['post_modified'] = current_time( 'mysql' );
@@ -321,10 +325,10 @@ class Optimize_Image {
 				->set_height( $size, $height )
 				->set_file_size( $size, $optimized_size );
 
-			if ( $this->convert_to_webp ) {
+			if ( $this->image_conversion->is_enabled() ) {
 				$this->wp_meta
 					->set_file_path( $size, $this->current_image_path )
-					->set_mime_type( $size, 'image/webp' );
+					->set_mime_type( $size, $this->image_conversion->get_current_mime_type() );
 			}
 		}
 
@@ -368,7 +372,7 @@ class Optimize_Image {
 		$this->wp_meta = new WP_Image_Meta( $image_id, $this->image );
 		$this->initiator = $initiator;
 		$this->bulk_token = $bulk_token;
-		$this->convert_to_webp = Settings::get( Settings::CONVERT_TO_WEBP_OPTION_NAME );
+		$this->image_conversion = new Image_Conversion();
 		$this->keep_backups = Settings::get( Settings::BACKUP_ORIGINAL_IMAGES_OPTION_NAME );
 	}
 }

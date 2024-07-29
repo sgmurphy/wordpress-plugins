@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.24
+Stable tag: 5.2.25
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.25 =
+
+* Modifies the checkbox behavior when one choice is entered as the maximum number of choices to select allowed.
+* Display a frame with invalid validation rules to allow identifying the hidden fields that fail.
+* Fixes an issue by selecting the fields for notification emails.
+
 = 5.2.24 =
 
 * Adds new predefined form templates.
@@ -479,10 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Identifies fields with col-... or column... class names assigned with a top-right icon.
 * Improves the admin appearance of data-table control.
 * Adds new form templates for storage requirements and booking.
-
-= 5.2.19 =
-
-* Enhances the CSS edition.
-* Allows controlling the design of the DIV tags that contain the fields' components.
-* Fixes a minor issue in the CSS rules applied to the form title and description.
-* Introduces new form templates for the Pay Raise Percent Calculator and Life Insurance Calculator.

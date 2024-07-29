@@ -3,7 +3,7 @@ Contributors: mekshq
 Donate link: https://mekshq.com/
 Tags: social, icons, widget, linkedin, reddit, vimeo, dribble, instagram, pinterest
 Requires at least: 3.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.6.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html

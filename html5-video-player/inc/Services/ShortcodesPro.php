@@ -6,6 +6,7 @@ use H5VP\Services\QuickPlayerTemplate;
 use H5VP\Services\AnalogSystem;
 use H5VP\Services\AdvanceSystem;
 use H5VP\Helper\Functions as Utils;
+use H5VP\Helper\DefaultArgs;
 
 
 class Shortcodes{
@@ -30,7 +31,9 @@ class Shortcodes{
     $isGutenberg = get_post_meta($id, 'isGutenberg', true);
 
     ob_start(); 
+
     
+   try {
     if($post_type !== 'videoplayer'){
       return false;
     }
@@ -39,6 +42,12 @@ class Shortcodes{
     }else {
       echo AnalogSystem::html($id);
     }
+   } catch (\Throwable $th) {
+    throw $th->getMessage();
+   }
+
+
+  
     
     return ob_get_clean(); 
   }
@@ -84,7 +93,13 @@ class Shortcodes{
 		
     ob_start(); ?>
 
-      <div class="h5vp_playlist" data-attributes="<?php echo esc_attr(wp_json_encode($data)) ?>" data-nonce="<?php echo esc_attr(wp_create_nonce('wp_ajax')) ?>"></div>
+    <style>
+      .h5vp_playlist .plyr {
+        --plyr-color-main: <?php echo esc_attr(DefaultArgs::brandColor()); ?>;
+      }
+      </style>
+
+      <div class="h5vp_playlist"  data-attributes="<?php echo esc_attr(wp_json_encode($data)) ?>" data-nonce="<?php echo esc_attr(wp_create_nonce('wp_ajax')) ?>"></div>
 
       <?php
 

@@ -131,6 +131,16 @@
           "text": "",
           "color": "#f00"
         },
+        "passwordProtected": {
+          "enabled": false,
+          "errorMessage": "Password didn't matched",
+          "heading": "Please Entire the password to access the video",
+          "button": {
+            "text": "Access",
+            "color": "#222",
+            "backgroundColor": "#ffffffe3"
+          }
+        },
         "sticky": {
           "enabled": false,
           "position": "top_right"

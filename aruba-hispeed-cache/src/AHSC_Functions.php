@@ -24,6 +24,15 @@ function AHSC_activation( ) {
 	  }
 	  \update_site_option( AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS_NAME'] , $options );
 	  \update_site_option( 'aruba_hispeed_cache_version', AHSC_CONSTANT['ARUBA_HISPEED_CACHE_VERSION']);
+
+		AHSC_remove_htaccess();
+		if(array_key_exists('ahsc_static_cache',AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS'])){
+			if(isset(AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_static_cache'])){
+				if(AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_static_cache']){
+					AHSC_edit_htaccess();
+				}
+			}
+		}
 	}
 }
 /**

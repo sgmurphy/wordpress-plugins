@@ -2,9 +2,9 @@
 Contributors: burgersoftware
 Tags: spintech
 Requires at least: 4.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 7.0
+Stable tag: 7.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -26,11 +26,15 @@ And many more.
 
 == License ==
 
-Burger Companion WordPress plugin, Copyright (C) 2020 Burger Software
+Burger Companion WordPress plugin, Copyright (C) 2024 Burger Software
 Burger Companion WordPress plugin is licensed under the GPL3 (https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 
 == Changelog ==
+
+= 7.1 =
+* Updated Copyright
+* Tested by WordPress 6.6
 
 = 7.0 =
 * Plugin short description added

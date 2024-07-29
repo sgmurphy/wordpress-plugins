@@ -6099,7 +6099,9 @@ ul.htmega-testimonial-rating * {
     border: 0 none;
     border-radius: 100%;
     color: #18012c;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-size: 40px;
     text-align: center;
     transition: all 0.5s ease-in-out 0s;

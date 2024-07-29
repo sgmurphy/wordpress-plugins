@@ -24,7 +24,7 @@ class PlaylistTemplate{
         
         $videos = $data['template']['videos'];
         $iid = self::$uniqid;
-		
+
         ob_start();
 		?>
 		<style>
@@ -47,14 +47,14 @@ class PlaylistTemplate{
         $t = $data['template'];
         $iid = self::$uniqid;
 
-        ?>
+        ?>sdfsdfsdf
         <div>
-        <div id="<?php echo esc_attr($iid); ?>" class="h5vp_video_playlist h5vp_video_playlist_initializer <?php //echo esc_attr($t['skin']); ?>" data-options='<?php echo esc_attr(wp_json_encode($data['options'])); ?>' data-infos='<?php echo esc_attr(wp_json_encode( $data['infos'])) ?>' data-videos='<?php echo esc_attr(wp_json_encode( $videos)) ?>' videoindex="0" style="--plyr-color-main: <?php echo esc_attr($data['template']['brandColor']); ?>;">
+        <div  id="<?php echo esc_attr($iid); ?>" class="h5vp_video_playlist h5vp_video_playlist_initializer <?php //echo esc_attr($t['skin']); ?>" data-options='<?php echo esc_attr(wp_json_encode($data['options'])); ?>' data-infos='<?php echo esc_attr(wp_json_encode( $data['infos'])) ?>' data-videos='<?php echo esc_attr(wp_json_encode( $videos)) ?>' videoindex="0" style="--plyr-color-main: <?php echo esc_attr(DefaultArgs::brandColor()); ?>;">
             <!-- initialize first video start -->
             <div class="video_wrapper">
             <?php if($provider == 'library'): ?>
-            <video  preload="<?php echo esc_attr($data['template']['preload']); ?>" id="video_playlist<?php echo esc_attr($id); ?>" playsinline controls poster="<?php echo esc_attr($videos[0]['video_thumb']) ?>">
-                <source src="<?php echo esc_url($videos[0]['video_source']) ?>" type="video/mp4" videoindex="0" id="playlist<?php echo esc_attr($id); ?>" />
+            <video  preload="<?php echo esc_attr($data['template']['preload']); ?>" id="video_playlist<?php echo esc_attr($iid); ?>" playsinline controls poster="<?php echo esc_attr($videos[0]['video_thumb']) ?>">
+                <source src="<?php echo esc_url($videos[0]['video_source']) ?>" type="video/mp4" videoindex="0" id="playlist<?php echo esc_attr($iid); ?>" />
                 <!-- initialize quality -->
                 <?php
                     if(isset($videos[0]['h5vp_quality_playerio'])){

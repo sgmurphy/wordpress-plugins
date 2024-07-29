@@ -4712,17 +4712,25 @@ class GlobalSearchController {
 		$video_data = [
 			'pp_video'            => '1',
 			'pp_video_percentage' => '100',
-			'video_id'            => '1',
-			'video_title'         => 'SureTriggers Is Here 🎉 The Easiest Automation Builder WordPress Websites & Apps',
-			'video_type'          => 'youtube',
-			'video_external_id'   => '-cYbNYgylLs',
-			'video_attachment_id' => '0',
-			'video_post_id'       => '127',
-			'video_src'           => 'https://www.youtube.com/watch?v=-cYbNYgylLs',
-			'video_created_by'    => '1',
-			'video_created_at'    => '2022-11-10 00:28:25',
-			'video_updated_at'    => '2022-11-10 00:34:40',
-			'video_deleted_at'    => '',
+		];
+
+		$video_data['video'] = [
+			'id'            => '1',
+			'title'         => 'SureTriggers Is Here 🎉 The Easiest Automation Builder WordPress Websites & Apps',
+			'type'          => 'youtube',
+			'external_id'   => '-cYbNYgylLs',
+			'attachment_id' => '0',
+			'post_id'       => '127',
+			'src'           => 'https://www.youtube.com/watch?v=-cYbNYgylLs',
+			'created_by'    => '1',
+			'created_at'    => '2022-11-10 00:28:25',
+			'updated_at'    => '2022-11-10 00:34:40',
+			'deleted_at'    => '',
+		];
+
+		$video_data['media']['tag'] = [
+			'Demo',
+			'Demo1',
 		];
 
 		$mediahub_data = [
@@ -4739,33 +4747,43 @@ class GlobalSearchController {
 		$videos = ( new Video() )->all();
 
 		if ( count( $videos ) > 0 ) {
-			$video_id = $data['filter']['pp_video']['value'];
-			if ( -1 === $video_id ) {
-				$args     = [
-					'numberposts' => 1,
-					'orderby'     => 'rand',
-					'post_type'   => 'pp_video_block',
-				];
-				$posts    = get_posts( $args );
-				$video_id = $posts[0]->ID;
-			}
-			$video_data['video'] = ( new Video( $video_id ) )->toArray();
-			if ( is_array( $video_data ) && array_key_exists( 'video_post_id', $video_data ) ) {
-				$mediahub_data = WordPress::get_post_context( (int) $video_data['video_post_id'] );
-				$media_tags    = get_the_terms( (int) $video_data['video_post_id'], 'pp_video_tag' );
-				if ( ! empty( $media_tags ) && is_array( $media_tags ) && isset( $media_tags[0] ) ) {
-					$tag_name = [];
-					foreach ( $media_tags as $tag ) {
-						$tag_name[] = $tag->name;
+			if ( ! empty( $data['filter'] ) ) {
+				$video_id = $data['filter']['pp_video']['value'];
+				if ( -1 === $video_id ) {
+					global $wpdb;
+					$args                 = [
+						'numberposts' => 1,
+						'orderby'     => 'rand',
+						'order'       => 'ASC',
+						'post_type'   => 'pp_video_block',
+					];
+					$posts                = get_posts( $args );
+					$presto_post_video_id = $posts[0]->ID;
+					$presto_video_id      = $wpdb->get_var( $wpdb->prepare( 'SELECT * FROM wp_presto_player_videos WHERE post_id = %d', $presto_post_video_id ) );
+					$video_id             = $presto_video_id;
+				}
+				$pp_videos = ( new Video( $video_id ) )->toArray();
+				if ( ! empty( $pp_videos ) ) {
+					$video_data          = [];
+					$video_data['video'] = $pp_videos;
+					if ( is_array( $video_data ) && array_key_exists( 'post_id', $video_data['video'] ) ) {
+						$mediahub_data = WordPress::get_post_context( (int) $video_data['video']['post_id'] );
+						$media_tags    = get_the_terms( (int) $video_data['video']['post_id'], 'pp_video_tag' );
+						if ( ! empty( $media_tags ) && is_array( $media_tags ) && isset( $media_tags[0] ) ) {
+							$tag_name = [];
+							foreach ( $media_tags as $tag ) {
+								$tag_name[] = $tag->name;
+							}
+							$video_data['media']['tag'] = $tag_name;
+						}
 					}
-					$video_data['media']['tag'] = $tag_name;
+					$video_data['pp_video']            = $video_id;
+					$video_data['pp_video_percentage'] = isset( $data['filter']['pp_video_percentage']['value'] ) ? $data['filter']['pp_video_percentage']['value'] : '100';
+					$user_data                         = WordPress::get_user_context( (int) $video_data['video']['created_by'] );
+	
+					$context['response_type'] = 'live';
 				}
 			}
-			$video_data['pp_video']            = $video_id;
-			$video_data['pp_video_percentage'] = isset( $data['filter']['pp_video_percentage']['value'] ) ? $data['filter']['pp_video_percentage']['value'] : '100';
-			$user_data                         = WordPress::get_user_context( (int) $video_data['video_created_by'] );
-
-			$context['response_type'] = 'live';
 		}
 
 		$context['pluggable_data'] = array_merge( $user_data, $video_data, $mediahub_data );
@@ -11829,7 +11847,7 @@ class GlobalSearchController {
 		$post_id            = $data['dynamic']['wp_post'];
 		$selected_post_type = $data['dynamic']['wp_post_type'];
 
-		if ( '-1' === $post_id ) {
+		if ( -1 === $post_id ) {
 			$args    = [
 				'numberposts' => 1,
 				'fields'      => 'ids',

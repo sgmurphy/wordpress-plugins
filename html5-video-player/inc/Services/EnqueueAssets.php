@@ -65,7 +65,8 @@ class EnqueueAssets {
                 'ajaxUrl' => admin_url('admin-ajax.php'),
                 'website' => site_url(),
                 'email' => get_option('admin_email'),
-                'isPipe' => h5vp_fs()->can_use_premium_code()
+                'isPipe' => h5vp_fs()->can_use_premium_code(),
+                'nonce' => wp_create_nonce('wp_ajax')
             ));
         }
 

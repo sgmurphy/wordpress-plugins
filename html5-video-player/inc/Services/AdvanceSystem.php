@@ -1,11 +1,8 @@
 <?php
 namespace H5VP\Services;
-// require_once(__DIR__.'/../Model/Block.php');
-// require_once(__DIR__.'/VideoTemplate.php');
-// require_once(__DIR__.'/../Helper/DefaultArgs.php');
 use H5VP\Model\Block;
+use H5VP\Helper\Functions as Utils;
 use H5VP\Helper\DefaultArgs;
-use H5VP\Services\VideoTemplate;
 
 class AdvanceSystem{
 
@@ -154,6 +151,11 @@ class AdvanceSystem{
             'template' => $template,
             'uniqueId' => self::i($block, 'uniqueId', '', 'LSDK'),
             'CSS' => self::i($block, 'CSS', '', ''),
+            'styles' => [
+                'plyr--video' => [
+                    '--plyr-color-main' => DefaultArgs::brandColor()
+                ],
+            ]
         ];
 
         return $result;
@@ -199,4 +201,6 @@ class AdvanceSystem{
         sort($newSpeed);
         return $newSpeed;
     }
+
+    
 }

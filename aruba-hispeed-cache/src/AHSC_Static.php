@@ -1,12 +1,12 @@
 <?php
 if(array_key_exists('ahsc_static_cache',AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS'])){
-	if(isset(AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_static_cache'])){
-		if(AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_static_cache']){
-			add_action( 'admin_init', 'AHSC_edit_htaccess' );
-		}else{
-			add_action( 'admin_init', 'AHSC_remove_htaccess' );
-		}
-	}
+    if(isset(AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_static_cache'])){
+        if(AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_static_cache']){
+            add_action( 'admin_init', 'AHSC_edit_htaccess' );
+        }else{
+            add_action( 'admin_init', 'AHSC_remove_htaccess' );
+        }
+    }
 }
 $AHSC_marker='AHSC_RULES';
 
@@ -24,8 +24,8 @@ $AHSC_rules=array(
 	'ExpiresByType image/x-icon "access plus 1 week"',
 	'# HTML components (HTCs)',
 	'ExpiresByType text/x-component "access plus 1 month"',
-	'# HTML',
-	'ExpiresByType text/html "access plus 0 seconds"',
+	//'# HTML',
+	//'ExpiresByType text/html "access plus 0 seconds"',
 	'# JavaScript',
 	'ExpiresByType application/javascript "access plus 1 year"',
 	'# Manifest files',

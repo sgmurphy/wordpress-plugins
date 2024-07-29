@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-10T08:09:29+00:00\n"
+"POT-Creation-Date: 2024-07-29T06:59:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: woocommerce-product-addon\n"
@@ -469,7 +469,7 @@ msgstr ""
 #: templates/frontend/inputs/file.php:38
 #: templates/frontend/inputs/text.php:54
 #: templates/frontend/inputs/timezone.php:28
-#: templates/render-fields.php:411
+#: templates/render-fields.php:418
 msgid "%s"
 msgstr ""
 
@@ -740,18 +740,18 @@ msgstr ""
 msgid "Image Dimensions"
 msgstr ""
 
-#: classes/form.class.php:130
-#: templates/render-fields.php:75
+#: classes/form.class.php:137
+#: templates/render-fields.php:82
 msgid "Please provide data name property for %s"
 msgstr ""
 
-#: classes/form.class.php:157
-#: templates/render-fields.php:197
+#: classes/form.class.php:163
+#: templates/render-fields.php:204
 msgid "Prev"
 msgstr ""
 
-#: classes/form.class.php:158
-#: templates/render-fields.php:198
+#: classes/form.class.php:164
+#: templates/render-fields.php:205
 msgid "Next"
 msgstr ""
 
@@ -3764,8 +3764,8 @@ msgstr ""
 
 #: templates/frontend/inputs/cropper.php:28
 #: templates/frontend/inputs/file.php:28
-#: templates/render-fields.php:623
-#: templates/render-fields.php:671
+#: templates/render-fields.php:630
+#: templates/render-fields.php:678
 msgid "Select files"
 msgstr ""
 

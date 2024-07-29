@@ -3,7 +3,7 @@ Contributors: mekshq
 Donate link: https://mekshq.com/
 Tags: flickr, widget, sidebar, photos, photostream
 Requires at least: 3.0
-Tested up to: 6.3
+Tested up to: 6.6
 Stable tag: 1.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html

@@ -2,7 +2,7 @@
 Contributors: 10web
 Tags: cache, speed, optimize, performance, pagespeed, web vitals, critical css
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
 Stable tag: 2.28.13
 License: GPLv2 or later

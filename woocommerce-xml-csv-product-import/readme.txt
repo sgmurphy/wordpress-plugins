@@ -1,7 +1,7 @@
 === Import Products from any XML or CSV to WooCommerce ===
 Contributors: soflyy, wpallimport
 Requires at least: 4.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.5.3
 Requires PHP: 7.4
 License: GPLv2 or later

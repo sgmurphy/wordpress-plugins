@@ -16,6 +16,7 @@ class bt_bb_google_maps extends BT_BB_Element {
 		$class_master = 'bt_bb_map';
 		
 		$class = array( $this->shortcode, $class_master );
+		$data_override_class = array();
 		
 		if ( $el_class != '' ) {
 			$class[] = $el_class;
@@ -46,7 +47,7 @@ class bt_bb_google_maps extends BT_BB_Element {
 		if ( $api_key != '' ) {
 			wp_enqueue_script( 
 				'gmaps_api',
-				'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&loading=async&callback=window.bt_bb_init_all_maps',
+				'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&loading=async&callback=window.bt_bb_init_all_maps&libraries=marker',
 				array(),
 				false,
 				array(
@@ -57,7 +58,7 @@ class bt_bb_google_maps extends BT_BB_Element {
 		} else {
 			wp_enqueue_script( 
 				'gmaps_api',
-				'https://maps.googleapis.com/maps/api/js?v=&sensor=false&loading=async&callback=window.bt_bb_init_all_maps',
+				'https://maps.googleapis.com/maps/api/js?v=&sensor=false&loading=async&callback=window.bt_bb_init_all_maps&libraries=marker',
 				array(),
 				false,
 				array(
@@ -98,6 +99,8 @@ class bt_bb_google_maps extends BT_BB_Element {
 		} else {
 		   $content = $content_html;
 		}
+		
+		$data_override_class = [];
 
 		do_action( $this->shortcode . '_before_extra_responsive_param' );
 		foreach ( $this->extra_responsive_data_override_param as $p ) {
@@ -114,10 +117,10 @@ class bt_bb_google_maps extends BT_BB_Element {
 		
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );
 
-		$output = '<div class="' . esc_attr( $this->shortcode ) . '_map ' . esc_attr( $class_master ) . '_map" id="' . esc_attr( $map_id ) . '" data-height="' . esc_attr( intval( $height ) ) . '" data-api-key="' . esc_attr( $api_key ) . '" data-map-type="' . esc_attr( $map_type ) . '" data-zoom="' . esc_attr( intval( $zoom ) ) . '" data-init-finished="false" data-custom-style="' . esc_attr( $custom_style ) . '"' . $style_height . '>';
+		$output = '<div class="' . esc_attr( $this->shortcode ) . '_map ' . esc_attr( $class_master ) . '_map" id="' . esc_attr( $map_id ) . '" data-height="' . esc_attr( intval( $height ) ) . '" data-api-key="' . esc_attr( $api_key ) . '" data-map-type="' . esc_attr( $map_type ) . '" data-zoom="' . esc_attr( intval( $zoom ) ) . '" data-init-finished="false" data-custom-style="' . esc_attr( $custom_style ) . '"' . $style_height . '">';
 		$output .= '</div>';
 		$output .= $content;
-		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-center="' . esc_attr( $center_map ) . '">' . $output . '</div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-center="' . esc_attr( $center_map ) . '" data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">' . $output . '</div>';
 
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );

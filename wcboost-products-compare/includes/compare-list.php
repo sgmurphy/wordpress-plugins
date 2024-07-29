@@ -31,10 +31,10 @@ class Compare_List {
 		} else {
 			$this->id = wc_rand_hash();
 
-			if ( did_action( 'wp_loaded' ) ) {
-				$this->load_products_from_session();
-			} else {
+			if ( ! did_action( 'wp_loaded' ) ) {
 				add_action( 'wp_loaded', [ $this, 'load_products_from_session' ] );
+			} else {
+				$this->load_products_from_session();
 			}
 		}
 	}
@@ -212,7 +212,6 @@ class Compare_List {
 		$this->items = [];
 
 		if ( $reset_db ) {
-			$this->id = '';
 			$this->delete();
 		}
 
@@ -349,7 +348,7 @@ class Compare_List {
 	 */
 	public function delete_persistent_list() {
 		if ( $this->get_id() && get_current_user_id() && apply_filters( 'wcboost_products_compare_persistent_enabled', true ) ) {
-			delete_user_meta( get_current_user_id(), '_woocommerce_persistent_cart_' . get_current_blog_id() );
+			delete_user_meta( get_current_user_id(), '_wcboost_products_compare_' . get_current_blog_id() );
 		}
 	}
 

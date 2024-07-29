@@ -24,6 +24,8 @@ class bt_bb_button extends BT_BB_Element {
 		
 		$class = array( $this->shortcode );
 		$data_override_class = array();
+		
+		$font = sanitize_text_field( $font );
 
 		if ( $font != '' && $font != 'inherit' ) {
 			require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );

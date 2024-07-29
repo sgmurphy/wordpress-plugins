@@ -234,7 +234,7 @@
 	line-height: 36px;
 	height: auto;
 	box-shadow: 0 0 0.75em 0 rgba(0,0,0,.2);
-	padding: 0 16px 0 0;
+	/*padding: 0 16px 0 0;*/
 	transition: all 270ms ease;
 	height: 40px;
 	overflow: hidden;
@@ -247,6 +247,7 @@
 		left: 50px;
 		bottom: 50px;
 		opacity: 0;
+		padding: 0 16px 0 0;
 		pointer-events: none;
 		transition: opacity .27s;
 		&:after {
@@ -255,6 +256,11 @@
 		&:before {
 			content: "\e922";
 			font-family: 'bold-builder';
+			margin-right: 10px;
+			.rtl & {
+				margin-left: 10px;
+				margin-right: 0;
+			}
 		}
 		&:hover {
 			color: #fff;
@@ -284,11 +290,11 @@
 		opacity: .7;
 		font-size: 18px;
 		z-index: 1;
-		margin-right: 10px;
+		/*margin-right: 10px;
 		.rtl & {
 			margin-left: 10px;
 			margin-right: 0;
-		}
+		}*/
 	}
 	.bt_bb_fe_preview_toggle &:not(.bt_bb_fe_preview_toggler_footer) {
 		font-size: 0;
@@ -315,8 +321,11 @@
 	opacity: 1;
 }
 
-/* == FE editor 4.0.0 == */
+.bt_bb_fe_preview_toggle .bt_bb_fe_preview_toggler_footer {
+	display: none;
+}
 
+/* == FE editor 4.0.0 == */
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_wrapper:first-child .bt_bb_section *:not(.bt_bb_fe_edit_box):not(.bt_bb_fe_before) {
 	pointer-events: none;
 }
@@ -397,8 +406,7 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_fe_editing_box > .bt_bb_fe_before {
 	display: block;
 }
 
-/* drag and drop related */
-
+/* Drag and Drop related */
 body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle) {
 	.bt_bb_column {
 		min-height: 60px;
@@ -414,6 +422,26 @@ body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle) {
 	}
 	.bt_bb_text {
 		min-height: 20px;
+	}
+	.bt_bb_row,
+	.bt_bb_row.bt_bb_fe_editing_box {
+		padding: 10px 0px;
+		> .bt_bb_fe_before {
+			margin: 0px -60px;
+		}
+	}
+	.bt_bb_row_inner:hover > .bt_bb_fe_before,
+	.bt_bb_row_inner.bt_bb_fe_editing_box > .bt_bb_fe_before {
+		margin: 0px -30px;
+		top: 0px;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+		display: block;
+	}
+	.bt_bb_row_inner,
+	.bt_bb_row_inner.bt_bb_fe_editing_box {
+		padding: 10px 0px;
 	}
 }
 
@@ -477,7 +505,6 @@ body.bt_bb_dragging:not(.bt_bb_fe_preview_toggle) .bt_bb_dragging_target_inside:
 }
 
 /* fix: bt_bb_separator */
-
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator.bt_bb_top_spacing_none.bt_bb_bottom_spacing_none.bt_bb_fe_edit_box > .bt_bb_fe_before, 
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator.bt_bb_top_spacing_none.bt_bb_bottom_spacing_none.bt_bb_fe_editing_box > .bt_bb_fe_before {
 	/*min-height: 20px;
@@ -636,7 +663,6 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_masonry_image_grid.bt_bb_fe_edit {
 }
 
 /* fix: bt_bb_slider */
-
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_slider.bt_bb_fe_edit {
     min-width: 2em;
     min-height: 2em;
@@ -825,7 +851,6 @@ body.bt_bb_fe_dialog_on:not(.bt_bb_fe_preview_toggle) #bt_bb_fe_dialog {
 }
 
 /* Scrollbar styling */
-
 #bt_bb_fe_dialog_main #bt_bb_fe_dialog_content::-webkit-scrollbar {
 	background-color: rgba(0,0,0,0.1);
 	width: 12px;
@@ -846,7 +871,6 @@ body.bt_bb_fe_dialog_on:not(.bt_bb_fe_preview_toggle) #bt_bb_fe_dialog {
 }
 
 /* Add elements */
-
 #bt_bb_fe_add_elements {
 	position: fixed;
     z-index: 100;
@@ -864,11 +888,13 @@ body.bt_bb_fe_dialog_on:not(.bt_bb_fe_preview_toggle) #bt_bb_fe_dialog {
     opacity: 1;
 }
 
-.bt_bb_fe_preview_toggle #bt_bb_fe_add_elements {
-	opacity: 0;
-	pointer-events: none;
+.bt_bb_fe_preview_toggle {
+	:any(#bt_bb_fe_undo,#bt_bb_fe_redo,#bt_bb_fe_add_elements) {
+		opacity: 0 !important;
+		pointer-events: none !important;
+	}
+	
 }
-
 #bt_bb_fe_add_elements:before {
 	content: '\f067';
 	font-family: FontAwesome;
@@ -887,7 +913,6 @@ body.bt_bb_fe_dialog_on:not(.bt_bb_fe_preview_toggle) #bt_bb_fe_dialog {
 }
 
 /* Add Section */
-
 #bt_bb_fe_add_section {
 	position: fixed;
     z-index: 100;
@@ -1067,7 +1092,6 @@ body.bt_bb_fe_dialog_on:not(.bt_bb_fe_preview_toggle) #bt_bb_fe_dialog {
 }
 
 /* Add section button */
-
 body.bt_bb_fe_add_section {
 	background: #fff !important;
 }
@@ -1150,7 +1174,6 @@ body.bt_bb_fe_add_section {
 }
     
 /* Add Section */
-
 #bt_bb_fe_save {
 	display: block;
 	position: fixed;
@@ -1193,11 +1216,13 @@ body.bt_bb_fe_add_section {
 	}
 }
 
-.bt_bb_fe_save_on #bt_bb_fe_preview_toggler {
-	transform: translate3d(-56px, 0, 0);
-	.rtl:not(.bt_bb_fe_dialog_switch_side)&, .bt_bb_fe_dialog_switch_side:not(.rtl)& {
-		transform: translate3d(56px, 0, 0);
-	}
+.bt_bb_fe_save_on {
+	:any(#bt_bb_fe_preview_toggler, #bt_bb_fe_undo, #bt_bb_fe_redo) {
+		transform: translate3d(-50px, 0, 0);
+		.rtl:not(.bt_bb_fe_dialog_switch_side)&, .bt_bb_fe_dialog_switch_side:not(.rtl)& {
+			transform: translate3d(50px, 0, 0);
+		}
+	}	
 }
 @keyframes pulse-animation {
 	0% {
@@ -1462,7 +1487,6 @@ body.bt_bb_fe_add_section {
 }
 
 /* Reset WP modals */
-
 /*.media-modal-content * {
 	all: initial;
 	* {
@@ -1618,7 +1642,6 @@ body.bt_bb_fe_add_section {
 }
 
 /* Add template */
-
 .bt_bb_fe_add_template {
 	line-height: 1;
 	padding: 2em;
@@ -1705,4 +1728,73 @@ body.bt_bb_fe_preview_toggle .bt_bb_fe_add_template {
 
 .bt_bb_fe_busy * {
 	cursor: wait !important;
+}
+
+/* Footer editor */
+body.bt_bb_edit_footer {
+	header:not(.bt_bb_headline), .mainHeader {
+		visibility: hidden;
+		opacity: 0;
+	}
+	footer, .bt-site-footer {
+		display: none;
+	}
+}
+
+/* undo-redo */
+
+#bt_bb_fe_undo, #bt_bb_fe_redo {
+	position: fixed;
+	bottom: 55px;
+	font-family: FontAwesome;
+	background: #9e9e9e;
+	color: $(darkFontColor);
+	border-radius: 50%;
+	font-size: 13px;
+    width: 30px;
+    height: 30px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	line-height: 1;
+	box-shadow: 0 0 0.75em 0 rgb(0 0 0 / 20%);
+	opacity: .8;
+	z-index: 100;
+	transform: translate3d(0px,0,0);
+	transition: all 270ms ease;
+	&:not([disabled]):hover {
+		opacity: 1;
+	}
+	&:before {
+		cursor: pointer;
+	}
+	&[disabled]{
+		opacity: .4;
+		&:before {
+			cursor: default;
+		}	
+	}
+}
+
+#bt_bb_fe_undo {
+	right: 140px;
+	.rtl:not(.bt_bb_fe_dialog_switch_side) &, .bt_bb_fe_dialog_switch_side:not(.rtl) & {
+		right: auto;
+		left: 140px;
+	}
+	&:before {
+		content: '\f0e2';
+	}
+}
+
+
+#bt_bb_fe_redo {
+	right: 100px;
+	.rtl:not(.bt_bb_fe_dialog_switch_side) &, .bt_bb_fe_dialog_switch_side:not(.rtl) & {
+		right: auto;
+		left: 100px;
+	}
+	&:before {
+		content: '\f01e';
+	}
 }

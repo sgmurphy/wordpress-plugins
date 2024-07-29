@@ -4,7 +4,7 @@ Tags: homepage setup, companion, one click demo, sections, customizer
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 25.9
+Stable tag: 26.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -78,6 +78,7 @@ Clever Fox plugin to enhance the functionality of free themes made by <a href="h
 - [Cormex](https://wordpress.org/themes/cormex/)
 - [DoctorHub](https://wordpress.org/themes/doctorhub/)
 - [CardioPress](https://wordpress.org/themes/cardiopress/)
+- [Profolio](https://wordpress.org/themes/profolio/)
 
 == Installation ==
 
@@ -158,6 +159,7 @@ Yes, This plugin is specially make for Nayra Themes. You can install theme for e
 - [Cormex](https://wordpress.org/themes/cormex/)
 - [DoctorHub](https://wordpress.org/themes/doctorhub/)
 - [CardioPress](https://wordpress.org/themes/cardiopress/)
+- [Profolio](https://wordpress.org/themes/profolio/)
 
 == Screenshots ==
 
@@ -186,6 +188,9 @@ Clever Fox WordPress Plugin is licensed under the GPL3 (https://www.gnu.org/lice
 
 
 == Changelog ==
+
+= 26.0 =
+* ReadMe Updated
 
 = 25.9 =
 * ReadMe Updated

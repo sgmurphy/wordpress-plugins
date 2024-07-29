@@ -34,7 +34,7 @@ const AHSC_OPTIONS_LIST = array(
 );
 
 define( "AHSC_CONSTANT", array(
-	'ARUBA_HISPEED_CACHE_VERSION'      => '2.0.11',
+	'ARUBA_HISPEED_CACHE_VERSION'      => '2.0.12',
 	'ARUBA_HISPEED_CACHE_PLUGIN'       => true,
 	'ARUBA_HISPEED_CACHE_FILE'         => $file,
 	'ARUBA_HISPEED_CACHE_BASEPATH'     => \plugin_dir_path( $file ),

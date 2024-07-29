@@ -25,6 +25,8 @@ CF7 Skins is highly customizable and easy to learn, even for beginners.
 
 > CF7 Skins now includes a **[drag & drop Visual Editor](https://cf7skins.com/visual-editor/?utm_source=wporg&utm_medium=link&utm_campaign=freeversion&utm_content=description)** to help make building your Contact Form 7 forms much easier.
 
+https://youtu.be/UJ-2k6mw3vY
+
 = CF7 Skins Features =
 
 * Use a **[drag & drop Visual Editor](https://cf7skins.com/visual-editor/?utm_source=wporg&utm_medium=link&utm_campaign=freeversion&utm_content=description)** to create your forms

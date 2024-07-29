@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb09ce80fcc24ec469f3a2a57305119d4
+class ComposerStaticInit3f14834c9ae74790d83797644f3400bf
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -44,6 +44,21 @@ class ComposerStaticInitb09ce80fcc24ec469f3a2a57305119d4
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Optimole\\Sdk\\Exception\\BadMethodCallException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/BadMethodCallException.php',
+        'Optimole\\Sdk\\Exception\\BadResponseException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/BadResponseException.php',
+        'Optimole\\Sdk\\Exception\\DashboardApiException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/DashboardApiException.php',
+        'Optimole\\Sdk\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/ExceptionInterface.php',
+        'Optimole\\Sdk\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/InvalidArgumentException.php',
+        'Optimole\\Sdk\\Exception\\InvalidDashboardApiResponseException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/InvalidDashboardApiResponseException.php',
+        'Optimole\\Sdk\\Exception\\InvalidUploadApiResponseException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/InvalidUploadApiResponseException.php',
+        'Optimole\\Sdk\\Exception\\RuntimeException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/RuntimeException.php',
+        'Optimole\\Sdk\\Exception\\UploadApiException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/UploadApiException.php',
+        'Optimole\\Sdk\\Exception\\UploadFailedException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/UploadFailedException.php',
+        'Optimole\\Sdk\\Exception\\UploadLimitException' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Exception/UploadLimitException.php',
+        'Optimole\\Sdk\\Http\\ClientInterface' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Http/ClientInterface.php',
+        'Optimole\\Sdk\\Http\\GuzzleClient' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Http/GuzzleClient.php',
+        'Optimole\\Sdk\\Http\\WordPressClient' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Http/WordPressClient.php',
+        'Optimole\\Sdk\\Offload\\Manager' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Offload/Manager.php',
         'Optimole\\Sdk\\Optimole' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Optimole.php',
         'Optimole\\Sdk\\Resource\\AbstractResource' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Resource/AbstractResource.php',
         'Optimole\\Sdk\\Resource\\Asset' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Resource/Asset.php',
@@ -63,6 +78,7 @@ class ComposerStaticInitb09ce80fcc24ec469f3a2a57305119d4
         'Optimole\\Sdk\\Resource\\ImageProperty\\WatermarkProperty' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Resource/ImageProperty/WatermarkProperty.php',
         'Optimole\\Sdk\\Resource\\ImageProperty\\WidthProperty' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Resource/ImageProperty/WidthProperty.php',
         'Optimole\\Sdk\\Resource\\PropertyInterface' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/Resource/PropertyInterface.php',
+        'Optimole\\Sdk\\ValueObject\\OffloadUsage' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/ValueObject/OffloadUsage.php',
         'Optimole\\Sdk\\ValueObject\\Position' => __DIR__ . '/..' . '/codeinwp/optimole-sdk/src/ValueObject/Position.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
@@ -86,9 +102,9 @@ class ComposerStaticInitb09ce80fcc24ec469f3a2a57305119d4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb09ce80fcc24ec469f3a2a57305119d4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb09ce80fcc24ec469f3a2a57305119d4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb09ce80fcc24ec469f3a2a57305119d4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3f14834c9ae74790d83797644f3400bf::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3f14834c9ae74790d83797644f3400bf::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3f14834c9ae74790d83797644f3400bf::$classMap;
 
         }, null, ClassLoader::class);
     }

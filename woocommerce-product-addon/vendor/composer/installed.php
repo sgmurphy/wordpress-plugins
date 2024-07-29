@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/woocommerce-product-addon',
-        'pretty_version' => 'v32.0.25',
-        'version' => '32.0.25.0',
-        'reference' => 'e9873359e8e9cd1a7f697958206c88910886548f',
+        'pretty_version' => 'v32.0.26',
+        'version' => '32.0.26.0',
+        'reference' => '6138c8fbd28dbc9a8f99ff375193aaabe302ae99',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'codeinwp/woocommerce-product-addon' => array(
-            'pretty_version' => 'v32.0.25',
-            'version' => '32.0.25.0',
-            'reference' => 'e9873359e8e9cd1a7f697958206c88910886548f',
+            'pretty_version' => 'v32.0.26',
+            'version' => '32.0.26.0',
+            'reference' => '6138c8fbd28dbc9a8f99ff375193aaabe302ae99',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

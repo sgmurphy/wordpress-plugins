@@ -1,4 +1,4 @@
-=== Easy Digital Downloads – Sell Digital Files & Subscriptions (eCommerce Store + Payments Made Easy) ===
+=== Easy Digital Downloads – eCommerce Payments and Subscriptions made easy ===
 Author URI: https://easydigitaldownloads.com
 Plugin URI: https://easydigitaldownloads.com
 Contributors: easydigitaldownloads, am, cklosows, littlerchicken, achchu93, smub, mordauk, chriscct7, sumobi, SpencerFinnell, drewapicture, johnjamesjacoby, lisacee

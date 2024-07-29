@@ -84,7 +84,7 @@ class DefaultArgs{
 
 
         return [
-            'type' => 'block',
+            // 'type' => 'block',
             'additionalID' => '',
             'options' => $options,
             'features' => [
@@ -134,6 +134,11 @@ class DefaultArgs{
                 ],
                 "hideYoutubeUI" => false,
                 "hideLoadingPlaceholder" => false,
+                "passwordProtected" => [
+                    'enabled' => false,
+                    'password' => '',
+                    'key' => '',
+                ]
             ],
             'propagans' => '',
             'customDownloadURL' => '',
@@ -220,7 +225,7 @@ class DefaultArgs{
             'infos' => $infos,
             'template' => $template,
             'uniqueId' => '',
-            'CSS' => ''
+            'CSS' => '',
         ];
     
     }

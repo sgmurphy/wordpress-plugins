@@ -54,6 +54,25 @@ class Authorize extends Route_Base {
 
 			$authorize_url = Utils::get_authorize_url( $client_id );
 
+			$additional_source_campaign = [];
+
+			$image_optimization_campaign = get_transient( 'elementor_image_optimization_campaign', [] );
+			if ( ! empty( $image_optimization_campaign['source'] ) ) {
+				$additional_source_campaign['utm_source'] = $image_optimization_campaign['source'];
+			}
+
+			if ( ! empty( $image_optimization_campaign['medium'] ) ) {
+				$additional_source_campaign['utm_medium'] = $image_optimization_campaign['medium'];
+			}
+
+			if ( ! empty( $image_optimization_campaign['campaign'] ) ) {
+				$additional_source_campaign['utm_campaign'] = $image_optimization_campaign['campaign'];
+			}
+
+			if ( ! empty( $additional_source_campaign ) ) {
+				$authorize_url = add_query_arg( $additional_source_campaign, $authorize_url );
+			}
+
 			return $this->respond_success_json( $authorize_url );
 		} catch ( Throwable $t ) {
 			return $this->respond_error_json( [

@@ -2,11 +2,11 @@
 Contributors: wcboost
 Tags: woocommerce, compare, product, product compare, woocommerce compare
 Tested up to: 6.6
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 Requires PHP: 7.0
 Requires at least: 4.5
 WC requires at least: 3.0.0
-WC tested up to: 8.9
+WC tested up to: 9.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -110,6 +110,10 @@ Following the standards of WordPress and WooCommerce, you can find all the setti
 
 == Changelog ==
 
+= 1.0.7 =
+* Fixed - Cannot clear the comparison list.
+* Tweak - WooCommerce 9.1 compatibility.
+
 = 1.0.6 =
 * Improve - Support persistent caching for logged-in users.
 * Improve - Improve overall performance with the updated caching system.
@@ -118,7 +122,7 @@ Following the standards of WordPress and WooCommerce, you can find all the setti
 = 1.0.5 =
 * Fixed - Adds the nofollow attribute to compare buttons
 * Tweak - WordPress 6.5 compatibility.
-* Tweak – WooCommerce 8.9 compatibility.
+* Tweak - WooCommerce 8.9 compatibility.
 
 = 1.0.4 =
 * New - Adds a new module to track products that users have compared (optional).

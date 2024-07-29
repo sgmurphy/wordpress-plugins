@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.23';
+	$.fbuilder['version'] = '5.2.25';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -207,7 +207,7 @@
 									ff.attr('type') != 'radio' &&
 									ff.attr('type') != 'checkbox' &&
 									ff.closest('[uh]').length == 0 /* FIXES AUTO-OPEN TOOLTIPS */
-								) ff.focus();
+								) ff.trigger('focus');
 							}
 							var _wScrollTop = $(window).scrollTop(),
 								_viewportHeight = $(window).height(),
@@ -597,7 +597,7 @@
 				$( '#fieldlist'+opt.identifier).find(".pbSubmit").off('click').on("keyup", function(evt){
 					if(evt.which == 13 || evt.which == 32) $(this).trigger('click');
 				}).on("click", { 'identifier' : opt.identifier }, function(evt){
-					$(this).closest("form").submit();
+					$(this).closest("form").trigger('submit');
 				});
 
 				if (i>0)
@@ -1083,6 +1083,27 @@
 			gotopage(page, form);
 			form.trigger('cff-form-validation', false);
 			enabling_form();
+			$( '.cff-error-dlg' ).remove();
+			$( document ).off('click', $.fbuilder.closeErrorDlg);
+			setTimeout(function(){ $( document ).on('click', $.fbuilder.closeErrorDlg); }, 500);
+			try {
+				let errorList = form.validate().errorList,
+					mssg = [];
+				errorList.forEach( (e) => {
+					try {
+						let aux = function(v){
+								return $( '<div></div>' ).html(v).text();
+							},
+							l = getField( e.element.name.match(/fieldname\d+_\d+/)[0] ).title;
+						l = aux(l).replace(/\:\s*$/, '');
+						l = '<b>'+(l.length  ? l+': ' : '')+'</b>'+aux(e.message);
+						mssg.push( l );
+					} catch(err){}
+				} );
+				if ( mssg.length ) {
+					$( 'body' ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' );
+				}
+			} catch ( err ) {}
 			return false;
 		}
 
@@ -1196,3 +1217,5 @@
 			} );
 		} catch( err ){}
 	});
+
+	$.fbuilder.closeErrorDlg = function(){$('.cff-error-dlg').remove();};

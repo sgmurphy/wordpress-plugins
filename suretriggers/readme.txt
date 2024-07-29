@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 1.0.54
+Stable tag: 1.0.55
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,10 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.55 - Monday, 29th July 2024 =
+* Improvement: "Advanced Custom Fields" - Fixed "Any Field" issue for "Field Updated on Post" Trigger
+* Improvement: "Presto Player" - Fixed fetch data issue for Trigger response and added new Action
 
 = Version 1.0.54 - Friday, 26th July 2024 =
 * Improvement: "Advanced Custom Fields" - Fixed issue and enhanced "Field Updated on Post" Trigger

@@ -677,28 +677,28 @@ $enable_pass_count = (isset($options['enable_pass_count'])) ? $options['enable_p
 $options['enable_timer'] = isset($options['enable_timer']) ? $options['enable_timer'] : 'off';
 $enable_timer = (isset($options['enable_timer']) && $options['enable_timer'] == 'on') ? true : false;
 
-$options['timer'] = !(isset($options['timer'])) ? 100 : $options['timer'];
-$timer = (isset($options['timer']) && $options['timer'] != '') ? $options['timer'] : '100';
-$enable_quiz_rate = (isset($options['enable_quiz_rate'])) ? $options['enable_quiz_rate'] : 'off';
-$enable_rate_avg = (isset($options['enable_rate_avg'])) ? $options['enable_rate_avg'] : 'off';
-$enable_rate_comments = (isset($options['enable_rate_comments'])) ? $options['enable_rate_comments'] : '';
-$enable_box_shadow = (!isset($options['enable_box_shadow'])) ? 'on' : $options['enable_box_shadow'];
+$options['timer'] = !(isset($options['timer'])) ? 100 : intval($options['timer']);
+$timer = (isset($options['timer']) && $options['timer'] != '') ? intval($options['timer']) : '100';
+$enable_quiz_rate = (isset($options['enable_quiz_rate'])) ? esc_attr( stripslashes($options['enable_quiz_rate'])) : 'off';
+$enable_rate_avg = (isset($options['enable_rate_avg'])) ? esc_attr( stripslashes($options['enable_rate_avg'])) : 'off';
+$enable_rate_comments = (isset($options['enable_rate_comments'])) ? esc_attr( stripslashes($options['enable_rate_comments'])) : '';
+$enable_box_shadow = (!isset($options['enable_box_shadow'])) ? 'on' : esc_attr( stripslashes($options['enable_box_shadow']));
 $box_shadow_color = (!isset($options['box_shadow_color'])) ? '#c9c9c9' : esc_attr( stripslashes($options['box_shadow_color']) );
-$quiz_border_radius = (isset($options['quiz_border_radius']) && $options['quiz_border_radius'] != '') ? $options['quiz_border_radius'] : '8';
+$quiz_border_radius = (isset($options['quiz_border_radius']) && $options['quiz_border_radius'] != '') ? intval( esc_attr($options['quiz_border_radius'])) : '8';
 $quiz_bg_image = (isset($options['quiz_bg_image']) && $options['quiz_bg_image'] != '') ? esc_url($options['quiz_bg_image']) : '';
 $enable_border = (isset($options['enable_border']) && $options['enable_border'] == 'on') ? true : false;
-$quiz_border_width = (isset($options['quiz_border_width']) && $options['quiz_border_width'] != '') ? $options['quiz_border_width'] : '1';
-$quiz_border_style = (isset($options['quiz_border_style']) && $options['quiz_border_style'] != '') ? $options['quiz_border_style'] : 'solid';
+$quiz_border_width = (isset($options['quiz_border_width']) && $options['quiz_border_width'] != '') ? intval( esc_attr($options['quiz_border_width'])) : '1';
+$quiz_border_style = (isset($options['quiz_border_style']) && $options['quiz_border_style'] != '') ? esc_attr( stripslashes($options['quiz_border_style'])) : 'solid';
 $quiz_border_color = (isset($options['quiz_border_color']) && $options['quiz_border_color'] != '') ? esc_attr( stripslashes($options['quiz_border_color']) ) : '#000';
 $quiz_timer_in_title = (isset($options['quiz_timer_in_title']) && $options['quiz_timer_in_title'] == 'on') ? true : false;
 $enable_restart_button = (isset($options['enable_restart_button']) && $options['enable_restart_button'] == 'on') ? true : false;
 
 $rate_form_title = (isset($options['rate_form_title'])) ? $options['rate_form_title'] : __('Please click the stars to rate the quiz', $this->plugin_name);
-$quiz_loader = (isset($options['quiz_loader']) && $options['quiz_loader'] != '') ? $options['quiz_loader'] : 'default';
+$quiz_loader = (isset($options['quiz_loader']) && $options['quiz_loader'] != '') ? esc_attr( stripslashes($options['quiz_loader'])) : 'default';
 
 $main_quiz_url = (isset($quiz['quiz_url']) && esc_url($quiz['quiz_url']) != '') ? esc_url($quiz['quiz_url']) : '';
 
-$quiz_create_date = (isset($options['create_date']) && $options['create_date'] != '') ? $options['create_date'] : "0000-00-00 00:00:00";
+$quiz_create_date = (isset($options['create_date']) && $options['create_date'] != '') ? esc_attr( stripslashes($options['create_date'])) : "0000-00-00 00:00:00";
 if(isset($options['author']) && $options['author'] != 'null'){
     if ( ! is_array( $options['author'] ) ) {
         $options['author'] = json_decode($options['author'], true);
@@ -712,14 +712,14 @@ if(isset($options['author']) && $options['author'] != 'null'){
 
 $autofill_user_data = (isset($options['autofill_user_data']) && $options['autofill_user_data'] == 'on') ? true : false;
 
-$quest_animation = (isset($options['quest_animation'])) ? $options['quest_animation'] : "shake";
+$quest_animation = (isset($options['quest_animation'])) ? esc_attr( stripslashes($options['quest_animation'])) : "shake";
 $enable_bg_music = (isset($options['enable_bg_music']) && $options['enable_bg_music'] == "on") ? true : false;
 $quiz_bg_music = (isset($options['quiz_bg_music']) && $options['quiz_bg_music'] != "") ? $options['quiz_bg_music'] : "";
 $answers_font_size = (isset($options['answers_font_size']) && $options['answers_font_size'] != "" && absint( esc_attr( $options['answers_font_size'] ) ) > 0) ? absint( esc_attr( $options['answers_font_size'] ) ) : '15';
 $show_create_date = (isset($options['show_create_date']) && $options['show_create_date'] == "on") ? true : false;
 $show_author = (isset($options['show_author']) && $options['show_author'] == "on") ? true : false;
 $enable_early_finish = (isset($options['enable_early_finish']) && $options['enable_early_finish'] == "on") ? true : false;
-$answers_rw_texts = (isset($options['answers_rw_texts']) && $options['answers_rw_texts'] != '') ? $options['answers_rw_texts'] : 'on_passing';
+$answers_rw_texts = (isset($options['answers_rw_texts']) && $options['answers_rw_texts'] != '') ? esc_attr( stripslashes($options['answers_rw_texts'])) : 'on_passing';
 $disable_store_data = (isset($options['disable_store_data']) && $options['disable_store_data'] == 'on') ? true : false;
 
 $options['enable_background_gradient'] = (!isset($options['enable_background_gradient'])) ? 'off' : $options['enable_background_gradient'];
@@ -749,7 +749,7 @@ $image_sizing = (isset($options['image_sizing']) && $options['image_sizing'] != 
 $quiz_bg_image_position = (isset($options['quiz_bg_image_position']) && $options['quiz_bg_image_position'] != "") ? $options['quiz_bg_image_position'] : 'center center';
 
 // Custom class for quiz container
-$custom_class = (isset($options['custom_class']) && $options['custom_class'] != "") ? $options['custom_class'] : '';
+$custom_class = (isset($options['custom_class']) && $options['custom_class'] != "") ? esc_attr($options['custom_class']) : '';
 
 // Social Media links
 $enable_social_links = (isset($options['enable_social_links']) && $options['enable_social_links'] == "on") ? true : false;
@@ -784,15 +784,15 @@ $show_login_form = (isset($options['show_login_form']) && $options['show_login_f
 
 
 // Quiz container max-width for mobile
-$mobile_max_width = (isset($options['mobile_max_width']) && $options['mobile_max_width'] != "") ? $options['mobile_max_width'] : '';
+$mobile_max_width = (isset($options['mobile_max_width']) && $options['mobile_max_width'] != "") ? intval(esc_attr($options['mobile_max_width'])) : '';
 
 
 // Quiz theme
-$quiz_theme = (isset($options['quiz_theme']) && $options['quiz_theme'] != '') ? $options['quiz_theme'] : 'classic_light';
+$quiz_theme = (isset($options['quiz_theme']) && $options['quiz_theme'] != '') ? esc_attr( stripslashes($options['quiz_theme'])) : 'classic_light';
 
 
 // Limit users by option
-$limit_users_by = (isset($options['limit_users_by']) && $options['limit_users_by'] != '') ? $options['limit_users_by'] : 'ip';
+$limit_users_by = (isset($options['limit_users_by']) && $options['limit_users_by'] != '') ? esc_attr( stripslashes($options['limit_users_by'])) : 'ip';
 
 //Schedule of Quiz
 $options['active_date_check'] = isset($options['active_date_check']) ? $options['active_date_check'] : 'off';
@@ -812,7 +812,7 @@ $options['enable_questions_result'] = isset($options['enable_questions_result'])
 $enable_questions_result = (isset($options['enable_questions_result']) && $options['enable_questions_result'] == 'on') ? true : false;
 
 // Right/wrong answer text showing time option
-$explanation_time = (isset($options['explanation_time']) && $options['explanation_time'] != '') ? $options['explanation_time'] : '4';
+$explanation_time = (isset($options['explanation_time']) && $options['explanation_time'] != '') ? intval( esc_attr($options['explanation_time']) ) : '4';
 
 // Enable claer answer button
 $options['enable_clear_answer'] = isset($options['enable_clear_answer']) ? $options['enable_clear_answer'] : 'off';
@@ -827,7 +827,7 @@ $options['show_question_category'] = isset($options['show_question_category']) ?
 $show_question_category = (isset($options['show_question_category']) && $options['show_question_category'] == "on") ? true : false;
 
 // Display score option
-$display_score = (isset($options['display_score']) && $options['display_score'] != "") ? $options['display_score'] : 'by_percantage';
+$display_score = (isset($options['display_score']) && $options['display_score'] != "") ? esc_attr( stripslashes($options['display_score'])) : 'by_percantage';
 
 // Right / Wrong answers sound option
 $options['enable_rw_asnwers_sounds'] = isset($options['enable_rw_asnwers_sounds']) ? $options['enable_rw_asnwers_sounds'] : 'off';
@@ -959,10 +959,10 @@ $show_answers_numbering = (isset($options['show_answers_numbering']) && sanitize
 $image_width = (isset($options['image_width']) && sanitize_text_field($options['image_width']) != '') ? absint( sanitize_text_field($options['image_width']) ) : '';
 
 // Quiz image width percentage/px
-$quiz_image_width_by_percentage_px = (isset($options['quiz_image_width_by_percentage_px']) && sanitize_text_field( $options['quiz_image_width_by_percentage_px'] ) != '') ? sanitize_text_field( $options['quiz_image_width_by_percentage_px'] ) : 'pixels';
+$quiz_image_width_by_percentage_px = (isset($options['quiz_image_width_by_percentage_px']) && esc_attr( $options['quiz_image_width_by_percentage_px'] ) != '') ? esc_attr( $options['quiz_image_width_by_percentage_px'] ) : 'pixels';
 
 // Quiz image height
-$quiz_image_height = (isset($options['quiz_image_height']) && sanitize_text_field($options['quiz_image_height']) != '') ? absint( sanitize_text_field($options['quiz_image_height']) ) : '';
+$quiz_image_height = (isset($options['quiz_image_height']) && esc_attr($options['quiz_image_height']) != '') ? absint( esc_attr($options['quiz_image_height']) ) : '';
 
 // Hide background image on start page
 $options['quiz_bg_img_on_start_page'] = isset($options['quiz_bg_img_on_start_page']) ? $options['quiz_bg_img_on_start_page'] : 'off';
@@ -2614,7 +2614,7 @@ $quiz_quest_explanation_font_weight = (isset($options[ 'quiz_quest_explanation_f
                                                         <i class="ays_fa ays_fa_info_circle"></i>
                                                     </a>
                                                 </label>
-                                                <input type="number" class="ays-text-input ays-text-input-short" id="ays_image_height" name="ays_image_height" value="<?php echo (isset($options['image_height']) && $options['image_height'] != '') ? $options['image_height'] : ''; ?>"/>
+                                                <input type="number" class="ays-text-input ays-text-input-short" id="ays_image_height" name="ays_image_height" value="<?php echo (isset($options['image_height']) && $options['image_height'] != '') ? intval($options['image_height']) : ''; ?>"/>
                                             </div>
                                             <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: end;">
                                                 <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>

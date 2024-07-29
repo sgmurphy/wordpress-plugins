@@ -20,7 +20,7 @@ if (!class_exists('UserFeedback_Base')) {
 		 * @access public
 		 * @var string $version Plugin version
 		 */
-		public $version = '1.0.18';
+		public $version = '1.1.0';
 
 		/**
 		 * Plugin file.
@@ -348,6 +348,9 @@ if (!class_exists('UserFeedback_Base')) {
 
 			// Results
 			require_once USERFEEDBACK_PLUGIN_DIR . 'includes/admin/class-userfeedback-results.php';
+
+			// AI Summary
+			require_once USERFEEDBACK_PLUGIN_DIR . 'includes/admin/class-userfeedback-ai-survey-summary.php';
 
 			// Settings
 			require_once USERFEEDBACK_PLUGIN_DIR . 'includes/admin/class-userfeedback-settings.php';

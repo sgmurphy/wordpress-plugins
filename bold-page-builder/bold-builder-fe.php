@@ -327,7 +327,7 @@ function bt_bb_fe_init() {
 				),
 				'drag_and_drop' => array(
 					'disable_as_source' => true,
-					'disable_as_target' => true,
+					'disable_as_target' => false,
 				)
 			),
 			'bt_bb_separator' => array(
@@ -490,6 +490,11 @@ function bt_bb_fe_init() {
 				'name' => esc_html__( 'Image Slider', 'bold-builder' ),
 				'description' => esc_html__( 'Slider with images', 'bold-builder' ),
 			),
+			'inner_row_11' => array(
+				'base' => esc_html__( 'bt_bb_row_inner', 'bold-builder' ),
+				'name' => esc_html__( 'Inner Row (1/1)', 'bold-builder' ),
+				'description' => esc_html__( 'Inner Row with 1 column', 'bold-builder' ),
+			),
 			'inner_row_12+12' => array(
 				'base' => esc_html__( 'bt_bb_row_inner', 'bold-builder' ),
 				'name' => esc_html__( 'Inner Row (1/2+1/2)', 'bold-builder' ),
@@ -579,7 +584,7 @@ function bt_bb_fe_init() {
 		
 		add_action( 'wp_head', 'bt_bb_fe_head' );
 		add_action( 'wp_head', 'bt_bb_translate' );
-		add_action( 'wp_footer', 'bt_bb_fe_dialog' );
+		add_action( 'wp_footer', 'bt_bb_fe_footer' );
 		
 		add_action( 'wp_head', function() {
 			wp_enqueue_style( 'bt_bb_framework-leaflet-css', plugin_dir_url( __FILE__ ) . 'css/leafletmap/leaflet.css', array(), BT_BB_VERSION, 'screen' );
@@ -642,7 +647,7 @@ function bt_bb_fe_head() {
 	echo '</script>';
 }
 
-function bt_bb_fe_dialog() {
+function bt_bb_fe_footer() {
 	echo '<div id="bt_bb_fe_dialog">';
 		echo '<div>';
 			echo '<div id="bt_bb_fe_dialog_main">';
@@ -668,34 +673,11 @@ function bt_bb_fe_dialog() {
 		echo '</div>';
 	echo '</div>';
 	
+	if ( BT_BB_Root::$has_footer ) {
+		echo '<a href="' . add_query_arg( 'bt_bb_edit_footer', '', get_post_permalink( BT_BB_Root::$footer_page_id ) ) . '" target="_blank" class="bt_bb_fe_preview_toggler bt_bb_fe_preview_toggler_footer">' . esc_html__( 'Edit Footer', 'bold-builder' ) . '</a>';
+	}
+	
 	echo '<div class="bt_bb_dd_tip"></div>';
-	
-	/*if ( ! isset( $_GET['bt_bb_fe_add_section'] ) ) {
-		echo '<div id="bt_bb_fe_add_section_dialog">';
-			echo '<div class="bt_bb_add_section_header">';
-				echo '<div class="bt_bb_add_section_header_text">' . esc_html__( 'Add Section', 'bold-builder' ) . '</div>';
-				echo '<div id="bt_bb_fe_add_section_close" role="button" title="' . esc_html__( 'Close dialog', 'bold-builder' ) . '"></div>';
-				echo '<div id="bt_bb_fe_add_section_switch" role="button" title="' . esc_html__( 'Switch side', 'bold-builder' ) . '"><i class="fa fa-exchange"></i></div>';
-				echo '<input type="search" id="bt_bb_fe_add_section_search" placeholder="' . esc_html__( 'Filter...', 'bold-builder' ) . '">';
-			echo '</div>';
-			echo '<div id="bt_bb_add_section_iframe_parent">';
-				echo '<iframe src="' . get_site_url() . '?bt_bb_fe_add_section"></iframe>';
-			echo '</div>';
-			echo '<div id="bt_bb_fe_add_section_bottom">';
-				echo '<div id="bt_bb_fe_add_section_to_top" role="button"><i class="fa fa-arrow-up"></i><span>' . esc_html__( 'Add to Top', 'bold-builder' ) . '</span></div>';
-				echo '<div id="bt_bb_fe_add_section_to_bottom" role="button"><i class="fa fa-arrow-down"></i><span>' . esc_html__( 'Add to Bottom', 'bold-builder' ) . '</span></div>';
-				echo '<div id="bt_bb_fe_add_section_to_clipboard" role="button"><i class="fa fa-clipboard"></i><span>' . esc_html__( 'Add to Clipboard', 'bold-builder' ) . '</span></div>';
-			echo '</div>';
-		echo '</div>';
-	}*/
-	
-	// echo '<div id="bt_bb_fe_add_elements_dialog">';
-		// echo '<div class="bt_bb_add_elements_header">';
-			// echo '<div class="bt_bb_add_elements_header_text">' . esc_html__( 'Add elements', 'bold-builder' ) . '</div>';
-			// echo '<div id="bt_bb_fe_add_elements_close" role="button" title="' . esc_html__( 'Close dialog', 'bold-builder' ) . '"></div>';
-			// echo '<div id="bt_bb_fe_add_elements_switch" role="button" title="' . esc_html__( 'Switch side', 'bold-builder' ) . '"><i class="fa fa-exchange"></i></div>';
-		// echo '</div>';
-	// echo '</div>';
 	
 	echo '<div id="bt_bb_fe_init_mouseover"></div>';
 }
@@ -784,23 +766,3 @@ function bt_bb_fe_get_template_html() {
 	wp_die();
 }
 add_action( 'wp_ajax_bt_bb_fe_get_template_html', 'bt_bb_fe_get_template_html' );
-
-/**
- * Add Section template
- */
-/*add_filter( 'template_include', 'bt_bb_fe_add_section_template', 100 );
-function bt_bb_fe_add_section_template( $template ) {
-    if ( isset( $_GET['bt_bb_fe_add_section'] ) && BT_BB_FE::$editor_active ) {
-		add_filter( 'show_admin_bar', function( $classes ) {
-			return false;
-		});
-		add_filter( 'body_class', function( $classes ) {
-			return array_merge( $classes, array( 'bt_bb_fe_add_section', 'bt_bb_fe_preview_toggle' ) );
-		});
-		add_action( 'wp_head', function() {
-			echo '<style>html{ margin-top: 0px !important; }</style>';
-		});
-        $template = dirname( __FILE__ ) . '/add-section-template.php';
-    }
-    return $template;
-}*/

@@ -49,6 +49,9 @@ class HTMega_Elementor_Widget_Scroll_Image extends Widget_Base {
                 [
                     'label' => __( 'Choose Image', 'htmega-addons' ),
                     'type' => Controls_Manager::MEDIA,
+                    'dynamic' => [
+                        'active' => true, 
+                    ],
                     'default' => [
                         'url' => Utils::get_placeholder_image_src(),
                     ],

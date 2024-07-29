@@ -72,7 +72,7 @@ class VideoController extends \WP_REST_Controller{
             return new \WP_REST_Response([
                 'status' => 500,
                 'response' => 'server error',
-                'info' => $info
+                'info' => []
             ]);
         }
     }

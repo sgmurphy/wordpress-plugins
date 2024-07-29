@@ -20,4 +20,8 @@ if ( ! \defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 \delete_site_option( 'aruba_hispeed_cache_options' );
 \delete_site_option( 'aruba_hispeed_cache_version');
-AHSC_remove_htaccess();
+if ( ! is_multisite() ) {
+	global $AHSC_marker;
+	$htaccess = get_home_path() . '.htaccess';
+	insert_with_markers( $htaccess, $AHSC_marker, array() );
+}

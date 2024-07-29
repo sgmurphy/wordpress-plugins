@@ -15,7 +15,7 @@ fieldset{
 #wpbody-content{
 	background-color: white;
 }
-.ahsc-options-wrapper{
+.ahsc-options-wrapper,.ahsc-tab{
 	background-color: #f6f6f6;
 }
 
@@ -39,6 +39,9 @@ fieldset{
 	background-color: white;
 }
 
+.nav-tab{
+	cursor: pointer;
+}
 
 .ahsc-settings-nav .nav-tab:first-child{
 	margin-left: 24%;

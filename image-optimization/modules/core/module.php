@@ -83,7 +83,7 @@ class Module extends Module_Base {
 						'image-optimization'
 					); ?>
 
-					<a href="https://go.elementor.com/io-panel-upgrade/">
+					<a href="https://go.elementor.com/io-quota-upgrade/">
 						<?php esc_html_e(
 							'Upgrade plan now',
 							'image-optimization'
@@ -108,7 +108,7 @@ class Module extends Module_Base {
 			),
 			'upgrade' => sprintf(
 				'<a href="%s" style="color: #524CFF; font-weight: 700;" target="_blank" rel="noopener noreferrer">%s</a>',
-				'https://go.elementor.com/io-panel-upgrade/',
+				'https://go.elementor.com/io-plugins-upgrade/',
 				esc_html__( 'Upgrade', 'image-optimization' )
 			),
 		];

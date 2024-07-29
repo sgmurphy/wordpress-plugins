@@ -3,7 +3,7 @@ Contributors: mekshq
 Donate link: http://mekshq.com/
 Tags: shortcode, shortcodes, tabs, toggles, accordions, social, buttons, dropcaps, icons
 Requires at least: 3.5
-Tested up to: 6.3
+Tested up to: 6.6
 Stable tag: 1.3.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html

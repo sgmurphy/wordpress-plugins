@@ -176,4 +176,42 @@ class Functions{
         return [];
     }
 
+    static function sanitize_array($array){
+        if(!is_array($array)){
+            return [];
+        }
+
+        foreach($array as $key => $value){
+            if(strpos($key, 'secret_key') !== false && strlen($value) == 32){
+                $value = sanitize_text_field(str_replace('<', '&lt;', $value) ); 
+                $value = sanitize_text_field($value);
+                $array[$key] = str_replace(['&lt;', '&gt;', '&amp;'], [ '<', '>', '&'], $value);
+            }else {
+                if(is_array($value)){
+                    $array[$key] = self::sanitize_array($value);
+                }else {
+                    $array[$key] =$value == 'true' ? true : ($value == 'false' ? false :  sanitize_text_field($value));
+                }
+            }
+        }
+        return $array;
+    }
+
+
+    static function chapterTimeToSeconds($value = "") {
+        $time = [];
+        preg_match('/(\d+):(\d+)/', $value, $time);
+        if (empty($time)) {
+            return (int)$value;
+        }
+        return (int)$time[1] * 60 + (int)$time[2];
+    }
+
+    public static function parseMarkers($markers){
+        foreach($markers['points'] as $key => $value){
+            $markers['points'][$key]['time'] =  self::chapterTimeToSeconds($value['time']);
+        }
+        return $markers;
+    }
+
 }

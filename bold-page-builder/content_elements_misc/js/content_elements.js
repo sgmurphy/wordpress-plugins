@@ -720,7 +720,7 @@
 		if ( atob( custom_style ).startsWith( '[' ) ) custom_style = '';
 		
 		var img_src = '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' + centerLatLng.toString() + '&zoom=' + zoom + markerStr + '&size=640x' + height + '&scale=2&style=' + atob( custom_style ) + '&key=' + api_key + '">';
-		container.find( '.bt_bb_google_maps_map.bt_bb_map_map' ).append( img_src ).on('click', function(){ $( '.bt_bb_map_location_show' ).removeClass( 'bt_bb_map_location_show' ).nextOrFirst().addClass( 'bt_bb_map_location_show' ) });
+		container.find( '.bt_bb_google_maps_map.bt_bb_map_map' ).append( img_src ).on('click', function(){ $(this).parent().find( '.bt_bb_map_location_show' ).removeClass( 'bt_bb_map_location_show' ).nextOrFirst().addClass( 'bt_bb_map_location_show' ) });
 		
 		locations.eq( 0 ).addClass( 'bt_bb_map_location_show' );
 		
@@ -804,13 +804,21 @@
 				lat_sum += parseFloat(lat);
 				lng_sum += parseFloat(lng);
 
+				var myGlyphImg = document.createElement("img");
+				myGlyphImg.src = icon;
+				myGlyphImg.count = n;
 				var myLatLng = new google.maps.LatLng( lat, lng );
-				var marker = new google.maps.Marker({
+				// console.log( myLatLng );
+				// var myLatLng = { lat: -25.344, lng: 131.031 };
+				// console.log( map );
+				// console.log( myLatLng );
+				var marker = new google.maps.marker.AdvancedMarkerElement({
+					map,
 					position: myLatLng,
-					map: map,
-					icon: icon,
-					count: n
+					content: myGlyphImg,
+					// count: n
 				});
+				marker.count = n;
 				
 				if ( ! center_map && n == 0 ) {
 					map.setCenter( myLatLng );
@@ -818,14 +826,15 @@
 				
 				locations.eq( 0 ).addClass( 'bt_bb_map_location_show' );
 				
-				marker.addListener( 'click', function() {
+				marker.addListener( 'click', () => {
 					//map.setZoom( zoom );
 					//map.setCenter( marker.getPosition() );
+					console.log( marker.count );
 					var reload = true;
-					if ( locations.eq( this.count ).hasClass( 'bt_bb_map_location_show' ) && !container.hasClass( 'bt_bb_map_no_overlay' ) ) reload = false; 
+					if ( locations.eq( marker.count ).hasClass( 'bt_bb_map_location_show' ) && !container.hasClass( 'bt_bb_map_no_overlay' ) ) reload = false; 
 					container.removeClass( 'bt_bb_map_no_overlay' );
 					locations.removeClass( 'bt_bb_map_location_show' );
-					if ( reload ) locations.eq( this.count ).addClass( 'bt_bb_map_location_show' );
+					if ( reload ) locations.eq( marker.count ).addClass( 'bt_bb_map_location_show' );
 				});
 				
 				n++;

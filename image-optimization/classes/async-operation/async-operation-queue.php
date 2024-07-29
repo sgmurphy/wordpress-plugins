@@ -12,4 +12,5 @@ final class Async_Operation_Queue extends Basic_Enum {
 	public const OPTIMIZE = 'image-optimization/optimize';
 	public const BACKUP = 'image-optimization/backup';
 	public const RESTORE = 'image-optimization/restore';
+	public const STATS = 'image-optimization/stats';
 }

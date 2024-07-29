@@ -4,7 +4,7 @@
  * This is a LoginPress Compatibility to make it compatible for older versions.
  *
  * @since 1.0.22
- * @version 3.0.9
+ * @version 3.1.1
  */
 
 
@@ -96,12 +96,8 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 			/*************************************
 				WebArx Compatibility Fix // v1.2.3
 			*************************************/
-			add_filter( 'wp_redirect',      array( $this, 'wp_redirect_remove_filter' ), 9 );
-			add_filter( 'site_url',         array( $this, 'site_url_remove_filter' ) , 9 );
-			add_filter( 'network_site_url', array( $this, 'network_site_url_remove_filter' ), 9 );
 			add_action( 'plugins_loaded',   array( $this, 'plugins_loaded_remove_action' ), 10 );
-			add_action( 'wp_loaded',        array( $this, 'wp_loaded_remove_action' ), 9 );
-			add_action( 'init',             array( $this, 'init_remove_action' ), 9 );
+			add_action( 'init',             array( $this, 'loginpress_webarx_compatibility' ), 9 );
 
 			/**
 			 * Login page Compatibility Fix.
@@ -229,26 +225,40 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 		}
 
 		/**
+		 * To check the WebARX hooks if class exist.
+		 *
+		 * @since 3.1.1
+		 */
+		public function loginpress_webarx_compatibility() {
+			if ( class_exists( 'Webarx' ) ) {
+				$this->init_remove_action();
+				add_filter( 'wp_redirect',      array( $this, 'wp_redirect_remove_filter' ), 9 );
+				add_filter( 'site_url',         array( $this, 'site_url_remove_filter' ), 9 );
+				add_filter( 'network_site_url', array( $this, 'network_site_url_remove_filter' ), 9 );
+				add_action( 'wp_loaded',        array( $this, 'wp_loaded_remove_action' ), 9 );
+			}
+		}
+
+		/**
 		 * WebArx Compatibility Fix.
 		 *
-		 * @since 1.2.3
 		 * @param string $location The current location.
 		 * @return string $location Modified current location.
+		 *
+		 * @since 1.2.3
+		 * @version 3.1.1
 		 */
 		public function wp_redirect_remove_filter( $location ) {
 
-			if ( class_exists( 'Webarx' ) ) {
+			if ( ! function_exists( 'is_user_logged_in' ) ) {
+				return $location;
+			}
 
-				if ( ! function_exists( 'is_user_logged_in' ) ) {
-					return $location;
-				}
+			$webarx_login   = get_option( 'webarx_mv_wp_login' );
+			$user_logged_in = is_user_logged_in();
 
-				$webarx_login   = get_option( 'webarx_mv_wp_login' );
-				$user_logged_in = is_user_logged_in();
-
-				if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
-					remove_filter( 'wp_redirect', array( webarx()->hide_login, 'wp_redirect' ) );
-				}
+			if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
+				remove_filter( 'wp_redirect', array( webarx()->hide_login, 'wp_redirect' ) );
 			}
 			return $location;
 		}
@@ -256,47 +266,42 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 		/**
 		 * WebArx Compatibility Fix for site URL removal.
 		 *
-		 * @since 1.2.3
 		 * @param string $url The URL.
 		 * @return string $url Modified URL.
+		 *
+		 * @since 1.2.3
+		 * @version 3.1.1
 		 */
-		public function site_url_remove_filter( $url ) {
-			if ( class_exists( 'Webarx' ) ) {
-
-				if ( ! function_exists( 'is_user_logged_in' ) ) {
-					return $url;
-				}
-
-				$webarx_login   = get_option( 'webarx_mv_wp_login' );
-				$user_logged_in = is_user_logged_in();
-
-				if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
-					remove_filter('site_url', array( webarx()->hide_login, 'site_url' ) ) ;
-				}
+		public function site_url_remove_filter($url) {
+			if ( ! function_exists( 'is_user_logged_in' ) ) {
+				return $url;
+			}
+			$webarx_login   = get_option( 'webarx_mv_wp_login' );
+			$user_logged_in = is_user_logged_in();
+			if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
+				remove_filter('site_url', array( webarx()->hide_login, 'site_url' ) ) ;
 			}
 			return $url;
 		}
-
+		
 		/**
 		 * WebArx Compatibility Fix for multi-site URL removal.
 		 *
-		 * @since 1.2.3
 		 * @param string $url The URL.
 		 * @return string $url Modified URL.
+		 *
+		 * @since 1.2.3
+		 * @version 3.1.1
 		 */
 		public function network_site_url_remove_filter( $url ) {
-			if ( class_exists( 'Webarx' ) ) {
+			if ( ! function_exists( 'is_user_logged_in' ) ) {
+				return $url;
+			}
+			$webarx_login   = get_option( 'webarx_mv_wp_login' );
+			$user_logged_in = is_user_logged_in();
 
-				if ( ! function_exists( 'is_user_logged_in' ) ) {
-					return $url;
-				}
-
-				$webarx_login   = get_option( 'webarx_mv_wp_login' );
-				$user_logged_in = is_user_logged_in();
-
-				if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
-					remove_filter('network_site_url', array( webarx()->hide_login, 'network_site_url' ) ) ;
-				}
+			if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
+				remove_filter('network_site_url', array( webarx()->hide_login, 'network_site_url' ) ) ;
 			}
 			return $url;
 		}
@@ -325,40 +330,38 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 		 * Remove wp_loaded action hook.
 		 *
 		 * @since 1.2.3
+		 * @version 3.1.1
 		 */
 		public function wp_loaded_remove_action() {
-			if ( class_exists( 'Webarx' ) ) {
 
-				if ( ! function_exists( 'is_user_logged_in' ) ) {
-					return $url;
-				}
+			if ( ! function_exists( 'is_user_logged_in' ) ) {
+				return $url;
+			}
 
-				$webarx_login   = get_option( 'webarx_mv_wp_login' );
-				$user_logged_in = is_user_logged_in();
+			$webarx_login   = get_option( 'webarx_mv_wp_login' );
+			$user_logged_in = is_user_logged_in();
 
-				if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
-					remove_action( 'wp_loaded', array( webarx()->hide_login, 'wp_loaded' ) );
-				}
+			if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
+				remove_action( 'wp_loaded', array( webarx()->hide_login, 'wp_loaded' ) );
 			}
 		}
 		/**
 		 * Remove init action hook.
 		 *
 		 * @since 1.2.3
+		 * @version 3.1.1
 		 */
 		public function init_remove_action() {
-			if ( class_exists( 'Webarx' ) ) {
 
-				if ( ! function_exists( 'is_user_logged_in' ) ) {
-					return $url;
-				}
+			if ( ! function_exists( 'is_user_logged_in' ) ) {
+				return $url;
+			}
 
-				$webarx_login   = get_option( 'webarx_mv_wp_login' );
-				$user_logged_in = is_user_logged_in();
+			$webarx_login   = get_option( 'webarx_mv_wp_login' );
+			$user_logged_in = is_user_logged_in();
 
-				if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
-					remove_action( 'init', array( webarx()->hide_login, 'denyRequestsToWpLogin' ) ) ;
-				}
+			if ( ( isset( $user_logged_in ) && true === $user_logged_in ) && ( isset( $webarx_login ) && '1' === $webarx_login ) ) {
+				remove_action( 'init', array( webarx()->hide_login, 'denyRequestsToWpLogin' ) ) ;
 			}
 		}
 

@@ -2,10 +2,8 @@
 
 Contributors: arubait, arubadev, arubasupport
 Tags: Aruba, cache, performance, pagespeed, optimize
-Requires at least: 5.4
-Tested up to: 6.5
-Requires PHP: 5.6
-Stable tag: 2.0.11
+Tested up to: 6.6
+Stable tag: 2.0.12
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -69,6 +67,10 @@ wordpress_no_cache, comment_author, wordpress_logged_in_, yith_wcwl_products, wp
 2. General Settings Enabled
 
 == Changelog ==
+
+= 2.0.12 =
+* Various minor bug fixes.
+* Tested up WordPress 6.6
 
 = 2.0.11 =
 * Various minor bug fixes.
@@ -169,5 +171,6 @@ wordpress_no_cache, comment_author, wordpress_logged_in_, yith_wcwl_products, wp
 
 == Upgrade Notice ==
 
-= 2.0.11 =
+= 2.0.12 =
 * Various minor bug fixes.
+* Tested up WordPress 6.6

@@ -26,7 +26,8 @@ if ( \is_admin() ) {
  */
 function AHSC_add_admin_bar_menu_links( $wp_admin_bar ) {
 	global $AHSC_AB_title,$topurge;
-	$wp_admin_bar->add_menu(
+    if ( is_user_logged_in() && current_user_can( 'edit_posts' )){
+    $wp_admin_bar->add_menu(
 		array(
 			'id'     => 'ahsc-purge-link',
 			'parent' => ( ! \is_null( $wp_admin_bar->get_node( AHSC_MENUBAR_PARENT_ITEM ) ) ) ? AHSC_MENUBAR_PARENT_ITEM : false,
@@ -38,6 +39,7 @@ function AHSC_add_admin_bar_menu_links( $wp_admin_bar ) {
 			),
 		)
 	);
+    }
 }
 
 
@@ -47,13 +49,15 @@ function AHSC_add_admin_bar_menu_links( $wp_admin_bar ) {
  * @return void
  */
 function AHSC_localize_toolbar_js() {
-	global $topurge;
-	$js_param = array(
-		'ahsc_ajax_url' => \admin_url( 'admin-ajax.php' ),
-		'ahsc_topurge'  => $topurge,
-		'ahsc_nonce'    => \wp_create_nonce( 'ahsc-purge-cache' ),
-	);
-	\wp_add_inline_script( 'ahcs-toolbar', 'const AHSC_TOOLBAR = ' . \wp_json_encode( $js_param ), 'before' );
+    if ( is_user_logged_in() && current_user_can( 'edit_posts' )) {
+        global $topurge;
+        $js_param = array(
+            'ahsc_ajax_url' => \admin_url('admin-ajax.php'),
+            'ahsc_topurge' => $topurge,
+            'ahsc_nonce' => \wp_create_nonce('ahsc-purge-cache'),
+        );
+        \wp_add_inline_script('ahcs-toolbar', 'const AHSC_TOOLBAR = ' . \wp_json_encode($js_param), 'before');
+    }
 }
 
 /**
@@ -63,6 +67,6 @@ function AHSC_localize_toolbar_js() {
  */
 function AHSC_Menu_get_title() {
 	global $AHSC_AB_title;
-	$title = '<span class="ab-icon ahsc-ab-icon" aria-hidden="true"></span><span class="ab-label">' . __($AHSC_AB_title,'aruba-hispeed-cache') . '</span>';
+	$title = '<span class="ab-icon ahsc-ab-icon" aria-hidden="true"></span><span class="ab-label">' . $AHSC_AB_title . '</span>';
 	return $title;
 }

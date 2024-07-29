@@ -242,7 +242,7 @@ if ( ! \function_exists( 'ahsc_get_check_notice' ) ) {
 		$lng=strtolower(substr( get_bloginfo ( 'language' ), 0, 2 ));
 
 		if($notice_type){
-			//var_dump($notice_type);
+			$notice_type=(array) $notice_type;
 		switch ( $notice_type['esit'] ) {
 			case AVAILABLE:
 				$notice['handle']  = 'ahsc-service-warning';
@@ -309,6 +309,8 @@ if ( ! \function_exists( 'ahsc_get_check_notice' ) ) {
 			$notice = AHSC_Notice_Render( $notice['handle'], $notice['type'],$notice['message'], true );
 		}
 
+		}else{
+			$notice=null;
 		}
 
 		return $notice;

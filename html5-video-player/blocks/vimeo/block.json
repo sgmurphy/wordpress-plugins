@@ -135,7 +135,17 @@
         "disablePause": false,
         "hideYoutubeUI": false,
         "startTime": null,
-        "hideLoadingPlaceholder": false
+        "hideLoadingPlaceholder": false,
+        "passwordProtected": {
+          "enabled": false,
+          "errorMessage": "Password didn't matched",
+          "heading": "Please Entire the password to access the video",
+          "button": {
+            "text": "Access",
+            "color": "#222",
+            "backgroundColor": "#ffffffe3"
+          }
+        }
       }
     },
     "quality": {

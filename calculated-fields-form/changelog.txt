@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.25 =
+
+* Modifies the checkbox behavior when one choice is entered as the maximum number of choices to select allowed.
+* Display a frame with invalid validation rules to allow identifying the hidden fields that fail.
+* Fixes an issue by selecting the fields for notification emails.
+
 = 5.2.24 =
 
 * Adds new predefined form templates.

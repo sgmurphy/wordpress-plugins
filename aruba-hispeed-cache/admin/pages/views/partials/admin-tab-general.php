@@ -61,7 +61,8 @@ foreach ( $this->fields['sections']['general'] as $sections_key => $sections ) :
                                 </span>
 							</label>
                             <small><?php
-								echo ( isset( $this->fields[ $filedkey ]['legend'] ) ) ? __( $this->fields[ $filedkey ]['legend'] ,'aruba-hispeed-cache') : '';
+                                //phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+								echo ( isset( $this->fields[ $filedkey ]['legend'] ) ) ? esc_html( __( $this->fields[ $filedkey ]['legend'] ,'aruba-hispeed-cache')) : '';
 								?></small>
 						<?php endforeach; ?>
 					</fieldset>

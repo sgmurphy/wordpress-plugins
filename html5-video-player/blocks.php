@@ -7,10 +7,9 @@ if(!defined('ABSPATH')) {
 // require_once(__DIR__.'/inc/Services/AdvanceSystem.php');
 // require_once(__DIR__.'/inc/Services/VideoTemplate.php');
 use H5VP\Helper\DefaultArgs;
-use H5VP\Helper\Functions;
+use H5VP\Helper\Functions as Utils;
 use H5VP\Services\AdvanceSystem;
 use H5VP\Services\VideoTemplate;
-use H5VP\Services\BlockTemplate;
 
 
 if(!class_exists('H5VP_Block')){
@@ -70,20 +69,26 @@ if(!class_exists('H5VP_Block')){
         }
 
         public function render_callback_video($attrs, $content){
-            $provider = 'self-hosted';
-            if(isset($attrs['source'])){
-                $provider = Functions::getProvider($attrs['source']);
-            }else {
-                return false; 
-            }
-            $attrs['provider'] = $provider;
+            // $provider = 'self-hosted';
+            // if(isset($attrs['source'])){
+            //     $provider = Functions::getProvider($attrs['source']);
+            // }else {
+            //     return false; 
+            // }
+            // $attrs['provider'] = $provider;
             $data = DefaultArgs::parseArgs(AdvanceSystem::getData($attrs));
+
+            // echo '<pre>';
+            // print_r( $data );
+            // echo '</pre>';
 
  
             $merge_able_data = [];
 
             if($attrs['imported']){
                 $merge_able_data = $attrs;
+                $merge_able_data['options']['markers'] = Utils::parseMarkers($merge_able_data['options']['markers']);
+                $merge_able_data['styles'] = wp_parse_args($merge_able_data['styles'], $data['styles']);
             }
 
             $finalData = wp_parse_args($merge_able_data, [
@@ -158,16 +163,11 @@ if(!class_exists('H5VP_Block')){
                     'enabled' => $data['template']['branding'],
                     'color' => $data['template']['branding_color'] ?? ''
                 ],
-
-                'styles' => [
-                    'something sdk.sdkf#lsd' => [
-                        'width' => $data['template']['width']
-                    ]
-                ]
             ]);  
  
 
             ob_start();
+
             echo VideoTemplate::html($finalData);
 
             return ob_get_clean();

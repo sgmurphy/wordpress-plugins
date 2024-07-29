@@ -324,7 +324,17 @@
 		padding: 0;
 	}
 
-	.pmpro_form_field-checkbox,
+	.pmpro_form_field-checkbox {
+
+		.pmpro_form_label {
+			align-items: first baseline;
+			display: flex;
+			flex-direction: row;
+			gap: calc( var(--pmpro--base--spacing--small) / 2 );
+		}
+
+	}
+
 	.pmpro_form_field-radio-item {
 		align-items: baseline;
 		flex-direction: row;
@@ -337,6 +347,17 @@
 
 	.pmpro_form_field-radio-item:not(:last-of-type) {
 		margin-bottom: calc( var(--pmpro--base--spacing--small) / 2 );
+	}
+
+	.pmpro_form_field-checkbox-grouped {
+
+		.pmpro_form_field-checkbox-grouped-item {
+			align-items: first baseline;
+			display: flex;
+			flex-direction: row;
+			gap: calc( var(--pmpro--base--spacing--small) / 2 );
+		}
+
 	}
 
 	.pmpro_form_input-multiselect {
@@ -482,7 +503,9 @@
 		padding-top: var(--pmpro--base--spacing--large);
 	}
 
-	.pmpro_section #loginform p {
+	.pmpro_section #loginform .login-username,
+	.pmpro_section #loginform .login-password,
+	.pmpro_section #loginform .login-remember {
 		display: flex;
 		flex-direction: column;
 		gap: calc( var(--pmpro--base--spacing--small) / 2 );
@@ -971,6 +994,10 @@
 		.pmpro_cols-2 > *,
 		.pmpro_cols-3 > * {
 			width: auto;
+		}
+
+		#pmpro_user_fields .pmpro_form_field-password:has(.pmpro_form_field-password-toggle) {
+			width: 100%;
 		}
 
 	}

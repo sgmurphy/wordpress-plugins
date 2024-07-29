@@ -51,8 +51,8 @@ class LoginPress_Entities {
 		add_action( 'login_footer',			array( $this, 'login_page_custom_footer' ) );
 		add_filter( 'site_icon_meta_tags',  array( $this, 'login_page_custom_favicon' ), 1, 1 );
 		add_action( 'login_head',			array( $this, 'login_page_custom_head' ) );
-		add_action( 'woocommerce_login_form', array( $this, 'loginpress_wc_login_page_url_redirection' ) );
 		add_action( 'init',					array( $this, 'redirect_to_custom_page' ) );
+		add_action( 'init',					array( $this, 'loginpress_lostpassword_url_changed' ) );
 		add_action( 'admin_menu',			array( $this, 'menu_url' ), 10 );
 		add_filter( 'wp_login_errors',    	array( $this, 'remove_error_messages_in_wp_customizer' ), 10, 2 );
 		add_action( 'login_enqueue_scripts', array( $this, 'loginpress_login_page_scripts' ) );
@@ -1892,11 +1892,6 @@ class LoginPress_Entities {
 		do_action( 'loginpress_header_menu' );
 		// do_action( 'loginpress_header_wrapper' );
 
-		// If user click on the default WP lost password url, it'll not be redirect on the WC lost URL.
-		if ( 'on' == $lostpassword_url ) {	
-			remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );	
-		}
-
 		/**
 		 * Filter for changing the lost password URL of lifter LMS plugin to default Lost Password URL of WordPress
 		 * By using this filter, you can prevent the redirection of lost password to Lifter LMS's lost password page over lost password link.
@@ -1915,21 +1910,6 @@ class LoginPress_Entities {
 			if ( 'off' != $login_favicon && function_exists('login_header') ) {
 				echo '<link rel="shortcut icon" href="' . $login_favicon . '" />';
 			}
-		}
-	}
-
-	/**
-	 * Redirecting the WooCommerce lost password url to default WP lost password url.
-	 *
-	 * @since 3.0.8
-	 */
-	function loginpress_wc_login_page_url_redirection() {
-
-		$loginpress_setting = get_option( 'loginpress_setting' );
-		$lostpassword_url   = isset( $loginpress_setting['lostpassword_url'] ) ? $loginpress_setting['lostpassword_url'] : 'off';
-
-		if ( 'on' == $lostpassword_url ) {
-			remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
 		}
 	}
 
@@ -2066,6 +2046,32 @@ class LoginPress_Entities {
 
 		return $error;
 	}
+
+	/**
+	 * Redirecting the Lost Password url to default lost post password page when Woocommerce is active
+	 * @since 3.1.1
+	 */
+	function loginpress_reset_pass_url_in_notify() {
+		$siteURL = get_option('siteurl');
+		$login_url  = wp_login_url();
+		$login_url = explode("/", $login_url);
+		$path = $login_url[3];
+		return "{$siteURL}/{$path}?action=lostpassword";
+	}
+
+	/**
+	 * Checks if the Lost password URL is enabled
+	 * @since 3.1.1
+	 */
+
+	public function loginpress_lostpassword_url_changed() {
+		$loginpress_setting = get_option( 'loginpress_setting' );
+		$lostpassword_url   = isset( $loginpress_setting['lostpassword_url'] ) ? $loginpress_setting['lostpassword_url'] : 'off';
+
+		if ( 'on' == $lostpassword_url ) {
+			add_filter('lostpassword_url',array($this,'loginpress_reset_pass_url_in_notify'), 11, 0);
+		}
+	} 
 
 	/**
 	 * Change Lost Password Text from Form
