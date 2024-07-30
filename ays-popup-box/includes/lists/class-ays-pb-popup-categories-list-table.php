@@ -259,7 +259,7 @@ class Popup_Categories_List_Table extends WP_List_Table {
         );
 
         if (intval($item['id']) !== 1) {
-            $actions['delete'] = sprintf('<a class="ays_confirm_del"  href="?page=%s&action=%s&popup_category=%s&_wpnonce=%s">' . __('Delete', "ays-popup-box") . '</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint($item['id']), $delete_nonce);
+            $actions['delete'] = sprintf('<a class="ays_pb_confirm_del" data-message="%s" href="?page=%s&action=%s&popup_category=%s&_wpnonce=%s">' . __('Delete', "ays-popup-box") . '</a>', $restitle, esc_attr($_REQUEST['page']), 'delete', absint($item['id']), $delete_nonce);
         }
 
         return $title . $this->row_actions($actions);
@@ -296,6 +296,120 @@ class Popup_Categories_List_Table extends WP_List_Table {
         return $status_html;
     }
 
+    public function process_bulk_action() {
+        //Detect when a bulk action is being triggered...
+        if ( "delete" === $this->current_action() ) {
+            // In our file that handles the request, verify the nonce.
+            $nonce = esc_attr($_REQUEST["_wpnonce"]);
+
+            if ( !wp_verify_nonce($nonce, $this->plugin_name . "-delete-popup-category") ) {
+                die('Go get a life script kiddies');
+            } else {
+                self::delete_popup_categories( absint($_GET["popup_category"]) );
+
+                $url = esc_url_raw( remove_query_arg(array("action", "popup_category", "_wpnonce")) ) . "&status=deleted";
+                wp_redirect($url);
+            }
+        }
+
+        // If the delete bulk action is triggered
+        if ( (isset($_POST["action"]) && $_POST["action"] == "bulk-delete") || (isset($_POST["action2"]) && $_POST["action2"] == "bulk-delete") ) {
+            $delete_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+
+            // loop over the array of record IDs and delete them
+            foreach ($delete_ids as $id) {
+                self::delete_popup_categories($id);
+            }
+
+            $url = esc_url_raw( remove_query_arg(array("action", "popup_category", "_wpnonce")) ) . "&status=deleted";
+            wp_redirect($url);
+        } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-published') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-published') ) {
+            $published_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+
+            // loop over the array of record IDs and mark as read them
+            foreach ($published_ids as $id) {
+                self::ays_pb_published_unpublished_popup_categories($id, 'published');
+            }
+
+            $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')) ) . '&status=published';
+            wp_redirect($url);
+        } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-unpublished') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-unpublished') ) {
+            $unpublished_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+
+            // loop over the array of record IDs and mark as read them
+            foreach ($unpublished_ids as $id) {
+                self::ays_pb_published_unpublished_popup_categories($id, 'unpublished');
+            }
+
+            $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')) ) . '&status=unpublished';
+            wp_redirect($url);
+        }
+    }
+
+    /**
+     * Delete a customer record.
+     *
+     * @param int $id customer ID
+     */
+    public static function delete_popup_categories($id) {
+        global $wpdb;
+        $wpdb->delete(
+            "{$wpdb->prefix}ays_pb_categories",
+            array('id' => $id),
+            array('%d')
+        );
+    }
+
+    public static function ays_pb_published_unpublished_popup_categories($id, $status = 'published') {
+        global $wpdb;
+        $pbcategories_table = esc_sql($wpdb->prefix . "ays_pb_categories");
+
+        if ( is_null($id) || absint(sanitize_text_field($id)) == 0 ) {
+            return null;
+        }
+
+        $id = absint(sanitize_text_field($id));
+        $published = ($status == 'unpublished') ? 0 : 1;
+
+        $wpdb->update(
+            $pbcategories_table,
+            array(
+                'published' => $published,
+            ),
+            array('id' => $id),
+            array('%d'),
+            array('%d')
+        );
+    }
+
+    /**
+     * Returns the count of records in the database.
+     *
+     * @return null|string
+     */
+    public static function record_count() {
+        global $wpdb;
+
+        $filter = array();
+        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb_categories";
+
+        if ( isset($_REQUEST['fstatus']) && is_numeric($_REQUEST['fstatus']) && !is_null(sanitize_text_field($_REQUEST['fstatus'])) && esc_sql($_REQUEST['fstatus']) != '' ) {
+            $fstatus = absint(esc_sql($_REQUEST['fstatus']));
+            $filter[] = " published = " . $fstatus;
+        }
+
+        $search = isset($_REQUEST['s']) ? esc_sql( sanitize_text_field($_REQUEST['s']) ) : false;
+        if ($search) {
+            $filter[] = sprintf( " title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)) );
+        }
+
+        if (count($filter) !== 0) {
+            $sql .= " WHERE " . implode(" AND ", $filter);
+        }
+
+        return $wpdb->get_var($sql);
+    }
+
     /**
      * Retrieve customers data from the database
      *
@@ -304,52 +418,61 @@ class Popup_Categories_List_Table extends WP_List_Table {
      *
      * @return mixed
      */
-    public static function get_popup_categories( $per_page = 20, $page_number = 1, $search = '' ) {
-
+    public static function get_popup_categories($per_page = 20, $page_number = 1, $search = '') {
         global $wpdb;
-
         $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories";
 
         $where = array();
 
-        if( $search != '' ){
+        if ($search != '') {
             $where[] = $search;
         }
 
-         if( isset( $_REQUEST['fstatus'] ) && is_numeric( $_REQUEST['fstatus'] ) && ! is_null( sanitize_text_field( $_REQUEST['fstatus'] ) ) ){
-            if( esc_sql( $_REQUEST['fstatus'] ) != '' ){
-                $fstatus  = absint( esc_sql( $_REQUEST['fstatus'] ) );
-                $where[] = " published = ".$fstatus." ";
-            }
+        if ( isset($_REQUEST['fstatus']) && is_numeric($_REQUEST['fstatus']) && !is_null(sanitize_text_field($_REQUEST['fstatus'])) && esc_sql($_REQUEST['fstatus']) != '' ) {
+            $fstatus = absint(esc_sql($_REQUEST['fstatus']));
+            $where[] = " published = " . $fstatus;
         }
 
-        if( ! empty($where) ){
-            $sql .= " WHERE " . implode( " AND ", $where );
+        if (!empty($where)) {
+            $sql .= " WHERE " . implode(" AND ", $where);
         }
 
-        if ( ! empty( $_REQUEST['orderby'] ) ) {
-
-            $order_by  = ( isset( $_REQUEST['orderby'] ) && sanitize_text_field( $_REQUEST['orderby'] ) != '' ) ? sanitize_text_field( $_REQUEST['orderby'] ) : 'id';
-            $order_by .= ( ! empty( $_REQUEST['order'] ) && strtolower( $_REQUEST['order'] ) == 'asc' ) ? ' ASC' : ' DESC';
+        if (!empty($_REQUEST['orderby'])) {
+            $order_by = ( isset($_REQUEST['orderby']) && sanitize_text_field($_REQUEST['orderby']) != '' ) ? sanitize_text_field($_REQUEST['orderby']) : 'id';
+            $order_by .= ( !empty($_REQUEST['order']) && strtolower($_REQUEST['order']) == 'asc' ) ? 'ASC' : 'DESC';
 
             $sql_orderby = sanitize_sql_orderby($order_by);
 
-            if ( $sql_orderby ) {
+            if ($sql_orderby) {
                 $sql .= ' ORDER BY ' . $sql_orderby;
             } else {
                 $sql .= ' ORDER BY id DESC';
             }
-        }else{
+        } else {
             $sql .= ' ORDER BY id DESC';
         }
 
         $sql .= " LIMIT $per_page";
-        $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
+        $sql .= ' OFFSET ' . ($page_number - 1) * $per_page;
 
-
-        $result = $wpdb->get_results( $sql, 'ARRAY_A' );
+        $result = $wpdb->get_results($sql, 'ARRAY_A');
 
         return $result;
+    }
+
+    /**
+     * Returns an associative array containing the bulk action
+     *
+     * @return array
+     */
+    public function get_bulk_actions() {
+        $actions = array(
+            'bulk-published' => __('Publish', "ays-popup-box"),
+            'bulk-unpublished' => __('Unpublish', "ays-popup-box"),
+            'bulk-delete' => __('Delete', "ays-popup-box"),
+        );
+
+        return $actions;
     }
 
     public function get_popup_category( $id ) {
@@ -425,176 +548,6 @@ class Popup_Categories_List_Table extends WP_List_Table {
                     wp_redirect( $url );
                 }
             }
-        }
-    }
-
-    /**
-     * Delete a customer record.
-     *
-     * @param int $id customer ID
-     */
-    public static function delete_popup_categories( $id ) {
-        global $wpdb;
-        $wpdb->delete(
-            "{$wpdb->prefix}ays_pb_categories",
-            array( 'id' => $id ),
-            array( '%d' )
-        );
-    }
-
-     public static function ays_pb_published_unpublished_popup_categories( $id, $status = 'published' ) {
-        global $wpdb;
-
-        $pbcategories_table = esc_sql( $wpdb->prefix . "ays_pb_categories" );
-
-        if ( is_null( $id ) || absint( sanitize_text_field( $id ) ) == 0 ) {
-            return null;
-        }
-
-        $id = absint( sanitize_text_field( $id ) );
-
-        switch ( $status ) {
-            case 'published':
-                $published = 1;
-                break;
-            case 'unpublished':
-                $published = 0;
-                break;
-            default:
-                $published = 1;
-                break;
-        }
-
-        $categories_result = $wpdb->update(
-            $pbcategories_table,
-            array(
-                'published' => $published,
-            ),
-            array( 'id' => $id ),
-            array(
-                '%d'
-            ),
-            array( '%d' )
-        );
-    }
-
-
-
-    /**
-     * Returns the count of records in the database.
-     *
-     * @return null|string
-     */
-    public static function record_count() {
-        global $wpdb;
-
-        $filter = array();
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb_categories";
-
-        if( isset( $_REQUEST['fstatus'] ) && is_numeric( $_REQUEST['fstatus'] ) && ! is_null( sanitize_text_field( $_REQUEST['fstatus'] ) ) ){
-            if( esc_sql( $_REQUEST['fstatus'] ) != '' ){
-                $fstatus  = absint( esc_sql( $_REQUEST['fstatus'] ) );
-                $filter[] = " published = ".$fstatus." ";
-            }
-        }
-
-        $search = ( isset( $_REQUEST['s'] ) ) ? esc_sql( sanitize_text_field( $_REQUEST['s'] ) ) : false;
-        if( $search ){
-            $filter[] = sprintf(" title LIKE '%%%s%%' ", esc_sql( $wpdb->esc_like( $search ) ) );
-        }
-        
-        if(count($filter) !== 0){
-            $sql .= " WHERE ".implode(" AND ", $filter);
-        }
-
-        return $wpdb->get_var( $sql );
-    }
-
-    /**
-     * Returns an associative array containing the bulk action
-     *
-     * @return array
-     */
-    public function get_bulk_actions() {
-        $actions = array(
-            'bulk-published' => __('Publish', "ays-popup-box"),
-            'bulk-unpublished' => __('Unpublish', "ays-popup-box"),
-            'bulk-delete' => __('Delete', "ays-popup-box"),
-        );
-
-        return $actions;
-    }
-
-    public function process_bulk_action() {
-        //Detect when a bulk action is being triggered...
-        if ( 'delete' === $this->current_action() ) {
-
-            // In our file that handles the request, verify the nonce.
-            $nonce = esc_attr( $_REQUEST['_wpnonce'] );
-
-            if ( ! wp_verify_nonce( $nonce, $this->plugin_name . '-delete-popup-category' ) ) {
-                die( 'Go get a life script kiddies' );
-            }
-            else {
-                self::delete_popup_categories( absint( $_GET['popup_category'] ) );
-
-                // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-                // add_query_arg() return the current url
-
-                $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')  ) ) . '&status=deleted';
-                wp_redirect( $url );
-            }
-
-        }
-
-        // If the delete bulk action is triggered
-        if ( ( isset( $_POST['action'] ) && $_POST['action'] == 'bulk-delete' )
-            || ( isset( $_POST['action2'] ) && $_POST['action2'] == 'bulk-delete' )
-        ) {
-
-            $delete_ids = ( isset( $_POST['bulk-delete'] ) && ! empty( $_POST['bulk-delete'] ) ) ? esc_sql( $_POST['bulk-delete'] ) : array();
-
-            // loop over the array of record IDs and delete them
-            foreach ( $delete_ids as $id ) {
-                self::delete_popup_categories( $id );
-            }
-
-            // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-            // add_query_arg() return the current url
-            $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')  ) ) . '&status=deleted';
-            wp_redirect( $url );
-        }elseif ((isset($_POST['action']) && $_POST['action'] == 'bulk-published')
-                  || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-published')
-        ) {
-
-            $published_ids = ( isset( $_POST['bulk-delete'] ) && ! empty( $_POST['bulk-delete'] ) ) ? esc_sql( $_POST['bulk-delete'] ) : array();
-
-            // loop over the array of record IDs and mark as read them
-
-            foreach ( $published_ids as $id ) {
-                self::ays_pb_published_unpublished_popup_categories( $id , 'published' );
-            }
-
-            // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-            // add_query_arg() return the current url
-            $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')  ) ) . '&status=published';
-            wp_redirect( $url );
-        } elseif ((isset($_POST['action']) && $_POST['action'] == 'bulk-unpublished')
-                  || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-unpublished')
-        ) {
-
-            $unpublished_ids = ( isset( $_POST['bulk-delete'] ) && ! empty( $_POST['bulk-delete'] ) ) ? esc_sql( $_POST['bulk-delete'] ) : array();
-
-            // loop over the array of record IDs and mark as read them
-
-            foreach ( $unpublished_ids as $id ) {
-                self::ays_pb_published_unpublished_popup_categories( $id , 'unpublished' );
-            }
-
-            // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-            // add_query_arg() return the current url
-            $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')  ) ) . '&status=unpublished';
-            wp_redirect( $url );
         }
     }
 }

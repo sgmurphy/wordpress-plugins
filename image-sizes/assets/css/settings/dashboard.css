@@ -1096,10 +1096,10 @@ ul.image_sizes-sortable.disable li span img.image_sizes-thumbnails-arrow-left {
 /*========================*/
 /*===Start Unused SECTION===*/
 /*========================*/
-#processing-convert {
+#thumbress-action-background-result {
     text-align: center;
 }
-.thumbpress_page_thumbpress-convert-images #processing-convert {
+.thumbpress_page_thumbpress-convert-images #thumbress-action-background-result {
     padding: 20px;
     border-radius: 8px;
     display: flex;
@@ -1107,27 +1107,27 @@ ul.image_sizes-sortable.disable li span img.image_sizes-thumbnails-arrow-left {
     align-items: center;
     flex-direction: column;
 }
-#processing-convert .image_sizes-status {
+#thumbress-action-background-result .image_sizes-status {
     margin: 0;
     padding: 0;
     margin-top: 5px;
 }
 
-#processing-convert .processing,
-#processing-convert .in-progress {
+#thumbress-action-background-result .processing,
+#thumbress-action-background-result .in-progress {
     color: #9098a1;
 }
-#processing-convert .failed {
+#thumbress-action-background-result .failed {
     color: red;
 }
-#processing-convert .complete {
+#thumbress-action-background-result .complete {
     color: #14ae5c;
 }
-#processing-convert .hidden {
+#thumbress-action-background-result .hidden {
     display: none;
 }
 
-#select-for-convert img {
+#thumbress-action-background-result img {
     height: 200px;
     width: 200px;
 }
@@ -1277,10 +1277,12 @@ position:absolute;
     padding: 20px;
     border-radius: 8px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.thumbpress-actions-wrapper .image-sizes-progress-panel-wrapper {
+.thumbpress-actions-wrapper .image-sizes-progress-panel-wrapper,
+.thumbpress-actions-wrapper #optimize-progress-panel-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -1340,6 +1342,16 @@ position:absolute;
     cursor: pointer;
 }
 /*loader css*/
+#thumbpress-pro-view{
+    align-self: center;
+}
+#thumbpress-action-now-result{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
 .thumbpress-progress-panel-wrapper{
     width: 100%;
     display: flex;

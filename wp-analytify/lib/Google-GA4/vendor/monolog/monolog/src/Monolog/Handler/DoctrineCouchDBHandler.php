@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -8,15 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Analytify\Monolog\Handler;
 
-namespace Monolog\Handler;
-
-use Monolog\Level;
-use Monolog\Formatter\NormalizerFormatter;
-use Monolog\Formatter\FormatterInterface;
-use Doctrine\CouchDB\CouchDBClient;
-use Monolog\LogRecord;
-
+use Analytify\Monolog\Logger;
+use Analytify\Monolog\Formatter\NormalizerFormatter;
+use Analytify\Monolog\Formatter\FormatterInterface;
+use Analytify\Doctrine\CouchDB\CouchDBClient;
 /**
  * CouchDB handler for Doctrine CouchDB ODM
  *
@@ -24,24 +22,22 @@ use Monolog\LogRecord;
  */
 class DoctrineCouchDBHandler extends AbstractProcessingHandler
 {
-    private CouchDBClient $client;
-
-    public function __construct(CouchDBClient $client, int|string|Level $level = Level::Debug, bool $bubble = true)
+    /** @var CouchDBClient */
+    private $client;
+    public function __construct(CouchDBClient $client, $level = Logger::DEBUG, bool $bubble = \true)
     {
         $this->client = $client;
         parent::__construct($level, $bubble);
     }
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function write(LogRecord $record): void
+    protected function write(array $record) : void
     {
-        $this->client->postDocument($record->formatted);
+        $this->client->postDocument($record['formatted']);
     }
-
-    protected function getDefaultFormatter(): FormatterInterface
+    protected function getDefaultFormatter() : FormatterInterface
     {
-        return new NormalizerFormatter;
+        return new NormalizerFormatter();
     }
 }

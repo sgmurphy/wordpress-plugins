@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,11 +15,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics\Resource;
 
 use Google\Service\Analytics\UserDeletionRequest;
-
 /**
  * The "userDeletionRequest" collection of methods.
  * Typical usage is:
@@ -29,21 +28,19 @@ use Google\Service\Analytics\UserDeletionRequest;
  */
 class UserDeletionUserDeletionRequest extends \Google\Service\Resource
 {
-  /**
-   * Insert or update a user deletion requests. (userDeletionRequest.upsert)
-   *
-   * @param UserDeletionRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return UserDeletionRequest
-   * @throws \Google\Service\Exception
-   */
-  public function upsert(UserDeletionRequest $postBody, $optParams = [])
-  {
-    $params = ['postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('upsert', [$params], UserDeletionRequest::class);
-  }
+    /**
+     * Insert or update a user deletion requests. (userDeletionRequest.upsert)
+     *
+     * @param UserDeletionRequest $postBody
+     * @param array $optParams Optional parameters.
+     * @return UserDeletionRequest
+     */
+    public function upsert(UserDeletionRequest $postBody, $optParams = [])
+    {
+        $params = ['postBody' => $postBody];
+        $params = \array_merge($params, $optParams);
+        return $this->call('upsert', [$params], UserDeletionRequest::class);
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(UserDeletionUserDeletionRequest::class, 'Google_Service_Analytics_Resource_UserDeletionUserDeletionRequest');
+\class_alias(\Google\Service\Analytics\Resource\UserDeletionUserDeletionRequest::class, 'Analytify\\Google_Service_Analytics_Resource_UserDeletionUserDeletionRequest');

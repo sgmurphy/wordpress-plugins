@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -29,7 +30,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Transport\Grpc;
 
 /**
@@ -50,12 +50,5 @@ interface UnaryInterceptorInterface
      * @param callable $continuation
      * @return mixed
      */
-    public function interceptUnaryUnary(
-        $method,
-        $argument,
-        $deserialize,
-        array $metadata,
-        array $options,
-        callable $continuation
-    );
+    public function interceptUnaryUnary($method, $argument, $deserialize, array $metadata, array $options, callable $continuation);
 }

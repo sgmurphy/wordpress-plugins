@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2018 Google LLC
  *
@@ -14,11 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 namespace Google\ApiCore\Testing;
 
-use SebastianBergmann\Comparator\ArrayComparator;
-
+use Analytify\SebastianBergmann\Comparator\ArrayComparator;
 /**
  * @internal
  */
@@ -27,6 +26,6 @@ class MessageAwareArrayComparator extends ArrayComparator
     public function __construct()
     {
         parent::__construct();
-        $this->exporter = new MessageAwareExporter();
+        $this->exporter = new \Google\ApiCore\Testing\MessageAwareExporter();
     }
 }

@@ -515,7 +515,7 @@ span.select2-container {
     height: 100% !important;
 }
 
-@media screen and (max-width: 782px){
+@media screen and (max-width: 782px) {
     .wp-picker-container .color-alpha {
         width: 40px !important;
     }
@@ -989,6 +989,12 @@ img.ays-popup-image-list-table-img-column {
 .ays-pb-enable-switch-list-table .ays-pb-enable-switch-slider:before {
     width: 15px;
     height: 15px;
+}
+
+@media screen and (max-width: 782px) {
+    .tablenav.top .ays-pb-clear-filters {
+        display: none;
+    }
 }
 /* Popup list table styles end */
 

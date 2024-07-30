@@ -89,8 +89,7 @@ class ExtensionHandler{
 		$importas = array(
 			'Posts' => 'Posts',
 			'Pages' => 'Pages',			
-			'Comments' => 'Comments',
-			'Images' => 'Images'
+			'Comments' => 'Comments'
 			
 		);
 		$all_post_types = get_post_types();
@@ -325,7 +324,8 @@ class ExtensionHandler{
 		if(!empty($Headers)){
 			if(in_array('wp_page_template', $Headers) && in_array('menu_order', $Headers)){
 				$type = 'Pages';
-			} elseif(in_array('user_login', $Headers) || in_array('role', $Headers) || in_array('user_email', $Headers) ){
+			}
+			elseif(in_array('user_login', $Headers) || in_array('role', $Headers) || in_array('user_email', $Headers) ){
 				$type = 'Users';
 			} elseif(in_array('comment_author', $Headers) || in_array('comment_content', $Headers) ||  in_array('comment_approved', $Headers) ){
 				$type = 'Comments';
@@ -342,8 +342,8 @@ class ExtensionHandler{
 			} elseif( in_array('recurrence_freq', $Headers) || in_array('recurrence_interval', $Headers) || in_array('recuurence_days', $Headers)){
 				$type = 'Recurring Events';
 			} elseif( in_array('name', $Headers) && in_array('slug', $Headers)){
-				$type = 'category';
-			} elseif(is_plugin_active('woocommerce/woocommerce.php')){
+				$type = 'category';  
+			} elseif(is_plugin_active('woocommerce/woocommerce.php') && is_plugin_active('import-woocommerce/import-woocommerce.php')){
 				if(in_array('PARENTSKU', $Headers) || in_array('VARIATIONSKU', $Headers) || in_array('PRODUCTID', $Headers) || in_array('VARIATIONID', $Headers)){
 					$type = 'WooCommerce Product Variations';
 				} elseif(in_array('coupon_code', $Headers) || in_array('COUPONID', $Headers) || in_array('coupon_amount', $Headers)){

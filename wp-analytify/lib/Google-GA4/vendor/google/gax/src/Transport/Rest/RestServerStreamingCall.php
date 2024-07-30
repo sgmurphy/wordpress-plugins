@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2021 Google LLC
  * All rights reserved.
@@ -29,18 +30,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Transport\Rest;
 
 use Google\ApiCore\ApiException;
 use Google\ApiCore\ApiStatus;
 use Google\ApiCore\ServerStreamingCallInterface;
 use Google\Rpc\Code;
-use GuzzleHttp\Exception\RequestException;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
+use Analytify\GuzzleHttp\Exception\RequestException;
+use Analytify\Psr\Http\Message\RequestInterface;
+use Analytify\Psr\Http\Message\ResponseInterface;
 use stdClass;
-
 /**
  * Class RestServerStreamingCall implements \Google\ApiCore\ServerStreamingCallInterface.
  *
@@ -48,18 +47,34 @@ use stdClass;
  */
 class RestServerStreamingCall implements ServerStreamingCallInterface
 {
-    /** @var callable */
+    /**
+     * @var callable
+     */
     private $httpHandler;
-
-    /** @var array<mixed> */
-    private array $decoderOptions;
-
-    private RequestInterface $originalRequest;
-    private ?JsonStreamDecoder $decoder;
-    private string $decodeType;
-    private ?ResponseInterface $response;
-    private stdClass $status;
-
+    /**
+     * @var RequestInterface
+     */
+    private $originalRequest;
+    /**
+     * @var ?JsonStreamDecoder
+     */
+    private $decoder;
+    /**
+     * @var string
+     */
+    private $decodeType;
+    /**
+     * @var array<mixed>
+     */
+    private $decoderOptions;
+    /**
+     * @var ?ResponseInterface
+     */
+    private $response;
+    /**
+     * @var stdClass
+     */
+    private $status;
     /**
      * @param callable $httpHandler
      * @param string $decodeType
@@ -71,37 +86,33 @@ class RestServerStreamingCall implements ServerStreamingCallInterface
         $this->decodeType = $decodeType;
         $this->decoderOptions = $decoderOptions;
     }
-
     /**
      * {@inheritdoc}
      */
     public function start($request, array $headers = [], array $callOptions = [])
     {
         $this->originalRequest = $this->appendHeaders($request, $headers);
-
         try {
             $handler = $this->httpHandler;
-            $response = $handler(
-                $this->originalRequest,
-                $callOptions
-            )->wait();
+            $response = $handler($this->originalRequest, $callOptions)->wait();
         } catch (\Exception $ex) {
             if ($ex instanceof RequestException && $ex->hasResponse()) {
-                $ex = ApiException::createFromRequestException($ex, /* isStream */ true);
+                $ex = ApiException::createFromRequestException(
+                    $ex,
+                    /* isStream */
+                    \true
+                );
             }
             throw $ex;
         }
-
         // Create an OK Status for a successful request just so that it
         // has a return value.
         $this->status = new stdClass();
         $this->status->code = Code::OK;
         $this->status->message = ApiStatus::OK;
         $this->status->details = [];
-
         $this->response = $response;
     }
-
     /**
      * @param RequestInterface $request
      * @param array<mixed> $headers
@@ -110,35 +121,24 @@ class RestServerStreamingCall implements ServerStreamingCallInterface
     private function appendHeaders(RequestInterface $request, array $headers)
     {
         foreach ($headers as $key => $value) {
-            $request = $request->hasHeader($key) ?
-                        $request->withAddedHeader($key, $value) :
-                        $request->withHeader($key, $value);
+            $request = $request->hasHeader($key) ? $request->withAddedHeader($key, $value) : $request->withHeader($key, $value);
         }
-
         return $request;
     }
-
     /**
      * {@inheritdoc}
      */
     public function responses()
     {
-        if (is_null($this->response)) {
+        if (\is_null($this->response)) {
             throw new \Exception('Stream has not been started.');
         }
-
         // Decode the stream and yield responses as they are read.
-        $this->decoder = new JsonStreamDecoder(
-            $this->response->getBody(),
-            $this->decodeType,
-            $this->decoderOptions
-        );
-
+        $this->decoder = new \Google\ApiCore\Transport\Rest\JsonStreamDecoder($this->response->getBody(), $this->decodeType, $this->decoderOptions);
         foreach ($this->decoder->decode() as $message) {
-            yield $message;
+            (yield $message);
         }
     }
-
     /**
      * Return the status of the server stream. If the call has not been started
      * this will be null.
@@ -150,15 +150,13 @@ class RestServerStreamingCall implements ServerStreamingCallInterface
     {
         return $this->status;
     }
-
     /**
      * {@inheritdoc}
      */
     public function getMetadata()
     {
-        return is_null($this->response) ? null : $this->response->getHeaders();
+        return \is_null($this->response) ? null : $this->response->getHeaders();
     }
-
     /**
      * The Rest transport does not support trailing metadata. This is a
      * passthrough to getMetadata().
@@ -167,7 +165,6 @@ class RestServerStreamingCall implements ServerStreamingCallInterface
     {
         return $this->getMetadata();
     }
-
     /**
      * {@inheritdoc}
      */
@@ -175,17 +172,15 @@ class RestServerStreamingCall implements ServerStreamingCallInterface
     {
         return $this->originalRequest->getUri();
     }
-
     /**
      * {@inheritdoc}
      */
     public function cancel()
     {
-        if (!is_null($this->decoder)) {
+        if (!\is_null($this->decoder)) {
             $this->decoder->close();
         }
     }
-
     /**
      * For the REST transport this is a no-op.
      * {@inheritdoc}

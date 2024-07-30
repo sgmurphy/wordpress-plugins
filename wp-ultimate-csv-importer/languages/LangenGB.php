@@ -186,7 +186,7 @@ class LangEN_GB {
                         'Totalnoofrecords' => 'Total no of records',
                         'CurrentProcessingRecord' => 'Current Processing Record',
                         'RemainingRecord' => 'Remaining Record',
-                        'Completed' => 'Completed',
+                         'Completed' => 'Completed Successfully',
                         'TimeElapsed' => 'Time Elapsed',
                         'approximate' => 'approximate',
                         'DownloadLog' => 'View Log',

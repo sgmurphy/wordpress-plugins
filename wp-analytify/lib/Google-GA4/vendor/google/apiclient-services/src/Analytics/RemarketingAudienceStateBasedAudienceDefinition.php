@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,45 +15,44 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics;
 
 class RemarketingAudienceStateBasedAudienceDefinition extends \Google\Model
 {
-  protected $excludeConditionsType = RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions::class;
-  protected $excludeConditionsDataType = '';
-  protected $includeConditionsType = IncludeConditions::class;
-  protected $includeConditionsDataType = '';
-
-  /**
-   * @param RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions
-   */
-  public function setExcludeConditions(RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions $excludeConditions)
-  {
-    $this->excludeConditions = $excludeConditions;
-  }
-  /**
-   * @return RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions
-   */
-  public function getExcludeConditions()
-  {
-    return $this->excludeConditions;
-  }
-  /**
-   * @param IncludeConditions
-   */
-  public function setIncludeConditions(IncludeConditions $includeConditions)
-  {
-    $this->includeConditions = $includeConditions;
-  }
-  /**
-   * @return IncludeConditions
-   */
-  public function getIncludeConditions()
-  {
-    return $this->includeConditions;
-  }
+    protected $excludeConditionsType = \Google\Service\Analytics\RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions::class;
+    protected $excludeConditionsDataType = '';
+    public $excludeConditions;
+    protected $includeConditionsType = \Google\Service\Analytics\IncludeConditions::class;
+    protected $includeConditionsDataType = '';
+    public $includeConditions;
+    /**
+     * @param RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions
+     */
+    public function setExcludeConditions(\Google\Service\Analytics\RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions $excludeConditions)
+    {
+        $this->excludeConditions = $excludeConditions;
+    }
+    /**
+     * @return RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions
+     */
+    public function getExcludeConditions()
+    {
+        return $this->excludeConditions;
+    }
+    /**
+     * @param IncludeConditions
+     */
+    public function setIncludeConditions(\Google\Service\Analytics\IncludeConditions $includeConditions)
+    {
+        $this->includeConditions = $includeConditions;
+    }
+    /**
+     * @return IncludeConditions
+     */
+    public function getIncludeConditions()
+    {
+        return $this->includeConditions;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(RemarketingAudienceStateBasedAudienceDefinition::class, 'Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinition');
+\class_alias(\Google\Service\Analytics\RemarketingAudienceStateBasedAudienceDefinition::class, 'Analytify\\Google_Service_Analytics_RemarketingAudienceStateBasedAudienceDefinition');

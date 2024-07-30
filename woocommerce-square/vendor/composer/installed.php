@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'woocommerce/woocommerce-square',
-        'pretty_version' => 'dev-release/4.7.1',
-        'version' => 'dev-release/4.7.1',
-        'reference' => 'd5a894b48abee82c685fc70129ad49ef909542db',
+        'pretty_version' => 'dev-trunk',
+        'version' => 'dev-trunk',
+        'reference' => '35d36921974b7a57576203c24cdf850e589df872',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -65,9 +65,9 @@
             'dev_requirement' => false,
         ),
         'woocommerce/woocommerce-square' => array(
-            'pretty_version' => 'dev-release/4.7.1',
-            'version' => 'dev-release/4.7.1',
-            'reference' => 'd5a894b48abee82c685fc70129ad49ef909542db',
+            'pretty_version' => 'dev-trunk',
+            'version' => 'dev-trunk',
+            'reference' => '35d36921974b7a57576203c24cdf850e589df872',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

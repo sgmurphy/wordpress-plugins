@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,49 +15,46 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole;
 
 class WmxSite extends \Google\Model
 {
-  /**
-   * @var string
-   */
-  public $permissionLevel;
-  /**
-   * @var string
-   */
-  public $siteUrl;
-
-  /**
-   * @param string
-   */
-  public function setPermissionLevel($permissionLevel)
-  {
-    $this->permissionLevel = $permissionLevel;
-  }
-  /**
-   * @return string
-   */
-  public function getPermissionLevel()
-  {
-    return $this->permissionLevel;
-  }
-  /**
-   * @param string
-   */
-  public function setSiteUrl($siteUrl)
-  {
-    $this->siteUrl = $siteUrl;
-  }
-  /**
-   * @return string
-   */
-  public function getSiteUrl()
-  {
-    return $this->siteUrl;
-  }
+    /**
+     * @var string
+     */
+    public $permissionLevel;
+    /**
+     * @var string
+     */
+    public $siteUrl;
+    /**
+     * @param string
+     */
+    public function setPermissionLevel($permissionLevel)
+    {
+        $this->permissionLevel = $permissionLevel;
+    }
+    /**
+     * @return string
+     */
+    public function getPermissionLevel()
+    {
+        return $this->permissionLevel;
+    }
+    /**
+     * @param string
+     */
+    public function setSiteUrl($siteUrl)
+    {
+        $this->siteUrl = $siteUrl;
+    }
+    /**
+     * @return string
+     */
+    public function getSiteUrl()
+    {
+        return $this->siteUrl;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(WmxSite::class, 'Google_Service_SearchConsole_WmxSite');
+\class_alias(\Google\Service\SearchConsole\WmxSite::class, 'Analytify\\Google_Service_SearchConsole_WmxSite');

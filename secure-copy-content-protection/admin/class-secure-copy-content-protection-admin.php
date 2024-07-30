@@ -139,6 +139,7 @@ class Secure_Copy_Content_Protection_Admin {
 		wp_enqueue_style($this->plugin_name.'-select2', plugin_dir_url(__FILE__) . 'css/select2.min.css', array(), $this->version, 'all');
 		wp_enqueue_style($this->plugin_name . "-codemirror", plugin_dir_url( __FILE__ ) . 'css/codemirror.css', array(), $this->version, 'all');
 		wp_enqueue_style($this->plugin_name.'-bootstrap', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', array(), $this->version, 'all');
+		wp_enqueue_style($this->plugin_name . '-sweetalert2', plugin_dir_url(__FILE__) . 'css/sweetalert2.min.css', array(), $this->version, 'all');
 		wp_enqueue_style($this->plugin_name.'-jquery-datetimepicker', plugin_dir_url(__FILE__) . 'css/jquery-ui-timepicker-addon.css', array(), $this->version, 'all');
 		wp_enqueue_style($this->plugin_name.'-dataTables-bootstrap4', plugin_dir_url(__FILE__) . 'css/dataTables.bootstrap4.min.css', array(), $this->version, 'all');
 		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/secure-copy-content-protection-admin.css', array(), $this->version, 'all');
@@ -190,7 +191,8 @@ class Secure_Copy_Content_Protection_Admin {
 		wp_enqueue_script( $this->plugin_name.'-wp-color-picker-alpha', plugin_dir_url(__FILE__) . 'js/wp-color-picker-alpha.min.js', array('wp-color-picker'), $this->version, true);
 		wp_enqueue_script( $this->plugin_name.'-select2', plugin_dir_url(__FILE__) . 'js/select2.min.js', array('jquery'), $this->version, true);		
 		wp_enqueue_script( $this->plugin_name.'-dataTables', plugin_dir_url(__FILE__) . 'js/jquery.dataTables.min.js', array('jquery'), $this->version, true);
-		wp_enqueue_script( $this->plugin_name.'-dataTables-bootstrap4', plugin_dir_url(__FILE__) . 'js/dataTables.bootstrap4.min.js', array('jquery'), $this->version, true);		
+		wp_enqueue_script( $this->plugin_name.'-dataTables-bootstrap4', plugin_dir_url(__FILE__) . 'js/dataTables.bootstrap4.min.js', array('jquery'), $this->version, true);
+		wp_enqueue_script($this->plugin_name . '-sweetalert2', plugin_dir_url(__FILE__) . 'js/sweetalert2.all.min.js', array('jquery'), $this->version, true);		
 		wp_enqueue_script('cpy_content_protection_popper', plugin_dir_url(__FILE__) . 'js/popper.min.js', array('jquery'), $this->version, true);
 		wp_enqueue_script('cpy_content_protection_bootstrap', plugin_dir_url(__FILE__) . 'js/bootstrap.min.js', array('jquery'), $this->version, true);
 		wp_enqueue_script( $this->plugin_name."-jquery.datetimepicker.js", plugin_dir_url( __FILE__ ) . 'js/jquery-ui-timepicker-addon.js', array( 'jquery' ), $this->version, true );
@@ -200,6 +202,18 @@ class Secure_Copy_Content_Protection_Admin {
 			'loader_message' 	=> __('Just a moment...', $this->plugin_name),
 			'loader_url'     	=> SCCP_ADMIN_URL . '/images/rocket.svg',
 			'bc_user_role'    	=> $ays_users_roles,
+            "emptyEmailError"               => __( 'Email field is empty', $this->plugin_name),
+            "invalidEmailError"             => __( 'Invalid Email address', $this->plugin_name),
+            'selectUser'                    => __( 'Select user', $this->plugin_name),
+            'pleaseEnterMore'               => __( "Please enter 1 or more characters", $this->plugin_name ),
+            'searching'                     => __( "Searching...", $this->plugin_name ),
+            'activated'                     => __( "Activated", $this->plugin_name ),
+            'errorMsg'                      => __( "Error", $this->plugin_name ),
+            'loadResource'                  => __( "Can't load resource.", $this->plugin_name ),
+            'somethingWentWrong'            => __( "Maybe something went wrong.", $this->plugin_name ),            
+            'greateJob'                     => __( 'Great job', $this->plugin_name),
+            'formMoreDetailed'              => __( 'For more detailed configuration visit', $this->plugin_name),
+            'greate'                        => __( 'Great!', $this->plugin_name),
 		));
 
 		$color_picker_strings = array(
@@ -219,33 +233,7 @@ class Secure_Copy_Content_Protection_Admin {
             'descField'       => __( 'Description field', $this->plugin_name ),
             'descTitle'       => __( 'Tick the checkbox to show the Description field', $this->plugin_name ),
             'adminUrl'        => SCCP_ADMIN_URL,
-        ) );
-
-		if (false === strpos($hook_suffix, $this->plugin_name)) {
-			return;
-		}
-		
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Secure_Copy_Content_Protection_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Secure_Copy_Content_Protection_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */		
-		
-        // wp_enqueue_editor();
-		
-
-		/* 
-        ========================================== 
-           File exporters
-           * xlsx
-        ========================================== 
-        */
+        ) );		
 		
 		wp_enqueue_script( $this->plugin_name."-xlsx.core.min.js", plugin_dir_url( __FILE__ ) . 'js/xlsx.core.min.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name."-fileSaver.js", plugin_dir_url( __FILE__ ) . 'js/FileSaver.js', array( 'jquery' ), $this->version, true );	
@@ -1097,6 +1085,529 @@ class Secure_Copy_Content_Protection_Admin {
         $content = implode( '', $content );
 
         return $content;
+    }
+
+    /**
+     * Determine if the plugin/addon installations are allowed.
+     *
+     * @since 1.3.9
+     *
+     * @param string $type Should be `plugin` or `addon`.
+     *
+     * @return bool
+     */
+    public static function ays_sccp_can_install( $type ) {
+
+        return self::ays_sccp_can_do( 'install', $type );
+    }
+
+    /**
+     * Determine if the plugin/addon activations are allowed.
+     *
+     * @since 1.3.9
+     *
+     * @param string $type Should be `plugin` or `addon`.
+     *
+     * @return bool
+     */
+    public static function ays_sccp_can_activate( $type ) {
+
+        return self::ays_sccp_can_do( 'activate', $type );
+    }
+
+    /**
+     * Determine if the plugin/addon installations/activations are allowed.
+     *
+     * @since 1.3.9
+     *
+     * @param string $what Should be 'activate' or 'install'.
+     * @param string $type Should be `plugin` or `addon`.
+     *
+     * @return bool
+     */
+    public static function ays_sccp_can_do( $what, $type ) {
+
+        if ( ! in_array( $what, array( 'install', 'activate' ), true ) ) {
+            return false;
+        }
+
+        if ( ! in_array( $type, array( 'plugin', 'addon' ), true ) ) {
+            return false;
+        }
+
+        $capability = $what . '_plugins';
+
+        if ( ! current_user_can( $capability ) ) {
+            return false;
+        }
+
+        // Determine whether file modifications are allowed and it is activation permissions checking.
+        if ( $what === 'install' && ! wp_is_file_mod_allowed( 'ays_sccp_can_install' ) ) {
+            return false;
+        }
+
+        // All plugin checks are done.
+        if ( $type === 'plugin' ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Activate plugin.
+     *
+     * @since 1.0.0
+     * @since 1.3.9 Updated the permissions checking.
+     */
+    public function ays_sccp_activate_plugin() {
+
+        // Run a security check.
+        check_ajax_referer( $this->plugin_name . '-install-plugin-nonce', sanitize_key( $_REQUEST['_ajax_nonce'] ) );
+
+        // Check for permissions.
+        if ( ! current_user_can( 'activate_plugins' ) ) {
+            wp_send_json_error( esc_html__( 'Plugin activation is disabled for you on this site.', $this->plugin_name ) );
+        }
+
+        $type = 'addon';
+
+        if ( isset( $_POST['plugin'] ) ) {
+
+            if ( ! empty( $_POST['type'] ) ) {
+                $type = sanitize_key( $_POST['type'] );
+            }
+
+            $plugin   = sanitize_text_field( wp_unslash( $_POST['plugin'] ) );
+            $activate = activate_plugins( $plugin );
+
+            if ( ! is_wp_error( $activate ) ) {
+                if ( $type === 'plugin' ) {
+                    wp_send_json_success( esc_html__( 'Plugin activated.', $this->plugin_name ) );
+                } else {
+                        ( esc_html__( 'Addon activated.', $this->plugin_name ) );
+                }
+            }
+        }
+
+        if ( $type === 'plugin' ) {
+            wp_send_json_error( esc_html__( 'Could not activate the plugin. Please activate it on the Plugins page.', $this->plugin_name ) );
+        }
+
+        wp_send_json_error( esc_html__( 'Could not activate the addon. Please activate it on the Plugins page.', $this->plugin_name ) );
+    }
+
+    /**
+     * Install addon.
+     *
+     * @since 1.0.0
+     * @since 1.3.9 Updated the permissions checking.
+     */
+    public function ays_sccp_install_plugin() {
+
+        // Run a security check.
+        check_ajax_referer( $this->plugin_name . '-install-plugin-nonce', sanitize_key( $_REQUEST['_ajax_nonce'] ) );
+
+        $generic_error = esc_html__( 'There was an error while performing your request.', $this->plugin_name );
+        $type          = ! empty( $_POST['type'] ) ? sanitize_key( $_POST['type'] ) : '';
+
+        // Check if new installations are allowed.
+        if ( ! self::ays_sccp_can_install( $type ) ) {
+            wp_send_json_error( $generic_error );
+        }
+
+        $error = $type === 'plugin'
+            ? esc_html__( 'Could not install the plugin. Please download and install it manually.', $this->plugin_name )
+            : "";
+
+        $plugin_url = ! empty( $_POST['plugin'] ) ? esc_url_raw( wp_unslash( $_POST['plugin'] ) ) : '';
+
+        if ( empty( $plugin_url ) ) {
+            wp_send_json_error( $error );
+        }
+
+        // Prepare variables.
+        $url = esc_url_raw(
+            add_query_arg(
+                [
+                    'page' => 'secure-copy-content-protection-featured-plugins',
+                ],
+                admin_url( 'admin.php' )
+            )
+        );
+
+        ob_start();
+        $creds = request_filesystem_credentials( $url, '', false, false, null );
+
+        // Hide the filesystem credentials form.
+        ob_end_clean();
+
+        // Check for file system permissions.
+        if ( $creds === false ) {
+            wp_send_json_error( $error );
+        }
+        
+        if ( ! WP_Filesystem( $creds ) ) {
+            wp_send_json_error( $error );
+        }
+
+        /*
+         * We do not need any extra credentials if we have gotten this far, so let's install the plugin.
+         */
+        require_once SCCP_DIR . 'includes/admin/class-secure-copy-content-protection-upgrader.php';
+        require_once SCCP_DIR . 'includes/admin/class-secure-copy-content-protection-install-skin.php';
+        require_once SCCP_DIR . 'includes/admin/class-secure-copy-content-protection-skin.php';
+
+
+        // Do not allow WordPress to search/download translations, as this will break JS output.
+        remove_action( 'upgrader_process_complete', array( 'Language_Pack_Upgrader', 'async_upgrade' ), 20 );
+
+        // Create the plugin upgrader with our custom skin.
+        $installer = new SecureCopyContentProtection\Helpers\SecureCopyContentProtectionPluginSilentUpgrader( new Secure_Copy_Content_Protection_Install_Skin() );
+
+        // Error check.
+        if ( ! method_exists( $installer, 'install' ) ) {
+            wp_send_json_error( $error );
+        }
+
+        $installer->install( $plugin_url );
+
+        // Flush the cache and return the newly installed plugin basename.
+        wp_cache_flush();
+
+        $plugin_basename = $installer->plugin_info();
+
+        if ( empty( $plugin_basename ) ) {
+            wp_send_json_error( $error );
+        }
+
+        $result = array(
+            'msg'          => $generic_error,
+            'is_activated' => false,
+            'basename'     => $plugin_basename,
+        );
+
+        // Check for permissions.
+        if ( ! current_user_can( 'activate_plugins' ) ) {
+            $result['msg'] = $type === 'plugin' ? esc_html__( 'Plugin installed.', $this->plugin_name ) : "";
+
+            wp_send_json_success( $result );
+        }
+
+        // Activate the plugin silently.
+        $activated = activate_plugin( $plugin_basename );
+        remove_action( 'activated_plugin', array( 'gallery_p_gallery_activation_redirect_method', 'poll_maker_activation_redirect_method' ), 100 );
+
+        if ( ! is_wp_error( $activated ) ) {
+
+            $result['is_activated'] = true;
+            $result['msg']          = $type === 'plugin' ? esc_html__( 'Plugin installed and activated.', $this->plugin_name ) : esc_html__( 'Addon installed and activated.', $this->plugin_name );
+
+            wp_send_json_success( $result );
+        }
+
+        // Fallback error just in case.
+        wp_send_json_error( $result );
+    }
+
+    /**
+     * List of AM plugins that we propose to install.
+     *
+     * @since 1.3.9
+     *
+     * @return array
+     */
+    protected function sccp_get_am_plugins() {
+        if ( !isset( $_SESSION ) ) {
+            session_start();
+        }
+
+        $images_url = SCCP_ADMIN_URL . '/images/icons/';
+
+        $plugin_slug = array(
+            'quiz-maker',
+            'survey-maker',
+            'poll-maker',
+            'ays-popup-box',
+            'gallery-photo-gallery',
+            'personal-dictionary',
+            'chart-builder',
+            'easy-form',
+        );
+
+        $plugin_url_arr = array();
+        foreach ($plugin_slug as $key => $slug) {
+            if ( isset( $_SESSION['ays_sccp_our_product_links'] ) && !empty( $_SESSION['ays_sccp_our_product_links'] ) 
+                && isset( $_SESSION['ays_sccp_our_product_links'][$slug] ) && !empty( $_SESSION['ays_sccp_our_product_links'][$slug] ) ) {
+                $plugin_url = (isset( $_SESSION['ays_sccp_our_product_links'][$slug] ) && $_SESSION['ays_sccp_our_product_links'][$slug] != "") ? esc_url( $_SESSION['ays_sccp_our_product_links'][$slug] ) : "";
+            } else {
+                $latest_version = $this->ays_sccp_get_latest_plugin_version($slug);
+                $plugin_url = 'https://downloads.wordpress.org/plugin/'. $slug .'.zip';
+                if ( $latest_version != '' ) {
+                    $plugin_url = 'https://downloads.wordpress.org/plugin/'. $slug .'.'. $latest_version .'.zip';
+                    $_SESSION['ays_sccp_our_product_links'][$slug] = $plugin_url;
+                }
+            }
+
+            $plugin_url_arr[$slug] = $plugin_url;
+        }
+
+        $plugins_array = array(
+           'quiz-maker/quiz-maker.php'        => array(
+                'icon'        => $images_url . 'icon-quiz-128x128.png',
+                'name'        => __( 'Quiz Maker', $this->plugin_name ),
+                'desc'        => __( 'With our Quiz Maker plugin it’s easy to make a quiz in a short time.', $this->plugin_name ),
+                'desc_hidden' => __( 'You to add images to your quiz, order unlimited questions. Also you can style your quiz to satisfy your visitors.', $this->plugin_name ),
+                'wporg'       => 'https://wordpress.org/plugins/quiz-maker/',
+                'buy_now'     => 'https://ays-pro.com/wordpress/quiz-maker/',
+                'url'         => $plugin_url_arr['quiz-maker'],
+            ),
+            'survey-maker/survey-maker.php'        => array(
+                'icon'        => $images_url . 'icon-survey-128x128.png',
+                'name'        => __( 'Survey Maker', $this->plugin_name ),
+                'desc'        => __( 'Make amazing online surveys and get real-time feedback quickly and easily.', $this->plugin_name ),
+                'desc_hidden' => __( 'Learn what your website visitors want, need, and expect with the help of Survey Maker. Build surveys without limiting your needs.', $this->plugin_name ),
+                'wporg'       => 'https://wordpress.org/plugins/survey-maker/',
+                'buy_now'     => 'https://ays-pro.com/wordpress/survey-maker',
+                'url'         => $plugin_url_arr['survey-maker'],
+            ),
+            'poll-maker/poll-maker-ays.php'        => array(
+                'icon'        => $images_url . 'icon-poll-128x128.png',
+                'name'        => __( 'Poll Maker', $this->plugin_name ),
+                'desc'        => __( 'Create amazing online polls for your WordPress website super easily.', $this->plugin_name ),
+                'desc_hidden' => __( 'Build up various types of polls in a minute and get instant feedback on any topic or product.', $this->plugin_name ),
+                'wporg'       => 'https://wordpress.org/plugins/poll-maker/',
+                'buy_now'     => 'https://ays-pro.com/wordpress/poll-maker/',
+                'url'         => $plugin_url_arr['poll-maker'],
+            ),
+            'ays-popup-box/ays-pb.php'        => array(
+                'icon'        => $images_url . 'icon-popup-128x128.png',
+                'name'        => __( 'Popup Box', $this->plugin_name ),
+                'desc'        => __( 'Popup everything you want! Create informative and promotional popups all in one plugin.', $this->plugin_name ),
+                'desc_hidden' => __( 'Attract your visitors and convert them into email subscribers and paying customers.', $this->plugin_name ),
+                'wporg'       => 'https://wordpress.org/plugins/ays-popup-box/',
+                'buy_now'     => 'https://ays-pro.com/wordpress/popup-box/',
+                'url'         => $plugin_url_arr['ays-popup-box'],
+            ),
+            'gallery-photo-gallery/gallery-photo-gallery.php'        => array(
+                'icon'        => $images_url . 'icon-gallery-128x128.png',
+                'name'        => __( 'Gallery Photo Gallery', $this->plugin_name ),
+                'desc'        => __( 'Create unlimited galleries and include unlimited images in those galleries.', $this->plugin_name ),
+                'desc_hidden' => __( 'Represent images in an attractive way. Attract people with your own single and multiple free galleries from your photo library.', $this->plugin_name ),
+                'wporg'       => 'https://wordpress.org/plugins/gallery-photo-gallery/',
+                'buy_now'     => 'https://ays-pro.com/wordpress/photo-gallery/',
+                'url'         => $plugin_url_arr['gallery-photo-gallery'],
+            ),
+            'personal-dictionary/personal-dictionary.php'        => array(
+                'icon'        => $images_url . 'pd-logo-128x128.png',
+                'name'        => __( 'Personal Dictionary', $this->plugin_name ),
+                'desc'        => __( 'Allow your students to create personal dictionary, study and memorize the words.', $this->plugin_name ),
+                'desc_hidden' => __( 'Allow your users to create their own digital dictionaries and learn new words and terms as fastest as possible.', $this->plugin_name ),
+                'wporg'       => 'https://wordpress.org/plugins/personal-dictionary/',
+                'buy_now'     => 'https://ays-pro.com/wordpress/personal-dictionary/',
+                'url'         => $plugin_url_arr['personal-dictionary'],
+            ),
+            'chart-builder/chart-builder.php'        => array(
+                'icon'        => $images_url . 'chartify-150x150.png',
+                'name'        => __( 'Chart Builder', $this->plugin_name ),
+                'desc'        => __( 'Chart Builder plugin allows you to create beautiful charts', $this->plugin_name ),
+                'desc_hidden' => __( ' and graphs easily and quickly.', $this->plugin_name ),
+                'wporg'       => 'https://wordpress.org/plugins/chart-builder/',
+                'buy_now'     => 'https://ays-pro.com/wordpress/chart-builder/',
+                'url'         => $plugin_url_arr['chart-builder'],
+            ),
+            'easy-form/easy-form.php'        => array(
+                'icon'        => $images_url . 'easyform-150x150.png',
+                'name'        => __( 'Easy Form', 'chart-builder' ),
+                'desc'        => __( 'Choose the best WordPress form builder plugin. ', 'chart-builder' ),
+                'desc_hidden' => __( 'Create contact forms, payment forms, surveys, and many more custom forms. Build forms easily with us.', 'chart-builder' ),
+                'wporg'       => 'https://wordpress.org/plugins/easy-form/',
+                'buy_now'     => 'https://ays-pro.com/wordpress/easy-form',
+                'url'         => $plugin_url_arr['easy-form'],
+            ),
+        );
+
+        return $plugins_array;
+    }
+
+    protected function ays_sccp_get_latest_plugin_version( $slug ){
+
+        if ( is_null( $slug ) || empty($slug) ) {
+            return "";
+        }
+
+        $version_latest = "";
+
+        if ( ! function_exists( 'plugins_api' ) ) {
+              require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+        }
+
+        // set the arguments to get latest info from repository via API ##
+        $args = array(
+            'slug' => $slug,
+            'fields' => array(
+                'version' => true,
+            )
+        );
+
+        /** Prepare our query */
+        $call_api = plugins_api( 'plugin_information', $args );
+
+        /** Check for Errors & Display the results */
+        if ( is_wp_error( $call_api ) ) {
+            $api_error = $call_api->get_error_message();
+        } else {
+
+            //echo $call_api; // everything ##
+            if ( ! empty( $call_api->version ) ) {
+                $version_latest = $call_api->version;
+            }
+        }
+
+        return $version_latest;
+    }
+
+    /**
+     * Get AM plugin data to display in the Addons section of About tab.
+     *
+     * @since 6.4.0.4
+     *
+     * @param string $plugin      Plugin slug.
+     * @param array  $details     Plugin details.
+     * @param array  $all_plugins List of all plugins.
+     *
+     * @return array
+     */
+    protected function sccp_get_plugin_data( $plugin, $details, $all_plugins ) {
+
+        $have_pro = ( ! empty( $details['pro'] ) && ! empty( $details['pro']['plug'] ) );
+        $show_pro = false;
+
+        $plugin_data = array();
+
+        if ( $have_pro ) {
+            if ( array_key_exists( $plugin, $all_plugins ) ) {
+                if ( is_plugin_active( $plugin ) ) {
+                    $show_pro = true;
+                }
+            }
+            if ( array_key_exists( $details['pro']['plug'], $all_plugins ) ) {
+                $show_pro = true;
+            }
+            if ( $show_pro ) {
+                $plugin  = $details['pro']['plug'];
+                $details = $details['pro'];
+            }
+        }
+
+        if ( array_key_exists( $plugin, $all_plugins ) ) {
+            if ( is_plugin_active( $plugin ) ) {
+                // Status text/status.
+                $plugin_data['status_class'] = 'status-active';
+                $plugin_data['status_text']  = esc_html__( 'Active', $this->plugin_name );
+                // Button text/status.
+                $plugin_data['action_class'] = $plugin_data['status_class'] . ' ays-sccp-card__btn-info disabled';
+                $plugin_data['action_text']  = esc_html__( 'Activated', $this->plugin_name );
+                $plugin_data['plugin_src']   = esc_attr( $plugin );
+            } else {
+                // Status text/status.
+                $plugin_data['status_class'] = 'status-installed';
+                $plugin_data['status_text']  = esc_html__( 'Inactive', $this->plugin_name );
+                // Button text/status.
+                $plugin_data['action_class'] = $plugin_data['status_class'] . ' ays-sccp-card__btn-info';
+                $plugin_data['action_text']  = esc_html__( 'Activate', $this->plugin_name );
+                $plugin_data['plugin_src']   = esc_attr( $plugin );
+            }
+        } else {
+            // Doesn't exist, install.
+            // Status text/status.
+            $plugin_data['status_class'] = 'status-missing';
+
+            if ( isset( $details['act'] ) && 'go-to-url' === $details['act'] ) {
+                $plugin_data['status_class'] = 'status-go-to-url';
+            }
+            $plugin_data['status_text'] = esc_html__( 'Not Installed', $this->plugin_name );
+            // Button text/status.
+            $plugin_data['action_class'] = $plugin_data['status_class'] . ' ays-sccp-card__btn-info';
+            $plugin_data['action_text']  = esc_html__( 'Install Plugin', $this->plugin_name );
+            $plugin_data['plugin_src']   = esc_url( $details['url'] );
+        }
+
+        $plugin_data['details'] = $details;
+
+        return $plugin_data;
+    }
+
+    /**
+     * Display the Addons section of About tab.
+     *
+     * @since 1.3.9
+     */
+    public function sccp_output_about_addons() {
+
+        if ( ! function_exists( 'get_plugins' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        $all_plugins          = get_plugins();
+        $am_plugins           = $this->sccp_get_am_plugins();
+        $can_install_plugins  = self::ays_sccp_can_install( 'plugin' );
+        $can_activate_plugins = self::ays_sccp_can_activate( 'plugin' );
+
+        $content = '';
+        $content.= '<div class="ays-sccp-cards-block">';
+        foreach ( $am_plugins as $plugin => $details ){
+
+            $plugin_data = $this->sccp_get_plugin_data( $plugin, $details, $all_plugins );
+            $plugin_ready_to_activate = $can_activate_plugins
+                && isset( $plugin_data['status_class'] )
+                && $plugin_data['status_class'] === 'status-installed';
+            $plugin_not_activated     = ! isset( $plugin_data['status_class'] )
+                || $plugin_data['status_class'] !== 'status-active';
+
+            $plugin_action_class = ( isset( $plugin_data['action_class'] ) && esc_attr( $plugin_data['action_class'] ) != "" ) ? esc_attr( $plugin_data['action_class'] ) : "";
+
+            $plugin_action_class_disbaled = "";
+            if ( strpos($plugin_action_class, 'status-active') !== false ) {
+                $plugin_action_class_disbaled = "disbaled='true'";
+            }
+
+            $content .= '
+                <div class="ays-sccp-card">
+                    <div class="ays-sccp-card__content flexible">
+                        <div class="ays-sccp-card__content-img-box">
+                            <img class="ays-sccp-card__img" src="'. esc_url( $plugin_data['details']['icon'] ) .'" alt="'. esc_attr( $plugin_data['details']['name'] ) .'">
+                        </div>
+                        <div class="ays-sccp-card__text-block">
+                            <h5 class="ays-sccp-card__title">'. esc_html( $plugin_data['details']['name'] ) .'</h5>
+                            <p class="ays-sccp-card__text">'. wp_kses_post( $plugin_data['details']['desc'] ) .'
+                                <span class="ays-sccp-card__text-hidden">
+                                    '. wp_kses_post( $plugin_data['details']['desc_hidden'] ) .'
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ays-sccp-card__footer">';
+                        if ( $can_install_plugins || $plugin_ready_to_activate || ! $details['wporg'] ) {
+                            $content .= '<button class="'. esc_attr( $plugin_data['action_class'] ) .'" data-plugin="'. esc_attr( $plugin_data['plugin_src'] ) .'" data-type="plugin" '. $plugin_action_class_disbaled .'>
+                                '. wp_kses_post( $plugin_data['action_text'] ) .'
+                            </button>';
+                        }
+                        elseif ( $plugin_not_activated ) {
+                            $content .= '<a href="'. esc_url( $details['wporg'] ) .'" target="_blank" rel="noopener noreferrer">
+                                '. esc_html_e( 'WordPress.org', $this->plugin_name ) .'
+                                <span aria-hidden="true" class="dashicons dashicons-external"></span>
+                            </a>';
+                        }
+            $content .='
+                        <a target="_blank" href="'. esc_url( $plugin_data['details']['buy_now'] ) .'" class="ays-sccp-card__btn-primary">'. __('Buy Now', $this->plugin_name) .'</a>
+                    </div>
+                </div>';
+        }
+        $install_plugin_nonce = wp_create_nonce( $this->plugin_name . '-install-plugin-nonce' );
+        $content.= '<input type="hidden" id="ays_sccp_ajax_install_plugin_nonce" name="ays_sccp_ajax_install_plugin_nonce" value="'. $install_plugin_nonce .'">';
+        $content.= '</div>';
+
+        echo $content;
     }
 
 }

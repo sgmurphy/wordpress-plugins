@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,30 +15,28 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics;
 
 class GaDataDataTableRows extends \Google\Collection
 {
-  protected $collection_key = 'c';
-  protected $cType = GaDataDataTableRowsC::class;
-  protected $cDataType = 'array';
-
-  /**
-   * @param GaDataDataTableRowsC[]
-   */
-  public function setC($c)
-  {
-    $this->c = $c;
-  }
-  /**
-   * @return GaDataDataTableRowsC[]
-   */
-  public function getC()
-  {
-    return $this->c;
-  }
+    protected $collection_key = 'c';
+    protected $cType = \Google\Service\Analytics\GaDataDataTableRowsC::class;
+    protected $cDataType = 'array';
+    public $c = [];
+    /**
+     * @param GaDataDataTableRowsC[]
+     */
+    public function setC($c)
+    {
+        $this->c = $c;
+    }
+    /**
+     * @return GaDataDataTableRowsC[]
+     */
+    public function getC()
+    {
+        return $this->c;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(GaDataDataTableRows::class, 'Google_Service_Analytics_GaDataDataTableRows');
+\class_alias(\Google\Service\Analytics\GaDataDataTableRows::class, 'Analytify\\Google_Service_Analytics_GaDataDataTableRows');

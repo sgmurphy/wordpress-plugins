@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,30 +15,28 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole;
 
 class SitemapsListResponse extends \Google\Collection
 {
-  protected $collection_key = 'sitemap';
-  protected $sitemapType = WmxSitemap::class;
-  protected $sitemapDataType = 'array';
-
-  /**
-   * @param WmxSitemap[]
-   */
-  public function setSitemap($sitemap)
-  {
-    $this->sitemap = $sitemap;
-  }
-  /**
-   * @return WmxSitemap[]
-   */
-  public function getSitemap()
-  {
-    return $this->sitemap;
-  }
+    protected $collection_key = 'sitemap';
+    protected $sitemapType = \Google\Service\SearchConsole\WmxSitemap::class;
+    protected $sitemapDataType = 'array';
+    public $sitemap = [];
+    /**
+     * @param WmxSitemap[]
+     */
+    public function setSitemap($sitemap)
+    {
+        $this->sitemap = $sitemap;
+    }
+    /**
+     * @return WmxSitemap[]
+     */
+    public function getSitemap()
+    {
+        return $this->sitemap;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(SitemapsListResponse::class, 'Google_Service_SearchConsole_SitemapsListResponse');
+\class_alias(\Google\Service\SearchConsole\SitemapsListResponse::class, 'Analytify\\Google_Service_SearchConsole_SitemapsListResponse');

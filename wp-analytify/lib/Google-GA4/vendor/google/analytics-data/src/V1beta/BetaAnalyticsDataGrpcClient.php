@@ -1,6 +1,6 @@
 <?php
-// GENERATED CODE -- DO NOT EDIT!
 
+// GENERATED CODE -- DO NOT EDIT!
 // Original file comments:
 // Copyright 2021 Google LLC
 //
@@ -21,17 +21,17 @@ namespace Google\Analytics\Data\V1beta;
 /**
  * Google Analytics reporting data service.
  */
-class BetaAnalyticsDataGrpcClient extends \Grpc\BaseStub {
-
+class BetaAnalyticsDataGrpcClient extends \Grpc\BaseStub
+{
     /**
      * @param string $hostname hostname
      * @param array $opts channel options
      * @param \Grpc\Channel $channel (optional) re-use channel object
      */
-    public function __construct($hostname, $opts, $channel = null) {
+    public function __construct($hostname, $opts, $channel = null)
+    {
         parent::__construct($hostname, $opts, $channel);
     }
-
     /**
      * Returns a customized report of your Google Analytics event data. Reports
      * contain statistics derived from data collected by the Google Analytics
@@ -49,14 +49,10 @@ class BetaAnalyticsDataGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function RunReport(\Google\Analytics\Data\V1beta\RunReportRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/RunReport',
-        $argument,
-        ['\Google\Analytics\Data\V1beta\RunReportResponse', 'decode'],
-        $metadata, $options);
+    public function RunReport(\Google\Analytics\Data\V1beta\RunReportRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/RunReport', $argument, ['\\Google\\Analytics\\Data\\V1beta\\RunReportResponse', 'decode'], $metadata, $options);
     }
-
     /**
      * Returns a customized pivot report of your Google Analytics event data.
      * Pivot reports are more advanced and expressive formats than regular
@@ -68,14 +64,10 @@ class BetaAnalyticsDataGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function RunPivotReport(\Google\Analytics\Data\V1beta\RunPivotReportRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/RunPivotReport',
-        $argument,
-        ['\Google\Analytics\Data\V1beta\RunPivotReportResponse', 'decode'],
-        $metadata, $options);
+    public function RunPivotReport(\Google\Analytics\Data\V1beta\RunPivotReportRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/RunPivotReport', $argument, ['\\Google\\Analytics\\Data\\V1beta\\RunPivotReportResponse', 'decode'], $metadata, $options);
     }
-
     /**
      * Returns multiple reports in a batch. All reports must be for the same
      * GA4 Property.
@@ -84,14 +76,10 @@ class BetaAnalyticsDataGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function BatchRunReports(\Google\Analytics\Data\V1beta\BatchRunReportsRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/BatchRunReports',
-        $argument,
-        ['\Google\Analytics\Data\V1beta\BatchRunReportsResponse', 'decode'],
-        $metadata, $options);
+    public function BatchRunReports(\Google\Analytics\Data\V1beta\BatchRunReportsRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/BatchRunReports', $argument, ['\\Google\\Analytics\\Data\\V1beta\\BatchRunReportsResponse', 'decode'], $metadata, $options);
     }
-
     /**
      * Returns multiple pivot reports in a batch. All reports must be for the same
      * GA4 Property.
@@ -100,14 +88,10 @@ class BetaAnalyticsDataGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function BatchRunPivotReports(\Google\Analytics\Data\V1beta\BatchRunPivotReportsRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/BatchRunPivotReports',
-        $argument,
-        ['\Google\Analytics\Data\V1beta\BatchRunPivotReportsResponse', 'decode'],
-        $metadata, $options);
+    public function BatchRunPivotReports(\Google\Analytics\Data\V1beta\BatchRunPivotReportsRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/BatchRunPivotReports', $argument, ['\\Google\\Analytics\\Data\\V1beta\\BatchRunPivotReportsResponse', 'decode'], $metadata, $options);
     }
-
     /**
      * Returns metadata for dimensions and metrics available in reporting methods.
      * Used to explore the dimensions and metrics. In this method, a Google
@@ -124,14 +108,10 @@ class BetaAnalyticsDataGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function GetMetadata(\Google\Analytics\Data\V1beta\GetMetadataRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/GetMetadata',
-        $argument,
-        ['\Google\Analytics\Data\V1beta\Metadata', 'decode'],
-        $metadata, $options);
+    public function GetMetadata(\Google\Analytics\Data\V1beta\GetMetadataRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/GetMetadata', $argument, ['\\Google\\Analytics\\Data\\V1beta\\Metadata', 'decode'], $metadata, $options);
     }
-
     /**
      * Returns a customized report of realtime event data for your property.
      * Events appear in realtime reports seconds after they have been sent to
@@ -147,14 +127,10 @@ class BetaAnalyticsDataGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function RunRealtimeReport(\Google\Analytics\Data\V1beta\RunRealtimeReportRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/RunRealtimeReport',
-        $argument,
-        ['\Google\Analytics\Data\V1beta\RunRealtimeReportResponse', 'decode'],
-        $metadata, $options);
+    public function RunRealtimeReport(\Google\Analytics\Data\V1beta\RunRealtimeReportRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/RunRealtimeReport', $argument, ['\\Google\\Analytics\\Data\\V1beta\\RunRealtimeReportResponse', 'decode'], $metadata, $options);
     }
-
     /**
      * This compatibility method lists dimensions and metrics that can be added to
      * a report request and maintain compatibility. This method fails if the
@@ -171,12 +147,8 @@ class BetaAnalyticsDataGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function CheckCompatibility(\Google\Analytics\Data\V1beta\CheckCompatibilityRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/CheckCompatibility',
-        $argument,
-        ['\Google\Analytics\Data\V1beta\CheckCompatibilityResponse', 'decode'],
-        $metadata, $options);
+    public function CheckCompatibility(\Google\Analytics\Data\V1beta\CheckCompatibilityRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.analytics.data.v1beta.BetaAnalyticsData/CheckCompatibility', $argument, ['\\Google\\Analytics\\Data\\V1beta\\CheckCompatibilityResponse', 'decode'], $metadata, $options);
     }
-
 }

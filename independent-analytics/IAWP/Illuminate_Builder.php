@@ -100,7 +100,10 @@ class Illuminate_Builder
         if (\strpos(\strtolower($version), 'mariadb') === \false) {
             return;
         }
-        $pdo->exec("SET optimizer_switch='split_materialized=off'");
+        try {
+            $pdo->exec("SET optimizer_switch='split_materialized=off'");
+        } catch (\Throwable $exception) {
+        }
     }
     private static function ssl_options() : array
     {

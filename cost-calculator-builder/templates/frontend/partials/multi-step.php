@@ -1,3 +1,4 @@
+<?php $get_date_format = get_option( 'date_format' ); ?>
 <div class="calc-list-inner calc-multi-step" :style="pageNavigationStyle">
 	<div class="calc-item-title">
 		<div class="ccb-calc-heading" v-text="currentPageTitle" v-if="!this.$store.getters.getPageBreakStatus"></div>

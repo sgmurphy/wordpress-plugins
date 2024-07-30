@@ -22,17 +22,26 @@ jQuery(function ($) {
 				_nonce: THUMBPRESS.nonce,
 			},
 			success: function (res) {
-				if (res.has_image) {
-					var progress = (res.offset / res.total_images_count) * 100;
-					$(".image-sizes-progress-content").text(Math.ceil(progress) + "%").css({ width: progress + "%" });
-
-					regenerate(limit, res.offset, res.thumbs_deleted, res.thumbs_created);
-				} else {
+                if( res.status == 1 ) {
+                    if (res.progress != 100) {
+                        regenerate(limit, res.offset, res.thumbs_deleted, res.thumbs_created);
+                    }else{
+                        $("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
+                        $(".thumbpress-progress-panel .thumbpress-progress-content").addClass("progress-full");  
+                    }
+                    if( res.progress ) {
+                        var progress = res.progress;
+                        $(".thumbpress-progress-content").text(Math.ceil(progress) + "%").css({ width: progress + "%" });
+                    }
+                    $("#processed-count").html(res.offset);
+					$("#removed-count").html(res.thumbs_deleted);
+					$("#regenerated-count").html(res.thumbs_created);
+                }
+                if( res.status == 2 ) {
+					$("#thumbpress-action-now-result").hide();
+					$('#thumbpress-action-no-result').show();
 					$("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
-					$(".image-sizes-progress-panel .image-sizes-progress-content").addClass("progress-full");
 				}
-				$("#image_sizes-message").html(res.message);
-				$("#image_sizes-regen-right .image-sizes-progress-panel-wrapper").show();
 			},
 			error: function (err) {
 				$("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
@@ -43,13 +52,9 @@ jQuery(function ($) {
 	// cx-regen-thumbs
 	$("#image_sizes-regen-thumbs").click(function (e) {
 		$("#image_sizes-regen-thumbs").text(THUMBPRESS.regening).attr("disabled", true);
-		$("#image_sizes-message").html("").show();
-		$(".image-sizes-progress-panel").hide();
-		$("#processing-convert").hide();
-
+		$("#thumbress-action-background-result, #thumbpress-action-no-result, #thumbpress-pro-view").hide();
 		regenerate(limit, offset, thumbs_deleted, thumbs_created);
-
-		$("#image_sizes-message").before('<div class="image-sizes-progress-panel"><div class="image-sizes-progress-content" style="width:0%"><span>0%</span></div></div></div>');
+		$("#thumbpress-action-now-result").show();
 	});
 
 	// Schedule regen thumbnail

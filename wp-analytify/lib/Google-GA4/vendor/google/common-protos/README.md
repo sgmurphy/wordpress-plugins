@@ -8,8 +8,8 @@
 
 This repository is a home for the [protocol buffer][protobuf] types which are
 common dependencies throughout the Google API ecosystem, generated for PHP.
-The protobuf definitions for these generated PHP classes are provided by the
-[Common Components AIP][common-components-aip] repository.
+The protobuf definitions for these generated PHP classes are provided in the
+[API Common Protos][api-common-protos] repository.
 
 ## Using these generated classes
 
@@ -41,6 +41,6 @@ provided the license terms are honored.
 
   [api-style]: https://cloud.google.com/apis/design/
   [protobuf]: https://developers.google.com/protocol-buffers/
-  [common-components-aip]: https://google.aip.dev/213
+  [api-common-protos]: https://github.com/googleapis/api-common-protos/
   [packagist-common-protos]: https://packagist.org/packages/google/common-protos/
   [packagist]: https://packagist.org/

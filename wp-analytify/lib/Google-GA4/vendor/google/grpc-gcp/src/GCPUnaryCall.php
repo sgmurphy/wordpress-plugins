@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * Copyright 2018 gRPC authors.
@@ -22,15 +23,14 @@ namespace Grpc\Gcp;
  * Represents an active call that sends a single message and then gets a
  * single response.
  */
-class GCPUnaryCall extends GcpBaseCall
+class GCPUnaryCall extends \Grpc\Gcp\GcpBaseCall
 {
     protected function createRealCall($channel)
     {
         $this->real_call = new \Grpc\UnaryCall($channel, $this->method, $this->deserialize, $this->options);
-        $this->has_real_call = true;
+        $this->has_real_call = \true;
         return $this->real_call;
     }
-
     /**
      * Pick a channel and start the call.
      *
@@ -47,7 +47,6 @@ class GCPUnaryCall extends GcpBaseCall
         $this->createRealCall($real_channel);
         $this->real_call->start($argument, $metadata, $options);
     }
-
     /**
      * Wait for the server to respond with data and a status.
      *
@@ -59,7 +58,6 @@ class GCPUnaryCall extends GcpBaseCall
         $this->_rpcPostProcess($status, $response);
         return [$response, $status];
     }
-
     /**
      * @return mixed The metadata sent by the server
      */

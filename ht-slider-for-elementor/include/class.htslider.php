@@ -24,6 +24,10 @@ final class HTSlider_Addons_Elementor {
 
         // Elementor Editor Style
         add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'elementor_editor_css' ] );
+        // Upgrade Pro Menu
+        add_action( 'admin_menu', [$this, 'upgrade_to_pro_menu'], 329 );
+        add_action('admin_head', [ $this, 'admin_menu_item_adjust'] );
+        add_action('admin_head', [ $this, 'enqueue_admin_head_scripts'], 11 );
     }
     public function i18n() {
         load_plugin_textdomain( 'ht-slider' );
@@ -251,5 +255,60 @@ final class HTSlider_Addons_Elementor {
         add_image_size( 'htliser_size_396x360', 396, 360, true );
         add_image_size( 'htslider_size_1170x536', 1170, 536, true );
     }
+
+
+    /**
+     * [upgrade_to_pro_menu] Admin Menu
+     */
+    public function upgrade_to_pro_menu(){
+        add_submenu_page(
+            'htslider_page', 
+            esc_html__('Upgrade to Pro', 'ht-slider'),
+            esc_html__('Upgrade to Pro', 'ht-slider'), 
+            'manage_options', 
+            'https://hasthemes.com/plugins/ht-slider-pro-for-elementor/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free'
+        );
+    }
+
+    // Add Class For pro Menu Item
+    public function admin_menu_item_adjust(){
+        global $submenu;
+
+		// Check HT Slider Menu page exist or not
+		if ( ! isset( $submenu['htslider_page'] ) ) {
+			return;
+		}
+
+        $position = key(
+			array_filter( $submenu['htslider_page'],  
+				static function( $item ) {
+					return strpos( $item[2], 'https://hasthemes.com/plugins/ht-slider-pro-for-elementor/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free' ) !== false;
+				}
+			)
+		);
+
+        if ( isset( $submenu['htslider_page'][ $position ][4] ) ) {
+			$submenu['htslider_page'][ $position ][4] .= ' ht-slider-upgrade-pro';
+		} else {
+			$submenu['htslider_page'][ $position ][] = 'ht-slider-upgrade-pro';
+		}
+    }
+
+    // Add Custom scripts for pro menu item
+    public function enqueue_admin_head_scripts() {
+        $styles = '';
+        $scripts = '';
+
+        $styles .= '#adminmenu a.ht-slider-upgrade-pro { font-weight: 600; background-color: #D43A6B; color: #ffffff; display: block; text-align: left;}';
+        $scripts .= 'jQuery(document).ready( function($) {
+			$("#adminmenu a.ht-slider-upgrade-pro").attr("target","_blank");  
+		});';
+		
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		printf( '<style>%s</style>', $styles );
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		printf( '<script>%s</script>', $scripts );
+    }
+
 }
 HTSlider_Addons_Elementor::instance();

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,29 +15,27 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics;
 
 class RemarketingAudienceAudienceDefinition extends \Google\Model
 {
-  protected $includeConditionsType = IncludeConditions::class;
-  protected $includeConditionsDataType = '';
-
-  /**
-   * @param IncludeConditions
-   */
-  public function setIncludeConditions(IncludeConditions $includeConditions)
-  {
-    $this->includeConditions = $includeConditions;
-  }
-  /**
-   * @return IncludeConditions
-   */
-  public function getIncludeConditions()
-  {
-    return $this->includeConditions;
-  }
+    protected $includeConditionsType = \Google\Service\Analytics\IncludeConditions::class;
+    protected $includeConditionsDataType = '';
+    public $includeConditions;
+    /**
+     * @param IncludeConditions
+     */
+    public function setIncludeConditions(\Google\Service\Analytics\IncludeConditions $includeConditions)
+    {
+        $this->includeConditions = $includeConditions;
+    }
+    /**
+     * @return IncludeConditions
+     */
+    public function getIncludeConditions()
+    {
+        return $this->includeConditions;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(RemarketingAudienceAudienceDefinition::class, 'Google_Service_Analytics_RemarketingAudienceAudienceDefinition');
+\class_alias(\Google\Service\Analytics\RemarketingAudienceAudienceDefinition::class, 'Analytify\\Google_Service_Analytics_RemarketingAudienceAudienceDefinition');

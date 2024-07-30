@@ -3,7 +3,7 @@
   * Plugin Name: CF7 Google Sheet Connector
   * Plugin URI: https://wordpress.org/plugins/cf7-google-sheets-connector/
   * Description: Send your Contact Form 7 data to your Google Sheets spreadsheet.
-  * Version: 5.0.12
+  * Version: 5.0.13
   * Author: GSheetConnector
   * Author URI: https://www.gsheetconnector.com/
   * Text Domain: gsconnector
@@ -15,8 +15,8 @@ if (!defined('ABSPATH')) {
 }
 
 // Declare some global constants
-define('GS_CONNECTOR_VERSION', '5.0.12');
-define('GS_CONNECTOR_DB_VERSION', '5.0.12');
+define('GS_CONNECTOR_VERSION', '5.0.13');
+define('GS_CONNECTOR_DB_VERSION', '5.0.13');
 define('GS_CONNECTOR_ROOT', dirname(__FILE__));
 define('GS_CONNECTOR_URL', plugins_url('/', __FILE__));
 define('GS_CONNECTOR_BASE_FILE', basename(dirname(__FILE__)) . '/google-sheet-connector.php');
@@ -26,7 +26,8 @@ define('GS_CONNECTOR_PRODUCT_NAME', 'Google Sheet Connector');
 define('GS_CONNECTOR_CURRENT_THEME', get_stylesheet_directory());
 define('GS_CONNECTOR_AUTH_URL', 'https://oauth.gsheetconnector.com/index.php');
 define('GS_CONNECTOR_AUTH_REDIRECT_URI', admin_url('admin.php?page=wpcf7-google-sheet-config'));
-define('GS_CONNECTOR_AUTH_PLUGIN_NAME', 'cf7gsheetconnector');
+//define('GS_CONNECTOR_AUTH_PLUGIN_NAME', 'cf7gsheetconnector');
+define('GS_CONNECTOR_AUTH_PLUGIN_NAME', 'woocommercegsheetconnector');
 
 load_plugin_textdomain('gsconnector', false, basename(dirname(__FILE__)) . '/languages');
 

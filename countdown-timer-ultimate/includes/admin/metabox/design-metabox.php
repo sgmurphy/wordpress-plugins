@@ -52,7 +52,9 @@ $timersecondsbackground_color	= ! empty( $design_data['timersecondsbackground_co
 					</select><br/>
 					<span class="description"><?php _e('Select timer design.', 'countdown-timer-ultimate'); ?></span><br/>
 					<span class="description wpcdt-pro-feature"><?php esc_html_e('For more designs. ', 'countdown-timer-ultimate'); ?>
-					<strong><?php echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></strong></span>
+					<!-- <strong><?php // echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></strong></span> -->
+
+					<strong><?php echo sprintf( __( 'Try This <a href="%s" target="_blank">Features in Essential Bundle Free For 5 Days.</a>', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></strong>
 				</td>
 			</tr>
 			<tr>

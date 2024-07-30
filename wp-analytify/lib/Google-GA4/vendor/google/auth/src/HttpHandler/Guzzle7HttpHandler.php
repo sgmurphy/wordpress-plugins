@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2020 Google LLC
  *
@@ -16,6 +17,6 @@
  */
 namespace Google\Auth\HttpHandler;
 
-class Guzzle7HttpHandler extends Guzzle6HttpHandler
+class Guzzle7HttpHandler extends \Google\Auth\HttpHandler\Guzzle6HttpHandler
 {
 }

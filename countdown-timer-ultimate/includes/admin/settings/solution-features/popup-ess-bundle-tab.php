@@ -94,7 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	
 
-	<div class="wpcdt-deal-offer-wrap">
+	<!-- <div class="wpcdt-deal-offer-wrap">
 		<div class="wpcdt-deal-offer"> 
 			<div class="wpcdt-inn-deal-offer">
 				<h3 class="wpcdt-inn-deal-hedding"><span>Buy Countdown Timer Ultimate Pro</span> today and unlock all the powerful features.</h3>
@@ -102,8 +102,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="wpcdt-inn-deal-offer-btn">
 				<div class="wpcdt-inn-deal-code"><span>EPSEXTRA</span></div>
-				<a href="<?php echo esc_url(WPCDT_PLUGIN_BUNDLE_LINK); ?>" target="_blank" class="wpcdt-sf-btn wpcdt-sf-btn-orange"><span class="dashicons dashicons-cart"></span> Get Essential Bundle Now</a>
+				<a href="<?php // echo esc_url(WPCDT_PLUGIN_BUNDLE_LINK); ?>" target="_blank" class="wpcdt-sf-btn wpcdt-sf-btn-orange"><span class="dashicons dashicons-cart"></span> Get Essential Bundle Now</a>
 				<em class="risk-free-guarantee"><span class="heading">Risk-Free Guarantee </span> - We offer a <span>30-day money back guarantee on all purchases</span>. If you are not happy with your purchases, we will refund your purchase. No questions asked!</em>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="wpcdt-deal-offer-wrap">
+		<div class="wpcdt-deal-offer"> 
+			<div class="wpcdt-inn-deal-offer">
+				<h3 class="wpcdt-inn-deal-hedding"><span>Try Countdown Timer Ultimate Pro</span> in Essential Bundle Free For 5 Days.</h3>
+			</div>
+			<div class="wpcdt-deal-free-offer">
+				<a href="<?php echo esc_url( WPCDT_PLUGIN_BUNDLE_LINK ); ?>" target="_blank" class="wpcdt-sf-free-btn"><span class="dashicons dashicons-cart"></span> Try Pro For 5 Days Free</a>
 			</div>
 		</div>
 	</div>

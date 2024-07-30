@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -39,36 +40,30 @@ use Google\ApiCore\ValidationException;
 use Google\ApiCore\ValidationTrait;
 use Google\Protobuf\Internal\Message;
 use Google\Rpc\Status;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Request;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-
+use Analytify\GuzzleHttp\Exception\RequestException;
+use Analytify\GuzzleHttp\Psr7\Request;
+use Analytify\Psr\Http\Message\RequestInterface;
+use Analytify\Psr\Http\Message\ResponseInterface;
 /**
  * A transport that sends protobuf over HTTP 1.1 that can be used when full gRPC support
  * is not available.
  */
-class GrpcFallbackTransport implements TransportInterface
+class GrpcFallbackTransport implements \Google\ApiCore\Transport\TransportInterface
 {
     use ValidationTrait;
     use ServiceAddressTrait;
-    use HttpUnaryTransportTrait;
-
-    private string $baseUri;
-
+    use \Google\ApiCore\Transport\HttpUnaryTransportTrait;
+    private $baseUri;
     /**
      * @param string $baseUri
      * @param callable $httpHandler A handler used to deliver PSR-7 requests.
      */
-    public function __construct(
-        string $baseUri,
-        callable $httpHandler
-    ) {
+    public function __construct(string $baseUri, callable $httpHandler)
+    {
         $this->baseUri = $baseUri;
         $this->httpHandler = $httpHandler;
         $this->transportName = 'grpc-fallback';
     }
-
     /**
      * Builds a GrpcFallbackTransport.
      *
@@ -84,46 +79,33 @@ class GrpcFallbackTransport implements TransportInterface
      */
     public static function build(string $apiEndpoint, array $config = [])
     {
-        $config += [
-            'httpHandler'  => null,
-            'clientCertSource' => null,
-        ];
+        $config += ['httpHandler' => null, 'clientCertSource' => null];
         list($baseUri, $port) = self::normalizeServiceAddress($apiEndpoint);
         $httpHandler = $config['httpHandler'] ?: self::buildHttpHandlerAsync();
-        $transport = new GrpcFallbackTransport("$baseUri:$port", $httpHandler);
+        $transport = new \Google\ApiCore\Transport\GrpcFallbackTransport("{$baseUri}:{$port}", $httpHandler);
         if ($config['clientCertSource']) {
             $transport->configureMtlsChannel($config['clientCertSource']);
         }
         return $transport;
     }
-
     /**
      * {@inheritdoc}
      */
     public function startUnaryCall(Call $call, array $options)
     {
         $httpHandler = $this->httpHandler;
-        return $httpHandler(
-            $this->buildRequest($call, $options),
-            $this->getCallOptions($options)
-        )->then(
-            function (ResponseInterface $response) use ($options) {
-                if (isset($options['metadataCallback'])) {
-                    $metadataCallback = $options['metadataCallback'];
-                    $metadataCallback($response->getHeaders());
-                }
-                return $response;
+        return $httpHandler($this->buildRequest($call, $options), $this->getCallOptions($options))->then(function (ResponseInterface $response) use($options) {
+            if (isset($options['metadataCallback'])) {
+                $metadataCallback = $options['metadataCallback'];
+                $metadataCallback($response->getHeaders());
             }
-        )->then(
-            function (ResponseInterface $response) use ($call) {
-                return $this->unpackResponse($call, $response);
-            },
-            function (\Exception $ex) {
-                throw $this->transformException($ex);
-            }
-        );
+            return $response;
+        })->then(function (ResponseInterface $response) use($call) {
+            return $this->unpackResponse($call, $response);
+        }, function (\Exception $ex) {
+            throw $this->transformException($ex);
+        });
     }
-
     /**
      * @param Call $call
      * @param array $options
@@ -133,23 +115,14 @@ class GrpcFallbackTransport implements TransportInterface
     {
         // Build common headers and set the content type to 'application/x-protobuf'
         $headers = ['Content-Type' => 'application/x-protobuf'] + self::buildCommonHeaders($options);
-
         // It is necessary to supply 'grpc-web' in the 'x-goog-api-client' header
         // when using the grpc-fallback protocol.
         $headers += ['x-goog-api-client' => []];
         $headers['x-goog-api-client'][] = 'grpc-web';
-
         // Uri format: https://<service>/$rpc/<method>
         $uri = "https://{$this->baseUri}/\$rpc/{$call->getMethod()}";
-
-        return new Request(
-            'POST',
-            $uri,
-            $headers,
-            $call->getMessage()->serializeToString()
-        );
+        return new Request('POST', $uri, $headers, $call->getMessage()->serializeToString());
     }
-
     /**
      * @param Call $call
      * @param ResponseInterface $response
@@ -159,32 +132,27 @@ class GrpcFallbackTransport implements TransportInterface
     {
         $decodeType = $call->getDecodeType();
         /** @var Message $responseMessage */
-        $responseMessage = new $decodeType;
-        $responseMessage->mergeFromString((string)$response->getBody());
+        $responseMessage = new $decodeType();
+        $responseMessage->mergeFromString((string) $response->getBody());
         return $responseMessage;
     }
-
     /**
      * @param array $options
      * @return array
      */
     private function getCallOptions(array $options)
     {
-        $callOptions = $options['transportOptions']['grpcFallbackOptions'] ?? [];
-
+        $callOptions = isset($options['transportOptions']['grpcFallbackOptions']) ? $options['transportOptions']['grpcFallbackOptions'] : [];
         if (isset($options['timeoutMillis'])) {
             $callOptions['timeout'] = $options['timeoutMillis'] / 1000;
         }
-
         if ($this->clientCertSource) {
             list($cert, $key) = self::loadClientCertSource($this->clientCertSource);
             $callOptions['cert'] = $cert;
             $callOptions['key'] = $key;
         }
-
         return $callOptions;
     }
-
     /**
      * @param \Exception $ex
      * @return \Exception

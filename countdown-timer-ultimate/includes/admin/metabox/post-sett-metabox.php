@@ -70,7 +70,10 @@ $is_timerseconds	= ! empty( $content_data['is_timerseconds'] )	? 1 : 0;
 					<td>
 						<input type="text" name="" value="" class="wpcdt-start-date" id="wpcdt-start-date" disabled="disabled" /><br/>
 						<span class="description"><?php _e('Set countdown timer start date.', 'countdown-timer-ultimate'); ?></span>
-						<strong><?php echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></strong>
+						<!-- <strong><?php // echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></strong> -->
+
+						<strong><?php echo sprintf( __( 'Try This <a href="%s" target="_blank">Features in Essential Bundle Free For 5 Days.</a>', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></strong>
+
 					</td>
 				</tr>
 				<tr>
@@ -95,7 +98,10 @@ $is_timerseconds	= ! empty( $content_data['is_timerseconds'] )	? 1 : 0;
 							<option><?php esc_html_e('Days', 'countdown-timer-ultimate'); ?></option>
 						</select><br/>
 						<span class="description"><?php _e('Set countdown timer recurring time.', 'countdown-timer-ultimate'); ?></span>
-						<strong><?php echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></strong>
+						<!-- <strong><?php //echo sprintf( __( 'Utilize this <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></strong> -->
+
+						<strong><?php echo sprintf( __( 'Try This <a href="%s" target="_blank">Features in Essential Bundle Free For 5 Days.</a>', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></strong>
+
 					</td>
 				</tr>
 				<tr>
@@ -137,7 +143,10 @@ $is_timerseconds	= ! empty( $content_data['is_timerseconds'] )	? 1 : 0;
 				<tr class="wpcdt-pro-feature">
 					<th colspan="2">
 						<div class="wpcdt-sub-sett-title"><i class="dashicons dashicons-admin-generic"></i> <?php _e('Design Common Settings   ', 'countdown-timer-ultimate'); ?><br>
-						<?php echo sprintf( __( 'Utilize these <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?></div>
+						<?php // echo sprintf( __( 'Utilize these <a href="%s" target="_blank">Premium Features (With Risk-Free 30 days money back guarantee)</a> to get best of this plugin with Annual or Lifetime bundle deal.', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?>
+
+						<?php echo sprintf( __( 'Try All These <a href="%s" target="_blank">Features in Essential Bundle Free For 5 Days.</a>', 'countdown-timer-ultimate'), WPCDT_PLUGIN_LINK_UNLOCK); ?>
+						</div>
 					</th>
 				</tr>
 				<tr class="wpcdt-pro-feature">

@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * Copyright 2018 gRPC authors.
@@ -33,7 +34,6 @@ class CreatedByDeserializeCheck implements \Serializable
     {
         $this->data = 1;
     }
-
     /**
      * @return string
      */
@@ -41,7 +41,6 @@ class CreatedByDeserializeCheck implements \Serializable
     {
         return '0';
     }
-
     /**
      * @return string
      */
@@ -49,7 +48,6 @@ class CreatedByDeserializeCheck implements \Serializable
     {
         return $this->serialize();
     }
-
     /**
      * @param string $data
      */
@@ -57,15 +55,13 @@ class CreatedByDeserializeCheck implements \Serializable
     {
         $this->data = 1;
     }
-
     /**
      * @param string $data
      */
     public function __unserialize($data)
     {
-       $this->unserialize($data);
+        $this->unserialize($data);
     }
-
     /**
      * @param $data
      */
@@ -73,7 +69,6 @@ class CreatedByDeserializeCheck implements \Serializable
     {
         $this->data = $data;
     }
-
     /**
      * @return int
      */

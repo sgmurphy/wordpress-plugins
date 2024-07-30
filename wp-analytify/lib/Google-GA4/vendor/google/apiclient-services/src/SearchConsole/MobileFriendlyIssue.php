@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,31 +15,28 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole;
 
 class MobileFriendlyIssue extends \Google\Model
 {
-  /**
-   * @var string
-   */
-  public $rule;
-
-  /**
-   * @param string
-   */
-  public function setRule($rule)
-  {
-    $this->rule = $rule;
-  }
-  /**
-   * @return string
-   */
-  public function getRule()
-  {
-    return $this->rule;
-  }
+    /**
+     * @var string
+     */
+    public $rule;
+    /**
+     * @param string
+     */
+    public function setRule($rule)
+    {
+        $this->rule = $rule;
+    }
+    /**
+     * @return string
+     */
+    public function getRule()
+    {
+        return $this->rule;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(MobileFriendlyIssue::class, 'Google_Service_SearchConsole_MobileFriendlyIssue');
+\class_alias(\Google\Service\SearchConsole\MobileFriendlyIssue::class, 'Analytify\\Google_Service_SearchConsole_MobileFriendlyIssue');

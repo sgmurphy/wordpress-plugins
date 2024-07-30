@@ -76,7 +76,9 @@ $enables_count 			= count( $image_sizes ) - $disables_count;
 
                     if ( $thumbpress_modules == 'on' ) {
                         ?>
-                        <a href="<?php echo get_site_url() . '/wp-admin/admin.php?page=thumbpress-regenerate-thumbnails' ; ?>" class="imgs-thumb-size-back">&#10550; <?php _e( 'Go to Regenerate Thumbnails Settings','image-sizes' ) ?></a>
+                        <a href="<?php echo esc_url( add_query_arg( [ 'page' => 'thumbpress-regenerate-thumbnails' ], admin_url( 'admin.php' ) ) ); ?>" class="imgs-thumb-size-back">
+                            &#10550; <?php _e( 'Go to Regenerate Thumbnails Settings', 'image-sizes' ); ?>
+                        </a>
                         <?php 
                     }
                     ?>                    

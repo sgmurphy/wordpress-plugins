@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,12 +15,10 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics\Resource;
 
 use Google\Service\Analytics\HashClientIdRequest;
 use Google\Service\Analytics\HashClientIdResponse;
-
 /**
  * The "clientId" collection of methods.
  * Typical usage is:
@@ -30,21 +29,19 @@ use Google\Service\Analytics\HashClientIdResponse;
  */
 class ManagementClientId extends \Google\Service\Resource
 {
-  /**
-   * Hashes the given Client ID. (clientId.hashClientId)
-   *
-   * @param HashClientIdRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return HashClientIdResponse
-   * @throws \Google\Service\Exception
-   */
-  public function hashClientId(HashClientIdRequest $postBody, $optParams = [])
-  {
-    $params = ['postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('hashClientId', [$params], HashClientIdResponse::class);
-  }
+    /**
+     * Hashes the given Client ID. (clientId.hashClientId)
+     *
+     * @param HashClientIdRequest $postBody
+     * @param array $optParams Optional parameters.
+     * @return HashClientIdResponse
+     */
+    public function hashClientId(HashClientIdRequest $postBody, $optParams = [])
+    {
+        $params = ['postBody' => $postBody];
+        $params = \array_merge($params, $optParams);
+        return $this->call('hashClientId', [$params], HashClientIdResponse::class);
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(ManagementClientId::class, 'Google_Service_Analytics_Resource_ManagementClientId');
+\class_alias(\Google\Service\Analytics\Resource\ManagementClientId::class, 'Analytify\\Google_Service_Analytics_Resource_ManagementClientId');

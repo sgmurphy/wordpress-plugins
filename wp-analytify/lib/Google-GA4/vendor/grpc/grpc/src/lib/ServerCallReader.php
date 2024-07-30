@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * Copyright 2020 gRPC authors.
@@ -16,7 +17,6 @@
  * limitations under the License.
  *
  */
-
 namespace Grpc;
 
 /**
@@ -25,7 +25,6 @@ namespace Grpc;
  *
  * DO NOT USE in production.
  */
-
 class ServerCallReader
 {
     public function __construct($call, string $request_type)
@@ -33,20 +32,16 @@ class ServerCallReader
         $this->call_ = $call;
         $this->request_type_ = $request_type;
     }
-
     public function read()
     {
-        $event = $this->call_->startBatch([
-            OP_RECV_MESSAGE => true,
-        ]);
+        $event = $this->call_->startBatch([OP_RECV_MESSAGE => \true]);
         if ($event->message === null) {
             return null;
         }
-        $data = new $this->request_type_;
+        $data = new $this->request_type_();
         $data->mergeFromString($event->message);
         return $data;
     }
-
     private $call_;
     private $request_type_;
 }

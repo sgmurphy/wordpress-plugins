@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -32,14 +33,12 @@
 namespace Google\ApiCore;
 
 use InvalidArgumentException;
-
 /**
  * Holds the description information used for page streaming.
  */
 class PageStreamingDescriptor
 {
     private $descriptor;
-
     /**
      * @param array $descriptor {
      *     Required.
@@ -57,7 +56,6 @@ class PageStreamingDescriptor
         self::validate($descriptor);
         $this->descriptor = $descriptor;
     }
-
     /**
      * @param array $fields {
      *     Required.
@@ -76,33 +74,22 @@ class PageStreamingDescriptor
         $requestPageToken = $fields['requestPageTokenField'];
         $responsePageToken = $fields['responsePageTokenField'];
         $resources = $fields['resourceField'];
-
-        $descriptor = [
-            'requestPageTokenGetMethod' => PageStreamingDescriptor::getMethod($requestPageToken),
-            'requestPageTokenSetMethod' => PageStreamingDescriptor::setMethod($requestPageToken),
-            'responsePageTokenGetMethod' => PageStreamingDescriptor::getMethod($responsePageToken),
-            'resourcesGetMethod' => PageStreamingDescriptor::getMethod($resources),
-        ];
-
+        $descriptor = ['requestPageTokenGetMethod' => \Google\ApiCore\PageStreamingDescriptor::getMethod($requestPageToken), 'requestPageTokenSetMethod' => \Google\ApiCore\PageStreamingDescriptor::setMethod($requestPageToken), 'responsePageTokenGetMethod' => \Google\ApiCore\PageStreamingDescriptor::getMethod($responsePageToken), 'resourcesGetMethod' => \Google\ApiCore\PageStreamingDescriptor::getMethod($resources)];
         if (isset($fields['requestPageSizeField'])) {
             $requestPageSize = $fields['requestPageSizeField'];
-            $descriptor['requestPageSizeGetMethod'] = PageStreamingDescriptor::getMethod($requestPageSize);
-            $descriptor['requestPageSizeSetMethod'] = PageStreamingDescriptor::setMethod($requestPageSize);
+            $descriptor['requestPageSizeGetMethod'] = \Google\ApiCore\PageStreamingDescriptor::getMethod($requestPageSize);
+            $descriptor['requestPageSizeSetMethod'] = \Google\ApiCore\PageStreamingDescriptor::setMethod($requestPageSize);
         }
-
-        return new PageStreamingDescriptor($descriptor);
+        return new \Google\ApiCore\PageStreamingDescriptor($descriptor);
     }
-
     private static function getMethod(string $field)
     {
-        return 'get' . ucfirst($field);
+        return 'get' . \ucfirst($field);
     }
-
     private static function setMethod(string $field)
     {
-        return 'set' . ucfirst($field);
+        return 'set' . \ucfirst($field);
     }
-
     /**
      * @return string The page token get method on the request object
      */
@@ -110,7 +97,6 @@ class PageStreamingDescriptor
     {
         return $this->descriptor['requestPageTokenGetMethod'];
     }
-
     /**
      * @return string The page size get method on the request object
      */
@@ -118,15 +104,13 @@ class PageStreamingDescriptor
     {
         return $this->descriptor['requestPageSizeGetMethod'];
     }
-
     /**
      * @return bool True if the request object has a page size field
      */
     public function requestHasPageSizeField()
     {
-        return array_key_exists('requestPageSizeGetMethod', $this->descriptor);
+        return \array_key_exists('requestPageSizeGetMethod', $this->descriptor);
     }
-
     /**
      * @return string The page token get method on the response object
      */
@@ -134,7 +118,6 @@ class PageStreamingDescriptor
     {
         return $this->descriptor['responsePageTokenGetMethod'];
     }
-
     /**
      * @return string The resources get method on the response object
      */
@@ -142,7 +125,6 @@ class PageStreamingDescriptor
     {
         return $this->descriptor['resourcesGetMethod'];
     }
-
     /**
      * @return string The page token set method on the request object
      */
@@ -150,7 +132,6 @@ class PageStreamingDescriptor
     {
         return $this->descriptor['requestPageTokenSetMethod'];
     }
-
     /**
      * @return string The page size set method on the request object
      */
@@ -158,20 +139,12 @@ class PageStreamingDescriptor
     {
         return $this->descriptor['requestPageSizeSetMethod'];
     }
-
     private static function validate(array $descriptor)
     {
-        $requiredFields = [
-            'requestPageTokenGetMethod',
-            'requestPageTokenSetMethod',
-            'responsePageTokenGetMethod',
-            'resourcesGetMethod',
-        ];
+        $requiredFields = ['requestPageTokenGetMethod', 'requestPageTokenSetMethod', 'responsePageTokenGetMethod', 'resourcesGetMethod'];
         foreach ($requiredFields as $field) {
             if (empty($descriptor[$field])) {
-                throw new InvalidArgumentException(
-                    "$field is required for PageStreamingDescriptor"
-                );
+                throw new InvalidArgumentException("{$field} is required for PageStreamingDescriptor");
             }
         }
     }

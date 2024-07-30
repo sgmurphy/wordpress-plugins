@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,12 +15,10 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole\Resource;
 
 use Google\Service\SearchConsole\RunMobileFriendlyTestRequest;
 use Google\Service\SearchConsole\RunMobileFriendlyTestResponse;
-
 /**
  * The "mobileFriendlyTest" collection of methods.
  * Typical usage is:
@@ -30,21 +29,19 @@ use Google\Service\SearchConsole\RunMobileFriendlyTestResponse;
  */
 class UrlTestingToolsMobileFriendlyTest extends \Google\Service\Resource
 {
-  /**
-   * Runs Mobile-Friendly Test for a given URL. (mobileFriendlyTest.run)
-   *
-   * @param RunMobileFriendlyTestRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return RunMobileFriendlyTestResponse
-   * @throws \Google\Service\Exception
-   */
-  public function run(RunMobileFriendlyTestRequest $postBody, $optParams = [])
-  {
-    $params = ['postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('run', [$params], RunMobileFriendlyTestResponse::class);
-  }
+    /**
+     * Runs Mobile-Friendly Test for a given URL. (mobileFriendlyTest.run)
+     *
+     * @param RunMobileFriendlyTestRequest $postBody
+     * @param array $optParams Optional parameters.
+     * @return RunMobileFriendlyTestResponse
+     */
+    public function run(RunMobileFriendlyTestRequest $postBody, $optParams = [])
+    {
+        $params = ['postBody' => $postBody];
+        $params = \array_merge($params, $optParams);
+        return $this->call('run', [$params], RunMobileFriendlyTestResponse::class);
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(UrlTestingToolsMobileFriendlyTest::class, 'Google_Service_SearchConsole_Resource_UrlTestingToolsMobileFriendlyTest');
+\class_alias(\Google\Service\SearchConsole\Resource\UrlTestingToolsMobileFriendlyTest::class, 'Analytify\\Google_Service_SearchConsole_Resource_UrlTestingToolsMobileFriendlyTest');

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2018 Google LLC
  *
@@ -14,12 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 namespace Google\ApiCore\Testing;
 
 use Google\Protobuf\Internal\Message;
-use SebastianBergmann\Exporter\Exporter;
-
+use Analytify\SebastianBergmann\Exporter\Exporter;
 /**
  * @internal
  */
@@ -36,11 +35,7 @@ class MessageAwareExporter extends Exporter
     public function shortenedExport($value)
     {
         if (\is_object($value) && $value instanceof Message) {
-            return \sprintf(
-                '%s Object (%s)',
-                \get_class($value),
-                \spl_object_hash($value)
-            );
+            return \sprintf('%s Object (%s)', \get_class($value), \spl_object_hash($value));
         }
         return parent::shortenedExport($value);
     }

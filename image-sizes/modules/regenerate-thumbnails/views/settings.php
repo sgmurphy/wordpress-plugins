@@ -14,7 +14,7 @@ use Codexpert\ThumbPress\Helper;
 		</label>
 		<input type="number" class="cx-field cx-field-number thumbpress-action-input" id="image-sizes_regenerate-thumbs-limit" name="regen-thumbs-limit" value="10" placeholder="<?php _e( 'Images/request. Default is 50', 'image-sizes' ) ?>" required="">
 		<div class="thumbpress-buttons-wrapper">
-			<button id="image_sizes-regen-thumbs" class="thumbpress-action-now">
+			<button id="image_sizes-regen-thumbs" class="thumbpress-action-now button-hero button">
 				<?php _e( 'Regenerate Now', 'image-sizes' ); ?>
 			</button>
 			<button id="image_sizes-schedule-regen-thumbs" class="thumbpress-action-background">
@@ -26,15 +26,55 @@ use Codexpert\ThumbPress\Helper;
 
 			if ( $thumbpress_modules == 'on' ) {
 				?>
-				<a href="<?php echo get_site_url() . '/wp-admin/admin.php?page=thumbpress#prevent_image_sizes' ; ?>" class="prevent_image_sizes-back button-hero">&#10550; <?php _e( 'Go to Disable Thumbnails Settings','image-sizes' ) ?></a>
+				<a href="<?php echo esc_url( add_query_arg( [ 'page' => 'thumbpress' ], admin_url( 'admin.php' ) ) . '#prevent_image_sizes' ); ?>" class="prevent_image_sizes-back button-hero">
+					&#10550; <?php _e( 'Go to Disable Thumbnails Settings', 'image-sizes' ); ?>
+				</a>
 				<?php 
 			}
 		?>
 		
 	</div>
-	<div id="image_sizes-regen-right" class="thumbpress-actions-right">
-		<div class="image-sizes-progress-panel-wrapper" style="display: none;">
-			<div id="image_sizes-message"></div>
+	<div class="thumbpress-actions-right">
+		<div id="thumbpress-action-now-result" style="display: none;">
+			<div class="thumbpress-progress-panel">
+				<div class="thumbpress-progress-content" style="width:0%">
+					<span>0%</span>
+				</div>
+			</div>
+			<div id="thumbpress-pro-message">
+				<p id="cx-processed">
+					<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
+					<?php
+					printf(
+						__( '%s images processed.', 'thumbpress-pro' ),
+						'<span id="processed-count">0</span>',
+					);
+					?>
+				</p>
+				<p id="cx-removed">
+					<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
+					<?php
+					printf(
+						__( '%s images removed.', 'thumbpress-pro' ),
+						'<span id="removed-count">0</span>',
+					);
+					?>
+				</p>
+				<p id="cx-regenerated">
+					<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
+					<?php
+					printf(
+						__( '%s images regenerated.', 'thumbpress-pro' ),
+						'<span id="regenerated-count">0</span>',
+					);
+					?>
+				</p>
+			</div>
+		</div>
+		<div id="thumbpress-action-no-result" style="display: none;">
+			<h3>
+				<?php _e( 'No images to regenerate.', 'thumbpress-pro' ); ?>
+			</h3>
 		</div>
 		<?php
 		$status 	= thumbpress_get_last_action_status_by_module_name( 'regenerate-thumbnails' );
@@ -55,7 +95,7 @@ use Codexpert\ThumbPress\Helper;
 			$title 			= __( 'FAILED', 'image-sizes' );
 			$text 			= __( 'Your thumbnails could not be regenerated. Please try again.', 'image-sizes' );
 			$status_class 	= 'failed';
-		} elseif( $status == 'completed' ) {
+		} elseif( $status == 'complete' && $progress == 100 ) {
 			$title 			= __( 'COMPLETED', 'image-sizes' );
 			$text 			= __( 'Your thumbnails have regenerated successfully.', 'image-sizes' );
 			$status_class 	= 'complete';
@@ -66,16 +106,17 @@ use Codexpert\ThumbPress\Helper;
 			</div>";
 		}
 		?>
-
-		<div id="processing-convert">
-			<div id="select-for-convert">
+		<div id="thumbress-action-background-result">
+			<div id="thumbress-result-image">
 				<img src="<?php echo esc_url( plugins_url('modules/convert-images/img/convart-icon.png', THUMBPRESS ) ); ?>">
 			</div>
 			<?php if ( $title ): ?>
 				<h2 class="image_sizes-status <?php echo $status_class; ?>">
 					<?php echo esc_html( $title ); ?>
 				</h2>
-				<?php echo $progress_bar; ?>
+				<?php if ( isset( $progress_bar ) ): ?>
+					<?php echo $progress_bar; ?>
+				<?php endif; ?>
 			<?php endif; ?>
 			<p class="image_sizes-desc">
 				<?php echo esc_html( $text ); ?>

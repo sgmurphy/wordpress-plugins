@@ -9,8 +9,7 @@
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
-
-namespace phpseclib3\Math\Common\FiniteField;
+namespace Analytify\phpseclib3\Math\Common\FiniteField;
 
 /**
  * Finite Field Integer
@@ -32,13 +31,12 @@ abstract class Integer implements \JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return ['hex' => $this->toHex(true)];
+        return ['hex' => $this->toHex(\true)];
     }
-
     /**
      * Converts an Integer to a hex string (eg. base-16).
      *
      * @return string
      */
-    abstract public function toHex();
+    public abstract function toHex();
 }

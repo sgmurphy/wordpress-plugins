@@ -74,75 +74,72 @@ class Regenerate_Thumbnails extends Base {
 
 		$images_count 		= $wpdb->get_results( "SELECT `ID` FROM `$wpdb->posts` WHERE `post_type` = 'attachment' AND `post_mime_type` LIKE 'image/%'" );
 		$total_images_count = count( $images_count );
-
 		$images 			= $wpdb->get_results( $wpdb->prepare( "SELECT `ID` FROM `$wpdb->posts` WHERE `post_type` = 'attachment' AND `post_mime_type` LIKE 'image/%'  LIMIT %d OFFSET %d", $limit, $offset ) );
 		$offsets 			= $offset + count( $images );
+		$thumbs_created 	= $thumbs_deleted = $_thumbs_deleteds = $_thumbs_createds = $progress = 0;
+
+		if( ! $images ) {
+			$response['status'] 	= 2;
+			$response['message'] 	= __( 'No images found.', 'thumbpress-pro' );
+			wp_send_json( $response );
+		}	
 		
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 
-		$has_image 			= false;
-		if ( count( $images ) > 0 ) {
-			$has_image = true;
-		}
+		if( $images ) {
 
-		$thumbs_created 	= $thumbs_deleted = 0;
+			foreach ( $images as $image ) {
+				$image_id 		= $image->ID;
+				$main_img 		= get_attached_file( $image_id );
+				$file_info 		= pathinfo( $main_img );
+				$extension 		= strtolower( $file_info['extension'] );
+				$main_img 		= str_replace( "-scaled.{$extension}", ".{$extension}", $main_img );
 
-		foreach ( $images as $image ) {
-			$image_id 		= $image->ID;
-			$main_img 		= get_attached_file( $image_id );
-			$file_info 		= pathinfo( $main_img );
-			$extension 		= strtolower( $file_info['extension'] );
-			$main_img 		= str_replace( "-scaled.{$extension}", ".{$extension}", $main_img );
+				// remove old thumbnails first
+				$old_metadata 	= wp_get_attachment_metadata( $image_id );
+				$thumb_dir 		= dirname( $main_img ) . DIRECTORY_SEPARATOR;
 
-			// remove old thumbnails first
-			$old_metadata 	= wp_get_attachment_metadata( $image_id );
-			$thumb_dir 		= dirname( $main_img ) . DIRECTORY_SEPARATOR;
-
-			foreach ( $old_metadata['sizes'] as $old_size => $old_size_data ) {
-				// For SVG file
-				if ( 'image/svg+xml' == $old_size_data['mime-type'] ) {
-					continue;
+				foreach ( $old_metadata['sizes'] as $old_size => $old_size_data ) {
+					// For SVG file
+					if ( 'image/svg+xml' == $old_size_data['mime-type'] ) {
+						continue;
+					}
+					
+					$thumb_path = $thumb_dir . $old_size_data['file'];
+					if ( file_exists( $thumb_path ) ) {
+						wp_delete_file( $thumb_path );
+						$thumbs_deleted++;
+					}
 				}
-				
-				wp_delete_file( $thumb_dir . $old_size_data['file'] );
-				$thumbs_deleted++;
-			}
-			//delete scaled image
-			if ( strpos( $file_info['basename'], "-scaled.{$extension}" ) !== false ) {
-				wp_delete_file( $thumb_dir . $file_info['basename'] );
-				$thumbs_deleted++;
+				//delete scaled image
+				if ( strpos( $file_info['basename'], "-scaled.{$extension}" ) !== false ) {
+					wp_delete_file( $thumb_dir . $file_info['basename'] );
+					$thumbs_deleted++;
+				}
+
+				// generate new thumbnails
+				if ( false !== $main_img && file_exists( $main_img ) ) {
+					$new_thumbs = wp_generate_attachment_metadata( $image_id, $main_img );
+
+					wp_update_attachment_metadata( $image_id, $new_thumbs );
+
+					$updated_metadata 	= wp_get_attachment_metadata( $image_id );
+					$file_path 			= $updated_metadata['file'];
+					
+					update_post_meta( $image_id, '_wp_attached_file', $file_path );
+					$thumbs_created += is_array( $new_thumbs['sizes'] ) ? count( $new_thumbs['sizes'] ) : 0;
+				}
 			}
 
-			// generate new thumbnails
-			if ( false !== $main_img && file_exists( $main_img ) ) {
-				$new_thumbs = wp_generate_attachment_metadata( $image_id, $main_img );
-
-				wp_update_attachment_metadata( $image_id, $new_thumbs );
-
-				$updated_metadata 	= wp_get_attachment_metadata( $image_id );
-				$file_path 			= $updated_metadata['file'];
-				
-				update_post_meta( $image_id, '_wp_attached_file', $file_path );
-				$thumbs_created += is_array( $new_thumbs['sizes'] ) ? count( $new_thumbs['sizes'] ) : 0;
-			}
+			$_thumbs_deleteds 		= $thumbs_deleteds + $thumbs_deleted;
+			$_thumbs_createds 		= $thumbs_createds + $thumbs_created;
+			$progress 				= ( $offsets / $total_images_count ) * 100;
 		}
 
-		$_thumbs_deleteds 		= $thumbs_deleteds + $thumbs_deleted;
-		$_thumbs_createds 		= $thumbs_createds + $thumbs_created;
-
-		$response['status'] 	= 1;
-		$response['message'] 	= '<p id="cx-processed"><span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>' . sprintf( __( '%d images processed', 'image-sizes' ), $offsets ) . '</p>';
-		$response['message'] 	.= '<p id="cx-removed"><span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>' . sprintf( __( '%d thumbnails removed', 'image-sizes' ), $_thumbs_deleteds ) . '</p>';
-		$response['message'] 	.= '<p id="cx-regenerated"><span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>' . sprintf( __( '%d thumbnails regenerated', 'image-sizes' ), $_thumbs_createds ) . '</p>';
-
-		$response['counter'] 	= [
-			'handled'	=> $offsets,
-			'deleted'	=> $_thumbs_deleteds,
-			'created'	=> $_thumbs_createds,
-		];
-		
+		$response['status'] 			= 1;
+		$response['message'] 			= __( 'Success', 'image-sizes' );
 		$response['offset'] 			= $offsets;
-		$response['has_image'] 			= $has_image;
+		$response['progress'] 			= $progress;
 		$response['thumbs_deleted'] 	= $_thumbs_deleteds;
 		$response['thumbs_created'] 	= $_thumbs_createds;
 		$response['total_images_count'] = $total_images_count;

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,49 +15,46 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole;
 
 class Image extends \Google\Model
 {
-  /**
-   * @var string
-   */
-  public $data;
-  /**
-   * @var string
-   */
-  public $mimeType;
-
-  /**
-   * @param string
-   */
-  public function setData($data)
-  {
-    $this->data = $data;
-  }
-  /**
-   * @return string
-   */
-  public function getData()
-  {
-    return $this->data;
-  }
-  /**
-   * @param string
-   */
-  public function setMimeType($mimeType)
-  {
-    $this->mimeType = $mimeType;
-  }
-  /**
-   * @return string
-   */
-  public function getMimeType()
-  {
-    return $this->mimeType;
-  }
+    /**
+     * @var string
+     */
+    public $data;
+    /**
+     * @var string
+     */
+    public $mimeType;
+    /**
+     * @param string
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+    /**
+     * @return string
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+    /**
+     * @param string
+     */
+    public function setMimeType($mimeType)
+    {
+        $this->mimeType = $mimeType;
+    }
+    /**
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(Image::class, 'Google_Service_SearchConsole_Image');
+\class_alias(\Google\Service\SearchConsole\Image::class, 'Analytify\\Google_Service_SearchConsole_Image');

@@ -5,7 +5,7 @@
  * Plugin URI: https://thumbpress.co
  * Author: ThumbPress
  * Author URI: https://thumbpress.co
- * Version: 5.4
+ * Version: 5.5.1
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Text Domain: image-sizes

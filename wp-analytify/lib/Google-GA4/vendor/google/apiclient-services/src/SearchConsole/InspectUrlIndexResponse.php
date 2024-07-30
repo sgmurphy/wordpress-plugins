@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,29 +15,27 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole;
 
 class InspectUrlIndexResponse extends \Google\Model
 {
-  protected $inspectionResultType = UrlInspectionResult::class;
-  protected $inspectionResultDataType = '';
-
-  /**
-   * @param UrlInspectionResult
-   */
-  public function setInspectionResult(UrlInspectionResult $inspectionResult)
-  {
-    $this->inspectionResult = $inspectionResult;
-  }
-  /**
-   * @return UrlInspectionResult
-   */
-  public function getInspectionResult()
-  {
-    return $this->inspectionResult;
-  }
+    protected $inspectionResultType = \Google\Service\SearchConsole\UrlInspectionResult::class;
+    protected $inspectionResultDataType = '';
+    public $inspectionResult;
+    /**
+     * @param UrlInspectionResult
+     */
+    public function setInspectionResult(\Google\Service\SearchConsole\UrlInspectionResult $inspectionResult)
+    {
+        $this->inspectionResult = $inspectionResult;
+    }
+    /**
+     * @return UrlInspectionResult
+     */
+    public function getInspectionResult()
+    {
+        return $this->inspectionResult;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(InspectUrlIndexResponse::class, 'Google_Service_SearchConsole_InspectUrlIndexResponse');
+\class_alias(\Google\Service\SearchConsole\InspectUrlIndexResponse::class, 'Analytify\\Google_Service_SearchConsole_InspectUrlIndexResponse');

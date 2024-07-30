@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * Copyright 2018 gRPC authors.
@@ -26,25 +27,21 @@ class ChannelRef
 {
     // $opts has all information except Credentials for creating a Grpc\Channel.
     private $opts;
-
     private $channel_id;
     private $affinity_ref;
     private $active_stream_ref;
     private $target;
-
     private $has_deserialized;
     private $real_channel;
-
-    public function __construct($target, $channel_id, $opts, $affinity_ref=0, $active_stream_ref=0)
+    public function __construct($target, $channel_id, $opts, $affinity_ref = 0, $active_stream_ref = 0)
     {
         $this->target = $target;
         $this->channel_id = $channel_id;
         $this->affinity_ref = $affinity_ref;
         $this->active_stream_ref = $active_stream_ref;
         $this->opts = $opts;
-        $this->has_deserialized = new CreatedByDeserializeCheck();
+        $this->has_deserialized = new \Grpc\Gcp\CreatedByDeserializeCheck();
     }
-
     public function getRealChannel($credentials)
     {
         // TODO(ddyihai): remove this check once the serialize handler for
@@ -59,9 +56,8 @@ class ChannelRef
         // Since [target + augments + credentials] will be the same during the recreation,
         // it will reuse the underline grpc channel in C extension without creating a
         // new connection.
-
         // 'credentials' in the array $opts will be unset during creating the channel.
-        if (!array_key_exists('credentials', $this->opts)) {
+        if (!\array_key_exists('credentials', $this->opts)) {
             $this->opts['credentials'] = $credentials;
         }
         $real_channel = new \Grpc\Channel($this->target, $this->opts);
@@ -70,7 +66,6 @@ class ChannelRef
         $this->has_deserialized->setData(0);
         return $real_channel;
     }
-
     public function getAffinityRef()
     {
         return $this->affinity_ref;

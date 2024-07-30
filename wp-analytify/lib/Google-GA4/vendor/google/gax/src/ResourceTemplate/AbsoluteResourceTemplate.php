@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -29,11 +30,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\ResourceTemplate;
 
 use Google\ApiCore\ValidationException;
-
 /**
  * Represents an absolute resource template, meaning that it will always contain a leading slash,
  * and may contain a trailing verb (":<verb>").
@@ -51,12 +50,12 @@ use Google\ApiCore\ValidationException;
  *
  * @internal
  */
-class AbsoluteResourceTemplate implements ResourceTemplateInterface
+class AbsoluteResourceTemplate implements \Google\ApiCore\ResourceTemplate\ResourceTemplateInterface
 {
-    private RelativeResourceTemplate $resourceTemplate;
-    /** @var string|bool */
+    /** @var RelativeResourceTemplate */
+    private $resourceTemplate;
+    /** @var string */
     private $verb;
-
     /**
      * AbsoluteResourceTemplate constructor.
      * @param string $path
@@ -68,31 +67,26 @@ class AbsoluteResourceTemplate implements ResourceTemplateInterface
             throw new ValidationException('Cannot construct AbsoluteResourceTemplate from empty string');
         }
         if ($path[0] !== '/') {
-            throw new ValidationException(
-                "Could not construct AbsoluteResourceTemplate from '$path': must begin with '/'"
-            );
+            throw new ValidationException("Could not construct AbsoluteResourceTemplate from '{$path}': must begin with '/'");
         }
         $verbSeparatorPos = $this->verbSeparatorPos($path);
-        $this->resourceTemplate = new RelativeResourceTemplate(substr($path, 1, $verbSeparatorPos - 1));
-        $this->verb = substr($path, $verbSeparatorPos + 1);
+        $this->resourceTemplate = new \Google\ApiCore\ResourceTemplate\RelativeResourceTemplate(\substr($path, 1, $verbSeparatorPos - 1));
+        $this->verb = \substr($path, $verbSeparatorPos + 1);
     }
-
     /**
      * @inheritdoc
      */
     public function __toString()
     {
-        return sprintf("/%s%s", $this->resourceTemplate, $this->renderVerb());
+        return \sprintf("/%s%s", $this->resourceTemplate, $this->renderVerb());
     }
-
     /**
      * @inheritdoc
      */
     public function render(array $bindings)
     {
-        return sprintf("/%s%s", $this->resourceTemplate->render($bindings), $this->renderVerb());
+        return \sprintf("/%s%s", $this->resourceTemplate->render($bindings), $this->renderVerb());
     }
-
     /**
      * @inheritdoc
      */
@@ -100,12 +94,11 @@ class AbsoluteResourceTemplate implements ResourceTemplateInterface
     {
         try {
             $this->match($path);
-            return true;
+            return \true;
         } catch (ValidationException $ex) {
-            return false;
+            return \false;
         }
     }
-
     /**
      * @inheritdoc
      */
@@ -118,28 +111,25 @@ class AbsoluteResourceTemplate implements ResourceTemplateInterface
             throw $this->matchException($path, "missing leading '/'");
         }
         $verbSeparatorPos = $this->verbSeparatorPos($path);
-        if (substr($path, $verbSeparatorPos + 1) !== $this->verb) {
+        if (\substr($path, $verbSeparatorPos + 1) !== $this->verb) {
             throw $this->matchException($path, "trailing verb did not match '{$this->verb}'");
         }
-        return $this->resourceTemplate->match(substr($path, 1, $verbSeparatorPos - 1));
+        return $this->resourceTemplate->match(\substr($path, 1, $verbSeparatorPos - 1));
     }
-
     private function matchException(string $path, string $reason)
     {
-        return new ValidationException("Could not match path '$path' to template '$this': $reason");
+        return new ValidationException("Could not match path '{$path}' to template '{$this}': {$reason}");
     }
-
     private function renderVerb()
     {
         return $this->verb ? ':' . $this->verb : '';
     }
-
     private function verbSeparatorPos(string $path)
     {
-        $finalSeparatorPos = strrpos($path, '/');
-        $verbSeparatorPos = strrpos($path, ':', $finalSeparatorPos);
-        if ($verbSeparatorPos === false) {
-            $verbSeparatorPos = strlen($path);
+        $finalSeparatorPos = \strrpos($path, '/');
+        $verbSeparatorPos = \strrpos($path, ':', $finalSeparatorPos);
+        if ($verbSeparatorPos === \false) {
+            $verbSeparatorPos = \strlen($path);
         }
         return $verbSeparatorPos;
     }

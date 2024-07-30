@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -29,45 +30,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Middleware;
 
 use Google\ApiCore\Call;
-use GuzzleHttp\Promise\PromiseInterface;
-
 /**
  * Middleware to add fixed headers to an API call.
  */
-class FixedHeaderMiddleware implements MiddlewareInterface
+class FixedHeaderMiddleware
 {
     /** @var callable */
     private $nextHandler;
-    private array $headers;
-    private bool $overrideUserHeaders;
-
-    public function __construct(
-        callable $nextHandler,
-        array $headers,
-        bool $overrideUserHeaders = false
-    ) {
+    private $headers;
+    private $overrideUserHeaders;
+    public function __construct(callable $nextHandler, array $headers, bool $overrideUserHeaders = \false)
+    {
         $this->nextHandler = $nextHandler;
         $this->headers = $headers;
         $this->overrideUserHeaders = $overrideUserHeaders;
     }
-
     public function __invoke(Call $call, array $options)
     {
-        $userHeaders = $options['headers'] ?? [];
+        $userHeaders = isset($options['headers']) ? $options['headers'] : [];
         if ($this->overrideUserHeaders) {
             $options['headers'] = $this->headers + $userHeaders;
         } else {
             $options['headers'] = $userHeaders + $this->headers;
         }
-
         $next = $this->nextHandler;
-        return $next(
-            $call,
-            $options
-        );
+        return $next($call, $options);
     }
 }

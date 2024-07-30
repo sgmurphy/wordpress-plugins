@@ -3,7 +3,7 @@ Contributors: raratheme
 Donate link: https://raratheme.com/
 Tags: widgets, sidebars, social links, posts
 Requires at least: 4.4.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
 Stable tag: 1.4.3
 License: GPLv2 or later

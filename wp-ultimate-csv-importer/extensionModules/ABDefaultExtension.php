@@ -32,7 +32,7 @@ class DefaultExtension extends ExtensionHandler{
 		$import_type = $this->import_name_as($import_types);
 		$response = [];
 		$check_custpost = array('Posts' => 'post', 'Pages' => 'page', 'Users' => 'users', 'Comments' => 'comments', 'CustomerReviews' =>'wpcr3_review', 'Categories' => 'categories', 'Tags' => 'tags', 'WooCommerce' => 'product', 'WPeCommerce' => 'wpsc-product','WPeCommerceCoupons' => 'wpsc-product', 'WooCommerceVariations' => 'product', 'WooCommerceOrders' => 'product', 'WooCommerceCoupons' => 'product', 'WooCommerceRefunds' => 'product', 'CustomPosts' => 'CustomPosts');	
-		if ($import_type != 'Users' && $import_type != 'Taxonomies' && $import_type != 'CustomerReviews' && $import_type != 'Comments' && $import_type != 'WooCommerceVariations' && $import_type != 'WooCommerceOrders' && $import_type != 'WooCommerceCoupons' && $import_type != 'WooCommerceRefunds' && $import_type != 'Images' && $import_type != 'ngg_pictures' && $import_types != 'lp_order' && $import_types != 'nav_menu_item' && $import_types != 'widgets') {
+		if ($import_type != 'Users' && $import_type != 'Taxonomies' && $import_type != 'CustomerReviews' && $import_type != 'Comments' && $import_type != 'WooCommerceVariations' && $import_type != 'WooCommerceOrders' && $import_type != 'WooCommerceCoupons' && $import_type != 'WooCommerceRefunds' && $import_type != 'ngg_pictures' && $import_types != 'lp_order' && $import_types != 'nav_menu_item' && $import_types != 'widgets') {
 			$wordpressfields = array(
                 	'Title' => 'post_title',
                     'ID' => 'ID',
@@ -121,7 +121,27 @@ class DefaultExtension extends ExtensionHandler{
 				unset($wordpressfields['Ping Status']);
 				unset($wordpressfields['Track Options']);
 			}
-		} 
+		}
+		// if($import_type == 'Media') {
+		// 	$wordpressfields = array(
+		// 			'File Name' => 'file_name',
+		// 			'Caption' => 'caption',
+		// 			'Alt text' => 'alt_text',
+		// 			'Desctiption' => 'description',
+		// 			'Title' => 'title',
+		// 		);
+		// }
+ 
+		// if( $import_types == "Media"){
+		// 	$wordpressfields = array(
+		// 					   'File Name' => 'file_name',
+		// 					   'Title' => 'title',
+		// 					   'Caption' => 'caption',
+		// 					   'Alt text' => 'alt_text',
+		// 					   'Description' => 'description',									
+		// 						   );
+		//    $wordpress_value = $this->convert_static_fields_to_array($wordpressfields);
+		// 	   }
 		if($import_type == 'WooCommerceOrders'){
 			$wordpressfields = array(
 					'Customer Note' => 'customer_note',
@@ -273,15 +293,6 @@ class DefaultExtension extends ExtensionHandler{
 					'Comment Parent' => 'comment_parent', 
 					'user_id'=>'user_id',
 					);
-		}
-		if($import_type === 'Images') {
-			$wordpressfields = array(
-					'Caption' => 'caption',
-					'Alt text' => 'alt_text',
-					'Desctiption' => 'description',
-					'File Name' => 'file_name',
-					'Title' => 'title',
-					'Featured Image' => 'featured_image');
 		}
 		
 		if($import_type === 'Taxonomies') {

@@ -45,6 +45,7 @@ class WCPBC_Integrations {
 			'Flexible_Shipping_Plugin'             => dirname( __FILE__ ) . '/integrations/class-wcpbc-flexible-shipping.php',
 			'DevOwl\RealCookieBanner\Core'         => dirname( __FILE__ ) . '/integrations/class-wcpbc-real-cookie-banner.php',
 			'woocommerce_gateway_stripe'           => dirname( __FILE__ ) . '/integrations/class-wcpbc-stripe-upe.php',
+			'PMWI_Plugin'                          => dirname( __FILE__ ) . '/integrations/class-wcpbc-wpallimport-ad.php',
 		);
 
 		foreach ( $integrations as $class => $integration_file ) {

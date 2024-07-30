@@ -8,14 +8,12 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
+namespace Analytify\phpseclib3\Crypt\DSA;
 
-namespace phpseclib3\Crypt\DSA;
-
-use phpseclib3\Crypt\Common;
-use phpseclib3\Crypt\DSA;
-use phpseclib3\Crypt\DSA\Formats\Signature\ASN1 as ASN1Signature;
-use phpseclib3\Math\BigInteger;
-
+use Analytify\phpseclib3\Crypt\Common;
+use Analytify\phpseclib3\Crypt\DSA;
+use Analytify\phpseclib3\Crypt\DSA\Formats\Signature\ASN1 as ASN1Signature;
+use Analytify\phpseclib3\Math\BigInteger;
 /**
  * DSA Private Key
  *
@@ -24,14 +22,12 @@ use phpseclib3\Math\BigInteger;
 final class PrivateKey extends DSA implements Common\PrivateKey
 {
     use Common\Traits\PasswordProtected;
-
     /**
      * DSA secret exponent x
      *
      * @var \phpseclib3\Math\BigInteger
      */
     protected $x;
-
     /**
      * Returns the public key
      *
@@ -56,18 +52,12 @@ final class PrivateKey extends DSA implements Common\PrivateKey
     public function getPublicKey()
     {
         $type = self::validatePlugin('Keys', 'PKCS8', 'savePublicKey');
-
         if (!isset($this->y)) {
             $this->y = $this->g->powMod($this->x, $this->p);
         }
-
         $key = $type::savePublicKey($this->p, $this->q, $this->g, $this->y);
-
-        return DSA::loadFormat('PKCS8', $key)
-            ->withHash($this->hash->getHash())
-            ->withSignatureFormat($this->shortFormat);
+        return DSA::loadFormat('PKCS8', $key)->withHash($this->hash->getHash())->withSignatureFormat($this->shortFormat);
     }
-
     /**
      * Create a signature
      *
@@ -78,26 +68,20 @@ final class PrivateKey extends DSA implements Common\PrivateKey
     public function sign($message)
     {
         $format = $this->sigFormat;
-
-        if (self::$engines['OpenSSL'] && in_array($this->hash->getHash(), openssl_get_md_methods())) {
+        if (self::$engines['OpenSSL'] && \in_array($this->hash->getHash(), \openssl_get_md_methods())) {
             $signature = '';
-            $result = openssl_sign($message, $signature, $this->toString('PKCS8'), $this->hash->getHash());
-
+            $result = \openssl_sign($message, $signature, $this->toString('PKCS8'), $this->hash->getHash());
             if ($result) {
                 if ($this->shortFormat == 'ASN1') {
                     return $signature;
                 }
-
-                extract(ASN1Signature::load($signature));
-
+                \extract(ASN1Signature::load($signature));
                 return $format::save($r, $s);
             }
         }
-
         $h = $this->hash->hash($message);
         $h = $this->bits2int($h);
-
-        while (true) {
+        while (\true) {
             $k = BigInteger::randomRange(self::$one, $this->q->subtract(self::$one));
             $r = $this->g->powMod($k, $this->p);
             list(, $r) = $r->divide($this->q);
@@ -112,7 +96,6 @@ final class PrivateKey extends DSA implements Common\PrivateKey
                 break;
             }
         }
-
         // the following is an RFC6979 compliant implementation of deterministic DSA
         // it's unused because it's mainly intended for use when a good CSPRNG isn't
         // available. if phpseclib's CSPRNG isn't good then even key generation is
@@ -128,10 +111,8 @@ final class PrivateKey extends DSA implements Common\PrivateKey
         $temp = $kinv->multiply($temp);
         list(, $s) = $temp->divide($this->q);
         */
-
         return $format::save($r, $s);
     }
-
     /**
      * Returns the private key
      *
@@ -142,11 +123,9 @@ final class PrivateKey extends DSA implements Common\PrivateKey
     public function toString($type, array $options = [])
     {
         $type = self::validatePlugin('Keys', $type, 'savePrivateKey');
-
         if (!isset($this->y)) {
             $this->y = $this->g->powMod($this->x, $this->p);
         }
-
         return $type::savePrivateKey($this->p, $this->q, $this->g, $this->y, $this->x, $this->password, $options);
     }
 }

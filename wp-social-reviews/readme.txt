@@ -1,8 +1,8 @@
-﻿=== WP Social Ninja – Social Feed, Reviews & Chat Plugin for WP (Google Reviews, Photo Feeds & More) ===
+=== WP Social Ninja – Social Feed, Reviews & Chat Plugin for WP (Google Reviews, Photo Feeds & More) ===
 Contributors: techjewel, adreastrian, devutpol, wpmanageninja
 Tags: Instagram feed, Google Reviews, Social feeds, Social reviews, Social chats
 Requires at least: 5.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.1
 Stable tag: 3.13.1
 License: GPLv2 or later

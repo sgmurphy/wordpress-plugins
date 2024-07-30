@@ -314,7 +314,7 @@ class Htsliderpro_Elementor_Widget_Sliders extends Widget_Base {
             $this->add_control(
                 'slider_id',
                 [
-                    'label'         => esc_html__( 'Select Slider', 'ht-slider' ),
+                    'label'         => esc_html__( 'Select Slides', 'ht-slider' ),
                     'type'          => Controls_Manager::SELECT2,
                     'label_block'   => true,
                     'multiple'      => true,
@@ -2078,9 +2078,10 @@ class Htsliderpro_Elementor_Widget_Sliders extends Widget_Base {
 
                 foreach ($settings['sliders_list'] as $item ): 
 
-                    $target = $item['button_link']['is_external'] ? ' target=_blank' : '';
-                    $nofollow = $item['button_link']['nofollow'] ? ' rel=nofollow' : '';
-
+                    $dynamic_button_link = 'unique'.$item['_id'];
+                    if ( ! empty( $item['button_link']['url'] ) ) {
+                        $this->add_link_attributes( $dynamic_button_link, $item['button_link'] );
+                    }
                 ?>
 
                     <div class="elementor-repeater-item-<?php echo esc_attr($item['_id']); ?> htslider-item-img single-slide-item htslider-single-post-slide">
@@ -2099,7 +2100,7 @@ class Htsliderpro_Elementor_Widget_Sliders extends Widget_Base {
                                         }
                                         
                                         if( !empty($item['button_text']) ){
-                                        echo '<div class="post-btn"><a href="'.esc_url( $item['button_link']['url'] ).'" '.esc_attr($target).' '.esc_attr($nofollow).' class="readmore-btn" >' . esc_html($item['button_text']).'</a></div>';
+                                        echo '<div class="post-btn"><a ' .$this->get_render_attribute_string( $dynamic_button_link ).' class="readmore-btn" >' . wp_kses_post( $item['button_text'] ) .'</a></div>';
                                         } 
                                     ?>
                                 </div>

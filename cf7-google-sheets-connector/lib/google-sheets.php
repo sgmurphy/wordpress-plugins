@@ -12,11 +12,19 @@ class CF7GSC_googlesheet {
     private $worksheet;
 
     /////=========desktop app
-    const clientId_desk = '1075324102277-drjc21uouvq2d0l7hlgv3bmm67er90mc.apps.googleusercontent.com';
-    const clientSecret_desk = 'RFM9hElCqJMsXyc8YNjhf9Zs';
+    //const clientId_desk = '1075324102277-drjc21uouvq2d0l7hlgv3bmm67er90mc.apps.googleusercontent.com';
+    //const clientSecret_desk = 'RFM9hElCqJMsXyc8YNjhf9Zs';
     /////=========web app
-    const clientId_web = '1075324102277-mdac3ljkp964kie3usoc8qj28laen2tb.apps.googleusercontent.com';
-    const clientSecret_web = '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';
+    //const clientId_web = '1075324102277-mdac3ljkp964kie3usoc8qj28laen2tb.apps.googleusercontent.com';
+    //const clientSecret_web = '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';
+
+    /////=========desktop app
+   const clientId_desk = '343006833383-c73msaal124n0psi2fqb5q30u8j2p495.apps.googleusercontent.com';
+   const clientSecret_desk = 'k5ThyeLrjEZi0wOhqHhKoWdq';
+
+   /////=========web app
+    const clientId_web = '343006833383-ajjmvck7167u5omiu6kflkmpd7455mo3.apps.googleusercontent.com';
+    const clientSecret_web = 'wjSapQopzEaql23EbFNF1Bjk';
 
     private static $instance;
 

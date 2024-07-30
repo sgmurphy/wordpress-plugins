@@ -15,7 +15,7 @@ License: GPLv3
 
 <a href="https://help.poptin.com/?utm_source=wordpressorg" target="_blank" title="Support">Support</a> | <a href="https://www.poptin.com/gallery/?utm_source=wordpressorg" target="_blank" title="Poptin.com Demo">Demo</a> | <a href="https://www.poptin.com/pricing/?utm_source=wordpressorg" target="_blank" title="Poptin Pricing">Upgrade</a> | <a href="https://app.popt.in/register/?utm_source=wordpressorg" target="_blank" title="Sign Up to Poptin"><strong>Sign Up for Free ⭐</strong></a>
 
-<strong>Create beautiful popups, contact forms, optins, lightbox pop ups, notification bar, and forms in less than 2 minutes. Use exit intent popup and advanced targeting rules to convert more visitors into leads, subscribers, and sales.</strong>
+<strong>Create beautiful popups, contact forms, optins, lightbox pop ups, notification bar, and forms in less than 2 minutes. Use exit intent popup & advanced targeting rules to convert more visitors into leads, subscribers, and sales.</strong>
 
 <a href="https://app.popt.in/register?utm_source=wordpress" target="_blank" title="Create unlimited free popups and forms now"><strong>Create your free popups and forms now!</strong></a>
 
@@ -24,8 +24,8 @@ License: GPLv3
 * Capture more leads using lead capture pop ups
 * Get more sales with pop up upsell
 * Recover cart abandonment with exit offers
-* Increase visitors' engagement with pop ups and inline forms
-* Create a notification bar and update your users about deals and promotions
+* Increase visitors' engagement with pop ups & inline forms
+* Create a notification bar, update your users about deals & promotions
 
 Poptin forms and popup plugin tracks the website's visitors' behavior and shows the right message at the right time. The platform helps to improve conversion rate and turn more visitors into leads, sales, newsletter subscribers, increases engagement, and recovers abandoning website and cart visitors using exit offers and <a href="https://www.poptin.com/blog/exit-intent-technology-can-grow-business/" target="_blank" title="exit intent">exit intent</a> technology and many other triggers
 

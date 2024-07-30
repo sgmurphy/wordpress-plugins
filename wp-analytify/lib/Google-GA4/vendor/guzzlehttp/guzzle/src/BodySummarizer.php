@@ -1,28 +1,23 @@
 <?php
 
-namespace GuzzleHttp;
+namespace Analytify\GuzzleHttp;
 
-use Psr\Http\Message\MessageInterface;
-
+use Analytify\Psr\Http\Message\MessageInterface;
 final class BodySummarizer implements BodySummarizerInterface
 {
     /**
      * @var int|null
      */
     private $truncateAt;
-
     public function __construct(int $truncateAt = null)
     {
         $this->truncateAt = $truncateAt;
     }
-
     /**
      * Returns a summarized message body.
      */
-    public function summarize(MessageInterface $message): ?string
+    public function summarize(MessageInterface $message) : ?string
     {
-        return $this->truncateAt === null
-            ? \GuzzleHttp\Psr7\Message::bodySummary($message)
-            : \GuzzleHttp\Psr7\Message::bodySummary($message, $this->truncateAt);
+        return $this->truncateAt === null ? \Analytify\GuzzleHttp\Psr7\Message::bodySummary($message) : \Analytify\GuzzleHttp\Psr7\Message::bodySummary($message, $this->truncateAt);
     }
 }

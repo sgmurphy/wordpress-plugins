@@ -3,7 +3,7 @@ Contributors: blossomthemes
 Donate link: https://blossomthemes.com
 Tags: toolkit, blossom
 Requires at least: 4.4.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
 Stable tag: 2.2.6
 License: GPLv2 or later

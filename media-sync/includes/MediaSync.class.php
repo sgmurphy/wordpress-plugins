@@ -162,6 +162,7 @@ if ( !class_exists( 'MediaSync' ) ) :
                                     <script src="https://checkout.freemius.com/checkout.min.js"></script>
                                     <script>
                                         var handler = FS.Checkout.configure({
+                                            show_monthly_switch: true,
                                             plugin_id:  '14503',
                                             plan_id:    '24225',
                                             public_key: 'pk_795c75a9ba75322acb001dd836061',

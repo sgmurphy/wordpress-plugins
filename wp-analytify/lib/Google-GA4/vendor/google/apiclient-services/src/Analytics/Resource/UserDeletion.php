@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,7 +15,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics\Resource;
 
 /**
@@ -28,6 +28,5 @@ namespace Google\Service\Analytics\Resource;
 class UserDeletion extends \Google\Service\Resource
 {
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(UserDeletion::class, 'Google_Service_Analytics_Resource_UserDeletion');
+\class_alias(\Google\Service\Analytics\Resource\UserDeletion::class, 'Analytify\\Google_Service_Analytics_Resource_UserDeletion');

@@ -3,10 +3,10 @@ Contributors: westerndeal, abdullah17, gsheetconnector
 Donate link: https://www.paypal.me/WesternDeal
 Author URL: https://www.gsheetconnector.com/
 Tags: cf7, contact form 7, contact form 7 integrations, contact forms, google sheets integrations
-Tested up to: 6.5
+Tested up to: 6.6.1
 Requires at least: 3.6
 Requires PHP: 7.4
-Stable tag: 5.0.12
+Stable tag: 5.0.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,9 @@ Please double-check those items and hopefully getting them right will fix the is
 * Now you can paste this code back on the `Admin Panel > Contact form 7 > Google Sheets` screen. 
 
 == Changelog ==
+
+= 5.0.13 = (30-07-2024)
+* Fixed: Google hasn’t verified this app error.
 
 = 5.0.12 = (26-06-2024)
 * Security Improvements: Enhanced user input sanitization to prevent malicious code execution in connected Google Sheets.

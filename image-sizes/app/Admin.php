@@ -113,18 +113,28 @@ class Admin extends Base {
 		wp_enqueue_script('wp-pointer');
 		wp_enqueue_style('wp-pointer');
 
+		$max_size_value = get_option( 'thumbpress_max_size_value' );
+		$base_url 	= admin_url( 'admin.php' );
+		$target_url = add_query_arg( array(
+			'page' => 'thumbpress-detect-large-images',
+			'thumb-large-image-size' => $max_size_value,
+		), $base_url );
+
 		$localized = array(
 			'ajaxurl'		=> admin_url( 'admin-ajax.php' ),
 			'nonce'			=> wp_create_nonce( $this->slug ),
 			'asseturl'		=> THUMBPRESS_ASSET,
 			'regen'			=> __( 'Regenerate', 'image-sizes' ),
 			'regening'		=> __( 'Regenerating..', 'image-sizes' ),
+			'detect'		=> __( 'Detect', 'image-sizes' ),
+			'detecting'		=> __( 'Detecting', 'image-sizes' ),
+			'detected'		=> __( 'Detected', 'image-sizes' ),
 			'analyze'		=> __( 'Analyze', 'image-sizes' ),
 			'analyzing'		=> __( 'Analyzing..', 'image-sizes' ),
 			'analyzed'		=> __( 'Analyzed', 'image-sizes' ),
 			'optimize'		=> __( 'Compress', 'image-sizes' ),
-			'optimizing'	=> __( 'Compressing..', 'image-sizes' ),
-			'optimized'		=> __( 'Compressed', 'image-sizes' ),
+			'compressNow'	=> __( 'Compress Now', 'image-sizes' ),
+			'compressing'	=> __( 'Compressing..', 'image-sizes' ),
 			'confirm'		=> esc_html__( 'Are you sure you want to delete this? The data and its associated files will be completely erased. This action cannot be undone!', 'image-sizes' ),
 			'confirm_all'	=> esc_html__( 'Are you sure you want to delete these? The data and their associated files will be completely erased. This action cannot be undone!', 'image-sizes' ),
 			// 'is_welcome'	=> $this->get_pointers(),
@@ -133,6 +143,8 @@ class Admin extends Base {
 			'name'			=> get_userdata( get_current_user_id() )->display_name,
 			'email'			=> get_userdata( get_current_user_id() )->user_email,
 			'converting'	=> __( 'Converting', 'image-sizes' ),
+			'convertNow'	=> __( 'Convert Now', 'image-sizes' ),
+			'target_url'    => $target_url,
 		);
 		wp_localize_script( $this->slug, 'THUMBPRESS', apply_filters( "{$this->slug}-localized", $localized ) );
 	}
@@ -233,18 +245,18 @@ class Admin extends Base {
 	public function admin_notices() {
 
 		if ( !defined( 'THUMBPRESS_PRO' ) && current_user_can( 'manage_options' ) ) {
-			$current_screen    			= get_current_screen()->base;
-			$current_time      			= wp_date('U');
-			$install_date      			= get_option( 'image-sizes_install_time' );
-			$user_id           			= get_current_user_id();
-			$month_date        			= strtotime( '30 April 2024' );
-			$display_count     			= (int) get_user_meta( $user_id, 'thumbpress_notice_display_count_' . $current_screen, true );
-			$combined_display_count 	= (int) get_user_meta( $user_id, 'thumbpress_notice_display_count_combined', true );
-			$seven_days_after_install 	= strtotime( '+7 days', $install_date );
-			$notice_dismissed 			= get_option( 'thumbpress_notice_dismissed_' . $current_screen, false );
-			$notice_dismissed2 			= get_option( 'thumbpress_notice_dismissed_week', false );
-			$days_since_install 		= ( $current_time - $install_date ) / DAY_IN_SECONDS;
-			$days_since_install 		= floor( $days_since_install );
+			$current_screen    				= get_current_screen()->base;
+			$current_time      				= wp_date('U');
+			$install_date      				= get_option( 'image-sizes_install_time' );
+			$user_id           				= get_current_user_id();
+			$display_count     				= (int) get_user_meta( $user_id, 'thumbpress_notice_display_count_' . $current_screen, true );
+			$combined_display_count 		= (int) get_user_meta( $user_id, 'thumbpress_notice_display_count_combined', true );
+			$seven_days_after_install 		= strtotime( '+7 days', $install_date );
+			$notice_dismissed 				= get_option( 'thumbpress_notice_dismissed_' . $current_screen, false );
+			$notice_dismissed_after_week	= get_option( 'thumbpress_notice_dismissed_week', false );
+			$days_since_install 			= ( $current_time - $install_date ) / DAY_IN_SECONDS;
+			$days_since_install 			= floor( $days_since_install );
+			// $release_date 					= strtotime( '2024-07-10' );
 
 
 			// if ( $install_date < $month_date && ( $current_screen == 'dashboard' && !$notice_dismissed ) ) {
@@ -282,8 +294,9 @@ class Admin extends Base {
 			// 	);
 			// }
 
-			if ( $current_time > $seven_days_after_install && ( $current_screen == 'dashboard' || $current_screen == 'toplevel_page_thumbpress' ) && !$notice_dismissed2 ) {
-					if ( $combined_display_count < 3 ) {
+			// if ( $current_time > $seven_days_after_install && ( $current_screen == 'dashboard' || $current_screen == 'toplevel_page_thumbpress' ) && !$notice_dismissed_after_week && $install_date >= $release_date ) {
+			 if ( $days_since_install >= 7 && $days_since_install <= 9 && !$notice_dismissed_after_week && ( $current_screen == 'dashboard' || $current_screen == 'toplevel_page_thumbpress' ) ) {
+            if ( $combined_display_count < 2 ) {
 
 					printf(
 						'<div id="image-sizes-after-aweek" class="notice notice-success is-dismissible image-sizes-admin_notice">
@@ -310,31 +323,9 @@ class Admin extends Base {
 				}
 			}
 		}
-		
-		if ( 
-			current_user_can( 'manage_options' )
-
-			&& ( get_option( "{$this->slug}_setup_done" ) != 1 )
-			&& ( get_option( "{$this->slug}_dismiss" ) != 1 ) ) {
-			?>
-			<div data-meta_key='cx-setup-notice' class="notice notice-warning image_sizes-dismiss cx-notice cx-shadow is-dismissible">			
-				<h3>
-					<?php _e( 'Congratulations! You\'re almost there.. 🥳', 'image-sizes' ); ?>
-				</h3>
-				<p>
-					<?php printf( __( 'Thanks for installing <strong>ThumbPress</strong>. To start managing your images and thumbnails, please complete the setup wizard.', 'image-sizes' ) ); ?>
-				</p>
-				<p>
-					<a class="button button-primary" href="<?php echo add_query_arg( 'page', "{$this->slug}_setup", admin_url( 'admin.php' ) ); ?>">
-						<?php _e( 'Run Setup Wizard', 'image-sizes' ); ?>
-					</a>
-				</p>
-			</div>
-			<?php
-		}
 	}
 
-	public function show_new_button( $section ){
+	public function show_new_button( $section ) {
 		// Helper::pri( 'Hello' );
 		
 	}

@@ -25,7 +25,7 @@ class ProductBundleMetaImport {
         return self::$product_bundle_meta_instance;
     }
 
-    function set_product_bundle_meta_values($header_array ,$value_array , $map , $post_id ,$type , $line_number , $mode){
+    function set_product_bundle_meta_values($header_array ,$value_array , $map , $post_id ,$type , $line_number , $mode,$hash_key){
         global $wpdb;
        
 		$helpers_instance = ImportHelpers::getInstance();
@@ -34,7 +34,7 @@ class ProductBundleMetaImport {
 		$data_array = $helpers_instance->get_header_values($map , $header_array , $value_array);
 		
         if(($type == 'WooCommerce Product')){
-            self::$woocommerce_meta_instance->woocommerce_meta_import_function($data_array,'', $post_id ,'', $type , $line_number , $mode , $header_array, $value_array,'','','',''); 
+            self::$woocommerce_meta_instance->woocommerce_meta_import_function($data_array,'',$post_id ,'' , $type , $line_number , $mode , $header_array, $value_array,'',$hash_key,'','');
         }
     }
 

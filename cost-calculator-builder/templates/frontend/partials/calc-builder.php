@@ -48,8 +48,6 @@ $styles = array(
 		'key'   => 'horizontal',
 	),
 );
-
-$get_date_format = get_option( 'date_format' );
 ?>
 
 <div class="calc-container-wrapper">
@@ -89,10 +87,10 @@ $get_date_format = get_option( 'date_format' );
 			</calc-page-navigation>
 
 			<template v-if="pageBreakEnabled">
-				<?php require_once CALC_DIR . '/templates/frontend/partials/multi-step.php'; ?>
+				<?php echo \cBuilder\Classes\CCBTemplate::load( 'frontend/partials/multi-step' ); //phpcs:ignore?>
 			</template>
 			<template v-else>
-				<?php require_once CALC_DIR . '/templates/frontend/partials/default.php'; ?>
+				<?php echo \cBuilder\Classes\CCBTemplate::load( 'frontend/partials/default' ); //phpcs:ignore?>
 			</template>
 
 			<div class="calc-page-navigation" :class="{'show-totals': totalsInPages}" v-if="pageBreakEnabled">
@@ -190,7 +188,7 @@ $get_date_format = get_option( 'date_format' );
 						</transition>
 					</div>
 
-					<div class="calc-subtotal-list totals" style="margin-top: 20px; padding-top: 10px;" ref="calcTotals" :class="{'unit-enable': showUnitInSummary}" v-show="!summaryDisplay || showAfterSubmit">
+					<div class="calc-subtotal-list totals" style="margin-top: 20px; padding-top: 10px;" ref="calcTotals" :class="{'unit-enable': showUnitInSummary}" v-show="(!summaryDisplay || showAfterSubmit) && notHiddenTotalsList?.length">
 						<template v-for="item in getRepeaterTotals">
 							<cost-total :value="item.total" :discount="item.discount" :field="item.data" :id="calc_data.id" @condition-apply="renderCondition"></cost-total>
 						</template>

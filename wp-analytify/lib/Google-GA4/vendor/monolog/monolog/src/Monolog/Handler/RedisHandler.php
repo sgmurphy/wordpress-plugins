@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -8,16 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Analytify\Monolog\Handler;
 
-namespace Monolog\Handler;
-
-use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Level;
-use Monolog\LogRecord;
-use Predis\Client as Predis;
-use Redis;
-
+use Analytify\Monolog\Formatter\LineFormatter;
+use Analytify\Monolog\Formatter\FormatterInterface;
+use Analytify\Monolog\Logger;
 /**
  * Logs to a Redis key using rpush
  *
@@ -28,66 +24,67 @@ use Redis;
  *   $log->pushHandler($redis);
  *
  * @author Thomas Tourlourat <thomas@tourlourat.com>
+ *
+ * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
  */
 class RedisHandler extends AbstractProcessingHandler
 {
-    /** @var Predis<Predis>|Redis */
-    private Predis|Redis $redisClient;
-    private string $redisKey;
-    protected int $capSize;
-
+    /** @var \Predis\Client<\Predis\Client>|\Redis */
+    private $redisClient;
+    /** @var string */
+    private $redisKey;
+    /** @var int */
+    protected $capSize;
     /**
-     * @param Predis<Predis>|Redis $redis   The redis instance
-     * @param string               $key     The key name to push records to
-     * @param int                  $capSize Number of entries to limit list size to, 0 = unlimited
+     * @param \Predis\Client<\Predis\Client>|\Redis $redis   The redis instance
+     * @param string                $key     The key name to push records to
+     * @param int                   $capSize Number of entries to limit list size to, 0 = unlimited
      */
-    public function __construct(Predis|Redis $redis, string $key, int|string|Level $level = Level::Debug, bool $bubble = true, int $capSize = 0)
+    public function __construct($redis, string $key, $level = Logger::DEBUG, bool $bubble = \true, int $capSize = 0)
     {
+        if (!($redis instanceof \Analytify\Predis\Client || $redis instanceof \Redis)) {
+            throw new \InvalidArgumentException('Predis\\Client or Redis instance required');
+        }
         $this->redisClient = $redis;
         $this->redisKey = $key;
         $this->capSize = $capSize;
-
         parent::__construct($level, $bubble);
     }
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function write(LogRecord $record): void
+    protected function write(array $record) : void
     {
-        if ($this->capSize > 0) {
+        if ($this->capSize) {
             $this->writeCapped($record);
         } else {
-            $this->redisClient->rpush($this->redisKey, $record->formatted);
+            $this->redisClient->rpush($this->redisKey, $record["formatted"]);
         }
     }
-
     /**
      * Write and cap the collection
      * Writes the record to the redis list and caps its
+     *
+     * @phpstan-param FormattedRecord $record
      */
-    protected function writeCapped(LogRecord $record): void
+    protected function writeCapped(array $record) : void
     {
-        if ($this->redisClient instanceof Redis) {
-            $mode = defined('Redis::MULTI') ? Redis::MULTI : 1;
-            $this->redisClient->multi($mode)
-                ->rPush($this->redisKey, $record->formatted)
-                ->lTrim($this->redisKey, -$this->capSize, -1)
-                ->exec();
+        if ($this->redisClient instanceof \Redis) {
+            $mode = \defined('\\Redis::MULTI') ? \Redis::MULTI : 1;
+            $this->redisClient->multi($mode)->rpush($this->redisKey, $record["formatted"])->ltrim($this->redisKey, -$this->capSize, -1)->exec();
         } else {
             $redisKey = $this->redisKey;
             $capSize = $this->capSize;
-            $this->redisClient->transaction(function ($tx) use ($record, $redisKey, $capSize) {
-                $tx->rpush($redisKey, $record->formatted);
+            $this->redisClient->transaction(function ($tx) use($record, $redisKey, $capSize) {
+                $tx->rpush($redisKey, $record["formatted"]);
                 $tx->ltrim($redisKey, -$capSize, -1);
             });
         }
     }
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function getDefaultFormatter(): FormatterInterface
+    protected function getDefaultFormatter() : FormatterInterface
     {
         return new LineFormatter();
     }

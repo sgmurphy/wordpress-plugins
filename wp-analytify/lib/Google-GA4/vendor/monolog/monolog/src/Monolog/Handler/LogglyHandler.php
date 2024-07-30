@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -8,16 +9,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Analytify\Monolog\Handler;
 
-namespace Monolog\Handler;
-
-use Monolog\Level;
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Formatter\LogglyFormatter;
+use Analytify\Monolog\Logger;
+use Analytify\Monolog\Formatter\FormatterInterface;
+use Analytify\Monolog\Formatter\LogglyFormatter;
 use function array_key_exists;
 use CurlHandle;
-use Monolog\LogRecord;
-
 /**
  * Sends errors to Loggly.
  *
@@ -30,127 +28,105 @@ class LogglyHandler extends AbstractProcessingHandler
     protected const HOST = 'logs-01.loggly.com';
     protected const ENDPOINT_SINGLE = 'inputs';
     protected const ENDPOINT_BATCH = 'bulk';
-
     /**
      * Caches the curl handlers for every given endpoint.
      *
-     * @var CurlHandle[]
+     * @var resource[]|CurlHandle[]
      */
-    protected array $curlHandlers = [];
-
-    protected string $token;
-
+    protected $curlHandlers = [];
+    /** @var string */
+    protected $token;
     /** @var string[] */
-    protected array $tag = [];
-
+    protected $tag = [];
     /**
      * @param string $token API token supplied by Loggly
      *
      * @throws MissingExtensionException If the curl extension is missing
      */
-    public function __construct(string $token, int|string|Level $level = Level::Debug, bool $bubble = true)
+    public function __construct(string $token, $level = Logger::DEBUG, bool $bubble = \true)
     {
-        if (!extension_loaded('curl')) {
+        if (!\extension_loaded('curl')) {
             throw new MissingExtensionException('The curl extension is needed to use the LogglyHandler');
         }
-
         $this->token = $token;
-
         parent::__construct($level, $bubble);
     }
-
     /**
      * Loads and returns the shared curl handler for the given endpoint.
+     *
+     * @param string $endpoint
+     *
+     * @return resource|CurlHandle
      */
-    protected function getCurlHandler(string $endpoint): CurlHandle
+    protected function getCurlHandler(string $endpoint)
     {
         if (!array_key_exists($endpoint, $this->curlHandlers)) {
             $this->curlHandlers[$endpoint] = $this->loadCurlHandle($endpoint);
         }
-
         return $this->curlHandlers[$endpoint];
     }
-
     /**
      * Starts a fresh curl session for the given endpoint and returns its handler.
+     *
+     * @param string $endpoint
+     *
+     * @return resource|CurlHandle
      */
-    private function loadCurlHandle(string $endpoint): CurlHandle
+    private function loadCurlHandle(string $endpoint)
     {
-        $url = sprintf("https://%s/%s/%s/", static::HOST, $endpoint, $this->token);
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+        $url = \sprintf("https://%s/%s/%s/", static::HOST, $endpoint, $this->token);
+        $ch = \curl_init();
+        \curl_setopt($ch, \CURLOPT_URL, $url);
+        \curl_setopt($ch, \CURLOPT_POST, \true);
+        \curl_setopt($ch, \CURLOPT_RETURNTRANSFER, \true);
         return $ch;
     }
-
     /**
      * @param string[]|string $tag
-     * @return $this
      */
-    public function setTag(string|array $tag): self
+    public function setTag($tag) : self
     {
-        if ('' === $tag || [] === $tag) {
-            $this->tag = [];
-        } else {
-            $this->tag = is_array($tag) ? $tag : [$tag];
-        }
-
+        $tag = !empty($tag) ? $tag : [];
+        $this->tag = \is_array($tag) ? $tag : [$tag];
         return $this;
     }
-
     /**
      * @param string[]|string $tag
-     * @return $this
      */
-    public function addTag(string|array $tag): self
+    public function addTag($tag) : self
     {
-        if ('' !== $tag) {
-            $tag = is_array($tag) ? $tag : [$tag];
-            $this->tag = array_unique(array_merge($this->tag, $tag));
+        if (!empty($tag)) {
+            $tag = \is_array($tag) ? $tag : [$tag];
+            $this->tag = \array_unique(\array_merge($this->tag, $tag));
         }
-
         return $this;
     }
-
-    protected function write(LogRecord $record): void
+    protected function write(array $record) : void
     {
-        $this->send($record->formatted, static::ENDPOINT_SINGLE);
+        $this->send($record["formatted"], static::ENDPOINT_SINGLE);
     }
-
-    public function handleBatch(array $records): void
+    public function handleBatch(array $records) : void
     {
         $level = $this->level;
-
-        $records = array_filter($records, function ($record) use ($level) {
-            return ($record->level->value >= $level->value);
+        $records = \array_filter($records, function ($record) use($level) {
+            return $record['level'] >= $level;
         });
-
-        if (\count($records) > 0) {
+        if ($records) {
             $this->send($this->getFormatter()->formatBatch($records), static::ENDPOINT_BATCH);
         }
     }
-
-    protected function send(string $data, string $endpoint): void
+    protected function send(string $data, string $endpoint) : void
     {
         $ch = $this->getCurlHandler($endpoint);
-
         $headers = ['Content-Type: application/json'];
-
-        if (\count($this->tag) > 0) {
-            $headers[] = 'X-LOGGLY-TAG: '.implode(',', $this->tag);
+        if (!empty($this->tag)) {
+            $headers[] = 'X-LOGGLY-TAG: ' . \implode(',', $this->tag);
         }
-
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        Curl\Util::execute($ch, 5, false);
+        \curl_setopt($ch, \CURLOPT_POSTFIELDS, $data);
+        \curl_setopt($ch, \CURLOPT_HTTPHEADER, $headers);
+        Curl\Util::execute($ch, 5, \false);
     }
-
-    protected function getDefaultFormatter(): FormatterInterface
+    protected function getDefaultFormatter() : FormatterInterface
     {
         return new LogglyFormatter();
     }

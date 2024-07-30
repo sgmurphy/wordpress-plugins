@@ -9,7 +9,6 @@ namespace Google\Protobuf\Internal;
 class AnyBase extends \Google\Protobuf\Internal\Message
 {
     const TYPE_URL_PREFIX = 'type.googleapis.com/';
-
     /**
      * This method will try to resolve the type_url in Any message to get the
      * targeted message type. If failed, an error will be thrown. Otherwise,
@@ -23,30 +22,23 @@ class AnyBase extends \Google\Protobuf\Internal\Message
     public function unpack()
     {
         // Get fully qualified name from type url.
-        $url_prifix_len = strlen(GPBUtil::TYPE_URL_PREFIX);
-        if (substr($this->type_url, 0, $url_prifix_len) !=
-                GPBUtil::TYPE_URL_PREFIX) {
-            throw new \Exception(
-                "Type url needs to be type.googleapis.com/fully-qulified");
+        $url_prifix_len = \strlen(\Google\Protobuf\Internal\GPBUtil::TYPE_URL_PREFIX);
+        if (\substr($this->type_url, 0, $url_prifix_len) != \Google\Protobuf\Internal\GPBUtil::TYPE_URL_PREFIX) {
+            throw new \Exception("Type url needs to be type.googleapis.com/fully-qulified");
         }
-        $fully_qualifed_name =
-            substr($this->type_url, $url_prifix_len);
-
+        $fully_qualifed_name = \substr($this->type_url, $url_prifix_len);
         // Create message according to fully qualified name.
         $pool = \Google\Protobuf\Internal\DescriptorPool::getGeneratedPool();
         $desc = $pool->getDescriptorByProtoName($fully_qualifed_name);
-        if (is_null($desc)) {
-            throw new \Exception("Class ".$fully_qualifed_name
-                                     ." hasn't been added to descriptor pool");
+        if (\is_null($desc)) {
+            throw new \Exception("Class " . $fully_qualifed_name . " hasn't been added to descriptor pool");
         }
         $klass = $desc->getClass();
         $msg = new $klass();
-
         // Merge data into message.
         $msg->mergeFromString($this->value);
         return $msg;
     }
-
     /**
      * The type_url will be created according to the given message’s type and
      * the value is encoded data from the given message..
@@ -54,22 +46,18 @@ class AnyBase extends \Google\Protobuf\Internal\Message
      */
     public function pack($msg)
     {
-        if (!$msg instanceof Message) {
-            trigger_error("Given parameter is not a message instance.",
-                          E_USER_ERROR);
+        if (!$msg instanceof \Google\Protobuf\Internal\Message) {
+            \trigger_error("Given parameter is not a message instance.", \E_USER_ERROR);
             return;
         }
-
         // Set value using serialized message.
         $this->value = $msg->serializeToString();
-
         // Set type url.
         $pool = \Google\Protobuf\Internal\DescriptorPool::getGeneratedPool();
-        $desc = $pool->getDescriptorByClassName(get_class($msg));
+        $desc = $pool->getDescriptorByClassName(\get_class($msg));
         $fully_qualifed_name = $desc->getFullName();
-        $this->type_url = GPBUtil::TYPE_URL_PREFIX . $fully_qualifed_name;
+        $this->type_url = \Google\Protobuf\Internal\GPBUtil::TYPE_URL_PREFIX . $fully_qualifed_name;
     }
-
     /**
      * This method returns whether the type_url in any_message is corresponded
      * to the given class.
@@ -80,7 +68,7 @@ class AnyBase extends \Google\Protobuf\Internal\Message
         $pool = \Google\Protobuf\Internal\DescriptorPool::getGeneratedPool();
         $desc = $pool->getDescriptorByClassName($klass);
         $fully_qualifed_name = $desc->getFullName();
-        $type_url = GPBUtil::TYPE_URL_PREFIX . $fully_qualifed_name;
+        $type_url = \Google\Protobuf\Internal\GPBUtil::TYPE_URL_PREFIX . $fully_qualifed_name;
         return $this->type_url === $type_url;
     }
 }

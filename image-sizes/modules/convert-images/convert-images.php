@@ -134,20 +134,8 @@ class Convert_Images extends Base {
 	public function convert_all_image( $offset ) {
 		global $wpdb;
 		require_once ABSPATH . 'wp-admin/includes/image.php';
-		$image_types 			 = [ 'image/png', 'image/jpeg', 'image/jpg' ];
-		$total_attachments_query = "
-			SELECT COUNT(ID)
-			FROM {$wpdb->posts}
-			WHERE post_type = 'attachment'
-			AND post_mime_type IN ('" . implode( "','", array_map( 'esc_sql', $image_types ) ) . "')
-		";
-		$total_attachments 		= $wpdb->get_var( $total_attachments_query );
+		$image_types 			= [ 'image/png', 'image/jpeg', 'image/jpg' ];
 		$limit 					= get_option( 'thumbpress_convert_img_val', 100 );
-
-		if( $total_attachments == 0 ) {
-			update_option( 'thumbpress_convert_progress', 100 );
-			return;
-		}
 		
 		$query = $wpdb->prepare( "
 			SELECT ID
@@ -200,11 +188,13 @@ class Convert_Images extends Base {
 
 		}
 
-		$count 		= $offset + count( $attachments );
-		$progress 	= min( ( $count / $total_attachments ) * 100, 100 );
+		$grand_total_attachments 	= get_option('thumbpress_now_convert_background_total_images');
+		$count 						= $offset * $limit;
+		$progress 					= min( ( ( $count + $limit ) / $grand_total_attachments ) * 100, 100 );
+		$new_offset 				= $offset + count( $attachments );
+
 		update_option( 'thumbpress_convert_progress', $progress );
-		if ( $count < $total_attachments ) {
-			$new_offset = $offset + $limit;
+		if ( $progress != 100 ) {
 			$action_id 	= as_schedule_single_action( wp_date('U') + 10, 'thumbpress_convert_all_image', ['offset' => $new_offset] );
 			thumbpress_add_schedule_log( $this->id, $action_id );
 		}
@@ -321,6 +311,15 @@ class Convert_Images extends Base {
 			$response['message'] = __( 'Failed to schedule image conversion', 'image-sizes' );
 			wp_send_json_error( $response );
 		}
+		$image_types 			 = [ 'image/png', 'image/jpeg', 'image/jpg' ];
+		$total_attachments_query = "
+			SELECT COUNT(ID)
+			FROM {$wpdb->posts}
+			WHERE post_type = 'attachment'
+			AND post_mime_type IN ('" . implode( "','", array_map( 'esc_sql', $image_types ) ) . "')
+			";
+		$total_attachments = $wpdb->get_var( $total_attachments_query );
+		update_option( 'thumbpress_now_convert_background_total_images', $total_attachments );
 
 		$response['status'] 	= 1;
 		$response['message'] 	= __( 'Your images are being converted. Please wait...', 'image-sizes' );
@@ -358,23 +357,6 @@ class Convert_Images extends Base {
 			update_option( 'thumbpress_now_convert_total_image', $total_attachments );
 		}
 
-		$total_attachments_query = "
-			SELECT COUNT(ID)
-			FROM {$wpdb->posts}
-			WHERE post_type = 'attachment'
-			AND post_mime_type IN ('" . implode("','", array_map('esc_sql', $image_types)) . "')
-		";
-		$total_attachments = $wpdb->get_var( $total_attachments_query );
-		$has_image = false;
-		if ( $total_attachments > 0 ) {
-			$has_image = true;
-		} else {
-			$response['status'] = 1;
-			$response['message'] = __('No image found', 'image-sizes');
-			$response['has_image'] = $has_image;
-			wp_send_json( $response );
-		}	
-
 		$query = $wpdb->prepare( "
 			SELECT ID
 			FROM {$wpdb->posts}
@@ -384,6 +366,13 @@ class Convert_Images extends Base {
 		", $limit );
 
 		$attachments 		= $wpdb->get_results( $wpdb->prepare( $query ) );
+
+
+		if( ! $attachments ) {
+			$response['status'] 	= 2;
+			$response['message'] 	= __( 'No images found.', 'thumbpress-pro' );
+			wp_send_json( $response );
+		}	
 
 		foreach ( $attachments as $attachment ) {
 			$img_id 		= $attachment->ID;
@@ -428,10 +417,9 @@ class Convert_Images extends Base {
 		$grand_total_attachments 	= get_option('thumbpress_now_convert_total_image');
 		$count 						= $offset * $limit;
 		$progress 					= min( ( ( $count + $limit ) / $grand_total_attachments ) * 100, 100 );
-		$new_offset 				= $offset + $limit;
+		$new_offset 				= $offset + count( $attachments );
 		$response['status'] 		= 1;
 		$response['message'] 		= __('Images converted successfully', 'image-sizes');
-		$response['has_image'] 		= $has_image;
 		$response['offset'] 		= $new_offset;
 		$response['progress'] 		= $progress;
 

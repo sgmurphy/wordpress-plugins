@@ -483,25 +483,25 @@ function gspb_greenShift_register_scripts_blocks(){
 		'greenShift-library-editor',
 		GREENSHIFT_DIR_URL . 'build/gspbLibrary.css',
 		'',
-		'9.1'
+		'9.1.6'
 	);
 	wp_register_style(
 		'greenShift-block-css', // Handle.
 		GREENSHIFT_DIR_URL . 'build/index.css', // Block editor CSS.
 		array('greenShift-library-editor', 'wp-edit-blocks'),
-		'9.1'
+		'9.1.6'
 	);
 	wp_register_style(
 		'greenShift-stylebook-css', // Handle.
 		GREENSHIFT_DIR_URL . 'build/gspbStylebook.css', // Block editor CSS.
 		array(),
-		'9.1'
+		'9.1.6'
 	);
 	wp_register_style(
 		'greenShift-admin-css', // Handle.
 		GREENSHIFT_DIR_URL . 'templates/admin/style.css', // admin css
 		array(),
-		'9.1'
+		'9.1.6'
 	);
 
 	//Script for ajax reusable loading
@@ -1100,7 +1100,7 @@ function gspb_greenShift_block_script_assets($html, $block)
 				$html = GSPB_make_dynamic_text($html, $block['attrs'], $block, $block['attrs']['dynamictext'], $block['attrs']['textContent']);
 			}
 		}else if ($blockname === 'greenshift-blocks/element') {
-			if (!empty($block['attrs']['background']['lazy'])) {
+			if (!empty($block['attrs']['localStyles']['background']['lazy'])) {
 				wp_enqueue_script('greenshift-inview-bg');
 			}
 			if (isset($block['attrs']['tag']) && $block['attrs']['tag'] == 'table' && !empty($block['attrs']['tableAttributes']['table']['sortable'])) {
@@ -2698,9 +2698,15 @@ if (!function_exists('gspb_get_layout')) {
 					'ID' => $pageid,
 					'post_content' => $post_content,
 				));
-				if($type == 'home' && !empty($_POST['layout_styles'])){
-					$layout_styles = strip_tags($_POST['layout_styles']);
-					update_post_meta($pageid, '_gspb_post_css', $layout_styles);
+				if($type == 'home'){
+					$cssUrl = str_replace('layout', 'layoutcss', $apiUrl);
+					$responsecss = wp_safe_remote_get($cssUrl, $get_args);
+					$request_resultcss = wp_remote_retrieve_body($responsecss);
+					if ($request_resultcss) {
+						$layout_styles = strip_tags($request_resultcss);
+						$layout_styles = trim($layout_styles, '"');
+						update_post_meta($pageid, '_gspb_post_css', $layout_styles);
+					}
 				}
 				echo $request_result;
 			}else{
@@ -2771,7 +2777,7 @@ function greenshift_new_add_type_to_script($tag, $handle, $source){
     return $tag;
 }
 
-add_filter( 'wp_default_autoload_value', 'gspb_large_value_autoload', 10, 2 );
+//add_filter( 'wp_default_autoload_value', 'gspb_large_value_autoload', 10, 2 );
 function gspb_large_value_autoload( $autoload, $option ) {
     if ( 'gspb_global_settings' === $option ) {
         return true;

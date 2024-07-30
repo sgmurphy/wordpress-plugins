@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -33,18 +34,16 @@ namespace Google\ApiCore;
 
 use Google\Rpc\Code;
 use Grpc\BidiStreamingCall;
-
 /**
  * BidiStream is the response object from a gRPC bidirectional streaming API call.
  */
 class BidiStream
 {
     private $call;
-    private $isComplete = false;
-    private $writesClosed = false;
+    private $isComplete = \false;
+    private $writesClosed = \false;
     private $resourcesGetMethod = null;
     private $pendingResources = [];
-
     /**
      * BidiStream constructor.
      *
@@ -54,11 +53,10 @@ class BidiStream
     public function __construct(BidiStreamingCall $bidiStreamingCall, array $streamingDescriptor = [])
     {
         $this->call = $bidiStreamingCall;
-        if (array_key_exists('resourcesGetMethod', $streamingDescriptor)) {
+        if (\array_key_exists('resourcesGetMethod', $streamingDescriptor)) {
             $this->resourcesGetMethod = $streamingDescriptor['resourcesGetMethod'];
         }
     }
-
     /**
      * Write request to the server.
      *
@@ -68,14 +66,13 @@ class BidiStream
     public function write($request)
     {
         if ($this->isComplete) {
-            throw new ValidationException("Cannot call write() after streaming call is complete.");
+            throw new \Google\ApiCore\ValidationException("Cannot call write() after streaming call is complete.");
         }
         if ($this->writesClosed) {
-            throw new ValidationException("Cannot call write() after calling closeWrite().");
+            throw new \Google\ApiCore\ValidationException("Cannot call write() after calling closeWrite().");
         }
         $this->call->write($request);
     }
-
     /**
      * Write all requests in $requests.
      *
@@ -89,7 +86,6 @@ class BidiStream
             $this->write($request);
         }
     }
-
     /**
      * Inform the server that no more requests will be written. The write() function cannot be
      * called after closeWrite() is called.
@@ -98,16 +94,13 @@ class BidiStream
     public function closeWrite()
     {
         if ($this->isComplete) {
-            throw new ValidationException(
-                "Cannot call closeWrite() after streaming call is complete."
-            );
+            throw new \Google\ApiCore\ValidationException("Cannot call closeWrite() after streaming call is complete.");
         }
         if (!$this->writesClosed) {
             $this->call->writesDone();
-            $this->writesClosed = true;
+            $this->writesClosed = \true;
         }
     }
-
     /**
      * Read the next response from the server. Returns null if the streaming call completed
      * successfully. Throws an ApiException if the streaming call failed.
@@ -119,34 +112,33 @@ class BidiStream
     public function read()
     {
         if ($this->isComplete) {
-            throw new ValidationException("Cannot call read() after streaming call is complete.");
+            throw new \Google\ApiCore\ValidationException("Cannot call read() after streaming call is complete.");
         }
         $resourcesGetMethod = $this->resourcesGetMethod;
-        if (!is_null($resourcesGetMethod)) {
-            if (count($this->pendingResources) === 0) {
+        if (!\is_null($resourcesGetMethod)) {
+            if (\count($this->pendingResources) === 0) {
                 $response = $this->call->read();
-                if (!is_null($response)) {
+                if (!\is_null($response)) {
                     $pendingResources = [];
-                    foreach ($response->$resourcesGetMethod() as $resource) {
+                    foreach ($response->{$resourcesGetMethod}() as $resource) {
                         $pendingResources[] = $resource;
                     }
-                    $this->pendingResources = array_reverse($pendingResources);
+                    $this->pendingResources = \array_reverse($pendingResources);
                 }
             }
-            $result = array_pop($this->pendingResources);
+            $result = \array_pop($this->pendingResources);
         } else {
             $result = $this->call->read();
         }
-        if (is_null($result)) {
+        if (\is_null($result)) {
             $status = $this->call->getStatus();
-            $this->isComplete = true;
+            $this->isComplete = \true;
             if (!($status->code == Code::OK)) {
-                throw ApiException::createFromStdClass($status);
+                throw \Google\ApiCore\ApiException::createFromStdClass($status);
             }
         }
         return $result;
     }
-
     /**
      * Call closeWrite(), and read all responses from the server, until the streaming call is
      * completed. Throws an ApiException if the streaming call failed.
@@ -159,12 +151,11 @@ class BidiStream
     {
         $this->closeWrite();
         $response = $this->read();
-        while (!is_null($response)) {
-            yield $response;
+        while (!\is_null($response)) {
+            (yield $response);
             $response = $this->read();
         }
     }
-
     /**
      * Return the underlying gRPC call object
      *

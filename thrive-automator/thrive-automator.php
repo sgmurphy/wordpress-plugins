@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Thrive Automator
  * Plugin URI: https://thrivethemes.com
- * Version: 1.21.2
+ * Version: 10.0
  * Author: <a href="https://thrivethemes.com">Thrive Themes</a>
  * Author URI: https://thrivethemes.com
  * Description: Create smart automations that integrate your website with your favourite apps and plugins.

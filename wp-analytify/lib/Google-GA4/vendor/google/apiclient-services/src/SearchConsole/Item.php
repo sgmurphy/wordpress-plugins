@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,48 +15,46 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole;
 
 class Item extends \Google\Collection
 {
-  protected $collection_key = 'issues';
-  protected $issuesType = RichResultsIssue::class;
-  protected $issuesDataType = 'array';
-  /**
-   * @var string
-   */
-  public $name;
-
-  /**
-   * @param RichResultsIssue[]
-   */
-  public function setIssues($issues)
-  {
-    $this->issues = $issues;
-  }
-  /**
-   * @return RichResultsIssue[]
-   */
-  public function getIssues()
-  {
-    return $this->issues;
-  }
-  /**
-   * @param string
-   */
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  /**
-   * @return string
-   */
-  public function getName()
-  {
-    return $this->name;
-  }
+    protected $collection_key = 'issues';
+    protected $issuesType = \Google\Service\SearchConsole\RichResultsIssue::class;
+    protected $issuesDataType = 'array';
+    public $issues = [];
+    /**
+     * @var string
+     */
+    public $name;
+    /**
+     * @param RichResultsIssue[]
+     */
+    public function setIssues($issues)
+    {
+        $this->issues = $issues;
+    }
+    /**
+     * @return RichResultsIssue[]
+     */
+    public function getIssues()
+    {
+        return $this->issues;
+    }
+    /**
+     * @param string
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(Item::class, 'Google_Service_SearchConsole_Item');
+\class_alias(\Google\Service\SearchConsole\Item::class, 'Analytify\\Google_Service_SearchConsole_Item');

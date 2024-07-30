@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2017 Google LLC
  * All rights reserved.
@@ -32,7 +33,6 @@
 namespace Google\ApiCore\Testing;
 
 use Google\Protobuf\Internal\Message;
-
 /**
  * @internal
  */
@@ -47,26 +47,22 @@ trait SerializationTrait
         if ($message === null) {
             return null;
         }
-
         if ($deserialize === null) {
             return $message;
         }
-
         // Proto3 implementation
-        if (is_array($deserialize)) {
+        if (\is_array($deserialize)) {
             list($className, $deserializeFunc) = $deserialize;
             /** @var Message $obj */
             $obj = new $className();
-            if (method_exists($obj, $deserializeFunc)) {
-                $obj->$deserializeFunc($message);
-            } elseif (is_string($message)) {
+            if (\method_exists($obj, $deserializeFunc)) {
+                $obj->{$deserializeFunc}($message);
+            } elseif (\is_string($message)) {
                 $obj->mergeFromString($message);
             }
-
             return $obj;
         }
-
         // Protobuf-PHP implementation
-        return call_user_func($deserialize, $message);
+        return \call_user_func($deserialize, $message);
     }
 }

@@ -31,8 +31,6 @@ class TermsandTaxonomiesImport {
     }
 
     public function terms_taxo_import_function ($data_array, $type ,$pID , $mode , $line_number,$poly_values) {
-		
-		
 		$core_instance = CoreFieldsImport::getInstance();
 		$helpers_instance = ImportHelpers::getInstance();
 		global $core_instance;

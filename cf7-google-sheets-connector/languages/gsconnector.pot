@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: CF7 Google Sheet Connector\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cf7-google-sheets-"
 "connector\n"
-"POT-Creation-Date: 2024-06-11 18:47+0530\n"
+"POT-Creation-Date: 2024-07-30 11:11+0530\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,115 +19,115 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: assets/js\n"
 
-#: google-sheet-connector.php:215
+#: google-sheet-connector.php:216
 msgid ""
 "Google Sheet Connector Add-on requires Contact Form 7 plugin to be installed "
 "and activated."
 msgstr ""
 
-#: google-sheet-connector.php:227 includes/class-gs-service.php:584
+#: google-sheet-connector.php:228 includes/class-gs-service.php:587
 msgid "Google Sheets"
 msgstr ""
 
-#: google-sheet-connector.php:274
+#: google-sheet-connector.php:275
 msgid "Contact Form 7 - Google Sheet Integration"
 msgstr ""
 
-#: google-sheet-connector.php:280
+#: google-sheet-connector.php:281
 msgid ""
 "Click on \"Sign in with Google\" button to retrieve your code from Google "
 "Drive to allow us to access your spreadsheets. "
 msgstr ""
 
-#: google-sheet-connector.php:306
+#: google-sheet-connector.php:307
 msgid "Google Access Code"
 msgstr ""
 
-#: google-sheet-connector.php:309
+#: google-sheet-connector.php:310
 msgid "Currently Active"
 msgstr ""
 
-#: google-sheet-connector.php:311
+#: google-sheet-connector.php:312
 msgid "Deactivate"
 msgstr ""
 
-#: google-sheet-connector.php:323
+#: google-sheet-connector.php:324
 msgid "Click on Sign in with Google button"
 msgstr ""
 
-#: google-sheet-connector.php:334 includes/pages/gs-integrate-info.php:120
+#: google-sheet-connector.php:335 includes/pages/gs-integrate-info.php:120
 msgid "Save"
 msgstr ""
 
-#: google-sheet-connector.php:346
+#: google-sheet-connector.php:347
 msgid ""
 "Something went wrong! It looks you have not given the permission of Google "
 "Drive and Google Sheets from your google account.Please Deactivate Auth and "
 "Re-Authenticate again with the permissions."
 msgstr ""
 
-#: google-sheet-connector.php:350
+#: google-sheet-connector.php:351
 msgid "Also,"
 msgstr ""
 
-#: google-sheet-connector.php:351
+#: google-sheet-connector.php:352
 msgid "Click Here "
 msgstr ""
 
-#: google-sheet-connector.php:352
+#: google-sheet-connector.php:353
 msgid ""
 "and if it displays \"GSheetConnector for WP Contact Forms\" under Third-"
 "party apps with account access then remove it."
 msgstr ""
 
-#: google-sheet-connector.php:367
+#: google-sheet-connector.php:368
 #, php-format
 msgid "Connected email account: %s"
 msgstr ""
 
-#: google-sheet-connector.php:371
+#: google-sheet-connector.php:372
 msgid ""
 "Something wrong ! Your Auth Code may be wrong or expired. Please deactivate "
 "and do Re-Authentication again. "
 msgstr ""
 
-#: google-sheet-connector.php:380
+#: google-sheet-connector.php:381
 msgid "Debug Log"
 msgstr ""
 
-#: google-sheet-connector.php:431
+#: google-sheet-connector.php:432
 msgid "No errors found."
 msgstr ""
 
-#: google-sheet-connector.php:436
+#: google-sheet-connector.php:437
 msgid "No log file exists as no errors are generated."
 msgstr ""
 
-#: google-sheet-connector.php:711
+#: google-sheet-connector.php:712
 msgid "Settings"
 msgstr ""
 
-#: google-sheet-connector.php:712
+#: google-sheet-connector.php:713
 msgid "Upgrade to PRO"
 msgstr ""
 
-#: google-sheet-connector.php:717
+#: google-sheet-connector.php:718
 msgid "Contact Form 7 - GSheetConnector"
 msgstr ""
 
-#: includes/class-gs-service.php:53
+#: includes/class-gs-service.php:56
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: includes/class-gs-service.php:374
+#: includes/class-gs-service.php:377
 msgid "Writable"
 msgstr ""
 
-#: includes/class-gs-service.php:750
+#: includes/class-gs-service.php:762
 msgid "invalid-auth"
 msgstr ""
 
-#: includes/class-gs-service.php:761
+#: includes/class-gs-service.php:773
 msgid ""
 "<strong>Authentication Required:</strong>\n"
 "                  You must have to <a href=\"admin.php?page=wpcf7-google-"
@@ -136,71 +136,71 @@ msgid ""
 "order to enable the settings for configuration."
 msgstr ""
 
-#: includes/class-gs-service.php:800
+#: includes/class-gs-service.php:818
 msgid "Google Sheet Settings"
 msgstr ""
 
-#: includes/class-gs-service.php:800
+#: includes/class-gs-service.php:818
 msgid "( Fetch your sheets automatically using PRO )"
 msgstr ""
 
-#: includes/class-gs-service.php:802
+#: includes/class-gs-service.php:820
 msgid "Google Sheet Name"
 msgstr ""
 
-#: includes/class-gs-service.php:807
+#: includes/class-gs-service.php:825
 msgid ""
 "Go to your google account and click on\"Google apps\" icon and than click "
 "\"Sheets\". Select the name of the appropriate sheet you want to link your "
 "contact form or create new sheet."
 msgstr ""
 
-#: includes/class-gs-service.php:810
+#: includes/class-gs-service.php:828
 msgid "Google Sheet ID"
 msgstr ""
 
-#: includes/class-gs-service.php:813
+#: includes/class-gs-service.php:831
 msgid "you can get sheet id from your sheet URL"
 msgstr ""
 
-#: includes/class-gs-service.php:816
+#: includes/class-gs-service.php:834
 msgid "Google Sheet Tab Name"
 msgstr ""
 
-#: includes/class-gs-service.php:819
+#: includes/class-gs-service.php:837
 msgid ""
 "Open your Google Sheet with which you want to link your contact form . You "
 "will notice a tab names at bottom of the screen. Copy the tab name where you "
 "want to have an entry of contact form."
 msgstr ""
 
-#: includes/class-gs-service.php:822
+#: includes/class-gs-service.php:840
 msgid "Google Tab ID"
 msgstr ""
 
-#: includes/class-gs-service.php:825
+#: includes/class-gs-service.php:843
 msgid "you can get tab id from your sheet URL"
 msgstr ""
 
-#: includes/class-gs-service.php:964
+#: includes/class-gs-service.php:982
 msgid "No mail tags available."
 msgstr ""
 
-#: includes/class-gs-service.php:1005
+#: includes/class-gs-service.php:1023
 msgid ""
 "Map special mail tags with custom header name and save automatically to "
 "google sheet. "
 msgstr ""
 
-#: includes/class-gs-service.php:1080
+#: includes/class-gs-service.php:1098
 msgid "No custom mail tags available."
 msgstr ""
 
-#: includes/class-gs-service.php:1092
+#: includes/class-gs-service.php:1110
 msgid "Conditional Logic"
 msgstr ""
 
-#: includes/class-gs-service.php:1098
+#: includes/class-gs-service.php:1116
 msgid ""
 "The Enable Conditional Logic option in the field settings allows you to "
 "create rules to dynamically display or hide the submission to google sheet "

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -29,12 +30,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Testing;
 
 use Google\ApiCore\Transport\GrpcTransport;
 use Grpc\ChannelCredentials;
-
 /**
  * @internal
  */
@@ -42,7 +41,6 @@ class MockGrpcTransport extends GrpcTransport
 {
     private $requestArguments;
     private $mockCall;
-
     /**
      * @param mixed $mockCall
      */
@@ -52,88 +50,53 @@ class MockGrpcTransport extends GrpcTransport
         $opts = ['credentials' => ChannelCredentials::createSsl()];
         parent::__construct('', $opts);
     }
-
     /**
      * @param string $method
      * @param array $arguments
      * @param callable $deserialize
      */
-    protected function _simpleRequest(
-        $method,
-        $arguments,
-        $deserialize,
-        array $metadata = [],
-        array $options = []
-    ) {
+    protected function _simpleRequest($method, $arguments, $deserialize, array $metadata = [], array $options = [])
+    {
         $this->logCall($method, $deserialize, $metadata, $options, $arguments);
         return $this->mockCall;
     }
-
     /**
      * @param string $method
      * @param callable $deserialize
      */
-    protected function _clientStreamRequest(
-        $method,
-        $deserialize,
-        array $metadata = [],
-        array $options = []
-    ) {
+    protected function _clientStreamRequest($method, $deserialize, array $metadata = [], array $options = [])
+    {
         $this->logCall($method, $deserialize, $metadata, $options);
         return $this->mockCall;
     }
-
     /**
      * @param string $method
      * @param array $arguments
      * @param callable $deserialize
      */
-    protected function _serverStreamRequest(
-        $method,
-        $arguments,
-        $deserialize,
-        array $metadata = [],
-        array $options = []
-    ) {
+    protected function _serverStreamRequest($method, $arguments, $deserialize, array $metadata = [], array $options = [])
+    {
         $this->logCall($method, $deserialize, $metadata, $options, $arguments);
         return $this->mockCall;
     }
-
     /**
      * @param string $method
      * @param callable $deserialize
      */
-    protected function _bidiRequest(
-        $method,
-        $deserialize,
-        array $metadata = [],
-        array $options = []
-    ) {
+    protected function _bidiRequest($method, $deserialize, array $metadata = [], array $options = [])
+    {
         $this->logCall($method, $deserialize, $metadata, $options);
         return $this->mockCall;
     }
-
     /**
      * @param string $method
      * @param callable $deserialize
      * @param array $arguments
      */
-    private function logCall(
-        $method,
-        $deserialize,
-        array $metadata = [],
-        array $options = [],
-        $arguments = null
-    ) {
-        $this->requestArguments = [
-            'method' => $method,
-            'arguments' => $arguments,
-            'deserialize' => $deserialize,
-            'metadata' => $metadata,
-            'options' => $options,
-        ];
+    private function logCall($method, $deserialize, array $metadata = [], array $options = [], $arguments = null)
+    {
+        $this->requestArguments = ['method' => $method, 'arguments' => $arguments, 'deserialize' => $deserialize, 'metadata' => $metadata, 'options' => $options];
     }
-
     public function getRequestArguments()
     {
         return $this->requestArguments;

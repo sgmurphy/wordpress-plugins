@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -8,97 +9,94 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Analytify\Monolog\Handler;
 
-namespace Monolog\Handler;
-
-use Monolog\Level;
-use Monolog\Logger;
-use Monolog\ResettableInterface;
-use Psr\Log\LogLevel;
-use Monolog\LogRecord;
-
+use Analytify\Monolog\Logger;
+use Analytify\Monolog\ResettableInterface;
+use Analytify\Psr\Log\LogLevel;
 /**
  * Base Handler class providing basic level/bubble support
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
+ *
+ * @phpstan-import-type Level from \Monolog\Logger
+ * @phpstan-import-type LevelName from \Monolog\Logger
  */
 abstract class AbstractHandler extends Handler implements ResettableInterface
 {
-    protected Level $level = Level::Debug;
-    protected bool $bubble = true;
-
     /**
-     * @param int|string|Level|LogLevel::* $level  The minimum logging level at which this handler will be triggered
-     * @param bool                                   $bubble Whether the messages that are handled can bubble up the stack or not
-     *
-     * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
+     * @var int
+     * @phpstan-var Level
      */
-    public function __construct(int|string|Level $level = Level::Debug, bool $bubble = true)
+    protected $level = Logger::DEBUG;
+    /** @var bool */
+    protected $bubble = \true;
+    /**
+     * @param int|string $level  The minimum logging level at which this handler will be triggered
+     * @param bool       $bubble Whether the messages that are handled can bubble up the stack or not
+     *
+     * @phpstan-param Level|LevelName|LogLevel::* $level
+     */
+    public function __construct($level = Logger::DEBUG, bool $bubble = \true)
     {
         $this->setLevel($level);
         $this->bubble = $bubble;
     }
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function isHandling(LogRecord $record): bool
+    public function isHandling(array $record) : bool
     {
-        return $record->level->value >= $this->level->value;
+        return $record['level'] >= $this->level;
     }
-
     /**
      * Sets minimum logging level at which this handler will be triggered.
      *
-     * @param Level|LogLevel::* $level Level or level name
-     * @return $this
-     *
-     * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
+     * @param  Level|LevelName|LogLevel::* $level Level or level name
+     * @return self
      */
-    public function setLevel(int|string|Level $level): self
+    public function setLevel($level) : self
     {
         $this->level = Logger::toMonologLevel($level);
-
         return $this;
     }
-
     /**
      * Gets minimum logging level at which this handler will be triggered.
+     *
+     * @return int
+     *
+     * @phpstan-return Level
      */
-    public function getLevel(): Level
+    public function getLevel() : int
     {
         return $this->level;
     }
-
     /**
      * Sets the bubbling behavior.
      *
-     * @param bool $bubble true means that this handler allows bubbling.
-     *                     false means that bubbling is not permitted.
-     * @return $this
+     * @param  bool $bubble true means that this handler allows bubbling.
+     *                      false means that bubbling is not permitted.
+     * @return self
      */
-    public function setBubble(bool $bubble): self
+    public function setBubble(bool $bubble) : self
     {
         $this->bubble = $bubble;
-
         return $this;
     }
-
     /**
      * Gets the bubbling behavior.
      *
      * @return bool true means that this handler allows bubbling.
      *              false means that bubbling is not permitted.
      */
-    public function getBubble(): bool
+    public function getBubble() : bool
     {
         return $this->bubble;
     }
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function reset(): void
+    public function reset()
     {
     }
 }

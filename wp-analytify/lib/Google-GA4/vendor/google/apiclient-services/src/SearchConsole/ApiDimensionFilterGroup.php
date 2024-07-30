@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,48 +15,46 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole;
 
 class ApiDimensionFilterGroup extends \Google\Collection
 {
-  protected $collection_key = 'filters';
-  protected $filtersType = ApiDimensionFilter::class;
-  protected $filtersDataType = 'array';
-  /**
-   * @var string
-   */
-  public $groupType;
-
-  /**
-   * @param ApiDimensionFilter[]
-   */
-  public function setFilters($filters)
-  {
-    $this->filters = $filters;
-  }
-  /**
-   * @return ApiDimensionFilter[]
-   */
-  public function getFilters()
-  {
-    return $this->filters;
-  }
-  /**
-   * @param string
-   */
-  public function setGroupType($groupType)
-  {
-    $this->groupType = $groupType;
-  }
-  /**
-   * @return string
-   */
-  public function getGroupType()
-  {
-    return $this->groupType;
-  }
+    protected $collection_key = 'filters';
+    protected $filtersType = \Google\Service\SearchConsole\ApiDimensionFilter::class;
+    protected $filtersDataType = 'array';
+    public $filters = [];
+    /**
+     * @var string
+     */
+    public $groupType;
+    /**
+     * @param ApiDimensionFilter[]
+     */
+    public function setFilters($filters)
+    {
+        $this->filters = $filters;
+    }
+    /**
+     * @return ApiDimensionFilter[]
+     */
+    public function getFilters()
+    {
+        return $this->filters;
+    }
+    /**
+     * @param string
+     */
+    public function setGroupType($groupType)
+    {
+        $this->groupType = $groupType;
+    }
+    /**
+     * @return string
+     */
+    public function getGroupType()
+    {
+        return $this->groupType;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(ApiDimensionFilterGroup::class, 'Google_Service_SearchConsole_ApiDimensionFilterGroup');
+\class_alias(\Google\Service\SearchConsole\ApiDimensionFilterGroup::class, 'Analytify\\Google_Service_SearchConsole_ApiDimensionFilterGroup');

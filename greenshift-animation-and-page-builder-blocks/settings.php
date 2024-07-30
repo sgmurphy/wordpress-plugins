@@ -1290,7 +1290,8 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 						'href' => [],
 						'rel' => [],
 						'type' => []
-					]
+					],
+					'noscript' => []
 				]);
 			}
 			$sitesettings = get_option('gspb_global_settings');
@@ -1347,7 +1348,8 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 						'href' => [],
 						'rel' => [],
 						'type' => []
-					]
+					],
+					'noscript' => []
 				]);
 			}
 		}

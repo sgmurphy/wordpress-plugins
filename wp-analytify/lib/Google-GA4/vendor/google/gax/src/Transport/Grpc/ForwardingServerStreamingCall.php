@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2020 Google LLC
  * All rights reserved.
@@ -29,21 +30,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Transport\Grpc;
-
-use Grpc\ServerStreamingCall;
 
 /**
  * Class ForwardingServerStreamingCall wraps a \Grpc\ServerStreamingCall.
  *
  * @experimental
  */
-class ForwardingServerStreamingCall extends ForwardingCall
+class ForwardingServerStreamingCall extends \Google\ApiCore\Transport\Grpc\ForwardingCall
 {
-    /** @var ServerStreamingCall */
-    protected object $innerCall;
-
+    /**
+     * @var \Grpc\ServerStreamingCall
+     */
+    protected $innerCall;
     /**
      * @return mixed An iterator of response values
      */
@@ -51,7 +50,6 @@ class ForwardingServerStreamingCall extends ForwardingCall
     {
         return $this->innerCall->responses();
     }
-
     /**
      * Wait for the server to send the status, and return it.
      *

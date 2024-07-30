@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,96 +15,97 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole;
 
 class RunMobileFriendlyTestResponse extends \Google\Collection
 {
-  protected $collection_key = 'resourceIssues';
-  /**
-   * @var string
-   */
-  public $mobileFriendliness;
-  protected $mobileFriendlyIssuesType = MobileFriendlyIssue::class;
-  protected $mobileFriendlyIssuesDataType = 'array';
-  protected $resourceIssuesType = ResourceIssue::class;
-  protected $resourceIssuesDataType = 'array';
-  protected $screenshotType = Image::class;
-  protected $screenshotDataType = '';
-  protected $testStatusType = TestStatus::class;
-  protected $testStatusDataType = '';
-
-  /**
-   * @param string
-   */
-  public function setMobileFriendliness($mobileFriendliness)
-  {
-    $this->mobileFriendliness = $mobileFriendliness;
-  }
-  /**
-   * @return string
-   */
-  public function getMobileFriendliness()
-  {
-    return $this->mobileFriendliness;
-  }
-  /**
-   * @param MobileFriendlyIssue[]
-   */
-  public function setMobileFriendlyIssues($mobileFriendlyIssues)
-  {
-    $this->mobileFriendlyIssues = $mobileFriendlyIssues;
-  }
-  /**
-   * @return MobileFriendlyIssue[]
-   */
-  public function getMobileFriendlyIssues()
-  {
-    return $this->mobileFriendlyIssues;
-  }
-  /**
-   * @param ResourceIssue[]
-   */
-  public function setResourceIssues($resourceIssues)
-  {
-    $this->resourceIssues = $resourceIssues;
-  }
-  /**
-   * @return ResourceIssue[]
-   */
-  public function getResourceIssues()
-  {
-    return $this->resourceIssues;
-  }
-  /**
-   * @param Image
-   */
-  public function setScreenshot(Image $screenshot)
-  {
-    $this->screenshot = $screenshot;
-  }
-  /**
-   * @return Image
-   */
-  public function getScreenshot()
-  {
-    return $this->screenshot;
-  }
-  /**
-   * @param TestStatus
-   */
-  public function setTestStatus(TestStatus $testStatus)
-  {
-    $this->testStatus = $testStatus;
-  }
-  /**
-   * @return TestStatus
-   */
-  public function getTestStatus()
-  {
-    return $this->testStatus;
-  }
+    protected $collection_key = 'resourceIssues';
+    /**
+     * @var string
+     */
+    public $mobileFriendliness;
+    protected $mobileFriendlyIssuesType = \Google\Service\SearchConsole\MobileFriendlyIssue::class;
+    protected $mobileFriendlyIssuesDataType = 'array';
+    public $mobileFriendlyIssues = [];
+    protected $resourceIssuesType = \Google\Service\SearchConsole\ResourceIssue::class;
+    protected $resourceIssuesDataType = 'array';
+    public $resourceIssues = [];
+    protected $screenshotType = \Google\Service\SearchConsole\Image::class;
+    protected $screenshotDataType = '';
+    public $screenshot;
+    protected $testStatusType = \Google\Service\SearchConsole\TestStatus::class;
+    protected $testStatusDataType = '';
+    public $testStatus;
+    /**
+     * @param string
+     */
+    public function setMobileFriendliness($mobileFriendliness)
+    {
+        $this->mobileFriendliness = $mobileFriendliness;
+    }
+    /**
+     * @return string
+     */
+    public function getMobileFriendliness()
+    {
+        return $this->mobileFriendliness;
+    }
+    /**
+     * @param MobileFriendlyIssue[]
+     */
+    public function setMobileFriendlyIssues($mobileFriendlyIssues)
+    {
+        $this->mobileFriendlyIssues = $mobileFriendlyIssues;
+    }
+    /**
+     * @return MobileFriendlyIssue[]
+     */
+    public function getMobileFriendlyIssues()
+    {
+        return $this->mobileFriendlyIssues;
+    }
+    /**
+     * @param ResourceIssue[]
+     */
+    public function setResourceIssues($resourceIssues)
+    {
+        $this->resourceIssues = $resourceIssues;
+    }
+    /**
+     * @return ResourceIssue[]
+     */
+    public function getResourceIssues()
+    {
+        return $this->resourceIssues;
+    }
+    /**
+     * @param Image
+     */
+    public function setScreenshot(\Google\Service\SearchConsole\Image $screenshot)
+    {
+        $this->screenshot = $screenshot;
+    }
+    /**
+     * @return Image
+     */
+    public function getScreenshot()
+    {
+        return $this->screenshot;
+    }
+    /**
+     * @param TestStatus
+     */
+    public function setTestStatus(\Google\Service\SearchConsole\TestStatus $testStatus)
+    {
+        $this->testStatus = $testStatus;
+    }
+    /**
+     * @return TestStatus
+     */
+    public function getTestStatus()
+    {
+        return $this->testStatus;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(RunMobileFriendlyTestResponse::class, 'Google_Service_SearchConsole_RunMobileFriendlyTestResponse');
+\class_alias(\Google\Service\SearchConsole\RunMobileFriendlyTestResponse::class, 'Analytify\\Google_Service_SearchConsole_RunMobileFriendlyTestResponse');

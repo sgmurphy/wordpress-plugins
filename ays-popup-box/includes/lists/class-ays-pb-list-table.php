@@ -540,7 +540,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $nonce = esc_attr($_REQUEST["_wpnonce"]);
 
             if ( !wp_verify_nonce($nonce, $this->plugin_name . "-delete-popupbox") ) {
-                die( "Go get a life script kiddies" );
+                die("Go get a life script kiddies");
             } else {
                 self::delete_popupboxes( absint($_GET["popupbox"]) );
 
@@ -574,7 +574,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $url = esc_url_raw( remove_query_arg(array("action", "popupbox", "_wpnonce")) ) . "&status=" . $message . "&type=success";
             wp_redirect($url);
         } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-unpublished') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-unpublished') ) {
-            $unpublished_ids = ( isset($_POST['bulk-delete']) && ! empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+            $unpublished_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
             $message = 'unpublished';
 
             // loop over the array of record IDs and unpublish them
@@ -831,7 +831,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             </select>
             <input type="button" id="doaction-<?php echo esc_attr($which); ?>" class="ays-popup-question-tab-all-filter-button-<?php echo esc_attr($which); ?> button" value="<?php echo __("Filter", "ays-popup-box"); ?>">
         </div>
-        <a href="?page=<?php echo esc_attr($_REQUEST['page']); ?>" class="button"><?php echo __("Clear filters", "ays-popup-box"); ?></a>
+        <a href="?page=<?php echo esc_attr($_REQUEST['page']); ?>" class="button ays-pb-clear-filters"><?php echo __("Clear filters", "ays-popup-box"); ?></a>
         <?php
     }
 

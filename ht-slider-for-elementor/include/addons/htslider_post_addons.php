@@ -119,7 +119,21 @@ class HTSlider_Elementor_Widget_Post_Slider extends Widget_Base {
                     'default'       => 'yes',
                 ]
             );
-
+            $this->add_control(
+                'content_type',
+                [
+                    'label' => esc_html__( 'Content Source', 'ht-slider' ),
+                    'type' => Controls_Manager::SELECT,
+                    'default' => 'content',
+                    'options' => [
+                        'content'          => esc_html__('Content','ht-slider'),
+                        'excerpt'            => esc_html__('Excerpt','ht-slider'),
+                    ],
+                    'condition'=>[
+                        'show_content'=>'yes',
+                    ]
+                ]
+            );
             $this->add_control(
                 'content_length',
                 [
@@ -183,6 +197,15 @@ class HTSlider_Elementor_Widget_Post_Slider extends Widget_Base {
                     'type'          => Controls_Manager::SWITCHER,
                     'return_value'  => 'yes',
                     'default'       => 'yes',
+                ]
+            );
+            $this->add_control(
+                'hide_empty_thumbnail_post',
+                [
+                    'label'         => esc_html__( 'Hide Empty Thumbnail', 'ht-slider' ),
+                    'type'          => Controls_Manager::SWITCHER,
+                    'return_value'  => 'yes',
+                    'default'       => 'no',
                     'separator'     =>'after',
                 ]
             );
@@ -2231,6 +2254,16 @@ class HTSlider_Elementor_Widget_Post_Slider extends Widget_Base {
             $args['order'] =  $postorder;
         }
 
+        // empty thumbnail post
+        if ( 'yes' === $settings['hide_empty_thumbnail_post'] ) {
+            $args['meta_query'] = [
+                [
+                    'key' => '_thumbnail_id',
+                    'compare' => 'EXISTS'
+                ],
+            ];
+        }
+        
         $slider_post = new \WP_Query( $args );
 
         ?>
@@ -2306,8 +2339,13 @@ class HTSlider_Elementor_Widget_Post_Slider extends Widget_Base {
                         </ul>
                     <?php endif;?>
                     <?php
-                        if( $settings['show_content'] == 'yes' ){
-                            echo '<p>'.wp_kses_post(wp_trim_words( get_the_content(), $settings['content_length'], '' )).'</p>'; 
+                        if ( $settings['show_content'] == 'yes' ) {
+
+                            if ( $settings['content_type'] == 'excerpt' ) {
+                                echo '<p>'. esc_html( wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) ) .'</p>';
+                            } else {
+                                echo '<p>'. wp_kses_post( wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ) ).'</p>'; 
+                            }
                         }
                         if( $settings['show_read_more_btn'] == 'yes' ):
                     ?>

@@ -665,7 +665,6 @@ class WooCommerceCoreImport {
 		return $returnArr;
 	}
 	public function woocommerce_product_import($data_array, $mode, $type, $unmatched_row , $check , $unikey , $unikey_name, $line_number  , $acf,$pods, $toolset, $header_array ,$value_array, $wpml_values = null) {
-
 		global $wpdb,$core_instance,$sitepress; 
 		$core_instance = CoreFieldsImport::getInstance();
 		$helpers_instance = ImportHelpers::getInstance();

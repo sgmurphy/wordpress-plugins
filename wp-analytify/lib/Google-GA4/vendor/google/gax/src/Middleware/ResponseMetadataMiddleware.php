@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -32,17 +33,15 @@
 namespace Google\ApiCore\Middleware;
 
 use Google\ApiCore\Call;
-use GuzzleHttp\Promise\Promise;
-use GuzzleHttp\Promise\PromiseInterface;
-
+use Analytify\GuzzleHttp\Promise\Promise;
+use Analytify\GuzzleHttp\Promise\PromiseInterface;
 /**
  * Middleware which transforms $response into [$response, $metadata]
  */
-class ResponseMetadataMiddleware implements MiddlewareInterface
+class ResponseMetadataMiddleware
 {
     /** @var callable */
     private $nextHandler;
-
     /**
      * @param callable $nextHandler
      */
@@ -50,22 +49,19 @@ class ResponseMetadataMiddleware implements MiddlewareInterface
     {
         $this->nextHandler = $nextHandler;
     }
-
     public function __invoke(Call $call, array $options)
     {
         $metadataReceiver = new Promise();
-        $options['metadataCallback'] = function ($metadata) use ($metadataReceiver) {
+        $options['metadataCallback'] = function ($metadata) use($metadataReceiver) {
             $metadataReceiver->resolve($metadata);
         };
         $next = $this->nextHandler;
-        return $next($call, $options)->then(
-            function ($response) use ($metadataReceiver) {
-                if ($metadataReceiver->getState() === PromiseInterface::FULFILLED) {
-                    return [$response, $metadataReceiver->wait()];
-                } else {
-                    return [$response, []];
-                }
+        return $next($call, $options)->then(function ($response) use($metadataReceiver) {
+            if ($metadataReceiver->getState() === PromiseInterface::FULFILLED) {
+                return [$response, $metadataReceiver->wait()];
+            } else {
+                return [$response, []];
             }
-        );
+        });
     }
 }

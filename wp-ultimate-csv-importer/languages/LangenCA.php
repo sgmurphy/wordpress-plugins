@@ -70,6 +70,8 @@ class LangEN_CA {
                         'HINT' => 'HINT',
                         'Example' => 'Example',
                         'WordPressCoreFields' => 'WordPress Core Fields',
+                        'FeaturedFields' => 'Featured Image Meta',
+                        'MediaFields' => 'Media Fields',
                         'ACFFreeFields' => 'ACF Free Fields',
                         'ACFFields' => 'ACF Fields',
                         'ACFGroupFields' => 'ACF Group Fields',
@@ -229,7 +231,8 @@ class LangEN_CA {
                         'Totalnoofrecords' => 'Total no of records',
                         'CurrentProcessingRecord' => 'Current Processing Record',
                         'RemainingRecord' => 'Remaining Record',
-                        'Completed' => 'Completed',
+                       
+                        'Completed' => 'Completed Successfully',
                         'TimeElapsed' => 'Time Elapsed',
                         'approximate' => 'approximate',
                         'DownloadLog' => 'View Log',

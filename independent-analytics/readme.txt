@@ -5,7 +5,7 @@ Donate link: https://independentwp.com
 Requires at least: 5.9
 Tested up to: 6.5.2
 Requires PHP: 7.3.33
-Stable tag: 2.7.0
+Stable tag: 2.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -193,6 +193,10 @@ We use best practice techniques to filter out bot visits as efficiently as possi
 6. See the device types, browsers, and OSes your visitors are using
 
 == Changelog ==
+
+= 2.7.1 - July 29th, 2024 =
+
+* **Fix:** some MariaDB instances don't support optimizer_switch customization
 
 = 2.7.0 - July 25th, 2024 =
 

@@ -216,6 +216,12 @@ class Secure_Copy_Content_Protection {
 	 	$this->loader->add_action( 'wp_ajax_ays_sccp_dismiss_button', $plugin_admin, 'ays_sccp_dismiss_button' );
         $this->loader->add_action( 'wp_ajax_nopriv_ays_sccp_dismiss_button', $plugin_admin, 'ays_sccp_dismiss_button' );
 
+        $this->loader->add_action( 'wp_ajax_ays_sccp_install_plugin', $plugin_admin, 'ays_sccp_install_plugin' );
+        $this->loader->add_action( 'wp_ajax_nopriv_ays_sccp_install_plugin', $plugin_admin, 'ays_sccp_install_plugin' );
+
+        $this->loader->add_action( 'wp_ajax_ays_sccp_activate_plugin', $plugin_admin, 'ays_sccp_activate_plugin' );
+        $this->loader->add_action( 'wp_ajax_nopriv_ays_sccp_activate_plugin', $plugin_admin, 'ays_sccp_activate_plugin' );
+
 	}
 
 

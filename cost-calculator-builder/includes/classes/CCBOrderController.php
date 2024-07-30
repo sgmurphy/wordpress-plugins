@@ -59,18 +59,18 @@ class CCBOrderController {
 	public static function create() {
 		check_ajax_referer( 'ccb_add_order', 'nonce' );
 
+		$result = array(
+			'status'  => 'error',
+			'success' => false,
+			'message' => 'Invalid data',
+		);
+
 		$data = null;
 		if ( ! empty( $_POST['data'] ) ) {
 			$data = ccb_convert_from_btoa( $_POST['data'] );
 
 			if ( ! ccb_is_convert_correct( $data ) ) {
-				wp_send_json(
-					array(
-						'status'  => 'error',
-						'success' => false,
-						'message' => 'Invalid data',
-					)
-				);
+				wp_send_json( $result );
 			}
 		}
 
@@ -119,7 +119,6 @@ class CCBOrderController {
 		}
 
 		if ( empty( self::$errors ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
-
 			$settings = CCBSettingsData::get_calc_single_settings( $data['id'] );
 			if ( array_key_exists( 'num_after_integer', $settings['currency'] ) ) {
 				self::$numAfterInteger = (int) $settings['currency']['num_after_integer'];
@@ -197,6 +196,10 @@ class CCBOrderController {
 
 			$total = number_format( (float) $data['total'], self::$numAfterInteger, '.', '' );
 
+			if ( empty( $total ) ) {
+				$total = 0;
+			}
+
 			$payment_data = array(
 				'type'       => ! empty( $data['paymentMethod'] ) ? $data['paymentMethod'] : Payments::$defaultType,
 				'currency'   => array_key_exists( 'currency', $settings['currency'] ) ? $settings['currency']['currency'] : null,
@@ -233,6 +236,8 @@ class CCBOrderController {
 				)
 			);
 		}
+
+		wp_send_json( $result );
 	}
 
 	public static function update() {

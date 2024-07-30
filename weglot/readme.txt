@@ -4,9 +4,9 @@ Tags: translate, multilingual, language, translation, localization, multilingual
 Requires at least: 4.5
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 4.2.7
+Stable tag: 4.2.8
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Translate your WordPress website in 110+ languages within minutes with Weglot Translate, without any coding.
 
@@ -18,7 +18,7 @@ Weglot Translate is an all-in-one WordPress translation plugin, trusted by 70,00
 
 Increase visibility and boost conversions with ease by adding automatic translations to your website, with full editing control. Weglot Translate is fully optimized for multilingual SEO, with every translated page automatically indexed by Google. Say hello in multiple languages to millions of new visitors with high-quality translations, boosted by AI.
 
-Explore how Weglot makes website translation easy with a free trial. Keep using it for free once the trial ends, or upgrade to a plan that best fits your needs. Visit [https://www.weglot.com/](https://www.weglot.com/) to learn more!
+Explore how Weglot makes website translation easy with a free trial. Keep using it for free once the trial ends, or upgrade to a plan that best fits your needs. Visit [https://weglot.com/](https://weglot.com/) to learn more!
 
 ### How Weglot Translate works
 
@@ -26,7 +26,7 @@ Explore how Weglot makes website translation easy with a free trial. Keep using 
 
 ### Why Weglot Translate
 
-**It’s easy to install:** Weglot Translate is quick to set up to have a [multilingual WordPress website](https://www.weglot.com/guides/set-up-multilingual-wordpress-site) ready, instantly. Just add the languages you want through your WordPress admin, and a language switcher will be added to your website right away. Reach millions of new visitors worldwide with a few clicks, without any coding. Website translation has never been simpler.
+**It’s easy to install:** Weglot Translate is quick to set up to have a [multilingual WordPress website](https://weglot.com/best-practice-guide-for-wordpress-multilingual-websites/) ready, instantly. Just add the languages you want through your WordPress admin, and a language switcher will be added to your website right away. Reach millions of new visitors worldwide with a few clicks, without any coding. Website translation has never been simpler.
 
 **It’s built for maximum compatibility:** Weglot Translate is fully compatible with all platforms, WooCommerce, WordPress themes, and plugins, like Yoast SEO. From WooCommerce product descriptions to Elementor order forms, it translates everything into the languages of your choice from one interface. This way, you can focus on your content, not the technical details of translation.
 
@@ -36,7 +36,7 @@ Explore how Weglot makes website translation easy with a free trial. Keep using 
 
 **It takes translation quality seriously:** Weglot Translate gives you an edge on your translation tasks with the first layer of automatic multilingual translation provided by the best machine learning providers on the market (DeepL, Google Translate, and Microsoft). You can also edit the translations, order professional translations, or collaborate with your team to work on bilingual or multilingual translations together directly within Weglot.
 
-**It partners with the pros:**  Weglot Translate lets you order from vetted professional translators directly inside your Weglot dashboard. Set your preferred [translation quality](https://www.weglot.com/translation-quality/) with Weglot Translate.
+**It partners with the pros:**  Weglot Translate lets you order from vetted professional translators directly inside your Weglot dashboard. Set your preferred [translation quality](https://weglot.com/translation-quality/) with Weglot Translate.
 
 
 “The biggest win for us is the time we’ve saved. It takes us about ten minutes twice a week to double-check everything is running how we want it. Everything else is done by Weglot.”
@@ -59,7 +59,7 @@ Explore how Weglot makes website translation easy with a free trial. Keep using 
 
 “We really loved the localization features provided by Weglot, such as the ability to translate images and other types of media depending on the language the visitor is viewing the site in.”
 **Kim Martin – Senior Communications and Marketing Officer, The Challenge Initiative**
-[Read the case study](https://www.weglot.com/customers/the-challenge-initiative/)
+[Read the case study](https://weglot.com/customers/the-challenge-initiative/)
 
 
 ### An all-in-one language translation platform
@@ -85,7 +85,7 @@ This is why it’s important to think of ways to offer translations in more lang
 But how about the cost and headache to set up a proper multilingual website offering high quality translations? This is where Weglot can make it easy: with a simple way to unlock multilingual capabilities swiftly, your website can go from targeted towards a single language to multilingual in an easy, affordable manner!
 
 Please note that Weglot is using Cloudfront CDN to display flags images to speed up performance around the world.
-The use of this CDN and of Weglot service is subject to Weglot [terms of service](https://www.weglot.com/terms/)
+The use of this CDN and of Weglot service is subject to Weglot [terms of service](https://weglot.com/terms/)
 
 "Using Weglot for translations, it is easy to find content with the required phrase, changes are visible online in real time. Weglot is my translation library – finally, no additional files are needed. I appreciate the workflow and the intuitive navigation."
 **Joanna Kruszewska, Marketing Assistant – Social Media and Translations, Olympus Cameras**
@@ -128,7 +128,7 @@ When you’re ready, you can edit your translations directly in [your account](h
 = Is Weglot Translate free? =
 
 - Weglot Translate is free for small websites (under 2,000 words) with one translation language.
-- Our WordPress multilingual plugin is cost-effective like no other, with custom paid plans to suit your translation needs. [Check our pricing](https://www.weglot.com/pricing) for more information.
+- Our WordPress multilingual plugin is cost-effective like no other, with custom paid plans to suit your translation needs. [Check our pricing](https://weglot.com/pricing) for more information.
 - Weglot Translate also offers a [10-day free trial version](https://dashboard.weglot.com/register); try our multilingual website solution today!
 
 = Is Weglot compatible with SEO? =
@@ -251,18 +251,16 @@ See changelog for upgrade changes.
 
 == Changelog ==
 
-= 4.2.7 (27/05/2024) =
-*Improvement: Compatibility with FlyingPress achieved by adding the do_action('weglot_treat_page_hook', $this->current_language) hook.
-*Improvement: Added compatibility with Algolia.
-*Improvement: Button style settings are now always visible, even if custom switchers exist.
-*Improvement: Enhanced JavaScript to improve switcher placement when location data is unavailable.
-*Improvement: Implemented the validate_button_option() method to validate default settings.
-*Improvement: Introduced the reverseTranslate() method to optimize search functionality.
-*Bug: Fixed a bug to prevent multiple redirects to incorrect URLs during rebuilding.
-*Bug: Resolved a bug related to CodeMirror by implementing a check for element existence before use.
-*Bug: Implemented a check for simplexml_load_string() availability before usage to handle XML processing.
-*Bug: Fix an issue about mail translation for WooCommerce
-
+= 4.2.8 (30/07/2024) =
+*Improvement: Add filter to prevent validation button check: Implemented a new filter to disable the validation button check.
+*Improvement: Add rel=nofollow to URLs containing Weglot parameters for auto-redirect: Enhanced SEO by adding rel=nofollow to URLs that include Weglot parameters.
+*Improvement: Improve detection of checkout and cart URLs: Enhanced the detection mechanism for checkout and cart URLs for better accuracy.
+*Improvement: Enhance Algolia compatibility: Improved integration and compatibility with Algolia search functionality.
+*Improvement: Add filter to change home directory to translated URL: Introduced a new filter to modify the home directory to its translated URL.
+*Bug: Fix underscore template parsing: Resolved issues with the parsing of underscore templates.
+*Bug: Fix deprecated preg_match() usage: Corrected the deprecated use of preg_match() to comply with the latest PHP standards.
+*Bug: Fix deprecated strpos() usage: Addressed the deprecated use of strpos() to prevent warnings in the latest PHP versions.
+*Bug: Fix deprecated json_decode() usage: Fixed the deprecated use of json_decode() to ensure compatibility with current PHP versions.
 = Older versions =
 
 Our complete changelog is located in the `changelog.md` file in the plugin folder.

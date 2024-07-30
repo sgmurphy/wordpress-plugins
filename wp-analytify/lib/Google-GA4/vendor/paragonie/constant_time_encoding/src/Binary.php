@@ -1,9 +1,9 @@
 <?php
-declare(strict_types=1);
-namespace ParagonIE\ConstantTime;
+
+declare (strict_types=1);
+namespace Analytify\ParagonIE\ConstantTime;
 
 use TypeError;
-
 /**
  *  Copyright (c) 2016 - 2022 Paragon Initiative Enterprises.
  *  Copyright (c) 2014 Steve "Sc00bz" Thomas (steve at tobtu dot com)
@@ -26,7 +26,6 @@ use TypeError;
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  */
-
 /**
  * Class Binary
  *
@@ -45,7 +44,7 @@ abstract class Binary
      * @param string $str
      * @return int
      */
-    public static function safeStrlen(string $str): int
+    public static function safeStrlen(string $str) : int
     {
         if (\function_exists('mb_strlen')) {
             // mb_strlen in PHP 7.x can return false.
@@ -55,7 +54,6 @@ abstract class Binary
             return \strlen($str);
         }
     }
-
     /**
      * Safe substring
      *
@@ -69,11 +67,8 @@ abstract class Binary
      *
      * @throws TypeError
      */
-    public static function safeSubstr(
-        string $str,
-        int $start = 0,
-        $length = null
-    ): string {
+    public static function safeSubstr(string $str, int $start = 0, $length = null) : string
+    {
         if ($length === 0) {
             return '';
         }

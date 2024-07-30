@@ -3,9 +3,9 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, wishlist, wait-list
 Requires at least: 4.0
-Tested up to: 6.5
-Version: 4.8.8
-Stable tag: 4.8.8
+Tested up to: 6.6
+Version: 4.8.9
+Stable tag: 4.8.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,9 @@ Example:
 `echo do_shortcode('[woosw id="99"]');`
 
 == Changelog ==
+
+= 4.8.9 =
+* Added: Filter hook 'woosw_get_ids' and 'woosw_get_items'
 
 = 4.8.8 =
 * Added: Option to reload the count

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2021 Google LLC
  * All rights reserved.
@@ -29,13 +30,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Transport\Grpc;
 
 use Google\ApiCore\ServerStreamingCallInterface;
 use Grpc\Gcp\GCPServerStreamCall;
 use Grpc\ServerStreamingCall;
-
 /**
  * Class ServerStreamingCallWrapper implements \Google\ApiCore\ServerStreamingCallInterface.
  * This is essentially a wrapper class around the \Grpc\ServerStreamingCall.
@@ -45,8 +44,7 @@ class ServerStreamingCallWrapper implements ServerStreamingCallInterface
     /**
      * @var ServerStreamingCall|GCPServerStreamCall
      */
-    private object $stream;
-
+    private $stream;
     /**
      * @param ServerStreamingCall|GCPServerStreamCall $stream
      */
@@ -54,7 +52,6 @@ class ServerStreamingCallWrapper implements ServerStreamingCallInterface
     {
         $this->stream = $stream;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -62,17 +59,15 @@ class ServerStreamingCallWrapper implements ServerStreamingCallInterface
     {
         $this->stream->start($data, $metadata, $callOptions);
     }
-
     /**
      * {@inheritdoc}
      */
     public function responses()
     {
         foreach ($this->stream->responses() as $response) {
-            yield $response;
+            (yield $response);
         }
     }
-
     /**
      * {@inheritdoc}
      */
@@ -80,7 +75,6 @@ class ServerStreamingCallWrapper implements ServerStreamingCallInterface
     {
         return $this->stream->getStatus();
     }
-
     /**
      * {@inheritdoc}
      */
@@ -88,7 +82,6 @@ class ServerStreamingCallWrapper implements ServerStreamingCallInterface
     {
         return $this->stream->getMetadata();
     }
-
     /**
      * {@inheritdoc}
      */
@@ -96,7 +89,6 @@ class ServerStreamingCallWrapper implements ServerStreamingCallInterface
     {
         return $this->stream->getTrailingMetadata();
     }
-
     /**
      * {@inheritdoc}
      */
@@ -104,7 +96,6 @@ class ServerStreamingCallWrapper implements ServerStreamingCallInterface
     {
         return $this->stream->getPeer();
     }
-
     /**
      * {@inheritdoc}
      */
@@ -112,7 +103,6 @@ class ServerStreamingCallWrapper implements ServerStreamingCallInterface
     {
         $this->stream->cancel();
     }
-
     /**
      * {@inheritdoc}
      */

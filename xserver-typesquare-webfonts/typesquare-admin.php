@@ -66,10 +66,16 @@ class TypeSquare_Admin extends TypeSquare_Admin_Base
 
     public function typesquare_admin_init()
     {
-        if (isset($_POST['update_font_list']) && $_POST['update_font_list'] === 'on') {
-            $api = TypeSquare_ST_Api::get_instance();
-            $api->update_font_list();
+        if ( ! current_user_can( 'activate_plugins' ) ) {
             return;
+        }
+
+        if (isset($_POST['update_font_list']) && $_POST['update_font_list'] === 'on') {
+            if (check_admin_referer('ts_update_site_font_settings', 'ts_update_site_font_settings')) {
+                $api = TypeSquare_ST_Api::get_instance();
+                $api->update_font_list();
+                return;
+            }
         }
 
         if (isset($_POST[ self::MENU_ID ]) && $_POST[ self::MENU_ID ]) {

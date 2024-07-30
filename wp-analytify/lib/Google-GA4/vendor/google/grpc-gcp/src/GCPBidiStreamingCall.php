@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * Copyright 2018 gRPC authors.
@@ -22,19 +23,16 @@ namespace Grpc\Gcp;
  * Represents an active call that allows for sending and recieving messages
  * in streams in any order.
  */
-class GCPBidiStreamingCall extends GcpBaseCall
+class GCPBidiStreamingCall extends \Grpc\Gcp\GcpBaseCall
 {
     private $response = null;
-
     protected function createRealCall($data = null)
     {
         $channel_ref = $this->_rpcPreProcess($data);
-        $this->real_call = new \Grpc\BidiStreamingCall($channel_ref->getRealChannel(
-            $this->gcp_channel->credentials), $this->method, $this->deserialize, $this->options);
+        $this->real_call = new \Grpc\BidiStreamingCall($channel_ref->getRealChannel($this->gcp_channel->credentials), $this->method, $this->deserialize, $this->options);
         $this->real_call->start($this->metadata_rpc);
         return $this->real_call;
     }
-
     /**
      * Pick a channel and start the call.
      *
@@ -45,7 +43,6 @@ class GCPBidiStreamingCall extends GcpBaseCall
     {
         $this->metadata_rpc = $metadata;
     }
-
     /**
      * Reads the next value from the server.
      *
@@ -55,7 +52,7 @@ class GCPBidiStreamingCall extends GcpBaseCall
     {
         if (!$this->has_real_call) {
             $this->createRealCall();
-            $this->has_real_call = true;
+            $this->has_real_call = \true;
         }
         $response = $this->real_call->read();
         if ($response) {
@@ -63,7 +60,6 @@ class GCPBidiStreamingCall extends GcpBaseCall
         }
         return $response;
     }
-
     /**
      * Write a single message to the server. This cannot be called after
      * writesDone is called.
@@ -76,11 +72,10 @@ class GCPBidiStreamingCall extends GcpBaseCall
     {
         if (!$this->has_real_call) {
             $this->createRealCall($data);
-            $this->has_real_call = true;
+            $this->has_real_call = \true;
         }
         $this->real_call->write($data, $options);
     }
-
     /**
      * Indicate that no more writes will be sent.
      */
@@ -88,11 +83,10 @@ class GCPBidiStreamingCall extends GcpBaseCall
     {
         if (!$this->has_real_call) {
             $this->createRealCall();
-            $this->has_real_call = true;
+            $this->has_real_call = \true;
         }
         $this->real_call->writesDone();
     }
-
     /**
      * Wait for the server to send the status, and return it.
      *

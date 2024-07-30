@@ -30,7 +30,7 @@ final class Plugin {
 
 		do_action( 'qligg_init' );
 
-		// Filter to add 50 days interval to cron_schedules
+		// Filter to add 50 days interval to cron_schedules.
 		add_filter(
 			'cron_schedules',
 			function() {
@@ -50,9 +50,13 @@ final class Plugin {
 				$account             = $models_account->get_account( $id );
 				$old_expiration_date = $account['access_token_expiration_date'];
 
-				$account_renewed = $models_account->renew_access_token( $account['access_token'] );
+				$is_renewed_account = $models_account->is_access_token_renewed( $account );
+				if ( ! $is_renewed_account ) {
+					return false;
+				}
 
-				$new_expiration = strtotime( current_time( 'mysql' ) ) + $account_renewed['expires_in'];
+				$account_renewed = $models_account->get_account( $id );
+				$new_expiration  = $account_renewed['access_token_expiration_date'];
 
 				$admin_email = $this->get_admin_email();
 

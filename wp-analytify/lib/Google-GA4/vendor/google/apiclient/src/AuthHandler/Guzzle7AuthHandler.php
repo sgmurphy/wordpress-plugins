@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2020 Google LLC
  *
@@ -14,12 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 namespace Google\AuthHandler;
 
 /**
- * This supports Guzzle 7
- */
-class Guzzle7AuthHandler extends Guzzle6AuthHandler
+* This supports Guzzle 7
+*/
+class Guzzle7AuthHandler extends \Google\AuthHandler\Guzzle6AuthHandler
 {
 }

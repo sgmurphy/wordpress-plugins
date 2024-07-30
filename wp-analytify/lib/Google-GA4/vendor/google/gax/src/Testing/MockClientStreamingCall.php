@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -29,16 +30,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Testing;
 
 use Google\ApiCore\ApiException;
 use Google\ApiCore\ApiStatus;
 use Google\Protobuf\Internal\Message;
 use Google\Rpc\Code;
-use Grpc;
+use Analytify\Grpc;
 use stdClass;
-
 /**
  * The MockClientStreamingCall class is used to mock out the \Grpc\ClientStreamingCall class
  * (https://github.com/grpc/grpc/blob/master/src/php/lib/Grpc/ClientStreamingCall.php)
@@ -53,9 +52,8 @@ use stdClass;
 class MockClientStreamingCall extends Grpc\ClientStreamingCall
 {
     private $mockUnaryCall;
-    private $waitCalled = false;
+    private $waitCalled = \false;
     private $receivedWrites = [];
-
     /**
      * MockClientStreamingCall constructor.
      * @param Message|string $response The response object.
@@ -64,19 +62,17 @@ class MockClientStreamingCall extends Grpc\ClientStreamingCall
      */
     public function __construct($response, $deserialize = null, stdClass $status = null)
     {
-        $this->mockUnaryCall = new MockUnaryCall($response, $deserialize, $status);
+        $this->mockUnaryCall = new \Google\ApiCore\Testing\MockUnaryCall($response, $deserialize, $status);
     }
-
     /**
      * Immediately return the preset response object and status.
      * @return array The response object and status.
      */
     public function wait()
     {
-        $this->waitCalled = true;
+        $this->waitCalled = \true;
         return $this->mockUnaryCall->wait();
     }
-
     /**
      * Save the request object, to be retrieved via getReceivedCalls()
      * @param Message|mixed $request The request object
@@ -86,9 +82,9 @@ class MockClientStreamingCall extends Grpc\ClientStreamingCall
     public function write($request, array $options = [])
     {
         if ($this->waitCalled) {
-            throw new ApiException("Cannot call write() after wait()",  Code::INTERNAL, ApiStatus::INTERNAL);
+            throw new ApiException("Cannot call write() after wait()", Code::INTERNAL, ApiStatus::INTERNAL);
         }
-        if (is_a($request, '\Google\Protobuf\Internal\Message')) {
+        if (\is_a($request, '\\Google\\Protobuf\\Internal\\Message')) {
             /** @var Message $newRequest */
             $newRequest = new $request();
             $newRequest->mergeFromString($request->serializeToString());
@@ -96,7 +92,6 @@ class MockClientStreamingCall extends Grpc\ClientStreamingCall
         }
         $this->receivedWrites[] = $request;
     }
-
     /**
      * Return a list of calls made to write(), and clear $receivedFuncCalls.
      *

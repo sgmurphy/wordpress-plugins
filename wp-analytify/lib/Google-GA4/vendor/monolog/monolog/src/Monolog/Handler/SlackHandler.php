@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -8,33 +9,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Analytify\Monolog\Handler;
 
-namespace Monolog\Handler;
-
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Level;
-use Monolog\Utils;
-use Monolog\Handler\Slack\SlackRecord;
-use Monolog\LogRecord;
-
+use Analytify\Monolog\Formatter\FormatterInterface;
+use Analytify\Monolog\Logger;
+use Analytify\Monolog\Utils;
+use Analytify\Monolog\Handler\Slack\SlackRecord;
 /**
  * Sends notifications through Slack API
  *
  * @author Greg Kedzierski <greg@gregkedzierski.com>
  * @see    https://api.slack.com/
+ *
+ * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
  */
 class SlackHandler extends SocketHandler
 {
     /**
      * Slack API token
+     * @var string
      */
-    private string $token;
-
+    private $token;
     /**
      * Instance of the SlackRecord util class preparing data for Slack API.
+     * @var SlackRecord
      */
-    private SlackRecord $slackRecord;
-
+    private $slackRecord;
     /**
      * @param  string                    $token                  Slack API token
      * @param  string                    $channel                Slack channel (encoded ID or name)
@@ -46,222 +46,142 @@ class SlackHandler extends SocketHandler
      * @param  string[]                  $excludeFields          Dot separated list of fields to exclude from slack message. E.g. ['context.field1', 'extra.field2']
      * @throws MissingExtensionException If no OpenSSL PHP extension configured
      */
-    public function __construct(
-        string $token,
-        string $channel,
-        ?string $username = null,
-        bool $useAttachment = true,
-        ?string $iconEmoji = null,
-        $level = Level::Critical,
-        bool $bubble = true,
-        bool $useShortAttachment = false,
-        bool $includeContextAndExtra = false,
-        array $excludeFields = [],
-        bool $persistent = false,
-        float $timeout = 0.0,
-        float $writingTimeout = 10.0,
-        ?float $connectionTimeout = null,
-        ?int $chunkSize = null
-    ) {
-        if (!extension_loaded('openssl')) {
+    public function __construct(string $token, string $channel, ?string $username = null, bool $useAttachment = \true, ?string $iconEmoji = null, $level = Logger::CRITICAL, bool $bubble = \true, bool $useShortAttachment = \false, bool $includeContextAndExtra = \false, array $excludeFields = array(), bool $persistent = \false, float $timeout = 0.0, float $writingTimeout = 10.0, ?float $connectionTimeout = null, ?int $chunkSize = null)
+    {
+        if (!\extension_loaded('openssl')) {
             throw new MissingExtensionException('The OpenSSL PHP extension is required to use the SlackHandler');
         }
-
-        parent::__construct(
-            'ssl://slack.com:443',
-            $level,
-            $bubble,
-            $persistent,
-            $timeout,
-            $writingTimeout,
-            $connectionTimeout,
-            $chunkSize
-        );
-
-        $this->slackRecord = new SlackRecord(
-            $channel,
-            $username,
-            $useAttachment,
-            $iconEmoji,
-            $useShortAttachment,
-            $includeContextAndExtra,
-            $excludeFields
-        );
-
+        parent::__construct('ssl://slack.com:443', $level, $bubble, $persistent, $timeout, $writingTimeout, $connectionTimeout, $chunkSize);
+        $this->slackRecord = new SlackRecord($channel, $username, $useAttachment, $iconEmoji, $useShortAttachment, $includeContextAndExtra, $excludeFields);
         $this->token = $token;
     }
-
-    public function getSlackRecord(): SlackRecord
+    public function getSlackRecord() : SlackRecord
     {
         return $this->slackRecord;
     }
-
-    public function getToken(): string
+    public function getToken() : string
     {
         return $this->token;
     }
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function generateDataStream(LogRecord $record): string
+    protected function generateDataStream(array $record) : string
     {
         $content = $this->buildContent($record);
-
         return $this->buildHeader($content) . $content;
     }
-
     /**
      * Builds the body of API call
+     *
+     * @phpstan-param FormattedRecord $record
      */
-    private function buildContent(LogRecord $record): string
+    private function buildContent(array $record) : string
     {
         $dataArray = $this->prepareContentData($record);
-
-        return http_build_query($dataArray);
+        return \http_build_query($dataArray);
     }
-
     /**
+     * @phpstan-param FormattedRecord $record
      * @return string[]
      */
-    protected function prepareContentData(LogRecord $record): array
+    protected function prepareContentData(array $record) : array
     {
         $dataArray = $this->slackRecord->getSlackData($record);
         $dataArray['token'] = $this->token;
-
-        if (isset($dataArray['attachments']) && is_array($dataArray['attachments']) && \count($dataArray['attachments']) > 0) {
+        if (!empty($dataArray['attachments'])) {
             $dataArray['attachments'] = Utils::jsonEncode($dataArray['attachments']);
         }
-
         return $dataArray;
     }
-
     /**
      * Builds the header of the API Call
      */
-    private function buildHeader(string $content): string
+    private function buildHeader(string $content) : string
     {
         $header = "POST /api/chat.postMessage HTTP/1.1\r\n";
         $header .= "Host: slack.com\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-        $header .= "Content-Length: " . strlen($content) . "\r\n";
+        $header .= "Content-Length: " . \strlen($content) . "\r\n";
         $header .= "\r\n";
-
         return $header;
     }
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function write(LogRecord $record): void
+    protected function write(array $record) : void
     {
         parent::write($record);
         $this->finalizeWrite();
     }
-
     /**
      * Finalizes the request by reading some bytes and then closing the socket
      *
      * If we do not read some but close the socket too early, slack sometimes
      * drops the request entirely.
      */
-    protected function finalizeWrite(): void
+    protected function finalizeWrite() : void
     {
         $res = $this->getResource();
-        if (is_resource($res)) {
-            @fread($res, 2048);
+        if (\is_resource($res)) {
+            @\fread($res, 2048);
         }
         $this->closeSocket();
     }
-
-    public function setFormatter(FormatterInterface $formatter): HandlerInterface
+    public function setFormatter(FormatterInterface $formatter) : HandlerInterface
     {
         parent::setFormatter($formatter);
         $this->slackRecord->setFormatter($formatter);
-
         return $this;
     }
-
-    public function getFormatter(): FormatterInterface
+    public function getFormatter() : FormatterInterface
     {
         $formatter = parent::getFormatter();
         $this->slackRecord->setFormatter($formatter);
-
         return $formatter;
     }
-
     /**
      * Channel used by the bot when posting
-     *
-     * @return $this
      */
-    public function setChannel(string $channel): self
+    public function setChannel(string $channel) : self
     {
         $this->slackRecord->setChannel($channel);
-
         return $this;
     }
-
     /**
      * Username used by the bot when posting
-     *
-     * @return $this
      */
-    public function setUsername(string $username): self
+    public function setUsername(string $username) : self
     {
         $this->slackRecord->setUsername($username);
-
         return $this;
     }
-
-    /**
-     * @return $this
-     */
-    public function useAttachment(bool $useAttachment): self
+    public function useAttachment(bool $useAttachment) : self
     {
         $this->slackRecord->useAttachment($useAttachment);
-
         return $this;
     }
-
-    /**
-     * @return $this
-     */
-    public function setIconEmoji(string $iconEmoji): self
+    public function setIconEmoji(string $iconEmoji) : self
     {
         $this->slackRecord->setUserIcon($iconEmoji);
-
         return $this;
     }
-
-    /**
-     * @return $this
-     */
-    public function useShortAttachment(bool $useShortAttachment): self
+    public function useShortAttachment(bool $useShortAttachment) : self
     {
         $this->slackRecord->useShortAttachment($useShortAttachment);
-
         return $this;
     }
-
-    /**
-     * @return $this
-     */
-    public function includeContextAndExtra(bool $includeContextAndExtra): self
+    public function includeContextAndExtra(bool $includeContextAndExtra) : self
     {
         $this->slackRecord->includeContextAndExtra($includeContextAndExtra);
-
         return $this;
     }
-
     /**
      * @param string[] $excludeFields
-     * @return $this
      */
-    public function excludeFields(array $excludeFields): self
+    public function excludeFields(array $excludeFields) : self
     {
         $this->slackRecord->excludeFields($excludeFields);
-
         return $this;
     }
 }

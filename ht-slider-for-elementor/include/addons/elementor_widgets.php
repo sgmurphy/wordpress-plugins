@@ -77,7 +77,7 @@ class Htslider_Elementor_Widget_Sliders extends Widget_Base {
             $this->add_control(
                 'slider_id',
                 [
-                    'label' => __( 'Select Slider', 'ht-slider' ),
+                    'label' => __( 'Select Slides', 'ht-slider' ),
                     'type' => Controls_Manager::SELECT2,
                     'label_block' => true,
                     'multiple' => true,

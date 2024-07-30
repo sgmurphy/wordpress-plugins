@@ -379,6 +379,11 @@ class Common {
 
 		// write to a json file
 		$write_file = @fopen($templateMapFile, 'w');
+
+		if (!$write_file){
+			return false; // prevent a write error if permissions don't allow this for some reason.
+		}
+
 		fwrite($write_file, json_encode($map));
 		fclose($write_file);
 

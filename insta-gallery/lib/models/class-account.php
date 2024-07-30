@@ -60,7 +60,7 @@ class Account extends Models_Base {
 	 * @param integer $access_token_renew_attempts Account access_token renew attemps.
 	 * @return array
 	 */
-	public function renew_access_token( $access_token, $access_token_renew_attempts = 0 ) {
+	public function get_renewed_access_token( $access_token, $access_token_renew_attempts = 0 ) {
 
 		$business_refresh_access_token = new Api_Fetch_Business_Refresh_Access_Token();
 		$personal_refresh_access_token = new Api_Fetch_Personal_Refresh_Access_Token();
@@ -102,7 +102,7 @@ class Account extends Models_Base {
 	 * @param array $account Account to validate access_token.
 	 * @return array|false
 	 */
-	protected function is_access_token_renewed( $account ) {
+	public function is_access_token_renewed( $account ) {
 
 		$is_access_token_about_to_expire = $this->is_access_token_expired( $account );
 
@@ -117,7 +117,7 @@ class Account extends Models_Base {
 			return false;
 		}
 
-		$response = $this->renew_access_token( $account['access_token'], $account['access_token_renew_attempts'] );
+		$response = $this->get_renewed_access_token( $account['access_token'], $account['access_token_renew_attempts'] );
 
 		/**
 		 * Validate response
@@ -137,7 +137,7 @@ class Account extends Models_Base {
 		$account                                 = $this->update( $account );
 
 		if ( $account ) {
-			return $account;
+			return true;
 		}
 
 		return false;
@@ -151,7 +151,7 @@ class Account extends Models_Base {
 	 */
 	protected function is_access_token_expired( $account ) {
 
-		if ( ( $account['access_token_expiration_date'] - strtotime( current_time( 'mysql' ) ) ) < 0 ) {
+		if ( ( $account['access_token_expiration_date'] - strtotime( current_time( 'mysql' ) ) ) < DAY_IN_SECONDS * 5 ) {
 			return true;
 		}
 
@@ -242,8 +242,8 @@ class Account extends Models_Base {
 			return $this->save( $account_data );
 		}
 
-		// if only exist($account_data['refresh_token']) return renew_access_token($account_data). (Case Button not working? button)
-		$response = $this->renew_access_token( $account_data['access_token'] );
+		// if only exist($account_data['refresh_token']) return get_renewed_access_token($account_data). (Case Button not working? button)
+		$response = $this->get_renewed_access_token( $account_data['access_token'] );
 
 		if ( ! empty( $response['error'] ) && ! empty( $response['message'] ) ) {
 			return array(
@@ -308,7 +308,7 @@ class Account extends Models_Base {
 	 * @return boolean
 	 */
 	public function delete( $id = null ) {
-
+		$id = trim( strval( $id ) );
 		// Get all accounts.
 		$accounts = $this->get_all();
 		if ( ! $accounts ) {
@@ -324,9 +324,10 @@ class Account extends Models_Base {
 
 		// Check if there is some account['id'] equal to $id.
 		foreach ( $accounts as $account_id => $account ) {
-			if ( (string) $id === (string) $account['id'] ) {
+			$account_id = trim( strval( $account['id'] ) );
+			if ( $id === $account_id ) {
 				// Save account_id.
-				$key = $account_id;
+				$key = $account['id'];
 			}
 			continue;
 		}

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,32 +15,29 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics;
 
 class AccountPermissions extends \Google\Collection
 {
-  protected $collection_key = 'effective';
-  /**
-   * @var string[]
-   */
-  public $effective;
-
-  /**
-   * @param string[]
-   */
-  public function setEffective($effective)
-  {
-    $this->effective = $effective;
-  }
-  /**
-   * @return string[]
-   */
-  public function getEffective()
-  {
-    return $this->effective;
-  }
+    protected $collection_key = 'effective';
+    /**
+     * @var string[]
+     */
+    public $effective = [];
+    /**
+     * @param string[]
+     */
+    public function setEffective($effective)
+    {
+        $this->effective = $effective;
+    }
+    /**
+     * @return string[]
+     */
+    public function getEffective()
+    {
+        return $this->effective;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(AccountPermissions::class, 'Google_Service_Analytics_AccountPermissions');
+\class_alias(\Google\Service\Analytics\AccountPermissions::class, 'Analytify\\Google_Service_Analytics_AccountPermissions');

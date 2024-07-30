@@ -6356,43 +6356,45 @@ $ays_users_roles = $wp_roles->roles;
                                 </a>
                             </label>
                         </div>
-                        <div class="col-sm-9 row">
-                            <div class="onoffswitch col-sm-2">
-                                <input type="checkbox" name="<?php echo $this->plugin_name; ?>[log_user]" class="ays-pb-onoffswitch-checkbox ays_toggle_checkbox" id="<?php echo $this->plugin_name; ?>-log-user" <?php if($log_user == 'On'){ echo 'checked';} else { echo '';} ?> />
-                            </div>
-                            <div class="col-sm-10 ays_toggle_target ays_divider_left" style="<?php echo ($log_user == 'On') ? '' : 'display:none;' ?>:">
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="<?php echo $this->plugin_name; ?>-users_role">
-                                            <span><?php echo __('Display for certain user roles', "ays-popup-box"); ?></span>
-                                            <a class="ays_help" data-toggle="tooltip"
-                                            title="<?php echo __('Show the popup only to certain user role(s) mentioned in the list. Leave it blank for showing the popup to all user roles.', "ays-popup-box") ?>">
-                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9 ays-pb-users-roles ays_pb_users_roles">
-                                        <select name="<?php echo $this->plugin_name; ?>[ays_users_roles][]" id="ays_users_roles" multiple class="">
-                                            <?php
-                                            foreach ($ays_users_roles as $key => $user_role) {
-                                                $selected_role = "";
-                                                if(is_array($users_role)){
-                                                    if(in_array($user_role['name'], $users_role)){
-                                                        $selected_role = 'selected';
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="onoffswitch col-sm-2">
+                                    <input type="checkbox" name="<?php echo $this->plugin_name; ?>[log_user]" class="ays-pb-onoffswitch-checkbox ays_toggle_checkbox" id="<?php echo $this->plugin_name; ?>-log-user" <?php if($log_user == 'On'){ echo 'checked';} else { echo '';} ?> />
+                                </div>
+                                <div class="col-sm-10 ays_toggle_target ays_divider_left" style="<?php echo ($log_user == 'On') ? '' : 'display:none;' ?>:">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="<?php echo $this->plugin_name; ?>-users_role">
+                                                <span><?php echo __('Display for certain user roles', "ays-popup-box"); ?></span>
+                                                <a class="ays_help" data-toggle="tooltip"
+                                                title="<?php echo __('Show the popup only to certain user role(s) mentioned in the list. Leave it blank for showing the popup to all user roles.', "ays-popup-box") ?>">
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9 ays-pb-users-roles ays_pb_users_roles">
+                                            <select name="<?php echo $this->plugin_name; ?>[ays_users_roles][]" id="ays_users_roles" multiple class="">
+                                                <?php
+                                                foreach ($ays_users_roles as $key => $user_role) {
+                                                    $selected_role = "";
+                                                    if(is_array($users_role)){
+                                                        if(in_array($user_role['name'], $users_role)){
+                                                            $selected_role = 'selected';
+                                                        }else{
+                                                            $selected_role = '';
+                                                        }
                                                     }else{
-                                                        $selected_role = '';
+                                                        if($users_role == $user_role['name']){
+                                                            $selected_role = 'selected';
+                                                        }else{
+                                                            $selected_role = '';
+                                                        }
                                                     }
-                                                }else{
-                                                    if($users_role == $user_role['name']){
-                                                        $selected_role = 'selected';
-                                                    }else{
-                                                        $selected_role = '';
-                                                    }
+                                                    echo "<option value='" . $user_role['name'] . "' " . $selected_role . ">" . $user_role['name'] . "</option>";
                                                 }
-                                                echo "<option value='" . $user_role['name'] . "' " . $selected_role . ">" . $user_role['name'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

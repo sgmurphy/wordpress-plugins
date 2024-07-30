@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -29,12 +30,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Testing;
 
 use Google\Rpc\Code;
 use stdClass;
-
 /**
  * @internal
  */

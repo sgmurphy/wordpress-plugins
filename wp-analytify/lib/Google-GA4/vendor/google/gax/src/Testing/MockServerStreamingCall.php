@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -29,7 +30,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Testing;
 
 use Google\ApiCore\ApiException;
@@ -37,7 +37,6 @@ use Google\ApiCore\ApiStatus;
 use Google\ApiCore\ServerStreamingCallInterface;
 use Google\Rpc\Code;
 use stdClass;
-
 /**
  * The MockServerStreamingCall class is used to mock out the \Grpc\ServerStreamingCall class
  * (https://github.com/grpc/grpc/blob/master/src/php/lib/Grpc/ServerStreamingCall.php)
@@ -46,11 +45,9 @@ use stdClass;
  */
 class MockServerStreamingCall extends \Grpc\ServerStreamingCall implements ServerStreamingCallInterface
 {
-    use SerializationTrait;
-
+    use \Google\ApiCore\Testing\SerializationTrait;
     private $responses;
     private $status;
-
     /**
      * MockServerStreamingCall constructor.
      * @param mixed[] $responses A list of response objects.
@@ -61,37 +58,31 @@ class MockServerStreamingCall extends \Grpc\ServerStreamingCall implements Serve
     {
         $this->responses = $responses;
         $this->deserialize = $deserialize;
-        if (is_null($status)) {
-            $status = new MockStatus(Code::OK, 'OK', []);
+        if (\is_null($status)) {
+            $status = new \Google\ApiCore\Testing\MockStatus(Code::OK, 'OK', []);
         } elseif ($status instanceof stdClass) {
-            if (!property_exists($status, 'metadata')) {
+            if (!\property_exists($status, 'metadata')) {
                 $status->metadata = [];
             }
         }
         $this->status = $status;
     }
-
     public function responses()
     {
-        while (count($this->responses) > 0) {
-            $resp = array_shift($this->responses);
+        while (\count($this->responses) > 0) {
+            $resp = \array_shift($this->responses);
             $obj = $this->deserializeMessage($resp, $this->deserialize);
-            yield $obj;
+            (yield $obj);
         }
     }
-
     /**
      * @return stdClass|null
      * @throws ApiException
      */
     public function getStatus()
     {
-        if (count($this->responses) > 0) {
-            throw new ApiException(
-                "Calls to getStatus() will block if all responses are not read",
-                Code::INTERNAL,
-                ApiStatus::INTERNAL
-            );
+        if (\count($this->responses) > 0) {
+            throw new ApiException("Calls to getStatus() will block if all responses are not read", Code::INTERNAL, ApiStatus::INTERNAL);
         }
         return $this->status;
     }

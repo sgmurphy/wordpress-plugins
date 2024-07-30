@@ -751,7 +751,12 @@ add_action( 'load-plugin-install.php', 'ccb_pro_features_page_redirect' );
 
 function ccb_convert_from_btoa( $data, $convert_into_array = false ) {
 	$jsonString = base64_decode( $data ); // phpcs:ignore
+	$jsonString = urldecode( $jsonString );
+
 	if ( $convert_into_array ) {
+		$jsonString = str_replace( '\"', '"', $jsonString );
+		$jsonString = str_replace( "\'", "'", $jsonString );
+		$jsonString = str_replace( '\\\\', "\\", $jsonString ); //phpcs:ignore
 		$jsonString = json_decode( $jsonString, true );
 	}
 

@@ -3,7 +3,7 @@
   Plugin Name: Orbisius Child Theme Creator
   Plugin URI: https://orbisius.com/products/wordpress-plugins/orbisius-child-theme-creator/
   Description: This plugin allows you to quickly create child themes from any theme that you have currently installed on your site/blog.
-  Version: 1.5.4
+  Version: 1.5.5
   Author: Svetoslav Marinov (Slavi)
   Author URI: https://orbisius.com
  */
@@ -171,7 +171,7 @@ function orbisius_child_theme_creator_add_admin_bar($name, $href = '', $parent =
 
     // Generate ID based on the current filename and the name supplied.
     $id = str_replace('.php', '', basename(__FILE__)) . '-' . $name;
-    $id = preg_replace('#[^\w-]#si', '-', $id);
+    $id = preg_replace('#[^\w\-]#si', '-', $id);
     $id = strtolower($id);
     $id = trim($id, '-');
 
@@ -180,7 +180,7 @@ function orbisius_child_theme_creator_add_admin_bar($name, $href = '', $parent =
     // Generate the ID of the parent.
     if (!empty($parent)) {
         $parent = str_replace('.php', '', basename(__FILE__)) . '-' . $parent;
-        $parent = preg_replace('#[^\w-]#si', '-', $parent);
+        $parent = preg_replace('#[^\w\-]#si', '-', $parent);
         $parent = strtolower($parent);
         $parent = trim($parent, '-');
     }
@@ -932,10 +932,17 @@ function orbisius_child_theme_creator_tools_action() {
         $functions_file = dirname(get_template_directory()) . "/$theme_basedir_name/functions.php";
         $parent_theme_base_dirname_fmt = urlencode($theme_basedir_name);
         $create_url = $_SERVER['REQUEST_URI'];
+        $create_url = orbisius_child_theme_creator_util::sanitize_data($create_url);
+        $create_url = esc_url($create_url);
 
         // cleanup old links or refreshes.
-        $create_url = preg_replace('#&parent_theme_base_dirname=[\w-]+#si', '', $create_url);
-        $create_url = preg_replace('#&orbisius_child_theme_creator_nonce=[\w-]+#si', '', $create_url);
+        if (strpos($create_url, '&parent_theme_base_dirname=') !== false) {
+            $create_url = preg_replace('#&parent_theme_base_dirname=[\w\-]+#si', '', $create_url);
+        }
+
+        if (strpos($create_url, '&orbisius_child_theme_creator_nonce=') !== false) {
+            $create_url = preg_replace('#&orbisius_child_theme_creator_nonce=[\w\-]+#si', '', $create_url);
+        }
 
         $create_url .= '&parent_theme_base_dirname=' . $parent_theme_base_dirname_fmt;
         $create_url .= '&orbisius_child_theme_creator_nonce=' . $nonce;

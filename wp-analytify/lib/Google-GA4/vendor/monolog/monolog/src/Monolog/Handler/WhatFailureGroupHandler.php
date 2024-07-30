@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -8,66 +9,61 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Monolog\Handler;
-
-use Monolog\LogRecord;
-use Throwable;
+namespace Analytify\Monolog\Handler;
 
 /**
  * Forwards records to multiple handlers suppressing failures of each handler
  * and continuing through to give every handler a chance to succeed.
  *
  * @author Craig D'Amelio <craig@damelio.ca>
+ *
+ * @phpstan-import-type Record from \Monolog\Logger
  */
 class WhatFailureGroupHandler extends GroupHandler
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function handle(LogRecord $record): bool
+    public function handle(array $record) : bool
     {
-        if (\count($this->processors) > 0) {
+        if ($this->processors) {
+            /** @var Record $record */
             $record = $this->processRecord($record);
         }
-
         foreach ($this->handlers as $handler) {
             try {
-                $handler->handle(clone $record);
-            } catch (Throwable) {
+                $handler->handle($record);
+            } catch (\Throwable $e) {
                 // What failure?
             }
         }
-
-        return false === $this->bubble;
+        return \false === $this->bubble;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function handleBatch(array $records): void
-    {
-        if (\count($this->processors) > 0) {
-            $processed = [];
-            foreach ($records as $record) {
-                $processed[] = $this->processRecord($record);
-            }
-            $records = $processed;
-        }
-
-        foreach ($this->handlers as $handler) {
-            try {
-                $handler->handleBatch(array_map(fn ($record) => clone $record, $records));
-            } catch (Throwable) {
-                // What failure?
-            }
-        }
-    }
-
     /**
      * {@inheritDoc}
      */
-    public function close(): void
+    public function handleBatch(array $records) : void
+    {
+        if ($this->processors) {
+            $processed = array();
+            foreach ($records as $record) {
+                $processed[] = $this->processRecord($record);
+            }
+            /** @var Record[] $records */
+            $records = $processed;
+        }
+        foreach ($this->handlers as $handler) {
+            try {
+                $handler->handleBatch($records);
+            } catch (\Throwable $e) {
+                // What failure?
+            }
+        }
+    }
+    /**
+     * {@inheritDoc}
+     */
+    public function close() : void
     {
         foreach ($this->handlers as $handler) {
             try {

@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -8,15 +9,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Monolog\Handler;
-
-use Monolog\LogRecord;
+namespace Analytify\Monolog\Handler;
 
 /**
  * Interface that all Monolog Handlers must implement
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
+ *
+ * @phpstan-import-type Record from \Monolog\Logger
+ * @phpstan-import-type Level from \Monolog\Logger
  */
 interface HandlerInterface
 {
@@ -29,10 +30,13 @@ interface HandlerInterface
      * is no guarantee that handle() will not be called, and isHandling() might not be called
      * for a given record.
      *
-     * @param LogRecord $record Partial log record having only a level initialized
+     * @param array $record Partial log record containing only a level key
+     *
+     * @return bool
+     *
+     * @phpstan-param array{level: Level} $record
      */
-    public function isHandling(LogRecord $record): bool;
-
+    public function isHandling(array $record) : bool;
     /**
      * Handles a record.
      *
@@ -43,19 +47,21 @@ interface HandlerInterface
      * Unless the bubbling is interrupted (by returning true), the Logger class will keep on
      * calling further handlers in the stack with a given log record.
      *
-     * @param  LogRecord $record The record to handle
-     * @return bool      true means that this handler handled the record, and that bubbling is not permitted.
-     *                          false means the record was either not processed or that this handler allows bubbling.
+     * @param  array $record The record to handle
+     * @return bool  true means that this handler handled the record, and that bubbling is not permitted.
+     *                      false means the record was either not processed or that this handler allows bubbling.
+     *
+     * @phpstan-param Record $record
      */
-    public function handle(LogRecord $record): bool;
-
+    public function handle(array $record) : bool;
     /**
      * Handles a set of records at once.
      *
-     * @param array<LogRecord> $records The records to handle
+     * @param array $records The records to handle (an array of record arrays)
+     *
+     * @phpstan-param Record[] $records
      */
-    public function handleBatch(array $records): void;
-
+    public function handleBatch(array $records) : void;
     /**
      * Closes the handler.
      *
@@ -72,5 +78,5 @@ interface HandlerInterface
      * If you are thinking of calling this method yourself, most likely you should be
      * calling ResettableInterface::reset instead. Have a look.
      */
-    public function close(): void;
+    public function close() : void;
 }

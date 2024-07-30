@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -32,7 +33,6 @@
 namespace Google\ApiCore;
 
 use Exception;
-
 /**
  * ValidationException represents a local error (i.e. not during an RPC call).
  */

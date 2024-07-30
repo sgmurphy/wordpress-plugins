@@ -1,5 +1,11 @@
 CHANGELOG
 
+= 7.3.1.6 (July 30th, 2024) =
+
+# Bugs fixed
+* SVG path elements with children could throw off Microthemer's HTML inspection pane DOM indexing, making it difficult to select elements via the HTML pane.
+* Possible PHP error: "Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given" in Common.php:382.
+
 = 7.3.1.5 (July 24th, 2024) =
 
 # Enhancement

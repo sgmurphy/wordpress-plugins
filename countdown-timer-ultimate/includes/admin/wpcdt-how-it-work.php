@@ -111,7 +111,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<li>100% Multi language</li>
 									</ul>
 									<div class="upgrade-to-pro">Gain access to <strong>Countdown Timer Ultimate</strong></div>
-									<a class="button button-primary wpos-button-full button-orange" href="<?php echo esc_url(WPCDT_PLUGIN_LINK_UPGRADE); ?>" target="_blank"><?php esc_html_e('Grab Countdown Timer Now', 'countdown-timer-ultimate'); ?></a>
+									<a class="button button-primary wpos-button-full button-orange" href="<?php echo esc_url(WPCDT_PLUGIN_LINK_UNLOCK); ?>" target="_blank"><?php esc_html_e('Try Pro For 5 Days Free', 'countdown-timer-ultimate'); ?></a>
 								</div><!-- .inside -->
 							</div><!-- #general -->
 						</div><!-- .meta-box-sortables ui-sortable -->

@@ -103,7 +103,8 @@ class CommentsImport {
 					$returnArr['MODE'] = $mode_of_affect;
 					return $returnArr;
 				}
-				$core_instance->detailed_log[$line_number]['Message'] = 'Inserted Comment ID: ' . $retID;		
+				$core_instance->detailed_log[$line_number]['Message'] = 'Inserted Comment ID: ' . $retID;	
+				$core_instance->detailed_log[$line_number]['id'] =  $retID;			
 				$fields = $wpdb->get_results("UPDATE $log_table_name SET created = $created_count WHERE $unikey_name = '$unikey_value'");
 			}
 			if($mode == 'Update'){

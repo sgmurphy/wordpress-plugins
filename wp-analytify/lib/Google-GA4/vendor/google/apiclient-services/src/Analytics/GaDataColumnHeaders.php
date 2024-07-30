@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,67 +15,64 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics;
 
 class GaDataColumnHeaders extends \Google\Model
 {
-  /**
-   * @var string
-   */
-  public $columnType;
-  /**
-   * @var string
-   */
-  public $dataType;
-  /**
-   * @var string
-   */
-  public $name;
-
-  /**
-   * @param string
-   */
-  public function setColumnType($columnType)
-  {
-    $this->columnType = $columnType;
-  }
-  /**
-   * @return string
-   */
-  public function getColumnType()
-  {
-    return $this->columnType;
-  }
-  /**
-   * @param string
-   */
-  public function setDataType($dataType)
-  {
-    $this->dataType = $dataType;
-  }
-  /**
-   * @return string
-   */
-  public function getDataType()
-  {
-    return $this->dataType;
-  }
-  /**
-   * @param string
-   */
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  /**
-   * @return string
-   */
-  public function getName()
-  {
-    return $this->name;
-  }
+    /**
+     * @var string
+     */
+    public $columnType;
+    /**
+     * @var string
+     */
+    public $dataType;
+    /**
+     * @var string
+     */
+    public $name;
+    /**
+     * @param string
+     */
+    public function setColumnType($columnType)
+    {
+        $this->columnType = $columnType;
+    }
+    /**
+     * @return string
+     */
+    public function getColumnType()
+    {
+        return $this->columnType;
+    }
+    /**
+     * @param string
+     */
+    public function setDataType($dataType)
+    {
+        $this->dataType = $dataType;
+    }
+    /**
+     * @return string
+     */
+    public function getDataType()
+    {
+        return $this->dataType;
+    }
+    /**
+     * @param string
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(GaDataColumnHeaders::class, 'Google_Service_Analytics_GaDataColumnHeaders');
+\class_alias(\Google\Service\Analytics\GaDataColumnHeaders::class, 'Analytify\\Google_Service_Analytics_GaDataColumnHeaders');

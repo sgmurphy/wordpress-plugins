@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -8,15 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Analytify\Monolog\Handler;
 
-namespace Monolog\Handler;
-
-use Gelf\PublisherInterface;
-use Monolog\Level;
-use Monolog\Formatter\GelfMessageFormatter;
-use Monolog\Formatter\FormatterInterface;
-use Monolog\LogRecord;
-
+use Analytify\Gelf\PublisherInterface;
+use Analytify\Monolog\Logger;
+use Analytify\Monolog\Formatter\GelfMessageFormatter;
+use Analytify\Monolog\Formatter\FormatterInterface;
 /**
  * Handler to send messages to a Graylog2 (http://www.graylog2.org) server
  *
@@ -28,30 +26,26 @@ class GelfHandler extends AbstractProcessingHandler
     /**
      * @var PublisherInterface the publisher object that sends the message to the server
      */
-    protected PublisherInterface $publisher;
-
+    protected $publisher;
     /**
      * @param PublisherInterface $publisher a gelf publisher object
      */
-    public function __construct(PublisherInterface $publisher, int|string|Level $level = Level::Debug, bool $bubble = true)
+    public function __construct(PublisherInterface $publisher, $level = Logger::DEBUG, bool $bubble = \true)
     {
         parent::__construct($level, $bubble);
-
         $this->publisher = $publisher;
     }
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function write(LogRecord $record): void
+    protected function write(array $record) : void
     {
-        $this->publisher->publish($record->formatted);
+        $this->publisher->publish($record['formatted']);
     }
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function getDefaultFormatter(): FormatterInterface
+    protected function getDefaultFormatter() : FormatterInterface
     {
         return new GelfMessageFormatter();
     }

@@ -39,11 +39,14 @@
 
     $(document).ready(function() {
         // Fix list table pagination issue start
-        if ($('.pagination-links:visible').length) {
-            if ($('#ays-popup-box-search-input').length) {
-                var search_string = $('#ays-popup-box-search-input').val();
+        var $paginationLinks = $('.pagination-links:visible');
+        var $searchInput = $('#ays-popup-box-search-input');
+
+        if ($paginationLinks.length) {
+            if ($searchInput.length) {
+                var search_string = $searchInput.val();
                 if (search_string != '') {
-                    $('.pagination-links a').each(function() {
+                    $paginationLinks.find('a').each(function() {
                         this.href = this.href + '&s=' + search_string;
                     });
                 }
@@ -349,17 +352,20 @@
         toggle_ddmenu.on('click', function() {
             var ddmenu = $(this).next();
             var state = ddmenu.attr('data-expanded');
+
             switch (state) {
                 case 'true':
                     $(this).find('img').css({
                         transform: 'rotate(0deg)'
                     });
+
                     ddmenu.attr('data-expanded', 'false');
                     break;
                 case 'false':
                     $(this).find('img').css({
                         transform: 'rotate(90deg)'
                     });
+
                     ddmenu.attr('data-expanded', 'true');
                     break;
             }
@@ -372,16 +378,14 @@
             var $this = $(this);
             var parent = $this.parents('.tablenav');
 
-            var html_name = '';
             var top_or_bottom = 'top';
-
             if (parent.hasClass('bottom')) {
                 top_or_bottom = 'bottom';
             }
 
-            var catFilter = $(document).find('select[name="filterby-'+ top_or_bottom +'"]').val();
-            var authorFilter = $(document).find('select[name="filterbyAuthor-'+ top_or_bottom +'"]').val();
-            var typeFilter = $(document).find('select[name="filterbyType-'+ top_or_bottom +'"]').val();
+            var catFilter = $(document).find('select[name="filterby-' + top_or_bottom + '"]').val();
+            var authorFilter = $(document).find('select[name="filterbyAuthor-' + top_or_bottom + '"]').val();
+            var typeFilter = $(document).find('select[name="filterbyType-' + top_or_bottom + '"]').val();
             var link = location.href;
 
             if (typeof catFilter != 'undefined') {
@@ -407,7 +411,7 @@
         })
         // List table | Filter end
 
-        // List table | Delete confiramtions start
+        // List table | Delete confirmations start
         $(document).find('input[type="submit"]#doaction, input[type="submit"]#doaction2').on('click', function(e) {
             showConfirmationIfDelete(e);
         })
@@ -422,7 +426,7 @@
                 window.location.replace($(this).attr('href'));
             }
         });
-        // List table | Delete confiramtions end
+        // List table | Delete confirmations end
 
         // Choose popup type start
         $(document).find('.ays_pb_layer_box_blocks .ays-pb-dblclick-layer').on('click',function(e) {
@@ -1669,9 +1673,6 @@
             var linkModified = link.split('?')[1].split('&');
 
             for (var i = 0; i < linkModified.length; i++) {
-                if (linkModified[i].split('=')[0] == 'ays_result_tab' ) {
-                    linkModified.splice(i, 1, 'ays_result_tab=poststuff');
-                }
                 if (linkModified[i].split('=')[0] == options.what) {
                     linkModified.splice(i, 1);
                 }

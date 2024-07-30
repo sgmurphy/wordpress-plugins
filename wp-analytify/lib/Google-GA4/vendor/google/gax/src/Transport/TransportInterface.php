@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -29,7 +30,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Transport;
 
 use Google\ApiCore\BidiStream;
@@ -37,8 +37,7 @@ use Google\ApiCore\Call;
 use Google\ApiCore\ClientStream;
 use Google\ApiCore\ServerStream;
 use Google\ApiCore\ValidationException;
-use GuzzleHttp\Promise\PromiseInterface;
-
+use Analytify\GuzzleHttp\Promise\PromiseInterface;
 interface TransportInterface
 {
     /**
@@ -50,7 +49,6 @@ interface TransportInterface
      * @return BidiStream
      */
     public function startBidiStreamingCall(Call $call, array $options);
-
     /**
      * Starts a client streaming call.
      *
@@ -60,7 +58,6 @@ interface TransportInterface
      * @return ClientStream
      */
     public function startClientStreamingCall(Call $call, array $options);
-
     /**
      * Starts a server streaming call.
      *
@@ -70,7 +67,6 @@ interface TransportInterface
      * @return ServerStream
      */
     public function startServerStreamingCall(Call $call, array $options);
-
     /**
      * Returns a promise used to execute network requests.
      *
@@ -81,7 +77,6 @@ interface TransportInterface
      * @throws ValidationException
      */
     public function startUnaryCall(Call $call, array $options);
-
     /**
      * Closes the connection, if one exists.
      *

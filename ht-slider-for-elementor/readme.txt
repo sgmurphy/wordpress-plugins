@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, zenaulislam, aslamhasib, tarekh
 Tags: Slider, Elementor, Widgets, Post type slider, Elementor Addons
 Requires at least: 5.0
 Tested up to: 6.6
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -203,6 +203,15 @@ HT Slider allows you to design and customize banner sliders that can effectively
 
 
 == Changelog ==
+
+= Version: 1.5.6 - Date: 2024-07-30 =
+
+* Added: Option to hide Empty Thumbnail Post in HT Posts Slider Widget
+* Added: Option to choose between post content or post excerpt for the slide description in the HT Posts Slider Widget
+* Fixed: Issue with adding custom link attributes in the HT Advanced Slider Widget
+* Fixed: A few minor issues
+* Tested: Compatibility with the latest version of WordPress
+* Tested: Compatibility with the latest version of Elementor
 
 = Version: 1.5.5 - Date: 2024-06-25 =
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,31 +15,28 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics;
 
 class UnsampledReportDriveDownloadDetails extends \Google\Model
 {
-  /**
-   * @var string
-   */
-  public $documentId;
-
-  /**
-   * @param string
-   */
-  public function setDocumentId($documentId)
-  {
-    $this->documentId = $documentId;
-  }
-  /**
-   * @return string
-   */
-  public function getDocumentId()
-  {
-    return $this->documentId;
-  }
+    /**
+     * @var string
+     */
+    public $documentId;
+    /**
+     * @param string
+     */
+    public function setDocumentId($documentId)
+    {
+        $this->documentId = $documentId;
+    }
+    /**
+     * @return string
+     */
+    public function getDocumentId()
+    {
+        return $this->documentId;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(UnsampledReportDriveDownloadDetails::class, 'Google_Service_Analytics_UnsampledReportDriveDownloadDetails');
+\class_alias(\Google\Service\Analytics\UnsampledReportDriveDownloadDetails::class, 'Analytify\\Google_Service_Analytics_UnsampledReportDriveDownloadDetails');

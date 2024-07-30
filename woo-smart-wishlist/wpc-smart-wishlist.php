@@ -3,21 +3,21 @@
 Plugin Name: WPC Smart Wishlist for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Wishlist is a simple but powerful tool that can help your customer save products for buy later.
-Version: 4.8.8
+Version: 4.8.9
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-wishlist
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.5
+Tested up to: 6.6
 WC requires at least: 3.0
 WC tested up to: 9.1
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.8' );
+! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.9' );
 ! defined( 'WOOSW_LITE' ) && define( 'WOOSW_LITE', __FILE__ );
 ! defined( 'WOOSW_FILE' ) && define( 'WOOSW_FILE', __FILE__ );
 ! defined( 'WOOSW_URI' ) && define( 'WOOSW_URI', plugin_dir_url( __FILE__ ) );
@@ -1925,7 +1925,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					// store $global_product
 					global $product;
 					$global_product     = $product;
-					$products           = self::get_ids( $key );
+					$products           = apply_filters( 'woosw_get_items', self::get_ids( $key ), $key );
 					$link               = self::get_setting( 'link', 'yes' );
 					$table_tag          = $tr_tag = $td_tag = 'div';
 					$count              = count( $products ); // count saved products
@@ -2490,7 +2490,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 						$key = self::get_key();
 					}
 
-					return (array) get_option( 'woosw_list_' . $key, [] );
+					return (array) apply_filters( 'woosw_get_ids', get_option( 'woosw_list_' . $key, [] ), $key );
 				}
 
 				public static function get_products() {

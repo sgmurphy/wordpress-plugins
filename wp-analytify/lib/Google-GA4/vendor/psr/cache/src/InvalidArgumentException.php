@@ -1,6 +1,6 @@
 <?php
 
-namespace Psr\Cache;
+namespace Analytify\Psr\Cache;
 
 /**
  * Exception interface for invalid cache arguments.

@@ -136,7 +136,7 @@
 					<?php esc_html_e( 'Basic', 'cost-calculator-builder' ); ?>
 				</div>
 				<div class="custom-input-date">
-					<div class="basic-time-picker">
+					<div class="basic-time-picker" style="width: 100%">
 						<vue-timepicker
 							:minute-interval="5"
 							manual-input
@@ -155,7 +155,7 @@
 					<?php esc_html_e( 'Start', 'cost-calculator-builder' ); ?>
 				</div>
 				<div class="custom-input-date">
-					<div class="start-time-picker">
+					<div class="start-time-picker" style="width: 100%;">
 						<vue-timepicker
 							:minute-interval="5"
 							manual-input
@@ -178,7 +178,7 @@
 					<?php esc_html_e( 'End', 'cost-calculator-builder' ); ?>
 				</div>
 				<div class="custom-input-date">
-					<div class="end-time-picker">
+					<div class="end-time-picker" style="width: 100%">
 						<vue-timepicker
 							:minute-interval="5"
 							manual-input

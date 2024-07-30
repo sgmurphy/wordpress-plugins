@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,48 +15,46 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\SearchConsole;
 
 class MobileUsabilityInspectionResult extends \Google\Collection
 {
-  protected $collection_key = 'issues';
-  protected $issuesType = MobileUsabilityIssue::class;
-  protected $issuesDataType = 'array';
-  /**
-   * @var string
-   */
-  public $verdict;
-
-  /**
-   * @param MobileUsabilityIssue[]
-   */
-  public function setIssues($issues)
-  {
-    $this->issues = $issues;
-  }
-  /**
-   * @return MobileUsabilityIssue[]
-   */
-  public function getIssues()
-  {
-    return $this->issues;
-  }
-  /**
-   * @param string
-   */
-  public function setVerdict($verdict)
-  {
-    $this->verdict = $verdict;
-  }
-  /**
-   * @return string
-   */
-  public function getVerdict()
-  {
-    return $this->verdict;
-  }
+    protected $collection_key = 'issues';
+    protected $issuesType = \Google\Service\SearchConsole\MobileUsabilityIssue::class;
+    protected $issuesDataType = 'array';
+    public $issues = [];
+    /**
+     * @var string
+     */
+    public $verdict;
+    /**
+     * @param MobileUsabilityIssue[]
+     */
+    public function setIssues($issues)
+    {
+        $this->issues = $issues;
+    }
+    /**
+     * @return MobileUsabilityIssue[]
+     */
+    public function getIssues()
+    {
+        return $this->issues;
+    }
+    /**
+     * @param string
+     */
+    public function setVerdict($verdict)
+    {
+        $this->verdict = $verdict;
+    }
+    /**
+     * @return string
+     */
+    public function getVerdict()
+    {
+        return $this->verdict;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(MobileUsabilityInspectionResult::class, 'Google_Service_SearchConsole_MobileUsabilityInspectionResult');
+\class_alias(\Google\Service\SearchConsole\MobileUsabilityInspectionResult::class, 'Analytify\\Google_Service_SearchConsole_MobileUsabilityInspectionResult');

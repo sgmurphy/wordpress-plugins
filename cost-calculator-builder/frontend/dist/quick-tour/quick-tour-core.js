@@ -206,7 +206,9 @@
 							this.positionCalcQuickTourElem();
 							setTimeout(((function (_this) {
 								return function () {
-									return _this._calcQuickTourElem.removeClass('calc-quick-tour-hidden');
+									if ( _this._calcQuickTourElem ) {
+										return _this._calcQuickTourElem.removeClass('calc-quick-tour-hidden');
+									}
 								};
 							})(this)), 50);
 						}
@@ -217,7 +219,9 @@
 						if ( ! this.hideToolTip ) {
 							setTimeout(((function (_this) {
 								return function () {
-									return _this._calcQuickTourElem.scrollintoview();
+									if ( _this._calcQuickTourElem ) {
+										return _this._calcQuickTourElem.scrollintoview();
+									}
 								};
 							})(this)), 300);
 

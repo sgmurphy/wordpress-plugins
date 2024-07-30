@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2017 Google LLC
  * All rights reserved.
@@ -29,7 +30,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore;
 
 /**
@@ -38,12 +38,10 @@ namespace Google\ApiCore;
 class RequestParamsHeaderDescriptor
 {
     const HEADER_KEY = 'x-goog-request-params';
-
     /**
      * @var array
      */
     private $header;
-
     /**
      * RequestParamsHeaderDescriptor constructor.
      *
@@ -53,19 +51,15 @@ class RequestParamsHeaderDescriptor
     public function __construct(array $requestParams)
     {
         $headerKey = self::HEADER_KEY;
-
         $headerValue = '';
         foreach ($requestParams as $key => $value) {
             if ('' !== $headerValue) {
                 $headerValue .= '&';
             }
-
-            $headerValue .= $key . '=' . urlencode(strval($value));
+            $headerValue .= $key . '=' . \urlencode(\strval($value));
         }
-
         $this->header = [$headerKey => [$headerValue]];
     }
-
     /**
      * Returns an associative array that contains request params header metadata.
      *

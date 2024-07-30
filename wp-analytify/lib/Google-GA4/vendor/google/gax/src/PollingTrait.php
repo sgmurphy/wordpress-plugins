@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -29,7 +30,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore;
 
 /**
@@ -56,25 +56,19 @@ trait PollingTrait
         $pollDelayMultiplier = $options['pollDelayMultiplier'];
         $maxPollDelayMillis = $options['maxPollDelayMillis'];
         $totalPollTimeoutMillis = $options['totalPollTimeoutMillis'];
-
         $hasTotalPollTimeout = $totalPollTimeoutMillis > 0.0;
         $endTime = $this->getCurrentTimeMillis() + $totalPollTimeoutMillis;
-
-        while (true) {
+        while (\true) {
             if ($hasTotalPollTimeout && $this->getCurrentTimeMillis() > $endTime) {
-                return false;
+                return \false;
             }
             $this->sleepMillis($currentPollDelayMillis);
             if ($pollCallable()) {
-                return true;
+                return \true;
             }
-            $currentPollDelayMillis = (int) min([
-                $currentPollDelayMillis * $pollDelayMultiplier,
-                $maxPollDelayMillis
-            ]);
+            $currentPollDelayMillis = (int) \min([$currentPollDelayMillis * $pollDelayMultiplier, $maxPollDelayMillis]);
         }
     }
-
     /**
      * Protected to allow overriding for tests
      *
@@ -82,9 +76,8 @@ trait PollingTrait
      */
     protected function getCurrentTimeMillis()
     {
-        return microtime(true) * 1000.0;
+        return \microtime(\true) * 1000.0;
     }
-
     /**
      * Protected to allow overriding for tests
      *
@@ -92,6 +85,6 @@ trait PollingTrait
      */
     protected function sleepMillis(int $millis)
     {
-        usleep($millis * 1000);
+        \usleep($millis * 1000);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,50 +15,47 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics;
 
 class EntityUserLinkPermissions extends \Google\Collection
 {
-  protected $collection_key = 'local';
-  /**
-   * @var string[]
-   */
-  public $effective;
-  /**
-   * @var string[]
-   */
-  public $local;
-
-  /**
-   * @param string[]
-   */
-  public function setEffective($effective)
-  {
-    $this->effective = $effective;
-  }
-  /**
-   * @return string[]
-   */
-  public function getEffective()
-  {
-    return $this->effective;
-  }
-  /**
-   * @param string[]
-   */
-  public function setLocal($local)
-  {
-    $this->local = $local;
-  }
-  /**
-   * @return string[]
-   */
-  public function getLocal()
-  {
-    return $this->local;
-  }
+    protected $collection_key = 'local';
+    /**
+     * @var string[]
+     */
+    public $effective = [];
+    /**
+     * @var string[]
+     */
+    public $local = [];
+    /**
+     * @param string[]
+     */
+    public function setEffective($effective)
+    {
+        $this->effective = $effective;
+    }
+    /**
+     * @return string[]
+     */
+    public function getEffective()
+    {
+        return $this->effective;
+    }
+    /**
+     * @param string[]
+     */
+    public function setLocal($local)
+    {
+        $this->local = $local;
+    }
+    /**
+     * @return string[]
+     */
+    public function getLocal()
+    {
+        return $this->local;
+    }
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(EntityUserLinkPermissions::class, 'Google_Service_Analytics_EntityUserLinkPermissions');
+\class_alias(\Google\Service\Analytics\EntityUserLinkPermissions::class, 'Analytify\\Google_Service_Analytics_EntityUserLinkPermissions');

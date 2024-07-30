@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2018 Google LLC
  * All rights reserved.
@@ -29,21 +30,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 namespace Google\ApiCore\Transport\Grpc;
-
-use Grpc\UnaryCall;
 
 /**
  * Class ForwardingUnaryCall wraps a \Grpc\UnaryCall.
  *
  * @experimental
  */
-class ForwardingUnaryCall extends ForwardingCall
+class ForwardingUnaryCall extends \Google\ApiCore\Transport\Grpc\ForwardingCall
 {
-    /** @var UnaryCall */
-    protected object $innerCall;
-
+    /**
+     * @var \Grpc\UnaryCall
+     */
+    protected $innerCall;
     /**
      * Wait for the server to respond with data and a status.
      *

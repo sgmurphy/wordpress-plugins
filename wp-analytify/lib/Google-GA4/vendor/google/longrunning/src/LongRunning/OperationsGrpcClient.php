@@ -1,6 +1,6 @@
 <?php
-// GENERATED CODE -- DO NOT EDIT!
 
+// GENERATED CODE -- DO NOT EDIT!
 // Original file comments:
 // Copyright 2020 Google LLC
 //
@@ -29,17 +29,17 @@ namespace Google\LongRunning;
  * returns long-running operations should implement the `Operations` interface
  * so developers can have a consistent client experience.
  */
-class OperationsGrpcClient extends \Grpc\BaseStub {
-
+class OperationsGrpcClient extends \Grpc\BaseStub
+{
     /**
      * @param string $hostname hostname
      * @param array $opts channel options
      * @param \Grpc\Channel $channel (optional) re-use channel object
      */
-    public function __construct($hostname, $opts, $channel = null) {
+    public function __construct($hostname, $opts, $channel = null)
+    {
         parent::__construct($hostname, $opts, $channel);
     }
-
     /**
      * Lists operations that match the specified filter in the request. If the
      * server doesn't support this method, it returns `UNIMPLEMENTED`.
@@ -56,14 +56,10 @@ class OperationsGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function ListOperations(\Google\LongRunning\ListOperationsRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.longrunning.Operations/ListOperations',
-        $argument,
-        ['\Google\LongRunning\ListOperationsResponse', 'decode'],
-        $metadata, $options);
+    public function ListOperations(\Google\LongRunning\ListOperationsRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.longrunning.Operations/ListOperations', $argument, ['\\Google\\LongRunning\\ListOperationsResponse', 'decode'], $metadata, $options);
     }
-
     /**
      * Gets the latest state of a long-running operation.  Clients can use this
      * method to poll the operation result at intervals as recommended by the API
@@ -73,14 +69,10 @@ class OperationsGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function GetOperation(\Google\LongRunning\GetOperationRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.longrunning.Operations/GetOperation',
-        $argument,
-        ['\Google\LongRunning\Operation', 'decode'],
-        $metadata, $options);
+    public function GetOperation(\Google\LongRunning\GetOperationRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.longrunning.Operations/GetOperation', $argument, ['\\Google\\LongRunning\\Operation', 'decode'], $metadata, $options);
     }
-
     /**
      * Deletes a long-running operation. This method indicates that the client is
      * no longer interested in the operation result. It does not cancel the
@@ -91,14 +83,10 @@ class OperationsGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function DeleteOperation(\Google\LongRunning\DeleteOperationRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.longrunning.Operations/DeleteOperation',
-        $argument,
-        ['\Google\Protobuf\GPBEmpty', 'decode'],
-        $metadata, $options);
+    public function DeleteOperation(\Google\LongRunning\DeleteOperationRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.longrunning.Operations/DeleteOperation', $argument, ['\\Google\\Protobuf\\GPBEmpty', 'decode'], $metadata, $options);
     }
-
     /**
      * Starts asynchronous cancellation on a long-running operation.  The server
      * makes a best effort to cancel the operation, but success is not
@@ -115,14 +103,10 @@ class OperationsGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function CancelOperation(\Google\LongRunning\CancelOperationRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.longrunning.Operations/CancelOperation',
-        $argument,
-        ['\Google\Protobuf\GPBEmpty', 'decode'],
-        $metadata, $options);
+    public function CancelOperation(\Google\LongRunning\CancelOperationRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.longrunning.Operations/CancelOperation', $argument, ['\\Google\\Protobuf\\GPBEmpty', 'decode'], $metadata, $options);
     }
-
     /**
      * Waits until the specified long-running operation is done or reaches at most
      * a specified timeout, returning the latest state.  If the operation is
@@ -138,12 +122,8 @@ class OperationsGrpcClient extends \Grpc\BaseStub {
      * @param array $options call options
      * @return \Grpc\UnaryCall
      */
-    public function WaitOperation(\Google\LongRunning\WaitOperationRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/google.longrunning.Operations/WaitOperation',
-        $argument,
-        ['\Google\LongRunning\Operation', 'decode'],
-        $metadata, $options);
+    public function WaitOperation(\Google\LongRunning\WaitOperationRequest $argument, $metadata = [], $options = [])
+    {
+        return $this->_simpleRequest('/google.longrunning.Operations/WaitOperation', $argument, ['\\Google\\LongRunning\\Operation', 'decode'], $metadata, $options);
     }
-
 }

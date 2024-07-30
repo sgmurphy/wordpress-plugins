@@ -1,3 +1,7 @@
+= 3.4.9 (2024-07-30) =
+* Added: Tested up WooCommerce 9.1+.
+* Added: Tested up WordPress 6.6+.
+
 = 3.4.8 (2024-07-14) =
 * Fixed: PHP Error with WooCommerce Stripe 8.5+.
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * Copyright 2015 gRPC authors.
@@ -16,7 +17,6 @@
  * limitations under the License.
  *
  */
-
 namespace Grpc;
 
 /**
@@ -32,7 +32,6 @@ abstract class AbstractCall
     protected $deserialize;
     protected $metadata;
     protected $trailing_metadata;
-
     /**
      * Create a new Call wrapper object.
      *
@@ -43,35 +42,24 @@ abstract class AbstractCall
      *                              the response
      * @param array    $options     Call options (optional)
      */
-    public function __construct(Channel $channel,
-                                $method,
-                                $deserialize,
-                                array $options = [])
+    public function __construct(\Grpc\Channel $channel, $method, $deserialize, array $options = [])
     {
-        if (array_key_exists('timeout', $options) &&
-            is_numeric($timeout = $options['timeout'])
-        ) {
-            $now = Timeval::now();
-            $delta = new Timeval($timeout);
+        if (\array_key_exists('timeout', $options) && \is_numeric($timeout = $options['timeout'])) {
+            $now = \Grpc\Timeval::now();
+            $delta = new \Grpc\Timeval($timeout);
             $deadline = $now->add($delta);
         } else {
-            $deadline = Timeval::infFuture();
+            $deadline = \Grpc\Timeval::infFuture();
         }
-        $this->call = new Call($channel, $method, $deadline);
+        $this->call = new \Grpc\Call($channel, $method, $deadline);
         $this->deserialize = $deserialize;
         $this->metadata = null;
         $this->trailing_metadata = null;
-        if (array_key_exists('call_credentials_callback', $options) &&
-            is_callable($call_credentials_callback =
-                $options['call_credentials_callback'])
-        ) {
-            $call_credentials = CallCredentials::createFromPlugin(
-                $call_credentials_callback
-            );
+        if (\array_key_exists('call_credentials_callback', $options) && \is_callable($call_credentials_callback = $options['call_credentials_callback'])) {
+            $call_credentials = \Grpc\CallCredentials::createFromPlugin($call_credentials_callback);
             $this->call->setCredentials($call_credentials);
         }
     }
-
     /**
      * @return mixed The metadata sent by the server
      */
@@ -79,7 +67,6 @@ abstract class AbstractCall
     {
         return $this->metadata;
     }
-
     /**
      * @return mixed The trailing metadata sent by the server
      */
@@ -87,7 +74,6 @@ abstract class AbstractCall
     {
         return $this->trailing_metadata;
     }
-
     /**
      * @return string The URI of the endpoint
      */
@@ -95,7 +81,6 @@ abstract class AbstractCall
     {
         return $this->call->getPeer();
     }
-
     /**
      * Cancels the call.
      */
@@ -103,7 +88,6 @@ abstract class AbstractCall
     {
         $this->call->cancel();
     }
-
     /**
      * Serialize a message to the protobuf binary format.
      *
@@ -116,7 +100,6 @@ abstract class AbstractCall
         // Proto3 implementation
         return $data->serializeToString();
     }
-
     /**
      * Deserialize a response value to an object.
      *
@@ -134,7 +117,6 @@ abstract class AbstractCall
         $obj->mergeFromString($value);
         return $obj;
     }
-
     /**
      * Set the CallCredentials for the underlying Call.
      *

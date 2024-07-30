@@ -95,16 +95,18 @@ $get_date_format  = get_option( 'date_format' );
 				</div>
 				<div class="calc-subtotal calc-list" :id="getStickyData" :class="{loaded: !loader}">
 					<div class="calc-list-inner">
-						<div class="calc-item-title calc-accordion">
+						<div class="calc-item-title calc-accordion" v-show="!summaryDisplay">
 							<div class="ccb-calc-heading">{{ getHeaderTitle }}</div>
-							<template v-if="">
-
-							</template>
 							<span class="calc-accordion-btn" ref="calcAccordionToggle" @click="toggleAccordion" :style="{display: settings.general && settings.general.descriptions ? 'flex': 'none'}">
 								<i class="ccb-icon-Path-3485" :style="{transform: currentAccordionHeight === '0px' ? 'rotate(0)' : 'rotate(180deg)'}"></i>
 							</span>
 						</div>
-						<div class="calc-subtotal-list" :class="{ 'show-unit': showUnitInSummary }">
+
+						<div class="calc-item-title calc-accordion" style="margin: 0 !important;" v-show="summaryDisplay">
+							<div class="ccb-calc-heading" style="text-transform: none !important;" v-text="summaryDisplaySettings?.form_title"></div>
+						</div>
+
+						<div class="calc-subtotal-list" :class="{ 'show-unit': showUnitInSummary }" v-show="!summaryDisplay">
 							<div class="calc-subtotal-list-accordion" ref="calcAccordion" :style="{maxHeight: currentAccordionHeight}">
 								<div class="calc-subtotal-list-header" v-if="showUnitInSummary">
 									<span class="calc-subtotal-list-header__name"><?php esc_html_e( 'Name', 'cost-calculator-builder' ); ?></span>
@@ -146,7 +148,7 @@ $get_date_format  = get_option( 'date_format' );
 							</div>
 						</div>
 
-						<div class="calc-subtotal-list totals" style="margin-top: 20px; padding-top: 10px;" ref="calcTotals" :class="{'unit-enable': showUnitInSummary}">
+						<div class="calc-subtotal-list totals" style="margin-top: 20px; padding-top: 10px;" ref="calcTotals" :class="{'unit-enable': showUnitInSummary}" v-show="!summaryDisplay">
 							<template v-for="item in getRepeaterTotals">
 								<cost-total :value="item.total" :discount="item.discount" :field="item.data" :id="calc_data.id" @condition-apply="renderCondition"></cost-total>
 							</template>

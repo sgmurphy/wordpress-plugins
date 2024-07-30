@@ -322,7 +322,8 @@ ul.image_sizes-sortable.enable li.image_sizes-original-size {
 	border-radius: 6px;
 	transition: all 0.4s;
 }
-#image_sizes-message > p {
+#image_sizes-message > p,
+#thumbpress-pro-message > p {
 	margin: 10px 0;
 	font-size: 15px;
 	font-weight: 500;

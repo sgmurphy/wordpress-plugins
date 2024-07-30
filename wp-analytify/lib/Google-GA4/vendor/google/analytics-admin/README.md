@@ -14,10 +14,16 @@ that project.
 
 To begin, install the preferred dependency manager for PHP, [Composer](https://getcomposer.org/).
 
-Now install this component:
+Now to install just this component:
 
 ```sh
 $ composer require google/analytics-admin
+```
+
+Or to install the entire suite of components at once:
+
+```sh
+$ composer require google/cloud
 ```
 
 This component supports both REST over HTTP/1.1 and gRPC. In order to take advantage of the benefits offered by gRPC (such as streaming methods)
@@ -33,7 +39,7 @@ on authenticating your client. Once authenticated, you'll be ready to start maki
 ```php
 require 'vendor/autoload.php';
 
-use Google\Analytics\Admin\V1beta\AnalyticsAdminServiceClient;
+use Google\Analytics\Admin\V1alpha\AnalyticsAdminServiceClient;
 
 $client = new AnalyticsAdminServiceClient();
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2014 Google Inc.
  *
@@ -14,7 +15,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 namespace Google\Service\Analytics\Resource;
 
 /**
@@ -28,6 +28,5 @@ namespace Google\Service\Analytics\Resource;
 class Data extends \Google\Service\Resource
 {
 }
-
 // Adding a class alias for backwards compatibility with the previous class name.
-class_alias(Data::class, 'Google_Service_Analytics_Resource_Data');
+\class_alias(\Google\Service\Analytics\Resource\Data::class, 'Analytify\\Google_Service_Analytics_Resource_Data');

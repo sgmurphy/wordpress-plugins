@@ -47,6 +47,12 @@ class AjaxCall{
         return self::$_instance;
     }
 
+    function user_has_role($user_id, $role_name)
+    {
+        $user_meta = get_userdata($user_id);
+        $user_roles = $user_meta->roles;
+        return in_array($role_name, $user_roles);
+    }
     
 
     public function h5vp_export_data(){
@@ -59,6 +65,13 @@ class AjaxCall{
         $id = sanitize_text_field( $_POST['id'] );
         $output['id'] = $id;
         if(!$id) die();
+
+        $is_administrator = $this->user_has_role(get_current_user_id(), 'administrator');
+
+        if(!$is_administrator){
+            echo wp_json_encode('you are not capable to export data');
+            wp_die();
+        }
 
         $post_type = get_post_type( $id );
 

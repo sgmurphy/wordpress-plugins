@@ -44,16 +44,14 @@ class Cron extends Base {
 	 * @since 1.0
 	 */
 	public function install() {
-
-		/**
-		 * Schedule an event to sync help docs
-		 */
 		if ( ! wp_next_scheduled( 'codexpert-daily' ) ) {
-		    wp_schedule_event( time(), 'daily', 'codexpert-daily' );
+			wp_schedule_event( time(), 'daily', 'codexpert-daily' );
 		}
-
-		update_option( "{$this->slug}_install_time", date_i18n( 'U' ) );
+		if ( ! get_option( "{$this->slug}_install_time" ) ) {
+			update_option( "{$this->slug}_install_time", date_i18n( 'U' ) );
+		}
 	}
+
 
 	/**
 	 * Uninstaller. Runs once when the plugin in deactivated.

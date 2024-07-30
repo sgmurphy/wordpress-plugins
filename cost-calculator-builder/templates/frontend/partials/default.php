@@ -1,3 +1,5 @@
+<?php $get_date_format = get_option( 'date_format' ); ?>
+
 <div class="calc-list-inner">
 	<div class="calc-item-title">
 		<div class="ccb-calc-heading" v-text="getTheTitle"></div>

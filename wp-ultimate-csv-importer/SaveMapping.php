@@ -20,7 +20,7 @@ class SaveMapping{
 	private static $instance=null,$validatefile;
 	private static $smackcsv_instance = null;
 	private static $core = null;
-
+    public $media_log;
 	private function __construct(){
 		add_action('wp_ajax_saveMappedFields',array($this,'save_fields_function'));
 		add_action('wp_ajax_StartImport' , array($this,'background_starts_function'));
@@ -210,11 +210,6 @@ class SaveMapping{
 		$upload_url = $upload_base_url . '/smack_uci_uploads/imports/';
 		$upload_dir = SaveMapping::$smackcsv_instance->create_upload_dir();
 
-		$log_path = $upload_dir.$hash_key.'/'.$hash_key.'.html';
-		if(file_exists($log_path)){
-			$log_link_path = $upload_url. $hash_key .'/'.$hash_key.'.html';
-		}
-
 		$import_txt_path = $upload_dir.'import_state.txt';
 		chmod($import_txt_path , 0777);
 		$import_state_arr = array();
@@ -285,11 +280,14 @@ class SaveMapping{
 
 	public function bulk_import(){
 		check_ajax_referer('smack-ultimate-csv-importer', 'securekey');
+		
 		global $wpdb,$core_instance,$uci_woocomm_meta,$uci_woocomm_bundle_meta,$product_attr_instance, $wpmlimp_class;
 		$header_array =[];
 		$upload_dir = SaveMapping::$smackcsv_instance->create_upload_dir();
 		$hash_key  = sanitize_key($_POST['HashKey']);
 		$check = sanitize_text_field($_POST['Check']);
+		$media_type = sanitize_text_field($_POST['MediaType']);
+		$selected_type = sanitize_text_field($_POST['Types']);
 		$page_number = isset($_POST['PageNumber']) ? intval(sanitize_text_field($_POST['PageNumber'])) : 0;
 		$rollback_option = sanitize_text_field($_POST['RollBack']);
 		$unmatched_row_value = get_option('sm_uci_pro_settings');
@@ -487,255 +485,17 @@ class SaveMapping{
 							}
 						}
 						foreach($map as $group_name => $group_value){
-							if($group_name == 'CORE'){
-								$wpml_map = isset($map['WPML']) ? $map['WPML'] : '';
-
-								$core_instance = CoreFieldsImport::getInstance();
-								$post_id = $core_instance->set_core_values($header_array ,$value_array , $map['CORE'] , $selected_type , $get_mode, $line_number , $check , $hash_key, $unmatched_row,$gmode,"",$wpml_map);		
+							if($group_name == 'CORE'){ 
+								$get_arr = $this->main_import_process($map, $header_array, $value_array,$selected_type, $get_mode, $i, $check, $hash_key, $unmatched_row,'','',$media_type);					
+								$post_id = $get_arr['id'];
+								$core_instance->detailed_log = $get_arr['detail_log'];
+								$failed_media_log  = $get_arr['failed_media_log'];
+								$core_instance->media_log = $get_arr['media_log'];
+								$media_log = $core_instance->media_log;
 							}
 						}
 				
-						foreach($map as $group_name => $group_value){
-							switch($group_name){
-
-							case 'AIOSEO':
-								$all_seo_instance = AllInOneSeoImport::getInstance();
-								$all_seo_instance->set_all_seo_values($header_array ,$value_array , $map['AIOSEO'], $post_id , $selected_type,$get_mode);
-								break;
-							case 'RANKMATH':
-								$rankmath_instance = RankMathImport::getInstance();
-								$rankmath_instance->set_rankmath_values($header_array, $value_array, $map['RANKMATH'], $post_id, $selected_type);
-								break;
-
-							case 'ECOMMETA':
-								$uci_woocomm_meta->set_product_meta_values($header_array ,$value_array , $map['ECOMMETA'], $post_id , $selected_type , $line_number , $get_mode);
-								break;
-
-							case 'BUNDLEMETA':
-								$uci_woocomm_bundle_meta = ProductBundleMetaImport::getInstance();
-								$uci_woocomm_bundle_meta->set_product_bundle_meta_values($header_array ,$value_array , $map['BUNDLEMETA'], $post_id , $selected_type , $line_number , $get_mode);
-								break;
-								//added for woocommerce product attributes separate widget
-							case 'ATTRMETA':
-								$variation_id = isset($variation_id) ? $variation_id :'';
-								$wpml_map = isset($map['WPML']) ? $map['WPML'] : '';
-								$woocom_image = isset($map['PRODUCTIMAGEMETA']) ? $map['PRODUCTIMAGEMETA'] : '';
-								$product_attr_instance->set_product_attr_values($header_array, $value_array, $map['ATTRMETA'], $woocom_image, $post_id, $variation_id ,$selected_type, $line_number, $get_mode, $hash_key, $wpml_map);
-								break;
-
-							case 'CFS':
-								$cfs_instance = CFSImport::getInstance();
-								$cfs_instance->set_cfs_values($header_array ,$value_array , $map['CFS'], $post_id , $selected_type);
-								break;
-
-							case 'BSI':
-								global $billing_class;
-								$billing_class->set_bsi_values($header_array ,$value_array , $map['BSI'], $post_id , $selected_type);
-								break;
-
-							case 'WPMEMBERS':
-								global $wpmember_class;
-								$wpmember_class->set_wpmembers_values($header_array ,$value_array , $map['WPMEMBERS'], $post_id , $selected_type);
-								break;
-
-							case 'TERMS':
-								$terms_taxo_instance = TermsandTaxonomiesImport::getInstance();
-								$poly_array = isset($map['POLYLANG'])?$map['POLYLANG']:'';
-								$terms_taxo_instance->set_terms_taxo_values($header_array ,$value_array , $map['TERMS'], $post_id , $selected_type , $get_mode , $line_number,$poly_array);
-								break;
-
-							case 'CORECUSTFIELDS':
-								$wordpress_custom_instance = WordpressCustomImport::getInstance();
-								$wordpress_custom_instance->set_wordpress_custom_values($header_array ,$value_array , $map['CORECUSTFIELDS'], $post_id , $selected_type);
-								break;
-					
-
-							case 'FORUM':
-								$bbpress_instance = BBPressImport::getInstance();
-								$bbpress_instance->set_bbpress_values($header_array, $value_array, $map['FORUM'], $post_id, $selected_type, $get_mode);
-								break;
-
-							case 'TOPIC':
-								$bbpress_instance = BBPressImport::getInstance();
-								$bbpress_instance->set_bbpress_values($header_array, $value_array, $map['TOPIC'], $post_id, $selected_type, $get_mode);
-								break;
-
-							case 'REPLY':
-								$bbpress_instance = BBPressImport::getInstance();
-								$bbpress_instance->set_bbpress_values($header_array, $value_array, $map['REPLY'], $post_id, $selected_type, $get_mode);
-								break;
-
-							case 'BP' :
-								global $buddy_class;
-								$buddy_class->set_buddy_values($header_array,$value_array,$map['BP'],$post_id,$selected_type);
-								break;
-
-							case 'LPCOURSE':
-								//case 'LPCURRICULUM':
-								$learn_merge = [];
-								$learn_merge = array_merge($map['LPCOURSE'], $map['LPCURRICULUM']);	
-			        			$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $learn_merge, $post_id, $selected_type);
-								break;
-
-							case 'LIFTERLESSON':
-								$lifterlms_instance = LifterLmsImport::getInstance();
-								$lifterlms_instance->set_lifterlms_values($header_array, $value_array, $map['LIFTERLESSON'], $post_id, $selected_type, $get_mode);
-								break;
-				
-							case 'LIFTERCOURSE':
-								$lifterlms_instance = LifterLmsImport::getInstance();
-								$lifterlms_instance->set_lifterlms_values($header_array, $value_array, $map['LIFTERCOURSE'], $post_id, $selected_type, $get_mode);
-								break;
-				
-							case 'LIFTERCOUPON':
-								$lifterlms_instance = LifterLmsImport::getInstance();
-								$lifterlms_instance->set_lifterlms_values($header_array, $value_array, $map['LIFTERCOUPON'], $post_id, $selected_type, $get_mode);
-								break;
-
-							case 'MODERATOR':
-								$bbpress_instance = BBPressImport::getInstance();
-								$bbpress_instance->set_bbpress_values($header_array, $value_array, $map['MODERATOR'], $post_id, $selected_type, $get_mode);
-								break;				
-
-							case 'LPLESSON':
-								$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $map['LPLESSON'], $post_id, $selected_type);
-								break;
-
-							case 'LPQUIZ':
-								$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $map['LPQUIZ'], $post_id, $selected_type);
-								break;
-
-							case 'LPQUESTION':
-								$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $map['LPQUESTION'], $post_id, $selected_type);
-								break;
-
-							case 'LPORDER':
-								$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $map['LPORDER'], $post_id, $selected_type);
-								break;
-
-							case 'STMCOURSE':
-							    $stm_merge = [];
-								$stm_merge = array_merge($map['STMCOURSE'], $map['STMCURRICULUM']);	
-								$stm_instance = MasterStudyLMSImport::getInstance();
-								$stm_instance->set_stm_values($header_array, $value_array, $stm_merge, $post_id, $selected_type,$get_mode);
-								break;	
-
-							case 'STMLESSON':
-							    $stm_instance = MasterStudyLMSImport::getInstance();
-					            $stm_instance->set_stm_values($header_array, $value_array, $map['STMLESSON'], $post_id, $selected_type, $get_mode);
-					            break;
-							
-							case 'STMQUIZ':
-									$stm_instance = MasterStudyLMSImport::getInstance();
-									$stm_instance->set_stm_values($header_array, $value_array, $map['STMQUIZ'], $post_id, $selected_type, $get_mode);
-									break;
-							
-							case 'STMQUESTION':
-									$learnpress_instance = MasterStudyLMSImport::getInstance();
-									$learnpress_instance->set_stm_values($header_array, $value_array, $map['STMQUESTION'], $post_id, $selected_type, $get_mode);
-									break;
-							
-							case 'STMORDER':
-									$learnpress_instance = MasterStudyLMSImport::getInstance();
-									$learnpress_instance->set_stm_values($header_array, $value_array, $map['STMORDER'], $post_id, $selected_type, $get_mode);
-									break;
-
-							case 'POLYLANG':
-								$polylang_instance = PolylangImport::getInstance();
-								$polylang_instance->set_polylang_values($header_array, $value_array, $map['POLYLANG'], $post_id, $selected_type);
-								break;
-
-							case 'JOB':
-								$job_listing_instance = JobListingImport::getInstance();
-								$job_listing_instance->set_job_listing_values($header_array, $value_array, $map['JOB'], $post_id, $selected_type);
-								break;
-
-							case 'WPML':
-								$wpmlimp_class = WPMLImport::getInstance();
-								$wpmlimp_class->set_wpml_values($header_array ,$value_array , $map['WPML'], $post_id , $selected_type, $line_number);
-								break;
-							
-							case 'METABOX':
-								$metabox_instance = MetaBoxImport::getInstance();
-								$metabox_instance->set_metabox_values($header_array, $value_array, $map['METABOX'], $post_id, $selected_type);
-								break;
-
-							case 'PODS':
-								$wpmlmap = isset($map['WPML']) ? $map['WPML'] : '';
-								$pods_instance = PodsImport::getInstance();
-								$pods_instance->set_pods_values($header_array, $value_array, $map['PODS'], $post_id, $selected_type, $hash_key, $wpmlmap);
-								break;
-							case 'JE':
-								$jet_engine_instance = JetEngineImport::getInstance();
-								$jet_engine_instance->set_jet_engine_values($header_array, $value_array, $map['JE'], $post_id, $selected_type, $get_mode, $hash_key,$line_number);
-								break;
-							case 'JECPT':
-								$jet_engine_cpt_instance = JetEngineCPTImport::getInstance();
-								$jet_engine_cpt_instance->set_jet_engine_cpt_values($header_array, $value_array, $map['JECPT'], $post_id, $selected_type, $get_mode, $hash_key,$line_number);
-								break;
-							case 'JEREL':
-								$jet_engine_rel_instance = JetEngineRELImport::getInstance();
-								$jet_engine_rel_instance->set_jet_engine_rel_values($header_array, $value_array, $map['JEREL'], $post_id, $selected_type, $get_mode, $hash_key, $line_number,$gmode,$templatekey=null);
-								break;
-								
-							case 'SEOPRESS':
-								$seopress_instance = SeoPressImport::getInstance();
-								$seopress_instance->set_seopress_values($header_array, $value_array, $map['SEOPRESS'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
-								break;
-
-							case 'ELEMENTOR':
-								$elementor_instance = ElementorImport::getInstance();
-								$elementor_instance->set_elementor_value($header_array, $value_array, $map['ELEMENTOR'], $post_id, $selected_type,$hash_key,$gmode,$templatekey);
-								break;
-							
-							case 'TotalPress':
-								$seopress_instance = TotalPressImport::getInstance();
-								$seopress_instance->set_totalpress_values($header_array, $value_array, $map['SEOPRESS'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
-								break;				
-							case 'ACF':
-								$acf_image = isset($map['ACFIMAGEMETA']) ? $map['ACFIMAGEMETA'] : '';
-								$acf_pro_instance = ACFImport::getInstance();
-								$acf_pro_instance->set_acf_values($header_array, $value_array, $map['ACF'], $acf_image ,$post_id, $selected_type,$get_mode, $hash_key,$line_number);
-							break;
-							case 'TYPES':
-								$types_image = isset($map['TYPESIMAGEMETA']) ? $map['TYPESIMAGEMETA'] : '';
-								$toolset_instance = ToolsetImport::getInstance();
-								$toolset_instance->set_toolset_values($header_array, $value_array, $map['TYPES'],$types_image, $post_id, $selected_type, $get_mode, $hash_key,$line_number,$gmode,$templatekey);
-								break;
-							case 'EVENTS':
-								$merge = [];
-								$merge = array_merge($map['CORE'], $map['EVENTS']);
-								$map['TERMS']=isset($map['TERMS'])?$map['TERMS']:'';
-								$events_instance = EventsManagerImport::getInstance();
-								$events_instance->set_events_values($header_array, $value_array, $merge, $post_id, $selected_type, $get_mode, $map['TERMS'], $gmode);
-								break;
-							case 'FIFUPOSTS':
-								$fifu_instance = FIFUImport::getInstance();
-								$fifu_instance->set_fifu_values($header_array, $value_array, $map['FIFUPOSTS'], $post_id, $selected_type, $get_mode);
-								break;
-							case 'FIFUPAGE':
-								$fifu_instance = FIFUImport::getInstance();
-								$fifu_instance->set_fifu_values($header_array, $value_array, $map['FIFUPAGE'], $post_id, $selected_type, $get_mode);
-								break;
-							case 'FIFUCUSTOMPOST':
-								$fifu_instance = FIFUImport::getInstance();
-								$fifu_instance->set_fifu_values($header_array, $value_array, $map['FIFUCUSTOMPOST'], $post_id, $selected_type, $get_mode);
-								break;
-							case 'YOASTSEO':
-								$yoast_instance = YoastSeoImport::getInstance();
-								$yoast_instance->set_yoast_values($header_array, $value_array, $map['YOASTSEO'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
-								break;
-							case 'WPCOMPLETE':
-							$wpcomplete_instance = WPCompleteImport::getInstance();
-							$wpcomplete_instance->set_wpcomplete_values($header_array, $value_array, $map['WPCOMPLETE'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
-							break;		
-							}
-						}
+						
 						$helpers_instance->get_post_ids($post_id ,$hash_key);
 
 						$remaining_records = $total_rows - $i;
@@ -743,11 +503,15 @@ class SaveMapping{
 
 						if($i == $total_rows){
 							$fields = $wpdb->get_results("UPDATE $log_table_name SET status = 'Completed' WHERE hash_key = '$hash_key'");
-						}						
-						$log_manager_instance->get_event_log($hash_key , $file_name , $file_extension, $get_mode , $total_rows , $selected_type , $core_instance->detailed_log, $addHeader);
-						$log_manager_instance->manage_records($hash_key ,$selected_type , $file_name , $total_rows);
-						$addHeader = false;
-						$core_instance->detailed_log = [];
+						}
+						if (count($core_instance->detailed_log) > 5) {
+							$log_manager_instance->get_event_log($hash_key , $file_name , $file_extension, $get_mode , $total_rows , $selected_type , $core_instance->detailed_log, $addHeader);
+							$log_manager_instance->manage_records($hash_key ,$selected_type , $file_name , $total_rows);
+							$addHeader = false;
+							$core_instance->detailed_log = [];
+							$core_instance->media_log = [];
+							$failed_media_log = [];
+						}					
 					}
 
 					if ($i > $limit) {
@@ -889,251 +653,12 @@ class SaveMapping{
 						}
 						foreach($map as $group_name => $group_value){
 							if($group_name == 'CORE'){
-								$wpml_map = isset($map['WPML']) ? $map['WPML'] : '';
-
-								$core_instance = CoreFieldsImport::getInstance();
-								$post_id = $core_instance->set_core_values($header_array ,$value_array , $map['CORE'] , $selected_type , $get_mode, $line_number , $check , $hash_key, $unmatched_row,$gmode,"",$wpml_map);		
-							}
-						}
-				
-						foreach($map as $group_name => $group_value){
-							switch($group_name){
-
-							case 'AIOSEO':
-								$all_seo_instance = AllInOneSeoImport::getInstance();
-								$all_seo_instance->set_all_seo_values($header_array ,$value_array , $map['AIOSEO'], $post_id , $selected_type,$get_mode);
-								break;
-							case 'RANKMATH':
-								$rankmath_instance = RankMathImport::getInstance();
-								$rankmath_instance->set_rankmath_values($header_array, $value_array, $map['RANKMATH'], $post_id, $selected_type);
-								break;
-
-							case 'ECOMMETA':
-								$uci_woocomm_meta->set_product_meta_values($header_array ,$value_array , $map['ECOMMETA'], $post_id , $selected_type , $line_number , $get_mode);
-								break;
-
-							case 'BUNDLEMETA':
-								$uci_woocomm_bundle_meta = ProductBundleMetaImport::getInstance();
-								$uci_woocomm_bundle_meta->set_product_bundle_meta_values($header_array ,$value_array , $map['BUNDLEMETA'], $post_id , $selected_type , $line_number , $get_mode);
-								break;
-								//added for woocommerce product attributes separate widget
-							case 'ATTRMETA':
-								$variation_id = isset($variation_id) ? $variation_id :'';
-								$wpml_map = isset($map['WPML']) ? $map['WPML'] : '';
-								$woocom_image = isset($map['PRODUCTIMAGEMETA']) ? $map['PRODUCTIMAGEMETA'] : '';
-								$product_attr_instance->set_product_attr_values($header_array, $value_array, $map['ATTRMETA'], $woocom_image, $post_id, $variation_id ,$selected_type, $line_number, $get_mode, $hash_key, $wpml_map);
-								break;
-
-							case 'CFS':
-								$cfs_instance = CFSImport::getInstance();
-								$cfs_instance->set_cfs_values($header_array ,$value_array , $map['CFS'], $post_id , $selected_type);
-								break;
-
-							case 'BSI':
-								global $billing_class;
-								$billing_class->set_bsi_values($header_array ,$value_array , $map['BSI'], $post_id , $selected_type);
-								break;
-
-							case 'WPMEMBERS':
-								global $wpmember_class;
-								$wpmember_class->set_wpmembers_values($header_array ,$value_array , $map['WPMEMBERS'], $post_id , $selected_type);
-								break;
-
-							case 'TERMS':
-								$terms_taxo_instance = TermsandTaxonomiesImport::getInstance();
-								$poly_array = isset($map['POLYLANG'])?$map['POLYLANG']:'';
-								$terms_taxo_instance->set_terms_taxo_values($header_array ,$value_array , $map['TERMS'], $post_id , $selected_type , $get_mode , $line_number,$poly_array);
-								break;
-
-							case 'CORECUSTFIELDS':
-								$wordpress_custom_instance = WordpressCustomImport::getInstance();
-								$wordpress_custom_instance->set_wordpress_custom_values($header_array ,$value_array , $map['CORECUSTFIELDS'], $post_id , $selected_type);
-								break;
-
-							case 'FORUM':
-								$bbpress_instance = BBPressImport::getInstance();
-								$bbpress_instance->set_bbpress_values($header_array, $value_array, $map['FORUM'], $post_id, $selected_type, $get_mode);
-								break;
-
-							case 'TOPIC':
-								$bbpress_instance = BBPressImport::getInstance();
-								$bbpress_instance->set_bbpress_values($header_array, $value_array, $map['TOPIC'], $post_id, $selected_type, $get_mode);
-								break;
-
-							case 'REPLY':
-								$bbpress_instance = BBPressImport::getInstance();
-								$bbpress_instance->set_bbpress_values($header_array, $value_array, $map['REPLY'], $post_id, $selected_type, $get_mode);
-								break;
-
-							case 'BP' :
-								global $buddy_class;
-								$buddy_class->set_buddy_values($header_array,$value_array,$map['BP'],$post_id,$selected_type);
-								break;
-
-							case 'LPCOURSE':
-								//case 'LPCURRICULUM':
-								$learn_merge = [];
-								$learn_merge = array_merge($map['LPCOURSE'], $map['LPCURRICULUM']);	
-			        			$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $learn_merge, $post_id, $selected_type);
-								break;
-
-							case 'LIFTERLESSON':
-								$lifterlms_instance = LifterLmsImport::getInstance();
-								$lifterlms_instance->set_lifterlms_values($header_array, $value_array, $map['LIFTERLESSON'], $post_id, $selected_type, $get_mode);
-								break;
-				
-							case 'LIFTERCOURSE':
-								$lifterlms_instance = LifterLmsImport::getInstance();
-								$lifterlms_instance->set_lifterlms_values($header_array, $value_array, $map['LIFTERCOURSE'], $post_id, $selected_type, $get_mode);
-								break;
-				
-							case 'LIFTERCOUPON':
-								$lifterlms_instance = LifterLmsImport::getInstance();
-								$lifterlms_instance->set_lifterlms_values($header_array, $value_array, $map['LIFTERCOUPON'], $post_id, $selected_type, $get_mode);
-								break;
-
-							case 'MODERATOR':
-								$bbpress_instance = BBPressImport::getInstance();
-								$bbpress_instance->set_bbpress_values($header_array, $value_array, $map['MODERATOR'], $post_id, $selected_type, $get_mode);
-								break;				
-
-							case 'LPLESSON':
-								$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $map['LPLESSON'], $post_id, $selected_type);
-								break;
-
-							case 'LPQUIZ':
-								$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $map['LPQUIZ'], $post_id, $selected_type);
-								break;
-
-							case 'LPQUESTION':
-								$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $map['LPQUESTION'], $post_id, $selected_type);
-								break;
-
-							case 'LPORDER':
-								$learnpress_instance = LearnPressImport::getInstance();
-								$learnpress_instance->set_learnpress_values($header_array, $value_array, $map['LPORDER'], $post_id, $selected_type);
-								break;
-
-							case 'STMCOURSE':
-							    $stm_merge = [];
-								$stm_merge = array_merge($map['STMCOURSE'], $map['STMCURRICULUM']);	
-								$stm_instance = MasterStudyLMSImport::getInstance();
-								$stm_instance->set_stm_values($header_array, $value_array, $stm_merge, $post_id, $selected_type,$get_mode);
-								break;	
-
-							case 'STMLESSON':
-							    $stm_instance = MasterStudyLMSImport::getInstance();
-					            $stm_instance->set_stm_values($header_array, $value_array, $map['STMLESSON'], $post_id, $selected_type, $get_mode);
-					            break;
-							
-							case 'STMQUIZ':
-									$stm_instance = MasterStudyLMSImport::getInstance();
-									$stm_instance->set_stm_values($header_array, $value_array, $map['STMQUIZ'], $post_id, $selected_type, $get_mode);
-									break;
-							
-							case 'STMQUESTION':
-									$learnpress_instance = MasterStudyLMSImport::getInstance();
-									$learnpress_instance->set_stm_values($header_array, $value_array, $map['STMQUESTION'], $post_id, $selected_type, $get_mode);
-									break;
-							
-							case 'STMORDER':
-									$learnpress_instance = MasterStudyLMSImport::getInstance();
-									$learnpress_instance->set_stm_values($header_array, $value_array, $map['STMORDER'], $post_id, $selected_type, $get_mode);
-									break;
-
-							case 'POLYLANG':
-								$polylang_instance = PolylangImport::getInstance();
-								$polylang_instance->set_polylang_values($header_array, $value_array, $map['POLYLANG'], $post_id, $selected_type);
-								break;
-
-							case 'JOB':
-								$job_listing_instance = JobListingImport::getInstance();
-								$job_listing_instance->set_job_listing_values($header_array, $value_array, $map['JOB'], $post_id, $selected_type);
-								break;
-
-							case 'WPML':
-								$wpmlimp_class = WPMLImport::getInstance();
-								$wpmlimp_class->set_wpml_values($header_array ,$value_array , $map['WPML'], $post_id , $selected_type, $line_number);
-								break;
-							
-							case 'METABOX':
-								$metabox_instance = MetaBoxImport::getInstance();
-								$metabox_instance->set_metabox_values($header_array, $value_array, $map['METABOX'], $post_id, $selected_type);
-								break;
-
-							case 'PODS':
-								$wpmlmap = isset($map['WPML']) ? $map['WPML'] : '';
-								$pods_instance = PodsImport::getInstance();
-								$pods_instance->set_pods_values($header_array, $value_array, $map['PODS'], $post_id, $selected_type, $hash_key, $wpmlmap);
-								break;
-							case 'JE':
-								$jet_engine_instance = JetEngineImport::getInstance();
-								$jet_engine_instance->set_jet_engine_values($header_array, $value_array, $map['JE'], $post_id, $selected_type, $get_mode, $hash_key,$line_number);
-								break;
-							case 'JECPT':
-								$jet_engine_cpt_instance = JetEngineCPTImport::getInstance();
-								$jet_engine_cpt_instance->set_jet_engine_cpt_values($header_array, $value_array, $map['JECPT'], $post_id, $selected_type, $get_mode, $hash_key,$line_number);
-								break;
-							case 'JEREL':
-								$jet_engine_rel_instance = JetEngineRELImport::getInstance();
-								$jet_engine_rel_instance->set_jet_engine_rel_values($header_array, $value_array, $map['JEREL'], $post_id, $selected_type, $get_mode, $hash_key, $line_number,$gmode,$templatekey=null);
-								break;
-							case 'SEOPRESS':
-								$seopress_instance = SeoPressImport::getInstance();
-								$seopress_instance->set_seopress_values($header_array, $value_array, $map['SEOPRESS'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
-								break;
-
-							case 'ELEMENTOR':
-								$elementor_instance = ElementorImport::getInstance();
-								$elementor_instance->set_elementor_value($header_array, $value_array, $map['ELEMENTOR'], $post_id, $selected_type,$hash_key,$gmode,$templatekey);
-								break;
-							
-						
-							case 'TotalPress':
-								$seopress_instance = TotalPressImport::getInstance();
-								$seopress_instance->set_totalpress_values($header_array, $value_array, $map['SEOPRESS'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
-								break;				
-							case 'ACF':
-								$acf_image = isset($map['ACFIMAGEMETA']) ? $map['ACFIMAGEMETA'] : '';
-								$acf_pro_instance = ACFImport::getInstance();
-								$acf_pro_instance->set_acf_values($header_array, $value_array, $map['ACF'], $acf_image ,$post_id, $selected_type,$get_mode, $hash_key,$line_number);
-							break;
-							case 'TYPES':
-								$types_image = isset($map['TYPESIMAGEMETA']) ? $map['TYPESIMAGEMETA'] : '';
-								$toolset_instance = ToolsetImport::getInstance();
-								$toolset_instance->set_toolset_values($header_array, $value_array, $map['TYPES'],$types_image, $post_id, $selected_type, $get_mode, $hash_key,$line_number,$gmode,$templatekey);
-								break;
-							case 'EVENTS':
-								$merge = [];
-								$merge = array_merge($map['CORE'], $map['EVENTS']);
-								$map['TERMS']=isset($map['TERMS'])?$map['TERMS']:'';
-								$events_instance = EventsManagerImport::getInstance();
-								$events_instance->set_events_values($header_array, $value_array, $merge, $post_id, $selected_type, $get_mode, $map['TERMS'], $gmode);
-								break;
-							case 'FIFUPOSTS':
-								$fifu_instance = FIFUImport::getInstance();
-								$fifu_instance->set_fifu_values($header_array, $value_array, $map['FIFUPOSTS'], $post_id, $selected_type, $get_mode);
-								break;
-							case 'FIFUPAGE':
-								$fifu_instance = FIFUImport::getInstance();
-								$fifu_instance->set_fifu_values($header_array, $value_array, $map['FIFUPAGE'], $post_id, $selected_type, $get_mode);
-								break;
-							case 'FIFUCUSTOMPOST':
-								$fifu_instance = FIFUImport::getInstance();
-								$fifu_instance->set_fifu_values($header_array, $value_array, $map['FIFUCUSTOMPOST'], $post_id, $selected_type, $get_mode);
-								break;
-							case 'YOASTSEO':
-								$yoast_instance = YoastSeoImport::getInstance();
-								$yoast_instance->set_yoast_values($header_array, $value_array, $map['YOASTSEO'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
-								break;
-							case 'WPCOMPLETE':
-							$wpcomplete_instance = WPCompleteImport::getInstance();
-							$wpcomplete_instance->set_wpcomplete_values($header_array, $value_array, $map['WPCOMPLETE'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
-							break;		
+								$get_arr = $this->main_import_process($map, $header_array, $value_array,$selected_type, $get_mode, $i, $check, $hash_key, $unmatched_row,'','',$media_type);					
+								$post_id = $get_arr['id'];
+								$core_instance->detailed_log = $get_arr['detail_log'];
+								$failed_media_log  = $get_arr['failed_media_log'];
+								$core_instance->media_log = $get_arr['media_log'];
+								$media_log = $core_instance->media_log;
 							}
 						}
 						$helpers_instance->get_post_ids($post_id ,$hash_key);
@@ -1144,10 +669,13 @@ class SaveMapping{
 						if($i == $total_rows){
 							$fields = $wpdb->get_results("UPDATE $log_table_name SET status = 'Completed' WHERE hash_key = '$hash_key'");
 						}						
-						$log_manager_instance->get_event_log($hash_key , $file_name , $file_extension, $get_mode , $total_rows , $selected_type , $core_instance->detailed_log, $addHeader);
-						$log_manager_instance->manage_records($hash_key ,$selected_type , $file_name , $total_rows);
-						$addHeader = false;
-						$core_instance->detailed_log = [];
+						if (count($core_instance->detailed_log) > 5) {
+							$log_manager_instance->get_event_log($hash_key, $file_name, $file_extension, $get_mode, $total_rows, $selected_type, $core_instance->detailed_log, $addHeader);
+							$addHeader = false;
+							$core_instance->detailed_log = [];
+							$failed_media_log = [];
+							$media_log = [];
+						} 
 					}
 
 					if ($i > $limit) {
@@ -1171,8 +699,8 @@ class SaveMapping{
 
 		if ($file_extension == 'xml') {
 			$path = $upload_dir . $hash_key . '/' . $hash_key;
-			$lined_number = ((3 * $page_number) - 3);
-			$limit = (3 * $page_number) - 1;
+			$lined_number = ((5 * $page_number) - 5);
+			$limit = (5 * $page_number) - 1;
 			$header_array = [];
 			$value_array = [];
 			$i = 0;
@@ -1232,10 +760,12 @@ class SaveMapping{
 					}
 
 					array_push($info, $value_array['value']);
-					$get_arr = $this->main_import_process($mapping, $header_array['header'], $value_array['value'], $selected_type, $get_mode, $i, $check, $hash_key, $unmatched_row);
+					$get_arr = $this->main_import_process($mapping, $header_array['header'], $value_array['value'], $selected_type, $get_mode, $i, $check, $hash_key, $unmatched_row,'','','');
 					$post_id = $get_arr['id'];
 					$core_instance->detailed_log = $get_arr['detail_log'];
-
+					$failed_media_log  = $get_arr['failed_media_log'];
+					$media_log = $get_arr['media_log'];
+					
 					$helpers_instance->get_post_ids($post_id, $hash_key);
 					$line_numbers = $i + 1;
 					$remaining_records = $total_rows - $line_numbers;
@@ -1244,12 +774,15 @@ class SaveMapping{
 					if ($i == $total_rows - 1) {
 						$wpdb->get_results("UPDATE $log_table_name SET status = 'Completed' WHERE hash_key = '$hash_key'");
 					}
-
+					if (is_countable($core_instance->detailed_log) && count($core_instance->detailed_log) > 5) {
 					$log_manager_instance->get_event_log($hash_key, $file_name, $file_extension, $get_mode, $total_rows, $selected_type, $core_instance->detailed_log, $addHeader);
 					$log_manager_instance->manage_records($hash_key ,$selected_type , $file_name , $total_rows);
 					$addHeader = false;
 					$core_instance->detailed_log = [];
-		
+					$failed_media_log = [];
+					$media_log = [];
+					}
+							
 				}
 				if ($i > $limit) {
 					break;
@@ -1264,6 +797,7 @@ class SaveMapping{
 				echo wp_json_encode($response);
 				wp_die();
 			}
+			
 		}
 
 		if (($unmatched_row == 'true') && ($page_number >= $total_pages)){
@@ -1305,38 +839,182 @@ class SaveMapping{
 				$wpdb->get_results("DELETE FROM {$wpdb->prefix}ultimate_post_entries");
 			}
 
-		}
+		} 
 		if (count($core_instance->detailed_log) > 0) {
 			$log_manager_instance->get_event_log($hash_key , $file_name , $file_extension, $get_mode , $total_rows , $selected_type , $core_instance->detailed_log, $addHeader);
 		}
-		$log_manager_instance->manage_records($hash_key ,$selected_type , $file_name , $total_rows);
+	    $log_manager_instance->manage_records($hash_key ,$selected_type , $file_name , $total_rows);
 		$count = count($info);
 
 		for ($i = 1; $i <= $count; $i++) {
 			if (isset($info[$i]) && (is_array($info)) && (is_array($info[$i]))){
 				foreach ($info[$i] as $key => $value) {
 					if (preg_match("/<img/", $value)) {
-						SaveMapping::$smackcsv_instance->image_schedule();
-						$image = $wpdb->get_results("select * from {$wpdb->prefix}ultimate_csv_importer_shortcode_manager where hash_key = '{$hash_key}'");
-						if (!empty($image)) {
-							SaveMapping::$smackcsv_instance->delete_image_schedule();
-						}
+						// SaveMapping::$smackcsv_instance->image_schedule();
+						// $image = $wpdb->get_results("select * from {$wpdb->prefix}ultimate_csv_importer_shortcode_manager where hash_key = '{$hash_key}'");
+						// if (!empty($image)) {
+						// 	SaveMapping::$smackcsv_instance->delete_image_schedule();
+						// }
 					}
 				}
 			}
 		}
-		$upload = wp_upload_dir();
-		$upload_base_url = $upload['baseurl'];
-		$upload_url = $upload_base_url . '/smack_uci_uploads/imports/';
-		$log_link_path = $upload_url. $hash_key .'/'.$hash_key.'.html';
-		$response['success'] = true;
-		$response['log_link'] = $log_link_path;
-		if($rollback_option == 'true'){
-			$response['rollback'] = true;
+		// print_r($media_log);
+		// exit();
+		if (!empty($media_log[$line_number]) && count($media_log) > 0) {
+			global $wpdb;
+			$table_name = $wpdb->prefix . 'failed_media';
+			$data_to_insert = array();
+
+			foreach ($media_log as $media_item) {
+				$media_id = isset($media_item['media_id']) ? $media_item['media_id'] : null;
+				$post_title = isset($media_item['title']) ? $media_item['title'] : null;
+				$status = isset($media_item['status']) ? $media_item['status'] : null;
+				$file_name = isset($media_item['file_name']) ? $media_item['file_name'] : null;
+				$file_url = isset($media_item['file_url']) ? $media_item['file_url'] : null;
+				$actual_url = isset($media_item['actual_url']) ? $media_item['actual_url'] : null;
+				$caption = isset($media_item['caption']) ? $media_item['caption'] : null;
+				$alt_text = isset($media_item['alt_text']) ? $media_item['alt_text'] : null;
+				$description = isset($media_item['description']) ? $media_item['description'] : null;
+
+				$data_to_insert[] = $wpdb->prepare(
+					"(%s, %s, %d, %s, %s, %s, %s, %s, %s, %s)",
+					$hash_key,
+					$post_title,
+					$media_id,
+					$status,
+					$file_url,
+					$file_name,
+					$actual_url,
+					$caption,
+					$alt_text,
+					$description
+				);
+			}
+
+			if (!empty($data_to_insert)) {
+				$query = "INSERT INTO $table_name (event_id, post_title, media_id, status, file_url, file_name, actual_url, caption, alt_text, description) VALUES " . implode(", ", $data_to_insert);
+				$wpdb->query($query);
+			}
 		}
 
 
+		
+		$log_value = $log_manager_instance->displayLogValue();
+		
+	// print_r($log_value);
+	// exit();
+
+	//for log
+	global $wpdb;
+$table_name = $wpdb->prefix . 'summary';
+
+//  data for batch insert
+$data_to_insert = array();
+
+foreach ($log_value as $item) {
+    $inserted_id = isset($item['id']) ? $item['id'] : null;
+    $post_title = isset($item['post_title']) ? $item['post_title'] : null;
+    $post_type = isset($item['post_type']) ? $item['post_type']:null;
+    $status = isset($item['Status']) ? $item['Status'] : null;
+	$total_images = isset($item['total_image']) ? $item['total_image'] : 0;
+    $failed_images = isset($item['failed_image_count']) ? $item['failed_image_count'] : 0;
+    
+    // $categorie = ($post_type == 'Categories') ? 1 : 0;
+	if ($post_type == 'Categories') {
+		$categorie = 1;
+	} elseif ($post_type == 'Tags') {
+	
+		$categorie = 2;
+	}
+	elseif($post_type == 'users'){
+		$categorie = 3;
+		
+	}
+	elseif($post_type == 'Comment'){
+		$categorie = 4;
+		
+	}
+	else {
+		$categorie = 0;
+	}
+	
+
+    $data_to_insert[] = $wpdb->prepare(
+        "(%d, %s, %s, %s, %s, %d, %d, %d)",
+        $inserted_id, $hash_key, $post_title, $post_type, $status, $categorie, $total_images, $failed_images
+    );
+}
+
+// Batch insert for boosting speed
+if (!empty($data_to_insert)) {
+    $query = "INSERT INTO $table_name (post_id, event_id, post_title, post_type, status, is_category, associated_media, failed_media) VALUES " . implode(", ", $data_to_insert);
+    $wpdb->query($query);
+}
+//for failed media log
+global $wpdb;
+$table_name = $wpdb->prefix . 'failed_media';
+
+if (!empty($failed_media_log)) {
+    // Data for batch insert
+    $data_to_insert = array();
+    
+    foreach ($failed_media_log as $item) {
+        $inserted_id = $item['post_id'];
+        $post_title = $item['post_title'];
+        $media_id = $item['media_id'];
+        $image_url = $item['actual_url'];
+		$status='failed';
+        // Correct the number of placeholders and arguments
+        $data_to_insert[] = $wpdb->prepare(
+            "(%d, %s, %s,  %d, %s , %s)",
+            $inserted_id, $hash_key, $post_title,  $media_id, $image_url,$status
+        );
+    }
+    
+    // Batch insert for boosting speed
+    if (!empty($data_to_insert)) {
+        $query = "INSERT INTO $table_name (post_id, event_id, post_title,  media_id, actual_url,status) VALUES " . implode(", ", $data_to_insert);
+        $wpdb->query($query);
+    }
+}
+
+				
+		// $download_log_url = $log_manager_instance->Insert_log_details($log_value,$line_number,$hash_key);
+		// $failed_media_link = $log_manager_instance->failedMediaExport($failed_media_log,$line_number,$hash_key);
+	
+		// if (!empty($failed_media_log) && is_array($failed_media_log)) {
+		// 	$response['media-progress'] = true;
+		// } else {
+		// 	$response['media-progress'] = false;
+		// }
+		
+		
+		
+		
+		// $upload = wp_upload_dir();
+		// $upload_base_url = $upload['baseurl'];
+		$response['success'] = true;
+		$response['log_value'] = $log_value;
+		$response['media_link'] = $media_link ?? null;
+		$response['download_log_link'] = $download_log_url ?? null;
+		if($rollback_option == 'true'){
+			$response['rollback'] = true;
+		}
+		$total_records = $wpdb->get_results("SELECT status FROM $log_table_name WHERE hash_key = '$hash_key' ", ARRAY_A);
+		if ($total_records[0]['status'] == 'Completed') {
+			if(get_option('failed_line_number')){
+				delete_option('failed_line_number');
+			}if(get_option('total_attachment_ids')){
+				delete_option('total_attachment_ids');
+			}if(get_option('failed_attachment_ids')){
+				delete_option('failed_attachment_ids');
+			}
+		}
+		
 		echo wp_json_encode($response);
+		
+
 		wp_die();
 	}
 
@@ -1428,10 +1106,11 @@ class SaveMapping{
 
 					}else{
 						$value_array = $info[$line_number];
-						$get_arr = $this->main_import_process($map, $header_array, $value_array, $selected_type, $get_mode, $line_number, $check, $hash_key, $unmatched_row);
+						$get_arr = $this->main_import_process($map, $header_array, $value_array, $selected_type, $get_mode, $line_number, $check, $hash_key, $unmatched_row,'','','');
 						$post_id = $get_arr['id'];
 						$core_instance->detailed_log = $get_arr['detail_log'];
-
+						$media_log = $get_arr['media_log'];
+						$failed_media_log  = $get_arr['failed_media_log'];
 						$helpers_instance->get_post_ids($post_id ,$hash_key);
 
 						$import_table_name = $wpdb->prefix . "import_postID";	
@@ -1448,6 +1127,8 @@ class SaveMapping{
 							$log_manager_instance->get_event_log($hash_key , $file_name , $file_extension, $get_mode , $total_rows , $selected_type , $core_instance->detailed_log, $addHeader);
 							$addHeader = false;
 							$core_instance->detailed_log = [];
+							$failed_media_log = [];
+							$media_log = [];
 						}		
 					}
 
@@ -1534,9 +1215,11 @@ class SaveMapping{
 						}
 					}
 				}
-				$get_arr = $this->main_import_process($mapping, $header_array['header'], $value_array['value'], $selected_type, $get_mode, $line_number, $check, $hash_key, $unmatched_row);
+				$get_arr = $this->main_import_process($mapping, $header_array['header'], $value_array['value'], $selected_type, $get_mode, $line_number, $check, $hash_key, $unmatched_row,'','','');
 				$post_id = $get_arr['id'];
 				$core_instance->detailed_log = $get_arr['detail_log'];
+				$media_log = $get_arr['media_log'];
+				$failed_media_log  = $get_arr['failed_media_log'];
 				$helpers_instance->get_post_ids($post_id, $hash_key);
 				$line_numbers = $line_number + 1;
 				$remaining_records = $total_rows - $line_numbers;
@@ -1550,6 +1233,8 @@ class SaveMapping{
 					$log_manager_instance->get_event_log($hash_key, $file_name, $file_extension, $get_mode, $total_rows, $selected_type, $core_instance->detailed_log, $line_number);
 					$addHeader = false;
 					$core_instance->detailed_log = [];
+					$failed_media_log = [];
+					$media_log = [];
 				}
 
 				$open_txt = fopen($import_txt_path, "r");
@@ -1581,6 +1266,7 @@ class SaveMapping{
 			$log_manager_instance->get_event_log($hash_key , $file_name , $file_extension, $get_mode , $total_rows , $selected_type , $core_instance->detailed_log, $addHeader);
 		}
 		$log_manager_instance->manage_records($hash_key ,$selected_type , $file_name , $total_rows);
+		
 		$count = count($info);
 
 		for ($i = 1; $i <= $count; $i++) {
@@ -1588,11 +1274,11 @@ class SaveMapping{
 			if (is_array($info)){
 				foreach ($info[$i] as $key => $value) {
 					if (preg_match("/<img/", $value)) {
-						SaveMapping::$smackcsv_instance->image_schedule();
-						$image = $wpdb->get_results("select * from {$wpdb->prefix}ultimate_csv_importer_shortcode_manager where hash_key = '{$hash_key}'");
-						if (!empty($image)) {
-							SaveMapping::$smackcsv_instance->delete_image_schedule();
-						}
+						// SaveMapping::$smackcsv_instance->image_schedule();
+						// $image = $wpdb->get_results("select * from {$wpdb->prefix}ultimate_csv_importer_shortcode_manager where hash_key = '{$hash_key}'");
+						// if (!empty($image)) {
+						// 	SaveMapping::$smackcsv_instance->delete_image_schedule();
+						// }
 					}
 				}
 			}
@@ -1601,11 +1287,7 @@ class SaveMapping{
 		$upload = wp_upload_dir();
 		$upload_base_url = $upload['baseurl'];
 		$upload_url = $upload_base_url . '/smack_uci_uploads/imports/';
-
-		$log_path = $upload_dir.$hash_key.'/'.$hash_key.'.html';
-		$log_link_path = $upload_url. $hash_key .'/'.$hash_key.'.html';
 		$response['success'] = true;
-		$response['log_link'] = $log_link_path;
 		$result['url'] = $upload_url;
 		unlink($import_txt_path);
 		echo wp_json_encode($response);
@@ -1643,31 +1325,32 @@ class SaveMapping{
 		return $content;
 	}
 
-	public function main_import_process($map, $header_array, $value_array, $selected_type, $get_mode, $line_number, $check, $hash_key, $unmatched_row,$gmode = null,$templatekey = null)
+	public function main_import_process($map, $header_array, $value_array, $selected_type, $get_mode, $line_number, $check, $hash_key, $unmatched_row,$gmode = null,$templatekey = null,$media_type=null)
 	{
 		$return_arr = [];
 		$core_instance = CoreFieldsImport::getInstance();
 		global $core_instance,$uci_woocomm_meta,$uci_woocomm_bundle_meta,$product_attr_instance, $wpmlimp_class;
-
 		foreach($map as $group_name => $group_value){
 			if($group_name == 'CORE'){
 				$wpml_map = isset($map['WPML']) ? $map['WPML'] : '';
-
+				$media_map = isset($map['FEATURED_IMAGE_META']) ? $map['FEATURED_IMAGE_META'] : '';
 				$core_instance = CoreFieldsImport::getInstance();
-				$post_id = $core_instance->set_core_values($header_array ,$value_array , $map['CORE'] , $selected_type , $get_mode, $line_number , $check , $hash_key, $unmatched_row, $gmode,$templatekey,$wpml_map);		
+				$post_id = $core_instance->set_core_values($header_array ,$value_array , $map['CORE'] , $selected_type , $get_mode, $line_number , $check , $hash_key, $unmatched_row, $gmode,$templatekey,$wpml_map,$media_map,$media_type);
+				
 			}
 		}
-	
 		foreach($map as $group_name => $group_value){
+			
 			switch($group_name){
 
 			case 'AIOSEO':
 				$all_seo_instance = AllInOneSeoImport::getInstance();
-				$all_seo_instance->set_all_seo_values($header_array ,$value_array , $map['AIOSEO'], $post_id , $selected_type);
+				$all_seo_instance->set_all_seo_values($header_array ,$value_array , $map['AIOSEO'], $post_id , $selected_type,$get_mode);
 				break;
 
 			case 'ECOMMETA':
-				$uci_woocomm_meta->set_product_meta_values($header_array ,$value_array , $map['ECOMMETA'], $post_id , $selected_type , $line_number , $get_mode);
+				$variation_id = isset($variation_id) ? $variation_id :'';
+				$uci_woocomm_meta->set_product_meta_values($header_array ,$value_array , $map['ECOMMETA'], $post_id , $variation_id ,$selected_type , $line_number , $get_mode,$hash_key);
 				break;
 			//added for woocommerce product attributes separate widget
 			case 'ATTRMETA':
@@ -1678,12 +1361,12 @@ class SaveMapping{
 				break;
 			case 'BUNDLEMETA':
 				$uci_woocomm_bundle_meta = ProductBundleMetaImport::getInstance();
-				$uci_woocomm_bundle_meta->set_product_bundle_meta_values($header_array ,$value_array , $map['BUNDLEMETA'], $post_id , $selected_type , $line_number , $get_mode);
+				$uci_woocomm_bundle_meta->set_product_bundle_meta_values($header_array ,$value_array , $map['BUNDLEMETA'], $post_id , $selected_type , $line_number , $get_mode,$hash_key);
 				break;
 
 			case 'CFS':
 				$cfs_instance = CFSImport::getInstance();
-				$cfs_instance->set_cfs_values($header_array ,$value_array , $map['CFS'], $post_id , $selected_type);
+				$cfs_instance->set_cfs_values($line_number,$header_array ,$value_array , $map['CFS'], $post_id , $selected_type,$hash_key);
 				break;
 
 			case 'BSI':
@@ -1693,7 +1376,7 @@ class SaveMapping{
 
 			case 'WPMEMBERS':
 				global $wpmember_class;
-				$wpmember_class->set_wpmembers_values($header_array ,$value_array , $map['WPMEMBERS'], $post_id , $selected_type);
+				$wpmember_class->set_wpmembers_values($line_number,$header_array ,$value_array , $map['WPMEMBERS'], $post_id , $selected_type,$hash_key);
 				break;
 
 			case 'TERMS':
@@ -1780,13 +1463,13 @@ class SaveMapping{
 
 			case 'METABOX':
 				$metabox_instance = MetaBoxImport::getInstance();
-				$metabox_instance->set_metabox_values($header_array, $value_array, $map['METABOX'], $post_id, $selected_type);
+				$metabox_instance->set_metabox_values($line_number,$header_array, $value_array, $map['METABOX'], $post_id, $selected_type,$hash_key);
 				break;
 
 			case 'PODS':
 				$map['WPML'] = isset($map['WPML']) ? $map['WPML'] : '';
 				$pods_instance = PodsImport::getInstance();
-				$pods_instance->set_pods_values($header_array, $value_array, $map['PODS'], $post_id, $selected_type, $hash_key, $map['WPML']);
+				$pods_instance->set_pods_values($line_number,$header_array, $value_array, $map['PODS'], $post_id, $selected_type, $hash_key, $map['WPML']);
 				break;
 			case 'ACF':
 				$acf_image = isset($map['ACFIMAGEMETA']) ? $map['ACFIMAGEMETA'] : '';
@@ -1797,7 +1480,7 @@ class SaveMapping{
 				$types_image = isset($map['TYPESIMAGEMETA']) ? $map['TYPESIMAGEMETA'] : '';
 				$toolset_instance = ToolsetImport::getInstance();
 				$toolset_instance->set_toolset_values($header_array, $value_array, $map['TYPES'],$types_image, $post_id, $selected_type, $get_mode, $hash_key,$line_number,$gmode,$templatekey);
-				break;
+				break;	
 			case 'FIFUPOSTS':
 				$fifu_instance = FIFUImport::getInstance();
 				$fifu_instance->set_fifu_values($header_array, $value_array, $map['FIFUPOSTS'], $post_id, $selected_type, $get_mode);
@@ -1812,10 +1495,23 @@ class SaveMapping{
 				break;
 			case 'YOASTSEO':
 				$yoast_instance = YoastSeoImport::getInstance();
-				$yoast_instance->set_yoast_values($header_array, $value_array, $map['YOASTSEO'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
+				$yoast_instance->set_yoast_values($line_number,$header_array, $value_array, $map['YOASTSEO'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
 				break;	
 			}
 		}
+		if(get_option('total_attachment_ids')){
+			$stored_ids = unserialize(get_option('total_attachment_ids', ''));
+			delete_option('total_attachment_ids');
+			$core_instance->detailed_log[$line_number]['total_image'] = (is_array($stored_ids) && count($stored_ids) > 0) ? count($stored_ids) : '';
+			$core_instance->detailed_log[$line_number]['failed_image_count'] = null;
+		}
+		if(get_option('failed_attachment_ids')){
+			$stored_ids = unserialize(get_option('failed_attachment_ids', ''));
+			delete_option('failed_attachment_ids');
+			$core_instance->detailed_log[$line_number]['failed_image_count'] = (is_array($stored_ids) && count($stored_ids) > 0) ? count($stored_ids) : '';
+		}
+		$return_arr['failed_media_log'] = 	!empty($core_instance->failed_media_data) ? $core_instance->failed_media_data : [];
+		$return_arr['media_log'] = 	!empty($core_instance->media_log) ? $core_instance->media_log : [];
 		$return_arr['id'] = $post_id;
 		$return_arr['detail_log'] = $core_instance->detailed_log;
 		return $return_arr;

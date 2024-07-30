@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2016 Google LLC
  * All rights reserved.
@@ -30,8 +31,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 namespace Google\ApiCore;
-
-use Closure;
 
 /**
  * The RetrySettings class is used to configure retrying and timeouts for RPCs.
@@ -203,14 +202,9 @@ use Closure;
  */
 class RetrySettings
 {
-    use ValidationTrait;
-
-    const DEFAULT_MAX_RETRIES = 0;
-
+    use \Google\ApiCore\ValidationTrait;
     private $retriesEnabled;
-
     private $retryableCodes;
-
     private $initialRetryDelayMillis;
     private $retryDelayMultiplier;
     private $maxRetryDelayMillis;
@@ -218,23 +212,7 @@ class RetrySettings
     private $rpcTimeoutMultiplier;
     private $maxRpcTimeoutMillis;
     private $totalTimeoutMillis;
-
     private $noRetriesRpcTimeoutMillis;
-
-    /**
-     * The number of maximum retries an operation can do.
-     * This doesn't include the original API call.
-     * Setting this to 0 means no limit.
-     */
-    private int $maxRetries;
-
-    /**
-     * When set, this function will be used to evaluate if the retry should
-     * take place or not. The callable will have the following signature:
-     * function (Exception $e, array $options): bool
-     */
-    private ?Closure $retryFunction;
-
     /**
      * Constructs an instance.
      *
@@ -243,42 +221,27 @@ class RetrySettings
      *     $retriesEnabled and $noRetriesRpcTimeoutMillis, which are optional and have defaults
      *     determined based on the other settings provided.
      *
-     *     @type bool     $retriesEnabled Optional. Enables retries. If not specified, the value is
-     *                    determined using the $retryableCodes setting. If $retryableCodes is empty,
-     *                    then $retriesEnabled is set to false; otherwise, it is set to true.
-     *     @type int      $noRetriesRpcTimeoutMillis Optional. The timeout of the rpc call to be used
-     *                    if $retriesEnabled is false, in milliseconds. It not specified, the value
-     *                    of $initialRpcTimeoutMillis is used.
-     *     @type array    $retryableCodes The Status codes that are retryable. Each status should be
-     *                    either one of the string constants defined on {@see \Google\ApiCore\ApiStatus}
-     *                    or an integer constant defined on {@see \Google\Rpc\Code}.
-     *     @type int      $initialRetryDelayMillis The initial delay of retry in milliseconds.
-     *     @type int      $retryDelayMultiplier The exponential multiplier of retry delay.
-     *     @type int      $maxRetryDelayMillis The max delay of retry in milliseconds.
-     *     @type int      $initialRpcTimeoutMillis The initial timeout of rpc call in milliseconds.
-     *     @type int      $rpcTimeoutMultiplier The exponential multiplier of rpc timeout.
-     *     @type int      $maxRpcTimeoutMillis The max timeout of rpc call in milliseconds.
-     *     @type int      $totalTimeoutMillis The max accumulative timeout in total.
-     *     @type int      $maxRetries The max retries allowed for an operation.
-     *                    Defaults to the value of the DEFAULT_MAX_RETRIES constant.
-     *                    This option is experimental.
-     *     @type callable $retryFunction This function will be used to decide if we should retry or not.
-     *                    Callable signature: `function (Exception $e, array $options): bool`
-     *                    This option is experimental.
+     *     @type bool    $retriesEnabled Optional. Enables retries. If not specified, the value is
+     *                   determined using the $retryableCodes setting. If $retryableCodes is empty,
+     *                   then $retriesEnabled is set to false; otherwise, it is set to true.
+     *     @type int     $noRetriesRpcTimeoutMillis Optional. The timeout of the rpc call to be used
+     *                   if $retriesEnabled is false, in milliseconds. It not specified, the value
+     *                   of $initialRpcTimeoutMillis is used.
+     *     @type array   $retryableCodes The Status codes that are retryable. Each status should be
+     *                   either one of the string constants defined on {@see \Google\ApiCore\ApiStatus}
+     *                   or an integer constant defined on {@see \Google\Rpc\Code}.
+     *     @type int     $initialRetryDelayMillis The initial delay of retry in milliseconds.
+     *     @type int     $retryDelayMultiplier The exponential multiplier of retry delay.
+     *     @type int     $maxRetryDelayMillis The max delay of retry in milliseconds.
+     *     @type int     $initialRpcTimeoutMillis The initial timeout of rpc call in milliseconds.
+     *     @type int     $rpcTimeoutMultiplier The exponential multiplier of rpc timeout.
+     *     @type int     $maxRpcTimeoutMillis The max timeout of rpc call in milliseconds.
+     *     @type int     $totalTimeoutMillis The max accumulative timeout in total.
      * }
      */
     public function __construct(array $settings)
     {
-        $this->validateNotNull($settings, [
-            'initialRetryDelayMillis',
-            'retryDelayMultiplier',
-            'maxRetryDelayMillis',
-            'initialRpcTimeoutMillis',
-            'rpcTimeoutMultiplier',
-            'maxRpcTimeoutMillis',
-            'totalTimeoutMillis',
-            'retryableCodes'
-        ]);
+        $this->validateNotNull($settings, ['initialRetryDelayMillis', 'retryDelayMultiplier', 'maxRetryDelayMillis', 'initialRpcTimeoutMillis', 'rpcTimeoutMultiplier', 'maxRpcTimeoutMillis', 'totalTimeoutMillis', 'retryableCodes']);
         $this->initialRetryDelayMillis = $settings['initialRetryDelayMillis'];
         $this->retryDelayMultiplier = $settings['retryDelayMultiplier'];
         $this->maxRetryDelayMillis = $settings['maxRetryDelayMillis'];
@@ -287,16 +250,9 @@ class RetrySettings
         $this->maxRpcTimeoutMillis = $settings['maxRpcTimeoutMillis'];
         $this->totalTimeoutMillis = $settings['totalTimeoutMillis'];
         $this->retryableCodes = $settings['retryableCodes'];
-        $this->retriesEnabled = array_key_exists('retriesEnabled', $settings)
-            ? $settings['retriesEnabled']
-            : (count($this->retryableCodes) > 0);
-        $this->noRetriesRpcTimeoutMillis = array_key_exists('noRetriesRpcTimeoutMillis', $settings)
-            ? $settings['noRetriesRpcTimeoutMillis']
-            : $this->initialRpcTimeoutMillis;
-        $this->maxRetries = $settings['maxRetries'] ?? self::DEFAULT_MAX_RETRIES;
-        $this->retryFunction = $settings['retryFunction'] ?? null;
+        $this->retriesEnabled = \array_key_exists('retriesEnabled', $settings) ? $settings['retriesEnabled'] : \count($this->retryableCodes) > 0;
+        $this->noRetriesRpcTimeoutMillis = \array_key_exists('noRetriesRpcTimeoutMillis', $settings) ? $settings['noRetriesRpcTimeoutMillis'] : $this->initialRpcTimeoutMillis;
     }
-
     /**
      * Constructs an array mapping method names to CallSettings.
      *
@@ -310,75 +266,45 @@ class RetrySettings
      * @throws ValidationException
      * @return RetrySettings[] $retrySettings
      */
-    public static function load(
-        string $serviceName,
-        array $clientConfig,
-        bool $disableRetries = false
-    ) {
+    public static function load(string $serviceName, array $clientConfig, bool $disableRetries = \false)
+    {
         $serviceRetrySettings = [];
-
         $serviceConfig = $clientConfig['interfaces'][$serviceName];
         $retryCodes = $serviceConfig['retry_codes'];
         $retryParams = $serviceConfig['retry_params'];
         foreach ($serviceConfig['methods'] as $methodName => $methodConfig) {
             $timeoutMillis = $methodConfig['timeout_millis'];
-
             if (empty($methodConfig['retry_codes_name']) || empty($methodConfig['retry_params_name'])) {
                 // Construct a RetrySettings object with retries disabled
-                $retrySettings = self::constructDefault()->with([
-                    'noRetriesRpcTimeoutMillis' => $timeoutMillis,
-                ]);
+                $retrySettings = self::constructDefault()->with(['noRetriesRpcTimeoutMillis' => $timeoutMillis]);
             } else {
                 $retryCodesName = $methodConfig['retry_codes_name'];
                 $retryParamsName = $methodConfig['retry_params_name'];
-
-                if (!array_key_exists($retryCodesName, $retryCodes)) {
-                    throw new ValidationException("Invalid retry_codes_name setting: '$retryCodesName'");
+                if (!\array_key_exists($retryCodesName, $retryCodes)) {
+                    throw new \Google\ApiCore\ValidationException("Invalid retry_codes_name setting: '{$retryCodesName}'");
                 }
-                if (!array_key_exists($retryParamsName, $retryParams)) {
-                    throw new ValidationException("Invalid retry_params_name setting: '$retryParamsName'");
+                if (!\array_key_exists($retryParamsName, $retryParams)) {
+                    throw new \Google\ApiCore\ValidationException("Invalid retry_params_name setting: '{$retryParamsName}'");
                 }
-
                 foreach ($retryCodes[$retryCodesName] as $status) {
-                    if (!ApiStatus::isValidStatus($status)) {
-                        throw new ValidationException("Invalid status code: '$status'");
+                    if (!\Google\ApiCore\ApiStatus::isValidStatus($status)) {
+                        throw new \Google\ApiCore\ValidationException("Invalid status code: '{$status}'");
                     }
                 }
-
-                $retryParameters = self::convertArrayFromSnakeCase($retryParams[$retryParamsName]) + [
-                    'retryableCodes' => $retryCodes[$retryCodesName],
-                    'noRetriesRpcTimeoutMillis' => $timeoutMillis,
-                ];
+                $retryParameters = self::convertArrayFromSnakeCase($retryParams[$retryParamsName]) + ['retryableCodes' => $retryCodes[$retryCodesName], 'noRetriesRpcTimeoutMillis' => $timeoutMillis];
                 if ($disableRetries) {
-                    $retryParameters['retriesEnabled'] = false;
+                    $retryParameters['retriesEnabled'] = \false;
                 }
-
-                $retrySettings = new RetrySettings($retryParameters);
+                $retrySettings = new \Google\ApiCore\RetrySettings($retryParameters);
             }
-
             $serviceRetrySettings[$methodName] = $retrySettings;
         }
-
         return $serviceRetrySettings;
     }
-
     public static function constructDefault()
     {
-        return new RetrySettings([
-            'retriesEnabled' => false,
-            'noRetriesRpcTimeoutMillis' => 30000,
-            'initialRetryDelayMillis' => 100,
-            'retryDelayMultiplier' => 1.3,
-            'maxRetryDelayMillis' => 60000,
-            'initialRpcTimeoutMillis' => 20000,
-            'rpcTimeoutMultiplier' => 1,
-            'maxRpcTimeoutMillis' => 20000,
-            'totalTimeoutMillis' => 600000,
-            'retryableCodes' => [],
-            'maxRetries' => self::DEFAULT_MAX_RETRIES,
-            'retryFunction' => null]);
+        return new \Google\ApiCore\RetrySettings(['retriesEnabled' => \false, 'noRetriesRpcTimeoutMillis' => 30000, 'initialRetryDelayMillis' => 100, 'retryDelayMultiplier' => 1.3, 'maxRetryDelayMillis' => 60000, 'initialRpcTimeoutMillis' => 20000, 'rpcTimeoutMultiplier' => 1, 'maxRpcTimeoutMillis' => 20000, 'totalTimeoutMillis' => 600000, 'retryableCodes' => []]);
     }
-
     /**
      * Creates a new instance of RetrySettings that updates the settings in the existing instance
      * with the settings specified in the $settings parameter.
@@ -392,23 +318,9 @@ class RetrySettings
      */
     public function with(array $settings)
     {
-        $existingSettings = [
-            'initialRetryDelayMillis' => $this->getInitialRetryDelayMillis(),
-            'retryDelayMultiplier' => $this->getRetryDelayMultiplier(),
-            'maxRetryDelayMillis' => $this->getMaxRetryDelayMillis(),
-            'initialRpcTimeoutMillis' => $this->getInitialRpcTimeoutMillis(),
-            'rpcTimeoutMultiplier' => $this->getRpcTimeoutMultiplier(),
-            'maxRpcTimeoutMillis' => $this->getMaxRpcTimeoutMillis(),
-            'totalTimeoutMillis' => $this->getTotalTimeoutMillis(),
-            'retryableCodes' => $this->getRetryableCodes(),
-            'retriesEnabled' => $this->retriesEnabled(),
-            'noRetriesRpcTimeoutMillis' => $this->getNoRetriesRpcTimeoutMillis(),
-            'maxRetries' => $this->getMaxRetries(),
-            'retryFunction' => $this->getRetryFunction(),
-        ];
-        return new RetrySettings($settings + $existingSettings);
+        $existingSettings = ['initialRetryDelayMillis' => $this->getInitialRetryDelayMillis(), 'retryDelayMultiplier' => $this->getRetryDelayMultiplier(), 'maxRetryDelayMillis' => $this->getMaxRetryDelayMillis(), 'initialRpcTimeoutMillis' => $this->getInitialRpcTimeoutMillis(), 'rpcTimeoutMultiplier' => $this->getRpcTimeoutMultiplier(), 'maxRpcTimeoutMillis' => $this->getMaxRpcTimeoutMillis(), 'totalTimeoutMillis' => $this->getTotalTimeoutMillis(), 'retryableCodes' => $this->getRetryableCodes(), 'retriesEnabled' => $this->retriesEnabled(), 'noRetriesRpcTimeoutMillis' => $this->getNoRetriesRpcTimeoutMillis()];
+        return new \Google\ApiCore\RetrySettings($settings + $existingSettings);
     }
-
     /**
      * Creates an associative array of the {@see \Google\ApiCore\RetrySettings} timeout fields configured
      * with the given timeout specified in the $timeout parameter interpreted as a logical timeout.
@@ -418,15 +330,8 @@ class RetrySettings
      */
     public static function logicalTimeout(int $timeout)
     {
-        return [
-            'initialRpcTimeoutMillis' => $timeout,
-            'maxRpcTimeoutMillis' => $timeout,
-            'totalTimeoutMillis' => $timeout,
-            'noRetriesRpcTimeoutMillis' => $timeout,
-            'rpcTimeoutMultiplier' => 1.0
-        ];
+        return ['initialRpcTimeoutMillis' => $timeout, 'maxRpcTimeoutMillis' => $timeout, 'totalTimeoutMillis' => $timeout, 'noRetriesRpcTimeoutMillis' => $timeout, 'rpcTimeoutMultiplier' => 1.0];
     }
-
     /**
      * @return bool Returns true if retries are enabled, otherwise returns false.
      */
@@ -434,7 +339,6 @@ class RetrySettings
     {
         return $this->retriesEnabled;
     }
-
     /**
      * @return int The timeout of the rpc call to be used if $retriesEnabled is false,
      *             in milliseconds.
@@ -443,7 +347,6 @@ class RetrySettings
     {
         return $this->noRetriesRpcTimeoutMillis;
     }
-
     /**
      * @return int[] Status codes to retry
      */
@@ -451,7 +354,6 @@ class RetrySettings
     {
         return $this->retryableCodes;
     }
-
     /**
      * @return int The initial retry delay in milliseconds. If $this->retriesEnabled()
      *             is false, this setting is unused.
@@ -460,7 +362,6 @@ class RetrySettings
     {
         return $this->initialRetryDelayMillis;
     }
-
     /**
      * @return float The retry delay multiplier. If $this->retriesEnabled()
      *               is false, this setting is unused.
@@ -469,7 +370,6 @@ class RetrySettings
     {
         return $this->retryDelayMultiplier;
     }
-
     /**
      * @return int The maximum retry delay in milliseconds. If $this->retriesEnabled()
      *             is false, this setting is unused.
@@ -478,7 +378,6 @@ class RetrySettings
     {
         return $this->maxRetryDelayMillis;
     }
-
     /**
      * @return int The initial rpc timeout in milliseconds. If $this->retriesEnabled()
      *             is false, this setting is unused - use noRetriesRpcTimeoutMillis to
@@ -488,7 +387,6 @@ class RetrySettings
     {
         return $this->initialRpcTimeoutMillis;
     }
-
     /**
      * @return float The rpc timeout multiplier. If $this->retriesEnabled()
      *               is false, this setting is unused.
@@ -497,7 +395,6 @@ class RetrySettings
     {
         return $this->rpcTimeoutMultiplier;
     }
-
     /**
      * @return int The maximum rpc timeout in milliseconds. If $this->retriesEnabled()
      *             is false, this setting is unused - use noRetriesRpcTimeoutMillis to
@@ -507,7 +404,6 @@ class RetrySettings
     {
         return $this->maxRpcTimeoutMillis;
     }
-
     /**
      * @return int The total time in milliseconds to spend on the call, including all
      *             retry attempts and delays between attempts. If $this->retriesEnabled()
@@ -518,29 +414,12 @@ class RetrySettings
     {
         return $this->totalTimeoutMillis;
     }
-
-    /**
-     * @experimental
-     */
-    public function getMaxRetries()
-    {
-        return $this->maxRetries;
-    }
-
-    /**
-     * @experimental
-     */
-    public function getRetryFunction()
-    {
-        return $this->retryFunction;
-    }
-
     private static function convertArrayFromSnakeCase(array $settings)
     {
         $camelCaseSettings = [];
         foreach ($settings as $key => $value) {
-            $camelCaseKey = str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
-            $camelCaseSettings[lcfirst($camelCaseKey)] = $value;
+            $camelCaseKey = \str_replace(' ', '', \ucwords(\str_replace('_', ' ', $key)));
+            $camelCaseSettings[\lcfirst($camelCaseKey)] = $value;
         }
         return $camelCaseSettings;
     }

@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Monolog package.
  *
@@ -8,10 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Monolog\Formatter;
-
-use Monolog\LogRecord;
+namespace Analytify\Monolog\Formatter;
 
 /**
  * Encodes message information into JSON in a format compatible with Logmatic.
@@ -21,50 +19,39 @@ use Monolog\LogRecord;
 class LogmaticFormatter extends JsonFormatter
 {
     protected const MARKERS = ["sourcecode", "php"];
-
-    protected string $hostname = '';
-
-    protected string $appName = '';
-
     /**
-     * @return $this
+     * @var string
      */
-    public function setHostname(string $hostname): self
+    protected $hostname = '';
+    /**
+     * @var string
+     */
+    protected $appname = '';
+    public function setHostname(string $hostname) : self
     {
         $this->hostname = $hostname;
-
         return $this;
     }
-
-    /**
-     * @return $this
-     */
-    public function setAppName(string $appName): self
+    public function setAppname(string $appname) : self
     {
-        $this->appName = $appName;
-
+        $this->appname = $appname;
         return $this;
     }
-
     /**
      * Appends the 'hostname' and 'appname' parameter for indexing by Logmatic.
      *
      * @see http://doc.logmatic.io/docs/basics-to-send-data
      * @see \Monolog\Formatter\JsonFormatter::format()
      */
-    public function normalizeRecord(LogRecord $record): array
+    public function format(array $record) : string
     {
-        $record = parent::normalizeRecord($record);
-
-        if ($this->hostname !== '') {
+        if (!empty($this->hostname)) {
             $record["hostname"] = $this->hostname;
         }
-        if ($this->appName !== '') {
-            $record["appname"] = $this->appName;
+        if (!empty($this->appname)) {
+            $record["appname"] = $this->appname;
         }
-
         $record["@marker"] = static::MARKERS;
-
-        return $record;
+        return parent::format($record);
     }
 }

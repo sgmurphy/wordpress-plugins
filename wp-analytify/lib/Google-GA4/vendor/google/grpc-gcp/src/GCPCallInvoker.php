@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * Copyright 2018 gRPC authors.
@@ -33,7 +34,6 @@ class GCPCallInvoker implements \Grpc\CallInvoker
 {
     private $channel;
     private $affinity_conf;
-
     /**
      * @param array  $affinity_conf Store the affinity config for process each RPC.
      */
@@ -41,7 +41,6 @@ class GCPCallInvoker implements \Grpc\CallInvoker
     {
         $this->affinity_conf = $affinity_conf;
     }
-
     /**
      * @param string  $hostname
      * @param array  $opts
@@ -55,32 +54,30 @@ class GCPCallInvoker implements \Grpc\CallInvoker
             $this->channel->updateOpts($opts);
         } else {
             $opts['affinity_conf'] = $this->affinity_conf;
-            $channel = new GcpExtensionChannel($hostname, $opts);
+            $channel = new \Grpc\Gcp\GcpExtensionChannel($hostname, $opts);
             $this->channel = $channel;
         }
         return $this->channel;
     }
-
     // _getChannel is used for testing only.
     public function GetChannel()
     {
         return $this->channel;
     }
-
     public function UnaryCall($channel, $method, $deserialize, $options)
     {
-        return new GCPUnaryCall($channel, $method, $deserialize, $options);
+        return new \Grpc\Gcp\GCPUnaryCall($channel, $method, $deserialize, $options);
     }
     public function ClientStreamingCall($channel, $method, $deserialize, $options)
     {
-        return new GCPClientStreamCall($channel, $method, $deserialize, $options);
+        return new \Grpc\Gcp\GCPClientStreamCall($channel, $method, $deserialize, $options);
     }
     public function ServerStreamingCall($channel, $method, $deserialize, $options)
     {
-        return new GCPServerStreamCall($channel, $method, $deserialize, $options);
+        return new \Grpc\Gcp\GCPServerStreamCall($channel, $method, $deserialize, $options);
     }
     public function BidiStreamingCall($channel, $method, $deserialize, $options)
     {
-        return new GCPBidiStreamingCall($channel, $method, $deserialize, $options);
+        return new \Grpc\Gcp\GCPBidiStreamingCall($channel, $method, $deserialize, $options);
     }
 }
