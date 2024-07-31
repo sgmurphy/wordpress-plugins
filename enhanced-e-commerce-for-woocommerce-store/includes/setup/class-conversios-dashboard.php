@@ -74,14 +74,17 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
             $conv_onboarding_done_step = isset($this->ee_options['conv_onboarding_done_step']) ? $this->ee_options['conv_onboarding_done_step'] : "";
             $conv_onboarding_done = isset($this->ee_options['conv_onboarding_done']) ? $this->ee_options['conv_onboarding_done'] : "";
 
+            //echo '<pre>'; print_r($this->ee_options); echo '</pre>';
 
             // Redirect to report
-            if (version_compare(PLUGIN_TVC_VERSION, "7.1.2", ">") && ($gm_id != "" || $google_ads_id != "" || $google_merchant_id != "") ) {
-                if (empty($conv_onboarding_done_step)) {
-                    $conv_oldredi = admin_url('admin.php?page=conversios-analytics-reports');
-                    echo "<script> location.href='".$conv_oldredi."'; </script>"; 
-                    exit(); 
-                    //add_action('wp_loaded', array($this, 'conv_redirect_olduser'));
+            if (version_compare(PLUGIN_TVC_VERSION, "7.1.2", ">") && ($gm_id != "" || $google_ads_id != "" || $google_merchant_id != "")) {
+                if (empty($conv_onboarding_done_step) || $conv_onboarding_done_step == "5") {
+                    if (!empty($conv_onboarding_done) || ($gm_id != "" || $google_ads_id != "" || $google_merchant_id != "")) {
+                        $conv_oldredi = admin_url('admin.php?page=conversios-analytics-reports');
+                        echo "<script> location.href='" . $conv_oldredi . "'; </script>";
+                        exit();
+                        //add_action('wp_loaded', array($this, 'conv_redirect_olduser'));
+                    }
                 }
             }
 
@@ -118,63 +121,66 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
 
         public function current_js_licence_active()
         { ?>
-            <script>
-                jQuery(function() {
-                    jQuery("#acvivelicbtn").click(function() {
-                        var post_data_lic = {
-                            action: "tvc_call_active_licence",
-                            licence_key: jQuery("#licencekeyinput").val(),
-                            conv_licence_nonce: '<?php echo esc_js(wp_create_nonce("conv_lic_nonce")); ?>',
-                        }
-                        jQuery.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: tvc_ajax_url,
-                            data: post_data_lic,
-                            beforeSend: function() {
-                                jQuery("#acvivelicbtn").find(".spinner-border").removeClass("d-none");
-                            },
-                            success: function(response) {
-                                jQuery("#licencemsg").removeClass();
-                                if (response.error === false) {
-                                    jQuery("#licencemsg").addClass('text-success').text(response.message);
-                                    setTimeout(function() {
-                                        location.reload();
-                                    }, 2000);
-                                } else {
-                                    jQuery("#licencemsg").addClass('text-danger').text(response.message);
-                                }
-                                jQuery('#acvivelicbtn').find(".spinner-border").addClass("d-none");
-                            }
-                        });
-                    });
-                });
-            </script>
-        <?php }
+<script>
+jQuery(function() {
+    jQuery("#acvivelicbtn").click(function() {
+        var post_data_lic = {
+            action: "tvc_call_active_licence",
+            licence_key: jQuery("#licencekeyinput").val(),
+            conv_licence_nonce: '<?php echo esc_js(wp_create_nonce("conv_lic_nonce")); ?>',
+        }
+        jQuery.ajax({
+            type: "POST",
+            dataType: "json",
+            url: tvc_ajax_url,
+            data: post_data_lic,
+            beforeSend: function() {
+                jQuery("#acvivelicbtn").find(".spinner-border").removeClass("d-none");
+            },
+            success: function(response) {
+                jQuery("#licencemsg").removeClass();
+                if (response.error === false) {
+                    jQuery("#licencemsg").addClass('text-success').text(response.message);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    jQuery("#licencemsg").addClass('text-danger').text(response.message);
+                }
+                jQuery('#acvivelicbtn').find(".spinner-border").addClass("d-none");
+            }
+        });
+    });
+});
+</script>
+<?php }
         public function dashboard_licencebox_html()
         { ?>
-            <div class="dash-area">
-                <div class="dashwhole-box">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="purchase-box">
-                                <h4>
-                                    <?php esc_html_e("Already purchased license Key?", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </h4>
-                                <div class="form-box">
-                                    <input type="email" class="form-control icontrol" readonly id="exampleFormControlInput1" placeholder="Enter your key">
-                                </div>
-                                <div class="upgrade-btn">
-                                    <a target="_blank" href="<?php echo esc_url($this->TVC_Admin_Helper->get_conv_pro_link_adv("licenceinput", "dashboard", "", "linkonly", "")); ?>" class="btn btn-dark common-btn">
-                                        <?php esc_html_e("Upgrade to Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+<div class="dash-area">
+    <div class="dashwhole-box">
+        <div class="card">
+            <div class="card-body">
+                <div class="purchase-box">
+                    <h4>
+                        <?php esc_html_e("Already purchased license Key?", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </h4>
+                    <div class="form-box">
+                        <input type="email" class="form-control icontrol" readonly id="exampleFormControlInput1"
+                            placeholder="Enter your key">
+                    </div>
+                    <div class="upgrade-btn">
+                        <a target="_blank"
+                            href="<?php echo esc_url($this->TVC_Admin_Helper->get_conv_pro_link_adv("licenceinput", "dashboard", "", "linkonly", "")); ?>"
+                            class="btn btn-dark common-btn">
+                            <?php esc_html_e("Upgrade to Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </a>
                     </div>
                 </div>
             </div>
-        <?php
+        </div>
+    </div>
+</div>
+<?php
         }
 
 
@@ -182,50 +188,64 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
         public function current_html()
         {
         ?>
-            <section style="max-width: 1200px; margin:auto;">
-                <div class="dash-conv">
-                    <div class="container">
+<section style="max-width: 1200px; margin:auto;">
+    <div class="dash-conv">
+        <div class="container">
 
-                        <div class="row bg-white rounded py-4">
-                            <div class="col-12 dshboardwelcome">
-                                <!-- licence key html call-->
-                                <?php //$this->dashboard_licencebox_html(); 
+            <div class="row bg-white rounded py-4">
+                <div class="col-12 dshboardwelcome">
+                    <!-- licence key html call-->
+                    <?php //$this->dashboard_licencebox_html(); 
                                 ?>
-                                <h2 class="text-center">Welcome To Conversios Plugin</h2>
-                                <h4 class="text-center conv-link-blue">All In One Plugin for Pixels, Audience Building, Campaign Creation, E-Commerce Tracking & more</h5>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <div class="col-4 dshboardwelcome_box m-3 p-3 d-flex flex-column">
-                                    <h5 class="d-inline">Are You a <span class="conv-link-blue">WooCommerce</span> User Looking to Grow Your Store?</h5>
-                                    <ul class="p-0">
-                                        <li><b>GA4 Ecommerce Tracking & Lead Generation Tracking:</b> Gain deeper insights into customer behavior.</li>
-                                        <li><b>Multi-Channel Ad Tracking:</b> Measure the effectiveness of your advertising across multiple channels.</li>
-                                        <li><b>Google Ads Conversion Tracking & Dynamic Remarketing Tracking:</b> Optimize your Google Ads campaigns.</li>
-                                        <li><b>Product Feed Management:</b> Simplify product feed submissions and creation</li>
-                                        <li><b>Ecommerce & Ads Reporting & Insights:</b> Make informed decisions with comprehensive reporting and insights.</li>
-                                    </ul>
-                                    <a href="<?php echo esc_url('admin.php?page=conversios&wizard=pixelandanalytics'); ?>" class="btn btn-primary w-100 p-2 mt-auto">Initiate Quick Setup</a>
-                                </div>
-                                <div class="col-4 dshboardwelcome_box m-3 p-3 d-flex flex-column">
-                                    <h5 class="d-inline">Are You a <span class="conv-link-blue">WordPress</span> User Striving to Improve User Engagement?</h5>
-                                    <ul class="p-0">
-                                        <li><b>Track Form Submissions:</b> Analyze which forms are most used and how visitors interact with them.</li>
-                                        <li><b>Track Email Clicks:</b> Gain insights into which email CTAs (calls to action) are most effective.</li>
-                                        <li><b>Track Phone Clicks:</b> See how often users click on phone numbers displayed on your website.</li>
-                                        <li><b>Track Address Clicks:</b> Understand potential visitor interest in a physical location.</li>
-                                        <li><b>General Reports:</b> Make informed decisions with comprehensive reporting and insights.</li>
-                                    </ul>
-                                    <a href="<?php echo esc_url('admin.php?page=conversios&wizard=pixelandanalytics'); ?>" class="btn btn-primary w-100 p-2 mt-auto">Initiate Quick Setup</a>
-                                </div>
-                            </div>
-
-
-                        </div>
+                    <h2 class="text-center">Welcome To Conversios Plugin</h2>
+                    <h4 class="text-center conv-link-blue">All In One Plugin for Pixels, Audience Building, Campaign
+                        Creation, E-Commerce Tracking & more</h5>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-4 dshboardwelcome_box m-3 p-3 d-flex flex-column">
+                        <h5 class="d-inline">Are You a <span class="conv-link-blue">WooCommerce</span> User Looking to
+                            Grow Your Store?</h5>
+                        <ul class="p-0">
+                            <li><b>GA4 Ecommerce Tracking & Lead Generation Tracking:</b> Gain deeper insights into
+                                customer behavior.</li>
+                            <li><b>Multi-Channel Ad Tracking:</b> Measure the effectiveness of your advertising across
+                                multiple channels.</li>
+                            <li><b>Google Ads Conversion Tracking & Dynamic Remarketing Tracking:</b> Optimize your
+                                Google Ads campaigns.</li>
+                            <li><b>Product Feed Management:</b> Simplify product feed submissions and creation</li>
+                            <li><b>Ecommerce & Ads Reporting & Insights:</b> Make informed decisions with comprehensive
+                                reporting and insights.</li>
+                        </ul>
+                        <a href="<?php echo esc_url('admin.php?page=conversios&wizard=pixelandanalytics'); ?>"
+                            class="btn btn-primary w-100 p-2 mt-auto">Initiate Quick Setup</a>
                     </div>
+                    <div class="col-4 dshboardwelcome_box m-3 p-3 d-flex flex-column">
+                        <h5 class="d-inline">Are You a <span class="conv-link-blue">WordPress</span> User Striving to
+                            Improve User Engagement?</h5>
+                        <ul class="p-0">
+                            <li><b>Track Form Submissions:</b> Analyze which forms are most used and how visitors
+                                interact with them.</li>
+                            <li><b>Track Email Clicks:</b> Gain insights into which email CTAs (calls to action) are
+                                most effective.</li>
+                            <li><b>Track Phone Clicks:</b> See how often users click on phone numbers displayed on your
+                                website.</li>
+                            <li><b>Track Address Clicks:</b> Understand potential visitor interest in a physical
+                                location.</li>
+                            <li><b>General Reports:</b> Make informed decisions with comprehensive reporting and
+                                insights.</li>
+                        </ul>
+                        <a href="<?php echo esc_url('admin.php?page=conversios&wizard=pixelandanalytics'); ?>"
+                            class="btn btn-primary w-100 p-2 mt-auto">Initiate Quick Setup</a>
+                    </div>
+                </div>
 
-                </div>
-                </div>
-            </section>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+</section>
 
 
 <?php

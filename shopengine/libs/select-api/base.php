@@ -111,7 +111,7 @@ class Base extends \ShopEngine\Base\Api {
         $query_args = [
             'post_type'         => 'product',
             'post_status'       => 'publish',
-            'posts_per_page'    => 15,
+            'posts_per_page'    => apply_filters('shopengine_filterable_products_per_page', 15)
         ];
 
         if(isset($this->request['ids'])){

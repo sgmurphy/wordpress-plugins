@@ -671,7 +671,7 @@ if (!class_exists('Conversios_Onboarding_ApiCall')) {
 
       $this->refresh_token = $refresh_token;
       $access_token_value = $this->generateAccessToken(base64_decode($access_token ?? ''), base64_decode($this->refresh_token ?? ''));
-      $this->access_token = base64_encode($access_token_value);
+      $this->access_token = base64_encode($access_token_value ?? "");
       $this->apiDomain = TVC_API_CALL_URL;
       $this->token = 'MTIzNA==';
       $this->merchantId = sanitize_text_field($merchantInfo['merchantId']);
@@ -1101,21 +1101,11 @@ if (!class_exists('Conversios_Onboarding_ApiCall')) {
         $url = $this->apiDomain . '/google-analytics/link-ads-to-analytics';
         $access_token = sanitize_text_field(base64_decode($this->access_token));
         $refresh_token = sanitize_text_field(base64_decode($this->refresh_token));
-        if ($postData['type'] == "UA") {
-          $data = [
-            'type' => sanitize_text_field($postData['type']),
-            'ads_customer_id' => sanitize_text_field($postData['ads_customer_id']),
-            'analytics_id' => sanitize_text_field($postData['analytics_id']),
-            'web_property_id' => sanitize_text_field($postData['web_property_id']),
-            'profile_id' => sanitize_text_field($postData['profile_id']),
-          ];
-        } else {
-          $data = [
-            'type' => "GA4",
-            'ads_customer_id' => sanitize_text_field($postData['ads_customer_id']),
-            'subscription_id' => sanitize_text_field($postData['subscription_id']),
-          ];
-        }
+        $data = [
+          'type' => "GA4",
+          'ads_customer_id' => sanitize_text_field($postData['ads_customer_id']),
+          'subscription_id' => sanitize_text_field($postData['subscription_id']),
+        ];
         $args = array(
           'timeout' => 300,
           'headers' => array(

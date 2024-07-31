@@ -3,7 +3,7 @@
 Plugin Name: RTOC - Rich Table of Content
 Author:
 Author URI:
-Version: 1.3.99
+Version: 1.4.0
 */
 @-webkit-keyframes fadeIn {
   0% {
@@ -810,11 +810,6 @@ div[class^=cta-] #rtoc-mokuji-wrapper {
 
 #wrapper {
   overflow: visible;
-}
-
-div#widget-tracking {
-  position: sticky;
-  top: 30px;
 }
 
 .sidebar_style1 .widget #rtoc-mokuji-widget-wrapper.rtoc-mokuji-content {

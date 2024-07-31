@@ -95,19 +95,24 @@ class Permissions {
 			$user_id = $user->ID;
 		}
 
-		$can = user_can( $user_id, $permission );
-
-		if ( user_can( $user_id, 'administrator' ) ) {
-			// user is admin
+		if ( user_can( $user_id, 'administrator' )) {
+			// user is admins
 			return true;
 		}
 
-		if ( $can ) {
-			return true;
+		if(Utils::is_pro()){
+			$can = user_can( $user_id, $permission );
+			if ( $can ) {
+				return true;
+			}
+		}else{
+			return false; 
 		}
-
+		
 		return false;
 	}
+
+
 
 	/**
 	 * Gets all the permissions
@@ -148,7 +153,6 @@ class Permissions {
 			// user is admin
 			return true;
 		}
-
 		return false;
 	}
 }

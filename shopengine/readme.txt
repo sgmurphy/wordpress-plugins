@@ -4,7 +4,7 @@ Contributors: xpeedstudio, Ataurr, emranio
 Tags: WooCommerce, WooCommerce Builder, Elementor, Elementor WooCommerce, Product Template, WooCommerce blocks, WooCommerce Product, Product Slider, Shopping Cart, Wishlist, Woo Builder, Variation Swatches
 
 Tested up to: 6.6
-Stable tag: 4.6.7
+Stable tag: 4.6.8
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -306,6 +306,12 @@ If you like using the ShopEngine WooCommerce template builder, then consider che
 **[EmailKit](https://wordpress.org/plugins/emailkit/)**  – Effortlessly create visually appealing and personalized email templates for WooCommerce builders.
 
 Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best of WordPress with  [Tutorial, Tips & Tricks](https://wpmet.com/blog)!
+
+== Changelog ==
+v4.6.8// 30-07-2024
+Improved: Filterable product widget 
+Fixed: Product filters not working with product attributes
+Fixed: PHP notice issue
 
 == Changelog ==
 v4.6.7// 24-07-2024

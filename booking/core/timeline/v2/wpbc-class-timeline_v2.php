@@ -1736,6 +1736,28 @@ if(1)
 
 
 		/**
+		 * Check method 2, if starting new booking (something changed) relative to  previous CELL
+		 *
+		 * @param array $bookings_in_cell
+		 * @param array $previous_bookings_in_cell
+		 *
+		 * @return bool
+		 */
+		private function is_start_new_booking_cell2( $bookings_in_cell, $previous_bookings_in_cell ) {
+
+			$bookings_in_cell          = implode( '|', $bookings_in_cell );
+			$previous_bookings_in_cell = implode( '|', $previous_bookings_in_cell );
+
+			$bookings_in_cell_arr          = explode( '|', $bookings_in_cell );
+			$previous_bookings_in_cell_arr = explode( '|', $previous_bookings_in_cell );
+
+			$is_check1 = empty( array_diff( $bookings_in_cell_arr, $previous_bookings_in_cell_arr ) );
+			$is_check2 = empty( array_diff( $previous_bookings_in_cell_arr, $bookings_in_cell_arr ) );
+
+			return ( ( ! $is_check1 ) && (  ! $is_check2 ) );
+		}
+
+		/**
 		 * Get Text for booking Title in PIPELINE
 		 *
 		 * @param $bk_id
@@ -1842,7 +1864,13 @@ if(1)
 				$bk_a_title__text = substr( $bk_a_title__text, 0, 20 ) . '...';
 			}
 			if ( count( $bookings_in_cell ) > 1 ) {
-				$bk_a_title__text = '<sup>[' . count( $bookings_in_cell ) . ']</sup> ' . $bk_a_title__text;
+
+				if ( ! $this->is_bookings_use_check_in_out( $bookings_in_cell, $row_settings['bookings'] ) ) {
+					$bk_a_title__text = '<sup>[' . count( $bookings_in_cell ) . ']</sup> ' . $bk_a_title__text;
+				} else {
+					return;
+				}
+
 			}
 
 
@@ -1872,6 +1900,43 @@ if(1)
 			?></a><?php
 		}
 
+			/**
+			 * Check  if some bookings used check  in / out functionality
+			 *
+			 * @param $bookings_id_arr
+			 * @param $bookings_obj_arr
+			 *
+			 * @return false
+			 */
+			function is_bookings_use_check_in_out( $bookings_id_arr, $bookings_obj_arr ) {
+
+				// -----------------------------------------------------------------------------------------------------
+				// Is Check In/out ?
+				// -----------------------------------------------------------------------------------------------------
+				$is_use_check_in_out_time = ( get_bk_option( 'booking_range_selection_time_is_active' ) == 'On' );
+
+				if ( $is_use_check_in_out_time ) {
+					foreach ( $bookings_id_arr as $booking_id ) {
+
+						if ( isset( $bookings_obj_arr[ $booking_id ] ) ) {
+							foreach ( $bookings_obj_arr[ $booking_id ]->dates as $booking_date_obj ) {
+								$booking_date_ymdhis = $booking_date_obj->booking_date;
+
+								$is_check_in_out__or_full = substr( $booking_date_ymdhis, - 1 );                                 // '1', '2'  (not '0')
+
+								if ( '1' === $is_check_in_out__or_full ) {
+									return true;
+								}
+								if ( '2' === $is_check_in_out__or_full ) {
+									return true;
+								}
+							}
+						}
+					}
+				}
+				return false;
+			}
+
 
 		/**
 		 * Get array of CSS classes for booking bar
@@ -1896,7 +1961,42 @@ if(1)
 				}
 				$class_arr[] = $is_approved ? 'approved_booking' : 'pending_booking';
 
-				/////////////////////////////////////////////////////////////////
+				// -----------------------------------------------------------------------------------------------------
+				// Is Check In/out ?
+				// -----------------------------------------------------------------------------------------------------
+				$is_use_check_in_out_time = ( get_bk_option( 'booking_range_selection_time_is_active' ) == 'On' );
+				$one_date__one_booking__check_in_out__arr = array();
+				if (
+					   ( $is_use_check_in_out_time )
+					&& ( (  $row_settings['is_matrix'] ) || ( 30 != $row_settings['view_days_num'] ) )
+					&& ( (  ! $row_settings['is_matrix'] ) || ( 1 != $row_settings['view_days_num'] ) )
+ 				){
+					$real_date_ymd = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );
+					foreach ( $bookings[ $booking_id ]->dates as $booking_date_obj ) {
+						$booking_date_ymdhis = $booking_date_obj->booking_date;
+						if ( substr( $booking_date_ymdhis, 0, 10 ) === $real_date_ymd ) {
+							$is_check_in_out__or_full = substr( $booking_date_ymdhis, -1 );                                 // '1', '2'  (not '0')
+
+							if ('1'=== $is_check_in_out__or_full ){
+								$one_date__one_booking__check_in_out__arr[] = 'booking_check_in';
+							}
+							if ('2'=== $is_check_in_out__or_full ){
+								$one_date__one_booking__check_in_out__arr[] = 'booking_check_out';
+							}
+							//break;
+						}
+					}
+				}
+				// If we have 2 or more like: [ 'booking_check_in', 'booking_check_out' ],  in the same date for same booking,  then it is time slots bookings
+				if ( count( $one_date__one_booking__check_in_out__arr ) == 1 ) {
+					$class_arr[] = $one_date__one_booking__check_in_out__arr[0];
+					$class_arr[] = 'booking_change_over';
+				}
+				if ( count( $one_date__one_booking__check_in_out__arr ) > 1 ) {
+					$class_arr[] = 'booking_time_slots';
+				}
+
+				// -----------------------------------------------------------------------------------------------------
 
 				if ( isset( $bookings[ $booking_id ]->trash ) ) {
 					$is_trash = $bookings[ $booking_id ]->trash;
@@ -2051,12 +2151,15 @@ if(1)
 								$time_ms                   = $tt * 60 * 60;
 								$bookings_in_this_time_arr = empty( $bookings_in__times_arr[ $time_ms ] ) ? array() : $bookings_in__times_arr[ $time_ms ];
 								$is_start_new_booking      = $this->is_start_new_booking_cell( $bookings_in_this_time_arr, $data_in_previous_cell['bookings_in_cell'] );
+								$is_start_new_booking2      = $this->is_start_new_booking_cell2( $bookings_in_this_time_arr, $data_in_previous_cell['bookings_in_cell'] );
 
 								$bookings_in_day_cell = $bookings_in_this_time_arr;
 
 							} else { // Get bookings for a day
 
 								$is_start_new_booking = $this->is_start_new_booking_cell( $bookings_in_day_cell, $data_in_previous_cell['bookings_in_cell'] );
+								$is_start_new_booking2 = $this->is_start_new_booking_cell2( $bookings_in_day_cell, $data_in_previous_cell['bookings_in_cell'] );
+
 							}
 
 							// Skip timeslots for day  view
@@ -2109,11 +2212,17 @@ if(1)
 
 												$booking_css_class_arr = $this->get_booking_class_arr( $booking_id, $row_settings, $row_settings['real_date'], $tt );
 
+												if ( ! in_array( 'booking_change_over', $booking_css_class_arr ) ) {
+													if ( $is_start_new_booking2 ) {
+														$booking_css_class_arr[] = 'start_new_booking';
+													}
+												}
+
 												?>
 												<div  class="<?php echo implode( ' ', array(
 																			'booking_id',
 																			'booking_id_' . $booking_id,
-																			$is_start_new_booking ? 'start_new_booking' : '',
+																			//$is_start_new_booking ? 'start_new_booking' : '',
 														) );
 														echo ' ' . implode( ' ', $booking_css_class_arr );
 														?>"
@@ -2199,7 +2308,7 @@ if(1)
 
 		    ?><div id="flex_resource_row_<?php echo $what_to_show . '_' . $booking_arr['current_resource_id']; ?>"
 				   class="<?php  echo implode(' ', array(
-								'flex_tl_dates_bar',
+								'flex_tl_dates_bar', 'flex_tl_row_height',
 								'flex_tl_row_bar_' . $what_to_show ,
 								$row_settings['is_matrix'] ? 'flex_tl_matrix_resources' : 'flex_tl_single_resource'
 						) ); ?>"
@@ -2394,11 +2503,7 @@ if(1)
 						 if ($is_matrix) { echo ' flex_tl_matrix_resources '; } else { echo ' flex_tl_single_resource '; }
 				   ?>">
             <div class="flex_tl_table">
-                <div class="flex_tl_table_header" style="<?php
-if ( ! $this->is_frontend ) {
-	echo 'display:none;';	//FixIn: 10.0.0.25
-}
-				?>">
+                <div class="flex_tl_table_header" style="<?php  if ( ! $this->is_frontend ) { echo 'display:none;';	/* //FixIn: 10.0.0.25 */  } ?>">
                     <?php 
                     if ( $this->is_frontend ) {
                         ?><div class="flex_tl_collumn_2"><?php
@@ -2422,239 +2527,202 @@ if ( ! $this->is_frontend ) {
 							echo $title;              // Dates
                         ?></div>
                     <?php } ?>
-                </div>
-                <div class="flex_tl_table_titles">
-                    <div class="flex_tl_collumn_1"></div>
-                    <div class="flex_tl_collumn_2"><?php
-                        // Header above the calendar table
-	                    $real_date = mktime( 0, 0, 0, intval( $start_month ), intval( $start_day ), intval( $start_year ) );
-
-                        if ( $is_matrix ) {    // MATRIX VIEW                    
-                            switch ( $view_days_num ) {                                        // Set real start date for the each rows in calendar
-                                case '1':
-                                case '7':
-	                            $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $scroll_day ) ), intval( $start_year ) );
-                                    break;
-
-                                case '30':
-                                case '60':
-	                            $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
-                                    break;
-
-                                default:  // 30
-	                                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
-                                    break;
-                            }
-                        } else {                            // Single Resource View
-                            switch ( $view_days_num ) {                                        // Set real start date for the each rows in calendar
-                                case '90':
-	                                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $scroll_day ) ), intval( $start_year ) );
-                                    break;
-
-                                case '365':
-	                                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
-                                    break;
-
-                                default:  // 30
-	                                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $scroll_day ) ), intval( $start_year ) );
-                                    break;
-                            }
-                        }
-
-                        $this->wpbc_show_timeline_header_row( $real_date );
-                        ?>
-                    </div>
                 </div><?php
-                
-                for ( $d_inc = 0; $d_inc < $max_rows_number; $d_inc++ ) {
 
-                    // Skip showing rows of booking resource(s) in TimeLine or Calendar Overview, if no any exist booking(s) for current view
-                    if ( ! empty( $this->request_args['only_booked_resources'] ) ) {                         //FixIn: 7.0.1.51  
+				?><div class="flex_tl__scrolling_sections"><?php
+					?><div class="flex_tl__scrolling_section1">
+						<div class="flex_tl_table_titles"><div class="flex_tl_collumn_1"></div></div><?php
+						for ( $d_inc = 0; $d_inc < $max_rows_number; $d_inc++ ) {
 
-                        if ( $is_matrix ) $resource_id = $bk_resources_id[$d_inc];
-                        else              $resource_id = $this->request_args['wh_booking_type'];  // Request from  GET or REQUEST
+							// Skip showing rows of booking resource(s) in TimeLine or Calendar Overview, if no any exist booking(s) for current view
+							if ( ! empty( $this->request_args['only_booked_resources'] ) ) {
 
-                        if ( ! in_array( $resource_id, $booked_booking_resources ) ) {
-                            continue;
-                        }
-                    }                    
-                    
-                    
-                    // Ger Start Date to real_date  variabale  /////////////////////
-                    if ( $is_matrix ) {    // MATRIX VIEW                    
-                        switch ( $view_days_num ) {                                        // Set real start date for the rows in calendar
-                            case '1':
-                            case '7':
-	                        	$real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $scroll_day ) ), intval( $start_year ) );
-                                break;
+								$resource_id = ( $is_matrix ) ? $bk_resources_id[ $d_inc ] : $this->request_args['wh_booking_type'];
 
-                            case '30':
-                            case '90':
-								$real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
-                                break;
+								if ( ! in_array( $resource_id, $booked_booking_resources ) ) { continue; }
+							}
 
-                            default:  // 30
-	                            $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
-                                break;
-                        }
-                    } else {                            // Single Resource View
-                        switch ( $view_days_num ) {                                        // Set real start date for the rows in calendar
-                            case '90':
-	                            $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $d_inc ) * 7 + intval( $scroll_day ) ), intval( $start_year ) );
-                                break;
+							// Ger Start Date to real_date  variable
+							$real_date = $this->get_start_day__to_real_date( array( 'is_matrix' => $is_matrix, 'view_days_num' => $view_days_num, 'start_month' => $start_month, 'start_day' => $start_day, 'start_year' => $start_year, 'scroll_month' => $scroll_month, 'scroll_day' => $scroll_day, 'd_inc' => $d_inc ) );
 
-                            case '365':
-	                            $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $d_inc ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
-                                break;
+							?><div class="flex_tl_table_row_bookings">
+								<div class="flex_tl_collumn_1"><?php
 
-                            default:  // 30
-	                            $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $d_inc ) + intval( $scroll_day ) ), intval( $start_year ) );
-                                break;
-                        }
-                    }
-                    ////////////////////////////////////////////////////////////////
-                    ?>
-                    <div class="flex_tl_table_row_bookings">
-                        <div class="flex_tl_collumn_1"><?php
+										// Title in first column of each row in calendar
+										if ( ( $is_matrix ) && ( isset( $bk_resources_id[$d_inc] ) ) && (isset( $booking_types[$bk_resources_id[$d_inc]] )) ) {  // Matrix - resource titles
 
-                                // Title in first collumn of the each row in calendar //////
-                                if ( ( $is_matrix ) && ( isset( $bk_resources_id[$d_inc] ) ) && (isset( $booking_types[$bk_resources_id[$d_inc]] )) ) {  // Matrix - resource titles
+											$resource_value = $booking_types[$bk_resources_id[$d_inc]];
+											$bk_admin_url = wpbc_get_params_in_url( wpbc_get_bookings_url( false, false ), array( 'wh_booking_type' ) );
 
-                                    $resource_value = $booking_types[$bk_resources_id[$d_inc]];
-                                    $bk_admin_url = wpbc_get_params_in_url( wpbc_get_bookings_url( false, false ), array( 'wh_booking_type' ) );                                                                       
-                                    
-                                    ?><div class="flex_tl_resource_title <?php
-                                                    if ( isset( $resource_value->parent ) ) { if ( $resource_value->parent == 0 ) { echo 'parent'; } else { echo 'child'; } }
-                                        ?> "><?php 
-                                            if ( $this->is_frontend ) {
+											?><div class="flex_tl_resource_title flex_tl_row_height <?php
+															if ( isset( $resource_value->parent ) ) { if ( $resource_value->parent == 0 ) { echo 'parent'; } else { echo 'child'; } }
+												?> "><?php
+													if ( $this->is_frontend ) {
 
-                                                if ( ( isset( $this->options['resource_link'] ) ) && ( isset( $this->options['resource_link'][ $resource_value->booking_type_id ] ) ) ){        //FixIn: 7.0.1.50
-                                                    
-													?><a href="<?php echo $this->options['resource_link'][ $resource_value->booking_type_id ]; ?>" ><?php //FixIn: 7.2.1.14
-                                                }
+														if ( ( isset( $this->options['resource_link'] ) ) && ( isset( $this->options['resource_link'][ $resource_value->booking_type_id ] ) ) ){        //FixIn: 7.0.1.50
 
-                                                echo wpbc_lang( $resource_value->title );       //FixIn: 7.0.1.11
-                                                
-                                                if ( ( isset( $this->options['resource_link'] ) ) && ( isset( $this->options['resource_link'][ $resource_value->booking_type_id ] ) ) ){        //FixIn: 7.0.1.50  
-                                                    ?></a><?php 
-                                                }
-                                            } else {
-                                            ?><a href="<?php echo $bk_admin_url . '&wh_booking_type=' . $bk_resources_id[$d_inc]; ?>"
-												 title="<?php echo wpbc_lang( $resource_value->title ); ?>"
-											  ><?php
-                                                echo wpbc_lang( $resource_value->title ); 												
-                                            ?></a><?php 
-                                            }
-                                  ?></div><?php
-                                        
-                                } else {    // Single Resource - Dates titles
-                                    
-                                    ?><div class="flex_tl_resource_title"><?php
-                                    
-                                    switch ( $view_days_num ) {
-                                        case '90':
-	                                        $end_real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $d_inc ) * 7 + intval( $scroll_day ) ) + 6, intval( $start_year ) );
-                                            $date_format = ' j, Y'; //get_bk_option( 'booking_date_format');
-                                            echo __( wpbc_datetime__no_wp_timezone( "M", $real_date ) ) . wpbc_datetime__no_wp_timezone( $date_format, $real_date ) . ' - ' . __( wpbc_datetime__no_wp_timezone( "M", $end_real_date ) ) . wpbc_datetime__no_wp_timezone( $date_format, $end_real_date );
-                                            break;
+															?><a href="<?php echo $this->options['resource_link'][ $resource_value->booking_type_id ]; ?>" ><?php //FixIn: 7.2.1.14
+														}
 
-                                        case '365':
-                                            echo __( wpbc_datetime__no_wp_timezone( "F", $real_date ) ) . ', ' . wpbc_datetime__no_wp_timezone( "Y", $real_date );
-                                            break;
+														echo wpbc_lang( $resource_value->title );       //FixIn: 7.0.1.11
 
-                                        default:  // 30
-                                            //$date_format = 'd / m / Y';
-                                            $date_format = get_bk_option( 'booking_date_format' );                           //FixIn:5.4.5.13
-											$ww = wpbc_datetime__no_wp_timezone( "N", $real_date );    //7
-                                            ?>
-												<div class="flex_tl_resource_title_dates_container">
-													<div class="flex_tl_resource_title_dates_days  flex_tl_weekday<?php echo $ww; ?>"><?php echo  wpbc_datetime__no_wp_timezone( $date_format, $real_date ); ?></div>
-													<div class="flex_tl_resource_title_dates_weeks flex_tl_weekday<?php echo $ww; ?>"><?php echo __( wpbc_datetime__no_wp_timezone( "D", $real_date ) ); ?></div>
-												</div>
-											<?php
-                                            break;
-                                    }
-                                    
-                                    ?></div><?php      
-                                }
-                            ?>
-                        </div>
-                        <div  class="flex_tl_collumn_2"><?php
+														if ( ( isset( $this->options['resource_link'] ) ) && ( isset( $this->options['resource_link'][ $resource_value->booking_type_id ] ) ) ){        //FixIn: 7.0.1.50
+															?></a><?php
+														}
+													} else {
+													?><a href="<?php echo $bk_admin_url . '&wh_booking_type=' . $bk_resources_id[$d_inc]; ?>"
+														 title="<?php echo wpbc_lang( $resource_value->title ); ?>"
+													  ><?php
+														echo wpbc_lang( $resource_value->title );
+													?></a><?php
+													}
+										  ?></div><?php
 
-	                            if ( $is_matrix ) {
+										} else {    // Single Resource - Dates titles
 
-	                            	$this->reset_data_in_previous_cell();
+											?><div class="flex_tl_resource_title flex_tl_row_height"><?php
 
-		                            $resource_id = $bk_resources_id[ $d_inc ];
+											switch ( $view_days_num ) {
+												case '90':
+													$end_real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $d_inc ) * 7 + intval( $scroll_day ) ) + 6, intval( $start_year ) );
+													$date_format = ' j, Y'; //get_bk_option( 'booking_date_format');
+													echo __( wpbc_datetime__no_wp_timezone( "M", $real_date ) ) . wpbc_datetime__no_wp_timezone( $date_format, $real_date ) . ' - ' . __( wpbc_datetime__no_wp_timezone( "M", $end_real_date ) ) . wpbc_datetime__no_wp_timezone( $date_format, $end_real_date );
+													break;
 
-	                            } else {
-		                            $resource_id = $this->request_args['wh_booking_type'];
-	                            }  // Request from  GET or REQUEST
+												case '365':
+													echo __( wpbc_datetime__no_wp_timezone( "F", $real_date ) ) . ', ' . wpbc_datetime__no_wp_timezone( "Y", $real_date );
+													break;
 
-								$booking_arr = array(
-													'current_resource_id' => ( ( ! empty( $resource_id ) ) ? $resource_id : 1 ),		// Remove dates and Times from  the arrays, which is not belong to the $booking_arr['current_resource_id'] We do not remove it only, when  the $booking_arr['current_resource_id'] - is empty - OLD ALL Resources VIEW
-													'booked_dates_array'  => $dates_array,
-													'bookings'            => $bookings,
-													'booking_types'       => $booking_types,
-													'time_array_new'      => $time_array_new
-												);
+												default:  // 30
+													//$date_format = 'd / m / Y';
+													$date_format = get_bk_option( 'booking_date_format' );                           //FixIn:5.4.5.13
+													$ww = wpbc_datetime__no_wp_timezone( "N", $real_date );    //7
+													?>
+														<div class="flex_tl_resource_title_dates_container">
+															<div class="flex_tl_resource_title_dates_days  flex_tl_weekday<?php echo $ww; ?>"><?php echo  wpbc_datetime__no_wp_timezone( $date_format, $real_date ); ?></div>
+															<div class="flex_tl_resource_title_dates_weeks flex_tl_weekday<?php echo $ww; ?>"><?php echo __( wpbc_datetime__no_wp_timezone( "D", $real_date ) ); ?></div>
+														</div>
+													<?php
+													break;
+											}
 
-								/**
-								 * FROM:   [2019-07-19] => Array ( [0] => Array (
-								 *                                    [id] => 19
-																	  [resource] => 3
-																  )
-															  [1] => Array (
-																	  [id] => 19
-																	  [resource] => 3
-																  ), ....
-								 * TO
-								 *
-								 *  [2019-07-19] => Array (
-															* [0] => 19
-															* [1] => 19
-															* [2] => 18
-															* [3] => 18 ...
-								 */
-								$booking_arr['booked_dates_array'] = $this->wpbc_dates_only_of_specific_resource(
-																				$booking_arr['booked_dates_array'],
-																				$booking_arr['current_resource_id'],
-																				$booking_arr['bookings']
-																			);
-								/**
-								 * FROM:   [2019-07-19] => Array (   ...  , [28800] => Array(
-																							[0] => Array (
-																									[id] => 15
-																									[resource] => 3
+											?></div><?php
+										}
+									?>
+								</div>
+							 </div><?php
+						}
+
+
+					?></div><?php
+					?><div class="flex_tl__scrolling_section2">
+						<div class="flex_tl_table_titles flex_tl_row_max_width">
+							<div class="flex_tl_collumn_2"><?php
+								// Header above the calendar table
+								$real_date = mktime( 0, 0, 0, intval( $start_month ), intval( $start_day ), intval( $start_year ) );
+
+								// Ger Start Date to real_date  variable
+								$real_date = $this->get_start_day__to_real_date( array( 'is_matrix' => $is_matrix, 'view_days_num' => $view_days_num, 'start_month' => $start_month, 'start_day' => $start_day, 'start_year' => $start_year, 'scroll_month' => $scroll_month, 'scroll_day' => $scroll_day, 'd_inc' => $d_inc ) );
+
+								$this->wpbc_show_timeline_header_row( $real_date );
+								?>
+							</div>
+						</div><?php
+
+						for ( $d_inc = 0; $d_inc < $max_rows_number; $d_inc++ ) {
+
+							// Skip showing rows of booking resource(s) in TimeLine or Calendar Overview, if no any exist booking(s) for current view
+							if ( ! empty( $this->request_args['only_booked_resources'] ) ) {
+
+								$resource_id = ( $is_matrix ) ? $bk_resources_id[ $d_inc ] : $this->request_args['wh_booking_type'];
+
+								if ( ! in_array( $resource_id, $booked_booking_resources ) ) { continue; }
+							}
+
+							// Ger Start Date to real_date  variable
+							$real_date = $this->get_start_day__to_real_date( array( 'is_matrix' => $is_matrix, 'view_days_num' => $view_days_num, 'start_month' => $start_month, 'start_day' => $start_day, 'start_year' => $start_year, 'scroll_month' => $scroll_month, 'scroll_day' => $scroll_day, 'd_inc' => $d_inc ) );
+
+							?>
+							<div class="flex_tl_table_row_bookings flex_tl_row_max_width">
+
+								<div  class="flex_tl_collumn_2"><?php
+
+										if ( $is_matrix ) {
+
+											$this->reset_data_in_previous_cell();
+
+											$resource_id = $bk_resources_id[ $d_inc ];
+
+										} else {
+											$resource_id = $this->request_args['wh_booking_type'];
+										}  // Request from  GET or REQUEST
+
+										$booking_arr = array(
+															'current_resource_id' => ( ( ! empty( $resource_id ) ) ? $resource_id : 1 ),		// Remove dates and Times from  the arrays, which is not belong to the $booking_arr['current_resource_id'] We do not remove it only, when  the $booking_arr['current_resource_id'] - is empty - OLD ALL Resources VIEW
+															'booked_dates_array'  => $dates_array,
+															'bookings'            => $bookings,
+															'booking_types'       => $booking_types,
+															'time_array_new'      => $time_array_new
+														);
+
+										/**
+										 * FROM:   [2019-07-19] => Array ( [0] => Array (
+										 *                                    [id] => 19
+																			  [resource] => 3
+																		  )
+																	  [1] => Array (
+																			  [id] => 19
+																			  [resource] => 3
+																		  ), ....
+										 * TO
+										 *
+										 *  [2019-07-19] => Array (
+																	* [0] => 19
+																	* [1] => 19
+																	* [2] => 18
+																	* [3] => 18 ...
+										 */
+										$booking_arr['booked_dates_array'] = $this->wpbc_dates_only_of_specific_resource(
+																						$booking_arr['booked_dates_array'],
+																						$booking_arr['current_resource_id'],
+																						$booking_arr['bookings']
+																					);
+										/**
+										 * FROM:   [2019-07-19] => Array (   ...  , [28800] => Array(
+																									[0] => Array (
+																											[id] => 15
+																											[resource] => 3
+																										)
+																									[1] => Array (
+																											[id] => 16
+																											[resource] => 3
+																										)
+																									[2] => Array (
+																											[id] => 13
+																											[resource] => 3
+																										) ....
+										 * TO
+										 *   [2019-07-19] => Array (   ...  , [28800] => Array(
+																									[0] => 15
+																									[1] => 16
+																									[2] => 13
 																								)
-																							[1] => Array (
-																									[id] => 16
-																									[resource] => 3
-																								)
-																							[2] => Array (
-																									[id] => 13
-																									[resource] => 3
-																								) ....
-								 * TO
-								 *   [2019-07-19] => Array (   ...  , [28800] => Array(
-																							[0] => 15
-																							[1] => 16
-																							[2] => 13
-																						)
-								 */
-								$booking_arr['time_array_new']     = $this->wpbc_times_only_of_specific_resource(
-																				$booking_arr['time_array_new'],
-																				$booking_arr['current_resource_id'],
-																				$booking_arr['bookings']
-																			);
+										 */
+										$booking_arr['time_array_new']     = $this->wpbc_times_only_of_specific_resource(
+																						$booking_arr['time_array_new'],
+																						$booking_arr['current_resource_id'],
+																						$booking_arr['bookings']
+																					);
 
-                                $this->wpbc_show_timeline_booking_row(  $real_date, $booking_arr );
+										$this->wpbc_show_timeline_booking_row(  $real_date, $booking_arr );
 
 
-                            ?>
-                        </div>
-                    </div><?php
-                }
+									?>
+								</div>
+							</div><?php
+						}
+						?></div><?php
+				?></div><?php
 
         ?></div></div><?php
 
@@ -2665,6 +2733,59 @@ if ( ! $this->is_frontend ) {
 
     }
 
+
+			/**
+			 * Ger Start Date to real_date  variable
+			 *
+			 * @param $params = array(
+			 *                'is_matrix'     => $is_matrix,
+			 *                'view_days_num' => $view_days_num,
+			 *                'start_month'   => $start_month,
+			 *                'start_day'     => $start_day,
+			 *                'start_year'    => $start_year,
+			 *                'scroll_month'  => $scroll_month
+			 *                'scroll_day'    => $scroll_day
+			 *                'd_inc'         => $d_inc
+			 *                )
+			 *
+			 * @return false|int
+			 */
+			private function get_start_day__to_real_date( $params ) {
+
+				if ( $params['is_matrix'] ) {    // MATRIX VIEW
+					switch ( $params['view_days_num'] ) {                                        // Set real start date for the rows in calendar
+						case '1':
+						case '7':
+							$real_date = mktime( 0, 0, 0, intval( $params['start_month'] ), ( intval( $params['start_day'] ) + intval( $params['scroll_day'] ) ), intval( $params['start_year'] ) );
+							break;
+
+						case '30':
+						case '90':
+							$real_date = mktime( 0, 0, 0, ( intval( $params['start_month'] ) + intval( $params['scroll_month'] ) ), intval( $params['start_day'] ), intval( $params['start_year'] ) );
+							break;
+
+						default:  // 30
+							$real_date = mktime( 0, 0, 0, ( intval( $params['start_month'] ) + intval( $params['scroll_month'] ) ), intval( $params['start_day'] ), intval( $params['start_year'] ) );
+							break;
+					}
+				} else {                            // Single Resource View
+					switch ( $params['view_days_num'] ) {                                        // Set real start date for the rows in calendar
+						case '90':
+							$real_date = mktime( 0, 0, 0, intval( $params['start_month'] ), ( intval( $params['start_day'] ) + intval( $params['d_inc'] ) * 7 + intval( $params['scroll_day'] ) ), intval( $params['start_year'] ) );
+							break;
+
+						case '365':
+							$real_date = mktime( 0, 0, 0, ( intval( $params['start_month'] ) + intval( $params['d_inc'] ) + intval( $params['scroll_month'] ) ), intval( $params['start_day'] ), intval( $params['start_year'] ) );
+							break;
+
+						default:  // 30
+							$real_date = mktime( 0, 0, 0, intval( $params['start_month'] ), ( intval( $params['start_day'] ) + intval( $params['d_inc'] ) + intval( $params['scroll_day'] ) ), intval( $params['start_year'] ) );
+							break;
+					}
+				}
+
+				return $real_date;
+			}
 
     /**
 	 * Show timeline
@@ -3319,19 +3440,13 @@ function wpbc_timeline_enqueue_css_files( $where_to_load ) {
 
 	if  ( in_array( $where_to_load, array( 'admin', 'both', 'client' ) ) ) {
 
-		if (    ( ( isset($_REQUEST['view_mode']) ) && ( $_REQUEST['view_mode']== 'vm_calendar' ) )
-				|| ( 'client' == $where_to_load )  ){
-//wp_deregister_style( 'wpbc-admin-timeline');
+		if (    ( ( isset($_REQUEST['view_mode']) ) && ( $_REQUEST['view_mode']== 'vm_calendar' ) ) || ( 'client' == $where_to_load )  ){
+
 			wp_enqueue_style( 'wpbc-flex-timeline'
-				, trailingslashit( plugins_url( '', __FILE__ ) ) . 'css/timeline_v2.css'                      /* wpbc_plugin_url( '/src/css/codemirror.css' ) */
-				, array()
-				, WP_BK_VERSION_NUM );
-			wp_enqueue_style( 'wpbc-flex-timeline-skin'
-				, trailingslashit( plugins_url( '', __FILE__ ) ) . 'css/timeline_skin_v2.css'                      /* wpbc_plugin_url( '/src/css/codemirror.css' ) */
+				, trailingslashit( plugins_url( '', __FILE__ ) ) . '_out/timeline_v2.1.css'                    			/* wpbc_plugin_url( '/src/css/codemirror.css' ) */
 				, array()
 				, WP_BK_VERSION_NUM );
 		}
-
 	}
 }
 add_action( 'wpbc_enqueue_css_files', 'wpbc_timeline_enqueue_css_files', 50 );

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Change WordPress Login Logo
 description: Upload your logo for WordPress login page instead of the usual WordPress logo with simple settings.
-Version: 1.2
+Version: 1.3
 Author: Boopathi Rajan
 Author URI: http://www.boopathirajan.com
 License: GPLv2 or later
@@ -135,4 +135,14 @@ add_filter( 'login_headerurl', 'change_login_logo_url' );
 function change_login_logo_url($url) {
 	return home_url();
 }
+/* Add premium features section */
+function add_premium_features() {
+    if ( isset($_GET['page']) && $_GET['page'] == 'change-login-logo' ) {
+        echo '<div class="notice notice-info is-dismissible">';
+        echo '<p><strong>Premium Features:</strong> Upgrade to our Pro version to unlock advanced customization options!</p>';
+        echo '<p><a href="https://www.boopathirajan.com/product/change-wordpress-login-logo-pro/" target="_blank" class="button button-primary">Get Premium</a></p>';
+        echo '</div>';
+    }
+}
+add_action('admin_notices', 'add_premium_features');
 ?>

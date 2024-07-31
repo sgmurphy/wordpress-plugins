@@ -4,9 +4,136 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
+function wpbc_welcome_section_10_3( $obj ){
+
+	$section_param_arr = array( 'version_num' => '10.3', 'show_expand' => false );
+
+	$obj->expand_section_start( $section_param_arr );
+
+
+	//$obj->asset_path = 'http://beta/assets/';	// TODO: 2024-06-01 comment this
+
+
+	// <editor-fold     defaultstate="collapsed"                        desc=" = F R E E = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = F R E E =
+	// -----------------------------------------------------------------------------------------------------------------
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Enhanced Calendar Overview and Timeline Views, and more...' ); ?></h2>
+			<div class="wpbc_wn_col">
+				<!--h3><?php echo wpbc_replace_to_strong_symbols( 'New: Updated Timeline View' ); ?></h3-->
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; We have updated the Calendar Overview and Timeline views to improve readability. Timelines now have a minimum width for day/time cells, making bookings easier to read. Additionally, you can scroll horizontally to search for specific date and time intervals.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Updated Bookings View in Calendar Overview and Timeline! Booking bars now have a transparent background, making it easier to identify specific dates under the booking pipeline.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Typography in Bookings View! The typography in the Calendar Overview and Timeline has been updated for a cleaner and more modern look.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.3/wp_booking_timeline_scroll_06.gif' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Change Over Days in Timeline Views!' ); ?></h3>
+				<img src="<?php echo $obj->section_img_url( '10.3/wp_booking_calendar__timeline__change_over_01.png' ); ?>" style="margin:10px 0;width:98%;" />
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; In the pro versions, Timeline and Calendar Overview can now display change over days (triangles for check-in/out dates). This feature makes it easier to identify check-in/out dates and provides a better overview of bookings in the Timeline if your system uses the change over days functionality.' ); ?></li>
+				</ul>
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+
+	// </editor-fold>
+
+
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = P A I D =
+	// -----------------------------------------------------------------------------------------------------------------
+
+	// <editor-fold     defaultstate="collapsed"                        desc="  = M I X E D = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = M I X E D =
+	// -----------------------------------------------------------------------------------------------------------------
+	?>
+	<div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Additional Improvements in Free and Pro versions' ); ?></h2>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<ul>
+					<?php // Free ?>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Option to Remove Booking Summary Details in Export! Now you can choose to exclude booking summary details when exporting bookings using the "Add to Google Calendar" button. Enable this option on the WP Booking Calendar > Settings > Sync > "General" page.' ); ?></li>
+				</ul>
+				<!--
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Improvements in Pro Versions' ); ?></h3>
+				<ul>
+					<?php // Pro ?>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Form Times Templates! We\'ve improved the form times templates for a better user experience.  *(Personal, Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Updated the View of the "Back to Super Admin" Button! When a super booking admin user simulates a login as a "Regular User," the button\'s appearance has been enhanced for clarity. (10.1.5.2) *(MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Spinners for Cost and Date Hints! The spinners in the booking form for cost and date hints have been updated for a smoother and more intuitive user experience. *(Business Medium/Large, MultiUser)*' ); ?></li>
+				</ul>
+
+				<div style="clear:both;height:20px;"></div>
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Translations' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Korean Translation! The translation has been updated and is now 96% complete, courtesy of modelaid.' ); ?></li>
+				</ul>
+				-->
+			</div>
+
+		</div>
+<!--
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Under Hood Changes' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Updated Bootstrap Icons to the latest 1.11.3 Version for enhanced visual appeal and consistency.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Removed Deprecated BS Glyph Font for a cleaner and more modern design.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Removed Deprecated wpbc_vars.js for improved performance and maintainability.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; The option \'Using BootStrap CSS for the form fields\' has been deprecated and moved to the Settings General page in the "Advanced" section for better organization.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Added support for the WP Rocket plugin by excluding it from JavaScript Delay execution, ensuring smoother performance.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '**Pro Versions:**' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Added a new hook \'wpbc_visitor_action__booking_trash\' for when visitors cancel their own booking. Example usage:: function your_cust_func_wpbc_visitor_action__booking_trash ( $booking_id, $resource_id ) { /* Your code here */ } add_action( \'wpbc_visitor_action__booking_trash\', \'your_cust_func_wpbc_visitor_action__booking_trash\', 100, 2 );  (10.2.0.3)' ); ?></li>
+				</ul>
+
+			</div>
+		</div>
+-->
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Bug Fixes' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Fix: Displaying Greyed (Disabled) Options! Fixed an issue where greyed-out (disabled) options, such as booked time slots, were not showing correctly in select boxes. ' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Fix: Resolved Conflict with \'MIXITUP - A CSS3 and JQuery Filter & Sort Plugin\'! Fixed the issue causing the error: "Uncaught TypeError: time_fields_obj.times_as_seconds is undefined. ' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '**Pro Versions:**' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Resolved Start/End Time Invalid Issue! Fixed the issue where Start/End Time was invalid in some configurations with range days selection mode and change-over days.' ); ?></li>
+				</ul>
+			</div>
+		</div>
+
+	</div><?php
+	// </editor-fold>
+
+
+	$obj->expand_section_end( $section_param_arr );
+}
+
+
 function wpbc_welcome_section_10_2( $obj ){
 
-	$section_param_arr = array( 'version_num' => '10.2', 'show_expand' => false );
+	$section_param_arr = array( 'version_num' => '10.2', 'show_expand' => true );
 
 	$obj->expand_section_start( $section_param_arr );
 
@@ -157,7 +284,7 @@ function wpbc_welcome_section_10_2( $obj ){
 
 function wpbc_welcome_section_10_1( $obj ){
 
-	$section_param_arr = array( 'version_num' => '10.1', 'show_expand' => ! false );
+	$section_param_arr = array( 'version_num' => '10.1', 'show_expand' => true );
 
 	$obj->expand_section_start( $section_param_arr );
 

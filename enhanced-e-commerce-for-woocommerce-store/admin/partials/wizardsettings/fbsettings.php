@@ -1,5 +1,6 @@
 <!-- Facebook Form -->
-<form id="facebooksetings_form" class="convgawiz_form_webads convpixsetting-inner-box pb-0 convwiz_border" datachannel="FB">
+<form id="facebooksetings_form" class="convgawiz_form_webads convpixsetting-inner-box pb-0 convwiz_border"
+    datachannel="FB">
     <div class="pb-1">
         <!-- Facebook ID  -->
         <?php
@@ -13,14 +14,18 @@
                             <?php esc_html_e("Meta (Facebook) Pixel", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         </h5>
                         <?php esc_html_e(" Easily set up conversions and create audiences effortlessly using the simple steps given below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                        <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-fb-pixel-and-fbcapi-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
+                        <a target="_blank"
+                            href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-fb-pixel-and-fbcapi-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>"
+                            class="conv-link-blue">
                             <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
                         </a>
                     </div>
                 </div>
                 <div class="col-5 d-flex">
-                    <img class="conv_channel_logo me-2 align-self-center" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/conv_meta_logo.png'); ?>" />
-                    <input type="text" name="fb_pixel_id" id="fb_pixel_id" class="form-control valtoshow_inpopup_this" value="<?php echo esc_attr($fb_pixel_id); ?>" placeholder="e.g. 518896233175751">
+                    <img class="conv_channel_logo me-2 align-self-center"
+                        src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/conv_meta_logo.png'); ?>" />
+                    <input type="text" name="fb_pixel_id" id="fb_pixel_id" class="form-control valtoshow_inpopup_this"
+                        value="<?php echo esc_attr($fb_pixel_id); ?>" placeholder="e.g. 518896233175751">
                 </div>
             </div>
         </div>
@@ -41,67 +46,67 @@
 </div>
 
 <script>
-    function conv_onboarding_done(tvc_data) {
-        var conversios_onboarding_nonce = "<?php echo esc_html(wp_create_nonce('conversios_onboarding_nonce')); ?>";
+function conv_onboarding_done(tvc_data) {
+    var conversios_onboarding_nonce = "<?php echo esc_html(wp_create_nonce('conversios_onboarding_nonce')); ?>";
+    jQuery.ajax({
+        type: "POST",
+        dataType: "json",
+        url: tvc_ajax_url,
+        data: {
+            action: "update_setup_time_to_subscription",
+            tvc_data: tvc_data,
+            subscription_id: "<?php echo esc_html($tvc_data['subscription_id']) ?>",
+            conversios_onboarding_nonce: conversios_onboarding_nonce
+        },
+        success: function(response) {
+            console.log("conv_onboarding_done");
+        }
+    });
+}
+
+function conv_wizfinish_popupopen() {
+    jQuery("#conv_wizfinish").modal("show");
+    jQuery('.modal-backdrop').appendTo('#wpbody-content');
+    jQuery('body').removeClass("modal-open")
+    jQuery('body').css("padding-right", "");
+    jQuery("#conv_wizfinish").css("position", "absolute");
+}
+jQuery(function() {
+    // jQuery(document).on("input", "#fb_pixel_id", function() {
+    //     if (jQuery(this).val() == "") {
+    //         jQuery("#conv_save_fb_finish").addClass("disabledsection");
+    //     } else {
+    //         jQuery("#conv_save_fb_finish").removeClass("disabledsection");
+    //     }
+    // });
+
+    var tvc_data = "<?php echo esc_js(wp_json_encode($tvc_data)); ?>";
+
+    jQuery(document).on("click", "#conv_save_fb_finish", function() {
+        conv_change_loadingbar("show");
+        jQuery(this).addClass('disabled');
+        var selected_vals = {};
+        selected_vals["subscription_id"] = "<?php echo esc_html($tvc_data['subscription_id']) ?>";
+        selected_vals["fb_pixel_id"] = jQuery("#fb_pixel_id").val();
+        selected_vals["conv_onboarding_done_step"] = "<?php echo esc_js("5"); ?>";
+        selected_vals["conv_onboarding_done"] = "<?php echo esc_js(gmdate('Y-m-d H:i:s')) ?>";
+
         jQuery.ajax({
             type: "POST",
             dataType: "json",
             url: tvc_ajax_url,
             data: {
-                action: "update_setup_time_to_subscription",
-                tvc_data: tvc_data,
-                subscription_id: "<?php echo esc_html($tvc_data['subscription_id']) ?>",
-                conversios_onboarding_nonce: conversios_onboarding_nonce
+                action: "conv_save_pixel_data",
+                pix_sav_nonce: "<?php echo esc_html(wp_create_nonce('pix_sav_nonce_val')); ?>",
+                conv_options_data: selected_vals,
+                conv_options_type: ["eeoptions", "eeapidata", "middleware"],
             },
             success: function(response) {
-                console.log("conv_onboarding_done");
+                conv_change_loadingbar("hide");
+                conv_wizfinish_popupopen();
+                conv_onboarding_done(tvc_data);
             }
         });
-    }
-
-    function conv_wizfinish_popupopen() {
-        jQuery("#conv_wizfinish").modal("show");
-        jQuery('.modal-backdrop').appendTo('#wpbody-content');
-        jQuery('body').removeClass("modal-open")
-        jQuery('body').css("padding-right", "");
-        jQuery("#conv_wizfinish").css("position", "absolute");
-    }
-    jQuery(function() {
-        // jQuery(document).on("input", "#fb_pixel_id", function() {
-        //     if (jQuery(this).val() == "") {
-        //         jQuery("#conv_save_fb_finish").addClass("disabledsection");
-        //     } else {
-        //         jQuery("#conv_save_fb_finish").removeClass("disabledsection");
-        //     }
-        // });
-
-        var tvc_data = "<?php echo esc_js(wp_json_encode($tvc_data)); ?>";
-
-        jQuery(document).on("click", "#conv_save_fb_finish", function() {
-            conv_change_loadingbar("show");
-            jQuery(this).addClass('disabled');
-            var selected_vals = {};
-            selected_vals["subscription_id"] = "<?php echo esc_html($tvc_data['subscription_id']) ?>";
-            selected_vals["fb_pixel_id"] = jQuery("#fb_pixel_id").val();
-            selected_vals["conv_onboarding_done_step"] = "<?php echo esc_js("5"); ?>";
-            selected_vals["conv_onboarding_done"] = "<?php echo esc_js(gmdate('Y-m-d H:i:s')) ?>";
-
-            jQuery.ajax({
-                type: "POST",
-                dataType: "json",
-                url: tvc_ajax_url,
-                data: {
-                    action: "conv_save_pixel_data",
-                    pix_sav_nonce: "<?php echo esc_html(wp_create_nonce('pix_sav_nonce_val')); ?>",
-                    conv_options_data: selected_vals,
-                    conv_options_type: ["eeoptions", "eeapidata", "middleware"],
-                },
-                success: function(response) {
-                    conv_change_loadingbar("hide");
-                    conv_wizfinish_popupopen();
-                    conv_onboarding_done(tvc_data);
-                }
-            });
-        });
     });
+});
 </script>

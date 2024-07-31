@@ -1,11 +1,11 @@
 === VK All in One Expansion Unit ===
-Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki,mtdkei
+Contributors: vektor-inc,kurudrive,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki,mtdkei
 Donate link:
 Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
-Requires at least: 5.9.0
-Tested up to: 6.5
+Requires at least: 6.2
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 9.99.1.0
+Stable tag: 9.99.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,19 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.99.2 =
+[ Bug fix ] Fix the layout issue of the CTA
+
+= 9.99.1 =
+[ Bug fix ] Roll back to 9.98.1
+
+= 9.99.0 =
+[ Specification Change ][ Page top button ] Add #top on body for pagetop btn
+[ Specification Change ][ Taxonomy Widget ] Add dropdown mode. 
+[ Specification Change ] Foce Load JS from footer is abolished.
+[ Fix ] Add a title attribute on Google Tag Manager (noscript)
+[ Bug fix ] Fix XSS of Widgets, CTA, Custom Post Type Manager.
 
 = 9.98.1 =
 [ Bug fix ] Fix translation

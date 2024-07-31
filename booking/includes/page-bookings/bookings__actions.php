@@ -481,8 +481,8 @@ function wpbc_ajax_WPBC_AJX_BOOKING_ACTIONS() {
 		$link_add2gcal = 'https://calendar.google.com/calendar/r/eventedit?';												//FixIn: 8.7.3.10
 		$link_add2gcal .= 'text=' . $fields['title'];																		//FixIn: 8.7.11.4
 		$link_add2gcal .= '&dates=' . $check_in_timestamp . '/' . $check_out_timestamp;					//$link_add2gcal .= '&dates=[start-custom format='Ymd\\THi00\\Z']/[end-custom format='Ymd\\THi00\\Z']';
-		$link_add2gcal .= '&details=' . $fields['description'];                												//FixIn: 8.7.11.4
-		$link_add2gcal .= '&location=' . $fields['where'];                     												//FixIn: 8.7.11.4
+		$link_add2gcal .= '&details='  . ( ( 'On' !== get_bk_option( 'booking_g_cal_export_no_data' ) ) ? $fields['description'] : '' );    //FixIn: 10.3.0.1                                                             //FixIn: 8.7.11.4
+		$link_add2gcal .= '&location=' . ( ( 'On' !== get_bk_option( 'booking_g_cal_export_no_data' ) ) ? $fields['where'] : '' );                                                                    //FixIn: 8.7.11.4
 		$link_add2gcal .= '&trp=false';
 		if ( ! empty( $params['timezone'] ) ) {
 			$link_add2gcal .= '&ctz=' . str_replace( '%', '%25', $params['timezone'] );                   					//FixIn: 8.7.3.10		//TimeZone

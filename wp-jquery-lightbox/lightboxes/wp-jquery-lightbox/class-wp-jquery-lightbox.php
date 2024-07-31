@@ -281,10 +281,18 @@ class WP_JQuery_Lightbox {
 		$border_width         = get_option( 'jqlb_borderSize' );
 		$has_box_shadow       = get_option( 'jqlb_boxShadow' );
 		$has_info_bar         = get_option( 'jqlb_showInfoBar' );
+		$has_info_bar_top     = get_option( 'jqlb_navbarOnTop' );
 		$image_box_shadow     = $has_box_shadow ? '0 0 4px 2px rgba(0,0,0,.2)' : '';
 		$infobar_box_shadow   = ( $has_box_shadow && $has_info_bar )
 			? '0 -4px 0 0 #fff, 0 0 4px 2px rgba(0,0,0,.1);'
 			: '';
+		if ( $has_box_shadow && $has_info_bar && $has_info_bar_top ) {
+			$infobar_box_shadow = '0 4px 0 0 #fff, 0 0 4px 2px rgba(0,0,0,.1);';
+		}
+		$infobar_zindex = ( $has_box_shadow && $has_info_bar && $has_info_bar_top )
+			? '99;'
+			: '';
+
 		$custom_css           = "
 			#outerImageContainer {
 				box-shadow: {$image_box_shadow};
@@ -294,6 +302,7 @@ class WP_JQuery_Lightbox {
 			}
 			#imageDataContainer {
 				box-shadow: {$infobar_box_shadow};
+				z-index: {$infobar_zindex};
 			}
 			#prevArrow,
 			#nextArrow{

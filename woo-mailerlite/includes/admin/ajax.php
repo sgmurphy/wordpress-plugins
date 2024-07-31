@@ -333,6 +333,18 @@ function woo_ml_admin_save_group()
     ]);
 }
 
+function woo_ml_skip_resource_sync()
+{
+    if (!check_ajax_referer( 'woo_ml_post_nonce', 'nonce', false)) {
+        wp_send_json_error( 'Invalid security token sent.' );
+        wp_die();
+    }
+    if((int)get_option('woo_ml_wizard_setup', 0) !== 2) {
+        MailerLiteSettings::getInstance()->pluginSettingsUpdate();
+        update_option('woo_ml_wizard_setup', 2);
+        woo_ml_setup_integration();
+    }
+}
 
 add_action('wp_ajax_woo_ml_admin_ajax_update_preselect_checkbox', 'woo_ml_admin_ajax_update_preselect_checkbox');
 
@@ -340,3 +352,4 @@ add_action('wp_ajax_woo_ml_create_group', 'woo_ml_admin_create_group');
 add_action('wp_ajax_woo_ml_get_debug_log', 'woo_ml_admin_get_debug_log');
 add_action('wp_ajax_woo_ml_reset_integration', 'woo_ml_reset_integration');
 add_action('wp_ajax_woo_ml_save_group', 'woo_ml_admin_save_group');
+add_action('wp_ajax_woo_ml_skip_resource_sync', 'woo_ml_skip_resource_sync');

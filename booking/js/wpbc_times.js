@@ -329,8 +329,12 @@ function wpbc_is_time_field_in_booking_form( resource_id, form_elements ){						
 
 		var my_dates_str = document.getElementById( 'date_booking' + bk_type ).value;                 // GET DATES From TEXTAREA
 
-		return checkTimeInsideProcess( mytime, is_start_time, bk_type, my_dates_str );
+		if ( my_dates_str.indexOf( ' - ' ) != 0 ){
 
+			my_dates_str = my_dates_str.replace( ' - ', ', ' );										//FixIn: 10.2.3.2
+		}
+
+		return checkTimeInsideProcess( mytime, is_start_time, bk_type, my_dates_str );
 	}
 
 

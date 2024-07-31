@@ -107,29 +107,36 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){
           if (count($bookings_count)>0)   $bookings_count = $bookings_count[0]->count ;
           if ($bookings_count>=20) return;      
 
+			if ( ( ( defined( 'WP_BK_BETA_DATA_FILL_AS' ) ) && ( 'BL' === WP_BK_BETA_DATA_FILL_AS ) ) && ( $_SERVER['HTTP_HOST'] === 'beta' ) ) {
+				update_bk_option( 'booking_range_selection_time_is_active', 'On' );
+				update_bk_option( 'booking_range_selection_start_time', '14:00' );
+				update_bk_option( 'booking_range_selection_end_time', '12:00' );
 
-         $max_num_bookings = 5;                                                        // How many bookings exist  per resource
+				update_bk_option( 'booking_is_delete_if_deactive', 'On');
+			}
+
+			$max_num_bookings = 5;                                                        // How many bookings exist  per resource
           foreach ($my_bk_types as $resource_id) {                                     // Loop all resources                                        
                 $bk_type  = $resource_id;                                              // Booking Resource
 
 	          if ( ( ( defined( 'WP_BK_BETA_DATA_FILL_AS' ) ) && ( 'BL' === WP_BK_BETA_DATA_FILL_AS ) ) && ( $_SERVER['HTTP_HOST'] === 'beta' ) ) {
-		          $min_days = 2;
+		          $min_days = 3;
 		          $max_days = 7;
 	          } else {
 		          $min_days = 1;        //FixIn: 10.0.0.51
 		          $max_days = 1;        //FixIn: 10.0.0.51
 	          }
 
-                $evry_one = $max_days+rand(1,5);                                                  // Multiplier of interval between 2 dates of different bookings
-                $days_start_shift =  rand($max_days,(3*$max_days));//(ceil($max_num_bookings/2)) * $max_days;           // How long far ago we are start bookings    
+	          $evry_one         = $max_days + rand( 1, 5 );                                                  // Multiplier of interval between 2 dates of different bookings
+	          $days_start_shift = rand( $max_days, ( 3 * $max_days ) );//(ceil($max_num_bookings/2)) * $max_days;           // How long far ago we are start bookings
 
-                // Fill Development server by initial bookings
-                if (  ( ( defined( 'WP_BK_BETA_DATA_FILL' ) ) && (  WP_BK_BETA_DATA_FILL > 0 ) ) && ( $_SERVER['HTTP_HOST'] === 'beta' )  ) {
-                    $evry_one = 3*$max_days+rand(1,7);                                                  // Multiplier of interval between 2 dates of different bookings
-                    $days_start_shift =  rand(2*$max_days,(5*$max_days));//(ceil($max_num_bookings/2)) * $max_days;           // How long far ago we are start bookings    
-                }
-                
-            for ($i = 0; $i < $max_num_bookings; $i++) {               
+	          // Fill Development server by initial bookings
+	          if ( ( ( defined( 'WP_BK_BETA_DATA_FILL' ) ) && ( WP_BK_BETA_DATA_FILL > 0 ) ) && ( $_SERVER['HTTP_HOST'] === 'beta' ) ) {
+		          $evry_one         = $min_days + rand( 1, 7 );//3*$max_days+rand(1,7);                                                  // Multiplier of interval between 2 dates of different bookings
+		          $days_start_shift = rand( 2 * $max_days, ( 5 * $max_days ) );  //rand(2*$max_days,(5*$max_days));//(ceil($max_num_bookings/2)) * $max_days;           // How long far ago we are start bookings
+	          }
+
+	          for ( $i = 0; $i < $max_num_bookings; $i ++ ) {
 
                 $is_appr  = rand(0,1);                                                  // Pending | Approved
                 $num_days = rand($min_days,$max_days);                                  // Max Number of Dates for specific booking
@@ -175,12 +182,22 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){
                     $my_interval = ( $i*$evry_one + $d_num);
 
 	                if ( ( ( defined( 'WP_BK_BETA_DATA_FILL_AS' ) ) && ( 'BL' === WP_BK_BETA_DATA_FILL_AS ) ) && ( $_SERVER['HTTP_HOST'] === 'beta' ) ) {
-		                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL  -" . $days_start_shift . " day) + INTERVAL " . $my_interval . " day  ," . $is_appr . " ),";
+
+		                if ( 'On' !== get_bk_option( 'booking_range_selection_time_is_active' ) ) {
+			                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL  -" . $days_start_shift . " day) + INTERVAL " . $my_interval . " day  ," . $is_appr . " ),";
+		                } else {
+			                if ( $d_num == 0 ) {                                       // Check In
+				                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL  -" . $days_start_shift . " day) + INTERVAL \"" . $my_interval . " " . $start_time . ":01\" DAY_SECOND  ," . $is_appr . " ),";
+			                } elseif ( $d_num == ( $num_days - 1 ) ) {                   // Check Out
+				                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL -" . $days_start_shift . " day) + INTERVAL \"" . $my_interval . " " . $end_time . ":02\" DAY_SECOND  ," . $is_appr . " ),";
+			                } else {
+				                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL  -" . $days_start_shift . " day) + INTERVAL " . $my_interval . " day  ," . $is_appr . " ),";
+			                }
+		                }
 	                } else {
 		                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL -" . $days_start_shift . " DAY) + INTERVAL \"" . $my_interval . " " . $start_time . ":01\" DAY_SECOND  ," . $is_appr . " ),";        	//FixIn: 10.0.0.51
 		                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL -" . $days_start_shift . " DAY) + INTERVAL \"" . $my_interval . " " . $end_time . ":02\" DAY_SECOND  ," . $is_appr . " ),";        	//FixIn: 10.0.0.51
 	                }
-
                 }
                 $wp_queries_sub = substr($wp_queries_sub,0,-1) . ";";
 
@@ -994,8 +1011,8 @@ $mu_option4delete[] = 'booking_confirmation__personal_info__content';
 	$default_options['booking_confirmation__booking_details__header_enabled'] = 'On';
 	$default_options['booking_confirmation__booking_details__title']          = __( 'Booking details', 'booking' );
 	$default_options['booking_confirmation__booking_details__content'] =  ( class_exists( 'wpdev_bk_personal' ) )
-																				? "<h4>[resource_title]</h4>[readable_dates][readable_times]"
-																				: "[readable_dates][readable_times]";
+																				? "<h4>[resource_title]</h4>[readable_dates][readable_times]\n[add_to_google_cal_button]"
+																				: "[readable_dates][readable_times]\n[add_to_google_cal_button]";
 
 $mu_option4delete[] = 'booking_confirmation__booking_details__header_enabled';
 $mu_option4delete[] = 'booking_confirmation__booking_details__title';

@@ -36,4 +36,15 @@ function wpbc_define_tippy_popover(){
 			this._tippy.show();
 		}
 	} );
+	wpbc_define_hide_tippy_on_scroll();
+}
+
+
+
+function wpbc_define_hide_tippy_on_scroll(){
+	jQuery( '.flex_tl__scrolling_section2,.flex_tl__scrolling_sections' ).on( 'scroll', function ( event ){
+		if ( 'function' === typeof (wpbc_tippy) ){
+			wpbc_tippy.hideAll();
+		}
+	} );
 }

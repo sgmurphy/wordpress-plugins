@@ -1,9 +1,9 @@
-﻿=== LightPress Lightbox (WP JQuery Lightbox) ===
+﻿=== LightPress Lightbox ===
 Contributors: pandaboxwp
 Tags: lightbox, photo, image, gallery
 Requires at least: 5.0
-Tested up to: 6.5.5
-Stable tag: 2.3.1
+Tested up to: 6.6.1
+Stable tag: 2.3.2
 Requires PHP: 7.0
 License: GPLv2 or later
 
@@ -11,28 +11,55 @@ Simple, lightweight lightbox plugin for WordPress. Formerly the WP JQuery Lightb
 
 == Description ==
 
-The LightPress Lightbox was formerly the WP JQuery Lightbox. Along with the name change, we'll be doing signficant development on this plugin in 2024, including the addition of additional, modern lightboxes (both free and pro). We'll still continue to include, support, and enhance the original lightbox!
+LightPress Lightbox is a popular, very lightweight lightbox plugin for WordPress. It is active 40,000 websites. After activation, settings will appear under 'Lightbox' on your website's main admin menu, and images and galleries will open in a nice lightbox. 
 
-This plugin adds a simple, lightweight lightbox for viewing images. [See demos here](https://lightpress.io).
+To make images open in the lightbox, you need to set images to "Link To:" media file. For image blocks, this setting is on the toolbar at the top of the block. For galleries, this setting is on the sidebar by other block options.
 
-**Features**
+**LIGHTBOX DEMOS**
 
-* Automattically detect images so they open in a lightbox with no need to adjust markup.
-* Works seamlessly with WordPress core images and galleries, and galleries from many plugins.
-* Play or puase slideshow within lightbox.
-* Enhanced mobile support with swipe gestures on touch devices, improved scaling to maximizes use of screen space, and live adjustment to the browser window and orientation of your phone.
-* Browse images with your keyboard: Arrows, P(revious)/N(ext) and X/C/ESC for close.
-* Admin panel to configure options. sv
-* Localization support.
-* Lightweight and fast.
+**[Free Lightbox Demo](https://lightpress.io/free-lightbox/)**  
+**[Pro Lightbox Demo - Light Theme](https://lightpress.io/pro-lightbox/)**  
+**[Pro Lightbox Demo - Dark Theme](https://lightpress.io/pro-lightbox-dark/)**  
 
-See the plugin in action here: [lightpress.io](https://lightpress.io)
+**FREE LIGHTBOX FEATURES**
+- Automatic detection of images and galleries
+- Customize colors of lightbox and navigation
+- Classic and modern navigation styles
+- Option to show info bar
+- Option to show title or alt text
+- Option to show download button
+- Slideshow options
+- Keyboard navigation
+- And more!
+
+Links:  
+-> **[Demos](https://lightpress.io/free-lightbox/)**  
+-> **[Docs](https://lightpress.io/free-lightbox-documentation/)**  
+-> **[Free Support](https://wordpress.org/support/plugin/wp-jquery-lightbox/)**  
+
+**PRO LIGHTBOX FEATURES**
+
+LightPress Pro is a premium extension for this lightbox plugin that offers:
+- Priority support via email directly from devs
+- *Powerful, Modern Pro Lighbox*
+- Beautiful, modern full-browser and full-screen ligthbox
+- Dozens of customizations options
+- Thumbnails within the lightbox
+- Toolbar with controls for thumbnails, zoom, slideshow, and more
+- Open videos (Youtube, Vimeo, self-hosted)
+- Opens PDF files
+- Opens content from external web pages
+- Create easy modals and popup boxes
+- Open image maps
+- Flawless on mobile devices
+- Hyper fast performance
+
+-> **[VIEW PRO LIGHTBOX DEMOS](https://lightpress.io/pro-lightbox/)**  
+-> **[GET PRO SUPPORT](https://lightpress.io/contact/)**  
 
 **Background and Thanks**
 
-Special thanks to [Ulf Benjaminsson](http://www.ulfbenjaminsson.com), who created this plugin and maintained it for many years.
-
-The original WP JQuery Lightbox included with this plugin lets you keep [Lightbox 2](http://www.huddletogether.com/projects/lightbox2/) functionality but sheds the bulk of the Prototype Framework and Scriptaculous Effects Library. Warren Krewenki [ported Lightbox to jQuery](http://warren.mesozen.com/jquery-lightbox/) and this plugin is mostly a wrapper to his work.
+Special thanks to [Ulf Benjaminsson](http://www.ulfbenjaminsson.com), who created the original WP JQuery Lightbox plugin and maintained it for many years.
 
 == Screenshots ==
 
@@ -44,75 +71,12 @@ The original WP JQuery Lightbox included with this plugin lets you keep [Lightbo
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Check out the jQuery Lightbox-panel in your admin interface for usage details and configuration.
 
-= How to Use: =
-1. With [WordPress built-in gallery](http://codex.wordpress.org/Gallery_Shortcode): [`[gallery link="file"]`](http://codex.wordpress.org/Gallery_Shortcode)	
-1. All galleries in a post make a single slideshow. To create separate slideshows, use `group`: 
-
-	`[gallery link="file" ids="1,2,3" group="mon"]`
-	
-	`[gallery link="file" ids="4,5,6" group="tue"]`
-
-1. You can manually add a `rel="lightbox"` attribute to any link:
-
-	`<a href="image-1.jpg" rel="lightbox" title="my caption">image #1</a>`
-
-	Note the use of title-attribute to set a caption
-		
-1. To manually group sets of related images, follow step 3 but additionally include a group name in the `rel` attribute:
-	
-	`<a href="image-1.jpg" rel="lightbox[roadtrip]">image #1</a>`
-	
-	`<a href="image-2.jpg" rel="lightbox[roadtrip]">image #2</a>`
-	
-	`<a href="image-3.jpg" rel="lightbox[roadtrip]">image #3</a>`
-
-1. You can use the `data-download` attribute to set a custom download link:
-	
-	`<a href="image-medium.jpg" rel="lightbox" data-download="image-superlarge.jpg"> [...] </a>`
-	
-1. To *disable* lightboxing of an image link, just set any other rel-attribute: `rel="nobox"`
-	
-1. Keyboard support: Arrows, P(revious)/N(ext) and X/C/ESC for close. Swipe left / right on touch devices.
-
-1. [Infinite-Scroll](http://wordpress.org/extend/plugins/infinite-scroll/) and similar "endless pages"-plugins should call `doLightbox();` whenever it loads new content. Check your plugin for a setting 
-	named "callbacks" - code that is called after each new page is loaded. Add this line;
-	
-	`if(typeof doLightBox !== 'undefined' && typeof jQuery !== 'undefined'){
-	   doLightBox();
-	}`
-
-1. On the server side you can apply lightbox to any content by running `jqlb_apply_lightbox($your_html_content, "any ID");` It returns a string with all image links lightboxed, grouped by `"any id"`.
-
-= Trouble shooting: =
-If you have problems with WP jQuery Lightbox, please make sure you try these steps before asking for help. If you ask for help and I find any of these steps would fix the problem, I will just link you back here to do the work yourself.
-
-1. Make sure your site is not throwing any javascript errors. Use [your browsers javascript console](http://webmasters.stackexchange.com/questions/8525/how-to-open-the-javascript-console-in-different-browsers) to find out.
-
-If you're running a custom theme:
-
-1. Make sure you have [`wp_head();`](http://codex.wordpress.org/Function_Reference/wp_head) just before the closing `</head>` tag of your theme, or you will break many plugins, which generally use this hook to reference JavaScript files. 
-
-1. For the same reason, always have `wp_footer();` just before the closing `</body>` tag of your theme.
-
-1. Many JavaScript optimizers, combiners, minifiers, etc. conflict with [`wp_localize_script`](http://codex.wordpress.org/Function_Reference/wp_localize_script2), used to configure this plugin and many others.
-
-* If you have problems with jQuery Lightbox; first disable all JavaScript-optimizing plugins. (Optimize Scripts, W3 Total Cache, WP Minify etc)
-
-* If you develop JavaScript optimizers for WordPress, please play nice with the default API...
-
-* [More info about this issue](http://wordpress.org/support/topic/122-worked-13-does-not-work-for-me?replies=19)
-
-Lastly:
-
-1. Disable all other plugins, one at a time. Try the lightbox between each.
-
-1. Revert to the default theme. Did it help? Fix your theme.
-
-1. Search the forums for similar symptoms. 
-
-Still have problems? Post a link and describe what issue you're having, and tell us what of these steps you've already tried.
-
 == Changelog ==
+
+= 2.3.2 (2024-07-30) =
+* Fix Animation Duration setting
+* Fix top navbar box shadow
+* Show optin/reviews to all users
 
 = 2.3.1 (2024-07-08) =
 * Fix JavaScript error

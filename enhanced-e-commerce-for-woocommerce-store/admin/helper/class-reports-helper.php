@@ -61,13 +61,12 @@ if (!class_exists('Conversios_Reports_Helper')) {
 		{
 			$nonce = isset($_POST['conversios_nonce']) ? sanitize_text_field($_POST['conversios_nonce']) : "";
 			if ($this->admin_safe_ajax_call($nonce, 'conversios_nonce')) {
-				$subscription_id = isset($_POST['subscription_id']) ? sanitize_text_field($_POST['subscription_id']) : "";
 				$is_disabled = isset($_POST['is_disabled']) ? sanitize_text_field($_POST['is_disabled']) : "";
 				$custom_email = isset($_POST['custom_email']) ? sanitize_text_field($_POST['custom_email']) : "";
 				$email_frequency = isset($_POST['email_frequency']) ? sanitize_text_field($_POST['email_frequency']) : "";
 				
-				if ($subscription_id != "" && $is_disabled != "" && $custom_email != "" && $email_frequency != "") {
-					$api_rs = $this->ShoppingApi->set_email_configurationGA4($subscription_id, $is_disabled, $custom_email, $email_frequency);
+				if ($is_disabled != "" && $custom_email != "" && $email_frequency != "") {
+					$api_rs = $this->ShoppingApi->set_email_configurationGA4($is_disabled, $custom_email, $email_frequency);
 					echo wp_json_encode($api_rs);
 				} else {
 					echo wp_json_encode(array('error' => true, 'errors' => esc_html__("Invalid required fields", "enhanced-e-commerce-for-woocommerce-store")));
@@ -77,7 +76,7 @@ if (!class_exists('Conversios_Reports_Helper')) {
 			}
 			wp_die();
 		}
-		
+
 		public function get_daily_visitors_report(){
 			$nonce = (isset($_POST['conversios_nonce'])) ? sanitize_text_field($_POST['conversios_nonce']) : "";
 			if ($this->admin_safe_ajax_call($nonce, 'conversios_nonce')) {

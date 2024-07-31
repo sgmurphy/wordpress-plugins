@@ -110,6 +110,7 @@ class Templates extends BaseRunner {
 		}
 
 		$template_content['id']              = $id;
+		unset($template_settings['conditions']);
 		$template_content['import_settings'] = $template_settings;
 		$template->import( $template_content );
 

@@ -7,7 +7,7 @@ use PrestoPlayer\Models\ReusableVideo;
 class VisitsUpgrade {
 
 	protected $table;
-	protected $version = 1;
+	protected $version = 2;
 	protected $name    = 'presto_player_visits_upgrade_version';
 
 	public function run() {

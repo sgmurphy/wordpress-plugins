@@ -3,6 +3,7 @@
 namespace ShopEngine\Core;
 
 use ShopEngine\Traits\Singleton;
+use ShopEngine\Core\Register\Widget_List;
 
 class Query_Modifier
 {
@@ -27,6 +28,7 @@ class Query_Modifier
             return;
         }
 
+
         // query filter begins
 
         // update query for product per page filter
@@ -36,6 +38,12 @@ class Query_Modifier
             $query->set('posts_per_page', absint(intval($_GET['shopengine_products_per_page'])));
         }
 
+        // checking product filter widget active or not 
+        $active_widgets = Widget_List::instance()->get_list(true, 'active');
+        if (!isset($active_widgets['product-filters'])) {
+
+            return;
+        }
 
         $color_prefix = 'shopengine_filter_color_';
 
@@ -134,32 +142,12 @@ class Query_Modifier
 		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
 			$product_visibility_not_in[] = $product_visibility_terms['outofstock'];
 		}
-
-        // Get existing tax query
-        $this->custom_query= $query->get('tax_query');
-
-        if (!is_array($this->custom_query)) {
-            $this->custom_query = [];
-        }
-
         $this->custom_query['tax_query'][] = apply_filters('shopengine-product-visibility-modifier',[
             'taxonomy'  => 'product_visibility',
             'terms'     =>  $product_visibility_not_in,
             'field'     => 'term_taxonomy_id',
             'operator'  => 'NOT IN',
         ]);
-
-        // Add category filter if set in the query parameters
-        if (!empty($_GET['shopengine_filter_category'])) {
-            $category_filter = [
-                'taxonomy' => 'product_cat',
-                'terms' => explode(',', $_GET['shopengine_filter_category']),
-                'field' => 'slug',
-                'operator' => 'IN',
-            ];
-
-            $this->custom_query[] = apply_filters('shopengine-category-filter-modifier', $category_filter);
-        } 
 
         $query->set('tax_query', apply_filters('shopengine-tax-query-modifier', $this->custom_query)); 
     }

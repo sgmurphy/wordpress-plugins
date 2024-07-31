@@ -6,7 +6,7 @@ Tags: blocks, gutenberg blocks, page-builder, gutenberg editor, WordPress blocks
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 5.6.20
-Stable tag: 3.3.4
+Stable tag: 3.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -339,7 +339,11 @@ Yes, We provide Free Support via [WordPress Support Forum](https://wordpress.org
 
 == Changelog ==
 
-= 3.3.4 - 2024-07-24 =
+= 3.3.5 - 2024-07-31 =
+* Fixed:    [Duplicate block same CSS on some blocks](https://wordpress.org/support/topic/section-having-same-section-and-class-id/)
+* Fixed:    [Dynamic Style on some blocks](https://wordpress.org/support/topic/section-style-not-working/)
+
+= 3.3.4 - 2024-07-29 =
 * Fixed:    [Tab issue](https://wordpress.org/support/topic/error-in-tabs-with-the-new-update-3-3-3-they-stopped-working/)
 * Fixed:    [Error message](https://wordpress.org/support/topic/error-message-in-wp-6-5-5/)
 * Fixed:    [Reusable block patterns](https://wordpress.org/support/topic/incorrect-pattern-display/)

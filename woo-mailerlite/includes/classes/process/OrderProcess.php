@@ -71,7 +71,12 @@ class OrderProcess extends Singleton
                     $this->addSubscriberSaveOrder($data, 'order_created');
                 }
                 $ml_subscriber_obj = mailerlite_wp_get_subscriber_by_email($tracking_data['email']);
-
+                if ((!$ml_subscriber_obj) && ((int)get_option('woo_mailerlite_platform', 1) === ApiType::CLASSIC)) {
+                    $orderStatus = $order->get_status();
+                    if ($orderStatus == 'completed' || $orderStatus == 'processing') {
+                        $this->processOrderSubscription($order_id);
+                    }
+                }
                 // Customer exists on MailerLite
                 if ($ml_subscriber_obj) {
 
@@ -237,7 +242,9 @@ class OrderProcess extends Singleton
         if ($mailerliteClient->getApiType() === ApiType::CLASSIC) {
 
             $subscriber_result = $this->addSubscriberSaveOrder($data, 'order_created');
-
+            if ($subscriber_result) {
+                $this->processOrderTracking($order_id);
+            }
             if (isset($subscriber_result->added_to_group)) {
                 if ($subscriber_result->added_to_group) {
                     $this->markOrderSubscribedViaApi($order_id);

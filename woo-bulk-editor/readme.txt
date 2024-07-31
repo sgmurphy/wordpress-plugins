@@ -14,81 +14,81 @@ BEAR - WooCommerce Bulk Editor Professional (former WOOBE) is plugin for bulk ed
 
 **BEAR - WooCommerce Bulk Editor and Products Manager Professional** (former name is WOOBE) is WordPress plugin for woocommerce bulk edit and managing woocommerce products in the robust and flexible way! Be professionals with managing data of your woocommerce e-shop!
 
-Latest PHP 8.x.x - COMPATIBLE! WooCommerce compatibility: from v.3.6 to the latest WooCommerce version.
+🖥️ Latest PHP 8.x.x - COMPATIBLE! WooCommerce compatibility: from v.3.6 to the latest WooCommerce version.
 
-Backend demo [request here](https://bulk-editor.com/bear-backend-demo-request)
+🔗 Backend demo [request here](https://bulk-editor.com/bear-backend-demo-request)
 
-**ATTENTION!** For WordPress posts, pages and custom post types use plugin [WPBE - WordPress Posts Bulk Editor Professional](https://wordpress.org/plugins/bulk-editor/)
+**⚠️ ATTENTION!** For WordPress posts, pages and custom post types use plugin [WPBE - WordPress Posts Bulk Editor Professional](https://wordpress.org/plugins/bulk-editor/)
 
 
 ### Bulk Editor Benefits:
 
-&#9989;&nbsp;Power and Flexible way to control your products!
+⚙️&nbsp;Power and Flexible way to control your products!
 
-&#9989;&nbsp;[Bulk Editing](https://bulk-editor.com/document/woocommerce-products-bulk-edit/) of all WooCommerce fields: attributes, categories, tags, custom taxonomies, meta fields
+🛠️&nbsp;[Bulk Editing](https://bulk-editor.com/document/woocommerce-products-bulk-edit/) of all WooCommerce fields: attributes, categories, tags, custom taxonomies, meta fields
 
-&#9989;&nbsp;Bulk Delete Operations - delete products in bulk using criterias combination
+🗑️&nbsp;Bulk Delete Operations - delete products in bulk using criterias combination
 
-&#9989;&nbsp;Bulk Operations with variable products variations
+🔄&nbsp;Bulk Operations with variable products variations
 
-&#9989;&nbsp;[Filtering](https://bulk-editor.com/document/filters/) by all WooCommerce products fields for further bulk editing or export
+🔍&nbsp;[Filtering](https://bulk-editor.com/document/filters/) by all WooCommerce products fields for further bulk editing or export
 
-&#9989;&nbsp;[Products Export](https://bulk-editor.com/document/woocommerce-products-export/) using native WooCommerce data format which allows import data back using native WooCommerce importer
+📤&nbsp;[Products Export](https://bulk-editor.com/document/woocommerce-products-export/) using native WooCommerce data format which allows import data back using native WooCommerce importer
 
-&#9989;&nbsp;[History](https://bulk-editor.com/document/history/) of Bulk and Solo operations with roll-back possibility
+📜&nbsp;[History](https://bulk-editor.com/document/history/) of Bulk and Solo operations with roll-back possibility
 
-&#9989;&nbsp;Add necessary [Meta Fields](https://bulk-editor.com/document/woocommerce-products-meta-fields/) to the system and manage by them. JSONed (serialized) metadata bulk editing is possible with nice popup where data constructor is in-built!
+🔢&nbsp;Add necessary [Meta Fields](https://bulk-editor.com/document/woocommerce-products-meta-fields/) to the system and manage by them. JSONed (serialized) metadata bulk editing is possible with nice popup where data constructor is in-built!
 
-&#9989;&nbsp;[Price Calculator](https://bulk-editor.com/document/woocommerce-price-calculator/) for decimal fields
+💲&nbsp;[Price Calculator](https://bulk-editor.com/document/woocommerce-price-calculator/) for decimal fields
 
-&#9989;&nbsp;[Advanced operations](https://bulk-editor.com/document/variations-advanced-bulk-operations/) with variable products and their variations
+🔧&nbsp;[Advanced operations](https://bulk-editor.com/document/variations-advanced-bulk-operations/) with variable products and their variations
 
-&#9989;&nbsp;[Binded editing](https://bulk-editor.com/howto/how-to-set-the-same-value-for-some-products-on-the-same-time/) - edit several products with two clicks!
+✏️&nbsp;[Binded editing](https://bulk-editor.com/howto/how-to-set-the-same-value-for-some-products-on-the-same-time/) - edit several products with two clicks!
 
-&#9989;&nbsp;[Change prices relatively](https://bulk-editor.com/howto/how-to-set-sale-prices-lower-than-regular-for-20-percents/)
+💸&nbsp;[Change prices relatively](https://bulk-editor.com/howto/how-to-set-sale-prices-lower-than-regular-for-20-percents/)
 
-&#9989;&nbsp;Nice and convenient WooCommerce Products Editor with rich HTML elements
+🖊️&nbsp;Nice and convenient WooCommerce Products Editor with rich HTML elements
 
-&#9989;&nbsp;Instant saving of entered data by AJAX
+⏱️&nbsp;Instant saving of entered data by AJAX
 
-&#9989;&nbsp;[Automatic attach of any taxonomies](https://bulk-editor.com/howto/how-to-add-woocommerce-products-custom-taxonomy/) related to the products for further editing
+🔗&nbsp;[Automatic attach of any taxonomies](https://bulk-editor.com/howto/how-to-add-woocommerce-products-custom-taxonomy/) related to the products for further editing
 
-&#9989;&nbsp;POSSIBILITY of joint editing of the products without interference to each other.
+🤝&nbsp;POSSIBILITY of joint editing of the products without interference to each other.
 
-&#9989;&nbsp;Profiles for any set of columns for quick loading
+📋&nbsp;Profiles for any set of columns for quick loading
 
-&#9989;&nbsp;Profiles for any filters combination for quick loading
+🔄&nbsp;Profiles for any filters combination for quick loading
 
-* Documentation: [https://bulk-editor.com/documentation/](https://bulk-editor.com/documentation/) and [https://bulk-editor.com/video/](https://bulk-editor.com/video/)
-* The Premium version: [https://pluginus.net/affiliate/woocommerce-bulk-editor](https://pluginus.net/affiliate/woocommerce-bulk-editor)
+* 📚 Documentation: [https://bulk-editor.com/documentation/](https://bulk-editor.com/documentation/) and [https://bulk-editor.com/video/](https://bulk-editor.com/video/)
+* 🌟 The Premium version: [https://pluginus.net/affiliate/woocommerce-bulk-editor](https://pluginus.net/affiliate/woocommerce-bulk-editor)
 
 
 ### Fields possible to edit in FREE version of the plugin:
 
-* Thumbnail
-* Title
-* Description
-* Product Status
-* Regular price
-* Sale price
-* SKU
-* Manage stock
-* Date Published
-* Categories
-* Down.Files
-* Upsells products
-* Grouped products
-* Weight
-* Length
-* Width
-* Parent ID (for variations)
-* Menu order
-* 1 product attribute
-* 2 product meta fields
+* 🖼️ Thumbnail
+* 📝 Title
+* 🖊️ Description
+* 📅 Product Status
+* 💵 Regular price
+* 🏷️ Sale price
+* 🔢 SKU
+* 📦 Manage stock
+* 📅 Date Published
+* 🏷️ Categories
+* 📂 Down.Files
+* ⬆️ Upsells products
+* 🔗 Grouped products
+* ⚖️ Weight
+* 📏 Length
+* 📐 Width
+* 🔢 Parent ID (for variations)
+* 🔢 Menu order
+* 🏷️ 1 product attribute
+* 🧩 2 product meta fields
 
-In the premium version of the plugin it is possible to manipulate with [all fields of the product](https://bulk-editor.com/downloads)
+🌟 In the premium version of the plugin it is possible to manipulate with [all fields of the product](https://bulk-editor.com/downloads)
 
-https://www.youtube.com/watch?v=LritCDnZpTY
+https://www.youtube.com/watch?v=zTCi99ThEwo
 
 You can get premium version of the plugin on the [CodeCanyon](https://bulk-editor.com/a/buy)
 

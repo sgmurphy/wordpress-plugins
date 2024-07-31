@@ -181,7 +181,10 @@ add_action('woocommerce_update_product', 'woo_ml_product_update', 10, 1);
  */
 function woo_ml_order_update($order_id, $order)
 {
-
+    $mailerliteClient = new \MailerLite\Includes\Shared\Api\PlatformAPI(MAILERLITE_WP_API_KEY);
+    if ( $mailerliteClient->getApiType() == \MailerLite\Includes\Shared\Api\ApiType::CLASSIC ) {
+        return OrderProcess::getInstance()->processOrderTracking($order_id);
+    }
     OrderSyncProcess::getInstance()->syncOrder($order_id, $order);
 }
 

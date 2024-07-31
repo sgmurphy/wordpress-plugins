@@ -202,12 +202,15 @@ $wp_jquery_lightbox_options = array(
 	),
 	array(
 		'id'                => 'jqlb_resize_speed',
-		'title'             => __( 'Resize Speed', 'wp-jquery-lightbox' ),
-		'input'             => 'checkbox',
+		'title'             => __( 'Animation Speed', 'wp-jquery-lightbox' ),
+		'input'             => 'number',
+		'min'               => '100',
+		'max'               => '10000',
+		'step'              => '50',
 		'sanitize_callback' => 'intval',
 		'default'           => '400',
 		'section'           => 'lightpress-jqlb-settings-section',
-		'description'       => __( 'Animation duration (in milliseconds).', 'wp-jquery-lightbox' ),
+		'description'       => __( 'Controls the speed of resize animations (in milliseconds).', 'wp-jquery-lightbox' ),
 	),
 	array(
 		'id'                => 'jqlb_use_theme_styles',

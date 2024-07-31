@@ -202,7 +202,9 @@ function wpbc_calendar_show( resource_id ){
 		// -----------------------------------------------------------------------------------------------------------------
 		// Add season names to the day CSS classes -- it is required for correct  work  of conditional fields --------------
 		var season_names_arr = _wpbc.seasons__get_for_date( resource_id, sql_class_day );
+
 		for ( var season_key in season_names_arr ){
+
 			css_classes__for_date.push( season_names_arr[ season_key ] );				//  'wpdevbk_season_september_2023'
 		}
 		// -----------------------------------------------------------------------------------------------------------------
@@ -517,10 +519,10 @@ function wpbc_calendar_show( resource_id ){
 		var is_intersect;
 		var is_check_in;
 
-		// 4. Loop  all  time Fields options
-		for ( var field_key in time_fields_obj_arr ){
+		// 4. Loop  all  time Fields options		//FixIn: 10.3.0.2
+		for ( let field_key = 0; field_key < time_fields_obj_arr.length; field_key++ ){
 
-			time_fields_obj_arr[ field_key ].disabled = 0;          // By default this time field is not disabled
+			time_fields_obj_arr[ field_key ].disabled = 0;          // By default, this time field is not disabled
 
 			time_fields_obj = time_fields_obj_arr[ field_key ];		// { times_as_seconds: [ 21600, 23400 ], value_option_24h: '06:00 - 06:30', name: 'rangetime2[]', jquery_option: jQuery_Object {}}
 
@@ -549,7 +551,8 @@ function wpbc_calendar_show( resource_id ){
 
 				var how_many_resources_intersected = 0;
 				// Loop all resources ID
-				for ( var res_key in child_resources_arr ){
+					// for ( var res_key in child_resources_arr ){	 						//FixIn: 10.3.0.2
+				for ( let res_key = 0; res_key < child_resources_arr.length; res_key++ ){
 
 					child_resource_id = child_resources_arr[ res_key ];
 
@@ -1752,7 +1755,7 @@ function wpbc_auto_select_dates_in_calendar( resource_id, check_in_ymd, check_ou
 		date.setFullYear( check_in_date[ 0 ], (check_in_date[ 1 ] - 1), check_in_date[ 2 ] );                                    // year, month, date
 		var original_check_in_date = date;
 		original_array.push( jQuery.datepick._restrictMinMax( inst, jQuery.datepick._determineDate( inst, date, null ) ) ); //add date
-		if ( ! wpdev_in_array( bk_distinct_dates, (check_in_date[ 2 ] + '.' + check_in_date[ 1 ] + '.' + check_in_date[ 0 ]) ) ){
+		if ( ! wpbc_in_array( bk_distinct_dates, (check_in_date[ 2 ] + '.' + check_in_date[ 1 ] + '.' + check_in_date[ 0 ]) ) ){
 			bk_distinct_dates.push( parseInt(check_in_date[ 2 ]) + '.' + parseInt(check_in_date[ 1 ]) + '.' + check_in_date[ 0 ] );
 		}
 
@@ -1769,7 +1772,7 @@ function wpbc_auto_select_dates_in_calendar( resource_id, check_in_ymd, check_ou
 			date = new Date( mewDate.getFullYear(), mewDate.getMonth(), mewDate.getDate() );
 
 			original_array.push( jQuery.datepick._restrictMinMax( inst, jQuery.datepick._determineDate( inst, date, null ) ) ); //add date
-			if ( !wpdev_in_array( bk_distinct_dates, (date.getDate() + '.' + parseInt( date.getMonth() + 1 ) + '.' + date.getFullYear()) ) ){
+			if ( !wpbc_in_array( bk_distinct_dates, (date.getDate() + '.' + parseInt( date.getMonth() + 1 ) + '.' + date.getFullYear()) ) ){
 				bk_distinct_dates.push( (parseInt(date.getDate()) + '.' + parseInt( date.getMonth() + 1 ) + '.' + date.getFullYear()) );
 			}
 
@@ -1800,7 +1803,7 @@ function wpbc_auto_select_dates_in_calendar( resource_id, check_in_ymd, check_ou
 			original_array.push( wpbc__get__js_date( dates_to_select_arr[ d ] ) );
 
 			one_date_str = dates_to_select_arr[ d ].split('-')
-			if ( ! wpdev_in_array( bk_distinct_dates, (one_date_str[ 2 ] + '.' + one_date_str[ 1 ] + '.' + one_date_str[ 0 ]) ) ){
+			if ( ! wpbc_in_array( bk_distinct_dates, (one_date_str[ 2 ] + '.' + one_date_str[ 1 ] + '.' + one_date_str[ 0 ]) ) ){
 				bk_distinct_dates.push( parseInt(one_date_str[ 2 ]) + '.' + parseInt(one_date_str[ 1 ]) + '.' + one_date_str[ 0 ] );
 			}
 		}
@@ -1962,6 +1965,7 @@ function wpbc_calendars__auto_update_months_number(){
 
 	var all_calendars_arr = _wpbc.calendars_all__get();
 
+	// This LOOP "for in" is GOOD, because we check  here keys    'calendar_' === calendar_id.slice( 0, 9 )
 	for ( var calendar_id in all_calendars_arr ){
 		if ( 'calendar_' === calendar_id.slice( 0, 9 ) ){
 			var resource_id = parseInt( calendar_id.slice( 9 ) );			//  'calendar_3' -> 3

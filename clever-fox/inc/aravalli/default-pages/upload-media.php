@@ -3,7 +3,10 @@ $theme = wp_get_theme(); // gets the current theme
 if('Arbuda' == $theme->name){
 	$file = CLEVERFOX_PLUGIN_URL .'inc/arbuda/images/logo.png';
 	$ImagePath = CLEVERFOX_PLUGIN_URL .'inc/arbuda/images';
-}else{
+}else if('VillaPress' == $theme->name){
+	$file = CLEVERFOX_PLUGIN_URL .'inc/villapress/images/logo.png';
+	$ImagePath = CLEVERFOX_PLUGIN_URL .'inc/villapress/images';
+}else {
 	$file = CLEVERFOX_PLUGIN_URL .'inc/aravalli/images/logo.png';
 	$ImagePath = CLEVERFOX_PLUGIN_URL .'inc/aravalli/images';
 }	

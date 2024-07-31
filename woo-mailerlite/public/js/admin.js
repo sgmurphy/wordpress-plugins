@@ -384,6 +384,32 @@ jQuery(document).ready(function (a) {
             });
 
         });
+        $('#skipResourceSync').on('click', function () {
+            if(errors.length > 0 ) {
+                $('.woo-ml-wizard-error').remove();
+            }
+            if(!$('#wooMlSubGroup').val()) {
+                $('.select2-container--mailerlite').parent().after(`<span id="" class="woo-ml-wizard-error">Select group</span>`);
+                return false;
+            }
+            $.ajax({
+                url: woo_ml_post.ajax_url,
+                type: "post",
+                data: {
+                    action: "woo_ml_skip_resource_sync",
+                    group: $('#wooMlSubGroup').val(),
+                    nonce: woo_ml_post.nonce
+                },
+                success: function (res) {
+                    window.onbeforeunload = null;
+                    location.reload();
+                },
+                error: function (x, status) {
+                    console.log(x,status);
+                }
+            });
+        });
+
 
         $('#createGroup').on('click', function () {
             $('.woo-ml-wizard-error').remove();

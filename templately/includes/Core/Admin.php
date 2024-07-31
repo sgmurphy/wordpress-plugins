@@ -35,6 +35,8 @@ class Admin extends Base {
 			unset( $e );
 		}
 
+		add_filter( 'plugin_action_links_' . TEMPLATELY_PLUGIN_BASENAME, [$this, 'handleActionLinks'], 10, 2 );
+
 		// Remove OLD notice from 1.0.0 (if other WPDeveloper plugin has notice)
 		NoticeRemover::get_instance( '1.0.0' );
 	}
@@ -370,5 +372,22 @@ class Admin extends Base {
 
 	public function header() {
 		Helper::views( 'header' );
+	}
+
+    /**
+     * Handle links displayed below the plugin name in the WordPress Installed Plugins page.
+     *
+     * @return  array
+     * @since   3.1.2
+     * @static
+     *
+     */
+	public static function handleActionLinks($links, $file)
+	{
+		$settingsLink = '<a href="' . admin_url('admin.php?page=templately') . '" aria-label="' . __('Open settings page',
+				'templately') . '">' . __('Templates Library', 'templately') . '</a>';
+
+		$links[] = $settingsLink;
+		return $links;
 	}
 }

@@ -3,8 +3,8 @@ Contributors: wpvibes, anandau14, hardiksharma
 Tags: elementor form db, contact form 7 db, contact form db, contact form 7, elementor db manager, elementor forms, cf7 db, elementor, save contact form, cf7
 Requires at least: 5.0
 Requires PHP: 7.4
-Tested up to: 6.5
-Stable tag: 1.4.11
+Tested up to: 6.6
+Stable tag: 1.4.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,8 @@ Yes, it's pretty simple; just click on the Quick Export option on the Form Vibes
 5. **Export submission into a CSV file**
 
 == Changelog ==
+= 1.4.12 =
+* Fixed: User role permissions validation check added.
 
 = 1.4.11 =
 * Fixed: Issue with Bricks Form not saving data in some cases.

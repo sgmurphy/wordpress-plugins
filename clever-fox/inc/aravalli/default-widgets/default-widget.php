@@ -2,6 +2,8 @@
 $theme = wp_get_theme(); // gets the current theme
 if ( 'Arbuda' == $theme->name){	
 	$img_path = CLEVERFOX_PLUGIN_URL .'inc/arbuda/images/logo.png';
+}else if ( 'VillaPress' == $theme->name){
+	$img_path = CLEVERFOX_PLUGIN_URL .'inc/villapress/images/logo.png';
 }else{
 	$img_path = CLEVERFOX_PLUGIN_URL .'inc/aravalli/images/footer-logo.png';
 }
@@ -20,7 +22,7 @@ $activate = array(
     );
     /* the default titles will appear */
    update_option('widget_text', array(
-        1 => array('title' => 'About Aravalli',
+        1 => array('title' => 'About '.$theme->name,
         'text'=>'<div class="footer-logo"><img src="'.$img_path.'" alt=""></div>
                         <p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p>
 		'),        

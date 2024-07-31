@@ -1,5 +1,11 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.38 - 2024-07-23
+
+### Fixes
+
+- Admin App - Fix Edit As Customer Link
+
 ## SSA-VERSION-PREFIX.6.7.36 - 2024-07-16
 
 ### Fixes
@@ -73,7 +79,7 @@
 - Support translating dates with Twig `date` filter
 - Stripe modal placement fix
 - Fixed deprecated twig date format function.
-- Holiday calendars not being checked for conflicts in Google Calendar
+- Non english holiday calendars not being checked for conflicts in Google Calendar
 
 ### Features and Improvements
 

@@ -2,7 +2,6 @@
 
 namespace Templately\Builder\Types;
 
-use EbStyleHandler;
 use Elementor\Plugin;
 
 abstract class ThemeTemplate extends BaseTemplate {

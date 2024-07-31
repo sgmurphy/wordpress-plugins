@@ -25,10 +25,10 @@ if ( ! class_exists( 'TVC_Register_Scripts' ) ) :
     public function tvc_register_required_options_page_scripts() {
       // enqueue notice handling script
       ?>
-      <script>
-        var tvc_ajax_url = '<?php echo esc_js(admin_url( 'admin-ajax.php' )); ?>';
-      </script>
-      <?php
+<script>
+var tvc_ajax_url = '<?php echo esc_js(admin_url( 'admin-ajax.php' )); ?>';
+</script>
+<?php
     }
   }
 // End of TVC_Register_Scripts class

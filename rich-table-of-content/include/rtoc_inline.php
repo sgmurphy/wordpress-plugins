@@ -10,7 +10,6 @@ function rtoc_senior_color()
 	$rtoc_h3_color          = get_option('rtoc_h3_color');
 	$rtoc_back_button_color = get_option('rtoc_back_button_color');
 	$rtoc_frame_design      = get_option('rtoc_frame_design');
-
 ?>
 	<style type="text/css">
 		/*<!-- rtoc -->*/
@@ -99,25 +98,7 @@ function rtoc_senior_color()
 		.rtoc-mokuji-content .level-2>.rtoc-item #rtocAC.accent-point::after {
 			background-color: <?php echo $rtoc_h3_color; ?>;
 		}
-
-		/* rtoc_addon */
-		<?php
-		// ================================================
-		// Addon有効時（RTOC ver1.2〜）.
-		// ================================================
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-		if (is_plugin_active('rich-table-of-content-addon/rtoc-addon.php')) :
-		?><?php
-			// frame6のみタイトル色が違う為, 分岐.
-			if ($rtoc_frame_design === 'frame6') : ?>.rtoc-mokuji-content #rtoc-mokuji-title {
-			color: <?php echo '#ffffff'; ?>;
-		}
-
-		<?php else : ?>.rtoc-mokuji-content #rtoc-mokuji-title {
-			color: <?php echo $rtoc_title_color; ?>;
-		}
-
-		<?php endif; ?>.rtoc-mokuji-content.frame6,
+		.rtoc-mokuji-content.frame6,
 		.rtoc-mokuji-content.frame7::before,
 		.rtoc-mokuji-content.frame8::before {
 			border-color: <?php echo $rtoc_border_color; ?>;
@@ -142,8 +123,6 @@ function rtoc_senior_color()
 			color: <?php echo $rtoc_title_color; ?>;
 			background-color: <?php echo $rtoc_back_color; ?>;
 		}
-
-		<?php endif; ?>
 	</style>
 	<?php
 }

@@ -195,6 +195,10 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 			?>
 				<a class="customizer_room_upgrade_section up-to-pro" href="https://www.nayrathemes.com/arbuda-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
+			<?php } else if ( 'VillaPress' == $theme->name){
+			?>
+				<a class="customizer_room_upgrade_section up-to-pro" href="https://www.nayrathemes.com/villapress-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
+				
 			<?php }else{ ?>	
 				
 				<a class="customizer_room_upgrade_section up-to-pro" href="https://www.nayrathemes.com/aravalli-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>

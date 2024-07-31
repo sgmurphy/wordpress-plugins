@@ -5,7 +5,7 @@ Tags: booking calendar, bookings, booking, appointments, events
 Requires at least: 5.3
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 10.2.2
+Stable tag: 10.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -288,6 +288,19 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 
 
 == Changelog ==
+= 10.3 =
+- Changes in **all** versions:
+	* **New** Updated Calendar Overview and Timeline views. Timelines now have a minimum width for day/time cells for improved readability. You can scroll horizontally to search for specific date and time intervals.
+	* **New** Updated Bookings view in Calendar Overview and Timeline. Booking bars now have a transparent background for easier identification of specific dates under the booking pipeline.
+	* **Improvement** Updated typography in the Bookings view within the Calendar Overview and Timeline for a more polished appearance.
+	* **New** Added shortcode [add_to_google_cal_button] to show **"Add to Google Calendar" button in Booking Confirmation** widow. (10.3.0.1)
+	* **New** Added an option to remove booking summary details in export when clicking the "Add to Google Calendar" button. This can be enabled in the WP Booking Calendar > Settings > Sync > "General" page. (10.3.0.1)
+	* **Fix** Resolved the issue of displaying greyed-out (disabled) options in select boxes, such as booked time slot options. (10.2.3.1)
+	* **Fix** Resolved conflict with 'MIXITUP - A CSS3 and JQuery Filter & Sort Plugin' that caused the error: "Uncaught TypeError: time_fields_obj.times_as_seconds is undefined." (10.3.0.2)
+- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
+	* **New** Added Change Over Days in Timeline views for pro versions. Timeline and Calendar Overview now show change over days as triangles for check-in/out dates, making it easier to identify these dates and providing a better overview of bookings if your system uses the change over days functionality.
+	* **Fix** Fixed the issue of invalid Start/End Time in some configurations when using range days selection mode and change-over days. (10.2.3.2)
+
 = 10.2.1 - 10.2.2 =
 - Find more at [this page](https://wpbookingcalendar.com/changelog/)
 
@@ -449,6 +462,9 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 	- Many improvements and fixes. Find more at [this page](https://wpbookingcalendar.com/changelog/)
 
 == Upgrade Notice ==
+= 10.3 =
+Enhanced Calendar Overview and Timeline Views, and more...
+
 = 10.2 =
 Explore Advanced Configurable Booking Confirmation, Enhanced Booking Form Typography, and more...
 

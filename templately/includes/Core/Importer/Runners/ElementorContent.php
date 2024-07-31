@@ -175,6 +175,7 @@ class ElementorContent extends BaseRunner {
 				$post_data['content'] = [];
 			}
 
+			unset($content_settings['conditions']);
 			$post_data['import_settings'] = $content_settings;
 
 			$template->import( $post_data );

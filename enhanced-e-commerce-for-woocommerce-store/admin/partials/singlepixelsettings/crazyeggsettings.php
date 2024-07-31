@@ -12,11 +12,14 @@ $is_sel_disable = 'disabled';
                     <div class="col-7">
                         <label class="d-flex fw-normal mb-1 text-dark">
                             <?php esc_html_e("Crazyegg Pixel ID", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            <span class="material-symbols-outlined text-secondary md-18 ps-2" data-bs-toggle="tooltip" data-bs-placement="top" title="The Crazyegg Pixel ID Looks Like. 36948643">
+                            <span class="material-symbols-outlined text-secondary md-18 ps-2" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The Crazyegg Pixel ID Looks Like. 36948643">
                                 info
                             </span>
                         </label>
-                        <input type="text" name="crazyegg_pixel_id" id="crazyegg_pixel_id" class="form-control valtoshow_inpopup_this" value="<?php echo esc_attr($crazyegg_pixel_id); ?>" placeholder="eg.36948643">
+                        <input type="text" name="crazyegg_pixel_id" id="crazyegg_pixel_id"
+                            class="form-control valtoshow_inpopup_this"
+                            value="<?php echo esc_attr($crazyegg_pixel_id); ?>" placeholder="eg.36948643">
                     </div>
                 </div>
             </div>
@@ -29,10 +32,10 @@ $is_sel_disable = 'disabled';
 </div>
 
 <script>
-    jQuery(function() {
-        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-    });
+jQuery(function() {
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+});
 </script>

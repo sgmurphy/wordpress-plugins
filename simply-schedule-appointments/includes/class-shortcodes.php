@@ -251,7 +251,14 @@ class SSA_Shortcodes {
 		if ( ! empty ( $edit_appointment_page_id ) && get_queried_object_id() == $edit_appointment_page_id ) {
 			$post = get_post($edit_appointment_page_id);
 			if ($post && has_shortcode( $post->post_content, 'ssa_confirmation' )) {
-				return $template;
+
+				/**
+				 * Allow hijacking the page if the admin is editing as customer from within SSA admin app
+				 * @see admin-app/src/components/Appointment/Appointment.vue
+				 */
+				if ( empty( $_GET['redirect_from'] ) || $_GET['redirect_from'] !== 'ssa_admin' ) {
+					return $template;
+				}
 			}
 		} else if ( !is_front_page() && ! is_home() ) {
 			return $template;

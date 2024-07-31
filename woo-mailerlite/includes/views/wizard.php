@@ -87,7 +87,7 @@ if(isset($_GET['step']) && ($_GET['step'] == 1)) {
                     </div>
                 </div>
                 <div class="border-top-ml">
-                    <label class="settings-label-medium" style="margin:0;">Still having trouble connecting to your account? <a id="openDebugLog">Click here</a> for an advanced troubleshooting.</label>
+                    <label class="settings-label-medium" style="margin:0;">Still having trouble connecting to your account? <a id="openDebugLog">Click here</a> for an advanced troubleshooting. </label>
                 </div>
             </div>
         <?php endif; ?>
@@ -133,7 +133,7 @@ if(isset($_GET['step']) && ($_GET['step'] == 1)) {
             <?php endif; ?>
 
             <div class="settings-block" style="display: flex; justify-content: space-between; padding-top: 2rem;">
-                <label class="settings-label-medium" style="margin: 0;">Having trouble importing your group? <a id="openDebugLog">Click here</a> for an advanced troubleshooting.</label>
+                <label class="settings-label-medium" style="margin: 0;">Having trouble importing your group? <a id="openDebugLog">Click here</a> for an advanced troubleshooting or <a id="skipResourceSync">continue</a> to next step.</label>
                 <button id="startImport" type="button" class="btn-primary-ml">Start import</button>
             </div>
         <?php endif; ?>

@@ -424,16 +424,21 @@ if (class_exists('Conversios_Admin') === FALSE) {
     {
       do_action('add_conversios_header');
 ?>
-      <div style="position:relative;">
-        <div class="card coming-soon-card shadow-lg" style="position: fixed; top: 25%; left: 40%; z-index: 999;max-width: 400px; margin: 2rem auto; text-align: center;">
-          <div class="card-body" style="padding: 2rem;">
+<div style="position:relative;">
+    <div class="card coming-soon-card shadow-lg"
+        style="position: fixed; top: 25%; left: 40%; z-index: 999;max-width: 400px; margin: 2rem auto; text-align: center;">
+        <div class="card-body" style="padding: 2rem;">
             <h5 class="card-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Feature Coming Soon</h5>
-            <p class="card-text" style="font-size: 1rem; margin-bottom: 1.5rem;">We're working hard to bring this feature to you. Stay tuned!</p>
-            <a target="_blank" href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=use_your_own_gtm&utm_campaign=pixel_list" class="btn btn-primary">Learn More</a>
-          </div>
+            <p class="card-text" style="font-size: 1rem; margin-bottom: 1.5rem;">We're working hard to bring this
+                feature to you. Stay tuned!</p>
+            <a target="_blank"
+                href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=use_your_own_gtm&utm_campaign=pixel_list"
+                class="btn btn-primary">Learn More</a>
         </div>
-        <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/web-reports-placeholder.png'); ?>" alt="reports" style="filter:opacity(0.7) blur(2px); margin-top:20px;" />
-      </div>
+    </div>
+    <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/web-reports-placeholder.png'); ?>" alt="reports"
+        style="filter:opacity(0.7) blur(2px); margin-top:20px;" />
+</div>
 <?php
       do_action('add_conversios_footer');
     }

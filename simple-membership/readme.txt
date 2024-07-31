@@ -5,7 +5,7 @@ Tags: member, members, members only, membership, memberships, register, WordPres
 Requires at least: 5.0
 Requires PHP: 7.4
 Tested up to: 6.6
-Stable tag: 4.5.0
+Stable tag: 4.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -170,6 +170,12 @@ Please visit the membership plugin page to view screenshots:
 https://simple-membership-plugin.com/
 
 == Changelog ==
+
+= 4.5.1 =
+- Stripe library updated to the latest version (v15.4.0).
+- Updated the 'swpm_login_failed' action hook's trigger condition.
+- Renamed the login form and reset password shortcode function name for better clarity.
+- The edit profile interface in the admin dashboard will display an appropriate error message if an attempt is made to edit a profile that has been deleted.
 
 = 4.5.0 =
 - Added membership level specific default account status feature.

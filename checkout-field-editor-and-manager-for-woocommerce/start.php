@@ -1,19 +1,19 @@
 <?php
 /*
  * Plugin Name: Checkout Field Editor and Manager for WooCommerce
- * Version: 2.2.22
+ * Version: 2.2.23
  * Description: WooCommerce checkout field editor and manager helps to manage checkout fields in WooCommerce
  * Author: Acowebs
  * Author URI: http://acowebs.com
  * Requires at least: 4.0
- * Tested up to: 6.5
+ * Tested up to: 6.6
  * Text Domain: checkout-field-editor-and-manager-for-woocommerce
  * WC requires at least: 4.0.0
- * WC tested up to: 8.9
+ * WC tested up to: 9.1
  */
 
 define('AWCFE_TOKEN', 'awcfe');
-define('AWCFE_VERSION', '2.2.22');
+define('AWCFE_VERSION', '2.2.23');
 define('AWCFE_FILE', __FILE__);
 define('AWCFE_EMPTY_LABEL', 'awcfe_empty_label');
 define('AWCFE_ORDER_META_KEY', '_awcfe_order_meta_key');// use _ not show in backend
@@ -69,4 +69,11 @@ add_action( 'before_woocommerce_init', function() {
 	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 	}
+} );
+
+
+add_action( 'before_woocommerce_init', function() {
+    if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, false );
+    }
 } );

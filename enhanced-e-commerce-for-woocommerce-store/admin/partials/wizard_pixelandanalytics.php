@@ -492,7 +492,7 @@ $conv_onboarding_done_step = (isset($ee_options["conv_onboarding_done_step"]) &&
                                                 <li>Automated Email Report Delivery</li>
                                             </ul>
                                             <!-- <a class="btn btn-light mt-4" href="<?php echo esc_url('admin.php?page=conversios-analytics-reports'); ?>">Go To Reports</a> -->
-                                            <a class="btn btn-light mt-4" href="<?php echo esc_url('admin.php?page=conversios-web-reports'); ?>">Go To Reports</a>
+                                            <a class="btn btn-light mt-4" href="<?php echo esc_url('admin.php?page=conversios-analytics-reports'); ?>">Go To Reports</a>
 
                                         </div>
                                     <?php } else { ?>
@@ -561,8 +561,7 @@ require_once ENHANCAD_PLUGIN_DIR . 'admin/partials/singlepixelsettings/googlesig
             jQuery("#save_gahotclcr, #save_gads_finish").addClass("disabledsection");
         <?php } ?>
 
-        if(jQuery("#ga4_property_id").val() == "")
-        {
+        if (jQuery("#ga4_property_id").val() == "") {
             jQuery("#save_gahotclcr").addClass("disabledsection");
         }
 
@@ -660,6 +659,11 @@ require_once ENHANCAD_PLUGIN_DIR . 'admin/partials/singlepixelsettings/googlesig
         jQuery('.pawizard_tab_but').on('shown.bs.tab', function(e) {
             if (jQuery("#ga4_property_id").val() == "") {
                 jQuery("#link_google_analytics_with_google_ads").attr("disabled", true);
+                jQuery("#save_gahotclcr").addClass('disabledsection');
+            }
+
+            if (jQuery("#google_ads_id").val() == "") {
+                jQuery("#save_gads_finish").addClass('disabledsection');
             }
 
             if (jQuery(e.target).attr('aria-controls') == "webpixbox") {

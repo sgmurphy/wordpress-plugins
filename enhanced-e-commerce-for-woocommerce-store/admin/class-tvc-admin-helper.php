@@ -666,14 +666,17 @@ class TVC_Admin_Helper
     if ($name) {
       $countries_list = $this->get_gmc_language_list();
 ?>
-      <select style="width: 100%" class="fw-light text-secondary fs-6 form-control form-select-sm select2 <?php echo esc_attr($class_id); ?> <?php echo ($require == true) ? "field-required" : ""; ?>" name="<?php echo esc_attr($name); ?>" id="<?php echo esc_attr($class_id); ?>">
-        <option value=""><?php echo esc_html($label); ?></option>
-        <?php foreach ($countries_list as $Key => $val) { ?>
-          <option value="<?php echo esc_attr($val["code"]); ?>" <?php echo ($val["code"] == $sel_val) ? "selected" : ""; ?>><?php echo esc_html($val["name"]) . " (" . esc_html($val["native_name"]) . ")"; ?></option>
-        <?php
-        } ?>
-      </select>
+<select style="width: 100%"
+    class="fw-light text-secondary fs-6 form-control form-select-sm select2 <?php echo esc_attr($class_id); ?> <?php echo ($require == true) ? "field-required" : ""; ?>"
+    name="<?php echo esc_attr($name); ?>" id="<?php echo esc_attr($class_id); ?>">
+    <option value=""><?php echo esc_html($label); ?></option>
+    <?php foreach ($countries_list as $Key => $val) { ?>
+    <option value="<?php echo esc_attr($val["code"]); ?>" <?php echo ($val["code"] == $sel_val) ? "selected" : ""; ?>>
+        <?php echo esc_html($val["name"]) . " (" . esc_html($val["native_name"]) . ")"; ?></option>
     <?php
+        } ?>
+</select>
+<?php
     }
   }
   public function tvc_countries_select($name, $class_id = "", string $label = "Please Select", bool $require = false)
@@ -682,28 +685,34 @@ class TVC_Admin_Helper
       $countries_list = $this->get_gmc_countries_list();
       $sel_val = $this->get_woo_country();
     ?>
-      <select style="width: 100%" class="fw-light text-secondary fs-6 form-control form-select-sm select2 <?php echo esc_attr($class_id); ?> <?php echo ($require == true) ? "field-required" : ""; ?>" name="<?php echo esc_attr($name); ?>" id="<?php echo esc_attr($class_id); ?>">
-        <option value=""><?php echo esc_html($label); ?></option>
-        <?php foreach ($countries_list as $Key => $val) { ?>
-          <option value="<?php echo esc_attr($val["code"]); ?>" <?php echo ($val["code"] == $sel_val) ? "selected" : ""; ?>><?php echo esc_html($val["name"]); ?></option>
-        <?php
-        } ?>
-      </select>
+<select style="width: 100%"
+    class="fw-light text-secondary fs-6 form-control form-select-sm select2 <?php echo esc_attr($class_id); ?> <?php echo ($require == true) ? "field-required" : ""; ?>"
+    name="<?php echo esc_attr($name); ?>" id="<?php echo esc_attr($class_id); ?>">
+    <option value=""><?php echo esc_html($label); ?></option>
+    <?php foreach ($countries_list as $Key => $val) { ?>
+    <option value="<?php echo esc_attr($val["code"]); ?>" <?php echo ($val["code"] == $sel_val) ? "selected" : ""; ?>>
+        <?php echo esc_html($val["name"]); ?></option>
     <?php
+        } ?>
+</select>
+<?php
     }
   }
   public function tvc_select($name, $class_id = "", string $label = "Please Select", string $sel_val = null, bool $require = false, $option_list = array())
   {
     if (!empty($option_list) && $name) {
     ?>
-      <select style="width: 100%" class="fw-light text-secondary fs-6 form-control form-select-sm select2 <?php echo esc_attr($class_id); ?> <?php echo ($require == true) ? "field-required" : ""; ?>" name="<?php echo esc_attr($name); ?>" id="<?php echo esc_attr($class_id); ?>">
-        <option value=""><?php echo esc_html($label); ?></option>
-        <?php foreach ($option_list as $Key => $val) { ?>
-          <option value="<?php echo esc_attr($val["field"]); ?>" <?php echo ($val["field"] == $sel_val) ? "selected" : ""; ?>><?php echo esc_html($val["field"]); ?></option>
-        <?php
-        } ?>
-      </select>
+<select style="width: 100%"
+    class="fw-light text-secondary fs-6 form-control form-select-sm select2 <?php echo esc_attr($class_id); ?> <?php echo ($require == true) ? "field-required" : ""; ?>"
+    name="<?php echo esc_attr($name); ?>" id="<?php echo esc_attr($class_id); ?>">
+    <option value=""><?php echo esc_html($label); ?></option>
+    <?php foreach ($option_list as $Key => $val) { ?>
+    <option value="<?php echo esc_attr($val["field"]); ?>" <?php echo ($val["field"] == $sel_val) ? "selected" : ""; ?>>
+        <?php echo esc_html($val["field"]); ?></option>
     <?php
+        } ?>
+</select>
+<?php
     }
   }
 
@@ -769,8 +778,11 @@ class TVC_Admin_Helper
   public function tvc_text($name, string $type = "text", string $class_id = "", string $label = null, $sel_val = null, bool $require = false)
   {
     ?>
-    <input style="width:100%;" type="<?php echo esc_attr($type); ?>" <?php echo esc_attr($type) == 'number' ? 'min="0"' : '' ?> name="<?php echo esc_attr($name); ?>" class="tvc-text <?php echo esc_attr($class_id); ?>" id="<?php echo esc_attr($class_id); ?>" placeholder="<?php echo esc_attr($label); ?>" value="<?php echo esc_attr($sel_val); ?>">
-    <?php
+<input style="width:100%;" type="<?php echo esc_attr($type); ?>"
+    <?php echo esc_attr($type) == 'number' ? 'min="0"' : '' ?> name="<?php echo esc_attr($name); ?>"
+    class="tvc-text <?php echo esc_attr($class_id); ?>" id="<?php echo esc_attr($class_id); ?>"
+    placeholder="<?php echo esc_attr($label); ?>" value="<?php echo esc_attr($sel_val); ?>">
+<?php
   }
 
   /* end from input*/
@@ -840,72 +852,75 @@ class TVC_Admin_Helper
         }
         if ($message != "" && $title != "") {
     ?>
-          <div class="errormsgtopbx claimalert">
-            <div class="errmscntbx">
-              <div class="errmsglft">
-                <span class="errmsgicon"><img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/error-white-icon.png'); ?>" alt="error" /></span>
-              </div>
-              <div class="erralertrigt">
-                <h6><?php echo esc_html($title); ?></h6>
-                <!--<p><?php echo esc_html($message); ?> <a href="javascript:void(0)" id="call_both_verification" onclick="call_tvc_site_verified_and_domain_claim('<?php echo esc_attr($call_js_function_args); ?>');"><?php esc_html_e("Click here", "enhanced-e-commerce-for-woocommerce-store"); ?></a> <?php esc_html_e("to verify and claim the domain.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>-->
-              </div>
-            </div>
-          </div>
-          <script>
-            function call_tvc_site_verified_and_domain_claim(call_args) {
-              var tvs_this = event.target;
-              jQuery("#call_both_verification").css("visibility", "hidden");
-              jQuery(tvs_this).after('<div class="call_both_verification-spinner tvc-nb-spinner" id="both_verification-spinner"></div>');
-              if (call_args == "domain_claim") {
-                call_domain_claim_both();
-              } else {
-                jQuery.post(tvc_ajax_url, {
-                  action: "tvc_call_site_verified",
-                  SiteVerifiedNonce: "<?php echo esc_attr(wp_create_nonce('tvc_call_site_verified-nonce')); ?>"
-                }, function(response) {
-                  var rsp = JSON.parse(response);
-                  if (rsp.status == "success") {
-                    if (call_args == "site_verified") {
-                      tvc_helper.tvc_alert("success", "", rsp.message);
-                      location.reload();
-                    } else {
-                      call_domain_claim_both(rsp.message);
-                    }
-                  } else {
-                    tvc_helper.tvc_alert("error", "", rsp.message);
-                    jQuery("#both_verification-spinner").remove();
-                  }
-                });
-              }
-            }
-
-            function call_domain_claim_both(first_message = null) {
-              jQuery.post(tvc_ajax_url, {
-                action: "tvc_call_domain_claim",
-                apiDomainClaimNonce: "<?php echo esc_attr(wp_create_nonce('tvc_call_domain_claim-nonce')); ?>"
-              }, function(response) {
-                var rsp = JSON.parse(response);
-                if (rsp.status == "success") {
-                  if (first_message != "" || first_message == null) {
-                    tvc_helper.tvc_alert("success", "", first_message, true, 4000);
-                    setTimeout(function() {
-                      tvc_helper.tvc_alert("success", "", rsp.message, true, 4000);
-                      location.reload();
-                    }, 4000);
-                  } else {
-                    tvc_helper.tvc_alert("success", "", rsp.message, true, 4000);
-                    setTimeout(function() {
-                      location.reload();
-                    }, 4000);
-                  }
+<div class="errormsgtopbx claimalert">
+    <div class="errmscntbx">
+        <div class="errmsglft">
+            <span class="errmsgicon"><img
+                    src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/error-white-icon.png'); ?>"
+                    alt="error" /></span>
+        </div>
+        <div class="erralertrigt">
+            <h6><?php echo esc_html($title); ?></h6>
+            <!--<p><?php echo esc_html($message); ?> <a href="javascript:void(0)" id="call_both_verification" onclick="call_tvc_site_verified_and_domain_claim('<?php echo esc_attr($call_js_function_args); ?>');"><?php esc_html_e("Click here", "enhanced-e-commerce-for-woocommerce-store"); ?></a> <?php esc_html_e("to verify and claim the domain.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>-->
+        </div>
+    </div>
+</div>
+<script>
+function call_tvc_site_verified_and_domain_claim(call_args) {
+    var tvs_this = event.target;
+    jQuery("#call_both_verification").css("visibility", "hidden");
+    jQuery(tvs_this).after(
+        '<div class="call_both_verification-spinner tvc-nb-spinner" id="both_verification-spinner"></div>');
+    if (call_args == "domain_claim") {
+        call_domain_claim_both();
+    } else {
+        jQuery.post(tvc_ajax_url, {
+            action: "tvc_call_site_verified",
+            SiteVerifiedNonce: "<?php echo esc_attr(wp_create_nonce('tvc_call_site_verified-nonce')); ?>"
+        }, function(response) {
+            var rsp = JSON.parse(response);
+            if (rsp.status == "success") {
+                if (call_args == "site_verified") {
+                    tvc_helper.tvc_alert("success", "", rsp.message);
+                    location.reload();
                 } else {
-                  tvc_helper.tvc_alert("error", "", rsp.message, true, 10000)
+                    call_domain_claim_both(rsp.message);
                 }
+            } else {
+                tvc_helper.tvc_alert("error", "", rsp.message);
                 jQuery("#both_verification-spinner").remove();
-              });
             }
-          </script>
-        <?php
+        });
+    }
+}
+
+function call_domain_claim_both(first_message = null) {
+    jQuery.post(tvc_ajax_url, {
+        action: "tvc_call_domain_claim",
+        apiDomainClaimNonce: "<?php echo esc_attr(wp_create_nonce('tvc_call_domain_claim-nonce')); ?>"
+    }, function(response) {
+        var rsp = JSON.parse(response);
+        if (rsp.status == "success") {
+            if (first_message != "" || first_message == null) {
+                tvc_helper.tvc_alert("success", "", first_message, true, 4000);
+                setTimeout(function() {
+                    tvc_helper.tvc_alert("success", "", rsp.message, true, 4000);
+                    location.reload();
+                }, 4000);
+            } else {
+                tvc_helper.tvc_alert("success", "", rsp.message, true, 4000);
+                setTimeout(function() {
+                    location.reload();
+                }, 4000);
+            }
+        } else {
+            tvc_helper.tvc_alert("error", "", rsp.message, true, 10000)
+        }
+        jQuery("#both_verification-spinner").remove();
+    });
+}
+</script>
+<?php
         }
       }
     }
@@ -1197,47 +1212,48 @@ class TVC_Admin_Helper
       $ee_convnotice = get_option('ee_convnotice', array());
 
       if ($gadsid == "" && !array_key_exists('blackfriday2023', $ee_convnotice)) { ?>
-        <div data-dismissible="convbfriday-forever" class="updated notice notice-success is-dismissible conversios_topnotice" data-convnotiid="blackfriday2023">
-          <p>
-            <?php esc_html_e('Create a new google ads account using Conversios plugin and get $500 rewards when you spend $500 in the first 60 days**', 'enhanced-e-commerce-for-woocommerce-store'); ?>
-          </p>
-          <p>
-            <a href="<?php echo esc_url('admin.php?page=conversios-google-analytics&subpage=gadssettings'); ?>">
-              <?php esc_html_e('Connect Now', 'enhanced-e-commerce-for-woocommerce-store'); ?>
-            </a>
-          </p>
-        </div>
+<div data-dismissible="convbfriday-forever" class="updated notice notice-success is-dismissible conversios_topnotice"
+    data-convnotiid="blackfriday2023">
+    <p>
+        <?php esc_html_e('Create a new google ads account using Conversios plugin and get $500 rewards when you spend $500 in the first 60 days**', 'enhanced-e-commerce-for-woocommerce-store'); ?>
+    </p>
+    <p>
+        <a href="<?php echo esc_url('admin.php?page=conversios-google-analytics&subpage=gadssettings'); ?>">
+            <?php esc_html_e('Connect Now', 'enhanced-e-commerce-for-woocommerce-store'); ?>
+        </a>
+    </p>
+</div>
 
 
-        <script>
-          var tvc_ajax_url = '<?php echo esc_url(admin_url('admin-ajax.php')); ?>';
-          (function($) {
-            jQuery(function() {
-              jQuery('.conversios_topnotice').on('click', '.notice-dismiss', function(event, el) {
-                var eeconv_notice_id = jQuery(this).parent('.is-dismissible').attr("data-convnotiid");
-                jQuery.ajax({
-                  type: "POST",
-                  dataType: "json",
-                  url: tvc_ajax_url,
-                  data: {
+<script>
+var tvc_ajax_url = '<?php echo esc_url(admin_url('admin-ajax.php')); ?>';
+(function($) {
+    jQuery(function() {
+        jQuery('.conversios_topnotice').on('click', '.notice-dismiss', function(event, el) {
+            var eeconv_notice_id = jQuery(this).parent('.is-dismissible').attr("data-convnotiid");
+            jQuery.ajax({
+                type: "POST",
+                dataType: "json",
+                url: tvc_ajax_url,
+                data: {
                     action: "conv_save_pixel_data",
                     pix_sav_nonce: "<?php echo esc_attr(wp_create_nonce('pix_sav_nonce_val')); ?>",
                     conv_options_data: eeconv_notice_id,
                     conv_options_type: ["eeconvnotice"],
-                  },
-                  success: function(response) {
+                },
+                success: function(response) {
                     // console.log(response);
-                  }
-                });
-              });
+                }
             });
+        });
+    });
 
-          })(jQuery);
-        </script>
-    <?php }
+})(jQuery);
+</script>
+<?php }
     }
     ?>
-    <?php
+<?php
   }
 
   public function tvc_display_admin_notices()
@@ -1272,10 +1288,11 @@ class TVC_Admin_Helper
         foreach ($admin_notice_display_arr_limit  as $con_display_admin_notice) {
           if (!empty($con_display_admin_notice['link_title']) && !empty($con_display_admin_notice['status']) && $con_display_admin_notice['status'] == "1") {
     ?>
-            <div class="notice notice-info notice-dismiss_trigger is-dismissible" data-id='<?php echo esc_attr($con_display_admin_notice['key']); ?>'>
-              <?php $greeting_content = sprintf(esc_html__('%s', 'enhanced-e-commerce-for-woocommerce-store'), esc_html($con_display_admin_notice['content'])); ?>
-              <?php $greeting_link_title = sprintf(esc_html__('%s', 'enhanced-e-commerce-for-woocommerce-store'), esc_html($con_display_admin_notice['link_title'])); ?>
-      <?php
+<div class="notice notice-info notice-dismiss_trigger is-dismissible"
+    data-id='<?php echo esc_attr($con_display_admin_notice['key']); ?>'>
+    <?php $greeting_content = sprintf(esc_html__('%s', 'enhanced-e-commerce-for-woocommerce-store'), esc_html($con_display_admin_notice['content'])); ?>
+    <?php $greeting_link_title = sprintf(esc_html__('%s', 'enhanced-e-commerce-for-woocommerce-store'), esc_html($con_display_admin_notice['link_title'])); ?>
+    <?php
             $conv_notice_html = '<p>' . $greeting_content . ' <a href="' . esc_url($con_display_admin_notice["link"]) . '" target="_blank" ><b><u>' . $greeting_link_title . '</u></b></a></p></div>';
             echo wp_kses($conv_notice_html, array(
               'a' => array(
@@ -1292,25 +1309,26 @@ class TVC_Admin_Helper
       }
     }
       ?>
-      <script>
-        var tvc_ajax_url = '<?php echo esc_url(admin_url('admin-ajax.php')); ?>';
-        (function($) {
-          jQuery(function() {
+    <script>
+    var tvc_ajax_url = '<?php echo esc_url(admin_url('admin-ajax.php')); ?>';
+    (function($) {
+        jQuery(function() {
             jQuery('.notice-dismiss_trigger').on('click', '.notice-dismiss', function(event, el) {
-              var ee_notice_dismiss_id_trigger = jQuery(this).parent('.is-dismissible').attr("data-id");
-              jQuery.post(tvc_ajax_url, {
-                action: "tvc_call_notice_dismiss_trigger",
-                data: {
-                  ee_notice_dismiss_id_trigger: ee_notice_dismiss_id_trigger
-                },
-                apiNoticDismissNonce: "<?php echo esc_attr(wp_create_nonce('tvc_call_notice_dismiss-nonce')); ?>",
-                dataType: "json"
-              }, function(response) {});
+                var ee_notice_dismiss_id_trigger = jQuery(this).parent('.is-dismissible').attr(
+                    "data-id");
+                jQuery.post(tvc_ajax_url, {
+                    action: "tvc_call_notice_dismiss_trigger",
+                    data: {
+                        ee_notice_dismiss_id_trigger: ee_notice_dismiss_id_trigger
+                    },
+                    apiNoticDismissNonce: "<?php echo esc_attr(wp_create_nonce('tvc_call_notice_dismiss-nonce')); ?>",
+                    dataType: "json"
+                }, function(response) {});
             });
-          });
-        })(jQuery);
-      </script>
-  <?php
+        });
+    })(jQuery);
+    </script>
+    <?php
   }
   //tvc_add_data_admin_notice function for adding the admin notices
   public function tvc_add_admin_notice($slug, $content, $status, $link_title = null, $link = null, $value = null, $title = null, $priority = "", $key = "")

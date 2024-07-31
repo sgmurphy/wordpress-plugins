@@ -331,7 +331,7 @@ class Action
     {
         $activated_templates = get_option( self::ACTIVATED_TEMPLATES );
 
-        if ( false === $activated_templates ) {
+        if (false === $activated_templates || !is_serialized($activated_templates)) {
             return [];
         }
 

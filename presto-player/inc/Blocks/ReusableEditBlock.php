@@ -1,9 +1,16 @@
 <?php
+/**
+ * Reusable Video Block Class
+ *
+ * @package PrestoPlayer\Blocks
+ */
 
 namespace PrestoPlayer\Blocks;
 
+/**
+ * Reusable Edit Block Class
+ */
 class ReusableEditBlock {
-
 	/**
 	 * Register Block
 	 *

@@ -32,6 +32,8 @@ class Castos_Handler implements Service {
 
 	const API_TOKEN_OPTION = 'ss_podcasting_podmotor_account_api_token';
 
+	const TRANSIENT_PODCASTS = 'ssp_castos_podcasts';
+
 	/**
 	 * @var string
 	 */
@@ -72,6 +74,34 @@ class Castos_Handler implements Service {
 	public function __construct( $feed_handler, $log_helper ) {
 		$this->feed_handler = $feed_handler;
 		$this->logger       = $log_helper;
+
+		add_filter( 'http_request_args', array( $this, 'authorization_headers' ), 10, 2 );
+	}
+
+	/**
+	 * Adds authorization headers
+	 *
+	 * @since 3.4.1
+	 *
+	 * @param $args
+	 * @param $url
+	 *
+	 * @return mixed
+	 */
+	public function authorization_headers( $args, $url ) {
+		if ( false === strpos( $url, SSP_CASTOS_APP_URL ) ) {
+			return $args;
+		}
+
+		$ssp_headers     = array(
+			'Authorization'    => 'Bearer ' . $this->api_token,
+			'X-SSP-Website'    => home_url(),
+			'X-SSP-Version'    => SSP_VERSION,
+			'X-SSP-WP-Version' => get_bloginfo( 'version' ),
+		);
+		$args['headers'] = array_merge( $ssp_headers, $args['headers'] );
+
+		return $args;
 	}
 
 	/**
@@ -551,9 +581,7 @@ class Castos_Handler implements Service {
 	}
 
 	public function get_podcasts() {
-		$transient = 'ssp_castos_podcasts';
-
-		if ( $cache = get_transient( $transient ) ) {
+		if ( $cache = get_transient( self::TRANSIENT_PODCASTS ) ) {
 			return $cache;
 		}
 
@@ -580,7 +608,7 @@ class Castos_Handler implements Service {
 			$this->update_response( 'message', 'An error occurred connecting to the Castos server to get podcasts lists.' );
 			$this->logger->log( 'response', $this->response );
 
-			set_transient( $transient, $this->response, MINUTE_IN_SECONDS );
+			set_transient( self::TRANSIENT_PODCASTS, $this->response, MINUTE_IN_SECONDS );
 
 			return $this->response;
 		}
@@ -593,9 +621,13 @@ class Castos_Handler implements Service {
 
 		$this->update_response( 'data', $podcasts_data );
 
-		set_transient( $transient, $this->response, 5 * MINUTE_IN_SECONDS );
+		set_transient( self::TRANSIENT_PODCASTS, $this->response, 5 * MINUTE_IN_SECONDS );
 
 		return $this->response;
+	}
+
+	public function clear_podcasts_cache() {
+		delete_transient( self::TRANSIENT_PODCASTS );
 	}
 
 
@@ -696,10 +728,12 @@ class Castos_Handler implements Service {
 	 * @return array
 	 * @throws Exception
 	 */
-	public function get_podcast_subscribers( $podcast_id ) {
+	public function get_podcast_subscribers( $podcast_id = null ) {
 		$this->logger->log( __METHOD__ );
 
-		$res = $this->send_request( 'api/v2/private-subscribers', [ 'podcast_id' => $podcast_id ] );
+		$args = $podcast_id ? [ 'podcast_id' => $podcast_id ] : array();
+
+		$res = $this->send_request( 'api/v2/private-subscribers', $args );
 
 		return ! empty( $res['subscribers'] ) ? $res['subscribers'] : array();
 	}

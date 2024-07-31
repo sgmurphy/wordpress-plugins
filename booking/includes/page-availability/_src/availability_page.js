@@ -411,7 +411,7 @@ function wpbc_show_inline_booking_calendar( calendar_params_arr ){
 		}
 
 		// RESOURCE_UNAVAILABLE ::   	Booking > Availability page
-		if ( wpdev_in_array(calendar_params_arr.resource_unavailable_dates, sql_class_day ) ){
+		if ( wpbc_in_array(calendar_params_arr.resource_unavailable_dates, sql_class_day ) ){
 			is_date_available = false;
 		}
 		if (  false === is_date_available ){																			//FixIn: 9.5.4.4

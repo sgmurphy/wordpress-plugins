@@ -1,22 +1,36 @@
 # Copyright (C) 2024 WooCommerce
-# This file is distributed under the same license as the Google Listings and Ads plugin.
+# This file is distributed under the same license as the Google for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Listings and Ads 2.7.7\n"
+"Project-Id-Version: Google for WooCommerce 2.8.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-24T16:01:11+00:00\n"
+"POT-Creation-Date: 2024-07-31T07:26:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
 
 #. Plugin Name of the plugin
+#: src/Admin/ProductBlocksService.php:148
 #: src/Internal/DependencyManagement/ThirdPartyServiceProvider.php:58
-msgid "Google Listings and Ads"
+#: src/Menu/Dashboard.php:41
+#: src/Menu/Dashboard.php:58
+#: src/Menu/Dashboard.php:62
+#: src/Menu/GetStarted.php:41
+#: src/Menu/GetStarted.php:58
+#: src/Menu/GetStarted.php:62
+#: src/MultichannelMarketing/GLAChannel.php:104
+#: views/attributes/variations-form.php:22
+#: views/meta-box/channel_visibility.php:63
+#: views/meta-box/channel_visibility.php:92
+#: views/meta-box/coupon_channel_visibility.php:114
+#: views/meta-box/coupon_channel_visibility.php:160
+#: js/build/index.js:17
+msgid "Google for WooCommerce"
 msgstr ""
 
 #. Description of the plugin
@@ -231,21 +245,6 @@ msgstr ""
 msgid "The cut of the item. Recommended for apparel items."
 msgstr ""
 
-#: src/Admin/ProductBlocksService.php:148
-#: src/Menu/Dashboard.php:41
-#: src/Menu/Dashboard.php:58
-#: src/Menu/Dashboard.php:62
-#: src/Menu/GetStarted.php:41
-#: src/Menu/GetStarted.php:58
-#: src/Menu/GetStarted.php:62
-#: src/MultichannelMarketing/GLAChannel.php:104
-#: views/attributes/variations-form.php:22
-#: views/meta-box/channel_visibility.php:92
-#: views/meta-box/coupon_channel_visibility.php:160
-#: js/build/index.js:17
-msgid "Google Listings & Ads"
-msgstr ""
-
 #: src/Admin/ProductBlocksService.php:204
 #: views/attributes/tab-panel.php:20
 msgid "Product attributes"
@@ -390,7 +389,7 @@ msgstr ""
 
 #. translators: %1 is a random 4-digit string
 #: src/API/Google/AdsConversionAction.php:70
-msgid "[%1$s] Google Listings and Ads purchase action"
+msgid "[%1$s] Google for WooCommerce purchase action"
 msgstr ""
 
 #: src/API/Google/AdsConversionAction.php:107
@@ -459,62 +458,70 @@ msgstr ""
 msgid "Unable to retrieve report data."
 msgstr ""
 
-#: src/API/Google/Middleware.php:83
+#: src/API/Google/Middleware.php:85
 msgid "Error retrieving accounts"
 msgstr ""
 
-#: src/API/Google/Middleware.php:100
-#: src/API/Google/Middleware.php:302
+#: src/API/Google/Middleware.php:102
+#: src/API/Google/Middleware.php:304
 msgid "Unable to log accepted TOS"
 msgstr ""
 
-#: src/API/Google/Middleware.php:105
+#: src/API/Google/Middleware.php:107
 #: src/API/Google/SiteVerification.php:59
-#: src/MerchantCenter/AccountService.php:437
+#: src/MerchantCenter/AccountService.php:445
 msgid "Invalid site URL."
 msgstr ""
 
-#: src/API/Google/Middleware.php:161
-#: src/API/Google/Middleware.php:342
+#: src/API/Google/Middleware.php:163
+#: src/API/Google/Middleware.php:344
 msgid "Invalid response when creating account"
 msgstr ""
 
-#: src/API/Google/Middleware.php:164
-#: src/API/Google/Middleware.php:348
+#: src/API/Google/Middleware.php:166
+#: src/API/Google/Middleware.php:350
 msgid "Error creating account"
 msgstr ""
 
-#: src/API/Google/Middleware.php:225
+#: src/API/Google/Middleware.php:227
 msgid "Invalid response when linking merchant to MCA"
 msgstr ""
 
-#: src/API/Google/Middleware.php:231
+#: src/API/Google/Middleware.php:233
 msgid "Error linking merchant to MCA"
 msgstr ""
 
-#: src/API/Google/Middleware.php:270
+#: src/API/Google/Middleware.php:272
 msgid "Invalid response when claiming website"
 msgstr ""
 
-#: src/API/Google/Middleware.php:277
+#: src/API/Google/Middleware.php:279
 msgid "Error claiming website"
 msgstr ""
 
-#: src/API/Google/Middleware.php:296
+#: src/API/Google/Middleware.php:298
 msgid "Store country is not supported"
 msgstr ""
 
-#: src/API/Google/Middleware.php:392
+#: src/API/Google/Middleware.php:394
 msgid "Invalid response when linking account"
 msgstr ""
 
-#: src/API/Google/Middleware.php:398
+#: src/API/Google/Middleware.php:400
 msgid "Error linking account"
 msgstr ""
 
 #. translators: 1: current date in the format Y-m-d
-#: src/API/Google/Middleware.php:504
+#: src/API/Google/Middleware.php:519
 msgid "Account %1$s"
+msgstr ""
+
+#: src/API/Google/Middleware.php:596
+msgid "Invalid response authenticating partner app."
+msgstr ""
+
+#: src/API/Google/Middleware.php:606
+msgid "Error authenticating Google Partner APP."
 msgstr ""
 
 #: src/API/Google/Query/AdsQuery.php:79
@@ -1315,6 +1322,23 @@ msgstr ""
 msgid "Location where products will be shown."
 msgstr ""
 
+#: src/API/Site/Controllers/RestAPI/AuthController.php:152
+msgid "Indicates the next page name mapped to the redirect URL when redirected back from Google WPCOM App authorization."
+msgstr ""
+
+#: src/API/Site/Controllers/RestAPI/AuthController.php:169
+#: src/API/Site/Controllers/RestAPI/AuthController.php:198
+msgid "The status of the merchant granting access to Google's WPCOM app"
+msgstr ""
+
+#: src/API/Site/Controllers/RestAPI/AuthController.php:176
+msgid "The nonce provided by Google in the URL query parameter when Google redirects back to merchant's site"
+msgstr ""
+
+#: src/API/Site/Controllers/RestAPI/AuthController.php:193
+msgid "The authorization URL for granting access to Google WPCOM App."
+msgstr ""
+
 #: src/API/Site/Controllers/ShippingRateSchemaTrait.php:28
 msgid "The shipping rate unique identification number."
 msgstr ""
@@ -1352,17 +1376,21 @@ msgid "Whether the tour was checked."
 msgstr ""
 
 #: src/Autoloader.php:51
-msgid "Your installation of Google Listings and Ads is incomplete. If you installed from GitHub, please refer to this document to set up your development environment: https://github.com/woocommerce/woocommerce/wiki/How-to-set-up-WooCommerce-development-environment"
+msgid "Your installation of Google for WooCommerce is incomplete. If you installed from GitHub, please refer to this document to set up your development environment: https://github.com/woocommerce/woocommerce/wiki/How-to-set-up-WooCommerce-development-environment"
 msgstr ""
 
 #. translators: 1: is a link to a support document. 2: closing link
 #: src/Autoloader.php:63
-msgid "Your installation of Google Listings and Ads is incomplete. If you installed from GitHub, %1$splease refer to this document%2$s to set up your development environment."
+msgid "Your installation of Google for WooCommerce is incomplete. If you installed from GitHub, %1$splease refer to this document%2$s to set up your development environment."
 msgstr ""
 
 #: src/Coupon/CouponSyncer.php:472
-#: src/Product/ProductSyncer.php:363
+#: src/Product/ProductSyncer.php:362
 msgid "Google Merchant Center has not been set up correctly. Please review your configuration."
+msgstr ""
+
+#: src/Coupon/CouponSyncer.php:487
+msgid "Pushing Coupons will not run if the automatic data fetching is enabled. Please review your configuration in Google Listing and Ads settings."
 msgstr ""
 
 #: src/Exception/AccountReconnect.php:27
@@ -1379,12 +1407,12 @@ msgstr ""
 
 #. translators: 1 the missing plugin name
 #: src/Exception/ExtensionRequirementException.php:31
-msgid "Google Listings and Ads requires %1$s to be enabled."
+msgid "Google for WooCommerce requires %1$s to be enabled."
 msgstr ""
 
 #. translators: 1 the incompatible plugin name
 #: src/Exception/ExtensionRequirementException.php:48
-msgid "Google Listings and Ads is incompatible with %1$s."
+msgid "Google for WooCommerce is incompatible with %1$s."
 msgstr ""
 
 #. translators: 1 top level domain name.
@@ -1394,16 +1422,38 @@ msgstr ""
 
 #. translators: 1 is the required component, 2 is the minimum required version, 3 is the version in use on the site
 #: src/Exception/InvalidVersion.php:33
-msgid "Google Listings and Ads requires %1$s version %2$s or higher. You are using version %3$s."
+msgid "Google for WooCommerce requires %1$s version %2$s or higher. You are using version %3$s."
 msgstr ""
 
 #. translators: 1 is the required component, 2 is the minimum required version
 #: src/Exception/InvalidVersion.php:53
-msgid "Google Listings and Ads requires %1$s version %2$s or higher."
+msgid "Google for WooCommerce requires %1$s version %2$s or higher."
 msgstr ""
 
 #: src/Exception/InvalidVersion.php:68
-msgid "Google Listings and Ads requires a 64 bit version of PHP."
+msgid "Google for WooCommerce requires a 64 bit version of PHP."
+msgstr ""
+
+#. translators: Name/image of the client requesting authorization
+#: src/Integration/JetpackWPCOM.php:193
+msgid "%s wants to access your site’s data. Log in to authorize that access."
+msgstr ""
+
+#: src/Integration/JetpackWPCOM.php:213
+msgid "You must connect your Jetpack plugin to WordPress.com to use this feature."
+msgstr ""
+
+#: src/Integration/JetpackWPCOM.php:216
+msgid "Someone may be trying to trick you into giving them access to your site. Or it could be you just encountered a bug :).  Either way, please close this window."
+msgstr ""
+
+#. translators: %s is a URL
+#: src/Integration/JetpackWPCOM.php:226
+msgid "Your site is incorrectly double-encoding redirects from http to https. This is preventing Jetpack from authenticating your connection. Please visit our <a href=\"%s\">support page</a> for details about how to resolve this."
+msgstr ""
+
+#: src/Integration/JetpackWPCOM.php:323
+msgid "The authorization process expired. Please go back and try again."
 msgstr ""
 
 #: src/Integration/YoastWooCommerceSeo.php:202
@@ -1477,38 +1527,50 @@ msgstr ""
 msgid "MC Setup Wizard"
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:186
+#: src/MerchantCenter/AccountService.php:187
 msgid "Attempting invalid URL switch."
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:209
+#: src/MerchantCenter/AccountService.php:210
 msgid "Attempting invalid claim overwrite."
 msgstr ""
 
 #. translators: 1: is a string representing an unknown step name
-#: src/MerchantCenter/AccountService.php:352
+#: src/MerchantCenter/AccountService.php:360
 msgid "Unknown merchant account creation step %1$s"
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:384
+#: src/MerchantCenter/AccountService.php:392
 msgid "Unable to claim website URL with this Merchant Center Account."
 msgstr ""
 
 #. translators: 1: is a numeric account ID
-#: src/MerchantCenter/AccountService.php:416
+#: src/MerchantCenter/AccountService.php:424
 msgid "Merchant Center account already connected: %d"
 msgstr ""
 
 #. translators: 1: is a website URL (without the protocol)
-#: src/MerchantCenter/AccountService.php:465
+#: src/MerchantCenter/AccountService.php:473
 msgid "This Merchant Center account already has a verified and claimed URL, %1$s"
 msgstr ""
 
-#: src/MerchantCenter/MerchantCenterService.php:280
+#: src/MerchantCenter/AccountService.php:560
+msgid "No stored nonce found in the database, skip updating auth status."
+msgstr ""
+
+#: src/MerchantCenter/AccountService.php:566
+msgid "Nonce is not provided, skip updating auth status."
+msgstr ""
+
+#: src/MerchantCenter/AccountService.php:573
+msgid "Nonces mismatch, skip updating auth status."
+msgstr ""
+
+#: src/MerchantCenter/MerchantCenterService.php:294
 msgid "No contact information."
 msgstr ""
 
-#: src/MerchantCenter/MerchantCenterService.php:281
+#: src/MerchantCenter/MerchantCenterService.php:295
 msgid "Add store contact information"
 msgstr ""
 
@@ -1537,7 +1599,7 @@ msgid "Reach more shoppers with free listings on Google"
 msgstr ""
 
 #: src/Notes/CompleteSetup.php:41
-msgid "Finish setting up Google Listings & Ads to list your products on Google for free and promote them with paid ads."
+msgid "Finish setting up Google for WooCommerce to list your products on Google for free and promote them with paid ads."
 msgstr ""
 
 #: src/Notes/CompleteSetup.php:50
@@ -1561,15 +1623,15 @@ msgid "Leave a review"
 msgstr ""
 
 #: src/Notes/ReconnectWordPress.php:59
-msgid "Re-connect your store to Google Listings & Ads"
+msgid "Re-connect your store to Google for WooCommerce"
 msgstr ""
 
 #: src/Notes/ReconnectWordPress.php:62
-msgid "Your WordPress.com account has been disconnected from Google Listings & Ads. Connect your WordPress.com account again to ensure your products stay listed on Google through the Google Listings & Ads extension.<br/><br/>If you do not re-connect, any existing listings may be removed from Google."
+msgid "Your WordPress.com account has been disconnected from Google for WooCommerce. Connect your WordPress.com account again to ensure your products stay listed on Google through the Google for WooCommerce extension.<br/><br/>If you do not re-connect, any existing listings may be removed from Google."
 msgstr ""
 
 #: src/Notes/ReconnectWordPress.php:70
-msgid "Go to Google Listings & Ads"
+msgid "Go to Google for WooCommerce"
 msgstr ""
 
 #. translators: %s number of clicks
@@ -1579,7 +1641,7 @@ msgstr ""
 
 #: src/Notes/ReviewAfterClicks.php:81
 #: src/Notes/ReviewAfterConversions.php:83
-msgid "Congratulations! Tell us what you think about Google Listings & Ads by leaving a review. Your feedback will help us make WooCommerce even better for you."
+msgid "Congratulations! Tell us what you think about Google for WooCommerce by leaving a review. Your feedback will help us make WooCommerce even better for you."
 msgstr ""
 
 #: src/Notes/ReviewAfterConversions.php:81
@@ -1838,6 +1900,10 @@ msgstr ""
 msgid "Size Type"
 msgstr ""
 
+#: src/Product/ProductSyncer.php:373
+msgid "Pushing products will not run if the automatic data fetching is enabled. Please review your configuration in Google Listing and Ads settings."
+msgstr ""
+
 #. translators: %1 is the shipping rate, %2 is the currency (e.g. USD)
 #: src/Shipping/GoogleAdapter/DBShippingSettingsAdapter.php:122
 msgid "Flat rate - %1$s %2$s"
@@ -1845,16 +1911,16 @@ msgstr ""
 
 #. translators: %1 is a random 4-digit string, %2 is the rate, %3 is the currency, %4 is the country code
 #: src/Shipping/GoogleAdapter/DBShippingSettingsAdapter.php:150
-msgid "[%1$s] Google Listings and Ads generated service - %2$s %3$s to %4$s"
+msgid "[%1$s] Google for WooCommerce generated service - %2$s %3$s to %4$s"
 msgstr ""
 
 #. translators: %1 is a random 4-digit string, %2 is the country code
 #: src/Shipping/GoogleAdapter/WCShippingSettingsAdapter.php:149
-msgid "[%1$s] Google Listings and Ads generated service - %2$s"
+msgid "[%1$s] Google for WooCommerce generated service - %2$s"
 msgstr ""
 
 #: src/TaskList/CompleteSetupTask.php:53
-msgid "Set up Google Listings & Ads"
+msgid "Set up Google for WooCommerce"
 msgstr ""
 
 #: src/TaskList/CompleteSetupTask.php:74
@@ -1872,7 +1938,7 @@ msgid "Don't Sync and show"
 msgstr ""
 
 #: views/attributes/tab-panel.php:21
-msgid "As this is a variable product, you can add additional product attributes by going to Variations > Select one variation > Google Listings & Ads."
+msgid "As this is a variable product, you can add additional product attributes by going to Variations > Select one variation > Google for WooCommerce."
 msgstr ""
 
 #: views/bulk-edit/shop_coupon.php:19
@@ -1899,11 +1965,6 @@ msgstr ""
 
 #: views/meta-box/channel_visibility.php:47
 msgid "This product cannot be shown on any channel because it is hidden from your store catalog."
-msgstr ""
-
-#: views/meta-box/channel_visibility.php:63
-#: views/meta-box/coupon_channel_visibility.php:114
-msgid "Google Listing & Ads"
 msgstr ""
 
 #: views/meta-box/channel_visibility.php:77
@@ -2399,6 +2460,14 @@ msgid "Note: The currency set in your Google Ads account is <adsCurrency />, whi
 msgstr ""
 
 #: js/build/commons.js:9
+msgid "Unable to enable new product sync. Please try again later."
+msgstr ""
+
+#: js/build/commons.js:9
+msgid "<p>We will soon transition to a new and improved method for synchronizing product data with Google.</p><enableButton>Get early access</enableButton>"
+msgstr ""
+
+#: js/build/commons.js:9
 msgid "Frequently asked questions"
 msgstr ""
 
@@ -2859,6 +2928,26 @@ msgid "Conversion measurement has been set up. You can create a campaign later."
 msgstr ""
 
 #: js/build/commons.js:25
+msgid "Grant access"
+msgstr ""
+
+#: js/build/commons.js:25
+msgid "Google has been granted access to fetch your product data."
+msgstr ""
+
+#: js/build/commons.js:25
+msgid "There was an issue granting access to Google for fetching your products."
+msgstr ""
+
+#: js/build/commons.js:25
+msgid "Disabling the new Product Sync feature, please wait…"
+msgstr ""
+
+#: js/build/commons.js:25
+msgid "Unable to disable new product sync. Please try again later."
+msgstr ""
+
+#: js/build/commons.js:25
 msgid "Or, connect to a different Google Merchant Center account"
 msgstr ""
 
@@ -2868,6 +2957,10 @@ msgstr ""
 
 #: js/build/commons.js:25
 msgid "Unable to disconnect your Google Merchant Center account. Please try again later."
+msgstr ""
+
+#: js/build/commons.js:25
+msgid "Disable product data fetch"
 msgstr ""
 
 #. translators: 1: account name, 2: account domain, 3: account ID.
@@ -3139,7 +3232,7 @@ msgid "Compared to product ads—which showcase individual products and are desi
 msgstr ""
 
 #: js/build/commons.js:38
-#: js/build/dashboard.js:1
+#: js/build/commons.js:62
 #: js/build/dashboard.js:5
 msgid "Optimize your campaign"
 msgstr ""
@@ -3378,6 +3471,27 @@ msgstr ""
 msgid "Start typing to filter countries…"
 msgstr ""
 
+#: js/build/commons.js:62
+msgctxt "A highlighting label behind the heading of the new feature"
+msgid "New"
+msgstr ""
+
+#: js/build/commons.js:62
+msgid "Add images, headlines, and descriptions to drive better engagement and more sales."
+msgstr ""
+
+#: js/build/commons.js:62
+msgid "Edit your campaign to explore this new feature."
+msgstr ""
+
+#: js/build/commons.js:62
+msgid "New name, same great solution"
+msgstr ""
+
+#: js/build/commons.js:62
+msgid "Google Listings & Ads is now <strong>Google for WooCommerce</strong>."
+msgstr ""
+
 #. translators: %s: The title of the iframe.
 #: js/build/commons.js:64
 msgid "%s Video"
@@ -3585,19 +3699,6 @@ msgid "Free listings cannot be paused through WooCommerce. Go to Google Merchant
 msgstr ""
 
 #: js/build/dashboard.js:1
-msgctxt "A highlighting label behind the heading of the new feature"
-msgid "New"
-msgstr ""
-
-#: js/build/dashboard.js:1
-msgid "Add images, headlines, and descriptions to drive better engagement and more sales."
-msgstr ""
-
-#: js/build/dashboard.js:1
-msgid "Edit your campaign to explore this new feature."
-msgstr ""
-
-#: js/build/dashboard.js:1
 #: js/build/reports.js:3
 msgid "Program"
 msgstr ""
@@ -3697,7 +3798,7 @@ msgid "How easy was it to understand the requirements for the Google Ad campaign
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Google Listings & Ads Benefits"
+msgid "Google for WooCommerce Benefits"
 msgstr ""
 
 #: js/build/get-started-page.js:1
@@ -3794,7 +3895,7 @@ msgid "How do I sync my products to Google free listings?"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "The Google Listings and Ads plugin allows you to upload your store and product data to Google. Your products will sync automatically to make relevant information available for free listings, Google Ads, and other Google services. You can create a new Merchant Center account or link an existing account to connect your store and list products across Google."
+msgid "The Google for WooCommerce plugin allows you to upload your store and product data to Google. Your products will sync automatically to make relevant information available for free listings, Google Ads, and other Google services. You can create a new Merchant Center account or link an existing account to connect your store and list products across Google."
 msgstr ""
 
 #: js/build/get-started-page.js:1
@@ -3810,7 +3911,7 @@ msgid "How can I get the $500 ad credit offer?"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Create a new Google Ads account through Google Listings & Ads and a promotional code will be automatically applied to your account. You’ll have 60 days to spend $500 to qualify for the $500 ads credit."
+msgid "Create a new Google Ads account through Google for WooCommerce and a promotional code will be automatically applied to your account. You’ll have 60 days to spend $500 to qualify for the $500 ads credit."
 msgstr ""
 
 #: js/build/get-started-page.js:1
@@ -3826,7 +3927,7 @@ msgid "49% of shoppers surveyed say they use Google to discover or find a new it
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "With Google Listings & Ads, connect with the right shoppers at the right moment when they’re looking to buy products like yours."
+msgid "With Google for WooCommerce, connect with the right shoppers at the right moment when they’re looking to buy products like yours."
 msgstr ""
 
 #: js/build/get-started-page.js:1
@@ -3866,7 +3967,7 @@ msgid "Real-time reporting all within your WooCommerce dashboard means you know 
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Get your products in front of more shoppers with Google Listings & Ads"
+msgid "Get your products in front of more shoppers with Google for WooCommerce"
 msgstr ""
 
 #: js/build/get-started-page.js:1
@@ -3902,11 +4003,11 @@ msgid "If you’re already using another extension to manage your product feed w
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Your site language is <language />. This language is currently not supported by Google Listings & Ads. <settingsLink>You can change your site language here</settingsLink>. <supportedLanguagesLink>Read more about supported languages</supportedLanguagesLink>"
+msgid "Your site language is <language />. This language is currently not supported by Google for WooCommerce. <settingsLink>You can change your site language here</settingsLink>. <supportedLanguagesLink>Read more about supported languages</supportedLanguagesLink>"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Your store’s country is <country />. This country is currently not supported by Google Listings & Ads. However, you can still choose to list your products in another supported country, if you are able to sell your products to customers there. <settingsLink>Change your store’s country here</settingsLink>. <supportedCountriesLink>Read more about supported countries</supportedCountriesLink>"
+msgid "Your store’s country is <country />. This country is currently not supported by Google for WooCommerce. However, you can still choose to list your products in another supported country, if you are able to sell your products to customers there. <settingsLink>Change your store’s country here</settingsLink>. <supportedCountriesLink>Read more about supported countries</supportedCountriesLink>"
 msgstr ""
 
 #: js/build/index.js:1
@@ -4524,7 +4625,7 @@ msgid "WooCommerce Logo"
 msgstr ""
 
 #: js/build/product-feed.js:10
-msgid "You’ve successfully set up Google Listings & Ads! 🎉"
+msgid "You’ve successfully set up Google for WooCommerce! 🎉"
 msgstr ""
 
 #: js/build/product-feed.js:10
@@ -4662,11 +4763,11 @@ msgid "Not Synced"
 msgstr ""
 
 #: js/build/product-feed.js:14
-msgid "How easy was it to set up Google Listings & Ads?"
+msgid "How easy was it to set up Google for WooCommerce?"
 msgstr ""
 
 #: js/build/product-feed.js:14
-msgid "How easy was it to understand the requirements for the Google Listings & Ads setup?"
+msgid "How easy was it to understand the requirements for the Google for WooCommerce setup?"
 msgstr ""
 
 #: js/build/reports.js:1
@@ -4823,55 +4924,86 @@ msgid "Select one or more products to compare"
 msgstr ""
 
 #: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Disconnect all accounts"
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Yes, I want to disconnect all my accounts."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "I understand that I am disconnecting any WordPress.com account, Google account, Google Merchant Center account and Google Ads account connected to this extension."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Any active product listings will continue to show on Google. They can be managed, edited, or deleted manually from Google Merchant Center (merchants.google.com)."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Any ongoing paid campaigns will continue to run. They can be managed, edited, or deleted manually from Google Ads (ads.google.com)."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Disconnect Google Ads account"
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Disconnect Google Ads Account"
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Yes, I want to disconnect my Google Ads account."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "I understand that I am disconnecting my Google Ads account from this WooCommerce extension."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Some configurations for Google Ads created through WooCommerce may be lost. This cannot be undone."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Disable data fetching"
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Yes, I want to disable the data fetching feature."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "I understand that I am disabling the data fetching feature from this WooCommerce extension."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Any ongoing campaigns and configuration will continue to run. They will be pushed to Google as in the previous versions of this extension."
+msgstr ""
+
+#: js/build/settings.js:1
+#: js/build/setup-mc.js:1
+msgid "Never mind"
+msgstr ""
+
+#: js/build/settings.js:1
 msgid "Linked accounts"
 msgstr ""
 
 #: js/build/settings.js:1
 msgid "A WordPress.com account, Google account, and Google Merchant Center account are required to use this extension in WooCommerce."
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "Disconnect all accounts"
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "Yes, I want to disconnect all my accounts."
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "I understand that I am disconnecting any WordPress.com account, Google account, Google Merchant Center account and Google Ads account connected to this extension."
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "Any active product listings will continue to show on Google. They can be managed, edited, or deleted manually from Google Merchant Center (merchants.google.com)."
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "Any ongoing paid campaigns will continue to run. They can be managed, edited, or deleted manually from Google Ads (ads.google.com)."
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "Disconnect Google Ads account"
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "Disconnect Google Ads Account"
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "Yes, I want to disconnect my Google Ads account."
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "I understand that I am disconnecting my Google Ads account from this WooCommerce extension."
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "Some configurations for Google Ads created through WooCommerce may be lost. This cannot be undone."
-msgstr ""
-
-#: js/build/settings.js:1
-msgid "Never mind"
 msgstr ""
 
 #: js/build/settings.js:1
@@ -4989,7 +5121,7 @@ msgid "Set up paid campaign"
 msgstr ""
 
 #: js/build/setup-mc.js:1
-msgid "Get started with Google Listings & Ads"
+msgid "Get started with Google for WooCommerce"
 msgstr ""
 
 #: js/build/setup-mc.js:1
@@ -5025,11 +5157,11 @@ msgid "Once you have set up your Merchant Center account you can use our onboard
 msgstr ""
 
 #: js/build/setup-mc.js:1
-msgid "Connect the accounts required to use Google Listings & Ads."
+msgid "Connect the accounts required to use Google for WooCommerce."
 msgstr ""
 
 #: js/build/setup-mc.js:1
-msgid "The following accounts are required to use the Google Listings & Ads plugin."
+msgid "The following accounts are required to use the Google for WooCommerce plugin."
 msgstr ""
 
 #: js/build/setup-mc.js:1

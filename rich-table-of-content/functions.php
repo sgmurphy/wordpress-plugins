@@ -3,7 +3,7 @@
 Plugin Name: Rich Table of Contents
 Plugin URI: https://croover.co.jp/rtoc
 Description: "RTOC -Rich Table of Contents-" is a table of contents generation plugin from Japan that allows anyone to easily create a table of contents.
-Version: 1.3.99
+Version: 1.4.0
 Author: CROOVER.inc
 Text Domain: rich-table-of-content
 Domain Path: /languages/
@@ -28,6 +28,132 @@ License: GPL2
 if (!defined('ABSPATH')) {
 	exit;
 }
+register_activation_hook( __FILE__, 'rtoc_plugin_activate' );
+function rtoc_plugin_activate() {
+    add_option( 'rtoc_plugin_do_activation_redirect', true );
+}
+add_action( 'admin_init', 'rtoc_plugin_redirect' );
+function rtoc_plugin_redirect() {
+    if ( get_option( 'rtoc_plugin_do_activation_redirect', false ) ) {
+        delete_option( 'rtoc_plugin_do_activation_redirect' );
+        wp_redirect( admin_url( 'admin.php?page=rtoc_settings' ) );
+        exit;
+    }
+}
+function rtoc_plugin_activated()
+{
+	// 各オプション値を取得
+	if (!get_option('rtoc_title')) {
+		update_option('rtoc_title', 'Contents');
+	}
+	if (!get_option('rtoc_title_display')) {
+		update_option('rtoc_title_display', 'left');
+	}
+	if (!get_option('rtoc_display')) {
+		update_option('rtoc_display', array('post' => 'post', 'page' => 'page', 'category' => 'category'));
+	}
+	if (!get_option('rtoc_exclude_post_toc')) {
+		update_option('rtoc_exclude_post_toc', true);
+	}
+	if (!get_option('rtoc_exclude_page_toc')) {
+		update_option('rtoc_exclude_page_toc', true);
+	}
+	if (!get_option('rtoc_initial_display')) {
+		update_option('rtoc_initial_display', 'open');
+	}
+	if(!get_option('rtoc_headline_display') == 'h2' || !get_option('rtoc_headline_display') == 'h3' || !get_option('rtoc_headline_display') == 'h4'){
+		update_option('rtoc_headline_display', 'h3');
+	}
+	if (!get_option('rtoc_open_text')) {
+		update_option('rtoc_open_text', 'OPEN');
+	}
+	if (!get_option('rtoc_close_text')) {
+		update_option('rtoc_close_text', 'CLOSE');
+	}
+	if (!get_option('rtoc_font')) {
+		update_option('rtoc_font', 'default');
+	}
+	if (!get_option('rtoc_display_headline_amount')) {
+		update_option('rtoc_display_headline_amount', '4');
+	}
+	if (!get_option('rtoc_list_h2_type')) {
+		update_option('rtoc_list_h2_type', 'ol2');
+	}
+	if (!get_option('rtoc_list_h3_type')) {
+		update_option('rtoc_list_h3_type', 'ul');
+	}
+	$rtoc_color = get_option('rtoc_color');
+	if (!$rtoc_color) {
+		update_option('rtoc_color', 'preset1');
+		$my_theme    = wp_get_theme();
+		$theme_name  = $my_theme->get('Name');
+		$theme_color = '';
+		$text_color = '';
+		if($theme_name == 'JIN:R' || $theme_name == 'JIN:R child'){
+			$theme_color = jinr__theme_color();
+			$text_color = jinr__text_color();
+			update_option('rtoc_title_color', jinr__theme_color());
+			update_option('rtoc_text_color', jinr__text_color());
+			update_option('rtoc_border_color', jinr__theme_color());
+			update_option('rtoc_h2_color', jinr__theme_color());
+			update_option('rtoc_h3_color', jinr__theme_color());
+			update_option('rtoc_back_button_color', jinr__theme_color());
+			error_log('jinr');
+		} elseif ($theme_name == 'JIN' || $theme_name == 'jin-child') {
+			$theme_color = get_theme_mod( 'theme_color', '#3b4675');
+			$theme_text_color = get_theme_mod('theme_text_color', '#3b4675');
+			update_option('rtoc_title_color', $theme_color);
+			update_option('rtoc_text_color', $theme_text_color);
+			update_option('rtoc_border_color', $theme_color);
+			update_option('rtoc_h2_color', $theme_color);
+			update_option('rtoc_h3_color', $theme_color);
+			update_option('rtoc_back_button_color', $theme_color);
+			error_log('jin');
+		} else{
+			update_option('rtoc_title_color', '#3f9cff');
+			update_option('rtoc_text_color', '#555555');
+			update_option('rtoc_border_color', '#3f9cff');
+			update_option('rtoc_h2_color', '#3f9cff');
+			update_option('rtoc_h3_color', '#3f9cff');
+			update_option('rtoc_back_button_color', '#3f9cff');
+			error_log('other');
+		}
+	} else {
+		error_log('rtoc_color option exists with value: ' . $rtoc_color);
+	}
+
+	if (!get_option('rtoc_frame_design')) {
+		update_option('rtoc_frame_design', 'frame2');
+	}
+	if (!get_option('rtoc_animation')) {
+		update_option('rtoc_animation', 'animation-fade');
+	}
+	if (get_option('rtoc_scroll_animation') === false) {
+		update_option('rtoc_scroll_animation', 'on');
+	}
+	if (!get_option('rtoc_back_toc_button')) {
+		update_option('rtoc_back_toc_button', 'on');
+	}
+	if (!get_option('rtoc_display_top')) {
+		update_option('rtoc_display_top', 1);
+	}
+	if (!get_option('rtoc_back_text')) {
+		update_option('rtoc_back_text', 'TOC');
+	}
+	if (!get_option('rtoc_back_button_position')) {
+		update_option('rtoc_back_button_position', 'left');
+	}
+	if (!get_option('rtoc_back_button_vertical_position')) {
+		update_option('rtoc_back_button_vertical_position', true);
+	}
+	if (!get_option('rtoc_exclude_css')) {
+		update_option('rtoc_exclude_css', false);
+	}
+	if (!get_option('rtoc_userate_measure_7')) {
+		update_option('rtoc_userate_measure_7', 'off');
+	}
+}
+register_activation_hook(__FILE__, 'rtoc_plugin_activated');
 
 add_action('plugins_loaded', 'book_stealth_load_textdomain');
 function book_stealth_load_textdomain()
@@ -433,13 +559,13 @@ function rtoc_unnecessary_tags_delete($heading_list_text)
 function rtoc_switch_mokuji($the_content)
 {
 	global $post;
-	if (is_null( $post )){return;}
+	if (is_null( $post )){return $the_content;}
 	$RtocDisplay     = get_option('rtoc_display');
 	$RtocPostExclude = get_option('rtoc_exclude_post_toc');
 	$RtocPageExclude = get_option('rtoc_exclude_page_toc');
 	$RtocPostId      = explode(",", $RtocPostExclude);
 	$RtocPageId      = explode(",", $RtocPageExclude);
-	$content = do_blocks($post->post_content);
+	$content = $post->post_content;
 	if(get_template() == 'jinr' && is_category()){
 		$page_ids = get_posts(array(
 			'posts_per_page' => -1,
@@ -465,9 +591,10 @@ function rtoc_switch_mokuji($the_content)
 		}
 		$target_page_id = array_search($cat_id, $pair_ids);
 		$content = get_post($target_page_id);
-		$content = do_blocks($content->post_content);
+		$content = $content->post_content;
 	}
-	if (!has_shortcode($post->post_content, 'rtoc_mokuji')) {
+	
+	if (!has_shortcode($content, 'rtoc_mokuji')) {
 		if (get_option('rtoc_headline_display') == 'h2') {
 			$rtoc_h2 = '/<h2.*?>(.+?)<\/h2>/ims';
 			preg_match_all($rtoc_h2, $the_content, $tags);
@@ -483,6 +610,8 @@ function rtoc_switch_mokuji($the_content)
 			preg_match_all($rtoc_h4, $the_content, $tags);
 			$idnum = 1;
 			$rtoc_flag = 'heading4';
+		} else {
+			return $the_content;
 		}
 		if (!empty($RtocDisplay['post']) && !empty($RtocDisplay['page']) && !empty($RtocDisplay['category'])) {
 			if (is_single()) {
@@ -1750,13 +1879,6 @@ function rtoc_css_load()
 			wp_enqueue_style('rtoc_nsj', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;700&display=swap');
 			wp_enqueue_style('rtoc_nsj', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;700&display=swap');
 		}
-
-		// Addon有効時・デザインのCSS読み込み
-		include_once(ABSPATH . 'wp-admin/includes/plugin.php');
-		if (is_plugin_active('rich-table-of-content-addon/rtoc-addon.php')) {
-			wp_register_style('rtoc_addon_style', plugins_url('../rich-table-of-content-addon/css/addon/addon_style.css', __FILE__));
-			wp_enqueue_style('rtoc_addon_style');
-		}
 	} else {
 		return;
 	}
@@ -1772,6 +1894,7 @@ function rtoc_js_load()
 	$RtocDisplay     = get_option('rtoc_display');
 	$RtocPostExclude = get_option('rtoc_exclude_post_toc');
 	$RtocPageExclude = get_option('rtoc_exclude_page_toc');
+	$RtocDisplayTop = get_option('rtoc_display_top');
 	$RtocPostId      = explode(",", $RtocPostExclude);
 	$RtocPageId      = explode(",", $RtocPageExclude);
 
@@ -1786,6 +1909,7 @@ function rtoc_js_load()
 		if (is_page()) {
 			if (!is_page($RtocPageId)) {
 				rtoc_file_include();
+
 			} else {
 				return;
 			}
@@ -1939,6 +2063,9 @@ add_action('wp_enqueue_scripts', 'rtoc_js_return', 1);
 
 function rtoc_js_scroll()
 {
+	if (get_option('rtoc_display_top') == 1 && is_front_page()) {
+		return;
+	}
 	if (is_singular() || is_category()) {
 		if (get_option('rtoc_scroll_animation') == 'on') {
 			wp_enqueue_script('rtoc_js_scroll', plugin_dir_url(__FILE__) . 'js/rtoc_scroll.js', array('jquery'), false, true);
@@ -1952,19 +2079,6 @@ function rtoc_js_highlight()
 {
 	if (get_option('rtoc_display_top') == 1 && is_front_page()) {
 		return;
-	}
-	// JINへの対応
-	$get_theme_name    = wp_get_theme();
-	$theme_name  = $get_theme_name->get('Name');
-	if ($theme_name == 'jin-child' || $theme_name == 'JIN') {
-		if (is_single() || is_page()) {
-			function followwidget_delete()
-			{
-				wp_deregister_script('cps-followwidget');
-			}
-			add_action('wp_enqueue_scripts', 'followwidget_delete', 100);
-			wp_enqueue_script('rtoc_js_followwidget', plugin_dir_url(__FILE__) . 'js/rtoc_followwidget.js', array('jquery'), false, true);
-		}
 	}
 	wp_enqueue_script('rtoc_js_highlight', plugin_dir_url(__FILE__) . 'js/rtoc_highlight.js', array('jquery'), false, true);
 }

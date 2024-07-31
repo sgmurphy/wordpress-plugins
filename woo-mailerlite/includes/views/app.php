@@ -5,36 +5,15 @@ use MailerLite\Includes\Classes\Settings\MailerLiteSettings;
 use MailerLite\Includes\Classes\Settings\ShopSettings;
 
 
-if (isset($_POST['group'])) {
-    if (!wp_verify_nonce($_POST['_wpnonce'], 'ml_save_settings_nonce')) {
-        exit;
-    }
-    if(!isset($_POST['checkout'])) {
-        $_POST = array_diff_key($_POST, array_flip(['checkout_position', 'checkout_preselect', 'checkout_hide', 'checkout_label', 'disable_checkout_sync']));
-    }
-    $_POST['resubscribe']           = $_POST['resubscribe'] ?? 'no';
-    $_POST['additional_sub_fields'] = $_POST['additional_sub_fields'] ?? 'no';
-    $_POST['checkout_preselect']    = $_POST['checkout_preselect'] ?? 'no';
-    $_POST['disable_checkout_sync'] = $_POST['disable_checkout_sync'] ?? 'no';
-    $_POST['popups']                = $_POST['popups'] ?? 'no';
-    $_POST['auto_update_plugin']    = $_POST['auto_update_plugin'] ?? 'no';
-    $_POST['double_optin']          = $_POST['double_optin'] ?? 'no';
-    $_POST['checkout_hide']         = $_POST['checkout_hide'] ?? 'no';
-    $_POST['checkout']              = $_POST['checkout'] ?? 'no';
-    $_POST['checkout_label']        = (isset($_POST['checkout_label']) && ($_POST['checkout_label'] != '')) ? $_POST['checkout_label'] : 'Yes, I want to receive your newsletter.';
-    $_POST['sync_fields']           = $_POST['sync_fields'] ?? [];
-
-    update_option('woocommerce_mailerlite_settings',
-        apply_filters('woocommerce_settings_api_sanitized_fields_mailerlite', array_merge($this->settings, $_POST)), 'yes');
-    $this->settings = get_option('woocommerce_mailerlite_settings');
-}
-
+MailerLiteSettings::getInstance()->pluginSettingsUpdate();
+$this->settings = get_option('woocommerce_mailerlite_settings', []);
 if(isset($_POST['resetIntegration'])) {
     if (!wp_verify_nonce($_POST['_wpnonce'], 'ml_reset_integration')) {
         exit;
     }
     MailerLiteSettings::getInstance()->softReset();
 }
+
 if (!is_array($this->settings)) {
     MailerLiteSettings::getInstance()->softReset();
 }

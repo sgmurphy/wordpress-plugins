@@ -2,7 +2,7 @@
 $ee_options = unserialize(get_option('ee_options'));
 $sch_email_toggle_check = isset($ee_options['sch_email_toggle_check']) ? sanitize_text_field($ee_options['sch_email_toggle_check']) : '1';
 $sch_custom_email = isset($ee_options['sch_custom_email']) ? sanitize_text_field($ee_options['sch_custom_email']) : '';
-$sch_email_frequency = isset($ee_options['sch_email_frequency']) ? sanitize_text_field($ee_options['sch_email_frequency']) : '';
+$sch_email_frequency = isset($ee_options['sch_email_frequency']) ? sanitize_text_field($ee_options['sch_email_frequency']) : 'Weekly';
 $g_mail = get_option('ee_customer_gmail');
 $ga4_measurement_id = isset($ee_options['gm_id']) && $ee_options['gm_id'] != "" ? $ee_options['gm_id'] : "";
 $google_ads_id = isset($ee_options['google_ads_id']) && $ee_options['google_ads_id'] != "" ? $ee_options['google_ads_id'] : "";
@@ -38,11 +38,13 @@ if ($subpage == "ga4ecommerce") {
             <div class="ms-auto p-2 bd-highlight">
                 <div id="reportrange" class="dshtpdaterange">
                     <div class="dateclndicn">
-                        <img src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/claendar-icon.png'); ?>" alt="" />
+                        <img src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/claendar-icon.png'); ?>"
+                            alt="" />
                     </div>
                     <span class="daterangearea report_range_val"></span>
                     <div class="careticn">
-                        <img src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/caret-down.png'); ?>" alt="" />
+                        <img src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/caret-down.png'); ?>"
+                            alt="" />
                     </div>
                 </div>
             </div>
@@ -51,13 +53,16 @@ if ($subpage == "ga4ecommerce") {
         <div class="d-flex">
 
             <div class="conv_pageheading">
-                <a href="admin.php?page=conversios-analytics-reports" class="btn <?php echo $ga4general_cls; ?> bg-white me-3">
+                <a href="admin.php?page=conversios-analytics-reports"
+                    class="btn <?php echo $ga4general_cls; ?> bg-white me-3">
                     <?php esc_html_e("General Reports", "enhanced-e-commerce-for-woocommerce-store") ?>
                 </a>
-                <a href="admin.php?page=conversios-analytics-reports&subpage=ga4ecommerce" class="btn <?php echo $ga4page_cls; ?> bg-white me-3">
+                <a href="admin.php?page=conversios-analytics-reports&subpage=ga4ecommerce"
+                    class="btn <?php echo $ga4page_cls; ?> bg-white me-3">
                     <?php esc_html_e("Ecommerce Reports", "enhanced-e-commerce-for-woocommerce-store") ?>
                 </a>
-                <a href="admin.php?page=conversios-analytics-reports&subpage=gads" class="btn <?php echo $gadspage_cls; ?> bg-white me-3">
+                <a href="admin.php?page=conversios-analytics-reports&subpage=gads"
+                    class="btn <?php echo $gadspage_cls; ?> bg-white me-3">
                     <?php esc_html_e("Google Ads Reports", "enhanced-e-commerce-for-woocommerce-store") ?>
                 </a>
             </div>
@@ -70,54 +75,60 @@ if ($subpage == "ga4ecommerce") {
         </div>
 
         <?php if ($subpage == "ga4general" && $ga4_measurement_id == "") { ?>
-            <div class="d-flex">
-                <div class="col-12 alert alert-danger alert alert-danger h5 py-4 my-4 d-flex justify-content-center" role="alert">
+        <div class="d-flex">
+            <div class="col-12 alert alert-danger alert alert-danger h5 py-4 my-4 d-flex justify-content-center"
+                role="alert">
+                <span class="material-symbols-outlined">
+                    error
+                </span>
+                <?php esc_html_e("Please connect Google Analytics account to view the reports.", "enhanced-e-commerce-for-woocommerce-store") ?>
+                <a class="conv-link-blue d-flex ps-3"
+                    href="<?php echo esc_url_raw('admin.php?page=conversios-google-analytics"'); ?>">
+                    <?php esc_html_e("Click here to connect", "enhanced-e-commerce-for-woocommerce-store") ?>
                     <span class="material-symbols-outlined">
-                        error
+                        arrow_forward
                     </span>
-                    <?php esc_html_e("Please connect Google Analytics account to view the reports.", "enhanced-e-commerce-for-woocommerce-store") ?>
-                    <a class="conv-link-blue d-flex ps-3" href="<?php echo esc_url_raw('admin.php?page=conversios-google-analytics"'); ?>">
-                        <?php esc_html_e("Click here to connect", "enhanced-e-commerce-for-woocommerce-store") ?>
-                        <span class="material-symbols-outlined">
-                            arrow_forward
-                        </span>
-                    </a>
-                </div>
+                </a>
             </div>
+        </div>
         <?php } ?>
 
         <?php if ($subpage == "ga4ecommerce" && $ga4_measurement_id == "") { ?>
-            <div class="d-flex">
-                <div class="col-12 alert alert-danger alert alert-danger h5 py-4 my-4 d-flex justify-content-center" role="alert">
+        <div class="d-flex">
+            <div class="col-12 alert alert-danger alert alert-danger h5 py-4 my-4 d-flex justify-content-center"
+                role="alert">
+                <span class="material-symbols-outlined">
+                    error
+                </span>
+                <?php esc_html_e("Please connect Google Analytics account to view the reports.", "enhanced-e-commerce-for-woocommerce-store") ?>
+                <a class="conv-link-blue d-flex ps-3"
+                    href="<?php echo esc_url_raw('admin.php?page=conversios-google-analytics"'); ?>">
+                    <?php esc_html_e("Click here to connect", "enhanced-e-commerce-for-woocommerce-store") ?>
                     <span class="material-symbols-outlined">
-                        error
+                        arrow_forward
                     </span>
-                    <?php esc_html_e("Please connect Google Analytics account to view the reports.", "enhanced-e-commerce-for-woocommerce-store") ?>
-                    <a class="conv-link-blue d-flex ps-3" href="<?php echo esc_url_raw('admin.php?page=conversios-google-analytics"'); ?>">
-                        <?php esc_html_e("Click here to connect", "enhanced-e-commerce-for-woocommerce-store") ?>
-                        <span class="material-symbols-outlined">
-                            arrow_forward
-                        </span>
-                    </a>
-                </div>
+                </a>
             </div>
+        </div>
         <?php } ?>
 
         <?php if ($subpage == "gads" && $google_ads_id == "") { ?>
-            <div class="d-flex">
-                <div class="col-12 alert alert-danger alert alert-danger h5 py-4 my-4 d-flex justify-content-center" role="alert">
+        <div class="d-flex">
+            <div class="col-12 alert alert-danger alert alert-danger h5 py-4 my-4 d-flex justify-content-center"
+                role="alert">
+                <span class="material-symbols-outlined">
+                    error
+                </span>
+                <?php esc_html_e("Please connect Google Ads account to view the reports.", "enhanced-e-commerce-for-woocommerce-store") ?>
+                <a class="conv-link-blue d-flex ps-3"
+                    href="<?php echo esc_url_raw('admin.php?page=conversios-google-analytics"'); ?>">
+                    <?php esc_html_e("Click here to connect", "enhanced-e-commerce-for-woocommerce-store") ?>
                     <span class="material-symbols-outlined">
-                        error
+                        arrow_forward
                     </span>
-                    <?php esc_html_e("Please connect Google Ads account to view the reports.", "enhanced-e-commerce-for-woocommerce-store") ?>
-                    <a class="conv-link-blue d-flex ps-3" href="<?php echo esc_url_raw('admin.php?page=conversios-google-analytics"'); ?>">
-                        <?php esc_html_e("Click here to connect", "enhanced-e-commerce-for-woocommerce-store") ?>
-                        <span class="material-symbols-outlined">
-                            arrow_forward
-                        </span>
-                    </a>
-                </div>
+                </a>
             </div>
+        </div>
         <?php } ?>
 
         <?php
@@ -127,20 +138,23 @@ if ($subpage == "ga4ecommerce") {
         ?>
         <!-- All report section -->
 
-        </div>
     </div>
+</div>
 </div>
 
 <!-- Schedule Email Modal box -->
-<div class="modal email-modal fade" id="schedule_email_modal" tabindex="-1" aria-labelledby="schedule_email_modalLabel" aria-hidden="true">
+<div class="modal email-modal fade" id="schedule_email_modal" tabindex="-1" aria-labelledby="schedule_email_modalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
-        <div id="loadingbar_blue" class="progress-materializecss" style="display: none;">
+        <div id="loadingbar_blue" class="progress-materializecss" style="
+    display: none;
+">
             <div class="indeterminate"></div>
         </div>
         <div class="modal-content">
             <div class="modal-body">
                 <div class="scheduleemail-box">
-                    <h2><?php esc_html_e("Schedule Email", "enhanced-e-commerce-for-woocommerce-store"); ?></h2>
+                    <h2><?php esc_html_e("Smart Emails", "enhanced-e-commerce-for-woocommerce-store"); ?></h2>
                     <p>
                         <?php esc_html_e("Schedule your Google Analytics 4 Insight Report email for", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         <br>
@@ -150,28 +164,22 @@ if ($subpage == "ga4ecommerce") {
                     if ($sch_email_toggle_check == '0') { //enabled
                         $switch_cls = 'convEmail_default_cls_enabled';
                         $switch_checked = 'checked';
-                        $save_btn_text = 'Save';
-                        $arrow_class_drop = 'down-arrow';
-                        if ($sch_custom_email != '') {
-                            $sch_custom_email_final = $sch_custom_email;
-                        } else {
-                            $sch_custom_email_final = $g_mail;
-                        }
-                        $email_frequency_disabled = '';
+                        $txtcls = "form-fields-dark";
                     } else { //disabled
                         $switch_cls = 'convEmail_default_cls_disabled';
                         $switch_checked = '';
-                        $arrow_class_drop = '';
-                        $save_btn_text = 'Save';
-                        $email_frequency_disabled = 'disabled';
-                        $sch_custom_email_final = $g_mail;
+                        $txtcls = "form-fields-light";
                     } ?>
                     <div class="schedule-formbox">
                         <div class="toggle-switch">
                             <div class="form-check form-switch">
                                 <div class="form-check form-switch">
-                                    <label id="email_toggle_btnLabel" for="email_toggle_btn" class="form-check-input switch <?php echo $switch_cls; ?>" role="switch">
-                                        <input id="email_toggle_btn" type="checkbox" class="<?php echo $switch_cls; ?>" <?php echo $switch_checked; ?>>
+                                    <label id="email_toggle_btnLabel" for="email_toggle_btn"
+                                        class="form-check-input switch <?php echo esc_attr($switch_cls); ?>"
+                                        role="switch">
+                                        <input id="email_toggle_btn" type="checkbox"
+                                            class="<?php echo esc_attr($switch_cls); ?>"
+                                            <?php echo esc_attr($switch_checked); ?>>
                                         <div></div>
                                     </label>
                                 </div>
@@ -179,62 +187,57 @@ if ($subpage == "ga4ecommerce") {
                         </div>
                         <div class="form-wholebox">
                             <div class="form-box">
-                                <label for="custom_email" class="form-label llabel"><?php esc_html_e("Email address", "enhanced-e-commerce-for-woocommerce-store"); ?></label>
-                                <input type="email" class="form-control icontrol" id="custom_email" aria-describedby="emailHelp" placeholder="user@gmail.com" value="<?php echo $sch_custom_email_final; ?>" <?php echo $email_frequency_disabled; ?>>
+                                <label for="custom_email"
+                                    class="form-label llabel"><?php esc_html_e("Email address", "enhanced-e-commerce-for-woocommerce-store"); ?></label>
+                                <input type="email" class="form-control icontrol <?php echo esc_attr($txtcls); ?>"
+                                    id="custom_email" aria-describedby="emailHelp" placeholder="user@gmail.com"
+                                    value="<?php echo esc_attr($g_mail); ?>" disabled readonly>
+                            </div>
+                            <div class="form-box">
+                                <h5>
+                                    <?php esc_html_e("To get emails on your alternate address. ", "enhanced-e-commerce-for-woocommerce-store"); ?><a
+                                        style="color:  #1085F1;cursor: pointer;"
+                                        href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=EE+Plugin+User+Interface&amp;utm_medium=dashboard&amp;utm_campaign=Upsell+at+Conversios"
+                                        target="_blank"><?php esc_html_e("Upgrade To Pro", "enhanced-e-commerce-for-woocommerce-store"); ?></a>
+                                </h5>
                             </div>
                             <div class="form-box">
                                 <label for="email_frequency" class="form-label llabel">
                                     <?php esc_html_e("Email Frequency", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </label>
-                                <input type="text" class="form-control icontrol" id="email_frequency" value="<?php echo $sch_email_frequency; ?>" <?php echo $email_frequency_disabled; ?> readonly>
-                                <div id="email_frequency_arrow" class="<?php echo $arrow_class_drop; ?>"></div>
-                                <ul class="dropdown" id="emailFrequency_holder" style="display:none;">
-                                    <li id="Daily" class="email-items">
-                                        <?php esc_html_e("Daily", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                    <li id="Weekly" class="email-items">
-                                        <?php esc_html_e("Weekly", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                    <li id="Monthly" class="email-items">
-                                        <?php esc_html_e("Monthly", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    </li>
-                                </ul>
+                                <input type="text" class="form-control icontrol <?php echo esc_attr($txtcls); ?>"
+                                    id="email_frequency" value="<?php echo esc_attr($sch_email_frequency); ?>" disabled
+                                    readonly>
+                                <div id="email_frequency_arrow" class="down-arrow"></div>
                             </div>
-                            <?php
-                            if ($sch_email_frequency == "Daily") {
-                                $sch_duration = "day";
-                                $sch_duration_days = "7";
-                            } else if ($sch_email_frequency == "Weekly") {
-                                $sch_duration = "week";
-                                $sch_duration_days = "7";
-                            } else if ($sch_email_frequency == "Monthly") {
-                                $sch_duration = "month";
-                                $sch_duration_days = "30";
-                            } else {
-                                $sch_duration = "week";
-                                $sch_duration_days = "7";
-                            }
-                            ?>
+
                             <div class="form-box">
-                                <h5><span id="sch_frequency_msg">
-                                        <?php esc_html_e("You will receive a report in your email inbox every " . $sch_duration . ", providing you with
-                                            updated
-                                            insights from the past " . $sch_duration_days . " Days.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    </span></h5>
+                                <h5>
+                                    <?php esc_html_e("By default, you will receive a Weekly report in your email inbox.", "enhanced-e-commerce-for-woocommerce-store"); ?><br><?php esc_html_e("To get report ", "enhanced-e-commerce-for-woocommerce-store"); ?><strong>Daily</strong>
+                                    or <strong>Weekly</strong>. <a
+                                        href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=EE+Plugin+User+Interface&amp;utm_medium=dashboard&amp;utm_campaign=Upsell+at+Conversios"
+                                        target="_blank"
+                                        style="color:  #1085F1;"><?php esc_html_e("Upgrade To Pro", "enhanced-e-commerce-for-woocommerce-store"); ?></a>
+                                </h5>
                             </div>
                             <div class="form-box">
                                 <div class="save">
-                                    <button id="schedule_email_save_config" class="btn  save-btn"><?php echo $save_btn_text; ?></button>
+                                    <button id="schedule_email_save_config"
+                                        class="btn  save-btn"><?php esc_html_e("Save", "enhanced-e-commerce-for-woocommerce-store"); ?></button>
                                 </div>
                             </div>
                             <div class="form-box">
                                 <div class="save">
-                                    <span id="err_sch_msg" style="display: none;color: red;position: absolute;top: -9px;"><?php esc_html_e("Something went wrong, please try again later.", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                                    <span id="err_sch_msg"
+                                        style="display: none;color: red;position: absolute;top: -9px;"><?php esc_html_e("Something went wrong, please try again later.", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
                                 </div>
                             </div>
 
                             <div id="schedule_email_alert" class="d-none">
                                 <div class="alert alert-info" role="alert">
                                     <div id="schedule_email_alert_msg"></div>
-                                    <div role="button" class="fw-bold pt-3" data-bs-dismiss="modal">Click here to close the popup</div>
+                                    <div role="button" class="fw-bold pt-3" data-bs-dismiss="modal">Click here to close
+                                        the popup</div>
                                 </div>
 
                             </div>
@@ -246,28 +249,36 @@ if ($subpage == "ga4ecommerce") {
         </div>
     </div>
 </div>
-<!--modal end-->
+<!--schedule modal end-->
 <!-- Upgrade to PRO modal -->
-<div class="modal fade" id="upgradetopromodal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="upgradetopromodal" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-body p-4 pb-0">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <h3 class="fw-bold text-uppercase pt-0 d-flex"><img style="height:29px;max-width:100%;margin-right: 10px;" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge_big.png'); ?>" />
+                            <h3 class="fw-bold text-uppercase pt-0 d-flex"><img
+                                    style="height:29px;max-width:100%;margin-right: 10px;"
+                                    src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge_big.png'); ?>" />
                                 <?php esc_html_e("Upgrade to Pro now and enjoy exclusive benefits:", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             <ul class="conv-upgrade-banner-list ps-4 pt-4">
-                                <li>Take advantage of <span>Google Consent Mode V2</span> for enhanced tracking across all platforms.</li>
+                                <li>Take advantage of <span>Google Consent Mode V2</span> for enhanced tracking across
+                                    all platforms.</li>
                                 <li>Use your <span>own GTM container</span> with automated tag triggers.</li>
-                                <li>Optimize <span>Google Ads conversion tracking</span> for Add To Cart and Begin Checkout.</li>
-                                <li>Enable <span>Dynamic Remarketing</span> Tags for View_item, Add_to_cart, Begin_checkout, Purchase.</li>
-                                <li>Integrate seamlessly with <span>FBCAPI, Snapchat CAPI, and TikTok Events API</span>.</li>
+                                <li>Optimize <span>Google Ads conversion tracking</span> for Add To Cart and Begin
+                                    Checkout.</li>
+                                <li>Enable <span>Dynamic Remarketing</span> Tags for View_item, Add_to_cart,
+                                    Begin_checkout, Purchase.</li>
+                                <li>Integrate seamlessly with <span>FBCAPI, Snapchat CAPI, and TikTok Events API</span>.
+                                </li>
                                 <li>Access detailed <span>GA4 e-commerce reporting</span>.</li>
                                 <li>Maximize results with <span>Google Ads conversion reporting</span>.</li>
-                                <li>Expand your reach with <span>unlimited product feed</span> for Google Merchant Center, FB Catalogue, and TikTok.</li>
+                                <li>Expand your reach with <span>unlimited product feed</span> for Google Merchant
+                                    Center, FB Catalogue, and TikTok.</li>
                                 <li>Experience dedicated <span>customer support</span>.</li>
                                 <li>Implement <span>server-side tagging</span> for enhanced performance.</li>
                             </ul>
@@ -276,7 +287,9 @@ if ($subpage == "ga4ecommerce") {
                 </div>
             </div>
             <div class="modal-footer border-0 pb-4 mb-1 pt-4">
-                <a id="upgradetopro_modal_link" class="btn conv-yellow-bg m-auto w-100 mx-4 p-2" href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=upgrade" target="_blank">
+                <a id="upgradetopro_modal_link" class="btn conv-yellow-bg m-auto w-100 mx-4 p-2"
+                    href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=upgrade"
+                    target="_blank">
                     <?php esc_html_e("Upgrade Now", "enhanced-e-commerce-for-woocommerce-store"); ?>
                 </a>
             </div>
@@ -285,208 +298,121 @@ if ($subpage == "ga4ecommerce") {
 </div>
 <!-- Upgrade to PRO modal End -->
 <script>
-    var start = moment().subtract(45, 'days');
-    var end = moment().subtract(1, 'days');
-    var start_date = "";
-    var end_date = "";
-    cb(start, end);
-    // Schedule email
-    function IsEmail(email) {
-        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if (!regex.test(email)) {
-            return false;
-        } else {
-            return true;
-        }
+var start = moment().subtract(45, 'days');
+var end = moment().subtract(1, 'days');
+var start_date = "";
+var end_date = "";
+cb(start, end);
+// Schedule email
+function IsEmail(email) {
+    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!regex.test(email)) {
+        return false;
+    } else {
+        return true;
     }
+}
 
-    function save_local_data(email_toggle_check, custom_email, email_frequency) {
-        var selected_vals = {};
-        selected_vals['sch_email_toggle_check'] = email_toggle_check;
-        selected_vals['sch_custom_email'] = custom_email;
-        selected_vals['sch_email_frequency'] = email_frequency;
-        jQuery.ajax({
-            type: "POST",
-            dataType: "json",
-            url: tvc_ajax_url,
-            data: {
-                action: "conv_save_pixel_data",
-                pix_sav_nonce: "<?php echo wp_create_nonce('pix_sav_nonce_val'); ?>",
-                conv_options_data: selected_vals,
-                conv_options_type: ["eeoptions"]
-            },
-            beforeSend: function() {},
-            success: function(response) {
-                console.log('Email setting saved in db');
-            }
-        });
-    }
-    /*schedule email form submit event listner*/
-    jQuery("#schedule_email_save_config").on("click", function() {
-        let email_toggle_check = '1'; //default
-        if (jQuery("#email_toggle_btn").prop("checked")) {
-            email_toggle_check = '0'; //enabled
-        } else {
-            email_toggle_check = '1'; //disabled
+function save_local_data(email_toggle_check, custom_email, email_frequency) {
+    var selected_vals = {};
+    selected_vals['sch_email_toggle_check'] = email_toggle_check;
+    selected_vals['sch_custom_email'] = custom_email;
+    selected_vals['sch_email_frequency'] = email_frequency;
+    jQuery.ajax({
+        type: "POST",
+        dataType: "json",
+        url: tvc_ajax_url,
+        data: {
+            action: "conv_save_pixel_data",
+            pix_sav_nonce: "<?php echo wp_create_nonce('pix_sav_nonce_val'); ?>",
+            conv_options_data: selected_vals,
+            conv_options_type: ["eeoptions"]
+        },
+        beforeSend: function() {},
+        success: function(response) {
+            console.log('Email setting saved in db');
         }
-        let custom_email = jQuery("#custom_email").val();
-        let email_frequency = jQuery("#email_frequency").val();
-        if (email_toggle_check == '0') {
-            //validations
-            if (custom_email != "") {
-                if (IsEmail(custom_email)) {
-                    jQuery("#custom_email").attr("style", "border: 1px solid #E4E4E4 !important");
+    });
+}
+
+/*schedule email form submit event listner*/
+jQuery("#schedule_email_save_config").on("click", function() {
+    let email_toggle_check = '0'; //default
+    if (jQuery("#email_toggle_btn").prop("checked")) {
+        email_toggle_check = '0'; //enabled
+    } else {
+        email_toggle_check = '1'; //disabled
+    }
+    let custom_email = '<?php echo esc_attr($g_mail); ?>';
+    let email_frequency = "Weekly";
+    let email_frequency_final = "7_day";
+    var data = {
+        "action": "set_email_configurationGA4",
+        "is_disabled": email_toggle_check,
+        "custom_email": custom_email,
+        "email_frequency": email_frequency_final,
+        "conversios_nonce": '<?php echo esc_js(wp_create_nonce('conversios_nonce')); ?>'
+    };
+    jQuery.ajax({
+        type: "POST",
+        dataType: "json",
+        url: tvc_ajax_url,
+        data: data,
+        beforeSend: function() {
+            jQuery("#loadingbar_blue").show();
+        },
+        success: function(response) {
+            if (response.error == false) {
+                jQuery("#err_sch_msg").hide();
+                jQuery("#loadingbar_blue").hide();
+                if (email_toggle_check == "0") {
+                    jQuery("#schedule_email_alert_msg").html(
+                        "Successfully subscribed to receive analytics reports in your email");
                 } else {
-                    jQuery("#custom_email").attr("style", "border: 1px solid red !important");
-                    jQuery("#custom_email").focus();
-                    return false;
+                    jQuery("#schedule_email_alert_msg").html("Successfully Unsubscribed");
+                }
+
+                jQuery("#schedule_email_alert").removeClass("d-none");
+
+                jQuery('#sch_ack_msg').show();
+                //local storage
+                save_local_data(email_toggle_check, custom_email, email_frequency);
+                if (email_toggle_check == '0') {
+                    jQuery('#schedule_form_btn_set').show();
+                    jQuery('#schedule_form_btn_raw').hide();
+                } else {
+                    jQuery('#schedule_form_btn_set').hide();
+                    jQuery('#schedule_form_btn_raw').show();
                 }
             } else {
-                jQuery("#custom_email").attr("style", "border: 1px solid red !important");
-                jQuery("#custom_email").focus();
-                return false;
+                jQuery("#err_sch_msg").show();
+                jQuery("#loadingbar_blue").hide();
             }
-            if (email_frequency != "") {
-                if (email_frequency == "Daily") {
-                    email_frequency_final = "1_day";
-                } else if (email_frequency == "Weekly") {
-                    email_frequency_final = "7_day";
-                } else if (email_frequency == "Monthly") {
-                    email_frequency_final = "30_day";
-                } else {
-                    email_frequency_final = "7_day";
-                }
-                jQuery("#email_frequency").attr("style", "border: 1px solid #E4E4E4 !important");
-            } else {
-                jQuery("#email_frequency").attr("style", "border: 1px solid red !important");
-                jQuery("#email_frequency").focus();
-                return false;
-            }
-            var data = {
-                "action": "set_email_configurationGA4",
-                "subscription_id": '<?php echo esc_attr($ee_options['subscription_id']); ?>',
-                "is_disabled": email_toggle_check,
-                "custom_email": custom_email,
-                "email_frequency": email_frequency_final,
-                "conversios_nonce": '<?php echo wp_create_nonce('conversios_nonce'); ?>'
-            };
-        } else {
-            //validations 
-            var data = {
-                "action": "set_email_configurationGA4",
-                "subscription_id": '<?php echo esc_attr($ee_options['subscription_id']); ?>',
-                "is_disabled": email_toggle_check,
-                "conversios_nonce": '<?php echo wp_create_nonce('conversios_nonce'); ?>'
-            };
-        }
-        jQuery.ajax({
-            type: "POST",
-            dataType: "json",
-            url: tvc_ajax_url,
-            data: data,
-            beforeSend: function() {
-                jQuery("#loadingbar_blue").show();
-            },
-            success: function(response) {
-                if (response.error == false) {
-                    jQuery("#err_sch_msg").hide();
-                    jQuery("#loadingbar_blue").hide();
-                    if (email_toggle_check == "0") {
-                        jQuery("#schedule_email_alert_msg").html("Successfully subscribed to receive analytics reports in your email");
-                    } else {
-                        jQuery("#schedule_email_alert_msg").html("Successfully Unsubscribed");
-                    }
-
-                    jQuery("#schedule_email_alert").removeClass("d-none");
-
-                    jQuery('#sch_ack_msg').show();
-                    //local storage
-                    save_local_data(email_toggle_check, custom_email, email_frequency);
-                    if (email_toggle_check == '0') {
-                        jQuery('#schedule_form_btn_set').show();
-                        jQuery('#schedule_form_btn_raw').hide();
-                    } else {
-                        jQuery('#schedule_form_btn_set').hide();
-                        jQuery('#schedule_form_btn_raw').show();
-                    }
-                } else {
-                    jQuery("#err_sch_msg").show();
-                    jQuery("#loadingbar_blue").hide();
-                }
-                setTimeout(
-                    function() {
-                        jQuery("#sch_ack_msg").hide();
-                    }, 8000);
-            }
-        });
-    });
-    jQuery("#sch_ack_msg_close").on("click", function() {
-        jQuery("#sch_ack_msg").hide();
-    });
-    jQuery('#email_toggle_btn').change(function() {
-        if (jQuery(this).prop("checked")) {
-            jQuery("#email_toggle_btnLabel").addClass("convEmail_default_cls_enabled");
-            jQuery("#email_toggle_btnLabel").removeClass("convEmail_default_cls_disabled");
-            jQuery("#custom_email").prop("disabled", false);
-            jQuery("#custom_email").css("background-color", "#F5F6F7");
-            jQuery("#email_frequency").prop("disabled", false);
-            jQuery("#email_frequency_arrow").addClass("down-arrow");
-            jQuery("#email_frequency").css("background-color", "#F5F6F7");
-            jQuery("#schedule_email_save_config").text("Save");
-            //jQuery("#email_frequency").val('Weekly');
-            jQuery("#custom_email").val('<?php echo $g_mail; ?>');
-            /*jQuery("#schedule_email_save_config").prop( "disabled", false );
-            jQuery("#schedule_email_save_config").css("background-color","#1085F1");*/
-
-        } else {
-            jQuery("#email_toggle_btnLabel").addClass("convEmail_default_cls_disabled");
-            jQuery("#email_toggle_btnLabel").removeClass("convEmail_default_cls_enabled");
-            jQuery("#custom_email").prop("disabled", true);
-            jQuery("#email_frequency").css("background-color", "#E9ECEF");
-            jQuery("#email_frequency").val('');
-            jQuery("#custom_email").val('');
-            jQuery("#custom_email").css("background-color", "#E9ECEF");
-            jQuery("#email_frequency").prop("disabled", true);
-            jQuery("#email_frequency_arrow").removeClass("down-arrow");
-            jQuery("#schedule_email_save_config").text("Save");
-            /*jQuery("#schedule_email_save_config").prop( "disabled", true );
-            jQuery("#schedule_email_save_config").css("border","1px solid");
-            jQuery("#schedule_email_save_config").css("background-color","#E9ECEF");*/
+            setTimeout(
+                function() {
+                    jQuery("#sch_ack_msg").hide();
+                }, 8000);
         }
     });
-    jQuery("#email_frequency,#email_frequency_arrow").on("click", function() {
-        if (jQuery("#emailFrequency_holder").is(":visible")) {
-            jQuery("#emailFrequency_holder").hide();
-        } else {
-            jQuery("#emailFrequency_holder").show();
-        }
-    });
-    jQuery(".email-items").on("click", function() {
-        jQuery("#email_frequency").val(this.id);
-        jQuery("#emailFrequency_holder").hide();
-        let sch_frequency_msg = "";
-        if (this.id == "Daily") {
-            sch_frequency_msg =
-                "You will receive a report in your inbox every day, providing you with updated insights from the past 7 Days.";
-        } else if (this.id == "Weekly") {
-            sch_frequency_msg =
-                "You will receive a report in your inbox every week, providing you with updated insights from the past 7 Days.";
-        } else if (this.id == "Monthly") {
-            sch_frequency_msg =
-                "You will receive a report in your inbox every month, providing you with updated insights from the past 30 Days.";
-        } else {
-            sch_frequency_msg =
-                "You will receive a report in your inbox every week, providing you with updated insights from the past 7 Days.";
-        }
-        jQuery("#sch_frequency_msg").text(sch_frequency_msg);
-    });
-    // End Schedule email
-    jQuery('#schedule_email_modal').on('hidden.bs.modal', function(e) {
-        jQuery("#schedule_email_alert_msg").html("");
-        jQuery("#schedule_email_alert").addClass("d-none");
-    });
+});
+jQuery("#sch_ack_msg_close").on("click", function() {
+    jQuery("#sch_ack_msg").hide();
+});
+jQuery('#email_toggle_btn').change(function() {
+    if (jQuery(this).prop("checked")) {
+        jQuery("#email_toggle_btnLabel").addClass("convEmail_default_cls_enabled");
+        jQuery("#email_toggle_btnLabel").removeClass("convEmail_default_cls_disabled");
+        jQuery("#email_frequency,#custom_email").attr("style", "color: #2A2D2F !important");
+        jQuery("#schedule_email_save_config").html('Save Changes');
+    } else {
+        jQuery("#email_toggle_btnLabel").addClass("convEmail_default_cls_disabled");
+        jQuery("#email_toggle_btnLabel").removeClass("convEmail_default_cls_enabled");
+        jQuery("#email_frequency,#custom_email").attr("style", "color: #94979A !important");
+        jQuery("#schedule_email_save_config").html('Save Changes');
+    }
+});
 
-    jQuery('#reportrange, .conv_page_path').click(function() {
-        jQuery("#upgradetopromodal").modal('show');
-    });
+jQuery('#reportrange, .conv_page_path').click(function() {
+    jQuery("#upgradetopromodal").modal('show');
+});
 </script>

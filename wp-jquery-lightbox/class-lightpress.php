@@ -618,25 +618,14 @@ class LightPress {
 			return false;
 		}
 
-		// Limit review notices to 10% of users initially.
-		$user_review_number = get_option( 'lightpress_user_review_number' );
-		if ( ! $user_review_number ) {
-			$user_review_number = rand( 1, 10 ); // phpcs:ignore
-			update_option( 'lightpress_user_review_number', $user_review_number );
-		}
-		$selected = '1' === $user_review_number || '2' === $user_review_number || '3' === $user_review_number || '4' === $user_review_number;
-		if ( ! $selected ) {
-			return false;
-		}
-
-		// Only show if user has been using plugin for more than 60 days.
+		// Only show if user has been using plugin for more than 90 days.
 		$current_date      = new DateTimeImmutable( gmdate( 'Y-m-d' ) );
 		$plugin_time_stamp = get_option( 'jqlb_date' );
 		$activation_date   = $plugin_time_stamp
 			? new DateTimeImmutable( $plugin_time_stamp )
 			: $current_date;
 		$days_using_plugin = $activation_date->diff( $current_date )->days;
-		if ( $days_using_plugin < 60 ) {
+		if ( $days_using_plugin < 90 ) {
 			return false;
 		}
 
@@ -809,25 +798,14 @@ class LightPress {
 			}
 		}
 
-		// Do not show if user interacted with reviews within last 7 days.
+		// Do not show if user interacted with reviews within last 14 days.
 		$lightpress_last_review_interaction = get_option( 'lightpress_last_review_interaction' );
 		if ( $lightpress_last_review_interaction ) {
 			$last_review_interaction_date = new DateTimeImmutable( $lightpress_last_review_interaction );
 			$days_since_last_interaction  = $last_review_interaction_date->diff( $current_date )->days;
-			if ( $days_since_last_interaction < 7 ) {
+			if ( $days_since_last_interaction < 14 ) {
 				return false;
 			}
-		}
-
-		// Limit optin request to 20% of users initially.
-		$user_review_number = get_option( 'lightpress_user_review_number' );
-		if ( ! $user_review_number ) {
-			$user_review_number = rand( 1, 10 ); // phpcs:ignore
-			update_option( 'lightpress_user_review_number', $user_review_number );
-		}
-		$selected = '9' === $user_review_number || '10' === $user_review_number;
-		if ( ! $selected ) {
-			return false;
 		}
 
 		return true;

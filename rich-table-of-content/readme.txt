@@ -3,9 +3,9 @@ Contributors:ryota0101
 Donate link: https://croover.co.jp/
 Tags: Table of Contents,toc,cms,indexes,navigation,contents
 Requires at least: WordPress 5.3.2
-Tested up to: WordPress 6.2.2
+Tested up to: WordPress 6.6.1
 Requires PHP: PHP 7.0
-Stable tag: 1.3.99
+Stable tag: 1.4.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -296,5 +296,16 @@ The following issues have been corrected.
 = 1.3.99 =
 <FIX ITEMS>
 ・Fixed an error when using a theme other than JIN:R.
+
+= 1.4.0 =
+<Check>
+Support for WordPress 6.6.1
+
+<FIX ITEMS>
+・Fixed an issue where a Warning error would occur if you went to the article page before entering the settings screen.
+・Fixed an issue where initial values were not reflected when the plugin was activated for the first time.
+・Fixed an issue with the table of contents in the sidebar penetrating into the footer in certain environments.
+・Fixed an issue that caused Javascript errors under certain conditions.
+
 
 == Frequently Asked Questions ==

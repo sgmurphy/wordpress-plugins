@@ -128,9 +128,9 @@ if ( ! class_exists( 'RTOC_Use_Rate' ) ) :
 				}
 			}
 			$deactivation_delete = get_option( 'rtoc_addon_deactivation_delete' );
-			if ( $addon_exist === 1 && isset( $deactivation_delete ) && $deactivation_delete === 'off' ) {
-				return;
-			}
+			// if ( $addon_exist === 1 && isset( $deactivation_delete ) && $deactivation_delete === 'off' ) {
+			// 	return;
+			// }
 
 			// postmetaから取得.
 			global $wpdb;

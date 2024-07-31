@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-09 09:34+0000\n"
+"POT-Creation-Date: 2024-07-31 09:18+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -231,7 +231,7 @@ msgstr ""
 msgid "If you like %1$s please leave us a %2$s rating. A huge thanks in advance!"
 msgstr ""
 
-#: classes/Ajax.php:91, classes/Ajax.php:170, classes/Ajax.php:509, classes/Ajax.php:666, classes/Ajax.php:739, classes/Course.php:680, classes/Course.php:963, classes/Instructor.php:325, classes/Lesson.php:223, classes/Lesson.php:275, classes/Lesson.php:339, classes/Quiz.php:294, classes/Quiz.php:841, classes/Quiz.php:960, classes/Quiz.php:1033, classes/Quiz.php:1120, classes/Quiz.php:1294, classes/Quiz.php:1321, classes/Quiz.php:1471, classes/Quiz.php:1559, classes/Quiz.php:1597, classes/Quiz.php:1698, classes/Q_And_A.php:205
+#: classes/Ajax.php:91, classes/Ajax.php:170, classes/Ajax.php:509, classes/Ajax.php:666, classes/Ajax.php:745, classes/Course.php:680, classes/Course.php:963, classes/Instructor.php:325, classes/Lesson.php:223, classes/Lesson.php:281, classes/Lesson.php:349, classes/Quiz.php:294, classes/Quiz.php:841, classes/Quiz.php:960, classes/Quiz.php:1039, classes/Quiz.php:1126, classes/Quiz.php:1300, classes/Quiz.php:1327, classes/Quiz.php:1477, classes/Quiz.php:1565, classes/Quiz.php:1603, classes/Quiz.php:1704, classes/Q_And_A.php:205
 msgid "Access Denied"
 msgstr ""
 
@@ -267,39 +267,39 @@ msgstr ""
 msgid "Username is required."
 msgstr ""
 
-#: classes/Ajax.php:684
+#: classes/Ajax.php:690
 msgid "Course name required"
 msgstr ""
 
-#: classes/Ajax.php:689
+#: classes/Ajax.php:695
 msgid "Announcement title required"
 msgstr ""
 
-#: classes/Ajax.php:693, classes/Ajax.php:698
+#: classes/Ajax.php:699, classes/Ajax.php:704
 msgid "Announcement summary required"
 msgstr ""
 
-#: classes/Ajax.php:706
+#: classes/Ajax.php:712
 msgid "All fields required!"
 msgstr ""
 
-#: classes/Ajax.php:720
+#: classes/Ajax.php:726
 msgid "Announcement created successfully"
 msgstr ""
 
-#: classes/Ajax.php:720
+#: classes/Ajax.php:726
 msgid "Announcement updated successfully"
 msgstr ""
 
-#: classes/Ajax.php:724
+#: classes/Ajax.php:730
 msgid "Something Went Wrong!"
 msgstr ""
 
-#: classes/Ajax.php:744
+#: classes/Ajax.php:750
 msgid "Announcement deleted successfully"
 msgstr ""
 
-#: classes/Ajax.php:747
+#: classes/Ajax.php:753
 msgid "Announcement delete failed"
 msgstr ""
 
@@ -403,7 +403,7 @@ msgstr ""
 msgid "Please Sign In first"
 msgstr ""
 
-#: classes/Course.php:875, classes/Lesson.php:437
+#: classes/Course.php:875, classes/Lesson.php:447
 msgid "Please Sign-In"
 msgstr ""
 
@@ -710,19 +710,19 @@ msgstr ""
 msgid "Attachments"
 msgstr ""
 
-#: classes/Lesson.php:233
+#: classes/Lesson.php:239
 msgid "Draft Lesson"
 msgstr ""
 
-#: classes/Lesson.php:303
+#: classes/Lesson.php:309
 msgid "Couldn't create lesson."
 msgstr ""
 
-#: classes/Lesson.php:390, classes/Options_V2.php:687, classes/Options_V2.php:1049, classes/Options_V2.php:1566, classes/Tutor_Setup.php:557, templates/public-profile.php:130, templates/dashboard/assignments.php:101, templates/instructor/cover.php:39, templates/instructor/default.php:33, templates/instructor/minimal-horizontal.php:31, templates/instructor/minimal.php:35, templates/instructor/portrait-horizontal.php:36, views/elements/filters.php:92, views/elements/search-filter.php:40, views/fragments/announcement-list.php:144, views/fragments/announcement-list.php:301, views/qna/qna-table.php:102, views/quiz/contexts.php:18, templates/dashboard/announcements/details.php:31, templates/dashboard/assignments/review.php:49, templates/dashboard/assignments/submitted.php:40, views/quiz/header-context/backend-dashboard-students-attempts.php:25, views/quiz/header-context/frontend-dashboard-my-attempts.php:19, views/quiz/header-context/frontend-dashboard-students-attempts.php:21
+#: classes/Lesson.php:400, classes/Options_V2.php:687, classes/Options_V2.php:1049, classes/Options_V2.php:1566, classes/Tutor_Setup.php:557, templates/public-profile.php:130, templates/dashboard/assignments.php:101, templates/instructor/cover.php:39, templates/instructor/default.php:33, templates/instructor/minimal-horizontal.php:31, templates/instructor/minimal.php:35, templates/instructor/portrait-horizontal.php:36, views/elements/filters.php:92, views/elements/search-filter.php:40, views/fragments/announcement-list.php:144, views/fragments/announcement-list.php:301, views/qna/qna-table.php:102, views/quiz/contexts.php:18, templates/dashboard/announcements/details.php:31, templates/dashboard/assignments/review.php:49, templates/dashboard/assignments/submitted.php:40, views/quiz/header-context/backend-dashboard-students-attempts.php:25, views/quiz/header-context/frontend-dashboard-my-attempts.php:19, views/quiz/header-context/frontend-dashboard-students-attempts.php:21
 msgid "Course"
 msgstr ""
 
-#: classes/Lesson.php:583, classes/Utils.php:1683, templates/single/lesson/comments-loop.php:30, templates/single/lesson/comments-loop.php:63
+#: classes/Lesson.php:593, classes/Utils.php:1683, templates/single/lesson/comments-loop.php:30, templates/single/lesson/comments-loop.php:63
 msgid " ago"
 msgstr ""
 
@@ -1990,35 +1990,35 @@ msgstr ""
 msgid "Quiz has been timeout already"
 msgstr ""
 
-#: classes/Quiz.php:1089
+#: classes/Quiz.php:1095
 msgid "Quiz Permission Denied"
 msgstr ""
 
-#: classes/Quiz.php:1127, views/metabox/course-topics.php:64, views/qna/contexts.php:17, views/quiz/contexts.php:19, views/quiz/contexts.php:67
+#: classes/Quiz.php:1133, views/metabox/course-topics.php:64, views/qna/contexts.php:17, views/quiz/contexts.php:19, views/quiz/contexts.php:67
 msgid "Question"
 msgstr ""
 
-#: classes/Quiz.php:1194, classes/Quiz.php:1217
+#: classes/Quiz.php:1200, classes/Quiz.php:1223
 msgid "Invalid quiz question ID"
 msgstr ""
 
-#: classes/Quiz.php:1393, views/modal/question_answer_form.php:37
+#: classes/Quiz.php:1399, views/modal/question_answer_form.php:37
 msgid "True"
 msgstr ""
 
-#: classes/Quiz.php:1400, views/modal/question_answer_form.php:41
+#: classes/Quiz.php:1406, views/modal/question_answer_form.php:41
 msgid "False"
 msgstr ""
 
-#: classes/Quiz.php:1739
+#: classes/Quiz.php:1745
 msgid "Access Denied."
 msgstr ""
 
-#: classes/Quiz.php:1812
+#: classes/Quiz.php:1818
 msgid "Invalid attempt ID"
 msgstr ""
 
-#: classes/Quiz.php:1820
+#: classes/Quiz.php:1826
 msgid "Attempt deleted successfully!"
 msgstr ""
 

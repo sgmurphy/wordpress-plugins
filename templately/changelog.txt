@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 3.1.2 – 31-07-2024 =
+Fixed: Conflict with Elementor during full site import.
+Fixed: Missing validation messages for workspace.
+Improved: Workspace name validation added on MyCloud.
+Few minor bug fixes & improvements.
+
 = 3.1.1 – 15-07-2024 =
 Added: WordPress 6.6 compatibility.
 Fixed: WPML compatibility issue.

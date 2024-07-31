@@ -340,11 +340,9 @@ class WPBC_Welcome {
             <a class="nav-tab<?php echo $is_about_tab_active; ?>" href="<?php echo esc_url( admin_url( add_query_arg( array(
             'page' => 'wpbc-about' ), 'index.php' ) ) ); ?>">
                     <?php echo( "What's New" ); ?>
-                <a class="nav-tab<?php echo $is_getting_started_tab_active; ?>" href="<?php echo esc_url( admin_url( add_query_arg( array(
-                'page' => 'wpbc-getting-started' ), 'index.php' ) ) ); ?>">
+                <a class="nav-tab<?php echo $is_getting_started_tab_active; ?>" href="https://wpbookingcalendar.com/faq/#using">
         <?php echo( "Get Started" ); ?>
-                </a><a class="nav-tab<?php echo $is_about_premium_tab_active; ?>" href="<?php echo esc_url( admin_url( add_query_arg( array(
-            'page' => 'wpbc-about-premium' ), 'index.php' ) ) ); ?>">
+                </a><a class="nav-tab<?php echo $is_about_premium_tab_active; ?>" href="https://wpbookingcalendar.com/features/">
         <?php echo( "Get even more functionality" ); // echo( "Even more Premium Features" ); ?>
                 </a>
         </h2>                
@@ -479,6 +477,8 @@ if(0){
             $this->maintence_section();
 
 			$this->section_9_8_css();
+
+			wpbc_welcome_section_10_3( $this );
 
 			wpbc_welcome_section_10_2( $this );
 

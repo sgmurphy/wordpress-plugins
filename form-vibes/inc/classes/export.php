@@ -39,16 +39,17 @@ class Export {
 	 * @return void
 	 */
 	public function fv_export_csv() {
-		if ( isset( $_POST['btnExport'] ) ) {
-
+		if(isset( $_POST['btnExport'])){
+			if (!Permissions::check_permission( Permissions::$CAP_EXPORT ) ) {
+				die( 'Sorry, you are not allowed to do this action!' );
+				return;
+			}
 			if ( ! wp_verify_nonce( $_POST['fv_nonce'], 'fv_ajax_nonce' ) ) {
 				die( 'Sorry, your nonce did not verify!' );
 			}
-
 			$params = (array) json_decode( stripslashes( $_REQUEST['fv_export_data'] ) );
-
 			new Export( $params );
-		}
+		}	
 	}
 
 	/**
@@ -60,6 +61,10 @@ class Export {
 	 * @return void
 	 */
 	private function export_file( $params ) {
+		if ( Utils::is_pro() && ! Permissions::check_permission( Permissions::$CAP_EXPORT ) ) {
+			die( 'Sorry, you are not allowed to do this action!' );
+		}	
+
 		$fv_settings = get_option( 'fvSettings' );
 
 		if ( $fv_settings && Utils::key_exists( 'csv_export_reason', $fv_settings ) && $fv_settings['csv_export_reason'] ) {
@@ -71,7 +76,7 @@ class Export {
 		$name                    = $plugin . '-' . $form_id . '-' . date( 'Y/m/d' );
 		$name                    = apply_filters( 'formvibes/quickexport/filename', $name, $params );
 		$download_type           = $params['download_type'];
-		$fv_export_selected_rows = $params['fv_export_selected_rows'];
+		//$fv_export_selected_rows = $params['fv_export_selected_rows'];
 
 		$params['data_return_type'] = [
 			'with-column-keys',

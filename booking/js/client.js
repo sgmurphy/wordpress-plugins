@@ -351,36 +351,6 @@ jQuery(document).ready( function(){
     jQuery('.booking_form_div input[type=button]').prop("disabled", false);
 });
 
-// == Support Functions ================================================================================================
-
-//FixIn: 8.8.1.3
-/**
- * Trim  strings and array joined with  (,)
- *
- * @param string_to_trim   string / array
- * @returns string
- */
-function wpbc_trim( string_to_trim ){
-
-    if ( Array.isArray( string_to_trim ) ){
-        string_to_trim = string_to_trim.join( ',' );
-    }
-
-    if ( 'string' == typeof (string_to_trim) ){
-        string_to_trim = string_to_trim.trim();
-    }
-
-    return string_to_trim;
-}
-
-function wpdev_in_array (array_here, p_val) {
-   for(var i = 0, l = array_here.length; i < l; i++) {
-       if(array_here[i] == p_val) {
-           return true;
-       }
-   }
-   return false;
-}
 
 //FixIn: 8.4.0.2
 /**
@@ -581,37 +551,6 @@ function wpbc_check_errors_in_booking_form( bk_type ) {
     return is_error_in_field;
 }
 
-//FixIn: 8.4.4.4
-function bk_calendar_step_click( el ){
-    var br_id = jQuery( el ).closest( 'form' ).find( 'input[name^="bk_type"]' ).val();
-    var is_error = wpbc_check_errors_in_booking_form( br_id );
-    if ( is_error ){
-        return false;
-    }
-    if ( br_id != undefined ){
-        jQuery( "#booking_form" + br_id + " .bk_calendar_step" ).css( {"display": "none"} );
-        jQuery( "#booking_form" + br_id + " .bk_form_step" ).css( {"display": "block"} );
-    } else {
-        jQuery( ".bk_calendar_step" ).css( {"display": "none"} );
-        jQuery( ".bk_form_step" ).css( {"display": "block"} );
-    }
-}
-
-function bk_form_step_click( el ){
-    var br_id = jQuery( el ).closest( 'form' ).find( 'input[name^="bk_type"]' ).val();
-    var is_error = false; // wpbc_check_errors_in_booking_form( br_id );          //FixIn: 8.4.5.6
-    if ( is_error ){
-        return false;
-    }
-    if ( br_id != undefined ){
-        jQuery( "#booking_form" + br_id + " .bk_calendar_step" ).css( {"display": "block"} );
-        jQuery( "#booking_form" + br_id + " .bk_form_step" ).css( {"display": "none"} );
-        wpbc_do_scroll( "#bklnk" + br_id );
-    } else {
-        jQuery( ".bk_calendar_step" ).css( {"display": "block"} );
-        jQuery( ".bk_form_step" ).css( {"display": "none"} );
-    }
-}
 
 //FixIn: 8.6.1.15
 /**

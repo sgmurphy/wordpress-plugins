@@ -428,7 +428,11 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
 
         });
 
-        jQuery("#conv_conversion_select").trigger("change");
+        <?php if ($google_ads_id != "") { ?>
+            jQuery("#conv_conversion_select").trigger("change");
+        <?php } ?>
+
+
     }
 
 

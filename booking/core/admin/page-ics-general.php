@@ -209,6 +209,15 @@ class WPBC_API_SettingsGeneralSync extends WPBC_Settings_API  {
 										, 'group'       => 'export_advanced'
 								);
         }
+			//FixIn: 10.3.0.1
+			$this->fields['booking_g_cal_export_no_data'] = array(
+										  'type'        => 'checkbox'
+										, 'default'     => 'Off'
+										, 'title'       => __('Remove Details in Google Calendar Export', 'booking')
+										, 'label'       => __('Enable this option to exclude booking summary details when exporting to Google Calendar using the \'Add to Google Calendar\' button.' ,'booking')
+										, 'description' => ''
+										, 'group'       => 'export_advanced'
+								);
 
         //FixIn: 8.5.1.1
 /*

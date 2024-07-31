@@ -82,6 +82,7 @@ class ElementorHelper extends ImportHelper {
 		$this->json_prepare( $template_json['content'], $_data, $request_params );
 		$this->post_id                    = $this->map_post_ids[ $template_settings['post_id'] ];
 		$this->content                    = $template_json;
+		unset($template_settings['conditions']);
 		$this->content['import_settings'] = $template_settings;
 
 		return $this;

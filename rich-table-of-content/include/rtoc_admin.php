@@ -50,32 +50,6 @@ function rtoc_admin_enqueue($hook_suffix)
 		wp_localize_script('rtoc_admin', 'rtocThemeColor', $rtoc_theme_color);
 		$rtoc_text_color = array('rtocTextColor' => $text_color);
 		wp_localize_script('rtoc_admin', 'rtocTextColor', $rtoc_text_color);
-
-
-		// Addonの有効時はrtoc_admin_addon.jsを読み込む（RTOC ver1.2〜）.
-		if (is_plugin_active('rich-table-of-content-addon/rtoc-addon.php')) {
-			wp_enqueue_script('rtoc_admin_addon_js', plugins_url('../js/rtoc_admin_addon.js', __FILE__), array('jquery'), false, true);
-			// 「タイトルにアイコン追加」の値
-			$rtoc_title_icon_add = array(
-				'rtocTitleIcon' => get_option('rtoc_title_icon_add')
-			);
-			wp_localize_script('rtoc_admin_addon_js', 'rtocTitleIcon', $rtoc_title_icon_add);
-			// 「アイコンの位置」の値.
-			$rtoc_title_icon_location = array(
-				'rtocTitleIconLocation' => get_option('rtoc_title_icon_location')
-			);
-			wp_localize_script('rtoc_admin_addon_js', 'rtocTitleIconLocation', $rtoc_title_icon_location);
-			// 「H2リストをタイムライン化」.
-			$rtoc_h2_timeline = array(
-				'rtocH2Timeline' => get_option('rtoc_h2_timeline')
-			);
-			wp_localize_script('rtoc_admin_addon_js', 'rtocH2Timeline', $rtoc_h2_timeline);
-			// 「H3リストをタイムライン化」.
-			$rtoc_h3_timeline = array(
-				'rtocH3Timeline' => get_option('rtoc_h3_timeline')
-			);
-			wp_localize_script('rtoc_admin_addon_js', 'rtocH3Timeline', $rtoc_h3_timeline);
-		}
 	}
 }
 add_action('admin_enqueue_scripts', 'rtoc_admin_enqueue');
@@ -236,17 +210,6 @@ function rtoc_design_setting_field()
 
 	$rtoc_design_scroll = __('Smooth Scroll', 'rich-table-of-content');
 
-	// Addon（RTOC ver1.2〜）.
-	$addon_active = is_plugin_active('rich-table-of-content-addon/rtoc-addon.php');
-	if ($addon_active === true) {
-		$rtoc_design_title_icon       = __('Icon added to the title', 'rich-table-of-content');
-		$rtoc_design_icon_location    = __('Location of the icon', 'rich-table-of-content');
-		$rtoc_design_title_icon_above = __('Above the title', 'rich-table-of-content');
-		$rtoc_design_title_icon_left  = __('To the left of the title', 'rich-table-of-content');
-		$rtoc_design_h2_timeline      = __('Timeline the H2 list', 'rich-table-of-content');
-		$rtoc_design_h3_timeline      = __('Timeline the H3 list', 'rich-table-of-content');
-	}
-
 	add_settings_field(
 		'rtoc_title_display',
 		$rtoc_design_title,
@@ -260,30 +223,6 @@ function rtoc_design_setting_field()
 			)
 		)
 	);
-	if ($addon_active === true) {
-		// Addon「タイトルにアイコン追加」.
-		add_settings_field(
-			'rtoc_title_icon_add',
-			$rtoc_design_title_icon,
-			'rtoc_title_icon_add_callback',
-			'rtoc_design_setting',
-			'rtoc_design_section'
-		);
-		// Addon「アイコンの位置」.
-		add_settings_field(
-			'rtoc_title_icon_location',
-			$rtoc_design_icon_location,
-			'rtoc_title_icon_location_callback',
-			'rtoc_design_setting',
-			'rtoc_design_section',
-			array(
-				'options' => array(
-					'above' => $rtoc_design_title_icon_above,
-					'left'  => $rtoc_design_title_icon_left,
-				),
-			)
-		);
-	}
 	add_settings_field(
 		'rtoc_list_h2_type',
 		$rtoc_design_h2,
@@ -299,22 +238,7 @@ function rtoc_design_setting_field()
 			)
 		)
 	);
-	if ($addon_active === true) {
-		// Addon「H2リストをタイムライン化」.
-		add_settings_field(
-			'rtoc_h2_timeline',
-			$rtoc_design_h2_timeline,
-			'rtoc_h2_timeline_callback',
-			'rtoc_design_setting',
-			'rtoc_design_section',
-			array(
-				'options' => array(
-					'on'  => 'ON',
-					'off' => 'OFF',
-				),
-			)
-		);
-	}
+	
 	add_settings_field(
 		'rtoc_list_h3_type',
 		$rtoc_design_h3,
@@ -330,85 +254,26 @@ function rtoc_design_setting_field()
 			)
 		)
 	);
-	if ($addon_active === true) {
-		// Addon「H3リストをタイムライン化」.
-		add_settings_field(
-			'rtoc_h3_timeline',
-			$rtoc_design_h3_timeline,
-			'rtoc_h3_timeline_callback',
-			'rtoc_design_setting',
-			'rtoc_design_section',
-			array(
-				'options' => array(
-					'on'  => 'ON',
-					'off' => 'OFF',
-				),
-			)
-		);
-	}
-	if ($addon_active === false) {
-		add_settings_field(
-			'rtoc_frame_design',
-			$rtoc_design_frame,
-			'rtoc_frame_design_callback',
-			'rtoc_design_setting',
-			'rtoc_design_section',
-			array(
-				'options' => array(
-					'frame1' => 'デザイン１',
-					'frame2' => 'デザイン２',
-					'frame3' => 'デザイン３',
-					'frame4' => 'デザイン４',
-					'frame5' => 'デザイン５',
-				),
-			)
-		);
-		// Addon有効化時はフレーム8まで.
-	} else {
-		add_settings_field(
-			'rtoc_frame_design',
-			$rtoc_design_frame,
-			'rtoc_frame_design_callback',
-			'rtoc_design_setting',
-			'rtoc_design_section',
-			array(
-				'options' => array(
-					'frame1' => 'デザイン１',
-					'frame2' => 'デザイン２',
-					'frame3' => 'デザイン３',
-					'frame4' => 'デザイン４',
-					'frame5' => 'デザイン５',
-					'frame6' => 'デザイン６',
-					'frame7' => 'デザイン７',
-					'frame8' => 'デザイン８',
-				),
-			)
-		);
-	}
-	if ($addon_active === true) {
-		// Addon「アクセントポイントを表示」.
-		add_settings_field(
-			'rtoc_accent_point',
-			$rtoc_accent_point,
-			'rtoc_accent_point_callback',
-			'rtoc_design_setting',
-			'rtoc_design_section',
-			array(
-				'options' => array(
-					'on' => 'ON',
-					'off'  => 'OFF',
-				),
-			)
-		);
-		// Addon「アクセントポイントのテキスト」.
-		add_settings_field(
-			'rtoc_accent_point_text',
-			$rtoc_accent_point_text,
-			'rtoc_accent_point_text_callback',
-			'rtoc_design_setting',
-			'rtoc_design_section'
-		);
-	}
+	
+	add_settings_field(
+		'rtoc_frame_design',
+		$rtoc_design_frame,
+		'rtoc_frame_design_callback',
+		'rtoc_design_setting',
+		'rtoc_design_section',
+		array(
+			'options' => array(
+				'frame1' => 'デザイン１',
+				'frame2' => 'デザイン２',
+				'frame3' => 'デザイン３',
+				'frame4' => 'デザイン４',
+				'frame5' => 'デザイン５',
+				'frame6' => 'デザイン６',
+				'frame7' => 'デザイン７',
+				'frame8' => 'デザイン８',
+			),
+		)
+	);
 
 	add_settings_field(
 		'rtoc_animation',
@@ -443,13 +308,6 @@ function rtoc_design_setting_field()
 	register_setting('rtoc_config', 'rtoc_frame_design');
 	register_setting('rtoc_config', 'rtoc_animation');
 	register_setting('rtoc_config', 'rtoc_scroll_animation');
-
-	if ($addon_active === true) {
-		register_setting('rtoc_config', 'rtoc_title_icon_add');
-		register_setting('rtoc_config', 'rtoc_title_icon_location');
-		register_setting('rtoc_config', 'rtoc_h2_timeline');
-		register_setting('rtoc_config', 'rtoc_h3_timeline');
-	}
 }
 add_action('admin_init', 'rtoc_design_setting_field', 15);
 
@@ -1238,171 +1096,7 @@ function rtoc_userate_measure_7_callback($args)
 	}
 }
 
-// Addon（RTOC ver1.2〜）.
-/**
- * 「RTOC設定 > デザイン設定」項目（radio）
- *
- * @param array $args         - add_settings_fieldで設定している配列.
- * @param string $option_name - wp_options option_name.
- * @param string $option      - 現在のoption値.
- */
-function rtoc_field_callback_radio($args, $option_name, $option)
-{
-	foreach ($args['options'] as $val => $label) {
-		printf(
-			'<input type="radio" id="%1$s-%2$s" class="rtoc_admin_radio" name="%1$s" value="%2$s" %3$s >',
-			$option_name,
-			esc_attr($val),
-			checked(esc_attr($val), esc_attr($option), false)
-		);
-		printf(
-			'<label for="%1$s-%2$s">%3$s</label>',
-			$option_name,
-			esc_attr($val),
-			esc_attr($label)
-		);
-	}
-}
-// Addon「タイトルにアイコン追加」- callback.
-function rtoc_title_icon_add_callback()
-{
-	$option = get_option('rtoc_title_icon_add');
-	if ($option == '') {
-		update_option('rtoc_title_icon_add', '');
-		$option = get_option('rtoc_title_icon_add');
-	}
-	printf(
-		'<input type="text" placeholder=" jic jin-ifont-home" id="rtoc_title_icon_add" name="rtoc_title_icon_add" value="%s" class="rtoc_admin_text" />',
-		isset($option) ? esc_attr($option) : ''
-	);
-}
-// Addon「アイコンの位置」- callback.
-function rtoc_title_icon_location_callback($args)
-{
-	$option_name = 'rtoc_title_icon_location';
-	$option = get_option($option_name);
-	if ($option == '') {
-		update_option($option_name, 'above');
-		$option = get_option($option_name);
-	}
-	rtoc_field_callback_radio($args, $option_name, $option);
-}
-// Addon「H2リストをタイムライン化」- callback.
-function rtoc_h2_timeline_callback($args)
-{
-	$option_name = 'rtoc_h2_timeline';
-	$option = get_option($option_name);
-	if ($option == '') {
-		update_option($option_name, 'off');
-		$option = get_option($option_name);
-	}
-	rtoc_field_callback_radio($args, $option_name, $option);
-}
-// Addon「H3リストをタイムライン化」- callback.
-function rtoc_h3_timeline_callback($args)
-{
-	$option_name = 'rtoc_h3_timeline';
-	$option = get_option($option_name);
-	if ($option == '') {
-		update_option($option_name, 'off');
-		$option = get_option($option_name);
-	}
-	rtoc_field_callback_radio($args, $option_name, $option);
-}
 
-
-function rtoc_plugin_activated()
-{
-	// 各オプション値を取得
-	if (!get_option('rtoc_title')) {
-		update_option('rtoc_title', true);
-	}
-	if (!get_option('rtoc_title_display')) {
-		update_option('rtoc_title_display', true);
-	}
-	if (!get_option('rtoc_display')) {
-		update_option('rtoc_display', true);
-	}
-	if (!get_option('rtoc_exclude_post_toc')) {
-		update_option('rtoc_exclude_post_toc', true);
-	}
-	if (!get_option('rtoc_exclude_page_toc')) {
-		update_option('rtoc_exclude_page_toc', true);
-	}
-	if (!get_option('rtoc_initial_display')) {
-		update_option('rtoc_initial_display', true);
-	}
-	if (!get_option('rtoc_open_text')) {
-		update_option('rtoc_open_text', true);
-	}
-	if (!get_option('rtoc_close_text')) {
-		update_option('rtoc_close_text', true);
-	}
-	if (!get_option('rtoc_headline_display')) {
-		update_option('rtoc_headline_display', true);
-	}
-	if (!get_option('rtoc_font')) {
-		update_option('rtoc_font', true);
-	}
-	if (!get_option('rtoc_display_headline_amount')) {
-		update_option('rtoc_display_headline_amount', true);
-	}
-	if (!get_option('rtoc_list_h2_type')) {
-		update_option('rtoc_list_h2_type', true);
-	}
-	if (!get_option('rtoc_list_h3_type')) {
-		update_option('rtoc_list_h3_type', true);
-	}
-	if (!get_option('rtoc_color')) {
-		update_option('rtoc_color', true);
-	}
-	if (!get_option('rtoc_frame_design')) {
-		update_option('rtoc_frame_design', true);
-	}
-	if (!get_option('rtoc_animation')) {
-		update_option('rtoc_animation', true);
-	}
-	if (get_option('rtoc_scroll_animation') === false) {
-		update_option('rtoc_scroll_animation', 'on');
-	}
-	if (!get_option('rtoc_back_toc_button')) {
-		update_option('rtoc_back_toc_button', true);
-	}
-	if (!get_option('rtoc_display_top')) {
-		update_option('rtoc_display_top', 1);
-	}
-	if (!get_option('rtoc_back_text')) {
-		update_option('rtoc_back_text', true);
-	}
-	if (!get_option('rtoc_back_button_position')) {
-		update_option('rtoc_back_button_position', true);
-	}
-	if (!get_option('rtoc_back_button_vertical_position')) {
-		update_option('rtoc_back_button_vertical_position', true);
-	}
-	if (!get_option('rtoc_exclude_css')) {
-		update_option('rtoc_exclude_css', true);
-	}
-	if (!get_option('rtoc_userate_measure_7')) {
-		update_option('rtoc_userate_measure_7', true);
-	}
-	// Addon（RTOC ver1.2〜）.
-	if (is_plugin_active('rich-table-of-content-addon/rtoc-addon.php')) {
-		if (!get_option('rtoc_title_icon_add')) {
-			update_option('rtoc_title_icon_add', true);
-		}
-		if (!get_option('rtoc_title_icon_location')) {
-			update_option('rtoc_title_icon_location', true);
-		}
-		if (!get_option('rtoc_h2_timeline')) {
-			update_option('rtoc_h2_timeline', true);
-		}
-		if (!get_option('rtoc_h3_timeline')) {
-			update_option('rtoc_h3_timeline', true);
-		}
-	}
-}
-register_activation_hook(__FILE__, 'rtoc_plugin_activated');
 
 // 値の保存とサニタイズ
 function rtoc_sanitize()
@@ -1620,7 +1314,7 @@ function rtoc_setting_screen_contents()
 							<?php echo _e('You can display the table of contents by pasting this code anywhere in the article. If you do not enter a value (such as title = "") and it is blank, the setting on the management screen will be reflected.', 'rich-table-of-content'); ?>
 						</p>
 						<code class="rtoc_admin_code">
-							[rtoc_mokuji title="" title_display="" heading="" list_h2_type="" list_h3_type="" display="" frame_design="" animation=""]
+							[rtoc_mokuji]
 						</code>
 					</div>
 					<div class="rtoc_using_box">

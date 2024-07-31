@@ -243,12 +243,13 @@ class ShoppingApi {
             return $e->getMessage();
         }
     }
+
     /*set configuration for Schedule email ga4*/
-    public function set_email_configurationGA4($subscription_id, $is_disabled, $custom_email = '', $email_frequency = '')
+    public function set_email_configurationGA4($is_disabled, $custom_email = '', $email_frequency = '')
     {
         try {
             
-             $data = array('is_disabled' => $is_disabled, 'subscription_id' => $subscription_id, 'custom_email' => $custom_email, 'emailFrequency' => $email_frequency);
+             $data = array('is_disabled' => $is_disabled, 'subscription_id' => sanitize_text_field($this->subscriptionId), 'custom_email' => $custom_email, 'emailFrequency' => $email_frequency);
             
             $curl_url = $this->apiDomain . '/actionable-dashboard/update-ga4-email-schedule';
             $header = array(
@@ -280,7 +281,6 @@ class ShoppingApi {
             return $e->getMessage();
         }
     } 
-
      //ga4general reports
     public function ga4_general_grid_report($from_date = '', $to_date = '', $domain = '')
     {

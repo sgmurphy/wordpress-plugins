@@ -3,6 +3,7 @@
 namespace Templately\Builder\Managers;
 
 use EbStyleHandler;
+use EssentialBlocks\Modules\StyleHandler;
 use Templately\Builder\PageTemplates;
 use Templately\Builder\Source;
 use Templately\Builder\ThemeBuilder;
@@ -355,10 +356,15 @@ class LocationManager {
 				$template = array_pop( $template );
 				if ( $template->platform == 'gutenberg' ) {
 					$template = is_array( $template ) ? array_pop( $template ) : $template;
-					if ( ! file_exists( $path . 'eb-style-' . $template->get_main_id() . '.min.css' ) ) {
+					if ( class_exists('EbStyleHandler') && ! file_exists( $path . 'eb-style-' . $template->get_main_id() . '.min.css' ) ) {
 						$st   = EbStyleHandler::init();
 						$post = get_post( $template->get_main_id() );
 						$st->eb_write_css_from_content( $post, $post->ID, parse_blocks( $post->post_content ) );
+					}
+					else if ( class_exists('EssentialBlocks\Modules\StyleHandler') && ! file_exists( $path . 'eb-style-' . $template->get_main_id() . '.min.css' ) ) {
+						$st   = StyleHandler::init();
+						$post = get_post( $template->get_main_id() );
+						$st->on_save_post( $template->get_main_id(), $post, true );
 					}
 					wp_enqueue_style( 'templately-' . $location . '-' . $template->get_main_id(), $url . 'eb-style-' . $template->get_main_id() . '.min.css', [], substr( md5( microtime( true ) ), 0, 10 ) );
 				}

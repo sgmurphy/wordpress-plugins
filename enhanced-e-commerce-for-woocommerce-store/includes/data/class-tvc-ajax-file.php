@@ -316,7 +316,7 @@ if (!class_exists('TVC_Ajax_File')) :
           }
           $this->conv_save_data_eeapidata($post);
         }
-        if (isset($_POST['conv_options_data']['ga_GMC']) && $_POST['conv_options_data']['ga_GMC'] == '1') {
+        if (isset($_POST['conv_options_data']['ga_GMC']) && $_POST['conv_options_data']['ga_GMC'] == '1' && isset($_POST['conv_options_data']['merchant_id'])) {
           $access_token = $this->get_tvc_access_token();
           $refresh_token = $this->get_tvc_refresh_token();
           $api_obj = new Conversios_Onboarding_ApiCall(sanitize_text_field($access_token), sanitize_text_field($refresh_token));
@@ -418,7 +418,7 @@ if (!class_exists('TVC_Ajax_File')) :
         $TVC_Admin_Helper = new TVC_Admin_Helper();
         $TVC_Admin_Helper->update_remarketing_snippets();
         $TVC_Admin_Helper->update_app_status();
-        if (isset($conv_options_data['ga_GMC']) && $conv_options_data['ga_GMC'] == '1') {
+        if (isset($conv_options_data['ga_GMC']) && $conv_options_data['ga_GMC'] == '1' && isset($_POST['conv_options_data']['merchant_id'])) {
           $access_token = $this->get_tvc_access_token();
           $refresh_token = $this->get_tvc_refresh_token();
           $api_obj = new Conversios_Onboarding_ApiCall(sanitize_text_field($access_token), sanitize_text_field($refresh_token));
@@ -432,8 +432,8 @@ if (!class_exists('TVC_Ajax_File')) :
           $api_obj = new Conversios_Onboarding_ApiCall(sanitize_text_field($access_token), sanitize_text_field($refresh_token));
           $postData = [
             'ads_customer_id' => sanitize_text_field($conv_options_data['google_ads_id']),
-            'web_property_id' => $conv_options_data['web_property_id'],
-            'web_property' => $conv_options_data['web_property_id'],
+            'web_property_id' => isset($conv_options_data['web_property_id']) ? sanitize_text_field($conv_options_data['web_property_id']) : "",
+            'web_property' => isset($conv_options_data['web_property_id']) ? sanitize_text_field($conv_options_data['web_property_id']) : "",
             'subscription_id' => sanitize_text_field($conv_options_data['subscription_id'])
           ];
           $api_obj->linkAnalyticToAdsAccount($postData);

@@ -161,7 +161,7 @@ class Cleverfox_Activator {
 				require CLEVERFOX_PLUGIN_DIR . 'inc/metasoft/default-widgets/default-widget.php';
 			}
 			
-			if ( 'Aravalli' == $theme->name  || 'Arbuda' == $theme->name){
+			if ( 'Aravalli' == $theme->name  || 'Arbuda' == $theme->name  || 'VillaPress' == $theme->name){
 				require CLEVERFOX_PLUGIN_DIR . 'inc/aravalli/default-pages/upload-media.php';
 				require CLEVERFOX_PLUGIN_DIR . 'inc/aravalli/default-pages/home-page.php';
 				require CLEVERFOX_PLUGIN_DIR . 'inc/aravalli/default-widgets/default-widget.php';

@@ -5,7 +5,6 @@ jQuery(function ($) {
 		return;
 	}
 	const rtocBackBtn = rtocBackButton.rtocBackButton;
-	if (!rtocBackBtn) return;
 	if (rtocBackBtn == 'on') {
 		if (ua.indexOf('iPhone') > -1 || (ua.indexOf('Android') > -1 && ua.indexOf('Mobile') > -1)) {
 			jQuery('body').append('<div id="rtoc_return"><a href="#rtoc-mokuji-wrapper">' + rtocBackText.rtocBackText + '</a></div>');
@@ -55,16 +54,20 @@ jQuery(function ($) {
 
 	const back_button = document.querySelector('#rtoc_return');
 	const back_button_link = document.querySelector('#rtoc_return a');
-	if (!back_button) {
-		return;
-	}
 
 	if (rtocButtonPosition.rtocButtonPosition == 'left') {
-		back_button.classList.add('back_button_left');
+		if(back_button){
+			back_button.classList.add('back_button_left');
+		}
 	} else if (rtocButtonPosition.rtocButtonPosition == 'right') {
-		back_button.classList.add('back_button_right');
+		if(back_button){
+			back_button.classList.add('back_button_right');
+		}
 	}
 	if (rtocVerticalPosition.rtocVerticalPosition.length) {
-		back_button_link.style.bottom = rtocVerticalPosition.rtocVerticalPosition + 'px';
+		if(back_button_link){
+			back_button_link.style.bottom = rtocVerticalPosition.rtocVerticalPosition + 'px';
+		}
+
 	}
 });

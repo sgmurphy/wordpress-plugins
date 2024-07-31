@@ -1,9 +1,9 @@
 === Duplicate Post ===
 Contributors: CopyDeletePosts, copydelete
-Tags: Duplicate post, Copy posts, Copy pages, Duplicate posts, Duplicate pages, Clone posts, Clone pages, Delete posts, Delete pages, Duplicator, copy post, copy page
+Tags: Duplicate post, Copy posts, Copy pages, Duplicate posts, Duplicate pages
 Requires at least: 4.6
-Tested up to: 6.6
-Stable tag: 1.4.7
+Tested up to: 6.6.1
+Stable tag: 1.4.8
 License: GPLv3
 Requires PHP: 5.6
 
@@ -177,6 +177,12 @@ Vietnamese: [Sao chép bài đăng, sao chép trang, sao chép bài đăng tùy 
 
 == Changelog ==
 
+== Changelog ==
+
+= 1.4.8 =
+* Replace the super admin check with a verification of CDP permission for the current user.
+* Implement a check to ensure the current user has appropriate access rights to the target site before allowing cross-site post copying. This prevents unauthorized users from copying posts to sites they don't have access to.
+
 = 1.4.7 =
 * Tested with WordPress 6.6
 * Minor performance improvements 
@@ -290,178 +296,10 @@ Vietnamese: [Sao chép bài đăng, sao chép trang, sao chép bài đăng tùy 
 * Fixed corner cases where copy action button was not displayed in subsites
 * Fixed issues with backslashes and unicode characters - they should copied correctly now
 * Default WordPress Posts and Pages are not longer treated as custom posts
-* Resolved issues with scheduled clean-ups - sometimes this option settings were blank
-* Resolved all deprecated warnings with PHP 8+
-* NEW: Added automatic URL adjustment for multisites (premium)
-* NEW: Added possibility to copy into multiple subsites at once - inside bulk modal (premium)
-
-= 1.3.0 =
-* Version fully tested with WordPress 6.0
-* Removed unnecessary error logging
-* Adjusted styles of forms in copy modal
-* Fixed conflict issues for our dropdown solution
-* Fixed conflict issues with other tooltipster plugins
-* Fixed issue when tooltip was displayed without content on SiteGround Hosting
-* Fixed automatic profile preselection of options in modal and tooltips
-* Adjusted tooltip to not "Flash" on the screen
-* Fixed issue when user could not extend duplication options in tooltip
-* Modified method of inserting tooltip content to resolve some conflicts
-* Fixed error in posts menu for users without access to CDP settings (Thank you @saccones)
-* Added "Select all" option to advanced duplication options (tooltip & modal)
-* Adjusted plugin performance depending on user's log feedback
-* Fixed issues with performance checking on quickest websites
-* Added dedicated solution for Elementor posts and added duplication of cached CSS file
-* Added support for SeedProd builder, added dedicated duplication for CSS files
-
-= 1.2.9 =
-* Improved meta duplication
-* Fixed copy issues with Elementor templates and pages
-* Improved look of Elementor duplicates (they should be perfect now)
-* Updated carrousel
-* Fixed conflicts of other plugins that blocks access to our settings
-
-= 1.2.8 =
-* Adjusted name of "Hiding Menu" option
-* Tested up to WordPress 5.9.1
-* Adjusted copy tooltip animation, it should appear and disappear quicker
-* Fixed issues with our carrousel display
-
-= 1.2.7 =
-* Changed sensitivity of performance check
-* Added new feature for copying different kinds of posts
-* Updated logic of mirroring metadata posts
-* Retested plugin with latest Gutenberg version
-* Fully tested with WordPress 5.9
-
-= 1.2.6 =
-* Tested with WordPress 5.9-RC1
-* Updated tooltips
-
-= 1.2.5 =
-* Removed deactivation module
-
-= 1.2.4 =
-* Added deactivation module
-
-= 1.2.3 =
-* Applied improvements that depends on user performance data
-
-= 1.2.2 =
-* Tested up to WordPress 5.8.2
-* Tested up to PHP 8.1
-* Removed translation notices in the developer console
-* Fixed localize script issues on front-end side
-* Added new performance window after copy
-* Fixed issues with gutenberg copy button
-
-= 1.2.1 =
-* Fixed version mishmash
-
-= 1.2.0 =
-* Alternate CRON for 5.6.1 re-tested
-* Adjusted processing function
-* Tested copying with broken post content
-
-= 1.1.9 =
-* Plugin translation-ready
-* Updated styles
-* Added performance checks for individual servers
-* Added logs for last 50 copy processes
-* Added new notices
-
-= 1.1.8 =
-* Performance adjustements for PHP 8
-* Plugin prepared for translation
-* Fixed activation/deactivation issues for Pro
-
-= 1.1.7 =
-* Banner fixes
-
-= 1.1.6 =
-* Tested up to WordPress 5.7
-* Fixed few notices in PHP 8
-* Updated review banner
-
-= 1.1.5 =
-* Tested up to WordPress 5.6.2
-* Fixed footer issue in Gutenberg editor
-* Fixed notice in premium version (regarding new option)
-* Added posibility to hide menu under tools
-
-= 1.1.4 =
-* Tested up to WordPress 5.6.1
-* Added support chat
-* Added new premium feature (hide chat)
-
-= 1.1.3 =
-* Added support for PHP 8 and WordPress 5.6
-* Added Carusel
-
-= 1.1.2 =
-* Tested with newest version of WordPress
-
-= 1.1.1 =
-* Fixed some warnings and notices in PHP 7
-* Added new variable CDP_SHOW_SITE_URLS (for wp-config)
-
-= 1.1.0 =
-* Tested stability up to WordPress 5.5.1
-* Adjusted icon display / position
-
-= 1.0.9 =
-* Tested stability up to WordPress 5.5
-
-= 1.0.8 =
-* Added support for WordPress 4.6
-* Added support for PHP 5.6
-
-= 1.0.7 =
-* [Premium] Automatic Cleanup
-* Updated banner tooltips
-* Added more info to Admin Bar entries
-* Added new type to Admin Bar notifications "Auto Cleanup"
-* Changed logic of filter (More title options -> option "Yes")
-
-= 1.0.6 =
-* [Premium] WooCommerce integration
-* [Premium] Advanced Filters for deletion process
-* WooCommerce edit-screen copy fix
-* Modal overlay display on front-end fix
-* Improved custom posts detection
-* Stability improvements
-
-= 1.0.5 =
-* Auto-refresh list of notifications
-* Fixed issue when notification wasn't updated correctly
-* Improvement search engine (Deletion Section)
-* Scrollbar fix on plugin configuration page
-
-= 1.0.4 =
-* This is Hotfix
-* Fixed issue during activation which shows "Header Error"
-
-= 1.0.3 =
-* Tested with new version of WordPress
-* Fixed visual issue with deletion process
-
-= 1.0.2 =
-* Added new cool GIF inside the intro
-* Added photos to the screenshots library
-* Removed unnecessary stuff in code
-
-= 1.0.1 =
-* Improved deletion process above 800 posts
-* Fixed sorting issues
-* Fixed specified copies options (via tooltip)
-* Fixed tooltip (flashing) issues on smaller screens
-
-= 1.0.0 =
-* Initial release
+[AND MORE]
 
 == Upgrade Notice ==
-= 1.4.7 =
-What's new in 1.4.7?
-* Tested with WordPress 6.6
-* Minor performance improvements 
-* Improvements for PHP 8 utilization
-* Fixed taxonomy field when editing with quick edit
+= 1.4.8 =
+What's new in 1.4.8?
+* Replace the super admin check with a verification of CDP permission for the current user.
+* Implement a check to ensure the current user has appropriate access rights to the target site before allowing cross-site post copying. This prevents unauthorized users from copying posts to sites they don't have access to.

@@ -18,52 +18,48 @@
 	if (!sidebar_rtoc_wrapper) {
 		sidebar_rtoc_wrapper = document.querySelector('#sidebar1 #rtoc-mokuji-widget-wrapper');
 	}
-	
 	if (sidebar_rtoc_wrapper) {
 		sidebar_rtoc_wrapper.classList.add('rtoc-sidebar-contents');
-	} else {
-		return;
 	}
 	function rtoc_init() {
 		rtocList = [];
 		rtocParentList = [];
-		if (sidebar_rtoc_wrapper == null) {
-			return;
-		}
-		const itemList = sidebar_rtoc_wrapper.querySelectorAll('a');
-		const itemAllList = sidebar_rtoc_wrapper.querySelectorAll('.level-1 > .rtoc-item > a');
-		for (let i = 0; i < itemList.length; i++) {
-			const a = itemList[i];
-			const linkAnker = a.href.substring(a.href.lastIndexOf('#'));
-			const itemElement = document.querySelector(decodeURI(linkAnker));
-			if(itemElement != null){
-				let top = itemElement.offsetTop;
-				let parent = itemElement.offsetParent;
+		if (sidebar_rtoc_wrapper) {
+			const itemList = sidebar_rtoc_wrapper.querySelectorAll('a');
+			const itemAllList = sidebar_rtoc_wrapper.querySelectorAll('.level-1 > .rtoc-item > a');
+			for (let i = 0; i < itemList.length; i++) {
+				const a = itemList[i];
+				const linkAnker = a.href.substring(a.href.lastIndexOf('#'));
+				const itemElement = document.querySelector(decodeURI(linkAnker));
+				if (itemElement != null) {
+					let top = itemElement.offsetTop;
+					let parent = itemElement.offsetParent;
+					while (parent != null) {
+						top += parent.offsetTop;
+						parent = parent.offsetParent;
+					}
+					rtocList.push({ top: top, bottom: 1e30, itemdom: a.parentElement });
+					if (i > 0) {
+						if (rtocList[i]) {
+							rtocList[i - 1].bottom = rtocList[i].top;
+						}
+					}
+				}
+			}
+			for (let i = 0; i < itemAllList.length; i++) {
+				const a = itemAllList[i];
+				const linkAnker = a.href.substring(a.href.lastIndexOf('#'));
+				const itemAllElement = document.querySelector(decodeURI(linkAnker));
+				let top = itemAllElement.offsetTop;
+				let parent = itemAllElement.offsetParent;
 				while (parent != null) {
 					top += parent.offsetTop;
 					parent = parent.offsetParent;
 				}
-				rtocList.push({ top: top, bottom: 1e30, itemdom: a.parentElement });
+				rtocParentList.push({ top: top, bottom: 1e30, itemdom: a.parentElement });
 				if (i > 0) {
-					if(rtocList[i]){
-						rtocList[i - 1].bottom = rtocList[i].top;
-					}
+					rtocParentList[i - 1].bottom = rtocParentList[i].top;
 				}
-			}
-		}
-		for (let i = 0; i < itemAllList.length; i++) {
-			const a = itemAllList[i];
-			const linkAnker = a.href.substring(a.href.lastIndexOf('#'));
-			const itemAllElement = document.querySelector(decodeURI(linkAnker));
-			let top = itemAllElement.offsetTop;
-			let parent = itemAllElement.offsetParent;
-			while (parent != null) {
-				top += parent.offsetTop;
-				parent = parent.offsetParent;
-			}
-			rtocParentList.push({ top: top, bottom: 1e30, itemdom: a.parentElement });
-			if (i > 0) {
-				rtocParentList[i - 1].bottom = rtocParentList[i].top;
 			}
 		}
 	}
@@ -96,23 +92,23 @@
 	}
 	function widgetScroll(hiddenDOM) {
 		const highlightContents = sidebar_rtoc_wrapper.querySelector('.rtoc-current');
-		if (!highlightContents) return;
 	}
-
-	let ticking = false;
-	const scrollHeight = sidebar_rtoc_wrapper.querySelector('.rtoc-mokuji').scrollHeight;
-	const displayHeight = sidebar_rtoc_wrapper.querySelector('.rtoc-mokuji').offsetHeight;
-	document.addEventListener('scroll', function () {
-		lastScrollY = window.scrollY;
-		if (ticking === false) {
-			window.requestAnimationFrame(function () {
-				rtocUpdateSection(lastScrollY + 300);
-				ticking = false;
-			});
-			ticking = true;
-		}
-		if (scrollHeight > displayHeight) {
-			widgetScroll(scrollHeight - displayHeight);
-		}
-	});
+	if(sidebar_rtoc_wrapper){
+		let ticking = false;
+		const scrollHeight = sidebar_rtoc_wrapper.querySelector('.rtoc-mokuji').scrollHeight;
+		const displayHeight = sidebar_rtoc_wrapper.querySelector('.rtoc-mokuji').offsetHeight;
+		document.addEventListener('scroll', function () {
+			lastScrollY = window.scrollY;
+			if (ticking === false) {
+				window.requestAnimationFrame(function () {
+					rtocUpdateSection(lastScrollY + 300);
+					ticking = false;
+				});
+				ticking = true;
+			}
+			if (scrollHeight > displayHeight) {
+				widgetScroll(scrollHeight - displayHeight);
+			}
+		});
+	}
 })();

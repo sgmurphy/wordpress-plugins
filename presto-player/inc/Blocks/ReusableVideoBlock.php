@@ -1,11 +1,18 @@
 <?php
+/**
+ * Reusable Video Block Class
+ *
+ * @package PrestoPlayer\Blocks
+ */
 
 namespace PrestoPlayer\Blocks;
 
 use PrestoPlayer\Models\ReusableVideo;
 
+/**
+ * Reusable Video Block
+ */
 class ReusableVideoBlock {
-
 	/**
 	 * Block name
 	 *
@@ -30,12 +37,18 @@ class ReusableVideoBlock {
 	/**
 	 * Dynamic block output
 	 *
-	 * @param array  $attributes
-	 * @param string $content
-	 * @return void
+	 * @param array $attributes Block attributes.
+	 *
+	 * @return string
 	 */
 	public function html( $attributes ) {
+		// create reusable video block instance.
 		$block = new ReusableVideo( $attributes['id'] );
+
+		// avoid override here, so that inner block id is not replaced.
+		unset( $attributes['id'] );
+
+		// render block.
 		return $block->renderBlock( $attributes );
 	}
 }
