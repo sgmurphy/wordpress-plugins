@@ -14,6 +14,10 @@ class STMNoticesInit {
 			require_once __DIR__ . '/STMNotices.php';
 		}
 
+		if ( ! class_exists( 'STMBulkNotices' ) ) {
+			require_once __DIR__ . '/STMBulkNotices.php';
+		}
+
 		add_action( 'admin_enqueue_scripts', array( self::class, 'admin_enqueue' ), 100 );
 
 		new STMDashboard($plugin_data);

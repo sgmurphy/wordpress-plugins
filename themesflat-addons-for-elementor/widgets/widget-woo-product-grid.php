@@ -19,10 +19,10 @@ if (!class_exists('TFWooProductGrid_Widget_Free')) {
 	    }
 
 	    public function get_style_depends(){
-		    return ['tf-font-awesome','tf-regular','owl-carousel','tf-style'];
+		    return ['tf-font-awesome','tf-regular','owl-carousel','tf-woo-product'];
 	  	}
 	    public function get_script_depends(){
-		    return ['imagesloaded-pkgd', 'jquery-isotope', 'owl-carousel', 'tf-main'];
+		    return ['imagesloaded-pkgd', 'jquery-isotope', 'owl-carousel', 'tf-woo-product'];
 		}	
 
 		protected function register_controls() {

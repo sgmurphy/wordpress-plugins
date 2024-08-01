@@ -18,10 +18,10 @@ class TFPreload_Widget_Free extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends() {
-		return ['tf-style'];
+		return ['tf-preload'];
 	}
 	public function get_script_depends() {
-		return ['tf-main'];
+		return ['tf-preload'];
 	}
 
 	protected function register_controls() {

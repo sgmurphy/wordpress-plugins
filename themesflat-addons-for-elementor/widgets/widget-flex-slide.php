@@ -1,6 +1,6 @@
 <?php
-if(!class_exists('Flex_Slide_Widget_Free')){
-	class Flex_Slide_Widget_Free extends \Elementor\Widget_Base {
+if(!class_exists('TFFlex_Slide_Widget_Free')){
+	class TFFlex_Slide_Widget_Free extends \Elementor\Widget_Base {
 
 		public function get_name() {
 	        return 'flex-slider';
@@ -19,10 +19,10 @@ if(!class_exists('Flex_Slide_Widget_Free')){
 	    }
 
 	    public function get_style_depends(){
-		    return ['slide-flexslider','tf-style'];
+		    return ['tf-flexslider','tf-flex-slider'];
 		}
 	    public function get_script_depends() {
-	    	return ['slide-flexslider', 'tf-main'];
+	    	return ['tf-flexslider', 'tf-flex-slider'];
 	  	}
 
 		protected function register_controls() {

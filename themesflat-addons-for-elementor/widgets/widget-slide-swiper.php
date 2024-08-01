@@ -18,11 +18,11 @@ class TFSlideSwiper_Widget_Free extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends() {
-		return ['tf-font-awesome','tf-swiper','tf-regular','swiper','tf-style'];
+		return ['tf-font-awesome','tf-swiper','tf-regular','swiper','tf-slide-swiper'];
 	}
 
 	public function get_script_depends() {
-		return ['tf-swiper','tf-main'];
+		return ['tf-swiper','tf-slide-swiper'];
 	}
 
 	protected function register_controls() {

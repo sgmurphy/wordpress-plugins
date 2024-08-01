@@ -266,6 +266,111 @@ class Ays_Pb_Admin {
         add_action( "load-$hook_categories", array($this, 'add_tabs') );
     }
 
+    public function add_plugin_custom_fields_submenu() {
+        $hook_popup_attributes = add_submenu_page(
+            $this->plugin_name,
+            __('Custom Fields', "ays-popup-box"),
+            __('Custom Fields', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-attributes',
+            array($this, 'display_plugin_attributes_page')
+        );
+
+        add_action( "load-$hook_popup_attributes", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_reports_submenu() {
+        $hook_reports = add_submenu_page(
+            $this->plugin_name,
+            __('Analytics', "ays-popup-box"),
+            __('Analytics', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-reports',
+            array($this, 'display_plugin_results_page')
+        );
+
+        add_action( "load-$hook_reports", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_subscribes_submenu() {
+        $hook_subscribes = add_submenu_page(
+            $this->plugin_name,
+            __('Submissions', "ays-popup-box"),
+            __('Submissions', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-subscribes',
+            array($this, 'display_plugin_subscribes_page')
+        );
+
+        add_action( "load-$hook_subscribes", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_export_import_submenu() {
+        $hook_export_import = add_submenu_page(
+            $this->plugin_name,
+            __('Export/Import', "ays-popup-box"),
+            __('Export/Import', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-export-import',
+            array($this, 'display_plugin_export_import_page')
+        );
+
+        add_action( "load-$hook_export_import", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_settings_submenu() {
+        $hook_settings = add_submenu_page(
+            $this->plugin_name,
+            __('General Settings', "ays-popup-box"),
+            __('General Settings', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-settings',
+            array($this, 'display_plugin_settings_page')
+        );
+
+        add_action( "load-$hook_settings", array($this, 'screen_option_settings') );
+        add_action( "load-$hook_settings", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_how_to_use_submenu() {
+        $hook_how_to_use = add_submenu_page(
+            $this->plugin_name,
+            __('How to use', "ays-popup-box"),
+            __('How to use', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-how-to-use',
+            array($this, 'display_plugin_how_to_use_page')
+        );
+
+        add_action( "load-$hook_how_to_use", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_featured_plugins_submenu() {
+        $hook_featured_plugins = add_submenu_page(
+            $this->plugin_name,
+            __('Our Products', "ays-popup-box"),
+            __('Our Products', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-featured-plugins',
+            array($this, 'display_plugin_featured_plugins_page')
+        );
+
+        add_action("load-$hook_featured_plugins", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_pro_features_submenu() {
+        $hook_pro_features = add_submenu_page(
+            $this->plugin_name,
+            __('PRO Features', "ays-popup-box"),
+            __('PRO Features', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-pb-features',
+            array($this, 'display_plugin_pro_features_page')
+        );
+
+        add_action( "load-$hook_pro_features", array($this, 'add_tabs') );
+    }
+
     public function display_plugin_setup_page() {
 		$action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
 
@@ -293,6 +398,38 @@ class Ays_Pb_Admin {
         }
     }
 
+    public function display_plugin_attributes_page() {
+        include_once('partials/attributes/actions/ays-pb-attributes-actions.php');
+    }
+
+    public function display_plugin_results_page() {
+        include_once('partials/reports/ays-pb-reports-display.php');
+    }
+
+    public function display_plugin_subscribes_page() {
+        include_once('partials/subscribes/ays-pb-subscribes-display.php');
+    }
+
+    public function display_plugin_export_import_page() {
+        include_once('partials/export-import/ays-pb-export-import.php');
+    }
+
+    public function display_plugin_settings_page() {
+        include_once('partials/settings/popup-box-settings.php');
+    }
+
+    public function display_plugin_how_to_use_page() {
+        include_once('partials/how-to-use/ays-pb-how-to-use.php');
+    }
+
+    public function display_plugin_featured_plugins_page() {
+        include_once('partials/features/ays-pb-plugin-featured-display.php');
+    }
+
+    public function display_plugin_pro_features_page() {
+        include_once 'partials/features/popup-box-pro-features-display.php';
+    }
+
     public function screen_option_popupbox() {
 		$option = 'per_page';
 		$args = array(
@@ -316,6 +453,10 @@ class Ays_Pb_Admin {
 
         add_screen_option($option, $args);
         $this->popup_categories_obj = new Popup_Categories_List_Table($this->plugin_name);
+        $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
+    }
+
+    public function screen_option_settings() {
         $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
     }
 
@@ -436,111 +577,6 @@ class Ays_Pb_Admin {
         }
     }
 
-    public function add_plugin_pro_features_submenu(){
-        $hook_pro_features = add_submenu_page(
-            $this->plugin_name,
-            __('PRO Features', "ays-popup-box"),
-            __('PRO Features', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-pb-features',
-            array($this, 'pb_display_plugin_pro_features_page')
-        );
-
-        add_action( "load-$hook_pro_features", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_reports_submenu(){
-        $results_text = __('Analytics', "ays-popup-box");
-        $hook_reports = add_submenu_page(
-            $this->plugin_name,
-            $results_text,
-            $results_text,
-            'manage_options',
-            $this->plugin_name . '-reports',
-            array($this, 'display_plugin_results_page')
-        );
-
-        add_action( "load-$hook_reports", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_custom_fields_submenu(){
-        $hook_popup_attributes = add_submenu_page(
-            $this->plugin_name,
-            __('Custom Fields', "ays-popup-box"),
-            __('Custom Fields', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-attributes',
-            array($this, 'display_plugin_attributes_page')
-        );
-
-        // add_action("load-$hook_popup_attributes", array($this, 'screen_option_attributes'));
-        add_action("load-$hook_popup_attributes", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_export_import_submenu(){
-        $results_text = __('Export/Import', "ays-popup-box");
-        $hook_export_import = add_submenu_page(
-            $this->plugin_name,
-            $results_text,
-            $results_text,
-            'manage_options',
-            $this->plugin_name . '-export-import',
-            array($this, 'display_plugin_export_import_page')
-        );
-
-        add_action( "load-$hook_export_import", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_subscribes_submenu(){
-        $results_text = __('Submissions', "ays-popup-box");
-        $hook_subscribes = add_submenu_page(
-            $this->plugin_name,
-            $results_text,
-            $results_text,
-            'manage_options',
-            $this->plugin_name . '-subscribes',
-            array($this, 'display_plugin_subscribes_page')
-        );
-
-        add_action( "load-$hook_subscribes", array( $this, 'add_tabs' ));
-    }
-
-
-    public function add_plugin_settings_submenu(){
-        $hook_settings = add_submenu_page( $this->plugin_name,
-            __('General Settings', "ays-popup-box"),
-            __('General Settings', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-settings',
-            array($this, 'display_plugin_settings_page') 
-        );
-        add_action("load-$hook_settings", array($this, 'screen_option_settings'));
-        add_action( "load-$hook_settings", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_how_to_use_submenu(){
-        $hook_how_to_use = add_submenu_page( $this->plugin_name,
-            __('How to use', "ays-popup-box"),
-            __('How to use', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-how-to-use',
-            array($this, 'display_plugin_how_to_use_page') 
-        );
-        add_action("load-$hook_how_to_use", array($this, 'screen_option_settings'));
-        add_action( "load-$hook_how_to_use", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_featured_plugins_submenu(){
-        $hook_featured_plugins = add_submenu_page( $this->plugin_name,
-            __('Our Products', "ays-popup-box"),
-            __('Our Products', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-featured-plugins',
-            array($this, 'display_plugin_featured_plugins_page') 
-        );
-        add_action( "load-$hook_featured_plugins", array( $this, 'add_tabs' ));
-    }
-
     /**
      * Add settings action link to the plugins page.
      *
@@ -566,50 +602,6 @@ class Ays_Pb_Admin {
         }
 
         return $meta;
-    }
-
-    public function display_plugin_attributes_page(){
-        $action = (isset($_GET['action'])) ? sanitize_text_field($_GET['action']) : '';
-
-        switch ($action) {
-            case 'add':
-                include_once('partials/attributes/actions/ays-pb-attributes-actions.php');
-                break;
-            case 'edit':
-                include_once('partials/attributes/actions/ays-pb-attributes-actions.php');
-                break;
-            default:
-                include_once('partials/attributes/actions/ays-pb-attributes-actions.php');
-        }
-    }
-
-    public function pb_display_plugin_pro_features_page() {
-        include_once 'partials/features/popup-box-pro-features-display.php';
-    }
-
-    public function display_plugin_settings_page(){        
-        include_once('partials/settings/popup-box-settings.php');
-    }
-
-    public function display_plugin_how_to_use_page(){        
-        include_once('partials/how-to-use/ays-pb-how-to-use.php');
-    }
-
-    public function display_plugin_results_page(){
-        include_once('partials/reports/ays-pb-reports-display.php');
-    }
-    public function display_plugin_export_import_page(){
-        include_once('partials/export-import/ays-pb-export-import.php');
-    }
-    public function display_plugin_subscribes_page(){
-        include_once('partials/subscribes/ays-pb-subscribes-display.php');
-    }
-    public function display_plugin_featured_plugins_page(){
-        include_once('partials/features/ays-pb-plugin-featured-display.php');
-    }
-
-    public function screen_option_settings() {
-        $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
     }
 
     public function deactivate_plugin_option() {

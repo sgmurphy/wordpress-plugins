@@ -18,10 +18,10 @@ class TFSearch_Widget_Free extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends() {
-		return ['tf-font-awesome','tf-regular','tf-style'];
+		return ['tf-font-awesome','tf-regular','tf-search'];
 	}
 	public function get_script_depends() {
-		return ['tf-main'];
+		return ['tf-search'];
 	}
 
     public function get_menus(){

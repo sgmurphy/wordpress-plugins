@@ -4,10 +4,11 @@ namespace SiteGround_Optimizer\Cli;
 use SiteGround_Optimizer\Ssl\Ssl;
 use SiteGround_Optimizer\Options\Options;
 use SiteGround_Optimizer\Message_Service\Message_Service;
+
 /**
- * WP-CLI: wp sg memcached enable/disable.
+ * WP-CLI: wp sg forcehttps enable/disable.
  *
- * Run the `wp sg memcached enable/disable` command to enable/disable specific plugin functionality.
+ * Run the `wp sg forcehttps enable/disable` command to enable/disable specific plugin functionality.
  *
  * @since 5.0.0
  * @package Cli
@@ -20,6 +21,14 @@ use SiteGround_Optimizer\Message_Service\Message_Service;
  * @since 5.0.0
  */
 class Cli_Https {
+
+	/**
+	 * Ssl class.
+	 *
+	 * @var Object
+	 */
+	public $ssl;
+
 	/**
 	 * Allow you to enable/disable https.
 	 *
@@ -29,8 +38,7 @@ class Cli_Https {
 	 * Whether to enable or disable the https.
 	 */
 	public function __invoke( $args, $assoc_args ) {
-		$this->ssl            = new Ssl();
-		$this->option_service = new Options();
+		$this->ssl = new Ssl();
 
 		if ( empty( $args[0] ) ) {
 			return \WP_CLI::error( 'Please provide action: enable/disable or add the subcommand `fix`' );

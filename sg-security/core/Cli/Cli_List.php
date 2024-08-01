@@ -30,7 +30,7 @@ class Cli_List {
 	public $period = 1;
 
 	/**
-	 * The default inretval on which the data should be gathered.
+	 * The default interval on which the data should be gathered.
 	 *
 	 * @var null
 	 */
@@ -42,6 +42,20 @@ class Cli_List {
 	 * @var null
 	 */
 	public $wpdb = null;
+
+	/**
+	 * The property to hold the db query.
+	 *
+	 * @var String.
+	 */
+	public $query;
+
+	/**
+	 * Rest_Helper_Activity class.
+	 *
+	 * @var Object.
+	 */
+	public $rest_helper_activity;
 
 	/**
 	 * Enable specific setting for SiteGround Optimizer plugin.
@@ -101,8 +115,6 @@ class Cli_List {
 	 * @return string       The sql query.
 	 */
 	public function get_query( $type ) {
-		global $wpdb;
-
 		// Bail if table doesn't exist.
 		if ( ! Helper::table_exists( $this->wpdb->sgs_log ) ) {
 			return false;

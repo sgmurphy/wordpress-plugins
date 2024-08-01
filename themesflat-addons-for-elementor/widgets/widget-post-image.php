@@ -17,9 +17,7 @@ class TFPostImage_Widget_Free extends \Elementor\Widget_Base {
         return [ 'themesflat_addons_single_post' ];
     }
 
-    public function get_style_depends() {
-		return ['tf-style'];
-	}
+
 
 	protected function register_controls() {
         // Start Tab Setting        

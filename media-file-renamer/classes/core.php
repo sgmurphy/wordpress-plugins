@@ -24,8 +24,9 @@ define( 'MFRH_OPTIONS', [
 	'vision_rename_ai' => false,
 	'vision_rename_ai_cache' => 60 * 5,
 	'exif_context' => false,
+	'manual_prompt' => false,
 
-	'manual_sanitize' => false,
+	'manual_sanitize' => true,
 	'numbered_files' => false,
 	'force_rename' => false,
 	'log' => false,
@@ -55,6 +56,16 @@ define( 'MFRH_OPTIONS', [
 	'metadata_alt' => true,
 	'metadata_description' => false,
 	'metadata_caption' => false,
+
+	'manual_prompt_alt' => 'The ALT is used mainly for SEO. It should be stuffed with keywords, but also describe the image. It should be a short sentence, typically starting with a uppercase letter and ending with a period.',
+
+	'manual_prompt_caption' => 'It should be a very short description of the image, what\'s happening on it, in one sentence which typically starts with a uppercase letter and ends with a period.',
+
+	'manual_prompt_filename' => 'Based on the rules we set before, actually generate 5 different filenames. They should be all quite different, from the less creative to the most creative. Separate them by a comma (,) and do not end with a period. Do not forget the extension which is used in Current Filename.',
+
+	'manual_prompt_title' => 'It should be a concise, catchy title for the image that summarizes its main subject or theme. The title should be capitalized like a headline, typically 5-10 words long, and not end with a period. It should be engaging and optimized for both users and SEO.',
+
+	'manual_prompt_description' => 'It should be an actual description the image, what\'s happening on it, in one paragraph. It is not adressing the user, but describing the image.',
 ]);
 
 class Meow_MFRH_Core {
@@ -562,7 +573,7 @@ SQL;
 			$this->log( '⚠️ Clean Upload failed: ' . $e->getMessage() );
 			return [ false, $file ];
 		}
-	
+		
 	}
 
 	function clean_upload( $post ) {
@@ -819,7 +830,7 @@ SQL;
 		else if ( !empty( $manual_filename ) ) {
 			// Through the new_filename function to rename when the sanitize option is enabled.
 			// To validate the filename (i.g. space will be “-“), use the $manual_filename as the first argument $text.
-			$new_filename = $this->get_option( 'manual_sanitize', false )
+			$new_filename = $this->get_option( 'manual_sanitize', true )
 				? $this->engine->new_filename( $manual_filename, $old_filename, null, $post )
 				: $manual_filename;
 
@@ -1453,16 +1464,19 @@ SQL;
 		$prompt .= "This new $readableType must be shorter than $length, SEO-optimized, humanly-readable. Only return the $readableType.";
 		// If it's a description, mention that it should describe the image, of what's happening on it in one paragraph.
 		if ( $metadataType === 'description' ) {
-			$prompt .= " It should be an actual description the image, what's happening on it, in one paragraph. It is not adressing the user, but describing the image.";
+			$prompt .= " " . $this->get_option( 'manual_prompt_description', 'It should be an actual description the image, what\'s happening on it, in one paragraph. It is not adressing the user, but describing the image.' );
 		}
 		else if ( $metadataType === 'caption' ) {
-			$prompt .= " It should be a very short description of the image, what's happening on it, in one sentence which typically starts with a uppercase letter and ends with a period.";
+			$prompt .= " " . $this->get_option( 'manual_prompt_caption', 'It should be a very short description of the image, what\'s happening on it, in one sentence which typically starts with a uppercase letter and ends with a period.' );
 		}
 		else if ( $metadataType === 'alternative text' ) {
-			$prompt .= " The ALT is used mainly for SEO. It should be stuffed with keywords, but also describe the image. It should be a short sentence, typically starting with a uppercase letter and ending with a period.";
+			$prompt .= " " . $this->get_option( 'manual_prompt_alt', 'The ALT is used mainly for SEO. It should be stuffed with keywords, but also describe the image. It should be a short sentence, typically starting with a uppercase letter and ending with a period.' );
 		}
 		else if ( $metadataType === 'filename' ) {
-			$prompt .= " Based on the rules we set before, actually generate 5 different filenames. They should be all quite different, from the less creative to the most creative. Separate them by a comma (,) and do not end with a period. Do not forget the extension which is used in Current Filename.";
+			$prompt .= " " . $this->get_option( 'manual_prompt_filename', 'Based on the rules we set before, actually generate 5 different filenames. They should be all quite different, from the less creative to the most creative. Separate them by a comma (,) and do not end with a period. Do not forget the extension which is used in Current Filename.' );
+		}
+		else if ( $metadataType === 'title' ) {
+			$prompt .= " " . $this->get_option( 'manual_prompt_title', 'It should be a concise, catchy title for the image that summarizes its main subject or theme. The title should be capitalized like a headline, typically 5-10 words long, and not end with a period. It should be engaging and optimized for both users and SEO.' );
 		}
 
 		// Give the user a chance to modify the prompt.
@@ -2012,6 +2026,30 @@ SQL;
 			}
 			
 		}
+
+		
+		if ( $options['manual_prompt'] ) {
+			$prompt_types = ['title', 'alt', 'description', 'caption', 'filename'];
+			
+			foreach ( $prompt_types as $type ) {
+				$option_key = 'manual_prompt_' . $type;
+				if ( empty( $options[$option_key] ) ) {
+					$options[$option_key] = MFRH_OPTIONS[$option_key];
+					$needs_update = true;
+				}
+			}
+		} else {
+			
+			foreach ( ['title', 'alt', 'description', 'caption', 'filename'] as $type ) {
+				$option_key = 'manual_prompt_' . $type;
+				if ( $options[$option_key] !== MFRH_OPTIONS[$option_key] ) {
+					$options[$option_key] = MFRH_OPTIONS[$option_key];
+					$needs_update = true;
+				}
+			}
+		}
+
+
 
 
 		if ( !$result || $needs_update ) {

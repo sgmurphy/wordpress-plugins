@@ -24,7 +24,7 @@ class Helper {
 	 * A wrapper around WC_Logger log method.
 	 *
 	 * @param string  $level Log level.
-	 * @param string  $message Message to log.
+	 * @param mixed   $message Message to log.
 	 * @param boolean $force Force logging without the need of WP_DEBUG mode.
 	 */
 	public static function wc_log( $level, $message, $force = false ) {
@@ -32,6 +32,11 @@ class Helper {
 			&& function_exists( 'wc_get_logger' )
 			&& $message
 			&& in_array( $level, [ 'debug', 'info', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency' ], true ) ) {
+
+			if ( ! is_string( $message ) ) {
+				$message = wp_json_encode( $message );
+			}
+
 			wc_get_logger()->log( $level, $message, [ 'source' => 'kliken-marketing-for-google' ] );
 		}
 	}
@@ -115,80 +120,6 @@ class Helper {
 	 */
 	public static function get_plugin_page() {
 		return 'admin.php?page=wc-settings&tab=integration&section=' . KK_WC_INTEGRATION_PAGE_ID;
-	}
-
-	/**
-	 * Get base64 encoded data url for the logo image.
-	 *
-	 * @return string
-	 */
-	public static function get_base64_icon() {
-		// phpcs:ignore
-		return 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( KK_WC_PLUGIN_DIR . 'assets/logo-small.svg' ) );
-	}
-
-	/**
-	 * Get a list of supported languages (WP style) with a map to .NET style
-	 *
-	 * @return array
-	 */
-	public static function get_wl_supported_languages() {
-		return [
-			'en_US' => 'en',
-			'es_ES' => 'es',
-			'de_DE' => 'de',
-			'de_CH' => 'de-CH',
-			'fr_FR' => 'fr',
-			'nl_NL' => 'nl',
-		];
-	}
-
-	/**
-	 * Get locale of WordPress site/user, in .NET style.
-	 * Default to English if not supported by the plugin.
-	 *
-	 * @return string
-	 */
-	public static function get_wl_locale() {
-		if ( function_exists( 'get_user_locale' ) ) {
-			$wp_locale = get_user_locale();
-		} else {
-			$wp_locale = get_locale();
-		}
-
-		$supported_langs = self::get_wl_supported_languages();
-
-		if ( array_key_exists( $wp_locale, $supported_langs ) ) {
-			return $supported_langs[ $wp_locale ];
-		}
-
-		return 'en';
-	}
-
-	/**
-	 * Get locale of WordPress site/user, with a postfix.
-	 *
-	 * @param string $postfix Postfix to be used. Defaults to "-".
-	 * @return string
-	 */
-	public static function get_locale_postfix( $postfix = '-' ) {
-		if ( function_exists( 'get_user_locale' ) ) {
-			$wp_locale = get_user_locale();
-		} else {
-			$wp_locale = get_locale();
-		}
-
-		$supported_langs = self::get_wl_supported_languages();
-
-		if ( array_key_exists( $wp_locale, $supported_langs ) ) {
-			if ( 'en_US' === $wp_locale ) {
-				return '';
-			} else {
-				return $postfix . $wp_locale;
-			}
-		}
-
-		return '';
 	}
 
 	/**
@@ -300,7 +231,7 @@ class Helper {
 		foreach ( $order_items as $index => $item ) {
 			$product = $item->get_product();
 
-			if ( ! $product ) {
+			if ( ! $product instanceof \WC_Product ) {
 				continue;
 			}
 
@@ -478,12 +409,97 @@ class Helper {
 	}
 
 	/**
-	 * Get image link.
+	 * Get various data of the other plugin, for interoperability checks.
 	 *
-	 * @param string $image_base_name Base name of the image, without the extension.
-	 * @param string $image_extension Extension of the image, including the ".".
+	 * @param bool $active_state_only If only need to get active state, as if the plugin is active.
+	 * @return array
 	 */
-	public static function get_image_link( $image_base_name, $image_extension ) {
-		return KK_WC_PLUGIN_URL . 'assets/' . $image_base_name . self::get_locale_postfix() . $image_extension;
+	public static function get_other_plugin_state( $active_state_only = false ) {
+		$state = [];
+
+		if ( defined( 'KK_FB_WC_SETTINGS_OPTION_KEY' ) ) {
+			$state['active']     = true;
+			$state['option_key'] = KK_FB_WC_SETTINGS_OPTION_KEY;
+		} else {
+			$state['active']     = self::is_plugin_active( 'meta-pixel-ads-for-woo/meta-pixel-ads-for-woo.php' );
+			$state['option_key'] = 'kk_fb_wc_settings';
+		}
+
+		if ( true === $active_state_only ) {
+			return $state;
+		}
+
+		// Check if the new plugin has been configured.
+		if ( method_exists( '\Kliken\FbWcPlugin\Helper', 'is_plugin_configured' ) ) {
+			$state['settings']   = \Kliken\FbWcPlugin\Helper::get_plugin_settings();
+			$state['configured'] = \Kliken\FbWcPlugin\Helper::is_plugin_configured( $state['settings'] );
+		} else {
+			$state['settings']   = get_option( $state['option_key'] );
+			$state['configured'] = ! empty( $state['settings'] )
+				&& self::is_valid_account_id( $state['settings']['account_id'] )
+				&& self::is_valid_app_token( $state['settings']['app_token'] );
+		}
+
+		return $state;
+	}
+
+	/**
+	 * Save settings to the other plugin of ours.
+	 *
+	 * @param array $settings Setings to be saved.
+	 * @param bool  $force Force updating.
+	 * @return void
+	 */
+	public static function save_other_plugin_settings( array $settings, bool $force = false ) {
+		$state = self::get_other_plugin_state();
+
+		if ( $state['active'] && false === $force ) {
+			// The new plugin should handle things at this state.
+			return;
+		}
+
+		if ( ! $state['active'] && ! $state['configured'] && $state['settings'] ) {
+			// Plugin is probably not even installed.
+			return;
+		}
+
+		update_option( $state['option_key'], array_merge( $state['settings'], $settings ) );
+	}
+
+	/**
+	 * Try to check if a plugin is active. Will try to use built-in WordPress function first.
+	 * Otherwise, it's using the copied code of that built-in WordPress function.
+	 * We do this because sometimes, we need this check before the WordPress function is available to us.
+	 *
+	 * @param mixed $plugin Plugin path. Should be the folder name, and the main file name.
+	 * @return bool
+	 */
+	private static function is_plugin_active( $plugin ) {
+		// Use WordPress function if it exists at this point.
+		if ( function_exists( 'is_plugin_active' ) ) {
+			return is_plugin_active( $plugin );
+		}
+
+		return in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) || self::is_plugin_active_for_network( $plugin );
+	}
+
+	/**
+	 * A copy of the built-in WordPress method of the same name.
+	 * We do this because sometimes, we need this check before the WordPress function is available to us.
+	 *
+	 * @param mixed $plugin Plugin path. Should be the folder name, and the main file name.
+	 * @return bool
+	 */
+	private static function is_plugin_active_for_network( $plugin ) {
+		if ( ! is_multisite() ) {
+			return false;
+		}
+
+		$plugins = get_site_option( 'active_sitewide_plugins' );
+		if ( isset( $plugins[ $plugin ] ) ) {
+			return true;
+		}
+
+		return false;
 	}
 }

@@ -34,7 +34,7 @@ class REST_Misc_Controller extends \WC_REST_CRUD_Controller {
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => [ $this, 'save_google_token' ],
 					'permission_callback' => function () {
-						return current_user_can( 'manage_options' );
+						return current_user_can( 'manage_woocommerce' );
 					},
 				],
 			]
@@ -48,7 +48,7 @@ class REST_Misc_Controller extends \WC_REST_CRUD_Controller {
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => [ $this, 'save_facebook_token' ],
 					'permission_callback' => function () {
-						return current_user_can( 'manage_options' );
+						return current_user_can( 'manage_woocommerce' );
 					},
 				],
 			]
@@ -86,6 +86,8 @@ class REST_Misc_Controller extends \WC_REST_CRUD_Controller {
 		// Save the token to database.
 		update_option( Helper::get_option_key(), $saved_settings );
 
+		Helper::save_other_plugin_settings( $saved_settings );
+
 		// But WP_REST_Response is only available since 4.4?
 		return new \WP_REST_Response( null, 201 );
 	}
@@ -109,6 +111,8 @@ class REST_Misc_Controller extends \WC_REST_CRUD_Controller {
 
 		// Save the token to database.
 		update_option( Helper::get_option_key(), $saved_settings );
+
+		Helper::save_other_plugin_settings( $saved_settings );
 
 		// But WP_REST_Response is only available since 4.4?
 		return new \WP_REST_Response( null, 201 );

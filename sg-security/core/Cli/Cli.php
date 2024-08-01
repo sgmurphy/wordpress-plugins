@@ -31,6 +31,7 @@ class Cli {
 
 		// Get Custom Login URL status or disable it.
 		\WP_CLI::add_command( 'sg custom-login', 'SG_Security\Cli\Cli_Custom_Login_Url' );
-
+		// Config.
+		\WP_CLI::add_command( 'sg security-config', 'SG_Security\Cli\Cli_Config' );
 	}
 }

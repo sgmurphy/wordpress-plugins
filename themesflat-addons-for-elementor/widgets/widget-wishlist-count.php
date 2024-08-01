@@ -19,7 +19,7 @@ if (!class_exists('TFWishlistCount_Widget_Free')) {
 	    }
 
 	    public function get_style_depends(){
-		    return ['tf-font-awesome','tf-regular','tf-style'];
+		    return ['tf-font-awesome','tf-regular','tf-woo-wishlist'];
 	  	}
 
 		protected function register_controls() {

@@ -192,7 +192,7 @@ class Activity_Log_Unknown extends Activity_Log_Helper {
 
 		// If no user-agent set as unknown.
 		if ( ! isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-			return 'Unknown';
+			return __( 'Unknown', 'sg-security' );
 		}
 
 		// Check for a bot/crawler.
@@ -203,7 +203,7 @@ class Activity_Log_Unknown extends Activity_Log_Helper {
 			return $maybe_crawler;
 		}
 
-		return 'Human';
+		return __( 'Human', 'sg-security' );
 	}
 
 	/**

@@ -1,12 +1,12 @@
 <?php
-class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
+class TFIconBox_Widget_Free extends \Elementor\Widget_Base {
 
 	public function get_name() {
         return 'tficonbox';
     }
     
     public function get_title() {
-        return esc_html__( 'TF Icon Box', 'tf-addon-for-elementer' );
+        return esc_html__( 'TF Icon Box', 'themesflat-addons-for-elementor' );
     }
 
     public function get_icon() {
@@ -17,31 +17,35 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
         return [ 'themesflat_addons' ];
     }
 
+	public function get_style_depends(){
+		return ['tf-iconbox'];
+	}
+
 	protected function register_controls() {
         // Start Icon Box Setting        
 			$this->start_controls_section( 
 				'section_tficonbox',
 	            [
-	                'label' => esc_html__('Icon Box', 'tf-addon-for-elementer'),
+	                'label' => esc_html__('Icon Box', 'themesflat-addons-for-elementor'),
 	            ]
 	        );
 
 	        $this->add_control(
 				'icon_style',
 				[
-					'label' => esc_html__( 'Icon Style', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Icon Style', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'none' => [
-							'title' => esc_html__( 'None', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'None', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-ban',
 						],
 						'icon' => [
-							'title' => esc_html__( 'Icon', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Icon', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-info-circle',
 						],
 						'image' => [
-							'title' => esc_html__( 'Image', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Image', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-image',
 						],
 					],
@@ -53,7 +57,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'icon',
 				[
-					'label' => esc_html__( 'Icon', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Icon', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::ICONS,
 					'fa4compatibility' => 'icon_',
 					'default' => [
@@ -69,7 +73,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'image',
 				[
-					'label' => esc_html__( 'Choose Image', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Choose Image', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::MEDIA,
 					'default' => [
 						'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -83,9 +87,9 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'title_text',
 				[
-					'label' => esc_html__( 'Title', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Title', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'BUSINESS CONSULTING', 'tf-addon-for-elementer' ),
+					'default' => esc_html__( 'BUSINESS CONSULTING', 'themesflat-addons-for-elementor' ),
 				]
 			);
 
@@ -94,27 +98,27 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				[
 					'label' => 'Description',
 					'type' => \Elementor\Controls_Manager::WYSIWYG,
-					'default' => esc_html__( 'Sed ut perspiciatis unde omnis iste natus error voluptatem accusantium doloremque lau dantium, totam aperiam.', 'tf-addon-for-elementer' ),
+					'default' => esc_html__( 'Sed ut perspiciatis unde omnis iste natus error voluptatem accusantium doloremque lau dantium, totam aperiam.', 'themesflat-addons-for-elementor' ),
 				]
 			);		
 
 			$this->add_control(
 				'position',
 				[
-					'label' => esc_html__( 'Icon Position', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Icon Position', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'default' => 'top',
 					'options' => [
 						'left' => [
-							'title' => esc_html__( 'Left', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-h-align-left',
 						],
 						'top' => [
-							'title' => esc_html__( 'Top', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Top', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-v-align-top',
 						],
 						'right' => [
-							'title' => esc_html__( 'Right', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-h-align-right',
 						],
 					],
@@ -128,16 +132,16 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->start_controls_section( 
 				'section_button',
 	            [
-	                'label' => esc_html__('Read More', 'tf-addon-for-elementer'),
+	                'label' => esc_html__('Read More', 'themesflat-addons-for-elementor'),
 	            ]
 	        );
 	        $this->add_control(
 				'show_button',
 				[
-					'label' => esc_html__( 'Show Button', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Show Button', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'tf-addon-for-elementer' ),
-					'label_off' => esc_html__( 'Hide', 'tf-addon-for-elementer' ),
+					'label_on' => esc_html__( 'Show', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'Hide', 'themesflat-addons-for-elementor' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -145,9 +149,9 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'button_text',
 				[
-					'label' => esc_html__( 'Button Text', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Button Text', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Read More', 'tf-addon-for-elementer' ),
+					'default' => esc_html__( 'Read More', 'themesflat-addons-for-elementor' ),
 					'condition' => [
 	                    'show_button'	=> 'yes',
 	                ],
@@ -156,9 +160,9 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'link',
 				[
-					'label' => esc_html__( 'Link', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Link', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::URL,
-					'placeholder' => esc_html__( 'https://your-link.com', 'tf-addon-for-elementer' ),
+					'placeholder' => esc_html__( 'https://your-link.com', 'themesflat-addons-for-elementor' ),
 					'condition' => [
 						'show_button' => 'yes'
 					]
@@ -171,7 +175,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 		    $this->start_controls_section( 
 		    	'section_style_icon',
 	            [
-	                'label' => esc_html__( 'Icon', 'tf-addon-for-elementer' ),
+	                'label' => esc_html__( 'Icon', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        ); 
@@ -179,14 +183,14 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'icon_showcase',
 				[
-					'label' => esc_html__( 'Type', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Type', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
-						'default' => esc_html__( 'Default', 'tf-addon-for-elementer' ),
-						'circle' => esc_html__( 'Circle', 'tf-addon-for-elementer' ),
-						'square' => esc_html__( 'Square', 'tf-addon-for-elementer' ),
-						'circle-outline' => esc_html__( 'Circle Outline', 'tf-addon-for-elementer' ),
-						'square-outline' => esc_html__( 'Square Outline', 'tf-addon-for-elementer' ),
+						'default' => esc_html__( 'Default', 'themesflat-addons-for-elementor' ),
+						'circle' => esc_html__( 'Circle', 'themesflat-addons-for-elementor' ),
+						'square' => esc_html__( 'Square', 'themesflat-addons-for-elementor' ),
+						'circle-outline' => esc_html__( 'Circle Outline', 'themesflat-addons-for-elementor' ),
+						'square-outline' => esc_html__( 'Square Outline', 'themesflat-addons-for-elementor' ),
 					],
 					'default' => 'square',
 					'condition' => [
@@ -198,7 +202,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control( 
 	        	'icon_size',
 				[
-					'label' => esc_html__( 'Size', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Size', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -222,7 +226,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 	        	'wrap_icon_size',
 				[
-					'label' => esc_html__( 'Wrap Icon Size', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Wrap Icon Size', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -249,7 +253,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'rotate',
 				[
-					'label' => esc_html__( 'Rotate', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Rotate', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'default' => [
 						'size' => 0,
@@ -264,7 +268,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'rotate_icon',
 				[
-					'label' => esc_html__( 'Rotate Icon', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Rotate Icon', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'default' => [
 						'size' => 0,
@@ -280,7 +284,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'icon_border_width',
 				[
-					'label' => esc_html__( 'Border Width', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border Width', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -308,7 +312,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%' ],
 					'selectors' => [
@@ -323,7 +327,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'icon_margin',
 				[
-					'label' => esc_html__( 'Margin', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'selectors' => [
@@ -337,14 +341,14 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				$this->start_controls_tab( 
 					'icon_normal_tab',
 					[
-						'label' => esc_html__( 'Normal', 'tf-addon-for-elementer' ),						
+						'label' => esc_html__( 'Normal', 'themesflat-addons-for-elementor' ),						
 					]
 				);
 
 				$this->add_control( 
 					'icon_color',
 					[
-						'label' => esc_html__( 'Icon Color', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Icon Color', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'default' => '#ffffff',
 						'selectors' => [
@@ -357,7 +361,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					\Elementor\Group_Control_Background::get_type(),
 					[
 						'name' => 'icon_background',
-						'label' => esc_html__( 'Background', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Background', 'themesflat-addons-for-elementor' ),
 						'types' => [ 'classic', 'gradient' ],
 						'selector' => '{{WRAPPER}} .tficonbox .wrap-icon.circle .wrap-icon-inner, {{WRAPPER}} .tficonbox .wrap-icon.square .wrap-icon-inner, {{WRAPPER}} .tficonbox .wrap-icon-spin-around:before',
 						'condition' => [
@@ -369,7 +373,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				$this->add_control( 
 					'border_icon_color',
 					[
-						'label' => esc_html__( 'Border Color', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Border Color', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'default' => '#3858e9',
 						'selectors' => [
@@ -384,15 +388,15 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				$this->add_control(
 					'border_style_icon',
 					[
-						'label' => esc_html__( 'Border Type', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Border Type', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::SELECT,
 						'default' => 'solid',
 						'options' => [
-							'solid' => esc_html__( 'Solid', 'tf-addon-for-elementer' ),
-							'double' => esc_html__( 'Double', 'tf-addon-for-elementer' ),
-							'dotted' => esc_html__( 'Dotted', 'tf-addon-for-elementer' ),
-							'dashed' => esc_html__( 'Dashed', 'tf-addon-for-elementer' ),
-							'groove' => esc_html__( 'Groove', 'tf-addon-for-elementer' ),
+							'solid' => esc_html__( 'Solid', 'themesflat-addons-for-elementor' ),
+							'double' => esc_html__( 'Double', 'themesflat-addons-for-elementor' ),
+							'dotted' => esc_html__( 'Dotted', 'themesflat-addons-for-elementor' ),
+							'dashed' => esc_html__( 'Dashed', 'themesflat-addons-for-elementor' ),
+							'groove' => esc_html__( 'Groove', 'themesflat-addons-for-elementor' ),
 						],
 						'selectors' => [
 							'{{WRAPPER}} .tficonbox .wrap-icon.circle-outline .wrap-icon-inner, {{WRAPPER}} .tficonbox .wrap-icon.square-outline .wrap-icon-inner, {{WRAPPER}} .tficonbox .wrap-icon-spin-around:before' => 'border-style: {{VALUE}}',
@@ -407,7 +411,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'icon_box_shadow',
-						'label' => esc_html__( 'Box Shadow', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 						'selector' => '{{WRAPPER}} .tficonbox .wrap-icon .wrap-icon-inner',
 					]
 				);
@@ -418,14 +422,14 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				$this->start_controls_tab( 
 			    	'icon_hover_tab',
 					[
-						'label' => esc_html__( 'Hover', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Hover', 'themesflat-addons-for-elementor' ),
 					]
 				);
 
 				$this->add_control( 
 					'icon_color_hover',
 					[
-						'label' => esc_html__( 'Icon Color', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Icon Color', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'default' => '',
 						'selectors' => [
@@ -438,7 +442,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					\Elementor\Group_Control_Background::get_type(),
 					[
 						'name' => 'icon_background_hover',
-						'label' => esc_html__( 'Background', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Background', 'themesflat-addons-for-elementor' ),
 						'types' => [ 'classic', 'gradient' ],
 						'selector' => '{{WRAPPER}} .tficonbox:hover .wrap-icon.circle .wrap-icon-inner, {{WRAPPER}} .tficonbox:hover .wrap-icon.square .wrap-icon-inner, {{WRAPPER}} .tficonbox:hover .wrap-icon-spin-around:before',
 						'condition' => [
@@ -450,7 +454,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				$this->add_control( 
 					'border_icon_color_hover',
 					[
-						'label' => esc_html__( 'Border Color', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Border Color', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'default' => '',
 						'selectors' => [
@@ -465,15 +469,15 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				$this->add_control(
 					'border_style_icon_hover',
 					[
-						'label' => esc_html__( 'Border Type', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Border Type', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::SELECT,
 						'default' => 'solid',
 						'options' => [
-							'solid' => esc_html__( 'Solid', 'tf-addon-for-elementer' ),
-							'double' => esc_html__( 'Double', 'tf-addon-for-elementer' ),
-							'dotted' => esc_html__( 'Dotted', 'tf-addon-for-elementer' ),
-							'dashed' => esc_html__( 'Dashed', 'tf-addon-for-elementer' ),
-							'groove' => esc_html__( 'Groove', 'tf-addon-for-elementer' ),
+							'solid' => esc_html__( 'Solid', 'themesflat-addons-for-elementor' ),
+							'double' => esc_html__( 'Double', 'themesflat-addons-for-elementor' ),
+							'dotted' => esc_html__( 'Dotted', 'themesflat-addons-for-elementor' ),
+							'dashed' => esc_html__( 'Dashed', 'themesflat-addons-for-elementor' ),
+							'groove' => esc_html__( 'Groove', 'themesflat-addons-for-elementor' ),
 						],
 						'selectors' => [
 							'{{WRAPPER}} .tficonbox:hover .wrap-icon.circle-outline .wrap-icon-inner, {{WRAPPER}} .tficonbox:hover .wrap-icon.square-outline .wrap-icon-inner, {{WRAPPER}} .tficonbox .wrap-icon-spin-around:before' => 'border-style: {{VALUE}}',
@@ -488,7 +492,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name' => 'icon_hover_box_shadow',
-						'label' => esc_html__( 'Box Shadow', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 						'selector' => '{{WRAPPER}} .tficonbox:hover .wrap-icon .wrap-icon-inner',
 					]
 				);
@@ -496,18 +500,18 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				$this->add_control(
 					'icon_animation',
 					[
-						'label' => esc_html__( 'Hover Animation', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Hover Animation', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::SELECT,
 						'default' => 'default',
 						'options' => [
-							'default' => esc_html__( 'Default', 'tf-addon-for-elementer' ),
-							'right-to-left' => esc_html__( 'Right To Left', 'tf-addon-for-elementer' ),
-							'left-to-right' => esc_html__( 'Left To Right', 'tf-addon-for-elementer' ),
-							'top-to-bottom' => esc_html__( 'Top To Bottom', 'tf-addon-for-elementer' ),
-							'bottom-to-top' => esc_html__( 'Bottom To Top', 'tf-addon-for-elementer' ),
-							'spin-around' => esc_html__( 'Spin Around', 'tf-addon-for-elementer' ),
-							'wrap-icon-spin-around' => esc_html__( 'Wrap Icon Spin Around', 'tf-addon-for-elementer' ),
-							'wrap-icon-pop' => esc_html__( 'Wrap Icon Pop', 'tf-addon-for-elementer' ),
+							'default' => esc_html__( 'Default', 'themesflat-addons-for-elementor' ),
+							'right-to-left' => esc_html__( 'Right To Left', 'themesflat-addons-for-elementor' ),
+							'left-to-right' => esc_html__( 'Left To Right', 'themesflat-addons-for-elementor' ),
+							'top-to-bottom' => esc_html__( 'Top To Bottom', 'themesflat-addons-for-elementor' ),
+							'bottom-to-top' => esc_html__( 'Bottom To Top', 'themesflat-addons-for-elementor' ),
+							'spin-around' => esc_html__( 'Spin Around', 'themesflat-addons-for-elementor' ),
+							'wrap-icon-spin-around' => esc_html__( 'Wrap Icon Spin Around', 'themesflat-addons-for-elementor' ),
+							'wrap-icon-pop' => esc_html__( 'Wrap Icon Pop', 'themesflat-addons-for-elementor' ),
 						]
 					]
 				);		
@@ -523,7 +527,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 		    $this->start_controls_section( 
 		    	'section_style_content',
 	            [
-	                'label' => esc_html__( 'Content', 'tf-addon-for-elementer' ),
+	                'label' => esc_html__( 'Content', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );  
@@ -531,23 +535,23 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control(
 				'text_align',
 				[
-					'label' => esc_html__( 'Alignment', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Alignment', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'left' => [
-							'title' => esc_html__( 'Left', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-left',
 						],
 						'center' => [
-							'title' => esc_html__( 'Center', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Center', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-center',
 						],
 						'right' => [
-							'title' => esc_html__( 'Right', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-right',
 						],
 						'justify' => [
-							'title' => esc_html__( 'Justified', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Justified', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-justify',
 						],
 					],
@@ -560,7 +564,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'heading_title',
 				[
-					'label' => esc_html__( 'Title', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Title', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -577,7 +581,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'title_color',
 				[
-					'label' => esc_html__( 'Color', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#000000',
 					'selectors' => [
@@ -589,16 +593,16 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'title_tag',
 				[
-					'label' => esc_html__( 'Title Tag', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Title Tag', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'h3',
 					'options' => [
-						'h1'  => esc_html__( 'H1', 'tf-addon-for-elementer' ),
-						'h2'  => esc_html__( 'H2', 'tf-addon-for-elementer' ),
-						'h3'  => esc_html__( 'H3', 'tf-addon-for-elementer' ),
-						'h4'  => esc_html__( 'H4', 'tf-addon-for-elementer' ),
-						'h5'  => esc_html__( 'H5', 'tf-addon-for-elementer' ),
-						'h6'  => esc_html__( 'H6', 'tf-addon-for-elementer' ),
+						'h1'  => esc_html__( 'H1', 'themesflat-addons-for-elementor' ),
+						'h2'  => esc_html__( 'H2', 'themesflat-addons-for-elementor' ),
+						'h3'  => esc_html__( 'H3', 'themesflat-addons-for-elementor' ),
+						'h4'  => esc_html__( 'H4', 'themesflat-addons-for-elementor' ),
+						'h5'  => esc_html__( 'H5', 'themesflat-addons-for-elementor' ),
+						'h6'  => esc_html__( 'H6', 'themesflat-addons-for-elementor' ),
 					],
 				]
 			);
@@ -606,7 +610,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'title_margin',
 				[
-					'label' => esc_html__( 'Margin', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'default' => [
@@ -626,7 +630,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'title_color_hover',
 				[
-					'label' => esc_html__( 'Color Hover', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Color Hover', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '',
 					'selectors' => [
@@ -641,7 +645,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'heading_description',
 				[
-					'label' => esc_html__( 'Description', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Description', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -658,7 +662,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'description_color',
 				[
-					'label' => esc_html__( 'Color', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#000000',
 					'selectors' => [
@@ -674,7 +678,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 		    $this->start_controls_section( 
 		    	'section_style_button',
 	            [
-	                'label' => esc_html__( 'Button', 'tf-addon-for-elementer' ),
+	                'label' => esc_html__( 'Button', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -682,23 +686,23 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'button_align',
 				[
-					'label' => esc_html__( 'Alignment', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Alignment', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'left'    => [
-							'title' => esc_html__( 'Left', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-left',
 						],
 						'center' => [
-							'title' => esc_html__( 'Center', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Center', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-center',
 						],
 						'right' => [
-							'title' => esc_html__( 'Right', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-right',
 						],
 						'justify' => [
-							'title' => esc_html__( 'Justified', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Justified', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-justify',
 						],
 					],
@@ -709,7 +713,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'button_typography',
-					'label' => esc_html__( 'Typography', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Typography', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tficonbox .tf-button',
 				]
 			);
@@ -717,7 +721,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'button_padding',
 				[
-					'label' => esc_html__( 'Padding', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'default' => [
@@ -736,7 +740,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'button_margin',
 				[
-					'label' => esc_html__( 'Margin', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'default' => [
@@ -758,12 +762,12 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 
 	        	$this->start_controls_tab( 'button_style_normal_tab',
 					[
-						'label' => esc_html__( 'Normal', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Normal', 'themesflat-addons-for-elementor' ),
 					] );	
 	        		$this->add_control( 
 						'button_color',
 						[
-							'label' => esc_html__( 'Color', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#ffffff',
 							'selectors' => [
@@ -777,7 +781,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'button_bg_color',
 						[
-							'label' => esc_html__( 'Background Color', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#3858e9',
 							'selectors' => [
@@ -790,7 +794,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Border::get_type(),
 						[
 							'name' => 'button_border',
-							'label' => esc_html__( 'Border', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 							'selector' => '{{WRAPPER}} .tficonbox .tf-button',
 						]
 					);
@@ -798,7 +802,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'button_border_radius',
 						[
-							'label' => esc_html__( 'Border Radius', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::DIMENSIONS,
 							'size_units' => [ 'px', 'em', '%' ],
 							'selectors' => [
@@ -810,7 +814,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'heading_button_icon',
 						[
-							'label' => esc_html__( 'Icon', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Icon', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::HEADING,
 							'separator' => 'before',
 						]
@@ -819,7 +823,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'icon_button',
 						[
-							'label' => esc_html__( 'Icon Button', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Icon Button', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::ICONS,
 							'fa4compatibility' => 'icon_bt',
 							'default' => [
@@ -832,7 +836,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'button_icon_size',
 						[
-							'label' => esc_html__( 'Icon Size', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Icon Size', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::SLIDER,
 							'size_units' => [ 'px' ],
 							'range' => [
@@ -856,12 +860,12 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'button_icon_position',
 						[
-							'label' => esc_html__( 'Icon Position', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Icon Position', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::SELECT,
 							'default' => 'bt_icon_after',
 							'options' => [
-								'bt_icon_before'  => esc_html__( 'Before', 'tf-addon-for-elementer' ),
-								'bt_icon_after' => esc_html__( 'After', 'tf-addon-for-elementer' ),
+								'bt_icon_before'  => esc_html__( 'Before', 'themesflat-addons-for-elementor' ),
+								'bt_icon_after' => esc_html__( 'After', 'themesflat-addons-for-elementor' ),
 							],
 						]
 					);
@@ -869,7 +873,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'button_icon_spacer',
 						[
-							'label' => esc_html__( 'Icon Spacer', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Icon Spacer', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::SLIDER,
 							'size_units' => [ 'px' ],
 							'range' => [
@@ -896,13 +900,13 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 
 				$this->start_controls_tab( 'button_style_hover_tab',
 					[
-						'label' => esc_html__( 'Hover', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Hover', 'themesflat-addons-for-elementor' ),
 					] );
 
 					$this->add_control( 
 						'button_color_hover',
 						[
-							'label' => esc_html__( 'Color Hover', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Color Hover', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#ffffff',
 							'selectors' => [
@@ -916,7 +920,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'button_bg_color_hover',
 						[
-							'label' => esc_html__( 'Background Color Hover', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Background Color Hover', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#000000',
 							'selectors' => [
@@ -929,7 +933,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Border::get_type(),
 						[
 							'name' => 'button_border_hover',
-							'label' => esc_html__( 'Border', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 							'selector' => '{{WRAPPER}} .tficonbox .tf-button:hover',
 						]
 					);
@@ -937,7 +941,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'button_border_radius_hover',
 						[
-							'label' => esc_html__( 'Border Radius', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::DIMENSIONS,
 							'size_units' => [ 'px', 'em', '%' ],
 							'selectors' => [
@@ -949,13 +953,13 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control(
 						'button_animation_options',
 						[
-							'label' => esc_html__( 'Effect Type', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Effect Type', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::SELECT,
 							'default' => 'default',
 							'options' => [
-								'default' => esc_html__( 'Default', 'tf-addon-for-elementer' ),
-								'button' => esc_html__( 'Elementor Button Effect', 'tf-addon-for-elementer' ),
-								'button-overlay' => esc_html__( 'TF Effect', 'tf-addon-for-elementer' ),
+								'default' => esc_html__( 'Default', 'themesflat-addons-for-elementor' ),
+								'button' => esc_html__( 'Elementor Button Effect', 'themesflat-addons-for-elementor' ),
+								'button-overlay' => esc_html__( 'TF Effect', 'themesflat-addons-for-elementor' ),
 							]
 						]
 					);
@@ -963,16 +967,16 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control(
 						'button_animation_overlay',
 						[
-							'label' => esc_html__( 'Style', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Style', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::SELECT,
 							'default' => 'from-top',
 							'options' => [								
-								'from-top' => esc_html__( 'From Top', 'tf-addon-for-elementer' ),
-								'from-bottom' => esc_html__( 'From Bottom', 'tf-addon-for-elementer' ),
-								'from-left' => esc_html__( 'From Left', 'tf-addon-for-elementer' ),
-								'from-right' => esc_html__( 'From Right', 'tf-addon-for-elementer' ),
-								'from-center' => esc_html__( 'From Center', 'tf-addon-for-elementer' ),
-								'skew' => esc_html__( 'Skew', 'tf-addon-for-elementer' ),								
+								'from-top' => esc_html__( 'From Top', 'themesflat-addons-for-elementor' ),
+								'from-bottom' => esc_html__( 'From Bottom', 'themesflat-addons-for-elementor' ),
+								'from-left' => esc_html__( 'From Left', 'themesflat-addons-for-elementor' ),
+								'from-right' => esc_html__( 'From Right', 'themesflat-addons-for-elementor' ),
+								'from-center' => esc_html__( 'From Center', 'themesflat-addons-for-elementor' ),
+								'skew' => esc_html__( 'Skew', 'themesflat-addons-for-elementor' ),								
 							],
 							'condition'=> [
 								'button_animation_options' => 'button-overlay',
@@ -983,22 +987,22 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control(
 						'button_animation',
 						[
-							'label' => esc_html__( 'Hover Animation', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Hover Animation', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::SELECT,
 							'default' => 'elementor-animation-push',
 							'options' => [
-								'elementor-animation-grow' => esc_html__( 'Grow', 'tf-addon-for-elementer' ),
-								'elementor-animation-shrink' => esc_html__( 'Shrink', 'tf-addon-for-elementer' ),
-								'elementor-animation-pulse' => esc_html__( 'Pulse', 'tf-addon-for-elementer' ),
-								'elementor-animation-pulse-grow' => esc_html__( 'Pulse Grow', 'tf-addon-for-elementer' ),
-								'elementor-animation-pulse-shrink' => esc_html__( 'Pulse Shrink', 'tf-addon-for-elementer' ),
-								'elementor-animation-push' => esc_html__( 'Push', 'tf-addon-for-elementer' ),
-								'elementor-animation-pop' => esc_html__( 'Pop', 'tf-addon-for-elementer' ),
-								'elementor-animation-bob' => esc_html__( 'Bob', 'tf-addon-for-elementer' ),
-								'elementor-animation-hang' => esc_html__( 'Hang', 'tf-addon-for-elementer' ),
-								'elementor-animation-skew' => esc_html__( 'Skew', 'tf-addon-for-elementer' ),
-								'elementor-animation-wobble-vertical' => esc_html__( 'Wobble Vertical', 'tf-addon-for-elementer' ),
-								'elementor-animation-wobble-horizontal' => esc_html__( 'Wobble Horizontal', 'tf-addon-for-elementer' ),
+								'elementor-animation-grow' => esc_html__( 'Grow', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-shrink' => esc_html__( 'Shrink', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-pulse' => esc_html__( 'Pulse', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-pulse-grow' => esc_html__( 'Pulse Grow', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-pulse-shrink' => esc_html__( 'Pulse Shrink', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-push' => esc_html__( 'Push', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-pop' => esc_html__( 'Pop', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-bob' => esc_html__( 'Bob', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-hang' => esc_html__( 'Hang', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-skew' => esc_html__( 'Skew', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-wobble-vertical' => esc_html__( 'Wobble Vertical', 'themesflat-addons-for-elementor' ),
+								'elementor-animation-wobble-horizontal' => esc_html__( 'Wobble Horizontal', 'themesflat-addons-for-elementor' ),
 
 							],
 							'condition'=> [
@@ -1018,7 +1022,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 		    $this->start_controls_section( 
 		    	'section_style_container',
 	            [
-	                'label' => esc_html__( 'Icon Box Container', 'tf-addon-for-elementer' ),
+	                'label' => esc_html__( 'Icon Box Container', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );  
@@ -1026,23 +1030,23 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control(
 				'container_align',
 				[
-					'label' => esc_html__( 'Alignment', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Alignment', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'left' => [
-							'title' => esc_html__( 'Left', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-left',
 						],
 						'center' => [
-							'title' => esc_html__( 'Center', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Center', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-center',
 						],
 						'right' => [
-							'title' => esc_html__( 'Right', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-right',
 						],
 						'justify' => [
-							'title' => esc_html__( 'Justified', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Justified', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-justify',
 						],
 					],
@@ -1056,7 +1060,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Background::get_type(),
 				[
 					'name' => 'container_background_color',
-					'label' => esc_html__( 'Background', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Background', 'themesflat-addons-for-elementor' ),
 					'types' => [ 'classic', 'gradient' ],
 					'selector' => '{{WRAPPER}} .tficonbox',
 				]
@@ -1065,7 +1069,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'container_padding',
 				[
-					'label' => esc_html__( 'Padding', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'selectors' => [
@@ -1077,7 +1081,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'container_margin',
 				[
-					'label' => esc_html__( 'Margin', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'selectors' => [
@@ -1090,7 +1094,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'container_box_shadow',
-					'label' => esc_html__( 'Box Shadow', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tficonbox',
 				]
 			);	
@@ -1099,7 +1103,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'container_border',
-					'label' => esc_html__( 'Border', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tficonbox',
 				]
 			);
@@ -1107,7 +1111,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'container_border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'selectors' => [
@@ -1123,7 +1127,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 		    $this->start_controls_section( 
 		    	'section_style_background_overlay',
 	            [
-	                'label' => esc_html__( 'Design When Hover', 'tf-addon-for-elementer' ),
+	                'label' => esc_html__( 'Design When Hover', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -1131,7 +1135,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'heading_effect_overlay',
 				[
-					'label' => esc_html__( 'Effect Overlay', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Effect Overlay', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 				]
 			);
@@ -1139,10 +1143,10 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'enable_overlay',
 				[
-					'label' => esc_html__( 'Enable Overlay', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Enable Overlay', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'tf-addon-for-elementer' ),
-					'label_off' => esc_html__( 'Hide', 'tf-addon-for-elementer' ),
+					'label_on' => esc_html__( 'Show', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'Hide', 'themesflat-addons-for-elementor' ),
 					'return_value' => 'yes',
 					'default' => 'no',
 				]
@@ -1152,7 +1156,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Background::get_type(),
 				[
 					'name' => 'background',
-					'label' => esc_html__( 'Background', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Background', 'themesflat-addons-for-elementor' ),
 					'types' => [ 'classic', 'gradient' ],
 					'selector' => '{{WRAPPER}} .tficonbox .overlay',
 					'condition' => [
@@ -1164,16 +1168,16 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'hover_style',
 				[
-					'label' => esc_html__( 'Hover Style', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Hover Style', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'fadein',
 					'options' => [
-						'fadein'  => esc_html__( 'Fade In', 'tf-addon-for-elementer' ),
-						'from-left'  => esc_html__( 'From Left', 'tf-addon-for-elementer' ),
-						'from-top'  => esc_html__( 'From Top', 'tf-addon-for-elementer' ),
-						'from-right'  => esc_html__( 'From Right', 'tf-addon-for-elementer' ),
-						'from-bottom'  => esc_html__( 'From Bottom', 'tf-addon-for-elementer' ),
-						'flip-box'  => esc_html__( 'Flip Box', 'tf-addon-for-elementer' ),
+						'fadein'  => esc_html__( 'Fade In', 'themesflat-addons-for-elementor' ),
+						'from-left'  => esc_html__( 'From Left', 'themesflat-addons-for-elementor' ),
+						'from-top'  => esc_html__( 'From Top', 'themesflat-addons-for-elementor' ),
+						'from-right'  => esc_html__( 'From Right', 'themesflat-addons-for-elementor' ),
+						'from-bottom'  => esc_html__( 'From Bottom', 'themesflat-addons-for-elementor' ),
+						'flip-box'  => esc_html__( 'Flip Box', 'themesflat-addons-for-elementor' ),
 					],
 					'condition' => [
 						'enable_overlay' => 'yes'
@@ -1184,7 +1188,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 						'flip_box_height',
 						[
-							'label' => esc_html__( 'Flip Box Height', 'tf-addon-for-elementer' ),
+							'label' => esc_html__( 'Flip Box Height', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::SLIDER,
 							'size_units' => [ 'px' ],
 							'range' => [
@@ -1211,14 +1215,14 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'flip_box_style',
 				[
-					'label' => esc_html__( 'Flip Box Style', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Flip Box Style', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'horizontal-rotation',
 					'options' => [
-						'horizontal-rotation'  => esc_html__( 'Horizontal Rotation', 'tf-addon-for-elementer' ),
-						'reverse-horizontal-rotation'  => esc_html__( 'Reverse Horizontal Rotation', 'tf-addon-for-elementer' ),
-						'vertical-rotation'  => esc_html__( 'Vertical Rotation', 'tf-addon-for-elementer' ),
-						'reverse-vertical-rotation'  => esc_html__( 'Reverse Vertical Rotation', 'tf-addon-for-elementer' ),
+						'horizontal-rotation'  => esc_html__( 'Horizontal Rotation', 'themesflat-addons-for-elementor' ),
+						'reverse-horizontal-rotation'  => esc_html__( 'Reverse Horizontal Rotation', 'themesflat-addons-for-elementor' ),
+						'vertical-rotation'  => esc_html__( 'Vertical Rotation', 'themesflat-addons-for-elementor' ),
+						'reverse-vertical-rotation'  => esc_html__( 'Reverse Vertical Rotation', 'themesflat-addons-for-elementor' ),
 					],
 					'condition' => [
 						'enable_overlay' => 'yes',
@@ -1230,10 +1234,10 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'enable_effect_hover_box',
 				[
-					'label' => esc_html__( 'Effect Hover Box', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Effect Hover Box', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Yes', 'tf-addon-for-elementer' ),
-					'label_off' => esc_html__( 'No', 'tf-addon-for-elementer' ),
+					'label_on' => esc_html__( 'Yes', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'No', 'themesflat-addons-for-elementor' ),
 					'return_value' => 'yes',
 					'default' => 'no',
 					'separator' => 'before',
@@ -1243,7 +1247,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'heading_effect_border',
 				[
-					'label' => esc_html__( 'Border', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,	
 					'condition' => [
 						'enable_effect_hover_box' => 'yes'
@@ -1255,7 +1259,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'effect_border_box',
-					'label' => esc_html__( 'Border', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tficonbox:hover',
 					'condition' => [
 						'enable_effect_hover_box' => 'yes'
@@ -1266,7 +1270,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'effect_border_radius_box',
 				[
-					'label' => esc_html__( 'Border Radius', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'selectors' => [
@@ -1281,7 +1285,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'heading_effect_translate',
 				[
-					'label' => esc_html__( 'Translate Box', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Translate Box', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 					'condition' => [
@@ -1293,8 +1297,8 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'effect_translate',
 				[
-					'label' => esc_html__( 'Translate', 'tf-addon-for-elementer' ),
-					'description' => esc_html__( 'ex: to Top (-10) or to Bottom (10)', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Translate', 'themesflat-addons-for-elementor' ),
+					'description' => esc_html__( 'ex: to Top (-10) or to Bottom (10)', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -1320,7 +1324,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'heading_effect_shadow',
 				[
-					'label' => esc_html__( 'Shadow Box', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Shadow Box', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 					'condition' => [
@@ -1333,7 +1337,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'effect_box_shadow',
-					'label' => esc_html__( 'Box Shadow', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tficonbox:hover',
 					'condition' => [
 						'enable_effect_hover_box' => 'yes'

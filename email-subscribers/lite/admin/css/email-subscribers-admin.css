@@ -2976,7 +2976,7 @@ top: 50%;}
 	overflow-y: auto;
 }
 
-#ig_es_ess_promotion_message p {
+#ig_es_ess_promotion_message p ,#ig_es_ess_promotion_mailer_message p {
     margin: 0;
 }
 

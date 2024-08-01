@@ -3551,6 +3551,10 @@
 			 * To prevent this, we are setting iframe element name to 'editor-canvas' because Jetpack doesn't triggers its code for elements with this name attribute.
 			 */
 			window.esVisualEditor.Canvas.getFrameEl().name = 'editor-canvas';
+			if ( typeof CKEDITOR !== 'undefined' ) {
+				CKEDITOR.dtd.$editable.a = 1;   
+   }
+		   
 		});
 
 	});

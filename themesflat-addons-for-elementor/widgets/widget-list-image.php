@@ -1,5 +1,5 @@
 <?php
-class TFListImage_Widget extends \Elementor\Widget_Base {
+class TFListImage_Widget_Free extends \Elementor\Widget_Base {
 
 	public function get_name() {
         return 'tf-list-image';
@@ -32,15 +32,15 @@ class TFListImage_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'partner_style',
 				[
-					'label' => esc_html__( 'Partner Style', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Partner Style', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'style-text' => [
-							'title' => esc_html__( 'Style Text', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Style Text', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-edit',
 						],
 						'style-image' => [
-							'title' => esc_html__( 'Style Image', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Style Image', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-image',
 						],
 					],
@@ -80,9 +80,9 @@ class TFListImage_Widget extends \Elementor\Widget_Base {
 			$repeater2->add_control(
 				'partner_text',
 				[
-					'label' => esc_html__( 'Content Text', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Content Text', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'IT Services', 'tf-addon-for-elementer' ),
+					'default' => esc_html__( 'IT Services', 'themesflat-addons-for-elementor' ),
 				]
 			);
 
@@ -414,7 +414,7 @@ class TFListImage_Widget extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'text_typography',
-					'label' => esc_html__( 'Text Typography', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Text Typography', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-list-image .list-text a',
 					'condition' => [
 						'partner_style' => 'style-text'

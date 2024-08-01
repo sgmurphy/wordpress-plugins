@@ -20,6 +20,21 @@ use SiteGround_Optimizer\Message_Service\Message_Service;
  * @since 5.0.0
  */
 class Cli_Status {
+
+	/**
+	 * Options class.
+	 *
+	 * @var Object.
+	 */
+	public $option_service;
+
+	/**
+	 * Htaccess service class.
+	 *
+	 * @var Object.
+	 */
+	public $htaccess_service;
+
 	/**
 	 * Return the current status of specific optimization
 	 *

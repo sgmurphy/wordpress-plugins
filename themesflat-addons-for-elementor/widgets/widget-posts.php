@@ -18,10 +18,10 @@ class TFPosts_Widget_Free extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends() {
-		return ['tf-font-awesome','tf-regular','owl-carousel','tf-style'];
+		return ['tf-font-awesome','tf-regular','owl-carousel','tf-post'];
 	}
 	public function get_script_depends() {
-		return ['owl-carousel','jquery-isotope','imagesloaded-pkgd','tf-main'];
+		return ['owl-carousel','jquery-isotope','imagesloaded-pkgd','tf-post'];
 	}
 
 	protected function register_controls() {

@@ -2,11 +2,11 @@
 namespace SiteGround_Optimizer\Cli;
 
 /**
- * SG CachePress Cli main plugin class
+ * SG CachePress CLI main plugin class
  */
 class Cli {
 	/**
-	 * Init supercacher children.
+	 * Init Supercacher children.
 	 *
 	 * @since  5.0.0
 	 */
@@ -29,6 +29,7 @@ class Cli {
 		// Heartbeat.
 		\WP_CLI::add_command( 'sg heartbeat', 'SiteGround_Optimizer\Cli\Cli_Heartbeat' );
 
+		// Images.
 		\WP_CLI::add_command( 'sg images', 'SiteGround_Optimizer\Cli\Cli_Images' );
 
 		// DNS Prefetch.
@@ -39,6 +40,9 @@ class Cli {
 
 		// Database Optimizer.
 		\WP_CLI::add_command( 'sg database-optimization', 'SiteGround_Optimizer\Cli\Cli_Database_Optimizer' );
+
+		// Config.
+		\WP_CLI::add_command( 'sg optimizer-config', 'SiteGround_Optimizer\Cli\Cli_Config' );
 	}
 
 }

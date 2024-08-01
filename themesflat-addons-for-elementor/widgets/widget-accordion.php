@@ -1,12 +1,12 @@
 <?php
-class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
+class TFAccordion_Widget_Free extends \Elementor\Widget_Base {
 
 	public function get_name() {
         return 'tfaccordion';
     }
     
     public function get_title() {
-        return esc_html__( 'TF Accordion', 'themesflat-elementor' );
+        return esc_html__( 'TF Accordion', 'themesflat-addons-for-elementor' );
     }
 
     public function get_icon() {
@@ -30,32 +30,32 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->start_controls_section( 
 				'section_accordion',
 	            [
-	                'label' => esc_html__('Accordion', 'themesflat-elementor'),
+	                'label' => esc_html__('Accordion', 'themesflat-addons-for-elementor'),
 	            ]
 	        );	
 
 	    	$this->add_control( 'heading_icon',
 				[
-					'label' => esc_html__( 'Icon', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Icon', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 				]
 			);
 
 			$this->add_control( 'icon_style',
 				[
-					'label' => esc_html__( 'Icon Style', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Icon Style', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'none' => [
-							'title' => esc_html__( 'None', 'themesflat-elementor' ),
+							'title' => esc_html__( 'None', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-ban',
 						],
 						'icon' => [
-							'title' => esc_html__( 'Icon', 'themesflat-elementor' ),
+							'title' => esc_html__( 'Icon', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-info-circle',
 						],
 						'image' => [
-							'title' => esc_html__( 'Image', 'themesflat-elementor' ),
+							'title' => esc_html__( 'Image', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-image',
 						],
 					],
@@ -66,13 +66,13 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'icon_position',
 				[
-					'label' => esc_html__( 'Icon Position', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Icon Position', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'icon_after',
 					'options' => [
-						'icon_before'  => esc_html__( 'Left', 'themesflat-elementor' ),
-						'icon_after' => esc_html__( 'Right', 'themesflat-elementor' ),
-						'icon_before_after' => esc_html__( 'Both side', 'themesflat-elementor' ),
+						'icon_before'  => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
+						'icon_after' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
+						'icon_before_after' => esc_html__( 'Both side', 'themesflat-addons-for-elementor' ),
 					],
 					'condition' => [
 						'icon_style!' => 'none',
@@ -82,7 +82,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			$this->add_control( 'icon_accodion',
 				[
-					'label' => esc_html__( 'Left Icon', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Left Icon', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::ICONS,
 					'fa4compatibility' => 'icon_accodion4',
 					'default' => [
@@ -98,7 +98,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			$this->add_control( 'image_accodion',
 				[
-					'label' => esc_html__( 'Left Icon Image', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Left Icon Image', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::MEDIA,
 					'default' => [
 						'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -112,7 +112,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			$this->add_control( 'icon_accodion_active',
 				[
-					'label' => esc_html__( 'Left Icon Active', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Left Icon Active', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::ICONS,
 					'fa4compatibility' => 'icon_accodion_active4',
 					'default' => [
@@ -128,7 +128,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			$this->add_control( 'image_accodion_active',
 				[
-					'label' => esc_html__( 'Left Icon Image Active', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Left Icon Image Active', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::MEDIA,
 					'default' => [
 						'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -143,7 +143,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			$this->add_control( 'icon_accodion_right',
 				[
-					'label' => esc_html__( 'Right Icon', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Right Icon', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::ICONS,
 					'fa4compatibility' => 'icon_accodion4_right',
 					'default' => [
@@ -159,7 +159,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			$this->add_control( 'image_accodion_right',
 				[
-					'label' => esc_html__( 'Right Icon Image', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Right Icon Image', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::MEDIA,
 					'default' => [
 						'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -173,7 +173,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			$this->add_control( 'icon_accodion_right_active',
 				[
-					'label' => esc_html__( 'Right Icon Active', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Right Icon Active', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::ICONS,
 					'fa4compatibility' => 'icon_accodion_active4_right',
 					'default' => [
@@ -189,7 +189,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			$this->add_control( 'image_accodion_right_active',
 				[
-					'label' => esc_html__( 'Right Icon Image Active', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Right Icon Image Active', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::MEDIA,
 					'default' => [
 						'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -204,43 +204,43 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $repeater = new \Elementor\Repeater();
 	        	$repeater->add_control( 'set_active',
 					[
-						'label' => esc_html__( 'Set Active Item', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Set Active Item', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::SWITCHER,
-						'label_on' => esc_html__( 'Yes', 'themesflat-elementor' ),
-						'label_off' => esc_html__( 'No', 'themesflat-elementor' ),
+						'label_on' => esc_html__( 'Yes', 'themesflat-addons-for-elementor' ),
+						'label_off' => esc_html__( 'No', 'themesflat-addons-for-elementor' ),
 						'return_value' => 'active',
 						'default' => 'inactive',
 					]
 				);		        
 		        $repeater->add_control( 'list_title', [
-						'label' => esc_html__( 'Nav text', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Nav text', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::TEXT,
-						'default' => esc_html__( 'Accordion' , 'themesflat-elementor' ),
+						'default' => esc_html__( 'Accordion' , 'themesflat-addons-for-elementor' ),
 						'label_block' => true,
 					]
 				);
 				$repeater->add_control( 'heading_content',
 					[
-						'label' => esc_html__( 'Content', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Content', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::HEADING,
 						'separator' => 'before',
 					]
 				);
 				$repeater->add_control( 'list_content_text_type',
 					[
-						'label' => esc_html__( 'Content type', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Content type', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::SELECT,
 						'default' => 'editor',
 						'options' => [
-							'editor'  => esc_html__( 'Editor', 'themesflat-elementor' ),
-							'template' => esc_html__( 'Template', 'themesflat-elementor' ),
+							'editor'  => esc_html__( 'Editor', 'themesflat-addons-for-elementor' ),
+							'template' => esc_html__( 'Template', 'themesflat-addons-for-elementor' ),
 						],
 					]
 				);	
 				$repeater->add_control( 'list_content', [
-						'label' => esc_html__( 'Content text', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Content text', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::WYSIWYG,
-						'default' => esc_html__( 'Good strategy is the antidote to competition. Strategic thinking is the process of developing a strategy that defines your value proposition and your unique value chain. This process includes market and competitive research as well as an assessment of the company’s capabilities and the industry forces impacting it.' , 'themesflat-elementor' ),
+						'default' => esc_html__( 'Good strategy is the antidote to competition. Strategic thinking is the process of developing a strategy that defines your value proposition and your unique value chain. This process includes market and competitive research as well as an assessment of the company’s capabilities and the industry forces impacting it.' , 'themesflat-addons-for-elementor' ),
 						'label_block' => true,
 						'condition' => [
 	                        'list_content_text_type' => 'editor',
@@ -249,7 +249,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				);
 				$repeater->add_control( 'list_content_template',
 					[
-						'label' => esc_html__( 'Choose Template', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Choose Template', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::SELECT,
 						'options' => ThemesFlat_Addon_For_Elementor_Free::tf_get_template_elementor(),
 						'condition' => [
@@ -264,27 +264,27 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 						'default' => [
 							[	
 								'set_active' => 'active',
-								'list_title' => esc_html__( '01. What does you do?', 'themesflat-elementor' ),
+								'list_title' => esc_html__( '01. What does you do?', 'themesflat-addons-for-elementor' ),
 								'list_content' => esc_html__( "Lorem Ipsum is simply dummy of free available in market the printing and typesetting industry has been industry's standard." ),
 							],
 							[
 								'set_active' => 'inactive',
-								'list_title' => esc_html__( '02. What is graphics design?', 'themesflat-elementor' ),
+								'list_title' => esc_html__( '02. What is graphics design?', 'themesflat-addons-for-elementor' ),
 								'list_content' => esc_html__( "Lorem Ipsum is simply dummy of free available in market the printing and typesetting industry has been industry's standard." ),
 							],
 							[
 								'set_active' => 'inactive',
-								'list_title' => esc_html__( '03. Why we are the best?', 'themesflat-elementor' ),
+								'list_title' => esc_html__( '03. Why we are the best?', 'themesflat-addons-for-elementor' ),
 								'list_content' => esc_html__( "Lorem Ipsum is simply dummy of free available in market the printing and typesetting industry has been industry's standard." ),
 							],
 							[
 								'set_active' => 'inactive',
-								'list_title' => esc_html__( '04. What is industries covered?', 'themesflat-elementor' ),
+								'list_title' => esc_html__( '04. What is industries covered?', 'themesflat-addons-for-elementor' ),
 								'list_content' => esc_html__( "Lorem Ipsum is simply dummy of free available in market the printing and typesetting industry has been industry's standard." ),
 							],
 							[
 								'set_active' => 'inactive',
-								'list_title' => esc_html__( '05. What is graphics design?', 'themesflat-elementor' ),
+								'list_title' => esc_html__( '05. What is graphics design?', 'themesflat-addons-for-elementor' ),
 								'list_content' => esc_html__( "Lorem Ipsum is simply dummy of free available in market the printing and typesetting industry has been industry's standard." ),
 							],
 						],
@@ -299,7 +299,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->start_controls_section( 
 	        	'section_style_general',
 	            [
-	                'label' => esc_html__( 'General', 'themesflat-elementor' ),
+	                'label' => esc_html__( 'General', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -307,23 +307,23 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	         $this->add_control(
 				'wrap_align',
 				[
-					'label' => esc_html__( 'Alignment', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Alignment', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'left'    => [
-							'title' => esc_html__( 'Left', 'themesflat-elementor' ),
+							'title' => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-left',
 						],
 						'center' => [
-							'title' => esc_html__( 'Center', 'themesflat-elementor' ),
+							'title' => esc_html__( 'Center', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-center',
 						],
 						'right' => [
-							'title' => esc_html__( 'Right', 'themesflat-elementor' ),
+							'title' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-right',
 						],
 						'justify' => [
-							'title' => esc_html__( 'Justified', 'themesflat-elementor' ),
+							'title' => esc_html__( 'Justified', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-justify',
 						],
 					],
@@ -338,7 +338,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'wrap_border',
-					'label' => esc_html__( 'Border', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-accordion',
 				]
 			);
@@ -346,7 +346,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control( 
 				'wrap_border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' , 'em' , '%' ],
 					'selectors' => [
@@ -362,7 +362,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->start_controls_section( 
 	        	'section_style_item',
 	            [
-	                'label' => esc_html__( 'Item', 'themesflat-elementor' ),
+	                'label' => esc_html__( 'Item', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -370,7 +370,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control( 
 				'item_padding',
 				[
-					'label' => esc_html__( 'Padding', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'default' => [
@@ -390,7 +390,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'item_margin',
 				[
-					'label' => esc_html__( 'Margin', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'default' => [
@@ -409,7 +409,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			$this->add_control( 'item_background',
 				[
-					'label' => esc_html__( 'Background Color', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '',
 					'selectors' => [
@@ -422,7 +422,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'item_box_shadow',
-					'label' => esc_html__( 'Box Shadow', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-accordion .tf-accordion-item',
 				]
 			);
@@ -431,7 +431,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'item_border',
-					'label' => esc_html__( 'Border', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-accordion .tf-accordion-item',
 				]
 			);
@@ -439,7 +439,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'item_border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' , 'em' , '%' ],
 					'selectors' => [
@@ -455,7 +455,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->start_controls_section( 
 	        	'section_style_icon',
 	            [
-	                'label' => esc_html__( 'Icon', 'themesflat-elementor' ),
+	                'label' => esc_html__( 'Icon', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -463,7 +463,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control( 
 				'icon_margin',
 				[
-					'label' => esc_html__( 'Margin', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'selectors' => [
@@ -475,7 +475,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control(
 				'icon_size_w',
 				[
-					'label' => esc_html__( 'Icon Size Width', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Icon Size Width', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -504,7 +504,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'icon_size_h',
 				[
-					'label' => esc_html__( 'Icon Size Height', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Icon Size Height', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -532,7 +532,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'icon_border',
-					'label' => esc_html__( 'Border', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-accordion .accordion-title .wrap-accordion-icon',
 				]
 			);
@@ -540,7 +540,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'icon_border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' , 'em' , '%' ],
 					'selectors' => [
@@ -552,7 +552,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'heading_icon_left',
 				[
-					'label' => esc_html__( 'Icon Left', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Icon Left', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 					'condition' => [
@@ -564,7 +564,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'icon_font_size',
 				[
-					'label' => esc_html__( 'Icon Font Size', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Icon Font Size', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -603,13 +603,13 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        	$this->start_controls_tab( 
 	        		'icon_style_normal_accordion',
 					[
-						'label' => esc_html__( 'Normal', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Normal', 'themesflat-addons-for-elementor' ),
 					] );	
 
 	        		$this->add_control( 
 						'icon_color',
 						[
-							'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#9CA6B6',
 							'selectors' => [
@@ -624,7 +624,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'icon_background_color',
 						[
-							'label' => esc_html__( 'Background Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '',
 							'selectors' => [
@@ -639,13 +639,13 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				$this->start_controls_tab( 
 					'icon_style_hover_accordion',
 					[
-						'label' => esc_html__( 'Active', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Active', 'themesflat-addons-for-elementor' ),
 					] );
 
 					$this->add_control( 
 						'icon_color_hover',
 						[
-							'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#3858e9',
 							'selectors' => [
@@ -660,7 +660,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'icon_background_color_hover',
 						[
-							'label' => esc_html__( 'Background Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '',
 							'selectors' => [
@@ -677,7 +677,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'heading_icon_right',
 				[
-					'label' => esc_html__( 'Icon Right', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Icon Right', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 					'condition' => [
@@ -689,7 +689,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'icon_font_size_right',
 				[
-					'label' => esc_html__( 'Icon Font Size', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Icon Font Size', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -725,13 +725,13 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        	$this->start_controls_tab( 
 	        		'icon_style_right_normal_accordion',
 					[
-						'label' => esc_html__( 'Normal', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Normal', 'themesflat-addons-for-elementor' ),
 					] );	
 
 	        		$this->add_control( 
 						'icon_right_color',
 						[
-							'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#9CA6B6',
 							'selectors' => [
@@ -746,7 +746,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'icon_right_background_color',
 						[
-							'label' => esc_html__( 'Background Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '',
 							'selectors' => [
@@ -761,13 +761,13 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				$this->start_controls_tab( 
 					'icon_style_right_hover_accordion',
 					[
-						'label' => esc_html__( 'Active', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Active', 'themesflat-addons-for-elementor' ),
 					] );
 
 					$this->add_control( 
 						'icon_right_color_hover',
 						[
-							'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#3858e9',
 							'selectors' => [
@@ -782,7 +782,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'icon_right_background_color_hover',
 						[
-							'label' => esc_html__( 'Background Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '',
 							'selectors' => [
@@ -803,7 +803,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->start_controls_section( 
 	        	'section_style_title',
 	            [
-	                'label' => esc_html__( 'Title', 'themesflat-elementor' ),
+	                'label' => esc_html__( 'Title', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -812,7 +812,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'title_typography',
-					'label' => esc_html__( 'Typography', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Typography', 'themesflat-addons-for-elementor' ),
 					'fields_options' => [
 				        'typography' => ['default' => 'yes'],
 				        'font_family' => [
@@ -850,7 +850,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'title_padding',
 				[
-					'label' => esc_html__( 'Padding', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'default' => [
@@ -870,7 +870,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'title_margin',
 				[
-					'label' => esc_html__( 'Margin', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'default' => [
@@ -894,12 +894,12 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        	$this->start_controls_tab( 
 	        		'title_style_normal_accordion',
 					[
-						'label' => esc_html__( 'Normal', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Normal', 'themesflat-addons-for-elementor' ),
 					] );
 
 					$this->add_control( 'title_color',
 						[
-							'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#201630',
 							'selectors' => [
@@ -910,7 +910,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        		
 					$this->add_control( 'title_background',
 						[
-							'label' => esc_html__( 'Background Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '',
 							'selectors' => [
@@ -923,7 +923,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Box_Shadow::get_type(),
 						[
 							'name' => 'title_box_shadow',
-							'label' => esc_html__( 'Box Shadow', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 							'selector' => '{{WRAPPER}} .tf-accordion .accordion-title',
 						]
 					);
@@ -932,7 +932,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Border::get_type(),
 						[
 							'name' => 'title_border',
-							'label' => esc_html__( 'Border', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 							'selector' => '{{WRAPPER}} .tf-accordion .accordion-title',
 						]
 					);
@@ -940,7 +940,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'title_border_radius',
 						[
-							'label' => esc_html__( 'Border Radius', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::DIMENSIONS,
 							'size_units' => [ 'px' , 'em' , '%' ],
 							'selectors' => [
@@ -954,12 +954,12 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				$this->start_controls_tab( 
 					'title_style_hover_accordion',
 					[
-						'label' => esc_html__( 'Active', 'themesflat-elementor' ),
+						'label' => esc_html__( 'Active', 'themesflat-addons-for-elementor' ),
 					] );
 
 					$this->add_control( 'title_color_active',
 						[
-							'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#FFFFFF',
 							'selectors' => [
@@ -970,7 +970,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        		
 					$this->add_control( 'title_background_active',
 						[
-							'label' => esc_html__( 'Background Color', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::COLOR,
 							'default' => '#1F242C',
 							'selectors' => [
@@ -983,7 +983,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Box_Shadow::get_type(),
 						[
 							'name' => 'title_box_shadow_active',
-							'label' => esc_html__( 'Box Shadow', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 							'selector' => '{{WRAPPER}} .tf-accordion .accordion-title.active',
 						]
 					);
@@ -992,7 +992,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 						\Elementor\Group_Control_Border::get_type(),
 						[
 							'name' => 'title_border_active',
-							'label' => esc_html__( 'Border', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 							'selector' => '{{WRAPPER}} .tf-accordion .accordion-title.active',
 						]
 					);
@@ -1000,7 +1000,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 					$this->add_control( 
 						'title_border_radius_active',
 						[
-							'label' => esc_html__( 'Border Radius', 'themesflat-elementor' ),
+							'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 							'type' => \Elementor\Controls_Manager::DIMENSIONS,
 							'size_units' => [ 'px' , 'em' , '%' ],
 							'selectors' => [
@@ -1020,14 +1020,14 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->start_controls_section( 
 	        	'section_style_content',
 	            [
-	                'label' => esc_html__( 'Content', 'themesflat-elementor' ),
+	                'label' => esc_html__( 'Content', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
 
 	        $this->add_control( 'content_color',
 				[
-					'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#565872',
 					'selectors' => [
@@ -1038,7 +1038,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
     		
 			$this->add_control( 'content_background',
 				[
-					'label' => esc_html__( 'Background Color', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#FFFFFF',
 					'selectors' => [
@@ -1051,7 +1051,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'content_typography',
-					'label' => esc_html__( 'Typography', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Typography', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-accordion .accordion-content',
 				]
 			);
@@ -1060,7 +1060,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'content_box_shadow',
-					'label' => esc_html__( 'Box Shadow', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-accordion .accordion-content',
 				]
 			);
@@ -1069,7 +1069,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'content_border',
-					'label' => esc_html__( 'Border', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-accordion .accordion-content',
 				]
 			);
@@ -1077,7 +1077,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'content_border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' , 'em' , '%' ],
 					'selectors' => [
@@ -1089,7 +1089,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'content_padding',
 				[
-					'label' => esc_html__( 'Padding', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'default' => [
@@ -1109,7 +1109,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'content_margin',
 				[
-					'label' => esc_html__( 'Margin', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'default' => [

@@ -12,7 +12,10 @@ if ( ! function_exists( 'burst_is_logged_in_rest' ) ) {
 
 if ( ! function_exists( 'burst_admin_logged_in' ) ) {
 	function burst_admin_logged_in() {
-		return ( is_user_logged_in() && burst_user_can_view() ) || burst_is_logged_in_rest() || wp_doing_cron() || ( defined( 'WP_CLI' ) && WP_CLI );
+		return ( is_admin() && is_user_logged_in() && burst_user_can_view() )
+		       || burst_is_logged_in_rest()
+		       || wp_doing_cron()
+		       || ( defined( 'WP_CLI' ) && WP_CLI );
 	}
 }
 
@@ -65,15 +68,6 @@ if ( ! function_exists( 'burst_is_networkwide_active' ) ) {
 		}
 
 		return false;
-	}
-}
-
-/**
- * Check if using multisite plugin on non-multisite environment
- */
-if ( ! function_exists( 'burst_is_multisite_plugin_on_non_multisite_installation' ) ) {
-	function burst_is_multisite_plugin_on_non_multisite_installation() {
-		return ! is_multisite() && defined( 'burst_pro_multisite' );
 	}
 }
 
@@ -166,7 +160,7 @@ if ( ! function_exists( 'burst_admin_url' ) ) {
 	 * @return string|null
 	 */
 	function burst_admin_url() {
-		return is_multisite() && is_network_admin() ? network_admin_url( 'index.php' ) : admin_url( 'index.php' );
+		return is_multisite() && is_network_admin() ? network_admin_url( 'admin.php' ) : admin_url( 'admin.php' );
 	}
 }
 
@@ -578,15 +572,47 @@ if ( ! function_exists( 'burst_has_open_basedir_restriction' ) ) {
 	}
 }
 
-/**
- * Deprecated: Get a Burst option by name, use burst_get_option instead
- *
- * @deprecated 1.3.0
- * @param $name
- * @param $default
- *
- * @return mixed
- */
-function burst_get_value( $name, $default = false ) {
-	return burst_get_option( $name, $default );
+
+if ( ! function_exists( 'burst_get_value' ) ) {
+	/**
+	 * Deprecated: Get a Burst option by name, use burst_get_option instead
+	 *
+	 * @deprecated 1.3.0
+	 * @param $name
+	 * @param $default
+	 *
+	 * @return mixed
+	 */
+	function burst_get_value( $name, $default = false ) {
+		return burst_get_option( $name, $default );
+	}
+}
+
+if ( ! function_exists('burst_get_website_url') ) {
+	/**
+	 * @param $url
+	 * @param $params
+	 *               Example usage:
+	 *               burst_content=page-analytics -> specifies that the user is interacting with the page analytics feature.
+	 *               burst_source=download-button -> indicates that the click originated from the download button.
+	 *
+	 * @return string
+	 */
+	function burst_get_website_url( $url = '/', $params = []) {
+		$base_url = 'https://burst-statistics.com/';
+		$version = defined('burst_pro') ? 'pro' : 'free';
+		$version_nr = defined('burst_version') ? burst_version : 'undefined';
+
+		// strip debug time from version nr
+		$version_nr = explode('#', $version_nr);
+		$version_nr = $version_nr[0];
+		$default_params = [
+			'burst_campaign' => 'burst-' . $version . '-' . $version_nr,
+		];
+
+		$params = wp_parse_args($params, $default_params);
+		$params = http_build_query($params);
+
+		return trailingslashit($base_url) . trailingslashit($url) . '?' . $params;
+	}
 }

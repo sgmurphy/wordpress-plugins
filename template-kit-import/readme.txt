@@ -4,7 +4,7 @@ Tags: elementor, template, templates
 Requires at least: 5.3
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 1.0.15
+Stable tag: 1.0.16
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -35,6 +35,9 @@ Create your own "Template Kit" for others with the "[Template Kit Export](https:
 3. **Select templates.**
 
 == Changelog ==
+
+= 1.0.16 - 2024-07-19 =
+* Updating branding and screenshots
 
 = 1.0.15 - 2024-03-22 =
 * Fix: Change minimum capability from "editor" to "install_themes"

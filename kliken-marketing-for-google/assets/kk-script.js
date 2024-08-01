@@ -4,7 +4,7 @@ function klikenGetCartItems() {
         _ajax_nonce: fetchCartItems.nonce
     }, function (data) {
         // If no data is available, exit method.
-        if (!data) return;
+        if (typeof sw !== 'object' || !data) return;
 
         let itemsForFBQ = [];
         let itemsForGTAG = [];

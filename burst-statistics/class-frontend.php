@@ -3,6 +3,7 @@ defined( 'ABSPATH' ) or die( 'you do not have access to this page!' );
 if ( ! class_exists( 'burst_frontend' ) ) {
 	class burst_frontend {
 		private static $_this;
+		private $look_up_table_ids = array();
 
 		function __construct() {
 			if ( isset( self::$_this ) ) {
@@ -133,7 +134,30 @@ if ( ! class_exists( 'burst_frontend' ) ) {
 			return $tag;
 		}
 
-		function exclude_from_tracking() {
+		/**
+		 * Get ID from lookup table, cached in class
+		 *
+		 * @param string $item
+		 * @param null | string $value
+		 *
+		 * @return int
+		 */
+		public function get_lookup_table_id( string $item, $value):int {
+			if ( isset( $this->look_up_table_ids[$item][$value] ) ){
+				return $this->look_up_table_ids[$item][$value];
+			}
+
+			$ID = burst_get_lookup_table_id($item, $value);
+ 			$this->look_up_table_ids[$item][$value] = $ID;
+			return (int) $ID;
+		}
+
+		/**
+         * Check if this should be excluded from tracking
+         *
+		 * @return bool
+		 */
+		public function exclude_from_tracking() {
 			if ( is_user_logged_in() ) {
 				$user                = wp_get_current_user();
 				$user_role_blocklist = burst_get_option( 'user_role_blocklist' );

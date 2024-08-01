@@ -4,19 +4,19 @@
  * Plugin URI: https://woo.kliken.com/
  * Description: Kliken's all-in-one marketing platform helps business owners reach high-intent customers, surpass your competition and realize significant growth in sales, while decreasing conversion costs.
  * Author: Kliken
- * Author URI: http://kliken.com/
+ * Author URI: https://kliken.com/
  * Developer: Kliken
- * Developer URI: http://kliken.com/
+ * Developer URI: https://kliken.com/
  * Text Domain: kliken-marketing-for-google
  * Domain path: /languages
  *
- * Version: 1.4.3
- * Requires at least: 5.8
+ * Version: 1.5.0
  * Requires PHP: 7.4
- * Tested up to: 6.5
+ * Requires at least: 5.8
+ * Tested up to: 6.6
  * Requires Plugins: woocommerce
  * WC requires at least: 6.0
- * WC tested up to: 8.7
+ * WC tested up to: 9.1
  *
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,10 +26,12 @@
 
 defined( 'ABSPATH' ) || exit;
 
+define( 'KK_WC_PLUGIN_VERSION', '1.5.0' );
 define( 'KK_WC_PLUGIN_FILE', __FILE__ );
 define( 'KK_WC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'KK_WC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'KK_WC_PLUGIN_REL_PATH', basename( __DIR__ ) );
+define( 'KK_WC_PLUGIN_BASE_PATH', plugin_basename( __FILE__ ) );
+define( 'KK_WC_PLUGIN_REL_PATH', dirname( KK_WC_PLUGIN_BASE_PATH ) );
 define( 'KK_WC_AFFILIATE_ID', '82E7B644-DB42-40E9-9EDF-6FD10A4BAFB3' );
 define( 'KK_WC_WOOKLIKEN_BASE_URL', 'https://woo.kliken.com/' );
 define( 'KK_WC_AUTH_CALLBACK_URL', 'https://app.mysite-analytics.com/WebHooks/WooCommerceAuth/' );

@@ -2,10 +2,10 @@
 Contributors: royalnavneet
 Author URI: http://www.navneetsoni.com
 Donate link:https://bit.ly/2Zxgaq8
-Tags: comment, comments,delete all, delete, remove all comments, remove all,delete all comment
+Tags: comment, comments,delete all, delete, remove all comments, remove all,delete all comment,delete all comment,remove comments,delete comments,remove all comments, remove all
 Requires at least: 3.8
-Tested up to: 6.4.1
-Stable tag:2.0
+Tested up to: 6.6.1
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,6 +58,7 @@ Just a standard installation required.
 = 5.6 = Bug fix (Order note also deleted when we delete all comments -- fixed )
 = 5.7 = Add some new images of supporter.
 = 5.7 = change support link.
+= 5.8 = change support link.
 
 
 * Stable plugin released

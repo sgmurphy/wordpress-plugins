@@ -109,13 +109,14 @@ class Custom_Login_Url {
 			$this->redirect_with_token( 'login', 'wp-login.php' );
 		}
 
-		if ( in_array( $path, array( 'wp-login', 'wp-login.php' ) ) ) {
+		if ( false !== strpos( $path, 'wp-login' ) || false !== strpos( $path, 'wp-login.php' ) ) {
 			$this->handle_login();
 		}
 
 		if ( $path === $this->options['register'] ) {
 			$this->handle_registration();
 		}
+
 	}
 
 	/**

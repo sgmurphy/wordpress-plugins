@@ -47,21 +47,38 @@ class Plugin {
 	 */
 	public function activate() {
 		$saved_settings = Helper::get_plugin_options();
-		if ( empty( $saved_settings ) ) {
-			update_option(
-				Helper::get_option_key(),
-				[
-					'account_id'     => 0,
-					'app_token'      => '',
-					'google_token'   => '',
-					'facebook_token' => '',
-				]
-			);
+		$need_update    = false;
 
-			$has_account_id = false;
-		} else {
-			$has_account_id = Helper::is_valid_account_id( $saved_settings['account_id'] );
+		if ( empty( $saved_settings ) ) {
+			$saved_settings = [
+				'account_id'     => 0,
+				'app_token'      => '',
+				'google_token'   => '',
+				'facebook_token' => '',
+			];
+
+			$need_update = true;
 		}
+
+		// Check if the other plugin has settings to copy from.
+		$other_plugin_state = Helper::get_other_plugin_state();
+
+		if ( $other_plugin_state['configured'] ) {
+			$saved_settings = [
+				'account_id'     => $other_plugin_state['settings']['account_id'],
+				'app_token'      => $other_plugin_state['settings']['app_token'],
+				'google_token'   => $other_plugin_state['settings']['google_token'],
+				'facebook_token' => $other_plugin_state['settings']['facebook_token'],
+			];
+
+			$need_update = true;
+		}
+
+		if ( $need_update ) {
+			update_option( Helper::get_option_key(), $saved_settings );
+		}
+
+		$has_account_id = Helper::is_valid_account_id( $saved_settings['account_id'] ?? 0 );
 
 		if ( ! $has_account_id ) {
 			// Try to find account id baked into the plugin zip.
@@ -105,6 +122,18 @@ class Plugin {
 					self::ALREADY_BOOTSTRAPED
 				);
 			}
+
+			// Declare compatibility with HPOS.
+			// This has to be here so that WooCommerce won't complain about us in case
+			// we fail on checks of dependencies, next, and has to stop ourselves from running.
+			add_action(
+				'before_woocommerce_init',
+				function () {
+					if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+						\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', KK_WC_PLUGIN_FILE, true );
+					}
+				}
+			);
 
 			$this->check_dependencies();
 			$this->run();
@@ -248,17 +277,6 @@ class Plugin {
 		add_filter( 'woocommerce_integrations', [ $this, 'woocommerce_integrations' ] );
 
 		add_action( 'admin_init', [ $this, 'admin_init' ] );
-		add_action( 'admin_notices', [ $this, 'show_onboarding_message' ] );
-		add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
-
-		add_action( 'woocommerce_add_to_cart', [ $this, 'woocommerce_add_to_cart' ] );
-
-		// Hook AJAX call to the AJAX action to get cart data. nopriv means that this will run with non-logged in users.
-		add_action( 'wp_ajax_' . KK_WC_ACTION_FETCH_CART_ITEMS, [ $this, 'ajax_fetch_cart_items' ] );
-		add_action( 'wp_ajax_nopriv_' . KK_WC_ACTION_FETCH_CART_ITEMS, [ $this, 'ajax_fetch_cart_items' ] );
-
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-		add_action( 'wp_head', [ $this, 'wp_head' ] );
 
 		// Declare compatibility with HPOS.
 		add_action(
@@ -274,6 +292,24 @@ class Plugin {
 		if ( is_admin() ) {
 			// Handle request to save account info coming back from Kliken sign up page.
 			add_action( 'admin_action_' . KK_WC_ACTION_SAVE_ACCOUNT, [ $this, 'save_account' ] );
+		}
+
+		$other_plugin_state = Helper::get_other_plugin_state( true );
+
+		if ( ! $other_plugin_state['active'] ) {
+			add_action( 'admin_notices', [ $this, 'show_onboarding_message' ] );
+
+			// Only register API endpoints if the new plugin is not active.
+			add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
+
+			add_action( 'woocommerce_add_to_cart', [ $this, 'woocommerce_add_to_cart' ] );
+
+			// Hook AJAX call to the AJAX action to get cart data. nopriv means that this will run with non-logged in users.
+			add_action( 'wp_ajax_' . KK_WC_ACTION_FETCH_CART_ITEMS, [ $this, 'ajax_fetch_cart_items' ] );
+			add_action( 'wp_ajax_nopriv_' . KK_WC_ACTION_FETCH_CART_ITEMS, [ $this, 'ajax_fetch_cart_items' ] );
+
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+			add_action( 'wp_head', [ $this, 'wp_head' ] );
 		}
 	}
 
@@ -294,6 +330,8 @@ class Plugin {
 	 */
 	public function admin_init() {
 		Helper::check_redirect_for_wc_auth();
+
+		load_plugin_textdomain( 'kliken-marketing-for-google', false, KK_WC_PLUGIN_REL_PATH . '/languages' );
 	}
 
 	/**
@@ -304,7 +342,8 @@ class Plugin {
 
 		if ( false !== get_site_transient( KK_WC_WELCOME_MESSAGE, false )
 			&& false === get_option( KK_WC_WELCOME_MESSAGE . self::DISMISS_POSTFIX, false )
-			&& current_user_can( 'manage_options' ) && ! Helper::is_plugin_page()
+			&& current_user_can( 'manage_options' )
+			&& ! Helper::is_plugin_page()
 			&& ! Helper::is_valid_account_id( $settings['account_id'] ) ) {
 			Message::show_info( Helper::get_onboarding_message(), 'welcome' );
 		}
@@ -386,6 +425,10 @@ class Plugin {
 		foreach ( $cart_items as $key => $value ) {
 			$product = $value['data'];
 
+			if ( ! $product instanceof \WC_Product ) {
+				continue;
+			}
+
 			$response[] = array(
 				'product_id'   => $product->get_id(),
 				'product_name' => $product->get_name(),
@@ -411,15 +454,23 @@ class Plugin {
 		$url = Helper::get_plugin_page();
 
 		if ( isset( $_GET['maid'], $_GET['appt'] ) ) { // WPCS: input var ok.
+			$account_id = sanitize_text_field( wp_unslash( $_GET['maid'] ) );  // WPCS: input var ok.
+			$app_token  = sanitize_text_field( wp_unslash( $_GET['appt'] ) );  // WPCS: input var ok.
+
 			// Once account info is saved, we will have to do WooCommerce API Authorization again.
-			$authorization_url = Helper::save_account_info(
-				sanitize_text_field( wp_unslash( $_GET['maid'] ) ), // WPCS: input var ok.
-				sanitize_text_field( wp_unslash( $_GET['appt'] ) ) // WPCS: input var ok.
-			);
+			$authorization_url = Helper::save_account_info( $account_id, $app_token );
 
 			if ( $authorization_url ) {
 				$url = $authorization_url;
 			}
+
+			Helper::save_other_plugin_settings(
+				[
+					'account_id' => $account_id,
+					'app_token'  => $app_token,
+				],
+				true
+			);
 		}
 
 		if ( $url ) {

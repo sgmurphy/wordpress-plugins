@@ -62,7 +62,7 @@ if( !function_exists('themesflat_product_mini_add_to_cart_fragment')){
 if( !function_exists('tf_woo_custom_product_data_badge_tab')){
     function tf_woo_custom_product_data_badge_tab($tabs) {
         $tabs['tf_custom_product_settings'] = array(
-            'label' => esc_html__( 'TF Product Badge', 'tf-addon-for-elementer' ),
+            'label' => esc_html__( 'TF Product Badge', 'themesflat-addons-for-elementor' ),
             'target' => 'tf_custom_product_options_badge',
             'class' => '',
             'priority' => '80'
@@ -77,13 +77,13 @@ if( !function_exists('tf_woo_add_metabox_to_general_tab')){
         echo '<div id="tf_custom_product_options_badge" class="panel woocommerce_options_panel">';
             woocommerce_wp_text_input( array(
                 'id'          => '_tf_flashsale_text',
-                'label'       => esc_html__( 'Custom Product Badge: ', 'tf-addon-for-elementer' ),
-                'placeholder' => esc_html__( 'Enter your badge text. Ex: New / Free etc', 'tf-addon-for-elementer' ),
+                'label'       => esc_html__( 'Custom Product Badge: ', 'themesflat-addons-for-elementor' ),
+                'placeholder' => esc_html__( 'Enter your badge text. Ex: New / Free etc', 'themesflat-addons-for-elementor' ),
             ) );
             woocommerce_wp_text_input( array(
                 'id'          => '_tf_flashsale_text_2',
-                'label'       => esc_html__( 'Custom Product Badge: ', 'tf-addon-for-elementer' ),
-                'placeholder' => esc_html__( 'Enter your badge text. Ex: Hot / Free etc', 'tf-addon-for-elementer' ),
+                'label'       => esc_html__( 'Custom Product Badge: ', 'themesflat-addons-for-elementor' ),
+                'placeholder' => esc_html__( 'Enter your badge text. Ex: Hot / Free etc', 'themesflat-addons-for-elementor' ),
             ) );
         echo '</div>';
     }
@@ -210,8 +210,8 @@ if(!function_exists('tf_custom_pagination_woo')){
                     'format' => '?paged=%#%',
                     'current' => max( 1, $paged ),
                     'total' => $query_products->max_num_pages,
-                    'prev_text' => esc_html__( 'Previous', 'tf-addon-for-elementer' ),
-                    'next_text' => esc_html__( 'Next', 'tf-addon-for-elementer' ),
+                    'prev_text' => esc_html__( 'Previous', 'themesflat-addons-for-elementor' ),
+                    'next_text' => esc_html__( 'Next', 'themesflat-addons-for-elementor' ),
                     ));
                 }
                 ?>
@@ -223,7 +223,7 @@ if(!function_exists('tf_custom_pagination_woo')){
                 ?>
                 <nav class="navigation loadmore" role="navigation">
                     <div class="pagination loop-pagination <?php echo esc_attr($align); ?>">            
-                    <a href=" <?php echo esc_url( get_next_posts_page_link() ); ?> "><?php echo esc_html__('Load More', 'tf-addon-for-elementer'); ?></a>
+                    <a href=" <?php echo esc_url( get_next_posts_page_link() ); ?> "><?php echo esc_html__('Load More', 'themesflat-addons-for-elementor'); ?></a>
                     </div>
                 </nav>
                 <?php
@@ -243,7 +243,7 @@ if(!function_exists('tf_custom_pagination_woo')){
                                     <span class="dot"></span>
                                 </span>
                             </span>
-                            <span class="text"><?php echo next_posts_link( esc_html__( 'Load More', 'tf-addon-for-elementer' ), $query_products->max_num_pages ); ?></span>                            
+                            <span class="text"><?php echo next_posts_link( esc_html__( 'Load More', 'themesflat-addons-for-elementor' ), $query_products->max_num_pages ); ?></span>                            
                         </div>
                     </div>
                 </nav>
@@ -309,7 +309,7 @@ if( !function_exists('tf_yith_compare_button')){
         $product_id = $product->get_id();
         $comp_link = home_url() . '?action=yith-woocompare-add-product';
         $comp_link = add_query_arg('id', $product_id, $comp_link);    
-        $output = '<div class="woocommerce product compare-button tf-compare-button"><a href="'. esc_url( $comp_link ) .'" class="compare button" data-product_id="'. esc_attr( $product_id ) .'" rel="nofollow" title="'.esc_html__( 'Compare', 'tf-addon-for-elementer' ).'">'.esc_html__( 'Compare', 'tf-addon-for-elementer' ).'</a></div>';
+        $output = '<div class="woocommerce product compare-button tf-compare-button"><a href="'. esc_url( $comp_link ) .'" class="compare button" data-product_id="'. esc_attr( $product_id ) .'" rel="nofollow" title="'.esc_html__( 'Compare', 'themesflat-addons-for-elementor' ).'">'.esc_html__( 'Compare', 'themesflat-addons-for-elementor' ).'</a></div>';
         return $output;
     }
 }
@@ -320,7 +320,7 @@ if( !function_exists('tf_yith_quick_view_button')){
         if( !class_exists('YITH_WCQV') ) return;
         global $product;
         $product_id = $product->get_id();
-        $output = '<div class="woocommerce product tf-quick-view-button"><a href="'.esc_url( $product->get_permalink()).'" class="button yith-wcqv-button" data-product_id="'. esc_attr( $product_id ) .'" title="'.esc_html__( 'Quick View', 'tf-addon-for-elementer' ).'">'.esc_html__( 'Quick View', 'tf-addon-for-elementer' ).'</a></div>';
+        $output = '<div class="woocommerce product tf-quick-view-button"><a href="'.esc_url( $product->get_permalink()).'" class="button yith-wcqv-button" data-product_id="'. esc_attr( $product_id ) .'" title="'.esc_html__( 'Quick View', 'themesflat-addons-for-elementor' ).'">'.esc_html__( 'Quick View', 'themesflat-addons-for-elementor' ).'</a></div>';
         return $output;
     }
 }
@@ -619,10 +619,12 @@ if( !function_exists('tf_product_render')){
             wp_die(); 
         else:
             echo '<div class="no-found">';
-                esc_html_e('No product found', 'tf-addon-for-elementer');
+                esc_html_e('No product found', 'themesflat-addons-for-elementor');
             echo '</div>';
             wp_die();
         endif;
         wp_reset_postdata();
     }
 }
+
+

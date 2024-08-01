@@ -79,13 +79,12 @@ if ( ! class_exists( 'acf_field_font_awesome' ) ) :
 				'custom'				=> __( 'Custom Icon Set', 'acf-font-awesome' )
 			];
 
-        	// Fix duotone family previously saved with no style
-        	if ( isset( $field['icon_sets'] ) && is_array( $field['icon_sets'] ) ) {
-        		$key = array_search( 'duotone', $field['icon_sets'] );
-        		if ( $key !== NULL ) {
-        			$field['icon_sets'][ $key ] = 'duotone_solid';
-        		}
-        	}
+			// Fix duotone family previously saved with no style
+			if ( isset( $field['icon_sets'] ) && is_array( $field['icon_sets'] ) ) {
+				if ( ( $key = array_search( 'duotone', $field['icon_sets'] ) ) !== FALSE ) {
+					$field['icon_sets'][ $key ] = 'duotone_solid';
+				}
+			}
 
 			$selected_field_sets	= ! empty( $field['icon_sets'] ) ? $field['icon_sets'] : [ 'solid', 'regular', 'brands' ];
 			$selected_field_sets	= apply_filters( 'ACFFA_v5_upgrade_compat_selected_field_sets', $selected_field_sets );

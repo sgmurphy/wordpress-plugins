@@ -276,9 +276,9 @@ $schemaModel = new KcSeoSchemaModel;
                                     <option value="">Select a country</option>
                                     <?php
                                     $aCountry = !empty($settings['address']['country']) ? $settings['address']['country'] : null;
-                                    foreach (KcSeoOptions::getCountryList() as $country) {
-                                        $slt = ($country == $aCountry ? "selected" : null);
-                                        echo "<option value='$country' $slt>$country</option>";
+                                    foreach (KcSeoOptions::getCountryList() as $key => $country) {
+                                        $slt = ($key == $aCountry ? "selected" : null);
+                                        echo "<option value='$key' $slt>$country</option>";
                                     }
                                     ?>
                                 </select>
@@ -396,6 +396,9 @@ $schemaModel = new KcSeoSchemaModel;
                                             $html = null;
                                             $i = 0;
                                             foreach ($socialP as $socialD) {
+                                                if( 'google-plus' === $socialD['id'] ){
+                                                    continue;
+                                                }
                                                 $html .= "<div class='sfield'>";
                                                 $html .= "<select name='social[$i][id]'>";
                                                 foreach (KcSeoOptions::getSocialList() as $sId => $social) {

@@ -1,5 +1,5 @@
 <?php
-class TF_Addon_Video_Widget extends \Elementor\Widget_Base {
+class TF_Addon_Video_Widget_Free extends \Elementor\Widget_Base {
 
 	public function get_name() {
         return 'tf_addon_video_popup';

@@ -1,12 +1,12 @@
 <?php
-class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
+class TFPieChart_Widget_Free extends \Elementor\Widget_Base {
 
 	public function get_name() {
         return 'tfpiechart';
     }
     
     public function get_title() {
-        return esc_html__( 'TF Pie Chart', 'themesflat-elementor' );
+        return esc_html__( 'TF Pie Chart', 'themesflat-addons-for-elementor' );
     }
 
     public function get_icon() {
@@ -30,19 +30,19 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->start_controls_section( 
                     'section_setting',
                     [
-                        'label' => esc_html__('Setting', 'themesflat-elementor'),
+                        'label' => esc_html__('Setting', 'themesflat-addons-for-elementor'),
                     ]
                 );
 
                 $this->add_control(
                     'piechart_style',
                     [
-                        'label' => esc_html__( 'Pie Chart Style', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Pie Chart Style', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::SELECT,
                         'default' => 'simple',
                         'options' => [
-                            'simple'  => esc_html__( 'Simple', 'themesflat-elementor' ),
-                            'withcontent' => esc_html__( 'With Content', 'themesflat-elementor' ),
+                            'simple'  => esc_html__( 'Simple', 'themesflat-addons-for-elementor' ),
+                            'withcontent' => esc_html__( 'With Content', 'themesflat-addons-for-elementor' ),
                         ],
                     ]
                 );
@@ -50,12 +50,12 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_control(
                     'style',
                     [
-                        'label' => esc_html__( 'Style', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Style', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::SELECT,
                         'default' => 'style1',
                         'options' => [
-                            'style1'  => esc_html__( 'Style 1', 'themesflat-elementor' ),
-                            'style2' => esc_html__( 'Style 2', 'themesflat-elementor' ),
+                            'style1'  => esc_html__( 'Style 1', 'themesflat-addons-for-elementor' ),
+                            'style2' => esc_html__( 'Style 2', 'themesflat-addons-for-elementor' ),
                         ],
                         'condition' => [
                             'piechart_style' => 'withcontent'
@@ -66,7 +66,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_control(
                     'piechart_percentage',
                     [
-                        'label' => esc_html__( 'Percentage', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Percentage', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::NUMBER,
                         'min' => 0,
                         'max' => 100,
@@ -78,10 +78,10 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_control(
                     'piechart_title',
                     [
-                        'label' => esc_html__( 'Title', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Title', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::TEXT,
-                        'default' => esc_html__( 'Flexible Solutions', 'themesflat-elementor' ),
-                        'placeholder' => esc_html__( 'Type your title here', 'themesflat-elementor' ),
+                        'default' => esc_html__( 'Flexible Solutions', 'themesflat-addons-for-elementor' ),
+                        'placeholder' => esc_html__( 'Type your title here', 'themesflat-addons-for-elementor' ),
                         'label_block' => true,
                         'condition' => [
                             'piechart_style' => 'withcontent'
@@ -92,10 +92,10 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_control(
                     'piechart_title_2',
                     [
-                        'label' => esc_html__( 'Title 2', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Title 2', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::TEXT,
-                        'default' => esc_html__( 'Flexible Solutions', 'themesflat-elementor' ),
-                        'placeholder' => esc_html__( 'Type your title here', 'themesflat-elementor' ),
+                        'default' => esc_html__( 'Flexible Solutions', 'themesflat-addons-for-elementor' ),
+                        'placeholder' => esc_html__( 'Type your title here', 'themesflat-addons-for-elementor' ),
                         'label_block' => true,
                         'condition' => [
                             'piechart_style' => 'withcontent',
@@ -107,11 +107,11 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_control(
                     'piechart_description',
                     [
-                        'label' => esc_html__( 'Description', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Description', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::TEXTAREA,
                         'rows' => 10,
-                        'default' => esc_html__( 'Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit,', 'themesflat-elementor' ),
-                        'placeholder' => esc_html__( 'Type your description here', 'themesflat-elementor' ),
+                        'default' => esc_html__( 'Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit,', 'themesflat-addons-for-elementor' ),
+                        'placeholder' => esc_html__( 'Type your description here', 'themesflat-addons-for-elementor' ),
                         'label_block' => true,
                         'condition' => [
                             'piechart_style' => 'withcontent'
@@ -122,19 +122,19 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_control(
                     'pie_chart_position',
                     [
-                        'label' => esc_html__( 'Pie Chart Position', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Pie Chart Position', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::CHOOSE,
                         'options' => [
                             'position-left' => [
-                                'title' => esc_html__( 'Left', 'themesflat-elementor' ),
+                                'title' => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
                                 'icon' => 'eicon-h-align-left',
                             ],
                             'position-top' => [
-                                'title' => esc_html__( 'Top', 'themesflat-elementor' ),
+                                'title' => esc_html__( 'Top', 'themesflat-addons-for-elementor' ),
                                 'icon' => 'eicon-v-align-top',
                             ],
                             'position-right' => [
-                                'title' => esc_html__( 'Right', 'themesflat-elementor' ),
+                                'title' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
                                 'icon' => 'eicon-h-align-right',
                             ],
                         ],
@@ -150,7 +150,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_responsive_control(
                     'spacing',
                     [
-                        'label' => esc_html__( 'Spacing', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Spacing', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::SLIDER,
                         'size_units' => [ 'px', '%' ],
                         'range' => [
@@ -184,7 +184,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_responsive_control(
                     'piechart_spacing',
                     [
-                        'label' =>esc_html__( 'Piechart Spacing', 'themesflat-elementor' ),
+                        'label' =>esc_html__( 'Piechart Spacing', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::DIMENSIONS,
                         'size_units' => [ 'px', 'em', '%' ],
                         'default' =>    [
@@ -212,7 +212,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->start_controls_section( 
                     'section_style_chart',
                     [
-                        'label' => esc_html__('Chart', 'themesflat-elementor'),
+                        'label' => esc_html__('Chart', 'themesflat-addons-for-elementor'),
                         'tab' => \Elementor\Controls_Manager::TAB_STYLE,
                     ]
                 );
@@ -220,7 +220,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->add_responsive_control(
                 'piechart_size',
                 [
-                    'label' => esc_html__( 'Piechart Size', 'themesflat-elementor' ),
+                    'label' => esc_html__( 'Piechart Size', 'themesflat-addons-for-elementor' ),
                     'type' => \Elementor\Controls_Manager::SLIDER,
                     'size_units' => [ 'px' ],
                     'range' => [
@@ -238,7 +238,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->add_responsive_control(
                 'piechart_border_size',
                 [
-                    'label' => esc_html__( 'Border Size', 'themesflat-elementor' ),
+                    'label' => esc_html__( 'Border Size', 'themesflat-addons-for-elementor' ),
                     'type' => \Elementor\Controls_Manager::SLIDER,
                     'size_units' => [ 'px' ],
                     'range' => [
@@ -258,7 +258,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->add_responsive_control(
                 'piechart_line_color',
                 [
-                    'label' => esc_html__( 'Bar Color', 'themesflat-elementor' ),
+                    'label' => esc_html__( 'Bar Color', 'themesflat-addons-for-elementor' ),
                     'type' => \Elementor\Controls_Manager::COLOR,
                     'default' => '#3858e9',
                 ]
@@ -267,7 +267,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->add_responsive_control(
                 'piechart_bar_color_bg',
                 [
-                    'label' => esc_html__( 'Bar Background Color', 'themesflat-elementor' ),
+                    'label' => esc_html__( 'Bar Background Color', 'themesflat-addons-for-elementor' ),
                     'type' => \Elementor\Controls_Manager::COLOR,
                     'default' => '#f1fafb',
                 ]
@@ -277,7 +277,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 \Elementor\Group_Control_Typography::get_type(),
                 [
                     'name' => 'number_typography',
-                    'label' => esc_html__( 'Typography Number', 'themesflat-elementor' ),
+                    'label' => esc_html__( 'Typography Number', 'themesflat-addons-for-elementor' ),
                     'fields_options' => [
                         'typography' => ['default' => 'yes'],
                         'font_family' => [
@@ -316,7 +316,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 \Elementor\Group_Control_Typography::get_type(),
                 [
                     'name' => 'percent_typography',
-                    'label' => esc_html__( 'Typography Percent', 'themesflat-elementor' ),
+                    'label' => esc_html__( 'Typography Percent', 'themesflat-addons-for-elementor' ),
                     'fields_options' => [
                         'typography' => ['default' => 'yes'],
                         'font_family' => [
@@ -354,7 +354,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->add_responsive_control(
                 'number_color',
                 [
-                    'label' => esc_html__( 'Number Color', 'themesflat-elementor' ),
+                    'label' => esc_html__( 'Number Color', 'themesflat-addons-for-elementor' ),
                     'type' => \Elementor\Controls_Manager::COLOR,
                     'default' => '#091d3e',
                     'selectors' => [
@@ -370,7 +370,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->start_controls_section( 
                     'section_style_title',
                     [
-                        'label' => esc_html__('Title', 'themesflat-elementor'),
+                        'label' => esc_html__('Title', 'themesflat-addons-for-elementor'),
                         'tab' => \Elementor\Controls_Manager::TAB_STYLE,
                         'condition' => [
                             'piechart_style' => 'withcontent'
@@ -381,7 +381,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_control(
                     'piechart_title_color',
                     [
-                        'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::COLOR,
                         'selectors' => [
                             '{{WRAPPER}} .tf-piechart-title' => 'color: {{VALUE}}',
@@ -393,7 +393,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                     \Elementor\Group_Control_Typography::get_type(),
                     [
                         'name' => 'piechart_title_typography',
-                        'label' => esc_html__( 'Typography', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Typography', 'themesflat-addons-for-elementor' ),
                         'fields_options' => [
                             'typography' => ['default' => 'yes'],
                             'font_family' => [
@@ -431,7 +431,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_responsive_control(
                     'piechart_title_margin',
                     [
-                        'label' =>esc_html__( 'Margin', 'themesflat-elementor' ),
+                        'label' =>esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::DIMENSIONS,
                         'size_units' => [ 'px', 'em', '%' ],
                         'default' =>    [
@@ -455,7 +455,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->start_controls_section( 
                     'section_style_title_2',
                     [
-                        'label' => esc_html__('Title 2', 'themesflat-elementor'),
+                        'label' => esc_html__('Title 2', 'themesflat-addons-for-elementor'),
                         'tab' => \Elementor\Controls_Manager::TAB_STYLE,
                         'condition' => [
                             'piechart_style' => 'withcontent',
@@ -467,7 +467,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_control(
                     'piechart_title_color_2',
                     [
-                        'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::COLOR,
                         'selectors' => [
                             '{{WRAPPER}} .tf-piechart-title2' => 'color: {{VALUE}}',
@@ -479,7 +479,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                     \Elementor\Group_Control_Typography::get_type(),
                     [
                         'name' => 'piechart_title_typography_2',
-                        'label' => esc_html__( 'Typography', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Typography', 'themesflat-addons-for-elementor' ),
                         'fields_options' => [
                             'typography' => ['default' => 'yes'],
                             'font_family' => [
@@ -517,7 +517,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_responsive_control(
                     'piechart_title_margin_2',
                     [
-                        'label' =>esc_html__( 'Margin', 'themesflat-elementor' ),
+                        'label' =>esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::DIMENSIONS,
                         'size_units' => [ 'px', 'em', '%' ],
                         'default' =>    [
@@ -541,7 +541,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
             $this->start_controls_section( 
                     'section_style_description',
                     [
-                        'label' => esc_html__('Description', 'themesflat-elementor'),
+                        'label' => esc_html__('Description', 'themesflat-addons-for-elementor'),
                         'tab' => \Elementor\Controls_Manager::TAB_STYLE,
                         'condition' => [
                             'piechart_style' => 'withcontent'
@@ -552,7 +552,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                 $this->add_control(
                     'piechart_description_color',
                     [
-                        'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
                         'type' => \Elementor\Controls_Manager::COLOR,
                         'selectors' => [
                             '{{WRAPPER}} .tf-piechart-description' => 'color: {{VALUE}}',
@@ -564,7 +564,7 @@ class TFPieChart_Widget_Fr extends \Elementor\Widget_Base {
                     \Elementor\Group_Control_Typography::get_type(),
                     [
                         'name' => 'piechart_description_typography',
-                        'label' => esc_html__( 'Description Typography', 'themesflat-elementor' ),
+                        'label' => esc_html__( 'Description Typography', 'themesflat-addons-for-elementor' ),
                         'fields_options' => [
                             'typography' => ['default' => 'yes'],
                             'font_family' => [

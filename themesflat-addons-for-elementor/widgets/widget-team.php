@@ -1,12 +1,12 @@
 <?php
-class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
+class TFTeam_Widget_Free extends \Elementor\Widget_Base {
 
 	public function get_name() {
         return 'tfteam';
     }
     
     public function get_title() {
-        return esc_html__( 'TF Team', 'tf-addon-for-elementer' );
+        return esc_html__( 'TF Team', 'themesflat-addons-for-elementor' );
     }
 
     public function get_icon() {
@@ -17,19 +17,23 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
         return [ 'themesflat_addons' ];
     }
 
+	public function get_style_depends() {
+		return ['tf-team'];
+	}
+
 	protected function register_controls() {
         // Start Team Setting        
 			$this->start_controls_section( 
 				'section_team',
 	            [
-	                'label' => esc_html__('Information Team', 'tf-addon-for-elementer'),
+	                'label' => esc_html__('Information Team', 'themesflat-addons-for-elementor'),
 	            ]
 	        );
 
 			$this->add_control(
 				'image',
 				[
-					'label' => esc_html__( 'Choose Image', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Choose Image', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::MEDIA,
 					'default' => [
 						'url' => \Elementor\Utils::get_placeholder_image_src(),
@@ -49,7 +53,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'team_name',
 				[
-					'label' => esc_html__( 'Name', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Name', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
 					'default' => 'Suri Team Name',
 					'label_block' => true,
@@ -59,7 +63,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'team_position',
 				[
-					'label' => esc_html__( 'Position', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Position', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
 					'default' => 'Developer',
 					'label_block' => true,
@@ -69,7 +73,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'team_description',
 				[
-					'label' => esc_html__( 'Short Description', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Short Description', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXTAREA,
 					'default' => '',
 					'label_block' => true,
@@ -79,9 +83,9 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'team_link',
 				[
-					'label' => esc_html__( 'Link', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Link', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::URL,
-					'placeholder' => esc_html__( 'https://your-link.com', 'tf-addon-for-elementer' ),
+					'placeholder' => esc_html__( 'https://your-link.com', 'themesflat-addons-for-elementor' ),
 					'show_external' => true,
 					'default' => [
 						'url' => '#',
@@ -98,16 +102,16 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->start_controls_section( 
 				'section_team_social',
 	            [
-	                'label' => esc_html__('Social', 'tf-addon-for-elementer'),
+	                'label' => esc_html__('Social', 'themesflat-addons-for-elementor'),
 	            ]
 	        );
 	        $this->add_control(
 				'show_social',
 				[
-					'label' => esc_html__( 'Show Social', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Show Social', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'tf-addon-for-elementer' ),
-					'label_off' => esc_html__( 'Hide', 'tf-addon-for-elementer' ),
+					'label_on' => esc_html__( 'Show', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'Hide', 'themesflat-addons-for-elementor' ),
 					'return_value' => 'yes',
 					'default' => 'yes',
 				]
@@ -118,49 +122,49 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			/*$repeater->add_control(
 				'social_icon',
 				[
-					'label' => esc_html__( 'Social Icon', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Social Icon', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'facebook',
 					'options' => [
-						'500px' => esc_html__( '500px', 'tf-addon-for-elementer' ),
-			            'apple' => esc_html__( 'Apple', 'tf-addon-for-elementer' ),
-			            'behance' => esc_html__( 'Behance', 'tf-addon-for-elementer' ),
-			            'bitbucket' => esc_html__( 'BitBucket', 'tf-addon-for-elementer' ),
-			            'codepen' => esc_html__( 'CodePen', 'tf-addon-for-elementer' ),
-			            'delicious' => esc_html__( 'Delicious', 'tf-addon-for-elementer' ),
-			            'deviantart' => esc_html__( 'DeviantArt', 'tf-addon-for-elementer' ),
-			            'digg' => esc_html__( 'Digg', 'tf-addon-for-elementer' ),
-			            'dribbble' => esc_html__( 'Dribbble', 'tf-addon-for-elementer' ),
-			            'email' => esc_html__( 'Email', 'tf-addon-for-elementer' ),
-			            'facebook' => esc_html__( 'Facebook', 'tf-addon-for-elementer' ),
-			            'flickr' => esc_html__( 'Flicker', 'tf-addon-for-elementer' ),
-			            'foursquare' => esc_html__( 'FourSquare', 'tf-addon-for-elementer' ),
-			            'github' => esc_html__( 'Github', 'tf-addon-for-elementer' ),
-			            'houzz' => esc_html__( 'Houzz', 'tf-addon-for-elementer' ),
-			            'instagram' => esc_html__( 'Instagram', 'tf-addon-for-elementer' ),
-			            'jsfiddle' => esc_html__( 'JS Fiddle', 'tf-addon-for-elementer' ),
-			            'linkedin' => esc_html__( 'LinkedIn', 'tf-addon-for-elementer' ),
-			            'medium' => esc_html__( 'Medium', 'tf-addon-for-elementer' ),
-			            'pinterest' => esc_html__( 'Pinterest', 'tf-addon-for-elementer' ),
-			            'product-hunt' => esc_html__( 'Product Hunt', 'tf-addon-for-elementer' ),
-			            'reddit' => esc_html__( 'Reddit', 'tf-addon-for-elementer' ),
-			            'slideshare' => esc_html__( 'Slide Share', 'tf-addon-for-elementer' ),
-			            'snapchat' => esc_html__( 'Snapchat', 'tf-addon-for-elementer' ),
-			            'soundcloud' => esc_html__( 'SoundCloud', 'tf-addon-for-elementer' ),
-			            'spotify' => esc_html__( 'Spotify', 'tf-addon-for-elementer' ),
-			            'stack-overflow' => esc_html__( 'StackOverflow', 'tf-addon-for-elementer' ),
-			            'tripadvisor' => esc_html__( 'TripAdvisor', 'tf-addon-for-elementer' ),
-			            'tumblr' => esc_html__( 'Tumblr', 'tf-addon-for-elementer' ),
-			            'twitch' => esc_html__( 'Twitch', 'tf-addon-for-elementer' ),
-			            'twitter' => esc_html__( 'Twitter', 'tf-addon-for-elementer' ),
-			            'vimeo' => esc_html__( 'Vimeo', 'tf-addon-for-elementer' ),
-			            'vk' => esc_html__( 'VK', 'tf-addon-for-elementer' ),
-			            'website' => esc_html__( 'Website', 'tf-addon-for-elementer' ),
-			            'whatsapp' => esc_html__( 'WhatsApp', 'tf-addon-for-elementer' ),
-			            'wordpress' => esc_html__( 'WordPress', 'tf-addon-for-elementer' ),
-			            'xing' => esc_html__( 'Xing', 'tf-addon-for-elementer' ),
-			            'yelp' => esc_html__( 'Yelp', 'tf-addon-for-elementer' ),
-			            'youtube' => esc_html__( 'YouTube', 'tf-addon-for-elementer' ),
+						'500px' => esc_html__( '500px', 'themesflat-addons-for-elementor' ),
+			            'apple' => esc_html__( 'Apple', 'themesflat-addons-for-elementor' ),
+			            'behance' => esc_html__( 'Behance', 'themesflat-addons-for-elementor' ),
+			            'bitbucket' => esc_html__( 'BitBucket', 'themesflat-addons-for-elementor' ),
+			            'codepen' => esc_html__( 'CodePen', 'themesflat-addons-for-elementor' ),
+			            'delicious' => esc_html__( 'Delicious', 'themesflat-addons-for-elementor' ),
+			            'deviantart' => esc_html__( 'DeviantArt', 'themesflat-addons-for-elementor' ),
+			            'digg' => esc_html__( 'Digg', 'themesflat-addons-for-elementor' ),
+			            'dribbble' => esc_html__( 'Dribbble', 'themesflat-addons-for-elementor' ),
+			            'email' => esc_html__( 'Email', 'themesflat-addons-for-elementor' ),
+			            'facebook' => esc_html__( 'Facebook', 'themesflat-addons-for-elementor' ),
+			            'flickr' => esc_html__( 'Flicker', 'themesflat-addons-for-elementor' ),
+			            'foursquare' => esc_html__( 'FourSquare', 'themesflat-addons-for-elementor' ),
+			            'github' => esc_html__( 'Github', 'themesflat-addons-for-elementor' ),
+			            'houzz' => esc_html__( 'Houzz', 'themesflat-addons-for-elementor' ),
+			            'instagram' => esc_html__( 'Instagram', 'themesflat-addons-for-elementor' ),
+			            'jsfiddle' => esc_html__( 'JS Fiddle', 'themesflat-addons-for-elementor' ),
+			            'linkedin' => esc_html__( 'LinkedIn', 'themesflat-addons-for-elementor' ),
+			            'medium' => esc_html__( 'Medium', 'themesflat-addons-for-elementor' ),
+			            'pinterest' => esc_html__( 'Pinterest', 'themesflat-addons-for-elementor' ),
+			            'product-hunt' => esc_html__( 'Product Hunt', 'themesflat-addons-for-elementor' ),
+			            'reddit' => esc_html__( 'Reddit', 'themesflat-addons-for-elementor' ),
+			            'slideshare' => esc_html__( 'Slide Share', 'themesflat-addons-for-elementor' ),
+			            'snapchat' => esc_html__( 'Snapchat', 'themesflat-addons-for-elementor' ),
+			            'soundcloud' => esc_html__( 'SoundCloud', 'themesflat-addons-for-elementor' ),
+			            'spotify' => esc_html__( 'Spotify', 'themesflat-addons-for-elementor' ),
+			            'stack-overflow' => esc_html__( 'StackOverflow', 'themesflat-addons-for-elementor' ),
+			            'tripadvisor' => esc_html__( 'TripAdvisor', 'themesflat-addons-for-elementor' ),
+			            'tumblr' => esc_html__( 'Tumblr', 'themesflat-addons-for-elementor' ),
+			            'twitch' => esc_html__( 'Twitch', 'themesflat-addons-for-elementor' ),
+			            'twitter' => esc_html__( 'Twitter', 'themesflat-addons-for-elementor' ),
+			            'vimeo' => esc_html__( 'Vimeo', 'themesflat-addons-for-elementor' ),
+			            'vk' => esc_html__( 'VK', 'themesflat-addons-for-elementor' ),
+			            'website' => esc_html__( 'Website', 'themesflat-addons-for-elementor' ),
+			            'whatsapp' => esc_html__( 'WhatsApp', 'themesflat-addons-for-elementor' ),
+			            'wordpress' => esc_html__( 'WordPress', 'themesflat-addons-for-elementor' ),
+			            'xing' => esc_html__( 'Xing', 'themesflat-addons-for-elementor' ),
+			            'yelp' => esc_html__( 'Yelp', 'themesflat-addons-for-elementor' ),
+			            'youtube' => esc_html__( 'YouTube', 'themesflat-addons-for-elementor' ),
 					],
 				]
 			);*/
@@ -244,7 +248,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$repeater->add_control(
 				'social_link',
 				[
-					'label' => esc_html__( 'Link', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Link', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::URL,
 					'default' => [
 						'is_external' => 'true',
@@ -252,14 +256,14 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 					'dynamic' => [
 						'active' => true,
 					],
-					'placeholder' => esc_html__( 'https://your-link.com', 'tf-addon-for-elementer' ),
+					'placeholder' => esc_html__( 'https://your-link.com', 'themesflat-addons-for-elementor' ),
 				]
 			);		
 
 			$repeater->add_responsive_control(
 				'social_icon_size_tab',
 				[
-					'label' => esc_html__( 'Font Size', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Font Size', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -280,7 +284,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$repeater->add_responsive_control(
 				'social_padding_tab',
 				[
-					'label' => esc_html__( 'Padding', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					
@@ -298,14 +302,14 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				$repeater->start_controls_tab( 
 					'social_normal_tab',
 					[
-						'label' => esc_html__( 'Normal', 'tf-addon-for-elementer' ),						
+						'label' => esc_html__( 'Normal', 'themesflat-addons-for-elementor' ),						
 					]
 				);
 
 				$repeater->add_control(
 					'icon_background_color',
 					[
-						'label' => esc_html__( 'Background Color', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'default' => '',
 						'selectors' => [
@@ -317,7 +321,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				$repeater->add_control(
 					'icon_color',
 					[
-						'label' => esc_html__( 'Icon Color', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Icon Color', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'default' => '#7A7A7A',
 						'selectors' => [
@@ -331,14 +335,14 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				$repeater->start_controls_tab( 
 			    	'social_hover_tab',
 					[
-						'label' => esc_html__( 'Hover', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Hover', 'themesflat-addons-for-elementor' ),
 					]
 				);
 
 				$repeater->add_control(
 					'icon_background_color_hover',
 					[
-						'label' => esc_html__( 'Background Color', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'default' => '',
 						'selectors' => [
@@ -350,7 +354,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				$repeater->add_control(
 					'icon_color_hover',
 					[
-						'label' => esc_html__( 'Icon Color', 'tf-addon-for-elementer' ),
+						'label' => esc_html__( 'Icon Color', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::COLOR,
 						'default' => '',
 						'selectors' => [
@@ -411,7 +415,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->start_controls_section( 
 				'section_team_style',
 	            [
-	                'label' => esc_html__('General', 'tf-addon-for-elementer'),
+	                'label' => esc_html__('General', 'themesflat-addons-for-elementor'),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -419,13 +423,13 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'style',
 				[
-					'label' => esc_html__( 'Style', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Style', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'style-1',
 					'options' => [
-						'style-1' => esc_html__( 'Style 1 ( Default )', 'tf-addon-for-elementer' ),
-						'style-2' => esc_html__( 'Style 2 ( Content Absolute )', 'tf-addon-for-elementer' ),
-						'style-3' => esc_html__( 'Style 3 ( Image Left )', 'tf-addon-for-elementer' ),
+						'style-1' => esc_html__( 'Style 1 ( Default )', 'themesflat-addons-for-elementor' ),
+						'style-2' => esc_html__( 'Style 2 ( Content Absolute )', 'themesflat-addons-for-elementor' ),
+						'style-3' => esc_html__( 'Style 3 ( Image Left )', 'themesflat-addons-for-elementor' ),
 					],
 				]
 			);			
@@ -433,19 +437,19 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control(
 				'align',
 				[
-					'label' => esc_html__( 'Alignment', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Alignment', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'left'    => [
-							'title' => esc_html__( 'Left', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-left',
 						],
 						'center' => [
-							'title' => esc_html__( 'Center', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Center', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-center',
 						],
 						'right' => [
-							'title' => esc_html__( 'Right', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
 							'icon' => 'eicon-text-align-right',
 						],
 					],
@@ -459,7 +463,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control( 
 	        	'padding',
 				[
-					'label' => esc_html__( 'Padding', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'default' => [
@@ -479,7 +483,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'margin',
 				[
-					'label' => esc_html__( 'Margin', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'selectors' => [
@@ -492,7 +496,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'box_shadow',
-					'label' => esc_html__( 'Box Shadow', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team',
 				]
 			);
@@ -501,7 +505,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'border',
-					'label' => esc_html__( 'Border', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team',
 				]
 			);    
@@ -509,7 +513,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' , '%' ],
 					'selectors' => [
@@ -521,7 +525,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'background_color',
 				[
-					'label' => esc_html__( 'Background Color', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#ffffff',
 					'selectors' => [
@@ -537,7 +541,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 		    $this->start_controls_section( 
 		    	'section_style_image',
 	            [
-	                'label' => esc_html__( 'Avatar', 'tf-addon-for-elementer' ),
+	                'label' => esc_html__( 'Avatar', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
@@ -545,7 +549,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control(
 				'image_width',
 				[
-					'label' => esc_html__( 'Width', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Width', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range' => [
@@ -568,7 +572,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'image_bottom_spacing',
 				[
-					'label' => esc_html__( 'Bottom Spacing', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Bottom Spacing', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -587,7 +591,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'image_border',
-					'label' => esc_html__( 'Border', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-image',
 				]
 			);
@@ -595,7 +599,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control( 
 				'image_border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' , '%' ],
 					'selectors' => [
@@ -607,7 +611,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'image_padding',
 				[
-					'label' => esc_html__( 'Padding', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'selectors' => [
@@ -619,7 +623,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'image_margin',
 				[
-					'label' => esc_html__( 'Margin', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em' ],
 					'selectors' => [
@@ -631,7 +635,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'image_overlay',
 				[
-					'label' => esc_html__( 'Overlay', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Overlay', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -640,10 +644,10 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'show_image_overlay',
 				[
-					'label' => esc_html__( 'Show Overlay', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Show Overlay', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'tf-addon-for-elementer' ),
-					'label_off' => esc_html__( 'Hide', 'tf-addon-for-elementer' ),
+					'label_on' => esc_html__( 'Show', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'Hide', 'themesflat-addons-for-elementor' ),
 					'return_value' => 'yes',
 					'default' => 'no',
 				]
@@ -652,7 +656,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'image_overlay_background_color',
 				[
-					'label' => esc_html__( 'Background Color', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => 'rgba(0, 0, 0, 0.5)',
 					'selectors' => [
@@ -667,16 +671,16 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'image_overlay_effect',
 				[
-					'label' => esc_html__( 'Effect Overlay', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Effect Overlay', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'default',
 					'options' => [
-						'default' => esc_html__( 'Default', 'tf-addon-for-elementer' ),
-						'fade-in' => esc_html__( 'Fade In', 'tf-addon-for-elementer' ),
-						'fade-in-up' => esc_html__( 'Fade In Up', 'tf-addon-for-elementer' ),
-						'fade-in-down' => esc_html__( 'Fade In Down', 'tf-addon-for-elementer' ),
-						'fade-in-left' => esc_html__( 'Fade In Left', 'tf-addon-for-elementer' ),
-						'fade-in-right' => esc_html__( 'Fade In Right', 'tf-addon-for-elementer' ),
+						'default' => esc_html__( 'Default', 'themesflat-addons-for-elementor' ),
+						'fade-in' => esc_html__( 'Fade In', 'themesflat-addons-for-elementor' ),
+						'fade-in-up' => esc_html__( 'Fade In Up', 'themesflat-addons-for-elementor' ),
+						'fade-in-down' => esc_html__( 'Fade In Down', 'themesflat-addons-for-elementor' ),
+						'fade-in-left' => esc_html__( 'Fade In Left', 'themesflat-addons-for-elementor' ),
+						'fade-in-right' => esc_html__( 'Fade In Right', 'themesflat-addons-for-elementor' ),
 					],
 					'condition' => [
 	                    'show_image_overlay'	=> 'yes',
@@ -691,14 +695,14 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->start_controls_section( 
 				'section_team_content',
 	            [
-	                'label' => esc_html__('Content', 'tf-addon-for-elementer'),
+	                'label' => esc_html__('Content', 'themesflat-addons-for-elementor'),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );
 	        $this->add_responsive_control( 
 	        	'content_padding',
 				[
-					'label' => esc_html__( 'Padding', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'default' => [
@@ -718,7 +722,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'content_margin',
 				[
-					'label' => esc_html__( 'Margin', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Margin', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'selectors' => [
@@ -731,7 +735,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name' => 'content_box_shadow',
-					'label' => esc_html__( 'Box Shadow', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Box Shadow', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-content',
 				]
 			);
@@ -740,7 +744,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'content_border',
-					'label' => esc_html__( 'Border', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-content',
 				]
 			);    
@@ -748,7 +752,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control( 
 				'content_border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' , '%' ],
 					'selectors' => [
@@ -760,7 +764,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'content_background_color',
 				[
-					'label' => esc_html__( 'Background Color', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => 'rgba(122, 122, 122, 0.05)',
 					'selectors' => [
@@ -772,16 +776,16 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'content_effect',
 				[
-					'label' => esc_html__( 'Effect', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Effect', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'fade-in',
 					'options' => [
-						'default' => esc_html__( 'Default', 'tf-addon-for-elementer' ),
-						'fade-in' => esc_html__( 'Fade In', 'tf-addon-for-elementer' ),
-						'fade-in-up' => esc_html__( 'Fade In Up', 'tf-addon-for-elementer' ),
-						'fade-in-down' => esc_html__( 'Fade In Down', 'tf-addon-for-elementer' ),
-						'fade-in-left' => esc_html__( 'Fade In Left', 'tf-addon-for-elementer' ),
-						'fade-in-right' => esc_html__( 'Fade In Right', 'tf-addon-for-elementer' ),
+						'default' => esc_html__( 'Default', 'themesflat-addons-for-elementor' ),
+						'fade-in' => esc_html__( 'Fade In', 'themesflat-addons-for-elementor' ),
+						'fade-in-up' => esc_html__( 'Fade In Up', 'themesflat-addons-for-elementor' ),
+						'fade-in-down' => esc_html__( 'Fade In Down', 'themesflat-addons-for-elementor' ),
+						'fade-in-left' => esc_html__( 'Fade In Left', 'themesflat-addons-for-elementor' ),
+						'fade-in-right' => esc_html__( 'Fade In Right', 'themesflat-addons-for-elementor' ),
 					],
 					'condition' => [
 	                    'style'	=> 'style-2',
@@ -796,7 +800,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 		    $this->start_controls_section( 
 		    	'section_style_name_position_description',
 	            [
-	                'label' => esc_html__( 'Name, Position & Description', 'tf-addon-for-elementer' ),
+	                'label' => esc_html__( 'Name, Position & Description', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );	
@@ -804,16 +808,16 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'name_html_tag',
 				[
-					'label' => esc_html__( 'Html Tag', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Html Tag', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'h5',
 					'options' => [
-						'h1'  => esc_html__( 'H1', 'tf-addon-for-elementer' ),
-						'h2'  => esc_html__( 'H2', 'tf-addon-for-elementer' ),
-						'h3'  => esc_html__( 'H3', 'tf-addon-for-elementer' ),
-						'h4'  => esc_html__( 'H4', 'tf-addon-for-elementer' ),
-						'h5'  => esc_html__( 'H5', 'tf-addon-for-elementer' ),
-						'h6'  => esc_html__( 'H6', 'tf-addon-for-elementer' ),
+						'h1'  => esc_html__( 'H1', 'themesflat-addons-for-elementor' ),
+						'h2'  => esc_html__( 'H2', 'themesflat-addons-for-elementor' ),
+						'h3'  => esc_html__( 'H3', 'themesflat-addons-for-elementor' ),
+						'h4'  => esc_html__( 'H4', 'themesflat-addons-for-elementor' ),
+						'h5'  => esc_html__( 'H5', 'themesflat-addons-for-elementor' ),
+						'h6'  => esc_html__( 'H6', 'themesflat-addons-for-elementor' ),
 					],
 				]
 			);
@@ -821,7 +825,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control( 
 				'heading_name',
 				[
-					'label' => esc_html__( 'Name', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Name', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 				]
 			);
@@ -830,7 +834,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'name_typography',
-					'label' => esc_html__( 'Typography', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Typography', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-name',
 				]
 			);
@@ -839,7 +843,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Text_Shadow::get_type(),
 				[
 					'name' => 'name_text_shadow',
-					'label' => esc_html__( 'Text Shadow', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Text Shadow', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-name',
 				]
 			);
@@ -847,7 +851,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'name_color',
 				[
-					'label' => esc_html__( 'Color', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#000000',
 					'selectors' => [
@@ -859,7 +863,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'name_color_hover',
 				[
-					'label' => esc_html__( 'Color Hover', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Color Hover', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#1da1f2',
 					'selectors' => [
@@ -871,7 +875,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'name_spacer',
 				[
-					'label' => esc_html__( 'Spacer', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Spacer', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -894,7 +898,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'heading_position',
 				[
-					'label' => esc_html__( 'Position', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Position', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -904,7 +908,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'position_typography',
-					'label' => esc_html__( 'Typography', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Typography', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-position',
 				]
 			);
@@ -913,7 +917,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Text_Shadow::get_type(),
 				[
 					'name' => 'position_text_shadow',
-					'label' => esc_html__( 'Text Shadow', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Text Shadow', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-position',
 				]
 			);
@@ -921,7 +925,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'position_color',
 				[
-					'label' => esc_html__( 'Color', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#000000',
 					'selectors' => [
@@ -933,7 +937,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'position_spacer',
 				[
-					'label' => esc_html__( 'Spacer', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Spacer', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -956,7 +960,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'heading_description',
 				[
-					'label' => esc_html__( 'Description', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Description', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -966,7 +970,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        	\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'description_typography',
-					'label' => esc_html__( 'Typography', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Typography', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-desc',
 				]
 			);
@@ -975,7 +979,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Text_Shadow::get_type(),
 				[
 					'name' => 'description_text_shadow',
-					'label' => esc_html__( 'Text Shadow', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Text Shadow', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-desc',
 				]
 			);
@@ -983,7 +987,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control( 
 				'description_color',
 				[
-					'label' => esc_html__( 'Color', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#000000',
 					'selectors' => [
@@ -995,7 +999,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'description_spacer',
 				[
-					'label' => esc_html__( 'Spacer', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Spacer', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -1022,7 +1026,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 		    $this->start_controls_section( 
 		    	'section_style_social',
 	            [
-	                'label' => esc_html__( 'Social', 'tf-addon-for-elementer' ),
+	                'label' => esc_html__( 'Social', 'themesflat-addons-for-elementor' ),
 	                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 	            ]
 	        );	
@@ -1030,10 +1034,10 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_control(
 				'social_inner_avatar',
 				[
-					'label' => esc_html__( 'Social Inner Avatar', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Social Inner Avatar', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Yes', 'tf-addon-for-elementer' ),
-					'label_off' => esc_html__( 'No', 'tf-addon-for-elementer' ),
+					'label_on' => esc_html__( 'Yes', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'No', 'themesflat-addons-for-elementor' ),
 					'return_value' => 'yes',
 					'default' => 'no',
 					'condition' => [
@@ -1045,12 +1049,12 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'social_h_v',
 				[
-					'label' => esc_html__( 'Social Style', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Social Style', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'default' => 'horizontal',
 					'options' => [
-						'horizontal' => esc_html__( 'Horizontal', 'tf-addon-for-elementer' ),
-						'vertical' => esc_html__( 'Vertical', 'tf-addon-for-elementer' )
+						'horizontal' => esc_html__( 'Horizontal', 'themesflat-addons-for-elementor' ),
+						'vertical' => esc_html__( 'Vertical', 'themesflat-addons-for-elementor' )
 					],
 					'condition' => [
 						'style!' => 'style-2',
@@ -1062,19 +1066,19 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_control(
 				'social_h_v_align',
 				[
-					'label' => esc_html__( 'Social Vertical Alignment', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Social Vertical Alignment', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'left' => [
-							'title' => esc_html__( 'Left', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-align-left',
 						],
 						'center' => [
-							'title' => esc_html__( 'Center', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Center', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-align-center',
 						],
 						'right' => [
-							'title' => esc_html__( 'Right', 'tf-addon-for-elementer' ),
+							'title' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-align-right',
 						],
 					],
@@ -1091,7 +1095,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 		  	$this->add_responsive_control(
 				'social_icon_size',
 				[
-					'label' => esc_html__( 'Font Size', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Font Size', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -1115,7 +1119,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'social_padding',
 				[
-					'label' => esc_html__( 'Padding', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -1137,7 +1141,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'social_spacer',
 				[
-					'label' => esc_html__( 'Spacer', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Spacer', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range' => [
@@ -1157,7 +1161,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 				\Elementor\Group_Control_Border::get_type(),
 				[
 					'name' => 'social_border',
-					'label' => esc_html__( 'Border', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border', 'themesflat-addons-for-elementor' ),
 					'selector' => '{{WRAPPER}} .tf-team .team-box-social .social',
 				]
 			);
@@ -1165,7 +1169,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 	        $this->add_responsive_control( 
 				'social_border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'tf-addon-for-elementer' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' , '%' ],
 					'selectors' => [

@@ -18,10 +18,10 @@ class TFCarousel_Widget_Free extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends() {
-		return ['tf-font-awesome','tf-regular','owl-carousel','tf-style'];
+		return ['tf-font-awesome','tf-regular','owl-carousel','tf-carousel'];
 	}
 	public function get_script_depends() {
-		return ['owl-carousel','tf-main'];
+		return ['owl-carousel','tf-carousel'];
 	}	
 
 	protected function register_controls() {

@@ -1,12 +1,12 @@
 <?php
-class TFCountdown_Widget extends \Elementor\Widget_Base {
+class TFCountdown_Widget_Free extends \Elementor\Widget_Base {
 
 	public function get_name() {
         return 'tf-countdown';
     }
     
     public function get_title() {
-        return esc_html__( 'TF Countdown', 'themesflat-elementor' );
+        return esc_html__( 'TF Countdown', 'themesflat-addons-for-elementor' );
     }
 
     public function get_icon() {
@@ -29,28 +29,28 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 		// Start Countdown        
 			$this->start_controls_section( 'section_tabs',
 	            [
-	                'label' => esc_html__('Countdown', 'themesflat-elementor'),
+	                'label' => esc_html__('Countdown', 'themesflat-addons-for-elementor'),
 	            ]
 	        );
 
 			$this->add_control(
 				'due_date',
 				[
-					'label' => esc_html__( 'Due Date', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Due Date', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DATE_TIME,
 					'default' => gmdate( 'Y-m-d H:i', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
 					/* translators:Date set according to your timezone: %s.*/
-					'description' => sprintf( esc_html__( 'Date set according to your timezone: %s.', 'themesflat-elementor' ), \Elementor\Utils::get_timezone_string() ),
+					'description' => sprintf( esc_html__( 'Date set according to your timezone: %s.', 'themesflat-addons-for-elementor' ), \Elementor\Utils::get_timezone_string() ),
 				]
 			);
 
 			$this->add_control(
 				'show_days',
 				[
-					'label' => esc_html__( 'Days', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Days', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'themesflat-elementor' ),
-					'label_off' => esc_html__( 'Hide', 'themesflat-elementor' ),
+					'label_on' => esc_html__( 'Show', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'Hide', 'themesflat-addons-for-elementor' ),
 					'default' => 'yes',
 				]
 			);
@@ -58,10 +58,10 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'show_hours',
 				[
-					'label' => esc_html__( 'Hours', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Hours', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'themesflat-elementor' ),
-					'label_off' => esc_html__( 'Hide', 'themesflat-elementor' ),
+					'label_on' => esc_html__( 'Show', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'Hide', 'themesflat-addons-for-elementor' ),
 					'default' => 'yes',
 				]
 			);
@@ -69,10 +69,10 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'show_minutes',
 				[
-					'label' => esc_html__( 'Minutes', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Minutes', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'themesflat-elementor' ),
-					'label_off' => esc_html__( 'Hide', 'themesflat-elementor' ),
+					'label_on' => esc_html__( 'Show', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'Hide', 'themesflat-addons-for-elementor' ),
 					'default' => 'yes',
 				]
 			);
@@ -80,10 +80,10 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'show_seconds',
 				[
-					'label' => esc_html__( 'Seconds', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Seconds', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'themesflat-elementor' ),
-					'label_off' => esc_html__( 'Hide', 'themesflat-elementor' ),
+					'label_on' => esc_html__( 'Show', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'Hide', 'themesflat-addons-for-elementor' ),
 					'default' => 'yes',
 				]
 			);
@@ -91,10 +91,10 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'show_labels',
 				[
-					'label' => esc_html__( 'Show Label', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Show Label', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'themesflat-elementor' ),
-					'label_off' => esc_html__( 'Hide', 'themesflat-elementor' ),
+					'label_on' => esc_html__( 'Show', 'themesflat-addons-for-elementor' ),
+					'label_off' => esc_html__( 'Hide', 'themesflat-addons-for-elementor' ),
 					'default' => 'yes',
 					'separator' => 'before',
 				]
@@ -103,7 +103,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'custom_labels',
 				[
-					'label' => esc_html__( 'Custom Label', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Custom Label', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SWITCHER,
 					'condition' => [
 						'show_labels!' => '',
@@ -114,10 +114,10 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'label_days',
 				[
-					'label' => esc_html__( 'Days', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Days', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Days', 'themesflat-elementor' ),
-					'placeholder' => esc_html__( 'Days', 'themesflat-elementor' ),
+					'default' => esc_html__( 'Days', 'themesflat-addons-for-elementor' ),
+					'placeholder' => esc_html__( 'Days', 'themesflat-addons-for-elementor' ),
 					'condition' => [
 						'show_labels!' => '',
 						'custom_labels!' => '',
@@ -129,10 +129,10 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'label_hours',
 				[
-					'label' => esc_html__( 'Hours', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Hours', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Hours', 'themesflat-elementor' ),
-					'placeholder' => esc_html__( 'Hours', 'themesflat-elementor' ),
+					'default' => esc_html__( 'Hours', 'themesflat-addons-for-elementor' ),
+					'placeholder' => esc_html__( 'Hours', 'themesflat-addons-for-elementor' ),
 					'condition' => [
 						'show_labels!' => '',
 						'custom_labels!' => '',
@@ -144,10 +144,10 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'label_minutes',
 				[
-					'label' => esc_html__( 'Minutes', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Minutes', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Minutes', 'themesflat-elementor' ),
-					'placeholder' => esc_html__( 'Minutes', 'themesflat-elementor' ),
+					'default' => esc_html__( 'Minutes', 'themesflat-addons-for-elementor' ),
+					'placeholder' => esc_html__( 'Minutes', 'themesflat-addons-for-elementor' ),
 					'condition' => [
 						'show_labels!' => '',
 						'custom_labels!' => '',
@@ -159,10 +159,10 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'label_seconds',
 				[
-					'label' => esc_html__( 'Seconds', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Seconds', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
-					'default' => esc_html__( 'Seconds', 'themesflat-elementor' ),
-					'placeholder' => esc_html__( 'Seconds', 'themesflat-elementor' ),
+					'default' => esc_html__( 'Seconds', 'themesflat-addons-for-elementor' ),
+					'placeholder' => esc_html__( 'Seconds', 'themesflat-addons-for-elementor' ),
 					'condition' => [
 						'show_labels!' => '',
 						'custom_labels!' => '',
@@ -178,7 +178,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 	        $this->start_controls_section(
 				'section_box_style',
 				[
-					'label' => esc_html__( 'Boxes', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Boxes', 'themesflat-addons-for-elementor' ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);  
@@ -186,7 +186,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'container_width',
 				[
-					'label' => esc_html__( 'Container Width', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Container Width', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'default' => [
 						'unit' => '%',
@@ -218,7 +218,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'container_height',
 				[
-					'label' => esc_html__( 'Padding Top & Bottom', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Padding Top & Bottom', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'default' => [
 						'unit' => 'px',
@@ -244,19 +244,19 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'position_align',
 				[
-					'label' => esc_html__( 'Alignment', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Alignment', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::CHOOSE,
 					'options' => [
 						'left' => [
-							'title' => esc_html__( 'Left', 'themesflat-elementor' ),
+							'title' => esc_html__( 'Left', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-align-left',
 						],
 						'center' => [
-							'title' => esc_html__( 'Center', 'themesflat-elementor' ),
+							'title' => esc_html__( 'Center', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-align-center',
 						],
 						'right' => [
-							'title' => esc_html__( 'Right', 'themesflat-elementor' ),
+							'title' => esc_html__( 'Right', 'themesflat-addons-for-elementor' ),
 							'icon' => 'fa fa-align-right',
 						],
 					],
@@ -268,7 +268,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'box_background_color',
 				[
-					'label' => esc_html__( 'Background Color', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Background Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#3858e9',
 					'selectors' => [
@@ -290,7 +290,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'box_border_radius',
 				[
-					'label' => esc_html__( 'Border Radius', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Border Radius', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%' ],
 					'selectors' => [
@@ -302,7 +302,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'box_spacing',
 				[
-					'label' => esc_html__( 'Space Between', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Space Between', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SLIDER,
 					'default' => [
 						'size' => 10,
@@ -325,7 +325,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_responsive_control(
 				'box_padding',
 				[
-					'label' => esc_html__( 'Padding', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Padding', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%', 'em' ],
 					'selectors' => [
@@ -341,7 +341,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->start_controls_section(
 				'section_content_style',
 				[
-					'label' => esc_html__( 'Content', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Content', 'themesflat-addons-for-elementor' ),
 					'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 				]
 			);
@@ -349,11 +349,11 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'label_display',
 				[
-					'label' => esc_html__( 'View', 'themesflat-elementor' ),
+					'label' => esc_html__( 'View', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
-						'view-block' => esc_html__( 'Block', 'themesflat-elementor' ),
-						'view-inline' => esc_html__( 'Inline', 'themesflat-elementor' ),
+						'view-block' => esc_html__( 'Block', 'themesflat-addons-for-elementor' ),
+						'view-inline' => esc_html__( 'Inline', 'themesflat-addons-for-elementor' ),
 					],
 					'default' => 'view-block',
 				]
@@ -362,7 +362,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'heading_digits',
 				[
-					'label' => esc_html__( 'Digits', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Digits', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -371,7 +371,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'digits_color',
 				[
-					'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#ffffff',
 					'selectors' => [
@@ -421,7 +421,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'heading_label',
 				[
-					'label' => esc_html__( 'Label', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Label', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -430,7 +430,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 			$this->add_control(
 				'label_color',
 				[
-					'label' => esc_html__( 'Color', 'themesflat-elementor' ),
+					'label' => esc_html__( 'Color', 'themesflat-addons-for-elementor' ),
 					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#ffffff',
 					'selectors' => [
@@ -485,12 +485,12 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 
 	private function init_default_countdown_labels() {
 		$this->_default_countdown_labels = [
-			'label_months' => esc_html__( 'Months', 'themesflat-elementor' ),
-			'label_weeks' => esc_html__( 'Weeks', 'themesflat-elementor' ),
-			'label_days' => esc_html__( 'Days', 'themesflat-elementor' ),
-			'label_hours' => esc_html__( 'Hours', 'themesflat-elementor' ),
-			'label_minutes' => esc_html__( 'Minutes', 'themesflat-elementor' ),
-			'label_seconds' => esc_html__( 'Seconds', 'themesflat-elementor' ),
+			'label_months' => esc_html__( 'Months', 'themesflat-addons-for-elementor' ),
+			'label_weeks' => esc_html__( 'Weeks', 'themesflat-addons-for-elementor' ),
+			'label_days' => esc_html__( 'Days', 'themesflat-addons-for-elementor' ),
+			'label_hours' => esc_html__( 'Hours', 'themesflat-addons-for-elementor' ),
+			'label_minutes' => esc_html__( 'Minutes', 'themesflat-addons-for-elementor' ),
+			'label_seconds' => esc_html__( 'Seconds', 'themesflat-addons-for-elementor' ),
 		];
 	}
 

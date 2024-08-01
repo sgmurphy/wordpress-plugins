@@ -10,7 +10,7 @@ if (!class_exists('TF_Post_Format')) {
         }
         
         public function __construct() {   
-            add_action( 'after_setup_theme', [$this,'tf_theme_suport'] );
+            add_action( 'after_setup_theme', [$this,'tf_theme_suport'],30 );
             add_action( 'admin_init', [$this,'themesflat_page_options_init'] );                
             add_action( 'admin_enqueue_scripts', [ $this, 'tf_metabox_scripts' ] );
             add_action( 'wp_enqueue_scripts', [ $this, 'tf_post_format_scripts' ] );
@@ -182,7 +182,7 @@ if (!class_exists('TF_Post_Format')) {
             <div class="themesflat_box_control">
                 <div class="themesflat_box_position">
                     <div class="themesflat_box_margin">
-                        <label class="themesflat_box_label"><?php echo esc_html__('Margin', 'tf-addon-for-elementer');?></label>
+                        <label class="themesflat_box_label"><?php echo esc_html__('Margin', 'themesflat-addons-for-elementor');?></label>
                         <input placeholder="-" data-position='margin-top' value ="<?php TF_Post_Format::themesflat_esc_attr(($controls['margin-top']));?>" class="top" type="text"/>
                         <input placeholder="-" data-position='margin-bottom' value ="<?php TF_Post_Format::themesflat_esc_attr(($controls['margin-bottom']));?>" class="bottom" type="text"/>
                         <input placeholder="-" data-position='margin-left' value ="<?php TF_Post_Format::themesflat_esc_attr(($controls['margin-left']));?>" class="left" type="text"/>
@@ -190,7 +190,7 @@ if (!class_exists('TF_Post_Format')) {
                     </div>
 
                     <div class="themesflat_box_padding">
-                        <label class="themesflat_box_label"><?php echo esc_html__('Padding', 'tf-addon-for-elementer');?></label>
+                        <label class="themesflat_box_label"><?php echo esc_html__('Padding', 'themesflat-addons-for-elementor');?></label>
                         <input placeholder="-" data-position='padding-top' value ="<?php TF_Post_Format::themesflat_esc_attr(($controls['padding-top']));?>" class="top" type="text"/>
                         <input placeholder="-" data-position='padding-bottom' value ="<?php TF_Post_Format::themesflat_esc_attr(($controls['padding-bottom']));?>" class="bottom" type="text"/>
                         <input placeholder="-" data-position='padding-left' value ="<?php TF_Post_Format::themesflat_esc_attr(($controls['padding-left']));?>" class="left" type="text"/>
@@ -198,7 +198,7 @@ if (!class_exists('TF_Post_Format')) {
                     </div>
 
                     <div class="themesflat_box_border">
-                        <label class="themesflat_box_label"><?php echo esc_html__('Border', 'tf-addon-for-elementer');?></label>
+                        <label class="themesflat_box_label"><?php echo esc_html__('Border', 'themesflat-addons-for-elementor');?></label>
                         <input placeholder="-" data-position='border-top-width' value ="<?php TF_Post_Format::themesflat_esc_attr(($controls['border-top-width']));?>" class="top" type="text"/>
                         <input placeholder="-" data-position='border-bottom-width' value ="<?php TF_Post_Format::themesflat_esc_attr(($controls['border-bottom-width']));?>" class="bottom" type="text"/>
                         <input placeholder="-" data-position='border-left-width' value ="<?php TF_Post_Format::themesflat_esc_attr(($controls['border-left-width']));?>" class="left" type="text"/>

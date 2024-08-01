@@ -1,9 +1,10 @@
 (function( $ ) {
     "use strict";   
-    
     function togglePostFormatMetaBoxes() {
-        var $input = $('input[name=post_format]'),
+        // var $input = $('input[name=post_format]'),
+        var $input = $('.editor-post-format input[id*="post-format-selector-"]'),
             $metaBoxes = $('#blog-options [id^="themesflat-options-control-"]').hide();
+            console.log($input);
 
         // Don't show post format meta boxes for portfolio
         if ($('#post_type').val() == 'members')
@@ -12,17 +13,28 @@
         if ($('#post_type').val() == 'food')
             return;
 
-        $input.change(function() {
+        if($input.prop('checked')
+        ) {
             $metaBoxes.hide();
+
+            if ($(this).val() == 'gallery' || $(this).val() == 'video' || $(this).val() == 'audio' || $(this).val() == 'quote') {
+                $('[id*="themesflat-options-control-' + $(this).val() + '"]').show();
+            } else $('#themesflat-options-control-blog_heading').show();
+        }
+
+        $input.change(function() {
+            console.log('a');
+            $metaBoxes.hide();
+
             if ($(this).val() == 'gallery' || $(this).val() == 'video' || $(this).val() == 'audio' || $(this).val() == 'quote') {
                 $('[id*="themesflat-options-control-' + $(this).val() + '"]').show();
             } else $('#themesflat-options-control-blog_heading').show();
 
         });
         $input.filter(':checked').trigger('change');
-
         //Gutenberg
-        jQuery(document).on('change', 'select[id*="post-format"]',function(){             
+        jQuery(document).on('change', 'select[id*="post-format-selector-"]',function(){      
+            console.log('b');       
             $metaBoxes.hide();
             if ($(this).val() == 'gallery' || $(this).val() == 'video' || $(this).val() == 'audio' || $(this).val() == 'quote') {
                 $('[id*="themesflat-options-control-' + $(this).val() + '"]').show();

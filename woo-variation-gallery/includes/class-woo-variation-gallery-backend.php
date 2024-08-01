@@ -38,10 +38,7 @@ if ( ! class_exists( 'Woo_Variation_Gallery_Backend', false ) ):
 
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 
-			add_filter( 'plugin_action_links_' . plugin_basename( WOO_VARIATION_GALLERY_PLUGIN_FILE ), array(
-				$this,
-				'plugin_action_links'
-			) );
+			add_filter( 'plugin_action_links_' . plugin_basename( WOO_VARIATION_GALLERY_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'admin_footer', array( $this, 'admin_template_js' ) );
@@ -131,6 +128,15 @@ if ( ! class_exists( 'Woo_Variation_Gallery_Backend', false ) ):
 		}
 
 		public function admin_enqueue_scripts() {
+
+			$screen           = get_current_screen();
+			$screen_post_type = $screen ? $screen->post_type : '';
+			$screen_base = $screen ? $screen->base : '';
+			$is_valid_screen = 'product' === $screen_post_type && 'post' === $screen_base;
+
+			if( !$is_valid_screen ){
+				return;
+			}
 
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 

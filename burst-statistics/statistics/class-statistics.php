@@ -3,6 +3,10 @@ defined( 'ABSPATH' ) or die( 'you do not have access to this page!' );
 
 if ( ! class_exists( 'burst_statistics' ) ) {
 	class burst_statistics {
+
+		private $look_up_table_names = array();
+		private $use_lookup_tables = null;
+
 		function __construct() {
 		}
 
@@ -251,9 +255,11 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 				];
 			}
 
-			$date = $date_start;
+			//we have a UTC corrected for timezone offset, to query in the statistics table.
+			//to show the correct labels, we convert this back with the timezone offset.
+			$timezone_offset = $this->get_wp_timezone_offset();
+			$date = $date_start + $timezone_offset;
 			for ( $i = 0; $i < $date_modifiers['nr_of_intervals']; $i ++ ) {
-				$date                      += $date_modifiers['interval_in_seconds'];
 				$formatted_date            = date_i18n( $date_modifiers['php_date_format'], $date );
 				$labels[ $formatted_date ] = date_i18n( $date_modifiers['php_pretty_date_format'], $date );
 
@@ -261,6 +267,9 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 				foreach ( $metrics as $metric_key => $metric ) {
 					$datasets[ $metric_key ]['data'][ $formatted_date ] = 0;
 				}
+
+				//increment at the end so the first will still be zero.
+				$date                      += $date_modifiers['interval_in_seconds'];
 			}
 
 			$select = $this->sanitize_metrics( $metrics );
@@ -299,7 +308,6 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 			$defaults = [
 				'date_start' => 0,
 				'date_end'   => 0,
-				'page_id'    => false,
 				'filters'    => [],
 			];
 			$args     = wp_parse_args( $args, $defaults );
@@ -356,7 +364,6 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 			$defaults = [
 				'date_start' => 0,
 				'date_end'   => 0,
-				'page_id'    => false,
 				'filters'    => [],
 			];
 			$args     = wp_parse_args( $args, $defaults );
@@ -461,9 +468,27 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 				$join_clause  .= " INNER JOIN {$wpdb->prefix}burst_sessions AS sessions ON statistics.session_id = sessions.ID ";
 				$where_clause .= $wpdb->prepare( ' AND sessions.country_code = %s ', $country_code );
 			}
-
-			$sql           = $wpdb->prepare(
-				"SELECT device, COUNT(device) AS count
+			$use_lookup_tables = $this->use_lookup_tables();
+			if ( $use_lookup_tables ) {
+				$sql = $wpdb->prepare(
+					"SELECT device_id, COUNT(device_id) AS count
+				        FROM (
+				            SELECT statistics.device_id 
+				            FROM {$wpdb->prefix}burst_statistics AS statistics
+				            $join_clause
+				            WHERE time > %s
+				            AND time < %s 
+				            AND device_id > 0 
+				            $where_clause
+				        ) AS statistics
+				        GROUP BY device_id;",
+					$start,
+					$end,
+					$goal_id
+				);
+			} else {
+				$sql = $wpdb->prepare(
+					"SELECT device, COUNT(device) AS count
 				        FROM (
 				            SELECT statistics.device 
 				            FROM {$wpdb->prefix}burst_statistics AS statistics
@@ -475,16 +500,18 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 				            $where_clause
 				        ) AS statistics
 				        GROUP BY device;",
-				$start,
-				$end,
-				$goal_id
-			);
+					$start,
+					$end,
+					$goal_id
+				);
+			}
+
 			$devicesResult = $wpdb->get_results( $sql, ARRAY_A );
 
 			$total   = 0;
 			$devices = array();
 			foreach ( $devicesResult as $key => $data ) {
-				$name             = $data['device'];
+				$name             = $use_lookup_tables ?  $this->get_lookup_table_name_by_id('device', $data['device_id']) : $data['device'];
 				$devices[ $name ] = [
 					'count' => $data['count'],
 				];
@@ -516,6 +543,13 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 			return wp_parse_args( $devices, $default_data );
 		}
 
+		/**
+		 * Get subtitles data
+		 * 
+		 * @param $args
+		 *
+		 * @return array
+		 */
 		public function get_devices_subtitle_data( $args = [] ) {
 			global $wpdb;
 			$defaults     = [
@@ -536,10 +570,18 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 			$data         = array();
 
 			// Loop through results and add count to array
+			$use_lookup_tables = $this->use_lookup_tables();
 			foreach ( $devices as $device ) {
-				$device_sql = $wpdb->prepare( ' device=%s ', $device );
+
 				$common_sql = " FROM {$wpdb->prefix}burst_statistics AS statistics ";
-				$where_sql  = $wpdb->prepare( " WHERE time > %d AND time < %d AND device IS NOT NULL AND device <> '' $where_clause", $start, $end );
+				if (  $use_lookup_tables ) {
+					$device_id =  burst_get_lookup_table_id( 'device', $device );
+					$device_sql = $wpdb->prepare( " device_id=%s ", $device_id );
+					$where_sql  = $wpdb->prepare( " WHERE time > %d AND time < %d AND device_id >0 $where_clause", $start, $end );
+				} else {
+					$device_sql = $wpdb->prepare( " device=%s ", $device );
+					$where_sql  = $wpdb->prepare( " WHERE time > %d AND time < %d AND device IS NOT NULL AND device <> '' $where_clause", $start, $end );
+				}
 
 				// Conditional JOIN and WHERE based on the presence of goal_id
 				if ( $goal_id !== null ) {
@@ -552,15 +594,27 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 					$where_sql  .= $wpdb->prepare( ' AND sessions.country_code = %s ', $country_code );
 				}
 
+
 				// Query for browser and OS
-				$sql     = $wpdb->prepare( "SELECT browser, platform FROM (SELECT browser, platform, COUNT(*) AS count, device $common_sql $where_sql AND browser IS NOT NULL GROUP BY browser, platform, device ) AS grouped_devices WHERE $device_sql ORDER BY count DESC LIMIT 1", '' );
-				$results = $wpdb->get_row( $sql, ARRAY_A );
+				if ( $use_lookup_tables ) {
+					$sql = $wpdb->prepare( "SELECT browser_id, platform_id FROM (SELECT browser_id, platform_id, COUNT(*) AS count, device_id $common_sql $where_sql AND browser_id>0 GROUP BY browser_id, platform_id ) AS grouped_devices WHERE $device_sql ORDER BY count DESC LIMIT 1", '' );
+					$results = $wpdb->get_row( $sql, ARRAY_A );
+					$browser_id = $results['browser_id'] ?? 0;
+					$platform_id = $results['platform_id'] ?? 0;
+					$browser = $this->get_lookup_table_name_by_id( 'browser', $browser_id );
+					$platform = $this->get_lookup_table_name_by_id( 'platform', $platform_id );
+
+				} else {
+					$sql  = $wpdb->prepare( "SELECT browser, platform FROM (SELECT browser, platform, COUNT(*) AS count, device $common_sql $where_sql AND browser IS NOT NULL GROUP BY browser, platform ) AS grouped_devices WHERE $device_sql ORDER BY count DESC LIMIT 1", '' );
+					$results = $wpdb->get_row( $sql, ARRAY_A );
+					$browser = $results['browser'] ?? false;
+					$platform = $results['platform'] ?? false;
+				}
 
 				$data[ $device ] = array(
-					'browser' => $results['browser'] ?? false,
-					'os'      => $results['platform'] ?? false,
+					'os'      => $platform,
+					'browser' => $browser,
 				);
-
 			}
 
 			// setup defaults
@@ -668,7 +722,7 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 		}
 
 		/**
-		 * convert date string to utc offset by gmt offset
+		 * convert date string to unix timestamp (UTC) by correcting it with WordPress timezone offset
 		 *
 		 * @param $time_string      string
 		 *                          date string in format Y-m-d H:i:s
@@ -676,14 +730,47 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 		 * @return int
 		 */
 		public function convert_date_to_unix(
-			$time_string
+			string $time_string
 		): int {
 			$time               = DateTime::createFromFormat( 'Y-m-d H:i:s', $time_string );
-			$utc_time           = $time ? $time->format( 'U' ) : strtotime( $time_string );
-			$gmt_offset_seconds = (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
+			$utc_time = $time ? $time->format( 'U' ) : strtotime( $time_string );
+			$gmt_offset_seconds = $this->get_wp_timezone_offset();
 
 			return $utc_time - $gmt_offset_seconds;
 		}
+
+		/**
+		 * The FROM_UNIXTIME takes into account the timezone offset from the mysql timezone settings. These can differ from the server settings.
+		 *
+		 * @return int
+		 * @throws Exception
+		 */
+		private function get_mysql_timezone_offset():int {
+			global $wpdb;
+			$mysql_timestamp = $wpdb->get_var( 'SELECT FROM_UNIXTIME(UNIX_TIMESTAMP());' );
+			$wp_timezone_offset = $this->get_wp_timezone_offset();
+
+			//round to half hours
+			$mysql_timezone_offset_hours = ROUND( ( strtotime( $mysql_timestamp ) - time() ) / (HOUR_IN_SECONDS / 2), 0) * 0.5;
+			$wp_timezone_offset_hours = ROUND($wp_timezone_offset / (HOUR_IN_SECONDS / 2), 0) * 0.5;
+			$offset = $wp_timezone_offset_hours - $mysql_timezone_offset_hours;
+			return $offset * HOUR_IN_SECONDS;
+
+		}
+
+		/**
+		 * Get the offset in seconds from the selected timezone in WP
+		 *
+		 * @return int
+		 * @throws Exception
+		 */
+		private function get_wp_timezone_offset(): int {
+			$timezone = wp_timezone();
+			$datetime = new DateTime('now', $timezone);
+			return $timezone->getOffset($datetime);
+		}
+
+
 
 		/**
 		 * convert unix timestamp to date string by gmt offset
@@ -693,9 +780,7 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 		 * @return string
 		 */
 		public function convert_unix_to_date( $unix_timestamp ): string {
-			// Adjust the Unix timestamp for the GMT offset
-			$gmt_offset_seconds = (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
-			$adjusted_timestamp = $unix_timestamp + $gmt_offset_seconds;
+			$adjusted_timestamp = $unix_timestamp + $this->get_wp_timezone_offset();
 
 			// Convert the adjusted timestamp to a DateTime object
 			$time = new DateTime();
@@ -911,6 +996,20 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 		}
 
 		/**
+		 * Cached method to check if lookup tables should be used.
+		 *
+		 * @return bool
+		 */
+		public function use_lookup_tables(){
+
+			if ( $this->use_lookup_tables === null ) {
+				$this->use_lookup_tables = !get_option('burst_db_upgrade_upgrade_lookup_tables');
+			}
+
+			return $this->use_lookup_tables;
+		}
+
+		/**
 		 * Generates a WHERE clause for SQL queries based on provided filters.
 		 *
 		 * @param array $filters Associative array of filters.
@@ -921,21 +1020,35 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 			$filters      = burst_sanitize_filters( $filters );
 			$whereClauses = array();
 
+			$id = $this->use_lookup_tables() ? '_id' : '';
+
 			// Define filters including their table prefixes.
 			$possibleFiltersWithPrefix = apply_filters(
 				'burst_possible_filters_with_prefix',
 				[
 					'bounce'       => 'statistics.bounce',
-					'page_id'      => 'statistics.page_id',
 					'page_url'     => 'statistics.page_url',
 					'referrer'     => 'statistics.referrer',
-					'device'       => 'statistics.device',
-					'browser'      => 'statistics.browser',
-					'platform'     => 'statistics.platform',
-					'country_code' => 'sessions.country_code',
-					// Assuming 'country_code' filter is in the 'sessions' table.
+					'device'       => 'statistics.device'.$id,
+					'browser'      => 'statistics.browser'.$id,
+					'platform'     => 'statistics.platform'.$id,
+					'country_code' => 'sessions.country_code', // Assuming 'country_code' filter is in the 'sessions' table.
 				]
 			);
+
+			if (  $this->use_lookup_tables() ) {
+				$mappable = [
+					'browser',
+					'browser_version',
+					'platform',
+					'device',
+				];//only device, browser and platform in use at the moment, but leave it here for extension purposes
+				foreach ( $filters as $filter_name => $filter_value ) {
+					if ( in_array( $filter_name, $mappable, true ) ) {
+						$filters[ $filter_name ] = BURST()->frontend->get_lookup_table_id( $filter_name, $filter_value );
+					}
+				}
+			}
 
 			foreach ( $filters as $filter => $value ) {
 				if ( array_key_exists( $filter, $possibleFiltersWithPrefix ) ) {
@@ -961,7 +1074,6 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 			return ! empty( $where ) ? "AND $where" : '';
 		}
 
-
 		/**
 		 * Get query for statistics
 		 *
@@ -978,19 +1090,19 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 		 * @return string|null
 		 */
 		public function get_sql_table( $start, $end, $select = [ '*' ], $filters = [], $group_by = '', $order_by = '', $limit = '', $joins = array(), $date_modifiers = false ) {
-
 			$raw = $date_modifiers && strpos( $date_modifiers['sql_date_format'], '%H' ) !== false;
-			if ( ! $raw && BURST()->summary->upgrade_completed() && BURST()->summary->is_summary_data( $select, $filters, $end ) ) {
+			if ( ! $raw && BURST()->summary->upgrade_completed() && BURST()->summary->is_summary_data( $select, $filters, $start, $end ) ) {
 				return BURST()->summary->summary_sql( $start, $end, $select, $group_by, $order_by, $limit, $date_modifiers );
 			}
 			$sql = $this->get_sql_table_raw( $start, $end, $select, $filters, $group_by, $order_by, $limit, $joins );
-
 			if ( $date_modifiers ) {
-				$sql = str_replace( 'SELECT', "SELECT DATE_FORMAT(FROM_UNIXTIME(time), '{$date_modifiers['sql_date_format']}') as period,", $sql );
+				$timezone_offset = $this->get_mysql_timezone_offset();
+				$sql = str_replace( 'SELECT', "SELECT DATE_FORMAT(FROM_UNIXTIME( time + $timezone_offset ), '{$date_modifiers['sql_date_format']}') as period,", $sql );
 			}
 
 			return $sql;
 		}
+
 
 
 		/**
@@ -1072,11 +1184,18 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 			$order_by = $order_by ? "ORDER BY $order_by" : '';
 			$limit    = $limit ? 'LIMIT ' . (int) $limit : '';
 
-			return "SELECT $select FROM $table_name $join_sql WHERE time > $start AND time < $end $where $group_by $order_by $limit";
+			$sql = "SELECT $select FROM $table_name $join_sql WHERE time > $start AND time < $end $where $group_by $order_by $limit";
+			return $sql;
 		}
 
-
-		function get_sql_select_for_metric( $metric ) {
+		/**
+		 * Generate SQL for a metric
+		 *
+		 * @param string $metric
+		 *
+		 * @return string
+		 */
+		public function get_sql_select_for_metric( string $metric ) {
 			$exclude_bounces = apply_filters( 'burst_exclude_bounces', 1 );
 
 			global $wpdb;
@@ -1113,9 +1232,6 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 					break;
 				case 'page_url':
 					$sql = 'statistics.page_url';
-					break;
-				case 'page_id':
-					$sql = 'statistics.page_id';
 					break;
 				case 'referrer':
 					$remove   = [ 'http://www.', 'https://www.', 'http://', 'https://' ];
@@ -1238,26 +1354,59 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 			return $status;
 		}
 
-		public function get_device_name(
-			$device
-		): ?string {
-			switch ( $device ) {
-				case 'desktop':
-					$device_name = __( 'Desktop', 'burst-statistics' );
-					break;
-				case 'mobile':
-					$device_name = __( 'Mobile', 'burst-statistics' );
-					break;
-				case 'tablet':
-					$device_name = __( 'Tablet', 'burst-statistics' );
-					break;
-				case 'other':
-				default:
-					$device_name = __( 'Other', 'burst-statistics' );
-					break;
+		/**
+		 * Get post_views by post_id
+		 *
+		 * @param int $post_id
+		 *
+		 * @return int
+		 */
+		public function get_post_views( $post_id ) {
+			//get relative page url by post_id.
+			$page_url = get_permalink( $post_id );
+			//strip home_url from page_url
+			$page_url = str_replace( home_url(), '', $page_url );
+			$sql = $this->get_sql_table(0, time(), ['pageviews'], ['page_url' => $page_url] );
+			global $wpdb;
+			$data = $wpdb->get_row( $sql, ARRAY_A );
+			if ( $data && isset($data->pageviews)) {
+				return (int) $data->pageviews;
+			}
+			return 0;
+		}
+
+
+		/**
+		 * Get Name from lookup table
+		 *
+		 * @param string $item
+		 * @param int    $id
+		 *
+		 * @return string
+		 */
+		public function get_lookup_table_name_by_id( string $item, int $id):string {
+			if ( $id === 0 ) {
+				return '';
 			}
 
-			return $device_name;
+			$possible_items = ['browser', 'browser_version', 'platform', 'device'];
+			if ( !in_array($item, $possible_items) ) {
+				return 0;
+			}
+
+			if ( isset( $this->look_up_table_names[$item][$id] ) ){
+				return $this->look_up_table_names[$item][$id];
+			}
+
+			//check if $value exists in tabel burst_$item
+			$name = wp_cache_get('burst_' . $item . '_' . $id, 'burst');
+			if ( !$name ) {
+				global $wpdb;
+				$name = $wpdb->get_var( $wpdb->prepare( "SELECT name FROM {$wpdb->prefix}burst_{$item}s WHERE ID = %s LIMIT 1", $id ) );
+				wp_cache_set('burst_' . $item . '_' . $id, $name, 'burst');
+			}
+			$this->look_up_table_names[$item][$id] = $name;
+			return (string) $name;
 		}
 	}
 }
@@ -1282,15 +1431,13 @@ function burst_install_statistics_table() {
             `uid` varchar(255) NOT NULL,
             `time_on_page` int,
             `entire_page_url` varchar(255) NOT NULL,
-            `page_id` int NOT NULL,
             `parameters` varchar(255) NOT NULL,
             `fragment` varchar(255) NOT NULL,
             `referrer` varchar(255),
-            `browser` varchar(255),
-            `browser_version` varchar(255),
-            `platform` varchar(255),
-            `device` varchar(255),
-            `device_resolution` varchar(255),
+            `browser_id` int(11) NOT NULL,
+            `browser_version_id` int(11) NOT NULL,
+            `platform_id` int(11) NOT NULL,
+            `device_id` int(11) NOT NULL,
             `session_id` int,
             `first_time_visit` tinyint,
             `bounce` tinyint DEFAULT 1,
@@ -1302,6 +1449,38 @@ function burst_install_statistics_table() {
               INDEX time_page_url_index (`time`, `page_url`)
             ) $charset_collate;";
 
+		dbDelta( $sql );
+
+		$table_name = $wpdb->prefix . 'burst_browsers';
+		$sql        = "CREATE TABLE $table_name (
+			`ID` int(11) NOT NULL AUTO_INCREMENT ,
+            `name` varchar(255) NOT NULL,
+              PRIMARY KEY  (ID)
+            ) $charset_collate;";
+		dbDelta( $sql );
+
+		$table_name = $wpdb->prefix . 'burst_browser_versions';
+		$sql        = "CREATE TABLE $table_name (
+			`ID` int(11) NOT NULL AUTO_INCREMENT ,
+            `name` varchar(255) NOT NULL,
+              PRIMARY KEY  (ID)
+            ) $charset_collate;";
+		dbDelta( $sql );
+
+		$table_name = $wpdb->prefix . 'burst_platforms';
+		$sql        = "CREATE TABLE $table_name (
+			`ID` int(11) NOT NULL AUTO_INCREMENT ,
+            `name` varchar(255) NOT NULL,
+              PRIMARY KEY  (ID)
+            ) $charset_collate;";
+		dbDelta( $sql );
+
+		$table_name = $wpdb->prefix . 'burst_devices';
+		$sql        = "CREATE TABLE $table_name (
+			`ID` int(11) NOT NULL AUTO_INCREMENT ,
+            `name` varchar(255) NOT NULL,
+              PRIMARY KEY  (ID)
+            ) $charset_collate;";
 		dbDelta( $sql );
 
 		$table_name = $wpdb->prefix . 'burst_summary';

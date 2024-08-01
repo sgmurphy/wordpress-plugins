@@ -17,6 +17,14 @@ class TFAnimated_Headline_Widget_Free extends \Elementor\Widget_Base {
         return [ 'themesflat_addons' ];
     }
 
+    public function get_style_depends() {
+		return [ 'tf-animated-headline' ];
+	}
+
+    public function get_script_depends() {
+		return [ 'tf-animated-headline' ];
+	}
+
     protected function register_controls() {
         // Start Headline Setting
         $this->start_controls_section( 
@@ -82,13 +90,13 @@ class TFAnimated_Headline_Widget_Free extends \Elementor\Widget_Base {
                 'fields' => $repeater->get_controls(),
                 'default' => [
                     [
-                        'headline_text_animation' => esc_html__( 'Highlighted Text 1', 'tf-addon-for-elementer' ),                        
+                        'headline_text_animation' => esc_html__( 'Highlighted Text 1', 'themesflat-addons-for-elementor' ),                        
                     ],
                     [
-                        'headline_text_animation' => esc_html__( 'Highlighted Text 2', 'tf-addon-for-elementer' ),                        
+                        'headline_text_animation' => esc_html__( 'Highlighted Text 2', 'themesflat-addons-for-elementor' ),                        
                     ],
                     [
-                        'headline_text_animation' => esc_html__( 'Highlighted Text 3', 'tf-addon-for-elementer' ),                        
+                        'headline_text_animation' => esc_html__( 'Highlighted Text 3', 'themesflat-addons-for-elementor' ),                        
                     ],
                 ],
                 'title_field' => '{{{ headline_text_animation }}}',

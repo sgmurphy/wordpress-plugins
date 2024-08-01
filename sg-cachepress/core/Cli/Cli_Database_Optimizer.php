@@ -19,6 +19,14 @@ use SiteGround_Optimizer\Options\Options;
  * @since 7.2.2
  */
 class Cli_Database_Optimizer {
+
+	/**
+	 * Options service.
+	 *
+	 * @var object.
+	 */
+	public $options_service;
+
 	/**
 	 * Enable specific setting for Speed Optimizer by SiteGround plugin.
 	 *
@@ -49,7 +57,7 @@ class Cli_Database_Optimizer {
 			return $this->disable_all();
 		}
 
-		if ( 'status' === $args[0] ){
+		if ( 'status' === $args[0] ) {
 			// Return the optimization status.
 			return $this->get_status();
 		}

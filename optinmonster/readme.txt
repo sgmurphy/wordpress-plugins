@@ -13,9 +13,9 @@ License: GNU General Public License v2.0 or later
 
 === The Best WordPress Popup Builder and Email Newsletter Popup Plugin ===
 
-<a href="https://optinmonster.com/wp/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">OptinMonster - WordPress Popup Builder and Email Newsletter Popup Plugin</a> is the most popular popup builder for WordPress. Over 1.2 million sites worldwide trust us to grow their email newsletter, boost lead generation and improve conversions.
+OptinMonster is the **<a href="https://optinmonster.com/best-wordpress-popup-plugins/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">best WordPress popup plugin</a>** and the most popular, too! Over 1.2 MILLION smart marketers like you trust us to make sure no good lead goes uncaptured!
 
-OptinMonster turns your website visitors into leads, subscribers and sales.
+OptinMonster turns your website visitors into new leads, subscribers and sales.
 
 > **Excellent product and customer service**<br />
 > "I love the product. I didn’t think popups were important, but with the seamless integration of other products such as MailChimp and WPForms, they are a winner! It makes it easier to collect data and leads. OptinMonster team is always ready to fix any problem you encounter when setting up the forms. They are patient, kind, and upbeat. They make life easier for those who are not developers. This plugin is a must for your business." <br />
@@ -93,9 +93,9 @@ These advanced popup triggers are highly effective in growing your email list, r
 
 === Smart Page Targeting and Behavior Based Personalization ===
 
-All OptinMonster popups comes with advanced page targeting and behavior based personalization.
+And the **<a href="https://optinmonster.com/best-wordpress-popup-plugins/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">best WordPress popup plugin</a>** comes with advanced page targeting and behavior based personalization, too!
 
-This means you can show a custom popup for specific page or section of your site, show a custom popup based on users' geolocation, show a custom popup when users click a specific link, and more.
+This means you can show a popup for specific page or section of your site, or based on users' geolocation, or even when a visitor clicks a specific link...and so much more.
 
 You can even show unique popups based on user's past behavior such as: have they clicked on an existing marketing popup, seen another popup campaign, closed a marketing popup, viewed X number of pages, etc.
 

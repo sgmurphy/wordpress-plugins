@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.6.1
-Stable tag: 3.2.21
+Stable tag: 3.2.22
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -163,8 +163,12 @@ Demo sample XML file included in plugin archive.
 
 == Changelog ==
 
+= 3.2.22 =
+- Enhancement: In the "Show Summary with calculations after adding contact info" setting, "Submit button text" and "Contact info form title" settings are now required to be filled (Pro).
+- Fix: Entered values >=1000 become invalid in the Quantity element with the Currency setting enabled.
+
 = 3.2.21 =
-- Enhancement: The settings "Show Summary with calculations after adding contact info" and Terms and Conditions are displayed in Preview and Appearance. 
+- Enhancement: The settings "Show Summary with calculations after adding contact info" and Terms and Conditions are displayed in Preview and Appearance.
 - Fix: The view is not displayed correctly in the horizontal layout style.
 - Fix: Some calculators are not displayed on the page.
 

@@ -3,6 +3,97 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.20 (2024-08-01)
+
+
+### Code Refactoring
+
+* move react-aiot to @devowl-wp/react-folder-tree within monorepo (CU-awv3bv)
+* upgrade to React v18 (createRoot, unmountComponentAtNode, CU-awv3bv)
+
+
+### Maintenance
+
+* **deps :** update dependency php-stubs/wordpress-stubs to v6.6.0
+* minimum required version is WordPress 5.9 (CU-awv3bv)
+
+
+<details><summary>Dependency updates @devowl-wp/freemium 1.3.87</summary>
+
+
+**_Purpose of dependency:_** _Make your plugin to a freemium plugin with predefined Envato support_
+##### Maintenance
+
+* **deps :** update dependency php-stubs/wordpress-stubs to v6.6.0</details>
+
+<details><summary>Dependency updates @devowl-wp/react-folder-tree 0.1.1</summary>
+
+
+**_Purpose of dependency:_** _Feature-rich folder tree renderer with toolbar (formerly react-aiot)._
+##### Code Refactoring
+
+* move react-aiot to @devowl-wp/react-folder-tree within monorepo (CU-awv3bv)
+* upgrade to React v18 (createRoot, unmountComponentAtNode, CU-awv3bv)</details>
+
+<details><summary>Dependency updates @devowl-wp/real-product-manager-wp-client 1.19.24</summary>
+
+
+**_Purpose of dependency:_** _A WordPress client for Real Product Manager_
+##### Code Refactoring
+
+* upgrade to React v18 (createRoot, unmountComponentAtNode, CU-awv3bv)
+
+
+##### Maintenance
+
+* **deps :** update dependency php-stubs/wordpress-stubs to v6.6.0</details>
+
+<details><summary>Dependency updates @devowl-wp/real-utils 1.13.8</summary>
+
+
+**_Purpose of dependency:_** _Create cross-selling ads, about page, rating and newsletter input for WP Real plugins._
+##### Maintenance
+
+* **deps :** update dependency php-stubs/wordpress-stubs to v6.6.0</details>
+
+<details><summary>Dependency updates @devowl-wp/utils 1.19.8</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Build System
+
+* generate cachebuster files in a real temporary file to avoid race conditions
+
+
+##### Code Refactoring
+
+* upgrade to React v18 (createRoot, unmountComponentAtNode, CU-awv3bv)
+
+
+##### Maintenance
+
+* **deps :** update dependency php-stubs/wordpress-stubs to v6.6.0</details>
+
+<details><summary>Development dependency update @devowl-wp/react-utils 0.1.6</summary>
+
+
+**_Purpose of dependency:_** _Provide various React utils, side effect free and tree shakeable._
+##### Code Refactoring
+
+* upgrade to React v18 (createRoot, unmountComponentAtNode, CU-awv3bv)</details>
+
+<details><summary>Development dependency update @devowl-wp/webpack-config 0.2.32</summary>
+
+
+**_Purpose of dependency:_** _Webpack config builder for multiple ecosystems like standalone React frontends, Antd, Preact and WordPress._
+##### Code Refactoring
+
+* move react-aiot to @devowl-wp/react-folder-tree within monorepo (CU-awv3bv)</details>
+
+
+
+
+
 ## 4.22.19 (2024-07-17)
 
 

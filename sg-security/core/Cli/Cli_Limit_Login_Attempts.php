@@ -19,6 +19,14 @@ use SG_Security\Options_Service\Options_Service;
  * @since 1.0.2
  */
 class Cli_Limit_Login_Attempts {
+
+	/**
+	 * Login_Service class.
+	 *
+	 * @var Object.
+	 */
+	public $login_service;
+
 	/**
 	 * Enable specific setting for SG Security plugin.
 	 *

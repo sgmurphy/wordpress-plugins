@@ -1,10 +1,10 @@
 === WP SEO Structured Data Schema ===
 Contributors: kcseopro
 Donate link:
-Tags: seo, schema, structured data, rich snippets, microdata, json-ld, search engine optimization, local seo, google, sitelinks, schema.org, microformat, serp
+Tags: seo, schema, structured data, rich snippets, microdata
 Requires at least: 4.5
-Tested up to: 6.4
-Stable tag: 2.7.10
+Tested up to: 6.6
+Stable tag: 2.7.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -33,6 +33,7 @@ The good news is that we have created the WordPress SEO Structured Data Schema p
 * Aggregate Ratings
 * Restaurants
 * Special Announcement
+* Profile Page
 
 
 = Pro Features =
@@ -51,6 +52,9 @@ The good news is that we have created the WordPress SEO Structured Data Schema p
 * ItemList
 * WooCommerce
 * Archive Schema (Collection Page)
+* Custom Schema
+* Vacation Rental
+* Vehicle Listing
 
 [Get Pro Version](https://wpsemplugins.com/downloads/wordpress-schema-plugin/)
 
@@ -129,6 +133,13 @@ You'll find the [FAQ on WPSEMPlugins.com](https://wpsemplugins.com/wordpress-seo
 
 
 == Changelog ==
+
+= 2.7.11 ( July 01, 2024) =
+* Fixed: Invalid country code
+* Fixed: Add Example for ISO 8601 date format
+* Added: Added New Profile TikTok
+* Added: Added Shipping Details, MerchantReturnPolicy For Product Schema
+* Added: New Rich Snippet for "Profile Page"
 
 = 2.7.10 ( November 17, 2023) =
 * Fixed:  Using ${var} in strings is deprecated for PHP 8.2  

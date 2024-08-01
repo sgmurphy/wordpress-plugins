@@ -21,6 +21,20 @@ use SiteGround_Optimizer\Options\Options;
  */
 class Cli_Settings {
 	/**
+	 * Settings service class.
+	 *
+	 * @var Object.
+	 */
+	public $settings_service;
+
+	/**
+	 * Options Service class.
+	 *
+	 * @var Object.
+	 */
+	public $options_service;
+
+	/**
 	 * Enable specific setting for Speed Optimizer by SiteGround plugin.
 	 *
 	 * ## OPTIONS

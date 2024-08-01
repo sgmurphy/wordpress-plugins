@@ -5,14 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
+class TF_Google_Maps_Widget_Free extends \Elementor\Widget_Base {
 
 	public function get_name() {
 		return 'tf-google_maps';
 	}
 
 	public function get_title() {
-		return esc_html__( 'TF Google Maps', 'themesflat-elementor' );
+		return esc_html__( 'TF Google Maps', 'themesflat-addons-for-elementor' );
 	}
 
 	public function get_icon() {
@@ -31,7 +31,7 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_map',
 			[
-				'label' => esc_html__( 'Map', 'themesflat-elementor' ),
+				'label' => esc_html__( 'Map', 'themesflat-addons-for-elementor' ),
 			]
 		);
 
@@ -45,7 +45,7 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 						'type' => \Elementor\Controls_Manager::RAW_HTML,
 						'raw' => sprintf(
 							/* translators: 1: Link to integrations settings tab, 2: Link to google maps api key documentation. */
-							esc_html__( 'Set your Google Maps API Key in Elementor\'s <a href="%1$s" target="_blank">Integrations Settings</a> page. Create your key <a href="%2$s" target="_blank">here.', 'themesflat-elementor' ),
+							esc_html__( 'Set your Google Maps API Key in Elementor\'s <a href="%1$s" target="_blank">Integrations Settings</a> page. Create your key <a href="%2$s" target="_blank">here.', 'themesflat-addons-for-elementor' ),
                             \Elementor\Settings::get_url() . '#tab-integrations',
 							'https://developers.google.com/maps/documentation/embed/get-api-key'
 						),
@@ -55,11 +55,11 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 			}
 		}
 
-		$default_address = esc_html__( 'London Eye, London, United Kingdom', 'themesflat-elementor' );
+		$default_address = esc_html__( 'London Eye, London, United Kingdom', 'themesflat-addons-for-elementor' );
 		$this->add_control(
 			'address',
 			[
-				'label' => esc_html__( 'Location', 'themesflat-elementor' ),
+				'label' => esc_html__( 'Location', 'themesflat-addons-for-elementor' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
 				'dynamic' => [
 					'active' => true,
@@ -76,7 +76,7 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 		$this->add_control(
 			'zoom',
 			[
-				'label' => esc_html__( 'Zoom', 'themesflat-elementor' ),
+				'label' => esc_html__( 'Zoom', 'themesflat-addons-for-elementor' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 10,
@@ -94,7 +94,7 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'height',
 			[
-				'label' => esc_html__( 'Height', 'themesflat-elementor' ),
+				'label' => esc_html__( 'Height', 'themesflat-addons-for-elementor' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -116,7 +116,7 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 		$this->add_control(
 			'view',
 			[
-				'label' => esc_html__( 'View', 'themesflat-elementor' ),
+				'label' => esc_html__( 'View', 'themesflat-addons-for-elementor' ),
 				'type' => \Elementor\Controls_Manager::HIDDEN,
 				'default' => 'traditional',
 			]
@@ -127,7 +127,7 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_map_style',
 			[
-				'label' => esc_html__( 'Map', 'themesflat-elementor' ),
+				'label' => esc_html__( 'Map', 'themesflat-addons-for-elementor' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -136,7 +136,7 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 
 		$this->start_controls_tab( 'normal',
 			[
-				'label' => esc_html__( 'Normal', 'themesflat-elementor' ),
+				'label' => esc_html__( 'Normal', 'themesflat-addons-for-elementor' ),
 			]
 		);
 
@@ -152,7 +152,7 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 
 		$this->start_controls_tab( 'hover',
 			[
-				'label' => esc_html__( 'Hover', 'themesflat-elementor' ),
+				'label' => esc_html__( 'Hover', 'themesflat-addons-for-elementor' ),
 			]
 		);
 
@@ -167,7 +167,7 @@ class TF_Google_Maps_Widget_Fr extends \Elementor\Widget_Base {
 		$this->add_control(
 			'hover_transition',
 			[
-				'label' => esc_html__( 'Transition Duration', 'themesflat-elementor' ),
+				'label' => esc_html__( 'Transition Duration', 'themesflat-addons-for-elementor' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [

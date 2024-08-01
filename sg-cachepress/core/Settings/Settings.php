@@ -9,6 +9,14 @@ use SiteGround_Optimizer\Htaccess\Htaccess;
 use SiteGround_Helper\Helper_Service;
 
 class Settings {
+
+	/**
+	 * Options Service class.
+	 *
+	 * @var [type]
+	 */
+	public $options_service;
+
 	/**
 	 * The array containing all settings that can be imported/exported.
 	 *

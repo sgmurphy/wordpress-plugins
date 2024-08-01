@@ -498,9 +498,23 @@ class File_Cacher extends Supercacher {
 			return false;
 		}
 
-		$path = parse_url( $url, PHP_URL_PATH );
+		$cache_dir = $self->get_cache_dir();
 
-		$subdirs = array_diff( scandir( $self->get_cache_dir() ), array( '..', '.' ) );
+		// Bail if directory does not exist for some reason.
+		if ( ! is_dir( $cache_dir ) ) {
+			return false;
+		}
+
+		$cache_dir = scandir( $cache_dir );
+
+		// Bail if scandir fails to scan.
+		if ( ! $cache_dir ) {
+			return false;
+		}
+
+		$subdirs = array_diff( $cache_dir, array( '..', '.' ) );
+
+		$path = parse_url( $url, PHP_URL_PATH );
 
 		foreach ( $subdirs as $dir ) {
 			$status = $self->purge_dir_cache( $self->get_cache_dir() . $dir . $path );

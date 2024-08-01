@@ -20,7 +20,7 @@ class Plugins_Service {
 	);
 
 	/**
-	 * Enable maintanance mode.
+	 * Enable maintenance mode.
 	 *
 	 * @since  1.0.0
 	 */
@@ -79,7 +79,7 @@ class Plugins_Service {
 				continue;
 			}
 
-			// Add extra atributes so we make things less complicated.
+			// Add extra attributes so we make things less complicated.
 			$plugins[] = array(
 				'path'      => $plugin,
 				'name'      => $key['Name'],
@@ -97,7 +97,7 @@ class Plugins_Service {
 	 *
 	 * @since  1.0.0.
 	 *
-	 * @param  array $plugin The array containing the data needed for a successful reinstal.
+	 * @param  array $plugin The array containing the data needed for a successful reinstall.
 	 *
 	 * @return bool/array true/false or array containing the error data.
 	 */
@@ -107,7 +107,7 @@ class Plugins_Service {
 			return false;
 		}
 
-		// Build the download url.
+		// Build the download URL.
 		$package = sprintf(
 			'https://downloads.wordpress.org/plugin/%s.%s.zip',
 			$plugin['slug'],
@@ -142,14 +142,14 @@ class Plugins_Service {
 				return;
 		}
 
-		// Prepare the necesary dependencies.
+		// Prepare the necessary dependencies.
 		$skin     = new \WP_Ajax_Upgrader_Skin();
 		$upgrader = new \Plugin_Upgrader( $skin );
 		$result   = $upgrader->install( $package );
 
 		// Activate the plugin if it was previously activated.
 		if ( 1 === $plugin['is_active'] ) {
-			activate_plugin( $plugin['path'] );
+			activate_plugin( $plugin['path'], '', false, true );
 		}
 
 		// Refresh plugin update information.

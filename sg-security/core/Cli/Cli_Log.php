@@ -5,7 +5,7 @@ use SG_Security\Options_Service\Options_Service;
 /**
  * WP-CLI: wp sg log {setting} value.
  *
- * Run the `wp sg log {setting} {option} {action} {value} {value}` command to change the settgins of specific plugin functionality.
+ * Run the `wp sg log {setting} {option} {action} {value} {value}` command to change the settings of specific plugin functionality.
  *
  * @since 1.1.0
  * @package Cli
@@ -18,6 +18,14 @@ use SG_Security\Options_Service\Options_Service;
  * @since 1.1.0
  */
 class Cli_Log {
+
+	/**
+	 * IP.
+	 *
+	 * @var String.
+	 */
+	public $ip;
+
 	/**
 	 * Enable specific setting for SiteGround Security plugin.
 	 *

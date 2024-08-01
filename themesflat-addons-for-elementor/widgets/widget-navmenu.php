@@ -18,10 +18,10 @@ class TFNavMenu_Widget_Free extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends() {
-		return ['tf-font-awesome','tf-regular','tf-style'];
+		return ['tf-font-awesome','tf-regular','tf-navmenu'];
 	}
 	public function get_script_depends() {
-		return ['tf-main'];
+		return ['tf-navmenu'];
 	}
 
     public function get_menus(){
@@ -1835,7 +1835,9 @@ class TFNavMenu_Widget_Free extends \Elementor\Widget_Base {
 		}
 
 			$this->add_render_attribute('nav_menu_logo_link', 'class','logo-nav');
-			$this->add_render_attribute('nav_menu_logo_link', 'href', esc_url($settings['nav_menu_logo_link']['url'] ? $settings['nav_menu_logo_link']['url'] : '#'));
+			if (!empty($settings['nav_menu_logo_link']['url'])) {
+				$this->add_render_attribute('nav_menu_logo_link', 'href', esc_url($settings['nav_menu_logo_link']['url'] ? $settings['nav_menu_logo_link']['url'] : '#'));
+			}
 			if (!empty($settings['nav_menu_logo_link']['is_external'])) {
 				$this->add_render_attribute('nav_menu_logo_link', 'target', '_blank');
 			}

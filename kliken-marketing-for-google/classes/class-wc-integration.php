@@ -13,6 +13,21 @@ defined( 'ABSPATH' ) || exit;
  * WooCommerce Integration class
  */
 class WC_Integration extends \WC_Integration {
+
+	/**
+	 * Account Id.
+	 *
+	 * @var integer
+	 */
+	public $account_id;
+
+	/**
+	 * Application Token.
+	 *
+	 * @var string
+	 */
+	public $app_token;
+
 	/**
 	 * Constructor. Default to also init.
 	 *
@@ -134,6 +149,8 @@ class WC_Integration extends \WC_Integration {
 
 		// Sanitize facebook verification token.
 		$settings['facebook_token'] = sanitize_text_field( $settings['facebook_token'] );
+
+		Helper::save_other_plugin_settings( $settings, true );
 
 		if ( 0 === $settings['account_id'] || '' === $settings['app_token'] ) {
 			// No (valid) values were entered, we should show onboarding/welcome message.

@@ -1,23 +1,4 @@
 ;(function($) {
-    $(document).ready(function () {           
-        var elements = document.querySelectorAll(".tf-image-group-widget .tf-image-item");
-        
-        for (let index = 0; index < elements.length; index++) {
-            var image = elements[index].querySelector('img');
-            var orientationParallax = image.getAttribute('data-parallax-orientation');
-            var scale = image.getAttribute('data-parallax-scale');
-            var delay = image.getAttribute('data-parallax-delay');
-            var transitionType = image.getAttribute('data-parallax-transition'); 
-            var transitionDuration = image.getAttribute('data-parallax-duration');
-            new simpleParallax(image, {
-                orientation: orientationParallax,
-                scale: scale,
-                delay: delay,
-                overflow: true,
-            });   
-            image.style.transition = 'transform ' + transitionDuration + 's ' + transitionType;
-        }
-    });
     
     var themesflat_animation_fadeup = function (container, item) {
         $(window).scroll(function () {
@@ -39,8 +20,29 @@
         }).scroll();
     };
 
-    $(function() {
-        themesflat_animation_fadeup(".tf-image-group-widget", ".inner-animate");
-    });
 
+    var tf_group_image = function() {
+        var elements = document.querySelectorAll(".tf-image-group-widget .tf-image-item");
+        
+        for (let index = 0; index < elements.length; index++) {
+            var image = elements[index].querySelector('img');
+            var orientationParallax = image.getAttribute('data-parallax-orientation');
+            var scale = image.getAttribute('data-parallax-scale');
+            var delay = image.getAttribute('data-parallax-delay');
+            var transitionType = image.getAttribute('data-parallax-transition'); 
+            var transitionDuration = image.getAttribute('data-parallax-duration');
+            new simpleParallax(image, {
+                orientation: orientationParallax,
+                scale: scale,
+                delay: delay,
+                overflow: true,
+            });   
+            image.style.transition = 'transform ' + transitionDuration + 's ' + transitionType;
+        }
+        themesflat_animation_fadeup(".tf-image-group-widget", ".inner-animate");
+    }
+
+    $(window).on('elementor/frontend/init', function() {
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/tf-group-image.default', tf_group_image );
+    });
 })(jQuery);

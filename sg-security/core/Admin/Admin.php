@@ -264,6 +264,10 @@ class Admin {
 		}
 
 		$submenu['sg-security'][0][0] = __( 'Dashboard', 'sg-security' );
+		$submenu['sg-security'][1][0] = __( 'Site Security', 'sg-security' );
+		$submenu['sg-security'][2][0] = __( 'Login Security', 'sg-security' );
+		$submenu['sg-security'][3][0] = __( 'Activity Log', 'sg-security' );
+		$submenu['sg-security'][4][0] = __( 'Post-hack Actions', 'sg-security' );
 
 		return $menu_order;
 	}

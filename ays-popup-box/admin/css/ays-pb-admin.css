@@ -3747,6 +3747,10 @@ blockquote.ays-pb-integration-tab-note > p {
 /* General Settings page styles end */
 
 /* How to use page | Steps section styles start */
+div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb-heart-beat-main-heading-container h1 {
+    display: block;
+}
+
 h1.ays-popup-box-wrapper {
     text-align: center;
     font-size: 40px;
@@ -3803,10 +3807,6 @@ div.ays-pb-faq-main p {
 /* How to use page | Steps section styles end */
 
 /* How to use page | Comunity section styles start */
-div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb-heart-beat-main-heading-container h1 {
-    display: block;
-}
-
 .ays-pb-community-wrap {
     text-align: center;
     width: 70%;
@@ -3843,21 +3843,6 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
     height: 120px;
     position: relative;
     display: block
-}
-
-.ays-pb-community-wrap .ays-pb-community-item-img {
-    width: auto;
-    height: auto;
-    max-width: 80px;
-    max-height: 80px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    font-size: 70px;
-    line-height: 80px;
 }
 
 .ays-pb-community-wrap .ays-pb-community-item-title {
@@ -3919,10 +3904,6 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
     div.ays-pb-community-wrap .ays-pb-community-item {
         width:100%;
         margin-right: 0
-    }
-
-    div.ays-pb-community-youtube-video iframe {
-        width: 100%;
     }
 }
 /* How to use page | Comunity section styles end */

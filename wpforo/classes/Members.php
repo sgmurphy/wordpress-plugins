@@ -265,8 +265,13 @@ class Members {
 				'label'                => wpforo_phrase( 'Delete Account', false ),
 				'ico'                  => '<svg height="12" width="12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM471 143c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>',
 				'callback_for_can'     => function() use ( $userid ) {
-					return ( ( current_user_can( 'administrator' ) || WPF()->usergroup->can( 'dm' ) ) && WPF()->perm->user_can_manage_user( WPF()->current_userid, $userid ) ) && ( $userid !== WPF(
-							)->current_userid || ( ! is_super_admin( $userid ) && apply_filters( 'wpforo_can_user_self_delete', true ) ) );
+					$self     = $userid === WPF()->current_userid && ! is_super_admin( $userid ) && apply_filters( 'wpforo_can_user_self_delete', true );
+					$not_self = $userid !== WPF()->current_userid && ( current_user_can( 'administrator' ) || WPF()->usergroup->can( 'dm' ) ) && WPF()->perm->user_can_manage_user(
+							WPF()->current_userid,
+							$userid
+						);
+					
+					return $self || $not_self;
 				},
 				'callback_for_get_url' => function() use ( $userid ) {
 					return wp_nonce_url( trim( WPF()->member->get_profile_url( $userid ), '/' ) . '/?wpfaction=user_delete', 'user_delete', '_wpfnonce' );

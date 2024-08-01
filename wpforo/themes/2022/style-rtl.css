@@ -938,7 +938,7 @@ RTL Style of Classic Theme
 #wpforo #wpforo-wrap .wpfl-4 .wpf-child-post .wpf-reply-head .wpf-author .wpforo-memberinfo .wpf-member-profile-buttons{padding-top: 3px;}
 #wpforo #wpforo-wrap .wpfl-4 .wpf-child-post .wpforo-post-meta{margin: 30px 25px 10px 25px;}
 #wpforo #wpforo-wrap .wpfl-4 .wpforo-post .wpforo-post-signature{margin-top: 30px;}
-#wpforo #wpforo-wrap .wpfl-4 .wpforo-post .wpforo-post-footer .reacted-users:not(:empty){padding: 5px 15px; font-size: 12px;}
+#wpforo #wpforo-wrap .wpfl-4 .wpforo-post .wpforo-post-footer .reacted-users:not(:empty){padding: 5px 15px; font-size: 12px; display: flex;}
 #wpforo #wpforo-wrap .wpfl-4 .wpf-replies-sep{padding: 20px 10px 5px 0;margin: 5px 12px 0 0;font-size: 13px;text-transform: uppercase;font-weight: bold;}
 #wpforo #wpforo-wrap .wpfl-4 .wpf-replies-sep i{margin-left: 3px;}
 #wpforo #wpforo-wrap .wpfl-4 .wpf-replies-sep span{font-weight: bold;}
@@ -965,7 +965,8 @@ RTL Style of Classic Theme
 #wpforo #wpforo-wrap .wpf-popover:hover .wpf-popover-content,
 #wpforo #wpforo-wrap .wpf-popover:focus .wpf-popover-content,
 #wpforo #wpforo-wrap .wpf-popover:active .wpf-popover-content{bottom: 35px; visibility: visible; opacity: 1; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px 5px;}
-#wpforo #wpforo-wrap .wpf-popover > span > i{font-size: 18px; line-height: 18px; cursor: pointer;}
+#wpforo #wpforo-wrap .wpf-popover > span > i,
+#wpforo #wpforo-wrap .wpf-popover > div > i{font-size: 18px; line-height: 18px; cursor: pointer;}
 #wpforo #wpforo-wrap .wpf-popover .wpf-popover-content span{display: block;}
 #wpforo #wpforo-wrap .wpf-popover .wpf-popover-content i{font-size: 18px; line-height: 18px; cursor: pointer; background: transparent; border-radius: 50%; padding: 5px;}
 #wpforo #wpforo-wrap .wpf-popover .wpf-popover-content i:hover{background: #fff;}

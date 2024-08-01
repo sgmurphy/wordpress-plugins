@@ -1,4 +1,3 @@
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <div class="wrap">
     <h1 id="ays-pb-intro-title"><?php echo __('Please feel free to use our other awesome plugins!', "ays-popup-box"); ?></h1>
     <div class="ays-pb-cards-block">

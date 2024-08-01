@@ -76,15 +76,15 @@ msgstr ""
 msgid "The given folder was not found."
 msgstr ""
 
-#: inc/Assets.php:242
+#: inc/Assets.php:220
 msgid "https://devowl.io/"
 msgstr ""
 
-#: inc/Assets.php:244
+#: inc/Assets.php:222
 msgid "Complementary Plugins"
 msgstr ""
 
-#: inc/Assets.php:262
+#: inc/Assets.php:240
 msgid ""
 "\n"
 "\n"

@@ -2,7 +2,6 @@
 
 defined( 'ABSPATH' ) or die( 'Keep Silent' );
 
-
 if ( ! class_exists( 'Woo_Variation_Gallery_Frontend' ) ):
 
 	class Woo_Variation_Gallery_Frontend {
@@ -262,7 +261,6 @@ if ( ! class_exists( 'Woo_Variation_Gallery_Frontend' ) ):
 			return apply_filters( 'wpml_object_id', $object_id, $type, true, $current_language );
 		}
 
-
 		public function get_gallery_image_ids( $variation_id ) {
 			$images = get_post_meta( $variation_id, 'woo_variation_gallery_images', true );
 
@@ -309,6 +307,9 @@ if ( ! class_exists( 'Woo_Variation_Gallery_Frontend' ) ):
 				}
 			}
 
+			// Prevent duplicate image load.
+			$gallery_images = array_unique($gallery_images);
+
 			$available_variation['variation_gallery_images'] = array();
 
 			// Add default image to variation gallery.
@@ -319,7 +320,7 @@ if ( ! class_exists( 'Woo_Variation_Gallery_Frontend' ) ):
 			}
 
 			foreach ( $gallery_images as $i => $variation_gallery_image_id ) {
-				$available_variation['variation_gallery_images'][ $i ] = $this->get_product_attachment_props( $variation_gallery_image_id );
+				$available_variation['variation_gallery_images'][] = $this->get_product_attachment_props( $variation_gallery_image_id );
 			}
 
 			return apply_filters( 'woo_variation_gallery_available_variation_gallery', $available_variation, $variation, $product_id );

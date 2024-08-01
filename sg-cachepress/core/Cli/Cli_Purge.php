@@ -22,6 +22,20 @@ use SiteGround_Helper\Helper_Service;
  * @since 5.0.0
  */
 class Cli_Purge {
+
+	/**
+	 * The SuperCacher class.
+	 *
+	 * @var Object.
+	 */
+	public $supercacher;
+
+	/**
+	 * The FileCacher class
+	 *
+	 * @var Object.
+	 */
+	public $file_cacher;
 	/**
 	 * Purge all caches - static, dynamic, memcached and PHP opcache
 	 */

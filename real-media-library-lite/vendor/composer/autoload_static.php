@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit84d424d0718c3fcee09e50fe101804f6
+class ComposerStaticInite317371ca4a40e811b018ce80a347804
 {
     public static $files = array (
         '7aed44d824e149ce152c0fb82af9379a' => __DIR__ . '/..' . '/colinodell/json5/src/global.php',
@@ -189,9 +189,9 @@ class ComposerStaticInit84d424d0718c3fcee09e50fe101804f6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit84d424d0718c3fcee09e50fe101804f6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit84d424d0718c3fcee09e50fe101804f6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit84d424d0718c3fcee09e50fe101804f6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite317371ca4a40e811b018ce80a347804::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite317371ca4a40e811b018ce80a347804::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite317371ca4a40e811b018ce80a347804::$classMap;
 
         }, null, ClassLoader::class);
     }

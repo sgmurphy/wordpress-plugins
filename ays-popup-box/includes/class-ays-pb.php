@@ -190,7 +190,6 @@ class Ays_Pb {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
 		$plugin_admin = new Ays_Pb_Admin( $this->get_plugin_name(), $this->get_version() );
 		$data_admin = new Ays_Pb_Data( $this->get_plugin_name(), $this->get_version() );
 

@@ -24,18 +24,26 @@ add_filter(
 			: null;
 
 		if ( is_null( $gap_value ) ) {
-			$gap_value = isset( $block_type->supports['spacing']['blockGap']['__experimentalDefault'] )
-				? $block_type->supports['spacing']['blockGap']['__experimentalDefault']
-				: null;
-		}
-
-		if ( is_null( $gap_value ) ) {
 			return $block_content;
 		}
 
-		$block_gap             = isset( $global_settings['spacing']['blockGap'] )
+		// Dont support sides values.
+		if ( is_array( $gap_value ) ) {
+			if ( isset( $gap_value['top'] ) ) {
+				$gap_value = $gap_value['top'];
+			} else {
+				return $block_content;
+			}
+		}
+
+		if ( preg_match( '/var:preset\|([^\|]+)\|(.+)/', $gap_value, $match ) ) {
+			$gap_value = 'var(--wp--preset--' . $match[1] . '--' . $match[2] . ')';
+		}
+
+		$block_gap = isset( $global_settings['spacing']['blockGap'] )
 			? $global_settings['spacing']['blockGap']
 			: null;
+
 		$has_block_gap_support = isset( $block_gap );
 		if ( ! $has_block_gap_support ) {
 			return $block_content;
@@ -49,7 +57,8 @@ add_filter(
 		}
 
 		$selector = '.' . $match[0];
-		$style    = wp_style_engine_get_stylesheet_from_css_rules(
+
+		wp_style_engine_get_stylesheet_from_css_rules(
 			array(
 				array(
 					'selector'     => $selector,
@@ -59,7 +68,6 @@ add_filter(
 			array(
 				'context'  => 'block-supports',
 				'optimize' => true,
-				'prettify' => false,
 			)
 		);
 

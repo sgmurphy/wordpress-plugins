@@ -50,8 +50,8 @@ if(!function_exists('tfpost_pagination')){
 					'format' => '?paged=%#%',
 					'current' => max( 1, $paged ),
 					'total' => $query->max_num_pages,
-					'prev_text' => esc_html__( 'Previous', 'tf-addon-for-elementer' ),
-					'next_text' => esc_html__( 'Next', 'tf-addon-for-elementer' ),
+					'prev_text' => esc_html__( 'Previous', 'themesflat-addons-for-elementor' ),
+					'next_text' => esc_html__( 'Next', 'themesflat-addons-for-elementor' ),
 					));
 				}
 				?>
@@ -64,7 +64,7 @@ if(!function_exists('tfpost_pagination')){
                 <div class="scroll-loadmore"></div>
                 <nav class="navigation loadmore" role="navigation">
                     <div class="pagination loop-pagination <?php echo esc_attr($align); ?>">            
-                    <a href=" <?php echo esc_url( get_next_posts_page_link() ); ?> "><?php echo esc_html__('Load More', 'tf-addon-for-elementer'); ?></a>
+                    <a href=" <?php echo esc_url( get_next_posts_page_link() ); ?> "><?php echo esc_html__('Load More', 'themesflat-addons-for-elementor'); ?></a>
                     </div>
                 </nav>
                 <?php
@@ -73,7 +73,7 @@ if(!function_exists('tfpost_pagination')){
                 <div class="scroll-loadmore"></div>
                 <nav class="navigation loadmore" role="navigation">
                     <div class="pagination loop-pagination <?php echo esc_attr($align); ?>">
-                    <?php echo next_posts_link( esc_html__( 'Load More', 'tf-addon-for-elementer' ), $query->max_num_pages ); ?>
+                    <?php echo next_posts_link( esc_html__( 'Load More', 'themesflat-addons-for-elementor' ), $query->max_num_pages ); ?>
                     </div>
                 </nav>
                 <?php

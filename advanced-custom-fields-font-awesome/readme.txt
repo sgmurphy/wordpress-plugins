@@ -4,7 +4,7 @@ Contributors: mattkeys
 Tags: Advanced Custom Fields, ACF, Font Awesome, FontAwesome
 Requires at least: 3.5
 Tested up to: 6.5
-Stable tag: 4.1.0
+Stable tag: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,8 +59,8 @@ If the user installs this plugin from the plugin repository, that version of the
 This notification message is filterable so you can customize it to better represent how you handle plugin updates for your theme users. See example below:
 
     function my_acffa_update_message( $out_of_date_message, $current_version, $latest_version ) {
-        // Customize the message here
-        return $out_of_date_message;
+    	// Customize the message here
+    	return $out_of_date_message;
     }
     add_filter( 'ACFFA_theme_install_update_message', 'my_acffa_update_message', 10, 3 );
 
@@ -84,6 +84,9 @@ This notification message is filterable so you can customize it to better repres
 2. Searchable list of all icons, including large live preview
 
 == Changelog ==
+
+= 4.1.1 =
+* Bugfix icon sets not saving properly when editing FontAwesome icon field
 
 = 4.1.0 =
 * Added support for Duotone Sharp icons
@@ -268,6 +271,9 @@ This notification message is filterable so you can customize it to better repres
 * Initial Release.
 
 == Upgrade Notice ==
+
+= 4.1.1 =
+* Bugfix icon sets not saving properly when editing FontAwesome icon field
 
 = 4.1.0 =
 * Added support for Duotone Sharp icons

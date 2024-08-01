@@ -67,7 +67,7 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
 
         $table = $wpdb->base_prefix . 'wfconfig';
         if($wpdb->get_col($wpdb->prepare('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=%s',$table))){
-            if ($option = $wpdb->get_row($wpdb->prepare("SELECT name, val, autoload FROM {$table} WHERE name = %s", $key))) {
+	        if ( $option = $wpdb->get_row( $wpdb->prepare( "SELECT name, val, autoload FROM $table WHERE name = %s", $key ) ) ) {
                 if(isset($option->val)){
                     self::$config[$key] = $option->val;
                     return $option->val;

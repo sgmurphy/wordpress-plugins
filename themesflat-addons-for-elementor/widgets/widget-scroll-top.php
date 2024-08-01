@@ -14,11 +14,11 @@ class TFScrollTop_Widget_Free extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends(){
-	    return ['tf-font-awesome', 'tf-regular', 'tf-style'];
+	    return ['tf-font-awesome', 'tf-regular', 'tf-scroll-top'];
   	}
 
     public function get_script_depends(){
-	    return ['jquery-easing','tf-main'];
+	    return ['jquery-easing','tf-scroll-top'];
 	}
     
     public function get_categories() {

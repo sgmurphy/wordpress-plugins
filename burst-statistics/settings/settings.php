@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 1.0.0
  */
-
 require_once burst_path . 'settings/config/config.php';
 require_once burst_path . 'settings/rest-api-optimizer/rest-api-optimizer.php';
 require_once burst_path . 'settings/media/media-override.php';
@@ -70,7 +69,7 @@ function burst_plugin_admin_scripts() {
 	if ( empty( $js_data ) ) {
 		return;
 	}
-
+	burst_wp_enqueue_media();
 	wp_enqueue_script(
 		'burst-settings',
 		plugins_url( 'build/' . $js_data['js_file'], __FILE__ ),
@@ -97,11 +96,9 @@ function burst_localized_settings( $js_data ) {
 			'site_url'                => get_rest_url(),
 			'admin_ajax_url'          => add_query_arg( array( 'action' => 'burst_rest_api_fallback' ), admin_url( 'admin-ajax.php' ) ),
 			'dashboard_url'           => add_query_arg( [ 'page' => 'burst' ], burst_admin_url() ),
-			'upgrade_link'            => is_multisite() ? 'https://burst-statistics.com/pricing/?src=burst-plugin' : 'https://burst-statistics.com/pricing/?src=burst-plugin',
 			'plugin_url'              => burst_url,
 			'network_link'            => network_site_url( 'plugins.php' ),
 			'is_pro'                  => burst_is_pro(),
-			'networkwide_active'      => ! is_multisite(), // true for single sites and network wide activated
 			'nonce'                   => wp_create_nonce( 'wp_rest' ), // to authenticate the logged in user
 			'burst_nonce'             => wp_create_nonce( 'burst_nonce' ),
 			'current_ip'              => burst_get_ip_address(),
@@ -111,6 +108,8 @@ function burst_localized_settings( $js_data ) {
 			'tour_shown'              => burst_get_option( 'burst_tour_shown_once' ),
 			'gmt_offset'              => get_option( 'gmt_offset' ),
 			'goals_information_shown' => (int) get_option( 'burst_goals_information_shown' ),
+            'burst_version'           => burst_version,
+            'burst_pro'               => defined( 'burst_pro' ),
 		]
 	);
 }
@@ -216,19 +215,149 @@ function burst_add_option_menu() {
 		</span>';
 	}
 
-	$page_hook_suffix = add_submenu_page(
-		'index.php',
+	$page_hook_suffix = add_menu_page(
 		'Burst Statistics',
 		$menu_label,
 		'view_burst_statistics',
 		'burst',
+		'burst_dashboard',
+		 burst_url . 'assets/img/burst-wink.svg',
+		apply_filters('burst_menu_position', 3)
+	);
+
+	add_submenu_page(
+		'burst',
+		__('Statistics', 'burst-statistics'),
+		__('Statistics', 'burst-statistics'),
+		'view_burst_statistics',
+		'burst#statistics',
 		'burst_dashboard'
 	);
 
+    add_submenu_page(
+        'burst',
+        __('Settings', 'burst-statistics'),
+        __('Settings', 'burst-statistics'),
+        'view_burst_statistics',
+        'burst#settings',
+        'burst_dashboard'
+    );
+
+	if ( !defined( 'burst_pro' ) ) {
+		global $submenu;
+		if (isset($submenu['burst'])) {
+			$class                  = 'burst-link-upgrade';
+			$highest_index = count($submenu['burst']);
+			$submenu['burst'][] = array(
+				__( 'Upgrade to Pro', 'burst-statistics' ),
+				'manage_burst_statistics',
+				burst_get_website_url('/pricing/', ['burst_source' => 'plugin-submenu-upgrade'])
+			);
+			if ( isset( $submenu['burst'][$highest_index] ) ) {
+				if (! isset ($submenu['burst'][$highest_index][4])) $submenu['burst'][$highest_index][4] = '';
+				$submenu['burst'][$highest_index][4] .= ' ' . $class;
+			}
+		}
+	}
+
 	add_action( "admin_print_scripts-{$page_hook_suffix}", 'burst_plugin_admin_scripts' );
 }
-
 add_action( 'admin_menu', 'burst_add_option_menu' );
+
+function burst_fix_duplicate_menu_item() {
+	?>
+    <script>
+      window.addEventListener("load", () => {
+        let burstMain = document.querySelector('li.wp-has-submenu.toplevel_page_burst a.wp-first-item');
+        if (burstMain) {
+          burstMain.innerHTML = burstMain.innerHTML.replace('<?php esc_html_e(__( 'Statistics', 'burst-statistics'))?>', '<?php esc_html_e(__( 'Dashboard', 'burst-statistics'))?>');
+        }
+      });
+    </script>
+
+	<?php
+	/**
+	 * Ensure the items are selected in sync with the burst react menu.
+	 */
+	if(isset($_GET['page']) && $_GET['page']==='burst') {
+		?>
+        <script>
+          const burstSetActive = (obj) => {
+            obj.classList.add('current');
+            obj.parentNode.classList.add('current');
+          }
+
+          window.addEventListener("load", () => {
+            let burstMain = document.querySelector('li.wp-has-submenu.toplevel_page_burst a.wp-first-item');
+            if (burstMain) {
+              burstMain.href = '#';
+            }
+          });
+          //get the hash from the current url
+          let burstHash = window.location.hash;
+          //strip off anything after a /
+          if ( burstHash.indexOf('/') !== -1 ) {
+            burstHash = burstHash.substring(0, burstHash.indexOf('/'));
+          }
+          if ( !burstHash ) {
+            let burstMain = document.querySelector('li.wp-has-submenu.toplevel_page_burst a.wp-first-item');
+            burstSetActive(burstMain);
+          } else {
+            let burstMenuItems = document.querySelector('li.wp-has-submenu.toplevel_page_burst').querySelectorAll('a');
+            for (const link of burstMenuItems) {
+              if (burstHash && link.href.indexOf(burstHash) !== -1) {
+                burstSetActive(link);
+              } else {
+                link.classList.remove('current');
+                link.parentNode.classList.remove('current');
+              }
+            }
+          }
+
+          window.addEventListener('click', (e) => {
+            const burstTargetHref = e.target && e.target.href;
+            let burstIsMainMenu = false;
+            let burstIsWpMenu = false;
+            if (burstTargetHref && e.target.classList.contains('burst-main')) {
+              burstIsMainMenu = true;
+            } else if (burstTargetHref && burstTargetHref.indexOf('admin.php')!==-1) {
+              burstIsWpMenu = true;
+            }
+            if (!burstIsWpMenu && !burstIsMainMenu) {
+              return;
+            }
+            if (burstIsWpMenu) {
+              if (burstTargetHref && burstTargetHref.indexOf('page=burst') !== -1) {
+                const parentElement = e.target.parentNode.parentNode;
+                const childLinks = parentElement.querySelectorAll('li, a');
+                // Loop through each 'a' element and add the class
+                for (const link of childLinks) {
+                  link.classList.remove('current');
+                }
+                e.target.classList.add('current');
+                e.target.parentNode.classList.add('current');
+              }
+            } else {
+              //find burstTargetHref in wordpress menu
+              let burstMenuItems = document.querySelector('li.wp-has-submenu.toplevel_page_burst').querySelectorAll('a');
+              for (const link of burstMenuItems) {
+                //check if last character of link.href is '#'
+                if (burstTargetHref.indexOf('dashboard')!==-1 && link.href.charAt(link.href.length - 1) === '#'){
+                  burstSetActive(link);
+                } else if (burstTargetHref && link.href.indexOf(burstTargetHref) !== -1) {
+                  burstSetActive(link);
+                } else {
+                  link.classList.remove('current');
+                  link.parentNode.classList.remove('current');
+                }
+              }
+            }
+          });
+        </script>
+		<?php
+	}
+}
+add_action('admin_footer', 'burst_fix_duplicate_menu_item', 1);
 
 function burst_remove_fallback_notice() {
 	if ( get_option( 'burst_ajax_fallback_active' ) !== false ) {
@@ -513,7 +642,7 @@ function burst_other_plugins_data( $slug = false ) {
 			'constant_pro'  => 'rsssl_pro',
 			'wordpress_url' => 'https://wordpress.org/plugins/really-simple-ssl/',
 			'upgrade_url'   => 'https://really-simple-ssl.com/pro?src=plugin-burst-other-plugins',
-			'title'         => 'Really Simple SSL - ' . __( 'Lightweight plugin. Heavyweight security features.', 'complianz-gdpr' ),
+			'title'         => 'Really Simple SSL - ' . __( 'Lightweight plugin. Heavyweight security features.', 'burst-statistics' ),
 		],
 		[
 			'slug'          => 'complianz-gdpr',
@@ -573,6 +702,7 @@ function burst_get_data( WP_REST_Request $request ) {
 	}
 
 	$type = sanitize_title( $request->get_param( 'type' ) );
+    //in the database, the UTC time is stored, so we query by the corrected unix time.
 	$args = [
 		'date_start' => BURST()->statistics->convert_date_to_unix( $request->get_param( 'date_start' ) . ' 00:00:00' ),
 		// add 00:00:00 to date,
@@ -824,11 +954,11 @@ function burst_update_option( $name, $value ) {
 	$config_fields      = burst_fields( false );
 	$config_ids         = array_column( $config_fields, 'id' );
 	$config_field_index = array_search( $name, $config_ids );
-	$config_field       = $config_fields[ $config_field_index ];
 	if ( $config_field_index === false ) {
 		return;
 	}
 
+	$config_field       = $config_fields[ $config_field_index ];
 	$type = isset( $config_field['type'] ) ? $config_field['type'] : false;
 	if ( ! $type ) {
 		return;
@@ -918,6 +1048,7 @@ function burst_rest_api_goals_get( $request ) {
 	}
 
 	$goals = BURST()->goals->get_goals();
+
 	$goals = apply_filters( 'burst_rest_api_goals_get', $goals );
 
 	$predefined_goals = BURST()->goals->get_predefined_goals();
@@ -1287,6 +1418,8 @@ function burst_get_posts( $request, $ajax_data = false ) {
 		return new WP_Error( 'rest_forbidden', 'You do not have permission to perform this action.', array( 'status' => 403 ) );
 	}
 
+    $max_post_count = 100;
+
 	global $wpdb;
 	$data   = $ajax_data ?: $request->get_params();
 	$nonce  = $data['nonce'];
@@ -1296,93 +1429,108 @@ function burst_get_posts( $request, $ajax_data = false ) {
 		return new WP_Error( 'rest_invalid_nonce', 'The provided nonce is not valid.', array( 'status' => 400 ) );
 	}
 
-	// option to bypass the more complex query, in case this causes issues
-	if ( defined( 'BURST_DISABLE_POSTS_QUERY' ) && BURST_DISABLE_POSTS_QUERY ) {
-		$resultArray = [];
-		$args        = [
-			'post_type' => [],
-			'num_posts' => -1,
-		];
-		$posts       = get_posts( $args );
-		foreach ( $posts as $post ) {
-			$page_url      = get_permalink( $post );
-			$resultArray[] = array(
-				'page_url'   => $page_url,
-				'page_id'    => $post->ID,
-				'post_title' => $post->post_title,
-				'pageviews'  => (int) get_post_meta( $post->ID, 'burst_total_pageviews_count', true ),
-			);
-		}
-
-		return new WP_REST_Response(
-			array(
-				'request_success' => true,
-				'posts'           => $resultArray,
-			),
-			200
-		);
-
+	//do full search for string length above 3, but set a cap at 1000
+	if ( strlen($search)>3 ) {
+		$max_post_count = 1000;
 	}
 
-	// Initialize an empty array for results
-	$resultArray = [];
+    $resultArray = [];
+    $args        = [
+        'post_type' => ['post', 'page'],
+        'numberposts' => $max_post_count,
+        'order'       => 'DESC',
+        'orderby'     => 'meta_value_num',
+        'meta_query'  => array(
+            'key'  => 'burst_total_pageviews_count',
+            'type' => 'NUMERIC',
+        ),
+    ];
+    $posts       = get_posts( $args );
+    foreach ( $posts as $post ) {
+        $page_url      = get_permalink( $post );
+        $resultArray[] = array(
+            'page_url'   => str_replace( site_url(), '', $page_url),
+            'page_id'    => $post->ID,
+            'post_title' => $post->post_title,
+            'pageviews'  => (int) get_post_meta( $post->ID, 'burst_total_pageviews_count', true ),
+        );
+    }
 
-	// Base query for wp_posts
-	$posts_query = "
-    SELECT REPLACE(p.guid, %s, '') AS stripped_url, p.post_title, p.ID as page_id, 0 AS pageviews
-    FROM {$wpdb->prefix}posts p
-    LEFT JOIN {$wpdb->prefix}burst_statistics s ON p.guid = CONCAT(%s, s.page_url)
-    WHERE p.post_title LIKE %s AND p.post_status = 'publish'
-    GROUP BY stripped_url
-";
+    if ( ob_get_length() ) {
+        ob_clean();
+    }
 
-	// Base query for wp_burst_statistics
-	$stats_query = "
-    SELECT s.page_url AS stripped_url, NULL AS post_title, s.page_id as page_id, COUNT(s.page_url) AS pageviews
-    FROM {$wpdb->prefix}burst_statistics s
-    WHERE s.page_url LIKE %s AND s.bounce = 0
-    GROUP BY s.page_url
-";
+    return new WP_REST_Response(
+        array(
+            'request_success' => true,
+            'posts'           => $resultArray,
+            'max_post_count' => $max_post_count,
+        ),
+        200
+    );
 
-	// Combine the two queries using UNION and sort by pageviews
-	$site_url    = get_site_url();
-	$final_query = $wpdb->prepare(
-		'SELECT stripped_url, SUM(pageviews) as total_pageviews, MAX(page_id) as page_id, MAX(post_title) as post_title FROM (
-        (' . $posts_query . ') UNION ALL (' . $stats_query . ')
-    ) AS combined
-    GROUP BY stripped_url
-    ORDER BY total_pageviews DESC
-    LIMIT 10',
-		$site_url,
-		$site_url,
-		'%' . $wpdb->esc_like( $search ) . '%',
-		'%' . $wpdb->esc_like( $search ) . '%'
-	);
-
-	$results = $wpdb->get_results( $final_query, ARRAY_A );
-
-	foreach ( $results as $row ) {
-		$page_url      = $row['stripped_url'];
-		$resultArray[] = array(
-			'page_url'   => $page_url,
-			'page_id'    => $row['page_id'] ?? 0,
-			'post_title' => $row['post_title'],
-			'pageviews'  => (int) $row['total_pageviews'],
-		);
-	}
-
-	if ( ob_get_length() ) {
-		ob_clean();
-	}
-	$resultArray = ! empty( $resultArray ) ? $resultArray : [];
-
-	return new WP_REST_Response(
-		array(
-			'request_success' => true,
-			'posts'           => $resultArray,
-		),
-		200
-	);
+	//}
+//
+//	// Initialize an empty array for results
+//	$resultArray = [];
+//    // Base query for wp_posts
+//    $posts_query = "
+//        SELECT REPLACE(p.guid, %s, '') AS stripped_url, p.post_title, p.ID as page_id, 0 AS pageviews
+//        FROM {$wpdb->prefix}posts p
+//        LEFT JOIN {$wpdb->prefix}burst_summary s ON p.guid = CONCAT(%s, s.page_url)
+//        WHERE p.post_title LIKE %s AND  p.post_status = 'publish'
+//        GROUP BY stripped_url, p.post_title, p.ID
+//    ";
+//
+//    // Base query for wp_burst_summary
+//    $stats_query = "
+//        SELECT s.page_url AS stripped_url, '' AS post_title, 0 as page_id, COUNT(*) AS pageviews
+//        FROM {$wpdb->prefix}burst_summary s
+//        WHERE s.page_url LIKE %s
+//        GROUP BY stripped_url
+//    ";
+//
+//	    // Combine the two queries using UNION and sort by pageviews
+//	    $site_url    = get_site_url();
+//	    $final_query = $wpdb->prepare(
+//		    'SELECT stripped_url, SUM(pageviews) as total_pageviews, MAX(page_id) as page_id, post_title FROM (
+//        (' . $posts_query . ') UNION ALL (' . $stats_query . ')
+//    ) AS combined
+//    GROUP BY stripped_url, post_title
+//    ORDER BY total_pageviews DESC
+//    LIMIT %d',
+//        $site_url,
+//        $site_url,
+//        '%' . $wpdb->esc_like( $search ) . '%',
+//        '%' . $wpdb->esc_like( $search ) . '%',
+//        $max_post_count
+//    );
+//	$results = $wpdb->get_results( $final_query, ARRAY_A );
+//    $results = is_array($results) ? $results : [];
+//
+//	foreach ( $results as $row ) {
+//		$page_url      = $row['stripped_url'];
+//		$resultArray[] = array(
+//			'page_url'   => $page_url,
+//			'page_id'    => $row['page_id'] ?? 0,
+//			'post_title' => $row['post_title'],
+//			'pageviews'  => (int) $row['total_pageviews'],
+//		);
+//	}
+//
+//	if ( ob_get_length() ) {
+//		ob_clean();
+//	}
+//	$resultArray = ! empty( $resultArray ) ? $resultArray : [];
+//
+//	return new WP_REST_Response(
+//		array(
+//			'request_success' => true,
+//			'posts'           => $resultArray,
+//			'max_post_count' => $max_post_count,
+//		),
+//		200
+//	);
 }
 
 /**

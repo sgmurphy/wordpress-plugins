@@ -18,7 +18,7 @@ class TFPostComment_Widget_Free extends \Elementor\Widget_Base {
     }  
 
     public function get_style_depends() {
-		return ['tf-style'];
+		return ['tf-post-comment'];
 	}  
 
 	protected function register_controls() {
@@ -51,9 +51,8 @@ class TFPostComment_Widget_Free extends \Elementor\Widget_Base {
 		comments_template();
 		$content = ob_get_contents();
 		ob_end_clean();
-
 		echo sprintf ( 
-			'<div %1$s> 
+			'<div %1$s>
 				%2$s                
             </div>',
             $this->get_render_attribute_string('tf_post_comment_wrapper'),

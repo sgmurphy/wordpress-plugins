@@ -1,3 +1,19 @@
+.select2-results__option--highlighted {
+    --wp-admin-theme-color                : #007CBA;
+    --wp-admin-theme-color--rgb           : 0, 124, 186;
+    --wp-admin-theme-color-darker-10      : #006BA1;
+    --wp-admin-theme-color-darker-10--rgb : 0, 107, 161;
+    --wp-admin-theme-color-darker-20      : #005A87;
+    --wp-admin-theme-color-darker-20--rgb : 0, 90, 135;
+    --wp-admin-border-width-focus         : 2px
+    }
+
+@media (-webkit-min-device-pixel-ratio : 2), (min-resolution : 192dpi) {
+    .select2-results__option--highlighted {
+        --wp-admin-border-width-focus : 1.5px;
+        }
+    }
+
 [data-gwp_dependency]:not(.dependency-show) {
     display : none !important;
     }
@@ -374,10 +390,12 @@ h2 .getwooplugins-help-tip {
     pointer-events : none;
     }
 
-.getwooplugins-admin-form-table .is-new th label::after {
+.getwooplugins-admin-form-table .is-new th label::after,
+.getwooplugins-admin-form-table .is-classic th label::after {
     content                    : "";
     position                   : absolute;
     left                       : -20px;
+    right                      : auto;
     top                        : -20px;
     color                      : #FFFFFF;
     font-size                  : 8px;
@@ -388,9 +406,12 @@ h2 .getwooplugins-help-tip {
     border-bottom-right-radius : 5px;
     }
 
-.rtl .getwooplugins-admin-form-table .is-new th label::after {
+.rtl .getwooplugins-admin-form-table .is-new th label::after,
+.rtl .getwooplugins-admin-form-table .is-classic th label::after {
     right : -10px;
     left  : auto;
+    border-bottom-left-radius : 5px;
+    border-bottom-right-radius : 0;
     }
 
 /*.getwooplugins-admin-form-table .is-pro th label::before {
@@ -462,6 +483,11 @@ h2 .getwooplugins-help-tip {
 .getwooplugins-admin-form-table .is-new th label::after {
     content    : 'NEW';
     background : #2196F3;
+    }
+
+.getwooplugins-admin-form-table .is-classic th label::after {
+    content    : 'Classic';
+    background : #666666;
     }
 
 /*.getwooplugins-admin-form-table .is-new.help-preview th label::after {

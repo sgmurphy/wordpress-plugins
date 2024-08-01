@@ -22,6 +22,21 @@ use SiteGround_Optimizer\File_Cacher\File_Cacher;
  * @since 5.0.0
  */
 class Cli_Optimizer {
+
+	/**
+	 * Options class.
+	 *
+	 * @var Object.
+	 */
+	public $option_service;
+
+	/**
+	 * Htaccess Service class.
+	 *
+	 * @var Object.
+	 */
+	public $htaccess_service;
+
 	/**
 	 * Enable specific optimization for Speed Optimizer by SiteGround plugin.
 	 *

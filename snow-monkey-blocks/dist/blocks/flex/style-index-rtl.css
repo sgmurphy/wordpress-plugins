@@ -1,0 +1,1 @@
+.smb-flex{--smb-flex--box-shadow:none;box-shadow:var(--smb-flex--box-shadow);flex-direction:column}.smb-flex.is-horizontal{flex-direction:row}.smb-flex.is-vertical{flex-direction:column}.smb-flex>*{--smb--flex-grow:0;--smb--flex-shrink:1;--smb--flex-basis:auto;flex-basis:var(--smb--flex-basis);flex-grow:var(--smb--flex-grow);flex-shrink:var(--smb--flex-shrink);min-width:0}

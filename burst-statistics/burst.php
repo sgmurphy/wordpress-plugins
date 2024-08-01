@@ -3,12 +3,12 @@
  * Plugin Name: Burst Statistics - Privacy-Friendly Analytics for WordPress
  * Plugin URI: https://www.wordpress.org/plugins/burst-statistics
  * Description: Get detailed insights into visitors’ behavior with Burst Statistics, the privacy-friendly analytics dashboard.
- * Version: 1.6.1
+ * Version: 1.7.0
  * Requires at least: 5.8
  * Requires PHP: 7.2
  * Text Domain: burst-statistics
  * Domain Path: /languages
- * Author: Burst Statistics B.V.
+ * Author: Burst Statistics - Stats & Analytics for WordPress
  * Author URI: https://burst-statistics.com
  */
 
@@ -99,7 +99,7 @@ if ( ! class_exists( 'BURST' ) ) {
 			$burst_plugin = implode( '/', $burst_plugin );
 			define( 'burst_plugin_folder', $burst_plugin );
 			$debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '#'.time() : '';
-			define( 'burst_version', '1.6.1' . $debug );
+			define( 'burst_version', '1.7.0' . $debug );
 			define( 'burst_plugin_file', __FILE__ );
 			define( 'burst_main_menu_position', 100 );
 			define( 'burst_pro_url', 'https://burst-statistics.com/pricing/?src=burst-plugin' );
@@ -195,9 +195,12 @@ if ( ! function_exists( 'burst_set_defaults' ) ) {
 	register_activation_hook( __FILE__, 'burst_set_defaults' );
 }
 
-if ( !function_exists( 'burst_clear_scheduled_hooks' )) {
+if ( ! function_exists( 'burst_clear_scheduled_hooks' ) ) {
 	register_deactivation_hook( __FILE__, 'burst_clear_scheduled_hooks' );
 	function burst_clear_scheduled_hooks() {
+		wp_clear_scheduled_hook( 'burst_every_hour' );
+		wp_clear_scheduled_hook( 'burst_daily' );
+		wp_clear_scheduled_hook( 'burst_weekly' );
 		wp_clear_scheduled_hook( 'burst_every_5_minutes' );
 	}
 }

@@ -23,7 +23,9 @@ if ( ! class_exists( 'burst_mail_reports' ) ) {
 			$mailinglist = burst_get_option( 'email_reports_mailinglist' );
 			$emails      = [];
 			foreach ( $mailinglist as $mailing ) {
-				$emails[] = $mailing['email'];
+				if ( isset($mailing['emails']) ) {
+					$emails[] = $mailing['email'];
+				}
 			}
 			$this->send_report( $emails, $frequency );
 		}
@@ -39,7 +41,7 @@ if ( ! class_exists( 'burst_mail_reports' ) ) {
 			}
 
 			$mailinglist = burst_get_option( 'email_reports_mailinglist' );
-
+			$mailinglist = is_array($mailinglist) ? $mailinglist : [];
 			$monthly_list = [];
 			$weekly_list  = [];
 			foreach ( $mailinglist as $mailing ) {
@@ -81,8 +83,8 @@ if ( ! class_exists( 'burst_mail_reports' ) ) {
 			$mailer->to = $mailinglist;
 
 			if ( $frequency === 'monthly' ) {
-				$mailer->subject = sprintf( _x( "You're monthly insights for %s are here!", "domain name", "burst-statistics" ), $mailer->pretty_domain );
-				$mailer->title   = sprintf( _x( "You're monthly insights for %s are here!", "domain name", "burst-statistics" ), '<br /><span style="font-size: 30px; font-weight: 700">' . $mailer->pretty_domain . '</span><br />' );
+				$mailer->subject = sprintf( _x( "Your monthly insights for %s are here!", "domain name", "burst-statistics" ), $mailer->pretty_domain );
+				$mailer->title   = sprintf( _x( "Your monthly insights for %s are here!", "domain name", "burst-statistics" ), '<br /><span style="font-size: 30px; font-weight: 700">' . $mailer->pretty_domain . '</span><br />' );
 				$mailer->message = ""; // start date - end date
 
 				// last month first and last day
@@ -103,8 +105,8 @@ if ( ! class_exists( 'burst_mail_reports' ) ) {
 				$wp_date_format  = get_option( 'date_format' );
 				$mailer->message = sprintf( __( "This report covers the period from %s to %s.", "burst-statistics" ), date_i18n( $wp_date_format, $date_start ), date_i18n( $wp_date_format, $date_end ) );
 			} else {
-				$mailer->subject = sprintf( _x( "You're weekly insights for %s are here!", "domain name", "burst-statistics" ), $mailer->pretty_domain );
-				$mailer->title   = sprintf( _x( "You're weekly insights for %s are here!", "domain name", "burst-statistics" ), '<br /><span style="font-size: 30px; font-weight: 700">' . $mailer->pretty_domain . '</span><br />' );
+				$mailer->subject = sprintf( _x( "Your weekly insights for %s are here!", "domain name", "burst-statistics" ), $mailer->pretty_domain );
+				$mailer->title   = sprintf( _x( "Your weekly insights for %s are here!", "domain name", "burst-statistics" ), '<br /><span style="font-size: 30px; font-weight: 700">' . $mailer->pretty_domain . '</span><br />' );
 
 				$week_start = (int) get_option( 'start_of_week' ); // 0 = Sunday, 1 = Monday, etc.
 

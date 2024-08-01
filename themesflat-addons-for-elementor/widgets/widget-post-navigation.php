@@ -19,7 +19,7 @@ class TFPostNavigation_Widget_Free extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends() {
-		return ['tf-style'];
+		return ['tf-post-navi'];
 	}
 
 	protected function register_controls() {

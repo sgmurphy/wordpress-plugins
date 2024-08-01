@@ -18,7 +18,7 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends() {
-		return ['tf-style'];
+		return ['tf-post-infor'];
 	}
 
 	protected function register_controls() {

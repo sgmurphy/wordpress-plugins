@@ -1,5 +1,5 @@
 <?php
-class TFAnimationitem_Widget extends \Elementor\Widget_Base {
+class TFAnimationitem_Widget_Free extends \Elementor\Widget_Base {
 
 	public function get_name() {
         return 'tf-animation-item';

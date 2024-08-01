@@ -5,7 +5,6 @@ if ( ! class_exists( 'KcSeoSchemaModel' ) ) :
 
 
 		function __construct() {
-
 		}
 
 		function schemaOutput( $schemaID, $metaData ) {
@@ -639,6 +638,73 @@ if ( ! class_exists( 'KcSeoSchemaModel' ) ) :
 								'url'             => ! empty( $metaData['url'] ) ? $KcSeoWPSchema->sanitizeOutPut( $metaData['url'] ) : null,
 							];
 						}
+
+						$shippingDetails = [];
+						if ( ! empty( $metaData['shippingRate'] ) ) {
+							$shippingDetails['shippingRate'] = [
+								'@type'    => 'MonetaryAmount',
+								'value'    => $KcSeoWPSchema->sanitizeOutPut( $metaData['shippingRate'] ),
+								'currency' => $product['offers']['priceCurrency'],
+							];
+						}
+						if ( ! empty( $metaData['shippingDestination'] ) ) {
+							$shippingDetails['shippingDestination'] = [
+								'@type'          => 'DefinedRegion',
+								'addressCountry' => $metaData['shippingDestination'],
+							];
+							if ( ! empty( $metaData['addressRegion'] ) ) {
+								$shippingDetails['shippingDestination']['addressRegion'] = '[' . $metaData['addressRegion'] . ']';
+							}
+						}
+						$shippingDetails['deliveryTime'] = [
+							'@type' => 'ShippingDeliveryTime',
+						];
+
+						if ( ! empty( $metaData['handlingTimeMinimum'] ) ) {
+							$shippingDetails['deliveryTime']['handlingTime'] = [
+								'@type'    => 'QuantitativeValue',
+								'minValue' => absint( $metaData['handlingTimeMinimum'] ),
+								'maxValue' => absint( $metaData['handlingTimeMaximum'] ),
+								'unitCode' => 'DAY',
+							];
+						}
+						if ( ! empty( $metaData['transitTimeMinimum'] ) ) {
+							$shippingDetails['deliveryTime']['transitTime'] = [
+								'@type'    => 'QuantitativeValue',
+								'minValue' => absint( $metaData['transitTimeMinimum'] ),
+								'maxValue' => absint( $metaData['transitTimeMaximum'] ),
+								'unitCode' => 'DAY',
+							];
+						}
+
+						if ( ! empty( $shippingDetails ) ) {
+							$product['offers']['shippingDetails'] = array_merge(
+								[
+									'@type' => 'OfferShippingDetails',
+								],
+								$shippingDetails
+							);
+						}
+
+						$MerchantReturnPolicy = [];
+						if ( ! empty( $metaData['applicableCountry'] ) ) {
+							$MerchantReturnPolicy['applicableCountry'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['applicableCountry'] );
+						}
+						if ( ! empty( $metaData['merchantReturnDays'] ) ) {
+							$MerchantReturnPolicy['merchantReturnDays'] = absint( $metaData['merchantReturnDays'] );
+						}
+						if ( ! empty( $MerchantReturnPolicy ) ) {
+							$product['offers']['hasMerchantReturnPolicy'] = array_merge(
+								[
+									'@type'                => 'MerchantReturnPolicy',
+									'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
+									'returnMethod'         => 'https://schema.org/ReturnByMail',
+									'returnFees'           => 'https://schema.org/FreeReturn',
+								],
+								$MerchantReturnPolicy
+							);
+						}
+
 						$html .= $this->get_jsonEncode( apply_filters( 'kcseo_snippet_product', $product, $metaData ) );
 						break;
 
@@ -1126,14 +1192,14 @@ if ( ! class_exists( 'KcSeoSchemaModel' ) ) :
 						if ( ! empty( $metaData['headline'] ) ) {
 							$medicalwebpage['headline'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['headline'] );
 						}
-                        if ( ! empty( $metaData['webpage_url'] ) ) {
+						if ( ! empty( $metaData['webpage_url'] ) ) {
 							$medicalwebpage['url'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['webpage_url'], 'url' );
 						}
-                        if ( ! empty( $metaData['specialty_url'] ) ) {
+						if ( ! empty( $metaData['specialty_url'] ) ) {
 							$medicalwebpage['specialty'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['specialty_url'], 'url' );
 						}
-                        if ( ! empty( $metaData['image'] ) ) {
-							$img                  = $KcSeoWPSchema->imageInfo( absint( $metaData['image'] ) );
+						if ( ! empty( $metaData['image'] ) ) {
+							$img                     = $KcSeoWPSchema->imageInfo( absint( $metaData['image'] ) );
 							$medicalwebpage['image'] = [
 								'@type'  => 'ImageObject',
 								'url'    => $KcSeoWPSchema->sanitizeOutPut( $img['url'], 'url' ),
@@ -1141,7 +1207,7 @@ if ( ! class_exists( 'KcSeoSchemaModel' ) ) :
 								'width'  => $img['width'],
 							];
 						}
-                        if ( ! empty( $metaData['publisher'] ) ) {
+						if ( ! empty( $metaData['publisher'] ) ) {
 							if ( ! empty( $metaData['publisherImage'] ) ) {
 								$img = $KcSeoWPSchema->imageInfo( absint( $metaData['publisherImage'] ) );
 								$plA = [
@@ -1159,32 +1225,166 @@ if ( ! class_exists( 'KcSeoSchemaModel' ) ) :
 								'logo'  => $plA,
 							];
 						}
-                        if ( ! empty( $metaData['datePublished'] ) ) {
-                            $medicalwebpage['datePublished'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['datePublished'] );
-                        }
-                        if ( ! empty( $metaData['dateModified'] ) ) {
-                            $medicalwebpage['dateModified'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['dateModified'] );
-                        }
-                        if ( ! empty( $metaData['lastreviewed'] ) ) {
+						if ( ! empty( $metaData['datePublished'] ) ) {
+							$medicalwebpage['datePublished'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['datePublished'] );
+						}
+						if ( ! empty( $metaData['dateModified'] ) ) {
+							$medicalwebpage['dateModified'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['dateModified'] );
+						}
+						if ( ! empty( $metaData['lastreviewed'] ) ) {
 							$medicalwebpage['lastReviewed'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['lastreviewed'] );
 						}
-                        if ( ! empty( $metaData['maincontentofpage'] ) ) {
+						if ( ! empty( $metaData['maincontentofpage'] ) ) {
 							$medicalwebpage['mainContentOfPage'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['maincontentofpage'] );
 						}
-                        if ( ! empty( $metaData['about'] ) ) {
-                            $medicalwebpage['about']['@type'] = "MedicalCondition";
-							$medicalwebpage['about']['name'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['about'] );
+						if ( ! empty( $metaData['about'] ) ) {
+							$medicalwebpage['about']['@type'] = 'MedicalCondition';
+							$medicalwebpage['about']['name']  = $KcSeoWPSchema->sanitizeOutPut( $metaData['about'] );
 						}
-                        if ( ! empty( $metaData['description'] ) ) {
+						if ( ! empty( $metaData['description'] ) ) {
 							$medicalwebpage['description'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['description'] );
 						}
-                        if ( ! empty( $metaData['keywords'] ) ) {
-                            $medicalwebpage['keywords'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['keywords'] );
-                        }
+						if ( ! empty( $metaData['keywords'] ) ) {
+							$medicalwebpage['keywords'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['keywords'] );
+						}
 
 						$html .= $this->get_jsonEncode( apply_filters( 'kcseo_snippet_restaurant', $medicalwebpage, $metaData ) );
 						break;
+					case 'profilePage':
+						$profile_page = [];
+						$mainEntity   = [];
+						if ( ! empty( $metaData['profileFor'] ) ) {
+							if ( 'Person' === $metaData['profileFor'] ) {
+								$mainEntity['@type'] = 'Person';
+								if ( ! empty( $metaData['gender'] ) ) {
+									$mainEntity['gender'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['gender'] );
+								}
+							} elseif ( 'Organization' === $metaData['profileFor'] ) {
+								$mainEntity['@type'] = 'Organization';
+							}
+						}
+						if ( ! empty( $metaData['name'] ) ) {
+							$mainEntity['name'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['name'] );
+						}
+						if ( ! empty( $metaData['alternateName'] ) ) {
+							$mainEntity['alternateName'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['alternateName'] );
+						}
+						if ( ! empty( $metaData['description'] ) ) {
+							$mainEntity['description'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['description'] );
+						}
+						if ( ! empty( $metaData['sameAs'] ) ) {
+							$mainEntity['sameAs'] = explode(
+								"\r\n",
+								$KcSeoWPSchema->sanitizeOutPut( $metaData['sameAs'], 'textarea' )
+							);
+						}
 
+						if ( ! empty( $metaData['image'] ) ) {
+							$img                 = $KcSeoWPSchema->imageInfo( absint( $metaData['image'] ) );
+							$mainEntity['image'] = [
+								'@type'  => 'ImageObject',
+								'url'    => $KcSeoWPSchema->sanitizeOutPut( $img['url'], 'url' ),
+								'height' => $img['height'],
+								'width'  => $img['width'],
+							];
+						}
+
+						if ( ! empty( $metaData['memberOfList'] ) ) {
+							$memberof = [];
+							foreach ( $metaData['memberOfList'] as $member ) {
+								$mmbr = [
+									'@type' => $member['type'] ?? 'Organization',
+								];
+								if ( ! empty( $member['name'] ) ) {
+									$mmbr['name'] = $KcSeoWPSchema->sanitizeOutPut( $member['name'] );
+								}
+								$memberof[] = $mmbr;
+							}
+							if ( ! empty( $memberof ) ) {
+								$mainEntity['memberOf'] = $memberof;
+							}
+						}
+
+						if ( ! empty( $metaData['worksFor'] ) ) {
+							$worksFor = [];
+							foreach ( $metaData['worksFor'] as $details ) {
+								$for = [
+									'@type' => $details['type'] ?? 'Organization',
+								];
+								if ( ! empty( $details['name'] ) ) {
+									$for['name'] = $KcSeoWPSchema->sanitizeOutPut( $details['name'] );
+								}
+								if ( ! empty( $details['url'] ) ) {
+									$for['url'] = $KcSeoWPSchema->sanitizeOutPut( $details['url'], 'url' );
+								}
+								if ( ! empty( $details['logo'] ) ) {
+									$img         = $KcSeoWPSchema->imageInfo( absint( $details['logo'] ) );
+									$for['logo'] = $KcSeoWPSchema->sanitizeOutPut( $img['url'], 'url' );
+								}
+								if ( ! empty( $details['sameAs'] ) ) {
+									$for['sameAs'] = explode(
+										"\r\n",
+										$KcSeoWPSchema->sanitizeOutPut( $details['sameAs'], 'textarea' )
+									);
+								}
+								$department = [];
+								if ( ! empty( $details['department_name'] ) ) {
+									$department['name'] = $KcSeoWPSchema->sanitizeOutPut( $details['department_name'] );
+								}
+								if ( ! empty( $details['department_url'] ) ) {
+									$department['url'] = $KcSeoWPSchema->sanitizeOutPut( $details['department_url'], 'url' );
+								}
+								if ( ! empty( $department ) ) {
+									$for['department'] = [ '@type' => 'Organization' ] + $department;
+								}
+
+								$address = [];
+								if ( ! empty( $details['streetAddress'] ) ) {
+									$address['streetAddress'] = $KcSeoWPSchema->sanitizeOutPut( $details['streetAddress'] );
+								}
+								if ( ! empty( $details['addressLocality'] ) ) {
+									$address['addressLocality'] = $KcSeoWPSchema->sanitizeOutPut( $details['addressLocality'] );
+								}
+								if ( ! empty( $details['region'] ) ) {
+									$address['addressRegion'] = $KcSeoWPSchema->sanitizeOutPut( $details['region'] );
+								}
+								if ( ! empty( $details['postalCode'] ) ) {
+									$address['postalCode'] = $KcSeoWPSchema->sanitizeOutPut( $details['postalCode'] );
+								}
+								if ( ! empty( $details['addressCountry'] ) ) {
+									$address['addressCountry'] = $KcSeoWPSchema->sanitizeOutPut( $details['addressCountry'] );
+								}
+								if ( ! empty( $address ) ) {
+									$for['address'] = [ '@type' => 'PostalAddress' ] + $address;
+								}
+
+								$worksFor[] = $for;
+							}
+							if ( ! empty( $worksFor ) ) {
+								$mainEntity['worksFor'] = $worksFor;
+							}
+						}
+
+						// End Main $mainEntity.
+						if ( ! empty( $metaData['dateCreated'] ) ) {
+							$profile_page['dateCreated'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['dateCreated'] );
+						}
+						if ( ! empty( $metaData['dateModified'] ) ) {
+							$profile_page['dateModified'] = $KcSeoWPSchema->sanitizeOutPut( $metaData['dateModified'] );
+						}
+						if ( ! empty( $mainEntity ) ) {
+							$profile_page['mainEntity'] = $mainEntity;
+						}
+
+						$profile_page = array_merge(
+							[
+								'@context' => 'http://schema.org',
+								'@type'    => 'ProfilePage',
+							],
+							$profile_page
+						);
+						$html        .= $this->get_jsonEncode( apply_filters( 'kcseo_snippet_profile_page', $profile_page, $metaData ) );
+						break;
 					default:
 				}
 			}
@@ -1226,7 +1426,7 @@ if ( ! class_exists( 'KcSeoSchemaModel' ) ) :
 					break;
 				case 'textarea':
 					$textarea_value = $value ?? '';
-					$html .= "<textarea id='{$id}' class='{$class}' {$attr} name='{$name}' >" . wp_kses(
+					$html          .= "<textarea id='{$id}' class='{$class}' {$attr} name='{$name}' >" . wp_kses(
 						$textarea_value,
 						[]
 					) . '</textarea>';
@@ -1376,7 +1576,5 @@ if ( ! class_exists( 'KcSeoSchemaModel' ) ) :
 
 			return $keys !== array_keys( $keys );
 		}
-
-
 	}
 endif;

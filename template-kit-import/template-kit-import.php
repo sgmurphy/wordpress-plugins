@@ -4,7 +4,7 @@
  * Description: Import Template Kits to WordPress
  * Author: Envato
  * Author URI: https://envato.com
- * Version: 1.0.15
+ * Version: 1.0.16
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Elementor tested up to: 3.20.2
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'ENVATO_TEMPLATE_KIT_IMPORT_SLUG', 'template-kit-import' );
-define( 'ENVATO_TEMPLATE_KIT_IMPORT_VER', '1.0.15' );
+define( 'ENVATO_TEMPLATE_KIT_IMPORT_VER', '1.0.16' );
 define( 'ENVATO_TEMPLATE_KIT_IMPORT_FILE', __FILE__ );
 define( 'ENVATO_TEMPLATE_KIT_IMPORT_DIR', plugin_dir_path( ENVATO_TEMPLATE_KIT_IMPORT_FILE ) );
 define( 'ENVATO_TEMPLATE_KIT_IMPORT_URI', plugins_url( '/', ENVATO_TEMPLATE_KIT_IMPORT_FILE ) );

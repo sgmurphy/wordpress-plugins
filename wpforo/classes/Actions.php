@@ -453,7 +453,9 @@ class Actions {
 	public function get_topic_head_more_info() {
 		wpforo_verify_nonce( 'wpforo_get_topic_head_more_info' );
 		if( $topicid = wpforo_bigintval( wpfval( $_POST, 'topicid' ) ) ) {
-			wp_send_json_success( [ 'html' => wpforo_topic_active_participants( $topicid ) . wpforo_topic_overview( $topicid ) ] );
+			if( ( $topic = WPF()->topic->get_topic( $topicid, false ) ) && WPF()->topic->view_access( $topic ) ) {
+				wp_send_json_success( [ 'html' => wpforo_topic_active_participants( $topicid ) . wpforo_topic_overview( $topicid ) ] );
+			}
 		}
 		
 		wp_send_json_error();
@@ -462,10 +464,12 @@ class Actions {
 	public function get_topic_overview_chunk() {
 		wpforo_verify_nonce( 'wpforo_get_topic_overview_chunk' );
 		if( $topicid = wpforo_bigintval( wpfval( $_POST, 'topicid' ) ) ) {
-			if( ! ( $chunksize = (int) wpfval( $_POST, 'chunksize' ) ) ) $chunksize = 5;
-			$offset = (int) wpfval( $_POST, 'offset' );
-			
-			wp_send_json_success( wpforo_get_topic_overview_chunk( $topicid, $chunksize, $offset ) );
+			if( ( $topic = WPF()->topic->get_topic( $topicid, false ) ) && WPF()->topic->view_access( $topic ) ) {
+				if( ! ( $chunksize = (int) wpfval( $_POST, 'chunksize' ) ) ) $chunksize = 5;
+				$offset = (int) wpfval( $_POST, 'offset' );
+				
+				wp_send_json_success( wpforo_get_topic_overview_chunk( $topicid, $chunksize, $offset ) );
+			}
 		}
 		
 		wp_send_json_error();
@@ -474,7 +478,7 @@ class Actions {
 	public function get_overview() {
 		wpforo_verify_nonce( 'wpforo_get_overview' );
 		if( $postid = wpforo_bigintval( wpfval( $_POST, 'postid' ) ) ) {
-			if( $post = wpforo_post( $postid ) ) {
+			if( ( $post = wpforo_post( $postid ) ) && WPF()->post->view_access( $post ) ) {
 				wp_send_json_success(
 					[
 						'title'   => '<i class="fas fa-user"></i> &nbsp;' . wpforo_phrase( 'Posted by ', false ) . ' ' . wpforo_member_link(

@@ -2,8 +2,8 @@
 Contributors: gVectors Team
 Tags: forum, forums, forum plugin, bbpress, community
 Requires at least: 5.1
-Tested up to: 6.4
-Stable tag: 2.3.4
+Tested up to: 6.6
+Stable tag: 2.3.5
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -179,10 +179,16 @@ IMPORTANT NOTES for UPDATE
  - After the update, please flush Redis Object Cache if you have this cache enabled
 
 
-= wpForo Forum 2.3.0 - 2.3.4 | 16.05.2024 =
+= wpForo Forum 2.3.0 - 2.3.5 | 01.06.2024 =
 
 [wpForo Forum v2.3 Release Summary](https://wpforo.com/community/wpforo-announcements/wpforo-2-3-is-released/)
 
+* Version 2.3.5
+* Compatibility: WordPress 6.6
+* Changed: Display access title instead of the key in the forum access table
+* Fixed Bug: Issue with deleting own account
+* Fixed Bug: Vulnerability issue (Sensitive Data Exposure)
+* ---------
 * Version 2.3.4
 * Fixed Bug: Vulnerability issue (By authenticated (Contributor+ users) SQL Injection)
 * Fixed Bug: Invisible replies in private topics

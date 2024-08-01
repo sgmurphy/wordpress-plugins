@@ -250,7 +250,7 @@ if (!class_exists('tf_meta_boxes')) {
                 break;
                 case 'number':
                     printf('<span class="themesflat-options-control-title">%3$s</span></label> %4$s<div class="themesflat-options-control-inputs">
-                        <input name="_themesflat_options[%1$s]" %5$s type="number" value="%2$s"/></div>',$control['id'],esc_html($value),$title,$description,themesflat_render_attrs($control['input_attrs'],false));
+                        <input name="_themesflat_options[%1$s]" %5$s type="number" value="%2$s"/></div>',$control['id'],esc_html($value),$title,$description,esc_attr($control['input_attrs'],false));
                  break;
                 default:
                     printf('<span class="themesflat-options-control-title">%3$s</span></label> %4$s<div class="themesflat-options-control-inputs">

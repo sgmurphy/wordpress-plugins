@@ -7,11 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInita6c3d020c47c988d11030e9a25036470
 {
     public static $prefixLengthsPsr4 = array (
-        'M' => 
-        array (
-            'MatthiasMullie\\PathConverter\\' => 29,
-            'MatthiasMullie\\Minify\\' => 22,
-        ),
         'K' => 
         array (
             'KAGG\\Settings\\Abstracts\\' => 24,
@@ -24,14 +19,6 @@ class ComposerStaticInita6c3d020c47c988d11030e9a25036470
     );
 
     public static $prefixDirsPsr4 = array (
-        'MatthiasMullie\\PathConverter\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/matthiasmullie/path-converter/src',
-        ),
-        'MatthiasMullie\\Minify\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/matthiasmullie/minify/src',
-        ),
         'KAGG\\Settings\\Abstracts\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/php/Settings/Abstracts',
@@ -165,16 +152,16 @@ class ComposerStaticInita6c3d020c47c988d11030e9a25036470
         'HCaptcha\\UsersWP\\ForgotPassword' => __DIR__ . '/../..' . '/src/php/UsersWP/ForgotPassword.php',
         'HCaptcha\\UsersWP\\Login' => __DIR__ . '/../..' . '/src/php/UsersWP/Login.php',
         'HCaptcha\\UsersWP\\Register' => __DIR__ . '/../..' . '/src/php/UsersWP/Register.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\Minify\\CSS' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/CSS.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\Minify\\Exception' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Exception.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\Minify\\Exceptions\\BasicException' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Exceptions/BasicException.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\Minify\\Exceptions\\FileImportException' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Exceptions/FileImportException.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\Minify\\Exceptions\\IOException' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Exceptions/IOException.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\Minify\\JS' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/JS.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\Minify\\Minify' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Minify.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\PathConverter\\Converter' => __DIR__ . '/../..' . '/vendors/matthiasmullie/path-converter/src/Converter.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\PathConverter\\ConverterInterface' => __DIR__ . '/../..' . '/vendors/matthiasmullie/path-converter/src/ConverterInterface.php',
-        'HCaptcha\\Vendor\\MatthiasMullie\\PathConverter\\NoConverter' => __DIR__ . '/../..' . '/vendors/matthiasmullie/path-converter/src/NoConverter.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\Minify\\CSS' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/CSS.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\Minify\\Exception' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Exception.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\Minify\\Exceptions\\BasicException' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Exceptions/BasicException.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\Minify\\Exceptions\\FileImportException' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Exceptions/FileImportException.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\Minify\\Exceptions\\IOException' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Exceptions/IOException.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\Minify\\JS' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/JS.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\Minify\\Minify' => __DIR__ . '/../..' . '/vendors/matthiasmullie/minify/src/Minify.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\PathConverter\\Converter' => __DIR__ . '/../..' . '/vendors/matthiasmullie/path-converter/src/Converter.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\PathConverter\\ConverterInterface' => __DIR__ . '/../..' . '/vendors/matthiasmullie/path-converter/src/ConverterInterface.php',
+        'HCaptcha\\Vendors\\MatthiasMullie\\PathConverter\\NoConverter' => __DIR__ . '/../..' . '/vendors/matthiasmullie/path-converter/src/NoConverter.php',
         'HCaptcha\\WCWishlists\\CreateList' => __DIR__ . '/../..' . '/src/php/WCWishlists/CreateList.php',
         'HCaptcha\\WC\\Checkout' => __DIR__ . '/../..' . '/src/php/WC/Checkout.php',
         'HCaptcha\\WC\\Login' => __DIR__ . '/../..' . '/src/php/WC/Login.php',
@@ -189,6 +176,7 @@ class ComposerStaticInita6c3d020c47c988d11030e9a25036470
         'HCaptcha\\WPForo\\NewTopic' => __DIR__ . '/../..' . '/src/php/WPForo/NewTopic.php',
         'HCaptcha\\WPForo\\Reply' => __DIR__ . '/../..' . '/src/php/WPForo/Reply.php',
         'HCaptcha\\WPJobOpenings\\Form' => __DIR__ . '/../..' . '/src/php/WPJobOpenings/Form.php',
+        'HCaptcha\\WP\\Base' => __DIR__ . '/../..' . '/src/php/WP/Base.php',
         'HCaptcha\\WP\\Comment' => __DIR__ . '/../..' . '/src/php/WP/Comment.php',
         'HCaptcha\\WP\\Login' => __DIR__ . '/../..' . '/src/php/WP/Login.php',
         'HCaptcha\\WP\\LostPassword' => __DIR__ . '/../..' . '/src/php/WP/LostPassword.php',
@@ -197,16 +185,6 @@ class ComposerStaticInita6c3d020c47c988d11030e9a25036470
         'HCaptcha\\Wordfence\\General' => __DIR__ . '/../..' . '/src/php/Wordfence/General.php',
         'KAGG\\Settings\\Abstracts\\SettingsBase' => __DIR__ . '/../..' . '/src/php/Settings/Abstracts/SettingsBase.php',
         'KAGG\\Settings\\Abstracts\\SettingsInterface' => __DIR__ . '/../..' . '/src/php/Settings/Abstracts/SettingsInterface.php',
-        'MatthiasMullie\\Minify\\CSS' => __DIR__ . '/..' . '/matthiasmullie/minify/src/CSS.php',
-        'MatthiasMullie\\Minify\\Exception' => __DIR__ . '/..' . '/matthiasmullie/minify/src/Exception.php',
-        'MatthiasMullie\\Minify\\Exceptions\\BasicException' => __DIR__ . '/..' . '/matthiasmullie/minify/src/Exceptions/BasicException.php',
-        'MatthiasMullie\\Minify\\Exceptions\\FileImportException' => __DIR__ . '/..' . '/matthiasmullie/minify/src/Exceptions/FileImportException.php',
-        'MatthiasMullie\\Minify\\Exceptions\\IOException' => __DIR__ . '/..' . '/matthiasmullie/minify/src/Exceptions/IOException.php',
-        'MatthiasMullie\\Minify\\JS' => __DIR__ . '/..' . '/matthiasmullie/minify/src/JS.php',
-        'MatthiasMullie\\Minify\\Minify' => __DIR__ . '/..' . '/matthiasmullie/minify/src/Minify.php',
-        'MatthiasMullie\\PathConverter\\Converter' => __DIR__ . '/..' . '/matthiasmullie/path-converter/src/Converter.php',
-        'MatthiasMullie\\PathConverter\\ConverterInterface' => __DIR__ . '/..' . '/matthiasmullie/path-converter/src/ConverterInterface.php',
-        'MatthiasMullie\\PathConverter\\NoConverter' => __DIR__ . '/..' . '/matthiasmullie/path-converter/src/NoConverter.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
