@@ -43,7 +43,6 @@ if ( ! class_exists( 'Gutentor_T3_Hooks' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**

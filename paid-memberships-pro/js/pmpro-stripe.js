@@ -15,13 +15,10 @@ jQuery( document ).ready( function( $ ) {
 	}
 	elements = stripe.elements();
 
-	/**
-	 * Set up default credit card fields.
-	 */
-	// Create Elements.
-	cardNumber = elements.create('cardNumber');
-	cardExpiry = elements.create('cardExpiry');
-	cardCvc = elements.create('cardCvc');
+	// Set up default credit card fields.
+	cardNumber = elements.create('cardNumber', { style: pmproStripe.style });
+	cardExpiry = elements.create('cardExpiry', { style: pmproStripe.style });
+	cardCvc = elements.create('cardCvc', { style: pmproStripe.style });
 
 	// Mount Elements. Ensure CC field is present before loading Stripe.
 	if ( $( '#AccountNumber' ).length > 0 ) { 
@@ -77,6 +74,12 @@ jQuery( document ).ready( function( $ ) {
 
 		// If there is no "pmpro_level" input (or "level" input for legacy page templates), then this is not a checkout form. Return.
 		if ( $( 'input[name="pmpro_level"]' ).length === 0 && $( 'input[name="level"]' ).length === 0 ) {
+			return;
+		}
+
+		// If there is a payment method ID already, then this is a form submission after card authentication.
+		// This may be the case when the payment request button is used, for example.
+		if ( $( 'input[name="payment_method_id"]' ).length > 0 ) {
 			return;
 		}
 
@@ -246,7 +249,7 @@ jQuery( document ).ready( function( $ ) {
 			form.append( '<input type="hidden" name="ExpirationYear" value="' + card.exp_year + '"/>' );
 
 			// and submit
-			form.get(0).submit();			
+			form.submit();			
 			
 		} else if ( response.paymentIntent || response.setupIntent ) {
 			// Card authentication was successful. Finish the checkout in PHP.
@@ -282,7 +285,7 @@ jQuery( document ).ready( function( $ ) {
 			form.append( '<input type="hidden" name="AccountNumber" value="XXXXXXXXXXXX' + card.last4 + '"/>' );
 			form.append( '<input type="hidden" name="ExpirationMonth" value="' + ( '0' + card.exp_month ).slice( -2 ) + '"/>' );
 			form.append( '<input type="hidden" name="ExpirationYear" value="' + card.exp_year + '"/>' );
-			form.get(0).submit();
+			form.submit();
 			return true;
 		}
 	}

@@ -129,7 +129,6 @@ class LP_User_Factory {
 	protected static function _update_user_item_order_completed( LP_Order $order, string $old_status, string $new_status ) {
 		$lp_order_db = LP_Order_DB::getInstance();
 		$items       = $order->get_items();
-		$created_via = $order->get_created_via();
 		if ( ! $items ) {
 			return;
 		}
@@ -143,11 +142,13 @@ class LP_User_Factory {
 
 					// Check this order is the latest by user and course_id
 					$last_order_id = $lp_order_db->get_last_lp_order_id_of_user_course( $user->get_id(), $course_id );
-					if ( $last_order_id && $last_order_id != $order->get_id() ) {
+
+					$course = learn_press_get_course( $course_id );
+					if ( $last_order_id && $last_order_id != $order->get_id() || ! $course->is_in_stock() ) {
 						continue;
 					}
 
-					if ( 'manual' === $created_via ) {
+					if ( $order->is_manual() ) {
 						self::handle_item_manual_order_completed( $order, $user, $item );
 					} else {
 						self::handle_item_order_completed( $order, $user, $item );
@@ -203,9 +204,11 @@ class LP_User_Factory {
 				$allow_repurchase_type = learn_press_get_user_item_meta( $latest_user_item_id, '_lp_allow_repurchase_type' );
 			}
 
+			$is_no_required_enroll = $course->get_data( 'no_required_enroll', 'no' ) === 'yes';
+
 			// If > 1 time purchase same course and allow repurchase
 			if ( ! empty( $allow_repurchase_type ) && $course->allow_repurchase()
-				&& ! empty( $latest_user_item_id ) && ! $course->is_free() ) {
+				&& ! empty( $latest_user_item_id ) && ! $course->is_free() && ! $is_no_required_enroll ) {
 				/**
 				 * If keep course progress will reset start_time, end_time, status, graduation
 				 * where user_item_id = $latest_user_item_id
@@ -230,7 +233,7 @@ class LP_User_Factory {
 				}
 
 				learn_press_delete_user_item_meta( $latest_user_item_id, '_lp_allow_repurchase_type' );
-			} elseif ( ! $course->is_free() ) { // First purchase course
+			} elseif ( ! $course->is_free() && ! $is_no_required_enroll ) { // First purchase course
 				// Set data for create user_item
 				if ( $auto_enroll ) {
 					$user_item_data['status']     = LP_COURSE_ENROLLED;
@@ -271,6 +274,10 @@ class LP_User_Factory {
 		try {
 			$course      = learn_press_get_course( $item['course_id'] );
 			$auto_enroll = LP_Settings::is_auto_start_course();
+
+			if ( $user instanceof LP_User_Guest ) {
+				return;
+			}
 
 			// Data user_item for save database
 			$user_item_data = [

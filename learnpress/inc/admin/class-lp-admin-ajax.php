@@ -35,9 +35,9 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 
 			$ajax_events = array(
 				'create_page'            => false, // Use create new page on Settings
-				'load_chart'             => false,
+				//'load_chart'             => false,
 				'search_course_category' => false,
-				'custom_stats'           => false,
+				//'custom_stats'           => false,
 				'get_page_permalink'     => false,
 			);
 
@@ -54,20 +54,29 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 
 			$ajax_events = array(
 				'search_items' => 'modal_search_items',
-				'update-payment-order', // Update ordering of payments when user changing.
-				'update-payment-status', // Enable type payment
+				'update-payment-order',
+				// Update ordering of payments when user changing.
+				'update-payment-status',
+				// Enable type payment
 
 				// admin editor
 				'admin_course_editor',
 				'admin_quiz_editor',
 				'admin_question_editor',
-				'duplicator', // Duplicate course, lesson, quiz, question.
-				'modal_search_items', // Used to search courses on LP Order
-				'modal_search_users', // Used to search users on LP Order
-				'add_items_to_order', // Used to add courses on LP Order
-				'remove_items_from_order', // Used to remove items from LP Order
-				'update_email_status', // Use for enable email on LP Settings
-				'search-authors', // Used to search username on input some page (list courses, lp orders, quizzes, questions... on the Backend
+				'duplicator',
+				// Duplicate course, lesson, quiz, question.
+				'modal_search_items',
+				// Used to search courses on LP Order
+				//'modal_search_users',
+				// Used to search users on LP Order
+				'add_items_to_order',
+				// Used to add courses on LP Order
+				'remove_items_from_order',
+				// Used to remove items from LP Order
+				'update_email_status',
+				// Use for enable email on LP Settings
+				'search-authors',
+				// Used to search username on input some page (list courses, lp orders, quizzes, questions... on the Backend
 				//'skip-notice-install',
 			);
 
@@ -386,8 +395,9 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		 * Search items by requesting params.
 		 *
 		 * @note tungnx checked has use
+		 * @deprecated 4.2.6.9.3
 		 */
-		public static function modal_search_users() {
+		/*public static function modal_search_users() {
 			$term         = LP_Request::get_param( 'term' );
 			$type         = LP_Request::get_param( 'type' );
 			$context      = LP_Request::get_param( 'context' );
@@ -426,7 +436,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 					'users' => $search->get_items(),
 				)
 			);
-		}
+		}*/
 
 		/**
 		 * Search course category.
@@ -434,10 +444,10 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		public static function search_course_category() {
 			global $wpdb;
 			$sql   = 'SELECT `t`.`term_id` as `id`, '
-					. ' `t`.`name` `text` '
-					. " FROM {$wpdb->terms} t "
-					. "		INNER JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id AND taxonomy='course_category' "
-					. ' WHERE `t`.`name` LIKE %s';
+				. ' `t`.`name` `text` '
+				. " FROM {$wpdb->terms} t "
+				. "		INNER JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id AND taxonomy='course_category' "
+				. ' WHERE `t`.`name` LIKE %s';
 			$s     = '%' . filter_input( INPUT_GET, 'q' ) . '%';
 			$query = $wpdb->prepare( $sql, $s );
 			$items = $wpdb->get_results( $query );
@@ -452,31 +462,35 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		 * @note tungnx checked has use
 		 */
 		public static function remove_items_from_order() {
+			$response = new LP_REST_Response();
+
 			// ensure that user has permission
 			if ( ! current_user_can( 'edit_lp_orders' ) ) {
 				die( __( 'Access denied', 'learnpress' ) );
 			}
 
 			// verify nonce
-			$nonce = learn_press_get_request( 'remove_nonce' );
-			if ( ! wp_verify_nonce( $nonce, 'remove_order_item' ) ) {
+			$nonce = LP_Request::get_param( 'nonce' );
+			if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 				die( __( 'Nonce check failed', 'learnpress' ) );
 			}
 
 			// validate order
-			$order_id = learn_press_get_request( 'order_id' );
-			if ( ! is_numeric( $order_id ) || learn_press_get_post_type( $order_id ) != 'lp_order' ) {
+			$order_id = LP_Request::get_param( 'order_id', 0, 'int' );
+			if ( learn_press_get_post_type( $order_id ) != 'lp_order' ) {
 				die( __( 'Invalid order', 'learnpress' ) );
 			}
 
 			// validate item
-			$items = learn_press_get_request( 'items' );
+			$item_ids_str = LP_Request::get_param( 'items', '' );
+			if ( empty( $item_ids_str ) ) {
+				die( __( 'Invalid item', 'learnpress' ) );
+			}
 
-			$order = learn_press_get_order( $order_id );
+			$item_ids = array_map( 'absint', explode( ',', $item_ids_str ) );
+			$order    = learn_press_get_order( $order_id );
 
-			global $wpdb;
-
-			foreach ( $items as $item_id ) {
+			foreach ( $item_ids as $item_id ) {
 				$order->remove_item( $item_id );
 			}
 
@@ -485,8 +499,8 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 			$order_data['subtotal_html'] = learn_press_format_price( $order_data['subtotal'], $currency_symbol );
 			$order_data['total_html']    = learn_press_format_price( $order_data['total'], $currency_symbol );
 			$order_items                 = $order->get_items();
+			$html = '';
 			if ( $order_items ) {
-				$html = '';
 				foreach ( $order_items as $item ) {
 					ob_start();
 					include learn_press_get_admin_view( 'meta-boxes/order/order-item.php' );
@@ -494,13 +508,11 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 				}
 			}
 
-			learn_press_send_json(
-				array(
-					'result'     => 'success',
-					'item_html'  => $html,
-					'order_data' => $order_data,
-				)
-			);
+			$response->status           = 'success';
+			$response->data->item_html  = $html;
+			$response->data->order_data = $order_data;
+
+			wp_send_json( $response );
 		}
 
 		/**
@@ -509,6 +521,8 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		 * @note tungnx checked has use
 		 */
 		public static function add_items_to_order() {
+			$response = new LP_REST_Response();
+
 			$roles_accept = apply_filters( 'lp/backend/roles/can-add-items', [ ADMIN_ROLE ] );
 
 			$flag = false;
@@ -527,23 +541,24 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 				die( 'Nonce is invalid!' );
 			}
 
-			$response = array(
-				'result' => 'error',
-			);
-
 			// ensure that user has permission
 			if ( ! current_user_can( 'edit_lp_orders' ) ) {
 				die( __( 'Permission denied', 'learnpress' ) );
 			}
 
 			// validate order
-			$order_id = learn_press_get_request( 'order_id' );
+			$order_id = LP_Request::get_param( 'order_id', 0 );
 			if ( ! is_numeric( $order_id ) || learn_press_get_post_type( $order_id ) != 'lp_order' ) {
 				die( __( 'Invalid order', 'learnpress' ) );
 			}
 
 			// validate item
-			$item_ids   = LP_Request::get_param( 'items', [] );
+			$item_ids_str = LP_Request::get_param( 'items', '' );
+			if ( empty( $item_ids_str ) ) {
+				die( __( 'Invalid item', 'learnpress' ) );
+			}
+
+			$item_ids   = array_map( 'absint', explode( ',', $item_ids_str ) );
 			$order      = learn_press_get_order( $order_id );
 			$order_item = $order->add_items( $item_ids );
 			if ( $order_item ) {
@@ -566,24 +581,22 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 					}
 				}
 
-				$response = array(
-					'result'     => 'success',
-					'item_html'  => $html,
-					'order_data' => $order_data,
-				);
+				$response->status           = 'success';
+				$response->data->item_html  = $html;
+				$response->data->order_data = $order_data;
 			}
 
-			learn_press_send_json( $response );
+			wp_send_json( $response );
 		}
 
-		public static function load_chart() {
+		/*public static function load_chart() {
 			if ( ! class_exists( 'LP_Submenu_Statistics' ) ) {
 				$statistic = include_once LP_PLUGIN_PATH . '/inc/admin/sub-menus/class-lp-submenu-statistics.php';
 			} else {
 				$statistic = new LP_Submenu_Statistics();
 			}
 			$statistic->load_chart();
-		}
+		}*/
 
 		public static function json_search_customer_name( $query ) {
 			global $wpdb;
@@ -668,9 +681,9 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 			?>
 
 			<a href="<?php echo get_edit_post_link( $page_id ); ?>"
-				target="_blank"><?php _e( 'Edit Page', 'learnpress' ); ?></a>
+			   target="_blank"><?php _e( 'Edit Page', 'learnpress' ); ?></a>
 			<a href="<?php echo get_permalink( $page_id ); ?>"
-				target="_blank"><?php _e( 'View Page', 'learnpress' ); ?></a>
+			   target="_blank"><?php _e( 'View Page', 'learnpress' ); ?></a>
 
 			<?php
 			die();
@@ -678,8 +691,10 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 
 		/**
 		 * Get date from, to for static chart
+		 *
+		 * @deprecated 4.2.6.9.3
 		 */
-		public static function custom_stats() {
+		/*public static function custom_stats() {
 			$from      = LP_Helper::sanitize_params_submitted( $_REQUEST['from'] ?? 0 );
 			$to        = LP_Helper::sanitize_params_submitted( $_REQUEST['to'] ?? 0 );
 			$date_diff = strtotime( $to ) - strtotime( $from );
@@ -688,7 +703,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 			}
 			learn_press_process_chart( learn_press_get_chart_students( $to, 'days', floor( $date_diff / ( 60 * 60 * 24 ) ) + 1 ) );
 			die();
-		}
+		}*/
 	}
 
 	add_action( 'init', array( 'LP_Admin_Ajax', 'init' ) );

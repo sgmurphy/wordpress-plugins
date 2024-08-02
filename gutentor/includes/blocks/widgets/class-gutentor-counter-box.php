@@ -43,7 +43,6 @@ if ( ! class_exists( 'Gutentor_Counter_Box' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**

@@ -5,7 +5,7 @@ Requires at least: 4.1
 Requires PHP: 5.6
 Tested up to: 6.6
 WC tested up to: 8.5
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -300,3 +300,8 @@ Optimizing your images for SEO helps crawlers better index your web pages, which
 
 = 2.0.1 =
 * 🐛 FIX: 500 Internal Server Error while saving options (Pro version)
+
+= 2.0.2 =
+* 🐛 FIX: Post types option issue with free version.
+* 🐛 FIX: @$dom->loadHTML issue if content are returning empty string
+* 👌 IMPROVE: Updated freemius to v2.7.3

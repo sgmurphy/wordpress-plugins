@@ -4,7 +4,7 @@ Plugin Name: Themesflat Addons For Elementor
 Description: The theme's components
 Author: Themesflat
 Author URI: http://themesflat-addons.com/
-Version: 2.1.6
+Version: 2.1.7
 Text Domain: themesflat-addons-for-elementor
 Domain Path: /languages
 

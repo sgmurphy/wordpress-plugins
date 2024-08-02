@@ -324,7 +324,7 @@ const AdminUtilsFunctions = {
   },
   fetchCourses(keySearch = '', dataSend = {}, callback) {
     const url = _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].admin.apiSearchCourses;
-    dataSend.c_search = keySearch;
+    dataSend.search = keySearch;
     const params = {
       headers: {
         'Content-Type': 'application/json',

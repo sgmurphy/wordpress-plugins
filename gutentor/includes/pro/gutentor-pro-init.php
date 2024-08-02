@@ -36,15 +36,15 @@ class Gutentor_Pro_Edd_License_Init {
 	 * @return object
 	 */
 	public static function get_instance() {
-		// Store the instance locally to avoid private static replication
+		// Store the instance locally to avoid private static replication.
 		static $instance = null;
 
-		// Only run these methods if they haven't been ran previously
+		// Only run these methods if they haven't been ran previously.
 		if ( null === $instance ) {
 			$instance = new self();
 		}
 
-		// Always return the instance
+		// Always return the instance.
 		return $instance;
 	}
 
@@ -77,7 +77,7 @@ class Gutentor_Pro_Edd_License_Init {
 		$this->menu_slug = $this->slug . '-license';
 
 		if ( ! function_exists( 'gutentor_pro_edd_plugin_installer' ) ) {
-			include dirname( __FILE__ ) . '/Gutentor_Pro_Edd_Plugin_Installer.php';
+			include __DIR__ . '/Gutentor_Pro_Edd_Plugin_Installer.php';
 		}
 		gutentor_pro_edd_plugin_installer()->run(
 			$this->api_url,
@@ -150,18 +150,16 @@ class Gutentor_Pro_Edd_License_Init {
 		);
 		$license = trim( get_option( $this->slug . '_license_key' ) );
 
-		if( isset($_GET['g-message']) && !empty($_GET['g-message'])){
-		    ?>
-            <div id="message" class="error notice is-dismissible">
-                <p><?php echo esc_html($_GET['g-message']) ?></p>
-            </div>
-                <?php
-        }
+		if ( isset( $_GET['g-message'] ) && ! empty( $_GET['g-message'] ) ) {
+			?>
+			<div id="message" class="error notice is-dismissible">
+				<p><?php echo esc_html( $_GET['g-message'] ); ?></p>
+			</div>
+			<?php
+		}
 		?>
-
-
-
-        <div class="wrap" id="<?php esc_attr_e( $this->slug ); ?>-license-wrap">
+		
+		<div class="wrap" id="<?php esc_attr_e( $this->slug ); ?>-license-wrap">
 			<h2><?php esc_html_e( 'Gutentor License Options', 'gutentor' ); ?></h2>
 			<form method="post" action="options.php" id="<?php echo esc_attr( $this->slug ) . '-options-form'; ?>">
 				<?php
@@ -222,7 +220,7 @@ class Gutentor_Pro_Edd_License_Init {
 		</h4>
 		<?php
 		printf(
-			'<input type="text" class="regular-text" id="' . $this->slug . '_license_key' . '" name="' . $this->slug . '_license_key' . '" value="%s" />',
+			'<input type="text" class="regular-text" id="' . esc_attr( $this->slug ) . '_license_key' . '" name="' . esc_attr( $this->slug ) . '_license_key' . '" value="%s" />',
 			esc_attr( $license )
 		);
 		if ( ! $license ) {
@@ -246,20 +244,19 @@ class Gutentor_Pro_Edd_License_Init {
 			$check_license = gutentor_pro_edd_plugin_installer()->check_license();
 			?>
 			<p class="description"><?php echo gutentor_pro_edd_plugin_installer()->get_install_link(); ?></p>
-            <?php
-            if( isset($check_license->expires)){
-                ?>
-                <p class="description">
-                    <?php
-                    printf(
-                        __( 'Your license key expires on %s.', 'gutentor' ),
-                        date_i18n( get_option( 'date_format' ), strtotime( $check_license->expires, current_time( 'timestamp' ) ) )
-                    );
-                    ?>
-                </p>
-                <?php
-            }
-
+			<?php
+			if ( isset( $check_license->expires ) ) {
+				?>
+				<p class="description">
+					<?php
+					printf(
+						__( 'Your license key expires on %s.', 'gutentor' ),
+						date_i18n( get_option( 'date_format' ), strtotime( $check_license->expires, current_time( 'timestamp' ) ) )
+					);
+					?>
+				</p>
+				<?php
+			}
 		} elseif ( ! empty( $license ) ) {
 			$button = array(
 				'name'  => $this->slug . '_license_activate',
@@ -272,7 +269,6 @@ class Gutentor_Pro_Edd_License_Init {
 			<input type="submit" class="button-secondary" name="<?php echo esc_attr( $button['name'] ); ?>" value="<?php echo esc_attr( $button['label'] ); ?>"/>
 			<?php
 		}
-
 	}
 
 	/**
@@ -283,7 +279,6 @@ class Gutentor_Pro_Edd_License_Init {
 	function register_license_option() {
 		register_setting( $this->slug . '_license', $this->slug . '_license_key', array( $this, 'sanitize_license' ) );
 	}
-
 
 	/**
 	 * Sanitizes the license key.
@@ -359,9 +354,7 @@ class Gutentor_Pro_Edd_License_Init {
 
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-
-
-			if ( !$license_data->success ) {
+			if ( ! $license_data->success ) {
 
 				switch ( $license_data->error ) {
 
@@ -409,11 +402,10 @@ class Gutentor_Pro_Edd_License_Init {
 				array(
 					'page'          => $this->menu_slug,
 					'sl_activation' => 'false',
-					'g-message'       => $message,
+					'g-message'     => $message,
 				),
 				admin_url( 'admin.php' )
 			);
-
 
 			wp_redirect( $redirect );
 			exit();
@@ -473,8 +465,8 @@ class Gutentor_Pro_Edd_License_Init {
 					array(
 						'page'          => $this->menu_slug,
 						'sl_activation' => 'false',
-                        'g-message'       => $message,
-                    ),
+						'g-message'     => $message,
+					),
 					admin_url( 'admin.php' )
 				);
 
@@ -510,13 +502,12 @@ class Gutentor_Pro_Edd_License_Init {
 			)
 		);
 		return false;
-
 	}
 
 	public function can_show_notice() {
 		$license_data = gutentor_pro_edd_plugin_installer()->check_license();
 		if ( $license_data && isset( $license_data->license ) && 'valid' === $license_data->license ) {
-			 return false;
+			return false;
 		}
 		global $current_user;
 		$user_id                  = $current_user->ID;
@@ -532,7 +523,7 @@ class Gutentor_Pro_Edd_License_Init {
 		 */
 
 		if ( ( $this->get_installed_time() && $this->get_installed_time() > strtotime( '-3 day' ) ) || ( $ignored_notice_partially > strtotime( '-15 day' ) ) || ( $ignored_notice ) ) {
-			 return false;
+			return false;
 		}
 		return true;
 	}
@@ -570,7 +561,7 @@ class Gutentor_Pro_Edd_License_Init {
 	public function getting_started() {
 
 		if ( ! $this->can_show_notice() ) {
-			 return;
+			return;
 		}
 
 		global $current_user;
@@ -627,7 +618,6 @@ class Gutentor_Pro_Edd_License_Init {
 
 		<?php
 	}
-
 }
 
 /**

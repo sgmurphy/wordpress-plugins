@@ -357,7 +357,6 @@ if ( ! class_exists( 'Gutentor_WP_Block_Widget' ) ) {
 
 				}
 			}
-
 		}
 	} // Class Gutentor_WP_Block_Widget ends here
 }

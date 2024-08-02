@@ -43,7 +43,6 @@ if ( ! class_exists( 'Gutentor_E9' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**

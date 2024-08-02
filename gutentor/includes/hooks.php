@@ -63,10 +63,10 @@ class Gutentor_Hooks {
 	 */
 	public static function instance() {
 
-		// Store the instance locally to avoid private static replication
+		// Store the instance locally to avoid private static replication.
 		static $instance = null;
 
-		// Only run these methods if they haven't been ran previously
+		// Only run these methods if they haven't been ran previously.
 		if ( null === $instance ) {
 			$instance              = new Gutentor_Hooks();
 			$instance->plugin_name = GUTENTOR_PLUGIN_NAME;
@@ -572,7 +572,6 @@ class Gutentor_Hooks {
 		if ( gutentor_is_edit_page() ) {
 			$this->load_last_scripts();
 		}
-
 	}
 	/**
 	 * Callback functions for enqueue_block_assets,
@@ -604,9 +603,9 @@ class Gutentor_Hooks {
 			return false;
 		}
 
-        /* Check this TODO */
+		/* Check this TODO */
 		wp_enqueue_style( 'gutentor' );
-        wp_style_add_data( 'gutentor', 'rtl', 'replace' );
+		wp_style_add_data( 'gutentor', 'rtl', 'replace' );
 
 		/*For WooCommerce*/
 		if ( gutentor_is_woocommerce_active() ) {
@@ -825,7 +824,6 @@ class Gutentor_Hooks {
 			GUTENTOR_VERSION // Version: File modification time.
 		);
 		wp_style_add_data( 'gutentor-editor', 'rtl', 'replace' );
-
 	}
 
 	/**

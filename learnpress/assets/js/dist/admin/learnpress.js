@@ -313,18 +313,20 @@ const lpMetaboxExtraInfo = () => {
     $(this).closest('.lp_course_extra_meta_box__content').find('.lp_course_extra_meta_box__field').last().find('input').trigger('focus');
     return false;
   });
-  document.querySelectorAll('.lp_course_extra_meta_box__fields').forEach(ele => {
-    ele.addEventListener('keydown', e => {
-      const inputs = ele.querySelectorAll('.lp_course_extra_meta_box__input');
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        inputs.forEach(input => {
-          input.blur();
-        });
-        return false;
-      }
-    });
-  });
+
+  /*document.querySelectorAll( '.lp_course_extra_meta_box__fields' ).forEach( ( ele ) => {
+  	ele.addEventListener( 'keydown', ( e ) => {
+  		const inputs = ele.querySelectorAll( '.lp_course_extra_meta_box__input' );
+  			if ( e.keyCode === 13 ) {
+  			e.preventDefault();
+  			inputs.forEach( ( input ) => {
+  				input.blur();
+  			} );
+  			return false;
+  		}
+  	} );
+  } );*/
+
   $('.lp_course_extra_meta_box__fields').on('click', 'a.delete', function () {
     $(this).closest('.lp_course_extra_meta_box__field').remove();
     return false;
@@ -345,19 +347,21 @@ const lpMetaboxExtraInfo = () => {
     $(this).closest('.lp_course_faq_meta_box__content').find('.lp_course_faq_meta_box__fields').append($(this).data('add'));
     return false;
   });
-  document.querySelectorAll('.lp_course_faq_meta_box__fields').forEach(ele => {
-    ele.addEventListener('keydown', e => {
-      const inputs = ele.querySelectorAll('.lp_course_faq_meta_box__field input');
-      const textareas = ele.querySelectorAll('.lp_course_faq_meta_box__field textarea');
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        [...inputs, ...textareas].forEach(input => {
-          input.blur();
-        });
-        return false;
-      }
-    });
-  });
+
+  /*document.querySelectorAll( '.lp_course_faq_meta_box__fields' ).forEach( ( ele ) => {
+  	ele.addEventListener( 'keydown', ( e ) => {
+  		const inputs = ele.querySelectorAll( '.lp_course_faq_meta_box__field input' );
+  		const textareas = ele.querySelectorAll( '.lp_course_faq_meta_box__field textarea' );
+  			if ( e.keyCode === 13 ) {
+  			e.preventDefault();
+  			[ ...inputs, ...textareas ].forEach( ( input ) => {
+  				input.blur();
+  			} );
+  			return false;
+  		}
+  	} );
+  } );*/
+
   $('.lp_course_faq_meta_box__fields').on('click', 'a.delete', function () {
     $(this).closest('.lp_course_faq_meta_box__field').remove();
     return false;
@@ -580,49 +584,58 @@ const lpMetaboxCourseTabs = () => {
 };
 
 // use to show and hide field condition logic metabox.
-const lpMetaboxCondition = () => {
-  const fields = document.querySelectorAll('.lp-meta-box .form-field');
-  fields.forEach(field => {
-    if (field.hasAttribute('data-show') && field.dataset.show) {
-      lpMetaboxConditionType(field, field.dataset.show, 'show');
-    } else if (field.hasAttribute('data-hide') && field.dataset.hide) {
-      lpMetaboxConditionType(field, field.dataset.hide, 'hide');
-    }
-  });
-};
-const lpMetaboxConditionType = (field, conditions, typeCondition = 'show') => {
-  const condition = JSON.parse(conditions),
-    eles = document.querySelectorAll(`input[id^="${condition[0]}"]`),
-    logic = condition[1] === '=' ? '=' : '!=',
-    dataLogic = condition[2];
-  const switchCase = (type, ele, target) => {
-    switch (type) {
-      case 'checkbox':
-        let val = dataLogic;
-        if (dataLogic === 'yes' || dataLogic === '1' || dataLogic === 1 || dataLogic === 'true') {
-          val = true;
-        } else if (dataLogic === 'no' || dataLogic === '0' || dataLogic === 0 || dataLogic === 'false') {
-          val = false;
-        }
-        if (logic == '!=' && val !== Boolean(target ? target.checked : ele.checked)) {
-          field.style.display = typeCondition === 'show' ? '' : 'none';
-        } else if (logic == '=' && val == Boolean(target ? target.checked : ele.checked)) {
-          field.style.display = typeCondition === 'show' ? '' : 'none';
-        } else {
-          field.style.display = typeCondition === 'show' ? 'none' : '';
-        }
-        break;
-    }
-  };
-  eles.forEach(ele => {
-    const type = ele.getAttribute('type');
-    switchCase(type, ele);
-    ele.addEventListener('change', e => {
-      const target = e.target;
-      switchCase(type, ele, target);
-    });
-  });
-};
+/*const lpMetaboxCondition = () => {
+	const fields = document.querySelectorAll( '.lp-meta-box .form-field' );
+
+	fields.forEach( ( field ) => {
+		if ( field.hasAttribute( 'data-show' ) && field.dataset.show ) {
+			lpMetaboxConditionType( field, field.dataset.show, 'show' );
+		} else if ( field.hasAttribute( 'data-hide' ) && field.dataset.hide ) {
+			lpMetaboxConditionType( field, field.dataset.hide, 'hide' );
+		}
+	} );
+};*/
+
+/*const lpMetaboxConditionType = ( field, conditions, typeCondition = 'show' ) => {
+	const condition = JSON.parse( conditions ),
+		eles = document.querySelectorAll( `input[id^="${ condition[ 0 ] }"]` ),
+		logic = condition[ 1 ] === '=' ? '=' : '!=',
+		dataLogic = condition[ 2 ];
+
+	const switchCase = ( type, ele, target ) => {
+		switch ( type ) {
+		case 'checkbox':
+			let val = dataLogic;
+
+			if ( dataLogic === 'yes' || dataLogic === '1' || dataLogic === 1 || dataLogic === 'true' ) {
+				val = true;
+			} else if ( dataLogic === 'no' || dataLogic === '0' || dataLogic === 0 || dataLogic === 'false' ) {
+				val = false;
+			}
+
+			if ( logic == '!=' && val !== Boolean( target ? target.checked : ele.checked ) ) {
+				field.style.display = typeCondition === 'show' ? '' : 'none';
+			} else if ( logic == '=' && val == Boolean( target ? target.checked : ele.checked ) ) {
+				field.style.display = typeCondition === 'show' ? '' : 'none';
+			} else {
+				field.style.display = typeCondition === 'show' ? 'none' : '';
+			}
+			break;
+		}
+	};
+
+	eles.forEach( ( ele ) => {
+		const type = ele.getAttribute( 'type' );
+
+		switchCase( type, ele );
+
+		ele.addEventListener( 'change', ( e ) => {
+			const target = e.target;
+
+			switchCase( type, ele, target );
+		} );
+	} );
+};*/
 
 /** End Nhamdv code */
 
@@ -802,27 +815,28 @@ const lpMetaboxsalePriceDate = () => {
       }
     }
   });
-  const datePickerSelect = function (datepicker) {
-    const option = $(datepicker).is('#_lp_sale_start') ? 'minDate' : 'maxDate',
-      otherDateField = 'minDate' === option ? $('#_lp_sale_end') : $('#_lp_sale_start'),
-      date = $(datepicker).datetimepicker('getDate');
-    $(otherDateField).datetimepicker('option', option, date);
-    $(datepicker).trigger('change');
+
+  /*const datePickerSelect = function( datepicker ) {
+  	const option = $( datepicker ).is( '#_lp_sale_start' ) ? 'minDate' : 'maxDate',
+  		otherDateField = 'minDate' === option ? $( '#_lp_sale_end' ) : $( '#_lp_sale_start' ),
+  		date = $( datepicker ).datetimepicker( 'getDate' );
+  		$( otherDateField ).datetimepicker( 'option', option, date );
+  	$( datepicker ).trigger( 'change' );
   };
-  $('.lp_sale_dates_fields').each(function () {
-    $(this).find('input').datetimepicker({
-      timeFormat: 'HH:mm',
-      separator: ' ',
-      dateFormat: 'yy-mm-dd',
-      showButtonPanel: true,
-      onSelect() {
-        datePickerSelect($(this));
-      }
-    });
-    $(this).find('input').each(function () {
-      datePickerSelect($(this));
-    });
-  });
+  	$( '.lp_sale_dates_fields' ).each( function() {
+  	$( this ).find( 'input' ).datetimepicker( {
+  		timeFormat: 'HH:mm',
+  		separator: ' ',
+  		dateFormat: 'yy-mm-dd',
+  		showButtonPanel: true,
+  		onSelect() {
+  			datePickerSelect( $( this ) );
+  		},
+  	} );
+  		$( this ).find( 'input' ).each( function() {
+  		datePickerSelect( $( this ) );
+  	} );
+  } );*/
 };
 const lpHidePassingGrade = () => {
   const listHides = ['evaluate_final_quiz', 'evaluate_final_assignment'];
@@ -901,11 +915,28 @@ const onReady = function onReady() {
   lpMetaboxExtraInfo();
   lpHidePassingGrade();
   lpGetFinalQuiz();
-  lpMetaboxCondition();
+  //lpMetaboxCondition();
   lpMetaboxRepeaterField();
   $(document).on('click', '.learn-press-payments .status .dashicons', togglePaymentStatus).on('click', '.change-email-status', updateEmailStatus).on('click', '.learn-press-filter-template', callbackFilterTemplates).on('click', '#learn-press-enable-emails, #learn-press-disable-emails', toggleEmails);
 };
 $(document).ready(onReady);
+
+// Events
+document.addEventListener('keydown', function (e) {
+  const target = e.target;
+  if (e.key === 'Enter' || e.keyCode === 13) {
+    // When enter on input on Extra information Options, blur it.
+    if (target.classList.contains('lp_course_extra_meta_box__input')) {
+      e.preventDefault();
+      target.blur();
+    } else if (target.tagName === 'INPUT') {
+      if (target.closest('.lp_course_faq_meta_box__field')) {
+        e.preventDefault();
+        target.blur();
+      }
+    }
+  }
+});
 /******/ })()
 ;
 //# sourceMappingURL=learnpress.js.map

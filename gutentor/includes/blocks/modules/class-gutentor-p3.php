@@ -42,17 +42,16 @@ if ( ! class_exists( 'Gutentor_P3_Hooks' ) ) {
 		 */
 		public static function get_instance() {
 
-			// Store the instance locally to avoid private static replication
+			// Store the instance locally to avoid private static replication.
 			static $instance = null;
 
-			// Only run these methods if they haven't been ran previously
+			// Only run these methods if they haven't been ran previously.
 			if ( null === $instance ) {
 				$instance = new self();
 			}
 
-			// Always return the instance
+			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**
@@ -312,7 +311,7 @@ if ( ! class_exists( 'Gutentor_P3_Hooks' ) ) {
 				return $output;
 			}
 			$p1CarouselOpt        = ( isset( $attributes['p1CarouselOpt'] ) && $attributes['p1CarouselOpt']['enable'] ) ? $attributes['p1CarouselOpt'] : false;
-			$desktop_row_position = ( $p1CarouselOpt && $p1CarouselOpt['arrowsPosition']['desktop'] ) ? $p1CarouselOpt['arrowsPosition']['desktop'] . '-desktop' : false;
+			$desktop_row_position = ( $p1CarouselOpt && isset( $p1CarouselOpt['arrowsPosition']['desktop'] ) && $p1CarouselOpt['arrowsPosition']['desktop'] ) ? $p1CarouselOpt['arrowsPosition']['desktop'] . '-desktop' : false;
 			if ( $desktop_row_position != 'gutentor-slick-a-default-desktop' ) {
 				$output .= '<div class="gutentor-slick-arrows"></div>';
 			}

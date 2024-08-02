@@ -33,17 +33,16 @@ if ( ! class_exists( 'Gutentor_P1' ) ) {
 		 * @since 1.0.1
 		 */
 		public static function get_instance() {
-			// Store the instance locally to avoid private static replication
+			// Store the instance locally to avoid private static replication.
 			static $instance = null;
 
-			// Only run these methods if they haven't been ran previously
+			// Only run these methods if they haven't been ran previously.
 			if ( null === $instance ) {
 				$instance = new self();
 			}
 
-			// Always return the instance
+			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**
@@ -382,11 +381,12 @@ if ( ! class_exists( 'Gutentor_P1' ) ) {
 
 			$the_query = new WP_Query( gutentor_get_query( $query_args ) );
 
-			$output         .= '<' . $tag . ' class="' . apply_filters( 'gutentor_post_module_main_wrap_class', gutentor_concat_space( 'gutentor-post-module', 'section-' . $gID, 'gutentor-post-module-p1', $template, $align, $default_class, $enable_equal_height ), $attributes ) . '" id="' . esc_attr( $blockID ) . '" data-gbid="' . esc_attr( $gID ) . '" ' . GutentorAnimationOptionsDataAttr( $blockComponentAnimation ) . '>' . "\n";
+			$tag             = gutentor_get_module_tag( $tag );
+			$output         .= '<' . $tag . ' class="' . esc_attr( apply_filters( 'gutentor_post_module_main_wrap_class', gutentor_concat_space( 'gutentor-post-module', 'section-' . $gID, 'gutentor-post-module-p1', $template, $align, $default_class, $enable_equal_height ), $attributes ) ) . '" id="' . esc_attr( $blockID ) . '" data-gbid="' . esc_attr( $gID ) . '" ' . GutentorAnimationOptionsDataAttr( $blockComponentAnimation ) . '>' . "\n";
 			$output         .= apply_filters( 'gutentor_post_module_before_container', '', $attributes );
-			$output         .= "<div class='" . apply_filters( 'gutentor_post_module_container_class', 'grid-container', $attributes ) . "'>";
+			$output         .= "<div class='" . esc_attr( apply_filters( 'gutentor_post_module_container_class', 'grid-container', $attributes ) ) . "'>";
 			$output         .= apply_filters( 'gutentor_post_module_before_block_items', '', $attributes );
-			$output         .= "<div class='" . apply_filters( 'gutentor_post_module_grid_row_class', 'grid-row', $attributes ) . "' " . gutentor_get_html_attr( apply_filters( 'gutentor_post_module_attr', array(), $attributes ) ) . '>';
+			$output         .= "<div class='" . esc_attr( apply_filters( 'gutentor_post_module_grid_row_class', 'grid-row', $attributes ) ) . "' " . gutentor_get_html_attr( apply_filters( 'gutentor_post_module_attr', array(), $attributes ) ) . '>';
 			$cat_style       = '';
 			$post_categories = array();
 			if ( $the_query->have_posts() ) :
@@ -408,23 +408,23 @@ if ( ! class_exists( 'Gutentor_P1' ) ) {
 							$timelineClass = 'g-timeline-odd';
 						}
 					}
-					$output .= "<article class='" . apply_filters( 'gutentor_post_module_grid_column_class', gutentor_concat_space( 'gutentor-post', $thumb_class, $timelineClass ), $attributes ) . "'>";
+					$output .= "<article class='" . esc_attr( apply_filters( 'gutentor_post_module_grid_column_class', gutentor_concat_space( 'gutentor-post', $thumb_class, $timelineClass ), $attributes ) ) . "'>";
 					if ( $timelineEnable ) {
 						$output .= "<div class='g-timeline-post-wrap'>";
-						$output .= "<div class='" . apply_filters( 'gutentor_post_module_post_item', gutentor_concat_space( 'gutentor-post-item', $gptm_class ), $attributes ) . "'>";
+						$output .= "<div class='" . esc_attr( apply_filters( 'gutentor_post_module_post_item', gutentor_concat_space( 'gutentor-post-item', $gptm_class ), $attributes ) ) . "'>";
 						$output .= apply_filters( 'gutentor_post_module_p1_query_data', '', get_post(), $attributes );
 						$output .= '</div>';/*.gutentor-post-item*/
 						$output .= '</div>';/*.g-timeline-post-wrap*/
 						$output .= apply_filters( 'gutentor_post_module_p1_query_data_after', '', get_post(), $attributes );
 
 					} else {
-						$output .= "<div class='" . apply_filters( 'gutentor_post_module_post_item', gutentor_concat_space( 'gutentor-post-item', $gptm_class ), $attributes ) . "'>";
+						$output .= "<div class='" . esc_attr( apply_filters( 'gutentor_post_module_post_item', gutentor_concat_space( 'gutentor-post-item', $gptm_class ), $attributes ) ) . "'>";
 						$output .= apply_filters( 'gutentor_post_module_p1_query_data', '', get_post(), $attributes );
 						$output .= '</div>';/*.gutentor-post-item*/
 
 					}
 					$output .= '</article>';/*.article*/
-					$index++;
+					++$index;
 				endwhile;
 			else :
 				$output .= '<header class="g-n-f-t-1"><h2 class="g-n-f-title">' . esc_html( $nothing_found_text ) . '</h2></header>';
@@ -435,7 +435,7 @@ if ( ! class_exists( 'Gutentor_P1' ) ) {
 			$output .= apply_filters( 'gutentor_post_module_after_container', '', $attributes );
 			if ( $post_categories && $content === 'ajax' ) {
 				$cat_style = gutentor_pm_post_dynamic_categories_color( array_unique( $post_categories ) );
-				$output   .= '<style>' . $cat_style . '</style>';
+				$output   .= '<style>' . wp_strip_all_tags( $cat_style ) . '</style>';
 			}
 			$output .= '</' . $tag . '>';/*
 			.gutentor-blog-post-wrapper*/

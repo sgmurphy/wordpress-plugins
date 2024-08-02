@@ -722,22 +722,6 @@
 /**
  * Event Tickets - Tickets Commerce PayPal Stylesheet
  *
- * @since 5.13.0.2
- */
-
-@keyframes node_inserted {
-	from {
-		opacity: 0.99;
-	}
-
-	to {
-		opacity: 1;
-	}
-}
-
-/**
- * Event Tickets - Tickets Commerce PayPal Stylesheet
- *
  * @since 5.2.0
  */
 
@@ -747,8 +731,6 @@
 	}
 
 .event-tickets .paypal-buttons-context-iframe {
-		animation-duration: 0.01s;
-		animation-name: node_inserted;
 		background-color: #fafafa !important;
 
 		/* @todo: more to be defined for the PayPal Iframe */

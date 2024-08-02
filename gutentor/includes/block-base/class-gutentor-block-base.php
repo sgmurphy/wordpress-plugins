@@ -52,7 +52,6 @@ if ( ! class_exists( 'Gutentor_Block_Base' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**
@@ -73,7 +72,7 @@ if ( ! class_exists( 'Gutentor_Block_Base' ) ) {
 
 			if ( self::$counter === 0 ) {
 				add_filter( 'gutentor_common_attr_default_value', array( $this, 'add_single_item_common_attrs_default_values' ) );
-				self::$counter++;
+				++self::$counter;
 			}
 		}
 
@@ -92,24 +91,21 @@ if ( ! class_exists( 'Gutentor_Block_Base' ) ) {
 				$args = array(
 					'render_callback' => array( $this, 'render_callback' ),
 				);
-				if ( $this->block_name === 'p1' ) {
+				if ( 'p1' === $this->block_name ) {
 					$attributes = $this->get_attrs();
-				} else {
-					if ( method_exists( $this, 'get_attrs' ) ) {
+				} elseif ( method_exists( $this, 'get_attrs' ) ) {
 						$attributes = array_merge_recursive( $this->get_attrs(), $this->get_common_attrs() );
-					} else {
-						$attributes = $this->get_common_attrs();
-					}
+				} else {
+					$attributes = $this->get_common_attrs();
 				}
 
 				$args['attributes'] = $attributes;
 			}
-			if ( $this->register_block_type_args ){
+			if ( $this->register_block_type_args ) {
 				$args = array_merge( $args, $this->register_block_type_args );
-			}  
+			}
 
 			register_block_type( 'gutentor/' . $this->block_name, $args );
-
 		}
 
 		/**
@@ -2382,7 +2378,6 @@ if ( ! class_exists( 'Gutentor_Block_Base' ) ) {
 					'type' => 'object',
 				),
 			);
-
 		}
 
 		/**
@@ -2750,7 +2745,6 @@ if ( ! class_exists( 'Gutentor_Block_Base' ) ) {
 		 * @return array
 		 * @since 1.0.1
 		 */
-
 		public function add_single_item_common_attrs_default_values( $attr ) {
 			return array_merge_recursive( $attr, $this->get_single_item_common_attrs_default_values() );
 		}

@@ -132,3 +132,77 @@ if ( ! function_exists( 'gutentor_sanitize_array' ) ) :
 		return is_array( $checked ) ? $checked : array();
 	}
 endif;
+
+
+/* Validation */
+if ( ! function_exists( 'gutentor_get_allowed_text_tags' ) ) :
+	/**
+	 * Get valid text tags
+	 *
+	 * @see src\global-components\i18n\options.js
+	 *
+	 * @since 3.3.6
+	 * @access public
+	 *
+	 * @return array valid text tags.
+	 */
+	function gutentor_get_allowed_text_tags() {
+		return apply_filters( 'gutentor_get_allowed_text_tags', array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span' ) );
+	}
+endif;
+
+if ( ! function_exists( 'gutentor_get_title_tag' ) ) :
+	/**
+	 * Get valid title tag
+	 *
+	 * @since 3.3.6
+	 * @access public
+	 *
+	 * @param string $title_tag Title tag.
+	 * @return string valid title tag.
+	 */
+	function gutentor_get_title_tag( $title_tag ) {
+		$allowed_tags = gutentor_get_allowed_text_tags();
+		if ( in_array( $title_tag, $allowed_tags, true ) ) {
+			return $title_tag;
+		} else {
+			return 'h3';
+		}
+	}
+endif;
+
+if ( ! function_exists( 'gutentor_get_allowed_module_tags' ) ) :
+	/**
+	 * Get valid module tags
+	 *
+	 * @see src\global-components\i18n\options.js
+	 *
+	 * @since 3.3.6
+	 * @access public
+	 *
+	 * @return array valid module tags.
+	 */
+	function gutentor_get_allowed_module_tags() {
+		return apply_filters( 'gutentor_get_allowed_module_tags', array( 'section', 'div', 'header', 'footer', 'main', 'article', 'aside' ) );
+	}
+endif;
+
+if ( ! function_exists( 'gutentor_get_module_tag' ) ) :
+	/**
+	 * Get valid module tag
+	 *
+	 * @since 3.3.6
+	 * @access public
+	 *
+	 * @param string $tag Module tag.
+	 * @return string valid module tag.
+	 */
+	function gutentor_get_module_tag( $tag ) {
+		$allowed_tags = gutentor_get_allowed_module_tags();
+		if ( in_array( $tag, $allowed_tags, true ) ) {
+			return $tag;
+		} else {
+			return 'div';
+		}
+	}
+endif;

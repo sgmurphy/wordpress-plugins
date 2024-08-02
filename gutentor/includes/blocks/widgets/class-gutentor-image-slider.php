@@ -43,7 +43,6 @@ if ( ! class_exists( 'Gutentor_Image_Slider' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**

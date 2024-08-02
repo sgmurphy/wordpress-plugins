@@ -36,6 +36,7 @@ function remove_gutener_customize_register() {
 add_action( 'customize_register', 'remove_bosa_customize_register', 1 );
 function remove_bosa_customize_register() {
     remove_action( 'customize_register', 'bosa_customize_register' );
+    remove_action( 'customize_register', 'bt_customize_register' );
 }
 
 /**

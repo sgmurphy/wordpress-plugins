@@ -1,5 +1,4 @@
 <?php
-
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -36,15 +35,15 @@ class Gutentor_Pro_Edd_Plugin_Installer {
 	 * @return object
 	 */
 	public static function get_instance() {
-		// Store the instance locally to avoid private static replication
+		// Store the instance locally to avoid private static replication.
 		static $instance = null;
 
-		// Only run these methods if they haven't been ran previously
+		// Only run these methods if they haven't been ran previously.
 		if ( null === $instance ) {
 			$instance = new self();
 		}
 
-		// Always return the instance
+		// Always return the instance.
 		return $instance;
 	}
 
@@ -131,8 +130,7 @@ class Gutentor_Pro_Edd_Plugin_Installer {
 					esc_url( $url ),
 					__( 'Activate' ) . ' ' . $this->api_data['item_name']
 				);
-			} else {
-				if ( is_main_site() ) {
+			} elseif ( is_main_site() ) {
 					$url    = wp_nonce_url(
 						add_query_arg(
 							array(
@@ -150,14 +148,13 @@ class Gutentor_Pro_Edd_Plugin_Installer {
 						esc_attr( $this->slug ),
 						__( 'Install Now' )
 					);
-				} else {
-					$action = sprintf(
-					/* translators: %s: URL to Press This bookmarklet on the main site. */
-						__( '%1$s is not installed. Please install from <a href="%2$s">the main site</a>.' ),
-						$this->api_data['item_name'],
-						get_admin_url( get_current_network_id(), $this->slug . '.php' )
-					);
-				}
+			} else {
+				$action = sprintf(
+				/* translators: %s: URL to Press This bookmarklet on the main site. */
+					__( '%1$s is not installed. Please install from <a href="%2$s">the main site</a>.' ),
+					$this->api_data['item_name'],
+					get_admin_url( get_current_network_id(), $this->slug . '.php' )
+				);
 			}
 		} else {
 			$action = sprintf(
@@ -531,7 +528,7 @@ class Gutentor_Pro_Edd_Plugin_Installer {
 		} else {
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-			if ( !$license_data->success ) {
+			if ( ! $license_data->success ) {
 				switch ( $license_data->error ) {
 					case 'expired':
 						$message = sprintf(
@@ -642,4 +639,3 @@ class Gutentor_Pro_Edd_Plugin_Installer {
 function gutentor_pro_edd_plugin_installer() {
 	return Gutentor_Pro_Edd_Plugin_Installer::get_instance();
 }
-

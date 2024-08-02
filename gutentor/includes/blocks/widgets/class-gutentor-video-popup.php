@@ -43,7 +43,6 @@ if ( ! class_exists( 'Gutentor_Video_Popup' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**

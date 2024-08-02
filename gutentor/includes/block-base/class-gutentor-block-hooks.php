@@ -23,17 +23,16 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 		 * @since 2.0.0
 		 */
 		public static function get_instance() {
-			 // Store the instance locally to avoid private static replication.
+			// Store the instance locally to avoid private static replication.
 			static $instance = null;
 
-			// Only run these methods if they haven't been ran previously
+			// Only run these methods if they haven't been ran previously.
 			if ( null === $instance ) {
 				$instance = new self();
 			}
 
-			// Always return the instance
+			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**
@@ -119,8 +118,8 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 			$this->add_filter( 'gutentor_edit_post_module_readmore_button_data', $this, 'addButtonWrap', 10, 3 );
 			$this->add_filter( 'gutentor_save_block_header_data', $this, 'gutentor_heading_title', 10, 2 );
 			$this->add_filter( 'gutentor_save_grid_column_class', $this, 'addingBlogStyleOptionsClass', 15, 2 );
-            $this->add_filter( 'gutentor_post_module_product_button_class', $this, 'addingProductButtonWrap', 10, 3 );
-            $this->add_filter( 'gutentor_post_module_download_button_class', $this, 'addingProductButtonWrap', 10, 3 );
+			$this->add_filter( 'gutentor_post_module_product_button_class', $this, 'addingProductButtonWrap', 10, 3 );
+			$this->add_filter( 'gutentor_post_module_download_button_class', $this, 'addingProductButtonWrap', 10, 3 );
 			$this->add_filter( 'gutentor_edit_enable_column', $this, 'remove_column_class_blog_post', 8, 2 );
 
 			/*Get dynamic CSS location*/
@@ -184,7 +183,7 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 				if ( $is_m_hide ) {
 					$device_class .= ' d-none';
 					if ( ! $is_t_hide ) {
-						//$device_class .= ' d-sm-block';
+						// $device_class .= ' d-sm-block';
 						$device_class .= ' d-md-block';
 					}
 					if ( ! $device_class && ! strpos( $device_class, 'd-lg-block' ) ) {
@@ -198,7 +197,6 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 			$local_data = gutentor_concat_space( $output, $local_data );
 
 			return $local_data;
-
 		}
 
 		/**
@@ -294,8 +292,8 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 			if ( $is_m_hide ) {
 				$device_class .= ' d-none';
 				if ( ! $is_t_hide ) {
-					//$device_class .= ' d-sm-block';
-                    $device_class .= ' d-md-block';
+					// $device_class .= ' d-sm-block';
+					$device_class .= ' d-md-block';
 				}
 				if ( ! $device_class && ! strpos( $device_class, 'd-lg-block' ) ) {
 					$device_class .= ' d-lg-block';
@@ -322,7 +320,6 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 			$local_data = gutentor_concat_space( $output, $local_data );
 
 			return $local_data;
-
 		}
 
 		/**
@@ -368,7 +365,6 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 				$output            = gutentor_concat_space( $output, $mobile_align_data );
 			}
 			return $output;
-
 		}
 
 		/**
@@ -432,7 +428,6 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 
 			$local_data = gutentor_concat_space( $output, $local_data );
 			return $local_data;
-
 		}
 
 
@@ -467,7 +462,6 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 
 			$local_data = gutentor_concat_space( $output, $local_data );
 			return $local_data;
-
 		}
 
 		/**
@@ -501,7 +495,6 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 
 			$local_data = gutentor_concat_space( $output, $local_data );
 			return $local_data;
-
 		}
 
 		/**
@@ -569,8 +562,8 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 		 * @return string
 		 */
 		public function add_Item_wrap_animation_class( $output, $attributes ) {
-			 $blockItemsWrapAnimation = isset( $attributes['blockItemsWrapAnimation'] ) ? $attributes['blockItemsWrapAnimation'] : '';
-			$animation_class          = ( $blockItemsWrapAnimation && $attributes['blockItemsWrapAnimation']['Animation'] && 'none' != $attributes['blockItemsWrapAnimation']['Animation'] ) ? gutentor_concat_space( 'wow animated ', $attributes['blockItemsWrapAnimation']['Animation'] ) : '';
+			$blockItemsWrapAnimation = isset( $attributes['blockItemsWrapAnimation'] ) ? $attributes['blockItemsWrapAnimation'] : '';
+			$animation_class         = ( $blockItemsWrapAnimation && $attributes['blockItemsWrapAnimation']['Animation'] && 'none' != $attributes['blockItemsWrapAnimation']['Animation'] ) ? gutentor_concat_space( 'wow animated ', $attributes['blockItemsWrapAnimation']['Animation'] ) : '';
 			return gutentor_concat_space( $output, $animation_class );
 		}
 
@@ -584,7 +577,7 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 		public function add_link_to_post_thumbnails( $output, $url, $attributes ) {
 			$output_wrap = '';
 			$target      = '';
-			$class      = '';
+			$class       = '';
 			$rel         = '';
 			if ( empty( $output ) || $output == null ) {
 				return $output;
@@ -598,9 +591,9 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 			if ( array_key_exists( 'blockImageBoxLinkOpenNewTab', $attributes ) ) {
 				$target = $attributes['blockImageBoxLinkOpenNewTab'] ? 'target="_blank"' : '';
 			}
-            if ( array_key_exists( 'blockImageBoxLinkClass', $attributes ) ) {
-                $class = $attributes['blockImageBoxLinkClass'] ? $attributes['blockImageBoxLinkClass'] : '';
-            }
+			if ( array_key_exists( 'blockImageBoxLinkClass', $attributes ) ) {
+				$class = $attributes['blockImageBoxLinkClass'] ? $attributes['blockImageBoxLinkClass'] : '';
+			}
 			if ( array_key_exists( 'blockImageBoxLinkRel', $attributes ) ) {
 				$rel = ( $attributes['blockImageBoxLinkRel'] ) ? 'rel="' . $attributes['blockImageBoxLinkRel'] . '"' : '';
 
@@ -610,7 +603,6 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 			$output_wrap .= $output;
 			$output_wrap .= '</a>';
 			return $output_wrap;
-
 		}
 
 		/**
@@ -677,29 +669,29 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 			return gutentor_concat_space( $output, $local_data );
 		}
 
-        /**
-         * Add Button Wrap Attributes
-         *
-         * @param {object} $output
-         * @param {string} $post
-         * @param {object} buttonLinkOptions
-         * @return string
-         */
-        public function addButtonWrap( $output, $post, $attributes ) {
+		/**
+		 * Add Button Wrap Attributes
+		 *
+		 * @param {object}                   $output
+		 * @param {string}                   $post
+		 * @param {object} buttonLinkOptions
+		 * @return string
+		 */
+		public function addButtonWrap( $output, $post, $attributes ) {
 
-            if ( $attributes['gName'] != 'gutentor/p1' ) {
-                return $output;
-            }
-            $outPutData        = '';
-            $enable_height = ( $attributes['pEqlHeight'] ) ? $attributes['pEqlHeight'] : false;
-            if ( !$enable_height ) {
-                return $output;
-            }
-            $outPutData .= '<div class="gutentor-button-wrap">';
-            $outPutData .= $output;
-            $outPutData .= '</div>';
-            return $outPutData;
-        }
+			if ( $attributes['gName'] != 'gutentor/p1' ) {
+				return $output;
+			}
+			$outPutData    = '';
+			$enable_height = ( $attributes['pEqlHeight'] ) ? $attributes['pEqlHeight'] : false;
+			if ( ! $enable_height ) {
+				return $output;
+			}
+			$outPutData .= '<div class="gutentor-button-wrap">';
+			$outPutData .= $output;
+			$outPutData .= '</div>';
+			return $outPutData;
+		}
 
 		/**
 		 * Callback functions for body_class,
@@ -766,23 +758,23 @@ if ( ! class_exists( 'Gutentor_Block_Hooks' ) ) {
 			return gutentor_concat_space( $output, $blog_style_class );
 		}
 
-        /**
-         * Adding Product
-         *
-         * @param {array} output
-         * @param {object} props
-         * @return {array}
-         */
-        public function addingProductButtonWrap( $output,$post, $attributes ) {
-            if ( $attributes['gName'] != 'gutentor/p1' ) {
-                return $output;
-            }
-            $enable_height = ( $attributes['pEqlHeight'] ) ? $attributes['pEqlHeight'] : false;
-            if ( !$enable_height ) {
-                return $output;
-            }
-            return gutentor_concat_space( $output, 'gutentor-button-wrap' );
-        }
+		/**
+		 * Adding Product
+		 *
+		 * @param {array} output
+		 * @param {object} props
+		 * @return {array}
+		 */
+		public function addingProductButtonWrap( $output, $post, $attributes ) {
+			if ( $attributes['gName'] != 'gutentor/p1' ) {
+				return $output;
+			}
+			$enable_height = ( $attributes['pEqlHeight'] ) ? $attributes['pEqlHeight'] : false;
+			if ( ! $enable_height ) {
+				return $output;
+			}
+			return gutentor_concat_space( $output, 'gutentor-button-wrap' );
+		}
 
 		/**
 		 * Remove Column Class in Blog post

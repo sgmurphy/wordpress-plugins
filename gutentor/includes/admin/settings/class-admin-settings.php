@@ -4,7 +4,6 @@
  *
  * @since 3.0.3
  */
-
 if ( ! class_exists( 'Gutentor_Admin_Settings' ) ) {
 	/**
 	 * Class Gutentor_Admin_Settings.
@@ -21,7 +20,6 @@ if ( ! class_exists( 'Gutentor_Admin_Settings' ) ) {
 			add_filter( 'use_block_editor_for_post_type', array( $this, 'enable_gutenberg_post_type' ), 999, 2 );
 
 			add_action( 'init', array( $this, 'add_page_templates_in_post_types' ), 999 );
-
 		}
 
 

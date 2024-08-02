@@ -56,7 +56,6 @@ if ( ! class_exists( 'Gutentor_Template_Info' ) ) {
 				$template = $this->get_index_template();
 			}
 			return $template;
-
 		}
 
 		/**
@@ -113,8 +112,8 @@ if ( ! class_exists( 'Gutentor_Template_Info' ) ) {
 		 *
 		 * @param string   $type      Filename without extension.
 		 * @param string[] $templates An optional list of template candidates.
-         * @return WP_Block_Template|null template A template object, or null if none could be found.
-         */
+		 * @return WP_Block_Template|null template A template object, or null if none could be found.
+		 */
 		function get_query_template( $type, $templates = array() ) {
 			$type = preg_replace( '|[^a-z0-9-]+|', '', $type );
 
@@ -171,8 +170,8 @@ if ( ! class_exists( 'Gutentor_Template_Info' ) ) {
 		 *
 		 * @see $this->get_query_template()
 		 *
-         * @return WP_Block_Template|null template A template object, or null if none could be found.
-         */
+		 * @return WP_Block_Template|null template A template object, or null if none could be found.
+		 */
 		function get_index_template() {
 			return $this->get_query_template( 'index' );
 		}
@@ -187,8 +186,8 @@ if ( ! class_exists( 'Gutentor_Template_Info' ) ) {
 		 *
 		 * @see $this->get_query_template()
 		 *
-         * @return WP_Block_Template|null template A template object, or null if none could be found.
-         */
+		 * @return WP_Block_Template|null template A template object, or null if none could be found.
+		 */
 		function get_404_template() {
 			return $this->get_query_template( '404' );
 		}
@@ -203,8 +202,8 @@ if ( ! class_exists( 'Gutentor_Template_Info' ) ) {
 		 *
 		 * @see $this->get_query_template()
 		 *
-         * @return WP_Block_Template|null template A template object, or null if none could be found.
-         */
+		 * @return WP_Block_Template|null template A template object, or null if none could be found.
+		 */
 		function get_archive_template() {
 			$post_types = array_filter( (array) get_query_var( 'post_type' ) );
 
@@ -267,8 +266,8 @@ if ( ! class_exists( 'Gutentor_Template_Info' ) ) {
 		 *
 		 * @see $this->get_query_template()
 		 *
-         * @return WP_Block_Template|null template A template object, or null if none could be found.
-         */
+		 * @return WP_Block_Template|null template A template object, or null if none could be found.
+		 */
 		function get_author_template() {
 			$author = get_queried_object();
 
@@ -735,30 +734,29 @@ if ( ! class_exists( 'Gutentor_Template_Info' ) ) {
 			return $this->get_query_template( 'attachment', $templates );
 		}
 
-        /*
-        wp-includes\template-loader.php
-        */
-        public function get_template_part_info($attributes) {
+		/*
+		wp-includes\template-loader.php
+		*/
+		public function get_template_part_info( $attributes ) {
 
-            $template_part_query = new WP_Query(
-                array(
-                    'post_type'      => 'wp_template_part',
-                    'post_status'    => 'publish',
-                    'post_name__in'  => array( $attributes['slug'] ),
-                    'tax_query'      => array(
-                        array(
-                            'taxonomy' => 'wp_theme',
-                            'field'    => 'slug',
-                            'terms'    => $attributes['theme'],
-                        ),
-                    ),
-                    'posts_per_page' => 1,
-                    'no_found_rows'  => true,
-                )
-            );
-            return $template_part_query->have_posts() ? $template_part_query->next_post() : null;
-
-        }
+			$template_part_query = new WP_Query(
+				array(
+					'post_type'      => 'wp_template_part',
+					'post_status'    => 'publish',
+					'post_name__in'  => array( $attributes['slug'] ),
+					'tax_query'      => array(
+						array(
+							'taxonomy' => 'wp_theme',
+							'field'    => 'slug',
+							'terms'    => $attributes['theme'],
+						),
+					),
+					'posts_per_page' => 1,
+					'no_found_rows'  => true,
+				)
+			);
+			return $template_part_query->have_posts() ? $template_part_query->next_post() : null;
+		}
 		/**
 		 * Gets an instance of this object.
 		 * Prevents duplicate instances which avoid artefacts and improves performance.
@@ -769,15 +767,15 @@ if ( ! class_exists( 'Gutentor_Template_Info' ) ) {
 		 * @return object
 		 */
 		public static function get_instance() {
-			// Store the instance locally to avoid private static replication
+			// Store the instance locally to avoid private static replication.
 			static $instance = null;
 
-			// Only run these methods if they haven't been ran previously
+			// Only run these methods if they haven't been ran previously.
 			if ( null === $instance ) {
 				$instance = new self();
 			}
 
-			// Always return the instance
+			// Always return the instance.
 			return $instance;
 		}
 

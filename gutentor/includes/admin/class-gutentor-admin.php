@@ -195,7 +195,6 @@ if ( ! class_exists( 'Gutentor_Admin' ) ) {
 				),
 			);
 			wp_localize_script( 'gutentor-admin-build', 'gutentor', $localize );
-
 		}
 
 
@@ -220,6 +219,7 @@ if ( ! class_exists( 'Gutentor_Admin' ) ) {
 			) {
 				return;
 			}
+
 			/*
 			---------------------------------------------*
 			* Register Style for Admin Page               *
@@ -289,7 +289,6 @@ if ( ! class_exists( 'Gutentor_Admin' ) ) {
 				'status' => self::block_action(),
 			);
 			wp_localize_script( 'gutentor-block-deactivate', 'GUTENTOR_BLOCKS', $localize );
-
 		}
 
 		/**
@@ -816,7 +815,6 @@ if ( ! class_exists( 'Gutentor_Admin' ) ) {
 					<td class="form-field gutentor-fields">
 						<label for="gutentor_meta[bg-color]"><?php esc_html_e( 'Normal', 'gutentor' ); ?></label>
 						<input type="text" value="<?php echo esc_attr( $bg ); ?>" id="gutentor_meta[bg-color]" name="gutentor_meta[bg-color]" class="gutentor-color-picker" data-rgba="1"/>
-
 					</td>
 				</tr>
 				<tr class="form-field gutentor-fields">
@@ -884,7 +882,7 @@ if ( ! class_exists( 'Gutentor_Admin' ) ) {
 							$output .= "<a href='#' class='button button-primary gutentor-img-uploader-open' data-button-text='" . esc_attr( $button_text ) . "' data-title='" . esc_attr( $upload_title ) . "'>" . esc_html( $upload_title ) . '</a>';
 
 							$output .= '<input type="hidden" value="' . esc_attr( $f_image ) . '" id="gutentor_meta[featured-image]" name="gutentor_meta[featured-image]" />';
-							echo $output;
+							echo $output;//phpcs:ignore All output is escaped before
 							?>
 						</div>
 					</td>

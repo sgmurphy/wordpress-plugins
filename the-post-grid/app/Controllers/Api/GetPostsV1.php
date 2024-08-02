@@ -216,7 +216,7 @@ class GetPostsV1 {
 				$args['posts_per_page'] = $_posts_per_page;
 			}
 
-			if ( isset( $data['display_per_page'] ) && 'show' === $data['show_pagination'] && $data['display_per_page'] > 0 ) {
+			if ( isset( $data['display_per_page'] ) && $data['display_per_page'] > 0 ) {
 				$args['posts_per_page'] = $data['display_per_page'];
 			}
 		} else {

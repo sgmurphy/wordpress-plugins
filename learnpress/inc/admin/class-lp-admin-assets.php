@@ -148,10 +148,10 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					$this->url( self::$_folder_source . 'js/admin/share/dropdown-pages' . self::$_min_assets . '.js' ),
 					[ 'lp-utils', 'select2' ]
 				),
-				'jquery-ui-timepicker-addon'        => new LP_Asset_Key(
+				/*'jquery-ui-timepicker-addon'        => new LP_Asset_Key(
 					$this->url( 'src/js/vendor/jquery/jquery-ui-timepicker-addon.js' ),
 					array( 'jquery-ui-datepicker' )
-				),
+				),*/
 				'lp-addons'                         => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/addons' . self::$_min_assets . '.js' ),
 					[],
@@ -161,7 +161,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					'',
 					[ 'strategy' => 'async' ]
 				),
-				'advanced-list'                     => new LP_Asset_Key( $this->url( self::$_folder_source . 'js/admin/share/advanced-list' . self::$_min_assets . '.js' ) ),
+				//'advanced-list'                     => new LP_Asset_Key( $this->url( self::$_folder_source . 'js/admin/share/advanced-list' . self::$_min_assets . '.js' ) ),
 				'learn-press-global'                => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/global' . self::$_min_assets . '.js' ),
 					array( 'jquery', 'underscore', 'utils', 'jquery-ui-sortable' )
@@ -175,18 +175,20 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 						'jquery-tipsy',
 						'dropdown-pages',
 						'wp-api-fetch',
-						'jquery-ui-timepicker-addon',
-						'select2'
+						//'jquery-ui-timepicker-addon',
+						//'select2'
 					),
 					array(
 						LP_LESSON_CPT,
 						LP_QUIZ_CPT,
 						LP_COURSE_CPT,
-						LP_ORDER_CPT,
+						//LP_ORDER_CPT,
 						'learnpress_page_learn-press-settings',
 					),
 					0,
-					1
+					1,
+					'',
+					[ 'strategy' => 'defer' ]
 				),
 				'lp-duplicate-post'                 => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/admin/lp-duplicate-post' . self::$_min_assets . '.js' ),
@@ -221,24 +223,26 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					0,
 					0
 				),
-				'learn-press-meta-box-order'        => new LP_Asset_Key(
+				/*'learn-press-meta-box-order'        => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/admin/partial/meta-box-order' . self::$_min_assets . '.js' ),
 					array(
 						'vue-libs',
 						'advanced-list',
-						'lp-modal-search-courses',
+						//'lp-modal-search-courses',
 						//'lp-modal-search-users',
 					),
 					array( LP_ORDER_CPT ),
 					0,
 					1
-				),
+				),*/
 				'lp-admin-order'                    => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/admin-order' . self::$_min_assets . '.js' ),
 					array( 'html2pdf' ),
 					array( LP_ORDER_CPT ),
 					0,
-					1
+					0,
+					'',
+					[ 'strategy' => 'defer' ]
 				),
 				/*'learn-press-sync-data'             => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/pages/sync-data' . self::$_min_assets . '.js' ),
@@ -247,13 +251,13 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					0,
 					1
 				),*/
-				'lp-setup'                          => new LP_Asset_Key(
+				/*'lp-setup'                          => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/pages/setup' . self::$_min_assets . '.js' ),
-					array( 'jquery', 'dropdown-pages', 'select2' ),
+					array( 'jquery', 'dropdown-pages' ),
 					array( 'lp-page-setup' ),
 					0,
 					1
-				),
+				),*/
 				/*'learn-press-statistic'             => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/pages/statistic' . self::$_min_assets . '.js' ),
 					array( 'jquery', 'jquery-ui-datepicker', 'chart' ),
@@ -261,7 +265,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					0,
 					1
 				),*/
-				'lp-modal-search-courses'           => new LP_Asset_Key(
+				/*'lp-modal-search-courses'           => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/admin/share/modal-search-courses' . self::$_min_assets . '.js' ),
 					array(
 						'vue-libs',
@@ -270,7 +274,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					array( LP_ORDER_CPT ),
 					1,
 					1
-				),
+				),*/
 				/*'lp-modal-search-users'             => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/admin/share/modal-search-users' . self::$_min_assets . '.js' ),
 					array( 'jquery' ),
@@ -386,12 +390,12 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				/*'font-awesome'          => new LP_Asset_Key(
 					$this->url( 'src/css/vendor/font-awesome-5.min.css' )
 				),*/
-				'jquery-ui'             => new LP_Asset_Key(
+				/*'jquery-ui'             => new LP_Asset_Key(
 					$this->url( 'src/css/vendor/jquery-ui/jquery-ui.min.css' )
 				),
 				'jquery-ui-timepicker'  => new LP_Asset_Key(
 					$this->url( 'src/css/vendor/jquery-ui-timepicker-addon.css' )
-				),
+				),*/
 				'jquery-tipsy'          => new LP_Asset_Key(
 					$this->url( 'src/css/vendor/jquery.tipsy.css' )
 				),
@@ -400,9 +404,9 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					array(
 						'wp-color-picker',
 						'wp-components',
-						'select2',
-						'jquery-ui',
-						'jquery-ui-timepicker',
+						//'select2',
+						//'jquery-ui',
+						//'jquery-ui-timepicker',
 //						'font-awesome',
 						'jquery-tipsy',
 					),
@@ -416,7 +420,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					0
 				),
 				'lp-tom-select'         => new LP_Asset_Key(
-					'https://cdn.jsdelivr.net/npm/tom-select@2.2.3/dist/css/tom-select.css',
+					$this->url( 'src/css/vendor/tom-select.min.css' ),
 					[],
 					[],
 					0

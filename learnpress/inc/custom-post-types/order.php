@@ -130,40 +130,53 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 		 * @param bool $is_update
 		 *
 		 * @editor tungnx
-		 * @version 1.0.4
+		 * @version 1.0.5
 		 */
 		public function save_post( int $post_id, WP_Post $post = null, bool $is_update = false ) {
-			$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS );
-			if ( isset( $backtrace[6]['class'] ) && $backtrace[6]['class'] === LP_Order_CURD::class ) {
-				return;
-			}
+			try {
+				$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS );
+				if ( isset( $backtrace[6]['class'] ) && $backtrace[6]['class'] === LP_Order_CURD::class ) {
+					return;
+				}
 
-			if ( wp_is_post_revision( $post_id ) ) {
-				return;
-			}
+				if ( wp_is_post_revision( $post_id ) ) {
+					return;
+				}
 
-			// For create LP Order manual on Backend
-			$order = learn_press_get_order( $post_id );
-			if ( ! $order ) {
-				return;
-			}
+				// For create LP Order manual on Backend
+				$order = learn_press_get_order( $post_id );
+				if ( ! $order ) {
+					return;
+				}
 
-			$created_via = $order->get_created_via();
-			if ( empty( $created_via ) ) {
-				$created_via = 'manual';
-				$order->set_created_via( 'manual' );
-			}
+				$created_via = $order->get_created_via();
+				if ( empty( $created_via ) ) {
+					$created_via = LP_ORDER_CREATED_VIA_MANUAL;
+					$order->set_created_via( $created_via );
+				}
 
-			if ( isset( $_POST['order-customer'] ) && $created_via === 'manual' ) {
-				$user_id = LP_Request::get_param( 'order-customer' );
-				$order->set_user_id( $user_id );
-			}
+				if ( isset( $_POST['order-customer'] ) && $order->is_manual() ) {
+					$user_id = LP_Request::get_param( 'order-customer' );
+					$order->set_user_id( $user_id );
+				}
 
-			$status = LP_Request::get_param( 'order-status' );
-			if ( ! empty( $status ) ) {
-				$order->update_status( $status );
-			} elseif ( $post->post_status === 'auto-draft' ) {
-				$order->update_status( 'pending' );
+				if ( isset( $_POST['order-date'] ) ) {
+					$order_date = LP_Request::get_param( 'order-date' );
+					$order_hour = LP_Request::get_param( 'order-hour', '00' );
+					$order_min  = LP_Request::get_param( 'order-minute', '00' );
+					$order->set_order_date( $order_date . ' ' . $order_hour . ':' . $order_min . ':00' );
+				}
+
+				$status = LP_Request::get_param( 'order-status' );
+				if ( ! empty( $status ) ) {
+					$order->update_status( $status );
+				} elseif ( $post->post_status === 'auto-draft' ) {
+					$order->update_status( 'pending' );
+				}
+
+				$order->save();
+			} catch ( Throwable $e ) {
+				error_log( __METHOD__ . ':' . $e->getMessage() );
 			}
 		}
 
@@ -197,6 +210,22 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 		 * @return mixed
 		 */
 		public function posts_where_paged( $where ) {
+			// Code temporary, when release about 1 week, will remove it.
+			$lp_filter_post = new LP_Post_Type_Filter();
+			$lp_filter_post->post_type = LP_ORDER_CPT;
+			$lp_filter_post->post_status = [ 'lp-trash' ];
+			$orders_trash = LP_Post_DB::getInstance()->get_posts( $lp_filter_post );
+			if ( $orders_trash ) {
+				foreach ( $orders_trash as $order_trash ) {
+					$order = learn_press_get_order( $order_trash->ID );
+					if ( $order ) {
+						$order->update_status( 'trash' );
+					}
+				}
+			}
+			// Change status course from lp_trash to trash.
+
+			// End code temporary
 			global $wpdb, $wp_query;
 			$lp_db = LP_Database::getInstance();
 			if ( is_admin() && $this->is_page_list_posts_on_backend() ) {
@@ -244,6 +273,8 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 			if ( ! empty( $wp_query->get( 'post_status' ) ) ) {
 				$status = $wp_query->get( 'post_status' );
 				$where .= $wpdb->prepare( " AND {$lp_db->tb_posts}.post_status = %s", $status );
+			} else {
+				$where .= $wpdb->prepare( " AND {$lp_db->tb_posts}.post_status NOT IN (%s, %s, %s)", LP_ORDER_TRASH_DB, LP_ORDER_TRASH, 'auto-draft' );
 			}
 
 			return $where;

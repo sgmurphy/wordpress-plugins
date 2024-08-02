@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.21 (2024-08-02)
+
+
+### Bug Fixes
+
+* make latest update work with Divi page builder (CU-86959qqq1)
+
+
+
+
+
+
+
 ## 4.22.20 (2024-08-01)
 
 

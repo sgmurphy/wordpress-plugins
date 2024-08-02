@@ -2129,11 +2129,16 @@ function pmpro_get_no_access_message( $content, $level_ids, $level_names = NULL 
 			if ( count( $level_ids ) !== 1 ) {
 				$header = __( 'Membership Required', 'paid-memberships-pro' );
 				$body = '<p>' . __(' You must be a member to access this content.', 'paid-memberships-pro') . '</p>';
-				$body .= '<p><a class="' . pmpro_get_element_class( 'pmpro_btn' ) . '" href="!!levels_page_url!!">' . __( 'View Membership Levels', 'paid-memberships-pro' ) . '</a></p>';
+				// Add a link to the levels page if it's set.
+				if ( ! empty( pmpro_url( 'levels' ) ) ) {
+					$body .= '<p><a class="' . pmpro_get_element_class( 'pmpro_btn' ) . '" href="!!levels_page_url!!">' . __( 'View Membership Levels', 'paid-memberships-pro' ) . '</a></p>';
+				}
 			} else {
 				$header = __( '!!levels!! Membership Required', 'paid-memberships-pro' );
 				$body = '<p>' . __(' You must be a !!levels!! member to access this content.', 'paid-memberships-pro') . '</p>';
-				$body .= '<p><a class="' . pmpro_get_element_class( 'pmpro_btn' ) . '" href="' . esc_url( pmpro_url( 'checkout', '?pmpro_level=' . current( $level_ids ) ) ) . '">' . __( 'Join Now', 'paid-memberships-pro' ) . '</a></p>';
+				if ( ! empty( pmpro_url( 'checkout' ) ) ) {
+					$body .= '<p><a class="' . pmpro_get_element_class( 'pmpro_btn' ) . '" href="' . esc_url( pmpro_url( 'checkout', '?pmpro_level=' . current( $level_ids ) ) ) . '">' . __( 'Join Now', 'paid-memberships-pro' ) . '</a></p>';
+				}
 			}
 			/**
 			 * Filter the header message for the no access message.
@@ -4731,7 +4736,7 @@ function pmpro_sanitize_period( $period ) {
  *
  * @param int $user_id The ID of the user to update.
  * @param int $level_id The ID of the level to update.
- * @param int|string $enddate The date to set the enddate to.
+ * @param int|string|null $enddate The date to set the enddate to.
  */
 function pmpro_set_expiration_date( $user_id, $level_id, $enddate ) {
 	global $wpdb;

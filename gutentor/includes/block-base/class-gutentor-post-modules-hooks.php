@@ -33,7 +33,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 
 			// Always return the instance
 			return $instance;
-
 		}
 
 		/**
@@ -141,10 +140,8 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			$this->add_filter( 'gutentor_post_and_term_module_enable_column', $this, 'term_remove_column_class', 8, 2 );
 			$this->add_filter( 'gutentor_edit_news_ticker_data_attr', $this, 'add_news_ticker_data', 15, 2 );
 			$this->add_filter( 'edd_favorites_link', $this, 'edd_favorites_css_class', 15 );
-            $this->add_filter( 'gutentor_post_type_featured_after_content', $this, 'add_p2_link_featured_image', 9999, 3 );
-
-
-        }
+			$this->add_filter( 'gutentor_post_type_featured_after_content', $this, 'add_p2_link_featured_image', 9999, 3 );
+		}
 
 
 		/**
@@ -294,7 +291,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			$local_data = gutentor_concat_space( $output, $local_data );
 
 			return $local_data;
-
 		}
 
 
@@ -329,66 +325,63 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			/*Concat Output with local data*/
 			$local_data = gutentor_concat_space( $output, $local_data );
 			return $local_data;
-
 		}
 
-        /**
-         * Adding Link Related Class
-         *
-         * @param {array} output
-         * @param {object} props
-         * @return {array}
-         */
-        public function add_link_related_class_p2( $output, $attributes ) {
-            $gutentorBlockName = ( isset( $attributes['gName'] ) ) ? $attributes['gName'] : '';
-            $block_list        = array( 'gutentor/p2' );
-            if ( ! in_array( $gutentorBlockName, $block_list ) ) {
-                return $output;
-            }
-            if ( $attributes['gName'] != 'gutentor/p2' ) {
-                return $output;
-            }
-            if ( ! array_key_exists( 'pImgOnLink', $attributes ) ) {
-                return $output;
-            }
-            if ( ! $attributes['pImgOnLink'] ) {
-                return $output;
-            }
-            $output_wrap = gutentor_concat_space( $output, 'g-link-enabled' );
-            return $output_wrap;
+		/**
+		 * Adding Link Related Class
+		 *
+		 * @param {array} output
+		 * @param {object} props
+		 * @return {array}
+		 */
+		public function add_link_related_class_p2( $output, $attributes ) {
+			$gutentorBlockName = ( isset( $attributes['gName'] ) ) ? $attributes['gName'] : '';
+			$block_list        = array( 'gutentor/p2' );
+			if ( ! in_array( $gutentorBlockName, $block_list ) ) {
+				return $output;
+			}
+			if ( $attributes['gName'] != 'gutentor/p2' ) {
+				return $output;
+			}
+			if ( ! array_key_exists( 'pImgOnLink', $attributes ) ) {
+				return $output;
+			}
+			if ( ! $attributes['pImgOnLink'] ) {
+				return $output;
+			}
+			$output_wrap = gutentor_concat_space( $output, 'g-link-enabled' );
+			return $output_wrap;
+		}
 
-        }
+		/**
+		 * Adding Link
+		 *
+		 * @param {array} output
+		 * @param {array}        $post
+		 * @param {object} props
+		 * @return string
+		 */
+		public function add_p2_link_featured_image( $output, $post, $attributes ) {
 
-        /**
-         * Adding Link
-         *
-         * @param {array} output
-         * @param {array} $post
-         * @param {object} props
-         * @return string
-         */
-        public function add_p2_link_featured_image( $output, $post, $attributes ) {
-
-            if ( $attributes['gName'] != 'gutentor/p2' ) {
-                return $output;
-            }
-            if ( ! array_key_exists( 'pImgOnLink', $attributes ) ) {
-                return $output;
-            }
-            if ( ! $attributes['pImgOnLink'] ) {
-                return $output;
-            }
-            if ( array_key_exists( 'pImgOpenNewTab', $attributes ) ) {
-                $target = ( $attributes['pImgOpenNewTab'] ) ? 'target="_blank"' : '';
-            }
-            if ( array_key_exists( 'pImgLinkRel', $attributes ) ) {
-                $rel = ( $attributes['pImgLinkRel'] ) ? 'rel="' . $attributes['pImgLinkRel'] . '"' : '';
-            }
-            $output_wrap = '<a class="gutentor-link" href="' . esc_url( get_permalink() ) . '" ' . $target . ' ' . $rel . '></a>';
-            $output_wrap = gutentor_concat_space( $output, $output_wrap );
-            return $output_wrap;
-
-        }
+			if ( $attributes['gName'] != 'gutentor/p2' ) {
+				return $output;
+			}
+			if ( ! array_key_exists( 'pImgOnLink', $attributes ) ) {
+				return $output;
+			}
+			if ( ! $attributes['pImgOnLink'] ) {
+				return $output;
+			}
+			if ( array_key_exists( 'pImgOpenNewTab', $attributes ) ) {
+				$target = ( $attributes['pImgOpenNewTab'] ) ? 'target="_blank"' : '';
+			}
+			if ( array_key_exists( 'pImgLinkRel', $attributes ) ) {
+				$rel = ( $attributes['pImgLinkRel'] ) ? 'rel="' . $attributes['pImgLinkRel'] . '"' : '';
+			}
+			$output_wrap = '<a class="gutentor-link" href="' . esc_url( get_permalink() ) . '" ' . $target . ' ' . $rel . '></a>';
+			$output_wrap = gutentor_concat_space( $output, $output_wrap );
+			return $output_wrap;
+		}
 
 		/**
 		 * Adding Main  Section Classes
@@ -469,8 +462,8 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 				if ( $is_m_hide ) {
 					$device_class .= ' d-none';
 					if ( ! $is_t_hide ) {
-						//$device_class .= ' d-sm-block';
-                        $device_class .= ' d-md-block';
+						// $device_class .= ' d-sm-block';
+						$device_class .= ' d-md-block';
 					}
 					if ( ! $device_class && ! strpos( $device_class, 'd-lg-block' ) ) {
 						$device_class .= ' d-lg-block';
@@ -483,7 +476,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			$local_data = gutentor_concat_space( $output, $local_data );
 
 			return $local_data;
-
 		}
 
 		/**
@@ -548,7 +540,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 
 			$local_data = gutentor_concat_space( $output, $local_data );
 			return $local_data;
-
 		}
 
 
@@ -584,7 +575,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 
 			$local_data = gutentor_concat_space( $output, $local_data );
 			return $local_data;
-
 		}
 
 
@@ -620,7 +610,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 
 			$local_data = gutentor_concat_space( $output, $local_data );
 			return $local_data;
-
 		}
 
 		/**
@@ -655,7 +644,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 
 			$local_data = gutentor_concat_space( $output, $local_data );
 			return $local_data;
-
 		}
 
 
@@ -697,7 +685,7 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			if ( $blockShapeTopShapeOpt === 'gb-image' && $blockShapeTopImage ) {
 				$shape_local_data = '<img class="normal-image" src="' . $mTShapeImgUrl . '" />';
 			}
-			if ( $blockShapeTopShapeOpt === 'gb-svg' && $blockShapeTopSvgOpt === 'gb-svg-default' && $blockShapeTopSelect && $attributes['mTShape']) {
+			if ( $blockShapeTopShapeOpt === 'gb-svg' && $blockShapeTopSvgOpt === 'gb-svg-default' && $blockShapeTopSelect && $attributes['mTShape'] ) {
 				$shape_local_data = '<span>' . $shape[ $attributes['mTShape'] ] . '</span>';
 			}
 			if ( $blockShapeTopShapeOpt === 'gb-svg' && $blockShapeTopSvgOpt === 'gb-svg-custom' && $blockShapeTopCustomSvg ) {
@@ -798,7 +786,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			$output_wrap .= $output;
 			$output_wrap .= '</a>';
 			return $output_wrap;
-
 		}
 
 		/**
@@ -837,7 +824,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			$output_wrap .= $output;
 			$output_wrap .= '</a>';
 			return $output_wrap;
-
 		}
 
 		/**
@@ -949,43 +935,43 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			return gutentor_concat_space( $output, $local_data );
 		}
 
-        /**
-         * Adding p2 Align class
-         *
-         * @param {array} output
-         * @param {object} props
-         * @return {array}
-         */
-        public function add_p2_align_class( $output, $attributes ) {
-            $gutentorBlockName = ( isset( $attributes['gName'] ) ) ? $attributes['gName'] : '';
-            $block_list        = array( 'gutentor/p2' );
-            if ( ! in_array( $gutentorBlockName, $block_list ) ) {
-                return $output;
-            }
+		/**
+		 * Adding p2 Align class
+		 *
+		 * @param {array} output
+		 * @param {object} props
+		 * @return {array}
+		 */
+		public function add_p2_align_class( $output, $attributes ) {
+			$gutentorBlockName = ( isset( $attributes['gName'] ) ) ? $attributes['gName'] : '';
+			$block_list        = array( 'gutentor/p2' );
+			if ( ! in_array( $gutentorBlockName, $block_list ) ) {
+				return $output;
+			}
 
-            if ( ! isset( $attributes['pBxAlign'] ) ) {
-                return $output;
-            }
-            $local_data   = '';
-            $align_mobile = ( isset( $attributes['pBxAlign']['mobile'] ) ) ? $attributes['pBxAlign']['mobile'] : false;
-            if ( $align_mobile ) {
-                $align_m_class = ( $align_mobile ) ? $align_mobile . '-mobile' : '';
-                $local_data    = gutentor_concat_space( $local_data, $align_m_class );
-            }
-            $align_tablet = ( isset( $attributes['pBxAlign']['tablet'] ) ) ? $attributes['pBxAlign']['tablet'] : false;
-            if ( $align_tablet ) {
+			if ( ! isset( $attributes['pBxAlign'] ) ) {
+				return $output;
+			}
+			$local_data   = '';
+			$align_mobile = ( isset( $attributes['pBxAlign']['mobile'] ) ) ? $attributes['pBxAlign']['mobile'] : false;
+			if ( $align_mobile ) {
+				$align_m_class = ( $align_mobile ) ? $align_mobile . '-mobile' : '';
+				$local_data    = gutentor_concat_space( $local_data, $align_m_class );
+			}
+			$align_tablet = ( isset( $attributes['pBxAlign']['tablet'] ) ) ? $attributes['pBxAlign']['tablet'] : false;
+			if ( $align_tablet ) {
 
-                $align_t_class = ( $align_tablet ) ? $align_tablet . '-tablet' : '';
-                $local_data    = gutentor_concat_space( $local_data, $align_t_class );
-            }
-            $align_desktop = ( isset( $attributes['pBxAlign']['desktop'] ) ) ? $attributes['pBxAlign']['desktop'] : false;
-            if ( $align_desktop ) {
+				$align_t_class = ( $align_tablet ) ? $align_tablet . '-tablet' : '';
+				$local_data    = gutentor_concat_space( $local_data, $align_t_class );
+			}
+			$align_desktop = ( isset( $attributes['pBxAlign']['desktop'] ) ) ? $attributes['pBxAlign']['desktop'] : false;
+			if ( $align_desktop ) {
 
-                $align_d_class = ( $align_desktop ) ? $align_desktop . '-desktop' : '';
-                $local_data    = gutentor_concat_space( $local_data, $align_d_class );
-            }
-            return gutentor_concat_space( $output, $local_data );
-        }
+				$align_d_class = ( $align_desktop ) ? $align_desktop . '-desktop' : '';
+				$local_data    = gutentor_concat_space( $local_data, $align_d_class );
+			}
+			return gutentor_concat_space( $output, $local_data );
+		}
 
 		/**
 		 * Adding Post Box Align class
@@ -1041,7 +1027,7 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			$a_href     = ( $buttonLink ) ? 'href="' . $buttonLink . '"' : '';
 			$a_target   = ( $target ) ? 'target="' . $target . '" ' : '';
 			$local_data = gutentor_concat_space( $a_href, $a_target );
-            $rel        = ( $target ) ? gutentor_concat_space( 'noopener noreferrer', $rel ) : $rel;
+			$rel        = ( $target ) ? gutentor_concat_space( 'noopener noreferrer', $rel ) : $rel;
 			$a_rel      = ( $rel ) ? 'rel="' . $rel . '" ' : '';
 			$local_data = gutentor_concat_space( $local_data, $a_rel );
 			return gutentor_concat_space( $output, $local_data );
@@ -1118,38 +1104,38 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			return gutentor_concat_space( $output, $local_data );
 		}
 
-        /**
-         * Adding p2 Position Class
-         *
-         * @param {array} output
-         * @param {object} props
-         * @return {array}
-         */
-        public function add_p2_content_pos_class( $output, $attributes ) {
-            $gutentorBlockName = ( isset( $attributes['gName'] ) ) ? $attributes['gName'] : '';
-            $block_list        = array( 'gutentor/p2' );
-            if ( ! in_array( $gutentorBlockName, $block_list ) ) {
-                return $output;
-            }
-            $local_data       = '';
-            $cont_post_mobile = ( isset( $attributes['pContentPos']['mobile'] ) ) ? $attributes['pContentPos']['mobile'] : false;
-            if ( $cont_post_mobile ) {
-                $cont_post_m_class = ( $cont_post_mobile ) ? $cont_post_mobile . '-cont-m' : '';
-                $local_data        = gutentor_concat_space( $local_data, $cont_post_m_class );
-            }
-            $cont_pos_tablet = ( isset( $attributes['pContentPos']['tablet'] ) ) ? $attributes['pContentPos']['tablet'] : false;
-            if ( $cont_pos_tablet ) {
-                $cont_pos_t_class = ( $cont_pos_tablet ) ? $cont_pos_tablet . '-cont-t' : '';
-                $local_data       = gutentor_concat_space( $local_data, $cont_pos_t_class );
-            }
-            $cont_pos_desktop = ( isset( $attributes['pContentPos']['desktop'] ) ) ? $attributes['pContentPos']['desktop'] : false;
-            if ( $cont_pos_desktop ) {
+		/**
+		 * Adding p2 Position Class
+		 *
+		 * @param {array} output
+		 * @param {object} props
+		 * @return {array}
+		 */
+		public function add_p2_content_pos_class( $output, $attributes ) {
+			$gutentorBlockName = ( isset( $attributes['gName'] ) ) ? $attributes['gName'] : '';
+			$block_list        = array( 'gutentor/p2' );
+			if ( ! in_array( $gutentorBlockName, $block_list ) ) {
+				return $output;
+			}
+			$local_data       = '';
+			$cont_post_mobile = ( isset( $attributes['pContentPos']['mobile'] ) ) ? $attributes['pContentPos']['mobile'] : false;
+			if ( $cont_post_mobile ) {
+				$cont_post_m_class = ( $cont_post_mobile ) ? $cont_post_mobile . '-cont-m' : '';
+				$local_data        = gutentor_concat_space( $local_data, $cont_post_m_class );
+			}
+			$cont_pos_tablet = ( isset( $attributes['pContentPos']['tablet'] ) ) ? $attributes['pContentPos']['tablet'] : false;
+			if ( $cont_pos_tablet ) {
+				$cont_pos_t_class = ( $cont_pos_tablet ) ? $cont_pos_tablet . '-cont-t' : '';
+				$local_data       = gutentor_concat_space( $local_data, $cont_pos_t_class );
+			}
+			$cont_pos_desktop = ( isset( $attributes['pContentPos']['desktop'] ) ) ? $attributes['pContentPos']['desktop'] : false;
+			if ( $cont_pos_desktop ) {
 
-                $cont_pos_d_class = ( $cont_pos_desktop ) ? $cont_pos_desktop . '-cont-d' : '';
-                $local_data       = gutentor_concat_space( $local_data, $cont_pos_d_class );
-            }
-            return gutentor_concat_space( $output, $local_data );
-        }
+				$cont_pos_d_class = ( $cont_pos_desktop ) ? $cont_pos_desktop . '-cont-d' : '';
+				$local_data       = gutentor_concat_space( $local_data, $cont_pos_d_class );
+			}
+			return gutentor_concat_space( $output, $local_data );
+		}
 
 		/**
 		 * Adding Position Class
@@ -1248,7 +1234,6 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 				$local_data['data-pauseOnHover'] = $attributes['p5PauseOnHover'];
 			}
 			return $local_data;
-
 		}
 
 		/**
@@ -1293,9 +1278,7 @@ if ( ! class_exists( 'Gutentor_Post_Modules_Hooks' ) ) {
 			}
 			$local_data = gutentor_concat_space( $output, $local_data );
 			return $local_data;
-
 		}
-
 	}
 }
 

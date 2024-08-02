@@ -452,24 +452,24 @@ if ( ! function_exists( 'GutentorAnimationOptionsDataAttr' ) ) {
 		$animation = ( isset( $valueAnimation['Animation'] ) && $valueAnimation['Animation'] ) ? $valueAnimation['Animation'] : '';
 		if ( 'none' !== $animation ) {
 			if ( ! empty( $animation ) ) {
-				$animation_class = 'data-wow-animation = "' . $animation . '"';
+				$animation_class = 'data-wow-animation = "' . esc_attr( $animation ) . '"';
 				$animation_attr  = gutentor_concat_space( $animation_attr, $animation_class );
 			}
 			$delay = ( isset( $valueAnimation['Delay'] ) && $valueAnimation['Delay'] ) ? $valueAnimation['Delay'] : '';
 			if ( ! empty( $delay ) ) {
-				$delay_class    = 'data-wow-delay = "' . $delay . 's"';
+				$delay_class    = 'data-wow-delay = "' . esc_attr( $delay ) . 's"';
 				$animation_attr = gutentor_concat_space( $animation_attr, $delay_class );
 			}
 			/*speed changed to duration*/
 			$speed = ( isset( $valueAnimation['Speed'] ) && $valueAnimation['Speed'] ) ? $valueAnimation['Speed'] : '';
 			if ( ! empty( $speed ) ) {
-				$speed_class    = 'data-wow-duration = "' . $speed . 's"';
+				$speed_class    = 'data-wow-duration = "' . esc_attr( $speed ) . 's"';
 				$animation_attr = gutentor_concat_space( $animation_attr, $speed_class );
 			}
 
 			$iteration = ( isset( $valueAnimation['Iteration'] ) && $valueAnimation['Iteration'] ) ? $valueAnimation['Iteration'] : '';
 			if ( ! empty( $iteration ) ) {
-				$iteration_class = 'data-wow-iteration = "' . $iteration . '"';
+				$iteration_class = 'data-wow-iteration = "' . esc_attr( $iteration ) . '"';
 				$animation_attr  = gutentor_concat_space( $animation_attr, $iteration_class );
 			}
 		}
@@ -752,7 +752,7 @@ if ( ! function_exists( 'gutentor_pm_post_dynamic_categories_color' ) ) {
 				/*Add cat color css */
 				if ( ! empty( $cat_color_css ) ) {
 					$local_dynamic_css .= ".gutentor-categories .gutentor-cat-{$category_list->slug}{
-                       " . $cat_color_css . '
+                    " . $cat_color_css . '
                     }';
 				}
 
@@ -835,7 +835,7 @@ if ( ! function_exists( 'gutentor_pm_post_categories_color' ) ) {
 				/*Add cat color css */
 				if ( ! empty( $cat_color_css ) ) {
 					$local_dynamic_css .= ".gutentor-categories .gutentor-cat-{$category_list->slug}{
-                       " . $cat_color_css . '
+                    " . $cat_color_css . '
                     }';
 				}
 
@@ -956,12 +956,12 @@ if ( ! function_exists( 'gutentor_post_format_colors' ) ) {
 			/* add post format css */
 			if ( isset( $colors['normal'] ) && ! empty( $colors['normal'] ) ) {
 				$local_dynamic_css .= ".gutentor-post-format.gutentor-post-format-{$post_format}{
-                       " . $colors['normal'] . '
+                    " . $colors['normal'] . '
                     }';
 			}
 			if ( isset( $colors['hover'] ) && ! empty( $colors['hover'] ) ) {
 				$local_dynamic_css .= ".gutentor-post-format.gutentor-post-format-{$post_format}:hover{
-                       " . $colors['hover'] . '
+                    " . $colors['hover'] . '
                     }';
 			}
 		}
@@ -988,12 +988,12 @@ if ( ! function_exists( 'gutentor_post_featured_format_colors' ) ) {
 			/* add post format css */
 			if ( isset( $colors['normal'] ) && ! empty( $colors['normal'] ) ) {
 				$local_dynamic_css .= ".gutentor-post-featured-format.gutentor-post-format-{$post_format}{
-                       " . $colors['normal'] . '
+                    " . $colors['normal'] . '
                     }';
 			}
 			if ( isset( $colors['hover'] ) && ! empty( $colors['hover'] ) ) {
 				$local_dynamic_css .= ".gutentor-post-featured-format.gutentor-post-format-{$post_format}:hover{
-                       " . $colors['hover'] . '
+                    " . $colors['hover'] . '
                     }';
 			}
 		}

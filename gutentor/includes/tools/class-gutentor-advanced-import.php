@@ -81,7 +81,6 @@ if ( ! class_exists( 'Gutentor_Advanced_Import' ) ) {
 					),
 				)
 			);
-
 		}
 
 		/**
@@ -278,7 +277,6 @@ if ( ! class_exists( 'Gutentor_Advanced_Import' ) ) {
 			}
 
 			return array_merge_recursive( $templates_list, $d_list );
-
 		}
 
 		/**
@@ -291,15 +289,15 @@ if ( ! class_exists( 'Gutentor_Advanced_Import' ) ) {
 		 * @return object
 		 */
 		public static function get_instance() {
-			// Store the instance locally to avoid private static replication
+			// Store the instance locally to avoid private static replication.
 			static $instance = null;
 
-			// Only run these methods if they haven't been ran previously
+			// Only run these methods if they haven't been ran previously.
 			if ( null === $instance ) {
 				$instance = new self();
 			}
 
-			// Always return the instance
+			// Always return the instance.
 			return $instance;
 		}
 

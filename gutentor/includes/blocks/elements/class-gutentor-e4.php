@@ -44,7 +44,6 @@ if ( ! class_exists( 'Gutentor_E4' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**
@@ -68,7 +67,6 @@ if ( ! class_exists( 'Gutentor_E4' ) ) {
 		 * @package    Gutentor
 		 * @author     Gutentor <info@gutentor.com>
 		 */
-
 		public function get_default_values() {
 			$google_map_attr = array(
 				'id'               => '',
@@ -201,7 +199,7 @@ if ( ! class_exists( 'Gutentor_E4' ) ) {
 			$tag   = 'div';
 
 			$local_attr                      = array();
-			$local_attr['id']                = $attributes['id'];
+			$local_attr['id']                = $id;
 			$local_attr['location']          = $attributes['e4Loc'];
 			$local_attr['latitude']          = $attributes['e4Lat'];
 			$local_attr['longitude']         = $attributes['e4Lon'];
@@ -221,13 +219,13 @@ if ( ! class_exists( 'Gutentor_E4' ) ) {
 			$map_section_class = gutentor_concat_space( $map_section_class, $map_section_id );
 			$class             = gutentor_concat_space( $class, $id );
 
-			$output  = '<' . $tag . ' class="' . apply_filters( 'gutentor_save_element_class', $map_section_class, $attributes ) . '" id="section-' . esc_attr( $blockID ) . '"   ' . GutentorAnimationOptionsDataAttr( $block_animation_attrs ) . '>' . "\n";
-			$output .= '<div class="' . apply_filters( 'gutentor_save_grid_row_class', gutentor_concat_space( esc_attr( $class ), 'gutentor-grid-item-wrap' ), $attributes ) . '" id="' . esc_attr( $id ) . '"></div>' . "\n";
+			$output  = '<' . $tag . ' class="' . esc_attr( apply_filters( 'gutentor_save_element_class', $map_section_class, $attributes ) ) . '" id="section-' . esc_attr( $blockID ) . '"   ' . GutentorAnimationOptionsDataAttr( $block_animation_attrs ) . '>' . "\n";
+			$output .= '<div class="' . esc_attr( apply_filters( 'gutentor_save_grid_row_class', gutentor_concat_space( esc_attr( $class ), 'gutentor-grid-item-wrap' ), $attributes ) ) . '" id="' . esc_attr( $id ) . '"></div>' . "\n";
 			$output .= '</' . $tag . '>' . "\n";
 			$output .= '<script type="text/javascript">' . "\n";
 			$output .= '	/* <![CDATA[ */' . "\n";
 			$output .= '		if ( ! window.gutentorGoogleMaps ) window.gutentorGoogleMaps =[];' . "\n";
-			$output .= '		window.gutentorGoogleMaps.push( { container: "' . $id . '", attributes: ' . wp_json_encode( $local_attr ) . ' } );' . "\n";
+			$output .= '		window.gutentorGoogleMaps.push( { container: "' . esc_attr( $id ) . '", attributes: ' . wp_json_encode( $local_attr ) . ' } );' . "\n";
 			$output .= '	/* ]]> */' . "\n";
 			$output .= '</script>' . "\n";
 

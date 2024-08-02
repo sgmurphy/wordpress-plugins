@@ -34,17 +34,16 @@ if ( ! class_exists( 'Gutentor_Blog_Post' ) ) {
 		 */
 		public static function get_instance() {
 
-			// Store the instance locally to avoid private static replication
+			// Store the instance locally to avoid private static replication.
 			static $instance = null;
 
-			// Only run these methods if they haven't been ran previously
+			// Only run these methods if they haven't been ran previously.
 			if ( null === $instance ) {
 				$instance = new self();
 			}
 
-			// Always return the instance
+			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**
@@ -468,16 +467,18 @@ if ( ! class_exists( 'Gutentor_Blog_Post' ) ) {
 			$the_query = new WP_Query( $args );
 
 			if ( $the_query->have_posts() ) :
-				$output .= '<' . $tag . ' class="' . apply_filters( 'gutentor_save_section_class', 'gutentor-section gutentor-blog-post-wrapper ' . gutentor_concat_space( $template, $align, $default_class ) . '', $attributes ) . '" id="section-' . esc_attr( $blockID ) . '" ' . GutentorAnimationOptionsDataAttr( $blockComponentAnimation ) . '>' . "\n";
+				$tag = gutentor_get_module_tag( $tag );
+
+				$output .= '<' . $tag . ' class="' . esc_attr( apply_filters( 'gutentor_save_section_class', 'gutentor-section gutentor-blog-post-wrapper ' . gutentor_concat_space( $template, $align, $default_class ) . '', $attributes ) ) . '" id="section-' . esc_attr( $blockID ) . '" ' . GutentorAnimationOptionsDataAttr( $blockComponentAnimation ) . '>' . "\n";
 				$output .= apply_filters( 'gutentor_save_before_container', '', $attributes );
-				$output .= "<div class='" . apply_filters( 'gutentor_save_container_class', 'grid-container', $attributes ) . "'>";
+				$output .= "<div class='" . esc_attr( apply_filters( 'gutentor_save_container_class', 'grid-container', $attributes ) ) . "'>";
 				$output .= apply_filters( 'gutentor_save_before_block_items', '', $attributes );
-				$output .= "<div class='" . apply_filters( 'gutentor_save_grid_item_wrap_class', 'gutentor-grid-item-wrap', $attributes ) . " ' " . apply_filters( 'gutentor_save_grid_item_wrap_attr', '', $attributes ) . ' ' . GutentorAnimationOptionsDataAttr( $blockItemsWrapAnimation ) . '>';
-				$output .= "<div class='" . apply_filters( 'gutentor_save_grid_row_class', 'grid-row', $attributes ) . " ' " . apply_filters( 'gutentor_save_grid_row_attr', '', $attributes ) . '>';
+				$output .= "<div class='" . esc_attr( apply_filters( 'gutentor_save_grid_item_wrap_class', 'gutentor-grid-item-wrap', $attributes ) ) . " ' " . apply_filters( 'gutentor_save_grid_item_wrap_attr', '', $attributes ) . ' ' . GutentorAnimationOptionsDataAttr( $blockItemsWrapAnimation ) . '>';
+				$output .= "<div class='" . esc_attr( apply_filters( 'gutentor_save_grid_row_class', 'grid-row', $attributes ) ) . " ' " . apply_filters( 'gutentor_save_grid_row_attr', '', $attributes ) . '>';
 				while ( $the_query->have_posts() ) :
 					$the_query->the_post();
 					$thumb_class = has_post_thumbnail() ? 'gutentor-post-has-thumb' : 'gutentor-post-no-thumb';
-					$output     .= "<article class='" . apply_filters( 'gutentor_save_grid_column_class', $thumb_class, $attributes ) . "'>";
+					$output     .= "<article class='" . esc_attr( apply_filters( 'gutentor_save_grid_column_class', $thumb_class, $attributes ) ) . "'>";
 					$output     .= '<div class="gutentor-single-item">';
 					$output     .= apply_filters( 'gutentor_save_blog_post_block_template_data', '', get_post(), $attributes );
 					$output     .= '</div>';/*.gutentor-single-item*/
@@ -491,7 +492,7 @@ if ( ! class_exists( 'Gutentor_Blog_Post' ) ) {
 				$output .= '</' . $tag . '>';/*.gutentor-blog-post-wrapper*/
 			endif;
 
-			// Restore original Post Data
+			// Restore original Post Data.
 			wp_reset_postdata();
 			return $output;
 		}

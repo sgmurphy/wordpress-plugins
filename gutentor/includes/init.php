@@ -77,17 +77,17 @@ class Gutentor {
 	 */
 	public static function instance() {
 
-		// Store the instance locally to avoid private static replication
+		// Store the instance locally to avoid private static replication.
 		static $instance = null;
 
-		// Only run these methods if they haven't been ran previously
+		// Only run these methods if they haven't been ran previously.
 		if ( null === $instance ) {
 			$instance = new Gutentor();
 
 			do_action( 'gutentor_loaded' );
 		}
 
-		// Always return the instance
+		// Always return the instance.
 		return $instance;
 	}
 
@@ -253,7 +253,6 @@ class Gutentor {
 		$plugin_i18n = new Gutentor_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -314,7 +313,6 @@ class Gutentor {
 		$this->loader->add_filter( 'gutentor_default_options', $plugin_hooks, 'acmethemes_alter_default_options' );
 
 		$this->loader->add_action( 'widgets_init', $plugin_hooks, 'register_gutentor_reusable_block_selector_widget' );
-
 	}
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

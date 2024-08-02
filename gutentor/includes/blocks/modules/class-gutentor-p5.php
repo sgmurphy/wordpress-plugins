@@ -13,7 +13,6 @@ if ( ! class_exists( 'Gutentor_P5' ) ) {
 	 */
 	class Gutentor_P5 extends Gutentor_Block_Base {
 
-
 		/**
 		 * Name of the block.
 		 *
@@ -43,7 +42,6 @@ if ( ! class_exists( 'Gutentor_P5' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**
@@ -261,12 +259,13 @@ if ( ! class_exists( 'Gutentor_P5' ) ) {
 
 			$the_query = new WP_Query( gutentor_get_query( $args ) );
 			if ( $the_query->have_posts() ) :
-				$output .= '<' . $tag . ' class="' . apply_filters( 'gutentor_post_module_main_wrap_class', gutentor_concat_space( 'gutentor-post-module', 'gutentor-post-module-p5', 'section-' . $gID, $template, $align, $default_class ), $attributes ) . '" id="' . esc_attr( $blockID ) . '" data-gbid="' . esc_attr( $gID ) . '" ' . GutentorAnimationOptionsDataAttr( $blockComponentAnimation ) . '' . gutentor_get_html_attr( apply_filters( 'gutentor_edit_news_ticker_data_attr', array(), $attributes ) ) . '>' . "\n";
+				$tag     = gutentor_get_module_tag( $tag );
+				$output .= '<' . $tag . ' class="' . esc_attr( apply_filters( 'gutentor_post_module_main_wrap_class', gutentor_concat_space( 'gutentor-post-module', 'gutentor-post-module-p5', 'section-' . $gID, $template, $align, $default_class ), $attributes ) ) . '" id="' . esc_attr( $blockID ) . '" data-gbid="' . esc_attr( $gID ) . '" ' . GutentorAnimationOptionsDataAttr( $blockComponentAnimation ) . '' . gutentor_get_html_attr( apply_filters( 'gutentor_edit_news_ticker_data_attr', array(), $attributes ) ) . '>' . "\n";
 				$output .= apply_filters( 'gutentor_post_module_before_container', '', $attributes );
-				$output .= "<div class='" . apply_filters( 'gutentor_post_module_p5_newsticker_wrap_class', 'gutentor-news-ticker', $attributes ) . "'>";
+				$output .= "<div class='" . esc_attr( apply_filters( 'gutentor_post_module_p5_newsticker_wrap_class', 'gutentor-news-ticker', $attributes ) ) . "'>";
 				$output .= apply_filters( 'gutentor_post_module_before_block_items', '', $attributes );
 				if ( $attributes['p5OnNewsTxt'] ) {
-					$output .= "<div class='gutentor-news-ticker-label'>" . $news_ticker_header . '</div>';/*.ul*/
+					$output .= "<div class='gutentor-news-ticker-label'>" . esc_html( $news_ticker_header ) . '</div>';/*.ul*/
 				}
 				$output .= "<div class='gutentor-news-ticker-box'>";
 				$output .= "<div class='gutentor-news-ticker-wrap'>";

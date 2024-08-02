@@ -1079,7 +1079,7 @@ if(!class_exists('TFSlide_Widget_Free')){
 		protected function render() {
 			$settings = $this->get_settings_for_display();
 			$count = $img_str = $content_html = $content_html_inner = $arrow_html = $content_top = $color_overlay = $class_slideshow = $heading_html = $sub_title_html = $desc_html = $btn_html = $prefix = $suffix = $delay = $fancy_text_heading = $custom_height = $custom_height_tablet = $custom_height_mobile = '';		
-	        $class_slideshow = 'hero-section ' . esc_attr($settings['vegas_slideshow_style']) . ' ' . esc_attr($settings['align']);
+	        $class_slideshow = 'hero-section ' . esc_attr($settings['vegas_slideshow_style']) . ' ' ;
 	        $color_overlay = esc_attr($settings['color_overlay']);
 	        $effect = esc_attr($settings['effect']);
 	        $arrow_anchor = esc_attr($settings['arrow_anchor']);

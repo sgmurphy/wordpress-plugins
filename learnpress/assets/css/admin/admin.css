@@ -1434,6 +1434,11 @@ ul .clearfix {
   width: 400px;
 }
 
+.lp-option-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .lp-metabox__custom-fields table {
   width: 100%;
   max-width: max-content;
@@ -2712,6 +2717,9 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
 .post-type-lp_order .wp-list-table .order_status span.failed {
   background: #f00;
 }
+.post-type-lp_order .wp-list-table .order_status span.trash {
+  color: rgba(128, 128, 128, 0.68);
+}
 .post-type-lp_order .wp-list-table .order_status span i {
   display: inline-block;
 }
@@ -3390,7 +3398,7 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   background: #eee;
 }
 .post-type-lp_order #order_details .order-data-date .order-date {
-  width: 100px;
+  width: 120px;
 }
 .post-type-lp_order #order_details .order-data-date .order-hour,
 .post-type-lp_order #order_details .order-data-date .order-minute {
@@ -3509,7 +3517,7 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
 .post-type-lp_order .export-modal.modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 10;
   left: 0;
   top: 0;
   width: 100%;

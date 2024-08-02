@@ -2,7 +2,7 @@
 
 Contributors: theeventscalendar, brianjessee, camwynsp, redscar, tribalmike, rafsuntaskin, aguseo, bordoni, borkweb, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: tickets, event registration, RSVP, ticket sales, attendee management
-Stable tag: 5.13.0.2
+Stable tag: 5.13.0.3
 Requires at least: 6.3
 Tested up to: 6.6.1
 Requires PHP: 7.4
@@ -204,6 +204,10 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 
 
 == Changelog ==
+
+= [5.13.0.3] 2024-08-01 =
+
+* Fix - Ticket Commerce fails to load on checkout when both Stripe and PayPal are active. [ET-2172]
 
 = [5.13.0.2] 2024-08-01 =
 

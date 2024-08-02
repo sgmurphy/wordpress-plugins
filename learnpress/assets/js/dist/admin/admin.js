@@ -289,7 +289,7 @@ const AdminUtilsFunctions = {
   },
   fetchCourses(keySearch = '', dataSend = {}, callback) {
     const url = _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].admin.apiSearchCourses;
-    dataSend.c_search = keySearch;
+    dataSend.search = keySearch;
     const params = {
       headers: {
         'Content-Type': 'application/json',
@@ -6031,26 +6031,55 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     // Show/hide meta-box field with type checkbox
-    $('input').on('click', function (e) {
-      const el = $(e.target);
-      if (!el.length) {
-        return;
-      }
-      const id = el.attr('id');
-      if (!id) {
-        return;
-      }
-      const classHide = id.replace('learn_press_', '');
-      const elHide = $(`.show_if_${classHide}`);
-      if (el.is(':checked')) {
-        elHide.show();
-      } else {
-        elHide.hide();
-      }
-    });
+    /*$( 'input' ).on( 'click', function( e ) {
+    	const el = $( e.target );
+    	if ( ! el.length ) {
+    		return;
+    	}
+    		const id = el.attr( 'id' );
+    	if ( ! id ) {
+    		return;
+    	}
+    		const classHide = id.replace( 'learn_press_', '' );
+    	const elHide = $( `.show_if_${ classHide }` );
+    		if ( el.is( ':checked' ) ) {
+    		elHide.show();
+    	} else {
+    		elHide.hide();
+    	}
+    } );*/
   };
   $(document).ready(onReady);
 })(jQuery);
+const showHideOptionsDependency = (e, target) => {
+  if (target.tagName === 'INPUT') {
+    if (target.closest('.forminp ')) {
+      const nameInput = target.name;
+      const classDependency = nameInput.replace('learn_press_', '');
+      const elClassDependency = document.querySelectorAll(`.show_if_${classDependency}`);
+      if (elClassDependency) {
+        elClassDependency.forEach(el => {
+          el.classList.toggle('lp-option-disabled');
+        });
+      }
+    } else if (target.closest('.lp-meta-box')) {
+      const elLPMetaBox = target.closest('.lp-meta-box');
+      const nameInput = target.name;
+      const elClassDependency = elLPMetaBox.querySelectorAll(`[data-dependency="${nameInput}"]`);
+      if (elClassDependency) {
+        elClassDependency.forEach(el => {
+          el.classList.toggle('lp-option-disabled');
+        });
+      }
+    }
+  }
+};
+
+// Events
+document.addEventListener('click', e => {
+  const target = e.target;
+  showHideOptionsDependency(e, target);
+});
 document.addEventListener('DOMContentLoaded', () => {
   (0,_init_tom_select_js__WEBPACK_IMPORTED_MODULE_0__.searchUserOnListPost)();
   (0,_init_tom_select_js__WEBPACK_IMPORTED_MODULE_0__.defaultInitTomSelect)();

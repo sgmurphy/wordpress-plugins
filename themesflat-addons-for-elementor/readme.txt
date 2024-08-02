@@ -4,7 +4,7 @@ Contributors: themesflatc2
 Requires at least: 4.9
 Tested up to: 6.6
 Requires PHP: 5.2
-Stable tag: 2.1.6
+Stable tag: 2.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,7 @@ You will have the full wdiget build kit export, import display results as demo l
 
 <p>Themesflat Addons included 20+ useful widgets to enhance your Elementor Page Building experience.</p>
 
+<p>After installing the plugin, you can set show/hide each element through the Themesflat Addons Options setting and save option.</p>
 <ol>
 
 <li><strong>Image Box</strong> <a href="https://themesflat-addons.com/tf-imagebox-addons-for-elementor/" target="_blank">Live Demo</a> <br>

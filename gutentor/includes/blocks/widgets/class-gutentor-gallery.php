@@ -43,7 +43,6 @@ if ( ! class_exists( 'Gutentor_Gallery' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**

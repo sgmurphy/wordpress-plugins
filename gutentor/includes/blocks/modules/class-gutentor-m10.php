@@ -43,7 +43,6 @@ if ( ! class_exists( 'Gutentor_M10' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**
@@ -56,7 +55,7 @@ if ( ! class_exists( 'Gutentor_M10' ) ) {
 		 */
 		public function register_block_type_args() {
 			$this->register_block_type_args = array(
-				'view_script_handles' => array( 'magnific-popup', 'isotope','masonry' ),
+				'view_script_handles' => array( 'magnific-popup', 'isotope', 'masonry' ),
 				'style_handles'       => array( 'magnific-popup' ),
 			);
 		}

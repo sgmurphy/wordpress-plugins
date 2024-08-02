@@ -43,7 +43,6 @@ if ( ! class_exists( 'Gutentor_Progress_Bar' ) ) {
 
 			// Always return the instance.
 			return $instance;
-
 		}
 
 		/**
