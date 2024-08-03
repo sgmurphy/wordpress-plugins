@@ -4,7 +4,7 @@ Tags: HTML5 video player, plyr, video, video player, mp4 Player
 Donate link: https://www.buymeacoffee.com/abuhayat
 Requires at least: 5.8
 Tested up to: 6.6.1
-Stable tag: 2.5.31
+Stable tag: 2.5.32
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -185,6 +185,9 @@ If you find a conflict between our plugin and a third-party plugin, please let u
 3. UI
 
 == Changelog ==
+
+= 2.5.32 - 3 Aug, 2024 = 
+* Tried to Fixed: Unknown Error when activate (not for everyone)
 
 = 2.5.31 - 29 July, 2024 = 
 * Improved: Removed extra code

@@ -20,7 +20,6 @@ class Init{
             Field\Settings::class,
             Field\QuickPlayer::class,
             Field\PlaylistFieldPro::class,
-            Model\AjaxCall::class,
             Model\Ajax::class
         ];
     }

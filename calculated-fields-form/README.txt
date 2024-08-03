@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.25
+Stable tag: 5.2.26
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.26 =
+
+* Fixes a minor issue with Dropdown choices with large text when the Select2 component is enabled.
+* Includes minor modifications in the form builder.
+* Adds new predefined templates.
+
 = 5.2.25 =
 
 * Modifies the checkbox behavior when one choice is entered as the maximum number of choices to select allowed.
@@ -479,9 +485,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Improve user experience with the forms builder by applying tooltips to the drag-and-drop handler and columns' icons.
 * Includes Reply To attributes in the notification and confirmation email sessions to enter explicit reply-to email addresses.
 * Adds new form templates.
-
-= 5.2.20 =
-
-* Identifies fields with col-... or column... class names assigned with a top-right icon.
-* Improves the admin appearance of data-table control.
-* Adds new form templates for storage requirements and booking.

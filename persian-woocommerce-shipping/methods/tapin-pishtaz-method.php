@@ -35,12 +35,14 @@ class Tapin_Pishtaz_Method extends PWS_Tapin_Method {
 
 		$gateway = $args['gateway'] ?? 'tapin';
 
+		$additions = [ 1 ];
+
 		if ( $gateway == 'tapin' ) {
 
 			if ( $args['from_province'] == $args['to_province'] ) {
 				$cost   = 183000;
 				$per_kg = 57000;
-			} elseif ( PWS()->check_states_beside( $args['from_province'], $args['to_province'] )  ) {
+			} elseif ( PWS()->check_states_beside( $args['from_province'], $args['to_province'] ) ) {
 				$cost   = 260000;
 				$per_kg = 60000;
 			} else {
@@ -53,8 +55,40 @@ class Tapin_Pishtaz_Method extends PWS_Tapin_Method {
 				$cost += $per_kg * ceil( ( $weight - 1000 ) / 1000 );
 			}
 
-			if ( in_array( $args['to_city'], [ 1, 91, 61, 51, 71, 81, 31 ] ) ) {
-				$cost *= 1.15;
+			if ( $args['box_size'] == 10 ) {
+				$additions[] = 2.5;
+			}
+
+			if ( in_array( $args['box_size'], range( 5, 9 ) ) ) {
+
+				$boxes = [
+					5 => 2917,
+					6 => 3750,
+					7 => 5000,
+					8 => 9000,
+					9 => 14438,
+				];
+
+				$box_rate = $boxes[ $args['box_size'] ] / $weight;
+
+				switch ( true ) {
+					case $box_rate <= 1:
+						$additions[] = 1.25;
+						break;
+					case $box_rate <= 1.5:
+						$additions[] = 1.5;
+						break;
+					case $box_rate <= 2.5:
+						$additions[] = 1.75;
+						break;
+					case $box_rate <= 3.5:
+						$additions[] = 2;
+						break;
+					default:
+						$additions[] = 2.5;
+						break;
+				}
+
 			}
 
 		} else {
@@ -83,8 +117,6 @@ class Tapin_Pishtaz_Method extends PWS_Tapin_Method {
 
 		}
 
-		$additions = [ 1 ];
-
 		if ( $weight >= 2500 ) {
 			$additions[] = 1.25;
 		}
@@ -93,13 +125,19 @@ class Tapin_Pishtaz_Method extends PWS_Tapin_Method {
 			$additions[] = 1.25;
 		}
 
-		if ( in_array( $args['box_size'], range( 4, 8 ) ) ) {
+		if ( $args['box_size'] >= 4 ) {
 			$additions[] = 1.25;
-		} elseif ( in_array( $args['box_size'], [ 9, 10 ] ) ) {
-			$additions[] = 1.5;
 		}
 
 		$cost *= max( $additions );
+
+		if ( $gateway == 'tapin' ) {
+
+			if ( in_array( $args['to_city'], [ 1, 91, 61, 51, 71, 81, 31 ] ) ) {
+				$cost *= 1.15;
+			}
+
+		}
 
 		// INSURANCE
 		if ( $args['price'] >= 40000000 ) {

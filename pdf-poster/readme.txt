@@ -3,7 +3,7 @@ Contributors: abuhayat, shehabulislam, freemius,bplugins
 Tags: PDF Embedder, embed pdf, pdf viewer, pdf, pdf plugin
 Donate link: https://www.buymeacoffee.com/abuhayat/
 Requires at least: 5.0
-Tested up to: 6.5.5
+Tested up to: 6.6.1
 Stable tag: 2.1.24
 Requires PHP: 7.1
 License: GPLv2 or later

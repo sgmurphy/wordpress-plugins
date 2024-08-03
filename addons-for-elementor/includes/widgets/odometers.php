@@ -382,7 +382,7 @@ class LAE_Odometers_Widget extends LAE_Widget_Base {
             'type'      => Controls_Manager::COLOR,
             'default'   => '',
             'selectors' => [
-                '{{WRAPPER}} .lae-odometers .lae-odometer .lae-stats-title .lae-icon-wrapper' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .lae-odometers .lae-odometer .lae-stats-title .lae-icon-wrapper, {{WRAPPER}} .lae-odometers .lae-odometer .lae-stats-title .lae-icon-wrapper svg' => 'color: {{VALUE}}; fill: {{VALUE}',
             ],
         ] );
     }

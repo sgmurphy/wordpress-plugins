@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.26 =
+
+* Fixes a minor issue with Dropdown choices with large text when the Select2 component is enabled.
+* Includes minor modifications in the form builder.
+* Adds new predefined templates.
+
 = 5.2.25 =
 
 * Modifies the checkbox behavior when one choice is entered as the maximum number of choices to select allowed.

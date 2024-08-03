@@ -12,7 +12,7 @@ Say hello to the easy solution to transactional email in WordPress.
 
 == Description ==
 
-When this plugin is installed, you’ll be able to sign up for the SendWP service from the SendWP menu page. Once you’re signed up, all your WordPress emails will be routed through sendwp.com. We know that sending all your email through a third-party can be scary, so please can check out our privacy policy and terms and conditions.
+When this plugin is installed, you’ll be able to sign up for the [SendWP](https://sendwp.com/?utm_source=wordpress-org&utm_medium=promo-link&utm_campaign=readme&utm_content=sendwp) service from the SendWP menu page. Once you’re signed up, all your WordPress emails will be routed through sendwp.com. We know that sending all your email through a third-party can be scary, so please can check out our privacy policy and terms and conditions.
 
 == Installation ==
 
@@ -51,50 +51,3 @@ A. No. This plugin only serves to connect you to the SendWP service, so if you d
 = 1.4 =
 
 * Adds trusted login as a better way to give support access to investigate issues
-
-= 1.3.1 =
-
-* Fixes an issue with security secrets causing disconnect for some customers.
-
-= 1.3 =
-
-* Various improvements and bug fixes.
-
-= 1.2.5 =
-
-* Adds security header for increased security for all customers.
-
-= 1.2.5 =
-
-* Adds security header for increased security for all customers.
-
-= 1.2 =
-
-* Adds ability to reset local security secret in the admin.
-* Deletes plugin data when plugin is deactivated.
-
-= 1.1 =
-
-* Small Updates
-
-= 1.0.4 =
-
-* Updated the server URL for our newest back end server update.
-
-= 1.0.3 =
-
-* Resolved an error that was resulting in failure to forward reply to address.
-
-= 1.0.2 =
-
-* Resolved minor errors that were causing php notices to be displayed in the admin dashboard.
-
-= 1.0.1 =
-
-* Banner image should now load properly when wp_debug is enabled.
-* Added support for reply to address.
-* Removed update nag on menu item when service was disabled.
-
-= 1.0.0 =
-
-* Public release.

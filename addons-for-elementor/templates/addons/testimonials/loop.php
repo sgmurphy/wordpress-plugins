@@ -47,7 +47,7 @@ if ($widget_template !== 'style4'):
         $carousel_settings = array_merge($carousel_settings, $responsive_settings);
 
         $class_attr = 'lae-testimonials-carousel lae-container';
-        $data_attr = ' data-settings=\'' . esc_attr(wp_json_encode($carousel_settings)) . '\'';
+        $data_attr = ' data-settings=' . esc_attr(wp_json_encode($carousel_settings)) . '';
 
     else:
 

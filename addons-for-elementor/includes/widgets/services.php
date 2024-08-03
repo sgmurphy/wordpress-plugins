@@ -600,22 +600,22 @@ class LAE_Services_Widget extends LAE_Widget_Base {
                 ],
             ],
             'selectors'  => [
-                '{{WRAPPER}} .lae-services .lae-service .lae-image-wrapper img' => 'width: {{SIZE}}{{UNIT}};',
-                '{{WRAPPER}} .lae-services .lae-service .lae-icon-wrapper i'    => 'font-size: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .lae-services .lae-service .lae-image-wrapper img'                                                            => 'width: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .lae-services .lae-service .lae-icon-wrapper i, {{WRAPPER}} .lae-services .lae-service .lae-icon-wrapper svg' => 'font-size: {{SIZE}}{{UNIT}};',
             ],
         ] );
         $this->add_control( 'icon_color', [
             'label'     => __( 'Icon Custom Color', 'livemesh-el-addons' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [
-                '{{WRAPPER}} .lae-services .lae-service .lae-icon-wrapper i' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .lae-services .lae-service .lae-icon-wrapper i, {{WRAPPER}} .lae-services .lae-service .lae-icon-wrapper svg' => 'color: {{VALUE}}; fill: {{VALUE}};',
             ],
         ] );
         $this->add_control( 'hover_color', [
             'label'     => __( 'Icon Hover Color', 'livemesh-el-addons' ),
             'type'      => Controls_Manager::COLOR,
             'selectors' => [
-                '{{WRAPPER}} .lae-services .lae-service .lae-icon-wrapper i:hover' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .lae-services .lae-service .lae-icon-wrapper i:hover, {{WRAPPER}} .lae-services .lae-service .lae-icon-wrapper svg:hover' => 'color: {{VALUE}}; fill: {{VALUE}};',
             ],
         ] );
         $this->end_controls_section();

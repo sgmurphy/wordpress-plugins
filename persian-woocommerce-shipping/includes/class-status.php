@@ -309,16 +309,17 @@ class PWS_Status {
 			<p class="form-field-wide">
 				<label>حجم مرسوله:</label>
 				<select style="width: 100%" name="tapin_box_size" id="tapin_box_size">
-					<option value="1" <?php selected( 1, $box_size ); ?>>کارتن پستی سایز ۱</option>
-					<option value="2" <?php selected( 2, $box_size ); ?>>کارتن پستی سایز ۲</option>
-					<option value="3" <?php selected( 3, $box_size ); ?>>کارتن پستی سایز ۳</option>
-					<option value="4" <?php selected( 4, $box_size ); ?>>کارتن پستی سایز ۴</option>
-					<option value="5" <?php selected( 5, $box_size ); ?>>کارتن پستی سایز ۵</option>
-					<option value="6" <?php selected( 6, $box_size ); ?>>کارتن پستی سایز ۶</option>
-					<option value="7" <?php selected( 7, $box_size ); ?>>کارتن پستی سایز ۷</option>
-					<option value="8" <?php selected( 8, $box_size ); ?>>کارتن پستی سایز ۸</option>
-					<option value="9" <?php selected( 9, $box_size ); ?>>کارتن پستی سایز ۹</option>
-					<option value="10" <?php selected( 10, $box_size ); ?>>بزرگتر از کارتن پستی سایز ۹</option>
+					<?php
+
+					foreach ( PWS_Tapin::box_sizes() as $value => $label ) {
+						printf( '<option value="%d" %s>%s</option>',
+							$value,
+							selected( $value, $box_size, false ),
+							$label
+						);
+					}
+
+					?>
 				</select>
 			</p>
 

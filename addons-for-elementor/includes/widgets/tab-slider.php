@@ -343,8 +343,8 @@ class LAE_Tab_Slider_Widget extends LAE_Widget_Base {
             ],
             'devices'    => ['desktop', 'tablet', 'mobile'],
             'selectors'  => [
-                '{{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav span.lae-image-wrapper img' => 'width: {{SIZE}}{{UNIT}};',
-                '{{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav span.lae-icon-wrapper i'    => 'font-size: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav span.lae-image-wrapper img'                                                                                       => 'width: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav span.lae-icon-wrapper i, {{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav span.lae-icon-wrapper svg' => 'font-size: {{SIZE}}{{UNIT}};',
             ],
         ] );
         $this->add_control( 'icon_color', [
@@ -352,7 +352,7 @@ class LAE_Tab_Slider_Widget extends LAE_Widget_Base {
             'type'      => Controls_Manager::COLOR,
             'default'   => '',
             'selectors' => [
-                '{{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav span.lae-icon-wrapper i' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav span.lae-icon-wrapper i, {{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav span.lae-icon-wrapper svg' => 'color: {{VALUE}}; fill: {{VALUE}};',
             ],
         ] );
         $this->add_control( 'active_icon_color', [
@@ -360,7 +360,7 @@ class LAE_Tab_Slider_Widget extends LAE_Widget_Base {
             'type'      => Controls_Manager::COLOR,
             'default'   => '',
             'selectors' => [
-                '{{WRAPPER}} .lae-tab-slider .slick-dots li.slick-active .lae-tab-slide-nav span.lae-icon-wrapper i' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .lae-tab-slider .slick-dots li.slick-active .lae-tab-slide-nav span.lae-icon-wrapper i, {{WRAPPER}} .lae-tab-slider .slick-dots li.slick-active .lae-tab-slide-nav span.lae-icon-wrapper svg' => 'color: {{VALUE}}; fill: {{VALUE}};',
             ],
         ] );
         $this->add_control( 'hover_icon_color', [
@@ -368,7 +368,7 @@ class LAE_Tab_Slider_Widget extends LAE_Widget_Base {
             'type'      => Controls_Manager::COLOR,
             'default'   => '',
             'selectors' => [
-                '{{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav:hover span.lae-icon-wrapper i' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav:hover span.lae-icon-wrapper i, {{WRAPPER}} .lae-tab-slider .slick-dots li .lae-tab-slide-nav:hover span.lae-icon-wrapper svg' => 'color: {{VALUE}}; fill: {{VALUE}};',
             ],
         ] );
     }

@@ -1,15 +1,15 @@
 === SVG Support ===
 Contributors: Benbodhi
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Z9R7JERS82EQQ
-Tags: svg, vector, safesvg, safe svg, sanitization, sanitisation, sanitizer, sanitiser, sanitized, sanitised, sanitize, sanitise, css, style, mime, mime type, embed, img, render, inline, animation, animation, animate, js
+Tags: svg, vector, safe svg, sanitization, mime type
 Requires at least: 4.8
 Tested up to: 6.6.1
 Requires PHP: 7.2
-Stable tag: 2.5.6
+Stable tag: 2.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Safely upload SVG files to the Media Library with optional sanitization and minification. Render your SVG files inline for direct styling/animation of an SVG's internal elements.
+Safely upload SVGs to the Media Library, sanitize/minify them, and even render them inline for direct styling/animation of internal elements.
 
 
 == Description ==
@@ -160,6 +160,9 @@ You need to add the mime type for svg and svgz to: "MLA Settings > Media Library
 
 
 == Changelog ==
+
+= 2.5.7 =
+* Compatibility with newer versions of php.
 
 = 2.5.6 =
 * Addressed some security concerns.
@@ -395,6 +398,10 @@ You need to add the mime type for svg and svgz to: "MLA Settings > Media Library
 
 
 == Upgrade Notice ==
+
+= 2.5.7 =
+This update addresses issues with newer PHP versions.
+
 = 2.5.6 =
 This update addresses some security concerns.
 

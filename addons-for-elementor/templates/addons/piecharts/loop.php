@@ -18,7 +18,7 @@ $piechart_settings = [
     'line_width' => esc_attr($settings['line_width']['size']),
 ];
 
-$data_attr = ' data-settings=\'' . esc_attr(wp_json_encode($piechart_settings)) . '\'';
+$data_attr = ' data-settings=' . esc_attr(wp_json_encode($piechart_settings)) . '';
 
 
 ?>

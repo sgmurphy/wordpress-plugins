@@ -204,6 +204,11 @@ cff_forms_templates = {
             "category": "Financial",
             "description": "Calculate the age when the person will meet the minimum required years of work.",
             "id": 49
+        }, {
+            "title": "Transportation Cost",
+            "category": "Transportation",
+            "description": "Basic algorithm to calculate transportation cost.",
+            "id": 50
         }
     ],
     "pro": [

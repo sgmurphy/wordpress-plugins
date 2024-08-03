@@ -849,7 +849,7 @@
 						'<div class="cff-field-settings-tab-body-basic cff-field-settings-tab-body-active">';
 
 					str += '<div><label>Form Category</label><input type="text" class="large" name="calculated-fields-form-category-mirror" id="calculated-fields-form-category-mirror" value="'+cff_esc_attr( $('[name="calculated-fields-form-category"]').val() )+'" list="calculated-fields-form-categories" /></div>'+
-					'<div><label>Form Name</label><input type="text" class="large" name="fTitle" id="fTitle" value="'+cff_esc_attr(me.title)+'" /></div>'+
+					'<div><label>Form Name (Title)</label><input type="text" class="large" name="fTitle" id="fTitle" value="'+cff_esc_attr(me.title)+'" /></div>'+
 					'<div><label>Form Name Tag</label><select class="large" id="fTitleTag" name="fTitleTag">'+
 					['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].reduce(function(o, t){ return o += '<option value="'+t+'" '+(t == me.titletag ? 'SELECTED' : '')+'>'+t+'</option>';}, '')+
 					'</select></div>'+

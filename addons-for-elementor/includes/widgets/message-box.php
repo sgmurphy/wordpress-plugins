@@ -284,8 +284,8 @@ class LAE_Message_Box_Widget extends LAE_Widget_Base {
                 ],
             ],
             'selectors'  => [
-                '{{WRAPPER}} .lae-message-box .lae-image-wrapper img' => 'width: {{SIZE}}{{UNIT}};',
-                '{{WRAPPER}} .lae-message-box .lae-icon-wrapper i'    => 'font-size: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .lae-message-box .lae-image-wrapper img'                                                  => 'width: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .lae-message-box .lae-icon-wrapper i, {{WRAPPER}} .lae-message-box .lae-icon-wrapper svg' => 'font-size: {{SIZE}}{{UNIT}};',
             ],
         ] );
         $this->add_control( 'message_icon_color', [
@@ -295,7 +295,7 @@ class LAE_Message_Box_Widget extends LAE_Widget_Base {
                 'icon_type' => 'icon',
             ],
             'selectors' => [
-                '{{WRAPPER}} .lae-message-box .lae-icon-wrapper i' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .lae-message-box .lae-icon-wrapper i, {{WRAPPER}} .lae-message-box .lae-icon-wrapper svg' => 'color: {{VALUE}}; fill: {{VALUE}};',
             ],
         ] );
         $this->add_responsive_control( 'message_icon_margin', [
