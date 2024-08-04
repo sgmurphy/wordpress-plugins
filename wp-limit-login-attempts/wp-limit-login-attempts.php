@@ -7,6 +7,8 @@
   Author URI: https://ciphercoin.com
   Text Domain: wp-limit-login-attempts
   Version: 2.6.5
+  License: GPLv2 or later
+  License URI: http://www.gnu.org/licenses/gpl-2.0.html 
 */
 
 /*  create or update table */
@@ -368,7 +370,7 @@ function wp_limit_login_admin_notice() {
     $user_id = $current_user->ID;
     if ( ! get_user_meta($user_id, 'wp_limit_login_nag_ignore') ) {
           echo '<div style="border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; background: #EBF8A4; border: 1px solid #a2d246; color: #066711; font-size: 14px; font-weight: bold; height: auto; margin: 30px 15px 15px 0px; overflow: hidden; padding: 4px 10px 6px; line-height: 30px;"><p>';
-          printf(__('Your admin is protected. Light wordpress plugin -  <a href="http://www.ciphercoin.com" target="_blank">CipherCoin</a>  |<a href="options-general.php?page=wp-limit-login-attempts">Settings</a> | <a href="%1$s">Hide Notice</a>'), '?wp_limit_login_nag_ignore=0');
+          printf(__('Your admin is protected. Light wordpress plugin -  <a href="https://www.ciphercoin.com" target="_blank">CipherCoin</a>  |<a href="options-general.php?page=wp-limit-login-attempts">Settings</a> | <a href="%1$s">Hide Notice</a>'), '?wp_limit_login_nag_ignore=0');
           echo "</p></div>";
     }
 }
@@ -388,7 +390,7 @@ function wp_limit_login_plugin_options() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 	echo '<div class="warn_msg">
-    <img src="'.plugin_dir_url( __FILE__ )  .'/images/warn.png""> <b>WP Limit Login attempts Lite</b> is a fully functional but limited version of <b><a href="http://www.ciphercoin.com" target="_blank">WP Limit Login attempts Pro</a></b>. Consider upgrading to get access to all premium features and premium support.
+    <img src="'.plugin_dir_url( __FILE__ )  .'/images/warn.png""> <b>WP Limit Login attempts Lite</b> is a fully functional but limited version of <b><a href="https://www.ciphercoin.com" target="_blank">WP Limit Login attempts Pro</a></b>. Consider upgrading to get access to all premium features and premium support.
   </div>';
 
 
@@ -410,7 +412,7 @@ function wp_limit_login_plugin_options() {
 	//<form method="post" action="">
 	//<input type="text" name
   echo '<div class="warn_msg">
-    <img src="'.plugin_dir_url( __FILE__ )  .'/images/warn.png"">   Please consider upgrading to <b><a href="http://www.ciphercoin.com" target="_blank">WP Limit Login attempts Pro</a></b> if you want to use this feature.
+    <img src="'.plugin_dir_url( __FILE__ )  .'/images/warn.png"">   Please consider upgrading to <b><a href="https://www.ciphercoin.com" target="_blank">WP Limit Login attempts Pro</a></b> if you want to use this feature.
   </div>';
 }
 

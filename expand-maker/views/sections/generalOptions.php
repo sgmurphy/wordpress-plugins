@@ -206,6 +206,35 @@ $allowedTag = ReadMoreAdminHelper::getAllowedTags();
                     <input type="text" class="form-control" name="enable-tooltip-text" id="enable-tooltip-text" value="<?php echo esc_attr($savedObj->getOptionValue('enable-tooltip-text')); ?>">
                 </div>
             </div>
+            <div class="row row-static-margin-bottom">
+                <div class="col-xs-5">
+                    <label class="control-label" for="tooltip-text-size"><?php _e('Font size', YRM_LANG);?>:</label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" class="form-control" name="tooltip-text-size" id="tooltip-text-size" value="<?php echo esc_attr($savedObj->getOptionValue('tooltip-text-size')); ?>">
+                </div>
+            </div>
+			<div class="row row-static-margin-bottom <?php echo esc_attr($proClassWrapper); ?>">
+				<?php if($proClassWrapper): ?>
+					<?php echo ReadMoreAdminHelper::proOptionHTML(); ?>
+				<?php endif; ?>
+				<div class="row row-static-margin-bottom">
+					<div class="col-xs-5">
+						<label class="control-label" for="tooltip-text-color"><?php _e('Color', YRM_LANG);?>:</label>
+					</div>
+					<div class="col-xs-4">
+						<input type="text" class="input-md general-colors" id="tooltip-text-color" name="tooltip-text-color" value="<?php echo esc_attr($savedObj->getOptionValue('tooltip-text-color')); ?>"><br>
+					</div>
+				</div>
+				<div class="row row-static-margin-bottom">
+					<div class="col-xs-5">
+						<label class="control-label" for="tooltip-text-bg-color"><?php _e('Background Color', YRM_LANG);?>:</label>
+					</div>
+					<div class="col-xs-4">
+						<input type="text" class="input-md general-colors" id="tooltip-text-bg-color" name="tooltip-text-bg-color" value="<?php echo esc_attr($savedObj->getOptionValue('tooltip-text-bg-color')); ?>"><br>
+					</div>
+				</div>
+			</div>
         </div>
         <!-- Tooltip option end -->
         <?php if ($type == 'button' || $type == 'inline'): ?>

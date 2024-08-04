@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/nikelschubert/6.00EUR
 Tested up to: 6.6
 Requires PHP: 7.0.0
 License: GPLv3
-Stable tag: 4.2.1
+Stable tag: 4.3.0
 
 Free and beautiful Cookie Consent Banner to make your website compliant. Highly customizable and not loading any files from 3rd party servers.
 
@@ -24,7 +24,8 @@ A free and beautiful way to get a Cookie Banner without loading any external res
 
 = Additional Features with paid add-on =
 
-- Google Consent Mode v2, including new ad_personalization and ad_user_data, see here: [How to implement Consent Mode v2](https://beautiful-cookie-banner.com/documentation/cookie-consent-premium-add-on-documentation/google-consent-mode-v2-implementation-example/)
+- Google Consent Mode v2, including new ad_personalization and ad_user_data, see here: [Google Consent Mode v2 for WordPress](https://beautiful-cookie-banner.com/documentation/cookie-consent-premium-add-on-documentation/google-consent-mode-v2-implementation-example/)
+- Microsoft UET consent mode support. [Microsoft UET consent mode for WordPress](https://beautiful-cookie-banner.com/documentation/cookie-consent-premium-add-on-documentation/microsoft-uet-consent-mode-for-wordpress/)
 - Auto block scripts and requests
 - Multilanguage support
 - Full Google Tag Manager integration: load GTM through this plugin.
@@ -85,7 +86,6 @@ This Version uses 3.1.0 from osano as basis, but it has a lot modifications to t
 Most Cookie Banner plugins set javascript cookies. In Safari and Firefox these cookies have a short lifetime, even if the cookie is set with an very long expiration date.
 **Consequence:** Your user have to opt in every seven days again. And sees the banner every seven days. Which is kind of annoying.
 With this Plugin the consent cookie stays save and is not limited in lifetime. If you use the option.
-If you want to save more cookies, check out this plugin: [https://wordpress.org/plugins/itp-cookie-saver](https://wordpress.org/plugins/itp-cookie-saver/).
 
 = How to remove tab at the bottom? =
 Just go to Settings > Cookie Consent Banner > Consent Management and uncheck the checkbox "Show 'Cookie Settings' tab"
@@ -119,6 +119,10 @@ You can use the filter hook "nsc_bar_cookie_bar_message" in your plugin or theme
 Just install this plugin and go to Settings > Cookie Consent Banner to change the default config and to activate the banner.
 
 == Changelog ==
+
+= 4.3.0 =
+
+- Improvements for premium addon: consent mode update dataLayer push on first page view & microsoft consent mode support.
 
 = 4.2.1 =
 

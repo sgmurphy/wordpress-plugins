@@ -2,7 +2,7 @@
 /*
 Plugin Name: Contact Form 7 Captcha
 Description: Add reCAPTCHA V2, hCAPTCHA or Cloudflare Turnstile CAPTCHA to Contact Form 7 using [cf7sr-recaptcha], [cf7sr-hcaptcha] or [cf7sr-turnstile] shortcode
-Version: 0.1.5
+Version: 0.1.6
 Author: 247wd
 Text Domain: cf7sr-free
 Domain Path: /languages

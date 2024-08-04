@@ -39,3 +39,7 @@ color:#fff !important;
 font-size:1.5rem !important;
 text-align:center;
 }
+
+#bootstrap-wrapper .plugin-card{
+	width:100%;
+}

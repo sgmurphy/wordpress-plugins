@@ -11,6 +11,8 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-pisol-sales-n
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-pisol-sales-notification-translate.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-pisol-sales-notification-product.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-pisol-sales-notification-control.php';
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/plugins.php';
+
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-common.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-control.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-fake-order-generator.php';

@@ -510,6 +510,14 @@ class ReadMoreIncludeManager {
 		$styles .= 'padding: '.esc_attr($dataObj->getOptionValue('show-content-gradient-height')).'px 0;';
 		$styles .= 'background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgba(255,255,255,0)),color-stop(1, '.esc_attr($dataObj->getOptionvalue('show-content-gradient-color')).')) !important;';
 		$styles .= '}</style>';
+	
+		if(!empty($dataObj->getOptionValue('enable-tooltip'))) {
+			$styles .= '<style type="text/css">';
+			$styles .= '.yrm-tooltiptext-'.esc_attr($id).'{';
+			$styles .= 'font-size: '.esc_attr($dataObj->getOptionValue('tooltip-text-size')).'';
+			$styles .= '}';
+			$styles .= '</style>';
+		}
 		
 		$styles = apply_filters('yrmContentStyles', $styles, $dataObj, $id);
 
@@ -533,7 +541,8 @@ class ReadMoreIncludeManager {
 
 	private function getToolTipContent($text = '')
 	{
-		return '<span class="yrm-tooltiptext" id="yrm-myTooltip">'.esc_attr($text).'</span>';
+		$id = $this->getId();
+		return '<span class="yrm-tooltiptext yrm-tooltiptext-'.esc_attr($id).'" id="yrm-myTooltip">'.esc_attr($text).'</span>';
 	}
 
 }

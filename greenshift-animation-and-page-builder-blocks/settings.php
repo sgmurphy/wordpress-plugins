@@ -910,7 +910,15 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 															'href' => [],
 															'rel' => [],
 															'type' => []
-														]
+														],
+														'img' => [
+															'alt' => [],
+															'height' => [],
+															'src' => [],
+															'width' => [],
+															'style' => []
+														],
+														'noscript' => []
 													]);
 												}
 												if (isset($_POST['custom_code_before_closed_body'])) {
@@ -937,7 +945,15 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 															'href' => [],
 															'rel' => [],
 															'type' => []
-														]
+														],
+														'img' => [
+															'alt' => [],
+															'height' => [],
+															'src' => [],
+															'width' => [],
+															'style' => []
+														],
+														'noscript' => []
 													]);
 												}
 												if (isset($_POST['custom_code_in_head']) || isset($_POST['custom_code_before_closed_body'])) {
@@ -1291,6 +1307,13 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 						'rel' => [],
 						'type' => []
 					],
+					'img' => [
+						'alt' => [],
+						'height' => [],
+						'src' => [],
+						'width' => [],
+						'style' => []
+					],
 					'noscript' => []
 				]);
 			}
@@ -1348,6 +1371,13 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 						'href' => [],
 						'rel' => [],
 						'type' => []
+					],
+					'img' => [
+						'alt' => [],
+						'height' => [],
+						'src' => [],
+						'width' => [],
+						'style' => []
 					],
 					'noscript' => []
 				]);

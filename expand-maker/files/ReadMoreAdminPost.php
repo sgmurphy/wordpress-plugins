@@ -162,12 +162,16 @@ Class ReadMoreAdminPost {
 		$options['yrm-toggle-sound'] = $this->expmSanitizeData('yrm-toggle-sound', true);
 		$options['enable-tooltip'] = $this->expmSanitizeData('enable-tooltip', true);
 		$options['enable-tooltip-text'] = $this->expmSanitizeData('enable-tooltip-text');
+		$options['tooltip-text-size'] = $this->expmSanitizeData('tooltip-text-size');
+		
 		$options['yrm-enable-decoration'] = $this->expmSanitizeData('yrm-enable-decoration', true);
 		$options['yrm-decoration-type'] = $this->expmSanitizeData('yrm-decoration-type');
 		$options['yrm-decoration-style'] = $this->expmSanitizeData('yrm-decoration-style');
 		$options['yrm-decoration-color'] = $this->expmSanitizeData('yrm-decoration-color');
 
 		if(YRM_PKG > YRM_FREE_PKG) {
+			$options['tooltip-text-color'] = $this->expmSanitizeData('tooltip-text-color');
+			$options['tooltip-text-bg-color'] = $this->expmSanitizeData('tooltip-text-bg-color');
 			$options['yrm-hidden-data-load-mode'] = $this->expmSanitizeData('yrm-hidden-data-load-mode');
 			$options['load-data-delay'] = $this->expmSanitizeData('load-data-delay');
 			$options['load-data-after-action'] = $this->expmSanitizeData('load-data-after-action', true);

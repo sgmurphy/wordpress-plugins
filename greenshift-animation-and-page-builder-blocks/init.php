@@ -483,25 +483,25 @@ function gspb_greenShift_register_scripts_blocks(){
 		'greenShift-library-editor',
 		GREENSHIFT_DIR_URL . 'build/gspbLibrary.css',
 		'',
-		'9.1.6'
+		'9.2'
 	);
 	wp_register_style(
 		'greenShift-block-css', // Handle.
 		GREENSHIFT_DIR_URL . 'build/index.css', // Block editor CSS.
 		array('greenShift-library-editor', 'wp-edit-blocks'),
-		'9.1.6'
+		'9.2'
 	);
 	wp_register_style(
 		'greenShift-stylebook-css', // Handle.
 		GREENSHIFT_DIR_URL . 'build/gspbStylebook.css', // Block editor CSS.
 		array(),
-		'9.1.6'
+		'9.2'
 	);
 	wp_register_style(
 		'greenShift-admin-css', // Handle.
 		GREENSHIFT_DIR_URL . 'templates/admin/style.css', // admin css
 		array(),
-		'9.1.6'
+		'9.2'
 	);
 
 	//Script for ajax reusable loading
@@ -770,7 +770,7 @@ function gspb_greenShift_block_script_assets($html, $block)
 				if($blockname == 'greenshift-blocks/buttonbox'){
 					$html = str_replace('class="gspb_slidingPanel"', 'aria-hidden="true"  class="gspb_slidingPanel"', $html);
 					$html = str_replace('class="gspb_slidingPanel-close"', 'tabindex="0"  class="gspb_slidingPanel-close"', $html);
-					$html = str_replace('href="#"', 'href="javascript:void(0)"', $html);
+					$html = str_replace('href="#"', 'href="#popup"', $html);
 				}
 			}
 			if (!empty($block['attrs']['buttonLink'])) {
@@ -1369,6 +1369,7 @@ function gspb_greenShift_editor_assets()
 	$googleapi = (!empty($sitesettings['googleapi'])) ? esc_attr($sitesettings['googleapi']) : '';
 	$default_attributes = (!empty($sitesettings['default_attributes'])) ? $sitesettings['default_attributes'] : '';
 	$global_classes = (!empty($sitesettings['global_classes'])) ? $sitesettings['global_classes'] : [];
+	$framework_classes = (!empty($sitesettings['framework_classes'])) ? $sitesettings['framework_classes'] : [];
 	$preset_classes = greenshift_render_preset_classes();
 	$global_variables = (!empty($sitesettings['variables'])) ? $sitesettings['variables'] : [];
 	$colours = (!empty($sitesettings['colours'])) ? $sitesettings['colours'] : '';
@@ -1564,6 +1565,7 @@ function gspb_greenShift_editor_assets()
 			'localfont' => apply_filters('gspb_local_font_array', $localfont),
 			'googleapi' => apply_filters('gspb_google_api_key', $googleapi),
 			'global_classes' => apply_filters('gspb_global_classes', $global_classes),
+			'framework_classes' => apply_filters('gspb_framework_classes', $framework_classes),
 			'preset_classes' => $preset_classes,
 			'colours' => $colours,
 			'elements' => $elements,
@@ -1668,6 +1670,11 @@ function gspb_global_variables()
 			$gs_global_css = $options['globalcss'];
 			$gs_global_css = str_replace('!important', '', $gs_global_css);
 		}
+
+		if (!empty($options['custom_css'])) {
+			$custom_css = $options['custom_css'];
+			$gs_global_css = $gs_global_css . $custom_css;
+		}
 		
 		if (!empty($options['localfontcss'])) {
 			$gs_global_css = $gs_global_css . $options['localfontcss'];
@@ -1764,6 +1771,11 @@ function gspb_global_variables()
 		if (!empty($options['globalcss'])) {
 			$gs_global_css = $options['globalcss'];
 			$gs_global_css = str_replace('!important', '', $gs_global_css);
+		}
+
+		if (!empty($options['custom_css'])) {
+			$custom_css = $options['custom_css'];
+			$gs_global_css = $gs_global_css . $custom_css;
 		}
 
 		if (!empty($options['localfontcss'])) {
@@ -2275,6 +2287,19 @@ function gspb_update_global_settings($request)
 				}
 			}
 			$defaults['global_classes'] = $classes;
+			update_option('gspb_global_settings', $defaults);
+		}
+
+		if(isset($params['custom_css'])){
+			$defaults['custom_css'] = $params['custom_css'];
+			update_option('gspb_global_settings', $defaults);
+		}
+
+		if(isset($params['framework_classes'])){
+			if(!is_array($params['framework_classes'])){
+				$params['framework_classes'] = [];
+			}
+			$defaults['framework_classes'] = $params['framework_classes'];
 			update_option('gspb_global_settings', $defaults);
 		}
 

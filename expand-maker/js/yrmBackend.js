@@ -53,7 +53,12 @@ yrmBackend.prototype.init = function() {
 	this.saveMessageRemove();
 
 	this.accordionTypeSwitcher()
+	this.colors();
 };
+
+yrmBackend.prototype.colors = function () {
+	jQuery('.general-colors').minicolors();
+}
 
 yrmBackend.prototype.accordionTypeSwitcher = function () {
 	var keysId = ['content', 'post'];

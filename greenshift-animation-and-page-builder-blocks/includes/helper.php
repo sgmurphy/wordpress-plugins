@@ -28,6 +28,9 @@ if (!function_exists('gspb_AnimationRenderProps')) {
 				}
 				if (!empty($animation['ease'])) {
 					$animeprops['data-ease'] = esc_attr($animation['ease']);
+					if (isset($animation['easecustom']) && $animation['ease'] == 'custom') {
+						$animeprops['data-easecustom'] = esc_attr($animation['easecustom']);
+					}
 				}
 				if (!empty($animation['x'])) {
 					$animeprops['data-x'] = esc_attr($animation['x']);
