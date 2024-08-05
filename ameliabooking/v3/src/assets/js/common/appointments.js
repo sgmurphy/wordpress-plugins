@@ -482,8 +482,10 @@ function useCapacity (employeeServices) {
     options.min = serviceMinCapacity
   }
 
-  options.max = options.max > 1 ? (options.max - 1) : options.max
-  options.min = options.min > 0 ? (options.min - 1) : options.min
+  let additionalPeople = settings.appointments.bringingAnyoneLogic === 'additional'
+
+  options.max = options.max > 1 ? (options.max - (additionalPeople ? 1 : 0)) : options.max
+  options.min = options.min > 0 ? (options.min - (additionalPeople ? 1 : 0)) : options.min
 
   return options
 }

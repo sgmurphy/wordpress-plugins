@@ -202,24 +202,19 @@ export default {
        isValidEmail: true,
        blogPosts: [],
        changelog: {
-         version: '7.7',
+         version: '7.7.1',
          starter: {
-           feature: [
-             'Square Integration - Simplify your transaction management with our Square integration, offering a reliable and efficient payment method for your services and events',
-             'WP Fusion Integration - Sync Amelia appointment bookings with over 50 CRMs and marketing platforms, and apply tags based on booked services'
+           feature: [],
+           improvement: [
+             'Added the possibility to choose the logic for the total number of people in one booking calculation'
            ],
-           improvement: [],
            translations: [
-             'Updated Turkish translation'
+             'Updated Italian translation and Spanish translation for Chile and Mexico\n'
            ],
            bugfix: [
-             'Fixed issue with notifications and additional language',
-             'Fixed issue with the Go back button on the Catalog form when one service/employee is preselected',
-             'Fixed issue with appointments that go over 24:00 on the Calendar page',
-             'Fixed issue with the Catalog booking form and Iphone 14/15',
-             'Fixed issue with displaying events in drop-downs on back-end pages',
-             'Fixed issue with Divi shortcodes and preselected parameters',
-             'Added missing strings for translation for the Customer panel'
+             'Fixed issue with showing events on the booking forms and the back-end',
+             'Fixed issue with double booking when the appointment is canceled and rescheduled',
+             'Fix full path disclosure vulnerability issue',
            ],
            other: [
              'Other small bug fixes and stability improvements'
@@ -228,33 +223,26 @@ export default {
          basic: {
            feature: [],
            improvement: [
-             'Added the possibility for users to enable Onsite and WooCommerce payments',
-             'Improved logic by adding new event type in GA and FB pixel'
+             'Improved Stripe integration - connection to Stripe users and option for address fields'
            ],
            translations: [],
            bugfix: [
-             'Fixed issue with translating date on the new Event list form',
-             'Fixed issue with recurring appointments step on Step-by-step booking form',
-             'Fixed issue with multiply deposit on the event payment step'
+             'Fixed issue with booking recurring appointments on the back-end when there are a lot of time slots available'
            ],
            other: []
          },
          pro: {
            feature: [],
-           improvement: [
-             'Optimized Packages page for adding new bookings'
-           ],
+           improvement: [],
            translations: [],
            bugfix: [
-             'Fixed issue with same appointment time slots in packages for different services'
+             'Fixed issue with resources and appointments ending at 24:00'
            ],
            other: []
          },
          developer: {
            feature: [],
-           improvement: [
-             'Allowed custom settings parameter for integrations in the get time slots API call'
-           ],
+           improvement: [],
            translations: [],
            bugfix: [],
            other: []

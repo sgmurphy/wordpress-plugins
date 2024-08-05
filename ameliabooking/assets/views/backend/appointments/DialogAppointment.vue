@@ -505,12 +505,13 @@
             >
               <el-checkbox
                 v-model="enabledRecurring"
-                :disabled="!appointment.selectedDate || !appointment.selectedPeriod"
+                :disabled="!appointment.selectedDate || !appointment.selectedPeriod || !appointment.providerId"
                 @change="enableRecurring()"
               >
                 {{ $root.labels.recurring_active }}
                 <el-tooltip placement="top">
                   <div slot="content" v-html="$root.labels.recurring_active_tooltip"></div>
+                  <div v-if="!appointment.providerId" slot="content" v-html="$root.labels.recurring_select_employee"></div>
                   <i class="el-icon-question am-tooltip-icon"></i>
                 </el-tooltip>
               </el-checkbox>
@@ -1876,7 +1877,9 @@
         this.setServiceCapacityForProvider()
         this.setPrice()
 
-        if (this.mounted) {
+        if (!this.appointment.providerId && this.enabledRecurring) {
+          this.enabledRecurring = false
+        } else if (this.mounted) {
           this.getTimeSlots(this.updateCalendar)
         }
 

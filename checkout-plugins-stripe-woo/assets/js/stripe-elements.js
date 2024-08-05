@@ -362,6 +362,17 @@
 	const elementsForPayment = stripe.elements( paymentElementSettings );
 	// Create an instance of the Payment Element
 	const paymentElement = elementsForPayment.create( 'payment', paymentElementOptions );
+
+	// If Payment element is not loaded, show error message
+	paymentElement.on( 'loaderror', ( event ) => {
+		if ( event.error ) {
+			const errorCode = event.error.code ? event.error.code : event.error?.message_code;
+			$( '.cpsw_stripe_payment_element_error' ).html(
+				getStripeLocalizedMessage( 'payment_element_loaderror', null ) + getStripeLocalizedMessage( errorCode, event?.error?.message ),
+			);
+		}
+	} );
+
 	const saveCardGateways = cpsw_global_settings.savecard_supported_gateways;
 
 	paymentElement.on( 'change', ( event ) => {
@@ -446,7 +457,7 @@
 			return false;
 		}
 
-		paymentElement.mount( '#cpsw_stripe_payment_element' );
+		paymentElement?.mount( '#cpsw_stripe_payment_element' );
 	}
 
 	function mountGateways() {

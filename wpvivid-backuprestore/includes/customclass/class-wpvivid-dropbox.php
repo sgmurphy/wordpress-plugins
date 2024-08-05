@@ -393,7 +393,7 @@ class WPvivid_Dropbox extends WPvivid_Remote
                         $auth_id = uniqid('wpvivid-auth-');
                         $state = admin_url() . 'admin.php?page=WPvivid' . '&action=wpvivid_dropbox_finish_auth&main_tab=storage&sub_tab=dropbox&sub_page=storage_account_dropbox&auth_id='.$auth_id;
                         $remote_options['auth_id']=$auth_id;
-                        update_option('wpvivid_tmp_remote_options',$remote_options);
+                        update_option('wpvivid_tmp_remote_options',$remote_options,'no');
                         $url = Dropbox_Base::getUrl($this->redirect_url, $state);
                         header('Location: ' . filter_var($url, FILTER_SANITIZE_URL));
                     }
@@ -440,7 +440,7 @@ class WPvivid_Dropbox extends WPvivid_Remote
                                     $tmp_options['expires_in'] = sanitize_text_field($_POST['expires_in']);
                                     $tmp_options['refresh_token'] = base64_encode(sanitize_text_field($_POST['refresh_token']));
                                     $tmp_options['is_encrypt'] = 1;
-                                    update_option('wpvivid_tmp_remote_options',$tmp_options);
+                                    update_option('wpvivid_tmp_remote_options',$tmp_options,'no');
                                 }
                                 $this->add_remote=true;
                             }

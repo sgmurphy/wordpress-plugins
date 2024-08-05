@@ -149,7 +149,7 @@ class Admin_Controller {
 		add_action( 'wp_ajax_cpsw_create_webhook', [ $this, 'create_webhook_action' ] );
 		add_action( 'wp_ajax_cpsw_js_errors', [ $this, 'js_errors' ] );
 		add_action( 'wp_ajax_nopriv_cpsw_js_errors', [ $this, 'js_errors' ] );
-		add_action( 'wp_ajax_dismiss_cpsw_notice', [ $this, 'dismiss_payment_element_notice' ] );
+		add_action( 'wp_ajax_dismiss_cpsw_notice', [ $this, 'dismiss_admin_notice' ] );
 
 		add_action( 'woocommerce_settings_save_cpsw_api_settings', [ $this, 'check_connection_on_updates' ] );
 		add_filter( 'woocommerce_save_settings_checkout_cpsw_express_checkout', [ $this, 'cpsw_express_checkout_option_updates' ] );
@@ -226,11 +226,14 @@ class Admin_Controller {
 	 * @since 0.0.1
 	 */
 	public function initialise_warnings() {
-		// If Stripe checkout is not enabled.
-		if ( Helper::is_cpsw_settings_page() ) {
-			if ( 'payment' !== Helper::get_setting( 'cpsw_element_type' ) ) {
-				add_action( 'admin_notices', [ $this, 'stripe_checkout_notice' ] );
-			}
+		// If Payment element is not enabled, show payment element info notice.
+		if ( 'payment' !== Helper::get_setting( 'cpsw_element_type' ) ) {
+			add_action( 'admin_notices', [ $this, 'stripe_checkout_notice' ] );
+		}
+
+		// Add giropay deprecated warning, if giropay enabled with active payment element type.
+		if ( 'payment' === Helper::get_setting( 'cpsw_element_type' ) ) {
+			add_action( 'admin_notices', [ $this, 'giropay_deprecated_notice' ] );
 		}
 
 		// If keys are not set bail.
@@ -291,7 +294,7 @@ class Admin_Controller {
 		}
 
 		// Admin enqueue scripts using $_GET to determine scope, nonce verification not required.
-		if ( Helper::is_cpsw_settings_page() ) {    
+		if ( Helper::is_cpsw_settings_page() ) {
 			wp_register_style( 'cpsw-admin-style', plugins_url( 'assets/css/admin.css', __FILE__ ), [], $version, 'all' );
 			wp_enqueue_style( 'cpsw-admin-style' );
 
@@ -383,7 +386,26 @@ class Admin_Controller {
 		if ( isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'] && isset( $_GET['tab'] ) && ( 'checkout' === $_GET['tab'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			wp_register_style( 'cpsw-checkout-style', plugins_url( 'assets/css/payments-tab.css', __FILE__ ), [], $version, 'all' );
 			wp_enqueue_style( 'cpsw-checkout-style' );
-		}   
+		}
+
+		// Eneque style and script for admin notices.
+		wp_register_style( 'cpsw-admin-notice-style', plugins_url( 'assets/css/notices.css', __FILE__ ), [], $version, 'all' );
+		wp_enqueue_style( 'cpsw-admin-notice-style' );
+
+		wp_register_script( 'cpsw-admin-notice-js', plugins_url( 'assets/js/notices.js', __FILE__ ), [ 'jquery' ], $version, true );
+		wp_enqueue_script( 'cpsw-admin-notice-js' );
+
+		wp_localize_script(
+			'cpsw-admin-notice-js',
+			'cpsw_notice_ajax_object',
+			apply_filters(
+				'cpsw_admin_localize_script_args',
+				[
+					'ajax_url'     => admin_url( 'admin-ajax.php' ),
+					'notice_nonce' => wp_create_nonce( 'cpsw_notice_nonce' ),
+				]
+			)
+		);
 	}
 
 	/**
@@ -474,18 +496,53 @@ class Admin_Controller {
 	}
 
 	/**
+	 * Display notice for Giropay depricated warning.
+	 *
+	 * @since 1.9.2
+	 *
+	 * @return void
+	 */
+	public function giropay_deprecated_notice() {
+		// Checking giropay is enabled or not.
+		$additional_gateways = Helper::get_setting( 'additional_methods', 'cpsw_stripe_element' );
+		if ( empty( $additional_gateways ) || ! is_array( $additional_gateways ) || ! in_array( 'giropay', $additional_gateways ) ) {
+			return;
+		}
+
+		// Checking if the notice is already dismissed.
+		$notice_id = 'giropay_deprecated_notice';
+		if ( 'no' === get_option( 'cpsw_show_' . $notice_id . '_notice' ) ) {
+			return;
+		}
+
+		$setting_url = esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=cpsw_stripe_element' ) );
+
+		$message = __( 'As of July 1st, 2024, Stripe will no longer support Giropay as a payment method. If you are currently using the Giropay with Stripe then, you need to remove it from additional payment method list in [stripe options tab]. In our next major update we will be removing the Giropay integration from the plugin. To maintain a smooth checkout experience for your customers, we recommend switching to one of our alternative payment gateways: Card, SEPA, or Klarna.', 'checkout-plugins-stripe-woo' );
+
+		$output              = '<div id="' . $notice_id . '" class="cpsw-notice cpsw-dismissible-notice notice notice-error is-dismissible">';
+			$output         .= '<div class="cpsw-notice-container">';
+					$output .= '<h3 class="cpsw-notice-heading">' . __( 'Attention!! Giropay is no longer available.', 'checkout-plugins-stripe-woo' ) . '</h3>';
+					$output .= '<p class="cpsw-notice-description">' . $message . '</p>';
+					$output .= '<p><a class="cpsw-action-button button button-primary" href="' . $setting_url . '">' . __( 'Check Settings', 'checkout-plugins-stripe-woo' ) . '</a></p>';
+			$output         .= '</div>';
+		$output             .= '</div>';
+
+		echo wp_kses_post( $output );
+	}
+
+	/**
 	 * Ajax callback function triggered when a notice is dismissed.
 	 *
 	 * @since 1.9.1
 	 *
 	 * @return void
 	 */
-	public function dismiss_payment_element_notice() {
+	public function dismiss_admin_notice() {
 		if ( ! is_admin() ) {
 			return;
 		}
-	
-		if ( ! isset( $_POST['_security'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['_security'] ), 'cpsw_admin_nonce' ) ) {
+
+		if ( ! isset( $_POST['_security'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['_security'] ), 'cpsw_notice_nonce' ) ) {
 			wp_send_json_error( [ 'message' => __( 'Invalid Nonce', 'checkout-plugins-stripe-woo' ) ] );
 			return;
 		}

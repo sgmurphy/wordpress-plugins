@@ -94,7 +94,7 @@ class Wpvivid_Google_drive extends WPvivid_Remote
                         $client->setState(admin_url() . 'admin.php?page=WPvivid' . '&action=wpvivid_google_drive_finish_auth&main_tab=storage&sub_tab=googledrive&sub_page=storage_account_google_drive&auth_id='.$auth_id);
                         $auth_url = $client->createAuthUrl();
                         $remote_options['auth_id']=$auth_id;
-                        update_option('wpvivid_tmp_remote_options',$remote_options);
+                        update_option('wpvivid_tmp_remote_options',$remote_options,'no');
                         header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
                     }
                     catch (Exception $e){
@@ -162,7 +162,7 @@ class Wpvivid_Google_drive extends WPvivid_Remote
                                     $tmp_options['token']['token_type'] = sanitize_text_field($_POST['token_type']);
                                     $tmp_options['token']['created'] = sanitize_text_field($_POST['created']);
                                     $tmp_options['is_encrypt'] = 1;
-                                    update_option('wpvivid_tmp_remote_options',$tmp_options);
+                                    update_option('wpvivid_tmp_remote_options',$tmp_options,'no');
                                 }
                                 $this->add_remote=true;
                             }
@@ -826,6 +826,31 @@ class Wpvivid_Google_drive extends WPvivid_Remote
             else
             {
                 $wpvivid_plugin->wpvivid_log->WriteLog('Upload Google_Service_Exception, retry times: '.$retry_times,'notice');
+                return array('result' =>WPVIVID_PRO_FAILED,'error'=>$message);
+            }
+        }
+        catch (InvalidArgumentException $e)
+        {
+            //need refresh token
+            $retry_times++;
+            $message = 'A exception ('.get_class($e).') occurred '.esc_html($e->getMessage()).' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().') ';
+            $wpvivid_plugin->wpvivid_log->WriteLog('Upload InvalidArgumentException, '.$message.', refresh token','notice');
+            $ref=$this->check_token($client, $service);
+            if($ref['result']=!WPVIVID_SUCCESS)
+            {
+                $wpvivid_plugin->wpvivid_log->WriteLog('refresh token failed, error: '.json_encode($ref),'notice');
+                return $ref;
+            }
+
+            fclose($handle);
+            $client->setDefer(false);
+            if($retry_times < 15)
+            {
+                $wpvivid_plugin->wpvivid_log->WriteLog('Refresh token completed, continue upload.','notice');
+                return $this->_upload($task_id, $file,$client,$service,$folder_id, $callback, $retry_times);
+            }
+            else
+            {
                 return array('result' =>WPVIVID_PRO_FAILED,'error'=>$message);
             }
         }

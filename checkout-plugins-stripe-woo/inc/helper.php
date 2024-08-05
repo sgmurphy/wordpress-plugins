@@ -252,6 +252,7 @@ class Helper {
 				'invalid_number'                         => __( 'The card number is invalid. Check the card details or use a different card.', 'checkout-plugins-stripe-woo' ),
 				'invalid_card_type'                      => __( 'The card provided as an external account is not supported for payouts. Provide a non-prepaid debit card instead.', 'checkout-plugins-stripe-woo' ),
 				'invalid_charge_amount'                  => __( 'The specified amount is invalid. The charge amount must be a positive integer in the smallest currency unit, and not exceed the minimum or maximum amount.', 'checkout-plugins-stripe-woo' ),
+				'invalid_charge_amount_currency'         => __( 'The specified amount is too low after conversion. Please enter a higher amount and try again.', 'checkout-plugins-stripe-woo' ),
 				'invalid_cvc'                            => __( 'The card\'s security code is invalid. Check the card\'s security code or use a different card.', 'checkout-plugins-stripe-woo' ),
 				'invalid_expiry_year'                    => __( 'The card\'s expiration year is incorrect. Check the expiration date or use a different card.', 'checkout-plugins-stripe-woo' ),
 				'invalid_source_usage'                   => __( 'The source cannot be used because it is not in the correct state.', 'checkout-plugins-stripe-woo' ),
@@ -307,6 +308,7 @@ class Helper {
 				'account_number_invalid'                 => __( 'The bank account number provided is invalid (e.g., missing digits). Bank account information varies from country to country. We recommend creating validations in your entry forms based on the bank account formats we provide.', 'checkout-plugins-stripe-woo' ),
 				'processing_error_for_element'           => __( 'An error occurred while processing the payment. Use a different payment method or try again later.', 'checkout-plugins-stripe-woo' ),
 				'cashapp_country_error'                  => __( 'Payments with Cash App Pay support only US country.', 'checkout-plugins-stripe-woo' ),
+				'payment_element_loaderror'              => __( 'There seems to be a issue loading Payment Element: ', 'checkout-plugins-stripe-woo' ),
 			]
 		);
 
@@ -705,7 +707,8 @@ class Helper {
 	 * @return array
 	 */
 	public static function get_available_gateways() {
-		$gateways = [];
+		$gateways           = [];
+		$supported_gateways = [];
 
 		foreach ( array_keys( self::$supported_gateways ) as $key ) {
 			$settings_key = $key;

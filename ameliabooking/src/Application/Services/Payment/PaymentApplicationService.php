@@ -29,6 +29,7 @@ use AmeliaBooking\Domain\Entity\Location\Location;
 use AmeliaBooking\Domain\Entity\Payment\Payment;
 use AmeliaBooking\Domain\Entity\Payment\PaymentGateway;
 use AmeliaBooking\Domain\Entity\User\AbstractUser;
+use AmeliaBooking\Domain\Entity\User\Customer;
 use AmeliaBooking\Domain\Entity\User\Provider;
 use AmeliaBooking\Domain\Factory\Bookable\Service\PackageFactory;
 use AmeliaBooking\Domain\Factory\Bookable\Service\ServiceFactory;
@@ -36,6 +37,7 @@ use AmeliaBooking\Domain\Factory\Booking\Appointment\CustomerBookingFactory;
 use AmeliaBooking\Domain\Factory\Booking\Event\EventFactory;
 use AmeliaBooking\Domain\Factory\Coupon\CouponFactory;
 use AmeliaBooking\Domain\Factory\Payment\PaymentFactory;
+use AmeliaBooking\Domain\Factory\Stripe\StripeFactory;
 use AmeliaBooking\Domain\Factory\User\UserFactory;
 use AmeliaBooking\Domain\Services\DateTime\DateTimeService;
 use AmeliaBooking\Domain\Services\Payment\PaymentServiceInterface;
@@ -328,6 +330,21 @@ class PaymentApplicationService
                     }
                 }
 
+                /** @var CustomerRepository $customerRepository */
+                $customerRepository = $this->container->get('domain.users.customers.repository');
+
+                $stripeCustomerId = null;
+                $customer = null;
+                if ($reservation->getCustomer() && $reservation->getCustomer()->getId()) {
+                    /** @var Customer $customer */
+                    $customer = $customerRepository->getById($reservation->getCustomer()->getId()->getValue());
+
+                    if ($customer) {
+                        $stripeCustomerId = $customer->getStripeConnect() && $customer->getStripeConnect()->getId()
+                            ? $customer->getStripeConnect()->getId()->getValue() : null;
+                    }
+                }
+
                 try {
                     $response = $paymentService->execute(
                         [
@@ -338,6 +355,14 @@ class PaymentApplicationService
                             'amount'          => $currencyService->getAmountInFractionalUnit(new Price($paymentAmount)),
                             'metaData'        => $additionalInformation['metaData'],
                             'description'     => $additionalInformation['description'],
+                            'address' => !empty($paymentData['data']['address']) ?
+                                $paymentData['data']['address'] : null,
+                            'customerId' => $stripeCustomerId,
+                            'customerData' => $customer ? [
+                                'name' => $customer->getFirstName()->getValue() . ($customer->getLastName() ? (' ' . $customer->getLastName()->getValue()) : ''),
+                                'email' => $customer->getEmail() ? $customer->getEmail()->getValue() : '',
+                                'phone' => $customer->getPhone() ? $customer->getPhone()->getValue() : ''
+                            ] : null
                         ],
                         $transfers
                     );
@@ -376,6 +401,12 @@ class PaymentApplicationService
                     );
 
                     return false;
+                }
+
+                if (!empty($response['customerId']) && $stripeCustomerId === null) {
+                    $stripeConnect = StripeFactory::create(['id' => $response['customerId']]);
+                    $customerRepository->updateFieldById($reservation->getCustomer()->getId()->getValue(),
+                        json_encode($stripeConnect->toArray()), 'stripeConnect');
                 }
 
                 $paymentTransactionId = $response['paymentIntentId'];
@@ -941,12 +972,20 @@ class PaymentApplicationService
 
                 $additionalInformation = $paymentAS->getBookingInformationForPaymentSettings($reservation, PaymentType::STRIPE, $index);
 
+
                 $paymentData = [
                     'amount'      => $currencyService->getAmountInFractionalUnit(new Price($amount)),
                     'description' => $additionalInformation['description'] ?: $data['bookable']['name'],
                     'returnUrl'   => $callbackLink . '&paymentMethod=stripe',
                     'metaData'    => $additionalInformation['metaData'] ?: [],
                     'currency'    => $settingsService->getCategorySettings('payments')['currency'],
+                    'fromPanel'   => !empty($data['fromPanel']),
+                    'customerId'  => !empty($customer['stripeConnect']['id']) ? $customer['stripeConnect']['id'] : null,
+                    'customerData' => [
+                        'name' => $customer['firstName'] . (!empty($customer['lastName']) ? (' ' . $customer['lastName']) : ''),
+                        'email' => !empty($customer['email']) ? $customer['email'] : '',
+                        'phone' => !empty($customer['phone']) ? $customer['phone'] : ''
+                    ]
                 ];
 
                 $stripeSettings = $settingsService->getSetting('payments', 'stripe');
@@ -1030,10 +1069,20 @@ class PaymentApplicationService
 
                 $paymentLink = $paymentService->getPaymentLink($paymentData);
                 if ($paymentLink['status'] === 200 && !empty($paymentLink['link'])) {
-                    $paymentLinks['payment_link_stripe'] = $paymentLink['link'] . '?prefilled_email=' . $customer['email'];
+                    $paymentLinks['payment_link_stripe'] = $paymentLink['link'] . (empty($data['fromPanel']) ? '?prefilled_email=' . $customer['email'] : '');
                 } else {
                     $paymentLinks['payment_link_error_code']    = $paymentLink['status'];
                     $paymentLinks['payment_link_error_message'] = $paymentLink['message'];
+                }
+
+                if (!empty($paymentLink['customerId'])) {
+                    /** @var CustomerRepository $customerRepository */
+                    $customerRepository = $this->container->get('domain.users.customers.repository');
+
+                    $stripeConnect = StripeFactory::create(['id' => $paymentLink['customerId']]);
+                    if (!empty($data['customer']['id']) && empty($data['customer']['stripeConnect'])) {
+                        $customerRepository->updateFieldById($data['customer']['id'], json_encode($stripeConnect->toArray()), 'stripeConnect');
+                    }
                 }
             }
 

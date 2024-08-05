@@ -1928,7 +1928,7 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
         return $dconv;
     }
 
-    function ready_to_go_reservation( $itemnumber, $payer_email = "" ) {
+    function ready_to_go_reservation( $itemnumber, $payer_email = "", $resendonly = false ) {
 
         global $wpdb;
 
@@ -2023,7 +2023,7 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
 
 
         // if is_admin and not required emails end function here
-        if (is_admin() && !isset($_POST["sendemails_admin"]))
+        if (is_admin() && !isset($_POST["sendemails_admin"]) && !$resendonly)
             return;
 
         foreach ($to as $item)
@@ -2038,7 +2038,7 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
                     "X-Mailer: PHP/" . phpversion(), $attachments);
             }
 
-        if ($mycalendarrows[0]->rep_days == 0 && $mycalendarrows[0]->rep_enable == 'yes')
+        if (!$resendonly && $mycalendarrows[0]->rep_days == 0 && $mycalendarrows[0]->rep_enable == 'yes')
         {
             $this->check_reports(true);
         }

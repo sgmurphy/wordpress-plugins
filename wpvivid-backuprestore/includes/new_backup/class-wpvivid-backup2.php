@@ -191,7 +191,7 @@ class WPvivid_Backup_2
             {
                 unset($tasks[$id]);
             }
-            update_option('wpvivid_task_list',$tasks);
+            update_option('wpvivid_task_list',$tasks,'no');
         }
 
         $ret['result'] = 'success';
@@ -710,7 +710,7 @@ class WPvivid_Backup_2
             $wpvivid_plugin->update_last_backup_task($task_msg);
 
             $task_msg = WPvivid_taskmanager::get_task($task_id);
-            update_option('wpvivid_last_msg',$task_msg);
+            update_option('wpvivid_last_msg',$task_msg,'no');
 
             $this->clear_monitor_schedule($task_id);
 
@@ -797,7 +797,7 @@ class WPvivid_Backup_2
             $this->add_clean_backup_data_event($task_id);
 
             $task_msg = WPvivid_taskmanager::get_task($task_id);
-            update_option('wpvivid_last_msg',$task_msg);
+            update_option('wpvivid_last_msg',$task_msg,'no');
 
             global $wpvivid_plugin;
             if($wpvivid_plugin->wpvivid_log)
@@ -1201,7 +1201,7 @@ class WPvivid_Backup_2
             $options = get_option('wpvivid_task_list', array());
             unset($options[$task_id]);
 
-            update_option('wpvivid_task_list',$options);
+            update_option('wpvivid_task_list',$options,'no');
             $json['result'] = 'success';
             echo wp_json_encode($json);
         }
@@ -1236,7 +1236,7 @@ class WPvivid_Backup_2
 
             $options = get_option('wpvivid_task_list', array());
             $options[$task_id]=$task;
-            update_option('wpvivid_task_list',$options);
+            update_option('wpvivid_task_list',$options,'no');
 
             return true;
         }
@@ -1430,7 +1430,7 @@ class WPvivid_Backup_2
             $task_data=$tasks[$task_id];
             unset($tasks[$task_id]);
         }
-        update_option('wpvivid_clean_task_2',$tasks);
+        update_option('wpvivid_clean_task_2',$tasks,'no');
 
         if(!empty($task_data))
         {

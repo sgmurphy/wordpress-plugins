@@ -342,7 +342,8 @@ $tableChartsCount = (int)WDTTools::getTablesCount('chart');
                         <div class="alert alert-info m-b-0" role="alert">
                             <i class="wpdt-icon-info-circle-full"></i>
                             <ul>
-                                <li>Compatibility with WordPress 6.6 approved.</li>
+                                <li>Fixed issue with tabs on Elementor cloud.</li>
+                                <li>Fixed issue with sorting date columns for non-SS tables.</li>
                                 <li>Other small bug fixes and stability improvements</li>
                             </ul>
                         </div>

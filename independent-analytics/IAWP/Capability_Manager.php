@@ -89,6 +89,9 @@ class Capability_Manager
      */
     private static function is_admin() : bool
     {
+        if (\is_super_admin()) {
+            return \true;
+        }
         foreach (\wp_get_current_user()->roles as $role) {
             if ($role === 'administrator') {
                 return \true;

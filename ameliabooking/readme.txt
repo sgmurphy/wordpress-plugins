@@ -4,9 +4,9 @@ Author URI: https://tmsproducts.io/
 Tags: appointments, booking, event booking system, booking system, scheduling
 Donate link: https://wpamelia.com/
 Requires at least: 4.5
-Tested up to: 6.5.2
-Requires PHP: 5.6
-Stable tag: 1.2
+Tested up to: 6.6.1
+Requires PHP: 7.4
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -289,6 +289,13 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 
 
 == Changelog =
+V1.2.1
+* Updated Italian translation and Spanish translation for Chile and Mexico
+* BugFix: Fixed issue with showing events on the booking forms and the back-end
+* BugFix: Fixed issue with double booking when the appointment is canceled and rescheduled
+* BugFix: Fix full path disclosure vulnerability issue
+* Other small bug fixes and stability improvements
+
 V1.2
 * Feature: Square Integration - Simplify your transaction management with our Square integration, offering a reliable and efficient payment method for your services and events
 * Updated Turkish translation

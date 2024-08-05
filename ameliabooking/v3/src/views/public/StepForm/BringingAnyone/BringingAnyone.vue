@@ -14,12 +14,12 @@
       <div class="am-fs__bringing-content">
           <span class="am-fs__bringing-content-left">
             <span class="am-icon-users"></span>
-            <span class="am-fs__bringing-content-text">{{amLabels.bringing_people}}</span>
+            <span class="am-fs__bringing-content-text">{{amSettings.appointments.bringingAnyoneLogic === 'additional' ? amLabels.bringing_people : amLabels.bringing_people_total}}</span>
           </span>
         <AmInputNumber v-model="persons" :min="options.min" :max="options.max" size="small"></AmInputNumber>
       </div>
       <div v-if="infoVisibility" class="am-fs__bringing-message">
-        {{amLabels.add_people}}
+        {{amSettings.appointments.bringingAnyoneLogic === 'additional' ? amLabels.add_people : amLabels.add_people_total}}
       </div>
     </div>
 
@@ -138,7 +138,7 @@ let options = computed(() => {
 
 let persons = computed({
   get: () => {
-    return store.getters['booking/getBookingPersons'] - 1
+    return store.getters['booking/getBookingPersons'] - (amSettings.appointments.bringingAnyoneLogic === 'additional' ? 1 : 0)
   },
   set: (val) => {
     store.commit('booking/setBookingPersons', val)

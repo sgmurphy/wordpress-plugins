@@ -380,9 +380,42 @@ class Card_Payments extends Abstract_Payment_Gateway {
 	 * @return void
 	 */
 	public function verify_intent() {
+		$checkout_url = wc_get_checkout_url();
+		// Nonce verification.
+		if ( ! isset( $_GET['confirm_payment_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_GET['confirm_payment_nonce'] ), 'cpsw_confirm_payment_intent' ) ) {
+			wc_add_notice( __( 'Order is not complete! Payment not confirmed. Please try again.', 'checkout-plugins-stripe-woo' ), 'error' );
+			Logger::error( __( 'Invalid order! the nonce security check didn’t pass.', 'checkout-plugins-stripe-woo' ) );
+			wp_safe_redirect( $checkout_url );
+			exit();
+		}
+
 		$order_id = isset( $_GET['order'] ) ? sanitize_text_field( $_GET['order'] ) : 0; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$redirect = isset( $_GET['redirect_to'] ) ? esc_url_raw( wp_unslash( $_GET['redirect_to'] ) ) : ''; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$order    = wc_get_order( $order_id );
+
+		// Check for empty order id.
+		if ( empty( $order_id ) ) {
+			wc_add_notice( __( 'No orders are found for provided order ID.', 'checkout-plugins-stripe-woo' ), 'error' );
+			Logger::error( __( 'Invalid order Id.', 'checkout-plugins-stripe-woo' ) );
+			wp_safe_redirect( $checkout_url );
+			exit();
+		}
+
+		$order = wc_get_order( $order_id );
+
+		// Check for empty order object.
+		if ( empty( $order ) ) {
+			wc_add_notice( __( 'No valid order found.', 'checkout-plugins-stripe-woo' ), 'error' );
+			Logger::error( __( 'Invalid order. No order found for provided order ID.', 'checkout-plugins-stripe-woo' ) );
+			wp_safe_redirect( $checkout_url );
+			exit();
+		}
+
+		if ( ! isset( $_GET['order_key'] ) || ! $order->key_is_valid( wc_clean( $_GET['order_key'] ) ) ) {
+			wc_add_notice( __( 'Invalid order key received.', 'checkout-plugins-stripe-woo' ), 'error' );
+			Logger::error( __( 'Invalid order key.', 'checkout-plugins-stripe-woo' ) );
+			wp_safe_redirect( $checkout_url );
+			exit();
+		}
 
 		$intent_secret = $order->get_meta( '_cpsw_intent_secret' );
 		$stripe_api    = new Stripe_Api();
@@ -413,7 +446,7 @@ class Card_Payments extends Abstract_Payment_Gateway {
 			wc_add_notice( sprintf( __( 'Payment failed. %s', 'checkout-plugins-stripe-woo' ), Helper::get_localized_messages( $code, $message ) ), 'error' );
 			/* translators: %1$1s order id, %2$2s payment fail message.  */
 			Logger::error( sprintf( __( 'Payment failed for Order id - %1$1s. %2$2s', 'checkout-plugins-stripe-woo' ), $order_id, Helper::get_localized_messages( $code, $message ) ) );
-			$redirect_url = wc_get_checkout_url();
+			$redirect_url = $checkout_url;
 		}
 		wp_safe_redirect( $redirect_url );
 		exit();
@@ -503,6 +536,8 @@ class Card_Payments extends Abstract_Payment_Gateway {
 	 * @return string verification url.
 	 */
 	public function get_verification_url( $order_id, $redirect_url, $save_card ) {
+		$order = wc_get_order( $order_id );
+
 		// Put the final thank you page redirect into the verification URL.
 		return add_query_arg(
 			[
@@ -510,6 +545,7 @@ class Card_Payments extends Abstract_Payment_Gateway {
 				'confirm_payment_nonce' => wp_create_nonce( 'cpsw_confirm_payment_intent' ),
 				'redirect_to'           => rawurlencode( $redirect_url ),
 				'save_card'             => $save_card,
+				'order_key'             => $order->get_order_key(),
 			],
 			WC_AJAX::get_endpoint( 'cpsw_verify_payment_intent' )
 		);

@@ -347,6 +347,10 @@ abstract class AbstractReservationService implements ReservationServiceInterface
                 $appointmentData['bookings'][0]['customerId'] = $user->getId()->getValue();
 
                 $appointmentData['bookings'][0]['customer']['id'] = $user->getId()->getValue();
+
+                if ($user->getStripeConnect() && $user->getStripeConnect()->getId()) {
+                    $appointmentData['bookings'][0]['customer']['stripeConnect'] = $user->getStripeConnect()->toArray();
+                }
             }
         }
 

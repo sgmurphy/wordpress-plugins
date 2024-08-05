@@ -302,7 +302,7 @@ class WPvivid_Staging_Custom_Select_List_Free
         }
 
         if($need_fix){
-            update_option('wpvivid_staging_history', $options);
+            update_option('wpvivid_staging_history', $options, 'no');
         }
 
         if(isset($options[$list_type]) && !empty($options[$list_type])) {

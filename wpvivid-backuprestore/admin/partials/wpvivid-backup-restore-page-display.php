@@ -2400,7 +2400,7 @@ function wpvivid_backup_module_add_descript(){
     <div style="font-size: 14px; padding: 8px 12px; margin: 0; line-height: 1.4; font-weight: 600;">
         <span style="margin-right: 5px;"><?php esc_html_e( 'Back Up Manually','wpvivid-backuprestore'); ?></span>
         <span style="margin-right: 5px;">|</span>
-        <span style="margin-right: 0;"><a href="<?php echo esc_url('https://wordpress.org/plugins/wpvivid-imgoptim/'); ?>" style="text-decoration: none;"><?php esc_html_e('Compress images with our image optimization plugin, it\'s free', 'wpvivid-backuprestore'); ?></a></span>
+        <span style="margin-right: 0;"><a href="<?php echo esc_url('https://wordpress.org/plugins/compressx/'); ?>" style="text-decoration: none;"><?php esc_html_e('Try our AVIF and WebP conversion tool, it\'s free', 'wpvivid-backuprestore'); ?></a></span>
     </div>
     <div class="quickstart-storage-setting">
         <span class="list-top-chip backup" name="ismerge" value="1" style="margin: 10px 10px 10px 0;"><?php esc_html_e('Local Storage Directory:', 'wpvivid-backuprestore'); ?></span>

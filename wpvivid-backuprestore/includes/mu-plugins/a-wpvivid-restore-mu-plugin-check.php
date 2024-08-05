@@ -40,7 +40,7 @@ function wpvivid_deal_restore_shut_down_error()
                 $restore_task['status']='error';
                 $restore_task['error']=$error['message'];
                 $restore_task['error_mu_require_file']=$error['file'];
-                update_option('wpvivid_restore_task',$restore_task);
+                update_option('wpvivid_restore_task',$restore_task,'no');
             }
         }
     }

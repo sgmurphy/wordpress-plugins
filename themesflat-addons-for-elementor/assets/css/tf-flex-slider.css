@@ -79,6 +79,10 @@
     display: block; 
 }
 
+.flex_caption.container {
+    margin: 0 auto;
+}
+
 .flexslider .item-slide .overlay {
     position: absolute;
     top: 0;

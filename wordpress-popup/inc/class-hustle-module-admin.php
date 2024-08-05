@@ -130,7 +130,7 @@ if ( ! class_exists( 'Hustle_Module_Admin' ) ) :
 				// Upgrade link.
 				if ( Opt_In_Utils::is_free() ) {
 					if ( ! Opt_In_Utils::is_hustle_included_in_membership() ) {
-						$url   = Opt_In_Utils::get_link( 'wpmudev', 'hustle_pluginlist_upgrade' );
+						$url   = Opt_In_Utils::get_link( 'plugin', 'hustle_pluginlist_upgrade' );
 						$label = __( 'Upgrade For 80% Off!', 'hustle' );
 					} else {
 						$url   = Opt_In_Utils::get_link( 'install_plugin' );

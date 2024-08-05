@@ -430,7 +430,7 @@ class WPvivid_Restore_File_2
             $restore_task['update_time']=time();
             if($sub_task!==false)
                 $restore_task['sub_tasks'][$key]=$sub_task;
-            update_option('wpvivid_restore_task',$restore_task);
+            update_option('wpvivid_restore_task',$restore_task,'no');
         }
     }
 

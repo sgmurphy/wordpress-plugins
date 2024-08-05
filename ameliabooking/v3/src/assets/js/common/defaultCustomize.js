@@ -1439,7 +1439,9 @@ let defaultTranslations = {
         name: globalLabels.content,
         labels: {
           bringing_people: null,
-          add_people: null
+          add_people: null,
+          bringing_people_total: null,
+          add_people_total: null
         }
       },
       footer: {

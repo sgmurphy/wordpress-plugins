@@ -40,8 +40,9 @@
           {{bringingLabels.bringing_no}}
         </AmButton>
         <AmButton
-          :type="amCustomize.bringingAnyone.options.primaryButton.buttonType"
-          :disabled="bookingPersons === 1"
+          :type="(bringingAnyoneOptions.min !== bringingAnyoneOptions.max) &&  bringingAnyoneOptions.min <= 0 ?
+          amCustomize.bringingAnyone.options.primaryButton.buttonType : amCustomize.bringingAnyone.options.primaryFooterButton.buttonType"
+          :disabled="bookingPersons === (amSettings.appointments.bringingAnyoneLogic === 'additional' ? 1 : 0)"
           @click="bringPeopleWithYou"
         >
           <template v-if="(bringingAnyoneOptions.min !== bringingAnyoneOptions.max) &&  bringingAnyoneOptions.min <= 0">

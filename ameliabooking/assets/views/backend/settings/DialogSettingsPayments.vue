@@ -897,6 +897,21 @@
               <el-input v-model.trim="settings.stripe.returnUrl" auto-complete="off"></el-input>
             </el-form-item>
 
+            <!-- Stripe Address Field -->
+            <el-row type="flex" align="middle" :gutter="24" v-show="settings.stripe.enabled === true">
+              <el-col :span="16">
+                <p>{{ $root.labels.stripe_address_fields }}:</p>
+              </el-col>
+              <el-col :span="8" class="align-right">
+                <el-switch
+                    v-model="settings.stripe.address"
+                    active-text=""
+                    inactive-text=""
+                >
+                </el-switch>
+              </el-col>
+            </el-row>
+
             <div
               v-if="settings.stripe.enabled === true && (notInLicence('pro') ? licenceVisible() : true)"
               :class="licenceClass('pro')"

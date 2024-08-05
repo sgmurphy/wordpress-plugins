@@ -223,7 +223,7 @@ class WPvivid_Restore_DB_2
             $restore_task['update_time']=time();
             if($sub_task!==false)
                 $restore_task['sub_tasks'][$key]=$sub_task;
-            update_option('wpvivid_restore_task',$restore_task);
+            update_option('wpvivid_restore_task',$restore_task,'no');
         }
     }
 
@@ -2117,6 +2117,11 @@ class WPvivid_Restore_DB_2
                             {
                                 continue;
                             }
+                            if(preg_match('/WP_HTML_Token/', $old_data, $matches))
+                            {
+                                $this->log->WriteLog('Skip WP_HTML_Token.', 'notice');
+                                continue;
+                            }
                             $new_data=$this->replace_row_data($old_data);
                             if($new_data==$old_data)
                                 continue;
@@ -3284,7 +3289,7 @@ class WPvivid_Restore_DB_2
 
 
         wp_cache_flush();
-        update_option('wpvivid_restore_task',$restore_task);
+        update_option('wpvivid_restore_task',$restore_task,'no');
 
         $this->log->WriteLog('Replacing table prefix succeeded.','notice');
 

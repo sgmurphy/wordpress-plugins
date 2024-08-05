@@ -115,7 +115,7 @@ class WPvivid_tools
         {
             //WPvivid_Setting::set_default_common_option();
             $options['log_save_location']=WPVIVID_DEFAULT_LOG_DIR;
-            update_option('wpvivid_common_setting', $options);
+            update_option('wpvivid_common_setting', $options, 'no');
 
             $options = get_option('wpvivid_common_setting',array());
         }

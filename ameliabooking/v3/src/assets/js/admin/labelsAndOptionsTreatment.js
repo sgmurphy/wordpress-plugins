@@ -385,6 +385,7 @@ let starterOptionsTreatment = deepMerge(
     elf: {
       info: [
         'eventOrganizer',
+        'tax',
       ],
       list: [
         'tax',

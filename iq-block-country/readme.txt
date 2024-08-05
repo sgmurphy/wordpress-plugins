@@ -3,7 +3,7 @@ Contributors: iqpascal
 Donate link: https://webence.nl/plugins/donate
 Tags: spam, block, country, comments, ban, geo, geo blocking, geo ip, block country, block countries, ban countries, ban country, allow list, block list, security
 Requires at least: 3.5.2
-Tested up to: 6.5.5
+Tested up to: 6.6.1
 Stable tag: 1.2.23
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

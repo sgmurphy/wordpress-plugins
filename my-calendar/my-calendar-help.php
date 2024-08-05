@@ -86,7 +86,15 @@ function my_calendar_help() {
 					?>
 				</ul>
 				<p>
-					<?php wp_kses_post( _e( 'Custom print, mobile, and tablet stylesheet file names: <code>mc-print.css</code>, <code>mc-mobile.css</code>, and <code>mc-tablet.css</code>.', 'my-calendar' ) ); ?>
+					<?php
+					printf(
+						// translators: print CSS file name, mobile CSS file name, tablet CSS file name.
+						__( 'Custom print, mobile, and tablet stylesheet file names: %1$s, %2$s, and %3$s.', 'my-calendar' ),
+						'<code>mc-print.css</code>',
+						'<code>mc-mobile.css</code>',
+						'<code>mc-tablet.css</code>'
+					)
+					?>
 				</p>
 				<h3><?php esc_html_e( 'Custom Template Locations', 'my-calendar' ); ?></h3>
 				<p><?php _e( 'Default My Calendar templates are found in <code>/wp-content/my-calendar/mc-templates/</code>. Copy those templates into a <code>/mc-templates/</code> directory in your theme to customize.', 'my-calendar' ); ?></p>
@@ -222,7 +230,7 @@ function mc_print_contextual_help() {
 	<?php
 	echo wp_kses( mc_get_help_text( $id ), mc_kses_elements() );
 	$return_url = add_query_arg( 's', $query, 'https://docs.joedolson.com/my-calendar/' );
-	$return     = wp_kses_post( '<p class="docs-link"><a target="_parent" href="' . esc_url( $return_url ) . '">' . __( 'Documentation', 'my-calendar' ) . '</a></p>' );
+	$return     = '<p class="docs-link"><a target="_parent" href="' . esc_url( $return_url ) . '">' . __( 'Documentation', 'my-calendar' ) . '</a></p>';
 	echo wp_kses_post( mc_get_help_footer( $return ) );
 	?>
 	</div>

@@ -797,7 +797,7 @@ class WPvivid_Uploads_Cleaner_Setting
         //$default_post_types[]='oembed_cache';
         //$post_types=get_option('wpvivid_uc_post_types',$default_post_types);
 
-        $delete_media_when_delete_file=get_option('wpvivid_uc_delete_media_when_delete_file',false);
+        $delete_media_when_delete_file=get_option('wpvivid_uc_delete_media_when_delete_file',true);
 
         if($delete_media_when_delete_file)
         {
@@ -872,7 +872,7 @@ class WPvivid_Uploads_Cleaner_Setting
             {
                 $white_list=get_option('wpvivid_uc_exclude_files_regex',array());
                 $white_list[]=$file_exclude;
-                update_option('wpvivid_uc_exclude_files_regex',$white_list);
+                update_option('wpvivid_uc_exclude_files_regex',$white_list,'no');
             }
 
             $white_list=get_option('wpvivid_uc_exclude_files_regex',array());
@@ -926,7 +926,7 @@ class WPvivid_Uploads_Cleaner_Setting
             $white_list=get_option('wpvivid_uc_exclude_files_regex',array());
             $white_list = array_diff($white_list, $files);
 
-            update_option('wpvivid_uc_exclude_files_regex',$white_list);
+            update_option('wpvivid_uc_exclude_files_regex',$white_list,'no');
 
             $white_list=get_option('wpvivid_uc_exclude_files_regex',array());
             $list=new WPvivid_Exclude_Files_List();
@@ -985,7 +985,7 @@ class WPvivid_Uploads_Cleaner_Setting
 
                 $post_types=get_option('wpvivid_uc_post_types',$default_post_types);
                 $post_types[]=$file_exclude;
-                update_option('wpvivid_uc_post_types',$post_types);
+                update_option('wpvivid_uc_post_types',$post_types,'no');
             }
 
             $post_types=get_option('wpvivid_uc_post_types',array());
@@ -1048,7 +1048,7 @@ class WPvivid_Uploads_Cleaner_Setting
             $post_types=get_option('wpvivid_uc_post_types',$default_post_types);
             $post_types = array_diff($post_types, $files);
 
-            update_option('wpvivid_uc_post_types',$post_types);
+            update_option('wpvivid_uc_post_types',$post_types,'no');
 
             $post_types=get_option('wpvivid_uc_post_types',$default_post_types);
             $list=new WPvivid_Post_Type_List();

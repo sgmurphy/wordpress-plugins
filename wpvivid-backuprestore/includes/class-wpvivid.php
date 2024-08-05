@@ -2628,7 +2628,7 @@ class WPvivid
             }
             $download_info = array();
             $download_info['backup_id'] = sanitize_key($_POST['backup_id']);
-            $download_info['file_name'] = sanitize_file_name($_POST['file_name']);
+            $download_info['file_name'] = sanitize_text_field($_POST['file_name']);
             @set_time_limit(600);
             if (session_id())
                 session_write_close();

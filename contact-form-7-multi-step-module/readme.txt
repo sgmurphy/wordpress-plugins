@@ -3,7 +3,7 @@ Contributors: webheadllc
 Donate Link: https://webheadcoder.com/donate-cf7-multi-step-forms
 Tags: contact form 7, multistep form, form, multiple pages, contact
 Requires at least: 4.7
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

@@ -85,7 +85,7 @@ class WPvivid_one_drive extends WPvivid_Remote
                     try {
                         $auth_id = uniqid('wpvivid-auth-');
                         $remote_options['auth_id']=$auth_id;
-                        update_option('wpvivid_tmp_remote_options',$remote_options);
+                        update_option('wpvivid_tmp_remote_options',$remote_options,'no');
                         $url = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
                             . '?client_id=' . urlencode('37668be9-b55f-458f-b6a3-97e6f8aa10c9')
                             . '&scope=' . urlencode('offline_access files.readwrite')
@@ -149,7 +149,7 @@ class WPvivid_one_drive extends WPvivid_Remote
                                     $tmp_options['token']['refresh_token']=base64_encode(sanitize_text_field($_POST['refresh_token']));
                                     $tmp_options['token']['expires']=time()+$_POST['expires_in'];
                                     $tmp_options['is_encrypt'] = 1;
-                                    update_option('wpvivid_tmp_remote_options',$tmp_options);
+                                    update_option('wpvivid_tmp_remote_options',$tmp_options,'no');
                                 }
                                 $this->add_remote=true;
                             }

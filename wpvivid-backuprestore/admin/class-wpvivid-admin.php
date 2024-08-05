@@ -997,7 +997,7 @@ class WPvivid_Admin
                 WPvivid_Setting::wpvivid_write_htaccess_rule($wpvivid_staging_error_log_htaccess);
             }
 
-            update_option('wpvivid_check_htaccess_rule_free', true);
+            update_option('wpvivid_check_htaccess_rule_free', true, 'no');
         }
     }
 

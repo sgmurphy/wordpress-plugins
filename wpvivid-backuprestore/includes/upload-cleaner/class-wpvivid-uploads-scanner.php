@@ -31,7 +31,7 @@ class WPvivid_Uploads_Scanner
         $task['progress']=0;
         $task['offset']=0;
 
-        update_option('scan_unused_files_task',$task);
+        update_option('scan_unused_files_task',$task,'no');
     }
 
     public function check_table_exist()
@@ -99,7 +99,7 @@ class WPvivid_Uploads_Scanner
     public function init_unused_uploads_task($folders)
     {
         $this->check_unused_uploads_files_table();
-        update_option('unused_uploads_task',array());
+        update_option('unused_uploads_task',array(),'no');
         $task['start_time']=time();
         $task['running_time']=time();
         $task['status']='running';
@@ -132,7 +132,7 @@ class WPvivid_Uploads_Scanner
             }
         }
 
-        update_option('unused_uploads_task',$task);
+        update_option('unused_uploads_task',$task,'no');
     }
 
     public function check_unused_uploads_files_table()
@@ -1879,7 +1879,7 @@ class WPvivid_Uploads_Scanner
         $task['offset']=$offset;
 
         $this->insert_scan_result($uploads_files);
-        update_option('scan_unused_files_task',$task);
+        update_option('scan_unused_files_task',$task,'no');
     }
 
     public function update_unused_uploads_task($uploads_files,$folder,$finished,$offset,$status='running',$progress=0,$size=0)
@@ -1894,7 +1894,7 @@ class WPvivid_Uploads_Scanner
         $task['folder'][$folder]['offset']=$offset;
         if(!empty($uploads_files))
             $this->insert_unused_uploads_files($folder,$uploads_files);
-        update_option('unused_uploads_task',$task);
+        update_option('unused_uploads_task',$task,'no');
     }
 
     public function get_unused_uploads_progress()

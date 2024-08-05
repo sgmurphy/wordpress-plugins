@@ -94,7 +94,7 @@
 
                   <!-- Customer's Notification Tooltip For Scheduled Notifications -->
                   <el-tooltip
-                      v-if="item.time || item.timeBefore || item.timeAfter"
+                      v-if="(item.time && item.time !== '00:00:00') || item.timeBefore || item.timeAfter"
                       class="item"
                       effect="dark"
                       :content="$root.labels.requires_scheduling_setup"

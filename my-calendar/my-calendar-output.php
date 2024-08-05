@@ -441,9 +441,9 @@ function mc_draw_event_header( $data, $type, $template ) {
 
 	if ( ( ( strpos( $event_title, 'href' ) === false ) && 'mini' !== $type && 'list' !== $type || ( 'list' === $type && 'true' === mc_get_option( 'list_link_titles' ) || 'card' === $type ) ) && ! $no_link ) {
 		if ( 'true' === $open_uri || 'card' === $type ) {
-			$details_link = esc_url( mc_get_details_link( $event ) );
-			$wrap         = ( _mc_is_url( $details_link ) ) ? "<a href='$details_link' class='url summary$has_image' $nofollow>" : '<span class="no-link">';
-			$balance      = ( _mc_is_url( $details_link ) ) ? '</a>' : '</span>';
+			$permalink = esc_url( mc_get_permalink( $event ) );
+			$wrap      = ( _mc_is_url( $permalink ) ) ? "<a href='$permalink' class='url summary$has_image' $nofollow>" : '<span class="no-link">';
+			$balance   = ( _mc_is_url( $permalink ) ) ? '</a>' : '</span>';
 		} else {
 			$gridtype           = mc_get_option( 'calendar_javascript' );
 			$listtype           = mc_get_option( 'list_javascript' );
@@ -750,9 +750,10 @@ function mc_get_event_image( $event, $data, $size = '' ) {
 		 *
 		 * @return {array}
 		 */
-		$atts = apply_filters( 'mc_post_thumbnail_atts', array( 'class' => 'mc-image photo' ), $event );
-		if ( ! isset( $atts['alt'] ) && ! get_post_meta( get_post_thumbnail_id( $event->event_post, '_wp_attachment_image_alt', true ) ) ) {
-			$atts['alt'] = $event->post_title;
+		$atts         = apply_filters( 'mc_post_thumbnail_atts', array( 'class' => 'mc-image photo' ), $event );
+		$thumbnail_id = get_post_thumbnail_id( $event->event_post );
+		if ( ! isset( $atts['alt'] ) && ! get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) {
+			$atts['alt'] = $event->event_title;
 		}
 		$image = get_the_post_thumbnail( $event->event_post, $default_size, $atts );
 	} else {
@@ -1147,7 +1148,7 @@ function mc_handle_permalinks() {
 		return;
 	} elseif ( $enabled && ! $is_permalink && $mc_id ) {
 		// Permalinks are enabled, but this is a calendar event that isn't the permalink page.
-		$page = mc_get_details_link( $mc_id );
+		$page = mc_get_permalink( $mc_id );
 
 		wp_safe_redirect( $page );
 		die;

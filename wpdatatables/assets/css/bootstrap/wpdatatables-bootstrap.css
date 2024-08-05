@@ -7190,6 +7190,7 @@ select.input-group-lg > .input-group-btn > .btn {
     color: #061938;
     margin-top: 0;
     margin-bottom: 7px;
+    padding: 0;
 }
 .wpdt-c .popover.wdt-premium-popover .popover-header button{
     font-size: 15px;
@@ -7214,6 +7215,9 @@ select.input-group-lg > .input-group-btn > .btn {
     font-size: 14px;
     line-height: 20px;
     color: #061938;;
+}
+.wpdt-c .popover.wdt-premium-popover .popover-body{
+    padding: 0;
 }
 .wpdt-c .popover.wdt-premium-popover .popover-body span{
     font-family: Inter;

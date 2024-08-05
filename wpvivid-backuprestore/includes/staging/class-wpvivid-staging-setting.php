@@ -455,7 +455,7 @@ class WPvivid_Staging_Setting_Free
         if(isset($setting['staging_keep_setting']))
             $options['staging_keep_setting']= intval($setting['staging_keep_setting']);
 
-        update_option('wpvivid_staging_options',$options);
+        update_option('wpvivid_staging_options',$options,'no');
 
         return $setting_data;
     }
@@ -498,7 +498,7 @@ class WPvivid_Staging_Setting_Free
                 $options['staging_request_timeout']= intval($setting['staging_request_timeout']);
                 $options['staging_keep_setting']= intval($setting['staging_keep_setting']);
 
-                update_option('wpvivid_staging_options',$options);
+                update_option('wpvivid_staging_options',$options,'no');
 
                 $ret['result']='success';
             }

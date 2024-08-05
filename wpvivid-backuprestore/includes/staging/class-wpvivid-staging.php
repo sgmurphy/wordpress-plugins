@@ -1356,7 +1356,7 @@ class WPvivid_Staging_Free
                 $default = array();
                 $tasks = get_option('wpvivid_staging_task_list', $default);
                 unset($tasks[$site_id]);
-                update_option('wpvivid_staging_task_list',$tasks);
+                update_option('wpvivid_staging_task_list',$tasks,'no');
                 return $ret;
             }
 
@@ -1379,7 +1379,7 @@ class WPvivid_Staging_Free
                 $default = array();
                 $tasks = get_option('wpvivid_staging_task_list', $default);
                 unset($tasks[$site_id]);
-                update_option('wpvivid_staging_task_list',$tasks);
+                update_option('wpvivid_staging_task_list',$tasks,'no');
                 return $ret;
             }
 
@@ -1399,7 +1399,7 @@ class WPvivid_Staging_Free
             $default = array();
             $tasks = get_option('wpvivid_staging_task_list', $default);
             unset($tasks[$site_id]);
-            update_option('wpvivid_staging_task_list',$tasks);
+            update_option('wpvivid_staging_task_list',$tasks,'no');
 
             $ret['result']='success';
         }
@@ -1653,7 +1653,7 @@ class WPvivid_Staging_Free
                     if($value['status']['str'] === 'running' || $value['status']['str'] === 'ready')
                     {
                         $task_id = $value['id'];
-                        update_option('wpvivid_current_running_staging_task', $task_id);
+                        update_option('wpvivid_current_running_staging_task', $task_id, 'no');
                         break;
                     }
                 }
@@ -1696,7 +1696,7 @@ class WPvivid_Staging_Free
                         $this->log->WriteLog('Access staging site failed.', 'notice');
                     }
                 }
-                update_option('wpvivid_current_running_staging_task','');
+                update_option('wpvivid_current_running_staging_task','','no');
                 $ret['continue']=0;
                 $ret['completed']=1;
             }
@@ -1707,7 +1707,7 @@ class WPvivid_Staging_Free
             }
             else if($task->get_status()=='error')
             {
-                update_option('wpvivid_current_running_staging_task','');
+                update_option('wpvivid_current_running_staging_task','','no');
                 $ret['continue']=0;
                 $ret['error']=1;
                 $ret['error_msg']=$task->get_error();
@@ -1715,7 +1715,7 @@ class WPvivid_Staging_Free
             }
             else if($task->get_status()=='cancel')
             {
-                update_option('wpvivid_current_running_staging_task','');
+                update_option('wpvivid_current_running_staging_task','','no');
                 $ret['continue']=0;
                 $ret['need_restart']=0;
                 $ret['is_cancel']=1;
@@ -1738,7 +1738,7 @@ class WPvivid_Staging_Free
                         $ret['staging_table_prefix']=$value['db_connect']['new_prefix'];
                     }
                 }
-                update_option('wpvivid_staging_task_cancel', false);
+                update_option('wpvivid_staging_task_cancel', false, 'no');
                 $b_delete=true;
             }
             else
@@ -1752,7 +1752,7 @@ class WPvivid_Staging_Free
                     }
                     else
                     {
-                        update_option('wpvivid_current_running_staging_task','');
+                        update_option('wpvivid_current_running_staging_task','','no');
                         $ret['continue']=0;
                         $b_delete=true;
                     }
@@ -2107,7 +2107,7 @@ class WPvivid_Staging_Free
             }
 
             $task_id=$task->get_id();
-            update_option('wpvivid_current_running_staging_task',$task_id);
+            update_option('wpvivid_current_running_staging_task',$task_id,'no');
             register_shutdown_function(array($this,'deal_shutdown_error'),$task_id);
 
             $doing=$task->get_doing_task();
@@ -2158,7 +2158,7 @@ class WPvivid_Staging_Free
             if(isset($_POST['id']))
             {
                 $task_id = sanitize_key($_POST['id']);
-                update_option('wpvivid_current_running_staging_task', $task_id);
+                update_option('wpvivid_current_running_staging_task', $task_id, 'no');
                 $ret['result'] = 'success';
                 echo wp_json_encode($ret);
             }
@@ -2633,7 +2633,7 @@ class WPvivid_Staging_Free
                     if($value['status']['str'] === 'running')
                     {
                         $list[$key]['status']['str']='ready';
-                        update_option('wpvivid_staging_task_list', $list);
+                        update_option('wpvivid_staging_task_list', $list, 'no');
                         break;
                     }
                 }
@@ -2644,7 +2644,7 @@ class WPvivid_Staging_Free
     }
 
     public static function wpvivid_set_staging_history($option){
-        update_option('wpvivid_staging_history', $option);
+        update_option('wpvivid_staging_history', $option, 'no');
     }
 
     public static function wpvivid_get_staging_history(){

@@ -320,7 +320,7 @@ class WPvivid_Staging_Copy_DB
             update_option('blog_public','1');
 
             $push_staging_history = $this->task->get_push_staging_history();
-            update_option('wpvivid_push_staging_history', $push_staging_history);
+            update_option('wpvivid_push_staging_history', $push_staging_history,'no');
 
             if($this->task->get_site_mu_single())
             {
@@ -1586,7 +1586,7 @@ class WPvivid_Staging_Copy_DB
         if(substr($table_name, strlen($this->replace_prefix))=='options')
         {
             wp_cache_delete ( 'alloptions', 'options' );
-            update_option('wpvivid_staging_task_list',$tasks);
+            update_option('wpvivid_staging_task_list',$tasks,'no');
         }
 
         $table['finished']=1;

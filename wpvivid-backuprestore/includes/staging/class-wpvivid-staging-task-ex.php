@@ -93,7 +93,7 @@ class WPvivid_Staging_Task
             $this->task['status']['run_time']=time();
             $tasks[$this->task['id']]=$this->task;
         }
-        update_option('wpvivid_staging_task_list',$tasks);
+        update_option('wpvivid_staging_task_list',$tasks,'no');
     }
 
     public function get_task()
@@ -717,7 +717,7 @@ class WPvivid_Staging_Task
         $this->task['job']=array();
         $this->task['doing']=false;
         $tasks[$this->task['id']]=$this->task;
-        update_option('wpvivid_staging_task_list',$tasks);
+        update_option('wpvivid_staging_task_list',$tasks,'no');
     }
 
     public function get_site_mu_single()
@@ -796,7 +796,7 @@ class WPvivid_Staging_Task
                 $this->task['status']['str']='error';
                 $this->task['status']['error']='task canceled';
                 $tasks[$this->task['id']]=$this->task;
-                update_option('wpvivid_staging_task_list',$tasks);
+                update_option('wpvivid_staging_task_list',$tasks,'no');
             }
             else
             {
@@ -807,7 +807,7 @@ class WPvivid_Staging_Task
                 $this->task['status']['str']='error';
                 $this->task['status']['error']=$error;
                 $tasks[$this->task['id']]=$this->task;
-                update_option('wpvivid_staging_task_list',$tasks);
+                update_option('wpvivid_staging_task_list',$tasks,'no');
                 $wpvivid_plugin->staging->log->WriteLog('Error: '.$this->task['status']['error'],'error');
                 WPvivid_Staging_error_log_free::create_error_log($wpvivid_plugin->staging->log->log_file);
             }
@@ -820,7 +820,7 @@ class WPvivid_Staging_Task
             $this->task['status']['str']='error';
             $this->task['status']['error']=$error;
             $tasks[$this->task['id']]=$this->task;
-            update_option('wpvivid_staging_task_list',$tasks);
+            update_option('wpvivid_staging_task_list',$tasks,'no');
             $wpvivid_plugin->staging->log->WriteLog('Error: '.$this->task['status']['error'],'error');
             WPvivid_Staging_error_log_free::create_error_log($wpvivid_plugin->staging->log->log_file);
         }
@@ -972,7 +972,7 @@ class WPvivid_Staging_Task
         if( $this->task['status']['str']=='running' || $this->task['status']['str']=='ready' )
         {
             //$this->task['status']['str']='cancel';
-            update_option('wpvivid_staging_task_cancel', true);
+            update_option('wpvivid_staging_task_cancel', true, 'no');
         }
 
         //$tasks[$this->task['id']]=$this->task;

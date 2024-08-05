@@ -1,5 +1,8 @@
 <template>
   <div class="am-fs__payment-stripe" :style="cssVars">
+    <div v-if="amSettings.payments.stripe.address" class="am-fs__payment-stripe__card">
+      <div :id="'am-stripe-address-' + shortcodeData.counter" class="am-stripe-address"></div>
+    </div>
     <div class="am-fs__payment-stripe__card">
       <div>
         <p>
@@ -144,6 +147,8 @@ let cardNum = null
 let cardEd = null
 let cardCvc = null
 
+let address = null
+
 // * Colors
 let amColors = inject('amColors')
 let amFonts = inject('amFonts')
@@ -179,52 +184,67 @@ function stripePaymentInit () {
   cardEd.mount('#am-stripe-ed-' + shortcodeData.value.counter)
   cardCvc = elements.create('cardCvc', {style})
   cardCvc.mount('#am-stripe-cvc-' + shortcodeData.value.counter)
+
+  if (amSettings.payments.stripe.address) {
+    address = elements.create('address', { mode: 'billing',  });
+    address.mount('#am-stripe-address-' + shortcodeData.value.counter)
+  }
 }
 
-function stripePaymentCreate () {
+async function stripePaymentCreate () {
   if (amSettings.general.googleRecaptcha.enabled && !amSettings.general.googleRecaptcha.invisible && !recaptchaValid.value) {
     emits('payment-error', amLabels.recaptcha_error)
 
     return false
   }
 
+  let addressResult = null
+  if (amSettings.payments.stripe.address && address) {
+    addressResult = await address.getValue()
+  }
+
   stripeObject.createPaymentMethod(
     'card',
     cardNum,
-    {}
+    addressResult ? {
+      billing_details: addressResult.value
+    } : {}
   ).then(
     function (result) {
-      if (stripeError(result)) {
+      if (stripeError(result, addressResult)) {
         store.commit('setLoading', false)
         return
       }
 
       useCreateBooking(
-        store,
-        useBookingData(
           store,
-          null,
-          false,
-          {
-            paymentMethodId: result.paymentMethod.id
+          useBookingData(
+              store,
+              null,
+              false,
+              {
+                paymentMethodId: result.paymentMethod.id,
+                address: addressResult ? addressResult.value : null
+              },
+              recaptchaResponse.value
+          ),
+          function (response) {
+            if (response.data.data.requiresAction) {
+              stripePaymentActionRequired(response.data.data)
+
+              return
+            }
+
+            store.commit('setLoading', false)
+            successBooking(response)
           },
-          recaptchaResponse.value
-        ),
-        function (response) {
-          if (response.data.data.requiresAction) {
-            stripePaymentActionRequired(response.data.data)
-
-            return
+          (response) => {
+            store.commit('setLoading', false)
+            errorBooking(response)
           }
-
-          store.commit('setLoading', false)
-          successBooking(response)
-        },
-        (response) => {
-          store.commit('setLoading', false)
-          errorBooking(response)
-        }
       )
+
+
     }
   )
 }
@@ -233,8 +253,13 @@ function stripePaymentActionRequired (response) {
   stripeObject.handleCardAction(
     response.paymentIntentClientSecret
   ).then(
-    function (result) {
-      if (stripeError(result)) {
+    async function (result) {
+      let addressResult = null
+      if (amSettings.payments.stripe.address && address) {
+        addressResult = await address.getValue()
+      }
+
+      if (stripeError(result, addressResult)) {
         return
       }
 
@@ -245,7 +270,8 @@ function stripePaymentActionRequired (response) {
           null,
           false,
           {
-            paymentIntentId: result.paymentIntent.id
+            paymentIntentId: result.paymentIntent.id,
+            address: addressResult ? addressResult.value : null
           },
           null
         ),
@@ -256,12 +282,13 @@ function stripePaymentActionRequired (response) {
   )
 }
 
-function stripeError (result) {
-  if (result.error) {
+function stripeError (result, addressResult) {
+  let addressError = addressResult && !addressResult.complete
+  if (result.error || addressError) {
     usePaymentError(
       store,
       function () {
-        emits('payment-error', result.error.message)
+        emits('payment-error', addressError ? amLabels.value.payment_address_error : result.error.message)
       }
     )
     return true
@@ -376,7 +403,7 @@ export default {
         }
       }
 
-      &__card {
+      &__card, &__address {
         p {
           font-size: 15px;
           font-weight: 500;
@@ -407,6 +434,13 @@ export default {
           padding: 12px;
         }
         .am-stripe-cn {
+          margin-bottom: 16px;
+        }
+
+        .am-stripe-address {
+          & > div {
+            width: 100% !important;
+          }
           margin-bottom: 16px;
         }
       }

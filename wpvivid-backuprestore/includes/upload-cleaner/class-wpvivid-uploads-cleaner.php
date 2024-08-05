@@ -2911,7 +2911,7 @@ class WPvivid_Uploads_Cleaner
 
             $options=array_merge($files,$options);
 
-            update_option('wpvivid_uc_exclude_files_regex',$options);
+            update_option('wpvivid_uc_exclude_files_regex',$options,'no');
 
             $scanner->delete_selected_files_list($sanitize_list);
         }

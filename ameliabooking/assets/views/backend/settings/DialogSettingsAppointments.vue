@@ -75,6 +75,45 @@
                 <LicenceBlock/>
               </el-form-item>
 
+
+              <!-- Bringing anyone logic -->
+              <div
+                  v-if="notInLicence('starter') ? licenceVisible() : true"
+                  class="am-setting-box am-switch-box"
+                  :class="licenceClass('starter')"
+              >
+                <el-row type="flex" align="middle" :gutter="24">
+                  <el-col :span="16">
+                    <span>{{ $root.labels.bringing_anyone_logic }}</span>
+                  </el-col>
+                </el-row>
+
+                <el-row style="margin-top: 16px">
+                  <el-col class="am-settings-taxes">
+                    <div style="padding: 10px">
+                      <el-radio v-model="settings.bringingAnyoneLogic" :disabled="notInLicence('starter')" :value="'additional'" :label="'additional'" class="am-settings-taxes-radio">
+                        {{$root.labels.bringing_anyone_logic_additional}}
+                        <el-tooltip placement="top">
+                          <div slot="content" v-html="$root.labels.bringing_anyone_logic_additional_tt"></div>
+                          <i class="el-icon-question am-tooltip-icon"></i>
+                        </el-tooltip>
+                      </el-radio>
+                    </div>
+                    <div style="padding: 10px">
+                      <el-radio v-model="settings.bringingAnyoneLogic" :disabled="notInLicence('starter')" :value="'total'" :label="'total'" class="am-settings-taxes-radio">
+                        {{$root.labels.bringing_anyone_logic_total}}
+                        <el-tooltip placement="top">
+                          <div slot="content" v-html="$root.labels.bringing_anyone_logic_total_tt"></div>
+                          <i class="el-icon-question am-tooltip-icon"></i>
+                        </el-tooltip>
+                      </el-radio>
+                    </div>
+                  </el-col>
+                </el-row>
+
+                <LicenceBlock :licence="'starter'"></LicenceBlock>
+              </div>
+
             </el-form>
         </div>
 
@@ -124,6 +163,16 @@
           {
             label: this.$root.labels.employee_selection_logic_lowest_price,
             value: 'lowestPrice'
+          }
+        ],
+        bringingAnyoneLogicOptions: [
+          {
+            label: this.$root.labels.employee_selection_logic_random,
+            value: 'additional'
+          },
+          {
+            label: this.$root.labels.employee_selection_logic_round_robin,
+            value: 'total'
           }
         ]
       }

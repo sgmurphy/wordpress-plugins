@@ -315,11 +315,11 @@ class WPvivid_Interface_MainWP
             if(!empty($backup_reports)){
                 foreach ($option as $key => $value){
                     $backup_reports[$key] = $value;
-                    update_option('wpvivid_backup_reports', $backup_reports);
+                    update_option('wpvivid_backup_reports', $backup_reports, 'no');
                 }
             }
             else{
-                update_option('wpvivid_backup_reports', $option);
+                update_option('wpvivid_backup_reports', $option, 'no');
             }
         }
     }

@@ -9,15 +9,15 @@
  *
  * @wordpress-plugin
  * Plugin Name: My Calendar - Accessible Event Manager
- * Plugin URI:  http://www.joedolson.com/my-calendar/
+ * Plugin URI:  https://www.joedolson.com/my-calendar/
  * Description: Accessible WordPress event calendar plugin. Show events from multiple calendars on pages, in posts, or in widgets.
  * Author:      Joseph C Dolson
- * Author URI:  http://www.joedolson.com
+ * Author URI:  https://www.joedolson.com
  * Text Domain: my-calendar
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
  * Domain Path: lang
- * Version:     3.5.10
+ * Version:     3.5.11
  */
 
 /*
@@ -54,7 +54,7 @@ function mc_get_version( $version = true ) {
 	if ( ! $version ) {
 		return get_option( 'mc_version', '' );
 	}
-	return '3.5.10';
+	return '3.5.11';
 }
 
 define( 'MC_DEBUG', false );

@@ -875,6 +875,11 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
             $where[] = 'e.locationId = :locationId';
         }
 
+        $groupBy = '';
+        if (!empty($criteria['groupById'])) {
+            $groupBy = 'GROUP BY e.id';
+        }
+
 
         if (!empty($criteria['locations'])) {
             foreach ((array)$criteria['locations'] as $index => $value) {
@@ -934,6 +939,7 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
                 {$providerJoin}
                 {$customerJoin}
                 {$where}
+                {$groupBy}
                 ORDER BY ep.periodStart, e.id
                 {$limit}"
             );

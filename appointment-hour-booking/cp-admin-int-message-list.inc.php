@@ -29,6 +29,12 @@ if (isset($_GET['statusmark']) && $_GET['statusmark'] != '')
     }
     $message = __('Marked items status updated','appointment-hour-booking');
 }
+else if (isset($_GET['resend']) && $_GET['resend'] != '')
+{
+    $this->verify_nonce ( sanitize_text_field($_GET["anonce"]), 'cpappb_actions_booking');
+    $this->ready_to_go_reservation( intval($_GET['resend']), '', true);        
+    $message = __('Notification emails resent for the booking','appointment-hour-booking');
+}
 else if (isset($_GET['delmark']) && $_GET['delmark'] != '')
 {
     $this->verify_nonce ( sanitize_text_field($_GET["anonce"]), 'cpappb_actions_booking');
@@ -123,6 +129,13 @@ $nonce = wp_create_nonce( 'cpappb_actions_booking' );
  {
     document.location = 'admin.php?page=<?php echo esc_js($this->menu_parameter); ?>&anonce=<?php echo esc_js($nonce); ?>&cal=<?php echo intval($_GET["cal"]); ?>&list=1&status='+status+'&lu='+id+'&r='+Math.random( );
  }
+ function cp_resendMessageItem(id)
+ {
+	if (confirm('Are you sure that you want to resend the notification emails for this item?'))
+    {
+        document.location = 'admin.php?page=<?php echo esc_js($this->menu_parameter); ?>&anonce=<?php echo esc_js($nonce); ?>&cal=<?php echo intval($_GET["cal"]); ?>&list=1&resend='+id+'&r='+Math.random( );
+	}
+ } 
  function cp_deleteMessageItem(id)
  {
     if (confirm('Are you sure that you want to delete this item?'))
@@ -282,8 +295,9 @@ echo paginate_links(  array(        // phpcs:ignore WordPress.Security.EscapeOut
 		    ?></td>
         <td align="center"><?php echo '<span style="color:#006799;font-weight:bold;">'.(!empty($posted_data["paid"]) && $posted_data["paid"]=='1'?esc_html(__('Paid','appointment-hour-booking')).'</span><br /><em class="cpappsoft">'.esc_html($posted_data["payment_type"]):'').'</em>'; ?></td>
 		<td class="cpnopr" style="text-align:center;">
-          <input class="button" type="button" name="caldelete_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Toggle Payment','appointment-hour-booking'); ?>" onclick="cp_updateMessageItem(<?php echo intval($events[$i]->id); ?>,<?php echo (!empty($posted_data["paid"]) && $posted_data["paid"]?'0':'1'); ?>);" />
-		  <input class="button" type="button" name="caldelete_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Delete','appointment-hour-booking'); ?>" onclick="cp_deleteMessageItem(<?php echo intval($events[$i]->id); ?>);" />
+          <input class="button ahbsbutton" type="button" name="caldelete_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Toggle Payment','appointment-hour-booking'); ?>" onclick="cp_updateMessageItem(<?php echo intval($events[$i]->id); ?>,<?php echo (!empty($posted_data["paid"]) && $posted_data["paid"]?'0':'1'); ?>);" />
+		  <input class="button ahbsbutton" type="button" name="calresend_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Resend Emails','appointment-hour-booking'); ?>" onclick="cp_resendMessageItem(<?php echo intval($events[$i]->id); ?>);" />
+		  <input class="button ahbsbutton" type="button" name="caldelete_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Delete','appointment-hour-booking'); ?>" onclick="cp_deleteMessageItem(<?php echo intval($events[$i]->id); ?>);" />
           <hr />
           <nobr><?php $this->render_status_box('sb'.intval($events[$i]->id), $status); ?><input class="button" type="button" name="calups_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Update Status','appointment-hour-booking'); ?>" onclick="cp_UpsItem(<?php echo intval($events[$i]->id); ?>);" /></nobr>
 		</td>

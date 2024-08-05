@@ -471,11 +471,14 @@ function mc_enqueue_calendar_styles( $stylesheet ) {
  * Generate calendar CSS.
  */
 function mc_generate_css() {
-	$category_vars = '';
+	$category_vars   = '';
+	$category_styles = '';
 	// generate category colors.
-	$category_css    = mc_generate_category_styles();
-	$category_styles = ( ! empty( $category_css ) ) ? $category_css['styles'] : '';
-	$category_vars   = ( ! empty( $category_css ) ) ? $category_css['vars'] : '';
+	$category_css = mc_generate_category_styles();
+	if ( ! empty( $category_css ) && is_array( $category_css ) ) {
+		$category_styles = ( isset( $category_css['styles'] ) ) ? $category_css['styles'] : '';
+		$category_vars   = ( isset( $category_css['vars'] ) ) ? $category_css['vars'] : '';
+	}
 
 	$styles     = (array) mc_get_option( 'style_vars' );
 	$styles     = mc_style_variables( $styles );
@@ -905,10 +908,14 @@ function mc_admin_url( $url ) {
  * Add custom CSS variables in admin head.
  */
 function mc_admin_head() {
+	$category_vars   = '';
+	$category_styles = '';
 	// generate category colors.
-	$category_css    = mc_generate_category_styles();
-	$category_styles = ( ! empty( $category_css ) ) ? $category_css['styles'] : '';
-	$category_vars   = ( ! empty( $category_css ) ) ? $category_css['vars'] : '';
+	$category_css = mc_generate_category_styles();
+	if ( ! empty( $category_css ) && is_array( $category_css ) ) {
+		$category_styles = ( isset( $category_css['styles'] ) ) ? $category_css['styles'] : '';
+		$category_vars   = ( isset( $category_css['vars'] ) ) ? $category_css['vars'] : '';
+	}
 
 	$styles     = (array) mc_get_option( 'style_vars' );
 	$style_vars = '';
@@ -2252,7 +2259,6 @@ function mc_register_actions() {
 
 // Filters.
 add_filter( 'post_updated_messages', 'mc_posttypes_messages' );
-add_filter( 'tmp_grunion_allow_editor_view', '__return_false' );
 add_filter( 'next_post_link', 'mc_next_post_link', 10, 2 );
 add_filter( 'previous_post_link', 'mc_previous_post_link', 10, 2 );
 add_filter( 'the_title', 'mc_the_title', 10, 2 );
@@ -2297,7 +2303,7 @@ function mc_previous_post_link( $output, $format ) {
 		remove_filter( 'the_title', 'mc_the_title', 10 );
 		$title = apply_filters( 'the_title', $event['title'], $event['post'] );
 		add_filter( 'the_title', 'mc_the_title', 10, 2 );
-		$link = add_query_arg( 'mc_id', $event['dateid'], $event['details_link'] );
+		$link = add_query_arg( 'mc_id', $event['dateid'], $event['permalink'] );
 		$date = ' <span class="mc-event-date">' . $event['date'] . '</span>';
 
 		$output = str_replace( '%link', '<a href="' . $link . '" rel="next" class="mc-adjacent">' . $title . $date . '</a>', $format );
@@ -2328,7 +2334,7 @@ function mc_next_post_link( $output, $format ) {
 		remove_filter( 'the_title', 'mc_the_title', 10 );
 		$title = apply_filters( 'the_title', $event['title'], $event['post'] );
 		add_filter( 'the_title', 'mc_the_title', 10, 2 );
-		$link = add_query_arg( 'mc_id', $event['dateid'], $event['details_link'] );
+		$link = add_query_arg( 'mc_id', $event['dateid'], $event['permalink'] );
 		$date = ' <span class="mc-event-date">' . $event['date'] . '</span>';
 
 		$output = str_replace( '%link', '<a href="' . $link . '" rel="next" class="mc-adjacent">' . $title . $date . '</a>', $format );

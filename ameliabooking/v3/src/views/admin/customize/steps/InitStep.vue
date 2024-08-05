@@ -20,15 +20,23 @@
       <BringingAnyone></BringingAnyone>
       <template #footer>
         <AmButton
+          v-if="amSettings.appointments.bringingAnyoneLogic === 'additional'"
           category="secondary"
           :type="amCustomize[pageRenderKey].bringingAnyone.options.secondaryButton.buttonType"
         >
           {{ labelsDisplay('bringing_no', 'bringingAnyone') }}
         </AmButton>
         <AmButton
+          v-if="amSettings.appointments.bringingAnyoneLogic === 'additional'"
           :type="amCustomize[pageRenderKey].bringingAnyone.options.primaryButton.buttonType"
         >
           {{ labelsDisplay('bringing_yes', 'bringingAnyone') }}
+        </AmButton>
+        <AmButton
+            v-else
+            :type="amCustomize[pageRenderKey].bringingAnyone.options.primaryFooterButton.buttonType"
+        >
+          {{  labelsDisplay('continue', 'bringingAnyone') }}
         </AmButton>
       </template>
     </AmSlidePopup>
@@ -83,6 +91,8 @@ import LocationFormField from '../fields/LocationFormField.vue'
 import EmployeeFormField from '../fields/EmployeeFormField.vue'
 import { ref, provide, markRaw, inject, defineComponent, computed } from 'vue'
 import {useColorTransparency} from "../../../../assets/js/common/colorManipulation";
+
+const amSettings = inject('settings')
 
 // * Plugin Licence
 let licence = inject('licence')

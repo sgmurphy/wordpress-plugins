@@ -1,3 +1,5 @@
+import {settings} from "../../plugins/settings";
+
 export default {
   namespaced: true,
 
@@ -525,7 +527,7 @@ export default {
       state.appointments[i]
         .services[state.appointments[i].serviceId]
         .list[state.appointments[i].index]
-        .persons = payload + 1
+        .persons = payload + (settings.appointments.bringingAnyoneLogic === 'additional' ? 1 : 0)
     },
 
     setBookingDuration (state, payload) {

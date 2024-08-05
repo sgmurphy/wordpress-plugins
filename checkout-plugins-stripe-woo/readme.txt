@@ -3,7 +3,7 @@ Contributors: brainstormforce
 Tags: stripe, credit card, apple pay, google pay, express checkout
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,12 @@ We understand the need for a quality product backed by dedicated support that ca
 4. Express Checkout Button on Checkout Page
 
 == Changelog ==
+
+= 1.9.2 - MONDAY, 5th August 2024 =
+* Improvement: Added a notice about the upcoming deprecation of Giropay. [Read more](https://support.stripe.com/questions/availability-of-giropay-june-2024-update)
+* Improvement: Improved error handling while loading the Payment Element method.
+* Security Fix: Hardened the security of the plugin suggested by PatchStack.
+* Fix: Fixed an issue where the Payment Elements appeared on the checkout page despite no payment methods being enabled.
 
 = 1.9.1 - WEDNESDAY, 10th July 2024 =
 * Improvement: Default values for few express checkout settings fields updated.

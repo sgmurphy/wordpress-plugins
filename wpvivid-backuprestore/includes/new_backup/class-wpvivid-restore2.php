@@ -271,7 +271,7 @@ class WPvivid_Restore_2
         $restore_task['last_log']='Init restore task completed.';
         $this->log->WriteLog($restore_task['last_log'],'notice');
         $restore_task['status']='ready';
-        update_option('wpvivid_restore_task',$restore_task);
+        update_option('wpvivid_restore_task',$restore_task,'no');
         $ret['result']='success';
         $ret['reset_plugin']=$b_reset_plugin;
         $ret['task']=$restore_task;
@@ -328,7 +328,7 @@ class WPvivid_Restore_2
         if(is_multisite())
         {
             $current =  get_site_option( 'active_sitewide_plugins' );
-            update_option( 'wpvivid_save_active_plugins', $current );
+            update_option( 'wpvivid_save_active_plugins', $current, 'no');
 
             $wpvivid_backup='wpvivid-backuprestore/wpvivid-backuprestore.php';
 
@@ -341,7 +341,7 @@ class WPvivid_Restore_2
         else
         {
             $current = get_option( 'active_plugins', array() );
-            update_option( 'wpvivid_save_active_plugins', $current );
+            update_option( 'wpvivid_save_active_plugins', $current, 'no');
 
             $wpvivid_backup='wpvivid-backuprestore/wpvivid-backuprestore.php';
 
@@ -565,7 +565,7 @@ class WPvivid_Restore_2
                 $restore_task['status']='error';
                 $restore_task['error']=$error['message'];
                 $restore_task['error_memory_limit']=true;
-                update_option('wpvivid_restore_task',$restore_task);
+                update_option('wpvivid_restore_task',$restore_task,'no');
             }
         }
 
@@ -617,7 +617,7 @@ class WPvivid_Restore_2
             $ret['error']=$message;
             $restore_task['status']='error';
             $restore_task['error']=$ret['error'];
-            update_option('wpvivid_restore_task',$restore_task);
+            update_option('wpvivid_restore_task',$restore_task,'no');
             echo wp_json_encode($ret);
         }
 
@@ -660,14 +660,14 @@ class WPvivid_Restore_2
             $ret['error']='no sub task';
             $restore_task['status']='error';
             $restore_task['error']=$ret['error'];
-            update_option('wpvivid_restore_task',$restore_task);
+            update_option('wpvivid_restore_task',$restore_task,'no');
             return $ret;
         }
         else
         {
             $restore_task['status']='doing sub task';
             $restore_task['update_time']=time();
-            update_option('wpvivid_restore_task',$restore_task);
+            update_option('wpvivid_restore_task',$restore_task,'no');
             return $this->do_sub_task();
         }
     }
@@ -693,7 +693,7 @@ class WPvivid_Restore_2
                 $restore_task['sub_tasks'][$key]=$ret['sub_task'];
                 $restore_task['status']='sub task finished';
                 $restore_task['update_time']=time();
-                update_option('wpvivid_restore_task',$restore_task);
+                update_option('wpvivid_restore_task',$restore_task,'no');
             }
             else
             {
@@ -701,7 +701,7 @@ class WPvivid_Restore_2
                 $restore_task['status']='error';
                 $restore_task['error']=$ret['error'];
                 wp_cache_flush();
-                update_option('wpvivid_restore_task',$restore_task);
+                update_option('wpvivid_restore_task',$restore_task,'no');
             }
         }
         else
@@ -717,7 +717,7 @@ class WPvivid_Restore_2
                 $restore_task['sub_tasks'][$key]=$ret['sub_task'];
                 $restore_task['status']='sub task finished';
                 $restore_task['update_time']=time();
-                update_option('wpvivid_restore_task',$restore_task);
+                update_option('wpvivid_restore_task',$restore_task,'no');
             }
             else
             {
@@ -725,7 +725,7 @@ class WPvivid_Restore_2
                 $restore_task['status']='error';
                 $restore_task['error']=$ret['error'];
                 $this->log->WriteLog('End restore '.$sub_task['type'].' error:'.$ret['error'],'notice');
-                update_option('wpvivid_restore_task',$restore_task);
+                update_option('wpvivid_restore_task',$restore_task,'no');
             }
         }
 
@@ -958,7 +958,7 @@ class WPvivid_Restore_2
                         if(time()-$restore_task['update_time']>$restore_max_execution_time)
                         {
                             $restore_task['restore_timeout_count']++;
-                            update_option('wpvivid_restore_task',$restore_task);
+                            update_option('wpvivid_restore_task',$restore_task,'no');
                             if($restore_task['restore_timeout_count']>6)
                             {
                                 $ret['result']='failed';

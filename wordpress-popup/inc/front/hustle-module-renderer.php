@@ -1424,10 +1424,10 @@ class Hustle_Module_Renderer extends Hustle_Renderer_Abstract {
 		$data_attributes = sprintf( 'data-validate="%s" ', esc_attr( $to_validate ) );
 
 		if ( $required && ! empty( $field['required_error_message'] ) ) {
-			$data_attributes .= sprintf( 'data-required-error="%s" ', esc_attr( wp_kses_post( $field['required_error_message'] ) ) );
+			$data_attributes .= sprintf( 'data-required-error="%s" ', esc_attr( strip_tags( html_entity_decode( $field['required_error_message'] ) ) ) );
 		}
 		if ( $to_validate && ! empty( $field['validation_message'] ) ) {
-			$data_attributes .= sprintf( 'data-validation-error="%s" ', esc_attr( wp_kses_post( $field['validation_message'] ) ) );
+			$data_attributes .= sprintf( 'data-validation-error="%s" ', esc_attr( strip_tags( html_entity_decode( $field['validation_message'] ) ) ) );
 		}
 
 		switch ( $type ) {
@@ -1665,7 +1665,7 @@ class Hustle_Module_Renderer extends Hustle_Renderer_Abstract {
 		$classes = isset( $fields['submit']['css_classes'] ) ? $fields['submit']['css_classes'] : '';
 
 		if ( isset( $fields['submit'] ) && isset( $fields['submit']['label'] ) ) {
-			$label = $fields['submit']['label'];
+			$label = strip_tags( html_entity_decode( $fields['submit']['label'] ) );
 		}
 
 		$html .= sprintf( '<button class="hustle-button hustle-button-submit %s" aria-live="polite" data-loading-text="%s">', esc_attr( $classes ), esc_attr( $loading ) );
@@ -1760,7 +1760,7 @@ class Hustle_Module_Renderer extends Hustle_Renderer_Abstract {
 			);
 
 			$data_attributes = ! empty( $fields['gdpr']['required_error_message'] ) ?
-				sprintf( 'data-required-error="%s" ', esc_attr( wp_kses_post( $fields['gdpr']['required_error_message'] ) ) ) : '';
+				sprintf( 'data-required-error="%s" ', esc_attr( strip_tags( html_entity_decode( $fields['gdpr']['required_error_message'] ) ) ) ) : '';
 
 			$html .= sprintf(
 				'<input type="checkbox" name="gdpr" id="hustle-gdpr-module-%d-%d" %s />',
@@ -1915,7 +1915,7 @@ class Hustle_Module_Renderer extends Hustle_Renderer_Abstract {
 	private function get_form_error( $fields ) {
 
 		if ( isset( $fields['submit'] ) && ! empty( $fields['submit']['error_message'] ) ) {
-			$default_error = $fields['submit']['error_message'];
+			$default_error = esc_attr( strip_tags( html_entity_decode( $fields['submit']['error_message'] ) ) );
 		} else {
 			$default_error = __( 'There was an error submitting the form', 'hustle' );
 		}
@@ -2010,7 +2010,7 @@ class Hustle_Module_Renderer extends Hustle_Renderer_Abstract {
 				esc_attr( $this->module->id ),
 				esc_attr( $render_id ),
 				esc_attr( $recaptcha_classes ),
-				esc_attr( wp_kses_post( $fields['recaptcha']['validation_message'] ) ),
+				esc_attr( strip_tags( html_entity_decode( $fields['recaptcha']['validation_message'] ) ) ),
 				esc_attr( $recaptcha_settings[ $site_key_key ] ),
 				esc_attr( $recaptcha_version ),
 				$extra_data

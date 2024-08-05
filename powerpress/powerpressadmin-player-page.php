@@ -231,7 +231,7 @@ function powerpress_admin_players($type = 'audio'){
                 updatePlaylistPlayer();
             });
 
-            $('input[name=num_episodes]').click(function(){
+            $('input[name=num_episodes]').on('focusout', function () {
                 updatePlaylistPlayer();
             });
 

@@ -193,8 +193,8 @@ class WPvivid_Fresh_Install_Create_UI_Display_Free
             $request_timeout=1500;
         }
 
-        update_option('wpvivid_current_running_staging_task','');
-        update_option('wpvivid_staging_task_cancel', false);
+        update_option('wpvivid_current_running_staging_task','','no');
+        update_option('wpvivid_staging_task_cancel', false,'no');
         $home_url   = $this->get_database_home_url();
         $admin_url  = admin_url();
         $admin_name = basename($admin_url);

@@ -655,7 +655,7 @@ function wpvivid_advanced_settings()
             <div><strong><?php esc_html_e('The number of files compressed to the backup zip each time', 'wpvivid-backuprestore'); ?></strong></div>
             <div class="setting-tab-block">
                 <input type="text" placeholder="500" option="setting" name="compress_file_count" id="wpvivid_compress_file_count" class="all-options" value="<?php echo esc_attr($compress_file_count); ?>" onkeyup="value=value.replace(/\D/g,'')" /><?php esc_html_e('Files', 'wpvivid-backuprestore'); ?>
-                <div><p><?php esc_html_e( 'When taking a backup, the plugin will compress this number of files to the backup zip each time. The default value is 500. The lower the value, the longer time the backup will take, but the higher the backup success rate. If you encounter a backup timeout issue, try to decrease this value..', 'wpvivid-backuprestore' ); ?></p></div>
+                <div><p><?php esc_html_e( 'When taking a backup, the plugin will compress this number of files to the backup zip each time. The default value is 500. The lower the value, the longer time the backup will take, but the higher the backup success rate. If you encounter a backup timeout issue, try to decrease this value.', 'wpvivid-backuprestore' ); ?></p></div>
             </div>
             <div><strong><?php esc_html_e('Split a sql file every this size', 'wpvivid-backuprestore'); ?></strong></div>
             <div class="setting-tab-block">
@@ -665,7 +665,7 @@ function wpvivid_advanced_settings()
             <div><strong><?php esc_html_e('Chunk Size', 'wpvivid-backuprestore'); ?></strong></div>
             <div class="setting-tab-block">
                 <input type="text" placeholder="2048" option="setting" name="migrate_size" class="all-options" value="<?php echo esc_attr($migrate_size); ?>" onkeyup="value=value.replace(/\D/g,'')" />KB
-                <div><p><?php esc_html_e('e.g.  if you choose a chunk size of 2MB, a 8MB file will use 4 chunks. Decreasing this value will break the ISP\'s transmission limit, for example:512KB', 'wpvivid-backuprestore'); ?></p></div>
+                <div><p><?php esc_html_e('e.g. if you choose a chunk size of 2MB, a 8MB file will use 4 chunks. Decreasing this value will break the ISP\'s transmission limit, for example:512KB', 'wpvivid-backuprestore'); ?></p></div>
             </div>
             <div><strong><?php esc_html_e('PHP script execution timeout for restore', 'wpvivid-backuprestore'); ?></strong></div>
             <div class="setting-tab-block">

@@ -2672,7 +2672,7 @@ class WPvivid_Backup_Task_2
         else {
             unset($backup_lock[$backup_id]);
         }
-        update_option('wpvivid_remote_backups_lock',$backup_lock);
+        update_option('wpvivid_remote_backups_lock',$backup_lock,'no');
     }
 
     public function add_exist_backup($backup_id,$type='Common')

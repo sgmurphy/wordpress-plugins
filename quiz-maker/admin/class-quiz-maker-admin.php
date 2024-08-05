@@ -1115,6 +1115,7 @@ class Quiz_Maker_Admin
         $quick_quiz_buttons_position                        = "center";
         $quick_quiz_title_transformation                    = "uppercase";
         $quick_quiz_title_font_size                         = 28;
+        $quick_quiz_title_mobile_font_size                  = 20;
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1218,6 +1219,9 @@ class Quiz_Maker_Admin
 
             // Quiz title font size | desktop
             $quick_quiz_title_font_size = (isset($_REQUEST['ays_quick_quiz_title_font_size']) && $_REQUEST['ays_quick_quiz_title_font_size'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_title_font_size'] ) ) : 28;
+
+            // Quiz title font size | mobile
+            $quick_quiz_title_mobile_font_size = (isset($_REQUEST['ays_quick_quiz_title_mobile_font_size']) && $_REQUEST['ays_quick_quiz_title_mobile_font_size'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_title_mobile_font_size'] ) ) : 20;
 
         }
         
@@ -1373,28 +1377,28 @@ class Quiz_Maker_Admin
             'display_score'                                 => 'by_percantage',
             'enable_rw_asnwers_sounds'                      => $quick_quiz_enable_rw_asnwers_sounds,
             'ans_right_wrong_icon'                          => 'none',
-            'quiz_bg_img_in_finish_page'                => 'off',
-            'finish_after_wrong_answer'                 => 'off',
-            'enable_enter_key'                          => $quick_quiz_enable_enter_key,
-            'buttons_text_color'                        => '#ffffff',
-            'buttons_position'                          => $quick_quiz_buttons_position,
-            'show_questions_explanation'                => 'on_results_page',
-            'enable_audio_autoplay'                     => $quick_quiz_enable_audio_autoplay,
-            'buttons_size'                              => 'large',
-            'buttons_font_size'                         => '18',
-            'buttons_width'                             => '',
-            'buttons_left_right_padding'                => '36',
-            'buttons_top_bottom_padding'                => '14',
-            'buttons_border_radius'                     => '8',
-            'enable_leave_page'                         => $quick_quiz_enable_leave_page,
-            'enable_see_result_confirm_box'             => $quick_quiz_enable_see_result_confirm_box,
-            'enable_tackers_count'                      => 'off',
-            'pass_score'                                => '0',
-            'question_font_size'                        => '16',
-            'quiz_width_by_percentage_px'               => 'pixels',
-            'questions_hint_icon_or_text'               => 'default',
-            'enable_early_finsh_comfirm_box'            => 'on',
-            'enable_questions_ordering_by_cat'          => 'off',
+            'quiz_bg_img_in_finish_page'                    => 'off',
+            'finish_after_wrong_answer'                     => 'off',
+            'enable_enter_key'                              => $quick_quiz_enable_enter_key,
+            'buttons_text_color'                            => '#ffffff',
+            'buttons_position'                              => $quick_quiz_buttons_position,
+            'show_questions_explanation'                    => 'on_results_page',
+            'enable_audio_autoplay'                         => $quick_quiz_enable_audio_autoplay,
+            'buttons_size'                                  => 'large',
+            'buttons_font_size'                             => '18',
+            'buttons_width'                                 => '',
+            'buttons_left_right_padding'                    => '36',
+            'buttons_top_bottom_padding'                    => '14',
+            'buttons_border_radius'                         => '8',
+            'enable_leave_page'                             => $quick_quiz_enable_leave_page,
+            'enable_see_result_confirm_box'                 => $quick_quiz_enable_see_result_confirm_box,
+            'enable_tackers_count'                          => 'off',
+            'pass_score'                                    => '0',
+            'question_font_size'                            => '16',
+            'quiz_width_by_percentage_px'                   => 'pixels',
+            'questions_hint_icon_or_text'                   => 'default',
+            'enable_early_finsh_comfirm_box'                => 'on',
+            'enable_questions_ordering_by_cat'              => 'off',
             'show_schedule_timer'                       => 'off',
             'show_timer_type'                           => 'countdown',
             'quiz_loader_text_value'                    => '',
@@ -1453,7 +1457,7 @@ class Quiz_Maker_Admin
             'quiz_title_text_shadow_y_offset'           => 2,
             'quiz_title_text_shadow_z_offset'           => 2,
             'quiz_title_font_size'                      => $quick_quiz_title_font_size,
-            'quiz_title_mobile_font_size'               => 20,
+            'quiz_title_mobile_font_size'               => $quick_quiz_title_mobile_font_size,
             'quiz_password_width'                       => "",
             'quiz_review_placeholder_text'              => "",
             'quiz_enable_results_toggle'                => "off",

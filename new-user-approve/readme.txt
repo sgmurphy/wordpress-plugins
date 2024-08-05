@@ -3,8 +3,8 @@ Contributors: wpexpertsio
 Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
-Tested up to: 6.5.4
-Stable tag: 2.6
+Tested up to: 6.6
+Stable tag: 2.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,9 @@ We are aware of a few issues with multisite
 7. Pro Features.
 
 == Changelog ==
+
+= 2.6.1 =
+* TWEAK - Compatible with WordPress Version 6.6.x.
 
 = 2.6 =
 * NEW - Pagination has been added to the Approved/Denied/Pending users list.

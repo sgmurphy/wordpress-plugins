@@ -4968,7 +4968,7 @@ class Quiz_Maker_Public
 
         $in_values = $new_ids_arr;
 
-        $in_pholders = implode( ',', array_fill( 0, count( $in_values ), '%s' ) );
+        $in_pholders = implode( ',', array_fill( 0, count( $in_values ), '%d' ) );
 
         $sql = $wpdb->prepare( 
             "SELECT DISTINCT c.id, c.title 
@@ -4976,7 +4976,7 @@ class Quiz_Maker_Public
                 JOIN {$wpdb->prefix}aysquiz_questions q
                 ON c.id = q.category_id
                 WHERE q.id IN ( $in_pholders )",
-            array( ...$in_values )
+            $in_values
         );
 
         $result = $wpdb->get_results( $sql, 'ARRAY_A');
@@ -6977,7 +6977,7 @@ class Quiz_Maker_Public
 
         $in_values = $new_ids_arr;
 
-        $in_pholders = implode( ',', array_fill( 0, count( $in_values ), '%s' ) );
+        $in_pholders = implode( ',', array_fill( 0, count( $in_values ), '%d' ) );
 
         $sql = $wpdb->prepare( 
             "SELECT DISTINCT c.id, c.title
@@ -6985,7 +6985,7 @@ class Quiz_Maker_Public
                 JOIN {$wpdb->prefix}aysquiz_questions q
                 ON c.id = q.category_id
                 WHERE q.id IN ( $in_pholders )",
-            array( ...$in_values )
+            $in_values
         );
 
         $result = $wpdb->get_results( $sql, 'ARRAY_A');
@@ -7020,11 +7020,11 @@ class Quiz_Maker_Public
 
             $in_values = $new_ids_arr;
 
-            $in_pholders = implode( ',', array_fill( 0, count( $in_values ), '%s' ) );
+            $in_pholders = implode( ',', array_fill( 0, count( $in_values ), '%d' ) );
 
             $sql = $wpdb->prepare( 
                 "SELECT * FROM {$wpdb->prefix}aysquiz_questions WHERE id IN ( $in_pholders )",
-                array( ...$in_values )
+                $in_values
             );
 
             $results = $wpdb->get_results( $sql, "ARRAY_A");

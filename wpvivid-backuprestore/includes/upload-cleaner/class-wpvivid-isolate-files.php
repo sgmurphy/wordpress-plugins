@@ -59,7 +59,7 @@ class WPvivid_Isolate_Files
         $task['progress']=0;
         $task['offset']=0;
 
-        update_option('init_isolate_task',$task);
+        update_option('init_isolate_task',$task,'no');
     }
 
     public function get_isolate_task_offset()
@@ -87,7 +87,7 @@ class WPvivid_Isolate_Files
         $task['progress']=$progress;
         $task['offset']=$offset;
 
-        update_option('scan_unused_files_task',$task);
+        update_option('scan_unused_files_task',$task,'no');
     }
 
     public function get_isolate_folder()
@@ -267,7 +267,7 @@ class WPvivid_Isolate_Files
     public function delete_files($files)
     {
         $root=WP_CONTENT_DIR.DIRECTORY_SEPARATOR.WPVIVID_UPLOADS_ISO_DIR;
-        $delete_media_when_delete_file=get_option('wpvivid_uc_delete_media_when_delete_file',false);
+        $delete_media_when_delete_file=get_option('wpvivid_uc_delete_media_when_delete_file',true);
         foreach ($files as $file)
         {
             @wp_delete_file($root.DIRECTORY_SEPARATOR.$file);
@@ -289,7 +289,7 @@ class WPvivid_Isolate_Files
     public function delete_files_ex($files)
     {
         $root=WP_CONTENT_DIR.DIRECTORY_SEPARATOR.WPVIVID_UPLOADS_ISO_DIR;
-        $delete_media_when_delete_file=get_option('wpvivid_uc_delete_media_when_delete_file',false);
+        $delete_media_when_delete_file=get_option('wpvivid_uc_delete_media_when_delete_file',true);
         foreach ($files as $file)
         {
             @wp_delete_file($root.DIRECTORY_SEPARATOR.$file['path']);

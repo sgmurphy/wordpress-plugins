@@ -24,8 +24,8 @@ class WPvivid_Staging_Create_UI_Display_Free
 
     public function output_create_staging_site_page()
     {
-        update_option('wpvivid_current_running_staging_task','');
-        update_option('wpvivid_staging_task_cancel', false);
+        update_option('wpvivid_current_running_staging_task','','no');
+        update_option('wpvivid_staging_task_cancel', false,'no');
         $home_url   = $this->get_database_home_url();
         $admin_url  = admin_url();
         $admin_name = basename($admin_url);
