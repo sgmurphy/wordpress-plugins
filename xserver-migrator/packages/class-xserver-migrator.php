@@ -10,6 +10,8 @@ class Xserver_Migrator
 
 	private $ssl;
 
+	private $admin;
+
 	/**
 	 * Xserver_Migrator constructor.
 	 */

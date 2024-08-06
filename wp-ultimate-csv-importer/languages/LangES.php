@@ -26,6 +26,10 @@ class LangES
         public static function contents()
         {
                 $response = array(
+                        'SelectAllImages' => 'Seleccione todas las imágenes en su archivo de importación para evitar fallos en la importación',
+                        'ChooseImagesToImport' => 'Elija las imágenes para importar. Utilice la casilla de verificación a continuación para seleccionar todas las imágenes.',
+                        'FileName' => 'Nombre del archivo:',
+                        'OK' => 'OK',
                         'ImportUpdate' => 'Importar actualización',
                         'Dashboard' => 'Tablero',
                         'Manager' => 'Gerente',
@@ -97,7 +101,7 @@ class LangES
                         'ADVANCEDMODE' => 'MODO AVANZADO',
                         'SIMPLEMODE' => 'MODO SIMPLE',
                         'ThisfeatureisavailableinWPUltimateCSVImporterPremiumVersion' => 'Esta función está disponible en la versión Premium de WP Ultimate CSV Importer',
-                        'DRAGDROPMODE' => 'DRAG & DROP MODE',
+                        'DRAGDROPMODE' => 'MODO ARRASTRAR Y SOLTAR',
                         'WordpressFields' => 'Campos de Wordpress',
                         'WPFIELDS' => 'Campos de WP',
                         'CSVHEADER' => 'Encabezado CSV',
@@ -430,6 +434,26 @@ class LangES
 			'Hire_us' => 'Contratanos',
 			'DragDropyourfilesor' => 'Arrastra y suelta tus archivos o',
                         'WPCompleteFields' =>'Campos completos de WP',
+                        'ChooseUploadMethod' => 'Elija el método de carga',
+                        'Media' => 'Medios de comunicación',
+                        'CsvUploadFields'=>'Subir archivo',
+                        'Device' => 'Dispositivo',
+                        'Remote' => 'Remota',
+                        'SelectDeviceZIPfile' =>'Seleccione Dispositivo para cargar imágenes directamente desde su dispositivo como un archivo ZIP.',
+                        'SelectDeviceCSVfile' => 'Elija Remoto para importar imágenes desde las URL de sitios web remotos.',
+                        'MediaContinue' => 'continuar',
+                        'FreshImport' => 'Importación fresca',
+                        'UpdateContent' => 'Actualizar contenido',
+                        'UpdateThisMappingAs' => 'Actualice este mapeo como',
+                        'Overwritetheavailableimages' => 'Sobrescribe las imágenes disponibles',
+                        'AlwaysCreateAsNewImage' => 'Crear siempre como imagen nueva',
+                        'ImportCompleted' => '¡Importación completada!',
+                        'importHasFinished' => 'Su importación ha finalizado con éxito. Haga clic en el botón a continuación para descargar y acceder a un registro de importación detallado.',
+                        'ImportLog' => 'Registro de importación',
+                        'FailedMedia' => 'Medios fallidos',
+                        'UseTheFailedImages' => 'Utilice el CSV de imágenes fallidas para corregir las URL y volver a importar las imágenes',
+                        'FeaturedFields' => 'Metadatos de Imagen Destacada',
+                        'Summary' => 'Resumen',
 
                 );
                 return $response;
@@ -437,7 +461,7 @@ class LangES
         public static function notice_contents()
         {
         $result =array(
-        'UpgradetoPROusingcode'  =>'Actualizar a PRO con el código',
+        'UpgradetoPROusingcode'  =>'Actualizar a PREMIUM con el código',
         'Unlockfeatureslikebulkimportadvanced exportschedulingcontentupdatemorepluslifetimesupport'  =>'Desbloquea funciones como la importación masiva, la exportación avanzada, la programación, la actualización de contenidos y mucho más, además de soporte técnico de por vida',
         'upgradenow' =>  'actualizar ahora'
         );

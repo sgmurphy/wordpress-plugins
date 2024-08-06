@@ -85,10 +85,3 @@
         </div>
     </div>
 </div>
-<script>
-    jQuery(document).ready(function($){
-        $('[data-toggle="tooltip"]').tooltip({
-            template: '<div class="tooltip ays-pb-custom-class-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
-        });
-    });
-</script>

@@ -1345,6 +1345,8 @@ var FLBuilderColorPicker;
 					}
 				};
 
+			self._currentElement = input.parent().find( '.fl-color-picker-value' );
+
 			input.on( 'change', callback ).on( 'keyup', self._debounce( callback, debounceTimeout ) );
 
 		},

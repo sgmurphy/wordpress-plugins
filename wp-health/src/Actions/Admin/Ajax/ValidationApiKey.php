@@ -207,6 +207,9 @@ class ValidationApiKey implements ExecuteHooksBackend
                     $newOptions['project_id'] = $projectId;
                     $this->optionService->setOptions($newOptions);
 
+                    // Force update option to v4 for new project only
+                    update_option('wp_umbrella_backup_version', 'v4', false);
+
                     wp_send_json_success([
                         'code' => 'success',
                         'user' => $owner,

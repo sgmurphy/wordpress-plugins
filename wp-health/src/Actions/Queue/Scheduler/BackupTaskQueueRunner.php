@@ -45,6 +45,11 @@ class BackupTaskQueueRunner implements ExecuteHooks, DeactivationHook
             return;
         }
 
+        $backupVersion = get_option('wp_umbrella_backup_version');
+        if ($backupVersion === 'v4') {
+            return;
+        }
+
         add_filter('cron_schedules', [$this, 'addCronSchedules']);
         $this->cronHooks();
         $this->shutdownHooks();

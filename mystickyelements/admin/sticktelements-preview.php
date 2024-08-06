@@ -1,12 +1,11 @@
-<div class="mystickyelements-preview">
+<div class="mystickyelements-preview" <?php if( isset($widget_tab_index) && $widget_tab_index == 'mystickyelements-live-chatway' ):?> style="display:none;" <?php endif;?>>
 	<div class="myStickyelements-preview-tab">
 		<div class="myStickyelements-preview-screen">
-<style>
-	.preview-contactform-field::placeholder  {
-		color:  <?php echo $contact_form['placeholder_color']; ?>;
-	}
-</style>
-
+			<style>
+				.preview-contactform-field::placeholder  {
+					color:  <?php echo $general_settings['placeholder_color']; ?>;
+				}
+			</style>
 			<div class="preview-element-contact-form <?php echo esc_attr($general_settings['position'])?>_pos  <?php echo esc_attr($general_settings['position_mobile'])?>_pos_mobile  ">
                 <div class="preview-element-contact-form-wrap">
 
@@ -174,32 +173,8 @@
 								}
 								?>
 								<span class="mystickyelements-social-icon social-<?php echo esc_attr($key);?> social-<?php echo esc_attr($channel_type); ?>" style="background: <?php echo esc_attr($value['bg_color']);?>">
-
-									<?php 
-									/*if ( isset($social_channels_list['custom']) && $social_channels_list['custom'] == 1 && $value['custom_icon'] != '' && $value['fontawesome_icon'] == '' ):?>
-										<img class="<?php echo esc_attr(( isset($value['stretch_custom_icon']) && $value['stretch_custom_icon'] == 1 ) ? 'mystickyelements-stretch-custom-img' : '');  ?>" src="<?php echo esc_url($value['custom_icon']);?>" width="40" height="40" />
-									<?php else:
-										if ( isset($social_channels_list['custom']) && $social_channels_list['custom'] == 1 && $value['fontawesome_icon'] != '' ) {
-											$social_channels_list['class'] = $value['fontawesome_icon'];
-										}
-										if ( isset($social_channels_list['custom_svg_icon']) && $social_channels_list['custom_svg_icon'] != '' ) {
-											echo esc_attr($social_channels_list['custom_svg_icon']);
-										}else{ 
-											if( strpos($key, 'custom_channel') !== false ){
-												?>
-												<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.9999 2.20002C9.9999 1.20591 10.8058 0.400024 11.7999 0.400024C12.794 0.400024 13.5999 1.20591 13.5999 2.20002V2.80002C13.5999 3.46277 14.1372 4.00002 14.7999 4.00002H18.3999C19.0626 4.00002 19.5999 4.53728 19.5999 5.20002V8.80002C19.5999 9.46277 19.0626 10 18.3999 10H17.7999C16.8058 10 15.9999 10.8059 15.9999 11.8C15.9999 12.7941 16.8058 13.6 17.7999 13.6H18.3999C19.0626 13.6 19.5999 14.1373 19.5999 14.8V18.4C19.5999 19.0628 19.0626 19.6 18.3999 19.6H14.7999C14.1372 19.6 13.5999 19.0628 13.5999 18.4V17.8C13.5999 16.8059 12.794 16 11.7999 16C10.8058 16 9.9999 16.8059 9.9999 17.8V18.4C9.9999 19.0628 9.46264 19.6 8.7999 19.6H5.1999C4.53716 19.6 3.9999 19.0628 3.9999 18.4V14.8C3.9999 14.1373 3.46264 13.6 2.7999 13.6H2.1999C1.20579 13.6 0.399902 12.7941 0.399902 11.8C0.399902 10.8059 1.20579 10 2.1999 10H2.7999C3.46264 10 3.9999 9.46277 3.9999 8.80002V5.20002C3.9999 4.53728 4.53716 4.00002 5.1999 4.00002H8.7999C9.46264 4.00002 9.9999 3.46277 9.9999 2.80002V2.20002Z" fill="#0EA5E9"></path></svg> 
-											<?php
-											}else if( strpos($key, 'custom_shortcode') !== false ){
-												?>
-												<svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.399902 2.99998C0.399902 1.67449 1.47442 0.599976 2.7999 0.599976H17.1999C18.5254 0.599976 19.5999 1.67449 19.5999 2.99998V15C19.5999 16.3255 18.5254 17.4 17.1999 17.4H2.7999C1.47442 17.4 0.399902 16.3255 0.399902 15V2.99998ZM4.35137 4.55145C4.82 4.08282 5.5798 4.08282 6.04843 4.55145L9.64843 8.15145C10.1171 8.62008 10.1171 9.37988 9.64843 9.8485L6.04843 13.4485C5.5798 13.9171 4.82 13.9171 4.35137 13.4485C3.88275 12.9799 3.88275 12.2201 4.35137 11.7514L7.10285 8.99998L4.35137 6.2485C3.88275 5.77987 3.88275 5.02008 4.35137 4.55145ZM11.1999 11.4C10.5372 11.4 9.9999 11.9372 9.9999 12.6C9.9999 13.2627 10.5372 13.8 11.1999 13.8H14.7999C15.4626 13.8 15.9999 13.2627 15.9999 12.6C15.9999 11.9372 15.4626 11.4 14.7999 11.4H11.1999Z" fill="#A855F7"></path></svg>
-												<?php
-											}else{*/
-												?>
-												<i class="<?php echo esc_attr($social_channels_list['class']);?>" <?php if ( isset($value['icon_color']) && $value['icon_color'] != '') : echo "style='color:" . esc_attr($value['icon_color']) . "'"; endif; ?>></i>
-											<?php
-											//}
-										//}
-									//endif;
+									<i class="<?php echo esc_attr($social_channels_list['class']);?>" <?php if ( isset($value['icon_color']) && $value['icon_color'] != '') : echo "style='color:" . esc_attr($value['icon_color']) . "'"; endif; ?>></i>
+									<?php											
 									$icon_text_size = "display: none;";
 									$value['icon_text'] = ( isset($value['icon_text']) && $value['icon_text'] != '' ) ? $value['icon_text'] : '';
 									
@@ -231,8 +206,7 @@
 		</p>
 		<div class="mystickyelements-preivew-below-sec" data-id="<?php if(isset($is_widgest_create)) : echo esc_attr($is_widgest_create); endif;?>">
 			<div class="myStickyelements-header-title">
-				<h3><?php _e('Live Preview', 'mystickyelements'); ?>
-				<!-- <p class="description" ><strong><?php //esc_html_e( 'See the full functionality on your live site', 'mystickyelements');?></strong></p> -->
+				<h3><?php _e('Live Preview', 'mystickyelements'); ?>				
 				</h3>
 				<span class="myStickyelements-preview-window">
 					<ul>

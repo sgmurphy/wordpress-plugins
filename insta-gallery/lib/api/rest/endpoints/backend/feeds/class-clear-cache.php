@@ -1,7 +1,6 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds;
 
-use QuadLayers\IGG\Models\Feed as Models_Feed;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
 use QuadLayers\IGG\Utils\Cache as Cache;
 

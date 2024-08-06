@@ -341,15 +341,18 @@ class Functions{
      * @since v.1.1.0
 	 * @return ARRAY | Query Arg
 	 */
-    public function reusable_id($post_id) {
+    public function get_reusable_ids( $post_id ) {
         $reusable_id = array();
-        if ($post_id) {
+        if ( $post_id ) {
             $post = get_post($post_id);
-            if (isset($post->post_content)) {
-                if (has_blocks($post->post_content)) {
+            if ( isset($post->post_content) ) {
+                if ( has_blocks($post->post_content) && 
+                     strpos($post->post_content, 'wp:block') && 
+                     strpos($post->post_content, '"ref"') !== false 
+                ) {
                     $blocks = parse_blocks($post->post_content);
                     foreach ($blocks as $key => $value) {
-                        if (isset($value['attrs']['ref'])) {
+                        if ( isset($value['attrs']['ref']) ) {
                             $reusable_id[] = $value['attrs']['ref'];
                         }
                     }
@@ -359,66 +362,74 @@ class Functions{
         return $reusable_id;
     }
     
+    /**
+	 * get directory file contents
+     * 
+     * @since v.4.1.8
+	 * @return ARRAY | Query Arg
+	*/
+    public function get_path_file_contents($path) {
+        global $wp_filesystem;
+        if (! $wp_filesystem ) {
+            require_once( ABSPATH . 'wp-admin/includes/file.php' );
+            $init_fs = WP_Filesystem();
+            if ( !$init_fs ) {
+                return '';
+            }
+        }
+
+        if ( $wp_filesystem->exists($path) ) {
+            return $wp_filesystem->get_contents($path);
+        } else {
+            return '';
+        }
+    }
 
     /**
-	 * Set CSS Style
+	 * build css for inline printing // used for some builder
      * 
-     * @since v.1.1.0
+     * @since v.4.1.8
 	 * @return ARRAY | Query Arg
 	 */
-    public function set_css_style($post_id, $shortcode = false) {
-        if ($post_id) {
+    public function build_css_for_inline_print( $post_id, $call_common=true ) {
+        if ( $post_id ) {
 			$upload_dir_url = wp_get_upload_dir();
 			$upload_css_dir_url = trailingslashit( $upload_dir_url['basedir'] );
-            $css_dir_path = $upload_css_dir_url . "ultimate-post/ultp-css-{$post_id}.css";
             
             $css_dir_url = trailingslashit( $upload_dir_url['baseurl'] );
-            if (is_ssl()) {
+            if ( is_ssl() ) {
                 $css_dir_url = str_replace('http://', 'https://', $css_dir_url);
             }
-                
-            // Reusable CSS
-            $reusable_id = '';
-            if ( strpos($post_id, '__') !== false) {
-				$template = get_block_template( str_replace('__', '//', $post_id) );
-				if ($template->wp_id) {
-					$reusable_id = ultimate_post()->reusable_id($template->wp_id);
-				}
-			} else {
-				$reusable_id = ultimate_post()->reusable_id($post_id);
-			}
-            if (!empty($reusable_id)) {
+            $reusable_css = '';
+            $reusable_id = $this->get_reusable_ids($post_id);
+            if ( !empty($reusable_id) ) {
                 foreach ( $reusable_id as $id ) {
                     $reusable_dir_path = $upload_css_dir_url."ultimate-post/ultp-css-{$id}.css";
                     if (file_exists( $reusable_dir_path )) {
-                        $css_url = $css_dir_url . "ultimate-post/ultp-css-{$id}.css";
-                        wp_enqueue_style( "ultp-post-{$id}", $css_url, array(), ultimate_post()->get_setting('save_version'), 'all' );
-                    }else{
-                        $css = get_post_meta($id, '_ultp_css', true);
-                        if( $css ) {
-                            ultimate_post()->set_inline($css, $post_id);
-                        }
+                        $reusable_css .= $this->get_path_file_contents($reusable_dir_path);
+                    } else {
+                        $reusable_css .= get_post_meta($reusable_id, '_ultp_css', true);
                     }
                 }
             }
-            // phpcs:disable WordPress.Security.NonceVerification.Recommended
-            if (isset($_GET['et_fb']) || (isset($_GET['action']) && sanitize_key($_GET['action']) == 'elementor') || $shortcode) {  // phpcs:ignore
-                return ultimate_post()->set_inline(get_post_meta($post_id, '_ultp_css', true), $post_id);
+            
+            $css_dir_path = $upload_css_dir_url . "ultimate-post/ultp-css-{$post_id}.css";
+            $css = '';
+            if (file_exists( $css_dir_path ) ) {
+                $css = $this->get_path_file_contents($css_dir_path);
             } else {
-                if (file_exists( $css_dir_path ) ) {
-                    $css_url = $css_dir_url . "ultimate-post/ultp-css-{$post_id}.css";
-                    wp_enqueue_style( "ultp-post-{$post_id}", $css_url, array(), ultimate_post()->get_setting('save_version'), 'all' );
-                } else {
-                    $css = get_post_meta($post_id, '_ultp_css', true);
-                    if( $css ) {
-                        ultimate_post()->set_inline($css, $post_id);
-                    }
-                }
+                $css = get_post_meta($post_id, '_ultp_css', true);
             }
-            // phpcs:enable WordPress.Security.NonceVerification.Recommended
+            if (  $reusable_css.$css ) {
+                if ( $call_common ) {
+                    $this->register_scripts_common();
+                }
+                return '<style id="ultp-post-'.$post_id.'" type="text/css">'.wp_strip_all_tags($reusable_css.$css).'</style>';
+            }
 		}
+        return '';
     }
-
+    
 
     /**
 	 * Get Global Plugin Settings
@@ -1511,17 +1522,6 @@ class Functions{
         return $html;
     }
 
-    /**
-	 * Set Inline CSS
-     * 
-     * @since v.2.5.8
-     * @param STRING | CSS
-	 * @return STRING | CSS with Style
-	 */
-    public function set_inline($css) {
-        return '<style type="text/css">'.wp_strip_all_tags($css).'</style>';
-    }
-
      /**
 	 * Array Sanitize Function
      * 
@@ -2304,7 +2304,6 @@ class Functions{
                 'home_url' => home_url(),
                 'dark_logo' => get_option('ultp_site_dark_logo', false)
             ));
-            
         }
     }
     /**
@@ -2588,7 +2587,8 @@ class Functions{
      * @param $cap string
      * @return bool
      */
-    public function permission_check_for_restapi($post_id=false,$cap='edit_others_posts'){
+    public function permission_check_for_restapi($post_id=false, $cap='') {
+        $cap = $cap ? $cap : 'edit_others_posts';
         $is_passed = false;
         if($post_id) {
             $post_author =(int) get_post_field('post_author',$post_id);

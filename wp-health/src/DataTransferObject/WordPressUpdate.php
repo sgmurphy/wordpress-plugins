@@ -22,5 +22,6 @@ class WordPressUpdate
     public $curl_is_defined;
     public $zip_is_defined;
     public $defined_data;
+    public $base_directory;
     public $latest;
 }

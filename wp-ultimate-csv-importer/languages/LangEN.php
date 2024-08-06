@@ -22,6 +22,10 @@ class LangEN {
 
         public static function contents(){
                 $response = array('ImportUpdate' => 'Import',
+                'SelectAllImages' => 'Select all images in your import file to avoid import failures',
+                'ChooseImagesToImport' => 'Choose images to import. Utilize the checkbox below to select all images.',
+                'FileName' => 'File Name:',
+                'OK' => 'OK',
                 'Exportfiltereddata' => 'Export filtered data',
                 'Exportfiltereddatadesc' => 'Lets you get only required data with the different advanced filters',
                 'Backupineditableformat' => 'Backup in editable format',
@@ -50,7 +54,6 @@ class LangEN {
                 'FromDate' => 'From Date',
                 'ToDate' => 'To Date',
                 'SEARCH' => 'SEARCH',
-                'Media' =>'Media',
                 'AccessKey' => 'AccessKey',
                 'SavedTemplate' => 'Saved Template',
                 'TEMPLATES' => 'TEMPLATES',
@@ -70,7 +73,6 @@ class LangEN {
                 'Name' => 'Name',
                 'HINT' => 'HINT',
                 'Example' => 'Example',
-                'FailedMedia' => 'failed media',
                 'newtabfailedMedia' => 'Media',
                 'MediaFields' =>'Media Fields',
                 'WordPressCoreFields' => 'WordPress Core Fields',
@@ -82,7 +84,6 @@ class LangEN {
                 'ACFRepeaterFields' => 'ACF Repeater Fields',
                 'TypesCustomFields' => 'Types Custom Fields',
                 'PodsFields' => 'Pods Fields',
-                'CsvUploadFields'=>'Upload File',
                 'JobListingFields' => 'Job Listing Fields',
                 'CustomFieldSuite' => 'Custom Field Suite',
                 'AllInOneSeoFields' => 'All In One Seo Fields',
@@ -328,7 +329,6 @@ class LangEN {
                 'noofPingbackcommentshasbeenremoved' => 'no of Pingback comments has been removed.',
                 'noofTrackbackcommentshasbeenremoved' => 'no of Trackback comments has been removed.',
                 'Allowauthorseditorstoimport' => 'Allow authors/editors to import',
-                'Allowauthorseditorstoimport' => 'Allow authors/editors to import',
                 'Thisenablesauthorseditorstoimport' => 'This enables authors/editors to import.',
                 'MinimumrequiredphpinivaluesIniconfiguredvalues' => 'Minimum required php.ini values (Ini configured values)',
                 'Variables' => 'Variables',
@@ -423,14 +423,33 @@ class LangEN {
                 'FifuCustomPostFields' => 'Fifu Custom Post Fields',
                 'polylangfields' => 'Polylang Settings Fields',
                 'BuddyFields' => 'BuddyPress Fields',
-                'WPCompleteFields' => 'WPComplete Fields'
+                'WPCompleteFields' => 'WPComplete Fields',
+                'ImportCompleted' => 'Import Completed!',
+                'importHasFinished' => 'Your import has finished successfully. Please click the button below to download & access a detailed import log.',
+                'ImportLog' => 'Import Log',
+                'FailedMedia' => 'Failed Media',
+                'UseTheFailedImages' => 'Use the failed images CSV to correct URLs and re-import the images',
+                'AlwaysCreateAsNewImage' => 'Always Create As New Image',
+                'ChooseUploadMethod' => 'Choose Upload Method',
+                'CsvUploadFields'=>'Csv Upload Fields',
+                'Device' => 'Device',
+                'Media' =>'Media',
+                'Remote' => 'Remote',
+                'SelectDeviceZIPfile' =>'Select Device to upload images directly from your Device as a ZIP file.',
+                'SelectDeviceCSVfile' => 'Choose Remote to import images from Remote website URLs.',
+                'MediaContinue' => 'Continue',
+                'FreshImport' => 'Fresh import',
+                'UpdateContent' => 'Update Content',
+                'UpdateThisMappingAs' => 'Update this mapping as',
+                'Summary' => 'Summary',
+
                 );
         return $response;
         }
         public static function notice_contents()
         {
         $result =array(
-                'UpgradetoPROusingcode' => 'Upgrade to PRO using code',
+                'UpgradetoPROusingcode' => 'Upgrade to PREMIUM using code',
                 'Unlockfeatureslikebulkimportadvanced exportschedulingcontentupdatemorepluslifetimesupport'  =>'Unlock features like bulk import, advanced export, scheduling, content update, & more, plus lifetime support',
                 'upgradenow' => 'upgrade now'
         );

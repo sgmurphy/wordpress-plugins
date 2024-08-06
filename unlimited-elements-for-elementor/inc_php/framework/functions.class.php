@@ -23,7 +23,10 @@ class UniteFunctionsUC{
 	 * throw error
 	 */
 	public static function throwError($message, $code = 0){
-
+		
+		if($code === null)
+			$code = 0;
+		
 		throw new Exception($message, $code);
 	}
 

@@ -7629,6 +7629,11 @@
 			clone.find('.fl-color-picker-color').css('background-color', 'transparent');
 			clone.find('.fl-color-picker-color').addClass('fl-color-picker-empty');
 
+			// global color
+			if ( clone.find('.fl-global-color-field-uid') ) {
+				clone.find('.fl-global-color-field-uid').val( FLBuilder._uniqueColorID() );
+			}
+
 			fieldRow.after(clone);
 			FLBuilder._initMultipleFields();
 
@@ -7667,12 +7672,13 @@
 				index   = parseInt(row.find('label span.fl-builder-field-index').html(), 10) + 1;
 
 			clone.find('th label span.fl-builder-field-index').html(index);
-			row.after(clone);
 
 			// global color - remove input id for cloned field
-			if ( row.find('.fl-global-color-field-uid') ) {
-				row.find('.fl-global-color-field-uid').val('');
+			if ( clone.find('.fl-global-color-field-uid') ) {
+				clone.find('.fl-global-color-field-uid').val( FLBuilder._uniqueColorID() );
 			}
+
+			row.after(clone);
 
 			parent.find('input').trigger('change');
 			FLBuilder._renumberFields(row.parent());
@@ -8125,6 +8131,24 @@
 					position.show();
 				}
 			} );
+		},
+
+		/**
+		 * Create unique color ID.
+		 *
+		 * @access private
+		 * @method _uniqueColorID
+		 */
+		_uniqueColorID: function() {
+			const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+			let uid = '';
+
+			for ( let i = 0; i < 9; i++ ) {
+				const randomIndex = Math.floor( Math.random() * characters.length );
+				uid += characters.charAt( randomIndex );
+			}
+
+			return uid;
 		},
 
 		/* Single Photo Fields

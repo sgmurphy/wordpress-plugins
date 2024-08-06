@@ -23,6 +23,10 @@ class LangFR {
 
         public static function contents(){
                 $response = array('ImportUpdate' => 'Import',
+                        'SelectAllImages' => 'Sélectionnez toutes les images dans votre fichier d’importation pour éviter les échecs d’importation',
+                        'ChooseImagesToImport' => 'Choisissez les images à importer. Utilisez la case à cocher ci-dessous pour sélectionner toutes les images.',
+                        'FileName' => 'Nom du fichier :',
+                        'OK' => 'OK',
                         'AutoSchedulewithreusabletemplates' => 'Planification automatique avec des modèles réutilisables',
                         'Dashboard' => 'Tableau de bord',
                         'Manager' => 'Directeur',
@@ -106,7 +110,7 @@ class LangFR {
                         'CREATENEWMAPPING' => 'CREER UN NOUVEAU MAPPING',
                         'BACK' => 'RETOUR',
                         'ADVANCEDMODE' => 'MODE AVANCÉ',
-                        'DRAGDROPMODE' => 'DRAG & DROP MODE',
+                        'DRAGDROPMODE' => 'MODE glisser-déposer',
                         'WordpressFields' => 'Champs Wordpress',
                         'WPFIELDS' => 'WP champs',
                         'CSVHEADER' => 'En-tête CSV',
@@ -425,14 +429,34 @@ class LangFR {
 			'SampleCSVXML' => 'Exemple CSV&XML',
 			'WarningImportforsomedataaredisabledInstallandactivatebelowpluginsfirst' => 'Attention : Certains addons manquent, il est recommandé de',
 			'DragDropyourfilesor' => 'Faites glisser et déposez vos fichiers ou',
-                        'WPCompleteFields' => 'Champs WPComplete'
+                        'WPCompleteFields' => 'Champs WPComplete',
+                        'ChooseUploadMethod' => 'Choisissez la méthode de téléchargement',
+                        'Media' => 'Médias',
+                        'CsvUploadFields' => 'Télécharger le fichier',
+                        'Device' => 'Appareil',
+                        'Remote' => 'À distance',
+                        'SelectDeviceZIPfile' => 'Sélectionnez l\'appareil pour télécharger des images directement depuis votre appareil en tant que fichier ZIP.',
+                        'SelectDeviceCSVfile' => 'Choisissez À distance pour importer des images depuis les URL de sites Web distants.',
+                        'MediaContinue' => 'Continuer',
+                        'FreshImport' => 'Importation fraîche',
+                        'UpdateContent' => 'Mettre à jour le contenu',
+                        'UpdateThisMappingAs' => 'Mettre à jour ce mapping en tant que',
+                        'Overwritetheavailableimages' => 'Écraser les images disponibles',
+                        'AlwaysCreateAsNewImage' => 'Toujours créer comme une nouvelle image',
+                        'ImportCompleted' => 'Importation terminée!',
+                        'importHasFinished' => 'Votre importation est terminée avec succès. Cliquez sur le bouton ci-dessous pour télécharger et accéder à un journal d\'importation détaillé.',
+                        'ImportLog' => 'Journal d\'importation',
+                        'FailedMedia' => 'Médias échoués',
+                        'UseTheFailedImages' => 'Utilisez le CSV des images échouées pour corriger les URL et réimporter les images',
+                        'FeaturedFields' => 'Métadonnées de l\'Image Vedette',
+                        'Summary' => 'Résumé',
 		        );
                 return $response;
         }
         public static function notice_contents()
         {
         $result =array(
-                'UpgradetoPROusingcode' => 'Mettre à niveau vers PRO en utilisant du code',
+                'UpgradetoPROusingcode' => 'Mettre à niveau vers PREMIUM en utilisant du code',
                 'Unlockfeatureslikebulkimportadvanced exportschedulingcontentupdatemorepluslifetimesupport'  =>"Débloquer des fonctionnalités telles que l'importation en vrac, l'exportation avancée, la planification, la mise à jour de contenu, et plus, plus la prise en charge à vie",
                 'upgradenow' => 'mise à niveau maintenant'
         );

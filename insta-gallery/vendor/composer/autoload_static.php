@@ -4,10 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitaee7a83e910f681c45ec7249cdc36ebc
+class ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468
 {
     public static $files = array (
         '3773ef3f09c37da5478d578e32b03a4b' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-assets/actions.php',
+        '017bc83cfc52756fc7b94c9b354c1ba0' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -16,6 +17,7 @@ class ComposerStaticInitaee7a83e910f681c45ec7249cdc36ebc
             'QuadLayers\\WP_Plugin_Table_Links\\' => 33,
             'QuadLayers\\WP_Plugin_Suggestions\\' => 33,
             'QuadLayers\\WP_Plugin_Install_Tab\\' => 33,
+            'QuadLayers\\WP_Orm\\' => 18,
             'QuadLayers\\WP_Notice_Plugin_Required\\' => 37,
             'QuadLayers\\WP_Notice_Plugin_Promote\\' => 36,
             'QuadLayers\\WP_Dashboard_Widget_News\\' => 36,
@@ -34,6 +36,10 @@ class ComposerStaticInitaee7a83e910f681c45ec7249cdc36ebc
         'QuadLayers\\WP_Plugin_Install_Tab\\' => 
         array (
             0 => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-plugin-install-tab/src',
+        ),
+        'QuadLayers\\WP_Orm\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/franmastromarino/wp-orm/src',
         ),
         'QuadLayers\\WP_Notice_Plugin_Required\\' => 
         array (
@@ -87,12 +93,15 @@ class ComposerStaticInitaee7a83e910f681c45ec7249cdc36ebc
         'QuadLayers\\IGG\\Controllers\\Backend' => __DIR__ . '/../..' . '/lib/controllers/class-backend.php',
         'QuadLayers\\IGG\\Controllers\\Frontend' => __DIR__ . '/../..' . '/lib/controllers/class-frontend.php',
         'QuadLayers\\IGG\\Controllers\\Gutenberg' => __DIR__ . '/../..' . '/lib/controllers/class-gutenberg.php',
+        'QuadLayers\\IGG\\Entity\\Account' => __DIR__ . '/../..' . '/lib/entity/class-account.php',
+        'QuadLayers\\IGG\\Entity\\Feed' => __DIR__ . '/../..' . '/lib/entity/class-feed.php',
+        'QuadLayers\\IGG\\Entity\\Settings' => __DIR__ . '/../..' . '/lib/entity/class-settings.php',
         'QuadLayers\\IGG\\Helpers' => __DIR__ . '/../..' . '/lib/class-helpers.php',
-        'QuadLayers\\IGG\\Models\\Account' => __DIR__ . '/../..' . '/lib/models/class-account.php',
-        'QuadLayers\\IGG\\Models\\Base' => __DIR__ . '/../..' . '/lib/models/class-base.php',
-        'QuadLayers\\IGG\\Models\\Feed' => __DIR__ . '/../..' . '/lib/models/class-feed.php',
+        'QuadLayers\\IGG\\Models\\Accounts' => __DIR__ . '/../..' . '/lib/models/class-accounts.php',
+        'QuadLayers\\IGG\\Models\\Feeds' => __DIR__ . '/../..' . '/lib/models/class-feeds.php',
         'QuadLayers\\IGG\\Models\\Setting' => __DIR__ . '/../..' . '/lib/models/class-setting.php',
         'QuadLayers\\IGG\\Plugin' => __DIR__ . '/../..' . '/lib/class-plugin.php',
+        'QuadLayers\\IGG\\Services\\Accounts' => __DIR__ . '/../..' . '/lib/services/class-accounts.php',
         'QuadLayers\\IGG\\Utils\\Cache' => __DIR__ . '/../..' . '/lib/utils/class-cache.php',
         'QuadLayers\\WP_Dashboard_Widget_News\\Load' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-dashboard-widget-news/src/Load.php',
         'QuadLayers\\WP_Notice_Plugin_Promote\\Load' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-notice-plugin-promote/src/Load.php',
@@ -104,6 +113,22 @@ class ComposerStaticInitaee7a83e910f681c45ec7249cdc36ebc
         'QuadLayers\\WP_Notice_Plugin_Promote\\Traits\\PluginDataByFile' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-notice-plugin-promote/src/Traits/PluginDataByFile.php',
         'QuadLayers\\WP_Notice_Plugin_Required\\Load' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-notice-plugin-required/src/Load.php',
         'QuadLayers\\WP_Notice_Plugin_Required\\Plugin' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-notice-plugin-required/src/Plugin.php',
+        'QuadLayers\\WP_Orm\\Builder\\CollectionRepositoryBuilder' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Builder/CollectionRepositoryBuilder.php',
+        'QuadLayers\\WP_Orm\\Builder\\SingleRepositoryBuilder' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Builder/SingleRepositoryBuilder.php',
+        'QuadLayers\\WP_Orm\\Entity\\CollectionEntity' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Entity/CollectionEntity.php',
+        'QuadLayers\\WP_Orm\\Entity\\EntityInterface' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Entity/EntityInterface.php',
+        'QuadLayers\\WP_Orm\\Entity\\SingleEntity' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Entity/SingleEntity.php',
+        'QuadLayers\\WP_Orm\\Factory\\AbstractFactory' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Factory/AbstractFactory.php',
+        'QuadLayers\\WP_Orm\\Factory\\CollectionFactory' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Factory/CollectionFactory.php',
+        'QuadLayers\\WP_Orm\\Factory\\SingleFactory' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Factory/SingleFactory.php',
+        'QuadLayers\\WP_Orm\\Mapper\\CollectionMapper' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Mapper/CollectionMapper.php',
+        'QuadLayers\\WP_Orm\\Mapper\\CollectionMapperInterface' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Mapper/CollectionMapperInterface.php',
+        'QuadLayers\\WP_Orm\\Mapper\\SingleMapper' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Mapper/SingleMapper.php',
+        'QuadLayers\\WP_Orm\\Mapper\\SingleMapperInterface' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Mapper/SingleMapperInterface.php',
+        'QuadLayers\\WP_Orm\\Repository\\CollectionRepository' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Repository/CollectionRepository.php',
+        'QuadLayers\\WP_Orm\\Repository\\CollectionRepositoryInterface' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Repository/CollectionRepositoryInterface.php',
+        'QuadLayers\\WP_Orm\\Repository\\SingleRepository' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Repository/SingleRepository.php',
+        'QuadLayers\\WP_Orm\\Repository\\SingleRepositoryInterface' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Repository/SingleRepositoryInterface.php',
         'QuadLayers\\WP_Plugin_Install_Tab\\Load' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-plugin-install-tab/src/Load.php',
         'QuadLayers\\WP_Plugin_Suggestions\\Load' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-plugin-suggestions/src/Load.php',
         'QuadLayers\\WP_Plugin_Suggestions\\Page' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-plugin-suggestions/src/Page.php',
@@ -114,9 +139,9 @@ class ComposerStaticInitaee7a83e910f681c45ec7249cdc36ebc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitaee7a83e910f681c45ec7249cdc36ebc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitaee7a83e910f681c45ec7249cdc36ebc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitaee7a83e910f681c45ec7249cdc36ebc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468::$classMap;
 
         }, null, ClassLoader::class);
     }

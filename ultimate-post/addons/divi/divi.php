@@ -40,19 +40,16 @@ function ultp_postx_template_divi_modules() {
 				    while ($the_query->have_posts()) {
 				        $the_query->the_post();
 						ob_start();
-				        the_content();
-						if (in_array('et-fb', $body_class)) {
-							echo ultimate_post()->set_css_style($templates, true); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						} else {
-							ultimate_post()->register_scripts_common();
-							ultimate_post()->set_css_style($templates);
-						}
+							if (in_array('et-fb', $body_class)) {
+								echo ultimate_post()->build_css_for_inline_print($templates, true); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							}
+							the_content();
 						$content = ob_get_clean();
 				    }
 				    wp_reset_postdata();
 				}
 			} else {
-				if (in_array('et-fb', $body_class)) {
+				if ( in_array('et-fb', $body_class) ) {
 					$content = '<p style="text-align:center;">'.sprintf( esc_html__( 'Pick a Template from your saved ones. Or create a template from: %s.' , 'ultimate-post' ) . ' ', '<strong><i>' . esc_html( 'Dashboard > PostX > Saved Templates', 'ultimate-post' ) . '</i></strong>' ).'</p>';
 				}
 			}

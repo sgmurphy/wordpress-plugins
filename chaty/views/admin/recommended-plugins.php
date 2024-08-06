@@ -117,11 +117,10 @@ $args = [
 ];
 $data = plugins_api( 'plugin_information', $args );
 if ( $data && ! is_wp_error( $data ) ) {
-    $recommendedPlugins['stars-testimonials'] = $data;
-    $recommendedPlugins['stars-testimonials']->name = 'Stars Testimonials: Responsive Testimonials, Social Proof, and Customer Reviews';
-    $recommendedPlugins['stars-testimonials']->short_description = 'Simple but yet powerful testimonial WordPress plugin for your website. Display responsive website testimonials and customer reviews with ease and increase conversion rate';
+    $recommendedPlugins['chatway-live-chat'] = $data;
+    $recommendedPlugins['chatway-live-chat']->name = 'Free Live Chat, WordPress Website Chat Plugin, Support Chat App: Chatway';
+    $recommendedPlugins['chatway-live-chat']->short_description = 'Live chat with your website’s visitors through your WordPress website. With Chatway – live chat app, you can do just that and much more!';
 }
-
 
 /* Folders Plugins */
 $args = [

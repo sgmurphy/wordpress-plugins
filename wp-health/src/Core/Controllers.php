@@ -8,6 +8,30 @@ abstract class Controllers
     public static function getControllers()
     {
         return [
+            '/v1/cleanup-safe-update' => [
+                'route' => '/cleanup-safe-update',
+                'methods' => [
+                    [
+                        'method' => 'GET',
+                        'class' => \WPUmbrella\Controller\CleanupSafeUpdate::class,
+                        'options' => [
+                            'permission' => Controller::PERMISSION_WITH_SECRET_TOKEN,
+                        ]
+                    ],
+                ]
+            ],
+            '/v1/set-backup-version' => [
+                'route' => '/set-backup-version',
+                'methods' => [
+                    [
+                        'method' => 'GET',
+                        'class' => \WPUmbrella\Controller\Options\SetBackupVersion::class,
+                        'options' => [
+                            'permission' => Controller::PERMISSION_WITH_SECRET_TOKEN,
+                        ]
+                    ],
+                ]
+            ],
             '/v1/database-tables' => [
                 'route' => '/database-tables',
                 'methods' => [
@@ -130,6 +154,15 @@ abstract class Controllers
                 'methods' => [
                     [
                         'method' => 'POST',
+                        'class' => \WPUmbrella\Controller\Options\ValidateApplicationToken::class,
+                        'options' => [
+                            'prevent_active' => true,
+                            'permission' => Controller::PERMISSION_WITH_SECRET_TOKEN,
+                        ]
+                    ],
+                    // Thanks some hostings
+                    [
+                        'method' => 'GET',
                         'class' => \WPUmbrella\Controller\Options\ValidateApplicationToken::class,
                         'options' => [
                             'prevent_active' => true,

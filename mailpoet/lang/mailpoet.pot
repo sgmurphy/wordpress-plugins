@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.58.0\n"
+"Project-Id-Version: MailPoet 4.58.1\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-30T10:01:06+00:00\n"
+"POT-Creation-Date: 2024-08-05T19:24:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -9333,8 +9333,8 @@ msgstr ""
 #: lib/Config/PopulatorData/Templates/WordPressTheme.php:1266
 #: lib/Config/PopulatorData/Templates/WorldCup.php:725
 #: lib/Config/PopulatorData/Templates/YogaStudio.php:699
-#: lib/Subscription/Pages.php:396
-#: lib/Subscription/Pages.php:494
+#: lib/Subscription/Pages.php:398
+#: lib/Subscription/Pages.php:496
 msgid "Manage your subscription"
 msgstr ""
 
@@ -10260,7 +10260,7 @@ msgid "Addresses in names are not permitted, please add your name instead."
 msgstr ""
 
 #: lib/Form/Block/BlockRendererHelper.php:56
-#: lib/Subscribers/SubscriberSubscribeController.php:256
+#: lib/Subscribers/SubscriberSubscribeController.php:260
 msgid "Please select a list."
 msgstr ""
 
@@ -11685,11 +11685,15 @@ msgstr ""
 msgid "You need to wait %s before subscribing again."
 msgstr ""
 
-#: lib/Subscribers/SubscriberSubscribeController.php:267
+#: lib/Subscribers/SubscriberSubscribeController.php:271
 msgid "Please specify a valid form ID."
 msgstr ""
 
-#: lib/Subscription/Captcha/Validator/BuiltInCaptchaValidator.php:57
+#: lib/Subscription/Captcha/Validator/BuiltInCaptchaValidator.php:51
+msgid "CAPTCHA verification failed."
+msgstr ""
+
+#: lib/Subscription/Captcha/Validator/BuiltInCaptchaValidator.php:56
 msgid "Please fill in the CAPTCHA."
 msgstr ""
 
@@ -11710,31 +11714,31 @@ msgstr ""
 msgid "Error while validating the CAPTCHA."
 msgstr ""
 
-#: lib/Subscription/CaptchaFormRenderer.php:49
+#: lib/Subscription/CaptchaFormRenderer.php:55
 msgid "Confirm you’re not a robot"
 msgstr ""
 
-#: lib/Subscription/CaptchaFormRenderer.php:77
+#: lib/Subscription/CaptchaFormRenderer.php:82
 msgid "Type in the characters you see in the picture above:"
 msgstr ""
 
-#: lib/Subscription/CaptchaFormRenderer.php:85
+#: lib/Subscription/CaptchaFormRenderer.php:90
 msgid "Subscribe"
 msgstr ""
 
-#: lib/Subscription/CaptchaFormRenderer.php:126
+#: lib/Subscription/CaptchaFormRenderer.php:131
 msgid "CAPTCHA"
 msgstr ""
 
-#: lib/Subscription/CaptchaFormRenderer.php:128
+#: lib/Subscription/CaptchaFormRenderer.php:133
 msgid "Reload CAPTCHA"
 msgstr ""
 
-#: lib/Subscription/CaptchaFormRenderer.php:129
+#: lib/Subscription/CaptchaFormRenderer.php:134
 msgid "Play CAPTCHA"
 msgstr ""
 
-#: lib/Subscription/CaptchaFormRenderer.php:154
+#: lib/Subscription/CaptchaFormRenderer.php:159
 msgid "The characters you entered did not match the CAPTCHA image. Please try again with this new image."
 msgstr ""
 
@@ -11767,44 +11771,44 @@ msgstr ""
 msgid "Your email address doesn't appear in our lists anymore. Sign up again or contact us if this appears to be a mistake."
 msgstr ""
 
-#: lib/Subscription/Pages.php:382
+#: lib/Subscription/Pages.php:384
 msgid "You are now subscribed!"
 msgstr ""
 
 #. translators: %s is the website title or website name.
-#: lib/Subscription/Pages.php:386
+#: lib/Subscription/Pages.php:388
 msgid "You have subscribed to %s"
 msgstr ""
 
-#: lib/Subscription/Pages.php:402
+#: lib/Subscription/Pages.php:404
 msgid "You are now unsubscribed."
 msgstr ""
 
-#: lib/Subscription/Pages.php:408
+#: lib/Subscription/Pages.php:410
 msgid "Thank you for letting us know!"
 msgstr ""
 
-#: lib/Subscription/Pages.php:414
+#: lib/Subscription/Pages.php:416
 msgid "Confirm you want to unsubscribe"
 msgstr ""
 
-#: lib/Subscription/Pages.php:420
+#: lib/Subscription/Pages.php:422
 msgid "Yup, we've added you to our email list. You'll hear from us shortly."
 msgstr ""
 
-#: lib/Subscription/Pages.php:436
+#: lib/Subscription/Pages.php:438
 msgid "Subscription management form is only available to mailing lists subscribers."
 msgstr ""
 
-#: lib/Subscription/Pages.php:452
+#: lib/Subscription/Pages.php:454
 msgid "Accidentally unsubscribed?"
 msgstr ""
 
-#: lib/Subscription/Pages.php:462
+#: lib/Subscription/Pages.php:464
 msgid "We appreciate your continued interest in our updates. Expect to hear from us again soon!"
 msgstr ""
 
-#: lib/Subscription/Pages.php:488
+#: lib/Subscription/Pages.php:490
 msgid "Link to subscription management page is only available to mailing lists subscribers."
 msgstr ""
 

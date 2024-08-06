@@ -14,7 +14,7 @@ foreach ( $atts['elements'] as $element ) {
 		<?php if ( $atts['summary'] ) { ?>
 			<summary>
 		<?php } ?>
-		<?php echo $title; ?>
+		<?php echo wp_kses_post($title); ?>
 		<?php if ( $atts['summary'] ) { ?>
 			</summary>
 		<?php } ?>

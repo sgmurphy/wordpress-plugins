@@ -1,13 +1,13 @@
 === MainWP Child Reports ===
 Contributors: mainwp
-Tags: MainWP Child Reports, MainWP, MainWP Child, MainWP Pro Reports Extension, child reports, reports, actions, activity, admin, analytics, dashboard, log, notification, users, Backupwordpress, Updraftplus
+Tags: MainWP Child Reports, MainWP, MainWP Child, MainWP Client Reports Extension, child reports, reports, actions, activity, admin, analytics, dashboard, log, notification, users, Backupwordpress, Updraftplus
 Author: mainwp
 Author URI: https://mainwp.com
 Plugin URI: https://mainwp.com
 Requires at least: 6.0
-Tested up to: 6.6
+Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 2.2
+Stable tag: 2.2.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,11 +16,11 @@ The MainWP Child Report plugin tracks changes to Child sites for the Client Repo
 
 == Description ==
 
-**Note: This plugin requires PHP 7.0 or higher to be activated and is only useful if you are using [MainWP](https://wordpress.org/plugins/mainwp/) and the [MainWP Pro Reports Extension](https://mainwp.com/extension/pro-reports/).**
+**Note: This plugin requires PHP 7.0 or higher to be activated and is only useful if you are using [MainWP](https://wordpress.org/plugins/mainwp/) and the [MainWP Client Reports Extension](https://mainwp.com/extension/client-reports/).**
 
 Install the [MainWP Child Plugin](https://wordpress.org/plugins/mainwp-child/) plugin first.
 
-The MainWP Child Report plugin communicates changes on your Child sites to the [MainWP Pro Reports Extension](https://mainwp.com/extension/pro-reports/) in order to create the Client Reports.
+The MainWP Child Report plugin communicates changes on your Child sites to the [MainWP Client Reports Extension](https://mainwp.com/extension/client-reports/) in order to create the Client Reports.
 
 Credit to the [Stream Plugin](https://wordpress.org/plugins/stream/) which the MainWP Child Reports plugin is built on.
 
@@ -35,6 +35,10 @@ Credit to the [Stream Plugin](https://wordpress.org/plugins/stream/) which the M
 2. The MainWP Child Reports Settings Screen
 
 == Changelog ==
+
+= 2.2.1 - 8-6-2024 =
+* Fixed: An issue with adding multiple exclusion rules.
+* Enhanced: Security by adding nonce verification.
 
 = 2.2 - 10-31-2023 =
 * Fixed: An issue with logging Solid Security scans.

@@ -106,6 +106,10 @@
 	display: none !important;
 }
 
+.qodef-qi-grid .qodef-grid-item {
+	float: none;
+}
+
 .qodef-qi-grid.qodef-layout--qi-template > .qodef-grid-inner {
 	display: flex;
 }

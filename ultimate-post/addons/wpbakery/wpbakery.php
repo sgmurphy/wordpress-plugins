@@ -20,16 +20,11 @@ if ( ! class_exists( 'PostX_WPBakery_Widget' ) ) {
         public static function output( $atts, $content = null ) {
             $output = '';
             $atts = vc_map_get_attributes( 'postx_wpbakery_widget', $atts );
-
-            $body_class = get_body_class();
             $templates = $atts['saved_template'];
             
             if ( $templates && $templates != 'empty' ) {
-                ultimate_post()->register_scripts_common();
                 if (isset($_GET['vc_editable'])) {  // @codingStandardsIgnoreLine
-                    $output .= ultimate_post()->set_css_style($templates, true);
-                } else {
-                    ultimate_post()->set_css_style($templates);
+                    $output .= ultimate_post()->build_css_for_inline_print($templates, true);
                 }
 
                 $args = array( 'p' => $templates, 'post_type' => 'ultp_templates' );

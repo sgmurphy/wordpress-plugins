@@ -4276,7 +4276,7 @@ final class FLBuilder {
 		$file = $module->dir . 'js/frontend.js';
 
 		if ( fl_builder_filesystem()->file_exists( $file ) && ! in_array( $module->settings->type . '-module-js', self::$enqueued_global_assets ) ) {
-			$js                            .= "\n" . fl_builder_filesystem()->file_get_contents( $file );
+			$js                            .= "\n;" . ltrim( fl_builder_filesystem()->file_get_contents( $file ), ';' );
 			self::$enqueued_global_assets[] = $module->settings->type . '-module-js';
 		}
 
@@ -4289,7 +4289,7 @@ final class FLBuilder {
 			self::$enqueued_module_js_assets[] = $id;
 			ob_start();
 			include $file;
-			$js .= ob_get_clean();
+			$js .= ';' . ltrim( ob_get_clean(), ';' );
 		}
 
 		// Return the JS.

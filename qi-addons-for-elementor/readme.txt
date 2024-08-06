@@ -2,9 +2,9 @@
 Contributors: qodeinteractive
 Tags: elementor, elementor addons, elementor widgets, elementor elements, addons
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 1.7.6
+Stable tag: 1.7.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -260,7 +260,7 @@ Absolutely not. Qi Addons for Elementor was designed to allow you to create & ed
 
 = What if I update to the Premium version? =
 
-In the event that you decide to upgrade to the <a href="https://qodeinteractive.com/pricing/?qi_product=addons" target="_blank">Premium version</a> of Qi Addons for Elementor you’ll get another 40+ premium custom widgets for Elementor, which includes additional typography, business, showcase, creative, WooCommerce, SEO, and form style addons.
+In the event that you decide to upgrade to the <a href="https://qodeinteractive.com/products/plugins/?qi_product=addons" target="_blank">Premium version</a> of Qi Addons for Elementor you’ll get another 40+ premium custom widgets for Elementor, which includes additional typography, business, showcase, creative, WooCommerce, SEO, and form style addons.
 
 = Does Qi Addons for Elementor plugin work with any WordPress theme? =
 
@@ -337,6 +337,12 @@ From wordpress.org
 
 
 == Changelog ==
+
+= 1.7.7 - 06-08-2024 =
+- Improved responsiveness for 'slider' widgets
+- Updated Swiper library to 8.4.5
+- Fixed possible problem with multiple sliders on same page
+- Minor improvements
 
 = 1.7.6 - 07-06-2024 =
 - Improved admin notice layout

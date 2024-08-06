@@ -51,7 +51,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 			);
 			$this->map_slider_options(
 				array(
-					'group'          => 'Slider Settings',
+					'group'          => esc_html__( 'Slider Settings', 'qi-addons-for-elementor-premium' ),
 					'exclude_option' => array( 'columns', 'images_proportion' ),
 				)
 			);
@@ -213,6 +213,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 			$atts['columns']              = 1;
 			$atts['slider_autoplay']      = 'yes';
 			$atts['slider_loop']          = 'yes';
+			$atts['columns_1680']         = 1;
 			$atts['columns_1440']         = 1;
 			$atts['columns_1366']         = 1;
 			$atts['columns_1024']         = 1;

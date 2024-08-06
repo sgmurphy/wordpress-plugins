@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds;
 
-use QuadLayers\IGG\Models\Feed as Models_Feed;
+use QuadLayers\IGG\Models\Feeds as Models_Feed;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
 use QuadLayers\IGG\Utils\Cache as Cache;
 
@@ -28,7 +28,7 @@ class Edit extends Base {
 		$feed        = $body['feed'];
 		$models_feed = new Models_Feed();
 
-		$feeds = $models_feed->edit( $feed );
+		$feeds = $models_feed->update( $feed['id'], $feed );
 
 		if ( ! $feeds ) {
 			$response = array(

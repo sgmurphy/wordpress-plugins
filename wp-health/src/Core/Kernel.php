@@ -389,6 +389,18 @@ abstract class Kernel
             wp_umbrella_get_service('RequestSettings')->setupAdminConstants();
 
             add_action('plugins_loaded', function () {
+                $hostNameIncompatibleWithSetupAdmin = apply_filters('wp_umbrella_host_name_incompatible_with_setup_admin', [
+                    'myukcloud.com'
+                ], gethostname());
+
+                $hostname = gethostname();
+
+                foreach ($hostNameIncompatibleWithSetupAdmin as $hostName) {
+                    if (strpos($hostname, $hostName) !== false) {
+                        return;
+                    }
+                }
+
                 wp_umbrella_get_service('RequestSettings')->setupAdmin();
             }, 1);
 
@@ -407,6 +419,18 @@ abstract class Kernel
             self::hookThirdParties();
 
             add_action('plugins_loaded', function () {
+                $hostNameIncompatibleWithSetupAdmin = apply_filters('wp_umbrella_host_name_incompatible_with_setup_admin', [
+                    'myukcloud.com'
+                ], gethostname());
+
+                $hostname = gethostname();
+
+                foreach ($hostNameIncompatibleWithSetupAdmin as $hostName) {
+                    if (strpos($hostname, $hostName) !== false) {
+                        return;
+                    }
+                }
+
                 wp_umbrella_get_service('RequestSettings')->setupAdmin();
             }, 1);
         }
@@ -460,6 +484,7 @@ abstract class Kernel
         // Make sure required values are set.
         $nonce = isset($_POST['nonce']) ? $_POST['nonce'] : '';
         $plugin = isset($_POST['plugin']) ? $_POST['plugin'] : '';
+        $safeUpdate = isset($_POST['safe_update']) ? $_POST['safe_update'] : false;
 
         wp_umbrella_get_service('RequestSettings')->setupAdminConstants();
         wp_umbrella_get_service('RequestSettings')->setupAdmin();
@@ -498,7 +523,8 @@ abstract class Kernel
         try {
             $result = wp_umbrella_get_service('ManagePlugin')->bulkUpdate($plugins, [
                 'try_ajax' => false,
-                'only_ajax' => false
+                'only_ajax' => false,
+                'safe_update' => $safeUpdate
             ]);
 
             wp_umbrella_get_service('SessionStore')->removeUmbrellaSessions();

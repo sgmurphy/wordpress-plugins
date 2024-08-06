@@ -46,6 +46,13 @@ class MediaHandling{
 	}
 	public function zipImageUpload() {
 		check_ajax_referer('smack-ultimate-csv-importer', 'securekey');
+		 // Check if the ZIP extension is loaded
+		 if (!extension_loaded('zip')) {
+			$result['success'] = false;
+			$result['message'] = 'The PHP ZIP extension is not installed. Please install it.';
+			echo wp_json_encode($result);
+			wp_die();
+		}
 	
 		// Check if a file was uploaded
 		if (isset($_FILES['zipFile']['name'])) {
@@ -102,6 +109,7 @@ class MediaHandling{
 	
 				$zip->close();
 				$result['success'] = true;
+				$result['message'] ='success';
 				$result['zip_file_name'] = $zip_file_name;
 				$result['count'] = $zip->numFiles;
 				$result['filename'] = $filename;
@@ -376,7 +384,7 @@ class MediaHandling{
 			$rawdata =  wp_remote_retrieve_body($response);
 		
 		$http_code = wp_remote_retrieve_response_code($response);
-		if($http_code == 404){
+		if($http_code == 404 || $http_code == 403 || $http_code == 500 || $http_code == 401 || $http_code == 408 || $http_code == 502 || $http_code == 503 || $http_code == 504){
 			return null;
 		}
 

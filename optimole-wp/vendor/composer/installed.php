@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'codeinwp/optimole-sdk' => array(
-            'pretty_version' => 'v1.1.0',
-            'version' => '1.1.0.0',
-            'reference' => 'daa581a1e0218c1c73f5caa478e045c442dbd1f6',
+            'pretty_version' => 'v1.2.1',
+            'version' => '1.2.1.0',
+            'reference' => '72d96fe1fa89904ff83383e83efe641035346694',
             'type' => 'library',
             'install_path' => __DIR__ . '/../codeinwp/optimole-sdk',
             'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'codeinwp/themeisle-sdk' => array(
-            'pretty_version' => '3.3.20',
-            'version' => '3.3.20.0',
-            'reference' => 'd1b92f3ab74f1b3f0afad7e23ddb1c058d66c03c',
+            'pretty_version' => '3.3.27',
+            'version' => '3.3.27.0',
+            'reference' => 'ae9f1aae6e71677db5de1f579b2275be6fc838f4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../codeinwp/themeisle-sdk',
             'aliases' => array(),

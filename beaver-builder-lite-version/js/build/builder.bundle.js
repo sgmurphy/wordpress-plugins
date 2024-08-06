@@ -5151,12 +5151,14 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
 
   var _useOutlinePanelState = (0,data__WEBPACK_IMPORTED_MODULE_5__.useOutlinePanelState)(),
       activeNode = _useOutlinePanelState.activeNode,
-      focusNode = _useOutlinePanelState.focusNode; // Check if modules have a registered definition
+      focusNode = _useOutlinePanelState.focusNode; // Check if widgets or modules have a registered definition
 
 
   var hasDefinition = true;
 
-  if ('module' === type) {
+  if ('widget' === settings.type) {
+    hasDefinition = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.widgetHasDefinition)(settings.widget);
+  } else if ('module' === type) {
     hasDefinition = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.moduleHasDefinition)(settings.type);
   }
 
@@ -5828,7 +5830,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "sanitizeString": () => (/* binding */ sanitizeString),
 /* harmony export */   "shouldAllowDrop": () => (/* binding */ shouldAllowDrop),
 /* harmony export */   "shouldShowEmptyDropArea": () => (/* binding */ shouldShowEmptyDropArea),
-/* harmony export */   "useSingleAndDoubleClick": () => (/* reexport safe */ _use_single_and_double_click__WEBPACK_IMPORTED_MODULE_3__["default"])
+/* harmony export */   "useSingleAndDoubleClick": () => (/* reexport safe */ _use_single_and_double_click__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   "widgetHasDefinition": () => (/* binding */ widgetHasDefinition)
 /* harmony export */ });
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dompurify */ "./node_modules/dompurify/dist/purify.js");
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dompurify__WEBPACK_IMPORTED_MODULE_0__);
@@ -6002,28 +6005,71 @@ var getModuleTypeKeys = function getModuleTypeKeys() {
 
     moduleTypeKeys = contentItems.module.map(function (type) {
       return type.slug;
+    }).filter(function (type) {
+      return type !== undefined;
     });
   }
 
   return moduleTypeKeys;
 };
 
-var getModuleConfig = function getModuleConfig(id) {
+var getWidgetTypeKeys = function getWidgetTypeKeys() {
   var _getConfig3 = (0,api__WEBPACK_IMPORTED_MODULE_1__.getConfig)(),
       contentItems = _getConfig3.contentItems;
 
-  var node = (0,data__WEBPACK_IMPORTED_MODULE_2__.getNode)(id); // A check in case of undefined or missing module definitions from other plugins or add-ons
+  return contentItems.module.map(function (type) {
+    return type["class"];
+  }).filter(function (type) {
+    return type !== undefined;
+  });
+};
+
+var getModuleConfig = function getModuleConfig(id) {
+  var node = (0,data__WEBPACK_IMPORTED_MODULE_2__.getNode)(id); // Skipping the column group node as it is just a container with no settings object
+
+  if (node.type === 'column-group') {
+    return {
+      accepts: false
+    };
+  }
+
+  var _getConfig4 = (0,api__WEBPACK_IMPORTED_MODULE_1__.getConfig)(),
+      contentItems = _getConfig4.contentItems; // Different compare property name if the module is a WordPress widget
+
+
+  if (node.settings.type === 'widget') {
+    // A check in case of undefined or missing WordPress widget definitions due to disabled or uninstalled plugins
+    var _hasDefinition = widgetHasDefinition(node.settings.widget);
+
+    if (!_hasDefinition) {
+      return {
+        accepts: false
+      };
+    }
+
+    return contentItems.module.filter(function (config) {
+      return !config.alias && node.settings.widget === config["class"];
+    }).pop();
+  } // A check in case of undefined or missing module definitions due to disabled or uninstalled plugins
+
 
   var hasDefinition = moduleHasDefinition(node.settings.type);
-  return hasDefinition ? contentItems.module.filter(function (config) {
+
+  if (!hasDefinition) {
+    return {
+      accepts: false
+    };
+  }
+
+  return contentItems.module.filter(function (config) {
     return !config.alias && node.settings.type === config.slug;
-  }).pop() : {
-    accepts: false
-  };
+  }).pop();
 };
 var moduleHasDefinition = function moduleHasDefinition(key) {
-  var keys = getModuleTypeKeys();
-  return keys.includes(key) || 'widget' === key;
+  return getModuleTypeKeys().includes(key);
+};
+var widgetHasDefinition = function widgetHasDefinition(key) {
+  return getWidgetTypeKeys().includes(key);
 };
 
 /***/ }),

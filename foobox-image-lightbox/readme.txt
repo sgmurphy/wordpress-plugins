@@ -103,6 +103,14 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 
 == Changelog ==
 
+= 2.7.32 =
+* Updated 4 Aug 2024
+* Update : Freemius SDK update 2.7.3
+* Fix : Fixed parsing of HTML captions, so that it strips harmful scripts.
+
+= 2.7.29 =
+* Updated 1 June 2024
+
 = 2.7.28 =
 * Update 4 May 2024
 * Update : Freemius SDK update 2.7.2

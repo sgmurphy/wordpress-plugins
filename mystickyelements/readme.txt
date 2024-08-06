@@ -3,7 +3,7 @@ Contributors: galdub, tomeraharon, premio
 Tags: whatsapp, contact form, facebook messenger, call now button, instagram
 Requires at least: 3.1
 Tested up to: 6.6
-Stable tag: 2.1.8
+Stable tag: 2.1.9
 Plugin URI: https://premio.io/downloads/mystickyelements/
 
 🔥 Get leads with a floating contact form tab, chat & social buttons like Facebook Messenger, WhatsApp, Viber, Telegram, Twitter, Instagram & more 🎉
@@ -131,7 +131,7 @@ Unlock the Pro features for only $49/year
 3. Upload up to 6 custom icons for your tabs
 4. Page targeting - show or hide your contact form, chat, call, and social networks channels on specific pages
 5. Widget analytics - discover the most frequently used chat and social channels (e.g., WhatsApp, Facebook Messenger, contact form, etc)
-6. Country targeting for specific countires
+6. Country targeting for specific countries
 7. Time delay
 8. Integrations with MailChimp and MailPoet - connect your My Sticky Elements contact forms to your MailChimp and MailPoet accounts
 9. Create different bars for different pages. Show different icons, form and language based on page targeting rules
@@ -205,7 +205,7 @@ Adding WhatsApp button to your site will give 25 million new users every month (
 
 * SoundCloud - this is another great channel like itunes and Spotify to distribute music, interviews and podcasts.
 
-* VK - Add you VK VKontakte username in the field and it will automatically let your visitors chat with you.
+* VK - Add your VK VKontakte username in the field and it will automatically let your visitors chat with you.
 
 * Viber - Add your phone number and visitors who have Viber app installed can call and chat with you easily.
 
@@ -213,7 +213,7 @@ Adding WhatsApp button to your site will give 25 million new users every month (
 
 * Skype - Add your Skype username.
 
-* Line - Line is a free app for instant communications. Enter your LIne link and let your visitors contact your easily.
+* Line - Line is a free app for instant communications. Enter your Line link and let your visitors contact your easily.
 
 * SMS - Let your visitors send you SMS via their mobile phone.
 
@@ -285,7 +285,7 @@ All the data is saved locally.
 = 🤗 Testimonials =
 
 > "Great Plugin and amazing Customer Service<br>
-> I have used both Premio’s myStickyElements and Chaty plugin on a couple of my clients websites with great success. To elaborate, the ability to customize features and track events has made me recommend the plugin to my fellow friends and collegues. However, what really makes Premios services unique is the care for its customers. Without hesitation they quickly helped with my technical requests and difficulties."<br><br>
+> I have used both Premio’s myStickyElements and Chaty plugin on a couple of my clients websites with great success. To elaborate, the ability to customize features and track events has made me recommend the plugin to my fellow friends and colleagues. However, what really makes Premios services unique is the care for its customers. Without hesitation they quickly helped with my technical requests and difficulties."<br><br>
 > <strong>Axel Looström, Pionedge AB</strong><br>
 
 > "Awesome plugin!<br>
@@ -330,6 +330,9 @@ A live demo for My Sticky Elements plugin is available at <a href="https://demo.
 9. Change the color of your icons, contact form, text, and anything else!
 
 == Changelog ==
+
+= 2.1.9 =
+Improved live chat integration
 
 = 2.1.8 =
 Chatway live chat integration added

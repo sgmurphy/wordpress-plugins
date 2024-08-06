@@ -27,7 +27,7 @@ class Bootstrap implements ExecuteHooks
                 $options['from'] = Controller::API;
                 $options['route'] = $item['route'];
                 $options['method'] = $data['method'];
-				$options['version'] = isset($item['version']) ? $item['version'] : 'v1';
+                $options['version'] = isset($item['version']) ? $item['version'] : 'v1';
 
                 $controller = new $data['class']($options);
 

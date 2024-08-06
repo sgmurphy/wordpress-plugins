@@ -4,7 +4,7 @@ Donate link: https://ays-pro.com/wordpress/popup-box
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
 Tested up to: 6.6.1
-Stable tag: 4.6.8
+Stable tag: 4.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -334,6 +334,10 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 4.6.9 =
+* Fixed: Some issues on PRO Features page
+* Updated: POT file
 
 = 4.6.8 =
 * Fixed: Some style issues on the admin dashboard

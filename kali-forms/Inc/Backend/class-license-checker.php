@@ -66,6 +66,11 @@ class License_Checker
 		$option = get_option('kaliforms_pro_license_status');
 		$licenseData = get_option('kaliforms_pro_license_data');
 
+		if ($licenseData->success && $licenseData->license === 'item_name_mismatch') {
+			$this->license = true;
+			return;
+		}
+
 		if ($licenseData->success && $licenseData->expires === 'lifetime') {
 			$this->license = true;
 			return;

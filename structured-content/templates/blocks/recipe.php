@@ -2,6 +2,9 @@
 
 if ( $atts['visible'] ) {
 	$title_ID = $atts['generateTitleId'] ? sanitize_title( $atts['title'] ) : '';
+
+	$title = '<' . $atts['titleTag'] . ( $atts['generateTitleId'] ? ' id="' . $title_ID . '"' : '' ) . '>' . esc_attr( $atts['title'] ) . '</' . $atts['titleTag'] . '>';
+
 	?>
 
     <section class="sc_recipe sc_card <?php echo esc_attr( $atts['className'] ); ?>"
@@ -10,10 +13,8 @@ if ( $atts['visible'] ) {
 
         <div class="sc_recipe__head">
             <div class="sc_recipe__head--text">
-                <<?php echo $atts['titleTag']; ?><?php $atts['generateTitleId'] ? ' id="' . $title_ID . '"' : ''; ?>
-                ><?php echo esc_html( $atts['title'] ); ?></<?php echo $atts['titleTag']; ?>>
-
-			<?php if ( $atts['description'] != '' ) { ?>
+	            <?php echo wp_kses_post($title); ?>
+                <?php if ( $atts['description'] != '' ) { ?>
 				<p class="sc_recipe__head--description">
 					<?php echo wpsc_esc_jsonld( do_shortcode( $atts['description'] ) ); ?>
                 </p>

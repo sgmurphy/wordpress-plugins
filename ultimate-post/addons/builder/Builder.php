@@ -4,6 +4,11 @@ namespace ULTP;
 defined('ABSPATH') || exit;
 
 class Builder {
+    private $header_id   = '';
+    private $footer_id   = '';
+    private $theme_name = '';
+    private $is_block_theme = '';
+
     public function __construct(){
         $this->builder_post_type_callback(); // Post Type Register
         add_action('wp', array($this, 'checkfor_header_footer'), 999);
@@ -16,98 +21,109 @@ class Builder {
     }
 
     public function checkfor_header_footer() {
-        $theme_name = get_template();
+        $this->theme_name = get_template();
+        $this->is_block_theme = wp_is_block_theme();
         $header_id = ultimate_post()->conditions('header');
         $footer_id = ultimate_post()->conditions('footer');
+        global $ULTP_HEADER_ID;
+        global $ULTP_FOOTER_ID;
         
         if ( $header_id ) {
-            if ( wp_is_block_theme() ) {
-                // add_action('wp_head', function() use ($header_id) {
-                //     $this->header_builder_template($header_id);
-                // });
-                add_action('wp_head', array($this, 'header_builder_template'));
+            $ULTP_HEADER_ID = $header_id;
+            do_action('ultp_enqueue_postx_block_css',
+				[
+					'post_id' => $header_id,
+					'css' => '',
+				]
+			);
+            $this->header_id = $header_id;
+            if ( $this->is_block_theme ) {
+                add_action('wp_head', array($this, 'ultp_header_builder_template'));
             } else {
-                // add_action('get_header', function() use ($header_id) {
-                //     $this->header_builder_template($header_id);
-                // });
-                add_action('get_header', array($this, 'header_builder_template'));
+                switch ($this->theme_name) {
+                    case 'astra':
+                        remove_all_actions( 'astra_header' );
+                        add_action('astra_header', array($this, 'ultp_header_builder_template'));
+                        break;
+                    default:
+                        add_action('get_header', array($this, 'ultp_header_builder_template'));
+                }
             }
 		}
         if ( $footer_id ) {
-            if ( wp_is_block_theme() ) {
-                add_action('wp_footer', function() use ($footer_id, $theme_name) {
-                    $this->footer_builder_template($footer_id, $theme_name);
-                });
+            $ULTP_FOOTER_ID = $footer_id;
+            $this->footer_id = $footer_id;
+            do_action('ultp_enqueue_postx_block_css',
+				[
+					'post_id' => $footer_id,
+					'css' => '',
+				]
+			);
+            if ( $this->is_block_theme ) {
+                add_action('wp_footer', array($this, 'ultp_footer_builder_template'));
             } else {
-                switch ($theme_name) {
+                switch ($this->theme_name) {
                     case 'astra':
                         remove_all_actions( 'astra_footer' );
-                        add_action( 'astra_footer', function() use ($footer_id, $theme_name) {
-                            $this->footer_builder_template($footer_id, $theme_name);
-                        });
+                        add_action( 'astra_footer', array($this, 'ultp_footer_builder_template'));
                         break;
                     case 'generatepress':
                         remove_action( 'generate_footer', 'generate_construct_footer_widgets');
                         remove_action( 'generate_footer', 'generate_construct_footer' );
-                        add_action( 'generate_footer', function() use ($footer_id, $theme_name) {
-                            $this->footer_builder_template($footer_id, $theme_name);
-                        });
+                        add_action( 'generate_footer', array($this, 'ultp_footer_builder_template'));
                         break;
                     default:
-                        add_action('get_footer', function() use ($footer_id, $theme_name) {
-                            $this->footer_builder_template($footer_id, $theme_name);
-                        });
+                        add_action('get_footer', array($this, 'ultp_footer_builder_template'));
                 }
             }
 		}
     }
 
-    public function header_builder_template() {
-        $header_id = ultimate_post()->conditions('header');
-        $theme_name = get_template();
-        if ($header_id) {
-            if ( !wp_is_block_theme() ) {
+    public function ultp_header_builder_template() {
+        if ( $this->header_id ) {
+            if ( $this->is_block_theme ) {
+                remove_action('wp_head', array($this, 'ultp_header_builder_template'));
+            } else {
                 require_once ULTP_PATH.'addons/builder/templates/header.php';
                 $templates   = [];
                 $templates[] = 'header.php';
                 remove_all_actions( 'wp_head' );
-                if ($theme_name != 'bricks') {  // Conflict with Bricks Builder Backend
+                if ($this->theme_name != 'bricks') {  // Conflict with Bricks Builder Backend
                     ob_start(); 
                 }
                 locate_template( $templates, true );
-                if ($theme_name != 'bricks') { // Conflict with Bricks Builder Backend
+                if ($this->theme_name != 'bricks') { // Conflict with Bricks Builder Backend
                     ob_get_clean();
                 } else { 
                     wp_enqueue_style( 'wp-block-library' );  // Gutenberg CSS issue Bricks Builder frontend
                 }
             }
-            ultimate_post()->register_scripts_common();
             ?> 
-                <header id="ultp-header-template" class="<?php esc_html_e('ultp-builderid-'.$header_id); ?>">
-                    <?php echo ultimate_post()->content($header_id);  //phpcs:ignore  ?> 
+                <header id="ultp-header-template" class="<?php esc_html_e('ultp-builderid-'.$this->header_id); ?>">
+                    <?php echo ultimate_post()->content($this->header_id);  //phpcs:ignore  ?> 
                 </header> 
             <?php
         }
 	}
-    public function footer_builder_template($footer_id, $theme_name = '') {
-        if ($footer_id) {
-            ultimate_post()->register_scripts_common();
-            if ( !wp_is_block_theme() ) {
+    public function ultp_footer_builder_template() {
+        if ( $this->footer_id ) {
+            if ( !$this->is_block_theme ) {
                 require_once ULTP_PATH.'addons/builder/templates/footer.php';
                 $templates   = [];
                 $templates[] = 'footer.php';
                 remove_all_actions( 'wp_footer' );
-                if ($theme_name != 'bricks') { // Conflict with Bricks Builder Backend
+                if ($this->theme_name != 'bricks') { // Conflict with Bricks Builder Backend
                     ob_start();
                 }
                 locate_template( $templates, true );
-                if ($theme_name != 'bricks') { // Conflict with Bricks Builder Backend
+                if ($this->theme_name != 'bricks') { // Conflict with Bricks Builder Backend
                     ob_get_clean();
                 }
             }
+
             ?> 
-                <footer id="ultp-footer-template" class="<?php esc_html_e('ultp-builderid-'.$footer_id); ?>" role="contentinfo">
-                    <?php echo ultimate_post()->content($footer_id) //phpcs:ignore ?>
+                <footer id="ultp-footer-template" class="<?php esc_html_e('ultp-builderid-'.$this->footer_id); ?>" role="contentinfo">
+                    <?php echo ultimate_post()->content($this->footer_id) //phpcs:ignore ?>
                 </footer> 
             <?php
         }

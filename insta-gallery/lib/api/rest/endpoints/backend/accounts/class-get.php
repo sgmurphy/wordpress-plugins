@@ -2,7 +2,7 @@
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
-use QuadLayers\IGG\Models\Account as Models_Account;
+use QuadLayers\IGG\Models\Accounts as Models_Account;
 
 /**
  * Api_Rest_Accounts_Get Class
@@ -22,16 +22,16 @@ class Get extends Base {
 		 */
 		if ( ! $id ) {
 
-			$accounts = $models_account->get();
+			$accounts = $models_account->get_all();
 
-			return $this->handle_response( $accounts );
+			return $this->handle_response( $accounts ?? array() );
 		}
 
 		/**
 		 * Get accound by id
 		 */
 
-		$account = $models_account->get_account( $id );
+		$account = $models_account->get( $id );
 
 		if ( ! $account ) {
 			$response = array(

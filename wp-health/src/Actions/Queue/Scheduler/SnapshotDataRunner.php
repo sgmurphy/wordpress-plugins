@@ -51,6 +51,5 @@ class SnapshotDataRunner implements ExecuteHooks, DeactivationHook
         }
 
         wp_clear_scheduled_hook(self::CRON_HOOK);
-        // $this->cronHooks();
     }
 }

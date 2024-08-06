@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds;
 
-use QuadLayers\IGG\Models\Feed as Models_Feed;
+use QuadLayers\IGG\Models\Feeds as Models_Feed;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
 /**
  * Api_Rest_Feeds_Get Class
@@ -17,14 +17,14 @@ class Get extends Base {
 		$feed_id = $request->get_param( 'feed_id' );
 
 		if ( null === $feed_id ) {
-			$feeds = $models_feed->get();
+			$feeds = $models_feed->get_all();
 			if ( null !== $feeds && 0 !== count( $feeds ) ) {
 				return $this->handle_response( $feeds );
 			}
 			return $this->handle_response( array() );
 		}
 
-		$feed = $models_feed->get_by_id( $feed_id );
+		$feed = $models_feed->get( $feed_id );
 
 		if ( ! $feed ) {
 			$response = array(

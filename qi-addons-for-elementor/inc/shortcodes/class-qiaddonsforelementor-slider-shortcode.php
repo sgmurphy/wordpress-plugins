@@ -327,76 +327,79 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 		}
 
 		if ( empty( $exclude_option ) || ! in_array( 'columns', $exclude_option, true ) ) {
-			$this->set_option(
-				array(
-					'field_type' => 'select',
-					'name'       => 'partial_columns',
-					'title'      => esc_html__( 'Enable Partial Columns', 'qi-addons-for-elementor' ),
-					'options'    => qi_addons_for_elementor_get_select_type_options_pool( 'no_yes', false ),
-					'group'      => $group,
-					'dependency' => $direction_horizontal_dependancy,
-				)
-			);
-			$this->set_option(
-				array(
-					'field_type' => 'slider',
-					'name'       => 'partial_columns_value',
-					'title'      => esc_html__( 'Partial Columns Value', 'qi-addons-for-elementor' ),
-					'size_units' => array( 'px' ),
-					'range'      => array(
-						'px' => array(
-							'min'  => 0.1,
-							'max'  => 0.9,
-							'step' => 0.1,
+
+			if ( ! in_array( 'partial_columns', $exclude_option, true ) ) {
+				$this->set_option(
+					array(
+						'field_type' => 'select',
+						'name'       => 'partial_columns',
+						'title'      => esc_html__( 'Enable Partial Columns', 'qi-addons-for-elementor' ),
+						'options'    => qi_addons_for_elementor_get_select_type_options_pool( 'no_yes', false ),
+						'group'      => $group,
+						'dependency' => $direction_horizontal_dependancy,
+					)
+				);
+				$this->set_option(
+					array(
+						'field_type' => 'slider',
+						'name'       => 'partial_columns_value',
+						'title'      => esc_html__( 'Partial Columns Value', 'qi-addons-for-elementor' ),
+						'size_units' => array( 'px' ),
+						'range'      => array(
+							'px' => array(
+								'min'  => 0.1,
+								'max'  => 0.9,
+								'step' => 0.1,
+							),
 						),
-					),
-					'responsive' => false,
-					'dependency' => array(
-						'relation' => 'and',
-						'show'     => array_merge_recursive(
-							array(
-								'show' => array(
-									'partial_columns' => array(
-										'values'        => 'yes',
-										'default_value' => 'no',
+						'responsive' => false,
+						'dependency' => array(
+							'relation' => 'and',
+							'show'     => array_merge_recursive(
+								array(
+									'show' => array(
+										'partial_columns' => array(
+											'values'        => 'yes',
+											'default_value' => 'no',
+										),
 									),
 								),
-							),
-							$direction_horizontal_dependancy
-						)['show'],
-					),
-					'group'      => $group,
-				)
-			);
-			$this->set_option(
-				array(
-					'field_type' => 'select',
-					'name'       => 'disable_partial_columns_under',
-					'title'      => esc_html__( 'Disable Partial Columns Under', 'qi-addons-for-elementor' ),
-					'options'    => array(
-						''     => esc_html__( 'Never', 'qi-addons-for-elementor' ),
-						'1024' => esc_html__( '1024', 'qi-addons-for-elementor' ),
-						'768'  => esc_html__( '768', 'qi-addons-for-elementor' ),
-						'680'  => esc_html__( '680', 'qi-addons-for-elementor' ),
-						'480'  => esc_html__( '480', 'qi-addons-for-elementor' ),
-					),
-					'dependency' => array(
-						'relation' => 'and',
-						'show'     => array_merge_recursive(
-							array(
-								'show' => array(
-									'partial_columns' => array(
-										'values'        => 'yes',
-										'default_value' => 'no',
+								$direction_horizontal_dependancy
+							)['show'],
+						),
+						'group'      => $group,
+					)
+				);
+				$this->set_option(
+					array(
+						'field_type' => 'select',
+						'name'       => 'disable_partial_columns_under',
+						'title'      => esc_html__( 'Disable Partial Columns Under', 'qi-addons-for-elementor' ),
+						'options'    => array(
+							''     => esc_html__( 'Never', 'qi-addons-for-elementor' ),
+							'1024' => esc_html__( '1024', 'qi-addons-for-elementor' ),
+							'768'  => esc_html__( '768', 'qi-addons-for-elementor' ),
+							'680'  => esc_html__( '680', 'qi-addons-for-elementor' ),
+							'480'  => esc_html__( '480', 'qi-addons-for-elementor' ),
+						),
+						'dependency' => array(
+							'relation' => 'and',
+							'show'     => array_merge_recursive(
+								array(
+									'show' => array(
+										'partial_columns' => array(
+											'values'        => 'yes',
+											'default_value' => 'no',
+										),
 									),
 								),
-							),
-							$direction_horizontal_dependancy
-						)['show'],
-					),
-					'group'      => $group,
-				)
-			);
+								$direction_horizontal_dependancy
+							)['show'],
+						),
+						'group'      => $group,
+					)
+				);
+			}
 			$this->set_option(
 				array(
 					'field_type'    => 'select',
@@ -1876,6 +1879,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 		$data['unique']              = isset( $atts['unique'] ) ? $atts['unique'] : '';
 		$data['partialValue']        = $partial_value;
 		$data['disablePartialValue'] = isset( $atts['disable_partial_columns_under'] ) ? $atts['disable_partial_columns_under'] : '';
+		$data['parallax']            = isset( $atts['parallax'] ) ? $atts['parallax'] : 'no';
 
 		if ( ! empty( $atts['columns_responsive'] ) && 'custom' === $atts['columns_responsive'] ) {
 			$data['customStages']      = true;

@@ -325,6 +325,7 @@ class WordPress
             'admin_url' => get_admin_url(),
             'wp_umbrella_url' => WP_UMBRELLA_DIRURL
         ];
+        $data['base_directory'] = wp_umbrella_get_service('BackupFinderConfiguration')->getDefaultSource();
 
         $data['wordpress_version'] = $this->getWordPressVersion();
 
@@ -358,6 +359,7 @@ class WordPress
             'curl_is_defined' => 'curl_is_defined',
             'zip_is_defined' => 'zip_is_defined',
             'defined_data' => 'defined_data',
+            'base_directory' => 'base_directory',
             'latest' => (object) [
                 'path' => 'wordpress_up_to_date.latest',
                 'fn' => function ($data) {

@@ -62,6 +62,17 @@ class Pages implements ExecuteHooksBackend
         if (wp_umbrella_allowed()) {
             $this->owner = $this->getOwnerService->getOwnerImplicitApiKey();
             $this->options = $this->optionService->getOptions();
+
+            $backupVersion = get_option('wp_umbrella_backup_version');
+
+            if (
+                isset($this->owner['project']) &&
+                isset($this->owner['project']['ProjectBackupSetting']) &&
+                isset($this->owner['project']['ProjectBackupSetting']['process_version']) &&
+                $this->owner['project']['ProjectBackupSetting']['process_version'] !== $backupVersion
+            ) {
+                update_option('wp_umbrella_backup_version', $this->owner['project']['ProjectBackupSetting']['process_version'], false);
+            }
         }
 
         include_once WP_UMBRELLA_TEMPLATES_ADMIN_PAGES . '/settings.php';

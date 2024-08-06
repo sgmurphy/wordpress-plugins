@@ -16,7 +16,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	private $arrCurrentPostIDs = array();
 	private $itemsImageSize = null;
 	private $advancedQueryDebug = false;
-
+	private $arrUsersOrder;
 
 
 	/**
@@ -643,29 +643,36 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	 */
 	private function getPostMainCategory($arrTerms, $postID){
 
-
 		//get term data
 
 		if(count($arrTerms) == 1){		//single
 			$arrTermData = UniteFunctionsUC::getArrFirstValue($arrTerms);
 			return($arrTermData);
 		}
-
-		$yoastMainCategory = get_post_meta($postID, "_yoast_wpseo_primary_category", true);
-
-		if(empty($yoastMainCategory)){
+		
+		$arrMeta = UniteFunctionsWPUC::getPostMeta($postID,true);
+		
+		$mainCategoryID = UniteFunctionsUC::getVal($arrMeta, "_yoast_wpseo_primary_category");
+		
+		if(empty($mainCategoryID))
+			$mainCategoryID = UniteFunctionsUC::getVal($arrMeta, "rank_math_primary_category");
+				
+		if(empty($mainCategoryID)){
 
 			unset($arrTerms["uncategorized"]);
 			$arrTermData = UniteFunctionsUC::getArrFirstValue($arrTerms);
 
 			return($arrTermData);
 		}
-
+		
+		
+		//get by main category
+		
 		foreach($arrTerms as $term){
 
 			$termID = UniteFunctionsUC::getVal($term, "term_id");
-
-			if($termID == $yoastMainCategory)
+		
+			if($termID == $mainCategoryID)
 				return($term);
 		}
 
@@ -700,7 +707,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$arrCatsOutput = $this->modifyArrTermsForOutput($arrTerms, $taxonomy);
 
 		$arrTermData = $this->getPostMainCategory($arrTerms, $postID);
-
+		
 		$catID = UniteFunctionsUC::getVal($arrTermData, "term_id");
 
 		$urlImage = null;
@@ -2637,7 +2644,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		
 		if($isFilterable == true)
 			return(true);
-
+		
 		//check ajax search
 
 		$options = $this->addon->getOptions();
@@ -4855,10 +4862,45 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	}
 
 
-
 	protected function z_______________USERS____________(){}
 
+	
+	/**
+	 * compare users order
+	 */
+	public function sortUsersByValues_compare($user1, $user2){
+	    $a_index = array_search($user1->ID, $this->arrUsersOrder);
+	    $b_index = array_search($user2->ID, $this->arrUsersOrder);
+	    return $a_index - $b_index;
+	}
+	
+	/**
+	 * sort users by values
+	 */
+	private function sortUsersByValues($arrUsers,$manualOrder ){
+		
+		if(empty($arrUsers))
+			return($arrUsers);
+			
+		if(count($arrUsers) == 1)
+			return($arrUsers);
+		
+		$isIDsList = UniteFunctionsUC::isValidIDsList($manualOrder);
 
+		if($isIDsList == false)
+			return($arrUsers);
+		
+		$this->arrUsersOrder = explode(",",$manualOrder);
+		
+		if(empty($this->arrUsersOrder))
+			return($arrUsers);
+		
+		
+		usort($arrUsers, array($this,'sortUsersByValues_compare'));		
+		
+		return($arrUsers);
+	}
+	
 	/**
 	 * modify users array for output
 	 */
@@ -4875,7 +4917,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 			$arrUsersData[] = $arrUser;
 		}
-
+		
 		return($arrUsersData);
 	}
 
@@ -4946,25 +4988,31 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 		}
 
-
 		//--- orderby ---
 
 		$orderby = UniteFunctionsUC::getVal($value, $name."_orderby");
-		if($orderby == "default")
-			$orderby = null;
 
+		$isManualOrder = false;
+		
+		if($orderby == "manual")
+			$isManualOrder = true;
+		
+		if($orderby == "default" || $orderby == "manual")
+			$orderby = null;
+		
 		if(!empty($orderby))
 			$args["orderby"] = $orderby;
-
+		
 		//--- order dir ----
-
+	
 		$orderdir = UniteFunctionsUC::getVal($value, $name."_orderdir");
 		if($orderdir == "default")
 			$orderdir = null;
-
+		
 		if(!empty($orderdir))
 			$args["order"] = $orderdir;
-
+		
+		
 		//---- debug
 
 		if($showDebug == true){
@@ -4975,15 +5023,29 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		HelperUC::addDebug("Get Users Args", $args);
 
 		$arrUsers = get_users($args);
-
+		
 		HelperUC::addDebug("Num Users fetched: ".count($arrUsers));
-
 
 
 		if($showDebug == true){
 			dmp("Num Users fetched: ".count($arrUsers));
 		}
 
+		
+		if($isManualOrder == true){
+			
+			$manualOrder = UniteFunctionsUC::getVal($value, $name."_order_manual");
+			
+			if(!empty($manualOrder)){
+				
+				if($showDebug == true)
+					dmp("sorting users by: $manualOrder");
+				
+				$arrUsers = $this->sortUsersByValues($arrUsers,$manualOrder );
+			}
+		}
+		
+		
 		$getMeta = UniteFunctionsUC::getVal($param, "get_meta");
 		$getMeta = UniteFunctionsUC::strToBool($getMeta);
 
@@ -4997,7 +5059,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$arrMetaKeys = null;
 		if(!empty($strAddMetaKeys))
 			$arrMetaKeys = explode(",", $strAddMetaKeys);
-
+		
 		$arrUsers = $this->modifyArrUsersForOutput($arrUsers, $getMeta, $getAvatar, $arrMetaKeys);
 
 		return($arrUsers);
@@ -5159,7 +5221,11 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				$data[$name] = $this->getWooCatsData($value, $name, $processType, $param);
 			break;
 			case UniteCreatorDialogParam::PARAM_USERS:
+				
+				$data[$name."_settings"] = $data[$name];
+				
 				$data[$name] = $this->getWPUsersData($value, $name, $processType, $param);
+				
 			break;
 			case UniteCreatorDialogParam::PARAM_TEMPLATE:
 				$data = $this->getElementorTemplateData($value, $name, $processType, $param, $data);

@@ -114,7 +114,7 @@ final class FLBuilderNodeCodeSettings {
 	public static function filter_layout_js( $js, $nodes ) {
 		$all_nodes = array_merge( $nodes['rows'], $nodes['columns'], $nodes['modules'] );
 		foreach ( $all_nodes as $node ) {
-			$js .= FLBuilder::maybe_do_shortcode( self::get_node_js( $node ) );
+			$js .= self::get_node_js( $node ) ? "\n;" . ltrim( FLBuilder::maybe_do_shortcode( self::get_node_js( $node ) ), ';' ) : '';
 		}
 		return $js;
 	}

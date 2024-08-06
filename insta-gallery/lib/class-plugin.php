@@ -5,7 +5,7 @@ namespace QuadLayers\IGG;
 use QuadLayers\IGG\Controllers\Backend;
 use QuadLayers\IGG\Controllers\Frontend;
 use QuadLayers\IGG\Controllers\Gutenberg;
-use QuadLayers\IGG\Models\Account as Models_Account;
+use QuadLayers\IGG\Models\Accounts as Models_Account;
 use QuadLayers\IGG\Models\Setting as Models_Setting;
 
 final class Plugin {
@@ -47,7 +47,7 @@ final class Plugin {
 			'qligg_cron_account',
 			function( $id ) {
 				$models_account      = new Models_Account();
-				$account             = $models_account->get_account( $id );
+				$account             = $models_account->get( $id );
 				$old_expiration_date = $account['access_token_expiration_date'];
 
 				$is_renewed_account = $models_account->is_access_token_renewed( $account );
@@ -55,7 +55,7 @@ final class Plugin {
 					return false;
 				}
 
-				$account_renewed = $models_account->get_account( $id );
+				$account_renewed = $models_account->get( $id );
 				$new_expiration  = $account_renewed['access_token_expiration_date'];
 
 				$admin_email = $this->get_admin_email();

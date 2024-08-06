@@ -191,7 +191,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gs-swiper-init',
 		GREENSHIFT_DIR_URL . 'libs/swiper/init.js',
 		array(),
-		'8.9.7',
+		'8.9.8',
 		true
 	);
 	wp_localize_script(
@@ -268,7 +268,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'1.1',
 		true
 	);
-	wp_register_style('gslightbox', GREENSHIFT_DIR_URL . 'libs/lightbox/simpleLightbox.min.css', array(), '1.4');
+	wp_register_style('gslightbox', GREENSHIFT_DIR_URL . 'libs/lightbox/simpleLightbox.min.css', array(), '1.5');
 
 	// counter
 	wp_register_script(

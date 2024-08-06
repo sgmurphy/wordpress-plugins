@@ -893,7 +893,7 @@ class SaveMapping{
 			}
 
 			if (!empty($data_to_insert)) {
-				$query = "INSERT INTO $table_name (event_id, post_title, media_id, status, file_url, file_name, actual_url, caption, alt_text, description) VALUES " . implode(", ", $data_to_insert);
+				$query = "INSERT INTO $table_name (event_id, title, media_id, status, file_url, file_name, actual_url, caption, alt_text, description) VALUES " . implode(", ", $data_to_insert);
 				$wpdb->query($query);
 			}
 		}
@@ -974,7 +974,7 @@ if (!empty($failed_media_log)) {
     
     // Batch insert for boosting speed
     if (!empty($data_to_insert)) {
-        $query = "INSERT INTO $table_name (post_id, event_id, post_title,  media_id, actual_url,status) VALUES " . implode(", ", $data_to_insert);
+        $query = "INSERT INTO $table_name (post_id, event_id, title,  media_id, actual_url,status) VALUES " . implode(", ", $data_to_insert);
         $wpdb->query($query);
     }
 }

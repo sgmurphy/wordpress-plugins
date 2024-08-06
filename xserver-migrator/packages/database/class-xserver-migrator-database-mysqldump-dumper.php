@@ -25,9 +25,9 @@ class Xserver_Migrator_Database_Mysqldump_Dumper extends Xserver_Migrator_Databa
 		}
 
 		$content  = '[client]' . PHP_EOL;
-		$content .= 'user = ' . DB_USER . PHP_EOL;
-		$content .= 'password = ' . DB_PASSWORD . PHP_EOL;
-		$content .= 'host = ' . DB_HOST . PHP_EOL;
+		$content .= 'user = \'' . DB_USER . '\'' . PHP_EOL;
+		$content .= 'password = \'' . DB_PASSWORD . '\'' . PHP_EOL;
+		$content .= 'host = \'' . DB_HOST . '\'' . PHP_EOL;
 
 		Xserver_Migrator_File::writeLine( $defaults_extra_file, $content );
 
@@ -64,7 +64,12 @@ class Xserver_Migrator_Database_Mysqldump_Dumper extends Xserver_Migrator_Databa
 	private function get_mysqldump_path()
 	{
 		exec( 'which mysqldump', $output, $status );
-		return ( $status === 0 ) ? $output[0] : '';
+		if ( $status === 0 ) {
+			return $output[0];
+		}
+		$output = [];
+		exec( 'type mysqldump', $output, $status );
+		return $status === 0 ? str_replace( 'mysqldump is ', '', $output[0] ) : '';
 	}
 
 	/**
@@ -104,6 +109,17 @@ class Xserver_Migrator_Database_Mysqldump_Dumper extends Xserver_Migrator_Databa
 
 		if ( $status !== 0 ) {
 			Xserver_Migrator_Log::error( 'Can\'t replace CREATE DEFINER: ' . $this->dump_file_path );
+		}
+
+		// MariaDB 10.5.25 以降で mysqldump が生成するコメントを削除
+		if ( $is_bsd ) {
+			exec( "sed -i '' -e '/^\/\*!999999\\\- enable the sandbox mode/d' " . $this->dump_file_path, $output, $status );
+		} else {
+			exec( "sed -i -e '/^\/\*!999999\\\- enable the sandbox mode/d' " . $this->dump_file_path, $output, $status );
+		}
+
+		if ( $status !== 0 ) {
+			Xserver_Migrator_Log::error( 'Can\'t replace sandbox mode comment: ' . $this->dump_file_path );
 		}
 	}
 }

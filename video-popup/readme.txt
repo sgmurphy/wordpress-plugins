@@ -2,7 +2,7 @@
 Contributors: Alobaidi
 Tags: video popup, youtube lightbox, popup, video lightbox, lightbox
 Requires at least: 2.6.0
-Tested up to: 6.5.5
+Tested up to: 6.6.1
 Stable tag: 1.1.4
 Requires PHP: 5.2.4
 License: GPLv2 or later

@@ -5338,7 +5338,7 @@ class FreeCachedContainer extends Container
      */
     protected function getCaptchaFormRendererService()
     {
-        return $this->services['MailPoet\\Subscription\\CaptchaFormRenderer'] = new \MailPoet\Subscription\CaptchaFormRenderer(($this->services['MailPoet\\Util\\Url'] ?? $this->getUrl2Service()), ($this->services['MailPoet\\Subscription\\Captcha\\CaptchaSession'] ?? $this->getCaptchaSessionService()), ($this->services['MailPoet\\Subscription\\SubscriptionUrlFactory'] ?? $this->getSubscriptionUrlFactoryService()), ($this->services['MailPoet\\Form\\FormsRepository'] ?? $this->getFormsRepositoryService()), ($this->services['MailPoet\\Form\\Renderer'] ?? $this->getRenderer3Service()), ($this->privates['MailPoet\\Form\\Util\\Styles'] ?? ($this->privates['MailPoet\\Form\\Util\\Styles'] = new \MailPoet\Form\Util\Styles())));
+        return $this->services['MailPoet\\Subscription\\CaptchaFormRenderer'] = new \MailPoet\Subscription\CaptchaFormRenderer(($this->services['MailPoet\\Util\\Url'] ?? $this->getUrl2Service()), ($this->services['MailPoet\\Subscription\\Captcha\\CaptchaSession'] ?? $this->getCaptchaSessionService()), ($this->privates['MailPoet\\Subscription\\Captcha\\CaptchaPhrase'] ?? $this->getCaptchaPhraseService()), ($this->services['MailPoet\\Subscription\\SubscriptionUrlFactory'] ?? $this->getSubscriptionUrlFactoryService()), ($this->services['MailPoet\\Form\\FormsRepository'] ?? $this->getFormsRepositoryService()), ($this->services['MailPoet\\Form\\Renderer'] ?? $this->getRenderer3Service()), ($this->privates['MailPoet\\Form\\Util\\Styles'] ?? ($this->privates['MailPoet\\Form\\Util\\Styles'] = new \MailPoet\Form\Util\Styles())));
     }
 
     /**
@@ -5378,7 +5378,7 @@ class FreeCachedContainer extends Container
      */
     protected function getBuiltInCaptchaValidatorService()
     {
-        return $this->services['MailPoet\\Subscription\\Captcha\\Validator\\BuiltInCaptchaValidator'] = new \MailPoet\Subscription\Captcha\Validator\BuiltInCaptchaValidator(($this->services['MailPoet\\Subscription\\SubscriptionUrlFactory'] ?? $this->getSubscriptionUrlFactoryService()), ($this->privates['MailPoet\\Subscription\\Captcha\\CaptchaPhrase'] ?? $this->getCaptchaPhraseService()), ($this->services['MailPoet\\Subscription\\Captcha\\CaptchaSession'] ?? $this->getCaptchaSessionService()), ($this->services['MailPoet\\WP\\Functions'] ?? ($this->services['MailPoet\\WP\\Functions'] = new \MailPoet\WP\Functions())), ($this->services['MailPoet\\Subscribers\\SubscriberIPsRepository'] ?? $this->getSubscriberIPsRepositoryService()), ($this->services['MailPoet\\Subscribers\\SubscribersRepository'] ?? $this->getSubscribersRepositoryService()));
+        return $this->services['MailPoet\\Subscription\\Captcha\\Validator\\BuiltInCaptchaValidator'] = new \MailPoet\Subscription\Captcha\Validator\BuiltInCaptchaValidator(($this->services['MailPoet\\Subscription\\SubscriptionUrlFactory'] ?? $this->getSubscriptionUrlFactoryService()), ($this->privates['MailPoet\\Subscription\\Captcha\\CaptchaPhrase'] ?? $this->getCaptchaPhraseService()), ($this->services['MailPoet\\WP\\Functions'] ?? ($this->services['MailPoet\\WP\\Functions'] = new \MailPoet\WP\Functions())), ($this->services['MailPoet\\Subscribers\\SubscriberIPsRepository'] ?? $this->getSubscriberIPsRepositoryService()), ($this->services['MailPoet\\Subscribers\\SubscribersRepository'] ?? $this->getSubscribersRepositoryService()));
     }
 
     /**

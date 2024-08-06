@@ -94,12 +94,34 @@ class UniteCreatorFiltersProcess{
 			if(empty($metaName))
 				$isEnableMeta = false;
 		}
-
+		
+		$isWPML = UniteCreatorWpmlIntegrate::isWpmlExists();
+		
+		$activeLang = null;
+		
+		if($isWPML == true){
+			
+			$objWPML = new UniteCreatorWpmlIntegrate();
+			$activeLang = $objWPML->getActiveLanguage();
+		}
+		
 		foreach($arrFields as $field){
-
+						
 			$title = UniteFunctionsUC::getVal($field, "title");
 			$type = UniteFunctionsUC::getVal($field, "type");
 
+			
+			//replace the title with language related title
+			
+			if(!empty($activeLang)){
+								
+				$titleLang = UniteFunctionsUC::getVal($field, "title_" . $activeLang);
+				
+				if(!empty($titleLang))
+					$title = $titleLang;
+				
+			}
+						
 			//disable meta if not selected
 
 			$typeForOutput = null;
@@ -1049,7 +1071,7 @@ class UniteCreatorFiltersProcess{
 		//check for ajax search
 		$options = $addon->getOptions();
 		$special = UniteFunctionsUC::getVal($options, "special");
-
+		
 		if($special === "ajax_search")
 			return($postListName);
 
@@ -1808,8 +1830,8 @@ class UniteCreatorFiltersProcess{
 
 			return($data);
 		}
-
-
+		
+		
 		//all ajax related
 
 		$addClass .= " uc-filterable-grid";

@@ -2,7 +2,6 @@
 namespace WPUmbrella\Controller\BackupV4;
 
 use WPUmbrella\Core\Models\AbstractController;
-use WPUmbrella\Helper\Host;
 
 class CheckBackupCapabilities extends AbstractController
 {
@@ -21,6 +20,24 @@ class CheckBackupCapabilities extends AbstractController
         return false;
     }
 
+    protected function canCreateDatabaseFolder()
+    {
+        $baseDirectory = wp_umbrella_get_service('BackupFinderConfiguration')->getDefaultSource();
+        $databaseFolder = $baseDirectory . DIRECTORY_SEPARATOR . 'umb_database';
+
+        if (!is_dir($databaseFolder)) {
+            $capability = mkdir($databaseFolder, 0755, true);
+
+            if ($capability) {
+                rmdir($databaseFolder);
+            }
+
+            return $capability;
+        }
+
+        return true;
+    }
+
     public function executeGet($params)
     {
         global $wpdb;
@@ -28,7 +45,8 @@ class CheckBackupCapabilities extends AbstractController
         return $this->returnResponse([
             'ninja_firewall_options' => [
                 'post_b64' => $this->checkNinjaFirewall(),
-            ]
+            ],
+            'can_create_database_folder' => $this->canCreateDatabaseFolder(),
         ]);
     }
 }

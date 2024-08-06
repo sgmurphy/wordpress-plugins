@@ -305,7 +305,6 @@ class ComposerStaticInit937894403f0a999cf3706339d754754c
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\MySQL\\CollationMetadataProvider\\CachingCollationMetadataProvider' => __DIR__ . '/../..' . '/vendor-prefixed/doctrine/dbal/src/Platforms/MySQL/CollationMetadataProvider/CachingCollationMetadataProvider.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\MySQL\\CollationMetadataProvider\\ConnectionCollationMetadataProvider' => __DIR__ . '/../..' . '/vendor-prefixed/doctrine/dbal/src/Platforms/MySQL/CollationMetadataProvider/ConnectionCollationMetadataProvider.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\MySQL\\Comparator' => __DIR__ . '/../..' . '/vendor-prefixed/doctrine/dbal/src/Platforms/MySQL/Comparator.php',
- 'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\PostgreSQLPlatform' => __DIR__ . '/../..' . '/vendor-prefixed/doctrine/dbal/src/Platforms/PostgreSQLPlatform.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\SQLServer\\Comparator' => __DIR__ . '/../..' . '/vendor-prefixed/doctrine/dbal/src/Platforms/SQLServer/Comparator.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\SQLServer\\SQL\\Builder\\SQLServerSelectSQLBuilder' => __DIR__ . '/../..' . '/vendor-prefixed/doctrine/dbal/src/Platforms/SQLServer/SQL/Builder/SQLServerSelectSQLBuilder.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\SQLite\\Comparator' => __DIR__ . '/../..' . '/vendor-prefixed/doctrine/dbal/src/Platforms/SQLite/Comparator.php',

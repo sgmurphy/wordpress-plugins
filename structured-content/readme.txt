@@ -6,7 +6,7 @@ Donate link: https://paypal.me/antonioleutsch
 Requires at least: 7.3
 Tested up to: 6.4.2
 Requires PHP: 7.0
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,9 @@ We will continuously offer new structured data elements and deliver them as upda
 4. Adding a FAQPage section in Gutenberg
 
 == Changelog ==
+
+= 1.6.3 =
+* [FIX] Cross-Site Scripting (XSS) Vulnerability in Recipe Block
 
 = 1.6.2 =
 * [FIX] Cross-Site Scripting (XSS) Vulnerability in Classic Editor Shortcodes

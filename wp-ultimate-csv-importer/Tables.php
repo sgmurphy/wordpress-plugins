@@ -217,7 +217,7 @@ class Tables {
 		`event_id` VARCHAR(255) NOT NULL,
 		`post_id` INT NOT NULL,
 		`media_id` INT NOT NULL,
-		`post_title` VARCHAR(255)  NULL,
+		`title` VARCHAR(255)  NULL,
 		`file_name` VARCHAR(255)  NULL,
 		`caption` VARCHAR(255)  NULL,
 		`description` VARCHAR(255)  NULL,
@@ -228,7 +228,11 @@ class Tables {
 
 		) ENGINE=InnoDB;
 		");
-		
+		$result = $wpdb->query("SHOW COLUMNS FROM `{$wpdb->prefix}failed_media` LIKE 'post_title'");
+		if($result){
+			$wpdb->query("ALTER TABLE `{$wpdb->prefix}failed_media` CHANGE post_title title VARCHAR(20)");
+		}
+			
 		$result = $wpdb->query("SHOW COLUMNS FROM `{$wpdb->prefix}import_detail_log` LIKE 'running'");
 		if($result == 0){
 			$wpdb->query("ALTER TABLE `{$wpdb->prefix}import_detail_log` ADD COLUMN running boolean not null default 1");

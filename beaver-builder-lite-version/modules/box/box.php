@@ -410,14 +410,14 @@ FLBuilder::register_module( 'FLBuilderBoxModule', [
 									'property'  => 'justify-items',
 									'sub_value' => 'horizontal',
 									'enabled'   => [
-										'layout'         => [ 'nearest_value' => [ 'grid', 'z_stack' ] ],
+										'layout' => [ 'nearest_value' => [ 'grid', 'z_stack' ] ],
 									],
 								],
 								[
 									'property'  => 'align-items',
 									'sub_value' => 'vertical',
 									'enabled'   => [
-										'layout'         => [ 'nearest_value' => [ 'grid', 'z_stack' ] ],
+										'layout' => [ 'nearest_value' => [ 'grid', 'z_stack' ] ],
 									],
 								],
 							],

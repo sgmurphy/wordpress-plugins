@@ -893,6 +893,66 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
+
+version 1.5.115: 2024-08-06
+
+Plugin Changes
+
+* Feature: added option to use form fields contents in subject and from name fields in submit button
+* Feature: added woocommerce minicart extra html hooks
+* Feature: filtering now works inside elementor popup
+* Feature: added option to sort users by ids in users query
+* Feature: integrated get main category functionality with rank math
+* Feature: added integration with wpml for sorting filter
+* Fix: fixed instagram username validation. added dot to the check.
+* Fix: fixed image chooser field update inside the widget editor
+* Bug fix: some small bug with fitlering pagination and avoid duplicated option
+
+Widget Changes
+
+* Feature: Select Dropdown Filter (Pro) - Added a Show Number Of Posts option, allowing users to show the number of posts in Select options.
+* Feature: Neon Glowing Button Effect (Pro) - Introduced &quot;Neon Animation Speed&quot; option to allow users to control the speed of neon animations.
+* Feature: Post Tile (Pro) - Added options to display the post category, fallback image, and post counter index.
+* Feature: Content Grid (Pro) - Implemented a Button Text Override option, allowing users to customize the text displayed on buttons for enhanced flexibility and personalization.
+* Feature: Dynamic Popup Button (Pro) - Added support for the Advanced Cache option in the Dynamic Post Popup widget, optimizing content loading and improving performance.
+* Feature: Unlimited Google Maps (Pro) - Added a Marker Custom Icon option to the Multisource settings, allowing users to customize the appearance of markers with their own icons for enhanced visual representation and clarity.
+* Feature: Unlimited Carousel (Pro) - Added a Fallback Image option to provide an alternative image when the primary image fails to load, enhancing user experience and maintaining visual consistency.
+* Feature: Post Tabs (Free) - Added a Fallback Image option to provide an alternative image when the primary image fails to load, enhancing user experience and maintaining visual consistency.
+* Feature: Layers (Pro) - Added an Enable Link option, allowing users to activate links within the widget for enhanced interactivity and navigation.
+* Feature: Neon Glowing Button Effect (Pro) - Introduced 'Hover Animation' option to allow users to add animations when hovering over button.
+* Feature: Loop Carousel (Pro) - Added support for the Advanced Cache option in the Dynamic Post Popup widget, optimizing content loading and improving performance.
+* Feature: Video Play Button (Free) - Added a Video Max Width option, allowing users to set a maximum width for videos, ensuring consistent and controlled video sizing across different devices and layouts.
+* Feature: Loop Grid (Pro) - Added support for the Advanced Cache option in the Dynamic Post Popup widget, optimizing content loading and improving performance.
+* Feature: Loop Tabs (Pro) - Added support for the Advanced Cache option in the Dynamic Post Popup widget, optimizing content loading and improving performance.
+* Feature: Loop Accordion (Pro) - Added support for the Advanced Cache option in the Dynamic Post Popup widget, optimizing content loading and improving performance.
+* Feature: Loop Slider (Pro) - Added support for the Advanced Cache option in the Dynamic Post Popup widget, optimizing content loading and improving performance.
+* Change: Logo Marquee (Pro) - Changed image loading time. Now images are visible after js load to avoid content shift before loading page completely.
+* Change: Card Carousel (Free) - Changed &lt;p&gt; tag to &lt;div&gt; for Content elements to improve HTML structure and styling flexibility.
+* Fix: Textarea Field (Free) - Fixed an issue where the Label Text Align option was not working correctly.
+* Fix: Icon Tabs (Pro) - Fixed the issue causing the page to scroll after selecting a tab.
+* Fix: Tile Gallery (Free) - Added support for using the Tile Gallery Widget within the Elementor Accordion.
+* Fix: Fullscreen Menu (Free) - Fixed an issue where the menu was not closing after clicking on an anchor link.
+* Fix: Background Slider (Pro) - Added appropriate alt attributes to all images to improve accessibility and ensure compliance with web standards.
+* Fix: Typewriter Text Effect (Pro) - Fixed the issue where widgets were not initializing properly in certain cases, ensuring consistent functionality across all instances.
+* Fix: Post Tabs (Free) - Renamed the jQuery method used for Post Tabs widget to prevent conflicts with other widgets using the same method.
+* Fix: Post Grid (Pro) - Removed a duplicated option that was responsible for disabling the link in the title, streamlining the settings and preventing redundancy.
+* Fix: Image Accordion (Pro) - Fixed the issue with the 'Always Show Title' option displaying the title even when the option is disabled.
+* Fix: Cookie Consent (Pro) - Fixed issue with accept button border not displaying correctly.
+* Fix: Multi Step Form (Pro) - Fixed the issue where icons in the step indicator were missing for completed steps in the Multistep form.
+* Fix: Unlimited Google Maps (Pro) - Fixed the issue where the Map widget failed to initialize in certain cases, ensuring consistent loading and functionality.
+* Fix: Woo Mini Cart (Pro) - Fixed the issue where the mini cart widget was not updating after a cart update on the shop page, ensuring accurate display of cart contents.
+* Fix: Radio Button Field (Pro) - Fixed issue where image width was not taking 100% when Display Format set to Image.
+* Fix: Post Tabs (Free) - Fixed issue where the widget was not showing posts and the remote connection and sync were not working after using filters.
+* Fix: Checkboxes Filter (Pro) - Resolved issue where the checkbox width was not working correctly.
+* Fix: Woo Product Grid (Pro) - Fixed the issue where the Title Typography option was not responding in certain cases, ensuring consistent styling and appearance across all instances.
+* Fix: Smoke Background Effect (Pro) - Fixed an issue where elements, content, and buttons were not interactive when the smoke widget is in the foreground.
+* Fix: Tabs Filter (Pro) - Added support for functionality within Elementor Popups, enhancing the compatibility and integration of the widget within Popup.
+* Fix: Load More / Infinite Scroll (Pro) - Added support for functionality within Elementor Popups, enhancing the compatibility and integration of the widget within popup elements.
+* Fix: Post Tabs (Free) - Fixed the issue where the Remote Navigation feature was not functioning correctly after selecting a filter, ensuring seamless navigation and interaction.
+* Fix: WordPress Menu (Free) - Fixed the cursor pointer issue on menu hamburger.
+
+
+
 version 1.5.114: 2024-07-17
 
 Plugin Changes

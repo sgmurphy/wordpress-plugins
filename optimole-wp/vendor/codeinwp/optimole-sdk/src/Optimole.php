@@ -33,7 +33,7 @@ final class Optimole
     /**
      * The Optimole SDK version.
      */
-    public const VERSION = '1.1.0';
+    public const VERSION = '1.2.1';
 
     /**
      * The Optimole dashboard API URL.
@@ -76,7 +76,7 @@ final class Optimole
     {
         $method = sprintf('create%s', ucfirst($name));
 
-        if (!self::$instance instanceof self) {
+        if (!self::initialized()) {
             throw new RuntimeException('Please initialize the Optimole SDK first.');
         } elseif (!method_exists(self::class, $method)) {
             throw new BadMethodCallException(sprintf('No factory method for "%s" exists.', $name));
@@ -94,11 +94,20 @@ final class Optimole
         $options = array_merge([
             'base_domain' => 'i.optimole.com',
             'cache_buster' => '',
+            'dashboard_api_key' => '',
             'dashboard_api_url' => self::DASHBOARD_API_URL,
             'upload_api_url' => self::UPLOAD_API_URL,
         ], $options);
 
         self::$instance = new self($key, $options);
+    }
+
+    /**
+     * Check if the SDK has been initialized.
+     */
+    public static function initialized(): bool
+    {
+        return isset(self::$instance);
     }
 
     /**
@@ -122,7 +131,7 @@ final class Optimole
      */
     private function createOffload(array $options = []): Manager
     {
-        return new Manager($this->getHttpClient(), $this->key, array_merge($this->options, $options));
+        return new Manager($this->getHttpClient(), array_merge($this->options, $options));
     }
 
     /**

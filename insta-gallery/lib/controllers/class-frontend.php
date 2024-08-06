@@ -2,7 +2,7 @@
 
 namespace QuadLayers\IGG\Controllers;
 
-use QuadLayers\IGG\Models\Feed as Models_Feed;
+use QuadLayers\IGG\Models\Feeds as Models_Feed;
 use QuadLayers\IGG\Models\Setting as Models_Setting;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Profile as Api_Rest_User_Profile;
@@ -94,7 +94,7 @@ class Frontend {
 		$id = absint( $atts['id'] );
 
 		$models_feed = new Models_Feed();
-		$feed        = $models_feed->get_by_id( $id );
+		$feed        = $models_feed->get( $id );
 
 		return $this->create_shortcode( $feed, $id );
 

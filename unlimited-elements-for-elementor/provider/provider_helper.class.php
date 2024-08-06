@@ -57,7 +57,7 @@ class HelperProviderUC{
 		$arrValues["none"] = __("Unsorted","unlimited-elements-for-elementor");
 		$arrValues["menu_order"] = __("Menu Order","unlimited-elements-for-elementor");
 		$arrValues["parent"] = __("Parent Post","unlimited-elements-for-elementor");
-
+		
 		$output = array();
 
 		foreach($arrValues as $type=>$title){
@@ -93,18 +93,34 @@ class HelperProviderUC{
 		$params["origtype"] = UniteCreatorDialogParam::PARAM_TEXTFIELD;
 
 		$settings->addTextBox("title", "", __("Field Title","unlimited-elements-for-elementor"),$params);
-
+		
+		
+		if(UniteCreatorWpmlIntegrate::isWpmlExists()){
+			
+			$objWPML = new UniteCreatorWpmlIntegrate();
+			$arrLanguages = $objWPML->getLanguagesShort(false, true);
+			
+			if(empty($arrLanguages))
+				$arrLanguages = array();
+				
+			foreach($arrLanguages as $lang=>$langName){
+				
+				$settings->addTextBox("title_{$lang}", "", __("Field Title - ","unlimited-elements-for-elementor").$langName,$params);
+			}
+			
+		}
+		
+		
 		//--- meta field name -----
-
+		
 		$params = array();
 		$params["origtype"] = UniteCreatorDialogParam::PARAM_TEXTFIELD;
 		$params["elementor_condition"] = array("type"=>"meta");
 
 		$settings->addTextBox("meta_name", "", __("Meta Field Name","unlimited-elements-for-elementor"),$params);
-
-
+		
 		$params["origtype"] = UniteCreatorDialogParam::PARAM_DROPDOWN;
-
+		
 		$arrMetaType = array("Text"=>"text","Number"=>"number");
 
 		$settings->addSelect("meta_type", $arrMetaType, __("Meta Type","unlimited-elements-for-elementor"),"text",$params);
@@ -198,6 +214,7 @@ class HelperProviderUC{
 		$arrOrderby = array(
 			"default"=>__("Default", "unlimited-elements-for-elementor"),
 			"ID"=>__("User ID", "unlimited-elements-for-elementor"),
+			"manual"=>__("Manual Order", "unlimited-elements-for-elementor"),
 			"display_name"=>__("Display Name", "unlimited-elements-for-elementor"),
 			"name"=>__("Username", "unlimited-elements-for-elementor"),
 			"login"=>__("User Login", "unlimited-elements-for-elementor"),

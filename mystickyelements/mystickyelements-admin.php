@@ -181,6 +181,26 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 				$new_widget_link,
 				array( $this, 'mystickyelements_admin_new_widget_page' )
 			);
+			
+			if( class_exists( 'Chatway' ) ) {
+				add_submenu_page(
+					'my-sticky-elements',
+					'Settings Admin',
+					'Chatway Live Chat',
+					'manage_options',
+					'manage-chatway-plugin',
+					array( $this, 'mystickyelements_manage_chatway_plugin' )
+				);
+			} else {
+				add_submenu_page(
+					'my-sticky-elements',
+					'Settings Admin',
+					'Chatway Live Chat',
+					'manage_options',
+					'install-chatway-plugin',
+					array( $this, 'mystickyelements_install_chatway_plugin' )
+				);
+			}
 			add_submenu_page(
 				'my-sticky-elements',
 				'Settings Admin',
@@ -222,14 +242,7 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 				);
 			}
 			
-			add_submenu_page(
-				'hidden_page',
-				'Install Chatway Plugin',
-				'Install Chatway Plugin',
-				'manage_options',
-				'install-chatway-plugin',
-				array( $this, 'mystickyelements_install_chatway_plugin' )
-			);
+			
 			add_submenu_page(
 				'my-sticky-elements',
 				'Upgrade to Pro ⭐️',
@@ -1459,6 +1472,14 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 			require_once MYSTICKYELEMENTS_PATH . 'help.php';
 		}
 		
+		public function mystickyelements_manage_chatway_plugin() {
+			?>
+			<script>
+				window.location.href= '<?php echo admin_url( "admin.php?page=chatway" )?>'
+			</script>
+			<?php
+			exit;
+		}
 		public function mystickyelements_install_chatway_plugin() {
 			include_once 'admin/chatway-plugin.php';			
 		}

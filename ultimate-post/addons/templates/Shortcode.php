@@ -19,18 +19,19 @@ class Shortcode {
 
         if ($id) {
             $content = '';
-            ultimate_post()->register_scripts_common();
-            $css = ultimate_post()->set_css_style($id, true);
             $content_post = get_post($id);
             if ($content_post) {
                 if ($content_post->post_status == 'publish' && $content_post->post_password == '') {
+                    do_action('ultp_enqueue_postx_block_css',
+                        [ 'post_id' => $id, 'css' => '', ]
+                    );
                     $content = $content_post->post_content;
                     $content = do_blocks($content);
                     $content = do_shortcode($content);
                     $content = str_replace(']]>', ']]&gt;', $content);
                     $content = preg_replace('%<p>&nbsp;\s*</p>%', '', $content);
                     $content = preg_replace('/^(?:<br\s*\/?>\s*)+/', '', $content);
-                    return $css.'<div class="ultp-shortcode" data-postid="'.$id.'">' . $content . '</div>';
+                    return '<div class="ultp-shortcode" data-postid="'.$id.'">' . $content . '</div>';
                 }
             }
         }

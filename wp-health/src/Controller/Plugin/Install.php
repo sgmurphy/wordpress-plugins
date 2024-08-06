@@ -19,7 +19,9 @@ class Install extends AbstractController
             return $this->returnResponse(['code' => 'missing_parameters', 'message' => 'No plugin'], 400);
         }
 
-		/** @var ManagePlugin $managePlugin */
+        define('WP_UMBRELLA_PROCESS_FROM_UMBRELLA', true);
+
+        /** @var ManagePlugin $managePlugin */
         $managePlugin = wp_umbrella_get_service('ManagePlugin');
 
         try {

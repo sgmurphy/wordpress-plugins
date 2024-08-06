@@ -35,7 +35,7 @@ if ( !$furl){
 <div id="mystickyelements-tab-display-settings" class="mystickyelements-tab-display-settings mystickyelements-options mystickyelements-options-free-version"  style="display: <?php echo esc_attr(( isset($widget_tab_index) && $widget_tab_index == 'mystickyelements-display-settings' ) ? 'block' : 'none'); ?>;">
 	<div class="">
 		
-		<div class="mystickyelements-display-main-options myStickyelements-contact-form-field-advance-tab">
+		<div class="myStickyelements-contact-form-field-advance-tab">
 			<div class="myStickyelements-header-title">
 				<h3><?php _e('Display & Behavior Settings', 'mystickyelements'); ?></h3>
 			</div>

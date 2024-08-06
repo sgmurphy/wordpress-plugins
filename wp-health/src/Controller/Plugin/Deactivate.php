@@ -17,6 +17,8 @@ class Deactivate extends AbstractController
             return $this->returnResponse(['code' => 'missing_parameters', 'message' => 'No plugin'], 400);
         }
 
+        define('WP_UMBRELLA_PROCESS_FROM_UMBRELLA', true);
+
         $managePluginDeactivate = \wp_umbrella_get_service('PluginDeactivate');
 
         try {

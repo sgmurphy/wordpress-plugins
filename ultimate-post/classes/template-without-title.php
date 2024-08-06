@@ -2,8 +2,12 @@
 defined( 'ABSPATH' ) || exit;
 
 $is_block_theme = wp_is_block_theme();
-$header_id = ultimate_post()->get_setting('ultp_builder') != 'false' ? ultimate_post()->conditions( 'header' ) : '';
-$footer_id = ultimate_post()->get_setting('ultp_builder') != 'false' ? ultimate_post()->conditions( 'footer' ) : '';
+
+global $ULTP_HEADER_ID;
+global $ULTP_FOOTER_ID;
+$builder_active = ultimate_post()->get_setting('ultp_builder') != 'false';
+$has_header = $builder_active ? $ULTP_HEADER_ID : '';
+$has_footer = $builder_active ? $ULTP_FOOTER_ID : '';
 
 if( $is_block_theme ) {
 	?><!DOCTYPE html>
@@ -17,7 +21,7 @@ if( $is_block_theme ) {
 	<body <?php body_class(); ?>>
 	<?php wp_body_open();
 
-	if( !$header_id ) {
+	if( !$has_header ) {
 		ob_start();
         block_template_part('header');
 		$header = ob_get_clean();
@@ -50,27 +54,12 @@ if( $is_block_theme ) {
 	</body>
 	</html>
 	<?php
-	if ( !$footer_id ) {
+	if ( !$has_footer ) {
 		ob_start();
         block_template_part('footer');
 		$footer = ob_get_clean();
 		echo '<footer class="wp-block-template-part">'.$footer.'</footer>';
     }
-	if ( $header_id ) {
-		$GLOBALS['wp_filter'];
-		if ( isset($GLOBALS['wp_filter']['wp_head']) && $GLOBALS['wp_filter']['wp_head']->callbacks && !empty($GLOBALS['wp_filter']['wp_head']->callbacks) ) {
-			$callbacks = $GLOBALS['wp_filter']['wp_head']->callbacks;
-			foreach($callbacks as $k => $val) {
-				if (isset($val) && !empty($val) ) {
-					foreach($val as $pp => $qq) {
-						if ( $pp && strpos($pp, 'header_builder_template' ) > -1) {
-							remove_action('wp_head', $pp);
-						}
-					}
-				}
-			}
-		}
-	}
 	wp_head();
 	wp_footer();
 } else {

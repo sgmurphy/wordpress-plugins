@@ -439,7 +439,8 @@ class FLPhotoModule extends FLBuilderModule {
 	 * @since 2.5
 	 */
 	public static function _get_file_path( $url_path ) {
-		return apply_filters( 'fl_builder_photo_crop_path', str_ireplace( home_url(), ABSPATH, $url_path ), $url_path );
+		$home_url = trailingslashit( preg_replace( '/\/?(\?.*$)/', '', home_url() ) );
+		return apply_filters( 'fl_builder_photo_crop_path', str_ireplace( $home_url, ABSPATH, $url_path ), $url_path );
 	}
 
 	/**

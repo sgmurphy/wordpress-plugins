@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Foo Plugin Settings
  *
  * A helpful class to handle settings for a plugin
@@ -8,28 +8,63 @@
  * Author: Brad Vincent
  * Author URI: http://fooplugins.com
  * License: GPL2
-*/
+ */
 
-if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
+if ( ! class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
+	/**
+	 * Class Foo_Plugin_Settings_v2_0
+	 */
 	class Foo_Plugin_Settings_v2_0 {
-
+		/**
+		 * @var string The plugin slug.
+		 */
 		protected $plugin_slug;
 
-		protected $_settings = array(); //the plugin settings array
-		protected $_settings_sections = array(); //the plugin sections array
-		protected $_settings_tabs = array(); //the plugin tabs array
-		protected $_admin_errors = false; //store of admin errors
+		/**
+		 * @var array The plugin settings array.
+		 */
+		protected $_settings = array();
 
-		function __construct($plugin_slug) {
+		/**
+		 * @var array The plugin sections array.
+		 */
+		protected $_settings_sections = array();
+
+		/**
+		 * @var array The plugin tabs array.
+		 */
+		protected $_settings_tabs = array();
+
+		/**
+		 * @var bool|string Store of admin errors.
+		 */
+		protected $_admin_errors = false;
+
+		/**
+		 * Foo_Plugin_Settings_v2_0 constructor.
+		 *
+		 * @param string $plugin_slug The plugin slug.
+		 */
+		public function __construct( $plugin_slug ) {
 			$this->plugin_slug = $plugin_slug;
 		}
 
-		function get_tabs() {
+		/**
+		 * Get the tabs.
+		 *
+		 * @return array The plugin tabs array.
+		 */
+		public function get_tabs() {
 			return $this->_settings_tabs;
 		}
 
-		//check if we have any setting of a certain type
-		function has_setting_of_type($type) {
+		/**
+		 * Check if we have any setting of a certain type.
+		 *
+		 * @param string $type The type of setting to check for.
+		 * @return bool True if a setting of the given type exists, false otherwise.
+		 */
+		public function has_setting_of_type( $type) {
 			foreach ( $this->_settings as $setting ) {
 				if ( $setting['type'] == $type ) return true;
 			}
@@ -37,74 +72,106 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 			return false;
 		}
 
-		function has_tab($tab_id) {
+		/**
+		 * Check if a tab with the given ID exists.
+		 *
+		 * @param string $tab_id The ID of the tab to check for.
+		 * @return bool True if the tab exists, false otherwise.
+		 */
+		public function has_tab( $tab_id ) {
 			return array_key_exists( $tab_id, $this->_settings_tabs );
 		}
 
-		// add a setting tab
-		function add_tab($tab_id, $title) {
-			if ( !$this->has_tab( $tab_id ) ) {
+		/**
+		 * Add a setting tab.
+		 *
+		 * @param string $tab_id The ID of the tab.
+		 * @param string $title The title of the tab.
+		 */
+		public function add_tab( $tab_id, $title ) {
+			if ( ! $this->has_tab( $tab_id ) ) {
 
-				//pre action
+				// pre action.
 				do_action( $this->plugin_slug . '-before_settings_tab', $tab_id, $title );
 
 				$tab = array(
 					'id'    => $tab_id,
-					'title' => $title
+					'title' => $title,
 				);
 
-				$this->_settings_tabs[$tab_id] = $tab;
+				$this->_settings_tabs[ $tab_id ] = $tab;
 
-				//post action
+				// post action.
 				do_action( $this->plugin_slug . '-after_settings_tab', $tab_id, $title );
 			}
 		}
 
-		function has_section($section_id) {
+		/**
+		 * Check if a section with the given ID exists.
+		 *
+		 * @param string $section_id The ID of the section to check for.
+		 * @return bool True if the section exists, false otherwise.
+		 */
+		public function has_section( $section_id ) {
 			return array_key_exists( $section_id, $this->_settings_sections );
 		}
 
-		// add a setting section
-		function add_section($section_id, $title, $desc = '') {
+		/**
+		 * Add a setting section.
+		 *
+		 * @param string $section_id The ID of the section.
+		 * @param string $title The title of the section.
+		 * @param string $desc The description of the section.
+		 */
+		public function add_section( $section_id, $title, $desc = '' ) {
 
-			//check we have the section
-			if ( !$this->has_section( $section_id ) ) {
+			// check we have the section.
+			if ( ! $this->has_section( $section_id ) ) {
 
-				//pre action
+				// pre action.
 				do_action( $this->plugin_slug . '-before_settings_section', $section_id, $title, $desc );
 
 				$section = array(
 					'id'    => $section_id,
 					'title' => $title,
-					'desc'  => $desc
+					'desc'  => $desc,
 				);
 
-				$this->_settings_sections[$section_id] = $section;
+				$this->_settings_sections[ $section_id ] = $section;
 
 				add_settings_section( $section_id, $title, array( $this, 'echo_section_desc' ), $this->plugin_slug );
 
-				//post action
+				// post action.
 				do_action( $this->plugin_slug . '-after_settings_section', $section_id, $title, $desc );
 			}
 		}
 
-		function echo_section_desc( $arg ) {
+		public function echo_section_desc( $arg ) {
 			$section =  $this->_settings_sections[ $arg['id'] ];
 			echo $section['desc'];
 		}
 
-		function add_section_to_tab($tab_id, $section_id, $title, $desc = '') {
+		/**
+		 * Add a section to a tab.
+		 *
+		 * @param string $tab_id The ID of the tab.
+		 * @param string $section_id The ID of the section.
+		 * @param string $title The title of the section.
+		 * @param string $desc The description of the section.
+		 * @return string The ID of the added section.
+		 */
+		public function add_section_to_tab( $tab_id, $section_id, $title, $desc = '' ) {
 			if ( array_key_exists( $tab_id, $this->_settings_tabs ) ) {
 
-				//get the correct section id for the tab
+				// get the correct section id for the tab.
 				$section_id = $tab_id . '-' . $section_id;
 
-				//add the section to the tab
-				if ( !array_key_exists( $section_id, $this->_settings_sections ) ) {
-					$this->_settings_tabs[$tab_id]['sections'][$section_id] = $section_id;
+				// add the section to the tab.
+				if ( ! array_key_exists( $section_id, $this->_settings_sections ) ) {
+					$this->_settings_tabs[ $tab_id ]['sections'][ $section_id ] = $section_id;
 				}
 
-				//add the section
+				// add the section.
 				$this->add_section( $section_id, $title, $desc );
 
 			}
@@ -112,22 +179,27 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 			return $section_id;
 		}
 
-		function add_settings($settings = false) {
-			if ( !is_array( $settings ) || ( !array_key_exists( 'settings', $settings ) ) ) return;
+		/**
+		 * Add settings.
+		 *
+		 * @param array|false $settings The settings to add.
+		 */
+		public function add_settings( $settings = false ) {
+			if ( ! is_array( $settings ) || ( ! array_key_exists( 'settings', $settings ) ) ) return;
 
-			foreach($settings['settings'] as $setting) {
-				//add a tab if needed
+			foreach ( $settings['settings'] as $setting ) {
+				// add a tab if needed.
 				$tab_id = foo_safe_get( $setting, 'tab', false );
 
-				if ($tab_id !== false && !$this->has_tab( $tab_id ) && array_key_exists( 'tabs', $settings ) && array_key_exists( $tab_id, $settings['tabs'] ) ) {
-					$tab = $settings['tabs'][$tab_id];
+				if ( $tab_id !== false && ! $this->has_tab( $tab_id ) && array_key_exists( 'tabs', $settings ) && array_key_exists( $tab_id, $settings['tabs'] ) ) {
+					$tab = $settings['tabs'][ $tab_id ];
 					$this->add_tab( $tab_id, $tab );
 				}
 
-				//add a section if needed
+				// add a section if needed.
 				$section_id = foo_safe_get( $setting, 'section', false );
-				if ($section_id !== false && !$this->has_section( $section_id ) &&  array_key_exists( 'sections', $settings ) && array_key_exists( $section_id, $settings['sections'] ) ) {
-					$section = $settings['sections'][$section_id];
+				if ( false !== $section_id && ! $this->has_section( $section_id ) && array_key_exists( 'sections', $settings ) && array_key_exists( $section_id, $settings['sections'] ) ) {
+					$section = $settings['sections'][ $section_id ];
 					$this->add_section_to_tab( $tab_id, $section_id, $section['name'] );
 				}
 
@@ -135,8 +207,12 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 			}
 		}
 
-		// add a settings field
-		function add_setting($args = array()) {
+		/**
+		 * Add a settings field.
+		 *
+		 * @param array $args The arguments for the settings field.
+		 */
+		public function add_setting( $args = array() ) {
 
 			$defaults = array(
 				'id'          => 'default_field',
@@ -148,10 +224,10 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 				'section'     => '',
 				'choices'     => array(),
 				'class'       => '',
-				'tab'         => ''
+				'tab'         => '',
 			);
 
-			//only declare up front so no debug warnings are shown
+			// only declare up front so no debug warnings are shown.
 			$title = $type = $id = $desc = $default = $placeholder = $choices = $class = $section = $tab = null;
 
 			extract( wp_parse_args( $args, $defaults ) );
@@ -164,69 +240,73 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 				'placeholder' => $placeholder,
 				'choices'     => $choices,
 				'label_for'   => $id,
-				'class'       => $class
+				'class'       => $class,
 			);
 
 			if ( count( $this->_settings ) == 0 ) {
-				//only do this once
-				register_setting( $this->plugin_slug, $this->plugin_slug, array($this, 'validate') );
+				// only do this once.
+				register_setting( $this->plugin_slug, $this->plugin_slug, array( $this, 'validate' ) );
 			}
 
 			$this->_settings[] = $args;
 
 			$section_id = foo_convert_to_key( $section );
 
-			//check we have the tab
-			if ( !empty($tab) ) {
+			// check we have the tab.
+			if ( ! empty( $tab ) ) {
 				$tab_id = foo_convert_to_key( $tab );
 
-				//add the tab
+				// add the tab.
 				$this->add_tab( $tab_id, foo_title_case( $tab ) );
 
-				//add the section
+				// add the section.
 				$section_id = $this->add_section_to_tab( $tab_id, $section_id, foo_title_case( $section ) );
 			} else {
-				//just add the section
+				// just add the section.
 				$this->add_section( $section_id, foo_title_case( $section ) );
 			}
 
 			do_action( $this->plugin_slug . '-before_setting', $args );
 
-			//add the setting!
-			add_settings_field( $id, $title, array($this, 'render'), $this->plugin_slug, $section_id, $field_args );
+			// add the setting!
+			add_settings_field( $id, $title, array( $this, 'render'), $this->plugin_slug, $section_id, $field_args );
 
 			do_action( $this->plugin_slug . '-after_setting', $args );
 		}
 
-		// render HTML for individual settings
-		function render($args = array()) {
+		/**
+		 * Render HTML for individual settings.
+		 *
+		 * @param array $args The arguments for rendering the settings.
+		 */
+		public function render( $args = array() ) {
 
-			//only declare up front so no debug warnings are shown
+			// only declare up front so no debug warnings are shown.
 			$type = $id = $desc = $default = $placeholder = $choices = $class = $section = $tab = null;
 
 			extract( $args );
 
-			$options = get_option($this->plugin_slug);
+			$options = (array) get_option( $this->plugin_slug );
 
 			if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 
-				//if we are in the network settings then use site options directly.
-				if (is_network_admin()) {
-					$options = get_site_option($this->plugin_slug);
+				// if we are in the network settings then use site options directly.
+				if ( is_network_admin() ) {
+					$options = get_site_option( $this->plugin_slug );
 				} else {
-					$site_options = get_site_option($this->plugin_slug);
-					$options = wp_parse_args($options, $site_options);
+					$site_options = get_site_option( $this->plugin_slug );
+					$options = wp_parse_args( $options, $site_options );
 				}
 			}
 
 			$has_options = $options !== false;
 
-			if ( !isset($options[$id]) && $type != 'checkbox' ) {
-				$options[$id] = $default;
+			if ( ! isset( $options[ $id ] ) && 'checkbox' !== $type ) {
+				$options[ $id ] = $default;
 			}
 
 			$field_class = '';
-			if ( $class != '' ) {
+			if ( '' !== $class ) {
 				$field_class = ' class="' . $class . '"';
 			}
 
@@ -246,11 +326,11 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 
 				case 'checkbox':
 					$checked = '';
-					if (isset($options[$id]) && $options[$id] == 'on') {
+					if ( isset( $options[ $id ] ) && $options[ $id ] == 'on' ) {
 						$checked = ' checked="checked"';
-					} else if ($options === false && $default == 'on') {
+					} else if ( false === $options && 'on' == $default ) {
 						$checked = ' checked="checked"';
-					} else if ($has_options === false && $default == 'on') {
+					} else if ( $has_options === false && $default == 'on' ) {
 						$checked = ' checked="checked"';
 					}
 
@@ -277,7 +357,7 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 				case 'radio':
 					$i           = 0;
 					$saved_value = $options[$id];
-					if ( empty($saved_value) ) {
+					if ( empty( $saved_value ) ) {
 						$saved_value = $default;
 					}
 					foreach ( $choices as $value => $label ) {
@@ -295,8 +375,7 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 					break;
 
 				case 'textarea':
-					echo '<textarea' . $field_class . ' id="' . $id . '" name="' . $this->plugin_slug . '[' . $id . ']" placeholder="' . $placeholder . '">' . esc_textarea( foobox_sanitize_javascript( $options[$id] ) ) . '</textarea>';
-
+					echo '<textarea' . esc_attr( $field_class ) . ' id="' . esc_attr( $id ) . '" name="' . esc_attr( $this->plugin_slug . '[' . $id . ']') . '" placeholder="' . esc_attr( $placeholder ) . '">' . esc_textarea( foobox_sanitize_javascript( $options[$id] ) ) . '</textarea>';
 					break;
 
 				case 'password':
@@ -314,7 +393,7 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 					foreach ( $choices as $value => $label ) {
 
 						$checked = '';
-						if ( isset($options[$id][$value]) && $options[$id][$value] == 'true' ) {
+						if ( isset( $options[$id][$value]) && $options[$id][$value] == 'true' ) {
 							$checked = 'checked="checked"';
 						}
 
@@ -344,16 +423,21 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 				}
 			}
 
-			if ( $type != 'checkbox' && $type != 'heading' && $type != 'html' && $desc != '' ) {
+			if ( 'checkbox' !== $type && 'heading' !== $type && 'html' !== $type && '' !== $desc ) {
 				echo '<br /><small>' . $desc . '</small>';
 			}
 		}
 
-		// validate our settings
-		function validate($input) {
+		/**
+		 * Validate settings.
+		 *
+		 * @param array $input The input settings to validate.
+		 * @return array The validated settings.
+		 */
+		public function validate( $input ) {
 
-			//check to see if the options were reset
-			if ( isset ($input['reset-defaults']) ) {
+			// check to see if the options were reset.
+			if ( isset( $input['reset-defaults'] ) ) {
 				delete_option( $this->plugin_slug );
 				delete_option( $this->plugin_slug . '_valid' );
 				delete_option( $this->plugin_slug . '_valid_expires' );
@@ -367,16 +451,16 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 				return false;
 			}
 
-//            if (empty($input['sample_text'])) {
-//
-//                add_settings_error(
-//                    'sample_text',           // setting title
-//                    'sample_text_error',            // error ID
-//                    'Please enter some sample text',   // error message
-//                    'error'                        // type of message
-//                );
-//
-//            }
+			// if (empty( $input['sample_text'])) {
+
+			// 	add_settings_error(
+			// 		'sample_text',           // setting title
+			// 		'sample_text_error',            // error ID
+			// 		'Please enter some sample text',   // error message
+			// 		'error'                        // type of message
+			// 	);
+
+			// }
 
 			foreach ( $this->_settings as $setting ) {
 				$this->validate_setting( $setting, $input );
@@ -385,26 +469,31 @@ if ( !class_exists( 'Foo_Plugin_Settings_v2_0' ) ) {
 			return $input;
 		}
 
-		function validate_setting($setting, &$input) {
-			//validate a single setting
+		/**
+		 * Validate a single setting.
+		 *
+		 * @param array $setting The setting to validate.
+		 * @param array $input The input settings.
+		 */
+		public function validate_setting( $setting, &$input ) {
+			// validate a single setting.
 
-			if ( $setting['type'] == 'checkboxlist' ) {
+			if ( 'checkboxlist' === $setting['type'] ) {
 
-				unset($checkboxarray);
+				unset( $checkboxarray );
 
 				foreach ( $setting['choices'] as $value => $label ) {
-					if ( !empty($input[$setting['id'] . '|' . $value]) ) {
-						// If it's not null, make sure it's true, add it to an array
-						$checkboxarray[$value] = 'true';
+					if ( ! empty( $input[ $setting['id'] . '|' . $value ] ) ) {
+						// If it's not null, make sure it's true, add it to an array.
+						$checkboxarray[ $value ] = 'true';
 					} else {
-						$checkboxarray[$value] = 'false';
+						$checkboxarray[ $value ] = 'false';
 					}
 				}
 
-				if ( !empty($checkboxarray) ) {
-					$input[$setting['id']] = $checkboxarray;
+				if ( ! empty( $checkboxarray ) ) {
+					$input[ $setting['id'] ] = $checkboxarray;
 				}
-
 			}
 		}
 	}

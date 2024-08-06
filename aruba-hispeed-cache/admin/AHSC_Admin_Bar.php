@@ -26,7 +26,7 @@ if ( \is_admin() ) {
  */
 function AHSC_add_admin_bar_menu_links( $wp_admin_bar ) {
 	global $AHSC_AB_title,$topurge;
-    if ( is_user_logged_in() && current_user_can( 'edit_posts' )){
+    if ( is_user_logged_in() && current_user_can( 'manage_options' )){
     $wp_admin_bar->add_menu(
 		array(
 			'id'     => 'ahsc-purge-link',
@@ -49,7 +49,7 @@ function AHSC_add_admin_bar_menu_links( $wp_admin_bar ) {
  * @return void
  */
 function AHSC_localize_toolbar_js() {
-    if ( is_user_logged_in() && current_user_can( 'edit_posts' )) {
+    if ( is_user_logged_in() && current_user_can( 'manage_options' )) {
         global $topurge;
         $js_param = array(
             'ahsc_ajax_url' => \admin_url('admin-ajax.php'),

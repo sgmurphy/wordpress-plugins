@@ -3,9 +3,9 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, bundle, bundles, kits
 Requires at least: 4.0
-Tested up to: 6.5
-Version: 8.0.9
-Stable tag: 8.0.9
+Tested up to: 6.6
+Version: 8.1.0
+Stable tag: 8.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,6 +65,10 @@ Please try other plugins from us:
 5. Almost done! click Save and see the result
 
 == Changelog ==
+
+= 8.1.0 =
+* Fixed: Minor JS issue
+* Updated: Compatible with WP 6.6 & Woo 9.1
 
 = 8.0.9 =
 * Fixed: Calculate total from regular prices

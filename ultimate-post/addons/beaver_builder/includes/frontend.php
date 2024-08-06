@@ -2,8 +2,6 @@
 <div class="ultp-shortcode" data-postid="<?php echo esc_attr( $id ); ?>">
 	<?php
 	if ( $id ) {
-		ultimate_post()->register_scripts_common();
-		ultimate_post()->set_css_style( $id );
 		$args      = array(
 			'p'         => $id,
 			'post_type' => 'ultp_templates',

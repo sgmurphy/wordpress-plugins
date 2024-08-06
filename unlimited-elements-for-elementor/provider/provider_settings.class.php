@@ -303,7 +303,27 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["origtype"] = UniteCreatorDialogParam::PARAM_DROPDOWN;
 
 		$this->addSelect($name."_orderby", $arrOrderBy, __("Order By", "unlimited-elements-for-elementor"), "default", $params);
+		
+		//---- Manual Order -----
 
+		$params = array();
+		$params["origtype"] = UniteCreatorDialogParam::PARAM_TEXTFIELD;
+		$params["placeholder"] = __("example: 4,5,6,3","unlimited-elements-for-elementor");
+		$params["elementor_condition"] = array($name."_orderby"=>"manual");
+		$params["description"] = __("You can show query debug to see the ids","unlimited-elements-for-elementor");
+		$params["add_dynamic"] = false;
+		
+		$this->addTextBox($name."_order_manual", "", esc_html__("Manual Order IDs", "unlimited-elements-for-elementor"), $params);
+		
+		//---- manual order ids -----
+
+		$params = array();
+		$params["origtype"] = UniteCreatorDialogParam::PARAM_RADIOBOOLEAN;
+		$params["elementor_condition"] = array($name."_orderby"=>"manual");
+		
+		$this->addRadioBoolean($name."_show_order", __("Show Include IDs", "unlimited-elements-for-elementor"), false, "Yes", "No", $params);
+		
+		
 		//--------- order direction -------------
 
 		$arrOrderDir = UniteFunctionsWPUC::getArrSortDirection();

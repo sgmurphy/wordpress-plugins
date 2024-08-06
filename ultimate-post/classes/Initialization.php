@@ -34,7 +34,6 @@ class ULTP_Initialization {
 
         add_action( 'enqueue_block_editor_assets',   array( $this, 'register_scripts_back_callback' ) );    // Only editor
         add_action( 'admin_enqueue_scripts',         array( $this, 'register_scripts_option_panel_callback' ) );    // Option Panel
-        add_action( 'wp_enqueue_scripts',            array( $this, 'register_scripts_front_callback' ) );   // Both frontend
         register_activation_hook( ULTP_PATH.'ultimate-post.php', array( $this, 'install_hook' ) );
 
         add_action( 'wp_ajax_ultp_next_prev',        array( $this, 'ultp_next_prev_callback' )); // Next Previous AJAX Call
@@ -408,69 +407,6 @@ class ULTP_Initialization {
 
 
     /**
-	 * Only Frontend CSS and JS Scripts
-     * 
-     * @since v.1.0.0
-	 * @return NULL
-	 */
-    public function register_scripts_front_callback() {
-        $call_common = false;
-        if ( isset($_GET['preview_id']) && isset($_GET['preview_nonce']) ) {    // @codingStandardsIgnoreLine
-            $call_common = true;
-            ultimate_post()->register_scripts_common();
-        } else if ( 'yes' == get_post_meta(ultimate_post()->get_ID(), '_ultp_active', true) ) {
-            $call_common = true;
-            ultimate_post()->register_scripts_common();
-        } else if ( ultimate_post()->is_builder() ) {
-            $call_common = true;
-            ultimate_post()->register_scripts_common();
-        } else if ( apply_filters('postx_common_script', false) ) {
-            $call_common = true;
-            ultimate_post()->register_scripts_common();
-        } else if ( isset($_GET['et_fb']) ) {   // @codingStandardsIgnoreLine
-            $call_common = true;
-            ultimate_post()->register_scripts_common();
-        }
-
-        // For WidgetWidget
-        $has_block = false;
-        $widget_blocks = array();
-        global $wp_registered_sidebars, $sidebars_widgets;
-        foreach ( $wp_registered_sidebars as $key => $value ) {
-            if ( is_active_sidebar($key) ) {
-                foreach ( $sidebars_widgets[$key] as $val ) {
-                    if ( strpos($val, 'block-') !== false ) {
-                        if ( empty($widget_blocks) ) { 
-                            $widget_blocks = get_option( 'widget_block' );
-                        }
-                        foreach ( (array) $widget_blocks as $block ) {
-                            if ( isset( $block['content'] ) && strpos($block['content'], 'wp:ultimate-post') !== false ) {
-                                $has_block = true;
-                                break;
-                            }
-                        }
-                        if ( $has_block ) {
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        if ( $has_block ) {
-            if ( !$call_common ) {
-                ultimate_post()->register_scripts_common();
-            }
-            $css = get_option('ultp-widget', true);
-            if ( $css ) {
-                wp_register_style( 'ultp-post-widget', false );
-                wp_enqueue_style( 'ultp-post-widget' );
-                wp_add_inline_style( 'ultp-post-widget', $css);
-            }
-        }
-    }
-
-
-    /**
 	 * Only Backend CSS and JS Scripts
      * 
      * @since v.1.0.0
@@ -528,7 +464,6 @@ class ULTP_Initialization {
         $currentDate->setTime(0, 0, 0, 0);
         // if ( empty( $data ) ) {
         $init_data = array(
-            'css_save_as'       => 'wp_head',
             'preloader_style'   => 'style1',
             'preloader_color'   => '#037fff',
             'container_width'   => '1140',

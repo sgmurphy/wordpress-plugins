@@ -3,8 +3,8 @@
 namespace QuadLayers\IGG\Controllers;
 
 use QuadLayers\IGG\Helpers as Helpers;
-use QuadLayers\IGG\Models\Feed as Models_Feed;
-use QuadLayers\IGG\Models\Account as Models_Account;
+use QuadLayers\IGG\Models\Feeds as Models_Feed;
+use QuadLayers\IGG\Models\Accounts as Models_Account;
 use QuadLayers\IGG\Models\Setting as Models_Setting;
 use QuadLayers\IGG\Frontend\Load as Frontend;
 
@@ -78,11 +78,11 @@ class Gutenberg {
 
 	private function get_attributes() {
 
-		$account  = new Models_Account();
-		$accounts = $account->get();
+		$models_account  = new Models_Account();
+		$accounts = $models_account->get_all();
 
-		$feed_model = new Models_Feed();
-		$feed_arg   = $feed_model->get_args();
+		$models_feed = new Models_Feed();
+		$feed_arg    = $models_feed->get_args();
 
 		$attributes = array();
 
@@ -94,7 +94,7 @@ class Gutenberg {
 			if ( $id === 'account_id' ) {
 				$attributes[ $id ] = array(
 					'type'    => array( 'string', 'object', 'array', 'boolean', 'number', 'null' ),
-					'default' => (string) array_key_first( $accounts ),
+					'default' => '',
 				);
 			}
 		}

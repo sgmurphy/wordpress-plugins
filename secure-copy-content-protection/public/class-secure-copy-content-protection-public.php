@@ -1001,6 +1001,8 @@ class Secure_Copy_Content_Protection_Public {
 	        $super_admin_email = get_option('admin_email');
 
         	$current_page_title = get_the_title();
+        	$author_id = get_the_author_meta('ID');
+        	$post_author_nickname = get_the_author_meta( 'nickname', $author_id );
 	        
 			$message_data = array(                    
                 'user_first_name' 		=> $user_first_name,
@@ -1011,6 +1013,7 @@ class Secure_Copy_Content_Protection_Public {
                 'user_wordpress_roles' 	=> $user_wordpress_roles,
                 'current_user_ip'       => $current_user_ip,
                 'admin_email'       	=> $super_admin_email,
+                'post_author_nickname'  => $post_author_nickname,
                 'user_id'              	=> $user_id,
                 'current_date'          => $current_date,
                 'current_page_title'	=> $current_page_title,

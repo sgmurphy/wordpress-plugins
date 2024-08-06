@@ -2,19 +2,25 @@
 
 namespace QuadLayers\IGG\Models;
 
-use QuadLayers\IGG\Models\Base as Models_Base;
+use QuadLayers\WP_Orm\Builder\SingleRepositoryBuilder;
+use QuadLayers\IGG\Entity\Settings as Settings;
+
 
 /**
  * Models_Setting Class
  */
-class Setting extends Models_Base {
+class Setting {
 
-	/**
-	 * Table name
-	 *
-	 * @var string
-	 */
-	protected $table = 'insta_gallery_settings';
+	protected static $instance;
+	protected $repository;
+
+	public function __construct() {
+		$builder = ( new SingleRepositoryBuilder() )
+		->setTable( 'insta_gallery_settings' )
+		->setEntity( Settings::class );
+
+		$this->repository = $builder->getRepository();
+	}
 
 	/* CRUD */
 
@@ -24,12 +30,7 @@ class Setting extends Models_Base {
 	 * @return array
 	 */
 	public function get_args() {
-		return array(
-			'insta_flush'       => false,
-			'insta_reset'       => 8,
-			'spinner_image_url' => '',
-			'mail_to_alert'     => get_option( 'admin_email' ),
-		);
+		return ( new Settings() )->getDefaults();
 	}
 
 	/**
@@ -38,8 +39,14 @@ class Setting extends Models_Base {
 	 * @return array
 	 */
 	public function get() {
-		$settings = wp_parse_args( $this->get_all(), $this->get_args() );
-		return $settings;
+		$entity = $this->repository->find();
+
+		if ( $entity ) {
+			return $entity->getProperties();
+		} else {
+			$settings = new Settings();
+			return $settings->getProperties();
+		}
 	}
 
 	/**
@@ -48,8 +55,12 @@ class Setting extends Models_Base {
 	 * @param array $settings Settings to be saved.
 	 * @return boolean
 	 */
-	public function save( $settings = null ) {
-		return $this->save_all( $settings );
+	public function save( $data ) {
+		$entity = $this->repository->create( $data );
+
+		if ( $entity ) {
+			return true;
+		}
 	}
 
 	/**
@@ -57,7 +68,14 @@ class Setting extends Models_Base {
 	 *
 	 * @return void
 	 */
-	public function delete_table() {
-		$this->delete_all();
+	public function delete_all() {
+		return $this->repository->delete();
+	}
+
+	public static function instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 }

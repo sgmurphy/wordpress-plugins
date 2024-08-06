@@ -2,10 +2,10 @@
 
 namespace QuadLayers\IGG\Controllers;
 
-use QuadLayers\IGG\Models\Feed as Models_Feed;
-use QuadLayers\IGG\Models\Setting as Models_Setting;
 use QuadLayers\IGG\Helpers as Helpers;
-use QuadLayers\IGG\Models\Account as Models_Account;
+use QuadLayers\IGG\Models\Feeds as Models_Feeds;
+use QuadLayers\IGG\Models\Accounts as Models_Account;
+use QuadLayers\IGG\Models\Setting as Models_Setting;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts\Get as API_Rest_Accounts_Get;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds\Get as API_Rest_Feeds_Get;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds\Clear_Cache as API_Rest_Feeds_Clear_Cache;
@@ -168,7 +168,7 @@ class Backend {
 				'QLIGG_DEVELOPER'         => QLIGG_DEVELOPER,
 				'QLIGG_BUSSINESS_LINK'    => Helpers::get_business_access_token_link(),
 				'QLIGG_PERSONAL_LINK'     => Helpers::get_personal_access_token_link(),
-				'QLIGG_MODELS_FEED'       => ( new Models_Feed() )->get_args(),
+				'QLIGG_MODELS_FEED'       => ( new Models_Feeds() )->get_args(),
 				'QLIGG_MODELS_SETTING'    => ( new Models_Setting() )->get_args(),
 			)
 		);

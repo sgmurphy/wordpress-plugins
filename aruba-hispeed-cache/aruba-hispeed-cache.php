@@ -13,7 +13,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Aruba HiSpeed Cache
- * Version:           2.0.12
+ * Version:           2.0.13
  * Plugin URI:        https://hosting.aruba.it/wordpress.aspx
  *
  * @phpcs:ignore Generic.Files.LineLength.TooLong
@@ -229,7 +229,7 @@ add_action( 'wp_ajax_ahcs_clear_cache',  'ahsc_tool_bar_purge' , 100 );
  * @SuppressWarnings(PHPMD.ElseExpression)
  */
 function ahsc_tool_bar_purge() {
-if(is_user_logged_in() && current_user_can( 'edit_posts' ) && isset( $_POST['ahsc_nonce'] )){
+if(is_user_logged_in() && current_user_can( 'manage_options' ) && isset( $_POST['ahsc_nonce'] )){
 
 	if ( ! \wp_verify_nonce( \sanitize_text_field( \wp_unslash( $_POST['ahsc_nonce'] ) ), 'ahsc-purge-cache' ) ) {
 		wp_die( wp_json_encode( AHSC_AJAX['security_error'] ) );

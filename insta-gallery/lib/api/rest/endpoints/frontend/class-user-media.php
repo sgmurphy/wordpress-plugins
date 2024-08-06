@@ -3,7 +3,7 @@ namespace QuadLayers\IGG\Api\Rest\Endpoints\Frontend;
 
 use QLIGG;
 use QuadLayers\IGG\Api\Rest\Endpoints\Base as Base;
-use QuadLayers\IGG\Models\Account as Models_Account;
+use QuadLayers\IGG\Models\Accounts as Models_Account;
 use QuadLayers\IGG\Api\Fetch\Personal\User_Media\Get as Api_Fetch_Personal_User_Media;
 use QuadLayers\IGG\Api\Fetch\Business\User_Media\Get as Api_Fetch_Business_User_Media;
 use QuadLayers\IGG\Utils\Cache as Cache;
@@ -47,7 +47,7 @@ class User_Media extends Base {
 			return $response['response'];
 		}
 
-		$account = ( new Models_Account() )->get_account( $account_id );
+		$account = ( new Models_Account() )->get( $account_id );
 
 		// Check if exist an access_token and access_token_type related to id setted by param, if it is not return error.
 		if ( ! isset( $account['access_token'], $account['access_token_type'] ) ) {

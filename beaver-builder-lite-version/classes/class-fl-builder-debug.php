@@ -608,13 +608,13 @@ final class FL_Debug {
 
 		$args = array(
 			'name' => 'DB_CHARSET',
-			'data' => DB_CHARSET,
+			'data' => defined( 'DB_CHARSET' ) && DB_CHARSET ? DB_CHARSET : 'Undefined',
 		);
 		self::register( 'charset', $args );
 
 		$args = array(
 			'name' => 'DB_COLLATE',
-			'data' => DB_COLLATE,
+			'data' => defined( 'DB_COLLATE' ) && DB_COLLATE ? DB_COLLATE : 'Undefined',
 		);
 		self::register( 'collation', $args );
 

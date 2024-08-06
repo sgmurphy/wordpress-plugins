@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google for WooCommerce 2.8.0\n"
+"Project-Id-Version: Google for WooCommerce 2.8.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-31T07:26:46+00:00\n"
+"POT-Creation-Date: 2024-08-06T06:14:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -338,43 +338,43 @@ msgid "Error retrieving asset groups assets by final url: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:146
+#: src/API/Google/AdsCampaign.php:168
 msgid "Error retrieving campaigns: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:189
+#: src/API/Google/AdsCampaign.php:211
 msgid "Error retrieving campaign: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:251
+#: src/API/Google/AdsCampaign.php:277
 msgid "Error creating campaign: %s"
 msgstr ""
 
-#: src/API/Google/AdsCampaign.php:254
+#: src/API/Google/AdsCampaign.php:280
 msgid "A campaign with this name already exists"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:307
+#: src/API/Google/AdsCampaign.php:333
 msgid "Error editing campaign: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:343
+#: src/API/Google/AdsCampaign.php:369
 msgid "Error deleting campaign: %s"
 msgstr ""
 
-#: src/API/Google/AdsCampaign.php:346
+#: src/API/Google/AdsCampaign.php:372
 msgid "This campaign has already been deleted"
 msgstr ""
 
-#: src/API/Google/AdsCampaign.php:605
+#: src/API/Google/AdsCampaign.php:631
 msgid "Invalid campaign ID"
 msgstr ""
 
-#: src/API/Google/AdsCampaign.php:621
+#: src/API/Google/AdsCampaign.php:647
 msgid "Invalid geo target location ID"
 msgstr ""
 
@@ -677,58 +677,69 @@ msgid "The recommended daily budget for a country."
 msgstr ""
 
 #. translators: %s: current date time.
-#: src/API/Site/Controllers/Ads/CampaignController.php:132
+#: src/API/Site/Controllers/Ads/CampaignController.php:150
 msgid "Campaign %s"
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:184
+#: src/API/Site/Controllers/Ads/CampaignController.php:202
 msgid "Campaign is not available."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:211
+#: src/API/Site/Controllers/Ads/CampaignController.php:229
 msgid "Invalid edit data."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:241
+#: src/API/Site/Controllers/Ads/CampaignController.php:259
 msgid "Successfully edited campaign."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:276
+#: src/API/Site/Controllers/Ads/CampaignController.php:294
 msgid "Successfully deleted campaign."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:318
+#: src/API/Site/Controllers/Ads/CampaignController.php:336
 msgid "Exclude removed campaigns."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:335
+#: src/API/Site/Controllers/Ads/CampaignController.php:342
+#: src/API/Site/Controllers/BaseReportsController.php:89
+#: src/API/Site/Controllers/MerchantCenter/IssuesController.php:208
+#: src/API/Site/Controllers/MerchantCenter/ProductFeedController.php:169
+msgid "Maximum number of rows to be returned in result data."
+msgstr ""
+
+#: src/API/Site/Controllers/Ads/CampaignController.php:361
 #: src/API/Site/Controllers/Ads/ReportsController.php:145
 msgid "ID number."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:341
+#: src/API/Site/Controllers/Ads/CampaignController.php:367
 msgid "Descriptive campaign name."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:349
+#: src/API/Site/Controllers/Ads/CampaignController.php:375
 #: src/API/Site/Controllers/Ads/ReportsController.php:156
 msgid "Campaign status."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:356
+#: src/API/Site/Controllers/Ads/CampaignController.php:382
 msgid "Campaign type."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:362
+#: src/API/Site/Controllers/Ads/CampaignController.php:388
 msgid "Daily budget amount in the local currency."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:369
+#: src/API/Site/Controllers/Ads/CampaignController.php:395
 msgid "Country code of sale country in ISO 3166-1 alpha-2 format."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:377
+#: src/API/Site/Controllers/Ads/CampaignController.php:403
 msgid "The locations that an Ads campaign is targeting in ISO 3166-1 alpha-2 format."
+msgstr ""
+
+#: src/API/Site/Controllers/Ads/CampaignController.php:415
+msgid "The name of the label to assign to the campaign."
 msgstr ""
 
 #: src/API/Site/Controllers/Ads/ReportsController.php:98
@@ -851,12 +862,6 @@ msgstr ""
 #: src/API/Site/Controllers/BaseReportsController.php:84
 #: src/API/Site/Controllers/MerchantCenter/ProductFeedController.php:191
 msgid "Sort collection by attribute."
-msgstr ""
-
-#: src/API/Site/Controllers/BaseReportsController.php:89
-#: src/API/Site/Controllers/MerchantCenter/IssuesController.php:208
-#: src/API/Site/Controllers/MerchantCenter/ProductFeedController.php:169
-msgid "Maximum number of rows to be returned in result data."
 msgstr ""
 
 #: src/API/Site/Controllers/BaseReportsController.php:98

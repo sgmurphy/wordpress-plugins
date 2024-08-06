@@ -1954,6 +1954,11 @@
     "fallback": "serif"
   }
 }, {
+  "Edu AU VIC WA NT Hand": {
+    "variants": ["regular", "500", "600", "700"],
+    "fallback": "cursive"
+  }
+}, {
   "Edu NSW ACT Foundation": {
     "variants": ["regular", "500", "600", "700"],
     "fallback": "cursive"
@@ -3060,7 +3065,7 @@
   }
 }, {
   "Inter": {
-    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
     "fallback": "sans-serif"
   }
 }, {
@@ -3337,6 +3342,11 @@
   "Kalnia": {
     "variants": ["100", "200", "300", "regular", "500", "600", "700"],
     "fallback": "serif"
+  }
+}, {
+  "Kalnia Glaze": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700"],
+    "fallback": "sans-serif"
   }
 }, {
   "Kameron": {
@@ -4012,6 +4022,11 @@
   "Mallanna": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Maname": {
+    "variants": ["regular"],
+    "fallback": "serif"
   }
 }, {
   "Mandali": {
@@ -6144,6 +6159,16 @@
     "fallback": "cursive"
   }
 }, {
+  "Playwrite AR": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite AT": {
+    "variants": ["100", "200", "300", "regular", "100italic", "200italic", "300italic", "italic"],
+    "fallback": "cursive"
+  }
+}, {
   "Playwrite AU NSW": {
     "variants": ["100", "200", "300", "regular"],
     "fallback": "cursive"
@@ -6169,6 +6194,16 @@
     "fallback": "cursive"
   }
 }, {
+  "Playwrite BE VLG": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite BE WAL": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
   "Playwrite BR": {
     "variants": ["100", "200", "300", "regular"],
     "fallback": "cursive"
@@ -6179,7 +6214,22 @@
     "fallback": "cursive"
   }
 }, {
+  "Playwrite CL": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
   "Playwrite CO": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite CU": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite CZ": {
     "variants": ["100", "200", "300", "regular"],
     "fallback": "cursive"
   }
@@ -6200,6 +6250,16 @@
   }
 }, {
   "Playwrite DE VA": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite DK Loopet": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite DK Uloopet": {
     "variants": ["100", "200", "300", "regular"],
     "fallback": "cursive"
   }
@@ -6231,6 +6291,21 @@
 }, {
   "Playwrite GB S": {
     "variants": ["100", "200", "300", "regular", "100italic", "200italic", "300italic", "italic"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite HR": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite HR Lijeva": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite HU": {
+    "variants": ["100", "200", "300", "regular"],
     "fallback": "cursive"
   }
 }, {
@@ -6285,6 +6360,11 @@
   }
 }, {
   "Playwrite NZ": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite PE": {
     "variants": ["100", "200", "300", "regular"],
     "fallback": "cursive"
   }
@@ -7110,6 +7190,11 @@
   }
 }, {
   "Sancreek": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Sankofa Display": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }
@@ -8421,6 +8506,11 @@
 }, {
   "ZCOOL XiaoWei": {
     "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Zain": {
+    "variants": ["200", "300", "regular", "700", "800", "900"],
     "fallback": "sans-serif"
   }
 }, {

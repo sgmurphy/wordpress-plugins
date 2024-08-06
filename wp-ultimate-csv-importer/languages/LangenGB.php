@@ -22,6 +22,10 @@ class LangEN_GB {
 
         public static function contents(){
                 $response = array('ImportUpdate' => 'Import',
+                        'SelectAllImages' => 'Select all images in your import file to avoid import failures',
+                        'ChooseImagesToImport' => 'Choose images to import. Utilize the checkbox below to select all images.',
+                        'FileName' => 'File Name:',
+                        'OK' => 'OK',
                         'Exporterwithadvancedfilters' => 'Exporter with advanced filters',
                         'Exportfiltereddata' => 'Export filtered data',
                         'Exportfiltereddatadesc' => 'Lets you get only required data with the different advanced filters',
@@ -57,7 +61,6 @@ class LangEN_GB {
                         'FromDate' => 'From Date',
                         'ToDate' => 'To Date',
                         'SEARCH' => 'SEARCH',
-                        'Media' =>'Media',
                         'AccessKey' => 'AccessKey',
                         'SavedTemplate' => 'Saved Template',
                         'TEMPLATES' => 'TEMPLATES',
@@ -388,14 +391,33 @@ class LangEN_GB {
                         'LifterReviewSettingsFields' => 'Lifter Review Settings Fields',
                         'LifterCouponSettingsFields' => 'Lifter Coupon Settings Fields',
                         'LifterLessonSettingsFields' => 'Lifter Lesson Settings Fields',
-                        'WPCompleteFields' => 'WPComplete Fields'
+                        'WPCompleteFields' => 'WPComplete Fields',
+                        'ImportCompleted' => 'Import Completed!',
+                        'importHasFinished' => 'Your import has finished successfully. Please click the button below to download & access a detailed import log.',
+                        'ImportLog' => 'Import Log',
+                        'FailedMedia' => 'Failed Media',
+                        'UseTheFailedImages' => 'Use the failed images CSV to correct URLs and re-import the images',
+                        'AlwaysCreateAsNewImage' => 'Always Create As New Image',
+                        'ChooseUploadMethod' => 'Choose Upload Method',
+                        'CsvUploadFields' => 'Upload File',
+                        'Device' => 'Device',
+                        'Remote' => 'Remote',
+                        'SelectDeviceZIPfile' => 'Select Device to upload images directly from your device as a ZIP file.',
+                        'SelectDeviceCSVfile' => 'Choose Remote to import images from URLs of remote websites.',
+                        'MediaContinue' => 'Continue',
+                        'FreshImport' => 'Fresh Import',
+                        'UpdateContent' => 'Update Content',
+                        'UpdateThisMappingAs' => 'Update this Mapping As',
+                        'Overwritetheavailableimages' => 'Overwrite the Available Images',
+                        'FeaturedFields' => 'Featured Image Meta',
+                        'Summary' => 'Summary',
                 );
         return $response;
         }
         public static function notice_contents()
         {
         $result =array(
-                'UpgradetoPROusingcode' => 'Upgrade to PRO using code',
+                'UpgradetoPROusingcode' => 'Upgrade to PREMIUM using code',
                 'Unlockfeatureslikebulkimportadvanced exportschedulingcontentupdatemorepluslifetimesupport'  =>'Unlock features like bulk import, advanced export, scheduling, content update, & more, plus lifetime support',
                 'upgradenow' => 'upgrade now'
         );

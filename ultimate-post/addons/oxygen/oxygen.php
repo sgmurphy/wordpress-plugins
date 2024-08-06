@@ -32,13 +32,14 @@ class PostXOxygenElement extends OxyEl {
 
     
     function render($options, $defaults, $content) {
-		$body_class = get_body_class();
 		$templates = $options['templates'];
-		
+
 		if ( $templates ) {
-			ultimate_post()->register_scripts_common();
-			echo ultimate_post()->set_css_style($templates, true); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			$args = array( 'p' => $templates, 'post_type' => 'ultp_templates' );
+            if ( isset($_GET['action']) && strpos(sanitize_key($_GET['action']), 'oxy_render_oxy') !== false ) {
+                echo ultimate_post()->build_css_for_inline_print($templates, true); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            }
+			
+            $args = array( 'p' => $templates, 'post_type' => 'ultp_templates' );
 			$the_query = new \WP_Query($args);
 			if ( $the_query->have_posts() ) {
 				while ($the_query->have_posts()) {

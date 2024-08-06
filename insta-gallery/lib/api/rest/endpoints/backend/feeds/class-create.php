@@ -1,8 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds;
 
-use ClosedGeneratorException;
-use QuadLayers\IGG\Models\Feed as Models_Feed;
+use QuadLayers\IGG\Models\Feeds as Models_Feed;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
 
 /**

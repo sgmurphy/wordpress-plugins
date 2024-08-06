@@ -35,10 +35,10 @@ $args = [
 $data = plugins_api('plugin_information', $args);
 
 $chatway_plugin = array();
-if ($data && ! is_wp_error($data)) {
-    $chatway_plugin['chatway']       = $data;
-    $chatway_plugin['chatway']->name = 'Free Live Chat, WordPress Website Chat Plugin, Support Chat App: Chatway';
-    $chatway_plugin['chatway']->short_description = 'Live chat with your website’s visitors through your WordPress website. With Chatway – live chat app, you can do just that and much more!';
+if ( $data && ! is_wp_error( $data ) ) {
+    $chatway_plugin['chatway'] = $data;
+    $chatway_plugin['chatway']->name = 'Free Live Chat: Chatway';
+    $chatway_plugin['chatway']->short_description = 'Live chat with your website’s visitors through your WordPress website. Chatway includes unlimited chats, iOS & Android mobile apps, team collaboration, saved replies, integrations, and more.';
 }
 ?>
 <div class="wrap mystickyelement-wrap recommended-plugins">

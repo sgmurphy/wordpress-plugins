@@ -2,7 +2,7 @@
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
-use QuadLayers\IGG\Models\Account as Models_Account;
+use QuadLayers\IGG\Models\Accounts as Models_Account;
 
 /**
  * Api_Rest_Accounts_Create Class

@@ -51,11 +51,11 @@ class UploadModule extends AbstractController
 
         $source = wp_umbrella_get_service('BackupFinderConfiguration')->getRootBackupModule();
 
-        file_put_contents($source . $params['filename'], $str);
+        $result = file_put_contents($source . $params['filename'], $str);
 
         return $this->returnResponse([
-            'success' => true,
-            'code' => 'upload_success',
+            'success' => $result === false ? false : true,
+            'code' => $result === false ? 'upload_error' : 'upload_success',
         ]);
     }
 }

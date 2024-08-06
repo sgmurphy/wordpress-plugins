@@ -1,3 +1,24 @@
+<h4>2.8.3.4 - 08/06/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Security: sanitize widget class variable properly (#3534)</li>
+	<li>Outline Panel: fix JS errow when some node settings are not set (#3530)</li>
+	<li>Global Styles: fix switching from one global color to another being glitchy (#3528)</li>
+	<li>Fix sanitization of Post Module ul classes not recognizing spaces (#3525)</li>
+	<li>Debug Mode: Prevent fatal errors for defines that are not set (#3523)</li>
+	<li>Fix PHP warnings when using WPML and cropping in the Photo Module (#3520)</li>
+</ul>
+
+<h4>2.8.3.3 - 07/25/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Fix duplicate Global color replacing original color (#3498)</li>
+	<li>Fix issue with fonts only used in Global Styles not loading properly (#3518)</li>
+	<li>Fix JS error in the Outline Panel when WordPress widgets exist on the page (#3500)</li>
+	<li>Fix issue with some slider modules inside of a Box module not rendering properly (#3466)</li>
+	<li>Developer: Fix potential for JS fatals due to a missing semi-colon in frontend.js or frontend.js.php (#3490)</li>
+</ul>
+
 <h4>2.8.3.2 - 07/09/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

@@ -54,7 +54,9 @@ class Post_Content {
             $attr['blockId'] = isset($attr['blockId']) ? sanitize_html_class( $attr['blockId'] ) : '';
 
             // from v.2.9.7 for Loading Post Content Css
-            ultimate_post()->set_css_style( $post_id );
+            do_action('ultp_enqueue_postx_block_css',
+				[ 'post_id' => $post_id, 'css' => '', ]
+			);
             
             $wrapper_before .= '<div '.($attr['advanceId'] ? 'id="'.$attr['advanceId'].'" ':'').' class="wp-block-ultimate-post-'.$block_name.' ultp-block-'.$attr["blockId"].( $attr["className"] ?' '.$attr["className"]:'' ).''.( $attr["align"] ? ' align' .$attr["align"]:'' ).'">';
                 $wrapper_before .= '<div class="ultp-block-wrapper">';

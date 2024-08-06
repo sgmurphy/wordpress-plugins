@@ -349,36 +349,56 @@ class ASP_Shortcode_NG {
 	}
 
 	public function shortcode_accept_stripe_payment( $atts ) {
-                //Note: It will create a product dynamically using the (ASPMain::$temp_prod_slug) custom post type.
-            
-		extract(
-			shortcode_atts(
-				array(
-					'product_id'        => 0,
-					'name'              => '',
-					'class'             => 'stripe-button-el', //default Stripe button class
-					'price'             => '0',
-					'shipping'          => 0,
-					'tax'               => 0,
-					'quantity'          => '',
-					'custom_quantity'   => false,
-					'description'       => '',
-					'url'               => '',
-					'thankyou_page_url' => '',
-					'item_logo'         => '',
-					'billing_address'   => '',
-					'shipping_address'  => '',
-					'customer_email'    => '',
-					'customer_name'     => '',
-					'currency'          => $this->asp_main->get_setting( 'currency_code' ),
-					'currency_variable' => false,
-					'checkout_lang'     => $this->asp_main->get_setting( 'checkout_lang' ),
-					'button_text'       => $this->asp_main->get_setting( 'button_text' ),
-					'compat_mode'       => 0,
-				),
-				$atts
-			)
+		//Note: It will create a product dynamically using the (ASPMain::$temp_prod_slug) custom post type.
+
+		$sc_attrs = shortcode_atts(
+			array(
+				'product_id'        => 0,
+				'name'              => '',
+				'class'             => 'stripe-button-el', //default Stripe button class
+				'price'             => '0',
+				'shipping'          => 0,
+				'tax'               => 0,
+				'quantity'          => '',
+				'custom_quantity'   => false,
+				'description'       => '',
+				'url'               => '',
+				'thankyou_page_url' => '',
+				'item_logo'         => '',
+				'billing_address'   => '',
+				'shipping_address'  => '',
+				'customer_email'    => '',
+				'customer_name'     => '',
+				'currency'          => $this->asp_main->get_setting( 'currency_code' ),
+				'currency_variable' => false,
+				'checkout_lang'     => $this->asp_main->get_setting( 'checkout_lang' ),
+				'button_text'       => $this->asp_main->get_setting( 'button_text' ),
+				'compat_mode'       => 0,
+			),
+			$atts
 		);
+
+		$product_id        = absint(sanitize_text_field( $sc_attrs['product_id'] ));
+		$name              = sanitize_text_field( $sc_attrs['name'] );
+		$class             = sanitize_text_field( $sc_attrs['class'] );
+		$price             = floatval(sanitize_text_field( $sc_attrs['price'] ));
+		$shipping          = floatval(sanitize_text_field( $sc_attrs['shipping'] ));
+		$tax               = floatval(sanitize_text_field( $sc_attrs['tax'] ));
+		$quantity          = absint(sanitize_text_field( $sc_attrs['quantity'] ));
+		$custom_quantity   = sanitize_text_field( $sc_attrs['custom_quantity'] );
+		$description       = sanitize_text_field( $sc_attrs['description'] );
+		$url               = sanitize_url( $sc_attrs['url'] );
+		$thankyou_page_url = sanitize_url( $sc_attrs['thankyou_page_url'] );
+		$item_logo         = sanitize_url( $sc_attrs['item_logo'] );
+		$billing_address   = sanitize_text_field( $sc_attrs['billing_address'] );
+		$shipping_address  = sanitize_text_field( $sc_attrs['shipping_address'] );
+		$customer_email    = sanitize_email( $sc_attrs['customer_email'] );
+		$customer_name     = sanitize_email( $sc_attrs['customer_name'] );
+		$currency          = sanitize_text_field( $sc_attrs['currency'] );
+		$currency_variable = sanitize_text_field( $sc_attrs['currency_variable'] );
+		$checkout_lang     = sanitize_text_field( $sc_attrs['checkout_lang'] );
+		$button_text       = sanitize_text_field( $sc_attrs['button_text'] );
+		$compat_mode       = sanitize_text_field( $sc_attrs['compat_mode'] );
 
 		$this->compat_mode = ( $compat_mode ) ? true : false;
 
@@ -521,7 +541,9 @@ class ASP_Shortcode_NG {
 			$is_disabled = ' disabled';
 		}
 
-		$button = sprintf( '<div class="asp_product_buy_btn_container"><button id="%s" type="submit" class="%s"%s><span>%s</span></button></div>', esc_attr( $button_id ), esc_attr( $class ), $is_disabled, sanitize_text_field( $button_text ) );
+		$button = '<div class="asp_product_buy_btn_container">';
+		$button .= '<button id="'.esc_attr( $button_id ).'" type="submit" class="'.esc_attr( $class ).'" '.$is_disabled.'><span>'.esc_attr( $button_text ).'</span></button>';
+        $button .= '</div>';
 
 		$out_of_stock          = false;
 		$stock_control_enabled = false;
@@ -636,7 +658,7 @@ class ASP_Shortcode_NG {
 
 		$output .= $this->get_styles();
 
-		$output .= "<form id = 'asp_ng_form_{$uniq_id}' class='asp-stripe-form' action = '' METHOD = 'POST'> ";
+		$output .= '<form id="asp_ng_form_'.$uniq_id.'" class="asp-stripe-form" action=""  method="POST"> ';
 
 		$output .= $this->get_button_code_new_method( $data );
 
@@ -711,8 +733,8 @@ class ASP_Shortcode_NG {
 		$output = '';
 
 		if ( $data ) {
-			if ( 0 !== $data['product_id'] ) {
-				$output .= "<input type='hidden' name='asp_product_id' value='{$data['product_id']}' />";
+			if ( $data['product_id'] !== 0 ) {
+				$output .= '<input type="hidden" name="asp_product_id" value="' . absint($data['product_id']) .'" />';
 			}
 		}
 
@@ -720,13 +742,13 @@ class ASP_Shortcode_NG {
 
 			if ( $data['amount'] == 0 ) { //price not specified, let's add an input box for user to specify the amount
 				$str_enter_amount = apply_filters( 'asp_customize_text_msg', __( 'Enter amount', 'stripe-payments' ), 'enter_amount' );
-				$output          .= "<div class='asp_product_item_amount_input_container'>"
-				. "<input type='number' min='0.01' step='0.01' size='10' class='asp_product_item_amount_input' id='stripeAmount_{$data[ 'uniq_id' ]}' value='' name='stripeAmount' placeholder='" . $str_enter_amount . "' required/>";
+				$output          .= '<div class="asp_product_item_amount_input_container">';
+				$output          .= '<input type="number" min="0.01" step="0.01" size="10" class="asp_product_item_amount_input" id="stripeAmount_'.$data[ 'uniq_id' ].'" value="" name="stripeAmount" placeholder="' . $str_enter_amount . '" required />';
 				if ( ! $data['currency_variable'] ) {
-					$output .= "<span class='asp_product_item_amount_currency_label' style='margin-left: 5px; display: inline-block'> {$data[ 'currency' ]}</span>";
+					$output .= '<span class="asp_product_item_amount_currency_label" style="margin-left: 5px; display: inline-block">'. $data[ 'currency' ] .'</span>';
 				}
-				$output .= "<span style='display: block;' id='error_explanation_{$data[ 'uniq_id' ]}'></span>"
-				. '</div>';
+				$output .= '<span style="display: block;" id="error_explanation_'.$data[ 'uniq_id' ].'"></span>';
+				$output .= '</div>';
 			}
 			// if ( $data['currency_variable'] ) {
 			// 	//let's add a box where user can select currency

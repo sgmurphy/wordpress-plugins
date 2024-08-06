@@ -15,6 +15,8 @@ class Delete extends AbstractController
 
         $managePlugin = \wp_umbrella_get_service('ManagePlugin');
 
+        define('WP_UMBRELLA_PROCESS_FROM_UMBRELLA', true);
+
         try {
             $data = $managePlugin->delete($plugin);
 

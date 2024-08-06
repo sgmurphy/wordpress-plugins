@@ -74,6 +74,11 @@ class LogManager {
 		}
 		// define log file from lfile method or use previously set default
 		$lfile = $this->log_file ? $this->log_file : $log_file_default;
+		// Ensure the directory exists
+		$dir = dirname($lfile);
+		if (!is_dir($dir)) {
+			mkdir($dir, 0777, true);
+		}
 		// open log file for writing only and place file pointer at the end of the file
 		// (if the file does not exist, try to create it)
 		$this->fp = fopen($lfile, 'a') or exit("Can't open $lfile!");
@@ -297,11 +302,29 @@ class LogManager {
 		echo wp_json_encode($response);
 		wp_die();
 	} else {
-		$upload_dir = wp_upload_dir();
-		$dir_path = $upload_dir['path'] . '/' . $get_event_key;
-		$file_path = $dir_path . '/Media_log.csv';
-		$dir_url = $upload_dir['url'] . '/' . $get_event_key;
-		$file_url = $dir_url . '/Media_log.csv';
+
+		$upload_dir = WP_CONTENT_DIR . '/uploads/smack_uci_uploads/media_log/' . $get_event_key . '/';
+		
+		if (!is_dir($upload_dir)) {
+			if (!wp_mkdir_p($upload_dir)) {
+				return null;
+			}
+		}
+		chmod($upload_dir, 0777);
+	
+		$index_file = $upload_dir . 'index.php';
+		if (!file_exists($index_file)) {
+			$index_content = '<?php' . PHP_EOL . '?>';
+			file_put_contents($index_file, $index_content);
+			chmod($index_file, 0644);
+		}
+
+		$baseFileName = 'Media_log';
+		$export_type = 'csv';
+		$file_path = $upload_dir . $baseFileName . '.' . $export_type;
+		$file_url = network_home_url() . '/wp-content/uploads/smack_uci_uploads/media_log/' . $get_event_key . '/' . $baseFileName . '.' . $export_type;
+
+		
 
 		if (file_exists($file_path)) {
 			// If the file already exists, return the file URL
@@ -315,7 +338,7 @@ class LogManager {
 			
 			$results = $wpdb->get_results(
 				$wpdb->prepare(
-						"SELECT  media_id, post_title, actual_url,file_url,file_name,caption,alt_text,description,status 
+						"SELECT  media_id, title, actual_url,file_url,file_name,caption,alt_text,description,status 
 					 FROM " . $wpdb->prefix . "failed_media 
 					 WHERE event_id = %s",
 					$get_event_key,
@@ -326,7 +349,6 @@ class LogManager {
 			$posts_array = json_decode($json_posts, true);
 			
 			if (empty($posts_array)) {
-				error_log('No posts found or failed to decode JSON.');
 				$response['success'] = false;
 				$response['message'] = 'No posts found or failed to decode JSON.';
 				echo wp_json_encode($response);
@@ -345,10 +367,6 @@ class LogManager {
 
 			$csv_contents = stream_get_contents($csv_file);
 			fclose($csv_file);
-
-			if (!file_exists($dir_path)) {
-				mkdir($dir_path, 0777, true);
-			}
 
 			// Save the CSV data to the file
 			file_put_contents($file_path, $csv_contents);
@@ -456,19 +474,33 @@ class LogManager {
 		else{
 			$get_event_key=$hash_key;
 		}
-		
-		
 		if (empty($get_event_key)  || $module == 'Media') {
 			$response['success'] = false;
 			$response['message'] = 'Log not exists';
 			echo wp_json_encode($response);
 			wp_die();
 		} else {
-			$upload_dir = wp_upload_dir();
-			$dir_path = $upload_dir['path'] . '/' . $get_event_key;
-			$file_path = $dir_path . '/summary.csv';
-			$dir_url = $upload_dir['url'] . '/' . $get_event_key;
-			$file_url = $dir_url . '/summary.csv';
+
+			$upload_dir = WP_CONTENT_DIR . '/uploads/smack_uci_uploads/summary_logs/' . $get_event_key . '/';
+		
+			if (!is_dir($upload_dir)) {
+				if (!wp_mkdir_p($upload_dir)) {
+					return null;
+				}
+			}
+			chmod($upload_dir, 0777);
+		
+			$index_file = $upload_dir . 'index.php';
+			if (!file_exists($index_file)) {
+				$index_content = '<?php' . PHP_EOL . '?>';
+				file_put_contents($index_file, $index_content);
+				chmod($index_file, 0644);
+			}
+
+			$baseFileName = 'summary';
+			$export_type = 'csv';
+			$file_path = $upload_dir . $baseFileName . '.' . $export_type;
+			$file_url = network_home_url() . '/wp-content/uploads/smack_uci_uploads/summary_logs/' . $get_event_key . '/' . $baseFileName . '.' . $export_type;
 	
 			if (file_exists($file_path)) {
 				// If the file already exists, return the file URL
@@ -635,7 +667,6 @@ class LogManager {
 				$posts_array = json_decode($json_posts, true);
 				
 				if (empty($posts_array)) {
-					error_log('No posts found or failed to decode JSON.');
 					$response['success'] = false;
 					$response['message'] = 'No posts found or failed to decode JSON.';
 					echo wp_json_encode($response);
@@ -654,10 +685,6 @@ class LogManager {
 	
 				$csv_contents = stream_get_contents($csv_file);
 				fclose($csv_file);
-	
-				if (!file_exists($dir_path)) {
-					mkdir($dir_path, 0777, true);
-				}
 	
 				// Save the CSV data to the file
 				file_put_contents($file_path, $csv_contents);
@@ -696,11 +723,27 @@ public function download_failed_log() {
 		echo wp_json_encode($response);
 		wp_die();
 	} else {
-		$upload_dir = wp_upload_dir();
-		$dir_path = $upload_dir['path'] . '/' . $get_event_key;
-		$file_path = $dir_path . '/FailedMedia.csv';
-		$dir_url = $upload_dir['url'] . '/' . $get_event_key;
-		$file_url = $dir_url . '/FailedMedia.csv';
+
+		$upload_dir = WP_CONTENT_DIR . '/uploads/smack_uci_uploads/failed_media_logs/' . $get_event_key . '/';
+		
+		if (!is_dir($upload_dir)) {
+			if (!wp_mkdir_p($upload_dir)) {
+				return null;
+			}
+		}
+		chmod($upload_dir, 0777);
+	
+		$index_file = $upload_dir . 'index.php';
+		if (!file_exists($index_file)) {
+			$index_content = '<?php' . PHP_EOL . '?>';
+			file_put_contents($index_file, $index_content);
+			chmod($index_file, 0644);
+		}
+
+		$baseFileName = 'FailedMedia';
+		$export_type = 'csv';
+		$file_path = $upload_dir . $baseFileName . '.' . $export_type;
+		$file_url = network_home_url() . '/wp-content/uploads/smack_uci_uploads/failed_media_logs/' . $get_event_key . '/' . $baseFileName . '.' . $export_type;
 
 		if (file_exists($file_path)) {
 			// If the file already exists, return the file URL
@@ -714,7 +757,7 @@ public function download_failed_log() {
 			if($module == 'Media'){
 				$results = $wpdb->get_results(
 					$wpdb->prepare(
-						"SELECT  media_id, post_title,file_name, caption,description,alt_text,actual_url,status ,file_url
+						"SELECT  media_id, title,file_name, caption,description,alt_text,actual_url,status ,file_url
 						 FROM " . $wpdb->prefix . "failed_media 
 						 WHERE event_id = %s AND status = %s",
 						$get_event_key,
@@ -725,7 +768,7 @@ public function download_failed_log() {
 			else{
 				$results = $wpdb->get_results(
 					$wpdb->prepare(
-						"SELECT  media_id,post_title,post_id,actual_url,status
+						"SELECT  media_id,title,post_id,actual_url,status
 						 FROM " . $wpdb->prefix . "failed_media 
 						 WHERE event_id = %s AND status = %s",
 						$get_event_key,
@@ -738,7 +781,6 @@ public function download_failed_log() {
 			$posts_array = json_decode($json_posts, true);
 			
 			if (empty($posts_array)) {
-				error_log('No posts found or failed to decode JSON.');
 				$response['success'] = false;
 				$response['message'] = 'No posts found or failed to decode JSON.';
 				echo wp_json_encode($response);
@@ -758,9 +800,6 @@ public function download_failed_log() {
 			$csv_contents = stream_get_contents($csv_file);
 			fclose($csv_file);
 
-			if (!file_exists($dir_path)) {
-				mkdir($dir_path, 0777, true);
-			}
 
 			// Save the CSV data to the file
 			file_put_contents($file_path, $csv_contents);
@@ -951,7 +990,7 @@ public function download_failed_log() {
 		$upload_dir = WP_CONTENT_DIR . '/uploads/smack_uci_uploads/imports/failed_media_logs/' . $hash_key . '/';
 		$file_path = $upload_dir . $baseFileName . '.' . $export_type;
 		$file_url = network_home_url() . '/wp-content/uploads/smack_uci_uploads/imports/failed_media_logs/' . $hash_key . '/' . $baseFileName . '.' . $export_type;
-		$headers = ['post_id', 'post_title', 'media_id', 'actual_url'];
+		$headers = ['post_id', 'title', 'media_id', 'actual_url'];
 	
 		if (empty($data)) {
 			if (!is_dir($upload_dir) && !wp_mkdir_p($upload_dir)) {

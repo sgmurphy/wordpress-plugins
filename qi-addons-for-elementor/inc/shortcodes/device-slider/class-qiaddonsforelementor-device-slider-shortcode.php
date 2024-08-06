@@ -53,7 +53,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 					'field_type' => 'select',
 					'name'       => 'effect',
 					'title'      => esc_html__( 'Slide Effect', 'qi-addons-for-elementor' ),
-					'group'      => 'Slider Settings',
+					'group'      => esc_html__( 'Slider Settings', 'qi-addons-for-elementor-premium' ),
 					'options'    => array(
 						'slide' => esc_html__( 'Slide', 'qi-addons-for-elementor' ),
 						'fade'  => esc_html__( 'Fade', 'qi-addons-for-elementor' ),
@@ -62,7 +62,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 			);
 			$this->map_slider_options(
 				array(
-					'group'          => 'Slider Settings',
+					'group'          => esc_html__( 'Slider Settings', 'qi-addons-for-elementor-premium' ),
 					'exclude_option' => array(
 						'columns',
 						'images_proportion',

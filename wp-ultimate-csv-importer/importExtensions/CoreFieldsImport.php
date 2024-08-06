@@ -770,11 +770,11 @@ class CoreFieldsImport {
 							$f_path = CoreFieldsImport::$media_instance->get_filename_path($post_values['featured_image']);
 							$fimg_name = isset($f_path['fimg_name']) ? $f_path['fimg_name'] : '';
 							
-							$check_featured_image = $wpdb->get_results("SELECT $unikey_name FROM {$wpdb->prefix}ultimate_csv_importer_media_report WHERE $unikey_name = '$unikey_value'  AND image_type = 'Featured' "); 
-							if(empty($check_featured_image)){				
-								$image_media_table = $wpdb->prefix . "ultimate_csv_importer_media_report";
-								$wpdb->get_results("INSERT INTO $image_media_table (`hash_key`,`templatekey`,`module`,`image_type`,`status`) VALUES ( '{$hash_key}','{$templatekey}','{$type}','{$image_type}','Completed') ");
-							}
+							// $check_featured_image = $wpdb->get_results("SELECT $unikey_name FROM {$wpdb->prefix}ultimate_csv_importer_media_report WHERE $unikey_name = '$unikey_value'  AND image_type = 'Featured' "); 
+							// if(empty($check_featured_image)){				
+							// 	$image_media_table = $wpdb->prefix . "ultimate_csv_importer_media_report";
+							// 	$wpdb->get_results("INSERT INTO $image_media_table (`hash_key`,`templatekey`,`module`,`image_type`,`status`) VALUES ( '{$hash_key}','{$templatekey}','{$type}','{$image_type}','Completed') ");
+							// }
 							$wp_content_url = content_url();
 								if(strpos($f_image, $wp_content_url) !== FALSE){
 									$attachment_id = $wpdb->get_results("SELECT ID FROM {$wpdb->prefix}posts WHERE post_type = 'attachment' AND guid = '$f_image' ", ARRAY_A);

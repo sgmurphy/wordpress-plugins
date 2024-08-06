@@ -76,11 +76,37 @@ class ManagePlugin
      *
      * @param array $plugins
      * @param array $options
+     *  - only_ajax: bool
+     *  - safe_update: bool
      * @return array
      */
     public function bulkUpdate($plugins, $options = [])
     {
         wp_umbrella_get_service('ManagePlugin')->clearUpdates();
+
+        if (isset($options['safe_update']) && $options['safe_update']) {
+            // It's necessary because we update only one plugin even if it's a bulk update
+            if (is_array($plugins)) {
+                $plugin = $plugins[0];
+            } else {
+                $plugin = $plugins;
+            }
+
+            $result = wp_umbrella_get_service('UpgraderTempBackup')->moveToTempBackupDir([
+                'slug' => dirname($plugin),
+                'src' => WP_PLUGIN_DIR,
+                'dir' => 'plugins'
+            ]);
+
+            if (!$result['success']) {
+                return [
+                    'status' => 'error',
+                    'code' => $result['code'],
+                    'message' => '',
+                    'data' => ''
+                ];
+            }
+        }
 
         @ob_start();
         $pluginUpdate = wp_umbrella_get_service('PluginUpdate');
@@ -92,6 +118,13 @@ class ManagePlugin
         @flush();
         @ob_clean();
         @ob_end_clean();
+
+        if (isset($options['safe_update']) && $options['safe_update']) {
+            $result = wp_umbrella_get_service('UpgraderTempBackup')->deleteTempBackup([
+                'slug' => dirname($plugin),
+                'dir' => 'plugins'
+            ]);
+        }
 
         return $data;
     }

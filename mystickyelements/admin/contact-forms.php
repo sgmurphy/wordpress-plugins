@@ -538,7 +538,7 @@ $contact_form['message_value'] 			= isset($contact_form['message_value']) ? $con
 							<div class="mystickyelements-setting-wrap-right">
 								<div class="mystickyelements-content-section-wrap">
 									<div class="myStickyelements-inputs myStickyelements-label placeholder-text-color" style="position:relative;margin-left: 0px;">										
-										<input type="text" id="placeholder_color" name="contact-form[placeholder_color]" class="mystickyelement-color" value="<?php echo esc_attr(( isset( $general_settings['placeholder_color'] ) && $general_settings['placeholder_color'] != '' ) ? $general_settings['placeholder_color'] : '#4F4F4F'); ?>" />
+										<input type="text" id="placeholder_color" name="general-settings[placeholder_color]" class="mystickyelement-color" value="<?php echo esc_attr(( isset( $general_settings['placeholder_color'] ) && $general_settings['placeholder_color'] != '' ) ? $general_settings['placeholder_color'] : '#4F4F4F'); ?>" />
 									</div>									
 								</div>
 								

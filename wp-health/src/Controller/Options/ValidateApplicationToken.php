@@ -9,4 +9,9 @@ class ValidateApplicationToken extends AbstractController
     {
         return $this->returnResponse(['success' => true]);
     }
+
+    public function executeGet($params)
+    {
+        return $this->returnResponse(['success' => true]);
+    }
 }

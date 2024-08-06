@@ -5,10 +5,10 @@
  * Author: Qode Interactive
  * Author URI: https://qodeinteractive.com/
  * Plugin URI: https://qodeinteractive.com/qi-addons-for-elementor/
- * Version: 1.7.6
+ * Version: 1.7.7
  * Text Domain: qi-addons-for-elementor
- * Elementor tested up to: 3.21.8
- * Elementor Pro tested up to: 3.21.3
+ * Elementor tested up to: 3.23.4
+ * Elementor Pro tested up to: 3.23.3
  */
 
 if ( ! class_exists( 'QiAddonsForElementor' ) ) {
@@ -100,7 +100,7 @@ if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 			wp_enqueue_script( 'jquery-ui-core' );
 			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NoExplicitVersion
 			wp_register_script( 'fslightbox', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/fslightbox/fslightbox.min.js', array(), false, true );
-			wp_register_script( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.js', array( 'jquery' ), '5.4.5', true );
+			wp_register_script( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.js', array( 'jquery' ), '8.4.5', true );
 
 			// Hook to include additional scripts before plugin's main script.
 			do_action( 'qi_addons_for_elementor_action_before_main_js' );
@@ -132,7 +132,7 @@ if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 		}
 
 		public function enqueue_additional_assets() {
-			wp_enqueue_style( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.css', array(), '5.4.5' );
+			wp_enqueue_style( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.css', array(), '8.4.5' );
 		}
 
 		public function add_inline_style() {

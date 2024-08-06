@@ -19,7 +19,7 @@ class PrepareBackupData extends AbstractController
                 'db_user' => DB_USER,
                 'db_password' => DB_PASSWORD,
                 'db_charset' => defined('DB_CHARSET') ? DB_CHARSET : 'utf8',
-                'db_ssl' => defined('DB_SSL_KEY'),
+                'db_ssl' => defined('DB_SSL_KEY') || defined('MYSQL_CLIENT_FLAGS') ? true : false,
             ],
             'snapshot' => wp_umbrella_get_service('WordPressDataProvider')->getSnapshot(),
             'constants' => [

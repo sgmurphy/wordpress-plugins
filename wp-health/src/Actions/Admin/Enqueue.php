@@ -9,13 +9,6 @@ use WPUmbrella\Core\Hooks\ExecuteHooksBackend;
 
 class Enqueue implements ExecuteHooksBackend
 {
-    protected $getOwnerService;
-
-    public function __construct()
-    {
-        $this->getOwnerService = wp_umbrella_get_service('Owner');
-    }
-
     public function hooks()
     {
         add_action('admin_enqueue_scripts', [$this, 'adminEnqueueScripts']);

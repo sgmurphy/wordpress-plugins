@@ -263,7 +263,6 @@ return array(
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\MySQL\\CollationMetadataProvider\\CachingCollationMetadataProvider' => $baseDir . '/vendor-prefixed/doctrine/dbal/src/Platforms/MySQL/CollationMetadataProvider/CachingCollationMetadataProvider.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\MySQL\\CollationMetadataProvider\\ConnectionCollationMetadataProvider' => $baseDir . '/vendor-prefixed/doctrine/dbal/src/Platforms/MySQL/CollationMetadataProvider/ConnectionCollationMetadataProvider.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\MySQL\\Comparator' => $baseDir . '/vendor-prefixed/doctrine/dbal/src/Platforms/MySQL/Comparator.php',
- 'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\PostgreSQLPlatform' => $baseDir . '/vendor-prefixed/doctrine/dbal/src/Platforms/PostgreSQLPlatform.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\SQLServer\\Comparator' => $baseDir . '/vendor-prefixed/doctrine/dbal/src/Platforms/SQLServer/Comparator.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\SQLServer\\SQL\\Builder\\SQLServerSelectSQLBuilder' => $baseDir . '/vendor-prefixed/doctrine/dbal/src/Platforms/SQLServer/SQL/Builder/SQLServerSelectSQLBuilder.php',
  'MailPoetVendor\\Doctrine\\DBAL\\Platforms\\SQLite\\Comparator' => $baseDir . '/vendor-prefixed/doctrine/dbal/src/Platforms/SQLite/Comparator.php',

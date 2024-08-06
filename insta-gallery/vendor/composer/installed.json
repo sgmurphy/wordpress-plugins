@@ -175,6 +175,69 @@
             "install-path": "../../jetpack_vendor/automattic/jetpack-constants"
         },
         {
+            "name": "franmastromarino/wp-orm",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/franmastromarino/wp-options-orm.git",
+                "reference": "94ea51462e7c2a9790fc29f5c0293a03833388da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/franmastromarino/wp-options-orm/zipball/94ea51462e7c2a9790fc29f5c0293a03833388da",
+                "reference": "94ea51462e7c2a9790fc29f5c0293a03833388da",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "10up/wp_mock": "^0.5.0",
+                "brain/monkey": "^2.6",
+                "composer/composer": "^2.1",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "mockery/mockery": "^1.5",
+                "phpcompatibility/phpcompatibility-wp": "^2.1.0",
+                "phpunit/phpunit": "^9.6",
+                "squizlabs/php_codesniffer": "*",
+                "wp-coding-standards/wpcs": "^2.3.0"
+            },
+            "time": "2024-02-09T18:33:02+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "QuadLayers\\WP_Orm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "QuadLayers",
+                    "email": "noreply@quadlayers.com"
+                }
+            ],
+            "description": "A package to help developers create custom WordPress entities in their own plugins.",
+            "homepage": "https://quadlayers.com/",
+            "keywords": [
+                "autoload",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/franmastromarino/wp-options-orm/issues",
+                "source": "https://github.com/franmastromarino/wp-options-orm/tree/main"
+            },
+            "install-path": "../franmastromarino/wp-orm"
+        },
+        {
             "name": "quadlayers/wp-dashboard-widget-news",
             "version": "1.0.9",
             "version_normalized": "1.0.9.0",

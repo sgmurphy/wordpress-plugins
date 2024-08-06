@@ -978,6 +978,18 @@
 		 * @param {Object} settings
 		 */
 		updateOnSaveGlobalStyles: function( e, settings ) {
+			if ( settings.colors.length > 0 ) {
+				settings.colors.forEach( ( color ) => {
+					let qualifiedColor = '';
+
+					if ( ! color.color.match( /^(var|rgb|hs(l|v))a?\(/ ) && ! color.color.startsWith( '#' ) ) {
+						qualifiedColor = '#' + color.color;
+					} else {
+						qualifiedColor = FLBuilderColor( color.color ).toDisplay();
+					}
+					FLBuilderConfig.globalColorLabels[ 'global_color_' + color.uid ] = '<span class=\"prefix\">' + 'Global -' + '</span>' + color.label + '<span class=\"swatch\" style=\"background-color:' + qualifiedColor + ';\"></span>';
+				} );
+			}
 			FLBuilderConfig.styles = settings;
 		},
 

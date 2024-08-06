@@ -42,16 +42,10 @@ class PostX_Bricks_Integration extends \Bricks\Element {
 		$this->set_attribute( '_root', 'class', $root_classes );
 
 		$current_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : ''; //phpcs:ignore
-		ultimate_post()->register_scripts_common();
 
 		// Render element HTML
 		echo "<div {$this->render_attributes( '_root' )}>"; //phpcs:ignore
 		if ( $id ) {
-			if ( strpos( $current_url, 'bricks=run' ) !== false || strpos( $current_url, 'bricks/v1/render_element' ) !== false ) {
-				echo ultimate_post()->set_css_style( $id, true ); //phpcs:ignore
-			} else {
-				ultimate_post()->set_css_style( $id );
-			}
 			echo '<div class="ultp-shortcode" data-postid="' . esc_attr( $id ) . '">';
 				$args      = array(
 					'p'         => $id,

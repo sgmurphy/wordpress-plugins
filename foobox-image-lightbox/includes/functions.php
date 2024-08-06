@@ -31,7 +31,7 @@ function foobox_hide_pricing_menu() {
  * @return string
  */
 function foobox_sanitize_javascript( $input ) {
-	// list of JavaScript-related attributes to filter out
+	// List of JavaScript-related attributes to filter out.
 	$javascript_attributes = array(
 		'innerHTML',
 		'document\.write',
@@ -59,7 +59,7 @@ function foobox_sanitize_javascript( $input ) {
 		'String\.fromCharCode',
 		'encodeURI',
 		'decodeURI',
-		'javascript:'
+		'javascript:',
 	);
 
 	$pattern = '/' . implode( '|', $javascript_attributes ) . '/i';

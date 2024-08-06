@@ -46,6 +46,11 @@ class ErrorCheckQueueRunner implements ExecuteHooks, DeactivationHook
     public function hooks()
     {
         add_filter('cron_schedules', [$this, 'addCronSchedules']);
+        $backupVersion = get_option('wp_umbrella_backup_version');
+
+        if ($backupVersion === 'v4') {
+            return;
+        }
         $this->cronHooks();
     }
 

@@ -1,10 +1,5 @@
 <?php
-
 namespace WPUmbrella\Actions;
-
-if (!defined('ABSPATH')) {
-    exit;
-}
 
 use WPUmbrella\Core\Hooks\ExecuteHooksBackend;
 use WPUmbrella\Helpers\GodTransient;

@@ -484,4 +484,25 @@ final class FLBuilderUtils {
 	public static function get_empty_column_width() {
 		return apply_filters( 'fl_builder_empty_column_width', '0%' );
 	}
+
+	/**
+	 * Modified WP sanitize_html_class that allows spaces for multiple classes
+	 * @since 2.8.3
+	 */
+	public static function sanitize_html_class( $classname, $fallback = '' ) {
+		// Strip out any percent-encoded characters.
+		$sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', $classname );
+
+		// Limit to A-Z, a-z, 0-9, '_', '-', ' '.
+		$sanitized = preg_replace( '/[^\sA-Za-z0-9_-]/', '', $sanitized );
+
+		if ( '' === $sanitized && $fallback ) {
+			return sanitize_html_class( $fallback );
+		}
+		/**
+		 * @since 2.8.3
+		 * @see fl_sanitize_html_class
+		 */
+		return apply_filters( 'fl_sanitize_html_class', $sanitized, $classname, $fallback );
+	}
 }

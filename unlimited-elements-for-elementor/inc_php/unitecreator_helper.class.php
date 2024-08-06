@@ -1689,23 +1689,28 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		return (false);
 	}
-
+	
+	
 	/**
 	 * check if gutenberg edit mode
 	 */
-	private static function isGutenbergEditMode(){
+	public static function isGutenbergEditMode(){
 
+		
 		if(function_exists("get_current_screen") === false)
 			return false;
-
+		
 		$screen = get_current_screen();
 
 		if($screen === null)
 			return false;
-
-		return $screen->is_block_editor();
+		
+		$isBlockEditor = $screen->is_block_editor();
+		
+		return $isBlockEditor;
 	}
-
+	
+	
 	/**
 	 * check if edit mode
 	 */

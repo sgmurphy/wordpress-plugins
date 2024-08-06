@@ -109,7 +109,12 @@ class Xserver_Migrator_Server
 	public static function is_available_zip_command()
 	{
 		exec( 'which zip', $output, $return_var );
-		return $return_var === 0 ? $output[0] : false;
+		if ( $return_var === 0 ) {
+			return $output[0];
+		}
+		$output = [];
+		exec( 'type zip', $output, $return_var );
+		return $return_var === 0 ? str_replace( 'zip is ', '', $output[0] ) : false;
 	}
 
 	/**
@@ -131,7 +136,12 @@ class Xserver_Migrator_Server
 	public static function is_available_tar_command()
 	{
 		exec( 'which tar', $output, $return_var );
-		return $return_var === 0 ? $output[0] : false;
+		if ( $return_var === 0 ) {
+			return $output[0];
+		}
+		$output = [];
+		exec( 'type tar', $output, $return_var );
+		return $return_var === 0 ? str_replace( 'tar is ', '', $output[0] ) : false;
 	}
 
 	/**
@@ -142,7 +152,12 @@ class Xserver_Migrator_Server
 	public static function is_available_mysqldump()
 	{
 		exec( 'which mysqldump', $output, $return_var );
-		return $return_var === 0 ? $output[0] : false;
+		if ( $return_var === 0 ) {
+			return $output[0];
+		}
+		$output = [];
+		exec( 'type mysqldump', $output, $return_var );
+		return $return_var === 0 ? str_replace( 'mysqldump is ', '', $output[0] ) : false;
 	}
 
 	/**

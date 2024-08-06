@@ -22,6 +22,10 @@ class LangPT {
 
         public static function contents(){
                 $response = array('ImportUpdate' => 'Importar',
+                        'SelectAllImages' => 'Selecione todas as imagens no seu arquivo de importação para evitar falhas de importação',
+                        'ChooseImagesToImport' => 'Escolha as imagens para importar. Utilize a caixa de seleção abaixo para selecionar todas as imagens.',
+                        'FileName' => 'Nome do arquivo:',
+                        'OK' => 'OK',
                         'Updateolderpostsfromsingleimport' => 'Atualize postagens mais antigas de uma única importação',
                         'Exportfiltereddata' => 'Exportar dados filtrados',
                         'Exportfiltereddatadesc' => 'Permite obter apenas os dados necessários com os diferentes filtros avançados',
@@ -55,7 +59,6 @@ class LangPT {
                         'FromDate' => 'Da data',
                         'ToDate' => 'Até a presente data',
                         'SEARCH' => 'PESQUISA',
-                        'Media' =>'meios de comunicação',
                         'AccessKey' => 'Chave de acesso',
                         'SavedTemplate' => 'Modelo Salvo',
                         'TEMPLATES' => 'MODELOS',
@@ -388,13 +391,33 @@ class LangPT {
 			'SampleCSVXML' => 'Amostra CSV&XML',
 			'WarningImportforsomedataaredisabledInstallandactivatebelowpluginsfirst' => 'Aviso: Importar para alguns daWarning: Alguns addons estão faltando, é recomendado que todos estejam desabilitados Instale e ative os plugins abaixo primeiro',
 			'DragDropyourfilesor' => 'Arraste e solte seus arquivos ou',
+                        'ChooseUploadMethod' => 'Escolha o método de upload',
+                        'Media' => 'Mídia',
+                        'CsvUploadFields' => 'Carregar arquivo',
+                        'Device' => 'Dispositivo',
+                        'Remote' => 'Remoto',
+                        'SelectDeviceZIPfile' => 'Selecione Dispositivo para enviar imagens diretamente do seu dispositivo como um arquivo ZIP.',
+                        'SelectDeviceCSVfile' => 'Escolha Remoto para importar imagens dos URLs de sites remotos.',
+                        'MediaContinue' => 'Continuar',
+                        'FreshImport' => 'Nova importação',
+                        'UpdateContent' => 'Atualizar conteúdo',
+                        'UpdateThisMappingAs' => 'Atualize este mapeamento como',
+                        'Overwritetheavailableimages' => 'Sobrescreva as imagens disponíveis',
+                        'AlwaysCreateAsNewImage' => 'Sempre criar como nova imagem',
+                        'ImportCompleted' => 'Importação concluída!',
+                        'importHasFinished' => 'Sua importação foi concluída com sucesso. Clique no botão abaixo para baixar e acessar um registro de importação detalhado.',
+                        'ImportLog' => 'Registro de importação',
+                        'FailedMedia' => 'Mídias falhadas',
+                        'UseTheFailedImages' => 'Use o CSV de imagens falhadas para corrigir os URLs e reimportar as imagens',
+                        'FeaturedFields' => 'Metadados da Imagem Destacada',
+                        'Summary' => 'Resumo',
                 );
         return $response;
         }
         public static function notice_contents()
         {
         $result =array(
-                'UpgradetoPROusingcode' => 'Upgrade para PRO utilizando o código',
+                'UpgradetoPROusingcode' => 'Upgrade para PREMIUM utilizando o código',
                 'Unlockfeatureslikebulkimportadvanced exportschedulingcontentupdatemorepluslifetimesupport'  =>'Desbloquear características como a importação a granel, exportações avançadas, horários de exportações, actualização de conteúdos, mais apoio ao longo da vida',
                 'upgradenow' => 'actualizar agora'
         );

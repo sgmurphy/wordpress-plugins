@@ -4363,15 +4363,11 @@ div.ays-pb-faq-main p {
     background: #F7F7F7;
 }
 
-.comparison .ays_fa-check {
-    color: #69C7F1;
-}
-
 .comparison th {
     font-weight: normal;
     padding: 0;
-    border-top: 0px solid #E8E8E8;
-    border-bottom: 0px solid #E8E8E8;
+    border-top: 0px;
+    border-bottom: 0px;
 }
 
 .comparison tr td:first-child {
@@ -4402,21 +4398,9 @@ div.ays-pb-faq-main p {
     padding: 15px;
 }
 
-.comparison .price-now,
-.comparison .price-now span {
-    color: #808080;
-}
-
 .comparison .price-now span {
     font-size: 36px;
     color: #545454;
-}
-
-.comparison .price-now p {
-    font-size: 14px;
-    text-align: center;
-    line-height: 16px;
-    display: inline;
 }
 
 .comparison .price-buy {
@@ -4440,16 +4424,6 @@ div.ays-pb-faq-main p {
 }
 
 @media screen and (max-width: 720px) {
-    .table_ul {
-        padding: 0px;
-    }
-
-    .table_ul li {
-        font-size: 10px;
-        line-height: 16px;
-        padding: 3px 0;
-    }
-
     .comparison {
         max-width: 100%;
         padding-left: 0;
@@ -4474,6 +4448,7 @@ div.ays-pb-faq-main p {
         border: 1px solid #CCC;
         border-top: none;
         padding: 10px;
+        font-size: 14px;
     }
 
     .price-info {
@@ -4481,37 +4456,8 @@ div.ays-pb-faq-main p {
         padding: 10px 0 !important;
     }
 
-    .price-info p {
-        line-height: 8px;
-        font-size: 8px !important;
-    }
-
-    .comparison .compare-row {
-        background: #ffffff;
-    }
-
-    .comparison .price-now p {
-        display: block;
-    }
-
     .comparison .price-now span {
         font-size: 24px;
-    }
-
-    .comparison .qbse {
-        font-size: 1.2em;
-    }
-
-    .comparison td {
-        font-size: 14px;
-    }
-
-    .comparison th {
-        font-size: 14px;
-    }
-
-    .ays_pb_ask_question_content {
-        display: none !important;
     }
 }
 /* PRO Features page | Comparison table end */
@@ -4535,7 +4481,7 @@ div.ays-pb-faq-main p {
     margin: 50px 0;
 }
 
-.ays-pb-guarantee-text-container{
+.ays-pb-guarantee-text-container {
     flex-basis: 500px;
 }
 

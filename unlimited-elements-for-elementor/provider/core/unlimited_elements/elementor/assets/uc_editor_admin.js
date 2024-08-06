@@ -517,7 +517,7 @@ function UniteCreatorElementorEditorAdmin(){
 	 * init the select 2 object eventually
 	 */
 	function initPostIDsSelect_initObject(objSelect, arrInitData){
-				
+		
 		var data = objSelect.data();
 		
 		var postType = null;
@@ -602,7 +602,7 @@ function UniteCreatorElementorEditorAdmin(){
 	 * init post id's selector
 	 */
 	function initPostIDsSelect(objSelect){
-				
+		
 		var widgetSettings = getLastOpenedWidgetSettings();
 		
 		var settingName = objSelect.data("setting");
@@ -748,13 +748,14 @@ function UniteCreatorElementorEditorAdmin(){
 	}
 	
 	
-	
 	/**
 	 * occure on change of settings panel
 	 */
 	function onSettingsPanelInit(){
 		
 		initSpecialSelects();
+		
+		initSortableSelect2();
 		
 		//init the post type selector if exists
 		postSelectOnLoad();

@@ -54,10 +54,13 @@ class Xserver_Migrator_Archiver
 		Xserver_Migrator_Log::info( 'start wp-content archive...' );
 
 		if ( $command = Xserver_Migrator_Server::is_available_tar_command() ) {
+			Xserver_Migrator_Log::info( 'create archive is tar' );
 			$result = $this->tar_gz( $command );
 		} elseif ( $command = Xserver_Migrator_Server::is_available_zip_command() ) {
+			Xserver_Migrator_Log::info( 'create archive is zip' );
 			$result = $this->zip( $command );
 		} elseif ( Xserver_Migrator_Server::is_loaded_zip_extension() ) {
+			Xserver_Migrator_Log::info( 'create archive is php-zip' );
 			$result = $this->zip_php();
 		} else {
 			throw new Xserver_Migrator_Archive_Exception( 'Not found archiver' );

@@ -22,9 +22,6 @@ class Compatibility{
 	 */
     public function __construct() {
         add_action( 'upgrader_process_complete', array($this, 'plugin_upgrade_completed'), 10, 2 );
-        if (class_exists('KTP_Requirements_Check')) {
-            $this->handle_kadence_element();
-        }
         // PublishPress Revisions Plugin Compatibility Add
         add_action('revisionary_copy_postmeta', array($this, 'ultp_revisionary_copy_postmeta_callback'), 10, 3);
     }
@@ -53,56 +50,6 @@ class Compatibility{
                 $wp_filesystem->put_contents( $css_dir_path, $css_meta ); 
             }
         }
-    }
-
-
-    /**
-	 * Compatibility to handle kadence element
-	 *
-	 * @since v.2.8.3
-	 */
-    public function handle_kadence_element() {
-        $hook_lists = array(
-            'replace_header'                                => 'kadence_header',
-			'replace_footer'                                => 'kadence_footer',
-			'replace_hero_header'                           => 'kadence_hero_header',
-			'replace_404'                                   => 'kadence_404_content',
-			'replace_single_content'                        => 'kadence_single_content',
-			'replace_loop_content'                          => 'kadence_loop_entry',
-			'woocommerce_before_single_product_image'       => 'woocommerce_before_single_product_summary',
-			'woocommerce_after_single_product_image'        => 'woocommerce_before_single_product_summary',
-			'replace_login_modal'                           => 'kadence_account_login_form',
-			'fixed_above_trans_header'                      => 'kadence_before_wrapper',
-			'fixed_above_header'                            => 'kadence_before_header',
-			'fixed_on_header'                               => 'kadence_after_wrapper',
-			'fixed_below_footer'                            => 'kadence_after_footer',
-			'fixed_on_footer'                               => 'kadence_after_wrapper',
-			'fixed_on_footer_scroll'                        => 'kadence_after_wrapper',
-			'fixed_on_footer_scroll_space'                  => 'kadence_after_wrapper',
-		);
-        $args = array(
-			'post_type'              => 'kadence_element',
-			'no_found_rows'          => true,
-			'update_post_term_cache' => false,
-			'post_status'            => 'publish',
-			'numberposts'            => 333,
-			'order'                  => 'ASC',
-			'orderby'                => 'menu_order',
-			'suppress_filters'       => false,
-		);
-        
-        $posts = get_posts( $args );
-		foreach( $posts as $post) {
-			$post_id = $post->ID;
-			$post_hook_meta = get_post_meta($post_id , ( get_post_meta($post_id , '_kad_element_hook', true) == 'custom' ? '_kad_element_hook_custom' : '_kad_element_hook' ), true);
-            if ( $post_hook_meta ) {
-                $selected_hook = isset($hook_lists[$post_hook_meta]) ? $hook_lists[$post_hook_meta] : $post_hook_meta;
-				add_action($selected_hook , function() use (&$post_id) {
-					ultimate_post()->register_scripts_common();
-					ultimate_post()->set_css_style($post_id);
-				});
-			}
-		}
     }
 
     /**

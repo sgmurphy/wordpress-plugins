@@ -32,7 +32,7 @@
 					// Check if object doesn't exist and print the module where is the error.
 					if ( typeof qodefAddonsCore.shortcodes[key][keyChild] === 'undefined' ) {
 						console.log( keyChild );
-					} else if ( typeof qodefAddonsCore.shortcodes[key][keyChild].initSlider === 'function' && e.find( '.qodef-qi-swiper-container' ).length ) {
+					} else if ( typeof qodefAddonsCore.shortcodes[key][keyChild].initSlider === 'function' ) {
 						var $sliders = e.find( '.qodef-qi-swiper-container' );
 						if ( $sliders.length ) {
 							$sliders.each(
@@ -115,7 +115,7 @@
 											'qi-addons-for-elementor'
 										),
 										title,
-										'<a class="qodef-dialog-box-link" target="_blank" href="https://qodeinteractive.com/pricing/">',
+										'<a class="qodef-dialog-box-link" target="_blank" href="https://qodeinteractive.com/products/plugins/">',
 										'</a>'
 									);
 								}

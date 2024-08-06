@@ -196,6 +196,12 @@ class Importer {
                 )
             )
         );
+        if ( is_wp_error( $response ) ) {
+            return rest_ensure_response([
+                'success' => false,
+                'response_data' => $response,
+            ]); 
+        }
         $response_data = json_decode($response['body']);
         if( !$response_data->success ) {
             return rest_ensure_response([
@@ -249,6 +255,12 @@ class Importer {
                 )
             )
         );
+        if ( is_wp_error( $response ) ) {
+            return rest_ensure_response([
+                'success' => false,
+                'response_data' => $response,
+            ]); 
+        }
         $response_data = json_decode($response['body']);
         if( !$response_data->success ) {
             return rest_ensure_response([

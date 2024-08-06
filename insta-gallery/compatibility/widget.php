@@ -2,7 +2,7 @@
 /**
  * Compatibility with the old version
  */
-use QuadLayers\IGG\Models\Feed as Models_Feed;
+use QuadLayers\IGG\Models\Feeds as Models_Feed;
 use QuadLayers\IGG\Frontend\Load as Frontend;
 
 class QLIGG_Widget extends WP_Widget {
@@ -36,7 +36,7 @@ class QLIGG_Widget extends WP_Widget {
 
 		$models_feed = new Models_Feed();
 
-		$feed = $models_feed->get_by_id( $feed_id );
+		$feed = $models_feed->get( $feed_id );
 
 		echo Frontend::instance()->create_shortcode( $feed, $feed_id );
 
@@ -56,9 +56,9 @@ class QLIGG_Widget extends WP_Widget {
 		$title   = $instance['title'];
 		$feed_id = $instance['feed_id'];
 
-		$feed_model = new Models_Feed();
+		$models_feed = new Models_Feed();
 
-		$feeds = $feed_model->get();
+		$feeds = $models_feed->get_all();
 		?>
 	<p>
 		<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title', 'insta-gallery' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></label>

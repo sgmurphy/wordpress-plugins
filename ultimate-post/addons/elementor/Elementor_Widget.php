@@ -55,11 +55,12 @@ class Gutenberg_Post_Blocks_Widget extends \Elementor\Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-        $body_class = get_body_class();
         $id = $settings['saved_template'];
 
-        if ($id) {
-            $this->set_inline_css($id);
+        if ( $id ) {
+            if ( isset($_GET['action']) || isset($_POST['action']) ) { //phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
+                echo ultimate_post()->build_css_for_inline_print($id, true); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            }
             echo '<div class="ultp-shortcode" data-postid="'.esc_attr($id).'">';
                 $args = array( 'p' => $id, 'post_type' => 'ultp_templates');
                 $the_query = new \WP_Query($args);
@@ -75,14 +76,6 @@ class Gutenberg_Post_Blocks_Widget extends \Elementor\Widget_Base {
             if (isset($_GET['action']) && $_GET['action'] == 'elementor') { // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended	
                 echo '<p style="text-align:center;">'.sprintf( esc_html__( 'Pick a Template from your saved ones. Or create a template from: %s.' , 'ultimate-post' ) . ' ', '<strong><i>' . esc_html( 'Dashboard > PostX > Saved Templates', 'ultimate-post' ) . '</i></strong>' ).'</p>';
             }
-        }
-    }
-
-    public function set_inline_css($id) {
-        if (isset($_GET['action']) || isset($_POST['action'])) { //phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended
-            echo ultimate_post()->set_css_style($id, true); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        } else {
-            ultimate_post()->set_css_style($id);
         }
     }
 }

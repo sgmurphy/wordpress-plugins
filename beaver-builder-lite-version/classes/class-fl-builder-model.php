@@ -3502,6 +3502,7 @@ final class FLBuilderModel {
 				$data->class       = $widget->class;
 				$data->category    = $widget->fl_category;
 				$data->kind        = 'module';
+				$data->accepts     = false;
 				$data->isWidget = true; // @codingStandardsIgnoreLine
 				$data->isAlias = false; // @codingStandardsIgnoreLine
 				$data->description = isset( $widget->widget_options['description'] ) ? $widget->widget_options['description'] : '';

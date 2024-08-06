@@ -200,6 +200,12 @@
         });
         // Code Mirror end
 
+        // Tooltip displaying start
+        $('[data-toggle="tooltip"]').tooltip({
+            template: '<div class="tooltip ays-pb-custom-class-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+        });
+        // Tooltip displaying end
+
         // Starter variables declare start
         var toggle_ddmenu = $(document).find('.toggle_ddmenu');
         var ays_pb_overlay_color = $(document).find('#ays-pb-overlay_color').val();
