@@ -25,7 +25,7 @@ const TextArea = (
 			{ label && (
 				<label
 					htmlFor={ name }
-					className="text-base flex font-semibold leading-6 items-center !mb-2"
+					className="text-sm flex font-medium leading-5 items-center !mb-2"
 				>
 					{ label }
 				</label>
@@ -54,7 +54,7 @@ const TextArea = (
 					disabled={ disabled }
 					className={ `${
 						label ? 'mt-2' : ''
-					} w-full placeholder:zw-placeholder zw-input text-[16px] rounded-md border outline-none focus:ring-1 focus:ring-accent-st p-4 ${
+					} w-full placeholder:zw-placeholder zw-input !text-sm rounded-md border outline-none focus:ring-1 focus:ring-accent-st p-4 ${
 						error
 							? 'shadow-error border-alert-error  focus:border-accent-st '
 							: 'shadow-sm border-zip-light-border-primary focus:border-accent-st'

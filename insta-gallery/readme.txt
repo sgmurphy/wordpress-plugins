@@ -5,7 +5,7 @@ Tags: Instagram, Instagram feed, Instagram gallery, Instagram photos, Instagram 
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 4.5.2
+Stable tag: 4.5.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -99,6 +99,10 @@ There may be other plugins (like fancybox, elementor) that also use image links 
 5. Social Feed Gallery PRO / Masonry layout
 
 == Changelog ==
+
+= 4.5.3 =
+* Fix Hide Instagram reels from feed
+* Fix Manually update Instagram token account
 
 = 4.5.2 =
 * Refactor

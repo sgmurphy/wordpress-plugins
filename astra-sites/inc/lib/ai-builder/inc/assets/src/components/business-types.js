@@ -55,6 +55,7 @@ const BusinessTypes = () => {
 	const [ openSuggestions, setOpenSuggestions ] = useState( false );
 	const [ isFetching, setIsFetching ] = useState( false );
 	const reqAbort = useRef( null );
+	const scrollableRef = useRef( null );
 
 	const { register, setValue, reset, setFocus, watch } = useForm( {
 		defaultValues: { keyword: businessType ?? '' },
@@ -93,6 +94,10 @@ const BusinessTypes = () => {
 	};
 
 	const handleClear = () => {
+		if ( scrollableRef.current ) {
+			scrollableRef.current.scrollTop = 0;
+		}
+
 		reset( { keyword: '' } );
 		setWebsiteTypeAIStep( '' );
 		setBusinessTypeListAIStep( [] );
@@ -310,7 +315,7 @@ const BusinessTypes = () => {
 			<div className="flex items-center justify-start w-full gap-2">
 				{ getIcon() }
 				<input
-					className="!p-0 !mx-0 !border-0 !rounded-none !min-h-0 !shadow-none !leading-[1.375rem] focus:!outline-none focus:!shadow-none w-full text-base placeholder:!text-zip-app-inactive-icon placeholder:!text-base focus:ring-0"
+					className="!text-sm !p-0 !mx-0 !border-0 !rounded-none !min-h-0 !shadow-none leading-[1.375rem] focus:!outline-none focus:!shadow-none w-full placeholder:!text-zip-app-inactive-icon placeholder:!text-base focus:ring-0"
 					type="text"
 					placeholder={ __( 'Type to search', 'ai-builder' ) }
 					onFocus={ () => setOpenSuggestions( true ) }
@@ -357,7 +362,10 @@ const BusinessTypes = () => {
 						tabIndex={ -1 }
 					/>
 				) }
-				<div className="max-h-[358px] w-full overflow-y-auto overflow-x-hidden">
+				<div
+					ref={ scrollableRef }
+					className="max-h-[300px] w-full overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar]:h-1/2 [&::-webkit-scrollbar-thumb]:h-16 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-dark-app-background/20 [&::-webkit-scrollbar-thumb:hover]:bg-dark-app-background/30 [&::-webkit-scrollbar-track]:bg-white [&::-webkit-scrollbar-track]:rounded-md scroll-p-0"
+				>
 					<motion.ul
 						className="w-full flex flex-col gap-1"
 						initial={ false }

@@ -139,6 +139,7 @@ final class Plugin {
 	protected function includes() {
 		include_once __DIR__ . '/helper.php';
 		include_once __DIR__ . '/install.php';
+		include_once __DIR__ . '/session.php';
 		include_once __DIR__ . '/query.php';
 		include_once __DIR__ . '/action-scheduler.php';
 		include_once __DIR__ . '/form-handler.php';
@@ -174,6 +175,7 @@ final class Plugin {
 
 		Customize\Customizer::instance();
 		Frontend::instance();
+		Session::instance();
 
 		if ( is_admin() ) {
 			new Admin\Templates_Notice();

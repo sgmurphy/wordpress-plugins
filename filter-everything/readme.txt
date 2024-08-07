@@ -1,9 +1,9 @@
 === Filter Everything&nbsp;— Product Filter & WordPress Filter ===
 Contributors: stepasyuk
 Tags: woocommerce product filter, woocommerce filter, product filter, post filter, ajax filter
-Stable tag: 1.8.5
+Stable tag: 1.8.6
 Requires at least: 4.6
-Tested up to: 6.5.3
+Tested up to: 6.6.1
 Requires PHP: 5.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -167,6 +167,14 @@ Uploading via FTP
 
 == Changelog ==
 
+= 1.8.6 =
+*Release Date - 18 July 2024*
+* Fix   - Fixed compatibility issue with Polylang plugin
+* Fix   - Fixed the ability to rewrite functions wrapped with function_exists()
+* Fix   - Fixed small issue with terms order equal to the order in ACF field
+* Fix   - Fixed issue with text search through filtered posts and apostrophe character
+* Tweak - Added hooks 'wpc_taxonomy_location_terms', 'wpc_post_type_location_terms', 'wpc_author_location_terms'
+
 = 1.8.5 =
 *Release Date - 15 May 2024*
 * Dev   - Added "Labels for Chips" option to configure chip labels
@@ -288,28 +296,14 @@ Uploading via FTP
 * Fix   - Fixed bug with untranslatable post type and Custom Field, Custom Field Num filters
 * Fix   - Fixed bug with opened filters widget on 768px screens
 
-= 1.7.1 =
-*Release Date - 30 September 2022*
-* Dev   - Added Show more/Show less toggle for filters
-* Tweak - Added hooks to make opened by default Folding, Hierarchy and Show more/Show less filters
-* Tweak - Optimized JavaScript code to increase speed of AJAX requests
-* Tweak - Added hook 'wpc_dropdown_default_option' to modify default option name in the dropdown view.
-* Fix   - Hide Show hierarchy field for non-taxonomy filters and for inappropriate views
-* Fix   - Fixed bug for Numeric filters when Min and Max values were incorrect
-
-= 1.7.0 =
-*Release Date - 31 August 2022*
-* Tweak - Reduced Chips size
-
 [See changelog for all versions](https://demo.filtereverything.pro/changelog.txt).
 
 == Upgrade Notice ==
 
-= 1.8.5 =
-*Release Date - 15 May 2024*
-* Dev   - Added "Labels for Chips" option to configure chip labels
-* Dev   - Added "Dropdown Label" option
-* Tweak - The "Show in Chips" option was hidden due to lack of demand
-* Tweak - Now default terms order in a Custom Field is the same as in ACF field
-* Tweak - If ACF field terms have labels, they displays in the Filters widget instead of values
-* Fix   - Fixed issue with WPML and Homepage in different languages
+= 1.8.6 =
+*Release Date - 18 July 2024*
+* Fix   - Fixed compatibility issue with Polylang plugin
+* Fix   - Fixed the ability to rewrite functions wrapped with function_exists()
+* Fix   - Fixed small issue with terms order equal to the order in ACF field
+* Fix   - Fixed issue with text search through filtered posts and apostrophe character
+* Tweak - Added hooks 'wpc_taxonomy_location_terms', 'wpc_post_type_location_terms', 'wpc_author_location_terms'

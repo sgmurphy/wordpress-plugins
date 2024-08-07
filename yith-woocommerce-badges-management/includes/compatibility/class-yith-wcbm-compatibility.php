@@ -58,14 +58,21 @@ if ( ! class_exists( 'YITH_WCBM_Compatibility' ) ) {
 		 */
 		private function load() {
 			foreach ( $this->compatibilities as $slug => $class_slug ) {
-				$filename  = YITH_WCBM_COMPATIBILITY_PATH . '/class-yith-wcbm-' . $slug . '-compatibility.php';
+				$filename  = '/class-yith-wcbm-' . $slug . '-compatibility.php';
 				$classname = 'YITH_WCBM_' . $class_slug . '_Compatibility';
 
-				$var = str_replace( '-', '_', $slug );
-				if ( file_exists( $filename ) && $this->has_plugin_or_theme( $slug ) ) {
-					require_once $filename;
+				$var      = str_replace( '-', '_', $slug );
+				$filepath = YITH_WCBM_COMPATIBILITY_PATH . $filename;
+
+				if ( ! file_exists( $filepath ) ) {
+					$filepath_in_folder = YITH_WCBM_COMPATIBILITY_PATH . '/' . $slug . $filename;
+					$filepath           = file_exists( $filepath_in_folder ) ? $filepath_in_folder : false;
+				}
+
+				if ( $filepath && $this->has_plugin_or_theme( $slug ) ) {
+					require_once $filepath;
 					if ( class_exists( $classname ) && method_exists( $classname, 'get_instance' ) ) {
-						$this->$var = $classname::get_instance();
+						$classname::get_instance();
 					}
 				}
 			}

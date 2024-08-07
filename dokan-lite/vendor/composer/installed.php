@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'appsero/updater' => array(
-            'pretty_version' => 'v1.0.0',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'v2.0.0',
+            'version' => '2.0.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../appsero/updater',
             'aliases' => array(),
-            'reference' => '541cf090d42a9354aee2cf6438b3eee0e5e34a99',
+            'reference' => 'ddc394439c58d27835a6bfd0564e138f2c8ed106',
             'dev_requirement' => false,
         ),
         'jakeasmith/http_build_url' => array(

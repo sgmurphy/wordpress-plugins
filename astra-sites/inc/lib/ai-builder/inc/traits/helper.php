@@ -278,6 +278,14 @@ class Helper {
 			$required_plugins = astra_get_site_data( 'required-plugins' );
 		}
 
+		if ( ! empty( $_POST['feature_plugins'] ) ) {
+			$feature_plugins = is_string( $_POST['feature_plugins'] ) ? json_decode( wp_unslash( $_POST['feature_plugins'] ), true ) : array();
+
+			if ( is_array( $feature_plugins ) && is_array( $required_plugins ) ) {
+				$required_plugins = array_merge( $required_plugins, $feature_plugins );
+			}
+		}
+
 		$data = self::get_required_plugins_data( $response, $required_plugins ); // @phpstan-ignore-line
 
 		if ( wp_doing_ajax() ) {

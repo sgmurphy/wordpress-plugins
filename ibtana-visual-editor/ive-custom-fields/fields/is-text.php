@@ -112,7 +112,9 @@ function ive_render_custom_text_field($post, $meta_data) {
       // Retrieve the current value of the text field
       $custom_text_value = get_post_meta($post->ID, $f_name, true);
       ?>
-  <label for="custom-text-field"><?php esc_html_e($f_title . ': ', 'ibtana-visual-editor'); ?></label>
+  <label for="custom-text-field"><?php 
+  /* translators: %s is the title */
+  printf( esc_html__( '%s: ', 'ibtana-visual-editor' ), $f_title ); ?></label>
   <br>
   <input type="text" id="custom-text-field" name="<?php echo esc_attr($f_name);?>" value="<?php echo esc_attr($custom_text_value); ?>" style="width:90%;" />
   <br>
@@ -129,7 +131,9 @@ function ive_render_custom_text_field($post, $meta_data) {
   // Output the checkbox input
   ?>
   <label for="custom_checkbox">
-    <?php esc_html_e($f_title . ': ', 'ibtana-visual-editor'); ?>
+    <?php 
+    /* translators: %s is the title */
+    printf( esc_html__( '%s: ', 'ibtana-visual-editor' ), $f_title ); ?>
       <input type="checkbox" name="<?php echo esc_attr($f_name);?>" id="<?php echo esc_attr($f_name);?>" value="1" <?php checked($value, 1); ?>>
   </label>
   <br>
@@ -164,7 +168,9 @@ function ive_render_custom_text_field($post, $meta_data) {
     			}
     			?>
           <br>
-          <p> <?php esc_html_e($f_title . ': ', 'ibtana-visual-editor');?></p>
+          <p> <?php 
+          /* translators: %s is the title */
+          printf( esc_html__( '%s: ', 'ibtana-visual-editor' ), $f_title );?></p>
     			<tr class="ive-wc-hide-tr" style="display: none;">
     				<td>
     					<input name="ive_hide_custom_repeater_item[rand_no][title]" type="text" value=""  placeholder="Heading" style="width:98%;" >

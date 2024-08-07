@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.6.1
-Stable tag: 4.3.9
+Stable tag: 4.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,27 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.4.0 - 07-August-2024
+- New:
+    - AI Builder: Enhanced onboarding UI.
+    - Design Kit: Enhanced personalized library steps UI.
+- Improvements:
+    - Switched from using transient to option data for storing information.
+    - AI Builder: Enabled business descriptions to be generated in the selected language.
+    - Design Kit: Converted Spectra common stylesheet to a JSON file instead of an option variable.
+    - Design Kit: Hidden Update Image option until the user personalizes the library.
+    - Design Kit:Blocked block pages preview if import is in process.
+- Fixes:
+    - Fixed issue where user input was not getting prefilled when switching between steps.
+    - Ensured required plugins for selected features are correctly installed.
+    - Resolved an issue where some classic editor templates were getting stuck during import.
+    - Fixed issue where the default logo was not getting replaced for classic templates.
+    - AI Builder: Removed the condition that showed the site limit exceed popup for all sites.
+    - Design Kit: Fixed issue where the Favorites functionality was not working in certain cases.
+    - Design Kit: Addressed problem where related block pages were not displaying in some scenarios.
+    - Design Kit: Fixed content regeneration for a category.
+    - Design Kit: Resolved visibility issue with the "Design Kit" button in WordPress 6.6 with the full site editor.
 
 v4.3.9 - 25-July-2024
 - Improvement: Improved the UI/UX.  

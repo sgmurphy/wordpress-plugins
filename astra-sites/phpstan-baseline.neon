@@ -991,21 +991,6 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Method Astra_Sites\\:\\:get_required_plugins_data\\(\\) has parameter \\$required_plugins with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:get_required_plugins_data\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:get_required_plugins_data\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
 			message: "#^Method Astra_Sites\\:\\:get_reset_data\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php

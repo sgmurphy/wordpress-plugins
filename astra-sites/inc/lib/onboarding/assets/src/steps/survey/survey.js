@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
-
-const SurveyForm = ( { updateFormDetails } ) => {
+const SurveyForm = ( { formDetails, updateFormDetails } ) => {
 	const [ selectedIndex, setSelectedIndex ] = useState( {
-		option1: 0,
-		option2: 0,
+		option1: formDetails.wp_user_type
+			? parseInt( formDetails.wp_user_type )
+			: 0,
+		option2: formDetails.build_website_for
+			? parseInt( formDetails.build_website_for )
+			: 0,
 	} );
-
 	return (
 		<>
 			<p className="label-text row-label !mb-2">
@@ -18,6 +20,7 @@ const SurveyForm = ( { updateFormDetails } ) => {
 					className="survey-text-input"
 					name="first_name"
 					placeholder={ __( 'Your First Name', 'astra-sites' ) }
+					value={ formDetails.first_name }
 					onChange={ ( e ) =>
 						updateFormDetails( 'first_name', e.target.value )
 					}
@@ -27,6 +30,7 @@ const SurveyForm = ( { updateFormDetails } ) => {
 					className="survey-text-input"
 					name="email"
 					placeholder={ __( 'Your Work Email', 'astra-sites' ) }
+					value={ formDetails.email }
 					onChange={ ( e ) =>
 						updateFormDetails( 'email', e.target.value )
 					}
@@ -38,15 +42,12 @@ const SurveyForm = ( { updateFormDetails } ) => {
 							? 'survey-select-input'
 							: 'survey-select-input initial'
 					}
-					defaultValue=""
-					onBlur={ ( e ) =>
-						updateFormDetails( 'wp_user_type', e.target.value )
-					}
+					value={ formDetails.wp_user_type }
 					onChange={ ( e ) => {
 						updateFormDetails( 'wp_user_type', e.target.value );
 						setSelectedIndex( {
 							...selectedIndex,
-							option1: e.target.selectedIndex,
+							option1: parseInt( e.target.value ),
 						} );
 					} }
 				>
@@ -68,14 +69,15 @@ const SurveyForm = ( { updateFormDetails } ) => {
 							? 'survey-select-input'
 							: 'survey-select-input initial'
 					}
-					defaultValue=""
-					onBlur={ ( e ) =>
-						updateFormDetails( 'build_website_for', e.target.value )
-					}
+					value={ formDetails.build_website_for }
 					onChange={ ( e ) => {
+						updateFormDetails(
+							'build_website_for',
+							e.target.value
+						);
 						setSelectedIndex( {
 							...selectedIndex,
-							option2: e.target.selectedIndex,
+							option2: parseInt( e.target.value ),
 						} );
 					} }
 				>

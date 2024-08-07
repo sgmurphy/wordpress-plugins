@@ -1143,7 +1143,7 @@ function nitropack_print_notice($type, $message, $dismissibleId = true, $canBeFi
     if ($app_notification) {
         $htmlMessage .= '<a class="btn btn-secondary btn-dismiss rml_btn" data-notification_end="' . $app_notification['end_date'] . '" data-notification_id="' . $app_notification['id'] . '">' . esc_html__('Dismiss', 'nitropack') . '</a>';
     } else if ($dismissibleId) {
-        $htmlMessage .= '<a class="btn btn-secondary btn-dismiss notice-dismiss" onclick="jQuery.post(ajaxurl, {action: "' . $dismissibleId . '", nonce: "' . wp_create_nonce(NITROPACK_NONCE) . '"}); jQuery(this).closest(\".is-dismissible\").hide();">' . esc_html__('Dismiss', 'nitropack') . '</a>';
+        $htmlMessage .= '<a class="btn btn-secondary btn-dismiss" onclick="jQuery.post(ajaxurl, {action: \'' . $dismissibleId . '\', nonce: \'' . wp_create_nonce(NITROPACK_NONCE) . '\'}); jQuery(this).closest(\'.is-dismissible\').hide();">' . esc_html__('Dismiss', 'nitropack') . '</a>';
     }
     $htmlMessage .= '</div>';
     echo $htmlMessage;
@@ -2275,7 +2275,7 @@ function nitropack_handle_post_transition($new, $old, $post) {
             case "custom_css":
                 nitropack_invalidate(NULL, NULL, sprintf("Invalidation of all pages due to modifying custom CSS"));
                 break;
-            default:
+                default:
                 if ($new == "future") {
                     nitropack_clean_post_cache($post, array('added' => nitropack_get_taxonomies($post)), true, sprintf("Invalidate related pages due to scheduling %s '%s'", $nicePostTypeLabel, $post->post_title));
                 } else if ($new === 'publish' && $old === 'trash') {
@@ -2283,27 +2283,21 @@ function nitropack_handle_post_transition($new, $old, $post) {
                 } else if ($new == "publish" && $old != "publish") {
                     $post->nicePostTypeLabel = $nicePostTypeLabel;
                     set_transient($post->ID . '_np_first_publish', $post, 120);
-                } else if ($new == 'publish' && $old != 'trash') {
-                    /* we need to handle the case here for new CPT posts to be optimized initially. No need to reoptimize an untrashed post */
-                    \NitroPack\WordPress\NitroPack::$np_loggedWarmups[] = get_permalink($post->ID);
-                } else if ($new == "trash" && $old == "publish") {
+                }  else if ($new == "trash" && $old == "publish") {
                     nitropack_clean_post_cache($post, array('deleted' => nitropack_get_taxonomies($post)), true, sprintf("Invalidate related pages due to deleting %s '%s'", $nicePostTypeLabel, $post->post_title), true);
                 } else if ($new == "private" && $old == "publish") {
                     nitropack_clean_post_cache($post, array('deleted' => nitropack_get_taxonomies($post)), true, sprintf("Invalidate related pages due to making %s '%s' private", $nicePostTypeLabel, $post->post_title), true);
                 } else if ($new == "draft" && $old == "publish") {
                     nitropack_clean_post_cache($post, array('deleted' => nitropack_get_taxonomies($post)), true, sprintf("Invalidate related pages due to making %s '%s' a draft", $nicePostTypeLabel, $post->post_title), true);
                 } else if ($new != "trash") {
-                    if (get_option('nitropack-legacyPurge', 0) && !defined('NITROPACK_PURGE_CACHE')) {
-                        //Below if will be removed
-                        if ($post->post_author > 0) {
-                            \NitroPack\WordPress\NitroPack::$np_loggedWarmups[] = get_permalink($post);
-                            nitropack_clean_post_cache($post);
-                            define('NITROPACK_PURGE_CACHE', true);
-                        }
-                    } elseif (!defined('NITROPACK_PURGE_CACHE')) {
+                    if (!defined('NITROPACK_PURGE_CACHE')) {
                         nitropack_detect_changes_and_clean_post_cache($post);
                     }
-                }                
+                    if ($new == 'publish') {
+                        /* we need to handle the case  here for new CPT posts to be optimized initially. No need to reoptimize an untrashed post */
+                        \NitroPack\WordPress\NitroPack::$np_loggedWarmups[] = get_permalink($post->ID);
+                    }
+                }
                 break;
         }
     } catch (\Exception $e) {

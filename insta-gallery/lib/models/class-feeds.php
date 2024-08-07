@@ -93,7 +93,7 @@ class Feeds {
 		$entity = $this->repository->create( $feed_data );
 
 		if ( ! $entity ) {
-			throw new \Exception( 'Error creating account.', 400 );
+			throw new \Exception( esc_html__( 'Error creating feed.', 'insta-gallery' ), 400 );
 		}
 
 		return $entity->getProperties();

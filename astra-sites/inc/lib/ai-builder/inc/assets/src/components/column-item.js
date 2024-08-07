@@ -129,7 +129,7 @@ export const ColumnItem = ( { template, position } ) => {
 	return (
 		<div
 			className={ classNames(
-				'w-full border border-border-tertiary border-solid'
+				'w-full border border-border-tertiary border-solid rounded-lg overflow-hidden'
 			) }
 		>
 			<div

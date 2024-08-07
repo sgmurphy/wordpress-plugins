@@ -1,4 +1,5 @@
 import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { useState, useMemo } from '@wordpress/element';
 import {
 	FacebookIcon,
@@ -11,8 +12,8 @@ import {
 } from '../ui/icons';
 import Dropdown from './dropdown';
 import Input from './input';
-import { socialMediaParser } from '../utils/helpers';
 import { __, sprintf } from '@wordpress/i18n';
+import Tooltip from './tooltip';
 
 const getPlaceholder = ( socialMedia ) => {
 	switch ( socialMedia ) {
@@ -35,67 +36,42 @@ const getPlaceholder = ( socialMedia ) => {
 	}
 };
 
-const getSlugPlaceholder = ( socialMedia ) => {
-	switch ( socialMedia ) {
-		case 'Facebook':
-		case 'Twitter':
-		case 'Instagram':
-		case 'LinkedIn':
-			return `username`;
-		case 'YouTube':
-			return `channel-name`;
-		case 'Google My Business':
-		case 'Yelp':
-			return 'business-name';
-		default:
-			return __( 'Enter your account URL', 'ai-builder' );
-	}
-};
-
 const SocialMediaItem = ( { socialMedia, onRemove, onEdit } ) => {
 	const [ isEditing, setIsEditing ] = useState( false );
-	const [ editedSlug, setEditedSlug ] = useState( socialMedia.slug );
+	const [ editedURL, setEditedURL ] = useState( socialMedia.url );
 
 	const handleDoubleClick = () => {
-		setEditedSlug( socialMedia.slug );
 		setIsEditing( true );
 	};
 
-	const handleUpdateURL = ( slug = '' ) => {
-		setIsEditing( false );
-		if ( ! slug.trim() ) {
-			setEditedSlug( socialMedia.slug );
-		} else {
-			try {
-				// if the typed slug is a url, we need to send it as it is
-				new URL( slug );
-				onEdit( slug.trim() );
-			} catch ( error ) {
-				// if it's not a url, we need to add the prefix
-				onEdit( socialMedia.prefix + slug.trim() );
-			}
+	const handleUpdateURL = ( url = '' ) => {
+		if ( url === '' ) {
+			setIsEditing( false );
+			return;
 		}
+		onEdit( url.trim() );
+		setIsEditing( false );
 	};
 
 	const handleBlur = () => {
-		handleUpdateURL( editedSlug );
+		handleUpdateURL( editedURL );
 	};
 
 	const handleKeyDown = ( event ) => {
 		if ( event.key === 'Enter' ) {
 			event.preventDefault();
-			handleUpdateURL( editedSlug );
+			handleUpdateURL( editedURL );
 		} else if ( event.key === 'Escape' ) {
 			handleUpdateURL();
 		}
 	};
 
-	const placeholder = getSlugPlaceholder( socialMedia.name );
+	const placeholder = getPlaceholder( socialMedia.name );
 
 	return (
 		<div
 			key={ socialMedia.id }
-			className="relative h-[50px] pl-[23px] pr-[25px] rounded-[25px] bg-white flex items-center gap-3 shadow-sm"
+			className="relative h-[50px] pl-[23px] pr-[25px] rounded-[25px] bg-white flex items-center gap-3 shadow-sm border border-zip-light-border-primary"
 			onDoubleClick={ handleDoubleClick }
 		>
 			{ ! isEditing && (
@@ -119,19 +95,15 @@ const SocialMediaItem = ( { socialMedia, onRemove, onEdit } ) => {
 					} }
 					name="socialMediaURL"
 					inputClassName="!border-0 !bg-transparent !shadow-none focus:!ring-0 px-0 min-w-fit placeholder:!text-[0.9rem] rounded-none"
-					value={ editedSlug }
+					value={ editedURL }
 					onChange={ ( e ) => {
-						setEditedSlug( e.target.value );
+						setEditedURL( e.target.value );
 					} }
 					className="w-full"
 					placeholder={ placeholder }
 					noBorder
 					onBlur={ handleBlur }
 					onKeyDown={ handleKeyDown }
-					prefixIcon={
-						<p className="m-0 pr-2">{ socialMedia.prefix }</p>
-					}
-					enableAutoGrow
 				/>
 			) : (
 				<p className="text-base font-medium text-body-text">
@@ -184,55 +156,16 @@ const SocialMediaAdd = ( { list, onChange } ) => {
 	const [ selectedSocialMedia, setSelectedSocialMedia ] = useState( null );
 	const [ socialMediaURL, setSocialMediaURL ] = useState( '' );
 
-	const socialMediaHandles = {
-		twitter: 'twitter.com/',
-		facebook: 'facebook.com/',
-		instagram: 'instagram.com/',
-		linkedin: 'linkedin.com/in/',
-		youtube: 'youtube.com/',
-		google: 'google.com/maps/place/',
-		yelp: 'yelp.com/biz/',
-	};
-
-	const validateSocialMediaURL = ( url, type ) => {
+	const validateSocialMediaURL = ( url ) => {
 		if ( url === '' ) {
 			return true;
 		}
-		return socialMediaParser.validate( type, url );
-	};
-
-	const getSocialMediaURL = ( LINK, SOCIAL_MEDIA_TYPE ) => {
-		const socialMediaDomain =
-			socialMediaHandles[ SOCIAL_MEDIA_TYPE?.toLowerCase() ];
-
-		const matches = socialMediaParser.parse( LINK );
-
-		// if no matches or if match is not the selected social media type, return it as it is
-		if (
-			Object.keys( matches ).length === 0 ||
-			! matches[ SOCIAL_MEDIA_TYPE.toLowerCase() ]
-		) {
-			try {
-				const domain = new URL(
-					LINK.replace( `https://${ socialMediaDomain }` )
-				).hostname;
-				return [ LINK, '', `https://${ domain }/` ];
-			} catch {
-				// means it's not a valid URL, we can continue
-			}
-		}
-
+		const startsWithHttp = url.startsWith( 'https://' );
 		try {
-			const slug = LINK.replace( socialMediaDomain, '' )
-				.replace( `https://`, '' )
-				.replace( 'http://', '' )
-				.replace( 'www.', '' );
-
-			const fullUrl = `https://${ socialMediaDomain }${ slug }`;
-
-			return [ fullUrl, slug, `https://${ socialMediaDomain }` ];
+			const domain = new URL( url ).hostname;
+			return startsWithHttp && !! domain;
 		} catch ( error ) {
-			return LINK;
+			return false;
 		}
 	};
 
@@ -254,17 +187,12 @@ const SocialMediaAdd = ( { list, onChange } ) => {
 		) {
 			return;
 		}
-		const [ link, slug, prefix ] = getSocialMediaURL(
-			socialMediaURL.trim(),
-			type
-		);
+		const link = socialMediaURL.trim();
 		const newList = [
 			...list,
 			{
 				...selectedSocialMedia,
 				url: link,
-				slug,
-				prefix,
 				valid: validateSocialMediaURL( link, type ),
 			},
 		];
@@ -276,7 +204,7 @@ const SocialMediaAdd = ( { list, onChange } ) => {
 	const handleEditLink = ( id, value ) => {
 		const newList = list.map( ( sm ) => {
 			if ( sm.id === id ) {
-				const url = getSocialMediaURL( value, id )[ 0 ];
+				const url = value.trim();
 				return {
 					...sm,
 					url,
@@ -290,13 +218,11 @@ const SocialMediaAdd = ( { list, onChange } ) => {
 
 	const updatedList = useMemo( () => {
 		return list.map( ( sm ) => {
-			const [ url, slug, prefix ] = getSocialMediaURL( sm.url, sm.id );
+			const url = sm.url;
 			const valid = validateSocialMediaURL( url, sm.id );
 			return {
 				...sm,
 				url,
-				slug,
-				prefix,
 				valid,
 				icon: socialMediaList.find( ( item ) => item.id === sm.id )
 					?.icon,
@@ -310,7 +236,7 @@ const SocialMediaAdd = ( { list, onChange } ) => {
 				? getPlaceholder( selectedSocialMedia.name )
 				: __( 'Enter your account URL', 'ai-builder' );
 			return (
-				<div className="h-[50px] w-[520px] rounded-[25px] bg-white flex items-center">
+				<div className="h-[50px] w-[520px] rounded-[25px] bg-white flex items-center border border-zip-light-border-primary">
 					<Input
 						name="socialMediaURL"
 						value={ socialMediaURL }
@@ -344,25 +270,6 @@ const SocialMediaAdd = ( { list, onChange } ) => {
 								setSocialMediaURL( '' );
 							}
 						} }
-						suffixIcon={
-							<div
-								className="absolute -top-4 right-0"
-								onClick={ () => {
-									setSelectedSocialMedia( null );
-									setSocialMediaURL( '' );
-								} }
-								role="button"
-								tabIndex={ 0 }
-								onKeyDown={ () => {
-									setSelectedSocialMedia( null );
-									setSocialMediaURL( '' );
-								} }
-							>
-								<div className="w-4 h-4 rounded-full flex items-center justify-center bg-app-inactive-icon cursor-pointer bg-nav-inactive">
-									<XMarkIcon className="w-4 h-4 text-white" />
-								</div>
-							</div>
-						}
 					/>
 				</div>
 			);
@@ -407,44 +314,57 @@ const SocialMediaAdd = ( { list, onChange } ) => {
 
 	return (
 		<div>
-			<h5 className="text-base font-semibold mb-5">
+			<h5 className="text-sm font-medium mb-5 flex gap-1 items-center">
 				{ __( 'Social Media', 'ai-builder' ) }
+				<Tooltip
+					className={ 'text-left zw-tooltip__classic' }
+					arrow={ true }
+					content={
+						<>
+							{ __(
+								'Please enter a full URL. Eg. https://twitter.com/abcd, https://instagram.com/abcd, https://facebook.com/abcd',
+								'ai-builder'
+							) }
+						</>
+					}
+				>
+					<ExclamationCircleIcon className="w-4 h-4" />
+				</Tooltip>
 			</h5>
 
 			<div className="flex items-start gap-4 flex-wrap">
 				{ updatedList?.length > 0 && (
 					<div className="flex items-start gap-4 flex-wrap">
-						{ updatedList.map( ( sm ) => (
-							<div key={ sm.id }>
-								<SocialMediaItem
-									socialMedia={ sm }
-									onRemove={ () => {
-										onChange(
-											updatedList.filter(
-												( item ) => item.id !== sm.id
-											)
-										);
-									} }
-									onEdit={ ( url ) =>
-										handleEditLink( sm.id, url )
-									}
-								/>
-								{ ! sm.valid && (
-									<div className="p-3">
-										<p className="!m-0 !p-0 !text-alert-error !text-sm">
-											{ sprintf(
-												/* translators: %s: social media name */
-												__(
-													'This might not be a valid %s URL',
+						{ updatedList.map( ( sm ) => {
+							return (
+								<div key={ sm.id }>
+									<SocialMediaItem
+										socialMedia={ sm }
+										onRemove={ () => {
+											onChange(
+												updatedList.filter(
+													( item ) =>
+														item.id !== sm.id
+												)
+											);
+										} }
+										onEdit={ ( url ) =>
+											handleEditLink( sm.id, url )
+										}
+									/>
+									{ ! sm.valid && (
+										<div className="p-3">
+											<p className="!m-0 !p-0 !text-alert-error !text-sm ">
+												{ __(
+													'This might not be a valid URL.',
 													'ai-builder'
-												),
-												sm.name
-											) }
-										</p>
-									</div>
-								) }
-							</div>
-						) ) }
+												) }
+											</p>
+										</div>
+									) }
+								</div>
+							);
+						} ) }
 					</div>
 				) }
 

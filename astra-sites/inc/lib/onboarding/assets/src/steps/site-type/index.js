@@ -21,7 +21,6 @@ const SiteType = () => {
 	const zipPlans = astraSitesVars?.zip_plans;
 	const sitesRemaining = zipPlans?.plan_data?.remaining;
 	const aiSitesRemainingCount = sitesRemaining?.ai_sites_count;
-	const allSitesRemainingCount = sitesRemaining?.all_sites_count;
 
 	useEffect( () => {
 		const startTime = localStorage.getItem( 'st-import-start' );
@@ -58,10 +57,8 @@ const SiteType = () => {
 		const token = urlParams.get( 'token' );
 		if ( token ) {
 			if (
-				( typeof aiSitesRemainingCount === 'number' &&
-					aiSitesRemainingCount <= 0 ) ||
-				( typeof allSitesRemainingCount === 'number' &&
-					allSitesRemainingCount <= 0 )
+				typeof aiSitesRemainingCount === 'number' &&
+				aiSitesRemainingCount <= 0
 			) {
 				dispatch( {
 					type: 'set',
@@ -81,10 +78,8 @@ const SiteType = () => {
 
 	const handleBuildWithAIPress = () => {
 		if (
-			( typeof aiSitesRemainingCount === 'number' &&
-				aiSitesRemainingCount <= 0 ) ||
-			( typeof allSitesRemainingCount === 'number' &&
-				allSitesRemainingCount <= 0 )
+			typeof aiSitesRemainingCount === 'number' &&
+			aiSitesRemainingCount <= 0
 		) {
 			dispatch( {
 				type: 'set',

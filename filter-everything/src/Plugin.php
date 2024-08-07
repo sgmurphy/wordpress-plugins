@@ -1387,7 +1387,7 @@ class Plugin
     public function addSearchArgsToWpQuery( $wp_query )
     {
         if ( isset( $_GET['srch'] ) && $_GET['srch']  ) {
-            $keyword = filter_input( INPUT_GET, 'srch', FILTER_SANITIZE_SPECIAL_CHARS );
+            $keyword = filter_input( INPUT_GET, 'srch', FILTER_DEFAULT );
             $wp_query->set( 's', $keyword );
         }
 

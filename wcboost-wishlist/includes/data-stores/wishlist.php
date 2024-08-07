@@ -1,6 +1,6 @@
 <?php
 namespace WCBoost\Wishlist\DataStore;
-use WCBoost\Wishlist\Helper;
+use WCBoost\Wishlist\Session;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -302,7 +302,7 @@ class Wishlist {
 
 		if ( is_user_logged_in() ) {
 			$default_wishlist_id = $wpdb->get_var( $wpdb->prepare( "SELECT wishlist_id FROM {$wpdb->prefix}wcboost_wishlists WHERE user_id = %d AND status != 'trash' AND is_default = 1 LIMIT 1;", [ get_current_user_id() ] ) );
-		} elseif ( $session_id = Helper::get_session_id() ) {
+		} elseif ( $session_id = Session::get_session_id() ) {
 			$default_wishlist_id = $wpdb->get_var( $wpdb->prepare( "SELECT wishlist_id FROM {$wpdb->prefix}wcboost_wishlists WHERE session_id = %s AND status != 'trash' LIMIT 1;", [ $session_id ] ) );
 		}
 
@@ -321,7 +321,7 @@ class Wishlist {
 
 		if ( is_user_logged_in() ) {
 			$ids = $wpdb->get_col( $wpdb->prepare( "SELECT wishlist_id FROM {$wpdb->prefix}wcboost_wishlists WHERE user_id = %d AND status != 'trash';", [ get_current_user_id() ] ) );
-		} elseif ( $session_id = Helper::get_session_id() ) {
+		} elseif ( $session_id = Session::get_session_id() ) {
 			$ids = $wpdb->get_col( $wpdb->prepare( "SELECT wishlist_id FROM {$wpdb->prefix}wcboost_wishlists WHERE session_id = %s LIMIT 1;", [ $session_id ] ) );
 		}
 

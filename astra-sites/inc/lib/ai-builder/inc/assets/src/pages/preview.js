@@ -31,7 +31,7 @@ import { getDataUri } from '../utils/functions';
 import { motion, useAnimation } from 'framer-motion';
 import { useNavigateSteps } from '../router';
 import CustomColorPalette from '../components/custom-color-palette';
-import withBuildSiteController from '../components/hoc/withBuildSiteController';
+import withBuildSiteController from '../hoc/withBuildSiteController';
 import LoadingSpinner from '../components/loading-spinner';
 import Tooltip from '../components/tooltip';
 
@@ -316,6 +316,8 @@ const SitePreview = ( { handleClickStartBuilding, isInProgress } ) => {
 							content={ <TooltipContent /> }
 							placement="right"
 							offset={ [ 10, 0 ] }
+							className="zw-tooltip__material"
+							arrow={ false }
 						>
 							<ExclamationCircleIcon className="w-[18px] text-gray-600 cursor-pointer block md:hidden" />
 						</Tooltip>
@@ -327,6 +329,7 @@ const SitePreview = ( { handleClickStartBuilding, isInProgress } ) => {
 							content={ <TooltipContent /> }
 							placement="right"
 							offset={ [ 10, 0 ] }
+							className="zw-tooltip__material"
 						>
 							<ExclamationCircleIcon className="w-[18px] text-gray-600 cursor-pointer block" />
 						</Tooltip>
@@ -341,10 +344,10 @@ const SitePreview = ( { handleClickStartBuilding, isInProgress } ) => {
 			id="spectra-onboarding-ai"
 			key="spectra-onboarding-ai"
 			className="relative font-sans flex flex-wrap h-screen w-screen"
-			initial={ { opacity: 0 } }
-			animate={ { opacity: 1 } }
-			exit={ { opacity: 0 } }
-			transition={ { type: 'spring' } }
+			initial={ { opacity: 0, scale: 0.95 } }
+			animate={ { opacity: 1, scale: 1, transition: { duration: 0.2 } } }
+			exit={ { opacity: 1 } }
+			transition={ { type: 'tween' } }
 		>
 			<motion.div
 				className={ classNames(
@@ -369,7 +372,7 @@ const SitePreview = ( { handleClickStartBuilding, isInProgress } ) => {
 						/>
 						{ /* Exit button */ }
 						<div className="absolute top-3 right-0">
-							<AiBuilderExitButton />
+							<AiBuilderExitButton exitButtonClassName="text-icon-tertiary" />
 						</div>
 					</div>
 					<nav className="flex flex-1 flex-col gap-y-1">

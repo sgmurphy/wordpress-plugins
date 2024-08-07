@@ -18,12 +18,6 @@ class Frontend {
 
 		add_action( 'init', [ $this, 'register_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-
-		// Cookie events.
-		add_action( 'wcboost_wishlist_add_item', [ $this, 'maybe_set_cookies' ] );
-		add_action( 'wcboost_wishlist_removed_item', [ $this, 'maybe_set_cookies' ] );
-		add_action( 'wp', [ $this, 'maybe_set_cookies' ], 99 );
-		add_action( 'shutdown', [ $this, 'maybe_set_cookies' ], 0 );
 	}
 
 	/**
@@ -655,40 +649,12 @@ class Frontend {
 	 * Will set cookies if needed and when possible.
 	 *
 	 * @since 1.1.1
+	 * @deprecated 1.1.2 Moved to the Session class.
 	 *
 	 * @return void
 	 */
 	public function maybe_set_cookies() {
-		if ( headers_sent() || ! did_action( 'wp_loaded' ) ) {
-			return;
-		}
-
-		$wishlist = Helper::get_wishlist();
-
-		if ( ! $wishlist->is_empty() ) {
-			$this->set_cookies( true );
-		} else {
-			$this->set_cookies( false );
-		}
-	}
-
-	/**
-	 * Set the comparison cookie
-	 *
-	 * @since 1.1.1
-	 *
-	 * @param  bool $set Should the cookie be set or unset.
-	 *
-	 * @return void
-	 */
-	private function set_cookies( $set = true )  {
-		$wishlist = Helper::get_wishlist();
-
-		if ( $set ) {
-			wc_setcookie( 'wcboost_wishlist_hash', $wishlist->get_hash() );
-		} else {
-			wc_setcookie( 'wcboost_wishlist_hash', '', time() - HOUR_IN_SECONDS );
-			unset( $_COOKIE['wcboost_wishlist_hash'] );
-		}
+		_deprecated_function( __METHOD__, '1.1.2', '\WCBoost\Wishlist\Session\maybe_set_cookies' );
+		Session::instance()->maybe_set_cookies();
 	}
 }

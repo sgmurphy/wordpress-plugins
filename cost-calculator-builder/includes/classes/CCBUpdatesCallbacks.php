@@ -277,8 +277,8 @@ class CCBUpdatesCallbacks {
 				'order_id'   => $order['id'],
 				'type'       => $payment_type,
 				'status'     => ! empty( $order['status'] ) ? $order['status'] : Payments::$defaultStatus, // phpcs:ignore
-				'total'      => $order['total'],
-				'currency'   => $order['currency'],
+				'total'      => $order['total'] ?? 0,
+				'currency'   => $order['currency'] ?? '$',
 				'created_at' => wp_date( 'Y-m-d H:i:s' ),
 				'updated_at' => wp_date( 'Y-m-d H:i:s' ),
 			);

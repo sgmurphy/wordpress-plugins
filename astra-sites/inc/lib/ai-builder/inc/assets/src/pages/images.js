@@ -1,8 +1,10 @@
 import {
 	ArrowUpTrayIcon,
+	CheckIcon,
 	ChevronDownIcon,
 	ChevronUpIcon,
 	MagnifyingGlassIcon,
+	SparklesIcon,
 	XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { useForm } from 'react-hook-form';
@@ -19,7 +21,6 @@ import { STORE_KEY } from '../store';
 import NavigationButtons from '../components/navigation-buttons';
 import Heading from '../components/heading';
 import { classNames } from '../helpers';
-import Input from '../components/input';
 import ImagePreview from '../components/image-preview';
 import { clearSessionStorage } from '../utils/helpers';
 import { USER_KEYWORD } from './select-template';
@@ -28,11 +29,12 @@ import UploadImage from '../components/upload-image';
 import { uploadMedia } from '@wordpress/media-utils';
 import { useDropzone } from 'react-dropzone';
 import { __ } from '@wordpress/i18n';
+import usePopper from '../hooks/use-popper';
 
 const ORIENTATIONS = {
 	all: {
 		value: 'all',
-		label: __( 'All', 'ai-builder' ),
+		label: __( 'All orientations', 'ai-builder' ),
 	},
 	landscape: {
 		value: 'landscape',
@@ -152,6 +154,13 @@ const Images = () => {
 	const [ backToTop, setBackToTop ] = useState( false );
 	const [ activeTab, setActiveTab ] = useState( 'all' );
 
+	const [ openSuggestedKeywords, setOpenSuggestedKeywords ] =
+		useState( false );
+	const [ referenceRef, popperRef ] = usePopper( {
+		placement: 'bottom',
+		modifiers: [ { name: 'offset', options: { offset: [ 0, 0 ] } } ],
+	} );
+
 	const mainWrapper = useRef( null );
 	const scrollContainerRef = useRef( null );
 	const imageRequestCompleted = useRef( false );
@@ -159,15 +168,8 @@ const Images = () => {
 	const previouslySelected = useRef( [ ...selectedImages ] );
 	const uploadImagesBtn = useRef( null );
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		setValue,
-		reset,
-		setFocus,
-		watch,
-	} = useForm( { defaultValues: { keyword } } );
+	const { register, handleSubmit, setValue, reset, setFocus, watch } =
+		useForm( { defaultValues: { keyword } } );
 	const watchedKeyword = watch( 'keyword' );
 
 	const [ debouncedImageKeywords, cancelDebouncedImageKeywords ] =
@@ -182,6 +184,7 @@ const Images = () => {
 		cancelDebouncedImageKeywords();
 		setKeyword( keyword_value );
 		setValue( 'keyword', keyword_value );
+		setOpenSuggestedKeywords( false );
 	};
 
 	const getSuggestedKeywords = () => {
@@ -399,7 +402,7 @@ const Images = () => {
 	useEffect( () => {
 		imageRequestCompleted.current = false;
 		const fetchAllImagesFromAllEngines = async () => {
-			if ( isLoading ) {
+			if ( isLoading || ! hasMore ) {
 				return;
 			}
 			try {
@@ -489,7 +492,7 @@ const Images = () => {
 	const getRenderItems = () => {
 		switch ( activeTab ) {
 			case TABS[ 0 ].value:
-				return isLoading
+				return isLoading || ! imageRequestCompleted.current
 					? [ ...images, ...getImageSkeleton() ]
 					: images;
 			case TABS[ 1 ].value:
@@ -555,6 +558,9 @@ const Images = () => {
 		}
 		setKeyword( '' );
 		reset( { keyword: '' } );
+		setTimeout( () => {
+			setFocus( 'keyword' );
+		}, 10 );
 	};
 
 	const uploadDroppedFiles = async ( filesList ) => {
@@ -595,6 +601,18 @@ const Images = () => {
 		}
 	};
 
+	const handleClickOutside = ( event ) => {
+		const businessTypesWrapper = document.getElementById(
+			'search-images-wrapper'
+		);
+		if (
+			businessTypesWrapper &&
+			! businessTypesWrapper.contains( event.target )
+		) {
+			setOpenSuggestedKeywords( false );
+		}
+	};
+
 	useEffect( () => {
 		if ( ! acceptedFiles?.length ) {
 			return;
@@ -602,54 +620,116 @@ const Images = () => {
 		uploadDroppedFiles( acceptedFiles );
 	}, [ acceptedFiles ] );
 
+	// handle outside click to close the suggestions.
+	useEffect( () => {
+		document.addEventListener( 'mousedown', handleClickOutside );
+		return () =>
+			document.removeEventListener( 'mousedown', handleClickOutside );
+	}, [ handleClickOutside ] );
+
+	const handleOpenSuggestedKeywords = ( event ) => {
+		if ( openSuggestedKeywords ) {
+			return;
+		}
+
+		// Check if the event type is on click
+		if ( event?.type === 'click' || event?.type === 'keydown' ) {
+			setOpenSuggestedKeywords( true );
+		}
+	};
+
 	return (
 		<div
 			className="w-full flex flex-col flex-auto h-full overflow-y-auto"
 			ref={ scrollContainerRef }
 			onScroll={ handleScroll }
 		>
-			<Heading
-				heading={ __( 'Select Images', 'ai-builder' ) }
-				className="px-5 md:px-10 lg:px-14 xl:px-15 pt-5 md:pt-10 lg:pt-12 xl:pt-12"
-			/>
-			<div className="pt-4 sticky top-0 space-y-4 z-[1] bg-zip-app-light-bg px-5 md:px-10 lg:px-14 xl:px-15">
+			<div className="w-full space-y-6">
+				<Heading
+					heading={ __( 'Select the Images', 'ai-builder' ) }
+					className="px-5 md:px-10 lg:px-14 xl:px-15 pt-5 md:pt-10 lg:pt-8 xl:pt-8 max-w-fit mx-auto"
+				/>
 				<form
+					className="w-full overflow-visible min-h-[3.125rem]"
 					onSubmit={ handleSubmit( handleImageSearch ) }
 					data-disabled={ loadingNextStep }
 				>
-					<Input
-						className="w-full"
-						inputClassName="pl-11"
-						height="12"
-						name="keyword"
-						register={ register }
-						placeholder="Add more relevant keywords..."
-						validations={ {
-							required: false,
+					<div
+						id="search-images-wrapper"
+						ref={ referenceRef }
+						className={ classNames(
+							'relative w-full max-w-[37.5rem] mx-auto pl-4 pr-12 py-3 border border-button-disabled rounded-md shadow bg-white z-[2]',
+							{
+								'pb-0 rounded-b-none border-b-0 shadow-md':
+									openSuggestedKeywords,
+								'focus-within:ring-1 focus-within:ring-accent-st focus-within:border-accent-st focus-within:outline-none':
+									! openSuggestedKeywords,
+							}
+						) }
+						onClick={ ( event ) => {
+							// If event target is `search-images-wrapper` then focus input.
+							if ( event.target.id !== 'search-images-wrapper' ) {
+								return;
+							}
+							setFocus( 'keyword' );
+							if ( openSuggestedKeywords ) {
+								return;
+							}
+							setOpenSuggestedKeywords( true );
 						} }
-						error={ errors?.keyword }
-						prefixIcon={
-							<div className="absolute left-4 flex items-center">
-								<button
-									type="button"
-									className="w-auto h-auto p-0 flex items-center justify-center cursor-pointer bg-transparent border-0 focus:outline-none"
-									onClick={ handleClearSearch }
-								>
-									{ watchedKeyword ? (
-										<XMarkIcon className="w-5 h-5 text-zip-app-inactive-icon" />
-									) : (
-										<MagnifyingGlassIcon className="w-5 h-5 text-zip-app-inactive-icon" />
-									) }
-								</button>
-							</div>
-						}
-					/>
+					>
+						<div className="absolute top-[0.875rem] right-3 flex items-center">
+							<button
+								type="button"
+								className="w-auto h-auto p-0 flex items-center justify-center cursor-pointer bg-transparent border-0 focus:outline-none"
+								onClick={ handleClearSearch }
+							>
+								{ watchedKeyword ? (
+									<XMarkIcon className="w-5 h-5 text-zip-app-inactive-icon" />
+								) : (
+									<MagnifyingGlassIcon className="w-5 h-5 text-zip-app-inactive-icon" />
+								) }
+							</button>
+						</div>
+						<input
+							className="!text-sm p-0 border-0 w-full focus:outline-none focus:ring-0 focus-visible:outline-none"
+							placeholder="Add more relevant keywords..."
+							autoComplete="off"
+							onKeyDown={ handleOpenSuggestedKeywords }
+							onClick={ handleOpenSuggestedKeywords }
+							{ ...register( 'keyword' ) }
+						/>
+						<div
+							ref={ popperRef }
+							className={ classNames(
+								'w-[calc(100%_+_2px)] px-3 pb-4 z-10 bg-white shadow-md border-x border-b border-t-0 border-solid border-border-tertiary rounded-b-md',
+								{
+									invisible: ! openSuggestedKeywords,
+								}
+							) }
+						>
+							{ openSuggestedKeywords && (
+								<hr
+									className="!mx-0 !my-3 border-t border-solid border-b-0 border-border-tertiary"
+									tabIndex={ -1 }
+								/>
+							) }
+							<h6 className="flex items-center justify-start gap-1.5 text-sm text-heading-text font-medium mb-4">
+								<span>
+									{ __( 'Suggested Keywords', 'ai-builder' ) }
+								</span>
+								<SparklesIcon className="inline-block size-4" />
+							</h6>
+							<SuggestedKeywords
+								keywords={ getSuggestedKeywords() }
+								onClick={ handleSelectKeyword }
+								data-disabled={ loadingNextStep }
+							/>
+						</div>
+					</div>
 				</form>
-				<SuggestedKeywords
-					keywords={ getSuggestedKeywords() }
-					onClick={ handleSelectKeyword }
-					data-disabled={ loadingNextStep }
-				/>
+			</div>
+			<div className="sticky top-0 pt-4 space-y-6 z-[1] bg-container-background px-5 md:px-10 lg:px-14 xl:px-15">
 				<div className=" rounded-t-lg py-4">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-1 text-sm font-normal leading-[21px]">
@@ -699,15 +779,10 @@ const Images = () => {
 								placement="right"
 								trigger={
 									<div
-										className="flex items-center gap-2 min-w-[100px] cursor-pointer"
+										className="flex items-center gap-2 min-w-[100px] py-3 pl-4 pr-3 cursor-pointer border border-border-primary rounded-md"
 										data-disabled={ loadingNextStep }
 									>
 										<span className="text-sm font-normal text-body-text leading-[150%]">
-											{ __(
-												'Orientation',
-												'ai-builder'
-											) }
-											: { '' }
 											{ orientation.label }
 										</span>
 										<ChevronDownIcon className="w-5 h-5 text-app-inactive-icon" />
@@ -715,7 +790,7 @@ const Images = () => {
 								}
 								align="top"
 								width="48"
-								contentClassName="p-4 bg-white [&>:first-child]:pb-3 [&>:last-child]:pt-3 [&>:not(:first-child,:last-child)]:py-3 !divide-y !divide-border-primary divide-solid divide-x-0"
+								contentClassName="p-1 bg-white"
 								disabled={ loadingNextStep }
 							>
 								{ Object.values( ORIENTATIONS ).map(
@@ -727,12 +802,18 @@ const Images = () => {
 										>
 											<button
 												type="button"
-												className="w-full flex items-center gap-2 px-1.5 py-1 text-sm font-normal leading-5 text-body-text hover:bg-background-secondary transition duration-150 ease-in-out space-x-2 rounded bg-white border-none cursor-pointer"
+												className="w-full flex items-center justify-between gap-2 py-1.5 px-2 text-sm font-normal leading-5 text-body-text hover:bg-background-secondary transition duration-150 ease-in-out space-x-2 rounded bg-white border-none cursor-pointer"
 												onClick={ handleOrientationChange(
 													orientationItem
 												) }
 											>
-												{ orientationItem.label }
+												<span>
+													{ orientationItem.label }
+												</span>
+												{ orientationItem.value ===
+													orientation.value && (
+													<CheckIcon className="w-4 h-4 text-heading-text" />
+												) }
 											</button>
 										</Dropdown.Item>
 									)
@@ -782,7 +863,7 @@ const Images = () => {
 				{ activeTab === TABS[ 1 ].value && ! renderImages.length && (
 					<div
 						className={ classNames(
-							'relative flex flex-col items-center justify-center gap-3 py-[3.125rem] px-4 bg-preview-background border border-dashed border-border-tertiary rounded cursor-pointer'
+							'relative flex flex-col items-center justify-center gap-3 py-[3.125rem] px-4 bg-background-primary border border-dashed border-border-tertiary rounded cursor-pointer'
 						) }
 						data-disabled={ loadingNextStep }
 						{ ...getRootProps() }
@@ -817,10 +898,10 @@ const Images = () => {
 							columns={ {
 								default: 1,
 								220: 1,
-								767: 2,
-								1024: 2,
-								1280: 4,
-								1441: 5,
+								767: 3,
+								1024: 3,
+								1280: 5,
+								1441: 6,
 								1920: 6,
 							} }
 						>
@@ -913,7 +994,7 @@ const Images = () => {
 					</button>
 				</div>
 			) }
-			<div className="min-h-[100px] py-4 sticky bottom-0 bg-zip-app-light-bg px-5 md:px-10 lg:px-14 xl:px-15">
+			<div className="sticky bottom-0 bg-container-background py-4.75 px-5 md:px-10 lg:px-14 xl:px-15">
 				<NavigationButtons
 					{ ...( updateImages
 						? {

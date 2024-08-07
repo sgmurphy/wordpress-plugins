@@ -172,9 +172,7 @@ $args['footer_text'] = __('
                 <a href="'.fs_fs()->get_upgrade_url().'">Upgrade Now!</a>
             </div>
         </div>
-    </div>
-
-    <div class="flash_sale_sm"><span class="flashit">SUMMER SALE ENDING SOON!</span> Get 50% OFF Right Now! Use coupon code <strong class="sale_off">SALE50OFF</strong> <a href="'.fs_fs()->get_upgrade_url().'">Upgrade Now!</a> </div>', 'redux-framework-demo' );
+    </div>', 'redux-framework-demo' );
 
 
 // SOCIAL ICONS -> Setup custom links in the footer for quick links in your panel footer icons.
@@ -291,21 +289,6 @@ Redux::setSection( $opt_name, array(
                                 'type'        => 'text',
                                 'placeholder' => __( 'Title', 'fuse-social-floating' ),
                             ),
-
-                            array(
-                                'id'          => 'select_font_icon',
-                                'type'     => 'icon_select',
-                                'title'    => __('Select Icon', 'fuse-social-floating'), 
-                                // Must provide key => value pairs for select options
-                                'default'     => '',
-
-                                'enqueue' => false, // Disable auto-enqueue of stylesheet if present in the panel
-                                'enqueue_frontend' => false, // Disable auto-enqueue of stylesheet on the front-end
-                                'stylesheet' => 'http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', // full path OR url to stylesheet
-                                'prefix' => 'fa', // If needed to initialize the icon
-                                'selector' => 'fa-', // How each icons begins for this given font
-                                'height' => 300 // Change the height of the container. defaults to 300px;
-                            ),
                             array(
                                 'id'          => 'icon_url',
                                 'type'        => 'media', 
@@ -364,7 +347,7 @@ Redux::setSection( $opt_name, array(
             array(
                 'id'    => 'overlay_for_custom_icon',
                 'type'  => 'raw',
-                'title' => __( "<div class='overlay_pro_upgrade'></div>", 'fuse-social-floating' ),
+                'title' => __( "<div class='overlay_pro_upgrade'><div class='overlay-btn-trig'>Upgrade to PRO to unlock this section.</div></div>", 'fuse-social-floating' ),
             ),
 
         )
@@ -457,7 +440,7 @@ Redux::setSection( $opt_name, array(
             array(
                 'id'    => 'overlay_for_design_icon',
                 'type'  => 'raw',
-                'title' => __( "<div class='overlay_pro_upgrade'></div>", 'fuse-social-floating' ),
+                'title' => __( "<div class='overlay_pro_upgrade'><div class='overlay-btn-trig'>Upgrade to PRO to unlock this section.</div></div>", 'fuse-social-floating' ),
             ),
 
 
@@ -612,7 +595,7 @@ Redux::setSection( $opt_name, array(
             array(
                 'id'    => 'overlay_for_conditonal_icon',
                 'type'  => 'raw',
-                'title' => __( "<div class='overlay_pro_upgrade'></div>", 'fuse-social-floating' ),
+                'title' => __( "<div class='overlay_pro_upgrade'><div class='overlay-btn-trig'>Upgrade to PRO to unlock this section.</div></div>", 'fuse-social-floating' ),
             ),
 
         )
@@ -754,7 +737,7 @@ Redux::setSection( $opt_name, array(
                 array(
                     'id'    => 'overlay_for_pro_upgrade',
                     'type'  => 'raw',
-                    'title' => __( "<div class='overlay_pro_upgrade'></div>", 'fuse-social-floating' ),
+                    'title' => __( "<div class='overlay_pro_upgrade'><div class='overlay-btn-trig'>Upgrade to PRO to unlock this section.</div></div>", 'fuse-social-floating' ),
                 ),
 
 

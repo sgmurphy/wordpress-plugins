@@ -75,7 +75,7 @@ class ST_WXR_Importer {
 	 * @return void
 	 */
 	public function after_imported_post( $post_id, $original_id, $postdata, $data ) {
-		if ( in_array( $data['post_type'], [ 'post', 'page' ], true ) && 'ai' === get_transient( 'astra_sites_current_import_template_type' ) ) {
+		if ( in_array( $data['post_type'], [ 'post', 'page' ], true ) && 'ai' === get_option( 'astra_sites_current_import_template_type' ) ) {
 			$imports                         = get_option(
 				'astra_sites_ai_imports',
 				array(

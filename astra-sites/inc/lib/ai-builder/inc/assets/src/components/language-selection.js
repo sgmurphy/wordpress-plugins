@@ -17,7 +17,7 @@ const LanguageSelection = () => {
 
 	return (
 		<div className="flex flex-col items-start gap-x-2">
-			<h5 className="text-base flex font-semibold leading-6 items-center !mb-2">
+			<h5 className="text-sm flex font-medium leading-5 items-center !mb-2">
 				{ __( 'The website will be in:', 'ai-builder' ) }
 				<div className="ml-1 pt-1" />
 			</h5>

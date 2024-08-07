@@ -19,7 +19,9 @@ import { STORE_KEY } from '../store';
 import { classNames } from '../helpers';
 import NavigationButtons from '../components/navigation-buttons';
 import { useNavigateSteps } from '../router';
-import withBuildSiteController from '../components/hoc/withBuildSiteController';
+import withBuildSiteController from '../hoc/withBuildSiteController';
+import Container from '../components/container';
+import Heading from '../components/heading';
 
 const fetchStatus = {
 	fetching: 'fetching',
@@ -89,17 +91,15 @@ const Features = ( { handleClickStartBuilding, isInProgress } ) => {
 	}, [] );
 
 	return (
-		<div className="grid grid-cols-1 gap-8 auto-rows-auto px-10 pb-10 pt-12 max-w-[880px] w-full mx-auto">
+		<Container className="grid grid-cols-1 gap-8 auto-rows-auto !max-w-[55rem] w-full mx-auto">
 			<div className="space-y-4">
-				<h1 className="text-3xl font-bold text-zip-app-heading">
-					{ __( 'Select features', 'ai-builder' ) }
-				</h1>
-				<p className="m-0 p-0 text-base font-normal text-zip-body-text">
-					{ __(
+				<Heading
+					heading={ __( 'Select features', 'ai-builder' ) }
+					subHeading={ __(
 						'Select the features you want on this website',
 						'ai-builder'
 					) }
-				</p>
+				/>
 			</div>
 
 			{ /* Feature Cards */ }
@@ -111,7 +111,7 @@ const Features = ( { handleClickStartBuilding, isInProgress } ) => {
 							<div
 								key={ feature.id }
 								className={ classNames(
-									'relative py-4 pl-4 pr-5 rounded-md shadow-sm border border-solid bg-white border-transparent transition-colors duration-150 ease-in-out',
+									'relative py-4 pl-4 pr-5 rounded-md shadow-sm border border-solid bg-white border-button-disabled transition-colors duration-150 ease-in-out',
 									feature.enabled && 'border-accent-st'
 								) }
 								data-disabled={ loadingNextStep }
@@ -164,7 +164,7 @@ const Features = ( { handleClickStartBuilding, isInProgress } ) => {
 					} ).map( ( _, index ) => (
 						<div
 							key={ index }
-							className="relative py-4 pl-4 pr-5 rounded-md shadow-sm border border-solid bg-white border-transparent"
+							className="relative py-4 pl-4 pr-5 rounded-md shadow-sm border border-solid bg-white border-button-disabled"
 						>
 							<div className="flex items-start justify-start gap-3">
 								<div className="p-0.5 shrink-0">
@@ -203,7 +203,7 @@ const Features = ( { handleClickStartBuilding, isInProgress } ) => {
 				loading={ isInProgress }
 				skipButtonText={ __( 'Skip & Start Building', 'ai-builder' ) }
 			/>
-		</div>
+		</Container>
 	);
 };
 

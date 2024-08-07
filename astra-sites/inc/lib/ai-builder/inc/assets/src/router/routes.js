@@ -18,7 +18,7 @@ const steps = [
 		path: '/',
 		component: GetStarted,
 		layoutConfig: {
-			hideSidebar: true,
+			hideHeader: true,
 			hideCloseIcon: true,
 			hideStep: true,
 			hideCredits: true,
@@ -66,7 +66,7 @@ const steps = [
 		component: Images,
 		layoutConfig: {
 			stepNumber: 4,
-			name: __( 'Select Images', 'ai-builder' ),
+			name: __( 'Images', 'ai-builder' ),
 			description: __( 'Select relevant images as needed', 'ai-builder' ),
 			screen: 'images',
 			contentClassName:
@@ -105,9 +105,9 @@ const steps = [
 							'Select features as you need',
 							'ai-builder'
 						),
-						contentClassName:
-							'px-0 pt-0 md:px-0 md:pt-0 lg:px-0 lg:pt-0 xl:px-0 xl:pt-0',
 						hideCredits: false,
+						hideStep: true,
+						hideHeader: false,
 						screen: 'done',
 					},
 					requiredStates: [ 'websiteInfo' ],
@@ -123,6 +123,7 @@ const steps = [
 			description: __( 'Your website is ready!', 'ai-builder' ),
 			screen: 'done',
 			hideStep: true,
+			hideHeader: true,
 			hideCredits: true,
 		},
 		requiredStates: [],
@@ -139,6 +140,7 @@ const steps = [
 			screen: 'done',
 			contentClassName: 'pt-0 md:pt-0 lg:pt-0 xl:pt-0',
 			hideStep: true,
+			hideHeader: true,
 			hideCredits: true,
 		},
 		requiredStates: [],

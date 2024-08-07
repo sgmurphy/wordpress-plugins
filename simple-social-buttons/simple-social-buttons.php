@@ -3,7 +3,7 @@
  * Plugin Name: Simple Social Buttons
  * Plugin URI: https://simplesocialbuttons.com/?utm_source=simple-social-buttons-lite&utm_medium=plugin-url-link
  * Description: Simple Social Buttons adds an advanced set of social media sharing buttons to your WordPress sites, such as: Facebook, Twitter, WhatsApp, Viber, Reddit, LinkedIn and Pinterest. This makes it the most <code>Flexible Social Sharing Plugin ever for Everyone.</code>
- * Version: 5.2.0
+ * Version: 5.3.0
  * Author: WPBrigade
  * Author URI: https://www.WPBrigade.com/?utm_source=simple-social-buttons-lite&utm_medium=author-url-link
  * Text Domain: simple-social-buttons
@@ -26,6 +26,43 @@
 	along with this program; if not, write to the Free Software
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
+
+if ( ! function_exists( 'ssb_wpb68931334' ) ) {
+    // Create a helper function for easy SDK access.
+    function ssb_wpb68931334() {
+        global $ssb_wpb68931334;
+
+        if ( ! isset( $ssb_wpb68931334 ) ) {
+            // Include Telemetry SDK.
+            require_once dirname(__FILE__) . '/wpb-sdk/start.php';
+
+            $ssb_wpb68931334 = wpb_dynamic_init([
+                'id'                  => '1',
+                'slug'                => 'simple-social-buttons',
+                'type'                => 'plugin',
+                'public_key'          => '9|r3YzQhJPlhJS3qfobd92Sogkc6i6OdH13H8opb0Rd93c3f5a',
+                'secret_key'          => 'sk_b36c525848fee035',
+                'is_premium'          => false,
+                'has_addons'          => false,
+                'has_paid_plans'      => false,
+                'menu'                => [
+                    'slug'           => 'simple-social-buttons',
+                    'account'        => false,
+                    'support'        => false,
+                ],
+                'settings'           => [ 'ssb_networks' => '{\"icon_selection\":\"fbshare,twitter,linkedin,fblike\"}' , 'ssb_themes' => '{\"icon_style\":\"simple-icons\"}' , 'ssb_positions' => '{\"position\":{\"inline\":\"inline\"}}' , 'ssb_inline' => '{\"location\":\"below\",\"posts\":{\"post\":\"post\"}}' , 'ssb_advanced' => '{\"ssb_og_tags\":\"1\"}' , 'ssb_pr_version' => '5.2.0' , 'widget_ssb_widget' => '{\"_multiwidget\":1}' , 'ssb_sidebar' => '' , 'ssb_media' => '' , 'ssb_popup' => '' , 'ssb_flyin' => '' , 'ssb_active_time' => '1722672369' ],
+            ]);
+        }
+
+        return $ssb_wpb68931334;
+    }
+
+    // Init Telemetry.
+    ssb_wpb68931334();
+    // Signal that SDK was initiated.
+    do_action( 'ssb_wpb68931334_loaded' );
+}
 
 
 class SimpleSocialButtonsPR {
@@ -215,6 +252,7 @@ class SimpleSocialButtonsPR {
 
 		add_action( 'init', array( $this, 'ssb_register_block' ) );
 
+        add_action( 'wp_wpb_sdk_after_uninstall', array( $this, 'plugin_uninstall' ) );
 	}
 
 	/**
@@ -2113,9 +2151,17 @@ class SimpleSocialButtonsPR {
 		$include_via = "include_via='{$attr['IncludeVia']}'";
 		$align       = esc_html( $attr['align'] );
 
-		 return "<div class='align$align'> [SBCTT $theme $front $tweet $hide_link $hide_button $include_via] </div>";
+		return "<div class='align$align'> [SBCTT $theme $front $tweet $hide_link $hide_button $include_via] </div>";
 	}
 
+	/**
+	 * Define the uninstall callback function.
+	 *
+	 * @since 5.3.0
+	 */
+	public static function plugin_uninstall() {
+		include_once SSB_PLUGIN_DIR . '/inc/uninstall.php';
+	}
 } // end class
 
 global $_ssb_pr;

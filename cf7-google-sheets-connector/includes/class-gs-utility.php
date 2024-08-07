@@ -74,6 +74,9 @@ class Gs_Connector_Utility {
          case 'review' :
             $admin_notice = '<div id="message" class="updated notice gs-adds is-dismissible">';
             break;
+        case 'auth-expired-notice' :
+            $admin_notice = '<div id="message" class="error notice gs-auth-expired-adds is-dismissible">';
+            break;
          case 'upgrade':
             $admin_notice = '<div id="message" class="error notice gs-upgrade is-dismissible">';
             break;
@@ -107,14 +110,14 @@ class Gs_Connector_Utility {
     * @since 1.0
     */
     public static function gs_debug_log($error){
-		try{	
-			if( ! is_dir( GS_CONNECTOR_PATH.'logs' ) ){
-				mkdir( GS_CONNECTOR_PATH . 'logs', 0755, true );
-			}
-		} catch (Exception $e) {
+    try{  
+      if( ! is_dir( GS_CONNECTOR_PATH.'logs' ) ){
+        mkdir( GS_CONNECTOR_PATH . 'logs', 0755, true );
+      }
+    } catch (Exception $e) {
 
-		}
-		try{
+    }
+    try{
          // check if debug log file exists or not
         $logFilePathToDelete = GS_CONNECTOR_PATH . "logs/log.txt";
         // Check if the log file exists before attempting to delete
@@ -161,9 +164,9 @@ class Gs_Connector_Utility {
           }
         }
         
-		} catch (Exception $e) {
-			
-		}
+    } catch (Exception $e) {
+      
+    }
     }  
   
 }

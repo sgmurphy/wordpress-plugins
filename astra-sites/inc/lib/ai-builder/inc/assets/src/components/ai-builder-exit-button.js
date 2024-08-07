@@ -1,13 +1,17 @@
 import { memo } from '@wordpress/element';
 import ExitConfirmationPopover from './exit-confirmation-popover';
 
-const AIBuilderExitButton = () => {
+const AIBuilderExitButton = ( { exitButtonClassName } ) => {
 	const handleClosePopup = () => {
-		// window.location.href = `${ aiBuilderVars.adminUrl }themes.php?page=starter-templates`;
 		window.location.href = `${ aiBuilderVars.adminUrl }`;
 	};
 
-	return <ExitConfirmationPopover onExit={ handleClosePopup } />;
+	return (
+		<ExitConfirmationPopover
+			onExit={ handleClosePopup }
+			exitButtonClassName={ exitButtonClassName }
+		/>
+	);
 };
 
 export default memo( AIBuilderExitButton );

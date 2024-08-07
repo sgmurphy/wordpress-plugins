@@ -153,7 +153,7 @@ class Free_Whizzie
 	{
 
 		if ( defined('VW_FREE_THEME') || defined('ELEMENTOR_DEMO_IMPORT') ) {
-			add_submenu_page('ibtana-visual-editor', esc_html__($this->page_title), esc_html__($this->page_title), 'manage_options', $this->page_slug, array($this, 'wizard_page'), 20);
+			add_submenu_page('ibtana-visual-editor', esc_html($this->page_title), esc_html($this->page_title), 'manage_options', $this->page_slug, array($this, 'wizard_page'), 20);
 		}
 	}
 
@@ -512,7 +512,7 @@ class Free_Whizzie
 			foreach ($theme_pages as $theme_page) {
 				if (isset($theme_page->setnavmenu)) {
 					wp_update_nav_menu_item($menu_id, 0, array(
-						'menu-item-title' =>  __($theme_page->title, $themeDomain),
+						'menu-item-title' =>  esc_html($theme_page->title, $themeDomain), // No translation needed for dynamic title
 						'menu-item-classes' => $theme_page->slug,
 						'menu-item-url' => home_url($theme_page->pageID),
 						'menu-item-status' => $theme_page->status

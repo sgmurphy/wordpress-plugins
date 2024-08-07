@@ -17,18 +17,18 @@
             </p>
 
             <a href="https://www.gsheetconnector.com/cf7-gsheetconnector-features" target="_blank">
-                <h3>CF7 Google Sheet Connector PRO Features </h3>
+                <h3><?php echo esc_html( __( 'CF7 Google Sheet Connector PRO Features', 'gsconnector' ) ); ?> </h3>
             </a>
             <div class="gsh_cf7_pro_fatur_int1">
                 <ul style="list-style: square;margin-left:30px">
-                    <li>Google sheets API (Up-to date )</li>
-                    <li>One Click Authentication</li>
-                    <li>Click & Fetch Sheet Automated</li>
-                    <li>Automated Sheet Name & Tab Name</li>
-                    <li>Manually Adding Sheet Name & Tab Name</li>
-                    <li>Quick Configuration</li>
-                    <li>Latest WordPress & PHP Support</li>
-                    <li>Support WordPress multisite</li>
+                    <li><?php echo esc_html( __( 'Google sheets API (Up-to date )', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'One Click Authentication', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Click & Fetch Sheet Automated', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Automated Sheet Name & Tab Name', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Manually Adding Sheet Name & Tab Name', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Quick Configuration', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Latest WordPress & PHP Support', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Support WordPress multisite', 'gsconnector' ) ); ?></li>
                 </ul>
             </div>
             <div class="gsh_cf7_pro_img_int">
@@ -37,15 +37,15 @@
             </div>
             <div class="gsh_cf7_pro_fatur_int2">
                 <ul style="list-style: square;margin-left:68px">
-                    <li>Multiple Forms to Sheets</li>
-                    <li>Role Management</li>
-                    <li>Automatic Updates</li>
-                    <li>Add Special Mail Tags</li>
-                    <li>Custom Ordering</li>
-                    <li>Image / PDF Attachment Link</li>
-                    <li>10-day, Money-back Guarantee</li>
-                    <li>Custom tags can be Add</li>
-                    <li>Excellent Priority Support</li>
+                    <li><?php echo esc_html( __( 'Multiple Forms to Sheets', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Role Management', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Automatic Updates', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Add Special Mail Tags', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Custom Ordering', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Image / PDF Attachment Link', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( '10-day, Money-back Guarantee', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Custom tags can be Add', 'gsconnector' ) ); ?></li>
+                    <li><?php echo esc_html( __( 'Excellent Priority Support', 'gsconnector' ) ); ?></li>
                 </ul>
             </div>
             <p>

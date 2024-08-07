@@ -614,7 +614,7 @@ class Wishlist extends \WC_Data {
 		}
 
 		if ( $this->get_session_id() ) {
-			return ( Helper::get_session_id() === $this->get_session_id() );
+			return ( Session::get_session_id() === $this->get_session_id() );
 		}
 
 		return false;
@@ -646,7 +646,7 @@ class Wishlist extends \WC_Data {
 		parent::save();
 
 		if ( ! is_user_logged_in() ) {
-			Helper::set_session_id( $this->get_session_id() );
+			Session::set_session_id( $this->get_session_id() );
 		}
 	}
 
@@ -729,9 +729,11 @@ class Wishlist extends \WC_Data {
 	}
 
 	/**
-	 * Get unique hash key for the wishlist
+	 * Get unique hash key for the wishlist.
+	 * For all temporary wishlists, the Key is the same.
 	 *
 	 * @since 1.1.1
+	 * @since 1.1.2 Always generate the hash key. A fixed key is generated for temporary wishlists.
 	 *
 	 * @return string
 	 */
@@ -740,20 +742,26 @@ class Wishlist extends \WC_Data {
 
 		if ( $this->get_id() ) {
 			$hash_key = md5( get_current_blog_id() . '_' . $this->get_id() . '_' . $this->get_wishlist_token() );
+		} else {
+			// Generate a fixed hash for temporary wishlists.
+			$hash_key = md5( get_current_blog_id() . '_' . get_site_url( get_current_blog_id(), '/' ) . get_template() );
 		}
 
 		return $hash_key;
 	}
 
 	/**
-	 * Get hash content for the wishlist
+	 * Get hash content for the wishlist.
+	 * For all temporary wishlists, the content is the same because all params are the same,
+	 * which are: { wishlist_token: '', items: [], count: 0 }
 	 *
 	 * @since 1.1.1
+	 * @since 1.1.2 Always generate hash content
 	 *
 	 * @return string
 	 */
 	public function get_hash_content() {
-		$hash = $this->get_id() ? md5( $this->get_id() . wp_json_encode( $this->get_items() ) . $this->count_items() ) : '';
+		$hash = md5( $this->get_wishlist_token() . wp_json_encode( $this->get_items() ) . $this->count_items() );
 
 		return apply_filters( 'wcboost_wishlist_hash', $hash, $this );
 	}

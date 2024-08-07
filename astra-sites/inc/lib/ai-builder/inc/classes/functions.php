@@ -132,7 +132,7 @@ function astra_sites_get_api_params() {
  * @return bool
  */
 function astra_sites_has_import_started() {
-	$has_import_started = get_transient( 'astra_sites_import_started' );
+	$has_import_started = get_option( 'astra_sites_import_started' );
 	if ( 'yes' === $has_import_started ) {
 		return true;
 	}

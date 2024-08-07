@@ -80,7 +80,7 @@ class Accounts {
 			);
 
 			if ( ! $entity ) {
-				throw new \Exception( 'Error creating account.', 400 );
+				throw new \Exception( esc_html__( 'Error creating account.', 'insta-gallery' ), 400 );
 			}
 
 			return $entity->getProperties();
@@ -89,12 +89,12 @@ class Accounts {
 
 		$response = $this->get_renewed_access_token( $account_data['access_token'] );
 
-		if ( ! empty( $response['error'] ) && ! empty( $response['message'] ) ) {
+		if ( isset( $response['error'], $response['message'] ) ) {
 			throw new \Exception( $response['message'], $response['code'] );
 		}
 
-		if ( ! isset( $response['access_token'], $response['access_token_type'], $response['expires_in'] ) ) {
-			throw new \Exception( $response['message'], $response['code'] );
+		if ( ! isset( $response['expires_in'], $response['access_token'] ) ) {
+			throw new \Exception( esc_html__( 'Unable to create account.', 'insta-gallery' ), 400 );
 		}
 
 		$entity = $this->repository->create(
@@ -109,7 +109,7 @@ class Accounts {
 		);
 
 		if ( ! $entity ) {
-			throw new \Exception( 'Error creating account.', 400 );
+			throw new \Exception( esc_html__( 'Error creating account.', 'insta-gallery' ), 400 );
 		}
 
 		return $entity->getProperties();

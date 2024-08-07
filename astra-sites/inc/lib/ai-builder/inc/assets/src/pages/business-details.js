@@ -11,6 +11,7 @@ import BusinessTypes from '../components/business-types';
 import { useForm } from 'react-hook-form';
 import Input from '../components/input';
 import { useNavigateSteps } from '../router';
+import Container from '../components/container';
 
 const BusinessDetails = () => {
 	const { nextStep } = useNavigateSteps();
@@ -80,7 +81,7 @@ const BusinessDetails = () => {
 	}, [ businessName ] );
 
 	return (
-		<div className="w-full max-w-container flex flex-col gap-8">
+		<Container>
 			<Heading
 				heading={ __( "Let's build your website!", 'ai-builder' ) }
 				subHeading={ __(
@@ -90,7 +91,7 @@ const BusinessDetails = () => {
 			/>
 			<div className="w-full max-w-container flex flex-col gap-8">
 				<div className="!space-y-2">
-					<h5 className="text-base flex font-semibold leading-6 items-center !mb-2">
+					<h5 className="text-sm flex font-medium leading-5 items-center !mb-2">
 						{ __( 'Name of the website:', 'ai-builder' ) }
 					</h5>
 					<Input
@@ -112,7 +113,7 @@ const BusinessDetails = () => {
 				</div>
 				<div className="w-full flex items-start justify-start flex-wrap lg:flex-nowrap gap-8">
 					<div className="flex-1 min-h-[48px] min-w-[calc(100%_/_2)] md:min-w-0 !space-y-2">
-						<h5 className="text-base flex font-semibold leading-6 items-center">
+						<h5 className="text-sm flex font-medium leading-5 items-center">
 							{ __( 'This website is for:', 'ai-builder' ) }
 						</h5>
 						<BusinessTypes />
@@ -127,7 +128,7 @@ const BusinessDetails = () => {
 				onClickContinue={ handleClickContinue }
 				disableContinue={ ! businessType || ! watchedBusinessName }
 			/>
-		</div>
+		</Container>
 	);
 };
 

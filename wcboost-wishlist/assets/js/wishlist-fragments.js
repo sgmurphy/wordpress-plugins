@@ -55,7 +55,7 @@ jQuery( function( $ ) {
 				var wishlist_hash = sessionStorage.getItem( hash_key_name ),
 					cookie_hash = Cookies.get( 'wcboost_wishlist_hash' );
 
-				if ( wishlist_hash !== null && wishlist_hash === cookie_hash ) {
+				if ( wishlist_hash !== null && wishlist_hash !== '' && wishlist_hash === cookie_hash ) {
 					this.updateFragmentsFromStorage();
 					this.updateButtons();
 				} else {

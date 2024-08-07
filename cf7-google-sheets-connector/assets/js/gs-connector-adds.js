@@ -31,6 +31,35 @@ jQuery(document).ready(function () {
       });
    });
    
+
+
+   jQuery('.set-auth-expired-adds-interval').click(function () {
+      var data = {
+         action: 'set_auth_expired_adds_interval',
+         security: jQuery('#gs_auth_expired_adds_ajax_nonce').val()
+      };
+
+      jQuery.post(ajaxurl, data, function (response) {
+         if (response.success) {
+            jQuery('.gs-auth-expired-adds').slideUp('slow');
+         }
+      });
+   });
+
+ jQuery('.close-auth-expired-adds-interval').click(function () {
+      var data = {
+         action: 'close_auth_expired_adds_interval',
+         security: jQuery('#gs_auth_expired_adds_ajax_nonce').val()
+      };
+
+      jQuery.post(ajaxurl, data, function (response) {
+         if (response.success) {
+            jQuery('.gs-auth-expired-adds').slideUp('slow');
+         }
+      });
+   });
+
+
    // Upgrade notification scripts
    jQuery('.cf7gsc_upgrade_later').click(function () {
       var data = {

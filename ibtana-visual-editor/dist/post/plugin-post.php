@@ -2689,6 +2689,8 @@
             $product      =   wc_get_product( $post_id);
             $rating_count =   $product->get_rating_count();
             if ( $average_rating = $product->get_average_rating() ) {
+
+              // Translators: %s is the average rating.
               $post_loop .=  '<div class="star-rating" title="' . sprintf( __( 'Rated %s out of 5', 'woocommerce' ), $average_rating ) . '" data-rating-count="' . $rating_count . '"><span style="width:' . ( ( $average_rating / 5 ) * 100 ) . '%"></span></div>
               <div class="comment-value font-famrubik font-weight400">(' . $rating_count . ')</div>';
             }

@@ -2,40 +2,45 @@
 # This file is distributed under the same license as the WCBoost - Wishlist plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WCBoost - Wishlist 1.1.0\n"
+"Project-Id-Version: WCBoost - Wishlist 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wcboost-wishlist\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-20T04:44:31+00:00\n"
+"POT-Creation-Date: 2024-08-07T08:39:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: wcboost-wishlist\n"
 
 #. Plugin Name of the plugin
+#: wcboost-wishlist.php
 msgid "WCBoost - Wishlist"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: wcboost-wishlist.php
 msgid "https://wcboost.com/plugin/woocommerce-wishlist/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash"
 msgstr ""
 
 #. Description of the plugin
+#: wcboost-wishlist.php
 msgid "Our WooCommerce Wishlist plugin enables customers to create personalized collections of products that they like but aren't ready to purchase immediately. Enhance the shopping experience by saving products for further consideration, making decisions easier than ever."
 msgstr ""
 
 #. Author of the plugin
+#: wcboost-wishlist.php
 msgid "WCBoost"
 msgstr ""
 
 #. Author URI of the plugin
+#: wcboost-wishlist.php
 msgid "https://wcboost.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash"
 msgstr ""
 
 #: includes/admin/settings.php:17
-#: includes/helper.php:187
+#: includes/helper.php:170
 #: includes/widgets/wishlist.php:19
 #: includes/widgets/wishlist.php:23
 msgid "Wishlist"
@@ -74,6 +79,7 @@ msgid "Guest message"
 msgstr ""
 
 #: includes/admin/settings.php:65
+#: includes/ajax-handler.php:41
 #: includes/form-handler.php:45
 msgid "You need to login to add products to your wishlist"
 msgstr ""
@@ -150,14 +156,14 @@ msgstr ""
 #: includes/admin/settings.php:130
 #: includes/customizer/customizer.php:326
 #: includes/form-handler.php:96
-#: includes/frontend.php:650
-#: includes/helper.php:213
+#: includes/frontend.php:644
+#: includes/helper.php:196
 msgid "View wishlist"
 msgstr ""
 
 #: includes/admin/settings.php:131
 #: includes/customizer/customizer.php:317
-#: includes/helper.php:212
+#: includes/helper.php:195
 msgid "Remove from wishlist"
 msgstr ""
 
@@ -347,7 +353,7 @@ msgid "Email"
 msgstr ""
 
 #: includes/admin/settings.php:341
-#: includes/helper.php:309
+#: includes/helper.php:292
 msgid "Copy link"
 msgstr ""
 
@@ -360,7 +366,7 @@ msgid "Endpoints are appended to the page URL to handle specific actions on the 
 msgstr ""
 
 #: includes/admin/settings.php:380
-#: includes/frontend.php:363
+#: includes/frontend.php:357
 msgid "Edit wishlist"
 msgstr ""
 
@@ -374,7 +380,7 @@ msgid "<strong>Your theme (%s) contains outdated copies of some template files f
 msgstr ""
 
 #. translators: %s: product name
-#: includes/ajax-handler.php:67
+#: includes/ajax-handler.php:87
 #: includes/form-handler.php:89
 msgid "%s has been added to your wishlist"
 msgstr ""
@@ -433,7 +439,7 @@ msgid "Added icon."
 msgstr ""
 
 #: includes/customizer/customizer.php:308
-#: includes/helper.php:211
+#: includes/helper.php:194
 #: templates/loop/add-to-wishlist.php:26
 #: templates/single-product/add-to-wishlist.php:26
 msgid "Add to wishlist"
@@ -564,50 +570,50 @@ msgstr ""
 msgid "Wishlist deleted"
 msgstr ""
 
-#: includes/frontend.php:143
+#: includes/frontend.php:137
 msgid "The wishlist link is copied to clipboard"
 msgstr ""
 
-#: includes/frontend.php:144
+#: includes/frontend.php:138
 msgid "Close"
 msgstr ""
 
-#: includes/frontend.php:341
+#: includes/frontend.php:335
 msgid "Share"
 msgstr ""
 
-#: includes/frontend.php:399
+#: includes/frontend.php:393
 msgid "You cannot delete your default wishlist. You have to set another list as default to delete this one."
 msgstr ""
 
-#: includes/frontend.php:401
+#: includes/frontend.php:395
 msgid "This action moves the wishlist to Trash. It will be kept in Trash for 30 days."
 msgstr ""
 
-#: includes/frontend.php:405
+#: includes/frontend.php:399
 msgid "Delete this wishlist"
 msgstr ""
 
 #. translators: %s product name
-#: includes/frontend.php:510
+#: includes/frontend.php:504
 msgid "Add %s to the wishlist"
 msgstr ""
 
 #. translators: %s product name
-#: includes/frontend.php:546
+#: includes/frontend.php:540
 msgid "Remove %s from the wishlist"
 msgstr ""
 
-#: includes/frontend.php:552
+#: includes/frontend.php:546
 msgid "Open the wishlist"
 msgstr ""
 
-#: includes/helper.php:283
+#: includes/helper.php:266
 msgid "I have some thing to share with you"
 msgstr ""
 
 #. translators: %s social name
-#: includes/helper.php:317
+#: includes/helper.php:300
 msgid "Share on %s"
 msgstr ""
 

@@ -65,7 +65,7 @@ class ST_Importer {
 			update_option( 'astra_sites_ai_import_started', 'yes', 'no' );
 		}
 		do_action( 'st_before_start_import_process' );
-		set_transient( 'astra_sites_import_started', 'yes', HOUR_IN_SECONDS );
+		update_option( 'astra_sites_import_started', 'yes' );
 
 		return array(
 			'status' => true,

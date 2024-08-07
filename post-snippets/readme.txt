@@ -2,9 +2,9 @@
 Contributors: Postsnippets
 Tags: custom snippet, custom shortcode, snippet, snippets, shortcode, shortcodes, block, blocks, html
 Requires at least: 5.3
-Tested up to: 6.5.3
+Tested up to: 6.6
 Requires PHP: 8
-Stable tag: 4.0.5
+Stable tag: 4.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,10 @@ your clients to be able to use PHP code in a post snippet.
 5. Easy to access inline documentation (top right 'Help' button in WordPress).
 
 == Changelog ==
+
+= Version 4.0.6 - 07 Aug 2024 =
+
+- Tweak - Added compatibility for WordPress Version 6.6.x
 
 = Version 4.0.5 - 17 may 2024 =
 
@@ -664,6 +668,10 @@ your clients to be able to use PHP code in a post snippet.
  * Initial Release
 
 == Upgrade Notice ==
+
+= Version 4.0.6 - 31 july 2024 =
+
+* Added compatibility for WordPress Version 6.6.1
 
 = Version 3.0.10 - 2 Lug 2019 =
 

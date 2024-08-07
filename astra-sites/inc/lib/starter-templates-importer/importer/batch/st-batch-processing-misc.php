@@ -61,7 +61,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Misc' ) ) :
 				\WP_CLI::line( 'Processing "MISC" Batch Import' );
 			}
 
-			if ( 'ai' !== get_transient( 'astra_sites_current_import_template_type' ) ) {
+			if ( 'ai' !== get_option( 'astra_sites_current_import_template_type' ) ) {
 				return array(
 					'success' => true,
 					'msg'     => __( 'Template Type is not a AI.', 'astra-sites' ),

@@ -1,17 +1,17 @@
 === Photo Gallery - GT3 Image Gallery & Gutenberg Block Gallery ===
 Contributors: gt3themes
-Tags: photo gallery, image gallery, gallery block, gallery, gutenberg block, wordpress photo gallery plugin, gutenberg gallery block, responsive gallery, image gallery block, instagram gallery, photo album, video gallery
+Tags: image gallery, responsive block gallery, photo gallery, gallery block, gallery
 Requires at least: 6.0
-Tested up to: 6.5
-Stable tag: 2.7.7.22
+Tested up to: 6.6
+Stable tag: 2.7.7.23
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-GT3 Image Gallery - create photo gallery, video gallery, block gallery, slider and more with ease. All photo galleries are responsive and loading fast.
+GT3 Image Gallery - create photo gallery, video gallery, block gallery, slider and more with ease. All photo galleries are responsive and loading fast
 
 == Description ==
 
-[GT3 Photo Gallery](https://gt3themes.com/gt3-photo-video-gallery-pro-is-live-now/) is a Gutenberg compatible plugin that comes with a set of different custom blocks. It is absolutely free. The GT3 gallery plugin allows extending the functionality of the classic WordPress image gallery. You can easily customize the look and feel of any photo or video gallery using the global GT3 photo gallery settings along with the custom settings for each individaul gallery.
+[GT3 Photo Gallery](https://gt3themes.com/gt3-photo-video-gallery-pro-is-live-now/) is a WordPress plugin that comes with a set of different custom gallery blocks. It is absolutely free. The GT3 gallery plugin allows extending the functionality of the classic WordPress image gallery. You can easily customize the look and feel of any photo or video gallery using the global GT3 photo gallery settings along with the custom settings for each individaul gallery.
 
 Create an awesome look for your photo galleries with ease.  Drag and drop images and videos to your gallery and publish them on your website in minutes. The current version of the GT3 photo & video gallery plugin works with latest Gutenberg blocks editor.
 
@@ -181,6 +181,10 @@ You can add any type of the gallery block into the product description. But we a
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 2.7.7.23 =
+* Improved: WordPress 6.6+ compatibility
+* Fixed: Minor bug fixes
 
 = 2.7.7.22 =
 * Improved: Plugin core functionality

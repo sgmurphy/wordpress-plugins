@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { __ } from '@wordpress/i18n';
-import { useEffect, useState } from '@wordpress/element';
+import { __, sprintf } from '@wordpress/i18n';
+import { renderToString, useEffect, useState } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import SocialMediaAdd from '../components/social-media';
 import Textarea from '../components/textarea';
@@ -12,6 +12,7 @@ import StyledText from '../components/styled-text';
 import { useNavigateSteps } from '../router';
 import { z as zod } from 'zod';
 import Heading from '../components/heading';
+import Container from '../components/container';
 
 const EMAIL_VALIDATION_REGEX =
 	/^[a-z0-9!'#$%&*+\/=?^_`{|}~-]+(?:\.[a-z0-9!'#$%&*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-zA-Z]{2,}$/i;
@@ -127,22 +128,30 @@ const BusinessContact = () => {
 
 	const getTitle = () => {
 		return (
-			<div>
-				{ __( 'How can people get in touch with ', 'ai-builder' ) }
-				<StyledText text={ businessName } /> { '?' }
-			</div>
+			<div
+				dangerouslySetInnerHTML={ {
+					__html: sprintf(
+						// translators: %s: Business name.
+						__(
+							'How can people get in touch with %1$s?',
+							'ai-builder'
+						),
+						renderToString( <StyledText text={ businessName } /> )
+					),
+				} }
+			/>
 		);
 	};
 	return (
-		<form
-			className="w-full max-w-container flex flex-col gap-8 pb-10"
+		<Container
+			as="form"
 			action="#"
 			onSubmit={ handleSubmit( handleSubmitForm ) }
 		>
 			<Heading
 				heading={ getTitle() }
 				subHeading={ __(
-					'Please provide the contact information details below. These will be used on the website.',
+					'Please provide the contact information below. These will be used on the website.',
 					'ai-builder'
 				) }
 			/>
@@ -183,7 +192,7 @@ const BusinessContact = () => {
 				</div>
 				<Textarea
 					className="text-zip-app-heading !mt-8"
-					rows={ 4 }
+					rows={ 3 }
 					name="address"
 					id="address"
 					label={ __( 'Address', 'ai-builder' ) }
@@ -203,7 +212,7 @@ const BusinessContact = () => {
 				onClickSkip={ nextStep }
 				disableContinue={ hasInvalidSocialMediaUrl }
 			/>
-		</form>
+		</Container>
 	);
 };
 

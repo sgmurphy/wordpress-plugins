@@ -22,6 +22,7 @@ const Survey = () => {
 			shownRequirementOnce,
 			pluginInstallationAttempts,
 			fileSystemPermissions,
+			formDetails,
 		},
 		dispatch,
 	] = storedState;
@@ -164,19 +165,14 @@ const Survey = () => {
 	const [ showRequirementCheck, setShowRequirementCheck ] =
 		useState( requirementsFlag );
 
-	const [ formDetails, setFormDetails ] = useState( {
-		first_name: '',
-		email: '',
-		wp_user_type: '',
-		build_website_for: '',
-		opt_in: true,
-	} );
-
 	const updateFormDetails = ( field, value ) => {
-		setFormDetails( ( prevState ) => ( {
-			...prevState,
-			[ field ]: value,
-		} ) );
+		dispatch( {
+			type: 'set',
+			formDetails: {
+				...formDetails,
+				[ field ]: value,
+			},
+		} );
 	};
 
 	const setStartFlag = () => {
@@ -271,12 +267,14 @@ const Survey = () => {
 		e.preventDefault();
 		checkRequiredPlugins( storedState );
 	};
-
 	const surveyForm = () => {
 		return (
 			<form className="survey-form" onSubmit={ handleSurveyFormSubmit }>
 				{ astraSitesVars.subscribed !== 'yes' && (
-					<SurveyForm updateFormDetails={ updateFormDetails } />
+					<SurveyForm
+						formDetails={ formDetails }
+						updateFormDetails={ updateFormDetails }
+					/>
 				) }
 				{ <AdvancedSettings /> }
 				<button

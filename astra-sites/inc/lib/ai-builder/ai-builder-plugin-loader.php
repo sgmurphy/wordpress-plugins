@@ -394,7 +394,7 @@ class Ai_Builder_Plugin_Loader {
 			'adminUrl'           => admin_url(),
 			'imageDir'           => AI_BUILDER_URL . 'inc/assets/images/',
 			'supportLink'        => $support_link,
-			'logoUrl'            => apply_filters( 'ai_builder_logo', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/st-logo-dark.svg' ),
+			'logoUrl'            => apply_filters( 'ai_builder_logo', AI_BUILDER_URL . 'inc/assets/images/logo.svg' ),
 			'placeholder_images' => Helper::get_image_placeholders(),
 			'reportError'        => $this->should_report_error(),
 			'zip_token_exists'   => Helper::get_token() !== '' ? true : false,

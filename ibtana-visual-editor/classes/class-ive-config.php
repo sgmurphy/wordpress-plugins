@@ -543,7 +543,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
           'ive/carouselimage'								=>	array(
             'slug'        => '',
             'title'       => __( 'Carousel Image', 'ibtana-visual-editor' ),
-            'description' => __( '', 'ibtana-visual-editor' ),
+            'description' => '',
             'default'     => true,
             'attributes'  => array(
               'uniqueID'				=> '',
@@ -1188,7 +1188,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/slide'												=>	array(
 						'slug'        => '',
 						'title'       => __( 'slides', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'uniqueID'                  => '',
@@ -1198,7 +1198,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
           'ive/carouselimage'       				=>	array(
               'slug'        => '',
               'title'       => __( 'Carousel Image', 'ibtana-visual-editor' ),
-              'description' => __( '', 'ibtana-visual-editor' ),
+              'description' => '',
               'default'     => true,
               'attributes'  => array(
                   'uniqueID'                  => '',
@@ -1387,7 +1387,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
           'ive/pane'       									=>	array(
               'slug'        => '',
               'title'       => __( 'Pane', 'ibtana-visual-editor' ),
-              'description' => __( '', 'ibtana-visual-editor' ),
+              'description' => '',
               'default'     => true,
               'attributes'  => array(
                   'id'            => '',
@@ -1399,7 +1399,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/ive-form' 					=> array(
 						'slug'        => '',
 						'title'       => __( 'Form', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'attributes'	=> 	array(
 							'letterSpacing'		=> '',
 							'typography'                	=> '',
@@ -1420,7 +1420,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-checkbox'       	=>	array(
 						'slug'        => '',
 						'title'       => __( 'Checkbox', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1467,7 +1467,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-date'       			=>	array(
 						'slug'        => '',
 						'title'       => __( 'Date', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1514,7 +1514,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-email'       			=>	array(
 						'slug'        => '',
 						'title'       => __( 'Email', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1561,7 +1561,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-name'       			=>	array(
 						'slug'        => '',
 						'title'       => __( 'Name', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1608,7 +1608,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-number'       		=>	array(
 						'slug'        => '',
 						'title'       => __( 'Number', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1655,7 +1655,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-phone'       			=>	array(
 						'slug'        => '',
 						'title'       => __( 'Phone', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1702,7 +1702,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-radio'       			=>	array(
 						'slug'        => '',
 						'title'       => __( 'Radio', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1749,7 +1749,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-select'       		=>	array(
 						'slug'        => '',
 						'title'       => __( 'Select', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1796,7 +1796,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-text'       			=>	array(
 						'slug'        => '',
 						'title'       => __( 'Text', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1843,7 +1843,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-textarea'       	=>	array(
 						'slug'        => '',
 						'title'       => __( 'Text', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1890,7 +1890,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/form-field-url'       				=>	array(
 						'slug'        => '',
 						'title'       => __( 'Text', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'frameNormalBorderStyle' => [ 'none', 'none', 'none'],
@@ -1937,7 +1937,7 @@ if ( ! class_exists( 'IVE_Config' ) ) {
 					'ive/button-single'       				=>	array(
 						'slug'        => '',
 						'title'       => __( 'Text', 'ibtana-visual-editor' ),
-						'description' => __( '', 'ibtana-visual-editor' ),
+						'description' => '',
 						'default'     => true,
 						'attributes'  => array(
 							'borderWeight'				=>	'0',

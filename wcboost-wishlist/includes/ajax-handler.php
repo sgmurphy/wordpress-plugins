@@ -31,6 +31,26 @@ class Ajax_Handler {
 			return;
 		}
 
+		// Stop if not allowing guests to creating wishlishs.
+		if ( ! wc_string_to_bool( get_option( 'wcboost_wishlist_enable_guest_wishlist', 'yes' ) ) && ! is_user_logged_in() ) {
+			$data = [];
+
+			if ( 'redirect_to_account_page' == get_option( 'wcboost_wishlist_guest_behaviour', 'message' ) ) {
+				$data['redirect_url'] = wc_get_page_permalink( 'myaccount' );
+			} else {
+				$message = get_option( 'wcboost_wishlist_guest_message', __( 'You need to login to add products to your wishlist', 'wcboost-wishlist' ) );
+
+				if ( $message ) {
+					ob_start();
+					wc_print_notice( $message, 'notice' );
+					$data['message'] = ob_get_clean();
+				}
+			}
+
+			wp_send_json_error( $data );
+			exit;
+		}
+
 		$product_id     = apply_filters( 'wcboost_wishlist_add_to_wishlist_product_id', absint( $_POST['product_id'] ) );
 		$quantity       = empty( $_POST['quantity'] ) ? 1 : absint( $_POST['quantity'] );
 		$product        = wc_get_product( $product_id );

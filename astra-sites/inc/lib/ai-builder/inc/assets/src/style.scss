@@ -148,18 +148,8 @@
 .zw-tooltip {
 	background: #334155;
 	color: #fff;
-	padding: 0 8px;
+	// padding: 0 8px;
 	border-radius: 4px;
-}
-
-// Change default style of tooltip on "appearance_page_ai-builder" page
-// Used on inc/assets/src/pages/preview.js
-.appearance_page_ai-builder .zw-tooltip,
-.appearance_page_ai-builder .zw-tooltip {
-	@apply bg-white rounded-md shadow-lg block #{!important};
-	p {
-		@apply px-2 py-1 text-zip-body-text text-sm m-0;
-	}
 }
 
 .zw-tooltip > .tippy-content {
@@ -167,6 +157,22 @@
 	font-size: 0.75rem;
 	font-weight: 400;
 	line-height: 1rem;
+}
+
+.zw-tooltip__classic {
+	background: #334155;
+	color: #fff;
+}
+
+.zw-tooltip__classic > .tippy-content {
+	padding: 5px 9px;
+}
+
+.zw-tooltip__material {
+	@apply bg-white rounded-md shadow-lg block #{!important};
+	p {
+		@apply px-2 py-1 text-zip-body-text text-sm m-0;
+	}
 }
 
 html.wp-toolbar {
@@ -328,5 +334,68 @@ a {
 	div:has( > :disabled ),
 	div:has( > [data-disabled="true"] ) {
 		@apply cursor-not-allowed;
+	}
+}
+
+// TippyJS
+.tippy-box {
+	&[data-placement^="top"] > .tippy-arrow {
+		bottom: 0;
+
+		&::before {
+			bottom: -7px;
+			left: 0;
+			border-width: 8px 8px 0;
+			border-top-color: initial;
+			transform-origin: center top;
+		}
+	}
+
+	&[data-placement^="bottom"] > .tippy-arrow {
+		top: 0;
+
+		&::before {
+			top: -7px;
+			left: 0;
+			border-width: 0 8px 8px;
+			border-bottom-color: initial;
+			transform-origin: center bottom;
+		}
+	}
+
+	&[data-placement^="left"] > .tippy-arrow {
+		right: 0;
+
+		&::before {
+			border-width: 8px 0 8px 8px;
+			border-left-color: initial;
+			right: -7px;
+			transform-origin: center left;
+		}
+	}
+
+	&[data-placement^="right"] > .tippy-arrow {
+		left: 0;
+
+		&::before {
+			left: -7px;
+			border-width: 8px 8px 8px 0;
+			border-right-color: initial;
+			transform-origin: center right;
+		}
+	}
+
+	& .tippy-arrow {
+		@apply text-tooltip;
+
+		width: 16px;
+		height: 16px;
+
+		&::before {
+			content: "";
+			position: absolute;
+			border-color: transparent;
+			border-style: solid;
+		}
 	}
 }

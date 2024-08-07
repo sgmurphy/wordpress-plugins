@@ -339,14 +339,10 @@ jQuery(document).ready(function($){
 
 			if( $form.closest('.product').hasClass('product-type-external') || $form.siblings('.xoo-wsc-disable-atc').length ) return;
 
-			var $button  		= $(e.originalEvent.submitter),
+			var $button  		= e.originalEvent && e.originalEvent.submitter ? $(e.originalEvent.submitter) : $form.find( 'button[type="submit"]'),
 				formData 		= new FormData($form.get(0)),
 				productData  	= $form.serializeArray(),
 				hasProductId 	= false;
-
-			if( !$button.length ){
-				$button = $form.find( 'button[type="submit"]');
-			}
 
 			//Check for woocommerce custom quantity code 
 			//https://docs.woocommerce.com/document/override-loop-template-and-show-quantities-next-to-add-to-cart-buttons/

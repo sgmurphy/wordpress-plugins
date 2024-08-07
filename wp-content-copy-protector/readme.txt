@@ -1,17 +1,51 @@
 === WP Content Copy Protection & No Right Click ===
 Contributors: wp-buy	
-Tags: content, content copy protection, content protection, copy protection, prevent copy, protect blog, image protect, image protection, no right click, plagiarism, secure content, content theft
+Tags: content copy protection, content protection, prevent copy, image protection, no right click
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.8
-Tested up to: 6.4.3
-Stable tag: 3.5.8
+Tested up to: 6.6.1
+Stable tag: 3.5.9
 
-This wp plugin protect the posts content from being copied by any other web site author (content copy protection) , you dont want your content to spread without your permission!!
-
+This WP plugin protects posts from being copied (content copy protection). Keep your content safe from unauthorized distribution!
 
 == Description ==
 This wp plugin protect the posts content from being copied by any other web site author , you dont want your content to spread without your permission!!
 The plugin will keep your posts and home page protected by multiple techniques (JavaScript + CSS), this techniques does not found in any other wordpress plugin and you will own it for free with this plugin
 <li><a href="https://www.wp-buy.com/product/wp-content-copy-protection-pro/?src=wp1"><strong>PRO Version Features</strong></li>
+
+Protect Your Valuable Content with WP Content Copy Protection & No Right Click
+
+Are you tired of seeing your original content copied and spread across the web without your permission? The WP Content Copy Protection & No Right Click plugin is here to safeguard your posts and home page from unauthorized copying.
+
+*Key Features:*
+Content Protection:
+Ensure your hard work remains yours. This plugin employs advanced content-protection techniques to keep your text and images safe from being copied by other web authors.
+
+*Copy Protection:*
+With robust copy protection mechanisms, this plugin prevents unauthorized duplication of your content. It effectively disables common methods used for content theft, ensuring your intellectual property remains secure.
+
+*Copyright Enforcement:*
+Maintain control over your copyrighted material. The plugin acts as a virtual guardian, enforcing copyright rules and deterring potential infringers.
+
+*Disable Right Click:*
+Stop users from right-clicking on your content. By disabling right-click functionality, this plugin adds an extra layer of security, preventing easy access to the context menu used for copying content.
+
+*Deny Copy Paste:*
+Block the ability to copy and paste your content. This plugin uses a combination of JavaScript and CSS techniques to make copying and pasting from your site nearly impossible.
+
+*Control Who Can Copy:*
+Take charge of your content distribution. With this plugin, you have the power to control who can and cannot copy your content, giving you peace of mind that your work is protected.
+
+*Watermark Images (Pro Version):*
+Upgrade to the Pro version to add watermarks to your images. This feature ensures that even if your images are copied, they will still carry your watermark, maintaining your brand visibility and deterring unauthorized use.
+
+*Unique Benefits:*
+Unparalleled Protection: Unlike other WordPress plugins, our unique combination of JavaScript and CSS techniques offers a level of protection not found elsewhere.
+Free to Use: Enjoy all these powerful features without any cost. Protect your content with the free version of our plugin, and upgrade to the Pro version for additional benefits like image watermarking.
+User-Friendly: Easy to install and configure, this plugin requires no technical expertise, making it accessible for all WordPress users.
+Ensure your content remains yours with the WP Content Copy Protection & No Right Click plugin. Protect your work, enforce your copyright, and control who can copy your content—all for free.
+
 **Easy to Install**:
 Read the installation steps to find that this plugin does not need any coding or theme editing, just use your mouse..
 
@@ -64,6 +98,10 @@ your posts extremely simple without yelling at your readers</li>
 </ul>
 
 == Changelog ==
+= 3.5.9 =
+<ul>
+<li>Checking with wordpress version 6.6.1</li>
+</ul>
 = 3.5.8 =
 <ul>
 <li>Checking with wordpress version 6.4.3</li>

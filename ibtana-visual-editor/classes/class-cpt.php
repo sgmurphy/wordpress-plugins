@@ -346,7 +346,8 @@ class IVE_Ibtana_CPT {
       wp_send_json(
         [
           'status'                              =>  true,
-          'msg'                                 =>	__( "Successfully saved template '" . $title . "'.", "ibtana-visual-editor" ),
+          // Translators: %s is the title of the template.
+          'msg'                                 =>	sprintf(__("Successfully saved template '%s'.", "ibtana-visual-editor"),$title),
           'save_templates_limit'                =>  $template_limit_info['save_templates_limit'],
           'saved_templates'                     =>  $template_limit_info['saved_templates'],
           'is_add_on_providing_template_limit'  =>  $template_limit_info['is_add_on_providing_template_limit']
@@ -358,10 +359,11 @@ class IVE_Ibtana_CPT {
       wp_send_json(
         [
           'status'  =>  false,
-          'msg'     =>  __(
-            "Can't Save More Than " . $template_limit_info['save_templates_limit'] . " Templates.",
-            "ibtana-visual-editor"
-          )
+          'msg'     =>  sprintf(
+            // Translators: %d is the limit of templates that can be saved.
+            __("Can't Save More Than %d Templates.", "ibtana-visual-editor"),
+            $template_limit_info['save_templates_limit']
+        )
         ]
       );
       exit;

@@ -13,7 +13,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Aruba HiSpeed Cache
- * Version:           2.0.13
+ * Version:           2.0.14
  * Plugin URI:        https://hosting.aruba.it/wordpress.aspx
  *
  * @phpcs:ignore Generic.Files.LineLength.TooLong
@@ -52,6 +52,8 @@ if(AHSC_CORE['debug']) {
 }
 /** control plugin version*/
 include_once "src/AHSC_Version.php";
+/** Static cache htaccess*/
+include_once "src/AHSC_Static.php";
 /** plugin general functions*/
 include_once "src/AHSC_Functions.php";
 /** plugin controllo per check services*/
@@ -64,8 +66,6 @@ include_once "admin/AHSC_Admin_Menu.php";
 include_once "admin/AHSC_Admin_Bar.php";
 /** Warmer Manager*/
 include_once "src/AHSC_Warmer.php";
-/** Static cache htaccess*/
-include_once "src/AHSC_Static.php";
 /** event for clearcache*/
 include_once "src/Events/AHSC_Comments.php";
 include_once "src/Events/AHSC_Deferer.php";

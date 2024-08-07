@@ -70,7 +70,7 @@ if ( ! class_exists( 'ReduxFramework_icon_select' ) ) {
 
 				global $wp_filesystem;
 
-				$this->field['stylesheet']       = ReduxFramework::$_dir . 'assets/css/vendor/font-awesome/font-awesome.min.css';
+				$this->field['stylesheet']       = ReduxFramework::$_dir . '../../inc/font-awesome/css/font-awesome.min.css';
 				$this->field['enqueue']          = false;
 				$this->field['enqueue_frontend'] = true;
 				$this->field['selector']         = "fa-";

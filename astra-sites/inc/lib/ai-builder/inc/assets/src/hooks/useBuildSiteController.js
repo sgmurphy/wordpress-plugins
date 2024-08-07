@@ -93,13 +93,10 @@ const useBuildSiteController = () => {
 		const zipPlans = aiBuilderVars?.zip_plans;
 		const sitesRemaining = zipPlans?.plan_data?.remaining;
 		const aiSitesRemainingCount = sitesRemaining?.ai_sites_count;
-		const allSitesRemainingCount = sitesRemaining?.all_sites_count;
 
 		if (
-			( typeof aiSitesRemainingCount === 'number' &&
-				aiSitesRemainingCount <= 0 ) ||
-			( typeof allSitesRemainingCount === 'number' &&
-				allSitesRemainingCount <= 0 )
+			typeof aiSitesRemainingCount === 'number' &&
+			aiSitesRemainingCount <= 0
 		) {
 			return true;
 		}

@@ -203,7 +203,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) {
 		 * @since 3.1.3
 		 */
 		public function delete_related_transient() {
-			delete_transient( 'astra_sites_batch_process_started' );
+			delete_option( 'astra_sites_batch_process_started' );
 			Astra_Sites_File_System::get_instance()->delete_demo_content();
 			delete_option( 'ast_ai_import_current_url' );
 			delete_option( 'astra_sites_ai_import_started' );

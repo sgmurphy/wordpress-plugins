@@ -1,3 +1,18 @@
+v1.2.0 - 07-August-2024
+- New: Enhanced AI onboarding UI.
+
+v1.1.22 - 05-August-2024
+- Fix: Required plugins for selected features were not installed for classic templates.
+
+v1.1.21 - 01-August-2024
+- Fix: Using option variables instead of transient.
+
+v1.1.20 - 31-July-2024
+- Fix: Removed All sites generation condition to show the site limit exceed popup.
+
+v1.1.19 - 30-July-2024
+- Improvement: Added support for passing a language parameter to the generate business description API, enabling descriptions to be generated in the selected language.
+
 v1.1.18 - 24-July-2024
 - Improvement: Implemented detailed error message handling based on API responses.
 
@@ -55,6 +70,7 @@ v1.1.2 - 01-July-2024
 - Improvement: Added ZipWP new features icon support.
 
 v1.1.1 - 26-June-2024
+- Improvement: Enriching Website Building Onboarding with Advanced Font Presets.
 - Improvement: Added a filter to disable the Premium Badge for templates.
 - Fix: Compulsory features should enabled by default and should not be clickable.
 - Fix: Hover effect/color is missing on the Continue button.

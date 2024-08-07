@@ -8,9 +8,18 @@ if(array_key_exists('ahsc_static_cache',AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIO
         }
     }
 }
-$AHSC_marker='AHSC_RULES';
 
-$AHSC_rules=array(
+/**
+ * ADD directives from .htaccess file
+ */
+function AHSC_edit_htaccess(){
+		if ( ! is_multisite() ) {
+			
+			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			
+			$htaccess_location = get_home_path() . '.htaccess';
+			
+			$AHSC_rules=array(
 	'<IfModule mod_expires.c>',
 	'ExpiresActive on',
 	'ExpiresDefault "access plus 1 month"',
@@ -95,18 +104,7 @@ $AHSC_rules=array(
 	'</IfModule>'
 );
 
-/**
- * ADD directives from .htaccess file
- */
-function AHSC_edit_htaccess(){
-		if ( ! is_multisite() ) {
-			global $AHSC_rules,$AHSC_marker;
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
-
-			$home_path         = get_home_path();
-			$htaccess_location = $home_path . '.htaccess';
-
-			insert_with_markers( $htaccess_location, $AHSC_marker, $AHSC_rules );
+			insert_with_markers( $htaccess_location, 'AHSC_RULES', $AHSC_rules );
 		}
 
 }
@@ -116,9 +114,9 @@ function AHSC_edit_htaccess(){
  */
 function AHSC_remove_htaccess() {
 		if ( ! is_multisite() ) {
-			global $AHSC_marker;
+			require_once( ABSPATH . 'wp-admin/includes/file.php' );
 			$htaccess = get_home_path() . '.htaccess';
-			insert_with_markers( $htaccess, $AHSC_marker, array() );
+			insert_with_markers( $htaccess, 'AHSC_RULES', array(' ') );
 		}
 
 }

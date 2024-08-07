@@ -1,3 +1,12 @@
+v1.1.6 - 05-August-2024
+- Fix: Resolved an issue with some classic editor templates getting stuck during import.
+
+v1.1.5 - 05-August-2024
+- Fix: Default logo was not getting replaced for classic templates.
+
+v1.1.4 - 01-August-2024
+- Fix: Using option variables instead of transient.
+
 v1.1.3 - 18-July-2024
 - Fix: Resolved fatal error encountered with Ghost Kit plugin.
 

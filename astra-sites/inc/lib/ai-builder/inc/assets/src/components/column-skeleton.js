@@ -6,7 +6,7 @@ const ColumnSkeleton = () => {
 		<div className="w-full relative overflow-visible">
 			<div className="aspect-[164/179]" />
 			<div className="h-14 w-full" />
-			<div className="absolute inset-0 flex flex-col bg-white items-center border border-border-tertiary border-solid">
+			<div className="absolute inset-0 flex flex-col bg-white items-center border border-border-tertiary border-solid rounded-lg">
 				<div className="w-full flex items-center p-4 space-x-5">
 					<div
 						data-placeholder

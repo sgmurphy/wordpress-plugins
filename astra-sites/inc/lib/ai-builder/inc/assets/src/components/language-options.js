@@ -119,7 +119,7 @@ const LanguageOptions = ( {
 									{ selected.code }
 								</span>
 								<span className="!shrink-0 w-px h-[14px] bg-border-tertiary" />
-								<span className="w-full text-base font-normal leading-6 block truncate">
+								<span className="w-full !text-sm font-normal leading-6 block truncate">
 									{ selected.name }{ ' ' }
 									{ selected.code === 'en' && '(Default)' }
 								</span>

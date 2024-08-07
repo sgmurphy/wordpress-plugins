@@ -59,11 +59,12 @@ if ( ! empty( $settings['thankYouPage']['page_id'] ) ) {
 	$page_id = $settings['thankYouPage']['page_id'];
 	$page    = get_post( $page_id );
 
-	$pos = strpos( $page->post_content, 'stm-thank-you-page' );
+	$pos = strpos( $page->post_content ?? '', 'stm-thank-you-page' );
 	if ( false === $pos ) {
+		$content      = $page->post_content ?? '';
 		$updated_page = array(
 			'ID'           => $page_id,
-			'post_content' => $page->post_content . '[stm-thank-you-page id="' . $calc_id . '"]',
+			'post_content' => $content . '[stm-thank-you-page id="' . $calc_id . '"]',
 		);
 
 		wp_update_post( $updated_page );

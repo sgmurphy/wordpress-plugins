@@ -794,15 +794,15 @@ class Gs_Connector_Service {
             aria-controls="form-panel" aria-labelledby="ui-id-1" aria-selected="false" aria-expanded="false"
             onClick="sigle_multi_tab('cf7-sub-tab-single')">
             <a href="#form-panel" tabindex="-1" class="ui-tabs-anchor"
-                id="cf7-sub-tab-single">Single
-                Sheet Connection</a>
+                id="cf7-sub-tab-single"><?php echo esc_html( __('Single
+                Sheet Connection', 'gsconnector' ) ); ?></a>
         </li>
         <li id="form-panel-tab" role="tab" tabindex="-1"
             class="ui-tabs-tab ui-corner-top ui-state-default ui-tab cf7-sub-tab-multi-li" aria-controls="form-panel"
             aria-labelledby="ui-id-1" aria-selected="false" aria-expanded="false"
             onClick="sigle_multi_tab('cf7-sub-tab-multi')"><a href="#form-panel-multi" tabindex="-1"
-                class="ui-tabs-anchor" id="cf7-sub-tab-multi">Multi Sheet
-                Connection <span class="pro">Pro</span></a>
+                class="ui-tabs-anchor" id="cf7-sub-tab-multi"><?php echo esc_html( __('Multi Sheet
+                Connection', 'gsconnector' ) ); ?> <span class="pro"><?php echo esc_html( __('Pro', 'gsconnector' ) ); ?></span></a>
 
         </li>
     </ul>

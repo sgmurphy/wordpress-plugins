@@ -1,9 +1,14 @@
 import { Fragment } from '@wordpress/element';
-import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import {
+	ArrowTopRightOnSquareIcon,
+	InformationCircleIcon,
+} from '@heroicons/react/24/outline';
 import { __, sprintf } from '@wordpress/i18n';
 import { Menu, Transition } from '@headlessui/react';
-import { CheckIcon } from '@heroicons/react/24/solid';
+import { CheckIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import usePopper from '../hooks/use-popper';
+import { Link } from '@tanstack/react-router';
+import Tooltip from './tooltip';
 
 const TemplateInfo = ( { template, position } ) => {
 	const [ triggerPopper, container ] = usePopper( {
@@ -11,20 +16,47 @@ const TemplateInfo = ( { template, position } ) => {
 		strategy: 'fixed',
 		modifiers: [ { name: 'offset', options: { offset: [ 0, 6 ] } } ],
 	} );
+	const isEcommerceEnabled = template?.features?.ecommerce === 'yes';
 
 	return (
 		<div className="absolute bottom-0  w-full h-14 flex items-center justify-between bg-white px-5 shadow-template-info border-t border-b-0 border-x-0 border-solid border-border-tertiary">
-			<div className="zw-base-semibold text-app-heading capitalize select-none">
-				{ /* { template?.name || template?.domain?.split( '.' )?.[ 0 ] } */ }
-				{ position
-					? sprintf(
-							/* translators: %s: Option number */
-							__( 'Option %s', 'ai-builder' ),
-							position
-					  )
-					: '' }
+			<div className="flex items-center justify-start gap-1.5 zw-base-semibold text-app-heading capitalize select-none">
+				<span>
+					{ position
+						? sprintf(
+								/* translators: %s: Option number */
+								__( 'Option %s', 'ai-builder' ),
+								position
+						  )
+						: '' }
+				</span>
+				{ /* Preview in new tab */ }
+				<Tooltip
+					content={ __( 'Open Design in New Tab', 'ai-builder' ) }
+					arrow
+				>
+					<Link
+						className="cursor-pointer text-zip-app-inactive-icon mt-0.5 mb-0.5 hover:text-zip-app-text outline-none focus:outline-none transition-colors"
+						to="/design-preview"
+						search={ {
+							uuid: template?.uuid,
+						} }
+						target="_blank"
+					>
+						<ArrowTopRightOnSquareIcon
+							className="w-4.5 h-4.5"
+							strokeWidth="1.7"
+						/>
+					</Link>
+				</Tooltip>
 			</div>
-			<div className="flex gap-4">
+			<div className="flex gap-2">
+				{ isEcommerceEnabled && (
+					<div className="flex font-medium items-center gap-1 border leading-[14px] border-ecommerce-border text-ecommerce-text bg-ecommerce-badge text-xs px-2 py-0.5 rounded-[6px]">
+						<ShoppingCartIcon className="w-4 h-4" />
+						<span>E-Commerce</span>
+					</div>
+				) }
 				<Menu as="div" className="relative">
 					{ ( { open, close } ) => (
 						<>

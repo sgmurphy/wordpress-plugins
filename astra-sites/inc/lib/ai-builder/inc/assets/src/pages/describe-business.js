@@ -19,6 +19,7 @@ import { adjustTextAreaHeight } from '../utils/helpers';
 import StyledText from '../components/styled-text';
 import { __, sprintf } from '@wordpress/i18n';
 import { useNavigateSteps } from '../router';
+import Container from '../components/container';
 
 const DescribeBusiness = () => {
 	const { nextStep, previousStep } = useNavigateSteps();
@@ -27,6 +28,7 @@ const DescribeBusiness = () => {
 			businessDetails,
 			businessType,
 			businessName,
+			siteLanguage,
 			descriptionListStore,
 		} = useSelect( ( select ) => {
 			const { getAIStepData } = select( STORE_KEY );
@@ -94,6 +96,7 @@ const DescribeBusiness = () => {
 					business_name: businessName,
 					business_description: formBusinessDetails,
 					category: businessType,
+					language: siteLanguage,
 				},
 			} );
 			if ( response.success ) {
@@ -356,8 +359,8 @@ const DescribeBusiness = () => {
 	}, [ formBusinessDetails ] );
 
 	return (
-		<form
-			className="w-full max-w-container flex flex-col gap-8 pb-10"
+		<Container
+			as="form"
 			action="#"
 			onSubmit={ handleSubmit( handleFormSubmit ) }
 		>
@@ -371,7 +374,7 @@ const DescribeBusiness = () => {
 			<div>
 				<Textarea
 					ref={ textareaRef }
-					rows={ 8 }
+					rows={ 6 }
 					className="w-full"
 					placeholder={ __(
 						'E.g. Mantra Minds is a yoga studio located in Chino Hills, California. The studio offers a variety of classes such as Hatha yoga, Vinyasa flow, and Restorative yoga. The studio is led by Jane, an experienced and certified yoga instructor with over 10 years of teaching expertise. The welcoming atmosphere and personalized Jane make it a favorite among yoga enthusiasts in the area.',
@@ -413,9 +416,9 @@ const DescribeBusiness = () => {
 
 							{ descriptionPage > 0 &&
 								descriptionList?.length > 1 && (
-									<div className="flex gap-2 items-center justify-start w-[100px] cursor-default text-zip-body-text">
+									<div className="flex gap-2 items-center justify-end w-[100px] cursor-default text-zip-body-text">
 										<div className="w-5">
-											{ descriptionPage !== 1 && (
+											{ descriptionPage !== 1 ? (
 												<ChevronLeftIcon
 													className="w-5 cursor-pointer text-zip-body-text"
 													onClick={ () =>
@@ -427,6 +430,11 @@ const DescribeBusiness = () => {
 														loadingNextStep
 													}
 												/>
+											) : (
+												<ChevronLeftIcon
+													className="w-5 border-tertiary flex justify-center cursor-not-allowed"
+													data-disabled="true"
+												/>
 											) }
 										</div>
 										<div className="zw-sm-semibold cursor-default">
@@ -435,7 +443,7 @@ const DescribeBusiness = () => {
 										</div>
 										<div className="w-5">
 											{ descriptionPage !==
-												descriptionList?.length && (
+											descriptionList?.length ? (
 												<ChevronRightIcon
 													className="w-5 cursor-pointer text-zip-body-text"
 													onClick={ () =>
@@ -446,6 +454,11 @@ const DescribeBusiness = () => {
 													data-disabled={
 														loadingNextStep
 													}
+												/>
+											) : (
+												<ChevronRightIcon
+													className="w-5 border-tertiary flex justify-center"
+													data-disabled="true"
 												/>
 											) }
 										</div>
@@ -460,7 +473,7 @@ const DescribeBusiness = () => {
 				onClickPrevious={ previousStep }
 				loading={ isFetchingKeywords }
 			/>
-		</form>
+		</Container>
 	);
 };
 

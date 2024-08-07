@@ -71,13 +71,13 @@ class Importer extends AjaxBase {
 	public function update_required_options() {
 		update_option( 'astra_sites_import_complete', 'yes', 'no' );
 
-		if ( 'ai' === get_transient( 'astra_sites_current_import_template_type' ) ) {
+		if ( 'ai' === get_option( 'astra_sites_current_import_template_type' ) ) {
 			update_option( 'astra_sites_batch_process_complete', 'yes' );
 			delete_option( 'ai_import_logger' );
 		} else {
 			update_option( 'astra_sites_batch_process_complete', 'no' );
 		}
-		delete_transient( 'astra_sites_import_started' );
+		delete_option( 'astra_sites_import_started' );
 	}
 
 	/**

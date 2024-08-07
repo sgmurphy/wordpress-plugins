@@ -408,11 +408,11 @@ body{
 
 @media print, screen and (min-width: 640px) {
 	#fbuilder .left_aligned .fields:not(.section_breaks)>label:not(:empty),
-	#fbuilder [id*="fieldlist"]:not(.left_aligned) .left_aligned.fields:not(.section_breaks)>label:not(:empty){float:left;width:35%;padding-right:10px;text-align:left;}
+	#fbuilder [id*="fieldlist"]:not(.left_aligned) .left_aligned.fields:not(.section_breaks)>label:not(:empty){float:left;width:35%;padding-right:10px;padding-top:5px;text-align:left;}
 	#fbuilder .left_aligned .fields label:not(:empty) + .dfield,
 	#fbuilder [id*="fieldlist"]:not(.left_aligned) .left_aligned.fields label:not(:empty) + .dfield{float:left;width:65%;}
 	#fbuilder .right_aligned .fields:not(.section_breaks)>label:not(:empty),
-	#fbuilder [id*="fieldlist"]:not(.right_aligned) .right_aligned.fields:not(.section_breaks)>label:not(:empty){float:left;width:35%;text-align:right;padding-right:10px;}
+	#fbuilder [id*="fieldlist"]:not(.right_aligned) .right_aligned.fields:not(.section_breaks)>label:not(:empty){float:left;width:35%;text-align:right;padding-right:10px;padding-top:5px;}
 	#fbuilder .right_aligned .fields label:not(:empty) + .dfield,
 	#fbuilder [id*="fieldlist"]:not(.right_aligned) .right_aligned.fields label:not(:empty) + .dfield{float:left;width:65%;}
 }

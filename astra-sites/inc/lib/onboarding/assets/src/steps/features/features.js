@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import Button from '../../components/button/button';
 import { PreviousStepLink } from '../../components/index';
@@ -25,58 +24,8 @@ const ICON_SET = {
 };
 
 const ClassicFeatures = () => {
-	const [ { currentIndex }, dispatch ] = useStateValue();
+	const [ { siteFeatures, currentIndex }, dispatch ] = useStateValue();
 	const storedState = useStateValue();
-	const [ siteFeatures, setSiteFeatures ] = useState( [
-		{
-			title: __( 'Donations', 'astra-sites' ),
-			id: 'donations',
-			description: __(
-				'Collect donations online from your website',
-				'astra-sites'
-			),
-			enabled: false,
-			icon: 'heart',
-		},
-		{
-			title: __( 'Automation & Integrations', 'astra-sites' ),
-			id: 'automation-integrations',
-			description: __( 'Automate your website & tasks', 'astra-sites' ),
-			enabled: false,
-			icon: 'squares-plus',
-		},
-		{
-			title: __( 'Sales Funnels', 'astra-sites' ),
-			id: 'sales-funnels',
-			description: __(
-				'Boost your sales & maximize your profits',
-				'astra-sites'
-			),
-			enabled: false,
-			icon: 'funnel',
-		},
-		{
-			title: __( 'Video Player', 'astra-sites' ),
-			id: 'video-player',
-			description: __(
-				'Showcase your videos on your website',
-				'astra-sites'
-			),
-			enabled: false,
-			icon: 'play-circle',
-		},
-		{
-			title: __( 'Free Live Chat', 'astra-sites' ),
-			id: 'live-chat',
-			description: __(
-				'Connect with your website visitors for free',
-				'astra-sites'
-			),
-			enabled: false,
-			icon: 'live-chat',
-		},
-	] );
-
 	const handleToggleFeature = ( featureId ) => () => {
 		const updatedFeatures = siteFeatures.map( ( feature ) => {
 			if ( feature.id === featureId ) {
@@ -85,7 +34,10 @@ const ClassicFeatures = () => {
 			return feature;
 		} );
 
-		setSiteFeatures( updatedFeatures );
+		dispatch( {
+			type: 'set',
+			siteFeatures: updatedFeatures,
+		} );
 	};
 
 	const setNextStep = async () => {
@@ -94,13 +46,19 @@ const ClassicFeatures = () => {
 			currentIndex: currentIndex + 1,
 		} );
 
-		storedState[ 0 ].enabledFeatureIds = siteFeatures
+		const enabledFeatureIds = siteFeatures
 			.filter( ( component ) => component.enabled )
 			.map( ( component ) => component.id );
 
+		dispatch( {
+			type: 'set',
+			enabledFeatureIds,
+		} );
+
+		storedState[ 0 ].enabledFeatureIds = enabledFeatureIds;
+
 		await checkRequiredPlugins( storedState );
 	};
-
 	const skipStep = () => {
 		dispatch( {
 			type: 'set',

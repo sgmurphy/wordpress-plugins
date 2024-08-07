@@ -13,7 +13,7 @@ const NotFound404 = () => {
 	};
 
 	return (
-		<div className="h-screen w-full bg-st-background-secondary grid grid-cols-1 grid-rows-[80px_1fr]">
+		<div className="h-screen w-full bg-container-background grid grid-cols-1 grid-rows-[80px_1fr]">
 			<Header />
 			<div className="grid grid-cols-1 auto-rows-min gap-4 w-full max-w-[590px] my-32 mx-auto text-center px-5 lg:px-0">
 				<h1 className="text-heading-text">404</h1>

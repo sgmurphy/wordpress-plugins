@@ -68,8 +68,8 @@ if ( ! class_exists( 'IVE_Loader' ) ) {
 				if ('product' === get_post_type()) {
 
 					$ive_notice_class = 'notice notice-error';
-					/* translators: %s: html tags */
 					$ive_message_notice = sprintf(
+						// Translators: %1$s and %2$s are HTML tags around the plugin name.
 						__(
 								'In order to use product page as a gutenberg editor install and activate %1$sIbtana Ecommerce Product Addons%1$s',
 								'ibtana-visual-editor'

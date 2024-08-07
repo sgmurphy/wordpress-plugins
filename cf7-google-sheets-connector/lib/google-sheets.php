@@ -415,17 +415,17 @@ class CF7GSC_googlesheet {
 
     public function gsheet_print_google_account_email() {
         try {
-            $google_account = get_option("cf7gf_email_account");
-            if ($google_account) {
-                return $google_account;
-            } else {
+            // $google_account = get_option("cf7gf_email_account");
+            // if ($google_account) {
+            //     return $google_account;
+            // } else {
 
                 $google_sheet = new CF7GSC_googlesheet();
                 $google_sheet->auth();
                 $email = $google_sheet->gsheet_get_google_account_email();
-
+                update_option('cf7gf_email_account', $email);
                 return $email;
-            }
+            // }
         } catch (Exception $e) {
             return false;
         }

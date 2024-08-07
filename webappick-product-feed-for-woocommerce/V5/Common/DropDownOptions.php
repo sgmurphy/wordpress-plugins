@@ -1155,7 +1155,7 @@ class DropDownOptions {
 
 					$options = $currencies;
 				}
-			} elseif ( is_plugin_active( 'woocommerce-currency-switcher/index.php' ) || class_exists( 'WOOCS' ) ) {
+			} elseif ( is_plugin_active( 'woocommerce-currency-switcher/index.php' ) && class_exists( 'WOOCS' ) ) {
 				global $WOOCS;
 				$get_currencies = $WOOCS->get_currencies();
 				if ( ! empty( $get_currencies ) ) {

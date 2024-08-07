@@ -36,7 +36,7 @@ const Input = (
 				<label
 					htmlFor={ name }
 					className={ classNames(
-						'text-base font-semibold leading-6 items-center !mb-2',
+						'text-sm font-medium leading-5 items-center !mb-2',
 						labelColorClassName
 					) }
 				>
@@ -77,7 +77,7 @@ const Input = (
 						name={ name }
 						disabled={ disabled }
 						className={ classNames(
-							'w-full px-[1rem] placeholder:text-secondary-text rounded-md outline-none text-[0.9rem] placeholder:!text-base',
+							'w-full px-[1rem] placeholder:text-secondary-text rounded-md outline-none !text-sm placeholder:!text-base',
 							`h-${ height }`,
 							label ? 'mt-2' : '',
 							noBorder
@@ -85,6 +85,7 @@ const Input = (
 								: 'px-3 border border-solid focus:!ring-1 focus:ring-accent-st',
 							enableAutoGrow && 'absolute left-0 min-w-[50px]',
 							disabled ? 'cursor-not-allowed' : '',
+							suffixIcon ? 'pr-11' : '',
 							inputClassName,
 							! noBorder && 'focus:!border-accent-st'
 						) }

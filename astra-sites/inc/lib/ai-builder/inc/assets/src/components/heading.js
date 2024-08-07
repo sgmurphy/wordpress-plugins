@@ -4,12 +4,12 @@ const Heading = ( { heading, subHeading, className } ) => {
 	return (
 		<div className={ classNames( 'space-y-3', className ) }>
 			{ !! heading && (
-				<div className="text-[2rem] font-semibold leading-[140%]">
+				<div className="text-heading-text text-[1.75rem] font-semibold leading-9">
 					{ heading }
 				</div>
 			) }
 			{ !! subHeading && (
-				<p className="text-zip-body-text text-base font-normal leading-6">
+				<p className="text-body-text text-base font-normal leading-6">
 					{ subHeading }
 				</p>
 			) }

@@ -11,7 +11,21 @@ a.scroll-post-stickybar img {max-width: 300px !important;display: block  !import
 fieldset#fuse-stickybar .redux_field_th {
     float: left;
 }
-
+.overlay_pro_upgrade {
+    background: #fff0;
+    backdrop-filter: blur(4px);
+}
+.overlay-btn-trig {
+    background: linear-gradient( 219.3deg, #9500c7 4.7%, rgba(130,0,226,1) 22.9%, rgba(95,0,199,1) 43.2%, rgba(70,0,199,1) 63.9%, rgba(5,0,199,1) 85.1%, #005fc7 106.8% ) !important;
+    color: #fff;
+    text-align: center;
+    max-width: 350px;
+    font-size: 18px;
+    padding: 19px;
+    border-radius: 7px;
+    margin: 60px auto;
+    cursor: pointer;
+}
 a.scroll-post-stickybar {
     float: left;
     text-align: center;

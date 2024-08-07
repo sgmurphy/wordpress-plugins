@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by impress-org on 24-July-2024 using Strauss.
+ * Modified by impress-org on 07-August-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 

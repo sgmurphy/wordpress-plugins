@@ -655,8 +655,13 @@ function flrt_acf_terms_order( $entity_items, $filter ){
         foreach ( $results as $acf_field ){
             if( isset( $acf_field['post_content'] ) ) {
                 $field_options = maybe_unserialize( $acf_field['post_content'] );
-                if( isset( $field_options['choices'] ) ){
-                    $field_terms = array_merge( $field_terms, $field_options['choices'] );
+
+                if( isset( $field_options['choices'] ) && is_array( $field_options['choices'] ) ){
+                    foreach ( $field_options['choices'] as $value => $label ){
+                        if( ! isset( $field_terms[$value] ) ) {
+                            $field_terms[$value] = $label;
+                        }
+                    }
                 }
             }
         }

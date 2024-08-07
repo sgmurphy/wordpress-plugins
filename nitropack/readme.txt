@@ -4,7 +4,7 @@ Tags: speed, cache, performance, optimize pagespeed, lazy load, cdn, cache, crit
 Requires at least: 4.7
 Tested up to: 6.6.1
 Requires PHP: 5.6
-Stable tag: 1.16.4
+Stable tag: 1.16.6
 License: GNU General Public License, version 2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -278,6 +278,13 @@ Yes, the plugin uses the [Intercom Chat Widget](https://widget.intercom.io), whi
 
 
 == Changelog ==
+= 1.16.6 =
+* Bug fix: Resolve plugin connect issues
+
+= 1.16.5 =
+* Bug fix: Notification dismiss button position and action
+* Bug fix: Automatically purge when updating a post/page.
+
 = 1.16.4 =
 * Improvement: Untrashing now invalidates related pages.
 * Improvement: Cache Warmup now optimizes newly published CPT.

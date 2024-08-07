@@ -53,7 +53,7 @@ class FormatOutput {
 			}
 
 			if ( ! empty( $output ) && $output > 0 && in_array( 7, $outputTypes ) ) { // Rounded Price
-				$output = round( $output );
+				$output= is_float( $output ) ? round( $output ) : $output;
 				$output = $this->get_price_format( $output );
 			}
 

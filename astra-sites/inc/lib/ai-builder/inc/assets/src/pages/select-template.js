@@ -32,7 +32,7 @@ import Button from '../components/button';
 import LoadingSpinner from '../components/loading-spinner';
 import { __ } from '@wordpress/i18n';
 import toast from 'react-hot-toast';
-
+import Heading from '../components/heading';
 export const USER_KEYWORD = 'st-template-search';
 
 const SelectTemplate = () => {
@@ -451,34 +451,23 @@ const SelectTemplate = () => {
 			) }
 			onScroll={ handleShowBackToTop }
 		>
-			<div className="space-y-5 px-5 md:px-10 lg:px-14 xl:px-15 pt-12">
-				<h1>
-					{ __(
-						'Choose the structure for your website',
-						'ai-builder'
-					) }
-				</h1>
-				<p className="text-base font-normal leading-6 text-app-text">
-					{ __(
-						'Select your preferred structure for your website from the options below.',
-						'ai-builder'
-					) }
-				</p>
-			</div>
-
+			<Heading
+				heading="Choose the Design"
+				className="px-5 md:px-10 lg:px-14 xl:px-15 pt-5 md:pt-10 lg:pt-8 xl:pt-8 max-w-fit mx-auto"
+			/>
 			<form
-				className="sticky -top-1.5 z-10 pt-4 pb-4 bg-zip-app-light-bg px-5 md:px-10 lg:px-14 xl:px-15"
+				className="w-full pt-6 pb-14 max-w-[37.5rem] mx-auto"
 				onSubmit={ handleSubmit( handleSubmitKeyword ) }
 			>
 				<Input
 					name="keyword"
-					inputClassName="pl-11"
+					inputClassName="pl-4"
 					register={ register }
 					placeholder="Add a keyword"
 					height="12"
 					error={ errors?.keyword }
-					prefixIcon={
-						<div className="absolute left-4 flex items-center">
+					suffixIcon={
+						<div className="absolute right-4 flex items-center">
 							<button
 								type="button"
 								className="w-auto h-auto p-0 flex items-center justify-center cursor-pointer bg-transparent border-0 focus:outline-none"
@@ -498,7 +487,6 @@ const SelectTemplate = () => {
 			<div
 				ref={ templatesContainer }
 				className={ classNames(
-					// 'min-h-[calc(100svh_-_120px)] max-h-[calc(100svh_-_120px)] pb-2 px-10 lg:px-16 xl:px-0 overflow-x-hidden overflow-y-auto',
 					'custom-confirmation-modal-scrollbar', // class for thin scrollbar
 					'relative',
 					'px-5 md:px-10 lg:px-14 xl:px-15',
@@ -508,7 +496,7 @@ const SelectTemplate = () => {
 				<div
 					ref={ templatesContainer }
 					className={ classNames(
-						'grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 auto-rows-auto items-start justify-center gap-6 mb-10'
+						'grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-auto items-start justify-center gap-6 mb-10'
 					) }
 				>
 					{ ! isFetching
@@ -556,7 +544,7 @@ const SelectTemplate = () => {
 				</div>
 			) }
 
-			<div className="sticky bottom-0 pb-6 bg-zip-app-light-bg pt-6 px-5 md:px-10 lg:px-14 xl:px-15">
+			<div className="sticky bottom-0 bg-container-background py-4.75 px-5 md:px-10 lg:px-14 xl:px-15">
 				<NavigationButtons
 					onClickPrevious={ previousStep }
 					hideContinue

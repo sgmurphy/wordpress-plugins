@@ -8,7 +8,8 @@ import { classNames } from '../utils/helpers';
 import Button from './button';
 
 const NavigationButtons = ( {
-	continueButtonText = __( 'Continue', 'ai-builder' ),
+	continueButtonText = __( 'Next', 'ai-builder' ),
+	previousButtonText = __( 'Back', 'ai-builder' ),
 	onClickContinue,
 	onClickPrevious,
 	onClickSkip,
@@ -62,41 +63,56 @@ const NavigationButtons = ( {
 				{ ! hideContinue && (
 					<Button
 						type="submit"
-						className="min-w-[9.375rem] h-[3.125rem]"
+						className="relative !pl-[18px] !pr-[18px]"
 						onClick={ handleOnClickContinue }
 						variant="primary"
-						hasSuffixIcon={ ! loadingNextStep && ! loading }
 						disabled={ disableContinue }
+						hasSuffixIcon
 					>
-						{ loadingNextStep || loading ? (
-							<LoadingSpinner />
-						) : (
-							<>
-								<span>{ continueButtonText }</span>
-								<ArrowRightIcon className="w-5 h-5" />
-							</>
+						<span
+							className={ classNames(
+								'!leading-4 text-sm',
+								( loadingNextStep || loading ) && 'invisible'
+							) }
+						>
+							{ continueButtonText }
+						</span>
+						<ArrowRightIcon
+							className={ classNames(
+								'w-4 h-4',
+								( loadingNextStep || loading ) && 'invisible'
+							) }
+						/>
+						{ ( loadingNextStep || loading ) && (
+							<span className="absolute inset-0 flex items-center justify-center">
+								<LoadingSpinner />
+							</span>
 						) }
 					</Button>
 				) }
 				{ typeof onClickPrevious === 'function' && (
 					<Button
 						type="button"
-						className="h-[3.125rem]"
+						className="!pl-[18px] !pr-[18px]"
 						onClick={ handleOnClickPrevious }
 						variant="white"
 					>
-						<span>{ __( 'Previous Step', 'ai-builder' ) }</span>
+						<span className="!leading-4 text-sm">
+							{ previousButtonText }
+						</span>
 					</Button>
 				) }
 			</div>
 			{ typeof onClickSkip === 'function' && (
 				<Button
 					type="button"
-					className="h-[3.125rem] mr-auto ml-0 md:mr-0 md:ml-auto text-secondary-text"
+					className="mr-auto ml-0 md:mr-0 md:ml-auto text-secondary-text"
 					onClick={ handleOnClickSkip }
 					variant="blank"
 				>
-					<span>{ skipButtonText }</span>
+					<span className="!leading-4 text-sm">
+						{ skipButtonText }
+					</span>
 				</Button>
 			) }
 		</div>

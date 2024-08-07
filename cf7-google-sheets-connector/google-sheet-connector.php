@@ -3,7 +3,7 @@
   * Plugin Name: CF7 Google Sheet Connector
   * Plugin URI: https://wordpress.org/plugins/cf7-google-sheets-connector/
   * Description: Send your Contact Form 7 data to your Google Sheets spreadsheet.
-  * Version: 5.0.13
+  * Version: 5.0.14
   * Author: GSheetConnector
   * Author URI: https://www.gsheetconnector.com/
   * Text Domain: gsconnector
@@ -15,8 +15,8 @@ if (!defined('ABSPATH')) {
 }
 
 // Declare some global constants
-define('GS_CONNECTOR_VERSION', '5.0.13');
-define('GS_CONNECTOR_DB_VERSION', '5.0.13');
+define('GS_CONNECTOR_VERSION', '5.0.14');
+define('GS_CONNECTOR_DB_VERSION', '5.0.14');
 define('GS_CONNECTOR_ROOT', dirname(__FILE__));
 define('GS_CONNECTOR_URL', plugins_url('/', __FILE__));
 define('GS_CONNECTOR_BASE_FILE', basename(dirname(__FILE__)) . '/google-sheet-connector.php');
@@ -291,7 +291,7 @@ class Gs_Connector_Free_Init {
                         <ul class="cf7-gs-alert-permissions">
                             <li><?php echo esc_html__('Google Drive','gsconnector'); ?></li>
                             <li><?php echo esc_html__('Google Sheets', 'gsconnector'); ?>
-                            	<span class="cf7-gs-alert-note">
+                                <span class="cf7-gs-alert-note">
                             <?php echo esc_html__('* Ensure that you enable the checkbox for each of these services.', 'gsconnector'); ?>
                         </span>
                             </li>
@@ -311,9 +311,9 @@ class Gs_Connector_Free_Init {
                     <input type="button" name="deactivate-log" id="deactivate-log"
                         value="<?php _e('Deactivate', 'gsconnector'); ?>" class="button button-primary" />
                     <span class="tooltip"> <img src="<?php echo GS_CONNECTOR_URL; ?>assets/img/help.png"
-                            class="help-icon"> <span class="tooltiptext tooltip-right">On deactivation, all your data
+                            class="help-icon"> <span class="tooltiptext tooltip-right"><?php echo __('On deactivation, all your data
                             saved with authentication will be removed and you need to reauthenticate with your google
-                            account.</span></span>
+                            account.', 'gsconnector'); ?></span></span>
                     <span class="loading-sign-deactive">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <?php
                             } else {
@@ -362,12 +362,15 @@ class Gs_Connector_Free_Init {
                             $google_sheet = new CF7GSC_googlesheet();
                             $email_account = $google_sheet->gsheet_print_google_account_email();
 
-                        if ($email_account) {
+                    if ($email_account) {
+                        update_option( 'cf7gs_auth_expired_free', 'false' );
                                 ?>
                 <p class="connected-account">
                     <?php printf(__('Connected email account: %s', 'gsconnector'), $email_account); ?>
                 <p>
-                    <?php } else { ?>
+                    <?php } else { 
+                         update_option( 'cf7gs_auth_expired_free', 'true' );
+                        ?>
                 <p style="color:red">
                     <?php echo esc_html(__('Something wrong ! Your Auth Code may be wrong or expired. Please deactivate and do Re-Authentication again. ', 'gsconnector')); ?>
                 </p>
@@ -381,12 +384,12 @@ class Gs_Connector_Free_Init {
                     <label><?php echo esc_html(__('Debug Log', 'gsconnector')); ?></label>
                     <label>
                         <!-- display error logs -->
-                        <button class="gsc-cf7free-logs">View</button>
+                        <button class="gsc-cf7free-logs"><?php echo esc_html(__('View', 'gsconnector')); ?></button>
                         <!-- <a href="<?php echo plugins_url('/logs/log.txt', __FILE__); ?>" target="_blank"
                             class="debug-view">View</a> -->
                         </label>
                       <!-- clear logs -->
-                    <label><a class="debug-clear">Clear</a></label>
+                    <label><a class="debug-clear"><?php echo esc_html(__('Clear', 'gsconnector')); ?></a></label>
                     <span class="clear-loading-sign">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </p>
                 <p id="gs-validation-message"></p>
@@ -395,8 +398,8 @@ class Gs_Connector_Free_Init {
                   <div class="cf7-gsc-table">
                     <div class="cf7-gsc-less-free">
                     <i class="dashicons dashicons-lock"></i>
-                        <p> We do not store any of the data from your Google account on our servers, everything is processed & stored on your server. We take your privacy extremely seriously and ensure it is never misused.<br />
-                        <a href="https://gsheetconnector.com/usage-tracking/" target="_blank" rel="noopener noreferrer">Learn more.</a></p> 
+                        <p> <?php echo esc_html(__('We do not store any of the data from your Google account on our servers, everything is processed & stored on your server. We take your privacy extremely seriously and ensure it is never misused.', 'gsconnector')); ?><br />
+                        <a href="https://gsheetconnector.com/usage-tracking/" target="_blank" rel="noopener noreferrer"><?php echo esc_html(__('Learn more.', 'gsconnector')); ?></a></p> 
                     </div>
                 </div>
             </div>
@@ -448,53 +451,53 @@ class Gs_Connector_Free_Init {
 
 
 <div class="plugin-features">
-		<h2>CF7 Google Sheet Connector Pro - Amazing Key Features
-        <span class="sub-line">Common Features of GSheetConnector Pro Plugins.</span></h2>
+        <h2><?php echo esc_html(__('CF7 Google Sheet Connector Pro - Amazing Key Features', 'gsconnector')); ?>
+        <span class="sub-line"><?php echo esc_html(__('Common Features of GSheetConnector Pro Plugins.', 'gsconnector')); ?></span></h2>
   
   <div class="features-list">
-	<div class="features">
-    	<span class="icons-oneclick icon"></span>
-    	<h3>One-Click Authentication</h3>
-        <p>Get spreadsheet and Worksheet list directly to your contact form’s google sheet settings with one-click authentication.</p>
+    <div class="features">
+        <span class="icons-oneclick icon"></span>
+        <h3><?php echo esc_html(__('One-Click Authentication', 'gsconnector')); ?></h3>
+        <p><?php echo esc_html(__('Get spreadsheet and Worksheet list directly to your contact form’s google sheet settings with one-click authentication.', 'gsconnector')); ?></p>
     </div> <!-- features #end -->
     
     <div class="features">
-    	<span class="icons-fetch icon"></span>
-    	<h3>Auto Fetch Sheets and Integration </h3>
-        <p>You can add multiple Contact Forms of your site to multiple Google Sheets. And can add as many Google Sheets as forms.</p>
+        <span class="icons-fetch icon"></span>
+        <h3><?php echo esc_html(__('Auto Fetch Sheets and Integration', 'gsconnector')); ?> </h3>
+        <p><?php echo esc_html(__('You can add multiple Contact Forms of your site to multiple Google Sheets. And can add as many Google Sheets as forms.', 'gsconnector')); ?></p>
     </div> <!-- features #end -->
     
     <div class="features">
-    	<span class="icons-api icon"></span>
-    	<h3>Google Sheets API Up to date</h3>
-        <p>One of the features you get with the latest API-V4 is the ability to format content in Google Sheets. when using our addon plugins.</p>
+        <span class="icons-api icon"></span>
+        <h3><?php echo esc_html(__('Google Sheets API Up to date', 'gsconnector')); ?></h3>
+        <p><?php echo esc_html(__('One of the features you get with the latest API-V4 is the ability to format content in Google Sheets. when using our addon plugins.', 'gsconnector')); ?></p>
     </div> <!-- features #end -->
     
     
     
     <div class="features">
-    	<span class="icon-map icon"></span>
-    	<h3>Map Contact Form Mail Tags to GSheet Columns</h3>
-        <p>In the Google sheets tab, provide column names in row 1. The first column should be “date” for each.</p>
+        <span class="icon-map icon"></span>
+        <h3><?php echo esc_html(__('Map Contact Form Mail Tags to GSheet Columns', 'gsconnector')); ?></h3>
+        <p><?php echo esc_html(__('In the Google sheets tab, provide column names in row 1. The first column should be “date” for each.', 'gsconnector')); ?></p>
     </div> <!-- features #end -->
     
     <div class="features">
-    	<span class="icon-quick icon"></span>
-    	<h3>Quick Configuration </h3>
-        <p>The Configuration of the form to the GSheet is very easy. Just follow the steps provided by the plugin and you will get data on the GSheet.</p>
+        <span class="icon-quick icon"></span>
+        <h3><?php echo esc_html(__('Quick Configuration', 'gsconnector')); ?> </h3>
+        <p><?php echo esc_html(__('The Configuration of the form to the GSheet is very easy. Just follow the steps provided by the plugin and you will get data on the GSheet.', 'gsconnector')); ?></p>
     </div> <!-- features #end -->
     
     <div class="features">
-    	<span class="icon-multisite icon"></span>
-    	<h3>Support WordPress Multi-site</h3>
-        <p>The Configuration of the form to the GSheet is very easy. Just follow the steps provided by the plugin and you will get data on the GSheet.</p>
+        <span class="icon-multisite icon"></span>
+        <h3><?php echo esc_html(__('Support WordPress Multi-site', 'gsconnector')); ?></h3>
+        <p><?php echo esc_html(__('The Configuration of the form to the GSheet is very easy. Just follow the steps provided by the plugin and you will get data on the GSheet.', 'gsconnector')); ?></p>
     </div> <!-- features #end -->
     
    </div> <!-- features-list 3end -->
   
-  	<div class="button-bar"> 
+    <div class="button-bar"> 
         
-        <a href="https://cf7demo.gsheetconnector.com/" class="demo-btn" target="_blank">See Demo</a>
+        <a href="https://cf7demo.gsheetconnector.com/" class="demo-btn" target="_blank"><?php echo esc_html(__('See Demo', 'gsconnector')); ?></a>
         <a href="https://www.gsheetconnector.com/cf7-google-sheet-connector-pro" class="action-btn" target="_blank">See All Futures &amp; Buy Now </a>
     </div>
     
@@ -506,7 +509,7 @@ class Gs_Connector_Free_Init {
 <div class="two-col wc-free-box-help12">
   <div class="col wc-free-box12">
     
-      <h3>Next steps…</h3>
+      <h3><?php echo esc_html(__('Next steps…', 'gsconnector')); ?></h3>
     
     <div class="wc-free-box-content12">
       <ul class="wc-free-list-icon12">
@@ -514,33 +517,33 @@ class Gs_Connector_Free_Init {
                         target="_blank">
           <div>
             <button class="icon-button"> <span class="dashicons dashicons-star-filled"></span> </button>
-            <strong>Upgrade to PRO</strong>
-            <p>Sync Orders, Order wise data and much more...</p>
+            <strong><?php echo esc_html(__('Upgrade to PRO', 'gsconnector')); ?></strong>
+            <p><?php echo esc_html(__('Sync Orders, Order wise data and much more...', 'gsconnector')); ?></p>
           </div>
           </a> </li>
         <li> <a href="https://www.gsheetconnector.com/docs/cf7-gsheet-connector-free/requirements"
                         target="_blank">
           <div>
             <button class="icon-button"> <span class="dashicons dashicons-download"></span> </button>
-            <strong>Compatibility</strong>
-            <p>Compatibility with Contact Form 7 Third-Party Plugins</p>
+            <strong><?php echo esc_html(__('Compatibility', 'gsconnector')); ?></strong>
+            <p><?php echo esc_html(__('Compatibility with Contact Form 7 Third-Party Plugins', 'gsconnector')); ?></p>
           </div>
           </a> </li>
         <li> <a href="https://www.gsheetconnector.com/cf7-google-sheet-connector-pro"
                         target="_blank">
           <div>
             <button class="icon-button"> <span class="dashicons dashicons-chart-bar"></span> </button>
-            <strong>Multi Languages</strong>
-            <p>This plugin supports multi-languages as well!</p>
+            <strong><?php echo esc_html(__('Multi Languages', 'gsconnector')); ?></strong>
+            <p><?php echo esc_html(__('This plugin supports multi-languages as well!', 'gsconnector')); ?></p>
           </div>
           </a> </li>
         <li> <a href="https://www.gsheetconnector.com/docs/cf7-gsheet-connector-free/"
                         target="_blank">
           <div>
             <button class="icon-button"> <span class="dashicons dashicons-download"></span> </button>
-            <strong>Support Wordpress multisites</strong>
-            <p>With the use of a Multisite, you’ll also have a new level of user-available: the Super
-              Admin.</p>
+            <strong><?php echo esc_html(__('Support Wordpress multisites', 'gsconnector')); ?></strong>
+            <p><?php echo esc_html(__('With the use of a Multisite, you’ll also have a new level of user-available: the Super
+              Admin.', 'gsconnector')); ?></p>
           </div>
           </a> </li>
       </ul>
@@ -550,25 +553,25 @@ class Gs_Connector_Free_Init {
   <!-- 2nd div -->
   <div class="col wc-free-box13">
     
-      <h3>Product Support</h3>
+      <h3><?php echo esc_html(__('Product Support', 'gsconnector')); ?></h3>
     
     <div class="wc-free-box-content13">
       <ul class="wc-free-list-icon13">
         <li> <a href="https://www.gsheetconnector.com/docs/cf7-gsheet-connector-free/"
                         target="_blank"> <span class="dashicons dashicons-book"></span>
-          <div> <strong>Online Documentation</strong>
-            <p>Understand all the capabilities of Contact Form 7 - CF7 GSheetConnector</p>
+          <div> <strong><?php echo esc_html(__('Online Documentation', 'gsconnector')); ?></strong>
+            <p><?php echo esc_html(__('Understand all the capabilities of Contact Form 7 - CF7 GSheetConnector', 'gsconnector')); ?></p>
           </div>
           </a> </li>
         <li> <a href="https://www.gsheetconnector.com/docs/cf7-gsheet-connector-free/"
                         target="_blank"> <span class="dashicons dashicons-sos"></span>
-          <div> <strong>Ticket Support</strong>
-            <p>Direct help from our qualified support team</p>
+          <div> <strong><?php echo esc_html(__('Ticket Support', 'gsconnector')); ?></strong>
+            <p><?php echo esc_html(__('Direct help from our qualified support team', 'gsconnector')); ?></p>
           </div>
           </a> </li>
         <li> <a href="https://www.gsheetconnector.com/affiliates"
                         target="_blank"> <span class="dashicons dashicons-admin-links"></span>
-          <div> <strong>Affiliate Program</strong>
+          <div> <strong><?php echo esc_html(__('Affiliate Program', 'gsconnector')); ?></strong>
             <p>Earn flat 30% on every sale!</p>
           </div>
           </a> </li>
@@ -715,7 +718,7 @@ class Gs_Connector_Free_Init {
     }
 
     public function add_gs_connector_summary_widget() {
-        wp_add_dashboard_widget('gs_dashboard', __('Contact Form 7 - GSheetConnector', 'gsconnector') . "<img style='width:60px' src='" . GS_CONNECTOR_URL . "assets/img/CF7GSheet-Connector-logo.png'>", array($this, 'gs_connector_summary_dashboard'));
+       wp_add_dashboard_widget( 'gs_dashboard', __( "<img style='width:30px;margin-right: 10px;' src='" . GS_CONNECTOR_URL . "assets/img/cf7-gsc.png'><span>Contact Form 7 - GSheetConnector</span>", 'gsconnector' ), array( $this, 'gs_connector_summary_dashboard' ) );
     }
 
     public function gs_connector_summary_dashboard() {

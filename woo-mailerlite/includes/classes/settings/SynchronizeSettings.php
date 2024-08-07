@@ -95,7 +95,7 @@ class SynchronizeSettings extends Singleton
                         'exclude_from_automations' => $exclude_automation,
                         'categories' => $productCategories,
                     ];
-                    if (!is_string($productURL)) {
+                    if (empty($productURL) || !is_string($productURL)) {
                         MailerLiteSettings::getInstance()->completeProductTracking((string)$productID);
                         continue;
                     }
@@ -274,8 +274,8 @@ class SynchronizeSettings extends Singleton
                     $syncCustomer = [
                         'resource_id' => $customer['resource_id'],
                         'email' => $customer['email'],
-                        'create_subscriber' => $customer['create_subscriber'],
-                        'accepts_marketing' => $customer['create_subscriber'],
+                        'create_subscriber' => (bool)$customer['create_subscriber'],
+                        'accepts_marketing' => (bool)$customer['create_subscriber'],
                         'orders_count' => $customer['orders_count'],
                         'total_spent' => $customer['total_spent'],
                         'last_order_id' => $customer['last_order_id'],

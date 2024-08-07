@@ -1044,11 +1044,29 @@
 
 .tribe-common .tribe-tickets__commerce-checkout-purchaser-info-wrapper .tribe-tickets__form-field-description, .event-tickets .tribe-tickets__commerce-checkout-purchaser-info-wrapper .tribe-tickets__form-field-description {
 			color: var(--tec-color-icon-primary-alt);
-			margin: var(--tec-spacer-1) 0;
+			margin: var(--tec-spacer-1) 0 0;
 		}
 
+.tribe-common .tribe-tickets__commerce-checkout-purchaser-info-wrapper .tribe-tickets__form-field-description.error, .event-tickets .tribe-tickets__commerce-checkout-purchaser-info-wrapper .tribe-tickets__form-field-description.error {
+				color: red;
+			}
+
+.tribe-common .tribe-tickets__commerce-checkout-purchaser-info-wrapper.disabled, .event-tickets .tribe-tickets__commerce-checkout-purchaser-info-wrapper.disabled {
+			opacity: 0.5;
+		}
+
+.tribe-common .tribe-tickets__commerce-checkout-purchaser-info-form-field.error, .event-tickets .tribe-tickets__commerce-checkout-purchaser-info-form-field.error {
+		border: 1px solid red !important;
+	}
+
+.tribe-common .tribe-tickets__commerce-checkout-address-wrapper, .event-tickets .tribe-tickets__commerce-checkout-address-wrapper {
+		display: grid;
+		grid-gap: 1rem;
+		grid-template-columns: 1fr 1fr;
+	}
+
 .tribe-common .tribe-tickets__commerce-checkout-purchaser-info-title, .event-tickets .tribe-tickets__commerce-checkout-purchaser-info-title {
-		margin-bottom: var(--tec-spacer-3);
+		margin: var(--tec-spacer-3) 0;
 	}
 
 .tribe-common .tribe-tickets__commerce-checkout-form-submit-button, .event-tickets .tribe-tickets__commerce-checkout-form-submit-button {
@@ -1057,6 +1075,12 @@
 		width: 100%;
 	}
 
+.tribe-common .tribe-tickets__form-field-input-wrapper input::placeholder, .event-tickets .tribe-tickets__form-field-input-wrapper input::placeholder {
+			color: var(--tec-color-border-tertiary);
+			font-size: var(--tec-font-size-2);
+			opacity: 1;
+		}
+
 /* -------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Twenty
 	 * ------------------------------------------------------------------------- */
@@ -1064,11 +1088,9 @@
 .tribe-theme-twentytwenty .entry-content .tribe-common h1,
 		.tribe-theme-twentytwenty .entry-content .tribe-common h2,
 		.tribe-theme-twentytwenty .entry-content .tribe-common h3,
-		.tribe-theme-twentytwenty .entry-content .tribe-common h4,
 		.tribe-theme-twentytwenty .entry-content .event-tickets h1,
 		.tribe-theme-twentytwenty .entry-content .event-tickets h2,
-		.tribe-theme-twentytwenty .entry-content .event-tickets h3,
-		.tribe-theme-twentytwenty .entry-content .event-tickets h4 {
+		.tribe-theme-twentytwenty .entry-content .event-tickets h3 {
 			margin: initial;
 		}
 
@@ -1158,8 +1180,7 @@
 
 .tribe-theme-twentytwenty .entry-content .event-tickets h1,
 		.tribe-theme-twentytwenty .entry-content .event-tickets h2,
-		.tribe-theme-twentytwenty .entry-content .event-tickets h3,
-		.tribe-theme-twentytwenty .entry-content .event-tickets h4 {
+		.tribe-theme-twentytwenty .entry-content .event-tickets h3 {
 			margin: initial;
 		}
 

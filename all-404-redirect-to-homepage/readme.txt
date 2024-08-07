@@ -1,15 +1,33 @@
 === All 404 Redirect to Homepage ===
-Contributors: wp-buy, osama.esh 
-Tags: 404 error, redirection, homepage, broken images, redirection, https, automatic redirection, 404 link,redirect, soft 404, redirected, 301 seo redirect, post redirect plugin, broken links, fix 404
+Contributors: wp-buy, osamaesh
+Tags: 404 error, redirection, seo redirect, broken images, redirection
 Requires at least: 4.5
-Tested up to: 6.5.4
-Stable tag: 4.5
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tested up to: 6.6.1
+Stable tag: 4.6
 
-By using this smart plugin, you can fix all 404 error links by redirecting them to homepage using the SEO 301 redirection. Improve your visibility in search engines now..
+Using this plugin, you can fix all 404 error links by redirecting them to homepage using the SEO 301 redirection. Improve your SEO rank & pages speed
 
 == Description ==
 
-By this plugin you can fix all random 404 links appear in you your website and redirect them to homepage or any other page using 301 SEO redirect. 404 error pages hurts the rank of your site in search engines. This smart plugin is a simple solution to handle 404 error pages. 
+By this plugin you can fix all random 404 links appear in you your website and redirect them to homepage or any other page using 301 SEO redirect. 404 error pages hurts the rank of your site in search engines. This smart plugin is a simple solution to handle 404 error pages.
+
+Elevate your website's SEO performance and user experience with our Smart 404 Error Fix & Redirect plugin. This powerful tool automatically identifies and manages random 404 errors on your WordPress site, ensuring that broken links and missing pages are seamlessly redirected. By handling these 404 errors with precision, the plugin directs visitors to your homepage or any other specified page, helping to retain your audience and improve site navigation.
+
+=== Features ===
+* **Automatic 404 Redirection:** Effortlessly manage broken links and redirect users to relevant pages.
+* **301 SEO Redirects:** Implement permanent 301 redirects to enhance your website's SEO ranking and preserve link equity.
+* **Customizable Redirection:** Choose where 404 errors should be redirected – to your homepage, a custom page, or any URL of your choice.
+* **Soft 404 Handling:** Address and manage soft 404 errors effectively.
+* **Broken Link Management:** Detect and fix broken images and links to maintain a smooth user experience.
+* **HTTPS Support:** Ensure compatibility with HTTPS for secure redirection.
+
+=== Benefits ===
+* **Improved SEO:** Reduce the negative impact of 404 errors on your search engine rankings with effective 301 redirects.
+* **Enhanced User Experience:** Keep visitors engaged by preventing them from encountering error pages.
+* **Easy Setup:** Simple installation and configuration with user-friendly options.
+
 
 **How to use the plugin?**
 
@@ -33,6 +51,9 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 
 
 == Changelog ==
+= 4.6 =
+* Checking with the last version of wordpress 6.6.1
+* readme.txt some fixes
 
 = 4.5 =
 * Bug fixing in "exclude media" option

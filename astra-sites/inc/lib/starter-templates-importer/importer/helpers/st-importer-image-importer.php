@@ -67,12 +67,57 @@ if ( ! class_exists( 'ST_Image_Importer' ) ) :
 		 */
 		public function __construct() {
 
+			add_action( 'init', array( $this, 'defer_image_processing_while_import' ) );
+
 			if ( ! function_exists( 'WP_Filesystem' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/file.php';
 			}
 
 			WP_Filesystem();
 		}
+
+		/**
+		 * Add filters to defer image subsizes processing while importing.
+		 */
+		public function defer_image_processing_while_import() {
+			if ( astra_sites_has_import_started() && 'ai' !== get_option( 'astra_sites_current_import_template_type' ) ) {
+				$this->defer_image_subsizes();
+			}
+		}
+
+		/**
+		 * Defer image subsizes.
+		 *
+		 * @return void
+		 */
+		public function defer_image_subsizes() {
+			add_filter( 'intermediate_image_sizes_advanced', array( $this, 'buffer_images_for_processing' ), 10, 3 );
+		}
+
+		/**
+		 * Force attachment size geenration in the background.
+		 *
+		 * @param array   $new_sizes       Array of image sizes.
+		 * @param array   $image_meta      Metadata of the image.
+		 * @param integer $attachment_id Attachment id.
+		 *
+		 * @return array
+		 */
+		public function buffer_images_for_processing( $new_sizes, $image_meta, $attachment_id ) {
+			$all_attachments = get_option( 'st_attachments', array() );
+			// If the cron job is already scheduled, bail.
+			if ( in_array( $attachment_id, $all_attachments, true ) ) {
+				return $new_sizes;
+			}
+
+			$all_attachments[] = $attachment_id;
+
+			update_option( 'st_attachments', $all_attachments, 'no' );
+
+			// Return blank array of sizes to not generate any sizes in this request.
+			return array();
+		}
+
 
 		/**
 		 * Process Image Download

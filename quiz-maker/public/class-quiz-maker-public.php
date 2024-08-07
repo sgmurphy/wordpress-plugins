@@ -1245,6 +1245,9 @@ class Quiz_Maker_Public
         // Letter spacing | Right answer
         $quiz_right_answers_letter_spacing = (isset($options[ 'quiz_right_answers_letter_spacing' ]) && $options[ 'quiz_right_answers_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_right_answers_letter_spacing' ] ) ) : 0;
 
+        // Right answer font weight
+        $quiz_right_answers_font_weight = (isset($options[ 'quiz_right_answers_font_weight' ]) && $options[ 'quiz_right_answers_font_weight' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_right_answers_font_weight' ] ) ) : 'normal';
+
         // Font size for the Note text | PC
         $note_text_font_size = (isset($options['note_text_font_size']) && $options['note_text_font_size'] != '') ? absint(esc_attr($options['note_text_font_size'])) : '14';
 
@@ -3405,17 +3408,18 @@ class Quiz_Maker_Public
                 letter-spacing: ". $quiz_wrong_answers_letter_spacing ."px;
             }
 
-            #ays-quiz-container-" . $id . " .ays_questtion_explanation * {
+            #ays-quiz-container-" . $id . " .ays_questtion_explanation *:not(strong) {
                 text-transform:" . $quiz_quest_explanation_text_transform . ";
                 text-decoration: ". $quiz_quest_explanation_text_decoration .";
                 letter-spacing: ". $quiz_quest_explanation_letter_spacing ."px;
                 font-weight: ". $quiz_quest_explanation_font_weight .";
             }
 
-            #ays-quiz-container-" . $id . " .right_answer_text * {
+            #ays-quiz-container-" . $id . " .right_answer_text *:not(strong) {
                 text-transform:" . $quiz_right_answer_text_transform . ";
                 text-decoration: ". $quiz_right_answers_text_decoration .";
                 letter-spacing: ". $quiz_right_answers_letter_spacing ."px;
+                font-weight: ". $quiz_right_answers_font_weight .";
             }
 
             #ays-quiz-container-" . $id . " .right_answer_text p {
@@ -3426,7 +3430,7 @@ class Quiz_Maker_Public
                 font-size:" . $note_text_font_size . "px;
             }
 
-            #ays-quiz-container-" . $id . " .ays-quiz-question-note-message-box * {
+            #ays-quiz-container-" . $id . " .ays-quiz-question-note-message-box *:not(strong) {
                 text-transform:" . $quiz_admin_note_text_transform . ";
                 text-decoration: ". $quiz_admin_note_text_decoration .";
                 letter-spacing: ". $quiz_admin_note_letter_spacing ."px;

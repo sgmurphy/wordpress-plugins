@@ -4,8 +4,13 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useSpring, motion } from 'framer-motion';
 import Button from './button';
 import { __ } from '@wordpress/i18n';
+import { classNames } from '../utils/helpers';
 
-const ExitConfirmationPopover = ( { onExit, placement = 'auto' } ) => {
+const ExitConfirmationPopover = ( {
+	onExit,
+	placement = 'auto',
+	exitButtonClassName = '',
+} ) => {
 	const [ show, setShow ] = useState( false );
 	const springConfig = { damping: 30, stiffness: 300 };
 	const initialOpacity = 0;
@@ -31,7 +36,7 @@ const ExitConfirmationPopover = ( { onExit, placement = 'auto' } ) => {
 			onHide={ onHide }
 			render={ ( attrs ) => (
 				<motion.div
-					className="flex flex-col items-start gap-5 w-[300px] h-auto bg-white rounded-lg shadow-xl p-4"
+					className="flex flex-col items-start gap-5 w-[300px] h-auto bg-white rounded-lg shadow-xl p-4 border border-solid border-border-primary"
 					style={ { opacity } }
 					{ ...attrs }
 				>
@@ -73,7 +78,7 @@ const ExitConfirmationPopover = ( { onExit, placement = 'auto' } ) => {
 					{ /* Arrow */ }
 					<div
 						data-popper-arrow
-						className="-top-1 absolute w-2 h-2 bg-inherit before:content-[''] before:w-2 before:h-2 before:bg-inherit before:absolute invisible before:visible before:!rotate-45"
+						className="-top-1 absolute w-2 h-2 bg-inherit before:content-[''] before:w-2 before:h-2 before:bg-inherit before:absolute invisible before:visible before:!rotate-45 before:border-t before:border-l before:border-border-primary"
 					/>
 				</motion.div>
 			) }
@@ -83,9 +88,12 @@ const ExitConfirmationPopover = ( { onExit, placement = 'auto' } ) => {
 		>
 			<button
 				onClick={ toggleShow }
-				className="p-0 border-0 w-auto h-auto bg-transparent cursor-pointer focus:outline-none"
+				className={ classNames(
+					'p-0 border-0 w-auto h-auto bg-transparent cursor-pointer focus:outline-none transition-colors ease-in-out duration-150',
+					exitButtonClassName
+				) }
 			>
-				<XMarkIcon className="w-6 h-6 text-zip-dark-theme-icon-active" />
+				<XMarkIcon className="w-6 h-6" />
 			</button>
 		</Tippy>
 	);

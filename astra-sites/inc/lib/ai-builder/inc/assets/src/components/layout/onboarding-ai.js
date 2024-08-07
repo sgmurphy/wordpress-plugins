@@ -1,6 +1,5 @@
 import { Outlet } from '@tanstack/react-router';
 import { CheckIcon } from '@heroicons/react/24/outline';
-import { twMerge } from 'tailwind-merge';
 import { memo, useEffect, useLayoutEffect, Fragment } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -22,7 +21,7 @@ import ErrorBoundary from '../../pages/error-boundary';
 import useEffectAfterMount from '../../hooks/use-effect-after-mount';
 import ApiErrorModel from '../api-error-model';
 
-const { logoUrlDark } = aiBuilderVars;
+const { logoUrl } = aiBuilderVars;
 
 const OnboardingAI = () => {
 	const {
@@ -32,7 +31,8 @@ const OnboardingAI = () => {
 	} = useNavigateSteps();
 	const redirectToStepURL = useValidateStep( currentStepURL );
 
-	const authenticated = aiBuilderVars?.zip_token_exists;
+	const authenticated = aiBuilderVars?.zip_token_exists,
+		isAuthScreen = currentStep === 0;
 
 	const { setContinueProgressModal } = useDispatch( STORE_KEY );
 
@@ -85,14 +85,14 @@ const OnboardingAI = () => {
 		}
 	}, [] );
 
-	const dynamicStepClass = function ( step, stepIndex ) {
+	const dynamicStepClassNames = ( step, stepIndex ) => {
 		if ( step === stepIndex ) {
-			return 'border-zip-dark-theme-heading text-zip-dark-theme-heading border-solid';
+			return 'border-accent-st bg-white text-accent-st border-solid';
 		}
 		if ( step > stepIndex ) {
-			return 'bg-transparent text-white/50 border-white/50 border-solid';
+			return 'bg-secondary-text text-white border-secondary-text border-solid';
 		}
-		return 'border-solid border-white/50 text-white/50';
+		return 'border-solid border-step-connector text-secondary-text';
 	};
 
 	const dynamicClass = function ( cStep, sIndex ) {
@@ -100,12 +100,9 @@ const OnboardingAI = () => {
 			return '';
 		}
 		if ( cStep === sIndex ) {
-			return 'bg-gradient-to-b from-white to-transparent';
+			return 'bg-accent-st';
 		}
-		if ( cStep > sIndex ) {
-			return 'bg-white/50';
-		}
-		return 'bg-gradient-to-b from-white/50 to-transparent';
+		return 'bg-border-line-inactive';
 	};
 
 	const urlParams = new URLSearchParams( window.location.search );
@@ -148,39 +145,34 @@ const OnboardingAI = () => {
 		<>
 			<div
 				id="spectra-onboarding-ai"
-				className={ `font-figtree ${
-					steps[ currentStep ]?.layoutConfig?.hideSidebar
-						? ''
-						: 'grid grid-cols-1 lg:grid-cols-[360px_1fr]'
-				} h-screen` }
+				className={ classNames(
+					'font-figtree h-screen grid grid-cols-1 shadow-medium grid-rows-[4rem_1fr]',
+					isAuthScreen && 'grid-rows-1'
+				) }
 			>
-				{ ! steps[ currentStep ]?.layoutConfig?.hideSidebar && (
-					<div className="hidden lg:flex lg:w-full lg:flex-col z-[1] overflow-y-auto">
-						<div className="flex flex-col gap-y-5 overflow-y-hidden border-r border-gray-200 bg-zip-dark-theme-bg px-6 relative h-screen">
-							<div className="mt-3 flex h-16 shrink-0 items-center relative">
-								<img
-									className="h-10"
-									src={ logoUrlDark }
-									alt={ __( 'Build with AI', 'ai-builder' ) }
-								/>
-								{ /* Close button */ }
-								{ /* Do not show on Migration step */ }
-								{ getStepIndex( '/done' ) !== currentStep &&
-									getStepIndex( '/building-website' ) !==
-										currentStep && (
-										<div className="absolute top-3 right-0">
-											<AiBuilderExitButton />
-										</div>
-									) }
-							</div>
-							<nav className="flex flex-col gap-y-1 overflow-y-auto">
+				{ ! isAuthScreen && (
+					<header
+						className={ classNames(
+							'w-full h-full grid grid-cols-[5rem_1fr_5rem] items-center justify-between md:justify-start z-[5] relative bg-white shadow',
+							steps[ currentStep ]?.layoutConfig?.hideHeader &&
+								'justify-center md:justify-between'
+						) }
+					>
+						{ /* Brand logo */ }
+						<img
+							className="h-10 mx-auto"
+							src={ logoUrl }
+							alt={ __( 'Build with AI', 'ai-builder' ) }
+						/>
+						{ /* Steps/Navigation items */ }
+						{ ! steps[ currentStep ]?.layoutConfig?.hideHeader && (
+							<nav className="hidden md:flex items-center justify-center gap-4 flex-1">
 								{ steps.map(
 									(
 										{
 											path,
 											layoutConfig: {
 												name,
-												description,
 												hideStep,
 												stepNumber,
 											},
@@ -190,58 +182,76 @@ const OnboardingAI = () => {
 										hideStep ? (
 											<Fragment key={ stepIdx } />
 										) : (
-											<div
-												className={ classNames(
-													'flex gap-3',
-													{
-														'cursor-pointer':
-															currentStep >
-																stepIdx &&
-															currentStep <=
-																getStepIndex(
-																	'/features'
-																) &&
-															! loadingNextStep,
-													}
-												) }
-												key={ stepIdx }
-												onClick={ moveToStep(
-													path,
-													stepIdx
-												) }
-											>
+											<Fragment key={ stepIdx }>
 												<div
 													className={ classNames(
-														'flex flex-col gap-y-1 items-center',
-														stepIdx ===
-															steps.length - 1
-															? 'justify-start'
-															: 'justify-center'
+														'flex items-center',
+														{
+															'cursor-pointer':
+																currentStep >
+																	stepIdx &&
+																currentStep <=
+																	getStepIndex(
+																		'/features'
+																	) &&
+																! loadingNextStep,
+														}
+													) }
+													key={ stepIdx }
+													onClick={ moveToStep(
+														path,
+														stepIdx
 													) }
 												>
 													<div
 														className={ classNames(
-															'rounded-full border text-xs font-semibold flex items-center justify-center w-6 h-6',
-															dynamicStepClass(
-																currentStep,
-																stepIdx
-															)
+															'flex items-center gap-2'
 														) }
 													>
-														{ currentStep >
-														stepIdx ? (
-															<CheckIcon className="text-white h-3 w-3" />
-														) : (
-															<span>
-																{ stepNumber }
-															</span>
-														) }
-													</div>
-													{ steps.length - 1 >
-														stepIdx && (
 														<div
 															className={ classNames(
-																'h-8 w-[1px]',
+																'rounded-full border border-border-primary text-xs font-semibold flex items-center justify-center w-5 h-5',
+																dynamicStepClassNames(
+																	currentStep,
+																	stepIdx
+																)
+															) }
+														>
+															{ currentStep >
+															stepIdx ? (
+																<CheckIcon className="h-3 w-3" />
+															) : (
+																<span>
+																	{
+																		stepNumber
+																	}
+																</span>
+															) }
+														</div>
+														<div
+															className={ classNames(
+																'text-sm font-medium text-secondary-text',
+																currentStep ===
+																	stepIdx &&
+																	'text-accent-st'
+															) }
+														>
+															{ name }
+														</div>
+													</div>
+												</div>
+												{ steps.length - 1 > stepIdx &&
+													! (
+														steps[ stepIdx + 1 ]
+															?.layoutConfig
+															?.hideStep &&
+														steps[ stepIdx + 1 ]
+															?.layoutConfig
+															?.screen === 'done'
+													) && (
+														<div
+															className={ classNames(
+																'w-8 h-px self-center',
 																dynamicClass(
 																	currentStep,
 																	stepIdx
@@ -249,58 +259,33 @@ const OnboardingAI = () => {
 															) }
 														/>
 													) }
-												</div>
-												<div className="flex flex-col gap-y-1 items-start justify-start ">
-													<div
-														className={ classNames(
-															'text-sm font-semibold',
-															currentStep >=
-																stepIdx
-																? 'text-white/50'
-																: 'text-zip-dark-theme-body',
-															currentStep ===
-																stepIdx &&
-																'text-zip-dark-theme-heading'
-														) }
-													>
-														{ name }
-													</div>
-													<div
-														className={ classNames(
-															'text-sm font-normal',
-															currentStep >=
-																stepIdx
-																? 'text-white/50'
-																: 'text-white/50',
-															currentStep ===
-																stepIdx &&
-																'text-zip-dark-theme-body'
-														) }
-													>
-														{ description }
-													</div>
-												</div>
-											</div>
+											</Fragment>
 										)
 								) }
 							</nav>
-						</div>
-					</div>
+						) }
+						{ /* Close button */ }
+						{ /* Do not show on Migration step */ }
+						{ getStepIndex( '/done' ) !== currentStep &&
+							getStepIndex( '/building-website' ) !==
+								currentStep && (
+								<div className="[grid-area:1/3] flex items-center justify-center mx-auto">
+									<AiBuilderExitButton exitButtonClassName="text-icon-tertiary hover:text-icon-secondary" />
+								</div>
+							) }
+					</header>
 				) }
 				<main
 					id="sp-onboarding-content-wrapper"
-					className="flex-1 overflow-x-hidden h-screen bg-zip-app-light-bg"
+					className="flex-1 overflow-x-hidden h-full bg-container-background"
 				>
 					<ErrorBoundary>
 						<div className="h-full w-full relative flex">
 							<div
-								className={ twMerge(
-									`w-full max-h-full flex flex-col flex-auto items-center`,
-									steps[ currentStep ]?.layoutConfig
-										?.hideSidebar
-										? ''
-										: 'px-5 pt-5 md:px-10 md:pt-10 lg:px-14 lg:pt-12 xl:px-20 xl:pt-12',
-									'',
+								className={ classNames(
+									'w-full max-h-full flex flex-col flex-auto items-center overflow-y-auto',
+									! isAuthScreen &&
+										'px-5 pt-5 [&:has(.max-w-container)]:pb-5 md:px-10 md:pt-10 md:[&:has(.max-w-container)]:pb-10 lg:px-14 lg:pt-14 lg:[&:has(.max-w-container)]:pb-14 xl:px-20 xl:pt-16 xl:[&:has(.max-w-container)]:pb-20',
 									steps[ currentStep ]?.layoutConfig
 										?.contentClassName
 								) }

@@ -179,7 +179,11 @@ export const checkRequiredPlugins = async ( storedState ) => {
 	reqPlugins.append( 'action', 'astra-sites-required_plugins' );
 	reqPlugins.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 	if ( enabledFeatureIds.length !== 0 ) {
-		reqPlugins.append( 'features', JSON.stringify( enabledFeatureIds ) );
+		const featurePlugins = getFeaturePluginList( enabledFeatureIds );
+		reqPlugins.append(
+			'feature_plugins',
+			JSON.stringify( featurePlugins )
+		);
 	}
 
 	await fetch( ajaxurl, {
@@ -201,6 +205,60 @@ export const checkRequiredPlugins = async ( storedState ) => {
 			}
 		} );
 };
+
+function getFeaturePluginList( features ) {
+	const requiredPlugins = [];
+
+	features?.forEach( ( feature ) => {
+		switch ( feature ) {
+			case 'ecommerce':
+			case 'donations':
+				requiredPlugins.push( {
+					name: 'SureCart',
+					slug: 'surecart',
+					init: 'surecart/surecart.php',
+				} );
+				break;
+			case 'automation-integrations':
+				requiredPlugins.push( {
+					name: 'SureTriggers',
+					slug: 'suretriggers',
+					init: 'suretriggers/suretriggers.php',
+				} );
+				break;
+			case 'sales-funnels':
+				requiredPlugins.push( {
+					name: 'CartFlows',
+					slug: 'cartflows',
+					init: 'cartflows/cartflows.php',
+				} );
+				requiredPlugins.push( {
+					name: 'Woocommerce Cart Abandonment Recovery',
+					slug: 'woo-cart-abandonment-recovery',
+					init: 'woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php',
+				} );
+				break;
+			case 'video-player':
+				requiredPlugins.push( {
+					name: 'Preso Player',
+					slug: 'presto-player',
+					init: 'presto-player/presto-player.php',
+				} );
+				break;
+			case 'live-chat':
+				requiredPlugins.push( {
+					name: 'WP Live Chat Support',
+					slug: 'wp-live-chat-support',
+					init: 'wp-live-chat-support/wp-live-chat-support.php',
+				} );
+				break;
+			default:
+				break;
+		}
+	} );
+
+	return requiredPlugins;
+}
 
 export const activateAstra = ( storedState ) => {
 	const [ , dispatch ] = storedState;

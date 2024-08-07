@@ -209,6 +209,11 @@ cff_forms_templates = {
             "category": "Transportation",
             "description": "Basic algorithm to calculate transportation cost.",
             "id": 50
+        }, {
+            "title": "Select a Truck for a Move",
+            "category": "Transportation",
+            "description": "Select a truck for a move based on the weight and volume of the load.",
+            "id": 51
         }
     ],
     "pro": [

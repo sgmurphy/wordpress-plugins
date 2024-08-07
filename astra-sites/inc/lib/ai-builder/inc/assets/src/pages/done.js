@@ -33,8 +33,8 @@ const BuildDone = () => {
 	}, [] );
 
 	return (
-		<div className="w-screen h-screen overflow-y-hidden">
-			<div className="relative grid grid-cols-1 grid-rows-1 place-items-center min-h-screen py-5 md:py-0 px-5 md:px-10 bg-app-light-background ">
+		<div className="w-full h-full overflow-y-hidden">
+			<div className="relative grid grid-cols-1 grid-rows-1 place-items-center min-h-full py-5 md:py-0 px-5 md:px-10 bg-app-light-background ">
 				<div className="w-full max-w-[32.5rem] p-8 my-10 md:my-0 rounded-lg space-y-6 shadow-xl bg-white">
 					<span className="flex items-center justify-center gap-3 text-2xl">
 						<span>🎉</span>

@@ -12,6 +12,7 @@ import OnboardingAi from '../components/layout/onboarding-ai';
 // Pages
 import steps from './routes';
 import NotFound404 from '../pages/not-found-404';
+import FullPreview from '../pages/full-preview';
 
 // Root route
 const rootRoute = createRootRoute( {
@@ -25,6 +26,13 @@ const stepsLayout = createRoute( {
 	component: OnboardingAi,
 } );
 
+// Full page preview route.
+const fullPreviewRoute = createRoute( {
+	getParentRoute: () => rootRoute,
+	path: '/design-preview',
+	component: FullPreview,
+} );
+
 // Steps routes
 const stepsRoutes = steps.map( ( step ) =>
 	createRoute( {
@@ -36,6 +44,7 @@ const stepsRoutes = steps.map( ( step ) =>
 
 // Route tree and router instance
 const routeTree = rootRoute.addChildren( [
+		fullPreviewRoute,
 		stepsLayout.addChildren( stepsRoutes ),
 	] ),
 	router = createRouter( { routeTree, history: createHashHistory() } );

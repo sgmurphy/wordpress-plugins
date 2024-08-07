@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.2.27 =
+
+* Modifies the left and right-aligned labels.
+* Modifies the ACTIVATEFIELD, IGNOREFIELD, SHOWFIELD, and HIDEFIELD operations to avoid ambiguities when multiple forms are inserted on the page.
+
 = 5.2.26 =
 
 * Fixes a minor issue with Dropdown choices with large text when the Select2 component is enabled.

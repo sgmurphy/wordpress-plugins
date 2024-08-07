@@ -218,22 +218,18 @@ abstract class TD_API_Model extends TD_Model {
 				'error' => 'Not created',
 				'data' => array(),
 			);
-			ssa_debug_log( "Insert Error: Empty insert ID!\n" . print_r( $params, true ) . "\n Insert ID: " . print_r( $insert_id, true ), 5 ); // phpcs:ignore
 		} elseif( is_wp_error( $insert_id ) ) {
 			$response = array(
 				'response_code' => '500',
 				'error' => true,
 				'data' => $insert_id,
 			);
-			ssa_debug_log( "Insert Error: Insert ID is WP_Error!\n" . print_r( $params, true ) . "\n Insert ID: " . print_r( $insert_id, true ), 5 ); // phpcs:ignore
-			ssa_debug_log( ssa_get_stack_trace(), 5 );
 		} elseif( is_array( $insert_id ) && ! empty( $insert_id['error']['code'] ) ) {
 			$response = array(
 				'response_code' => $insert_id['error']['code'],
 				'error' => $insert_id['error']['message'],
 				'data' => $insert_id['error']['data'],
 			);
-			ssa_debug_log( "Insert Error: something wrong happened!\n" . print_r( $params, true ) . "\n Insert ID: " . print_r( $insert_id, true ), 5 ); // phpcs:ignore
 		} else {
 			$response = array(
 				'response_code' => 200,

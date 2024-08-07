@@ -219,15 +219,17 @@ class Backend {
 			return;
 		}
 
-		if (
-			isset( $_REQUEST['accounts'][0]['id'] ) &&
-			isset( $_REQUEST['accounts'][0]['access_token'] ) &&
-			isset( $_REQUEST['accounts'][0]['access_token_type'] ) &&
-			isset( $_REQUEST['accounts'][0]['expires_in'] )
-			) {
+		if ( ! isset( $_REQUEST['accounts'][0]['id'], $_REQUEST['accounts'][0]['access_token'], $_REQUEST['accounts'][0]['access_token_type'], $_REQUEST['accounts'][0]['expires_in'] ) ) {
+			return;
+		}
 
-			$models_account = new Models_Account();
-			$models_account->create( $_REQUEST['accounts'][0] );
+		$account = Models_Account::instance()->get( $_REQUEST['accounts'][0]['id'] );
+
+		if ( $account ) {
+			$account = Models_Account::instance()->update( $_REQUEST['accounts'][0]['id'], $_REQUEST['accounts'][0] );
+		} else {
+			$account = Models_Account::instance()->create( $_REQUEST['accounts'][0] );
+		}
 
 			/*
 			 * Redirect via php is not working because it preserve the hash in the url
@@ -239,12 +241,11 @@ class Backend {
 			/**
 			 * Don't escape because it replace & with &#038;
 			 */
-			?>
-			<script type="text/javascript">
-				window.location.replace("<?php echo QLIGG_ACCOUNT_URL; ?>");
-			</script>
+		?>
+				<script type="text/javascript">
+					window.location.replace("<?php echo QLIGG_ACCOUNT_URL; ?>");
+				</script>
 			<?php
-		}
 
 	}
 

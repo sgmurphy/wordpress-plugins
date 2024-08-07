@@ -1,5 +1,12 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.40 - 2024-07-30
+
+### Fixes
+
+- Appt Type settings are wonky when first adding the appt field to Formidable
+- Fix textarea caret not visible on Safari
+
 ## SSA-VERSION-PREFIX.6.7.38 - 2024-07-23
 
 ### Fixes

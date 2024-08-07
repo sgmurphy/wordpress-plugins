@@ -217,7 +217,7 @@ $featuresCCB = array(
 		'pro'     => true,
 	),
 	array(
-		'feature' => 'Sticky Calculator',
+		'feature' => 'Sticky calculator',
 		'free'    => false,
 		'pro'     => true,
 	),

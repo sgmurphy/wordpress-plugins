@@ -56,7 +56,12 @@
         </div>
         <div class="tablenav-pages one-page">
           <span class="displaying-num">
-            <?php esc_html_e( count( $query->posts ) . ' item(s)', 'ibtana-visual-editor' ); ?>
+            <?php 
+              $item_count = count( $query->posts );
+              // Translators: %d is the number of items found
+              $text = sprintf( esc_html__( '%d item(s)', 'ibtana-visual-editor' ), $item_count );
+              echo esc_html( $text );
+            ?>
           </span>
         </div>
         <br class="clear">
@@ -65,7 +70,12 @@
       <div class="top ive-top-item-count">
         <div class="tablenav-pages one-page">
           <span class="displaying-num">
-            <?php esc_html_e( count( $query->posts ) . ' item(s)', 'ibtana-visual-editor' ); ?>
+            <?php
+              $item_count = count( $query->posts );
+              // Translators: %d is the number of items found
+              $text = sprintf( esc_html__( '%d item(s)', 'ibtana-visual-editor' ), $item_count );
+              echo esc_html( $text );
+            ?>
           </span>
         </div>
       </div>
@@ -114,7 +124,11 @@
               <?php if ( $is_iepa_activated == true ): ?>
                 <th scope="row" class="check-column">
                   <label class="screen-reader-text" for="<?php echo esc_attr( 'cb-select-' . $ibtana_template_post->ID ); ?>">
-                    <?php _e( 'Select ' . $ibtana_template_post->post_title, 'ibtana-visual-editor' ); ?>
+                    <?php 
+                        // Translators: %s is the title of the template post
+                      $select_text = sprintf( esc_html__( 'Select %s', 'ibtana-visual-editor' ), $ibtana_template_post->post_title );
+                      echo esc_html( $select_text );
+                    ?>
                   </label>
                   <input id="<?php echo esc_attr( 'cb-select-' . $ibtana_template_post->ID ); ?>"
                     type="checkbox" name="post[]" value="<?php echo esc_attr( $ibtana_template_post->ID ); ?>"
@@ -128,7 +142,11 @@
                 <strong>
                   <a class="row-title" href="<?php echo esc_url( 'post.php?post=' . $ibtana_template_post->ID . '&amp;action=edit' ); ?>"
                     aria-label="<?php echo esc_attr( '“' . $ibtana_template_post->post_title.'”  (Edit)' ); ?>">
-                    <?php esc_html_e( $ibtana_template_post->post_title, 'ibtana-visual-editor' ); ?>
+                    <?php 
+                      // Translators: %s is the title of the template post
+                      $select_text = sprintf( esc_html__( 'Select %s', 'ibtana-visual-editor' ), $ibtana_template_post->post_title );
+                      echo esc_html( $select_text );
+                    ?>
                   </a>
                 </strong>
 
@@ -170,7 +188,11 @@
 
               <td class="taxonomy-ibtana_template_type column-taxonomy-ibtana_template_type" data-colname="Ibtana Template Type" colspan="2">
                 <?php foreach ( wp_get_post_terms( $ibtana_template_post->ID, 'ibtana_template_type' ) as $ibtana_template_type ): ?>
-                  <a><?php esc_html_e( $ibtana_template_type->name, 'ibtana-visual-editor' ); ?></a>
+                  <a><?php 
+                    // Translators: %s is the name of the template type
+                    $select_text = sprintf( esc_html__( 'Select %s', 'ibtana-visual-editor' ), $ibtana_template_type->name );
+                    echo esc_html( $select_text );
+                  ?></a>
                 <?php endforeach; ?>
               </td>
 
@@ -229,7 +251,12 @@
         </div>
         <div class="tablenav-pages one-page">
           <span class="displaying-num">
-            <?php esc_html_e( count( $query->posts ) . ' item(s)', 'ibtana-visual-editor' ); ?>
+            <?php
+              $item_count = count( $query->posts );
+              // Translators: %d is the number of items found
+              $text = sprintf( esc_html__( '%d item(s)', 'ibtana-visual-editor' ), $item_count );
+              echo esc_html( $text );
+            ?>
           </span>
         </div>
         <br class="clear">
@@ -238,7 +265,12 @@
       <div class="bottom ive-bottom-item-count">
         <div class="tablenav-pages one-page">
           <span class="displaying-num">
-            <?php esc_html_e( count( $query->posts ) . ' item(s)', 'ibtana-visual-editor' ); ?>
+            <?php
+              $item_count = count( $query->posts );
+              // Translators: %d is the number of items found
+              $text = sprintf( esc_html__( '%d item(s)', 'ibtana-visual-editor' ), $item_count );
+              echo esc_html( $text );
+            ?>
           </span>
         </div>
       </div>

@@ -878,10 +878,11 @@ class Ai_Builder_ZipWP_Api {
 					ST_Importer_File_System::get_instance()->update_demo_data( $exported_data );
 				}
 
-				set_transient( 'astra_sites_current_import_template_type', 'ai', HOUR_IN_SECONDS );
+				update_option( 'astra_sites_current_import_template_type', 'ai' );
 				update_option( 'astra_sites_batch_process_complete', 'no' );
 				$host_url = $exported_data['host'] ?? '';
 				update_option( 'ast_ai_import_current_url', $host_url );
+				wp_cache_flush();
 				wp_send_json_success(
 					array(
 						'data'   => $exported_data,
@@ -1027,6 +1028,7 @@ class Ai_Builder_ZipWP_Api {
 			'business_name'     => isset( $request['business_name'] ) ? sanitize_text_field( $request['business_name'] ) : '',
 			'business_desc'     => isset( $request['business_description'] ) ? sanitize_text_field( $request['business_description'] ) : '',
 			'business_category' => isset( $request['category'] ) ? sanitize_text_field( $request['category'] ) : '',
+			'language'          => isset( $request['language'] ) ? sanitize_text_field( $request['language'] ) : 'en',
 		);
 
 		$body = wp_json_encode( $post_data );

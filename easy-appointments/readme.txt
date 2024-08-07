@@ -1,11 +1,11 @@
 === Easy Appointments ===
 Contributors: loncar
-Donate link: https://easy-appointments.net/
+Donate link: https://easy-appointments.com/
 Tags: appointment, appointments, Booking, calendar, reservation
 Requires at least: 3.7
 Tested up to: 6.6
 Requires PHP: 5.3
-Stable tag: 3.11.21
+Stable tag: 3.11.22
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,13 +17,13 @@ Add Booking Appointments system to your WordPress site and manage Appointments w
 Can be used for : <strong>Lawyers</strong>, <strong>Salons</strong>, <strong>Mechanic</strong>, <strong>Cleaning services</strong>, <strong>Doctors</strong>, <strong>Spas</strong>, <strong>Personal trainers </strong>, <strong>Private Lessons</strong>, <strong>Escape rooms</strong> etc,
 
 = Live Demo =
-<a href="https://easy-appointments.net/responsive-single-column-layout/">**Responsive Appointment form**</a><br>
-<a href="https://easy-appointments.net/responsive-two-columns/">**Responsive Appointment form - two column layout**</a><br>
-<a href="https://easy-appointments.net/full-calendar/">**Full calendar NEW**</a><br>
-<a href="https://easy-appointments.net/demo-standard-single-column-layout/">**Standard Appointment form**</a><br>
+<a href="https://easy-appointments.com/responsive-single-column-layout/">**Responsive Appointment form**</a><br>
+<a href="https://easy-appointments.com/responsive-two-columns/">**Responsive Appointment form - two column layout**</a><br>
+<a href="https://easy-appointments.com/full-calendar/">**Full calendar NEW**</a><br>
+<a href="https://easy-appointments.com/demo-standard-single-column-layout/">**Standard Appointment form**</a><br>
 
 = Doc =
-<a href="https://easy-appointments.net/documentation/">Documentation</a>
+<a href="https://easy-appointments.com/documentation/">Documentation</a>
 
 = Features =
 
@@ -59,7 +59,7 @@ Can be used for : <strong>Lawyers</strong>, <strong>Salons</strong>, <strong>Mec
     - Google reCAPTCHA v2
     - Google reCAPTCHA v3 **NEW**
     - **NEW** use current logged in user data sa default value for custom field.
-* **Internationalization** - support for translations (you can create your own translation <a href="https://easy-appointments.net/documentation/#translate">>> tutorial <<</a>)
+* **Internationalization** - support for translations (you can create your own translation <a href="https://easy-appointments.com/documentation/#translate">>> tutorial <<</a>)
     - German translation (thanks to Matthias)
     - Romanian translation (thanks to Vlad)
     - Polish translation (thanks to <a href="mailto:maciej@bauza.pl" target="_blank">Maciej Bauza</a>)
@@ -88,10 +88,10 @@ There is extension plugin that you can buy and add to your Easy Appointments plu
 * WooCommerce integration
 * PayPal integration
 
-For more info follow the link for <a href="https://easy-appointments.net/#extension">Extension plugin</a>
+For more info follow the link for <a href="https://easy-appointments.com/#extension">Extension plugin</a>
 
 = HomePage =
-<a href="https://easy-appointments.net/">easy-appointments.net</a>
+<a href="https://easy-appointments.com/">easy-appointments.com</a>
 
 == Installation ==
 
@@ -116,7 +116,7 @@ width : default value 400px
 scroll_off : default value off
 layout_cols : default value 1
 
-<a href="https://easy-appointments.net/documentation/#bootstrap">all available shortcode options</a>
+<a href="https://easy-appointments.com/documentation/#bootstrap">all available shortcode options</a>
 
 example : [ea_bootstrap width="800px" scroll_off="true" layout_cols="2"]
 
@@ -159,7 +159,7 @@ width : default value 400px
 scroll_off : default value off
 layout_cols : default value 1
 
-<a href="https://easy-appointments.net/documentation/#bootstrap">all available shortcode options</a>
+<a href="https://easy-appointments.com/documentation/#bootstrap">all available shortcode options</a>
 
 Example :
 `[ea_bootstrap width="800px" scroll_off="true" layout_cols="2"]`
@@ -212,6 +212,9 @@ Note: you can have only one calendar on one page.
 25. Admin panel - Report - Export page
 
 == Changelog ==
+
+= 3.11.22 (2024-8-06) =
+* Moved from .NET to .COM so new home for EasyAppointments is https://easy-appointments.com
 
 = 3.11.21 (2024-06-09) =
 * Small style improvements on notification email for admin

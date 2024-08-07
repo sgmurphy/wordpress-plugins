@@ -38,7 +38,7 @@ elseif($active_tab ==  'system-status'){
 <div class="gsheet-header">
 			<div class="gsheet-logo">
 				<a href="https://www.gsheetconnector.com/"><i></i></a></div>
-			<h1 class="gsheet-logo-text"><span>CF7 GSheetConnector</span> <small>Version : <?php echo esc_html($plugin_version,'gsconnector'); ?> </small></h1>
+			<h1 class="gsheet-logo-text"><span><?php echo esc_html( __('CF7 GSheetConnector', 'gsconnector' ) ); ?></span> <small><?php echo esc_html( __('Version :', 'gsconnector' ) ); ?> <?php echo esc_html($plugin_version,'gsconnector'); ?> </small></h1>
 			<a href="https://support.gsheetconnector.com/kb" title="gsheet Knowledge Base" target="_blank" class="button gsheet-help"><i class="dashicons dashicons-editor-help"></i></a>
 		</div>
     <span class="dashboard-gsc"><?php echo esc_html( __('DASHBOARD', 'gsconnector' ) ); ?></span>

@@ -16,7 +16,6 @@ import { getStepIndex } from '../../../utils/functions';
 const zipPlans = astraSitesVars?.zip_plans;
 const sitesRemaining = zipPlans?.plan_data?.remaining;
 const aiSitesRemainingCount = sitesRemaining?.ai_sites_count;
-const allSitesRemainingCount = sitesRemaining?.all_sites_count;
 const PageBuilder = ( { placement = 'bottom-end' } ) => {
 	const [
 		{ builder, currentIndex, dismissAINotice, limitExceedModal },
@@ -51,10 +50,7 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 	}
 
 	const isLimitReached =
-		( typeof aiSitesRemainingCount === 'number' &&
-			aiSitesRemainingCount <= 0 ) ||
-		( typeof allSitesRemainingCount === 'number' &&
-			allSitesRemainingCount <= 0 );
+		typeof aiSitesRemainingCount === 'number' && aiSitesRemainingCount <= 0;
 
 	const buildersList = [
 		{
@@ -109,10 +105,8 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 
 	const handleBuildWithAIPress = () => {
 		if (
-			( typeof aiSitesRemainingCount === 'number' &&
-				aiSitesRemainingCount <= 0 ) ||
-			( typeof allSitesRemainingCount === 'number' &&
-				allSitesRemainingCount <= 0 )
+			typeof aiSitesRemainingCount === 'number' &&
+			aiSitesRemainingCount <= 0
 		) {
 			dispatch( {
 				type: 'set',

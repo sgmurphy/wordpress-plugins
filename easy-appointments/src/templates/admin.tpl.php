@@ -402,7 +402,7 @@
                                 data-tooltip="<?php _e('Event content when clicked on event', 'easy-appointments'); ?>"></span>
                       </div>
                       <textarea id="fullcalendar-event-template" class="field" name="fullcalendar.event.template" data-key="fullcalendar.event.template"><%- (_.findWhere(settings, {ea_key:'fullcalendar.event.template'})).ea_value %></textarea>
-                      <small><?php _e('Example', 'easy-appointments'); ?> : (<a href="https://easy-appointments.net/documentation/templates/" target="_blank"><?php _e('Full documentation', 'easy-appointments');?></a>)</small>
+                      <small><?php _e('Example', 'easy-appointments'); ?> : (<a href="https://easy-appointments.com/documentation/templates/" target="_blank"><?php _e('Full documentation', 'easy-appointments');?></a>)</small>
                       <div style="display: inline-block"><code>{= event.location_name}</code><small> / </small><code>{= language}</code><small> / </small><code>{= link_confirm}</code></div>
                       <small><?php _e('To get all available options use', 'easy-appointments'); ?> :</small>
                       <code>{= __CONTEXT__ | raw}</code>

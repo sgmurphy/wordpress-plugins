@@ -1,8 +1,8 @@
-=== Conversios – Google Analytics 4 (GA4), Google Ads, Meta Pixel, GTM & more for WordPress ===
+=== Google Analytics 4 (GA4), Google Ads, Meta Pixel, GTM & Multiple Pixels for Woocommerce & WordPress ===
 Contributors: Tatvic, Conversios
-Plugin Name: Conversios – Google Analytics 4 (GA4), Google Ads, Meta Pixel & more for WordPress 
+Plugin Name: Google Analytics 4 (GA4), Google Ads, Meta Pixel, GTM & Multiple Pixels for Woocommerce & WordPress  
 Plugin URI: https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/
-Tags: google analytics 4, google ads, meta pixel, google tag manager, tiktok pixel, facebook pixel, ecommerce tracking ,lead Generation tracking , campaign creation , audience building.
+Tags: google analytics 4, google ads, meta pixel, google tag manager, tiktok pixel, facebook pixel, GA4 tracking, GTM, Pixel tracking, Snapchat,FCAPI,GMC Google Merchant Center, Microsoft Bing Ads, Ads tracking, ecommerce tracking ,lead Generation tracking , campaign creation , audience building.
 Author: Conversios
 Requires at least: 4.6
 Tested up to: 6.6.0
@@ -98,27 +98,6 @@ Conversios is compatible with the following major plugins:
 * Consent Management Platforms like CookieYes, GDPR Cookie Compliance, Real Cookie Banner, and CookieBot CMP for Consent mode v2
 * Lead generation plugins like Contact Form 7, Ninja Forms, Formidable, Wp Forms, Gravity Form
 
-### Screenshots ###
-1. This is the Dashboard screen, which shows the status of the Google Tag Manager implementation and setup of the various pixels, the link status of the Google Merchant Center, TikTok catalog, and the latest 2 feeds, and report insights for the running campaigns and the last 30 days' data for GA4
-2. This is a screenshot of the Pixels and Analytics page where you can browse the configuration you have done so far for your Google Tag Manager account. You can click on any integration to add/update the settings.
-3. You can view all the pixels' configurations and browse to a specific pixel to add/update the account.
-4. This is a Google Tag Manager setting page where you can configure your Google Tag Manager container or use Conversion Global Container (default).
-5. All the 76+ pre built tags, triggers and variable in your GTM account.
-6. This is a Google Analytics setting page.
-7. This is a Google Ads settings page where you can configure Google Ads conversion tracking, enhanced conversion tracking & dynamic remarketing tags for ecommerce events.
-8. This is a Facebook configuration page where you can configure Facebook Pixel and Facebook Conversions API tracking.
-9. Actionable dashboard which displays the key metrics that help your ecommerce business scale faster. ecommerce conversion and checkout funnel reports that help you to visualize user journeys from the Home page to order confirmation. Product, Source/Medium and Campaign Performance Report where you can see all the respective performances.
-10. Google Analytics 4 dashboard 1 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 dashboard. The plugin captures all the data points related to ecommerce events.
-11. Google Analytics 4 dashboard 2 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 dashboard. The plugin captures all the data points related to ecommerce events.
-12. Google Analytics 4--> Monetization 1 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> Overview. The plugin captures all the data points related to ecommerce events.  
-13. Google Analytics 4--> Monetization 2 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> Overview. The plugin captures all the data points related to ecommerce events. 
-14. Google Analytics 4 Monetization --> ecommerce purchases Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> ecommerce purchases. The plugin captures all the data points related to ecommerce events.  
-15. Product Feed --> Channel Configuration where you can link your Google Merchant Center Account and TikTok catalog to process Product Feed.
-16. This is the inner setting page for Google Merchant Center where you can SignIn using Google account and select Google Merchant Center Account to link along with doing Site verification and Domain claim.
-17. This is the inner setting page for TikTok catalog where you can Sign In using your Tiktok account, select TikTok Business Account and set TikTok catalogs country-wise.
-18. Product Feed --> Feed Management. This is where you can create and manage feeds.
-19. Product Feed --> Channel Configuration --> Attribute and Category mapping. This is where you can map your WooCommerce product attributes and categories to the Conversios product attributes and categories and save them.
-
 
 ### Privacy Policy ###
 
@@ -126,26 +105,16 @@ Conversios is compatible with the following major plugins:
 
 
 == Screenshots ==
-1. This is the Dashboard screen which shows the status of the Google Tag Manager implementation and setup of the various pixels, the link status of the Google Merchant Center, TikTok catalog, and the latest 2 feeds, and report insights for the running campaigns and the last 30 days' data for GA4
-2. This is a screenshot of the Pixels and Analytics page where you can browse the configuration you have done so far for your Google Tag Manager account. You can click on any integration to add/update the settings.
-3. You can view all the pixels' configurations and browse to a specific pixel to add/update the account.
-4. This is a Google Tag Manager setting page where you can configure your Google Tag Manager container or use Conversion Global Container (default).
-5. All the 76+ pre built tags, triggers and variable in your GTM account.
-6. This is a Google Analytics setting page.
-7. This is a Google Ads settings page where you can configure Google Ads conversion tracking, enhanced conversion tracking & dynamic remarketing tags for ecommerce events.
-8. This is a Facebook configuration page where you can configure Facebook Pixel and Facebook Conversions API tracking.
-9. Actionable dashboard which displays the key metrics that help your ecommerce business scale faster. ecommerce conversion and checkout funnel reports that help you to visualize user journeys from the Home page to order confirmation. Product, Source/Medium and Campaign Performance Report where you can see all the respective performances.
-10. Google Analytics 4 dashboard 1 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 dashboard. The plugin captures all the data points related to ecommerce events.
-11. Google Analytics 4 dashboard 2 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 dashboard. The plugin captures all the data points related to ecommerce events.
-12. Google Analytics 4--> Monetization 1 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> Overview. The plugin captures all the data points related to ecommerce events.  
-13. Google Analytics 4--> Monetization 2 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> Overview. The plugin captures all the data points related to ecommerce events. 
-14. Google Analytics 4 Monetization --> ecommerce purchases Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> ecommerce purchases. The plugin captures all the data points related to ecommerce events.  
-15. Product Feed --> Channel Configuration where you can link your Google Merchant Center Account and TikTok catalog to process Product Feed.
-16. This is the inner setting page for Google Merchant Center where you can SignIn using Google account and select Google Merchant Center Account to link along with doing Site verification and Domain claim.
-17. This is the inner setting page for TikTok catalog where you can Sign In using your Tiktok account, select TikTok Business Account and set TikTok catalogs country-wise.
-18. Product Feed --> Feed Management. This is where you can create and manage feeds.
-19. Product Feed --> Channel Configuration --> Attribute and Category mapping. This is where you can map your WooCommerce product attributes and categories to the Conversios product attributes and categories and save them.
-
+1. This is the Integration Screen, which displays all the Pixel and Analytics configurations we provide and that you have connected.
+2. This is the Google Tag Manager screen, it provides pre-built tags and trigger automations.
+3. This is the Facebook Pixel & Facebook Conversions API (Meta) screen.
+4. This is the Google Ads Remarketing and Dynamic Remarketing Conversion Tracking Screen, which helps you track everything from Conversions to Enhanced Conversion tracking & Audience Building.
+5. This is the General Reports screen where we provide reports such as sessions, new users, average session duration, bounce rate, Audience report & Top pages reports.
+6. This is the screen where we show device breakdown, top countries, top cities, Real-time reports & daily visitors report.
+7. This is the Channel Configuration Screen for product feed manager; we have Google Merchant Center, TikTok, and Facebook feed creation available.
+8. This is the Attribute Mapping screen in Product Feed Manager.
+9. This is the Category Mapping screen in Product Feed Manager.
+10. This is the Product Feed Management Screen where you can manage and create your feeds.
 
 == Frequently Asked Questions ==
 

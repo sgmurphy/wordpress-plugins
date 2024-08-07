@@ -2,7 +2,7 @@ import { getFromSessionStorage } from '../utils/helpers';
 import { SESSION_STORAGE_KEY } from '../utils/constants';
 import { getLocalStorageItem } from '../helpers';
 import * as actionTypes from './action-types';
-import { omit, cloneDeep } from 'lodash';
+import { omit, cloneDeep, merge } from 'lodash';
 
 export const siteLogoDefault = {
 	id: '',
@@ -355,8 +355,8 @@ const reducer = ( state = initialState, action ) => {
 				...state,
 				stepData: {
 					...stepData,
-					siteFeatures: ( action?.payload ?? [] ).map(
-						( feature ) => {
+					siteFeatures: merge(
+						( action?.payload ?? [] ).map( ( feature ) => {
 							const defaultValue =
 								templateData?.features?.[ feature.id ] ===
 								'yes';
@@ -365,7 +365,8 @@ const reducer = ( state = initialState, action ) => {
 								enabled: defaultValue,
 								compulsory: defaultValue,
 							};
-						}
+						} ),
+						stepData?.siteFeatures ?? []
 					),
 				},
 			};

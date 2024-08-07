@@ -81,7 +81,7 @@ const SuggestedKeywords = ( {
 					<div
 						key={ index }
 						className={ classNames(
-							'px-3 py-1 text-sm font-normal leading-5 rounded-full shadow-sm cursor-pointer text-app-text  whitespace-nowrap border border-solid border-zip-light-border-primary bg-zip-app-light-bg',
+							'px-3 py-1 text-sm font-normal leading-5 rounded-full shadow-sm cursor-pointer text-app-text  whitespace-nowrap border border-solid border-zip-light-border-primary bg-background-secondary',
 							keywordClassName
 						) }
 						onClick={ handleOnClick( keyword ) }

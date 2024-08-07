@@ -17,7 +17,6 @@ const GetStarted = () => {
 	const zipPlans = aiBuilderVars?.zip_plans;
 	const sitesRemaining = zipPlans?.plan_data?.remaining;
 	const aiSitesRemainingCount = sitesRemaining?.ai_sites_count;
-	const allSitesRemainingCount = sitesRemaining?.all_sites_count;
 
 	useEffect( () => {
 		const urlParams = new URLSearchParams( window.location.search );
@@ -25,10 +24,8 @@ const GetStarted = () => {
 		const token = urlParams.get( 'token' );
 		if ( token || authenticated ) {
 			if (
-				( typeof aiSitesRemainingCount === 'number' &&
-					aiSitesRemainingCount <= 0 ) ||
-				( typeof allSitesRemainingCount === 'number' &&
-					allSitesRemainingCount <= 0 )
+				typeof aiSitesRemainingCount === 'number' &&
+				aiSitesRemainingCount <= 0
 			) {
 				setLimitExceedModal( {
 					open: true,
@@ -40,7 +37,7 @@ const GetStarted = () => {
 	}, [] );
 
 	return (
-		<div className="flex-1 w-full bg-st-background-secondary">
+		<div className="flex-1 w-full bg-container-background">
 			<Header />
 			<div className="flex w-full mt-7 md:mt-14 lg:mt-28">
 				<div className="gap-10 lg:gap-16 flex-wrap lg:flex-nowrap h-full flex items-center justify-center w-full px-8 lg:px-10">

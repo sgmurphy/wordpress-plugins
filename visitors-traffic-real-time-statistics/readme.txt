@@ -7,8 +7,7 @@ Stable tag: 7.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Show your site stats & traffic. Enable to display current online users on your WordPress blog with detailed stats. Easy to install and works perfectly.
-
+This plugin will help you to track your visitors, browsers, operating systems, visits and much more in one dashboard page.
 == Description ==
 
 Visitor Traffic Real Time Statistics is a Counter and statistics plugin for WordPress to display your WordPress blog statistics and traffic. Ranging from general total statistics
