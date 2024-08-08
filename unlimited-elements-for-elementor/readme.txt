@@ -894,6 +894,11 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 == Changelog ==
 
 
+version 1.5.116: 2024-08-08
+
+* Fix: fixed some editor select2 bug
+
+
 version 1.5.115: 2024-08-06
 
 Plugin Changes

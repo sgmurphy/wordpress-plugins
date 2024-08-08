@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Icon Box
  *
  * @package gutenverse\style
  */
 class Icon_Box extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,7 @@ class Icon_Box extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -116,6 +126,40 @@ class Icon_Box extends Style_Abstract {
 				)
 			);
 		}
+		if ( isset( $this->attrs['iconPositionResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'property'       => function ( $value ) {
+						if ( 'left' === $value ) {
+							return 'display: flex; align-items: flex-start;';
+						} elseif ( 'right' === $value ) {
+							return 'display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: reverse; -ms-flex-direction: row-reverse; flex-direction: row-reverse;';
+						} elseif ( 'top' === $value ) {
+							return 'display: block!important;';
+						}
+					},
+					'value'          => $this->attrs['iconPositionResponsive'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box.icon-box-header",
+					'property'       => function ( $value ) {
+						if ( 'left' === $value ) {
+							return 'margin-right: 15px;';
+						} elseif ( 'right' === $value ) {
+							return 'margin-left: 15px;';
+						} elseif ( 'top' === $value ) {
+							return 'position: relative; z-index: 2; line-height: 0;';
+						}
+					},
+					'value'          => $this->attrs['iconPositionResponsive'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 
 	/**
@@ -128,7 +172,7 @@ class Icon_Box extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon i",
 						'property'       => function ( $value ) {
-							return "font-size: {$value}px";
+							return "font-size: {$value}px;";
 						},
 						'value'          => $this->attrs['iconSize'],
 						'device_control' => true,
@@ -138,6 +182,38 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['iconType'] ) && 'image' === $this->attrs['iconType'] ) {
+			if ( isset( $this->attrs['imageWidthResponsive'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'property'       => function ( $value ) {
+							return "width: {$value}px;";
+						},
+						'value'          => $this->attrs['imageWidthResponsive'],
+						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['imageHeightResponsive'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'property'       => function ( $value ) {
+							return "height: {$value}px;";
+						},
+						'value'          => $this->attrs['imageHeightResponsive'],
+						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
+					)
+				);
+			}
+
 			if ( isset( $this->attrs['imageWidth'] ) ) {
 				$this->inject_style(
 					array(
@@ -159,6 +235,19 @@ class Icon_Box extends Style_Abstract {
 							return "height: {$value}px";
 						},
 						'value'          => $this->attrs['imageHeight'],
+						'device_control' => false,
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['imageFit'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon img",
+						'property'       => function ( $value ) {
+							return "object-fit: {$value};";
+						},
+						'value'          => $this->attrs['imageFit'],
 						'device_control' => false,
 					)
 				);
@@ -208,6 +297,22 @@ class Icon_Box extends Style_Abstract {
 			$this->handle_border( 'containerBorder', ".{$this->element_id} .guten-icon-box-wrapper" );
 		}
 
+		if ( isset( $this->attrs['containerBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['containerBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['containerBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
@@ -223,6 +328,22 @@ class Icon_Box extends Style_Abstract {
 
 		if ( isset( $this->attrs['containerBorderHover'] ) ) {
 			$this->handle_border( 'containerBorderHover', ".{$this->element_id}:hover .guten-icon-box-wrapper" );
+		}
+
+		if ( isset( $this->attrs['containerBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover .guten-icon-box-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['containerBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['containerBoxShadowHover'] ) ) {
@@ -303,8 +424,42 @@ class Icon_Box extends Style_Abstract {
 			$this->custom_handle_background( ".{$this->element_id}:hover .icon-box.icon-box-header .icon.style-gradient", $this->attrs['iconBackgroundHover'] );
 		}
 
-		if ( isset( $this->attrs['iconBorder'] ) ) {
-				$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon" );
+		if ( isset( $this->attrs['iconBorder'] ) && 'icon' === $this->attrs['iconType'] ) {
+			$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon" );
+		}
+		if ( isset( $this->attrs['iconBorder'] ) && 'image' === $this->attrs['iconType'] ) {
+			$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon" );
+		}
+
+		if ( isset( $this->attrs['iconBorderResponsive'] ) && 'icon' === $this->attrs['iconType'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+		if ( isset( $this->attrs['iconBorderResponsive'] ) && 'image' === $this->attrs['iconType'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBoxShadow'] ) ) {
@@ -320,8 +475,42 @@ class Icon_Box extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['iconBorderHover'] ) ) {
+		if ( isset( $this->attrs['iconBorderHover'] ) && 'icon' === $this->attrs['iconType'] ) {
 			$this->handle_border( 'iconBorderHover', ".{$this->element_id}:hover .icon-box.icon-box-header .icon" );
+		}
+		if ( isset( $this->attrs['iconBorderHover'] ) && 'image' === $this->attrs['iconType'] ) {
+			$this->handle_border( 'iconBorderHover', ".{$this->element_id}:hover .icon-box.icon-box-header .icon" );
+		}
+
+		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) && 'icon' === $this->attrs['iconType'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) && 'image' === $this->attrs['iconType'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBoxShadowHover'] ) ) {

@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Post_Featured_Image
  *
  * @package gutenverse\style
  */
 class Post_Featured_Image extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,11 @@ class Post_Featured_Image extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id} img",
+					'hover'  => ".{$this->element_id} img:hover",
+				),
+				'mask'        => null,
 			)
 		);
 	}
@@ -99,6 +113,22 @@ class Post_Featured_Image extends Style_Abstract {
 
 		if ( isset( $this->attrs['imageBorder'] ) ) {
 			$this->handle_border( 'imageBorder', ".{$this->element_id} img" );
+		}
+
+		if ( isset( $this->attrs['imageBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} img",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['imageBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['imageBoxShadow'] ) ) {

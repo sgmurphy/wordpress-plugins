@@ -146,7 +146,7 @@ $styles = array(
 
 					<div class="calc-subtotal-list" :class="{ 'show-unit': showUnitInSummary }" v-show="!summaryDisplay || showAfterSubmit">
 						<transition>
-							<div :class="{close: !accordionState}" class="calc-subtotal-list-accordion">
+							<div class="calc-subtotal-list-accordion" :class="{hidden: !accordionState}">
 								<div class="calc-subtotal-list-header" v-if="showUnitInSummary">
 									<span class="calc-subtotal-list-header__name"><?php esc_html_e( 'Name', 'cost-calculator-builder' ); ?></span>
 									<span class="calc-subtotal-list-header__value"><?php esc_html_e( 'Total', 'cost-calculator-builder' ); ?></span>

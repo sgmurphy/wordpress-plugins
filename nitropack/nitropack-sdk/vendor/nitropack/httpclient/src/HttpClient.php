@@ -1352,7 +1352,7 @@ class HttpClient {
         }
 
         foreach ($this->determineStreamDecompressionFilters($contentEncodingHeader) as list($streamDecompressionFilter, $args)) {
-            $this->streamFilters[] = stream_filter_append($stream, $streamDecompressionFilter, STREAM_FILTER_READ, $args);
+            $this->streamFilters[] = stream_filter_append($stream, $streamDecompressionFilter, STREAM_FILTER_WRITE, $args);
         }
     }
 

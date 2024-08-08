@@ -20,35 +20,7 @@ class Blocks {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'register_blocks' ), 99 );
-		add_filter( 'block_categories_all', array( $this, 'block_category' ), 9999999 );
-	}
-
-	/**
-	 * Gutenverse categories
-	 *
-	 * @return array
-	 */
-	public function gutenverse_categories() {
-		$categories = array(
-			array(
-				'slug'  => 'gutenverse-structure',
-				'title' => __( 'Gutenverse Wrapper', 'gutenverse' ),
-			),
-			array(
-				'slug'  => 'gutenverse-element',
-				'title' => __( 'Gutenverse Element', 'gutenverse' ),
-			),
-			array(
-				'slug'  => 'gutenverse-post',
-				'title' => __( 'Gutenverse Post', 'gutenverse' ),
-			),
-			array(
-				'slug'  => 'gutenverse-form',
-				'title' => __( 'Gutenverse Form', 'gutenverse' ),
-			),
-		);
-
-		return apply_filters( 'gutenverse_block_categories', $categories );
+		add_filter( 'gutenverse_block_categories', array( $this, 'block_category' ) );
 	}
 
 	/**
@@ -59,10 +31,10 @@ class Blocks {
 	 * @return array
 	 */
 	public function block_category( $categories ) {
-		return array_merge(
-			$this->gutenverse_categories(),
-			$categories
-		);
+		$categories['gutenverse-element'] = __( 'Gutenverse Element', 'gutenverse' );
+		$categories['gutenverse-post']    = __( 'Gutenverse Post', 'gutenverse' );
+
+		return $categories;
 	}
 
 	/**
@@ -70,8 +42,6 @@ class Blocks {
 	 */
 	public function register_blocks() {
 		// Static block.
-		register_block_type( GUTENVERSE_DIR . './block/section/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/column/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/accordion/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/accordions/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/divider/block.json' );
@@ -85,6 +55,7 @@ class Blocks {
 		register_block_type( GUTENVERSE_DIR . './block/button/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/buttons/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/icon/block.json' );
+		register_block_type( GUTENVERSE_DIR . './block/icon-box/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/gallery/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/icon-list/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/icon-list-item/block.json' );
@@ -99,19 +70,8 @@ class Blocks {
 		register_block_type( GUTENVERSE_DIR . './block/text-editor/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/team/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/social-share/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-builder/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-checkbox/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-date/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-email/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-multiselect/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-number/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-radio/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-select/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-submit/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-switch/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-telp/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-text/block.json' );
-		register_block_type( GUTENVERSE_DIR . './block/form-input-textarea/block.json' );
+		register_block_type( GUTENVERSE_DIR . './block/search/block.json' );
+		register_block_type( GUTENVERSE_DIR . './block/text-paragraph/block.json' );
 
 		// Dynamic blocks.
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-author/block.json' );
@@ -125,6 +85,7 @@ class Blocks {
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-block/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-list/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/nav-menu/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_DIR . './block/archive-title/block.json' );
 
 		// Social Share Block.
 		$this->register_social_share_block( GUTENVERSE_DIR . './block/social-share-item/block.json' );

@@ -69,7 +69,9 @@ class Elementor_Addons {
 	 * @return void
 	 */
 	public function sp_wpsp_element_block_icon() {
-		wp_enqueue_style( 'wpsp_element_block_icon', SP_WPS_URL . 'Admin/assets/css/fontello.min.css', array(), SP_WPS_VERSION, 'all' );
+		// wp_enqueue_style( 'wpsp_element_block_icon', SP_WPS_URL . 'Admin/assets/css/fontello.min.css', array(), SP_WPS_VERSION, 'all' );
+		wp_enqueue_style( 'wpsp_element_block_icon', SP_WPS_URL . 'Admin/Views/Models/assets/css/fontello.min.css', array(), SP_WPS_VERSION, 'all' );
+
 	}
 
 	/**
@@ -97,6 +99,7 @@ class Elementor_Addons {
 		*/
 		wp_enqueue_style( 'sp-wps-swiper' );
 		wp_enqueue_style( 'sp-wps-font-awesome' );
+		wp_enqueue_style( 'sp_wps-fontello-icon' );
 		wp_enqueue_style( 'sp-wps-style' );
 	}
 

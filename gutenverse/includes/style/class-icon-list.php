@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Icon List
  *
  * @package gutenverse\style
  */
 class Icon_List extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -34,9 +43,10 @@ class Icon_List extends Style_Abstract {
 			array(
 				'background'  => null,
 				'border'      => null,
-				'positioning' => ".{$this->element_id}.guten-element, .{$this->element_id}.guten-element.inline-icon-list > .guten-icon-list-item",
+				'positioning' => ".{$this->element_id}.guten-element, .{$this->element_id}.guten-element.inline-icon-list ",
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -48,7 +58,7 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['spaceBetween'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)",
+					'selector'       => ".{$this->element_id}:not(.inline-icon-list) div.guten-icon-list-item:not(div:first-of-type) > a",
 					'property'       => function ( $value ) {
 						return "margin-top: calc({$value}px/2);";
 					},
@@ -72,7 +82,17 @@ class Icon_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:last-child)",
 					'property'       => function ( $value ) {
-						return "margin-right: {$value}px;";
+						return "margin-right: calc({$value}px/2);";
+					},
+					'value'          => $this->attrs['spaceBetween'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.inline-icon-list div.guten-icon-list-item:not(div:first-of-type) > a",
+					'property'       => function ( $value ) {
+						return "margin-left: calc({$value}px/2);";
 					},
 					'value'          => $this->attrs['spaceBetween'],
 					'device_control' => true,
@@ -157,16 +177,29 @@ class Icon_List extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['verticalAlign'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} a",
-					'property'       => function ( $value ) {
-						return "align-items: {$value}";
-					},
-					'value'          => $this->attrs['verticalAlign'],
-					'device_control' => false,
-				)
-			);
+			if ( !isset ( $this->attrs['displayInline'] ) || $this->attrs['displayInline'] === false ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-list-item a",
+						'property'       => function ( $value ) {
+							return "align-items: {$value}";
+						},
+						'value'          => $this->attrs['verticalAlign'],
+						'device_control' => false,
+					)
+				);
+			} else {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-list-item",
+						'property'       => function ( $value ) {
+							return "align-items: {$value}";
+						},
+						'value'          => $this->attrs['verticalAlign'],
+						'device_control' => false,
+					)
+				);
+			}
 		}
 
 		if ( isset( $this->attrs['textColorHover'] ) ) {
@@ -204,6 +237,118 @@ class Icon_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+		}
+		if ( isset( $this->attrs['isDivider'] ) ) {
+			if ( $this->attrs['isDivider'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)",
+						'property'       => function ( $value ) {
+							return 'border-top-style : solid;';
+						},
+						'value'          => $this->attrs['isDivider'],
+						'device_control' => false,
+					)
+				);
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:first-child)",
+						'property'       => function ( $value ) {
+							return 'border-left-style : solid;';
+						},
+						'value'          => $this->attrs['isDivider'],
+						'device_control' => false,
+					)
+				);
+				if ( isset( $this->attrs['colorDivider'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'border-color' );
+							},
+							'value'          => $this->attrs['colorDivider'],
+							'device_control' => false,
+						)
+					);
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'border-color' );
+							},
+							'value'          => $this->attrs['colorDivider'],
+							'device_control' => false,
+						)
+					);
+				}
+				if ( isset( $this->attrs['typeDivider'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return "border-top-style : {$value};";
+							},
+							'value'          => $this->attrs['typeDivider'],
+							'device_control' => false,
+						)
+					);
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return "border-left-style : {$value};";
+							},
+							'value'          => $this->attrs['typeDivider'],
+							'device_control' => false,
+						)
+					);
+				}
+				if ( isset( $this->attrs['sizeDivider'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return $this->handle_unit_point( $value, 'border-top-width' );
+							},
+							'value'          => $this->attrs['sizeDivider'],
+							'device_control' => false,
+						)
+					);
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return $this->handle_unit_point( $value, 'border-left-width' );
+							},
+							'value'          => $this->attrs['sizeDivider'],
+							'device_control' => false,
+						)
+					);
+				}
+				if ( isset( $this->attrs['widthDivider'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return $this->handle_unit_point( $value, 'width' );
+							},
+							'value'          => $this->attrs['widthDivider'],
+							'device_control' => false,
+						)
+					);
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return $this->handle_unit_point( $value, 'height' );
+							},
+							'value'          => $this->attrs['widthDivider'],
+							'device_control' => false,
+						)
+					);
+				}
+			}
 		}
 	}
 }

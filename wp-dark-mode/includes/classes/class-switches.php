@@ -64,6 +64,7 @@ if ( ! class_exists( __NAMESPACE__ . 'Switches' ) ) {
 			}
 
 			$options_keys = [
+				'display',
 				'style',
 				'size',
 				'size_custom',

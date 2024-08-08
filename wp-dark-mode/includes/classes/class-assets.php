@@ -89,7 +89,7 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 			$script_in_footer = apply_filters( 'wp_dark_mode_loads_scripts_in_footer', $this->get_option( 'performance_load_scripts_in_footer' ) );
 
 			// Enqueue scripts.
-			wp_enqueue_script( 'wp-dark-mode', WP_DARK_MODE_ASSETS . 'js/app.min.js', [], WP_DARK_MODE_VERSION, $script_in_footer );
+			wp_enqueue_script( 'wp-dark-mode', WP_DARK_MODE_ASSETS . 'js/app.min.js', [ 'jquery' ], WP_DARK_MODE_VERSION, $script_in_footer );
 
 			// Localize scripts.
 			$localize_scripts = array(

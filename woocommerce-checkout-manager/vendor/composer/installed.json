@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "automattic/jetpack-assets",
-            "version": "v2.2.0",
-            "version_normalized": "2.2.0.0",
+            "version": "v2.3.0",
+            "version_normalized": "2.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-assets.git",
-                "reference": "1f34d58dd924f2f0fb80beccb42e57e2fc2f1416"
+                "reference": "02493a602255136051b750ca46fdce8bf4a49ab0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/1f34d58dd924f2f0fb80beccb42e57e2fc2f1416",
-                "reference": "1f34d58dd924f2f0fb80beccb42e57e2fc2f1416",
+                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/02493a602255136051b750ca46fdce8bf4a49ab0",
+                "reference": "02493a602255136051b750ca46fdce8bf4a49ab0",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-07-23T19:49:52+00:00",
+            "time": "2024-08-08T07:50:01+00:00",
             "type": "jetpack-library",
             "extra": {
                 "autotagger": true,
@@ -38,7 +38,7 @@
                     "link-template": "https://github.com/Automattic/jetpack-assets/compare/v${old}...v${new}"
                 },
                 "branch-alias": {
-                    "dev-trunk": "2.2.x-dev"
+                    "dev-trunk": "2.3.x-dev"
                 }
             },
             "installation-source": "dist",
@@ -56,7 +56,7 @@
             ],
             "description": "Asset management utilities for Jetpack ecosystem packages",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-assets/tree/v2.2.0"
+                "source": "https://github.com/Automattic/jetpack-assets/tree/v2.3.0"
             },
             "install-path": "../../jetpack_vendor/automattic/jetpack-assets"
         },
@@ -233,17 +233,17 @@
         },
         {
             "name": "quadlayers/wp-notice-plugin-promote",
-            "version": "1.1.4",
-            "version_normalized": "1.1.4.0",
+            "version": "1.1.5",
+            "version_normalized": "1.1.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/quadlayers/wp-notice-plugin-promote.git",
-                "reference": "f52240f7972d59a88bca17c061277b7ed12bdf17"
+                "url": "https://github.com/franmastromarino/wp-notice-plugin-promote.git",
+                "reference": "cea8e5409b2a088618c1f51c94da1d3ab6f057b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/quadlayers/wp-notice-plugin-promote/zipball/f52240f7972d59a88bca17c061277b7ed12bdf17",
-                "reference": "f52240f7972d59a88bca17c061277b7ed12bdf17",
+                "url": "https://api.github.com/repos/franmastromarino/wp-notice-plugin-promote/zipball/cea8e5409b2a088618c1f51c94da1d3ab6f057b2",
+                "reference": "cea8e5409b2a088618c1f51c94da1d3ab6f057b2",
                 "shasum": ""
             },
             "require": {
@@ -254,7 +254,7 @@
                 "phpcompatibility/phpcompatibility-wp": "^2.1.0",
                 "wp-coding-standards/wpcs": "^2.3.0"
             },
-            "time": "2023-12-31T10:47:45+00:00",
+            "time": "2024-08-07T18:58:37+00:00",
             "type": "jetpack-library",
             "extra": {
                 "textdomain": "wp-notice-plugin-promote"
@@ -283,8 +283,8 @@
                 "wordpress"
             ],
             "support": {
-                "issues": "https://github.com/quadlayers/wp-notice-plugin-promote/issues",
-                "source": "https://github.com/quadlayers/wp-notice-plugin-promote/tree/1.1.4"
+                "issues": "https://github.com/franmastromarino/wp-notice-plugin-promote/issues",
+                "source": "https://github.com/franmastromarino/wp-notice-plugin-promote/tree/1.1.5"
             },
             "install-path": "../../jetpack_vendor/quadlayers/wp-notice-plugin-promote"
         },

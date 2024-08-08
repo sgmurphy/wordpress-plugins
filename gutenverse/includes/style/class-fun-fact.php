@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Fun_Fact
  *
  * @package gutenverse\style
  */
 class Fun_Fact extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,7 @@ class Fun_Fact extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -87,6 +97,21 @@ class Fun_Fact extends Style_Abstract {
 					)
 				);
 			}
+			if ( isset( $this->attrs['imageSizeResponsive'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .fun-fact-inner .icon img",
+						'property'       => function ( $value ) {
+							return "width: {$value}px; height: {$value}px; object-fit: cover;";
+						},
+						'value'          => $this->attrs['imageSizeResponsive'],
+						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
+					)
+				);
+			}
 		}
 
 		if ( isset( $this->attrs['iconColor'] ) ) {
@@ -119,6 +144,22 @@ class Fun_Fact extends Style_Abstract {
 			$this->handle_border( 'iconBorder', ".{$this->element_id} .fun-fact-inner .icon" );
 		}
 
+		if ( isset( $this->attrs['iconBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['iconColorHover'] ) ) {
 			$this->inject_style(
 				array(
@@ -147,6 +188,22 @@ class Fun_Fact extends Style_Abstract {
 
 		if ( isset( $this->attrs['iconBorderHover'] ) ) {
 			$this->handle_border( 'iconBorderHover', ".{$this->element_id} .fun-fact-inner:hover .icon" );
+		}
+
+		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .fun-fact-inner:hover .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconSize'] ) ) {

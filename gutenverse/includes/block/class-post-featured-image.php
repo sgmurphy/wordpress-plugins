@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Block;
 
+use Gutenverse\Framework\Block\Block_Abstract;
+
 /**
  * Class Post Featured Image Block
  *
@@ -23,20 +25,26 @@ class Post_Featured_Image extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
-		$element_id      = $this->get_element_id();
+		$element_id      = esc_html( $this->get_element_id() );
 		$post_link       = ! empty( $this->attributes['postLink'] ) ? $this->attributes['postLink'] : false;
 		$placeholder_img = ! empty( $this->attributes['placeholderImg'] ) ? $this->attributes['placeholderImg'] : false;
-		$custom_classes  = $this->get_custom_classes();
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$post_url        = get_post_permalink( $post_id );
 		$post_featured   = get_the_post_thumbnail_url( $post_id, 'full' );
+		$custom_classes  = $this->get_custom_classes();
 		$content         = '';
 
 		if ( ! empty( $post_featured ) ) {
-			$content = '<img src="' . $post_featured . '"/>';
+			$content = '<img alt="" src="' . $post_featured . '"/>';
+			if ( $this->attributes['imageLazy'] ) {
+				$content = '<img alt="" src="' . $post_featured . '" loading="lazy" />';
+			}
 		} elseif ( ! empty( $placeholder_img ) ) {
-			$content = '<img src="' . esc_url( GUTENVERSE_URL . '/assets/img/img-placeholder.jpg' ) . '"/>';
+			$content = '<img alt="" src="' . esc_url( GUTENVERSE_URL . '/assets/img/img-placeholder.jpg' ) . '"/>';
+			if ( $this->attributes['imageLazy'] ) {
+				$content = '<img alt="" src="' . esc_url( GUTENVERSE_URL . '/assets/img/img-placeholder.jpg' ) . '" loading="lazy"/>';
+			}
 		}
 
 		if ( ! empty( $post_link ) && ! empty( $post_url ) ) {
@@ -59,7 +67,7 @@ class Post_Featured_Image extends Block_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
-		$post_id = esc_html( $this->context['postId'] );
+		$post_id = ! empty( $this->context['postId'] ) ? esc_html( $this->context['postId'] ) : get_the_ID();
 
 		return $this->render_content( $post_id );
 	}

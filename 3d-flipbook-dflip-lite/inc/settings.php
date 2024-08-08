@@ -341,8 +341,8 @@ class DFlip_Settings {
     $sanitized_data = array();
     $sanitized_data['selectiveScriptLoading'] = sanitize_text_field( $_POST['_dflip']['selectiveScriptLoading'] );
     
-    $settings = is_multisite() ? get_blog_option( null, '_dflip_settings', true ) : get_option( '_dflip_settings', true );
-    if ( empty( $settings ) ) {
+    $settings = is_multisite() ? get_blog_option( null, '_dflip_settings', array() ) : get_option( '_dflip_settings', array() );
+    if ( empty( $settings ) || !is_array($settings)) {
       $settings = array();
     }
     $settings = array_merge( $settings, $sanitized_data );

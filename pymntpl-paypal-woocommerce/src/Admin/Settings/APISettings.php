@@ -130,7 +130,6 @@ class APISettings extends AbstractSettings {
 			'webhook_url_sandbox'       => [
 				'title'             => __( 'Webhook URL', 'pymntpl-paypal-woocommerce' ),
 				'type'              => 'clipboard',
-				'default'           => \rest_url( 'wc-ppcp/v1/webhook/sandbox' ),
 				'custom_attributes' => [
 					'data-show-if' => 'environment=sandbox'
 				],
@@ -150,7 +149,7 @@ class APISettings extends AbstractSettings {
 			'webhook_url_production'    => [
 				'title'             => __( 'Webhook URL', 'pymntpl-paypal-woocommerce' ),
 				'type'              => 'clipboard',
-				'default'           => \rest_url( 'wc-ppcp/v1/webhook/production' ),
+				/*'default'           => \rest_url( 'wc-ppcp/v1/webhook/production' ),*/
 				'custom_attributes' => [
 					'data-show-if' => 'environment=production'
 				],
@@ -261,6 +260,11 @@ class APISettings extends AbstractSettings {
 		if ( ! empty( $_GET['_connect'] ) && $_GET['_connect'] === 'success' ) {
 			\WC_Admin_Settings::add_message( __( 'Your PayPal account has been connected.', 'pymntpl-paypal-woocommerce' ) );
 		}
+
+		// define the webhook url here because \rest_url will cause exceptions if called in init_form_fields
+		$this->form_fields['webhook_url_sandbox']['default']    = \rest_url( 'wc-ppcp/v1/webhook/sandbox' );
+		$this->form_fields['webhook_url_production']['default'] = \rest_url( 'wc-ppcp/v1/webhook/production' );
+
 		parent::admin_options();
 	}
 

@@ -37,14 +37,14 @@ class PaymentGateways {
 		$this->assets                  = $assets;
 		$this->asset_data              = $asset_data;
 		$this->api_settings            = $api_settings;
-		add_action( 'wc_ppcp_loaded', [ $this->payment_method_registry, 'initialize' ] );
 		add_action( 'woocommerce_ppcp_payment_methods_registration', [ $this, 'register_payment_methods' ], 10, 2 );
-		add_filter( 'woocommerce_payment_gateways', [ $this, 'initialize_gateways' ] );
 		add_filter( 'wc_ppcp_admin_script_dependencies', [ $this, 'add_admin_script_dependencies' ], 10, 2 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'load_scripts' ] );
 		add_action( 'wp_print_scripts', [ $this, 'add_minicart_scripts' ] );
 		add_filter( 'woocommerce_available_payment_gateways', [ $this, 'get_available_payment_gateways' ] );
 		add_action( 'woocommerce_before_mini_cart', [ $this, 'add_minicart_scripts' ] );
+
+		$this->payment_method_registry->initialize();
 	}
 
 	public function set_page_context( ContextHandler $context_handler ) {

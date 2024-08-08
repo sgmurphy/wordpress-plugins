@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Block;
 
+use Gutenverse\Framework\Block\Post_Abstract;
+
 /**
  * Class Post Block
  *
@@ -32,6 +34,12 @@ class Post_Block extends Post_Abstract {
 			$content = str_replace( 'href', 'href="javascript:void(0);" data-href', $content );
 		}
 
+		if ( $this->attributes['lazyLoad'] ) {
+			$content = preg_replace( '/<img(.*?)>/', '<img loading="lazy" $1>', $content );
+		} else {
+			$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );
+		}
+
 		$breakpoint     = 'type-1' === $this->attributes['postblockType'] || 'type-4' === $this->attributes['postblockType'] ? 'break-point-' . esc_attr( $this->attributes['breakpoint'] ) : '';
 		$postblock_type = 'postblock-' . esc_attr( $this->attributes['postblockType'] );
 		$pagination     = 'guten-pagination-' . esc_attr( $this->attributes['paginationMode'] );
@@ -41,7 +49,7 @@ class Post_Block extends Post_Abstract {
 			$content,
 			array( $postblock_type, $pagination, $breakpoint, 'post-element' ),
 			array(
-				'id'       => $this->attributes['elementId'],
+				'id'       => $this->get_element_id(),
 				'settings' => $settings,
 			)
 		);
@@ -55,7 +63,24 @@ class Post_Block extends Post_Abstract {
 	public function get_ajax_param() {
 		return array(
 			'inheritQuery',
+			'elementId',
+			'postItemMargin',
+			'postItemPadding',
+			'postItemBorder',
 			'postType',
+			'thumbnailRadius',
+			'paginationMargin',
+			'paginationPadding',
+			'paginationBorder',
+			'hideDesktop',
+			'hideTablet',
+			'hideMobile',
+			'column',
+			'breakpoint',
+			'noContentText',
+			'background',
+			'backgroundHover',
+			'animation',
 			'numberPost',
 			'postOffset',
 			'uniqueContent',

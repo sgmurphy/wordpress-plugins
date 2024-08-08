@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.22 (2024-08-08)
+
+
+### Bug Fixes
+
+* some components are not rendered in WordPress < 6.2 (CU-86959qqq1)
+
+
+### Code Refactoring
+
+* remove no longer needed functions (CU-86959qqq1)
+
+
+<details><summary>Dependency updates @devowl-wp/utils 1.19.9</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Bug Fixes
+
+* some components are not rendered in WordPress < 6.2 (CU-86959qqq1)
+* use ReactJSXRuntime for better WordPress 6.6 compatibility (CU-86959qqq1)</details>
+
+<details><summary>Development dependency update @devowl-wp/webpack-config 0.2.33</summary>
+
+
+**_Purpose of dependency:_** _Webpack config builder for multiple ecosystems like standalone React frontends, Antd, Preact and WordPress._
+##### Bug Fixes
+
+* some components are not rendered in WordPress < 6.2 (CU-86959qqq1)
+* use ReactJSXRuntime for better WordPress 6.6 compatibility (CU-86959qqq1)</details>
+
+
+
+
+
 ## 4.22.21 (2024-08-02)
 
 

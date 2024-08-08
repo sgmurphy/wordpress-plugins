@@ -3,7 +3,7 @@ Contributors: techlabpro1
 Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 7.7.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

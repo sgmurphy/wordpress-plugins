@@ -61,6 +61,7 @@ class ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468
         'Automattic\\Jetpack\\Composer\\Manager' => __DIR__ . '/..' . '/automattic/jetpack-composer-plugin/src/class-manager.php',
         'Automattic\\Jetpack\\Composer\\Plugin' => __DIR__ . '/..' . '/automattic/jetpack-composer-plugin/src/class-plugin.php',
         'Automattic\\Jetpack\\Constants' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-constants/src/class-constants.php',
+        'Automattic\\Jetpack\\Script_Data' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-assets/src/class-script-data.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'QuadLayers\\IGG\\Api\\Fetch\\Business\\Access_Token\\Refresh' => __DIR__ . '/../..' . '/lib/api/fetch/business/access-token/class-refresh.php',
         'QuadLayers\\IGG\\Api\\Fetch\\Business\\Base' => __DIR__ . '/../..' . '/lib/api/fetch/business/class-base.php',

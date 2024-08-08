@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Block;
 
+use Gutenverse\Framework\Block\Block_Abstract;
+
 /**
  * Class Post Date Block
  *
@@ -50,7 +52,7 @@ class Post_Date extends Block_Abstract {
 						$date     = "<a href='{$post_url}'>{$date}</a>";
 						break;
 					case 'custom':
-						$custom_url = ! empty( $this->attributes['customURL'] ) ? esc_html( $this->attributes['customURL'] ) : '';
+						$custom_url = ! empty( $this->attributes['customURL'] ) ? esc_url( $this->attributes['customURL'] ) : '';
 						$date       = ! empty( $custom_url ) ? "<a href='{$custom_url}'>{$date}</a>" : $date;
 						break;
 					default:
@@ -75,8 +77,8 @@ class Post_Date extends Block_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
+		$post_id         = ! empty( $this->context['postId'] ) ? esc_html( $this->context['postId'] ) : get_the_ID();
 		$element_id      = $this->get_element_id();
-		$post_id         = esc_html( $this->context['postId'] );
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();

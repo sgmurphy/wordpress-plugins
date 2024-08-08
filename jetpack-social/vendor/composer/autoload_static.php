@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_0_0
+class ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_1_0
 {
     public static $files = array (
         '3773ef3f09c37da5478d578e32b03a4b' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-assets/actions.php',
@@ -175,6 +175,7 @@ class ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_0_0
         'Automattic\\Jetpack\\Publicize\\Social_Image_Generator\\Templates' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-publicize/src/social-image-generator/class-templates.php',
         'Automattic\\Jetpack\\Redirect' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-redirect/src/class-redirect.php',
         'Automattic\\Jetpack\\Roles' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-roles/src/class-roles.php',
+        'Automattic\\Jetpack\\Script_Data' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-assets/src/class-script-data.php',
         'Automattic\\Jetpack\\Social\\Meta_Tags' => __DIR__ . '/../..' . '/src/class-meta-tags.php',
         'Automattic\\Jetpack\\Social\\Note' => __DIR__ . '/../..' . '/src/class-note.php',
         'Automattic\\Jetpack\\Social\\REST_Settings_Controller' => __DIR__ . '/../..' . '/src/class-rest-settings-controller.php',
@@ -277,9 +278,9 @@ class ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_0_0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_0_0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_0_0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_0_0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_1_0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_1_0::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc4802e05bbcf59fd3b6350e8d3e5482c_socialⓥ5_1_0::$classMap;
 
         }, null, ClassLoader::class);
     }

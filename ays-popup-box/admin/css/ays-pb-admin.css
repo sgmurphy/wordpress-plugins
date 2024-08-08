@@ -3985,6 +3985,11 @@ div.ays-pb-faq-main p {
     border-radius: 2px;
     transition: background-color 0.3s ease-in-out, text-decoration 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out;
     margin-right: 10px;
+    min-width: 105px;
+}
+
+.ays-pb-card__btn-info:not(.ays-pb-card__btn-info.disabled) {
+    cursor: pointer;
 }
 
 .ays-pb-card__btn-primary {
@@ -4010,6 +4015,20 @@ div.ays-pb-faq-main p {
     text-decoration: none;
     background-color: #0067c9;
     color: #ffffff;
+}
+
+.ays-pb-card__btn-info.disabled {
+    color: #a7aaad !important;
+    border-color: #dcdcde !important;
+    background: #f6f7f7 !important;
+    box-shadow: none !important;
+    cursor: default;
+    transform: none !important;
+    outline: unset;
+}
+
+.flexible {
+    flex-grow: 1;
 }
 
 .ays-pb-see-all {

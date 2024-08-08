@@ -1,9 +1,9 @@
 === HTTP Headers ===
 Contributors: zinoui
 Donate link: https://paypal.me/Dimitar81
-Tags: custom headers, http headers, headers, security, http header, header, cross domain, cors, xss, clickjacking, mitm, cross origin, cross site, privacy, p3p, hsts, referrer, csp, caching, compression, access control, authentication
+Tags: custom headers, http headers, security headers, cors headers, csp header
 Requires at least: 3.2
-Tested up to: 6.3.1
+Tested up to: 6.6.1
 Requires PHP: 5.3
 Stable tag: 1.19.1
 License: GPLv2 or later

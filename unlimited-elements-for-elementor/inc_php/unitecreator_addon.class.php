@@ -2166,7 +2166,7 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 		if($putMode == true){
 			$objOutput->draw("uc_form_settings_addon", false);
 		}else{
-			ob_start();
+			UniteFunctionsUC::obStart();
 			$objOutput->draw("uc_form_settings_addon", false);
 			$html = ob_get_contents();
 			ob_clean();
@@ -2265,7 +2265,7 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 		if($putMode == true){
 			$objOutput->draw("uc_form_addon_item_settings", false);
 		}else{
-			ob_start();
+			UniteFunctionsUC::obStart();
 			$objOutput->draw("uc_form_addon_item_settings", false);
 			$html = ob_get_contents();
 			ob_clean();

@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Animated Text
  *
  * @package gutenverse\style
  */
 class Animated_Text extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -29,13 +38,14 @@ class Animated_Text extends Style_Abstract {
 	 */
 	public function __construct( $attrs ) {
 		parent::__construct( $attrs );
-
+		$this->in_block = false;
 		$this->set_feature(
 			array(
 				'background'  => null,
 				'border'      => null,
 				'positioning' => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -50,6 +60,19 @@ class Animated_Text extends Style_Abstract {
 					'selector'       => ".{$this->element_id}",
 					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
+					},
+					'value'          => $this->attrs['alignText'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} > *",
+					'property'       => function ( $value ) {
+						return 'text-align: ' .
+						( 'flex-start' === $value ? 'left' :
+						( 'flex-end' === $value ? 'right' : 'center' ) ) .
+						';';
 					},
 					'value'          => $this->attrs['alignText'],
 					'device_control' => true,

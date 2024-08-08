@@ -3,7 +3,7 @@
 Contributors: arubait, arubadev, arubasupport
 Tags: Aruba, cache, performance, pagespeed, optimize
 Tested up to: 6.6
-Stable tag: 2.0.14
+Stable tag: 2.0.15
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,6 +67,9 @@ wordpress_no_cache, comment_author, wordpress_logged_in_, yith_wcwl_products, wp
 2. General Settings Enabled
 
 == Changelog ==
+
+= 2.0.15 =
+* .htaccess rules bug fix.
 
 = 2.0.14 =
 * Various minor bug fixes.
@@ -177,12 +180,5 @@ wordpress_no_cache, comment_author, wordpress_logged_in_, yith_wcwl_products, wp
 
 == Upgrade Notice ==
 
-= 2.0.14 =
-* Various minor bug fixes.
-
-= 2.0.13 =
-* Various minor bug fixes.
-
-= 2.0.12 =
-* Various minor bug fixes.
-* Tested up WordPress 6.6
+= 2.0.15 =
+* .htaccess rules bug fix, please empty browser cache.

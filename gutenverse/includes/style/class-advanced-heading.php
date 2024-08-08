@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Advanced Heading
  *
  * @package gutenverse\style
  */
 class Advanced_Heading extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,7 @@ class Advanced_Heading extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -61,7 +71,7 @@ class Advanced_Heading extends Style_Abstract {
 		if ( isset( $this->attrs['lineWidth'] ) && isset( $this->attrs['showLine'] ) && 'none' !== $this->attrs['showLine'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .heading-line",
+					'selector'       => ".{$this->element_id}.guten-advanced-heading .heading-line",
 					'property'       => function ( $value ) {
 						return "width: {$value}%;";
 					},
@@ -74,7 +84,7 @@ class Advanced_Heading extends Style_Abstract {
 		if ( isset( $this->attrs['lineHeight'] ) && isset( $this->attrs['showLine'] ) && 'none' !== $this->attrs['showLine'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .heading-line",
+					'selector'       => ".{$this->element_id}.guten-advanced-heading .heading-line",
 					'property'       => function ( $value ) {
 						return "border-top-width: {$value}px;";
 					},
@@ -87,7 +97,7 @@ class Advanced_Heading extends Style_Abstract {
 		if ( isset( $this->attrs['lineStyle'] ) && isset( $this->attrs['showLine'] ) && 'none' !== $this->attrs['showLine'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .heading-line",
+					'selector'       => ".{$this->element_id}.guten-advanced-heading .heading-line",
 					'property'       => function ( $value ) {
 						return "border-top-style: {$value};";
 					},
@@ -100,7 +110,7 @@ class Advanced_Heading extends Style_Abstract {
 		if ( isset( $this->attrs['lineColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .heading-line",
+					'selector'       => ".{$this->element_id}.guten-advanced-heading .heading-line",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'border-color' );
 					},
@@ -182,7 +192,7 @@ class Advanced_Heading extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .heading-focus",
 					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'color' );
+						return $this->handle_color( $value, 'color' ) . $this->handle_color( $value, '-webkit-text-fill-color' );
 					},
 					'value'          => $this->attrs['focusColor'],
 					'device_control' => false,
@@ -279,7 +289,7 @@ class Advanced_Heading extends Style_Abstract {
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
-					'value'          => $this->attrs['focusPadding'],
+					'value'          => $this->attrs['subPadding'],
 					'device_control' => true,
 				)
 			);

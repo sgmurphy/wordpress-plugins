@@ -4,9 +4,14 @@
   "title": "Progress Bar",
   "description": "Create a progress bar of your achivement or something you want to share.",
   "category": "gutenverse-element",
+  "allowCopyStyle": true,
   "attributes": {
     "elementId": {
       "type": "string"
+    },
+    "mouseMoveEffect": {
+      "type": "object",
+      "copyStyle": true
     },
     "style": {
       "type": "string",
@@ -21,145 +26,217 @@
       "default": "fas fa-arrow-right"
     },
     "percentage": {
-      "type": "int",
+      "type": "integer",
       "default": 75
     },
     "duration": {
-      "type": "int",
+      "type": "integer",
       "default": 3500
     },
     "colorMode": {
       "type": "string",
-      "default": "default"
+      "default": "default",
+      "copyStyle": true
     },
     "barGradient": {
-      "type": "array"
+      "type": "array",
+      "copyStyle": true
     },
     "trackGradient": {
-      "type": "array"
+      "type": "array",
+      "copyStyle": true
     },
     "barColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "trackColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "trackHeight": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "barRadius": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "trackRadius": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "barPadding": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "barMargin": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "titleColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "barBoxShadow": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "titleTypography": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "titleTextShadow": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
     },
     "percentColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "percentTypography": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "percentTextShadow": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
     },
     "background": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
     },
     "backgroundHover": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
     },
     "border": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
+    },
+    "borderResponsive": {
+      "type": "object",
+      "migrate": {
+        "attr": "border",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "boxShadow": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "borderHover": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
+    },
+    "borderHoverResponsive": {
+      "type": "object",
+      "migrate": {
+        "attr": "borderHover",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "boxShadowHover": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "margin": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "padding": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "zIndex": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "animation": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
     },
     "hideDesktop": {
-      "type": "boolean"
+      "type": "boolean",
+      "copyStyle": true
     },
     "hideTablet": {
-      "type": "boolean"
+      "type": "boolean",
+      "copyStyle": true
     },
     "hideMobile": {
-      "type": "boolean"
+      "type": "boolean",
+      "copyStyle": true
     },
     "positioningType": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningWidth": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningAlign": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningLocation": {
-      "type": "string"
+      "type": "string",
+      "copyStyle": true
     },
     "positioningLeft": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningRight": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningTop": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningBottom": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "percentBgColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "advanceAnimation": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
+    },
+    "transform": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "mask": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "supports": {
     "className": false
   },
-  "keywords": ["progress", "bar", "loading"]
+  "keywords": [
+    "progress",
+    "bar",
+    "loading"
+  ]
 }

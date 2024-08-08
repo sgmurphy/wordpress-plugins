@@ -6,6 +6,8 @@ class DSM_Icon_List_Child extends ET_Builder_Module {
 	public $vb_support      = 'on';
 	public $type            = 'child';
 	public $child_title_var = 'text';
+	public $icon_element_selector;
+	public $icon_element_classname;
 
 	protected $module_credits = array(
 		'module_uri' => 'https://divisupreme.com/',
@@ -546,7 +548,6 @@ class DSM_Icon_List_Child extends ET_Builder_Module {
 		);
 
 		return $fields;
-
 	}
 
 	public function render( $attrs, $content, $render_slug ) {

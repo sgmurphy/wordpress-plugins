@@ -84,9 +84,12 @@ class HttpClientTest extends TestCase
 
         $httpClient = new HttpClient($url);
         $httpClient->fetch();
-        $actual = $httpClient->getBody();
 
-        self::assertSame($expected, $actual);
+        // make sure decoding works as expecting
+        self::assertSame($expected, $httpClient->getBody());
+
+        // check if subsequent calls would fail
+        self::assertSame($expected, $httpClient->getBody());
     }
 
     public static function dataProviderContentEncoding(): array

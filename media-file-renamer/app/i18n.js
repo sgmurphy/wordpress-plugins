@@ -257,6 +257,8 @@ i18n.SETTINGS = {
   NUMBERED_FILES: __( 'Numbered Files', 'media-file-renamer' ),
   NUMBERED_FILES_LABEL: __( 'Enable Numbering', 'media-file-renamer' ),
   NUMBERED_FILES_DESCRIPTION: __( 'Identical filenames will be allowed by the plugin and a number will be appended automatically (myfile.jpg, myfile-2.jpg, myfile-3.jpg, etc).', 'media-file-renamer' ),
+  FILENAME_PREFIX: __( 'Filename Prefix', 'media-file-renamer' ),
+  FILENAME_SUFFIX: __( 'Filename Suffix', 'media-file-renamer' ),
   SYNCHRONIZE: __( 'Synchronize', 'media-file-renamer' ),
   GENERATE: __( 'Generate', 'media-file-renamer' ),
 

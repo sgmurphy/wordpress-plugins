@@ -32,7 +32,7 @@ class SPF_WPSP {
 	 *
 	 * @var string
 	 */
-	public static $version = '2.7.3';
+	public static $version = '2.8.0';
 	/**
 	 * Dir.
 	 *
@@ -420,9 +420,11 @@ class SPF_WPSP {
 				'button_set',
 				'image_select',
 				'select',
+				'shortcode',
 				'checkbox',
 				'column',
 				'fieldset',
+				'heading',
 				'license',
 				'spinner',
 				'spacing',

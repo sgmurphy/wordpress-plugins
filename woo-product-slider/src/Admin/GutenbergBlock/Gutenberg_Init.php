@@ -55,6 +55,7 @@ class Gutenberg_Init {
 		*/
 		wp_enqueue_style( 'sp-wps-swiper' );
 		wp_enqueue_style( 'sp-wps-font-awesome' );
+		wp_enqueue_style( 'sp_wps-fontello-icon' );
 		wp_enqueue_style( 'sp-wps-style' );
 	}
 

@@ -616,6 +616,29 @@ function greenshift_render_preset_classes(){
 			))
 		),
 		array(
+			'label' => esc_html__('Opacity Presets', 'greenshift-animation-and-page-builder-blocks'),
+			'options' => apply_filters('greenshift_background_preset_classes',array(
+				[
+					'value'=> 'gs_opacity_50',
+					'label'=> "Half opacity",
+					'css'=> ".gs_opacity_50{opacity:0.5}",
+					'type' => "preset"
+				],
+				[
+					'value'=> 'gs_opacity_30',
+					'label'=> "30% opacity",
+					'css'=> ".gs_opacity_30{opacity:0.3}",
+					'type' => "preset"
+				],
+				[
+					'value'=> 'gs_opacity_75',
+					'label'=> "75% opacity",
+					'css'=> ".gs_opacity_75{opacity:0.75}",
+					'type' => "preset"
+				]
+			))
+		),
+		array(
 			'label' => esc_html__('Data attributes', 'greenshift-animation-and-page-builder-blocks'),
 			'options' => apply_filters('greenshift_data_preset_classes',array(
 				[
@@ -737,9 +760,12 @@ function greenshift_get_wp_local_fonts(){
 		foreach($query as $font){
 			$font_content = json_decode($font->post_content, true);
 			if($font_content['fontFamily']){
-				$fonts[] = $font_content['fontFamily'];
+				if(!in_array($font_content['fontFamily'], $fonts)){
+					$fonts[] = $font_content['fontFamily'];
+				}
 			}
 		}
+		
 	}
 	return $fonts;
 }

@@ -72,13 +72,14 @@ class Main {
 		$this->plugin_name = plugin_basename( $file );
 		$this->version     = $version;
 		$this->container   = self::container();
-		add_action( 'woocommerce_init', [ $this, 'register_woocommerce_dependencies' ], 10 );
+		add_action( 'plugins_loaded', [ $this, 'register_woocommerce_dependencies' ], 5 );
 		add_action( 'woocommerce_init', [ $this, 'initialize' ], 15 );
-		add_action( 'plugins_loaded', [ $this, 'do_plugins_loaded' ] );
+		add_action( 'plugins_loaded', [ $this, 'do_plugins_loaded' ], 20 );
 		$this->register();
 		$this->container->get( Install::class );
 		$this->container->get( Update::class );
 		$this->container->get( PackageController::class );
+		$this->container->get( FrontendScripts::class )->initialize();
 	}
 
 	public function initialize() {
@@ -114,6 +115,11 @@ class Main {
 	 * These are dependencies only registered when WooCommerce is active.
 	 */
 	public function register_woocommerce_dependencies() {
+		include_once __DIR__ . '/wc-ppcp-functions.php';
+
+		if ( ! $this->is_woocommerce_active() ) {
+			return;
+		}
 		// Settings
 		$this->container->register( APISettings::class, function ( $container ) {
 			return new APISettings( $container->get( 'adminAssets' ), $container->get( Logger::class ) );
@@ -177,17 +183,6 @@ class Main {
 		} );
 		$this->container->register( 'adminData', function ( $container ) {
 			return new AssetDataApi( 'wc-ppcp-admin-commons' );
-		} );
-		$this->container->register( AssetsApi::class, function ( $container ) {
-			return new AssetsApi( $container->get( Config::class ), [
-				'wc-ppcp-utils'    => 'build/js/utils.js',
-				'wc-ppcp-product'  => 'build/js/product.js',
-				'wc-ppcp-cart'     => 'build/js/cart.js',
-				'wc-ppcp-minicart' => 'build/js/minicart.js'
-			] );
-		} );
-		$this->container->register( AssetDataApi::class, function ( $container ) {
-			return new AssetDataApi();
 		} );
 		$this->container->register( RestController::class, function ( $container ) {
 			return new RestController( $container );
@@ -299,6 +294,12 @@ class Main {
 		$this->container->register( Config::class, function ( $container ) {
 			return new Config( $this->version, dirname( __FILE__ ) );
 		} );
+		$this->container->register( AssetsApi::class, function ( $container ) {
+			return new AssetsApi( $container->get( Config::class ) );
+		} );
+		$this->container->register( AssetDataApi::class, function ( $container ) {
+			return new AssetDataApi();
+		} );
 		$this->container->register( PaymentMethodRegistry::class, function ( $container ) {
 			return new PaymentMethodRegistry( $container );
 		} );
@@ -381,12 +382,24 @@ class Main {
 
 			return $package_controller;
 		} );
+		$this->container->register( FrontendScripts::class, function ( $container ) {
+			return new FrontendScripts( $container->get( AssetsApi::class ) );
+		} );
 	}
 
 	public function do_plugins_loaded() {
-		include_once __DIR__ . '/wc-ppcp-functions.php';
 		$this->load_text_domain();
 		$this->declare_features();
+
+		/**
+		 * Some plugins cause the woocommerce_payment_gateways filter to trigger before "init". This ensures
+		 * the PayPal Gateway isn't excluded when that happens.
+		 */
+		add_filter( 'woocommerce_payment_gateways', function ( $gateways ) {
+			$payment_gateways = $this->container->get( PaymentGateways::class );
+
+			return $payment_gateways->initialize_gateways( $gateways );
+		} );
 	}
 
 	public function load_text_domain() {
@@ -407,6 +420,10 @@ class Main {
 
 	public function version() {
 		return $this->version;
+	}
+
+	private function is_woocommerce_active() {
+		return function_exists( 'WC' );
 	}
 
 }

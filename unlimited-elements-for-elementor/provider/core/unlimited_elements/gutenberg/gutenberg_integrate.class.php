@@ -54,9 +54,9 @@ class UniteCreatorGutenbergIntegrate{
 	 * @return void
 	 */
 	public function init(){
-
+		
 		$shouldInitialize = $this->shouldInitialize();
-
+		
 		if($shouldInitialize === false)
 			return;
 
@@ -71,7 +71,7 @@ class UniteCreatorGutenbergIntegrate{
 	 * @return bool
 	 */
 	private function shouldInitialize(){
-
+		
 		if(self::$initialized === true)
 			return false;
 
@@ -80,7 +80,7 @@ class UniteCreatorGutenbergIntegrate{
 
 		if(function_exists('register_block_type') === false)
 			return false;
-
+		
 		return true;
 	}
 
@@ -90,10 +90,13 @@ class UniteCreatorGutenbergIntegrate{
 	 * @return void
 	 */
 	private function registerHooks(){
-
-		UniteProviderFunctionsUC::addFilter('block_categories_all', array($this, 'registerCategories'));
+		
 		UniteProviderFunctionsUC::addAction('init', array($this, 'registerBlocks'));
+		
+		UniteProviderFunctionsUC::addFilter('block_categories_all', array($this, 'registerCategories'));
+				
 		UniteProviderFunctionsUC::addAction('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
+		
 	}
 	
 	
@@ -125,7 +128,7 @@ class UniteCreatorGutenbergIntegrate{
 	 * @return void
 	 */
 	public function registerBlocks(){
-
+		
 		$blocks = $this->getBlocks();
 
 		foreach($blocks as $name => $block){
@@ -209,7 +212,7 @@ class UniteCreatorGutenbergIntegrate{
 	 * @return void
 	 */
 	public function enqueueAssets(){
-		
+				
 		UniteCreatorAdmin::setView('testaddonnew');
 		UniteCreatorAdmin::onAddScripts();
 		
@@ -419,9 +422,9 @@ class UniteCreatorGutenbergIntegrate{
 	 * @return array
 	 */
 	private function extractParsedBlocks($parsedBlocks, $existingBlocks){
-
+		
 		$blocks = array();
-
+		
 		foreach($parsedBlocks as $block){
 			$name = $block['blockName'];
 

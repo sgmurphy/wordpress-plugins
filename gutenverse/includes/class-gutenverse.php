@@ -9,6 +9,8 @@
 
 namespace Gutenverse;
 
+use Gutenverse\Form_Fallback\Form_Fallback_Init;
+
 /**
  * Class Gutenverse
  *
@@ -65,25 +67,11 @@ class Gutenverse {
 	public $editor_assets;
 
 	/**
-	 * Hold settings instance
-	 *
-	 * @var Settings
-	 */
-	public $settings;
-
-	/**
 	 * Hold theme list instance
 	 *
 	 * @var Theme_List
 	 */
 	public $theme_list;
-
-	/**
-	 * Hold Meta Option Instance.
-	 *
-	 * @var Meta_Option
-	 */
-	public $meta_option;
 
 	/**
 	 * Hold Library Instance.
@@ -141,6 +129,26 @@ class Gutenverse {
 	 */
 	public $api;
 
+	/**
+	 * Hold Meta Option Instance.
+	 *
+	 * @var Meta_Option
+	 */
+	public $meta_option;
+
+	/**
+	 * Upgrade Wizard.
+	 *
+	 * @var Upgrade_Wizard
+	 */
+	public $upgrade_wizard;
+
+	/**
+	 * Form Fallback
+	 *
+	 * @var Form_Fallback
+	 */
+	public $form_fallback;
 
 	/**
 	 * Singleton page for Gutenverse Class
@@ -159,37 +167,86 @@ class Gutenverse {
 	 * Init constructor.
 	 */
 	private function __construct() {
-		$this->load_helper();
-		$this->init_hook();
-		$this->init_instance();
-		$this->init_post_type();
+		$flag = $this->register_framework();
+		if ( $flag ) {
+			add_action( 'plugins_loaded', array( $this, 'plugin_loaded' ) );
+			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
+		}
+		register_activation_hook( GUTENVERSE_FILE, array( $this, 'set_activation_transient' ) );
 	}
 
 	/**
-	 * Load Helper
+	 * Set Activation Transient
 	 */
-	public function load_helper() {
-		require_once GUTENVERSE_DIR . 'lib/helper.php';
+	public function set_activation_transient() {
+		set_transient( 'gutenverse_redirect', 1, 30 );
 	}
-
 	/**
-	 * Initialize Hook
+	 * Plugin Update Notice.
+	 *
+	 * @param string $plugin String Update Notice.
 	 */
-	public function init_hook() {
-		// actions.
-		add_action( 'admin_notices', array( $this, 'notice_install_plugin' ) );
-		add_action( 'rest_api_init', array( $this, 'init_api' ) );
-		add_action( 'init', array( $this, 'register_menu_position' ) );
-		add_action( 'init', array( $this, 'import_mechanism' ) );
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-		add_action( 'activated_plugin', array( $this, 'set_transient_to_redirect_when_activated' ) );
-		add_action( 'admin_init', array( $this, 'redirect_to_dashboard' ) );
-		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
-		add_action( 'customize_register', '__return_true' );
+	public function plugin_update_notice( $plugin ) {
+		$plugin_name = '';
 
-		// filters.
-		add_filter( 'after_setup_theme', array( $this, 'init_settings' ) );
-		add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
+		switch ( $plugin ) {
+			case 'gutenverse-form/gutenverse-form.php':
+				$plugin_name = 'Gutenverse Form';
+				break;
+			case 'gutenverse-news/gutenverse-news.php':
+				$plugin_name = 'Gutenverse News';
+				break;
+		}
+
+		?>
+		<style>
+			.gutenverse-upgrade-notice .notice-logo {
+				background: #ffe2e2;
+				border-left-color: #ff0909;
+			}
+		</style>
+		<div class="notice gutenverse-upgrade-notice page-content-upgrade">
+				<div class="notice-logo">
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M10 0C4.47754 0 0 4.47915 0 10C0 15.5241 4.47754 20 10 20C15.5225 20 20 15.5241 20 10C20 4.47915 15.5225 0 10 0ZM10 4.43548C10.9353 4.43548 11.6935 5.19371 11.6935 6.12903C11.6935 7.06435 10.9353 7.82258 10 7.82258C9.06468 7.82258 8.30645 7.06435 8.30645 6.12903C8.30645 5.19371 9.06468 4.43548 10 4.43548ZM12.2581 14.6774C12.2581 14.9446 12.0414 15.1613 11.7742 15.1613H8.22581C7.95859 15.1613 7.74194 14.9446 7.74194 14.6774V13.7097C7.74194 13.4425 7.95859 13.2258 8.22581 13.2258H8.70968V10.6452H8.22581C7.95859 10.6452 7.74194 10.4285 7.74194 10.1613V9.19355C7.74194 8.92633 7.95859 8.70968 8.22581 8.70968H10.8065C11.0737 8.70968 11.2903 8.92633 11.2903 9.19355V13.2258H11.7742C12.0414 13.2258 12.2581 13.4425 12.2581 13.7097V14.6774Z" fill="#ff0909"/>
+					</svg>
+				</div>
+				<div class="notice-content">
+					<h2>
+						<?php
+						printf(
+							// translators: %s is plugin name.
+							esc_html__( 'Update %s Plugin!', 'gutenverse' ),
+							esc_html( $plugin_name )
+						);
+						?>
+					</h2>
+					<p>
+						<?php
+						printf(
+							// translators: %s is plugin name.
+							esc_html__( 'We notice that you are using old version of %s plugin and will cause gutenverse plugin crashed. ', 'gutenverse' ),
+							esc_html( $plugin_name )
+						);
+						?>
+					</p>				
+					<p>
+						<?php
+						printf(
+							'%s <strong>%s %s</strong> %s',
+							esc_html__( 'We currently disabled gutenverse plugin.', 'gutenverse' ),
+							esc_html__( 'Please update', 'gutenverse' ),
+							esc_html( $plugin_name ),
+							esc_html__( 'to prevent your site from crashed.', 'gutenverse' )
+						);
+						?>
+					</p>
+					<div class="gutenverse-upgrade-action">
+						<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>"><?php esc_html_e( 'Update Gutenverse Form Plugin', 'gutenverse' ); ?></a>						
+					</div>
+				</div>
+			</div>
+		<?php
 	}
 
 	/**
@@ -213,44 +270,76 @@ class Gutenverse {
 	}
 
 	/**
-	 * Rewrite rules only once on activation
+	 * Register Framework.
 	 */
-	public function flush_rewrite_rules() {
-		if ( ! get_option( 'gutenverse_plugin_permalinks_flushed' ) ) {
-			flush_rewrite_rules();
-			update_option( 'gutenverse_plugin_permalinks_flushed', 1 );
+	public function register_framework() {
+		require_once GUTENVERSE_DIR . 'lib/framework/init.php';
+		$init = \Gutenverse_Initialize_Framework::instance();
+
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-	}
 
-	/**
-	 * Load import mechanism
-	 */
-	public function import_mechanism() {
-		new Import_Template();
-	}
+		$plugins = get_plugins();
+		$checks  = array(
+			'gutenverse-form/gutenverse-form.php',
+			'gutenverse-news/gutenverse-news.php',
+		);
 
-	/**
-	 * Redirect page after plugin is actived
-	 */
-	public function set_transient_to_redirect_when_activated( $plugin ) {
-		if ( GUTENVERSE_PATH === $plugin ) {
-			set_transient( 'gutenverse_redirect', 1, 30 );
-		}
-	}
+		$instance = $this;
 
-	/**
-	 * Redirect page after plugin is actived
-	 */
-	public function redirect_to_dashboard() {
-		if ( get_transient( 'gutenverse_redirect' ) ) {
-			global $pagenow;
-			if ( 'plugins.php' === $pagenow || 'plugin-install.php' === $pagenow ) {
-				wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) );
-				delete_transient( 'gutenverse_redirect' );
-				exit;
-			} else {
-				delete_transient( 'gutenverse_redirect' );
+		foreach ( $checks as $plugin ) {
+			if ( isset( $plugins[ $plugin ] ) ) {
+				$form = $plugins[ $plugin ];
+
+				if ( version_compare( $form['Version'], '1.0.0', '<' ) && is_plugin_active( $plugin ) ) {
+					add_action(
+						'admin_notices',
+						function () use ( $instance, $plugin ) {
+							$instance->plugin_update_notice( $plugin );
+						}
+					);
+					return false;
+				}
 			}
+		}
+
+		$framework_file    = GUTENVERSE_DIR . 'lib/framework/bootstrap.php';
+		$framework_version = $init->get_framework_version( $framework_file );
+		$init->register_version( GUTENVERSE, $framework_version );
+		$init->register_pro_version( GUTENVERSE, GUTENVERSE_REQUIRED_PRO_VERSION );
+
+		return true;
+	}
+
+	/**
+	 * Check if we can load framework.
+	 *
+	 * @return boolean
+	 */
+	public function can_load_framework() {
+		require_once GUTENVERSE_DIR . 'lib/framework/init.php';
+		$init = \Gutenverse_Initialize_Framework::instance();
+
+		return $init->can_load_version( GUTENVERSE );
+	}
+
+	/**
+	 * Plugin Loaded.
+	 */
+	public function plugin_loaded() {
+		$this->init_framework();
+		$this->load_textdomain();
+		$this->init_instance();
+		$this->init_post_type();
+	}
+
+	/**
+	 * Initialize Framework.
+	 */
+	public function init_framework() {
+		if ( $this->can_load_framework() ) {
+			require_once GUTENVERSE_DIR . 'lib/framework/bootstrap.php';
 		}
 	}
 
@@ -258,57 +347,39 @@ class Gutenverse {
 	 * Load text domain
 	 */
 	public function load_textdomain() {
+		add_action( 'rest_api_init', array( $this, 'init_api' ) );
 		load_plugin_textdomain( 'gutenverse', false, GUTENVERSE_LANG_DIR );
 	}
 
 	/**
-	 * Register Menu Position.
-	 */
-	public function register_menu_position() {
-		register_nav_menus(
-			array(
-				'primary' => __( 'Primary Navigation', 'gutenverse' ),
-			)
-		);
-	}
-
-	/**
-	 * Init settings
-	 */
-	public function init_settings() {
-		$settings_data = get_option( 'gutenverse-settings' );
-
-		if ( isset( $settings_data['general'] ) ) {
-			if ( isset( $settings_data['general']['enable_default_template'] ) && true === $settings_data['general']['enable_default_template'] ) {
-				add_theme_support( 'block-templates' );
-			}
-		}
-	}
-
-	/**
-	 * Initialize Form
+	 * Initialize Dashboard
 	 */
 	public function init_post_type() {
-		$this->dashboard    = new Dashboard();
-		$this->form         = new Form();
-		$this->entries      = new Entries();
-		$this->theme_helper = new Theme_Helper();
+		$this->dashboard = new Dashboard();
 	}
 
 	/**
 	 * Initialize Instance
 	 */
 	public function init_instance() {
-		$this->meta_option      = Meta_Option::instance();
-		$this->blocks           = new Blocks();
-		$this->frontend_assets  = new Frontend_Assets();
-		$this->editor_assets    = new Editor_Assets();
-		$this->style_generator  = new Style_Generator();
-		$this->frontend_toolbar = new Frontend_Toolbar();
-		$this->banner           = new Banner();
-		$this->upgrader         = new Upgrader();
-		$this->global_variable  = new Global_Variable();
-		$this->library          = new Library();
+		$this->blocks          = new Blocks();
+		$this->frontend_assets = new Frontend_Assets();
+		$this->editor_assets   = new Editor_Assets();
+		$this->style_generator = new Style_Generator();
+		$this->banner          = new Banner();
+		$this->upgrader        = new Upgrader();
+		$this->meta_option     = new Meta_Option();
+		$this->upgrade_wizard  = new Upgrade_Wizard();
+
+		$active_plugins    = get_option( 'active_plugins' );
+		$multisite_plugins = get_site_option( 'active_sitewide_plugins' );
+		if ( $multisite_plugins ) {
+			$active_plugins_multisite = array_keys( $multisite_plugins );
+			$active_plugins           = array_merge( $active_plugins, $active_plugins_multisite );
+		}
+		if ( ! in_array( 'gutenverse-form/gutenverse-form.php', $active_plugins ) ) {
+			$this->form_fallback = new Form_Fallback_Init();
+		}
 	}
 
 	/**
@@ -323,108 +394,5 @@ class Gutenverse {
 	 */
 	public function wp_api_url() {
 		return esc_url_raw( rest_url( 'wp/v2' ) );
-	}
-
-	/**
-	 * Show notification to install Gutenverse Plugin.
-	 */
-	public function notice_install_plugin() {
-		// skip if compatible.
-		if ( is_gutenverse_compatible() ) {
-			return;
-		}
-
-		$screen = get_current_screen();
-		if ( isset( $screen->parent_file ) && 'plugins.php' === $screen->parent_file && 'update' === $screen->id ) {
-			return;
-		}
-
-		if ( 'true' === get_user_meta( get_current_user_id(), 'gutenverse_install_notice', true ) ) {
-			return;
-		}
-		?>
-		<style>
-			.install-gutenverse-plugin-notice {
-				border: 1px solid #E6E6EF;
-				border-radius: 5px;
-				padding: 35px 40px;
-				position: relative;
-				overflow: hidden;
-				background-position: right top;
-				background-repeat: no-repeat;
-			}
-
-			.install-gutenverse-plugin-notice .notice-dismiss {
-				top: 20px;
-				right: 20px;
-				padding: 0;
-			}
-
-			.install-gutenverse-plugin-notice .notice-dismiss:before {
-				content: "\f335";
-				font-size: 17px;
-				width: 25px;
-				height: 25px;
-				line-height: 25px;
-				border: 1px solid #E6E6EF;
-				border-radius: 3px;
-				color: #fff;
-			}
-
-			.install-gutenverse-plugin-notice h3 {
-				margin-top: 5px;
-				font-weight: 700;
-				font-size: 18px;
-			}
-
-			.install-gutenverse-plugin-notice p {
-				font-size: 14px;
-				font-weight: 300;
-			}
-
-			.install-gutenverse-plugin-notice .gutenverse-bottom {
-				display: flex;
-				align-items: center;
-				margin-top: 20px;
-			}
-
-			.install-gutenverse-plugin-notice a {
-				text-decoration: none;
-				margin-right: 20px;
-			}
-
-			.install-gutenverse-plugin-notice a.gutenverse-button {
-				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-				text-decoration: none;
-				cursor: pointer;
-				font-size: 12px;
-				line-height: 18px;
-				border-radius: 17px;
-				background: #3B57F7;
-				color: #fff;
-				padding: 8px 30px;
-				font-weight: 300;
-			}
-		</style>
-		<script>
-		jQuery( function( $ ) {
-			$( 'div.notice.install-gutenverse-plugin-notice' ).on( 'click', 'button.notice-dismiss', function( event ) {
-				event.preventDefault();
-
-				$.post( ajaxurl, {
-					action: 'gutenverse_set_admin_notice_viewed'
-				} );
-			} );
-		} );
-		</script>
-		<div class="notice is-dismissible install-gutenverse-plugin-notice">
-			<div class="gutenverse-notice-inner">
-				<div class="gutenverse-notice-content">
-					<h3><?php esc_html_e( 'WordPress 5.9 required for Gutenverse.', 'gutenverse-themes' ); ?></h3>
-					<p><?php esc_html_e( 'You are currently using lower version of WordPress, we recommend to update to WordPress 5.9 or higher. Or if you want to keep using lower version of WordPress, please install the latest version of Gutenberg', 'gutenverse-themes' ); ?></p>					
-				</div>
-			</div>
-		</div>
-		<?php
 	}
 }

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'quadlayers/insta-gallery',
-        'pretty_version' => 'v4.5.3',
-        'version' => '4.5.3.0',
-        'reference' => '4323da109eac697366bf087480ea41bfcc8ae00a',
+        'pretty_version' => 'v4.5.4',
+        'version' => '4.5.4.0',
+        'reference' => '42cf7089d21a77cb04a2bf8bc02767221ebd3346',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'automattic/jetpack-assets' => array(
-            'pretty_version' => 'v2.2.0',
-            'version' => '2.2.0.0',
-            'reference' => '1f34d58dd924f2f0fb80beccb42e57e2fc2f1416',
+            'pretty_version' => 'v2.3.0',
+            'version' => '2.3.0.0',
+            'reference' => '02493a602255136051b750ca46fdce8bf4a49ab0',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/automattic/jetpack-assets',
             'aliases' => array(),
@@ -49,9 +49,9 @@
             'dev_requirement' => false,
         ),
         'quadlayers/insta-gallery' => array(
-            'pretty_version' => 'v4.5.3',
-            'version' => '4.5.3.0',
-            'reference' => '4323da109eac697366bf087480ea41bfcc8ae00a',
+            'pretty_version' => 'v4.5.4',
+            'version' => '4.5.4.0',
+            'reference' => '42cf7089d21a77cb04a2bf8bc02767221ebd3346',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -67,9 +67,9 @@
             'dev_requirement' => false,
         ),
         'quadlayers/wp-notice-plugin-promote' => array(
-            'pretty_version' => '1.1.4',
-            'version' => '1.1.4.0',
-            'reference' => 'f52240f7972d59a88bca17c061277b7ed12bdf17',
+            'pretty_version' => '1.1.5',
+            'version' => '1.1.5.0',
+            'reference' => 'cea8e5409b2a088618c1f51c94da1d3ab6f057b2',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/quadlayers/wp-notice-plugin-promote',
             'aliases' => array(),

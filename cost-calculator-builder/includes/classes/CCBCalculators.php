@@ -194,6 +194,10 @@ class CCBCalculators {
 			$result['products']   = ccb_woo_products();
 			$result['categories'] = ccb_woo_categories();
 
+			if ( ccb_pro_active() ) {
+				$result['payments'] = \cBuilder\Classes\CCBProSettings::get_payments();
+			}
+
 			$result['sp_list'] = array();
 			$sp_list           = get_post_meta( $calc_id, 'ccb_savepoint_list', true );
 

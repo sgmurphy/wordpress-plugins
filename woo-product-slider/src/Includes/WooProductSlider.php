@@ -215,7 +215,7 @@ class WooProductSlider {
 	 * @param int    $post_id post_id.
 	 */
 	public function add_shortcode_form( $column, $post_id ) {
-		$wps_layouts   = get_post_meta( $post_id, 'sp_wps_shortcode_options', true );
+		$wps_layouts   = get_post_meta( $post_id, 'sp_wps_layout_options', true );
 		$layout_preset = isset( $wps_layouts['layout_preset'] ) ? $wps_layouts['layout_preset'] : 'slider';
 		switch ( $column ) {
 			case 'shortcode':

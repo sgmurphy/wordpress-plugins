@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Google Maps
  *
  * @package gutenverse\style
  */
 class Google_Maps extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,7 @@ class Google_Maps extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -63,11 +73,11 @@ class Google_Maps extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.gutenverse-maps iframe",
 					'property'       => function ( $value ) {
-						$brightness = ! $this->truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
-						$contrast = ! $this->truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
-						$saturation = ! $this->truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
-						$blur = ! $this->truly_empty( $value['blur'] ) ? $value['blur'] . 'px' : '0px';
-						$hue = ! $this->truly_empty( $value['hue'] ) ? $value['hue'] . 'deg' : '0deg';
+						$brightness = ! gutenverse_truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
+						$contrast = ! gutenverse_truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
+						$saturation = ! gutenverse_truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
+						$blur = ! gutenverse_truly_empty( $value['blur'] ) ? $value['blur'] . 'px' : '0px';
+						$hue = ! gutenverse_truly_empty( $value['hue'] ) ? $value['hue'] . 'deg' : '0deg';
 
 						return "filter: brightness({$brightness}) contrast({$contrast}) saturate({$saturation}) blur({$blur})hue-rotate({$hue});";
 					},
@@ -82,11 +92,11 @@ class Google_Maps extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.gutenverse-maps iframe:hover",
 					'property'       => function ( $value ) {
-						$brightness = ! $this->truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
-						$contrast = ! $this->truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
-						$saturation = ! $this->truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
-						$blur = ! $this->truly_empty( $value['blur'] ) ? $value['blur'] . 'px' : '0px';
-						$hue = ! $this->truly_empty( $value['hue'] ) ? $value['hue'] . 'deg' : '0deg';
+						$brightness = ! gutenverse_truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
+						$contrast = ! gutenverse_truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
+						$saturation = ! gutenverse_truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
+						$blur = ! gutenverse_truly_empty( $value['blur'] ) ? $value['blur'] . 'px' : '0px';
+						$hue = ! gutenverse_truly_empty( $value['hue'] ) ? $value['hue'] . 'deg' : '0deg';
 
 						return "filter: brightness({$brightness}) contrast({$contrast}) saturate({$saturation}) blur({$blur})hue-rotate({$hue});";
 					},

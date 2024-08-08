@@ -1207,7 +1207,7 @@ class UniteCreatorFiltersProcess{
 		
 		//collect the debug html
 		if(self::$showDebug == false)
-			ob_start();
+			UniteFunctionsUC::obStart();
 		
 		$objOutput = new UniteCreatorOutput();
 		

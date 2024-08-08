@@ -54,7 +54,7 @@ class Shortcode_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'wps-icon-block';
+		return 'spwps-icon-block';
 	}
 
 	/**
@@ -140,13 +140,14 @@ class Shortcode_Widget extends \Elementor\Widget_Base {
 
 		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 			$shortcode_data     = get_post_meta( $post_id, 'sp_wps_shortcode_options', true );
+			$layout_data        = get_post_meta( $post_id, 'sp_wps_layout_options', true );
 			$main_section_title = get_the_title( $post_id );
 			// Stylesheet loading problem solving here. Shortcode id to push page id option for getting how many shortcode in the page.
 			$dynamic_style = Frontend::load_dynamic_style( $post_id, $shortcode_data );
 			// This shortcode id not in page id option. Enqueue stylesheets in shortcode.
 			echo '<style id="sp_product_slider_dynamic_css' . esc_attr( $post_id ) . '">' . wp_strip_all_tags( $dynamic_style['dynamic_css'] ) . '</style>'; // phpcs:ignore
 
-			Helper::spwps_html_show( $post_id, $shortcode_data, $main_section_title );
+			Helper::spwps_html_show( $post_id, $shortcode_data, $layout_data, $main_section_title );
 			?>
 			<script src="<?php echo esc_url( SP_WPS_URL . 'Frontend/assets/js/scripts.min.js' ); ?>" ></script>
 			<?php

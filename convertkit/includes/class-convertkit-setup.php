@@ -45,6 +45,14 @@ class ConvertKit_Setup {
 		}
 
 		/**
+		 * 2.5.4: Migrate WishList Member to ConvertKit Form Mappings
+		 */
+		if ( ! $current_version || version_compare( $current_version, '2.5.4', '<' ) ) {
+			$this->migrate_wlm_none_setting();
+			$this->migrate_wlm_form_tag_mapping_settings();
+		}
+
+		/**
 		 * 2.5.3: Migrate Third Party Form integrations' 'None' option values from `default` to blank.
 		 */
 		if ( ! $current_version || version_compare( $current_version, '2.5.3', '<' ) ) {
@@ -114,6 +122,54 @@ class ConvertKit_Setup {
 	}
 
 	/**
+	 * 2.5.4: Migrate WLM settings:
+	 * - Prefix any WishList Member to ConvertKit Form ID mappings with `form:`,
+	 * - Prefix any WishList Member to ConvertKit Tag ID mappings with `tag:`,
+	 * - Standardise the settings keys to the format {wlm_level_id}_subscribe
+	 * and {wlm_level_id}_unsubscribe.
+	 *
+	 * @since   2.5.4
+	 */
+	private function migrate_wlm_form_tag_mapping_settings() {
+
+		$convertkit_wlm_settings = new ConvertKit_Wishlist_Settings();
+
+		// Bail if no settings exist.
+		if ( ! $convertkit_wlm_settings->has_settings() ) {
+			return;
+		}
+
+		// Define new array for settings.
+		$settings = array();
+
+		// Iterate through settings.
+		foreach ( $convertkit_wlm_settings->get() as $key => $convertkit_form_or_tag_id ) {
+			// Split the settings key.
+			list( $wlm_level_id, $type ) = explode( '_', $key );
+
+			switch ( $type ) {
+				case 'form':
+					// This is the action to perform when the user is added to the WLM Level.
+					// Use a new name for the setting key to reflect this.
+					// < 2.5.4, forms were the only option here, so prefix the resource ID with `form:`.
+					$settings[ $wlm_level_id . '_add' ] = ( empty( $convertkit_form_or_tag_id ) ? '' : 'form:' . $convertkit_form_or_tag_id );
+					break;
+
+				case 'unsubscribe':
+					// This is the action to perform when the user is removed from the WLM Level.
+					// Use a new name for the setting key to reflect this.
+					// < 2.5.4, tags were the only option here, so prefix the resource ID with `tag:`.
+					$settings[ $wlm_level_id . '_remove' ] = ( empty( $convertkit_form_or_tag_id ) ? '' : 'tag:' . $convertkit_form_or_tag_id );
+					break;
+			}
+		}
+
+		// Update settings.
+		update_option( $convertkit_wlm_settings::SETTINGS_NAME, $settings );
+
+	}
+
+	/**
 	 * 2.5.3: Migrate Third Party Form integrations' 'None' option values from `default` to blank.
 	 *
 	 * 2.4.9 changed the 'None' label's value from `default` to a blank string, as the v4 API's
@@ -143,13 +199,10 @@ class ConvertKit_Setup {
 				continue;
 			}
 
-			// Skip values that are not 'default'.
-			if ( $convertkit_form_id !== 'default' ) {
-				continue;
-			}
-
 			// Change 'default' to a blank string.
-			$settings[ $contact_form_7_form_id ] = '';
+			if ( $convertkit_form_id === 'default' ) {
+				$settings[ $contact_form_7_form_id ] = '';
+			}
 		}
 
 		// Update settings.
@@ -187,13 +240,10 @@ class ConvertKit_Setup {
 				continue;
 			}
 
-			// Skip values that are not 'default'.
-			if ( $convertkit_form_id !== 'default' ) {
-				continue;
-			}
-
 			// Change 'default' to a blank string.
-			$settings[ $forminator_form_id ] = '';
+			if ( $convertkit_form_id === 'default' ) {
+				$settings[ $forminator_form_id ] = '';
+			}
 		}
 
 		// Update settings.
@@ -226,13 +276,10 @@ class ConvertKit_Setup {
 
 		// Iterate through settings.
 		foreach ( $settings as $wlm_level_id => $value ) {
-			// Skip values that are not 'default'.
-			if ( $value !== 'default' ) {
-				continue;
-			}
-
 			// Change 'default' to a blank string.
-			$settings[ $wlm_level_id ] = '';
+			if ( $value === 'default' ) {
+				$settings[ $wlm_level_id ] = '';
+			}
 		}
 
 		// Update settings.

@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Spacer
  *
  * @package gutenverse\style
  */
 class Spacer extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -32,10 +41,13 @@ class Spacer extends Style_Abstract {
 
 		$this->set_feature(
 			array(
+				'background'  => null,
 				'border'      => null,
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
+				'pointer'     => null,
 			)
 		);
 	}

@@ -42,7 +42,7 @@ SPF_WPSP::createSection(
 	array(
 		'id'     => 'replace_layout_section',
 		'title'  => __( 'Replace Layout', 'woo-product-slider' ),
-		'icon'   => '<span class="spwps-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" xmlns:v="https://vecta.io/nano"><path d="M0 69.3V0h69.4v18.6H18.6v50.7H0h0zM100 100H30.6V30.7H100V100z" fill="#444"/></svg></span>',
+		'icon'   => '<span class="spwps-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><path d="M0 69.3V0h69.4v18.6H18.6v50.7H0h0zM100 100H30.6V30.7H100V100z" fill="#444"/></svg></span>',
 		'fields' => array(
 			array(
 				'type'    => 'notice',

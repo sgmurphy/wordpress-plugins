@@ -4,7 +4,7 @@ Tags: dark, dark mode, night mode, dark theme, accessibility
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 5.0.8
+Stable tag: 5.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,7 @@ Check what popular WordPress expert Matt (WPress Doctor) thinks about WP Dark Mo
 15. **Dark Mode Toggle Animation** - Choose the animation effect between dark/white mode among numerous options including Fade In, Pulse, Flip, and many more.
 16. **Social Share** - Social share icons allow your website visitors to share your content with ease. With plenty of cool social media icon templates and share count displays, this is the only dark mode plugin that supports dedicated social share buttons.
 17. **Exclude WP Dark Mode from Caching** - Enable this feature to exclude WP Dark Mode from server-side caching and ensure a seamless dark mode transition.
+18. **Device-wise Dark Mode Toggle** - Easily choose where to display the dark mode switch: Desktop, Mobile, or Tablet.
 
 👁️ [View Demo](https://go.wppool.dev/fuUK) | 🚀  [Get the Premium Version](https://go.wppool.dev/TtP)
 
@@ -155,6 +156,11 @@ Yes, You can toggle the dark mode/ light mode by keyboard shortcut `(Ctrl + Alt 
 7. Dark Mode color presets
 
 == Changelog == 
+
+= 5.0.9 – 8 AUG 2024 =
+* **New (Device-wise Dark Mode Toggle):** Control the switch visibility on different devices - easily choose where to display the dark mode switch: Desktop, Mobile, or Tablet.
+* **Improvement:** Added compatibility with Twenty Twenty Four theme.
+* **Improvement:** Added compatibility with Jetpack and Jetpack CRM.
 
 = 5.0.8 – 15 JUL 2024 =
 * **Fix:** Conflicts with common CSS libraries like Bootstrap etc. 

@@ -487,13 +487,34 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 			"add_selectors_css" => $includeSelectors,
 			"root_id" => $rootId,
 		);
-
+		
+		$cacheOutput = false;
+		if(GlobalsProviderUC::$isInsideEditor == true)
+			$cacheOutput = true;
+		
+		if($cacheOutput == true){
+			UniteFunctionsUC::obStart();
+		}
+		
 		$objOutput = new UniteCreatorOutput();
 		$objOutput->setProcessType(UniteCreatorParamsProcessor::PROCESS_TYPE_OUTPUT_BACK);
 		$objOutput->checkOutputDebug($objAddon);
 		$objOutput->initByAddon($objAddon);
 		
+		$htmlBefore = null;
+		
+		if($cacheOutput == true){
+			$htmlBefore = ob_get_contents();			
+			ob_end_clean();
+		}
+		
 		$html = $objOutput->getHtmlBody(true, false, true, $params);
+		
+		
+		if(!empty($htmlBefore)){
+			$html = $htmlBefore.$html;
+		}
+		
 		$includes = $objOutput->getProcessedIncludes(true);
 		$outputId = $objOutput->getWidgetID();
 

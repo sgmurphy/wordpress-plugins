@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Social_Share_Item
  *
  * @package gutenverse\style
  */
 class Social_Share_Item extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -32,7 +41,9 @@ class Social_Share_Item extends Style_Abstract {
 		parent::__construct( $attrs );
 
 		$this->set_feature(
-			array()
+			array(
+				'mask' => null,
+			)
 		);
 	}
 
@@ -122,6 +133,22 @@ class Social_Share_Item extends Style_Abstract {
 			$this->handle_border( 'border', "#{$this->element_id}.gutenverse-share-item" );
 		}
 
+		if ( isset( $this->attrs['borderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.gutenverse-share-item",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['borderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['iconColorHover'] ) ) {
 			$this->inject_style(
 				array(
@@ -176,6 +203,22 @@ class Social_Share_Item extends Style_Abstract {
 
 		if ( isset( $this->attrs['borderHover'] ) ) {
 			$this->handle_border( 'borderHover', "#{$this->element_id}.gutenverse-share-item:hover" );
+		}
+
+		if ( isset( $this->attrs['borderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.gutenverse-share-item:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['borderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['typography'] ) ) {

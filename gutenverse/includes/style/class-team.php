@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Team
  *
  * @package gutenverse\style
  */
 class Team extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -38,6 +47,7 @@ class Team extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -55,6 +65,19 @@ class Team extends Style_Abstract {
 					},
 					'value'          => $this->attrs['hoverBottomColor'],
 					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['hoverBottomHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .border-bottom, .{$this->element_id} .border-bottom .animated",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'height' );
+					},
+					'value'          => $this->attrs['hoverBottomHeight'],
+					'device_control' => true,
 				)
 			);
 		}
@@ -126,7 +149,8 @@ class Team extends Style_Abstract {
 						.{$this->element_id} .profile-box .profile-card.card-hover img,
 						.{$this->element_id} .profile-box .profile-card.card-default .profile-header img,
 						.{$this->element_id} .profile-box .profile-card.card-overlay .profile-header img,
-						.{$this->element_id} .profile-box .profile-card.card-hover .profile-header img",
+						.{$this->element_id} .profile-box .profile-card.card-hover .profile-header img,
+						.{$this->element_id} .profile-box .profile-card.card-overlay",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
@@ -348,6 +372,22 @@ class Team extends Style_Abstract {
 			$this->handle_border( 'profileBorder', ".{$this->element_id} .profile-box .profile-card" );
 		}
 
+		if ( isset( $this->attrs['profileBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['profileBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['profileBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
@@ -363,6 +403,22 @@ class Team extends Style_Abstract {
 
 		if ( isset( $this->attrs['profileBorderHover'] ) ) {
 			$this->handle_border( 'profileBorderHover', ".{$this->element_id} .profile-box .profile-card:hover" );
+		}
+
+		if ( isset( $this->attrs['profileBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['profileBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['profileBoxShadowHover'] ) ) {
@@ -382,6 +438,22 @@ class Team extends Style_Abstract {
 			$this->handle_border( 'imageBorder', ".{$this->element_id} .profile-box .profile-card img" );
 		}
 
+		if ( isset( $this->attrs['imageBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card img",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['imageBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['imageBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
@@ -399,6 +471,22 @@ class Team extends Style_Abstract {
 			$this->handle_border( 'imageBorderHover', ".{$this->element_id} .profile-box .profile-card img:hover" );
 		}
 
+		if ( isset( $this->attrs['imageBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card img:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['imageBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['imageBoxShadowHover'] ) ) {
 			$this->inject_style(
 				array(
@@ -412,17 +500,16 @@ class Team extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['imageBackground'] ) ){
+			$this->handle_background( ".{$this->element_id} .profile-box .profile-card img", $this->attrs['imageBackground'] );
+		}
+
+		if ( isset( $this->attrs['imageBackgroundHover'] ) ){
+			$this->handle_background( ".{$this->element_id} .profile-box .profile-card img:hover", $this->attrs['imageBackgroundHover'] );
+		}
+
 		if ( isset( $this->attrs['hoverBgColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:before",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'background' );
-					},
-					'value'          => $this->attrs['hoverBgColor'],
-					'device_control' => false,
-				)
-			);
+			$this->handle_background( ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:before", $this->attrs['hoverBgColor'] );
 		}
 
 		if ( isset( $this->attrs['hoverPadding'] ) ) {
@@ -433,6 +520,18 @@ class Team extends Style_Abstract {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['hoverPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['hoverMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-hover:hover .profile-body",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['hoverMargin'],
 					'device_control' => true,
 				)
 			);
@@ -485,6 +584,22 @@ class Team extends Style_Abstract {
 			$this->handle_border( 'hoverContentBorder', ".{$this->element_id}.guten-team .profile-box .profile-card.card-hover .profile-body:before" );
 		}
 
+		if ( isset( $this->attrs['hoverContentBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-hover .profile-body:before",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['hoverContentBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['hoverContentShadow'] ) ) {
 			$this->inject_style(
 				array(
@@ -494,6 +609,18 @@ class Team extends Style_Abstract {
 					},
 					'value'          => $this->attrs['hoverContentShadow'],
 					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['overlayProfilePosition'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:hover .profile-body",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'margin-bottom' );
+					},
+					'value'          => $this->attrs['overlayProfilePosition'],
+					'device_control' => true,
 				)
 			);
 		}

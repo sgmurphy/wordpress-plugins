@@ -98,17 +98,6 @@ if ( ! class_exists( __NAMESPACE__ . 'Menus' ) ) {
 			//  15
 			// );
 
-			// Tools.
-			add_submenu_page(
-				'wp-dark-mode',
-				__( 'Tools', 'wp-dark-mode' ),
-				__( 'Tools', 'wp-dark-mode' ),
-				'manage_options',
-				'wp-dark-mode#/tools',
-				array( $this, 'render_settings_page' ),
-				20
-			);
-
 			$hide_wp_dark_mode_recommended_plugins = get_option( 'hide_wp_dark_mode_recommended_plugins', false );
 
 			if ( ! $hide_wp_dark_mode_recommended_plugins ) {

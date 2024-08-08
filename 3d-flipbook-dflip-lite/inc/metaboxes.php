@@ -699,7 +699,7 @@ class DFlip_Meta_boxes {
     $sanitized_data['outline'] = $this->array_val($sanitized_data['outline'],'items');
     
     $settings = get_post_meta( $post_id, '_dflip_data', true );
-    if ( empty( $settings ) ) {
+    if ( empty( $settings ) || !is_array($settings)) {
       $settings = array();
     }
     $settings = array_merge( $settings, $sanitized_data );

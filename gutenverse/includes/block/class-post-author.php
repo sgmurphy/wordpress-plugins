@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Block;
 
+use Gutenverse\Framework\Block\Block_Abstract;
+
 /**
  * Class Post Author Block
  *
@@ -28,7 +30,7 @@ class Post_Author extends Block_Abstract {
 		$avatar      = ! empty( $this->attributes['authorAvatar'] ) ? $this->attributes['authorAvatar'] : false;
 		$author_link = ! empty( $this->attributes['authorLink'] ) ? $this->attributes['authorLink'] : false;
 		$link_target = ! empty( $this->attributes['authorLinkTarget'] ) ? '_blank' : '_self';
-		$link_rel    = ! empty( $this->attributes['authorLinkRel'] ) ? esc_html( $this->attributes['authorLinkRel'] ) : 'noreferrer';
+		$link_rel    = ! empty( $this->attributes['authorLinkRel'] ) ? esc_attr( $this->attributes['authorLinkRel'] ) : 'noreferrer';
 		$content     = '';
 
 		if ( ! empty( $post_id ) ) {
@@ -107,8 +109,8 @@ class Post_Author extends Block_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
+		$post_id         = ! empty( $this->context['postId'] ) ? esc_html( $this->context['postId'] ) : get_the_ID();
 		$element_id      = $this->get_element_id();
-		$post_id         = esc_html( $this->context['postId'] );
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();

@@ -1631,7 +1631,7 @@ class UniteFunctionsUC{
 				$position = 0;
 				$tags = array();
 
-				ob_start();
+				self::obStart();
 
 				while ($printedLength < $maxLength && preg_match('{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)){
 
@@ -2943,10 +2943,19 @@ class UniteFunctionsUC{
 		$strDate = date("d M Y",$stamp);	//27 Jun 2009
 		return($strDate);
 	}
-
-
-
+	
+	
 	public static function z___________OTHERS__________(){}
+	
+	
+	/**
+	 * ob start with some debug
+	 */
+	public static function obStart(){
+		
+		//dmp("ob start!!!");
+		ob_start();
+	}
 	
 	/**
 	 * check if max debug available

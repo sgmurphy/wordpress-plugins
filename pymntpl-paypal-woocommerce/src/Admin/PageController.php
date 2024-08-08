@@ -69,7 +69,6 @@ class PageController {
 	public function render_support_page() {
 		$user = wp_get_current_user();
 		$this->data_api->print_data( 'wcPPCPSupportParams', [
-			'report' => $this->get_status_report(),
 			'name'   => $user->get( 'first_name' ) . ' ' . $user->get( 'last_name' ),
 			'email'  => $user->get( 'user_email' )
 		] );
@@ -77,17 +76,6 @@ class PageController {
 		$this->assets->enqueue_script( 'wc-ppcp-help-widget', 'build/js/help-widget.js' );
 		$assets = $this->assets;
 		include_once __DIR__ . '/Views/html-support-page.php';
-	}
-
-	private function get_status_report() {
-		$report = wc()->api->get_endpoint_data( '/wc/v3/system_status' );
-		if ( ! is_wp_error( $report ) ) {
-			unset( $report['subscriptions']['payment_gateway_feature_support'] );
-		} else {
-			$report = array();
-		}
-
-		return $report;
 	}
 
 	private function get_suggested_plugins() {

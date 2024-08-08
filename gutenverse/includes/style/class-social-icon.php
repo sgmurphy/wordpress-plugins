@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Social Icon
  *
@@ -16,12 +18,18 @@ namespace Gutenverse\Style;
  */
 class Social_Icon extends Style_Abstract {
 	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
+	/**
 	 * Block Name
 	 *
 	 * @var array
 	 */
 	protected $name = 'social-icon';
-
 
 	/**
 	 * Constructor
@@ -38,6 +46,7 @@ class Social_Icon extends Style_Abstract {
 					'hover'  => "#{$this->element_id}:hover",
 				),
 				'animation' => null,
+				'mask'      => null,
 			)
 		);
 	}

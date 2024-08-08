@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Icon
  *
  * @package gutenverse\style
  */
 class Icon extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,11 @@ class Icon extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id} .guten-icon-wrapper",
+					'hover'  => ".{$this->element_id} .guten-icon-wrapper:hover",
+				),
+				'mask'        => null,
 			)
 		);
 	}
@@ -63,9 +77,7 @@ class Icon extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} i",
 					'property'       => function ( $value ) {
-						$point = $value['point'];
-						$unit = $value['unit'];
-						return "font-size: {$point}{$unit};";
+						return $this->handle_unit_point( $value, 'font-size' );
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,

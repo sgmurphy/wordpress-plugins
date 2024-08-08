@@ -322,11 +322,10 @@ ul.image_sizes-sortable.enable li.image_sizes-original-size {
 	border-radius: 6px;
 	transition: all 0.4s;
 }
-#image_sizes-message > p,
-#thumbpress-pro-message > p {
+#image_sizes-message > p {
 	margin: 10px 0;
 	font-size: 15px;
-	font-weight: 500;
+	font-weight: 400;
 }
 .cx-icon {
 	margin-right: 5px;
@@ -540,9 +539,6 @@ ul.image_sizes-sortable.enable li.image_sizes-original-size {
 	background-size: 50px 50px;
 	animation: move 2s linear infinite;
 	height: 30px;
-}
-.image-sizes-progress-panel .image-sizes-progress-content.progress-full:after {
-	animation: none;
 }
 .progress-heading {
 	font-size: 17px;

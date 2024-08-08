@@ -495,17 +495,22 @@ class Help_Page {
 									<span class='spwps-pro spwps-check-icon'></span>
 								</li>
 								<li class='spwps-body'>
-									<span class='spwps-title'>Beautiful Layout Presets (Slider, Grid, Masonry, and Table)</span>
+									<span class='spwps-title'>Beautiful Layout Presets (Slider, Ticker, Multi-row, Grid, Live Filter, Masonry, List, and Table)</span>
 									<span class='spwps-free'><b>2</b></span>
-									<span class='spwps-pro'><b>4</b></span>
+									<span class='spwps-pro'><b>8</b></span>
 								</li>
 								<li class='spwps-body'>
 									<span class='spwps-title'>Pre-designed Professional Templates</span>
 									<span class='spwps-free'><b>3</b></span>
 									<span class='spwps-pro'><b>28+</b></span>
 								</li>
+																<li class='spwps-body'>
+									<span class='spwps-title'>Frontend Live Filter By Product types (New Arrivals, Featured, Best Selling, Top Rated, and On Sale)<i class="spwps-new">New</i> <i class="spwps-hot">Hot</i></span>
+									<span class='spwps-free spwps-close-icon'></span>
+									<span class='spwps-pro spwps-check-icon'></span>
+								</li>
 								<li class='spwps-body'>
-									<span class='spwps-title'>Even and Masonry Grid Style</span>
+									<span class='spwps-title'>Frontend Live Filter By Product Taxonomies (Categories, Tags, and Brands) <i class="spwps-new">New</i><i class="spwps-hot">Hot</i></span>
 									<span class='spwps-free spwps-close-icon'></span>
 									<span class='spwps-pro spwps-check-icon'></span>
 								</li>
@@ -515,7 +520,7 @@ class Help_Page {
 									<span class='spwps-pro'><b>5+</b></span>
 								</li>
 								<li class='spwps-body'>
-									<span class='spwps-title'>Advanced Product Filtering Types (Category, Tag, Brands, Best Selling, Related, Top Rated, Upsells, Cross-sells, etc.)</span>
+									<span class='spwps-title'>Advanced Product Filtering Types (Category, Tag, Brands, Multiple Taxonomies, Best Selling, Related, Top Rated, Upsells, Cross-sells, etc.)</span>
 									<span class='spwps-free'>2</span>
 									<span class='spwps-pro'>17+</span>
 								</li>
@@ -530,22 +535,17 @@ class Help_Page {
 									<span class='spwps-pro spwps-check-icon'></span>
 								</li>
 								<li class='spwps-body'>
-									<span class='spwps-title'>Show On Sale, Free, and Hidden Products</span>
-									<span class='spwps-free spwps-close-icon'></span>
-									<span class='spwps-pro spwps-check-icon'></span>
-								</li>
-								<li class='spwps-body'>
-									<span class='spwps-title'>Hide Out of Stock Products</span>
+									<span class='spwps-title'>Show On Sale, Free, and Hidden Products, Hide Out of Stock Products</span>
 									<span class='spwps-free spwps-check-icon'></span>
 									<span class='spwps-pro spwps-check-icon'></span>
 								</li>
 								<li class='spwps-body'>
-									<span class='spwps-title'>Hide Product Without Thumbnail from the Product Sliders</span>
-									<span class='spwps-free spwps-close-icon'></span>
+									<span class='spwps-title'>Hide Product without Thumbnail from the Product Sliders</span>
+									<span class='spwps-free spwps-check-icon'></span>
 									<span class='spwps-pro spwps-check-icon'></span>
 								</li>
 								<li class='spwps-body'>
-									<span class='spwps-title'>Order Product by Price and Ticker Slider Mode</span>
+									<span class='spwps-title'>Order Product by Price and Drag and Drop</span>
 									<span class='spwps-free spwps-close-icon'></span>
 									<span class='spwps-pro spwps-check-icon'></span>
 								</li>

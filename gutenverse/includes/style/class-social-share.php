@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Social_Share
  *
  * @package gutenverse\style
  */
 class Social_Share extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,7 @@ class Social_Share extends Style_Abstract {
 				'positioning' => ".{$this->element_id}.guten-element, .{$this->element_id}.guten-element.horizontal > div",
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -51,6 +61,16 @@ class Social_Share extends Style_Abstract {
 					'selector'       => ".{$this->element_id}, .{$this->element_id}.vertical > div",
 					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
+					},
+					'value'          => $this->attrs['alignment'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}, .{$this->element_id}.vertical > div",
+					'property'       => function ( $value ) {
+						return "align-items: {$value};";
 					},
 					'value'          => $this->attrs['alignment'],
 					'device_control' => true,
@@ -138,6 +158,22 @@ class Social_Share extends Style_Abstract {
 			$this->handle_border( 'borderType', ".{$this->element_id} .gutenverse-share-item" );
 		}
 
+		if ( isset( $this->attrs['borderTypeResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-share-item",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['borderTypeResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['iconColorHover'] ) ) {
 			$this->inject_style(
 				array(
@@ -192,6 +228,22 @@ class Social_Share extends Style_Abstract {
 
 		if ( isset( $this->attrs['borderTypeHover'] ) ) {
 			$this->handle_border( 'borderTypeHover', ".{$this->element_id} .gutenverse-share-item:hover" );
+		}
+
+		if ( isset( $this->attrs['borderTypeHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-share-item:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['borderTypeHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['typography'] ) ) {

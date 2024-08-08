@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Divider
  *
  * @package gutenverse\style
  */
 class Divider extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,7 @@ class Divider extends Style_Abstract {
 				'animation'   => null,
 				'positioning' => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}

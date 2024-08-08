@@ -55,8 +55,9 @@ if ( ! class_exists( 'SPF_WPSP_Field_tabbed' ) ) {
 
 				$tabbed_icon   = ( ! empty( $tab['icon'] ) ) ? $tab['icon'] : '';
 				$tabbed_active = ( empty( $key ) ) ? ' class="spwps-tabbed-active"' : '';
+				$tabbed_class  = ( ! empty( $tab['class'] ) ) ? $tab['class'] : '';
 
-				echo '<a href="#"' . wp_kses_post( $tabbed_active ) . '>' . $tabbed_icon . wp_kses_post( $tab['title'] ) . '</a>';
+				echo '<a href="#" class="' . esc_attr( $tabbed_class . $tabbed_active ) . '">' . $tabbed_icon . wp_kses_post( $tab['title'] ) . '</a>';
 
 			}
 			echo '</div>';
@@ -65,8 +66,9 @@ if ( ! class_exists( 'SPF_WPSP_Field_tabbed' ) ) {
 			foreach ( $this->field['tabs'] as $key => $tab ) {
 
 				$tabbed_hidden = ( ! empty( $key ) ) ? ' hidden' : '';
+				$tabbed_class  = ( ! empty( $tab['class'] ) ) ? ' ' . $tab['class'] : '';
 
-				echo '<div class="spwps-tabbed-section' . esc_attr( $tabbed_hidden ) . '">';
+				echo '<div class="spwps-tabbed-section' . esc_attr( $tabbed_hidden . $tabbed_class ) . '">';
 
 				foreach ( $tab['fields'] as $field ) {
 					if ( in_array( $field['type'], $unallows ) ) {

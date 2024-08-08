@@ -129,7 +129,6 @@ if ( ! class_exists( 'SPF_WPSP_Field_select' ) ) {
 						if ( $pro_only || isset( $option['name'] ) ) {
 							$selected = ( in_array( $option_key, $this->value ) ) ? ' selected' : '';
 							if ( in_array( $option_key, $this->value ) ) {
-								var_dump($option_key);
 								$selected_value = $option_key;
 							}
 							echo '<option value="' . esc_attr( $option_key ) . '" ' . esc_attr( $selected ) . esc_attr( $pro_only ) . '>' . esc_attr( $option['name'] ) . '</option>';

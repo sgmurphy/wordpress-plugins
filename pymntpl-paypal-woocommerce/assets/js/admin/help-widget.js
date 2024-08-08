@@ -17,8 +17,7 @@ window.zESettings = {
                 'en-US': 'Contact Payment Plugins',
             },
             fields: [
-                {id: '360024242873', prefill: {'*': 'PayPal WooCommerce'}},
-                {id: '4423709831443', prefill: {'*': JSON.stringify(wcPPCPSupportParams.report, null, 2)}}
+                {id: '360024242873', prefill: {'*': 'PayPal WooCommerce'}}
             ]
         },
         helpCenter: {

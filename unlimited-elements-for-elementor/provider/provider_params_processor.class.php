@@ -2400,7 +2400,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			GlobalsProviderUC::$skipRunPostQueryOnce = false;
 			return(array());
 		}
-
+		
 		$query = new WP_Query();
 
 		do_action("ue_before_custom_posts_query", $query);

@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Accordion
  *
@@ -16,12 +18,27 @@ namespace Gutenverse\Style;
  */
 class Accordion extends Style_Abstract {
 	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
+	/**
 	 * Block Name
 	 *
 	 * @var array
 	 */
 	protected $name = 'accordion';
 
+	/**
+	 * Constructor
+	 *
+	 * @param array $attrs Attribute.
+	 */
+	public function __construct( $attrs ) {
+		parent::__construct( $attrs );
+	}
 	/**
 	 * Generate style base on attribute.
 	 */

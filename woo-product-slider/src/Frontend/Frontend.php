@@ -39,6 +39,7 @@ class Frontend {
 		if ( $found_generator_id ) {
 			wp_enqueue_style( 'sp-wps-font-awesome' );
 			wp_enqueue_style( 'sp-wps-swiper' );
+			wp_enqueue_style( 'sp_wps-fontello-icon' );
 			wp_enqueue_style( 'sp-wps-style' );
 			/* Load dynamic style in the header based on found shortcode on the page. */
 			$dynamic_style = self::load_dynamic_style( $found_generator_id );
@@ -56,6 +57,7 @@ class Frontend {
 			/* Enqueue style for backend preview */
 			wp_enqueue_style( 'sp-wps-swiper' );
 			wp_enqueue_style( 'sp-wps-font-awesome' );
+			wp_enqueue_style( 'sp_wps-fontello-icon' );
 			wp_enqueue_style( 'sp-wps-style' );
 			add_thickbox();
 
@@ -83,6 +85,7 @@ class Frontend {
 		if ( $enqueue_font_awesome ) {
 			wp_register_style( 'sp-wps-font-awesome', esc_url( SP_WPS_URL . 'Frontend/assets/css/font-awesome.min.css' ), array(), SP_WPS_VERSION );
 		}
+		wp_register_style( 'sp_wps-fontello-icon', SP_WPS_URL . 'Admin/assets/css/fontello.min.css', array(), SP_WPS_VERSION, 'all' );
 		wp_register_style( 'sp-wps-style', esc_url( SP_WPS_URL . 'Frontend/assets/css/style.min.css' ), array(), SP_WPS_VERSION );
 
 		/**
@@ -227,6 +230,7 @@ class Frontend {
 		}
 		$post_id            = esc_attr( intval( $attributes['id'] ) );
 		$shortcode_data     = get_post_meta( $post_id, 'sp_wps_shortcode_options', true );
+		$layout_data        = get_post_meta( $post_id, 'sp_wps_layout_options', true );
 		$main_section_title = get_the_title( $post_id );
 		ob_start();
 		// Stylesheet loading problem solving here. Shortcode id to push page id option for getting how many shortcode in the page.
@@ -236,6 +240,7 @@ class Frontend {
 		if ( ! is_array( $found_generator_id ) || ! $found_generator_id || ! in_array( $post_id, $found_generator_id ) ) {
 			wp_enqueue_style( 'sp-wps-swiper' );
 			wp_enqueue_style( 'sp-wps-font-awesome' );
+			wp_enqueue_style( 'sp_wps-fontello-icon' );
 			wp_enqueue_style( 'sp-wps-style' );
 			// Load dynamic style.
 			$dynamic_style = self::load_dynamic_style( $post_id, $shortcode_data );
@@ -244,7 +249,7 @@ class Frontend {
 
 		// Update options if the existing shortcode id option not found.
 		self::wps_db_options_update( $post_id, $get_page_data );
-		Helper::spwps_html_show( $post_id, $shortcode_data, $main_section_title );
+		Helper::spwps_html_show( $post_id, $shortcode_data, $layout_data, $main_section_title );
 		return ob_get_clean();
 	}
 }

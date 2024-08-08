@@ -84,9 +84,13 @@ class Helper {
 	 * @param  mixed $products_per_page product per page.
 	 * @param  mixed $post_id The post ID.
 	 * @param  mixed $paged paged.
+	 * @param  mixed $show_hidden_product shows hidden product.
+	 * @param  mixed $hide_on_sale_product hide on sale product.
+	 * @param  mixed $hide_free_product hide free product.
+	 * @param  mixed $product_visibility product visibility.
 	 * @return object
 	 */
-	public static function spwps_product_query( $product_order_by, $product_type, $number_of_total_products, $hide_out_of_stock_product, $product_order, $grid_pagination, $grid_pagination_type, $layout_preset, $products_per_page, $post_id, $paged ) {
+	public static function spwps_product_query( $product_order_by, $product_type, $number_of_total_products, $hide_out_of_stock_product, $product_order, $grid_pagination, $grid_pagination_type, $layout_preset, $products_per_page, $post_id, $paged, $show_hidden_product, $hide_on_sale_product, $hide_free_product, $product_visibility ) {
 		$posts_per_page = $number_of_total_products;
 		if ( $grid_pagination && ( 'slider' !== $layout_preset ) ) {
 			$posts_per_page = $products_per_page;
@@ -109,14 +113,47 @@ class Helper {
 			),
 		);
 		if ( 'featured_products' === $product_type ) {
-			$arg['tax_query'][]          = array(
+			$arg['tax_query'][] = array(
 				'taxonomy' => 'product_visibility',
 				'field'    => 'term_taxonomy_id',
 				'terms'    => $product_visibility_term_ids['featured'],
 			);
 		}
+		// Exclude on-sale products if required and not dealing with on-sell_products type.
+		if ( $hide_on_sale_product ) {
+			$arg['meta_query'][] = array(
+				'key'     => '_sale_price',
+				'compare' => 'NOT EXISTS',
+			);
+		}
+		if ( $hide_free_product ) {
+			// Exclude free products.
+			$arg['meta_query'][] = array(
+				'key'     => '_price',
+				'value'   => 0,
+				'compare' => '>',
+				'type'    => 'DECIMAL',
+			);
+		}
+		// Include products based on visibility.
+		if ( $product_visibility ) {
+			$arg['meta_query'][] = array(
+				'key'     => '_thumbnail_id',
+				'compare' => 'EXISTS',
+			);
+		}
+		// Exclude hidden products for certain types.
+		if ( ! $show_hidden_product ) {
+			$arg['tax_query'][] = array(
+				'taxonomy' => 'product_visibility',
+				'field'    => 'term_taxonomy_id',
+				'terms'    => is_search() ? $product_visibility_term_ids['exclude-from-search'] : $product_visibility_term_ids['exclude-from-catalog'],
+				'operator' => 'NOT IN',
+			);
+			$arg['parent']      = 0;
+		}
 		if ( $hide_out_of_stock_product ) {
-			$arg['tax_query'][]          = array(
+			$arg['tax_query'][] = array(
 				'taxonomy' => 'product_visibility',
 				'field'    => 'term_taxonomy_id',
 				'terms'    => $product_visibility_term_ids['outofstock'],
@@ -156,19 +193,25 @@ class Helper {
 	 *
 	 * @param array $post_id Shortcode ID.
 	 * @param array $shortcode_data get all meta options.
+	 * @param array $layout_data get all layout meta options.
 	 * @param array $main_section_title shows section title.
 	 */
-	public static function spwps_html_show( $post_id, $shortcode_data, $main_section_title ) {
+	public static function spwps_html_show( $post_id, $shortcode_data, $layout_data, $main_section_title ) {
 		$setting_options = get_option( 'sp_woo_product_slider_options' );
 		// General Settings.
-		$layout_preset  = isset( $shortcode_data['layout_preset'] ) ? $shortcode_data['layout_preset'] : 'slider';
+		$layout_preset  = isset( $layout_data['layout_preset'] ) ? $layout_data['layout_preset'] : 'slider';
 		$theme_style    = isset( $shortcode_data['theme_style'] ) ? $shortcode_data['theme_style'] : 'theme_one';
 		$template_style = isset( $shortcode_data['template_style'] ) ? $shortcode_data['template_style'] : 'pre-made';
 		$template_class = 'pre-made' === $template_style ? $theme_style : 'custom-template';
 
-		$product_type              = isset( $shortcode_data['product_type'] ) ? $shortcode_data['product_type'] : 'latest_products';
-		$number_of_total_products  = isset( $shortcode_data['number_of_total_products'] ) ? $shortcode_data['number_of_total_products'] : 16;
+		$product_type             = isset( $shortcode_data['product_type'] ) ? $shortcode_data['product_type'] : 'latest_products';
+		$number_of_total_products = isset( $shortcode_data['number_of_total_products'] ) ? $shortcode_data['number_of_total_products'] : 16;
+
+		$show_hidden_product       = isset( $shortcode_data['show_hidden_product'] ) ? $shortcode_data['show_hidden_product'] : false;
 		$hide_out_of_stock_product = isset( $shortcode_data['hide_out_of_stock_product'] ) ? $shortcode_data['hide_out_of_stock_product'] : false;
+		$hide_on_sale_product      = isset( $shortcode_data['hide_on_sale_product'] ) ? $shortcode_data['hide_on_sale_product'] : false;
+		$hide_free_product         = isset( $shortcode_data['hide_free_product'] ) ? $shortcode_data['hide_free_product'] : false;
+		$product_visibility        = isset( $shortcode_data['hide_thumbnail_without_featured_img'] ) ? $shortcode_data['hide_thumbnail_without_featured_img'] : false;
 		$number_of_column          = isset( $shortcode_data['number_of_column'] ) ? $shortcode_data['number_of_column'] : array(
 			'number1' => '4',
 			'number2' => '3',
@@ -241,7 +284,7 @@ class Helper {
 		$image_sizes     = isset( $shortcode_data['image_sizes'] ) ? $shortcode_data['image_sizes'] : 'full';
 		$paged_var       = 'paged' . $post_id;
 		$paged           = isset( $_GET[ "$paged_var" ] ) ? $_GET[ "$paged_var" ] : 1;
-		$shortcode_query = self::spwps_product_query( $product_order_by, $product_type, $number_of_total_products, $hide_out_of_stock_product, $product_order, $grid_pagination, $grid_pagination_type, $layout_preset, $products_per_page, $post_id, $paged );
+		$shortcode_query = self::spwps_product_query( $product_order_by, $product_type, $number_of_total_products, $hide_out_of_stock_product, $product_order, $grid_pagination, $grid_pagination_type, $layout_preset, $products_per_page, $post_id, $paged, $show_hidden_product, $hide_on_sale_product, $hide_free_product, $product_visibility );
 
 		$item_class = ( 'grid' === $layout_preset ) ? 'sp-wps-col-xl-' . $number_of_column['number1'] . ' sp-wps-col-lg-' . $number_of_column['number2'] . ' sp-wps-col-md-' . $number_of_column['number3'] . ' sp-wps-col-sm-' . $number_of_column['number4'] . '' : '';
 

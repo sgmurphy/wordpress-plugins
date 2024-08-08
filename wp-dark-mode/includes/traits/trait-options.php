@@ -43,7 +43,7 @@ if ( ! trait_exists( __NAMESPACE__ . 'Options' ) ) {
 
 			foreach ( $this->get_default_options() as $item => $subitems ) {
 				foreach ( $subitems as $subitem => $value ) {
-					$defaults[ $item . '_' . $subitem ] = isset( $value['default'] ) ? $value['default'] : null;
+					$defaults[ $item . '_' . $subitem ] = $value['default'];
 				}
 			}
 
@@ -73,7 +73,9 @@ if ( ! trait_exists( __NAMESPACE__ . 'Options' ) ) {
 			foreach ( $this->get_default_options() as $option_group_name => $option_group ) {
 				foreach ( $option_group as $option_name => $option ) {
 					$name  = $option_group_name . '_' . $option_name;
-					$value = get_option( 'wp_dark_mode_' . $name, isset( $option['default'] ) ? $option['default'] : null );
+
+					$value = get_option( 'wp_dark_mode_' . $name, $option['default'] );
+
 					$type = isset( $option['type'] ) ? $option['type'] : 'mixed';
 
 					switch ( $type ) {

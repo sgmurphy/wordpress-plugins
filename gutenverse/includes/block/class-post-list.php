@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Block;
 
+use Gutenverse\Framework\Block\Post_Abstract;
+
 /**
  * Class Post List Block
  *
@@ -36,12 +38,18 @@ class Post_List extends Post_Abstract {
 			$content = str_replace( 'href', 'href="javascript:void(0);" data-href', $content );
 		}
 
+		if ( $this->attributes['lazyLoad'] ) {
+			$content = preg_replace( '/<img(.*?)>/', '<img loading="lazy" $1>', $content );
+		} else {
+			$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );
+		}
+
 		return $this->render_wrapper(
 			'postlist',
 			$content,
 			$class,
 			array(
-				'id'       => $this->attributes['elementId'],
+				'id'       => $this->get_element_id(),
 				'settings' => $settings,
 			)
 		);
@@ -132,7 +140,15 @@ class Post_List extends Post_Abstract {
 				$date      = esc_attr( $this->format_date( $post ) );
 
 				if ( $date_icon ) {
-					$meta_date = '<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i> ' . $date;
+					$meta_date = '<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i> &nbsp;' . $date;
+					if ( isset( $this->attributes['metaDateIconPosition'] ) ) {
+						$icon_position = esc_attr( $this->attributes['metaDateIconPosition'] );
+						if ( 'before' === $icon_position ) {
+							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '"><i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i> &nbsp;' . $date . '</div>';
+						} else {
+							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $date . '&nbsp;<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i></div>';
+						}
+					}
 				}
 
 				$meta_date = '<span class="meta-date">' . $meta_date . '</span>';
@@ -179,7 +195,7 @@ class Post_List extends Post_Abstract {
 			if ( $this->attr_is_true( $this->attributes['imageEnabled'] ) ) {
 				$thumbnail = get_the_post_thumbnail( $post->ID, $image_size );
 			} elseif ( $this->attr_is_true( $this->attributes['iconEnabled'] ) ) {
-					$icon = $this->attributes['icon'];
+				$icon = $this->attributes['icon'];
 
 				if ( $icon ) {
 					$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i></span>';

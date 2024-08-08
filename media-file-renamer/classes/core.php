@@ -35,6 +35,9 @@ define( 'MFRH_OPTIONS', [
 	'case_insensitive_check' => false,
 	'rename_on_save' => false,
 
+	'filename_prefix' => '',
+	'filename_suffix' => '',
+
 	'acf_field_name' => false,
 	'images_only' => false,
 	'featured_only' => false,
@@ -160,6 +163,10 @@ class Meow_MFRH_Core {
 		add_filter( 'wp_handle_upload_prefilter', [ $this, 'on_upload_hook_prefilter' ] );
 		
 		add_filter( 'attachment_fields_to_save', array( $this, 'attachment_fields_to_save' ), 20, 2 );
+
+		if ( $this->get_option( 'filename_prefix', '' ) != '' || $this->get_option( 'filename_suffix', '' ) != '' ) {
+			add_filter( 'mfrh_new_filename', [ $this, 'add_prefix_suffix' ], 10, 3 );
+		}
 
 		// Only for REST
 		if ( $this->is_rest ) {
@@ -777,6 +784,22 @@ SQL;
 
 	/****************************************************************************/
 
+	function add_prefix_suffix( $new, $old, $post ) {
+
+		$prefix = $this->get_option( 'filename_prefix', '' );
+		$suffix = $this->get_option( 'filename_suffix', '' );
+		
+		if ( $prefix != '' ) {
+			$new = $prefix . $new;
+		}
+
+		if ( $suffix != '' ) {
+			$new = $new . $suffix;
+		}
+		
+		return $new;
+	}
+
 	// Return false if everything is fine, otherwise return true with an output
 	// which details the conditions and results about the renaming.
 	function check_attachment( $post, &$output = array(), $manual_filename = null, $force_rename = false, $preview = true, $skipped_methods = [] ) {
@@ -800,7 +823,13 @@ SQL;
 
 		// If the file doesn't exist, let's not go further.
 		if ( !$force_rename && ( !isset( $path_parts['dirname'] ) || !isset( $path_parts['basename'] ) ) ) {
-			$this->log( "😭 File doesn't exist." );
+			if (!isset($path_parts['dirname'])) {
+				$this->log("😕 Directory name is missing in path parts.");
+			}
+			if (!isset($path_parts['basename'])) {
+				$this->log("😕 Base name is missing in path parts.");
+			}
+			$this->log("😭 File doesn't exist. Path parts: " . print_r($path_parts, true) . " | " . $old_filepath );
 			return false;
 		}
 
@@ -810,6 +839,11 @@ SQL;
 
 		// Check if media/file is dead
 		if ( !$force_rename && ( !$old_filepath || !file_exists( $old_filepath ) ) ) {
+			if (!$old_filepath) {
+				$this->log("😕 Old file path is missing.");
+			} else if (!file_exists($old_filepath)) {
+				$this->log("😕 File path provided but file does not exist: " . $old_filepath);
+			}
 			delete_post_meta( $id, '_require_file_renaming' );
 			$this->log( "😭 File doesn't exist." );
 			return false;

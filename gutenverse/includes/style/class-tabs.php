@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Tabs
  *
  * @package gutenverse\style
  */
 class Tabs extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -36,6 +45,7 @@ class Tabs extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -136,6 +146,19 @@ class Tabs extends Style_Abstract {
 				array(
 					'selector' => ".guten-tabs.{$this->element_id} .tab-body",
 					'value'    => $this->attrs['contentTypography'],
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['contentPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .tab-body",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['contentPadding'],
+					'device_control' => true,
 				)
 			);
 		}

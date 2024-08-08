@@ -81,7 +81,7 @@ class Convert_Images extends Base {
 					'sticky'	=> false,
 					'fields'	=> [],
 					'hide_form'	=> true,
-					'template'  => THUMBPRESS_DIR . '/modules/convert-images/views/actions.php',
+					'template'  => THUMBPRESS_DIR . '/modules/convert-images/views/settings.php',
 				]
 			]
 		];
@@ -129,6 +129,60 @@ class Convert_Images extends Base {
 		];
 
 		return $form_fields;
+	}
+
+	public function schedule_image_conversion() {
+		$response = [
+			'status'	=> 0,
+			'message'	=> __( 'Failed', 'image-sizes' ),
+		];
+
+		if( ! wp_verify_nonce( $_POST['_wpnonce'], $this->slug ) ) {
+			$response['message'] = __( 'Unauthorized', 'image-sizes' );
+			wp_send_json_error( $response );
+		}
+		if ( isset( $_POST['convert_val'] ) ) {
+			$convert_img = intval( $_POST['convert_val'] );
+			update_option( 'thumbpress_convert_img_val', $convert_img );
+		}
+
+		delete_option( 'thumbpress_convert_progress');
+		delete_option( 'thumbpress_convert_total_processd');
+		delete_option( 'thumbpress_convert_total_converted');
+		global $wpdb; 
+		$image_types 			 = [ 'image/png', 'image/jpeg', 'image/jpg' ];
+		$total_attachments_query = "
+			SELECT COUNT(ID)
+			FROM {$wpdb->posts}
+			WHERE post_type = 'attachment'
+			AND post_mime_type IN ('" . implode( "','", array_map( 'esc_sql', $image_types ) ) . "')
+			";
+		$total_attachments = $wpdb->get_var( $total_attachments_query );
+
+		update_option( 'thumbpress_now_convert_background_total_images', $total_attachments );
+
+		if( ! $total_attachments ) {
+			$response['status'] 	= 2;
+			$response['message'] 	= __( 'No images found.', 'thumbpress-pro' );
+			wp_send_json( $response );
+		}	
+
+		global $wpdb;
+		$offset 	= 0;
+		$action_id 	= as_schedule_single_action( wp_date( 'U' ) + 5, 'thumbpress_convert_all_image', [ 'offset' => $offset ] );
+
+		thumbpress_add_schedule_log( $this->id, $action_id );
+
+		if( ! $action_id ) {
+			$response['message'] = __( 'Failed to schedule image conversion', 'image-sizes' );
+			wp_send_json_error( $response );
+		}
+
+		$response['status'] 	= 1;
+		$response['message'] 	= __( 'Your images are being converted. Please wait...', 'image-sizes' );
+		$response['action_id'] 	= $action_id;
+
+		wp_send_json( $response );
 	}
 
 	public function convert_all_image( $offset ) {
@@ -185,18 +239,22 @@ class Convert_Images extends Base {
 			$file_path = $updated_metadata['file'];
 			update_post_meta( $img_id, '_wp_attached_file', $file_path );
 			wp_update_post( [ 'ID' => $img_id, 'post_mime_type' => 'image/webp' ] );
-
 		}
-
+		
 		$grand_total_attachments 	= get_option('thumbpress_now_convert_background_total_images');
-		$count 						= $offset * $limit;
-		$progress 					= min( ( ( $count + $limit ) / $grand_total_attachments ) * 100, 100 );
+		$count 						= $offset + count( $attachments );
+		$progress 					= ( $count / $grand_total_attachments ) * 100;
 		$new_offset 				= $offset + count( $attachments );
 
 		update_option( 'thumbpress_convert_progress', $progress );
+		update_option( 'thumbpress_convert_total_processd', $count );
+		update_option( 'thumbpress_convert_total_converted', $count );
+		
 		if ( $progress != 100 ) {
 			$action_id 	= as_schedule_single_action( wp_date('U') + 10, 'thumbpress_convert_all_image', ['offset' => $new_offset] );
 			thumbpress_add_schedule_log( $this->id, $action_id );
+		}else{
+			update_option( 'convert_last_completed_time', date_i18n('U') );
 		}
 	}
 
@@ -284,50 +342,6 @@ class Convert_Images extends Base {
 	
 	}
 
-	public function schedule_image_conversion() {
-		$response = [
-			'status'	=> 0,
-			'message'	=> __( 'Failed', 'image-sizes' ),
-		];
-
-		if( ! wp_verify_nonce( $_POST['_wpnonce'], $this->slug ) ) {
-			$response['message'] = __( 'Unauthorized', 'image-sizes' );
-			wp_send_json_error( $response );
-		}
-		if ( isset( $_POST['convert_val'] ) ) {
-			$convert_img = intval( $_POST['convert_val'] );
-			update_option( 'thumbpress_convert_img_val', $convert_img );
-		}
-
-		delete_option( 'thumbpress_convert_progress');
-
-		global $wpdb;
-		$offset 	= 0;
-		$action_id 	= as_schedule_single_action( wp_date( 'U' ) + 5, 'thumbpress_convert_all_image', [ 'offset' => $offset ] );
-
-		thumbpress_add_schedule_log( $this->id, $action_id );
-
-		if( ! $action_id ) {
-			$response['message'] = __( 'Failed to schedule image conversion', 'image-sizes' );
-			wp_send_json_error( $response );
-		}
-		$image_types 			 = [ 'image/png', 'image/jpeg', 'image/jpg' ];
-		$total_attachments_query = "
-			SELECT COUNT(ID)
-			FROM {$wpdb->posts}
-			WHERE post_type = 'attachment'
-			AND post_mime_type IN ('" . implode( "','", array_map( 'esc_sql', $image_types ) ) . "')
-			";
-		$total_attachments = $wpdb->get_var( $total_attachments_query );
-		update_option( 'thumbpress_now_convert_background_total_images', $total_attachments );
-
-		$response['status'] 	= 1;
-		$response['message'] 	= __( 'Your images are being converted. Please wait...', 'image-sizes' );
-		$response['action_id'] 	= $action_id;
-
-		wp_send_json( $response );
-	}
-
 	public function convert_images() {
 
 		$response = [
@@ -412,14 +426,20 @@ class Convert_Images extends Base {
 			$file_path = $updated_metadata['file'];
 			update_post_meta( $img_id, '_wp_attached_file', $file_path );
 			wp_update_post( [ 'ID' => $img_id, 'post_mime_type' => 'image/webp' ] );
-
 		}
+		
 		$grand_total_attachments 	= get_option('thumbpress_now_convert_total_image');
-		$count 						= $offset * $limit;
-		$progress 					= min( ( ( $count + $limit ) / $grand_total_attachments ) * 100, 100 );
+		$count 						= $offset + count( $attachments );
+		$progress 					= ( $count / $grand_total_attachments ) * 100;
 		$new_offset 				= $offset + count( $attachments );
+		$message 					= __('Converting Images to WebP...', 'thumbpress-pro');
+
+		if( $progress == 100 ) {
+			$message = __( 'Congratulations, Converting Images to WebP is Completed!', 'thumbpress-pro' );
+		}
+
 		$response['status'] 		= 1;
-		$response['message'] 		= __('Images converted successfully', 'image-sizes');
+		$response['message'] 		= $message;
 		$response['offset'] 		= $new_offset;
 		$response['progress'] 		= $progress;
 

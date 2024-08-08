@@ -62,6 +62,19 @@ if ( 'left' === $aligned ) {
 	$classes .= ' reverse';
 }
 
+// Display classes.
+if ( ! $args['display']['desktop'] ) {
+	$classes .= ' wp-dark-mode-hide-desktop';
+}
+
+if ( ! $args['display']['tablet'] ) {
+	$classes .= ' wp-dark-mode-hide-tablet';
+}
+
+if ( ! $args['display']['mobile'] ) {
+	$classes .= ' wp-dark-mode-hide-mobile';
+}
+
 // Custom text and icon.
 $config = [
 	'text_light' => '',

@@ -4,7 +4,7 @@ Tags: social media automation, social media scheduling, auto share, social shari
 Requires at least: 6.5
 Requires PHP: 7.0
 Tested up to: 6.6
-Stable tag: 5.0.0
+Stable tag: 5.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,15 +102,12 @@ The easiest way is to use the Custom Message option in the publishing options bo
 6. Managing Social media accounts in the post editor
 
 == Changelog ==
-### 5.0.0 - 2024-08-01
-#### Changed
-- Social: Removed unnecessary feature checks for social connections
-- Updated package dependencies.
+### 5.1.0 - 2024-08-08
+#### Added
+- Added feature flag management for social
 
-#### Removed
-- General: update WordPress version requirements to WordPress 6.5.
-- Removed the unused code for image auto-conversion from social store
-- Social | Removed the media auto-conversion UI
+#### Fixed
+- Lossless image optimization of images in projects/plugins [subdirectories from a* through social]
 
 == Upgrade Notice ==
 

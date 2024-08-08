@@ -1001,6 +1001,16 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         return $result;
     }
 
+    public function get_popup_categories() {
+        global $wpdb;
+
+        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories";
+
+        $result = $wpdb->get_results($sql, 'ARRAY_A');
+
+        return $result;
+    }
+
     public function add_or_edit_popupbox($data){
 
 		global $wpdb;
@@ -2119,15 +2129,5 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
                 wp_redirect( $url );
             }
 		}
-    }
-
-    public function get_popup_categories(){
-        global $wpdb;
-
-        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories";
-
-        $result = $wpdb->get_results($sql, 'ARRAY_A');
-
-        return $result;
     }
 }

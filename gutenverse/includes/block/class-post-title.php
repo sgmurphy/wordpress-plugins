@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Block;
 
+use Gutenverse\Framework\Block\Block_Abstract;
+
 /**
  * Class Post Title Block
  *
@@ -23,7 +25,7 @@ class Post_Title extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
-		$html_tag    = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h1' ) );
+		$html_tag    = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h2' ) );
 		$post_link   = ! empty( $this->attributes['postLink'] ) ? $this->attributes['postLink'] : false;
 		$link_target = ! empty( $this->attributes['postLinkTarget'] ) ? '_blank' : '_self';
 		$link_rel    = ! empty( $this->attributes['postLinkRel'] ) ? esc_html( $this->attributes['postLinkRel'] ) : 'noreferrer';
@@ -48,8 +50,8 @@ class Post_Title extends Block_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
+		$post_id         = ! empty( $this->context['postId'] ) ? esc_html( $this->context['postId'] ) : get_the_ID();
 		$element_id      = $this->get_element_id();
-		$post_id         = esc_html( $this->context['postId'] );
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();

@@ -19,6 +19,18 @@
 	position: relative;
 }
 
+*,
+:after,
+:before {
+  box-sizing:border-box
+}
+
+.ue-gutenberg-widget-wrapper *,
+.ue-gutenberg-widget-wrapper *:before,
+.ue-gutenberg-widget-wrapper *:after{
+	box-sizing:border-box;
+}
+
 .ue-gutenberg-widget-content {
 	position: relative;
 	z-index: 1;

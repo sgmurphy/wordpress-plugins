@@ -16,10 +16,10 @@ $enables_count 			= count( $image_sizes ) - $disables_count;
 <div class="image_sizes-thumbnails-panel">
 	<div class="image_sizes-default-thumbnails-panel">
 		<div class="image_sizes-default-thumbnails-panel-top">
-			<div class="image_sizes-desc-panel">
+			<div class="thumbpress-desc-panel">
 				<?php
-				echo '<p class="image_sizes-desc">' . sprintf( __( 'You currently have <strong>%1$d thumbnails</strong> registered. It means, if you upload an image, it\'ll generate %1$d duplicates along with the original image.', 'image-sizes' ), count( $image_sizes ) ) . '</p>'; 
-				echo '<p class="image_sizes-desc">' . __( 'Drag the image sizes you don\'t want to generate to the right side. The image sizes on the left will be generated.', 'image-sizes' ) . '</p>'; 
+				echo '<p class="thumbpress-desc">' . sprintf( __( 'You currently have <strong>%1$d thumbnails</strong> registered. It means, if you upload an image, it\'ll generate %1$d duplicates along with the original image.', 'image-sizes' ), count( $image_sizes ) ) . '</p>'; 
+				echo '<p class="thumbpress-desc">' . __( 'Drag the image sizes you don\'t want to generate to the right side. The image sizes on the left will be generated.', 'image-sizes' ) . '</p>'; 
 				?>
 			</div>
 			<div class="image_sizes-count">

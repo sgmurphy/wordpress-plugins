@@ -1,4 +1,7 @@
 
+version 1.5.116:
+
+* Fix: fixed some editor select2 bug
 
 version 1.5.115:
 

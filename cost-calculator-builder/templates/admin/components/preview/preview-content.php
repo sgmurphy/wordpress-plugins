@@ -97,8 +97,8 @@ $get_date_format  = get_option( 'date_format' );
 					<div class="calc-list-inner">
 						<div class="calc-item-title calc-accordion" v-show="!summaryDisplay">
 							<div class="ccb-calc-heading">{{ getHeaderTitle }}</div>
-							<span class="calc-accordion-btn" ref="calcAccordionToggle" @click="toggleAccordion" :style="{display: settings.general && settings.general.descriptions ? 'flex': 'none'}">
-								<i class="ccb-icon-Path-3485" :style="{transform: currentAccordionHeight === '0px' ? 'rotate(0)' : 'rotate(180deg)'}"></i>
+							<span class="calc-accordion-btn" @click="toggleAccordionAction" :style="{display: settings.general && settings.general.descriptions ? 'flex': 'none'}">
+								<i class="ccb-icon-Path-3485" :style="{top: '1px', transform: !accordionState ? 'rotate(0)' : 'rotate(180deg)'}"></i>
 							</span>
 						</div>
 
@@ -107,45 +107,47 @@ $get_date_format  = get_option( 'date_format' );
 						</div>
 
 						<div class="calc-subtotal-list" :class="{ 'show-unit': showUnitInSummary }" v-show="!summaryDisplay">
-							<div class="calc-subtotal-list-accordion" ref="calcAccordion" :style="{maxHeight: currentAccordionHeight}">
-								<div class="calc-subtotal-list-header" v-if="showUnitInSummary">
-									<span class="calc-subtotal-list-header__name"><?php esc_html_e( 'Name', 'cost-calculator-builder' ); ?></span>
+							<transition>
+								<div class="calc-subtotal-list-accordion" :class="{hidden: !accordionState}">
+									<div class="calc-subtotal-list-header" v-if="showUnitInSummary">
+										<span class="calc-subtotal-list-header__name"><?php esc_html_e( 'Name', 'cost-calculator-builder' ); ?></span>
 
-									<span class="calc-subtotal-list-header__value"><?php esc_html_e( 'Total', 'cost-calculator-builder' ); ?></span>
-								</div>
-								<template v-for="(field) in getTotalSummaryFields" v-if="(!field.inRepeater || field.alias.includes('repeater')) && field.alias.indexOf('total') === -1 && settings && settings.general.descriptions">
-									<template v-if="field.alias.includes('repeater')">
-										<div class="calc-repeater-subtotal" v-for="(f, idx) in Object.values(field?.resultGrouped)">
-											<template v-if="getRepeaterFields(f)?.length">
-												<div class="calc-repeater-subtotal-header" :data-index="idx" @click="toggleRepeater(idx)">
-													<i class="ccb-icon-Path-3514"></i>
-													<span>{{field.label}}</span>
-													<span class="ccb-repeater-field-number">#{{idx + 1}}</span>
-												</div>
-												<div class="calc-repeater-subtotal-fields" :data-index="idx">
-													<template v-for="(innerField) in getRepeaterFields(f)">
-														<calc-total-summary :field="innerField" :style="{'padding-top': '6px'}"></calc-total-summary>
-														<calc-total-summary :field="innerField" :unit="true" v-if="innerField.option_unit" :style="{'padding-top': '5px'}"></calc-total-summary>
-														<calc-total-summary :field="innerField" :style="{'padding-top': '5px'}" :multi="true" v-if="['checkbox', 'toggle', 'checkbox_with_img'].includes(innerField.alias.replace(/\_field_id.*/,'')) && innerField.options?.length"></calc-total-summary>
-													</template>
-												</div>
-											</template>
-										</div>
-									</template>
-									<template v-else>
-										<calc-total-summary :field="field"></calc-total-summary>
-										<template v-if="field.option_unit">
-											<template v-if="field.hasOwnProperty('allowPrice')">
-												<calc-total-summary :field="field" :unit="true" v-if="field.allowPrice"></calc-total-summary>
-											</template>
-											<template v-else>
-												<calc-total-summary :field="field" :unit="true"></calc-total-summary>
-											</template>
+										<span class="calc-subtotal-list-header__value"><?php esc_html_e( 'Total', 'cost-calculator-builder' ); ?></span>
+									</div>
+									<template v-for="(field) in getTotalSummaryFields" v-if="(!field.inRepeater || field.alias.includes('repeater')) && field.alias.indexOf('total') === -1 && settings && settings.general.descriptions">
+										<template v-if="field.alias.includes('repeater')">
+											<div class="calc-repeater-subtotal" v-for="(f, idx) in Object.values(field?.resultGrouped)">
+												<template v-if="getRepeaterFields(f)?.length">
+													<div class="calc-repeater-subtotal-header" :data-index="idx" @click="toggleRepeater(idx)">
+														<i class="ccb-icon-Path-3514"></i>
+														<span>{{field.label}}</span>
+														<span class="ccb-repeater-field-number">#{{idx + 1}}</span>
+													</div>
+													<div class="calc-repeater-subtotal-fields" :data-index="idx">
+														<template v-for="(innerField) in getRepeaterFields(f)">
+															<calc-total-summary :field="innerField" :style="{'padding-top': '6px'}"></calc-total-summary>
+															<calc-total-summary :field="innerField" :unit="true" v-if="innerField.option_unit" :style="{'padding-top': '5px'}"></calc-total-summary>
+															<calc-total-summary :field="innerField" :style="{'padding-top': '5px'}" :multi="true" v-if="['checkbox', 'toggle', 'checkbox_with_img'].includes(innerField.alias.replace(/\_field_id.*/,'')) && innerField.options?.length"></calc-total-summary>
+														</template>
+													</div>
+												</template>
+											</div>
 										</template>
-										<calc-total-summary :field="field" :multi="true" v-if="['checkbox', 'toggle', 'checkbox_with_img'].includes(field.alias.replace(/\_field_id.*/,'')) && field.options?.length"></calc-total-summary>
+										<template v-else>
+											<calc-total-summary :field="field"></calc-total-summary>
+											<template v-if="field.option_unit">
+												<template v-if="field.hasOwnProperty('allowPrice')">
+													<calc-total-summary :field="field" :unit="true" v-if="field.allowPrice"></calc-total-summary>
+												</template>
+												<template v-else>
+													<calc-total-summary :field="field" :unit="true"></calc-total-summary>
+												</template>
+											</template>
+											<calc-total-summary :field="field" :multi="true" v-if="['checkbox', 'toggle', 'checkbox_with_img'].includes(field.alias.replace(/\_field_id.*/,'')) && field.options?.length"></calc-total-summary>
+										</template>
 									</template>
-								</template>
-							</div>
+								</div>
+							</transition>
 						</div>
 
 						<div class="calc-subtotal-list totals" style="margin-top: 20px; padding-top: 10px;" ref="calcTotals" :class="{'unit-enable': showUnitInSummary}" v-show="!summaryDisplay">

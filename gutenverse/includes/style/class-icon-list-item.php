@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Icon List Item
  *
  * @package gutenverse\style
  */
 class Icon_List_Item extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -33,6 +42,7 @@ class Icon_List_Item extends Style_Abstract {
 		$this->set_feature(
 			array(
 				'advance' => null,
+				'mask'    => null,
 			)
 		);
 	}
@@ -40,5 +50,18 @@ class Icon_List_Item extends Style_Abstract {
 	/**
 	 * Generate style base on attribute.
 	 */
-	public function generate() {}
+	public function generate() {
+		if ( isset( $this->attrs['iconLineHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} i",
+					'property'       => function ( $value ) {
+						return "line-height: {$value}px;";
+					},
+					'value'          => $this->attrs['iconLineHeight'],
+					'device_control' => true,
+				)
+			);
+		}
+	}
 }

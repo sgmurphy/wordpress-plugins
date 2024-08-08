@@ -118,6 +118,14 @@ if ( ! class_exists( __NAMESPACE__ . 'Config' ) ) {
 						'type' => 'boolean',
 						'default' => true,
 					),
+					'display' => [
+						'type' => 'array',
+						'default' => [
+							'desktop' => true,
+							'mobile' => true,
+							'tablet' => true,
+						],
+					],
 					'style' => array(
 						'type' => 'number',
 						'default' => 1,

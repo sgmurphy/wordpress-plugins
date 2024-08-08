@@ -289,7 +289,7 @@
 
 			// remove loaded styles from the page
 			jQuery("#unlimited-elements-styles").remove();
-
+			
 			return function () {
 				// destroy the settings on the block unmount
 				ucSettings.destroy();

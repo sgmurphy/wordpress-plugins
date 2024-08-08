@@ -3,9 +3,9 @@ Contributors: divisupreme, kenng87
 Tags: Divi, Divi Module, Divi Page Builder, divi theme, divi builder, Divi Extensions
 Donate link: https://divisupreme.com/supreme-modules-lite-for-divi/
 Requires at least: 4.5
-Tested up to: 6.5.5
+Tested up to: 6.6.1
 Requires PHP: 7.4
-Stable tag: 2.5.59
+Stable tag: 2.5.60
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,9 @@ This is a common question that we get asked here every now and then which is why
 
 
 == Changelog ==
+= 2.5.60 – 08.08.2024 =
+* Fixed: Deprecated: Dynamic Property is deprecated warning message for Divi Flipbox and Divi Icon List Module. 
+
 = 2.5.59 – 20.07.2024 =
 * Fixed: Divi Price List Module description displaying as a row layout instead of the standard text wrap.
 * Fixed: Margin bottom issue for child items in the Divi Price List Module on both Visual Builder and Frontend.

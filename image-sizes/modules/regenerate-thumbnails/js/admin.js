@@ -27,21 +27,25 @@ jQuery(function ($) {
                         regenerate(limit, res.offset, res.thumbs_deleted, res.thumbs_created);
                     }else{
                         $("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
-                        $(".thumbpress-progress-panel .thumbpress-progress-content").addClass("progress-full");  
                     }
-                    if( res.progress ) {
-                        var progress = res.progress;
-                        $(".thumbpress-progress-content").text(Math.ceil(progress) + "%").css({ width: progress + "%" });
-                    }
+					if( res.progress ) {
+						var progress = Math.round(res.progress);
+					   $(".thumbpress-progressbar").attr( 'style', "--value:" + progress );
+					   $(".thumbpress-progressbar").attr('data-content', progress);
+				   }
+				   	$(".thumbpress-processs-message").html(res.message);
                     $("#processed-count").html(res.offset);
-					$("#removed-count").html(res.thumbs_deleted);
-					$("#regenerated-count").html(res.thumbs_created);
+					$("#deleted-count").html(res.thumbs_deleted);
+					$("#created-count").html(res.thumbs_created);
+					$(".thumbpress-progressbar").show();
+					$(".thumbpress-action-no-process").hide();
+					$(".thumbpress-processs-message").show();
                 }
                 if( res.status == 2 ) {
-					$("#thumbpress-action-now-result").hide();
-					$('#thumbpress-action-no-result').show();
+					$("#thumbpress-action-result").hide();
+					$('.thumbpress-action-no-result').show();
 					$("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
-				}
+                }
 			},
 			error: function (err) {
 				$("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
@@ -52,9 +56,14 @@ jQuery(function ($) {
 	// cx-regen-thumbs
 	$("#image_sizes-regen-thumbs").click(function (e) {
 		$("#image_sizes-regen-thumbs").text(THUMBPRESS.regening).attr("disabled", true);
-		$("#thumbress-action-background-result, #thumbpress-action-no-result, #thumbpress-pro-view").hide();
+		$(".thumbpress-action-no-result, thumbpress-action-failed, .thumbpress-action-no-process, #thumbpress-pro-view, .thumbpress-processs-message").hide();
+		$(".thumbpress-progressbar").attr( 'style', "--value:0");
+		$(".thumbpress-progressbar").attr('data-content', 0);
+		$("#processed-count").html(0);
+		$("#deleted-count").html(0);
+		$("#created-count").html(0);
+		$("#thumbpress-action-result").show();
 		regenerate(limit, offset, thumbs_deleted, thumbs_created);
-		$("#thumbpress-action-now-result").show();
 	});
 
 	// Schedule regen thumbnail
@@ -71,11 +80,16 @@ jQuery(function ($) {
 			},
 			type: 'POST',
 			dataType: 'json',
-			success: function(resp) {
+			success: function(response) {
 				thumbpress_modal(false);
-				$('#cx-message-optimize-images p').text(resp.message);
-				$('#cx-message-optimize-images').show().fadeOut(3000);
-				location.reload();
+				if( response.status == 2 ) {
+					$("#thumbpress-action-result, .thumbpress-action-failed, .thumbpress-action-no-process, #thumbpress-pro-view, .thumbpress-processs-message").hide();
+					$('.thumbpress-action-no-result').show();
+					$("#image_sizes-schedule-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
+				}
+				else{
+					location.reload();
+				}
 			},
 			error: function (err) {
 				thumbpress_modal(false);

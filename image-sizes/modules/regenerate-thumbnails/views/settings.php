@@ -1,126 +1,143 @@
 <?php 
 use Codexpert\ThumbPress\Helper;
- ?>
+$status 			= thumbpress_get_last_action_status_by_module_name( 'regenerate-thumbnails' );
+$action_id 			= thumbpress_get_last_action_status_by_module_name( 'regenerate-thumbnails', 'action_id' );
+$_progress 			= get_option( "thumbpress_regenerate_progress" ) ?? 0;
+$processed_count	= get_option( "thumbpress_regenerate_total_processed" ) ?? 0;
+$deleted_count 		= get_option( "thumbpress_regenerate_total_deleted" ) ?? 0;
+$created_count 		= get_option( "thumbpress_regenerate_total_created" ) ?? 0;
+$progress 			= round( $_progress );
+$show_failed 		= $show_no_process = $show_no_results = $show_process = 'none';
+$message 			= $background_color = '';
+$last_schedule_time = get_option( 'thumbpress_regenerate_last_schedule_time' );
+$time_format 		= 'g:i a F j, Y';
+$completed_time 	= $last_schedule_time ? date_i18n( $time_format, $last_schedule_time ) : '';
+
+if( in_array( $status, [ 'in-progress', 'pending', 'complete' ] ) ) {
+	$show_process = 'flex';
+}
+elseif( $status == 'failed' ) {
+	$show_failed = 'flex';
+	$background_color = '#F63D3F0D';
+	
+}else{
+	$show_no_process = 'block';
+}
+if( $status == "complete" && $processed_count == 0 ) {
+	$show_no_results = "flex";
+	$show_process 	 = 'none';
+}
+if( in_array( $status, [ 'in-progress', 'pending' ] ) ) {
+	$message = __( 'Regenerating Thumbnails in Background', 'thumbpress-pro' );
+}
+if( $status == 'complete' ) {
+	$message = sprintf(
+		__( 'Regenerating Thumbnails in background was completed at %s', 'thumbpress-pro' ),
+		esc_html( $completed_time )
+	);
+}
+if ( $status == 'failed' ) {
+	$message = __( 'Regenerating Thumbnails in Background Failed.', 'thumbpress-pro' );
+}
+?>
 <div id="cx-message-optimize-images" class="cx-message">
 	<img src="<?php echo esc_url( plugins_url( 'vendor/codexpert/plugin/src/assets/img/checked.png', THUMBPRESS ) ); ?>">
 </div>
-<div id="image_sizes-regen-wrap" class="image_sizes-regen-thumbs-panel thumbpress-actions-wrapper">
-	<div id="image_sizes-regen-left" class="thumbpress-actions-left">
-		<p class="image_sizes-desc">
-			<?php _e( 'Since you updated the thumbnails to be generated, images you\'ll upload in the future will generate thumbnails based on your settings. But, what about the ones you already uploaded? Click the button below and it\'ll regenerate thumbnails of your existing images.', 'image-sizes' ); ?>
-		</p>
-		<label for="image-sizes_regenerate-thumbs-limit">
-			<?php _e( 'Number of images to process per request:', 'image-sizes' ) ?>
-		</label>
-		<input type="number" class="cx-field cx-field-number thumbpress-action-input" id="image-sizes_regenerate-thumbs-limit" name="regen-thumbs-limit" value="10" placeholder="<?php _e( 'Images/request. Default is 50', 'image-sizes' ) ?>" required="">
-		<div class="thumbpress-buttons-wrapper">
-			<button id="image_sizes-regen-thumbs" class="thumbpress-action-now button-hero button">
-				<?php _e( 'Regenerate Now', 'image-sizes' ); ?>
-			</button>
-			<button id="image_sizes-schedule-regen-thumbs" class="thumbpress-action-background">
-				<?php _e( 'Regenerate In Background', 'image-sizes' ); ?>
-			</button>
-		</div>
-		<?php 
-			$thumbpress_modules = Helper::get_option( 'thumbpress_modules', 'disable-thumbnails' );
+<div class="thumbpress-submenu">
+	<div class="thumbpress-actions-wrapper">
+		<div id="image_sizes-regen-left" class="thumbpress-actions-left">
+			<div id="info-icon" class="info-icon">
+				<img class="info-img" src="<?php echo esc_url( plugins_url( 'modules/detect-unused-image/img/info.png', THUMBPRESS_PRO ) ); ?>">
+				<p>
+					<?php _e( "Regenerate Thumbnails is a server-dependent feature and the regeneration process may timeout if you process a large number of images. We suggest doing this process in the background to avoid any issues.", 'thumbpress-pro' ); ?>
+				</p>
+			</div>
+			<label for="image-sizes_regenerate-thumbs-limit">
+				<?php _e( 'Number of images to process per request:', 'image-sizes' ) ?>
+			</label>
+			<input type="number" class="cx-field cx-field-number thumbpress-action-input" id="image-sizes_regenerate-thumbs-limit" name="regen-thumbs-limit" value="10" placeholder="<?php _e( 'Images/request. Default is 50', 'image-sizes' ) ?>" required="">
+			<div class="thumbpress-buttons-wrapper">
+				<button id="image_sizes-regen-thumbs" class="thumbpress-action-now">
+					<?php _e( 'Regenerate Now', 'image-sizes' ); ?>
+				</button>
+				<button id="image_sizes-schedule-regen-thumbs" class="thumbpress-action-background">
+					<?php _e( 'Regenerate In Background', 'image-sizes' ); ?>
+				</button>
+			</div>
+			<?php 
+				$thumbpress_modules = Helper::get_option( 'thumbpress_modules', 'disable-thumbnails' );
 
-			if ( $thumbpress_modules == 'on' ) {
-				?>
-				<a href="<?php echo esc_url( add_query_arg( [ 'page' => 'thumbpress' ], admin_url( 'admin.php' ) ) . '#prevent_image_sizes' ); ?>" class="prevent_image_sizes-back button-hero">
-					&#10550; <?php _e( 'Go to Disable Thumbnails Settings', 'image-sizes' ); ?>
-				</a>
-				<?php 
-			}
-		?>
-		
-	</div>
-	<div class="thumbpress-actions-right">
-		<div id="thumbpress-action-now-result" style="display: none;">
-			<div class="thumbpress-progress-panel">
-				<div class="thumbpress-progress-content" style="width:0%">
-					<span>0%</span>
+				if ( $thumbpress_modules == 'on' ) {
+					?>
+					<a href="<?php echo esc_url( add_query_arg( [ 'page' => 'thumbpress' ], admin_url( 'admin.php' ) ) . '#prevent_image_sizes' ); ?>" class="prevent_image_sizes-back button-hero">
+						&#10550; <?php _e( 'Go to Disable Thumbnails Settings', 'image-sizes' ); ?>
+					</a>
+					<?php 
+				}
+			?>
+			
+		</div>
+		<div class="thumbpress-actions-right" style="background-color:<?php esc_attr_e( $background_color ); ?>">
+			<p class="thumbpress-processs-message" style="display: <?php esc_attr_e( $show_process ); ?>;">
+				<?php esc_html_e( $message ); ?>
+			</p>
+			<div id="thumbpress-action-result" style="display: <?php esc_attr_e( $show_process ); ?>;">
+				<div class="thumbpress-progress-content">
+					<div class="thumbpress-progressbar" data-content="<?php esc_attr_e( $progress ) ?>" style="--value: <?php esc_attr_e( $progress ) ?>"></div>
+				</div>
+				<div id="thumbpress-pro-message">
+					<p id="cx-processed">
+						<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
+						<?php
+						printf(
+							__( 'Processed %s images', 'thumbpress-pro' ),
+							'<span id="processed-count">' . esc_html( $processed_count ) . '</span>'
+						);
+						?>
+					</p>
+					<p id="cx-deleted">
+						<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
+						<?php
+						printf(
+							__( 'Deleted %s images.', 'thumbpress-pro' ),
+							'<span id="deleted-count">' . esc_html( $deleted_count ) . '</span>'
+						);
+						?>
+					</p>
+					<p id="cx-created">
+						<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
+						<?php
+						printf(
+							__( 'Created %s images.', 'thumbpress-pro' ),
+							'<span id="created-count">' . esc_html( $created_count ) . '</span>'
+						);
+						?>
+					</p>
 				</div>
 			</div>
-			<div id="thumbpress-pro-message">
-				<p id="cx-processed">
-					<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
-					<?php
-					printf(
-						__( '%s images processed.', 'thumbpress-pro' ),
-						'<span id="processed-count">0</span>',
-					);
-					?>
-				</p>
-				<p id="cx-removed">
-					<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
-					<?php
-					printf(
-						__( '%s images removed.', 'thumbpress-pro' ),
-						'<span id="removed-count">0</span>',
-					);
-					?>
-				</p>
-				<p id="cx-regenerated">
-					<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
-					<?php
-					printf(
-						__( '%s images regenerated.', 'thumbpress-pro' ),
-						'<span id="regenerated-count">0</span>',
-					);
-					?>
+			<div class="thumbpress-action-no-process" style="display: <?php esc_attr_e( $show_no_process ); ?>">
+				<img src="<?php echo esc_url( plugins_url( 'assets/img/no-action.png', THUMBPRESS ) ); ?>" alt="no-action">
+				<p>
+					<?php _e('Please click the button to start detecting images.','thumbpress-pro'); ?>
 				</p>
 			</div>
-		</div>
-		<div id="thumbpress-action-no-result" style="display: none;">
-			<h3>
-				<?php _e( 'No images to regenerate.', 'thumbpress-pro' ); ?>
-			</h3>
-		</div>
-		<?php
-		$status 	= thumbpress_get_last_action_status_by_module_name( 'regenerate-thumbnails' );
-		$action_id 	= thumbpress_get_last_action_status_by_module_name( 'regenerate-thumbnails', 'action_id' );
-		$progress 	= get_option( "thumbpress_regenerate_progress" );
-		$title 		= $text = $status_class = $progress_bar = '';
-
-		if( $status == 'in-progress' || $status == 'pending' ) {
-			$title 			= __( 'PROCESSING...', 'image-sizes' );
-			$text 			= __( 'Your thumbnails are being regenerated. Please wait.', 'image-sizes' );
-			$status_class 	= 'processing';
-			$progress_bar 	= "<div class='progress'>
-			<div class='bar' style='width: " . intval( $progress ) . "%;'>
-			<p class='percent'>" . intval( $progress ) . "%</p>
+			<div class="thumbpress-action-no-result" style="display: <?php esc_attr_e( $show_no_results ); ?>">
+				<img src="<?php echo esc_url( plugins_url( 'assets/img/no-images.png', THUMBPRESS ) ); ?>" alt="no-action">
+				<p>
+					<?php _e('You have no images please upload images.','thumbpress-pro'); ?>
+				</p>
 			</div>
-			</div>";
-		} elseif( $status == 'failed' ) {
-			$title 			= __( 'FAILED', 'image-sizes' );
-			$text 			= __( 'Your thumbnails could not be regenerated. Please try again.', 'image-sizes' );
-			$status_class 	= 'failed';
-		} elseif( $status == 'complete' && $progress == 100 ) {
-			$title 			= __( 'COMPLETED', 'image-sizes' );
-			$text 			= __( 'Your thumbnails have regenerated successfully.', 'image-sizes' );
-			$status_class 	= 'complete';
-			$progress_bar  	= "<div class='progress'>
-			<div class='bar' style='width: " . intval( $progress ) . "%;'>
-			<p class='percent'>" . intval( $progress ) . "%</p>
+			<div class="thumbpress-action-failed" style="display: <?php esc_attr_e( $show_failed ); ?>;">
+				<img src="<?php echo esc_url( plugins_url( 'assets/img/failed-action.png', THUMBPRESS ) ); ?>" alt="failed-action">
+				<p class='failed-warning'>
+					<?php _e( 'Something went wrong!.', 'thumbpress-pro' ); ?>
+				</p>
+				<p class='failed-message'>
+					<?php _e( 'Your backgroud action failed please try again..', 'thumbpress-pro' ); ?>
+				</p>
 			</div>
-			</div>";
-		}
-		?>
-		<div id="thumbress-action-background-result">
-			<div id="thumbress-result-image">
-				<img src="<?php echo esc_url( plugins_url('modules/convert-images/img/convart-icon.png', THUMBPRESS ) ); ?>">
-			</div>
-			<?php if ( $title ): ?>
-				<h2 class="image_sizes-status <?php echo $status_class; ?>">
-					<?php echo esc_html( $title ); ?>
-				</h2>
-				<?php if ( isset( $progress_bar ) ): ?>
-					<?php echo $progress_bar; ?>
-				<?php endif; ?>
-			<?php endif; ?>
-			<p class="image_sizes-desc">
-				<?php echo esc_html( $text ); ?>
-			</p>
+			<?php
+			?>
 		</div>
 	</div>
 </div>

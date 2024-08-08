@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Nav Menu
  *
  * @package gutenverse\style
  */
 class Nav_Menu extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -45,6 +54,7 @@ class Nav_Menu extends Style_Abstract {
 				'positioning' => "#{$this->element_id}",
 				'animation'   => "#{$this->element_id}",
 				'advance'     => "#{$this->element_id}",
+				'mask'        => "#{$this->element_id}",
 			)
 		);
 	}
@@ -172,6 +182,19 @@ class Nav_Menu extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['itemMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['itemMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['itemTextNormalColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -187,6 +210,61 @@ class Nav_Menu extends Style_Abstract {
 
 		if ( isset( $this->attrs['itemTextNormalBg'] ) ) {
 			$this->handle_background( "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a", $this->attrs['itemTextNormalBg'] );
+		}
+
+		if ( isset( $this->attrs['itemMenuBorderNormal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
+                    #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemMenuBorderNormal'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['itemMenuBorderHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a,
+                    #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemMenuBorderHover'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['itemMenuBorderActive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
+                    #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemMenuBorderActive'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['itemMenuBorderActive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
+                    #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemMenuBorderActive'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['itemTextHoverColor'] ) ) {
@@ -309,6 +387,22 @@ class Nav_Menu extends Style_Abstract {
 			$this->handle_border( 'submenuIndicatorBorder', "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i" );
 		}
 
+		if ( isset( $this->attrs['submenuIndicatorBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['submenuIndicatorBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['submenuTypography'] ) ) {
 			$this->inject_typography(
 				array(
@@ -328,6 +422,18 @@ class Nav_Menu extends Style_Abstract {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['submenuSpacing'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['submenuMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['submenuMargin'],
 					'device_control' => true,
 				)
 			);
@@ -388,12 +494,60 @@ class Nav_Menu extends Style_Abstract {
 			$this->handle_border( 'submenuItemBorder', "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a" );
 		}
 
+		if ( isset( $this->attrs['submenuItemBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['submenuItemBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['submenuFirstItemBorder'] ) ) {
 			$this->handle_border( 'submenuFirstItemBorder', "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a" );
 		}
 
+		if ( isset( $this->attrs['submenuFirstItemBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['submenuFirstItemBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['submenuLastItemBorder'] ) ) {
 			$this->handle_border( 'submenuLastItemBorder', "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a" );
+		}
+
+		if ( isset( $this->attrs['submenuLastItemBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['submenuLastItemBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['submenuPanelPadding'] ) ) {
@@ -408,9 +562,37 @@ class Nav_Menu extends Style_Abstract {
 				)
 			);
 		}
+		if ( isset( $this->attrs['submenuPanelMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-element .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['submenuPanelMargin'],
+					'device_control' => true,
+				)
+			);
+		}
 
 		if ( isset( $this->attrs['submenuPanelBorder'] ) ) {
 			$this->handle_border( 'submenuPanelBorder', "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu" );
+		}
+
+		if ( isset( $this->attrs['submenuPanelBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['submenuPanelBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['submenuPanelBackground'] ) ) {
@@ -529,6 +711,22 @@ class Nav_Menu extends Style_Abstract {
 			$this->handle_border( 'hamburgerBorderNormal', "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu" );
 		}
 
+		if ( isset( $this->attrs['hamburgerBorderNormalResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['hamburgerBorderNormalResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['hamburgerColorHover'] ) ) {
 			$this->inject_style(
 				array(
@@ -548,6 +746,22 @@ class Nav_Menu extends Style_Abstract {
 
 		if ( isset( $this->attrs['hamburgerBorderHover'] ) ) {
 			$this->handle_border( 'hamburgerBorderHover', "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover" );
+		}
+
+		if ( isset( $this->attrs['hamburgerBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['hamburgerBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['closeWidth'] ) ) {
@@ -623,6 +837,22 @@ class Nav_Menu extends Style_Abstract {
 			$this->handle_border( 'closeBorderNormal', "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu" );
 		}
 
+		if ( isset( $this->attrs['closeBorderNormalResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['closeBorderNormalResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['closeColorHover'] ) ) {
 			$this->inject_style(
 				array(
@@ -642,6 +872,22 @@ class Nav_Menu extends Style_Abstract {
 
 		if ( isset( $this->attrs['closeBorderHover'] ) ) {
 			$this->handle_border( 'closeBorderHover', "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover" );
+		}
+
+		if ( isset( $this->attrs['closeBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['closeBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['mobileLogoWidth'] ) ) {

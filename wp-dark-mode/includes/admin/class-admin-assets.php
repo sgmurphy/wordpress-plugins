@@ -38,7 +38,11 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 
 			// Enqueue scripts for Elementor.
 			add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+
+			// Text-domain.
+			add_action( 'init', array( $this, 'load_textdomain' ) );
 		}
+
 
 		/**
 		 * Filters
@@ -50,6 +54,17 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 			add_filter( 'script_loader_tag', array( $this, 'script_loader_tag' ), 10, 2 );
 			add_filter( 'wp_dark_mode_admin_activated', array( $this, 'wp_dark_mode_admin_activated' ) );
 		}
+
+		/**
+		 * Load text-domain.
+		 *
+		 * @since 5.0.0
+		 */
+		public function load_textdomain() {
+			load_plugin_textdomain( 'wp-dark-mode', false, dirname ( plugin_basename( WP_DARK_MODE_FILE ) ) . '/languages/' );
+		}
+
+
 		/**
 		 * Get default presets.
 		 *
@@ -87,10 +102,11 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 			wp_add_inline_style( 'wp-dark-mode-admin-common', $this->get_inline_css() );
 
 			// Enqueue scripts.
-			wp_enqueue_script( 'wp-dark-mode-admin', WP_DARK_MODE_ASSETS . 'js/admin.min.js', array(), WP_DARK_MODE_VERSION, true );
+			wp_enqueue_script( 'wp-dark-mode-admin', WP_DARK_MODE_ASSETS . 'js/admin.min.js', array( 'wp-i18n' ), WP_DARK_MODE_VERSION, true );
 
 			// Localize scripts.
 			wp_localize_script( 'wp-dark-mode-admin', 'wp_dark_mode_admin_json', $this->get_admin_json() );
+			wp_set_script_translations('wp-dark-mode-admin', 'wp-dark-mode');
 		}
 
 		/**

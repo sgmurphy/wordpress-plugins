@@ -11,6 +11,7 @@ return array(
     'Automattic\\Jetpack\\Composer\\Manager' => $vendorDir . '/automattic/jetpack-composer-plugin/src/class-manager.php',
     'Automattic\\Jetpack\\Composer\\Plugin' => $vendorDir . '/automattic/jetpack-composer-plugin/src/class-plugin.php',
     'Automattic\\Jetpack\\Constants' => $baseDir . '/jetpack_vendor/automattic/jetpack-constants/src/class-constants.php',
+    'Automattic\\Jetpack\\Script_Data' => $baseDir . '/jetpack_vendor/automattic/jetpack-assets/src/class-script-data.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'QuadLayers\\WPMI\\Api\\Rest\\Endpoints\\Backend\\Base' => $baseDir . '/lib/api/rest/endpoints/backend/class-base.php',
     'QuadLayers\\WPMI\\Api\\Rest\\Endpoints\\Backend\\Libraries\\Get' => $baseDir . '/lib/api/rest/endpoints/backend/libraries/class-get.php',

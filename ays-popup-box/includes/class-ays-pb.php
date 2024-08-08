@@ -262,6 +262,14 @@ class Ays_Pb {
 		// Close popup and caches plugins conflict warning note for 1 month
 		$this->loader->add_action( 'wp_ajax_close_warning_note_permanently', $plugin_admin, 'close_warning_note_permanently' );
         $this->loader->add_action( 'wp_ajax_nopriv_close_warning_note_permanently', $plugin_admin, 'close_warning_note_permanently' );
+
+		// Our Products | Install plugin
+		$this->loader->add_action( 'wp_ajax_ays_pb_install_plugin', $plugin_admin, 'ays_pb_install_plugin' );
+        $this->loader->add_action( 'wp_ajax_nopriv_ays_pb_install_plugin', $plugin_admin, 'ays_pb_install_plugin' );
+
+		// Our Products | Activate plugin
+        $this->loader->add_action( 'wp_ajax_ays_pb_activate_plugin', $plugin_admin, 'ays_pb_activate_plugin' );
+        $this->loader->add_action( 'wp_ajax_nopriv_ays_pb_activate_plugin', $plugin_admin, 'ays_pb_activate_plugin' );
     }
 
 	/**

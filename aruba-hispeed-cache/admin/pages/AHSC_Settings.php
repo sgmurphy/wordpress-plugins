@@ -189,8 +189,8 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 			'class' => ( $is_hidden ) ? 'hidden' : '',
 		);
 		$this->fields['ahsc_static_cache'] = array(
-			'name'    => "<strong>".wp_kses( __( 'Optimize static file cache.', 'aruba-hispeed-cache' ), array( 'strong' => array() ) )."</strong>",
-			'legend' => wp_kses( __( 'Enable cache for static file such image file, css file js file etc.etc.', 'aruba-hispeed-cache' ), array( 'strong' => array(), 'br' => array() ) ),
+			'name'    => "<strong>".wp_kses( __( 'Optimize static file cache on browser.', 'aruba-hispeed-cache' ), array( 'strong' => array() ) )."</strong>",
+			'legend' => wp_kses( __( 'Enable cache for static file on browser such image file, css file js file etc.etc.', 'aruba-hispeed-cache' ), array( 'strong' => array(), 'br' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_static_cache',
 			'checked' => \checked( $option[ 'ahsc_static_cache' ], 1, false ),

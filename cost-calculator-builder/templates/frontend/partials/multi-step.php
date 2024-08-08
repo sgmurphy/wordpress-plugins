@@ -89,13 +89,11 @@
 						<div class="calc-list-inner">
 							<div class="calc-item-title calc-accordion" v-show="!summaryDisplay || showAfterSubmit">
 								<div class="ccb-calc-heading">
-									<?php echo isset( $settings['general']['header_title'] ) ? esc_html( $settings['general']['header_title'] ) : ''; ?>
+									{{ getHeaderTitle }}
 								</div>
-								<?php if ( isset( $settings['general']['descriptions'] ) ? esc_html( $settings['general']['descriptions'] ) : '' ) : ?>
-									<span class="calc-accordion-btn" ref="calcAccordionToggle" @click="toggleAccordionAction">
-										<i class="ccb-icon-Path-3485" :style="{top: '1px', transform: !accordionState ? 'rotate(0)' : 'rotate(180deg)'}"></i>
-									</span>
-								<?php endif; ?>
+								<span class="calc-accordion-btn" ref="calcAccordionToggle" @click="toggleAccordionAction">
+									<i class="ccb-icon-Path-3485" :style="{top: '1px', transform: !accordionState ? 'rotate(0)' : 'rotate(180deg)'}"></i>
+								</span>
 							</div>
 
 							<div class="calc-item-title calc-accordion" style="margin: 0 !important;"
@@ -108,7 +106,7 @@
 							<div class="calc-subtotal-list" :class="{ 'show-unit': showUnitInSummary }"
 								 v-show="!summaryDisplay || showAfterSubmit">
 								<transition>
-									<div :class="{close: !accordionState}" class="calc-subtotal-list-accordion">
+									<div class="calc-subtotal-list-accordion" :class="{hidden: !accordionState}">
 										<div class="calc-subtotal-list-header" v-if="showUnitInSummary">
 											<span class="calc-subtotal-list-header__name"><?php esc_html_e( 'Name', 'cost-calculator-builder' ); ?></span>
 											<span class="calc-subtotal-list-header__value"><?php esc_html_e( 'Total', 'cost-calculator-builder' ); ?></span>
@@ -268,7 +266,7 @@
 		<div class="calc-summary-popup-window" :class="{active: activeClass}">
 			<div class="calc-summary-popup__header">
 				<div class="calc-summary-popup__title">
-					<?php echo isset( $settings['general']['header_title'] ) ? esc_html( $settings['general']['header_title'] ) : ''; ?>
+					{{ getHeaderTitle }}
 				</div>
 				<div class="calc-summary-popup__close">
 					<span span @click="closeSummaryPopup">
@@ -279,7 +277,7 @@
 			<div class="calc-summary-popup__body">
 				<div class="calc-subtotal-list" :class="{ 'show-unit': showUnitInSummary }">
 					<transition>
-						<div :class="{close: !accordionState}" class="calc-subtotal-list-accordion">
+						<div class="calc-subtotal-list-accordion" :class="{hidden: !accordionState}" >
 							<div class="calc-subtotal-list-header" v-if="showUnitInSummary">
 								<span class="calc-subtotal-list-header__name"><?php esc_html_e( 'Name', 'cost-calculator-builder' ); ?></span>
 								<span class="calc-subtotal-list-header__value"><?php esc_html_e( 'Total', 'cost-calculator-builder' ); ?></span>

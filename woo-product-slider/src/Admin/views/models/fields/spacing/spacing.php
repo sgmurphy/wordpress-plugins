@@ -79,11 +79,12 @@ if ( ! class_exists( 'SPF_WPSP_Field_spacing' ) ) {
 				'unit'     => 'px',
 			);
 
-			$value   = wp_parse_args( $this->value, $default_values );
-			$unit    = ( count( $args['units'] ) === 1 && ! empty( $args['unit'] ) ) ? $args['units'][0] : '';
-			$is_unit = ( ! empty( $unit ) ) ? ' spwps--is-unit' : '';
-			$min     = ( isset( $this->field['attributes']['min'] ) ) ? 'min=' . $this->field['attributes']['min'] : '';
-			$max     = ( isset( $this->field['attributes']['max'] ) ) ? ' max=' . $this->field['attributes']['max'] : '';
+			$value    = wp_parse_args( $this->value, $default_values );
+			$unit     = ( count( $args['units'] ) === 1 && ! empty( $args['unit'] ) ) ? $args['units'][0] : '';
+			$is_unit  = ( ! empty( $unit ) ) ? ' spwps--is-unit' : '';
+			$min      = ( isset( $this->field['attributes']['min'] ) ) ? 'min=' . $this->field['attributes']['min'] : '';
+			$max      = ( isset( $this->field['attributes']['max'] ) ) ? ' max=' . $this->field['attributes']['max'] : '';
+			$disabled = ( isset( $this->field['attributes']['disabled'] ) ) ? ' disabled=' . $this->field['attributes']['disabled'] : '';
 
 			echo wp_kses_post( $this->field_before() );
 
@@ -147,9 +148,12 @@ if ( ! class_exists( 'SPF_WPSP_Field_spacing' ) ) {
 			if ( ! empty( $args['unit'] ) && ! empty( $args['show_units'] ) && count( $args['units'] ) > 1 ) {
 				echo '<div class="spwps--input">';
 				echo '<select name="' . esc_attr( $this->field_name( '[unit]' ) ) . '">';
+				// $first = true; // Flag to check if it's the first iteration.
 				foreach ( $args['units'] as $unit ) {
-					$selected = ( $value['unit'] === $unit ) ? ' selected' : '';
-					echo '<option value="' . esc_attr( $unit ) . '"' . esc_attr( $selected ) . '>' . esc_attr( $unit ) . '</option>';
+					$selected     = ( $value['unit'] === $unit ) ? ' selected' : '';
+					// $disabledAttr = ! $first ? $disabled : '';
+					echo '<option' . $disabled . ' value="' . esc_attr( $unit ) . '"' . esc_attr( $selected ) . '>' . esc_attr( $unit ) . '</option>';
+					// $first = false; // After the first iteration, set the flag to. false
 				}
 				echo '</select>';
 				echo '</div>';

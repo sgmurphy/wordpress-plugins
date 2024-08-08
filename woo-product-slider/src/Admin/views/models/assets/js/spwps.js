@@ -282,6 +282,7 @@
 					SPF_WPSP.helper.set_cookie('spwps-last-metabox-tab-' + post_id + '-' + unique_id, section_id);
 
 					$last = $section;
+					$('.spwps-tabbed-nav a:nth-child(1)').trigger('click');
 
 				});
 
@@ -1637,8 +1638,8 @@
 
 					// this block used for support tooltip.
 					if ($this.find('.spwps-support').length > 0) {
-						$top = $this.offset().top + 54;
-						offset_left = $this.offset().left - 245;
+						$top = $this.offset().top + 48;
+						offset_left = $this.offset().left - 231;
 					}
 					$tooltip.css({
 						top: $top,
@@ -1755,6 +1756,25 @@
 		$('.spwps-confirm').spwps_confirm();
 		$('.spwps-expand-all').spwps_expand_all();
 		$('.spwps-onload').spwps_reload_script();
+		$('.spwps-admin-header').find('.spwps-support-area').spwps_help();
+
+		$(".spwps-field-button_clean.wps_cache_remove .spwps--sibling.spwps--button").on("click", function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			if (SPF_WPSP.vars.is_confirm) {
+				window.wp.ajax
+					.post("spwps_clean_transient", {
+						nonce: $("#spwps_options_noncesp_woo_product_slider_options").val(),
+					})
+					.done(function (response) {
+						alert("Cache cleaned");
+					})
+					.fail(function (response) {
+						alert("Cache failed to clean");
+						alert(response.error);
+					});
+			}
+		});
 
 	});
 
@@ -1768,7 +1788,7 @@
 // Shortcode tabe show/hide.
 jQuery(function ($) {
 	// Shortcode copy to clipboard.
-	$('.wpspro_shortcode .wpspro-col-lg-3 .selectable').on('click',function (e) {
+	$('.spwps-shortcode-selectable').on('click', function (e) {
 		e.preventDefault();
 		wpspro_copyToClipboard($(this));
 		wpspro_SelectText($(this));
@@ -1879,7 +1899,7 @@ jQuery(function ($) {
 	});
 
 	// Product Slider import.
-	$('.wpsp_import button.import').on('click',function (event) {
+	$('.wpsp_import button.import').on('click', function (event) {
 		event.preventDefault();
 		var $this = $(this),
 			this_text = $(this).text(),
@@ -2033,16 +2053,13 @@ jQuery(function ($) {
 		updateIconType(".wps-navigation-position", /navigation-preview\/(.+)\.svg/, 'top_right');
 	});
 
-
-	// Function to update UI based on selected tab
+	// Function to update UI based on selected tab.
 	function updateUI(selectValue) {
-		if (selectValue === "slider") {
-			$(".spwps-metabox .spwps-nav-metabox li a[data-section='sp_wps_shortcode_options_4']").show();
-			$('#sp_wps_shortcode_options .wps_item_margin_between .spwps--space:nth-child(2)').hide();
-		} else {
-			$(".spwps-metabox .spwps-nav-metabox li a[data-section='sp_wps_shortcode_options_4']").hide();
-			$('#sp_wps_shortcode_options .wps_item_margin_between .spwps--space:nth-child(2)').show();
-		}
+		var isCarouselSlider = selectValue === "slider" || selectValue === "multi-row" || selectValue === "ticker" || selectValue === "live-filter";
+
+		$(".spwps-metabox .spwps-nav-metabox li a[data-section='sp_wps_shortcode_options_3']").toggle(isCarouselSlider);
+		$('.wps_item_margin_between .spwps--space:nth-child(2)').toggle(selectValue === "grid");
+		$('.spwps-tabbed-nav .load_more_pagination_tab').toggle(selectValue === "grid");
 	}
 
 	// Initial setup
@@ -2055,4 +2072,22 @@ jQuery(function ($) {
 		var selectValue = $(this).find("input:checked").val();
 		updateUI(selectValue);
 	});
+
+	// Get the last activated or selected layout.
+	var lastSelectedOption = $('input[name="sp_wps_layout_options[layout_preset]"]:checked').val();
+	$('input[name="sp_wps_layout_options[layout_preset]"]').on('change', function () {
+		if (!$(this).is(':disabled')) {
+			lastSelectedOption = $(this).val();
+		}
+	});
+
+	// Revert the selection to the last valid activated option that was selected before if the disabled/pro option is chosen.
+	$('#publishing-action').on('click', '#publish', function (e) {
+		if ($('input[name="sp_wps_layout_options[layout_preset]"]:checked').is(':disabled')) {
+			$('input[name="sp_wps_layout_options[layout_preset]"][value="' + lastSelectedOption + '"]').prop('checked', true);
+		}
+	});
+	$('.spwps-live-demo-icon').on('click', function (event) {
+		event.stopPropagation();
+	})
 });

@@ -4,35 +4,46 @@
   "title": "Social Icons",
   "description": "Show social networks link to your website visitors",
   "category": "gutenverse-element",
+  "allowCopyStyle": true,
   "attributes": {
     "elementId": {
       "type": "string"
     },
+    "mouseMoveEffect": {
+      "type": "object",
+      "copyStyle": true
+    },
     "typography": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "iconSize": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "gap": {
       "type": "object",
       "default": {
         "Desktop": "10"
-      }
+      },
+      "copyStyle": true
     },
     "alignment": {
       "type": "object",
       "default": {
         "Desktop": "center"
-      }
+      },
+      "copyStyle": true
     },
     "orientation": {
       "type": "string",
-      "default": "horizontal"
+      "default": "horizontal",
+      "copyStyle": true
     },
     "shape": {
       "type": "string",
-      "default": "rounded"
+      "default": "rounded",
+      "copyStyle": true
     },
     "showText": {
       "type": "boolean",
@@ -40,124 +51,205 @@
     },
     "color": {
       "type": "string",
-      "default": "fill"
+      "default": "fill",
+      "copyStyle": true
     },
     "iconColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "bgColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "textColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "iconBorder": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
+    },
+    "iconBorderResponsive": {
+      "type": "object",
+      "migrate": {
+        "attr": "iconBorder",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "iconBoxShadow": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "iconBorderHover": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
+    },
+    "iconBorderHoverResponsive": {
+      "type": "object",
+      "migrate": {
+        "attr": "iconBorderHover",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "iconBoxShadowHover": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "border": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
+    },
+    "borderResponsive": {
+      "type": "object",
+      "migrate": {
+        "attr": "border",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "boxShadow": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "borderHover": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
+    },
+    "borderHoverResponsive": {
+      "type": "object",
+      "migrate": {
+        "attr": "borderHover",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "boxShadowHover": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "itemPadding": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "hoverIconColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "hoverBgColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "hoverTextColor": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "background": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
     },
     "backgroundHover": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
     },
     "margin": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "padding": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "zIndex": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "animation": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
     },
     "hideDesktop": {
-      "type": "boolean"
+      "type": "boolean",
+      "copyStyle": true
     },
     "hideTablet": {
-      "type": "boolean"
+      "type": "boolean",
+      "copyStyle": true
     },
     "hideMobile": {
-      "type": "boolean"
+      "type": "boolean",
+      "copyStyle": true
     },
     "positioningType": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningWidth": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningAlign": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningLocation": {
-      "type": "string"
+      "type": "string",
+      "copyStyle": true
     },
     "positioningLeft": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningRight": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningTop": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "positioningBottom": {
-      "type": "object"
+      "type": "object",
+      "copyStyle": true
     },
     "advanceAnimation": {
       "type": "object",
-      "default": {}
+      "default": {},
+      "copyStyle": true
+    },
+    "transform": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "mask": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
-  "variations": [{
+  "variations": [
+    {
       "name": "social-icons-horizontal",
       "title": "Horizontal",
       "description": "Social icons shown in a row.",
       "attributes": {
         "orientation": "horizontal"
       },
-      "scope": ["transform"]
+      "scope": [
+        "transform"
+      ]
     },
     {
       "name": "social-icons-vertical",
@@ -167,11 +259,16 @@
       "attributes": {
         "orientation": "vertical"
       },
-      "scope": ["transform"]
+      "scope": [
+        "transform"
+      ]
     }
   ],
   "supports": {
     "className": false
   },
-  "keywords": ["social", "icon"]
+  "keywords": [
+    "social",
+    "icon"
+  ]
 }

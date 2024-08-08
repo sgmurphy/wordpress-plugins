@@ -17,7 +17,7 @@ const renderEmbed = (props) => {
 	const myClassName = getBlockDefaultClassName('embed-pdf-viewer/pdf');
 	const isChrome = navigator && navigator?.userAgent && navigator.userAgent.toLowerCase().includes('chrome');
 	const classNames = "embed-pdf-viewer";
-	const src = isChrome && 'https://docs.google.com/viewer?url=' + encodeURIComponent(url) + '&embedded=true' || url;
+	const src = isChrome && 'https://docs.google.com/viewer?url=' + encodeURIComponent(url) + '&embedded=true' || encodeURI(url);
 
 	if (undefined === url || !url) {
 		return null;
@@ -128,7 +128,7 @@ const renderEdit = (props) => {
 					<div>
 						<TextareaControl
 							label={__('Long Description (optional)', 'embed-pdf-viewer')}
-							value={undefined === title ? '' : title}
+							value={undefined === description ? title : description}
 							onChange={updateAttribute('description')}
 							help={__('Long Description used for `title` tag and accessibility.', 'embed-pdf-viewer')}
 						/>

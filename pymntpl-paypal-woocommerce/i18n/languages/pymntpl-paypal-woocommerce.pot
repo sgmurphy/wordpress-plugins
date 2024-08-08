@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Payment Plugins for PayPal WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Payment Plugins for PayPal WooCommerce 1.0.50\n"
+"Project-Id-Version: Payment Plugins for PayPal WooCommerce 1.0.51\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pymntpl-paypal-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-16T23:23:34+00:00\n"
+"POT-Creation-Date: 2024-08-07T19:27:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pymntpl-paypal-woocommerce\n"
@@ -679,80 +679,80 @@ msgid "Production Secret Key"
 msgstr ""
 
 #: src/Admin/Settings/APISettings.php:131
-#: src/Admin/Settings/APISettings.php:151
+#: src/Admin/Settings/APISettings.php:150
 msgid "Webhook URL"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:139
+#: src/Admin/Settings/APISettings.php:138
 msgid "Sandbox Webhook ID"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:146
-#: src/Admin/Settings/APISettings.php:166
+#: src/Admin/Settings/APISettings.php:145
+#: src/Admin/Settings/APISettings.php:165
 msgid ""
 "The webhook ID represents the configured webhook in your PayPal account. If the plugin is unable to create the webhook \n"
 "\t\t\t\tautomatically, you can manually create it and enter the ID here."
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:159
+#: src/Admin/Settings/APISettings.php:158
 msgid "Production Webhook ID"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:171
+#: src/Admin/Settings/APISettings.php:170
 msgid "Debug Enabled"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:176
+#: src/Admin/Settings/APISettings.php:175
 msgid "When enabled, valuable debugging information will be captured and stored in the WooCommerce logs."
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:179
+#: src/Admin/Settings/APISettings.php:178
 msgid "Debug Payment Process"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:184
+#: src/Admin/Settings/APISettings.php:183
 msgid "When enabled, detailed debug data for payments will be added to the log."
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:190
+#: src/Admin/Settings/APISettings.php:189
 msgid "Debug Webhook"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:195
+#: src/Admin/Settings/APISettings.php:194
 msgid "When enabled, detailed debug data for webhooks will be added to the log."
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:207
-#: src/Admin/Settings/APISettings.php:213
+#: src/Admin/Settings/APISettings.php:206
+#: src/Admin/Settings/APISettings.php:212
 msgid "Status"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:207
+#: src/Admin/Settings/APISettings.php:206
 msgid "Connected"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:209
-#: src/Admin/Settings/APISettings.php:249
+#: src/Admin/Settings/APISettings.php:208
+#: src/Admin/Settings/APISettings.php:248
 msgid "Delete Connection"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:214
+#: src/Admin/Settings/APISettings.php:213
 msgid "Created"
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:248
+#: src/Admin/Settings/APISettings.php:247
 msgid "Configuring connection to PayPal..."
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:250
+#: src/Admin/Settings/APISettings.php:249
 msgid "Press OK to continue deleting your connection data."
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:262
+#: src/Admin/Settings/APISettings.php:261
 msgid "Your PayPal account has been connected."
 msgstr ""
 
-#: src/Admin/Settings/APISettings.php:402
+#: src/Admin/Settings/APISettings.php:406
 msgid "The PayPal connect feature is not available at this time. Please manually enter your client ID and secret key."
 msgstr ""
 

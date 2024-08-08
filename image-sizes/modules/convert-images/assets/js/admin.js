@@ -15,17 +15,23 @@ jQuery(function ($) {
                         convert(limit, res.offset);
                     }else{
                         $("#thumbpress-convert-now").text(THUMBPRESS.convertNow).attr("disabled", false);
-                        $(".thumbpress-progress-panel .thumbpress-progress-content").addClass("progress-full");  
                     }
+
                     if( res.progress ) {
-                        var progress = res.progress;
-                        $(".thumbpress-progress-content").text(Math.ceil(progress) + "%").css({ width: progress + "%" });
-                    }
+					   var progress = Math.round(res.progress);
+					   $(".thumbpress-progressbar").attr( 'style', "--value:" + progress );
+					   $(".thumbpress-progressbar").attr('data-content', progress);
+				   }
+                    $(".thumbpress-processs-message").html(res.message);
                     $("#processed-count").html(res.offset);
+					$("#converted-count").html(res.offset);
+					$(".thumbpress-progressbar").show();
+					$(".thumbpress-action-no-process").hide();
+                    $(".thumbpress-processs-message").show();
                 }
                 if( res.status == 2 ) {
-                    $("#thumbpress-action-now-result").hide();
-					$('#thumbpress-action-no-result').show();
+                    $("#thumbpress-action-result").hide();
+					$('.thumbpress-action-no-result').show();
 					$("#thumbpress-convert-now").text(THUMBPRESS.convertNow).attr("disabled", false);
 				}
 			},
@@ -48,9 +54,15 @@ jQuery(function ($) {
                     image_id: $(this).data("image_id"),
                 },
                 success: function (resp) {
-                    thumbpress_modal(false);
-                    // console.log(resp);
-                    window.location = window.location.pathname;
+                    if( resp.status == 2 ) {
+                        $(".thumbpress-processs-message").hide();
+                        $("#thumbpress-action-result").hide();
+                        $('.thumbpress-action-no-result').show();
+                        $("#thumbpress-convert-image").text(THUMBPRESS.convertNow).attr("disabled", false);
+                    }
+                    else{
+                        location.reload();
+                    }
                 },
                 error: function (err) {
                     thumbpress_modal(false);
@@ -60,13 +72,16 @@ jQuery(function ($) {
         });
 
         $(document).on("click", "#thumbpress-convert-now", function () {
-            $("#thumbpress-convert-now").text(THUMBPRESS.converting).attr("disabled", true);
-
             var limit = $('#thumbpress-convert-limit').val();
             var offset = 0;
-            $("#thumbress-action-background-result, #thumbpress-action-no-result, #thumbpress-pro-view").hide();
+            $("#thumbpress-convert-now").text(THUMBPRESS.converting).attr("disabled", true);
+            $(".thumbpress-action-no-result, thumbpress-action-failed, .thumbpress-action-no-process, #thumbpress-pro-view, .thumbpress-processs-message").hide();
+            $(".thumbpress-progressbar").attr( 'style', "--value:0");
+            $(".thumbpress-progressbar").attr('data-content', 0);
+            $("#processed-count").html(0);
+            $("#converted-count").html(0);
+            $("#thumbpress-action-result").show();
             convert(limit, offset);
-            $("#thumbpress-action-now-result").show();
         });
 
         $(document).on("click", "#thumbpress-convert-background", function () {
@@ -83,11 +98,14 @@ jQuery(function ($) {
                 },
                 success: function (resp) {
                     thumbpress_modal(false);
-                    $("#cx-message-convert-images p").text(resp.message);
-                    $("#cx-message-convert-images").show().fadeOut(3000);
-                    location.reload();
-
-                    // console.log(resp);
+                    if( resp.status == 2 ) {
+                        $("#thumbpress-action-result, .thumbpress-action-failed, .thumbpress-action-no-process, #thumbpress-pro-view, .thumbpress-processs-message").hide();
+                        $('.thumbpress-action-no-result').show();
+                        $("#thumbpress-convert-image").text(THUMBPRESS.convertNow).attr("disabled", false);
+                    }
+                    else {
+                        location.reload();
+                    }
                 },
                 error: function (err) {
                     thumbpress_modal(false);

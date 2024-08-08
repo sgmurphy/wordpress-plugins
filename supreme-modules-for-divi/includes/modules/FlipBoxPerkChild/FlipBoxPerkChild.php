@@ -5,6 +5,8 @@ class DSM_FlipBox_Perk_Child extends ET_Builder_Module {
 	public $slug       = 'dsm_flipbox_child';
 	public $vb_support = 'on';
 	public $type       = 'child';
+	public $icon_element_selector;
+	public $icon_element_classname;
 
 	protected $module_credits = array(
 		'module_uri' => 'https://divisupreme.com/',

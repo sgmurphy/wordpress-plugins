@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Button
  *
  * @package gutenverse\style
  */
 class Button extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,11 @@ class Button extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => ".{$this->element_id} .guten-button",
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id} .guten-button",
+					'hover'  => ".{$this->element_id} .guten-button:hover",
+				),
+				'mask'        => null,
 			)
 		);
 	}
@@ -66,6 +80,19 @@ class Button extends Style_Abstract {
 						return "width: {$value}%;";
 					},
 					'value'          => $this->attrs['buttonWidth'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['buttonHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button",
+					'property'       => function ( $value ) {
+						return "height: {$value}px;";
+					},
+					'value'          => $this->attrs['buttonHeight'],
 					'device_control' => true,
 				)
 			);
@@ -125,6 +152,19 @@ class Button extends Style_Abstract {
 			);
 		}
 
+		if ( gutenverse_truly_empty( $this->attrs['content'] ) && ! isset( $this->attrs['typography'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button span",
+					'property'       => function () {
+						return 'height: 15px;';
+					},
+					'value'          => '',
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['color'] ) ) {
 			$this->inject_style(
 				array(
@@ -151,30 +191,128 @@ class Button extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['hoverTextColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover span",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'color' );
-					},
-					'value'          => $this->attrs['hoverTextColor'],
-					'device_control' => false,
-				)
-			);
-		}
+		if ( $this->attrs['hoverWithParent'] && isset( $this->attrs['parentSelector'] ) ) {
+			if ( isset( $this->attrs['hoverTextColor'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button span",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['hoverTextColor'],
+						'device_control' => false,
+					)
+				);
+			}
 
-		if ( isset( $this->attrs['hoverIconColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover i",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'color' );
-					},
-					'value'          => $this->attrs['hoverIconColor'],
-					'device_control' => false,
-				)
-			);
+			if ( isset( $this->attrs['hoverIconColor'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button i",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['hoverIconColor'],
+						'device_control' => false,
+					)
+				);
+			}
+			if ( isset( $this->attrs['buttonBackgroundHover'] ) ) {
+				$this->handle_background( $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button", $this->attrs['buttonBackgroundHover'] );
+			}
+			if ( isset( $this->attrs['buttonBorderHover'] ) ) {
+				$this->handle_border( 'buttonBorderHover', $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button" );
+			}
+
+			if ( isset( $this->attrs['buttonBorderHoverResponsive'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button",
+						'property'       => function ( $value ) {
+							return $this->handle_border_responsive( $value );
+						},
+						'value'          => $this->attrs['buttonBorderHoverResponsive'],
+						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['buttonBoxShadowHover'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button",
+						'property'       => function ( $value ) {
+							return $this->handle_box_shadow( $value );
+						},
+						'value'          => $this->attrs['buttonBoxShadowHover'],
+						'device_control' => false,
+					)
+				);
+			}
+		} else {
+			if ( isset( $this->attrs['hoverTextColor'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover span",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['hoverTextColor'],
+						'device_control' => false,
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['hoverIconColor'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover i",
+						'property'       => function ( $value ) {
+							return $this->handle_color( $value, 'color' );
+						},
+						'value'          => $this->attrs['hoverIconColor'],
+						'device_control' => false,
+					)
+				);
+			}
+			if ( isset( $this->attrs['buttonBackgroundHover'] ) ) {
+				$this->handle_background( ".{$this->element_id}.guten-button-wrapper .guten-button:hover", $this->attrs['buttonBackgroundHover'] );
+			}
+			if ( isset( $this->attrs['buttonBorderHover'] ) ) {
+				$this->handle_border( 'buttonBorderHover', ".{$this->element_id}.guten-button-wrapper .guten-button:hover" );
+			}
+
+			if ( isset( $this->attrs['buttonBorderHoverResponsive'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover",
+						'property'       => function ( $value ) {
+							return $this->handle_border_responsive( $value );
+						},
+						'value'          => $this->attrs['buttonBorderHoverResponsive'],
+						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['buttonBoxShadowHover'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover",
+						'property'       => function ( $value ) {
+							return $this->handle_box_shadow( $value );
+						},
+						'value'          => $this->attrs['buttonBoxShadowHover'],
+						'device_control' => false,
+					)
+				);
+			}
 		}
 
 		if ( isset( $this->attrs['typography'] ) ) {
@@ -192,12 +330,24 @@ class Button extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id}.guten-button-wrapper .guten-button", $this->attrs['buttonBackground'] );
 		}
 
-		if ( isset( $this->attrs['buttonBackgroundHover'] ) ) {
-			$this->handle_background( ".{$this->element_id}.guten-button-wrapper .guten-button:hover", $this->attrs['buttonBackgroundHover'] );
-		}
-
 		if ( isset( $this->attrs['buttonBorder'] ) ) {
 			$this->handle_border( 'buttonBorder', ".{$this->element_id}.guten-button-wrapper .guten-button" );
+		}
+
+		if ( isset( $this->attrs['buttonBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['buttonBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['buttonBoxShadow'] ) ) {
@@ -212,22 +362,19 @@ class Button extends Style_Abstract {
 				)
 			);
 		}
-
-		if ( isset( $this->attrs['buttonBorderHover'] ) ) {
-			$this->handle_border( 'buttonBorderHover', ".{$this->element_id}.guten-button-wrapper .guten-button:hover" );
-		}
-
-		if ( isset( $this->attrs['buttonBoxShadowHover'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover",
-					'property'       => function ( $value ) {
-						return $this->handle_box_shadow( $value );
-					},
-					'value'          => $this->attrs['buttonBoxShadowHover'],
-					'device_control' => false,
-				)
-			);
+		if ( isset( $this->attrs['iconLineHeight'] ) ) {
+			if ( $this->attrs['iconLineHeight'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button i",
+						'property'       => function ( $value ) {
+							return 'line-height: normal';
+						},
+						'value'          => $this->attrs['iconLineHeight'],
+						'device_control' => false,
+					)
+				);
+			}
 		}
 	}
 }

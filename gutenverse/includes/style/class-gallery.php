@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Gallery
  *
  * @package gutenverse\style
  */
 class Gallery extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -37,6 +46,7 @@ class Gallery extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -158,8 +168,40 @@ class Gallery extends Style_Abstract {
 			$this->handle_border( 'filterTabBorder', ".{$this->element_id} .filter-controls .guten-gallery-control" );
 		}
 
+		if ( isset( $this->attrs['filterTabBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['filterTabBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['filterTabBorderActive'] ) ) {
 			$this->handle_border( 'filterTabBorderActive', ".{$this->element_id} .filter-controls .guten-gallery-control.active" );
+		}
+
+		if ( isset( $this->attrs['filterTabBorderActiveResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control.active",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['filterTabBorderActiveResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['filterTabBoxShadow'] ) ) {
@@ -184,6 +226,19 @@ class Gallery extends Style_Abstract {
 					},
 					'value'          => $this->attrs['filterTabBoxShadowActive'],
 					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['searchControlWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .search-filters-wrap",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'width' );
+					},
+					'value'          => $this->attrs['searchControlWidth'],
+					'device_control' => true,
 				)
 			);
 		}
@@ -275,6 +330,22 @@ class Gallery extends Style_Abstract {
 
 		if ( isset( $this->attrs['filterSearchBorder'] ) ) {
 			$this->handle_border( 'filterSearchBorder', ".{$this->element_id} .search-filters-wrap .filter-wrap button.search-filter-trigger" );
+		}
+
+		if ( isset( $this->attrs['filterSearchBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap button.search-filter-trigger",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['filterSearchBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['filterSearchMargin'] ) ) {
@@ -372,6 +443,22 @@ class Gallery extends Style_Abstract {
 			$this->handle_border( 'filterSearchFormBorder', ".{$this->element_id} .search-filters-wrap .guten-gallery-search-box" );
 		}
 
+		if ( isset( $this->attrs['filterSearchFormBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .search-filters-wrap .guten-gallery-search-box",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['filterSearchFormBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['filterSearchFormBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
@@ -419,6 +506,22 @@ class Gallery extends Style_Abstract {
 			$this->handle_border( 'filterSearchDropdownBorder', ".{$this->element_id} .search-filters-wrap .filter-wrap ul.search-filter-controls" );
 		}
 
+		if ( isset( $this->attrs['filterSearchDropdownBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap ul.search-filter-controls",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['filterSearchDropdownBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['filterSearchDropdownPadding'] ) ) {
 			$this->inject_style(
 				array(
@@ -427,6 +530,19 @@ class Gallery extends Style_Abstract {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['filterSearchDropdownPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['iconWrapperMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .item-buttons",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['iconWrapperMargin'],
 					'device_control' => true,
 				)
 			);
@@ -471,21 +587,67 @@ class Gallery extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['iconPadding'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
-					'property'       => function ( $value ) {
-						return $this->handle_dimension( $value, 'padding' );
-					},
-					'value'          => $this->attrs['iconPadding'],
-					'device_control' => false,
-				)
-			);
+		if ( isset( $this->attrs['selectionIconPadding'] ) ) {
+			if ( 'all' === $this->attrs['selectionIconPadding'] ) {
+
+				if ( isset( $this->attrs['iconPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['iconPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+			} elseif ( 'custom' === $this->attrs['selectionIconPadding'] ) {
+				if ( isset( $this->attrs['zoomIconPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link.zoom span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link.zoom span",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['zoomIconPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+				if ( isset( $this->attrs['linkIconPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link.link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link.link span",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['linkIconPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+			}
 		}
 
 		if ( isset( $this->attrs['iconBorder'] ) ) {
 			$this->handle_border( 'iconBorder', ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span" );
+		}
+
+		if ( isset( $this->attrs['iconBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['itemPadding'] ) ) {
@@ -516,6 +678,22 @@ class Gallery extends Style_Abstract {
 
 		if ( isset( $this->attrs['itemBorder'] ) ) {
 			$this->handle_border( 'itemBorder', ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item" );
+		}
+
+		if ( isset( $this->attrs['itemBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['itemBoxShadow'] ) ) {
@@ -567,6 +745,22 @@ class Gallery extends Style_Abstract {
 
 		if ( isset( $this->attrs['itemHoverBorder'] ) ) {
 			$this->handle_border( 'itemHoverBorder', ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap .item-hover-bg" );
+		}
+
+		if ( isset( $this->attrs['itemHoverBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap .item-hover-bg",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemHoverBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['itemHoverAlign'] ) ) {
@@ -671,6 +865,22 @@ class Gallery extends Style_Abstract {
 
 		if ( isset( $this->attrs['itemCardBorder'] ) ) {
 			$this->handle_border( 'itemCardBorder', ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card" );
+		}
+
+		if ( isset( $this->attrs['itemCardBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemCardBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['itemCardAlign'] ) ) {
@@ -879,23 +1089,58 @@ class Gallery extends Style_Abstract {
 			$this->handle_border( 'loadMoreBorder', ".{$this->element_id} .load-more-items .guten-gallery-load-more" );
 		}
 
+		if ( isset( $this->attrs['loadMoreBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .load-more-items .guten-gallery-load-more",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['loadMoreBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['loadMoreBorderHover'] ) ) {
 			$this->handle_border( 'loadMoreBorderHover', ".{$this->element_id} .load-more-items .guten-gallery-load-more:hover" );
+		}
+
+		if ( isset( $this->attrs['loadMoreBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .load-more-items .guten-gallery-load-more:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['loadMoreBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['thumbnailBorder'] ) ) {
 			$this->handle_border( 'thumbnailBorder', ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap" );
 		}
 
-		if ( isset( $this->attrs['priceRatingPadding'] ) ) {
+		if ( isset( $this->attrs['thumbnailBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head",
+					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap",
 					'property'       => function ( $value ) {
-						return $this->handle_dimension( $value, 'padding' );
+						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['priceRatingPadding'],
+					'value'          => $this->attrs['thumbnailBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -908,7 +1153,7 @@ class Gallery extends Style_Abstract {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['priceColor'],
-					'device_control' => true,
+					'device_control' => false,
 				)
 			);
 		}
@@ -930,7 +1175,7 @@ class Gallery extends Style_Abstract {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['ratingColor'],
-					'device_control' => true,
+					'device_control' => false,
 				)
 			);
 		}
@@ -943,7 +1188,7 @@ class Gallery extends Style_Abstract {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['ratingStarColor'],
-					'device_control' => true,
+					'device_control' => false,
 				)
 			);
 		}
@@ -1020,6 +1265,168 @@ class Gallery extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+		}
+
+		if ( isset( $this->attrs['selectionPriceRatingPadding'] ) ) {
+			if ( 'all' === $this->attrs['selectionPriceRatingPadding'] ) {
+				if ( isset( $this->attrs['priceRatingPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating, .{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['priceRatingPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+			} elseif ( 'custom' === $this->attrs['selectionPriceRatingPadding'] ) {
+				if ( isset( $this->attrs['pricePadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['pricePadding'],
+							'device_control' => true,
+						)
+					);
+				}
+				if ( isset( $this->attrs['ratingPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['ratingPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+			}
+			if ( isset( $this->attrs['priceMargin'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_dimension( $value, 'margin' );
+						},
+						'value'          => $this->attrs['priceMargin'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingMargin'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_dimension( $value, 'margin' );
+						},
+						'value'          => $this->attrs['ratingMargin'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['pricePositioningLeft'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'left' );
+						},
+						'value'          => $this->attrs['pricePositioningLeft'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['pricePositioningRight'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'right' );
+						},
+						'value'          => $this->attrs['pricePositioningRight'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['pricePositioningTop'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'top' );
+						},
+						'value'          => $this->attrs['pricePositioningTop'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['pricePositioningBottom'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'bottom' );
+						},
+						'value'          => $this->attrs['pricePositioningBottom'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingPositioningLeft'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'left' );
+						},
+						'value'          => $this->attrs['ratingPositioningLeft'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingPositioningRight'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'right' );
+						},
+						'value'          => $this->attrs['ratingPositioningRight'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingPositioningTop'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'top' );
+						},
+						'value'          => $this->attrs['ratingPositioningTop'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingPositioningBottom'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'bottom' );
+						},
+						'value'          => $this->attrs['ratingPositioningBottom'],
+						'device_control' => true,
+					)
+				);
+			}
 		}
 	}
 }

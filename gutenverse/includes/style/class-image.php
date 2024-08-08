@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Image
  *
  * @package gutenverse\style
  */
 class Image extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -32,10 +41,16 @@ class Image extends Style_Abstract {
 
 		$this->set_feature(
 			array(
+				'background'  => null,
 				'border'      => null,
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id} img",
+					'hover'  => ".{$this->element_id} img:hover",
+				),
+				'mask'        => null,
 			)
 		);
 	}
@@ -47,9 +62,9 @@ class Image extends Style_Abstract {
 		if ( isset( $this->attrs['align'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}",
+					'selector'       => ".{$this->element_id} .guten-image-wrapper",
 					'property'       => function ( $value ) {
-						return "text-align: {$value};";
+						return "justify-content: {$this->handle_align_reverse($value)};";
 					},
 					'value'          => $this->attrs['align'],
 					'device_control' => true,
@@ -101,11 +116,11 @@ class Image extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} img",
 					'property'       => function ( $value ) {
-						$brightness = ! $this->truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
-						$contrast = ! $this->truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
-						$saturation = ! $this->truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
-						$blur = ! $this->truly_empty( $value['blur'] ) ? $value['blur'] . 'px' : '0px';
-						$hue = ! $this->truly_empty( $value['hue'] ) ? $value['hue'] . 'deg' : '0deg';
+						$brightness = ! gutenverse_truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
+						$contrast = ! gutenverse_truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
+						$saturation = ! gutenverse_truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
+						$blur = ! gutenverse_truly_empty( $value['blur'] ) ? $value['blur'] . 'px' : '0px';
+						$hue = ! gutenverse_truly_empty( $value['hue'] ) ? $value['hue'] . 'deg' : '0deg';
 
 						return "filter: brightness({$brightness}) contrast({$contrast}) saturate({$saturation}) blur({$blur})hue-rotate({$hue});";
 					},
@@ -132,6 +147,22 @@ class Image extends Style_Abstract {
 
 		if ( isset( $this->attrs['imgBorder'] ) ) {
 			$this->handle_border( 'imgBorder', ".{$this->element_id} img" );
+		}
+
+		if ( isset( $this->attrs['imgBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} img",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['imgBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['imgShadow'] ) ) {

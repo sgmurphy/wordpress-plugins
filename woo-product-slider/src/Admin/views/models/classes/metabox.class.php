@@ -329,45 +329,6 @@ if ( ! class_exists( 'SPF_WPSP_Metabox' ) ) {
 				<?php
 			}
 			echo '<div class="spwps spwps-metabox' . esc_attr( $theme ) . '">';
-			$current_screen        = get_current_screen();
-			$the_current_post_type = $current_screen->post_type;
-			if ( 'sp_wps_shortcodes' === $the_current_post_type && $shortcode_show ) {
-				echo '<div class="sp-wpsp-mbf-banner">';
-				echo '<div class="sp-wpsp-mbf-logo"><img src="' . esc_url( SP_WPS_URL ) . 'Admin/assets/images/wps-logo.svg" alt="Product Slider for WooCommerce"></div>';
-				echo '<div class="sp-wpsp-submit-options"><span class="support-area"><i class="fa fa-life-ring"></i> Support</span><div class="spwps-help-text spwps-support"><div class="spwps-info-label">Documentation</div>Check out our documentation and more information about what you can do with the Product Slider for WooCommerce.<a class="spwps-open-docs browser-docs" href="https://docs.shapedplugin.com/docs/woocommerce-product-slider/overview/" target="_blank">Browse Docs</a><div class="spwps-info-label">Need Help or Missing a Feature?</div>Feel free to get help from our friendly support team or request a new feature if needed. We appreciate your suggestions to make the plugin better.<a class="spwps-open-docs support" href="https://shapedplugin.com/create-new-ticket/" target="_blank">Get Help</a><a class="spwps-open-docs feature-request" href="https://shapedplugin.com/contact-us/" target="_blank">Request a Feature</a></div></div>';
-				echo '</div>';
-				?>
-		<div class="wpspro_shortcode text-center">
-		<div class="wpspro-col-lg-3">
-		<div class="wpspro-after-copy-text wpspro-pagination-not-work"><i class="fa fa-check-circle"></i> The pagination will work in the frontend well. </div>
-		<div class="wpspro-after-copy-text"><i class="fa fa-check-circle"></i> Shortcode Copied to Clipboard! </div>
-		<div class="wpspro_shortcode_content">
-			<h2 class="wpspro-shortcode-title"><?php esc_html_e( 'Shortcode', 'woo-product-slider' ); ?> </h2>
-			<p><?php esc_html_e( 'Copy and paste this shortcode into your posts or pages:', 'woo-product-slider' ); ?></p>
-			<div class="shortcode-wrap">
-				<div class="spsc-code selectable">[woo_product_slider <?php echo 'id="' . esc_attr( $post->ID ) . '"'; ?>]</div>
-			</div>
-		</div>
-	</div>
-	<div class="wpspro-col-lg-3">
-		<div class="wpspro_shortcode_content">
-			<h2 class="wpspro-shortcode-title"><?php esc_html_e( 'Page Builders', 'woo-product-slider' ); ?> </h2>
-			<p class="wpspro-page-builder-note"><?php echo wp_kses_post( 'Woo Product Slider has seamless integration with <b>Gutenberg</b>, Classic Editor, Elementor, Divi, Bricks, Beaver, Oxygen, WPBakery Builder, etc.' ); ?></p>
-		</div>
-	</div>
-	<div class="wpspro-col-lg-3">
-		<div class="wpspro_shortcode_content">
-			<h2 class="wpspro-shortcode-title"><?php esc_html_e( 'Template Include', 'woo-product-slider' ); ?> </h2>
-			<p><?php esc_html_e( 'Paste the PHP code into your template file:', 'woo-product-slider' ); ?></p>
-			<div class="shortcode-wrap">
-				<div class="spsc-code selectable">&lt;?php woo_product_slider( <?php echo esc_attr( $post->ID ); ?> ); ?&gt;</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="wpspro_shortcode_divider"></div>
-				<?php
-			}
 			echo '<div class="spwps-wrapper' . esc_attr( $show_all ) . '">';
 
 			if ( $has_nav ) {
@@ -574,26 +535,15 @@ if ( ! class_exists( 'SPF_WPSP_Metabox' ) ) {
 			$data = ! empty( $_POST['data'] ) ? wp_unslash( $_POST['data'] )  : ''; // phpcs:ignore
 			parse_str( $data, $setting );
 			// Shortcode id.
-			$post_id = absint( $setting['post_ID'] );
-			$title   = sanitize_textarea_field( $setting['post_title'] );
-			$request = $setting['sp_wps_shortcode_options'];
-			$data    = array(); // Sanitize data added here.
-
-			if ( ! empty( $request ) ) {
-				foreach ( $this->sections as $section ) {
-					if ( ! empty( $section['fields'] ) ) {
-						foreach ( $section['fields'] as $field ) {
-							$this->process_field( $field, $request, $count, $data, $errors );
-						}
-					}
-					$count++;
-				}
-			}
+			$post_id     = absint( $setting['post_ID'] );
+			$title       = sanitize_textarea_field( $setting['post_title'] );
+			$request     = $setting['sp_wps_shortcode_options'];
+			$layout_data = isset( $setting['sp_wps_layout_options'] ) ? $setting['sp_wps_layout_options'] : '';
 			ob_start();
-			$shortcode_data = $data;
+			$shortcode_data = $request;
 			$dynamic_style  = Frontend::load_dynamic_style( $post_id, $shortcode_data );
 			echo '<style type="text/css">' . wp_strip_all_tags( $dynamic_style['dynamic_css'] ) . '</style>';// phpcs:ignore
-			Helper::spwps_html_show( $post_id, $shortcode_data, $title );
+			Helper::spwps_html_show( $post_id, $shortcode_data, $layout_data, $title );
 			echo ob_get_clean(); // phpcs:ignore
 			die();
 		}

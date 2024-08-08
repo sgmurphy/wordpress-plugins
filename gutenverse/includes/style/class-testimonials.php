@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Testimonials
  *
  * @package gutenverse\style
  */
 class Testimonials extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -38,6 +47,7 @@ class Testimonials extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -193,6 +203,22 @@ class Testimonials extends Style_Abstract {
 			$this->handle_border( 'arrowBorder', ".{$this->element_id} div[class*='swiper-button-']" );
 		}
 
+		if ( isset( $this->attrs['arrowBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['arrowBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['arrowBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
@@ -208,6 +234,22 @@ class Testimonials extends Style_Abstract {
 
 		if ( isset( $this->attrs['arrowBorderHover'] ) ) {
 			$this->handle_border( 'arrowBorderHover', ".{$this->element_id}:hover div[class*='swiper-button-']" );
+		}
+
+		if ( isset( $this->attrs['arrowBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['arrowBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['arrowBoxShadowHover'] ) ) {
@@ -404,6 +446,22 @@ class Testimonials extends Style_Abstract {
 			$this->handle_border( 'containerBorder', ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box" );
 		}
 
+		if ( isset( $this->attrs['containerBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['containerBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['containerBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
@@ -419,6 +477,22 @@ class Testimonials extends Style_Abstract {
 
 		if ( isset( $this->attrs['containerBorderHover'] ) ) {
 			$this->handle_border( 'containerBorderHover', ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box:hover" );
+		}
+
+		if ( isset( $this->attrs['containerBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['containerBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['containerBoxShadowHover'] ) ) {
@@ -644,6 +718,22 @@ class Testimonials extends Style_Abstract {
 			$this->handle_border( 'imageBorder', ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image" );
 		}
 
+		if ( isset( $this->attrs['imageBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['imageBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['imageMargin'] ) ) {
 			$this->inject_style(
 				array(
@@ -704,6 +794,84 @@ class Testimonials extends Style_Abstract {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['imageHeight'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingAlignment'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars, .{$this->element_id}.style-2 ul.rating-stars, .{$this->element_id}.style-3 ul.rating-stars, .{$this->element_id}.style-4 ul.rating-stars",
+					'property'       => function ( $value ) {
+						return "justify-content: {$value};";
+					},
+					'value'          => $this->attrs['ratingAlignment'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 .guten-testimonial-item ul.rating-stars li, .{$this->element_id}.style-2 .guten-testimonial-item ul.rating-stars li, .{$this->element_id}.style-3 .guten-testimonial-item ul.rating-stars li, .{$this->element_id}.style-4 .guten-testimonial-item ul.rating-stars li",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['ratingColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 .guten-testimonial-item:hover ul.rating-stars li, .{$this->element_id}.style-2 .guten-testimonial-item:hover ul.rating-stars li, .{$this->element_id}.style-3 .guten-testimonial-item:hover ul.rating-stars li, .{$this->element_id}.style-4 .guten-testimonial-item:hover ul.rating-stars li",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['ratingColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingIconSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} ul.rating-stars li i",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['ratingIconSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingIconGap'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars, .{$this->element_id}.style-2 ul.rating-stars, .{$this->element_id}.style-3 ul.rating-stars, .{$this->element_id}.style-4 ul.rating-stars",
+					'property'       => function ( $value ) {
+						return "gap: {$value}px;";
+					},
+					'value'          => $this->attrs['ratingIconGap'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars, .{$this->element_id}.style-2 ul.rating-stars, .{$this->element_id}.style-3 ul.rating-stars, .{$this->element_id}.style-4 ul.rating-stars",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['ratingMargin'],
 					'device_control' => true,
 				)
 			);

@@ -754,9 +754,7 @@ function UniteCreatorElementorEditorAdmin(){
 	function onSettingsPanelInit(){
 		
 		initSpecialSelects();
-		
-		initSortableSelect2();
-		
+				
 		//init the post type selector if exists
 		postSelectOnLoad();
 		

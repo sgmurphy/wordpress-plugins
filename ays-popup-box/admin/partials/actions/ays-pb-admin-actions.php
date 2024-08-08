@@ -1,27 +1,34 @@
 <?php
-$action = (isset($_GET['action'])) ? sanitize_text_field( $_GET['action'] ) : '';
-$id = ( isset( $_GET['popupbox'] ) ) ? absint( intval( $_GET['popupbox'] ) ) : null;
+$action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
+$id = isset($_GET['popupbox']) ? absint( intval($_GET['popupbox']) ) : null;
 $ays_pb_tab = isset($_GET['ays_pb_tab']) ? sanitize_text_field($_GET['ays_pb_tab']) : 'tab1';
 
-$show_warning_note = false;
-if (!isset($_COOKIE['ays_pb_show_warning_note'])) {
-    $show_warning_note = true;
-}
-
-$args = array(
-    'public'   => true
-);
-$all_post_types = get_post_types( $args, 'objects' );
-
-// All popups
-$get_all_popups = Ays_Pb_Data::get_popups();
-
-// Popup categories
-$popup_categories = $this->popupbox_obj->get_popup_categories();
+$show_warning_note = !isset($_COOKIE['ays_pb_show_warning_note']);
 
 $heading = '';
 $loader_image  = "<span class='display_none'><img width='20' height='20' src=" . AYS_PB_ADMIN_URL . "/images/loaders/loading.gif></span>";
 $ays_pb_page_url = sprintf('?page=%s', 'ays-pb');
+
+// All popups
+$get_all_popups = Ays_Pb_Data::get_popups();
+
+$args = array(
+    'public' => true
+);
+$all_post_types = get_post_types($args, 'objects');
+
+// Popup categories
+$popup_categories = $this->popupbox_obj->get_popup_categories();
+
+$default_notification_type_components = array(
+    'main_content' => 'main_content',
+    'button_1' => 'button_1',
+);
+
+$default_notification_type_component_names = array(
+    'main_content' => __('Content', "ays-popup-box"),
+    'button_1' => __('Button', "ays-popup-box"),
+);
 
 $user_id = get_current_user_id();
 $user = get_userdata($user_id);
@@ -30,17 +37,8 @@ $author = array(
     'name' => $user->data->display_name
 );
 
-$default_notification_type_components = array(
-    'main_content' => 'main_content',
-    'button_1' => 'button_1',
-);
-
-$default_notification_type_component_names = array(
-    'main_content' => __( 'Content', "ays-popup-box" ),
-    'button_1' => __( 'Button', "ays-popup-box" ),
-);
-
 $x = '✕';
+
 $options = array(
     // General
     'author' => $author,
@@ -274,7 +272,7 @@ $popupbox = array(
     'options' => json_encode($options),
 );
 
-switch( $action ) {
+switch ($action) {
     case 'add':
         $heading = 'Add new PopupBox';
         break;

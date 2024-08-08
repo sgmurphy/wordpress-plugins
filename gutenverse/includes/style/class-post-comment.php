@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Post_Comment
  *
  * @package gutenverse\style
  */
 class Post_Comment extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -36,6 +45,7 @@ class Post_Comment extends Style_Abstract {
 				'border'     => null,
 				'animation'  => null,
 				'advance'    => null,
+				'mask'       => null,
 			)
 		);
 	}
@@ -48,7 +58,6 @@ class Post_Comment extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} h1, .{$this->element_id} h2, .{$this->element_id} h3, .{$this->element_id} h4, .{$this->element_id} h5, .{$this->element_id} h6",
-					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typographyHeading'],
 					'device_control' => false,
 				)
@@ -85,7 +94,6 @@ class Post_Comment extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} span, .{$this->element_id} p",
-					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typographyText'],
 					'device_control' => false,
 				)
@@ -122,7 +130,6 @@ class Post_Comment extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} a",
-					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typographyLink'],
 					'device_control' => false,
 				)
@@ -159,7 +166,6 @@ class Post_Comment extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} label",
-					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typographyLabel'],
 					'device_control' => false,
 				)
@@ -196,15 +202,46 @@ class Post_Comment extends Style_Abstract {
 			$this->handle_border( 'inputBorder', ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea" );
 		}
 
+		if ( isset( $this->attrs['inputBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['inputBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['avatarBorder'] ) ) {
 			$this->handle_border( 'avatarBorder', ".{$this->element_id} .comment-author img.avatar" );
+		}
+
+		if ( isset( $this->attrs['avatarBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-author img.avatar",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['avatarBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['typographyButton'] ) ) {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id}.guten-post-comment input[type=submit]",
-					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typographyButton'],
 					'device_control' => false,
 				)
@@ -243,6 +280,22 @@ class Post_Comment extends Style_Abstract {
 
 		if ( isset( $this->attrs['borderButton'] ) ) {
 			$this->handle_border( 'borderButton', ".{$this->element_id}.guten-post-comment input[type=submit]" );
+		}
+
+		if ( isset( $this->attrs['borderButtonResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-post-comment input[type=submit]",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['borderButtonResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['marginButton'] ) ) {
@@ -305,6 +358,22 @@ class Post_Comment extends Style_Abstract {
 			$this->handle_border( 'borderButtonHover', ".{$this->element_id}.guten-post-comment input[type=submit]:hover" );
 		}
 
+		if ( isset( $this->attrs['borderButtonHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-post-comment input[type=submit]:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['borderButtonHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['marginButtonHover'] ) ) {
 			$this->inject_style(
 				array(
@@ -326,6 +395,144 @@ class Post_Comment extends Style_Abstract {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['paddingButtonHover'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputColorNormal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['inputColorNormal'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBgColorNormal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['inputBgColorNormal'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):hover, .{$this->element_id} .comment-form form textarea:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['inputColorHover'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBgColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):hover, .{$this->element_id} .comment-form form textarea:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['inputBgColorHover'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputColorFocus'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):focus, .{$this->element_id} .comment-form form textarea:focus, .{$this->element_id} .comment-form form input:not([type=submit]):focus-visible, .{$this->element_id} .comment-form form textarea:focus-visible",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['inputColorFocus'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBgColorFocus'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):focus, .{$this->element_id} .comment-form form textarea:focus, .{$this->element_id} .comment-form form input:not([type=submit]):focus-visible, .{$this->element_id} .comment-form form textarea:focus-visible",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['inputBgColorFocus'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['inputAreaBoxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit],[type=checkbox])	, .{$this->element_id} .comment-form form textarea	",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['inputAreaBoxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['inputAreaBoxShadowHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit],[type=checkbox]):hover, .{$this->element_id} .comment-form form textarea:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['inputAreaBoxShadowHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'value'          => $this->attrs['inputTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['inputMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['inputPadding'],
 					'device_control' => true,
 				)
 			);

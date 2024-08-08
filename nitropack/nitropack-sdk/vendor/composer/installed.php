@@ -13,7 +13,7 @@
         'nitropack/httpclient' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '40d1f63d1d052317c62f0925d5c2dbbef7e2b797',
+            'reference' => '278749d494cfa7303bc1208e5ff55bf86ed6193b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nitropack/httpclient',
             'aliases' => array(
@@ -33,7 +33,7 @@
         'nitropack/url' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0e8a916a754f812071bf7cb59d321f7012e2ec78',
+            'reference' => '534391466412aac194310254d14a5023649f68f6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nitropack/url',
             'aliases' => array(

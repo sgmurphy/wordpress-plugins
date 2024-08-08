@@ -163,10 +163,6 @@ jQuery(function ($) {
 		});
 	});
 
-	$("#image_sizes-regen-wrap span").click(function (e) {
-		alert($(this).attr("title"));
-	});
-
 	$(document).on("click", "#cx-optimized", function (e) {
 		$("#cx-nav-label-image-sizes_optimize").trigger("click");
 	});

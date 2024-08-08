@@ -9,12 +9,21 @@
 
 namespace Gutenverse\Style;
 
+use Gutenverse\Framework\Style_Abstract;
+
 /**
  * Class Social Icons
  *
  * @package gutenverse\style
  */
 class Social_Icons extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
 	/**
 	 * Block Name
 	 *
@@ -38,6 +47,7 @@ class Social_Icons extends Style_Abstract {
 				'positioning' => ".{$this->element_id}.guten-element, .{$this->element_id}.guten-element.horizontal > div",
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}
@@ -239,6 +249,22 @@ class Social_Icons extends Style_Abstract {
 			$this->handle_border( 'iconBorder', ".{$this->element_id} .guten-social-icon a" );
 		}
 
+		if ( isset( $this->attrs['iconBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-social-icon a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['iconBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
@@ -254,6 +280,22 @@ class Social_Icons extends Style_Abstract {
 
 		if ( isset( $this->attrs['iconBorderHover'] ) ) {
 			$this->handle_border( 'iconBorderHover', ".{$this->element_id} .guten-social-icon:hover a" );
+		}
+
+		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-social-icon:hover a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBoxShadowHover'] ) ) {

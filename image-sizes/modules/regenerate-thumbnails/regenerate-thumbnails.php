@@ -20,7 +20,7 @@ class Regenerate_Thumbnails extends Base {
 
 		$this->action( 'admin_enqueue_scripts', 'enqueue_scripts' );
 		$this->action( 'plugins_loaded', 'init_menu', 11 );
-		$this->action( 'wp_ajax_image_sizes-regen-thumbs', 'regen_thumbs' );
+		$this->priv( 'image_sizes-regen-thumbs', 'regen_thumbs' );
 		$this->priv( 'thumbpress_schedule_regenerate-thumbs', 'schedule_regenerate' );
 		$this->action( 'thumbpress_regenerate_all_image', 'regenerate_all_image' );
 	}
@@ -135,9 +135,14 @@ class Regenerate_Thumbnails extends Base {
 			$_thumbs_createds 		= $thumbs_createds + $thumbs_created;
 			$progress 				= ( $offsets / $total_images_count ) * 100;
 		}
+		$message 					= __('Regenerating Thumbnails...', 'thumbpress-pro');
+
+		if( $progress == 100 ) {
+			$message = __( 'Congratulations, Thumbnail Regeneration is Completed!', 'thumbpress-pro' );
+		}
 
 		$response['status'] 			= 1;
-		$response['message'] 			= __( 'Success', 'image-sizes' );
+		$response['message'] 			= $message;
 		$response['offset'] 			= $offsets;
 		$response['progress'] 			= $progress;
 		$response['thumbs_deleted'] 	= $_thumbs_deleteds;
@@ -162,26 +167,30 @@ class Regenerate_Thumbnails extends Base {
 		global $wpdb;
 
 		delete_option( 'thumbpress_regenerate_progress' );
+		delete_option( 'thumbpress_regenerate_total_processed' );
+		delete_option( 'thumbpress_regenerate_total_deleted' );
+		delete_option( 'thumbpress_regenerate_total_created' );
 		
 		 if ( isset( $_POST['limit'] ) ) {
 			$limit_value = intval( $_POST['limit'] );
 			update_option( 'thumbpress_regenerate_limit', $limit_value );
 		}
-		$offset 	= 0;
-		$action_id 	= as_schedule_single_action( wp_date( 'U' ) + 10, 'thumbpress_regenerate_all_image',  ['offset' => $offset] );
 
-		thumbpress_add_schedule_log( $this->id, $action_id );
-
-	
 		$images 		= $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'attachment' AND post_mime_type LIKE 'image/%' " ) );
 		$total_images 	= count( $images );
 		
 		update_option( 'thumbpress_regenerate_total_image', $total_images );
 
-		if( ! $action_id ) {
-			$response['message'] = __( 'Failed to schedule image regeneration', 'image-sizes' );
-			wp_send_json_error( $response );
+		if( ! $total_images ) {
+			$response['status'] 	= 2;
+			$response['message'] 	= __( 'No images found.', 'thumbpress-pro' );
+			wp_send_json( $response );
 		}
+
+		$offset 	= 0;
+		$action_id 	= as_schedule_single_action( wp_date( 'U' ) + 10, 'thumbpress_regenerate_all_image',  ['offset' => $offset] );
+
+		thumbpress_add_schedule_log( $this->id, $action_id );
 
 		$response['status'] 	= 1;
 		$response['message'] 	= __( 'Your images are being regenerating. Please wait...', 'image-sizes' );
@@ -197,6 +206,9 @@ class Regenerate_Thumbnails extends Base {
 
 		$limit 				= get_option( 'thumbpress_regenerate_limit', 500 );
 		$total_attachments 	= get_option( 'thumbpress_regenerate_total_image' );
+		$thumbs_deleteds	= get_option( 'thumbpress_regenerate_total_deleted' );
+		$thumbs_createds	= get_option( 'thumbpress_regenerate_total_created' );
+
 		$images 			= $wpdb->prepare( "
 			SELECT ID
 			FROM {$wpdb->posts}
@@ -206,7 +218,7 @@ class Regenerate_Thumbnails extends Base {
 		", $limit, $offset );
 		$images 			= $wpdb->get_results( $images );
 		$action_id 			= thumbpress_get_last_action_status_by_module_name( 'regenerate-thumbnails', 'action_id' );
-
+		$thumbs_created 	= $thumbs_deleted = $_thumbs_deleteds = $_thumbs_createds = $progress = 0;
 		if ( count( $images ) > 0 ) {
 			foreach ( $images as $image ) {
 				$image_id 		= $image->ID;
@@ -248,14 +260,23 @@ class Regenerate_Thumbnails extends Base {
 					$thumbs_created += count( $new_thumbs['sizes'] );
 				}
 			}
-			$count 		= $offset + count( $images );
-			$progress 	= ( $count / $total_attachments ) * 100;
+			$_thumbs_deleteds 	= $thumbs_deleteds + $thumbs_deleted;
+			$_thumbs_createds 	= $thumbs_createds + $thumbs_created;
+			$count 				= $offset + count( $images );
+			$progress 			= ( $count / $total_attachments ) * 100;
+
 			update_option( 'thumbpress_regenerate_progress', $progress );
-		
+			update_option( 'thumbpress_regenerate_total_processed', $count );
+			update_option( 'thumbpress_regenerate_total_deleted', $_thumbs_deleteds );
+			update_option( 'thumbpress_regenerate_total_created', $_thumbs_createds );
+			
 			if ( $count < $total_attachments ) {
 				$new_offset = $offset + $limit;
 				$action_id 	= as_schedule_single_action( wp_date('U') + 10, 'thumbpress_regenerate_all_image', ['offset' => $new_offset] );
 				thumbpress_add_schedule_log( $this->id, $action_id );
+			}
+			else{
+				update_option( 'thumbpress_regenerate_last_schedule_time', date_i18n('U') );
 			}
 		}
 	}
