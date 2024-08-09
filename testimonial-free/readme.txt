@@ -2,12 +2,12 @@
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: testimonials, testimonial slider, customer reviews, social proof, review form
 Requires at least: 4.7
-Tested up to: 6.6
-Stable tag: 3.1.0
+Tested up to: 6.6.1
+Stable tag: 3.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Collect, manage, and display customer testimonials effortlessly and boost sales – highly customizable, developer-friendly, and with active support.
+Best Testimonial plugin to Automate Collecting, Filtering, and Publishing Customer Reviews. Review Form, Testimonial Slider, Grid & More to Grow Sales
 
 == Description ==
 
@@ -315,6 +315,11 @@ Thank you!
 
 
 == Changelog ==
+
+= 3.1.1 - Aug 09, 2024 =
+* New: Testimonial Form Block feature.
+* Updated: The language (.pot) file.
+* Tested: WordPress 6.6.1 compatibility.
 
 = 3.1.0 - May 07, 2024 =
 * New: The CSV import and export feature to import or export testimonials.

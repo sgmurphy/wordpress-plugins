@@ -21,6 +21,8 @@ abstract class WPBC_Page_Structure {
     private $current_page_params;                                               // Parameters for current page,  if this page selected,  otherwise its = empty array()
     private $is_only_icons = false;  
     protected $is_use_left_navigation = false;
+	protected $is_use_left_navigation_custom = false;
+	protected $is_use_navigation_path = false;
     protected $tags;                                                            // Defining Name of parameter in GET request for Navigation TOP and BOTTOM tabs 
                                                                                 // - $_GET[ 'tab' ]    == 'payment' 
                                                                                 // - $_GET[ 'subtab' ] == 'paypal' 
@@ -215,7 +217,11 @@ if ( 1 ) {
 			><?php
 				?><h1 class="wpbc_header wpdvlp-top-tabs"><?php
 					?><div class="wpbc_header_menu_tabs"><?php
-						$this->show_tabs_line( $page_tag );                     // T O P    T A B S    in  Header
+						if ( ! empty( $this->is_use_navigation_path ) ) {
+							$this->show_top_path( $page_tag );                     	// Show Top Path		//FixIn: 10.4.0.2
+						} else {
+							$this->show_tabs_line( $page_tag );                     // T O P    T A B S    in  Header
+						}
 					?></div><?php
 	 				make_bk_action( 'wpbc_h1_header_content_end', $page_tag, $active_page_tab, $active_page_subtab );	//FixIn: 9.9.0.10
 				?></h1><?php
@@ -384,6 +390,17 @@ if ( $this->is_use_left_navigation ) {
 	    if ( ( ! empty( $this_subtab ) ) && ( ! empty( $this_subtab['is_use_left_navigation'] ) ) && ( true === $this_subtab['is_use_left_navigation'] ) ) {
 		    $this->is_use_left_navigation = true;
 	    }
+
+	    if ( ( ! empty( $this_subtab ) ) && ( ! empty( $this_subtab['is_use_left_navigation_custom'] ) ) && ( true === $this_subtab['is_use_left_navigation_custom'] ) ) {
+		    $this->is_use_left_navigation_custom = true;
+	    }
+
+		// Use Top line as Path and nt the menu		//FixIn: 10.4.0.2
+	    if ( ( ! empty( $this_subtab ) ) && ( ! empty( $this_subtab['is_use_navigation_path'] ) ) ) {
+		    $this->is_use_navigation_path = $this_subtab['is_use_navigation_path'];
+	    }
+
+
     }
         
     
@@ -634,8 +651,16 @@ if ( $this->is_use_left_navigation ) {
         
         // Exit if no Tabs in this page.
         if ( empty( self::$nav_tabs[ $menu_in_page_tag ] ) )
-            return false;           
-                
+            return false;
+
+	    if ( $this->is_use_left_navigation_custom ) {
+
+			do_action( 'wpbc_page_show_left_navigation_custom', $menu_in_page_tag );
+
+			return false;
+	    }
+
+
         // Exit if tabs hidded or disbaled
         $visible_tabs = $this->get_visible_tabs( $menu_in_page_tag );        
         if ( empty(  $visible_tabs ) ) 
@@ -680,8 +705,97 @@ if ( ! $this->is_use_left_navigation ) {
 }
         return true;
     }
-      
-    
+
+
+	//FixIn: 10.4.0.2
+	/**
+	 * Show Top Path
+	 *
+	 * @param $menu_in_page_tag
+	 *
+	 * @param string $menu_in_page_tag - Menu Tag, the same as $this->in_page ();
+	 */
+	function show_top_path( $menu_in_page_tag ) {
+
+		$navigation_path_arr = $this->is_use_navigation_path;
+
+		if (! empty( $navigation_path_arr ) ) {
+			if ( ! empty( $navigation_path_arr['path'] ) ) {
+				foreach ( $navigation_path_arr['path'] as $el_id => $el_arr ) {
+
+					$defaults = array(
+						'tag'    => 'a',
+						'title'  => '',
+						'hint'   => '',
+						'class'  => '',
+						'icon'   => false,
+						'url'    => '' ,
+						'attr'   => array(),
+						'html'   => ''
+					);
+					$el_arr   = wp_parse_args( $el_arr, $defaults );
+
+					$tag = 'span';
+					if (  in_array( $el_arr['tag'], array( 'a', 'span', 'div', '>' ) ) ) {
+						$tag = $el_arr['tag'];
+					}
+
+					// Shortcut for 'Next'  breadcrumb
+					if ( '>' === $tag ) {
+							$tag  = 'span';
+							$el_arr['html'] = '<i class="menu_icon icon-1x wpbc_icn_navigate_next"></i>';
+							$el_arr['attr'] = array( 'style' => 'padding-left: 0;padding-right: 0;' );
+					}
+
+					echo '<' . $tag;
+
+					// URL
+					if ( ! empty( $el_arr['url'] ) ) {
+						echo ' href="' . esc_url( $el_arr['url'] ) . '" ';
+					}
+
+					// Hints
+					if ( ! empty( $el_arr['hint'] ) ) {
+						echo ' data-original-title="' . esc_attr( $el_arr['hint'] ) . '" ';
+					}
+
+					// CSS Class
+					echo ' class="nav-tab ' .
+									( ( ! empty( $el_arr['class'] ) ) ? esc_attr( $el_arr['class'] ) : '' ) .
+									( ( ! empty( $el_arr['hint'] ) ) ? ' tooltip_top ' : '' ) .
+								 '" ';
+
+
+					// Other attr
+					if ( ! empty( $el_arr['attr'] ) ) {
+						echo ' ' . WPBC_Settings_API::get_custom_attr_static( array( 'attr' => $el_arr['attr'] ) ) . ' ';
+					}
+
+					echo '>';
+
+							// In case if we insert  ANY html
+							if ( ! empty( $el_arr['html'] ) ) {
+								echo $el_arr['html'];
+							}
+							// Icon
+							if ( ! empty( $el_arr['icon'] ) ) {
+								echo '<i class="menu_icon icon-1x ' . esc_attr( $el_arr['icon'] ) . '"></i>';
+							}
+							// Title
+							if (!empty($el_arr['title'])){
+								echo '<span class="nav-tab-text">' .
+										( ( ! empty( $el_arr['icon'] ) ) ? '&nbsp;&nbsp;' : '' ) .
+									 	$el_arr['title'] .
+									 '</span>';
+							}
+					echo '</' . $tag . '>';
+				}
+			}
+		}
+	}
+
+
+
     /**
 	 * Show Top nav TABs line
      * 

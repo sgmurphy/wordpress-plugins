@@ -1357,6 +1357,11 @@
 			_thisObj.QStringWork($queryVarsSettings['paginate_base'], '', noWooPage, $filterWrapper, 'remove');
 			_thisObj.QStringWork('product-page', '', noWooPage, $filterWrapper, 'remove');
 			_thisObj.QStringWork('shopPage', '', noWooPage, $filterWrapper, 'remove');
+			var curUrl = getCurrentUrlPartsWpf();
+			if (curUrl.search.length) {
+				var $pages = curUrl.search.match(/query-\d+-page/i);
+				if ($pages != null && $pages.length) _thisObj.QStringWork($pages[0], '', noWooPage, $filterWrapper, 'remove');
+			}
 
 			var $woocommerceSettings = {};
 			if (jQuery('.wpfFilterWrapper[data-filter-type="wpfSortBy"]').length == 0) {
@@ -2297,6 +2302,13 @@
 		var $eaPagination = jQuery('.elementor-widget-eicon-woocommerce');
 		if ($eaPagination.length && window.elementorFrontend && window.elementorFrontend.hooks) {
 			window.elementorFrontend.hooks.doAction('frontend/element_ready/eicon-woocommerce.default', $eaPagination, jQuery);
+		}
+		
+		// AVADA infinitescroll
+		if (jQuery('.fusion-grid-container-infinite').length == 1) {
+			jQuery(document).trigger('fusion-element-render-fusion_post_cards');
+			jQuery('.fusion-grid-container-infinite').infinitescroll('unbind');
+			jQuery('.fusion-grid-container-infinite').infinitescroll('bind');
 		}
 	});
 

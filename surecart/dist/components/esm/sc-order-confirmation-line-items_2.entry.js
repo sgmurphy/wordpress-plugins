@@ -1,6 +1,6 @@
 import { r as registerInstance, h } from './index-644f5478.js';
 import { o as openWormhole } from './consumer-32cc6385.js';
-import { h as hasSubscription } from './index-74024349.js';
+import { h as hasSubscription } from './index-bc0c0045.js';
 import { i as intervalString, a as getHumanDiscount } from './price-178c2e2b.js';
 import { f as formatTaxDisplay } from './tax-79350864.js';
 import './currency-728311ef.js';

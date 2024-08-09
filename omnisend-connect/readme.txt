@@ -5,7 +5,7 @@ Tags: Email Marketing, SMS, Marketing, Newsletter, WooCommerce
 Requires at least: 4.7.0
 Tested up to: 6.5
 Requires PHP: 7.1
-Stable tag: 1.15.15
+Stable tag: 1.15.16
 License: GPLv3 or later License
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -305,6 +305,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 9. Convert more visitors with highly-targeted landing pages
 
 == Changelog ==
+
+= 1.15.16 =
+
+* Add content-type headers on remote post methods.
 
 = 1.15.15 =
 

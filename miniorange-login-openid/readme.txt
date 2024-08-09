@@ -3,8 +3,8 @@ Contributors: sociallogin, vkontakte, cyberlord92
 Donate link: https://www.miniorange.com
 Tags: social login, Facebook, Google, LinkedIn, X(Twitter)
 Requires at least: 2.0.2
-Tested up to: 6.5
-Stable tag: 7.6.8
+Tested up to: 6.6
+Stable tag: 7.6.9
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
@@ -277,6 +277,10 @@ Please email us at info@miniorange.com. You can also submit your query from the 
 16. Social Sharing icons without background.
 
 ==Changelog==
+= 7.6.9 =
+* Added compatibility with WP 6.6
+* Fixed the login issues for LinkedIn and Twitter.
+
 = 7.6.8 =
 * Added compatibility with WP 6.5
 * Readme update
@@ -1044,6 +1048,10 @@ SECURITY FIXES
 * First version of Social Login, Social Sharing plugin.
 
 == Upgrade Notice ==
+= 7.6.9 =
+* Added compatibility with WP 6.6
+* Fixed the login issues for LinkedIn and Twitter.
+
 = 7.6.8 =
 * Added compatibility with WP 6.5
 * Readme update

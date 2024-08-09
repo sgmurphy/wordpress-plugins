@@ -53,7 +53,9 @@ class WoofiltersWpf extends ModuleWpf {
 		FrameWpf::_()->addScript( 'jquery-ui-autocomplete', '', array( 'jquery' ), false, true );
 
 		add_action( 'woocommerce_product_query', array( $this, 'loadProductsFilter' ) );
-
+		
+		// for Woocommerce Blocks: Product Collection
+		add_filter( 'query_loop_block_query_vars', array( $this, 'addFilterToWoocommerceBlocksAgrs' ), 999, 3 ); 
 
 		add_action( 'woocommerce_shortcode_products_query', array( $this, 'loadShortcodeProductsFilter' ), 999, 3 );
 		add_filter( 'uael_woo_product_query_args', array(
@@ -143,6 +145,13 @@ class WoofiltersWpf extends ModuleWpf {
 			}
 		}
 		
+	}
+	
+	public function addFilterToWoocommerceBlocksAgrs( $args, $block, $page ) {
+		if (is_object($block) && $block instanceof WP_Block && !empty($block->context['query']['isProductCollectionBlock'])) {
+			$args = $this->loadShortcodeProductsFilter( $args );
+		}
+		return $args;
 	}
 	
 	public function addFilterAgrsToQuery( $args ) {
@@ -1105,7 +1114,6 @@ class WoofiltersWpf extends ModuleWpf {
 	}
 
 	public function loadProductsFilter( $q ) {
-		
 		$this->addPreselectedParams();
 
 		if ( ReqWpf::getVar( 'all_products_filtering' ) ) {
@@ -1231,6 +1239,12 @@ class WoofiltersWpf extends ModuleWpf {
 					break;
 				case 'date-asc':
 					add_filter('posts_clauses', array($this, 'addDateOrderAsc'), 99999 );
+					break;
+				case 'date':
+					add_filter('posts_clauses', array( $this, 'addDateOrder' ), 99999 );
+					break;
+				case 'popularity':
+					add_filter( 'posts_clauses', array( $this, 'addPopularityOrder' ), 99999 );
 					break;
 				case 'title':
 					add_filter('posts_clauses', array($this, 'addTitleOrderAsc'), 99999 );
@@ -1384,10 +1398,23 @@ class WoofiltersWpf extends ModuleWpf {
 
 		return $args;
 	}
+	public function addPopularityOrder( $args ) {
+		global $wpdb;
+		$args['join'] .= ' LEFT JOIN ' . $wpdb->postmeta . ' as wpf_popularity_order ON (wpf_popularity_order.post_id=' . $wpdb->posts . ".ID AND wpf_popularity_order.meta_key='total_sales')";
+		$args['orderby'] = ' CAST(wpf_popularity_order.meta_value AS DECIMAL(20,3)) DESC, ' . $wpdb->posts . '.ID ';
+		remove_filter('posts_clauses', array($this, 'addPopularityOrder'));
+		return $args;
+	}
 	public function addDateOrderAsc( $args ) {
 		global $wpdb;
 		$args['orderby'] = $wpdb->posts . '.post_date, ' . $wpdb->posts . '.ID ';
-		remove_filter('posts_clauses', array($this, 'addDateOrderDesc'));
+		remove_filter('posts_clauses', array($this, 'addDateOrderAsc'));
+		return $args;
+	}
+	public function addDateOrder( $args ) {
+		global $wpdb;
+		$args['orderby'] = $wpdb->posts . '.post_date DESC, ' . $wpdb->posts . '.ID ';
+		remove_filter('posts_clauses', array($this, 'addDateOrder'));
 		return $args;
 	}
 	public function addTitleOrderAsc( $args ) {
@@ -1591,6 +1618,12 @@ class WoofiltersWpf extends ModuleWpf {
 							break;
 						case 'date-asc':
 							add_filter( 'posts_clauses', array( $this, 'addDateOrderAsc' ), 99999 );
+							break;
+						case 'date':
+							add_filter( 'posts_clauses', array( $this, 'addDateOrder' ), 99999 );
+							break;
+						case 'popularity':
+							add_filter( 'posts_clauses', array( $this, 'addPopularityOrder' ), 99999 );
 							break;
 					}
 				}

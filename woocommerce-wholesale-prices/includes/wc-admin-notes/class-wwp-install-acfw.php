@@ -190,7 +190,7 @@ if ( ! class_exists( 'WWP_Install_ACFW' ) ) {
          * @access public
          */
         public function dismiss_note_on_click() {
-            update_option( WWP_SHOW_INSTALL_ACFWF_NOTICE, 'no' );
+            update_option( WWP_SHOW_INSTALL_ACFWF_NOTICE, 'no', 'no' );
         }
 
         /**
@@ -284,7 +284,6 @@ if ( ! class_exists( 'WWP_Install_ACFW' ) ) {
                 return;
             }
         }
-
     }
 
     return new WWP_Install_ACFW();

@@ -154,3 +154,12 @@
 	font-weight: 600;
 	padding: 0 0.3em;
 }
+/* Fix for round dates in calendars */
+.block_hints .block_free,
+.block_hints .block_time,
+.block_hints .block_booked,
+.block_hints .block_pending,
+.block_hints .block_check_in_out,
+.datepick-inline .datepick-days-cell{
+    border-radius: 0 !important; /* at  the WP Booking Calendar > Availability > Days Availability page we can  not show round dates :( */
+}

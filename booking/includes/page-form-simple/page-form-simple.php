@@ -556,10 +556,10 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 						jQuery( '#ui_btn_cstm__set_time_picker_skin' ).find( 'option[value="' + wpbc_cal_dark_skin_path + '"]' ).prop( 'selected', true ).trigger( 'change' );
 					} else {
 						jQuery( '.wpbc_center_preview,.wpbc_container.wpbc_container_booking_form' ).removeClass( 'wpbc_theme_dark_1' );
-						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/skins/green-01.css';
+						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/skins/light__24_8.css';
 						jQuery( '#ui_btn_cstm__set_calendar_skin' ).find( 'option' ).prop( 'selected', false );
 						jQuery( '#ui_btn_cstm__set_calendar_skin' ).find( 'option[value="' + wpbc_cal_dark_skin_path + '"]' ).prop( 'selected', true ).trigger( 'change' );
-						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/time_picker_skins/grey.css';
+						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/time_picker_skins/light__24_8.css';
 						jQuery( '#ui_btn_cstm__set_time_picker_skin' ).find( 'option' ).prop( 'selected', false );
 						jQuery( '#ui_btn_cstm__set_time_picker_skin' ).find( 'option[value="' + wpbc_cal_dark_skin_path + '"]' ).prop( 'selected', true ).trigger( 'change' );
 					}
@@ -714,7 +714,9 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 				}
 				if ( '' === $wpbc_selected_theme ) {
 					update_bk_option( 'booking_skin', '/css/skins/green-01.css' );
+	    			update_bk_option( 'booking_skin', '/css/skins/light__24_8.css' );               //FixIn: 10.4.0.1
 					update_bk_option( 'booking_timeslot_picker_skin', '/css/time_picker_skins/grey.css' );
+					update_bk_option( 'booking_timeslot_picker_skin', '/css/time_picker_skins/light__24_8.css' );      	//FixIn: 10.4.0.1
 				}
 			//}
 		}
@@ -725,12 +727,21 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 
 		    $selected_calendar_skin = WPBC_Settings_API::validate_text_post_static( 'set_calendar_skin' );
 
-		    $selected_calendar_skin = str_replace( array( WPBC_PLUGIN_DIR, WPBC_PLUGIN_URL ), '', $selected_calendar_skin );
+			//FixIn: 10.3.0.5
+		    $upload_dir              = wp_upload_dir();
+		    $custom_user_skin_folder = $upload_dir['basedir'];
+		    $custom_user_skin_url    = $upload_dir['baseurl'];
+
+		    $selected_calendar_skin = str_replace( array( WPBC_PLUGIN_DIR, WPBC_PLUGIN_URL, $custom_user_skin_folder, $custom_user_skin_url ), '', $selected_calendar_skin );
 
 		    // Check if this skin exist in the plugin  folder
-		    if ( file_exists( WPBC_PLUGIN_DIR . $selected_calendar_skin ) ) {
+		    if (
+					( file_exists( 			WPBC_PLUGIN_DIR . $selected_calendar_skin ) )
+				 || ( file_exists( $custom_user_skin_folder . $selected_calendar_skin ) )
+			){
 			    update_bk_option( 'booking_skin', $selected_calendar_skin );
 		    }
+
 	    }
 	    // Calendar skin
 	    if ( isset( $_POST['set_time_picker_skin'] ) ) {

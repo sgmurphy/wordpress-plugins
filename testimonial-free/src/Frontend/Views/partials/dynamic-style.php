@@ -247,9 +247,12 @@
 	border-radius: ' . $testimonial_border_radius . 'px;
 }';
 	if ( 'grid' === $layout ) {
-		$space       = isset( $shortcode_data['testimonial_margin'] ) ? $shortcode_data['testimonial_margin'] : 0;
-		$space_top   = isset( $space['top'] ) ? $space['top'] : $space;
-		$space_right = isset( $space['right'] ) ? $space['right'] : $space;
+		$space       = isset( $shortcode_data['testimonial_margin']['top'] ) ? $shortcode_data['testimonial_margin'] : array(
+			'top'   => '20',
+			'right' => '20',
+		);
+		$space_top   = isset( $space['top'] ) ? $space['top'] : 20;
+		$space_right = isset( $space['right'] ) ? $space['right'] : 20;
 
 		$outline .= '#sp-testimonial-free-wrapper-' . $post_id . ' .tfree-grid-items {
 		margin-right: -' . (int) $space_top / 2 . 'px;

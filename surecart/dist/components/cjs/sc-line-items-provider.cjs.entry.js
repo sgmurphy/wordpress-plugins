@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-f1e4d53b.js');
-const index$1 = require('./index-49cf7c76.js');
+const index$1 = require('./index-f9d999d6.js');
 
 const ScLineItemsProvider = class {
   constructor(hostRef) {

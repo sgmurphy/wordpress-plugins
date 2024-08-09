@@ -529,8 +529,20 @@ table.wpbc_input_table tr.highlight td:first-child{
     vertical-align: middle;
 }
 
-
+.wpbc_icn_rotate_45::before {
+  transform: rotate(45deg);
+}
+.wpbc_icn_rotate_90::before {
+  transform: rotate(90deg);
+}
+.wpbc_icn_rotate_180::before {
+  transform: rotate(180deg);
+}
+.wpbc_icn_rotate_270::before {
+  transform: rotate(270deg);
+}
 /*  Rotate Icons  for Loading   ***********************************************/
+.wpbc_animation_pause:before,
 .wpbc_animation_pause {
     animation-play-state: paused !important;
 }

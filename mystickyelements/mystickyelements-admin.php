@@ -255,7 +255,7 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 		}
 
 		public function mystickyelements_admin_widget_analytics_page(){
-			$is_shown = get_option("mysticky_element_update_message");
+            $is_shown = get_option("mysticky_element_update_message");
 			if($is_shown == 1) {
 				/* Signup Form When first time activate plugin */				
 				include_once MYSTICKYELEMENTS_PATH . '/admin/update.php';
@@ -458,6 +458,14 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 					if(isset($contact['redirect_link'])) {
 						$post['redirect_link'] = self::sanitize_options($contact['redirect_link']);
 					}
+					
+					if (isset($contact['close_form_automatic'])) {
+                        $post['close_form_automatic'] = self::sanitize_options($contact['close_form_automatic'], "int");
+                    }
+
+                    if (isset($contact['close_after'])) {
+                        $post['close_after'] = self::sanitize_options($contact['close_after'], "int");
+                    }
 				}
 				update_option('mystickyelements-contact-form', $post);
 
@@ -507,6 +515,9 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 							}
 							if (isset($option['open_new_tab'])) {
                                 $option['open_new_tab'] = self::sanitize_options($option['open_new_tab']);
+                            }
+							if (isset($option['pre_set_message'])) {
+                                $option['pre_set_message'] = self::sanitize_options($option['pre_set_message']);
                             }
 							
 							$social_channels_tab[$key] = $option;
@@ -703,7 +714,7 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 				</div>
 				<?php
 				
-                
+                require_once MYSTICKYELEMENTS_PATH . 'help.php';
 				
 				
 				if( isset($_GET['first_widget']) && $_GET['first_widget'] == 1 ) {
@@ -711,8 +722,6 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 				}
 				
             }
-			
-			require_once MYSTICKYELEMENTS_PATH . 'help.php';
 		}
 		
 		public function show_save_popup(){
@@ -724,11 +733,11 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 						<h4><?php _e('Congratulations! 🎉','mystickyelement'); ?></h4>
 						<p><?php _e('Your first widget is now up and running on your website!','mystickyelement'); ?></p> 
 						<div class="first-widget-popup-contant">
-							<h4><?php _e('Upgarade to pro today','mystickyelement'); ?></h4>
+							<h4><?php _e('Upgrade to pro today','mystickyelement'); ?></h4>
 							<p> <?php _e('🛠️ Show unlimited social icon such as Whatsapp,twitter,phone and so on','mystickyelement') ?> </p>
-							<p> <?php _e('📱Create multiple widgets for different devies,pages and languages.','mystickyelement') ?> </p>
-							<p> <?php _e('📈 Unlock analytics about each channel unage and different widgets ','mystickyelement') ?> </p>
-							<p> <?php _e('📩 Get contact form leads to Your email and intagrate with MailChimp and MailPoet','mystickyelement') ?> </p>
+							<p> <?php _e('📱Create multiple widgets for different devices, pages and languages.','mystickyelement') ?> </p>
+							<p> <?php _e('📈 Unlock analytics about each channel usage and different widgets ','mystickyelement') ?> </p>
+							<p> <?php _e('📩 Get contact form leads to Your email and integrate with MailChimp and MailPoet','mystickyelement') ?> </p>
 						</div>
 						<a href="<?php echo esc_url(admin_url("admin.php?page=my-sticky-elements-upgrade"));?>" class="mystickymenu btn-black btn-back-dashboard"><?php _e('Upgrade to Pro','mystickyelement');?></a><br>
 						<a href="#" class="mystickymenu btn-black btn-dashboard btn-close-dashboard"><?php _e('Close','mystickyelement');?></a>
@@ -878,10 +887,10 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
                 }
 
                 if ($key == 'line') {
-                    echo "<style>.social-channels-item .social-channel-input-box .social-" . $key . " svg .fil1{ fill:" . $social_channel_value['icon_color'] . "}</style>";
+                    echo "<style>.social-channels-item .social-channel-input-box-section .social-" . $key . " svg .fil1{ fill:" . $social_channel_value['icon_color'] . "}</style>";
                 }
                 if ($key == 'qzone') {
-                    echo "<style>.social-channels-item .social-channel-input-box .social-" . $key . " svg .fil2{ fill:" . $social_channel_value['icon_color'] . "}</style>";
+                    echo "<style>.social-channels-item .social-channel-input-box-section .social-" . $key . " svg .fil2{ fill:" . $social_channel_value['icon_color'] . "}</style>";
                 }
 
                 $social_channel_value['text'] = str_replace('\"', '"', $social_channel_value['text']);
@@ -891,7 +900,7 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 				$social_channel_value['mobile'] = (isset($social_channel_value['mobile'])) ? $social_channel_value['mobile'] : '';
                 $social_channel_value['desktop'] = (isset($social_channel_value['desktop'])) ? $social_channel_value['desktop'] : '';
                 $channel_type = (isset($social_channel_value['channel_type'])) ? $social_channel_value['channel_type'] : '';
-
+				$social_channel_value['icon_text_color'] = (isset($social_channel_value['icon_text_color'])) ? $social_channel_value['icon_text_color'] : '#ffffff';
                 if ($channel_type != 'custom' && $channel_type != '') {                    
                     if ($channel_type == 'whatsapp') {
                         $social_channels_list['is_pre_set_message'] = 1;
@@ -948,7 +957,7 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
                             <?php
                             } else { ?>
                                 <input type="text"
-                                   class="mystickyelement-social-links-input<?php echo $channel_type ; ?><?php if (isset($social_channels_list['number_validation']) && $social_channels_list['number_validation'] == 1) : ?> mystickyelement-social-text-input<?php endif; ?>"
+                                   class="mystickyelement-social-links-input<?php echo esc_attr($channel_type) ; ?><?php if (isset($social_channels_list['number_validation']) && $social_channels_list['number_validation'] == 1) : ?> mystickyelement-social-text-input<?php endif; ?>"
                                    name="social-channels-tab[<?php echo esc_attr($social_channel); ?>][text]"
                                    value="<?php echo esc_attr(stripslashes($social_channel_value['text'])); ?>"
                                    placeholder="<?php echo esc_attr($social_channels_list['placeholder']) ?>"/>
@@ -1114,6 +1123,17 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 											</div>
                                         </div>
                                     <?php endif; ?>
+									<div class="myStickyelements-setting-wrap-list myStickyelements-custom-icon-text-color">
+										<label><?php _e('Icon Text Color', 'mystickyelements'); ?></label>
+										<div class="px-wrap myStickyelements-inputs">
+											<input type="text"
+												   data-soical-text-color="<?php echo esc_attr($social_channel); ?>"
+												   id="social-<?php echo esc_attr($social_channel); ?>-icon_text_color"
+												   name="social-channels-tab[<?php echo esc_attr($social_channel); ?>][icon_text_color]"
+												   class="mystickyelement-color"
+												   value="<?php echo esc_attr($social_channel_value['icon_text_color']); ?>"/>
+										</div>
+									</div>
                                     <div class="myStickyelements-setting-wrap-list">
                                         <label><?php _e('Icon Text', 'mystickyelements'); ?></label>
                                         <div class="px-wrap myStickyelements-inputs">
@@ -1125,6 +1145,7 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
                                                    placeholder="<?php esc_html_e('Enter text here...', 'mystickyelements'); ?>"/>
                                         </div>
                                     </div>
+									
                                     <div class="myStickyelements-setting-wrap-list">
                                         <label><?php _e('Icon Text Size', 'mystickyelements'); ?></label>
                                         <div class="px-wrap myStickyelements-inputs">
@@ -1141,9 +1162,11 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
                                         <label><?php _e('Flyout Text', 'mystickyelements'); ?></label>
                                         <div class="px-wrap myStickyelements-inputs">
                                             <input type="text"
+												   class="social_channels_hover_text"
                                                    name="social-channels-tab[<?php echo esc_attr($social_channel); ?>][hover_text]"
                                                    value="<?php echo esc_attr($social_channel_value['hover_text']); ?>"
-                                                   placeholder="<?php esc_html_e('Enter text here...', 'mystickyelements'); ?>"/>
+                                                   data-icontext="<?php echo esc_attr($social_channel); ?>"
+												   placeholder="<?php esc_html_e('Enter text here...', 'mystickyelements'); ?>"/>
                                         </div>
                                     </div>
 
@@ -1217,7 +1240,7 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 			} else {			
 				include( 'mystickyelements-admin-integration.php' );
 			}	
-			require_once MYSTICKYELEMENTS_PATH . 'help.php';				
+			require_once MYSTICKYELEMENTS_PATH . 'help.php';			
 		}
 
 		/*
@@ -1232,7 +1255,6 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 				/* Signup Form When first time activate plugin */				
 				include_once MYSTICKYELEMENTS_PATH . '/admin/update.php';				
 			} else {
-			
 				$where_search = '';
 				$whereCond = [];
 				$table_name = $wpdb->prefix . "mystickyelement_contact_lists";

@@ -197,7 +197,7 @@ class wpdev_booking {
 	    $is_custom_width_css = ( empty( $width ) ) ? ' wpbc_no_custom_width ' : '';
 
         $calendar  = $style.
-                     '<div class="bk_calendar_frame' . $is_custom_width_css . ' months_num_in_row_' . $months_num_in_row . ' cal_month_num_' . $cal_count . $booking_timeslot_day_bg_as_available . '" style="' . $width . '">' .
+                     '<div class="wpbc_cal_container bk_calendar_frame' . $is_custom_width_css . ' months_num_in_row_' . $months_num_in_row . ' cal_month_num_' . $cal_count . $booking_timeslot_day_bg_as_available . '" style="' . $width . '">' .
                         '<div id="calendar_booking' . $resource_id . '">' .
                      __('Calendar is loading...' ,'booking').
                         '</div>'.
@@ -439,8 +439,11 @@ class wpdev_booking {
 
 
         // Insert calendar into form
-        if ( strpos($form, '[calendar]') !== false )  $form = str_replace('[calendar]', $calendar ,$form);
-        else                                          $form = '<div class="booking_form_div">' . $calendar . '</div>' . $nl . $form ;
+		if ( strpos( $form, '[calendar]' ) !== false ) {
+			$form = str_replace( '[calendar]', $calendar, $form );
+		} else {
+			$form = '<div class="booking_form_div">' . $calendar . '</div>' . $nl . $form;
+		}
 
         // Replace additional calendars like [calendar id=9] to  HTML and JS code
         $form = apply_bk_filter( 'wpdev_check_for_additional_calendars_in_form'

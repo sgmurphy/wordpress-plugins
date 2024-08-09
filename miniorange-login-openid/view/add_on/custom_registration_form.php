@@ -284,7 +284,7 @@ function mo_openid_custom_registration_form() { ?>
 					success: function(data) {
 						var flag=0;
 						jQuery("input").each(function(){
-							if($(this).val()=="mo_openid_verify_license") flag=1;
+							if(jQuery(this).val()=="mo_openid_verify_license") flag=1;
 						});
 						if(!flag) {
 							jQuery(data).insertBefore("#mo_openid_extra_attributes_addon_video");

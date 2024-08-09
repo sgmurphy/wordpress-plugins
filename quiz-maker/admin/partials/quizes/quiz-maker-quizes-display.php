@@ -918,6 +918,17 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         </div>
                                     </div>
                                 </div><!-- Quiz title font size -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quick_quiz_custom_class">
+                                            <?php echo __('Custom class for quiz container',$this->plugin_name); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input ays-text-input-short" name="ays_quick_quiz_custom_class" id="ays_quick_quiz_custom_class" placeholder="myClass myAnotherClass..." value="">
+                                    </div>
+                                </div><!-- Custom class for quiz container -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

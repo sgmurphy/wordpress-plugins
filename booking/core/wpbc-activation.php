@@ -41,7 +41,7 @@ class WPBC_BookingInstall extends WPBC_Install {
                                                             . '<a href="' . esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-settings' ), 'admin.php' ) ) ) 
                                                                      . '&scroll_to_section=wpbc_general_settings_uninstall_tab"> ' . 'settings page' . '.'
                                                             . ' </a>'
-                , 'link_settings'                       => '<a href="' . esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-settings' ), 'admin.php' ) ) ) 
+                , 'link_settings'                       => '<a class="wpbc_plugins_links__settings" href="' . esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-settings' ), 'admin.php' ) ) )
                                                                        . '">'. "Settings" .'</a>'
                 , 'link_whats_new'                      => '<a title="'. "Check new functionality in this plugin update." .'" href="' 
                                                                        . esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-about'  ), 'index.php' ) ) ) 
@@ -952,9 +952,8 @@ function wpbc_get_default_options( $option_name = '', $is_get_multiuser_general_
 	//FixIn: 9.6.3.5
 
     $default_options['booking_admin_cal_count'] = ($is_demo) ? '3' : '2';       
- $mu_option4delete[]='booking_admin_cal_count';                                 // $multiuser_general_option[] = implode( '', array_keys( array_slice( $default_options, -1 ) ) ); 
-    //$default_options['booking_skin'] = '/css/skins/light-01.css';
-    $default_options['booking_skin'] = '/css/skins/green-01.css';
+ $mu_option4delete[]='booking_admin_cal_count';                                 // $multiuser_general_option[] = implode( '', array_keys( array_slice( $default_options, -1 ) ) );
+    $default_options['booking_skin'] = '/css/skins/light__24_8.css';
  $mu_option4delete[]='booking_skin';
 	//FixIn: 9.6.3.5
     $default_options['booking_listing_default_view_mode'] = 'vm_booking_listing';	// 'vm_calendar';		//FixIn: 9.6.3.5
@@ -1048,7 +1047,7 @@ $mu_option4delete[] = 'booking_confirmation__booking_details__content';
  	//FixIn: 8.7.11.10
 	$default_options['booking_timeslot_picker'] = 'On';
 $mu_option4delete[]= 'booking_timeslot_picker';
-	$default_options['booking_timeslot_picker_skin'] = '/css/time_picker_skins/grey.css';
+	$default_options['booking_timeslot_picker_skin'] = '/css/time_picker_skins/light__24_8.css';
 $mu_option4delete[]= 'booking_timeslot_picker_skin';
 
     $default_options['booking_timeslot_day_bg_as_available'] = 'Off';	//(  ( class_exists( 'wpdev_bk_personal' ) ) ? 'Off' : 'On' );                                                   //FixIn: 8.2.1.27
@@ -1251,7 +1250,8 @@ if ( WPBC_customize_plugin ){
  $mu_option4delete[]='booking_cron';                                            // Creation  in wpbc-cron.php
 
 	//FixIn: 8.0.1.6
-	$default_options['booking_form_structure_type'] = 'vertical';
+	//$default_options['booking_form_structure_type'] = 'vertical';
+	$default_options['booking_form_structure_type'] = 'form_right';        //FixIn: 10.3.0.6
 	$default_options['booking_menu_go_pro'] 		= 'show';	// show | hide
 
 	$default_options['booking_form_layout_width'] 		= '440';

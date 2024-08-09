@@ -11,8 +11,8 @@ $Gs_Connector_Service = new Gs_Connector_Service();
 
 <div class="system-statuswc">
    <div class="info-container">
-      <h2 class="systemifo">System Info</h2>
-        <button onclick="copySystemInfo()" class="copy">Copy System Info to Clipboard</button>
+      <h2 class="systemifo inner-title"><?php echo esc_html( __('System Info', 'gsconnector' ) ); ?></h2>
+        <button onclick="copySystemInfo()" class="copy"><?php echo esc_html( __('Copy System Info to Clipboard', 'gsconnector' ) ); ?></button>
         <?php echo $Gs_Connector_Service->get_cf7gs_system_info(); ?>
    </div>
 </div>
@@ -64,20 +64,20 @@ if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES  ) {
 
 <div class="system-debug-logs">
    <div class="info-container">
-      <h2 class="systemifo">Debug Constants
+      <h2 class="systemifo inner-title"><?php echo esc_html( __('Debug Constants', 'gsconnector' ) ); ?>
 </h2>
 <form method="post">
 <table>
   <thead>
       <tr>
-        <th scope="col">Key</th>
-        <th scope="col">Info</th>
-        <th scope="col">Status</th>
+        <th scope="col"><?php echo esc_html( __('Key', 'gsconnector' ) ); ?></th>
+        <th scope="col"><?php echo esc_html( __('Info', 'gsconnector' ) ); ?></th>
+        <th scope="col"><?php echo esc_html( __('Status', 'gsconnector' ) ); ?></th>
       </tr>
   </thead>
   <tr>
-    <td class="table-title" data-label="key">WP_DEBUG</td>
-    <td data-label="info">Enable WP_DEBUG mode</td>
+    <td class="table-title" data-label="key"><?php echo esc_html( __('WP_DEBUG', 'gsconnector' ) ); ?></td>
+    <td data-label="info"><?php echo esc_html( __('Enable WP_DEBUG mode', 'gsconnector' ) ); ?></td>
     <td data-label="status">
       <label class="switch">
   <input type="checkbox" name="wpgsc-debug-cf7free" value="" <?php echo $wp_debug_value_selected; ?>>
@@ -86,8 +86,8 @@ if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES  ) {
     </td>
   </tr>
   <tr>
-    <td class="table-title" data-label="key">WP_DEBUG_LOG</td>
-    <td data-label="info">Enable Debug logging to the /wp-content/debug.log file</td>
+    <td class="table-title" data-label="key"><?php echo esc_html( __('WP_DEBUG_LOG', 'gsconnector' ) ); ?></td>
+    <td data-label="info"><?php echo esc_html( __('Enable Debug logging to the /wp-content/debug.log file', 'gsconnector' ) ); ?></td>
     <td data-label="status">
       <label class="switch">
   <input type="checkbox" name="wpgsc-debug-log-cf7free" value="" <?php echo  $wp_debug_log_value_selected; ?> >
@@ -96,8 +96,8 @@ if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES  ) {
     </td>
   </tr>
   <tr>
-    <td class="table-title" data-label="key">SCRIPT_DEBUG</td>
-    <td>Use the “dev” versions of core CSS and JavaScript files</td>
+    <td class="table-title" data-label="key"><?php echo esc_html( __('SCRIPT_DEBUG', 'gsconnector' ) ); ?></td>
+    <td><?php echo esc_html( __('Use the “dev” versions of core CSS and JavaScript files', 'gsconnector' ) ); ?></td>
     <td>
       <label class="switch">
   <input type="checkbox" name="wpgsc-script-debug-cf7free" value="" <?php echo $wp_script_debug_value_selected; ?>>
@@ -106,7 +106,7 @@ if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES  ) {
     </td>
   </tr>
   <tr>
-    <td class="table-title" data-label="key">SAVEQUERIES</td>
+    <td class="table-title" data-label="key"><?php echo esc_html( __('SAVEQUERIES', 'gsconnector' ) ); ?></td>
     <td>Enable database query logging, turn it off when not debuging cause it will effect site performace. The array is stored in the global $wpdb->queries.</td>
     <td>
       <label class="switch">
@@ -117,7 +117,7 @@ if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES  ) {
   </tr>
 </table>
 
-<h2><input type="submit" class="button button-primary button-large debug-logs-save" name="gs_cf7free_debug_settings" value="<?php echo __("Save", "gsconnector"); ?>"/>
+<h2 class="inner-title"><input type="submit" id="debug-logs-save"  class="button button-primary button-large debug-logs-save" name="gs_cf7free_debug_settings" value="<?php echo __("Save", "gsconnector"); ?>"/>
                <span class="beta-loading-sign-woogsc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
            </h2>
            </form>
@@ -129,17 +129,17 @@ if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES  ) {
 
 <div class="system-Error">
     <div class="error-container">
-        <h2 class="systemerror">Error Log</h2>
+        <h2 class="systemerror inner-title"><?php echo esc_html( __('Error Log', 'gsconnector' ) ); ?></h2>
 
-        <p>If you have <a href="https://www.gsheetconnector.com/how-to-enable-debugging-in-wordpress" target="_blank">WP_DEBUG_LOG</a> enabled, errors are stored in a log file. Here you can find the last 100 lines in reversed order so that you or the GSheetConnector support team can view it easily. The file cannot be edited here.</p>
-        <button onclick="copyErrorLog()" class="copy">Copy Error Log to Clipboard</button>
-        <button class="clear-content-logs-cf7">Clear</button>
+        <p><?php echo esc_html( __('If you have', 'gsconnector' ) ); ?> <a href="https://www.gsheetconnector.com/how-to-enable-debugging-in-wordpress" target="_blank"><?php echo esc_html( __('WP_DEBUG_LOG', 'gsconnector' ) ); ?></a><?php echo esc_html( __('enabled, errors are stored in a log file. Here you can find the last 100 lines in reversed order so that you or the GSheetConnector support team can view it easily. The file cannot be edited here.', 'gsconnector' ) ); ?> </p>
+        <button onclick="copyErrorLog()" class="copy"><?php echo esc_html( __('Copy Error Log to Clipboard', 'gsconnector' ) ); ?></button>
+        <button class="clear-content-logs-cf7"><?php echo esc_html( __('Clear', 'gsconnector' ) ); ?></button>
         <span class="clear-loading-sign-logs-cf7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <div class="clear-content-logs-msg-cf7"></div>
         <input type="hidden" name="gs-ajax-nonce" id="gs-ajax-nonce"
                         value="<?php echo wp_create_nonce( 'gs-ajax-nonce' ); ?>" />
         <!-- <button onclick="clearErrorLog()" class="clearlogs">Clear</button>  -->
-        <div class="copy-message" style="display: none;">Copied</div> <!-- Add a hidden div for the copy message -->
+        <div class="copy-message" style="display: none;"><?php echo esc_html( __('Copied', 'gsconnector' ) ); ?></div> <!-- Add a hidden div for the copy message -->
         <?php echo $Gs_Connector_Service->display_error_cf7_log(); ?>
     </div>
 </div>

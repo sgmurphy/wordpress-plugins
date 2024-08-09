@@ -233,6 +233,10 @@ function mo_openid_customise_social_icons() {
 								$class_app = 'vimeo';
 								$icon      = 'salesforce';
 							}
+							if ( $active_app == 'linkedin_oidc' ) {
+								$active_app = 'linkedin';
+								$icon = 'linkedin';
+						   }
 							if ( $active_app == 'google' ) {
 								$count_app++;
 								?>

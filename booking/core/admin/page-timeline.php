@@ -42,15 +42,15 @@ class WPBC_Page_CalendarOverview extends WPBC_Page_Structure {
         
         $tabs = array();
         $tabs[ 'vm_calendar' ] = array(
-                              'title' => __('Calendar Overview','booking')            // Title of TAB    
-                            , 'hint' => __('Calendar Overview', 'booking')                      // Hint    
-                            , 'page_title' => __('Calendar Overview', 'booking')                                // Title of Page    
+                              'title' => __('Timeline View','booking')            // Title of TAB
+                            , 'hint' => __('Timeline View', 'booking')                      // Hint
+                            , 'page_title' => __('Timeline View', 'booking')                                // Title of Page
                             , 'link' => ''                                      // Can be skiped,  then generated link based on Page and Tab tags. Or can  be extenral link
                             , 'position' => ''                                  // 'left'  ||  'right'  ||  ''
                             , 'css_classes' => ''                               // CSS class(es)
                             , 'icon' => ''                                      // Icon - link to the real PNG img
-                            , 'font_icon' => 'wpbc-bi-calendar2-range'             // CSS definition  of forn Icon		//FixIn: 9.5.5.3
-                            , 'header_font_icon' => 'wpbc-bi-calendar2-range'             // CSS definition  of forn Icon		//FixIn: 9.5.5.3
+                            , 'font_icon' => 'wpbc_icn_rotate_90 wpbc_icn_align_vertical_bottom'             			// CSS definition  of forn Icon		//FixIn: 9.5.5.3
+                            , 'header_font_icon' => 'wpbc_icn_rotate_90 wpbc_icn_align_vertical_bottom'             	// CSS definition  of forn Icon		//FixIn: 9.5.5.3
                             , 'default' => false                                 // Is this tab activated by default or not: true || false.
                             , 'disabled' => false                               // Is this tab disbaled: true || false. 
                             , 'hided'   => true                                 // Is this tab hided: true || false.

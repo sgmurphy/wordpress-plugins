@@ -48,20 +48,6 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
 
 
         // <editor-fold     defaultstate="collapsed"                        desc=" C a l e n d a r    S e c t i o n "  >
-        
-        //  Calendar Skin  /////////////////////////////////////////////////////
-        $calendar_skins_options  = array();
-        
-        // Skins in the Custom User folder (need to create it manually):    http://example.com/wp-content/uploads/wpbc_skins/ ( This folder do not owerwrited during update of plugin )
-        $upload_dir = wp_upload_dir();
-	    //FixIn: 8.9.4.8
-		$files_in_folder = wpbc_dir_list( array(  WPBC_PLUGIN_DIR . '/css/skins/', $upload_dir['basedir'].'/wpbc_skins/' ) );  // Folders where to look about calendar skins
-        foreach ( $files_in_folder as $skin_file ) {                                                                            // Example: $skin_file['/css/skins/standard.css'] => 'Standard';
-
-            //FixIn: 8.9.4.8    //FixIn: 9.1.2.10
-			$skin_file[1] = str_replace( array( WPBC_PLUGIN_DIR, WPBC_PLUGIN_URL , $upload_dir['basedir'] ), '', $skin_file[1] );                 // Get relative path for calendar skin
-            $calendar_skins_options[ $skin_file[1] ] = $skin_file[2];
-        } 
 
         $this->fields['booking_skin'] = array(   
                                     'type'          => 'select'
@@ -69,7 +55,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                     //, 'value' => '/css/skins/standard.css'    //This will override value loaded from DB
                                     , 'title'       => __('Calendar Skin', 'booking')
                                     , 'description' => __('Select the skin of the booking calendar' ,'booking')
-                                    , 'options'     => $calendar_skins_options
+                                    , 'options'     => wpbc_get_calendar_skin_options()
                                     , 'group'       => 'calendar'
                             );
 
@@ -1087,7 +1073,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
 
         $field_options = array(
                                   'vm_booking_listing' => __('Bookings Listing' ,'booking')                             //FixIn: 9.6.3.5
-                                , 'vm_calendar' => __('Calendar Overview' ,'booking')
+                                , 'vm_calendar' => __('Timeline View' ,'booking')
                             );   
         $this->fields['booking_listing_default_view_mode'] = array(   
                                 'type'          => 'select'
@@ -2142,13 +2128,13 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
 													'/css/time_picker_skins/black.css',
 													'/css/time_picker_skins/green.css',
 													'/css/time_picker_skins/black.css',
-													'/css/time_picker_skins/grey.css',
+													'/css/time_picker_skins/light__24_8.css',
 													'/css/time_picker_skins/marine.css',
-													'/css/time_picker_skins/grey.css',
+													'/css/time_picker_skins/light__24_8.css',
 													'/css/time_picker_skins/blue.css',
 													'/css/time_picker_skins/orange.css',
-													'/css/time_picker_skins/grey.css',
-													'/css/time_picker_skins/grey.css'
+													'/css/time_picker_skins/light__24_8.css',
+													'/css/time_picker_skins/light__24_8.css'
                                                 ];  
                             if ( wpbc_cal_skin_arr.indexOf( wpbc_selected_skin ) >= 0 ) {
 								jQuery( '#set_gen_booking_timeslot_picker_skin' ).find( 'option' ).prop( 'selected', false );								

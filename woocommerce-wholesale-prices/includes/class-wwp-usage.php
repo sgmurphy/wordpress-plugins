@@ -528,7 +528,7 @@ class WWP_Usage {
         );
 
         // If we have completed successfully, recheck in 1 week.
-        update_option( 'wwp_usage_tracking_last_checkin', time() );
+        update_option( 'wwp_usage_tracking_last_checkin', time(), 'no' );
 
         return true;
     }
@@ -568,7 +568,7 @@ class WWP_Usage {
             $tracking['initsend'] = strtotime( 'next sunday' ) + $tracking['offset'];
 
             wp_schedule_event( $tracking['initsend'], 'weekly', 'wwp_usage_tracking_cron' );
-            update_option( 'wwp_usage_tracking_config', $tracking );
+            update_option( 'wwp_usage_tracking_config', $tracking, 'no' );
         }
     }
 
@@ -590,14 +590,14 @@ class WWP_Usage {
         }
 
         if ( WWP_Helper_Functions::has_paid_plugin_active() ) {
-            update_option( 'wwp_anonymous_data', 'yes' );
+            update_option( 'wwp_anonymous_data', 'yes', 'no' );
 
             return;
         }
 
-        update_option( 'wwp_anonymous_data', 'yes' );
+        update_option( 'wwp_anonymous_data', 'yes', 'no' );
         $this->send_checkin( true, true );
-        update_option( 'wwp_tracking_notice', 1 );
+        update_option( 'wwp_tracking_notice', 1, 'no' );
     }
 
     /**
@@ -620,8 +620,8 @@ class WWP_Usage {
             return;
         }
 
-        update_option( 'wwp_anonymous_data', 'no' );
-        update_option( 'wwp_tracking_notice', 1 );
+        update_option( 'wwp_anonymous_data', 'no', 'no' );
+        update_option( 'wwp_tracking_notice', 1, 'no' );
     }
 
     /**
@@ -661,7 +661,7 @@ class WWP_Usage {
                         if ( ! WWP_Helper_Functions::is_dev_url( network_site_url( '/' ) ) || defined( 'WWS_TESTING_SITE' ) ) {
 
                             if ( WWP_Helper_Functions::has_paid_plugin_active() ) {
-                                update_option( 'wwp_anonymous_data', 1 );
+                                update_option( 'wwp_anonymous_data', 1, 'no' );
 
                                 return;
                             }
@@ -682,7 +682,7 @@ class WWP_Usage {
                             echo wp_kses_post( $output );
                         } else {
                             // is testing site.
-                            update_option( 'wwp_tracking_notice', '1' );
+                            update_option( 'wwp_tracking_notice', '1', 'no' );
                         }
                     }
                 }

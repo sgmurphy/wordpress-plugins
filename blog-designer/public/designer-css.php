@@ -19,11 +19,15 @@ $readmorebackcolor              = ( isset( $settings['template_readmorebackcolor
 $alterbackground                = ( isset( $settings['template_alterbgcolor'] ) && '' != $settings['template_alterbgcolor'] ) ? $settings['template_alterbgcolor'] : '';
 $titlebackcolor                 = ( isset( $settings['template_titlebackcolor'] ) && '' != $settings['template_titlebackcolor'] ) ? $settings['template_titlebackcolor'] : '';
 $template_labeltextcolor		= ( isset( $settings['template_labeltextcolor'] ) && '' != $settings['template_labeltextcolor'] ) ? $settings['template_labeltextcolor'] : '';
+$post_length_setting 				 = isset( $settings['post_length_setting'] ) ? $settings['post_length_setting'] : '0';
+$total_noofline 				 = isset( $settings['total_noofline'] ) ? $settings['total_noofline'] : '2';
+$template_post_content_wrap_from = isset( $settings['template_post_content_wrap_from'] ) ? $settings['template_post_content_wrap_from'] : 'normal';
 $social_icon_style              = get_option( 'social_icon_style' ); //phpcs:enable
 $template_alternativebackground = get_option( 'template_alternativebackground' );
 $template_titlefontsize         = get_option( 'template_titlefontsize' );
 $content_fontsize               = get_option( 'content_fontsize' );
 $custom_css                     = get_option( 'custom_css' );
+
 ?>
 <style type="text/css">
 	/**
@@ -78,6 +82,32 @@ $custom_css                     = get_option( 'custom_css' );
 		}
 		?>
 	}
+	/**
+	 * Post Title Setting
+	 */
+	.bdp_blog_template .blog_header h2 a span,
+    .bdp_blog_template .bd-blog-header h2 a span,
+	.glossary .blog_header h2 a span,
+	.bdp_blog_template.media-grid .blog_header h2 a span,
+	.bdp_blog_template.timeline .desc h3 a span,
+	.blog_template.blog-grid-box h2.post_title a span{
+		<?php if(isset($post_length_setting) && $post_length_setting) {?>
+			overflow:hidden;
+			text-overflow:ellipsis;
+			-webkit-box-orient : vertical;
+			display : -webkit-box;
+			-webkit-line-clamp : <?php echo $total_noofline; ?>;
+			<?php }	?>
+			<?php
+				if(isset($template_post_content_wrap_from) && '' !== $template_post_content_wrap_from){
+			?>
+			word-break : <?php echo $template_post_content_wrap_from; ?>;
+			<?php	
+				} 
+			 ?>
+		
+	}
+
 	/**
 	 * 3.0 - Default Blog Template
 	 */

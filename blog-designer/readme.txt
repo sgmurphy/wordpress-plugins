@@ -3,9 +3,9 @@ Contributors: solwininfotech, sanjaydabhoya, khushbupadalia
 Donate link: https://www.solwininfotech.com/product/wordpress-plugins/blog-designer/
 Tags: Wordpress Blog, Blog Design, Blog layout, blog template, custom blog template, blog layout design, responsive blog, custom blog layout, modify blog design, responsive blog layout, blog, design, site design, posts in page, blog in page, timeline blog template, classical blog template, light breeze blog template, spektrum blog template, evolution blog template, boxy-clean blog template, crayon slider blog template, glossary blog template, nicy blog template, blog carousel template, blog grid template, media grid template, sallet slider template, ticker template
 Requires at least: 5.6
-Tested up to: 6.5.2
+Tested up to: 6.6.1
 Requires PHP: 7.0
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -226,6 +226,13 @@ Yes, Blog Designer will work with any WordPress themes, but may require some sty
 16. Blog Designer with 'Ticker' Blog Template Layout
 
 == Changelog ==
+
+= 3.1.7
+Release date: July 25th, 2024
+
+* Updated: Make compatible with WordPress 6.6.1
+* Added: New UI for better User Interface
+* Fixed: Design issues
 
 = 3.1.6
 Release date: April 11th, 2024

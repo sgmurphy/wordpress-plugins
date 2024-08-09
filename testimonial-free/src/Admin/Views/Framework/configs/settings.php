@@ -62,9 +62,17 @@ SPFTESTIMONIAL::createSection(
 				'type'    => 'submessage',
 				'class'   => 'testimonial_backend-notice',
 				'style'   => 'info',
-				'content' => __(
-					'<a href="https://www.google.com/recaptcha" target="_blank">reCAPTCHA</a> is a free anti-spam service of Google that protects your website from spam and abuse. <a href="https://www.google.com/recaptcha/admin#list" target="_blank"> Get your API Keys</a>. <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>(Available in Pro)</b></a>',
-					'testimonial-free'
+				'content' => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__(
+						'%1$sreCAPTCHA%2$s is a free anti-spam service of Google that protects your website from spam and abuse. %3$s Get your API Keys%2$s. %4$s(Available in Pro)%5$s',
+						'testimonial-free'
+					),
+					'<a href="https://www.google.com/recaptcha" target="_blank">',
+					'</a>',
+					'<a href="https://www.google.com/recaptcha/admin#list" target="_blank">',
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
 				),
 			),
 			array(

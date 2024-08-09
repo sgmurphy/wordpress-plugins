@@ -1,6 +1,6 @@
 import { r as registerInstance, h } from './index-644f5478.js';
 import { s as state } from './mutations-b8f9af9f.js';
-import { h as hasSubscription } from './index-74024349.js';
+import { h as hasSubscription } from './index-bc0c0045.js';
 import { i as intervalString } from './price-178c2e2b.js';
 import { g as getFeaturedProductMediaAttributes } from './media-8435dec0.js';
 import { u as updateCheckoutLineItem, r as removeCheckoutLineItem } from './mutations-dc690b18.js';

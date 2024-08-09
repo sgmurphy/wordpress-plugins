@@ -522,6 +522,9 @@
 			jQuery(".chosen-choices").sortable();
 			jQuery('.color-group').trigger('color-group');
 		});
+		if (WPF_DATA.isWCLicense) {
+			jQuery('.wpfProLabel a').attr('href','');
+		}
 
 
 		jQuery("body").off('change', "[name='f_show_inputs']").on('change', "[name='f_show_inputs']", function (e) {

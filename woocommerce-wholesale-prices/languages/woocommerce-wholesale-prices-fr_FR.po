@@ -96,7 +96,7 @@ msgstr "Activer"
 msgid "Activate Plugin"
 msgstr "Activer l’extension"
 
-#: woocommerce-wholesale-prices.bootstrap.php:157
+#: woocommerce-wholesale-prices.bootstrap.php:158
 msgid "Activate this plugin"
 msgstr "Activer cette extension"
 
@@ -221,7 +221,7 @@ msgstr "Sélectionnez le rôle grossiste…"
 msgid "Choose wholesale users..."
 msgstr "Ceci est le rôle principal de vente en gros."
 
-#: woocommerce-wholesale-prices.bootstrap.php:157
+#: woocommerce-wholesale-prices.bootstrap.php:158
 msgid "Click here to activate &rarr;"
 msgstr "Cliquez ici pour activer &rarr;"
 
@@ -229,7 +229,7 @@ msgstr "Cliquez ici pour activer &rarr;"
 msgid "Click here to install Advanced Coupons for WooCommerce Free"
 msgstr "Cliquez ici pour installer Advanced Coupons for WooCommerce Free"
 
-#: woocommerce-wholesale-prices.bootstrap.php:154
+#: woocommerce-wholesale-prices.bootstrap.php:155
 msgid "Click here to install from WordPress.org repo &rarr;"
 msgstr "Cliquez ici pour l'installer à partir du dépôt WordPress.org &rarr;"
 
@@ -347,7 +347,7 @@ msgstr "Ne pas autoriser"
 msgid "Do not apply tax to all wholesale roles"
 msgstr "N'appliquer aucune taxe à tous les rôles grossistes"
 
-#: woocommerce-wholesale-prices.bootstrap.php:116
+#: woocommerce-wholesale-prices.bootstrap.php:117
 msgid "Download Latest Version"
 msgstr "Télécharger la dernière version"
 
@@ -661,7 +661,7 @@ msgstr "Si coché, masque les prix de gros par rôle grossiste sur la liste des 
 msgid "If you are serious about growing your wholesale sales within your WooCommerce store then the Premium add-on to the free WooCommerce Wholesale Prices plugin that you are currently using can help you."
 msgstr "Si vous êtes sérieux au sujet de la croissance de vos ventes en gros sur votre boutique WooCommerce alors le module Premium de la version gratuite de l'extension WooCommerce Wholesale Prices que vous utilisez actuellement peut vous aider."
 
-#: woocommerce-wholesale-prices.bootstrap.php:102
+#: woocommerce-wholesale-prices.bootstrap.php:103
 msgid "Important Notice:"
 msgstr "Avertissement:"
 
@@ -1959,16 +1959,16 @@ msgid "Looking for documentation? Please see our growing %1$sKnowledge Base%2$s"
 msgstr ""
 
 #. translators: %1$s Minimum WWPP version required, %2$s Minimum WWP version required.
-#: woocommerce-wholesale-prices.bootstrap.php:107
+#: woocommerce-wholesale-prices.bootstrap.php:108
 msgid "We have detected an outdated version of WooCommerce Wholesale Prices Premium. You require at least version %1$s for this version of WooCommerce Wholesale Prices (%2$s). Please update now."
 msgstr ""
 
-#: woocommerce-wholesale-prices.bootstrap.php:120
+#: woocommerce-wholesale-prices.bootstrap.php:121
 msgid "Update Now"
 msgstr ""
 
 #. translators: %1$s Opening bold tag, %2$s Closing bold tag, %3$s Opening break tag, %4$s Opening link tag, %5$s Closing link tag, %6$s Closing break tag.
-#: woocommerce-wholesale-prices.bootstrap.php:166
+#: woocommerce-wholesale-prices.bootstrap.php:167
 msgid "%1$sWooCommerce Wholesale Prices%2$s plugin missing dependency.%3$sPlease ensure you have the %4$sWooCommerce%5$s plugin installed and activated.%6$s"
 msgstr ""
 

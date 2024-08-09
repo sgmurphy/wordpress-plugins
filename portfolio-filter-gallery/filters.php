@@ -5,7 +5,9 @@ if (!defined('ABSPATH'))
 //wp_enqueue_style('awl-pfg-bootstrap-css', PFG_PLUGIN_URL . 'css/fb-buttons-bootstrap.css');
 wp_enqueue_style('awl-pfg-filter-css', PFG_PLUGIN_URL . 'css/filter-templet.css');
 //wp_enqueue_style('awl-pfg-font-css', PFG_PLUGIN_URL . 'css/font-awesome.min.css');
-
+if ( is_admin() ) {
+	add_thickbox(); // Enqueue Thickbox
+}
 $all_category = [];
 $all_category = get_option('awl_portfolio_filter_gallery_categories');
 
@@ -20,6 +22,8 @@ if (current_user_can('manage_options')) {
 		update_option("awl_portfolio_filter_gallery_categories", $all_category);
 	}
 }
+
+
 /*echo "<pre>";
 print_r($all_category);
 echo "</pre>";*/
@@ -208,6 +212,52 @@ echo "</pre>";*/
 								class="dashicons dashicons-unlock" style="line-height:1.4;"></span> Upgrade To Pro</a>
 					</div>
 				</div>
+
+				<div id="Ultimate Portfolio" class="postbox ">
+					<div class="postbox-header">
+						<h2 class="hndle ui-sortable-handle">Most Advanced Version</h2>
+						<div class="handle-actions hide-if-no-js"><button type="button" class="handle-order-higher"
+								aria-disabled="false"
+								aria-describedby="Ultimate Portfolio-handle-order-higher-description"><span
+									class="screen-reader-text">Move up</span><span class="order-higher-indicator"
+									aria-hidden="true"></span></button><span class="hidden"
+								id="Ultimate Portfolio-handle-order-higher-description">Move Most Advanced Version box
+								up</span><button type="button" class="handle-order-lower" aria-disabled="false"
+								aria-describedby="Ultimate Portfolio-handle-order-lower-description"><span
+									class="screen-reader-text">Move down</span><span class="order-lower-indicator"
+									aria-hidden="true"></span></button><span class="hidden"
+								id="Ultimate Portfolio-handle-order-lower-description">Move Most Advanced Version box
+								down</span><button type="button" class="handlediv" aria-expanded="true"><span
+									class="screen-reader-text">Toggle panel: Most Advanced Version</span><span
+									class="toggle-indicator" aria-hidden="true"></span></button></div>
+					</div>
+					<div class="inside">
+						<a href="https://webenvo.com/ultimate-portfolio/" target="_new">
+							<img src="https://awplife.com/wp-content/uploads/2024/07/ultimate-portfolio-wordpress-plugin.webp"
+								width="250" height=""></a>
+
+						<br>
+						<div style="text-align:center">
+							<p>
+								The Ultimate Portfolio is the most advanced version of the portfolio plugin, fresh
+								layouts, multiple design, fully integrated with the Gutenberg editor.
+
+							</p>
+						</div>
+						<a href="<?php echo esc_url( self_admin_url( 'plugin-install.php?tab=plugin-information&plugin=ultimate-portfolio&TB_iframe=true&width=772&height=878' ) ); ?>"  class="pfg-btn button button-primary thickbox"
+							style="background: #496481; text-shadow: none;"><span class="dashicons dashicons-download"
+								style="line-height:1.4;"></span>
+							<?php _e('Install Free', 'portfolio-filter-gallery'); ?>
+						</a>
+						<a href="https://webenvo.com/ultimate-portfolio/" target="_new" class="pfg-btn button button-primary"
+							style="background: #496481; text-shadow: none;"><span class="dashicons dashicons-unlock"
+								style="line-height:1.4;"></span>
+							<?php _e('Get Premium', 'portfolio-filter-gallery'); ?>
+						</a>
+
+					</div>
+				</div>
+
 				<div id="Rate Our Plugin" class="postbox ">
 					<div class="postbox-header">
 						<h2 class="hndle ui-sortable-handle">Rate Our Plugin</h2>
@@ -246,6 +296,10 @@ echo "</pre>";*/
 						</div>
 					</div>
 				</div>
+				
+
+
+
 			</div>
 		</div>
 	</div>

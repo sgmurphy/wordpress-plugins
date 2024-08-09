@@ -2,14 +2,14 @@
 
 class Xserver_Migrator_Admin
 {
-	public $nonce_action = [
+	public $nonce_action = array(
 		'Xserver Migrator Execute' => 'xserver_migrator_execute',
 		'Xserver Migrator Get Versions' => 'xserver_migrator_get_versions',
 		'Xserver Migrator Get Available' => 'xserver_migrator_get_available',
 		'Xserver Migrator Get Prefix' => 'xserver_migrator_get_table_prefix',
 		'Xserver Migrator Create Challenge' => 'xserver_migrator_create_challenge_token',
 		'Xserver Migrator Delete Challenge' => 'xserver_migrator_delete_challenge_token',
-	];
+	);
 
 	public function activate()
 	{

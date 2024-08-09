@@ -5,13 +5,13 @@
  * Plugin URI:           https://wholesalesuiteplugin.com
  * Description:          WooCommerce Extension to Provide Wholesale Prices Functionality
  * Author:               Rymera Web Co
- * Version:              2.2.0
+ * Version:              2.2.0.1
  * Author URI:           http://rymera.com.au/
  * Text Domain:          woocommerce-wholesale-prices
  * Requires at least:    5.2
- * Tested up to:         6.5.5
+ * Tested up to:         6.6
  * WC requires at least: 4.0
- * WC tested up to:      9.0.2
+ * WC tested up to:      9.1
  */
 
 // This file is the main plugin boot loader.
@@ -103,7 +103,7 @@ if ( WWP_Helper_Functions::is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
                     <h3><?php esc_html_e( 'Important Notice:', 'woocommerce-wholesale-prices' ); ?></h3>
                     <p>
                         <?php
-                            echo sprintf(
+                            printf(
                                 // translators: %1$s Minimum WWPP version required, %2$s Minimum WWP version required.
                                 esc_html__( 'We have detected an outdated version of WooCommerce Wholesale Prices Premium. You require at least version %1$s for this version of WooCommerce Wholesale Prices (%2$s). Please update now.', 'woocommerce-wholesale-prices' ),
                                 esc_html( $min_wwpp_version ),
@@ -139,9 +139,9 @@ if ( WWP_Helper_Functions::is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
         // Execute WWP.
         $wc_wholesale_prices->run();
 
-        update_option( 'wwp_running', 'yes' );
+        update_option( 'wwp_running', 'yes', 'no' );
     } else {
-        update_option( 'wwp_running', 'no' );
+        update_option( 'wwp_running', 'no', 'no' );
     }
 } else {
 
@@ -175,5 +175,5 @@ if ( WWP_Helper_Functions::is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 
     add_action( 'admin_notices', 'wwp_missing_plugin_dependency_notice' );
 
-    update_option( 'wwp_running', 'no' );
+    update_option( 'wwp_running', 'no', 'no' );
 }

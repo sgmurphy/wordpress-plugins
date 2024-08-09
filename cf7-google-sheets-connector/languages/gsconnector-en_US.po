@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: CF7 Google Sheet Connector\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cf7-google-sheets-"
 "connector\n"
-"POT-Creation-Date: 2024-08-07 14:26+0530\n"
-"PO-Revision-Date: 2024-08-07 14:29+0530\n"
+"POT-Creation-Date: 2024-08-09 17:31+0530\n"
+"PO-Revision-Date: 2024-08-09 17:34+0530\n"
 "Last-Translator: \n"
 "Language-Team: helpdesk@gsheetconnector.com\n"
 "Language: en\n"
@@ -32,11 +32,24 @@ msgstr ""
 msgid "Google Sheets"
 msgstr "Google Sheets"
 
-#: google-sheet-connector.php:275
+#: google-sheet-connector.php:281 includes/pages/pro-popup.php:13
+#: includes/pages/pro-popup.php:33
+msgid "Upgrade To PRO"
+msgstr "Upgrade To PRO"
+
+#: google-sheet-connector.php:285
+msgid ""
+"Manual Client/Secret Key (Use Your Google API Configuration) method is "
+"available in the PRO version of the plugin."
+msgstr ""
+"Manual Client/Secret Key (Use Your Google API Configuration) method is "
+"available in the PRO version of the plugin."
+
+#: google-sheet-connector.php:293
 msgid "Contact Form 7 - Google Sheet Integration"
 msgstr "Contact Form 7 - Google Sheet Integration"
 
-#: google-sheet-connector.php:281
+#: google-sheet-connector.php:299
 msgid ""
 "Click on \"Sign in with Google\" button to retrieve your code from Google "
 "Drive to allow us to access your spreadsheets. "
@@ -44,19 +57,19 @@ msgstr ""
 "Click on \"Sign in with Google\" button to retrieve your code from Google "
 "Drive to allow us to access your spreadsheets. "
 
-#: google-sheet-connector.php:307
+#: google-sheet-connector.php:325
 msgid "Google Access Code"
 msgstr "Google Access Code"
 
-#: google-sheet-connector.php:310
+#: google-sheet-connector.php:328
 msgid "Currently Active"
 msgstr "Currently Active"
 
-#: google-sheet-connector.php:312
+#: google-sheet-connector.php:330
 msgid "Deactivate"
 msgstr "Deactivate"
 
-#: google-sheet-connector.php:314
+#: google-sheet-connector.php:332
 msgid ""
 "On deactivation, all your data\n"
 "                            saved with authentication will be removed and "
@@ -68,15 +81,15 @@ msgstr ""
 "you need to reauthenticate with your google\n"
 "                            account."
 
-#: google-sheet-connector.php:324
+#: google-sheet-connector.php:342
 msgid "Click on Sign in with Google button"
 msgstr "Click on Sign in with Google button"
 
-#: google-sheet-connector.php:335 includes/pages/gs-integrate-info.php:120
+#: google-sheet-connector.php:353 includes/pages/gs-integrate-info.php:120
 msgid "Save"
 msgstr "Save"
 
-#: google-sheet-connector.php:347
+#: google-sheet-connector.php:365
 msgid ""
 "Something went wrong! It looks you have not given the permission of Google "
 "Drive and Google Sheets from your google account.Please Deactivate Auth and "
@@ -86,15 +99,15 @@ msgstr ""
 "Drive and Google Sheets from your google account.Please Deactivate Auth and "
 "Re-Authenticate again with the permissions."
 
-#: google-sheet-connector.php:351
+#: google-sheet-connector.php:369
 msgid "Also,"
 msgstr "Also,"
 
-#: google-sheet-connector.php:352
+#: google-sheet-connector.php:370
 msgid "Click Here "
 msgstr "Click Here "
 
-#: google-sheet-connector.php:353
+#: google-sheet-connector.php:371
 msgid ""
 "and if it displays \"GSheetConnector for WP Contact Forms\" under Third-"
 "party apps with account access then remove it."
@@ -102,12 +115,12 @@ msgstr ""
 "and if it displays \"GSheetConnector for WP Contact Forms\" under Third-"
 "party apps with account access then remove it."
 
-#: google-sheet-connector.php:369
+#: google-sheet-connector.php:387
 #, php-format
 msgid "Connected email account: %s"
 msgstr "Connected email account: %s"
 
-#: google-sheet-connector.php:375
+#: google-sheet-connector.php:393
 msgid ""
 "Something wrong ! Your Auth Code may be wrong or expired. Please deactivate "
 "and do Re-Authentication again. "
@@ -115,19 +128,19 @@ msgstr ""
 "Something wrong ! Your Auth Code may be wrong or expired. Please deactivate "
 "and do Re-Authentication again. "
 
-#: google-sheet-connector.php:384
+#: google-sheet-connector.php:402
 msgid "Debug Log"
 msgstr "Debug Log"
 
-#: google-sheet-connector.php:387
+#: google-sheet-connector.php:405
 msgid "View"
 msgstr "View"
 
-#: google-sheet-connector.php:392
+#: google-sheet-connector.php:410 includes/pages/gs-integrate-info.php:136
 msgid "Clear"
 msgstr "Clear"
 
-#: google-sheet-connector.php:401
+#: google-sheet-connector.php:419
 msgid ""
 "We do not store any of the data from your Google account on our servers, "
 "everything is processed & stored on your server. We take your privacy "
@@ -137,31 +150,31 @@ msgstr ""
 "everything is processed & stored on your server. We take your privacy "
 "extremely seriously and ensure it is never misused."
 
-#: google-sheet-connector.php:402
+#: google-sheet-connector.php:420
 msgid "Learn more."
 msgstr "Learn more."
 
-#: google-sheet-connector.php:435
+#: google-sheet-connector.php:453
 msgid "No errors found."
 msgstr "No errors found."
 
-#: google-sheet-connector.php:440
+#: google-sheet-connector.php:458
 msgid "No log file exists as no errors are generated."
 msgstr "No log file exists as no errors are generated."
 
-#: google-sheet-connector.php:454
+#: google-sheet-connector.php:472
 msgid "CF7 Google Sheet Connector Pro - Amazing Key Features"
 msgstr "CF7 Google Sheet Connector Pro - Amazing Key Features"
 
-#: google-sheet-connector.php:455
+#: google-sheet-connector.php:473
 msgid "Common Features of GSheetConnector Pro Plugins."
 msgstr "Common Features of GSheetConnector Pro Plugins."
 
-#: google-sheet-connector.php:460
+#: google-sheet-connector.php:478
 msgid "One-Click Authentication"
 msgstr "One-Click Authentication"
 
-#: google-sheet-connector.php:461
+#: google-sheet-connector.php:479
 msgid ""
 "Get spreadsheet and Worksheet list directly to your contact form’s google "
 "sheet settings with one-click authentication."
@@ -169,11 +182,11 @@ msgstr ""
 "Get spreadsheet and Worksheet list directly to your contact form’s google "
 "sheet settings with one-click authentication."
 
-#: google-sheet-connector.php:466
+#: google-sheet-connector.php:484
 msgid "Auto Fetch Sheets and Integration"
 msgstr "Auto Fetch Sheets and Integration"
 
-#: google-sheet-connector.php:467
+#: google-sheet-connector.php:485
 msgid ""
 "You can add multiple Contact Forms of your site to multiple Google Sheets. "
 "And can add as many Google Sheets as forms."
@@ -181,12 +194,11 @@ msgstr ""
 "You can add multiple Contact Forms of your site to multiple Google Sheets. "
 "And can add as many Google Sheets as forms."
 
-#: google-sheet-connector.php:472
-#| msgid "Google Sheet Name"
+#: google-sheet-connector.php:490
 msgid "Google Sheets API Up to date"
 msgstr "Google Sheets API Up to date"
 
-#: google-sheet-connector.php:473
+#: google-sheet-connector.php:491
 msgid ""
 "One of the features you get with the latest API-V4 is the ability to format "
 "content in Google Sheets. when using our addon plugins."
@@ -194,12 +206,11 @@ msgstr ""
 "One of the features you get with the latest API-V4 is the ability to format "
 "content in Google Sheets. when using our addon plugins."
 
-#: google-sheet-connector.php:480
-#| msgid "Contact Form 7 - GSheetConnector"
+#: google-sheet-connector.php:498
 msgid "Map Contact Form Mail Tags to GSheet Columns"
 msgstr "Map Contact Form Mail Tags to GSheet Columns"
 
-#: google-sheet-connector.php:481
+#: google-sheet-connector.php:499
 msgid ""
 "In the Google sheets tab, provide column names in row 1. The first column "
 "should be “date” for each."
@@ -207,11 +218,11 @@ msgstr ""
 "In the Google sheets tab, provide column names in row 1. The first column "
 "should be “date” for each."
 
-#: google-sheet-connector.php:486 includes/pages/gs-integrate-demo.php:29
+#: google-sheet-connector.php:504 includes/pages/gs-integrate-demo.php:29
 msgid "Quick Configuration"
 msgstr "Quick Configuration"
 
-#: google-sheet-connector.php:487 google-sheet-connector.php:493
+#: google-sheet-connector.php:505 google-sheet-connector.php:511
 msgid ""
 "The Configuration of the form to the GSheet is very easy. Just follow the "
 "steps provided by the plugin and you will get data on the GSheet."
@@ -219,48 +230,47 @@ msgstr ""
 "The Configuration of the form to the GSheet is very easy. Just follow the "
 "steps provided by the plugin and you will get data on the GSheet."
 
-#: google-sheet-connector.php:492
+#: google-sheet-connector.php:510
 msgid "Support WordPress Multi-site"
 msgstr "Support WordPress Multi-site"
 
-#: google-sheet-connector.php:500
-#| msgid "Demos"
+#: google-sheet-connector.php:518
 msgid "See Demo"
 msgstr "See Demo"
 
-#: google-sheet-connector.php:512
+#: google-sheet-connector.php:530
 msgid "Next steps…"
 msgstr "Next steps…"
 
-#: google-sheet-connector.php:520 google-sheet-connector.php:716
+#: google-sheet-connector.php:538 google-sheet-connector.php:734
 msgid "Upgrade to PRO"
 msgstr "Upgrade to PRO"
 
-#: google-sheet-connector.php:521
+#: google-sheet-connector.php:539
 msgid "Sync Orders, Order wise data and much more..."
 msgstr "Sync Orders, Order wise data and much more..."
 
-#: google-sheet-connector.php:528
+#: google-sheet-connector.php:546
 msgid "Compatibility"
 msgstr "Compatibility"
 
-#: google-sheet-connector.php:529
+#: google-sheet-connector.php:547
 msgid "Compatibility with Contact Form 7 Third-Party Plugins"
 msgstr "Compatibility with Contact Form 7 Third-Party Plugins"
 
-#: google-sheet-connector.php:536
+#: google-sheet-connector.php:554
 msgid "Multi Languages"
 msgstr "Multi Languages"
 
-#: google-sheet-connector.php:537
+#: google-sheet-connector.php:555
 msgid "This plugin supports multi-languages as well!"
 msgstr "This plugin supports multi-languages as well!"
 
-#: google-sheet-connector.php:544
+#: google-sheet-connector.php:562
 msgid "Support Wordpress multisites"
 msgstr "Support Wordpress multisites"
 
-#: google-sheet-connector.php:545
+#: google-sheet-connector.php:563
 msgid ""
 "With the use of a Multisite, you’ll also have a new level of user-available: "
 "the Super\n"
@@ -270,40 +280,36 @@ msgstr ""
 "the Super\n"
 "              Admin."
 
-#: google-sheet-connector.php:556
-#| msgid "Support"
+#: google-sheet-connector.php:574
 msgid "Product Support"
 msgstr "Product Support"
 
-#: google-sheet-connector.php:562
-#| msgid "Documentation"
+#: google-sheet-connector.php:580
 msgid "Online Documentation"
 msgstr "Online Documentation"
 
-#: google-sheet-connector.php:563
-#| msgid "Contact Form 7 - GSheetConnector"
+#: google-sheet-connector.php:581
 msgid "Understand all the capabilities of Contact Form 7 - CF7 GSheetConnector"
 msgstr ""
 "Understand all the capabilities of Contact Form 7 - CF7 GSheetConnector"
 
-#: google-sheet-connector.php:568
-#| msgid "Support"
+#: google-sheet-connector.php:586
 msgid "Ticket Support"
 msgstr "Ticket Support"
 
-#: google-sheet-connector.php:569
+#: google-sheet-connector.php:587
 msgid "Direct help from our qualified support team"
 msgstr "Direct help from our qualified support team"
 
-#: google-sheet-connector.php:574
+#: google-sheet-connector.php:592
 msgid "Affiliate Program"
 msgstr "Affiliate Program"
 
-#: google-sheet-connector.php:715
+#: google-sheet-connector.php:733
 msgid "Settings"
 msgstr "Settings"
 
-#: google-sheet-connector.php:721
+#: google-sheet-connector.php:739
 msgid "<img style='width:30px;margin-right: 10px;' src='"
 msgstr "<img style='width:30px;margin-right: 10px;' src='"
 
@@ -333,7 +339,7 @@ msgstr ""
 "Google Account</a> along with Google Drive and Google Sheets Permissions in "
 "order to enable the settings for configuration."
 
-#: includes/class-gs-service.php:797
+#: includes/class-gs-service.php:798
 msgid ""
 "Single\n"
 "                Sheet Connection"
@@ -341,7 +347,7 @@ msgstr ""
 "Single\n"
 "                Sheet Connection"
 
-#: includes/class-gs-service.php:804
+#: includes/class-gs-service.php:806
 msgid ""
 "Multi Sheet\n"
 "                Connection"
@@ -349,26 +355,26 @@ msgstr ""
 "Multi Sheet\n"
 "                Connection"
 
-#: includes/class-gs-service.php:805 includes/pages/gs-custom-ordering.php:5
+#: includes/class-gs-service.php:807 includes/pages/gs-custom-ordering.php:5
 #: includes/pages/gs-field-list.php:5
 #: includes/pages/gs-miscellaneous-features.php:4
 #: includes/pages/gs-special-mailtags.php:5
 msgid "Pro"
 msgstr "Pro"
 
-#: includes/class-gs-service.php:818
+#: includes/class-gs-service.php:820
 msgid "Google Sheet Settings"
 msgstr "Google Sheet Settings"
 
-#: includes/class-gs-service.php:818
+#: includes/class-gs-service.php:820
 msgid "( Fetch your sheets automatically using PRO )"
 msgstr "( Fetch your sheets automatically using PRO )"
 
-#: includes/class-gs-service.php:820
+#: includes/class-gs-service.php:822
 msgid "Google Sheet Name"
 msgstr "Google Sheet Name"
 
-#: includes/class-gs-service.php:825
+#: includes/class-gs-service.php:827
 msgid ""
 "Go to your google account and click on\"Google apps\" icon and than click "
 "\"Sheets\". Select the name of the appropriate sheet you want to link your "
@@ -378,19 +384,19 @@ msgstr ""
 "\"Sheets\". Select the name of the appropriate sheet you want to link your "
 "contact form or create new sheet."
 
-#: includes/class-gs-service.php:828
+#: includes/class-gs-service.php:830
 msgid "Google Sheet ID"
 msgstr "Google Sheet ID"
 
-#: includes/class-gs-service.php:831
+#: includes/class-gs-service.php:833
 msgid "you can get sheet id from your sheet URL"
 msgstr "you can get sheet id from your sheet URL"
 
-#: includes/class-gs-service.php:834
+#: includes/class-gs-service.php:836
 msgid "Google Sheet Tab Name"
 msgstr "Google Sheet Tab Name"
 
-#: includes/class-gs-service.php:837
+#: includes/class-gs-service.php:839
 msgid ""
 "Open your Google Sheet with which you want to link your contact form . You "
 "will notice a tab names at bottom of the screen. Copy the tab name where you "
@@ -400,19 +406,19 @@ msgstr ""
 "will notice a tab names at bottom of the screen. Copy the tab name where you "
 "want to have an entry of contact form."
 
-#: includes/class-gs-service.php:840
+#: includes/class-gs-service.php:842
 msgid "Google Tab ID"
 msgstr "Google Tab ID"
 
-#: includes/class-gs-service.php:843
+#: includes/class-gs-service.php:845
 msgid "you can get tab id from your sheet URL"
 msgstr "you can get tab id from your sheet URL"
 
-#: includes/class-gs-service.php:982
+#: includes/class-gs-service.php:984
 msgid "No mail tags available."
 msgstr "No mail tags available."
 
-#: includes/class-gs-service.php:1023
+#: includes/class-gs-service.php:1025
 msgid ""
 "Map special mail tags with custom header name and save automatically to "
 "google sheet. "
@@ -420,15 +426,15 @@ msgstr ""
 "Map special mail tags with custom header name and save automatically to "
 "google sheet. "
 
-#: includes/class-gs-service.php:1098
+#: includes/class-gs-service.php:1100
 msgid "No custom mail tags available."
 msgstr "No custom mail tags available."
 
-#: includes/class-gs-service.php:1110
+#: includes/class-gs-service.php:1112
 msgid "Conditional Logic"
 msgstr "Conditional Logic"
 
-#: includes/class-gs-service.php:1116
+#: includes/class-gs-service.php:1118
 msgid ""
 "The Enable Conditional Logic option in the field settings allows you to "
 "create rules to dynamically display or hide the submission to google sheet "
@@ -463,22 +469,18 @@ msgid "Free Plugins"
 msgstr "Free Plugins"
 
 #: includes/pages/cf7gs-dashboard-widget.php:20
-#| msgid "Contact Forms (CF7) connected with Google Sheets"
 msgid "Contact Forms (CF7) connected with Google Sheets."
 msgstr "Contact Forms (CF7) connected with Google Sheets."
 
 #: includes/pages/cf7gs-dashboard-widget.php:37
-#| msgid "No Contact Forms (CF7) is connected with Google Sheets"
 msgid "No Contact Forms (CF7) is connected with Google Sheets."
 msgstr "No Contact Forms (CF7) is connected with Google Sheets."
 
 #: includes/pages/google-sheet-settings.php:41
-#| msgid "Contact Form 7 - GSheetConnector"
 msgid "CF7 GSheetConnector"
 msgstr "CF7 GSheetConnector"
 
 #: includes/pages/google-sheet-settings.php:41
-#| msgid "Beta Version"
 msgid "Version :"
 msgstr "Version :"
 
@@ -595,7 +597,6 @@ msgid "Sheet URL (Click Here to view Sheet with submitted data.)"
 msgstr "Sheet URL (Click Here to view Sheet with submitted data.)"
 
 #: includes/pages/gs-integrate-demo.php:20
-#| msgid "Upgrade to CF7 Google Sheet Connector PRO"
 msgid "CF7 Google Sheet Connector PRO Features"
 msgstr "CF7 Google Sheet Connector PRO Features"
 
@@ -612,12 +613,10 @@ msgid "Click & Fetch Sheet Automated"
 msgstr "Click & Fetch Sheet Automated"
 
 #: includes/pages/gs-integrate-demo.php:27
-#| msgid "Google Sheet Tab Name"
 msgid "Automated Sheet Name & Tab Name"
 msgstr "Automated Sheet Name & Tab Name"
 
 #: includes/pages/gs-integrate-demo.php:28
-#| msgid "Wrong Sheet name or tab name"
 msgid "Manually Adding Sheet Name & Tab Name"
 msgstr "Manually Adding Sheet Name & Tab Name"
 
@@ -642,12 +641,10 @@ msgid "Automatic Updates"
 msgstr "Automatic Updates"
 
 #: includes/pages/gs-integrate-demo.php:43
-#| msgid "Special Mail Tags - "
 msgid "Add Special Mail Tags"
 msgstr "Add Special Mail Tags"
 
 #: includes/pages/gs-integrate-demo.php:44
-#| msgid "Custom Ordering - "
 msgid "Custom Ordering"
 msgstr "Custom Ordering"
 
@@ -833,6 +830,85 @@ msgstr ""
 "Wrong Column name mapping ( Column names are the contact form mail-tags. It "
 "cannot have underscore or any special characters )"
 
+#: includes/pages/gs-integrate-info.php:14
+msgid "System Info"
+msgstr "System Info"
+
+#: includes/pages/gs-integrate-info.php:15
+msgid "Copy System Info to Clipboard"
+msgstr "Copy System Info to Clipboard"
+
+#: includes/pages/gs-integrate-info.php:67
+msgid "Debug Constants"
+msgstr "Debug Constants"
+
+#: includes/pages/gs-integrate-info.php:73
+msgid "Key"
+msgstr "Key"
+
+#: includes/pages/gs-integrate-info.php:74
+msgid "Info"
+msgstr "Info"
+
+#: includes/pages/gs-integrate-info.php:75
+msgid "Status"
+msgstr "Status"
+
+#: includes/pages/gs-integrate-info.php:79
+msgid "WP_DEBUG"
+msgstr "WP_DEBUG"
+
+#: includes/pages/gs-integrate-info.php:80
+msgid "Enable WP_DEBUG mode"
+msgstr "Enable WP_DEBUG mode"
+
+#: includes/pages/gs-integrate-info.php:89
+#: includes/pages/gs-integrate-info.php:134
+msgid "WP_DEBUG_LOG"
+msgstr "WP_DEBUG_LOG"
+
+#: includes/pages/gs-integrate-info.php:90
+msgid "Enable Debug logging to the /wp-content/debug.log file"
+msgstr "Enable Debug logging to the /wp-content/debug.log file"
+
+#: includes/pages/gs-integrate-info.php:99
+msgid "SCRIPT_DEBUG"
+msgstr "SCRIPT_DEBUG"
+
+#: includes/pages/gs-integrate-info.php:100
+msgid "Use the “dev” versions of core CSS and JavaScript files"
+msgstr "Use the “dev” versions of core CSS and JavaScript files"
+
+#: includes/pages/gs-integrate-info.php:109
+msgid "SAVEQUERIES"
+msgstr "SAVEQUERIES"
+
+#: includes/pages/gs-integrate-info.php:132
+msgid "Error Log"
+msgstr "Error Log"
+
+#: includes/pages/gs-integrate-info.php:134
+msgid "If you have"
+msgstr "If you have"
+
+#: includes/pages/gs-integrate-info.php:134
+msgid ""
+"enabled, errors are stored in a log file. Here you can find the last 100 "
+"lines in reversed order so that you or the GSheetConnector support team can "
+"view it easily. The file cannot be edited here."
+msgstr ""
+"enabled, errors are stored in a log file. Here you can find the last 100 "
+"lines in reversed order so that you or the GSheetConnector support team can "
+"view it easily. The file cannot be edited here."
+
+#: includes/pages/gs-integrate-info.php:135
+msgid "Copy Error Log to Clipboard"
+msgstr "Copy Error Log to Clipboard"
+
+#: includes/pages/gs-integrate-info.php:142
+msgid "Copied"
+msgstr "Copied"
+
 #: includes/pages/gs-integrate-support.php:5
 msgid "Submit A Ticket"
 msgstr "Submit A Ticket"
@@ -893,7 +969,6 @@ msgid "Sort sheet by column name."
 msgstr "Sort sheet by column name."
 
 #: includes/pages/gs-role-settings.php:7
-#| msgid "CF7 Google Sheet Database Settings"
 msgid "CF7 Google Sheet Roles Settings"
 msgstr "CF7 Google Sheet Roles Settings"
 
@@ -928,7 +1003,6 @@ msgstr "Subscriber"
 
 #: includes/pages/gs-role-settings.php:40
 #: includes/pages/gs-role-settings.php:78
-#| msgid "Custom Ordering - "
 msgid "Customer"
 msgstr "Customer"
 
@@ -963,10 +1037,6 @@ msgstr ""
 "This features is available in the PRO version of the plugin. To "
 "<strong>Enable the options Upgrade to the PRO</strong> version to unlock all "
 "these awesome features."
-
-#: includes/pages/pro-popup.php:13 includes/pages/pro-popup.php:33
-msgid "Upgrade To PRO"
-msgstr "Upgrade To PRO"
 
 #: includes/pages/pro-popup.php:15 includes/pages/pro-popup.php:35
 msgid ""

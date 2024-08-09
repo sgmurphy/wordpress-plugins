@@ -43,7 +43,7 @@ class PromoViewWpf extends ViewWpf {
 		);
 	}
 	public function getNewsContent() {
-		$getData = wp_remote_get('https://woobewoo.com/news/main.html');
+		$getData = wp_remote_get('https://' . WPF_WP_PLUGIN_URL . '/news/main.html');
 		$content = '';
 		if ($getData 
 			&& is_array($getData) 
@@ -56,7 +56,7 @@ class PromoViewWpf extends ViewWpf {
 			$content = $getData['body'];
 		} else {
 			/* translators: %s: url */
-			$content = sprintf(esc_html__('There were some problems while trying to retrieve our news, but you can always check all list %s.', 'woo-product-filter'), '<a target="_blank" href="https://woobewoo.com/news">here</a>');
+			$content = sprintf(esc_html__('There were some problems while trying to retrieve our news, but you can always check all list %s.', 'woo-product-filter'), '<a target="_blank" href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/news') . '">here</a>');
 		}
 		return $content;
 	}
@@ -108,7 +108,7 @@ class PromoViewWpf extends ViewWpf {
 		FrameWpf::_()->getModule('templates')->loadBootstrapSimple();
 		FrameWpf::_()->addStyle('admin.featured-plugins', $this->getModule()->getModPath() . 'css/admin.featured-plugins.css');
 		FrameWpf::_()->getModule('templates')->loadGoogleFont('Montserrat');
-		$siteUrl = 'https://woobewoo.com/';
+		$siteUrl = 'https://' . WPF_WP_PLUGIN_URL . '/';
 		$pluginsUrl = $siteUrl . 'plugins/';
 		$uploadsUrl = $siteUrl . 'wp-content/uploads/';
 		$downloadsUrl = 'https://downloads.wordpress.org/plugin/';

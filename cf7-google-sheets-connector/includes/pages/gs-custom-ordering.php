@@ -6,7 +6,7 @@
 
          <div class="cd-faq-content cd-faq-content4" style="display: none;">
             <div class="gs-demo-fields gs-second-block">
-                <h2><span class="gs-info"><?php echo esc_html( __( 'Not showing correct header name ? Un-select and select the fields checkbox again. It happens due to various reasons like change in field/mail tag name.', 'gsconnector')); ?> </span></h2>
+                <h2 class="inner-title"><span class="gs-info"><?php echo esc_html( __( 'Not showing correct header name ? Un-select and select the fields checkbox again. It happens due to various reasons like change in field/mail tag name.', 'gsconnector')); ?> </span></h2>
 
                  <ul class="connected-sortable droppable-area1" id="drag">
                        <?Php    $count = 0; ?>

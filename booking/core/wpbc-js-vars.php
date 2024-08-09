@@ -63,6 +63,14 @@ function wpbc_localize_js_vars( $where_to_load = 'both' ){                      
 	$script .= "_wpbc.set_other_param( 'calendars__dynamic__days_specific',    [" .$days_selection_arr['dynamic__days_specific'] . "] ); ";
 	$script .= "_wpbc.set_other_param( 'calendars__dynamic__week_days__start', [" .$days_selection_arr['dynamic__week_days__start'] . "] ); ";
 
+	//FixIn: 10.3.0.9
+	if ( false !== strpos( get_bk_option( 'booking_skin' ), 'light__24_8' ) ) {
+		$script .= "_wpbc.set_other_param( 'calendars__days_selection__middle_days_opacity', '0.5' ); ";
+	} else {
+		$script .= "_wpbc.set_other_param( 'calendars__days_selection__middle_days_opacity', '0.75' ); ";
+	}
+
+
 	// Defined in  BS
 	$script .= "_wpbc.set_other_param( 'is_enabled_booking_recurrent_time',  " . ( ( get_bk_option( 'booking_recurrent_time' ) !== 'On' ) ? 'false' : 'true' ) . " ); ";
 	$script .= "_wpbc.set_other_param( 'is_enabled_change_over',  "            . (
@@ -85,7 +93,7 @@ function wpbc_localize_js_vars( $where_to_load = 'both' ){                      
 	$script .= "_wpbc.set_message( 'message_check_required', "                 . wp_json_encode( __( 'This field is required', 'booking' ) ) . " ); ";
 	$script .= "_wpbc.set_message( 'message_check_required_for_check_box', "   . wp_json_encode( __( 'This checkbox must be checked', 'booking' ) ) . " ); ";
 	$script .= "_wpbc.set_message( 'message_check_required_for_radio_box', "   . wp_json_encode( __( 'At least one option must be selected', 'booking' ) ) . " ); ";
-	$script .= "_wpbc.set_message( 'message_check_email', "                    . wp_json_encode( __( 'Incorrect email field', 'booking' ) ) . " ); ";
+	$script .= "_wpbc.set_message( 'message_check_email', "                    . wp_json_encode( __( 'Incorrect email address', 'booking' ) ) . " ); ";
 	$script .= "_wpbc.set_message( 'message_check_same_email', "               . wp_json_encode( __( 'Your emails do not match', 'booking' ) ) . " ); ";
 	$script .= "_wpbc.set_message( 'message_check_no_selected_dates', "        . wp_json_encode( __( 'Please, select booking date(s) at Calendar.', 'booking' ) ) . " ); ";
 	$script .= "_wpbc.set_message( 'message_processing', "                     . wp_json_encode( __( 'Processing', 'booking' ) ) . " ); ";

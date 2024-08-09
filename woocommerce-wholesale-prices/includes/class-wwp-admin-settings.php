@@ -227,7 +227,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
                         }
 
                         // Update or create.
-                        update_option( $option_name, $setting_value );
+                        update_option( $option_name, $setting_value, 'no' );
                     }
                 }
             }
@@ -1376,7 +1376,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
                 }
 
                 $saved_discount_mapping[ $discount_mapping['wholesale_role'] ] = $discount_mapping['general_discount'];
-                update_option( WWPP_OPTION_WHOLESALE_ROLE_GENERAL_DISCOUNT_MAPPING, $saved_discount_mapping );
+                update_option( WWPP_OPTION_WHOLESALE_ROLE_GENERAL_DISCOUNT_MAPPING, $saved_discount_mapping, 'no' );
                 $response = array( 'status' => 'success' );
 
                 do_action( 'wwpp_add_wholesale_role_general_discount_mapping' );
@@ -1420,7 +1420,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
                 }
 
                 unset( $saved_discount_mapping[ $wholesale_role ] );
-                update_option( WWPP_OPTION_WHOLESALE_ROLE_GENERAL_DISCOUNT_MAPPING, $saved_discount_mapping );
+                update_option( WWPP_OPTION_WHOLESALE_ROLE_GENERAL_DISCOUNT_MAPPING, $saved_discount_mapping, 'no' );
                 $response = array( 'status' => 'success' );
 
                 do_action( 'wwpp_delete_wholesale_role_general_discount_mapping' );
@@ -1464,7 +1464,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
                 }
 
                 $saved_discount_mapping[ $discount_mapping['wholesale_role'] ] = $discount_mapping['general_discount'];
-                update_option( WWPP_OPTION_WHOLESALE_ROLE_GENERAL_DISCOUNT_MAPPING, $saved_discount_mapping );
+                update_option( WWPP_OPTION_WHOLESALE_ROLE_GENERAL_DISCOUNT_MAPPING, $saved_discount_mapping, 'no' );
                 $response = array( 'status' => 'success' );
 
                 do_action( 'wwpp_edit_wholesale_role_general_discount_mapping' );
@@ -1538,7 +1538,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
                 return;
             }
 
-            update_option( 'wwp_admin_notice_new_settings_hide', 'yes' );
+            update_option( 'wwp_admin_notice_new_settings_hide', 'yes', 'no' );
             wp_send_json( array( 'status' => 'success' ) );
         }
 

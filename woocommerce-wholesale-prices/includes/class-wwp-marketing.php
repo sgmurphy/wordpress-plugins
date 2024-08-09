@@ -229,7 +229,7 @@ if ( ! class_exists( 'WWP_Marketing' ) ) {
          * @access public
          */
         public function flag_show_review_request() {
-            update_option( WWP_SHOW_REQUEST_REVIEW, 'yes' );
+            update_option( WWP_SHOW_REQUEST_REVIEW, 'yes', 'no' );
         }
 
         /**
@@ -239,7 +239,7 @@ if ( ! class_exists( 'WWP_Marketing' ) ) {
          * @access public
          */
         public function flag_show_install_acfwf_notice() {
-            update_option( WWP_SHOW_INSTALL_ACFWF_NOTICE, 'yes' );
+            update_option( WWP_SHOW_INSTALL_ACFWF_NOTICE, 'yes', 'no' );
         }
 
         /**
@@ -253,7 +253,7 @@ if ( ! class_exists( 'WWP_Marketing' ) ) {
                 // Security check failure.
                 return;
             }
-            update_option( WWP_SHOW_INSTALL_ACFWF_NOTICE, 'no' );
+            update_option( WWP_SHOW_INSTALL_ACFWF_NOTICE, 'no', 'no' );
         }
 
         /**
@@ -344,7 +344,7 @@ if ( ! class_exists( 'WWP_Marketing' ) ) {
                         break;
                     case 'review':
                     case 'never-show':
-                        update_option( WWP_REVIEW_REQUEST_RESPONSE, $review_request_response );
+                        update_option( WWP_REVIEW_REQUEST_RESPONSE, $review_request_response, 'no' );
                         break;
                     default:
                         break;

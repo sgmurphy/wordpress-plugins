@@ -1,6 +1,6 @@
 === Photo Gallery - GT3 Image Gallery & Gutenberg Block Gallery ===
 Contributors: gt3themes
-Tags: image gallery, responsive block gallery, photo gallery, gallery block, gallery
+Tags: gallery, image gallery, wordpress gallery plugin, photo gallery, gallery block
 Requires at least: 6.0
 Tested up to: 6.6
 Stable tag: 2.7.7.23

@@ -4,7 +4,7 @@ Tags: security, access, admin, Loginizer, login, logs, ban ip, failed login, ip,
 Requires at least: 3.0
 Tested up to: 6.6
 Requires PHP: 5.5
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: LGPLv2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -84,6 +84,10 @@ That's it. You're done!
 3. Loginizer Brute Force Settings page
 
 == Changelog ==
+
+= 1.9.1 =
+* [Bug-Fix] Social Login was not working on WooCommerce or registration page, that has been fixed.
+* [Bug-Fix] A PHP warning has been fixed.
 
 = 1.9.0 =
 * [Bug-Fix] For some users there was an issue in updating that has been fixed.

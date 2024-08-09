@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './index-644f5478.js';
-import { c as convertLineItemsToLineItemData } from './index-74024349.js';
+import { c as convertLineItemsToLineItemData } from './index-bc0c0045.js';
 import { c as createOrUpdateCheckout } from './index-d7508e37.js';
 import { s as state, a as store } from './mutations-b8f9af9f.js';
 import { u as updateFormState } from './mutations-8871d02a.js';
@@ -93,7 +93,8 @@ const ScCartForm = class {
         line_items: [
           ...(existingData || []).map((item) => {
             // if the price ids match (we have already a line item)
-            if (this.priceId === (item === null || item === void 0 ? void 0 : item.price_id)) {
+            const priceOrVariantMatches = this.variantId ? item.price_id === this.priceId && item.variant_id === this.variantId : item.price_id === this.priceId;
+            if (priceOrVariantMatches) {
               return {
                 ...item,
                 ...(!!(data === null || data === void 0 ? void 0 : data.ad_hoc_amount) ? { ad_hoc_amount: data === null || data === void 0 ? void 0 : data.ad_hoc_amount } : {}),

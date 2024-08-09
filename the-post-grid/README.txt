@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 6.6
-Stable tag: 7.7.7
+Stable tag: 7.7.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -252,8 +252,11 @@ If you like The Post Grid Plugin, then consider checking out our other WordPress
 
 == Changelog ==
 
+= 7.7.8 (9 Aug, 2024) =
+* Fixed: Post limit and Posts per page conflict issue fixed (Gutenberg and Elementor).
+
 = 7.7.7 (7 Aug, 2024) =
-* Fixed: Post per page and post limit conflict
+* Fixed: Post per page and post limit conflict.
 
 = 7.7.6 (2 Aug, 2024) =
 * Fixed: Import Layout and ChatGPT buttons not displaying in Gutenberg.

@@ -633,10 +633,14 @@ function wpbc_set_shortcode(){
      * @param shortcode_val
      */
     function wpbc_send_text_to_resource( shortcode_val ){
-
-        jQuery( '#div_booking_resource_shortcode_' + jQuery( "#booking_wpbc_resource_id" ).val() ).html( shortcode_val );
-            jQuery( '#booking_resource_shortcode_' + jQuery( "#booking_wpbc_resource_id" ).val() ).val( shortcode_val );
-            jQuery( '#booking_resource_shortcode_' + jQuery( "#booking_wpbc_resource_id" ).val() ).trigger('change');
+        //FixIn: 10.3.0.8
+        var resource_id = 1;
+        if ( jQuery( "#booking_wpbc_resource_id" ).length ){
+            resource_id = jQuery( "#booking_wpbc_resource_id" ).val();
+        }
+        jQuery( '#div_booking_resource_shortcode_' + resource_id ).html( shortcode_val );
+            jQuery( '#booking_resource_shortcode_' + resource_id ).val( shortcode_val );
+            jQuery( '#booking_resource_shortcode_' + resource_id ).trigger('change');
 
         // Scroll
         if ( 'function' === typeof (wpbc_scroll_to) ){

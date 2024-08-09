@@ -201,18 +201,18 @@ if ( ! class_exists( 'WWP_Bootstrap' ) ) {
 
             flush_rewrite_rules();
 
-            update_option( 'wwp_option_activation_code_triggered', 'yes' );
+            update_option( 'wwp_option_activation_code_triggered', 'yes', 'no' );
 
-            update_option( 'wwp_option_installed_version', $this->_wwp_current_version );
+            update_option( 'wwp_option_installed_version', $this->_wwp_current_version, 'no' );
 
             // Getting Started Notice.
             if ( ! get_option( 'wwp_admin_notice_getting_started_show', false ) ) {
-                update_option( 'wwp_admin_notice_getting_started_show', 'yes' );
+                update_option( 'wwp_admin_notice_getting_started_show', 'yes', 'no' );
             }
 
             // Default Wholesale Price Text.
             if ( ! get_option( 'wwpp_settings_wholesale_price_title_text', false ) ) {
-                update_option( 'wwpp_settings_wholesale_price_title_text', 'Wholesale Price:' );
+                update_option( 'wwpp_settings_wholesale_price_title_text', 'Wholesale Price:', 'no' );
             }
 
             // Init Admin Note Crons on Plugin Activation
@@ -328,6 +328,9 @@ if ( ! class_exists( 'WWP_Bootstrap' ) ) {
                 $network_wide = is_plugin_active_for_network( 'woocommerce-wholesale-prices/woocommerce-wholesale-prices.plugin.php' );
                 $this->activate( $network_wide );
 
+                // Turn off autoload for all options.
+                $this->_turn_off_autoload_options();
+
             }
         }
 
@@ -428,8 +431,29 @@ if ( ! class_exists( 'WWP_Bootstrap' ) ) {
                 return;
             }
 
-            update_option( 'wwp_admin_notice_getting_started_show', 'no' );
+            update_option( 'wwp_admin_notice_getting_started_show', 'no', 'no' );
             wp_send_json( array( 'status' => 'success' ) );
+        }
+
+        /**
+         * Turn off autoload options.
+         *
+         * @since 2.2.0
+         * @access private
+         */
+        private function _turn_off_autoload_options() {
+            global $wpdb;
+
+            $like  = $wpdb->esc_like( 'wwp_' ) . '%';
+            $value = 'off';
+            $query = $wpdb->prepare(
+                "UPDATE {$wpdb->options} SET autoload = %s WHERE option_name LIKE %s",
+                $value,
+                $like
+            );
+
+            // Execute the query.
+            $wpdb->query( $query ); // phpcs:ignore.
         }
 
         /**

@@ -321,7 +321,10 @@ class Frontend {
 			return;
 		}
 		wp_enqueue_script( 'tpro-validate-js' );
+		$dynamic_style = Helper::load_form_dynamic_style( $form_id, $form_data, $setting_options );
+
 		ob_start();
+		echo '<style>' . wp_strip_all_tags( $dynamic_style['dynamic_css'] ) . '</style>';
 		Helper::frontend_form_html( $form_id, $form_elements, $form_data );
 		return ob_get_clean();
 	}

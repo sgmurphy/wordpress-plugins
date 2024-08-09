@@ -3515,24 +3515,29 @@ function wpbc_flex_select( $item ) {
                             selected( $option_value, $item_params['value'] );
                             disabled( in_array( $option_value, $item_params['disabled_options'] ), true );
                         }
-                        ?>
-                    class="<?php echo esc_attr( $option_data['class'] ); ?>"
-                    style="<?php echo esc_attr( $option_data['style'] ); ?>"
-                    <?php echo wpbc_get_custom_attr( $option_data ); ?>
-                    <?php selected(  $option_data['selected'], true ); ?>
-					<?php disabled( $option_data['disabled'], true ); ?>
 
-					<?php
-					if ( ! empty( $item_params['value'] ) ) {
-
-						if ( is_array( $item_params['value'] ) ) {
-							selected( in_array( esc_attr( $option_value ), $item_params['value'] ), true );		// SELECT multiple,  have several items
-						} else {
-							selected( $item_params['value'], esc_attr( $option_value ) ); 						//Recheck  global  selected parameter
+						if ( ! empty( $option_data['class'] ) ){
+							echo ' class="' . esc_attr( $option_data['class'] ) . '" ';
 						}
-					}
-					?>
+						if ( ! empty( $option_data['style'] ) ){
+							echo ' style="' . esc_attr( $option_data['style'] ) . '" ';
+						}
 
+						selected( $option_data['selected'], true );
+
+						disabled( $option_data['disabled'], true );
+
+						echo wpbc_get_custom_attr( $option_data );
+
+						if ( ! empty( $item_params['value'] ) ) {
+
+							if ( is_array( $item_params['value'] ) ) {
+								selected( in_array( esc_attr( $option_value ), $item_params['value'] ), true );		// SELECT multiple,  have several items
+							} else {
+								selected( $item_params['value'], esc_attr( $option_value ) ); 						//Recheck  global  selected parameter
+							}
+						}
+					?>
                 ><?php
 					echo html_entity_decode(
 												  wp_kses_post( $option_data['title'] )		// Sanitizes content for allowed HTML tags for post content

@@ -4,21 +4,21 @@
  * @since 2.1.0
  */
 
- jQuery(document).ready(function($){
-    var   $options                        = wwp_percentage_wholesale_options,
-          $wholesale_roles                = Object.keys(JSON.parse(JSON.stringify($options.wholesale_roles))),
-          $wholesale_price_old_data_map   = new Map(),
-          $product_type                   = $('#product-type').val(), 
-          $variable_product_variations    = ($product_type === 'simple') ? {length:0} : $('#variable_product_options_inner .woocommerce_variations');
+jQuery(document).ready(function ($) {
+    var $options = wwp_percentage_wholesale_options,
+        $wholesale_roles = Object.keys(JSON.parse(JSON.stringify($options.wholesale_roles))),
+        $wholesale_price_old_data_map = new Map(),
+        $product_type = $('#product-type').val(),
+        $variable_product_variations = ($product_type === 'simple') ? { length: 0 } : $('#variable_product_options_inner .woocommerce_variations');
 
     /**
      *  we will insert an entry to woocommerce_admin local variable, so we can take advantage of the error wc_error_tip of woocommerce.
      * 
      * @since 2.1.1
-     */ 
-    Object.assign(woocommerce_admin,{
-        'i18n_discount_greater_than_100_percent_error'  : $options.i18n_discount_greater_than_100_percent_error,
-        'i18n_discount_less_than_0_percent_error'       : $options.i18n_discount_less_than_0_percent_error
+     */
+    Object.assign(woocommerce_admin, {
+        'i18n_discount_greater_than_100_percent_error': $options.i18n_discount_greater_than_100_percent_error,
+        'i18n_discount_less_than_0_percent_error': $options.i18n_discount_less_than_0_percent_error
     });
 
     /**
@@ -28,25 +28,25 @@
      * @since 2.1.5 Change the conditional logic when getting the index of the variation to avoid fecthing wrong price field
      * @since 2.1.6 Change the selector from '.wc_input_price' to '#_regular_price' to avoid selecting other than regular price field.
      */
-    $('body').on('keyup','#_regular_price', function(e){
-        var regular_price             = $(this).val(),
-            id                        = $(this).attr('id'),
-            variation_loop_index_id   = '';
-        
-            $variable_product_variations = ($product_type === 'simple') ? {length:0} : $('#variable_product_options_inner .woocommerce_variations');
+    $('body').on('keyup', '#_regular_price', function (e) {
+        var regular_price = $(this).val(),
+            id = $(this).attr('id'),
+            variation_loop_index_id = '';
 
-        if(id.match('^variable_regular_price') && $variable_product_variations.length > 0){
+        $variable_product_variations = ($product_type === 'simple') ? { length: 0 } : $('#variable_product_options_inner .woocommerce_variations');
+
+        if (id.match('^variable_regular_price') && $variable_product_variations.length > 0) {
             variation_loop_index_id = id.match(/\d/g).join('');
         }
 
-        if($(this).prop('class').indexOf('wholesale_price') < 0 && $(this).prop('class').indexOf('wholesale_discount') < 0 && (id !== '_sale_price' && id !== 'variable_sale_price' + variation_loop_index_id)){
+        if ($(this).prop('class').indexOf('wholesale_price') < 0 && $(this).prop('class').indexOf('wholesale_discount') < 0 && (id !== '_sale_price' && id !== 'variable_sale_price' + variation_loop_index_id)) {
 
             // Get the percentage wholesale price
             getPercentageWholesalePriceByRegularPrice(variation_loop_index_id, regular_price);
 
-        }else{
+        } else {
 
-            if($(this).prop('class').indexOf('wholesale_discount') < 0){
+            if ($(this).prop('class').indexOf('wholesale_discount') < 0) {
                 $(this).attr('data-fixed_price', regular_price);
             }
 
@@ -65,21 +65,21 @@
      * @since 2.2.0
      * - Refactored variation discount coulcation to a separate function
      */
-    $('body').on('keyup', '.wholesale_discount', function(e){
+    $('body').on('keyup', '.wholesale_discount', function (e) {
 
-        $variable_product_variations = ($product_type === 'simple') ? {length:0} : $('#variable_product_options_inner .woocommerce_variations');
+        $variable_product_variations = ($product_type === 'simple') ? { length: 0 } : $('#variable_product_options_inner .woocommerce_variations');
 
-        const $discount_element = $(this);        
-        
-        var role                            = $(this).data('wholesale_role'),
-            variation_loop_index_id         = $variable_product_variations.length > 0 ? $(this).data('loop_id') : '';
+        const $discount_element = $(this);
+
+        var role = $(this).data('wholesale_role'),
+            variation_loop_index_id = $variable_product_variations.length > 0 ? $(this).data('loop_id') : '';
 
         processVariationWholesalePrice(
-          $discount_element,
-          variation_loop_index_id,
-          role
+            $discount_element,
+            variation_loop_index_id,
+            role
         );
-        
+
     });
 
 
@@ -89,23 +89,23 @@
      * @since 2.2.0
      */
     $("body").on(
-      "keyup",
-      ".woocommerce_variation .wc_input_price",
-      function (e) {
-        const variationIndex = $(this).attr("id").split("_").pop();
+        "keyup",
+        ".woocommerce_variation .wc_input_price",
+        function (e) {
+            const variationIndex = $(this).attr("id").split("_").pop();
 
-        $wholesale_roles.forEach((role) => {
-          const $discount_element = $(
-            `#${role}_wholesale_percentage_discount\\[${variationIndex}\\]`
-          );
+            $wholesale_roles.forEach((role) => {
+                const $discount_element = $(
+                    `#${role}_wholesale_percentage_discount\\[${variationIndex}\\]`
+                );
 
-          processVariationWholesalePrice(
-            $discount_element,
-            variationIndex,
-            role
-          );
-        });
-      }
+                processVariationWholesalePrice(
+                    $discount_element,
+                    variationIndex,
+                    role
+                );
+            });
+        }
     );
 
     /**
@@ -113,43 +113,43 @@
      * 
      * @since 2.1.1 
      */
-    $('body').on('change', '.wholesale_discount', function(e){
-        $variable_product_variations = ($product_type === 'simple') ? {length:0} : $('#variable_product_options_inner .woocommerce_variations');
+    $('body').on('change', '.wholesale_discount', function (e) {
+        $variable_product_variations = ($product_type === 'simple') ? { length: 0 } : $('#variable_product_options_inner .woocommerce_variations');
 
-        var discount                        = $(this).val(),
-            role                            = $(this).data('wholesale_role'),
-            variation_loop_index_id         = $variable_product_variations.length > 0 ? $(this).data('loop_id') : '',
-            regular_price_id                = $variable_product_variations.length > 0 ? 'variable_regular_price_' + variation_loop_index_id :      '_regular_price',
-            price                           = getProductRegularPrice(regular_price_id),
-            wholesale_price_field_id        = $variable_product_variations.length > 0 ? role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_price',
-            el_wholesale_price_field        = $('#' + wholesale_price_field_id);
+        var discount = $(this).val(),
+            role = $(this).data('wholesale_role'),
+            variation_loop_index_id = $variable_product_variations.length > 0 ? $(this).data('loop_id') : '',
+            regular_price_id = $variable_product_variations.length > 0 ? 'variable_regular_price_' + variation_loop_index_id : '_regular_price',
+            price = getProductRegularPrice(regular_price_id),
+            wholesale_price_field_id = $variable_product_variations.length > 0 ? role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_price',
+            el_wholesale_price_field = $('#' + wholesale_price_field_id);
 
-            discount = (discount !== "" && $options.decimal_sep !== '.') ? discount.toString().replace($options.decimal_sep,'.') : discount;
+        discount = (discount !== "" && $options.decimal_sep !== '.') ? discount.toString().replace($options.decimal_sep, '.') : discount;
 
-            if( parseFloat(discount) > 100 ){
+        if (parseFloat(discount) > 100) {
 
-                $(this).val( '' );
-                el_wholesale_price_field.val('');
+            $(this).val('');
+            el_wholesale_price_field.val('');
 
-            }else if(parseFloat(discount) == 100){
+        } else if (parseFloat(discount) == 100) {
 
-                el_wholesale_price_field.val(0);
+            el_wholesale_price_field.val(0);
 
-            }else if(parseFloat(discount) < 0){
+        } else if (parseFloat(discount) < 0) {
 
-                $(this).val( '' );
-                el_wholesale_price_field.val('');
-    
-            }else if(parseFloat(discount) > 0){
-    
-                var discounted_price = calculateDiscountedPrice(price, discount);
-                discounted_price = removeTrailingZeros(discounted_price);
-    
-                el_wholesale_price_field.val(discounted_price);
+            $(this).val('');
+            el_wholesale_price_field.val('');
 
-            }else{
-                el_wholesale_price_field.val('');
-            }
+        } else if (parseFloat(discount) > 0) {
+
+            var discounted_price = calculateDiscountedPrice(price, discount);
+            discounted_price = removeTrailingZeros(discounted_price);
+
+            el_wholesale_price_field.val(discounted_price);
+
+        } else {
+            el_wholesale_price_field.val('');
+        }
     });
 
     /**
@@ -159,24 +159,24 @@
      * @since 2.1.5 Change the conditional logic when getting the index of the variation to avoid fecthing wrong price field.
      * @since 2.1.6 Change the selector from '.wc_input_price' to '#_regular_price' to avoid selecting other than regular price field.
      */
-    $('body').on('change','#_regular_price', function(e){
-        var regular_price             = $(this).val(),
-            id                        = $(this).attr('id');
-            variation_loop_index_id   = '';
-        
-            $variable_product_variations = ($product_type === 'simple') ? {length:0} : $('#variable_product_options_inner .woocommerce_variations');
+    $('body').on('change', '#_regular_price', function (e) {
+        var regular_price = $(this).val(),
+            id = $(this).attr('id');
+        variation_loop_index_id = '';
 
-        if((id.match('^variable_regular_price') || id.match('^variable_sale_price')) && $variable_product_variations.length > 0){
+        $variable_product_variations = ($product_type === 'simple') ? { length: 0 } : $('#variable_product_options_inner .woocommerce_variations');
+
+        if ((id.match('^variable_regular_price') || id.match('^variable_sale_price')) && $variable_product_variations.length > 0) {
             variation_loop_index_id = id.match(/\d/g).join('');
         }
 
-        if($(this).prop('class').indexOf('wholesale_price') < 0 && $(this).prop('class').indexOf('wholesale_discount') < 0 && (id !== '_sale_price' && id !== 'variable_sale_price' + variation_loop_index_id) ){
+        if ($(this).prop('class').indexOf('wholesale_price') < 0 && $(this).prop('class').indexOf('wholesale_discount') < 0 && (id !== '_sale_price' && id !== 'variable_sale_price' + variation_loop_index_id)) {
 
             getPercentageWholesalePriceByRegularPrice(variation_loop_index_id, regular_price);
-        
-        }else{
 
-            if($(this).prop('class').indexOf('wholesale_discount') < 0){
+        } else {
+
+            if ($(this).prop('class').indexOf('wholesale_discount') < 0) {
                 $(this).attr('data-fixed_price', regular_price);
             }
 
@@ -190,25 +190,25 @@
      * 
      * @since 2.1
      */
-    $('body').on('change', '.wholesale_discount_type', function(e) {
-        $variable_product_variations = ($product_type === 'simple') ? {length:0} : $('#variable_product_options_inner .woocommerce_variations');
+    $('body').on('change', '.wholesale_discount_type', function (e) {
+        $variable_product_variations = ($product_type === 'simple') ? { length: 0 } : $('#variable_product_options_inner .woocommerce_variations');
 
 
-        var selected_discount_type              = $(this).val(),
-            role                                = $(this).data('wholesale_role'),
-            variation_loop_index_id             = $variable_product_variations.length > 0 ? $(this).data('loop_id') : '',
-            discount_field_id                   = $variable_product_variations.length > 0 ? role + '_wholesale_percentage_discount\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_percentage_discount',
-            wholesale_price_field_id             = $variable_product_variations.length > 0 ? role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_price',
-            class_discount_field                = $variable_product_variations.length > 0 ? '.form-field.' + role + '_wholesale_percentage_discount\\['+ variation_loop_index_id + '\\]_field' : '.form-field.' + role + '_wholesale_percentage_discount_field',
-            form_wholesale_price_field          = $variable_product_variations.length > 0 ? '.form-field.' + role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]_field' : '.form-field.' + role + '_wholesale_price_field',
-            wholesale_price_data_map_key        = $variable_product_variations.length > 0 ? role + '_' + variation_loop_index_id : role, 
-            el_discount_field                   = $('#' + discount_field_id),
-            el_wholesale_price_field            = $('#' + wholesale_price_field_id);
+        var selected_discount_type = $(this).val(),
+            role = $(this).data('wholesale_role'),
+            variation_loop_index_id = $variable_product_variations.length > 0 ? $(this).data('loop_id') : '',
+            discount_field_id = $variable_product_variations.length > 0 ? role + '_wholesale_percentage_discount\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_percentage_discount',
+            wholesale_price_field_id = $variable_product_variations.length > 0 ? role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_price',
+            class_discount_field = $variable_product_variations.length > 0 ? '.form-field.' + role + '_wholesale_percentage_discount\\[' + variation_loop_index_id + '\\]_field' : '.form-field.' + role + '_wholesale_percentage_discount_field',
+            form_wholesale_price_field = $variable_product_variations.length > 0 ? '.form-field.' + role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]_field' : '.form-field.' + role + '_wholesale_price_field',
+            wholesale_price_data_map_key = $variable_product_variations.length > 0 ? role + '_' + variation_loop_index_id : role,
+            el_discount_field = $('#' + discount_field_id),
+            el_wholesale_price_field = $('#' + wholesale_price_field_id);
 
-        if(selected_discount_type  === 'percentage'){
-            var regular_price_id     = $variable_product_variations.length > 0 ? 'variable_regular_price_' + variation_loop_index_id : '_regular_price',
-                price                = getProductRegularPrice(regular_price_id),
-                discount             = el_discount_field.val();
+        if (selected_discount_type === 'percentage') {
+            var regular_price_id = $variable_product_variations.length > 0 ? 'variable_regular_price_' + variation_loop_index_id : '_regular_price',
+                price = getProductRegularPrice(regular_price_id),
+                discount = el_discount_field.val();
 
             // show discount input field
             $(class_discount_field).show();
@@ -219,18 +219,18 @@
             // wholesale price field tooltip
             reinitializeTooltip(form_wholesale_price_field, el_wholesale_price_field.attr('data-field_desc_percentage'));
 
-            if(discount != "" && discount > 0){
+            if (discount != "" && discount > 0) {
                 var discounted_price = calculateDiscountedPrice(price, discount);
-                discounted_price     = removeTrailingZeros(discounted_price);
+                discounted_price = removeTrailingZeros(discounted_price);
 
                 el_wholesale_price_field.val(discounted_price);
-            }else{
+            } else {
 
                 el_wholesale_price_field.attr('data-fixed_price', el_wholesale_price_field.val());
                 el_wholesale_price_field.val(null);
             }
 
-        }else{
+        } else {
 
             // hide discount input field
             $(class_discount_field).hide();
@@ -241,11 +241,11 @@
             // wholesale price field tooltip
             reinitializeTooltip(form_wholesale_price_field, el_wholesale_price_field.attr('data-field_desc_fixed'));
 
-            if(!!el_wholesale_price_field.attr('data-fixed_price')){
+            if (!!el_wholesale_price_field.attr('data-fixed_price')) {
                 el_wholesale_price_field.val(el_wholesale_price_field.attr('data-fixed_price'));
-            }else if(!!el_wholesale_price_field.attr('data-fixed_price') == false && el_discount_field.val() != ""){
+            } else if (!!el_wholesale_price_field.attr('data-fixed_price') == false && el_discount_field.val() != "") {
                 el_wholesale_price_field.val(null);
-            }else if(!!el_wholesale_price_field.attr('data-fixed_price') == false && el_discount_field.val() == ""){
+            } else if (!!el_wholesale_price_field.attr('data-fixed_price') == false && el_discount_field.val() == "") {
                 el_wholesale_price_field.val(null);
             }
 
@@ -260,12 +260,12 @@
      * @since 2.1.0
      * 
      */
-    $('body').on('change', '#product-type', function(e) {
+    $('body').on('change', '#product-type', function (e) {
         $product_type = $(this).val();
 
-        if($product_type === 'variable'){
+        if ($product_type === 'variable') {
             processProductVariations();
-        }else{
+        } else {
             processSimpleProducts();
         }
 
@@ -282,7 +282,7 @@
      * @param {*} element This is the parent element of the tooltip you wish to override
      * @param {*} message This contains a custom message
      */
-    function reinitializeTooltip(element, message){
+    function reinitializeTooltip(element, message) {
         $(element + " span.woocommerce-help-tip").tipTip({ content: message });
     };
 
@@ -295,39 +295,39 @@
      * 
      * @since 2.1.0
      */
-    function processProductVariations(){
-        var target            = $('#variable_product_options')[0],
-            MutationObserver  = window.MutationObserver || 
-                                window.WebKitMutationObserver || 
-                                window.MozMutationObserver,
-            config            = { childList: true, characterData: false, subtree: true };
+    function processProductVariations() {
+        var target = $('#variable_product_options')[0],
+            MutationObserver = window.MutationObserver ||
+                window.WebKitMutationObserver ||
+                window.MozMutationObserver,
+            config = { childList: true, characterData: false, subtree: true };
 
-        var observer          = new MutationObserver( function(mutations) {
+        var observer = new MutationObserver(function (mutations) {
 
             var discount_type = $('.wholesale_discount_type');
 
-            discount_type.each( function (i) {
-                if( i < discount_type.length ){
-                    var role                         = $(this).attr('data-wholesale_role'),
-                    variation_loop_index_id          = $(this).attr('data-loop_id'),
-                    percentage_input_field_container = $('.form-field.' + role + '_wholesale_percentage_discount\\[' + variation_loop_index_id + '\\]_field'),
-                    el_wholesale_price_field         = $('#' + role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]');
+            discount_type.each(function (i) {
+                if (i < discount_type.length) {
+                    var role = $(this).attr('data-wholesale_role'),
+                        variation_loop_index_id = $(this).attr('data-loop_id'),
+                        percentage_input_field_container = $('.form-field.' + role + '_wholesale_percentage_discount\\[' + variation_loop_index_id + '\\]_field'),
+                        el_wholesale_price_field = $('#' + role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]');
 
-                    if(variation_loop_index_id !== null){
+                    if (variation_loop_index_id !== null) {
 
-                        if(el_wholesale_price_field !== null){
+                        if (el_wholesale_price_field !== null) {
 
                             el_wholesale_price_field.val(removeTrailingZeros(el_wholesale_price_field.val()));
                             $wholesale_price_old_data_map.set(role + '_' + variation_loop_index_id, el_wholesale_price_field.val());
                         }
 
 
-                        if($(this).val() === 'fixed'){
+                        if ($(this).val() === 'fixed') {
 
                             percentage_input_field_container.hide();
                             el_wholesale_price_field.attr('readonly', false);
 
-                        }else{
+                        } else {
 
                             percentage_input_field_container.show();
                             el_wholesale_price_field.attr('readonly', true);
@@ -335,11 +335,11 @@
 
                     }
                 }
-            } );
+            });
 
         });
-        
-        if(target) observer.observe(target, config);
+
+        if (target) observer.observe(target, config);
     }
 
     /**
@@ -349,17 +349,17 @@
      * 
      * @since 2.1.0
      */
-    function processSimpleProducts (){
+    function processSimpleProducts() {
         $wholesale_roles.forEach((role) => {
-            var select_discount_type_id             = role + '_wholesale_discount_type',
-                wholesale_price_field_id            = role + '_wholesale_price',
-                el_selected_discount_type           = $('#' + select_discount_type_id),
-                el_wholesale_price_field            = $('#' + wholesale_price_field_id),
-                el_discount_field                   = $('#' + role + '_wholesale_percentage_discount'),
-                percentage_input_field_container    = $('.form-field.' + role + '_wholesale_percentage_discount_field');
+            var select_discount_type_id = role + '_wholesale_discount_type',
+                wholesale_price_field_id = role + '_wholesale_price',
+                el_selected_discount_type = $('#' + select_discount_type_id),
+                el_wholesale_price_field = $('#' + wholesale_price_field_id),
+                el_discount_field = $('#' + role + '_wholesale_percentage_discount'),
+                percentage_input_field_container = $('.form-field.' + role + '_wholesale_percentage_discount_field');
 
-            if(el_selected_discount_type !== null){
-                if((el_selected_discount_type.val() === 'percentage' && el_discount_field.val() < 100) || (el_selected_discount_type.val() === 'fixed')){
+            if (el_selected_discount_type !== null) {
+                if ((el_selected_discount_type.val() === 'percentage' && el_discount_field.val() < 100) || (el_selected_discount_type.val() === 'fixed')) {
 
                     el_wholesale_price_field.text(removeTrailingZeros(el_wholesale_price_field.val()));
                 }
@@ -367,16 +367,16 @@
                 // Set wholesale price old data, this will be use later under selection of discount type
                 $wholesale_price_old_data_map.set(role, el_wholesale_price_field.val());
 
-                if(el_selected_discount_type.val() === 'percentage'){
+                if (el_selected_discount_type.val() === 'percentage') {
                     el_wholesale_price_field.attr('readonly', true);
                     percentage_input_field_container.show();
-                }else{
+                } else {
                     el_wholesale_price_field.attr('readonly', false);
                     percentage_input_field_container.hide();
                 }
             }
         });
-    }    
+    }
 
     /**
      * Get Percentage Wholesale Price By Regular Price
@@ -386,51 +386,53 @@
      * @param {integer} variation_loop_index_id  This is the index id of variations in a variable product, if we have a total of 4(Four variations) its loop index will be like this "0,1,2,3" like an array index.
      * @param {float} regular_price This is the products regular price, we will base here our computation for the percentage discount.
      */
-    function getPercentageWholesalePriceByRegularPrice(variation_loop_index_id, regular_price){
+    function getPercentageWholesalePriceByRegularPrice(variation_loop_index_id, regular_price) {
 
-        $wholesale_roles.forEach(function(role){
+        $wholesale_roles.forEach(function (role) {
 
-            var select_discount_type_id         = $variable_product_variations.length > 0 ? 
-                                                role + '_wholesale_discount_type\\[' + variation_loop_index_id +'\\]' : role + '_wholesale_discount_type',
-                discount_field_id               = $variable_product_variations.length > 0 ? 
-                                                role + '_wholesale_percentage_discount\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_percentage_discount',
-                wholesale_field_id              = $variable_product_variations.length > 0 ? 
-                                                role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_price',
-                wholesale_price_data_map_key    = $variable_product_variations.length > 0 ? 
-                                                role + '_' + variation_loop_index_id : role,
+            var select_discount_type_id = $variable_product_variations.length > 0 ?
+                role + '_wholesale_discount_type\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_discount_type',
+                discount_field_id = $variable_product_variations.length > 0 ?
+                    role + '_wholesale_percentage_discount\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_percentage_discount',
+                wholesale_field_id = $variable_product_variations.length > 0 ?
+                    role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_price',
+                wholesale_price_data_map_key = $variable_product_variations.length > 0 ?
+                    role + '_' + variation_loop_index_id : role,
 
-                el_wholesale_price_field        = $('#' + wholesale_field_id),
-                el_discount_field               = $('#' + discount_field_id),
-                el_discount_type                = $('#' + select_discount_type_id),
-                selected_options                = el_discount_type ? el_discount_type.val() : null;
+                el_wholesale_price_field = $('#' + wholesale_field_id),
+                el_discount_field = $('#' + discount_field_id),
+                el_discount_type = $('#' + select_discount_type_id),
+                selected_options = el_discount_type ? el_discount_type.val() : null;
 
-            if(selected_options == null || el_discount_field == null){
+            if (selected_options == null || el_discount_field == null) {
                 return false;
             };
 
             var discount = ($options.decimal_sep !== '.') ? el_discount_field.val().replace($options.decimal_sep, '.') : el_discount_field.val();
 
-            if(selected_options === 'percentage' && regular_price !== "" && el_discount_field.val() !== ""){
+            if (selected_options === 'percentage' && regular_price !== "" && el_discount_field.val() !== "") {
                 var discounted_price = calculateDiscountedPrice(regular_price, discount);
 
-                if(discount < 100){
+                if (discount < 100) {
                     el_wholesale_price_field.val(removeTrailingZeros(discounted_price));
-                }else{
+                } else {
                     el_wholesale_price_field.val(0);
                 }
 
-            }else if(selected_options === 'fixed') {
-                if( !!el_wholesale_price_field.attr('data-fixed_price') ){
+            } else if (selected_options === 'fixed') {
+                if (!!el_wholesale_price_field.attr('data-fixed_price')) {
                     el_wholesale_price_field.val(el_wholesale_price_field.attr('data-fixed_price'));
-                }else{
+                } else {
                     var old_wholesale_price_value = $wholesale_price_old_data_map.get(wholesale_price_data_map_key);
-                    el_wholesale_price_field.val(old_wholesale_price_value);
+                    if (old_wholesale_price_value != '') {
+                        el_wholesale_price_field.val(old_wholesale_price_value);
+                    }
                 }
-            }else{
+            } else {
                 el_wholesale_price_field.val(null);
             }
 
-        });         
+        });
     }
 
     /**
@@ -443,21 +445,21 @@
      * @param float price - The price of the product/item
      * @returns 
      */
-    function removeTrailingZeros (price){
+    function removeTrailingZeros(price) {
 
         try {
 
-            if((price !== "" && price !== null)){
+            if ((price !== "" && price !== null)) {
                 // First we convert if has decimal separator of ',' to '.'
-                price = $options.decimal_sep !== '.' ? price.toString().replace($options.decimal_sep,".") : price;
+                price = $options.decimal_sep !== '.' ? price.toString().replace($options.decimal_sep, ".") : price;
 
                 // we remove all trailing zeros using parseFloat() function
                 price = parseFloat(price);
 
                 // we check if the decimal separator is comma (','), we change it back to the decimal separator that is set in wordpress settings.
-                if( ! isNaN(price) ){
-                    price = $options.decimal_sep !== '.' ? price.toString().replace('.',$options.decimal_sep) : price;
-                }else{
+                if (!isNaN(price)) {
+                    price = $options.decimal_sep !== '.' ? price.toString().replace('.', $options.decimal_sep) : price;
+                } else {
                     price = '';
                 }
             }
@@ -477,7 +479,7 @@
      * @param Number id     - ID of the element in which where going to extract the price.
      * @returns {currency}  - Regular price
      */
-    function getProductRegularPrice (id){
+    function getProductRegularPrice(id) {
         var el_product_reg_price = $('#' + id);
         return el_product_reg_price.val();
     }
@@ -492,10 +494,10 @@
      * @param float total    - The regular price to be used to calculate the percentage value
      * @returns {float} percentage
      */
-    function calculatePercentage (percent, total) {
+    function calculatePercentage(percent, total) {
 
         // If the decimal separator is not a period "." replace it with a period "." so we can calculate the percentage 
-        percent = $options.decimal_sep !== '.' ? percent.toString().replace($options.decimal_sep,'.') : percent;
+        percent = $options.decimal_sep !== '.' ? percent.toString().replace($options.decimal_sep, '.') : percent;
 
         var percentage = (percent / 100) * total;
 
@@ -510,11 +512,11 @@
      * @param Float percent  - Percentage to calculate
      * @returns {currency}   - The calculated discounted price
      */
-    function calculateDiscountedPrice (price, percent){
+    function calculateDiscountedPrice(price, percent) {
 
         try {
-            price = $options.decimal_sep !== '.' ? price.toString().replace($options.decimal_sep,".") : price;
-        }catch (e) {
+            price = $options.decimal_sep !== '.' ? price.toString().replace($options.decimal_sep, ".") : price;
+        } catch (e) {
             console.error(e.message);
         }
 
@@ -523,7 +525,7 @@
         /**
          * This will check if the wholesale_price value is less than or equal to 0 or wholesale_price is NaN(Not a Number) if true, it will make the wholesale_price to null. Otherwise it will format the wholesale_price base on the parameters given using the currency.js
          */
-        wholesale_price =  wholesale_price <= 0 || isNaN(wholesale_price) ? null : currency(wholesale_price, {precision: $options.calculation_decimal_places, decimal: $options.decimal_sep, separator:'', pattern: '#'}).format();
+        wholesale_price = wholesale_price <= 0 || isNaN(wholesale_price) ? null : currency(wholesale_price, { precision: $options.calculation_decimal_places, decimal: $options.decimal_sep, separator: '', pattern: '#' }).format();
 
         // We return null if the wholesale_price is null, otherwise return wholesale_price raw value
         return (wholesale_price === null) ? null : wholesale_price;
@@ -538,9 +540,9 @@
      */
     function listenToDiscountTypeDropDownChanges() {
 
-        if($variable_product_variations.length > 0 ){
+        if ($variable_product_variations.length > 0) {
             processProductVariations();
-        }else{
+        } else {
             processSimpleProducts();
         }
 
@@ -554,83 +556,111 @@
      * @param String role The wholesale customer role.
      */
     function processVariationWholesalePrice(
-      $discount_element,
-      variation_loop_index_id,
-      role
+        $discount_element,
+        variation_loop_index_id,
+        role
     ) {
-      $variable_product_variations =
-        $product_type === "simple"
-          ? { length: 0 }
-          : $("#variable_product_options_inner .woocommerce_variations");
+        $variable_product_variations =
+            $product_type === "simple"
+                ? { length: 0 }
+                : $("#variable_product_options_inner .woocommerce_variations");
 
-      var discount = $discount_element.val(),
-        regular_price_id =
-          $variable_product_variations.length > 0
-            ? "variable_regular_price_" + variation_loop_index_id
-            : "_regular_price",
-        price = getProductRegularPrice(regular_price_id),
-        wholesale_price_field_id =
-          $variable_product_variations.length > 0
-            ? role + "_wholesale_prices\\[" + variation_loop_index_id + "\\]"
-            : role + "_wholesale_price",
-        el_wholesale_price_field = $("#" + wholesale_price_field_id);
+        var discount = $discount_element.val(),
+            regular_price_id =
+                $variable_product_variations.length > 0
+                    ? "variable_regular_price_" + variation_loop_index_id
+                    : "_regular_price",
+            price = getProductRegularPrice(regular_price_id),
+            wholesale_price_field_id =
+                $variable_product_variations.length > 0
+                    ? role + "_wholesale_prices\\[" + variation_loop_index_id + "\\]"
+                    : role + "_wholesale_price",
+            el_wholesale_price_field = $("#" + wholesale_price_field_id),
+            wholesale_sale_price_field_id =
+                $variable_product_variations.length > 0
+                    ? role + "_wholesale_sale_price\\[" + variation_loop_index_id + "\\]"
+                    : role + "_wholesale_sale_price",
+            el_wholesale_sale_price_field = $("#" + wholesale_sale_price_field_id),
+            wholesale_sale_discount_field_id =
+                $variable_product_variations.length > 0
+                    ? role + "_wholesale_sale_discount\\[" + variation_loop_index_id + "\\]"
+                    : role + "_wholesale_sale_discount",
+            el_wholesale_sale_discount_field = $("#" + wholesale_sale_discount_field_id),
+            discount_field_id =
+                $variable_product_variations.length > 0
+                    ? role + "_wholesale_discount_type\\[" + variation_loop_index_id + "\\]"
+                    : role + "_wholesale_discount_type",
+            discount_type = $("#" + discount_field_id).val();
 
-      discount =
-        discount !== "" && $options.decimal_sep !== "."
-          ? discount.toString().replace($options.decimal_sep, ".")
-          : discount;
+        discount =
+            discount !== "" && $options.decimal_sep !== "."
+                ? discount.toString().replace($options.decimal_sep, ".")
+                : discount;
 
-      if (parseFloat(discount) > 100) {
-        $(document.body).triggerHandler("wc_add_error_tip", [
-          $discount_element,
-          "i18n_discount_greater_than_100_percent_error",
-        ]);
-      } else if (parseFloat(discount) == 100) {
-        $(document.body).triggerHandler("wc_remove_error_tip", [
-          $discount_element,
-          "i18n_discount_greater_than_100_percent_error",
-        ]);
+        if (parseFloat(discount) > 100) {
+            $(document.body).triggerHandler("wc_add_error_tip", [
+                $discount_element,
+                "i18n_discount_greater_than_100_percent_error",
+            ]);
+        } else if (parseFloat(discount) == 100) {
+            $(document.body).triggerHandler("wc_remove_error_tip", [
+                $discount_element,
+                "i18n_discount_greater_than_100_percent_error",
+            ]);
 
-        $(document.body).triggerHandler("wc_remove_error_tip", [
-          $discount_element,
-          "i18n_discount_less_than_0_percent_error",
-        ]);
+            $(document.body).triggerHandler("wc_remove_error_tip", [
+                $discount_element,
+                "i18n_discount_less_than_0_percent_error",
+            ]);
 
-        el_wholesale_price_field.val(0);
-      } else if (parseFloat(discount) < 0) {
-        $(document.body).triggerHandler("wc_add_error_tip", [
-          $discount_element,
-          "i18n_discount_less_than_0_percent_error",
-        ]);
-      } else if (parseFloat(discount) > 0) {
-        $(document.body).triggerHandler("wc_remove_error_tip", [
-          $discount_element,
-          "i18n_discount_greater_than_100_percent_error",
-        ]);
+            el_wholesale_price_field.val(0);
+        } else if (parseFloat(discount) < 0) {
+            $(document.body).triggerHandler("wc_add_error_tip", [
+                $discount_element,
+                "i18n_discount_less_than_0_percent_error",
+            ]);
+        } else if (parseFloat(discount) > 0) {
+            $(document.body).triggerHandler("wc_remove_error_tip", [
+                $discount_element,
+                "i18n_discount_greater_than_100_percent_error",
+            ]);
 
-        $(document.body).triggerHandler("wc_remove_error_tip", [
-          $discount_element,
-          "i18n_discount_less_than_0_percent_error",
-        ]);
+            $(document.body).triggerHandler("wc_remove_error_tip", [
+                $discount_element,
+                "i18n_discount_less_than_0_percent_error",
+            ]);
 
-        var discounted_price = calculateDiscountedPrice(price, discount);
-        discounted_price = removeTrailingZeros(discounted_price);
+            var discounted_price = calculateDiscountedPrice(price, discount);
+            discounted_price = removeTrailingZeros(discounted_price);
 
-        el_wholesale_price_field.val(discounted_price);
-      } else {
-        $(document.body).triggerHandler("wc_remove_error_tip", [
-          $discount_element,
-          "i18n_discount_less_than_0_percent_error",
-        ]);
+            el_wholesale_price_field.val(discounted_price);
 
-        el_wholesale_price_field.val("");
-      }
+            const sale_discount = el_wholesale_sale_discount_field.val();
+            if (parseFloat(sale_discount) > 0) {
+                var wholesale_price = calculateDiscountedPrice(price, discount);
+                wholesale_price = removeTrailingZeros(wholesale_price);
+
+                var discounted_sale_price = calculateDiscountedPrice(wholesale_price, sale_discount);
+                discounted_sale_price = removeTrailingZeros(discounted_sale_price);
+
+                el_wholesale_sale_price_field.val(discounted_sale_price);
+            }
+        } else {
+            $(document.body).triggerHandler("wc_remove_error_tip", [
+                $discount_element,
+                "i18n_discount_less_than_0_percent_error",
+            ]);
+
+            if (discount_type === "percentage") {
+                el_wholesale_price_field.val("");
+            }
+        }
     }
 
 
     /**=================================================================================================================
      * Events
      =================================================================================================================*/
-     listenToDiscountTypeDropDownChanges();
+    listenToDiscountTypeDropDownChanges();
 
 });

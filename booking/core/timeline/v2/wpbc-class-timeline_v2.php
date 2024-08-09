@@ -1339,7 +1339,8 @@ if(1)
                     break;
                 case '7':
                     $days_num = 7;
-                    $dwa = $this->week_days_titles['3'];
+                    //$dwa = $this->week_days_titles['3'];
+					$dwa = $this->week_days_titles['1'];
                     $time_selles_num = 1;
                     break;
                 case '30':
@@ -1350,7 +1351,8 @@ if(1)
                     break;
                 case '60':
                     $days_num = 62;
-                    $dwa = $this->week_days_titles['short'];
+                    //$dwa = $this->week_days_titles['short'];
+					$dwa = $this->week_days_titles['1'];
                     $time_selles_num = 1;
                     break;
                 default:  // 30

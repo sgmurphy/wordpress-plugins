@@ -3,7 +3,7 @@
  * Plugin Name: PW WooCommerce Bulk Edit
  * Plugin URI: https://www.pimwick.com/pw-bulk-edit/
  * Description: A powerful way to update your WooCommerce product catalog. Finally, no more tedious clicking through countless pages making the same change to all products!
- * Version: 2.126
+ * Version: 2.127
  * Author: Pimwick, LLC
  * Author URI: https://www.pimwick.com
  * Text Domain: pw-bulk-edit
@@ -14,7 +14,7 @@
  * Requires Plugins: woocommerce
  *
 */
-define('PWBE_VERSION', '2.126');
+define('PWBE_VERSION', '2.127');
 
 /*
 Copyright (C) Pimwick, LLC
@@ -93,7 +93,7 @@ final class PW_Bulk_Edit {
 
             // Go from a per-plugin setting to a global setting for hiding the Pimwick Plugins menu.
             if ( get_option( 'pwbe_hide_pimwick_menu', '' ) != '' ) {
-                update_option( 'hide_pimwick_menu', get_option( 'pwbe_hide_pimwick_menu' ) );
+                update_option( 'hide_pimwick_menu', get_option( 'pwbe_hide_pimwick_menu' ), false );
                 delete_option( 'pwbe_hide_pimwick_menu' );
             }
 
@@ -165,7 +165,7 @@ final class PW_Bulk_Edit {
         $value = $_POST['option_value'];
 
         if ( in_array( $name, PW_Bulk_Edit::$options ) ) {
-            update_option( $name, $value );
+            update_option( $name, $value, false );
         }
     }
 
@@ -177,7 +177,7 @@ final class PW_Bulk_Edit {
     function ajax_get_view() {
         $view_name = stripslashes( $_POST['name'] );
 
-        update_option( 'pwbe_selected_view', $view_name );
+        update_option( 'pwbe_selected_view', $view_name, false );
 
         $views = PWBE_Views::get();
         $view = $views[ $view_name ];
@@ -197,8 +197,8 @@ final class PW_Bulk_Edit {
 
         ksort( $views, SORT_NATURAL );
 
-        update_option( 'pwbe_views', $views );
-        update_option( 'pwbe_selected_view', $clean_name );
+        update_option( 'pwbe_views', $views, false );
+        update_option( 'pwbe_selected_view', $clean_name, false );
 
         wp_die();
     }
@@ -211,8 +211,8 @@ final class PW_Bulk_Edit {
 
         unset( $views[ $view_name ] );
 
-        update_option( 'pwbe_views', $views );
-        update_option( 'pwbe_selected_view', '' );
+        update_option( 'pwbe_views', $views, false );
+        update_option( 'pwbe_selected_view', '', false );
 
         wp_die();
     }

@@ -4,9 +4,149 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
+function wpbc_welcome_section_10_4( $obj ){
+
+	$section_param_arr = array( 'version_num' => '10.4', 'show_expand' => false );
+
+	$obj->expand_section_start( $section_param_arr );
+
+
+	//$obj->asset_path = 'http://beta/assets/';	// TODO: 2024-06-01 comment this
+
+
+	// <editor-fold     defaultstate="collapsed"                        desc=" = F R E E = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = F R E E =
+	// -----------------------------------------------------------------------------------------------------------------
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+<!--			<h2>--><?php //echo wpbc_replace_to_strong_symbols( 'New Modern Calendar Themes and More!' ); ?><!--</h2>-->
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'New Modern Calendar Themes and More!' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing a Modern Calendar Skin! Try the new \'Light 24_8\' skin for a fresh, contemporary look.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Discover 10 New Color Schemes for the \'Light 24_8\' Calendar Skin! Customize your calendar with a variety of fresh, modern color options.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing a Modern Time Picker Skin - \'Light 24_8\'.' ); //sleek and contemporary look. ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.4/wp_booking_calendar_modern_light_time_slots_booking_08.gif' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Enhanced Change Over Days in New Calendar Themes!' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Updated Change Over Days in new calendar themes to better show split-day bookings.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Range Days Selection! When the range days selection mode is activated, the check-in and check-out dates now have a stronger color than the middle dates. This improvement makes it clearer for customers to identify their check-in and check-out dates.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<!--img src="<?php echo $obj->section_img_url( '10.4/wp_booking_calendar__change-over-days-bookings--split-days.png' ); ?>" style="margin:10px 0;width:98%;" /-->
+				<img src="<?php echo $obj->section_img_url( '10.4/wp_booking_calendar__change_over_days__split_days_02.gif' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Updated Timeline Views and Booking Listing pages' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; The Timeline Views and Booking Listing pages have been updated. They now feature a clearer and more sleek user interface.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.4/wp_booking_calendar_timeline_view_month.png' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Easy Configuration and Publishing Booking Calendar shortcodes' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Added a configuration shortcode button at WP Booking Calendar > Publish menu page. This makes it simple to configure and publish booking forms, availability calendars, or timelines into existing or new pages.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.4/wp_booking_calendar_publish_booking_form.gif' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+
+
+	// </editor-fold>
+
+	// <editor-fold     defaultstate="collapsed"                        desc="  = M I X E D = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = M I X E D =
+	// -----------------------------------------------------------------------------------------------------------------
+	?>
+	<div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Additional Improvements in Free and Pro versions' ); ?></h2>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<ul>
+					<?php // Free ?>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Organized Calendar Skins! Defined groups for current and legacy calendar skins in the drop-down list on the Settings > General page in the "Calendar" section for easier navigation.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Simplified Booking Form Setup! During the initial installation of the plugin, the default structure of the booking form is now set to \'Form at right side of calendar\'.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Typography and Styles! Updated typography and styles for the booking resources select-box in the booking resources selection shortcode.' ); ?></li>
+				</ul>
+				<!--
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Improvements in Pro Versions' ); ?></h3>
+				<ul>
+					<?php // Pro ?>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Spinners for Cost and Date Hints! The spinners in the booking form for cost and date hints have been updated for a smoother and more intuitive user experience. *(Business Medium/Large, MultiUser)*' ); ?></li>
+				</ul>
+				<div style="clear:both;height:20px;"></div>
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Translations' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Korean Translation! The translation has been updated and is now 96% complete, courtesy of modelaid.' ); ?></li>
+				</ul>
+				-->
+			</div>
+
+		</div>
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Bug Fixes' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Accurate Preview Updates! If a custom calendar skin is used in \'/wp-content/uploads/wpbc_skins/\', the preview now correctly updates in the \'Color Theme\' section on the Settings > Booking Form page.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '**Pro Versions:**' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull;  Correct Availability Settings! Resolved an issue with defining availability on the WP Booking Calendar > Availability > Days Availability page, especially when booking resources were previously deleted and only one resource remains.' ); ?></li>
+				</ul>
+			</div>
+		</div>
+
+	</div><?php
+	// </editor-fold>
+
+
+	$obj->expand_section_end( $section_param_arr );
+}
+
+
+
 function wpbc_welcome_section_10_3( $obj ){
 
-	$section_param_arr = array( 'version_num' => '10.3', 'show_expand' => false );
+	$section_param_arr = array( 'version_num' => '10.3', 'show_expand' => true );
 
 	$obj->expand_section_start( $section_param_arr );
 

@@ -4,7 +4,7 @@
 .wpfHidden {
 	display: none;
 }
-#toplevel_page_wpf-filters a[href*="woobewoo.com"] {
+#toplevel_page_wpf-filters a[href*="/plugins/woocommerce-filter/#license"] {
     color: green;
 }
 #wpfAddDialog{

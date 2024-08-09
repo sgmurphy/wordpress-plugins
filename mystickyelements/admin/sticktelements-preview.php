@@ -9,7 +9,7 @@
 			<div class="preview-element-contact-form <?php echo esc_attr($general_settings['position'])?>_pos  <?php echo esc_attr($general_settings['position_mobile'])?>_pos_mobile  ">
                 <div class="preview-element-contact-form-wrap">
 
-                    <h2 style="color:<?php if((isset($contact_form['headine_text_color']) )){ echo $contact_form['headine_text_color'];}; ?>"><?php echo $contact_form['contact_title_text']; ?></h2>
+                    <h2 style="color:<?php if((isset($contact_form['headine_text_color']) )){ echo esc_attr($contact_form['headine_text_color']);} ?>"><?php echo esc_html($contact_form['contact_title_text']); ?></h2>
 					<div class="preview-element-contact-form-wrap-div">
                     <input type="text" id="contact-form-name" class = "preview-contactform-field" placeholder="<?php echo (isset($contactform['name_value']) && $contactform['name_value']!= '' ) ? $contactform['name_value'] : 'Name';?>" data-slug = "name" style ="<?php if( !isset($contact_form['name']) || (isset($contact_form['name']) && $contact_form['name'] != '1' )){echo "display:none";} else{echo "display:block";} ?>" >
         
@@ -20,10 +20,10 @@
                     <textarea  class = "preview-contactform-field" id="contact-form-message" placeholder="Message"  data-slug="message" style ="<?php if( !isset($contact_form['message']) || (isset($contact_form['message']) && $contact_form['message'] != '1' )){echo "display:none";} else{echo "display:block";} ?>"></textarea>
                     
                     <select name="contact-form[dropdown_value]" id="contact-form-dropdown-value" style ="<?php if( !isset($contact_form['dropdown']) || (isset($contact_form['dropdown']) && $contact_form['dropdown'] != '1' )){echo "display:none";} else{echo "display:block";} ?>">
-                        <option value=""><?php if((isset($contact_form['dropdown-placeholder']) )){echo $contact_form['dropdown-placeholder'];}else{echo "Submit";}?></option>
+                        <option value=""><?php if((isset($contact_form['dropdown-placeholder']) )){echo esc_attr($contact_form['dropdown-placeholder']);}else{echo "Submit";}?></option>
                     </select>
                     
-                    <input type="submit" id="preview-stickyelements-submit-form" style="background:<?php if((isset($contact_form['submit_button_background_color']) )){echo $contact_form['submit_button_background_color'];}else{echo "#7761DF";}?>; color:<?php if((isset($contact_form['submit_button_text_color']) )){echo $contact_form['submit_button_text_color'];}else{echo "#FFFFFF";}?>;" value="<?php if((isset($contact_form['submit_button_text']) )){echo $contact_form['submit_button_text'];}else{echo "Submit";}?>" disabled>
+                    <input type="submit" id="preview-stickyelements-submit-form" style="background:<?php if((isset($contact_form['submit_button_background_color']) )){echo esc_attr($contact_form['submit_button_background_color']);}else{echo "#7761DF";}?>; color:<?php if((isset($contact_form['submit_button_text_color']) )){echo esc_attr($contact_form['submit_button_text_color']);}else{echo "#FFFFFF";}?>;" value="<?php if((isset($contact_form['submit_button_text']) )){echo esc_attr($contact_form['submit_button_text']);}else{echo "Submit";}?>" disabled>
 					</div>	
                 </div>
             </div>
@@ -183,6 +183,9 @@
 										if ( isset($value['icon_text_size']) && $value['icon_text_size'] != '') {
 											$icon_text_size .= "font-size: " . esc_attr($value['icon_text_size']) . "px;";
 										}
+										if (isset($value['icon_text_color']) && $value['icon_text_color'] != '') {
+										   $icon_text_size .= "color: ".$value['icon_text_color'];
+									   }
 									}
 									echo "<span class='mystickyelements-icon-below-text' style='".esc_attr($icon_text_size)."'>" . esc_attr($value['icon_text']) . "</span>";
 									if ( $key == 'line') {

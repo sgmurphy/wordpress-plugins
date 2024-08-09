@@ -1,3 +1,6 @@
+= 2.127 =
+* Performance improvements.
+
 = 2.126 =
 * Compatibility with WordPress 6.6 and WooCommerce 9.1. Added requirement for WooCommerce plugin to be installed.
 

@@ -150,9 +150,14 @@ class WWP_Wholesale_Roles {
 
         $newRole = apply_filters( 'wwp_filter_new_role', $newRole, $roleKey );
 
-        $registeredCustomRoles[ $roleKey ] = $newRole;
+        if ( isset( $registeredCustomRoles[ $roleKey ] ) ) {
+            $registeredCustomRoles[ $roleKey ] = $newRole;
+        } else {
+            $newRegisteredCustomRoles = array( $roleKey => $newRole );
+            $registeredCustomRoles    = array_merge( $registeredCustomRoles, $newRegisteredCustomRoles );
+        }
 
-        update_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES, maybe_serialize( $registeredCustomRoles ) );
+        update_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES, maybe_serialize( $registeredCustomRoles ), 'no' );
 
         do_action( 'wwp_action_after_register_custom_role', $roleKey, $roleName );
     }
@@ -174,7 +179,7 @@ class WWP_Wholesale_Roles {
             unset( $registeredCustomRoles[ $roleKey ] );
         }
 
-        update_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES, maybe_serialize( $registeredCustomRoles ) );
+        update_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES, maybe_serialize( $registeredCustomRoles ), 'no' );
 
         do_action( 'wwp_action_after_unregister_custom_role', $roleKey );
     }
@@ -376,5 +381,4 @@ class WWP_Wholesale_Roles {
         add_filter( 'wwp_registered_wholesale_roles', array( $this, 'filter_registered_wholesale_roles' ), 10, 1 );
         add_action( 'init', array( $this, 'wc_navigation_bar' ) );
     }
-
 }

@@ -1,7 +1,7 @@
 import { r as registerInstance, h, F as Fragment, a as getElement } from './index-644f5478.js';
 import { a as apiFetch } from './fetch-2525e763.js';
 import { b as baseUrl, e as expand } from './index-d7508e37.js';
-import { a as store, g as getCheckout, b as setCheckout, s as state } from './mutations-b8f9af9f.js';
+import { a as store, g as getCheckout, b as setCheckout, s as state, c as clearCheckout } from './mutations-b8f9af9f.js';
 import { c as createErrorNotice } from './mutations-0a628afa.js';
 import { u as updateFormState } from './mutations-8871d02a.js';
 import { f as formBusy } from './getters-2c9ecd8c.js';
@@ -90,6 +90,9 @@ const ScCart = class {
       console.error(e);
       updateFormState('REJECT');
       createErrorNotice(e);
+      if ((e === null || e === void 0 ? void 0 : e.code) === 'checkout.not_found') {
+        clearCheckout(this.formId, this.mode);
+      }
     }
   }
   componentWillLoad() {

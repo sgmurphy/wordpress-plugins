@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-f1e4d53b.js');
-const index$1 = require('./index-49cf7c76.js');
+const index$1 = require('./index-f9d999d6.js');
 const index$2 = require('./index-a9c75016.js');
 const mutations = require('./mutations-164b66b1.js');
 const mutations$1 = require('./mutations-7113e932.js');
@@ -97,7 +97,8 @@ const ScCartForm = class {
         line_items: [
           ...(existingData || []).map((item) => {
             // if the price ids match (we have already a line item)
-            if (this.priceId === (item === null || item === void 0 ? void 0 : item.price_id)) {
+            const priceOrVariantMatches = this.variantId ? item.price_id === this.priceId && item.variant_id === this.variantId : item.price_id === this.priceId;
+            if (priceOrVariantMatches) {
               return {
                 ...item,
                 ...(!!(data === null || data === void 0 ? void 0 : data.ad_hoc_amount) ? { ad_hoc_amount: data === null || data === void 0 ? void 0 : data.ad_hoc_amount } : {}),

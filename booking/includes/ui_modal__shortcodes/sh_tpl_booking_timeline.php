@@ -106,7 +106,7 @@ function wpbc_shortcode_config__content__bookingtimeline() {
 							, 'text_css' => 'line-height: 18px;vertical-align: text-top;'
 							// , 'hint' => array( 'title' => __('Manage bookings' ,'booking') , 'position' => 'top' )
 							, 'onclick'     =>  $js . "jQuery('.wpbc_sc_container__shortcode_" . $shortcode_name . " .wpbc_sc_container__shortcode_section__general').show();"
-							, 'font_icon'   => 'menu_icon icon-1x wpbc-bi-bar-chart-steps NOwpbc-bi-diagram-3'
+							, 'font_icon'   => 'menu_icon icon-1x  wpbc_icn_rotate_90 wpbc_icn_align_vertical_bottom NOwpbc-bi-bar-chart-steps0 NOwpbc-bi-diagram-3'
 							, 'default'     => true
 			) );
 //			wpbc_bs_display_tab(   array(

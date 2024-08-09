@@ -52,6 +52,7 @@ foreach ( $contact_field as $key=>$value ) {
 							$custom_channel = ['custom_one', 'custom_two', 'custom_three', 'custom_four', 'custom_five', 'custom_six'];
 							$custom_shortcode = ['custom_seven', 'custom_eight', 'custom_nine', 'custom_ten', 'custom_eleven', 'custom_twelve'];
 							$social_channels_lists = set_social_channel_order( $social_channels_lists , $social_channels_tabs );
+							
 							foreach ( $social_channels_lists as $key => $value ): 
 							
 								if (isset($value['is_locked']) && $value['is_locked'] == 1) {
@@ -59,27 +60,30 @@ foreach ( $contact_field as $key=>$value ) {
 								} 
 								$search_channel = (isset($value['search_class']) ) ? $key. ' ' . $value['search_class'] : $key;
 								
-								if( !isset($value['custom']) ) { 								
-						?>
-						<li data-search="<?php echo str_replace("_", " ", $search_channel); ?>" <?php if ( isset( $value['is_locked'] ) && $value['is_locked'] == 1 ): ?> class="upgrade-myStickyelements" <?php endif; ?>>
-							<label>
-								<span class="social-channels-list social-<?php echo esc_attr($key); ?> <?php if( isset($social_channels[$key]) && $social_channels[$key] == '1' ) : ?>social-checked-active<?php endif; ?>" style="background-color: <?php echo set_span_bg_color( $key , $value ); ?>">
-									
-									<i class="<?php echo social_channel_icon_class( $key , $value );?>"></i>
-									<?php $social_channels[$key] = isset($social_channels[$key]) ? $social_channels[$key] : '';?>
-								</span>
-								<input type="checkbox" data-social-channel="<?php echo esc_attr($key); ?>" class="social-channel" name="social-channels[<?php echo esc_attr($key); ?>]" value="1" <?php checked(@$social_channels[$key], '1'); ?> <?php if (isset($value['is_locked']) && $value['is_locked'] == 1) { echo "disabled"; } ?>/>
-							</label>
-							<span class="social-tooltip-popup">
-								<?php 
-								if ( isset($value['custom_tooltip']) && $value['custom_tooltip'] != "" ) {
-									 echo esc_attr($value['custom_tooltip']);
-								 } else {
-									echo ucwords(str_replace("_", " ", $value['hover_text']));
-								 }											
+								if( !isset($value['custom']) ) { 
+								
 								?>
-							</span>
-						</li><?php }endforeach; ?>						
+									<li data-search="<?php echo str_replace("_", " ", $search_channel); ?>" <?php if ( isset( $value['is_locked'] ) && $value['is_locked'] == 1 ): ?> class="upgrade-myStickyelements" <?php endif; ?>>
+										<label>
+											<span class="social-channels-list social-<?php echo esc_attr($key); ?> <?php if( isset($social_channels[$key]) && $social_channels[$key] == '1' ) : ?>social-checked-active<?php endif; ?>" style="background-color: <?php echo set_span_bg_color( $key , $value ); ?>">
+												
+												<i class="<?php echo social_channel_icon_class( $key , $value );?>"></i>
+												<?php $social_channels[$key] = isset($social_channels[$key]) ? $social_channels[$key] : '';?>
+											</span>
+											<input type="checkbox" data-social-channel-text="<?php echo esc_attr($value['hover_text']);?>" data-social-channel="<?php echo esc_attr($key); ?>" class="social-channel" name="social-channels[<?php echo esc_attr($key); ?>]" value="1" <?php checked(@$social_channels[$key], '1'); ?> <?php if (isset($value['is_locked']) && $value['is_locked'] == 1) { echo "disabled"; } ?>/>
+										</label>
+										<span class="social-tooltip-popup">
+											<?php 
+											if ( isset($value['custom_tooltip']) && $value['custom_tooltip'] != "" ) {
+												 echo esc_attr($value['custom_tooltip']);
+											 } else {
+												echo str_replace("_", " ", $value['hover_text']);
+											 }											
+											?>
+										</span>
+									</li>
+						<?php }
+						endforeach; ?>						
 					</ul>
 				</div>
 				<input type="hidden" id="myStickyelements-custom-channel-lenght" name = "general-settings[custom_channel_count]" value="<?php echo esc_attr((isset($general_settings['custom_channel_count']) && $general_settings['custom_channel_count']!='') ? $general_settings['custom_channel_count'] : 0) ; ?>" />
@@ -158,8 +162,12 @@ foreach ( $contact_field as $key=>$value ) {
 	function social_channel_icon_class( $key , $value ){
 		if( strpos($key, 'custom_channel') !== false && $value['custom_icon'] == '' && $value['fontawesome_icon'] == '' ){
 			return 'fas fa-cloud-upload-alt';
+		}else if( strpos($key, 'custom_channel') !== false && $value['custom_icon'] == '' && $value['fontawesome_icon'] != '' ){
+			return $value['fontawesome_icon'];
 		}else if( strpos($key, 'custom_shortcode') !== false && $value['custom_icon'] == '' && $value['fontawesome_icon'] == '' ){
 			return 'fas fa-code';
+		}else if( strpos($key, 'custom_shortcode') !== false && $value['custom_icon'] == '' && $value['fontawesome_icon'] != '' ){
+			return $value['fontawesome_icon'];
 		}else if(isset($value['class'])){
 			return $value['class'];
 		}

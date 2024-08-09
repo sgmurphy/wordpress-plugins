@@ -9,11 +9,11 @@ class AdminmenuWpf extends ModuleWpf {
 		add_filter('plugin_action_links_' . $plugName, array($this, 'addSettingsLinkForPlug') );
 	}
 	public function addSettingsLinkForPlug( $links ) {
-		$mainLink = 'https://woobewoo.com/';
+		$mainLink = WPF_WP_PLUGIN_URL;
 		/* translators: %s: plugin name */
 		$twitterStatus = sprintf(esc_html__('Cool WordPress plugins from woobewoo.com developers. I tried %s - and this was what I need! #woobewoo.com', 'woo-product-filter'), WPF_WP_PLUGIN_NAME);
 		array_unshift($links, '<a href="' . esc_url($this->getMainLink()) . '">' . esc_html__('Settings', 'woo-product-filter') . '</a>');
-		array_push($links, '<a title="' . esc_attr__('More plugins for your WordPress site here!', 'woo-product-filter') . '" href="' . esc_url($mainLink) . '" target="_blank">woobewoo.com</a>');
+		array_push($links, '<a title="' . esc_attr__('More plugins for your WordPress site here!', 'woo-product-filter') . '" href="' . esc_url($mainLink) . '" target="_blank">' . esc_html(WPF_WP_PLUGIN_URL) . '</a>');
 		array_push($links, '<a title="' . esc_attr__('Spread the word!', 'woo-product-filter') . '" href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode($mainLink) . '" target="_blank" class="dashicons-before dashicons-facebook-alt"></a>');
 		array_push($links, '<a title="' . esc_attr__('Spread the word!', 'woo-product-filter') . '" href="https://twitter.com/home?status=' . urlencode($twitterStatus) . '" target="_blank" class="dashicons-before dashicons-twitter"></a>');
 		array_push($links, '<a title="' . esc_attr__('Spread the word!', 'woo-product-filter') . '" href="https://plus.google.com/share?url=' . urlencode($mainLink) . '" target="_blank" class="dashicons-before dashicons-googleplus"></a>');

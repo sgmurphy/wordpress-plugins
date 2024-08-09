@@ -10,7 +10,7 @@ $label_position         = isset( $form_data['label_position'] ) ? $form_data['la
 $testimonial_form_width = isset( $form_data['testimonial_form_width']['top'] ) ? $form_data['testimonial_form_width']['top'] : '680';
 $label_color            = isset( $form_data['label_color'] ) ? $form_data['label_color'] : '';
 
-$form_input_field_styles   = isset( $form_data['form_input_field_styles'] ) ? $form_data['form_input_field_styles'] : array(
+$form_input_field_styles = isset( $form_data['form_input_field_styles'] ) ? $form_data['form_input_field_styles'] : array(
 	'all'              => '1',
 	'style'            => 'solid',
 	'color'            => '#e3e3e3',
@@ -18,20 +18,21 @@ $form_input_field_styles   = isset( $form_data['form_input_field_styles'] ) ? $f
 	'radius'           => '0',
 	'unit'             => '%',
 );
-$form_background_color     = isset( $form_data['form_background_color'] ) ? $form_data['form_background_color'] : '#FFFFFF';
-$submit_button_color       = isset( $form_data['submit_button_color'] ) ? $form_data['submit_button_color'] : array(
+$form_background_color   = isset( $form_data['form_background_color'] ) ? $form_data['form_background_color'] : '#FFFFFF';
+$submit_button_color     = isset( $form_data['submit_button_color'] ) ? $form_data['submit_button_color'] : array(
 	'color'            => '#ffffff',
 	'hover-color'      => '#ffffff',
 	'background'       => '#005BDF',
 	'hover-background' => '#005BDF',
 );
-$testimonial_form_border   = isset( $form_data['testimonial_form_border']['style'] ) ? $form_data['testimonial_form_border'] : array(
+$testimonial_form_border = isset( $form_data['testimonial_form_border']['style'] ) ? $form_data['testimonial_form_border'] : array(
 	'all'    => '0',
 	'style'  => 'solid',
 	'color'  => '#444444',
 	'radius' => '6',
 	'unit'   => '%',
 );
+
 $text_before_content_field = isset( $testimonial['before'] ) ? $testimonial['before'] : '';
 $text_before_title_field   = isset( $testimonial_title['before'] ) ? $testimonial_title['before'] : '';
 
@@ -67,6 +68,9 @@ $form_style .= '#testimonial_form_' . esc_attr( $form_id ) . '.sp-tpro-fronted-f
     background-color: ' . $form_background_color . ';
     width: ' . esc_attr( $testimonial_form_width ) . 'px;
     max-width: 100%;
+}
+#testimonial_form_' . esc_attr( $form_id ) . '.sp-tpro-fronted-form .sp-tpro-form-field label{
+    font-weight: 500;
 }
 
 #testimonial_form_' . esc_attr( $form_id ) . '.sp-tpro-fronted-form .tpro-social-profile-wrapper .tpro-social-profile-item,

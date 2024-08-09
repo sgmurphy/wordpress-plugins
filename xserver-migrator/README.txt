@@ -3,7 +3,7 @@ Contributors: xserverjp
 Tags: xserver
 Requires at least: 4.2.29
 Tested up to: 6.6.1
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+
+= 1.6.4 =
+* 移行用データファイル作成に関しての改善
 
 = 1.6.3 =
 * MariaDB 10.5.25 以降に対応

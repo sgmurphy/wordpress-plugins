@@ -26,7 +26,6 @@ class Blog_Designer_Lite_Ticker_Settings {
 	 * @since    1.8.2
 	 */
 	public function __construct() {
-
 	}
 	/**
 	 * Html Display setting options
@@ -49,7 +48,8 @@ class Blog_Designer_Lite_Ticker_Settings {
 				?>
 				<div class="updated is-dismissible notice settings-error">
 					<?php
-					echo '<p>' . esc_html( $_SESSION['success_msg'] ) . '</p>';
+					$success_msg = isset( $_SESSION['success_msg'] ) ? sanitize_text_field( wp_unslash( $_SESSION['success_msg'] ) ) : '';
+					echo '<p>' . esc_html( $success_msg ) . '</p>';
 					unset( $_SESSION['success_msg'] );
 					?>
 				</div>

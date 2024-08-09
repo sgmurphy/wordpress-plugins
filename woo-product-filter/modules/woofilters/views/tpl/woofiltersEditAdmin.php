@@ -65,7 +65,7 @@ if (taxonomy_exists('pwb-brand')) {
 										<option value="shortcode_product"><?php echo esc_html__('Product Shortcode', 'woo-product-filter'); ?></option>
 										<option value="phpcode_product"><?php echo esc_html__('Product PHP code', 'woo-product-filter'); ?></option>
 									</select>
-									<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Using short code display the filter and products in the desired place of the template.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/how-to-add-woocommerce-product-filter-to-shop/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+									<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Using short code display the filter and products in the desired place of the template.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/how-to-add-woocommerce-product-filter-to-shop/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 								</div>
 								<?php $fid = isset($this->filter['id']) ? $this->filter['id'] : ''; ?>
 								<?php if ($fid) { ?>

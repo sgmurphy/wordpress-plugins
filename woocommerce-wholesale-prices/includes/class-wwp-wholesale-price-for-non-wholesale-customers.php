@@ -174,25 +174,25 @@ class WWP_Wholesale_Prices_For_Non_Wholesale_Customers {
     public function register_settings_field_options() {
         // Show wholesale price to non wholesale users settings options.
         if ( get_option( 'wwp_see_wholesale_prices_replacement_text' ) === false ) {
-            update_option( 'wwp_see_wholesale_prices_replacement_text', 'See wholesale prices' );
+            update_option( 'wwp_see_wholesale_prices_replacement_text', 'See wholesale prices', 'no' );
         }
 
         // NOTE: Default role value is added in add_default_wholesale_role_value.
 
         if ( get_option( 'wwp_price_settings_register_text' ) === false ) {
-            update_option( 'wwp_price_settings_register_text', 'Click here to register as a wholesale customer' );
+            update_option( 'wwp_price_settings_register_text', 'Click here to register as a wholesale customer', 'no' );
         }
 
         if ( get_option( 'wwp_non_wholesale_show_in_products' ) === false ) {
-            update_option( 'wwp_non_wholesale_show_in_products', 'yes' );
+            update_option( 'wwp_non_wholesale_show_in_products', 'yes', 'no' );
         }
 
         if ( get_option( 'wwp_non_wholesale_show_in_shop' ) === false ) {
-            update_option( 'wwp_non_wholesale_show_in_shop', 'yes' );
+            update_option( 'wwp_non_wholesale_show_in_shop', 'yes', 'no' );
         }
 
         if ( get_option( 'wwp_non_wholesale_show_in_wwof' ) === false ) {
-            update_option( 'wwp_non_wholesale_show_in_wwof', 'yes' );
+            update_option( 'wwp_non_wholesale_show_in_wwof', 'yes', 'no' );
         }
     }
 
@@ -408,7 +408,7 @@ class WWP_Wholesale_Prices_For_Non_Wholesale_Customers {
         // Note WWP will always have a default role value else the feature will be useless.
         if ( ( empty( $role_value ) || false === $role_value ) && ! WWP_Helper_Functions::is_wwpp_active() ) {
 
-            update_option( 'wwp_non_wholesale_wholesale_role_select2', array( 'wholesale_customer' ) );
+            update_option( 'wwp_non_wholesale_wholesale_role_select2', array( 'wholesale_customer' ), 'no' );
 
         }
     }

@@ -116,7 +116,7 @@ class OverviewModelWpf extends ModelWpf {
 	}
 	private function _initApiUrl() {
 		if (empty($this->_apiUrl)) {
-			$this->_apiUrl = 'https://woobewoo.com/';
+			$this->_apiUrl = 'https://' . WPF_WP_PLUGIN_URL . '/';
 		}
 	}
 }

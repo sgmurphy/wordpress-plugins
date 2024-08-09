@@ -6,7 +6,7 @@ Author URI: https://superadmin.es
 Contributors: cesarmaeso
 Tags: LOPD, RGPD, cookies, legal, privacidad
 Requires at least: 4.7
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.3.9
 Requires PHP: 5.6
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -67,7 +67,7 @@ A veces necesitas ayuda, tienes problemas o preguntas. Echa un vistazo a la [pá
 == Changelog ==
 
 = 1.3.9 =
-* Mejora: Añade posibilidad de añadir tercen botón para configurar cookies en banner.
+* Mejora: Añade posibilidad de añadir tercer botón para configurar cookies en banner.
 * Mejora: Añade aviso clave API inválida.
 
 = 1.3.8 =

@@ -9,6 +9,20 @@
     var open_first_click = -1;
 
     $(document).ready(function(){
+		
+		/*Remove active class when the user already close default open tab */
+		if( localStorage.getItem("elements-default-active") == 'true' ) {							
+			$('.mystickyelements-social-icon-li,.mystickyelements-contact-form').removeClass('elements-active');	
+		}else {
+			if( $('.mystickyelements-social-icon-li').hasClass( 'elements-default-active' ) == true ){
+				$('.mystickyelements-social-icon-li.elements-default-active').addClass( 'elements-active elements-hover-active' );
+			}
+			
+			if( $('.mystickyelements-contact-form').hasClass( 'elements-default-active' ) == true ){
+				$('.mystickyelements-contact-form.elements-default-active').addClass( 'elements-active elements-hover-active' );
+			}
+		}
+			
         if ($.cookie("hide_mystickyelements") == 'closed') {
             $('.mystickyelements-fixed').each(function(){
                 jQuery(this).hide();
@@ -21,7 +35,7 @@
 
         $('#stickyelements-form').on( 'submit', function(event){
             event.preventDefault();
-
+			var close_after = $(this).data('close-after');
             $('#stickyelements-form .mse-input-error').removeClass("mse-input-error");
             $('#stickyelements-form .mse-input-message').remove();
 
@@ -95,7 +109,17 @@
                         /* redirct Page After Submission */
                         if ( data.status == 1 && data.redirect_link != '' ) {
                             window.location = data.redirect_link;
-                        }
+                        } else {										
+							if (typeof close_after != 'undefined' && close_after != '' ) {
+								close_after = close_after * 1000;
+								setTimeout(
+									function () {										
+										$('.mystickyelements-fixed .mystickyelements-contact-form ').removeClass("elements-active");
+										$('.mystickyelements-fixed .mystickyelements-contact-form ').removeClass("element-contact-active");
+									}, close_after
+								);
+							}
+						}
                         return false;
                     }
                 });
@@ -208,13 +232,11 @@
                 $('.mystickyelements-on-click .elements-active').removeClass("elements-active");
                 $(this).parent('li').addClass('elements-active');
             } else {
-                $(this).parent('li').removeClass('elements-active');
+                $(this).parent('li').removeClass('elements-active');				
                 $.cookie("closed_contactform", "closed", { path: '/' });
                 event.preventDefault();
             }
         });
-
-
 
         /*close contact form on click close icon*/
         $('.mystickyelements-on-hover .mystickyelements-social-icon').on( 'click', function(event){
@@ -236,19 +258,32 @@
                 $(this).parent().parent().parent('.mystickyelements-on-hover').addClass('mystickyelements-on-click');
             }
         }).on('mouseleave', function(){
-            $(this).removeClass('elements-active');
+            $(this).removeClass('elements-active');			
             $(this).removeClass('elements-hover-active');
             $(this).parent().parent().parent('.mystickyelements-on-hover').removeClass('mystickyelements-on-click');
+			if( $('.mystickyelements-social-icon-li').hasClass( 'elements-default-active' ) 
+				|| $('.mystickyelements-contact-form').hasClass( 'elements-default-active' ) ) {
+				localStorage.setItem("elements-default-active", true);
+			}
         });
         $( '.mystickyelements-on-hover ul li.mystickyelements-contact-form' ).on('mouseenter', function(){
+			$( this ).parents( '.mystickyelement-lists-wrap' ).find( 'li.elements-active').removeClass("elements-active elements-hover-active");
             $( this ).addClass( 'element-contact-active' );
         } ).on('mouseleave', function(){
             $( this ).removeClass( 'element-contact-active' );
+			if( $('.mystickyelements-social-icon-li').hasClass( 'elements-default-active' ) 
+				|| $('.mystickyelements-contact-form').hasClass( 'elements-default-active' ) ) {
+				localStorage.setItem("elements-default-active", true);
+			}
         });
         $( '.element-contact-close' ).on( 'click touch', function(event){
             $( '.mystickyelements-contact-form' ).removeClass('elements-active');
             $( '.mystickyelements-contact-form' ).removeClass('element-contact-active');
             $.cookie("closed_contactform"  , "closed", { path: '/' });
+			if( $('.mystickyelements-social-icon-li').hasClass( 'elements-default-active' ) 
+				|| $('.mystickyelements-contact-form').hasClass( 'elements-default-active' ) ) {
+				localStorage.setItem("elements-default-active", true);
+			}
         });
 
         $('#stickyelements-form input:not(#stickyelements-submit-form), #stickyelements-form textarea ').on( 'keyup', function(event){
@@ -521,6 +556,10 @@
         }
         var $mobile_bottom = 0;
         $('.mystickyelements-fixed ul li').each( function () {
+			
+			if ( $(this).hasClass('elements-active') && !$(this).parents('.mystickyelements-fixed').hasClass('mystickyelements-on-click') ) {							
+				$(this).parents('.mystickyelements-fixed').addClass('mystickyelements-on-click');
+			}
             /* Check google analytics enable then add 'update-analytics' class */
             if ( mystickyelements.google_analytics === '1'  && $(this).hasClass('mystickyelements-minimize') !== true && $(this).attr('id') !== 'mystickyelements-contact-form' ) {
                 if ( $(this).find( "a" ).length !== 0 ) {
@@ -638,10 +677,13 @@
     });
 
     jQuery('body').mouseup(function (e) {
-        if ($(e.target).closest(".mystickyelement-lists-wrap").length
-                    === 0) {
+        if ($(e.target).closest(".mystickyelement-lists-wrap").length === 0) {
             social_tab_click = 0;           
-            jQuery('.mystickyelements-social-icon-li').removeClass('elements-active');        
+            jQuery('.mystickyelements-social-icon-li,.mystickyelements-contact-form').removeClass('elements-active');
+			if( $('.mystickyelements-social-icon-li').hasClass( 'elements-default-active' ) 
+					|| $('.mystickyelements-contact-form').hasClass( 'elements-default-active' ) ) {
+				localStorage.setItem("elements-default-active", true);
+			}
         }
     });
 	

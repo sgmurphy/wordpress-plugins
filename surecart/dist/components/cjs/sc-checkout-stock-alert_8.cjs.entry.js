@@ -241,9 +241,12 @@ const ScFormComponentsValidator = class {
       return;
     }
     const payment = this.el.querySelector('sc-payment');
-    const address = document.createElement('sc-order-shipping-address');
-    address.label = wp.i18n.__('Address', 'surecart');
-    payment.parentNode.insertBefore(address, payment);
+    const shippingAddress = document.createElement('sc-order-shipping-address');
+    shippingAddress.label = wp.i18n.__('Shipping Address', 'surecart');
+    const billingAddress = document.createElement('sc-order-billing-address');
+    billingAddress.label = wp.i18n.__('Billing Address', 'surecart');
+    payment.parentNode.insertBefore(shippingAddress, payment);
+    payment.parentNode.insertBefore(billingAddress, payment);
     this.hasAddress = true;
   }
   addTaxIDField() {
@@ -594,7 +597,7 @@ const ScSessionProvider = class {
     mutations$1.updateFormState('FINALIZE');
     if (((_a = mutations.state === null || mutations.state === void 0 ? void 0 : mutations.state.checkout) === null || _a === void 0 ? void 0 : _a.payment_method_required) && (watchers.state === null || watchers.state === void 0 ? void 0 : watchers.state.id) === 'stripe' && getters$2.state.config.stripe.paymentElement) {
       // not initialized.
-      if (typeof ((_b = getters$2.state === null || getters$2.state === void 0 ? void 0 : getters$2.state.instances) === null || _b === void 0 ? void 0 : _b.stripeElements) === undefined) {
+      if (!((_b = getters$2.state === null || getters$2.state === void 0 ? void 0 : getters$2.state.instances) === null || _b === void 0 ? void 0 : _b.stripeElements)) {
         mutations$1.updateFormState('REJECT');
         this.handleErrorResponse({ message: 'Stripe Elements not found.', code: 'stripe_elements_not_found' });
         return new Error('Stripe Elements not found.');

@@ -1,6 +1,6 @@
 import { r as registerInstance, c as createEvent, h, F as Fragment, H as Host } from './index-644f5478.js';
 import { o as openWormhole } from './consumer-32cc6385.js';
-import { i as isPriceInOrder } from './index-74024349.js';
+import { i as isPriceInOrder } from './index-bc0c0045.js';
 import { i as intervalString } from './price-178c2e2b.js';
 import { a as apiFetch } from './fetch-2525e763.js';
 import { a as addQueryArgs } from './add-query-args-f4c5962b.js';

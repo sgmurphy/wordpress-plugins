@@ -171,6 +171,11 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 			if (isset($general_settings['form_open_automatic']) && $general_settings['form_open_automatic'] == 1 && !isset($_COOKIE['closed_contactform'])) {
 				$contact_form_class .= ' elements-active';
 			}
+			
+			$close_after = '';
+			if (isset($contact_form['close_form_automatic']) && $contact_form['close_form_automatic'] == 1 && isset($contact_form['close_after'])) {
+				$close_after = $contact_form['close_after'];
+			}
 
 			if ( !isset($general_settings['position_mobile']) ) {
 				$general_settings['position_mobile'] = 'left';
@@ -199,6 +204,13 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 			$general_settings['mobile-widget-size'] = (isset($general_settings['mobile-widget-size']) && $general_settings['mobile-widget-size']!= '') ? $general_settings['mobile-widget-size'] : 'medium';
 			$general_settings['entry-effect'] = (isset($general_settings['entry-effect']) && $general_settings['entry-effect']!= '') ? $general_settings['entry-effect'] : 'slide-in';
 			$general_settings['templates'] = (isset($general_settings['templates']) && $general_settings['templates']!= '') ? $general_settings['templates'] : 'default';
+			
+			$general_settings['open_tab_default'] = (isset($general_settings['open_tab_default']) && $general_settings['open_tab_default'] ==1 )? $general_settings['open_tab_default']: '';
+			if ( $general_settings['open_tab_default'] == 1) {							
+				$general_settings['opentab-channel'] = (isset($general_settings['opentab-channel']) && $general_settings['opentab-channel']!= '') ? $general_settings['opentab-channel'] : '';
+			} else {
+				$general_settings['opentab-channel'] = '';
+			}	
 			$mystickyelements_class[] = 'mystickyelements-fixed';
 			$mystickyelements_class[] = 'mystickyelements-position-' . $general_settings['position'];
 			$mystickyelements_class[] = 'mystickyelements-position-screen-' . $general_settings['position_on_screen'];
@@ -268,7 +280,11 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 							</li>
 						<?php endif;?>
 
-						<?php if (isset($contact_form['enable']) && $contact_form['enable'] == 1): ?>
+						<?php if (isset($contact_form['enable']) && $contact_form['enable'] == 1): 
+								if ( $general_settings['opentab-channel'] == 'contact-form') {
+									$contact_form_class .= " elements-default-active";
+								}
+						?>
 
 							<li id="mystickyelements-contact-form" class="mystickyelements-contact-form <?php echo esc_attr($contact_form_class); ?>"  <?php if (isset($contact_form['direction']) && $contact_form['direction'] == 'RTL') : ?> dir="rtl" <?php endif; ?> data-tab-opt="<?php echo esc_attr($general_settings["open_tabs_when"]); ?>" >
 								<?php 
@@ -304,7 +320,7 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 										<span href="javascript:void(0);" class="element-contact-close"><i class="fas fa-times"></i></span>
 									</div>
 
-									<form id="stickyelements-form" class="stickyelements-form" action="" method="post" autocomplete="off">
+									<form id="stickyelements-form" class="stickyelements-form" action="" method="post" autocomplete="off" data-close-after="<?php echo esc_attr($close_after); ?>">
 										<?php foreach ( $contact_field as $value ) :
 											switch ( $value ) {
 												case 'name' :
@@ -450,7 +466,7 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 										} else {
 											$title = get_the_title();
 										}
-										//$value['pre_set_message'] = str_replace( ['{title}','{url}'], [$title,esc_url(home_url( $wp->request.'/' ))], $value['pre_set_message']);
+										$value['pre_set_message'] = urlencode_deep($value['pre_set_message']);
 										$value['text'] = str_replace( ['http://','https://','+',' ','-'], [''], $value['text']);
 										$value['text'] = "+" . $value['text'];										
 										if ( isset($value['use_whatsapp_web']) && $value['use_whatsapp_web'] == 1) {
@@ -606,7 +622,11 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 								}
 								if(preg_match('/^<iframe /',$value['text'])){
 									$element_class .=" mystickyelements-custom-html-iframe";
-								}																
+								}
+								
+								if ( $general_settings['opentab-channel'] == $key) {
+									$element_class .= " elements-default-active";
+								}
 								if( isset($social_channels_list['custom']) && $social_channels_list['custom'] == 1 ) {
 									if( isset($value['open_new_tab']) && $value['open_new_tab'] == 1 ) {
 										$link_target = 1;
@@ -747,7 +767,7 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 									?>>
 										
 										<?php if ( $social_link != ''  ):	?>
-											<a href="<?php echo esc_url($social_link, $protocols); ?>"  <?php if ( $link_target == 1 ):?> target="_blank" rel="noopener" <?php endif;?> data-url="<?php echo esc_url($social_link, $protocols); ?>" data-tab-setting = '<?php echo esc_attr((isset($general_settings["open_tabs_when"]) && $general_settings["open_tabs_when"]!="" ) ? $general_settings["open_tabs_when"] : "");?>'  data-mobile-behavior="<?php echo esc_attr((isset($general_settings['mobile_behavior']) && $general_settings['mobile_behavior'] != '' ) ? $general_settings['mobile_behavior'] : '') ?>" data-flyout="<?php echo esc_attr((isset($general_settings['flyout']) && $general_settings['flyout'] != '' ) ? $general_settings['flyout'] : '') ?>" title="<?php echo ( isset($value['icon_text']) && $value['icon_text'] !='') ? esc_attr($value['icon_text']): esc_attr(stripslashes($hover_text));?>">
+											<a class="social-link-<?php echo esc_attr($key);?>" href="<?php echo esc_url($social_link, $protocols); ?>"  <?php if ( $link_target == 1 ):?> target="_blank" rel="noopener" <?php endif;?> data-url="<?php echo esc_url($social_link, $protocols); ?>" data-tab-setting = '<?php echo esc_attr((isset($general_settings["open_tabs_when"]) && $general_settings["open_tabs_when"]!="" ) ? $general_settings["open_tabs_when"] : "");?>'  data-mobile-behavior="<?php echo esc_attr((isset($general_settings['mobile_behavior']) && $general_settings['mobile_behavior'] != '' ) ? $general_settings['mobile_behavior'] : '') ?>" data-flyout="<?php echo esc_attr((isset($general_settings['flyout']) && $general_settings['flyout'] != '' ) ? $general_settings['flyout'] : '') ?>" title="<?php echo ( isset($value['icon_text']) && $value['icon_text'] !='') ? esc_attr($value['icon_text']): esc_attr(stripslashes($hover_text));?>">
 										<?php endif;															
 										
 										if (isset($social_channels_list['custom']) && $social_channels_list['custom'] == 1 && $value['custom_icon'] != '' &&  $value['fontawesome_icon'] == ''): ?>
@@ -769,6 +789,9 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 											if ( isset($value['icon_text_size']) && $value['icon_text_size'] != '') {
 												$icon_text_size = "font-size: " . esc_attr($value['icon_text_size']) . "px";
 											}
+											if (isset($value['icon_text_color']) && $value['icon_text_color'] != '') {
+											   $icon_text_size .= "color: ".$value['icon_text_color'];
+										   }
 											echo "<span class='mystickyelements-icon-below-text' style='".esc_attr($icon_text_size)."'>" . esc_attr($value['icon_text']) . "</span>";
 										}
 										if ( $social_link != '' ): ?>
@@ -801,7 +824,10 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 								?>
 									<span class="mystickyelements-social-text <?php echo esc_attr(($social_link == '') ? 'mystickyelements-social-no-link' : '');?>" style= "<?php echo esc_attr($icon_bg_color.$icon_text_color) ?>" >
 										<?php if ($social_link != ''): ?>
-										<a href="<?php echo esc_url($social_link, $protocols); ?>"  <?php if ( $link_target == 1 ):?> target="_blank" rel="noopener" <?php endif;?> <?php if ( isset($value['icon_color']) && $value['icon_color'] != '') : echo "style='color:" . esc_attr($value['icon_color']) . "'"; endif; ?> data-tab-setting = '<?php echo esc_attr(( isset($general_settings["open_tabs_when"]) && $general_settings["open_tabs_when"]!="" ) ? $general_settings["open_tabs_when"] : "");?>' data-flyout="<?php echo esc_attr((isset($general_settings['flyout']) && $general_settings['flyout'] != '' ) ? $general_settings['flyout'] : '') ?>" title="<?php echo ( isset($value['icon_text']) && $value['icon_text'] !='') ? esc_attr($value['icon_text']): esc_attr(stripslashes($hover_text));?>">
+										<a class="social-link-<?php echo esc_attr($key);?>" href="<?php echo esc_url($social_link, $protocols); ?>"  <?php if ( $link_target == 1 ):?> target="_blank" rel="noopener" <?php endif;?> <?php if ( isset($value['icon_color']) && $value['icon_color'] != '') : echo "style='color:" . esc_attr($value['icon_color']) . "'"; endif; ?> data-tab-setting = '<?php echo esc_attr(( isset($general_settings["open_tabs_when"]) && $general_settings["open_tabs_when"]!="" ) ? $general_settings["open_tabs_when"] : "");?>' data-flyout="<?php echo esc_attr((isset($general_settings['flyout']) && $general_settings['flyout'] != '' ) ? $general_settings['flyout'] : '') ?>" title="<?php echo ( isset($value['icon_text']) && $value['icon_text'] !='') ? esc_attr($value['icon_text']): esc_attr(stripslashes($hover_text));?>"
+										data-url="<?php echo esc_url($social_link, $protocols); ?>"
+										
+										>
 											<?php endif;
 											?>
 											<?php
@@ -830,10 +856,6 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
         public function mystickyelements_contact_form() {
 
             global $wpdb;
-			
-			if ( is_user_logged_in() && ! current_user_can( 'manage_options' ) ) {
-				wp_die(0); 
-			}
             check_ajax_referer('mystickyelements', 'security');
 
             $errors = array();

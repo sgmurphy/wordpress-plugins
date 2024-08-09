@@ -3,7 +3,7 @@
   * Plugin Name: CF7 Google Sheet Connector
   * Plugin URI: https://wordpress.org/plugins/cf7-google-sheets-connector/
   * Description: Send your Contact Form 7 data to your Google Sheets spreadsheet.
-  * Version: 5.0.14
+  * Version: 5.0.15
   * Author: GSheetConnector
   * Author URI: https://www.gsheetconnector.com/
   * Text Domain: gsconnector
@@ -15,8 +15,8 @@ if (!defined('ABSPATH')) {
 }
 
 // Declare some global constants
-define('GS_CONNECTOR_VERSION', '5.0.14');
-define('GS_CONNECTOR_DB_VERSION', '5.0.14');
+define('GS_CONNECTOR_VERSION', '5.0.15');
+define('GS_CONNECTOR_DB_VERSION', '5.0.15');
 define('GS_CONNECTOR_ROOT', dirname(__FILE__));
 define('GS_CONNECTOR_URL', plugins_url('/', __FILE__));
 define('GS_CONNECTOR_BASE_FILE', basename(dirname(__FILE__)) . '/google-sheet-connector.php');
@@ -267,7 +267,25 @@ class Gs_Connector_Free_Init {
         ?>
         
 
-        
+<div class="card-cf7gs dropdownoption-cf7gs">
+    <div class="lbl-drop-down-select">
+        <label for="cf7gs_dro_option"><?php echo esc_html__('Choose Google API Setting :', 'gsconnector'); ?></label>
+    </div>
+    <div class="drop-down-select-btn">
+        <select id="cf7gs_dro_option" name="cf7gs_dro_option">
+            <option value="cf7gs_existing" selected><?php echo esc_html__('Use Existing Client/Secret Key (Auto Google API Configuration)', 'gsconnector'); ?>
+            </option>
+            <option value="cf7gs_manual" disabled=""><?php echo esc_html__('Use Manual Client/Secret Key (Use Your Google API Configuration) (Upgrade To PRO)', 'gsconnector'); ?></option>
+        </select>
+        <p class="int-meth-btn-cf7gs"><a href="https://www.gsheetconnector.com/cf7-google-sheet-connector-pro" target="_blank"><input type="button" name="save-method-api-cf7gs" id="save-method-api-cf7gs"
+                value="<?php _e('Upgrade To PRO', 'gsconnector'); ?>" class="button button-primary" />
+            </a>
+            <span class="tooltip"> <img src="<?php echo GS_CONNECTOR_URL; ?>assets/img/help.png"
+                        class="help-icon"> <span
+                        class="tooltiptext tooltip-right"><?php _e('Manual Client/Secret Key (Use Your Google API Configuration) method is available in the PRO version of the plugin.', 'gsconnector'); ?></span></span>
+        </p>
+    </div>
+</div>  
         
 <div class="gs-form">
     <div class="gs-parts">
@@ -451,7 +469,7 @@ class Gs_Connector_Free_Init {
 
 
 <div class="plugin-features">
-        <h2><?php echo esc_html(__('CF7 Google Sheet Connector Pro - Amazing Key Features', 'gsconnector')); ?>
+        <h2 class="inner-title"><?php echo esc_html(__('CF7 Google Sheet Connector Pro - Amazing Key Features', 'gsconnector')); ?>
         <span class="sub-line"><?php echo esc_html(__('Common Features of GSheetConnector Pro Plugins.', 'gsconnector')); ?></span></h2>
   
   <div class="features-list">

@@ -747,6 +747,9 @@ p.submit {
 	line-height: 23px;
 	text-align: center;
 }
+.myStickyelements-inputs .wp-picker-container{
+	float:right;
+}
 .mystickyelements-wrap .wp-picker-container {
 	background-color: #ffffff;
 	border: 1px solid #ccc;
@@ -855,6 +858,7 @@ p.submit {
 }
 .myStickyelements-inputs .myStickyelements-switch {
 	float: right;
+	margin-left: 5px;
 }
 /*tooltip css*/
 .social-tooltip {
@@ -6199,7 +6203,8 @@ span.mse-error-message {
     left: 60px;
     width: auto;
 }
-.preview-element-contact-form input[type="text"] , input[type="date"] , input[type="number"] , input[type="url"] , textarea {
+input[type="number"] {border-radius: 24px;}
+.preview-element-contact-form input[type="text"] , .preview-element-contact-form input[type="date"] , .preview-element-contact-form input[type="number"] , .preview-element-contact-form input[type="url"] , .preview-element-contact-form textarea {
 	height: 30px ;
     margin: 5px 0;
     border-radius: 24px;
@@ -6512,4 +6517,9 @@ body.rtl .mystickyelement-tab-boxes {
 #mystickyelements-tab-live-chatway .myStickyelements-chatway-left .small-text {
 	font-size: 16px;
 	color: #83A1B7;
+}
+#myStickyelements-opentab-channel {
+	width: 69%;
+	display: inline;
+	margin-right: 10px;
 }

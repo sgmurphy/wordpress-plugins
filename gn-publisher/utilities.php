@@ -165,32 +165,31 @@ function gnpub_current_feed_link() {
  * @return string
  */
 function gnpub_feed_channel_link() {
-	$url = esc_url( apply_filters( 'self_link', get_self_link() ) );
-	$host_url = @parse_url($url);
-
-	if(isset($host_url['query']))
-	{
-		$host_url['query']="";
+	if(  ! function_exists ( 'get_self_link' ) ) {
+		require_once( ABSPATH . 'wp-includes/feed.php' );
 	}
 
-	if(isset($host_url['path']))
-	{
-		$path_check=explode('/feed/',$host_url['path']);
-		
-
-			$tmp_arr=explode('/',$path_check[0]);
-			foreach($tmp_arr as $key=>$single)
-			{
-				$tmp_arr[$key]=strtolower(urlencode(urldecode($single)));
-			}
-			$host_url['path']=implode('/',$tmp_arr);	
-		
-
+	$url = ''; $host_url = array();
+	if( function_exists( 'get_self_link' ) ) {
+		$url = esc_url( apply_filters( 'self_link', get_self_link() ) );
+		$host_url = @parse_url( $url );
 	}
 
-	
+	if( isset( $host_url['query'] ) ){
+		$host_url['query']	=	"";
+	}
 
-	echo set_url_scheme($host_url['scheme'].'://'.$host_url['host'].$host_url['path']);
+	if( isset( $host_url['path'] ) ){
+		$path_check 	=	explode( '/feed/', $host_url['path'] );
+
+		$tmp_arr 		=	explode( '/', $path_check[0] );
+		foreach( $tmp_arr as $key => $single ) {
+			$tmp_arr[ $key ] 	=	strtolower( urlencode( urldecode( $single ) ) );
+		}
+		$host_url['path'] 		=	implode( '/', $tmp_arr );	
+	}
+
+	echo set_url_scheme( $host_url['scheme'].'://'.$host_url['host'].$host_url['path'] );
 
 }
 

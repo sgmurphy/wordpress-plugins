@@ -95,7 +95,7 @@
  $wpbc_all_translations[] = __('%s - dates in readable format', 'booking'); 
  $wpbc_all_translations[] = __('%s - time in readable format', 'booking'); 
  $wpbc_all_translations[] = __('Bookings Listing', 'booking'); 
- $wpbc_all_translations[] = __('Calendar Overview', 'booking'); 
+ $wpbc_all_translations[] = __('Timeline View', 'booking'); 
  $wpbc_all_translations[] = __('Default booking admin page', 'booking'); 
  $wpbc_all_translations[] = __('Select your default view mode of bookings at the booking listing page', 'booking'); 
  $wpbc_all_translations[] = __('Day', 'booking'); 
@@ -700,7 +700,7 @@
  $wpbc_all_translations[] = __('This field is required', 'booking'); 
  $wpbc_all_translations[] = __('This checkbox must be checked', 'booking'); 
  $wpbc_all_translations[] = __('At least one option must be selected', 'booking'); 
- $wpbc_all_translations[] = __('Incorrect email field', 'booking'); 
+ $wpbc_all_translations[] = __('Incorrect email address', 'booking'); 
  $wpbc_all_translations[] = __('Your emails do not match', 'booking'); 
  $wpbc_all_translations[] = __('Please, select booking date(s) at Calendar.', 'booking'); 
  $wpbc_all_translations[] = __('Deleting', 'booking'); 

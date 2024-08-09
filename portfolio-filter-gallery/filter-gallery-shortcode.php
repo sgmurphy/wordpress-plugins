@@ -71,6 +71,10 @@ function awl_filter_gallery_shortcode($post_id) {
 	if(isset($pf_gallery_settings['url_target'])) $url_target = $pf_gallery_settings['url_target']; else $url_target = "_new";
 	if(isset($pf_gallery_settings['filter_title_color'])) $filter_title_color = $pf_gallery_settings['filter_title_color']; else $filter_title_color = "#fff";
 	
+	/*echo "<pre>";
+	print_r($pf_gallery_settings);
+	echo "</pre>";*/
+
 	?>
 	<!-- CSS Part Start From Here-->
 	<style>
@@ -89,8 +93,11 @@ function awl_filter_gallery_shortcode($post_id) {
 		.pfg-bootstrap .img-thumbnail {
 		  padding: 0.25rem;
 		  background-color: #fff;
+
+		  <?php if($thumb_border == 'yes') { ?>
 		  border: 1px solid #dee2e6;
 		  border-radius: 0.25rem;
+		  <?php } ?>
 		  max-width: 100%;
 		  height: auto;
 		}

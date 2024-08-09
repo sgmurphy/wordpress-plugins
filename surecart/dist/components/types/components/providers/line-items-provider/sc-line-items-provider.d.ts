@@ -26,6 +26,7 @@ export declare class ScLineItemsProvider {
   processSyncItems(): {
     price_id: string;
     quantity: number;
+    variant_id?: string;
   }[];
   /** Add item */
   addItem(item: LineItemData, existingLineData: Array<LineItemData>): LineItemData[];

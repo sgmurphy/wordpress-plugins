@@ -31,7 +31,6 @@ class mo_linkedin_oidc {
 		$appslist         = maybe_unserialize( get_option( 'mo_openid_apps_list' ) );
 		$client_id        = $appslist['linkedin_oidc']['clientid'];
 		$client_secret    = $appslist['linkedin_oidc']['clientsecret'];
-		var_dump($client_secret);
 		$access_token_uri = 'https://www.linkedin.com/oauth/v2/accessToken';
 		$postData         = 'grant_type=authorization_code&code=' . $code . '&redirect_uri=' . $social_app_redirect_uri . '&client_id=' . $client_id . '&client_secret=' . $client_secret;
 
@@ -41,17 +40,9 @@ class mo_linkedin_oidc {
 		mo_openid_start_session();
 
 		$get_jwt=$access_token_json_output['id_token'];
-        $get_jwt1 = explode('.', $get_jwt);
-        $value1=base64_decode($get_jwt1[1]);
-        $value2=explode(',',$value1);
-        $em1=$value2[6];
-        $em2=explode(':',$em1);
-        $em3 = str_replace('"', '', $em2[1]);
-        $uid1=$value2[4];
-        $uid2=explode(':',$uid1);
-        $uid3=str_replace('"', '', $uid2[1]);
-		$jsonString = implode(',', $value2);
-		$profile_json_output = json_decode($jsonString, true);
+		$get_jwt=explode( '.', $get_jwt );
+		$get_jwt=base64_decode( str_pad( strtr( $get_jwt[1], '-_', '+/' ), strlen( $data ) % 4, '=', STR_PAD_RIGHT ) );
+		$profile_json_output = json_decode($get_jwt, true);
 		// Test Configuration
 		if ( is_user_logged_in() && get_option( 'mo_openid_test_configuration' ) == 1 ) {
 			mo_openid_app_test_config( $profile_json_output );
@@ -61,12 +52,12 @@ class mo_linkedin_oidc {
 		$name          = $first_name = $last_name = $email = $user_name = $user_url = $user_picture = $social_user_id = '';
 		$location_city = $location_country = $about_me = $company_name = $age = $gender = $friend_nos = '';
 
-		$email          = isset( $profile_json_output_email['email'] ) ? $profile_json_output_email['email'] : '';
+		$email          = isset( $profile_json_output['email'] ) ? $profile_json_output['email'] : '';
 		$first_name     = isset( $profile_json_output['given_name']) ? $profile_json_output['given_name'] : '';
 		$name           = isset( $profile_json_output['name'] ) ? $profile_json_output['name'] : '';
 		$last_name      = isset( $profile_json_output['family_name'] ) ? $profile_json_output['family_name'] : '';
 		$user_picture   = isset( $profile_json_output['picture'] ) ? $profile_json_output['picture'] : '';
-		$social_user_id = isset( $profile_json_output['id'] ) ? $profile_json_output['id'] : '';
+		$social_user_id = isset( $profile_json_output['sub'] ) ? $profile_json_output['sub'] : '';
 
 		$appuserdetails = array(
 			'first_name'       => $first_name,

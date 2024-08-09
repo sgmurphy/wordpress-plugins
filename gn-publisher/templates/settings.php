@@ -4,6 +4,11 @@ if ( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
+$tab  = 'gn-intro';
+if( !empty( $_GET['tab'] ) ) {
+  $tab  = sanitize_text_field( wp_unslash( $_GET['tab'] ) ); 
+}
+
 ?>
 <div class="wrap">
   <div class="gn-container">
@@ -27,27 +32,27 @@ if ( defined('GNPUB_PRO_VERSION') ) {
 } 
 ?>
   <div class="gn-tab">
-  <button class="gn-tablinks" onclick="openTab(event, 'gn-intro')" id="defaultOpen"><?php echo esc_html__('Dashboard', 'gn-publisher') ?></button>
-  <button class="gn-tablinks" onclick="openTab(event, 'gn-google-feed')" id="gn-feed"><?php echo esc_html__('Google News Feed Setup', 'gn-publisher') ?></button>
-  <button class="gn-tablinks" onclick="openTab(event, 'gn-features')"><?php echo esc_html__('Features', 'gn-publisher') ?></button>
-  <button class="gn-tablinks" onclick="openTab(event, 'gn-compatibility')"><?php echo esc_html__('Compatibility', 'gn-publisher') ?></button>
-  <button class="gn-tablinks" onclick="openTab(event, 'gn-troubleshooting')"><?php echo esc_html__('Troubleshooting', 'gn-publisher') ?></button>
-  <button class="gn-tablinks" onclick="openTab(event, 'gn-services')"><?php echo esc_html__('Services', 'gn-publisher') ?></button>
+  <button class="gn-tablinks <?php echo esc_attr( $tab == 'gn-intro' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-intro')" id="defaultOpen" data-link-id="gn-intro"><?php echo esc_html__('Dashboard', 'gn-publisher') ?></button>
+  <button class="gn-tablinks <?php echo esc_attr( $tab == 'gn-google-feed' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-google-feed')" id="gn-feed" data-link-id="gn-google-feed"><?php echo esc_html__('Google News Feed Setup', 'gn-publisher') ?></button>
+  <button class="gn-tablinks <?php echo esc_attr( $tab == 'gn-features' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-features')" data-link-id="gn-features"><?php echo esc_html__('Features', 'gn-publisher') ?></button>
+  <button class="gn-tablinks <?php echo esc_attr( $tab == 'gn-compatibility' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-compatibility')" data-link-id="gn-compatibility"><?php echo esc_html__('Compatibility', 'gn-publisher') ?></button>
+  <button class="gn-tablinks <?php echo esc_attr( $tab == 'gn-troubleshooting' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-troubleshooting')" data-link-id="gn-troubleshooting"><?php echo esc_html__('Troubleshooting', 'gn-publisher') ?></button>
+  <button class="gn-tablinks <?php echo esc_attr( $tab == 'gn-services' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-services')" data-link-id="gn-services"><?php echo esc_html__('Services', 'gn-publisher') ?></button>
   <?php if(defined('GNPUB_PRO_VERSION')){ ?>
-    <button class="gn-tablinks gn-license-btn" onclick="openTab(event, 'gn-license')"><?php echo esc_html__('License', 'gn-publisher') ?> <?php
+    <button class="gn-tablinks gn-license-btn <?php echo esc_attr( $tab == 'gn-license' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-license')" data-link-id="gn-license"><?php echo esc_html__('License', 'gn-publisher') ?> <?php
     if($license_key_status != 'active'){
     echo '<span style="color: red;">!</span>';
     }  
     ?>
   </button>
   <?php } else { ?>
-    <button class="gn-tablinks gnpub-upgrade <?php echo isset($_GET['tab']) ? esc_attr($_GET['tab']) : ''; ?>" onclick="openTab(event, 'gn-upgrade')"><?php echo esc_html__('Upgrade to PRO', 'gn-publisher') ?></button>
+    <button class="gn-tablinks gnpub-upgrade <?php echo esc_attr( $tab == 'gn-upgrade' || $tab == 'welcome' ? $tab.' active' : ''); ?>" onclick="openTab(event, 'gn-upgrade')" data-link-id="gn-upgrade"><?php echo esc_html__('Upgrade to PRO', 'gn-publisher') ?></button>
     <!-- <button class="gn-tablinks gnpub-upgrade"><a target="_blank" href="https://gnpublisher.com/pricing/#pricing">Upgrade to PRO</a></button> -->
     <?php } ?>
-    <button class="gn-tablinks" onclick="openTab(event, 'gn-help')"><?php echo esc_html__('Help &amp; Support', 'gn-publisher') ?></button>
+    <button class="gn-tablinks <?php echo esc_attr( $tab == 'gn-help' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-help')" data-link-id="gn-help"><?php echo esc_html__('Help &amp; Support', 'gn-publisher') ?></button>
 </div>
 
-<div id="gn-intro" class="gn-tabcontent">
+<div id="gn-intro" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-intro' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
    
   <p><?php
       printf(
@@ -77,7 +82,7 @@ if ( defined('GNPUB_PRO_VERSION') ) {
     </ul>
 </div>
 
-<div id="gn-google-feed" class="gn-tabcontent">
+<div id="gn-google-feed" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-google-feed' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
    
    <p><?php esc_html_e( 'Once installed and activated, you can find your GN Publisher RSS feeds at:', 'gn-publisher' ); ?></p>
 
@@ -158,7 +163,7 @@ do_action('gnpub_pro_cpt_form');
 </div>
 
 
-<div id="gn-troubleshooting" class="gn-tabcontent">
+<div id="gn-troubleshooting" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-troubleshooting' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
 
 <div class="gn-menu">
     <div class="gn-question">
@@ -282,7 +287,7 @@ echo esc_html__( '➔ Because of the huge number of ways that publishers, plugin
   <p><?php echo esc_html__('If the above information does not seems to help you can also contact us from', 'gn-publisher') ?>  <a href="https://gnpublisher.com/contact-us/" target="_ blank">https://gnpublisher.com/contact-us</a></p>
 </div>
 
-<div id="gn-help" class="gn-tabcontent">
+<div id="gn-help" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-help' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
 <div class="gn-flex-container">
 <div class="gn-left-side">
 <p><?php echo esc_html__('We are dedicated to provide Technical support &amp; Help to our users. Use the below form for sending your questions. ', 'gn-publisher') ?></p>
@@ -333,7 +338,7 @@ echo esc_html__( '➔ Because of the huge number of ways that publishers, plugin
   
 </div>
 
-<div id="gn-services" class="gn-tabcontent">
+<div id="gn-services" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-services' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
 
 <div class="gn-flex-container-services">
   <div class="gn-service-card first">
@@ -380,7 +385,7 @@ $gnpub_google_rev_snippet = isset($gnpub_options['gnpub_google_rev_snippet']) ? 
 $gnpub_google_rev_snippet_name = isset($gnpub_options['gnpub_google_rev_snippet_name']) ? $gnpub_options['gnpub_google_rev_snippet_name']: '';
 
 ?>
-<div id="gn-features" class="gn-tabcontent">
+<div id="gn-features" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-features' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
 
         <p>
     <form action="" method="post">
@@ -447,7 +452,7 @@ $gnpub_google_rev_snippet_name = isset($gnpub_options['gnpub_google_rev_snippet_
 </p>
  
   </div>
-  <div id="gn-compatibility" class="gn-tabcontent">
+  <div id="gn-compatibility" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-compatibility' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
 <?php if(!defined('GNPUB_PRO_VERSION')){ ?>
   <?php
     $default_options = array('gnpub_pp_flipboard_com' => false );
@@ -502,7 +507,7 @@ $gnpub_google_rev_snippet_name = isset($gnpub_options['gnpub_google_rev_snippet_
     
 
   </div>
-  <div id="gn-upgrade" class="gn-tabcontent" style="text-align: center;">
+  <div id="gn-upgrade" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-upgrade' || $tab == 'welcome' ? 'gnpub-show' : 'gnpub-d-none'); ?>" style="text-align: center;">
 <?php if(!defined('GNPUB_PRO_VERSION')){ ?>
   <p style="font-weight: bold;font-size: 30px;color: #000;"><?= esc_html_e( 'Thank You for using GN Publisher.', 'gn-publisher' ) ?></p>
         <p style="font-size: 18px;padding: 0 10%;line-height: 1.7;color: #000;"><?= esc_html_e( 'We strive to create the best GN Publisher solution in WordPress. Our dedicated development team does continuous development and innovation to make sure we are able to meet your demand.', 'gn-publisher' ) ?></p>
@@ -521,7 +526,7 @@ $gnpub_google_rev_snippet_name = isset($gnpub_options['gnpub_google_rev_snippet_
   <?php } ?>
 
   </div>
-<div id="gn-license" class="gn-tabcontent">
+<div id="gn-license" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-license' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
 <?php if(defined('GNPUB_PRO_VERSION')){
    do_action('gnpub_pro_license_form');
  } 

@@ -11,7 +11,13 @@ function twenty20_zb_enqueue_script() {
   // Twenty20 Event Move Script
   wp_enqueue_script( 'twenty20-eventmove', ZB_T20_URL . '/assets/js/jquery.event.move.js', array( 'jquery' ), ZB_T20_VER, true );
 
-}
+  // Ensure the scripts and styles load in Elementor editor as well
+  if ( \Elementor\Plugin::instance()->editor->is_edit_mode() ) {
+    wp_enqueue_style( 'twenty20-elementor-style' );
+    wp_enqueue_script( 'twenty20-elementor-script' );
+  }
+
+} 
 add_action( 'wp_enqueue_scripts', 'twenty20_zb_enqueue_script');
 
 function twenty20_zb_include_media_button_js_file() {

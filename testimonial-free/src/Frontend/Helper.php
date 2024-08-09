@@ -159,6 +159,58 @@ class Helper {
 		return $post_query;
 	}
 
+		/**
+		 * The load google fonts function merge all fonts from shortcodes.
+		 *
+		 * @param  array $typography store the all shortcode typography.
+		 * @return array
+		 */
+	public static function load_google_fonts( $typography ) {
+		$enqueue_fonts = array();
+		if ( ! empty( $typography ) ) {
+			foreach ( $typography as $font ) {
+				if ( isset( $font['type'] ) && 'google' === $font['type'] ) {
+					$weight          = isset( $font['font-weight'] ) ? ( ( 'normal' !== $font['font-weight'] ) ? ':' . $font['font-weight'] : ':400' ) : ':400';
+					$style           = isset( $font['font-style'] ) ? substr( $font['font-style'], 0, 1 ) : '';
+					$enqueue_fonts[] = str_replace( ' ', '+', $font['font-family'] ) . $weight . $style;
+				}
+			}
+		}
+		$enqueue_fonts = array_unique( $enqueue_fonts );
+		return $enqueue_fonts;
+	}
+
+	/**
+	 * Load dynamic style of the existing shortcode id.
+	 *
+	 * @param  mixed $found_generator_id to push id option for getting how many shortcode in the page.
+	 * @param  mixed $form_data to push all options.
+	 * @param  mixed $setting_options gets option of the plugin.
+	 * @return array dynamic style and typography use in the specific shortcode.
+	 */
+	public static function load_form_dynamic_style( $found_generator_id, $form_data = '', $setting_options = '' ) {
+		$dequeue_google_fonts = isset( $setting_options['tpro_dequeue_google_fonts'] ) ? $setting_options['tpro_dequeue_google_fonts'] : true;
+		$form_style           = '';
+		$tpro_typography      = array();
+		// If multiple shortcode found in the page .
+		$form_id     = $found_generator_id;
+		$form_fields = isset( $form_data['form_fields'] ) ? $form_data['form_fields'] : null;
+		$testimonial = isset( $form_fields['testimonial'] ) ? $form_fields['testimonial'] : null;
+		include SP_TFREE_PATH . 'Frontend/Views/partials/form-style.php';
+		// Custom css merge with dynamic style.
+		$custom_css = isset( $setting_options['custom_css'] ) ? trim( html_entity_decode( $setting_options['custom_css'] ) ) : '';
+		if ( ! empty( $custom_css ) ) {
+			$form_style .= $custom_css;
+		}
+		// Google font enqueue dequeue check.
+		$tpro_typography = $dequeue_google_fonts ? $tpro_typography : array();
+		$dynamic_style   = array(
+			'dynamic_css' => self::minify_output( $form_style ),
+			'typography'  => $tpro_typography,
+		);
+		return $dynamic_style;
+	}
+
 	/**
 	 * Testimonial items
 	 *
@@ -420,7 +472,6 @@ class Helper {
 
 		$required_notice       = isset( $form_data['required_notice'] ) ? $form_data['required_notice'] : '';
 		$required_notice_label = isset( $form_data['notice_label'] ) ? $form_data['notice_label'] : '';
-
 		// $rating                     = $form_fields['rating'];
 		$submit_btn = $form_fields['submit_btn'];
 		// Testimonial submit form.
@@ -429,7 +480,7 @@ class Helper {
 		$form_style = '';
 		include SP_TFREE_PATH . 'Frontend/Views/partials/form-style.php';
 		echo '<style>' . wp_strip_all_tags( $form_style ) . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		include self::sp_testimonial_locate_template( 'form.php' );
 	}
 }

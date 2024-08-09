@@ -309,25 +309,28 @@ class WPBC_Page_Settings__bresources extends WPBC_Page_Structure {
             <table class="table table-striped widefat " cellspacing="0" cellpadding="0">
                 <thead class="wpbc_selectable_head">
                     <tr>
-                        <th class="check-column"><input type="checkbox" value="" id="br-select-all" name="resource_id_all"></th>
-	                    <th class="wpbc_hide_mobile" style="width:5em;"><a href="javascript:void(0);">ID <span class="wpbc_icn_swap_vert" aria-hidden="true"></span></a></th>
-	                    <th style=""><a href="javascript:void(0);"><?php _e( 'Resource Name', 'booking' ); ?> <span aria-hidden="true" class=" wpbc_icn_vertical_align_top"></span></a></th>
-	                    <th class="wpbc_hide_mobile" style="text-align:center;"><?php _e( 'Shortcode for page', 'booking' ); ?></th>
+	                    <th class="" style="width:5em;text-align: center;"><span href="javascript:void(0);">ID </span></th>
+	                    <th class="wpbc_hide_mobile"><span href="javascript:void(0);"><?php _e( 'Resource Name', 'booking' ); ?> </span></th>
+	                    <th class="" style="text-align:center;"><?php _e( 'Shortcode for page', 'booking' ); ?></th>
 	                    <th class="" style="text-align:center;"><?php _e( 'Actions', 'booking' ); ?></th>
                     </tr>
                 </thead>
 	            <tbody class="wpbc_selectable_body">
 	            <tr class="wpbc_row wpbc_resource_row" id="resource_1">
-		            <th class="check-column">
-			            <label class="screen-reader-text" for="br-select-1"><?php _e( 'Select Booking Resource', 'booking' ); ?></label>
-			            <input type="checkbox" id="br-select-1" name="br-select-1" value="resource_1">
-		            </th>
-		            <td class="wpbc_hide_mobile">1</td>
-		            <td>
+					<td style="background: transparent;border: none;box-shadow: none;margin: 16px 0 0;padding: 0;display: flex;flex-flow: column;justify-content: center;align-items: center;width: 100%;"
+						class="wpbc_hide_mobile wpbc_flextable">
+						<div class="wpbc_flextable_col wpbc_flextable_col_id">
+							<div class="wpbc_listing_col wpbc_col_booking_labels wpbc_col_labels wpbc_label_resource_id_container">
+								<span class="wpbc_label wpbc_label_booking_id wpbc_label_resource_id">1</span>
+							</div>
+						</div>
+					</td>
+		            <td class="wpbc_hide_mobile">
 			            <input type="text" value="Default" id="booking_resource_1" name="booking_resource_1"
-			                   style="float:right;width:100%;font-weight:600;color: #aaa;" disabled="disabled"
+			                   style="float:right;width:100%;font-weight:600;color: #aaa;height: 32px;" disabled="disabled"
 			                   class="large-text disabled">
 		            </td>
+					<?php /* ?>
 		            <td class="wpbc_hide_mobile">
 						<div class="wpbc_ajx_toolbar" style="display: flex;flex-flow: row wrap;justify-content: center;align-items: center;margin: 0;">
 							<div class="ui_container    ui_container_toolbar		ui_container_small    ui_container_options    ui_container_actions_row_1"
@@ -355,12 +358,62 @@ class WPBC_Page_Settings__bresources extends WPBC_Page_Structure {
 						</div>
 		            </td>
 		            <td class="" style="text-align: center;">
+						<div class="ui_element" style="margin: 0 15px 0 0;">
+							<a href="javascript:void(0)" onclick="javascript:wpbc_resource_page_btn_click(1);"
+							   id="ui_btn_erase_availability" class="wpbc_ui_control wpbc_ui_button wpbc_ui_button_danger0 tooltip_top "
+							   title="<?php esc_attr_e( 'Customize Booking Calendar shortcode','booking'); ?>"  >
+									<span style="display: none;"><?php _e('Customize','booking'); ?>&nbsp;&nbsp;&nbsp;</span>
+									<i class="menu_icon icon-1x wpbc_icn_tune"></i>
+							</a>
+						</div>
 			            <a href="javascript:void(0);"
 			               onclick="javascript: wpbc_modal_dialog__show__resource_publish( 1 );"
 			               class="button button-primary tooltip_top"
 						   title="<?php esc_attr_e('Embed your booking form into the page', 'booking'); ?>"
 						><?php _e( 'Publish', 'booking' ); ?></a>
 		            </td>
+ 					<?php */
+					//FixIn: 10.3.0.8
+					?>
+					<td colspan="2" class="wpbc_flextable_col">
+						<div class="wpbc_ajx_toolbar">
+							<div class="ui_container ui_container_small">
+								<div class="ui_group ui_group__shortcode">
+									<div class="ui_element" style="flex: 1 1 auto;margin: 0;">
+										<div id="div_booking_resource_shortcode_1" name="div_booking_resource_shortcode_1" class="shortcode_text_field large-text put-in">
+											[booking resource_id=1]
+										</div>
+										<input type="hidden" value="[booking resource_id=1]" id="booking_resource_shortcode_1" name="booking_resource_shortcode_1">
+									</div>
+									<div class="ui_element" style="margin-left: 0px;margin-right: 0px;">
+									   <a href="https://wpbookingcalendar.com/faq/#shortcodes"
+										  class="tooltip_top wpbc-bi-question-circle"
+										  data-original-title="<?php echo esc_attr( __('Learn how to integrate the booking form into a page using the shortcode.','booking') ); ?>"></a>
+									</div>
+								</div>
+								<div class="ui_group ui_group__publish_btn">
+									<div class="ui_element" style="margin: 0 15px 0 0;">
+										<a href="javascript:void(0)" onclick="javascript:wpbc_resource_page_btn_click(1);"
+										   id="ui_btn_erase_availability"
+										   class="wpbc_ui_control wpbc_ui_button wpbc_ui_button_danger0 tooltip_top "
+										   data-original-title="<?php echo esc_attr( __('Customize Booking Calendar shortcode','booking') ); ?>">
+												<span style="display: none;"><?php _e('Customize','booking'); ?>&nbsp;&nbsp;&nbsp;</span>
+												<i class="menu_icon icon-1x wpbc_icn_tune"></i>
+										</a>
+									</div>
+									<div class="ui_element" style="margin: 0 2px 0 0;">
+										<a class="wpbc_ui_control wpbc_ui_button wpbc_ui_button_primary tooltip_top "
+										   href="javascript:void(0);"
+										   onclick="javascript: wpbc_modal_dialog__show__resource_publish( 1 );"
+										   data-original-title="<?php echo esc_attr( __('Embed your booking form into the page','booking') ); ?>">
+											<span><?php _e('Publish','booking'); ?></span>
+											<i class="menu_icon icon-1x wpbc_icn_tune" style="display: none;"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 	            </tr>
 	            </tbody>
 	            <tfoot class="wpbc_selectable_foot">

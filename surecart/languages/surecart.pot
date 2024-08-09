@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-22T18:27:42+00:00\n"
+"POT-Creation-Date: 2024-08-08T19:54:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -943,7 +943,7 @@ msgstr ""
 #: src/Controllers/Admin/Products/ProductsListTable.php:306
 #: src/Controllers/Admin/Upsells/UpsellsListTable.php:188
 #: invoices/store/entities.js:70
-#: products/modules/Prices/NewPrice/index.js:144
+#: products/modules/Prices/NewPrice/index.js:142
 #: products/modules/Prices/Price/Header.js:85
 #: store/add-entities.js:418
 #: store/add-entities.js:425
@@ -2470,7 +2470,7 @@ msgid "You do not have permission to access this page."
 msgstr ""
 
 #: src/Middleware/UpsellMiddleware.php:21
-#: sc-cart-form.js:123
+#: sc-cart-form.js:124
 #: sc-dashboard-module2.js:17
 #: sc-paypal-add-method.js:109
 #: sc-paystack-add-method.js:72
@@ -6433,7 +6433,7 @@ msgstr[1] ""
 #: products/modules/Image/ConfirmDeleteImage.js:53
 #: products/modules/integrations/NewIntegration.js:233
 #: products/modules/Inventory/StockAdjustmentModal.js:136
-#: products/modules/Prices/NewPrice/index.js:198
+#: products/modules/Prices/NewPrice/index.js:196
 #: products/modules/Prices/Price/index.js:257
 #: products/modules/Upgrades.js:130
 #: products/modules/Variations/NewVariant.js:198
@@ -6930,7 +6930,8 @@ msgstr ""
 #: Blocks/Dashboard/CustomerBillingDetails/edit.js:71
 #: sc-customer-details2.js:43
 #: sc-customer-edit.js:113
-#: sc-order-billing-address.js:104
+#: sc-form-components-validator2.js:131
+#: sc-order-billing-address2.js:104
 msgid "Billing Address"
 msgstr ""
 
@@ -6974,8 +6975,7 @@ msgstr ""
 #: settings/account/AccountSettings.js:424
 #: settings/tax/TaxSettings.js:137
 #: sc-address2.js:122
-#: sc-form-components-validator2.js:127
-#: sc-order-billing-address.js:32
+#: sc-order-billing-address2.js:32
 #: sc-order-shipping-address2.js:45
 #: sc-order-shipping-address2.js:55
 msgid "Address"
@@ -9532,6 +9532,7 @@ msgstr ""
 #: Blocks/Dashboard/CustomerBillingDetails/edit.js:60
 #: sc-customer-details2.js:43
 #: sc-customer-edit.js:98
+#: sc-form-components-validator2.js:129
 #: sc-order-shipping-address2.js:113
 msgid "Shipping Address"
 msgstr ""
@@ -10439,11 +10440,11 @@ msgstr ""
 msgid "Payments"
 msgstr ""
 
-#: products/components/price/Multiple.js:50
+#: products/components/price/Multiple.js:49
 msgid "Revoke access when installments are completed"
 msgstr ""
 
-#: products/components/price/Multiple.js:55
+#: products/components/price/Multiple.js:54
 msgid "Automatically revoke access to integrations and licenses after all payments are completed."
 msgstr ""
 
@@ -10487,29 +10488,29 @@ msgstr ""
 msgid "Monthly, Basic Plan, etc."
 msgstr ""
 
-#: products/components/price/parts/RecurringAmount.js:22
+#: products/components/price/parts/RecurringAmount.js:23
 msgid "then cancels"
 msgstr ""
 
-#: products/components/price/parts/RecurringAmount.js:45
+#: products/components/price/parts/RecurringAmount.js:46
 msgid "Repeat payment every"
 msgstr ""
 
-#: products/components/price/parts/RecurringAmount.js:87
+#: products/components/price/parts/RecurringAmount.js:88
 #: util.js:82
 msgid "Day"
 msgstr ""
 
-#: products/components/price/parts/RecurringAmount.js:91
+#: products/components/price/parts/RecurringAmount.js:92
 msgid "Week"
 msgstr ""
 
-#: products/components/price/parts/RecurringAmount.js:95
+#: products/components/price/parts/RecurringAmount.js:96
 #: util.js:83
 msgid "Month"
 msgstr ""
 
-#: products/components/price/parts/RecurringAmount.js:99
+#: products/components/price/parts/RecurringAmount.js:100
 #: util.js:84
 msgid "Year"
 msgstr ""
@@ -11021,7 +11022,7 @@ msgid "Set up pricing for your product."
 msgstr ""
 
 #: products/modules/Prices/index.js:92
-#: products/modules/Prices/NewPrice/index.js:98
+#: products/modules/Prices/NewPrice/index.js:96
 msgid "Add A Price"
 msgstr ""
 
@@ -11029,25 +11030,25 @@ msgstr ""
 msgid "Price added."
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:128
+#: products/modules/Prices/NewPrice/index.js:126
 msgid "Payment type"
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:136
+#: products/modules/Prices/NewPrice/index.js:134
 #: products/modules/Prices/Price/Header.js:88
 #: Blocks/Product/PriceChoices/edit.js:99
 msgid "One Time"
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:140
+#: products/modules/Prices/NewPrice/index.js:138
 msgid "Installment"
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:190
+#: products/modules/Prices/NewPrice/index.js:188
 msgid "Create Price"
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:216
+#: products/modules/Prices/NewPrice/index.js:214
 #: products/modules/Prices/Price/index.js:280
 msgid "Tax is included"
 msgstr ""
@@ -13559,7 +13560,7 @@ msgstr ""
 #: settings/tax-region/RegistrationForm.js:35
 #: Blocks/Address/edit.js:195
 #: sc-address2.js:122
-#: sc-order-billing-address.js:30
+#: sc-order-billing-address2.js:30
 #: sc-order-shipping-address2.js:43
 #: sc-order-shipping-address2.js:53
 msgid "Country"
@@ -19834,21 +19835,21 @@ msgid "Not redeemable"
 msgstr ""
 
 #: sc-address2.js:119
-#: sc-order-billing-address.js:29
+#: sc-order-billing-address2.js:29
 #: sc-order-shipping-address2.js:42
 #: sc-order-shipping-address2.js:52
 msgid "Name or Company Name"
 msgstr ""
 
 #: sc-address2.js:122
-#: sc-order-billing-address.js:33
+#: sc-order-billing-address2.js:33
 #: sc-order-shipping-address2.js:46
 #: sc-order-shipping-address2.js:56
 msgid "Address Line 2"
 msgstr ""
 
 #: sc-address2.js:122
-#: sc-order-billing-address.js:31
+#: sc-order-billing-address2.js:31
 #: sc-order-shipping-address2.js:44
 #: sc-order-shipping-address2.js:54
 msgid "City"
@@ -19856,14 +19857,14 @@ msgstr ""
 
 #: sc-address2.js:122
 #: sc-compact-address2.js:117
-#: sc-order-billing-address.js:34
+#: sc-order-billing-address2.js:34
 #: sc-order-shipping-address2.js:47
 #: sc-order-shipping-address2.js:57
 msgid "Postal Code/Zip"
 msgstr ""
 
 #: sc-address2.js:122
-#: sc-order-billing-address.js:35
+#: sc-order-billing-address2.js:35
 #: sc-order-shipping-address2.js:48
 #: sc-order-shipping-address2.js:58
 msgid "State/Province/Region"
@@ -19980,11 +19981,11 @@ msgstr ""
 msgid "Your payment is processing. Exiting this page could cause an error in your order. Please do not navigate away from this page."
 msgstr ""
 
-#: sc-checkout.js:192
+#: sc-checkout.js:194
 msgid "Due to processor restrictions, only one checkout form is allowed on the page."
 msgstr ""
 
-#: sc-checkout.js:199
+#: sc-checkout.js:201
 msgid "Processing payment..."
 msgstr ""
 
@@ -20048,7 +20049,7 @@ msgid "You don't have any billing information."
 msgstr ""
 
 #: sc-customer-edit.js:113
-#: sc-order-billing-address.js:37
+#: sc-order-billing-address2.js:37
 msgid "Billing address is same as shipping"
 msgstr ""
 

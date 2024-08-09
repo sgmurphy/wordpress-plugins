@@ -1,5 +1,5 @@
 <?php 
-$str = esc_attr__('Show when user tries to exit from your site.', 'woo-product-filter') . '<a target="_blank" href="https://woobewoo.com/exit-popup/?utm_source=plugin&utm_medium=onexit&utm_campaign=popup">' . esc_attr__('Check example', 'woo-product-filter') . '.</a>'; 
+$str = esc_attr__('Show when user tries to exit from your site.', 'woo-product-filter') . '<a target="_blank" href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/exit-popup/?utm_source=plugin&utm_medium=onexit&utm_campaign=popup') . '" class="wupsales-wc-hidden">' . esc_attr__('Check example', 'woo-product-filter') . '</a>'; 
 ?>
 
 <label class="woobewoo-tooltip-right" title="<?php echo esc_attr($str); ?>">

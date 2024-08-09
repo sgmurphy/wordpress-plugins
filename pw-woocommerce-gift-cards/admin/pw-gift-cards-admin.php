@@ -179,7 +179,7 @@ final class PW_Gift_Cards_Admin {
     }
 
     function ajax_hide_paypal_ipn_pdt_bug_notice() {
-        update_option( 'pwgc_hide_paypal_ipn_pdt_bug_notice', true );
+        update_option( 'pwgc_hide_paypal_ipn_pdt_bug_notice', true, false );
         wp_send_json_success();
     }
 
@@ -676,7 +676,7 @@ final class PW_Gift_Cards_Admin {
             $designs[0][ $key ] = isset( $form[ $key ] ) ? wc_clean( $form[ $key ] ) : '';
         }
 
-        update_option( 'pw_gift_card_designs_free', $designs );
+        update_option( 'pw_gift_card_designs_free', $designs, false );
 
         $html = '<span style="color: blue;">' . __( 'Design saved.', 'pw-woocommerce-gift-cards' ) . '</span>';
 

@@ -194,13 +194,13 @@ class mo_openid_login_wid extends WP_Widget {
 				if ( empty( $customLogoutName ) || empty( $customLogoutLink ) ) {
 					?>
 				<div id="logged_in_user" class="mo_openid_login_wid">
-					<li><?php echo esc_attr( $link_with_username ); ?> <a href="<?php echo esc_url( wp_logout_url( site_url() ) ); ?>" title="<?php esc_attr_e( 'Logout', 'flw' ); ?>"><?php esc_attr_e( $customLogoutLink, 'flw' ); ?></a></li>
+					<li><?php echo esc_attr( $link_with_username ); ?> <a href='<?php echo esc_url( wp_logout_url( site_url() ) ); ?>' title='<?php esc_attr_e( 'Logout', 'flw' ); ?>'><?php esc_attr_e( $customLogoutLink, 'flw' ); ?></a></li>
 				</div>
 					<?php
 				} else {
 					?>
 				<div id="logged_in_user" class="mo_openid_login_wid">
-					<li><?php echo esc_attr( $link_with_username ); ?> <a href="<?php echo esc_url( wp_logout_url( site_url() ) ); ?>" title="<?php esc_attr_e( 'Logout', 'flw' ); ?>"><?php esc_attr_e( $customLogoutLink, 'flw' ); ?></a></li>
+					<li><?php echo esc_attr( $link_with_username ); ?> <a href='<?php echo esc_url( wp_logout_url( site_url() ) ); ?>' title='<?php esc_attr_e( 'Logout', 'flw' ); ?>'><?php esc_attr_e( $customLogoutLink, 'flw' ); ?></a></li>
 				</div>
 					<?php
 				}
@@ -669,6 +669,9 @@ class mo_openid_login_wid extends WP_Widget {
 				if ( $app == 'vkontakte' ) {
 					 $icon = 'vk';
 				}
+				if ( $app == 'linkedin_oidc' ) {
+					$icon = 'linkedin';
+			   }
 				if ( $selected_theme == 'longbutton' ) {
 					$html .= '<a    ' . $gdpr_setting . '';
 					if ( $app_dis != 'disable' ) {
@@ -696,6 +699,9 @@ class mo_openid_login_wid extends WP_Widget {
 				if ( $app == 'vkontakte' ) {
 					 $icon = 'vk';
 				}
+				if ( $app == 'linkedin_oidc' ) {
+					$icon = 'linkedin';
+			   }
 				if ( $selected_theme == 'longbutton' ) {
 					$html .= '<a  ' . $gdpr_setting . '';
 					if ( $app_dis != 'disable' ) {
@@ -726,6 +732,9 @@ class mo_openid_login_wid extends WP_Widget {
 				if ( $app == 'vkontakte' ) {
 					 $icon = 'vk';
 				}
+				if ( $app == 'linkedin_oidc' ) {
+					$icon = 'linkedin';
+			   }
 				if ( $selected_theme == 'longbutton' ) {
 					$html .= '<a ' . $gdpr_setting . " style='border-color:#000000; margin-left: " . $spacebetweenicons . 'px !important;width: ' . $customWidth . ' !important;padding-top:' . ( $customHeight - 29 ) . 'px !important;padding-bottom:' . ( $customHeight - 29 ) . 'px !important;margin-bottom: ' . ( $spacebetweenicons - 5 ) . 'px !important;border-radius: ' . $customBoundary . "px !important;'";
 					if ( $view == 'horizontal' ) {
@@ -751,6 +760,9 @@ class mo_openid_login_wid extends WP_Widget {
 				if ( $app == 'vkontakte' ) {
 					 $icon = 'vk';
 				}
+				if ( $app == 'linkedin_oidc' ) {
+					$icon = 'linkedin';
+			   }
 				if ( $selected_theme == 'longbutton' ) {
 					$html .= '<a  ' . $gdpr_setting . ''; if ( $app_dis != 'disable' ) {
 						$html .= " onMouseOver=\"this.style.color= 'white';this.style.background= '#" . $customHoverBackground . "';\"
@@ -778,6 +790,9 @@ class mo_openid_login_wid extends WP_Widget {
 				if ( $app == 'vkontakte' ) {
 					 $icon = 'vk';
 				}
+				if ( $app == 'linkedin_oidc' ) {
+					$icon = 'linkedin';
+			   }
 				if ( $selected_theme == 'longbutton' ) {
 					$html .= '<a ' . $gdpr_setting . '';
 					if ( $app_dis != 'disable' ) {

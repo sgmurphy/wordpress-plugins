@@ -58,10 +58,11 @@ elseif($active_tab ==  'system-status'){
          'system-status' => __( 'System Status', 'gsconnector' ),
          );
        echo '<div id="icon-themes" class="icon32"><br></div>';
-       echo '<h2 class="nav-tab-wrapper">';
+       echo '<h2 class="nav-tab-wrapper inner-title">';
        foreach( $tabs as $tab => $name ){
            $class = ( $tab == $active_tab ) ? ' nav-tab-active' : '';
-           echo "<a class='nav-tab$class' href='?page=wpcf7-google-sheet-config&tab=$tab'>$name</a>";
+           echo "<a class='nav-tab$class' href='?page=wpcf7-google-sheet-config&tab=$tab' style=' box-shadow: 0 0 0 0px #fff  !important;
+  outline: 0px solid transparent !important;'>$name</a>";
 
        }
        echo '</h2>';

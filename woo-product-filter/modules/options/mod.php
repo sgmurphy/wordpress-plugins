@@ -70,9 +70,9 @@ class OptionsWpf extends ModuleWpf {
 		$tabs['settings'] = array(
 			'label' => esc_html__('Settings', 'woo-product-filter'), 'callback' => array($this, 'getSettingsTabContent'), 'fa_icon' => 'fa-gear', 'sort_order' => 30,
 		);
-		if (!FrameWpf::_()->isPro()) {
+		if (!(FrameWpf::_()->moduleExists('license') && FrameWpf::_()->getModule('license')) && !FrameWpf::_()->isWCLicense()) {
 			$tabs['gopro'] = array(
-				'label' => esc_html__('Go PRO', 'woo-product-filter'), 'callback' => 'https://woobewoo.com/plugins/woocommerce-filter/#license', 'blank' => true, 'fa_icon' => 'fa-star', 'sort_order' => 998,
+				'label' => esc_html__('Go PRO', 'woo-product-filter'), 'callback' => 'https://' . WPF_WP_PLUGIN_URL . '/plugins/woocommerce-filter/#license', 'blank' => true, 'fa_icon' => 'fa-star', 'sort_order' => 998,
 			);
 		}
 		return $tabs;

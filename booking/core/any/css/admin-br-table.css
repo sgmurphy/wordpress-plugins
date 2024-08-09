@@ -15,7 +15,7 @@
 .wpbc_resources_table .table,
 .wpbc_resources_table .table.widefat  {
     border: 0px solid #bbb;
-    box-shadow: 0 0 2px #aaa;
+    box-shadow: 0 0 1px #aaa;
 }
 .wpbc_resources_table table > thead > tr > th {
    background-color: #ffffff;
@@ -23,7 +23,7 @@
 }
 .wpdevelop.wpbc_resources_table table > tfoot > tr > th {
    background-color: #ffffff;
-   border-top: 2px solid #e5e5e5;
+   border-top: 1px solid #e5e5e5;
 }
 .wpbc_resources_table thead th,
 .wpbc_resources_table tfoot th {

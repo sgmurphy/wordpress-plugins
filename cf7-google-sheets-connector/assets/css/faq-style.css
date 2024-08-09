@@ -365,10 +365,10 @@ Main components
   margin: 1.6em 0 .4em;
   line-height: 1.2;
 }
-a:focus {     
+/*a:focus {     
   box-shadow: 0 0 0 0px #fff  !important;
   outline: 0px solid transparent !important;
-}
+}*/
 	
 @media only screen and (min-width: 768px) {
   .cd-faq-trigger {

@@ -409,7 +409,7 @@ function wpbc_toolbar_btn__view_mode() {
                                            );
     $params['btn_vm_calendar'] = array(
                                   'title' => ''
-                                , 'hint' => array( 'title' => __('Calendar Overview' ,'booking') , 'position' => 'bottom' )
+                                , 'hint' => array( 'title' => __('Timeline View' ,'booking') , 'position' => 'bottom' )
                                 , 'selected' => ( $selected_view_mode == 'vm_calendar' ) ? true : false
                                 , 'link' => $bk_admin_url . '&view_mode=vm_calendar'
                                 , 'icon' => ''
@@ -737,7 +737,7 @@ function wpbc_toolbar_btn__timeline_navigation() {
                                             , 'hint' => array( 'title' => $scroll_titles[0] , 'position' => 'top' ) // Hint
                                             , 'link' => $bk_admin_url .$scroll_params[0]                // Direct link or skip  it
                                             , 'action' => ""                                            // Some JavaScript to execure, for example run  the function
-                                            , 'class' => 'button-secondary'                             // button-secondary  | button-primary
+                                            , 'class' => 'button-secondary wpbc_button_no_background'                             // button-secondary  | button-primary
                                             , 'icon' => ''
                                             , 'font_icon' => 'wpbc_icn_keyboard_double_arrow_left'
                                             , 'icon_position' => 'left'                                // Position  of icon relative to Text: left | right
@@ -751,7 +751,7 @@ function wpbc_toolbar_btn__timeline_navigation() {
                                             , 'hint' => array( 'title' => $scroll_titles[1] , 'position' => 'top' ) // Hint
                                             , 'link' => $bk_admin_url .$scroll_params[1]                // Direct link or skip  it
                                             , 'action' => ""                                            // Some JavaScript to execure, for example run  the function
-                                            , 'class' => 'button-secondary'                             // button-secondary  | button-primary
+                                            , 'class' => 'button-secondary wpbc_button_no_background'                             // button-secondary  | button-primary
                                             , 'icon' => ''
                                             , 'font_icon' => 'wpbc_icn_keyboard_arrow_left'
                                             , 'icon_position' => 'left'                                // Position  of icon relative to Text: left | right
@@ -764,7 +764,7 @@ function wpbc_toolbar_btn__timeline_navigation() {
                                             , 'id' => 'timeline_navigation_date'
                                             , 'title' => ''                                              // Title of the button
                                             , 'hint' => array( 'title' => __('Custom' ,'booking') , 'position' => 'top' ) // Hint
-                                            , 'class' => 'button-secondary'                             // button-secondary  | button-primary
+                                            , 'class' => 'button-secondary wpbc_button_no_background'                             // button-secondary  | button-primary
                                             , 'icon' => ''
                                             , 'font_icon' => 'wpbc_icn_gps_fixed'
                                             , 'icon_position' => 'left'                                // Position  of icon relative to Text: left | right
@@ -836,7 +836,7 @@ function wpbc_toolbar_btn__timeline_navigation() {
                                             , 'hint' => array( 'title' => $scroll_titles[3] , 'position' => 'top' ) // Hint
                                             , 'link' => $bk_admin_url .$scroll_params[3]                // Direct link or skip  it
                                             , 'action' => ""                                            // Some JavaScript to execure, for example run  the function
-                                            , 'class' => 'button-secondary'                             // button-secondary  | button-primary
+                                            , 'class' => 'button-secondary wpbc_button_no_background'                             // button-secondary  | button-primary
                                             , 'icon' => ''
                                             , 'font_icon' => 'wpbc_icn_keyboard_arrow_right'
                                             , 'icon_position' => 'left'                                // Position  of icon relative to Text: left | right
@@ -850,7 +850,7 @@ function wpbc_toolbar_btn__timeline_navigation() {
                                             , 'hint' => array( 'title' => $scroll_titles[4] , 'position' => 'top' ) // Hint
                                             , 'link' => $bk_admin_url .$scroll_params[4]                // Direct link or skip  it
                                             , 'action' => ""                                            // Some JavaScript to execure, for example run  the function
-                                            , 'class' => 'button-secondary'                             // button-secondary  | button-primary
+                                            , 'class' => 'button-secondary wpbc_button_no_background'                             // button-secondary  | button-primary
                                             , 'icon' => ''
                                             , 'font_icon' => 'wpbc_icn_keyboard_double_arrow_right'
                                             , 'icon_position' => 'left'                                // Position  of icon relative to Text: left | right

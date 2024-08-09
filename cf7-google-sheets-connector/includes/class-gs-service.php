@@ -241,7 +241,7 @@ class Gs_Connector_Service {
         $system_info .= '</div>';
          // Add WordPress info
         // Create a button for WordPress info
-        $system_info .= '<h2><button id="show-wordpress-info-button" class="info-button">WordPress Info<span class="dashicons dashicons-arrow-down"></span></h2>';
+        $system_info .= '<h2 class="inner-title"><button id="show-wordpress-info-button" class="info-button">WordPress Info<span class="dashicons dashicons-arrow-down"></span></h2>';
         $system_info .= '<div id="wordpress-info-container" class="info-content" style="display:none;">';
         $system_info .= '<h3>WordPress Info</h3>';
         $system_info .= '<table>';
@@ -276,7 +276,7 @@ class Gs_Connector_Service {
         // info about active theme
         $active_theme = wp_get_theme();
 
-        $system_info .= '<h2><button id="show-active-info-button" class="info-button">Active Theme<span class="dashicons dashicons-arrow-down"></span></h2>';
+        $system_info .= '<h2 class="inner-title"><button id="show-active-info-button" class="info-button">Active Theme<span class="dashicons dashicons-arrow-down"></span></h2>';
         $system_info .= '<div id="active-info-container" class="info-content" style="display:none;">';
         $system_info .= '<h3>Active Theme</h3>';
         $system_info .= '<table>';
@@ -298,7 +298,7 @@ class Gs_Connector_Service {
         if (is_multisite()) {
            $network_active_plugins = get_site_option('active_sitewide_plugins', array());
            if (!empty($network_active_plugins)) {
-               $system_info .= '<h2><button id="show-netplug-info-button" class="info-button">Network Active plugins<span class="dashicons dashicons-arrow-down"></span></h2>';
+               $system_info .= '<h2 class="inner-title"><button id="show-netplug-info-button" class="info-button">Network Active plugins<span class="dashicons dashicons-arrow-down"></span></h2>';
                $system_info .= '<div id="netplug-info-container" class="info-content" style="display:none;">';
                $system_info .= '<h3>Network Active plugins</h3>';
                $system_info .= '<table>';
@@ -312,7 +312,7 @@ class Gs_Connector_Service {
            }
         }
         // Active plugins
-        $system_info .= '<h2><button id="show-acplug-info-button" class="info-button">Active plugins<span class="dashicons dashicons-arrow-down"></span></h2>';
+        $system_info .= '<h2 class="inner-title"><button id="show-acplug-info-button" class="info-button">Active plugins<span class="dashicons dashicons-arrow-down"></span></h2>';
         $system_info .= '<div id="acplug-info-container" class="info-content" style="display:none;">';
         $system_info .= '<h3>Active plugins</h3>';
         $system_info .= '<table>';
@@ -354,7 +354,7 @@ class Gs_Connector_Service {
         $system_info .= '</table>';
         $system_info .= '</div>';
         // Webserver Configuration
-        $system_info .= '<h2><button id="show-server-info-button" class="info-button">Server<span class="dashicons dashicons-arrow-down"></span></h2>';
+        $system_info .= '<h2 class="inner-title"><button id="show-server-info-button" class="info-button">Server<span class="dashicons dashicons-arrow-down"></span></h2>';
         $system_info .= '<div id="server-info-container" class="info-content" style="display:none;">';
         $system_info .= '<h3>Server</h3>';
         $system_info .= '<table>';
@@ -382,7 +382,7 @@ class Gs_Connector_Service {
         $system_info .= '</div>';
 
         // Database Configuration
-        $system_info .= '<h2><button id="show-database-info-button" class="info-button">Database<span class="dashicons dashicons-arrow-down"></span></h2>';
+        $system_info .= '<h2 class="inner-title"><button id="show-database-info-button" class="info-button">Database<span class="dashicons dashicons-arrow-down"></span></h2>';
         $system_info .= '<div id="database-info-container" class="info-content" style="display:none;">';
         $system_info .= '<h3>Database</h3>';
         $system_info .= '<table>';
@@ -413,7 +413,7 @@ class Gs_Connector_Service {
         $system_info .= '</div>';
 
         // wordpress constants
-        $system_info .= '<h2><button id="show-wrcons-info-button" class="info-button">WordPress Constants<span class="dashicons dashicons-arrow-down"></span></h2>';
+        $system_info .= '<h2 class="inner-title"><button id="show-wrcons-info-button" class="info-button">WordPress Constants<span class="dashicons dashicons-arrow-down"></span></h2>';
         $system_info .= '<div id="wrcons-info-container" class="info-content" style="display:none;">';
         $system_info .= '<h3>WordPress Constants</h3>';
         $system_info .= '<table>';
@@ -446,7 +446,7 @@ class Gs_Connector_Service {
         $system_info .= '</div>';
 
         // Filesystem Permission
-        $system_info .= '<h2><button id="show-ftps-info-button" class="info-button">Filesystem Permission <span class="dashicons dashicons-arrow-down"></span></button></h2>';
+        $system_info .= '<h2 class="inner-title"><button id="show-ftps-info-button" class="info-button">Filesystem Permission <span class="dashicons dashicons-arrow-down"></span></button></h2>';
         $system_info .= '<div id="ftps-info-container" class="info-content" style="display:none;">';
         $system_info .= '<h3>Filesystem Permission</h3>';
         $system_info .= '<p>Shows whether WordPress is able to write to the directories it needs access to.</p>';
@@ -793,7 +793,8 @@ class Gs_Connector_Service {
             class="ui-tabs-tab ui-corner-top ui-state-default ui-tab cf7-sub-tab-active cf7-sub-tab-single-li"
             aria-controls="form-panel" aria-labelledby="ui-id-1" aria-selected="false" aria-expanded="false"
             onClick="sigle_multi_tab('cf7-sub-tab-single')">
-            <a href="#form-panel" tabindex="-1" class="ui-tabs-anchor"
+            <a href="#form-panel" tabindex="-1" style='box-shadow: 0 0 0 0px #fff  !important;
+             outline: 0px solid transparent !important;' class="ui-tabs-anchor"
                 id="cf7-sub-tab-single"><?php echo esc_html( __('Single
                 Sheet Connection', 'gsconnector' ) ); ?></a>
         </li>
@@ -801,7 +802,8 @@ class Gs_Connector_Service {
             class="ui-tabs-tab ui-corner-top ui-state-default ui-tab cf7-sub-tab-multi-li" aria-controls="form-panel"
             aria-labelledby="ui-id-1" aria-selected="false" aria-expanded="false"
             onClick="sigle_multi_tab('cf7-sub-tab-multi')"><a href="#form-panel-multi" tabindex="-1"
-                class="ui-tabs-anchor" id="cf7-sub-tab-multi"><?php echo esc_html( __('Multi Sheet
+               style=' box-shadow: 0 0 0 0px #fff  !important;
+  outline: 0px solid transparent !important;' class="ui-tabs-anchor" id="cf7-sub-tab-multi"><?php echo esc_html( __('Multi Sheet
                 Connection', 'gsconnector' ) ); ?> <span class="pro"><?php echo esc_html( __('Pro', 'gsconnector' ) ); ?></span></a>
 
         </li>
@@ -815,7 +817,7 @@ class Gs_Connector_Service {
         <!-- Single sheet connection START -->
          <form method="post" >
          <div class="gs-fields" >
-            <h2><span><?php echo esc_html( __( 'Google Sheet Settings', 'gsconnector' ) ); ?></span><span class="gs-info"><?php echo __( '( Fetch your sheets automatically using PRO )', 'gsconnector'); ?> </span></h2>
+            <h2 class="inner-title"><span><?php echo esc_html( __( 'Google Sheet Settings', 'gsconnector' ) ); ?></span><span class="gs-info"><?php echo __( '( Fetch your sheets automatically using PRO )', 'gsconnector'); ?> </span></h2>
              <p>
                <label><?php echo esc_html( __( 'Google Sheet Name', 'gsconnector' ) ); ?></label>
                <input type="text" name="cf7-gs[sheet-name]" id="gs-sheet-name" 
@@ -843,7 +845,7 @@ class Gs_Connector_Service {
                   <a href="" class=" gs-name help-link"><img src="<?php echo GS_CONNECTOR_URL; ?>assets/img/help.png" class="help-icon"><?php //echo esc_html(__('Google Tab Id?', 'gsconnector')); ?><span class='hover-data'><?php echo esc_html(__('you can get tab id from your sheet URL', 'gsconnector')); ?></span></a>
                </p>
 			   
-			   <?php if((isset( $form_data[0]['sheet-name'] )) && (isset($form_data[0]['sheet-id'])) &&  (isset( $form_data[0]['sheet-tab-name'])) && (isset($form_data[0]['tab-id']))) {
+			   <?php if((isset( $form_data[0]['sheet-name'] )) && !empty($form_data[0]['sheet-name']) && (isset($form_data[0]['sheet-id'])) && (!empty($form_data[0]['sheet-id'])) &&  (isset( $form_data[0]['sheet-tab-name']))  && (!empty($form_data[0]['sheet-tab-name'])) && (isset($form_data[0]['tab-id']))) {
 				$link = "https://docs.google.com/spreadsheets/d/".$form_data[0]['sheet-id']."/edit#gid=".$form_data[0]['tab-id']; 
 				   ?>
 			  <p>
@@ -1020,7 +1022,7 @@ class Gs_Connector_Service {
       $tags_count = count( $this->special_mail_tags );
       $num_of_cols = 1;
       ?>
-      <h2><span class="gs-info"><?php echo esc_html( __( 'Map special mail tags with custom header name and save automatically to google sheet. ', 'gsconnector' ) ); ?></span></h2>
+      <h2 class="inner-title"><span class="gs-info"><?php echo esc_html( __( 'Map special mail tags with custom header name and save automatically to google sheet. ', 'gsconnector' ) ); ?></span></h2>
       <ul class="gs-field-list special">
          <?php 
             

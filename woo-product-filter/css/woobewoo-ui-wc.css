@@ -874,3 +874,9 @@ a.search-choice-close {
 .s-notify i {
 	margin: 0 5px;
 }
+.wupsales-wc-hidden {
+	display: none;
+}
+.wpfProLabel a {
+	pointer-events: none;
+}

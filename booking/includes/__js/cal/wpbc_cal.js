@@ -119,8 +119,10 @@ function wpbc_calendar_show( resource_id ){
 				showOn        : 'both',
 				numberOfMonths: local__number_of_months,
 				stepMonths    : 1,
-				prevText      : '&laquo;',
-				nextText      : '&raquo;',
+				// prevText      : '&laquo;',
+				// nextText      : '&raquo;',
+				prevText      : '&lsaquo;',
+				nextText      : '&rsaquo;',
 				dateFormat    : 'dd.mm.yy',
 				changeMonth   : false,
 				changeYear    : false,
@@ -174,6 +176,9 @@ function wpbc_calendar_show( resource_id ){
 		var sql_class_day = wpbc__get__sql_class_date( date );																					// '2023-01-09'
 		var resource_id = ( 'undefined' !== typeof(calendar_params_arr[ 'resource_id' ]) ) ? calendar_params_arr[ 'resource_id' ] : '1'; 		// '1'
 
+		// Get Selected dates in calendar
+		var selected_dates_sql = wpbc_get__selected_dates_sql__as_arr( resource_id );
+
 		// Get Data --------------------------------------------------------------------------------------------------------
 		var date_bookings_obj = _wpbc.bookings_in_calendar__get_for_date( resource_id, sql_class_day );
 
@@ -183,6 +188,22 @@ function wpbc_calendar_show( resource_id ){
 		css_classes__for_date.push( 'sql_date_'     + sql_class_day );				//  'sql_date_2023-07-21'
 		css_classes__for_date.push( 'cal4date-'     + class_day );					//  'cal4date-7-21-2023'
 		css_classes__for_date.push( 'wpbc_weekday_' + date.getDay() );				//  'wpbc_weekday_4'
+
+		// Define Selected Check In/Out dates in TD  -----------------------------------------------------------------------
+		if (
+				( selected_dates_sql.length  )
+			//&&  ( selected_dates_sql[ 0 ] !== selected_dates_sql[ (selected_dates_sql.length - 1) ] )
+		){
+			if ( sql_class_day === selected_dates_sql[ 0 ] ){
+				css_classes__for_date.push( 'selected_check_in' );
+				css_classes__for_date.push( 'selected_check_in_out' );
+			}
+			if (  ( selected_dates_sql.length > 1 ) && ( sql_class_day === selected_dates_sql[ (selected_dates_sql.length - 1) ] ) ) {
+				css_classes__for_date.push( 'selected_check_out' );
+				css_classes__for_date.push( 'selected_check_in_out' );
+			}
+		}
+
 
 		var is_day_selectable = false;
 
@@ -475,6 +496,21 @@ function wpbc_calendar_show( resource_id ){
 		var all_selected_dates_arr = wpbc_get__selected_dates_sql__as_arr( resource_id );									// Can be: [ "2023-10-05", "2023-10-06", "2023-10-07", … ]
 		jQuery( ".booking_form_div" ).trigger( "date_selected", [ resource_id, mouse_clicked_dates, all_selected_dates_arr ] );
 	}
+
+	// Mark middle selected dates with 0.5 opacity		//FixIn: 10.3.0.9
+	jQuery( document ).ready( function (){
+		jQuery( ".booking_form_div" ).on( 'date_selected', function ( event, resource_id, date ){
+				if (
+					   (  'fixed' === _wpbc.calendar__get_param_value( resource_id, 'days_select_mode' ))
+					|| ('dynamic' === _wpbc.calendar__get_param_value( resource_id, 'days_select_mode' ))
+				){
+					var closed_timer = setTimeout( function (){
+						var middle_days_opacity = _wpbc.get_other_param( 'calendars__days_selection__middle_days_opacity' );
+						jQuery( '#calendar_booking' + resource_id + ' .datepick-current-day' ).not( ".selected_check_in_out" ).css( 'opacity', middle_days_opacity );
+					}, 10 );
+				}
+		} );
+	} );
 
 
 	/**

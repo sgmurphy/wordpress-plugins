@@ -1165,6 +1165,94 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			return false;			// We are not have the "calendar" options in the shortcode
 		}
 
+
+		function wpbc_is_calendar_skin_legacy( $skin_name ){
+			$legacy_skins = array(
+					'black.css',
+					'multidays.css',
+					'premium-black.css',
+					'premium-light-noborder.css',
+					'premium-light.css',
+					'premium-marine.css',
+					'premium-steel-noborder.css',
+					'premium-steel.css',
+					'standard.css',
+					'traditional-light.css',
+					//'traditional-times.css',
+					'traditional.css'
+			);
+
+			return in_array( $skin_name, $legacy_skins );
+		}
+
+
+		/**
+		 * Get Legacy calendar skin
+		 *
+		 * @param $skin_name		=	'Black-2'
+		 * @param $skin_arr			=   ["black-2.css", "/css/skins/blac...", "Black-2"]
+		 *
+		 * @return mixed
+		 */
+		function wpbc_get_legacy_calendar_skin_name($skin_name, $skin_arr){
+
+			if (wpbc_is_calendar_skin_legacy($skin_arr[0]) ){
+				return __( 'Legacy', 'booking' ) . ': ' . $skin_name;
+			} else {
+			return $skin_name;
+			}
+		}
+
+		/**
+		 * Get Calendar  skin  options for selectboxes
+		 * @return void
+		 */
+		function wpbc_get_calendar_skin_options( $url_prefix = '' ){
+			//  Calendar Skin  /////////////////////////////////////////////////////
+			$calendar_skins_options        = array();
+			$legacy_calendar_skins_options = array();
+			// Skins in the Custom User folder (need to create it manually):    http://example.com/wp-content/uploads/wpbc_skins/ ( This folder do not owerwrited during update of plugin )
+			$upload_dir = wp_upload_dir();
+			//FixIn: 8.9.4.8
+			$files_in_folder = wpbc_dir_list( array(  WPBC_PLUGIN_DIR . '/css/skins/'  ) );  // Folders where to look about calendar skins
+			foreach ( $files_in_folder as $skin_file ) {                                                                            // Example: $skin_file['/css/skins/standard.css'] => 'Standard';
+
+				//FixIn: 8.9.4.8    //FixIn: 9.1.2.10
+				$skin_file[1] = str_replace( array( WPBC_PLUGIN_DIR, WPBC_PLUGIN_URL , $upload_dir['basedir'] ), '', $skin_file[1] );                 // Get relative path for calendar skin
+
+				if ( ! wpbc_is_calendar_skin_legacy( $skin_file[0] ) ) {
+					$calendar_skins_options[ $skin_file[1] ] =  $skin_file[2];
+				} else {
+					$legacy_calendar_skins_options[ $skin_file[1] ] = wpbc_get_legacy_calendar_skin_name( $skin_file[2], $skin_file );
+				}
+			}
+
+			$calendar_skins_options_real   = array();
+			$calendar_skins_options_real[] =  array( 'optgroup' => true, 'close'  => false, 'title'  => '&nbsp;' . __('Calendar Skins' ,'booking')  );
+			foreach ( $calendar_skins_options as $s_key => $s_val ) {
+				$calendar_skins_options_real [ $url_prefix . $s_key ] = $s_val;
+			}
+			$calendar_skins_options_real[] =  array( 'optgroup' => true, 'close'  => true );
+			$calendar_skins_options_real[] = array( 'optgroup' => true, 'close'  => false, 'title'  => '&nbsp;' . __('Legacy Calendar Skins' ,'booking')  );
+			foreach ( $legacy_calendar_skins_options as $s_key => $s_val ) {
+				$calendar_skins_options_real [ $url_prefix . $s_key ] = array( 'title' => $s_val, 'attr'  => array( 'style' => 'color:#ccc;' ) );
+			}
+			$calendar_skins_options_real[] = array( 'optgroup' => true, 'close'  => true );
+			$calendar_skins_options_real[] = array( 'optgroup' => true, 'close'  => false, 'title'  => '&nbsp;' . __('Custom Calendar Skins' ,'booking')  );
+				$files_in_folder = wpbc_dir_list( array(  $upload_dir['basedir'].'/wpbc_skins/' ) );  // Folders where to look about calendar skins
+				foreach ( $files_in_folder as $skin_file ) {                                                                            // Example: $skin_file['/css/skins/standard.css'] => 'Standard';
+
+					//FixIn: 8.9.4.8    //FixIn: 9.1.2.10
+					$skin_file[1] = str_replace( array( WPBC_PLUGIN_DIR, WPBC_PLUGIN_URL , $upload_dir['basedir'] ), '', $skin_file[1] );                 // Get relative path for calendar skin
+
+					$calendar_skins_options_real[ $url_prefix . $skin_file[1] ] = $skin_file[2];
+
+				}
+
+			$calendar_skins_options_real[] = array( 'optgroup' => true, 'close'  => true );
+
+		    return $calendar_skins_options_real;
+		}
 	// </editor-fold>
 
 
@@ -1885,7 +1973,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 				$wp_admin_bar->add_menu(
 						array(
 							'id' => 'bar_wpbc_calendar_overview',
-							'title' => __( 'Calendar Overview', 'booking' ),
+							'title' => __( 'Timeline View', 'booking' ),
 							'href' => wpbc_get_bookings_url() . '&view_mode=vm_calendar',
 							'parent' => 'bar_wpbc_bookings',
 						)

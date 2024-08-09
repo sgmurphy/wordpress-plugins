@@ -6,7 +6,7 @@
      <a id="closeButton" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
 	<div class="popup-content align-center">
     <i class="fa fa-lock popup-icon" aria-hidden="true"></i>
-	<h2><?php echo esc_html( __( 'GSheetConnector for CF7 GSheetConnector PRO Features', 'gsconnector' ) ); ?></h2>
+	<h2 class="inner-title"><?php echo esc_html( __( 'GSheetConnector for CF7 GSheetConnector PRO Features', 'gsconnector' ) ); ?></h2>
 	<p><?php echo __('This features is available in the PRO version of the plugin. To <strong>Enable the options Upgrade to the PRO</strong> version to unlock all these awesome features.', 'gsconnector'); ?>
     </p>
     <a href="https://www.gsheetconnector.com/cf7-google-sheet-connector-pro" target="_blank" class="popup-btn-normal">
@@ -26,7 +26,7 @@
      <a id="closeButton2" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
 	<div class="popup-content align-center">
     <i class="fa fa-lock popup-icon" aria-hidden="true"></i>
-	<h2><?php echo esc_html( __( 'GSheetConnector for CF7 GSheetConnector PRO Features', 'gsconnector' ) ); ?></h2>
+	<h2 class="inner-title"><?php echo esc_html( __( 'GSheetConnector for CF7 GSheetConnector PRO Features', 'gsconnector' ) ); ?></h2>
 	<p><?php echo __('This features is available in the PRO version of the plugin. To <strong>Enable the options Upgrade to the PRO</strong> version to unlock all these awesome features.', 'gsconnector'); ?>
     </p>
     <a href="https://www.gsheetconnector.com/cf7-google-sheet-connector-pro" target="_blank" class="popup-btn-normal">

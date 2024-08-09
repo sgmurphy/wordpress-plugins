@@ -5,7 +5,7 @@ Tags: woocommerce, gift cards, gift certificates, vouchers, store credit
 Requires at least: 4.5
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,9 @@ The following currency switcher plugins are supported:
 
 == Changelog ==
 
+= 2.1 =
+* Performance improvements.
+
 = 2.0 =
 * Added Slovak translation files. Compatibility with WordPress 6.6 and WooCommerce 9.1.
 
@@ -116,15 +119,12 @@ The following currency switcher plugins are supported:
 = 1.248 =
 * Prevent an exception from being thrown on some systems when the retrieved Order object is invalid.
 
-= 1.247 =
-* Added two new hooks to allow third party plugin developers to integrate with the gift cards while redeeming: pwgc_redeeming_session_data, pwgc_redeeming_gift_card_total. Confirmed compatibility with WooCommerce 8.2
-
 = Previous versions =
 * See changelog.txt
 
 == Upgrade Notice ==
 
-= 2.0 =
-* Added Slovak translation files. Compatibility with WordPress 6.6 and WooCommerce 9.1.
+= 2.1 =
+* Performance improvements.
 
 

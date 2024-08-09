@@ -3,7 +3,7 @@
 Plugin Name: Loginizer
 Plugin URI: https://wordpress.org/extend/plugins/loginizer/
 Description: Loginizer is a WordPress plugin which helps you fight against bruteforce attack by blocking login for the IP after it reaches maximum retries allowed. You can blacklist or whitelist IPs for login using Loginizer.
-Version: 1.9.0
+Version: 1.9.1
 Text Domain: loginizer
 Author: Softaculous
 Author URI: https://www.loginizer.com
@@ -35,18 +35,24 @@ $_tmp_plugins = get_option('active_plugins', []);
 
 if(!defined('SITEPAD') && in_array('loginizer-security/loginizer-security.php', $_tmp_plugins)){
 
-	if(!function_exists('get_plugins')){
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-	}
+	// Was introduced in 1.9.0
+	$loginizer_pro_info = get_option('loginizer_pro_version');
+	
+	if(!empty($loginizer_pro_info) && version_compare($loginizer_pro_info, '1.9.0', '>=')){
+		// Let Loginizer load
+	
+	// Lets check for older versions
+	}else{
 
-	$loginizer_pro_info = get_plugins('/loginizer-security');
+		if(!function_exists('get_plugin_data')){
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 
-	if(
-		!empty($loginizer_pro_info) && 
-		!empty($loginizer_pro_info['loginizer-security.php']) && 
-		version_compare($loginizer_pro_info['loginizer-security.php']['Version'], '1.8.9', '<')
-	){
-		return;
+		$loginizer_pro_info = get_plugin_data(WP_PLUGIN_DIR . '/loginizer-security/loginizer-security.php');
+		
+		if(!empty($loginizer_pro_info) && version_compare($loginizer_pro_info['Version'], '1.8.9', '<')){
+			return;
+		}
 	}
 }
 

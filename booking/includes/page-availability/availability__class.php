@@ -480,6 +480,37 @@ class WPBC_AJX__Availability {
 			$request_params = $user_request->get_sanitized__in_request__value_or_default( $request_prefix  );		 		// NOT Direct: 	$_REQUEST['search_params']['resource_id']
 
 			//----------------------------------------------------------------------------------------------------------
+			// Get booking resources (sql)
+			$resources_arr = wpbc_ajx_get_all_booking_resources_arr();          /**
+																				 * Array (   [0] => Array (     [booking_type_id] => 1
+																												[title] => Standard
+																												[users] => 1
+																												[import] =>
+																												[export] =>
+																												[cost] => 25
+																												[default_form] => standard
+																												[prioritet] => 0
+																												[parent] => 0
+																												[visitors] => 2
+																					), ...                  */
+
+			$resources_arr_sorted = wpbc_ajx_get_sorted_booking_resources_arr( $resources_arr );
+
+			//FixIn: 10.3.0.7
+			// Check  if $request_params['resource_id'] exist in $resources_arr_sorted,  because it possible situation,  when  some  booking resources was deleted and we do not need to  load old data.
+			$is_resource_exist = false;
+			foreach ( $resources_arr_sorted as $resource_index => $resource_value_arr ) {
+				if ( intval( $resource_value_arr['booking_type_id'] ) === intval( $request_params['resource_id'] ) ) {
+					$is_resource_exist = true;
+					break;  // All  good
+				}
+			}
+			if ( ! $is_resource_exist ) {
+				if ( count( $resources_arr_sorted ) > 0 ) {
+					$request_params['resource_id'] = intval( $resources_arr_sorted[0]['booking_type_id'] );
+				}
+			}
+
 
 			$data_arr = array();
 			$data_arr['ajx_after_action_message'] = '';
@@ -540,21 +571,6 @@ class WPBC_AJX__Availability {
 
 			//----------------------------------------------------------------------------------------------------------
 
-			// Get booking resources (sql)
-			$resources_arr = wpbc_ajx_get_all_booking_resources_arr();          /**
-																				 * Array (   [0] => Array (     [booking_type_id] => 1
-																												[title] => Standard
-																												[users] => 1
-																												[import] =>
-																												[export] =>
-																												[cost] => 25
-																												[default_form] => standard
-																												[prioritet] => 0
-																												[parent] => 0
-																												[visitors] => 2
-																					), ...                  */
-
-			$resources_arr_sorted = wpbc_ajx_get_sorted_booking_resources_arr( $resources_arr );
 
 			$data_arr['ajx_booking_resources'] = $resources_arr_sorted;
 

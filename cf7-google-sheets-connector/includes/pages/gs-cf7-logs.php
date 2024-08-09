@@ -10,7 +10,7 @@
 						</label>
 						<br>
 						<div class="select-info">
-							<input type="button" class="button button-primary button-large"  name="gs-cf7db-setting-btn" value="Save">
+							<input type="button" class="button button-primary button-large"  name="gs-cf7db-setting-btn" value="Save" id="gs-cf7db-setting-btn">
 						</div>
 					</div>
 				</div>
@@ -18,7 +18,7 @@
  
 <div class="wrap"  style="opeacity:0.75; margin-top:30px;">
 			<div id="icon-users" class="icon32"></div>
-			<h2><?php echo esc_html( __('Contact Forms List', 'gsconnector' ) ); ?></h2>
+			<h2 class="inner-title"><?php echo esc_html( __('Contact Forms List', 'gsconnector' ) ); ?></h2>
 		 
 		  
 	</div>

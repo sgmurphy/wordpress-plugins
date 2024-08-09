@@ -3,8 +3,8 @@ Contributors: jkohlbach, RymeraWebCo, smub
 Donate link:
 Tags: woocommerce wholesale, b2b, wholesale pricing, catalog mode, dynamic pricing
 Requires at least: 4.2
-Tested up to: 6.4.3
-Stable tag: 2.2.0
+Tested up to: 6.6
+Stable tag: 2.2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,10 @@ Plenty of amazing screenshots for this plugin and more over at:
 [https://wholesalesuiteplugin.com/woocommerce-wholesale-prices-premium/](https://wholesalesuiteplugin.com/woocommerce-wholesale-prices-premium/)
 
 == Changelog ==
+
+= 2.2.0.1 =
+* Improvement: Autoload option for the plugin settings are now set to `off` by default
+* Bug Fix: Wholesale Fixed Prices On Variations Are Deleted After Editing Regular Price
 
 = 2.2.0 =
 * Feature: Cart/Checkout Blocks Compatibility

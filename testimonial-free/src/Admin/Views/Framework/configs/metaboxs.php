@@ -48,7 +48,12 @@ SPFTESTIMONIAL::createSection(
 				'type'     => 'image_select',
 				'title'    => __( 'Layout Preset', 'testimonial-free' ),
 				'subtitle' => __( 'Select a layout to display the testimonials.', 'testimonial-free' ),
-				'desc'     => __( 'To create eye-catching testimonial layout designs and stand out from the competition, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade To Pro!</b></a>', 'testimonial-free' ),
+				'desc'     => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'To create eye-catching testimonial layout designs and stand out from the competition, %1$sUpgrade To Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
 				'class'    => 'tfree-layout-preset',
 				'sanitize' => 'sanitize_text_field',
 				'options'  => array(
@@ -162,7 +167,7 @@ SPFTESTIMONIAL::createSection(
 				'type'       => 'spacing',
 				'title'      => __( 'Space', 'testimonial-free' ),
 				'subtitle'   => __( 'Set space between the testimonials.', 'testimonial-free' ),
-				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/space.svg" alt="Space Between Testimonials"></div><div class="spftestimonial-info-label">' . __( 'Space Between Testimonials', 'testimonial-free' ) . '</div>',
+				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/space.svg" alt="' . __( 'Space Between Testimonials', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Space Between Testimonials', 'testimonial-free' ) . '</div>',
 				'right'      => true,
 				'top'        => true,
 				'left'       => false,
@@ -280,12 +285,11 @@ SPFTESTIMONIAL::createSection(
 				'class'      => 'pro_switcher',
 				'sanitize'   => 'rest_sanitize_boolean',
 				'subtitle'   => __( 'Enable/Disable ajax live filtering for testimonial groups.', 'testimonial-free' ),
-				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/ajax_live_filter.svg" alt="Ajax Live Filter"></div><div class="spftestimonial-info-label">' . __( 'Ajax Live Filter', 'testimonial-free' ) . '</div><a class="spftestimonial-open-live-demo" href="https://realtestimonials.io/demos/advanced-ajax-features/" target="_blank">Live Demo</a>',
+				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/ajax_live_filter.svg" alt="' . __( 'Ajax Live Filter', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Ajax Live Filter', 'testimonial-free' ) . '</div><a class="spftestimonial-open-live-demo" href="https://realtestimonials.io/demos/advanced-ajax-features/" target="_blank">' . __( 'Live Demo', 'testimonial-free' ) . '</a>',
 				'text_on'    => __( 'Enabled', 'testimonial-free' ),
 				'text_off'   => __( 'Disabled', 'testimonial-free' ),
 				'text_width' => 95,
 				'default'    => false,
-				// 'dependency' => array( 'layout|slider_mode', '!=|!=', 'filter|thumbnail_slider', true ),
 			),
 			array(
 				'type'       => 'subheading',
@@ -301,7 +305,12 @@ SPFTESTIMONIAL::createSection(
 				'type'       => 'notice',
 				'class'      => 'sp_testimonial-pagination-notice',
 				'style'      => 'info',
-				'content'    => __( 'To unlock the following ajax pagination settings for Grid, Masonry, & List layouts,<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b> Upgrade To Pro!</b></a>', 'testimonial-free' ),
+				'content'    => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'To unlock the following ajax pagination settings for Grid, Masonry, & List layouts, %1$sUpgrade To Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
 				'dependency' => array(
 					'layout',
 					'==',
@@ -461,15 +470,30 @@ SPFTESTIMONIAL::createSection(
 			array(
 				'type'    => 'notice',
 				'class'   => 'theme-settings-top-notice',
-				'content' => __( 'To impress your potential customers with professionally designed testimonial themes/templates, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+				'content' => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'To impress your potential customers with professionally designed testimonial themes/templates, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
 			),
 			array(
 				'id'       => 'theme_style',
 				'class'    => 'theme_style',
 				'type'     => 'image_select',
 				'title'    => __( 'Select Your Theme', 'testimonial-free' ),
-				'subtitle' => __( 'Select which theme style you want to use. <b>Please note:</b> To get the perfect view for certain themes, you need to configure some settings below.', 'testimonial-free' ),
-				'desc'     => __( 'Get Access to 14 Professionally Designed Testimonial Themes with Customization options, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+				'subtitle' => sprintf(
+					/* translators: 1: start bold tag, 2: close tag. */
+					__( 'Select which theme style you want to use. %1$sPlease note:%2$s To get the perfect view for certain themes, you need to configure some settings below.', 'testimonial-free' ),
+					'<b>',
+					'</b>',
+				),
+				'desc'     => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'Get Access to 14 Professionally Designed Testimonial Themes with Customization options, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
 				'sanitize' => 'sanitize_text_field',
 				'options'  => array(
 					'theme-one'         => array(
@@ -608,7 +632,12 @@ SPFTESTIMONIAL::createSection(
 			),
 			array(
 				'type'    => 'notice',
-				'content' => __( 'To unlock the Testimonial Theme-based Advanced Customization options, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+				'content' => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'To unlock the Testimonial Theme-based Advanced Customization options, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
 			),
 			array(
 				'id'         => 'client_image_vertical_position',
@@ -637,7 +666,7 @@ SPFTESTIMONIAL::createSection(
 				'attributes' => array( 'disabled' => 'disabled' ),
 				'title'      => __( 'Inner Padding', 'testimonial-free' ),
 				'subtitle'   => __( 'Set testimonial inner padding.', 'testimonial-free' ),
-				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/inner_padding.svg" alt="Inner Padding"></div><div class="spftestimonial-info-label">' . __( 'Inner Padding', 'testimonial-free' ) . '</div>',
+				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/inner_padding.svg" alt="' . __( 'Inner Padding', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Inner Padding', 'testimonial-free' ) . '</div>',
 				'sanitize'   => 'spftestimonial_sanitize_number_array_field',
 				'default'    => array(
 					'top'    => '22',
@@ -711,7 +740,7 @@ SPFTESTIMONIAL::createSection(
 				'class'      => 'pro_switcher',
 				'title'      => __( 'Enable Equal Height', 'testimonial-free' ),
 				'subtitle'   => __( 'Enable to adjust the height of all the testimonial items to match the tallest one.', 'testimonial-free' ),
-				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/equalize_testimonials_height.svg" alt="Enable Equal Height"></div><div class="spftestimonial-info-label">' . __( 'Enable Equal Height', 'testimonial-free' ) . '</div>',
+				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/equalize_testimonials_height.svg" alt="' . __( 'Enable Equal Height', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Enable Equal Height', 'testimonial-free' ) . '</div>',
 				'default'    => false,
 				'text_on'    => __( 'Enabled', 'testimonial-free' ),
 				'text_off'   => __( 'Disabled', 'testimonial-free' ),
@@ -741,7 +770,12 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
-								'content' => __( 'Want to display the Average Rating, Ajax Testimonial Search, and more? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'Want to display the Average Rating, Ajax Testimonial Search, and more? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 							array(
 								'id'         => 'section_title',
@@ -760,7 +794,7 @@ SPFTESTIMONIAL::createSection(
 								'title'      => __( 'Average Rating', 'testimonial-free' ),
 								'class'      => 'pro_switcher',
 								'subtitle'   => __( 'Show/Hide average rating.', 'testimonial-free' ),
-								'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/average_rating.svg" alt="Average Rating"></div><div class="spftestimonial-info-label">' . __( 'Average Rating', 'testimonial-free' ) . '</div>',
+								'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/average_rating.svg" alt="' . __( 'Average Rating', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Average Rating', 'testimonial-free' ) . '</div>',
 								'text_on'    => __( 'Show', 'testimonial-free' ),
 								'text_off'   => __( 'Hide', 'testimonial-free' ),
 								'text_width' => 80,
@@ -772,7 +806,7 @@ SPFTESTIMONIAL::createSection(
 								'class'      => 'pro_switcher',
 								'title'      => __( 'Ajax Testimonial Search', 'testimonial-free' ),
 								'subtitle'   => __( 'Enable/Disable ajax search for testimonial.', 'testimonial-free' ),
-								'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/ajax_testimonial_search.svg" alt="Ajax Testimonial Search"></div><div class="spftestimonial-info-label">' . __( 'Ajax Testimonial Search', 'testimonial-free' ) . '</div>',
+								'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/ajax_testimonial_search.svg" alt="' . __( 'Ajax Testimonial Search', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Ajax Testimonial Search', 'testimonial-free' ) . '</div>',
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
 								'text_width' => 95,
@@ -784,7 +818,7 @@ SPFTESTIMONIAL::createSection(
 								'id'         => 'schema_markup',
 								'type'       => 'switcher',
 								'title'      => __( 'Schema Markup', 'testimonial-free' ),
-								'title_help' => __( '<div class="spftestimonial-info-label schema-markup">Enable Schema.org Markup</div><div class="spftestimonial-short-content">Reviews Schema.org markup will let search engines read the reviews and overall ratings on your website and display them in search results. It will increase the attractiveness of your website snippet and, consequently, it will lead to a higher number of redirects from search engines.</div>', 'testimonial-free' ),
+								'title_help' => '<div class="spftestimonial-info-label schema-markup">' . __( 'Enable Schema.org Markup', 'testimonial-free' ) . '</div><div class="spftestimonial-short-content">' . __( 'Reviews Schema.org markup will let search engines read the reviews and overall ratings on your website and display them in search results. It will increase the attractiveness of your website snippet and, consequently, it will lead to a higher number of redirects from search engines.', 'testimonial-free' ) . '</div>',
 								'subtitle'   => __( 'Enable/Disable schema.org markup.', 'testimonial-free' ),
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
@@ -811,7 +845,12 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
-								'content' => __( 'Looking to make your customer Testimonial Content more captivating with advanced customization options? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: %1$s: anchor tag starting, %2$s: anchor tag ending. */
+									__( 'Looking to make your customer Testimonial Content more captivating with advanced customization options? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>'
+								),
 							),
 							array(
 								'id'         => 'testimonial_title',
@@ -988,7 +1027,12 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
-								'content' => __( 'Want to display more reviewer information and build trust & credibility? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'Want to display more reviewer information and build trust & credibility? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 							array(
 								'id'         => 'testimonial_client_name',
@@ -1197,7 +1241,12 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
-								'content' => __( 'Want to enhance the Reviewer\'s Image using advanced customizations? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'Want to enhance the Reviewer\'s Image using advanced customizations? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 							array(
 								'id'         => 'client_image',
@@ -1324,7 +1373,7 @@ SPFTESTIMONIAL::createSection(
 								'class'      => 'border_radius_by_spacing',
 								'title'      => __( 'Padding', 'testimonial-free' ),
 								'subtitle'   => __( 'Set padding for reviewer image.', 'testimonial-free' ),
-								'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/image_padding.svg" alt="Padding"></div><div class="spftestimonial-info-label">' . __( 'Padding', 'testimonial-free' ) . '</div>',
+								'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/image_padding.svg" alt="' . __( 'Padding', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Padding', 'testimonial-free' ) . '</div>',
 								'all_text'   => '',
 								'all'        => true,
 								'units'      => array( 'px' ),
@@ -1504,7 +1553,12 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
-								'content' => __( 'Want to Collect and Display Video Testimonials with ease to boost sales? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'Want to Collect and Display Video Testimonials with ease to boost sales? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 							array(
 								'id'         => 'video_icon',
@@ -1570,7 +1624,12 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
-								'content' => __( 'Want to display Social Media Profiles with reviewer information? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'Want to display Social Media Profiles with reviewer information? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>'
+								),
 							),
 							array(
 								'id'         => 'social_profile',
@@ -1679,7 +1738,7 @@ SPFTESTIMONIAL::createSection(
 								'class'       => 'pro_only_field',
 								'title'       => __( 'Margin', 'testimonial-free' ),
 								'subtitle'    => __( 'Set margin for social profiles.', 'testimonial-free' ),
-								'title_help'  => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/social_media_margin.svg" alt="Margin"></div><div class="spftestimonial-info-label">' . __( 'Margin', 'testimonial-free' ) . '</div>',
+								'title_help'  => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/social_media_margin.svg" alt="' . __( 'Margin', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Margin', 'testimonial-free' ) . '</div>',
 								'default'     => array(
 									'top'    => '15',
 									'right'  => '0',
@@ -1750,7 +1809,7 @@ SPFTESTIMONIAL::createSection(
 								'type'       => 'slider',
 								'title'      => __( 'AutoPlay Delay', 'testimonial-free' ),
 								'subtitle'   => __( 'Set auto play delay time in millisecond.', 'testimonial-free' ),
-								'title_help' => __( '<div class="spftestimonial-info-label">AutoPlay Delay Time</div><div class="spftestimonial-short-content">Set autoplay delay or interval time. The amount of time to delay between automatically cycling a testimonial item. e.g. 1000 milliseconds(ms) = 1 second.</div>', 'testimonial-free' ),
+								'title_help' => '<div class="spftestimonial-info-label">' . __( 'AutoPlay Delay Time', 'testimonial-free' ) . '</div><div class="spftestimonial-short-content">' . __( 'Set autoplay delay or interval time. The amount of time to delay between automatically cycling a testimonial item. e.g. 1000 milliseconds(ms) = 1 second.', 'testimonial-free' ) . '</div>',
 								'max'        => 30000,
 								'min'        => 100,
 								'default'    => 3000,
@@ -1768,7 +1827,7 @@ SPFTESTIMONIAL::createSection(
 								'type'       => 'slider',
 								'title'      => __( 'Pagination Speed', 'testimonial-free' ),
 								'subtitle'   => __( 'Set pagination speed in millisecond.', 'testimonial-free' ),
-								'title_help' => __( '<div class="spftestimonial-info-label">Pagination Speed</div><div class="spftestimonial-short-content">Set carousel scrolling speed. e.g. 1000 milliseconds(ms) = 1 second.</div>', 'testimonial-free' ),
+								'title_help' => '<div class="spftestimonial-info-label">' . __( 'Pagination Speed', 'testimonial-free' ) . '</div><div class="spftestimonial-short-content">' . __( 'Set carousel scrolling speed. e.g. 1000 milliseconds(ms) = 1 second.', 'testimonial-free' ) . '</div>',
 								'unit'       => __( 'ms', 'testimonial-free' ),
 								'sanitize'   => 'spftestimonial_sanitize_number_field',
 								'max'        => 10000,
@@ -1833,7 +1892,12 @@ SPFTESTIMONIAL::createSection(
 							array(
 								'type'    => 'notice',
 								'class'   => 'slider-basic-notice',
-								'content' => __( 'Ready to fascinate your audience with beautiful transitions, such as Fade, Flip Horizontally and Vertically? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'Ready to fascinate your audience with beautiful transitions, such as Fade, Flip Horizontally and Vertically? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 						),
 					),
@@ -1843,7 +1907,12 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
-								'content' => __( 'Want even more fine-tuned control over your Slider Navigation display? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'Want even more fine-tuned control over your Slider Navigation display? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 							array(
 								'id'     => 'spt_carousel_navigation',
@@ -2027,7 +2096,12 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
-								'content' => __( 'Want even more fine-tuned control over your Slider Pagination display? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'Want even more fine-tuned control over your Slider Pagination display? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 							array(
 								'id'     => 'spt_carousel_pagination',
@@ -2220,8 +2294,12 @@ SPFTESTIMONIAL::createSection(
 				'type'    => 'notice',
 				'class'   => 'theme-settings-top-notice',
 				'style'   => 'normal',
-				'content' => __( 'Want to customize everything (Typography, Colors, Margin) easily? <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a> P.S. Note: The color fields work in the lite version.', 'testimonial-free' ),
-				// 'content' => __( 'To unlock These Typography (940+ Google Fonts) options, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a> P.S. Note: The color fields work in the lite version.', 'testimonial-free' ),
+				'content' => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'Want to customize everything (Typography, Colors, Margin) easily? %1$sUpgrade to Pro!%2$s P.S. Note: The color fields work in the lite version.', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
 			),
 			array(
 				'id'       => 'section_title_font_load',
@@ -2679,7 +2757,12 @@ SPFTESTIMONIAL::createSection(
 			array(
 				'type'    => 'notice',
 				'class'   => 'sp-extra-field-notice',
-				'content' => __( 'To unlock the following extra reviewer information fields, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+				'content' => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'To unlock the following extra reviewer information fields, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
 			),
 			array(
 				'id'         => 'tpro_email',

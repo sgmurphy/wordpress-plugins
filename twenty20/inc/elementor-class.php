@@ -1,146 +1,241 @@
 <?php
-
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
+}
+
+class Elementor_Twenty20_Widget extends \Elementor\Widget_Base {
+
+    public function get_name() {
+        return 'twenty20_widget';
+    }
+
+    public function get_title() {
+        return __( 'Twenty20 Before-After', 'plugin-name' );
+    }
+
+    public function get_icon() {
+        return 'eicon-image-before-after';
+    }
+
+    public function get_categories() {
+        return [ 'general' ];
+    }
+
+    // Method to enqueue scripts and styles
+    public function get_style_depends() {
+        return [ 'twenty20-elementor-style' ]; // Handle of the CSS file
+    }
+
+    public function get_script_depends() {
+        return [ 'twenty20-elementor-script' ]; // Handle of the JS file
+    }
+
+    protected function _register_controls() {
+
+    	 wp_enqueue_style( 'twenty20-elementor-style', ZB_T20_URL . '/assets/css/twenty20.css' );
+        wp_enqueue_script( 'twenty20-elementor-script', ZB_T20_URL .'/assets/js/jquery.twenty20.js', [ 'jquery' ], false, true );
+        
+
+        $this->start_controls_section(
+            'content_section',
+            [
+                'label' => __( 'Content', 'plugin-name' ),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
+        $this->add_control(
+            'img1',
+            [
+                'label' => __( 'Image 1', 'plugin-name' ),
+                'type' => \Elementor\Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'img2',
+            [
+                'label' => __( 'Image 2', 'plugin-name' ),
+                'type' => \Elementor\Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ],
+            ]
+        );
+
+        $this->add_control(
+			'before',
+			[
+				'label' => __( 'Before Text', 'zb_twenty20' ),
+				'type' => \Elementor\Controls_Manager::TEXT
+			]
+		);
+
+		$this->add_control(
+			'after',
+			[
+				'label' => __( 'After Text', 'zb_twenty20' ),
+				'type' => \Elementor\Controls_Manager::TEXT
+			]
+		);
+
+        $this->add_control(
+            'offset',
+            [
+                'label' => __( 'Offset', 'plugin-name' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 0.5,
+                    'unit' => '',
+                ],
+                'range' => [
+                    '' => [
+                        'min' => 0,
+                        'max' => 1,
+                        'step' => 0.01,
+                    ],
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'direction',
+            [
+                'label' => __( 'Direction', 'plugin-name' ),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'horizontal',
+                'options' => [
+                    'horizontal' => __( 'Horizontal', 'plugin-name' ),
+                    'vertical' => __( 'Vertical', 'plugin-name' ),
+                ],
+            ]
+        );
+
+        $this->add_control(
+			'hover',
+			[
+				'label' => __( 'Mouse over', 'zb_twenty20' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'options' => [
+					'true' => __( 'Yes', 'zb_twenty20' ),
+					'false' => __( 'No', 'zb_twenty20' ),
+				],
+				'default' => 'false',
+			]
+		);
+
+        $this->end_controls_section();
+    }
+
+    protected function render() {
+        $settings = $this->get_settings_for_display();
+
+        echo do_shortcode('[twenty20 img1="' . esc_attr( $settings['img1']['id'] ) . '" img2="' . esc_attr( $settings['img2']['id']) . '" offset="' . esc_attr( $settings['offset']['size'] ) . '" direction="' . esc_attr( $settings['direction'] ) . '" before="' . esc_attr( $settings['before'] ) . '" after="' . esc_attr( $settings['after'] ) . '" hover="' . esc_attr( $settings['hover'] ) . '"]');
+    }
+
+    protected function _content_template() {
+    ?>
+    <#
+    // Ensure the necessary controls are set or provide default values
+    var img1Url = settings.img1.url ? settings.img1.url : '<?php echo \Elementor\Utils::get_placeholder_image_src(); ?>';
+    var img2Url = settings.img2.url ? settings.img2.url : '<?php echo \Elementor\Utils::get_placeholder_image_src(); ?>';
+    var offset = settings.offset && settings.offset.size !== '' ? settings.offset.size : 0.5;
+    var direction = settings.direction ? settings.direction : 'horizontal';
+    var beforeText = settings.before ? settings.before : '';
+    var afterText = settings.after ? settings.after : '';
+    var hover = settings.hover === 'true' ? 'hover' : '';
+    var t20ID = 'twenty20-' + Math.floor(Math.random() * 10000);
+
+    var containerClass = 'twentytwenty-container ' + t20ID + ' ' + hover;
+    var orientationAttr = direction === 'vertical' ? 'data-orientation="vertical"' : '';
+    
+    // Ensure default styles are applied even when certain controls are not set
+    var containerStyles = offset ? 'width: ' + (offset * 100) + '%;' : '';
+    #>
+
+    <div id="{{ t20ID }}" class="twenty20">
+        <div class="{{ containerClass }}" {{ orientationAttr }}>
+            <img src="{{ img1Url }}" alt="Before Image" />
+            <img src="{{ img2Url }}" alt="After Image" />
+        </div>
+        <# if (beforeText) { #>
+            <span class="twentytwenty-before-label">{{ beforeText }}</span>
+        <# } #>
+        <# if (afterText) { #>
+            <span class="twentytwenty-after-label">{{ afterText }}</span>
+        <# } #>
+    </div>
+
+    <style>
+        #{{ t20ID }} .twentytwenty-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #{{ t20ID }} .twentytwenty-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        #{{ t20ID }} .twentytwenty-before-label,
+        #{{ t20ID }} .twentytwenty-after-label {
+            position: absolute;
+            top: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 5px;
+        }
+
+        #{{ t20ID }} .twentytwenty-before-label {
+            left: 10px;
+        }
+
+        #{{ t20ID }} .twentytwenty-after-label {
+            right: 10px;
+        }
+
+        <# if( hover ) { #>
+            #{{ t20ID }} .twentytwenty-container:hover .twentytwenty-overlay {
+                width: 100%;
+            }
+        <# } #>
+
+        <# if( direction === 'vertical' ) { #>
+            #{{ t20ID }} .twentytwenty-container {
+                flex-direction: column;
+            }
+        <# } #>
+    </style>
+
+    <script>
+        jQuery(document).ready(function($) {
+            var $container = $('#{{ t20ID }} .twentytwenty-container');
+
+            $container.twentytwenty({
+                default_offset_pct: {{ offset }},
+                orientation: '{{ direction }}'
+            });
+
+            <# if(beforeText) { #>
+                $container.find('.twentytwenty-before-label').text('{{ beforeText }}');
+            <# } else { #>
+                $container.find('.twentytwenty-before-label').hide();
+            <# } #>
+
+            <# if(afterText) { #>
+                $container.find('.twentytwenty-after-label').text('{{ afterText }}');
+            <# } else { #>
+                $container.find('.twentytwenty-after-label').hide();
+            <# } #>
+        });
+    </script>
+    <?php
 }
 
 
-final class Twenty20_Image_Elementor_Extension {
-
-	const VERSION = '1.0.0';
-	const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
-	const MINIMUM_PHP_VERSION = '5.4';
-
-	private static $_instance = null;
-
-	public static function instance() {
-
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-		return self::$_instance;
-
-	}
-
-	public function __construct() {
-
-		add_action( 'init', [ $this, 'i18n' ] );
-		add_action( 'plugins_loaded', [ $this, 'init' ] );
-
-	}
-
-	public function i18n() {
-
-		load_plugin_textdomain( 'zb_twenty20' );
-
-	}
-
-	public function init() {
-
-		// Check if Elementor installed and activated
-		if ( ! did_action( 'elementor/loaded' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_missing_main_plugin' ] );
-			return;
-		}
-
-		// Check for required Elementor version
-		if ( ! version_compare( ELEMENTOR_VERSION, self::MINIMUM_ELEMENTOR_VERSION, '>=' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_minimum_elementor_version' ] );
-			return;
-		}
-
-		// Check for required PHP version
-		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_minimum_php_version' ] );
-			return;
-		}
-
-		// Add Plugin actions
-		add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
-		add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
-	}
-
-	
-	public function admin_notice_missing_main_plugin() {
-
-		if ( isset( $_GET['activate'] ) ) {
-	    if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_nonce_action' ) ) {
-        wp_die( esc_html__( 'Nonce verification failed', 'zb_twenty20' ) );
-	    }
-	    // If nonce verification passes, proceed with your code
-	    unset( $_GET['activate'] );
-		}
-
-		$message = sprintf(
-			/* translators: 1: Plugin name 2: Elementor */
-			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'zb_twenty20' ),
-			'<strong>' . esc_html__( 'Twenty20 Before-After', 'zb_twenty20' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'zb_twenty20' ) . '</strong>'
-		);
-
-		//printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
-	}
-
-	public function admin_notice_minimum_elementor_version() {
-
-		if ( isset( $_GET['activate'] ) ) {
-	    if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_nonce_action' ) ) {
-        wp_die( esc_html__( 'Nonce verification failed', 'zb_twenty20' ) );
-	    }
-	    // If nonce verification passes, proceed with your code
-	    unset( $_GET['activate'] );
-		}
-
-		$message = sprintf(
-			/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'zb_twenty20' ),
-			'<strong>' . esc_html__( 'Twenty20 Before-After', 'zb_twenty20' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'zb_twenty20' ) . '</strong>',
-			 self::MINIMUM_ELEMENTOR_VERSION
-		);
-
-		//printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
-	}
-
-	public function admin_notice_minimum_php_version() {
-
-		if ( isset( $_GET['activate'] ) ) {
-	    if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_nonce_action' ) ) {
-        wp_die( esc_html__( 'Nonce verification failed', 'zb_twenty20' ) );
-	    }
-	    // If nonce verification passes, proceed with your code
-	    unset( $_GET['activate'] );
-		}
-
-		$message = sprintf(
-			/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'zb_twenty20' ),
-			'<strong>' . esc_html__( 'Twenty20 Before-After', 'zb_twenty20' ) . '</strong>',
-			'<strong>' . esc_html__( 'PHP', 'zb_twenty20' ) . '</strong>',
-			 self::MINIMUM_PHP_VERSION
-		);
-
-		//printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
-	}
-
-	public function init_widgets() {
-
-		// Include Widget files
-		require_once( __DIR__ . '/elementor/twenty20-elementor.php' );
-
-		// Register widget
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Twenty20_Image_Elementor_Widget() );
-
-	}
-
-	public function init_controls() {
-
-
-	}
 
 }
-
-Twenty20_Image_Elementor_Extension::instance();

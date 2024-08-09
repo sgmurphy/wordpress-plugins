@@ -151,6 +151,16 @@ abstract class WPBC_Install {
             
             //array_unshift( $links, $this->init_option['link_whats_new'] );
             array_unshift( $links, $this->init_option['link_faq'] );
+
+			if ( WPBC_setup_plugin ) {
+				$links = array_merge( $links, array(
+						'<a class="wpbc_plugins_links__start_tour" title="' . "Start Tour." . '" href="'
+						. esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-about' ), 'index.php' ) ) )
+						. '">' . "Start Tour" . '</a>'
+					)
+				);
+			}
+
 			if ( ! class_exists( 'wpdev_bk_personal' ) ) {
 				array_unshift( $links, $this->init_option['link_up'] );
 			} else {

@@ -46,7 +46,7 @@ class PromoWpf extends ModuleWpf {
 			/* translators: %s: label */
 			$enbPromoLinkMsg = '<h3>' . esc_html(sprintf(__('More then eleven days with our %s plugin - Congratulations!', 'woo-product-filter'), WPF_WP_PLUGIN_NAME)) . '</h3>';
 			/* translators: %s: url */
-			$enbPromoLinkMsg .= '<p>' . sprintf(esc_html__('On behalf of the entire %s company I would like to thank you for been with us, and I really hope that our software helped you.', 'woo-product-filter'), '<a href="https://woobewoo.com/" target="_blank">woobewoo.com</a>') . '</p>';
+			$enbPromoLinkMsg .= '<p>' . sprintf(esc_html__('On behalf of the entire %s company I would like to thank you for been with us, and I really hope that our software helped you.', 'woo-product-filter'), '<a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/') . '" target="_blank">' . esc_html(WPF_WP_PLUGIN_URL) . '</a>') . '</p>';
 			$enbPromoLinkMsg .= '<p>' . esc_html__('And today, if you want, - you can help us. This is really simple - you can just add small promo link to our site under your PopUps. This is small step for you, but a big help for us! Sure, if you don\'t want - just skip this and continue enjoy our software!', 'woo-product-filter') . '</p>';
 			$enbPromoLinkMsg .= '<p><a href="#" class="button button-primary" data-statistic-code="done">' . esc_html__('Ok, you deserve it', 'woo-product-filter') . '</a>
 				<a href="#" class="button" data-statistic-code="later">' . esc_html__('Nope, maybe later', 'woo-product-filter') . '</a>
@@ -205,12 +205,12 @@ class PromoWpf extends ModuleWpf {
 	public function getMainLink() {
 		if (empty($this->_mainLink)) {
 			$affiliateQueryString = '';
-			$this->_mainLink = 'https://woobewoo.com/plugins/popup-plugin/' . $affiliateQueryString;
+			$this->_mainLink = 'https://' . WPF_WP_PLUGIN_URL . '/plugins/popup-plugin/' . $affiliateQueryString;
 		}
 		return $this->_mainLink ;
 	}
 	public function getWooBeWooPluginLink() {
-		return 'https://woobewoo.com/plugins/woocommerce-filter/' ;
+		return 'https://' . WPF_WP_PLUGIN_URL . '/plugins/woocommerce-filter/' ;
 	}
 	public function generateMainLink( $params = '' ) {
 		$mainLink = $this->getMainLink();

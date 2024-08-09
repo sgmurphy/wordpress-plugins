@@ -3,8 +3,8 @@ Contributors: hookandhook
 Tags: Contact Form 7, Spam, CAPTCHA, GDPR, WPForms
 Requires at least: 4.7
 Requires PHP: 7.0
-Tested up to: 6.5
-Stable tag: 3.3.15
+Tested up to: 6.6
+Stable tag: 3.3.17
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,8 +78,7 @@ If either only parts of the CAPTCHA text is translated, or everything is display
 
 **1 Translation missing**
 All plugins within the wordpress.org repository are translated by the translate.wordpress.org community.
-Maybe your language set is not fully translated or not translated at all, see:
-https://translate.wordpress.org/projects/wp-plugins/contact-form-7-image-captcha/
+Maybe <a href="https://translate.wordpress.org/projects/wp-plugins/contact-form-7-image-captcha/" target="_blank">your language set</a> is not fully translated or not translated at all.
 
 *In this case, you have the following options:*
 1. Contribute to the translate.wordpress.org community and translate your language
@@ -98,6 +97,27 @@ Contact Form 7 saves a meta variable for the language of each respective form an
 *In this case, you have the following options:*
 1. Change the variable via the WordPress database directly (look for the post ID of the respective form in the postmeta table and there’ll be a “_locale” option).
 2. Make sure to change the language in your WordPress backend to your desired target language and then simply re-create the CF7 form.
+
+= Does the plugin support WPML? =
+
+Yes, both the free and pro versions support WPML.
+In fact, there is an <a href="https://wpml.org/plugin/wp-image-captcha/" target="_blank">active partnership between WPML and WP Image CAPTCHA</a> for seamless integration.
+
+= Issues using WPML, CF7 and our plugin? =
+
+Please follow those steps:
+1. Install CF7 and our plugin
+2. Install WPML plugin and the CF7 Multilingual addon
+3. WP admin backend: Choose your desired language, via flag at the top menu e.g. German (<a href="https://storage.googleapis.com/pubass/hookandhook/wpml-first-screenshot.png" target="_blank">see screenshot</a>)
+4. WP admin backend: Choose Contact > Contact Forms > Add New
+5. CF7: Translate the labels
+6. CF7: In the right white sidebar, choose Translations to e.g. English (<a href="https://storage.googleapis.com/pubass/hookandhook/wpml-first-screenshot.png" target="_blank">see screenshot</a>)
+7. WPML: Translate the strings into e.g. English
+8. WPML: When finished click the green button: "Complete Translation"
+9. WP admin backend: Choose Pages > Add New Page
+10. WP page: Set the e.g. German title "Kontaktformular" and insert the Contact Form 7 shortcode
+11. WP page: Save as draft or publish page
+12. WP page: On the right, click: e.g. English + Translate (<a href="https://storage.googleapis.com/pubass/hookandhook/wpml-second-screenshot.png" target="_blank">see screenshot</a>)
 
 = How do you add the image CAPTCHA to the Contact Form 7 forms? =
 
@@ -121,10 +141,6 @@ If the Image CAPTCHA does not appear, please confirm that you are running PHP ve
 
 If the styling does not look right, you may need to clear your browser cache. If you have any caching plugins or speed optimization plugins installed, you may need to clear your site cache as well.
 
-= Does the plugin support WPML? =
-
-Yes, there is a partnership between WPML and WP Image CAPTCHA - <a href="https://wpml.org/plugin/wp-image-captcha/" target="_blank">See here!</a>
-
 == Screenshots ==
 
 1. CAPTCHA for Contact Form 7
@@ -132,6 +148,12 @@ Yes, there is a partnership between WPML and WP Image CAPTCHA - <a href="https:/
 3. PRO plugin
 
 == Changelog ==
+
+= 3.3.17 [08/09/2024] =
+* Update FAQ
+
+= 3.3.16 [08/09/2024] =
+* Update FAQ and tested up to 6.6
 
 = 3.3.15 [05/28/2024] =
 * Update FAQ

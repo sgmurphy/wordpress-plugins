@@ -1609,7 +1609,7 @@ function wpbc_bs_dropdown_menu( $args = array() ) {
  *  Example:
     $params['btn_vm_calendar'] = array(
                                   'title' => ''
-                                , 'hint' => array( 'title' => __('Calendar Overview' ,'booking') , 'position' => 'bottom' )
+                                , 'hint' => array( 'title' => __('Timeline View' ,'booking') , 'position' => 'bottom' )
                                 , 'selected' => ( $selected_view_mode == 'vm_calendar' ) ? true : false
                                 , 'link' => $bk_admin_url . '&view_mode=vm_calendar'
                                 , 'icon' => ''

@@ -18,7 +18,7 @@
                 <input type="hidden" name="gs-ajax-nonce" id="gs-ajax-nonce" value="cbfd5fce66">
                 <div class="select-info" style="margin-top:10px;">
                     <p class="beta-content-msg-cf7gsc" style="color:#479C4B;"></p>
-                    <input type="button" class="button button-primary button-large beta-save" name="gsc_pro_beta_settings" value="Save">
+                    <input type="button" class="button button-primary button-large beta-save" name="gsc_pro_beta_settings" value="Save" id="beta-save">
                     <span class="beta-loading-sign-cf7gsc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
                 </div>

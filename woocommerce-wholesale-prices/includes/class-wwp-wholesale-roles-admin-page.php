@@ -151,7 +151,7 @@ if ( ! class_exists( 'WWP_Wholesale_Roles_Admin_Page' ) ) {
 
                 // Update role in WordPress record.
                 $wp_roles_arr[ $role['roleKey'] ]['name'] = $role['roleName'];
-                update_option( $wpdb->prefix . 'user_roles', $wp_roles_arr );
+                update_option( $wpdb->prefix . 'user_roles', $wp_roles_arr, 'no' );
 
                 // Update role in registered wholesale roles record.
                 $registered_wholesale_roles = maybe_unserialize( get_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES ) );
@@ -160,7 +160,7 @@ if ( ! class_exists( 'WWP_Wholesale_Roles_Admin_Page' ) ) {
                 $registered_wholesale_roles[ $role['roleKey'] ]['desc']                        = $role['roleDesc'];
                 $registered_wholesale_roles[ $role['roleKey'] ]['onlyAllowWholesalePurchases'] = $role['onlyAllowWholesalePurchases'];
 
-                update_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES, serialize( $registered_wholesale_roles ) ); // phpcs:ignore
+                update_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES, serialize( $registered_wholesale_roles ), 'no' ); // phpcs:ignore
 
                 $response = array( 'status' => 'success' );
 

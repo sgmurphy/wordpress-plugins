@@ -214,8 +214,7 @@ if ( !$furl){
 								</ul>
 							</div>
 						</div>
-					<!--</div> -->
-					<!--<div class="more-setting-rows"> -->
+					
 						<div class="mystickyelements-content-section-wrap">
 							<span class="myStickyelements-label" >
 								<label for="myStickyelements-google-alanytics-enabled">
@@ -235,9 +234,7 @@ if ( !$furl){
 								</label>
 							</div>
 						</div>
-					<!--</div> -->
 					
-					<!--<div class="more-setting-rows"> -->
 						<div class="mystickyelements-content-section-wrap">
 							<span class="myStickyelements-label" >
 								<?php _e( 'Font Family', 'mystickyelements' );?></label>
@@ -276,8 +273,7 @@ if ( !$furl){
 							</div>
 						</div>
 						
-					<!-- </div> -->
-					<!-- <div class="more-setting-rows"> -->
+					
 						<div class="mystickyelements-content-section-wrap">
 							<span class="myStickyelements-label" >
 								<?php _e( 'Desktop Widget Size', 'mystickyelements' );?>
@@ -292,8 +288,7 @@ if ( !$furl){
 								</select>
 							</div>
 						</div>
-					<!-- </div> -->
-					<!-- <div class="more-setting-rows"> -->
+					
 						<div class="mystickyelements-content-section-wrap">
 							<span class="myStickyelements-label" >
 								<?php _e( 'Mobile Widget size', 'mystickyelements' );?>
@@ -307,8 +302,7 @@ if ( !$furl){
 								</select>
 							</div>
 						</div>
-					<!-- </div> -->
-					<!-- <div class="more-setting-rows"> -->
+					
 						<div class="mystickyelements-content-section-wrap">
 							<span class="myStickyelements-label" >
 								<?php _e( 'Entry effect', 'mystickyelements' );?></label>
@@ -322,7 +316,44 @@ if ( !$furl){
 								</select>
 							</div>
 						</div>
-						
+						<div class="mystickyelements-content-section-wrap">
+							<span class="myStickyelements-label" >
+								<div class="mystickyelements-custom-fields-tooltip myStickyelements-country-tooltip" style="margin-top: 5px;">
+									<a href="javascript:void(0);" class="mystickyelements-tooltip mystickyelements-new-custom-btn"><i class="fas fa-info"></i></a>
+									<p><?php esc_html_e("When the visitor opens the website, the selected channel tab or contact form will be opened by default. If the visitor closes the tab, hovers over another channel icon, or visits the channel link it would remain closed.","myStickyelements");?></p>
+								</div>
+								<label for="myStickyelements-open_tab_default"><?php _e( 'Open tab by default', 'mystickyelements' );?></label>
+							</span>
+							<div class="myStickyelements-inputs myStickyelements-label myStickyelements-opentab-default">
+								
+								<?php 
+								$general_settings['opentab-channel'] = (isset($general_settings['opentab-channel']) && $general_settings['opentab-channel']!= '') ? $general_settings['opentab-channel'] : '';
+								
+								$general_settings['open_tab_default'] = (isset($general_settings['open_tab_default']) && $general_settings['open_tab_default']!= '') ? $general_settings['open_tab_default'] : '';
+								unset($social_channels_tabs['is_empty']);
+								?>
+								<label for="myStickyelements-open_tab_default" class="myStickyelements-switch">
+									<input type="checkbox" id="myStickyelements-open_tab_default" name="general-settings[open_tab_default]" <?php checked(@$general_settings['open_tab_default'],'1') ?> value="1" >
+									<span class="slider round"></span>
+								</label>
+								
+								
+								<select id="myStickyelements-opentab-channel" name="general-settings[opentab-channel]" <?php if(!isset($general_settings['open_tab_default']) || $general_settings['open_tab_default'] != 1 ):?> style="display:none;"<?php endif;?>>
+									<option value=""><?php _e( 'Select open channel', 'mystickyelements' );?></option>
+									<option value="contact-form" 
+										<?php selected( @$general_settings['opentab-channel'], 'contact-form' ); ?> 
+										<?php if(isset($contact_form['enable']) && $contact_form['enable'] != 1):?> style="display:none;" <?php endif;?>
+										>
+										<?php _e( 'Contact Form', 'mystickyelements' );?>
+									</option>
+									<?php if( !empty($social_channels_tabs)):?>
+										<?php foreach( $social_channels_tabs as $tab_key=>$tab_value): ?>
+										<option value="<?php echo esc_attr($tab_key);?>" <?php selected( @$general_settings['opentab-channel'], $tab_key ); ?>><?php echo esc_html($tab_value['hover_text']);?></option>
+										<?php endforeach; ?>
+									<?php endif;?>
+								</select>
+							</div>
+						</div>
 						
 						<div class="mystickyelements-content-section-wrap">
 							<span class="myStickyelements-label">
@@ -342,7 +373,7 @@ if ( !$furl){
 									<input type="checkbox" id="myStickyelements-time-delay" name="general-settings[time_delay]" <?php checked(@$general_settings['time_delay'],'1') ?> value="<?php echo isset($general_settings['time_delay']) ? $general_settings['time_delay'] : '1'; ?>" <?php if(!$is_pro_active) : ?> disabled="disabled" <?php endif; ?>>
 									<span class="slider round"></span>
 								</label>
-								&nbsp;<input type="number" name="general-settings[timer_delay_sec]" style="width: 133px;border-radius: 10px;display:<?php echo isset($general_settings['time_delay']) ? 'inline-flex' : 'none';?>" value="<?php echo esc_attr(( isset($general_settings['timer_delay_sec']) && $general_settings['timer_delay_sec'] != '' ) ? $general_settings['timer_delay_sec'] : '0') ; ?>" <?php if(isset($general_settings['time_delay']) && $general_settings['time_delay'] != 1 ): ?> disabled="disabled" <?php endif; ?>>
+								&nbsp;<input type="number" name="general-settings[timer_delay_sec]" style="width: 133px;display:<?php echo isset($general_settings['time_delay']) ? 'inline-flex' : 'none';?>" value="<?php echo esc_attr(( isset($general_settings['timer_delay_sec']) && $general_settings['timer_delay_sec'] != '' ) ? $general_settings['timer_delay_sec'] : '0') ; ?>" <?php if(isset($general_settings['time_delay']) && $general_settings['time_delay'] != 1 ): ?> disabled="disabled" <?php endif; ?>>
 							</div>
 							
 						</div>

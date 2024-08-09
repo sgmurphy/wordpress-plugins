@@ -205,7 +205,13 @@ class Blog_Designer_Lite_Template {
 				'template_name' => esc_html__( 'Lightbreeze Template', 'blog-designer' ),
 				'class'         => 'full-width free',
 				'image_name'    => 'lightbreeze.jpg',
-				'demo_link'     => esc_url( 'https://wpblogdesigner.net/demo/blog-light-breeze-blog-template/' ),
+				'demo_link'     => esc_url( 'https://wpblogdesigner.net/demo/blog-light-breeze-blog-template/'),
+			),
+			'leest'        => array(
+				'template_name' => esc_html__( 'Leest Template', 'blog-designer' ),
+				'class'         => 'full-width free',
+				'image_name'    => 'leest.jpg',
+				'demo_link'     => esc_url( 'https://wpblogdesigner.net/demo/blog-leest-blog-template/' ),
 			),
 			'my_diary'           => array(
 				'template_name' => esc_html__( 'My Diary Template', 'blog-designer' ),
@@ -308,12 +314,6 @@ class Blog_Designer_Lite_Template {
 				'class'         => 'grid',
 				'image_name'    => 'wise_block.jpg',
 				'demo_link'     => esc_url( 'https://wpblogdesigner.net/demo/blog-wise-block-blog-template/' ),
-			),
-			'crayon_slider'      => array(
-				'template_name' => esc_html__( 'Crayon Slider Template', 'blog-designer' ),
-				'class'         => 'slider free',
-				'image_name'    => 'crayon_slider.jpg',
-				'demo_link'     => esc_url( 'https://wpblogdesigner.net/demo/blog-crayon-slider-blog-template/' ),
 			),
 			'sallet_slider'      => array(
 				'template_name' => esc_html__( 'Sallet Slider Template', 'blog-designer' ),
@@ -474,7 +474,7 @@ class Blog_Designer_Lite_Template {
 			}
 			?>
 			<div class="bd-blog-header">
-				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+				<h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 				<?php
 				$display_date          = get_option( 'display_date' );
 				$display_author        = get_option( 'display_author' );
@@ -641,7 +641,7 @@ class Blog_Designer_Lite_Template {
 						<?php
 					}
 					?>
-					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+					<h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 					<?php
 					if ( 0 == $display_author || 0 == $display_date || 0 == $display_comment_count ) {
 						?>
@@ -788,7 +788,7 @@ class Blog_Designer_Lite_Template {
 						<?php
 					}
 					?>
-					<h2 class="bd-blog-header"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+					<h2 class="bd-blog-header"><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 					<?php
 					if ( 0 == $display_author || 0 == $display_date || 0 == $display_comment_count || 0 == get_option( 'display_tag' ) ) {
 						?>
@@ -951,7 +951,7 @@ class Blog_Designer_Lite_Template {
 			</div>
 			<div class="post_summary_outer">
 				<div class="blog_header">
-					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+					<h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 				</div>
 				<div class="post_content">
 					<?php echo wp_kses( Blog_Designer_Lite_Public::bd_get_content( get_the_ID() ), self::args_kses() ); ?>
@@ -1052,7 +1052,7 @@ class Blog_Designer_Lite_Template {
 			}
 			?>
 			<div class="bd-blog-header">
-				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+				<h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 				<?php
 				$display_date          = get_option( 'display_date' );
 				$display_author        = get_option( 'display_author' );
@@ -1185,7 +1185,7 @@ class Blog_Designer_Lite_Template {
 				<?php if ( 0 == get_option( 'display_date' ) ) { ?>
 					<p class="date"><span class="number-date"><?php the_time( 'd' ); ?></span><?php the_time( 'F' ); ?></p>
 				<?php } ?>
-				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2></div>
+				<h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2></div>
 				<div class="bd-post-content">
 					<?php
 					echo wp_kses( Blog_Designer_Lite_Public::bd_get_content( get_the_ID() ), self::args_kses() );
@@ -1316,7 +1316,7 @@ class Blog_Designer_Lite_Template {
 				</div>
 			<?php } ?>
 
-			<div class="bd-blog-header"><h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2></div>
+			<div class="bd-blog-header"><h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2></div>
 
 			<?php
 			$display_date          = get_option( 'display_date' );
@@ -1442,7 +1442,7 @@ class Blog_Designer_Lite_Template {
 							</div>
 						<?php } ?>
 						<div class="desc">
-							<h3 class="text-center text-capitalize"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+							<h3 class="text-center text-capitalize"><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h3>
 							<?php
 							$display_author        = get_option( 'display_author' );
 							$display_comment_count = get_option( 'display_comment_count' );
@@ -1622,7 +1622,7 @@ class Blog_Designer_Lite_Template {
 						endif;
 					}
 					?>
-					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+					<h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 				</div>
 				<?php
 				if ( get_the_content() || has_post_thumbnail() ) {
@@ -1735,7 +1735,7 @@ class Blog_Designer_Lite_Template {
 			<div class="entry-container">
 				<div class="blog_header">
 					<div class="pull-left">
-						<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+						<h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 						<?php
 						if ( 0 == $display_date || 0 == $display_author || 0 == $display_comment_count ) {
 							?>
@@ -1901,7 +1901,7 @@ class Blog_Designer_Lite_Template {
 					if ( 0 == $display_date ) {
 						$date_format = get_option( 'date_format' );
 						?>
-						<p class="bd_date_cover"><span class="date"><?php echo esc_attr( get_the_time( $date_format ) ); ?></span></p><?php } ?><h2 class="title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+						<p class="bd_date_cover"><span class="date"><?php echo esc_attr( get_the_time( $date_format ) ); ?></span></p><?php } ?><h2 class="title"><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 					<?php
 					$display_author        = get_option( 'display_author' );
 					$display_comment_count = get_option( 'display_comment_count' );
@@ -2037,7 +2037,7 @@ class Blog_Designer_Lite_Template {
 				<div class="content-inner">
 					<div class="post_summary_outer">
 						<div class="blog_header">
-							<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+							<h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 						</div>
 						<div class="post_content">
 							<?php echo wp_kses( Blog_Designer_Lite_Public::bd_get_content( get_the_ID() ), self::args_kses() ); ?>
@@ -2179,7 +2179,7 @@ class Blog_Designer_Lite_Template {
 						<?php
 					}
 					?>
-					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+					<h2><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 					<?php
 					if ( 0 == $display_author || 0 == $display_date || 0 == $display_comment_count ) {
 						?>
@@ -2320,7 +2320,7 @@ class Blog_Designer_Lite_Template {
 							<?php
 					}
 					?>
-					<h2 class="post_title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+					<h2 class="post_title"><a href="<?php the_permalink(); ?>"><span><?php the_title(); ?></span></a></h2>
 					<div class="metadatabox">
 						<?php
 						if ( 0 == $display_author || 0 == $display_date ) {
@@ -2462,7 +2462,6 @@ class Blog_Designer_Lite_Template {
 			'rev'        => array(),
 			'target'     => array(),
 			'novalidate' => array(),
-			'type'       => array(),
 			'value'      => array(),
 			'name'       => array(),
 			'tabindex'   => array(),
@@ -2540,6 +2539,7 @@ class Blog_Designer_Lite_Template {
 				'name'        => true,
 				'value'       => true,
 				'placeholder' => true,
+				'id'          => true,
 			),
 			'label'  => array(),
 			'form'   => array(
@@ -2549,6 +2549,20 @@ class Blog_Designer_Lite_Template {
 			'nav'    => array(
 				'class' => true,
 				'role'  => true,
+			),
+			'select' => array(
+				'id'    => true,
+				'class' => true,
+				'name'  => true,
+			),
+			'option' => array(
+				'id'       => true,
+				'class'    => true,
+				'value'    => true,
+				'selected' => true,
+			),
+			'i'      => array(
+				'class' => true,
 			),
 
 		);

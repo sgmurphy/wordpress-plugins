@@ -1,4 +1,18 @@
 <?php
+/**
+ * @version 1.0
+ * @package FEEDBACK
+ * @subpackage  FEEDBACK functions
+ * @category    Functions
+ *
+ * @author wpdevelop
+ * @link https://wpbookingcalendar.com/
+ * @email info@wpbookingcalendar.com
+ *
+ * @modified 2024-05-14
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit;                                             // Exit if accessed directly
 
 if ( ! defined( 'WPBC_FEEDBACK_TIMEOUT' ) ) {       define( 'WPBC_FEEDBACK_TIMEOUT',    '+2 days' ); }
 //if ( ! defined( 'WPBC_FEEDBACK_TIMEOUT' ) ) {       define( 'WPBC_FEEDBACK_TIMEOUT',    '+30 seconds' ); }

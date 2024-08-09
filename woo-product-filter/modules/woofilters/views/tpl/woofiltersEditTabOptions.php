@@ -19,7 +19,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Display On Pages', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Choose page for filter.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/display-only-on-page-wpf/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Choose page for filter.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/display-only-on-page-wpf/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values settings-w100 col-xs-6 col-sm-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -206,7 +206,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Display Filter On', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Choose where display filter.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/options-main-tab/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Choose where display filter.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/options-main-tab/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values settings-w100 col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -227,7 +227,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Force Show Only Current Filter On Page', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Remove other woofilters on page except current filter.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/options-main-tab/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Remove other woofilters on page except current filter.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/options-main-tab/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -246,7 +246,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3 pr-0">
 				<?php esc_html_e('Set Mobile/Desktop Breakpoint', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Set breakpoint for all options that depend on a mobile/desktop view. "Show title label", "Display filter on" etc.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/options-main-tab/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Set breakpoint for all options that depend on a mobile/desktop view. "Show title label", "Display filter on" etc.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/options-main-tab/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -273,7 +273,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Hide Filter On Shop Pages Without Products', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Hide filter on shop and categories pages that displays only categories or subcategories without products.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/options-main-tab/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Hide filter on shop and categories pages that displays only categories or subcategories without products.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/options-main-tab/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -309,7 +309,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Set Number Of Products Per Row', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Set number of products per row. This number will only be shown after filter is applied!', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/options-main-tab/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Set number of products per row. This number will only be shown after filter is applied!', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/options-main-tab/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values settings-w100 col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -329,7 +329,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Enable Ajax', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('This option enables Ajax search. Product filtering and displaying results in a browser will be run in the background without full page reload.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/enable-ajax/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('This option enables Ajax search. Product filtering and displaying results in a browser will be run in the background without full page reload.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/enable-ajax/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-6 col-sm-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -342,7 +342,7 @@
 				<div class="settings-value settings-w100 <?php echo esc_attr($hiddenStyle); ?>" data-parent="settings[enable_ajax]">
 					<div class="settings-value-label">
 						<?php esc_html_e('Remove Actions Before Filtering', 'woo-product-filter'); ?>
-						<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Enable this option when ajax filtering does not work as expected. For example, sorting does not work. Removes filters such as posts_orderby and pre_get_posts.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/options-main-tab/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+						<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Enable this option when ajax filtering does not work as expected. For example, sorting does not work. Removes filters such as posts_orderby and pre_get_posts.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/options-main-tab/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 					</div>
 					<?php
 						HtmlWpf::checkboxToggle('settings[remove_actions]', array(
@@ -465,7 +465,7 @@
 		<div class="row row-settings-block wpfTypeSwitchable">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Filter Activation Type', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('If "Filtering button" option was selected, the "Filter" button appears at the page. It allows users to set all necessary filter parameters before starting the filtering. If "Auto filtering" option was selected, filtering starts as soon as filter elements change and the data reloads automatically.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/button-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('If "Filtering button" option was selected, the "Filter" button appears at the page. It allows users to set all necessary filter parameters before starting the filtering. If "Auto filtering" option was selected, filtering starts as soon as filter elements change and the data reloads automatically.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/button-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values settings-w100 settings-w100 col-xs-8 col-lg-9">
 				<div class="settings-value settings-w50">
@@ -511,7 +511,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Show Clear All Button', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('If this option is enabled, the "Clear" button appears at the page. All filter presets will be removed after pressing the button.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/button-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('If this option is enabled, the "Clear" button appears at the page. All filter presets will be removed after pressing the button.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/button-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -542,7 +542,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3 pr-0">
 				<?php esc_html_e('Select Filter Buttons Position', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Select the position of filter buttons on the page.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/button-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Select the position of filter buttons on the page.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/button-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values settings-w100 col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -563,7 +563,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3 pr-0">
 				<?php esc_html_e('Select Filter Buttons Order', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Change the order of filter buttons on the page.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/button-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Change the order of filter buttons on the page.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/button-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values settings-w100 col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -607,7 +607,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Always Filtering By All Products', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Search for a filtering results among all shop products on any shop pages.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Search for a filtering results among all shop products on any shop pages.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-6 col-sm-7 col-xl-8">
 				<div class="settings-value settings-w100" data-no-preview="1">
@@ -637,7 +637,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Show Clear Block', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('If this option is enabled, the "< clear" links appears at the page next to the filter block titles. The presets of this filter block will be deleted after clicking on the link.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('If this option is enabled, the "< clear" links appears at the page next to the filter block titles. The presets of this filter block will be deleted after clicking on the link.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -660,7 +660,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Recount Products By Selected Filter', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Automatically recount product by selected filters (If product category loading slowly - Disable this function).', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Automatically recount product by selected filters (If product category loading slowly - Disable this function).', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100" data-no-preview="1">
@@ -679,7 +679,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Recount Min/Max Price By Selected Filter', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Automatically change min/max price by selected filters (If product category loading slowly - Disable this function).', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Automatically change min/max price by selected filters (If product category loading slowly - Disable this function).', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100" data-no-preview="1">
@@ -704,7 +704,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Show Parameters Without Products As Disabled', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Automatically disabled parameters without products. Works only when options Show count and Always display all... are enabled.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Automatically disabled parameters without products. Works only when options Show count and Always display all... are enabled.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -734,7 +734,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Checked Items To The Top', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Lets checked terms will be on the top.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Lets checked terms will be on the top.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -765,7 +765,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Set No Products Found Text', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Input "no products found" text for category.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Input "no products found" text for category.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values settings-w100 col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100" data-no-preview="1">
@@ -848,7 +848,7 @@
 			<div class="row row-settings-block">
 				<div class="settings-block-label col-xs-4 col-lg-3">
 					<?php esc_html_e('Display "Show More"', 'woo-product-filter'); ?>
-					<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('For long vertical lists, "Show more" will be displayed.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+					<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('For long vertical lists, "Show more" will be displayed.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 				</div>
 				<div class="settings-block-values col-xs-8 col-lg-9">
 					<span class="settings-value wpfProLabel"><a href="<?php echo esc_url($this->proLink . '?utm_source=displayshowmore&utm_medium=optionscontent&utm_campaign=pluginfilter'); ?>" target="_blank"><?php esc_html_e('PRO Option', 'woo-product-filter'); ?></a></span>
@@ -875,7 +875,7 @@
 			<div class="row row-settings-block">
 				<div class="settings-block-label col-xs-4 col-lg-3">
 					<?php esc_html_e( 'If One Filter Block Is Open, Other Blocks Are Closed', 'woo-product-filter' ); ?>
-					<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr( __( 'When you click on the block open icon, all other open blocks will be automatically closed', 'woo-product-filter' ) . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __( 'Learn More', 'woo-product-filter' ) . '</a>.' ); ?>"></i>
+					<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr( __( 'When you click on the block open icon, all other open blocks will be automatically closed', 'woo-product-filter' ) . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __( 'Learn More', 'woo-product-filter' ) . '</a>' ); ?>"></i>
 				</div>
 				<div class="settings-block-values col-xs-8 col-lg-9">
 					<span class="settings-value wpfProLabel"><a href="<?php echo esc_url($this->proLink . '?utm_source=ifonefilterblockisopenotherblocksareclosed&utm_medium=optionscontent&utm_campaign=pluginfilter'); ?>" target="_blank"><?php esc_html_e('PRO Option', 'woo-product-filter'); ?></a></span>
@@ -884,7 +884,7 @@
 			<div class="row row-settings-block">
 				<div class="settings-block-label col-xs-4 col-lg-3">
 					<?php esc_html_e('Show Category Slugs In URL Instead Of IDs ', 'woo-product-filter'); ?>
-					<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Turn on only when necessary. Please note that "slug" should only contain lowercase Latin letters, numbers and hyphens.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+					<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Turn on only when necessary. Please note that "slug" should only contain lowercase Latin letters, numbers and hyphens.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 				</div>
 				<div class="settings-block-values col-xs-8 col-lg-9">
 					<span class="settings-value wpfProLabel"><a href="<?php echo esc_url($this->proLink . '?utm_source=showcategoryslugsinurlinsteadofids&utm_medium=optionscontent&utm_campaign=pluginfilter'); ?>" target="_blank"><?php esc_html_e('PRO Option', 'woo-product-filter'); ?></a></span>
@@ -894,7 +894,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Hide Filter By Title Click', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Be careful when deactivate it with filter titles shown as close, In such case users do not see filter content.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Be careful when deactivate it with filter titles shown as close, In such case users do not see filter content.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -923,7 +923,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Filtering Of Categories List', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Filtering of categories list on filter process.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Filtering of categories list on filter process.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -968,7 +968,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Multiblock Taxonomy Logic', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Warning! Option uses php sessions! Filter products by different filter blocks of categories / tags / attributes by logic and / or.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Warning! Option uses php sessions! Filter products by different filter blocks of categories / tags / attributes by logic and / or.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -985,7 +985,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Enable third-party prefilter', 'woo-product-filter'); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Allows third-party plugins that do not use WooCommerce shortcodes to filter products (required, for example, to work Product Grid Widget with categories preselection from Essential Addons for Elementor).', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/content-options/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Allows third-party plugins that do not use WooCommerce shortcodes to filter products (required, for example, to work Product Grid Widget with categories preselection from Essential Addons for Elementor).', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/content-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-6 col-sm-7 col-xl-8">
 				<div class="settings-value settings-w100" data-no-preview="1">
@@ -1005,7 +1005,7 @@
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e( 'Enable Filter Icon On Load', 'woo-product-filter' ); ?>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr( __( 'Enable filter icon while filtering results are loading.', 'woo-product-filter' ) . ' <a href="https://woobewoo.com/documentation/loader-options/" target="_blank">' . __( 'Learn More', 'woo-product-filter' ) . '</a>.' ); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr( __( 'Enable filter icon while filtering results are loading.', 'woo-product-filter' ) . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/loader-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __( 'Learn More', 'woo-product-filter' ) . '</a>' ); ?>"></i>
 			</div>
 			<div class="settings-block-values col-xs-8 col-lg-9">
 				<div class="settings-value settings-w100">
@@ -1054,7 +1054,7 @@
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Filter Loader Icon', 'woo-product-filter'); ?>
 				<sup class="wpfProOption"><a href="<?php echo esc_url($this->proLink . '?utm_source=filterloadericon&utm_medium=optionsloader&utm_campaign=pluginfilter'); ?>" target="_blank"><?php esc_html_e('PRO Option', 'woo-product-filter'); ?></a></sup>
-				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr__('Select the animated loader, which appears when filtering results are loading <a href="https://woobewoo.com/documentation/loader-options/" target="_blank">Learn More</a>.', 'woo-product-filter'); ?>"></i>
+				<i class="fa fa-question woobewoo-tooltip" title="<?php echo esc_attr(__('Select the animated loader, which appears when filtering results are loading.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/loader-options/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 			</div>
 			<div class="settings-block-values settings-w100 col-xs-8 col-lg-9">
 				<div class="settings-value settings-w50">

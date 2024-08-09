@@ -1,5 +1,5 @@
 body {
-	background:#fff;
+	/*background:#fff;*/
 }
 .gsheet-header {
     display: -webkit-box;
@@ -101,12 +101,46 @@ a.nav-tab.nav-tab-active {
 	font-weight:bold;
 }
 
+.card-cf7gs {
+    position: relative;
+    margin-top: 20px;
+    padding: .7em 2em 1em;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #b5bfc9;
+    border-radius: 6px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .05);
+    display: flex;
+    align-items: center;
+}
+.dropdownoption-cf7gs label {
+    font-weight: bold;
+    color: #e27730;
+    margin-right: 10px;
+}
+.dropdownoption-cf7gs select {
+    margin: 0;
+    width: 100%;
+    min-height: 38px;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    border-color: #ddd;
+    font-weight: bold;
+    /* margin-left: 40px; */
+}
+.int-meth-btn-cf7gs {
+  display: inline-block;
+}
+
 
 .wp-core-ui .notice.is-dismissible {
     padding-right: 38px !important;
 }
 .wrap {
-    margin: 0px 20px 0 2px;
+    /*margin: 0px 20px 0 2px;*/
 }
 .gsheet-header h1 {
     color: #1d2327;
@@ -210,11 +244,11 @@ a.nav-tab.nav-tab-active {
 }
 
 .wrap {
-  margin: 0px 15px 0 2px;
-  min-height:650px;
+  /*margin: 0px 15px 0 2px;
+  min-height:650px;*/
 }
 .wrap .wrap  {
- min-height:inherit;	
+ /*min-height:inherit;	*/
 }
 
 
@@ -226,11 +260,11 @@ a.nav-tab.nav-tab-active {
    width:10px;
 }
 .inside label {
-   line-height: 1.3;
+   /*line-height: 1.3;
    font-weight: 600;
    color: #23282d;
    font-size: 14px;
-   margin-right: 10px;
+   margin-right: 10px;*/
 }
 .gs-card {
     padding: 15px;
@@ -244,11 +278,13 @@ a.nav-tab.nav-tab-active {
     box-shadow: 3px 3px 3px rgba(0,0,0,.05);
 	box-sizing:border-box;
 }
-h2 {
-	color: #4AA94F;
+/*h2 {*/
+  .inner-title {
+	  color: #4AA94F;
     font-weight: 700;
     font-size: 17px;	
 }
+
 hr {
     border: none;
     border-top: 1px solid #ccc;
@@ -399,7 +435,7 @@ debug-clear {
     font-weight: 600;
 }
 li#google_sheets-tab {
-   border-top: 2px solid green !important;
+   /*border-top: 2px solid green !important;*/
 }
 
 
@@ -1171,7 +1207,8 @@ a:hover.demo-btn {
 }
 
 
-.wp-core-ui .button-primary, .wp-core-ui .button-primary:focus {
+/*.wp-core-ui .button-primary, .wp-core-ui .button-primary:focus {*/
+#deactivate-log, #save-gs-code, #beta-save, #gs-cf7db-setting-btn, #debug-logs-save, #submitaTicket, #documentation, #roleSettingsSave, #cf7-add-feed, #save-method-api-cf7gs{
 	font-size:13px;
 	font-weight:500;
     border-radius:5px;
@@ -1185,7 +1222,10 @@ a:hover.demo-btn {
     -webkit-transition-duration: 0.4s;
     transition-timing-function: ease-in-out, ease-out;	
 }
-.wp-core-ui .button-primary:hover {
+/*.wp-core-ui .button-primary:hover {*/
+#deactivate-log:hover, #save-gs-code:hover, #beta-save:hover, #gs-cf7db-setting-btn:hover, #debug-logs-save:hover, #submitaTicket:hover, #documentation:hover, #roleSettingsSave:hover, #cf7-add-feed:hover, #save-method-api-cf7gs:hover
+
+{
 	background: #516f7a;	
 }
 
@@ -1776,7 +1816,7 @@ input:checked + .slider:before {
 	margin-bottom:30px;
 }
 .wrap {
-    margin: 0px 0px 0 2px;
+    /*margin: 0px 0px 0 2px;*/
 }
 .plugin-features {
     margin: 15px 0;
@@ -1810,6 +1850,10 @@ input:checked + .slider:before {
 	right: 14px;
     top: 48px;	
 }
+/*a:focus.gsheet-help{
+  box-shadow: 0 0 0 0px #fff  !important;
+  outline: 0px solid transparent !important;
+}*/
 
 h2 .nav-tab {
     margin: 0;
@@ -1879,7 +1923,7 @@ table .table-title { font-weight:normal; }
 
 
 .wrap {
-    margin: 0px 0px 0 2px;
+    /*margin: 0px 0px 0 2px;*/
 }
 .plugin-features {
     margin: 15px 0;

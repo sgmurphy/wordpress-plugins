@@ -172,6 +172,7 @@ form#stickyelements-form textarea {
 }
 form#stickyelements-form select {
 	-webkit-appearance: menulist;
+	background-image: none;
 }
 form#stickyelements-form .quicktags-toolbar input {
 	width: auto;

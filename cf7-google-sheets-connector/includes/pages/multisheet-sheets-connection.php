@@ -4,7 +4,7 @@
     <div id="error-message" style="display:none;"></div>
     
     <div class="show-feed-msg"></div>
-    <h2 style="font-weight:500;"><?php echo esc_html(__('Add Feed', 'gsconnector')); ?></h2>
+    <h2 class="inner-title"><?php echo esc_html(__('Add Feed', 'gsconnector')); ?></h2>
 
     <input type="text" name="cf7-feed-name" id="cf7-feed-name" placeholder="Enter Feed Name" style="pointer-events: none;"/>
     <button style="padding:0px 20px;pointer-events: none;" class="button button-primary" id="cf7-add-feed"><?php echo esc_html(__('Add Feed', 'gsconnector')); ?></button>

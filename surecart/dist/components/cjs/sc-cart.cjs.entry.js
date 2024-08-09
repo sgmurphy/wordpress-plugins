@@ -94,6 +94,9 @@ const ScCart = class {
       console.error(e);
       mutations$1.updateFormState('REJECT');
       mutations$2.createErrorNotice(e);
+      if ((e === null || e === void 0 ? void 0 : e.code) === 'checkout.not_found') {
+        mutations.clearCheckout(this.formId, this.mode);
+      }
     }
   }
   componentWillLoad() {

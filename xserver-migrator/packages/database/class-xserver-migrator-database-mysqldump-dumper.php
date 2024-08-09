@@ -67,7 +67,7 @@ class Xserver_Migrator_Database_Mysqldump_Dumper extends Xserver_Migrator_Databa
 		if ( $status === 0 ) {
 			return $output[0];
 		}
-		$output = [];
+		$output = array();
 		exec( 'type mysqldump', $output, $status );
 		return $status === 0 ? str_replace( 'mysqldump is ', '', $output[0] ) : '';
 	}

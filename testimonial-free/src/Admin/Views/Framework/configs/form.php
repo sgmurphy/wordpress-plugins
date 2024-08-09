@@ -66,8 +66,6 @@ SPFTESTIMONIAL::createSection(
 			array(
 				'id'      => 'form_elements',
 				'type'    => 'checkbox',
-				// 'class'      => 'pro_only_field',
-				// 'attributes' => array( 'disabled' => 'disabled' ),
 				'options' => array(
 					'name'              => __( 'Full Name', 'testimonial-free' ),
 					'email'             => __( 'E-mail Address', 'testimonial-free' ),
@@ -90,7 +88,8 @@ SPFTESTIMONIAL::createSection(
 			array(
 				'type'    => 'notice',
 				'class'   => 'form-fields-notice',
-				'content' => __( 'To access more fields, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Get Pro Now!</b></a>', 'testimonial-free' ),
+				/* translators: 1: start link tag, 2: close tag. */
+				'content' => sprintf( __( 'To access more fields, %1$sGet Pro Now!%2$s', 'testimonial-free' ), '<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>', '</b></a>' ),
 			),
 		),
 	)
@@ -536,7 +535,12 @@ SPFTESTIMONIAL::createSection(
 			array(
 				'type'    => 'notice',
 				'class'   => 'tpro-form-notice form-editor-notice form_settings',
-				'content' => __( 'To create unlimited Testimonial Forms and enhance them with additional fields for collecting and displaying reviewer information to increase sales, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+				'content' => sprintf(
+					/* translators: 1: start link tag, 2: close link tag. */
+					__( 'To create unlimited Testimonial Forms and enhance them with additional fields for collecting and displaying reviewer information to increase sales, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
 			),
 		),
 	)
@@ -663,7 +667,12 @@ SPFTESTIMONIAL::createSection(
 			array(
 				'type'    => 'notice',
 				'class'   => 'tpro-form-notice form-editor-notice form_settings',
-				'content' => __( 'To open the Testimonial Form in popup or lightbox, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+				'content' => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'To open the Testimonial Form in popup or lightbox, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
 			),
 		),
 	)
@@ -685,7 +694,13 @@ SPFTESTIMONIAL::createSection(
 				'class'    => 'testimonial_approval_status',
 				'title'    => __( 'Testimonial Status', 'testimonial-free' ),
 				'subtitle' => __( 'Select testimonial approval status for the front-end form submission.', 'testimonial-free' ),
-				'desc'     => '<div class="testimonial-approval-status-notice">' . __( 'To access this feature, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ) . '</div>',
+				'desc'     => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( '%1$sTo access this feature, %2$sUpgrade to Pro!%3$s', 'testimonial-free' ),
+					'<div class="testimonial-approval-status-notice">',
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a></div>',
+				),
 				'options'  => array(
 					'pending'              => esc_html__( 'Pending Review', 'testimonial-free' ),
 					'private'              => esc_html__( 'Private', 'testimonial-free' ),
@@ -729,7 +744,12 @@ SPFTESTIMONIAL::createSection(
 							array(
 								'type'    => 'notice',
 								'class'   => 'tpro-form-notice form_settings',
-								'content' => __( 'To receive admin notifications when a testimonial is submitted by a reviewer, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'To receive admin notifications when a testimonial is submitted by a reviewer, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 							array(
 								'id'         => 'submission_email_notification',
@@ -750,7 +770,6 @@ SPFTESTIMONIAL::createSection(
 								'title'      => __( 'To', 'testimonial-free' ),
 								'default'    => $admin_email,
 								'dependency' => array( 'submission_email_notification', '==', 'true' ),
-								// 'title_help' => 'For multiple emails, use comma between these.',
 							),
 							array(
 								'id'         => 'submission_email_from',
@@ -818,7 +837,12 @@ SPFTESTIMONIAL::createSection(
 							array(
 								'type'    => 'notice',
 								'class'   => 'tpro-form-notice form_settings',
-								'content' => __( 'To send an awaiting message when a reviewer submits a testimonial, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'To send an awaiting message when a reviewer submits a testimonial, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 							array(
 								'id'         => 'reviewer_awaiting_notification',
@@ -879,7 +903,12 @@ SPFTESTIMONIAL::createSection(
 							array(
 								'type'    => 'notice',
 								'class'   => 'tpro-form-notice form_settings',
-								'content' => __( 'To send an approval email notification when a submitted testimonial is approved or published, <a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>Upgrade to Pro!</b></a>', 'testimonial-free' ),
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'To send an approval email notification when a submitted testimonial is approved or published, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 							array(
 								'id'         => 'approval_notification',

@@ -71,7 +71,7 @@ if ( ! class_exists( 'WWP_REST_Wholesale_Roles_V1_Controller' ) ) {
          * @param array  $request Request data.
          * @return string|array $response
          */
-        public function filter_product_object( $response, $object, $request ) {
+        public function filter_product_object( $response, $object, $request ) { // phpcs:ignore.
             if ( isset( $request['fields'] ) && ! empty( $request['fields'] ) ) {
                 $data    = $response->get_data();
                 $newdata = array();
@@ -208,7 +208,7 @@ if ( ! class_exists( 'WWP_REST_Wholesale_Roles_V1_Controller' ) ) {
                 $all_registered_wholesale_roles = apply_filters( 'wwp_api_update_wholesale_roles_filter', $all_registered_wholesale_roles, $request );
 
                 // Update the option with json encoded value.
-                update_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES, maybe_serialize( $all_registered_wholesale_roles ) );
+                update_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES, maybe_serialize( $all_registered_wholesale_roles ), 'no' );
 
                 $result = array(
                     // translators: %s: role key.
@@ -271,7 +271,6 @@ if ( ! class_exists( 'WWP_REST_Wholesale_Roles_V1_Controller' ) ) {
 
             return $all_registered_wholesale_roles;
         }
-
     }
 
 }

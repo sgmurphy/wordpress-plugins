@@ -5,7 +5,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('LOGINIZER_VERSION', '1.9.0');
+define('LOGINIZER_VERSION', '1.9.1');
 define('LOGINIZER_DIR', dirname(LOGINIZER_FILE));
 define('LOGINIZER_URL', plugins_url('', LOGINIZER_FILE));
 define('LOGINIZER_PRO_URL', 'https://loginizer.com/features#compare');
@@ -204,9 +204,7 @@ function loginizer_load_plugin(){
 	
 	// Check if the installed version is outdated
 	loginizer_update_check();
-	
-	
-	
+
 	// Set the array
 	if(empty($loginizer)){
 		$loginizer = array();
@@ -534,7 +532,7 @@ function loginizer_is_blacklisted(){
 	
 	global $wpdb, $loginizer, $lz_error;
 	
-	$blacklist = $loginizer['blacklist'];
+	$blacklist = isset($loginizer['blacklist']) ? $loginizer['blacklist'] : [];
 	
 	if(empty($blacklist)){
 		return false;

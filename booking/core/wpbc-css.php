@@ -200,7 +200,7 @@ function wpbc_get_calendar_skin_url() {
         $calendar_skin_path = WPBC_PLUGIN_URL . str_replace( WPBC_PLUGIN_URL, '', get_bk_option( 'booking_skin') );
     }
 
-    // Check  if this skin exist  int he Custom User folder at  the http://example.com/wp-content/uploads/wpbc_skins/
+    // Check  if this skin exist  in the Custom User folder at  the http://example.com/wp-content/uploads/wpbc_skins/
     $upload_dir = wp_upload_dir();
     $custom_user_skin_folder = $upload_dir['basedir'] ;
     $custom_user_skin_url    = $upload_dir['baseurl'] ;
@@ -222,6 +222,7 @@ function wpbc_get_time_picker_skin_url(){                                       
 	// Just  default value,  if previously  was not saved any  options.
 	if ( empty( get_bk_option( 'booking_timeslot_picker_skin' ) ) ) {
 		update_bk_option( 'booking_timeslot_picker_skin', '/css/time_picker_skins/grey.css' );
+		update_bk_option( 'booking_timeslot_picker_skin', '/css/time_picker_skins/light__24_8.css' );      	            //FixIn: 10.4.0.1
 	}
 
     // Check if this skin exist in the plugin  folder //////////////////////

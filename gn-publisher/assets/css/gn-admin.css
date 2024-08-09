@@ -450,3 +450,6 @@ div#gn-upgrade .button-gnp-ugrade {
   position: relative;
   top: -2px;
 }
+.gnpub-show{
+    display: block;
+}

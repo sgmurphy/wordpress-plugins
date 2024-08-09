@@ -20,7 +20,7 @@ $skins = array(
 		<?php esc_html_e('Filter skin', 'woo-product-filter'); ?>
 		<i class="fa fa-question woobewoo-tooltip no-tooltip" title="
 		<?php 
-		echo esc_attr(__('Select the price filter skin.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/price-product-filter/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.')
+		echo esc_attr(__('Select the price filter skin.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/price-product-filter/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>')
 		; 
 		?>
 		"></i>
@@ -47,9 +47,13 @@ if ($isPro) {
 		if (strpos($value, $labelPro)) {
 			?>
 			<div class="row-settings-block col-md-12 wpfPriceSkinPro wpfHidden" data-type="<?php echo esc_attr($key); ?>">
-				<a href="https://woobewoo.com/plugins/woocommerce-filter/" target="_blank">
+				<?php if (FrameWpf::_()->isWCLicense()) { ?>
+				<img class="wpfProAd" src="<?php echo esc_url($adPath . 'price_skin_' . $key . '.png'); ?>">
+				<?php } else { ?>
+				<a href="<?php echo esc_url('https://' . WPF_WP_PLUGIN_URL . '/plugins/woocommerce-filter/'); ?>" target="_blank">
 					<img class="wpfProAd" src="<?php echo esc_url($adPath . 'price_skin_' . $key . '.png'); ?>">
 				</a>
+				<?php } ?>
 			</div>
 			<?php 
 		} 

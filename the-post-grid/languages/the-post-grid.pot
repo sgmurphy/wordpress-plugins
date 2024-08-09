@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-07 10:58+0000\n"
+"POT-Creation-Date: 2024-08-09 10:28+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -2250,7 +2250,7 @@ msgid "Display Per Page"
 msgstr ""
 
 #: ../app/Widgets/elementor/rtTPGElementorHelper.php:1583
-msgid "Enter how may posts will display per page"
+msgid "Enter how may posts will display per page. It works only for the the pagination and ajax-filer."
 msgstr ""
 
 #: ../app/Widgets/elementor/rtTPGElementorHelper.php:1591

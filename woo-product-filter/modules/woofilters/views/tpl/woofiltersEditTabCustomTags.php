@@ -1,7 +1,7 @@
 <div class="row-settings-block">
 	<div class="settings-block-label col-xs-4 col-sm-3">
 		<?php esc_html_e('Use Custom tags', 'woo-product-filter'); ?>
-		<i class="fa fa-question woobewoo-tooltip no-tooltip" title="<?php echo esc_attr(__('Choose tags for filter titles. Any settings you leave blank will default.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/product-tags/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>
+		<i class="fa fa-question woobewoo-tooltip no-tooltip" title="<?php echo esc_attr(__('Choose tags for filter titles. Any settings you leave blank will default.', 'woo-product-filter') . ' <a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/documentation/product-tags/') . '" class="wupsales-wc-hidden" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>'); ?>"></i>
 	</div>
 	<div class="sub-block-values settings-values-w100 col-xs-8 col-sm-9">
 		<div class="settings-value settings-w100">

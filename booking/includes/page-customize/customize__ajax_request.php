@@ -45,7 +45,7 @@ class WPBC_AJX__Customize_Plugin__Ajax_Request {
 				'default'  => 'none'
 			)
 
-			, 'customize_plugin__booking_skin' => array( 'validate' => 's', 'default' => '/css/skins/green-01.css' )	// get_bk_option( 'booking_skin' )
+			, 'customize_plugin__booking_skin' => array( 'validate' => 's', 'default' => '/css/skins/green-01.css' )
 
 			, 'current_step' => array( 'validate' => array( 'calendar_skin', 'calendar_size', 'calendar_dates_selection', 'calendar_weekdays_availability', 'calendar_additional'
 														 , 'form_structure', 'form_times', 'form_legend'

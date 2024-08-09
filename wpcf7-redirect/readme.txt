@@ -3,7 +3,7 @@ Tags: cf7 redirect, redirect cf7, contact form 7 MailChimp, redirect to URL, con
 Contributors: codeinwp, themeisle, yuvalsabar, regevlio
 Requires at least: 5.2.0
 Tested up to: 6.6
-Stable tag: 3.1.7
+Stable tag: 3.1.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -150,6 +150,14 @@ No. One of the reasons we developed this plugin, is because on_send_ok is now de
 5. Extensions tab
 
 == Changelog ==
+
+#####   Version 3.1.8 (2024-08-09)
+
+- Changed wording on the upgrade button
+- Implemented a user satisfaction survey
+
+
+
 
 #####   Version 3.1.7 (2024-06-20)
 

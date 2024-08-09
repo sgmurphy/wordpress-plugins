@@ -4,6 +4,7 @@ export declare const convertPriceChoiceToLineItemData: (choice: PriceChoice) => 
 export declare const convertLineItemsToLineItemData: (lineItems: RecursivePartial<lineItems>) => Array<{
   price_id: string;
   quantity: number;
+  variant_id?: string;
 }>;
 export declare const addLineItem: (lineItems: RecursivePartial<lineItems>, data: {
   price_id: string;
@@ -11,6 +12,7 @@ export declare const addLineItem: (lineItems: RecursivePartial<lineItems>, data:
 }) => {
   price_id: string;
   quantity: number;
+  variant_id?: string;
 }[];
 /**
  * Calculates the initial line items for the session.

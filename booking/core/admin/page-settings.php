@@ -292,7 +292,7 @@ if (0){
 					</div>
 					<div id="wpbc_general_settings_booking_calendar_overview_tab" class="wpbc_settings_navigation_item wpbc_navigation_sub_item">
 						<a class="" original-title="" onclick="javascript:wpbc_navigation_click_show_section(this,'#wpbc_general_settings_booking_calendar_overview_metabox' );" href="javascript:void(0);">
-							<span><?php _e( 'Calendar Overview', 'booking' ) ?></span>
+							<span><?php _e( 'Timeline View', 'booking' ) ?></span>
 						</a>
 					</div>
 					<div id="wpbc_general_settings_datestimes_tab" class="wpbc_settings_navigation_item wpbc_navigation_sub_item">

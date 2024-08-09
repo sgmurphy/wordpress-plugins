@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-f1e4d53b.js');
 const consumer = require('./consumer-21fdeb72.js');
-const index$1 = require('./index-49cf7c76.js');
+const index$1 = require('./index-f9d999d6.js');
 const price$1 = require('./price-f1f1114d.js');
 const fetch = require('./fetch-2dba325c.js');
 const addQueryArgs = require('./add-query-args-17c551b6.js');

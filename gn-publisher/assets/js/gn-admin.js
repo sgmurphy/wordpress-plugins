@@ -52,10 +52,19 @@ function gn_copy(id) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+    
+    /**
+     * Set tab param to current url
+     * @since 1.5.16
+     * */
+    var url = new URL(window.location.href);
+    url.searchParams.set('tab', tabName);
+    window.history.replaceState(null, null, url.toString());
+
   }
   
   // Get the element with id="defaultOpen" and click on it
-  document.getElementById("defaultOpen").click();
+  //document.getElementById("defaultOpen").click();
   jQuery('.gn-publisher-pro-btn').click(function(){
     jQuery('.gn-tablinks.gn-license-btn').addClass('active');
   });
@@ -79,20 +88,6 @@ function gn_copy(id) {
         window.open('https://gnpublisher.com/services/search-console-maintenance-service/', '_blank');
       }     
     });
-
-    //for active the pro tab on first time
-    if($('.gnpub-upgrade').length > 0){
-      let findWelcomeClass =  $('.gnpub-upgrade').attr('class');
-      if(findWelcomeClass.indexOf('welcome') !== -1){
-        $('.gn-tabcontent').hide('active');
-        $('.gn-tablinks').removeClass('active');
-        $('.gn-tablinks.gnpub-upgrade').addClass('active')
-        $('.gnpub-upgrade').addClass('active');
-        $('.gnpub-upgrade').removeClass('welcome');
-        $('#gn-upgrade').show();
-      }
-    }
-
 
     var btn_click=false;
     $('.gn-service-card-left,.gn-service-heading,.gn-service-card-right p  ').click(function(){

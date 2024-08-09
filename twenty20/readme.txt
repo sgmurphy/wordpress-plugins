@@ -5,7 +5,7 @@ Tags: images, before and after slider, before after slider, ux builder element
 Requires at least: 5.5
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 1.7.2
+Stable tag: 1.7.4
 License: GPLv2 or later
 
 Easily highlight differences between two images with the Twenty20 plugin.
@@ -102,6 +102,9 @@ Yes, the Twenty20 plugin allows users to add unlimited before-after sliders.
 11. UX Builder element.
 
 == Changelog ==
+
+= 1.7.4 =
+* Fixed Elementor Widget
 
 = 1.7.3 =
 * Bug fixes

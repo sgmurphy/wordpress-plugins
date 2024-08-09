@@ -33,6 +33,7 @@ class Blog_Designer_Lite_Public {
 		add_shortcode( 'wp_blog_designer_ticker', array( $this, 'blog_designer_ticker_view' ) );
 		add_action( 'wp_ajax_nopriv_get_loadmore_blog', array( &$this, 'bd_load_onscroll_blog' ), 12 );
 		add_action( 'wp_ajax_get_loadmore_blog', array( &$this, 'bd_load_onscroll_blog' ), 12 );
+		//add_filter( 'safe_style_css', array( $this, 'bd_allow_stylesheet' ) );
 
 	}
 	/**
@@ -67,6 +68,13 @@ class Blog_Designer_Lite_Public {
 			wp_enqueue_script( 'bd-galleryimage-script', plugins_url( 'js/jquery.flexslider-min.js', __FILE__ ), null, '1.0', false );
 		}
 	}
+	/**
+	 * Allow styles in wp kses
+	 */
+	// public function bd_allow_stylesheet() {
+	// 	$styles[] = 'display';
+	// 	return $styles;
+	// }
 	/**
 	 * Ajax URL
 	 */
@@ -310,8 +318,8 @@ class Blog_Designer_Lite_Public {
 							<?php echo ( 1 == $slider_autoplay ) ? 'slideshow: true,' : 'slideshow: false,'; ?>
 							<?php echo ( 1 == $slider_autoplay ) ? 'slideshowSpeed:' . esc_attr( $slider_autoplay_intervals ) . ',' : ''; ?>
 							<?php echo ( esc_attr( $slider_speed ) ) ? 'animationSpeed:' . esc_attr( $slider_speed ) . ',' : ''; ?>
-							prevText: "<?php echo $prev; ?>",
-							nextText: "<?php echo $next; ?>",
+							prevText: "<?php echo wp_kses( $prev, Blog_Designer_Lite_Template::args_kses() ); ?>",
+							nextText: "<?php echo wp_kses( $next, Blog_Designer_Lite_Template::args_kses() ); ?>",
 							rtl: 
 							<?php
 							if ( is_rtl() ) {
@@ -408,7 +416,7 @@ class Blog_Designer_Lite_Public {
 					} else {
 						$alter_class = ' odd';
 					}
-					$class = 'timeline';
+					$class     = 'timeline';
 					$this_year = get_the_date( 'Y' );
 					echo '<div class="timeline_year"><span class="year_wrap"><span class="only_year">' . esc_html( $this_year ) . '</span></span></div>';
 					Blog_Designer_Lite_Template::bd_timeline_template( $alter_class );
@@ -521,7 +529,7 @@ class Blog_Designer_Lite_Public {
 					$template .= '</a>';
 					$template .= '</div>';
 				}
-				echo $template;
+				echo  $template;
 			}
 			if ( '' != $main_container_class ) {
 				echo '</div>';
@@ -1021,7 +1029,7 @@ class Blog_Designer_Lite_Public {
 						} else {
 							$alter_class = ' odd';
 						}
-						$class = 'timeline';
+						$class     = 'timeline';
 						$this_year = get_the_date( 'Y' );
 						echo '<div class="timeline_year"><span class="year_wrap"><span class="only_year">' . esc_html( $this_year ) . '</span></span></div>';
 						Blog_Designer_Lite_Template::bd_timeline_template( $alter_class );

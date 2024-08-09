@@ -3,7 +3,7 @@
  * Plugin Name:  WP Image CAPTCHA
  * Plugin URI:   https://wpimagecaptcha.com/
  * Description:  Adds an image CAPTCHA to your "Contact Form 7" and "WPForms" forms.
- * Version:      3.3.15
+ * Version:      3.3.17
  * Author:       WP Image CAPTCHA
  * Author URI:   https://wpimagecaptcha.com/
  * License:      GNU General Public License v2
@@ -77,10 +77,9 @@ function cf7ic_settings_cb(){ ?>
                     </table>
                     <div class="cf7ic-separator"></div>
 
-                    <h3><img class="cf7ic-form-icons" src="<?php echo plugin_dir_url(__FILE__); ?>assets/star.svg" alt="Review icon"> Review</h3>
-                    <p>Please share some love and leave a positive review if you like the plugin.</p>
-                    <p>Please prove you are human by selecting the 5 star rating 😉</p>
-                    <a target="_blank" class="button-primary cf7ic-btn-primary" href="https://wordpress.org/support/plugin/contact-form-7-image-captcha/reviews/#new-post">Rate NOW</a>
+                    <h3><img class="cf7ic-form-icons" src="<?php echo plugin_dir_url(__FILE__); ?>assets/star.svg" alt="Review icon"> Review & FAQ</h3>
+                    <p>Please share some love and leave a positive review if you like the plugin: <a target="_blank" class="" href="https://wordpress.org/support/plugin/contact-form-7-image-captcha/reviews/#new-post">Rate NOW</a></p>
+                    <p>Facing language / translation issues? <a target="_blank" class="" href="https://wordpress.org/plugins/contact-form-7-image-captcha/#language%20issues%3F">See FAQ</a></p>
                 </div>
 
                 <div class="cf7ic-wrapper">

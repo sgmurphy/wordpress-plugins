@@ -44,7 +44,7 @@
 			<div class="wpfDeactivateDescShell">
 				<?php
 				/* translators: %s: url */
-				echo sprintf(esc_html__('If you have a question, %s and will do our best to help you', 'woo-product-filter'), '<a href="https://woobewoo.com/contact-us/?utm_source=plugin&utm_medium=deactivated_contact&utm_campaign=popup" target="_blank">' . esc_html__('contact us', 'woo-product-filter') . '</a>'); 
+				echo sprintf(esc_html__('If you have a question, %s and will do our best to help you', 'woo-product-filter'), '<a href="' . esc_url('https://' . WPF_WP_PLUGIN_URL . '/contact-us/?utm_source=plugin&utm_medium=deactivated_contact&utm_campaign=popup') . '" class="wupsales-wc-hidden" target="_blank">' . esc_html__('contact us', 'woo-product-filter') . '</a>'); 
 				?>
 			</div>
 		</label>

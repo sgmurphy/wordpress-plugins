@@ -109,7 +109,7 @@ function mo_openid_mailchimp_add_on() {  ?>
 				success: function(data) {
 					var flag=0;
 					jQuery("input").each(function(){
-						if($(this).val()=="mo_openid_verify_license") flag=1;
+						if(jQuery(this).val()=="mo_openid_verify_license") flag=1;
 					});
 					if(!flag) {
 						jQuery(data).insertBefore("#mo_openid_mailchimp_video");

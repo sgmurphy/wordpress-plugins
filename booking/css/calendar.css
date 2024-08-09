@@ -563,7 +563,7 @@ div#datepick-div textarea {
     justify-content:flex-start;
     align-items:center;
     max-width: 100%;                        /* FixIn: 9.5.0.3  */
-    margin:10px 15px 5px 0;
+    margin: 7px 15px 7px 0;
 }
 /* Vertical orientation of Legend items */
 .block_hints_vertical.block_hints .wpdev_hint_with_text {
@@ -615,7 +615,7 @@ div#datepick-div textarea {
 .datepick-inline .datepick-days-cell div.date-content-bottom,
 .datepick-inline .datepick-days-cell div.date-content-top {
     font-size:0.7em;
-    font-style: italic;
+    font-style: normal;
     line-height: 0.72em;
     text-align: center;
     padding:0;
@@ -667,7 +667,8 @@ div#datepick-div textarea {
     flex: 1 1 35%;
     line-height: normal;
 }
-.datepick-inline .datepick-days-cell .date-cell-content a {
+.datepick-inline .datepick-days-cell .date-cell-content a,
+.datepick-inline .datepick-days-cell .date-cell-content span {
     flex: 1 1 30%;
 }
 .datepick-inline .timespartly .date-content-top{
@@ -852,3 +853,15 @@ div.datepick-inline table.datepick {
 /* ================================================================================================================== */
 /* End Tooltips Content ********************************************************************************************* */
 /* ================================================================================================================== */
+.block_hints.datepick .wpdev_hint_with_text .wpbc_calendar_legend_table_width_height {
+    width: 30px !important;
+    height: 30px;
+    border: 0;
+    box-shadow: none;
+    float: left;
+    min-width: 30px;
+    padding: 0;
+}
+.block_hints.datepick .wpdev_hint_with_text .wpbc_calendar_legend_table_width_height .wpbc_calendar_legend_day_cell_height {
+    height:30px !important;
+}

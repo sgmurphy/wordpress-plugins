@@ -3,9 +3,9 @@ Contributors: awordpresslife, razipathhan, hanif0991, muhammadshahid, fkfaisalkh
 Donate link: https://paypal.me/awplife
 Tags: portfolio, gallery, portfolio gallery, responsive, wordpress portfolio plugin
 Requires at least: 3.2
-Tested up to: 6.5.5
+Tested up to: 6.6.1
 Requires PHP: 5.4
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,8 @@ The first portfolio plugin in WordPress for a separate category page.
 * [Upgrade To Portfolio Premium](https://awplife.com/wordpress-plugins/portfolio-filter-gallery-wordpress-plugin/)
 * [Free Live Demo](https://awplife.com/demo/portfolio-filter-gallery-free-wordpress-plugin/)
 * [Premium Live Demo](https://awplife.com/demo/portfolio-filter-gallery-premium/)
+
+* [Ultimate Portfolio - Advanced Version With Gutenberg ](https://webenvo.com/ultimate-portfolio/)
 
 = HOW TO USE THE EASIEST PORTFOLIO WITH WORDPRESS =
 
@@ -179,8 +181,12 @@ After uploading the images choose the image type = (video) from the select box b
 
 == Changelog ==
 
+= 1.6.7 =
+* Image border issue fixed.
+* Tested with WordPress version 6.6.1
+
 = 1.6.6 =
-* Lightbox error dixed.
+* Lightbox error fixed.
 
 = 1.6.5 =
 * Lightbox senetization fixed.

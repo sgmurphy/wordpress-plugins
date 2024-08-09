@@ -645,6 +645,7 @@
   font-weight: 600;
   text-transform: uppercase;
 }
+
 /* 
 .spftestimonial-field-tabbed.sp_tabbed_horizontal .spftestimonial-tabbed-nav a{
   background-color: #1B73E8;
@@ -2269,6 +2270,7 @@
   font-size: 14px;
   padding: 0px 12px 0px 0;
 }
+
 .sp_testimonial-pagination-notice .spftestimonial-notice,
 .theme-settings-top-notice .spftestimonial-notice {
   padding: 21px 12px 0px 0;
@@ -2507,7 +2509,7 @@
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translate( 5px,-50%);
+    transform: translate(5px, -50%);
   }
 }
 
@@ -5006,7 +5008,7 @@ span.spftestimonial-shortcode-selectable::after {
 }
 
 .spftestimonial-buttons .button.spftestimonial-reset-section:hover {
-  background-color: #c03635!important;
+  background-color: #c03635 !important;
 }
 
 .spftestimonial-buttons .button.spftestimonial-reset-section {
@@ -5398,6 +5400,7 @@ div#sp_tfree_form_upper_section .postbox-header,
 }
 
 #sp_tpro_form_options .spftestimonial-field-sortable.form_fields .spftestimonial--sortable-content>.spftestimonial-field
+
 /*,
 #sp_tpro_form_options .spftestimonial-field-accordion .spftestimonial-accordion-title,
  #sp_tpro_form_options .spftestimonial-nav-metabox,
@@ -5533,6 +5536,7 @@ div#spftestimonial-section-sp_tpro_form_elements_options_1 .spftestimonial-field
   display: flex;
   width: 235px;
 }
+
 .spftestimonial-field.spftestimonial-field-fieldset.sp_testimonial-navigation-and-pagination-style .spt_hide_on_mobile {
   display: flex;
   width: 220px;

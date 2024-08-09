@@ -3,7 +3,7 @@ Contributors: galdub, tomeraharon, premio
 Tags: whatsapp, contact form, facebook messenger, call now button, instagram
 Requires at least: 3.1
 Tested up to: 6.6
-Stable tag: 2.1.9
+Stable tag: 2.2
 Plugin URI: https://premio.io/downloads/mystickyelements/
 
 🔥 Get leads with a floating contact form tab, chat & social buttons like Facebook Messenger, WhatsApp, Viber, Telegram, Twitter, Instagram & more 🎉
@@ -330,6 +330,14 @@ A live demo for My Sticky Elements plugin is available at <a href="https://demo.
 9. Change the color of your icons, contact form, text, and anything else!
 
 == Changelog ==
+
+= 2.2 =
+Option to open any tab by default when the page loads
+Icon text color can be changed now
+Font Awesome CSS files were optimized
+Option to show the reCAPTCHA brand
+Custom classes were added to all the My Sticky Elements channels
+Various bugs were fixed
 
 = 2.1.9 =
 Improved live chat integration

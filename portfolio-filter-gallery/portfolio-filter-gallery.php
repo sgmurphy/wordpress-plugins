@@ -5,7 +5,7 @@ if (!defined('ABSPATH'))
 Plugin Name: Portfolio Filter Gallery
 Plugin URI: http://awplife.com/
 Description: Portfolio Filter Gallery For WordPress.
-Version: 1.6.6
+Version: 1.6.7
 Author: A WP Life
 Author URI: http://awplife.com/
 License: GPLv2 or later
@@ -25,7 +25,7 @@ if (!class_exists('Awl_Portfolio_Filter_Gallery')) {
 
 		protected function _constants() {
 			//Plugin Version
-			define('PFG_PLUGIN_VER', '1.6.6');
+			define('PFG_PLUGIN_VER', '1.6.7');
 
 			//Plugin Name
 			define('PFG_PLUGIN_NAME', __('Portfolio Filter Gallery', 'portfolio-filter-gallery'));
@@ -155,17 +155,26 @@ if (!class_exists('Awl_Portfolio_Filter_Gallery')) {
 		public function set_filter_gallery_shortcode_column_name($defaults)
 		{
 			$new = array();
-			$shortcode = $columns['_filter_gallery_shortcode'];  // save the tags column
-			unset($defaults['tags']);	// remove it from the columns list
+			
+			// Check if $columns is set and is an array
+			if (isset($columns) && is_array($columns)) {
+				$shortcode = $columns['_filter_gallery_shortcode'];  // Save the shortcode column
+			} else {
+				$shortcode = '';  // Set a default value if $columns is undefined
+			}
+
+			unset($defaults['tags']);  // Remove the tags column from the list
 
 			foreach ($defaults as $key => $value) {
-				if ($key == 'date') {  // when we find the date column
-					$new['_filter_gallery_shortcode'] = __('Shortcode', 'portfolio-filter-gallery');  // put the tags column before it
+				if ($key == 'date') {  // When we find the date column
+					$new['_filter_gallery_shortcode'] = __('Shortcode', 'portfolio-filter-gallery');  // Add the shortcode column before it
 				}
 				$new[$key] = $value;
 			}
+
 			return $new;
 		}
+
 
 		// Filter gallery cpt shortcode column data
 		public function custom_filter_gallery_shodrcode_data($column, $post_id) {
@@ -250,6 +259,8 @@ if (!class_exists('Awl_Portfolio_Filter_Gallery')) {
 
 
 			add_meta_box(__('pfg-youtube', 'portfolio-filter-gallery'), __('Filter Drag & Drop', 'portfolio-filter-gallery'), array(&$this, 'PFG_Youtube'), 'awl_filter_gallery', 'side', 'default');
+			
+			add_meta_box(__('Ultimate Portfolio', 'portfolio-filter-gallery'), __('Most Advanced Version', 'portfolio-filter-gallery'), array(&$this, 'promo_ultimate_portfolio'), 'awl_filter_gallery', 'side', 'default');
 			add_meta_box(__('Rate Our Plugin', 'portfolio-filter-gallery'), __('Rate Our Plugin', 'portfolio-filter-gallery'), array(&$this, 'pfg_rate_plugin'), 'awl_filter_gallery', 'side', 'default');
 		}
 		// meta upgrade pro
@@ -284,6 +295,33 @@ if (!class_exists('Awl_Portfolio_Filter_Gallery')) {
 				<?php _e('Upgrade To Pro', 'portfolio-filter-gallery'); ?>
 			</a>
 		<?php }
+
+			public function promo_ultimate_portfolio() { ?>
+				<a href="https://webenvo.com/ultimate-portfolio/" target="_new">
+					<img src="https://awplife.com/wp-content/uploads/2024/07/ultimate-portfolio-wordpress-plugin.webp" / width="250" height=""></a>
+				
+				<br>
+				<div style="text-align:center">
+					<p>
+						<?php _e('The Ultimate Portfolio is the most advanced version of the portfolio plugin,  fresh layouts, multiple design, fully integrated with the Gutenberg editor.', 'portfolio-filter-gallery'); ?> 
+						
+					</p>
+				</div>
+
+				
+				<a href="<?php echo esc_url( self_admin_url( 'plugin-install.php?tab=plugin-information&plugin=ultimate-portfolio&TB_iframe=true&width=772&height=878' ) ); ?>"  class="pfg-btn button button-primary thickbox"
+					style="background: #496481; text-shadow: none;"><span class="dashicons dashicons-download"
+						style="line-height:1.4;"></span>
+					<?php _e('Install Free', 'portfolio-filter-gallery'); ?>
+				</a>
+				<a href="https://webenvo.com/ultimate-portfolio/" target="_new" class="pfg-btn button button-primary"
+					style="background: #496481; text-shadow: none;"><span class="dashicons dashicons-unlock"
+						style="line-height:1.4;"></span>
+					<?php _e('Get Premium', 'portfolio-filter-gallery'); ?>
+				</a>
+				
+			<?php }
+
 		// meta rate us
 		public function pfg_rate_plugin() { ?>
 			<div style="text-align:center">
@@ -311,6 +349,9 @@ if (!class_exists('Awl_Portfolio_Filter_Gallery')) {
 			</div>
 		<?php }
 
+
+		
+
 		public function pfg_image_upload($post) {
 			wp_enqueue_script('jquery');
 			wp_enqueue_script('awl-bootstrap-js', PFG_PLUGIN_URL . 'js/bootstrap.min.js');
@@ -321,6 +362,12 @@ if (!class_exists('Awl_Portfolio_Filter_Gallery')) {
 			wp_enqueue_script('awl-pfg-color-picker-js', plugins_url('js/pfg-color-picker.js', __FILE__), array('wp-color-picker'), false, true);
 			wp_enqueue_media();
 			wp_enqueue_style('wp-color-picker');
+			
+				if ( is_admin() ) {
+					add_thickbox(); // Enqueue Thickbox
+				}
+			
+			
 
 			require_once('filter-gallery-settings.php');
 		}// end of upload multiple image
@@ -644,7 +691,11 @@ if (!class_exists('Awl_Portfolio_Filter_Gallery')) {
 		//Doc page
 		public function pfg_doc_page() {
 			require_once('docs.php');
+			
 		}
+
+		
+		
 	}
 
 	$pfg_portfolio_gallery_object = new Awl_Portfolio_Filter_Gallery();
