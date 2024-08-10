@@ -9,67 +9,45 @@ Author URI: https://www.smackcoders.com/wp-ultimate-csv-importer-pro.html
 Tags: Importer, csv import, Import Export, Import xml, datafeed
 License: GPLv2 or later
 
-Powerful **All-in-One CSV & XML Import Export Plugin** for posts, pages, users, products, etc., with instant import/export and scheduling features.
+Transform your WordPress content migration with our CSV and XML import plugin. Import and export posts, users, products, etc.,
 
 == Description ==
 
-**Migrating content is no more difficult now**
+Tired of manually copying and pasting your content into WordPress? **Migrating content is no more difficult now**
 
-Introducing the Ultimate WordPress Importer plugin for effective data migration between websites, an alternative to the native WordPress Importer, which is buggy, lacks advanced filters, and offers less control over wp(WordPress) all import & export options.
+Introducing our revolutionary import-export solution for WordPress. Your WordPress migration process can become seamless with our comprehensive import-export solution. It's like magic, Effortlessly import all your content – posts, pages, images, the whole shebang – from CSV and XML files with lightning speed and pinpoint accuracy.
 
-With its user-friendly interface and within a few clicks, anyone can effortlessly migrate their website content such as posts, pages, users, comments, custom fields, custom posts, images, etc., from CSV or XML files with lightning speed and pinpoint accuracy.
+[youtube https://www.youtube.com/watch?v=dy3pdwoujxQ]
 
 * Try our [Free Demo](https://demo.smackcoders.com/ultimatecsvimporter/wp-admin/?utm_source=csv-importer-free&utm_medium=wp_org_readme&utm_campaign=csv-importer-free-demo): You Won't Be Disappointed!
 
 * Not enough? [Create a private trial instance](https://www.smackcoders.com/wp-ultimate-csv-importer-pro/demo.html?utm_source=csv-importer-free&utm_medium=wp_org_readme&utm_campaign=csv-importer-pro-trial) here.
 
-[youtube https://www.youtube.com/watch?v=dy3pdwoujxQ]
-
+Whether you're a seasoned developer or a beginner, our plugin offers advanced features to simplify the transfer of your content.
 
 Key aspects that make our plugin stand out:
 
 * **User-friendly Interface:** Enjoy efficient content uploads with an easy-to-access drag-and-drop interface. Migrate your data with a few clicks. Browse CSV, choose content type, Map fields, configure, and Import.
-* **Multiple Upload Options:** Powerful data importer supports multiple file types, and allows importing CSV or XML from multiple sources such as PC, URL, or FTP/SFTP.
+* **Multiple Upload Options:** Easily import content from CSV and XML files via zip uploads from your PC, URL, or FTP/SFTP sources.
 * **Extensive import data logs:** Offers comprehensive import logs that let you verify each record’s import without leaving your import dashboard. Download the list of failed media and the import logs.
-* **Notification System:** Get notification and stay informed while all imports are in progress. This ensures smooth operation even during maintenance mode.
+* **Notification System:** Stay informed during the import process with notifications, ensuring smooth operation even during maintenance mode.
 * **Bulk Post Imports:** Save time and effort by uploading hundreds or thousands of blog posts in minutes using a single CSV or XML file.
-* **Image Import:** Seamless images import separately and automatically along with posts, pages, or any other post types. It is easy to import images into the media library with an effective image import feature. Eliminate the need for manual uploads and keep your website visually appealing.
-* **Taxonomy Terms Import:** Effortlessly migrate your categories, tags, and custom taxonomies and maintain a well-organized website.
+* **Image Import:** Seamless images imports separately and automatically along with posts, pages, or any other post types. It is easy to import images into the media library with an effective image import feature. Eliminate the need for manual uploads and keep your website visually appealing.
+* **Taxonomy Terms Import:** Maintain a well-organized website by effortlessly importing categories, tags, and custom taxonomies during the migration process.
 * **WordPress Attributes Migration:** Migrate crucial post attributes such as custom fields efficiently in one go.
 
-Experience effortless data migration with our advanced importer plugin—no technical skills needed. Simplify the process, save time, and focus on creating great content while our smart WP CSV Importer handles the technical details. Start your smooth and safe data transfer today!
-
-
-= Unlock Premium Features =
-
-Explore the below premium features with our **Pro plugin** for the advanced needs of data migration.
-
-- **Schedule and Automate Imports**: Schedule your bulk imports at your convenience time. Let data migration doesn’t affect your productive time.
-- **Efficient Background Processing**: Import large files and media files in the background, enhancing performance and ensuring a smooth workflow.
-- **Advanced Post Updates**: Update existing post data based on Post ID, Title, or Slug. Flexible to Choose specific fields to update or the entire post.
-- **Failed Media Updates:** Download the failed media log as a CSV.  Edit the file, check the image URLs, and reuse the file for updating media with Ultimate CSV Importer.
-- **Customizable Updates**: Easy to update or replace titles and slugs with updated changes while using Post ID as the primary matching field.
-- **Export All**: Filter your content to export based on your business needs with the advanced filters. For example, Export the post between specific periods, export the post of a specific author, etc.
-
-Our premium option also supports:
-
-- Import/Export of Custom post types and taxonomies created with plugins such as ACF(Advanced Custom Fields), JetEngine, CMB2, Toolset Types, Meta Box, etc.,
-- Effectively manage custom fields, post relations, intermediate posts, repeatable fields, and repeater field groups.
-- Seamless all import export capable of handling multi-language content(WPML, PolyLang, qTranslate X), SEO data(Yoast, RankMath, AIOSEO), events(Events Manager), and gallery(NextGEN Gallery) data.
-
-Upgrade to [Pro Import](https://www.smackcoders.com/wp-ultimate-csv-importer-pro.html?utm_source=csv-importer-free&utm_medium=wp_org_readme&utm_campaign=csv-importer-premium) today and streamline your content management with these robust, time-saving features!
-
+With our WordPress importer plugin, say goodbye to manual content migration and hello to a stress-free process. Focus your efforts on creating captivating content for your audience while we handle the technical aspects. Let's kickstart your migration journey today!
 
 = WordPress CSV Import: Why? =
 
-Simplify your WordPress content migration with **WordPress CSV Import**. Instead of dealing with complicated processes, you can use the familiar Comma-Separated Values (CSV Excel) format to import your data smoothly.
+Simplify your WordPress content migration with **WordPress CSV Import**. Instead of dealing with complicated processes, you can use the familiar Comma-Separated Values (CSV) format to import your data smoothly with CSV Importer.
 
 Here’s why you’ll love it:
 
-* **Bulk Post Import:**  Say goodbye to hours of manual work! Import hundreds of blog posts from just one CSV or Excel file.
+* **Bulk Post Import:**  Say goodbye to hours of manual work! Import hundreds or thousands of blog posts from just one CSV or Excel file.
 * **Easy File Prep:** Create or edit your content using simple spreadsheet programs like Microsoft Excel or Google Sheets. Save it as a CSV file, and you’re good to go!
-* **Simple File Management:** Make edits directly within your WP CSV import file using any spreadsheet editing software. It gives you full control over your content before import.
-* **Effective Auto-Mapping** The plugin effortlessly maps your CSV Excel header data to the right WordPress fields, saving you from tedious manual data entry.
+* **Simple File Management:** Make edits directly within your CSV import file using any spreadsheet editing software. It gives you full control over your content before import.
+* **Smooth Import Process** The plugin effortlessly maps your CSV header data to the right WordPress fields, saving you from tedious manual data entry.
 * **Drag and drop and Advanced Mapping** Easy to add custom field mapping with a simple drag and drop method. Or Map the desired fields from the drop-down using advanced mode.
 * **ACF Field Support (For Premium Versions):** Premium plugins offer support for Advanced Custom Fields (ACF), ensuring an unlimited import of your custom data.
 
@@ -77,51 +55,55 @@ Here’s why you’ll love it:
 
 
 = WordPress XML Import =
-Our importer plugin offers a standardized way to store and exchange data with the XML (Extensible Markup Language) Import/Export.
+
+If you prefer a more structured approach, this XML Importer is for you. XML (Extensible Markup Language) files offer a standardized way to store and exchange information, making your Import Export process a breeze.
 
 Here’s why it’s a game-changer:
 
 * **Direct Import:** If your previous platform exports data in XML format, you can import it directly into WordPress.
 * **Structured Data Transfer:** XML files maintain the data structure, ensuring accurate import and minimizing errors.
-* **Complete Blog Archives:** Import your entire blog archive with titles, content, and comments from a single XML import file.
+* **Complete Blog Archives:** Import your entire blog archive with titles, content, and comments from a single XML file.
 * **Custom Content Types:** Easily migrate custom post types for products, events, or any other content.
 * **Organized Taxonomies:** Keep your website’s structure intact by importing categories, tags, and other taxonomies during migration.
 
-Note **WordPress XML importer** option offers an efficient, structured solution for migrating your website content. Whether you prefer to Export Import CSV or XML, both options significantly reduce the time and effort needed to migrate your content.
+Note **WordPress XML import** option offers an efficient, structured solution for migrating your website content. Whether you prefer to WordPress CSV Import or WordPress XML Import, both options significantly reduce the time and effort needed to migrate your content.
 
 = WordPress Import & Export Plugins as Addon =
 
 Now, let’s streamline your export workflow by **installing our [WordPress all export for csv and XML ](https://wordpress.org/plugins/wp-ultimate-exporter) Addon**
 
-Managing your WordPress content doesn’t have to be one-way traffic. These plugins let you move your content in and out of your website effortlessly, saving time and simplifying maintenance.
+
+anaging your WordPress content doesn’t have to be one-way traffic. These plugins let you move your content in and out of your website effortlessly, saving time and simplifying maintenance.
 
 Here’s what they bring to the table:
 
-* **Effortless Backups :** Efficient data export of your WordPress content, such as posts, pages, custom post types, and comments, with just one click.
+* **Effortless Backups :** Export your WordPress content, including posts, pages, custom post types, and comments, with just one click.
 * **Simplified Migrations:** Seamlessly move your website to a new host or domain by exporting your entire website and importing it elsewhere.
 * **Efficient Content Sharing:** Share specific content with colleagues or another website by exporting the desired posts, pages, or custom content types.
 
 These plugins often offer more goodies like exporting posts with images or importing content from other platforms.
 
+The CSV Importer plugin can process the datafeed by importing data from CSV or XML files. This allows you to automatically update or add new content to your WordPress site based on external datafeeds, which is particularly useful for e-commerce sites or blogs that require regular content updates.
+
 = Import Images =
 
 Images enhance your content and boost engagement, making them crucial for any website. The WP Ultimate CSV Importer plugin simplifies importing images from any external sources directly into WordPress. You can add SEO-friendly captions and alternative text. This plugin also allows you to update images for better SEO and manage duplicates effectively. It’s a powerful tool for bringing in large numbers of images along with their metadata—titles, descriptions, and SEO information—straight into your WordPress Media Library, ensuring they are organized and easy to access. This makes it an invaluable resource for efficient and large-scale image management.
 
-= WordPress User Import Export =
+= WordPress User Import & Export =
 
-Install our **[WordPress Users & Members Import from CSV](https://wordpress.org/plugins/import-users) addon** along with an export addon to use the User Import & Export feature. With this plugin effectively manage your user account and build a thriving online community. 
+**Install our [WordPress Users & Members Import from CSV](https://wordpress.org/plugins/import-users) addon** along with an export addon to use the User Import & Export feature. Building a thriving online community involves managing user accounts, and these plugins make it a breeze.
 
-Highlighted features of User import:
+Here’s how they help:
 
-* **Bulk User Import:** Easy import of user information such as usernames, email addresses, and hashed passwords with a single **CSV** upload.
+* **Bulk User Import:** Add hundreds or thousands of users to your website by uploading a **CSV** file containing user information, such as usernames, email addresses, and hashed passwords.
 * **Import Users from Various Sources:** Migrate users from other platforms or databases easily with plugins that handle various formats.
-* **Effortless User Export:** Get all your complete user’s records such as profiles and roles, for backups with a single user export.
+* **Effortless User Export:** Create a complete record of all your users, including their profiles and roles, for backups.
 
 = Additional Features to Consider: =
 
 * **Import Users with Passwords:** Secured methods to import users along with their passwords, stored using a one-way hashing function.
 
-**WordPress user import Export plugins** are valuable for efficiently managing your user base, streamlining onboarding processes, and ensuring data security.
+**WordPress user import and export plugins** are valuable for efficiently managing your user base, streamlining onboarding processes, and ensuring data security.
 
 = WooCommerce Product Import Export Plugins = 
 
@@ -137,7 +119,7 @@ This makes adding products a breeze by importing product data from various sourc
 * **Seamless Image Integration:** Import products along with their images to ensure they are visually appealing from the start.
 * **Import Products with Attributes:** Eliminate the manual handling of product attributes like size, color, or material
 * **Organized Categorization:** Import products with categories to maintain a well-structured store.
-* **Import from Various Sources:** Supports and handles the product data in various file formats such as **CSV**, **Excel**, or **XML**. This provides flexibility in data management.
+* **Import from Various Sources:** Handle product data in **CSV**, **Excel**, or **XML** formats, providing flexibility in data management.
 
 = Additional Features to Explore: =
 
@@ -148,9 +130,31 @@ By leveraging product import with our WooCommerce import export addon, you can e
 = WordPress Multilingual Content Import Export =
 Do you have a multilingual website or plan to expand your reach to new audiences? Then you are in the right place. Our csv import plugin is highly compatible with popular multilingual plugins like WPML and Polylang lets you import and export your content in multiple languages.
 
-* **Effortlessly migrate existing multilingual content:** Seamless import/export of your multilingual content from another platform with few clicks.
+* **Effortlessly migrate existing multilingual content:** Moving your website or bringing content from another platform? Import your content in all languages with a few clicks.
+
+* **Maintain a seamless workflow:** Easily create and manage your multilingual content in one place.
 
 * **Save time and resources:** Ditch the manual translation copy-pasting and focus on creating stellar content for your global audience.
+
+= Unlock Premium Features =
+
+The **Pro Imports** offers powerful premium features to meet our user's requirements. A few features are listed below:
+
+- **Schedule and Automate Imports**: Schedule your bulk imports at your convenience time. Let data migration doesn’t affect your productive time.
+- **Efficient Background Processing**: Import large files and media files in the background, enhancing performance and ensuring a smooth workflow.
+- **Advanced Post Updates**: Update existing post data based on Post ID, Title, or Slug. Flexible to Choose specific fields to update or the entire post.
+- **Failed Media Updates:** Download the failed media log as a CSV.  Edit the file, check the image URLs, and reuse the file for updating media with Ultimate CSV Importer.
+- **Customizable Updates**: Easy to update or replace titles and slugs with updated changes while using Post ID as the primary matching field.
+- **Export All**: Filter your content to export with the advanced filters. For example, Export the post between specific periods, export the post of a specific author, etc.
+
+Our premium option also supports:
+
+- Import/Export of Custom post types and taxonomies created with plugins such as ACF(Advanced Custom Fields), JetEngine, CMB2, Toolset Types, Meta Box, etc.,
+- Effectively manage custom fields, post relations, intermediate posts, repeatable fields, and repeater field group.
+- Seamless all import export capable of handling multi-language content(WPML, PolyLang, qTranslate X), SEO data(Yoast, RankMath, AIOSEO), E-commerce data(WooCommerce(Variations, Attributes), and WPeCommerce) events(Events Manager), and gallery(NextGEN Gallery) data.
+
+Upgrade to [Premium plugin](https://www.smackcoders.com/wp-ultimate-csv-importer-pro.html?utm_source=csv-importer-free&utm_medium=wp_org_readme&utm_campaign=csv-importer-premium) today and streamline your content management with these robust, time-saving features!
+
 
 
 = Wanna try =
@@ -167,7 +171,7 @@ Do you have a multilingual website or plan to expand your reach to new audiences
 6. Downloadable log manager for all imported events.
 7. Upload an XML or CSV file.
 8. Simple Drag and Drop mapping in CSV & XML Import plugin.
-9. Mapping view of the uploaded XML or CSV. All import wp fields are set up against WordPress fields.
+9. Mapping view of the uploaded XML or CSV. All import fields are set up against WordPress fields.
 10. Detailed real-time log in WordPress.
 11. Settings with php.ini details.
 
@@ -185,7 +189,7 @@ The most straightforward method for file import is through direct upload to Word
 
 * Editing XML demands a basic understanding of the structure. Otherwise, users are restricted to importing without making changes to the source file.
 
-Choose between CSV and XML with the WordPress CSV Import Export plugin. Export and Import all content like Posts, Pages, Custom Posts, WooCommerce, and various post types to and from WordPress.
+Choose between CSV and XML with the WordPress CSV Importer plugin. Import and export Posts, Pages, Custom Posts, WooCommerce, and various post types to and from WordPress.
 
 = How to use this CSV and XML WordPress Importer  =
 * Utilize the export option to export existing content records from WordPress. Create a base sample CSV or XML file, or use it as a template for building your import file.
@@ -204,13 +208,13 @@ You can also use this method when building new sites, developing them in localho
 This is also useful if you have moved your site to another server or hosting and want to move it back.
 
 
-= How to validate a CSV file for issues? =
+= How to validate a CSV file for issues to perform a WordPress CSV import? =
 
 Importing your CSV may fail if you miss escaping characters or misplace/skip characters. Any CSV file should be checked for errors or warnings before being imported into WordPress. You can validate a CSV file using a free tool CSV Lint to identify issues and where to fix them exactly.
 
 = What is an XML file? =
 
-An XML document is a basic unit of XML information, consisting of elements and other markups in an orderly package. An XML document contains a wide variety of data.
+An XML document is a basic unit of XML information, consisting of elements and other markups in an orderly package. An XML document contains a wide variety of data. Properly preparing your XML file simplifies the XML import process.
 
 = Can I get any demo data or sample files for testing the import? =
 
@@ -231,11 +235,11 @@ The failure may be due to,
 2. The image is not publicly downloadable (permission issue).
 3. The domain or URL doesn't exist or isn't secured (SSL issues).
 
-= How to import WordPress posts with images? =
+= How to import CSV to WordPress for posts with images? =
 
 To do this, add a separate column for featured images in your import file and mention the image URL as a value. Or declare the inline images inside the post_content and provide the image URL using the HTML tag inside the post_content.
 
-= How to import images from external URLs in WordPress? =
+= How to import all images from external URLs in WordPress? =
 
 In the Media Handling (images import) section of the WordPress Importer plugin, just enable the **Download Post-Content External Images to Media** option. This will import all the images from Google Images, Pexels, Pixabay, Dropbox, etc., directly to your WordPress media library. Check [Media Handling in WordPress Importer documentation](https://www.smackcoders.com/documentation/wp-ultimate-csv-importer-pro/how-to-import-schedule-or-update?utm_source=web&utm_medium=wp_org&utm_campaign=readme) for more information.
 
@@ -243,18 +247,19 @@ In the Media Handling (images import) section of the WordPress Importer plugin, 
 
 You can import the same post content without duplicating using the update method using the wordpress csv import tool. After uploading the file, select the **Existing items** option. Followed by other steps, in the **Import Configuration Section** click on Update to update the newly imported data inside your existing WordPress Posts.
 
-
 = How long does WordPress import take? =
 
-Typically, the speed and performance are influenced by your server speed, memory capacity, and file size. You can track the completion time of import in the **Import Configuration section** screen.
+Whether you import CSV or XML import, the speed and performance are influenced by factors such as your server speed, memory capacity, and file size. You can track the completion time of the import process in the **Import Configuration section** of the CSV Importer plugin.
 
 For more detailed FAQ answers, please visit the [FAQ article for CSV Import](https://www.smackcoders.com/documentation/wp-ultimate-csv-importer-pro/importer-faq?utm_source=web&utm_campaign=readme&utm_medium=wp_org).
 
-= How to import export WordPress posts? =
+= How to import and export WordPress posts? =
 
 1. To export posts, go to the Export tab and select **Posts**. Provide a file name and select one file type. Click Export and download the file to your local device. This exported file can serve as a sample for creating a new file or for importing the data to another WordPress site using CSV Importer.
 
 2. To import posts, go to the **import/update** section and upload your prepared CSV or XML file.
+
+You can also import images along with your Posts.
 
 = How to import a Word document into WordPress =
 
@@ -268,7 +273,8 @@ Alternatively, there are three possible ways to do this manually by copying and 
 3. Else you can embed a Word document using a plugin.
 
 = How to export WP Users? =
-Make sure the export addon is installed and activated in WordPress. Then, navigate to the plugin export tab to export WP Users.
+
+ake sure the export addon is installed and activated in WordPress. Then, navigate to the plugin export tab to export WP Users. You can also import user if you've installed the user import addon.
 
 
 
@@ -309,24 +315,22 @@ Release date: 2024-07-30
 
 Release date: 2024-07-16
 
-* Added: Import support for Toolset Types plugin's  basic fields.
-* Fixed: Post title mandatory not display in drag and drop section.
-* Fixed: Pods relationship field front end display.
+* Added: Import support for Toolset Types plugin basic fields.
+* Fixed: Post_title mandatory not display in drag and drop section.
+* Fixed: Pods relationship field front end display issue.
 * Fixed: Product category image import issue.
 
 = 7.11.2 =
 
-Release date: 2024-06-24
+Release date: 2024-06-25
 
-#### Enhancements
+* Fixed: PHP Custom function imports getting 500 error issue.
 
-* CSV Export for Media Details: After importing media, users can now download a detailed CSV file. This CSV includes columns for status, media_id, media_url, file_name, title, caption, alt_text, and description.
-* New Media Import Tab: Introduced a new tab dedicated to media import and update. This feature allows users to upload both local and external images directly.
-* Added featured image metadata to the mapping section, including image_title, image_filename, image_alt_text, image_description, and image_caption.
-* Improved logging details for more comprehensive tracking of import and media processes.
-* Included post-import log details to display the count of images associated with the post and the count of any failed images.
-* Improved: Log Manager: Implemented a log manager where users can access and download summary logs, media logs, and failed media logs as CSV files.
-* Enabled the download of failed media logs and summary logs as CSV files.CSV.
+* Fixed: Resolved issue with one column csv file import.
+
+* Fixed: JetEngine relation post not assign issue.
+
+* Fixed: ACF taxonomy field and Relationship field value stores db issue.
 
 
 = 7.11.1 =
@@ -345,7 +349,7 @@ Release date: 2024-05-21
 
 #### Enhancements
 
-* Introducing a new WPML import feature, enabling users to import multilingual content as posts and pages using the WordPress CSV Import Export plugin for both CSV and XML files.
+* Introducing a new WPML import feature, enabling users to import multilingual content as posts and pages using the WordPress CSV Importer Exporter plugin for both CSV and XML files.
 
 = 7.10.21 =
 * Added: Implemented one-to-one relationship for JetEngine meta fields
@@ -389,7 +393,7 @@ Release date: 2024-05-21
 * Fixed: Mapping section popup 
 
 = 7.10.15 =
-Fixed: Resolved Lifter LMS issue related to course import.
+Fixed: Resolved Lifter LMS issue related to courses import.
 Fixed: bug with Lifter LMS instructor field import 
 Fixed: activation conflict when the Meta Box plugin is active.
 
@@ -1406,3 +1410,23 @@ Fixed: activation conflict when the Meta Box plugin is active.
 = 7.11.5 =
 
 * Upgrade now for media translation
+
+= 7.11.4 =
+
+* Upgrade now for media import feature & minor bug fixes
+
+= 7.11.3 =
+
+* Upgrade now for known bug fixes.
+
+= 7.11.2 =
+
+* Upgrade now for known bug fixes.
+
+= 7.11.1 =
+
+* Upgrade now for Elementor Content Import Export
+
+= 7.11.0 =
+
+* Upgrade now for WPML Multilingual Content Import Export

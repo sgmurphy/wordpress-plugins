@@ -24,10 +24,6 @@ if ( !defined( 'ABSPATH' ) ) {
     die;
 }
 
-if ( !class_exists( 'WeakMap' ) ) {
-    include_once DynamicConditions_DIR . '/Legacy/WeakMap_Fallback.php';
-}
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -51,9 +47,9 @@ class DynamicConditionsPublic {
      * Provides compatibility with php 8.2+ after deprecation of dynamic properties.
      *
      * @access   private
-     * @var      \WeakMap $widgetCache For storing dynamic condition data by widget.
+     * @var      array $widgetCache For storing dynamic condition data by widget.
      */
-    private \WeakMap $widgetCache;
+    private array $widgetCache = [];
 
     private Date $dateInstance;
 
@@ -69,8 +65,6 @@ class DynamicConditionsPublic {
         $this->pluginName = $pluginName;
         $this->version = $version;
         $this->dateInstance = new Date();
-
-        $this->widgetCache = new \WeakMap();
     }
 
     /**
@@ -305,16 +299,17 @@ class DynamicConditionsPublic {
             return;
         }
 
-        $this->widgetCache[$section] = [
-            'isHidden' => true,
-            'settings' => $settings,
-        ];
 
         //prevent shortcodes from execution
         $this->shortcodeTags += $GLOBALS['shortcode_tags'];
         $GLOBALS['shortcode_tags'] = [];
 
         ob_start();
+        $this->widgetCache[$section->get_id()] = [
+            'isHidden' => true,
+            'settings' => $settings,
+            'ob_level' =>  ob_get_level(),
+        ];
     }
 
     /**
@@ -325,8 +320,12 @@ class DynamicConditionsPublic {
     public function filterSectionContentAfter( $section ): void {
         // reset shortcode tags
         $GLOBALS['shortcode_tags'] += $this->shortcodeTags;
-        if ( empty( $section ) || empty( $this->widgetCache[$section]['isHidden'] ) ) {
+        if ( empty( $section ) || empty( $this->widgetCache[$section->get_id()]['isHidden'] ) ) {
             return;
+        }
+
+        while (ob_get_level() > $this->widgetCache[$section->get_id()]['ob_level']) {
+            ob_end_flush();
         }
 
         $content = ob_get_clean();
@@ -335,7 +334,7 @@ class DynamicConditionsPublic {
 
 
         $type = $section->get_type();
-        $settings = $this->widgetCache[$section]['settings'];
+        $settings = $this->widgetCache[$section->get_id()]['settings'];
 
         if ( empty( $settings['dynamicconditions_removeStyles'] ) ) {
             preg_match_all( '/<link.*?\/?>/', $content, $matchesLinkTags );
@@ -361,7 +360,7 @@ class DynamicConditionsPublic {
         }
 
 
-        echo "<!-- hidden $type -->";
+        echo "<!-- hidden $type {$section->get_id()} -->";
     }
 
     /**

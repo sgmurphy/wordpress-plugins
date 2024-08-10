@@ -8,7 +8,11 @@ if (!class_exists('WeakMap')) {
             return isset($this->storage[spl_object_id($offset)]);
         }
 
-        public function offsetGet($offset) {
+        /**
+         * @param mixed $offset
+         * @return mixed|null
+         */
+        public function offsetGet( $offset) {
             return $this->storage[spl_object_id($offset)] ?? null;
         }
 

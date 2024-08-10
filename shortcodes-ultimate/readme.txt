@@ -3,7 +3,7 @@ Contributors: gn_themes
 License: GPLv3
 Donate link: https://getshortcodes.com/pricing/
 Tags: posts, carousel, shortcode, toggle, columns
-Stable tag: 7.2.1
+Stable tag: 7.2.2
 Requires PHP: 5.4
 Requires at least: 5.0
 Tested up to: 6.6
@@ -139,6 +139,12 @@ Upgrade normally
 
 == Changelog ==
 
+
+
+= 7.2.2
+
+- Fixed issue with HTML tags not working in the Box title
+- Minor updates under the hood
 
 
 = 7.2.1
