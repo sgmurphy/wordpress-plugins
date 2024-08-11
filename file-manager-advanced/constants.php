@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * File Manager Version
  */
 if ( !defined('FMA_VERSION') ) {
-   define('FMA_VERSION', '5.2.7');
+   define('FMA_VERSION', '5.2.8');
 }
 /**
  * File Manager UI
@@ -17,6 +17,12 @@ if ( !defined('FMA_UI') ) {
  */
 if ( !defined('FMAFILEPATH') ) {
    define('FMAFILEPATH', plugin_dir_path( __FILE__ ));
+}
+/**
+ * Code mirror themes path
+ */
+if(!defined('FMA_CM_THEMES_PATH')) {
+   define('FMA_CM_THEMES_PATH', FMAFILEPATH.'application/library/codemirror/theme');
 }
 /**
  * File Manager Operations

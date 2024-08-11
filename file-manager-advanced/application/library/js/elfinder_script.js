@@ -1,6 +1,7 @@
 jQuery(document).ready(function() {
                  var fmakey = afm_object.nonce;
 				 var fma_locale = afm_object.locale;
+                 var fma_cm_theme = afm_object.cm_theme;
 				 jQuery('#file_manager_advanced').elfinder(
 					// 1st Arg - options
 					{
@@ -28,7 +29,8 @@ jQuery(document).ready(function() {
                                                         indentUnit: 4,
                                                         lineNumbers: true,
                                                         lineWrapping: true,                                                        
-                                                        lint: true
+                                                        lint: true,
+                                                        theme: fma_cm_theme
                                                     });
                                                     return editor;
                                                     

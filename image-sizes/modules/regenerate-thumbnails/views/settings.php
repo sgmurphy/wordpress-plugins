@@ -28,16 +28,16 @@ if( $status == "complete" && $processed_count == 0 ) {
 	$show_process 	 = 'none';
 }
 if( in_array( $status, [ 'in-progress', 'pending' ] ) ) {
-	$message = __( 'Regenerating Thumbnails in Background', 'thumbpress-pro' );
+	$message = __( 'Regenerating Thumbnails in Background', 'image-sizes' );
 }
 if( $status == 'complete' ) {
 	$message = sprintf(
-		__( 'Regenerating Thumbnails in background was completed at %s', 'thumbpress-pro' ),
+		__( 'Regenerating Thumbnails in background was completed at %s', 'image-sizes' ),
 		esc_html( $completed_time )
 	);
 }
 if ( $status == 'failed' ) {
-	$message = __( 'Regenerating Thumbnails in Background Failed.', 'thumbpress-pro' );
+	$message = __( 'Regenerating Thumbnails in Background Failed.', 'image-sizes' );
 }
 ?>
 <div id="cx-message-optimize-images" class="cx-message">
@@ -47,9 +47,9 @@ if ( $status == 'failed' ) {
 	<div class="thumbpress-actions-wrapper">
 		<div id="image_sizes-regen-left" class="thumbpress-actions-left">
 			<div id="info-icon" class="info-icon">
-				<img class="info-img" src="<?php echo esc_url( plugins_url( 'modules/detect-unused-image/img/info.png', THUMBPRESS_PRO ) ); ?>">
+				<img class="info-img" src="<?php echo esc_url( plugins_url( 'assets/img/info.png', THUMBPRESS ) ); ?>">
 				<p>
-					<?php _e( "Regenerate Thumbnails is a server-dependent feature and the regeneration process may timeout if you process a large number of images. We suggest doing this process in the background to avoid any issues.", 'thumbpress-pro' ); ?>
+					<?php _e( "Regenerate Thumbnails is a server-dependent feature and the regeneration process may timeout if you process a large number of images. We suggest doing this process in the background to avoid any issues.", 'image-sizes' ); ?>
 				</p>
 			</div>
 			<label for="image-sizes_regenerate-thumbs-limit">
@@ -85,12 +85,12 @@ if ( $status == 'failed' ) {
 				<div class="thumbpress-progress-content">
 					<div class="thumbpress-progressbar" data-content="<?php esc_attr_e( $progress ) ?>" style="--value: <?php esc_attr_e( $progress ) ?>"></div>
 				</div>
-				<div id="thumbpress-pro-message">
+				<div id="thumbpress-message">
 					<p id="cx-processed">
 						<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
 						<?php
 						printf(
-							__( 'Processed %s images', 'thumbpress-pro' ),
+							__( 'Processed %s images', 'image-sizes' ),
 							'<span id="processed-count">' . esc_html( $processed_count ) . '</span>'
 						);
 						?>
@@ -99,7 +99,7 @@ if ( $status == 'failed' ) {
 						<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
 						<?php
 						printf(
-							__( 'Deleted %s images.', 'thumbpress-pro' ),
+							__( 'Deleted %s images.', 'image-sizes' ),
 							'<span id="deleted-count">' . esc_html( $deleted_count ) . '</span>'
 						);
 						?>
@@ -108,7 +108,7 @@ if ( $status == 'failed' ) {
 						<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
 						<?php
 						printf(
-							__( 'Created %s images.', 'thumbpress-pro' ),
+							__( 'Created %s images.', 'image-sizes' ),
 							'<span id="created-count">' . esc_html( $created_count ) . '</span>'
 						);
 						?>
@@ -118,22 +118,22 @@ if ( $status == 'failed' ) {
 			<div class="thumbpress-action-no-process" style="display: <?php esc_attr_e( $show_no_process ); ?>">
 				<img src="<?php echo esc_url( plugins_url( 'assets/img/no-action.png', THUMBPRESS ) ); ?>" alt="no-action">
 				<p>
-					<?php _e('Please click the button to start detecting images.','thumbpress-pro'); ?>
+					<?php _e('Please click the button to start detecting images.','image-sizes'); ?>
 				</p>
 			</div>
 			<div class="thumbpress-action-no-result" style="display: <?php esc_attr_e( $show_no_results ); ?>">
 				<img src="<?php echo esc_url( plugins_url( 'assets/img/no-images.png', THUMBPRESS ) ); ?>" alt="no-action">
 				<p>
-					<?php _e('You have no images please upload images.','thumbpress-pro'); ?>
+					<?php _e('You have no images please upload images.','image-sizes'); ?>
 				</p>
 			</div>
 			<div class="thumbpress-action-failed" style="display: <?php esc_attr_e( $show_failed ); ?>;">
 				<img src="<?php echo esc_url( plugins_url( 'assets/img/failed-action.png', THUMBPRESS ) ); ?>" alt="failed-action">
 				<p class='failed-warning'>
-					<?php _e( 'Something went wrong!.', 'thumbpress-pro' ); ?>
+					<?php _e( 'Something went wrong!.', 'image-sizes' ); ?>
 				</p>
 				<p class='failed-message'>
-					<?php _e( 'Your backgroud action failed please try again..', 'thumbpress-pro' ); ?>
+					<?php _e( 'Your backgroud action failed please try again..', 'image-sizes' ); ?>
 				</p>
 			</div>
 			<?php

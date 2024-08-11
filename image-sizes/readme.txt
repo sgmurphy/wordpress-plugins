@@ -4,7 +4,7 @@ Donate link: https://thumbpress.co/?utm_source=free-plugins&utm_medium=readme&ut
 Tags: compress images, disable thumbnails, image editor, optimize images, regenerate thumbnails
 Requires at least: 5.0
 Tested up to: 6.6
-Stable tag: 5.6
+Stable tag: 5.6.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -162,6 +162,13 @@ Yes, you can. ThumbPress lets you replace images and thumbnails with new version
 Please post on our support forum here https://wordpress.org/support/plugin/image-sizes/
 
 == Changelog ==
+
+= 2024-08-11 – v5.6.1 =
+
+- [fix] fixed thumbpress constant issue
+- [fix] fixed font-awesome enqueue issue
+- [imp] updated text-domain
+- [imp] updated css classes
 
 = 2024-08-08 – v5.6 =
 

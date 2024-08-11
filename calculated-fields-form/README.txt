@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.27
+Stable tag: 5.2.28
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.28 =
+
+* Fixes an issue in the calculated fields conditional rules.
+* Modifies the GOTOPAGE operation to prevent users from attempting to jump to non-existent page indexes.
+* Modifies the validation module to display the validation error associated with hidden fields.
+* Modifies the DS fields in the Developer and Platinum plugin versions.
+* Modifies the Stripe Checkout add-on to prevent it affects the WooCommerce integration add-on.
+
 = 5.2.27 =
 
 * Modifies the left and right-aligned labels.
@@ -480,7 +488,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Improves the user experience in creating forms by assigning placeholders to the form attributes.
 * Implements a fields filtering box in the fields list popup windows to facilitate searching the fields in the form.
-
-= 5.2.22 =
-
-* Fixes an issue with the CSS Editor associated with the Customize Form Design attribute.

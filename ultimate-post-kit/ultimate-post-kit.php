@@ -4,14 +4,14 @@
  * Plugin Name: Ultimate Post Kit
  * Plugin URI: https://bdthemes.com/ultimate-post-kit/
  * Description: <a href="https://bdthemes.com/ultimate-post-kit/">Ultimate Post Kit</a> is a packed of post related elementor widgets. This plugin gives you post related widget features for elementor page builder plugin.
- * Version: 3.12.0
+ * Version: 3.12.1
  * Author: BdThemes
  * Author URI: https://bdthemes.com/
  * Text Domain: ultimate-post-kit
  * Domain Path: /languages
  * License: GPL3
  * Elementor requires at least: 3.0.0
- * Elementor tested up to: 3.23.3
+ * Elementor tested up to: 3.23.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Some pre define value for easy use
-define( 'BDTUPK_VER', '3.12.0' );
+define( 'BDTUPK_VER', '3.12.1' );
 define( 'BDTUPK__FILE__', __FILE__ );
 
 
@@ -177,7 +177,7 @@ if ( ! function_exists( 'dci_plugin_ultimate_post_kit' ) ) {
 		require_once dirname( __FILE__ ) . '/dci/start.php';
 
 		dci_dynamic_init( array(
-			'sdk_version'         => '1.2.0',
+			'sdk_version'         => '1.2.1',
 			'product_id'          => 1,
 			'plugin_name'         => 'Ultimate Post Kit', // make simple, must not empty
 			'plugin_title'        => 'Love using Ultimate Post Kit? Congrats 🎉 ( Never miss an Important Update )', // You can describe your plugin title here
@@ -188,8 +188,8 @@ if ( ! function_exists( 'dci_plugin_ultimate_post_kit' ) ) {
 				'slug' => 'ultimate_post_kit_options',
 			),
 			'public_key'          => 'pk_yLi403LFWfR4A0u4CKhH9uLR9pmZ0KOF',
-			'is_premium'          => false,
-			'popup_notice'        => true,
+			'is_premium'          => true,
+			'popup_notice'        => false,
 			'deactivate_feedback' => true,
 			'plugin_msg'          => '<p>Be Top-contributor by sharing non-sensitive plugin data and create an impact to the global WordPress community today! You can receive valuable emails periodically.</p>',
 		) );

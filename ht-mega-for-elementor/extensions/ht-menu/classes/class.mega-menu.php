@@ -128,14 +128,14 @@ class HTMegaMenu_Elementor {
     }
 
     public function panel_ajax_requests(){
-
+        if ( ! check_ajax_referer( 'htmega_menu_nonce', 'nonce' ) ) {
+            wp_send_json_error();
+        }
         $action = isset( $_POST['sub_action'] ) ? $_POST['sub_action'] : '';
         
         if( $action === 'save_menu_settings' ){
 
-            if ( ! check_ajax_referer( 'htmega_menu_nonce', 'nonce' ) ) {
-                wp_send_json_error();
-            }
+
 
             $form_data = ( !empty( $_POST['settings'] ) ?  sanitize_text_field( $_POST['settings'] ) : '' );
 

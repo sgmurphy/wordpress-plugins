@@ -207,7 +207,16 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
                     'default' => 'yes',
                 ]
             );
-
+            $this->add_control(
+                'hide_empty_thumbnail_post',
+                [
+                    'label'         => esc_html__( 'Hide Empty Thumbnail', 'htmega-addons' ),
+                    'type'          => Controls_Manager::SWITCHER,
+                    'return_value'  => 'yes',
+                    'default'       => 'no',
+                    'separator'     =>'after',
+                ]
+            );
         $this->end_controls_section(); // Content Option End
 
         // Carousel setting
@@ -2163,6 +2172,15 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
         // Order check
         if (  !empty( $postorder ) ) {
             $args['order'] =  $postorder;
+        }
+        // empty thumbnail post
+        if ( 'yes' === $settings['hide_empty_thumbnail_post'] ) {
+            $args['meta_query'] = [
+                [
+                    'key' => '_thumbnail_id',
+                    'compare' => 'EXISTS'
+                ],
+            ];
         }
 
         $carousel_post = new \WP_Query( $args );

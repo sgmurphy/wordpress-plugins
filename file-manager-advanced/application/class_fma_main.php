@@ -158,7 +158,15 @@ class class_fma_main {
 				wp_enqueue_script( 'css', plugins_url('library/codemirror/mode/css/css.js',  __FILE__ ));
 				wp_enqueue_script( 'javascript', plugins_url('library/codemirror/mode/javascript/javascript.js',  __FILE__ ));
 				wp_enqueue_script( 'clike', plugins_url('library/codemirror/mode/clike/clike.js',  __FILE__ ));
-				wp_enqueue_script( 'php', plugins_url('library/codemirror/mode/php/php.js',  __FILE__ ));	
+				wp_enqueue_script( 'php', plugins_url('library/codemirror/mode/php/php.js',  __FILE__ ));
+				/**
+				 * Code Mirror Themes
+				 */
+				$cm_theme = isset($this->settings['fma_cm_theme']) ? $this->settings['fma_cm_theme'] : 'default';
+				if($cm_theme != 'default'):
+				   wp_enqueue_style( 'codemirror_theme', plugins_url('library/codemirror/theme/'.$cm_theme.'.css', __FILE__));
+				endif;
+
 				/**
 				 * Add Parameters
 				 */
@@ -173,13 +181,27 @@ class class_fma_main {
 					'ajaxurl' => admin_url( 'admin-ajax.php' ),
 					'nonce' => $nonce,
 					'locale' => $locale,
-					'ui' => $display_ui_options
+					'ui' => $display_ui_options,
+					'cm_theme' => $cm_theme
 				)
 	);
 
 				}
 		
 			}
+		/**
+		 *  Fetch code mirror theme
+		 **/
+		public static function cm_themes() {
+			$cm_themes_dir = FMA_CM_THEMES_PATH;
+			$cm_themes = [];
+			$cm_themes['default'] = 'default';
+			foreach(glob($cm_themes_dir.'/*.css') as $file) {
+				$bn = basename($file, ".css");
+				$cm_themes[$bn] = $bn;
+			}
+			return $cm_themes;
+		} 
 		/*
          review
         */

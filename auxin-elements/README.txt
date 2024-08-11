@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: phlox, elementor, auxin, averta, fullwidth
 Requires PHP: 5.4
 Requires at least: 5.0
-Tested up to: 6.5.3
-Stable tag: 2.16.0
+Tested up to: 6.6.1
+Stable tag: 2.16.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -153,6 +153,9 @@ Bugs can be reported in our [support forums](https://docs.phlox.pro).
 
 
 == Changelog ==
+
+= Version 2.16.1 / (11.08.2024) =
+- [Improvement]: Minor security improvements applied.
 
 = Version 2.16.0 / (16.06.2024) =
 - [Improvement]: Compatibility with latest version of WooCommerce applied.

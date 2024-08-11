@@ -163,7 +163,7 @@ class Convert_Images extends Base {
 
 		if( ! $total_attachments ) {
 			$response['status'] 	= 2;
-			$response['message'] 	= __( 'No images found.', 'thumbpress-pro' );
+			$response['message'] 	= __( 'No images found.', 'image-sizes' );
 			wp_send_json( $response );
 		}	
 
@@ -384,7 +384,7 @@ class Convert_Images extends Base {
 
 		if( ! $attachments ) {
 			$response['status'] 	= 2;
-			$response['message'] 	= __( 'No images found.', 'thumbpress-pro' );
+			$response['message'] 	= __( 'No images found.', 'image-sizes' );
 			wp_send_json( $response );
 		}	
 
@@ -432,10 +432,10 @@ class Convert_Images extends Base {
 		$count 						= $offset + count( $attachments );
 		$progress 					= ( $count / $grand_total_attachments ) * 100;
 		$new_offset 				= $offset + count( $attachments );
-		$message 					= __('Converting Images to WebP...', 'thumbpress-pro');
+		$message 					= __('Converting Images to WebP...', 'image-sizes');
 
 		if( $progress == 100 ) {
-			$message = __( 'Congratulations, Converting Images to WebP is Completed!', 'thumbpress-pro' );
+			$message = __( 'Congratulations, Converting Images to WebP is Completed!', 'image-sizes' );
 		}
 
 		$response['status'] 		= 1;

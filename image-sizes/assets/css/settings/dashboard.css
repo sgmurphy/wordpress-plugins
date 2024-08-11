@@ -1400,10 +1400,10 @@ ul.image_sizes-sortable.disable li span img.image_sizes-thumbnails-arrow-left {
     font-size: 16px;
     color: #22314466;
 }
-#thumbpress-pro-message {
+#thumbpress-message {
     width: 100%;
 }
-#thumbpress-pro-message > p {
+#thumbpress-message > p {
     font-size: 15px;
     font-weight: 400;
     padding: 10px 0px;
@@ -1413,10 +1413,10 @@ ul.image_sizes-sortable.disable li span img.image_sizes-thumbnails-arrow-left {
     font-size: 16px;
     color: #000000;
 }
-#thumbpress-pro-message span{
+#thumbpress-message span{
     font-weight: 600;
 }
-#thumbpress-pro-message p {
+#thumbpress-message p {
     border-bottom: 1px dashed #22314433;
 }
 .thumbpress-action-no-process{

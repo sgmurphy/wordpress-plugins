@@ -92,23 +92,12 @@ class Admin extends Base {
 		$min = defined( 'THUMBPRESS_DEBUG' ) && THUMBPRESS_DEBUG ? '' : '.min';
 		
 		wp_enqueue_style( $this->slug, plugins_url( "/assets/css/admin.css", THUMBPRESS ), '', time(), 'all' );
-		// wp_enqueue_style( $this->slug . '-slick', plugins_url( "/assets/slick/slick.css", THUMBPRESS ), '', $this->version, 'all' );
 		wp_enqueue_style( $this->slug . 'dashboard', plugins_url( "/assets/css/settings/dashboard.css", THUMBPRESS ), '', time(), 'all' );
 		wp_enqueue_style( $this->slug . 'google-font', "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-		wp_enqueue_style( $this->slug . 'font-awesome', "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+		wp_enqueue_style( $this->slug . 'font-awesome', "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css");
+		wp_enqueue_script ($this->slug .'fontr-awesome-js', "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.js", ['jquery'], time(), true);
 		
-		// slider
-		// wp_enqueue_style( $this->slug . 'flickty-css', 'https://unpkg.com/flickity@2/dist/flickity.min.css', '', $this->version, 'all' );
-		
-		// wp_enqueue_script($this->slug . "-slick", plugins_url("/assets/slick/slick.min.js", THUMBPRESS), ['jquery'], $this->version, true);
 		wp_enqueue_script($this->slug, plugins_url("/assets/js/admin{$min}.js", THUMBPRESS), ['jquery'], time(), true);
-		
-		// wp_enqueue_style( "{$this->slug}-react", plugins_url( 'build/index.css', THUMBPRESS ) );
-		wp_enqueue_script( "{$this->slug}-react", plugins_url( 'build/index.js', THUMBPRESS ), [ 'wp-element' ], '1.0.0', true );
-		
-		// slider
-		// wp_enqueue_script( $this->slug . 'bridge-js', 'https://cdn.jsdelivr.net/npm/jquery-bridget@3.0.1/jquery-bridget.min.js', ['jquery'], time(), true );
-		// wp_enqueue_script( $this->slug . 'flickty-js', 'https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js', ['jquery'], time(), true );
 		
 		wp_enqueue_script('wp-pointer');
 		wp_enqueue_style('wp-pointer');

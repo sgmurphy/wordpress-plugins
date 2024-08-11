@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'apto-shield/requirements',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '4f63a3a0a6ba2233334b6c866594fda9ab778635',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'reference' => '94f5b6b8e5cc54c2a90cd3ba34c7d2395b1eb23b',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'apto-shield/requirements' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '4f63a3a0a6ba2233334b6c866594fda9ab778635',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'reference' => '94f5b6b8e5cc54c2a90cd3ba34c7d2395b1eb23b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

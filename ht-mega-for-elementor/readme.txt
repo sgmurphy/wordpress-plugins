@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.6
-Stable tag: 2.5.9
+Stable tag: 2.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -527,6 +527,12 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 == Changelog ==
 
+= Version 2.6.0 - Date: 2024-08-11 =
+* Added: Option to hide empty thumbnail posts in all Posts Widgets.
+* Fixed: Spelling mistake in the Audio Player Widget.
+* Fixed: A few minor issues.
+* Tested: Compatibility with the latest version of Elementor.
+
 = Version 2.5.9 - Date: 2024-07-29 =
 * Added: Video Player Button Width/Height Option in Video Player Widget.
 * Added: Animation Circle Range Option in Video Player Widget.
@@ -839,126 +845,6 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 = Version: 2.0.3 - Date: 2023-01-02 =
 * Updated: Flip animated styles in Flip Box Widget
 * Fixed: A few minor issues.
-
-= Version: 2.0.2 - Date: 2022-12-18 =
-* Added: Wrapper link module
-* Added: Title Border Top and Bottom option in Call To Action widget
-* Fixed: A few minor issues.
-
-= Version: 2.0.1 - Date: 2022-12-06 =
-* Fixed: PHP Warning issue in Post Slider, Post Grid, Post Grid Tab, Post Carousel Widget.
-* Fixed: Custom post category name display problem in Single post widget.
-* Fixed: Minor issues.
-
-= Version: 2.0.0 - Date: 2022-11-22 =
-* Improved: Dashboard design has been improved
-* Updated: Post Slider, Post Grid, Post Grid Tab, News Sticker, Post Carousel Widget's post query options
-* Fixed: Minor issues.
-
-= Version: 1.9.8 - Date: 2022-11-07 =
-* Improved: Dashboard design has been improved
-* Fixed: Logo alignment issue in Side Logo addon
-* Fixed: Site Title alignment issue in Side Title addon
-* Fixed: Data Table Header Item Remove issue in Data Table addon
-* Fixed: Minor issues.
-* Tested: Compatibility with the latest version of WordPress
-* Tested: Compatibility with the latest version of Elementor
-
-= Version: 1.9.7 - Date: 2022-10-18 =
-* Added: Excerpt display option in post carousel addon
-* Fixed: Minor issues.
-
-= Version: 1.9.6 - Date: 2022-09-27 =
-* Fixed: Selector issue in section title addon
-* Fixed: Selector issue in easy digital downloads addon
-* Fixed: PHP Error in weather addon
-* Tested: Compatibility with the latest version of Elementor
-
-= Version: 1.9.5 - Date: 2022-09-13 =
-* Added: Equal column height option in post carousel addon
-* Fixed: Event date translation issue in custom event addon
-
-= Version: 1.9.4 - Date: 2022-08-30 =
-* Added: Button Height option in double button addon
-* Added: Number of Rows set option in data table addon
-* Fixed: Images bottom space issue in gallery Justify addon
-* Fixed: Content box Margin & padding issue in team member addon
-
-= Version: 1.9.3 - Date: 2022-08-16 =
-* Added: Custom posts select option in single post addon
-* Fixed: Designation alignment issue in team member addon
-
-= Version: 1.9.2 - Date: 2022-07-23 =
-* Added: Slide Direction option on tablet and mobile devices in scroll navigation addon.
-
-= Version: 1.9.1 - Date: 2022-07-06 =
-* Fixed: External link issue in image grid addon
-* Fixed: Booked Calendar addon register issue
-* Fixed: Textarea height and radio/checkbox color issue in contact form 7 addon
-
-= Version: 1.9.0 - Date: 2022-06-14 =
-* Added: Images popup options in gallery justify addon
-* Fixed: External link issue in image masonry addon
-* Fixed: Content display issue after carousel switcher off in post carousel addon
-* Fixed: Image loading issue in gallery justify and image masonry addons
-
-= Version: 1.8.9 - Date: 2022-06-04 =
-* Added: External link option in panel slider addon
-* Added: Slide repeating option in post carousel addon
-* Fixed: Remove Elementor deprecated Control ID issue.
-* Fixed: Images and content pre loading issue in few addons.
-* Fixed: Addons register issue on translate language.
-
-= Version: 1.8.8 - Date: 2022-05-22 =
-* Added: Single product Ajax add to cart in WooCommerce Add To Cart addon.
-* Fixed: Conflict section title addon with Hello Elementor theme.
-* Fixed: Conflict Accordion addon with LearnDash plugin.
-
-= Version: 1.8.7 - Date: 2022-05-14 =
-* Updated: Make a Third party Instagram feed addon compatible with the latest version of the Instagram feed plugin.
-* Fixed: Odd and even row's background color not working in Datatable addon.
-* Added: Styles in button and accordion addon.
-
-= Version: 1.8.6 - Date: 2022-04-25 =
-* Added: Initial slider set option in Scroll Navigation.
-
-= Version: 1.8.5 - Date: 2022-04-17 =
-* Improved: BuddyPress Widget
-* Improved: Booked Calendar Widget
-* Improved: bbPress Widget
-* Improved: Job Manager Widget
-* Fixed: Escaping issue in Tabs Widget
-
-= Version: 1.8.4 - Date: 2022-04-05 =
-* Added: Forget Password Position control in User Login Form Widget
-* Added: Terms & conditions label and select page option in User Register Form Widget
-* Improved: WPForms Widget
-* Improved: Contact Form 7 Widget
-* Improved: Quform Widget
-* Improved: Ninja Forms Widget
-* Improved: Gravity Forms Widget
-* Improved: Caldera Forms Widget
-* Improved: Download Monitor Widget
-* Improved: Easy Digital Downloads Widget
-* Improved: Layer Slider Widget
-* Improved: WC Add to Cart Widget
-* Improved: Pages Widget
-* Tweak: Removed register_widget_type and widgets_registered deprecated method.
-
-= Version: 1.8.3 - Date: 2022-03-22 =
-* Added: Image icon option in Flip Box Addon style four
-* Fixed: Table break issue in Data Table Addon
-* Fixed: Elementor Megamenu option visible after deactivating pro version
-* Updated: Weather addon
-* Changed: Move weather switcher button from the third party to the elements tab
-
-= Version: 1.8.2 - Date: 2022-02-22 =
-* Added: Height and width option in expanding area of Offcanvas addon
-* Improved: HT Elementor MegaMenu Builder options
-* Fixed: Swiper slider conflict issue on Elementor Latest version
-* Fixed: Template selector issue on Offcanvas addon
-* Fixed: Link Redirect issue on user login form addon
-* Fixed: Escaping issues on Text editor content
 
 
 

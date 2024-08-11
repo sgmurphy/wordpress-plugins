@@ -193,10 +193,18 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
                     'type' => Controls_Manager::SWITCHER,
                     'return_value' => 'yes',
                     'default' => 'yes',
-                    'separator'=>'after',
                 ]
             );
-
+            $this->add_control(
+                'hide_empty_thumbnail_post',
+                [
+                    'label'         => esc_html__( 'Hide Empty Thumbnail', 'htmega-addons' ),
+                    'type'          => Controls_Manager::SWITCHER,
+                    'return_value'  => 'yes',
+                    'default'       => 'no',
+                    'separator'     =>'after',
+                ]
+            );
             $this->add_control(
                 'slider_on',
                 [
@@ -2121,6 +2129,17 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
         if (  !empty( $postorder ) ) {
             $args['order'] =  $postorder;
         }
+        // empty thumbnail post
+        if ( 'yes' === $settings['hide_empty_thumbnail_post'] ) {
+            $args['meta_query'] = [
+                [
+                    'key' => '_thumbnail_id',
+                    'compare' => 'EXISTS'
+                ],
+            ];
+        }
+
+
         $slider_post = new \WP_Query( $args );
 
         ?>

@@ -1106,11 +1106,14 @@ function UEDynamicFilters(){
 		
 		var objLink = jQuery(this);
 
+		//run the ajax, prevent default
+		event.preventDefault();
+		
 		var objPagination = objLink.parents(".uc-filter-pagination");
 
 		var objLinkCurrent = objPagination.find(".current");
 
-
+		
 		//on next button click
 
 		if(objLink.hasClass("next")){
@@ -1147,8 +1150,6 @@ function UEDynamicFilters(){
 		if(!objGrid || objGrid.length == 0)
 			throw new Error("Grid not found!");
 
-		//run the ajax, prevent default
-		event.preventDefault();
 		
 		objPagination.addClass(g_vars.CLASS_CLICKED);
 
@@ -3655,9 +3656,14 @@ function UEDynamicFilters(){
 
 			switch(type){
 				case g_types.PAGINATION:
-
+					
+					//avoid other services to run functions when click the link
+								
+					var objLinks = jQuery(".uc-filter-pagination a");
+					objLinks.off("click"); 
+					
 					objParent.on("click",".uc-filter-pagination a", onAjaxPaginationLinkClick);
-
+					
 				break;
 				case g_types.LOADMORE:
 

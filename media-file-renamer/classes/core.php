@@ -1145,6 +1145,8 @@ SQL;
 	}
 
 	function log( $data = null ) {
+		$log = $this->get_option( 'log', false );
+		if ( !$log ) { return false; }
 
 		$php_logs = $this->get_option( 'php_error_logs', false );
 		if ( $php_logs ) {
@@ -1520,6 +1522,11 @@ SQL;
 		$newMetadata = apply_filters( 'mfrh_vision_suggestion', null, $mediaId, $binary_path, $prompt );
 		if ( empty ( $newMetadata ) ) {
 			global $mwai;
+			if ( is_null( $mwai ) ) {
+				$this->log( '🚫 AI Engine is missing for a text query.' );
+				return '';
+			}
+
 			$newMetadata = $mwai->simpleTextQuery( $prompt, [ 'max_tokens' => 512, 'scope' => 'renamer' ] );
 		}
 

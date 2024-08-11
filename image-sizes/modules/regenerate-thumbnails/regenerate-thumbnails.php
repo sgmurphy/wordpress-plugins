@@ -80,7 +80,7 @@ class Regenerate_Thumbnails extends Base {
 
 		if( ! $images ) {
 			$response['status'] 	= 2;
-			$response['message'] 	= __( 'No images found.', 'thumbpress-pro' );
+			$response['message'] 	= __( 'No images found.', 'image-sizes' );
 			wp_send_json( $response );
 		}	
 		
@@ -135,10 +135,10 @@ class Regenerate_Thumbnails extends Base {
 			$_thumbs_createds 		= $thumbs_createds + $thumbs_created;
 			$progress 				= ( $offsets / $total_images_count ) * 100;
 		}
-		$message 					= __('Regenerating Thumbnails...', 'thumbpress-pro');
+		$message 					= __('Regenerating Thumbnails...', 'image-sizes');
 
 		if( $progress == 100 ) {
-			$message = __( 'Congratulations, Thumbnail Regeneration is Completed!', 'thumbpress-pro' );
+			$message = __( 'Congratulations, Thumbnail Regeneration is Completed!', 'image-sizes' );
 		}
 
 		$response['status'] 			= 1;
@@ -183,7 +183,7 @@ class Regenerate_Thumbnails extends Base {
 
 		if( ! $total_images ) {
 			$response['status'] 	= 2;
-			$response['message'] 	= __( 'No images found.', 'thumbpress-pro' );
+			$response['message'] 	= __( 'No images found.', 'image-sizes' );
 			wp_send_json( $response );
 		}
 

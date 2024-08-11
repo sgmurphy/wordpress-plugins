@@ -1455,7 +1455,7 @@ class HTMega_Elementor_Widget_Audio_Player extends Widget_Base {
 		$this->add_responsive_control(
 			'audio_player_volume_size',
 			[
-				'label' => esc_html__('Iocn Box  Height/Width', 'htmega-addons'),
+				'label' => esc_html__('Icon Box  Height/Width', 'htmega-addons'),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => ['px', 'em', 'rem'],
 				'range' => [
@@ -1474,7 +1474,7 @@ class HTMega_Elementor_Widget_Audio_Player extends Widget_Base {
 		$this->add_responsive_control(
 			'audio_player_volume_font_size',
 			[
-				'label' => esc_html__('Iocn Font Size', 'htmega-addons'),
+				'label' => esc_html__('Icon Font Size', 'htmega-addons'),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => ['px', 'em', 'rem'],
 				'range' => [

@@ -893,6 +893,14 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
+version 1.5.117: 2024-08-11
+
+* Fix: improved the manual sorting and debuging of authors list
+* Fix: fixed post selection in editor in new chrome version.
+* Fix: where there is no posts in id's from dynamic or id's from meta in posts selection - return no posts instead of all posts
+* Fix: fixed third party filters suppress filters for ajax search bug - they was always suppress, and wpml integration didn't worked.
+* Feature: improved callbacks debug in full posts query debug
+
 
 version 1.5.116: 2024-08-08
 

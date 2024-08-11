@@ -6,6 +6,7 @@ $url = site_url();
 $type = (isset($_GET['status']) && !empty($_GET['status']) ? intval($_GET['status']) : '' );
 $message = ($type == '2') ? 'Unable to save settings.' : 'Settings updated successfully.';
 $roles = $this->wpUserRoles();
+$cm_themes = class_fma_main::cm_themes();
 ?>
 <?php echo class_fma_admin_menus::shortcodeUpdateNotice();?>
 <div class="wrap fma" style="background:#fff; padding: 20px; border:1px solid #ccc;">
@@ -167,6 +168,24 @@ foreach($roles as $key => $role) {
 <textarea name="fma_upload_allow" id="fma_upload_allow" class="large-text"  rows="3" cols="30"><?php echo isset($settings['fma_upload_allow']) && !empty($settings['fma_upload_allow']) ? esc_attr($settings['fma_upload_allow']) : 'all';?></textarea>	
 <p class="description"><?php _e('Enter Mimetypes allowed to upload, multiple comma(,) separated. Example: <code>image/vnd.adobe.photoshop,image/png</code>','file-manager-advanced')?></p>
 <p>Default: <code><?php _e('all','file-manager-advanced')?></code> <a href="https://advancedfilemanager.com/advanced-file-manager-mime-types/" target="_blank"><?php _e('MIME Types Help', 'file-manager-advanced'); ?></a></p>
+</td>
+</tr>
+<tr>
+<th><?php _e('Code Editor Theme <sup style="color:red;">New</sup>','file-manager-advanced')?></th>
+<td>
+<select name="fma_cm_theme" id="fma_cm_theme">
+	<?php foreach ($cm_themes as $key => $val) :
+	    $selected = "";
+		if(isset($settings['fma_cm_theme'])) {
+			if($key == $settings['fma_cm_theme']) {
+			  $selected = 'selected=selected';
+			}
+		}
+		?>
+	<option value="<?php echo $key; ?>" <?php echo $selected;?>><?php _e($val,'file-manager-advanced')?></option>
+	<?php endforeach;?>
+</select>
+<p class="description"><?php _e('Select code editor theme. Default: default','file-manager-advanced')?></p>
 </td>
 </tr>
 </tbody>

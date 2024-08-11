@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.27';
+	$.fbuilder['version'] = '5.2.28';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -221,6 +221,22 @@
 				);
 
 			} else {
+				if( pageDom.find(':input.cpefb_error:hidden').length ) {
+					let mssg = [];
+
+					pageDom.find('.cpefb_error.message:not(:empty)').each(function(){
+						let e = $(this),
+							l = e.closest('.fields').children('label'),
+							t = l ? l.text() : '';
+
+						mssg.push( '<b>'+t+(t.length ? ': ' : '')+'</b>'+e.text());
+					});
+
+					if(mssg.length) {
+						$( 'body' ).append( '<div class="cff-error-dlg">'+mssg.join('<br>')+'</div>' ).one('click', $.fbuilder.closeErrorDlg);
+					}
+				}
+
 				formDom.validate().focusInvalid();
 			}
 

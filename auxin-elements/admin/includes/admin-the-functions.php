@@ -261,10 +261,31 @@ if ( ! function_exists('auxin_template_importer') ) {
                 auxin_set_transient( $template_data_key, $template_data, WEEK_IN_SECONDS );
             }
         } elseif ( file_exists( $template_ID ) ) {
+            // make sure uploaded file has json extension
+            if( pathinfo( $template_ID, PATHINFO_EXTENSION) !== 'json' ){
+                return [
+                    'success'   => false,
+                    'data'      => [
+                        'message' => __( 'Not a valid template file extension.', 'auxin-elements' )
+                    ]
+                ];
+            }
+
+            // make sure uploaded file is JSON
             $template_data = file_get_contents( $template_ID );
+            if ( ! auxin_is_json( $template_data ) ) {
+                return [
+                    'success'   => false,
+                    'data'      => [
+                        'message' => __( 'Not a valid template file type.', 'auxin-elements' )
+                    ]
+                ];
+            }
+
             $template = [
                 'title' => basename( $template_ID, '.json' )
             ];
+
         } else {
             return [
                 'success'   => false,
