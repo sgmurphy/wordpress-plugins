@@ -129,8 +129,10 @@ class FunnelCampaign extends Campaign
             $subscribers = Subscriber::whereIn('id', $subscriberIds)->get();
         }
 
+        $sendableStatuses = fluentCrmEmailSendableStatuses();
+
         foreach ($subscribers as $subscriber) {
-            if ($subscriber->status != 'subscribed') {
+            if (!in_array($subscriber->status, $sendableStatuses, true)) {
                 continue; // We don't want to send emails to non-subscribed members
             }
 
@@ -186,7 +188,7 @@ class FunnelCampaign extends Campaign
             if ($urls) {
                 $emailBody = Helper::attachUrls($emailBody, $urls, $inserted->id, $emailHash);
             }
-            
+
             CampaignEmail::where('id', $inserted->id)
                 ->update([
                     'email_hash' => $emailHash,

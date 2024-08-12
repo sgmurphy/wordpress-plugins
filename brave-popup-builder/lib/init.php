@@ -197,6 +197,7 @@ if ( ! class_exists( 'BravePopup_Initialize' ) ) {
                     'ajax_url': "<?php print_r(esc_url(admin_url( 'admin-ajax.php' )));?>",
                     'rest_identifier': "<?php print_r(get_option('permalink_structure') ? '?' : '&');?>", 
                     'nonce': "<?php print_r(esc_html(wp_create_nonce( 'wp_rest' ))); ?>",
+                    'esp_nonce': "<?php print_r(esc_html(wp_create_nonce( 'esp_nonce' ))); ?>",
                     'admin_email': "<?php print_r(sanitize_email(get_option('admin_email'))); ?>",
                     'site_name': "<?php print_r(get_bloginfo('name')); ?>",
                     'current_url' :"<?php print_r(esc_url_raw($current_url)); ?>",

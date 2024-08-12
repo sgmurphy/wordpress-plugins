@@ -1,4 +1,4 @@
-var restUrl =fifuScriptVars.restUrl;
+var restUrl = fifuScriptVars.restUrl;
 
 function signUp() {
     var firstName = jQuery('#su_first_name').val();
@@ -66,8 +66,6 @@ function signUp() {
 function login() {
     var email = jQuery('#su_login_email').val();
     var site = jQuery('#su_login_site').val();
-    var tfa = jQuery('#su_login_2fa').val();
-    var always_connected = jQuery('#su_login_always_connected')[0].checked;
 
     if (!email || !site)
         return;
@@ -81,8 +79,6 @@ function login() {
         url: restUrl + 'featured-image-from-url/v2/login/',
         data: {
             "email": email,
-            "tfa": tfa,
-            "always-connected": always_connected,
         },
         async: true,
         beforeSend: function (xhr) {
@@ -92,8 +88,6 @@ function login() {
             code = data['code'];
 
             if (code > 0) {
-                Cookies.set('fifu-tfa', data['fifu_tfa_hash'], {expires: 365});
-
                 fifu_hide_log_in();
 
                 jQuery('#qrcode').hide();
@@ -127,9 +121,6 @@ function logout() {
     jQuery.ajax({
         method: "POST",
         url: restUrl + 'featured-image-from-url/v2/logout/',
-        data: {
-            "tfa": Cookies.get('fifu-tfa'),
-        },
         async: true,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('X-WP-Nonce', fifuScriptVars.nonce);
@@ -164,9 +155,6 @@ function payment_info() {
     jQuery.ajax({
         method: "POST",
         url: restUrl + 'featured-image-from-url/v2/payment_info/',
-        data: {
-            "tfa": Cookies.get('fifu-tfa'),
-        },
         async: true,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('X-WP-Nonce', fifuScriptVars.nonce);
@@ -195,9 +183,6 @@ function check_connection() {
     jQuery.ajax({
         method: "POST",
         url: restUrl + 'featured-image-from-url/v2/connected/',
-        data: {
-            "tfa": Cookies.get('fifu-tfa'),
-        },
         async: true,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('X-WP-Nonce', fifuScriptVars.nonce);
@@ -367,7 +352,6 @@ function listAllSu(page) {
         method: "POST",
         url: restUrl + 'featured-image-from-url/v2/list_all_su/',
         data: {
-            "tfa": Cookies.get('fifu-tfa'),
             "page": page,
         },
         async: true,
@@ -448,7 +432,6 @@ function listAllSu(page) {
                     url: restUrl + 'featured-image-from-url/v2/delete/',
                     data: {
                         "selected": arr,
-                        "tfa": Cookies.get('fifu-tfa'),
                     },
                     async: true,
                     beforeSend: function (xhr) {
@@ -643,7 +626,6 @@ async function addSu(table) {
                 url: restUrl + 'featured-image-from-url/v2/create_thumbnails_list/',
                 data: {
                     "selected": arr,
-                    "tfa": Cookies.get('fifu-tfa'),
                 },
                 async: true,
                 beforeSend: function (xhr) {
@@ -744,9 +726,6 @@ jQuery(function () {
                 jQuery.ajax({
                     method: "POST",
                     url: restUrl + 'featured-image-from-url/v2/cancel/',
-                    data: {
-                        "tfa": Cookies.get('fifu-tfa'),
-                    },
                     async: true,
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('X-WP-Nonce', fifuScriptVars.nonce);
@@ -796,7 +775,6 @@ function fifu_show_login() {
     jQuery("#log-out-box").hide();
     jQuery("#payment-info-box").hide();
     jQuery("#cancel-box").hide();
-    jQuery("#su_login_2fa").val('');
     jQuery("#upload-auto-box").hide();
 }
 
@@ -948,9 +926,6 @@ function listDailyCount() {
     jQuery.ajax({
         method: "POST",
         url: restUrl + 'featured-image-from-url/v2/list_daily_count/',
-        data: {
-            "tfa": Cookies.get('fifu-tfa'),
-        },
         async: true,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('X-WP-Nonce', fifuScriptVars.nonce);
@@ -1010,7 +985,6 @@ function set_upload_auto() {
         method: "POST",
         url: restUrl + 'featured-image-from-url/v2/cloud_upload_auto/',
         data: {
-            "tfa": Cookies.get('fifu-tfa'),
             "toggle": toggle,
         },
         async: true,
@@ -1043,7 +1017,6 @@ function set_hotlink() {
         method: "POST",
         url: restUrl + 'featured-image-from-url/v2/cloud_hotlink/',
         data: {
-            "tfa": Cookies.get('fifu-tfa'),
             "toggle": toggle,
         },
         async: true,

@@ -5,7 +5,7 @@ Donate link: https://gravitypdf.com/donate-to-plugin/
 Tags: gravity forms, form, contact form, pdf, email
 Requires at least: 5.3
 Tested up to: 6.6
-Stable tag: 6.11.1
+Stable tag: 6.11.2
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.txt
@@ -106,6 +106,10 @@ Gravity PDF can be run on most modern shared web hosting without any issues. It 
 16. A bunch of paid PDF designs are available, as well as additional functionality.
 
 == Changelog ==
+
+= 6.11.2 =
+* Bug: Resolve race condition by skipping PDF cleanup at the end of form submission process if PDF Background Processing is enabled
+* Bug: Fix issue where some Notifications with PDFs attached were not being handled in a background task when PDF Background Processing is enabled
 
 = 6.11.1 =
 * Bug: Only process enabled notifications during form submission when using PDF Background Processing. Notifications are enabled if they are active and have conditional logic that passes.

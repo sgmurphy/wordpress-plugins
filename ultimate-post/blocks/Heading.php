@@ -23,6 +23,9 @@ class Heading{
             'headingAlign' => 'left',
             'subHeadingShow' => false,
             'subHeadingText' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut sem augue. Sed at felis ut enim dignissim sodales.',
+
+            // Custom Meta Support
+
             // Wrapper Style
             'advanceId' => '',
             'advanceZindex' => '',

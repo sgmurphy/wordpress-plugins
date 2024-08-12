@@ -155,6 +155,9 @@ for ($x = 0; $x < count($rowarray); $x++) {
 		}
 		if(	$currentform[0]->read_more=="yes"){
 			$readmorenum = 30;
+			if(isset($template_misc_array['read_more_num']) && $template_misc_array['read_more_num']!=""){
+				$readmorenum = intval($template_misc_array['read_more_num']);
+			}
 
 			//$countwords = str_word_count($reviewtext);
 				
@@ -213,7 +216,7 @@ for ($x = 0; $x < count($rowarray); $x++) {
 		
 	?>
 		<div class="wprevpro_t1_DIV_1<?php if(	$currentform[0]->template_type=="widget"){echo ' marginb10';}?> w3_wprs-col l<?php echo $perrow; ?>">
-			<div class="wprevpro_t1_DIV_2 wprev_preview_bg1_T<?php echo $currentform[0]->style; ?><?php if($iswidget){echo "_widget";} ?> wprev_preview_bradius_T<?php echo $currentform[0]->style; ?><?php if($iswidget){echo "_widget";} ?>">
+			<div class="indrevdiv wprevpro_t1_DIV_2 wprev_preview_bg1_T<?php echo $currentform[0]->style; ?><?php if($iswidget){echo "_widget";} ?> wprev_preview_bradius_T<?php echo $currentform[0]->style; ?><?php if($iswidget){echo "_widget";} ?>">
 				<p class="wprevpro_t1_P_3 wprev_preview_tcolor1_T<?php echo $currentform[0]->style; ?><?php if($iswidget){echo "_widget";} ?>">
 					<span class="wprevpro_star_imgs_T<?php echo $currentform[0]->style; ?><?php if($iswidget){echo "_widget";} ?>"><?php echo $starhtml; ?></span><?php echo $verifiedhtml; ?><?php echo stripslashes($reviewtext); ?>
 				</p>

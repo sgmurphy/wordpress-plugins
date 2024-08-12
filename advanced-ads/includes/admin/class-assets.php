@@ -119,6 +119,11 @@ class Assets implements Integration_Interface {
 		if ( 'post' === $screen->base && Entities::POST_TYPE_AD === $screen->post_type ) {
 			Assets_Registry::enqueue_script( 'ad-positioning' );
 		}
+
+		if ( in_array( $screen->id, [ 'edit-post', 'edit-page' ], true ) && current_user_can( 'edit_posts' ) ) {
+			Assets_Registry::enqueue_script( 'page-quick-edit' );
+			wp_advads()->json->add( 'page_quick_edit', [ 'nonce' => wp_create_nonce( 'advads-post-quick-edit' ) ] );
+		}
 	}
 
 	/**

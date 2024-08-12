@@ -8,7 +8,10 @@ use FluentCrm\App\Models\FunnelCampaign;
 use FluentCrm\App\Models\FunnelMetric;
 use FluentCrm\App\Models\FunnelSequence;
 use FluentCrm\App\Models\FunnelSubscriber;
+use FluentCrm\App\Models\Subscriber;
 use FluentCrm\App\Services\Funnel\FunnelHelper;
+use FluentCrm\App\Services\Funnel\ProFunnelItems;
+use FluentCrm\App\Services\Helper;
 use FluentCrm\App\Services\Reporting;
 use FluentCrm\App\Services\Sanitize;
 use FluentCrm\Framework\Support\Arr;
@@ -106,13 +109,20 @@ class FunnelController extends Controller
     {
         try {
             $funnel = $this->validate($request->get('funnel'), [
-                'title'        => 'required',
                 'trigger_name' => 'required'
             ]);
 
             $description = sanitize_textarea_field(Arr::get($funnel, 'description'));
 
             $funnelData = Arr::only($funnel, ['title', 'trigger_name']);
+
+
+            if (empty($funnelData['title'])) {
+                $allTriggers = $this->getTriggers();
+                $label = Arr::get($allTriggers, $funnelData['trigger_name'] . '.label', 'Unknown Automation');
+                $funnelData['title'] = $label . ' (Created at ' . date('Y-m-d') . ')';
+            }
+
             $funnelData['status'] = 'draft';
             $funnelData['settings'] = [];
             $funnelData['conditions'] = [];
@@ -324,6 +334,37 @@ class FunnelController extends Controller
         }
 
         return $this->sendSuccess($data);
+    }
+
+    public function getSubscriberReporting(Request $request, $funnelId, $contactId)
+    {
+        Funnel::findOrFail($funnelId);
+        Subscriber::findOrFail($contactId);
+
+        $funnelSubscriber = FunnelSubscriber::with([
+            'last_sequence',
+            'next_sequence_item',
+            'metrics' => function ($query) use ($funnelId) {
+                $query->where('funnel_id', $funnelId);
+            }
+        ])
+            ->where('funnel_id', $funnelId)
+            ->where('subscriber_id', $contactId)
+            ->first();
+
+        $sequences = FunnelSequence::where('funnel_id', $funnelId)
+            ->orderBy('sequence', 'ASC')
+            ->get();
+
+        $formattedSequences = [];
+        foreach ($sequences as $sequence) {
+            $formattedSequences[] = $sequence;
+        }
+
+        return [
+            'funnel_subscriber' => $funnelSubscriber,
+            'sequences'         => $formattedSequences
+        ];
     }
 
     public function getAllActivities(Request $request)
@@ -542,6 +583,7 @@ class FunnelController extends Controller
                 $childs[$parentId][] = $sequence;
             } else {
                 $createdSequence = FunnelSequence::create($sequence);
+                do_action('fluent_crm/sequence_created_' . $createdSequence->action_name, $createdSequence);
                 $sequenceIds[] = $createdSequence->id;
                 $oldNewMaps[$oldId] = $createdSequence->id;
             }
@@ -574,82 +616,7 @@ class FunnelController extends Controller
         $funnelArray = $request->get('funnel');
         $sequences = $request->getJson('sequences');
 
-        $funnelArray = Sanitize::funnel($funnelArray);
-
-        $newFunnelData = [
-            'title'        => $funnelArray['title'],
-            'trigger_name' => $funnelArray['trigger_name'],
-            'status'       => 'draft',
-            'conditions'   => Arr::get($funnelArray, 'conditions', []),
-            'settings'     => $funnelArray['settings'],
-            'created_by'   => get_current_user_id()
-        ];
-
-        $funnel = Funnel::create($newFunnelData);
-
-        $sequenceIds = [];
-        $cDelay = 0;
-        $delay = 0;
-
-        $childs = [];
-        $oldNewMaps = [];
-
-
-        foreach ($sequences as $index => $sequence) {
-            $oldId = $sequence['id'];
-            unset($sequence['id']);
-            unset($sequence['created_at']);
-            unset($sequence['updated_at']);
-            // it's creatable
-            $sequence['funnel_id'] = $funnel->id;
-            $sequence['status'] = 'published';
-            $sequence['conditions'] = [];
-            $sequence['sequence'] = $index + 1;
-            $sequence['c_delay'] = $cDelay;
-            $sequence['delay'] = $delay;
-            $delay = 0;
-
-            $actionName = $sequence['action_name'];
-
-            if ($actionName == 'fluentcrm_wait_times') {
-                $delay = FunnelHelper::getDelayInSecond($sequence['settings']);
-                $cDelay += $delay;
-            }
-
-            $sequence = apply_filters('fluentcrm_funnel_sequence_saving_' . $sequence['action_name'], $sequence, $funnel);
-
-            if (Arr::get($sequence, 'type') == 'benchmark') {
-                $delay = $sequence['delay'];
-            }
-
-            $sequence['created_by'] = get_current_user_id();
-
-            $parentId = Arr::get($sequence, 'parent_id');
-
-            if ($parentId) {
-                $childs[$parentId][] = $sequence;
-            } else {
-                $createdSequence = FunnelSequence::create($sequence);
-                $sequenceIds[] = $createdSequence->id;
-                $oldNewMaps[$oldId] = $createdSequence->id;
-            }
-        }
-
-        if ($childs) {
-            foreach ($childs as $oldParentId => $childBlocks) {
-                foreach ($childBlocks as $childBlock) {
-                    $newParentId = Arr::get($oldNewMaps, $oldParentId);
-                    if ($newParentId) {
-                        $childBlock['parent_id'] = $newParentId;
-                        $createdSequence = FunnelSequence::create($childBlock);
-                        $sequenceIds[] = $createdSequence->id;
-                    }
-                }
-            }
-        }
-
-        (new FunnelHandler())->resetFunnelIndexes();
-        FunnelHelper::maybeMigrateConditions($funnel->id);
+        $funnel = $this->createFunnelFromData($funnelArray, $sequences);
 
         return [
             'message' => __('Funnel has been successfully imported', 'fluent-crm'),
@@ -818,7 +785,6 @@ class FunnelController extends Controller
         ];
     }
 
-
     public function getSyncableContactCounts(Request $request, $funnelId)
     {
         $funnel = Funnel::findOrFail($funnelId);
@@ -883,4 +849,265 @@ class FunnelController extends Controller
             'message' => __('Synced successfully', 'fluent-crm')
         ];
     }
+
+    public function getTemplates()
+    {
+        $templates = fluentCrmPersistentCache('funnel_remote_templates', function () {
+            return $this->getDynamicTemplates();
+        }, 60 * 60 * 24); // 24 hours
+
+        $allowedTemplates = $this->filterTemplates($templates);
+
+        return [
+            'templates' => $allowedTemplates,
+            'all' => $templates,
+            'cats'  => $this->allowedCategories()
+        ];
+    }
+
+    public function filterTemplates($templates)
+    {
+        $allowedCategories = $this->allowedCategories();
+        $filteredTemplates = [];
+
+        foreach ($templates as $template) {
+            if(empty($template['dependencies'])) {
+                $filteredTemplates[] = $template;
+                continue;
+            }
+            $diff = array_diff($template['dependencies'], $allowedCategories);
+            if(!$diff) {
+                $filteredTemplates[] = $template;
+            }
+        }
+
+        return $filteredTemplates;
+    }
+
+    public function allowedCategories()
+    {
+        $categories = [];
+
+        if(defined( 'FLUENTFORM')) {
+            $categories[] = 'fluentforms';
+        }
+
+        if(defined('MEPR_PLUGIN_NAME')) {
+            $categories[] = 'memberpress';
+        }
+
+        if(defined('FLUENT_BOARDS')) {
+            $categories[] = 'fluent-boards';
+        }
+
+        if(defined('FLUENT_SUPPORT')) {
+            $categories[] = 'fluent-support';
+        }
+
+        if(defined('FLUENT_BOOKING')) {
+            $categories[] = 'fluent-booking';
+        }
+
+        if (defined('WC_PLUGIN_FILE')) {
+            $categories[] = 'woocommerce';
+        }
+
+        if (defined('WCS_INIT_TIMESTAMP')) {
+            $categories[] = 'wcs';
+        }
+
+        if (defined('EDD_PLUGIN_FILE')) {
+            $categories[] = 'edd';
+        }
+
+        if (defined('LIFTERLMS_VERSION')) {
+            $categories[] = 'lifterlms';
+        }
+
+        if (defined('TUTOR_VERSION')) {
+            $categories[] = 'tutor';
+        }
+
+        if (defined('LEARNDASH_VERSION')) {
+            $categories[] = 'learndash';
+        }
+
+        if (defined('SURECART_PLUGIN_FILE')) {
+            $categories[] = 'surecart';
+        }
+
+        if(Helper::isExperimentalEnabled('abandoned_cart')) {
+            $categories[] = 'woo_abandon_carts';
+        }
+
+        if(defined('FLUENTCAMPAIGN_DIR_FILE')) {
+            $categories[] = 'fluentcrm_pro';
+        }
+
+        return $categories;
+
+    }
+
+    public function createFromTemplate(Request $request)
+    {
+        $template = $request->get('template');
+
+        $templateData = $this->getFunnelData($template['content']);
+        $funnelArray = $templateData;
+        $sequences = $templateData['sequences'];
+
+        $funnel = $this->createFunnelFromData($funnelArray, $sequences);
+
+        return [
+            'funnel'  => $funnel,
+            'message' => __('Funnel has been created from template', 'fluent-crm')
+        ];
+
+
+    }
+
+    private function createFunnelFromData($funnelArray, $sequences)
+    {
+        $funnelArray = Sanitize::funnel($funnelArray);
+
+        $newFunnelData = [
+            'title'        => Arr::get($funnelArray, 'title'),
+            'trigger_name' => Arr::get($funnelArray, 'trigger_name'),
+            'status'       => 'draft',
+            'conditions'   => Arr::get($funnelArray, 'conditions', []),
+            'settings'     => Arr::get($funnelArray, 'settings'),
+            'created_by'   => get_current_user_id()
+        ];
+
+        $funnel = Funnel::create($newFunnelData);
+
+        $sequenceIds = [];
+        $cDelay = 0;
+        $delay = 0;
+
+        $childs = [];
+        $oldNewMaps = [];
+
+        foreach ($sequences as $index => $sequence) {
+            $oldId = $sequence['id'];
+            unset($sequence['id']);
+            unset($sequence['created_at']);
+            unset($sequence['updated_at']);
+            // it's creatable
+            $sequence['funnel_id'] = $funnel->id;
+            $sequence['status'] = 'published';
+            $sequence['conditions'] = [];
+            $sequence['sequence'] = $index + 1;
+            $sequence['c_delay'] = $cDelay;
+            $sequence['delay'] = $delay;
+            $delay = 0;
+
+            $actionName = $sequence['action_name'];
+
+            if ($actionName == 'fluentcrm_wait_times') {
+                $delay = FunnelHelper::getDelayInSecond($sequence['settings']);
+                $cDelay += $delay;
+            }
+
+            $sequence = apply_filters('fluentcrm_funnel_sequence_saving_' . $sequence['action_name'], $sequence, $funnel);
+
+            if (Arr::get($sequence, 'type') == 'benchmark') {
+                $delay = $sequence['delay'];
+            }
+
+            $sequence['created_by'] = get_current_user_id();
+
+            $parentId = Arr::get($sequence, 'parent_id');
+
+            if ($parentId) {
+                $childs[$parentId][] = $sequence;
+            } else {
+                $createdSequence = FunnelSequence::create($sequence);
+                do_action('fluent_crm/sequence_created_' . $createdSequence->action_name, $createdSequence);
+
+                $sequenceIds[] = $createdSequence->id;
+                $oldNewMaps[$oldId] = $createdSequence->id;
+            }
+        }
+
+        if ($childs) {
+            foreach ($childs as $oldParentId => $childBlocks) {
+                foreach ($childBlocks as $childBlock) {
+                    $newParentId = Arr::get($oldNewMaps, $oldParentId);
+                    if ($newParentId) {
+                        $childBlock['parent_id'] = $newParentId;
+                        $createdSequence = FunnelSequence::create($childBlock);
+                        $sequenceIds[] = $createdSequence->id;
+                    }
+                }
+            }
+        }
+
+        (new FunnelHandler())->resetFunnelIndexes();
+        FunnelHelper::maybeMigrateConditions($funnel->id);
+
+        return $funnel;
+    }
+
+    public function temporaryStaticTemplates()
+    {
+        return \FluentCrm\App\Services\Funnel\StaticTemplates::get();
+    }
+
+    public function getDynamicTemplates()
+    {
+        $restApi = 'https://fluentcrm.com/wp-json/wp/v2/crm-templates?template_type=automation_template';
+        $response = wp_remote_get($restApi, [
+            'sslverify' => false,
+        ]);
+
+        if (is_wp_error($response)) {
+            // Handle error
+            error_log($response->get_error_message());
+            return [];
+        }
+
+        $body = wp_remote_retrieve_body($response);
+        $templateLists = json_decode($body, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            // Handle JSON error
+            error_log('JSON Decode Error: ' . json_last_error_msg());
+            return [];
+        }
+
+        $formattedTemplates = [];
+        foreach ($templateLists as $template) {
+
+            if (!$template['template_json']) {
+                // Skip if no template json
+                continue;
+            }
+            $formattedTemplates[] = [
+                'id'           => $template['id'],
+                'title'        => $template['title']['rendered'],
+//                'description'  => $template['excerpt']['rendered'],
+                'short_description'    => $template['short_description'],
+                'type'         => $template['template_type'],
+                'dependencies' => $template['plugin_dependencies'],
+                'content'      => $template['template_json'],
+                'link'         => $template['link'],
+                'midea'        => $template['_links']['wp:attachment'][0]['href'],
+                'status'       => $template['status'],
+            ];
+        }
+
+        return $formattedTemplates;
+    }
+
+    public function getFunnelData($jsonUrl)
+    {
+        $request = wp_remote_get($jsonUrl);
+
+        if (is_wp_error($request)) {
+            return [];
+        }
+        return json_decode(wp_remote_retrieve_body($request), true);
+    }
+
 }

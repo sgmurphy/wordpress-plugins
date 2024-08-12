@@ -5,7 +5,7 @@ Tags: Wordpress Blog, Blog Design, Blog layout, blog template, custom blog templ
 Requires at least: 5.6
 Tested up to: 6.6.1
 Requires PHP: 7.0
-Stable tag: 3.1.7
+Stable tag: 3.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -226,6 +226,12 @@ Yes, Blog Designer will work with any WordPress themes, but may require some sty
 16. Blog Designer with 'Ticker' Blog Template Layout
 
 == Changelog ==
+
+= 3.1.8
+Release date: August 12th, 2024
+
+* Fixed: Code improvements
+* Fixed: Minor bug fix
 
 = 3.1.7
 Release date: July 25th, 2024

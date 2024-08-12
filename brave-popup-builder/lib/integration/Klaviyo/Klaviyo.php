@@ -15,31 +15,47 @@ if ( ! class_exists( 'BravePop_Klaviyo' ) ) {
          $apiKey     = $apiKey ? $apiKey : $this->api_key;
 
          if(!$apiKey){ return false;}
+         $reqArgs = array(
+            'method' => 'GET',
+            'headers' => array(
+               'Authorization' => 'Klaviyo-API-Key  '. $apiKey,
+               'accept' => 'application/json',
+               'revision' => '2023-12-15',
+            )
+         );
 
-         $response = wp_remote_get( 'https://a.klaviyo.com/api/v2/lists?api_key='.$apiKey  );
-         if( is_wp_error( $response ) ) {
-            return false; // Bail early
-         }
+         $finalLists = array();
+         $nextUrl = 'https://a.klaviyo.com/api/lists';
 
-         $body = wp_remote_retrieve_body( $response );
-         $data = json_decode( $body );
-         if($data){
-            $lists = $data;
-            $finalLists = array();
-            if($lists && is_array($lists)){
-               foreach ($lists as $key => $list) {
-                  $listItem = new stdClass();
-                  $listItem->id = isset($list->list_id) ? $list->list_id : '';
-                  $listItem->name = isset($list->list_name) ? $list->list_name : '';
-                  $listItem->count = 0;
-                  $finalLists[] = $listItem;
-               }
+         while ($nextUrl) {
+            $response = wp_remote_get($nextUrl, $reqArgs);
+            if (is_wp_error($response)) {
+               return false; // Bail early
             }
-            return json_encode($finalLists);
-         }else{
-            return false;
+
+            $body = wp_remote_retrieve_body($response);
+            $data = json_decode($body);
+
+            if ($data && isset($data->data)) {
+               $lists = $data->data;
+               if ($lists && is_array($lists)) {
+                  foreach ($lists as $list) {
+                     $listItem = new stdClass();
+                     $listItem->id = isset($list->id) ? $list->id : '';
+                     $listItem->name = isset($list->attributes->name) ? $list->attributes->name : '';
+                     $listItem->count = 0;
+                     $finalLists[] = $listItem;
+                  }
+               }
+
+               // Check if there's a next page
+               $nextUrl = isset($data->links->next) ? $data->links->next : null;
+            } else {
+               break; // Exit the loop if no valid data
+            }
          }
 
+         return $finalLists ? json_encode($finalLists) : false;
       }
 
       private function add_to_list_old($contact, $list_id, $userData=array()){
@@ -83,7 +99,7 @@ if ( ! class_exists( 'BravePop_Klaviyo' ) ) {
             'method' => 'POST',
             'headers' => array(
                'content-type' => 'application/json',
-               'revision' => '2023-10-15',
+               'revision' => '2024-07-15',
             ),
             'body' => json_encode(array(
                'data'=> array(

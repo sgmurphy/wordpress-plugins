@@ -2189,6 +2189,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params = array("unit" => "posts");
 		$params["origtype"] = UniteCreatorDialogParam::PARAM_TEXTFIELD;
 		$params["description"] = sprintf(__("Override Number Of %s, leave empty for default. If you are using pagination widget, leave it empty", "unlimited-elements-for-elementor"), $textPosts);
+		
 		$params["add_dynamic"] = true;
 		$params["elementor_condition"] = $arrCurrentElementorCondition;
 

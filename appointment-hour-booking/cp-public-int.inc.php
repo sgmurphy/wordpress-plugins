@@ -6,8 +6,36 @@
 ?>" /><input type="hidden" name="refpage<?php echo '_'.esc_attr($this->print_counter); ?>" id="refpage<?php echo '_'.esc_attr($this->print_counter); ?>" value=""><input type="hidden" name="<?php echo esc_attr($this->prefix); ?>_pform_status" value="0" /><input name="anonce" type="hidden" value="<?php echo esc_attr(wp_create_nonce( 'cpappb_actions_bookingform' )); ?>"/>
 <?php if (is_admin() && !defined('APHOURBK_ELEMENTOR_EDIT_MODE') && (empty($_GET["action"]) || @$_GET["action"] != 'edit') && !defined('CPAPPHOURBK_BLOCK_TIMES')) {?>
   <fieldset style="border: 1px solid black; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; padding:15px;">
-   <legend>Administrator options</legend>
-    <input type="checkbox" name="sendemails_admin" value="1" vt="1" checked /> Send notification emails for this booking<br /><br />
+   <legend><?php _e('Administrator options','appointment-hour-booking'); ?></legend>
+    
+    <div style="float:left;margin-right:50px;">
+     <input type="checkbox" name="sendemails_admin" value="1" vt="1" checked="checked" /> <?php _e('Send notification emails for this booking','appointment-hour-booking'); ?><br /><br />
+     <div id="wptsremoveval"> <input type="checkbox" name="ignorewptsval" value="1" vt="1" onclick="wptsingnoreval();" /><?php _e('Ignore validation of required fields?','appointment-hour-booking'); ?></div>
+     <div id="wptsremovedval" style="display:none"> <input type="checkbox" name="ignorewptsval" value="1" vt="1" checked disabled /> <?php echo esc_js(__('Required field validation ignored!','appointment-hour-booking')); ?></div> 
+    </div>
+    <div style="float:left;">
+       <?php 
+         $status = apply_filters('cpappb_app_admin_default_status', $this->get_option('defaultpaidstatus', '') );        
+         if (isset($preload_params) && is_array($preload_params) && count($preload_params) && isset($preload_params["apps"])) 
+         {
+            for($k=0; $k<count($preload_params["apps"]); $k++)
+                if (isset($preload_params["apps"][$k]["cancelled"]))
+                {
+                    $status = $preload_params["apps"][$k]["cancelled"];
+                    break;
+                }
+         }
+         _e('Status','appointment-hour-booking'); ?>:<br /> <?php $this->render_status_box('statusbox', $status); 
+         
+       ?>
+    </div>
+    <script>
+        function wptsingnoreval() {
+           jQuery(".required").removeClass("required");
+           jQuery("#wptsremoveval").hide();
+           jQuery("#wptsremovedval").show();
+         }
+    </script>
   </fieldset>
 <?php } ?>
 <div id="fbuilder">

@@ -204,6 +204,8 @@ class WP_Google_Reviews_Activator {
 				PRIMARY KEY (btp_id)
 			) $charset_collate;";
 			dbDelta( $sql_totalavg );
+			
+
 
 	}
 

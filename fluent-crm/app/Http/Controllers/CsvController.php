@@ -211,7 +211,7 @@ class CsvController extends Controller
                 return $this->sendError(['email' => "The email field is required."], 422);
             }
 
-            $subscriber['email'] = trim($subscriber['email']);
+            $subscriber['email'] = is_string($subscriber['email']) ? trim($subscriber['email']) : $subscriber['email'];
 
             if ($subscriber['email'] && is_email($subscriber['email'])) {
 

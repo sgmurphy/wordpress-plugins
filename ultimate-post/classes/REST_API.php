@@ -7,6 +7,8 @@
  */
 namespace ULTP;
 
+use WP_REST_Request;
+
 defined('ABSPATH') || exit;
 
 /**
@@ -938,6 +940,12 @@ class REST_API {
                 $var['avatar_url']  = get_avatar_url($user_id);
                 $var['display_name']= get_the_author_meta('display_name');
                 $var['reading_time']= ceil(strlen($content_data)/1200);
+                $var['acf']         = null;
+
+                if (function_exists('get_field_objects')) {
+                    $var['acf']         = get_field_objects();
+                }
+
                 $post_video = get_post_meta($post_id, '__builder_feature_video', true);
                 // Video 
                 if ($post_video) {

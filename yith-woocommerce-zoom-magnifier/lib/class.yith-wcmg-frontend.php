@@ -2,7 +2,7 @@
 /**
  * Frontend class
  *
- * @author  YITH <plugins@yithemes.com>
+ * @author YITH <plugins@yithemes.com>
  * @package YITH\ZoomMagnifier\Classes
  * @version 1.1.2
  */
@@ -299,7 +299,9 @@ if ( ! class_exists( 'YITH_WCMG_Frontend' ) ) {
 				}
 
 				$custom_css .= "
-                    div.pp_woocommerce a.yith_expand {
+                    a.yith_expand {
+                     position: absolute;
+                     z-index: 1000;
                      background-color: {$lighbox_colors_array['background']};
                      width: {$lighbox_icon_size}px;
                      height: {$lighbox_icon_size}px;

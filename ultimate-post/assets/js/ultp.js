@@ -1722,7 +1722,6 @@
     /************** handle dark light color swap      **************/
     function handleDarkLight() {
         if ( $('#ultp-preset-colors-style-inline-css') && $('#ultp-preset-colors-style-inline-css')[0] ) {
-            // const root = document.getElementById('ultp-preset-colors-style-inline-css').sheet;
             const root = $('#ultp-preset-colors-style-inline-css')[0].sheet;
             const base1 = root.cssRules[0].style.getPropertyValue('--postx_preset_Base_1_color');
             const base2 = root.cssRules[0].style.getPropertyValue('--postx_preset_Base_2_color');

@@ -70,7 +70,7 @@ class WP_Google_Reviews {
 	public function __construct() {
 
 		$this->_token = 'wp-google-reviews';
-		$this->version = '14.6';
+		$this->version = '14.7';
 		//using this for development
 		//$this->version = time();
 
@@ -84,6 +84,8 @@ class WP_Google_Reviews {
 		$this->define_public_hooks();
 		//save version number to db
 		$this->_log_version_number();
+		
+
 	}
 
 	
@@ -95,7 +97,45 @@ class WP_Google_Reviews {
 	 */
 	private function _log_version_number () {
 		$current_version = get_option($this->_token . '_current_db_version', 0);
+		
+		
+		//moving to new options for multiple locations.
+		$oldcrawl = get_option( 'wprev_google_crawl_placeid', 'default_value' );
+		$oldcrawl2 = get_option( 'wprev_google_crawl_check', 'default_value' );
+		if($oldcrawl!="default_value" && $oldcrawl2!="default_value"){
+			$gplaceid = $oldcrawl;
+			$tempbusinessdetails = json_decode($oldcrawl2,true);
+			$crawlsarray = Array();
+			$crawlsarray[] = Array();
+			$crawlsarray[$gplaceid]['enteredidorterms'] = $gplaceid;
+			$crawlsarray[$gplaceid]['crawl_check'] = $tempbusinessdetails;
+			$crawlsarray[$gplaceid]['nhful'] = "newest";
+			update_option('wprev_google_crawls',json_encode($crawlsarray) );
+			
+			//now do the api method
+			$tempoldoptions = get_option('wpfbr_google_options');
+			$gplaceidapi = $tempoldoptions['google_location_set']['place_id'];
+			$apissarray = Array();
+			$apissarray[] = Array();
+			$apissarray[$gplaceidapi]=$tempoldoptions;
+			update_option('wprev_google_apis',json_encode($apissarray) );
+			
+			delete_option('wprev_google_crawl_check');
+			delete_option('wprev_google_crawl_placeid');
+		}
+		
+
+		
+		
+				
 		if($current_version!=$this->version){
+			
+			//for checking language_code
+			if (! wp_next_scheduled ( 'wpgoogle_daily_event' )) {
+				$starttime = time();
+				wp_schedule_event($starttime, 'daily', 'wpgoogle_daily_event');  
+			}
+			
 				
 			//create table in database
 			global $wpdb;
@@ -346,9 +386,6 @@ class WP_Google_Reviews {
 		
 		//add menu page
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu_pages' );
-		
-		//add ajax for adding feedback to table
-		$this->loader->add_action( 'wp_ajax_wpfb_get_results', $plugin_admin, 'wpfb_process_ajax' ); 
 
 		//add ajax for adding google reviews to table
 		$this->loader->add_action( 'wp_ajax_wpfbr_google_reviews', $plugin_admin, 'wpfbr_ajax_google_reviews' ); 
@@ -375,6 +412,15 @@ class WP_Google_Reviews {
 		//add custom link to menu
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'wprev_google_add_external_link_admin_submenu' );
 		$this->loader->add_action( 'admin_head', $plugin_admin, 'wpse_66022_add_jquery' );
+		
+		//add ajax for previewing template wprp_get_preview
+		$this->loader->add_action( 'wp_ajax_wprp_get_preview', $plugin_admin, 'wprp_previewtemplate_ajax' );
+		//add ajax for saving review template
+		$this->loader->add_action( 'wp_ajax_wprp_save_template', $plugin_admin, 'wprp_savetemplate_ajax' );
+		
+		//cron testing
+		//$ret = $plugin_admin->wpfbr_cron_googlereviews();
+		
 	}
 
 	/**

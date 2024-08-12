@@ -5,10 +5,120 @@
  .fs-freemium-licensing {
     display: none;
 }
+a#wprevpro_addnewtemplate_update {
+    background: #2271b1 !important;
+    border-color: #2271b1 !important;
+    color: #fff !important;
+}
 .divtemplatestyles {
     display: flex;
     align-items: center;
 }
+div#update_form_msg_div {
+    display: inline;
+    font-size: 16px;
+}
+#wpfbr_new_template p.description {
+    display: none;
+}
+.wprevpro_btnicononlyhelp::before {
+    padding-top: 0px;
+    cursor: pointer;
+    margin-top: -2px;
+}
+.badgeinfo {
+    display: flex;
+    gap: 20px;
+	flex-wrap: wrap;
+}
+.bsetlabel {
+    font-weight: 600;
+}
+.badgeinfosetting.checkboxes {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+.badgeinfosetting.checkboxes label {
+    cursor: pointer;
+}
+.divmoreslidersettings {
+    padding: 12px 4px 2px;
+}
+tr.wpfbr_row.tabnoterow td {
+    padding: 10px;
+}
+
+tr.wpfbr_row.tabnoterow {
+    background: #f6f6f6;
+}
+
+div#wpfbr_loading_prev_div {
+    height: 20px;
+    margin: 5px;
+}
+div#wpfbr_preview_outer {
+    padding-bottom: 30px;
+}
+img#loadingpreview {
+    height: 20px;
+    display: block;
+    margin: auto;
+    padding-top: 2px;
+}
+img#savingformimg {
+    height: 30px;
+}
+.settingstable {
+	border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.form-table th {
+    padding: 15px 10px;
+}
+span.nav-tab.nav-tab-active {
+    background: white;
+    border-bottom: 1px solid #ffffff;
+}
+.settingtab {
+    cursor: pointer;
+}
+.dashicons-before::after {
+    padding-top: 3px;
+    padding-right: 0px;
+}
+.dashicons, .dashicons-before:after {
+    font-family: dashicons;
+    display: inline-block;
+    line-height: 1;
+    font-weight: 400;
+    font-style: normal;
+    speak: none;
+    text-decoration: inherit;
+    text-transform: none;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    vertical-align: text-bottom;
+    text-align: center;
+    transition: color .1s ease-in;
+}
+.dashicons-arrow-right-after:after {
+    content: "\f139";
+}
+.dashicons-before:after, .dashicons-before:before {
+    vertical-align: text-bottom;
+}
+
+
+
+
 .welcomediv {
     padding-left: 15px;
 	padding-right: 10px;

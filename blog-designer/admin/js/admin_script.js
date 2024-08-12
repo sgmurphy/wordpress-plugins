@@ -604,7 +604,6 @@ jQuery('document').ready(function() {
             success: function(response) {
                 jQuery('.do-create-test-page').hide();
                 jQuery('.done-create-test-page').show();
-                console.log(response);
                 jQuery('.done-create-test-page').find('a').attr('href', response);
             }
         });

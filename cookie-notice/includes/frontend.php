@@ -341,7 +341,7 @@ class Cookie_Notice_Frontend {
 		$output = '
 		<!-- Cookie Compliance -->
 		<script type="text/javascript">var huOptions = ' . wp_json_encode( $options ) . ';</script>
-		<script type="text/javascript" src="' . esc_url( Cookie_Notice()->get_url( 'widget' ) ) . '"></script>';
+		<script type="text/javascript" src="' . esc_url( ( is_ssl() ? 'https:' : 'http:' ) . Cookie_Notice()->get_url( 'widget' ) ) . '"></script>';
 
 		return apply_filters( 'cn_cookie_compliance_output', $output, $options );
 	}

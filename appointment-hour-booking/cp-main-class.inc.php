@@ -1693,7 +1693,7 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
         foreach ($latestitems as $latestitem)
         {
             $latestdata = unserialize($latestitem->posted_data);
-            if (isset($latestdata["apps"]) && isset($latestdata["apps"][0]) && $latestdata["apps"][0] && isset($latestdata["apps"][0]["date"]))
+            if (isset($latestdata["apps"]) && isset($latestdata["apps"][0]) && isset($params["apps"][0]) && $latestdata["apps"][0] && isset($latestdata["apps"][0]["date"]))
             {
                 if (
                     $latestdata["apps"][0]["date"] == $params["apps"][0]["date"] &&
@@ -1827,7 +1827,12 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
         $apps = array();
         $subid = 0;
         if (is_admin() || (isset($_POST["bccf_payment_option_paypal"]) && $_POST["bccf_payment_option_paypal"] == '0') || defined('CPAPPHOURBK_BLOCK_TIMES_PROCESS'))
-            $status = $this->get_option('defaultpaidstatus', '');
+		{
+            if (is_admin() && isset($_POST["statusbox"]))
+                $status = sanitize_text_field($_POST["statusbox"]);
+            else
+			    $status = $this->get_option('defaultpaidstatus', '');
+		}
         else
             $status = $this->get_option('defaultstatus', '');
         if (defined('CPAPPHOURBK_BLOCK_TIMES_PROCESS')) $status = '';

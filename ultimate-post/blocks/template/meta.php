@@ -26,9 +26,12 @@ if ( $attr['metaShow'] ) {
     $meta = is_array($meta) ? $meta : [];
     
     $authorImgOnly = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author"><img loading="lazy" class="ultp-meta-author-img" src="'.$avatar.'" alt="'.__("By","ultimate-post").'" /></span>' : '';
-    $authorImg     = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author"><img loading="lazy" class="ultp-meta-author-img" src="'.$avatar.'" alt="'.__("By","ultimate-post").'" />'.$attr['metaAuthorPrefix'].'<a href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name .'</a></span>' : '';
-    $authorIcon    = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author">'.ultimate_post()->svg_icon('user').'<a href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name.'</a></span>' : '';
-    $authorBy      = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author">'.$attr['metaAuthorPrefix'].'<a href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name.'</a></span>' : '';
+
+    $authorImg     = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author"><img loading="lazy" class="ultp-meta-author-img" src="'.$avatar.'" alt="'.__("By","ultimate-post").'" />'.$attr['metaAuthorPrefix'].'<a class="'. (empty($author_link) ? 'ultp-meta-author-no-link' : '') .'" href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name .'</a></span>' : '';
+
+    $authorIcon    = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author">'.ultimate_post()->svg_icon('user').'<a class="'. (empty($author_link) ? 'ultp-meta-author-no-link' : '') .'" href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name.'</a></span>' : '';
+
+    $authorBy      = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author">'.$attr['metaAuthorPrefix'].'<a class="'. (empty($author_link) ? 'ultp-meta-author-no-link' : '') .'" href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name.'</a></span>' : '';
     
     // Author Filter Hook
     $authorImgOnly = apply_filters( 'postx_loop_author_image_only', $authorImgOnly, $user_id, $post_id, isset($attr["className"]) ? $attr["className"] : '');

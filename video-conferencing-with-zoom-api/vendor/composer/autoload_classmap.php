@@ -6,6 +6,15 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CodeManas\\VczApi\\Elementor\\Elementor' => $baseDir . '/includes/Elementor/Elementor.php',
+    'CodeManas\\VczApi\\Elementor\\Widgets\\EmbedMeetings' => $baseDir . '/includes/Elementor/Widgets/EmbedMeetings.php',
+    'CodeManas\\VczApi\\Elementor\\Widgets\\MeetingByID' => $baseDir . '/includes/Elementor/Widgets/MeetingByID.php',
+    'CodeManas\\VczApi\\Elementor\\Widgets\\MeetingByPostID' => $baseDir . '/includes/Elementor/Widgets/MeetingByPostID.php',
+    'CodeManas\\VczApi\\Elementor\\Widgets\\MeetingHosts' => $baseDir . '/includes/Elementor/Widgets/MeetingHosts.php',
+    'CodeManas\\VczApi\\Elementor\\Widgets\\MeetingList' => $baseDir . '/includes/Elementor/Widgets/MeetingList.php',
+    'CodeManas\\VczApi\\Elementor\\Widgets\\RecordingByMeetingID' => $baseDir . '/includes/Elementor/Widgets/RecordingByMeetingID.php',
+    'CodeManas\\VczApi\\Elementor\\Widgets\\RecordingsByHost' => $baseDir . '/includes/Elementor/Widgets/RecordingsByHost.php',
+    'CodeManas\\VczApi\\Elementor\\Widgets\\WebinarList' => $baseDir . '/includes/Elementor/Widgets/WebinarList.php',
     'Codemanas\\VczApi\\Blocks\\BlockTemplates' => $baseDir . '/includes/Blocks/BlockTemplates.php',
     'Codemanas\\VczApi\\Blocks\\Blocks' => $baseDir . '/includes/Blocks/Blocks.php',
     'Codemanas\\VczApi\\Bootstrap' => $baseDir . '/includes/Bootstrap.php',

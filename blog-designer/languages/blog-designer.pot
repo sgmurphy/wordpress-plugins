@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Blog Designer\n"
-"POT-Creation-Date: 2024-08-09 18:59+0530\n"
+"POT-Creation-Date: 2024-08-12 15:54+0530\n"
 "PO-Revision-Date: 2016-08-26 11:19+0530\n"
 "Last-Translator: \n"
 "Language-Team: Solwin Infotech <info@solwininfotech.com>\n"
@@ -832,7 +832,7 @@ msgstr ""
 #: admin/class-blog-designer-lite-settings.php:1027
 #: admin/class-blog-designer-lite-ticker-settings.php:92
 #: public/class-blog-designer-lite-public.php:353
-#: public/class-blog-designer-lite-public.php:636
+#: public/class-blog-designer-lite-public.php:639
 msgid "Latest Blog"
 msgstr ""
 
@@ -1334,7 +1334,7 @@ msgid "Enter load more button text"
 msgstr ""
 
 #: admin/class-blog-designer-lite-settings.php:2221
-#: public/class-blog-designer-lite-public.php:527
+#: public/class-blog-designer-lite-public.php:530
 msgid "Load More"
 msgstr ""
 
@@ -2469,34 +2469,34 @@ msgid "We are delighted that you are using <strong>Blog Designer</strong>."
 msgstr ""
 
 #: public/class-blog-designer-lite-public.php:128
-#: public/class-blog-designer-lite-public.php:881
+#: public/class-blog-designer-lite-public.php:884
 msgid "please go to "
 msgstr ""
 
 #: public/class-blog-designer-lite-public.php:128
-#: public/class-blog-designer-lite-public.php:881
+#: public/class-blog-designer-lite-public.php:884
 msgid "Blog Designer Panel"
 msgstr ""
 
 #: public/class-blog-designer-lite-public.php:128
-#: public/class-blog-designer-lite-public.php:881
+#: public/class-blog-designer-lite-public.php:884
 msgid "select Blog Designs & save settings."
 msgstr ""
 
 #: public/class-blog-designer-lite-public.php:130
-#: public/class-blog-designer-lite-public.php:883
+#: public/class-blog-designer-lite-public.php:886
 msgid "You haven't created any blog designer shortcode."
 msgstr ""
 
-#: public/class-blog-designer-lite-public.php:763
+#: public/class-blog-designer-lite-public.php:766
 msgid "Previous"
 msgstr ""
 
-#: public/class-blog-designer-lite-public.php:764
+#: public/class-blog-designer-lite-public.php:767
 msgid "Next"
 msgstr ""
 
-#: public/class-blog-designer-lite-public.php:791
+#: public/class-blog-designer-lite-public.php:794
 msgid "words"
 msgstr ""
 

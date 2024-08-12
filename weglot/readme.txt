@@ -232,6 +232,22 @@ For example, if your website is website.com, then the French version would be we
 
 Weglot offers the same high quality of automatic translations throughout all plans, from free to enterprise. We use leading providers like DeepL, Google Translate, and Microsoft Translator to bring you the most accurate translations for your language pairs. You can also refine these translations, have team members edit them, or professionally translate them throughout all plans.
 
+== Plugin Dependency on Weglot ==
+
+This plugin relies on Weglot, a third-party translation service, to provide multilingual support for your website. Weglot allows you to translate your website content into multiple languages seamlessly and efficiently. By using this plugin, your content will be sent to Weglot's servers for translation and then delivered back to your site.
+
+== Important Links ==
+
+- [Weglot Service](https://www.weglot.com/)
+- [Weglot Terms of Service](https://www.weglot.com/terms)
+- [Weglot Security Policy](https://www.weglot.com/security)
+
+By using this plugin, you agree to Weglot's terms and policies. Please review these documents to understand how your data and content are managed and protected.
+
+== Impact of Discontinuing Weglot ==
+
+If you decide to stop using Weglot, your website will no longer be translated. All translations are stored on Weglot's servers. However, you can export all your translations using our import/export feature before discontinuing the service to save your translations. More details on how to do this can be found [here](https://support.weglot.com/article/206-can-i-export-my-translations). If you do not have access to this feature, you can request support from Weglot to assist with the export before you leave.
+
 == Screenshots ==
 
 1. Become visible on search engines with multilingual SEO
@@ -242,7 +258,6 @@ Weglot offers the same high quality of automatic translations throughout all pla
 6. Get full editing control with machine, human and pro translation options
 7. Join +60k brand going multilingual with Weglot
 8. Create translation rules and avoid repetitive editing tasks
-
 
 == Upgrade Notice ==
 

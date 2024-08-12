@@ -1,11 +1,11 @@
 === Extra product options For WooCommerce | Custom Product Addons and Fields ===
 Contributors: ThemeHigh
 Donate link: https://themehigh.com/
-Tags: Woocommerce Product Addons, WooCommerce Extra product fields, woocommerce extra product options, Extra Product Options, WooCommerce Custom Product Fields, WooCommerce Product Field Editor, woocommerce product customizer, product form customizer, product, WooCommerce product, product form designer, custom, custom product fields, custom product option, custom options, customize product, customize variation, extra options, extra product options, form editor, price fields, prices, product, product choices, product price, woocommerce
+Tags: WooCommerce Product Addons, Extra Product Options, Product Addons, WooCommerce Extra Product Option, WooCommerce Extra Product Fields
 Requires at least: 4.9
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 3.2.7
+Stable tag: 3.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -266,6 +266,9 @@ Yes, it is compatible with Astra, Storefront. Also compatible with Avada, divi b
 17. Use html tags in field label.
 
 == Changelog ==
+
+= 3.2.8 =
+* Added WooCommerce 9.2 compatibility.
 
 = 3.2.7 =
 * Added WooCommerce 9.1 compatibility.

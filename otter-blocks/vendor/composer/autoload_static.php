@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit065d07b9635a04adf752972d7b0b525f
+class ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a
 {
     public static $files = array (
         '16e4325dd9bdbbd2ce8c9530b088e50b' => __DIR__ . '/..' . '/codeinwp/themeisle-sdk/load.php',
@@ -142,6 +142,8 @@ class ComposerStaticInit065d07b9635a04adf752972d7b0b525f
         'Stripe\\BaseStripeClientInterface' => __DIR__ . '/..' . '/stripe/stripe-php/lib/BaseStripeClientInterface.php',
         'Stripe\\BillingPortal\\Configuration' => __DIR__ . '/..' . '/stripe/stripe-php/lib/BillingPortal/Configuration.php',
         'Stripe\\BillingPortal\\Session' => __DIR__ . '/..' . '/stripe/stripe-php/lib/BillingPortal/Session.php',
+        'Stripe\\Billing\\Alert' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Billing/Alert.php',
+        'Stripe\\Billing\\AlertTriggered' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Billing/AlertTriggered.php',
         'Stripe\\Billing\\Meter' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Billing/Meter.php',
         'Stripe\\Billing\\MeterEvent' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Billing/MeterEvent.php',
         'Stripe\\Billing\\MeterEventAdjustment' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Billing/MeterEventAdjustment.php',
@@ -168,6 +170,7 @@ class ComposerStaticInit065d07b9635a04adf752972d7b0b525f
         'Stripe\\Discount' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Discount.php',
         'Stripe\\Dispute' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Dispute.php',
         'Stripe\\Entitlements\\ActiveEntitlement' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Entitlements/ActiveEntitlement.php',
+        'Stripe\\Entitlements\\ActiveEntitlementSummary' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Entitlements/ActiveEntitlementSummary.php',
         'Stripe\\Entitlements\\Feature' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Entitlements/Feature.php',
         'Stripe\\EphemeralKey' => __DIR__ . '/..' . '/stripe/stripe-php/lib/EphemeralKey.php',
         'Stripe\\ErrorObject' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ErrorObject.php',
@@ -235,7 +238,6 @@ class ComposerStaticInit065d07b9635a04adf752972d7b0b525f
         'Stripe\\Payout' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Payout.php',
         'Stripe\\Person' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Person.php',
         'Stripe\\Plan' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Plan.php',
-        'Stripe\\PlatformTaxFee' => __DIR__ . '/..' . '/stripe/stripe-php/lib/PlatformTaxFee.php',
         'Stripe\\Price' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Price.php',
         'Stripe\\Product' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Product.php',
         'Stripe\\ProductFeature' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ProductFeature.php',
@@ -482,6 +484,8 @@ class ComposerStaticInit065d07b9635a04adf752972d7b0b525f
         'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Sharing_Icons_CSS' => __DIR__ . '/../..' . '/inc/css/blocks/class-sharing-icons-css.php',
         'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Slider_CSS' => __DIR__ . '/../..' . '/inc/css/blocks/class-slider-css.php',
         'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Tabs_CSS' => __DIR__ . '/../..' . '/inc/css/blocks/class-tabs-css.php',
+        'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Timeline_CSS' => __DIR__ . '/../..' . '/inc/css/blocks/class-timeline-css.php',
+        'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Timeline_Item_CSS' => __DIR__ . '/../..' . '/inc/css/blocks/class-timeline-item-css.php',
         'ThemeIsle\\GutenbergBlocks\\CSS\\CSS_Handler' => __DIR__ . '/../..' . '/inc/css/class-css-handler.php',
         'ThemeIsle\\GutenbergBlocks\\CSS\\CSS_Utility' => __DIR__ . '/../..' . '/inc/css/class-css-utility.php',
         'ThemeIsle\\GutenbergBlocks\\Integration\\FormSubscribeServiceInterface' => __DIR__ . '/../..' . '/inc/integrations/interfaces/interface-form-subscribe-service.php',
@@ -546,9 +550,9 @@ class ComposerStaticInit065d07b9635a04adf752972d7b0b525f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit065d07b9635a04adf752972d7b0b525f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit065d07b9635a04adf752972d7b0b525f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit065d07b9635a04adf752972d7b0b525f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,5 +1,11 @@
 
 
+version 1.5.118:
+
+* Fix: categories was invisible in elementor editor free version
+* Fix: fixed pagination link click with elementor pro page transition bug
+
+
 version 1.5.117:
 
 * Fix: improved the manual sorting and debuging of authors list

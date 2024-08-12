@@ -1128,7 +1128,7 @@ function call_domain_claim_both(first_message = null) {
 
   public function get_pro_plan_site()
   {
-    return "https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/";
+    return "https://www.conversios.io/pricing/";
   }
 
   public function get_conversios_site_url()
@@ -1667,7 +1667,7 @@ var tvc_ajax_url = '<?php echo esc_url(admin_url('admin-ajax.php')); ?>';
 
   function get_conv_pro_link_adv($advance_utm_medium = "popup", $advance_utm_campaign = "pixel_setting", $advance_linkclass = "tvc-pro", $advance_linktype = "anchor", $upgradetopro_text_param = "Upgrade to Pro")
   {
-    $conv_advance_plugin_link = esc_url($this->get_pro_plan_site() . "?utm_source=in_app&utm_medium=" . $advance_utm_medium . "&utm_campaign=" . $advance_utm_campaign);
+    $conv_advance_plugin_link = esc_url($this->get_pro_plan_site() . "?utm_source=woo_aiofree_plugin&utm_medium=" . $advance_utm_medium . "&utm_campaign=" . $advance_utm_campaign);
     $conv_advance_plugin_link_return = "";
     $upgradetopro_text = sprintf(esc_html__('%s', 'enhanced-e-commerce-for-woocommerce-store'), esc_html($upgradetopro_text_param));
     if ($advance_linktype == "anchor") {

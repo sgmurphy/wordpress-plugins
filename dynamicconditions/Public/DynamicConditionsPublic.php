@@ -43,13 +43,10 @@ class DynamicConditionsPublic {
     private array $elementSettings = [];
 
     /**
-     * Cache to store a widget's dynamic condition properties.
-     * Provides compatibility with php 8.2+ after deprecation of dynamic properties.
-     *
      * @access   private
-     * @var      array $widgetCache For storing dynamic condition data by widget.
+     * @var      array $isSectionHidden For storing hidden-status
      */
-    private array $widgetCache = [];
+    private array $isSectionHidden = [];
 
     private Date $dateInstance;
 
@@ -72,7 +69,11 @@ class DynamicConditionsPublic {
      * @param Element_Base|Document $element
      */
     private function getElementSettings( $element ): array {
-        $id = $element->get_id();
+        $id =  get_the_id(). '-'. $element->get_id();
+
+        if ( !empty( $this->elementSettings[$id] ) ) {
+            return $this->elementSettings[$id];
+        }
         $clonedElement = clone $element;
 
         $fields = '__dynamic__
@@ -299,17 +300,14 @@ class DynamicConditionsPublic {
             return;
         }
 
+        $id = get_the_id() .'-'. $section->get_id();
+        $this->isSectionHidden[$id] = true;
 
         //prevent shortcodes from execution
         $this->shortcodeTags += $GLOBALS['shortcode_tags'];
         $GLOBALS['shortcode_tags'] = [];
 
         ob_start();
-        $this->widgetCache[$section->get_id()] = [
-            'isHidden' => true,
-            'settings' => $settings,
-            'ob_level' =>  ob_get_level(),
-        ];
     }
 
     /**
@@ -320,21 +318,23 @@ class DynamicConditionsPublic {
     public function filterSectionContentAfter( $section ): void {
         // reset shortcode tags
         $GLOBALS['shortcode_tags'] += $this->shortcodeTags;
-        if ( empty( $section ) || empty( $this->widgetCache[$section->get_id()]['isHidden'] ) ) {
+        if ( empty( $section ) ||
+            empty( $this->isSectionHidden[get_the_id() .'-'. $section->get_id()] )
+        ) {
             return;
         }
+        $id = get_the_id() .'-'. $section->get_id();
 
-        while (ob_get_level() > $this->widgetCache[$section->get_id()]['ob_level']) {
+        /*while ( ob_get_level() > $this->widgetCache[$section->get_id()]['ob_level'] ) {
             ob_end_flush();
-        }
+        }*/
 
         $content = ob_get_clean();
         $matchesLinkTags = [];
         $matchesStyleTags = [];
 
-
         $type = $section->get_type();
-        $settings = $this->widgetCache[$section->get_id()]['settings'];
+        $settings = $this->elementSettings[$id];
 
         if ( empty( $settings['dynamicconditions_removeStyles'] ) ) {
             preg_match_all( '/<link.*?\/?>/', $content, $matchesLinkTags );
@@ -359,8 +359,7 @@ class DynamicConditionsPublic {
             echo '<div class="dc-hide-others" data-selector="' . $settings['dynamicconditions_hideOthers'] . '"></div>';
         }
 
-
-        echo "<!-- hidden $type {$section->get_id()} -->";
+        echo "<!-- hidden $type $id -->";
     }
 
     /**
@@ -374,6 +373,9 @@ class DynamicConditionsPublic {
         if ( $this->getMode() === 'edit' ) {
             return false;
         }
+        /*if ( filter_input( INPUT_SERVER, 'REQUEST_METHOD' ) === 'POST' ) {
+            return false;
+        }*/
 
         // loop values
         $condition = $this->loopValues( $settings );
@@ -659,8 +661,12 @@ class DynamicConditionsPublic {
 
     /**
      * Parse shortcode if active
+     * @return mixed
      */
-    private function parseShortcode( ?string $value, array $settings = [] ): ?string {
+    private function parseShortcode( $value, array $settings = [] ) {
+        if ( !is_string( $value ) ) {
+            return $value;
+        }
         if ( empty( $settings['dynamicconditions_parse_shortcodes'] ) ) {
             return $value;
         }

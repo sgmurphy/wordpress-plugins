@@ -1,10 +1,10 @@
 === Cookie Notice & Compliance for GDPR / CCPA ===
 Contributors: humanityco
-Tags: gdpr, ccpa, cookies, consent, compliance, privacy
+Tags: gdpr, ccpa, cookies, consent, privacy
 Requires at least: 4.9.6
 Requires PHP: 7.4
-Tested up to: 6.5.4
-Stable tag: 2.4.17.1
+Tested up to: 6.6.1
+Stable tag: 2.4.18
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -122,6 +122,11 @@ Yes! The plugin + web appliaction version includes technical compliance features
 4. Cookie Compliance settings
 
 == Changelog ==
+
+= 2.4.18 =
+* Fix: Potential security issue with escaping textarea fields
+* Fix: Saving link target for Privacy Policy page
+* Fix: Force protocol for widget URL
 
 = 2.4.17 =
 * New: SpeedyCache caching plugin compatibility
@@ -515,5 +520,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 2.4.17 =
-Improved multiple caching plugins compatibility
+= 2.4.18 =
+Potential security issue with escaping textarea fields, Saving link target for Privacy Policy page

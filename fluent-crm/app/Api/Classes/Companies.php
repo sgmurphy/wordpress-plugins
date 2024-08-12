@@ -40,7 +40,8 @@ class Companies
     {
         if (is_numeric($idOrName)) {
             return Company::where('id', $idOrName)->with($with)->first();
-        } else if (is_string($idOrName)) {
+        }
+        if (is_string($idOrName)) {
             return Company::where('email', $idOrName)->with($with)->first();
         }
         return false;
@@ -48,10 +49,6 @@ class Companies
 
     public function createOrUpdate($data)
     {
-        if (empty($data['name'])) {
-            return false;
-        }
-
         $exist = null;
 
         if (!empty($data['id'])) {
@@ -87,6 +84,8 @@ class Companies
             $exist->save();
             do_action('fluent_crm/company_updated', $exist, $data);
             return $exist;
+        } else if (empty($data['name'])) {
+            return false;
         }
 
         $data = Arr::only($data, (new Company())->getFillable());
@@ -96,6 +95,7 @@ class Companies
         ];
 
         $company = Company::create($data);
+
         do_action('fluent_crm/company_created', $company, $data);
 
         if ($company->owner_id) {

@@ -55,11 +55,15 @@ class WC_Composite_ProductsCompatibility {
 	 * @return float|int|string
 	 */
 	public function composite_price( $price, $product, $config, $with_tax = false, $price_type = 'price' ) {//phpcs:ignore
+
 		$method = 'get_' . $price_type;
 
-		if ( $product instanceof \WC_Product ) {
-			$price = $product->$method();
-		}
+		// if ( $product instanceof \WC_Product ) {
+		//		$price = $product->$method();
+		//	}
+
+		//$price = $product->$method();
+
 
 		if ( ! class_exists( 'WC_Product_Composite' ) || ! $product->is_type( 'composite' ) ) {
 			return $price;

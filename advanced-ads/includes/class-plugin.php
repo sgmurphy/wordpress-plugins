@@ -157,6 +157,7 @@ class Plugin extends Loader {
 			$this->register_integration( Admin\Header::class );
 			$this->register_integration( Admin\TinyMCE::class );
 			$this->register_integration( Admin\Admin_Menu::class );
+			$this->register_integration( Admin\Page_Quick_Edit::class );
 		}
 	}
 }

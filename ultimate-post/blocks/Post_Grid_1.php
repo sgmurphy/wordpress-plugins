@@ -178,6 +178,13 @@ class Post_Grid_1{
             'hideMobile' =>  false,
             'advanceCss' =>  '',
             'currentPostId' =>  '',
+
+            /*============================
+                Dynamic Content
+            ============================*/
+            'dcEnabled' => false,
+            'dcFields' => array(),
+            'dcSize' => 9
         );
     }
 
@@ -234,8 +241,6 @@ class Post_Grid_1{
         $attr['popupAutoPlay'] =  $attr['popupAutoPlay'] == true ;
         $attr['readMoreText'] = wp_kses($attr['readMoreText'], ultimate_post()->ultp_allowed_html_tags());
 
-
-
         if ($recent_posts->have_posts()) {
             
             // Pagination Block Html
@@ -278,6 +283,12 @@ class Post_Grid_1{
                     $wraper_before .= '<div class="ultp-block-items-wrap ultp-block-row ultp-pg1a-'.$attr['gridStyle'].' '.sanitize_html_class( $colClass ).' ultp-'.$attr['layout'].'">';
                     $idx = ($attr['paginationShow'] && ($attr['paginationType'] == 'loadMore')) ? ( $noAjax ? 1 : 0 ) : 0;
                         while ( $recent_posts->have_posts() ): $recent_posts->the_post();
+
+                            $dcContent = array_fill( 0, $attr['dcSize'], '' );
+
+                            if (ultimate_post()->is_dc_active($attr)) {
+                                $dcContent = \ULTP\DCService::get_dc_content_for_block($attr, $dcContent);
+                            }
                             
                             include ULTP_PATH.'blocks/template/data.php';
 
@@ -293,6 +304,9 @@ class Post_Grid_1{
                             }
                             $post_loop .= '<'.$attr['contentTag'].' class="ultp-block-item post-id-'.$post_id.'">';
                                 $post_loop .= '<div class="ultp-block-content-wrap">';
+
+                                    $post_loop .= $dcContent[8];
+
                                     if(($post_thumb_id || $attr['fallbackEnable']) && $attr['showImage'] && $attr['layout'] != 'layout2') {
                                         $post_loop .= '<div class="ultp-block-image ultp-block-image-'.$attr['imgAnimation'].($attr["imgOverlay"] ? ' ultp-block-image-overlay ultp-block-image-'.$attr["imgOverlayType"].' ultp-block-image-'.$attr["imgOverlayType"].$idx : '' ).'">';
                                             $post_loop .= '<a href="'.$titlelink.'" '.($attr['openInTab'] ? 'target="_blank"' : '').'>';
@@ -320,41 +334,57 @@ class Post_Grid_1{
                                     }
                                     if ($attr['layout'] === 'layout2' ) { $post_loop .= '<div class="ultp-block-content-image" style='.$divStyle.'></div>';}
                                     $post_loop .= '<div class="ultp-block-content">';
+
+                                        $post_loop .= $dcContent[7];
                                         
                                         // Category
                                         if (($attr['catPosition'] == 'aboveTitle') && $attr['catShow']) {
                                             $post_loop .= $category;
                                         }
 
+                                        $post_loop .= $dcContent[6];
+
                                         // Title
                                         if ($title && $attr['titleShow'] && $attr['titlePosition'] == 1) {
                                             include ULTP_PATH.'blocks/template/title.php';
                                         }
+
+                                        $post_loop .= $dcContent[5];
                                         
                                         // Meta
                                         if ($attr['metaPosition'] =='top' ) {
                                             include ULTP_PATH.'blocks/template/meta.php';
                                         }
+
+                                        $post_loop .= $dcContent[4];
                                         
                                         // Title
                                         if ($title && $attr['titleShow'] && $attr['titlePosition'] == 0) {
                                             include ULTP_PATH.'blocks/template/title.php';
                                         }
 
+                                        $post_loop .= $dcContent[3];
+
                                         // Excerpt
                                         if ($attr['excerptShow']) {
                                             $post_loop .= '<div class="ultp-block-excerpt">'.ultimate_post()->get_excerpt($post_id, $attr['showSeoMeta'], $attr['showFullExcerpt'], $attr['excerptLimit']).'</div>';
                                         }
+
+                                        $post_loop .= $dcContent[2];
 
                                         // Read More
                                         if ( $attr['readMore'] ) {
                                             $post_loop .= '<div class="ultp-block-readmore"><a aria-label="'.$title.'" href="'.$titlelink.'" '.($attr['openInTab'] ? 'target="_blank"' : '').'>'.($attr['readMoreText'] ? $attr['readMoreText'] : esc_html__( "Read More", "ultimate-post" )).ultimate_post()->svg_icon($attr['readMoreIcon']).'</a></div>';
                                         }
 
+                                        $post_loop .= $dcContent[1];
+
                                         // Meta
                                         if ($attr['metaPosition'] =='bottom' ) {
                                             include ULTP_PATH.'blocks/template/meta.php';
                                         }
+
+                                        $post_loop .= $dcContent[0];
 
                                     $post_loop .= '</div>';
                                 $post_loop .= '</div>';

@@ -80,9 +80,9 @@ return function ($file) {
             wp_schedule_event(time(), 'fluentcrm_every_minute', $hookName);
         }
 
-        $dailyHook = 'fluentcrm_scheduled_hourly_tasks';
-        if (!wp_next_scheduled($dailyHook)) {
-            wp_schedule_event(time(), 'hourly', $dailyHook);
+        $hourlyHook = 'fluentcrm_scheduled_hourly_tasks';
+        if (!wp_next_scheduled($hourlyHook)) {
+            wp_schedule_event(time(), 'hourly', $hourlyHook);
         }
 
         $hookName = 'fluentcrm_scheduled_five_minute_tasks';
@@ -93,6 +93,11 @@ return function ($file) {
         $weeklyHook = 'fluentcrm_scheduled_weekly_tasks';
         if (!wp_next_scheduled($weeklyHook)) {
             wp_schedule_event(time(), 'weekly', $weeklyHook);
+        }
+        
+        $dailyHook = 'fluentcrm_scheduled_daily_tasks';
+        if (!wp_next_scheduled($dailyHook)) {
+            wp_schedule_event(time(), 'daily', $hourlyHook);
         }
 
     }, 10);

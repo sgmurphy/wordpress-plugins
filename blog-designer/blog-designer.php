@@ -3,7 +3,7 @@
  * Plugin Name: Blog Designer
  * Plugin URI: https://wordpress.org/plugins/blog-designer/
  * Description: To make your blog design more pretty, attractive and colorful.
- * Version: 3.1.7
+ * Version: 3.1.8
  * Author: Solwin Infotech
  * Author URI: https://www.solwininfotech.com/
  * Requires at least: 5.6

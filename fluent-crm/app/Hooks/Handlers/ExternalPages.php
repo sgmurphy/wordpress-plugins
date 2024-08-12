@@ -40,7 +40,8 @@ class ExternalPages
         'bnu'                 => 'handleBenchmarkUrl', // GET ?fluentcrm=1&route=bnu&aid=${sequence_id}
         'smart_url'           => 'SmartUrlHandler',
         'webhook'             => 'handleGeneralWebhook', // ?fluentcrm=1&route=webhook&handler=handler_name
-        'email_preview'       => 'handlePreviewEmail'
+        'email_preview'       => 'handlePreviewEmail',
+        'general'             => 'handleGeneralRequest'
     ];
 
     protected function getRoute()
@@ -60,6 +61,7 @@ class ExternalPages
         if (!isset($_GET['fluentcrm'])) {
             return false;
         }
+
         if ($route = $this->getRoute()) {
             do_action('litespeed_control_set_nocache', 'nocache due to fluentcrm dynamic data');
             $this->{$route}();
@@ -831,14 +833,14 @@ class ExternalPages
             }
         }
 
-        $tags = array_filter((array) Arr::get($postData, 'tags', []));
-        $lists = array_filter((array) Arr::get($postData, 'lists', []));
+        $tags = array_filter((array)Arr::get($postData, 'tags', []));
+        $lists = array_filter((array)Arr::get($postData, 'lists', []));
 
-        if(!$tags) {
+        if (!$tags) {
             $tags = Arr::get($webhook->value, 'tags', []);
         }
 
-        if(!$lists) {
+        if (!$lists) {
             $lists = Arr::get($webhook->value, 'lists', []);
         }
 
@@ -1411,4 +1413,14 @@ class ExternalPages
         exit();
     }
 
+    public function handleGeneralRequest()
+    {
+        $data = $_REQUEST;
+        $handler = sanitize_text_field(Arr::get($_REQUEST, 'handler'));
+
+        if ($handler) {
+            do_action('fluent_crm/handle_frontend_for_' . $handler, $data);
+        }
+
+    }
 }

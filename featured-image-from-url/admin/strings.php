@@ -35,9 +35,6 @@ function fifu_get_strings_settings() {
     $fifu['button']['submit'] = function () {
         _e("Submit", FIFU_SLUG);
     };
-    $fifu['button']['ok'] = function () {
-        _e("OK", FIFU_SLUG);
-    };
     $fifu['button']['clipboard'] = function () {
         _e("Copy to clipboard", FIFU_SLUG);
     };
@@ -300,6 +297,9 @@ function fifu_get_strings_settings() {
     $fifu['title']['isbn'] = function () {
         _e("Auto set featured image from ISBN", FIFU_SLUG);
     };
+    $fifu['title']['asin'] = function () {
+        _e("Auto set product images from ASIN", FIFU_SLUG);
+    };
     $fifu['title']['customfield'] = function () {
         _e("Auto set featured image from custom field", FIFU_SLUG);
     };
@@ -415,7 +415,7 @@ function fifu_get_strings_settings() {
         _e("Lightbox and Zoom", FIFU_SLUG);
     };
     $fifu['title']['category'] = function () {
-        _e("Category Images Auto Set", FIFU_SLUG);
+        _e("Auto set category images", FIFU_SLUG);
     };
     $fifu['title']['order-email'] = function () {
         _e("Add image to order email", FIFU_SLUG);
@@ -554,9 +554,6 @@ function fifu_get_strings_settings() {
     };
     $fifu['dev']['args'] = function () {
         _e("All you need is to provide the post ID and the image URL(s). FIFU plugin will handle the rest by setting the custom fields and creating the metadata.", FIFU_SLUG);
-    };
-    $fifu['dev']['plugins'] = function () {
-        _e("Plugins utilizing FIFU integration functions:", FIFU_SLUG);
     };
     $fifu['dev']['field']['image'] = function () {
         _e("Featured image", FIFU_SLUG);
@@ -700,9 +697,6 @@ function fifu_get_strings_settings() {
     };
     $fifu['height']['selector']['desc'] = function () {
         _e("Examples of selectors...", FIFU_SLUG);
-    };
-    $fifu['height']['default']['desc'] = function () {
-        _e("Default selectors:", FIFU_SLUG);
     };
     $fifu['height']['ignore']['desc'] = function () {
         _e("Ignore images...", FIFU_SLUG);
@@ -850,6 +844,35 @@ function fifu_get_strings_settings() {
         _e("If you already have the ISBN saved in your database, specify its custom field name here. The plugin will access that and import the value. For example, if the ISBN is saved in the SKU field, you can add \"_sku,\" which is the field where the SKU is stored.", FIFU_SLUG);
     };
 
+    // asin
+    $fifu['asin']['desc'] = function () {
+        _e("Set product images automatically. The plugin checks every minute for post types without images and uses the ASIN and Amazon's Product Advertising API to retrieve the image URLs. For WooCommerce products, the URLs will be saved as the featured image and gallery, while for other post types, the URLs will be saved as a featured slider.", FIFU_SLUG);
+    };
+    $fifu['asin']['tab']['auto'] = function () {
+        _e("Auto set", FIFU_SLUG);
+    };
+    $fifu['asin']['tab']['custom'] = function () {
+        _e("Custom field", FIFU_SLUG);
+    };
+    $fifu['asin']['tab']['credentials'] = function () {
+        _e("Credentials", FIFU_SLUG);
+    };
+    $fifu['asin']['custom']['desc'] = function () {
+        _e("If you already have the ASIN saved in your database, specify its custom field name here. The plugin will access that and import the value. For example, if the ASIN is saved in the SKU field, you can add \"_sku,\" which is the field where the SKU is stored.", FIFU_SLUG);
+    };
+    $fifu['asin']['label']['partner'] = function () {
+        return _e("Partner tag", FIFU_SLUG);
+    };
+    $fifu['asin']['label']['access'] = function () {
+        return _e("Access key", FIFU_SLUG);
+    };
+    $fifu['asin']['label']['secret'] = function () {
+        return _e("Secret key", FIFU_SLUG);
+    };
+    $fifu['asin']['label']['locale'] = function () {
+        return _e("Locale", FIFU_SLUG);
+    };
+
     // customfield
     $fifu['customfield']['desc'] = function () {
         _e("Set featured images automatically. The plugin checks every minute for post types without featured images and performs searches on the informed custom fields to retrieve the image URLs. With that, you can integrate FIFU with any third-party plugin or theme that stores image URLs in the database.", FIFU_SLUG);
@@ -946,7 +969,7 @@ function fifu_get_strings_settings() {
         _e("Define the URL of a default image to be displayed when you create or update a post without a featured image.", FIFU_SLUG);
     };
     $fifu['default']['tab']['url'] = function () {
-        _e("Image URL", FIFU_SLUG);
+        _e("Default featured image", FIFU_SLUG);
     };
     $fifu['default']['tab']['cpt'] = function () {
         _e("Post type filter", FIFU_SLUG);
@@ -956,6 +979,9 @@ function fifu_get_strings_settings() {
     };
     $fifu['default']['cpt']['info'] = function () {
         _e("After adding or removing a post type, you need to restart the feature by disabling and enabling the toggle below.", FIFU_SLUG);
+    };
+    $fifu['default']['placeholder']['url'] = function () {
+        _e("Image URL", FIFU_SLUG);
     };
 
     // pcontent
@@ -1178,6 +1204,9 @@ function fifu_get_strings_settings() {
     };
     $fifu['api']['custom']['isbn'] = function () {
         _e("ISBN", FIFU_SLUG);
+    };
+    $fifu['api']['custom']['asin'] = function () {
+        _e("ASIN", FIFU_SLUG);
     };
     $fifu['api']['custom']['finder'] = function () {
         _e("Media finder (webpage URL)", FIFU_SLUG);
@@ -1505,6 +1534,9 @@ function fifu_get_strings_settings() {
     $fifu['import']['custom']['isbn'] = function () {
         _e("ISBN", FIFU_SLUG);
     };
+    $fifu['import']['custom']['asin'] = function () {
+        _e("ASIN", FIFU_SLUG);
+    };
     $fifu['import']['custom']['finder'] = function () {
         _e("Media finder (webpage URL)", FIFU_SLUG);
     };
@@ -1794,6 +1826,9 @@ function fifu_get_strings_meta_box() {
     $fifu['placeholder']['isbn'] = function () {
         _e("ISBN", FIFU_SLUG);
     };
+    $fifu['placeholder']['asin'] = function () {
+        _e("ASIN", FIFU_SLUG);
+    };
     $fifu['placeholder']['embed'] = function () {
         _e("Embed code", FIFU_SLUG);
     };
@@ -1842,6 +1877,9 @@ function fifu_get_strings_meta_box_php() {
     };
     $fifu['title']['post']['isbn'] = function () {
         return __("ISBN", FIFU_SLUG);
+    };
+    $fifu['title']['post']['asin'] = function () {
+        return __("ASIN", FIFU_SLUG);
     };
     $fifu['title']['post']['finder'] = function () {
         return __("Media finder", FIFU_SLUG);
@@ -1906,6 +1944,9 @@ function fifu_get_strings_wai() {
     };
     $fifu['title']['isbn'] = function () {
         return __("ISBN", FIFU_SLUG);
+    };
+    $fifu['title']['asin'] = function () {
+        return __("ASIN", FIFU_SLUG);
     };
     $fifu['title']['finder'] = function () {
         return __("Media finder (webpage URL)", FIFU_SLUG);
@@ -2405,20 +2446,11 @@ function fifu_get_strings_cloud() {
     $fifu['label']['email'] = function () {
         _e("Email", FIFU_SLUG);
     };
-    $fifu['label']['2fa'] = function () {
-        _e("2FA Code", FIFU_SLUG);
-    };
     $fifu['label']['website'] = function () {
         _e("Site", FIFU_SLUG);
     };
     $fifu['label']['title']['email'] = function () {
         _e("Enter your email", FIFU_SLUG);
-    };
-    $fifu['label']['title']['2fa'] = function () {
-        _e("Enter the code from Google Authenticator", FIFU_SLUG);
-    };
-    $fifu['label']['title']['connected'] = function () {
-        _e("Keep me always connected", FIFU_SLUG);
     };
 
     // pro

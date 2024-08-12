@@ -194,6 +194,13 @@ class Post_List_2{
             // Pagination block compatibility
             // --------------------------------
             'advPaginationEnable' => false,
+
+            /*============================
+                Dynamic Content
+            ============================*/
+            'dcEnabled' => false,
+            'dcFields' => array(),
+            'dcSize' => 9
         );
     }
 
@@ -285,6 +292,12 @@ class Post_List_2{
                     $wraper_before .= '<div class="ultp-block-items-wrap ultp-block-content-'.$attr['varticalAlign'].($attr['imgFlip'] ? ' ultp-block-content-true' : '').' ultp-'.$attr['layout'].'">';
                         $idx = 0;
                         while ( $recent_posts->have_posts() ): $recent_posts->the_post();
+
+                            $dcContent = array_fill( 0, $attr['dcSize'], '' );
+
+                            if (ultimate_post()->is_dc_active($attr)) {
+                                $dcContent = \ULTP\DCService::get_dc_content_for_block($attr, $dcContent);
+                            }
                             
                             include ULTP_PATH.'blocks/template/data.php';
 
@@ -297,6 +310,8 @@ class Post_List_2{
                             
                             $post_loop .= '<'.$attr['contentTag'].' class="ultp-block-item ultp-block-media post-id-'.$post_id.'">';
                                 $post_loop .= '<div class="ultp-block-content-wrap'.(($idx===0) ? ' ultp-first-postlist-2' : ' ultp-all-postlist-2').'">';
+
+                                    $post_loop .= $idx === 0 ? $dcContent[8] : '';
 
                                     if((($post_thumb_id || $attr['fallbackEnable']) && $attr['showImage'])) {
                                         if($idx == 0){
@@ -342,26 +357,38 @@ class Post_List_2{
                                         }
                                     }
                                     $post_loop .= '<div class="ultp-block-content">';
+
+                                        $post_loop .= $idx !== 0 ? $dcContent[8] : '';
+
+                                        $post_loop .= $dcContent[7];
                                         
                                         // Category
                                         if (($attr['catPosition'] == 'aboveTitle') && ($idx == 0 || $attr['showSmallCat'] ) && $attr['catShow']) {
                                             $post_loop .= $category;
                                         }
 
+                                        $post_loop .= $dcContent[6];
+
                                         // Title
                                         if ($title && $attr['titleShow'] && $attr['titlePosition'] == 1) {
                                             include ULTP_PATH.'blocks/template/title.php';
                                         }
+
+                                        $post_loop .= $dcContent[5];
                                         
                                         // Meta Top
                                         if ($attr['metaShow'] && ($idx == 0 || $attr['showSmallMeta']) && $attr['metaPosition'] =='top' ) {
                                             include ULTP_PATH.'blocks/template/meta.php';
                                         }
+
+                                        $post_loop .= $dcContent[4];
                                         
                                         // Title
                                         if ($title && $attr['titleShow'] && $attr['titlePosition'] == 0) {
                                             include ULTP_PATH.'blocks/template/title.php';
                                         }
+
+                                        $post_loop .= $dcContent[3];
 
                                         // Excerpt
                                         if (($idx == 0 || $attr['showSmallExcerpt']) && $attr['excerptShow']) {
@@ -375,15 +402,22 @@ class Post_List_2{
                                             $post_loop .= '<div class="ultp-block-excerpt">'.ultimate_post()->get_excerpt($post_id, $attr['showSeoMeta'], $attr['showFullExcerpt'], $excptLimit).'</div>';
                                         }
 
+                                        $post_loop .= $dcContent[2];
+
                                         // Read More
                                         if ($attr['readMore'] && ($idx == 0 || $attr['showSmallBtn'])) {
                                             $post_loop .= '<div class="ultp-block-readmore"><a aria-label="'.$title.'" href="'.$titlelink.'" '.($attr['openInTab'] ? 'target="_blank"' : '').'>'.($attr['readMoreText'] ? $attr['readMoreText'] : esc_html__( "Read More", "ultimate-post" )).ultimate_post()->svg_icon($attr['readMoreIcon']).'</a></div>';
                                         }
+                                        
+                                        $post_loop .= $dcContent[1];
 
                                         // Meta Bottom
                                         if ($attr['metaShow'] && ($idx == 0 || $attr['showSmallMeta']) && $attr['metaPosition'] =='bottom' ) {
                                             include ULTP_PATH.'blocks/template/meta.php';
                                         }
+
+                                        $post_loop .= $dcContent[0];
+
                                     $post_loop .= '</div>';
                                 $post_loop .= '</div>';
                                 if($post_video && $attr['enablePopup'] && ($attr['layout'] !== 'layout2' && $attr['layout'] !== 'layout3' || $idx == 0)) {

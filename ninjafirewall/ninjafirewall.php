@@ -3,7 +3,7 @@
 Plugin Name: NinjaFirewall (WP Edition)
 Plugin URI: https://nintechnet.com/
 Description: A true Web Application Firewall to protect and secure WordPress.
-Version: 4.5.11
+Version: 4.6.1
 Author: The Ninja Technologies Network
 Author URI: https://nintechnet.com/
 License: GPLv3 or later
@@ -19,7 +19,7 @@ Domain Path: /languages
  | (c) NinTechNet - https://nintechnet.com/                            |
  +---------------------------------------------------------------------+
 */
-define('NFW_ENGINE_VERSION', '4.5.11');
+define('NFW_ENGINE_VERSION', '4.6.1');
 /*
  +---------------------------------------------------------------------+
  | This program is free software: you can redistribute it and/or       |
@@ -100,11 +100,13 @@ if (! empty($_SERVER['DOCUMENT_ROOT']) && $_SERVER['DOCUMENT_ROOT'] != '/' ) {
 }
 
 /* ------------------------------------------------------------------ */
+// class-helpers could be already loaded if the firewall is loaded
+require_once __DIR__ . '/lib/class-helpers.php';
 
-require plugin_dir_path(__FILE__) .'lib/custom_plugin.php';
-require plugin_dir_path(__FILE__) .'lib/scheduled_tasks.php';
-require plugin_dir_path(__FILE__) .'lib/utils.php';
-require plugin_dir_path(__FILE__) .'lib/events.php';
+require __DIR__ . '/lib/custom_plugin.php';
+require __DIR__ . '/lib/scheduled_tasks.php';
+require __DIR__ . '/lib/utils.php';
+require __DIR__ . '/lib/events.php';
 
 if (! defined( 'NFW_REMOTE_ADDR') ) {
 	nfw_select_ip();
@@ -1089,8 +1091,20 @@ function nf_sub_loginprot() {
 function nfw_log2($loginfo, $logdata, $loglevel, $ruleid) {
 
 	// Write incident to the firewall log
-	require_once plugin_dir_path(__FILE__) . 'lib/nfw_log.php';
+	require plugin_dir_path(__FILE__) . 'lib/nfw_log.php'; // Can be called multiple times
+}
 
+function nfw_anonymize_ip2( $ip ) {
+
+	$nfw_options = nfw_get_option( 'nfw_options' );
+
+	if (! empty( $nfw_options['anon_ip'] ) &&
+		filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) ) {
+
+		return substr( $ip, 0, -3 ) .'xxx';
+	}
+
+	return $ip;
 }
 
 /* ------------------------------------------------------------------ */

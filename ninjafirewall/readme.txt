@@ -1,9 +1,9 @@
 === NinjaFirewall (WP Edition) - Advanced Security Plugin and Firewall ===
 Contributors: nintechnet, bruandet
-Tags: security, firewall, malware, virus, protection, hack, antispam, scanner, hacked site, brute force, seguridad, seguranca, sicherheit, sicurezza, veiligheid, classicpress
+Tags: security, firewall, malware, virus, protection
 Requires at least: 4.9
-Tested up to: 6.4
-Stable tag: 4.5.11
+Tested up to: 6.6
+Stable tag: 4.6.1
 Requires PHP: 7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -207,6 +207,18 @@ WordPress Sicherheit Plugin.
 == Changelog ==
 
 Need more security? Take the time to explore our supercharged Premium edition: [NinjaFirewall WP+ Edition](https://nintechnet.com/ninjafirewall/wp-edition/?comparison)
+
+= 4.6.1 =
+
+* WP+ Edition (Premium): You can now enter your license key from WP CLI. Type "wp ninjafirewall license" and enter your license at the prompt.
+* Fixed an issue with bulk user deletion: when multiple users were deleted at once, only the first one was written to the firewall log.
+* Fixed an issue with the login protection: after disabling it and logging out, NinjaFirewall was still displaying a notice on the login page.
+* Fixed a potential PHP fatal error: Attempt to modify property "no_update" on bool.
+* Replaced all calls to the PHP glob() function with DirectoryIterator() to make file search compatible with remote files.
+* Fixed an issue where some scheduled tasks were executed too often on multisite installations.
+* WP+ Edition (Premium): Updated GeoIP databases.
+* Updated Charts.js.
+* Many additional small fixes and adjustments.
 
 = 4.5.11 =
 

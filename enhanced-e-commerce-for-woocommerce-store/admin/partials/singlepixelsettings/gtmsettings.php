@@ -53,7 +53,7 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
           <input type="radio" name="want_to_use_your_gtm" id="want_to_use_your_gtm_own" value="0" readonly disabled class="align-top">
           <label class="form-check-label ps-2" for="want_to_use_your_gtm_own">
             <?php esc_html_e("Use Your Google Tag Manager Container", "enhanced-e-commerce-for-woocommerce-store"); ?>
-            <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+            <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" popupopener="gtmpro_inner">
               <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
               <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
             </span>

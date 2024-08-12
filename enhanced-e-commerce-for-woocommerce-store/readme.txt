@@ -5,10 +5,10 @@ Plugin URI: https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-st
 Tags: google analytics 4, google ads, meta pixel, google tag manager, tiktok pixel, facebook pixel, GA4 tracking, GTM, Pixel tracking, Snapchat,FCAPI,GMC Google Merchant Center, Microsoft Bing Ads, Ads tracking, ecommerce tracking ,lead Generation tracking , campaign creation , audience building.
 Author: Conversios
 Requires at least: 4.6
-Tested up to: 6.6.0
+Tested up to: 6.6.1
 Requires PHP: 5.6
-Stable tag: 7.1.4
-Version: 7.1.4
+Stable tag: 7.1.5
+Version: 7.1.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

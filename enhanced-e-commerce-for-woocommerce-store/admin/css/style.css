@@ -860,7 +860,6 @@ input[type="radio"],
 input[type="checkbox"] {
   margin: 0;
 }
-#upgradetopromodal .btn-close {position: absolute; right: 10px; top: 10px;}
 .cstmrdobtn-item label {
   display: inline-block;
   position: relative;
@@ -1540,7 +1539,6 @@ input[type="checkbox"] {
   line-height: 22px;
 }
 .promoright {
-  display: flex;
   padding: 0 20px 0 15px;
   align-items: center;
 }

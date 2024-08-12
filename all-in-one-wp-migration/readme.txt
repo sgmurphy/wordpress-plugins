@@ -4,7 +4,7 @@ Tags: backup, transfer, copy, move, clone
 Requires at least: 3.3
 Tested up to: 6.6
 Requires PHP: 5.3
-Stable tag: 7.84
+Stable tag: 7.85
 License: GPLv2 or later
 
 Backup, transfer, copy, and move a site with 1-click. Quick, easy, and reliable.
@@ -97,6 +97,11 @@ All-in-One WP Migration is in full compliance with General Data Protection Regul
 See our [GDPR Compliant Privacy Policy here](https://www.iubenda.com/privacy-policy/946881).
 
 == Changelog ==
+= 7.85 =
+**Added**
+
+* PHP 8.4 compatibility
+
 = 7.84 =
 **Added**
 

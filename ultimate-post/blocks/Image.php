@@ -61,6 +61,45 @@ class Image {
 
     public function content( $attr, $noAjax ) {
         $attr = wp_parse_args( $attr, $this->get_attributes() );
+
+        // Dynamic Content
+        if (ultimate_post()->is_dc_active($attr)) {
+
+            // Dark Image
+            $dark_image_content_src = $attr['dc']['darkImage']['contentSrc'];
+            $dark_image_post_id = $attr['dc']['darkImage']['postId'];
+
+            if (is_string($dark_image_content_src) && $attr['dcEnabled']['darkImage']) {
+                $attr['darkImage']['url'] = \ULTP\DCService::get_dc_content_for_image($dark_image_post_id, $dark_image_content_src);
+            }
+
+            // Image
+            $image_content_src = $attr['dc']['imageUpload']['contentSrc'];
+            $image_post_id = $attr['dc']['imageUpload']['postId'];
+
+            if (is_string($image_content_src) && $attr['dcEnabled']['imageUpload']) {
+                $attr['imageUpload']['url'] = \ULTP\DCService::get_dc_content_for_image($image_post_id, $image_content_src);
+            }
+
+
+            // imgLink
+            $img_link_link_src = $attr['dc']['imgLink']['linkSrc'];
+            $img_link_post_id = $attr['dc']['imgLink']['postId'];
+            if (is_string($img_link_link_src) && $attr['dcEnabled']['imgLink']) {
+                if (str_starts_with($img_link_link_src, 'link_')) {
+                    $attr['imgLink'] = \ULTP\DCService::get_link($img_link_post_id, $img_link_link_src);
+                }
+            }
+
+            // btnLink
+            $btn_link_link_src = $attr['dc']['btnLink']['linkSrc'];
+            $btn_link_post_id = $attr['dc']['btnLink']['postId'];
+            if (is_string($btn_link_link_src) && $attr['dcEnabled']['btnLink']) {
+                if (str_starts_with($btn_link_link_src, 'link_')) {
+                    $attr['btnLink'] = \ULTP\DCService::get_link($btn_link_post_id, $btn_link_link_src);
+                }
+            }
+        }
         
         $wraper_before = '';
         $block_name = 'image';

@@ -594,7 +594,7 @@ class Helper
             }
         }
 
-        if ($pref['font_sizes']) {
+        if (isset($pref['font_sizes'])) {
             foreach ($pref['font_sizes'] as $size) {
                 if (isset($size['slug']) && isset($size['size'])) {
                     $slug = self::kebabCase($size['slug']);
@@ -1036,7 +1036,7 @@ class Helper
                         'label' => __('Last Email Open', 'fluent-crm'),
                         'value' => 'email_opened',
                         'type'  => 'dates',
-                        'help' => 'Please note that, some email clients send false-positive for email open pixel tracking so it may not 100% correct.'
+                        'help'  => 'Please note that, some email clients send false-positive for email open pixel tracking so it may not 100% correct.'
                     ],
                     [
                         'label' => __('Last Email Clicked', 'fluent-crm'),
@@ -1510,7 +1510,8 @@ class Helper
             'disable_visual_ai'        => 'no',
             'multi_threading_emails'   => 'no',
             'system_logs'              => 'no',
-            'event_tracking'           => 'no'
+            'event_tracking'           => 'no',
+            'abandoned_cart'           => 'no'
         ];
 
         $settings = get_option('_fluentcrm_experimental_settings', []);

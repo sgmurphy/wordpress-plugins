@@ -89,13 +89,13 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                                                         <?php esc_html_e("Redeem upto " . $off_credit_amt, "enhanced-e-commerce-for-woocommerce-store") ?>
                                                     </h4>
                                                     <span class="text-white">
-                                                        <?php esc_html_e("Create your first Google Ads account with us and redeem upto " . esc_attr($off_credit_amt) . " on the spend you make in the next 31 days.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                                        <?php esc_html_e("Create your first Google Ads account with us and redeem upto " . esc_attr($off_credit_amt) . " on the spend you make in the next 60 days.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                                     </span>
                                                 </div>
                                             <?php } else { ?>
                                                 <div class="d-flex">
                                                     <span class="text-white d-flex align-items-center">
-                                                        <?php esc_html_e("Create your first Google Ads account with us and receive a credit of up to " . esc_attr($off_credit_amt) . " on your spending in the next 31 days.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                                        <?php esc_html_e("Create your first Google Ads account with us and receive a credit of up to " . esc_attr($off_credit_amt) . " on your spending in the next 60 days.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                                     </span>
                                                 </div>
                                             <?php } ?>
@@ -135,6 +135,24 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                             </div>
                             <!-- GAds Acc Selection End -->
 
+                            <div class="py-3 ps-4">
+                                <div class="row pt-2 ps-3">
+                                    <div class="col-12">
+                                        <h5 class="d-flex fw-normal mb-1 text-dark">
+                                            <?php esc_html_e("Enhanced Conversion Tracking to Track Add to Cart & Begin Checkout.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                            <span class="align-middle conv-link-blue fw-bold-500 upgradetopro_badge" popupopener="gadseec">&nbsp;
+                                                <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+                                                <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                            </span>
+                                        </h5>
+                                        <small>
+                                            <?php esc_html_e("Build your audience and boost conversion accuracy with Google Ads Conversion and Enhanced Conversion Tracking.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+
 
                         </li>
                     </ul>
@@ -150,7 +168,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
 
 
     <!-- Tab bottom buttons -->
-    <div class="tab_bottom_buttons d-flex justify-content-end pt-4">
+    <div class="tab_bottom_buttons d-flex justify-content-end pt-0">
 
         <div class="ms-auto d-flex align-items-center">
             <button class="btn btn-outline-primary" style="width:184px" onclick="changeTabBox('webpixbox-tab')">

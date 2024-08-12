@@ -17,7 +17,7 @@ if ( ! class_exists( 'BravePop_Omnisend' ) ) {
             'headers' => array(
                'X-API-KEY' => $apiKey
             ),         );
-         $response = wp_remote_get( 'https://api.omnisend.com/v3/contacts?limit=10', $args );
+         $response = wp_remote_get( 'https://api.omnisend.com/v3/contacts?limit=100', $args );
          //error_log(json_encode($response));
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );

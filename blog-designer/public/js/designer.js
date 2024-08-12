@@ -51,7 +51,6 @@ jQuery(document).ready(function($) {
     //For load more functionality
     jQuery(".bdp-load-more-btn").click(function() {
         var $data = jQuery(this).closest('.bdp_wrapper').find('form#bdp-load-more-hidden').serialize();
-        console.log($data);
         bdp_load_more_ajax($data);
     });
     bd_get_boxy_clean_height();
@@ -79,7 +78,6 @@ function bdp_load_more_ajax($data) {
             data: 'action=get_loadmore_blog&' + $data,
             cache: false,
             success: function(response) {
-                console.log(response);
                 var jsmasonry = jQuery(layout_id_class + " .bdp-load-more-pre").find("div");
 
                 // loop through each item to check when it animates

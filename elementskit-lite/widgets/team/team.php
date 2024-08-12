@@ -1847,7 +1847,7 @@ class ElementsKit_Widget_Team extends Widget_Base {
                 'name' => 'ekit_team_modal_background',
                 'label' => esc_html__( 'Background', 'elementskit-lite' ),
                 'types' => [ 'classic', 'gradient' ],
-                'selector' => '{{WRAPPER}} .elementskit-team-popup .modal-content, ' . $popup_selector . ' .elementskit-team-popup .modal-content',
+                'selector' => '{{WRAPPER}} .elementskit-team-popup .modal-content, ' . $popup_selector . '.elementskit-team-popup .modal-content',
             ]
         );
 

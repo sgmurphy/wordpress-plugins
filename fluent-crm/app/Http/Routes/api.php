@@ -150,6 +150,8 @@ $router->prefix('funnels')->withPolicy('FunnelPolicy')->group(function ($router)
 
     $router->get('/', 'FunnelController@funnels');
     $router->post('/', 'FunnelController@create');
+    $router->get('templates', 'FunnelController@getTemplates');
+    $router->post('create-from-template', 'FunnelController@createFromTemplate');
     $router->post('import', 'FunnelController@importFunnel');
 
     $router->get('all-activities', 'FunnelController@getAllActivities');
@@ -171,6 +173,8 @@ $router->prefix('funnels')->withPolicy('FunnelPolicy')->group(function ($router)
     $router->post('{id}/sequences/save-email-action', 'FunnelController@saveEmailAction')->int('id');
 
     $router->get('{id}/subscribers', 'FunnelController@getSubscribers')->int('id');
+    $router->get('{id}/subscribers/{contact_id}', 'FunnelController@getSubscriberReporting')->int('id')->int('contact_id');
+
     $router->delete('{id}/subscribers', 'FunnelController@deleteSubscribers')->int('id');
     $router->delete('{id}', 'FunnelController@delete')->int('id');
     $router->get('{id}/report', 'FunnelController@report')->int('id');

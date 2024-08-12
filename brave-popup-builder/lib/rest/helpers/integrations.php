@@ -287,6 +287,11 @@ function bravepop_remove_integration( $service ){
 add_action('wp_ajax_bravepop_ajax_zoho_init_token', 'bravepop_ajax_zoho_init_token', 0);
 add_action('wp_ajax_nopriv_bravepop_ajax_zoho_init_token', 'bravepop_ajax_zoho_init_token');
 function bravepop_ajax_zoho_init_token(){
+   $securityPassed = check_ajax_referer('esp_nonce', 'security', false);
+   if($securityPassed === false) {
+      wp_die();
+   }
+
    if(!current_user_can('manage_options') && empty($_POST['client_id']) || empty($_POST['client_secret']) || empty($_POST['code']) || empty($_POST['domain'])){ wp_die(); }
    $zohoDomain = isset($_POST['domain']) ? $_POST['domain'] : 'com';
    $availableTlds = ['com', 'eu', 'in', 'com.au', 'com.cn', 'jp'];

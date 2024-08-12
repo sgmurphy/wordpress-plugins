@@ -72,10 +72,10 @@ class FunnelProcessor
             if (!$subscriber) {
                 return false;
             }
+        }
 
-            if ($subscriber->status == 'pending' || $subscriber->status == 'unsubscribed') {
-                $subscriber->sendDoubleOptinEmail();
-            }
+        if ($subscriber->status == 'pending' || $subscriber->status == 'unsubscribed') {
+            $subscriber->sendDoubleOptinEmail();
         }
 
         $args = [
@@ -101,9 +101,7 @@ class FunnelProcessor
             $data = wp_parse_args($funnelSubArgs, $data);
         }
 
-        if ($subscriber->status == 'subscribed') {
-            $data['status'] = 'active';
-        }
+        $data['status'] = FunnelHelper::getFunnelSubscriberStatus($data['status'], $funnel, $subscriber);
 
         // let's create an empty sequence_subscriber
         $funnelSubscriber = FunnelSubscriber::create($data);
@@ -308,11 +306,14 @@ class FunnelProcessor
         $this->recordFunnelMetric($subscriber, $startSequence, $metricArgs);
 
         if (!$funnelSubscriber) {
+
+            $processableStatuses = ['subscribed', 'transactional'];
+
             // we have to create a funnel subscriber
             $data = [
                 'funnel_id'            => $startSequence->funnel_id,
                 'subscriber_id'        => $subscriber->id,
-                'status'               => ($subscriber->status == 'subscribed') ? 'active' : 'pending',
+                'status'               => (in_array($subscriber->status, $processableStatuses, true)) ? 'active' : 'pending',
                 'starting_sequence_id' => $startSequence->id,
                 'last_sequence_status' => 'completed',
                 'next_sequence'        => $startSequence->sequence + 1,
@@ -324,6 +325,11 @@ class FunnelProcessor
             if ($args) {
                 $data = wp_parse_args($args, $data);
             }
+
+            if ($data['status'] != 'active') {
+                $data['status'] = FunnelHelper::getFunnelSubscriberStatus($data['status'], $this->getFunnel($startSequence->funnel_id), $subscriber);
+            }
+
             // let's create an empty sequence_subscriber
             $funnelSubscriber = FunnelSubscriber::create($data);
         } else {

@@ -80,8 +80,7 @@ $cust_g_email =  (isset($tvc_data['g_mail']) && esc_attr($subscriptionId)) ? esc
                     <div class="col-12">
                         <h5 class="d-flex fw-normal mb-1 text-dark">
                             <?php esc_html_e("GA4 API Secret (To track refund order)", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            <span class="align-middle conv-link-blue fw-bold-500 upgradetopro_badge"
-                                data-bs-toggle="modal" data-bs-target="#upgradetopromodal">&nbsp;<img
+                            <span class="align-middle conv-link-blue fw-bold-500 upgradetopro_badge" popupopener="ga4apisecret_box_inner">&nbsp;<img
                                     src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>">&nbsp;Available
                                 In Pro</span>
                         </h5>

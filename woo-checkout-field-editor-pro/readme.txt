@@ -1,7 +1,7 @@
 === Checkout Field Editor (Checkout Manager) for WooCommerce ===
 Contributors: ThemeHigh
 Donate link: https://themehigh.com/
-Tags: checkout field editor, woocommerce checkout field editor, checkout manager, woocommerce checkout manager, checkout field customizer, checkout form editor, checkout form customizer, checkout, WooCommerce checkout, checkout form designer, woocommerce checkout fields, woocommerce checkout addons
+Tags: Checkout  Manager, Checkout Field Editor, WooCommerce Checkout, WooCommerce Checkout Field, WooCommerce Checkout Addons
 Requires at least: 4.9
 Tested up to: 6.6
 Requires PHP: 5.6
@@ -9,7 +9,7 @@ Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Checkout Field Editor (Checkout Manager) for WooCommerce - The best WooCommerce checkout manager plugin to customize checkout fields on your WooCommerce checkout page.
+Checkout Field Editor (Checkout Manager) for WooCommerce – The best WooCommerce checkout manager plugin to manage WooCommerce checkout fields.
 
 == Description ==
 

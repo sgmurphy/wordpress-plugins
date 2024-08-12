@@ -324,7 +324,9 @@ class OptionsController extends Controller
             ];
         }
 
-        if ($optionKey == 'woo_products' || $optionKey == 'product_selector_woo' || $optionKey == 'product_selector_woo_order') {
+        $wooProductKeys = ['woo_products', 'product_selector_woo', 'product_selector_woo_order'];
+
+        if (in_array($optionKey, $wooProductKeys)) {
             if (defined('WC_PLUGIN_FILE')) {
 
                 $args = [

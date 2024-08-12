@@ -25,7 +25,7 @@ legend{color:inherit;display:table;max-width:100%;padding:0;white-space:normal}t
 ::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
 /* End extract */
 #wp_rev_maindiv{font-size:15px;line-height:1.5}
-#wp_rev_maindiv p{font-size:15px;margin: .9em 0;}
+#wp_rev_maindiv p{font-size:15px;}
 #wp_rev_maindiv{overflow-x:hidden}
 #wp_rev_maindiv h1{font-size:36px}
 #wp_rev_maindiv h2{font-size:30px}

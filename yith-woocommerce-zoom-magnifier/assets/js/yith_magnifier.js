@@ -13,12 +13,6 @@
 
   // include imagesLoaded plugin.
   if ($.fn.imagesLoaded === undefined) {
-    /*!
-     * jQuery imagesLoaded plugin v2.1.1
-     * http://github.com/desandro/imagesloaded
-     *
-     * MIT License. by Paul Irish et al.
-     */
 
     /*jshint curly: true, eqeqeq: true, noempty: true, strict: true, undef: true, browser: true */
     /*global jQuery: false */
@@ -411,7 +405,7 @@
                   );
                 } else {
 
-                  $( [self.IMG_zoomImage, self.IMG_smallImage] ).imagesLoaded(
+                  $( '.product .images' ).imagesLoaded(
                     function () {
 
                       self._initGallery();
@@ -460,35 +454,33 @@
         } else {
 
           self.IMG_zoomImage.src = self.zoom.attr( 'href' );
-
           self.IMG_smallImage     = new Image();
           self.IMG_smallImage.src = self.zoomImage.attr( 'src' );
 
           if ($.browser && $.browser.msie && $.browser.version == 8) {
             $( self.IMG_zoomImage ).load(
               function () {
-
                 self._initTrap();
               }
             );
           } else {
 
-            $( [self.IMG_zoomImage, self.IMG_smallImage] ).imagesLoaded(
+              $( '.product .images' ).imagesLoaded(
               function () {
 
                 self._initTrap();
               }
             );
+
           }
 
           $( document ).on(
             'click',
             'a.yith_expand',
             function (e) {
-
               e.preventDefault();
 
-              $().prettyPhoto(
+                $().prettyPhoto(
                 {
                   social_tools      : false,
                   theme             : 'pp_woocommerce',
@@ -571,9 +563,9 @@
 
       if ( typeof ywzm_data != 'undefined' ) {
 
-        $( '<a href="#" class="yith_expand" style="display: inline;"></a>' ).appendTo( this.mouseTrap );
+        $( '<a href="#" class="yith_expand" style="display: inline;"></a>' ).insertAfter( this.mouseTrap );
         $( '.expand-button-hidden' ).clone().appendTo( $( '.yith_expand') );
-        $( '.yith_magnifier_mousetrap .yith_expand .expand-button-hidden' ).show();
+        $( '.yith_expand .expand-button-hidden' ).show();
 
 
       }

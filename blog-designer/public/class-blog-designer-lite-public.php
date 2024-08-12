@@ -418,7 +418,10 @@ class Blog_Designer_Lite_Public {
 					}
 					$class     = 'timeline';
 					$this_year = get_the_date( 'Y' );
-					echo '<div class="timeline_year"><span class="year_wrap"><span class="only_year">' . esc_html( $this_year ) . '</span></span></div>';
+					if ( $prev_year != $this_year ) {
+						$prev_year = $this_year;
+						echo '<p class="timeline_year"><span class="year_wrap"><span class="only_year">' . esc_html( $prev_year ) . '</span></span></p>';
+					}
 					Blog_Designer_Lite_Template::bd_timeline_template( $alter_class );
 					$alter ++;
 				} elseif ( 'news' === $theme ) {

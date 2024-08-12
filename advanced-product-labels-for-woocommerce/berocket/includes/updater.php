@@ -1,6 +1,8 @@
 <?php
 if ( ! class_exists( 'BeRocket_updater' ) ) {
-    define( "BeRocket_update_path", 'https://berocket.com/' );
+    define( "BeRocket_update_path", 'https://api.berocket.com/' );
+    define( "BeRocket_cdn_path", 'https://apicdn.berocket.com/' );
+    define( "BeRocket_main_path", 'https://berocket.com/' );
     define( "BeRocket_updater_log", true );
     include_once( plugin_dir_path( __FILE__ ) . 'error_notices.php' );
 
@@ -233,7 +235,7 @@ if ( ! class_exists( 'BeRocket_updater' ) ) {
                             'end'           => 0,
                             'name'          => $plugin[ 'name' ],
                             'html'          => __('Please', 'BeRocket_domain'). ' ' . __('activate plugin', 'BeRocket_domain') . ' ' . $plugin[ 'name' ] . ' ' . __('with help of plugin/account key from', 'BeRocket_domain'). ' '
-                                               . '<a href="' . BeRocket_update_path . 'user' . $meta_data . '" target="_blank">' . __('BeRocket account', 'BeRocket_domain') . '</a>. '
+                                               . '<a href="' . BeRocket_main_path . 'user' . $meta_data . '" target="_blank">' . __('BeRocket account', 'BeRocket_domain') . '</a>. '
                                                . __('You can activate plugin in', 'BeRocket_domain')
                                                . '<a class="berocket_button" href="' . ( is_network_admin() ? admin_url( 'network/admin.php?page=berocket_account' ) : admin_url( 'admin.php?page=berocket_account' ) ) . '">' . __('BeRocket Account settings', 'BeRocket_domain') . '</a>
                                 ',
@@ -370,7 +372,7 @@ if ( ! class_exists( 'BeRocket_updater' ) ) {
                     $plugins = '';
                 }
 
-                $response = wp_remote_post( BeRocket_update_path . 'main/account_updater', array(
+                $response = wp_remote_post( BeRocket_update_path . 'v1/account_updater', array(
                     'body'        => array(
                         'key'     => $key,
                         'id'      => $id,
@@ -816,7 +818,7 @@ if ( ! class_exists( 'BeRocket_updater' ) ) {
                         'plugins' => array()
                     );
                     if( count($data_send['keys']) > 0 ) {
-                        $url      = BeRocket_update_path . 'api/check_plugin_key/';
+                        $url      = BeRocket_update_path . 'v1/check_plugin_key/';
                         $response = wp_remote_post( $url, array(
                             'body'        => $data_send,
                             'method'      => 'POST',
@@ -875,14 +877,14 @@ if ( ! class_exists( 'BeRocket_updater' ) ) {
                 }
 
                 $responsed = false;
-                if ( $is_active && ! empty($plugin_data) && is_array($plugin_data) 
-                && version_compare( $plugin[ 'version' ], $plugin_data['version'], '<' ) && ! empty($value) ) {
+                if ( $is_active && ! empty($plugin_data) && is_array($plugin_data) && is_array($plugin) && isset($plugin_data['version'])
+                && version_compare( (string)$plugin[ 'version' ], (string)$plugin_data['version'], '<' ) && ! empty($value) ) {
                     $value->checked[ $plugin[ 'plugin' ] ]  = $plugin_data['version'];
                     $val                                    = array(
                         'id'          => 'br_' . $plugin[ 'id' ],
                         'new_version' => $plugin_data['version'],
-                        'package'     => BeRocket_update_path . 'main/update_product/' . $plugin[ 'id' ] . '/' . $key,
-                        'url'         => BeRocket_update_path . 'product/' . $plugin[ 'id' ],
+                        'package'     => BeRocket_update_path . 'v1/update_product/' . $plugin[ 'id' ] . '/' . $key,
+                        'url'         => BeRocket_cdn_path . 'product/' . $plugin[ 'slug' ],
                         'plugin'      => $plugin[ 'plugin' ],
                         'slug'        => $plugin[ 'slug' ]
                     );
@@ -920,8 +922,8 @@ if ( ! class_exists( 'BeRocket_updater' ) ) {
                     $val                                    = (object) array(
                         'id'          => 'br_' . $plugin[ 'id' ],
                         'new_version' => $plugin[ 'version' ],
-                        'package'     => BeRocket_update_path . 'main/update_product/' . $plugin[ 'id' ] . '/' . ( empty($key) ? 'none' : $key ),
-                        'url'         => BeRocket_update_path . 'product/' . $plugin[ 'id' ],
+                        'package'     => BeRocket_update_path . 'v1/update_product/' . $plugin[ 'id' ] . '/' . ( empty($key) ? 'none' : $key ),
+                        'url'         => BeRocket_cdn_path . 'product/' . $plugin[ 'slug' ],
                         'plugin'      => $plugin[ 'plugin' ],
                         'slug'        => $plugin[ 'slug' ]
                     );

@@ -376,6 +376,10 @@ class Advanced_Ads_Group {
 			'orderby'        => 'id', // Might want to avoid sorting as not needed for most calls and fast in PHP; slight I/O blocking concern.
 		];
 
+		if ( $this->ad_args ) {
+			$args = array_merge( $args, $this->ad_args );
+		}
+
 		$ads = new WP_Query( $args );
 
 		if ( $ads->have_posts() ) {

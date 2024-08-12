@@ -596,7 +596,7 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                             </label>
                             <span>
                                 <a target="_blank"
-                                    href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=productlist&utm_campaign=Pricing"><b>
+                                    href="https://www.conversios.io/pricing/?utm_source=woo_aiofree_plugin&utm_medium=productlist&utm_campaign=Pricing"><b>
                                         Upgrade To Pro</b></a>
                             </span>
                         </div>
@@ -2023,13 +2023,13 @@ jQuery(document).ready(function() {
             if (totProduct > 100 || (totProduct + syncProductCount) > 100) {
                 jQuery('.errorFooter').empty();
                 jQuery('.errorFooter').html(
-                    '<a class="btn conv-blue-bg m-auto text-white" href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=productlist&utm_campaign=Pricing" target="_blank" >Upgrade to pro</a>'
+                    '<a class="btn conv-blue-bg m-auto text-white" href="https://www.conversios.io/pricing/?utm_source=woo_aiofree_plugin&utm_medium=productlist&utm_campaign=Pricing" target="_blank" >Upgrade to pro</a>'
                     );
                 jQuery('.errorText').html('Oops!');
                 jQuery('#conv_save_error_txt').html(
                     "<p>You've reached the maximum product limit of 100 products for your current plan.</p>" +
                     "<p>With our Pro version, you'll benefit from unlimited products, advanced analytics, priority support, and much more. Upgrade now to unlock the full potential of our platform and take your business to the next level. " +
-                    "<a href='https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=productlist&utm_campaign=Pricing' target='_blank'>Upgrade to pro.</a></p>"
+                    "<a href='https://www.conversios.io/pricing/?utm_source=woo_aiofree_plugin&utm_medium=productlist&utm_campaign=Pricing' target='_blank'>Upgrade to pro.</a></p>"
                     );
                 jQuery('#conv_save_error_modal').modal('show');
                 return false;

@@ -107,7 +107,7 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
                                     </div>
                                 </div>
 
-                                <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" popupopener="gadseec_inner">
                                     <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
                                     <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </span>
@@ -125,7 +125,7 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
                                     </div>
                                 </div>
 
-                                <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" popupopener="gadseec_inner">
                                     <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
                                     <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </span>
@@ -199,7 +199,7 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
                                     <label class="form-check-label ps-2 readonly disabled">
                                         <b><?php esc_html_e("Enable dynamic remarketing tags", "enhanced-e-commerce-for-woocommerce-store"); ?></b>
                                     </label>
-                                    <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                    <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" popupopener="gadseec_inner">
                                         <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
                                         <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                     </span>

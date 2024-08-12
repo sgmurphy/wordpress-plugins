@@ -1212,6 +1212,9 @@ class Quiz_Maker_Public
         // Letter spacing | Wrong answer
         $quiz_wrong_answers_letter_spacing = (isset($options[ 'quiz_wrong_answers_letter_spacing' ]) && $options[ 'quiz_wrong_answers_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_wrong_answers_letter_spacing' ] ) ) : 0;
 
+        // Wrong answer font weight
+        $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weight' ]) && $options[ 'quiz_wrong_answers_font_weight' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_wrong_answers_font_weight' ] ) ) : 'normal';
+
         // Font size for the question explanation
         $quest_explanation_font_size = (isset($options['quest_explanation_font_size']) && $options['quest_explanation_font_size'] != '') ? absint(sanitize_text_field($options['quest_explanation_font_size'])) : '16';
 
@@ -3402,10 +3405,11 @@ class Quiz_Maker_Public
                 font-size:" . $quest_explanation_font_size . "px;
             }
 
-            #ays-quiz-container-" . $id . " .wrong_answer_text * {
+            #ays-quiz-container-" . $id . " .wrong_answer_text *:not(strong) {
                 text-transform:" . $quiz_wrong_answer_text_transform . ";
                 text-decoration: ". $quiz_wrong_answers_text_decoration .";
                 letter-spacing: ". $quiz_wrong_answers_letter_spacing ."px;
+                font-weight: ". $quiz_wrong_answers_font_weight .";
             }
 
             #ays-quiz-container-" . $id . " .ays_questtion_explanation *:not(strong) {

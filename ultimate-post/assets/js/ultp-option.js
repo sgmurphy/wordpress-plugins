@@ -37,8 +37,10 @@
     // -------------------------------
     // -------------------------------
 
-    $(document).ready(function() {
-        $(document).on('DOMSubtreeModified', function() {
+    if ( window?.location?.search == '?page=ultp-settings' ) {
+        function initializeColorPicker() {
+
+            // handle color picker
             $('.ultp-color-picker').wpColorPicker({
                 change: function(e, ui){
                     $(this).closest('.ultp-settings-field').find('.ultp-color-code').val(e.target.value)
@@ -47,16 +49,35 @@
             $('.ultp-color-code').bind("change keyup input",function() {
                 $(this).closest('.ultp-settings-field').find('.wp-color-result').css("background-color", $(this).val())
             });
-            $('input[name=disable_google_font]').on('change', function() {
+    
+            // handle re generate google font
+            $('input[name=disable_google_font]').off('change').on('change', function() {
                 if ($(this).is(':checked')) {
-                    $('#postx-regenerate-css').addClass('active')
+                    $('#postx-regenerate-css').addClass('active');
                 } else {
-                    $('#postx-regenerate-css').removeClass('active')
+                    $('#postx-regenerate-css').removeClass('active');
+                }
+            });
+        }
+    
+        // Initialize color picker
+        initializeColorPicker();
+    
+        // MutationObserver instance
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if ( mutation.type === 'childList' || mutation.type === 'subtree' ) {
+                    initializeColorPicker();
                 }
             });
         });
-        
-    });
+    
+        // Start observing
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
 
     // *************************************
     // Add target blank for upgrade button

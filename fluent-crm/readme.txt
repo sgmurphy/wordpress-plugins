@@ -4,7 +4,7 @@ Tags: email marketing, newsletter, crm, email newsletter, subscribers
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.1
-Stable tag: 2.9.01
+Stable tag: 2.9.20
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -261,8 +261,18 @@ You can report any security bugs found in the source code of FluentCRM plugins t
 
 == Changelog ==
 
-= 2.9.01 (Date: Jul 17, 2024) =
-- Hotfix: Fixed the issue WordPress 6.6 compatibility issue for Block Editor
+= 2.9.2 (Date: August 12, 2024) =
+- New: Built-in Automation Templates
+- New: FluentSMTP logs to the Emails Section of Profile
+- New: Email Filter to the Emails Section of Profile
+- Fixed: Email Editor Issue
+- Fixed: ActiveCampaign Import Contacts Issue
+- Fixed: Event Tracking Fetch Issue
+- Fixed: Sending Double opt-in Email
+- Fixed: Webhook Issue
+- Fixed: Automation Twice Run Issue
+- Improvement: UI of the Custom Fields
+- Other Improvements & Bug Fixes
 
 = 2.9.0 (Date: May 29, 2024) =
 - New: Custom Fields on Company Module

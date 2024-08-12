@@ -478,7 +478,7 @@ class Styles {
 					$wp_filesystem->mkdir( $dir );
 				}
 				if ( ! $wp_filesystem->put_contents( $dir . $filename, $ultp_block_css ) ) {
-					throw new Exception(__('CSS can not be saved due to permission!!!', 'ultimate-post')); //phpcs:ignore
+					throw new \Exception(__('CSS can not be saved due to permission!!!', 'ultimate-post')); //phpcs:ignore
 				}
 				return ['success'=>true, 'message'=> __('PostX css file has been updated.', 'ultimate-post')];
 
@@ -496,7 +496,7 @@ class Styles {
 				}
 				return ['success' => true, 'message' => __('Data Delete Done', 'ultimate-post')];
 			}
-		} catch( Exception $e ) {
+		}catch( \Exception $e ) {
 			return [ 'success'=> false, 'message'=> $e->getMessage() ];
         }
 	}

@@ -129,6 +129,13 @@ class Post_Slider_2 {
             'hideTablet' => false,
             'hideMobile' => false,
             'advanceCss' => '',
+
+            /*============================
+                Dynamic Content
+            ============================*/
+            'dcEnabled' => false,
+            'dcFields' => array(),
+            'dcSize' => 8,
         );
     }
 
@@ -195,6 +202,12 @@ class Post_Slider_2 {
                         data-paddlg="'.(isset($centerPadd["lg"]) ? sanitize_html_class( $centerPadd["lg"] ) : 100 ).'" data-paddsm="'.(isset($centerPadd["sm"]) ? sanitize_html_class( $centerPadd["sm"] ) : 100 ).'" data-paddxs="'.(isset($centerPadd["xs"]) ? sanitize_html_class( $centerPadd['xs'] ) : 50).'">';
                             $idx = $noAjax ? 1 : 0;
                             while ( $recent_posts->have_posts() ): $recent_posts->the_post();
+
+                                $dcContent = array_fill( 0, $attr['dcSize'], '' );
+
+                                if (ultimate_post()->is_dc_active($attr)) {
+                                    $dcContent = \ULTP\DCService::get_dc_content_for_block($attr, $dcContent);
+                                }
                                 
                                 include ULTP_PATH.'blocks/template/data.php';
 
@@ -232,27 +245,49 @@ class Post_Slider_2 {
                                         $post_loop .= '<div class="ultp-block-content ultp-block-content-'.$attr['contentVerticalPosition'].' ultp-block-content-'.$attr['contentHorizontalPosition'].'">';
                                             $post_loop .= '<div class="ultp-block-content-inner">';
                                                 
+                                                $post_loop .= $dcContent[7];
+
                                                 include ULTP_PATH.'blocks/template/category.php';
                                                 $post_loop .= $category;
+
+                                                $post_loop .= $dcContent[6];
 
                                                 if ( $title && $attr['titleShow'] && $attr['titlePosition'] ) {
                                                     include ULTP_PATH . 'blocks/template/title.php';
                                                 }
+
+                                                $post_loop .= $dcContent[5];
+
                                                 if ( $attr['metaPosition'] =='top' ) {
                                                     include ULTP_PATH . 'blocks/template/meta.php';
                                                 }
+
+                                                $post_loop .= $dcContent[4];
+
                                                 if ( $title && $attr['titleShow'] && ! $attr['titlePosition'] ) {
                                                     include ULTP_PATH . 'blocks/template/title.php';
                                                 }
+
+                                                $post_loop .= $dcContent[3];
+
                                                 if ( $attr['excerptShow'] ) {
                                                     $post_loop .= '<div class="ultp-block-excerpt">'.ultimate_post()->get_excerpt($post_id, $attr['showSeoMeta'], $attr['showFullExcerpt'], $attr['excerptLimit']).'</div>';
                                                 }
+
+                                                $post_loop .= $dcContent[2];
+
                                                 if ( $attr['readMore'] ) {
                                                     $post_loop .= '<div class="ultp-block-readmore"><a aria-label="'.$title.'" href="'.$titlelink.'" '.($attr['openInTab'] ? 'target="_blank"' : '').'>'.($attr['readMoreText'] ? $attr['readMoreText'] : esc_html__( "Read More", "ultimate-post" )).ultimate_post()->svg_icon($attr['readMoreIcon']).'</a></div>';
                                                 }
+
+                                                $post_loop .= $dcContent[1];
+
                                                 if ( $attr['metaPosition'] =='bottom' ) {
                                                     include ULTP_PATH . 'blocks/template/meta.php';
                                                 }
+
+                                                $post_loop .= $dcContent[0];
+
                                             $post_loop .= '</div>';
                                         $post_loop .= '</div>';
 

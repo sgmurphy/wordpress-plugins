@@ -200,7 +200,10 @@ input[type="checkbox"]:checked::before {
 .convfixedcontainerfull {
     max-width: 1135px;
 }
-
+.conv-container
+{
+    padding-left: 15px;
+}
 .conv-container,
 .modal-dialog {
     color: #5F6368;
@@ -296,7 +299,9 @@ h6 {
     border-color: #85E1CC;
 }
 
-.conv-link-blue {
+.conv-link-blue,
+.conv-link-blue:hover,
+.conv-link-blue:focus {
     color: #1967D2;
     cursor: pointer;
 }
@@ -1672,9 +1677,9 @@ input[type="checkbox"] {
     width: 24px;
 }
 
-.pawizard_tab_but {
+/* .pawizard_tab_but {
     pointer-events: none !important;
-}
+} */
 
 .pawizard_tab_but.active h5 {
     color: #1967D2 !important;
@@ -1917,7 +1922,7 @@ input[type="checkbox"] {
 }
 
 .fixedcontainer_conversios_notice {
-    max-width: 900px;
+    max-width: 970px;
     margin: auto;
     padding: 6px 0;
 }
@@ -2020,14 +2025,20 @@ div#conv_ga360successmessage {
 }
 
 #conversioshead a {
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .conv_highlightedcard {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
-    background: #ecffe6;
+    background: #E0F6E9;
+    color: #005823;    ;
+}
+.conv_highlightedcard ul
+{
+    list-style: disc;
+    margin-left: 20px;
 }
 
 .conv_channel_logo {
@@ -2036,7 +2047,7 @@ div#conv_ga360successmessage {
 
 /* New dashboard welcome */
 .dshboardwelcome h4 {
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .dshboardwelcome h2 {
@@ -2067,8 +2078,8 @@ button#conv_create_gads_new_btn {
 }
 
 button#conv_create_gads_new_btn:hover {
-background-color: #fff !important;
-color: #1967D2 !important;
+    background-color: #fff !important;
+    color: #1967D2 !important;
 }
 
 #conv_wizfinish_left {
@@ -2082,7 +2093,7 @@ color: #1967D2 !important;
 #conv_wizfinish_right_one h4,
 #conv_wizfinish_right_two h4,
 #conv_wizfinish_right_three h4 {
-    font-size: 28px;
+    font-size: 25px;
 }
 
 #conv_wizfinish_right_one h5,
@@ -2110,7 +2121,7 @@ div#conv_wizfinish_right_three {
 #conv_wizfinish_right_three li {
     margin-bottom: 13px;
     position: relative;
-    font-size: 12px;
+    font-size: 14px;
     color: #2A2D2F;
     margin-left: 16px;
     padding-left: 5px;
@@ -2135,6 +2146,30 @@ div#conv_wizfinish_right_three {
     left: -16px;
     top: 3px;
 }
+#conv_wizfinish_right_one li:nth-child(1):before
+{
+    background-image: url(../images/icon/logossmall/fb_small.png);
+}
+#conv_wizfinish_right_one li:nth-child(2):before
+{
+    background-image: url(../images/icon/logossmall/tiktok_small.png);
+}
+#conv_wizfinish_right_one li:nth-child(3):before
+{
+    background-image: url(../images/icon/logossmall/snap_small.png);
+}
+#conv_wizfinish_right_one li:nth-child(4):before
+{
+    background-image: url(../images/icon/logossmall/pintrest_small.png);
+}
+#conv_wizfinish_right_one li:nth-child(5):before
+{
+    background-image: url(../images/icon/logossmall/bing_small.png);
+}
+#conv_wizfinish_right_one li:nth-child(6):before
+{
+    background-image: url(../images/icon/logossmall/twitter_small.png);
+}
 
 #conv_wizfinish_right_two li:before,
 #conv_wizfinish_right_three li:before {
@@ -2158,7 +2193,7 @@ div#conv_wizfinish_right_three {
 }
 
 #conv_wizfinish .modal-content {
-    max-width: 1028px !important;
+    max-width: 900px !important;
     border-radius: 20px;
 }
 
@@ -2406,12 +2441,119 @@ span[data-bs-toggle="tooltip"]:hover {
     padding: 16px !important;
     color: #5f6863 !important;
 }
-#conv_wizfinish .modal-dialog
-{
-    width: 1028px;
+
+#conv_wizfinish .modal-dialog {
+    width: 900px;
 }
+
 .dshboardwelcome_box span.conv-link-blue {
     font-size: 20px;
-    background: #e8f2ff;
     padding: 0px 5px;
+}
+
+.upgradetosstmodal .modal-content h2 span {
+    font-size: 18px !important;
+    color: #627197 !important;
+}
+
+.upgradetosstmodal .modal-content h2 {
+    font-size: 18px !important;
+    line-height: 0px !important;
+    margin-bottom: 40px !important;
+    color: #1967D2 !important;
+}
+
+.upgradetosstmodal .modal-content .discount-btn .common-btn {
+    width: 100% !important;
+}
+
+.dshboardwelcome_box ul {
+    list-style-type: disc !important;
+}
+
+.upgradetosstmodal .modal-content::after {
+    content: "" !important;
+    background-image: none !important;
+}
+
+.upgradetosstmodal .modal-content {
+    background-color: #fff !important;
+}
+
+.upgradetosstmodal .modal-content .listing span {
+    color: #1967D2 !important;
+}
+
+.upgradetosstmodal .modal-content .listing li {
+    color: #5F6368 !important;
+}
+
+#convSsttoProModal h4 {
+    font-size: 22px;
+    color: #1967D2;
+}
+
+#convSsttoProModal h5 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #627197 !important;
+}
+
+#convSsttoProModal h6 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#convSsttoProModal .modal-content,
+#convSsttoProModal .modal-content li {
+    color: #627197 !important;
+}
+
+#convSsttoProModal .modal-content li {
+    font-size: 14px !important;
+    font-weight: lighter !important;
+    line-height: 24px !important;
+    list-style-type: disc !important;
+    margin: 10px 0px !important;
+}
+
+.upgradetosstmodal .modal-dialog {
+    min-width: 800px !important;
+}
+
+.upgradetosstmodal .modal-content .discount-btn {
+    margin-top: 30px !important;
+}
+
+.upgradetosstmodal .modal-content .discount-btn .common-btn {
+    background: #1967D2 !important;
+}
+
+.upgradetosstmodal .modal-dialog .btn-close {
+    top: 24px !important;
+    right: 27px !important;
+}
+
+#upgradetopromodal h4 {
+    font-size: 18px;
+    font-weight: normal;
+    color: #303030;
+}
+
+#upgradetopromodal .modal-content {
+    width: 700px;
+    text-align: center;
+}
+
+#upgradetopromodal .btn-success {
+    background: #00B649 !important;
+}
+#upgradetopromodal .btn-close {
+    position: absolute;
+    right: 35px;
+    top: 40px;
+}
+.modal-content
+{
+    border-radius: 16px !important;
 }

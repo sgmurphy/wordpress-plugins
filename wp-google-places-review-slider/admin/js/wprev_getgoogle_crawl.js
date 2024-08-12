@@ -37,6 +37,7 @@
 			
 			//hide button
 			$( this ).hide();
+			var editplace = $( this ).attr("data-editplace");
 			//add class wprevloader to parent div
 			$( '#buttonloader' ).show();
 			$( '#googletestresults' ).hide();
@@ -53,6 +54,7 @@
 			var data = {
 			action	:	'wpfbr_crawl_placeid',
 			gplaceid	:	placeid,
+			geditplace :	editplace,
 			_ajax_nonce		: adminjs_script_vars.wpfb_nonce,
 				};
 			var myajax = jQuery.post(ajaxurl, data, function(response) {
@@ -99,6 +101,7 @@
 
 		});
 		
+		//for downloading on crawl page.
 		$("#downloadreviews").click(function(event){
 			
 			//hide button
@@ -153,12 +156,86 @@
 
 		});
 		
+				
 		$('input[type=radio][name=sortoption]').change(function() {
 			//hide messages and show button.
 			$( '#googletestresultserror2' ).hide();
 			$( '#googletestresults2' ).hide();
 			$( '#divdownloadreviews' ).show();
 			$("#downloadreviews").show();
+		});
+		
+
+		//for downloading on get reviews page
+		$("#currentsources").on("click",".downloadrevs", function(){
+			//alert("here");
+			//hide button
+			$( this ).hide();
+			//add class wprevloader to parent div
+			$( this ).next( '.buttonloader2' ).show();
+			
+			//var placeid = $("#gplaceid").val();
+			//var newestorhelpful = $('input[name="sortoption"]:checked').val();
+
+			var placeid = $( this ).attr("data-place");
+			var newestorhelpful = $( this ).attr("data-nhful");
+			
+			if(newestorhelpful!="newest" && newestorhelpful!="relevant"){
+				newestorhelpful="newest";
+			}
+			
+			if(placeid==''){
+				alert("Please enter your Place ID or Search Terms.");
+				return false;
+			}
+			
+			console.log('here');
+			console.log(placeid);
+			console.log(newestorhelpful);
+			
+			var data = {
+			action	:	'wpfbr_crawl_placeid_go',
+			getrevsplaceid	:	placeid,
+			nhful	: newestorhelpful,
+			_ajax_nonce		: adminjs_script_vars.wpfb_nonce,
+				};
+			var elem = $(this);
+			var myajax = jQuery.post(ajaxurl, data, function(response) {
+				console.log(response);
+					    try {
+							const objresponse = JSON.parse(response);
+							//console.log(objresponse);
+							if(objresponse.ack!='success'){
+								//show error
+								elem.nextAll( '.googletestresults2' ).html('<p>'+objresponse.ackmsg+'</p>');
+							} else {
+								elem.nextAll( '.googletestresults2' ).html(objresponse.ackmsg);
+							}
+						} catch (e) {
+							//console.log(response);
+							elem.next( '.buttonloader2' ).hide();
+							elem.nextAll( '.googletestresults2' ).html('<p>Error crawling Google. Please contact support.</p>');
+							return false;
+						}
+
+					//add class wprevloader to parent div
+					elem.next( '.buttonloader2' ).hide();
+					setTimeout(function(){
+						elem.show();
+						elem.nextAll( '.googletestresults2' ).html('');
+					}, 2000);
+					
+			});
+			jQuery(window).unload( function() { myajax.abort(); } );
+
+		});
+		
+		
+		$("#shownewsourceoption").click(function(event){
+			//alert("here");
+			//hide show the options.
+			$("#chooseoption").toggle('slow');
+			
 		});
 	
 

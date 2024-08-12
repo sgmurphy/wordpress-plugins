@@ -4,7 +4,7 @@ Tags: Elementor addons, mega menu builder,  header footer builder, elementor add
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.2.3
+Stable tag: 3.2.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -440,6 +440,10 @@ Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best of W
 
 
 == Changelog ==
+ElementsKit Elementor Addons Version: 3.2.4 (2024-08-12)
+Fixed: Corrected lottie loop count handling
+Fixed: Korean language admin page display issue
+
 ElementsKit Elementor Addons Version: 3.2.3 (2024-07-27)
 Added: Support for `is_dynamic_content()`
 

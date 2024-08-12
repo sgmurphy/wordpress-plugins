@@ -893,6 +893,13 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
+
+version 1.5.118: 2024-08-12
+
+* Fix: categories was invisible in elementor editor free version
+* Fix: fixed pagination link click with elementor pro page transition bug
+
+
 version 1.5.117: 2024-08-11
 
 * Fix: improved the manual sorting and debuging of authors list

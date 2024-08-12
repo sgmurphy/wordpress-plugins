@@ -1000,12 +1000,16 @@ class Subscriber extends Model
             $status = $data['status'];
             if ($forceUpdate) {
                 $subscriberData['status'] = $status;
-            } else if ($exist && $exist->status == 'subscribed') {
+            } else if ( $exist && $exist->status == 'subscribed' ) {
                 unset($subscriberData['status']);
             } else if ($exist && in_array($exist->status, ['bounced', 'complained'])) {
                 unset($subscriberData['status']);
             } else {
                 $subscriberData['status'] = $status;
+            }
+
+            if($status == 'unsubscribed') {
+                $subscriberData['status'] = 'unsubscribed';
             }
         }
 

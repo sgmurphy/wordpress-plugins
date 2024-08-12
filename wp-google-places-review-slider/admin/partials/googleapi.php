@@ -21,9 +21,45 @@
  
     // check if the user have submitted the settings
     // wordpress will add the "settings-updated" $_GET parameter to the url
+	$savedform = "";
     if (isset($_GET['settings-updated'])) {
+		$savedform = "yes";
+		$currenturl = remove_query_arg('newplace', false);
         // add settings saved message with the class of "updated"
         add_settings_error('wpfbr_messages', 'wpfbr_message', __('Settings Saved', 'wp-google-reviews'), 'updated');
+		$savedoptions = get_option('wpfbr_google_options');
+
+		//print "<pre>";
+//print_r($savedoptions);
+//print "</pre>";
+
+		//save this in multi-array so we can do multiple ones.
+		$multisaved = json_decode(get_option('wprev_google_apis'),true);
+		
+		//wprev_google_apis
+		$multisaved[$savedoptions['google_location_set']['place_id']] = $savedoptions;
+		update_option('wprev_google_apis',json_encode($multisaved));
+		//print "<pre>";
+//print_r($multisaved);
+//print "</pre>";
+		/*
+		Array
+		(
+			[select_google_api] => mine
+			[google_api_key] => AIzaSyArYqOys5ww-zn_KAvqwaT6AustB2FvuNQ
+			[google_location_txt] => Yellowhammer Brewing, Clinton Avenue West, Huntsville, AL, USA
+			[google_location_set] => Array
+				(
+					[location] => Yellowhammer Brewing
+					[place_id] => ChIJC8DB3J5sYogRV8b_lTk20U4
+				)
+
+			[google_location_minrating] => 1
+			[google_location_sort] => newest
+			[google_language_option] => en
+			[google_review_cron] => 1
+		)
+		*/
     }
     // show error/update messages
     settings_errors('wpfbr_messages');
@@ -41,8 +77,22 @@ include("tabmenu.php");
 <div class="w3-col welcomediv w3-container w3-white w3-border w3-border-light-gray2 w3-round-small">
 	<form action="options.php" method="post" id='newreviewform'>
 		<?php
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option('wpfbr_google_options');
+		//if we are here from an edit click then we need to load presaved values
+		if($_GET['ract']=="edit" ){
+			$placeid = urldecode($_GET['placeid']);
+			$googleapisarray = Array();
+			$googleapisarray[] =Array("empty");
+			//get values from saved options.
+			$googleapisarray = json_decode(get_option('wprev_google_apis'),true);
+			
+			$options = $googleapisarray[$placeid];
+			update_option('wpfbr_google_options',$options);
+		} else {
+			// get the value of the setting we've registered with register_setting()
+			$options = get_option('wpfbr_google_options');
+			//$options = Array();
+			//delete_option('wpfbr_google_options');
+		}
 
 		// output security fields for the registered setting "wp_fb-google_settings"
 		settings_fields('wp_fb-google_settings');
@@ -51,11 +101,15 @@ include("tabmenu.php");
 		do_settings_sections('wp_fb-google_settings');
 		// output save settings button
 		//submit_button('Save Settings');
+//<input name="submit" id="submit" class="button button-primary" value="Save Settings" type="submit">
+
+//print_r($options);
 
 	?>
 	<p class="submit">
-		<input name="submit" id="submit" class="button button-primary" value="Save Settings" type="submit">&nbsp;&nbsp;
-
+	<input type="hidden" id="checksaved" name="checksaved" value="<?php echo $savedform ?>">
+	<input name="submit" action="?time=1" id="submit" class="button button-primary" value="Save Settings" type="submit" >
+		&nbsp;&nbsp;
 		<?php
 		if( ! empty( $options['google_location_set']['place_id'] )) {
 		?>

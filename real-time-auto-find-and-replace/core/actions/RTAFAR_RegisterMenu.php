@@ -167,16 +167,16 @@ class RTAFAR_RegisterMenu {
 		if ( current_user_can( 'manage_options' ) || current_user_can( 'administrator' ) || current_user_can( self::$nav_cap['add_masking_rule'] ) ) {
 			$AddNewRule = $this->pages->AddNewRule();
 			if ( is_object( $AddNewRule ) ) {
-				echo \wp_kses( $AddNewRule->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ), $option ), Util::cs_allowed_html() );
+				echo $AddNewRule->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ), $option );
 			} else {
-				echo \wp_kses( $AddNewRule, Util::cs_allowed_html() );
+				echo $AddNewRule, Util::cs_allowed_html();
 			}
 		} else {
 			$AccessDenied = $this->pages->AccessDenied();
 			if ( is_object( $AccessDenied ) ) {
-				echo \wp_kses( $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
+				echo $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
 			} else {
-				echo \wp_kses( $AccessDenied, Util::cs_allowed_html() );
+				echo $AccessDenied, Util::cs_allowed_html();
 			}
 		}
 	}
@@ -190,17 +190,16 @@ class RTAFAR_RegisterMenu {
 		if ( current_user_can( 'manage_options' ) || current_user_can( 'administrator' ) || current_user_can( self::$nav_cap['all_masking_rules'] ) ) {
 			$AllMaskingRules = $this->pages->AllMaskingRules();
 			if ( is_object( $AllMaskingRules ) ) {
-				// echo $AllMaskingRules->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
-				echo \wp_kses( $AllMaskingRules->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
+				echo $AllMaskingRules->generate_page( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
 			} else {
-				echo \wp_kses( $AllMaskingRules, Util::cs_allowed_html() );
+				echo $AllMaskingRules, Util::cs_allowed_html();
 			}
 		} else {
 			$AccessDenied = $this->pages->AccessDenied();
 			if ( is_object( $AccessDenied ) ) {
-				echo \wp_kses( $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
+				echo $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
 			} else {
-				echo \wp_kses( $AccessDenied, Util::cs_allowed_html() );
+				echo $AccessDenied, Util::cs_allowed_html();
 			}
 		}
 	}
@@ -219,17 +218,16 @@ class RTAFAR_RegisterMenu {
 		if ( current_user_can( 'manage_options' ) || current_user_can( 'administrator' ) || current_user_can( self::$nav_cap['replace_in_db'] ) ) {
 			$Default_Settings = $this->pages->ReplaceInDB();
 			if ( is_object( $Default_Settings ) ) {
-				// echo $Default_Settings->generate_default_settings( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
-				echo \wp_kses( $Default_Settings->generate_default_settings( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
+				echo $Default_Settings->generate_default_settings( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
 			} else {
-				echo \wp_kses( $Default_Settings, Util::cs_allowed_html() );
+				echo $Default_Settings, Util::cs_allowed_html();
 			}
 		} else {
 			$AccessDenied = $this->pages->AccessDenied();
 			if ( \is_object( $AccessDenied ) ) {
-				echo \wp_kses( $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
+				echo $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
 			} else {
-				echo \wp_kses( $AccessDenied, Util::cs_allowed_html() );
+				echo $AccessDenied, Util::cs_allowed_html();
 			}
 		}
 	}
@@ -252,9 +250,9 @@ class RTAFAR_RegisterMenu {
 		} else {
 			$AccessDenied = $this->pages->AccessDenied();
 			if ( \is_object( $AccessDenied ) ) {
-				echo \wp_kses( $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) ), Util::cs_allowed_html() );
+				echo $AccessDenied->generate_access_denided( array_merge_recursive( $page_info, array( 'default_settings' => array() ) ) );
 			} else {
-				echo \wp_kses( $AccessDenied, Util::cs_allowed_html() );
+				echo $AccessDenied, Util::cs_allowed_html();
 			}
 		}
 	}

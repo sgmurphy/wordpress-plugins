@@ -84,7 +84,9 @@ class Builder {
             if ( $this->is_block_theme ) {
                 remove_action('wp_head', array($this, 'ultp_header_builder_template'));
             } else {
-                require_once ULTP_PATH.'addons/builder/templates/header.php';
+                if ($this->theme_name != 'astra') {  // Astra theme issue
+                    require_once ULTP_PATH.'addons/builder/templates/header.php';
+                }
                 $templates   = [];
                 $templates[] = 'header.php';
                 remove_all_actions( 'wp_head' );
@@ -108,7 +110,11 @@ class Builder {
     public function ultp_footer_builder_template() {
         if ( $this->footer_id ) {
             if ( !$this->is_block_theme ) {
-                require_once ULTP_PATH.'addons/builder/templates/footer.php';
+                if ($this->theme_name == 'astra') {  // Astra theme issue
+                    wp_footer();
+                } else {
+                    require_once ULTP_PATH.'addons/builder/templates/footer.php';
+                }
                 $templates   = [];
                 $templates[] = 'footer.php';
                 remove_all_actions( 'wp_footer' );

@@ -46,6 +46,8 @@ abstract class BaseHandler
 
         $this->sendingChunkNumber++;
 
+        $sendableStatuses = ['subscribed', 'transactional'];
+
         foreach ($campaignEmails as $email) {
             if ($this->reachedEmailLimitPerSecond()) {
                 $this->updateEmailsStatus($failedIds, 'failed');
@@ -55,7 +57,7 @@ abstract class BaseHandler
 
             // Check again if the contact is in subscribed status or not
             // If not then we will cancel the email
-            if ($email->subscriber && $email->subscriber->status != 'subscribed') {
+            if ($email->subscriber && !in_array($email->subscriber->status, $sendableStatuses, true)) {
                 $email->status = 'cancelled';
                 $email->save();
                 continue;

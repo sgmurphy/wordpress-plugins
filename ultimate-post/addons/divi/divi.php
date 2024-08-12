@@ -18,11 +18,11 @@ function ultp_postx_template_divi_modules() {
 		function get_fields() {
 			return array(
 				'templates' => array(
-					'label'			=> esc_html__( 'Select Your Template', 'ultimate-post' ),
+					'label'			=> esc_html_e( 'Select Your Template', 'ultimate-post' ),
 					'type'			=> 'select',
 					'options'		=> ultimate_post()->get_all_lists('ultp_templates', 'none'),
 					'default'		=> 'none',
-					'description'	=> esc_html__( 'Pick a Template from your saved ones. Or create a template from: <strong><i>Dashboard > PostX > Saved Templates</i></strong>', 'ultimate-post' ),
+					'description'	=> esc_html_e( 'Pick a Template from your saved ones. Or create a template from: <strong><i>Dashboard > PostX > Saved Templates</i></strong>', 'ultimate-post' ),
 				)
 			);
 		}
@@ -50,7 +50,7 @@ function ultp_postx_template_divi_modules() {
 				}
 			} else {
 				if ( in_array('et-fb', $body_class) ) {
-					$content = '<p style="text-align:center;">'.sprintf( esc_html__( 'Pick a Template from your saved ones. Or create a template from: %s.' , 'ultimate-post' ) . ' ', '<strong><i>' . esc_html( 'Dashboard > PostX > Saved Templates', 'ultimate-post' ) . '</i></strong>' ).'</p>';
+					$content = '<p style="text-align:center;">'.sprintf( esc_html_e( 'Pick a Template from your saved ones. Or create a template from: %s.' , 'ultimate-post' ) . ' ', '<strong><i>' . esc_html( 'Dashboard > PostX > Saved Templates', 'ultimate-post' ) . '</i></strong>' ).'</p>';
 				}
 			}
 

@@ -14,8 +14,7 @@ final class FCApi
     public function __call($method, $params)
     {
         try {
-            $result = call_user_func_array([$this->instance, $method], $params);
-            return $result;
+            return call_user_func_array([$this->instance, $method], $params);
         } catch (\Exception $e) {
             return null;
         }

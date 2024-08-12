@@ -4,9 +4,9 @@ Contributors: hookandhook
 Tags: post grid, blog post grid, elementor, post grid for elementor, elementor addons, elementor page builder, grid post, grid layout, post grids, widget, add-ons, page builder, blog post, blog, elementor post grid, post grid elementor, responsive post grid, grid layout for blog posts, post grid display
 Donate Link: https://wphait.com/plugins/post-grid-elementor-addon/
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.0.17
+Stable tag: 2.0.18
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,9 @@ No, the free version of this plugin does not have pagination. You need to upgrad
 6. Curve Image Layout
 
 == Changelog ==
+
+= 2.0.18 - 2024-08-12 =
+- Update tested up to
 
 = 2.0.17 - 2024-04-20 =
 - Fix tag title

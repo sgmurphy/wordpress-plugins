@@ -16,8 +16,21 @@
     if (!current_user_can('manage_options')) {
         return;
     }
-	$savedplaceid = esc_html(get_option('wprev_google_crawl_placeid'));
+	//$savedplaceid = esc_html(get_option('wprev_google_crawl_placeid'));
+	
+	$currentplace = urldecode($_GET['place']);
+	$editid="";
+	$editplace ="";
+	if(isset($_GET['ract']) && $_GET['ract']=="edit"){
+		$editidedit="edit";
+		$editplace = urldecode($_GET['place']);
+	}
+	
+$googlecrawlsarray = Array();
+$googlecrawlsarray[] =Array();
+$googlecrawlsarray = json_decode(get_option('wprev_google_crawls'),true);
 
+$savedplaceid = $googlecrawlsarray[$currentplace]['enteredidorterms'];
 ?>
 <div class="">
 <h1></h1>
@@ -42,7 +55,7 @@ include("tabmenu.php");
     <input id="gplaceid" style="width: 300px;" value="<?php echo stripslashes($savedplaceid); ?>" class="w3-input w3-border w3-round" type="text" placeholder="e.g.: ChIJOUW7JL0RYogRgDxol-LP_sU">
   </div>
   <div class=" w3-cell w3-cell-middle w3-padding-small">
-    <button id="savetest" type="button" class="w3-btn w3-padding-small2 w3-green w3-small" style="width:120px">Save & Test &nbsp; ❯</button><div id="buttonloader" style="display:none;" class="wprevloader"></div>
+    <button id="savetest" data-editplace="<?php echo urlencode($editplace); ?>" type="button" class="w3-btn w3-padding-small2 w3-green w3-small" style="width:120px">Save & Test &nbsp; ❯</button><div id="buttonloader" style="display:none;" class="wprevloader"></div>
   </div>
   <div class="w3-padding-small"><span class="wprevdescription">
   <?php _e('Need help finding your', 'wp-google-reviews'); ?><a href="https://ljapps.com/wp-content/uploads/2021/08/google_search_terms.mp4" target="_blank" style="text-decoration: none;">
@@ -52,8 +65,11 @@ include("tabmenu.php");
 </div>
 
 <?php
-$previouscheck = json_decode(get_option('wprev_google_crawl_check'),true);
+//$previouscheck = json_decode(get_option('wprev_google_crawl_check'),true);
+
+$previouscheck = $googlecrawlsarray[$savedplaceid]['crawl_check'];
 //print_r($previouscheck);
+
 $tempimg = plugin_dir_url( __FILE__ ) . 'google_small_icon.png';
 if(isset($previouscheck['img']) && $previouscheck['img']!='' && $previouscheck['img']!='unknown' && $previouscheck['img']!='(unknown)'){
 	$tempimg =$previouscheck['img'];

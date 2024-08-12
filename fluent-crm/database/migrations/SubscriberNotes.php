@@ -33,8 +33,8 @@ class SubscriberNotes
                 `description` LONGTEXT NULL,
                 `created_at` TIMESTAMP NULL,
                 `updated_at` TIMESTAMP NULL,
-                INDEX `{$indexPrefix}_s_id_idx` (`subscriber_id` DESC),
-                INDEX `{$indexPrefix}_s_idx` (`status` DESC),
+                INDEX `{$indexPrefix}_s_id_idx` (`subscriber_id` ASC),
+                INDEX `{$indexPrefix}_s_idx` (`status` ASC),
                 KEY `type` (`type`)
             ) $charsetCollate;";
 

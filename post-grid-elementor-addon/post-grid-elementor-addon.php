@@ -3,7 +3,7 @@
  * Plugin Name: Post Grid Elementor Addon
  * Description: Elementor page builder addon to display posts in a grid. Useful for generating post grid from your blog posts with multiple options.
  * Plugin URI: https://wphait.com/plugins/post-grid-elementor-addon/
- * Version: 2.0.17
+ * Version: 2.0.18
  * Author: WP Hait
  * Author URI: https://wphait.com/
  * Text Domain: post-grid-elementor-addon
@@ -11,7 +11,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-define( 'PGEA_VERSION', '2.0.17' );
+define( 'PGEA_VERSION', '2.0.18' );
 define( 'PGEA_SLUG', 'post-grid-elementor-addon' );
 define( 'PGEA_URL', rtrim( plugin_dir_url( __FILE__ ), '/' ) );
 define( 'PGEA_URI', rtrim( plugin_dir_path( __FILE__ ), '/' ) );

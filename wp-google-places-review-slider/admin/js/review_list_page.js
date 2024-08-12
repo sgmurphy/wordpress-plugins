@@ -53,7 +53,16 @@
 		//remove all button
 		$( "#wpfbr_removeallbtn" ).click(function() {
 			var sec = $(this).attr('data-sec');
-		  openpopup("Are you sure?", '<p>This will delete all reviews in your Wordpress database including the ones you manually entered. It Does NOT affect your reviews on Google.</p>', '<a class="button dashicons-before dashicons-no" href="?page=wp_google-reviews&opt=delall&_wpnonce='+sec+'">Remove</a>');
+			
+			var btnhtml2 = ''
+			var pagearray = JSON.parse(adminjs_script_vars.pagenamearray);
+			for(var i=0; i<pagearray.length; i++){
+				var tempopt = encodeURIComponent(pagearray[i]);
+				btnhtml2 = btnhtml2 + '<a class="button rmrevbtn dashicons-before dashicons-no" href="?page=wp_google-reviews&opt_type=page&opt='+tempopt+'&_wpnonce='+sec+'">'+pagearray[i]+'</a>';
+			}
+			
+			
+		  openpopup("Are you sure?", '<p>This will delete all reviews in your Wordpress database including the ones you manually entered. It Does NOT affect your reviews on Google.</p>', '<a class="button dashicons-before dashicons-no" href="?page=wp_google-reviews&opt=delall&_wpnonce='+sec+'">Remove All</a><p>Remove by page:</p>'+btnhtml2);
 		});	
 
 		//upgrade to pro

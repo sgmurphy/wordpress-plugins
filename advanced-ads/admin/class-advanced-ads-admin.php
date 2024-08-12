@@ -130,6 +130,7 @@ class Advanced_Ads_Admin {
 	public function wp_plugins_loaded_ajax() {
 		// needed here in order to work with Quick Edit option on ad list page.
 		Advanced_Ads_Admin_Ad_Type::get_instance();
+		new Advanced_Ads\Admin\Post_List();
 
 		add_action( 'wp_ajax_advads_load_rss_widget_content', [ 'Advanced_Ads_Admin_Meta_Boxes', 'dashboard_widget_function_output' ] );
 	}

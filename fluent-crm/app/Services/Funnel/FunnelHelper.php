@@ -892,4 +892,21 @@ class FunnelHelper
         return null;
     }
 
+    public static function getFunnelSubscriberStatus($defaultStatus, $funnel, $subscriber)
+    {
+        if ($defaultStatus == 'active' || $defaultStatus == 'waiting') {
+            return $defaultStatus;
+        }
+
+        $processableStatuses = ['subscribed', 'transactional'];
+        if (in_array($subscriber->status, $processableStatuses, true)) {
+            return 'active';
+        }
+
+        if (Arr::get($funnel->settings, '__force_run_actions') == 'yes') {
+            return 'active';
+        }
+
+        return $defaultStatus;
+    }
 }

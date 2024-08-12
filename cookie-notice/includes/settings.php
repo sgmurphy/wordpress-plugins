@@ -1050,11 +1050,11 @@ class Cookie_Notice_Settings {
 				</h2>
 				<div id="refuse_head" class="refuse-code-tab' . ( $active === 'head' ? ' active' : '' ) . '">
 					<p class="description">' . esc_html__( 'The code to be used in your site header, before the closing head tag.', 'cookie-notice' ) . '</p>
-					<textarea name="cookie_notice_options[refuse_code_head]" class="large-text" cols="50" rows="8">' . html_entity_decode( trim( wp_kses( $cn->options['general']['refuse_code_head'], $cn->get_allowed_html( 'head' ) ) ) ) . '</textarea>
+					<textarea name="cookie_notice_options[refuse_code_head]" class="large-text" cols="50" rows="8">' . esc_textarea( html_entity_decode( trim( wp_kses( $cn->options['general']['refuse_code_head'], $cn->get_allowed_html( 'head' ) ) ) ) ) . '</textarea>
 				</div>
 				<div id="refuse_body" class="refuse-code-tab' . ( $active === 'body' ? ' active' : '' ) . '">
 					<p class="description">' . esc_html__( 'The code to be used in your site footer, before the closing body tag.', 'cookie-notice' ) . '</p>
-					<textarea name="cookie_notice_options[refuse_code]" class="large-text" cols="50" rows="8">' . html_entity_decode( trim( wp_kses( $cn->options['general']['refuse_code'], $cn->get_allowed_html( 'body' ) ) ) ) . '</textarea>
+					<textarea name="cookie_notice_options[refuse_code]" class="large-text" cols="50" rows="8">' . esc_textarea( html_entity_decode( trim( wp_kses( $cn->options['general']['refuse_code'], $cn->get_allowed_html( 'body' ) ) ) ) ) . '</textarea>
 				</div>
 			</div>
 			<p class="description">' . esc_html__( 'Enter non functional cookies Javascript code here (for e.g. Google Analitycs) to be used after the visitor consent is given.', 'cookie-notice' ) . '</p>
@@ -1719,7 +1719,7 @@ class Cookie_Notice_Settings {
 			if ( isset( $input['link_target'] ) ) {
 				$input['link_target'] = sanitize_key( $input['link_target'] );
 
-				if ( ! array_key_exists( $input['link_target'], $this->link_targets ) )
+				if ( ! in_array( $input['link_target'], $this->link_targets, true ) )
 					$input['link_target'] = $cn->defaults['general']['link_target'];
 			} else
 				$input['link_target'] = $cn->defaults['general']['link_target'];

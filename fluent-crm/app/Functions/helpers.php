@@ -483,6 +483,7 @@ function fluentcrm_subscriber_statuses($isOptions = false)
         'subscribed',
         'pending',
         'unsubscribed',
+        'transactional',
         'bounced',
         'complained'
     ]);
@@ -494,11 +495,12 @@ function fluentcrm_subscriber_statuses($isOptions = false)
     $formattedStatues = [];
 
     $transMaps = [
-        'subscribed'   => __('Subscribed', 'fluent-crm'),
-        'pending'      => __('Pending', 'fluent-crm'),
-        'unsubscribed' => __('Unsubscribed', 'fluent-crm'),
-        'bounced'      => __('Bounced', 'fluent-crm'),
-        'complained'   => __('Complained', 'fluent-crm')
+        'subscribed'    => __('Subscribed', 'fluent-crm'),
+        'pending'       => __('Pending', 'fluent-crm'),
+        'unsubscribed'  => __('Unsubscribed', 'fluent-crm'),
+        'transactional' => __('Transactional', 'fluent-crm'),
+        'bounced'       => __('Bounced', 'fluent-crm'),
+        'complained'    => __('Complained', 'fluent-crm'),
     ];
 
     foreach ($statuses as $status) {
@@ -539,13 +541,13 @@ function fluentcrm_subscriber_editable_statuses($isOptions = false)
     }
 
     $formattedStatues = [];
-
     $transMaps = [
-        'subscribed'   => __('Subscribed', 'fluent-crm'),
-        'pending'      => __('Pending', 'fluent-crm'),
-        'unsubscribed' => __('Unsubscribed', 'fluent-crm'),
-        'bounced'      => __('Bounced', 'fluent-crm'),
-        'complained'   => __('Complained', 'fluent-crm')
+        'subscribed'    => __('Subscribed', 'fluent-crm'),
+        'pending'       => __('Pending', 'fluent-crm'),
+        'unsubscribed'  => __('Unsubscribed', 'fluent-crm'),
+        'transactional' => __('Transactional', 'fluent-crm'),
+        'bounced'       => __('Bounced', 'fluent-crm'),
+        'complained'    => __('Complained', 'fluent-crm')
     ];
 
     foreach ($editableStatuses as $status) {
@@ -951,9 +953,14 @@ function fluentcrm_get_current_contact()
     return FluentCrmApi('contacts')->getCurrentContact(true, true);
 }
 
-function fluentcrm_menu_url_base()
+function fluentcrm_menu_url_base($ext = '')
 {
-    return apply_filters('fluent_crm/menu_url_base', admin_url('admin.php?page=fluentcrm-admin#/'));
+    $url = apply_filters('fluent_crm/menu_url_base', admin_url('admin.php?page=fluentcrm-admin#/'));
+    if($ext) {
+        $url .= $ext;
+    }
+
+    return $url;
 }
 
 /**
@@ -1398,11 +1405,41 @@ function fluentCrmSetOptionCache($key, $value, $expire = 60)
     return fluentCrmSetCache($key, $value, $expire);
 }
 
+function fluentCrmPersistentCache($key, $callback = false, $expire = 600)
+{
+    $meta = Meta::where('object_type', 'persistent_cache')
+        ->where('key', $key)->first();
+
+    if ($meta && strtotime($meta->updated_at) >= (current_time('timestamp') - $expire)) {
+        return $meta->value;
+    }
+
+    if ($callback) {
+        $value = $callback();
+        if ($meta) {
+            $meta->value = $value;
+            $meta->updated_at = current_time('mysql');
+            $meta->save();
+            return $value;
+        }
+
+        Meta::create([
+            'object_type' => 'persistent_cache',
+            'key'         => $key,
+            'value'       => $value
+        ]);
+
+        return $value;
+    }
+
+    return null;
+}
+
+
 function fluentCrmAutoProcessCampaignTypes()
 {
     return ['campaign', 'recurring_mail'];
 }
-
 
 function fluentCrmRunTimeCache($key, $value = NULL)
 {
@@ -1440,4 +1477,17 @@ if (!function_exists('fluentCrmMaxRunTime')) {
 
         return apply_filters('fluent_crm/max_run_time', $maxRunTime);
     }
+}
+
+function fluentCrmIsTimeOut($maxSeconds = 30)
+{
+    return microtime(true) - FLUENT_CRM_STARTING_TIME > $maxSeconds;
+}
+
+function fluentCrmEmailSendableStatuses()
+{
+    return apply_filters('fluent_crm/email_sendable_statuses', [
+        'subscribed',
+        'transactional'
+    ]);
 }

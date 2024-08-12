@@ -426,6 +426,7 @@ class ULTP_Initialization {
         }
         $is_active = ultimate_post()->is_lc_active();
         $post_type = get_post_type();
+
         wp_localize_script( 'ultp-blocks-editor-script', 'ultp_data', array(
             'url' => ULTP_URL,
             'ajax' => admin_url('admin-ajax.php'),
@@ -446,7 +447,7 @@ class ULTP_Initialization {
             'category_url' =>admin_url( 'edit-tags.php?taxonomy=category' ),
             'disable_image_size' => ultimate_post()->get_setting('disable_image_size'),
             'dark_logo' => get_option('ultp_site_dark_logo') ? get_option('ultp_site_dark_logo') : false,
-            'builder_url' => admin_url('admin.php?page=ultp-settings#builder')
+            'builder_url' => admin_url('admin.php?page=ultp-settings#builder'),
         ));
         wp_set_script_translations( 'ultp-blocks-editor-script', 'ultimate-post', ULTP_PATH . 'languages/' );
     }
@@ -475,6 +476,7 @@ class ULTP_Initialization {
             'ultp_elementor'    => 'true',
             'ultp_table_of_content'=> 'true',
             'ultp_builder'      => 'true',
+            'ultp_dynamic_content' => 'true',
             'ultp_custom_font'  => 'true',
             'ultp_chatgpt'      => 'true',
             'post_grid_1'       => 'yes',
@@ -572,6 +574,8 @@ class ULTP_Initialization {
         require_once ULTP_PATH.'blocks/Advanced_Search.php';
         require_once ULTP_PATH.'blocks/Advanced_Filter.php';
         require_once ULTP_PATH.'blocks/Dark_Light.php';
+        require_once ULTP_PATH.'blocks/Advanced_List.php';
+        require_once ULTP_PATH.'blocks/Button.php';
         
         $this->all_blocks['ultimate-post_post-list-1'] = new \ULTP\blocks\Post_List_1();
         $this->all_blocks['ultimate-post_post-list-2'] = new \ULTP\blocks\Post_List_2();
@@ -595,6 +599,8 @@ class ULTP_Initialization {
         $this->all_blocks['ultimate-post_news-ticker'] = new \ULTP\blocks\Advanced_Search();
         $this->all_blocks['ultimate-post_advanced-filter'] = new \ULTP\blocks\Advanced_Filter();
         $this->all_blocks['ultimate-post_dark-light'] = new \ULTP\blocks\Dark_Light();
+        $this->all_blocks['ultimate-post_advanced-list'] = new \ULTP\blocks\Advanced_List();
+        $this->all_blocks['ultimate-post_button'] = new \ULTP\blocks\Button();
 
         if ( ultimate_post()->get_setting('ultp_builder') == 'true' ) {
             require_once ULTP_PATH.'addons/builder/blocks/Archive_Title.php';
@@ -1095,27 +1101,6 @@ class ULTP_Initialization {
     }
 
     /**
-	 * update_block_attrUpdate Block Attr for Pagination Loadmore and Navigation
-     * 
-     * @since v.3.1.1
-	 */
-    function update_block_attr($postId, $blocks, $key, $widgetBlockId ) {
-        if( $widgetBlockId ) {
-            $widget_blocks = get_option('widget_block');
-            $block_parsed = parse_blocks($widget_blocks[$widgetBlockId]['content']);
-            $block_parsed[$key]['attrs']['currentPostId'] = 'widgets';
-            $widget_blocks[$widgetBlockId]['content'] = serialize_blocks($block_parsed);
-            update_option('widget_block', str_replace('u0022', '\u0022', $widget_blocks));
-        } else {
-            $blocks[$key]['attrs']['currentPostId'] = $postId;
-            wp_update_post(array(
-                'ID' => $postId,
-                'post_content' => str_replace('u0022', '\u0022', serialize_blocks($blocks))
-            ));
-        }
-    }
-
-    /**
 	 * Blocks Content Start
      * 
      * @since v.1.0.0
@@ -1210,7 +1195,7 @@ class ULTP_Initialization {
         $tag_text = 'Stable tag:';
         if ( !empty($changelog_lines) ) {
             echo '<hr style="border-color:#dba617;"/>';
-            echo '<div style="color:#50575e;font-size:13px;font-weight:bold;"> <span style="color:#f56e28;" class="dashicons dashicons-warning"></span> ' . esc_html('PostX is ready for the next update. Changelog:-') . '</div>';
+            echo '<div style="color:#50575e;font-size:13px;font-weight:bold;"> <span style="color:#f56e28;" class="dashicons dashicons-warning"></span> ' . esc_html_e("PostX is ready for the next update. Changelog:-", "ultimate-post" ) . '</div>';
             echo '<hr style="border-color:#dba617;"/>';
             echo '<ul style="max-height:200px;overflow:scroll;">';
             foreach ( $changelog_lines as $key => $line ) {

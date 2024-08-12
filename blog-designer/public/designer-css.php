@@ -464,7 +464,8 @@ $custom_css                     = get_option( 'custom_css' );
 	}
 	/** 12.0 - Crayon Slider Template */
 		<?php
-		if ( 'design2' == $settings['slider_design_type'] ) {
+		if ( isset($settings['slider_design_type']) && 'design2' == $settings['slider_design_type'] ) {
+				
 			?>
 		.bdp_blog_template.crayon_slider .blog_header { 
 			width: 100%;

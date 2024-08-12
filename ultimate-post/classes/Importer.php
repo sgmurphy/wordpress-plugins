@@ -31,20 +31,6 @@ class Importer {
     public function get_starter_rest_endpoint_callback() {
         register_rest_route(
             'ultp/v3',
-            '/testing_importer/',
-            array(
-                array(
-                    'methods'  => 'POST',
-                    'callback' => array($this, 'testing_importer'),
-                    'permission_callback' => function () {
-                        return current_user_can('manage_options');
-                    },
-                    'args' => array()
-                )
-            )
-        );
-        register_rest_route(
-            'ultp/v3',
             '/single_page_import/',
             array(
                 array(
@@ -764,8 +750,7 @@ class Importer {
 	*/
     public function upload_post_cat_media($src, $post_id, $title ) {
         if ( !$src ) {  
-            return 0; 
-            // $src = ULTP_URL.'assets/img/ultp-fallback-img.png';
+            return 0;
         }
 
         require_once(ABSPATH . 'wp-admin/includes/media.php');
@@ -775,17 +760,5 @@ class Importer {
         $image_id = media_sideload_image( $src, $post_id, $title, 'id' );
         update_post_meta($image_id, '__ultp_starter_pack_post', true);
         return $image_id;
-    }
-
-    /**
-	 * Testing Rest Cases
-     * @since 4.0.0
-	*/
-    public function testing_importer($server) {
-        $menu_exists = wp_get_nav_menu_object( 'Test1' );
-        return rest_ensure_response([
-            'success' => true,
-            'menu_exists' => $menu_exists,
-        ]);
     }
 }

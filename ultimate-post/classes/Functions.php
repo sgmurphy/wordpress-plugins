@@ -29,15 +29,11 @@ class Functions{
 	 * @since v.1.0.0
 	 */
     public function __construct() {
-        // if (!isset($GLOBALS['ultp_settings'])) {
-        //     $GLOBALS['ultp_settings'] = get_option('ultp_options');
-        //     $GLOBALS['ultp_settings']['date_format'] = get_option('date_format');
-        //     $GLOBALS['ultp_settings']['time_format'] = get_option('time_format');
-        // }
+        
     }
 
     /**
-     * Gets the instance of \WOPB\Functions class
+     * Gets the instance of \ULTP\Functions class
      * 
      * @return Functions
      * @since v.3.2.4
@@ -46,8 +42,6 @@ class Functions{
     {
         if (!isset ($GLOBALS['ultp_settings'])) {
             $GLOBALS['ultp_settings'] = get_option('ultp_options');
-            // $GLOBALS['ultp_settings']['date_format'] = get_option('date_format');
-            // $GLOBALS['ultp_settings']['time_format'] = get_option('time_format');
         }
 
         if (is_null(self::$instance)) {
@@ -2382,29 +2376,6 @@ class Functions{
     }
 
     /**
-	 * Get transient without cache
-     * 
-     * @since v.2.9.12
-     * @param STRING | No result found text
-	 * @return STRING | Taxonomy Lists as array
-	 */
-    public function get_tran($option_key = '') {
-        global $wpdb;
-        $key = '_transient_'.$option_key;
-        $time = '_transient_timeout_'.$option_key;
-        $key_data = $wpdb->get_var( $wpdb->prepare( "SELECT `option_value` FROM {$wpdb->options} WHERE `option_name` = %s", $key ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-        $time_data = $wpdb->get_var( $wpdb->prepare( "SELECT `option_value` FROM {$wpdb->options} WHERE `option_name` = %s", $time ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-        
-        if ( $time_data && $time_data < time() ) {
-            delete_option( $key );
-            delete_option( $time );
-            return '';
-        } else {
-            return $key_data;
-        }
-    }
-
-    /**
 	 * Get ID from the Youtube URL
      * 
      * @since v.3.1.7
@@ -2755,4 +2726,18 @@ class Functions{
             ) 
             : $def_value;
     }
+
+    /**
+     * Checks if dynamic content is active
+     * @since v.4.1.1
+     * 
+     * @return boolean
+     */
+    public function is_dc_active(&$attr) {
+        if (class_exists('\ULTP\DCService')) {
+            return \ULTP\DCService::is_dc_active($attr);
+        }
+        return false;
+    }
+
 }

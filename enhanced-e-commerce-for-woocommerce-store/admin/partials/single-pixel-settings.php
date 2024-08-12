@@ -190,7 +190,7 @@ if ($subscriptionId != "") {
                         <p>But as a pro user, you gain full control by integrating your own GTM account. Unlock 76+
                             pre-built tags and triggers, along with powerful data layer automation.</p>
                         <p><a class="conv-link-blue" target="_blank"
-                                href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=inapp&utm_medium=gtm_heroblock&utm_campaign=benefitsofowngtm">Upgrade
+                                href="https://www.conversios.io/pricing/?utm_source=inapp&utm_medium=gtm_heroblock&utm_campaign=benefitsofowngtm">Upgrade
                                 now for ultimate customization and optimization!</a></p>
                         <ol>
                             <li><b>Faster Page Speed:</b> Optimize your site with your own GTM container for
@@ -345,58 +345,6 @@ if ($subscriptionId != "") {
     </div>
 </div>
 <!-- Success Save Modal End -->
-
-
-
-<!-- Upgrade to PRO modal -->
-<div class="modal fade" id="upgradetopromodal" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-
-            <div class="modal-body p-4 pb-0">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <h3 class="fw-bold text-uppercase pt-0 d-flex"><img
-                                    style="height:29px;max-width:100%;margin-right: 10px;"
-                                    src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge_big.png'); ?>" />
-                                <?php esc_html_e("Upgrade to Pro now and enjoy exclusive benefits:", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            <ul class="conv-upgrade-banner-list ps-4 pt-4">
-                                <li>Take advantage of <span>Google Consent Mode V2</span> for enhanced tracking across
-                                    all platforms.</li>
-                                <li>Use your <span>own GTM container</span> with automated tag triggers.</li>
-                                <li>Optimize <span>Google Ads conversion tracking</span> for Add To Cart and Begin
-                                    Checkout.</li>
-                                <li>Enable <span>Dynamic Remarketing</span> Tags for View_item, Add_to_cart,
-                                    Begin_checkout, Purchase.</li>
-                                <li>Integrate seamlessly with <span>FBCAPI, Snapchat CAPI, and TikTok Events API</span>.
-                                </li>
-                                <li>Access detailed <span>GA4 e-commerce reporting</span>.</li>
-                                <li>Maximize results with <span>Google Ads conversion reporting</span>.</li>
-                                <li>Expand your reach with <span>unlimited product feed</span> for Google Merchant
-                                    Center, FB Catalogue, and TikTok.</li>
-                                <li>Experience dedicated <span>customer support</span>.</li>
-                                <li>Implement <span>server-side tagging</span> for enhanced performance.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer border-0 pb-4 mb-1 pt-4">
-                <a id="upgradetopro_modal_link" class="btn conv-yellow-bg m-auto w-100 mx-4 p-2"
-                    href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=upgrade"
-                    target="_blank">
-                    <?php esc_html_e("Upgrade Now", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Upgrade to PRO modal End -->
-
 
 
 <script>

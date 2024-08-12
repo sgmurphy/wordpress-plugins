@@ -62,7 +62,7 @@
 						{
 						autoplay:false,
 						infinite:false,
-						delay: '3000',
+						delay: '5000',
 						speed: '750',
 						animation: 'horizontal',
 						arrows: showarrows,

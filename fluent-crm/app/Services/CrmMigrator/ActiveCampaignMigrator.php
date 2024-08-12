@@ -169,7 +169,8 @@ class ActiveCampaignMigrator extends BaseMigrator
 
         $api = $this->getApi($postedData['credential']);
 
-        $page = Arr::get($postedData, 'completed', 1);
+        // Initialize or retrieve the current offset
+        $offset = Arr::get($postedData, 'completed', 0);
 
         $tagMappings = Arr::get($postedData, 'tags', []);
 
@@ -184,18 +185,18 @@ class ActiveCampaignMigrator extends BaseMigrator
             $subscribedOnly = true;
         }
 
+        // Prepare the API parameters
         $params = [
-            'offset' => empty( $page ) ? 0 : $page + 100,
+            'offset' => $offset,
             'status' => $subscribedOnly ? '1' : '-1',
         ];
         $subscribers = $api->getContacts($params);
 
         if (is_wp_error($subscribers)) {
-
-            if ($page > 1) {
+            if ($offset > 0) {
                 return [
-                    'completed'     => 1,
-                    'total'         => 1,
+                    'completed'     => $offset,
+                    'total'         => $offset,
                     'has_more'      => false,
                     'hide_progress' => true
                 ];
@@ -304,11 +305,11 @@ class ActiveCampaignMigrator extends BaseMigrator
         }
 
         return [
-            'completed'     => $page + 100,
-            'total'         => $page + 100,
-            'has_more'      => ! empty( $subscribers ),
+            'completed'     => $offset + 100,
+            'total'         => $offset + 100,
+            'has_more'      => !empty($subscribers),
             'hide_progress' => true,
-            'message'       => ($page + 100) . __(' contacts has been imported so far.', 'fluent-crm')
+            'message'       => ($offset + 100) . __(' contacts have been imported so far.', 'fluent-crm')
         ];
     }
 

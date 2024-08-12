@@ -45,7 +45,7 @@ if (isset($ee_options['facebook_setting']['fb_catalog_id']) === TRUE && $ee_opti
 
 
 if ($google_merchant_center_id === '' && $tiktok_business_account === '' && $facebook_catalog_id === '') {   
-    wp_safe_redirect("admin.php?page=conversios&wizard=productFeedOdd"); //Odd
+    wp_safe_redirect("admin.php?page=conversios-google-shopping-feed"); //Odd
     exit;
 }
 

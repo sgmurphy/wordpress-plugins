@@ -315,7 +315,7 @@ body {
             <!-- Main col8 center -->
             <div class="convfixedcontainermid col-8 col-xs-12 m-0 p-0">
                 <!-- Google Merchant card End -->
-                <div class="pt-4 pb-4 conv-heading-box">
+                <div id="conv_att_map" class="pt-4 pb-4 conv-heading-box">
                     <h3><?php esc_html_e("ATTRIBUTE MAPPING", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
                     <span><?php esc_html_e("At Conversios, we provide an automatic mapping feature that enables you to align the
                         categories
@@ -733,7 +733,7 @@ body {
                                 </label>
                                 <span>
                                     <a target="_blank"
-                                        href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=tiktok_banner&utm_campaign=pricing"><b>
+                                        href="https://www.conversios.io/pricing/?utm_source=woo_aiofree_plugin&utm_medium=tiktok_banner&utm_campaign=pricing"><b>
                                             Upgrade To Pro</b></a>
                                 </span>
                             </div>

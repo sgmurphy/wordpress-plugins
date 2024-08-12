@@ -432,7 +432,7 @@ if (class_exists('Conversios_Admin') === FALSE) {
             <p class="card-text" style="font-size: 1rem; margin-bottom: 1.5rem;">We're working hard to bring this
                 feature to you. Stay tuned!</p>
             <a target="_blank"
-                href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=use_your_own_gtm&utm_campaign=pixel_list"
+                href="https://www.conversios.io/pricing/?utm_source=woo_aiofree_plugin&utm_medium=use_your_own_gtm&utm_campaign=pixel_list"
                 class="btn btn-primary">Learn More</a>
         </div>
     </div>

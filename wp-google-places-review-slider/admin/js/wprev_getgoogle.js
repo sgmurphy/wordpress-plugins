@@ -3,9 +3,10 @@ function getgooglereviewsfunction(pagename) {
 
 	//launch pop-up for progress messages
 	openpopup("Downloading Reviews", "Retrieving Google Business reviews for Place ID: <b>"+pagename+"</b> and saving them to your Wordpress database...</br></br>","");
-
+		
 		var data = {
 			action		: 'wpfbr_google_reviews',
+			placeid		:	pagename,
 			_ajax_nonce		: adminjs_script_vars.wpfb_nonce,
 		};
 
@@ -77,6 +78,34 @@ function openpopup(title, body, body2){
 	 //document ready
 	 $(function(){
 		 jQuery(".select_google_api").val('mine');
+		 
+		 
+		//clear fields if this is a new location
+		var newlocation = getUrlParameter('newplace');
+		if(newlocation=="yes" && jQuery("#checksaved").val()!="yes" ){
+			jQuery("#google_location_txt").val("");
+			jQuery("#wpfbr_location").val("");
+			jQuery("#wpfbr_place_id").val("");
+			jQuery("#wpfbr_getgooglereviews").hide();
+	
+		}
+		
+		function getUrlParameter(sParam) {
+			var sPageURL = window.location.search.substring(1),
+				sURLVariables = sPageURL.split('&'),
+				sParameterName,
+				i;
+
+			for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
+
+				if (sParameterName[0] === sParam) {
+					return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+				}
+			}
+			return false;
+		};
+		
 		 
 		//function wpfbr_testapikey(pagename) {
 		jQuery("#wpfbr_testgooglekey").click(function(event){

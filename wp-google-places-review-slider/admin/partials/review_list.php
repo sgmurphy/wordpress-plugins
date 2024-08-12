@@ -79,6 +79,34 @@ $rowsperpage = 20;
 		}
 		
 	}
+	//delete by pageid
+	//$deletepageid = add_query_arg( 'delbypage', $reviewsrow->id,$currenturl );
+	//$deletepageid = esc_url( add_query_arg( '_wpnonce', $nonce, $deletepageid ) );
+	
+	if(isset($_GET['opt_type']) && $_GET['opt_type']=="page" && isset($_GET['opt'])){
+		//security
+		$nonce = $_REQUEST['_wpnonce'];
+		if ( ! wp_verify_nonce( $nonce, 'my-nonce' ) ) {
+			// This nonce is not valid.
+			die( __( 'Failed security check.', 'wp-google-reviews' ) ); 
+		}
+			$delpagename = $_GET['opt'];
+			//replace & or %26 with &amp;
+			$delpagename2 = str_replace("&", "&amp;", $delpagename);
+			
+			//make sure this is in the db for security
+			$reviews_table_name = $wpdb->prefix . 'wpfb_reviews';
+			$tempquery = "select pagename from ".$reviews_table_name." group by pagename";
+			$pagenamearray = $wpdb->get_col($tempquery);
+
+			if (in_array($delpagename2, $pagenamearray)){
+				$delete = $wpdb->query("DELETE FROM `".$table_name."` WHERE `pagename` = '".$delpagename2."'");
+			}
+			if (in_array($delpagename, $pagenamearray)){
+				$delete = $wpdb->query("DELETE FROM `".$table_name."` WHERE `pagename` = '".$delpagename."'");
+			}
+			
+	}
 	
 	//------------------------------------------
 	
@@ -317,12 +345,12 @@ _e('Search reviews, hide certain reviews, manually add reviews, download a CSV f
 		$tablelimit = $lowlimit.",".$rowsperpage;
 		$reviewsrows = $wpdb->get_results(
 			$wpdb->prepare("SELECT * FROM ".$table_name."
-			WHERE id>%d
+			WHERE id>%d AND type = 'Google' 
 			ORDER BY ".$sorttable." ".$sortdir." 
 			LIMIT ".$tablelimit." ", "0")
 		);
 		//total number of rows
-		$reviewtotalcount = $wpdb->get_var( 'SELECT COUNT(*) FROM '.$table_name );
+		$reviewtotalcount = $wpdb->get_var( "SELECT COUNT(*) FROM ".$table_name." WHERE type = 'Google' " );
 		//total pages
 		$totalpages = ceil($reviewtotalcount/$rowsperpage);
 		
@@ -351,7 +379,9 @@ _e('Search reviews, hide certain reviews, manually add reviews, download a CSV f
 				
 				//security
 				$editurl = esc_url( add_query_arg( '_wpnonce', $nonce, $editurl ) );
-				$deleteurl = esc_url( add_query_arg( '_wpnonce', $nonce,$deleteurl ) );
+				$deleteurl = esc_url( add_query_arg( '_wpnonce', $nonce, $deleteurl ) );
+				
+				
 				
 				//get userimages
 				$mediahtml ='';

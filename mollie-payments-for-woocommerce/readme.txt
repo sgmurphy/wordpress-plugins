@@ -2,8 +2,8 @@
 Contributors: daanvm, danielhuesken, davdebcom, dinamiko, syde, l.vangunst, ndijkstra, robin-mollie, wido, carmen222, inpsyde-maticluznar
 Tags: mollie, payments, payment gateway, woocommerce, credit card, apple pay, ideal, bancontact, klarna, sofort, woocommerce subscriptions 
 Requires at least: 3.8
-Tested up to: 6.5
-Stable tag: 7.6.0
+Tested up to: 6.6
+Stable tag: 7.7.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -219,6 +219,13 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 
 
 == Changelog ==
+
+= 7.7.0 - 12-08-2024 =
+
+* Added - Payconiq payment method 
+* Added - Riverty payment method 
+* Fix - Declaring compatibility in WP Editor 
+* Security - Enhanced object reference security
 
 = 7.6.0 - 10-07-2024 =
 

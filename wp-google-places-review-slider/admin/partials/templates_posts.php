@@ -35,8 +35,8 @@
 	$currenttemplate->rtype ="";
 	$currenttemplate->rpage ="";
 	$currenttemplate->showreviewsbyid ="";
-	$currenttemplate->createslider ="";
-	$currenttemplate->numslides ="";
+	$currenttemplate->createslider ="yes";
+	$currenttemplate->numslides ="3";
 	$currenttemplate->sliderautoplay ="";
 	$currenttemplate->sliderdirection ="";
 	$currenttemplate->sliderarrows ="";
@@ -102,6 +102,10 @@
 		
 		$read_more = sanitize_text_field($_POST['wprevpro_t_read_more']);
 		$read_more_text = sanitize_text_field($_POST['wprevpro_t_read_more_text']);
+		
+		$review_same_height = sanitize_text_field($_POST['wprevpro_t_review_same_height']);
+		
+
 		$slidermobileview ="";
 		if(isset($_POST['wprevpro_slidermobileview'])){
 		$slidermobileview = sanitize_text_field($_POST['wprevpro_slidermobileview']);
@@ -132,22 +136,66 @@
 		$templatemiscarray['showmedia']=sanitize_text_field($_POST['wprevpro_t_showmedia']);
 		$templatemiscarray['verified']=sanitize_text_field($_POST['wprevpro_template_misc_verified']);
 		
+		//badge options
+		$templatemiscarray['blocation']=sanitize_text_field($_POST['wprevpro_t_blocation']);
+		$templatemiscarray['filtersource']=sanitize_text_field($_POST['wprevpro_t_filtersource']);
 		
-		/*
-		$templatemiscarray['showstars']=sanitize_text_field($_POST['wprevpro_template_misc_showstars']);
-		$templatemiscarray['showdate']=sanitize_text_field($_POST['wprevpro_template_misc_showdate']);
-		$templatemiscarray['avataropt']=sanitize_text_field($_POST['wprevpro_template_misc_avataropt']);
-		$templatemiscarray['showicon']=sanitize_text_field($_POST['wprevpro_template_misc_showicon']);
-		$templatemiscarray['bgcolor1']=sanitize_text_field($_POST['wprevpro_template_misc_bgcolor1']);
-		$templatemiscarray['bgcolor2']=sanitize_text_field($_POST['wprevpro_template_misc_bgcolor2']);
-		$templatemiscarray['tcolor1']=sanitize_text_field($_POST['wprevpro_template_misc_tcolor1']);
-		$templatemiscarray['tcolor2']=sanitize_text_field($_POST['wprevpro_template_misc_tcolor2']);
-		$templatemiscarray['tcolor3']=sanitize_text_field($_POST['wprevpro_template_misc_tcolor3']);
-		$templatemiscarray['bradius']=sanitize_text_field($_POST['wprevpro_template_misc_bradius']);
-		$templatemiscarray['showmedia']=sanitize_text_field($_POST['wprevpro_t_showmedia']);
-		$templatemiscarray['verified']=sanitize_text_field($_POST['wprevpro_template_misc_verified']);
-		*/
+		if(isset($_POST['wprevpro_t_bhreviews'])){
+			$templatemiscarray['bhreviews']=sanitize_text_field($_POST['wprevpro_t_bhreviews']);
+		}
+		if(isset($_POST['wprevpro_t_bhbtn'])){
+			$templatemiscarray['bhbtn']=sanitize_text_field($_POST['wprevpro_t_bhbtn']);
+		}
+		if(isset($_POST['wprevpro_t_bhbased'])){
+			$templatemiscarray['bhbased']=sanitize_text_field($_POST['wprevpro_t_bhbased']);
+		}
+		if(isset($_POST['wprevpro_t_bhphoto'])){
+			$templatemiscarray['bhphoto']=sanitize_text_field($_POST['wprevpro_t_bhphoto']);
+		}
+		if(isset($_POST['wprevpro_t_bhname'])){
+			$templatemiscarray['bhname']=sanitize_text_field($_POST['wprevpro_t_bhname']);
+		}
+		if(isset($_POST['wprevpro_t_bcenter'])){
+			$templatemiscarray['bcenter']=sanitize_text_field($_POST['wprevpro_t_bcenter']);
+		}
+		if(isset($_POST['wprevpro_t_bdropsh'])){
+			$templatemiscarray['bdropsh']=sanitize_text_field($_POST['wprevpro_t_bdropsh']);
+		}
+		if(isset($_POST['wprevpro_t_bhpow'])){
+			$templatemiscarray['bhpow']=sanitize_text_field($_POST['wprevpro_t_bhpow']);
+		}
 		
+		//more slider options.
+		$templatemiscarray['slideautodelay']=sanitize_text_field($_POST['wpfbr_t_slideautodelay']);
+		$templatemiscarray['slidespeed']=sanitize_text_field($_POST['wpfbr_t_slidespeed']);
+		if(isset($_POST['wprevpro_sliderautoplay'])){
+			$templatemiscarray['sliderautoplay']=sanitize_text_field($_POST['wprevpro_sliderautoplay']);
+		}
+		if(isset($_POST['wprevpro_sliderhideprevnext'])){
+			$templatemiscarray['sliderhideprevnext']=sanitize_text_field($_POST['wprevpro_sliderhideprevnext']);
+		}
+		if(isset($_POST['wprevpro_sliderhidedots'])){
+			$templatemiscarray['sliderhidedots']=sanitize_text_field($_POST['wprevpro_sliderhidedots']);
+		}
+		if(isset($_POST['wprevpro_sliderfixedheight'])){
+			$templatemiscarray['sliderfixedheight']=sanitize_text_field($_POST['wprevpro_sliderfixedheight']);
+		}
+		
+		$templatemiscarray['bbradius']=sanitize_text_field($_POST['wprevpro_t_bbradius']);
+		$templatemiscarray['bbkcolor']=sanitize_text_field($_POST['wprevpro_t_bbkcolor']);
+		$templatemiscarray['bbtnurl']=sanitize_text_field($_POST['wprevpro_t_bbtnurl']);
+		$templatemiscarray['bbtncolor']=sanitize_text_field($_POST['wprevpro_t_bbtncolor']);
+		$templatemiscarray['bimgurl']=sanitize_text_field($_POST['wprevpro_t_bimgurl']);
+		$templatemiscarray['bshape']=sanitize_text_field($_POST['wprevpro_t_bshape']);
+		$templatemiscarray['bimgsize']=sanitize_text_field($_POST['wprevpro_t_bimgsize']);
+		$templatemiscarray['bname']=sanitize_text_field($_POST['wprevpro_t_bname']);
+		$templatemiscarray['bnameurl']=sanitize_text_field($_POST['wprevpro_t_bnameurl']);
+		$templatemiscarray['blocation']=sanitize_text_field($_POST['wprevpro_t_blocation']);
+
+		//read more
+		$templatemiscarray['read_more_num']=sanitize_text_field($_POST['wprevpro_t_read_more_num']);
+
+
 		$templatemiscjson = json_encode($templatemiscarray);
 		
 		
@@ -201,6 +249,7 @@
 				'read_more' => "$read_more",
 				'read_more_text' => "$read_more_text",
 				'slidermobileview' => "$slidermobileview",
+				'review_same_height' => "$review_same_height",
 				);
 			$format = array( 
 					'%s',
@@ -224,6 +273,7 @@
 					'%s',
 					'%s',
 					'%d',
+					'%s',
 					'%s',
 					'%s',
 					'%s',
@@ -265,7 +315,7 @@
 	
 	//-------------------------------------------------------
 	
-	
+
 	
 	//check to see if reviews are in database
 	//total number of rows
@@ -280,15 +330,16 @@
 	
 ?>
 <div class="">
-<h1></h1>
+
 <div class="wrap" id="wp_rev_maindiv">
+<h1 class=""></h1>
 <img class="wprev_headerimg" src="<?php echo plugin_dir_url( __FILE__ ) . 'logo.png'; ?>">
 <?php 
 include("tabmenu.php");
 ?>	
 <div class="wpfbr_margin10">
 	<a id="wpfbr_helpicon_posts" class="wpfbr_btnicononly button dashicons-before dashicons-editor-help"></a>
-	<a id="wpfbr_addnewtemplate" class="button dashicons-before dashicons-plus-alt"><?php _e('Add New Reviews Template', 'wp-google-reviews'); ?></a>
+	<a id="wpfbr_addnewtemplate" class="button dashicons-before dashicons-plus-alt"> <?php _e('Add New Reviews Template', 'wp-google-reviews'); ?></a>
 </div>
 
 <?php
@@ -308,8 +359,13 @@ echo $dbmsg;
 	$haswidgettemplate = false;	//for hiding widget type, going to be phasing widget types out.
 	foreach ( $currentforms as $currentform ) 
 	{
-	//remove query args we just used
-	$urltrimmed = remove_query_arg( array('taction', 'id') );
+		//delete any that are missing a name.
+		if($currentform->title==""){
+			$wpdb->delete( $table_name, array( 'id' => $currentform->id ), array( '%d' ) );
+		}
+		
+		//remove query args we just used
+		$urltrimmed = remove_query_arg( array('taction', 'id') );
 		$tempeditbtn =  add_query_arg(  array(
 			'taction' => 'edit',
 			'tid' => "$currentform->id",
@@ -327,14 +383,21 @@ echo $dbmsg;
 		if($currentform->template_type=='widget'){
 			$haswidgettemplate = true;
 		}	
-		
+		if($currentform->title!=""){
 		$html .= '<tr id="'.$currentform->id.'">
 				<th scope="col" class="wpfbr_upgrade_needed manage-column">'.$currentform->id.'</th>
 				<th scope="col" class="wpfbr_upgrade_needed manage-column"><b>'.$currentform->title.'</b></th>
 				<th scope="col" class="wpfbr_upgrade_needed manage-column">'.date("F j, Y",$currentform->created_time_stamp) .'</th>
-				<th scope="col" class="manage-column" templateid="'.$currentform->id.'" templatetype="'.$currentform->template_type.'"><a href="'.$url_tempeditbtn.'" class="button button-primary dashicons-before dashicons-admin-generic">'.__('Edit', 'wp-google-reviews').'</a> <a href="'.$url_tempdelbtn.'" class="button button-secondary dashicons-before dashicons-trash">'.__('Delete', 'wp-google-reviews').'</a> <a class="wpfbr_displayshortcode button button-secondary dashicons-before dashicons-visibility">'.__('Shortcode', 'wp-google-reviews').'</a></th>
+				<th scope="col" class="manage-column" templateid="'.$currentform->id.'" templatetype="'.$currentform->template_type.'"><a href="'.$url_tempeditbtn.'" class="button button-primary dashicons-before dashicons-admin-generic"> '.__('Edit', 'wp-google-reviews').'</a> <a href="'.$url_tempdelbtn.'" class="button button-secondary dashicons-before dashicons-trash"> '.__('Delete', 'wp-google-reviews').'</a> <a class="wpfbr_displayshortcode button button-secondary dashicons-before dashicons-visibility"> '.__('Shortcode', 'wp-google-reviews').'</a></th>
 			</tr>';
-	}	
+		}
+	}
+	if($reviewtotalcount<1){
+		$html .= "<tr><th colspan=4>".__('Please download some reviews on the "Get Google Reviews" page.', 'wp-google-reviews')."</th></tr>";
+	} else if(count($currentforms)<1){
+		$html .= "<tr><th colspan=4>".__('Use the "Add New Reviews Template" button to create a review slider or grid for your site. ', 'wp-google-reviews')."</th></tr>";
+	}
+	
 		$html .= '</tbody></table>';
 			
  echo $html;			
@@ -347,12 +410,10 @@ echo $dbmsg;
 		<tbody>
 			<tr class="wpfbr_row">
 				<th scope="row">
-					<?php _e('Template Title:', 'wp-google-reviews'); ?>
+					* <?php _e('Template Title:', 'wp-google-reviews'); ?>
 				</th>
 				<td>
-					<input id="wpfbr_template_title" data-custom="custom" type="text" name="wpfbr_template_title" placeholder="" value="<?php echo $currenttemplate->title; ?>" required>
-					<p class="description">
-					<?php _e('Enter a title or name for this template.', 'wp-google-reviews'); ?>		</p>
+					<input id="wpfbr_template_title" data-custom="custom" type="text" name="wpfbr_template_title" placeholder="<?php _e('Enter a title/name', 'wp-google-reviews'); ?>" value="<?php echo $currenttemplate->title; ?>" required>
 				</td>
 			</tr>
 			<tr <?php if($haswidgettemplate==false){echo "style='display:none;'";} ?> class="wpfbr_row">
@@ -371,19 +432,23 @@ echo $dbmsg;
 					<?php _e('Are you going to use this on a Page/Post or in a Widget area like your sidebar?', 'wp-google-reviews'); ?></p>
 				</td>
 			</tr>
+		</table>
 			
-			
-			
-<tr class="wprevpro_row">
-				<th scope="row">
-					<?php _e('Template Style Settings:', 'wp-google-reviews'); ?>
-				</th>
+
+<h2 class="nav-tab-wrapper">
+	<span id="settingtab0" class="settingtab nav-tab cursorpointer gotopage0 nav-tab-active">Template Style</span>
+	<span id="settingtab1" class="settingtab nav-tab cursorpointer gotopage1">General Settings</span>
+	<span id="settingtab2" class="settingtab nav-tab cursorpointer gotopage2">Filter Settings</span>
+	<span id="settingtab3" class="settingtab nav-tab cursorpointer gotopage3">Badge Settings</span>
+</h2>
+<table id="settingtable0" class="form-table settingstable ">
+	<tr class="wprevpro_row">
 				<td>
 					<div class="w3_wprs-row">
 						  <div class="w3_wprs-col s6">
 							<div class="w3_wprs-col s6">
 								<div class="wprevpre_temp_label_row">
-								<?php _e('Template Style:', 'wp-google-reviews'); ?>
+								<?php _e('Style:', 'wp-google-reviews'); ?>
 								</div>
 								<div class="wprevpre_temp_label_row">
 								<?php _e('Show Stars:', 'wp-google-reviews'); ?>
@@ -438,16 +503,16 @@ echo $dbmsg;
 					$template_misc_array['tcolor2']="";
 					$template_misc_array['tcolor3']="";
 					$template_misc_array['bradius']="0";
-					$template_misc_array['showicon']="no";
+					$template_misc_array['showicon']="yes";
 				}
 				if(!isset($template_misc_array['showicon'])){
-					$template_misc_array['showicon']="no";
+					$template_misc_array['showicon']="yes";
 				}
 				if(!isset($template_misc_array['avataropt'])){
 					$template_misc_array['avataropt']="show";
 				}
 				if(!isset($template_misc_array['verified'])){
-					$template_misc_array['verified']="";
+					$template_misc_array['verified']="yes1";
 				}
 				?>
 								<div class="wprevpre_temp_label_row">
@@ -509,32 +574,36 @@ echo $dbmsg;
 								<a id="wprevpro_pre_resetbtn" class="button"><?php _e('Reset Colors', 'wp-google-reviews'); ?></a>
 							</div>
 						  </div>
-						  <div class="w3_wprs-col s6" id="wprevpro_template_preview">
+						  <div class="w3_wprs-col s6" id="">
+								<div class="w3_wprs-col" id="wprevpro_template_preview">
 
-						  </div>
+								</div>
+						  
 						  <p class="description"><i>
-					<?php _e('Date format is based on your WordPress > Settings value.', 'wp-google-reviews'); ?></i></p>
+						<?php _e('Date format is based on your WordPress > Settings value.', 'wp-google-reviews'); ?></i></p>
+						<div>
+							<?php _e('Custom CSS:', 'wp-google-reviews'); ?><br>
+							<textarea name="wpfbr_template_css" id="wpfbr_template_css" cols="50" rows="4"><?php echo esc_html($currenttemplate->template_css); ?></textarea>
+							<p class="description">
+							<?php _e('Enter custom CSS code to control the look even more.', 'wp-google-reviews'); ?></p>
+						</div>
+						</div>
 					</div>
 					<p class="description">
 					<?php _e('More styles and options available in <a href="https://wpreviewslider.com/">Pro Version</a> of plugin!', 'wp-google-reviews'); ?></p>
 				</td>
 			</tr>
-			<tr class="wpfbr_row">
-				<th scope="row">
-					<?php _e('Custom CSS:', 'wp-google-reviews'); ?>
+			<tr class="wprevpro_row">
+				<th scope="row" colspan="1">
+				<span class="nextprevbtn w3-green button button-secondary dashicons-before dashicons-arrow-right-after gotopage1">Next</span>
 				</th>
-				<td>
-					<textarea name="wpfbr_template_css" id="wpfbr_template_css" cols="50" rows="4"><?php echo esc_html($currenttemplate->template_css); ?></textarea>
-					<p class="description">
-					<?php _e('Enter custom CSS code to change the look of the template when being displayed. ex: </br>.wprevpro_t1_outer_div {
-						background: #e4e4e4;
-					}', 'wp-google-reviews'); ?></p>
-				</td>
-			</tr>			
+			</tr>
 
+			</table>
+<table id="settingtable1" class="form-table settingstable " style="display:none;">
 			<tr class="wpfbr_row">
 				<th scope="row">
-					<?php _e('Number of Reviews:', 'wp-google-reviews'); ?>
+					<?php _e('Number of Reviews', 'wp-google-reviews'); ?><a class="wprevpro_helpicon_p wprevpro_btnicononlyhelp dashicons-before dashicons-editor-help"></a>
 				</th>
 				<td><div class="divtemplatestyles">
 					<label for="wpfbr_t_display_num"><?php _e('How many per a row?', 'wp-google-reviews'); ?>&nbsp;</label>
@@ -550,13 +619,220 @@ echo $dbmsg;
 					
 					</div>
 					<p class="description">
-					<?php _e('How many reviews to display on the page at a time. Widget style templates can only display 1 per row.', 'wp-google-reviews'); ?></p>
+					<?php _e('How many reviews to display on the page at a time.', 'wp-google-reviews'); ?></p>
 				</td>
 			</tr>
 			
+			<?php
+			if(!isset($template_misc_array['sliderhideprevnext'])){
+					$template_misc_array['sliderhideprevnext']='';
+			}
+			if(!isset($template_misc_array['sliderautoplay'])){
+					$template_misc_array['sliderautoplay']='';
+			}
+			if(!isset($template_misc_array['slidespeed'])){
+					$template_misc_array['slidespeed']='';
+			}
+			if(!isset($template_misc_array['slideautodelay'])){
+					$template_misc_array['slideautodelay']='';
+			}
+			if(!isset($template_misc_array['sliderhidedots'])){
+					$template_misc_array['sliderhidedots']='';
+			}
+			if(!isset($template_misc_array['sliderhidedots'])){
+					$template_misc_array['sliderhidedots']='';
+			}
+			if(!isset($template_misc_array['sliderfixedheight'])){
+					$template_misc_array['sliderfixedheight']='';
+			}
+			?>
+
+			<tr class="wpfbr_row">
+				<th scope="row"  style="min-width:220px">
+					<?php _e('Slider or Grid', 'wp-google-reviews'); ?><a class="wprevpro_helpicon_p wprevpro_btnicononlyhelp dashicons-before dashicons-editor-help"></a>
+				</th>
+				<td>
+					<div class="divtemplatestyles">
+						<label for="wpfbr_t_createslider"><?php _e('', 'wp-google-reviews'); ?>&nbsp;</label>
+						<select name="wpfbr_t_createslider" id="wpfbr_t_createslider">
+							<option value="no" <?php if($currenttemplate->createslider=="no"){echo "selected";} ?>><?php _e('Grid', 'wp-google-reviews'); ?></option>
+							<option value="yes" <?php if($currenttemplate->createslider=="yes"){echo "selected";} ?>><?php _e('Slider', 'wp-google-reviews'); ?></option>
+						</select>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<label for="wpfbr_t_display_num_rows"><?php _e('Total slides:', 'wp-google-reviews'); ?>&nbsp;</label>
+						<select name="wpfbr_t_numslides" id="wpfbr_t_numslides">
+							<option value="2" <?php if($currenttemplate->numslides=="2"){echo "selected";} ?>>2</option>
+							<option value="3" <?php if($currenttemplate->numslides=="3"){echo "selected";} ?>>3</option>
+							<option value="4" <?php if($currenttemplate->numslides=="4"){echo "selected";} ?>>4</option>
+							<option value="5" <?php if($currenttemplate->numslides=="5"){echo "selected";} ?>>5</option>
+							<option value="6" <?php if($currenttemplate->numslides=="6"){echo "selected";} ?>>6</option>
+							<option value="7" <?php if($currenttemplate->numslides=="7"){echo "selected";} ?>>7</option>
+							<option value="8" <?php if($currenttemplate->numslides=="8"){echo "selected";} ?>>8</option>
+							<option value="9" <?php if($currenttemplate->numslides=="9"){echo "selected";} ?>>9</option>
+							<option value="10" <?php if($currenttemplate->numslides=="10"){echo "selected";} ?>>10</option>
+						</select>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<label for="wpfbr_t_slidespeed"><?php _e('Slide speed:', 'wp-google-reviews'); ?>&nbsp;</label>
+						<input id="wpfbr_t_slidespeed" type="number" name="wpfbr_t_slidespeed" placeholder="" value="<?php if($template_misc_array['slidespeed']>0){echo $template_misc_array['slidespeed'];} else {echo "1";}?>" style="width: 4em">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<label for="wpfbr_t_slideautodelay"><?php _e('Auto-play delay:', 'wp-google-reviews'); ?>&nbsp;</label>
+						<input id="wpfbr_t_slideautodelay" type="number" name="wpfbr_t_slideautodelay" placeholder="" value="<?php if($template_misc_array['slideautodelay']>0){echo $template_misc_array['slideautodelay'];} else {echo "5";}?>" style="width: 4em">
+						
+						
+					</div>
+					<div class="divmoreslidersettings">
+						<div class="badgeinfo">
+							<div class="badgeinfosetting checkboxes">
+							<input type="checkbox" id="wprevpro_slidermobileview" name="wprevpro_slidermobileview" value="one" <?php if($currenttemplate->slidermobileview){echo 'checked="checked"';}?>>
+							<label for="wprevpro_slidermobileview"> <?php _e('One review on mobile', 'wp-google-reviews'); ?></label>
+							</div>
+
+							<div class="badgeinfosetting checkboxes">
+							<input type="checkbox" id="wprevpro_sliderhideprevnext" name="wprevpro_sliderhideprevnext" value="yes" <?php if($template_misc_array['sliderhideprevnext']== "yes"){echo 'checked="checked"';}?>>
+							<label for="wprevpro_sliderhideprevnext"> <?php _e('Hide Prev/Next', 'wp-google-reviews'); ?></label>
+							</div>
+							
+							<div class="badgeinfosetting checkboxes">
+							<input type="checkbox" id="wprevpro_sliderhidedots" name="wprevpro_sliderhidedots" value="yes" <?php if($template_misc_array['sliderhidedots']== "yes"){echo 'checked="checked"';}?>>
+							<label for="wprevpro_sliderhidedots"> <?php _e('Hide Dots', 'wp-google-reviews'); ?></label>
+							</div>
+							
+							<div class="badgeinfosetting checkboxes">
+							<input type="checkbox" id="wprevpro_sliderautoplay" name="wprevpro_sliderautoplay" value="yes" <?php if($template_misc_array['sliderautoplay']== "yes"){echo 'checked="checked"';}?>>
+							<label for="wprevpro_sliderautoplay"> <?php _e('Auto-play', 'wp-google-reviews'); ?></label>
+							</div>
+							
+							<div class="badgeinfosetting checkboxes">
+							<input type="checkbox" id="wprevpro_sliderfixedheight" name="wprevpro_sliderfixedheight" value="yes" <?php if($template_misc_array['sliderfixedheight']== "yes"){echo 'checked="checked"';}?>>
+							<label for="wprevpro_animateHeight"> <?php _e('Static Height', 'wp-google-reviews'); ?></label>
+							</div>
+							
+						</div>
+					</div>
+					<p class="description">
+					<?php _e('Allows you to create a slide show with your reviews.', 'wp-google-reviews'); ?><br>
+
+					</p>
+
+			
+				</td>
+			</tr>
+			
+			<?php
+			if(!isset($currenttemplate->read_more)){
+				$currenttemplate->read_more='';
+				$currenttemplate->read_more_text='';
+			}
+			if(!isset($template_misc_array['read_more_num'])){
+					$template_misc_array['read_more_num']='30';
+			}
+			?>
+			<tr class="wprevpro_row">
+				<th scope="row">
+					<?php _e('Add Read More Link', 'wp-google-reviews'); ?><a class="wprevpro_helpicon_p wprevpro_btnicononlyhelp dashicons-before dashicons-editor-help"></a>
+				</th>
+				<td><div class="divtemplatestyles">
+					<label for="wprevpro_t_read_more"><?php _e('', 'wp-google-reviews'); ?></label>
+					<select name="wprevpro_t_read_more" id="wprevpro_t_read_more" class="mt2">
+						<option value="no" <?php if($currenttemplate->read_more=='no' || $currenttemplate->read_more==''){echo "selected";} ?>>No</option>
+						<option value="yes" <?php if($currenttemplate->read_more=='yes'){echo "selected";} ?>>Yes</option>
+					</select>&nbsp;&nbsp;
+					<label for="wprevpro_t_read_more_text">&nbsp;&nbsp;<?php _e('Read More Text:', 'wp-google-reviews'); ?>&nbsp;</label>
+					<input id="wprevpro_t_read_more_text" type="text" name="wprevpro_t_read_more_text" placeholder="read more" value="<?php if($currenttemplate->read_more_text!=''){echo $currenttemplate->read_more_text;} else {echo "read more";}?>" style="width: 6em">
+					<label for="wprevpro_t_read_more_num">&nbsp;&nbsp;<?php _e('Number of Words:', 'wp-google-reviews'); ?>&nbsp;</label>
+					<input id="wprevpro_t_read_more_num" type="number" name="wprevpro_t_read_more_num" placeholder="30" value="<?php if($template_misc_array['read_more_num']!=''){echo $template_misc_array['read_more_num'];} else {echo "30";}?>" style="width: 4em">
+					</div>
+					<p class="description">
+					<?php _e('Allows you to cut off long reviews and add a read more link that will show the rest of the review when clicked.', 'wp-google-reviews'); ?></p>
+				</td>
+			</tr>
+
+			<?php
+			if(!isset($currenttemplate->review_same_height)){
+				$currenttemplate->review_same_height='no';
+			}
+			?>
+			<tr class="wprevpro_row">
+				<th scope="row">
+					<?php _e('Reviews Same Height', 'wp-google-reviews'); ?><a class="wprevpro_helpicon_p wprevpro_btnicononlyhelp dashicons-before dashicons-editor-help"></a>
+				</th>
+				<td><div class="divtemplatestyles">
+					<select name="wprevpro_t_review_same_height" id="wprevpro_t_review_same_height">
+								<option value="no" <?php if($currenttemplate->review_same_height=="no" || $currenttemplate->review_same_height==""){echo "selected";} ?>><?php _e('No', 'wp-review-slider-pro'); ?></option>
+								<option value="yes" <?php if($currenttemplate->review_same_height=="yes"){echo "selected";} ?>><?php _e('Yes', 'wp-review-slider-pro'); ?></option>
+							</select>
+					</div>
+					<p class="description">
+					<?php _e('The individual review boxes will all be equal to the biggest one in all slides.', 'wp-google-reviews'); ?></p>
+				</td>
+			</tr>
+			
+			<?php
+			if(!isset($template_misc_array['showmedia'])){
+					$template_misc_array['showmedia']='yes';
+			}
+			?>
+			<tr class="wprevpro_row">
+				<th scope="row">
+					<?php _e('Review Media', 'wp-google-reviews'); ?><a class="wprevpro_helpicon_p wprevpro_btnicononlyhelp dashicons-before dashicons-editor-help"></a>
+				</th>
+				<td><div class="">
+					<select name="wprevpro_t_showmedia" id="wprevpro_t_showmedia">
+						<option value="no" <?php if($template_misc_array['showmedia']=='no'){echo "selected";} ?>>No</option>
+						<option value="yes" <?php if($template_misc_array['showmedia']=='yes'){echo "selected";} ?>>Yes</option>
+					</select>
+					</div>
+					<p class="description">
+					<?php _e('Show images that users have added with their review.', 'wp-google-reviews'); ?></p>
+				</td>
+			</tr>
+			
+			<tr class="wprevpro_row">
+				<th scope="row" colspan="2">
+				<span class="nextprevbtn w3-green button button-secondary dashicons-before dashicons-arrow-left gotopage0">Previous</span>
+				<span class="nextprevbtn w3-green button button-secondary dashicons-before dashicons-arrow-right-after gotopage2">Next</span>
+				</th>
+			</tr>
+</table>
+
+<table id="settingtable2" class="form-table settingstable " style="display:none;">		
 			<tr class="wpfbr_row">
 				<th scope="row">
-					<?php _e('Display Order:', 'wp-google-reviews'); ?>
+					<?php _e('Choose Source', 'wp-google-reviews'); ?><a class="wprevpro_helpicon_p wprevpro_btnicononlyhelp dashicons-before dashicons-editor-help"></a>
+				</th>
+				<td>
+					<select name="wprevpro_t_filtersource" id="wprevpro_t_filtersource">
+					<?php
+					$reviews_table_name = $wpdb->prefix . 'wpfb_reviews';
+					$tempquery = "select * from ".$reviews_table_name." WHERE type = 'Google' group by pageid Order By id Desc";
+					$currentlocations = $wpdb->get_results($tempquery);
+					if(!isset($template_misc_array['filtersource'])){
+						$template_misc_array['filtersource']="";
+					}
+			
+					//$currentform->id
+					foreach ( $currentlocations as $currentlocation ) 
+					{
+						//grab average and total for each from avg total
+						//$table_name = $wpdb->prefix . 'wpfb_total_averages';
+						//$currentlocation = $wpdb->get_results("SELECT * FROM $table_name WHERE `pagetype` LIKE '%Google%' AND `btp_id` = '".$currentlocation->pageid."' ");
+						
+						$selected = "";
+						if($template_misc_array['filtersource']==$currentlocation->pageid){
+							$selected = "selected";
+						}
+						echo '<option value="'.$currentlocation->pageid.'" '.$selected.'>'.$currentlocation->pagename.'</option>';
+					
+					}
+					?>
+					</select>
+					<p class="description">
+					<?php _e('Filter by source.', 'wp-google-reviews'); ?></p>
+				</td>
+			</tr>
+			<tr class="wpfbr_row">
+				<th scope="row">
+					<?php _e('Display Order', 'wp-google-reviews'); ?><a class="wprevpro_helpicon_p wprevpro_btnicononlyhelp dashicons-before dashicons-editor-help"></a>
 				</th>
 				<td>
 					<select name="wpfbr_t_display_order" id="wpfbr_t_display_order">
@@ -568,8 +844,8 @@ echo $dbmsg;
 				</td>
 			</tr>
 			<tr class="wpfbr_row">
-				<th scope="row">
-					<?php _e('Hide Reviews Without Text:', 'wp-google-reviews'); ?>
+				<th scope="row" style="min-width:220px">
+					<?php _e('Hide Reviews Without Text', 'wp-google-reviews'); ?><a class="wprevpro_helpicon_p wprevpro_btnicononlyhelp dashicons-before dashicons-editor-help"></a>
 				</th>
 				<td>
 					<select name="wpfbr_t_hidenotext" id="wpfbr_t_hidenotext">
@@ -588,7 +864,7 @@ echo $dbmsg;
 			?>
 			<tr class="wpfbr_row">
 				<th scope="row">
-					<?php _e('Filter By Rating:', 'wp-google-reviews'); ?>
+					<?php _e('Filter By Rating', 'wp-google-reviews'); ?><a class="wprevpro_helpicon_p wprevpro_btnicononlyhelp dashicons-before dashicons-editor-help"></a>
 				</th>
 				<td>
 					<select name="wpfbr_t_min_rating" id="wpfbr_t_min_rating">
@@ -602,90 +878,194 @@ echo $dbmsg;
 					<?php _e('Show only reviews with at least this value rating. Allows you to hide low reviews.', 'wp-google-reviews'); ?></p>
 				</td>
 			</tr>
-
+<tr class="wprevpro_row">
+				<th scope="row" colspan="2">
+				<span class="nextprevbtn w3-green button button-secondary dashicons-before dashicons-arrow-left gotopage1">Previous</span>
+				<span class="nextprevbtn w3-green button button-secondary dashicons-before dashicons-arrow-right-after gotopage3">Next</span>
+				</th>
+			</tr>
+			
+		</table>
+		
+	<table id="settingtable3" class="form-table settingstable " style="display:none;">	
+<?php
+//badge settings.
+if(!isset($template_misc_array['blocation'])){
+	$template_misc_array['blocation']="";
+}
+  //set default values from filtered location above. grab the values from attributes
+if(!isset($template_misc_array['bname'])){
+	$template_misc_array['bname']="";
+}
+if(!isset($template_misc_array['bimgurl'])){
+	$template_misc_array['bimgurl']=WPREV_GOOGLE_PLUGIN_URL."/public/partials/imgs/google-my-business-icon-300x300.png";
+}
+if(!isset($template_misc_array['bbtncolor'])){
+	$template_misc_array['bbtncolor']="#0a6cff";
+}
+if(!isset($template_misc_array['bbtnurl'])){
+	$template_misc_array['bbtnurl']="https://search.google.com/local/writereview?placeid=".$currentlocations[0]->pageid;
+}
+if(!isset($template_misc_array['bnameurl'])){
+	$template_misc_array['bnameurl']="https://search.google.com/local/reviews?placeid=".$currentlocations[0]->pageid;
+}
+if(!isset($template_misc_array['bbkcolor'])){
+	$template_misc_array['bbkcolor']="#ffffff";
+}
+if(!isset($template_misc_array['bbradius'])){
+	$template_misc_array['bbradius']="0";
+}
+if(!isset($template_misc_array['bshape'])){
+	$template_misc_array['bshape']="";
+}
+if(!isset($template_misc_array['bimgsize'])){
+	$template_misc_array['bimgsize']="50";
+}
+?>
+			<tr class="wpfbr_row tabnoterow">
+				<td colspan="2">
+				<div class="tabnote">
+				Use this page to place a badge next to your reviews. This is a brand new feature so let me know if you see any formatting issues.
+				</div>
+				</td>
+			</tr>	
 			<tr class="wpfbr_row">
-				<th scope="row">
-					<?php _e('Create Slider:', 'wp-google-reviews'); ?>
-				</th>
-				<td>
-					<div class="divtemplatestyles">
-						<label for="wpfbr_t_createslider"><?php _e('Display reviews in slider?', 'wp-google-reviews'); ?>&nbsp;</label>
-						<select name="wpfbr_t_createslider" id="wpfbr_t_createslider">
-							<option value="no" <?php if($currenttemplate->createslider=="no"){echo "selected";} ?>><?php _e('No', 'wp-google-reviews'); ?></option>
-							<option value="yes" <?php if($currenttemplate->createslider=="yes"){echo "selected";} ?>><?php _e('Yes', 'wp-google-reviews'); ?></option>
+				<td colspan="2">
+				<div class="badgeinfo">
+
+					<div class="badgeinfosetting">
+						<div class="bsetlabel"><?php _e('Location:', 'wp-google-reviews'); ?></div>
+						<select name="wprevpro_t_blocation" id="wprevpro_t_blocation">
+						<option value="" <?php if($template_misc_array['blocation']==""){echo "selected";} ?>><?php _e('Select One', 'wp-google-reviews'); ?></option>
+						<option value="left" <?php if($template_misc_array['blocation']=="left"){echo "selected";} ?>><?php _e('Left', 'wp-google-reviews'); ?></option>
+						<option value="leftmid" <?php if($template_misc_array['blocation']=="leftmid"){echo "selected";} ?>><?php _e('Left Middle', 'wp-google-reviews'); ?></option>
+						<option value="above" <?php if($template_misc_array['blocation']=="above"){echo "selected";} ?>><?php _e('Above', 'wp-google-reviews'); ?></option>
+						<option value="abovewide" <?php if($template_misc_array['blocation']=="abovewide"){echo "selected";} ?>><?php _e('Above Wide', 'wp-google-reviews'); ?></option>
+						<option value="right" <?php if($template_misc_array['blocation']=="right"){echo "selected";} ?>><?php _e('Right', 'wp-google-reviews'); ?></option>
+						<option value="rightmid" <?php if($template_misc_array['blocation']=="rightmid"){echo "selected";} ?>><?php _e('Right Middle', 'wp-google-reviews'); ?></option>
+					</select>
+					</div>
+					<div class="badgeinfosetting badgehide">
+						<div class="bsetlabel"><?php _e('Name:', 'wp-google-reviews'); ?></div>
+						<input id="wprevpro_t_bname" type="text" name="wprevpro_t_bname" value="<?php if($template_misc_array['bname']!=""){echo $template_misc_array['bname'];} ?>" style="width: 15em">
+					</div>	
+					<div class="badgeinfosetting badgehide">
+						<div class="bsetlabel"><?php _e('Name Link URL:', 'wp-google-reviews'); ?></div>
+						<input id="wprevpro_t_bnameurl" type="text" name="wprevpro_t_bnameurl" value="<?php if($template_misc_array['bnameurl']!=""){echo $template_misc_array['bnameurl'];} ?>" style="width: 15em">
+					</div>						
+				</div>
+				</td>
+			</tr>
+			<tr class="wpfbr_row badgehide">
+				<td colspan="2">
+				<div class="badgeinfo">
+					<div class="badgeinfosetting">
+						<div class="bsetlabel"><?php _e('Business Image URL:', 'wp-google-reviews'); ?></div>
+						<input id="wprevpro_t_bimgurl" type="text" name="wprevpro_t_bimgurl" value="<?php if($template_misc_array['bimgurl']!=""){echo $template_misc_array['bimgurl'];} ?>" style="width: 15em"><a id="upload_licon_button" class="button">Upload</a>
+					</div>
+					<div class="badgeinfosetting">
+						<div class="bsetlabel"><?php _e('Image Shape:', 'wp-google-reviews'); ?></div>
+						<select name="wprevpro_t_bshape" id="wprevpro_t_bshape">
+						<option value="" <?php if($template_misc_array['bshape']==""){echo "selected";} ?>>&nbsp;<?php _e('Square', 'wp-google-reviews'); ?>&nbsp;&nbsp;&nbsp;</option>
+						<option value="round" <?php if($template_misc_array['bshape']=="round"){echo "selected";} ?>>&nbsp;<?php _e('Round', 'wp-google-reviews'); ?>&nbsp;&nbsp;&nbsp;</option>
 						</select>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label for="wpfbr_t_display_num_rows"><?php _e('How many total slides?', 'wp-google-reviews'); ?>&nbsp;</label>
-						<select name="wpfbr_t_numslides" id="wpfbr_t_numslides">
-							<option value="2" <?php if($currenttemplate->numslides=="2"){echo "selected";} ?>>2</option>
-							<option value="3" <?php if($currenttemplate->numslides=="3"){echo "selected";} ?>>3</option>
-							<option value="4" <?php if($currenttemplate->numslides=="4"){echo "selected";} ?>>4</option>
-							<option value="5" <?php if($currenttemplate->numslides=="5"){echo "selected";} ?>>5</option>
-							<option value="6" <?php if($currenttemplate->numslides=="6"){echo "selected";} ?>>6</option>
-							<option value="7" <?php if($currenttemplate->numslides=="7"){echo "selected";} ?>>7</option>
-							<option value="8" <?php if($currenttemplate->numslides=="8"){echo "selected";} ?>>8</option>
-							<option value="9" <?php if($currenttemplate->numslides=="9"){echo "selected";} ?>>9</option>
-							<option value="10" <?php if($currenttemplate->numslides=="10"){echo "selected";} ?>>10</option>
-						</select>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="checkbox" id="wprevpro_slidermobileview" name="wprevpro_slidermobileview" value="one" <?php if($currenttemplate->slidermobileview== "one"){echo 'checked="checked"';}?>>
-						<label for="wprevpro_slidermobileview"> <?php _e('One review on mobile.', 'wp-google-reviews'); ?></label>
+					</div>
+					<div class="badgeinfosetting">
+						<div class="bsetlabel"><?php _e('Image Size:', 'wp-google-reviews'); ?></div>
+						<input id="wprevpro_t_bimgsize" type="number" name="wprevpro_t_bimgsize" value="<?php if($template_misc_array['bimgsize']!=""){echo $template_misc_array['bimgsize'];} ?>" style="width: 6em">
+						
+					</div>
+					<div class="badgeinfosetting">
+						<div class="bsetlabel"><?php _e('Button Color:', 'wp-google-reviews'); ?></div>
+						<input type="text" data-alpha="true" value="<?php if($template_misc_array['bbtncolor']!=""){echo $template_misc_array['bbtncolor'];} ?>" name="wprevpro_t_bbtncolor" id="wprevpro_t_bbtncolor" class="my-color-field" />
+					</div>
+					<div class="badgeinfosetting">
+						<div class="bsetlabel"><?php _e('Button Link URL:', 'wp-google-reviews'); ?></div>
+						<input id="wprevpro_t_bbtnurl" type="text" name="wprevpro_t_bbtnurl" value="<?php if($template_misc_array['bbtnurl']!=""){echo $template_misc_array['bbtnurl'];} ?>" style="width: 15em">
+					</div>
+					<div class="badgeinfosetting">
+						<div class="bsetlabel"><?php _e('Background:', 'wp-google-reviews'); ?></div>
+						<input type="text" data-alpha="true" value="<?php if($template_misc_array['bbkcolor']!=""){echo $template_misc_array['bbkcolor'];} ?>" name="wprevpro_t_bbkcolor" id="wprevpro_t_bbkcolor" class="my-color-field" />
+					</div>
+					<div class="badgeinfosetting">
+						<div class="bsetlabel"><?php _e('Border Radius:', 'wp-google-reviews'); ?></div>
+						<input id="wprevpro_t_bbradius" type="number" name="wprevpro_t_bbradius" value="<?php if($template_misc_array['bbradius']!=""){echo $template_misc_array['bbradius'];} ?>" style="width: 7em">
+					</div>
+				</div>
+				</td>
+			</tr>
+			<?php
+			if(!isset($template_misc_array['bdropsh'])){
+				$template_misc_array['bdropsh']="yes";
+			}
+			if(!isset($template_misc_array['bcenter'])){
+				$template_misc_array['bcenter']="";
+			}
+			if(!isset($template_misc_array['bhname'])){
+				$template_misc_array['bhname']="";
+			}
+			if(!isset($template_misc_array['bhphoto'])){
+				$template_misc_array['bhphoto']="";
+			}
+			if(!isset($template_misc_array['bhbased'])){
+				$template_misc_array['bhbased']="";
+			}
+			if(!isset($template_misc_array['bhbtn'])){
+				$template_misc_array['bhbtn']="";
+			}
+			if(!isset($template_misc_array['bhpow'])){
+				$template_misc_array['bhpow']="";
+			}
+			if(!isset($template_misc_array['bhreviews'])){
+				$template_misc_array['bhreviews']="";
+			}
+			?>
+			<tr class="wpfbr_row badgehide">
+				<td colspan="2">
+				<div class="badgeinfo">
+					<div class="badgeinfosetting checkboxes">
+					<input type="checkbox" id="wprevpro_t_bdropsh" name="wprevpro_t_bdropsh" value="yes" <?php if($template_misc_array['bdropsh']== "yes"){echo 'checked="checked"';}?>>
+					<label for="wprevpro_t_bdropsh"><?php _e('Drop Shadow', 'wp-google-reviews'); ?></label>
+					</div>
+					<div class="badgeinfosetting checkboxes">
+					<input type="checkbox" id="wprevpro_t_bcenter" name="wprevpro_t_bcenter" value="yes" <?php if($template_misc_array['bcenter']== "yes"){echo 'checked="checked"';}?>>
+					<label for="wprevpro_t_bcenter"><?php _e('Center Text', 'wp-google-reviews'); ?></label>
+					</div>
+					<div class="badgeinfosetting checkboxes">
+					<input type="checkbox" id="wprevpro_t_bhphoto" name="wprevpro_t_bhphoto" value="yes" <?php if($template_misc_array['bhphoto']== "yes"){echo 'checked="checked"';}?>>
+					<label for="wprevpro_t_bhphoto"><?php _e('Hide Photo', 'wp-google-reviews'); ?></label>
+					</div>
+					<div class="badgeinfosetting checkboxes">
+					<input type="checkbox" id="wprevpro_t_bhname" name="wprevpro_t_bhname" value="yes" <?php if($template_misc_array['bhname']== "yes"){echo 'checked="checked"';}?>>
+					<label for="wprevpro_t_bhname"><?php _e('Hide Name', 'wp-google-reviews'); ?></label>
+					</div>	
 					
+					<div class="badgeinfosetting checkboxes">
+					<input type="checkbox" id="wprevpro_t_bhbased" name="wprevpro_t_bhbased" value="yes" <?php if($template_misc_array['bhbased']== "yes"){echo 'checked="checked"';}?>>
+					<label for="wprevpro_t_bhbased"><?php _e('Hide "Based On..."', 'wp-google-reviews'); ?></label>
 					</div>
-					<p class="description">
-					<?php _e('Allows you to create a slide show with your reviews.', 'wp-google-reviews'); ?><br>
-					<?php _e('Upgrade to the <a href="https://wpreviewslider.com/">Pro Version</a> to access a lot more slider settings!', 'wp-google-reviews'); ?>
-					</p>
-
-			
+					<div class="badgeinfosetting checkboxes">
+					<input type="checkbox" id="wprevpro_t_bhpow" name="wprevpro_t_bhpow" value="yes" <?php if($template_misc_array['bhpow']== "yes"){echo 'checked="checked"';}?>>
+					<label for="wprevpro_t_bhpow"><?php _e('Hide "powered By..."', 'wp-google-reviews'); ?></label>
+					</div>
+					<div class="badgeinfosetting checkboxes">
+					<input type="checkbox" id="wprevpro_t_bhbtn" name="wprevpro_t_bhbtn" value="yes" <?php if($template_misc_array['bhbtn']== "yes"){echo 'checked="checked"';}?>>
+					<label for="wprevpro_t_bhbtn"><?php _e('Hide "Review Us..."', 'wp-google-reviews'); ?></label>
+					</div>
+					
+					<div class="badgeinfosetting checkboxes">
+					<input type="checkbox" id="wprevpro_t_bhreviews" name="wprevpro_t_bhreviews" value="yes" <?php if($template_misc_array['bhreviews']== "yes"){echo 'checked="checked"';}?>>
+					<label for="wprevpro_t_bhreviews"><?php _e('Hide Reviews', 'wp-google-reviews'); ?></label>
+					</div>
+				</div>
 				</td>
 			</tr>
 			
-			<?php
-			if(!isset($currenttemplate->read_more)){
-				$currenttemplate->read_more='';
-				$currenttemplate->read_more_text='';
-			}
-			?>
 			<tr class="wprevpro_row">
-				<th scope="row">
-					<?php _e('Add Read More Link:', 'wp-google-reviews'); ?>
+				<th scope="row" colspan="2">
+				<span class="nextprevbtn w3-green button button-secondary dashicons-before dashicons-arrow-left gotopage2">Previous</span>
 				</th>
-				<td><div class="divtemplatestyles">
-					<label for="wprevpro_t_read_more"><?php _e('', 'wp-google-reviews'); ?></label>
-					<select name="wprevpro_t_read_more" id="wprevpro_t_read_more" class="mt2">
-						<option value="no" <?php if($currenttemplate->read_more=='no' || $currenttemplate->read_more==''){echo "selected";} ?>>No</option>
-						<option value="yes" <?php if($currenttemplate->read_more=='yes'){echo "selected";} ?>>Yes</option>
-					</select>
-					<label for="wprevpro_t_read_more_text">&nbsp;&nbsp;<?php _e('Read More Text:', 'wp-google-reviews'); ?>&nbsp;</label>
-					<input id="wprevpro_t_read_more_text" type="text" name="wprevpro_t_read_more_text" placeholder="read more" value="<?php if($currenttemplate->read_more_text!=''){echo $currenttemplate->read_more_text;} else {echo "read more";}?>" style="width: 6em">
-					</div>
-					<p class="description">
-					<?php _e('Allows you to cut off long reviews and add a read more link that will show the rest of the review when clicked.', 'wp-google-reviews'); ?></p>
-				</td>
 			</tr>
-			
-			<?php
-			if(!isset($template_misc_array['showmedia'])){
-					$template_misc_array['showmedia']='no';
-			}
-			?>
-			<tr class="wprevpro_row">
-				<th scope="row">
-					<?php _e('Review Media', 'wp-google-reviews'); ?>
-				</th>
-				<td><div class="">
-					<label for="wprevpro_t_showmedia"><?php _e('Display Review Media:', 'wp-google-reviews'); ?></label>
-					<select name="wprevpro_t_showmedia" id="wprevpro_t_showmedia">
-						<option value="no" <?php if($template_misc_array['showmedia']=='no'){echo "selected";} ?>>No</option>
-						<option value="yes" <?php if($template_misc_array['showmedia']=='yes'){echo "selected";} ?>>Yes</option>
-					</select>
-					</div>
-					<p class="description">
-					<?php _e('Show images that users have added with their review.', 'wp-google-reviews'); ?></p>
-				</td>
-			</tr>
-
 			
 		</tbody>
 	</table>
@@ -694,11 +1074,22 @@ echo $dbmsg;
 	wp_nonce_field( 'wpfbr_save_template');
 	?>
 	<input type="hidden" name="edittid" id="edittid"  value="<?php echo $currenttemplate->id; ?>">
-	<input type="submit" name="wpfbr_submittemplatebtn" id="wpfbr_submittemplatebtn" class="button button-primary" value="<?php _e('Save Template', 'wp-google-reviews'); ?>">
 	<a id="wpfbr_addnewtemplate_cancel" class="button button-secondary"><?php _e('Cancel', 'wp-google-reviews'); ?></a>
+	<input type="submit" name="wpfbr_submittemplatebtn" id="wpfbr_submittemplatebtn" class="button button-primary" value="<?php _e('Save & Close', 'wp-google-reviews'); ?>">
+	<a id="wprevpro_addnewtemplate_update" class="button button-primary"><?php if($currenttemplate->id>0){_e('Update', 'wp-google-reviews');} else {_e('Update', 'wp-google-reviews');} ?></a>
+	<div id="update_form_msg_div"><img src="<?php echo WPREV_GOOGLE_PLUGIN_URL; ?>/public/partials/imgs/loading_ripple.gif" id="savingformimg" class="wprptemplate_update_loading_image" style="display:none;"><span id="update_form_msg" style="display:none;"><span class="dashicons dashicons-saved"></span></span></div>
 	</form>
 </div>
-<div class="small_message"><p>Do you like this plugin? If so please take a moment to leave a review <a href="https://wordpress.org/plugins/wp-google-reviews/" target="blank">here!</a> If it's missing something then please contact me <a href="http://ljapps.com/contact/" target="blank">here</a>. Thanks!</p></div>
+
+<div class="wpfbr_margin10 w3-white" id="wpfbr_preview_outermost" style="display:none;">
+	<div class="" id="wpfbr_loading_prev_div">
+		<img src="<?php echo WPREV_GOOGLE_PLUGIN_URL; ?>/public/partials/imgs/loading_ripple.gif" id="loadingpreview" class="wprptemplate_loadingpreview_image" style="display:none;">
+	</div>
+	<div class="wpfbr_margin10 w3-white" id="wpfbr_preview_outer">
+	</div>
+</div>
+
+<div class="small_message"><p>Do you like this plugin? If so please take a moment to leave a review <a href="https://wordpress.org/plugins/wp-google-reviews/" target="blank">here!</a> If it's missing something then please contact me <a href="http://ljapps.com/contact/" target="blank">here</a>. Thanks!</p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
 
 	<div id="popup_review_list" class="popup-wrapper wpfbr_hide">
 	  <div class="popup-content">

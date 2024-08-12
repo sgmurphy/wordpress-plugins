@@ -256,17 +256,15 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
                         if ( isset( $taxonomy_terms['terms'] ) && ! empty( $taxonomy_terms['terms'] ) ) {
                             $new_terms_arr = array();
-                            foreach ( $taxonomy_terms['terms'] as $term_slug ) {
-                                if ( preg_match( '/[a-z]/', $term_slug ) ) {
-                                    $term = get_term_by('slug', $term_slug, $taxonomy );
-                                    if ( $term ) {
-                                        $new_terms_arr[] = $term->term_id;
-                                    }
-                                    if ( ! $term && strpos( $taxonomy, 'pa_' ) !== 0 ) {
-                                        $term = get_term_by('slug', $term_slug, 'pa_' . $taxonomy );
-                                        if ( $term ) {
-                                            $new_terms_arr[] = $term->term_id;
-                                        }
+                            foreach ( $taxonomy_terms['terms'] as $term_name ) {
+                                $term_check = term_exists( $term_name, $taxonomy );
+                                if ( $term_check && isset( $term_check['term_id'] ) ) {
+                                    $new_terms_arr[] = $term_check['term_id'];
+                                }
+                                if ( ! $term_check && strpos( $taxonomy, 'pa_' ) !== 0 ) {
+                                    $term_check = term_exists( $term_name, 'pa_' . $taxonomy );
+                                    if ( $term_check && isset( $term_check['term_id'] ) ) {
+                                        $new_terms_arr[] = $term_check['term_id'];
                                     }
                                 }
                             }
@@ -367,7 +365,7 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
                                         if ( ! is_wp_error( $product_terms ) && ! empty( $product_terms ) ) {
                                             foreach ( $product_terms as $product_term ) {
-                                                $product_terms_array[] = ! empty( $attr_filter[$attr_name]['terms'] ) && preg_match( '/[a-z\-\.\,]/i', $attr_filter[$attr_name]['terms'][0] ) ? $product_term->slug : $product_term->term_id;
+                                                $product_terms_array[] = ! empty( $attr_filter[$attr_name]['terms'] ) && ( ( isset( $attr_filter[$attr_name]['field'] ) && $attr_filter[$attr_name]['field'] === 'slug' ) || preg_match( '/[a-z\-\.\,]/i', $attr_filter[$attr_name]['terms'][0] ) ) ? $product_term->slug : $product_term->term_id;
                                             }
                                         }
 
@@ -512,6 +510,8 @@ if ( ! class_exists( 'AWS_Order' ) ) :
                 case 'title':
                 case 'title-desc':
                 case 'za':
+                case 'name':
+                case 'name_desc':
 
                     usort( $this->products, array( $this, 'compare_title' ) );
 
@@ -519,6 +519,7 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
                 case 'title-asc':
                 case 'az':
+                case 'name_asc':
 
                     usort( $this->products, array( $this, 'compare_title' ) );
                     $this->products = array_reverse($this->products);

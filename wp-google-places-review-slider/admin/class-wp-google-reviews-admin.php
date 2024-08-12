@@ -94,6 +94,18 @@ class WP_Google_Reviews_Admin {
 			if($_GET['page']=="wp_google-templates_posts" || $_GET['page']=="wp_google-get_pro" || $_GET['page']=="wp_google-welcome"){
 				//enque template styles for preview
 				wp_enqueue_style( $this->_token."_style1", plugin_dir_url(dirname(__FILE__)) . 'public/css/wprev-public_combine.css', array(), $this->version, 'all' );
+				
+				//also load javascript for creating preview.
+				wp_enqueue_script( $this->_token."_plublic_comb", plugin_dir_url(dirname(__FILE__)) . 'public/js/wprev-public-com-min.js', array( 'jquery' ), $this->version, true );
+
+				wp_localize_script($this->_token."_plublic_comb", 'wprevpublicjs_script_vars', 
+					array(
+					'wpfb_nonce'=> wp_create_nonce('randomnoncestring'),
+					'wpfb_ajaxurl' => admin_url( 'admin-ajax.php' ),
+					'wprevpluginsurl' => WPREV_GOOGLE_PLUGIN_URL
+					)
+				);
+				
 
 			}
 			//review list
@@ -199,8 +211,23 @@ class WP_Google_Reviews_Admin {
 		//scripts for review list page
 		if(isset($_GET['page'])){
 			if($_GET['page']=="wp_google-reviews"){
+				global $wpdb;
+				$reviews_table_name = $wpdb->prefix . 'wpfb_reviews';
+				$tempquery = "select pagename from ".$reviews_table_name." WHERE type='Google' group by pagename ";
+				$pagenamearray = $wpdb->get_col($tempquery);
+				
+				
 				//admin js
 				wp_enqueue_script('review_list_page-js', plugin_dir_url( __FILE__ ) . 'js/review_list_page.js', array( 'jquery' ), $this->version, false );
+				
+				//used for ajax
+				wp_localize_script('review_list_page-js', 'adminjs_script_vars', 
+					array(
+					'wpfb_nonce'=> wp_create_nonce('randomnoncestring'),
+					'wpfb_ajaxurl' => admin_url( 'admin-ajax.php' ),
+					'pagenamearray' => json_encode($pagenamearray),
+					)
+				);
 				
 				//for media popup
 				wp_enqueue_script('wpgoo_lity-js', plugin_dir_url( __FILE__ ) . 'js/lity.min.js', array( 'jquery' ), $this->version, false );
@@ -213,7 +240,7 @@ class WP_Google_Reviews_Admin {
 			}
 			
 			//script for crawl page
-			if($_GET['page']=="wp_google-googlecrawl"){
+			if($_GET['page']=="wp_google-googlecrawl" || $_GET['page']=="wp_google-googlesettings"){
 				wp_enqueue_script( $this->_token.'getgoogle_crawl-js', plugin_dir_url( __FILE__ ) . 'js/wprev_getgoogle_crawl.js', array( 'jquery' ), $this->version, false );
 				//used for ajax
 				wp_localize_script($this->_token.'getgoogle_crawl-js', 'adminjs_script_vars', 
@@ -506,11 +533,28 @@ class WP_Google_Reviews_Admin {
 		}
 		return $input;
 	}
+	
+	
+	
 	public function wpfbr_cron_googlereviews()
 	{
-		$options = get_option('wpfbr_google_options');
-		$ret = $this->get_google_reviews( $options );
-		return $ret;
+		//$options = get_option('wpfbr_google_options');
+		//$options = get_option('wpfbr_google_options');
+		$ret = "";
+		$googleapisarray = json_decode(get_option('wprev_google_apis'),true);
+
+		foreach ($googleapisarray as $key =>$savedplace) {
+			if(isset($key) && $key !=0 && $key!=""){
+				if(isset($savedplace['google_review_cron']) && $savedplace['google_review_cron']>0){
+					
+				$savedplace['google_review_cron']==1;
+				//$options = $googleapisarray[$gplaceid];
+
+				$ret = $this->get_google_reviews($googleapisarray[$key]);
+				}
+			}
+		}
+		//return $ret;
 	}
 
 	// the values are defined at the add_settings_section() function.
@@ -531,19 +575,19 @@ class WP_Google_Reviews_Admin {
 		// get the value of the setting we've registered with register_setting()
 		$options = get_option('wpfbr_google_options');
 		//print_r($options);
-		if(!isset($options['select_google_api'])){
-			$options['select_google_api']="mine";
-		}
-		if(!isset($options['google_api_key'])){
-			$options['google_api_key']="";
-		}
+		//if(!isset($options['select_google_api'])){
+		//	$options['select_google_api']="mine";
+		//}
+		//if(!isset($options['google_api_key'])){
+		//	$options['google_api_key']="";
+		//}
 		
 
 		// output the field
 		?>
 		<select class="select_google_api" style="display:none;" id="select_google_api" name="wpfbr_google_options[select_google_api]">
-			<option value="mine" <?php if(esc_attr($options['select_google_api'])=='mine' || esc_attr($options['select_google_api'])==''){echo 'selected="selected"';} ?>>Use My API Key</option>
-			<option value="default" <?php if(esc_attr($options['select_google_api'])=='default'){echo 'selected="selected"';} ?>>Use Default API Key</option>
+			<option value="mine" selected="selected">Use My API Key</option>
+			<option value="default">Use Default API Key</option>
 			
 		</select> 
 		<p class="usedefaultkey description" style="display:none;"><?php _e('You can either use the default community API Key or create your own. It is more reliable to create and use your own key since the default key may exceed the daily call limit.', 'wp-google-reviews'); ?></p>
@@ -702,13 +746,21 @@ class WP_Google_Reviews_Admin {
 		}
 		check_ajax_referer('randomnoncestring', 'wpfb_nonce');
 		
+		//need to get placeid
+		$gplaceid = sanitize_text_field($_POST['placeid']);
+		$gplaceid = trim($gplaceid);
+		
+		
 		if(!defined('DOING_AJAX')) define('DOING_AJAX', 1);
 		
 		if (strpos(@ini_get('disable_functions'), 'set_time_limit') === false) {
 			@set_time_limit(3600);
 		}
 
-		$options = get_option('wpfbr_google_options');
+		//$options = get_option('wpfbr_google_options');
+		$googleapisarray = json_decode(get_option('wprev_google_apis'),true);
+		
+		$options = $googleapisarray[$gplaceid];
 
 		//if( empty( $options['google_api_key'] ) && empty( $options['google_api_key_default'] )){
 		//	_e('Google Places API Key not found.');
@@ -810,7 +862,7 @@ class WP_Google_Reviews_Admin {
 			}
 						
 			//check to see if row is in db already
-			$checkrow = $wpdb->get_var( "SELECT id FROM ".$table_name." WHERE reviewer_name = '".$item['author_name']."' AND  review_length = '".$reviewlength."'" );
+			$checkrow = $wpdb->get_var( "SELECT id FROM ".$table_name." WHERE reviewer_name = \"".$item['author_name']."\" AND  review_length = '".$reviewlength."'" );
 			
 			$slashedusername = addslashes($item['author_name']);
 			
@@ -946,9 +998,18 @@ class WP_Google_Reviews_Admin {
 		$gplaceid = sanitize_text_field($_POST['gplaceid']);
 		$gplaceid = trim($gplaceid);
 		
-		//save placeid in the options table_name
-		update_option('wprev_google_crawl_placeid',$gplaceid);
+		//are we editing this one? if so then delete it first so we can resave.
+		$geditplace = sanitize_text_field(urldecode($_POST['geditplace']));
+		if($geditplace!=''){
+			$googlecrawlsarray = json_decode(get_option('wprev_google_crawls'),true);
+			unset($googlecrawlsarray[$geditplace]);
+			update_option('wprev_google_crawls',json_encode($googlecrawlsarray) );
+		}
 		
+		//save placeid in the options table_name
+		//update_option('wprev_google_crawl_placeid',$gplaceid);
+		
+
 		if(!isset($gplaceid) || $gplaceid==''){
 				$results['ack'] = 'error';
 				$results['ackmsg'] = 'Please a enter a Place ID or Search Terms.';
@@ -970,9 +1031,6 @@ class WP_Google_Reviews_Admin {
 		$tempurlvalue = 'https://crawl.ljapps.com/crawlrevs?rip='.$ip_server.'&surl='.$siteurl.'&stype=googlecheck&scrapequery='.urlencode($gplaceid).'&nobot=1&sfp=free';
 		$results['firsturlvalue']=$tempurlvalue;
 		
-		//echo $tempurlvalue;
-		//die();
-	
 		$serverresponse='';
 
 		if (ini_get('allow_url_fopen') == true) {
@@ -1046,10 +1104,22 @@ class WP_Google_Reviews_Admin {
 			die();
 			
 		}
+		
+		$tempbusinessdetails = $businessdetails;
+		//$tempbusinessdetails['img']="";
 
 		$results = json_encode($businessdetails);
 		
 		update_option('wprev_google_crawl_check',$results );
+		
+				//get all saved crawls and add or update if needed.
+		$crawlsarray = Array();
+		$crawlsarray[] = Array();
+		$crawlsarray = json_decode(get_option('wprev_google_crawls'),true);
+		$crawlsarray[$gplaceid]['enteredidorterms'] = $gplaceid;
+			$crawlsarray[$gplaceid]['crawl_check'] = $tempbusinessdetails;
+			update_option('wprev_google_crawls',json_encode($crawlsarray) );
+
 		
 		echo $results;
 	
@@ -1064,7 +1134,29 @@ class WP_Google_Reviews_Admin {
 		$results['ackmsg'] ='';
 		$nhful = trim($_POST['nhful']);	//newest or relevant
 		
-		$checkdetails = json_decode(get_option('wprev_google_crawl_check'),true);
+		$savedplaceid ="";
+		
+		if(isset($_POST['gplaceid'])){	//coming from the crawl page
+			$savedplaceid = trim($_POST['gplaceid']);
+		}
+		
+		//if we are coming from getrevs page then we need to urldecode it
+		if(isset($_POST['getrevsplaceid'])){
+			$savedplaceid = trim(urldecode($_POST['getrevsplaceid']));
+		}
+
+		
+		//$checkdetails = json_decode(get_option('wprev_google_crawl_check'),true);
+		$crawlsarray = Array();
+		$crawlsarray[] = Array();
+		$crawlsarray = json_decode(get_option('wprev_google_crawls'),true);
+		$checkdetails = $crawlsarray[$savedplaceid]['crawl_check'];
+		//save newest or most helpful
+		$crawlsarray[$savedplaceid]['nhful'] = $nhful;
+		update_option('wprev_google_crawls',json_encode($crawlsarray) );
+		
+		
+		
 		if($checkdetails['idorquery'] == 'query' && $checkdetails['enteredterms']!=''){
 			$tempbusinessname=$checkdetails['enteredterms'];
 		} else {
@@ -1230,7 +1322,9 @@ class WP_Google_Reviews_Admin {
 			}
 
 			//check to see if row is in db already
-			$checkrow = $wpdb->get_var( "SELECT id FROM ".$table_name." WHERE reviewer_name = '".$results['user_name']."' AND review_length = '".$results['reviewlength']."'" );
+			$checkrow = $wpdb->get_var( "SELECT id FROM ".$table_name." WHERE reviewer_name = \"".$results['user_name']."\" AND  review_length = '".$results['reviewlength']."'" );
+			
+			//$checkrow = $wpdb->get_var( "SELECT id FROM ".$table_name." WHERE reviewer_name = '".$results['user_name']."' AND review_length = '".$results['reviewlength']."'" );
 			
 			$slashedusername = addslashes($results['user_name']);
 			
@@ -1276,6 +1370,10 @@ class WP_Google_Reviews_Admin {
 				}
 	
 		$results['ackmsg'] =sprintf( __('Success! <b>%d</b> Reviews found. <b>%d</b> New Reviews downloaded. Check Review List page for downloaded reviews. The Pro version can download all your reviews from multiple locations and automatically check for new reviews!', 'wp-google-reviews' ), $numreturned,$i );
+		
+		if(isset($_POST['getrevsplaceid'])){
+			$results['ackmsg'] =sprintf( __('<b>%d</b>New Reviews downloaded', 'wp-google-reviews' ), $i );
+		}
 		
 		$results = json_encode($results);
 		echo $results;
@@ -1750,6 +1848,307 @@ class WP_Google_Reviews_Admin {
 			}
 		}
 		return $temprating;
+	}
+	
+	
+	/**
+	 * Ajax, grab template html to preview on admin
+	 * @access  admin
+	 * @since   14.4
+	 * @return  void
+	 */
+	public function wprp_previewtemplate_ajax(){
+		$tid = stripslashes($_POST['tid']);
+		check_ajax_referer('randomnoncestring', 'wpfb_nonce');
+		
+		$returnarray = $this->wprp_previewtemplate_ajax_get($tid);
+		
+		$returnjson = json_encode($returnarray);
+		
+		echo $returnjson;
+		die();
+	}
+	public function wprp_previewtemplate_ajax_get($tid){
+		
+		$dbmsg = "success";
+		$atts = array('tid' => $tid);
+		
+		$dir = plugin_dir_path( __FILE__ );
+		//get the form html here and return it.
+		require_once plugin_dir_path( __DIR__ ). 'public/class-wp-google-reviews-public.php';
+		$plugin_public_class = new WP_Google_Reviews_Public( $this->get_token(), $this->get_version() );
+		
+		$templatehtml = $plugin_public_class->wprev_usetemplate_func( $atts, $content = null );
+
+		$returnarray['tid']=$tid;
+		$returnarray['ack'] =$dbmsg;
+		$returnarray['templatehtml'] =$templatehtml;
+		
+		return $returnarray;
+
+	}
+	
+	/**
+	 * Ajax, save review template to db
+	 * @access  admin
+	 * @since   14.4
+	 * @return  void
+	 */
+	public function wprp_savetemplate_ajax(){
+		$formdata = stripslashes($_POST['data']);
+		$formarray = json_decode($formdata,true);
+		//print_r($formarray);
+		//die();
+		
+		check_ajax_referer('randomnoncestring', 'wpfb_nonce');
+		
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'wpfb_post_templates';
+
+		//get form submission values and then save or update
+		$t_id = sanitize_text_field($formarray['edittid']);
+
+
+		$title = htmlentities($formarray['wpfbr_template_title']);
+		$template_type = htmlentities($formarray['wpfbr_template_type']);
+		$style = htmlentities($formarray['wprevpro_template_style']);
+		$display_num = htmlentities($formarray['wpfbr_t_display_num']);
+		$display_num_rows = htmlentities($formarray['wpfbr_t_display_num_rows']);
+		$display_order = htmlentities($formarray['wpfbr_t_display_order']);
+		$hide_no_text = htmlentities($formarray['wpfbr_t_hidenotext']);
+		$template_css = htmlentities($formarray['wpfbr_template_css']);
+		
+		$createslider = htmlentities($formarray['wpfbr_t_createslider']);
+		$numslides = htmlentities($formarray['wpfbr_t_numslides']);
+		
+		$read_more = sanitize_text_field($formarray['wprevpro_t_read_more']);
+		$read_more_text = sanitize_text_field($formarray['wprevpro_t_read_more_text']);
+		$review_same_height = sanitize_text_field($formarray['wprevpro_t_review_same_height']);
+
+		$slidermobileview ="";
+		if(isset($formarray['wprevpro_slidermobileview'])){
+		$slidermobileview = sanitize_text_field($formarray['wprevpro_slidermobileview']);
+		}
+
+		
+		//santize
+		$title = sanitize_text_field( $title );
+		$template_type = sanitize_text_field( $template_type );
+		$display_order = sanitize_text_field( $display_order );
+		$template_css = sanitize_text_field( $template_css );
+		$display_order = sanitize_text_field( $display_order );
+
+		
+		//template misc
+		$templatemiscarray = array();
+		
+		$templatemiscarray['showstars']=sanitize_text_field($formarray['wprevpro_template_misc_showstars']);
+		$templatemiscarray['showdate']=sanitize_text_field($formarray['wprevpro_template_misc_showdate']);
+		$templatemiscarray['avataropt']=sanitize_text_field($formarray['wprevpro_template_misc_avataropt']);
+		$templatemiscarray['showicon']=sanitize_text_field($formarray['wprevpro_template_misc_showicon']);
+		$templatemiscarray['bgcolor1']=sanitize_hex_color($formarray['wprevpro_template_misc_bgcolor1']);
+		$templatemiscarray['bgcolor2']=sanitize_hex_color($formarray['wprevpro_template_misc_bgcolor2']);
+		$templatemiscarray['tcolor1']=sanitize_hex_color($formarray['wprevpro_template_misc_tcolor1']);
+		$templatemiscarray['tcolor2']=sanitize_hex_color($formarray['wprevpro_template_misc_tcolor2']);
+		$templatemiscarray['tcolor3']=sanitize_hex_color($formarray['wprevpro_template_misc_tcolor3']);
+		$templatemiscarray['bradius']=sanitize_text_field($formarray['wprevpro_template_misc_bradius']);
+		$templatemiscarray['showmedia']=sanitize_text_field($formarray['wprevpro_t_showmedia']);
+		$templatemiscarray['verified']=sanitize_text_field($formarray['wprevpro_template_misc_verified']);
+		//badge options
+		$templatemiscarray['blocation']=sanitize_text_field($formarray['wprevpro_t_blocation']);
+		$templatemiscarray['filtersource']=sanitize_text_field($formarray['wprevpro_t_filtersource']);
+		
+		if(isset($formarray['wprevpro_t_bhreviews'])){
+			$templatemiscarray['bhreviews']=sanitize_text_field($formarray['wprevpro_t_bhreviews']);
+		}
+		if(isset($formarray['wprevpro_t_bhbtn'])){
+			$templatemiscarray['bhbtn']=sanitize_text_field($formarray['wprevpro_t_bhbtn']);
+		}
+		if(isset($formarray['wprevpro_t_bhbased'])){
+			$templatemiscarray['bhbased']=sanitize_text_field($formarray['wprevpro_t_bhbased']);
+		}
+		if(isset($formarray['wprevpro_t_bhphoto'])){
+			$templatemiscarray['bhphoto']=sanitize_text_field($formarray['wprevpro_t_bhphoto']);
+		}
+		if(isset($formarray['wprevpro_t_bhname'])){
+			$templatemiscarray['bhname']=sanitize_text_field($formarray['wprevpro_t_bhname']);
+		}
+		if(isset($formarray['wprevpro_t_bcenter'])){
+			$templatemiscarray['bcenter']=sanitize_text_field($formarray['wprevpro_t_bcenter']);
+		}
+		if(isset($formarray['wprevpro_t_bdropsh'])){
+			$templatemiscarray['bdropsh']=sanitize_text_field($formarray['wprevpro_t_bdropsh']);
+		}
+		if(isset($formarray['wprevpro_t_bhpow'])){
+			$templatemiscarray['bhpow']=sanitize_text_field($formarray['wprevpro_t_bhpow']);
+		}
+				//more slider options.
+		$templatemiscarray['slideautodelay']=sanitize_text_field($formarray['wpfbr_t_slideautodelay']);
+		$templatemiscarray['slidespeed']=sanitize_text_field($formarray['wpfbr_t_slidespeed']);
+		if(isset($formarray['wprevpro_sliderautoplay'])){
+			$templatemiscarray['sliderautoplay']=sanitize_text_field($formarray['wprevpro_sliderautoplay']);
+		}
+		if(isset($formarray['wprevpro_sliderhideprevnext'])){
+			$templatemiscarray['sliderhideprevnext']=sanitize_text_field($formarray['wprevpro_sliderhideprevnext']);
+		}
+		if(isset($formarray['wprevpro_sliderhidedots'])){
+			$templatemiscarray['sliderhidedots']=sanitize_text_field($formarray['wprevpro_sliderhidedots']);
+		}
+		if(isset($formarray['wprevpro_sliderfixedheight'])){
+			$templatemiscarray['sliderfixedheight']=sanitize_text_field($formarray['wprevpro_sliderfixedheight']);
+		}
+
+		$templatemiscarray['bshape']=sanitize_text_field($formarray['wprevpro_t_bshape']);
+		$templatemiscarray['bimgsize']=sanitize_text_field($formarray['wprevpro_t_bimgsize']);
+		$templatemiscarray['bbradius']=sanitize_text_field($formarray['wprevpro_t_bbradius']);
+		$templatemiscarray['bbkcolor']=sanitize_text_field($formarray['wprevpro_t_bbkcolor']);
+		$templatemiscarray['bbtnurl']=sanitize_text_field($formarray['wprevpro_t_bbtnurl']);
+		$templatemiscarray['bbtncolor']=sanitize_text_field($formarray['wprevpro_t_bbtncolor']);
+		$templatemiscarray['bimgurl']=sanitize_text_field($formarray['wprevpro_t_bimgurl']);
+		$templatemiscarray['bname']=sanitize_text_field($formarray['wprevpro_t_bname']);
+		$templatemiscarray['bnameurl']=sanitize_text_field($formarray['wprevpro_t_bnameurl']);
+		$templatemiscarray['blocation']=sanitize_text_field($formarray['wprevpro_t_blocation']);
+		
+		//read more
+		$templatemiscarray['read_more_num']=sanitize_text_field($formarray['wprevpro_t_read_more_num']);
+
+		$templatemiscjson = json_encode($templatemiscarray);
+		
+		
+		//only save if using pro version
+		
+		
+		$min_rating = sanitize_text_field($formarray['wpfbr_t_min_rating']);
+		
+			$min_words = "";
+			$max_words = "";			
+			$rtype = '["google"]';
+			$rpage = "";
+			$showreviewsbyid="";
+			$sliderautoplay = "";
+			$sliderdirection = "";
+			$sliderarrows = "";
+			$sliderdots = "";
+			$sliderdelay = "";
+			$sliderheight = "";
+
+		$timenow = time();
+		
+		//+++++++++need to sql escape using prepare+++++++++++++++++++
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++
+		//insert or update
+			$data = array( 
+				'title' => "$title",
+				'template_type' => "$template_type",
+				'style' => "$style",
+				'created_time_stamp' => "$timenow",
+				'display_num' => "$display_num",
+				'display_num_rows' => "$display_num_rows",
+				'display_order' => "$display_order", 
+				'hide_no_text' => "$hide_no_text",
+				'template_css' => "$template_css", 
+				'min_rating' => "$min_rating", 
+				'min_words' => "$min_words",
+				'max_words' => "$max_words",
+				'rtype' => "$rtype", 
+				'rpage' => "$rpage",
+				'createslider' => "$createslider",
+				'numslides' => "$numslides",
+				'sliderautoplay' => "$sliderautoplay",
+				'sliderdirection' => "$sliderdirection",
+				'sliderarrows' => "$sliderarrows",
+				'sliderdots' => "$sliderdots",
+				'sliderdelay' => "$sliderdelay",
+				'sliderheight' => "$sliderheight",
+				'showreviewsbyid' => "$showreviewsbyid",
+				'template_misc' => "$templatemiscjson",
+				'read_more' => "$read_more",
+				'read_more_text' => "$read_more_text",
+				'slidermobileview' => "$slidermobileview",
+				'review_same_height' => "$review_same_height"
+				);
+			$format = array( 
+					'%s',
+					'%s',
+					'%d',
+					'%d',
+					'%d',
+					'%d',
+					'%s',
+					'%s',
+					'%s',
+					'%d',
+					'%d',
+					'%d',
+					'%s',
+					'%s',
+					'%s',
+					'%d',
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+					'%d',
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+					'%s'
+				); 
+		$returnarray['iu'] =''; 
+		$returnarray['ack'] ='';
+		$returnarray['ackmessage'] ='';
+		$returnarray['t_id']='';
+		if($t_id==""){
+			$returnarray['iu'] ='insert';
+			//insert
+			$inserttemplate = $wpdb->insert( $table_name, $data, $format );
+			$t_id = $wpdb->insert_id;
+				if(!$inserttemplate){
+					$dbmsg = __('Unable to update. Try refreshing the page. If that does not work then try de-activating and re-activating the plugin.', 'wp-review-slider-pro');
+					$returnarray['ack'] ='error';
+				} else {
+					$dbmsg = __('Template Saved!', 'wp-review-slider-pro');
+					$returnarray['ack'] ='success';
+				}
+		} else {
+			//update
+			$returnarray['iu'] ='update';
+			$updatetempquery = $wpdb->update($table_name, $data, array( 'id' => $t_id ), $format, array( '%d' ));
+			if($updatetempquery>0){
+				$returnarray['ack'] ='success';
+				$dbmsg = __('Template Updated!', 'wp-review-slider-pro');
+			} else {
+				//$wpdb->show_errors();
+				//$wpdb->print_error();
+				$returnarray['ack'] ='error';
+				$dbmsg = __('Unable to update. Try refreshing the page. If that does not work then try de-activating and re-activating the plugin.', 'wp-review-slider-pro');
+			}
+			
+			
+		}
+		
+		$returnarray['t_id']=$t_id;
+		$returnarray['ackmessage'] =$dbmsg;
+		$returnjson = json_encode($returnarray);
+		
+		//can we go ahead and return the html for the preview here?
+		$returnpreview = $this->wprp_previewtemplate_ajax_get($t_id);
+		$returnarray['templatehtml'] = $returnpreview['templatehtml'];
+		
+		$returnjson = json_encode($returnarray);
+		echo $returnjson;
+		die();
+	}
+		
+	
+	
+	public function get_token() {
+		return $this->_token;
+	}
+	public function get_version() {
+		return $this->version;
 	}
 	
 	

@@ -513,13 +513,57 @@ class SubscriberController extends Controller
 
     public function emails(Request $request, $subscriberId)
     {
-        $emails = CampaignEmail::where('subscriber_id', $subscriberId)
-            ->orderBy('id', 'DESC')
-            ->paginate();
+        $filter = sanitize_text_field(Arr::get($request->get(), 'filter'));
+
+        $emailsQuery = CampaignEmail::where('subscriber_id', $subscriberId)
+            ->orderBy('id', 'DESC');
+
+        // Apply filter if present
+        if ($filter == 'open') {
+            $emailsQuery->where('is_open', '1');
+        } elseif ($filter == 'click') {
+            $emailsQuery->whereNotNull('click_counter');
+        } elseif ($filter == 'unopened') {
+            $emailsQuery->where('is_open', '==', 0);
+        }
+
+        $emails = $emailsQuery->paginate();
+        $tab = Arr::get($request->all(), 'tab', 'crm');
+
+        if (defined('FLUENTMAIL_PLUGIN_FILE') && $tab == 'fluentsmtp') {
+            $getLogsByCurrentUser = Subscriber::where('id', $subscriberId)->pluck('email')->first();
+
+            $emails = [];
+
+            if (!empty($getLogsByCurrentUser)) {
+                $emails = fluentMailDb()->table(FLUENT_MAIL_DB_PREFIX . 'email_logs')
+                    ->where('to', 'LIKE', '%' . $getLogsByCurrentUser . '%')
+                    ->orderBy('id', 'DESC')
+                    ->paginate();
+
+                // Format the email log results
+                $emails['data'] = $this->formatResult($emails['data']);
+            }
+        }
 
         return apply_filters('fluentcrm_contact_emails', [
             'emails' => $emails
         ], $subscriberId);
+    }
+
+    protected function formatResult($result)
+    {
+        $result = is_array($result) ? $result : func_get_args();
+
+        foreach ($result as $key => $row) {
+            $result[$key]            = array_map('maybe_unserialize', (array) $row);
+            $result[$key]['id']      = (int)$result[$key]['id'];
+            $result[$key]['retries'] = (int)$result[$key]['retries'];
+            $result[$key]['from']    = htmlspecialchars($result[$key]['from']);
+            $result[$key]['subject'] = wp_kses_post(wp_unslash($result[$key]['subject']));
+        }
+
+        return $result;
     }
 
     public function deleteEmails(Request $request, $subscriberId)
@@ -1338,7 +1382,7 @@ class SubscriberController extends Controller
 
     public function getTrackingEvents(Request $request, $subscriberId)
     {
-        if (!Helper::isExperimentalEnabled('event_tracker')) {
+        if (!Helper::isExperimentalEnabled('event_tracking')) {
             return $this->sendError([
                 'message'    => __('Event Tracker is not enabled', 'fluent-crm'),
                 'error_code' => 'not_enabled'

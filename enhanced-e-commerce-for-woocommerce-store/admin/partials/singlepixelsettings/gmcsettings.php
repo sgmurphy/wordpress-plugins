@@ -480,7 +480,7 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
                                 <?php esc_html_e("Days", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </label>
                             <span>
-                                <a target="_blank" href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=setting&utm_campaign=pricing"><b> Upgrade To Pro</b></a>
+                                <a target="_blank" href="https://www.conversios.io/pricing/?utm_source=woo_aiofree_plugin&utm_medium=setting&utm_campaign=pricing"><b> Upgrade To Pro</b></a>
                             </span>
                         </div>
                     </div>

@@ -3,7 +3,7 @@ Contributors: XootiX, xootixsupport
 Donate link: https://www.paypal.me/xootix
 Tags: social login, login customizer, registration, popup, custom registration fields
 Requires at least: 3.0.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.7.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

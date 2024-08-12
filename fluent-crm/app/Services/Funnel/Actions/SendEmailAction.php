@@ -81,9 +81,9 @@ class SendEmailAction extends BaseAction
                     ]
                 ],
                 'campaign'           => [
-                    'label' => '',
+                    'label'         => '',
                     'wrapper_class' => 'fc_email_writer',
-                    'type'  => 'email_campaign_composer'
+                    'type'          => 'email_campaign_composer'
                 ],
                 'is_scheduled'       => [
                     'type'          => 'yes_no_check',

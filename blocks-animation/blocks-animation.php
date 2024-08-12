@@ -10,7 +10,7 @@
  * Plugin Name:       Blocks Animation: CSS Animations for Gutenberg Blocks
  * Plugin URI:        https://github.com/Codeinwp/otter-blocks
  * Description:       Blocks Animation allows you to add CSS Animations to all of your Gutenberg blocks in the most elegent way.
- * Version:           2.6.13
+ * Version:           3.0.0
  * Author:            ThemeIsle
  * Author URI:        https://themeisle.com
  * License:           GPL-3.0+
@@ -26,8 +26,27 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if ( defined( 'OTTER_BLOCKS_PATH' ) ) {
+	return;
+}
+
 define( 'BLOCKS_ANIMATION_URL', plugins_url( '/', __FILE__ ) );
 define( 'BLOCKS_ANIMATION_PATH', dirname( __FILE__ ) );
+
+$vendor_file = BLOCKS_ANIMATION_PATH . '/vendor/autoload.php';
+
+if ( is_readable( $vendor_file ) ) {
+	require_once $vendor_file;
+}
+
+add_filter(
+	'themeisle_sdk_products',
+	function ( $products ) {
+		$products[] = __FILE__;
+
+		return $products;
+	}
+);
 
 add_action(
 	'plugins_loaded',

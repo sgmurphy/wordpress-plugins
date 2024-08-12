@@ -31,6 +31,10 @@ class Response
         do_action( 'litespeed_control_set_nocache', 'fluentcrm api request' );
         nocache_headers();
 
+        if (is_array($data)) {
+            $data['__bench'] = microtime(true) - FLUENT_CRM_STARTING_TIME;
+        }
+
         return new \WP_REST_Response($data, $code);
     }
 

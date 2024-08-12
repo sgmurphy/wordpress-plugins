@@ -274,7 +274,7 @@ class AdminMenu
         });
     }
 
-    public function getMenuItems($urlBase = false)
+    public function getMenuItems($urlBase = null)
     {
         if (!$urlBase) {
             $urlBase = fluentcrm_menu_url_base();
@@ -519,27 +519,36 @@ class AdminMenu
          */
         do_action('fluent_crm/global_appjs_loaded');
 
+        $footerHook = 'admin_footer';
+        if (!is_admin()) {
+            $footerHook = 'wp_footer';
+        }
+
         if (Helper::isExperimentalEnabled('quick_contact_navigation')) {
             wp_enqueue_script('fluentcrm-contact_navigations', fluentCrmMix('admin/js/contact-navigations.js'), [], FLUENTCRM_PLUGIN_VERSION, true);
-            add_action('admin_footer', function () {
+            add_action($footerHook, function () {
                 echo '<div ref="fluent_contact_nav" id="fluent_contact_nav"><fluent-contact-nav v-if="appReady" @prev="goPrev()" @next="goNext()" :subscriber="subscriber"></fluent-contact-nav></div>';
             }, 99999);
         }
 
-        add_action('admin_footer', function () {
+        add_action($footerHook, function () {
             ?>
             <script>
-                if (_ && _.noConflict) {
-                    _.noConflict();
-                }
+                document.addEventListener('DOMContentLoaded', function () {
+                    if (_ && _.noConflict) {
+                        window._ = _.noConflict();
+                    }
+                });
             </script>
             <?php
         }, 99999);
 
         $this->loadCss();
 
-        wp_enqueue_script('fluentcrm-chartjs', fluentCrmMix('libs/chartjs/Chart.min.js'));
-        wp_enqueue_script('fluentcrm-vue-chartjs', fluentCrmMix('libs/chartjs/vue-chartjs.min.js'));
+        wp_enqueue_script('fluentcrm-chartjs', fluentCrmMix('libs/chartjs/Chart.min.js'), [], $this->version, true);
+        wp_enqueue_script('fluentcrm-vue-chartjs', fluentCrmMix('libs/chartjs/vue-chartjs.min.js'), [], $this->version, true);
+
+        wp_enqueue_script('dompurify', fluentCrmMix('libs/purify/purify.min.js'), [], $this->version, true);
 
         $inlineCss = Helper::generateThemePrefCss();
         wp_add_inline_style('fluentcrm_app_global', $inlineCss);
@@ -666,6 +675,7 @@ class AdminMenu
             'global_email_footer'                 => Helper::getEmailFooterContent(),
             'experimentals'                       => Helper::getExperimentalSettings(),
             'publicPostTypes'                     => $formattedPostTypes,
+            'has_woo'                             => defined('WC_PLUGIN_FILE'),
             'debugs'                              => [
                 '_fc_last_automation_processor' => get_option('_fc_last_funnel_processor_ran'),
                 '_fcrm_last_scheduler'          => fluentCrmGetOptionCache('_fcrm_last_scheduler')
@@ -676,7 +686,7 @@ class AdminMenu
             $data['company_categories'] = Helper::companyCategories();
             $data['company_types'] = Helper::companyTypes();
             $data['company_profile_sections'] = Helper::getCompanyProfileSections();
-            $data['company_custom_fields']    = fluentcrm_get_custom_company_fields();
+            $data['company_custom_fields'] = fluentcrm_get_custom_company_fields();
         }
 
         return apply_filters('fluent_crm/admin_vars', $data);
@@ -741,6 +751,7 @@ class AdminMenu
             'wp-components',
             'wp-compose',
             'wp-data',
+            'wp-deprecated',
             'wp-dom',
             'wp-dom-ready',
             'wp-element',
@@ -751,14 +762,13 @@ class AdminMenu
             'wp-keyboard-shortcuts',
             'wp-keycodes',
             'wp-media-utils',
-            'wp-plugins',
-            'wp-polyfill',
+            'wp-preferences',
             'wp-primitives',
             'wp-rich-text',
             'wp-url'
         );
 
-        $version = '14ba519655f7064';
+        $version = FLUENTCRM_PLUGIN_VERSION;
 
         global $wp_version;
         if (version_compare($wp_version, '5.9') >= 0) {
@@ -768,14 +778,15 @@ class AdminMenu
             $dependencies[] = 'wp-editor';
         }
 
-        wp_enqueue_script($script_handle, fluentCrmMix($assetFolder . '/index.js'), $dependencies, $version);
+        wp_enqueue_script($script_handle, fluentCrmMix($assetFolder . '/index.js'), $dependencies, $version, true);
 
         if (defined('WC_PLUGIN_FILE')) {
             wp_enqueue_script(
                 'fc_block_woo_product',
                 fluentCrmMix($assetFolder . '/woo-product-index.js'),
                 array(),
-                $version
+                $version,
+                true
             );
 //            wp_enqueue_script(
 //                'fc_block_product',
@@ -789,7 +800,8 @@ class AdminMenu
             'fc_block_latest_post',
             fluentCrmMix($assetFolder . '/latest-post-index.js'),
             array(),
-            $version
+            $version,
+            true
         );
 
         // Inline the Editor Settings.
@@ -820,7 +832,8 @@ class AdminMenu
 
     private function emailBuilderSettings()
     {
-        if(class_exists('\WP_Block_Editor_Context')) {
+
+        if (class_exists('\WP_Block_Editor_Context')) {
             $registery = new \WP_Block_Editor_Context([
                 'name' => 'fluent_crm_email'
             ]);
@@ -925,7 +938,7 @@ class AdminMenu
                 'spacing'         => $coreExperimentalSpacing,
                 'typography'      => $wordpressCoreTypography,
                 'blocks'          => [
-                    'core/button' => [
+                    'core/button'    => [
                         'border'     => [
                             'radius' => true,
                             "style"  => true,
@@ -933,6 +946,18 @@ class AdminMenu
                         ],
                         'typography' => [
                             'fontSizes' => []
+                        ]
+                    ],
+                    'core/paragraph' => [
+                        'spacing' => [
+                            'margin'  => false,
+                            'padding' => false
+                        ]
+                    ],
+                    'core/heading'   => [
+                        'spacing' => [
+                            'margin'  => false,
+                            'padding' => false
                         ]
                     ]
                 ]
@@ -1144,12 +1169,15 @@ class AdminMenu
                     margin: 0;
                     width: 160px;
                 }
+
                 .fc_hide_full_menu.sticky-menu #adminmenuwrap {
                     position: relative;
                 }
+
                 .fc_hide_full_menu #wpbody {
                     padding-left: 160px;
                 }
+
                 .fc_hide_full_menu #adminmenumain #adminmenuwrap {
                     width: 160px;
                 }
@@ -1243,7 +1271,7 @@ class AdminMenu
                 unset($contactsMenu['companies']);
             }
 
-            $sideBarMenus = [
+            $sideBarMenus = apply_filters('fluent_crm/full_sidebar_menu_items', [
                 [
                     'key'        => 'dashboard',
                     'page_title' => __('Dashboard', 'fluent-crm'),
@@ -1333,11 +1361,10 @@ class AdminMenu
                     'capability' => ($isAdmin) ? $dashboardPermission : 'fcrm_manage_settings',
                     'uri'        => $urlBase . 'documentation'
                 ]
-            ];
-
+            ], $permissions);
 
             $app['view']->render('admin.experimental_menu', [
-                'menu_items' => apply_filters('fluent_crm/full_sidebar_menu_items', $sideBarMenus),
+                'menu_items' => $sideBarMenus,
                 'logo'       => Arr::get(fluentcrmGetGlobalSettings('business_settings', []), 'logo')
             ]);
 

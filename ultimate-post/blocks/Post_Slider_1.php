@@ -151,6 +151,12 @@ class Post_Slider_1{
             'hideMobile' => false,
             'advanceCss' => '',
 
+            /*============================
+                Dynamic Content
+            ============================*/
+            'dcEnabled' => false,
+            'dcFields' => array(),
+            'dcSize' => 7
         );
     }
 
@@ -214,6 +220,12 @@ class Post_Slider_1{
                     $wraper_before .= '<div class="ultp-block-items-wrap" data-arrows="'.$attr['arrows'].'" data-dots="'.$attr['dots'].'" data-autoplay="'.$attr['autoPlay'].'" data-slidespeed="'.$attr['slideSpeed'].'" data-fade="'.$attr['fade'].'" data-slidelg="'.(isset($slides['lg']) ? sanitize_html_class( $slides['lg'] ) : 1).'" data-slidesm="'.(isset($slides['sm']) ? sanitize_html_class( $slides['sm'] ) : 1).'" data-slidexs="'.(isset($slides['xs']) ? sanitize_html_class( $slides['xs'] ) : 1).'">';
                         $idx = $noAjax ? 1 : 0;
                         while ( $recent_posts->have_posts() ): $recent_posts->the_post();
+
+                            $dcContent = array_fill( 0, $attr['dcSize'], '' );
+
+                            if (ultimate_post()->is_dc_active($attr)) {
+                                $dcContent = \ULTP\DCService::get_dc_content_for_block($attr, $dcContent);
+                            }
                             
                             include ULTP_PATH.'blocks/template/data.php';
 
@@ -255,29 +267,43 @@ class Post_Slider_1{
                                             include ULTP_PATH.'blocks/template/category.php';
                                             $post_loop .= $category;
 
+                                            $post_loop .= $dcContent[6];
+
                                             if ($title && $attr['titleShow'] && $attr['titlePosition']) {
                                                 include ULTP_PATH.'blocks/template/title.php';
                                             }
+
+                                            $post_loop .= $dcContent[5];
                                             
                                             if ($attr['metaPosition'] =='top' ) {
                                                 include ULTP_PATH.'blocks/template/meta.php';
                                             }
 
+                                            $post_loop .= $dcContent[4];
+
                                             if ($title && $attr['titleShow'] && !$attr['titlePosition']) {
                                                 include ULTP_PATH.'blocks/template/title.php';
                                             }
+
+                                            $post_loop .= $dcContent[3];
 
                                             if ($attr['excerptShow']) {
                                                 $post_loop .= '<div class="ultp-block-excerpt">'.ultimate_post()->get_excerpt($post_id, $attr['showSeoMeta'], $attr['showFullExcerpt'], $attr['excerptLimit']).'</div>';
                                             }
 
+                                            $post_loop .= $dcContent[2];
+
                                             if ($attr['readMore']) {
                                                 $post_loop .= '<div class="ultp-block-readmore"><a aria-label="'.$title.'" href="'.$titlelink.'" '.($attr['openInTab'] ? 'target="_blank"' : '').'>'.($attr['readMoreText'] ? $attr['readMoreText'] : esc_html__( "Read More", "ultimate-post" )).ultimate_post()->svg_icon($attr['readMoreIcon']).'</a></div>';
                                             }
 
+                                            $post_loop .= $dcContent[1];
+
                                             if ($attr['metaPosition'] =='bottom' ) {
                                                 include ULTP_PATH.'blocks/template/meta.php';
                                             }
+
+                                            $post_loop .= $dcContent[0];
                                             
                                         $post_loop .= '</div>'; //.ultp-block-content-inner
                                     $post_loop .= '</div>'; //.ultp-block-content

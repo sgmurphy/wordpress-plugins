@@ -37,6 +37,7 @@
 include("tabmenu.php");
 ?>	
 
+	
 	<div id='placeid_div'>
 	<div><br>
 	<b>Important Notes:</b><br>

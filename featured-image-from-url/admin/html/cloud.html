@@ -346,14 +346,6 @@
                                                 <input id="su_login_email" type="email" required maxlength="64" style="width:100%">
                                             </td>
                                         </tr>
-                                        <tr id="tr_su_login_2fa">
-                                            <td>
-                                                <label for="su_login_2fa" title="<?php $fifucloud['label']['title']['2fa']() ?>"><?php $fifucloud['label']['2fa']() ?>: </label>
-                                            </td>
-                                            <td>
-                                                <input id="su_login_2fa" maxlength="6" style="width:100%; height:28px;">
-                                            </td>
-                                        </tr>
                                         <tr id="tr_su_login_site">
                                             <td>
                                                 <label for="su_login_site"><?php $fifucloud['label']['website']() ?>: </label>
@@ -369,14 +361,6 @@
                                             <td>
                                                 <button id="su_login_button" onclick="login()" style="height:28px; width:38%"><i class="fa fa-sign-in-alt"></i> <?php $fifucloud['login']['button']() ?></button>
                                                 <button id="su_login_reset" onclick="confirmResetCredentials()" style="height:28px; width:60%"><i class="fa fa-qrcode"></i> <?php $fifucloud['reset']['button']() ?></button>
-                                            </td>
-                                        </tr>
-                                        <tr id="tr_su_login_always_connected">
-                                            <td>
-                                            </td>
-                                            <td>
-                                                <input id="su_login_always_connected" type="checkbox">
-                                                <label> <?php $fifucloud['label']['title']['connected']() ?></label>
                                             </td>
                                         </tr>
                                     </table>

@@ -77,7 +77,7 @@
 							</div>';
 		
 		changepreviewhtml();
-		
+
 		//reset colors to default
 		$( "#wprevpro_pre_resetbtn" ).click(function() {
 			resetcolors();
@@ -209,9 +209,6 @@
 			}
 			
 		}
-		
-		
-	
 	
 		
 		//help button clicked
@@ -273,12 +270,20 @@
 		if(checkedittemplate=="edit"){
 			jQuery("#wpfbr_new_template").show("slow");
 			checkwidgetradio();
+			showtemplatepreview();
+
 		} else {
 			jQuery("#wpfbr_new_template").hide();
 		}
 		
 		$( "#wpfbr_addnewtemplate" ).click(function() {
 		  jQuery("#wpfbr_new_template").show("slow");
+		  //go ahead and save the template with all the defaults so we can show the preview right away.
+		  $( "#wprevpro_addnewtemplate_update" ).click();
+		  
+		  //setTimeout(function(){ 
+			//showtemplatepreview();
+		  //}, 1000);
 		});	
 		$( "#wpfbr_addnewtemplate_cancel" ).click(function() {
 		  jQuery("#wpfbr_new_template").hide("slow");
@@ -338,7 +343,7 @@
 			}
 		}
 		
-							//simple tooltip for added elements and mobile devices
+		//simple tooltip for added elements and mobile devices
 		$(".wprevpro_t1_outer_div").on('mouseenter touchstart', '.wprevtooltip', function(e) {
 			var titleText = $(this).attr('data-wprevtooltip');
 			$(this).data('tiptext', titleText).removeAttr('data-wprevtooltip');
@@ -351,6 +356,370 @@
 		$(".wprevpro_t1_outer_div").on('mousemove', '.wprevtooltip', function(e) {
 			$('.wprevpro_tooltip').css('top', (e.pageY - 15) + 'px').css('left', (e.pageX + 10) + 'px');
 		});
+		
+		
+		//==================================================
+		//======badge, and preview========================
+		
+		//adding functionality for preview window.
+		$( "#wpfbr_addnewtemplate_preview" ).click(function() {
+			showtemplatepreview();
+		});
+			
+		function showtemplatepreview(){
+			console.log('rebuild slider');
+			
+			$( "#loadingpreview" ).show();
+			$( "#wpfbr_preview_outermost" ).show();
+			
+			//for a test get html and re-add it. 
+			var temphtml = '';	//call jquery and get html for slider here.
+			var temptid = $('#edittid').val();
+			var senddata = {
+					action: 'wprp_get_preview',	//required
+					wpfb_nonce: adminjs_script_vars.wpfb_nonce,
+					tid: temptid,
+					};
+			//send to ajax to update db
+			var jqxhr = jQuery.post(ajaxurl, senddata, function (response){
+				//console.log(response);
+				$( "#loadingpreview" ).hide();
+				if(response) {
+					try {
+						var saveresult = JSON.parse(response);	//array
+						console.log(saveresult);
+						if(saveresult.ack=='success'){
+							
+							$( "#wpfbr_preview_outer" ).html(saveresult.templatehtml);
+							//console.log($( document.getElementsByClassName("wprev-slider") ));
+							createaslider($(document.getElementsByClassName("wprev-slider")),'shortcode');
+							
+						} else {
+							$('#update_form_msg').show();
+							alert('Error creating preview. Please contact support. '+ saveresult.ackmessage); 
+						}
+						
+					} catch(e) {
+						alert('Error creating preview. Contact support.'+e); // error in the above string (in this case, yes)!
+					}
+				} else {
+					alert('Error creating preview. Please contact support.'); 
+				}
+			});
+		}
+		
+	//for showing description after clicking help icon wprevpro_t_createslider
+		$( ".wprevpro_helpicon_p" ).click(function() {
+			$(this).closest('tr').find('p.description').each(function() {
+				$( this ).toggle('fast');
+			});
+		});
+		
+		//creating slider
+			function createaslider(thissliderdiv,type){
+				
+				var sliderhideprevnext = $(thissliderdiv).attr( "data-sliderhideprevnext" );
+				var sliderhidedots = $(thissliderdiv).attr( "data-sliderhidedots" );
+				var sliderautoplay = $(thissliderdiv).attr( "data-sliderautoplay" );
+				var slidespeed = $(thissliderdiv).attr( "data-slidespeed" );
+				var slideautodelay = $(thissliderdiv).attr( "data-slideautodelay" );
+				var sliderfixedheight = $(thissliderdiv).attr( "data-sliderfixedheight" );
+				var revsameheight = $(thissliderdiv).attr( "data-revsameheight" );
+				
+				var showarrows = true;
+				if(sliderhideprevnext=="yes"){
+					var showarrows = false;
+				}
+				var shownav = true;
+				if(sliderhidedots=="yes"){
+					var shownav = false;
+				}
+				var sautoplay = false;
+				if(sliderautoplay=="yes"){
+					var sautoplay = true;
+				}
+				var sspeed = parseFloat(slidespeed) * 1000;
+				var sdelay = parseFloat(slideautodelay) * 1000;
+				if(sdelay<sspeed){
+					sdelay = sspeed;
+				}
+				var sanimate = true;
+				if(sliderfixedheight=="yes"){
+					sanimate = false;
+				}
+
+				//unhide other rows.
+				$( thissliderdiv ).find('li').show();
+				var slider = $( thissliderdiv ).wprs_unslider(
+						{
+						autoplay:sautoplay,
+						infinite:false,
+						delay: sdelay,
+						speed: sspeed,
+						animation: 'horizontal',
+						arrows: showarrows,
+						nav:shownav,
+						animateHeight: sanimate,
+						activeClass: 'wprs_unslider-active',
+						}
+					);
+				
+				if(sanimate==true){
+				setTimeout(function(){ 
+					//height of active slide
+					var firstheight = $(thissliderdiv).find('.wprs_unslider-active').height();
+					$(thissliderdiv).css( 'height', firstheight );
+					$(thissliderdiv).find("li.wprevnextslide").removeClass('wprevnextslide');
+				}, 500);
+				}
+				
+				if(sautoplay==true){
+					slider.on('mouseover', function() {slider.data('wprs_unslider').stop();}).on('mouseout', function() {slider.data('wprs_unslider').start();});
+				}
+				//force height if set
+				if(revsameheight=='yes'){
+					var maxheights = $(thissliderdiv).find(".indrevdiv").map(function (){return $(this).outerHeight();}).get();
+					var maxHeightofslide = Math.max.apply(null, maxheights);if(maxHeightofslide>0){$(thissliderdiv).find(".indrevdiv").css( "min-height", maxHeightofslide );}
+				}
+								
+			};
+			
+		//simple tooltip for added elements and mobile devices
+		$("#wpfbr_preview_outer").on('mouseenter touchstart', '.wprevtooltip', function(e) {
+			var titleText = $(this).attr('data-wprevtooltip');
+			$(this).data('tiptext', titleText).removeAttr('data-wprevtooltip');
+			$('<p class="wprevpro_tooltip"></p>').text(titleText).appendTo('body').css('top', (e.pageY - 15) + 'px').css('left', (e.pageX + 10) + 'px').fadeIn('slow');
+		});
+		$("#wpfbr_preview_outer").on('mouseleave touchend', '.wprevtooltip', function(e) {
+			$(this).attr('data-wprevtooltip', $(this).data('tiptext'));
+			$('.wprevpro_tooltip').remove();
+		});
+		$("#wpfbr_preview_outer").on('mousemove', '.wprevtooltip', function(e) {
+			$('.wprevpro_tooltip').css('top', (e.pageY - 15) + 'px').css('left', (e.pageX + 10) + 'px');
+		});
+		
+		//going to search for media added to reviews and load lity if we find them.
+		/*
+		setTimeout(function(){ mediareviewpopup(); }, 500);
+		function mediareviewpopup(){
+			//var mediadiv = $(".wprev_media_div");
+			var mediadiv = $(document.getElementsByClassName("wprev_media_div"));
+			if(mediadiv.length){
+				//load js and css files.
+				//console.log(wprevpublicjs_script_vars);
+				$('<link/>', {
+				   rel: 'stylesheet',
+				   type: 'text/css',
+				   href: adminjs_script_vars.pluginsUrl+"/public/css/lity.min.css"
+				}).appendTo('head');
+				$.getScript(adminjs_script_vars.pluginsUrl+"/public/js/lity.min.js", function() {
+					//script is loaded and ran on document root.
+				});
+			}
+		}
+		*/
+		
+		//for updating the form without closing it, sending via ajax
+		$( "#wprevpro_addnewtemplate_update" ).click(function() {
+			console.log('updating');
+			$( "#wpfbr_preview_outermost" ).show();
+			
+			$('#savingformimg').show();
+			//get all the form values. newtemplateform
+			event.preventDefault();
+
+			var formArray = $( "#newtemplateform" ).serializeArray();
+			//console.log(formArray);
+			  var returnArray = {};
+			  for (var i = 0; i < formArray.length; i++){
+					returnArray[formArray[i]['name']] = formArray[i]['value'];
+			  }
+			 //console.log(returnArray);
+  
+			var jsonfields = JSON.stringify(returnArray);
+			//console.log(jsonfields);
+			var senddata = {
+					action: 'wprp_save_template',	//required
+					wpfb_nonce: adminjs_script_vars.wpfb_nonce,
+					data: jsonfields,
+					};
+			//send to ajax to update db
+			var jqxhr = jQuery.post(ajaxurl, senddata, function (response){
+				//console.log(response);
+				if(response) {
+					try {
+						var saveresult = JSON.parse(response);
+						//console.log(saveresult);
+						if(saveresult.ack=='success'){
+							$('#savingformimg').hide();
+							$('#update_form_msg').show();
+							//save editid if this is a new insert
+							if(saveresult.iu=='insert'){
+								$('#edittid').val(saveresult.t_id);
+							}
+							//reload preview
+							//showtemplatepreview();
+							
+							$( "#wpfbr_preview_outer" ).html(saveresult.templatehtml);
+							createaslider($(document.getElementsByClassName("wprev-slider")),'shortcode');
+
+							
+						} else {
+							$('#update_form_msg').html(saveresult.ackmessage);
+							alert('Error saving/updating template. Please contact support. '+ saveresult.ackmessage); 
+						}
+						
+					} catch(e) {
+						alert('Error saving/updating template. Contact support.'+e); // error in the above string (in this case, yes)!
+					}
+				} else {
+					alert('Error saving/updating template. Please contact support.'); 
+				}
+
+				//hide message after 3 seconds
+				setTimeout(function(){ $('#update_form_msg').hide(); }, 2000);
+			});
+
+		});
+		
+		$( "#wpfbr_preview_outer" ).on( "click", ".wprs_rd_more", function( event ) {
+			$(this ).hide();
+			$(this ).next("span").show(0, function() {
+				// Animation complete.
+				$(this ).css('opacity', '1.0');
+			  });
+		
+			//change height of wprev-slider-widget
+			$(this ).closest( ".wprev-slider-widget" ).css( "height", "auto" );
+			
+			//change height of wprev-slider
+			$(this ).closest( ".wprev-slider" ).css( "height", "auto" );
+
+		});
+		
+		var currenttab = 0;
+		$( ".gotopage0" ).click(function() {
+			//hide everything but page 1
+			$( "#settingtable0" ).fadeIn();
+			$( "#settingtable1" ).hide();
+			$( "#settingtable2" ).hide();
+			$( "#settingtable3" ).hide();
+			currenttab = 0;
+			changecurrenttab(currenttab);
+
+		});
+		$( ".gotopage1" ).click(function() {
+			//hide everything but page 1
+			$( "#settingtable0" ).hide();
+			$( "#settingtable1" ).fadeIn();
+			$( "#settingtable2" ).hide();
+			$( "#settingtable3" ).hide();
+			currenttab = 1;
+			changecurrenttab(currenttab);
+
+		});
+		$( ".gotopage2" ).click(function() {
+			//hide everything but page 1
+			$( "#settingtable0" ).hide();
+			$( "#settingtable1" ).hide();
+			$( "#settingtable2" ).fadeIn();
+			$( "#settingtable3" ).hide();
+			currenttab = 2;
+			changecurrenttab(currenttab);
+		});
+		$( ".gotopage3" ).click(function() {
+			//hide everything but page 1
+			$( "#settingtable0" ).hide();
+			$( "#settingtable1" ).hide();
+			$( "#settingtable2" ).hide();
+			$( "#settingtable3" ).fadeIn();
+			currenttab = 3;
+			changecurrenttab(currenttab);
+		});
+		function changecurrenttab(ctab){
+			//remove all classes
+			$( ".settingtab" ).removeClass( "nav-tab-active" );
+			if(ctab==0){
+				$( "#settingtab0" ).addClass("nav-tab-active");
+			}
+			if(ctab==1){
+				$( "#settingtab1" ).addClass("nav-tab-active");
+			}
+			if(ctab==2){
+				$( "#settingtab2" ).addClass("nav-tab-active");
+			}
+			if(ctab==3){
+				$( "#settingtab3" ).addClass("nav-tab-active");
+			}
+
+		}
+		
+		//upload custom business picture----------------------------------
+		$('#upload_licon_button').on("click",function() {
+			tb_show('Upload Icon', 'media-upload.php?referer=wp_google-templates_posts&type=image&TB_iframe=true&post_id=0', false);
+			//store old send to editor function
+			window.restore_send_to_editor = window.send_to_editor;
+			window.send_to_editor = function(html) {
+				var image_url = jQuery("<div>" + html + "</div>").find('img').attr('src');
+				$('#wprevpro_t_bimgurl').val(image_url);
+				tb_remove();
+				//restore old send to editor function
+				 window.send_to_editor = window.restore_send_to_editor;
+			}
+		
+			return false;
+		});
+		
+		//for setting badge title
+		//if($( "#wprevpro_t_bname" ).val()==""){
+		//setbadgetitle();
+		//}
+		$( "#wprevpro_t_filtersource" ).change(function() {
+			//console.log('here');
+				setbadgetitle();
+		});
+		function setbadgetitle(){
+			$( "#wprevpro_t_bname" ).val($( "#wprevpro_t_filtersource option:selected" ).text());
+			//also set links to title and badge
+			$( "#wprevpro_t_bnameurl" ).val("https://search.google.com/local/reviews?placeid="+$( "#wprevpro_t_filtersource" ).val());
+			$( "#wprevpro_t_bbtnurl" ).val("https://search.google.com/local/writereview?placeid="+$( "#wprevpro_t_filtersource" ).val());
+		}
+		
+		//hide badge options if not using. wprevpro_t_blocation
+		hideshowbadgeoptions();
+		$( "#wprevpro_t_blocation" ).change(function() {
+			hideshowbadgeoptions();
+		});
+		function hideshowbadgeoptions(){
+			if($( "#wprevpro_t_blocation" ).val()==""){
+				//hide
+				$( ".badgehide" ).hide('slow');
+			} else {
+				$( ".badgehide" ).show('slow');
+			}
+		}
+		
+		//going to search for media added to reviews and load lity if we find them.
+		/*
+		setTimeout(function(){ mediareviewpopup(); }, 500);
+		function mediareviewpopup(){
+			var mediadiv = $(".wprev_media_div");
+			//var mediadiv = $(document.getElementsByClassName("wprev_media_div"));
+			if(mediadiv.length){
+				//load js and css files.
+				//console.log(wprevpublicjs_script_vars);
+				$('<link/>', {
+				   rel: 'stylesheet',
+				   type: 'text/css',
+				   href: wprevpublicjs_script_vars.wprevpluginsurl+"/public/css/lity.min.css"
+				}).appendTo('head');
+				$.getScript(wprevpublicjs_script_vars.wprevpluginsurl+"/public/js/lity.min.js", function() {
+					//script is loaded and ran on document root.
+				});
+			}
+		}
+		*/
+		
 		
 	});
 

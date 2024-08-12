@@ -272,8 +272,8 @@ class Advanced_Ads_Admin_Meta_Boxes {
 				$hndlelinks                   .= '<a href="https://wpadvancedads.com/manual/visitor-conditions/?utm_source=advanced-ads&utm_medium=link&utm_campaign=edit-visitor" target="_blank" class="advads-manual-link">' . __( 'Visitor Conditions', 'advanced-ads' ) . '</a>';
 				$videomarkup                  = '<iframe width="420" height="315" src="https://www.youtube-nocookie.com/embed/VjfrRl5Qn4I?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
 				$ad_options                   = $ad->options();
-				$display_conditions           = is_array( $ad_options['conditions'] ) ? $ad_options['conditions'] : []; // default value for older version is `""` (empty string)
-				$visitor_conditions           = is_array( $ad_options['visitors'] ) ? $ad_options['visitors'] : []; // default value for older version is `""` (empty string)
+				$display_conditions           = ! empty( $ad_options['conditions'] ) && is_array( $ad_options['conditions'] ) ? $ad_options['conditions'] : []; // default value for older version is `""` (empty string)
+				$visitor_conditions           = ! empty( $ad_options['visitors'] ) && is_array( $ad_options['visitors'] ) ? $ad_options['visitors'] : []; // default value for older version is `""` (empty string)
 				$display_conditions_available = ( empty( $display_conditions ) );
 				$visitor_conditions_available = ( empty( $visitor_conditions ) );
 				break;

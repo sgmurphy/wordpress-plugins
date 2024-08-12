@@ -36,7 +36,7 @@ if ($subpage == "ga4ecommerce") {
                 <h2><?php esc_html_e("Reports & Insights", "enhanced-e-commerce-for-woocommerce-store") ?></h2>
             </div>
             <div class="ms-auto p-2 bd-highlight">
-                <div id="reportrange" class="dshtpdaterange">
+                <div id="reportrange" class="dshtpdaterange upgradetopro_badge" popupopener="generalreport">
                     <div class="dateclndicn">
                         <img src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/claendar-icon.png'); ?>"
                             alt="" />
@@ -197,7 +197,7 @@ if ($subpage == "ga4ecommerce") {
                                 <h5>
                                     <?php esc_html_e("To get emails on your alternate address. ", "enhanced-e-commerce-for-woocommerce-store"); ?><a
                                         style="color:  #1085F1;cursor: pointer;"
-                                        href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=EE+Plugin+User+Interface&amp;utm_medium=dashboard&amp;utm_campaign=Upsell+at+Conversios"
+                                        href="https://www.conversios.io/pricing/?utm_source=EE+Plugin+User+Interface&amp;utm_medium=dashboard&amp;utm_campaign=Upsell+at+Conversios"
                                         target="_blank"><?php esc_html_e("Upgrade To Pro", "enhanced-e-commerce-for-woocommerce-store"); ?></a>
                                 </h5>
                             </div>
@@ -215,7 +215,7 @@ if ($subpage == "ga4ecommerce") {
                                 <h5>
                                     <?php esc_html_e("By default, you will receive a Weekly report in your email inbox.", "enhanced-e-commerce-for-woocommerce-store"); ?><br><?php esc_html_e("To get report ", "enhanced-e-commerce-for-woocommerce-store"); ?><strong>Daily</strong>
                                     or <strong>Weekly</strong>. <a
-                                        href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=EE+Plugin+User+Interface&amp;utm_medium=dashboard&amp;utm_campaign=Upsell+at+Conversios"
+                                        href="https://www.conversios.io/pricing/?utm_source=EE+Plugin+User+Interface&amp;utm_medium=dashboard&amp;utm_campaign=Upsell+at+Conversios"
                                         target="_blank"
                                         style="color:  #1085F1;"><?php esc_html_e("Upgrade To Pro", "enhanced-e-commerce-for-woocommerce-store"); ?></a>
                                 </h5>
@@ -250,53 +250,7 @@ if ($subpage == "ga4ecommerce") {
     </div>
 </div>
 <!--schedule modal end-->
-<!-- Upgrade to PRO modal -->
-<div class="modal fade" id="upgradetopromodal" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-body p-4 pb-0">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <h3 class="fw-bold text-uppercase pt-0 d-flex"><img
-                                    style="height:29px;max-width:100%;margin-right: 10px;"
-                                    src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge_big.png'); ?>" />
-                                <?php esc_html_e("Upgrade to Pro now and enjoy exclusive benefits:", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            <ul class="conv-upgrade-banner-list ps-4 pt-4">
-                                <li>Take advantage of <span>Google Consent Mode V2</span> for enhanced tracking across
-                                    all platforms.</li>
-                                <li>Use your <span>own GTM container</span> with automated tag triggers.</li>
-                                <li>Optimize <span>Google Ads conversion tracking</span> for Add To Cart and Begin
-                                    Checkout.</li>
-                                <li>Enable <span>Dynamic Remarketing</span> Tags for View_item, Add_to_cart,
-                                    Begin_checkout, Purchase.</li>
-                                <li>Integrate seamlessly with <span>FBCAPI, Snapchat CAPI, and TikTok Events API</span>.
-                                </li>
-                                <li>Access detailed <span>GA4 e-commerce reporting</span>.</li>
-                                <li>Maximize results with <span>Google Ads conversion reporting</span>.</li>
-                                <li>Expand your reach with <span>unlimited product feed</span> for Google Merchant
-                                    Center, FB Catalogue, and TikTok.</li>
-                                <li>Experience dedicated <span>customer support</span>.</li>
-                                <li>Implement <span>server-side tagging</span> for enhanced performance.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer border-0 pb-4 mb-1 pt-4">
-                <a id="upgradetopro_modal_link" class="btn conv-yellow-bg m-auto w-100 mx-4 p-2"
-                    href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=upgrade"
-                    target="_blank">
-                    <?php esc_html_e("Upgrade Now", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Upgrade to PRO modal End -->
+
 <script>
 var start = moment().subtract(45, 'days');
 var end = moment().subtract(1, 'days');
@@ -410,9 +364,5 @@ jQuery('#email_toggle_btn').change(function() {
         jQuery("#email_frequency,#custom_email").attr("style", "color: #94979A !important");
         jQuery("#schedule_email_save_config").html('Save Changes');
     }
-});
-
-jQuery('#reportrange, .conv_page_path').click(function() {
-    jQuery("#upgradetopromodal").modal('show');
 });
 </script>

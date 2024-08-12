@@ -121,6 +121,9 @@ class CampaignController extends Controller
         } else if ($filterType == 'view') {
             $emailsQuery = $emailsQuery->where('is_open', '>', 0)
                 ->orderBy('is_open', 'DESC');
+        } else if ($filterType == 'unopened') {
+            $emailsQuery = $emailsQuery->where('is_open', '==', 0)
+                ->orderBy('is_open', 'DESC');
         }
 
         $emails = $emailsQuery->paginate();
@@ -728,6 +731,9 @@ class CampaignController extends Controller
 
     public function getEmailPreviewBody()
     {
+        if (!defined('FLUENTCRM_PREVIEWING_EMAIL')) {
+            define('FLUENTCRM_PREVIEWING_EMAIL', true);
+        }
 
         $campaignId = $this->request->get('campaign_id');
 
@@ -954,7 +960,7 @@ class CampaignController extends Controller
                 }
 
                 $lastEmailTimestamp = get_option('fluentcrm_is_sending_emails');
-                if ( $lastEmailTimestamp && (time() - $lastEmailTimestamp) > 140 ) {
+                if ($lastEmailTimestamp && (time() - $lastEmailTimestamp) > 140) {
                     // Looks like it's in stuck so we are resetting this
                     update_option('fluentcrm_is_sending_emails', null);
                     wp_remote_post(admin_url('admin-ajax.php'), [

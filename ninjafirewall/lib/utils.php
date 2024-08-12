@@ -514,26 +514,26 @@ add_filter('pre_user_login' , 'nfw_account_creation');
 
 function nfw_garbage_collector() {
 
-	$path = NFW_LOG_DIR . '/nfwlog/cache/';
+	$path = NFW_LOG_DIR .'/nfwlog/cache';
 	$now = time();
 	// Make sure the cache folder exists, i.e, we have been
-	// through the whole installation process:
+	// through the whole installation process
 	if (! is_dir( $path ) ) {
 		return;
 	}
 
-	// Don't do anything if the cache folder was cleaned up less than 10 minutes ago:
-	$gc = $path . 'garbage_collector.php';
+	// Don't do anything if the garbage collector was executed less than 45mn ago
+	$gc = $path .'/garbage_collector.php';
 	if ( file_exists( $gc ) ) {
 		$nfw_mtime = filemtime( $gc ) ;
-		if ( $now - $nfw_mtime < 10*60 ) {
+		if ( $now - $nfw_mtime < 45*60 ) {
 			return;
 		}
 		unlink( $gc );
 	}
 	touch( $gc );
 
-	// Fetch options:
+	// Fetch options
 	$nfw_options = nfw_get_option('nfw_options');
 
 	// ------------------------------------------------------------------
@@ -541,12 +541,13 @@ function nfw_garbage_collector() {
 	// from a backup file otherwise we restore it from the default settings.
 	if ( nfw_validate_option( $nfw_options ) === false ) {
 
-		$glob = glob( $path .'backup_*.php');
-		$valid_option = 0;
+		$files			= NinjaFirewall_helpers::nfw_glob( $path, 'backup_.+?\.php$', true, true );
+		$valid_option	= 0;
+
 		// Make sure we have a backup file
-		while ( is_array( $glob ) && ! empty( $glob[0] ) ) {
-			$content = array();
-			$last_file = array_pop( $glob );
+		while ( is_array( $files ) && ! empty( $files[0] ) ) {
+			$content = [];
+			$last_file = array_pop( $files );
 			$data = file_get_contents( $last_file );
 			$data = str_replace('<?php exit; ?>', '', $data );
 			// Is it base64-encoded (since 4.3.5)?
@@ -555,31 +556,35 @@ function nfw_garbage_collector() {
 				$data = ltrim( $data, 'B');
 				$data = base64_decode( $data );
 			}
-			$content = @explode("\n:-:\n", $data . "\n:-:\n");
-			$content[0] = json_decode( $content[0], true );
+			$content		= @explode("\n:-:\n", $data . "\n:-:\n");
+			$content[0]	= json_decode( $content[0], true );
 
 			if ( nfw_validate_option( $content[0] ) === true ) {
-				// We can use that backup to restore our options:
+				// We can use that backup to restore our options
 				$valid_option = 1;
 				break;
 
-			// Delete this corrupted backup file:
+			// Delete this corrupted backup file
 			} else {
-				nfw_log_error( sprintf( __('Backup file is corrupted, deleting it (%s)', 'ninjafirewall'), $last_file ) );
+				nfw_log_error(
+					sprintf(__('Backup file is corrupted, deleting it (%s)','ninjafirewall'), $last_file )
+				);
 				unlink( $last_file );
 			}
 		}
 
-		// Restore the last good backup:
+		// Restore the last good backup
 		if (! empty( $valid_option ) ) {
 			nfw_update_option('nfw_options', $content[0] );
-			nfw_log_error( sprintf( __('NinjaFirewall\'s options are corrupted, restoring them from last known good backup file (%s)', 'ninjafirewall'), $last_file ) );
+			nfw_log_error( sprintf( __('NinjaFirewall\'s options are corrupted, restoring them from '.
+				'last known good backup file (%s)', 'ninjafirewall'), $last_file ) );
 
 		// Restore the default settings if no backup file was found
-		// (this action will also restore the firewall rules):
+		// (this action will also restore the firewall rules)
 		} else {
 			require_once __DIR__ .'/install_default.php';
-			nfw_log_error( __('NinjaFirewall\'s options are corrupted, restoring their default values (no valid backup found)', 'ninjafirewall') );
+			nfw_log_error( __('NinjaFirewall\'s options are corrupted, restoring their default values '.
+				'(no valid backup found)', 'ninjafirewall') );
 			nfw_load_default_conf();
 		}
 
@@ -588,67 +593,67 @@ function nfw_garbage_collector() {
 
 	// ------------------------------------------------------------------
 
-	// Check if we must delete old firewall logs:
+	// Check if we must delete old firewall logs
 	if (! empty( $nfw_options['auto_del_log'] ) ) {
 		$auto_del_log = (int) $nfw_options['auto_del_log'] * 86400;
-		// Retrieve the list of all logs:
-		$glob = glob( NFW_LOG_DIR . '/nfwlog/firewall_*.php');
-		if ( is_array( $glob ) ) {
-			foreach( $glob as $file ) {
-				$lines = array();
-				$lines = file( $file, FILE_SKIP_EMPTY_LINES );
-				foreach( $lines as $k => $line ) {
-					if ( preg_match('/^\[(\d{10})\]/', $line, $match ) ) {
-						if ( $now - $auto_del_log > $match[1] ) {
-							// This line is too old, remove it:
-							unset( $lines[$k] );
-						}
-					} else {
-						// Not a proper firewall log line:
-						unset( $lines[$k] );
+
+		// Retrieve the list of all logs
+		$list = NinjaFirewall_helpers::nfw_glob(
+			NFW_LOG_DIR .'/nfwlog', 'firewall_.+?\.php$', true, true
+		);
+
+		foreach( $list as $file ) {
+			$lines = [];
+			$lines = file( $file, FILE_SKIP_EMPTY_LINES );
+			foreach( $lines as $k => $line ) {
+				if ( preg_match('/^\[(\d{10})\]/', $line, $match ) ) {
+					if ( $now - $auto_del_log > $match[1] ) {
+						// This line is too old, remove it
+						unset( $lines[ $k ] );
 					}
-				}
-				if ( empty( $lines ) ) {
-					// No lines left, delete the file:
-					unlink( $file );
 				} else {
-					// Save the last preserved lines to the log:
-					$fh = fopen( $file,'w');
-					fwrite( $fh, "<?php exit; ?>\n" );
-					foreach( $lines as $line ) {
-						fwrite( $fh, $line );
-					}
-					fclose( $fh );
+					// Not a proper firewall log line
+					unset( $lines[ $k ] );
 				}
 			}
-		}
-	}
-
-	// File Guard temp files:
-	$glob = glob( $path . "fg_*.php" );
-	if ( is_array( $glob ) ) {
-		foreach( $glob as $file ) {
-			$nfw_ctime = filectime( $file );
-			// Delete it, if it is too old :
-			if ( $now - $nfw_options['fg_mtime'] * 3660 > $nfw_ctime ) {
+			if ( empty( $lines ) ) {
+				// No lines left, delete the file
 				unlink( $file );
+			} else {
+				// Save the last preserved lines to the log
+				$fh = fopen( $file, 'w');
+				fwrite( $fh, "<?php exit; ?>\n" );
+				foreach( $lines as $line ) {
+					fwrite( $fh, $line );
+				}
+				fclose( $fh );
 			}
 		}
 	}
 
-	// Live Log:
-	$nfw_livelogrun = $path . 'livelogrun.php';
+	// File Guard temp files
+	$list = NinjaFirewall_helpers::nfw_glob( $path, 'fg_.+?\.php$', true, true );
+	foreach( $list as $file ) {
+		$nfw_ctime = filectime( $file );
+		// Delete it, if it is too old
+		if ( $now - $nfw_options['fg_mtime'] * 3660 > $nfw_ctime ) {
+			unlink( $file );
+		}
+	}
+
+	// Live Log
+	$nfw_livelogrun = $path . '/livelogrun.php';
 	if ( file_exists( $nfw_livelogrun ) ) {
 		$nfw_mtime = filemtime( $nfw_livelogrun );
 		// If the file was not accessed for more than 100s, we assume
 		// the admin has stopped using live log from WordPress
-		// dashboard (refresh rate is max 45 seconds):
+		// dashboard (refresh rate is max 45 seconds)
 		if ( $now - $nfw_mtime > 100 ) {
 			unlink( $nfw_livelogrun );
 		}
 	}
-	// If the log was not modified for the past 10mn, we delete it as well:
-	$nfw_livelog = $path . 'livelog.php';
+	// If the log was not modified for the past 10mn, we delete it as well
+	$nfw_livelog = $path . '/livelog.php';
 	if ( file_exists( $nfw_livelog ) ) {
 		$nfw_mtime = filemtime( $nfw_livelog ) ;
 		if ( $now - $nfw_mtime > 600 ) {
@@ -658,17 +663,17 @@ function nfw_garbage_collector() {
 
 	// ------------------------------------------------------------------
 
-	// NinjaFirewall's configuration backup. We create a new one daily:
-	$glob = glob( $path .'backup_*.php');
-	if ( is_array( $glob ) && ! empty( $glob[0] ) ) {
-		rsort( $glob );
-		// Check if last backup if older than one day:
-		if ( preg_match('`/backup_(\d{10})_.+\.php$`', $glob[0], $match ) ) {
+	// NinjaFirewall's configuration backup. We create a new one daily
+	$list = NinjaFirewall_helpers::nfw_glob( $path, 'backup_.+?\.php$', true, true );
+	if (! empty( $list[0] ) ) {
+		rsort( $list );
+		// Check if last backup if older than one day
+		if ( preg_match('`/backup_(\d{10})_.+\.php$`', $list[0], $match ) ) {
 			if ( $now - $match[1] > 86400 ) {
-				// Backup the configuration:
+				// Backup the configuration
 				$nfw_rules = nfw_get_option('nfw_rules');
-				if ( file_exists( $path .'bf_conf.php') ) {
-					$bd_data = json_encode( file_get_contents( $path .'bf_conf.php') );
+				if ( file_exists( $path .'/bf_conf.php') ) {
+					$bd_data = json_encode( file_get_contents( $path .'/bf_conf.php') );
 				} else {
 					$bd_data = '';
 				}
@@ -676,37 +681,37 @@ function nfw_garbage_collector() {
 				$file = uniqid('backup_'. time() .'_', true) . '.php';
 				// Since version 4.3.5, we base64-encode the data because
 				// some hosts flag it as malicious
-				@file_put_contents( $path . $file, '<?php exit; ?>B' . base64_encode( $data ), LOCK_EX );
-				array_unshift( $glob, $path . $file );
+				@file_put_contents( "$path/$file", '<?php exit; ?>B' . base64_encode( $data ), LOCK_EX );
+				array_unshift( $list, "$path/$file" );
 			}
 		}
 		// Keep the last 5 backup only (value can be defined
-		// in the wp-config.php):
+		// in the wp-config.php)
 		if ( defined('NFW_MAX_BACKUP') ) {
 			$num = (int) NFW_MAX_BACKUP;
 		} else {
 			$num = 5;
 		}
-		$old_backup = array_slice( $glob, $num );
+		$old_backup = array_slice( $list, $num );
 		foreach( $old_backup as $file ) {
 			unlink( $file );
 		}
 	} else {
-		// Create first backup:
+		// Create first backup
 		$nfw_rules = nfw_get_option('nfw_rules');
 		if ( empty( $nfw_rules ) ) {
 			return;
 		}
-		if ( file_exists( $path .'bf_conf.php') ) {
-			$bd_data = json_encode( file_get_contents( $path .'bf_conf.php') );
+		if ( file_exists( $path .'/bf_conf.php') ) {
+			$bd_data = json_encode( file_get_contents( $path .'/bf_conf.php') );
 		} else {
 			$bd_data = '';
 		}
-		$data = json_encode( $nfw_options ) ."\n:-:\n". json_encode($nfw_rules) ."\n:-:\n". $bd_data;
-		$file = uniqid('backup_'. time() .'_', true) . '.php';
+		$data = json_encode( $nfw_options ) ."\n:-:\n". json_encode( $nfw_rules ) ."\n:-:\n". $bd_data;
+		$file = uniqid('backup_'. time() .'_', true ) .'.php';
 		// Since version 4.3.5, we base64-encode the data because
 		// some hosts flag it as malicious
-		@file_put_contents( $path . $file, '<?php exit; ?>B' . base64_encode( $data ), LOCK_EX );
+		@file_put_contents( "$path/$file", '<?php exit; ?>B' . base64_encode( $data ), LOCK_EX );
 	}
 
 	// ------------------------------------------------------------------

@@ -1048,7 +1048,9 @@ display: -ms-flexbox; position: relative; right: 0;text-align: center;',
         $options = parent::get_option( $post_id );
         if( empty($options_test) ) {
             $this->post_name = 'br_labels';
-            update_post_meta( $post_id, $this->post_name, $options );
+            if( get_post_type($post_id) != 'product' ) {
+                update_post_meta( $post_id, $this->post_name, $options );
+            }
         }
 
         return $options;
@@ -1064,7 +1066,7 @@ display: -ms-flexbox; position: relative; right: 0;text-align: center;',
         }
         $current_settings = get_post_meta( $post_id, $this->post_name, true );
 
-        if( empty($current_settings) ) {
+        if( $post->post_type != 'product' && empty($current_settings) ) {
             update_post_meta( $post_id, $this->post_name, $this->default_settings );
         }
 
@@ -1082,11 +1084,26 @@ display: -ms-flexbox; position: relative; right: 0;text-align: center;',
         if( ! $this->wc_save_check($post_id, $post) ) {
             return;
         }
-        if( ! isset($_POST['br_labels']['color_use']) ) {
+        if( $post->post_type != 'product' && ! isset($_POST['br_labels']['color_use']) ) {
             $_POST['br_labels']['color_use'] = 0;
         }
         $_POST['br_labels'] = apply_filters('berocket_apl_wc_save_product', $_POST['br_labels'], $post_id);
         parent::wc_save_product( $post_id, $post );
+    }
+    public function wc_save_product_without_check( $post_id, $post ) {
+        if ( $post->post_type == 'product' ) {
+            do_action( 'berocket_custom_post_'.$this->post_name.'_wc_save_product_without_check_before', $post_id, $post, $this->post_type_parameters);
+            if ( ! empty( $_POST[$this->post_name] ) ) {
+                $post_data = berocket_sanitize_array($_POST[$this->post_name], array($this->post_name));
+                $settings = $post_data;
+                update_post_meta( $post_id, $this->post_name, $settings );
+            } else {
+                delete_post_meta($post_id, $this->post_name);
+            }
+            do_action( 'berocket_custom_post_'.$this->post_name.'_wc_save_product_without_check_after', $post_id, $post, $this->post_type_parameters);
+        } else {
+            parent::wc_save_product_without_check( $post_id, $post );
+        }
     }
 
     public function manage_edit_columns ( $columns ) {

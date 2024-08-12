@@ -231,7 +231,7 @@ $conv_onboarding_done_step = (isset($ee_options["conv_onboarding_done_step"]) &&
                     </ul>
                 </div>
                 <div class="col-4">
-                    <a style="padding: 5px 40px 5px 40px; font-size: 17px;" class="float-end btn conv-yellow-bg mt-4" href='<?php echo esc_url("https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=upgrade") ?>' target="_blank">Upgrade Now</a>
+                    <a style="padding: 5px 40px 5px 40px; font-size: 17px;" class="float-end btn conv-yellow-bg mt-4" href='<?php echo esc_url("https://www.conversios.io/pricing/?utm_source=woo_aiofree_plugin&utm_medium=modal_popup&utm_campaign=upgrade") ?>' target="_blank">Upgrade Now</a>
                 </div>
             </div>
         </div>
@@ -368,106 +368,26 @@ $conv_onboarding_done_step = (isset($ee_options["conv_onboarding_done_step"]) &&
 </div>
 <!-- Change GAuth modal End -->
 
-<!-- Upgrade to PRO modal -->
-<!-- Modal -->
-<div class="modal fade" id="upgradetopromodal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-
-            <div class="modal-body p-4 pb-0">
-                <div class="container-fluid">
-                    <div class="row">
-
-                        <div class="col-12">
-                            <h3 class="fw-bold text-uppercase pt-0 d-flex"><img style="height:29px;max-width:100%;margin-right: 10px;" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge_big.png'); ?>" />
-                                <?php esc_html_e("Upgrade to Pro now and enjoy exclusive benefits:", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            <ul class="conv-upgrade-banner-list ps-4 pt-4">
-                                <li>Take advantage of <span>Google Consent Mode V2</span> for enhanced tracking across all platforms.</li>
-                                <li>Use your <span>own GTM container</span> with automated tag triggers.</li>
-                                <li>Optimize <span>Google Ads conversion tracking</span> for Add To Cart and Begin Checkout.</li>
-                                <li>Enable <span>Dynamic Remarketing</span> Tags for View_item, Add_to_cart, Begin_checkout, Purchase.</li>
-                                <li>Integrate seamlessly with <span>FBCAPI, Snapchat CAPI, and TikTok Events API</span>.</li>
-                                <li>Access detailed <span>GA4 e-commerce reporting</span>.</li>
-                                <li>Maximize results with <span>Google Ads conversion reporting</span>.</li>
-                                <li>Expand your reach with <span>unlimited product feed</span> for Google Merchant Center, FB Catalogue, and TikTok.</li>
-                                <li>Experience dedicated <span>customer support</span>.</li>
-                                <li>Implement <span>server-side tagging</span> for enhanced performance.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="modal-footer border-0 pb-4 mb-1 pt-4">
-                <a id="upgradetopro_modal_link" class="btn conv-yellow-bg m-auto w-100 mx-4 p-2" href='<?php echo esc_url("https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=upgrade") ?>' target="_blank">
-                    <?php esc_html_e("Upgrade Now", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Upgrade to PRO modal End -->
-
-<!-- Modal SST Pro-->
-<div class="modal fade upgradetosstmodal" id="convSsttoProModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        <div class="modal-content">
-
-            <h2><?php esc_html_e("Unlock The benefits of", "enhanced-e-commerce-for-woocommerce-store"); ?> <br> <span><?php esc_html_e("Server Side Tagging Via GTM", "enhanced-e-commerce-for-woocommerce-store"); ?></span> </h2>
-            <div class="row">
-                <div class="col-lg-6 col-md-12 col-12">
-                    <ul class="listing">
-                        <span><?php esc_html_e("Benefits", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                        <li><?php esc_html_e("Adopt To First Party Cookies", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Improve Data Accuracy & Reduced Ad Blocker Impact", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Faster Page Speed", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Enhanced Data Privacy & Security", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                    </ul>
-                </div>
-                <div class="col-lg-6 col-md-12 col-12">
-                    <ul class="listing">
-                        <span><?php esc_html_e("Features", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                        <li><?php esc_html_e("Server Side Tagging Via GTM", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Powerful Google Cloud Servers", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Custom Loader & Custom Domain Mapping", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Server Side Tagging For Google Analytics 4 (GA4), Google Ads, Facebook CAPI, Tiktok Events API & Snapchat CAPI", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Free Setup & Audit By Dedicated Customer Success Manager", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                    </ul>
-                </div>
-                <div class="col-12">
-                    <div class="discount-btn">
-                        <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=sstpopup'); ?>" class="btn btn-dark common-btn">Get Early Bird Discount</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal -->
 <div class="modal fade" id="conv_wizfinish" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="conv_wizfinish" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body p-0">
-                <div class="container-fluid p-0">
+                <div class="container-fluid">
                     <div class="row">
-                        <div id="conv_wizfinish_left" class="col-3 py-5">
-                            <h2 class="text-white">Congratulation</h2>
-                            <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/conv_congratulation_man.png'); ?>" />
-                        </div>
-                        <div id="conv_wizfinish_right" class="col-9 py-5 px-4">
-                            <h3 class="fw-light">Start now your</h3>
-                            <h3>Journey with Conversios</h3>
-                            <div class="row">
+                        <div id="conv_wizfinish_right" class="col-12 py-3 px-4">
+                            <h3 class="fw-light h2">Continue Your Setup</h3>
+                            <?php if (!CONV_IS_WC) { ?>
+                                <h3 class="h2">Integrate Pixels & Get Insights</h3>
+                            <?php } else { ?>
+                                <h3 class="h2">Integrate Pixels & Sync Feeds</h3>
+                            <?php } ?>
+
+                            <div class="row pt-3">
                                 <div class="col-6">
                                     <div id="conv_wizfinish_right_one">
-                                        <h4>Manage Pixels</h4>
-                                        <h5 class="pt-4">Key Features</h5>
-                                        <ul class="p-0">
+                                        <h4>Enhance Your Pixel Integration</h4>
+                                        <ul class="p-0 pt-3">
                                             <li>Facebook Pixel Tracking</li>
                                             <li>TikTok Pixel Tracking</li>
                                             <li>Snapchat Pixel Tracking</li>
@@ -475,39 +395,37 @@ $conv_onboarding_done_step = (isset($ee_options["conv_onboarding_done_step"]) &&
                                             <li>Microsoft (Bing) Pixel Tracking</li>
                                             <li>Twitter Pixel Tracking</li>
                                         </ul>
-                                        <a class="btn btn-dark mt-4" href="<?php echo esc_url('admin.php?page=conversios-google-analytics'); ?>">Go To Pixel Manager</a>
+                                        <a class="btn btn-dark mt-4" href="<?php echo esc_url('admin.php?page=conversios-google-analytics'); ?>">Manage Your Pixels Now</a>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <?php if (!CONV_IS_WC) { ?>
                                         <div id="conv_wizfinish_right_two">
                                             <h4 class="text-white">Reporting Dashboard</h4>
-                                            <h5 class="pt-4 text-white">Key Features</h5>
-                                            <ul class="p-0 text-white">
-                                                <li>GA4 general insights</li>
-                                                <li>Order performance report</li>
+                                            <ul class="p-0 pt-3 text-white">
+                                                <li>Google Analytic insights (GA4)</li>
+                                                <li>Order performance analysis</li>
                                                 <li>Product performance report</li>
                                                 <li>Source/medium reports</li>
                                                 <li>Google Ads Conversion reports</li>
-                                                <li>Automated Email Report Delivery</li>
+                                                <li>Automated email reports</li>
                                             </ul>
                                             <!-- <a class="btn btn-light mt-4" href="<?php echo esc_url('admin.php?page=conversios-analytics-reports'); ?>">Go To Reports</a> -->
-                                            <a class="btn btn-light mt-4" href="<?php echo esc_url('admin.php?page=conversios-analytics-reports'); ?>">Go To Reports</a>
+                                            <a class="btn btn-light mt-4" href="<?php echo esc_url('admin.php?page=conversios-analytics-reports'); ?>">Explore Insights</a>
 
                                         </div>
                                     <?php } else { ?>
                                         <div id="conv_wizfinish_right_two">
-                                            <h4 class="text-white">Manage Feeds</h4>
-                                            <h5 class="pt-4 text-white">Key Features</h5>
-                                            <ul class="p-0 text-white">
-                                                <li>API-based real-time feeds for GMC, Meta, TikTok</li>
-                                                <li>Manage multiple feeds with channels</li>
-                                                <li>Schedule automatic feed updates</li>
+                                            <h4 class="text-white">Optimize Your Product Feeds</h4>
+                                            <ul class="p-0 pt-3 text-white">
+                                                <li>Real-time API feeds for GMC, Meta, TikTok</li>
+                                                <li>Multi-channel feed management</li>
+                                                <li>Automated feed updates</li>
                                                 <li>Create targeted feeds with advanced filters</li>
                                                 <li>Schedule auto sync up to 100 products</li>
                                                 <li>Advanced attribute & category mapping</li>
                                             </ul>
-                                            <a class="btn btn-light mt-4" href="<?php echo esc_url('admin.php?page=conversios-google-shopping-feed&tab=gaa_config_page'); ?>">Go To Product Feed Manager</a>
+                                            <a class="btn btn-light mt-4" href="<?php echo esc_url('admin.php?page=conversios-google-shopping-feed&tab=gaa_config_page#conv_att_map'); ?>">Sync Your Product Feeds</a>
                                         </div>
                                     <?php } ?>
                                 </div>
