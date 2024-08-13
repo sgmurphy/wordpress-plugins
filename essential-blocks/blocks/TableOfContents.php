@@ -352,8 +352,14 @@ class TableOfContents extends Block
         $wrapper_class     = [  ];
         $wrapper_class[  ] = $collapsible == 'true' && $initialCollapse == 'true' && $isSticky == 'false' ? 'hide-content' : '';
 
+        $wrapper_attributes = get_block_wrapper_attributes(
+            [
+                'class' => 'root-' . $blockId
+            ]
+        );
+
         $output = "";
-        $output .= '<div ' . wp_kses_data( get_block_wrapper_attributes() ) . '>';
+        $output .= '<div ' . wp_kses_data( $wrapper_attributes ) . '>';
         $output .= '<div class="eb-parent-wrapper eb-parent-' . $blockId . ' ' . $classHook . '">';
         $output .= '<div class="' . implode( " ", $container_class ) . '"
                 data-scroll-top="' . $scrollToTop . '"

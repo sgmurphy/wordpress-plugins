@@ -48,7 +48,7 @@ class DesktopUpload implements Uploads{
         $validate_format = $validate_instance->validate_file_format($file_name);
         
         $response =[];
-        if (!extension_loaded('xml')) {
+        if (!extension_loaded('xml') && $file_extension == 'xml') {
             $response['success'] = false;
             $response['message'] = 'The required PHP module xml is not installed. Please install it.';
             echo wp_json_encode($response);

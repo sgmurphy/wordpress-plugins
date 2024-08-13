@@ -135,7 +135,6 @@ class FluentForms extends Block
                     'showPlaceholder'     => true,
                     'showErrorMessage'    => true,
                     'formAlignment'       => 'none',
-                    'wrapper_attributes'  => get_block_wrapper_attributes(),
                     'block_object'        => $this
                  ]
             )

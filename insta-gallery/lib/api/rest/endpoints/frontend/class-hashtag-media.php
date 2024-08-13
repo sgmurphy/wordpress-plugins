@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Frontend;
 
-use QuadLayers\IGG\Api\Rest\Endpoints\Base as Base;
+use QuadLayers\IGG\Api\Rest\Endpoints\Base;
 use QuadLayers\IGG\Models\Accounts as Models_Account;
 use QuadLayers\IGG\Api\Fetch\Business\Hashtag_Media\Get as Api_Fetch_Business_Hashtag_Media;
 use QuadLayers\IGG\Utils\Cache;

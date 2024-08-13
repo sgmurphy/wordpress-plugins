@@ -427,7 +427,7 @@ class Advanced_Ads_Plugin {
 				$this->internal_options = $defaults;
 				$this->update_internal_options( $this->internal_options );
 
-				self::get_instance()->create_capabilities();
+				Capabilities::get_instance()->create_capabilities();
 			}
 
 			// for versions installed prior to 1.5.3 set installed date for now.
@@ -544,9 +544,9 @@ class Advanced_Ads_Plugin {
 	 * @deprecated 1.47.0
 	 */
 	public function create_capabilities() {
-		_deprecated_function( __METHOD__, '1.47.0', 'AdvancedAds\Installation\Capabilities::create_capabilities()' );
+		_deprecated_function( __METHOD__, '1.47.0', 'AdvancedAds\Installation\Capabilities::get_instance()->create_capabilities();' );
 
-		( new Capabilities() )->create_capabilities();
+		Capabilities::get_instance()->create_capabilities();
 	}
 
 	/**

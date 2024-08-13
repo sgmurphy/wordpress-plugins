@@ -1387,7 +1387,7 @@ if (!empty($failed_media_log)) {
 
 			case 'CORECUSTFIELDS':
 				$wordpress_custom_instance = WordpressCustomImport::getInstance();
-				$wordpress_custom_instance->set_wordpress_custom_values($header_array ,$value_array , $map['CORECUSTFIELDS'], $post_id , $selected_type);
+				$wordpress_custom_instance->set_wordpress_custom_values($header_array ,$value_array , $map['CORECUSTFIELDS'], $post_id , $selected_type,$hash_key,$line_number,$templatekey,$gmode);
 				break;
 
 			case 'FORUM':
@@ -1497,8 +1497,11 @@ if (!empty($failed_media_log)) {
 				$yoast_instance = YoastSeoImport::getInstance();
 				$yoast_instance->set_yoast_values($line_number,$header_array, $value_array, $map['YOASTSEO'], $post_id, $selected_type, $hash_key,$gmode,$templatekey);
 				break;	
-			}
+			case 'JEREL':
+				$jet_engine_rel_instance = JetEngineRELImport::getInstance();
+				$jet_engine_rel_instance->set_jet_engine_rel_values($header_array, $value_array, $map['JEREL'], $post_id, $selected_type, $get_mode, $hash_key, $line_number,$gmode,$templatekey=null);
 		}
+	}
 		if(get_option('total_attachment_ids')){
 			$stored_ids = unserialize(get_option('total_attachment_ids', ''));
 			delete_option('total_attachment_ids');

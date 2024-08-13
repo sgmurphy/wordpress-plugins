@@ -562,13 +562,17 @@ class WriteWithAI extends Base
 
             jQuery(document).ready(function($) {
                 // Check if we are in the Edit Post screen
+
                 if ($('.block-editor-page').length > 0) {
+
                     const bdAIButton = $(`<div class="betterdocs-ai-button-container">
                     <button class="betterdocs-ai-button">
                         <img src="<?php echo esc_url(BETTERDOCS_ABSURL . 'assets/admin/images/betterdocs-icon-white.png'); ?>" alt="<?php echo esc_attr__('betterdocs icon', 'embedpress'); ?>" />
                         <span><?php echo esc_html__('Write with AI', 'embedpress'); ?></span>
                      </button>
                 </div>`);
+
+
                     const closeBtn = $('bd-close-button');
 
                     const formHtml = writeWithAIForm();
@@ -596,7 +600,10 @@ class WriteWithAI extends Base
                         setTimeout(() => {
                             if ($('.edit-post-header__settings').length > 0) {
                                 $('.edit-post-header__settings').prepend(bdAIButton);
+                            } else if ($('.editor-header__settings').length > 0) {
+                                $('.editor-header__settings').prepend(bdAIButton);
                             }
+
                         }, 1);
                     });
                 }

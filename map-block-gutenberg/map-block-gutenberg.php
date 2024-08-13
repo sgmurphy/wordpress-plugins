@@ -3,7 +3,7 @@
 Plugin Name: Map Block for Google Maps
 Description: Simple, no-nonsense map block powered by Google Maps for Gutenberg editor.
 Author: WebFactory Ltd
-Version: 1.34
+Version: 1.35
 Author URI: https://www.webfactoryltd.com/
 Text Domain: map-block-gutenberg
 
@@ -66,6 +66,11 @@ class wf_map_block
 
   static function save_key()
   {
+    if ( ! current_user_can( 'edit_posts' ) ) {
+        wp_send_json_error();
+        die();
+    }
+    
     check_ajax_referer('map-block-gutenberg_save_api_key');
 
     $key = substr(sanitize_html_class(strip_tags(@$_POST['api_key'])), 0, 64);

@@ -35,8 +35,18 @@ function remove_gutener_customize_register() {
  */
 add_action( 'customize_register', 'remove_bosa_customize_register', 1 );
 function remove_bosa_customize_register() {
-    remove_action( 'customize_register', 'bosa_customize_register' );
-    remove_action( 'customize_register', 'bt_customize_register' );
+    if( !keon_toolset_theme_check( 'bosa' ) || keon_toolset_theme_check( 'bosa-pro' ) ){
+        return;
+    }
+    // parent theme check remaining
+    if( is_child_theme() ){
+        remove_action( 'customize_register', 'bosa_customize_register' );
+        return;
+    }
+    $theme_slug = keon_toolset_get_theme_slug();
+    $theme_prefix = str_replace( '-', '_', $theme_slug );
+
+    remove_action( 'customize_register', $theme_prefix.'_customize_register' );
 }
 
 /**

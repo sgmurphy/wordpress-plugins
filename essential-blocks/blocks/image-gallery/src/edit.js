@@ -92,7 +92,20 @@ export default function Edit(props) {
     //Set Image Sources on Change Image/Size
     useEffect(() => {
         const currentSources = [];
-        images.map((image) => {
+
+        const mergedImages = images.map(image => {
+            const matchingSource = sources.find(src => src.id === image.id);
+            if (matchingSource) {
+                Object.keys(matchingSource).forEach(key => {
+                    if (!(key in image)) {
+                        image[key] = matchingSource[key];
+                    }
+                });
+            }
+            return image;
+        });
+
+        mergedImages.map((image) => {
             let item = {};
             if (image.sizes && imageSize && imageSize.length > 0) {
                 item.url = image.sizes[imageSize]
@@ -109,8 +122,11 @@ export default function Edit(props) {
             item.isValidUrl = image.isValidUrl ? image.isValidUrl : true;
             sources.length > 0 &&
                 sources.map((source) => {
-                    if (source.filter && source.id === image.id) {
+                    if (source.id === image.id) {
                         item.filter = source.filter;
+                        // item.customLink = source.customLink;
+                        // item.openNewTab = source.openNewTab;
+                        // item.isValidUrl = source.isValidUrl;
                     }
                 });
             currentSources.push(item);
@@ -403,7 +419,7 @@ export default function Edit(props) {
 
                                     if (
                                         source.hasOwnProperty("filter") &&
-                                        source.filter.length > 0
+                                        source?.filter?.length > 0
                                     ) {
                                         filters = JSON.parse(source.filter);
 
@@ -436,11 +452,9 @@ export default function Edit(props) {
                                                     source.caption &&
                                                     source.caption.length >
                                                     0 && (
-                                                        <span
-                                                            className={`eb-gallery-img-caption ${horizontalAlign} ${verticalAlign}`}
-                                                        >
-                                                            {source.caption}
-                                                        </span>
+                                                        <>
+                                                            <span className={`eb-gallery-img-caption ${horizontalAlign} ${verticalAlign}`} dangerouslySetInnerHTML={{ __html: source.caption }}></span>
+                                                        </>
                                                     )}
                                             </span>
                                         </a>

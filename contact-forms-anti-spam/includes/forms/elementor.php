@@ -23,6 +23,7 @@ function efas_validation_process ( $record, $ajax_handler ) {
   $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
   $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
   $error_message = cfas_get_error_text($message);
+  $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
 
   $NeedPageurl =  maspik_get_settings("NeedPageurl");   
   
@@ -52,7 +53,7 @@ function efas_validation_process ( $record, $ajax_handler ) {
     $lastKeyId = key($fields);
 
   if ( $spam ) {
-    efas_add_to_log($type = "General",$reason, $_POST['form_fields'] );
+    efas_add_to_log($type = "General",$reason, $_POST['form_fields'],"Elementor forms", $message,  $spam_val);
     $ajax_handler->add_error( $lastKeyId, $error_message );
   }
   
@@ -67,10 +68,12 @@ add_action( 'elementor_pro/forms/validation/text', function( $field, $record, $a
 	$validateTextField = validateTextField($field_value);
     $spam = isset($validateTextField['spam']) ? $validateTextField['spam'] : 0;
     $message = isset($validateTextField['message']) ? $validateTextField['message'] : 0;
+    $spam_lbl = isset($validateTextField['label']) ? $validateTextField['label'] : 0 ;
+    $spam_val = isset($validateTextField['option_value']) ? $validateTextField['option_value'] : 0 ;
 
     if( $spam ) {
         $error_message = cfas_get_error_text($message);
-        efas_add_to_log($type = "text",$spam, $_POST['form_fields']);          
+        efas_add_to_log($type = "text",$spam, $_POST['form_fields'],"Elementor forms", $spam_lbl, $spam_val);          
         $ajax_handler->add_error( $field['id'], $error_message );
     }
 }, 10, 3 );
@@ -84,10 +87,11 @@ add_action('elementor_pro/forms/validation/email', function ($field, $record, $a
     }
 	// check Email For Spam
 	$spam = checkEmailForSpam($field_value);
+  $spam_val = $field_value;
 
     if ($spam) {
        	$error_message = cfas_get_error_text("emails_blacklist");
-        efas_add_to_log($type = "email", "Email $field_value is block $spam", $_POST['form_fields']);
+        efas_add_to_log($type = "email", "Email $field_value is block $spam", $_POST['form_fields'],"Elementor forms", "emails_blacklist", $spam_val);
         $ajax_handler->add_error($field['id'], $error_message);
     }
 
@@ -102,12 +106,14 @@ add_action( 'elementor_pro/forms/validation/tel', function( $field, $record, $aj
     }
   
   	$checkTelForSpam = checkTelForSpam($field_value);
- 	$reason = isset($checkTelForSpam['reason']) ? $checkTelForSpam['reason'] : 0 ;      
- 	$valid = isset($checkTelForSpam['valid']) ? $checkTelForSpam['valid'] : "yes" ;   
+ 	  $reason = isset($checkTelForSpam['reason']) ? $checkTelForSpam['reason'] : 0 ;      
+ 	  $valid = isset($checkTelForSpam['valid']) ? $checkTelForSpam['valid'] : "yes" ;   
     $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;  
+    $spam_lbl = isset($checkTelForSpam['label']) ? $checkTelForSpam['label'] : 0 ;
+    $spam_val = isset($checkTelForSpam['option_value']) ? $checkTelForSpam['option_value'] : 0 ;
     
     if(!$valid){
-      efas_add_to_log($type = "tel",$reason ,$_POST['form_fields']);
+      efas_add_to_log($type = "tel",$reason ,$_POST['form_fields'],"Elementor forms", $spam_lbl, $spam_val);
       $ajax_handler->add_error( $field['id'], cfas_get_error_text( $message) );
     }
     
@@ -125,9 +131,11 @@ add_action( 'elementor_pro/forms/validation/textarea', function( $field, $record
     $spam = isset($checkTextareaForSpam['spam'])? $checkTextareaForSpam['spam'] : 0;
     $message = isset($checkTextareaForSpam['message'])? $checkTextareaForSpam['message'] : 0;
   	$error_message = cfas_get_error_text($message);
+    $spam_lbl = isset($checkTextareaForSpam['label']) ? $checkTextareaForSpam['label'] : 0 ;
+    $spam_val = isset($checkTextareaForSpam['option_value']) ? $checkTextareaForSpam['option_value'] : 0 ;
 
     if ( $spam ) {
-          efas_add_to_log($type = "textarea",$spam, $_POST['form_fields']);
+          efas_add_to_log($type = "textarea",$spam, $_POST['form_fields'],"Elementor forms", $spam_lbl, $spam_val);
           $ajax_handler->add_error( $field['id'], $error_message );
     }
 

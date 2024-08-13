@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH Framework\n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2024-07-08 10:28:37+00:00\n"
+"POT-Creation-Date: 2024-07-11 09:00:35+00:00\n"
 "PO-Revision-Date: 2022-06-29 13:12:18+0000\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
@@ -801,12 +801,12 @@ msgstr "您確定要刪除 \"%s\" 嗎?"
 msgid "Further actions"
 msgstr "進一步動作"
 
-#: yit-plugin.php:242
+#: yit-plugin.php:243
 msgid "License"
 msgstr "授權"
 
 #. translators: 1. Plugin(s) name(s).
-#: yit-plugin.php:281
+#: yit-plugin.php:282
 msgid ""
 "%s was deactivated as you're running an higher tier version of the same "
 "plugin."
@@ -1257,27 +1257,27 @@ msgctxt "Term action"
 msgid "Delete"
 msgstr "刪除"
 
-#: yit-plugin.php:85
+#: yit-plugin.php:86
 msgctxt "Plugin Row Meta"
 msgid "Live Demo"
 msgstr "即時演示"
 
-#: yit-plugin.php:89
+#: yit-plugin.php:90
 msgctxt "Plugin Row Meta"
 msgid "Documentation"
 msgstr "說明文件"
 
-#: yit-plugin.php:93
+#: yit-plugin.php:94
 msgctxt "Plugin Row Meta"
 msgid "Support"
 msgstr "支援"
 
-#: yit-plugin.php:97
+#: yit-plugin.php:98
 msgctxt "Plugin Row Meta"
 msgid "Premium version"
 msgstr "高級版本"
 
-#: yit-plugin.php:238
+#: yit-plugin.php:239
 msgctxt "Action links"
 msgid "Settings"
 msgstr "設定"

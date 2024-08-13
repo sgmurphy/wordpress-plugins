@@ -4,7 +4,7 @@ namespace QuadLayers\IGG;
 /**
  * Helpers
  */
-class Helpers {
+final class Helpers {
 
 	/**
 	 * Personal client id

@@ -11,12 +11,12 @@ switch ( $attrs['numberCol'] ) {
 }
 ?>
 <table
-  width="<?php esc_attr_e( $general_attrs['tableWidth'], 'woocommerce' ); ?>"
+ 
   cellspacing="0"
   cellpadding="0"
   border="0"
   align="center"
-  style="display: table; <?php echo esc_attr( 'background-color: ' . $attrs['backgroundColor'] ); ?>; <?php echo ! $isInColumns ? esc_attr( 'min-width:' . $general_attrs['tableWidth'] . 'px' ) : esc_attr( 'width: 100%' ); ?>"
+  style="display: table; <?php echo esc_attr( 'background-color: ' . $attrs['backgroundColor'] ); ?>; <?php echo ! $isInColumns ? esc_attr( 'max-width:' . $general_attrs['tableWidth'] . 'px' ) : esc_attr( 'width: 100%' ); ?>;width: 100%;"
   class="web-main-row"
   id="web<?php echo esc_attr( $id ); ?>"
   >

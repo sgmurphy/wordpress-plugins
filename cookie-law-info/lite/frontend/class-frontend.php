@@ -168,15 +168,18 @@ class Frontend {
 		if ( true === cky_disable_banner() ) {
 			return;
 		}
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		if ( false === $this->settings->is_connected() ) {
 			if ( ! $this->template ) {
 				return;
 			}
-			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			$css    = isset( $this->template['styles'] ) ? $this->template['styles'] : '';
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/script' . $suffix . '.js', array(), $this->version, false );
 			wp_localize_script( $this->plugin_name, '_ckyConfig', $this->get_store_data() );
 			wp_localize_script( $this->plugin_name, '_ckyStyles', array( 'css' => $css ) );
+		}
+		if ( true === $this->is_wpconsentapi_enabled() ) {
+			wp_enqueue_script( $this->plugin_name.'-wca', plugin_dir_url( __FILE__ ) . 'js/wca' . $suffix . '.js', array(), $this->version, false );
 		}
 	}
 
@@ -207,10 +210,12 @@ class Frontend {
 <script id="cookie-law-info-gcm-var-js">
 var _ckyGcm = <?php echo $gcm_json; ?>;
 </script>
-			<?php
+<?php
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			$script_url = plugin_dir_url( __FILE__ ) . 'js/gcm' . $suffix . '.js';
-			echo '<script id="cookie-law-info-gcm-js" type="text/javascript" src="' . esc_url( $script_url ) . '"></script>';
+			$script_url = plugin_dir_url( __FILE__ ) . 'js/gcm' . $suffix . '.js'; 
+?>
+<script id="cookie-law-info-gcm-js" type="text/javascript" src="<?php echo esc_url( $script_url ); ?>"></script>
+<?php
 		}
 		echo '<script id="cookieyes" type="text/javascript" src="' . esc_url( $this->settings->get_script_url() ) . '"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 	}
@@ -305,6 +310,7 @@ var _ckyGcm = <?php echo $gcm_json; ?>;
 			'_tags'         => $this->prepare_tags(),
 			'_shortCodes'   => $this->prepare_shortcodes( $banner->get_settings() ),
 			'_rtl'          => $this->is_rtl(),
+			'_language'     => cky_current_language(),
 		);
 		foreach ( $this->providers as $key => $value ) {
 			$providers[] = array(
@@ -565,5 +571,14 @@ var _ckyGcm = <?php echo $gcm_json; ?>;
 		}
 
 		return in_array( $language, array( 'ar', 'az', 'dv', 'he', 'ku', 'fa', 'ur' ), true );
+	}
+
+	/**
+	 * Check whether the WP Consent API plugin is enabled
+	 *
+	 * @return boolean
+	 */
+	public function is_wpconsentapi_enabled() {
+		return class_exists( 'WP_CONSENT_API' );
 	}
 }

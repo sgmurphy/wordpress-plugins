@@ -4259,3 +4259,8 @@ table.table.log-manager tbody tr td:first-child {
 table.table.log-manager tbody tr td:first-child:hover {
   white-space: break-spaces;
 }
+.rollbackAlign {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

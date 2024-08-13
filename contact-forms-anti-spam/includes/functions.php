@@ -8,6 +8,221 @@ if (!defined('ABSPATH')) exit;
 */
 
 
+//Spam log delete functions -- START
+
+
+//enqueue js file
+function maspik_enqueue_admin_scripts() {
+    wp_enqueue_script('maspik-admin-js', plugin_dir_url(__FILE__) . '../admin/js/maspik-spamlog.js', array('jquery'), null, true);
+  }
+  add_action('admin_enqueue_scripts', 'maspik_enqueue_admin_scripts');
+
+function maspik_var_value_convert($var){
+    $value = "";
+    if($var == "text_blacklist") $value = "Text Field";
+    elseif($var == "MinCharactersInTextField") $value = "Text Field Min Character";
+    elseif($var == "MaxCharactersInTextField") $value = "Text Field Max Character";
+    elseif($var == "emails_blacklist") $value = "Email Field";
+    elseif($var == "textarea_blacklist") $value = "Textarea Field";
+    elseif($var == "MinCharactersInTextAreaField") $value = "Textarea Field Min Character";
+    elseif($var == "MaxCharactersInTextAreaField") $value = "Textarea Field Max Character";
+    elseif($var == "tel_formats") $value = "Phone Format Field";
+    elseif($var == "MinCharactersInPhoneField") $value = "Phone Field Min Character";
+    elseif($var == "MaxCharactersInPhoneField") $value = "Phone Field Max Character";
+    elseif($var == "lang_needed") $value = "Language Required";
+    elseif($var == "lang_forbidden") $value = "Language Forbidden";
+    elseif($var == "country_blacklist") $value = "Countries";
+    elseif($var == "ip_blacklist") $value = "IP";
+    else $value == $var;
+
+    return $value;
+
+}
+
+
+function maspik_delete_filter() {
+
+    global $wpdb;
+
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error('You do not have permission to perform this action.');
+    }
+
+    $row_id = intval($_POST['row_id']);
+    $logtable = maspik_get_logtable();
+
+    // Get the value of "option_name" from the row with the given id
+    $spam_label = $wpdb->get_var( $wpdb->prepare(
+        "SELECT spamsrc_label FROM $logtable WHERE id = %d",
+        $row_id
+    ));
+
+    $spam_val = $wpdb->get_var( $wpdb->prepare(
+        "SELECT spamsrc_val FROM $logtable WHERE id = %d",
+        $row_id
+    ));
+
+    if ($spam_label) {
+
+        $update_data = array('spam_tag' => 'not spam');
+        $where = array('id' => $row_id);
+
+        if($spam_label == "textarea_field") $spam_label = "textarea_blacklist";
+
+        if($spam_label == "text_blacklist" || $spam_label == "textarea_blacklist" || $spam_label == "emails_blacklist" || $spam_label == "ip_blacklist"){
+            
+            $option_arval = efas_makeArray(maspik_get_settings($spam_label));
+
+            if (is_array($option_arval)) {
+                // Initialize an empty array to hold the filtered values
+                $filtered_list = array();
+                
+                // Convert $spam_val to lowercase for case-insensitive comparison
+                $spam_val_lower = strtolower($spam_val);
+                
+                // Iterate through the array and add values that are not equal to $spam_val (case-insensitive) to $filtered_list
+                foreach ($option_arval as $val) {
+                    $val = strtolower(rtrim($val));
+
+                    if ($val !== $spam_val_lower) {
+                        $filtered_list[] = $val;
+                    }
+                }
+            
+                // Convert the filtered list to a string with each item separated by a newline
+                $filtered_list_string = implode("\n", $filtered_list);
+                
+                // Save the filtered list as a newline-separated string
+                if(maspik_get_settings($spam_label) != $filtered_list_string ){
+                    if (maspik_save_settings($spam_label, $filtered_list_string)) {
+                        $wpdb->update($logtable, $update_data, $where);
+                        wp_send_json_success(array('spam_label' => $spam_label));
+                    } else {
+                        wp_send_json_error('Failed to save settings.');
+                    }
+                }else{
+                    wp_send_json_error('Failed to save settings.');
+                }
+            
+            } else {
+
+                if(maspik_get_settings($spam_label) != ""){
+                    // If it's not an array, save an empty string
+                    if (maspik_save_settings($spam_label, "")) {
+                        $wpdb->update($logtable, $update_data, $where);
+                        wp_send_json_success(array('spam_label' => $spam_label));
+                    } else {
+                        wp_send_json_error('Failed to save empty settings.');
+                    }
+                } else { // This `else` was missing
+                    wp_send_json_error('No settings found.');
+                } // Added closing brace for this `else`
+            }
+
+        } else { // This `else` was missing
+            if(maspik_get_settings($spam_label)!=""){
+                // If it's not an array, save an empty string
+                if (maspik_save_settings($spam_label, "")) {
+                    $wpdb->update($logtable, $update_data, $where);
+                    wp_send_json_success(array('spam_label' => $spam_label));
+                } else {
+                    wp_send_json_error('Failed to save empty settings.');
+                }
+            } else { // This `else` was missing
+                wp_send_json_error('No settings found.');
+            } // Added closing brace for this `else`
+        } // Added closing brace for this `else`
+    } // Added closing brace for the outer `if ($spam_label)`
+
+} // Closing brace for the function
+
+    add_action('wp_ajax_delete_filter', 'maspik_delete_filter');
+
+
+    function maspik_delete_row() {
+        global $wpdb;
+    
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error('You do not have permission to perform this action.');
+        }
+    
+        $row_id = intval($_POST['row_id']);
+        $table = maspik_get_logtable();
+
+        $spam_tag = $wpdb->get_var( $wpdb->prepare(
+            "SELECT spam_tag FROM $table WHERE id = %d",
+            $row_id
+        ));
+    
+        // Update the is_deleted column instead of deleting the row
+        $update_data = array('spam_tag' => 'spam');
+        $where = array('id' => $row_id);
+
+        if($spam_tag == "not spam"){
+            $spam_action = $wpdb->delete($table, array('id' => $row_id));
+        }else{
+            $spam_action = $wpdb->update($table, $update_data, $where);
+        }     
+    
+        if ($spam_action !== false) {
+            wp_send_json_success();
+        } else {
+            wp_send_json_error('Failed to update row.');
+        }
+    }
+    add_action('wp_ajax_delete_row', 'maspik_delete_row');
+
+//Spam log delete functions -- END
+
+function maspik_insert_to_table() {
+    global $wpdb;
+
+    $table = maspik_get_dbtable();
+    $setting_value = maspik_get_dbvalue();
+    $setting_label = maspik_get_dblabel();
+
+
+    // Rows to be inserted if they don't exist
+    $rows = [
+        //Add rows here
+        [$setting_label => 'MaspikHoneypot', $setting_value => ''], //Honeypot ver 2.1
+        [$setting_label => 'maspik_support_jetforms', $setting_value => 'yes'], //Honeypot ver 2.1
+        [$setting_label => 'maspik_support_everestforms', $setting_value => 'yes'], //Honeypot ver 2.1
+
+    ];
+
+    // Check and insert each row
+    foreach ($rows as $row) {
+        $insert_name = $row[$setting_label];
+        $insert_value = $row[$setting_value];
+
+        // Check if row already exists
+        $existing_row = $wpdb->get_row(
+            $wpdb->prepare(
+                "SELECT * FROM $table WHERE $setting_label = %s",
+                $insert_name
+            )
+        );
+
+        // If the row doesn't exist, insert it
+        if (null === $existing_row) {
+            $wpdb->insert(
+                $table,
+                [
+                    $setting_label => $insert_name,
+                    $setting_value => $insert_value
+                ]
+            );
+        }
+    }
+}
+
+// Hook the function on load
+add_action('init', 'maspik_insert_to_table');
+
+
+
+
 //check if table exists
 
     function maspik_table_exists() {
@@ -115,7 +330,7 @@ function maspik_get_settings($data_name, $type = '', $table_var = 'new'){
                 if (!$result->$setting_value){
                     $data = 1;
                 } else {
-                    $data = $result->$setting_value  == 'yes' ? 1 : 0;
+                    $data = $result->$setting_value  == 'yes' ? 'yes' : 'no';
                 }
             }
         } elseif($type == "select"){// just return raw for select
@@ -185,22 +400,60 @@ function maspik_get_settings($data_name, $type = '', $table_var = 'new'){
             $charset_collate = $wpdb->get_charset_collate();
             
             $sql = "CREATE TABLE $table_name (
-                id mediumint(9) NOT NULL AUTO_INCREMENT,
-                spam_type varchar(191) NOT NULL,
-                spam_value varchar(191) NOT NULL,
-                spam_detail longtext NOT NULL,
-                spam_ip varchar(191) NOT NULL,
-                spam_country varchar(191) NOT NULL,
-                spam_agent varchar(191) NOT NULL,
-                spam_date varchar(191) NOT NULL,
-                spam_source varchar(191) NOT NULL,
+                id mediumint(9) NOT NULL AUTO_INCREMENT, 
                 PRIMARY KEY  (id)
-            ) $charset_collate;";
-            
+            ) $charset_collate;"; //adding all col variables in the append funct
+
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
             dbDelta($sql);
 
         }
+
+        function maspik_append_logtable() {
+            global $wpdb;
+        
+            // Define the table name
+            $table_name = maspik_get_logtable();
+            
+            // Define the columns you want to check and add
+            $columns = array(
+                'spam_type' => 'varchar(191) NOT NULL',
+                'spam_value' => 'varchar(191) NOT NULL',
+                'spam_detail' => 'longtext NOT NULL',
+                'spam_ip' => 'varchar(191) NOT NULL',
+                'spam_country' => 'varchar(191) NOT NULL',
+                'spam_agent' => 'varchar(191) NOT NULL',
+                'spam_date' => 'varchar(191) NOT NULL',
+                'spam_source' => 'varchar(191) NOT NULL',
+                'spamsrc_label' => 'varchar(191) NOT NULL',
+                'spamsrc_val' => 'varchar(191) NOT NULL',
+                'spamsrc_label' => 'varchar(191) NOT NULL',
+                'spamsrc_val' => ' varchar(191) NOT NULL',
+                'spam_tag' => ' varchar(191) NOT NULL',
+            );
+        
+            // Fetch the current columns in the table
+            $existing_columns = $wpdb->get_results("DESCRIBE $table_name", ARRAY_A);
+        
+            // Create a list of existing column names
+            $existing_column_names = array_column($existing_columns, 'Field');
+        
+            // Prepare SQL for adding new columns
+            $add_columns_sql = array();
+            foreach ($columns as $column_name => $column_definition) {
+                if (!in_array($column_name, $existing_column_names)) {
+                    $add_columns_sql[] = "ADD COLUMN $column_name $column_definition";
+                }
+            }
+        
+            // If there are columns to add, build and execute the query
+            if (!empty($add_columns_sql)) {
+                $sql = "ALTER TABLE $table_name " . implode(', ', $add_columns_sql);
+                $wpdb->query($sql); // Directly execute the query
+            }
+        }
+        
+        add_action('admin_init', 'maspik_append_logtable');
 
     //transfer data from wp_options to the new table
         function transfer_data_to_table($data) {
@@ -435,7 +688,7 @@ function efas_get_browser_name($user_agent){
 
 
 //Save Error logs to table
-function efas_add_to_log($type = '', $input = '', $post = null, $source = "Elementor forms") {
+function efas_add_to_log($type = '', $input = '', $post = null, $source = "Elementor forms", $spamsrc_name = "", $spamsrc_val = "") {
     $spamcounter = get_option('spamcounter') ? get_option('spamcounter') : 0;
     update_option('spamcounter', ++$spamcounter);
 
@@ -464,7 +717,9 @@ function efas_add_to_log($type = '', $input = '', $post = null, $source = "Eleme
             sanitize_text_field($countryName),
             sanitize_text_field($browser_name),
             sanitize_text_field($date),
-            sanitize_text_field($source)
+            sanitize_text_field($source),
+            sanitize_text_field($spamsrc_name),
+            sanitize_text_field($spamsrc_val),
         );
 
         if ($result !== "success") {
@@ -477,7 +732,7 @@ function efas_add_to_log($type = '', $input = '', $post = null, $source = "Eleme
 }
 
 // Save Error logs to table
-function maspik_save_log($type, $value, $detail, $ip, $country, $agent, $date, $source) {
+function maspik_save_log($type, $value, $detail, $ip, $country, $agent, $date, $source, $spamsrc_name, $spamsrc_val) {
     global $wpdb;
 
     if (maspik_logtable_exists()) {
@@ -491,7 +746,10 @@ function maspik_save_log($type, $value, $detail, $ip, $country, $agent, $date, $
             'spam_country' => $country,
             'spam_agent'   => $agent,
             'spam_date'    => $date,
-            'spam_source'  => $source
+            'spam_source'  => $source,
+            'spamsrc_label' => $spamsrc_name, 
+            'spamsrc_val'  => $spamsrc_val, 
+
         );
 
         // Insert data into the database
@@ -548,55 +806,6 @@ function maspik_Download_log_btn(){
         <input type="hidden" name="action" value="Maspik_spamlog_download_csv">
         <input type="submit" value="Download CSV" class="maspik-btn">
     </form><?php
-}
-
-function cfes_build_table() {
-    global $wpdb;
-    if(maspik_logtable_exists()){
-        $table = maspik_get_logtable();
-
-        // SQL query to select all rows from the table
-        $sql = "SELECT * FROM $table ORDER BY id DESC";
-        $results = $wpdb->get_results($sql, ARRAY_A);
-        echo maspik_Download_log_btn();
-        echo "<table class ='maspik-log-table'>";
-        echo "<tr class='header-row'>
-                <th class='maspik-log-column column-type'>Type</th>
-                <th class='maspik-log-column column-value'>Value</th>
-                <th class='maspik-log-column column-ip'>IP</th>
-                <th class='maspik-log-column column-country'>Country</th>
-                <th class='maspik-log-column column-agent'>User Agent</th>
-                <th class='maspik-log-column column-date'>Date</th>
-                <th class='maspik-log-column column-source'>Source</th>
-            </tr>";
-
-            $row_count = 0;
-            foreach ($results as $row) {
-                $row_class = ($row_count % 2 == 0) ? 'even' : 'odd';
-                echo "<tr class='row-entries row-$row_class'>
-                        <td class='column-type column-entries'>".esc_html($row['spam_type']) ."</td>
-                        <td class='column-value column-entries'>
-                            <div class = 'maspik-accordion-item'>
-                                <div class='maspik-accordion-header log-accordion'>".esc_html($row['spam_value']). "
-                                <span class='log-detail detail-show'></span>
-                                </div>
-                                <div class='log-detail maspik-accordion-content'><pre>".esc_html($row['spam_detail'])."</pre></div>
-                            </div>
-                        </td>
-                        <td class='column-ip column-entries'>".esc_html($row['spam_ip'])."</td>
-                        <td class='column-country column-entries'>".esc_html($row['spam_country'])."</td>
-                        <td class='column-agent column-entries'>".esc_html($row['spam_agent'])."</td>
-                        <td class='column-date column-entries'>".esc_html($row['spam_date'])."</td>
-                        <td class='column-source column-entries'>".esc_html($row['spam_source'])."</td>
-                    </tr>";
-
-                $row_count++;
-            }
-            echo "</table>";
-
-        if (!empty($results)) {}
-    }
-    
 }
 
 
@@ -1018,6 +1227,8 @@ function efas_array_supports_plugin(){
     'Fluentforms' => 0,
     'Bricks' => 0,
     'Ninjaforms'=> 0,
+    'Jetforms'=> 0,
+    'Everstforms'=> 0,
     'Woocommerce Review' => $info,
     'Woocommerce Registration' => $info,
     'Wpforms' => $info,
@@ -1068,6 +1279,10 @@ function maspik_if_plugin_is_active($plugin){
       return efas_if_plugin_is_active('Wordpress Registration') ;
     }else if($plugin == 'Ninjaforms'){
         return efas_if_plugin_is_active('ninjaforms') ;
+    }else if($plugin == 'Jetforms'){
+        return efas_if_plugin_is_active('jetforms') ;
+    }else if($plugin == 'Everstforms'){
+        return efas_if_plugin_is_active('everestforms') ;
     }else if($plugin == 'Wordpress Comments'){
       return 1;
     }else{
@@ -1103,6 +1318,8 @@ function efas_if_plugin_is_affective($plugin , $status = "no"){
       return efas_if_plugin_is_active('Wordpress Registration') && maspik_get_settings( "maspik_support_registration", 'form-toggle' ) != $status ;
     }else if($plugin == 'Ninjaforms'){
         return efas_if_plugin_is_active('ninjaforms') && maspik_get_settings( "maspik_support_ninjaforms", 'form-toggle' ) != $status ;
+    }else if($plugin == 'Everestforms'){
+        return efas_if_plugin_is_active('everestforms') && maspik_get_settings( "maspik_support_everestforms", 'form-toggle' ) != $status ;
     }else if($plugin == 'Wordpress Comments'){
       return maspik_get_settings( "maspik_support_wp_comment", 'form-toggle' ) != $status ;
     }else{
@@ -1131,6 +1348,10 @@ function efas_if_plugin_is_active($plugin){
       return maspik_is_plugin_active('fluentform/fluentform.php');
     }else if($plugin == 'ninjaforms'){
         return maspik_is_plugin_active('ninja-forms/ninja-forms.php');
+    }else if($plugin == 'jetforms'){
+        return maspik_is_plugin_active('jetformbuilder/jet-form-builder.php');
+    }else if($plugin == 'everestforms'){
+        return maspik_is_plugin_active('everest-forms/everest-forms.php');
     }else if($plugin == 'Wordpress Registration'){
       return get_option('users_can_register') == 1;
     }else{

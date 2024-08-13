@@ -357,10 +357,11 @@ class Shortcodes {
 				'vertical-align',
 				'list-style-type',
 				'display',
+				'line-break',
 			);
 			return $style_css;
 		} else {
-			$additional_allowed_css_attributes = array( 'display' );
+			$additional_allowed_css_attributes = array( 'display', 'line-break' );
 			return is_array( $array ) ? array_merge( $array, $additional_allowed_css_attributes ) : $array;
 		}
 
@@ -1052,7 +1053,7 @@ class Shortcodes {
 				$shortcode['[yaymail_order_number]'] = $order->get_order_number();
 			}
 		}
-		$shortcode['[yaymail_order_refund]'] = $refund;
+		$shortcode['[yaymail_order_refund]'] = wc_price( $refund, array( 'currency' => $order->get_currency() ) );
 		if ( isset( $totals['cart_subtotal']['value'] ) ) {
 			$shortcode['[yaymail_order_sub_total]'] = $totals['cart_subtotal']['value'];
 		} else {
@@ -1063,7 +1064,7 @@ class Shortcodes {
 			$shortcode['[yaymail_order_discount]'] = $totals['discount']['value'];
 		}
 
-		$shortcode['[yaymail_order_total]']         = wc_price( $order->get_total() );
+		$shortcode['[yaymail_order_total]']         = wc_price( $order->get_total(), array( 'currency' => $order->get_currency() ) );
 		$shortcode['[yaymail_order_total_numbers]'] = $order->get_total();
 		$shortcode['[yaymail_orders_count]']        = count( $order->get_items() );
 		$shortcode['[yaymail_quantity_count]']      = $order->get_item_count();
@@ -1101,9 +1102,9 @@ class Shortcodes {
 
 		// SHIPPINGS
 		if ( isset( $order->get_data()['shipping_total'] ) && ! empty( $order->get_data()['shipping_total'] ) ) {
-			$shortcode['[yaymail_order_shipping]'] = $order->get_data()['shipping_total'] + $order->get_data()['shipping_tax'];
+			$shortcode['[yaymail_order_shipping]'] = wc_price( $order->get_data()['shipping_total'] + $order->get_data()['shipping_tax'], array( 'currency' => $order->get_currency() ) );
 		} else {
-			$shortcode['[yaymail_order_shipping]'] = 0;
+			$shortcode['[yaymail_order_shipping]'] = wc_price( 0, array( 'currency' => $order->get_currency() ) );
 		}
 		$shortcode['[yaymail_shipping_address]'] = $shipping_address;
 		if ( ! empty( $order->get_shipping_address_1() ) ) {
@@ -1371,7 +1372,7 @@ class Shortcodes {
 						}
 					} else {
 						if ( is_string( $meta->get_data()['value'] ) ) {
-							$specialNumberNames = array( 'zaterdag', 'tijd', 'hfd_ship_number', '_billing_wooccm11', 'dni', '_p_iva', '_shipping_tel1', '_shipping_tel2', 'pi_formated_time' );
+							$specialNumberNames = apply_filters( 'yaymail_exclude_date_meta_key', array( 'zaterdag', 'tijd', 'hfd_ship_number', '_billing_wooccm11', 'dni', '_p_iva', '_shipping_tel1', '_shipping_tel2', 'pi_formated_time' ) );
 							$lowerNameField     = strtolower( $nameField );
 
 							// Check for Documento Nacional de Identidad, cause it might look like a date string,
@@ -1876,7 +1877,7 @@ class Shortcodes {
 					$billing_address .= "<br/> <a href='tel:" . esc_html( $order->get_billing_phone() ) . "' style='color:" . esc_attr( $text_link_color ) . "; font-weight: normal; text-decoration: underline;'>" . esc_html( $order->get_billing_phone() ) . '</a>';
 				}
 				if ( $order->get_billing_email() ) {
-					$billing_address .= "<br/><a href='mailto:" . esc_html( $order->get_billing_email() ) . "' style='color:" . esc_attr( $text_link_color ) . ";font-weight: normal; text-decoration: underline;'>" . esc_html( $order->get_billing_email() ) . '</a>';
+					$billing_address .= "<br/><a href='mailto:" . esc_html( $order->get_billing_email() ) . "' style='color:" . esc_attr( $text_link_color ) . ";font-weight: normal; text-decoration: underline;line-break: anywhere;'>" . esc_html( $order->get_billing_email() ) . '</a>';
 				}
 				if ( method_exists( $order, 'get_shipping_phone' ) && ! empty( $order->get_shipping_phone() ) ) {
 					if ( false === strpos( $shipping_address, $order->get_shipping_phone() ) ) {
@@ -1886,7 +1887,7 @@ class Shortcodes {
 				if ( metadata_exists( 'post', $order->get_id(), '_shipping_email' ) ) {
 					$shipping_email = get_post_meta( $order->get_id(), '_shipping_email', true );
 					if ( ! empty( $shipping_email ) && false === strpos( $shipping_address, $shipping_email ) ) {
-						$shipping_address .= "<br/><a href='mailto:" . esc_html( $shipping_email ) . "' style='color:" . esc_attr( $text_link_color ) . ";font-weight: normal; text-decoration: underline;'>" . esc_html( $shipping_email ) . '</a>';
+						$shipping_address .= "<br/><a href='mailto:" . esc_html( $shipping_email ) . "' style='color:" . esc_attr( $text_link_color ) . ";font-weight: normal; text-decoration: underline;line-break: anywhere;'>" . esc_html( $shipping_email ) . '</a>';
 					}
 				}
 			} else {

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH Framework\n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2024-07-08 10:28:37+00:00\n"
+"POT-Creation-Date: 2024-07-11 09:00:35+00:00\n"
 "PO-Revision-Date: 2021-02-11 18:07:46+0000\n"
 "Language: el_GR\n"
 "MIME-Version: 1.0\n"
@@ -811,12 +811,12 @@ msgstr ""
 msgid "Further actions"
 msgstr ""
 
-#: yit-plugin.php:242
+#: yit-plugin.php:243
 msgid "License"
 msgstr "Άδεια χρήσης προϊόντος"
 
 #. translators: 1. Plugin(s) name(s).
-#: yit-plugin.php:281
+#: yit-plugin.php:282
 msgid ""
 "%s was deactivated as you're running an higher tier version of the same "
 "plugin."
@@ -1270,27 +1270,27 @@ msgctxt "Term action"
 msgid "Delete"
 msgstr ""
 
-#: yit-plugin.php:85
+#: yit-plugin.php:86
 msgctxt "Plugin Row Meta"
 msgid "Live Demo"
 msgstr "Live Demo"
 
-#: yit-plugin.php:89
+#: yit-plugin.php:90
 msgctxt "Plugin Row Meta"
 msgid "Documentation"
 msgstr "Εγχειρίδιο χρήσης"
 
-#: yit-plugin.php:93
+#: yit-plugin.php:94
 msgctxt "Plugin Row Meta"
 msgid "Support"
 msgstr "Υποστήριξη"
 
-#: yit-plugin.php:97
+#: yit-plugin.php:98
 msgctxt "Plugin Row Meta"
 msgid "Premium version"
 msgstr "Premium έκδοση"
 
-#: yit-plugin.php:238
+#: yit-plugin.php:239
 msgctxt "Action links"
 msgid "Settings"
 msgstr "Ρυθμίσεις"

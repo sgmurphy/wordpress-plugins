@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Frontend;
 
-use QuadLayers\IGG\Api\Rest\Endpoints\Base as Base;
+use QuadLayers\IGG\Api\Rest\Endpoints\Base;
 use QuadLayers\IGG\Models\Accounts as Models_Account;
 use QuadLayers\IGG\Api\Fetch\Personal\User_Profile\Get as Api_Fetch_Personal_User_Profile;
 use QuadLayers\IGG\Api\Fetch\Business\User_Profile\Get as Api_Fetch_Business_User_Profile;

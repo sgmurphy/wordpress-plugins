@@ -40,7 +40,7 @@ class Customizer extends Base {
 
         add_action( 'customize_controls_print_styles', [$this, 'controls_print_styles'], 999 );
 
-        if( ! wp_is_block_theme() ) {
+        if ( function_exists( 'wp_is_block_theme' ) && ! wp_is_block_theme() ) {
             add_action( 'wp_head', [$this, 'dynamic_css'] );
         }
     }

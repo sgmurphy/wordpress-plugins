@@ -629,8 +629,7 @@ function Inspector(props) {
                                                                 item.hasOwnProperty(
                                                                     "filter"
                                                                 ) &&
-                                                                    item.filter
-                                                                        .length > 0
+                                                                    item?.filter?.length > 0
                                                                     ? JSON.parse(
                                                                         item.filter
                                                                     )

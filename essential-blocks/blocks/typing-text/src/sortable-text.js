@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { Component } from "@wordpress/element";
-import { safeHTML } from "@wordpress/dom";
+import { escapeHTML } from "@wordpress/escape-html";
 /**
  * External dependencies
  */
@@ -146,7 +146,7 @@ class SortableText extends Component {
 	// Typed text change callback
 	onTextChange = (event, position) => {
 		let typedText = [...this.props.typedText];
-		typedText[position].text = event.target.value;
+		typedText[position].text = escapeHTML(event.target.value);
 		this.props.setAttributes({ typedText });
 	};
 

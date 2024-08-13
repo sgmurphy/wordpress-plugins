@@ -1,5 +1,5 @@
-=== Forminator - Contact Form, Payment Form & Custom Form Builder ===
-Plugin Name: Forminator - Contact Form, Payment Form & Custom Form Builder
+=== Forminator Forms – Contact Form, Payment Form & Custom Form Builder ===
+Plugin Name: Forminator Forms – Contact Form, Payment Form & Custom Form Builder
 Version: 1.34.0
 Author: WPMU DEV
 Author URI: https://wpmudev.com/
@@ -21,7 +21,7 @@ It’s the magical WordPress form builder for, well, everyone!
 
 Forminator’s drag and drop visual builder makes it easy to setup and add forms to your WordPress website. Collect information, make your content interactive and generate more conversions with Forminator.
 
-Unlock all form fields and premium addons from the start with [Forminator Pro](https://wpmudev.com/project/forminator-pro/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=forminator-readme-above-the-fold&utm_content=forminator_pro).
+**Unlock all form fields and premium addons from the start with [Forminator Pro](https://wpmudev.com/project/forminator-pro/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=forminator-readme-above-the-fold&utm_content=forminator_pro).**
 
 Level up immediately with exclusive Pro features like Stripe subscription forms, dynamic PDF generation, and easy geolocation & autocomplete. [Learn more about Pro](https://wpmudev.com/project/forminator-pro/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=forminator-readme-above-the-fold&utm_content=forminator_pro).
 
@@ -177,11 +177,17 @@ Love Forminator! WPMU DEV has some other awesome free plugins you should checkou
 
 == Frequently Asked Questions ==
 
+= Why choose Forminator over WPForms? =
+
+Forminator offers more features and functionalities compared to WPForms, especially in its free version. While WPForms Lite has limited access to essential tools, Forminator offers over 20 form fields, conditional logic, and comprehensive spam protection.
+
+Additionally, Forminator provides payment integrations with both Stripe and Paypal, whereas WPForms Lite only integrates with Stripe. Forminator also supports a wider range of integrations, as well as quizzing and polling tools, advanced customization and styling options, and robust submission management. These features are available only in the pro version of WPForms.
+
 = Does Forminator include a Gutenberg block? =
 
 It sure does. Forminator is built to work in both the Gutenberg and ClassicPress editors.
 
-= Is Forminator GDPR Ready =
+= Is Forminator GDPR Ready? =
 
 Forminator makes it easy for you to comply with the GDPR and other local privacy regulations...all the tools are included but ultimately it is up to you to implement healthy privacy and data protection on your site. Do the right thing y'all.
 

@@ -58,7 +58,7 @@ class LangES
                         'Search' => 'Buscar',
                         'Posts' => 'publicaciones',
                         'Pages' => 'Paginas',
-                        'Posttags' => 'Posttags',
+                        'PostTags' => 'Etiquetas de publicación',
                         'PostCategories' => 'Categorías de publicaciones',
                         'Taxonomies' => 'Taxonomías',
                         'CustomPosts' => 'Publicaciones personalizadas',

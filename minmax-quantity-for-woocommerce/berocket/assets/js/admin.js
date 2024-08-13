@@ -692,6 +692,7 @@ jQuery(document).on('click', '.berocket_remove_condition', function() {
 jQuery(document).on('click', '.br_remove_group', function() {
     $parent = jQuery(this).parents('.br_html_condition');
     $parent.remove();
+    jQuery(document).trigger('berocket:filters:br_remove_group');
 });
 jQuery(document).on('change', '.br_cond_attr_select', function() {
     var $attr_block = jQuery(this).parents('.br_cond').first();

@@ -4,7 +4,7 @@ Tags: post grid, gutenberg blocks, magazine, news, blog plugin
 Requires at least: 5.0    
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 4.1.9
+Stable tag: 4.1.10
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -261,6 +261,9 @@ It is a Gutenberg plugin it works great with WordPress version 5.x.x or more. An
 11. With the help of the Elementor and Saved Template addons, you can use any of the post blocks of PostX to any pages while editing with Elementor builder.
 
 == Changelog ==
+= 4.1.10 – 13 August 2024 =
+* Fix: CSS render issue in widget area
+
 = 4.1.9 – 12 August 2024 =
 * New: Dynamic Content Add-on
 * Fix: Compatibility with Block Visibility plugin

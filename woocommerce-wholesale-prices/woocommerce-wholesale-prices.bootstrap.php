@@ -5,7 +5,7 @@
  * Plugin URI:           https://wholesalesuiteplugin.com
  * Description:          WooCommerce Extension to Provide Wholesale Prices Functionality
  * Author:               Rymera Web Co
- * Version:              2.2.0.1
+ * Version:              2.2.0.2
  * Author URI:           http://rymera.com.au/
  * Text Domain:          woocommerce-wholesale-prices
  * Requires at least:    5.2

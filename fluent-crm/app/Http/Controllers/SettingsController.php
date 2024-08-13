@@ -456,13 +456,6 @@ class SettingsController extends Controller
 
     public function getCronStatus()
     {
-
-        $hookNames = [
-            'fluentcrm_scheduled_hourly_tasks'      => __('Scheduled Automation Tasks', 'fluent-crm'),
-            'fluentcrm_scheduled_five_minute_tasks' => __('Scheduled Email Processing', 'fluent-crm')
-        ];
-
-        $crons = _get_cron_array();
         $events = [];
 
         $nextRun = Helper::getNextMinuteTaskTimeStamp();
@@ -475,22 +468,23 @@ class SettingsController extends Controller
             'interval'   => 60
         );
 
-        foreach ($crons as $time => $hooks) {
-            foreach ($hooks as $hook => $hook_events) {
-                if (!isset($hookNames[$hook])) {
-                    continue;
-                }
-                foreach ($hook_events as $sig => $data) {
-                    $events[] = (object)array(
-                        'hook'       => $hook,
-                        'is_overdue' => ($time - time()) < 30,
-                        'human_name' => $hookNames[$hook],
-                        'next_run'   => human_time_diff($time, time()),
-                        'interval'   => $data['interval']
-                    );
-                }
-            }
-        }
+        $nextFiverMinutesRun = wp_next_scheduled('fluentcrm_scheduled_five_minute_tasks');
+        $events[] = (object)array(
+            'hook'       => 'fluentcrm_scheduled_hourly_tasks',
+            'is_overdue' => ($nextFiverMinutesRun - time()) < -60,
+            'human_name' => __('Scheduled Email Processing', 'fluent-crm'),
+            'next_run'   => human_time_diff($nextFiverMinutesRun, time()),
+            'interval'   => 300
+        );
+
+        $nextHourlyRun = wp_next_scheduled('fluentcrm_scheduled_hourly_tasks');
+        $events[] = (object)array(
+            'hook'       => 'fluentcrm_scheduled_hourly_tasks',
+            'is_overdue' => ($nextHourlyRun - time()) < -120,
+            'human_name' => __('Scheduled Automation Tasks', 'fluent-crm'),
+            'next_run'   => human_time_diff($nextHourlyRun, time()),
+            'interval'   => 3600
+        );
 
 
         return [

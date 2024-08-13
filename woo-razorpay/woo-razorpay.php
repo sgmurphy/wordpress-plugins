@@ -3,10 +3,10 @@
  * Plugin Name: 1 Razorpay: Signup for FREE PG
  * Plugin URI: https://razorpay.com
  * Description: Razorpay Payment Gateway Integration for WooCommerce.Razorpay Welcome Back Offer: New to Razorpay? Sign up to enjoy FREE payments* of INR 2 lakh till March 31st! Transact before January 10th to grab the offer.
- * Version: 4.6.7
- * Stable tag: 4.6.7
+ * Version: 4.6.8
+ * Stable tag: 4.6.8
  * Author: Team Razorpay
- * WC tested up to: 7.9.0
+ * WC tested up to: 9.1.2
  * Author URI: https://razorpay.com
 */
 
@@ -302,7 +302,7 @@ function woocommerce_razorpay_init()
             if (!empty($merchantPreferences['features']['one_cc_store_account'])) {
                 $isAccCreationAvailable = true;
             }
-            
+
 
             if ($is1ccAvailable) {
               $this->visibleSettings = array_merge($this->visibleSettings, array(
@@ -1161,6 +1161,11 @@ function woocommerce_razorpay_init()
             $args = $this->getDefaultCheckoutArguments($order);
 
             $currency = $this->getOrderCurrency($order);
+
+            if (empty($currency) === false)
+            {
+                $args['currency'] = $currency;
+            }
 
             // The list of valid currencies is at https://razorpay.freshdesk.com/support/solutions/articles/11000065530-what-currencies-does-razorpay-support-
 
@@ -3022,8 +3027,10 @@ function enqueueScriptsFor1cc()
 
     wp_register_script( '1cc_razorpay_config', '' );
     wp_enqueue_script( '1cc_razorpay_config' );
-    wp_add_inline_script( '1cc_razorpay_config', '!function(){var o=document.querySelector("meta[name=rzp_merchant_key]");o&&(window.Razorpay||(window.Razorpay={}),"object"==typeof window.Razorpay&&(window.Razorpay.config||(window.Razorpay.config={}),window.Razorpay.config.merchant_key=o.getAttribute("value")))}();');
-
+    wp_add_inline_script(
+        "1cc_razorpay_config",
+        '!function(){var o=document.querySelector("meta[name=rzp_merchant_key]");o&&(window.Razorpay||(window.Razorpay={}),"object"==typeof window.Razorpay&&(window.Razorpay.config||(window.Razorpay.config={}),window.Razorpay.config.integration="magic-wooc",window.Razorpay.config.merchant_key=o.getAttribute("value")))}();',
+    );
     wp_register_script('1cc_razorpay_checkout', RZP_CHECKOUTJS_URL, null, null);
     wp_enqueue_script('1cc_razorpay_checkout');
     wp_register_style(RZP_1CC_CSS_SCRIPT, plugin_dir_url(__FILE__)  . 'public/css/1cc-product-checkout.css', null, null);

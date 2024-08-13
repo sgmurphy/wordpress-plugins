@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.7.15 (2024-08-13)
+
+
+### Bug Fixes
+
+* make preset selector work with conditional controls on server-side (CU-86955xtbe)
+* new telemetry data for scanner external URLs and how often they got found on the website (CU-86955xtbe)
+
+
+<details><summary>Dependency updates @devowl-wp/customize 1.12.10</summary>
+
+
+**_Purpose of dependency:_** _Abstract utility for live preview (customize)_
+##### Bug Fixes
+
+* make preset selector work with conditional controls on server-side (CU-86955xtbe)</details>
+
+<details><summary>Development dependency update @devowl-wp/web-cookie-banner 0.6.6</summary>
+
+
+**_Purpose of dependency:_** _Provide a scoped stylesheet, types and util functionality for a web cookie banner._
+##### Styles
+
+* do not show a box shadow for banners in mobile view (CU-86955xtbe)</details>
+
+
+
+
+
 ## 4.7.14 (2024-08-08)
 
 

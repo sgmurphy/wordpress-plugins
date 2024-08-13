@@ -1,9 +1,9 @@
 === Ivory Search - WordPress Search Plugin ===
 Contributors: ivorysearch, vinod dalvi
 Donate link: https://ivorysearch.com/pricing/
-Tags: search, woocommerce search, image search, ajax search, search shortcode, live search, inverted index-based search, exclude from search, search widget, search menu, search plugin, custom search, search by sku, search by post type, search by category, relevance search, search forms
+Tags: search, woocommerce search, image search, ajax search, file search
 Requires at least: 3.9
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.2.4
 Stable tag: 5.5.6
 License: GPLv2 or later

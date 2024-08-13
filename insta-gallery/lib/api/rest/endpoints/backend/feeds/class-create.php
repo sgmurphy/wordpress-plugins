@@ -2,7 +2,7 @@
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds;
 
 use QuadLayers\IGG\Models\Feeds as Models_Feed;
-use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
+use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
 
 /**
  * Api_Rest_Feeds_Create Class

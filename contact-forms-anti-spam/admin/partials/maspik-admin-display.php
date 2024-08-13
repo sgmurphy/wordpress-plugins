@@ -391,7 +391,15 @@ $spamcounter = maspik_spam_count();
 
                 if( maspik_save_settings( 'maspik_support_ninjaforms' , sanitize_text_field(isset( $_POST['maspik_support_ninjaforms'] )) ? "yes" : "no") != "success" ){ 
                     $error_message .= $result_check . " ";
-                } //maspik_support_bricks_forms
+                } //maspik_support_ninja_forms
+
+                if( maspik_save_settings( 'maspik_support_jetforms' , sanitize_text_field(isset( $_POST['maspik_support_jetforms'] )) ? "yes" : "no") != "success" ){ 
+                    $error_message .= $result_check . " ";
+                } //maspik_support_jet_forms
+
+                if( maspik_save_settings( 'maspik_support_everestforms' , sanitize_text_field(isset( $_POST['maspik_support_everestforms'] )) ? "yes" : "no") != "success" ){ 
+                    $error_message .= $result_check . " ";
+                } //maspik_support_everest_forms
 
 
             //Form option field END --
@@ -578,7 +586,7 @@ $spamcounter = maspik_spam_count();
                         <span class="maspik-accordion-subheader">
                             <?php _e('(Usually Name/Subject)', 'contact-forms-anti-spam');?></span>
                     </div>
-                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span>
+                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span></span>
                 </div>
                     
                 <div class="maspik-accordion-content">
@@ -659,7 +667,7 @@ $spamcounter = maspik_spam_count();
                         <h4 class="maspik-header maspik-accordion-header-text"><?php _e('Email Fields', 'contact-forms-anti-spam'); ?></h4><!--Accordion Title-->
                         <span class="maspik-accordion-subheader"></span>
                     </div>
-                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span>
+                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span></span>
                 </div>
                     
                 <div class="maspik-accordion-content">
@@ -698,7 +706,7 @@ $spamcounter = maspik_spam_count();
                         <h4 class="maspik-header maspik-accordion-header-text"><?php _e('Textarea Fields', 'contact-forms-anti-spam'); ?></h4><!--Accordion Title-->
                         <span class="maspik-accordion-subheader"><?php _e('(Usually Message/Long text)', 'contact-forms-anti-spam'); ?></span>
                     </div>
-                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span>
+                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span></span>
                 </div>
                     
                 <div class="maspik-accordion-content">
@@ -800,17 +808,17 @@ $spamcounter = maspik_spam_count();
                 <div class="maspik-accordion-header">
                     <div class="mpk-acc-header-texts">
                         <h4 class="maspik-header maspik-accordion-header-text"><?php _e('Phone Fields', 'contact-forms-anti-spam'); ?></h4><!--Accordion Title-->
-                        <span class="maspik-accordion-subheader"></span>
+                        <span class="maspik-accordion-subheader">Whitelist formats</span>
                     </div>
-                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span>
+                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span></span>
                 </div>
                     
                 <div class="maspik-accordion-content">
                     <div class="maspik-accordion-content-wrap hide-form-title">
                         <div class="maspik-setting-info">
                             <?php 
-                                maspik_tooltip("If you want more than one format, use the next line.");
-                                    
+                                maspik_tooltip("List of accepted phone formats, one per line; if the phone field contains a phone number that does not fit into one of the following formats, it will be marked as spam.");
+                                echo '<span class="help-text">'.__("Whitelist of accepted phone formats"). "</span>";  
                                 maspik_popup("???-???-????|{+*-*,???-???-????}|+[1-9]-*|{+*-*,???-???-????}|[0-9][0-9][0-9]-*|/[0-9]{3}-[0-9]{3}-[0-9]{4}/", "Phone field", "See examples" ,"visibility");
                             ?>
                         </div> <!--end of maspik-setting-info-->
@@ -910,7 +918,7 @@ $spamcounter = maspik_spam_count();
                     </div>
                     <div class = "maspik-pro-button-wrap">
                         <?php maspik_get_pro() ?>
-                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span>
+                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span></span>
                     </div>
                 </div>
                     
@@ -931,8 +939,11 @@ $spamcounter = maspik_spam_count();
                             ?>    
 
                         </div> <!-- end of maspik-main-list-wrap -->
-                        <span class="maspik-subtext"><span class="text-caution">
-                            <?php _e('Beware:</span> Requiring Latin languages as an individual (Like: Dutch, French), the check is in the language punctuation letters and letters A to Z (So including English) because sometimes the punctuation letters as not used, Its to prevent false positive.', 'contact-forms-anti-spam'); ?>
+                        <span class="maspik-subtext">
+                            <span class="text-caution">
+                                <?php _e('Caution:', 'contact-forms-anti-spam'); ?>
+                            </span>
+                        <?php _e('When specifying Latin-based languages (e.g., Dutch, French), the check includes language-specific punctuation and letters A to Z (including English). This is to avoid false positives when certain punctuation marks are not used.', 'contact-forms-anti-spam'); ?>
                         </span>
                                     
                         <div class="maspik-custom-msg-wrap">
@@ -1149,7 +1160,7 @@ $spamcounter = maspik_spam_count();
                         <h4 class="maspik-header maspik-accordion-header-text"><?php _e('General', 'contact-forms-anti-spam'); ?></h4><!--Accordion Title-->
                     </div>
                     <div class = "maspik-pro-button-wrap">
-                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span>
+                        <span class="maspik-acc-arrow"><span class="dashicons dashicons-arrow-right"></span></span>
                     </div>
                 </div>
                     
@@ -1382,7 +1393,23 @@ echo '<p>' . __("Important: These three new features are operational on <strong>
                                         <h4> <?php _e('Support Ninja Forms', 'contact-forms-anti-spam'); ?></h4>
                                         
                                 </div>  
-                        </div><!-- end of maspik-wp-registration-switch-wrap -->
+                        </div><!-- end of maspik-wp-ninjaform-switch-wrap-->
+
+                        <div class="maspik-wp-jetform-switch-wrap togglewrap maspik-form-switch-wrap <?php echo efas_if_plugin_is_active('jetforms') == 1 ? 'enabled':'disabled' ?>">
+                            <?php echo maspik_toggle_button('maspik_support_jetforms', 'maspik_support_jetforms', 'maspik_support_jetforms', 'maspik-form-switch togglebutton', "form-toggle", efas_if_plugin_is_active('jetforms')); ?>
+                                <div class="wp-reg">
+                                        <h4> <?php _e('Support Jet Form', 'contact-forms-anti-spam'); ?></h4>
+                                        
+                                </div>  
+                        </div><!-- end of maspik-wp-jetform-switch-wrap-->
+
+                        <div class="maspik-wp-jetform-switch-wrap togglewrap maspik-form-switch-wrap <?php echo efas_if_plugin_is_active('everestforms') == 1 ? 'enabled':'disabled' ?>">
+                            <?php echo maspik_toggle_button('maspik_support_everestforms', 'maspik_support_everestforms', 'maspik_support_everestforms', 'maspik-form-switch togglebutton', "form-toggle", efas_if_plugin_is_active('everestforms')); ?>
+                                <div class="wp-reg">
+                                        <h4> <?php _e('Support Everest Forms', 'contact-forms-anti-spam'); ?></h4>
+                                        
+                                </div>  
+                        </div><!-- end of maspik-wp-jetform-switch-wrap-->
 
                         <div class="pro-btn-wrapper <?php echo maspik_add_pro_class() ?>"><?php maspik_get_pro() ?></div>
                         <div class="forms-pro-block <?php echo maspik_add_pro_class() ?>" >

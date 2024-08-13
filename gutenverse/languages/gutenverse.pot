@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gutenverse 2.0.0\n"
+"Project-Id-Version: Gutenverse 2.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gutenverse\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-08T01:09:57+00:00\n"
+"POT-Creation-Date: 2024-08-13T08:06:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gutenverse\n"
@@ -59,8 +59,8 @@ msgid "Post Title"
 msgstr ""
 
 #: includes/class-api.php:103
-#: lib/framework/helper.php:1060
-#: lib/framework/helper.php:1079
+#: lib/framework/helper.php:1075
+#: lib/framework/helper.php:1094
 msgid "Forbidden Access"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgid "Join our community"
 msgstr ""
 
 #: includes/class-banner.php:149
-#: includes/class-gutenverse.php:262
+#: includes/class-gutenverse.php:264
 #: lib/framework/includes/class-frontend-toolbar.php:274
 msgid "Got Question?"
 msgstr ""
@@ -108,32 +108,32 @@ msgid "Gutenverse Post"
 msgstr ""
 
 #. translators: %s is plugin name.
-#: includes/class-gutenverse.php:219
+#: includes/class-gutenverse.php:221
 msgid "Update %s Plugin!"
 msgstr ""
 
 #. translators: %s is plugin name.
-#: includes/class-gutenverse.php:228
+#: includes/class-gutenverse.php:230
 msgid "We notice that you are using old version of %s plugin and will cause gutenverse plugin crashed. "
 msgstr ""
 
-#: includes/class-gutenverse.php:237
+#: includes/class-gutenverse.php:239
 msgid "We currently disabled gutenverse plugin."
 msgstr ""
 
-#: includes/class-gutenverse.php:238
+#: includes/class-gutenverse.php:240
 msgid "Please update"
 msgstr ""
 
-#: includes/class-gutenverse.php:240
+#: includes/class-gutenverse.php:242
 msgid "to prevent your site from crashed."
 msgstr ""
 
-#: includes/class-gutenverse.php:245
+#: includes/class-gutenverse.php:247
 msgid "Update Gutenverse Form Plugin"
 msgstr ""
 
-#: includes/class-gutenverse.php:263
+#: includes/class-gutenverse.php:265
 msgid "Rate us ★★★★★"
 msgstr ""
 

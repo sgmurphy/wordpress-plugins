@@ -2,7 +2,7 @@
 	$cloneAttrs = $attrs;
 ?>
 <table
-	width="<?php esc_attr_e( $general_attrs['tableWidth'], 'woocommerce' ); ?>"
+	
 	width="tableWidth"
 	cellspacing="0"
 	cellpadding="0"
@@ -13,7 +13,8 @@
 	<?php echo esc_attr( 'background-position: ' . $attrs['backgroundPosition'] ); ?>;
 	<?php echo esc_attr( 'background-size: ' . $attrs['backgroundSize'] ); ?>;
 	<?php echo esc_attr( 'background-repeat: ' . $attrs['backgroundRepeat'] ); ?>;
-	<?php echo ! $isInColumns ? esc_attr( 'min-width:' . $general_attrs['tableWidth'] . 'px' ) : ''; ?>
+	<?php echo ! $isInColumns ? esc_attr( 'max-width:' . $general_attrs['tableWidth'] . 'px' ) : ''; ?>;
+	width: 100%;
 	"
 	class="web-main-row nta-row-two-column"
 	id="web<?php echo esc_attr( $id ); ?>"

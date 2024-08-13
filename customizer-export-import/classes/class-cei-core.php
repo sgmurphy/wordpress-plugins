@@ -268,6 +268,7 @@ final class CEI_Core {
 		$cei_error	 = false;
 		$template	 = get_template();
 		$overrides   = array( 'test_form' => false, 'test_type' => false, 'mimes' => array('dat' => 'text/plain') );
+
 		$file        = wp_handle_upload( $_FILES['cei-import-file'], $overrides );
 
 		// Make sure we have an uploaded file.
@@ -275,10 +276,20 @@ final class CEI_Core {
 			$cei_error = $file['error'];
 			return;
 		}
+
 		if ( ! file_exists( $file['file'] ) ) {
 			$cei_error = __( 'Error importing settings! Please try again.', 'customizer-export-import' );
 			return;
 		}
+		
+		add_filter( 'upload_mimes', array( 'CEI_Core', 'add_mime_for_upload' ) );
+		$validate = wp_check_filetype( $file['file'] );
+		if ( 'application/dat' !== $validate['type'] ) {
+			$cei_error = __( 'File type is not allowed', 'customizer-export-import' );
+			unlink( $file['file'] );
+			return;
+		}
+		remove_filter( 'upload_mimes', array( 'CEI_Core', 'add_mime_for_upload' ) );
 
 		// Get the upload data.
 		$raw  = file_get_contents( $file['file'] );
@@ -341,6 +352,11 @@ final class CEI_Core {
 
 		// Call the customize_save_after action.
 		do_action( 'customize_save_after', $wp_customize );
+	}
+	
+	public static function add_mime_for_upload( $mimes ) {
+		$mimes['dat'] = 'application/dat';
+		return $mimes;
 	}
 
 	/**

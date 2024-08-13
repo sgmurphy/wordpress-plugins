@@ -3,18 +3,18 @@
 Plugin Name: HTML Page Sitemap
 Plugin URI: http://www.pluginspodcast.com/plugins/html-page-sitemap/
 Description: <a href="https://wordpress.org/plugins/html-sitemap/" target="_blank">HTML Page Sitemap</a> Adds an HTML (Not XML) sitemap of your blog pages (not posts) by entering the shortcode [html_sitemap]. A plugin from <a href="http://angelo.mandato.com/" target="_blank">Angelo Mandato</a>.
-Version: 1.3.3
-Contributors: Angelo Mandato, CIO Blubrry Podcasting
+Version: 1.3.4
+Contributors: Angelo Mandato, Founder and CTO of Painless Analytics
 Author URI: http://angelo.mandato.com/
 
 Requires at least: 3.7
-Tested up to: 5.4
+Tested up to: 6.6
 Text Domain: html-sitemap
 Change Log: See readme.txt for complete change log
-Contributors: Angelo Mandato, CIO Blubrry Podcasting
+Contributors: Angelo Mandato, Founder and CTO of Painless Analytics
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 
-Copyright 2009-2020 Angelo Mandato, (http://angelo.mandato.com)
+Copyright 2009-2024 Angelo Mandato, (http://angelo.mandato.com)
 */
 
 
@@ -114,7 +114,7 @@ function html_sitemap_shortcode_handler( $args, $content = null )
 }
 
 function html_sitemap_something_to_translate() {
-	$null = __('HTML Page Sitemap', 'html-sitemap'); // We need to provide something to tranlate so the plugin can be translated at translate.wordpress.org
+	$null = __('HTML Page Sitemap', 'html-sitemap'); // We need to provide something to translate so the plugin can be translated at translate.wordpress.org
 }
 
 add_shortcode('html-sitemap', 'html_sitemap_shortcode_handler'); // This is no longer recommended as any plugin that creates their own shortcode starting with 'html' will also get the handler call

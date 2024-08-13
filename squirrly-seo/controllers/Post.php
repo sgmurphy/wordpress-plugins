@@ -650,9 +650,13 @@ class SQ_Controllers_Post extends SQ_Classes_FrontController {
 				}
 
 				$args = array(
-					'post_id'       => SQ_Classes_Helpers_Tools::getValue( 'post_id' ),
+					'post_id'       => (int)SQ_Classes_Helpers_Tools::getValue( 'post_id' ),
 					'optimizations' => SQ_Classes_Helpers_Tools::getValue( 'optimizations' ),
 				);
+
+				//remove the predefined keywords
+				delete_post_meta( $args['post_id'], '_sq_keywords' );
+				delete_post_meta( $args['post_id'], 'sq_keyword' );
 
 				$response = SQ_Classes_RemoteController::saveSLABriefcase( $args );
 				if ( is_wp_error( $response ) ) {

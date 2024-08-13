@@ -1,15 +1,17 @@
 === Strong Testimonials ===
 Contributors: wpchill,silkalns,cdillon27,giucu91
-Tags: testimonials, testimonial slider, testimonial form, star ratings, reviews
+Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 3.1.14
+Stable tag: 3.1.15
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-License: GNU General Public License v3.0 or later
-Collect user testimonials and promote your businees using thie simple, yet powerful, very customizable, developer-friendly WordPress plugin.
+Simple yet powerful. Very customizable. Developer-friendly.
 
 == Description ==
+
 In just a few steps, you will be collecting and publishing your testimonials or reviews. Beginners and pros alike will appreciate the wealth of flexible features refined over the years from user feedback and requests.
 
 = SEE HOW EASY IT IS TO GET STARTED WITH STRONG TESTIMONIALS =
@@ -20,12 +22,12 @@ https://www.youtube.com/watch?v=3nyvRvoxMxY
 
 - [Import reviews from external sources](https://strongtestimonials.com/docs/testimonial-importer/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): With our dedicated 3-rd party importer, you can now automate importing, managing, and displaying your testimonials from
 Google, Facebook, Booking, Airbnb, Yelp, Trustpilot, Capterra, and G2.
-- [Custom Testimonial Collection Form Fields](https://strongtestimonials.com/docs/custom-fields-2/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Easily assign custom fields to a testimonial view if you want to add extra fields to your testimonial submission forms and optionally display this alongside testimonials on your website. 
+- [Custom Testimonial Collection Form Fields](https://strongtestimonials.com/docs/custom-fields-2/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Easily assign custom fields to a testimonial view if you want to add extra fields to your testimonial submission forms and optionally display this alongside testimonials on your website.
 The perfect example is with a car review website. Using the Custom Fields extension, you can gather detailed testimonials that include information such as car manufacturer, model, and horsepower.
 - [Multiple Testimonial Collection Forms](https://strongtestimonials.com/docs/creating-multiple-forms/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): You can now create multiple forms to collect testimonials from your website visitors and customers. You can easily create new forms to gather testimonials for different types of products on your website. There is no limit to the number of forms you can create or use.
-- [Advanced Views](https://strongtestimonials.com/docs/fields-reordering/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Easily define the display order of your testimonial fields. Re-order the name, image, URL, and testimonial content fields through drag & drop. 
+- [Advanced Views](https://strongtestimonials.com/docs/fields-reordering/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Easily define the display order of your testimonial fields. Re-order the name, image, URL, and testimonial content fields through drag & drop.
 - [Properties](https://strongtestimonials.com/docs/properties/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): If you are not a fan of calling your product reviews testimonials, then use this extension to replace the default text (testimonials) with another one such as reviews or ratings.
-- [Captcha anti-spam form Protection](https://strongtestimonials.com/docs/adding-spam-control-to-your-forms/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Protection for spam is something all websites need. 
+- [Captcha anti-spam form Protection](https://strongtestimonials.com/docs/adding-spam-control-to-your-forms/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Protection for spam is something all websites need.
 - [Templates](https://strongtestimonials.com/docs/pro-templates/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Beautifully designed & pixel-perfect templates, ready to use to showcase your testimonials. Don't lose clients with a poor design.
 - [Infinite Scroll](https://strongtestimonials.com/docs/infinite-scroll/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Using this extension you can control the number of testimonials that are visible on a pages first load. As the user starts scrolling down the page, more testimonials are brought into view using a continuous loading animation.
 - [Enhanced emails](https://strongtestimonials.com/docs/enhanced-emails/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Send a thank you email to your client once their testimonial is approved. Increase brand loyalty by showing you really care about your clients. Keep your clients engaged and increase your chances of selling more.
@@ -107,33 +109,33 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 == Frequently Asked Questions ==
 
-= How to Add the Form ? = 		
+= How to Add the Form ? =
 
-  1. Check the custom fields. The default set of fields are designed to suit most situations. Add or remove fields as you see fit.		
+  1. Check the custom fields. The default set of fields are designed to suit most situations. Add or remove fields as you see fit.
 
-  2. Create a view. Select Form mode.		
+  2. Create a view. Select Form mode.
 
-  3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.		
+  3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.
 
-= How to Display Your Testimonials ? =		
+= How to Display Your Testimonials ? =
 
-  1. Enter your testimonials if necessary. The plugin will not read existing testimonials from another plugin or theme. It will not import testimonials.		
+  1. Enter your testimonials if necessary. The plugin will not read existing testimonials from another plugin or theme. It will not import testimonials.
 
-  2. Create a view. Select Display mode.		
+  2. Create a view. Select Display mode.
 
-  3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.		
+  3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.
 
-= How to Add a Slideshow ? =		
+= How to Add a Slideshow ? =
 
-  1. Enter your testimonials if necessary. The plugin will not read existing testimonials from another plugin or theme. It will not import testimonials.		
+  1. Enter your testimonials if necessary. The plugin will not read existing testimonials from another plugin or theme. It will not import testimonials.
 
-  2. Create a view. Select Slideshow mode.		
+  2. Create a view. Select Slideshow mode.
 
-  3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.		
+  3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.
 
-= How to Translate ? =		
+= How to Translate ? =
 
-Strong Testimonials is compatible with WPML, Polylang and WP Globus.		
+Strong Testimonials is compatible with WPML, Polylang and WP Globus.
 
 In WPML and Polylang, domains are added to the String Translation pages. Those domains encompass the form fields, the form messages, the notification email, and the "Read more" link text in your views. They are updated automatically when any of those settings change.
 
@@ -197,11 +199,21 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.1.14 - 06.06.2024  -
+= 3.1.15 - 13.08.2024 -
+- Fixed: Read more link on testimonials under the word count cap. ( [#451](https://github.com/WPChill/strong-testimonials/issues/451) )
+- Fixed: Deprecated FILTER_SANITIZE_STRING notices. ( [#457](https://github.com/WPChill/strong-testimonials/issues/457) )
+- Added: Debugging testimonial metabox ( [#458](https://github.com/WPChill/strong-testimonials/issues/458) )
+- Changed: Admin addons upsells only show up if not included in license ( [#454](https://github.com/WPChill/strong-testimonials/issues/454) )
+- Fixed: Error log warning when "Show Gravatar" option is selected and no gravatar found. ( [#434](https://github.com/WPChill/strong-testimonials/issues/434) )
+- Fixed: Display of undefined notices ( [#431](https://github.com/WPChill/strong-testimonials/issues/431) )
+- Changed: Removed Welcome Page ( [#455](https://github.com/WPChill/strong-testimonials/issues/455) )
+- Added: Font color tp custom fields text also. ( [#463](https://github.com/WPChill/strong-testimonials/issues/463) )
+
+= 3.1.14 - 06.06.2024 -
 - Fixed: Security fix
 - Fixed: Uninstall functionality conflict with other plugins ( [#445](https://github.com/WPChill/strong-testimonials/issues/445) )
 
-= 3.1.13 - 22.04.2024  -
+= 3.1.13 - 22.04.2024 -
 - Fixed: Security issue
 
 = 3.1.12 - 22.03.2024 -

@@ -2,7 +2,7 @@
 	$cloneAttrs = $attrs;
 ?>
 <table
-	width="<?php esc_attr_e( $general_attrs['tableWidth'], 'woocommerce' ); ?>"
+	
 	cellspacing="0"
 	cellpadding="0"
 	border="0"
@@ -13,7 +13,8 @@
 	<?php echo esc_attr( 'background-size: ' . $attrs['backgroundSize'] ); ?>;
 	<?php echo esc_attr( 'background-repeat: ' . $attrs['backgroundRepeat'] ); ?>;
 	<?php echo esc_attr( 'width: ' . $general_attrs['tableWidth'] ); ?>;
-	<?php echo ! $isInColumns ? esc_attr( 'min-width:' . $general_attrs['tableWidth'] . 'px' ) : ''; ?>
+	<?php echo ! $isInColumns ? esc_attr( 'max-width:' . $general_attrs['tableWidth'] . 'px' ) : ''; ?>;
+	width: 100%;
 	"
 	class="web-main-row nta-row-one-column"
 	id="web<?php echo esc_attr( $id ); ?>"
@@ -33,7 +34,7 @@
 		  '
 		>
 		  <div class="web-one-columns-row" style="min-height: 10px">
-			<div class="nta-one-column-items nta-one-column-left"  style="min-width: 25px;position: relative;min-height: 1px;">
+			<div class="nta-one-column-items nta-one-column-left"  style="max-width: 25px;position: relative;min-height: 1px;">
 				<?php
 				foreach ( $attrs['column1'] as $key => $el ) {
 					do_action( 'Yaymail' . $el['type'], $args, $el['settingRow'], $general_attrs, $el['id'], '', $isInColumns = true );

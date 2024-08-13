@@ -35,10 +35,13 @@ if( ! class_exists( 'BeRocket_Framework' ) ) {
     include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
     load_plugin_textdomain('BeRocket_domain', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/');
     class BeRocket_Framework {
-        public static $framework_version = '2.9.1';
-        public $plugin_framework_version = '2.9.1';
+        public static $framework_version = '3.0.0';
+        public $plugin_framework_version = '3.0.0';
         public static $settings_name = '';
         public $addons;
+        public $defaults = array();
+        public $values = array();
+        public $feature_list = array();
         public $libraries;
         protected $disable_settings_for_admin = array();
         private $post;
@@ -197,8 +200,8 @@ if( ! class_exists( 'BeRocket_Framework' ) ) {
         public static function get_product_data_berocket($plugin_id) {
             $products = get_transient('berocket_plugin_paid_info');
             if( $products === FALSE ) {
-                $response = wp_remote_post('https://berocket.com/main/get_product_data/public', array(
-                    'method' => 'POST',
+                $response = wp_remote_post('https://apicdn.berocket.com/plugins_data', array(
+                    'method' => 'GET',
                     'timeout' => 15,
                     'redirection' => 5,
                     'blocking' => true,
@@ -210,10 +213,10 @@ if( ! class_exists( 'BeRocket_Framework' ) ) {
                         $products = json_decode($out, true);
                         set_transient('berocket_plugin_paid_info', $products, DAY_IN_SECONDS);
                     } else {
-                        set_transient('berocket_plugin_paid_info', '', DAY_IN_SECONDS);
+                        set_transient('berocket_plugin_paid_info', '', HOUR_IN_SECONDS);
                     }
                 } else {
-                    set_transient('berocket_plugin_paid_info', '', DAY_IN_SECONDS);
+                    set_transient('berocket_plugin_paid_info', '', HOUR_IN_SECONDS);
                 }
             }
             if( $plugin_id == 'all' ) {

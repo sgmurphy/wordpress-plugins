@@ -3,8 +3,8 @@ Contributors: YayCommerce
 Donate link: https://yaycommerce.com/yaymail-woocommerce-email-customizer/
 Tags: email customizer, email designer, email templates, marketing, woocommerce emails
 Requires at least: 3.0
-Tested up to: 6.5.5
-Stable tag: 3.5.3
+Tested up to: 6.6
+Stable tag: 3.5.4
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -197,6 +197,18 @@ We offer single-site licenses and also unlimited site licenses to better support
 5. Easily copy your favorite content blocks over to another Woo email template to reuse the design that’s paying off
 
 == Changelog ==
+
+= Aug 13, 2024 - Version 3.5.4 =
+- Updated: Refactor email template CSS to use max-width instead of min-width 
+- Added: Add hook to exclude meta keys that do not want to be formatted as date
+- Fixed: Add currency symbol for shortcodes: [yaymail_order_shipping], [yaymail_order_refund], [yaymail_order_total] 
+- Fixed: TranslatePress Integration (Pro version) 
+- Released: YayMail Addon for WooCommerce Subscriptions v2.7
+-- Fixed: Bug when translating title and details
+- Released: YayMail Addon for Germanized for WooCommerce v2.6
+-- Fixed: Minor bug
+- Released: YayMail Addon for WholesaleX v1.1
+-- Added: New template in WholesaleX's new version
 
 = Jul 9, 2024 - Version 3.5.3 =
 - Fixed: Bug of YayMail templates showing in sitemap.xml
@@ -636,11 +648,11 @@ Fixed: Small bugs
 - Fixed: Error with plugin FooEvents for WooCommerce (Pro)
 - Fixed: Error in Addon WooCommerce Subscriptions (1.9)
 
-= Jan 20, 2021 - Version 2.8.3 =
+= Jan 20, 2022 - Version 2.8.3 =
 - Added: Shipping method (Addon Conditional Logic 1.6)
 - Supported: Teams for WooCommerce Memberships (Addon WooCommerce Memberships 1.2)
 
-= Jan 17, 2021 - Version 2.8.2 =
+= Jan 17, 2022 - Version 2.8.2 =
 - Supported: Enhancer for WooCommerce Subscriptions (Addon WooCommerce Subscriptions 1.7)
 - Fixed: License key request
 
@@ -656,108 +668,5 @@ Fixed: Small bugs
 - Fixed: Bug send test mail
 - Fixed: Display custom CSS
 - Fixed: Addon Woo Deposits - PHP error
-
-= Dec 17, 2021 - Version 2.7.9 =
-- Addon Woo Gift cards: Add support template Self-use gift card received
-- Fixed: Shortcode shipping phone and CSS class 
-
-= Dec 10, 2021 - Version 2.7.8 =
-- Fixed: Shortcode [yaymail_customer_notes]
-- Fixed: Shortcode shipping phone
-- Fixed: Small bugs
-
-= Dec 3, 2021 - Version 2.7.7 =
-- Added: Shortcode shipping phone
-- Fixed: Class to customize CSS
-- Fixed: WooCommerce Subcriptions (template Customer Renewal Invoice can not send test)
-
-= Dec 1, 2021 - Version 2.7.6 =
-- Improved: License renewal link
-
-= Nov 30, 2021 - Version 2.7.5 =
-- Added: Annoucement on expired license.
-- Fixed: Check activation.
-
-= Nov 29, 2021 - Version 2.7.4 =
-- Added: Support WC Marketplace (Addon)
-- Fixed: Germanzied addon
-
-= Nov 22, 2021 - Version 2.7.3 =
-- Fixed: Germanized addon
-- Fixed: Conditional Logic addon 
-
-= Nov 18, 2021 - Version 2.7.2 =
-- Fixed: Bug addon Dokan
-- Updated: AutomateWoo Addon (supported AutomateWoo - Refer A Friend Addon)
-
-= Nov 17, 2021 - Version 2.7.1 =
-- Fixed: Optimize speed
-
-= Nov 15, 2021 - Version 2.7 =
-- Supported: Multi Warehouse & Order Routing (Addon)
-- Supported: Custom Fields by Addify (Addon)
-- Fixed: Sanitizes content for allowed HTML
-- Fixed: Addon Custom Fields for WooCommerce by Addify
-- Fixed: Addon PW WooCommerce Gift Cards
-
-= Nov 10, 2021 - Version 2.6.9 =
-- Supported: FooEvents (PRO)
-- Updated: Addon WooCommerce Appointments (Template admin_appointment_rescheduled)
-- Supported: YITH WooCommerce Barcodes Premium (PRO)
-- Fixed: Addon Dokan
-
-= Nov 4, 2021 - Version 2.6.8 =
-- Added: Support other templates in addon Dokan (dokan_new_support_ticket, dokan_reply_to_store_support_ticket, dokan_reply_to_user_support_ticket, dokan_vendor_refund_canceled, Dokan_Email_Booking_New, Dokan_Email_Booking_Cancelled_NEW)
-
-= Oct 29, 2021 - Version 2.6.7 =
-- Added: Conditional logic shipping method (Addon Conditional logic)
-- Fixed: Check plugin active
-
-= Oct 28, 2021 - Version 2.6.6 =
-- Supported: Software Add-on by WooCommerce (PRO) 
-- Supported: ChitChats Shipping for WooCommerce (PRO) 
-- Fixed: Bug AST Fulfillment Manager
-
-= Oct 26, 2021 - Version 2.6.5 =
-- Fixed: Fatal error when update lite to pro (and vice versa)
-- Fixed: Addon Dokan
-
-= Oct 22, 20121 - Version 2.6.4 =
-- Fixed: CSS for AutomateWoo
-
-= Oct 21, 2021 - Version 2.6.3 =
-- Supported: TeraWallet and its extensions for coupons and withdrawal (Addon)
-- Added: Shortcode list for addon Dokan 
-- Fixed: Addon Order Delivery Date Pro for WooCommerce
-- Fixed: Addon Conditional Logic (sometimes not display)
-- Fixed: Addon Order Delivery Date Pro 
-- Fixed: Canonical links
-- Fixed: Pagarme shortcodes
-- Fixed: PHP Warnings 
-
-= Oct 11, 2021 - Version 2.6 =
-- Added: Class for each element component, class for each template
-- Added: Shortcode for tracking link (PRO)
-- Added: Shortcodes for vendor in Addon for WooCommerce Booking
-- Supported: PH WooCommerce Shipment Tracking (PRO)
-- Supported: SUMO Payment Plans (Addon)
-- Fixed: Conflict with plugin WooCommerce Order Delivery
-- Fixed: Addon for Dokan (blank page)
-- Fixed: Small bugs
-
-= Oct 1, 2021 - Version 2.5.8 =
-- Supported: YITH WooCommerce Review For Discounts Premium (Addon)
-- Fixed: Addon for WooCommerce Subscriptions (Updated change title)
-- Fixed: Bug Addon Conditional Logic
-
-= Sep 28, 2021 - Version 2.5.7 =
-- Fixed: Shortcodes (yaymail_password_reset_url, yaymail_password_reset_url_string)
-- Fixed: AST Pro bug
-- Fixed: Small bugs in Addons
-
-= Sep 22, 2021 - Version 2.5.6 =
-- Added: Shortcodes support Pagarme plugin (PRO) (yaymail_pagarme_banking_ticket_url, yaymail_pagarme_credit_card_brand, yaymail_pagarme_credit_card_installments)
-- Added: Shortcodes for last name, first name
-- Fixed: Shipment items bug
 
 [View full changelog](https://docs.yaycommerce.com/yaymail/other-links/changelog)

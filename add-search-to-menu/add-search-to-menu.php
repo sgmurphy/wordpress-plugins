@@ -13,7 +13,7 @@
  * Text Domain: add-search-to-menu
  *
  * 
- * WC tested up to: 8
+ * WC tested up to: 9
  *
  * Ivory Search is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

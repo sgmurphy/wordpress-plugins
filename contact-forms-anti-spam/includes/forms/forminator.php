@@ -18,6 +18,7 @@ function maspik_validate_forminator_general($submit_errors, $form_id, $field_dat
     $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
     $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
     $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
+    $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
     
     // find the last field ID to assigned the error message 
     $lastNonHiddenName = null;
@@ -32,7 +33,7 @@ function maspik_validate_forminator_general($submit_errors, $form_id, $field_dat
 
     if ( $spam) {
         $submit_errors[][$lastNonHiddenName] = cfas_get_error_text($message);
-        efas_add_to_log($type = "Country/IP",$reason, $_POST, "Forminator" );
+        efas_add_to_log($type = "Country/IP",$reason, $_POST, "Forminator", $message,  $spam_val );
         return $submit_errors;
     }
     
@@ -44,9 +45,12 @@ function maspik_validate_forminator_general($submit_errors, $form_id, $field_dat
         if ( ($current['field_type'] === "name" || $current['field_type'] === "text" ) && ! empty($field_value) ) {
             $validateTextField = validateTextField($field_value);
             $spam = isset($validateTextField['spam']) ? $validateTextField['spam'] : 0;
+            $spam_lbl = isset($validateTextField['label']) ? $validateTextField['label'] : 0 ;
+            $spam_val = isset($validateTextField['option_value']) ? $validateTextField['option_value'] : 0 ;
+
             if($spam) {
                 $message = $validateTextField['message'];
-                efas_add_to_log($type = "text",$spam, $_POST, "Forminator");           
+                efas_add_to_log($type = "text",$spam, $_POST, "Forminator", $spam_lbl, $spam_val);           
                 $submit_errors[][$field_id] = cfas_get_error_text($message);
                 return $submit_errors;
             }
@@ -55,8 +59,9 @@ function maspik_validate_forminator_general($submit_errors, $form_id, $field_dat
         //Email
         if ( $current['field_type'] === "email" && ! empty($field_value) ) {
             $spam = checkEmailForSpam($field_value);
+            $spam_val = $field_value;
             if($spam) {
-                efas_add_to_log($type = "email","Email $field_value is block $spam" , $_POST, "Forminator");
+                efas_add_to_log($type = "email","Email $field_value is block $spam" , $_POST, "Forminator", "emails_blacklist", $spam_val);
                 $submit_errors[][$field_id] = $error_message;
                 return $submit_errors;
             }
@@ -66,10 +71,13 @@ function maspik_validate_forminator_general($submit_errors, $form_id, $field_dat
             $checkTelForSpam = checkTelForSpam($field_value);
             $reason = isset($checkTelForSpam['reason']) ? $checkTelForSpam['reason'] : 0 ;      
             $valid = isset($checkTelForSpam['valid']) ? $checkTelForSpam['valid'] : "yes" ;   
-            $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;  
+            $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;
+            $spam_lbl = isset($checkTelForSpam['label']) ? $checkTelForSpam['label'] : 0 ;
+            $spam_val = isset($checkTelForSpam['option_value']) ? $checkTelForSpam['option_value'] : 0 ;
+            
             if(!$valid) {
                 $message = $checkTelForSpam['message'];
-                efas_add_to_log($type = "tel", $reason, $_POST, "Forminator");
+                efas_add_to_log($type = "tel", $reason, $_POST, "Forminator", $spam_lbl, $spam_val);
                 $submit_errors[][$field_id] = cfas_get_error_text($message);
                 return $submit_errors;
             }
@@ -81,7 +89,10 @@ function maspik_validate_forminator_general($submit_errors, $form_id, $field_dat
             $spam = isset($checkTextareaForSpam['spam']) ? $checkTextareaForSpam['spam'] : 0;
             if($spam) {
                 $message = isset($checkTextareaForSpam['message']) ? $checkTextareaForSpam['message'] : 0;
-                efas_add_to_log($type = "textarea",$spam, $_POST, "Forminator");
+                $spam_lbl = isset($checkTextareaForSpam['label']) ? $checkTextareaForSpam['label'] : 0 ;
+                $spam_val = isset($checkTextareaForSpam['option_value']) ? $checkTextareaForSpam['option_value'] : 0 ;
+
+                efas_add_to_log($type = "textarea",$spam, $_POST, "Forminator", $spam_lbl, $spam_val);
                 $submit_errors[][$field_id] = cfas_get_error_text($message);
                 return $submit_errors;
             }

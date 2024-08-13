@@ -74,5 +74,13 @@
                 <field type="BetterDocs Category Grid: Button Text" editor_type="LINE">button_text</field>
             </fields>
         </widget>
+        <widget name="betterdocs-reading-time">
+            <conditions>
+                <condition key="widgetType">betterdocs-reading-time</condition>
+            </conditions>
+            <fields>
+                <field type="BetterDocs Estimated Reading Time: Min Read Text" editor_type="LINE">ert_reading_text</field>
+            </fields>
+        </widget>
     </elementor-widgets>
 </wpml-config>

@@ -107,7 +107,7 @@ class WooCommerceWholeSalePrices {
     public $wwp_wpml_compatibility;
     // phpcs:enable
 
-    const VERSION = '2.2.0.1';
+    const VERSION = '2.2.0.2';
 
     /**
      * Class Methods

@@ -69,6 +69,55 @@ class WooTemplate {
 			//add_action( 'shopmagic/core/initialized/v2', array( $this, 'shopmagic_do_action_external_plugins_access' ), 10, 1 );
 			add_action( 'shopmagic/core/action/before_execution', array( $this, 'shopmagic_before_send_mail' ), 10, 3 );
 		}
+
+		if ( 'yes' === get_option( 'woocommerce_gzd_display_emails_product_item_desc' ) && class_exists( 'WooCommerce_Germanized' ) ) {
+			add_filter( 'woocommerce_order_item_name', array( $this, 'wc_gzd_cart_product_item_desc' ), 10, 2 );
+		}
+	}
+
+	public function wc_gzd_cart_product_item_desc( $title, $cart_item, $cart_item_key = '' ) {
+		$product_desc = '';
+		$echo         = false;
+
+		if ( is_array( $title ) && isset( $title['data'] ) ) {
+			$cart_item     = $title;
+			$cart_item_key = $cart_item;
+			$title         = '';
+			$echo          = true;
+		} elseif ( is_numeric( $title ) && wc_gzd_is_checkout_action() && is_a( $cart_item, 'WC_Order_Item_Product' ) ) {
+			$echo          = true;
+			$cart_item_key = $title;
+			$title         = '';
+		}
+
+		if ( is_a( $cart_item, 'WC_Order_Item_Product' ) ) {
+			$gzd_item = wc_gzd_get_order_item( $cart_item );
+			$product  = $cart_item->get_product();
+
+			if ( ! empty( $gzd_item ) ) {
+				$product_desc = $gzd_item->get_cart_description();
+			} elseif ( ! empty( $product ) && wc_gzd_get_gzd_product( $product )->get_mini_desc() ) {
+				$product_desc = wc_gzd_get_gzd_product( $product )->get_formatted_cart_description();
+			}
+		} elseif ( isset( $cart_item['data'] ) ) {
+			$product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+
+			if ( is_a( $product, 'WC_Product' ) && wc_gzd_get_product( $product )->get_cart_description() ) {
+				$product_desc = wc_gzd_get_product( $product )->get_formatted_cart_description();
+			}
+		} elseif ( isset( $cart_item['item_desc'] ) ) {
+			$product_desc = $cart_item['item_desc'];
+		}
+
+		if ( ! empty( $product_desc ) ) {
+			$title .= '<div class="wc-gzd-cart-info wc-gzd-item-desc item-desc">' . do_shortcode( $product_desc ) . '</div>';
+		}
+
+		if ( $echo ) {
+			echo wp_kses_post( $title );
+		}
+
+		return wp_kses_post( $title );
 	}
 
 	public function shopmagic_before_send_mail( $action, $automation, $event ) {

@@ -18,14 +18,13 @@ function efas_wpcf7_validate_process ( $result, $tags ) {
   // ip
   $ip =  efas_getRealIpAddr();
 
-
-
   
   // Country IP Check 
     $CountryCheck = CountryCheck($ip,$spam,$reason,$_POST);
     $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
     $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
     $message = $CountryCheck['message'] ? $CountryCheck['message'] : false ;
+    $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
   
   //If country or ip is in blacklist
   if ( $spam ) {
@@ -36,7 +35,7 @@ function efas_wpcf7_validate_process ( $result, $tags ) {
             return strpos($key, '_wpcf7') === false;
             }, ARRAY_FILTER_USE_KEY);
 
-      efas_add_to_log($type = "General",$reason, $post_entrys, "Contact from 7" );
+      efas_add_to_log($type = "General", $reason, $post_entrys, "Contact from 7", $message,  $spam_val);
   	}
 	return $result;
 }
@@ -54,19 +53,22 @@ function efas_cf7_text_validation_filter($result,$tag){
 	$validateTextField = validateTextField($field_value);
     $spam = isset($validateTextField['spam']) ? $validateTextField['spam'] : 0 ;
     $message = isset($validateTextField['message']) ? $validateTextField['message'] : 0 ;
+    $spam_lbl = isset($validateTextField['label']) ? $validateTextField['label'] : 0 ;
+    $spam_val = isset($validateTextField['option_value']) ? $validateTextField['option_value'] : 0 ;
 
     if( $spam ) {
       $error_message = cfas_get_error_text($message);
       $post_entrys = array_filter($_POST, function($key) {
             return strpos($key, '_wpcf7') === false;
             }, ARRAY_FILTER_USE_KEY);
-      efas_add_to_log($type = "text","$spam", $post_entrys, "Contact from 7");          
+      efas_add_to_log($type = "text","$spam", $post_entrys, "Contact from 7", $spam_lbl, $spam_val);          
       $result['valid'] = false;
       $result->invalidate( $tag, $error_message );
     }
     
 	return $result;
 }
+
 add_filter('wpcf7_validate_text','efas_cf7_text_validation_filter', 10, 2); // Normal field
 add_filter('wpcf7_validate_text*', 'efas_cf7_text_validation_filter', 10, 2); // Req. field
 
@@ -81,13 +83,14 @@ function efas_cf7_email_validation_filter($result,$tag){
     }
 	// check Email For Spam
 	$spam = checkEmailForSpam($field_value);
+  $spam_val = $field_value;
 
    if( $spam ) {
       $error_message = cfas_get_error_text();
       $post_entrys = array_filter($_POST, function($key) {
             return strpos($key, '_wpcf7') === false;
             }, ARRAY_FILTER_USE_KEY);
-       efas_add_to_log($type = "email","Email $field_value is block $spam" , $post_entrys, "Contact from 7");
+       efas_add_to_log($type = "email","Email $field_value is block $spam" , $post_entrys, "Contact from 7", "emails_blacklist", $spam_val);
       $result['valid'] = false;
       $result->invalidate( $tag, $error_message );
    }
@@ -109,8 +112,10 @@ function efas_cf7_tel_validation_filter($result,$tag){
   	$checkTelForSpam = checkTelForSpam($field_value);
  	$reason = isset($checkTelForSpam['reason']) ? $checkTelForSpam['reason'] : 0 ;      
  	$valid = isset($checkTelForSpam['valid']) ? $checkTelForSpam['valid'] : "yes" ;   
-    $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;
+  $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;
    // $condition = isset($checkTelForSpam['condition']) ? $checkTelForSpam['condition'] : 0 ;
+  $spam_lbl = isset($checkTelForSpam['label']) ? $checkTelForSpam['label'] : 0 ;
+  $spam_val = isset($checkTelForSpam['option_value']) ? $checkTelForSpam['option_value'] : 0 ;
 
   
 
@@ -119,7 +124,7 @@ function efas_cf7_tel_validation_filter($result,$tag){
             return strpos($key, '_wpcf7') === false;
             }, ARRAY_FILTER_USE_KEY);
         $error_message = cfas_get_error_text($message); 
-        efas_add_to_log($type = "tel", $reason , $post_entrys, "Contact from 7");
+        efas_add_to_log($type = "tel", $reason , $post_entrys, "Contact from 7", $spam_lbl, $spam_val);
         $result['valid'] = false;
         $result->invalidate( $tag, $error_message );
     } 
@@ -142,12 +147,14 @@ function efas_cf7_textarea_validation_filter($result,$tag){
     $spam = isset($checkTextareaForSpam['spam']) ? $checkTextareaForSpam['spam'] : 0;
     $message = isset($checkTextareaForSpam['message']) ? $checkTextareaForSpam['message'] : 0;
   	$error_message = cfas_get_error_text($message);
+    $spam_lbl = isset($checkTextareaForSpam['label']) ? $checkTextareaForSpam['label'] : 0 ;
+    $spam_val = isset($checkTextareaForSpam['option_value']) ? $checkTextareaForSpam['option_value'] : 0 ;
     
     if ( $spam ) {
         $post_entrys = array_filter($_POST, function($key) {
             return strpos($key, '_wpcf7') === false;
             }, ARRAY_FILTER_USE_KEY);
-        efas_add_to_log($type = "textarea",$spam, $post_entrys, "Contact from 7");
+        efas_add_to_log($type = "textarea",$spam, $post_entrys, "Contact from 7", $spam_lbl, $spam_val);
         $result['valid'] = false;
         $result->invalidate( $tag, $error_message );
         return $result;	

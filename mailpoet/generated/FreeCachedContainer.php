@@ -501,6 +501,8 @@ class FreeCachedContainer extends Container
             'MailPoet\\Util\\APIPermissionHelper' => 'getAPIPermissionHelperService',
             'MailPoet\\Util\\CdnAssetUrl' => 'getCdnAssetUrlService',
             'MailPoet\\Util\\Cookies' => 'getCookiesService',
+            'MailPoet\\Util\\DataInconsistency\\DataInconsistencyController' => 'getDataInconsistencyControllerService',
+            'MailPoet\\Util\\DataInconsistency\\DataInconsistencyRepository' => 'getDataInconsistencyRepositoryService',
             'MailPoet\\Util\\License\\Features\\CapabilitiesManager' => 'getCapabilitiesManagerService',
             'MailPoet\\Util\\License\\Features\\Subscribers' => 'getSubscribers4Service',
             'MailPoet\\Util\\License\\License' => 'getLicenseService',
@@ -826,7 +828,7 @@ class FreeCachedContainer extends Container
      */
     protected function getHelpService()
     {
-        return $this->services['MailPoet\\API\\JSON\\v1\\Help'] = new \MailPoet\API\JSON\v1\Help(($this->services['MailPoet\\Newsletter\\Sending\\ScheduledTasksRepository'] ?? $this->getScheduledTasksRepositoryService()));
+        return $this->services['MailPoet\\API\\JSON\\v1\\Help'] = new \MailPoet\API\JSON\v1\Help(($this->services['MailPoet\\Newsletter\\Sending\\ScheduledTasksRepository'] ?? $this->getScheduledTasksRepositoryService()), ($this->services['MailPoet\\Util\\DataInconsistency\\DataInconsistencyController'] ?? $this->getDataInconsistencyControllerService()));
     }
 
     /**
@@ -1181,7 +1183,7 @@ class FreeCachedContainer extends Container
      */
     protected function getHelp2Service()
     {
-        return $this->services['MailPoet\\AdminPages\\Pages\\Help'] = new \MailPoet\AdminPages\Pages\Help(($this->services['MailPoet\\AdminPages\\PageRenderer'] ?? $this->getPageRendererService()), ($this->services['MailPoet\\Cron\\CronHelper'] ?? $this->getCronHelperService()), ($this->services['MailPoet\\SystemReport\\SystemReportCollector'] ?? $this->getSystemReportCollectorService()), ($this->services['MailPoet\\Services\\Bridge'] ?? $this->getBridgeService()), ($this->services['MailPoet\\Newsletter\\Sending\\ScheduledTasksRepository'] ?? $this->getScheduledTasksRepositoryService()), ($this->services['MailPoet\\Newsletter\\Sending\\SendingQueuesRepository'] ?? $this->getSendingQueuesRepositoryService()), ($this->services['MailPoet\\Newsletter\\Url'] ?? $this->getUrlService()));
+        return $this->services['MailPoet\\AdminPages\\Pages\\Help'] = new \MailPoet\AdminPages\Pages\Help(($this->services['MailPoet\\AdminPages\\PageRenderer'] ?? $this->getPageRendererService()), ($this->services['MailPoet\\Cron\\CronHelper'] ?? $this->getCronHelperService()), ($this->services['MailPoet\\SystemReport\\SystemReportCollector'] ?? $this->getSystemReportCollectorService()), ($this->services['MailPoet\\Services\\Bridge'] ?? $this->getBridgeService()), ($this->services['MailPoet\\Newsletter\\Sending\\ScheduledTasksRepository'] ?? $this->getScheduledTasksRepositoryService()), ($this->services['MailPoet\\Newsletter\\Sending\\SendingQueuesRepository'] ?? $this->getSendingQueuesRepositoryService()), ($this->services['MailPoet\\Util\\DataInconsistency\\DataInconsistencyController'] ?? $this->getDataInconsistencyControllerService()), ($this->services['MailPoet\\Newsletter\\Url'] ?? $this->getUrlService()));
     }
 
     /**
@@ -2053,7 +2055,7 @@ class FreeCachedContainer extends Container
      */
     protected function getCreateAutomationRunHookService()
     {
-        return $this->services['MailPoet\\Automation\\Integrations\\MailPoet\\Hooks\\CreateAutomationRunHook'] = new \MailPoet\Automation\Integrations\MailPoet\Hooks\CreateAutomationRunHook(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? ($this->services['MailPoet\\Automation\\Engine\\WordPress'] = new \MailPoet\Automation\Engine\WordPress())), ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] ?? ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] = new \MailPoet\Automation\Engine\Storage\AutomationRunStorage())));
+        return $this->services['MailPoet\\Automation\\Integrations\\MailPoet\\Hooks\\CreateAutomationRunHook'] = new \MailPoet\Automation\Integrations\MailPoet\Hooks\CreateAutomationRunHook(($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] ?? ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] = new \MailPoet\Automation\Engine\Storage\AutomationRunStorage())), ($this->services['MailPoet\\WP\\Functions'] ?? ($this->services['MailPoet\\WP\\Functions'] = new \MailPoet\WP\Functions())));
     }
 
     /**
@@ -5523,6 +5525,26 @@ class FreeCachedContainer extends Container
     protected function getCookiesService()
     {
         return $this->services['MailPoet\\Util\\Cookies'] = new \MailPoet\Util\Cookies();
+    }
+
+    /**
+     * Gets the public 'MailPoet\Util\DataInconsistency\DataInconsistencyController' shared autowired service.
+     *
+     * @return \MailPoet\Util\DataInconsistency\DataInconsistencyController
+     */
+    protected function getDataInconsistencyControllerService()
+    {
+        return $this->services['MailPoet\\Util\\DataInconsistency\\DataInconsistencyController'] = new \MailPoet\Util\DataInconsistency\DataInconsistencyController(($this->services['MailPoet\\Util\\DataInconsistency\\DataInconsistencyRepository'] ?? $this->getDataInconsistencyRepositoryService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Util\DataInconsistency\DataInconsistencyRepository' shared autowired service.
+     *
+     * @return \MailPoet\Util\DataInconsistency\DataInconsistencyRepository
+     */
+    protected function getDataInconsistencyRepositoryService()
+    {
+        return $this->services['MailPoet\\Util\\DataInconsistency\\DataInconsistencyRepository'] = new \MailPoet\Util\DataInconsistency\DataInconsistencyRepository(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()));
     }
 
     /**

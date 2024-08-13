@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: gutenberg, blocks, page builder, gallery, templates
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -28,7 +28,7 @@ To help you get started, we've also created a beautiful WordPress theme that wor
 
 Enhance your Gutenberg/Block Editor experience with these amazing features:
 
-= 45+ EASY-TO-USE GUTENBERG BLOCKS =
+= 35+ EASY-TO-USE GUTENBERG BLOCKS =
 Choose from a wide selection of fully customizable blocks, each equipped with advanced and flexible options. Unleash your creativity and create content with endless possibilities.
 
 = TEMPLATE LIBRARY =
@@ -205,6 +205,14 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.0.1 - 2024-08-13 =
+##### Improvements
+* **Framework**, Update core framework
+
+##### Bug Fixes
+* **Form Fallback**, Fix issue with Form Builder in template part
+* **Styling**, Fix issue with styling on frontend
+
 = 2.0.0 - 2024-08-08 =
 ##### New
 * **Archive Title Block**, Add new block

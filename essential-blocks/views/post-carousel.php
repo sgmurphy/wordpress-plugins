@@ -2,7 +2,6 @@
     $_wrapper_classes = [
         $blockId,
         $preset,
-        $className,
         $arrows == 1 ? 'slick-arrows' : 'arrow-none',
         $adaptiveHeight == 1 ? 'equal-height' : 'arrow-none',
         $dotPreset

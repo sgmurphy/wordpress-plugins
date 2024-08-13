@@ -5,7 +5,7 @@ Tags:  docs, documentation, knowledge base, faq, chatgpt ai writer
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 3.6.4
+Stable tag: 3.6.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -218,6 +218,14 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 3.6.5 - 13/08/2024 =
+
+- Fixed: "Write with AI" button missing in the Docs editor
+- Fixed: Labels on TOC and Single Docs email feedback forms are not translatable
+- Fixed: Broken styles in the Single Docs print view
+- Fixed: Creating a new FAQ group does not refetch newly created data in the FAQ Dashboard
+- Few minor bug fixes and improvements
 
 = 3.6.4 - 25/07/2024 =
 - Fixed: Throwing Error message related to Single Docs feedback

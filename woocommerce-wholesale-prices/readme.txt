@@ -4,7 +4,7 @@ Donate link:
 Tags: woocommerce wholesale, b2b, wholesale pricing, catalog mode, dynamic pricing
 Requires at least: 4.2
 Tested up to: 6.6
-Stable tag: 2.2.0.1
+Stable tag: 2.2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,9 @@ Plenty of amazing screenshots for this plugin and more over at:
 [https://wholesalesuiteplugin.com/woocommerce-wholesale-prices-premium/](https://wholesalesuiteplugin.com/woocommerce-wholesale-prices-premium/)
 
 == Changelog ==
+
+= 2.2.0.2 =
+* Bug Fix: PHP Fatal error when bool is given to `array_merge()` call
 
 = 2.2.0.1 =
 * Improvement: Autoload option for the plugin settings are now set to `off` by default

@@ -141,7 +141,8 @@ class WWP_Wholesale_Roles {
     public function registerCustomRole( $roleKey, $roleName, $attr ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
         do_action( 'wwp_action_before_register_custom_role', $roleKey, $roleName );
 
-        $registeredCustomRoles = maybe_unserialize( get_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES ) );
+        $registeredCustomRoles = (array) maybe_unserialize( get_option( WWP_OPTIONS_REGISTERED_CUSTOM_ROLES ) );
+        $registeredCustomRoles = array_filter( $registeredCustomRoles );
 
         $newRole = array( 'roleName' => $roleName );
         foreach ( $attr as $attKey => $attVal ) {

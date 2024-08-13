@@ -270,13 +270,17 @@ class Webhook
         }
 
         if (!in_array($status, $processStatuses)) {
-            return false;
+            return [
+                'message' => 'unknown_status'
+            ];
         }
 
         $email = $request->get('to');
 
         if (!is_email($email)) {
-            return false;
+            return [
+                'message' => 'invalid_email'
+            ];
         }
 
         if ($status == 'unsubscribed') {

@@ -327,7 +327,12 @@ class Helper {
 		//if a string contains any numbers
 		if (is_string($value) && !preg_match('~[0-9]+~', $value)) {
 			return false;
-	  	}
+		}
+
+		//Check for 'x/x' format, for example "12/19"
+		if (preg_match("/^(1[0-2]|0[1-9])\/(0[1-9]|[1-2][0-9]|3[0-1])$/", $value)){
+			return false;
+		}
 
 		// Check if the value is a decimal number (e.g., "9.30" or "9,30")
 		if (preg_match('/^-?\d+(\.\d+|,\d+)$/', $value)) {

@@ -220,6 +220,17 @@ class SearchForm extends BaseWidget {
             ]
         );
 
+        $this->add_control(
+            'search_field_placeholder',
+            [
+                'label'     => esc_html__( 'Field Placeholder Color', 'betterdocs' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .betterdocs-searchform .betterdocs-search-field::placeholder' => 'color: {{VALUE}};'
+                ]
+            ]
+        );
+
         $this->add_responsive_control(
             'search_box_outer_margin',
             [

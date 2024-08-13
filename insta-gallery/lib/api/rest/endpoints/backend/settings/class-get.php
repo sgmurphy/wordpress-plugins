@@ -2,7 +2,7 @@
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Settings;
 
 use QuadLayers\IGG\Models\Setting as Models_Setting;
-use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
+use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
 
 /**
  * Api_Rest_Setting_Get Class

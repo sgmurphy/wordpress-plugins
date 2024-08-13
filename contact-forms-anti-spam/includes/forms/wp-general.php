@@ -27,6 +27,8 @@ function maspik_comments_checker(array $data) {
     $spam = $CountryCheck['spam'] ?? false;
     $reason = $CountryCheck['reason'] ?? '';
     $message = $CountryCheck['message'] ?? '';
+    $spam_val = $CountryCheck['value'] ?? '';
+    $spam_lbl = $CountryCheck['reason'] ?? '';
 
     // Name check
     if (!empty($name) && !$spam) {
@@ -34,6 +36,8 @@ function maspik_comments_checker(array $data) {
         $spam = $validateTextField['spam'] ?? false;
         $reason = $validateTextField['reason'] ?? '';
         $message = $validateTextField['message'] ?? '';
+        $spam_lbl = $validateTextField['label'] ?? '';
+        $spam_val = $validateTextField['option_value'] ?? '';
     }
 
     // Email Spam check
@@ -41,6 +45,8 @@ function maspik_comments_checker(array $data) {
         $spam = checkEmailForSpam($email);
         if ($spam) {
             $reason = "Email $email is blocked";
+            $spam_lbl = 'emails_blacklist';
+            $spam_val = $email;
         }
     }
 
@@ -50,13 +56,15 @@ function maspik_comments_checker(array $data) {
         $spam = $checkTextareaForSpam['spam'] ?? false;
         $message = $checkTextareaForSpam['message'] ?? '';
         $reason = $spam ?? '';
+        $spam_lbl = $checkTextareaForSpam['label'] ?? '';
+        $spam_val = $checkTextareaForSpam['option_value'] ?? '';
     }
 
     if ($spam) {
         // If identified as spam, handle the action (logging, error message, etc.)
         $message = cfas_get_error_text($message);
         $args = ['response' => 200];
-        efas_add_to_log("Comments", $reason, $data, $comment_type);
+        efas_add_to_log("Comments", $reason, $data, $comment_type, $spam_lbl, $spam_val);
         wp_die($message, "Spam error", $args);
     }
 
@@ -100,17 +108,21 @@ function maspik_check_wp_registration_form($errors) {
         $spam = $CountryCheck['spam'] ?? false;
         $reason = $CountryCheck['reason'] ?? '';
         $message = $CountryCheck['message'] ?? '';
+        $spam_val = $CountryCheck['value'] ?? '';
+        $spam_lbl = $CountryCheck['reason'] ?? '';
     }
 
     if ($user_email && !$spam) {
         $spam = checkEmailForSpam($user_email);
         if ($spam && !$reason) {
             $reason = "Email $user_email is blocked";
+            $spam_lbl = 'emails_blacklist';
+            $spam_val = $user_email;
         }
     }
     $error_message = cfas_get_error_text($message);
     if ($spam && isset($_POST['wp-submit']) && maspik_get_settings("maspik_support_registration") !== "no") {
-        efas_add_to_log("Registration", $reason, $_POST, 'WP registration');
+        efas_add_to_log("Registration", $reason, $_POST, 'WP registration', $spam_lbl, $spam_val);
         $errors->add('maspik_error', $error_message);
     }
 

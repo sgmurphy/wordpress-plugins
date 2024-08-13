@@ -64,7 +64,7 @@ class ArchiveList extends BaseWidget {
                 'type'    => Controls_Manager::SELECT,
                 'options' => [
                     'none'             => __( 'No order', 'betterdocs' ),
-                    'name'             => __( 'Name', 'betterdocs' ),
+                    'title'            => __( 'Title', 'betterdocs' ),
                     'slug'             => __( 'Slug', 'betterdocs' ),
                     'term_group'       => __( 'Term Group', 'betterdocs' ),
                     'term_id'          => __( 'Term ID', 'betterdocs' ),
@@ -73,7 +73,7 @@ class ArchiveList extends BaseWidget {
                     'parent'           => __( 'Parent', 'betterdocs' ),
                     'betterdocs_order' => __( 'BetterDocs Order', 'betterdocs' )
                 ],
-                'default' => 'name'
+                'default' => 'title'
             ]
         );
 
@@ -537,7 +537,7 @@ class ArchiveList extends BaseWidget {
 
         $_docs_query = [
             'term_id'        => isset( $term->term_id ) ? $term->term_id : 0,
-            'orderby'        => $this->attributes['alphabetic_order'],
+            'orderby'        => $this->attributes['alphabetic_order'] == 'slug' ? 'name' : $this->attributes['alphabetic_order'],
             'order'          => $this->attributes['order'],
             'kb_slug'        => '',
             'posts_per_page' => $term == false ? 5 : -1,

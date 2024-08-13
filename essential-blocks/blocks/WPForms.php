@@ -102,7 +102,6 @@ class WPForms extends Block
                         'center' => 'eb-wpforms-alignment-center',
                         'right'  => 'eb-wpforms-alignment-right'
                      ],
-                    'wrapper_attributes'  => get_block_wrapper_attributes(),
                     'block_object'        => $this
                  ]
             )

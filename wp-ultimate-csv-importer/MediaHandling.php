@@ -164,8 +164,15 @@ class MediaHandling{
 	}
 	public function media_handling($img_url , $post_id , $data_array = null,$module = null, $image_type = null ,$hash_key = null,$templatekey = null,$header_array=null,$value_array=null,$indexs=null,$acf_wpname_element=null,$acf_image_meta=null,$media_type=null,$line_number = null){
 		global $wpdb;
-		$encodedurl = urlencode($img_url);
-		$img_url = urldecode($encodedurl);
+
+		if(strpos($img_url,'%') !==false){
+
+		}
+		else{
+			$encodedurl = urlencode($img_url);
+			$img_url = urldecode($encodedurl);
+		}
+
 		$url = parse_url($img_url);
 		if($hash_key == null){
 			$hash_key = "";
@@ -245,7 +252,11 @@ class MediaHandling{
 			$templatekey = is_array($templatekey) ? implode(',', array_filter($templatekey)) : $templatekey;
 			$module = is_array($module) ? implode(',', array_filter($module)) : $module;
 			$image_type = is_array($image_type) ? implode(',', array_filter($image_type)) : $image_type;
-			$img_url = esc_url($img_url);
+			if(strpos($img_url,'%') !==false){
+			}
+			else{
+				$img_url = esc_url($img_url);
+			}
 			$hash_key = esc_sql($hash_key);
 			$templatekey = esc_sql($templatekey);
 			$module = esc_sql($module);

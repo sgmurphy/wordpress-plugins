@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts;
 
-use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
+use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
 use QuadLayers\IGG\Models\Accounts as Models_Account;
 use QuadLayers\IGG\Utils\Cache as Cache;
 

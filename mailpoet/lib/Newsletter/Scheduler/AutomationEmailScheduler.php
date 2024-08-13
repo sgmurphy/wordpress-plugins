@@ -5,6 +5,7 @@ namespace MailPoet\Newsletter\Scheduler;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\AutomationRun;
 use MailPoet\Cron\Workers\SendingQueue\SendingQueue;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
@@ -67,18 +68,36 @@ class AutomationEmailScheduler {
     return $task;
   }
 
-  public function getScheduledTaskSubscriber(NewsletterEntity $email, SubscriberEntity $subscriber): ?ScheduledTaskSubscriberEntity {
-    $result = $this->entityManager->createQueryBuilder()
+  public function getScheduledTaskSubscriber(NewsletterEntity $email, SubscriberEntity $subscriber, AutomationRun $run): ?ScheduledTaskSubscriberEntity {
+    $results = $this->entityManager->createQueryBuilder()
       ->select('sts')
       ->from(ScheduledTaskSubscriberEntity::class, 'sts')
       ->join('sts.task', 'st')
       ->join('st.sendingQueue', 'sq')
       ->where('sq.newsletter = :newsletter')
       ->andWhere('sts.subscriber = :subscriber')
+      ->andWhere('st.createdAt >= :runCreatedAt')
       ->setParameter('newsletter', $email)
       ->setParameter('subscriber', $subscriber)
+      // Automation Run is fetched via WPDB and it ignores the gmt_offset. This query is processed via Doctrine.
+      // Doctrine uses PDO connection and uses offset. So the run's created_at is expected to be provided with the offset.
+      // By removing one day we make sure the offset is not a problem. It makes no harm as this is only performance optimization.
+      // After we switch to WPDB we could remove this modification and use the exact created_at.
+      ->setParameter('runCreatedAt', $run->getCreatedAt()->modify('-1 day'))
       ->getQuery()
-      ->getOneOrNullResult();
+      ->getResult();
+    $result = null;
+    foreach ($results as $scheduledTaskSubscriber) {
+      $task = $scheduledTaskSubscriber->getTask();
+      if (!$task instanceof ScheduledTaskEntity) {
+        continue;
+      }
+      $meta = $task->getMeta();
+      if (($meta['automation']['run_id'] ?? null) === $run->getId()) {
+        $result = $scheduledTaskSubscriber;
+        break;
+      }
+    }
     return $result instanceof ScheduledTaskSubscriberEntity ? $result : null;
   }
 

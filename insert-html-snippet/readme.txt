@@ -3,8 +3,8 @@ Contributors: f1logic
 Donate link: http://xyzscripts.com/donate/
 Tags: insert HTML, add HTML, insert adsense, insert ads, insert addthis code, insert flash , insert javascript, add javascript, insert css, add css, HTML to shortcode, integrate ad codes, raw html, embed html, html inserter, ad inserter, css inserter
 Requires at least: 3.0
-Tested up to: 6.5.5
-Stable tag: 1.3.6
+Tested up to: 6.6.1
+Stable tag: 1.3.7
 License: GPLv2 or later
 
 Add HTML, CSS and javascript code to your pages and posts easily using shortcodes.
@@ -73,6 +73,10 @@ More questions ? [Drop a mail](http://xyzscripts.com/members/support/ "XYZScript
 
 
 == Changelog ==
+
+= 1.3.7 =
+* Updated nonce verification for bulk actions to prevent CSRF attacks
+* Compatibility with WordPress 6.6.1
 
 = 1.3.6 =
 * Prevented shortcode execution in the admin area

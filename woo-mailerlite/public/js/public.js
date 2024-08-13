@@ -14,7 +14,7 @@ jQuery(document).ready(function(a) {
         const last_name_field = document.querySelector('#billing_last_name');
         const signup = document.querySelector('#woo_ml_subscribe');
         if (email !== null && !email.form?.querySelector('#woo_ml_subscribe')) {
-            if (woo_ml_public_post.checkbox_settings?.enabled === 'no') {
+            if (document.getElementById('woo_ml_subscribe') || (woo_ml_public_post.checkbox_settings?.enabled === 'no')) {
                 return false;
             }
             const wooMlCheckoutCheckbox = document.createElement('input');

@@ -19,10 +19,9 @@ import Typed from "typed.js";
 /**
  * Internal dependencies
  */
-import classnames from "classnames";
 import Inspector from "./inspector";
 import Style from "./style";
-import { safeHTML } from "@wordpress/dom";
+import { escapeHTML } from "@wordpress/escape-html";
 
 export default function Edit(props) {
     const {
@@ -89,7 +88,7 @@ export default function Edit(props) {
     const getStrings = (typedText) => {
         let strings = [];
         if (typeof typedText === "object" && typedText.length > 0) {
-            typedText.map((item) => strings.push(safeHTML(item.text)));
+            typedText.map((item) => strings.push(escapeHTML(item.text)));
         } else {
             strings = ["first string", "second string"];
         }

@@ -277,21 +277,27 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.8.3", "essential-blocks")}
+                                    {__("Version: 4.8.4", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("27/07/2024", "essential-blocks")}
+                                        {__("13/08/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Google Map || Incorrect map Pointer placement",
+                                            "Fixed: Style generation conflict with Generatepres",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Color Picker not working in Firefox and Safari",
+                                            "Fixed: Image Gallery | URL removed when new image add",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Slider | Images appeared broken at first glance",
                                             "essential-blocks"
                                         )}
                                     </li>

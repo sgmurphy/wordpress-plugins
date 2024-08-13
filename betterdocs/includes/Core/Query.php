@@ -54,6 +54,14 @@ class Query extends Base {
                 $clauses['where']   = "AND ( ( {$wpdb->prefix}posts.post_type = 'docs' ) AND ( {$wpdb->prefix}posts.post_status = 'publish' OR {$wpdb->prefix}posts.post_status = 'future' OR {$wpdb->prefix}posts.post_status = 'draft' OR {$wpdb->prefix}posts.post_status = 'pending' OR {$wpdb->prefix}posts.post_status = 'private' ) )";
                 $clauses['orderby'] = $order_by_query;
                 $clauses['groupby'] = "{$wpdb->prefix}betterdocs_analytics.post_id";
+                if( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' )  ) {
+                    global $sitepress;
+                    if( $sitepress->is_setup_complete() ){
+                        $constant_language_code = ICL_LANGUAGE_CODE;
+                        $clauses['join']  .= " JOIN {$wpdb->prefix}icl_translations ON {$wpdb->prefix}posts.ID = {$wpdb->prefix}icl_translations.element_id";
+                        $clauses['where'] .= " AND ( {$wpdb->prefix}icl_translations.language_code = '{$constant_language_code}' ) AND ( {$wpdb->prefix}icl_translations.element_type = CONCAT('post_', {$wpdb->prefix}posts.post_type ) )";
+                    }
+                }
             }
         }
         return $clauses;

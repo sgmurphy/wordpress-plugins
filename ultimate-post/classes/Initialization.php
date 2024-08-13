@@ -1195,7 +1195,7 @@ class ULTP_Initialization {
         $tag_text = 'Stable tag:';
         if ( !empty($changelog_lines) ) {
             echo '<hr style="border-color:#dba617;"/>';
-            echo '<div style="color:#50575e;font-size:13px;font-weight:bold;"> <span style="color:#f56e28;" class="dashicons dashicons-warning"></span> ' . esc_html_e("PostX is ready for the next update. Changelog:-", "ultimate-post" ) . '</div>';
+            echo '<div style="color:#50575e;font-size:13px;font-weight:bold;"> <span style="color:#f56e28;" class="dashicons dashicons-warning"></span> ' . esc_html__("PostX is ready for the next update. Changelog:-", "ultimate-post" ) . '</div>';
             echo '<hr style="border-color:#dba617;"/>';
             echo '<ul style="max-height:200px;overflow:scroll;">';
             foreach ( $changelog_lines as $key => $line ) {

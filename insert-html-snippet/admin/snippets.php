@@ -18,15 +18,20 @@ if ( ! defined( 'ABSPATH' ) )
                 exit;
             }
          }
-         if(isset($_POST['textFieldButton2']))
-         {
-             if(!isset($_REQUEST['_wpnonce'])||!wp_verify_nonce($_REQUEST['_wpnonce'],'bulk_actions_ihs') ){
+        //  if(isset($_POST['textFieldButton2']))
+        //  {
+        //      if(!isset($_REQUEST['_wpnonce'])||!wp_verify_nonce($_REQUEST['_wpnonce'],'bulk_actions_ihs') ){
+        //          wp_nonce_ays( 'bulk_actions_ihs' );
+        //          exit;
+        //      }
+        //  }
+        if (isset($_POST['apply_ihs_bulk_actions'])){
+            if (isset($_POST['ihs_bulk_actions_snippet'])){
+	    if(!isset($_REQUEST['_wpnonce'])||!wp_verify_nonce($_REQUEST['_wpnonce'],'bulk_actions_ihs') )
+            {
                  wp_nonce_ays( 'bulk_actions_ihs' );
                  exit;
              }
-         }
-        if (isset($_POST['apply_ihs_bulk_actions'])){
-            if (isset($_POST['ihs_bulk_actions_snippet'])){
                 $ihs_bulk_actions_snippet=$_POST['ihs_bulk_actions_snippet'];
                 if (isset($_POST['xyz_ihs_snippet_ids']))
                     $xyz_ihs_snippet_ids = $_POST['xyz_ihs_snippet_ids'];

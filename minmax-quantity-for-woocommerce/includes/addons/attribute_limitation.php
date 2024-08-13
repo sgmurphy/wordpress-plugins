@@ -15,7 +15,7 @@ class BeRocket_MM_Quantity_Attribute_limitation extends BeRocket_plugin_variatio
             'option_page'   => 'br-mm-quantity',
             'premium_slug'  => 'woocommerce-minmax-quantity',
         );
-        $this->default = array(
+        $this->defaults = array(
             'global_multiplicity' => '',
             'exclude_products'    => array(),
             'multiplicity_text'   => "Multiplicity of products in cart must be <strong>%value%</strong>",
@@ -171,8 +171,8 @@ class BeRocket_MM_Quantity_Attribute_limitation extends BeRocket_plugin_variatio
     }
     public function limitation_settings_text($settings_minmax, $limitation_id, $options) {
         if( empty($settings_minmax['use_local_text']) ) {
-            $settings_minmax['min_attribute_text'] = (empty($options['min_attribute_text']) ? $this->default['min_attribute_text'] : $options['min_attribute_text']);
-            $settings_minmax['max_attribute_text'] = (empty($options['max_attribute_text']) ? $this->default['max_attribute_text'] : $options['max_attribute_text']);
+            $settings_minmax['min_attribute_text'] = (empty($options['min_attribute_text']) ? $this->defaults['min_attribute_text'] : $options['min_attribute_text']);
+            $settings_minmax['max_attribute_text'] = (empty($options['max_attribute_text']) ? $this->defaults['max_attribute_text'] : $options['max_attribute_text']);
         }
         if( ! empty($settings_minmax['attribute_type']) && ( ! empty($settings_minmax['min_attribute']) || ! empty($settings_minmax['min_attribute']) ) ) {
             if( $settings_minmax['attribute_type'] == 'attribute' ) {

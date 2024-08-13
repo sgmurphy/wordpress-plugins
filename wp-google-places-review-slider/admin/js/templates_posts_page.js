@@ -698,27 +698,7 @@
 				$( ".badgehide" ).show('slow');
 			}
 		}
-		
-		//going to search for media added to reviews and load lity if we find them.
-		/*
-		setTimeout(function(){ mediareviewpopup(); }, 500);
-		function mediareviewpopup(){
-			var mediadiv = $(".wprev_media_div");
-			//var mediadiv = $(document.getElementsByClassName("wprev_media_div"));
-			if(mediadiv.length){
-				//load js and css files.
-				//console.log(wprevpublicjs_script_vars);
-				$('<link/>', {
-				   rel: 'stylesheet',
-				   type: 'text/css',
-				   href: wprevpublicjs_script_vars.wprevpluginsurl+"/public/css/lity.min.css"
-				}).appendTo('head');
-				$.getScript(wprevpublicjs_script_vars.wprevpluginsurl+"/public/js/lity.min.js", function() {
-					//script is loaded and ran on document root.
-				});
-			}
-		}
-		*/
+
 		
 		
 	});

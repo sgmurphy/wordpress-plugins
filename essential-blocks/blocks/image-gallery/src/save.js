@@ -84,7 +84,7 @@ const Save = ({ attributes }) => {
 
                         if (
                             source.hasOwnProperty("filter") &&
-                            source.filter.length > 0
+                            source?.filter?.length > 0
                         ) {
                             filters = JSON.parse(source.filter);
 
@@ -111,11 +111,9 @@ const Save = ({ attributes }) => {
                                 {displayCaption &&
                                     source.caption &&
                                     source.caption.length > 0 && (
-                                        <span
-                                            className={`eb-gallery-img-caption ${horizontalAlign} ${verticalAlign}`}
-                                        >
-                                            {source.caption}
-                                        </span>
+                                        <>
+                                            <span className={`eb-gallery-img-caption ${horizontalAlign} ${verticalAlign}`} dangerouslySetInnerHTML={{__html: source.caption}}></span>
+                                        </>
                                     )}
                             </span>
                         );

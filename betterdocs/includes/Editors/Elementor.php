@@ -198,7 +198,7 @@ class Elementor extends BaseEditor {
             $wb->add_control(
                 'box_per_page',
                 [
-                    'label'   => __( 'Box Per Page', 'betterdocs' ),
+                    'label'   => __( $wb->get_name() == 'betterdocs-tab-view-list' ? 'Tabs Per Page' : 'Box Per Page', 'betterdocs' ),
                     'type'    => Controls_Manager::NUMBER,
                     'default' => '8'
                 ]
@@ -405,6 +405,15 @@ class Elementor extends BaseEditor {
                     'label'     => __( 'Tab List Posts', 'betterdocs' ),
                     'type'      => Controls_Manager::HEADING,
                     'separator' => 'before'
+                ]
+            );
+
+            $wb->add_control(
+                'tab_box_per_tabs',
+                [
+                    'label'     => __( 'Box Per Tabs', 'betterdocs' ),
+                    'type'      => Controls_Manager::NUMBER,
+                    'default' => '10'
                 ]
             );
 

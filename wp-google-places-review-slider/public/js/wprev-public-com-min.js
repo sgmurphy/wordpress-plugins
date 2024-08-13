@@ -169,7 +169,7 @@ void 0!==jQuery.event.swipe||function(e){"function"==typeof define&&define.amd?d
 		});
 		
 		//going to search for media added to reviews and load lity if we find them.
-		setTimeout(function(){ mediareviewpopup(); }, 500);
+		setTimeout(function(){ mediareviewpopup(); }, 1000);
 		function mediareviewpopup(){
 			var mediadiv = $(".wprev_media_div");
 			//var mediadiv = $(document.getElementsByClassName("wprev_media_div"));

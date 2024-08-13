@@ -27,10 +27,144 @@ tr.hide {
 }
 
 
+/* SPAM LOG POPUP - Start */
+
+
+
+/* Modal background */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  border: 1px solid #888;
+  width: 80%; 
+  max-width:450px;
+  border-radius: 20px;
+  border: 3px solid #F48722;
+  
+}
+
+.modal-content-inner {
+  padding:20px;
+}
+
+.modal-content pre{
+  display: inline;
+  background-color:#ddd;
+  text-wrap:wrap;
+}
+
+.modal-content #confirmation-message, .modal-content #filter-type{
+  font-size:18px;
+}
+
+/* Close button */
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.del-spam-button, .del-filter-button {
+  padding: 8px 15px;
+  font-size:12px;
+  letter-spacing: 1px;
+  margin: 5px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family:'Montserrat', 'Open Sans', sans-serif;
+  text-transform:uppercase;
+  transition:0.3s;
+}
+
+.del-spam-button:hover, .del-filter-button:hover{
+  background-color:#374945;
+  color:#FFF;
+  border-color:#374945 ;
+}
+
+.del-spam-button-primary, .del-filter-button-primary {
+  background-color: #F48722;
+  color: white;
+  border:solid 1px #F48722;
+}
+.del-spam-button-secondary, .del-filter-button-secondary {
+  background-color: #FFF;
+  color: #F48722;
+  border:solid 1px #F48722;
+}
+
+/* Checkbox container styles */
+.checkbox-container {
+  padding:20px;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  align-items: flex-start; 
+  background-color:#eee;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px;
+  margin-top:5px;
+  vertical-align: top; 
+}
+
+.checkbox-container label {
+  display: inline-block;
+  vertical-align: top; 
+}
+
+/* SPAM LOG POPUP - End */
+
 /**--SPAM LOG TABLE - START --**/
+
 .spam-log-button-wrapper{
   display:flex;
   gap:15px;
+}
+
+.spam-option-wrap span{
+  color:#F48722;
+  cursor:pointer;
+}
+
+.spam-option-wrap span.not-a-spam-button, .spam-option-wrap .spam-delete-button{
+  color:red;
+}
+
+.spam-option-wrap{
+    font-size: 14px;
+  visibility: hidden;
+  display:flex;
+  justify-content: flex-start;
+  gap:5px;
+}
+
+
+.maspik-accordion-header:hover .spam-option-wrap{
+  visibility: visible;
 }
 
 
@@ -41,15 +175,40 @@ tr.hide {
 .detail-show:after{
   font-size:14px;
   color:#F48722;
-  content:"more details";
-  width:100px;
+  content:"More Details";
   display:block;
-  text-align: right;
+}
+.detail-show:hover{
+  cursor:pointer;
 }
 
-.active .detail-show:after{
-  content:"hide details";
+.detail-show:hover:after, .spam-option-wrap span:hover{
   color:#888;
+}
+
+.active.detail-show:after{
+  content:"Hide Details";
+  color:#888;
+}
+
+.active.detail-show:hover:after{
+  color:#F48722;
+}
+
+.spam-value-text{
+  display:flex;
+  flex-direction: column;
+}
+
+.maspik-log-table .maspik-accordion-content{
+  width:100%;
+}
+
+.column-value .maspik-accordion-header{
+ cursor:default; 
+ display:flex;
+ flex-direction:column;
+ gap:3px;
 }
 
  .column-value{
@@ -74,11 +233,44 @@ tr.hide {
   width: 100%;
   font-size:16px;
 }
+
+
+.maspik-log-table .span-alt-text{
+  font-size:14px!important;
+  margin-top:4px;
+  color:#888;
+  display: none;
+}
 .maspik-log-table th, .maspik-log-table td{
   padding:18px 20px;
   vertical-align: top;
 
 }
+
+
+.maspik-log-table td.column-button, .maspik-log-table th.column-not-spam{
+  padding:18px 10px;
+  vertical-align: top;
+  background-color:rgba(255,255,255,0)!important;
+}
+
+.maspik-log-table td.column-button button{
+  background-color: #F48722;
+  color:#FFF;
+  font-family:'Montserrat', 'Open Sans', sans-serif;
+  line-height:1.1em;
+  border:none;
+  border-radius: 50px;
+  padding: 8px;
+  font-size:14px;
+  transition:0.3s;
+}
+
+
+.maspik-log-table td.column-button button:hover{
+  background-color: #374945;
+}
+
 
 .maspik-log-table th{
   background-color:#F48722;
@@ -86,13 +278,18 @@ tr.hide {
   border-radius:3px;
 }
 
-.maspik-log-table tr.row-odd{
+.maspik-log-table tr.row-odd td{
   background-color:#F6F6F6;
   border-radius:3px;
 }
 
-.maspik-log-table tr.row-even{
+.maspik-log-table tr.row-even td{
   background-color:#FAFAFA;
+  border-radius:3px;
+}
+
+.maspik-log-table tr.not-a-spam td{
+  background-color:#fdf6d0;
   border-radius:3px;
 }
 
@@ -1117,7 +1314,7 @@ h3.maspik-protag.maspik-not-pro{
     background: #bababa !important;
 }
 td.column-value.column-entries {
-    max-width: 600px;
+    max-width: 500px;
 }
 
 .togglewrap span.new {

@@ -17,9 +17,10 @@ function maspik_validate_formidable_general($errors, $values){
   $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
   $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
   $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
+  $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
     
   if ( $spam) {
-    efas_add_to_log($type = "Country/IP",$reason, $_POST['item_meta'], "Formidable" );
+    efas_add_to_log($type = "Country/IP",$reason, $_POST['item_meta'], "Formidable" , $message,  $spam_val);
     $errors['spam'] = cfas_get_error_text($message);
   }
 return $errors;
@@ -36,7 +37,10 @@ function maspik_validate_formidable_text($errors, $posted_field, $posted_value, 
   
     if($spam ) {
       $message = isset($validateTextField['message']) ? $validateTextField['message'] : false ;
-      efas_add_to_log($type = "text",$spam, $_POST, "Formidable");          
+      $spam_lbl = isset($validateTextField['label']) ? $validateTextField['label'] : 0 ;
+      $spam_val = isset($validateTextField['option_value']) ? $validateTextField['option_value'] : 0 ;
+
+      efas_add_to_log($type = "text",$spam, $_POST, "Formidable", $spam_lbl, $spam_val);          
       $errors[ 'field'. $posted_field->id ] = cfas_get_error_text($message);
     }
     
@@ -53,10 +57,11 @@ function maspik_validate_formidable_email($errors, $posted_field, $posted_value,
     }
 	// check Email For Spam
 	$spam = checkEmailForSpam($field_value);
+  $spam_val = $field_value;
 
    if( $spam ) {
       $error_message = cfas_get_error_text();
-      efas_add_to_log($type = "email","Email $field_value is block $spam" , $_POST, "Formidable");
+      efas_add_to_log($type = "email","Email $field_value is block $spam" , $_POST, "Formidable", "emails_blacklist", $spam_val);
       $errors[ 'field'. $posted_field->id ] = $error_message;
    }
    return $errors;
@@ -72,12 +77,14 @@ function maspik_validate_formidable_tel($errors, $posted_field, $posted_value, $
     }
   
   	$checkTelForSpam = checkTelForSpam($field_value);
- 	$reason = isset($checkTelForSpam['reason']) ? $checkTelForSpam['reason'] : 0 ;      
- 	$valid = isset($checkTelForSpam['valid']) ? $checkTelForSpam['valid'] : "yes" ;   
+  	$reason = isset($checkTelForSpam['reason']) ? $checkTelForSpam['reason'] : 0 ;      
+ 	  $valid = isset($checkTelForSpam['valid']) ? $checkTelForSpam['valid'] : "yes" ;   
     $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;  
+    $spam_lbl = isset($checkTelForSpam['label']) ? $checkTelForSpam['label'] : 0 ;
+    $spam_val = isset($checkTelForSpam['option_value']) ? $checkTelForSpam['option_value'] : 0 ;
 
   	if(!$valid){
-        efas_add_to_log($type = "tel", $reason, $_POST, "Formidable");
+        efas_add_to_log($type = "tel", $reason, $_POST, "Formidable", $spam_lbl, $spam_val);
         $errors[ 'field'. $posted_field->id ] = cfas_get_error_text($message);  
     } 
 
@@ -96,7 +103,9 @@ function maspik_validate_formidable_textarea($errors, $posted_field, $posted_val
     $spam = isset($checkTextareaForSpam['spam']) ? $checkTextareaForSpam['spam'] : 0;
     if ( $spam ) {
       $message = isset($checkTextareaForSpam['message']) ? $checkTextareaForSpam['message'] : 0;
-      efas_add_to_log($type = "textarea",$spam, $_POST, "Formidable");
+      $spam_lbl = isset($checkTextareaForSpam['label']) ? $checkTextareaForSpam['label'] : 0 ;
+      $spam_val = isset($checkTextareaForSpam['option_value']) ? $checkTextareaForSpam['option_value'] : 0 ;
+      efas_add_to_log($type = "textarea",$spam, $_POST, "Formidable", $spam_lbl, $spam_val);
       $errors[ 'field'. $posted_field->id ] = cfas_get_error_text($message); 
       return $errors;
     }

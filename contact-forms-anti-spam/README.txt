@@ -4,7 +4,7 @@ Donate link: paypal.me/yonifre
 Tags: spam, blacklist, antispam, contact form, security
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,6 +137,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.1.3 - 13/08/2024 =
+* New Feature - Added support for JetFormBuilder.
+* New Feature - Added support for Everest Forms.
+* New Feature - Add option to mark "Not a Spam" on Spam log.
+* Bug Fix - Fix vulnerability, thanks to @Artyom from CleanTalk inc.
 
 = 2.1.2 - 26/07/2024 =
 * Bug Fix - Fix error when Max links set on 0 

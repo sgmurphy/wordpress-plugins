@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-29T06:59:44+00:00\n"
+"POT-Creation-Date: 2024-08-13T09:29:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: woocommerce-product-addon\n"
 
 #. Plugin Name of the plugin
@@ -182,7 +182,7 @@ msgstr ""
 
 #: backend/settings-panel.class.php:129
 #: backend/settings-panel.class.php:130
-#: classes/admin.class.php:316
+#: classes/admin.class.php:318
 msgid "PPOM Settings"
 msgstr ""
 
@@ -195,7 +195,7 @@ msgid "PPOM"
 msgstr ""
 
 #: backend/settings-panel.class.php:306
-#: classes/admin.class.php:254
+#: classes/admin.class.php:256
 #: inc/admin.php:526
 msgid "Sorry, you are not allowed to perform this action please try again"
 msgstr ""
@@ -209,7 +209,7 @@ msgid "Settings saved error."
 msgstr ""
 
 #: backend/settings-panel.class.php:499
-#: classes/ppom.class.php:252
+#: classes/ppom.class.php:257
 #: inc/admin.php:92
 msgid "None"
 msgstr ""
@@ -320,57 +320,57 @@ msgstr ""
 msgid "PPOM Fields"
 msgstr ""
 
-#: classes/admin.class.php:171
+#: classes/admin.class.php:173
 msgid "PPOM Field Groups"
 msgstr ""
 
-#: classes/admin.class.php:173
+#: classes/admin.class.php:175
 msgid "All Addons"
 msgstr ""
 
-#: classes/admin.class.php:174
+#: classes/admin.class.php:176
 msgid "Changelog"
 msgstr ""
 
-#: classes/admin.class.php:175
+#: classes/admin.class.php:177
 #: templates/admin/changelog.php:55
 msgid "General Settings"
 msgstr ""
 
-#: classes/admin.class.php:179
+#: classes/admin.class.php:181
 msgid "You can create different meta groups for different products."
 msgstr ""
 
-#: classes/admin.class.php:215
+#: classes/admin.class.php:217
 #: inc/admin.php:568
 msgid "Sorry, you are not allowed to perform this action"
 msgstr ""
 
-#: classes/admin.class.php:300
+#: classes/admin.class.php:302
 msgid "Provide API key below:"
 msgstr ""
 
-#: classes/admin.class.php:301
+#: classes/admin.class.php:303
 msgid "If you don't know your API key, please login into your: <a target=\"_blank\" href=\"http://wordpresspoets.com/member-area\">Member area</a>"
 msgstr ""
 
-#: classes/admin.class.php:304
+#: classes/admin.class.php:306
 msgid "Entery API key"
 msgstr ""
 
-#: classes/admin.class.php:382
+#: classes/admin.class.php:384
 msgid "Choose Roles"
 msgstr ""
 
-#: classes/admin.class.php:383
+#: classes/admin.class.php:385
 msgid "Roles"
 msgstr ""
 
-#: classes/admin.class.php:391
+#: classes/admin.class.php:393
 msgid "Select all"
 msgstr ""
 
-#: classes/admin.class.php:392
+#: classes/admin.class.php:394
 msgid "Select none"
 msgstr ""
 

@@ -13,7 +13,6 @@ if (!defined('ABSPATH')) exit;
 /**
 * Genegal block
 **/
-
 function maspik_make_extra_spam_check($post) {
 
     // Honeypot check
@@ -56,7 +55,7 @@ function maspik_make_extra_spam_check($post) {
     return [
         'spam' => false,
         'reason' => false,
-        'message' => cfas_get_error_text()
+        'message' => false
     ];
 }
 
@@ -69,16 +68,17 @@ function maspik_HP_name(){
     return "full-name-maspik-hp";
 }
 
+
 function CountryCheck($ip, &$spam, &$reason, $post = "") {
     
     $to_do_extra_spam_check = maspik_get_settings('maspikHoneypot') || maspik_get_settings('maspikTimeCheck') || maspik_get_settings('maspikYearCheck');
-    if( is_array($post) && $to_do_extra_spam_check ){
+    if( is_array($post) && $to_do_extra_spam_check ){ 
         $extra_spam_check =  maspik_make_extra_spam_check($post) ;
         $is_spam = isset($extra_spam_check['spam']) ? $extra_spam_check['spam'] : $spam ;
         if($is_spam){
             $reason = isset($extra_spam_check['reason']) ? $extra_spam_check['reason'] : $reason ;
             $message = $extra_spam_check['message'] ? $extra_spam_check['message'] : 0 ;
-            return array('spam' => true, 'reason' => $reason, 'message' => $message);
+            return array('spam' => true, 'reason' => $reason, 'message' => $message, 'value' => $reason);
         }
     }
         
@@ -122,13 +122,13 @@ function CountryCheck($ip, &$spam, &$reason, $post = "") {
                 $spam = true;
                 $message = "country_blacklist";
                 $reason = "Country code $countryCode is blacklisted ($AllowedOrBlockCountries)";
-                return array('spam' => $spam, 'reason' => $reason, 'message' => $message);
+                return array('spam' => $spam, 'reason' => $reason, 'message' => $message, 'value' => $countryCode);
             }
             if ($AllowedOrBlockCountries === 'allow' && !in_array($countryCode, $country_blacklist) ) {
                 $spam = true;
                 $message = "country_blacklist";
                 $reason = "Country $countryCode is not in the whitelist ($AllowedOrBlockCountries)";
-                return array('spam' => $spam, 'reason' => $reason, 'message' => $message);
+                return array('spam' => $spam, 'reason' => $reason, 'message' => $message, 'value' => $countryCode);
             }
         }
     }
@@ -137,7 +137,7 @@ function CountryCheck($ip, &$spam, &$reason, $post = "") {
     if (in_array($ip, $ip_blacklist)) {
         $spam = true;
         $reason = "IP $ip is blacklisted";
-        return array('spam' => $spam, 'reason' => $reason, 'message' => "ip_blacklist");
+        return array('spam' => $spam, 'reason' => $reason, 'message' => "ip_blacklist", 'value' => $ip);
     }
 
     // CIDR Filter
@@ -145,7 +145,7 @@ function CountryCheck($ip, &$spam, &$reason, $post = "") {
         if (ip_is_cidr($cidr) && cidr_match($ip, $cidr)) {
             $spam = true;
             $reason = "IP $ip is in CIDR: $cidr";
-            return array('spam' => $spam, 'reason' => $reason, 'message' => "ip_blacklist");
+            return array('spam' => $spam, 'reason' => $reason, 'message' => "ip_blacklist", 'value' => $ip);
         }
     }
     
@@ -165,7 +165,7 @@ function CountryCheck($ip, &$spam, &$reason, $post = "") {
         if ($abuseconfidencescore && $abuseconfidencescore >= (int)$pabuseipdb_score) {
           $spam = true;
           $reason = "AbuseIPDB Risk: $abuseconfidencescore ";
-          return array('spam' => $spam, 'reason' => $reason, 'message' => "abuseipdb_api");
+          return array('spam' => $spam, 'reason' => $reason, 'message' => "abuseipdb_api", 'value' => "");
 
         }
       }
@@ -186,11 +186,11 @@ function CountryCheck($ip, &$spam, &$reason, $post = "") {
         if ( $proxycheck_io_riskscore && $proxycheck_io_riskscore >= (int)$proxycheck_io_risk) {
           $spam = true;
           $reason = "Proxycheck.io Risk: $proxycheck_io_riskscore max is $proxycheck_io_risk";
-          return array('spam' => $spam, 'reason' => $reason, 'message' => "proxycheck_io_api");
+          return array('spam' => $spam, 'reason' => $reason, 'message' => "proxycheck_io_api", 'value' => "");
         }
       }
 
-    return array('spam' => $spam, 'reason' => $reason, 'message' => $message);
+    return array('spam' => $spam, 'reason' => $reason, 'message' => $message, 'value' => "");
 }
 
 
@@ -225,7 +225,7 @@ function validateTextField($field_value) {
                 // Check if exist in string 
                 if (maspik_is_field_value_exist_in_string($bad_string, $field_value) ) {
                     $spam =  "Forbidden input $field_value, because <u>$bad_string</u> is blocked";
-                    return array('spam' => $spam, 'message' => "text_blacklist");
+                    return array('spam' => $spam, 'message' => "text_blacklist", "option_value" => $bad_string,  'label' => "text_blacklist");
                    	break;
                 }
             }
@@ -247,12 +247,12 @@ function validateTextField($field_value) {
             $CountCharacters = mb_strlen($field_value); // Use mb_strlen for multibyte characters
             if ($CountCharacters > $MaxCharacters ) {
                 $spam = "More than $MaxCharacters characters";
-                return array('spam' => $spam, 'message' => $message);
+                return array('spam' => $spam, 'message' => $message,"option_value" =>$MaxCharacters , 'label' => "MaxCharactersInTextField");
             }
 
             if ($CountCharacters < $MinCharacters ) {
                 $spam = "Less than $MinCharacters characters";
-                return array('spam' => $spam, 'message' => $message);
+                return array('spam' => $spam, 'message' => $message,"option_value" =>$MinCharacters, 'label' => "MinCharactersInTextField");
             }
         }
     }
@@ -366,10 +366,11 @@ function checkTelForSpam($field_value) {
         if (maspik_get_settings(maspik_toggle_match('MaxCharactersInPhoneField')) == 1) {
             if ($CountCharacters > $MaxCharacters) {
                 $reason = "More than $MaxCharacters characters in Phone Number";
-                return array('valid' => false, 'reason' => $reason, 'message' => $message);
+                return array('valid' => false, 'reason' => $reason, 'message' => $message, "option_value" =>$MaxCharacters , 'label' => "MaxCharactersInPhoneField");
+                
             } elseif ($CountCharacters < $MinCharacters) {
                 $reason = "Less than $MinCharacters characters in Phone Number";
-                return array('valid' => false, 'reason' => $reason, 'message' => $message);
+                return array('valid' => false, 'reason' => $reason, 'message' => $message,"option_value" =>$MinCharacters , 'label' => "MinCharactersInPhoneField");
             }
         }
     }
@@ -409,7 +410,7 @@ function checkTelForSpam($field_value) {
         } 
     }
 
-    return array('valid' => $valid, 'reason' => $reason, 'message' => 'tel_formats');
+    return array('valid' => $valid, 'reason' => $reason, 'message' => 'tel_formats', 'label' => 'tel_formats');
 }
 
 
@@ -434,7 +435,7 @@ function checkTextareaForSpam($field_value) {
             $bad_string = "url" || "name" || "description" ? get_bloginfo($bad_string) : "Error - Shortcode not exist";
         }
         if ( maspik_is_field_value_exist_in_string($bad_string, $field_value) ) {
-            return array('spam' => "field value includes <u>$bad_string</u>", 'message' => "textarea_field");
+            return array('spam' => "field value includes <u>$bad_string</u>", 'message' => "textarea_field" , 'option_value' => $field_value, 'label' => "textarea_blacklist"  );
         }
     }
 
@@ -530,10 +531,10 @@ function checkTextareaForSpam($field_value) {
             $CountCharacters = mb_strlen($field_value); // Use mb_strlen for multibyte characters
             if ($CountCharacters > $MaxCharacters) {
                 $spam = "More than $MaxCharacters characters in Text Area field.";
-                return array('spam' => $spam, 'message' =>  $message);
+                return array('spam' => $spam, 'message' =>  $message, "option_value" => $MaxCharacters , 'label' => "MaxCharactersInTextAreaField");
             }elseif ($CountCharacters < $MinCharacters) {
                 $spam = "Less than $MinCharacters characters in Text Area field.";
-                return array('spam' => $spam, 'message' =>  $message);
+                return array('spam' => $spam, 'message' =>  $message, "option_value" => $MinCharacters , 'label' => "MinCharactersInTextAreaField");
             }
         }
     }
@@ -638,15 +639,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Add hidden fields to different form types
-    addHiddenFields('form.wpcf7-form', 'wpcf7-text');
-    addHiddenFields('form.elementor-form', 'elementor-field');
-    addHiddenFields('form.wpforms-form', 'wpforms-field');
     addHiddenFields('form.brxe-brf-pro-forms', 'brxe-brf-pro-forms-field-text');
     addHiddenFields('form.frm-fluent-form', 'ff-el-form-control');
     addHiddenFields('form.frm-show-form', 'wpforms-field');
     addHiddenFields('form.forminator-custom-form', 'forminator-input');
-    addHiddenFields('.gform_wrapper form', 'gform-input');
-    addHiddenFields('.gform_wrapper form', 'gform-input');
     addHiddenFields('form.comment-form', 'comment-form-comment');
 
     // Add more form types here if needed in the future

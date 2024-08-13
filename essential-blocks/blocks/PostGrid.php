@@ -96,7 +96,6 @@ class PostGrid extends PostBlock
             $attributes[ 'enableThumbnailSort' ] = false;
         }
 
-        $className = isset( $attributes[ "className" ] ) ? $attributes[ "className" ] : "";
         $classHook = isset( $attributes[ 'classHook' ] ) ? $attributes[ 'classHook' ] : '';
 
         $_default_attributes = array_keys( parent::$default_attributes );
@@ -143,7 +142,6 @@ class PostGrid extends PostBlock
         ob_start();
         Helper::views( 'post-grid', array_merge( $attributes, [
             'essentialAttr' => $_essential_attrs,
-            'className'     => $className,
             'classHook'     => $classHook,
             'queryData'     => $queryData,
             'posts'         => $query,

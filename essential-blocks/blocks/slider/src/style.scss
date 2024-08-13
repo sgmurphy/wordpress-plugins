@@ -125,6 +125,28 @@
 	ul.slick-dots {
 		margin: 0;
 	}
+	.eb-slider-init {
+		&.slick-initialized {
+			.eb-slider-item {
+				visibility: visible;
+			}
+		}
+		&::before {
+			background-image: url(../../../assets/images/ajax-loader.gif);
+			background-size: cover;
+			content: "";
+			display: block;
+			height: 50px;
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%,-50%);
+			width: 50px;
+		}
+		.eb-slider-item {
+			visibility: hidden;
+		} 
+	}
 }
 
 [dir="rtl"] .eb-slider-wrapper {

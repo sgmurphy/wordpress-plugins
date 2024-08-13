@@ -389,7 +389,7 @@ class TemplateTags extends Base {
             $_args['parent'] = 0;
         }
 
-        $_terms = $this->query->get_terms( $_args );
+        $_terms = $this->query->get_terms( $this->query->terms_query( $_args ) );
 
         if ( is_wp_error( $_terms ) ) {
             return;

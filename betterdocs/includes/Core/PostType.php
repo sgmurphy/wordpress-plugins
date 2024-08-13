@@ -52,6 +52,13 @@ class PostType extends Base {
         $this->cat_slug     = $this->category_slug();
         $this->glossaries_slug     = $this->glossaries_slug();
 
+        add_action("{$this->glossaries}_add_form_fields", [$this, 'add_glossary_term_fields']);
+        add_action("{$this->glossaries}_edit_form_fields", [$this, 'edit_glossary_term_fields']);
+        add_action("created_{$this->glossaries}", [$this, 'save_glossary_term_fields']);
+        add_action("edited_{$this->glossaries}", [$this, 'save_glossary_term_fields']);
+        add_filter("manage_edit-{$this->glossaries}_columns", [$this, 'add_glossary_custom_column']);
+        add_filter("manage_{$this->glossaries}_custom_column", [$this, 'manage_glossary_custom_column'], 10, 3);
+
     }
 
     public static function permalink_structure() {
@@ -697,7 +704,7 @@ class PostType extends Base {
             'hierarchical'      => true,
             'public'            => true,
             'labels'            => $labels,
-            'show_ui'           => false,
+            'show_ui'           => true,
             'show_in_menu'      => true,
             'show_admin_column' => true,
             'query_var'         => true,
@@ -717,11 +724,66 @@ class PostType extends Base {
 
         register_taxonomy( $this->glossaries, [$this->post_type], $args );
 
-        $slug = $this->settings->get( 'encyclopedia_root_slug' );
-
         // Change the rewrite rules for the custom taxonomy
         global $wp_rewrite;
-        $wp_rewrite->extra_permastructs[$this->glossaries]['struct'] = '/'.$slug.'/%glossaries%';
+        $wp_rewrite->extra_permastructs[$this->glossaries]['struct'] = '/'.$this->glossaries.'/%glossaries%';
+    }
+    public function add_glossary_term_fields($taxonomy) {
+        ?>
+        <div class="form-field term-custom-field-wrap">
+            <label for="glossary_term_description"><?php _e('Glossary Term Description', 'betterdocs'); ?></label>
+            <?php
+            wp_editor('', 'glossary_term_description', [
+                'textarea_name' => 'glossary_term_description',
+                'textarea_rows' => 5,
+                'media_buttons' => false,
+                'tinymce'       => true,
+                'quicktags'     => true,
+            ]);
+            ?>
+            <p class="description"><?php _e('Enter a description for the glossary term', 'betterdocs'); ?></p>
+        </div>
+        <?php
+    }
+    
+    public function edit_glossary_term_fields($term) {
+        $glossary_term_description = get_term_meta($term->term_id, 'glossary_term_description', true);
+        ?>
+        <tr class="form-field term-custom-field-wrap">
+            <th scope="row"><label for="glossary_term_description"><?php _e('Glossary Term Description', 'betterdocs'); ?></label></th>
+            <td>
+                <?php
+                wp_editor($glossary_term_description, 'glossary_term_description', [
+                    'textarea_name' => 'glossary_term_description',
+                    'textarea_rows' => 5,
+                    'media_buttons' => false,
+                    'tinymce'       => true,
+                    'quicktags'     => true,
+                ]);
+                ?>
+                <p class="description"><?php _e('Enter a description for the glossary term', 'betterdocs'); ?></p>
+            </td>
+        </tr>
+        <?php
+    }
+    
+
+    public function save_glossary_term_fields($term_id) {
+        if (isset($_POST['glossary_term_description'])) {
+            update_term_meta($term_id, 'glossary_term_description', wp_kses_post($_POST['glossary_term_description']));
+        }
+    }
+
+    public function add_glossary_custom_column($columns) {
+        $columns['glossary_term_description'] = __('Glossary Term Description', 'betterdocs');
+        return $columns;
+    }
+
+    public function manage_glossary_custom_column($content, $column_name, $term_id) {
+        if ($column_name === 'glossary_term_description') {
+            $content = get_term_meta($term_id, 'glossary_term_description', true);
+        }
+        return $content;
     }
 
 
@@ -840,10 +902,6 @@ class PostType extends Base {
 
         if ( 'betterdocs_page_betterdocs-analytics' == $current_screen->id ) {
             $submenu_file = 'betterdocs-analytics';
-        }
-
-        if ( 'betterdocs_page_betterdocs-glossaries' == $current_screen->id ) {
-            $submenu_file = 'betterdocs-glossaries';
         }
 
         if ( 'betterdocs_page_betterdocs-setup' == $current_screen->id ) {

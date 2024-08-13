@@ -32,7 +32,7 @@ class Ai1wm_Database_Utility {
 	protected static $db_client = null;
 
 	public static function set_client( $db_client ) {
-		static::$db_client = $db_client;
+		self::$db_client = $db_client;
 	}
 
 	/**
@@ -43,23 +43,23 @@ class Ai1wm_Database_Utility {
 	public static function create_client() {
 		global $wpdb;
 
-		if ( static::$db_client ) {
-			return static::$db_client;
+		if ( self::$db_client ) {
+			return self::$db_client;
 		}
 
 		if ( $wpdb instanceof WP_SQLite_DB ) {
-			return static::$db_client = new Ai1wm_Database_Sqlite( $wpdb );
+			return new Ai1wm_Database_Sqlite( $wpdb );
 		}
 
 		if ( PHP_MAJOR_VERSION >= 7 ) {
-			return static::$db_client = new Ai1wm_Database_Mysqli( $wpdb );
+			return new Ai1wm_Database_Mysqli( $wpdb );
 		}
 
 		if ( empty( $wpdb->use_mysqli ) ) {
-			return static::$db_client = new Ai1wm_Database_Mysql( $wpdb );
+			return new Ai1wm_Database_Mysql( $wpdb );
 		}
 
-		return static::$db_client = new Ai1wm_Database_Mysqli( $wpdb );
+		return new Ai1wm_Database_Mysqli( $wpdb );
 	}
 
 	/**

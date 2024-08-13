@@ -27,12 +27,34 @@ class Glossaries extends Base {
         // fires after a new betterdocs_glossaries is created
         add_action( 'created_glossaries', [$this, 'action_created_betterdocs_glossaries'], 10, 2 );
         add_action( 'rest_api_init', [$this, 'register_api_endpoint'] );
+        add_action( 'rest_api_init', [$this, 'register_glossary_rest_fields'] );
         add_action('rest_glossaries_query', array($this, 'glossaries_orderby_meta'), 10, 2);
+        // Enqueue Scripts
+        add_action( 'admin_enqueue_scripts', [$this, 'enqueue'] );
 
     }
 
     public function register_post() {
         register_term_meta( $this->category, 'status', ['show_in_rest' => true, 'single' => true] );
+    }
+
+    public function enqueue( $hook ) {
+        if ( $hook === 'betterdocs_page_betterdocs-glossaries' ) {
+            betterdocs()->assets->enqueue( 'betterdocs-admin-glossaries', 'admin/css/faq.css' );
+
+            betterdocs()->assets->enqueue( 'betterdocs-admin-glossaries', 'admin/js/glossaries.js' );
+
+            // removing emoji support
+            remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+            remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+
+            betterdocs()->assets->localize( 'betterdocs-admin-glossaries', 'betterdocs', [
+                'dir_url'      => BETTERDOCS_ABSURL,
+                'rest_url'     => esc_url_raw( rest_url() ),
+                'free_version' => betterdocs()->version,
+                'nonce'        => wp_create_nonce( 'wp_rest' )
+            ] );
+        }
     }
 
     public function output() {
@@ -252,7 +274,20 @@ class Glossaries extends Base {
         $description = $params->get_param( 'description' );
         $slug        = $params->get_param( 'slug' );
 
-        return $this->insert_betterdocs_glossaries( $title, $description, $slug );
+        // Create the term
+        $new_term = wp_insert_term( $title, 'glossaries', [
+            'slug' => $slug,
+        ]);
+
+        if ( is_wp_error( $new_term ) ) {
+            return $new_term;
+        }
+
+        // Set the custom field description
+        $term_id = $new_term['term_id'];
+        update_term_meta( $term_id, 'glossary_term_description', wp_kses_post($description) );
+
+        return true;
     }
 
     public function update_glossaries( $request ) {
@@ -263,20 +298,49 @@ class Glossaries extends Base {
         $description = $request->get_param( 'description' );
         $description = ( $description !== 'undefined' ) ? $description : '';
         $slug        = $request->get_param( 'slug' );
-        $update      = wp_update_term( $term_id, 'glossaries', [
+
+        // Check if there's old data in the default description field and transfer it to the custom field
+        $old_description = get_term_field( 'description', $term_id, 'glossaries' );
+        if ( !empty( $old_description ) && empty( get_term_meta( $term_id, 'glossary_term_description', true ) ) ) {
+            update_term_meta( $term_id, 'glossary_term_description', wp_kses_post( $old_description ) );
+            wp_update_term( $term_id, $this->glossaries, [ 'description' => '' ] );
+        }
+
+        // Update the term
+        $update = wp_update_term( $term_id, 'glossaries', [
             'name'        => $title,
             'slug'        => $slug,
-            'description' => $description
-        ] );
+        ]);
 
         if ( is_wp_error( $update ) ) {
             return $update;
         } else {
+            // Update the custom field description
+            update_term_meta( $term_id, 'glossary_term_description', wp_kses_post($description) );
             return true;
         }
     }
 
+    public function save_glossary_term_meta($term_id, $tt_id) {
+        if (isset($_POST['glossary_term_description'])) {
+            update_term_meta($term_id, 'glossary_term_description', wp_kses_post($_POST['glossary_term_description']));
+        }
+    }
 
+    public function register_glossary_rest_fields() {
+        register_rest_field('glossaries', 'glossary_term_description', [
+            'get_callback' => function($term) {
+                return get_term_meta($term['id'], 'glossary_term_description', true);
+            },
+            'update_callback' => null,
+            'schema' => [
+                'description' => __('Glossary Term Description'),
+                'type' => 'string',
+                'context' => ['view', 'edit'],
+            ],
+        ]);
+    }
+    
     public function delete_glossaries( $params ) {
         $term_id = $params->get_param( 'term_id' );
         $delete  = wp_delete_term( $term_id, 'glossaries' );
@@ -287,6 +351,7 @@ class Glossaries extends Base {
             return true;
         }
     }
+    
 
     public function insert_betterdocs_glossaries( $title, $description, $slug = '' ) {
         $insert_term = wp_insert_term(

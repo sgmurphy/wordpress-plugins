@@ -265,7 +265,7 @@ class Sidebar extends BaseWidget {
         $this->start_controls_section(
             'section_card_settings',
             [
-                'label' => __( 'Wraper', 'betterdocs' ),
+                'label' => __( 'Wrapper', 'betterdocs' ),
                 'tab'   => Controls_Manager::TAB_STYLE
             ]
         );
@@ -322,7 +322,8 @@ class Sidebar extends BaseWidget {
                 'label'     => esc_html__( 'Background Color', 'betterdocs' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .betterdocs-category-grid-wrapper' => 'background-color: {{VALUE}};'
+                    '{{WRAPPER}} .betterdocs-sidebar-content'                                   => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .betterdocs-sidebar-content .betterdocs-category-grid-wrapper' => 'background-color: {{VALUE}};'
                 ]
             ]
         );

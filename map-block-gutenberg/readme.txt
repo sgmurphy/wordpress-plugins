@@ -4,7 +4,7 @@ Tags: map block, google maps, map, gutenberg block, maps for gutenberg
 Requires at least: 4.9
 Requires PHP: 5.2
 Tested up to: 6.6
-Stable tag: 1.34
+Stable tag: 1.35
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -41,6 +41,9 @@ Standard stuff. Make sure you have the Gutenberg plugin installed, obviously.
 
 Yes, yes, it's frustrating. See <a href="https://www.gmapswidget.com/documentation/generate-google-maps-api-key/">detailed instructions</a> from a similar plugin on how to get a map key.
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/map-block-gutenberg)
 
 == Screenshots ==
 
@@ -49,6 +52,10 @@ Yes, yes, it's frustrating. See <a href="https://www.gmapswidget.com/documentati
 
 
 == Changelog ==
+= 1.35 =
+* 2024-08-13
+* added user capability check when saving API key
+
 = 1.34 =
 * 2024-07-07
 * minor security fixes

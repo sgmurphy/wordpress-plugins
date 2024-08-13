@@ -80,7 +80,6 @@ class PostCarousel extends PostBlock
 
         $attributes = wp_parse_args( $attributes, $this->get_default_attributes() );
 
-        $className = isset( $attributes[ 'className' ] ) ? $attributes[ 'className' ] : '';
         $classHook = isset( $attributes[ 'classHook' ] ) ? $attributes[ 'classHook' ] : '';
 
         $_default_attributes = array_keys( parent::$default_attributes );

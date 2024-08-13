@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts;
 
-use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base as Base;
+use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
 use QuadLayers\IGG\Models\Accounts as Models_Account;
 
 /**
@@ -13,41 +13,38 @@ class Create extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$body = json_decode( $request->get_body() );
+		try {
 
-		if ( empty( $body->access_token ) ) {
+			$body = json_decode( $request->get_body() );
+
+			if ( empty( $body->access_token ) ) {
+				throw new \Exception( esc_html__( 'access_token not set.', 'insta-gallery' ), 412 );
+			}
+
+			if ( empty( $body->id ) ) {
+				throw new \Exception( esc_html__( 'id not set.', 'insta-gallery' ), 412 );
+			}
+
+			$account = ( new Models_Account() )->create(
+				array(
+					'access_token' => $body->access_token,
+					'id'           => $body->id,
+				)
+			);
+
+			if ( ! isset( $account['access_token'] ) ) {
+				throw new \Exception( isset( $account['message'] ) ? $account['message'] : esc_html__( 'Unable to create account.', 'insta-gallery' ), 412 );
+			}
+
+			return $this->handle_response( $account );
+
+		} catch ( \Exception $e ) {
 			$response = array(
-				'code'    => 412,
-				'message' => esc_html__( 'access_token not setted.', 'insta-gallery' ),
+				'code'    => $e->getCode(),
+				'message' => $e->getMessage(),
 			);
 			return $this->handle_response( $response );
 		}
-		if ( empty( $body->id ) ) {
-			$response = array(
-				'code'    => 412,
-				'message' => esc_html__( 'id not setted.', 'insta-gallery' ),
-			);
-			return $this->handle_response( $response );
-		}
-
-		$models_account = new Models_Account();
-
-		$account_data = array(
-			'access_token' => $body->access_token,
-			'id'           => $body->id,
-		);
-
-		$account = $models_account->create( $account_data );
-
-		if ( ! isset( $account['access_token'] ) ) {
-			$response = array(
-				'code'    => isset( $account['error'] ) ? $account['error'] : 412,
-				'message' => isset( $account['message'] ) ? $account['message'] : esc_html__( 'Unable to create account.', 'insta-gallery' ),
-			);
-			return $this->handle_response( $response );
-		}
-
-		return $this->handle_response( $account );
 	}
 
 	public static function get_rest_args() {

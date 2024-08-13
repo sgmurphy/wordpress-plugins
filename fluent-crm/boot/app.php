@@ -82,23 +82,64 @@ return function ($file) {
 
         $hourlyHook = 'fluentcrm_scheduled_hourly_tasks';
         if (!wp_next_scheduled($hourlyHook)) {
-            wp_schedule_event(time(), 'hourly', $hourlyHook);
+            wp_schedule_event(time() + 100, 'hourly', $hourlyHook);
         }
 
         $hookName = 'fluentcrm_scheduled_five_minute_tasks';
         if (!wp_next_scheduled($hookName)) {
-            wp_schedule_event(time(), 'fluentcrm_every_minute', $hookName);
+            wp_schedule_event(time() + 5, 'fluentcrm_every_minute', $hookName);
         }
 
         $weeklyHook = 'fluentcrm_scheduled_weekly_tasks';
         if (!wp_next_scheduled($weeklyHook)) {
-            wp_schedule_event(time(), 'weekly', $weeklyHook);
+            wp_schedule_event(time() + 1000, 'weekly', $weeklyHook);
         }
-        
+
         $dailyHook = 'fluentcrm_scheduled_daily_tasks';
         if (!wp_next_scheduled($dailyHook)) {
-            wp_schedule_event(time(), 'daily', $hourlyHook);
+            wp_schedule_event(time() + 500, 'daily', $dailyHook);
         }
+
+        /*
+         *
+         * @todo: Handle Duplicate Schedules and we can remove this code at the end of October 2024
+         */
+        $crons = _get_cron_array();
+        $cronMaps = [
+            'fluentcrm_scheduled_minute_tasks'      => 'fluentcrm_every_minute',
+            'fluentcrm_scheduled_hourly_tasks'      => 'hourly',
+            'fluentcrm_scheduled_five_minute_tasks' => 'fluentcrm_every_minute',
+            'fluentcrm_scheduled_weekly_tasks'      => 'weekly',
+            'fluentcrm_scheduled_daily_tasks'       => 'daily'
+        ];
+
+        $occurrences = [];
+        $multiples = [];
+
+        foreach ($crons as $time => $hooks) {
+            foreach ($hooks as $hook => $hook_events) {
+                if (!isset($cronMaps[$hook])) {
+                    continue;
+                }
+
+                if (isset($occurrences[$hook])) {
+                    $multiples[$hook] = isset($multiples[$hook]) ? $multiples[$hook] + 1 : 1;
+                    continue;
+                }
+
+                $occurrences[$hook] = 1;
+            }
+        }
+
+        if ($multiples) {
+            foreach ($multiples as $scheduleKey => $multiple) {
+                wp_clear_scheduled_hook($scheduleKey);
+                $mapName = $cronMaps[$scheduleKey];
+                wp_schedule_event(time() + 100, $mapName, $scheduleKey);
+            }
+        }
+
+        // <--- Done Handling Duplicate Schedules
 
     }, 10);
 };

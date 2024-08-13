@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH Framework\n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2024-07-08 10:28:37+00:00\n"
+"POT-Creation-Date: 2024-07-11 09:00:35+00:00\n"
 "PO-Revision-Date: 2022-04-05 17:22:32+0000\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -819,12 +819,12 @@ msgstr "Вы уверены, что хотите удалить \"%s\"?"
 msgid "Further actions"
 msgstr "Дальнейшие действия"
 
-#: yit-plugin.php:242
+#: yit-plugin.php:243
 msgid "License"
 msgstr "Лицензия"
 
 #. translators: 1. Plugin(s) name(s).
-#: yit-plugin.php:281
+#: yit-plugin.php:282
 msgid ""
 "%s was deactivated as you're running an higher tier version of the same "
 "plugin."
@@ -1285,27 +1285,27 @@ msgctxt "Term action"
 msgid "Delete"
 msgstr "Удалить"
 
-#: yit-plugin.php:85
+#: yit-plugin.php:86
 msgctxt "Plugin Row Meta"
 msgid "Live Demo"
 msgstr "Живая Демонстрация"
 
-#: yit-plugin.php:89
+#: yit-plugin.php:90
 msgctxt "Plugin Row Meta"
 msgid "Documentation"
 msgstr "Документация"
 
-#: yit-plugin.php:93
+#: yit-plugin.php:94
 msgctxt "Plugin Row Meta"
 msgid "Support"
 msgstr "Поддержка"
 
-#: yit-plugin.php:97
+#: yit-plugin.php:98
 msgctxt "Plugin Row Meta"
 msgid "Premium version"
 msgstr "Премиум версия"
 
-#: yit-plugin.php:238
+#: yit-plugin.php:239
 msgctxt "Action links"
 msgid "Settings"
 msgstr "Настройки"
