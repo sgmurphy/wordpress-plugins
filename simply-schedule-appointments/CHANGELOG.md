@@ -1,5 +1,11 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.42 - 2024-08-06
+
+### Fixes
+
+- Allow SSA admin to disable Stripe iDeal payments
+
 ## SSA-VERSION-PREFIX.6.7.40 - 2024-07-30
 
 ### Fixes

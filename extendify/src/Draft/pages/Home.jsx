@@ -21,6 +21,7 @@ export const Home = () => {
 				)}>
 				<Button
 					variant="primary"
+					id="extendify-draft-image-gen-button"
 					className="w-full justify-center"
 					onClick={() => navigateTo('ai-image')}>
 					{__('Add a prompt', 'extendify-local')}

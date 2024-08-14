@@ -1663,8 +1663,10 @@ function pagelayer_sc_google_maps(&$el){
 	$el['atts']['show_v2'] = false;
 	$api_key = @$el['atts']['api_key'];
 	
-	if( empty($api_key) && !empty(get_option('pagelayer-gmaps-api-key')) ){
-		$api_key = get_option('pagelayer-gmaps-api-key');
+	$gmaps_api = get_option('pagelayer-gmaps-api-key');
+	
+	if( empty($api_key) && !empty($gmaps_api) ){
+		$api_key = $gmaps_api;
 	}
 	
 	if($el['atts']['map_modes'] == 'view'){

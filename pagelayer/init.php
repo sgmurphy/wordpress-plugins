@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 
 define('PAGELAYER_BASE', plugin_basename(PAGELAYER_FILE));
 define('PAGELAYER_PREMIUM_BASE', 'pagelayer-pro/pagelayer-pro.php');
-define('PAGELAYER_VERSION', '1.8.7');
+define('PAGELAYER_VERSION', '1.8.8');
 define('PAGELAYER_DIR', dirname(PAGELAYER_FILE));
 define('PAGELAYER_SLUG', 'pagelayer');
 define('PAGELAYER_URL', plugins_url('', PAGELAYER_FILE));
@@ -161,9 +161,6 @@ function pagelayer_load_plugin(){
 	if(empty($pagelayer->LOGO)){
 		$pagelayer->LOGO = PAGELAYER_URL.'/images/pagelayer-logo-40.png';
 	}
-	
-	// Load license
-	pagelayer_load_license();
 
 	// Is there any ACTION set ?
 	$pagelayer->action = pagelayer_optreq('pagelayer-action');
@@ -295,10 +292,12 @@ function pagelayer_admin_menu() {
 		// Go Pro link
 		add_submenu_page('pagelayer', __('Pagelayer Go Pro'), __('Go Pro'), $capability, PAGELAYER_PRO_PRICE_URL);
 
-	}
+	}else{
 
-	// License Page
-	add_submenu_page('pagelayer', __('Pagelayer Editor'), __('License'), $capability, 'pagelayer_license', 'pagelayer_license_page');
+		// License Page
+		add_submenu_page('pagelayer', __('Pagelayer License'), __('License'), $capability, 'pagelayer_license', 'pagelayer_license_page');
+	
+	}
 
 	// Replace Media
 	add_submenu_page('admin.php', __('Replace media', 'pagelayer'),	__('Replace media', 'pagelayer'), 'upload_files', 'pagelayer_replace_media', 'pagelayer_replace_media');
@@ -519,7 +518,7 @@ function pagelayer_license_page(){
 
 	global $wp_version, $pagelayer;
 
-	include_once(PAGELAYER_DIR.'/main/license.php');
+	include_once(PAGELAYER_PRO_DIR.'/main/license.php');
 	
 	pagelayer_license();
 

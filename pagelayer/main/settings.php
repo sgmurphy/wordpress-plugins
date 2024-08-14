@@ -235,7 +235,7 @@ function pagelayer_settings_page(){
 	
 	if(isset($_POST['pagelayer-gmaps-api-key'])){
 
-		$maps_id = $_REQUEST['pagelayer-gmaps-api-key'];
+		$maps_id = sanitize_text_field($_REQUEST['pagelayer-gmaps-api-key']);
 			
 		update_option( 'pagelayer-gmaps-api-key', $maps_id );
 		
@@ -747,7 +747,7 @@ function pagelayer_settings_page(){
 						<tr>
 							<th style="vertical-align:top"><?php _e('Project ID');?></th>
 							<td><input type="text" name="pagelayer-gmaps-api-key" class="pagelayer-gmaps-api-key" <?php if(get_option('pagelayer-gmaps-api-key')){
-									echo 'value="'.get_option('pagelayer-gmaps-api-key').'"';
+									echo 'value="'. esc_html(get_option('pagelayer-gmaps-api-key')).'"';
 								}?>/><p><?php _e('Insert google maps API key. <a href="https://pagelayer.com/docs/pagelayer-widgets/google-maps/"><strong>CLICK HERE</strong></a> to get help in getting API key.') ?></p></td>
 						</tr>					
 					</table>

@@ -62,8 +62,6 @@ class HMWP_Models_Rewrite {
 		//add prefix // to make sure is not a path
 		if ( strpos( $this->_siteurl, 'www.' ) !== false ) {
 			$this->_siteurl = str_replace( 'www.', '', $this->_siteurl );
-		} else {
-			$this->_siteurl = '//' . $this->_siteurl;
 		}
 
 	}

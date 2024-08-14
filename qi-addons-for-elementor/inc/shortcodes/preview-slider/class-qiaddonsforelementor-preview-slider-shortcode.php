@@ -51,7 +51,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 			);
 			$this->map_slider_options(
 				array(
-					'group' => esc_html__( 'Slider Settings', 'qi-addons-for-elementor-premium' ),
+					'group' => esc_html__( 'Slider Settings', 'qi-addons-for-elementor' ),
 				)
 			);
 

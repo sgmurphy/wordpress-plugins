@@ -101,7 +101,7 @@
 						<span class="ccb-heading-6" style="margin-left: 56px; display: inline-block; width: 90%; color: #768493;"><?php esc_html_e( 'There will be a button on the bottom of each step for users to click and open a popup with Summary', 'cost-calculator-builder' ); ?></span>
 					</div>
 				</div>
-				<div class="row ccb-p-t-15" v-if="this.$store.getters.getPageBreakStatus">
+				<div class="row ccb-p-t-15" v-if="this.$store.getters.getPageBreakStatus && pageNavigation.total_in_page">
 					<div class="col-16">
 						<span class="ccb-field-title">
 							<?php esc_html_e( 'Total Field Element', 'cost-calculator-builder-pro' ); ?>

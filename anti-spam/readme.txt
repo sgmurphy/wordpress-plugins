@@ -195,6 +195,7 @@ The plugin is pretty small and easy to read.
 == Changelog ==
 = 7.3.6 (17.07.2024) =
 * Added: Compatibility with Wordpress 6.6
+* Fixed: Secutity issue
 * Fixed: Minor bugs
 
 = 7.3.5 (22.03.2024) =

@@ -273,6 +273,10 @@ class SSA_Shortcodes {
 		if ( ! $this->plugin->appointment_model->verify_id_token(  $appointment_id, $provided_hash ) ) {
 			die( 'An error occurred, please check the URL' ); // phpcs:ignore
 		}
+		if ( isset( $_GET['admin'] ) && current_user_can( 'ssa_manage_site_settings' ) ) {
+			wp_redirect( ssa()->appointment_model->get_admin_edit_url( $appointment_id ), 302 );
+			exit;
+		}
 
 		add_filter( 'show_admin_bar', '__return_false' );
 		global $ssa_current_appointment_id;

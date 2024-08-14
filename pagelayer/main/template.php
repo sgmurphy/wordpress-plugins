@@ -330,7 +330,7 @@ add_action('admin_head', 'pagelayer_builder_admin_head', 9999);
 function pagelayer_builder_admin_head(){
 	global $pagelayer, $post_type;
 	
-	if($post_type != $pagelayer->builder['name']){
+	if(!isset($pagelayer->builder) || $post_type != $pagelayer->builder['name']){
 		return;
 	}
 	
@@ -363,6 +363,10 @@ jQuery(document).ready(function(){
 add_action('init', 'pagelayer_builder_post_type', 9999);
 function pagelayer_builder_post_type() {
 	global $pagelayer;
+	
+	if(!isset($pagelayer->builder)){
+		return;
+	}
 	
 	// Add Template Post Supports
 	$supports = array(
@@ -405,11 +409,6 @@ function pagelayer_builder_post_type() {
 	
 	// Register custom post type
 	register_post_type($pagelayer->builder['name'] , $args);
-	
-	// Init builder?
-	if(empty($pagelayer->builder['archives_templates'])){
-		return;
-	}
 	
 	// Add any other templates as well
 	$pagelayer->builder['archives_templates'] += pagelayer_builder_archives_conditions();	

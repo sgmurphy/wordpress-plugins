@@ -1050,4 +1050,60 @@ class CCBUpdatesCallbacks {
 			update_post_meta( $calculator->ID, 'stm-fields', (array) $fields );
 		}
 	}
+
+	public static function ccb_update_paypal_data() {
+		$calculators = self::get_calculators();
+		foreach ( $calculators as $calculator ) {
+			$calc_settings = get_option( 'stm_ccb_form_settings_' . $calculator->ID );
+
+			if ( empty( $calc_settings['payment_gateway']['paypal']['integration_type'] ) ) {
+				$calc_settings['payment_gateway']['paypal']['integration_type'] = 'legacy';
+				$calc_settings['payment_gateway']['paypal']['client_id']        = '';
+				$calc_settings['payment_gateway']['paypal']['client_secret']    = '';
+
+				if ( empty( $calc_settings['payment_gateway']['paypal']['currency_code'] ) ) {
+					$calc_settings['payment_gateway']['paypal']['currency_code'] = 'USD';
+				}
+
+				if ( empty( $calc_settings['payment_gateway']['paypal']['paypal_mode'] ) ) {
+					$calc_settings['payment_gateway']['paypal']['paypal_mode'] = 'sandbox';
+				}
+
+				if ( ! empty( $calc_settings['paypal'] ) ) {
+					unset( $calc_settings['paypal'] );
+				}
+
+				if ( ! empty( $calc_settings['stripe'] ) ) {
+					unset( $calc_settings['stripe'] );
+				}
+
+				update_option( 'stm_ccb_form_settings_' . sanitize_text_field( $calculator->ID ), apply_filters( 'stm_ccb_sanitize_array', $calc_settings ) );
+			}
+		}
+
+		$general_settings = get_option( 'ccb_general_settings' );
+		if ( empty( $general_settings['payment_gateway']['paypal']['integration_type'] ) ) {
+			$general_settings['payment_gateway']['paypal']['integration_type'] = 'legacy';
+			$general_settings['payment_gateway']['paypal']['client_id']        = '';
+			$general_settings['payment_gateway']['paypal']['client_secret']    = '';
+
+			if ( empty( $general_settings['payment_gateway']['paypal']['currency_code'] ) ) {
+				$general_settings['payment_gateway']['paypal']['currency_code'] = 'USD';
+			}
+
+			if ( empty( $general_settings['payment_gateway']['paypal']['paypal_mode'] ) ) {
+				$general_settings['payment_gateway']['paypal']['paypal_mode'] = 'sandbox';
+			}
+
+			if ( ! empty( $general_settings['paypal'] ) ) {
+				unset( $general_settings['paypal'] );
+			}
+
+			if ( ! empty( $general_settings['stripe'] ) ) {
+				unset( $general_settings['stripe'] );
+			}
+
+			update_option( 'ccb_general_settings', apply_filters( 'calc_update_options', $general_settings ) );
+		}
+	}
 }

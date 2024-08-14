@@ -3,7 +3,7 @@ Contributors: YayCommerce
 Donate link: https://yaycommerce.com/yaymail-woocommerce-email-customizer/
 Tags: email customizer, email designer, email templates, marketing, woocommerce emails
 Requires at least: 3.0
-Tested up to: 6.6
+Tested up to: 6.6.1
 Stable tag: 3.5.4
 Requires PHP: 7.2
 License: GPLv2 or later

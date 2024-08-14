@@ -52,7 +52,7 @@ class Settings
 
         // languages
         foreach (Language::getInstance()->getLanguages() as $code => $language) {
-            $data[$code] = collect($data[$code] ?? [])
+            $data[(new Convert($code))->toCamel()] = collect($data[(new Convert($code))->toCamel()] ?? [])
                 ->mapWithKeys(fn ($value, $key) => [
                     (new Convert($key))->toCamel() => stripslashes_deep($value)
                 ])

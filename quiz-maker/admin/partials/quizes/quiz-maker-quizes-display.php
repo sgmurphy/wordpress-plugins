@@ -929,6 +929,21 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         <input type="text" class="ays-text-input ays-text-input-short" name="ays_quick_quiz_custom_class" id="ays_quick_quiz_custom_class" placeholder="myClass myAnotherClass..." value="">
                                     </div>
                                 </div><!-- Custom class for quiz container -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for='ays_quick_quiz_quest_animation'>
+                                            <?php echo __('Animation effect', $this->plugin_name); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <select class="ays-text-input ays-text-input-short" name="ays_quick_quiz_quest_animation" id="ays_quick_quiz_quest_animation">
+                                            <option value="none"><?php echo __('None', $this->plugin_name); ?></option>
+                                            <option value="fade"><?php echo __('Fade', $this->plugin_name); ?></option>
+                                            <option value="shake" selected><?php echo __('Shake', $this->plugin_name); ?></option>
+                                        </select>
+                                    </div>
+                                </div><!-- Animation effect -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

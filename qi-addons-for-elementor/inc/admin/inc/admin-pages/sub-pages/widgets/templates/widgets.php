@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<form class="qodef-widgets-list" id="qi_addons_for_elementor_widgets_framework_ajax_form" data-options-name="qi_addons_for_elementor_widgets">
 		<div class="qodef-admin-widget-intro">
 			<p class="qodef-large">
-				<?php echo esc_html__( 'Take advantage of the practical on-demand widget loading feature & make your website even lighter. Pick widgets you do not plan on using & disable them.', 'qi-addons-for-elementor-premium' ); ?>
+				<?php echo esc_html__( 'Take advantage of the practical on-demand widget loading feature & make your website even lighter. Pick widgets you do not plan on using & disable them.', 'qi-addons-for-elementor' ); ?>
 			</p>
 		</div>
 		<div class="qodef-admin-widget-header">

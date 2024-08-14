@@ -22,7 +22,7 @@ echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppi
 						<span class="header-user__email">
 							<?= isset($options['email']) ? $options['email'] : '' ?>
 						</span>
-						<a href="javascript: void(0);" class="js-action-disable btn btn--sm btn-center">
+                        <a href="javascript: void(0);" data-nonce="<?= wp_create_nonce("smartsupp_disable") ?>" class="js-action-disable btn btn--sm btn-center">
 							<?= __('Deactivate Chat', 'smartsupp-live-chat') ?>
 						</a>
 					</div>
@@ -66,6 +66,7 @@ echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppi
 					</p>
 					<form action="" method="post" id="settingsForm" class="js-code-form" autocomplete="off">
 						<textarea name="code" id="textAreaSettings" class="input input--area" cols="30" rows="10"><?= stripcslashes($options['optional-code']); ?></textarea>
+                        <?= wp_nonce_field('smartsupp_update', '_nonce') ?>
 						<div class="advanced__bottom">
 							<button type="submit" name="_submit" class="btn btn--sm">
 								<?= __('Save changes', 'smartsupp-live-chat') ?>
@@ -122,6 +123,7 @@ echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppi
 									</div>
 								<?php } ?>
 							</div>
+                            <?= wp_nonce_field('smartsupp', '_nonce') ?>
 							<input type="email" class="input" placeholder="<?= __('Email:', 'smartsupp-live-chat') ?>" name="email" id="frm-signUp-form-email" required="" value="<?= isset($email) ? $email : '' ?>">
 							<input type="password" class="input" placeholder="<?= __('Password:', 'smartsupp-live-chat') ?>" name="password" autocomplete="off" id="frm-signUp-form-password" required="">
 							<div class="loader"></div>

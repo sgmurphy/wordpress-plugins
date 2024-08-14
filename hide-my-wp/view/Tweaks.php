@@ -641,10 +641,10 @@ if (function_exists('wp_roles') ) {
                                 <div class="col-sm-12 p-0 switch switch-sm">
                                     <input type="hidden" name="hmwp_disable_copy_paste" value="0"/>
                                     <input type="checkbox" id="hmwp_disable_copy_paste" name="hmwp_disable_copy_paste" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_disable_copy_paste') ? 'checked="checked"' : '') ?> value="1"/>
-                                    <label for="hmwp_disable_copy_paste"><?php echo esc_html__('Disable Copy/Paste', 'hide-my-wp'); ?>
+                                    <label for="hmwp_disable_copy_paste"><?php echo esc_html__('Disable Copy', 'hide-my-wp'); ?>
                                         <a href="<?php echo HMWP_Classes_Tools::getOption('hmwp_plugin_website') ?>/kb/activate-security-tweaks/#disable_mouse" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="text-black-50 ml-5"><?php echo esc_html__("Disable copy & paste functions on your website", 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__("Disable copy functions on your website", 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
 
@@ -659,6 +659,16 @@ if (function_exists('wp_roles') ) {
                             </div>
 
                             <div class="col-sm-12 row mb-1 ml-1 hmwp_disable_copy_paste">
+
+                                <div class="checker col-sm-12 row my-2 py-1">
+                                    <div class="col-sm-12 p-0 switch switch-xxs">
+                                        <input type="hidden" name="hmwp_disable_paste" value="0"/>
+                                        <input type="checkbox" id="hmwp_disable_paste" name="hmwp_disable_paste" class="switch" <?php echo( HMWP_Classes_Tools::getOption( 'hmwp_disable_paste' ) ? 'checked="checked"' : '' ) ?> value="1"/>
+                                        <label for="hmwp_disable_paste"><?php echo esc_html__( 'Disable Paste', 'hide-my-wp' ); ?></label>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__( "Disable paste function on your website", 'hide-my-wp' ); ?></div>
+                                    </div>
+                                </div>
+
                                 <div class="checker col-sm-12 row my-2 py-0">
                                     <div class="col-sm-12 p-0 switch switch-xxs">
                                         <input type="hidden" name="hmwp_disable_copy_paste_loggedusers" value="0"/>

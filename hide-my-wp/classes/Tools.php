@@ -267,6 +267,7 @@ class HMWP_Classes_Tools
             'hmwp_disable_source_message' => "View Source is disabled!",
 
             'hmwp_disable_copy_paste' => 0,
+            'hmwp_disable_paste' => 1,
             'hmwp_disable_copy_paste_loggedusers' => 0,
             'hmwp_disable_copy_paste_roles' => array('subscriber'),
             'hmwp_disable_copy_paste_message' => "Copy/Paste is disabled!",

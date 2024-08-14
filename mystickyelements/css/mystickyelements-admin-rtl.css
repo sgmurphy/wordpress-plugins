@@ -30,9 +30,6 @@ body .wrap.mystickyelement-wrap{
 	font-size: 12px;
 	/*font-family:Avenir Next LT Pro;*/
 }
-#adminmenu li.toplevel_page_my-sticky-elements ul.wp-submenu.wp-submenu-wrap li:last-child a{
-	color: #EA33F7;
-}
 .wrap.mystickyelement-wrap, .wrap.mystickyelement-wrap *{
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

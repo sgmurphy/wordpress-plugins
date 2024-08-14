@@ -41,6 +41,16 @@ class Admin
         $basename = plugin_basename(AGE_GATE_PATH . 'age-gate.php');
         add_filter("plugin_action_links_" . $basename, [$this, 'actionLinks']);
         add_filter('plugin_row_meta', [$this, 'websiteLink'], 10, 2);
+
+        add_filter('auto_update_plugin', [$this, 'disableAutoUpdates'], 10, 2 );
+    }
+
+    public function disableAutoUpdates( $value, $item ) {
+        if ( 'age-gate' === $item->slug ) {
+            return false; // disable for Age Gate
+        }
+
+        return $value; // Preserve auto-update status for other plugins
     }
 
     public function notices()

@@ -767,3 +767,31 @@ function ccb_is_convert_correct( $jsonString = '' ) {
 	$data = json_decode( $jsonString, true );
 	return ! empty( $data );
 }
+
+function ccb_remove_params_from_url( $url, $params_to_remove ) {
+	$url_components = parse_url( $url ); // phpcs:ignore
+
+	if ( ! isset( $url_components['query'] ) ) {
+		return $url;
+	}
+
+	parse_str( $url_components['query'], $queryParams );
+
+	foreach ( $params_to_remove as $param ) {
+		unset( $queryParams[ $param ] );
+	}
+
+	$url_components['query'] = http_build_query( $queryParams );
+
+	// Rebuild the final URL
+	$finalUrl = $url_components['scheme'] . '://' . $url_components['host'];
+	if ( isset( $url_components['path'] ) ) {
+		$finalUrl .= $url_components['path'];
+	}
+
+	if ( $url_components['query'] ) {
+		$finalUrl .= '?' . $url_components['query'];
+	}
+
+	return $finalUrl;
+}

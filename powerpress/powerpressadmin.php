@@ -2496,6 +2496,7 @@ function powerpress_edit_post($post_ID, $post)
                 powerpress_add_error('Invalid feed slug ' . htmlspecialchars($feed_slug));
                 continue;
             }
+            $chapterURL = '';
 			if( $feed_slug != 'podcast' )
 				$field = '_'.$feed_slug.':enclosure';
 			
@@ -3010,7 +3011,6 @@ function powerpress_edit_post($post_ID, $post)
                         $ToSerialize['pci_transcript_language'] = stripslashes($Powerpress['pci_transcript_language']);
                     }
                 }
-                $chapterURL = '';
                 if (!empty($Powerpress['chapters']['edit'])) {
                     if (!empty($Powerpress['chapters']['upload'])) {
                         if (isset($Powerpress['pci_chapters_url']) && trim($Powerpress['pci_chapters_url']) != '') {
@@ -3241,7 +3241,7 @@ function powerpress_edit_post($post_ID, $post)
     if( $post->post_status == 'publish' || $post->post_status == 'private' || $post->post_status == 'future' )
     {
         if( !empty($GeneralSettings['blubrry_hosting']) &&  $GeneralSettings['blubrry_hosting'] !== 'false' )
-            powerpress_process_hosting($post_ID, $post->post_title, $chapterURL); // Call anytime blog post is in the published state
+            powerpress_process_hosting($post_ID, $post->post_title); // Call anytime blog post is in the published state
     }
     //WebSub and podping implementation
     if($post->post_status == 'publish') {
@@ -4935,7 +4935,7 @@ function powerpress_remote_fopen($url, $basic_auth = false, $post_args = array()
 }
 
 // Process any episodes for the specified post that have been marked for hosting and that do not have full URLs...
-function powerpress_process_hosting($post_ID, $post_title, $chapter_url)
+function powerpress_process_hosting($post_ID, $post_title)
 {
 	$errors = array();
 	$Settings = get_option('powerpress_general');
@@ -5282,8 +5282,8 @@ function powerpress_process_hosting($post_ID, $post_title, $chapter_url)
                     }
                 }
                 if (!empty($_POST['Powerpress'][$feed_slug]['chapters']['edit'])) {
-                    if (!empty($Settings['blubrry_hosting']) && $blubrry_hosted_media && !empty($chapter_url)) {
-                        $podcastSearchAnd .= "&chapters_url=" . urlencode($chapter_url);
+                    if (!empty($Settings['blubrry_hosting']) && $blubrry_hosted_media && !empty($EpisodeData["pci_chapters_url"])) {
+                        $podcastSearchAnd .= "&chapters_url=" . urlencode($EpisodeData["pci_chapters_url"]);
                         if ($creds) {
                             $accessToken = powerpress_getAccessToken();
                             $req_url = sprintf('/2/media/%s/%s?format=json&chapters=true%s&cache=' . md5(rand(0, 999) . time()), urlencode($program_keyword), urlencode($EnclosureFilename), $podcastSearchAnd);

@@ -206,7 +206,7 @@ jQuery( document ).ready( function($) {
 
 
 	// Note checkbox toggle
-	$( 'input[type=checkbox]' ).change( function() {
+	$( 'input[type=checkbox]' ).on( 'change', function() {
 	    if( this.checked ) {
 	        $( this ).attr( 'checked', 'checked' );
 	    } else {
@@ -231,7 +231,7 @@ jQuery( document ).ready( function($) {
 
 
 	// Open link box when hovering a link
-	$( '.wp-dashboard-note-wrap a' ).hover( function() {
+	$( '.wp-dashboard-note-wrap a' ).on( 'hover', function() {
 		$( this ).append( '<span class="link-hover" contenteditable="false"><a href="' + $( this ).attr( 'href' ) + '" target="_blank" contenteditable="false">Open link</a></span>' );
 	}, function() {
 		$( '.link-hover' ).remove();

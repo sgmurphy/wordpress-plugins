@@ -46,7 +46,7 @@ document.addEventListener("keydown", function(event) {
 document.addEventListener("contextmenu", function(event) {event.preventDefault();return false;});
 <?php }?>
 <?php  if(HMWP_Classes_Tools::getOption('hmwp_disable_click')) { ?>__disableEventListener(document, 'contextmenu', '<?php echo esc_attr($hmwp_disable_click_message) ?>');<?php }?>
-<?php  if(HMWP_Classes_Tools::getOption('hmwp_disable_copy_paste')) { ?>__disableEventListener(document, 'cut copy paste print', '<?php echo esc_attr($hmwp_disable_copy_paste_message) ?>');<?php }?>
+<?php  if(HMWP_Classes_Tools::getOption('hmwp_disable_copy_paste')) { ?>__disableEventListener(document, 'cut copy print <?php echo (HMWP_Classes_Tools::getOption( 'hmwp_disable_paste' ) ? 'paste' : '') ?>', '<?php echo esc_attr($hmwp_disable_copy_paste_message) ?>');<?php }?>
 <?php  if(HMWP_Classes_Tools::getOption('hmwp_disable_drag_drop')) { ?>document.querySelectorAll('img').forEach(function(img) {img.setAttribute('draggable', false);});document.ondragstart = __returnFalse;__disableEventListener(document, 'drag drop', '<?php echo esc_attr($hmwp_disable_drag_drop_message) ?>');<?php }?>
 })();
 //]]>

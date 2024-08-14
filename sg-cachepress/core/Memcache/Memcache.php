@@ -251,17 +251,29 @@ class Memcache {
 		// Load the wpdb.
 		global $wpdb;
 
+		$autoload_values = array( 'yes' );
+
+		if ( function_exists( '\wp_autoload_values_to_autoload' ) ) {
+			$autoload_values = \wp_autoload_values_to_autoload();
+		}
+
 		// Get the biggest option from the database.
-		$result = $wpdb->get_results( "
-			SELECT option_name
-			FROM $wpdb->options
-			WHERE autoload = 'yes'
-			AND option_name NOT IN ( " . implode( ',', array_map( function( $item ) {
-				return "'" . esc_sql( $item ) . "'";
-			}, $excludes )
-			) . " )
-			ORDER BY LENGTH(option_value) DESC
-			LIMIT 1"
+		$result = $wpdb->get_results(
+			$wpdb->prepare(
+				sprintf("
+				SELECT option_name
+				FROM %s
+				WHERE autoload IN (%s)
+				AND option_name NOT IN ( " . implode( ',', array_map( function( $item ) {
+					return "'" . esc_sql( $item ) . "'";
+				}, $excludes )
+				) . " )
+				ORDER BY LENGTH(option_value) DESC
+				LIMIT 1",
+				$wpdb->options,
+				implode( ',', array_fill( 0, count( $autoload_values ), '%s' ) ) ),
+				$autoload_values
+			)
 		);
 
 		// Bail if the query doesn't return results.

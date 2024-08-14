@@ -1118,6 +1118,8 @@ class Quiz_Maker_Admin
         $quick_quiz_title_mobile_font_size                  = 20;
         $quick_quiz_custom_class                            = "";
 
+        $quick_quiz_quest_animation                         = "shake";
+
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
             $quick_quiz_enable_randomize_answers = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_answers'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_answers'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_answers'] ) ) : "off";
@@ -1227,6 +1229,9 @@ class Quiz_Maker_Admin
             // Custom class for quiz container
             $quick_quiz_custom_class = (isset($_REQUEST['ays_quick_quiz_custom_class']) && $_REQUEST['ays_quick_quiz_custom_class'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_custom_class'] ) ) : '';
 
+            // Animation effect
+            $quick_quiz_quest_animation = (isset($_REQUEST['ays_quick_quiz_quest_animation']) && $_REQUEST['ays_quick_quiz_quest_animation'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_quest_animation'] ) ) : 'shake';
+
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1329,7 +1334,7 @@ class Quiz_Maker_Admin
             'author'                                        => $author,
             'autofill_user_data'                            => $quick_quiz_autofill_user_data,
             'display_fields_labels'                         => $quick_quiz_display_fields_labels,
-            'quest_animation'                               => 'shake',
+            'quest_animation'                               => $quick_quiz_quest_animation,
             'form_title'                                    => '',
             'enable_bg_music'                               => 'off',
             'quiz_bg_music'                                 => '',
@@ -1444,32 +1449,32 @@ class Quiz_Maker_Admin
             'answers_border_style'                          => 'solid',
             'answers_border_color'                          => '#dddddd',
             'social_links_heading'                          => '',
-            'quiz_enable_question_category_description' => 'off',
-            'answers_margin'                            => '12',
-            'quiz_message_before_redirect_timer'        => '',
-            'buttons_mobile_font_size'                  => 18,
-            'answers_box_shadow'                        => 'off',
-            'answers_box_shadow_color'                  => '#000',
-            'quiz_answer_box_shadow_x_offset'           => 0,
-            'quiz_answer_box_shadow_y_offset'           => 0,
-            'quiz_answer_box_shadow_z_offset'           => 10,
-            'quiz_create_author'                        => $user_id,
-            'quiz_create_author'                        => $user_id,
-            'quiz_enable_title_text_shadow'             => "off",
-            'quiz_title_text_shadow_color'              => "#333",
-            'quiz_title_text_shadow_x_offset'           => 2,
-            'quiz_title_text_shadow_y_offset'           => 2,
-            'quiz_title_text_shadow_z_offset'           => 2,
-            'quiz_title_font_size'                      => $quick_quiz_title_font_size,
-            'quiz_title_mobile_font_size'               => $quick_quiz_title_mobile_font_size,
-            'quiz_password_width'                       => "",
-            'quiz_review_placeholder_text'              => "",
-            'quiz_enable_results_toggle'                => "off",
-            'quiz_review_thank_you_message'             => "",
-            'quiz_review_enable_comment_field'          => "on",
-            'quest_explanation_font_size'               => "16",
-            'quest_explanation_mobile_font_size'        => "16",
-            'wrong_answers_font_size'                   => "16",
+            'quiz_enable_question_category_description'     => 'off',
+            'answers_margin'                                => '12',
+            'quiz_message_before_redirect_timer'            => '',
+            'buttons_mobile_font_size'                      => 18,
+            'answers_box_shadow'                            => 'off',
+            'answers_box_shadow_color'                      => '#000',
+            'quiz_answer_box_shadow_x_offset'               => 0,
+            'quiz_answer_box_shadow_y_offset'               => 0,
+            'quiz_answer_box_shadow_z_offset'               => 10,
+            'quiz_create_author'                            => $user_id,
+            'quiz_create_author'                            => $user_id,
+            'quiz_enable_title_text_shadow'                 => "off",
+            'quiz_title_text_shadow_color'                  => "#333",
+            'quiz_title_text_shadow_x_offset'               => 2,
+            'quiz_title_text_shadow_y_offset'               => 2,
+            'quiz_title_text_shadow_z_offset'               => 2,
+            'quiz_title_font_size'                          => $quick_quiz_title_font_size,
+            'quiz_title_mobile_font_size'                   => $quick_quiz_title_mobile_font_size,
+            'quiz_password_width'                           => "",
+            'quiz_review_placeholder_text'                  => "",
+            'quiz_enable_results_toggle'                    => "off",
+            'quiz_review_thank_you_message'                 => "",
+            'quiz_review_enable_comment_field'              => "on",
+            'quest_explanation_font_size'                   => "16",
+            'quest_explanation_mobile_font_size'            => "16",
+            'wrong_answers_font_size'                       => "16",
             'wrong_answers_mobile_font_size'            => "16",
             'right_answers_font_size'                   => "16",
             'right_answers_mobile_font_size'            => "16",

@@ -2632,36 +2632,6 @@ function pagelayer_install_plugin_complete_actions($install_actions, $api, $plug
 	return $install_actions;
 }
 
-// Load license data
-function pagelayer_load_license(){
-	
-	global $pagelayer;
-	
-	// Load license
-	$pagelayer->license = get_option('pagelayer_license');
-	
-	// Update license details as well
-	if(!empty($pagelayer->license) && (time() - @$pagelayer->license['last_update']) >= 86400){
-		
-		$resp = wp_remote_get(PAGELAYER_API.'license.php?license='.$pagelayer->license['license']);
-		
-		// Did we get a response ?
-		if(is_array($resp)){
-			
-			$tosave = json_decode($resp['body'], true);
-			
-			// Is it the license ?
-			if(!empty($tosave['license'])){
-				$tosave['last_update'] = time();
-				update_option('pagelayer_license', $tosave);
-			}
-			
-		}
-		
-	}
-	
-}
-
 // Handle hexa to rgba and also remove alpha which is ff
 function pagelayer_hex8_to_rgba($val){
 	

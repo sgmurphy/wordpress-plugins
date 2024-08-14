@@ -3,7 +3,7 @@
 Plugin Name: PageLayer
 Plugin URI: http://wordpress.org/plugins/pagelayer/
 Description: PageLayer is a WordPress page builder plugin. Its very easy to use and very light on the browser.
-Version: 1.8.7
+Version: 1.8.8
 Author: Pagelayer Team
 Author URI: https://pagelayer.com/
 License: LGPL v2.1
@@ -20,22 +20,31 @@ if(!function_exists('add_action')){
 
 $_tmp_plugins = get_option('active_plugins');
 
-
 // Is the premium plugin loaded ?
 if(!defined('SITEPAD') && in_array('pagelayer-pro/pagelayer-pro.php', $_tmp_plugins) ){
 	
-	if(!function_exists( 'get_plugins' )){
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-	}
-
-	$pro_info = get_plugins('/pagelayer-pro');
+	// Was introduced in 1.8.8
+	$pagelayer_pro_info = get_option('pagelayer_pro_version');
 	
-	if(
-		!empty($pro_info) && 
-		!empty($pro_info['pagelayer-pro.php']) && 
-		version_compare($pro_info['pagelayer-pro.php']['Version'], '1.8.6', '<')
-	){
-		return;
+	if(!empty($pagelayer_pro_info) && version_compare($pagelayer_pro_info, '1.8.8', '>=')){
+		// Let Pagelayer load
+	
+	// Lets check for older versions
+	}else{
+		
+		if(!function_exists( 'get_plugin_data' )){
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		$pagelayer_pro_info = get_plugin_data(WP_PLUGIN_DIR . '/pagelayer-pro/pagelayer-pro.php');
+		
+		if(
+			!empty($pagelayer_pro_info) &&
+			version_compare($pagelayer_pro_info['Version'], '1.8.6', '<')
+		){
+			return;
+		}
+		
 	}
 }
 

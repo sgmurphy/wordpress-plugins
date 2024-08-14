@@ -5,7 +5,7 @@
  * Author: Qode Interactive
  * Author URI: https://qodeinteractive.com/
  * Plugin URI: https://qodeinteractive.com/qi-addons-for-elementor/
- * Version: 1.7.7
+ * Version: 1.7.8
  * Text Domain: qi-addons-for-elementor
  * Elementor tested up to: 3.23.4
  * Elementor Pro tested up to: 3.23.3
@@ -14,9 +14,11 @@
 if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 	class QiAddonsForElementor {
 		private static $instance;
+		public $swiper_version;
 
 		public function __construct() {
 			$this->before_init();
+			$this->swiper_version = get_option( 'qi_addons_for_elementor_swiper_new' ) == 'no' ? '5.4.5' : '8.4.5';
 
 			add_action( 'qi_addons_for_elementor_action_framework_load_dependent_plugins', array( $this, 'init' ) );
 		}
@@ -48,6 +50,7 @@ if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 
 			// Include plugin assets.
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'register_additional_assets' ), 5 );
 			// priority 11 is because of swiper initialization bug, this script needs to be loaded after 'elementor-frontend' css ( which is loaded on priority 10 ).
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_additional_assets' ), 11 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_inline_style' ), 15 );
@@ -100,7 +103,7 @@ if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 			wp_enqueue_script( 'jquery-ui-core' );
 			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NoExplicitVersion
 			wp_register_script( 'fslightbox', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/fslightbox/fslightbox.min.js', array(), false, true );
-			wp_register_script( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.js', array( 'jquery' ), '8.4.5', true );
+			wp_register_script( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/' . $this->swiper_version . '/swiper.min.js', array( 'jquery' ), '', true );
 
 			// Hook to include additional scripts before plugin's main script.
 			do_action( 'qi_addons_for_elementor_action_before_main_js' );
@@ -131,8 +134,12 @@ if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 			do_action( 'qi_addons_for_elementor_action_after_main_js' );
 		}
 
+		public function register_additional_assets() {
+			wp_register_style( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/' . $this->swiper_version . '/swiper.min.css' );
+		}
+
 		public function enqueue_additional_assets() {
-			wp_enqueue_style( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.css', array(), '8.4.5' );
+			wp_enqueue_style( 'swiper' );
 		}
 
 		public function add_inline_style() {

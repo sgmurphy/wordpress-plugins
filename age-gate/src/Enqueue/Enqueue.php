@@ -57,6 +57,10 @@ class Enqueue
             wp_enqueue_script('age-gate-autotab', AGE_GATE_URL . 'dist/autotab.js', [], AGE_GATE_VERSION, !$settings->inHeader);
         }
 
+        if ($settings->simplebar) {
+            wp_enqueue_script('age-gate-simplebar', AGE_GATE_URL . 'dist/simplebar.js', [], AGE_GATE_VERSION, true);
+        }
+
 
         if ($settings->stepped && $settings->inputType !== 'buttons') {
             wp_enqueue_style('age-gate-stepped', AGE_GATE_URL . 'dist/stepped.css', [], AGE_GATE_VERSION);

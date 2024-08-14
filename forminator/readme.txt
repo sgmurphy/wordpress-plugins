@@ -1,15 +1,12 @@
 === Forminator Forms – Contact Form, Payment Form & Custom Form Builder ===
-Plugin Name: Forminator Forms – Contact Form, Payment Form & Custom Form Builder
-Version: 1.34.0
-Author: WPMU DEV
-Author URI: https://wpmudev.com/
 Contributors: WPMUDEV
 Tags: forms, contact form, wordpress form plugin, payment form, custom form, form builder, paypal form wordpress, form maker, quiz, quiz builder, order form, stripe payments, paypal payments, stripe form, paypal form
 Requires at least: 6.4
 Tested up to: 6.6
-Stable tag: 1.34.0
+Stable tag: 1.34.1
 Requires PHP: 7.4
-License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+License: GPL v2
+License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 Best WordPress form builder plugin. Create contact forms, payment forms & order forms with 1000+ integrations.
 
@@ -228,6 +225,10 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 9. Allow simple drag and drop multi-file uploads for users.
 
 == Changelog ==
+
+= 1.34.1 ( 2024-08-14 ) =
+
+- Fix: XSS vulnerabilities
 
 = 1.34.0 ( 2024-07-18 ) =
 

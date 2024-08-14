@@ -1,5 +1,5 @@
 import vhCheck from 'vh-check';
-import SimpleBar from 'simplebar';
+
 const test = vhCheck({
     cssVarName: 'ag-vh-offset'
 });
@@ -15,13 +15,4 @@ window.addEventListener('age_gate_shown', () => {
 
     }
 
-    const {
-        simple,
-    } = age_gate_common;
-
-    console.log(simple);
-
-    if (simple) {
-        new SimpleBar(document.querySelector('.age-gate'), {});
-    }
 });

@@ -40,7 +40,7 @@ class ElementsKit_Widget_Nav_Menu extends Widget_Base {
         return 'https://wpmet.com/doc/nav-menu/';
     }
     protected function is_dynamic_content(): bool {
-        return false;
+        return true;
     }
 
     public function get_menus(){

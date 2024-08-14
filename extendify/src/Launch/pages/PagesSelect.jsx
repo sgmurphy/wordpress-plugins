@@ -25,7 +25,7 @@ export const PagesSelect = () => {
 	const { data: availablePages, loading } = useFetch(fetchData, fetcher);
 	const [previewing, setPreviewing] = useState();
 	const [expandMore, setExpandMore] = useState();
-	const { pages, remove, add, has, style } = useUserSelectionStore();
+	const { pages, remove, removeAll, add, has, style } = useUserSelectionStore();
 	const pagePreviewRef = useRef();
 
 	const homePage = useMemo(
@@ -79,11 +79,11 @@ export const PagesSelect = () => {
 	}, [previewing, homePage]);
 
 	useEffect(() => {
-		// If no pages have been set, then add the recommended pages
-		if (pages !== undefined) return;
 		if (!availablePages?.recommended) return;
+		// On re-load, remove any lingering pages and add the recommended ones
+		removeAll('pages');
 		availablePages.recommended.forEach((page) => add('pages', page));
-	}, [pages, availablePages?.recommended, add]);
+	}, [availablePages?.recommended, removeAll, add]);
 
 	return (
 		<PageLayout>

@@ -44,9 +44,6 @@ class CCBUpdates {
 		'3.1.51' => array(
 			'ccb_add_summary_header_appearance',
 		),
-		'3.1.53' => array(
-			'ccb_sync_general_settings',
-		),
 		'3.1.55' => array(
 			'ccb_update_min_date_info_to_unselectable',
 		),
@@ -96,9 +93,6 @@ class CCBUpdates {
 		'3.2.6'  => array(
 			'ccb_add_summary_display',
 		),
-		'3.2.7'  => array(
-			'ccb_sync_calc_settings',
-		),
 		'3.2.9'  => array(
 			'ccb_date_picker_multi_period',
 		),
@@ -107,6 +101,11 @@ class CCBUpdates {
 		),
 		'3.2.18' => array(
 			'ccb_add_summary_view_to_image_checkbox_field',
+		),
+		'3.2.25' => array(
+			'ccb_update_paypal_data',
+			'ccb_sync_calc_settings',
+			'ccb_sync_general_settings',
 		),
 	);
 

@@ -5,14 +5,16 @@ import { __, sprintf } from '@wordpress/i18n';
 import { Dialog } from '@headlessui/react';
 import classnames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useUserSelectionStore } from '@launch/state/user-selections';
 
-export const RestartLaunchModal = ({ setPage, resetState }) => {
+export const RestartLaunchModal = ({ setPage }) => {
 	const oldPages = window.extOnbData.resetSiteInformation.pagesIds ?? [];
 	const oldNavigations =
 		window.extOnbData.resetSiteInformation.navigationsIds ?? [];
 	const templatePartsIds =
 		window.extOnbData.resetSiteInformation.templatePartsIds ?? [];
 
+	const { resetState } = useUserSelectionStore();
 	const [open, setOpen] = useState(false);
 	const [processing, setProcessing] = useState(false);
 	const initialFocus = useRef(null);

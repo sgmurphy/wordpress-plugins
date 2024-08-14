@@ -201,7 +201,7 @@ class Heartbeat_Control {
 				break;
 
 			case 'post':
-				return @strpos( $_SERVER['REQUEST_URI'], '/wp-admin/post.php' );
+				return false !== @strpos( $_SERVER['REQUEST_URI'], '/wp-admin/post.php' );
 				break;
 			default:
 				return false;

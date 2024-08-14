@@ -200,9 +200,19 @@ class CCBOrderController {
 				$total = 0;
 			}
 
+			$currency = array_key_exists( 'currency', $settings['currency'] ) ? $settings['currency']['currency'] : null;
+			if ( 'paypal' === $data['paymentMethod'] ) {
+				$general_settings = CCBSettingsData::get_calc_global_settings();
+				if ( ! empty( $general_settings['payment_gateway']['paypal']['use_in_all'] ) ) {
+					$currency = $general_settings['payment_gateway']['paypal']['currency_code'];
+				} else {
+					$currency = $settings['payment_gateway']['paypal']['currency_code'];
+				}
+			}
+
 			$payment_data = array(
 				'type'       => ! empty( $data['paymentMethod'] ) ? $data['paymentMethod'] : Payments::$defaultType,
-				'currency'   => array_key_exists( 'currency', $settings['currency'] ) ? $settings['currency']['currency'] : null,
+				'currency'   => $currency,
 				'status'     => Payments::$defaultStatus,
 				'total'      => $total,
 				'created_at' => wp_date( 'Y-m-d H:i:s' ),

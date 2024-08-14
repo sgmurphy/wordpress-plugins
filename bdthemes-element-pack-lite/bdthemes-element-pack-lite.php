@@ -4,7 +4,7 @@
  * Plugin Name: Element Pack Lite - Addons for Elementor
  * Plugin URI: http://elementpack.pro/
  * Description: The all-new <a href="https://elementpack.pro/">Element Pack</a> brings incredibly advanced, and super-flexible widgets, and A to Z essential addons to the Elementor page builder for WordPress. Explore expertly-coded widgets with first-class support by experts.
- * Version: 5.7.3
+ * Version: 5.7.4
  * Author: BdThemes
  * Author URI: https://bdthemes.com/
  * Text Domain: bdthemes-element-pack
@@ -68,7 +68,7 @@ if ( ! function_exists( 'element_pack_pro_activated' ) ) {
 if ( ! element_pack_pro_installed() ) {
 
 	// Some pre defined value for easy use
-	define( 'BDTEP_VER', '5.7.3' );
+	define( 'BDTEP_VER', '5.7.4' );
 	define( 'BDTEP_TPL_DB_VER', '1.0.0' );
 	define( 'BDTEP__FILE__', __FILE__ );
 	if ( ! defined( 'BDTEP_TITLE' ) ) {
@@ -166,7 +166,7 @@ if ( ! element_pack_pro_installed() ) {
 			}
 
 			if ( $plugin == plugin_basename( BDTEP__FILE__ ) ) {
-				exit( wp_redirect( admin_url( 'admin.php?page=element_pack_options&notice=v6' ) ) );
+				exit( wp_redirect( admin_url( 'admin.php?page=element_pack_options' ) ) );
 			}
 		}
 	}
@@ -213,6 +213,9 @@ if ( ! element_pack_pro_installed() ) {
 				// Include DCI SDK.
 				require_once dirname(__FILE__) . '/dci/start.php';
 
+				wp_register_style( 'dci-sdk-ep-lite', plugins_url( 'dci/assets/css/dci.css', __FILE__ ), array(), '1.2.1', 'all' );
+				wp_enqueue_style( 'dci-sdk-ep-lite' );
+
 				dci_dynamic_init(array(
 					'sdk_version'  => '1.2.1',
 					'product_id'   => 4,
@@ -229,6 +232,9 @@ if ( ! element_pack_pro_installed() ) {
 					'is_premium'   => true,
 					'popup_notice'        => false,
 					'deactivate_feedback' => true,
+					'delay_time'   => [
+						'time' => 3 * DAY_IN_SECONDS,
+					],
 					'plugin_msg'   => '<p>Be Top-contributor by sharing non-sensitive plugin data and create an impact to the global WordPress community today! You can receive valuable emails periodically.</p>',
 				));
 			}

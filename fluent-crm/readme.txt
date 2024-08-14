@@ -4,7 +4,7 @@ Tags: email marketing, newsletter, crm, email newsletter, subscribers
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.1
-Stable tag: 2.9.21
+Stable tag: 2.9.22
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -260,6 +260,9 @@ You can report any security bugs found in the source code of FluentCRM plugins t
 10. Pro Integrations
 
 == Changelog ==
+
+= 2.9.22 (Date: August 14, 2024) =
+- Hotfix:  Lodash & _ conflict issue for Email Editor
 
 = 2.9.21 (Date: August 13, 2024) =
 - Fixed email builder conflict issues

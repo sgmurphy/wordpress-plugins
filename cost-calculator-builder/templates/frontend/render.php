@@ -7,6 +7,10 @@ if ( ! isset( $calc_id ) ) {
 	return;
 }
 
+if ( ! empty( $_GET['token'] ) && ccb_pro_active() ) {
+	\cBuilder\Classes\Payments\CCBPayPal::captureOrder( $_GET['token'], $calc_id );
+}
+
 /** if language not set, use en as default */
 if ( ! isset( $language ) ) {
 	$language = 'en';

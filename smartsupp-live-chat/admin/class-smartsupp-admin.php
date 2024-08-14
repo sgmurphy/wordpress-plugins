@@ -98,6 +98,9 @@ class Smartsupp_Admin
 
 	public function performAction()
 	{
+        if (!is_user_logged_in()) {
+            return;
+        }
 		if (!isset($_GET['ssaction'])) {
 			return;
 		}
@@ -107,6 +110,10 @@ class Smartsupp_Admin
 		switch ($action) {
 			case 'login':
 			case 'register':
+                if (!wp_verify_nonce($_POST['_nonce'], 'smartsupp')) {
+                    $message = 'Invalid nonce';
+                    break;
+                }
 				$formAction = $action;
 				$api = new Api;
 				$data = array(
@@ -133,12 +140,20 @@ class Smartsupp_Admin
 				}
 				break;
 			case 'update':
+                if (!wp_verify_nonce($_POST['_nonce'], 'smartsupp_update')) {
+                    $message = 'Invalid nonce';
+                    break;
+                }
 				$message = 'Custom code was updated.';
 				$this->updateOptions(array(
 					'optional-code' => strip_tags($_POST['code']),
 				));
 				break;
 			case 'disable':
+                if (!wp_verify_nonce($_POST['_nonce'], 'smartsupp_disable')) {
+                    $message = 'Invalid nonce';
+                    break;
+                }
 				$this->deactivate();
 				break;
 			default:

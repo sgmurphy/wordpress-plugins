@@ -1,0 +1,278 @@
+# Loco Gettext template
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: HG Slider\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 09 2016 10:59:10 GMT-0600 (CST)\n"
+"POT-Revision-Date: Tue Feb 09 2016 10:59:18 GMT-0600 (CST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: ../flexslider-hg-init.php:15
+msgid "Slides"
+msgstr ""
+
+#: ../flexslider-hg-init.php:15 ../flexslider-hg.php:544
+msgid "Slide"
+msgstr ""
+
+#: ../flexslider-hg-init.php:15
+msgid "All Slides"
+msgstr ""
+
+#: ../flexslider-hg-init.php:15 ../flexslider-hg-init.php:15
+msgid "Add New Slide"
+msgstr ""
+
+#: ../flexslider-hg-init.php:15
+msgid "Edit Slide"
+msgstr ""
+
+#: ../flexslider-hg-init.php:15
+msgid "New Slide"
+msgstr ""
+
+#: ../flexslider-hg-init.php:15
+msgid "View Slide"
+msgstr ""
+
+#: ../flexslider-hg-init.php:15
+msgid "Search Slides"
+msgstr ""
+
+#: ../flexslider-hg-init.php:15
+msgid "No Slide found"
+msgstr ""
+
+#: ../flexslider-hg-init.php:15
+msgid "No Slide found in Trash"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48 ../flexslider-hg-init.php:48 ../flexslider-hg.php:
+#: 398
+msgid "Sliders"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48
+msgid "Slider"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48
+msgid "Add New"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48 ../flexslider-hg.php:108 ../flexslider-hg.php:108
+msgid "Add New Slider"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48
+msgid "Edit Slider"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48
+msgid "New Slider"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48
+msgid "All Sliders"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48
+msgid "View Slider"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48
+msgid "Search Sliders"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48
+msgid "No sliders found"
+msgstr ""
+
+#: ../flexslider-hg-init.php:48
+msgid "No sliders found in Trash"
+msgstr ""
+
+#. Name of the plugin
+msgid "HG Slider"
+msgstr ""
+
+#. URI of the plugin
+msgid "http://halgatewood.com/flexslider-hg"
+msgstr ""
+
+#. Description of the plugin
+msgid "A responsive image rotator plugin that easily creates WordPress slideshows."
+msgstr ""
+
+#. Author of the plugin
+msgid "Hal Gatewood"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://halgatewood.com"
+msgstr ""
+
+#: ../flexslider-hg.php:294
+msgid "Slide Settings"
+msgstr ""
+
+#: ../flexslider-hg.php:309
+msgid "The URL this slide should link to:"
+msgstr ""
+
+#: ../flexslider-hg.php:314
+msgid "Open Link in New Window"
+msgstr ""
+
+#: ../flexslider-hg.php:322
+msgid "Attach to:"
+msgstr ""
+
+#: ../flexslider-hg.php:396
+msgid "Image"
+msgstr ""
+
+#: ../flexslider-hg.php:397
+msgid "Title"
+msgstr ""
+
+#: ../flexslider-hg.php:399
+msgid "Order"
+msgstr ""
+
+#: ../flexslider-hg.php:400
+msgid "Link"
+msgstr ""
+
+#: ../flexslider-hg.php:401
+msgid "Date"
+msgstr ""
+
+#: ../flexslider-hg.php:427
+msgid "Slider Title"
+msgstr ""
+
+#: ../flexslider-hg.php:428
+msgid "Shortcode"
+msgstr ""
+
+#: ../flexslider-hg.php:444
+msgid "Slider Settings"
+msgstr ""
+
+#: ../flexslider-hg.php:497
+msgid "Hide Title/Excerpt"
+msgstr ""
+
+#: ../flexslider-hg.php:502
+msgid "Randomize Slides"
+msgstr ""
+
+#: ../flexslider-hg.php:507
+msgid "Open All Slide Links in New Window"
+msgstr ""
+
+#: ../flexslider-hg.php:521
+msgid "Image Size"
+msgstr ""
+
+#: ../flexslider-hg.php:530
+msgid "Order By"
+msgstr ""
+
+#: ../flexslider-hg.php:535
+msgid "Ascending"
+msgstr ""
+
+#: ../flexslider-hg.php:536
+msgid "Decending"
+msgstr ""
+
+#: ../flexslider-hg.php:538
+msgid "Order Direction"
+msgstr ""
+
+#: ../flexslider-hg.php:543
+msgid "Fade"
+msgstr ""
+
+#: ../flexslider-hg.php:546
+msgid "Animation"
+msgstr ""
+
+#: ../flexslider-hg.php:551
+msgid "Horizontal"
+msgstr ""
+
+#: ../flexslider-hg.php:552
+msgid "Vertical"
+msgstr ""
+
+#: ../flexslider-hg.php:554
+msgid "Animation Direction"
+msgstr ""
+
+#: ../flexslider-hg.php:563
+msgid "Slideshow Speed (in seconds)"
+msgstr ""
+
+#: ../flexslider-hg.php:568
+msgid "Animation Speed (in seconds)"
+msgstr ""
+
+#: ../flexslider-hg.php:573
+msgid "Heading Tag"
+msgstr ""
+
+#: ../flexslider-hg.php:578
+msgid "Max Number of Slides"
+msgstr ""
+
+#: ../flexslider-hg.php:578
+msgid "0 for all slides"
+msgstr ""
+
+#: ../flexslider-hg.php:587
+msgid "Rounded Corners"
+msgstr ""
+
+#: ../flexslider-hg.php:590
+msgid "Square Corners"
+msgstr ""
+
+#: ../flexslider-hg.php:595
+msgid "Style"
+msgstr ""
+
+#: ../flexslider-hg.php:612
+msgid "or change this to your custom classname"
+msgstr ""
+
+#: ../flexslider-hg.php:627
+msgid "Enter Slider Name Here"
+msgstr ""
+
+#: ../flexslider-hg.php:636
+msgid "Flexslider: Please include a slug parameter."
+msgstr ""
+
+#: ../flexslider-hg.php:644
+msgid "Donate"
+msgstr ""

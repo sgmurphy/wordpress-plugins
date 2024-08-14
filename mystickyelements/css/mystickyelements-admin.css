@@ -28,9 +28,6 @@ body .wrap.mystickyelement-wrap{
 	font-size: 12px;
 	/*font-family:-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";*/
 }
-#adminmenu li.toplevel_page_my-sticky-elements ul.wp-submenu.wp-submenu-wrap li:last-child a{
-	color: #EA33F7;
-}
 .wrap.mystickyelement-wrap, .wrap.mystickyelement-wrap *{
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

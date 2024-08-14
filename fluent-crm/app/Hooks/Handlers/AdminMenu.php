@@ -537,7 +537,7 @@ class AdminMenu
                 document.addEventListener('DOMContentLoaded', function () {
                     if (_ && _.noConflict) {
                         window._ = _.noConflict();
-                        window.lodash = _.noConflict();
+                        window.lodash = window._;
                     }
                 });
             </script>

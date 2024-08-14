@@ -4,7 +4,7 @@ Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts,
 Requires at least: 3.6
 Requires PHP: 5.2
 Tested up to: 6.5
-Stable tag: 11.9.15
+Stable tag: 11.9.16
 Donate link: https://blubrry.com/services/podcast-hosting/
 License: GPLv2 or later
 
@@ -162,6 +162,10 @@ If you are a fan of PowerPress, we would greatly appreciate it if you could take
 
 
 == Changelog ==
+= 11.9.16 =
+* Released on 08/14/2024
+* Fixed some PHP warnings
+
 = 11.9.15 =
 * Released on 08/05/2024
 * Fix Playlist Player embed code update

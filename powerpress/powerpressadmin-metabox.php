@@ -271,7 +271,7 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
 
                 <?php
                 $GeneralSettings = get_option('powerpress_general', array());
-                if($GeneralSettings['blubrry_hosting']){
+                if(!empty($GeneralSettings['blubrry_hosting'])){
                     require_once(POWERPRESS_ABSPATH .'/powerpressadmin-auth.class.php');
                     $auth = new PowerPressAuth();
 
@@ -307,7 +307,7 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
 
                 <hr style="margin: 1em 0 1em 0;">
 
-                <?php if($GeneralSettings['blubrry_hosting']){ ?>
+                <?php if(!empty($GeneralSettings['blubrry_hosting'])){ ?>
                 <p style="font-size: 14px; display: inline;" class="pp-ep-box-text">
                     <input id="powerpress_transcript_generate_<?php echo $FeedSlug ?>" title="<?php echo esc_attr(__("Generate transcript for me","powerpress")); ?>"
                         class="media-details-radio"

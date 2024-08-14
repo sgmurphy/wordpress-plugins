@@ -128,6 +128,7 @@ class ABH_Controllers_Menu extends ABH_Classes_FrontController {
 						ABH_Classes_Tools::saveOptions( $key, (int) $value );
 					}
 					if ( $this->_keys[ $key ] == 'string' ) {
+						$value =  preg_replace( "/[^1-9a-zA-Z-]/", "", $value );
 						ABH_Classes_Tools::saveOptions( $key, sanitize_text_field( $value ) );
 					}
 				}

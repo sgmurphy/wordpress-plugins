@@ -1,11 +1,11 @@
 === Smartsupp – live chat, chatbots, AI and lead generation ===
 Contributors: smartsupp, marekgach, huttenbachmedard, jansvabik
 Donate link:
-Tags: smartsupp, livechat, live chat, messaging, chatbot, live support, facebook, free, chat widget, lead generation, customer care, multichannel
+Tags: smartsupp, livechat, live chat, chatbot, AI
 Requires at least: 3.0
-Tested up to: 6.5.2
+Tested up to: 6.6.1
 Requires PHP: 5.3.2
-Stable tag: 3.6
+Stable tag: 3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,9 @@ WordPress 3.0 or higher, PHP at least 5.3.2
 5. Smartsupp mobile app
 
 == Changelog ==
+
+= 3.7 =
+* Fix possible CSRF security issue
 
 = 3.6 =
 * Fix translation strings

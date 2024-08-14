@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google for WooCommerce 2.8.1\n"
+"Project-Id-Version: Google for WooCommerce 2.8.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-06T06:14:24+00:00\n"
+"POT-Creation-Date: 2024-08-14T09:09:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -29,6 +29,7 @@ msgstr ""
 #: views/meta-box/channel_visibility.php:92
 #: views/meta-box/coupon_channel_visibility.php:114
 #: views/meta-box/coupon_channel_visibility.php:160
+#: js/build/get-started-page.js:1
 #: js/build/index.js:17
 msgid "Google for WooCommerce"
 msgstr ""
@@ -681,64 +682,64 @@ msgstr ""
 msgid "Campaign %s"
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:202
+#: src/API/Site/Controllers/Ads/CampaignController.php:204
 msgid "Campaign is not available."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:229
+#: src/API/Site/Controllers/Ads/CampaignController.php:231
 msgid "Invalid edit data."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:259
+#: src/API/Site/Controllers/Ads/CampaignController.php:261
 msgid "Successfully edited campaign."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:294
+#: src/API/Site/Controllers/Ads/CampaignController.php:296
 msgid "Successfully deleted campaign."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:336
+#: src/API/Site/Controllers/Ads/CampaignController.php:338
 msgid "Exclude removed campaigns."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:342
+#: src/API/Site/Controllers/Ads/CampaignController.php:344
 #: src/API/Site/Controllers/BaseReportsController.php:89
 #: src/API/Site/Controllers/MerchantCenter/IssuesController.php:208
 #: src/API/Site/Controllers/MerchantCenter/ProductFeedController.php:169
 msgid "Maximum number of rows to be returned in result data."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:361
+#: src/API/Site/Controllers/Ads/CampaignController.php:363
 #: src/API/Site/Controllers/Ads/ReportsController.php:145
 msgid "ID number."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:367
+#: src/API/Site/Controllers/Ads/CampaignController.php:369
 msgid "Descriptive campaign name."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:375
+#: src/API/Site/Controllers/Ads/CampaignController.php:377
 #: src/API/Site/Controllers/Ads/ReportsController.php:156
 msgid "Campaign status."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:382
+#: src/API/Site/Controllers/Ads/CampaignController.php:384
 msgid "Campaign type."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:388
+#: src/API/Site/Controllers/Ads/CampaignController.php:390
 msgid "Daily budget amount in the local currency."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:395
+#: src/API/Site/Controllers/Ads/CampaignController.php:397
 msgid "Country code of sale country in ISO 3166-1 alpha-2 format."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:403
+#: src/API/Site/Controllers/Ads/CampaignController.php:405
 msgid "The locations that an Ads campaign is targeting in ISO 3166-1 alpha-2 format."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/CampaignController.php:415
+#: src/API/Site/Controllers/Ads/CampaignController.php:417
 msgid "The name of the label to assign to the campaign."
 msgstr ""
 
@@ -2817,7 +2818,7 @@ msgstr ""
 #: js/build/commons.js:21
 #: js/build/commons.js:23
 #: js/build/commons.js:34
-#: js/build/commons.js:64
+#: js/build/commons.js:62
 msgid "Connect"
 msgstr ""
 
@@ -3441,6 +3442,7 @@ msgid "With Google Ads, you decide how much to spend. There’s no minimum spend
 msgstr ""
 
 #: js/build/commons.js:58
+#: js/build/get-started-page.js:1
 msgid "Where will my products appear?"
 msgstr ""
 
@@ -3497,65 +3499,56 @@ msgstr ""
 msgid "Google Listings & Ads is now <strong>Google for WooCommerce</strong>."
 msgstr ""
 
-#. translators: %s: The title of the iframe.
-#: js/build/commons.js:64
-msgid "%s Video"
-msgstr ""
-
-#: js/build/commons.js:64
-msgid "Wistia Video"
-msgstr ""
-
-#: js/build/commons.js:64
+#: js/build/commons.js:62
 msgid "Successfully connected through Jetpack"
 msgstr ""
 
-#: js/build/commons.js:64
+#: js/build/commons.js:62
 msgid "Required to connect with Google"
 msgstr ""
 
-#: js/build/commons.js:64
+#: js/build/commons.js:62
 msgid "Unable to connect your WordPress.com account. Please try again later."
 msgstr ""
 
-#: js/build/commons.js:64
+#: js/build/commons.js:62
 msgid "Unable to complete your ads setup. Please try again later."
 msgstr ""
 
-#: js/build/commons.js:64
+#: js/build/commons.js:62
 msgctxt "the separator for concatenating the categories where the Attribute mapping rule is applied."
 msgid ", "
 msgstr ""
 
 #. translators: %d: number of categories.
-#: js/build/commons.js:66
+#: js/build/commons.js:64
 msgid "Category ID %s (deleted)"
 msgstr ""
 
-#: js/build/commons.js:66
+#: js/build/commons.js:64
 msgctxt "the separator for concatenating the messages of failed actions"
 msgid ", "
 msgstr ""
 
 #. translators: 1: optional string when there are multiple failed actions, and it's a concatenated text of failed actions except for the last one. 2: the last one or the only failed action.
-#: js/build/commons.js:68
+#: js/build/commons.js:66
 msgid "There is an error in the following action: %1$s%2$s."
 msgid_plural "There are errors in the following actions: %1$s and %2$s."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: text for the failed action(s).
-#: js/build/commons.js:70
+#: js/build/commons.js:68
 msgid "%s Other changes have been saved. Please try again later."
 msgstr ""
 
 #. translators: text for the failed action(s).
-#: js/build/commons.js:72
+#: js/build/commons.js:70
 msgid "%s Please try again later."
 msgstr ""
 
 #. translators: %s: user's account ID
-#: js/build/commons.js:74
+#: js/build/commons.js:72
 msgid "Account %s"
 msgstr ""
 
@@ -3840,87 +3833,155 @@ msgid "Anonymous"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "What do I need to get started?"
+msgid "What is Google Merchant Center?"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "In order to sync your WooCommerce store with Google and begin showcasing your products online, you will need to provide the following during setup; Google account access, target audience, shipping information, tax rate information (required for US only), and ensure your store is running on a compatible PHP version. <link>Learn more.</link>"
+msgid "<link>Google Merchant Center</link> is like a digital storefront for your products on Google. It's where you upload and manage information about your products, like titles, descriptions, images, prices, and availability. This data is used to create product listings that can appear across Google."
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "What if I already have Google listings or ads set up? Will syncing my store replace my current Google listings?"
+msgid "Why should I connect to Google Merchant Center?"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Once you link an existing account to connect your store, your Shopping ads and free listings will stop running. You’ll need to re-upload your feed and product data in order to run Shopping ads and show free listings."
+msgid "By syncing your product information to <linkMc>Google Merchant Center</linkMc>, your products can appear in relevant Google searches, Shopping tab, image searches, and even on other platforms like YouTube. When running <linkPmax>Performance Max campaigns</linkPmax>, Google Merchant Center ensures that shoppers see the most up-to-date and accurate information about your product feed, reducing confusion and improving the chances of a purchase."
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Learn more about claiming URLs <link>here</link>."
+msgid "Will my deals and promotions display on Google?"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "If you have an existing Content API feed, it will not be changed, overwritten or deleted by this WooCommerce integration. Instead, products will be added to your existing Content API feed."
+msgid "To show your coupons and promotions on Google Shopping listings, make sure you’re using the latest version of Google for WooCommerce. When you create or update a coupon in your WordPress dashboard under Marketing > Coupons, you’ll see a Channel Visibility settings box on the right: select “Show coupon on Google” to enable it. <link>Learn more</link> about managing promotions for Google for WooCommerce. This feature is currently available in Australia, Canada, Germany, France, India, the United Kingdom, and the United States."
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Is my store ready to sync with Google?"
+msgid "What is Product Sync?"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "In order to meet the Google Merchant Center requirements make sure your website has the following; secure checkout process and payment information, refund and return policies, billing terms and conditions, business contact information. <link>Learn more.</link>"
+msgid "Product Sync is a feature fully integrated into WooCommerce’s management platform that automatically lets you sync your product feed to Google Merchant Center. It will sync all your WooCommerce product data, and you can also add or edit products individually or in bulk. To ensure products are approved by Google, check that your product feed includes the following information:"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "What is a Performance Max campaign?"
+msgid "General product information"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Performance Max campaigns make it easy to connect your WooCommerce store to Google Shopping ads so you can showcase your products to shoppers across Google Search, Maps, Shopping, YouTube, Gmail, the Display Network and Discover feed to drive traffic and sales for your store. <link>Learn more.</link>"
+msgid "Unique product identifiers"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "What are free listings?"
+msgid "Data requirements for specific categories (auto-assigned by Google):"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Google Free Listings allows stores to showcase eligible products to shoppers looking for what you offer and drive traffic to your store with Google’s free listings on the Shopping tab. Your products can also appear on Google Search, Google Images, and Gmail if you’re selling in the United States. <link>Learn more.</link>"
+msgid "Apparel & Accessories"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Where can I track my free listings and Performance Max campaign performance?"
+msgid "Media"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Once your free listings and Performance Max campaigns are set up, you will be able to track your performance straight from your WooCommerce dashboard. You can view your reports yearly, quarterly, monthly, weekly, or daily. The following metrics will be visible within your report: conversions, clicks, impressions, total sales and total spend. <link>Learn more.</link>"
+msgid "Books"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "How do I sync my products to Google free listings?"
+msgid "Where do I manage my product feed and my Google Ads campaigns?"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "The Google for WooCommerce plugin allows you to upload your store and product data to Google. Your products will sync automatically to make relevant information available for free listings, Google Ads, and other Google services. You can create a new Merchant Center account or link an existing account to connect your store and list products across Google."
+msgid "You can manage and edit all of your products and your Google Ads campaigns right from your WooCommerce dashboard and on the WooCommerce Mobile App."
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Can I run both Shopping ads and free listings campaigns at the same time?"
+msgid "Once you start running a <linkPmax>Performance Max ads campaign</linkPmax>, your approved products will reach more shoppers to help grow your business by being shown on Google Search, Google Maps, the Shopping tab, Gmail, Youtube, the Google Display Network, and Discover feed."
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Yes, you can run both at the same time, and we recommend it! In the US, advertisers running free listings and ads together have seen an average of over 50% increase in clicks and over 100% increase in impressions on both free listings and ads on the Shopping tab. Your store is automatically opted into free listings automatically and can choose to run a paid Performance Max campaign."
+msgid "What are Performance Max campaigns?"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "How can I get the $500 ad credit offer?"
+msgid "<linkPmax>Performance Max campaigns</linkPmax> help you combine your expertise with Google AI to reach your most valuable customers and drive sales. Just set your goals and budget and Google AI will get your ads seen by the right customers at the right time across Google Search, Google Maps, the Shopping tab, Gmail, Youtube, the Google Display Network, and Discover feed."
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Create a new Google Ads account through Google for WooCommerce and a promotional code will be automatically applied to your account. You’ll have 60 days to spend $500 to qualify for the $500 ads credit."
+msgid "How much do Performance Max campaigns cost?"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Ad credit amounts vary by country and region. Full terms and conditions can be found <link>here</link>."
+msgid "<linkPmax>Performance Max campaigns</linkPmax> are pay-per-click, meaning you only pay when someone clicks on your ads. To get the best results and ensure your products reach the right customers, we recommend starting with the suggested Google for WooCommerce minimum daily budget for your <linkPmax>Performance Max campaign</linkPmax>. This helps jumpstart your campaign and drive early conversions. You can always adjust your budget later as you see what works best for your business."
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "Can I sync my products and run Performance Max campaigns on Google for WooCommerce at the same time?"
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "Yes, you can run both at the same time, and we recommend you do! Once you sync your store it’s automatically listed on Google, so you can choose to run a paid <linkPmax>Performance Max campaign</linkPmax> as soon as you’d like. In the US, advertisers who sync their products to Google and run Google Ads <linkPmax>Performance Max campaigns</linkPmax> have seen an average of over 50% increase in clicks and over 100% increase in impressions in both their product listings and their ads on the Shopping tab. "
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "How does Google for WooCommerce help me drive sales?"
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "With Google for WooCommerce, you can serve the best-performing ads more often, by using Google AI to pull headlines, images, product details, and more from your product feed and find more relevant customers. Your campaigns will learn and optimize in real time – to help deliver better performance and boost your ROI."
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "What are Enhanced conversions?"
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "<link>Enhanced conversions</link> is a feature that can improve the accuracy of your conversion measurement and unlock more powerful bidding. It supplements your existing conversion tags by sending hashed first-party conversion data from your website to Google in a privacy-safe way."
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "Which countries are available for Google for WooCommerce?"
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "For <linkPmax>Performance Max campaigns</linkPmax>, learn more about supported countries and currencies <link>here</link>."
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "What is Multi-Country Advertising?"
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "Multi-Country Advertising enables you to create a single Google Ads campaign that targets multiple countries at once. Google for WooCommerce automatically populates eligible countries from your Google Merchant Center account into the plug-in ads campaign creation flow."
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "Can I enable Multi-Country Advertising on my existing campaigns?"
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "If you created a campaign before this feature launched, you’ll need to create a new campaign to target new countries with Multi-Country Advertising"
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "How is my ads budget split between the different countries?"
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "Identify the best performing targeted countries with the help of Google AI, to make your ads reach the right shoppers at the right time."
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "Which countries can I target?"
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "You can only select the countries that you’re targeting on Google Merchant Center. Your target countries must be eligible for both Google Merchant Center and Google Ads."
+msgstr ""
+
+#: js/build/get-started-page.js:1
+msgid "To allow your products to appear in all relevant locations, make sure you’ve correctly <linkShipping>configured your shipping</linkShipping> for countries where your products can be delivered. Keep in mind that shipping services can cover multiple countries. <linkMultiCountryShipping>Learn more about multi-country shipping</linkMultiCountryShipping>."
 msgstr ""
 
 #: js/build/get-started-page.js:1
@@ -3976,11 +4037,11 @@ msgid "Get your products in front of more shoppers with Google for WooCommerce"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Start listing products →"
+msgid "Sell more on Google →"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "By clicking ‘Start listing products‘, you agree to our <link>Terms of Service.</link>"
+msgid "By clicking ‘Sell more on Google‘, you agree to our <link>Terms of Service.</link>"
 msgstr ""
 
 #: js/build/get-started-page.js:1
@@ -3988,19 +4049,19 @@ msgid "The official extension for WooCommerce, built in collaboration with Googl
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Reach millions of shoppers with product listings on Google"
+msgid "Connect your WooCommerce store and reach millions of shoppers on Google"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Sync your products directly to Google, manage your product feed, and create Google Ad campaigns — all without leaving your WooCommerce dashboard."
+msgid "Effortlessly sync your WooCommerce product feed across Google and be seen by millions of engaged shoppers with the Google for WooCommerce extension."
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Estimated setup time: 15 min"
+msgid "Estimated setup time: 5 min"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "By clicking ‘Start listing products’, you agree to our <link>Terms of Service.</link>"
+msgid "By clicking ‘Sell more on Google’, you agree to our <link>Terms of Service.</link>"
 msgstr ""
 
 #: js/build/get-started-page.js:1

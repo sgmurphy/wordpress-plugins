@@ -59,7 +59,9 @@
 		}).on('click', '.js-close-form', function () {
 			closeForm();
 		}).on('click', '.js-action-disable', function () {
-			$content.load('?page=smartsupp&ssaction=disable #content');
+			$content.load('?page=smartsupp&ssaction=disable #content', {
+                _nonce: $(this).data('nonce')
+            });
 		}).on('submit', '.js-login-form', function (event) {
 			event.preventDefault();
 			var $loader = $(this).find('.loader'), $button = $(this).find('button'), $loginForm = $('.js-login-form');
@@ -67,7 +69,8 @@
 			$loader.show();
 			$content.load('?page=smartsupp&ssaction=login #content', {
 				email: $loginForm.find('input[name="email"]').val(),
-				password: $loginForm.find('input[name="password"]').val()
+				password: $loginForm.find('input[name="password"]').val(),
+                _nonce: $loginForm.find('input[name="_nonce"]').val()
 			}, function () {
 				$loader.hide();
 				$button.show();
@@ -81,7 +84,8 @@
 			$content.load('?page=smartsupp&ssaction=register #content', {
 				email: $registerForm.find('input[name="email"]').val(),
 				password: $registerForm.find('input[name="password"]').val(),
-                termsConsent: $registerForm.find('input[name="termsConsent"]').val()
+                termsConsent: $registerForm.find('input[name="termsConsent"]').val(),
+                _nonce: $registerForm.find('input[name="_nonce"]').val()
 			}, function () {
 				$loader.hide();
 				$button.show();
@@ -93,7 +97,8 @@
 			$button.hide();
 			$loader.show();
 			$content.load('?page=smartsupp&ssaction=update #content', {
-				code: $codeForm.find('textarea[name="code"]').val()
+				code: $codeForm.find('textarea[name="code"]').val(),
+                _nonce: $codeForm.find('input[name="_nonce"]').val()
 			}, function () {
 				$loader.hide();
 				$button.show();

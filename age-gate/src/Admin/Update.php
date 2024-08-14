@@ -8,6 +8,7 @@ class Update
     {
         add_action('init', [$this, 'updateCheck'], 1);
         add_action('in_plugin_update_message-age-gate/age-gate.php', [$this, 'updateWarnings']);
+        add_filter( 'auto_update_plugin', [$this, 'autoUpdates'], 10, 2);
     }
 
     public function updateCheck()
@@ -15,6 +16,15 @@ class Update
         if (AGE_GATE_VERSION !== get_option('age_gate_version')) {
             \AgeGate\Update\Activate::activate();
         }
+    }
+
+    public function autoUpdates($value, $item)
+    {
+        if ($item->slug === 'age-gate') {
+            return false;
+        }
+
+        return $value;
     }
 
     public function updateWarnings($plugin)

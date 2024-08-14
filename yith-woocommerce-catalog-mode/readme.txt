@@ -4,7 +4,7 @@ Contributors: yithemes
 Tags: woocommerce catalog mode plugin, woocommerce catalog only, woocommerce, products, themes, yit, yith, yithemes, e-commerce, shop, catalog mode, catalogue mode, remove add to cart, ask for price, ask price, asking for price, asking price, button remove, call, call for price, call me, call us, contact, email, hide add to cart, hide price
 Requires at least: 6.4
 Tested up to: 6.6
-Stable tag: 2.37.0
+Stable tag: 2.38.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -138,7 +138,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= Version 2.370 - Released: 22 July 2024 =
+= Version 2.38.0 - Released: 14 August 2024 =
+
+* New: support for WooCommerce 9.2
+* Update: YITH plugin framework
+
+= Version 2.37.0 - Released: 22 July 2024 =
 
 * New: support for WordPress 6.6
 * New: support for WooCommerce 9.1
@@ -633,7 +638,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
-Last Stable Tag 2.37.0
+Last Stable Tag 2.38.0
 
 == Suggestions ==
 

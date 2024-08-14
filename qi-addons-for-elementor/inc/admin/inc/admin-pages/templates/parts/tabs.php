@@ -10,6 +10,7 @@ $sub_pages = QiAddonsForElementor_Admin_General_Page::get_instance()->get_sub_pa
 $current_page = ! empty( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 
 if ( is_array( $sub_pages ) && count( $sub_pages ) > 0 ) {
+	ksort( $sub_pages );
 	?>
 	<ul class="qodef-tabs-nav">
 	<?php

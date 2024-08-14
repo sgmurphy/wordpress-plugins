@@ -188,7 +188,7 @@ class Futurio_Extra_Posts extends Widget_Base {
 		]
 		);
 		$this->add_control(
-		'content_color', [
+		'posts_content_color', [
 			'label'		 => __( 'Color', 'futurio-extra' ),
 			'type'		 => Controls_Manager::COLOR,
 			'selectors'	 => [

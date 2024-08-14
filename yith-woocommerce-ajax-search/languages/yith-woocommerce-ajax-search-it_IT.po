@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Search Premium\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "ajax-search\n"
-"POT-Creation-Date: 2024-07-11T10:39:15+00:00\n"
+"POT-Creation-Date: 2024-08-14T08:20:25+00:00\n"
 "PO-Revision-Date: 2020-03-20 08:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: Yithemes <plugins@yithemes.com>\n"
@@ -16,13 +16,6 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
-
-#. Plugin Name of the plugin
-#: init.php includes/class-yith-wcas-search-widget.php:33
-#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:41
-#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:78
-msgid "YITH WooCommerce Ajax Search"
-msgstr "YITH WooCommerce Ajax Search"
 
 #. Plugin URI of the plugin
 #: init.php
@@ -38,16 +31,6 @@ msgid ""
 "the contents they are interested in without wasting time among site pages. "
 "<a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for "
 "your e-commerce shop on <strong>YITH</strong></a>."
-msgstr ""
-
-#. Author of the plugin
-#: init.php
-msgid "YITH"
-msgstr ""
-
-#. Author URI of the plugin
-#: init.php
-msgid "https://yithemes.com/"
 msgstr ""
 
 #: includes/admin/class-yith-wcas-admin-statistic-list-table.php:59
@@ -1281,6 +1264,9 @@ msgstr ""
 msgctxt "block description"
 msgid "Shows the found products."
 msgstr "Mostra prezzo prodotto"
+
+#~ msgid "YITH WooCommerce Ajax Search"
+#~ msgstr "YITH WooCommerce Ajax Search"
 
 #, fuzzy
 #~ msgid "YITH WooCommerce Ajax Product Search[Deprecated]"

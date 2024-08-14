@@ -23,7 +23,6 @@
 								v-on:change="change"
 								v-on:[field._event]="change"
 								v-on:condition-apply="renderCondition"
-								v-on:condition-apply="checkConditions"
 								@delete-repeater="deleteRepeater"
 								@add-repeater="deleteRepeater"
 								:key="!field.hasNextTick ? field.alias : field.alias + '_' + fields[field.alias].nextTickCount"
