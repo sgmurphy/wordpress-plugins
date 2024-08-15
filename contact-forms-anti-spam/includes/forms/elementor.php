@@ -150,7 +150,8 @@ add_filter( 'elementor_pro/forms/wp_mail_message', function( $content ) {
   return $content;
 }, 10, 1 );
 
-function add_maspikhp_html_to_elementor_form( $item, $item_index, $form ) {
+// Add HP fields to form 
+function add_maspik_hp_html_to_elementor_form(  ) {
 
     if ( maspik_get_settings('maspikHoneypot') || maspik_get_settings('maspikTimeCheck') || maspik_get_settings('maspikYearCheck') ) {
         $addhtml = "";
@@ -170,13 +171,10 @@ function add_maspikhp_html_to_elementor_form( $item, $item_index, $form ) {
             <input size="1" type="text" autocomplete="off" autofill="off" aria-hidden="true" tabindex="-1" name="Maspik-exactTime" id="Maspik-exactTime" class="elementor-field elementor-size-sm elementor-field-textual" placeholder="">
         </div>' : '';
 
-        $total_fields = count( $form->get_settings( 'form_fields' ) );
-
-        if ( $item_index == $total_fields - 1 ) {
-            echo $addhtml;
-        }
+        echo $addhtml;
     }
 
-    return $item;
 }
-add_filter( 'elementor_pro/forms/render/item', 'add_maspikhp_html_to_elementor_form', 10, 3 );
+// Only add HP fields if its a phone field, if it does not have a phone field, it will add throw a JS. (Couldn't find another way of adding)
+// TODO: find php way to hook the elementor <form>
+add_action( 'elementor_pro/forms/render_field/tel', 'add_maspik_hp_html_to_elementor_form'  );

@@ -1,10 +1,10 @@
 === Maspik - Advanced Spam Protection ===
 Contributors: yonifre
 Donate link: paypal.me/yonifre
-Tags: spam, blacklist, antispam, contact form, security
+Tags: spam, blacklist, antispam, Honeypot, security
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,7 +52,9 @@ Maspik integrates seamlessly with a wide range of popular contact forms:
 * Elementor forms
 * Contact Form 7
 * NinjaForms
+* Everest Forms
 * Formidable forms
+* JetFormBuilder
 * Forminator forms
 * Fluentforms
 * Bricksbuilder forms
@@ -100,6 +102,8 @@ Maspik currently supports:
 <li>Elementor forms</li>
 <li>Contact form 7</li>
 <li>NinjaForms</li>
+<li>Everest Forms</li>
+<li>JetFormBuilder</li>
 <li>Formidable forms</li>
 <li>Forminator forms</li>
 <li>Fluentforms</li>
@@ -137,6 +141,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.1.4 - 15/08/2024 =
+* Bug fix - fix "parsererror" in honeypot check on Elementor form 
 
 = 2.1.3 - 13/08/2024 =
 * New Feature - Added support for JetFormBuilder.

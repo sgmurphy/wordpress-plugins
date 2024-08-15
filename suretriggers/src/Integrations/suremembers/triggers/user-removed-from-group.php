@@ -97,8 +97,10 @@ if ( ! class_exists( 'UserRemovedFromGroup' ) ) :
 			$context = '';
 
 			foreach ( $access_group_ids as $group_id ) {
-				$context          = WordPress::get_user_context( $user_id );
-				$context['group'] = WordPress::get_post_context( $group_id );
+				$context             = WordPress::get_user_context( $user_id );
+				$context['group']    = WordPress::get_post_context( $group_id );
+				$context['group_id'] = $group_id;
+				unset( $context['group']['ID'] );
 			}
 
 			AutomationController::sure_trigger_handle_trigger(

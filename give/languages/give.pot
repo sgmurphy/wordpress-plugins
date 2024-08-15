@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.14.2\n"
+"Project-Id-Version: Give - Donation Plugin 3.15.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-07T15:22:23+00:00\n"
+"POT-Creation-Date: 2024-08-14T18:55:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: give\n"
 
 #. Plugin Name of the plugin
@@ -31,7 +31,7 @@ msgstr ""
 
 #. Author of the plugin
 #: give.php
-#: assets/dist/js/admin-onboarding-wizard.js:4721
+#: assets/dist/js/admin-onboarding-wizard.js:5263
 #: assets/dist/js/admin-upsell-addons-page.js:244
 msgid "GiveWP"
 msgstr ""
@@ -111,11 +111,11 @@ msgstr ""
 msgid "Give"
 msgstr ""
 
-#: give.php:450
+#: give.php:451
 msgid "The Visual Form Builder Beta plugin is no longer needed, since the form builder is included in your current version of GiveWP. To prevent conflicts, the Beta plugin has been deactivated and can be safely deleted."
 msgstr ""
 
-#: give.php:477
+#: give.php:478
 msgid "<strong>Attention:</strong> GiveWP 2.5.0+ requires the latest version of the Recurring Donations add-on to process payments properly with Stripe. Please update to the latest version add-on to resolve compatibility issues. If your license is active, you should see the update available in WordPress. Otherwise, you can access the latest version by <a href=\"%1$s\" target=\"_blank\">logging into your account</a> and visiting <a href=\"%1$s\" target=\"_blank\">your downloads</a> page on the GiveWP website."
 msgstr ""
 
@@ -370,7 +370,7 @@ msgid "Import Donations"
 msgstr ""
 
 #: includes/admin/admin-actions.php:662
-#: src/DonationForms/V2/DonationFormsAdminPage.php:252
+#: src/DonationForms/V2/DonationFormsAdminPage.php:251
 #: src/Donors/DonorsAdminPage.php:144
 #: src/Subscriptions/SubscriptionsAdminPage.php:109
 msgid "Switch to New View"
@@ -467,6 +467,8 @@ msgstr[1] ""
 #: includes/admin/settings/class-settings-license.php:114
 #: includes/admin/settings/class-settings-license.php:125
 #: includes/admin/settings/class-settings-license.php:127
+#: src/Onboarding/Setup/templates/index.html.php:239
+#: src/Onboarding/Setup/templates/index.html.php:241
 msgid "Activate License"
 msgstr ""
 
@@ -733,7 +735,7 @@ msgstr ""
 
 #: includes/admin/class-give-html-elements.php:488
 #: includes/admin/payments/class-payments-table.php:309
-#: assets/dist/js/give-admin-donation-forms.js:1140
+#: assets/dist/js/give-admin-donation-forms.js:1089
 msgid "All"
 msgstr ""
 
@@ -838,7 +840,7 @@ msgstr ""
 #: includes/admin/donors/class-donor-table.php:165
 #: includes/admin/forms/dashboard-columns.php:574
 #: includes/admin/payments/class-payments-table.php:228
-#: assets/dist/js/give-admin-donation-forms.js:4249
+#: assets/dist/js/give-admin-donation-forms.js:3974
 #: assets/dist/js/give-admin-donations.js:3007
 #: assets/dist/js/give-admin-donors.js:2826
 #: assets/dist/js/give-admin-event-tickets-details.js:4767
@@ -946,9 +948,9 @@ msgstr ""
 #: includes/admin/payments/class-payments-table.php:643
 #: includes/admin/payments/class-payments-table.php:773
 #: includes/payments/functions.php:1452
-#: assets/dist/js/give-admin-donation-forms.js:1336
-#: assets/dist/js/give-admin-donation-forms.js:2007
-#: assets/dist/js/give-admin-donation-forms.js:2048
+#: assets/dist/js/give-admin-donation-forms.js:1285
+#: assets/dist/js/give-admin-donation-forms.js:1944
+#: assets/dist/js/give-admin-donation-forms.js:1985
 #: assets/dist/js/give-admin-donations.js:1088
 #: assets/dist/js/give-admin-donations.js:1097
 #: assets/dist/js/give-admin-donations.js:1564
@@ -987,7 +989,7 @@ msgstr ""
 #: includes/class-give-scripts.php:303
 #: includes/forms/template.php:1671
 #: assets/dist/js/admin.js:6147
-#: assets/dist/js/give-admin-donation-forms.js:5872
+#: assets/dist/js/give-admin-donation-forms.js:5597
 #: assets/dist/js/give-admin-donations.js:4630
 #: assets/dist/js/give-admin-donors.js:4449
 #: assets/dist/js/give-admin-event-tickets-details.js:6390
@@ -1193,8 +1195,8 @@ msgstr ""
 #: includes/admin/emails/class-email-notification-table.php:203
 #: includes/admin/emails/class-email-notification-table.php:237
 #: src/PaymentGateways/Stripe/Admin/AccountManagerSettingField.php:382
-#: assets/dist/js/give-admin-donation-forms.js:1230
-#: assets/dist/js/give-admin-donation-forms.js:2042
+#: assets/dist/js/give-admin-donation-forms.js:1179
+#: assets/dist/js/give-admin-donation-forms.js:1979
 #: assets/dist/js/give-admin-donations.js:1093
 #: assets/dist/js/give-admin-donors.js:1631
 #: assets/dist/js/give-admin-event-tickets-details.js:1013
@@ -1374,7 +1376,7 @@ msgstr ""
 #: includes/admin/donors/donors.php:815
 #: includes/admin/donors/donors.php:907
 #: includes/admin/donors/donors.php:977
-#: assets/dist/js/give-admin-donation-forms.js:6484
+#: assets/dist/js/give-admin-donation-forms.js:6209
 #: assets/dist/js/give-admin-donations.js:5242
 #: assets/dist/js/give-admin-donors.js:5061
 #: assets/dist/js/give-admin-event-tickets-details.js:1319
@@ -1524,7 +1526,7 @@ msgstr ""
 
 #: includes/admin/emails/abstract-email-notification.php:901
 #: src/FormBuilder/EmailPreview/Actions/ApplyPreviewTemplateTags.php:47
-#: src/Onboarding/Setup/templates/index.html.php:78
+#: src/Onboarding/Setup/templates/index.html.php:142
 #: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:73
 #: src/PaymentGateways/PaypalSettingPage.php:72
 msgid "PayPal"
@@ -1803,7 +1805,7 @@ msgstr ""
 #: includes/admin/settings/class-settings-display.php:286
 #: includes/admin/settings/class-settings-gateways.php:75
 #: includes/admin/settings/class-settings-gateways.php:124
-#: includes/admin/settings/class-settings-gateways.php:482
+#: includes/admin/settings/class-settings-gateways.php:483
 #: includes/admin/settings/class-settings-general.php:117
 #: includes/admin/settings/class-settings-general.php:131
 #: includes/admin/settings/class-settings-general.php:462
@@ -2109,7 +2111,7 @@ msgid "{donation} - Offline Donation Instructions"
 msgstr ""
 
 #: includes/admin/emails/filters.php:38
-#: assets/dist/js/admin-onboarding-wizard.js:4265
+#: assets/dist/js/admin-onboarding-wizard.js:4267
 msgid "Preview"
 msgstr ""
 
@@ -2209,7 +2211,7 @@ msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:294
 #: includes/admin/give-metabox-functions.php:199
-#: includes/admin/settings/class-settings-gateways.php:481
+#: includes/admin/settings/class-settings-gateways.php:482
 #: includes/admin/tools/views/html-admin-page-system-info.php:134
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:393
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:464
@@ -2273,6 +2275,7 @@ msgstr ""
 #: includes/admin/settings/class-settings-display.php:64
 #: includes/admin/settings/class-settings-display.php:87
 #: includes/admin/settings/class-settings-display.php:98
+#: src/Onboarding/Setup/templates/index.html.php:217
 msgid "Optional"
 msgstr ""
 
@@ -2288,7 +2291,7 @@ msgid "Add or remove salutations from the dropdown using the field above."
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:356
-#: assets/dist/js/admin-onboarding-wizard.js:4662
+#: assets/dist/js/admin-onboarding-wizard.js:4774
 msgid "Company Donations"
 msgstr ""
 
@@ -2308,7 +2311,7 @@ msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:382
 #: includes/admin/settings/class-settings-display.php:102
-#: assets/dist/js/admin-onboarding-wizard.js:4657
+#: assets/dist/js/admin-onboarding-wizard.js:4767
 msgid "Anonymous Donations"
 msgstr ""
 
@@ -2368,7 +2371,7 @@ msgstr ""
 #: includes/admin/forms/class-metabox-form-data.php:455
 #: includes/admin/forms/class-metabox-form-data.php:495
 #: includes/admin/forms/class-metabox-form-data.php:546
-#: assets/dist/js/admin-onboarding-wizard.js:4637
+#: assets/dist/js/admin-onboarding-wizard.js:4739
 #: build/formBuilderApp.js:13
 msgid "Donation Goal"
 msgstr ""
@@ -2465,7 +2468,7 @@ msgid "Thank you to all our donors, we have met our fundraising goal."
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:561
-#: assets/dist/js/admin-onboarding-wizard.js:4647
+#: assets/dist/js/admin-onboarding-wizard.js:4753
 msgid "Terms & Conditions"
 msgstr ""
 
@@ -2554,7 +2557,7 @@ msgstr ""
 #: includes/admin/settings/class-settings-gateways.php:230
 #: includes/gateways/offline-donations.php:41
 #: includes/gateways/offline-donations.php:82
-#: assets/dist/js/admin-onboarding-wizard.js:4652
+#: assets/dist/js/admin-onboarding-wizard.js:4760
 #: build/offlineGatewayFormBuilder.js:1
 msgid "Offline Donations"
 msgstr ""
@@ -2794,6 +2797,7 @@ msgstr ""
 #: includes/forms/template.php:944
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:39
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:215
+#: src/Onboarding/BlockFactory.php:25
 #: templates/shortcode-profile-editor.php:67
 #: templates/shortcode-receipt.php:62
 #: build/formBuilderRegistrars.js:1
@@ -2897,7 +2901,7 @@ msgstr ""
 #: src/Exports/DonorsExport.php:194
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:85
 #: src/Framework/FieldsAPI/BillingAddress.php:54
-#: assets/dist/js/admin-onboarding-wizard.js:5031
+#: assets/dist/js/admin-onboarding-wizard.js:5573
 #: build/formBuilderRegistrars.js:1
 msgid "Country"
 msgstr ""
@@ -2957,7 +2961,7 @@ msgstr ""
 
 #: includes/admin/import-functions.php:486
 #: includes/admin/reports/class-gateways-reports-table.php:143
-#: includes/admin/settings/class-settings-gateways.php:479
+#: includes/admin/settings/class-settings-gateways.php:480
 #: src/Donations/ListTable/Columns/GatewayColumn.php:37
 msgid "Gateway"
 msgstr ""
@@ -3104,6 +3108,8 @@ msgstr ""
 #: includes/admin/payments/class-payments-table.php:313
 #: src/API/Endpoints/Reports/PaymentStatuses.php:85
 #: src/Donations/ValueObjects/DonationStatus.php:58
+#: src/Onboarding/Setup/templates/index.html.php:61
+#: src/Onboarding/Setup/templates/index.html.php:94
 #: src/Subscriptions/ValueObjects/SubscriptionStatus.php:51
 msgid "Completed"
 msgstr ""
@@ -3115,7 +3121,7 @@ msgstr ""
 #: src/Donations/ValueObjects/DonationStatus.php:56
 #: src/MigrationLog/MigrationLogStatus.php:37
 #: src/Subscriptions/ValueObjects/SubscriptionStatus.php:48
-#: assets/dist/js/give-admin-donation-forms.js:1146
+#: assets/dist/js/give-admin-donation-forms.js:1095
 msgid "Pending"
 msgstr ""
 
@@ -3534,9 +3540,9 @@ msgstr ""
 
 #: includes/admin/plugins.php:83
 #: includes/admin/settings/class-settings-addon.php:29
-#: src/Onboarding/Setup/templates/index.html.php:300
+#: src/Onboarding/Setup/templates/index.html.php:378
 #: src/Promotions/InPluginUpsells/AddonsAdminPage.php:22
-#: assets/dist/js/admin-onboarding-wizard.js:4269
+#: assets/dist/js/admin-onboarding-wizard.js:4271
 #: build/formBuilderApp.js:13
 msgid "Add-ons"
 msgstr ""
@@ -3589,7 +3595,7 @@ msgstr ""
 
 #: includes/admin/plugins.php:553
 #: src/Onboarding/Config/CauseTypes.php:10
-#: assets/dist/js/admin-onboarding-wizard.js:5197
+#: assets/dist/js/admin-onboarding-wizard.js:5745
 msgid "Other"
 msgstr ""
 
@@ -4232,7 +4238,7 @@ msgstr ""
 
 #: includes/admin/settings/class-settings-gateways.php:129
 #: includes/admin/settings/class-settings-gateways.php:135
-#: includes/admin/settings/class-settings-gateways.php:416
+#: includes/admin/settings/class-settings-gateways.php:417
 msgid "Enabled Gateways"
 msgstr ""
 
@@ -4275,40 +4281,40 @@ msgstr ""
 msgid "View Premium Gateways"
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:384
-msgid "Option-Based Form Editor"
-msgstr ""
-
-#: includes/admin/settings/class-settings-gateways.php:390
-msgid "Uses the traditional settings options for creating and customizing a donation form."
-msgstr ""
-
-#: includes/admin/settings/class-settings-gateways.php:398
+#: includes/admin/settings/class-settings-gateways.php:385
 msgid "Visual Form Builder"
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:404
+#: includes/admin/settings/class-settings-gateways.php:391
 msgid "Uses the blocks-based visual form builder for creating and customizing a donation form."
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:480
+#: includes/admin/settings/class-settings-gateways.php:399
+msgid "Option-Based Form Editor"
+msgstr ""
+
+#: includes/admin/settings/class-settings-gateways.php:405
+msgid "Uses the traditional settings options for creating and customizing a donation form."
+msgstr ""
+
+#: includes/admin/settings/class-settings-gateways.php:481
 #: build/formBuilderApp.js:1
 #: build/formBuilderRegistrars.js:1
 msgid "Label"
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:578
+#: includes/admin/settings/class-settings-gateways.php:579
 #: assets/dist/js/give-add-v2form.js:600
-#: assets/dist/js/give-admin-donation-forms.js:2717
+#: assets/dist/js/give-admin-donation-forms.js:2444
 #: assets/dist/js/give-edit-v2form.js:637
 msgid "Feature notice"
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:583
+#: includes/admin/settings/class-settings-gateways.php:584
 #: assets/dist/js/give-add-v2form.js:1638
 #: assets/dist/js/give-add-v2form.js:1647
-#: assets/dist/js/give-admin-donation-forms.js:3906
-#: assets/dist/js/give-admin-donation-forms.js:3915
+#: assets/dist/js/give-admin-donation-forms.js:3631
+#: assets/dist/js/give-admin-donation-forms.js:3640
 #: assets/dist/js/give-admin-event-tickets-details.js:4467
 #: assets/dist/js/give-admin-event-tickets-details.js:4476
 #: assets/dist/js/give-admin-event-tickets.js:3964
@@ -4319,33 +4325,33 @@ msgstr ""
 msgid "Close dialog"
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:600
+#: includes/admin/settings/class-settings-gateways.php:601
 #: assets/dist/js/give-add-v2form.js:605
-#: assets/dist/js/give-admin-donation-forms.js:2722
+#: assets/dist/js/give-admin-donation-forms.js:2449
 #: assets/dist/js/give-edit-v2form.js:642
 msgid "What's new"
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:603
+#: includes/admin/settings/class-settings-gateways.php:604
 msgid "GiveWP 3.0 introduces an enhanced forms experience powered by the new Visual Donations Form Builder. However, we are still working on gateway compatibility with the new forms experience."
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:610
+#: includes/admin/settings/class-settings-gateways.php:611
 #: assets/dist/js/give-add-v2form.js:627
-#: assets/dist/js/give-admin-donation-forms.js:2744
+#: assets/dist/js/give-admin-donation-forms.js:2471
 #: assets/dist/js/give-edit-v2form.js:664
 msgid "Supported gateways"
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:630
-#: assets/dist/js/give-admin-donation-forms.js:1214
+#: includes/admin/settings/class-settings-gateways.php:631
+#: assets/dist/js/give-admin-donation-forms.js:1163
 #: build/formBuilderApp.js:13
 msgid "Got it"
 msgstr ""
 
-#: includes/admin/settings/class-settings-gateways.php:633
+#: includes/admin/settings/class-settings-gateways.php:634
 #: assets/dist/js/give-add-v2form.js:658
-#: assets/dist/js/give-admin-donation-forms.js:2775
+#: assets/dist/js/give-admin-donation-forms.js:2502
 #: assets/dist/js/give-edit-v2form.js:695
 msgid "Read more on Add-ons and Gateways compatibility"
 msgstr ""
@@ -4448,7 +4454,7 @@ msgstr ""
 
 #: includes/admin/settings/class-settings-general.php:196
 #: includes/admin/settings/class-settings-general.php:569
-#: assets/dist/js/admin-onboarding-wizard.js:5046
+#: assets/dist/js/admin-onboarding-wizard.js:5588
 msgid "Currency"
 msgstr ""
 
@@ -4641,18 +4647,22 @@ msgid "Licenses"
 msgstr ""
 
 #: includes/admin/settings/class-settings-license.php:93
+#: src/Onboarding/Setup/templates/index.html.php:231
 msgid "Activate an Add-on License"
 msgstr ""
 
 #: includes/admin/settings/class-settings-license.php:99
+#: src/Onboarding/Setup/templates/index.html.php:233
 msgid "Enter your license key below to unlock your GiveWP add-ons. You can access your licenses anytime from the <a href=\"%1$s\" target=\"_blank\">My Account</a> section on the GiveWP website. "
 msgstr ""
 
 #: includes/admin/settings/class-settings-license.php:121
+#: src/Onboarding/Setup/templates/index.html.php:238
 msgid "Enter your license key"
 msgstr ""
 
 #: includes/admin/settings/class-settings-license.php:126
+#: src/Onboarding/Setup/templates/index.html.php:240
 msgid "Verifying License..."
 msgstr ""
 
@@ -7614,18 +7624,22 @@ msgid "GiveWP Donor"
 msgstr ""
 
 #: includes/class-give-scripts.php:229
+#: src/Onboarding/Setup/Page.php:106
 msgid "Sorry, you entered an invalid key."
 msgstr ""
 
 #: includes/class-give-scripts.php:230
+#: src/Onboarding/Setup/Page.php:107
 msgid "Success! You have activated your license key and are receiving updates and priority support. <a href=\"{link}\">Click here</a> to download your add-on."
 msgstr ""
 
 #: includes/class-give-scripts.php:231
+#: src/Onboarding/Setup/Page.php:108
 msgid "{pluginName} add-on activated successfully."
 msgstr ""
 
 #: includes/class-give-scripts.php:232
+#: src/Onboarding/Setup/Page.php:109
 msgid "The add-on did not activate successfully."
 msgstr ""
 
@@ -7686,7 +7700,7 @@ msgid "Ok"
 msgstr ""
 
 #: includes/class-give-scripts.php:307
-#: assets/dist/js/give-admin-donation-forms.js:5898
+#: assets/dist/js/give-admin-donation-forms.js:5623
 #: assets/dist/js/give-admin-donations.js:4656
 #: assets/dist/js/give-admin-donors.js:4475
 #: assets/dist/js/give-admin-event-tickets-details.js:6416
@@ -12934,10 +12948,12 @@ msgid "Preview email with a donation:"
 msgstr ""
 
 #: includes/filters.php:159
+#: src/DonationSpam/Akismet/DataTransferObjects/SpamContext.php:48
 msgid "Request"
 msgstr ""
 
 #: includes/filters.php:161
+#: src/DonationSpam/Akismet/DataTransferObjects/SpamContext.php:50
 msgid "Response"
 msgstr ""
 
@@ -12968,8 +12984,8 @@ msgstr ""
 #: includes/forms/functions.php:1282
 #: src/DonationForms/V2/ListTable/Columns/GoalColumn.php:83
 #: src/EventTickets/ListTable/Columns/SalesAmountColumn.php:90
-#: assets/dist/js/give-admin-donation-forms.js:6652
-#: assets/dist/js/give-admin-donation-forms.js:8480
+#: assets/dist/js/give-admin-donation-forms.js:6377
+#: assets/dist/js/give-admin-donation-forms.js:8205
 #: assets/dist/js/give-admin-donations.js:5410
 #: assets/dist/js/give-admin-donations.js:7763
 #: assets/dist/js/give-admin-donors.js:5229
@@ -13066,6 +13082,7 @@ msgstr ""
 #: includes/forms/template.php:1017
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:52
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:120
+#: src/Onboarding/BlockFactory.php:91
 #: build/formBuilderRegistrars.js:1
 msgid "Make this an anonymous donation."
 msgstr ""
@@ -13073,6 +13090,7 @@ msgstr ""
 #: includes/forms/template.php:1026
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:53
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:121
+#: src/Onboarding/BlockFactory.php:92
 #: build/formBuilderRegistrars.js:1
 msgid "Would you like to prevent your name, image, and comment from being displayed publicly?"
 msgstr ""
@@ -13085,6 +13103,7 @@ msgstr ""
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:34
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:109
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:224
+#: src/Onboarding/BlockFactory.php:72
 #: build/formBuilderRegistrars.js:1
 msgid "Comment"
 msgstr ""
@@ -13092,6 +13111,7 @@ msgstr ""
 #: includes/forms/template.php:1042
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:35
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:110
+#: src/Onboarding/BlockFactory.php:73
 #: build/formBuilderRegistrars.js:1
 msgid "Would you like to add a comment to this donation?"
 msgstr ""
@@ -13328,7 +13348,7 @@ msgstr ""
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:178
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:180
 #: src/Views/Form/Templates/Sequoia/Sequoia.php:98
-#: assets/dist/js/admin-onboarding-wizard.js:6091
+#: assets/dist/js/admin-onboarding-wizard.js:6769
 msgid "Continue"
 msgstr ""
 
@@ -13695,7 +13715,7 @@ msgstr ""
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:67
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:94
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:132
-#: src/Onboarding/Setup/templates/index.html.php:111
+#: src/Onboarding/Setup/templates/index.html.php:110
 msgid "Stripe"
 msgstr ""
 
@@ -14394,7 +14414,7 @@ msgstr ""
 #: includes/misc-functions.php:537
 #: includes/post-types.php:56
 #: src/DonationForms/V2/DonationFormsAdminPage.php:58
-#: assets/dist/js/give-admin-donation-forms.js:1449
+#: assets/dist/js/give-admin-donation-forms.js:1397
 #: assets/dist/js/give-admin-event-tickets-details.js:975
 msgid "Donation Forms"
 msgstr ""
@@ -14451,7 +14471,8 @@ msgid "Custom"
 msgstr ""
 
 #: includes/post-types.php:58
-#: assets/dist/js/give-admin-donation-forms.js:1473
+#: src/DonationForms/DonationFormsAdminPage.php:16
+#: assets/dist/js/give-admin-donation-forms.js:1414
 msgid "Add Form"
 msgstr ""
 
@@ -15021,6 +15042,7 @@ msgstr ""
 
 #: src/DonationForms/Actions/ConvertConsentBlockToFieldsApi.php:38
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:66
+#: src/Onboarding/BlockFactory.php:47
 #: build/formBuilderRegistrars.js:1
 msgid "Show terms"
 msgstr ""
@@ -15048,6 +15070,7 @@ msgstr ""
 
 #: src/DonationForms/Factories/DonationFormFactory.php:23
 #: src/FormBuilder/Routes/CreateFormRoute.php:35
+#: src/Onboarding/FormRepository.php:83
 msgid "GiveWP Donation Form"
 msgstr ""
 
@@ -15194,40 +15217,40 @@ msgid "No Levels"
 msgstr ""
 
 #: src/DonationForms/V2/ValueObjects/DonationFormStatus.php:41
-#: assets/dist/js/give-admin-donation-forms.js:1143
-#: assets/dist/js/give-admin-donation-forms.js:1320
+#: assets/dist/js/give-admin-donation-forms.js:1092
+#: assets/dist/js/give-admin-donation-forms.js:1269
 msgid "Published"
 msgstr ""
 
 #: src/DonationForms/V2/ValueObjects/DonationFormStatus.php:42
-#: assets/dist/js/give-admin-donation-forms.js:1323
+#: assets/dist/js/give-admin-donation-forms.js:1272
 #: build/formBuilderApp.js:13
 #: src/FormBuilder/resources/js/form-builder/src/settings/group-general/form-summary/index.jsx:53
 msgid "Private"
 msgstr ""
 
 #: src/DonationForms/V2/ValueObjects/DonationFormStatus.php:43
-#: assets/dist/js/give-admin-donation-forms.js:1149
-#: assets/dist/js/give-admin-donation-forms.js:1329
+#: assets/dist/js/give-admin-donation-forms.js:1098
+#: assets/dist/js/give-admin-donation-forms.js:1278
 msgid "Draft"
 msgstr ""
 
 #: src/DonationForms/V2/ValueObjects/DonationFormStatus.php:44
-#: assets/dist/js/give-admin-donation-forms.js:1152
-#: assets/dist/js/give-admin-donation-forms.js:2010
-#: assets/dist/js/give-admin-donation-forms.js:2048
+#: assets/dist/js/give-admin-donation-forms.js:1101
+#: assets/dist/js/give-admin-donation-forms.js:1947
+#: assets/dist/js/give-admin-donation-forms.js:1985
 msgid "Trash"
 msgstr ""
 
 #: src/DonationForms/V2/ValueObjects/DonationFormStatus.php:45
-#: assets/dist/js/give-admin-donation-forms.js:1155
+#: assets/dist/js/give-admin-donation-forms.js:1104
 msgid "Upgraded"
 msgstr ""
 
 #: src/DonationForms/ViewModels/DonationFormViewModel.php:160
-#: src/Onboarding/Setup/templates/index.html.php:174
-#: src/Onboarding/Setup/templates/index.html.php:175
-#: assets/dist/js/admin-onboarding-wizard.js:4408
+#: src/Onboarding/Setup/templates/index.html.php:252
+#: src/Onboarding/Setup/templates/index.html.php:253
+#: assets/dist/js/admin-onboarding-wizard.js:4412
 #: build/formBuilderRegistrars.js:1
 msgid "Recurring Donations"
 msgstr ""
@@ -15901,6 +15924,7 @@ msgid "Thank you for your continued support."
 msgstr ""
 
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:64
+#: src/Onboarding/BlockFactory.php:45
 #: build/formBuilderRegistrars.js:1
 msgid "I agree to the Terms and conditions."
 msgstr ""
@@ -15910,11 +15934,13 @@ msgid "Acceptance of any contribution, gift or grant is at the discretion of the
 msgstr ""
 
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:72
+#: src/Onboarding/BlockFactory.php:53
 #: build/formBuilderRegistrars.js:1
 msgid "Do you consent to the following"
 msgstr ""
 
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:73
+#: src/Onboarding/BlockFactory.php:54
 #: build/formBuilderRegistrars.js:1
 msgid "Accept"
 msgstr ""
@@ -16363,6 +16389,10 @@ msgstr ""
 msgid "goal"
 msgstr ""
 
+#: src/Onboarding/BlockFactory.php:49
+msgid "Acceptance of any contribution, gift or grant is at the discretion of the GiveWP. The GiveWP will not accept any gift unless it can be used or expended consistently with the purpose and mission of the GiveWP. No irrevocable gift, whether outright or life-income in character, will be accepted if under any reasonable set of circumstances the gift would jeopardize the donor’s financial security. The GiveWP will refrain from providing advice about the tax or other treatment of gifts and will encourage donors to seek guidance from their own professional advisers to assist them in the process of making their donation."
+msgstr ""
+
 #: src/Onboarding/Config/CauseTypes.php:4
 msgid "Advocacy"
 msgstr ""
@@ -16456,13 +16486,13 @@ msgid "I just gave to this cause. Who's next?"
 msgstr ""
 
 #: src/Onboarding/Routes/AddonsRoute.php:101
-#: src/Onboarding/Routes/FeaturesRoute.php:129
+#: src/Onboarding/Routes/FeaturesRoute.php:82
 #: src/Onboarding/Routes/SettingsRoute.php:132
 msgid "The reference name for the setting being updated."
 msgstr ""
 
 #: src/Onboarding/Routes/AddonsRoute.php:105
-#: src/Onboarding/Routes/FeaturesRoute.php:133
+#: src/Onboarding/Routes/FeaturesRoute.php:86
 #: src/Onboarding/Routes/SettingsRoute.php:136
 msgid "The value of the setting being updated."
 msgstr ""
@@ -16479,171 +16509,200 @@ msgstr ""
 msgid "Setup"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:5
+#: src/Onboarding/Setup/templates/index.html.php:22
 msgid "GiveWP Setup Guide"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:33
-#: src/Onboarding/Setup/templates/index.html.php:68
-#: src/Onboarding/Setup/templates/index.html.php:161
+#: src/Onboarding/Setup/templates/index.html.php:57
+#: src/Onboarding/Setup/templates/index.html.php:90
+#: src/Onboarding/Setup/templates/index.html.php:214
 msgid "Step"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:33
+#: src/Onboarding/Setup/templates/index.html.php:57
 msgid "Create your first donation form"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:44
-#: src/Onboarding/Setup/templates/index.html.php:45
-msgid "First-Time Configuration"
+#: src/Onboarding/Setup/templates/index.html.php:65
+#: src/Onboarding/Setup/templates/index.html.php:98
+msgid "Not Completed"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:46
-msgid "Every fundraising campaign begins with a donation form. Click here to create your first donation form in minutes. Once created you can use it anywhere on your website."
+#: src/Onboarding/Setup/templates/index.html.php:71
+msgid "Customize form"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:68
+#: src/Onboarding/Setup/templates/index.html.php:76
+msgid "Configure GiveWP"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:90
 msgid "Connect a payment gateway"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:79
-#: src/Onboarding/Setup/templates/index.html.php:96
-msgid "Connect to PayPal"
-msgstr ""
-
-#: src/Onboarding/Setup/templates/index.html.php:80
-msgid "PayPal is synonymous with nonprofits and online charitable gifts. It's been the go-to payment merchant for many of the world's top NGOs. Accept PayPal, credit and debit cards without any added platform fees."
-msgstr ""
-
-#: src/Onboarding/Setup/templates/index.html.php:96
-msgid "PayPal Settings"
-msgstr ""
-
-#: src/Onboarding/Setup/templates/index.html.php:112
+#: src/Onboarding/Setup/templates/index.html.php:111
 msgid "Connect to Stripe"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:113
+#: src/Onboarding/Setup/templates/index.html.php:112
 msgid "Stripe is one of the most popular payment gateways, and for good reason! Receive one-time and Recurring Donations (add-on) using many of the most popular payment methods. Note: the FREE version of Stripe includes an additional 2% fee for processing one-time donations. Remove the fee by installing and activating the premium Stripe add-on."
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:140
-msgid "Want to use a different gateway? GiveWP has support for many others including Authorize.net, Square, Razorpay and more! %s"
+#: src/Onboarding/Setup/templates/index.html.php:143
+#: src/Onboarding/Setup/templates/index.html.php:160
+msgid "Connect to PayPal"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:147
+#: src/Onboarding/Setup/templates/index.html.php:144
+msgid "PayPal is synonymous with nonprofits and online charitable gifts. It's been the go-to payment merchant for many of the world's top NGOs. Accept PayPal, credit and debit cards without any added platform fees."
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:160
+msgid "PayPal Settings"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:174
+msgid "Explore other payment gateways:"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:175
+msgid "GiveWP has support for many others including Authorize.net, Square, Razorpay and more!"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:179
 msgid "View all gateways"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:161
-msgid "Level up your fundraising"
+#: src/Onboarding/Setup/templates/index.html.php:214
+msgid "Get more from your fundraising campaign with add-ons"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:176
-msgid "The Recurring Donations add-on for GiveWP brings you more dependable payments by allowing your donors to give regularly at different time intervals. Let your donors choose how often they give and how much. Manage your subscriptions, view specialized reports, and connect more strategically with your recurring donors."
+#: src/Onboarding/Setup/templates/index.html.php:225
+msgid "Based on your selections, Give recommends the following add-ons to support your fundraising."
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:185
-msgid "Learn more about Recurring Donations"
+#: src/Onboarding/Setup/templates/index.html.php:228
+msgid "Already have an add-on license?"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:195
-#: src/Onboarding/Setup/templates/index.html.php:196
-msgid "Fee Recovery"
-msgstr ""
-
-#: src/Onboarding/Setup/templates/index.html.php:197
-msgid "Credit Card processing fees can take away a big chunk of your donations. This means less money goes to your cause. Why not ask your donors to further help your cause by asking them to take care of the payment processing fees? That’s where the Fee Recovery add-on comes into play."
-msgstr ""
-
-#: src/Onboarding/Setup/templates/index.html.php:206
-msgid "Learn more about Fee Recovery"
-msgstr ""
-
-#: src/Onboarding/Setup/templates/index.html.php:216
-#: src/Onboarding/Setup/templates/index.html.php:217
-#: assets/dist/js/admin-onboarding-wizard.js:4418
-msgid "PDF Receipts"
-msgstr ""
-
-#: src/Onboarding/Setup/templates/index.html.php:218
-msgid "PDF Receipts makes it easy for your donors to print their tax deductible receipts by making PDF downloadable copies of them easily available. Donors can get a link to their receipt provided to them in the confirmation email, there is also a link in the donation confirmation screen, and a link in their Donation History page."
-msgstr ""
-
-#: src/Onboarding/Setup/templates/index.html.php:227
-msgid "Learn more about PDF Receipts"
+#: src/Onboarding/Setup/templates/index.html.php:229
+msgid "Activate your license"
 msgstr ""
 
 #: src/Onboarding/Setup/templates/index.html.php:237
-#: src/Onboarding/Setup/templates/index.html.php:238
+msgid "License key"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:254
+msgid "Raise funds reliably through subscriptions based donations. Let your donors choose how often they give and how much. Manage your subscriptions, view specialized reports, and strengthen relationships with your recurring donors."
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:263
+msgid "Get Recurring Donations"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:273
+#: src/Onboarding/Setup/templates/index.html.php:274
+#: assets/dist/js/admin-onboarding-wizard.js:4419
+msgid "Fee Recovery"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:275
+msgid "Maximize your donations by allowing donors to cover payment processing fees, ensuring more funds go directly to your cause."
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:284
+#: assets/dist/js/give-admin-donations.js:1748
+msgid "Get Fee Recovery"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:294
+#: src/Onboarding/Setup/templates/index.html.php:295
+#: assets/dist/js/admin-onboarding-wizard.js:4426
+msgid "PDF Receipts"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:296
+msgid "PDF Receipts makes it easy for your donors to print their tax deductible receipts by making PDF downloadable copies of them easily available. Donors can get a link to their receipt provided to them in the confirmation email, there is also a link in the donation confirmation screen, and a link in their Donation History page."
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:305
+msgid "Get PDF Receipts"
+msgstr ""
+
+#: src/Onboarding/Setup/templates/index.html.php:315
+#: src/Onboarding/Setup/templates/index.html.php:316
 msgid "Form Field Manager"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:239
+#: src/Onboarding/Setup/templates/index.html.php:317
 msgid "Form Field Manager (FFM) allows you to add and manage additional fields for your GiveWP donation forms using an intuitive drag-and-drop interface. Form fields include simple fields such as checkboxes, dropdowns, radios, and more. The more complex form fields that you can add are file upload fields, Rich text editors (TinyMCE), and the powerful Repeater field."
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:248
-msgid "Learn more about Form Field Manager"
+#: src/Onboarding/Setup/templates/index.html.php:326
+msgid "Get Form Field Manager"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:258
-#: src/Onboarding/Setup/templates/index.html.php:259
+#: src/Onboarding/Setup/templates/index.html.php:336
+#: src/Onboarding/Setup/templates/index.html.php:337
+#: assets/dist/js/admin-onboarding-wizard.js:4440
 msgid "Currency Switcher"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:260
-msgid "Allow your donors to switch to their currency of choice and increase your overall giving with the GiveWP Currency Switcher add-on. Select from an extensive list of currencies, set the currency based on your donor's location, pull from live exchange rates and more!"
+#: src/Onboarding/Setup/templates/index.html.php:338
+msgid "Let donors choose from your selected currencies, increasing global donations with live exchange rates and extensive currency options."
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:269
-msgid "Learn more about Currency Switcher"
+#: src/Onboarding/Setup/templates/index.html.php:347
+msgid "Get Currency Switcher"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:279
-#: src/Onboarding/Setup/templates/index.html.php:280
+#: src/Onboarding/Setup/templates/index.html.php:357
+#: src/Onboarding/Setup/templates/index.html.php:358
+#: assets/dist/js/admin-onboarding-wizard.js:4447
 msgid "Tributes"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:281
+#: src/Onboarding/Setup/templates/index.html.php:359
 msgid "Allow donors to give to your cause via customizable tributes like “In honor of,” “In memory of,” or any dedication you prefer. Send eCards and produce customizable mailable cards that your donors and their honorees will love."
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:290
-msgid "Learn more about Tributes"
+#: src/Onboarding/Setup/templates/index.html.php:368
+msgid "Get Tributes"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:301
+#: src/Onboarding/Setup/templates/index.html.php:379
 #: src/Promotions/InPluginUpsells/AddonsAdminPage.php:21
 msgid "GiveWP Add-ons"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:302
-msgid "Make your fundraising even more effective with powerful add-ons like Recurring Donations, Fee Recovery, Google Analytics Donation Tracking, MailChimp, and much more. View our growing library of 35+ add-ons and extend your fundraising now."
+#: src/Onboarding/Setup/templates/index.html.php:380
+msgid "Boost your fundraising efforts with powerful add-ons like Recurring Donations, Fee Recovery, Google Analytics, Mailchimp, and more. Explore our extensive library of 35+ add-ons to enhance your fundraising now."
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:311
-msgid "View Add-ons for GiveWP"
+#: src/Onboarding/Setup/templates/index.html.php:389
+msgid "View all premium add-ons"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:325
+#: src/Onboarding/Setup/templates/index.html.php:403
 msgid "Get the most out of GiveWP"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:332
-#: src/Onboarding/Setup/templates/index.html.php:333
+#: src/Onboarding/Setup/templates/index.html.php:410
+#: src/Onboarding/Setup/templates/index.html.php:411
 msgid "GiveWP Getting Started Guide"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:334
-msgid "Start off on the right foot by learning the basics of the plugin and how to get the most out of it to further your online fundraising efforts."
+#: src/Onboarding/Setup/templates/index.html.php:412
+msgid "Learn the basics and advanced tips to optimize your fundraising with GiveWP."
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:343
-msgid "Learn more about GiveWP"
+#: src/Onboarding/Setup/templates/index.html.php:421
+#: build/formBuilderApp.js:13
+msgid "Get started"
 msgstr ""
 
-#: src/Onboarding/Setup/templates/index.html.php:359
+#: src/Onboarding/Setup/templates/index.html.php:437
 msgid "Dismiss Setup Screen"
 msgstr ""
 
@@ -19183,7 +19242,7 @@ msgid "Insecure Donation"
 msgstr ""
 
 #: src/Views/Form/Templates/Sequoia/sections/form-navigator.php:5
-#: assets/dist/js/admin-onboarding-wizard.js:4249
+#: assets/dist/js/admin-onboarding-wizard.js:4251
 msgid "Introduction"
 msgstr ""
 
@@ -19216,7 +19275,7 @@ msgid "Verify Email"
 msgstr ""
 
 #: templates/history-donations.php:212
-#: assets/dist/js/give-admin-donation-forms.js:2052
+#: assets/dist/js/give-admin-donation-forms.js:1989
 msgid "View"
 msgstr ""
 
@@ -19430,160 +19489,205 @@ msgstr ""
 msgid "Placeholder"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4253
+#: assets/dist/js/admin-onboarding-wizard.js:4255
 msgid "Cause"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4257
+#: assets/dist/js/admin-onboarding-wizard.js:4259
 msgid "Location"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4261
+#: assets/dist/js/admin-onboarding-wizard.js:4263
 msgid "Features"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4397
+#: assets/dist/js/admin-onboarding-wizard.js:4401
 msgid "What else do you need to support your cause?"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4399
+#: assets/dist/js/admin-onboarding-wizard.js:4403
 msgid "Take your fundraising to the next level with these premium add-ons."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4413
-msgid "Donors Cover Fees"
+#: assets/dist/js/admin-onboarding-wizard.js:4414
+msgid "Allow donors to make donations on a recurring basis."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4423
-msgid "Custom Form Fields"
+#: assets/dist/js/admin-onboarding-wizard.js:4421
+msgid "Enable donors to cover payment processing fees."
 msgstr ""
 
 #: assets/dist/js/admin-onboarding-wizard.js:4428
-msgid "Multiple Currencies"
+msgid "Provide custom donation receipts in PDF format."
 msgstr ""
 
 #: assets/dist/js/admin-onboarding-wizard.js:4433
-msgid "Dedicate Donations"
+msgid "Custom Form Fields"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4486
-msgid "Check out your first donation form!"
+#: assets/dist/js/admin-onboarding-wizard.js:4435
+msgid "Add custom fields to your donation forms."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4488
+#: assets/dist/js/admin-onboarding-wizard.js:4442
+msgid "Accept donations in your preferred currencies."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4449
+msgid "Allow donors to dedicate their donation to someone special."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4575
+msgid "🎉 Congrats! Check out your first donation form."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4577
 msgid "This form is customized based on your responses."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4490
+#: assets/dist/js/admin-onboarding-wizard.js:4579
 msgid "After setup you can:"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4495
+#: assets/dist/js/admin-onboarding-wizard.js:4582
 msgid "Customize the text, color and image"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4499
+#: assets/dist/js/admin-onboarding-wizard.js:4584
 msgid "Modify donation amounts and add a fundraising goal"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4503
+#: assets/dist/js/admin-onboarding-wizard.js:4586
 msgid "Add or remove payment options"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4507
-msgid "Extend with add-ons and more!"
+#: assets/dist/js/admin-onboarding-wizard.js:4588
+msgid "Extend functionality with add-ons and more"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4626
+#: assets/dist/js/admin-onboarding-wizard.js:4594
+msgid "Maximize your fundraising success"
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4595
+msgid "By opting in, you get access to tips for improving fundraising strategies and increasing donations, live events, product updates, and online courses. You can unsubscribe any time."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4728
 msgid "What do you need in your first donation form?"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4628
-msgid "Don't worry, these settings can always be changed later."
+#: assets/dist/js/admin-onboarding-wizard.js:4730
+msgid "Select the features you need. These can always be changed later."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4642
+#: assets/dist/js/admin-onboarding-wizard.js:4741
+msgid "Show the donation goal progress on the form."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4746
 msgid "Donation Comments"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4719
+#: assets/dist/js/admin-onboarding-wizard.js:4748
+msgid "Allow donors to add comments to their donations."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4755
+msgid "Require donors to accept terms and conditions."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4762
+msgid "Donors can choose to donate offline, via mail or in person."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4769
+msgid "Enable donors to give anonymously."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:4776
+msgid "Donors can donate via their company."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:5261
 msgid "Welcome To"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4724
-msgid "You're only minutes away from accepting donations on your website! Use the Onboarding Wizard if this is your first time using GiveWP."
+#: assets/dist/js/admin-onboarding-wizard.js:5266
+msgid "Get started quickly with our Onboarding Wizard and begin accepting donations on your website in minutes."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:4729
+#: assets/dist/js/admin-onboarding-wizard.js:5271
 msgid "Start Setup"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5027
+#: assets/dist/js/admin-onboarding-wizard.js:5567
 msgid "🌎 Where are you fundraising?"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5037
+#: assets/dist/js/admin-onboarding-wizard.js:5569
+msgid "This information will be used to set up your donation form experience."
+msgstr ""
+
+#: assets/dist/js/admin-onboarding-wizard.js:5579
 msgid "State / Province"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5169
-msgid "👋 Hi there! Tell us a little about your Organization."
+#: assets/dist/js/admin-onboarding-wizard.js:5717
+msgid "👋 Hi there! Tell us about your cause."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5171
+#: assets/dist/js/admin-onboarding-wizard.js:5719
 msgid "This information will be used to customize your experience to your fundraising needs."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5181
+#: assets/dist/js/admin-onboarding-wizard.js:5729
 msgid "I'm fundraising as an"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5183
+#: assets/dist/js/admin-onboarding-wizard.js:5731
 msgid "Individual"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5188
+#: assets/dist/js/admin-onboarding-wizard.js:5736
 msgid "I'm fundraising within an"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5190
+#: assets/dist/js/admin-onboarding-wizard.js:5738
 msgid "Organization"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5195
+#: assets/dist/js/admin-onboarding-wizard.js:5743
 msgid "My fundraising is"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5203
+#: assets/dist/js/admin-onboarding-wizard.js:5751
 msgid "What are you fundraising for?"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5206
+#: assets/dist/js/admin-onboarding-wizard.js:5754
 msgid "What type of cause is yours?"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5218
-msgid "🌱 Would you like to join the GiveWP Community?"
+#: assets/dist/js/admin-onboarding-wizard.js:5767
+msgid "Help us enhance your product experience"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5220
-msgid "By opting-in, you allow some basic data about how you use GiveWP to be used for us to improve the plugin for others. You also will receive emails from us with fundraising tips and more (which you can always unsubscribe from if you need to). If you skip this step, that's okay! GiveWP will still be set up for you no problem."
+#: assets/dist/js/admin-onboarding-wizard.js:5768
+msgid "By opting-in, you'll enable us to gather anonymous data on how you use GiveWP. This information helps us make GiveWP better for you. No personal information about you or your donors is collected."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:5224
-msgid "Accept & Continue"
-msgstr ""
-
-#: assets/dist/js/admin-onboarding-wizard.js:6130
+#: assets/dist/js/admin-onboarding-wizard.js:6808
 msgid "Dismiss Setup Wizard"
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:6277
+#: assets/dist/js/admin-onboarding-wizard.js:6920
 msgid "Building Form Preview..."
 msgstr ""
 
-#: assets/dist/js/admin-onboarding-wizard.js:8652
-msgid "Skip joining community"
+#: assets/dist/js/admin-onboarding-wizard.js:9134
+#: build/donationFormApp.js:2
+msgid "Previous"
 msgstr ""
 
 #: assets/dist/js/admin-reports-widget.js:6648
@@ -19902,41 +20006,38 @@ msgid "dashboard"
 msgstr ""
 
 #: assets/dist/js/give-add-v2form.js:109
-#: assets/dist/js/give-admin-donation-forms.js:2250
-#: assets/dist/js/give-admin-donation-forms.js:2288
 #: assets/dist/js/give-edit-v2form.js:146
-#: assets/dist/js/welcome-banner.js:267
-msgid "Try the new form builder"
+msgid "Use the new visual form builder"
 msgstr ""
 
 #: assets/dist/js/give-add-v2form.js:608
-#: assets/dist/js/give-admin-donation-forms.js:2725
+#: assets/dist/js/give-admin-donation-forms.js:2452
 #: assets/dist/js/give-edit-v2form.js:645
 msgid "GiveWP 3.0 introduces an enhanced forms experience powered by the new Visual Donation Form Builder. The team is still working on add-on and gateway compatibility. If you need to use an add-on or gateway that isn't listed, use the \"%sAdd form%s\" option for now."
 msgstr ""
 
 #: assets/dist/js/give-add-v2form.js:614
-#: assets/dist/js/give-admin-donation-forms.js:2731
+#: assets/dist/js/give-admin-donation-forms.js:2458
 #: assets/dist/js/give-edit-v2form.js:651
 msgid "Supported add-ons"
 msgstr ""
 
 #: assets/dist/js/give-add-v2form.js:641
-#: assets/dist/js/give-admin-donation-forms.js:2758
+#: assets/dist/js/give-admin-donation-forms.js:2485
 #: assets/dist/js/give-edit-v2form.js:678
 msgid "Proceed with upgrade"
 msgstr ""
 
 #: assets/dist/js/give-add-v2form.js:651
-#: assets/dist/js/give-admin-donation-forms.js:2768
+#: assets/dist/js/give-admin-donation-forms.js:2495
 #: assets/dist/js/give-edit-v2form.js:688
 msgid "Proceed with the new form builder"
 msgstr ""
 
 #: assets/dist/js/give-add-v2form.js:1642
 #: assets/dist/js/give-add-v2form.js:1651
-#: assets/dist/js/give-admin-donation-forms.js:3910
-#: assets/dist/js/give-admin-donation-forms.js:3919
+#: assets/dist/js/give-admin-donation-forms.js:3635
+#: assets/dist/js/give-admin-donation-forms.js:3644
 #: assets/dist/js/give-admin-event-tickets-details.js:4471
 #: assets/dist/js/give-admin-event-tickets-details.js:4480
 #: assets/dist/js/give-admin-event-tickets.js:3968
@@ -19947,107 +20048,103 @@ msgstr ""
 msgid "Close dialog icon"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1160
+#: assets/dist/js/give-admin-donation-forms.js:1109
 msgid "Search by name or ID"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1161
+#: assets/dist/js/give-admin-donation-forms.js:1110
 msgid "Search donation forms"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1165
+#: assets/dist/js/give-admin-donation-forms.js:1114
 msgid "status"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1166
+#: assets/dist/js/give-admin-donation-forms.js:1115
 #: assets/dist/js/give-admin-donors.js:1041
 msgid "Filter donation forms by status"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1179
+#: assets/dist/js/give-admin-donation-forms.js:1128
 msgid "Uses the Visual Form Builder"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1206
+#: assets/dist/js/give-admin-donation-forms.js:1155
 msgid "The name of this form is already associated with an upgraded form. You can safely delete this form"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1289
+#: assets/dist/js/give-admin-donation-forms.js:1238
 msgid "Set form author"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1297
+#: assets/dist/js/give-admin-donation-forms.js:1246
 msgid "Keep current author"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1309
+#: assets/dist/js/give-admin-donation-forms.js:1258
 msgid "Set form status"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1326
+#: assets/dist/js/give-admin-donation-forms.js:1275
 msgid "Pending Review"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1367
+#: assets/dist/js/give-admin-donation-forms.js:1316
 msgid "Really delete the following donation forms?"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1382
+#: assets/dist/js/give-admin-donation-forms.js:1331
 msgid "Move to Trash"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1413
+#: assets/dist/js/give-admin-donation-forms.js:1362
 msgid "Really trash the following donation forms?"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1434
+#: assets/dist/js/give-admin-donation-forms.js:1383
 msgid "No donation forms"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1436
+#: assets/dist/js/give-admin-donation-forms.js:1385
 msgid "GiveWP Forms"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1450
+#: assets/dist/js/give-admin-donation-forms.js:1398
 msgid "donation form"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1451
+#: assets/dist/js/give-admin-donation-forms.js:1399
 msgid "donation forms"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:1994
+#: assets/dist/js/give-admin-donation-forms.js:1931
 msgid "Really delete the following form?"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:2001
+#: assets/dist/js/give-admin-donation-forms.js:1938
 msgid "Really trash the following form?"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:2030
+#: assets/dist/js/give-admin-donation-forms.js:1967
 msgid "Restore"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:2035
+#: assets/dist/js/give-admin-donation-forms.js:1972
 msgid "Delete Permanently"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:2075
+#: assets/dist/js/give-admin-donation-forms.js:2012
 msgid "Duplicate"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:2246
-msgid "GiveWP 3.0 introduces customizable and flexible forms powered by the new Visual Donation Form Builder."
-msgstr ""
-
-#: assets/dist/js/give-admin-donation-forms.js:3967
+#: assets/dist/js/give-admin-donation-forms.js:3692
 #: assets/dist/js/give-admin-donations.js:2725
 #: assets/dist/js/give-admin-donors.js:2544
 #: assets/dist/js/give-admin-subscriptions.js:1756
 msgid "Need help? Learn more about"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4076
+#: assets/dist/js/give-admin-donation-forms.js:3801
 #: assets/dist/js/give-admin-donations.js:2834
 #: assets/dist/js/give-admin-donors.js:2653
 #: assets/dist/js/give-admin-event-tickets-details.js:4594
@@ -20058,7 +20155,7 @@ msgstr ""
 msgid "Select %1s %2s"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4105
+#: assets/dist/js/give-admin-donation-forms.js:3830
 #: assets/dist/js/give-admin-donations.js:2863
 #: assets/dist/js/give-admin-donors.js:2682
 #: assets/dist/js/give-admin-event-tickets-details.js:4623
@@ -20069,7 +20166,7 @@ msgstr ""
 msgid "Select all %s"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4237
+#: assets/dist/js/give-admin-donation-forms.js:3962
 #: assets/dist/js/give-admin-donations.js:2995
 #: assets/dist/js/give-admin-donors.js:2814
 #: assets/dist/js/give-admin-event-tickets-details.js:4755
@@ -20080,8 +20177,8 @@ msgstr ""
 msgid "Bulk Actions"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4805
-#: assets/dist/js/give-admin-donation-forms.js:5621
+#: assets/dist/js/give-admin-donation-forms.js:4530
+#: assets/dist/js/give-admin-donation-forms.js:5346
 #: assets/dist/js/give-admin-donations.js:3563
 #: assets/dist/js/give-admin-donations.js:4379
 #: assets/dist/js/give-admin-donors.js:3382
@@ -20099,8 +20196,8 @@ msgstr ""
 msgid "item"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4807
-#: assets/dist/js/give-admin-donation-forms.js:5623
+#: assets/dist/js/give-admin-donation-forms.js:4532
+#: assets/dist/js/give-admin-donation-forms.js:5348
 #: assets/dist/js/give-admin-donations.js:3565
 #: assets/dist/js/give-admin-donations.js:4381
 #: assets/dist/js/give-admin-donors.js:3384
@@ -20118,7 +20215,7 @@ msgstr ""
 msgid "items"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4918
+#: assets/dist/js/give-admin-donation-forms.js:4643
 #: assets/dist/js/give-admin-donations.js:3676
 #: assets/dist/js/give-admin-donors.js:3495
 #: assets/dist/js/give-admin-event-tickets-details.js:5436
@@ -20129,7 +20226,7 @@ msgstr ""
 msgid "Loading %s"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:5008
+#: assets/dist/js/give-admin-donation-forms.js:4733
 #: assets/dist/js/give-admin-donations.js:3766
 #: assets/dist/js/give-admin-donors.js:3585
 #: assets/dist/js/give-admin-event-tickets-details.js:5526
@@ -20140,7 +20237,7 @@ msgstr ""
 msgid "dismiss"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:5022
+#: assets/dist/js/give-admin-donation-forms.js:4747
 #: assets/dist/js/give-admin-donations.js:3780
 #: assets/dist/js/give-admin-donors.js:3599
 #: assets/dist/js/give-admin-event-tickets-details.js:5540
@@ -20151,7 +20248,7 @@ msgstr ""
 msgid "There was a problem retrieving the %s."
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:5027
+#: assets/dist/js/give-admin-donation-forms.js:4752
 #: assets/dist/js/give-admin-donations.js:3785
 #: assets/dist/js/give-admin-donors.js:3604
 #: assets/dist/js/give-admin-event-tickets-details.js:5545
@@ -20162,7 +20259,7 @@ msgstr ""
 msgid "Click here to reload the page."
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:6599
+#: assets/dist/js/give-admin-donation-forms.js:6324
 #: assets/dist/js/give-admin-donations.js:5357
 #: assets/dist/js/give-admin-donors.js:5176
 #: assets/dist/js/give-admin-event-tickets-details.js:7117
@@ -20173,8 +20270,8 @@ msgstr ""
 msgid "%s table"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:6634
-#: assets/dist/js/give-admin-donation-forms.js:8474
+#: assets/dist/js/give-admin-donation-forms.js:6359
+#: assets/dist/js/give-admin-donation-forms.js:8199
 #: assets/dist/js/give-admin-donations.js:5392
 #: assets/dist/js/give-admin-donations.js:7757
 #: assets/dist/js/give-admin-donors.js:5211
@@ -20192,7 +20289,7 @@ msgstr ""
 msgid "Current Page"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:8311
+#: assets/dist/js/give-admin-donation-forms.js:8036
 #: assets/dist/js/give-admin-donations.js:7594
 #: assets/dist/js/give-admin-donors.js:7413
 #: assets/dist/js/give-admin-event-tickets-details.js:8829
@@ -20203,7 +20300,7 @@ msgstr ""
 msgid "Error details"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:8311
+#: assets/dist/js/give-admin-donation-forms.js:8036
 #: assets/dist/js/give-admin-donations.js:7594
 #: assets/dist/js/give-admin-donors.js:7413
 #: assets/dist/js/give-admin-event-tickets-details.js:8829
@@ -20214,7 +20311,7 @@ msgstr ""
 msgid "Additional context"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:9240
+#: assets/dist/js/give-admin-donation-forms.js:8965
 #: assets/dist/js/give-admin-donations.js:8523
 #: assets/dist/js/give-admin-donors.js:8342
 #: assets/dist/js/give-admin-event-tickets-details.js:9758
@@ -20279,10 +20376,6 @@ msgstr ""
 
 #: assets/dist/js/give-admin-donations.js:1747
 msgid "Raise more money per donation by providing donors with the option to help cover the credit card processing fees."
-msgstr ""
-
-#: assets/dist/js/give-admin-donations.js:1748
-msgid "Get Fee Recovery"
 msgstr ""
 
 #: assets/dist/js/give-admin-donations.js:1753
@@ -20758,6 +20851,10 @@ msgstr ""
 
 #: assets/dist/js/welcome-banner.js:264
 msgid "This is powered by the new Visual Donation Form Builder"
+msgstr ""
+
+#: assets/dist/js/welcome-banner.js:267
+msgid "Try the new form builder"
 msgstr ""
 
 #: assets/dist/js/welcome-banner.js:271
@@ -21242,10 +21339,6 @@ msgstr ""
 #: build/donationFormApp.js:2
 #: build/donationFormRegistrars.js:1
 msgid "Submitting…"
-msgstr ""
-
-#: build/donationFormApp.js:2
-msgid "Previous"
 msgstr ""
 
 #: build/donationFormRegistrars.js:1
@@ -22184,10 +22277,6 @@ msgstr ""
 
 #: build/formBuilderApp.js:13
 msgid "Let’s quickly explore the new visual donation form builder. This will take less than a minute."
-msgstr ""
-
-#: build/formBuilderApp.js:13
-msgid "Get started"
 msgstr ""
 
 #: build/formBuilderApp.js:13

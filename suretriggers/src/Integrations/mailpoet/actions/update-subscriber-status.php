@@ -103,7 +103,7 @@ class UpdateSubscriberStatus extends AutomateAction {
 
 		try {
 			// Check if email is already a subscriber.
-			$existing_subscriber = \MailPoet\Models\Subscriber::findOne( $subscriber['email'] );
+			$existing_subscriber = $mailpoet->getSubscriber( $subscriber['email'] );
 			$table_name          = $wpdb->prefix . 'mailpoet_subscribers';
 
 			if ( $existing_subscriber ) {
@@ -114,7 +114,7 @@ class UpdateSubscriberStatus extends AutomateAction {
 					$wpdb->update( $table_name, [ 'status' => $subscriber['status'] ], [ 'id' => $subscriber_id ] );
 				} else {
 					// Throw error if subscriber not found.
-					throw new Exception( 'Subscriber not found for enetered email.' );
+					throw new Exception( 'Subscriber not found for entered email.' );
 				}
 			} else {
 				// Throw error if adds new email.

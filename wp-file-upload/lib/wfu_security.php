@@ -36,6 +36,34 @@ function wfu_file_extension_blacklisted($filename) {
 }
 
 /**
+ * Gets mime types of all extensions
+ *  
+ * This function returns the list of mime types of all extensions that have a
+ * mime type. The list was retrieved from https://android.googlesource.com/platform/external/mime-support/+/9817b71a54a2ee8b691c1dfa937c0f9b16b3473c/mime.types
+ *
+ * @since 4.24.9
+ *  
+ * @return array An associative list of extensions' mime types.
+ */
+function wfu_extensions_mime_types() {
+	$list = array( "ez" => array( "application/andrew-inset" ), "anx" => array( "application/annodex" ), "atom" => array( "application/atom+xml" ), "atomcat" => array( "application/atomcat+xml" ), "atomsrv" => array( "application/atomserv+xml" ), "lin" => array( "application/bbolin" ), "cu" => array( "application/cu-seeme" ), "davmount" => array( "application/davmount+xml" ), "dcm" => array( "application/dicom" ), "tsp" => array( "application/dsptype" ), "es" => array( "application/ecmascript" ), "epub" => array( "application/epub+zip" ), "otf" => array( "application/font-sfnt", "font/otf", "font/sfnt", "font/ttf" ), "ttf" => array( "application/font-sfnt", "font/otf", "font/sfnt", "font/ttf" ), "pfr" => array( "application/font-tdpfr" ), "woff" => array( "application/font-woff", "font/woff" ), "spl" => array( "application/futuresplash", "application/x-futuresplash" ), "gz" => array( "application/gzip" ), "hta" => array( "application/hta" ), "jar" => array( "application/java-archive" ), "ser" => array( "application/java-serialized-object" ), "class" => array( "application/java-vm" ), "js" => array( "application/javascript" ), "json" => array( "application/json" ), "m3g" => array( "application/m3g" ), "hqx" => array( "application/mac-binhex40" ), "cpt" => array( "application/mac-compactpro", "image/x-corelphotopaint" ), "nb" => array( "application/mathematica" ), "nbp" => array( "application/mathematica" ), "mbox" => array( "application/mbox" ), "mdb" => array( "application/msaccess" ), "doc" => array( "application/msword" ), "dot" => array( "application/msword" ), "mxf" => array( "application/mxf" ), "bin" => array( "application/octet-stream" ), "deploy" => array( "application/octet-stream" ), "msu" => array( "application/octet-stream" ), "msp" => array( "application/octet-stream" ), "oda" => array( "application/oda" ), "opf" => array( "application/oebps-package+xml" ), "ogx" => array( "application/ogg" ), "one" => array( "application/onenote" ), "onetoc2" => array( "application/onenote" ), "onetmp" => array( "application/onenote" ), "onepkg" => array( "application/onenote" ), "pdf" => array( "application/pdf" ), "pgp" => array( "application/pgp-encrypted" ), "key" => array( "application/pgp-keys" ), "sig" => array( "application/pgp-signature" ), "prf" => array( "application/pics-rules" ), "ps" => array( "application/postscript" ), "ai" => array( "application/postscript" ), "eps" => array( "application/postscript" ), "epsi" => array( "application/postscript" ), "epsf" => array( "application/postscript" ), "eps2" => array( "application/postscript" ), "eps3" => array( "application/postscript" ), "rar" => array( "application/rar" ), "rdf" => array( "application/rdf+xml" ), "rtf" => array( "application/rtf" ), "stl" => array( "application/sla" ), "smi" => array( "application/smil+xml" ), "smil" => array( "application/smil+xml" ), "xhtml" => array( "application/xhtml+xml" ), "xht" => array( "application/xhtml+xml" ), "xml" => array( "application/xml" ), "xsd" => array( "application/xml" ), "xsl" => array( "application/xslt+xml" ), "xslt" => array( "application/xslt+xml" ), "xspf" => array( "application/xspf+xml" ), "zip" => array( "application/zip" ), "apk" => array( "application/vnd.android.package-archive" ), "cdy" => array( "application/vnd.cinderella" ), "deb" => array( "application/vnd.debian.binary-package", "application/x-debian-package" ), "ddeb" => array( "application/vnd.debian.binary-package" ), "udeb" => array( "application/vnd.debian.binary-package", "application/x-debian-package" ), "sfd" => array( "application/vnd.font-fontforge-sfd" ), "kml" => array( "application/vnd.google-earth.kml+xml" ), "kmz" => array( "application/vnd.google-earth.kmz" ), "xul" => array( "application/vnd.mozilla.xul+xml" ), "xls" => array( "application/vnd.ms-excel" ), "xlb" => array( "application/vnd.ms-excel" ), "xlt" => array( "application/vnd.ms-excel" ), "xlam" => array( "application/vnd.ms-excel.addin.macroenabled.12" ), "xlsb" => array( "application/vnd.ms-excel.sheet.binary.macroenabled.12" ), "xlsm" => array( "application/vnd.ms-excel.sheet.macroenabled.12" ), "xltm" => array( "application/vnd.ms-excel.template.macroenabled.12" ), "eot" => array( "application/vnd.ms-fontobject" ), "thmx" => array( "application/vnd.ms-officetheme" ), "cat" => array( "application/vnd.ms-pki.seccat" ), "ppt" => array( "application/vnd.ms-powerpoint" ), "pps" => array( "application/vnd.ms-powerpoint" ), "ppam" => array( "application/vnd.ms-powerpoint.addin.macroenabled.12" ), "pptm" => array( "application/vnd.ms-powerpoint.presentation.macroenabled.12" ), "sldm" => array( "application/vnd.ms-powerpoint.slide.macroenabled.12" ), "ppsm" => array( "application/vnd.ms-powerpoint.slideshow.macroenabled.12" ), "potm" => array( "application/vnd.ms-powerpoint.template.macroenabled.12" ), "docm" => array( "application/vnd.ms-word.document.macroenabled.12" ), "dotm" => array( "application/vnd.ms-word.template.macroenabled.12" ), "odc" => array( "application/vnd.oasis.opendocument.chart" ), "odb" => array( "application/vnd.oasis.opendocument.database" ), "odf" => array( "application/vnd.oasis.opendocument.formula" ), "odg" => array( "application/vnd.oasis.opendocument.graphics" ), "otg" => array( "application/vnd.oasis.opendocument.graphics-template" ), "odi" => array( "application/vnd.oasis.opendocument.image" ), "odp" => array( "application/vnd.oasis.opendocument.presentation" ), "otp" => array( "application/vnd.oasis.opendocument.presentation-template" ), "ods" => array( "application/vnd.oasis.opendocument.spreadsheet" ), "ots" => array( "application/vnd.oasis.opendocument.spreadsheet-template" ), "odt" => array( "application/vnd.oasis.opendocument.text" ), "odm" => array( "application/vnd.oasis.opendocument.text-master" ), "ott" => array( "application/vnd.oasis.opendocument.text-template" ), "oth" => array( "application/vnd.oasis.opendocument.text-web" ), "pptx" => array( "application/vnd.openxmlformats-officedocument.presentationml.presentation" ), "sldx" => array( "application/vnd.openxmlformats-officedocument.presentationml.slide" ), "ppsx" => array( "application/vnd.openxmlformats-officedocument.presentationml.slideshow" ), "potx" => array( "application/vnd.openxmlformats-officedocument.presentationml.template" ), "xlsx" => array( "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ), "xltx" => array( "application/vnd.openxmlformats-officedocument.spreadsheetml.template" ), "docx" => array( "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ), "dotx" => array( "application/vnd.openxmlformats-officedocument.wordprocessingml.template" ), "cod" => array( "application/vnd.rim.cod" ), "mmf" => array( "application/vnd.smaf" ), "sdc" => array( "application/vnd.stardivision.calc" ), "sds" => array( "application/vnd.stardivision.chart" ), "sda" => array( "application/vnd.stardivision.draw" ), "sdd" => array( "application/vnd.stardivision.impress" ), "sdf" => array( "application/vnd.stardivision.math", "chemical/x-mdl-sdfile" ), "sdw" => array( "application/vnd.stardivision.writer" ), "sgl" => array( "application/vnd.stardivision.writer-global" ), "sxc" => array( "application/vnd.sun.xml.calc" ), "stc" => array( "application/vnd.sun.xml.calc.template" ), "sxd" => array( "application/vnd.sun.xml.draw" ), "std" => array( "application/vnd.sun.xml.draw.template" ), "sxi" => array( "application/vnd.sun.xml.impress" ), "sti" => array( "application/vnd.sun.xml.impress.template" ), "sxm" => array( "application/vnd.sun.xml.math" ), "sxw" => array( "application/vnd.sun.xml.writer" ), "sxg" => array( "application/vnd.sun.xml.writer.global" ), "stw" => array( "application/vnd.sun.xml.writer.template" ), "sis" => array( "application/vnd.symbian.install" ), "cap" => array( "application/vnd.tcpdump.pcap" ), "pcap" => array( "application/vnd.tcpdump.pcap" ), "vsd" => array( "application/vnd.visio" ), "vst" => array( "application/vnd.visio" ), "vsw" => array( "application/vnd.visio" ), "vss" => array( "application/vnd.visio" ), "wbxml" => array( "application/vnd.wap.wbxml" ), "wmlc" => array( "application/vnd.wap.wmlc" ), "wmlsc" => array( "application/vnd.wap.wmlscriptc" ), "wpd" => array( "application/vnd.wordperfect" ), "wp5" => array( "application/vnd.wordperfect5.1" ), "wk" => array( "application/x-123" ), "7z" => array( "application/x-7z-compressed" ), "abw" => array( "application/x-abiword" ), "dmg" => array( "application/x-apple-diskimage" ), "bcpio" => array( "application/x-bcpio" ), "torrent" => array( "application/x-bittorrent" ), "cab" => array( "application/x-cab" ), "cbr" => array( "application/x-cbr" ), "cbz" => array( "application/x-cbz" ), "cdf" => array( "application/x-cdf" ), "cda" => array( "application/x-cdf" ), "vcd" => array( "application/x-cdlink" ), "pgn" => array( "application/x-chess-pgn" ), "mph" => array( "application/x-comsol" ), "cpio" => array( "application/x-cpio" ), "csh" => array( "application/x-csh", "text/x-csh" ), "dcr" => array( "application/x-director" ), "dir" => array( "application/x-director" ), "dxr" => array( "application/x-director" ), "dms" => array( "application/x-dms" ), "wad" => array( "application/x-doom" ), "dvi" => array( "application/x-dvi" ), "pfa" => array( "application/x-font" ), "pfb" => array( "application/x-font" ), "gsf" => array( "application/x-font" ), "pcf" => array( "application/x-font-pcf" ), "pcf.z" => array( "application/x-font-pcf" ), "mm" => array( "application/x-freemind" ), "gan" => array( "application/x-ganttproject" ), "gnumeric" => array( "application/x-gnumeric" ), "sgf" => array( "application/x-go-sgf" ), "gcf" => array( "application/x-graphing-calculator" ), "gtar" => array( "application/x-gtar" ), "tgz" => array( "application/x-gtar-compressed" ), "taz" => array( "application/x-gtar-compressed" ), "hdf" => array( "application/x-hdf" ), "hwp" => array( "application/x-hwp" ), "ica" => array( "application/x-ica" ), "info" => array( "application/x-info" ), "ins" => array( "application/x-internet-signup" ), "isp" => array( "application/x-internet-signup" ), "iii" => array( "application/x-iphone" ), "iso" => array( "application/x-iso9660-image" ), "jam" => array( "application/x-jam" ), "jnlp" => array( "application/x-java-jnlp-file" ), "jmz" => array( "application/x-jmol" ), "chrt" => array( "application/x-kchart" ), "kil" => array( "application/x-killustrator" ), "skp" => array( "application/x-koan" ), "skd" => array( "application/x-koan" ), "skt" => array( "application/x-koan" ), "skm" => array( "application/x-koan" ), "kpr" => array( "application/x-kpresenter" ), "kpt" => array( "application/x-kpresenter" ), "ksp" => array( "application/x-kspread" ), "kwd" => array( "application/x-kword" ), "kwt" => array( "application/x-kword" ), "latex" => array( "application/x-latex" ), "lha" => array( "application/x-lha" ), "lyx" => array( "application/x-lyx" ), "lzh" => array( "application/x-lzh" ), "lzx" => array( "application/x-lzx" ), "frm" => array( "application/x-maker" ), "maker" => array( "application/x-maker" ), "frame" => array( "application/x-maker" ), "fm" => array( "application/x-maker" ), "fb" => array( "application/x-maker" ), "book" => array( "application/x-maker" ), "fbdoc" => array( "application/x-maker" ), "mif" => array( "application/x-mif" ), "m3u8" => array( "application/x-mpegurl" ), "application" => array( "application/x-ms-application" ), "manifest" => array( "application/x-ms-manifest" ), "wmd" => array( "application/x-ms-wmd" ), "wmz" => array( "application/x-ms-wmz" ), "com" => array( "application/x-msdos-program" ), "exe" => array( "application/x-msdos-program" ), "bat" => array( "application/x-msdos-program" ), "dll" => array( "application/x-msdos-program" ), "msi" => array( "application/x-msi" ), "nc" => array( "application/x-netcdf" ), "pac" => array( "application/x-ns-proxy-autoconfig" ), "nwc" => array( "application/x-nwc" ), "o" => array( "application/x-object" ), "oza" => array( "application/x-oz-application" ), "p7r" => array( "application/x-pkcs7-certreqresp" ), "crl" => array( "application/x-pkcs7-crl" ), "pyc" => array( "application/x-python-code" ), "pyo" => array( "application/x-python-code" ), "qgs" => array( "application/x-qgis" ), "shp" => array( "application/x-qgis" ), "shx" => array( "application/x-qgis" ), "qtl" => array( "application/x-quicktimeplayer" ), "rdp" => array( "application/x-rdp" ), "rpm" => array( "application/x-redhat-package-manager" ), "rss" => array( "application/x-rss+xml" ), "rb" => array( "application/x-ruby" ), "sci" => array( "application/x-scilab" ), "sce" => array( "application/x-scilab" ), "xcos" => array( "application/x-scilab-xcos" ), "sh" => array( "application/x-sh", "text/x-sh" ), "shar" => array( "application/x-shar" ), "swf" => array( "application/x-shockwave-flash" ), "swfl" => array( "application/x-shockwave-flash" ), "scr" => array( "application/x-silverlight" ), "sql" => array( "application/x-sql" ), "sit" => array( "application/x-stuffit" ), "sitx" => array( "application/x-stuffit" ), "sv4cpio" => array( "application/x-sv4cpio" ), "sv4crc" => array( "application/x-sv4crc" ), "tar" => array( "application/x-tar" ), "tcl" => array( "application/x-tcl", "text/x-tcl" ), "gf" => array( "application/x-tex-gf" ), "pk" => array( "application/x-tex-pk" ), "texinfo" => array( "application/x-texinfo" ), "texi" => array( "application/x-texinfo" ), "~" => array( "application/x-trash" ), "%" => array( "application/x-trash" ), "bak" => array( "application/x-trash" ), "old" => array( "application/x-trash" ), "sik" => array( "application/x-trash" ), "t" => array( "application/x-troff" ), "tr" => array( "application/x-troff" ), "roff" => array( "application/x-troff" ), "man" => array( "application/x-troff-man" ), "me" => array( "application/x-troff-me" ), "ms" => array( "application/x-troff-ms" ), "ustar" => array( "application/x-ustar" ), "src" => array( "application/x-wais-source" ), "wz" => array( "application/x-wingz" ), "crt" => array( "application/x-x509-ca-cert" ), "xcf" => array( "application/x-xcf" ), "fig" => array( "application/x-xfig" ), "xpi" => array( "application/x-xpinstall" ), "xz" => array( "application/x-xz" ), "amr" => array( "audio/amr" ), "awb" => array( "audio/amr-wb" ), "axa" => array( "audio/annodex" ), "au" => array( "audio/basic" ), "snd" => array( "audio/basic" ), "csd" => array( "audio/csound" ), "orc" => array( "audio/csound" ), "sco" => array( "audio/csound" ), "flac" => array( "audio/flac" ), "mid" => array( "audio/midi" ), "midi" => array( "audio/midi" ), "kar" => array( "audio/midi" ), "mpga" => array( "audio/mpeg" ), "mpega" => array( "audio/mpeg" ), "mp2" => array( "audio/mpeg" ), "mp3" => array( "audio/mpeg" ), "m4a" => array( "audio/mpeg" ), "m3u" => array( "audio/mpegurl", "audio/x-mpegurl" ), "oga" => array( "audio/ogg" ), "ogg" => array( "audio/ogg" ), "opus" => array( "audio/ogg" ), "spx" => array( "audio/ogg" ), "sid" => array( "audio/prs.sid" ), "aif" => array( "audio/x-aiff" ), "aiff" => array( "audio/x-aiff" ), "aifc" => array( "audio/x-aiff" ), "gsm" => array( "audio/x-gsm" ), "wma" => array( "audio/x-ms-wma" ), "wax" => array( "audio/x-ms-wax" ), "ra" => array( "audio/x-pn-realaudio", "audio/x-realaudio" ), "rm" => array( "audio/x-pn-realaudio" ), "ram" => array( "audio/x-pn-realaudio" ), "pls" => array( "audio/x-scpls" ), "sd2" => array( "audio/x-sd2" ), "wav" => array( "audio/x-wav" ), "alc" => array( "chemical/x-alchemy" ), "cac" => array( "chemical/x-cache" ), "cache" => array( "chemical/x-cache" ), "csf" => array( "chemical/x-cache-csf" ), "cbin" => array( "chemical/x-cactvs-binary" ), "cascii" => array( "chemical/x-cactvs-binary" ), "ctab" => array( "chemical/x-cactvs-binary" ), "cdx" => array( "chemical/x-cdx" ), "cer" => array( "chemical/x-cerius" ), "c3d" => array( "chemical/x-chem3d" ), "chm" => array( "chemical/x-chemdraw" ), "cif" => array( "chemical/x-cif" ), "cmdf" => array( "chemical/x-cmdf" ), "cml" => array( "chemical/x-cml" ), "cpa" => array( "chemical/x-compass" ), "bsd" => array( "chemical/x-crossfire" ), "csml" => array( "chemical/x-csml" ), "csm" => array( "chemical/x-csml" ), "ctx" => array( "chemical/x-ctx" ), "cxf" => array( "chemical/x-cxf" ), "cef" => array( "chemical/x-cxf" ), "emb" => array( "chemical/x-embl-dl-nucleotide" ), "embl" => array( "chemical/x-embl-dl-nucleotide" ), "spc" => array( "chemical/x-galactic-spc" ), "inp" => array( "chemical/x-gamess-input" ), "gam" => array( "chemical/x-gamess-input" ), "gamin" => array( "chemical/x-gamess-input" ), "fch" => array( "chemical/x-gaussian-checkpoint" ), "fchk" => array( "chemical/x-gaussian-checkpoint" ), "cub" => array( "chemical/x-gaussian-cube" ), "gau" => array( "chemical/x-gaussian-input" ), "gjc" => array( "chemical/x-gaussian-input" ), "gjf" => array( "chemical/x-gaussian-input" ), "gal" => array( "chemical/x-gaussian-log" ), "gcg" => array( "chemical/x-gcg8-sequence" ), "gen" => array( "chemical/x-genbank" ), "hin" => array( "chemical/x-hin" ), "istr" => array( "chemical/x-isostar" ), "ist" => array( "chemical/x-isostar" ), "jdx" => array( "chemical/x-jcamp-dx" ), "dx" => array( "chemical/x-jcamp-dx" ), "kin" => array( "chemical/x-kinemage" ), "mcm" => array( "chemical/x-macmolecule" ), "mmd" => array( "chemical/x-macromodel-input" ), "mmod" => array( "chemical/x-macromodel-input" ), "mol" => array( "chemical/x-mdl-molfile" ), "rd" => array( "chemical/x-mdl-rdfile" ), "rxn" => array( "chemical/x-mdl-rxnfile" ), "sd" => array( "chemical/x-mdl-sdfile" ), "tgf" => array( "chemical/x-mdl-tgf" ), "mcif" => array( "chemical/x-mmcif" ), "mol2" => array( "chemical/x-mol2" ), "b" => array( "chemical/x-molconn-z" ), "gpt" => array( "chemical/x-mopac-graph" ), "mop" => array( "chemical/x-mopac-input" ), "mopcrt" => array( "chemical/x-mopac-input" ), "mpc" => array( "chemical/x-mopac-input" ), "zmt" => array( "chemical/x-mopac-input" ), "moo" => array( "chemical/x-mopac-out" ), "mvb" => array( "chemical/x-mopac-vib" ), "asn" => array( "chemical/x-ncbi-asn1", "chemical/x-ncbi-asn1-spec" ), "prt" => array( "chemical/x-ncbi-asn1-ascii" ), "ent" => array( "chemical/x-ncbi-asn1-ascii", "chemical/x-pdb" ), "val" => array( "chemical/x-ncbi-asn1-binary" ), "aso" => array( "chemical/x-ncbi-asn1-binary" ), "pdb" => array( "chemical/x-pdb" ), "ros" => array( "chemical/x-rosdal" ), "sw" => array( "chemical/x-swissprot" ), "vms" => array( "chemical/x-vamas-iso14976" ), "vmd" => array( "chemical/x-vmd" ), "xtel" => array( "chemical/x-xtel" ), "xyz" => array( "chemical/x-xyz" ), "ttc" => array( "font/collection" ), "woff2" => array( "font/woff2" ), "gif" => array( "image/gif" ), "ief" => array( "image/ief" ), "jp2" => array( "image/jp2" ), "jpg2" => array( "image/jp2" ), "jpeg" => array( "image/jpeg" ), "jpg" => array( "image/jpeg" ), "jpe" => array( "image/jpeg" ), "jpm" => array( "image/jpm" ), "jpx" => array( "image/jpx" ), "jpf" => array( "image/jpx" ), "pcx" => array( "image/pcx" ), "png" => array( "image/png" ), "svg" => array( "image/svg+xml" ), "svgz" => array( "image/svg+xml" ), "tiff" => array( "image/tiff" ), "tif" => array( "image/tiff" ), "djvu" => array( "image/vnd.djvu" ), "djv" => array( "image/vnd.djvu" ), "ico" => array( "image/vnd.microsoft.icon" ), "wbmp" => array( "image/vnd.wap.wbmp" ), "cr2" => array( "image/x-canon-cr2" ), "crw" => array( "image/x-canon-crw" ), "ras" => array( "image/x-cmu-raster" ), "cdr" => array( "image/x-coreldraw" ), "pat" => array( "image/x-coreldrawpattern" ), "cdt" => array( "image/x-coreldrawtemplate" ), "erf" => array( "image/x-epson-erf" ), "art" => array( "image/x-jg" ), "jng" => array( "image/x-jng" ), "bmp" => array( "image/x-ms-bmp" ), "nef" => array( "image/x-nikon-nef" ), "orf" => array( "image/x-olympus-orf" ), "psd" => array( "image/x-photoshop" ), "pnm" => array( "image/x-portable-anymap" ), "pbm" => array( "image/x-portable-bitmap" ), "pgm" => array( "image/x-portable-graymap" ), "ppm" => array( "image/x-portable-pixmap" ), "rgb" => array( "image/x-rgb" ), "xbm" => array( "image/x-xbitmap" ), "xpm" => array( "image/x-xpixmap" ), "xwd" => array( "image/x-xwindowdump" ), "eml" => array( "message/rfc822" ), "igs" => array( "model/iges" ), "iges" => array( "model/iges" ), "msh" => array( "model/mesh" ), "mesh" => array( "model/mesh" ), "silo" => array( "model/mesh" ), "wrl" => array( "model/vrml", "x-world/x-vrml" ), "vrml" => array( "model/vrml", "x-world/x-vrml" ), "x3dv" => array( "model/x3d+vrml" ), "x3d" => array( "model/x3d+xml" ), "x3db" => array( "model/x3d+binary" ), "appcache" => array( "text/cache-manifest" ), "ics" => array( "text/calendar" ), "icz" => array( "text/calendar" ), "css" => array( "text/css" ), "csv" => array( "text/csv" ), "323" => array( "text/h323" ), "html" => array( "text/html" ), "htm" => array( "text/html" ), "shtml" => array( "text/html" ), "uls" => array( "text/iuls" ), "mml" => array( "text/mathml" ), "md" => array( "text/markdown" ), "markdown" => array( "text/markdown" ), "asc" => array( "text/plain" ), "txt" => array( "text/plain" ), "text" => array( "text/plain" ), "pot" => array( "text/plain" ), "brf" => array( "text/plain" ), "srt" => array( "text/plain" ), "rtx" => array( "text/richtext" ), "sct" => array( "text/scriptlet" ), "wsc" => array( "text/scriptlet" ), "tm" => array( "text/texmacs" ), "tsv" => array( "text/tab-separated-values" ), "ttl" => array( "text/turtle" ), "vcf" => array( "text/vcard" ), "vcard" => array( "text/vcard" ), "jad" => array( "text/vnd.sun.j2me.app-descriptor" ), "wml" => array( "text/vnd.wap.wml" ), "wmls" => array( "text/vnd.wap.wmlscript" ), "bib" => array( "text/x-bibtex" ), "boo" => array( "text/x-boo" ), "h++" => array( "text/x-c++hdr" ), "hpp" => array( "text/x-c++hdr" ), "hxx" => array( "text/x-c++hdr" ), "hh" => array( "text/x-c++hdr" ), "c++" => array( "text/x-c++src" ), "cpp" => array( "text/x-c++src" ), "cxx" => array( "text/x-c++src" ), "cc" => array( "text/x-c++src" ), "h" => array( "text/x-chdr" ), "htc" => array( "text/x-component" ), "c" => array( "text/x-csrc" ), "d" => array( "text/x-dsrc" ), "diff" => array( "text/x-diff" ), "patch" => array( "text/x-diff" ), "hs" => array( "text/x-haskell" ), "java" => array( "text/x-java" ), "ly" => array( "text/x-lilypond" ), "lhs" => array( "text/x-literate-haskell" ), "moc" => array( "text/x-moc" ), "p" => array( "text/x-pascal" ), "pas" => array( "text/x-pascal" ), "gcd" => array( "text/x-pcs-gcd" ), "pl" => array( "text/x-perl" ), "pm" => array( "text/x-perl" ), "py" => array( "text/x-python" ), "scala" => array( "text/x-scala" ), "etx" => array( "text/x-setext" ), "sfv" => array( "text/x-sfv" ), "tk" => array( "text/x-tcl" ), "tex" => array( "text/x-tex" ), "ltx" => array( "text/x-tex" ), "sty" => array( "text/x-tex" ), "cls" => array( "text/x-tex" ), "vcs" => array( "text/x-vcalendar" ), "3gp" => array( "video/3gpp" ), "axv" => array( "video/annodex" ), "dl" => array( "video/dl" ), "dif" => array( "video/dv" ), "dv" => array( "video/dv" ), "fli" => array( "video/fli" ), "gl" => array( "video/gl" ), "mpeg" => array( "video/mpeg" ), "mpg" => array( "video/mpeg" ), "mpe" => array( "video/mpeg" ), "ts" => array( "video/mp2t" ), "mp4" => array( "video/mp4" ), "qt" => array( "video/quicktime" ), "mov" => array( "video/quicktime" ), "ogv" => array( "video/ogg" ), "webm" => array( "video/webm" ), "mxu" => array( "video/vnd.mpegurl" ), "flv" => array( "video/x-flv" ), "lsf" => array( "video/x-la-asf" ), "lsx" => array( "video/x-la-asf" ), "mng" => array( "video/x-mng" ), "asf" => array( "video/x-ms-asf" ), "asx" => array( "video/x-ms-asf" ), "wm" => array( "video/x-ms-wm" ), "wmv" => array( "video/x-ms-wmv" ), "wmx" => array( "video/x-ms-wmx" ), "wvx" => array( "video/x-ms-wvx" ), "avi" => array( "video/x-msvideo" ), "movie" => array( "video/x-sgi-movie" ), "mpv" => array( "video/x-matroska" ), "mkv" => array( "video/x-matroska" ), "ice" => array( "x-conference/x-cooltalk" ), "sisx" => array( "x-epoc/x-sisx-app" ), "vrm" => array( "x-world/x-vrml" ) );
+	
+	/**
+	 * Customize List of Extensions' Mime Types.
+	 *
+	 * This filter allows custom actions to modify the list of extensions' mime
+	 * types.
+	 *
+	 * @since 4.24.9
+	 *
+	 * @param array $list An array of extensions' mime types.
+	 */
+	$list = apply_filters( "_wfu_extensions_mime_types", $list );
+	
+	return $list;
+}
+
+/**
  *  Checks if file extension is whitelisted
  *  
  *  This function will check if the extension of the file is included in the
@@ -49,10 +77,151 @@ function wfu_file_extension_blacklisted($filename) {
  */
 function wfu_file_extension_whitelisted($filename) {
 	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
-	$whitelist = array( "1st" => 1, "264" => 1, "3g2" => 1, "3ga" => 1, "3gp" => 1, "aac" => 1, "abw" => 1, "ai" => 1, "aiff" => 1, "amr" => 1, "ape" => 1, "arf" => 1, "asf" => 1, "asx" => 1, "avi" => 1, "aww" => 1, "bik" => 1, "bmp" => 1, "cda" => 1, "cdr" => 1, "csv" => 1, "dash" => 1, "dat" => 1, "dds" => 1, "dib" => 1, "djvu" => 1, "dng" => 1, "doc" => 1, "docx" => 1, "drw" => 1, "dt2" => 1, "dvf" => 1, "dvr" => 1, "emf" => 1, "emz" => 1, "eng" => 1, "epub" => 1, "file" => 1, "flac" => 1, "gif" => 1, "gp4" => 1, "gp5" => 1, "gpx" => 1, "h264" => 1, "ind" => 1, "indd" => 1, "jpeg" => 1, "jpg" => 1, "key" => 1, "log" => 1, "logic" => 1, "lrc" => 1, "m2t" => 1, "m2ts" => 1, "m4a" => 1, "m4b" => 1, "m4p" => 1, "m4v" => 1, "midi" => 1, "mkv" => 1, "mov" => 1, "mp3" => 1, "mp4" => 1, "mpeg" => 1, "mpg" => 1, "mpp" => 1, "mpt" => 1, "mts" => 1, "nfo" => 1, "odf" => 1, "odg" => 1, "ods" => 1, "odt" => 1, "ogg" => 1, "ogv" => 1, "ott" => 1, "oxps" => 1, "pages" => 1, "pcm" => 1, "pdf" => 1, "pic" => 1, "plist" => 1, "pmd" => 1, "png" => 1, "pot" => 1, "potx" => 1, "pps" => 1, "ppsx" => 1, "ppt" => 1, "pptx" => 1, "prn" => 1, "ps" => 1, "psd" => 1, "psdx" => 1, "pts" => 1, "pub" => 1, "pwi" => 1, "raw" => 1, "rec" => 1, "rep" => 1, "rmvb" => 1, "rtf" => 1, "sdd" => 1, "sdw" => 1, "snd" => 1, "sng" => 1, "snp" => 1, "sub" => 1, "sxw" => 1, "tbl" => 1, "tga" => 1, "tif" => 1, "tiff" => 1, "tod" => 1, "tp" => 1, "ts" => 1, "txt" => 1, "uax" => 1, "vob" => 1, "vsd" => 1, "wav" => 1, "wbmp" => 1, "wdp" => 1, "wlmp" => 1, "wma" => 1, "wmv" => 1, "wpd" => 1, "wpl" => 1, "wps" => 1, "wri" => 1, "xls" => 1, "xlsx" => 1, "xps" => 1, "zab" => 1 );
+	//$whitelist = array( "1st" => 1, "264" => 1, "3g2" => 1, "3ga" => 1, "3gp" => 1, "aac" => 1, "abw" => 1, "ai" => 1, "aiff" => 1, "amr" => 1, "ape" => 1, "arf" => 1, "asf" => 1, "asx" => 1, "avi" => 1, "aww" => 1, "bik" => 1, "bmp" => 1, "cda" => 1, "cdr" => 1, "csv" => 1, "dash" => 1, "dat" => 1, "dds" => 1, "dib" => 1, "djvu" => 1, "dng" => 1, "doc" => 1, "docx" => 1, "drw" => 1, "dt2" => 1, "dvf" => 1, "dvr" => 1, "emf" => 1, "emz" => 1, "eng" => 1, "epub" => 1, "file" => 1, "flac" => 1, "gif" => 1, "gp4" => 1, "gp5" => 1, "gpx" => 1, "h264" => 1, "ind" => 1, "indd" => 1, "jpeg" => 1, "jpg" => 1, "key" => 1, "log" => 1, "logic" => 1, "lrc" => 1, "m2t" => 1, "m2ts" => 1, "m4a" => 1, "m4b" => 1, "m4p" => 1, "m4v" => 1, "midi" => 1, "mkv" => 1, "mov" => 1, "mp3" => 1, "mp4" => 1, "mpeg" => 1, "mpg" => 1, "mpp" => 1, "mpt" => 1, "mts" => 1, "nfo" => 1, "odf" => 1, "odg" => 1, "ods" => 1, "odt" => 1, "ogg" => 1, "ogv" => 1, "ott" => 1, "oxps" => 1, "pages" => 1, "pcm" => 1, "pdf" => 1, "pic" => 1, "plist" => 1, "pmd" => 1, "png" => 1, "pot" => 1, "potx" => 1, "pps" => 1, "ppsx" => 1, "ppt" => 1, "pptx" => 1, "prn" => 1, "ps" => 1, "psd" => 1, "psdx" => 1, "pts" => 1, "pub" => 1, "pwi" => 1, "raw" => 1, "rec" => 1, "rep" => 1, "rmvb" => 1, "rtf" => 1, "sdd" => 1, "sdw" => 1, "snd" => 1, "sng" => 1, "snp" => 1, "sub" => 1, "sxw" => 1, "tbl" => 1, "tga" => 1, "tif" => 1, "tiff" => 1, "tod" => 1, "tp" => 1, "ts" => 1, "txt" => 1, "uax" => 1, "vob" => 1, "vsd" => 1, "wav" => 1, "wbmp" => 1, "wdp" => 1, "wlmp" => 1, "wma" => 1, "wmv" => 1, "wpd" => 1, "wpl" => 1, "wps" => 1, "wri" => 1, "xls" => 1, "xlsx" => 1, "xps" => 1, "zab" => 1 );
+	$whitelist = array( "3gp" => 1, "abw" => 1, "ai" => 1, "aiff" => 1, "amr" => 1, "asf" => 1, "asx" => 1, "avi" => 1, "bmp" => 1, "cda" => 1, "cdr" => 1, "csv" => 1, "djvu" => 1, "doc" => 1, "docx" => 1, "epub" => 1, "flac" => 1, "gif" => 1, "jpeg" => 1, "jpg" => 1, "key" => 1, "m4a" => 1, "midi" => 1, "mkv" => 1, "mov" => 1, "mp3" => 1, "mp4" => 1, "mpeg" => 1, "mpg" => 1, "odf" => 1, "odg" => 1, "ods" => 1, "odt" => 1, "ogg" => 1, "ogv" => 1, "ott" => 1, "pdf" => 1, "png" => 1, "pot" => 1, "potx" => 1, "pps" => 1, "ppsx" => 1, "ppt" => 1, "pptx" => 1, "ps" => 1, "psd" => 1, "rtf" => 1, "sdd" => 1, "sdw" => 1, "snd" => 1, "sxw" => 1, "tif" => 1, "tiff" => 1, "ts" => 1, "txt" => 1, "vsd" => 1, "wav" => 1, "wbmp" => 1, "wma" => 1, "wmv" => 1, "wpd" => 1, "xls" => 1, "xlsx" => 1 );
 	//extract and check extension from filename
 	$ext = wfu_fileext($filename);
 	return isset($whitelist[$ext]);
+}
+
+/**
+ * Validate MIME Type of File.
+ *
+ * This function validates the MIME type of a file.
+ *
+ * @since 4.24.9
+ *
+ * @param string $filepath The path to the file.
+ *
+ * @return bool True if validation passes, false otherwise.
+ */
+function wfu_validate_mime_type($filepath, &$result) {
+	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
+	// Mime type validation exceptions:
+	//  A: pass files having no mime type
+	//  B: pass files having no extension
+	//  C: pass files having an extension with no associated mime types
+	//  D: pass files having a non-matching mime type
+	// By default no exceptions are allowed.
+	$exceptions = WFU_VAR("WFU_MIMETYPE_VAL_EXCEPTIONS");
+	$mime_type = wfu_mime_type_of_file($filepath);
+	// check if mime type of file exists
+	if ( $mime_type === null ) {
+		$result = "A";
+		return ( strpos($exceptions, "A") !== false );
+	}
+	$mime_type = strtolower($mime_type);
+	$mime_types = wfu_extensions_mime_types();
+	$ext = wfu_basename(wfu_fileext($filepath));
+	// check if file has an extension
+	if ( empty($ext) ) {
+		$result = "B";
+		return ( strpos($exceptions, "B") !== false );
+	}
+	// check if file extension has any associated mime types
+	if ( !isset($mime_types[$ext]) ) {
+		$result = "C";
+		return ( strpos($exceptions, "C") !== false );
+	}
+	// check if file mime type matches its extension's associated mime types
+	if ( !in_array( $mime_type, $mime_types[$ext] ) ) {
+		$result = "D:".$mime_type;
+		return ( strpos($exceptions, "D") !== false );
+	}
+	
+	return true;
+}
+
+/**
+ * Post-Load File Security Checks.
+ *
+ * This function runs security checks on an uploaded file after it has been
+ * fully loaded. For the moment it only performs MIME type check.
+ *
+ * @since 4.24.9
+ *
+ * @param string $filepath The path to the file.
+ *
+ * @return bool|string True if file passes security checks, otherwise an admin
+ *         error message.
+ */
+function wfu_post_load_security_checks($filepath) {
+	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
+	// perform MIME type check
+	$mime_check_result = "";
+	if ( !wfu_validate_mime_type($filepath, $mime_check_result) ) {
+		$code = substr($mime_check_result, 0, 1);
+		if ( $code === "A" ) return WFU_ERROR_ADMIN_FILE_NOMIME;
+		elseif ( $code === "B" ) return WFU_ERROR_ADMIN_FILE_NOEXT;
+		elseif ( $code === "C" ) return WFU_ERROR_ADMIN_FILE_NOASSOCMIME;
+		elseif ( $code === "D" ) return WFU_ERROR_ADMIN_FILE_INVALIDMIME.substr($mime_check_result, 2);
+		else return WFU_ERROR_ADMIN_FILE_MIMEUKNOWN;
+	}
+	// perform file content scan for scripts and suspicious patterns
+	$content_check = wfu_security_filecontent_checks($filepath);
+	if ( $content_check !== true ) {
+		return $content_check;
+	}
+	
+	return true;
+}
+
+/**
+ * During-Upload File Security Checks.
+ *
+ * This function runs security checks on a partially uploaded file. For the
+ * moment it performs no checks, but it exists for future compatibility.
+ *
+ * @since 4.24.9
+ *
+ * @redeclarable
+ *
+ * @param string $filepath The path to the file.
+ * @param string $filename The filename of the uploaded file.
+ *
+ * @return bool|string True if file passes security checks, otherwise an admin
+ *         error message.
+ */
+function wfu_during_upload_security_checks($filepath, $filename) {
+	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
+	// check contents
+	return true;
+}
+
+/**
+ * File COntent Security Checks.
+ *
+ * This function runs security checks on the contents of a file. It determines
+ * which patterns to include in the check and then it performs the scan.
+ *
+ * @since 4.24.9
+ *
+ * @redeclarable
+ *
+ * @param string $filepath The path to the file.
+ *
+ * @return bool|string True if file passes security checks, otherwise an admin
+ *         error message.
+ */
+function wfu_security_filecontent_checks($filepath) {
+	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
+	$patterns = array();
+	// determine script patterns to be included in scan
+	$script_pattern = wfu_content_scan_script_pattern($filepath);
+	if ( !empty($script_pattern) ) $patterns['script'] = $script_pattern;
+	// determine heuristic patterns to be included in scan
+	$heuristic_pattern = wfu_content_scan_heuristic_pattern($filepath);
+	if ( !empty($heuristic_pattern) ) $patterns['heuristic'] = $heuristic_pattern;
+	if ( count($patterns) === 0 ) return true;
+	// perform the scan and analyze results
+	$res = wfu_scan_file_contents($filepath, $patterns, intval(WFU_VAR("WFU_FILESCAN_OVERLAPSIZE")));
+	if ( $res === null ) return WFU_ERROR_ADMIN_FILE_NOREADCONTENTS;
+	elseif ( $res !== false ) {
+		if ( $res === 'heuristic' ) return WFU_ERROR_ADMIN_FILE_HASHEURISTIC;
+		else return WFU_ERROR_ADMIN_FILE_HASSCRIPTTAGS;
+	}
+	
+	return true;
 }
 
 /**
@@ -204,10 +373,88 @@ function wfu_file_has_php_tags($file, $ext) {
 	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
 	if ( WFU_VAR("WFU_CHECKPHPTAGS_FILETYPES") == "none" ) return false;
 	if ( WFU_VAR("WFU_CHECKPHPTAGS_FILETYPES") != "commonimages" || wfu_file_extension_is_common_image($ext) ) {
-		if ( ($data = wfu_file_get_contents($file, "wfu_file_has_php_tags")) === false ) return true;
-		return preg_match('/<\?(php)/i', $data);
+		//if ( ($data = wfu_file_get_contents($file, "wfu_file_has_php_tags")) === false ) return true;
+		//$res = preg_match('/<\?(php)/i', $data);
+		$res = wfu_scan_file_contents($file, array( '/<\?(php)/i' ), 100);
+		return $res;
 	}
 	return false;
+}
+
+/**
+ * Determine Content Scan Script Pattern
+ *  
+ * This function determines which script patterns to include in file content
+ * scan, depending on mime type and extension of the file.
+ *
+ * @since 4.24.9
+ *
+ * @param string $filepath The path of the file.
+ *  
+ * @return string The script pattern.
+ */
+function wfu_content_scan_script_pattern($filepath) {
+	$mime = wfu_mime_type_of_file($filepath);
+	$ext = strtolower(wfu_fileext(wfu_basename($filepath)));
+	$pattern = "";
+	// on text files seatch for opening PHP or script tags
+	if ( $mime !== null && substr(strtolower($mime), 0, 4) === "text" ) {
+		$pattern = '/<\?php|<script|<\?=/i';
+	}
+	elseif ( WFU_VAR("WFU_CHECKPHPTAGS_FILETYPES") !== "none" && ( WFU_VAR("WFU_CHECKPHPTAGS_FILETYPES") !== "commonimages" || wfu_file_extension_is_common_image($ext) ) ) {
+		$pattern = '/<\?(php)/i';
+	}
+	/**
+	 * Customize Scan Script Pattern.
+	 *
+	 * This filter allows custom actions to modify the scan script pattern.
+	 *
+	 * @since 4.24.9
+	 *
+	 * @param string $pattern The initial scan script pattern.
+	 * @param string $filepath The path of the file.
+     * @param string $mime The MIME type of the file.
+     * @param string $ext The file extension.
+	 */
+	$pattern = apply_filters( "_wfu_content_scan_script_pattern", $pattern, $filepath, $mime, $ext );
+	return $pattern;
+}
+
+/**
+ * Determine Content Scan Heuristic Pattern
+ *  
+ * This function determines which heuristic patterns to include in file content
+ * scan, depending on mime type and extension of the file.
+ *
+ * @since 4.24.9
+ *
+ * @param string $filepath The path of the file.
+ *  
+ * @return string The script pattern.
+ */
+function wfu_content_scan_heuristic_pattern($filepath) {
+	$mime = wfu_mime_type_of_file($filepath);
+	$ext = strtolower(wfu_fileext(wfu_basename($filepath)));
+	$pattern = "";
+	// on text files seatch for eval(), base64_decode() and shell_exec()
+	// provided that the security level is higher that zero
+	if ( intval(WFU_VAR("WFU_FILESCAN_SECURITY_LEVEL")) > 0 && $mime !== null && substr(strtolower($mime), 0, 4) === "text" ) {
+		$pattern = '/eval\(|base64_decode\(|shell_exec\(/i';
+	}
+	/**
+	 * Customize Scan Heuristic Pattern.
+	 *
+	 * This filter allows custom actions to modify the scan heuristic pattern.
+	 *
+	 * @since 4.24.9
+	 *
+	 * @param string $pattern The initial scan heuristic pattern.
+	 * @param string $filepath The path of the file.
+     * @param string $mime The MIME type of the file.
+     * @param string $ext The file extension.
+	 */
+	$pattern = apply_filters( "_wfu_content_scan_heuristic_pattern", $pattern, $filepath, $mime, $ext );
+	return $pattern;
 }
 
 /**

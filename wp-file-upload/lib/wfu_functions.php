@@ -3086,6 +3086,117 @@ function wfu_file_get_contents($path, $caller = null) {
 }
 
 /**
+ * Get File First and Last Parts.
+ *
+ * This function gets the first and last parts of a file. It is fast because it
+ * uses fopen and fseek.
+ *
+ * @since 4.24.9
+ *
+ * @redeclarable
+ *
+ * @param string $path The file path.
+ * @param int $len The number of characters to read.
+ *
+ * @return array|null An associative array containing the first and last parts
+ *         of the file on success, or null on failure.
+ */
+function get_file_firstlast_parts($path, $len) {
+	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
+	$ret = array( "first" => "", "last" => "" );
+	// try to read contents using fopen
+	$handle = fopen($path, 'r');
+	$success = true;
+	if ( $handle ) {
+		$part = fread($handle, $len);
+		if ( $part === false ) $success = false;
+		else $ret["first"] = $part;
+		if ( $success ) {
+			if ( fseek($handle, - $len, SEEK_END) === 0 ) {
+				$part = fread($handle, $len);
+				if ( $part === false ) $success = false;
+				else $ret["last"] = $part;
+			}
+			else $success = false;
+		}
+		fclose($handle);
+	}
+	// if fopen failed then try to read contents using file_get_contents()
+	if ( !$success ) {
+		$contents = @file_get_contents($path);
+		if ( $contents === false ) $ret = null;
+		else {
+			$ret["first"] = substr($contents, 0, $len);
+			$ret["last"] = substr($contents, - $len);
+		}
+	}
+	return $ret;
+}
+
+/**
+ * Scan File Contents.
+ *
+ * This function scans file contents to detect if they contain specific
+ * REGEX patterns. Big files are scanned in chunks to avoid memory overflows.
+ * The chunks overlap in order to include edge cases where the patterns are
+ * located between the chunks.
+ *
+ * @since 4.24.9
+ *
+ * @param string $path The file path.
+ * @param array $patterns An array of REGEX patterns to scan.
+ * @param int $overlap_size Optional. Allow chunks to overlap in order to avoid
+ *        missing matched patterns that lie in the boundaries between chunks.
+ *
+ * @return string|bool|null It returns the key of the matched pattern if any of
+ *         the patterns was found in file contents, false if no match is found,
+ *         null if file contents could not be read.
+ */
+function wfu_scan_file_contents($path, $patterns, $overlap_size = 0) {
+	$scan_contents = function($contents) use($patterns) {
+		$matched = false;
+		foreach ( $patterns as $key => $pattern ) {
+			if ( preg_match( $pattern, $contents ) ) {
+				$matched = $key;
+				break;
+			}
+		}
+		return $matched;
+	};
+	$buffer_size = intval(WFU_VAR("WFU_FILESCAN_BUFFERSIZE"));
+	if ( $buffer_size === -1 ) {
+		$contents = @file_get_contents($path);
+		if ( $contents === false ) return null;
+		$res = $scan_contents($contents);
+		return $res;
+	}
+	else {
+		$handle = @fopen($path, 'r');
+		$matched = false;
+		if ( $handle ) {
+			$overlap = "";
+			while ( !feof($handle) ) {
+				$chunk = fread($handle, $buffer_size);
+				if ( $chunk === false ) {
+					fclose($handle);
+					return null;
+				}
+				$chunk = $overlap.$chunk;
+				$res = $scan_contents($chunk);
+				if ( $res !== false ) {
+					$matched = $res;
+					break;
+				}
+				$overlap = ( $overlap_size > 0 ? substr($chunk, - $overlap_size) : "" );
+			}
+			fclose($handle);
+			return $matched;
+		}
+		else return null;
+	}
+}
+
+/**
  * Get MD5 of File.
  *
  * This function gets the md5 signature of a file. It is an extension to the
@@ -3175,6 +3286,31 @@ function wfu_unlink($path, $caller = null) {
  * Get MIME Type of File.
  *
  * This function gets MIME type of a file, using mime_content_type() function if
+ * exists, otherwise it uses finfo_open().
+ *
+ * @since 4.24.9
+ *
+ * @param string $path The path to the file.
+ *
+ * @return string|null The MIME type of the file or null if not found.
+ */
+function wfu_mime_type_of_file($path) {
+	$mimetype = null;
+	if ( function_exists('mime_content_type') ) { 
+		$mimetype = mime_content_type($path);
+	}
+	elseif ( function_exists('finfo_open') ) { 
+		$finfo = finfo_open(FILEINFO_MIME_TYPE); 
+		$mimetype = finfo_file($finfo, $path); 
+		finfo_close($finfo); 
+	}
+	return $mimetype;
+}
+
+/**
+ * Get MIME Type of File Extended.
+ *
+ * This function gets MIME type of a file, using mime_content_type() function if
  * exists, otherwise it uses finfo_open(). If none of them exist it returns a
  * MIME type based on file extension.
  *
@@ -3185,15 +3321,9 @@ function wfu_unlink($path, $caller = null) {
  * @return string The MIME type.
  */
 function wfu_mime_content_type($path) {
-	if ( function_exists('mime_content_type') ) { 
-		$mimetype = mime_content_type($path); 
+	$mimetype = wfu_mime_type_of_file($path);
+	if ( $mimetype !== null ) { 
 		return $mimetype;
-	}
-	elseif ( function_exists('finfo_open') ) { 
-		$finfo = finfo_open(FILEINFO_MIME_TYPE); 
-		$mimetype = finfo_file($finfo, $path); 
-		finfo_close($finfo); 
-		return $mimetype; 
 	}
 	else {
 		$mime_types = array(

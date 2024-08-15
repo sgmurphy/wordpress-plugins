@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-08-08T19:50:55",
+  "timestamp": "2024-08-15T17:38:57",
   "compiler": {
     "name": "node",
     "version": "16.20.2"
@@ -2695,6 +2695,8 @@
           "./dist/surecart/p-38a11668.js.map",
           "./dist/surecart/p-3a6d77cf.js",
           "./dist/surecart/p-3a6d77cf.js.map",
+          "./dist/surecart/p-3cfbe6d4.entry.js",
+          "./dist/surecart/p-3cfbe6d4.entry.js.map",
           "./dist/surecart/p-3f50039d.entry.js",
           "./dist/surecart/p-3f50039d.entry.js.map",
           "./dist/surecart/p-413fb1fc.entry.js",
@@ -2781,8 +2783,6 @@
           "./dist/surecart/p-77372ea2.entry.js.map",
           "./dist/surecart/p-77d4241d.entry.js",
           "./dist/surecart/p-77d4241d.entry.js.map",
-          "./dist/surecart/p-78d387e8.entry.js",
-          "./dist/surecart/p-78d387e8.entry.js.map",
           "./dist/surecart/p-7940f57d.entry.js",
           "./dist/surecart/p-7940f57d.entry.js.map",
           "./dist/surecart/p-79bcd210.entry.js",
@@ -3131,6 +3131,8 @@
           "./www/build/p-38a11668.js.map",
           "./www/build/p-3a6d77cf.js",
           "./www/build/p-3a6d77cf.js.map",
+          "./www/build/p-3cfbe6d4.entry.js",
+          "./www/build/p-3cfbe6d4.entry.js.map",
           "./www/build/p-3f50039d.entry.js",
           "./www/build/p-3f50039d.entry.js.map",
           "./www/build/p-413fb1fc.entry.js",
@@ -3217,8 +3219,6 @@
           "./www/build/p-77372ea2.entry.js.map",
           "./www/build/p-77d4241d.entry.js",
           "./www/build/p-77d4241d.entry.js.map",
-          "./www/build/p-78d387e8.entry.js",
-          "./www/build/p-78d387e8.entry.js.map",
           "./www/build/p-7940f57d.entry.js",
           "./www/build/p-7940f57d.entry.js.map",
           "./www/build/p-79bcd210.entry.js",
@@ -5509,8 +5509,8 @@
           "sc-order-confirm-provider",
           "sc-session-provider"
         ],
-        "bundleId": "p-78d387e8",
-        "fileName": "p-78d387e8.entry.js",
+        "bundleId": "p-3cfbe6d4",
+        "fileName": "p-3cfbe6d4.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-24f06282.js",
@@ -5537,7 +5537,7 @@
           "p-e64f9fcd.js",
           "p-c06b2e12.js"
         ],
-        "originalByteSize": 47509
+        "originalByteSize": 48236
       },
       {
         "key": "sc-fulfillment-shipping-status-badge.entry",
@@ -8426,7 +8426,7 @@
           "address-8d75115e.js",
           "util-64ee5262.js"
         ],
-        "originalByteSize": 47659
+        "originalByteSize": 48386
       },
       {
         "key": "sc-fulfillment-shipping-status-badge.entry",
@@ -11317,7 +11317,7 @@
           "address-07819c5b.js",
           "util-efd68af1.js"
         ],
-        "originalByteSize": 49677
+        "originalByteSize": 50428
       },
       {
         "key": "sc-fulfillment-shipping-status-badge.entry",

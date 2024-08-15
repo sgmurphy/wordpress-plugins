@@ -524,7 +524,7 @@ $spamcounter = maspik_spam_count();
                         if(maspik_if_plugin_is_active($key)){
                           $class = $value ? "pro" : "free";
 
-                          $class.= efas_if_plugin_is_affective($key, 0) ? ' enabled' : ' disabled';
+                          $class.= efas_if_plugin_is_affective($key) ? ' enabled' : ' disabled';
 
                           $value = $value ? " <span>($value)</span>" : "";
                           echo  "<li class='form-opt-toggle $class'>$key $value</li>";

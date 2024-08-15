@@ -314,6 +314,9 @@ class CCBSettingsData {
 			'backup_settings' => array(
 				'auto_backup' => false,
 			),
+			'ai'              => array(
+				'gpt_api_key' => '',
+			),
 			'recaptcha'       => array(
 				'use_in_all' => false,
 				'enable'     => false,
@@ -490,6 +493,13 @@ class CCBSettingsData {
 				'title' => __( 'Backup Settings', 'cost-calculator-builder' ),
 				'slug'  => 'backup-settings',
 				'icon'  => 'ccb-icon-History',
+			),
+
+			array(
+				'type'  => 'pro',
+				'title' => __( 'AI Formula', 'cost-calculator-builder' ),
+				'slug'  => 'ai',
+				'icon'  => 'ccb-icon-AI',
 			),
 
 			array(

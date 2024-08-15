@@ -1228,7 +1228,7 @@ function efas_array_supports_plugin(){
     'Bricks' => 0,
     'Ninjaforms'=> 0,
     'Jetforms'=> 0,
-    'Everstforms'=> 0,
+    'Everestforms'=> 0,
     'Woocommerce Review' => $info,
     'Woocommerce Registration' => $info,
     'Wpforms' => $info,
@@ -1281,7 +1281,7 @@ function maspik_if_plugin_is_active($plugin){
         return efas_if_plugin_is_active('ninjaforms') ;
     }else if($plugin == 'Jetforms'){
         return efas_if_plugin_is_active('jetforms') ;
-    }else if($plugin == 'Everstforms'){
+    }else if($plugin == 'Everestforms'){
         return efas_if_plugin_is_active('everestforms') ;
     }else if($plugin == 'Wordpress Comments'){
       return 1;
@@ -1318,6 +1318,8 @@ function efas_if_plugin_is_affective($plugin , $status = "no"){
       return efas_if_plugin_is_active('Wordpress Registration') && maspik_get_settings( "maspik_support_registration", 'form-toggle' ) != $status ;
     }else if($plugin == 'Ninjaforms'){
         return efas_if_plugin_is_active('ninjaforms') && maspik_get_settings( "maspik_support_ninjaforms", 'form-toggle' ) != $status ;
+    }else if($plugin == 'Jetforms'){
+        return efas_if_plugin_is_active('jetforms') && maspik_get_settings( "maspik_support_jetforms", 'form-toggle' ) != $status ;
     }else if($plugin == 'Everestforms'){
         return efas_if_plugin_is_active('everestforms') && maspik_get_settings( "maspik_support_everestforms", 'form-toggle' ) != $status ;
     }else if($plugin == 'Wordpress Comments'){

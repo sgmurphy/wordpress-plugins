@@ -1,100 +1,118 @@
 <?php
-
-/*
- Plugin Name: WC Hide Shipping Methods
- Plugin URI: https://profiles.wordpress.org/rynald0s
- Description: This plugin automatically hides all other shipping methods when "Free shipping" is available during checkout. It also includes an option to keep "local pickup" available, alongside "frees shipping"
- Author: Rynaldo Stoltz
- Author URI: http://rynaldo.com
- Version: 1.5
- License: GPLv3 or later License
- URI: http://www.gnu.org/licenses/gpl-3.0.html
+/**
+ * Plugin Name: Hide Shipping Methods for WooCommerce
+ * Plugin URI: https://wordpress.org/plugins/wc-hide-shipping-methods/
+ * Documentation URI: https://woocommerce.com/document/hide-shipping-methods/
+ * Description: Hides other shipping methods when "Free shipping" is available.
+ * Author: Rynaldo Stoltz
+ * Author URI: https://profiles.wordpress.org/rynald0s/
+ * Version: 1.6
+ * Text Domain: wc-hide-shipping-methods
+ * Domain Path: /languages
+ * License: GPLv3 or later License
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * WC requires at least: 3.9.4
+ * WC tested up to: 8.1
+ * Requires at least: 6.5
+ * Requires PHP: 7.4
+ *
+ * @package WC_Hide_Shipping_Methods
  */
 
-if ( ! defined( 'ABSPATH' ) ) { 
-    exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
 }
 
 /**
  * Check if WooCommerce is active
- **/
-
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+ */
+if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+	return;
+}
 
 /**
- * Add settings
+ * Add settings for hiding shipping methods.
+ *
+ * @param array $settings WooCommerce shipping settings.
+ * @return array Updated WooCommerce shipping settings.
  */
+function wchfsm_add_settings( $settings ) {
 
-add_filter( 'woocommerce_get_settings_shipping','rs_woo_account_settings', 10, 2 );
-function rs_woo_account_settings( $settings ) {
-    
-    /**
-     * Check the current section is what we want
-     **/
+	$settings[] = array(
+		'title' => __( 'Shipping Method Visibility', 'wc-hide-shipping-methods' ),
+		'type'  => 'title',
+		'id'    => 'wc_hide_shipping',
+	);
 
-        $settings[] = array( 'title' => __( 'Hide shipping methods', 'woocommerce' ), 'type' => 'title', 'id' => 'wc_hide_shipping' );
+	$settings[] = array(
+		'title'    => __( 'Free Shipping: ', 'wc-hide-shipping-methods' ),
+		'desc'     => '',
+		'id'       => 'wc_hide_shipping_options',
+		'type'     => 'radio',
+		'desc_tip' => true,
+		'options'  => array(
+			'hide_all'          => __( 'Show "Free Shipping" only. Hide all the other methods', 'wc-hide-shipping-methods' ),
+			'hide_except_local' => __( 'Show "Free Shipping" and "Local Pickup" only (if available). Hide all the other methods.', 'wc-hide-shipping-methods' ),
+		),
+	);
 
+	$settings[] = array(
+		'type' => 'sectionend',
+		'id'   => 'wc_hide_shipping',
+	);
+	return $settings;
+}
+add_filter( 'woocommerce_get_settings_shipping', 'wchfsm_add_settings', 10, 2 );
 
-        $settings[] = array(
-                'title'    => __( 'When "Free Shipping" is available during checkout: ', 'woocommerce' ),
-                'desc'     => __( '', 'woocommerce' ),
-                'id'       => 'wc_hide_shipping_options',
-                'type'     => 'radio',
-                'desc_tip' => true,
-                'options'  => array( 'hide_all' => 'Hide all other shipping methods and only show "Free Shipping"', 'hide_except_local' => 'Hide all other shipping methods and only show "Free Shipping" and "Local Pickup" ' ),
-            );
+// Handle hiding shipping methods based on the selected option.
+$hide_shipping_option = get_option( 'wc_hide_shipping_options' );
 
-        $settings[] = array( 'type' => 'sectionend', 'id' => 'wc_hide_shipping' );
-        return $settings;
+if ( 'hide_all' === $hide_shipping_option ) {
 
+	/**
+	 * Hide all other shipping methods when free shipping is available.
+	 *
+	 * @param array $rates Array of available shipping rates.
+	 * @return array Filtered array of shipping rates.
+	 */
+	function wchfsm_hide_all_methods( $rates ) {
+		$free = array_filter(
+			$rates,
+			function ( $rate ) {
+				return 'free_shipping' === $rate->method_id;
+			}
+		);
+
+		return ! empty( $free ) ? $free : $rates;
+	}
+	add_filter( 'woocommerce_package_rates', 'wchfsm_hide_all_methods', 10, 2 );
+
+} elseif ( 'hide_except_local' === $hide_shipping_option ) {
+
+	/**
+	 * Hide all other shipping methods except Local Pickup when free shipping is available.
+	 *
+	 * @param array $rates Array of available shipping rates.
+	 * @param array $package The package array being shipped.
+	 * @return array Filtered array of shipping rates.
+	 */
+	function wchfsm_hide_except_local( $rates, $package ) { // phpcs:ignore -- The $package parameter is retained for potential future use.
+		$new_rates = array_filter(
+			$rates,
+			function ( $rate ) {
+				return 'free_shipping' === $rate->method_id || 'local_pickup' === $rate->method_id;
+			}
+		);
+
+		return ! empty( $new_rates ) ? $new_rates : $rates;
+	}
+	add_filter( 'woocommerce_package_rates', 'wchfsm_hide_except_local', 10, 2 );
 }
 
-if ( get_option( 'wc_hide_shipping_options' ) == 'hide_all' ) {
-
-add_filter( 'woocommerce_package_rates', 'wc_hide_shipping_when_free_is_available', 10, 2 ); 
-
-function wc_hide_shipping_when_free_is_available( $rates ) {
-    $free = array();
-    foreach ( $rates as $rate_id => $rate ) {
-        if ( 'free_shipping' === $rate -> method_id ) {
-            $free[$rate_id] = $rate;
-            break;
-        }
-    }
-    return !empty( $free ) ? $free : $rates;
-    }
+/**
+ * Update the default option when the plugin is activated.
+ */
+function wchfsm_set_default_option() {
+	update_option( 'wc_hide_shipping_options', 'hide_all' );
 }
-
-if ( get_option( 'wc_hide_shipping_options') == 'hide_except_local' ) {
-
-add_filter( 'woocommerce_package_rates', 'wc_hide_shipping_when_free_is_available_keep_local', 10, 2 ); 
-
-function wc_hide_shipping_when_free_is_available_keep_local( $rates, $package ) {
-    $new_rates = array();
-    foreach ( $rates as $rate_id => $rate ) {
-        if ( 'free_shipping' === $rate -> method_id ) {
-            $new_rates[ $rate_id ] = $rate;
-            break;
-        }
-    }
-
-    if ( ! empty( $new_rates ) ) {
-        foreach ( $rates as $rate_id => $rate ) {
-            if ('local_pickup' === $rate->method_id ) {
-                $new_rates[ $rate_id ] = $rate;
-                break;
-            }
-        }
-        return $new_rates;
-    }
-
-    return $rates;
-              }
-        }
-}
-
-function rs_update_default_option(){
-    update_option( 'wc_hide_shipping_options', 'hide_all' );
-}
-
-register_activation_hook( __FILE__, 'rs_update_default_option' );
+register_activation_hook( __FILE__, 'wchfsm_set_default_option' );

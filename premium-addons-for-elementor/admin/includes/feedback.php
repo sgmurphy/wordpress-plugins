@@ -16,14 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Feedback {
 
-    /**
+	/**
 	 * Class instance
 	 *
 	 * @var instance
 	 */
 	private static $instance = null;
 
-    /**
+	/**
 	 * Constructor for the class
 	 */
 	private function __construct() {
@@ -35,16 +35,16 @@ class Feedback {
 
 	public static function send() {
 
-        $response = [ 'success' => false ];
+		$response = array( 'success' => false );
 
-        $data   = $_POST[ 'data' ];
+		$data = $_POST['data'];
 
-        if ( isset( $data[ 'feedback' ] ) ) {
-            $reason    = $data[ 'feedback' ];
-            $suggestions = isset( $data[ 'suggestions' ] ) ? $data[ 'suggestions' ] : null;
-            $anonymous   = isset( $data[ 'anonymous' ] ) ? !!$data[ 'anonymous' ] : false;
+		if ( isset( $data['feedback'] ) ) {
+			$reason      = $data['feedback'];
+			$suggestions = isset( $data['suggestions'] ) ? $data['suggestions'] : null;
+			$anonymous   = isset( $data['anonymous'] ) ? ! ! $data['anonymous'] : false;
 
-        }
+		}
 
 		if ( ! is_string( $reason ) || empty( $reason ) ) {
 			return false;
@@ -68,38 +68,37 @@ class Feedback {
 			'wordpress' => $wordpress,
 		);
 
-        $api_url = 'https://feedback.premiumaddons.com/wp-json/feedback/v2/add';
+		$api_url = 'https://feedback.premiumaddons.com/wp-json/feedback/v2/add';
 
-        $response = wp_safe_remote_request(
-            $api_url,
-            array(
-                'headers' => array(
-                    'Content-Type'  => 'application/json',
-                ),
-                'body' => wp_json_encode( $body ),
-                'timeout' => 20,
-                'method' => 'POST',
-                'httpversion' => '1.1'
-            )
-        );
+		$response = wp_safe_remote_request(
+			$api_url,
+			array(
+				'headers'     => array(
+					'Content-Type' => 'application/json',
+				),
+				'body'        => wp_json_encode( $body ),
+				'timeout'     => 20,
+				'method'      => 'POST',
+				'httpversion' => '1.1',
+			)
+		);
 
-        if ( is_wp_error( $response ) ) {
-            wp_send_json_error("REQUEST ERR");
+		if ( is_wp_error( $response ) ) {
+			wp_send_json_error( 'REQUEST ERR' );
 
-        }
+		}
 
-        if ( !isset( $response[ 'response' ] ) || !is_array( $response[ 'response' ] ) ) {
-            wp_send_json_error("REQUEST UNKNOWN");
+		if ( ! isset( $response['response'] ) || ! is_array( $response['response'] ) ) {
+			wp_send_json_error( 'REQUEST UNKNOWN' );
 
-        }
+		}
 
-        if ( !isset( $response[ 'body' ] ) ) {
-            wp_send_json_error("REQUEST PAYLOAD EMPTY");
+		if ( ! isset( $response['body'] ) ) {
+			wp_send_json_error( 'REQUEST PAYLOAD EMPTY' );
 
-        }
+		}
 
-        wp_send_json_success( ( $response['body'] ) );
-
+		wp_send_json_success( ( $response['body'] ) );
 	}
 
 	/**
@@ -115,11 +114,11 @@ class Feedback {
 					<div class="close"><i class="dashicons dashicons-no"></i></div>
 					<div class="body">
 						<section class="title-wrap">
-                            <div class="pa-img-wrap">
-                                <img src="<?php echo esc_url( PREMIUM_ADDONS_URL . 'admin/images/pa-logo-symbol.png' ); ?>">
-                            </div>
-                            <?php echo __( 'Sorry to see you go', 'premium-addons-for-elementor' ); ?>
-                        </section>
+							<div class="pa-img-wrap">
+								<img src="<?php echo esc_url( PREMIUM_ADDONS_URL . 'admin/images/pa-logo-symbol.png' ); ?>">
+							</div>
+							<?php echo __( 'Sorry to see you go', 'premium-addons-for-elementor' ); ?>
+						</section>
 						<section class="messages-wrap">
 							<p><?php echo __( 'Would you quickly give us your reason for doing so?', 'premium-addons-for-elementor' ); ?></p>
 						</section>
@@ -131,6 +130,10 @@ class Feedback {
 							<label>
 								<input type="radio" name="feedback" value="setup">
 							<?php echo __( 'Set up is too difficult', 'premium-addons-for-elementor' ); ?>
+							</label>
+							<label>
+								<input type="radio" name="feedback" value="e-issues">
+							<?php echo __( 'Causes issues with Elementor', 'premium-addons-for-elementor' ); ?>
 							</label>
 							<label>
 								<input type="radio" name="feedback" value="documentation">
@@ -155,6 +158,7 @@ class Feedback {
 						</section>
 						<section class="messages-wrap hidden" data-feedback>
 							<p class="hidden" data-feedback="setup"><?php echo __( 'What was the difficult part?', 'premium-addons-for-elementor' ); ?></p>
+							<p class="hidden" data-feedback="e-issues"><?php echo __( 'What was the issue?', 'premium-addons-for-elementor' ); ?></p>
 							<p class="hidden" data-feedback="documentation"><?php echo __( 'What can we describe more?', 'premium-addons-for-elementor' ); ?></p>
 							<p class="hidden" data-feedback="features"><?php echo __( 'How could we improve?', 'premium-addons-for-elementor' ); ?></p>
 							<p class="hidden" data-feedback="better-plugin"><?php echo __( 'Can you mention it?', 'premium-addons-for-elementor' ); ?></p>
@@ -197,6 +201,8 @@ class Feedback {
 				'name'    => $current_plugin['Name'],
 				'version' => $current_plugin['Version'],
 				'author'  => $current_plugin['AuthorName'],
+				'memory'  => 'Memory: ' . size_format( wp_convert_hr_to_bytes( ini_get( 'memory_limit' ) ) ),
+				'time'    => 'Time: ' . ini_get( 'max_execution_time' ),
 			),
 		);
 
@@ -320,11 +326,11 @@ class Feedback {
 		return $return;
 	}
 
-    private static function get_site_domain() {
-        return function_exists( 'parse_url' ) ? parse_url( get_home_url(), PHP_URL_HOST ) : false;
-    }
+	private static function get_site_domain() {
+		return function_exists( 'parse_url' ) ? parse_url( get_home_url(), PHP_URL_HOST ) : false;
+	}
 
-    /**
+	/**
 	 * Creates and returns an instance of the class
 	 *
 	 * @since 3.20.9

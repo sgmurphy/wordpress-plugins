@@ -850,7 +850,7 @@ const ScSessionProvider = class {
   }
   /** Handle a brand new checkout. */
   async handleNewCheckout(promotion_code) {
-    var _a;
+    var _a, _b, _c;
     // get existing form data from defaults (default country selection, etc).
     const data = this.getFormData();
     let line_items = mutations.state.initialLineItems || [];
@@ -877,11 +877,16 @@ const ScSessionProvider = class {
     catch (e) {
       console.error(e);
       this.handleErrorResponse(e);
+      // Handle any invalid coupon set on checkout URL.
+      if (((_c = (_b = e === null || e === void 0 ? void 0 : e.additional_errors) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.code) === 'checkout.discount.coupon.blank') {
+        await this.handleNewCheckout(false);
+        mutations$2.createErrorNotice(e);
+      }
     }
   }
   /** Handle existing checkout */
   async handleExistingCheckout(id, promotion_code) {
-    var _a;
+    var _a, _b, _c;
     if (!id)
       return this.handleNewCheckout(promotion_code);
     console.info('Handling existing checkout.');
@@ -900,6 +905,11 @@ const ScSessionProvider = class {
     catch (e) {
       console.error(e);
       this.handleErrorResponse(e);
+      // Handle any invalid coupon set on checkout URL.
+      if (((_c = (_b = e === null || e === void 0 ? void 0 : e.additional_errors) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.code) === 'checkout.discount.coupon.blank') {
+        await this.handleExistingCheckout(id, false);
+        mutations$2.createErrorNotice(e);
+      }
     }
   }
   /** Handle the error response. */

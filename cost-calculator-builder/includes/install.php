@@ -32,6 +32,7 @@ function ccb_add_admin_nonces() {
 		'ccb_get_discounts'         => wp_create_nonce( 'ccb_get_discounts' ),
 		'ccb_get_preview_discounts' => wp_create_nonce( 'ccb_get_preview_discounts' ),
 		'ccb_save_settings'         => wp_create_nonce( 'ccb_save_settings' ),
+		'ccb_save_ai_api_key'       => wp_create_nonce( 'ccb_save_ai_api_key' ),
 		'ccb_duplicate_calc'        => wp_create_nonce( 'ccb_duplicate_calc' ),
 		'ccb_update_preset_title'   => wp_create_nonce( 'ccb_update_preset_title' ),
 		'ccb_update_preset'         => wp_create_nonce( 'ccb_update_preset' ),
@@ -73,6 +74,7 @@ function ccb_add_admin_nonces() {
 		'ccb_delete_payment'        => wp_create_nonce( 'ccb_delete_payment' ),
 		'ccb_save_pickup_icon'      => wp_create_nonce( 'ccb_save_pickup_icon' ),
 		'ccb_save_marker_icon'      => wp_create_nonce( 'ccb_save_marker_icon' ),
+		'ccb_generate_formula'      => wp_create_nonce( 'ccb_generate_formula' ),
 	);
 
 	echo ( '<script type="text/javascript">window.ccb_nonces = ' . json_encode( $variables ) . ';</script>' ); //phpcs:ignore

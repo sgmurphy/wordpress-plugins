@@ -1000,6 +1000,10 @@ if ( ! class_exists( 'Icegram_Campaign_Admin' ) ) {
 							$message_data['position'] = $message_data['position']['ig_default'];
 						}
 
+						/* Validating custom js field's script */
+						$script_validation = apply_filters( 'ig_validate_custom_script', $message_data['custom_js'] );
+						$message_data['custom_js'] = empty($script_validation) ? $message_data['custom_js'] : '';
+
 						$sanitizing_fields = array( 'bg_color', 'text_color', 'cta_bg_color', 'cta_text_color', 'alt_cta_bg_color', 'alt_cta_text_color', 'form_bg_color', 'form_text_color' );
 						
 						$wpkses_fields_sanitization = array( 'post_title', 'title', 'headline', 'label', 'form_header', 'form_footer', 'response_text', 'alt_label' );
@@ -1033,7 +1037,7 @@ if ( ! class_exists( 'Icegram_Campaign_Admin' ) ) {
 							'post_content' 	=> $message_data['message'],
 							'post_status'	=> 'publish',
 							'post_title'	=> empty( $message_data['post_title'] ) ? $message_data['headline']: sanitize_text_field( $message_data['post_title'] )
-						) );			
+						) );
 					}
 					$_POST = $old_post;
 				}

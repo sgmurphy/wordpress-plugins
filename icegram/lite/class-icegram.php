@@ -66,6 +66,8 @@ if ( ! class_exists( 'Icegram' ) ) {
 
 				add_filter( 'ig_escape_allowed_tags', array( $this, 'ig_add_escape_allowed_tags' ) );
 
+				add_filter('ig_validate_custom_script',  array( &$this, 'ig_custom_script_validation' ));
+
 			} else {
 				add_action( 'wp_footer', array( &$this, 'icegram_load_data' ) );
 			}
@@ -2951,6 +2953,28 @@ if ( ! class_exists( 'Icegram' ) ) {
 			$allowedtags = array_merge_recursive( $context_allowed_tags, $custom_allowed_tags );
 
 			return $allowedtags;
+		}
+
+		/**
+		 * Validating script that remove unwanted attributes in script.
+		 */
+		public function ig_custom_script_validation( $content ) {
+			// Remove any script tags
+			$content = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $content);
+		
+			// Strip any event attributes like onerror, onclick, etc.
+			$content = preg_replace('#(<[^>]+?)(on\w+)(\s*=\s*)([\'"][^\'"]+[\'"]|[^\s>]+)#i', '$1', $content);
+		
+			// Remove any `javascript:` protocol
+			$content = preg_replace('#javascript:#is', '', $content);
+		
+			// Remove any dangerous characters or sequences
+			$content = preg_replace('#[<>\"\']#', '', $content);
+		
+			// Optionally remove or escape other harmful sequences like \"> or </
+			$content = preg_replace('#[\\\]["\']#', '', $content);
+		
+			return $content;
 		}
 
 		/**

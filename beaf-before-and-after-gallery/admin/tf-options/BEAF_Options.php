@@ -61,7 +61,7 @@ if ( ! class_exists( 'BEAF_Options' ) ) {
 			//Shortcodes Class
 			// require_once $this->tf_options_file_path( 'classes/TF_Shortcodes.php' );
 			//Taxonomy Class
-			require_once $this->tf_options_file_path( 'classes/TF_Taxonomy_Metabox.php' );
+			require_once $this->tf_options_file_path( 'classes/BEAF_Taxonomy_Metabox.php' );
 
 		}
 
@@ -335,7 +335,7 @@ if ( ! class_exists( 'BEAF_Options' ) ) {
 
 				<div class="tf-fieldset">
 					<?php
-					$fieldClass = 'TF_' . $field['type'];
+					$fieldClass = 'BEAF_' . $field['type'];
 					if ( class_exists( $fieldClass ) ) {
 						$_field = new $fieldClass( $field, $value, $settings_id, $parent );
 						$_field->render();
@@ -354,7 +354,7 @@ if ( ! class_exists( 'BEAF_Options' ) ) {
 		}
 
 		public function is_tf_pro_active() {
-			if ( is_plugin_active( 'bafg-pro/bafg-pro.php' ) && defined( 'TF_PRO' ) ) {
+			if ( is_plugin_active( 'bafg-pro/bafg-pro.php' ) && defined( 'BEAF_PRO' ) ) {
 				return true;
 			}
 

@@ -68,7 +68,7 @@ if ( ! class_exists( 'UserSubmitsFluentForm' ) ) :
 			$triggers[ $this->integration ][ $this->trigger ] = [
 				'label'         => __( 'User Submits Form', 'suretriggers' ),
 				'action'        => 'user_submits_fluentform',
-				'common_action' => 'fluentform_before_insert_submission',
+				'common_action' => 'fluentform/before_insert_submission',
 				'function'      => [ $this, 'trigger_listener' ],
 				'priority'      => 10,
 				'accepted_args' => 3,

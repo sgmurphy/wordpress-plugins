@@ -115,6 +115,7 @@ if ( ! class_exists( 'PostAcfFieldUpdated' ) ) :
 						if ( function_exists( 'get_field' ) ) {
 							$context[ $meta_key ] = get_field( $meta_key, $post_id );
 						}
+						$context['post_fields'] = $fields;
 					}
 				} else {
 					return;

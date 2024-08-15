@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.6.1
-Stable tag: 3.2.25
+Stable tag: 3.2.26
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,9 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.26 =
+- Enhancement: Added AI helper/Formula generator to the Formula field (Pro).
 
 = 3.2.25 =
 - Enhancement: Added pop-up with warning when distance is over 4002km in Geolocation element (Pro).

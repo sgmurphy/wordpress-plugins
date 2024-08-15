@@ -105,6 +105,8 @@ class CCBUpdates {
 		'3.2.25' => array(
 			'ccb_update_paypal_data',
 			'ccb_sync_calc_settings',
+		),
+		'3.2.26' => array(
 			'ccb_sync_general_settings',
 		),
 	);

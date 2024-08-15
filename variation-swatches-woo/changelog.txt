@@ -1,3 +1,6 @@
+= 1.0.10 – THURSDAY, 15th AUGUST 2024 =
+- Improvement: Updated the WooCommerce HPOS Compatibility.
+
 = 1.0.9 – WEDNESDAY, 14th AUGUST 2024 =
 - Fix: Resolved the issue of "Swipe images on hover" feature was not working when using the Astra theme.
 - Fix: Removed error messages related to undefined variables that were appearing on the frontend.

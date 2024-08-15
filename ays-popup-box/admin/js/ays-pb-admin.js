@@ -766,6 +766,7 @@
             $('img#ays_pb_notification_logo').attr('src', '');
             $('input#ays_pb_notification_logo_image').val('');
             $('.ays-pb-notification-logo-container-main').fadeOut();
+            $('.ays-pb-notification-logo-settings-container').addClass('display_none');
             $('a.ays-pb-notification-type-add-logo-img').text(pb.addImage);
         });
         // Notification type | Remove banner logo end
@@ -2109,6 +2110,7 @@
 
             $('.ays-pb-notification-logo-container-main').fadeIn();
             $('img#ays_pb_notification_logo').attr('src', attachment.url);
+            $('.ays-pb-notification-logo-settings-container').removeClass('display_none');
             $('input#ays_pb_notification_logo_image').val(attachment.url);
         }).open();
 

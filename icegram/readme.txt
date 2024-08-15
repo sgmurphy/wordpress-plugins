@@ -4,7 +4,7 @@ Donate link: https://www.icegram.com/
 Tags:  popup, optin, hellobar, lead capture, form
 Requires at least: 3.9
 Tested up to: 6.6
-Stable tag: 3.1.25
+Stable tag: 3.1.26
 License: GPLv3
 
 Create high-converting popups and optins for lead capture, convert subscribers, and boost sales with the most value-driven WordPress popup builder.
@@ -366,13 +366,15 @@ Contact Us, provide as much detail of the problem as you can. We will try to sol
 
 == Upgrade Notice ==
 
-= 3.1.25 =
+= 3.1.26 =
 
-* Update: WordPress 6.6 compatibility check
-* Fix:  Missing authorization and nonce checks when duplicating a message [ Thanks to Patchstack team ]
-* Fix:  Missing authentication & authorization checks when previewing campaign  [ Thanks to Patchstack team ]
+* Fix: Improved security related to XSS [Thanks to Patchstack team]
 
 == Changelog ==
+
+**3.1.26 (15.08.2024)**
+
+* Fix: Improved security related to XSS [Thanks to Patchstack team]
 
 **3.1.25 (18.07.2024)**
 

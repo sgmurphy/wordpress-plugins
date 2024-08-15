@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Wishlist for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Wishlist is a simple but powerful tool that can help your customer save products for buy later.
-Version: 4.8.9
+Version: 4.9.0
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-wishlist
@@ -17,7 +17,7 @@ WC tested up to: 9.1
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.9' );
+! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.9.0' );
 ! defined( 'WOOSW_LITE' ) && define( 'WOOSW_LITE', __FILE__ );
 ! defined( 'WOOSW_FILE' ) && define( 'WOOSW_FILE', __FILE__ );
 ! defined( 'WOOSW_URI' ) && define( 'WOOSW_URI', plugin_dir_url( __FILE__ ) );
@@ -97,28 +97,22 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					}
 
 					// add
-					add_action( 'wp_ajax_wishlist_add', [ $this, 'ajax_wishlist_add' ] );
-					add_action( 'wp_ajax_nopriv_wishlist_add', [ $this, 'ajax_wishlist_add' ] );
+					add_action( 'wc_ajax_woosw_add', [ $this, 'ajax_add' ] );
 
 					// remove
-					add_action( 'wp_ajax_wishlist_remove', [ $this, 'ajax_wishlist_remove' ] );
-					add_action( 'wp_ajax_nopriv_wishlist_remove', [ $this, 'ajax_wishlist_remove' ] );
+					add_action( 'wc_ajax_woosw_remove', [ $this, 'ajax_remove' ] );
 
 					// empty
-					add_action( 'wp_ajax_wishlist_empty', [ $this, 'ajax_wishlist_empty' ] );
-					add_action( 'wp_ajax_nopriv_wishlist_empty', [ $this, 'ajax_wishlist_empty' ] );
+					add_action( 'wc_ajax_woosw_empty', [ $this, 'ajax_empty' ] );
 
 					// load
-					add_action( 'wp_ajax_wishlist_load', [ $this, 'ajax_wishlist_load' ] );
-					add_action( 'wp_ajax_nopriv_wishlist_load', [ $this, 'ajax_wishlist_load' ] );
+					add_action( 'wc_ajax_woosw_load', [ $this, 'ajax_load' ] );
 
 					// load count
-					add_action( 'wp_ajax_wishlist_load_count', [ $this, 'ajax_wishlist_load_count' ] );
-					add_action( 'wp_ajax_nopriv_wishlist_load_count', [ $this, 'ajax_wishlist_load_count' ] );
+					add_action( 'wc_ajax_woosw_load_count', [ $this, 'ajax_load_count' ] );
 
 					// fragments
-					add_action( 'wp_ajax_woosw_get_data', [ $this, 'ajax_get_data' ] );
-					add_action( 'wp_ajax_nopriv_woosw_get_data', [ $this, 'ajax_get_data' ] );
+					add_action( 'wc_ajax_woosw_get_data', [ $this, 'ajax_get_data' ] );
 
 					// link
 					add_filter( 'plugin_action_links', [ $this, 'action_links' ], 10, 2 );
@@ -320,7 +314,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					return null;
 				}
 
-				function ajax_wishlist_add() {
+				function ajax_add() {
 					if ( ! apply_filters( 'woosw_disable_security_check', false, 'add_product' ) ) {
 						if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woosw-security' ) ) {
 							die( 'Permissions check failed!' );
@@ -379,7 +373,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					wp_send_json( $return );
 				}
 
-				function ajax_wishlist_remove() {
+				function ajax_remove() {
 					if ( ! apply_filters( 'woosw_disable_security_check', false, 'remove_product' ) ) {
 						if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woosw-security' ) ) {
 							die( 'Permissions check failed!' );
@@ -429,7 +423,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					wp_send_json( $return );
 				}
 
-				function ajax_wishlist_empty() {
+				function ajax_empty() {
 					if ( ! apply_filters( 'woosw_disable_security_check', false, 'wishlist_empty' ) ) {
 						if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woosw-security' ) ) {
 							die( 'Permissions check failed!' );
@@ -471,7 +465,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					wp_send_json( $return );
 				}
 
-				function ajax_wishlist_load() {
+				function ajax_load() {
 					if ( ! apply_filters( 'woosw_disable_security_check', false, 'wishlist_load' ) ) {
 						if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woosw-security' ) ) {
 							die( 'Permissions check failed!' );
@@ -501,7 +495,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					wp_send_json( $return );
 				}
 
-				function ajax_wishlist_load_count() {
+				function ajax_load_count() {
 					if ( ! apply_filters( 'woosw_disable_security_check', false, 'wishlist_load_count' ) ) {
 						if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woosw-security' ) ) {
 							die( 'Permissions check failed!' );
@@ -1841,7 +1835,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 
 					// localize
 					wp_localize_script( 'woosw-frontend', 'woosw_vars', [
-							'ajax_url'            => admin_url( 'admin-ajax.php' ),
+							'wc_ajax_url'         => WC_AJAX::get_endpoint( '%%endpoint%%' ),
 							'nonce'               => wp_create_nonce( 'woosw-security' ),
 							'menu_action'         => self::get_setting( 'menu_action', 'open_page' ),
 							'reload_count'        => self::get_setting( 'reload_count', 'no' ),
@@ -2842,6 +2836,10 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					$ajax_actions[] = 'wishlist_add';
 					$ajax_actions[] = 'wishlist_remove';
 					$ajax_actions[] = 'wishlist_load';
+					$ajax_actions[] = 'woosw_view_wishlist';
+					$ajax_actions[] = 'woosw_add';
+					$ajax_actions[] = 'woosw_remove';
+					$ajax_actions[] = 'woosw_load';
 					$ajax_actions[] = 'woosw_get_data';
 
 					return $ajax_actions;

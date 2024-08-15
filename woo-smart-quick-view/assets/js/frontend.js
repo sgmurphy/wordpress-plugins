@@ -19,7 +19,10 @@ var woosq_ids = [], woosq_products = [];
 
       if (-1 === $.inArray(id, woosq_ids)) {
         woosq_ids.push(id);
-        woosq_products.push({src: woosq_vars.ajax_url + '?product_id=' + id});
+        woosq_products.push({
+          src: woosq_vars.wc_ajax_url.toString().
+              replace('%%endpoint%%', 'woosq_quickview') + '&product_id=' + id,
+        });
       }
     });
 
@@ -171,7 +174,8 @@ function woosq_open(id, effect, context) {
       action: 'woosq_quickview', product_id: id, nonce: woosq_vars.nonce,
     };
 
-    jQuery.post(woosq_vars.ajax_url, data, function(response) {
+    jQuery.post(woosq_vars.wc_ajax_url.toString().
+        replace('%%endpoint%%', 'woosq_quickview'), data, function(response) {
       jQuery('.woosq-sidebar').html(response);
       woosq_loaded();
       jQuery(document.body).trigger('woosq_loaded', [id]);
@@ -180,11 +184,15 @@ function woosq_open(id, effect, context) {
     // popup
     if (-1 === jQuery.inArray(id, woosq_ids)) {
       woosq_ids.push(id);
-      woosq_products.push({src: woosq_vars.ajax_url + '?product_id=' + id});
+      woosq_products.push({
+        src: woosq_vars.wc_ajax_url.toString().
+            replace('%%endpoint%%', 'woosq_quickview') + '&product_id=' + id,
+      });
     }
 
     var index = woosq_get_key(woosq_products, 'src',
-        woosq_vars.ajax_url + '?product_id=' + id);
+        woosq_vars.wc_ajax_url.toString().
+            replace('%%endpoint%%', 'woosq_quickview') + '&product_id=' + id);
     var main_class = 'mfp-woosq';
 
     if (typeof context !== typeof undefined && context !== false) {
@@ -213,7 +221,7 @@ function woosq_open(id, effect, context) {
       ajax: {
         settings: {
           type: 'GET', data: {
-            action: 'woosq_quickview', nonce: woosq_vars.nonce,
+            nonce: woosq_vars.nonce,
           },
         },
       },

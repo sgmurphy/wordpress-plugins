@@ -104,11 +104,11 @@ class UpdateSubscriberToNewList extends AutomateAction {
 
 		try {
 			// Check if email is already a subscriber.
-			$existing_subscriber = \MailPoet\Models\Subscriber::findOne( $subscriber['email'] );
+			$existing_subscriber = $mailpoet->getSubscriber( $subscriber['email'] );
 
 			if ( $existing_subscriber ) {
 				// Add existing subscriber to the list.
-				$mailpoet->subscribeToLists( $existing_subscriber->id, $list_ids );
+				$mailpoet->subscribeToLists( $existing_subscriber['id'], $list_ids );
 			} else {
 				// Throw error if adds new email.
 				throw new Exception( 'Add existing subscriber email.' );

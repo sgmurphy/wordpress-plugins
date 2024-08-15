@@ -99,6 +99,7 @@ if ( ! class_exists( 'AttendeeRegisteredEvent' ) ) :
 		public function trigger_listener( $attendee_id, $post_id, $order, $attendee_product_id, $attendee_order_status = null ) {
 
 			if ( is_object( $attendee_id ) && 'tec_tickets_commerce_attendee_after_create' === (string) current_action() ) {
+				$post_id     = $attendee_id->event_id;
 				$attendee_id = $attendee_id->ID;
 			}
 			if ( ! $attendee_id ) {
@@ -127,6 +128,10 @@ if ( ! class_exists( 'AttendeeRegisteredEvent' ) ) :
 						}
 					}
 				}
+			}
+
+			if ( 'tec_tickets_commerce_attendee_after_create' === (string) current_action() ) {
+				$attendee_product_id = $attendee_details['product_id'];
 			}
 
 			$event   = tribe_events_get_ticket_event( $attendee_product_id );

@@ -137,7 +137,7 @@ if ( ! class_exists( 'BEAF_Settings' ) ) {
 				?>
 				<div class="tf-setting-dashboard">
 					<!-- dashboard-header-include -->
-				<?php echo esc_attr( beaf_dashboard_header() ); ?>
+					<?php echo esc_attr( beaf_dashboard_header() ); ?>
 					<div class="tf-option-wrapper tf-setting-wrapper">
 						<form method="post" action="" class="tf-option-form <?php echo esc_attr( $ajax_save_class ) ?>"
 							enctype="multipart/form-data">
@@ -228,7 +228,7 @@ if ( ! class_exists( 'BEAF_Settings' ) ) {
 
 			// Add nonce for security and authentication. 
 			// Check if a nonce is valid.
-			if (!isset($_POST['tf_option_nonce']) || ! wp_verify_nonce( $_POST['tf_option_nonce'], 'tf_option_nonce_action' ) ) {
+			if ( ! isset( $_POST['tf_option_nonce'] ) || ! wp_verify_nonce( $_POST['tf_option_nonce'], 'tf_option_nonce_action' ) ) {
 				return;
 			}
 
@@ -275,8 +275,8 @@ if ( ! class_exists( 'BEAF_Settings' ) ) {
 									$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
 								}
 
-								if ( $fieldClass != 'TF_file' ) {
-									$data = $fieldClass == 'TF_repeater' || $fieldClass == 'TF_map' ? serialize( $data ) : $data;
+								if ( $fieldClass != 'BEAF_file' ) {
+									$data = $fieldClass == 'BEAF_repeater' || $fieldClass == 'BEAF_map' ? serialize( $data ) : $data;
 								}
 								if ( isset( $_FILES ) && ! empty( $_FILES['file'] ) ) {
 									$tf_upload_dir = wp_upload_dir();

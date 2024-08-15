@@ -1,3 +1,14 @@
+Version 1.0.56 - Thursday, 15th August 2024
+- Improvement: "Advanced Custom Fields" - Enhanced response for "Field Updated on Post" Trigger
+- Improvement: "FluentCRM" - Added improvements for lists and tags for "Send Email" Action and added new Actions
+- Improvement: "WordPress" - Added new Actions
+- Improvement: "Wishlist Member" - Added new Actions
+- Improvement: "MailPoet" - Added improvements for "Add New Subscriber" and "Update Subscriber Status" Actions
+- Improvement: "The Events Calendar" - Added improvements for "Attendee Registered for Event" Trigger
+- Improvement: "SureMembers" - Added improvements for "User Removed From Access Group" Trigger
+- Improvement: "GiveWP" - Added improvements for "User Continues Recurring Donation" and "Recurring Donation Cancelled" Triggers
+- Fix: Scroll issue on the flyout
+
 Version 1.0.55 - Monday, 29th July 2024
 - Improvement: "Advanced Custom Fields" - Fixed "Any Field" issue for "Field Updated on Post" Trigger
 - Improvement: "Presto Player" - Fixed fetch data issue for Trigger response and added new Action

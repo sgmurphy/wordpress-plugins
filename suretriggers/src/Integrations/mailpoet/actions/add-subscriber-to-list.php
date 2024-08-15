@@ -134,32 +134,36 @@ class AddSubscriberToList extends AutomateAction {
 		$mailpoet = \MailPoet\API\API::MP( 'v1' );
 
 		try {
-			// Check if email is already a subscriber.
-			$existing_subscriber = \MailPoet\Models\Subscriber::findOne( $subscriber['email'] );
+			// Try to get the subscriber.
+			$existing_subscriber = $mailpoet->getSubscriber( $subscriber['email'] );
+		} catch ( \MailPoet\API\MP\v1\APIException $e ) {
+			// Handle case where subscriber does not exist (continue to add a new subscriber).
+			$existing_subscriber = null;
+		}
 
-			if ( $existing_subscriber ) {
-				// Add existing subscriber to the list.
-				$mailpoet->subscribeToLists( $existing_subscriber->id, $list_ids, $options );
-				$subscriber_id = $existing_subscriber->id;
-			} else {
-				// Register the new subscriber.
-				$new_subscriber = $mailpoet->addSubscriber( $subscriber, $list_ids, $options );
-				$subscriber_id  = $new_subscriber['id'];
-			}
+		if ( $existing_subscriber ) {
+			// Subscriber exists.
+			$mailpoet->subscribeToLists( $existing_subscriber['id'], $list_ids, $options );
+			$subscriber_id = $existing_subscriber['id'];
 
 			if ( false === $disable_confirmation_email ) {
 				$table_name = $wpdb->prefix . 'mailpoet_subscribers';
 				$wpdb->update( $table_name, [ 'status' => $subscriber['status'] ], [ 'id' => $subscriber_id ] );
-			}
+			}       
+		} else {
+			// Subscriber does not exist, add new subscriber.
+			$new_subscriber = $mailpoet->addSubscriber( $subscriber, $list_ids, $options );
+			$subscriber_id  = $new_subscriber['id'];
 
-			$context = [];
-
-			$context['user_email'] = $subscriber['email'];
-			return $context;
-
-		} catch ( \MailPoet\API\MP\v1\APIException $e ) {
-			throw new Exception( $e->getMessage() );
+			if ( false === $disable_confirmation_email ) {
+				$table_name = $wpdb->prefix . 'mailpoet_subscribers';
+				$wpdb->update( $table_name, [ 'status' => $subscriber['status'] ], [ 'id' => $subscriber_id ] );
+			}       
 		}
+		$context = [ 'user_email' => $subscriber['email'] ];
+
+		return $context;
+		
 	}
 
 }

@@ -1085,8 +1085,8 @@ class GlobalSearchController {
 		if ( ! empty( $campaigns ) ) {
 			foreach ( $campaigns as $campaign ) {
 				$options[] = [
-					'label' => $campaign->title,
-					'value' => $campaign->id,
+					'label' => $campaign['title'],
+					'value' => $campaign['id'],
 				];
 			}
 		}
@@ -2948,6 +2948,39 @@ class GlobalSearchController {
 				if ( isset( $list['name'] ) && ! empty( $list['name'] ) ) {
 					$options[] = [
 						'label' => $list['name'],
+						'value' => (string) $list['id'],
+					];
+				}
+			}
+		}
+
+		return [
+			'options' => $options,
+			'hasMore' => false,
+		];
+	}
+	
+	/**
+	 * Prepare Wishlist Memberlists members.
+	 *
+	 * @param array $data Search Params.
+	 *
+	 * @return array<string, array<int<0, max>, array<string, mixed>>|false>
+	 */
+	public function search_wishlistmember_members( $data ) {
+
+		if ( ! function_exists( 'wlmapi_get_members' ) ) {
+			return [];
+		}
+
+		$wlm_members = wlmapi_get_members();
+		$options     = [];
+
+		if ( ! empty( $wlm_members ) ) {
+			foreach ( $wlm_members['members']['member'] as $list ) {
+				if ( isset( $list['user_email'] ) && ! empty( $list['user_email'] ) ) {
+					$options[] = [
+						'label' => $list['user_email'],
 						'value' => (string) $list['id'],
 					];
 				}
@@ -6427,8 +6460,10 @@ class GlobalSearchController {
 					foreach ( $result as $res ) {
 						$meta_value = unserialize( $res->meta_value );
 						if ( 'active' === $meta_value['status'] ) {
-							$context                    = WordPress::get_user_context( $res->user_id );
-							$context['group']           = WordPress::get_post_context( $post_id );
+							$context             = WordPress::get_user_context( $res->user_id );
+							$context['group']    = WordPress::get_post_context( $post_id );
+							$context['group_id'] = $post_id;
+							unset( $context['group']['ID'] );
 							$response['pluggable_data'] = $context;
 							$response['response_type']  = 'live';
 						}
@@ -6438,8 +6473,10 @@ class GlobalSearchController {
 					foreach ( $result as $res ) {
 						$meta_value = unserialize( $res->meta_value );
 						if ( 'revoked' === $meta_value['status'] ) {
-							$context                    = WordPress::get_user_context( $res->user_id );
-							$context['group']           = WordPress::get_post_context( $post_id );
+							$context             = WordPress::get_user_context( $res->user_id );
+							$context['group']    = WordPress::get_post_context( $post_id );
+							$context['group_id'] = $post_id;
+							unset( $context['group']['ID'] );
 							$response['pluggable_data'] = $context;
 							$response['response_type']  = 'live';
 						}
@@ -7512,7 +7549,7 @@ class GlobalSearchController {
 	}
 
 	/**
-	 * Search fluentcrm fields.
+	 * Search FluentCRM fields.
 	 *
 	 * @param array $data data.
 	 * @return array
@@ -7525,7 +7562,22 @@ class GlobalSearchController {
 	}
 
 	/**
-	 * Search fluentcrm fields and display it in dropdown for trigger.
+	 * Search FluentCRM Company fields.
+	 *
+	 * @param array $data data.
+	 * @return array
+	 */
+	public function search_fluentcrm_company_custom_fields( $data ) {
+		$context = [];
+		if ( function_exists( 'fluentcrm_get_custom_company_fields' ) ) {
+			$custom_fields     = fluentcrm_get_custom_company_fields();
+			$context['fields'] = $custom_fields;
+		}
+		return $context;
+	}
+
+	/**
+	 * Search FluentCRM fields and display it in dropdown for trigger.
 	 *
 	 * @param array $data data.
 	 * @return array
@@ -12082,7 +12134,11 @@ class GlobalSearchController {
 		
 		$response = [];
 		if ( ! empty( $result ) ) {
-			$response['pluggable_data'] = array_merge( [ $field => $result ], [ 'field_id' => $field ], [ 'post' => WordPress::get_post_context( $post ) ] );
+			$post_fields = [];
+			if ( function_exists( 'get_fields' ) ) {
+				$post_fields = get_fields( $post );
+			}
+			$response['pluggable_data'] = array_merge( [ $field => $result ], [ 'field_id' => $field ], [ 'post_fields' => $post_fields ], [ 'post' => WordPress::get_post_context( $post ) ], [ 'wp_post' => $post ], [ 'wp_post_type' => get_post_type( $post ) ] );
 			$response['response_type']  = 'live';
 		} else {
 			$response = json_decode( '{"response_type":"sample","pluggable_data":{"custom_description": "custom message", "ID": 1, "post_author": "1", "post_date": "2023-05-31 13:26:24", "post_date_gmt": "2023-05-31 13:26:24", "post_content": "", "post_title": "Test", "post_excerpt": "", "post_status": "publish", "comment_status": "open", "ping_status": "open", "post_password": "", "post_name": "test", "to_ping": "", "pinged": "", "post_modified": "2023-08-17 09:15:56", "post_modified_gmt": "2023-08-17 09:15:56", "post_content_filtered": "", "post_parent": 0, "guid": "https:\/\/example.com\/?p=1", "menu_order": 0, "post_type": "post", "post_mime_type": "", "comment_count": "2", "filter": "raw"}}', true );

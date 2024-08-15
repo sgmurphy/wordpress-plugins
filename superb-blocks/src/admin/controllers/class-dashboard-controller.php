@@ -90,6 +90,7 @@ class DashboardController
                     array(
                         'postType' => 'wp_template',
                         'postId'   => urlencode($front_page_template->id),
+                        'canvas'   => 'edit',
                     ),
                     admin_url('site-editor.php')
                 )

@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Quick View for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Quick View allows users to get a quick look of products without opening the product page.
-Version: 4.0.6
+Version: 4.1.0
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-quick-view
@@ -17,7 +17,7 @@ WC tested up to: 9.1
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.0.6' );
+! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.1.0' );
 ! defined( 'WOOSQ_LITE' ) && define( 'WOOSQ_LITE', __FILE__ );
 ! defined( 'WOOSQ_FILE' ) && define( 'WOOSQ_FILE', __FILE__ );
 ! defined( 'WOOSQ_URI' ) && define( 'WOOSQ_URI', plugin_dir_url( __FILE__ ) );
@@ -102,8 +102,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 					add_action( 'wp_footer', [ $this, 'footer' ] );
 
 					// ajax
-					add_action( 'wp_ajax_woosq_quickview', [ $this, 'ajax_quickview' ] );
-					add_action( 'wp_ajax_nopriv_woosq_quickview', [ $this, 'ajax_quickview' ] );
+					add_action( 'wc_ajax_woosq_quickview', [ $this, 'ajax_quickview' ] );
 
 					// ajax add field
 					add_action( 'wp_ajax_woosq_add_field', [ $this, 'ajax_add_field' ] );
@@ -1205,7 +1204,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 						'wc-add-to-cart-variation'
 					], WOOSQ_VERSION, true );
 					wp_localize_script( 'woosq-frontend', 'woosq_vars', [
-							'ajax_url'                => admin_url( 'admin-ajax.php' ),
+							'wc_ajax_url'             => WC_AJAX::get_endpoint( '%%endpoint%%' ),
 							'nonce'                   => wp_create_nonce( 'woosq-security' ),
 							'view'                    => self::get_setting( 'view', 'popup' ),
 							'effect'                  => self::get_setting( 'effect', 'mfp-3d-unfold' ),

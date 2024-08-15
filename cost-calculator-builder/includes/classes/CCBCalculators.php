@@ -641,6 +641,34 @@ class CCBCalculators {
 		wp_send_json( $result );
 	}
 
+	public static function save_api_key() {
+		check_ajax_referer( 'ccb_save_ai_api_key', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
+		}
+
+		$result = array(
+			'success' => false,
+			'message' => 'Something went wrong',
+		);
+
+		if ( ! empty( $_POST['key'] ) ) {
+			$key             = sanitize_text_field( $_POST['key'] );
+			$global_settings = CCBSettingsData::get_calc_global_settings();
+
+			if ( empty( $global_settings['ai']['gpt_api_key'] ) ) {
+				$global_settings['ai']['gpt_api_key'] = $key;
+				update_option( 'ccb_general_settings', $global_settings );
+
+				$result['success'] = true;
+				$result['message'] = 'Key updated successfully';
+			}
+		}
+
+		wp_send_json( $result );
+	}
+
 	/**
 	 * Save all calculator settings via calc id
 	 */

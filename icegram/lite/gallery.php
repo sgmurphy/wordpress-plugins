@@ -763,10 +763,23 @@
 		
 	</div>
 	<div style="font-size:14px">
-		<?php echo ( $show_onboarding ) ? esc_html__('Here\'s some gallery templates filtered out for you. Simply ' ,'icegram') : sprintf( esc_html__('Filter out the templates based on %1s  and %2s and then simply','icegram_'), '<strong>your goals</strong>', '<strong>message type</strong>' );
+    <?php 
+    if ( $show_onboarding ) {
+        echo esc_html__('Here\'s some gallery templates filtered out for you. Simply ', 'icegram');
+    } else {
+        echo sprintf(
+            esc_html__('Filter out the templates based on %1$s and %2$s and then simply', 'icegram'),
+            '<strong>' . esc_html__('your goals', 'icegram') . '</strong>',
+            '<strong>' . esc_html__('message type', 'icegram') . '</strong>'
+        );
+    }
+    echo sprintf(
+        esc_html__(' click to %s and the campaign will automatically appear in your Icegram Engage dashboard. No coding or special skills required.', 'icegram'),
+        '<strong>' . esc_html__('Use This', 'icegram') . '</strong>'
+    );
+    ?>
+</div>
 
-			echo  sprintf( esc_html__(' click to %s and the campaign will automatically appear in your Icegram Engage dashboard. No coding or special skills required.','icegram'), '<strong>Use This</strong>')  ?>
-	</div>
 </div>
 <div class="igg-sidebar" style="display:none">
 	<form class="search-form"></form>

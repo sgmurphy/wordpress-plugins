@@ -196,6 +196,7 @@ function wfu_process_files($params, $method) {
 		$upload_path_forbidden = false;
 		$upload_path_ok = false;
 		$allowed_file_ok = false;
+		$not_allowed_admin_error = "";
 		$size_file_ok = false;
 		$size_file_phpenv_ok = true;
 		$ignore_server_actions = false;
@@ -390,7 +391,12 @@ function wfu_process_files($params, $method) {
 					   all files by setting WFU_CHECKPHPTAGS_FILETYPES variable
 					   to 'all'. */
 					if ( $allowed_file_ok && is_uploaded_file($fileprops['tmp_name']) && !$only_check ) {
-						$allowed_file_ok = !wfu_file_has_php_tags($fileprops['tmp_name'], strtolower(wfu_fileext($only_filename)));
+						//$allowed_file_ok = !wfu_file_has_php_tags($fileprops['tmp_name'], strtolower(wfu_fileext($only_filename)));
+						$allowed_file_ok = wfu_during_upload_security_checks($fileprops['tmp_name'], $only_filename);
+						if ( $allowed_file_ok !== true ) {
+							$not_allowed_admin_error = $allowed_file_ok;
+							$allowed_file_ok = false;
+						}
 					}
 
 					/* File size control */
@@ -412,7 +418,12 @@ function wfu_process_files($params, $method) {
 					$file_output['message'] = wfu_join_strings("<br />", $file_output['message'], WFU_ERROR_UPLOAD_FAILED);
 
 					if ( !$upload_path_ok ) $file_output['message'] = wfu_join_strings("<br />", $file_output['message'], ( $sftp_not_supported ? WFU_ERROR_ADMIN_SFTP_UNSUPPORTED : ( $upload_path_forbidden ? WFU_ERROR_DIR_ALLOW : WFU_ERROR_DIR_EXIST ) ));
-					if ( !$allowed_file_ok ) $file_output['message'] = wfu_join_strings("<br />", $file_output['message'], WFU_ERROR_FILE_ALLOW);
+					if ( !$allowed_file_ok ) {
+						$file_output['message'] = wfu_join_strings("<br />", $file_output['message'], WFU_ERROR_FILE_ALLOW);
+						if ( !empty($not_allowed_admin_error) ) {
+							$file_output['admin_messages'] = wfu_join_strings("<br />", $file_output['admin_messages'], $not_allowed_admin_error);
+						}
+					}
 					if ( !$size_file_ok ) {
 						if ( $size_file_phpenv_ok ) $file_output['message'] = wfu_join_strings("<br />", $file_output['message'], WFU_ERROR_FILE_PLUGIN_SIZE);
 						else $file_output['message'] = wfu_join_strings("<br />", $file_output['message'], WFU_ERROR_FILE_PLUGIN_2GBSIZE);
@@ -661,6 +672,19 @@ function wfu_process_files($params, $method) {
 					$file_output['admin_messages'] = wfu_join_strings("<br />", $file_output['admin_messages'], WFU_WARNING_ADMIN_FILE_SUSPICIOUS.$check['proper_filename']);
 				}
 			}
+			/* Perform additional security checks after file has fully loaded.
+			   These checks refer to MIME type and content scanning. */
+			if ( $file_finished_successfully ) {
+				$check = wfu_post_load_security_checks($target_path);
+				if ( $check !== true ) {
+					$file_finished_successfully = false;
+					$file_finished_unsuccessfully = true;
+					wfu_unlink($target_path, "wfu_process_files:2");
+					$file_output['message_type'] = "errorabort";
+					$file_output['message'] = wfu_join_strings("<br />", $file_output['message'], WFU_ERROR_FILE_REJECT);
+					$file_output['admin_messages'] = wfu_join_strings("<br />", $file_output['admin_messages'], $check);
+				}
+			}
 			// run any wfu_after_file_loaded filters to make any last file checks and accept or reject it
 			if ( $file_finished_successfully ) {
 				$filter_error_message = '';
@@ -681,7 +705,7 @@ function wfu_process_files($params, $method) {
 				if ( $filter_error_message != '' ) {
 					$file_finished_successfully = false;
 					$file_finished_unsuccessfully = true;
-					wfu_unlink($target_path, "wfu_process_files:3");
+					wfu_unlink($target_path, "wfu_process_files:4");
 					$file_output['message_type'] = "errorabort";
 					$file_output['message'] = wfu_join_strings("<br />", $file_output['message'], $filter_error_message);
 					if ( $filter_admin_message != '' )

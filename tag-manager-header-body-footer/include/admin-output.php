@@ -160,6 +160,8 @@ if( isset($_POST['yydev_tagmanager_nonce']) ) {
         $wp_body_open = yydev_tagmanager_checkbox_isset('wp_body_open');
         $add_plugin_to_settings = yydev_tagmanager_checkbox_isset('add_plugin_to_settings');
 
+        $save_notes = yydev_tagmanager_mysql_prep( $_POST['save_notes'] );
+
         // ----------------------------------------------
         // Dealing with with adding yndax-x-frame code to htaccess or remove it
         // ----------------------------------------------    
@@ -244,6 +246,8 @@ if( isset($_POST['yydev_tagmanager_nonce']) ) {
 
             'wp_body_open' => $wp_body_open,
             'add_plugin_to_settings' => $add_plugin_to_settings,
+
+            'save_notes' => $save_notes,
 
         ); // $creating_data_array = array(
 
@@ -414,6 +418,30 @@ if( isset($_POST['yydev_tagmanager_nonce']) ) {
 
             <a href="#" class="direction-ltr add-another-tag"><?php _e('+ Add Another Footer Tag', 'tag-manager-header-body-footer'); ?></a>
         </div><!--yydev_tag_warp_textarea-->
+
+        <div class="yydev_tag_warp_textarea save-notes">
+        
+            <p><b>
+                <?php esc_html_e("Storage Notes", 'tag-manager-header-body-footer'); ?> 
+                <small><?php esc_html_e("(won't effect the site)", 'tag-manager-header-body-footer'); ?></small>
+            </b>
+            <?php esc_html_e("You can insert here tags you don't need anymore and save it for later use", 'tag-manager-header-body-footer'); ?></p>
+
+<?php
+
+    $storage_notes = '';
+    if( isset($plugin_data_array['save_notes']) && !empty($plugin_data_array['save_notes']) ) {
+        $storage_notes = yydev_tagmanager_html_output($plugin_data_array['save_notes']);
+    }
+
+?>
+            <div class="tag-area-container">
+                <textarea class='form_shortcode_content' name='save_notes' ><?php echo $storage_notes; ?></textarea>
+            </div><!--tag-area-container-->
+
+        </div><!--yydev_tag_warp_textarea-->
+
+
 
 </div><!--tags-right-side-->
 

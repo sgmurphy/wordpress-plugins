@@ -72,7 +72,7 @@ if ( ! class_exists( 'GiveWPUserContinuesRecurringDonation' ) ) :
 			$triggers[ $this->integration ][ $this->trigger ] = [
 				'label'         => __( 'User Continues Recurring Donation', 'suretriggers' ),
 				'action'        => $this->trigger,
-				'common_action' => 'give_subscription_updated',
+				'common_action' => 'give_recurring_record_payment',
 				'function'      => [ $this, 'trigger_listener' ],
 				'priority'      => 10,
 				'accepted_args' => 4,
@@ -85,37 +85,39 @@ if ( ! class_exists( 'GiveWPUserContinuesRecurringDonation' ) ) :
 		/**
 		 * Trigger listener
 		 *
-		 * @param string $status Status.
-		 * @param int    $row_id Row ID.
-		 * @param array  $data Data.
-		 * @param string $where Where.
+		 * @param object $payment Payment.
+		 * @param int    $parent_payment_id Parent Payment ID.
+		 * @param int    $amount Amount.
+		 * @param int    $transaction_id Transaction ID.
 		 * @since 1.0.0
 		 *
 		 * @return void
 		 */
-		public function trigger_listener( $status, $row_id, $data, $where ) {
+		public function trigger_listener( $payment, $parent_payment_id, $amount, $transaction_id ) {
 			if ( ! class_exists( 'Give_Subscription' ) ) {
 				return;
 			}
+			if ( is_object( $payment ) && property_exists( $payment, 'ID' ) ) {
+				$subscription_id = get_post_meta( $payment->ID, 'subscription_id', true );
+				$subscription    = new Give_Subscription( $subscription_id );
+				
+				if ( is_object( $subscription ) && property_exists( $subscription, 'form_id' ) ||
+					method_exists( $subscription, 'get_total_payments' ) ) {
+					$give_form_id = $subscription->form_id;
 
-			$subscription = new Give_Subscription( $row_id );
-			
-			if ( is_object( $subscription ) && property_exists( $subscription, 'form_id' ) ||
-				method_exists( $subscription, 'get_total_payments' ) ) {
-				$give_form_id = $subscription->form_id;
+					$total_payment = $subscription->get_total_payments();
 
-				$total_payment = $subscription->get_total_payments();
+					$context['form_id']      = $give_form_id;
+					$context['subscription'] = $subscription;
 
-				$context['form_id']      = $give_form_id;
-				$context['subscription'] = $subscription;
-
-				if ( $total_payment > 1 && 'active' === (string) $data['status'] ) {
-					AutomationController::sure_trigger_handle_trigger(
-						[
-							'trigger' => $this->trigger,
-							'context' => $context,
-						]
-					);
+					if ( $total_payment > 1 && 'active' === (string) $subscription->status ) {
+						AutomationController::sure_trigger_handle_trigger(
+							[
+								'trigger' => $this->trigger,
+								'context' => $context,
+							]
+						);
+					}
 				}
 			}
 		}

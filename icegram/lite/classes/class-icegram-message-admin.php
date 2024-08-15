@@ -27,7 +27,6 @@ if ( ! class_exists( 'Icegram_Message_Admin' ) ) {
 			//duplicate message
 			add_filter( 'post_row_actions', array( &$this, 'add_message_action' ), 10, 2 );
 			add_action( 'admin_init', array( &$this, 'duplicate_message' ), 10, 1 );
-
 		}
 
 		public static function getInstance() {
@@ -504,7 +503,7 @@ if ( ! class_exists( 'Icegram_Message_Admin' ) ) {
 											<label class="message_label">&nbsp;</label>
 											<textarea class="message_field message_custom_js form-textarea" rows="6" autocomplete="off" cols="65" name="message_data[<?php echo $message_id; ?>][custom_js]" id="message_message_custom_js_<?php echo $message_id; ?>" value=""
 												placeholder="<?php _e( 'Add Custom javaScript for this message here...', 'icegram' ); ?>"><?php if ( isset( $message_custom_js ) ) {
-													echo esc_attr( $message_custom_js );
+													echo  esc_attr($message_custom_js);
 												} ?></textarea>
 											</div>
 											<!-- Custom code : End -->
@@ -812,6 +811,7 @@ if ( ! class_exists( 'Icegram_Message_Admin' ) ) {
 				}
 
 				$message_data = apply_filters( 'icegram_update_message_data', $message_data, $post_id );
+				
 				update_post_meta( $post_id, 'icegram_message_data', $message_data );
 				update_post_meta( $post_id, 'icegram_message_preview_data', $message_data );
 

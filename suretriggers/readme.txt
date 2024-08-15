@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 1.0.55
+Stable tag: 1.0.56
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,17 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.56 - Thursday, 15th August 2024 =
+* Improvement: "Advanced Custom Fields" - Enhanced response for "Field Updated on Post" Trigger
+* Improvement: "FluentCRM" - Added improvements for lists and tags for "Send Email" Action and added new Actions
+* Improvement: "WordPress" - Added new Actions
+* Improvement: "Wishlist Member" - Added new Actions
+* Improvement: "MailPoet" - Added improvements for "Add New Subscriber" and "Update Subscriber Status" Actions
+* Improvement: "The Events Calendar" - Added improvements for "Attendee Registered for Event" Trigger
+* Improvement: "SureMembers" - Added improvements for "User Removed From Access Group" Trigger
+* Improvement: "GiveWP" - Added improvements for "User Continues Recurring Donation" and "Recurring Donation Cancelled" Triggers
+* Fix: Scroll issue on the flyout
 
 = Version 1.0.55 - Monday, 29th July 2024 =
 * Improvement: "Advanced Custom Fields" - Fixed "Any Field" issue for "Field Updated on Post" Trigger

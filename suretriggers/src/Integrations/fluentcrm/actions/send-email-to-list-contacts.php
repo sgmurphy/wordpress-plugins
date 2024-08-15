@@ -80,12 +80,46 @@ class SendEmailToListContacts extends AutomateAction {
 		$username = $selected_options['api_username'];
 		$password = $selected_options['api_password'];
 
+		$selected_list = $selected_options['list_id'];
+		$selected_tag  = $selected_options['tag_id'];
+
+		$header_data = [
+			'Content-Type'  => 'application/json',
+			'Authorization' => 'Basic ' . base64_encode( $username . ':' . $password ),
+		];
+
+		// Check if selected list not exists then return error.
+		if ( 'all' != $selected_list ) {
+			$args                  = [
+				'headers'   => $header_data,
+				'sslverify' => false,
+			];
+			$list_request          = wp_remote_get( $selected_options['wordpress_url'] . '/wp-json/fluent-crm/v2/lists/' . $selected_list, $args );
+			$list_response_body    = wp_remote_retrieve_body( $list_request );
+			$list_response_context = json_decode( $list_response_body, true );
+			if ( '' == $list_response_context ) {
+				throw new Exception( "Selected List doesn't exists!!" );
+			}
+		}
+
+		// Check if selected tag not exists then return error.
+		if ( 'all' != $selected_tag ) {
+			$args          = [
+				'headers'   => $header_data,
+				'sslverify' => false,
+			];
+			$tags_response = wp_remote_get( $selected_options['wordpress_url'] . '/wp-json/fluent-crm/v2/tags/' . $selected_tag, $args );
+			$tags_body     = wp_remote_retrieve_body( $tags_response );
+			$tags_context  = json_decode( $tags_body, true );
+			if ( is_array( $tags_context ) && '' == $tags_context['tag'] ) {
+				throw new Exception( "Selected Tag doesn't exists!!" );
+			}
+		}
+
+		// Check if selected campaign not exists then create new campaign.
 		if ( ! is_array( $selected_options['campaign'] ) ) {
 			$args = [
-				'headers'   => [
-					'Content-Type'  => 'application/json',
-					'Authorization' => 'Basic ' . base64_encode( $username . ':' . $password ),
-				],
+				'headers'   => $header_data,
 				'sslverify' => false,
 				'body'      => wp_json_encode( [ 'title' => $selected_options['campaign'] ] ),
 			];
@@ -98,10 +132,7 @@ class SendEmailToListContacts extends AutomateAction {
 			$request = wp_remote_post( $selected_options['wordpress_url'] . '/wp-json/fluent-crm/v2/campaigns', $args );
 		} else {
 			$args    = [
-				'headers'   => [
-					'Content-Type'  => 'application/json',
-					'Authorization' => 'Basic ' . base64_encode( $username . ':' . $password ),
-				],
+				'headers'   => $header_data,
 				'sslverify' => false,
 			];
 			$request = wp_remote_get( $selected_options['wordpress_url'] . '/wp-json/fluent-crm/v2/campaigns/' . $selected_options['campaign']['value'], $args );
@@ -112,6 +143,7 @@ class SendEmailToListContacts extends AutomateAction {
 		if ( 200 !== $response_code ) {
 			return $response_context;
 		}
+		// Prepare email body.
 		$args = array_merge(
 			$args,
 			[
@@ -134,8 +166,8 @@ class SendEmailToListContacts extends AutomateAction {
 						],
 						'subscribers'         => [
 							[
-								'list' => $selected_options['list_id'],
-								'tag'  => $selected_options['tag_id'],
+								'list' => $selected_list,
+								'tag'  => $selected_tag,
 							],
 						],
 						'excludedSubscribers' => null,
@@ -166,13 +198,35 @@ class SendEmailToListContacts extends AutomateAction {
 		}
 		if ( ! empty( $args['body'] ) ) {
 			$args = [
-				'headers'   => [
-					'Content-Type'  => 'application/json',
-					'Authorization' => 'Basic ' . base64_encode( $username . ':' . $password ),
-				],
+				'headers'   => $header_data,
 				'sslverify' => false,
 				'body'      => $args['body'],
 			];
+		}
+		$contact_body_data = [
+			'subscribers'    => [
+				[
+					'list' => $selected_list,
+					'tag'  => $selected_tag,
+				],
+			],
+			'sending_filter' => 'list_tag',
+		];
+		$contact_body      = wp_json_encode( $contact_body_data );
+		if ( $contact_body ) {
+			$check_estimated_contacts = wp_remote_post(
+				$selected_options['wordpress_url'] . '/wp-json/fluent-crm/v2/campaigns/estimated-contacts',
+				[
+					'headers'   => $header_data,
+					'sslverify' => false,
+					'body'      => $contact_body,
+				]
+			);
+			$contacts                 = wp_remote_retrieve_body( $check_estimated_contacts );
+			$contacts_context         = json_decode( $contacts, true );
+			if ( is_array( $contacts_context ) && 0 == $contacts_context['count'] ) {
+				throw new Exception( 'No contacts found based on your selection!!' );
+			}
 		}
 		/**
 		 *
@@ -183,6 +237,9 @@ class SendEmailToListContacts extends AutomateAction {
 		$final_request       = wp_remote_post( $selected_options['wordpress_url'] . '/wp-json/fluent-crm/v2/campaigns/' . $settings_context['campaign']['id'] . '/schedule', $args );
 		$final_response_body = wp_remote_retrieve_body( $final_request );
 		$final_context       = json_decode( $final_response_body, true );
+		if ( is_wp_error( $final_request ) ) {
+			return $final_request->errors;
+		}
 		return $final_context;
 	}
 

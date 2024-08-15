@@ -30,6 +30,22 @@ function maspik_validate_everest_forms($errors, $form_data) {
         $field_value = sanitize_text_field($entry[$field_id]);
         $field_type = $field['type'];
 
+
+        if ( ( $field_type === 'first-name' || $field_type === 'last-name' ) && !empty($field_value)) {
+            $validateTextField = validateTextField($field_value);
+            $spam = isset($validateTextField['spam']) ? $validateTextField['spam'] : false;
+            $message = isset($validateTextField['message']) ? $validateTextField['message'] : false;
+            $spam_lbl = isset($validateTextField['label']) ? $validateTextField['label'] : 0 ;
+            $spam_val = isset($validateTextField['option_value']) ? $validateTextField['option_value'] : 0 ;
+
+            if ($spam) {
+                efas_add_to_log("text", $spam, $entry, "Everest Forms", $spam_lbl, $spam_val);
+                $errors[$form_id][$field_id] = cfas_get_error_text($message);
+                return $errors;
+            }
+        }
+
+    
         if ($field_type === 'text' && !empty($field_value)) {
             $validateTextField = validateTextField($field_value);
             $spam = isset($validateTextField['spam']) ? $validateTextField['spam'] : false;

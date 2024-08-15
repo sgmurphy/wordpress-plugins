@@ -3,7 +3,7 @@ Contributors: nickboss
 Donate link: http://www.iptanus.com/support/wordpress-file-upload
 Tags: file, upload, ajax, form, page, post, sidebar, responsive, widget, webcam, ftp
 Requires at least: 2.9.2
-Tested up to: 6.5.5
+Tested up to: 6.6.1
 Stable tag: "trunk"
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -149,6 +149,17 @@ There is an option in plugin's settings in Dashboard to relax the CSS rules, so 
 8. A screenshot of the file browser.
 
 == Changelog ==
+
+= 4.24.9 =
+* verified compatibility with Wordpress version 6.6.1
+* limited the number of whitelisted extensions to those having an associated MIME type, in order to avoid XSS attacks
+* added MIME type validation of uploaded files
+* added advanced variable WFU_MIMETYPE_VAL_EXCEPTIONS that enables exceptions when validating the MIME type of uploaded files
+* added scanning of textual uploaded file contents for detecting PHP and Javascript tags
+* added scanning of textual uploaded file contents for heuristic analysis and detection of suspicious content
+* added advanced variable WFU_FILESCAN_BUFFERSIZE that defines the size of the chunk when reading file contents sequencially
+* added advanced variable WFU_FILESCAN_OVERLAPSIZE that defines the size of the overlapping of the chunks when reading file contents sequencially
+* added advanced variable WFU_FILESCAN_SECURITY_LEVEL that defines the security level when scanning uploaded files
 
 = 4.24.8 =
 * verified compatibility with Wordpress version 6.5.5
@@ -1033,6 +1044,9 @@ Added the option to allow anyone to upload files, by setting the attribute uploa
 Initial version.
 
 == Upgrade Notice ==
+
+= 4.24.9 =
+Regular update to fix some security issues.
 
 = 4.24.8 =
 Regular update to fix some security issues.

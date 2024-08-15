@@ -50,15 +50,8 @@
 					<formula-field :field="field" @change="change" @error="setErrors" :id="totalField._id" v-model="totalField.costCalcFormula" :available_fields="available_fields" :formula_view="totalField.formulaView"/>
 				</div>
 			</div>
-
-			<div class="row ccb-p-t-15">
-				<div class="col-12">
-					<a class="ccb-documentation-link" href="https://docs.stylemixthemes.com/cost-calculator-builder/calculator-elements/total" target=”_blank”>
-						<?php esc_html_e( 'How does it work?', 'cost-calculator-builder' ); ?>
-					</a>
-				</div>
-			</div>
 		</div>
+
 		<div class="container" v-show="tab === 'settings'">
 			<div class="row ccb-p-t-10">
 				<div class="col-6 ccb-p-t-10">

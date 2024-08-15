@@ -74,7 +74,15 @@ function wfu_initialize_i18n_strings() {
 	DEFINE("WFU_ERROR_ADMIN_FILE_PHP_TIME", __("The upload time limit of PHP directive max_input_time is preventing the upload of big files.\nPHP directive max_input_time limit is: ".ini_get("max_input_time")." seconds.\nTo increase the limit change the value of the directive from php.ini.\nIf you don't have access to php.ini, then add the following line to your .htaccess file:\n\nphp_value max_input_time 500\n\n(adjust the time according to your needs)\n\nThe file .htaccess is found in your website root directory (where index.php is found).\nIf your don't have this file, then create it.\nIf this does not work either, then contact your domain provider.", "wp-file-upload"));
 	DEFINE("WFU_ERROR_ADMIN_DIR_PERMISSION", __("Error. Permission denied to write to target folder.\nCheck and correct read/write permissions of target folder.", "wp-file-upload"));
 	DEFINE("WFU_ERROR_ADMIN_FILE_WRONGEXT", __("Error. This file was rejected because its extension is not correct. Its proper filename is: ", "wp-file-upload"));
+	DEFINE("WFU_ERROR_ADMIN_FILE_NOMIME", __("Error. This file was rejected because it does not have a MIME type.", "wp-file-upload"));
+	DEFINE("WFU_ERROR_ADMIN_FILE_NOEXT", __("Error. This file was rejected because it does not have an extension.", "wp-file-upload"));
+	DEFINE("WFU_ERROR_ADMIN_FILE_NOASSOCMIME", __("Error. This file was rejected because its extension does not have any associated MIME types.", "wp-file-upload"));
+	DEFINE("WFU_ERROR_ADMIN_FILE_INVALIDMIME", __("Error. This file was rejected because its MIME type is invalid. Its MIME type is: ", "wp-file-upload"));
+	DEFINE("WFU_ERROR_ADMIN_FILE_MIMEUKNOWN", __("Error. This file was rejected because of an unknown error during MIME check.", "wp-file-upload"));
 	DEFINE("WFU_ERROR_ADMIN_FILE_NOIMAGE", __("Error. This file was rejected because its not a valid image.", "wp-file-upload"));
+	DEFINE("WFU_ERROR_ADMIN_FILE_HASSCRIPTTAGS", __("Error. This file was rejected because script tags were detected in its contents.", "wp-file-upload"));
+	DEFINE("WFU_ERROR_ADMIN_FILE_HASHEURISTIC", __("Error. This file was rejected because heuristic patterns were detected in its contents.", "wp-file-upload"));
+	DEFINE("WFU_ERROR_ADMIN_FILE_NOREADCONTENTS", __("Error. This file was rejected because its contents could not be read.", "wp-file-upload"));
 	DEFINE("WFU_ERROR_ADMIN_DOS_ATTACK", __("Too many files are uploaded in a short period of time. This may be a Denial-Of-Service attack, so file was rejected. Please check the upload log for suspicious behaviour.", "wp-file-upload"));
 	DEFINE("WFU_ERROR_DOS_ATTACK", __("File not uploaded in order to prevent overflow of the website. Please contact administrator.", "wp-file-upload"));
 	DEFINE("WFU_ERROR_DIR_EXIST", __("Target folder doesn't exist.", "wp-file-upload"));
@@ -350,10 +358,14 @@ $GLOBALS["WFU_GLOBALS"] += array(
 	"WFU_DOS_ATTACKS_FILE_LIMIT" => array( "Denial-Of-Service File Limit", "integer", 10000, "Defines the maximum number of files that are allowed to be uploaded within a specific amount of time. It can be any positive integer." ),
 	"WFU_DOS_ATTACKS_TIME_INTERVAL" => array( "Denial-Of-Service Time Interval", "integer", 3600, "Defines the time interval for DOS attacks check. The time interval is given in seconds." ),
 	"WFU_DOS_ATTACKS_ADMIN_EMAIL_FREQUENCY" => array( "Denial-Of-Service Admin Email Frequency", "integer", 3600, "Defines how frequently an email will be sent to administrator notifying for Denial-Of-Service attacks. The time interval is given in seconds." ),
+	"WFU_FILESCAN_BUFFERSIZE" => array( "File Scan Buffer Size", "integer", 1048576, "Defines the buffer size when scanning file contents. A value of -1 denotes that all file contents will be read at once." ),
+	"WFU_FILESCAN_OVERLAPSIZE" => array( "File Scan Overlap Size", "integer", 20, "Defines the overlap size when scanning file contents in chunks." ),
 	"WFU_SANITIZE_FILENAME_MODE" => array( "Filename Sanitization Mode", "string", "strict", "The sanitization mode for filenames. It can be 'strict' or 'loose'." ),
 	"WFU_SANITIZE_FILENAME_DOTS" => array( "Sanitize Filename Dots", "string", "true", "Convert dot symbols (.) in filename into dashes, in order to avoid double extensions. It can be 'true' or 'false'." ),
 	"WFU_WILDCARD_ASTERISK_MODE" => array( "Wildcard Asterisk Mode", "string", "strict", "The mode of wildcard pattern asterisk symbol. If it is strict, then the asterisk will not match dot (.) characters. It can be 'strict' or 'loose'." ),
 	"WFU_CHECKPHPTAGS_FILETYPES" => array( "PHP Tag Checking File Types", "string", "commonimages", "The file types for which the plugin will check their contents for PHP tags. It can be 'all', 'commonimages' or 'none'." ),
+	"WFU_MIMETYPE_VAL_EXCEPTIONS" => array( "MIME Type Validation Exceptions", "string", "", "Exception rules when validating mime type of uploaded files. Check function wfu_validate_mime_type() for details." ),
+	"WFU_FILESCAN_SECURITY_LEVEL" => array( "File Scan Security Level", "integer", 1, "Security level for file scanning. A zero (0) level means lowest security. The default is one (1)." ),
 	"WFU_PHP_ARRAY_MAXLEN" => array( "Max PHP Array Length", "string", "10000", "The maximum allowable number of items of a PHP array." ),
 	"WFU_ADMINBROWSER_TABLE_MAXROWS" => array( "Admin Browser Rows Per Page", "integer", 25, "The number of rows per page of the admin browser. A value equal to zero or less denotes no pagination." ),
 	"WFU_HISTORYLOG_TABLE_MAXROWS" => array( "History Log Table Rows Per Page", "integer", 25, "The number of rows per page of the History Log table." ),

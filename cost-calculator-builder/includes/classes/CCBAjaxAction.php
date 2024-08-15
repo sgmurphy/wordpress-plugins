@@ -37,6 +37,7 @@ class CCBAjaxAction {
 		self::addAction( 'calc_skip_hint', array( CCBCalculators::class, 'calc_skip_hint' ) );
 		self::addAction( 'calc_get_existing', array( CCBCalculators::class, 'get_existing' ) );
 		self::addAction( 'calc_save_settings', array( CCBCalculators::class, 'save_settings' ) );
+		self::addAction( 'calc_save_ai_api_key', array( CCBCalculators::class, 'save_api_key' ) );
 		self::addAction( 'ccb_update_preset', array( CCBCalculators::class, 'ccb_update_preset' ) );
 		self::addAction( 'ccb_update_preset_title', array( CCBCalculators::class, 'ccb_update_preset_title' ) );
 		self::addAction( 'ccb_add_preset', array( CCBCalculators::class, 'ccb_add_preset' ) );

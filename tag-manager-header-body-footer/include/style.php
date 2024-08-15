@@ -24,6 +24,13 @@
         position: relative;
     }
 
+    .yydevelopment-tag-manager .yydev_tag_warp_textarea {
+        display: block;
+        max-width: 800px;
+        margin: 0px 20px 40px 20px;
+        position: relative;
+    }
+
     .yydevelopment-tag-manager .yydev_tag_warp_textarea .tag-area-container {
         position: relative;
     }
@@ -178,6 +185,19 @@
         background: #e3e3e3;
         display: inline-block;
         border: 2px solid #606060;
+    }
+
+    .yydevelopment-tag-manager .save-notes {
+        display: block;
+        border: 2px solid #828282;
+        max-width: 600px;
+        padding: 50px;
+        background: #f5f5f5;
+        border-radius: 20px;
+    }
+
+    .yydevelopment-tag-manager .save-notes textarea {
+        height: 150px;
     }
 
     /*================================
