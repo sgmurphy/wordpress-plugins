@@ -143,27 +143,27 @@ class L_ThePlus_Wp_Forms extends Widget_Base {
 		$this->start_controls_section(
 			'displayoption_section',
 			array(
-				'label' => esc_html__( 'Display Options', 'theplus' ),
+				'label' => esc_html__( 'Display Options', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 		$this->add_control(
 			'form_title',
 			array(
-				'label'     => esc_html__( 'Form Name', 'theplus' ),
+				'label'     => esc_html__( 'Form Name', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'theplus' ),
-				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'default'   => '',
 			)
 		);
 		$this->add_control(
 			'form_description',
 			array(
-				'label'     => esc_html__( 'Form Description', 'theplus' ),
+				'label'     => esc_html__( 'Form Description', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'theplus' ),
-				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'default'   => '',
 			)
 		);

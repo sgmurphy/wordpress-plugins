@@ -3,8 +3,8 @@ Contributors: levantoan
 Donate link: https://levantoan.com/donate/
 Tags: hotspot, points, image, maps, image hotspot
 Requires at least: 4.3
-Tested up to: 5.9.1
-Stable tag: 1.2.3
+Tested up to: 6.6.1
+Stable tag: 1.2.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
@@ -49,6 +49,15 @@ Read here [change the background tooltip and text color](https://github.com/leva
 == Changelog ==
 
 For more information, see [Releases](https://levantoan.com/devvn-image-hotspot).
+
+= 1.2.5 - 16/08/2024 =
+
+* Fix serious error in version 1.2.4
+
+= 1.2.4 - 16/08/2024 =
+
+* FIX Authenticated (Author+) PHP Object Injection. Thanks to Lucio Sá
+* Add editor js and tinymce js
 
 = 1.2.2 - 05/03/2022 =
 

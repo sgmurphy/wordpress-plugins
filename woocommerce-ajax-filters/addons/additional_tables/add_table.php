@@ -17,6 +17,7 @@ class BeRocket_aapf_variations_tables {
         add_filter('bapf_uparse_generate_custom_query_each', array($this, 'stock_status_custom_query'), 110, 6);
         
         add_filter('bapf_wcvariation_check_is_taxonomy_variable', array($this, 'check_is_taxonomy_variable'), 10, 2);
+        add_filter('brfr_data_ajax_filters', array($this, 'settings_page'), 25);
     }
     function get_current_variation_attributes() {
         if( $this->variation_attributes !== FALSE ) return $this->variation_attributes;
@@ -163,15 +164,20 @@ class BeRocket_aapf_variations_tables {
             $parent_id = $product->get_parent_id();
             $product_attributes = $product->get_variation_attributes();
             $parent_product = wc_get_product($parent_id);
+            $parent_product_type = $parent_product->get_type();
             $stock_status = ($product->is_in_stock() ? '1' : '0');
             $sql = "DELETE FROM {$wpdb->prefix}braapf_product_variation_attributes WHERE post_id={$product_id};";
             $wpdb->query($sql);
             foreach($product_attributes as $taxonomy => $attributes) {
                 $taxonomy = str_replace('attribute_', '', $taxonomy);
                 if( empty($attributes) ) {
-                    $attributes = $parent_product->get_variation_attributes();
-                    if( isset($attributes[$taxonomy]) ) {
-                        $attributes = $attributes[$taxonomy];
+                    if( $parent_product_type == 'variable' ) {
+                        $attributes = $parent_product->get_variation_attributes();
+                        if( isset($attributes[$taxonomy]) ) {
+                            $attributes = $attributes[$taxonomy];
+                        } else {
+                            $attributes = array();
+                        }
                     } else {
                         $attributes = array();
                     }
@@ -485,6 +491,21 @@ class BeRocket_aapf_variations_tables {
         $args['join'] .= " INNER JOIN {$wpdb->prefix}braapf_product_stock_status_parent ON {$wpdb->posts}.ID = {$wpdb->prefix}braapf_product_stock_status_parent.post_id";
         $args['where'] .= " AND {$wpdb->prefix}braapf_product_stock_status_parent.stock_status = ".($status == 'instock' ? '1' : '0').' ';
         return $args;
+    }
+    function settings_page($data) {
+        
+        $data['Advanced'] = berocket_insert_to_array(
+            $data['Advanced'],
+            'purge_cache',
+            array(
+                'purge_additional_tables' => array(
+                    "section"   => "purge_additional_tables",
+                    "value"     => "",
+                ),
+            ),
+            true
+        );
+        return $data;
     }
 }
 new BeRocket_aapf_variations_tables();

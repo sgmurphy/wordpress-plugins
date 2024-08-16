@@ -60,8 +60,12 @@ if( ! class_exists('BeRocket_AAPF_styles_preview_color') ) {
         }
         function template_single_item($template, $term, $i, $berocket_query_var_title) {
             $template = parent::template_single_item($template, $term, $i, $berocket_query_var_title);
-            $berocket_term = berocket_term_get_metadata($term, 'color');
-            $meta_color = br_get_value_from_array($berocket_term, 0, '');
+            if( ! empty($berocket_query_var_title['clrimg_use_attrval']) ) {
+                $meta_color = $term->name;
+            } else {
+                $berocket_term = berocket_term_get_metadata($term, 'color');
+                $meta_color = br_get_value_from_array($berocket_term, 0, '');
+            }
             $meta_color = str_replace('#', '', $meta_color);
             $template['content']['checkbox'] = BeRocket_AAPF_dynamic_data_template::create_element_arrays($template['content']['checkbox'], array('attributes', 'style'));
             $template['content']['checkbox']['attributes']['style']['display'] = 'display:none;';
@@ -127,8 +131,12 @@ if( ! class_exists('BeRocket_AAPF_styles_preview_image') ) {
         }
         function template_single_item($template, $term, $i, $berocket_query_var_title) {
             $template = parent::template_single_item($template, $term, $i, $berocket_query_var_title);
-            $berocket_term = berocket_term_get_metadata($term, 'image');
-            $meta_image = br_get_value_from_array($berocket_term, 0, '');
+            if( ! empty($berocket_query_var_title['clrimg_use_attrval']) ) {
+                $meta_image = $term->name;
+            } else {
+                $berocket_term = berocket_term_get_metadata($term, 'image');
+                $meta_image = br_get_value_from_array($berocket_term, 0, '');
+            }
             $template['content']['checkbox'] = BeRocket_AAPF_dynamic_data_template::create_element_arrays($template['content']['checkbox'], array('attributes', 'style'));
             $template['content']['checkbox']['attributes']['style']['display'] = 'display:none;';
             $template['content']['label']['content'] = array(

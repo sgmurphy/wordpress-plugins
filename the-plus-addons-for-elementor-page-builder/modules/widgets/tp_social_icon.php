@@ -71,7 +71,7 @@ class L_ThePlus_Social_Icon extends Widget_Base {
 	 * @version 5.4.2
 	 */
 	public function get_keywords() {
-		return array( 'social', 'icon', 'social icon', 'tp' );
+		return array( 'social', 'icon', 'social icon' );
 	}
 
 	/**

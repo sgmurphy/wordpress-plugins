@@ -42,8 +42,9 @@ function prefix_demo_import_lists() {
 			/* Recommended plugin for this demo */
 			'plugins'        => array(
 				array(
-					'name' => __( 'Gutentor', 'text-domain' ),
-					'slug' => 'gutentor',
+					'name'   => __( 'Gutentor', 'text-domain' ),
+					'slug'   => 'gutentor',
+					'source' => 'https://downloads.wordpress.org/plugin/gutentor.3.3.6.zip', /* optional: any source url with plugin zip will work, dont do for theme for WordPress dot org */
 				),
 				array(
 					'name'      => __( 'Contact Form 7', 'text-domain' ),

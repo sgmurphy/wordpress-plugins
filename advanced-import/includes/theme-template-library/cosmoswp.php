@@ -55,7 +55,6 @@ if ( ! class_exists( 'Advanced_Import_Theme_CosmosWP' ) ) {
 
 			// Always return the instance
 			return $instance;
-
 		}
 
 		/**

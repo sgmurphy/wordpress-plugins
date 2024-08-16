@@ -49,7 +49,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Shop_Pagination' ) ) :
 						'shop_pagination',
 						array(
 							'label'    => __( 'Shop Pagination', 'responsive' ),
-							'section'  => 'responsive_woocommerce_shop_layout',
+							'section'  => 'responsive_woocommerce_shop',
 							'settings' => 'shop_pagination',
 							'priority' => 51,
 							'choices'  => array(
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Shop_Pagination' ) ) :
 						'shop_pagination_quick_view',
 						array(
 							'label'    => __( 'Shop Quick View', 'responsive-addons-pro' ),
-							'section'  => 'responsive_woocommerce_shop_layout',
+							'section'  => 'responsive_woocommerce_shop',
 							'settings' => 'shop_pagination_quick_view',
 							'priority' => 54,
 							'choices'  => array(
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Shop_Pagination' ) ) :
 						array(
 							'active_callback' => 'responsive_addons_pagination_callbacks',
 							'label'           => __( 'Shop Pagination Style', 'responsive-addons-pro' ),
-							'section'         => 'responsive_woocommerce_shop_layout',
+							'section'         => 'responsive_woocommerce_shop',
 							'settings'        => 'shop_pagination_style',
 							'priority'        => 52,
 							'choices'         => array(
@@ -138,7 +138,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Shop_Pagination' ) ) :
 						array(
 							'active_callback' => 'responsive_addons_pagination_trigger',
 							'label'           => __( 'Event to Trigger Infinite Loading', 'responsive-addons-pro' ),
-							'section'         => 'responsive_woocommerce_shop_layout',
+							'section'         => 'responsive_woocommerce_shop',
 							'settings'        => 'shop-infinite-scroll-event',
 							'priority'        => 52,
 							'choices'         => array(
@@ -162,7 +162,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Shop_Pagination' ) ) :
 					array(
 						'active_callback' => 'responsive_addons_load_more_callback',
 						'label'           => __( 'Load More Text', 'responsive-addons-pro' ),
-						'section'         => 'responsive_woocommerce_shop_layout',
+						'section'         => 'responsive_woocommerce_shop',
 						'settings'        => 'shop-load-more-text',
 						'type'            => 'text',
 						'priority'        => 53,

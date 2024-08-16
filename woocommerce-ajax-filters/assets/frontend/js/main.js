@@ -163,7 +163,7 @@ function braapf_filtered_filters_set() {
         var taxonomy = $(this).parents('.bapf_sfilter').data('taxonomy');
         var checked = $(this).prop('checked');
         braapf_checkbox_same(taxonomy, value, checked);
-        berocket_apply_filters('input_ckbox_changed', this, taxonomy, value, checked);
+        berocket_do_action('input_ckbox_changed', this, taxonomy, value, checked);
         var filter_changed_element = {
             element:'#'+$(this).attr('id'),
             parent: 1,
@@ -349,15 +349,37 @@ function braapf_filtered_filters_set() {
             }
         }
     }
+    braapf_filter_mobile_desktop_filters = function(all_filters) {
+        var mobile_width = berocket_apply_filters('filter_mobile_width', 767); 
+        var tablet_width = berocket_apply_filters('filter_tablet_width', 1024);
+        //Hide elements depebnd on devices
+        if( $(window).width() <= mobile_width ) {
+            all_filters = all_filters.filter(function() {
+                return !$(this).is('.bapf_sngl_hd_mobile') && !$(this).parents('.bapf_sngl_hd_mobile').length;
+            });
+        } else if( $(window).width() > mobile_width && $(window).width() <= tablet_width ) {
+            all_filters = all_filters.filter(function() {
+                return !$(this).is('.bapf_sngl_hd_tablet') && !$(this).parents('.bapf_sngl_hd_tablet').length;
+            });
+        } else {
+            all_filters = all_filters.filter(function() {
+                return !$(this).is('.bapf_sngl_hd_desktop') && !$(this).parents('.bapf_sngl_hd_desktop').length;
+            });
+        } 
+        return all_filters;
+    }
     //Grab filters from page
     braapf_grab_all = function ($parent) {
         if( typeof($parent) == 'undefined' ) { $parent = false; }
         var selected_filters = berocket_apply_filters('before_grab_all_filters', [], $parent);
+        var mobile_width = berocket_apply_filters('filter_mobile_width', 767); 
+        var tablet_width = berocket_apply_filters('filter_tablet_width', 1024); 
         if( $parent === false ) {
             var all_filters = $('.bapf_sfilter');
         } else {
             var all_filters = $($parent).find('.bapf_sfilter');
         }
+        all_filters = braapf_filter_mobile_desktop_filters(all_filters);
         all_filters.each(function() {
             var single_data = braapf_grab_single(this, selected_filters);
             if( single_data !== false ) {
@@ -401,6 +423,7 @@ function braapf_filtered_filters_set() {
                 var $elements = element;
             } else {
                 var $elements = $('.bapf_sfilter[data-taxonomy="'+taxonomy+'"]');
+                $elements = braapf_filter_mobile_desktop_filters($elements);
             }
             $elements.find('input:checked:not(:disabled)').each(function(i, val) {
                 if( values_find.indexOf($(this).val()) == -1 ) {
@@ -410,7 +433,7 @@ function braapf_filtered_filters_set() {
             });
             single_data = {name:tax_name, taxonomy:taxonomy, values:values, glue:glue, operator:operator};
         }
-        return berocket_apply_filters('grab_single_filter_default', single_data, element, selected_filters);
+        return berocket_apply_filters('grab_single_filter_default', single_data, element, selected_filters, grab_single);
     }
     braapf_glue_by_operator = function(operator) {
         if( typeof(operator) != 'string' ) {
@@ -637,11 +660,12 @@ function braapf_filtered_filters_set() {
         $html = braapf_sngl_hd_loaded_filters($html);
         $('.berocket_single_filter_widget').each(function() {
             var data_id = $(this).data('id');
-            $('.berocket_single_filter_widget_'+data_id).html($html.find('.berocket_single_filter_widget_'+data_id).last().html());
-            if( $html.find('.berocket_single_filter_widget_'+data_id).last().is('.bapf_mt_none') ) {
-                $('.berocket_single_filter_widget_'+data_id).addClass('bapf_mt_none');
+            var data_wid = $(this).data('wid');
+            $('.berocket_single_filter_widget_'+data_id+'.bapf_wid_'+data_wid).html($html.find('.berocket_single_filter_widget_'+data_id+'.bapf_wid_'+data_wid).last().html());
+            if( $html.find('.berocket_single_filter_widget_'+data_id+'.bapf_wid_'+data_wid).last().is('.bapf_mt_none') ) {
+                $('.berocket_single_filter_widget_'+data_id+'.bapf_wid_'+data_wid).addClass('bapf_mt_none');
             } else {
-                $('.berocket_single_filter_widget_'+data_id).removeClass('bapf_mt_none');
+                $('.berocket_single_filter_widget_'+data_id+'.bapf_wid_'+data_wid).removeClass('bapf_mt_none');
             }
         });
     }
@@ -745,38 +769,45 @@ function braapf_filtered_filters_set() {
     function braapf_sngl_hd_loaded_filters($elements) {
         var mobile_width = berocket_apply_filters('filter_mobile_width', 767); 
         var tablet_width = berocket_apply_filters('filter_tablet_width', 1024); 
+        $elements.find('.bapf_sngl_hd_mobile').show();
+        $elements.find('.bapf_sngl_hd_tablet').show();
+        $elements.find('.bapf_sngl_hd_desktop').show();
         if( $(window).width() <= mobile_width ) {
-            $elements.find('.bapf_sngl_hd_mobile').remove();
-        }
-        if( $(window).width() > mobile_width && $(window).width() <= tablet_width ) {
-            $elements.find('.bapf_sngl_hd_tablet').remove();
-        }
-        if( $(window).width() > tablet_width ) {
-            $elements.find('.bapf_sngl_hd_desktop').remove();
+            $elements.find('.bapf_sngl_hd_mobile').hide();
+        } else if( $(window).width() > mobile_width && $(window).width() <= tablet_width ) {
+            $elements.find('.bapf_sngl_hd_tablet').hide();
+        } else if( $(window).width() > tablet_width ) {
+            $elements.find('.bapf_sngl_hd_desktop').hide();
         }
         return $elements;
     }
     //INIT filters
     braapf_init_load = function() {
-        var mobile_width = berocket_apply_filters('filter_mobile_width', 767); 
-        var tablet_width = berocket_apply_filters('filter_tablet_width', 1024); 
-        if( $(window).width() <= mobile_width ) {
-            $('.bapf_sngl_hd_mobile').remove();
-        }
-        if( $(window).width() > mobile_width && $(window).width() <= tablet_width ) {
-            $('.bapf_sngl_hd_tablet').remove();
-        }
-        if( $(window).width() > tablet_width ) {
-            $('.bapf_sngl_hd_desktop').remove();
-        }
+        braapf_sngl_hd_loaded_filters($('html'));
         $('.bapf_sfilter .bapf_body.bapf_mcs:not(.bapf_mcs_ready)').each(function() {
             $(this).css('max-height', $(this).data('mcs-h')).mCustomScrollbar({scrollInertia: 300}).addClass('bapf_mcs_ready');
         });
         $('.berocket_single_filter_widget').each(function() {
             var data_id = $(this).data('id');
             if( berocket_apply_filters('remove_same_filters_to_prevent_errors', ($('.berocket_single_filter_widget_'+data_id).length > 1), $(this), data_id ) ) {
-                $('.berocket_single_filter_widget_'+data_id).not($('.berocket_single_filter_widget_'+data_id).first()).remove();
-                berocket_throw_error('same_filters_multiple_times', data_id);
+                var $elements = $('.berocket_single_filter_widget_'+data_id).not('.bapf_sngl_hd_mobile').not('.bapf_sngl_hd_tablet');
+                $elements = $elements.not($elements.first());
+                if( $elements.length > 0 ) {
+                    $elements.remove();
+                    berocket_throw_error('same_filters_multiple_times', data_id);
+                }
+                $elements = $('.berocket_single_filter_widget_'+data_id).not('.bapf_sngl_hd_mobile').not('.bapf_sngl_hd_desktop');
+                $elements = $elements.not($elements.first());
+                if( $elements.length > 0 ) {
+                    $elements.remove();
+                    berocket_throw_error('same_filters_multiple_times', data_id);
+                }
+                $elements = $('.berocket_single_filter_widget_'+data_id).not('.bapf_sngl_hd_tablet').not('.bapf_sngl_hd_desktop');
+                $elements = $elements.not($elements.first());
+                if( $elements.length > 0 ) {
+                    $elements.remove();
+                    berocket_throw_error('same_filters_multiple_times', data_id);
+                }
             }
         });
         $('body').on('click', '.bapf_desci', function(e) {
@@ -948,6 +979,8 @@ function braapf_filtered_filters_set() {
         }
         braapf_init_load();
         braapf_filtered_filters_set();
+        braapf_sngl_hd_loaded_filters($('html'));
+        $(window).on('resize', function() {braapf_sngl_hd_loaded_filters($('html'))});
         $(document).trigger('berocket_filters_document_ready');
     });
     braapf_disable_ajax_loading = function($has_product) {

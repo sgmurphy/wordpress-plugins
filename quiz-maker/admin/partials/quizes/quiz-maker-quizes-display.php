@@ -944,6 +944,33 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         </select>
                                     </div>
                                 </div><!-- Animation effect -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for='ays_quick_quiz_question_font_size'>
+                                            <?php echo __('Question font size', $this->plugin_name); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div style="margin-bottom: 10px;">
+                                                    <label for='ays_quick_quiz_question_font_size'>
+                                                        <?php echo __('On desktop', $this->plugin_name); ?>
+                                                    </label>
+                                                </div>
+                                                <div class="ays_quiz_display_flex_width">
+                                                    <div>
+                                                        <input type="number" class="ays-text-input" id='ays_quick_quiz_question_font_size' name='ays_quick_quiz_question_font_size' value="16"/>
+                                                    </div>
+                                                    <div class="ays_quiz_dropdown_max_width">
+                                                        <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- Question font size -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

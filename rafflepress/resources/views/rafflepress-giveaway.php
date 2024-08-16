@@ -258,7 +258,12 @@ if ( empty( $settings->button_color ) ) {
 if ( ! empty( $settings->prizes ) ) {
 	foreach ( $settings->prizes as $k => $v ) {
 		if ( ! empty( $v->description ) ) {
-			$settings->prizes[ $k ]->description = wpautop( wp_kses_post($v->description) );
+			if ( RAFFLEPRESS_BUILD === 'pro' ) {
+				$settings->prizes[ $k ]->description = wpautop( $v->description );
+			}else{
+				$settings->prizes[ $k ]->description = wpautop( wp_kses_post($v->description) );
+			}
+			
 		}
 	}
 }
@@ -849,6 +854,9 @@ if ( $is_preview ) {
 
 		<?php $ajax_url = html_entity_decode( wp_nonce_url( admin_url( 'admin-ajax.php' ) . '?action=rafflepress_lite_giveaway_comment', 'rafflepress_lite_giveaway_comment' ) ); ?>
 		var rafflepress_comments_url = "<?php echo $ajax_url; ?>";
+
+		<?php $action_token_ajax_url = html_entity_decode( wp_nonce_url( admin_url( 'admin-ajax.php' ) . '?action=rafflepress_lite_action_token', 'rafflepress_lite_action_token' ) ); ?>
+		var rafflepress_action_token_url = "<?php echo $action_token_ajax_url; ?>";
 
 		<?php
 		$fb_auth_integration_url = '';

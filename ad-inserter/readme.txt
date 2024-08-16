@@ -4,9 +4,9 @@ Contributors: adinserter, spacetime
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LHGZEMRTR7WB4
 Tags: ads, adsense, amp, ad rotation, ad manager
 Requires at least: 4.9
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 2.7.35
+Stable tag: 2.7.36
 License: GPLv3
 
 Manage Google AdSense, Media.net, Amazon banners, ads.txt, ad rotation, sticky widgets, AMP ads, DFP, tracking, AdSense header and footer code
@@ -362,8 +362,14 @@ If you are not happy to reveal this information and you have opted in, simply di
 
 == Changelog ==
 
+= 2.7.36 =
+- Added support for WPML languages in the taxonomy list
+- Added support to disable caching for LiteSpeed Cache and WP Fastest Cache plugins
+- Added support to define the minimal block height for the close button to appear (Pro only)
+- Few minor bug fixes, cosmetic changes and code improvements
+
 = 2.7.35 =
-- Added support for "Simple History – user activity log, audit tool" plugin
+- Added support for Simple History plugin
 - Added support for external tracking for Google Tag Manager code (Pro only)
 - Few minor bug fixes, cosmetic changes and code improvements
 
@@ -573,8 +579,14 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
+= 2.7.36 =
+Added support for WPML languages in the taxonomy list;
+Added support to disable caching for LiteSpeed Cache and WP Fastest Cache plugins;
+Added support to define the minimal block height for the close button to appear (Pro only);
+Few minor bug fixes, cosmetic changes and code improvements
+
 = 2.7.35 =
-Added support for "Simple History – user activity log, audit tool" plugin;
+Added support for Simple History plugin;
 Added support for external tracking for Google Tag Manager code (Pro only);
 Few minor bug fixes, cosmetic changes and code improvements;
 
@@ -583,7 +595,6 @@ Added support for ^ character to invert viewports in the VIEWPORT separator;
 Added support for index parameter for counter shortcodes;
 Changed text for content marker;
 Few minor bug fixes, cosmetic changes and code improvements
-
 
 = 2.7.33 =
 Changed widget class name;

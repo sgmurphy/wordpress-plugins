@@ -38,6 +38,7 @@ class BeRocket_new_AAPF_Widget extends WP_Widget
             $before_widget = $new_args['before_widget'];
         }
         $new_args['custom_class'] = trim(br_get_value_from_array($filters, 'custom_class'));
+        $new_args['group_id'] = $instance['group_id'];
         $i = 1;
         ob_start();
         $custom_vars = array();
@@ -210,6 +211,7 @@ class BeRocket_new_AAPF_Widget_single extends WP_Widget
         $filter_data['show_page'] = array();
         $filter_data['title'] = $filter_post->post_title;
         $additional_class = br_get_value_from_array($args, 'additional_class');
+        $group_id = br_get_value_from_array($args, 'group_id');
         if( ! is_array($additional_class) ) {
             $additional_class = array();
         }
@@ -227,6 +229,7 @@ class BeRocket_new_AAPF_Widget_single extends WP_Widget
         }
         $additional_class[] = 'berocket_single_filter_widget';
         $additional_class[] = 'berocket_single_filter_widget_' . esc_html($filter_id);
+        $additional_class[] = 'bapf_wid_' . esc_html($group_id);
         $additional_class[] = trim(br_get_value_from_array($args, 'custom_class'));
         $filter_data['filter_id'] = $filter_id;
         ob_start();
@@ -252,11 +255,11 @@ class BeRocket_new_AAPF_Widget_single extends WP_Widget
             }
             $additional_class_esc = implode(' ', $additional_class);
             $additional_class_esc = esc_html($additional_class_esc);
-            echo '<div class="' . $additional_class_esc . '" data-id="' . esc_html($filter_id) . '" style="'.htmlentities(br_get_value_from_array($args, 'inline_style')).'"'.htmlentities(br_get_value_from_array($args, 'additional_data_inline')).'>';
+            echo '<div class="' . $additional_class_esc . '" data-wid="'.esc_html($group_id).'" data-id="' . esc_html($filter_id) . '" style="'.htmlentities(br_get_value_from_array($args, 'inline_style')).'"'.htmlentities(br_get_value_from_array($args, 'additional_data_inline')).'>';
         } else {
             $additional_class_esc = implode(' ', $additional_class);
             $additional_class_esc = esc_html($additional_class_esc);
-            echo '<div class="' . $additional_class_esc . '" data-id="' . esc_html($filter_id) . '" style="'.htmlentities(br_get_value_from_array($args, 'inline_style')).'"'.htmlentities(br_get_value_from_array($args, 'additional_data_inline')).'>';
+            echo '<div class="' . $additional_class_esc . '" data-wid="'.esc_html($group_id).'" data-id="' . esc_html($filter_id) . '" style="'.htmlentities(br_get_value_from_array($args, 'inline_style')).'"'.htmlentities(br_get_value_from_array($args, 'additional_data_inline')).'>';
             if( ! empty($args['widget_inline_style']) ) {
                 $classes_arr = trim($additional_class_esc);
                 $classes_arr = explode(' ', preg_replace('!\s+!', ' ', $classes_arr));

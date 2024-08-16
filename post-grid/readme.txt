@@ -4,7 +4,7 @@ Donate link: https://comboblocks.com/
 Tags: Gutenberg Blocks, form maker, woocommerce blocks, popup maker, Page Builder
 Requires at least: 5.0.0
 Tested up to: 6.6
-Stable tag: 2.2.88
+Stable tag: 2.2.89
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -130,13 +130,6 @@ We have added all google fonts with our style component font family picker, so i
 Still using custom plugin or coding to creating custom post types? we have added visual post type maker in our dashboard, just you need to give your post type name and fill condition, post type will generate immediately.
 
 
-
-
-
-
-
-
-
 ## 3rd-party Integrations
 
 To extend the functinality of our post grid plugin we have added many popular plugins features integration and support, here are the top plugins we have added
@@ -256,10 +249,21 @@ https://comboblocks.com manage by PickPlugins Team, we use this domain solely fo
 
 == Changelog ==
 
+
+
+= 2.2.89 =
+- 2024-08-13 - update - More translation support added.
+- 2024-08-13 - update - Image block update and lazy load fixed.
+- 2024-08-13 - update - wordpress.org block updated
+- 2024-08-13 - update - info-box child block added block updated
+- 2024-08-13 - update - flip-box child block added block updated
+- 2024-08-13 - update - shortcode based post grid nonce issue fixed
+- 2024-08-13 - fix - dashboard doc, demo link issue fixed.
+
 = 2.2.88 =
-- 2024-08-012 - update - Blocks translation support added
-- 2024-08-012 - update - List block updated
-- 2024-08-012 - update - Security issue fixed.
+- 2024-08-12 - update - Blocks translation support added
+- 2024-08-12 - update - List block updated
+- 2024-08-12 - update - Security issue fixed.
 
 = 2.2.87 =
 - 2024-08-02 - fix - Security issue fixed.

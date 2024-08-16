@@ -4,7 +4,7 @@ Tags: homepage setup, companion, one click demo, sections, customizer
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 26.2.3
+Stable tag: 26.2.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -33,7 +33,7 @@ Clever Fox plugin to enhance the functionality of free themes made by <a href="h
 - [StartKit](https://wordpress.org/themes/startkit/)  - [Free Demo](https://www.nayrathemes.com/demo/lite/startkit/)
 - [StartBiz](https://wordpress.org/themes/startbiz/)  - [Free Demo](https://www.nayrathemes.com/demo/lite/startbiz/)
 - [Arowana](https://wordpress.org/themes/arowana/)	  - [Free Demo](https://www.nayrathemes.com/demo/lite/arowana/)
-- [Hantus](https://wordpress.org/themes/hantus/)
+- [Hantus](https://wordpress.org/themes/hantus/)	  - [Free Demo](https://www.nayrathemes.com/demo/lite/hantus/)
 - [Conceptly](https://wordpress.org/themes/conceptly/)
 - [Ameya](https://wordpress.org/themes/ameya/)
 - [Azwa](https://wordpress.org/themes/azwa/)
@@ -190,6 +190,9 @@ Clever Fox WordPress Plugin is licensed under the GPL3 (https://www.gnu.org/lice
 
 
 == Changelog ==
+
+= 26.2.4 =
+* Readme Updated
 
 = 26.2.3 =
 * Readme Updated

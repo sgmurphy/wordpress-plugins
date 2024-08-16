@@ -4,7 +4,7 @@ Contributors: rynald0s, riaanknoetze
 Tags: woocommerce, free shipping, local pickup, hide, hide shipping methods, hide shipping rates, force free shipping, hide other shipping methods, disable other shipping, keep local pickup
 Requires at least: 6.5.0
 Tested up to: 6.5
-Stable tag: 1.6
+Stable tag: 1.7
 WC requires at least: 3.9.4
 WC tested up to: 8.1
 License: GPLv3 or later License
@@ -48,6 +48,10 @@ A: You can submit issues or feature requests on the [Public GitHub Repository](h
 3. Checkout showing "Free Shipping" and "Local Pickup".
 
 == Changelog ==
+
+= 1.7 =
+* New - Add HPOS compatibility
+* New - Add Cart/Checkout block compatibility
 
 = 1.6 =
 * New - Refactored code with guard clauses for better readability.

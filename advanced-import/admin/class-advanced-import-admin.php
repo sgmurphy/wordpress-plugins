@@ -244,9 +244,9 @@ class Advanced_Import_Admin {
 		} else {
 			?>
 			<a class="button is-button is-default is-primary is-large button-primary"
-			   href="<?php echo esc_url( isset( $item['pro_url'] ) ? $item['pro_url'] : '#' ); ?>"
-			   target="_blank"
-			   aria-label="<?php esc_attr_e( 'View Pro', 'advanced-import' ); ?>">
+				href="<?php echo esc_url( isset( $item['pro_url'] ) ? $item['pro_url'] : '#' ); ?>"
+				target="_blank"
+				aria-label="<?php esc_attr_e( 'View Pro', 'advanced-import' ); ?>">
 				<span class="dashicons dashicons-awards"></span><?php esc_html_e( 'View Pro', 'advanced-import' ); ?>
 			</a>
 			<?php
@@ -257,7 +257,6 @@ class Advanced_Import_Admin {
 
 		$render_button = apply_filters( 'advanced_import_template_import_button', $render_button, $item );
 		return $render_button;
-
 	}
 
 	/**
@@ -418,7 +417,6 @@ class Advanced_Import_Admin {
 		echo '</div>';
 		echo '</div>';/*ai-body*/
 		do_action( 'advanced_import_after_demo_import_screen' );
-
 	}
 
 	/**
@@ -793,12 +791,12 @@ class Advanced_Import_Admin {
 					}
 					?>
 					<div aria-label="<?php echo esc_attr( $demo_list['title'] ); ?>"
-						 class="ai-item
+						class="ai-item
 					<?php
-						 echo isset( $demo_list['categories'] ) ? esc_attr( implode( ' ', $demo_list['categories'] ) ) : '';
-						 echo isset( $demo_list['type'] ) ? ' ' . esc_attr( $demo_list['type'] ) : '';
-						 echo $this->is_pro( $demo_list ) ? ' ai-fp-filter-pro' : ' ai-fp-filter-free';
-						 echo $this->is_template_available( $demo_list ) ? '' : ' ai-pro-item'
+						echo isset( $demo_list['categories'] ) ? esc_attr( implode( ' ', $demo_list['categories'] ) ) : '';
+						echo isset( $demo_list['type'] ) ? ' ' . esc_attr( $demo_list['type'] ) : '';
+						echo $this->is_pro( $demo_list ) ? ' ai-fp-filter-pro' : ' ai-fp-filter-free';
+						echo $this->is_template_available( $demo_list ) ? '' : ' ai-pro-item'
 					?>
 					"
 						<?php echo $this->is_template_available( $demo_list ) ? $data_template . ' ' . $data_template_type : ''; ?>
@@ -862,7 +860,6 @@ class Advanced_Import_Admin {
 	 *
 	 * @return void
 	 */
-
 	public function demo_import_form( $total_demo = 0 ) {
 		?>
 		<div class="ai-form <?php echo $total_demo > 0 ? 'hidden' : ''; ?>">
@@ -948,8 +945,12 @@ class Advanced_Import_Admin {
 			if ( count( $recommended_plugins ) ) {
 				foreach ( $recommended_plugins as $index => $recommended_plugin ) {
 					?>
-					<li data-slug="<?php echo esc_attr( $recommended_plugin['slug'] ); ?>" data-main_file ="<?php echo esc_attr( isset( $recommended_plugin['main_file'] ) ? $recommended_plugin['main_file'] : $recommended_plugin['slug'] . '.php' ); ?>">
-						<?php echo esc_html( $recommended_plugin['name'] ); ?>
+					<li 
+						data-name="<?php echo esc_attr( isset( $recommended_plugin['name'] ) ? $recommended_plugin['name'] : '' ); ?>" 
+						data-slug="<?php echo esc_attr( $recommended_plugin['slug'] ); ?>" 
+						data-main_file ="<?php echo esc_attr( isset( $recommended_plugin['main_file'] ) ? $recommended_plugin['main_file'] : $recommended_plugin['slug'] . '.php' ); ?>"
+						data-source="<?php echo esc_url( isset( $recommended_plugin['source'] ) ? $recommended_plugin['source'] : '' ); ?>" >
+						<?php echo esc_html( isset( $recommended_plugin['name'] ) ? $recommended_plugin['name'] : '' ); ?>
 					</li>
 					<?php
 				}
@@ -1100,7 +1101,6 @@ class Advanced_Import_Admin {
 
 		$this->total_request = $total_content;
 		return $content;
-
 	}
 
 	/**
@@ -1237,13 +1237,13 @@ class Advanced_Import_Admin {
 
 			if ( ! empty( $this_content['install_callback'] ) ) {
 				/*
-				 install_callback includes following functions
+				install_callback includes following functions
 				 * import_content_post_type_data
 				 * import_content_widgets_data
 				 * import_menu_and_options
 				 * */
 				if ( call_user_func( $this_content['install_callback'] ) ) {
-                     $result = call_user_func( $this_content['install_callback'] );
+					$result = call_user_func( $this_content['install_callback'] );
 
 					$this->log( esc_html__( 'Finish writing ', 'advanced-import' ) . count( $this->delay_posts, COUNT_RECURSIVE ) . esc_html__( ' delayed posts to transient ', 'advanced-import' ) );
 					set_transient( 'delayed_posts', $this->delay_posts, 60 * 60 * 24 );
@@ -1311,7 +1311,7 @@ class Advanced_Import_Admin {
 	}
 
 	/*
-	 callback function to importing post type
+	callback function to importing post type
 	 * all post type is imported from here
 	 * return mix
 	 * */
@@ -1331,7 +1331,7 @@ class Advanced_Import_Admin {
 
 			$this->process_import_single_post( $post_type, $post_data );
 
-			if ( $x ++ > $limit ) {
+			if ( $x++ > $limit ) {
 				return array(
 					'retry'       => 1,
 					'retry_count' => $limit,
@@ -1346,7 +1346,6 @@ class Advanced_Import_Admin {
 		$this->processpost_orphans();
 
 		return true;
-
 	}
 
 	/*
@@ -1654,8 +1653,8 @@ class Advanced_Import_Admin {
 						}
 					}
 				}
-				//not needed
-				//update_option('elementor_active_kit', $post_id);
+				// not needed
+				// update_option('elementor_active_kit', $post_id);
 				if (
 					defined( 'ELEMENTOR_VERSION' )
 					||
@@ -1679,7 +1678,7 @@ class Advanced_Import_Admin {
 						}
 					}
 
-					//                  array_walk_recursive( $post_data['meta'], array( advanced_import_elementor(), 'elementor_id_import' ) );
+					// array_walk_recursive( $post_data['meta'], array( advanced_import_elementor(), 'elementor_id_import' ) );
 
 					/*todo gutenberg and page builders*/
 
@@ -2020,7 +2019,7 @@ class Advanced_Import_Admin {
 	private function process_delayed_posts( $last_delay = false ) {
 
 		$this->log( esc_html__( 'Processing ', 'advanced-import' ) . count( $this->delay_posts, COUNT_RECURSIVE ) . esc_html__( 'delayed posts', 'advanced-import' ) );
-		for ( $x = 1; $x < 4; $x ++ ) {
+		for ( $x = 1; $x < 4; $x++ ) {
 			foreach ( $this->delay_posts as $delayed_post_type => $delayed_post_data_s ) {
 				foreach ( $delayed_post_data_s as $delayed_post_id => $delayed_post_data ) {
 
@@ -2182,29 +2181,9 @@ class Advanced_Import_Admin {
 					$value_array = json_decode( $replace_old_value, true );
 					if ( is_array( $value_array ) ) {
 						$option_value[ $key ] = wp_json_encode( $this->replace_old_id_to_new( $value_array ) );
-					} else {
-						if ( in_array( $key, $replace_post_ids ) && $key !== 0 ) {
+					} elseif ( in_array( $key, $replace_post_ids ) && $key !== 0 ) {
 							$new_id = $this->imported_post_id( $replace_old_value );
-							if ( $new_id ) {
-								$option_value[ $key ] = $new_id;
-							}
-						} elseif ( in_array( $key, $replace_term_ids ) && $key !== 0 ) {
-							$new_id = $this->imported_term_id( $replace_old_value );
-							if ( $new_id ) {
-								$option_value[ $key ] = $new_id;
-							}
-						} else {
-							$option_value[ $key ] = $replace_old_value;
-						}
-					}
-				} else {
-
-					if ( in_array( $key, $replace_post_ids ) && $key !== 0 ) {
-
-						$new_id = $this->imported_post_id( $replace_old_value );
-						if ( ! $new_id ) {
-							/**/
-						} else {
+						if ( $new_id ) {
 							$option_value[ $key ] = $new_id;
 						}
 					} elseif ( in_array( $key, $replace_term_ids ) && $key !== 0 ) {
@@ -2215,6 +2194,21 @@ class Advanced_Import_Admin {
 					} else {
 						$option_value[ $key ] = $replace_old_value;
 					}
+				} elseif ( in_array( $key, $replace_post_ids ) && $key !== 0 ) {
+
+						$new_id = $this->imported_post_id( $replace_old_value );
+					if ( ! $new_id ) {
+						/* nothing for now*/
+					} else {
+						$option_value[ $key ] = $new_id;
+					}
+				} elseif ( in_array( $key, $replace_term_ids ) && $key !== 0 ) {
+					$new_id = $this->imported_term_id( $replace_old_value );
+					if ( $new_id ) {
+						$option_value[ $key ] = $new_id;
+					}
+				} else {
+					$option_value[ $key ] = $replace_old_value;
 				}
 			}
 		} elseif ( is_numeric( $option_value ) && $index_key ) {
@@ -2223,7 +2217,7 @@ class Advanced_Import_Admin {
 
 				$new_id = $this->imported_post_id( $option_value );
 				if ( ! $new_id ) {
-					/**/
+					/* nothing for now*/
 				} else {
 					$option_value = $new_id;
 				}
@@ -2278,23 +2272,22 @@ class Advanced_Import_Admin {
 		advanced_import_update_option( 'sidebars_widgets', $sidebars_widgets );
 
 		return true;
-
 	}
 
-    /**
-     * Check if string is json.
-     *
-     * @since 1.0.0
-     * @access public
-     * 
-     * @param string $string ceck if valid JSON.
-     * @return boolean
-     */
+	/**
+	 * Check if string is json.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param string $string ceck if valid JSON.
+	 * @return boolean
+	 */
 	function isJson( $string ) {
-        $test_json = $string;
-        if ( is_string($string) ) {
-            $test_json = json_decode( $string, true );
-        }		
+		$test_json = $string;
+		if ( is_string( $string ) ) {
+			$test_json = json_decode( $string, true );
+		}
 		if ( is_array( $test_json ) ) {
 			return true;
 		}
@@ -2302,7 +2295,7 @@ class Advanced_Import_Admin {
 	}
 
 	/*
-	 callback function to importing menus and options data
+	callback function to importing menus and options data
 	 * all menus and import data is imported from here
 	 * return mix
 	 * */
@@ -2442,20 +2435,14 @@ class Advanced_Import_Admin {
 		exit;
 	}
 
-
 	/*
-	 callback function for wp_ajax_install_plugin
+	callback function for wp_ajax_install_plugin
 	* Install plugin
 	* */
 	function install_plugin() {
 
 		/*check for security*/
 		check_admin_referer( 'advanced-import' );
-
-		if ( ! current_user_can( 'install_plugins' ) ) {
-			$status['errorMessage'] = __( 'Sorry, you are not allowed to install plugins on this site.', 'advanced-import' );
-			wp_send_json_error( $status );
-		}
 
 		if ( empty( $_POST['plugin'] ) || empty( $_POST['slug'] ) ) {
 			wp_send_json_error(
@@ -2470,107 +2457,30 @@ class Advanced_Import_Admin {
 		$slug   = sanitize_key( wp_unslash( $_POST['slug'] ) );
 		$plugin = plugin_basename( sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) );
 
-		if ( is_plugin_active_for_network( $plugin ) || is_plugin_active( $plugin ) ) {
-			// Plugin is activated
-			wp_send_json_success();
+		$plugin_info           = array();
+		$plugin_info['name']   = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+		$plugin_info['slug']   = $slug;
+		$plugin_info['plugin'] = $plugin;
+		$plugin_info['source'] = isset( $_POST['source'] ) ? esc_url_raw( wp_unslash( $_POST['source'] ) ) : '';
 
+		$result = advanced_import_install_plugin( $plugin_info );
+
+		$response = array();
+
+		$response['success'] = $result['success'];
+		$response['plugin']  = $plugin;
+		$response['slug']    = $slug;
+		if ( ! $result['success'] ) {
+			$response['errorCode']    = $result['code'];
+			$response['errorMessage'] = $result['message'];
+
+			wp_send_json_error( $response );
 		}
-		$status = array(
-			'install' => 'plugin',
-			'slug'    => sanitize_key( wp_unslash( $_POST['slug'] ) ),
-		);
-
-		include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-		include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-
-		// Looks like a plugin is installed, but not active.
-		if ( file_exists( WP_PLUGIN_DIR . '/' . $slug ) ) {
-			$plugin_data          = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
-			$status['plugin']     = $plugin;
-			$status['pluginName'] = $plugin_data['Name'];
-
-			if ( current_user_can( 'activate_plugin', $plugin ) && is_plugin_inactive( $plugin ) ) {
-				$result = activate_plugin( $plugin );
-
-				if ( is_wp_error( $result ) ) {
-					$status['errorCode']    = $result->get_error_code();
-					$status['errorMessage'] = $result->get_error_message();
-					wp_send_json_error( $status );
-				}
-
-				wp_send_json_success( $status );
-			}
-		}
-
-		$api = plugins_api(
-			'plugin_information',
-			array(
-				'slug'   => sanitize_key( wp_unslash( $_POST['slug'] ) ),
-				'fields' => array(
-					'sections' => false,
-				),
-			)
-		);
-
-		if ( is_wp_error( $api ) ) {
-			$status['errorMessage'] = $api->get_error_message();
-			wp_send_json_error( $status );
-		}
-
-		$status['pluginName'] = $api->name;
-
-		$skin     = new WP_Ajax_Upgrader_Skin();
-		$upgrader = new Plugin_Upgrader( $skin );
-		$result   = $upgrader->install( $api->download_link );
-
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$status['debug'] = $skin->get_upgrade_messages();
-		}
-
-		if ( is_wp_error( $result ) ) {
-			$status['errorCode']    = $result->get_error_code();
-			$status['errorMessage'] = $result->get_error_message();
-			wp_send_json_error( $status );
-		} elseif ( is_wp_error( $skin->result ) ) {
-			$status['errorCode']    = $skin->result->get_error_code();
-			$status['errorMessage'] = $skin->result->get_error_message();
-			wp_send_json_error( $status );
-		} elseif ( $skin->get_errors()->get_error_code() ) {
-			$status['errorMessage'] = $skin->get_error_messages();
-			wp_send_json_error( $status );
-		} elseif ( is_null( $result ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-			WP_Filesystem();
-			global $wp_filesystem;
-
-			$status['errorCode']    = 'unable_to_connect_to_filesystem';
-			$status['errorMessage'] = __( 'Unable to connect to the filesystem. Please confirm your credentials.', 'advanced-import' );
-
-			// Pass through the error from WP_Filesystem if one was raised.
-			if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->get_error_code() ) {
-				$status['errorMessage'] = esc_html( $wp_filesystem->errors->get_error_message() );
-			}
-
-			wp_send_json_error( $status );
-		}
-
-		$install_status = install_plugin_install_status( $api );
-
-		if ( current_user_can( 'activate_plugin', $install_status['file'] ) && is_plugin_inactive( $install_status['file'] ) ) {
-			$result = activate_plugin( $install_status['file'] );
-
-			if ( is_wp_error( $result ) ) {
-				$status['errorCode']    = $result->get_error_code();
-				$status['errorMessage'] = $result->get_error_message();
-				wp_send_json_error( $status );
-			}
-		}
-
-		wp_send_json_success( $status );
+		wp_send_json_success( $response );
 	}
 
 	/*
-	 callback function to current_screen
+	callback function to current_screen
 	 * Add help Text
 	 * @param $screen object screen
 	 * */
@@ -2636,7 +2546,6 @@ class Advanced_Import_Admin {
 				)
 			);
 		}
-
 	}
 }
 

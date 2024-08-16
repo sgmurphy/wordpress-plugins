@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: SeedProd <support@seedprod.com>\n"
 "Last-Translator: John Turner <john@seedprod.com>\n"
-"POT-Creation-Date: 2024-04-10 17:35+0000\n"
+"POT-Creation-Date: 2024-08-15 19:24+0000\n"
 "Report-Msgid-Bugs-To: https://seedprod.com/contact/\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: build/rafflepress/app/bootstrap.php:326
+#: build/rafflepress/app/bootstrap.php:337
 msgid "Please rate <strong>RafflePress</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\">WordPress.org</a> to help us spread the word. Thank you from the RafflePress team!"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "RafflePress Giveaway Preview"
 msgstr ""
 
-#: build/rafflepress/app/gblock.php:124, build/rafflepress/resources/views/rafflepress-giveaway.php:782
+#: build/rafflepress/app/gblock.php:124, build/rafflepress/resources/views/rafflepress-giveaway.php:785
 msgid "Live Preview"
 msgstr ""
 
@@ -263,7 +263,7 @@ msgstr ""
 msgid "Draft - "
 msgstr ""
 
-#: build/rafflepress/app/giveaway.php:212, build/rafflepress/app/giveaway.php:1012, build/rafflepress/resources/emails/notification.php:126, build/rafflepress/resources/emails/notification.php:168, build/rafflepress/resources/views/backend-translations.php:100
+#: build/rafflepress/app/giveaway.php:212, build/rafflepress/app/giveaway.php:1033, build/rafflepress/resources/emails/notification.php:126, build/rafflepress/resources/emails/notification.php:168, build/rafflepress/resources/views/backend-translations.php:100
 msgid "Ended"
 msgstr ""
 
@@ -311,11 +311,11 @@ msgstr ""
 msgid "Sorry this url already exists. Please choose a new one."
 msgstr ""
 
-#: build/rafflepress/app/giveaway.php:932, build/rafflepress/app/giveaway.php:947
+#: build/rafflepress/app/giveaway.php:953, build/rafflepress/app/giveaway.php:968
 msgid "Sorry the Page Permalink you assigned already exists. Please Choose a New Page Permalink under Settings > General"
 msgstr ""
 
-#: build/rafflepress/app/giveaway.php:1010
+#: build/rafflepress/app/giveaway.php:1031
 msgid "Starts in"
 msgstr ""
 
@@ -331,27 +331,31 @@ msgstr ""
 msgid "Invalid License Key."
 msgstr ""
 
-#: build/rafflepress/app/rafflepress.php:699
+#: build/rafflepress/app/rafflepress.php:724
 msgid "Image too large. Must be under 5MB"
 msgstr ""
 
-#: build/rafflepress/app/rafflepress.php:697
+#: build/rafflepress/app/rafflepress.php:722
 msgid "Invalid Image"
 msgstr ""
 
-#: build/rafflepress/app/rafflepress.php:465, build/rafflepress/app/rafflepress.php:180, build/rafflepress/resources/views/rafflepress-giveaway.php:215
+#: build/rafflepress/app/rafflepress.php:474
+msgid "Invalid action token."
+msgstr ""
+
+#: build/rafflepress/app/rafflepress.php:490, build/rafflepress/app/rafflepress.php:180, build/rafflepress/resources/views/rafflepress-giveaway.php:215
 msgid "This giveaway is not currently running."
 msgstr ""
 
-#: build/rafflepress/app/rafflepress.php:552
+#: build/rafflepress/app/rafflepress.php:577
 msgid "Something appears to be wrong. Make sure you have entered your Twitter Username and that it is not the username of the Twitter account to Follow."
 msgstr ""
 
-#: build/rafflepress/app/rafflepress.php:576
+#: build/rafflepress/app/rafflepress.php:601
 msgid "Something appears to be wrong. Make sure you have entered your Twitter Username"
 msgstr ""
 
-#: build/rafflepress/app/rafflepress.php:570
+#: build/rafflepress/app/rafflepress.php:595
 msgid "It appears you are not following the Twitter User. Click the Twitter Follow Button and then Follow the User."
 msgstr ""
 
@@ -2945,6 +2949,6 @@ msgstr ""
 msgid "This giveaway has ended."
 msgstr ""
 
-#: build/rafflepress/resources/views/rafflepress-giveaway.php:785
+#: build/rafflepress/resources/views/rafflepress-giveaway.php:788
 msgid "Preview All Actions"
 msgstr ""

@@ -146,9 +146,6 @@ if ( ! class_exists( 'Responsive_Add_Ons_Custom_Fonts_Taxonomy' ) ) :
 
 				$terms = get_terms(
 					self::$register_taxonomy_slug,
-					array(
-						'hide_empty' => false,
-					)
 				);
 
 				if ( ! empty( $terms ) ) {
@@ -171,9 +168,6 @@ if ( ! class_exists( 'Responsive_Add_Ons_Custom_Fonts_Taxonomy' ) ) :
 
 			$terms      = get_terms(
 				self::$register_taxonomy_slug,
-				array(
-					'hide_empty' => false,
-				)
 			);
 			$font_links = array();
 			if ( ! empty( $terms ) ) {

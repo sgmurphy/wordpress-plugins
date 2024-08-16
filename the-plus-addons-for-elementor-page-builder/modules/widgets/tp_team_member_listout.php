@@ -928,10 +928,10 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->add_control(
 			'social_common_color_opt',
 			array(
-				'label'     => esc_html__( 'Social Icon Common Options', 'theplus' ),
+				'label'     => esc_html__( 'Social Icon Common Options', 'tpebl' ),
 				'type'      => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Enable', 'theplus' ),
-				'label_off' => esc_html__( 'Disable', 'theplus' ),
+				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
+				'label_off' => esc_html__( 'Disable', 'tpebl' ),
 				'default'   => 'no',
 				'separator' => 'before',
 			)
@@ -940,7 +940,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_scco_normal',
 			array(
-				'label'     => esc_html__( 'Normal', 'theplus' ),
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
 				'condition' => array(
 					'social_common_color_opt' => 'yes',
 				),
@@ -961,7 +961,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'scco_n_border',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a',
 				'separator' => 'before',
 				'condition' => array(
@@ -972,7 +972,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->add_responsive_control(
 			'scco_n_br',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -987,7 +987,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'      => 'scco_n_shadow',
-				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a',
 				'separator' => 'before',
 				'condition' => array(
@@ -999,7 +999,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_scco_hover',
 			array(
-				'label'     => esc_html__( 'Hover', 'theplus' ),
+				'label'     => esc_html__( 'Hover', 'tpebl' ),
 				'condition' => array(
 					'social_common_color_opt' => 'yes',
 				),
@@ -1020,7 +1020,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'scco_h_border',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a:hover',
 				'separator' => 'before',
 				'condition' => array(
@@ -1031,7 +1031,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->add_responsive_control(
 			'scco_h_br',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1046,7 +1046,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'      => 'scco_h_shadow',
-				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a:hover',
 				'separator' => 'before',
 				'condition' => array(
@@ -1204,17 +1204,17 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->add_control(
 			'box_border',
 			array(
-				'label'     => esc_html__( 'Box Border', 'theplus' ),
+				'label'     => esc_html__( 'Box Border', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'theplus' ),
-				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'default'   => 'no',
 			)
 		);
 		$this->add_control(
 			'border_style',
 			array(
-				'label'     => esc_html__( 'Border Style', 'theplus' ),
+				'label'     => esc_html__( 'Border Style', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'solid',
 				'options'   => L_theplus_get_border_style(),
@@ -1229,7 +1229,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->add_responsive_control(
 			'box_border_width',
 			array(
-				'label'      => esc_html__( 'Border Width', 'theplus' ),
+				'label'      => esc_html__( 'Border Width', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'default'    => array(
@@ -1320,7 +1320,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->add_control(
 			'shadow_options',
 			array(
-				'label'     => esc_html__( 'Box Shadow Options', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow Options', 'tpebl' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -1329,7 +1329,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_shadow_normal',
 			array(
-				'label' => esc_html__( 'Normal', 'theplus' ),
+				'label' => esc_html__( 'Normal', 'tpebl' ),
 			)
 		);
 		$this->add_group_control(
@@ -1343,7 +1343,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_shadow_hover',
 			array(
-				'label' => esc_html__( 'Hover', 'theplus' ),
+				'label' => esc_html__( 'Hover', 'tpebl' ),
 			)
 		);
 		$this->add_group_control(

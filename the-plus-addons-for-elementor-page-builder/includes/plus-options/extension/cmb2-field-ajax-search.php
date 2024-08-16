@@ -24,25 +24,28 @@ if( ! class_exists( 'CMB2_Field_Ajax_Search' ) ) {
 		 * Initialize the plugin by hooking into CMB2
 		 */
 		public function __construct() {
-			add_action( 'admin_enqueue_scripts', array( $this, 'setup_admin_scripts' ) );
 
-			// Render
-			add_action( 'cmb2_render_post_ajax_search', array( $this, 'render' ), 10, 5 );
-			add_action( 'cmb2_render_user_ajax_search', array( $this, 'render' ), 10, 5 );
-			add_action( 'cmb2_render_term_ajax_search', array( $this, 'render' ), 10, 5 );
+			if ( current_user_can( 'manage_options' ) ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'setup_admin_scripts' ) );
 
-            // Display
-            add_filter( 'cmb2_pre_field_display_post_ajax_search', array( $this, 'display' ), 10, 3 );
-            add_filter( 'cmb2_pre_field_display_user_ajax_search', array( $this, 'display' ), 10, 3 );
-            add_filter( 'cmb2_pre_field_display_term_ajax_search', array( $this, 'display' ), 10, 3 );
+				// Render
+				add_action( 'cmb2_render_post_ajax_search', array( $this, 'render' ), 10, 5 );
+				add_action( 'cmb2_render_user_ajax_search', array( $this, 'render' ), 10, 5 );
+				add_action( 'cmb2_render_term_ajax_search', array( $this, 'render' ), 10, 5 );
 
-			// Sanitize
-			add_action( 'cmb2_sanitize_post_ajax_search', array( $this, 'sanitize' ), 10, 4 );
-			add_action( 'cmb2_sanitize_user_ajax_search', array( $this, 'sanitize' ), 10, 4 );
-			add_action( 'cmb2_sanitize_term_ajax_search', array( $this, 'sanitize' ), 10, 4 );
+				// Display
+				add_filter( 'cmb2_pre_field_display_post_ajax_search', array( $this, 'display' ), 10, 3 );
+				add_filter( 'cmb2_pre_field_display_user_ajax_search', array( $this, 'display' ), 10, 3 );
+				add_filter( 'cmb2_pre_field_display_term_ajax_search', array( $this, 'display' ), 10, 3 );
 
-			// Ajax request
-			add_action( 'wp_ajax_cmb_ajax_search_get_results', array( $this, 'get_results' ) );
+				// Sanitize
+				add_action( 'cmb2_sanitize_post_ajax_search', array( $this, 'sanitize' ), 10, 4 );
+				add_action( 'cmb2_sanitize_user_ajax_search', array( $this, 'sanitize' ), 10, 4 );
+				add_action( 'cmb2_sanitize_term_ajax_search', array( $this, 'sanitize' ), 10, 4 );
+
+				// Ajax request
+				add_action( 'wp_ajax_cmb_ajax_search_get_results', array( $this, 'get_results' ) );
+			}
 		}
 
 		/**
@@ -286,5 +289,4 @@ if( ! class_exists( 'CMB2_Field_Ajax_Search' ) ) {
 	}
 
 	$cmb2_field_ajax_search = new CMB2_Field_Ajax_Search();
-
 }

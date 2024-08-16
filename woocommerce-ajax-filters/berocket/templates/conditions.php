@@ -5,9 +5,10 @@ if( ! empty($additional['hook_name']) ) {
 } else {
     return false;
 }
-echo '<div class="submitbox" id="submitpost">';
 $condition_types = apply_filters($hook_name.'_types', array());
 ?>
+<div class="submitbox" id="submitpost">
+    <?php do_action($hook_name.'_conditions_docs'); ?>
     <div class="berocket_conditions_block">
         <div class="br_condition_example" style="display:none;">
             <div class="br_cond_select" data-current="1">

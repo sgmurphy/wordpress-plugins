@@ -1377,7 +1377,7 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 				'type'        => Controls_Manager::CHOOSE,
 				'options'     => array(
 					'color'    => array(
-						'title' => esc_html__( 'Classic', 'theplus' ),
+						'title' => esc_html__( 'Classic', 'tpebl' ),
 						'icon'  => 'eicon-paint-brush',
 					),
 					'gradient' => array(
@@ -1532,7 +1532,7 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 				'type'        => Controls_Manager::CHOOSE,
 				'options'     => array(
 					'color'    => array(
-						'title' => esc_html__( 'Classic', 'theplus' ),
+						'title' => esc_html__( 'Classic', 'tpebl' ),
 						'icon'  => 'eicon-paint-brush',
 					),
 					'gradient' => array(

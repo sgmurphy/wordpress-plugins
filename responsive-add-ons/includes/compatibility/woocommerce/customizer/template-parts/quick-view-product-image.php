@@ -28,8 +28,8 @@ global $post, $product, $woocommerce;
 		);
 		echo sprintf(
 			'<li class="woocommerce-product-gallery__image">%s</li>',
-			$image
-		);
+			$image // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		); 
 
 		if ( $attachment_ids ) {
 			$loop = 0;
@@ -51,7 +51,7 @@ global $post, $product, $woocommerce;
 			}
 		}
 	} else {
-		echo sprintf( '<li><img src="%s" alt="%s" /></li>', wc_placeholder_img_src(), __( 'Placeholder', 'responsive-addons-pro' ) );
+		echo sprintf( '<li><img src="%s" alt="%s" /></li>', wc_placeholder_img_src(), __( 'Placeholder', 'responsive-addons-pro' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 	?>
 	</div>

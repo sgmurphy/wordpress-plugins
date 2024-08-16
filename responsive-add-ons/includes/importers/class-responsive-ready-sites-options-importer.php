@@ -277,7 +277,7 @@ class Responsive_Ready_Sites_Options_Importer {
 
 			// If error storing permanently, unlink.
 			if ( is_wp_error( $id ) ) {
-				unlink( $file_array['tmp_name'] );
+				wp_delete_file( $file_array['tmp_name'] );
 				return $id;
 			}
 

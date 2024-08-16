@@ -829,7 +829,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 		$this->add_control(
 			'image_border_radius',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -865,7 +865,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 		$this->add_control(
 			'hover_image_border_radius',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(

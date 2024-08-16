@@ -255,6 +255,7 @@ $options = array(
     'quiz_quest_explanation_font_weight'        => "normal",
     'quiz_right_answers_font_weight'            => "normal",
     'quiz_wrong_answers_font_weight'            => "normal",
+
 );
 
 $quiz_intervals_default = array(
@@ -3050,7 +3051,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                         </div>
                                         <div class="col-sm-7 ays_quiz_display_flex_width">
                                             <div>
-                                                <input type="number" class="ays-text-input" id='ays_buttons_font_size'name='ays_buttons_font_size' value="<?php echo $buttons_font_size; ?>"/>
+                                                <input type="number" class="ays-text-input" id='ays_buttons_font_size' name='ays_buttons_font_size' value="<?php echo $buttons_font_size; ?>"/>
                                             </div>
                                             <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: end;">
                                                 <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>

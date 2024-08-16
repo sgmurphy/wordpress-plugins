@@ -1003,8 +1003,8 @@ class L_ThePlus_Page_Scroll extends Widget_Base {
 					}
 				}
 			} else {
-				$errortitle   = esc_html__( 'No Template Selected!', 'theplus' );
-				$errormassage = esc_html__( 'Please Select Template To Get The Desired Result', 'theplus' );
+				$errortitle   = esc_html__( 'No Template Selected!', 'tpebl' );
+				$errormassage = esc_html__( 'Please Select Template To Get The Desired Result', 'tpebl' );
 
 				echo l_theplus_get_widgetError( $errortitle, $errormassage );
 			}
@@ -1014,15 +1014,15 @@ class L_ThePlus_Page_Scroll extends Widget_Base {
 			}
 
 			$fullpage_opt['navigationTooltips'] = false;
-			$fullpage_opt['responsiveWidth']    = ! empty( $settings['res_width_value'] ) ? $settings['res_width_value'] : 0;
+			$fullpage_opt['responsiveWidth']    = ! empty( $settings['res_width_value'] ) ? sanitize_text_field( $settings['res_width_value'] ) : 0;
 
-			$dots_text     = ! empty( $settings['nav_dots_tooltips'] ) ? $settings['nav_dots_tooltips'] : '';
+			$dots_text     = ! empty( $settings['nav_dots_tooltips'] ) ? sanitize_text_field( $settings['nav_dots_tooltips'] ) : '';
 			$nav_dots_text = explode( ',', $dots_text );
+
 			$dots_show     = ! empty( $settings['show_dots'] ) ? $settings['show_dots'] : '';
 
 			if ( 'yes' === $dots_show && 'tp_full_page' === $page_scroll_opt && 'tp_full_page' === $page_scroll_opt ) {
 				$fullpage_opt['navigation'] = true;
-
 				$fullpage_opt['navigationPosition'] = ! empty( $settings['nav_postion'] ) && 'left' === $settings['nav_postion'] ? 'left' : 'right';
 				$fullpage_opt['navigationTooltips'] = $nav_dots_text;
 			} else {
@@ -1031,10 +1031,10 @@ class L_ThePlus_Page_Scroll extends Widget_Base {
 
 			$data_fullpage = wp_json_encode( $fullpage_opt );
 
-			$data_attr .= ' data-full-page-opt=\'' . $data_fullpage . '\'';
+			$data_attr .= ' data-full-page-opt=\'' . esc_attr( $data_fullpage ) . '\'';
 
 			$scroll_conn   = ! empty( $settings['scroll_nav_connection'] ) ? $settings['scroll_nav_connection'] : '';
-			$scroll_con_id = ! empty( $settings['scrollnav_connect_id'] ) ? $settings['scrollnav_connect_id'] : '';
+			$scroll_con_id = ! empty( $settings['scrollnav_connect_id'] ) ? sanitize_text_field( $settings['scrollnav_connect_id'] ) : '';
 
 			if ( 'yes' === $scroll_conn && ! empty( $scroll_con_id ) ) {
 				$data_attr .= ' data-scroll-nav-id="tp-sc-' . esc_attr( $scroll_con_id ) . '"';

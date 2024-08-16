@@ -33,9 +33,9 @@ $cc_app_auth = new Responsive_Add_Ons_App_Auth();
 						</h2>
 						<p><?php esc_html_e( 'You can access all the plugin settings on the web and unlock new features.', 'responsive-addons' ); ?></p>
 						<div class="app-connect-info">
-							<p><strong><?php esc_html_e( 'Email: ', 'responsive-addons' ); ?></strong><?php echo $settings->get_email(); ?> </p>
-							<p><strong><?php esc_html_e( 'Site Key: ', 'responsive-addons' ); ?></strong><?php echo $settings->get_website_key(); ?> </p>
-							<p><strong><?php esc_html_e( 'Plan: ', 'responsive-addons' ); ?></strong><?php echo $settings->get_plan(); ?> </p>
+							<p><strong><?php esc_html_e( 'Email: ', 'responsive-addons' ); ?></strong><?php echo esc_html( $settings->get_email() ); ?> </p>
+							<p><strong><?php esc_html_e( 'Site Key: ', 'responsive-addons' ); ?></strong><?php echo esc_html( $settings->get_website_key() ); ?> </p>
+							<p><strong><?php esc_html_e( 'Plan: ', 'responsive-addons' ); ?></strong><?php echo esc_html( $settings->get_plan() ); ?> </p>
 						</div>
 					</div>
 					<div class="rst_app-after-connect-action-btns">

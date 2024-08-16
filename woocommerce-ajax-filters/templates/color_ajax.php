@@ -1,4 +1,10 @@
 <?php extract($berocket_query_var_color); ?>
+<p>
+    <label>
+        <input class="clrimg_use_attrval" type="checkbox" value="1" name="br_product_filter[clrimg_use_attrval]"<?php if( ! empty($clrimg_use_attrval) ) echo ' checked'; ?>>
+        <?php _e('Use attribute value as', 'BeRocket_AJAX_domain'); echo ' ' . ($type == 'color' ? __('color', 'BeRocket_AJAX_domain') : __('image', 'BeRocket_AJAX_domain') ); ?>
+    </label>
+</p>
 <div class="br_accordion">
     <h3><?php if( $type == 'color' ) { _e('Selection of color', 'BeRocket_AJAX_domain'); } elseif( $type == 'image' ) { _e('Selection of Image', 'BeRocket_AJAX_domain'); } ?></h3>
     <div>
@@ -89,4 +95,13 @@
     if( typeof(brjsf_accordion) == 'function' ) {
         brjsf_accordion(jQuery( ".br_accordion" ));
     }
+    function bapf_clrimg_use_attrval_change() {
+        if( jQuery('.clrimg_use_attrval').prop('checked') ) {
+            jQuery('.clrimg_use_attrval').parent().parent().next().hide();
+        } else {
+            jQuery('.clrimg_use_attrval').parent().parent().next().show();
+        }
+    }
+    jQuery('.clrimg_use_attrval').on('change', bapf_clrimg_use_attrval_change);
+    bapf_clrimg_use_attrval_change();
 </script>

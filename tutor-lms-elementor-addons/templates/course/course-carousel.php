@@ -75,10 +75,12 @@
 
 		<?php
 			$courseCols    	= (isset($settings['etlms_course_carousel_column']) && $settings['etlms_course_carousel_column']) ? (int) $settings['etlms_course_carousel_column'] : 3;
-			$layout 		= isset($settings['course_carousel_skin']) ? $settings['course_carousel_skin'] : 'card';
+			$layout         = esc_attr( $settings['course_carousel_skin'] );
+			$in_array       = in_array( $layout, array( 'classic', 'card', 'stacked', 'overlayed' ), true);
+			$layout 		= isset( $layout ) && $in_array ? $layout : 'card';
 		?>
 
-		<div class="etlms-carousel-loop-wrap tutor-courses tutor-courses-loop-wrap tutor-courses-layout-<?php echo $courseCols; ?> etlms-coursel-<?php echo $settings['course_carousel_skin']; ?> etlms-carousel-dots-<?php echo $settings['course_carousel_dots_position']; ?>" id="etlms-slick-responsive">
+		<div class="etlms-carousel-loop-wrap tutor-courses tutor-courses-loop-wrap tutor-courses-layout-<?php echo $courseCols; ?> etlms-coursel-<?php echo $layout ?> etlms-carousel-dots-<?php echo esc_attr( $settings['course_carousel_dots_position'] ); ?>" id="etlms-slick-responsive">
 			<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 				<div class="<?php tutor_course_loop_col_classes(); ?>">
 					<?php include etlms_get_template( 'course/carousel/' . $layout ); ?>
@@ -87,10 +89,10 @@
 		</div>
 
 		<?php if ( 'yes' == $settings['course_carousel_settings_arrows'] ) : ?>
-			<div class="etlms-carousel-arrow etlms-carousel-arrow-prev arrow-<?php echo $settings['course_carousel_arrow_style']; ?> etlms-carousel-arrow-position-<?php echo esc_attr( $settings['course_carousel_arrows_position'] ); ?> ">
+			<div class="etlms-carousel-arrow etlms-carousel-arrow-prev arrow-<?php echo esc_attr( $settings['course_carousel_arrow_style'] ); ?> etlms-carousel-arrow-position-<?php echo esc_attr( $settings['course_carousel_arrows_position'] ); ?> ">
 				<i class="fa fa-angle-left" aria-hidden="true"></i>
 			</div>
-			<div class="etlms-carousel-arrow etlms-carousel-arrow-next arrow-<?php echo $settings['course_carousel_arrow_style']; ?> etlms-carousel-arrow-position-<?php echo esc_attr( $settings['course_carousel_arrows_position'] ); ?>">
+			<div class="etlms-carousel-arrow etlms-carousel-arrow-next arrow-<?php echo esc_attr( $settings['course_carousel_arrow_style'] ); ?> etlms-carousel-arrow-position-<?php echo esc_attr( $settings['course_carousel_arrows_position'] ); ?>">
 				<i class="fa fa-angle-right" aria-hidden="true"></i>
 			</div>
 		<?php endif; ?>
@@ -134,7 +136,7 @@
 		$settings['course_carousel_settings_pause_onhover'] == 'yes' ? '' : $carousel_pause_on_hover = 'no';
 	}
 	?>
-	<div id="etlms_carousel_settings" arrows="<?php echo $carousel_arrows; ?>" dots="<?php echo $carousel_dots; ?>" transition="<?php echo $carousel_transition; ?>" center="<?php echo $carousel_center; ?>" smoth_scroll="<?php echo $carousel_smooth_scroll; ?>" auto_play="<?php echo $carousel_autoplay; ?>" auto_play_speed="<?php echo $carousel_autoplay_speed; ?>" infinite_loop="<?php echo $carousel_infinite_loop; ?>" pause_on_hover="<?php echo $carousel_pause_on_hover; ?>" desktop="<?php echo $carousel_column; ?>" medium="<?php echo $carousel_column_tablet; ?>" mobile="<?php echo $carousel_column_mobile; ?>">
+	<div id="etlms_carousel_settings" arrows="<?php echo esc_attr( $carousel_arrows ); ?>" dots="<?php echo esc_attr( $carousel_dots ); ?>" transition="<?php echo esc_attr( $carousel_transition ); ?>" center="<?php echo esc_attr( $carousel_center ); ?>" smoth_scroll="<?php echo esc_attr( $carousel_smooth_scroll ); ?>" auto_play="<?php echo esc_attr( $carousel_autoplay ); ?>" auto_play_speed="<?php echo esc_attr( $carousel_autoplay_speed ); ?>" infinite_loop="<?php echo esc_attr( $carousel_infinite_loop ); ?>" pause_on_hover="<?php echo esc_attr( $carousel_pause_on_hover ); ?>" desktop="<?php echo $carousel_column; ?>" medium="<?php echo esc_attr( $carousel_column_tablet ); ?>" mobile="<?php echo esc_attr( $carousel_column_mobile ); ?>">
 
 	</div>
 	<input type="hidden" id="etlms_enroll_btn_type" value="">

@@ -6,7 +6,7 @@
  * Description: Hides other shipping methods when "Free shipping" is available.
  * Author: Rynaldo Stoltz
  * Author URI: https://profiles.wordpress.org/rynald0s/
- * Version: 1.6
+ * Version: 1.7
  * Text Domain: wc-hide-shipping-methods
  * Domain Path: /languages
  * License: GPLv3 or later License
@@ -116,3 +116,23 @@ function wchfsm_set_default_option() {
 	update_option( 'wc_hide_shipping_options', 'hide_all' );
 }
 register_activation_hook( __FILE__, 'wchfsm_set_default_option' );
+
+/**
+ * Declare plugin compatibility with WooCommerce HPOS.
+ */
+function wchfsm_declare_woocommerce_hpos_compatibility() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+}
+add_action( 'before_woocommerce_init', 'wchfsm_declare_woocommerce_hpos_compatibility' );
+
+/**
+ * Declare plugin compatibility with WooCommerce Cart & Checkout Blocks.
+ */
+function wchfsm_declare_woocommerce_block_compatibility() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
+	}
+}
+add_action( 'before_woocommerce_init', 'wchfsm_declare_woocommerce_block_compatibility' );

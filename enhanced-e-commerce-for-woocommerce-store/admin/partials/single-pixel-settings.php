@@ -132,11 +132,6 @@ if ($subscriptionId != "") {
             if ($googleDetail->tracking_option != '') {
                 $defaulSelection = 0;
             }
-            $rcd_postdata = array("app_id" => CONV_APP_ID, "platform_id" => 1, "plan_id" => $plan_id, "screen_name" => $subpage);
-            $resource_center_res = $customApiObj->get_resource_center_data($rcd_postdata);
-            if (!empty($resource_center_res->data)) {
-                $resource_center_data = $resource_center_res->data;
-            }
         }
     }
 }
@@ -148,7 +143,7 @@ if ($subscriptionId != "") {
         <!-- Main col8 center -->
         <div class="col-xs-12 row convfixedcontainerfull m-0 p-0">
 
-            <div class="col-md-8 g-0">
+            <div class="col-md-12 g-0">
                 <!-- Pixel setting header -->
                 <div class="conv_pixel_settings_head d-flex flex-row mt-0 align-items-center mb-3">
                     <a href="<?php echo esc_url('admin.php?page=conversios-google-analytics'); ?>"
@@ -268,52 +263,7 @@ if ($subscriptionId != "") {
 
             </div>
 
-            <!-- Resource center sidebar -->
-            <div class="col-md-4 pe-0 ps-4">
-                <div class="convcard mt-0 rounded-3 shadow-sm h-100">
-
-                    <div class="conv-rc-side-header border-2 border-bottom">
-                        <h6 class="h6 fw-normal m-0 p-3">
-                            <?php esc_html_e("Recommended For You", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                        </h6>
-                    </div>
-
-                    <div class="conv-rc-side-body">
-                        <?php
-                        foreach ($resource_center_data as $resource) {
-                            if ($resource->screen_name != $subpage) {
-                                continue;
-                            }
-                        ?>
-                        <a target="_blank" href="<?php echo esc_url($resource->link); ?>">
-                            <div class="card m-0 border-0" style="max-width: 540px;">
-
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="<?php echo esc_url($resource->thumbnail_url); ?>"
-                                            class="img-fluid border rounded">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body p-0 ps-2">
-                                            <h6 class="fw-normal mb-1">
-                                                <?php echo esc_attr($resource->title); ?>
-                                            </h6>
-                                        </div>
-                                        <div class="ps-2">
-                                            <span class="text-secondary">
-                                                <?php echo esc_attr($resource->type); ?>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </a>
-                        <?php } ?>
-                    </div>
-
-                </div>
-            </div>
+          
         </div>
         <!-- Main col8 center End-->
     </div>

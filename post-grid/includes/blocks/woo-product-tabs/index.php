@@ -60,6 +60,8 @@ class PGBlockWooProductTabs
 
     global $postGridCssY;
     global $postGridScriptData;
+    global $product;
+    if ($product == NULL) return;
 
 
 
@@ -113,7 +115,7 @@ class PGBlockWooProductTabs
 
 
 
-    //var_dump($blockAlign);
+
 
     // //* Visible condition
     $visible = isset($attributes['visible']) ? $attributes['visible'] : [];

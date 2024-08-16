@@ -4,9 +4,9 @@ Contributors: addonspress, codersantosh, acmeit
 Donate link: https://addonspress.com/
 Tags: import, advanced import, demo import, theme import, widget import, customizer import
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6.20
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -224,7 +224,20 @@ Yes, many themes are using this plugin, for an example, you can look on [CosmosW
 
 == Changelog ==
 
-= 1.4.1 - 2023-04-06 =
+= 1.4.2 - 2024-08-16 =
+* Added: Developers can now enable plugin installation from a URL by including source in the demo list array. This is ideal for plugins hosted outside of WordPress.org. Important: If a recommended plugin is already available on WordPress.org, there's no need to use the "source" option.
+
+`
+        'plugins' => array(
+            array(
+                'name'      => __( 'your plugin name', 'text-domain' ),
+                'slug'      => 'plugin-slug',
+                'source'      => 'https://downloads.wordpress.org/plugin/advanced-import.1.4.1.zip', //full url with zip, your theme url, or any site link with zip will work
+            ),
+         )
+`
+
+= 1.4.1 - 2024-04-07 =
 * Updated : Test with WordPress latest version
 
 = 1.4.0 - 2023-04-06 =

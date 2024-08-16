@@ -29,10 +29,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 class L_ThePlus_Progress_Bar extends Widget_Base {
 
 	/**
+	 * Document Link For Need help.
+	 *
+	 * @var tp_doc of the class.
+	 */
+	public $tp_doc = L_THEPLUS_Tpdoc;
+
+	/**
 	 * Get Widget Name.
 	 *
 	 * @since 1.0.0
-	 *
 	 * @version 5.4.2
 	 */
 	public function get_name() {
@@ -43,7 +49,6 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 	 * Get Widget Title.
 	 *
 	 * @since 1.0.0
-	 *
 	 * @version 5.4.2
 	 */
 	public function get_title() {
@@ -54,11 +59,22 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 	 * Get Widget Icon.
 	 *
 	 * @since 1.0.0
-	 *
 	 * @version 5.4.2
 	 */
 	public function get_icon() {
 		return 'fa fa-pie-chart theplus_backend_icon';
+	}
+
+	/**
+	 * Get Custom url.
+	 *
+	 * @since 1.0.0
+	 * @version 5.4.2
+	 */
+	public function get_custom_help_url() {
+		$doc_url = $this->tp_doc . 'progress-bar';
+
+		return esc_url( $doc_url );
 	}
 
 	/**
@@ -76,7 +92,6 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 	 * Get Widget keywords.
 	 *
 	 * @since 1.0.0
-	 *
 	 * @version 5.4.2
 	 */
 	public function get_keywords() {
@@ -87,7 +102,6 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.0
-	 *
 	 * @version 5.4.2
 	 */
 	protected function register_controls() {
@@ -111,7 +125,16 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 				),
 			)
 		);
-
+		$this->add_control(
+			'how_it_works_piechart',
+			array(
+				'label' => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "create-circle-progress-bars-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> Learn How it works  <i class='eicon-help-o'></i> </a>" ),
+				'type'  => Controls_Manager::HEADING,
+				'condition' => array(
+					'main_style' => 'pie_chart',
+				),
+			)
+		);
 		$this->add_control(
 			'pie_chart_style',
 			array(
@@ -647,7 +670,7 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 		$this->add_responsive_control(
 			'number_margin',
 			array(
-				'label'      => esc_html__( 'Space Between', 'theplus' ),
+				'label'      => esc_html__( 'Space Between', 'tpebl' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -984,6 +1007,7 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 			)
 		);
 		$this->end_controls_section();
+		include L_THEPLUS_PATH . 'modules/widgets/theplus-needhelp.php';
 	}
 
 	/**
@@ -992,7 +1016,6 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 	 * Written in PHP and HTML.
 	 *
 	 * @since 1.0.0
-	 *
 	 * @version 5.4.2
 	 */
 	protected function render() {

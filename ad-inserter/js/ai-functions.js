@@ -2178,6 +2178,154 @@ ai_ready (ai_configure_sticky_widgets);
 }
 if (typeof ai_cookie_js !== 'undefined') {
 
+/*! js-cookie v3.0.5 | MIT */
+;
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (function () {
+    var current = global.Cookies;
+    var exports = global.Cookies = factory();
+    exports.noConflict = function () { global.Cookies = current; return exports; };
+  })());
+})(this, (function () { 'use strict';
+
+  /* eslint-disable no-var */
+  function assign (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        target[key] = source[key];
+      }
+    }
+    return target
+  }
+  /* eslint-enable no-var */
+
+  /* eslint-disable no-var */
+  var defaultConverter = {
+    read: function (value) {
+      if (value[0] === '"') {
+        value = value.slice(1, -1);
+      }
+      return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent)
+    },
+    write: function (value) {
+      return encodeURIComponent(value).replace(
+        /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
+        decodeURIComponent
+      )
+    }
+  };
+  /* eslint-enable no-var */
+
+  /* eslint-disable no-var */
+
+  function init (converter, defaultAttributes) {
+    function set (name, value, attributes) {
+      if (typeof document === 'undefined') {
+        return
+      }
+
+      attributes = assign({}, defaultAttributes, attributes);
+
+      if (typeof attributes.expires === 'number') {
+        attributes.expires = new Date(Date.now() + attributes.expires * 864e5);
+      }
+      if (attributes.expires) {
+        attributes.expires = attributes.expires.toUTCString();
+      }
+
+      name = encodeURIComponent(name)
+        .replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent)
+        .replace(/[()]/g, escape);
+
+      var stringifiedAttributes = '';
+      for (var attributeName in attributes) {
+        if (!attributes[attributeName]) {
+          continue
+        }
+
+        stringifiedAttributes += '; ' + attributeName;
+
+        if (attributes[attributeName] === true) {
+          continue
+        }
+
+        // Considers RFC 6265 section 5.2:
+        // ...
+        // 3.  If the remaining unparsed-attributes contains a %x3B (";")
+        //     character:
+        // Consume the characters of the unparsed-attributes up to,
+        // not including, the first %x3B (";") character.
+        // ...
+        stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
+      }
+
+      return (document.cookie =
+        name + '=' + converter.write(value, name) + stringifiedAttributes)
+    }
+
+    function get (name) {
+      if (typeof document === 'undefined' || (arguments.length && !name)) {
+        return
+      }
+
+      // To prevent the for loop in the first place assign an empty array
+      // in case there are no cookies at all.
+      var cookies = document.cookie ? document.cookie.split('; ') : [];
+      var jar = {};
+      for (var i = 0; i < cookies.length; i++) {
+        var parts = cookies[i].split('=');
+        var value = parts.slice(1).join('=');
+
+        try {
+          var found = decodeURIComponent(parts[0]);
+          jar[found] = converter.read(value, found);
+
+          if (name === found) {
+            break
+          }
+        } catch (e) {}
+      }
+
+      return name ? jar[name] : jar
+    }
+
+    return Object.create(
+      {
+        set,
+        get,
+        remove: function (name, attributes) {
+          set(
+            name,
+            '',
+            assign({}, attributes, {
+              expires: -1
+            })
+          );
+        },
+        withAttributes: function (attributes) {
+          return init(this.converter, assign({}, this.attributes, attributes))
+        },
+        withConverter: function (converter) {
+          return init(assign({}, this.converter, converter), this.attributes)
+        }
+      },
+      {
+        attributes: { value: Object.freeze(defaultAttributes) },
+        converter: { value: Object.freeze(converter) }
+      }
+    )
+  }
+
+  var api = init(defaultConverter, { path: '/' });
+  /* eslint-enable no-var */
+
+  return api;
+
+}));
+
 /*!
  * JavaScript Cookie v2.2.0
  * https://github.com/js-cookie/js-cookie
@@ -2185,6 +2333,7 @@ if (typeof ai_cookie_js !== 'undefined') {
  * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
  * Released under the MIT license
  */
+/*
 ;(function (factory) {
   var registeredInModuleLoader;
   if (typeof define === 'function' && define.amd) {
@@ -2322,10 +2471,10 @@ if (typeof ai_cookie_js !== 'undefined') {
 
     api.set = set;
     api.get = function (key) {
-      return get(key, false /* read as raw */);
+      return get(key, false /* read as raw * /);
     };
     api.getJSON = function (key) {
-      return get(key, true /* read as json */);
+      return get(key, true /* read as json * /);
     };
     api.remove = function (key, attributes) {
       set(key, '', extend(attributes, {
@@ -2342,10 +2491,26 @@ if (typeof ai_cookie_js !== 'undefined') {
 
   return init(function () {});
 }));
-
+*/
 
 AiCookies = Cookies.noConflict();
 
+
+function ai_json_data (cookie) {
+  if (cookie == null) {
+    return cookie;
+  }
+
+  if (cookie.charAt (0) === '"') {
+    cookie = cookie.slice (1, -1);
+  }
+
+  try {
+    cookie = JSON.parse (cookie);
+  } catch (e) {}
+
+  return cookie;
+}
 
 ai_check_block = function (block) {
 //  var ai_debug = typeof ai_debugging !== 'undefined'; // 1
@@ -2356,7 +2521,10 @@ ai_check_block = function (block) {
   }
 
   var ai_cookie_name = 'aiBLOCKS';
-  var ai_cookie = AiCookies.getJSON (ai_cookie_name);
+//  ###
+//  var ai_cookie = AiCookies.getJSON (ai_cookie_name);
+  var ai_cookie = ai_json_data (AiCookies.get (ai_cookie_name));
+
   ai_debug_cookie_status = '';
 
   if (ai_cookie == null) {
@@ -2670,7 +2838,10 @@ ai_load_cookie = function () {
   var ai_debug = false;
 
   var ai_cookie_name = 'aiBLOCKS';
-  var ai_cookie = AiCookies.getJSON (ai_cookie_name);
+
+//  ###
+//  var ai_cookie = AiCookies.getJSON (ai_cookie_name);
+  var ai_cookie = ai_json_data (AiCookies.get (ai_cookie_name));
 
   if (ai_cookie == null) {
     ai_cookie = {};
@@ -2739,11 +2910,16 @@ ai_set_cookie = function (block, property, value) {
 
     if (ai_debug) console.log ('AI COOKIE REMOVED');
   } else {
-      AiCookies.set (ai_cookie_name, ai_cookie, {expires: 365, path: '/'});
+//    ###
+//      AiCookies.set (ai_cookie_name, ai_cookie, {expires: 365, path: '/'});
+      AiCookies.set (ai_cookie_name, JSON.stringify (ai_cookie), {expires: 365, path: '/'});
     }
 
   if (ai_debug) {
-    var ai_cookie_test = AiCookies.getJSON (ai_cookie_name);
+//    ###
+//    var ai_cookie_test = AiCookies.getJSON (ai_cookie_name);
+    var ai_cookie_test = ai_json_data (AiCookies.get (ai_cookie_name));
+
     if (typeof (ai_cookie_test) != 'undefined') {
       console.log ('AI COOKIE NEW', ai_cookie_test);
 
@@ -2812,7 +2988,9 @@ ai_set_cookie = function (block, property, value) {
 
 ai_get_cookie_text = function (block) {
   var ai_cookie_name = 'aiBLOCKS';
-  var ai_cookie = AiCookies.getJSON (ai_cookie_name);
+//  ###
+//  var ai_cookie = AiCookies.getJSON (ai_cookie_name);
+  var ai_cookie = ai_json_data (AiCookies.get (ai_cookie_name));
 
   if (ai_cookie == null) {
     ai_cookie = {};
@@ -5249,12 +5427,14 @@ function ai_check_close_buttons () {
     // ***
     var ai_close_button = element.querySelector ('.ai-close-button.ai-close-unprocessed');
 
+    var block = ai_close_button.dataset.aiBlock;
+
     if (ai_close_button != null) {
       ai_close_button.addEventListener ('click', (event) => {
         ai_close_block (ai_close_button);
 
         if (typeof ai_close_button_action == 'function') {
-          var block = ai_close_button.dataset.aiBlock;
+//          var block = ai_close_button.dataset.aiBlock;
 
           if (ai_debug) console.log ('AI CLOSE BUTTON ai_close_button_action (' + block + ') CALLED');
 
@@ -5263,9 +5443,20 @@ function ai_check_close_buttons () {
       });
 
 
+      var min_block_height = 0;
+      if (typeof ai_close_min_block_height !== 'undefined' && ai_close_min_block_height.constructor === Array) {
+        if (typeof ai_close_min_block_height [block] !== 'undefined') {
+          min_block_height = ai_close_min_block_height [block];
+
+          if (ai_debug) console.log ('AI CLOSE BUTTON ai_close_min_block_height [' + block + '] =', min_block_height);
+        }
+      }
+
+
 //      if ($(element).outerHeight () !== 0) {
       // ***
-      if (element.offsetHeight !== 0) {
+//      if (element.offsetHeight !== 0) {
+      if (element.offsetHeight !== 0 && element.offsetHeight >= min_block_height) {
 //        if (!$(element).find ('.ai-parallax').length) {
         // ***
         if (element.querySelector ('.ai-parallax') == null) {
@@ -5284,7 +5475,7 @@ function ai_check_close_buttons () {
       } else {
 //          if (ai_debug) console.log ('AI CLOSE BUTTON outerHeight 0', $(element).attr ('class'));
           // ***
-          if (ai_debug) console.log ('AI CLOSE BUTTON outerHeight 0', element.hasAttribute ("class") ? element.getAttribute ('class') : '');
+          if (ai_debug) console.log ('AI CLOSE BUTTON element.offsetHeight:', element.offsetHeight, element.hasAttribute ("class") ? element.getAttribute ('class') : '');
 
 //          var ai_close_button = $(element);
           // ***
@@ -5294,7 +5485,8 @@ function ai_check_close_buttons () {
 
 //            if (ai_close_button.outerHeight () !== 0) {
             // ***
-            if (ai_close_button.offsetHeight !== 0) {
+//            if (ai_close_button.offsetHeight !== 0) {
+            if (ai_close_button.offsetHeight !== 0 && ai_close_button.offsetHeight >= min_block_height) {
 //              if (!ai_close_button.find ('.ai-parallax').length) {
               // ***
 //              if (!ai_close_button.find ('.ai-parallax').length) {
@@ -5314,7 +5506,7 @@ function ai_check_close_buttons () {
               if (ai_debug) console.log ('AI DELAYED CLOSE BUTTON ', ai_close_button.hasAttribute ("class") ? ai_close_button.getAttribute ('class') : '');
 //            } else if (ai_debug) console.log ('AI DELAYED CLOSE BUTTON outerHeight 0', ai_close_button.attr ('class'));
             // ***
-            } else if (ai_debug) console.log ('AI DELAYED CLOSE BUTTON outerHeight 0', ai_close_button.hasAttribute ("class") ? ai_close_button.getAttribute ('class') : '');
+            } else if (ai_debug) console.log ('AI DELAYED CLOSE BUTTON element.offsetHeight:', element.offsetHeight, ai_close_button.hasAttribute ("class") ? ai_close_button.getAttribute ('class') : '');
           }, 4000);
         }
 

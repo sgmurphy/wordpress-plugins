@@ -147,3 +147,19 @@
 		width: 300px;
 	}
 }
+
+.responsive-theme-settings-content .responsive-theme-setting-list-container{
+	width: 248px;
+	padding: 0px;
+}
+
+.responsive-theme-settings-content .responsive-settings-tab-right-container
+{
+	flex: 1;
+}
+
+.responsive-theme-setting-border-left .responsive-theme-single-setting-section{
+	margin-bottom: 0px;
+}
+
+

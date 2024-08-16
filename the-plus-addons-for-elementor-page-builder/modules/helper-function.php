@@ -368,7 +368,7 @@ function l_theplus_get_columns_list()
         '2' => esc_html__( 'Column 6', 'tpebl' ),
 		'3' => esc_html__( 'Column 4', 'tpebl' ),
 		'4' => esc_html__( 'Column 3', 'tpebl' ),
-		'5' => esc_html__( 'Column 5', 'theplus' ),
+		'5' => esc_html__( 'Column 5', 'tpebl' ),
 		'6' => esc_html__( 'Column 2', 'tpebl' ),
 		'12'  => esc_html__( 'Column 1', 'tpebl' ),
 	);

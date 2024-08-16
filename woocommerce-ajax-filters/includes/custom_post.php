@@ -192,6 +192,7 @@ class BeRocket_AAPF_single_filter extends BeRocket_custom_post_class {
             'product_cat'                   => '',
             'parent_product_cat_current'    => '0',
             'attribute_count'               => '',
+            'clrimg_use_attrval'            => '',
         );
         $this->add_meta_box('conditions', __( 'Conditions', 'BeRocket_AJAX_domain' ));
         $this->add_meta_box('settings', __( 'Product Filter Settings', 'BeRocket_AJAX_domain' ));

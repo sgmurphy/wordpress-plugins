@@ -753,15 +753,15 @@ class L_ThePlus_Button extends Widget_Base {
 		$this->add_control(
 			'hover_button_border_style',
 			array(
-				'label'     => esc_html__( 'Border Style', 'theplus' ),
+				'label'     => esc_html__( 'Border Style', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'solid',
 				'options'   => array(
-					'none'   => esc_html__( 'None', 'theplus' ),
-					'solid'  => esc_html__( 'Solid', 'theplus' ),
-					'dotted' => esc_html__( 'Dotted', 'theplus' ),
-					'dashed' => esc_html__( 'Dashed', 'theplus' ),
-					'groove' => esc_html__( 'Groove', 'theplus' ),
+					'none'   => esc_html__( 'None', 'tpebl' ),
+					'solid'  => esc_html__( 'Solid', 'tpebl' ),
+					'dotted' => esc_html__( 'Dotted', 'tpebl' ),
+					'dashed' => esc_html__( 'Dashed', 'tpebl' ),
+					'groove' => esc_html__( 'Groove', 'tpebl' ),
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .pt_plus_button.button-style-4 .button-link-wrap:hover,
@@ -790,7 +790,7 @@ class L_ThePlus_Button extends Widget_Base {
 		$this->add_responsive_control(
 			'hover_button_border_width',
 			array(
-				'label'      => esc_html__( 'Border Width', 'theplus' ),
+				'label'      => esc_html__( 'Border Width', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'default'    => array(

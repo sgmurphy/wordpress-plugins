@@ -37,7 +37,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Single_Product' ) ) :
 			if ( 'Responsive' === $theme->name || 'Responsive' === $theme->parent_theme ) {
 				// Main Content Width.
 				$single_product_image_width_label = esc_html__( 'Image Width (%)', 'responsive' );
-				responsive_addons_drag_number_control( $wp_customize, 'single_product_image_width', $single_product_image_width_label, 'responsive_woocommerce_single_product_layout', 50, 48, null, 70, 20, 'refresh' );
+				responsive_drag_number_control( $wp_customize, 'single_product_image_width', $single_product_image_width_label, 'responsive_woocommerce_single_product_layout', 50, 48, null, 70, 20, 'refresh' );
 			}
 
 			/*

@@ -95,6 +95,11 @@ cff_forms_templates = {
             "description": "Calculates time to retirement based on age of bird and retirement age.",
             "id": 41
         }, {
+            "title": "Pet Age",
+            "category": "Dates Operations",
+            "description": "Calculates pet age in human years.",
+            "id": 52
+        }, {
             "title": "Booking Form",
             "category": "Dates Operations",
             "description": "Booking form based on date interval, number of people, rooms, and additional services.",

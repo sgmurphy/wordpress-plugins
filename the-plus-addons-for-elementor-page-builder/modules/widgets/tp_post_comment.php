@@ -88,7 +88,7 @@ class L_ThePlus_Post_Comment extends Widget_Base {
 		$this->start_controls_section(
 			'contentt_section',
 			array(
-				'label' => esc_html__( 'Content', 'theplus' ),
+				'label' => esc_html__( 'Content', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -96,40 +96,40 @@ class L_ThePlus_Post_Comment extends Widget_Base {
 			'PostTitle',
 			array(
 				'type'    => Controls_Manager::TEXT,
-				'label'   => esc_html__( 'Title', 'theplus' ),
-				'default' => esc_html__( 'Leave Your Comment', 'theplus' ),
+				'label'   => esc_html__( 'Title', 'tpebl' ),
+				'default' => esc_html__( 'Leave Your Comment', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'BtnTitle',
 			array(
 				'type'    => Controls_Manager::TEXT,
-				'label'   => esc_html__( 'Button Text', 'theplus' ),
-				'default' => esc_html__( 'Submit Now', 'theplus' ),
+				'label'   => esc_html__( 'Button Text', 'tpebl' ),
+				'default' => esc_html__( 'Submit Now', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'PlaceholderTxt',
 			array(
 				'type'    => Controls_Manager::TEXT,
-				'label'   => esc_html__( 'Placeholder Text', 'theplus' ),
-				'default' => esc_html__( 'Comment', 'theplus' ),
+				'label'   => esc_html__( 'Placeholder Text', 'tpebl' ),
+				'default' => esc_html__( 'Comment', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'LeaveTxt',
 			array(
 				'type'    => Controls_Manager::TEXT,
-				'label'   => esc_html__( 'Leave Reply Text', 'theplus' ),
-				'default' => esc_html__( 'Leave A Reply To', 'theplus' ),
+				'label'   => esc_html__( 'Leave Reply Text', 'tpebl' ),
+				'default' => esc_html__( 'Leave A Reply To', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'CancelTxt',
 			array(
 				'type'    => Controls_Manager::TEXT,
-				'label'   => esc_html__( 'Cancel Reply Text', 'theplus' ),
-				'default' => esc_html__( 'Cancel Reply', 'theplus' ),
+				'label'   => esc_html__( 'Cancel Reply Text', 'tpebl' ),
+				'default' => esc_html__( 'Cancel Reply', 'tpebl' ),
 			)
 		);
 		$this->end_controls_section();

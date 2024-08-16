@@ -1677,9 +1677,9 @@ input[type="checkbox"] {
     width: 24px;
 }
 
-/* .pawizard_tab_but {
+.pawizard_tab_but {
     pointer-events: none !important;
-} */
+}
 
 .pawizard_tab_but.active h5 {
     color: #1967D2 !important;

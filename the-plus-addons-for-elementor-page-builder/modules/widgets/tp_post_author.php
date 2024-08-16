@@ -812,22 +812,22 @@ class L_ThePlus_Post_Author extends Widget_Base {
 
 				$authorsocial .= '<ul class="author-social">';
 				if ( ! empty( $author_website ) ) {
-					$authorsocial .= '<li><a href="' . esc_url( $author_website ) . '" rel="' . esc_attr__( 'website', 'theplus' ) . '" target="_blank"><i class="fas fa-globe-americas"></i></a></li>';
+					$authorsocial .= '<li><a href="' . esc_url( $author_website ) . '" rel="' . esc_attr__( 'website', 'tpebl' ) . '" target="_blank"><i class="fas fa-globe-americas"></i></a></li>';
 				}
 				if ( ! empty( $author_email ) ) {
-					$authorsocial .= '<li><a href="mailto:' . esc_attr( $author_email ) . '" rel="' . esc_attr__( 'email', 'theplus' ) . '"><i class="fas fa-envelope"></i></a></li>';
+					$authorsocial .= '<li><a href="mailto:' . esc_attr( $author_email ) . '" rel="' . esc_attr__( 'email', 'tpebl' ) . '"><i class="fas fa-envelope"></i></a></li>';
 				}
 				if ( ! empty( $author_number ) ) {
-					$authorsocial .= '<li><a href="tel:' . esc_attr( $author_number ) . '" rel="' . esc_attr__( 'author_number', 'theplus' ) . '"><i class="fas fa-phone-alt"></i></a></li>';
+					$authorsocial .= '<li><a href="tel:' . esc_attr( $author_number ) . '" rel="' . esc_attr__( 'author_number', 'tpebl' ) . '"><i class="fas fa-phone-alt"></i></a></li>';
 				}
 				if ( ! empty( $author_facebook ) ) {
-					$authorsocial .= '<li><a href="' . esc_url( $author_facebook ) . '" rel="' . esc_attr__( 'facebook', 'theplus' ) . '" target="_blank"><i class="fab fa-facebook-f"></i></a></li>';
+					$authorsocial .= '<li><a href="' . esc_url( $author_facebook ) . '" rel="' . esc_attr__( 'facebook', 'tpebl' ) . '" target="_blank"><i class="fab fa-facebook-f"></i></a></li>';
 				}
 				if ( ! empty( $author_twitter ) ) {
-					$authorsocial .= '<li><a href="' . esc_url( $author_twitter ) . '" rel="' . esc_attr__( 'twitter', 'theplus' ) . '" target="_blank"><i class="fab fa-twitter" ></i></a></li>';
+					$authorsocial .= '<li><a href="' . esc_url( $author_twitter ) . '" rel="' . esc_attr__( 'twitter', 'tpebl' ) . '" target="_blank"><i class="fab fa-twitter" ></i></a></li>';
 				}
 				if ( ! empty( $author_instagram ) ) {
-					$authorsocial .= '<li><a href="' . esc_url( $author_instagram ) . '" rel="' . esc_attr__( 'instagram', 'theplus' ) . '" target="_blank"><i class="fab fa-instagram"></i></a></li>';
+					$authorsocial .= '<li><a href="' . esc_url( $author_instagram ) . '" rel="' . esc_attr__( 'instagram', 'tpebl' ) . '" target="_blank"><i class="fab fa-instagram"></i></a></li>';
 				}
 				$authorsocial .= '</ul>';
 			}

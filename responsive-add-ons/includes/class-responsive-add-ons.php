@@ -1246,7 +1246,7 @@ class Responsive_Add_Ons {
 			wp_send_json_error( __( 'User does not have permission!', 'responsive-addons' ) );
 		}
 
-		$file_name    = 'responsive-ready-sites-backup-' . date( 'd-M-Y-h-i-s' ) . '.json';
+		$file_name    = 'responsive-ready-sites-backup-' . date( 'd-M-Y-h-i-s' ) . '.json'; // phpcs:ignore
 		$old_settings = get_option( 'responsive_theme_options', array() );
 
 		$upload_dir  = Responsive_Ready_Sites_Importer_Log::get_instance()->log_dir();
@@ -1649,7 +1649,8 @@ class Responsive_Add_Ons {
 			<div class="nav-tab-wrapper">
 				<div class="logo">
 					<div class="responsive-sites-logo-wrap">
-							<img src="<?php echo esc_url( RESPONSIVE_ADDONS_URI . 'admin/images/svgs/responsive-starter-templates-thumbnail.svg' ); ?>">
+							<img src="<?php echo esc_url( RESPONSIVE_ADDONS_URI . 'admin/images/responsive-plus-logo.png' ); ?>">
+							<div class="responsive-sites-version"><?php esc_html_e( RESPONSIVE_ADDONS_VER, 'responsive-add-ons' ); ?></div>
 					</div>
 				</div>
 				<div id="responsive-sites-filters" class="hide-on-mobile">
@@ -1839,7 +1840,7 @@ class Responsive_Add_Ons {
 		if ( in_array( $page, $show_footer ) ) {
 			$rate_text = '<div class="rst-branding-footer">
 							<div class="rst-branding-footer-text">
-							    If you like <strong>Responsive Starter Templates</strong>, please leave us a "<a href="https://wordpress.org/support/view/plugin-reviews/responsive-add-ons?filter=5#postform" target="_blank" class="responsive-rating-link" style="text-decoration:none;" data-rated="' . esc_attr__( 'Thanks :)', 'responsive-addons' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>" rating. Thank you! 
+							    If you like <strong>Responsive Starter Templates</strong>, please leave us a "<a href="https://wordpress.org/support/view/plugin-reviews/responsive-add-ons?filter=5#postform" target="_blank" class="responsive-rating-link" style="text-decoration:none;" data-rated="' . esc_attr__( 'Thanks :)', 'responsive-addons' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>" rating. Thank you!
 							</div>
 							<img class="rst-footer-branding-img" src="' . esc_url( RESPONSIVE_ADDONS_URI . 'admin/images/responsive-addons-footer-thumbnail.png' ) . '">
 						</div>';
@@ -2262,18 +2263,6 @@ class Responsive_Add_Ons {
 						<p class="responsive-sites-overlay-content"><?php esc_html_e( 'Get access to all the pro templates and unlock more theme customizer settings using Responsive Pro.', 'responsive-addons' ); ?></p>
 						<a href="https://cyberchimps.com/responsive-go-pro/?utm_source=RST_plugin&utm_medium=intro_screen_slidein_btn&utm_campaign=free-to-pro&utm_term=Go_Pro_btn" target="_blank" class="button button-primary responsive-sites-go-pro-btn"><?php esc_html_e( 'Go Pro', 'responsive-addons' ); ?></a>
 					</div>
-					<div class="responsive-sites-help-center">
-						<h3 class="responsive-sites-overlay-heading"><?php esc_html_e( 'Help Center', 'responsive-addons' ); ?></h3>
-						<p class="responsive-sites-overlay-content"><?php esc_html_e( 'Read the documentation to find answers to your questions.', 'responsive-addons' ); ?></p>
-						<a href="https://cyberchimps.com/docs-category/responsive-starter-templates-plugin/" target="_blank" class="responsive-sites-help-center-btn"><?php esc_html_e( 'Docs', 'responsive-addons' ); ?></a>
-						<?php esc_html_e( 'or', 'responsive-addons' ); ?>
-						<a href="https://www.facebook.com/groups/responsive.theme/" target="_blank" class="responsive-sites-community-support-btn"><?php esc_html_e( 'Visit Facebook Group', 'responsive-addons' ); ?></a>
-					</div>
-					<div class="responsive-sites-video-guides">
-						<h3 class="responsive-sites-overlay-heading"><?php esc_html_e( 'Video Guides', 'responsive-addons' ); ?></h3>
-						<p class="responsive-sites-overlay-content"><?php esc_html_e( 'Browse through these video tutorials to learn more about how the plugin functions.', 'responsive-addons' ); ?></p>
-						<a href="https://www.youtube.com/playlist?list=PLXTwxw3ZJwPSpE3RYanAdYgnDptbSvjXl" target="_blank" class="responsive-sites-video-guides-btn"><?php esc_html_e( 'Watch Now', 'responsive-addons' ); ?></a>
-					</div>
 					<div class="responsive-sites-rate-us">
 						<h3 class="responsive-sites-overlay-heading"><?php esc_html_e( 'Rate Us', 'responsive-addons' ); ?></h3>
 						<p class="responsive-sites-rate-us-stars">
@@ -2287,6 +2276,18 @@ class Responsive_Add_Ons {
 						</p>
 						<p class="responsive-sites-overlay-content"><?php esc_html_e( 'Please let us know what you think, we would appreciate every single review.', 'responsive-addons' ); ?></p>
 						<a href="https://wordpress.org/support/plugin/responsive-add-ons/reviews/" target="_blank" class="responsive-sites-rate-us-btn"><?php esc_html_e( 'Submit Review', 'responsive-addons' ); ?></a>
+					</div>
+					<div class="responsive-sites-help-center">
+						<h3 class="responsive-sites-overlay-heading"><?php esc_html_e( 'Help Center', 'responsive-addons' ); ?></h3>
+						<p class="responsive-sites-overlay-content"><?php esc_html_e( 'Read the documentation to find answers to your questions.', 'responsive-addons' ); ?></p>
+						<a href="https://cyberchimps.com/docs-category/responsive-starter-templates-plugin/" target="_blank" class="responsive-sites-help-center-btn"><?php esc_html_e( 'Docs', 'responsive-addons' ); ?></a>
+						<?php esc_html_e( 'or', 'responsive-addons' ); ?>
+						<a href="https://www.facebook.com/groups/responsive.theme/" target="_blank" class="responsive-sites-community-support-btn"><?php esc_html_e( 'Visit Facebook Group', 'responsive-addons' ); ?></a>
+					</div>
+					<div class="responsive-sites-video-guides">
+						<h3 class="responsive-sites-overlay-heading"><?php esc_html_e( 'Video Guides', 'responsive-addons' ); ?></h3>
+						<p class="responsive-sites-overlay-content"><?php esc_html_e( 'Browse through these video tutorials to learn more about how the plugin functions.', 'responsive-addons' ); ?></p>
+						<a href="https://www.youtube.com/playlist?list=PLXTwxw3ZJwPSpE3RYanAdYgnDptbSvjXl" target="_blank" class="responsive-sites-video-guides-btn"><?php esc_html_e( 'Watch Now', 'responsive-addons' ); ?></a>
 					</div>
 				</div>
 			</div>

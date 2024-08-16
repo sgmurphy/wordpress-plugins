@@ -7,6 +7,7 @@ if( ! class_exists('BeRocket_url_parse_page') ) {
         public $main_class = false;
         public $taxonomy_md5 = false;
         public $query_vars = array();
+        public $queried_object = FALSE;
         function __construct() {
             global $berocket_selected_filters, $berocket_parse_page_obj;
             add_action('bapf_class_ready', array($this, 'init'), 10, 1);
@@ -68,6 +69,7 @@ if( ! class_exists('BeRocket_url_parse_page') ) {
                     $query_vars['meta_query'] = $meta_query_wc_main;
                 }
                 $this->query_vars = $query_vars;
+                $this->queried_object = $query->get_queried_object();
             }
         }
         public function woocommerce_shortcode_products_query($query_vars, $atts = array(), $name = 'products') {

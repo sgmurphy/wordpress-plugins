@@ -5,7 +5,7 @@ Tags: elementor templates, block templates, elementor, templates, gutenberg
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 3.0.8
+Stable tag: 3.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -236,6 +236,11 @@ If you like Responsive Addons Plugin, consider checking out our other WordPress 
 
 == Changelog ==
 
+= 3.0.9 -  =
+* Improvement : Strengthened the codebase.
+* Improvement : Minor UI Changes.
+* Fix : Made Compatible with latest responsive theme.
+
 = 3.0.8 - 25th July 2024 =
 * Improvement : UI Changes.
 * Fix: Made Compatible with latest responsive theme.
@@ -244,7 +249,7 @@ If you like Responsive Addons Plugin, consider checking out our other WordPress 
 * Improvement : Strengthened the codebase.
 * Fix : Resolved PHP warning.
 * Fix : Fixed templates and blocks inside elementor page not getting imported issue.
-* Fix : Fixed Responsive Theme's Native Cart Popup not working issue. 
+* Fix : Fixed Responsive Theme's Native Cart Popup not working issue.
 
 = 3.0.6 - 29th May 2024 =
 * Fix : Enhanced Security - Strengthened the codebase
@@ -332,7 +337,7 @@ If you like Responsive Addons Plugin, consider checking out our other WordPress 
 * Added - Compatibility with GiveWP Donation plugin.
 
 = 2.7.9.1 - 13th April 2023 =
-* Fix - Sidebar and Footer Menu Issue Fixed.    
+* Fix - Sidebar and Footer Menu Issue Fixed.
 
 = 2.7.9.01 - 7th April 2023 =
 * Added notice for WPForms Lite plugin Issue.

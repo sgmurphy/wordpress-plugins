@@ -1658,7 +1658,7 @@ class L_ThePlus_Post_Meta extends Widget_Base {
 							$iconauthor = '<i class="' . esc_attr( $author_icon ) . '"></i>';
 						}
 
-						$output .= '<span class="tp-meta-author" ><span class="tp-meta-author-label tp-meta-label" >' . esc_html( $author_prefix ) . '</span><a class="tp-meta-value" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="' . esc_attr__( 'author', 'theplus' ) . '">' . $iconauthor . get_the_author_meta( 'display_name', $author_id ) . '</a></span>';
+						$output .= '<span class="tp-meta-author" ><span class="tp-meta-author-label tp-meta-label" >' . esc_html( $author_prefix ) . '</span><a class="tp-meta-value" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="' . esc_attr__( 'author', 'tpebl' ) . '">' . $iconauthor . get_the_author_meta( 'display_name', $author_id ) . '</a></span>';
 					}
 				}
 

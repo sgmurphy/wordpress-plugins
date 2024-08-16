@@ -355,6 +355,7 @@ class BeRocket_AAPF_Widget {
         $set_query_var_title['scroll_theme']                = $scroll_theme;
         $set_query_var_title['reset_hide']                  = berocket_isset($reset_hide);
         $set_query_var_title['selected_area_show']          = ! empty($selected_area_show);
+        $set_query_var_title['clrimg_use_attrval']          = ! empty($clrimg_use_attrval);
         if( in_array(br_get_value_from_array($set_query_var_title, 'new_template'), array('slider', 'new_slider')) ) {
             $instance['type'] = 'slider';
             $type = 'slider';

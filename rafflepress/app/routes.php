@@ -310,6 +310,9 @@ if ( defined( 'DOING_AJAX' ) ) {
 	add_action( 'wp_ajax_rafflepress_lite_activate_addon', 'rafflepress_lite_activate_addon' );
 	add_action( 'wp_ajax_rafflepress_lite_plugin_nonce', 'rafflepress_lite_plugin_nonce' );
 
+	add_action( 'wp_ajax_rafflepress_lite_action_token', 'rafflepress_lite_action_token' );
+	add_action( 'wp_ajax_nopriv_rafflepress_lite_action_token', 'rafflepress_lite_action_token' );
+
 	add_action( 'wp_ajax_rafflepress_lite_giveaway_api', 'rafflepress_lite_giveaway_api' );
 	add_action( 'wp_ajax_nopriv_rafflepress_lite_giveaway_api', 'rafflepress_lite_giveaway_api' );
 

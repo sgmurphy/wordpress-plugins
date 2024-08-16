@@ -1119,6 +1119,7 @@ class Quiz_Maker_Admin
         $quick_quiz_custom_class                            = "";
 
         $quick_quiz_quest_animation                         = "shake";
+        $quick_quiz_question_font_size                      = 16;
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1231,6 +1232,9 @@ class Quiz_Maker_Admin
 
             // Animation effect
             $quick_quiz_quest_animation = (isset($_REQUEST['ays_quick_quiz_quest_animation']) && $_REQUEST['ays_quick_quiz_quest_animation'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_quest_animation'] ) ) : 'shake';
+
+            // Question Font Size | desktop
+            $quick_quiz_question_font_size = (isset($_REQUEST['ays_quick_quiz_question_font_size']) && $_REQUEST['ays_quick_quiz_question_font_size'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_question_font_size'] ) ) : 16;
 
         }
         
@@ -1403,7 +1407,7 @@ class Quiz_Maker_Admin
             'enable_see_result_confirm_box'                 => $quick_quiz_enable_see_result_confirm_box,
             'enable_tackers_count'                          => 'off',
             'pass_score'                                    => '0',
-            'question_font_size'                            => '16',
+            'question_font_size'                            => $quick_quiz_question_font_size,
             'quiz_width_by_percentage_px'                   => 'pixels',
             'questions_hint_icon_or_text'                   => 'default',
             'enable_early_finsh_comfirm_box'                => 'on',
@@ -1475,27 +1479,27 @@ class Quiz_Maker_Admin
             'quest_explanation_font_size'                   => "16",
             'quest_explanation_mobile_font_size'            => "16",
             'wrong_answers_font_size'                       => "16",
-            'wrong_answers_mobile_font_size'            => "16",
-            'right_answers_font_size'                   => "16",
-            'right_answers_mobile_font_size'            => "16",
-            'note_text_font_size'                       => "14",
-            'note_text_mobile_font_size'                => "14",
-            'quiz_questions_numbering_by_category'      => "off",
-            'quiz_enable_custom_texts_for_buttons'      => $quick_quiz_enable_custom_texts_for_buttons,
-            'quiz_custom_texts_start_button'            => $quick_quiz_custom_texts_start_button,
-            'quiz_custom_texts_next_button'             => $quick_quiz_custom_texts_next_button,
-            'quiz_custom_texts_prev_button'             => $quick_quiz_custom_texts_prev_button,
-            'quiz_custom_texts_clear_button'            => $quick_quiz_custom_texts_clear_button,
-            'quiz_custom_texts_finish_button'           => $quick_quiz_custom_texts_finish_button,
-            'quiz_custom_texts_see_results_button'      => $quick_quiz_custom_texts_see_results_button,
-            'quiz_custom_texts_restart_quiz_button'     => $quick_quiz_custom_texts_restart_button,
-            'quiz_custom_texts_send_feedback_button'    => $quick_quiz_custom_texts_send_feedback_button,
-            'quiz_custom_texts_load_more_button'        => $quick_quiz_custom_texts_load_more_button,
-            'quiz_custom_texts_exit_button'             => $quick_quiz_custom_texts_exit_button,
-            'quiz_display_messages_before_buttons'      => $quick_quiz_display_messages_before_buttons,
-            'quiz_custom_texts_check_button'            => $quick_quiz_custom_texts_check_button,
-            'quiz_custom_texts_login_button'            => $quick_quiz_custom_texts_login_button,
-            'quiz_enable_quiz_category_description'     => "off",
+            'wrong_answers_mobile_font_size'                => "16",
+            'right_answers_font_size'                       => "16",
+            'right_answers_mobile_font_size'                => "16",
+            'note_text_font_size'                           => "14",
+            'note_text_mobile_font_size'                    => "14",
+            'quiz_questions_numbering_by_category'          => "off",
+            'quiz_enable_custom_texts_for_buttons'          => $quick_quiz_enable_custom_texts_for_buttons,
+            'quiz_custom_texts_start_button'                => $quick_quiz_custom_texts_start_button,
+            'quiz_custom_texts_next_button'                 => $quick_quiz_custom_texts_next_button,
+            'quiz_custom_texts_prev_button'                 => $quick_quiz_custom_texts_prev_button,
+            'quiz_custom_texts_clear_button'                => $quick_quiz_custom_texts_clear_button,
+            'quiz_custom_texts_finish_button'               => $quick_quiz_custom_texts_finish_button,
+            'quiz_custom_texts_see_results_button'          => $quick_quiz_custom_texts_see_results_button,
+            'quiz_custom_texts_restart_quiz_button'         => $quick_quiz_custom_texts_restart_button,
+            'quiz_custom_texts_send_feedback_button'        => $quick_quiz_custom_texts_send_feedback_button,
+            'quiz_custom_texts_load_more_button'            => $quick_quiz_custom_texts_load_more_button,
+            'quiz_custom_texts_exit_button'                 => $quick_quiz_custom_texts_exit_button,
+            'quiz_display_messages_before_buttons'          => $quick_quiz_display_messages_before_buttons,
+            'quiz_custom_texts_check_button'                => $quick_quiz_custom_texts_check_button,
+            'quiz_custom_texts_login_button'                => $quick_quiz_custom_texts_login_button,
+            'quiz_enable_quiz_category_description'         => "off",
             'quiz_admin_note_text_transform'            => "none",
             'quiz_quest_explanation_text_transform'     => "none",
             'quiz_right_answer_text_transform'          => "none",

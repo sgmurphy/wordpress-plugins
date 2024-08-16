@@ -12,7 +12,7 @@
 
 ?>
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<div class="col-md-2">
+<div class="col-md-2 responsive-theme-setting-list-container">
 	<div class="responsive-theme-setting-list">
 		<div tabindex="0" class="responsive-theme-setting-item d-flex" id="responsive-setting-item-app-connection-tab" role="button">
 				<span class="responsive-theme-setting-item-icon dashicons dashicons-admin-users responsive-theme-setting-active-tab"></span>

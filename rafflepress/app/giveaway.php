@@ -804,6 +804,20 @@ function rafflepress_lite_save_slug() {
 	}
 }
 
+/*
+ * Validate Hex Color
+ */
+function rafflepress_lite_is_valid_hex_color($color) {
+	return preg_match('/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/', $color);
+}
+
+/*
+ * Sanitize Hex Color
+ */
+function rafflepress_lite_sanitize_hex_color($color) {
+	$color = sanitize_text_field($color); // Remove unexpected characters
+	return rafflepress_lite_is_valid_hex_color($color) ? $color : ''; // Return color if valid, else empty string
+}
 
 /*
  * Save/Update Giveaway
@@ -887,9 +901,16 @@ function rafflepress_lite_save_giveaway() {
 				}
 			}
 
+			if ( ! empty( $settings_obj->button_color) ) {
+				$settings_obj->button_color = rafflepress_lite_sanitize_hex_color( $settings_obj->button_color );
+			}
+
+			if ( ! empty( $settings_obj->page_background_color) ) {
+				$settings_obj->page_background_color = rafflepress_lite_sanitize_hex_color( $settings_obj->page_background_color );
+			}
+
 			$settings = wp_json_encode($settings_obj);
 		}
-		
 
 		$status = '';
 		if ( empty( $_POST['giveaway_id'] ) ) {

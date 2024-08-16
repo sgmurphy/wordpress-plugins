@@ -5,7 +5,7 @@ Tags: woocommerce, gift cards, gift certificates, vouchers, store credit
 Requires at least: 4.5
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,9 @@ The following currency switcher plugins are supported:
 
 == Changelog ==
 
+= 2.2 =
+* Fixed an issue when using the WP Optimize plugin with Minify and Merge Javascript enabled.
+
 = 2.1 =
 * Performance improvements.
 
@@ -116,15 +119,12 @@ The following currency switcher plugins are supported:
 = 1.249 =
 * Confirmed compatibility with WordPress 6.4
 
-= 1.248 =
-* Prevent an exception from being thrown on some systems when the retrieved Order object is invalid.
-
 = Previous versions =
 * See changelog.txt
 
 == Upgrade Notice ==
 
-= 2.1 =
-* Performance improvements.
+= 2.2 =
+* Fixed an issue when using the WP Optimize plugin with Minify and Merge Javascript enabled.
 
 

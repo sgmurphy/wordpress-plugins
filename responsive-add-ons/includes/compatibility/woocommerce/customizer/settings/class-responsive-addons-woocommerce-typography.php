@@ -45,8 +45,8 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 					'product_title'                  => array(
 						'label'    => esc_html__( 'Product Title', 'responsive-addons-pro' ),
 						'target'   => '.woocommerce ul.products li.product .woocommerce-loop-product__title, .woocommerce-page ul.products li.product .woocommerce-loop-product__title',
-						'priority' => 3,
-						'section'  => 'responsive_pro_woocommerce_shop_page_typography',
+						'priority' => 173,
+						'section'  => 'responsive_woocommerce_shop',
 						'defaults' => array(
 							'font-size'      => '14px',
 							'font-weight'    => '400',
@@ -58,9 +58,9 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 					'single_product_title'           => array(
 						'label'    => esc_html__( 'Product Title', 'responsive-addons-pro' ),
 						'target'   => '.single-product div.product .entry-title',
-						'priority' => 9,
+						'priority' => 79,
 						'type'     => 'control',
-						'section'  => 'responsive_pro_woocommerce_single_product_typography',
+						'section'  => 'responsive_woocommerce_single_product_layout',
 						'defaults' => array(
 							'font-size'      => '14px',
 							'font-weight'    => '400',
@@ -72,8 +72,8 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 					'product_price'                  => array(
 						'label'    => esc_html__( 'Product Price', 'responsive-addons-pro' ),
 						'target'   => '.woocommerce ul.products li.product .price, .woocommerce-page ul.products li.product .price',
-						'priority' => 5,
-						'section'  => 'responsive_pro_woocommerce_shop_page_typography',
+						'priority' => 175,
+						'section'  => 'responsive_woocommerce_shop',
 						'defaults' => array(
 							'font-size'      => '14px',
 							'font-weight'    => '400',
@@ -85,10 +85,10 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 					'single_product_price'           => array(
 						'label'    => esc_html__( 'Product Price', 'responsive-addons-pro' ),
 						'target'   => '.single-product div.product p.price,.single-product div.product p.price ins',
-						'priority' => 11,
+						'priority' => 81,
 						'exclude'  => array( 'text-transform' ),
 						'type'     => 'control',
-						'section'  => 'responsive_pro_woocommerce_single_product_typography',
+						'section'  => 'responsive_woocommerce_single_product_layout',
 						'defaults' => array(
 							'font-size'   => '20px',
 							'color'       => '#555555',
@@ -99,8 +99,8 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 					'product_content'                => array(
 						'label'    => esc_html__( 'Product Content', 'responsive-addons-pro' ),
 						'target'   => '.responsive-shop-summary-wrap p, .responsive-shop-summary-wrap .responsive_woo_shop_parent_category ',
-						'priority' => 7,
-						'section'  => 'responsive_pro_woocommerce_shop_page_typography',
+						'priority' => 177,
+						'section'  => 'responsive_woocommerce_shop',
 						'defaults' => array(
 							'font-size'      => '14px',
 							'font-weight'    => '400',
@@ -112,9 +112,9 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 					'single_product_content'         => array(
 						'label'    => esc_html__( 'Product Content', 'responsive-addons-pro' ),
 						'target'   => '.single-product .woocommerce-product-details__short-description, .single-product .woocommerce-Tabs-panel--description',
-						'priority' => 13,
+						'priority' => 83,
 						'type'     => 'control',
-						'section'  => 'responsive_pro_woocommerce_single_product_typography',
+						'section'  => 'responsive_woocommerce_single_product_layout',
 						'defaults' => array(
 							'font-size'      => '2.250em',
 							'color'          => '#555555',
@@ -125,8 +125,8 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 					'shop_page_title'                => array(
 						'label'    => esc_html__( 'Shop Page Title', 'responsive-addons-pro' ),
 						'target'   => '.woocommerce-products-header h1, .woocommerce-products-header .woocommerce-products-header__title',
-						'priority' => 1,
-						'section'  => 'responsive_pro_woocommerce_shop_page_typography',
+						'priority' => 171,
+						'section'  => 'responsive_woocommerce_shop',
 						'defaults' => array(
 							'font-size'      => '14px',
 							'font-weight'    => '400',
@@ -138,9 +138,9 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 					'single_product_page_breadcrumb' => array(
 						'label'    => esc_html__( 'Breadcrumb', 'responsive-addons-pro' ),
 						'target'   => '.single-product .woocommerce-breadcrumb, .single-product .woocommerce-breadcrumb a',
-						'priority' => 15,
+						'priority' => 85,
 						'type'     => 'control',
-						'section'  => 'responsive_pro_woocommerce_single_product_typography',
+						'section'  => 'responsive_woocommerce_single_product_layout',
 						'defaults' => array(
 							'font-size'      => '2.625em',
 							'color'          => '#555555',
@@ -167,24 +167,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 				if ( empty( $elements ) ) {
 					return;
 				}
-				/**
-				 * Section
-				 */
-				$wp_customize->add_section(
-					'responsive_pro_woocommerce_single_product_typography',
-					array(
-						'title' => 'Typography',
-						'panel' => 'responsive-woocommerce-single-product',
-					)
-				);
-				$wp_customize->add_section(
-					'responsive_pro_woocommerce_shop_page_typography',
-					array(
-						'title' => 'Typography',
-						'panel' => 'responsive-woocommerce-shop',
-					)
-				);
-
+		
 				// Lopp through elements.
 				$count = '1';
 				foreach ( $elements as $element => $array ) {
@@ -780,7 +763,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Typography' ) ) :
 			if ( $live_preview_styles ) {
 				foreach ( $live_preview_styles as $key => $val ) {
 					if ( ! empty( $val ) ) {
-						echo '<style class="' . esc_html( $key ) . '"> ' . ( $val ) . '</style>';
+						echo '<style class="' . esc_html( $key ) . '"> ' . esc_html( $val ) . '</style>'; 
 					}
 				}
 			}

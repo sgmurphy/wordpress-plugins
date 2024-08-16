@@ -3,7 +3,7 @@
  * Plugin Name: PW WooCommerce Gift Cards
  * Plugin URI: https://www.pimwick.com/gift-cards/
  * Description: Sell gift cards in your WooCommerce store.
- * Version: 2.1
+ * Version: 2.2
  * Author: Pimwick, LLC
  * Author URI: https://www.pimwick.com
  * Text Domain: pw-woocommerce-gift-cards
@@ -30,7 +30,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-define( 'PWGC_VERSION', '2.1' );
+define( 'PWGC_VERSION', '2.2' );
 
 defined( 'ABSPATH' ) or exit;
 
@@ -174,6 +174,8 @@ final class PW_Gift_Cards {
         add_filter( 'pwgc_to_default_currency', array( $this, 'pwgc_to_default_currency' ) );
         add_filter( 'pwgc_to_order_currency', array( $this, 'pwgc_to_order_currency' ), 10, 2 );
         add_filter( 'wcumcs_custom_item_price_final', array( $this, 'wcumcs_custom_item_price_final' ), 10, 3 );
+        add_filter( 'wp-optimize-minify-default-exclusions', array( $this, 'wp_optimize_minify_default_exclusions' ) );
+        add_filter( 'wpo_minify_run_on_page', array( $this, 'wpo_minify_run_on_page' ) );
 
         // Fix for a bug with the Antive Toolkit plugin used by some themes.
         add_filter( 'antive_toolkit_variation_attribute_options', array( $this, 'antive_toolkit_variation_attribute_options' ), 10, 3 );
@@ -884,6 +886,26 @@ final class PW_Gift_Cards {
         }
 
         return $final_price;
+    }
+
+    function wp_optimize_minify_default_exclusions( $exclusions ) {
+        $exclusions[] = 'pw-gift-cards.js';
+
+        return $exclusions;
+    }
+
+    function wpo_minify_run_on_page( $run_on_page ) {
+        global $post;
+
+        // Do not run if this is a product page for a WC_Product_PW_Gift_Card product.
+        if ( is_a( $post, 'WP_Post' ) ) {
+            $product = wc_get_product( $post->ID );
+            if ( is_a( $product, 'WC_Product_PW_Gift_Card' ) ) {
+                $run_on_page = false;
+            }
+        }
+
+        return $run_on_page;
     }
 
     function antive_toolkit_variation_attribute_options( $html, $html_default, $args ) {

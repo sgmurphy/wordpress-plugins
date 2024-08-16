@@ -285,12 +285,14 @@ function rafflepress_lite_giveaway_api() {
 				)
 			);
 
+			$wp_contestant_insert_id = absint($wpdb->insert_id);
+
 			if ( ! empty( $wpdb->insert_id ) ) {
 				$status = 'true';
 			}
 
-			$contestant['id']                 = absint( $wpdb->insert_id );
-			$contestant['hash']               = $contestant['id'] . '|' . $email;
+			$contestant['id']                 = $wp_contestant_insert_id;
+			$contestant['hash']               = $wp_contestant_insert_id . '|' . $email;
 			$contestant['total_entries']      = 0;
 			$contestant['completed_entries']  = array();
 			$giveaway_return['total_entries'] = '';
@@ -446,10 +448,11 @@ function rafflepress_lite_giveaway_api() {
 		$contestant = array();
 		$entry_meta = null;
 
-		$giveaway_id   = absint( $_POST['giveaway_id'] );
-		$contestant_id = absint( $_POST['contestant_id'] );
-		$action_id     = sanitize_text_field( $_POST['action_id'] );
-		$entry_option  = $_POST['eo'];
+		$giveaway_id       = absint( $_POST['giveaway_id'] );
+		$contestant_id     = absint( $_POST['contestant_id'] );
+		$action_id         = sanitize_text_field( $_POST['action_id'] );
+		$post_action_token = sanitize_text_field( $_POST['action_token'] );
+		$entry_option      = $_POST['eo'];
 		array_walk_recursive( $entry_option, 'sanitize_text_field' );
 		array_walk_recursive( $entry_option, 'rafflepress_lite_convert_string_to_boolean' );
 
@@ -459,6 +462,28 @@ function rafflepress_lite_giveaway_api() {
 		$sql        = "SELECT starts,ends FROM $tablename WHERE id = %d";
 		$safe_sql   = $wpdb->prepare( $sql, $giveaway_id );
 		$is_running = $wpdb->get_row( $safe_sql );
+
+		// Verify action_token.
+		$tablename    = $wpdb->prefix . 'rafflepress_contestants';
+		$sql          = "SELECT action_token FROM $tablename WHERE id = %d";
+		$safe_sql     = $wpdb->prepare( $sql, $contestant_id );
+		$action_token = $wpdb->get_var( $safe_sql );
+
+		// Verify contestant action token.
+		if ( $post_action_token !== $action_token ) {
+			$errors[] = __( 'Invalid action token.', 'rafflepress' );
+		}
+
+		// Clean up token.
+		$wpdb->update(
+			$tablename,
+			array(
+				'action_token' => '',
+			),
+			array(
+				'id' => $contestant_id,
+			)
+		);
 
 		if ( time() > strtotime( $is_running->starts ) && time() < strtotime( $is_running->ends ) ) {
 		} else {
@@ -472,7 +497,7 @@ function rafflepress_lite_giveaway_api() {
 				'errors'     => implode( '<br>', $errors ),
 				'contestant' => $contestant,
 			);
-			wp_send_json( $response );
+			wp_send_json( $response, 400 );
 		}
 
 		// Get entry actions
@@ -736,6 +761,62 @@ function rafflepress_lite_giveaway_api() {
 		);
 		wp_send_json( $response );
 	}
+}
+
+/**
+ * Generate nonce for contestant actions.
+ */
+function rafflepress_lite_action_token() {
+	if ( ! empty( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'rafflepress_lite_action_token' ) !== false && ! empty( $_REQUEST['id'] ) ) {
+		// Fetch contestant ID.
+		$contestant_id    = absint( $_REQUEST['id'] );
+		$contestant_email = sanitize_email( $_REQUEST['email'] );
+
+		// Generate unique action token.
+		$action_token = wp_hash( $contestant_id . $contestant_email );
+
+		// Store action token in database.
+		global $wpdb;
+
+		$tablename = $wpdb->prefix . 'rafflepress_contestants';
+
+		$token_inserted = $wpdb->update(
+			$tablename,
+			array(
+				'action_token' => $action_token,
+			),
+			array( 'id' => $contestant_id ),
+			array(
+				'%s',
+			),
+			array( '%d' )
+		);
+
+		if ( $token_inserted !== false ) {
+			$response = array(
+				'status' => 'success',
+				'data'   => array(
+					'contestant_id' => $contestant_id,
+					'action_token'  => $action_token,
+				),
+			);
+			$status_code = 200;
+		} else {
+			$response = array(
+				'status' => 'error',
+				'error'  => 'Failed to generate action token.',
+			);
+			$status_code = 400;
+		}
+	} else {
+		$response = array(
+			'status'     => 'error',
+			'error'     => 'Invalid Request',
+		);
+		$status_code = 400;
+	}
+
+	wp_send_json( $response, $status_code );
 }
 
 /**

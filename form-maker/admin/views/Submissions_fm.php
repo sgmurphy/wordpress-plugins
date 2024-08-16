@@ -460,7 +460,7 @@ class  FMViewSubmissions_fm extends FMAdminView {
                   ?>
                   <th class="<?php echo $sorted_labels_id[$i]; ?>_fc" <?php echo $styleStr; ?>>
                     <div>
-                    <input name="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search'; ?>" id="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search'; ?>" type="text" value="<?php echo $lists[$form_id . '_' . $sorted_labels_id[$i] . '_search']; ?>">
+                    <input name="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search'; ?>" id="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search'; ?>" type="text" value="<?php echo esc_html($lists[$form_id . '_' . $sorted_labels_id[$i] . '_search']); ?>">
                     <?php if ( $is_verified_exist ) { ?>
                       <label for="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search_verified'; ?>">Verified</label>
                       <input name="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search_verified'; ?>" id="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search_verified'; ?>" type="checkbox" <?php if ( isset($lists[$form_id . '_' . $sorted_labels_id[$i] . '_search_verified']) ) {
@@ -473,7 +473,7 @@ class  FMViewSubmissions_fm extends FMAdminView {
                   break;
                 default: ?>
 								<th class="<?php echo $sorted_labels_id[$i]; ?>_fc" <?php echo $styleStr; ?>>
-								  <input name="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search'; ?>" id="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search'; ?>" type="text" value="<?php echo stripslashes( htmlspecialchars( urldecode($lists[$form_id . '_' . $sorted_labels_id[$i] . '_search'] ) ) ); ?>">
+								  <input name="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search'; ?>" id="<?php echo $form_id . '_' . $sorted_labels_id[$i] . '_search'; ?>" type="text" value="<?php echo esc_html($lists[$form_id . '_' . $sorted_labels_id[$i] . '_search']); ?>">
 								</th>
 								<?php
 							break;

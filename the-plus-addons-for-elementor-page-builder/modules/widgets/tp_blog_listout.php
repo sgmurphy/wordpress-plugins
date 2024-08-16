@@ -77,7 +77,7 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 	 * @since 1.0.0
 	 */
 	public function get_keywords() {
-		return array( 'blog list', 'tp', 'listing', 'bloglisting', 'theplus', 'Elementor blog' );
+		return array( 'blog list', 'listing', 'bloglisting', 'theplus', 'Elementor blog' );
 	}
 
 	/**

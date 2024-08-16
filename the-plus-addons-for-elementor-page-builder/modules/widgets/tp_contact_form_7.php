@@ -451,7 +451,7 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 			'textarea_height',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Height', 'theplus' ),
+				'label'       => esc_html__( 'Height', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -746,7 +746,7 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 			'iconSizeC',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Icon Size', 'theplus' ),
+				'label'       => esc_html__( 'Icon Size', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -810,11 +810,11 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 			'icon_position',
 			array(
 				'type'      => Controls_Manager::SELECT,
-				'label'     => esc_html__( 'Check Box Position', 'theplus' ),
+				'label'     => esc_html__( 'Check Box Position', 'tpebl' ),
 				'default'   => 'after',
 				'options'   => array(
-					'before'  => esc_html__( 'Before', 'theplus' ),
-					'after' => esc_html__( 'After', 'theplus' ),
+					'before'  => esc_html__( 'Before', 'tpebl' ),
+					'after' => esc_html__( 'After', 'tpebl' ),
 				),
 			)
 		);
@@ -916,7 +916,7 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 			'iconSizeR',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Icon Size', 'theplus' ),
+				'label'       => esc_html__( 'Icon Size', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -1146,7 +1146,7 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 		$this->add_responsive_control(
 			'file_field_top',
 			array(
-				'label'      => esc_html__( 'Inner Padding', 'theplus' ),
+				'label'      => esc_html__( 'Inner Padding', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -2303,7 +2303,7 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 		$cf7 = get_posts('post_type="wpcf7_contact_form"&numberposts=-1');
 	
 		if ( !empty($cf7) ) {
-			$ContactForms['none'] = esc_html__('No Forms Selected', 'theplus');
+			$ContactForms['none'] = esc_html__('No Forms Selected', 'tpebl');
 	
 			foreach ($cf7 as $cform) {
 				$GetId = !empty($cform->ID) ? $cform->ID : '';

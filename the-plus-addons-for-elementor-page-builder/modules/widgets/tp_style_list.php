@@ -32,6 +32,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class L_ThePlus_Style_List extends Widget_Base {
 
 	/**
+	 * Document Link For Need help.
+	 *
+	 * @var tp_doc of the class.
+	 */
+	public $tp_doc = L_THEPLUS_Tpdoc;
+
+	/**
 	 * Get Widget Name.
 	 *
 	 * @since 1.0.1
@@ -59,6 +66,18 @@ class L_ThePlus_Style_List extends Widget_Base {
 	 */
 	public function get_icon() {
 		return 'fa fa-list theplus_backend_icon';
+	}
+
+	/**
+	 * Get Custom url.
+	 *
+	 * @since 1.0.0
+	 * @version 5.4.2
+	 */
+	public function get_custom_help_url() {
+		$doc_url = $this->tp_doc . 'style-lists';
+
+		return esc_url( $doc_url );
 	}
 
 	/**
@@ -164,7 +183,7 @@ class L_ThePlus_Style_List extends Widget_Base {
 		$repeater->add_control(
 			'link',
 			array(
-				'label'       => esc_html__( 'Link', 'tpebl' ),
+				'label'   => wp_kses_post( "Link <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "custom-link-to-each-elementor-icon-list/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'        => Controls_Manager::URL,
 				'label_block' => true,
 				'placeholder' => esc_html__( 'https://your-link.com', 'tpebl' ),
@@ -175,7 +194,7 @@ class L_ThePlus_Style_List extends Widget_Base {
 		$repeater->add_control(
 			'show_pin_hint',
 			array(
-				'label'     => esc_html__( 'Pin Hint', 'tpebl' ),
+				'label'   => wp_kses_post( "Pin Hint <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-label-tab-to-elementor-stylish-list/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
 				'label_off' => esc_html__( 'Disable', 'tpebl' ),
@@ -276,7 +295,7 @@ class L_ThePlus_Style_List extends Widget_Base {
 		$repeater->add_control(
 			'show_background_style',
 			array(
-				'label'     => esc_html__( 'Interactive Hover Background Style', 'tpebl' ),
+				'label'   => wp_kses_post( "Interactive Hover Background Style <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "change-elementor-list-item-background-on-hover/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
 				'label_off' => esc_html__( 'Disable', 'tpebl' ),
@@ -353,7 +372,7 @@ class L_ThePlus_Style_List extends Widget_Base {
 		$this->add_control(
 			'read_more_toggle',
 			array(
-				'label'       => esc_html__( 'Read More Toggle', 'tpebl' ),
+				'label'   => wp_kses_post( "Read More Toggle <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-read-more-button-to-elementor-icon-list/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'        => Controls_Manager::SWITCHER,
 				'label_on'    => esc_html__( 'Yes', 'tpebl' ),
 				'label_off'   => esc_html__( 'No', 'tpebl' ),
@@ -641,7 +660,7 @@ class L_ThePlus_Style_List extends Widget_Base {
 		$this->add_control(
 			'sl_display_counter',
 			array(
-				'label'     => esc_html__( 'Display Counter', 'tpebl' ),
+				'label'   => wp_kses_post( "Display Counter <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "create-numbered-list-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'      => \Elementor\Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
 				'label_off' => esc_html__( 'Disable', 'tpebl' ),
@@ -1535,7 +1554,7 @@ class L_ThePlus_Style_List extends Widget_Base {
 		$this->add_control(
 			'hover_inverse_effect',
 			array(
-				'label'     => esc_html__( 'On Hover Inverse Effect', 'tpebl' ),
+				'label'   => wp_kses_post( "On Hover Inverse Effect <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "create-interactive-footer-hover-links-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'On', 'tpebl' ),
 				'label_off' => esc_html__( 'Off', 'tpebl' ),
@@ -1806,6 +1825,7 @@ class L_ThePlus_Style_List extends Widget_Base {
 			)
 		);
 		$this->end_controls_section();
+		include L_THEPLUS_PATH . 'modules/widgets/theplus-needhelp.php';
 	}
 
 	/**
@@ -1814,7 +1834,6 @@ class L_ThePlus_Style_List extends Widget_Base {
 	 * Written in PHP and HTML.
 	 *
 	 * @since 1.0.1
-	 *
 	 * @version 5.4.2
 	 */
 	protected function render() {
@@ -2094,14 +2113,16 @@ class L_ThePlus_Style_List extends Widget_Base {
 		<?php
 			$default_load = $settings['load_show_list_toggle'];
 			$read_more    = ! empty( $settings['read_more_toggle'] ) ? $settings['read_more_toggle'] : '';
-		if ( 'yes' === $read_more && $ij > $default_load ) {
-			$expand_txt   = ! empty( $settings['read_show_option'] ) ? $settings['read_show_option'] : '';
-			$shrink_txt   = ! empty( $settings['read_less_option'] ) ? $settings['read_less_option'] : '';
-			$default_load = $default_load - 1;
 
-			echo '<a href="#" class="read-more-options more" data-default-load="' . esc_attr( $default_load ) . '" data-more-text="' . esc_attr( $expand_txt ) . '" data-less-text="' . esc_attr( $shrink_txt ) . '">' . wp_kses_post( $expand_txt ) . '</a>';
-		}
+			if ( 'yes' === $read_more && $ij > $default_load ) {
+				$expand_txt   = ! empty( $settings['read_show_option'] ) ? $settings['read_show_option'] : '';
+				$shrink_txt   = ! empty( $settings['read_less_option'] ) ? $settings['read_less_option'] : '';
+				$default_load = $default_load - 1;
+
+				echo '<a href="#" class="read-more-options more" data-default-load="' . esc_attr( $default_load ) . '" data-more-text="' . esc_attr( $expand_txt ) . '" data-less-text="' . esc_attr( $shrink_txt ) . '">' . wp_kses_post( $expand_txt ) . '</a>';
+			}
 		?>
+
 		</div>		
 
 		<?php

@@ -168,6 +168,9 @@ If you need some assistance, you can post an issue in the Support tab, or send u
 4. You can access your settings by clicking on “Settings” at the top right of the screen.
 
 == Changelog ==
+= 4.0.28 =
+* Include additional keys in order_completed event for shipping taxes, discount taxes, discount codes, and fee lines 
+
 = 4.0.27 =
 * Fixed bug related to total count of orders, products and categories
 

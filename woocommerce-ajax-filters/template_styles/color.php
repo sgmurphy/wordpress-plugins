@@ -22,8 +22,12 @@ if( ! class_exists('BeRocket_AAPF_Template_Style_color') ) {
             return $template_content;
         }
         function template_single_item($template, $term, $i, $berocket_query_var_title) {
-            $berocket_term = berocket_term_get_metadata($term, 'color');
-            $meta_color = br_get_value_from_array($berocket_term, 0, '');
+            if( ! empty($berocket_query_var_title['clrimg_use_attrval']) ) {
+                $meta_color = $term->name;
+            } else {
+                $berocket_term = berocket_term_get_metadata($term, 'color');
+                $meta_color = br_get_value_from_array($berocket_term, 0, '');
+            }
             $meta_color = str_replace('#', '', $meta_color);
             $meta_color = esc_attr($meta_color);
             $template['content']['checkbox'] = BeRocket_AAPF_dynamic_data_template::create_element_arrays($template['content']['checkbox'], array('attributes', 'style'));
@@ -101,8 +105,12 @@ if( ! class_exists('BeRocket_AAPF_Template_Style_image') ) {
             return $template_content;
         }
         function template_single_item($template, $term, $i, $berocket_query_var_title) {
-            $berocket_term = berocket_term_get_metadata($term, 'image');
-            $meta_image = br_get_value_from_array($berocket_term, 0, '');
+            if( ! empty($berocket_query_var_title['clrimg_use_attrval']) ) {
+                $meta_image = $term->name;
+            } else {
+                $berocket_term = berocket_term_get_metadata($term, 'image');
+                $meta_image = br_get_value_from_array($berocket_term, 0, '');
+            }
             $meta_image = esc_attr($meta_image);
             $template['content']['checkbox'] = BeRocket_AAPF_dynamic_data_template::create_element_arrays($template['content']['checkbox'], array('attributes', 'style'));
             $template['content']['checkbox']['attributes']['style']['display'] = 'display:none;';

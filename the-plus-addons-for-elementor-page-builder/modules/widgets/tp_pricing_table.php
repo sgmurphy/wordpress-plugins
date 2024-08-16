@@ -28,6 +28,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class L_ThePlus_Pricing_Table extends Widget_Base {
 
 	/**
+	 * Document Link For Need help.
+	 *
+	 * @var tp_doc of the class.
+	 */
+	public $tp_doc = L_THEPLUS_Tpdoc;
+
+	/**
 	 * Get Widget Name.
 	 *
 	 * @since 1.0.0
@@ -55,6 +62,18 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 	 */
 	public function get_icon() {
 		return 'fa fa-money theplus_backend_icon';
+	}
+
+	/**
+	 * Get Custom url.
+	 *
+	 * @since 1.0.0
+	 * @version 5.4.2
+	 */
+	public function get_custom_help_url() {
+		$doc_url = $this->tp_doc . 'elementor-pricing-table';
+
+		return esc_url( $doc_url );
 	}
 
 	/**
@@ -427,6 +446,16 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 			)
 		);
 		$this->add_control(
+			'how_it_works_stylist',
+			array(
+				'label'     => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-show-more-button-for-features-in-elementor-pricing-table/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> Learn How it works  <i class='eicon-help-o'></i> </a>" ),
+				'type'      => Controls_Manager::HEADING,
+				'condition' => array(
+					'content_style' => 'stylist_list',
+				),
+			)
+		);
+		$this->add_control(
 			'content_list_style',
 			array(
 				'label'     => esc_html__( 'Content List Style', 'tpebl' ),
@@ -486,7 +515,7 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 				'description' => theplus_pro_ver_notice(),
 				'classes'     => 'plus-pro-version',
 				'condition'   => array(
-					'list_icon_style' => array('icon_mind' ),
+					'list_icon_style' => array( 'icon_mind' ),
 				),
 			)
 		);
@@ -769,7 +798,7 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'display_ribbon_pin',
 			array(
-				'label'     => esc_html__( 'Display Ribbon', 'tpebl' ),
+				'label'     => wp_kses_post( "Display Ribbon <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-a-ribbon-to-an-elementor-pricing-table/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'Yes', 'tpebl' ),
 				'label_off' => esc_html__( 'No', 'tpebl' ),
@@ -779,7 +808,7 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'ribbon_pin_style',
 			array(
-				'label'     => esc_html__( 'Ribbon Style', 'tpebl' ),
+				'label'     => wp_kses_post( "Ribbon Style <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-a-ribbon-to-an-elementor-pricing-table/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'style-1',
 				'options'   => array(
@@ -801,7 +830,7 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 				'dynamic'   => array( 'active' => true ),
 				'condition' => array(
 					'display_ribbon_pin' => 'yes',
-					'ribbon_pin_style' => 'style-1',
+					'ribbon_pin_style'   => 'style-1',
 				),
 			)
 		);
@@ -815,7 +844,7 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 				'classes'     => 'plus-pro-version',
 				'condition'   => array(
 					'display_ribbon_pin' => 'yes',
-					'ribbon_pin_style!' => 'style-1' 
+					'ribbon_pin_style!'  => 'style-1',
 				),
 			)
 		);
@@ -2345,7 +2374,7 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 				'label'     => esc_html__( 'Content Background Style', 'tpebl' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
-					'content_style' => 'stylist_list',
+					'content_style'      => 'stylist_list',
 					'content_list_style' => 'style-1',
 				),
 			)
@@ -2597,10 +2626,10 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'button_top_bottom',
 			array(
-				'label'     => esc_html__( 'Position', 'tpebl' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'default'   => 'middle',
-				'options'     => array(
+				'label'   => esc_html__( 'Position', 'tpebl' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'middle',
+				'options' => array(
 					'middle' => array(
 						'title' => esc_html__( 'Center', 'tpebl' ),
 						'icon'  => 'eicon-v-align-middle',
@@ -2951,7 +2980,7 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'display_ribbon_pin' => 'yes',
-					'ribbon_pin_style' => 'style-1',
+					'ribbon_pin_style'   => 'style-1',
 				),
 			)
 		);
@@ -3013,7 +3042,7 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 					'{{WRAPPER}} .plus-pricing-table .pricing-ribbon-pin.style-1 .ribbon-pin-inner ' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator'  => 'before',
-				'condition' => array(
+				'condition'  => array(
 					'ribbon_pin_style' => 'style-1',
 				),
 			)
@@ -3513,6 +3542,8 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 			)
 		);
 		$this->end_controls_section();
+
+		include L_THEPLUS_PATH . 'modules/widgets/theplus-needhelp.php';
 	}
 
 	/**
@@ -3631,17 +3662,17 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 
 				$pricing_content .= '<li class="plus-icon-list-item elementor-repeater-item-' . esc_attr( $item['_id'] ) . '" data-local="true">';
 
-				$icons            = '';
-				$list_icon_style  = ! empty( $item['list_icon_style'] ) ? $item['list_icon_style'] : 'font_awesome';
+				$icons           = '';
+				$list_icon_style = ! empty( $item['list_icon_style'] ) ? $item['list_icon_style'] : 'font_awesome';
 				if ( 'font_awesome' === $list_icon_style ) {
 					$icons = $item['list_icon_fontawesome'];
 				}
 
 				if ( ! empty( $icons ) ) {
 					$pricing_content .= '<span class="plus-icon-list-icon">';
-					
+
 						$pricing_content .= '<i class="' . esc_attr( $icons ) . '" aria-hidden="true"></i>';
-				
+
 						$pricing_content .= '</span>';
 				}
 
@@ -3755,9 +3786,9 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 
 		/*Ribbon Pin*/
 		$ribbon_content = '';
-		$rpinbg = '';
+		$rpinbg         = '';
 		// $rpinbg = function_exists( 'tp_has_lazyload' ) ? tp_bg_lazyLoad( $settings['ribbon_background_image'] ) : '';
-		if ( ! empty( $settings['display_ribbon_pin'] ) && 'yes' === $settings['display_ribbon_pin'] && 'style-1' === $settings['ribbon_pin_style']) {
+		if ( ! empty( $settings['display_ribbon_pin'] ) && 'yes' === $settings['display_ribbon_pin'] && 'style-1' === $settings['ribbon_pin_style'] ) {
 			$ribbon_style    = $settings['ribbon_pin_style'];
 			$ribbon_content .= '<div class="pricing-ribbon-pin ' . $rpinbg . ' ' . esc_attr( $ribbon_style ) . '">';
 			$ribbon_content .= '<div class="ribbon-pin-inner ' . $rpinbg . '">';
@@ -3782,15 +3813,15 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 			$pricing_output .= $ribbon_content;
 			$pricing_output .= $title_style_content;
 			$pricing_output .= $price_content;
-	
-			if( 'bottom' === $settings['button_top_bottom'] ){
+
+			if ( 'bottom' === $settings['button_top_bottom'] ) {
 				$pricing_output .= $pricing_content;
 				$pricing_output .= $the_button;
-			}else{
+			} else {
 				$pricing_output .= $the_button;
 				$pricing_output .= $pricing_content;
 			}
-			
+
 			$pricing_output .= '<div class="pricing-overlay-color"></div>';
 		}
 
@@ -3827,17 +3858,18 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 			}
 		}
 
-			$output = '<div id="plus-pricing-table" class="plus-pricing-table pricing-' . esc_attr( $pricing_style ) . ' ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
+		$output = '<div id="plus-pricing-table" class="plus-pricing-table pricing-' . esc_attr( $pricing_style ) . ' ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
 
-				$pt_bg = tp_bg_lazyLoad( $settings['box_background_image'], $settings['box_hover_background_image'] );
+			$pt_bg = tp_bg_lazyLoad( $settings['box_background_image'], $settings['box_hover_background_image'] );
 
-				$output .= '<div class="pricing-table-inner ' . $pt_bg . '">';
+			$output .= '<div class="pricing-table-inner ' . $pt_bg . '">';
 
-				$output .= $pricing_output;
-
-				$output .= '</div>';
+			$output .= $pricing_output;
 
 			$output .= '</div>';
+
+		$output .= '</div>';
+
 		echo $output;
 	}
 
@@ -3857,10 +3889,9 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 		$button_text  = ! empty( $settings['button_text'] ) ? $settings['button_text'] : '';
 		$i_style      = ! empty( $settings['button_icon_style'] ) ? $settings['button_icon_style'] : '';
 
+		$icons = '';
 		if ( 'font_awesome' === $i_style ) {
 			$icons = $settings['button_icon'];
-		} else {
-			$icons = '';
 		}
 
 		if ( 'before' === $before_after && ! empty( $icons ) ) {

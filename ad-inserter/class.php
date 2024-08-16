@@ -6964,7 +6964,7 @@ echo '</body>
         foreach ($paragraph_positions as $index => $paragraph_position) {
 
           // check for undefined array key
-          if (!isset ($active_paragraph_positions [$index])) continue;
+          if (!isset ($active_paragraph_positions [$index]) || !isset ($paragraph_end_positions [$index])) continue;
 
           if ($active_paragraph_positions [$index] == 0) continue;
 
@@ -7112,7 +7112,7 @@ echo '</body>
       foreach ($paragraph_positions as $index => $paragraph_position) {
 
         // check for undefined array key
-        if (!isset ($active_paragraph_positions [$index])) continue;
+        if (!isset ($active_paragraph_positions [$index]) || !isset ($paragraph_end_positions [$index])) continue;
 
         if ($active_paragraph_positions [$index]) $filtered_paragraph_end_positions [] = $paragraph_end_positions [$index];
       }
@@ -8055,7 +8055,7 @@ echo '</body>
         foreach ($paragraph_positions as $index => $paragraph_position) {
 
           // check for undefined array key
-          if (!isset ($active_paragraph_positions [$index])) continue;
+          if (!isset ($active_paragraph_positions [$index]) || !isset ($paragraph_start_positions [$index])) continue;
 
           if ($active_paragraph_positions [$index] == 0) continue;
 
@@ -8203,7 +8203,7 @@ echo '</body>
       foreach ($paragraph_positions as $index => $paragraph_position) {
 
         // check for undefined array key
-        if (!isset ($active_paragraph_positions [$index])) continue;
+        if (!isset ($active_paragraph_positions [$index]) || !isset ($paragraph_start_positions [$index])) continue;
 
         if ($active_paragraph_positions [$index]) $filtered_paragraph_positions [] = $paragraph_start_positions [$index];
       }
@@ -9176,6 +9176,13 @@ echo '</body>
               if (get_post_meta (get_the_id (), $meta_data [0], true) != '') return false;
             }
         }
+        elseif (strpos ($taxonomy_disabled, 'wpml-current-language:') === 0) {
+          if (has_filter ('wpml_current_language') !== false) {
+            $wpml_current_language = apply_filters ('wpml_current_language', null);
+            $current_language = explode (':', $taxonomy_disabled);
+            if ($current_language [1] == $wpml_current_language) return false;
+          }
+        }
 
         $taxonomy_names = get_post_taxonomies ();
         foreach ($taxonomy_names as $taxonomy_name) {
@@ -9285,6 +9292,13 @@ echo '</body>
             } else {
                 if (get_post_meta (get_the_id (), $meta_data [0], true) != '') return true;
               }
+          }
+          elseif (strpos ($taxonomy_enabled, 'wpml-current-language:') === 0) {
+            if (has_filter ('wpml_current_language') !== false) {
+              $wpml_current_language = apply_filters ('wpml_current_language', null);
+              $current_language = explode (':', $taxonomy_enabled);
+              if ($current_language [1] == $wpml_current_language) return true;
+            }
           }
 
           $taxonomy_names = get_post_taxonomies ();

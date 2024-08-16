@@ -80,7 +80,7 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 	 * @version 5.4.2
 	 */
 	public function get_keywords() {
-		return array( 'tp', 'client', 'listing', 'theplus' );
+		return array( 'client', 'listing', 'theplus' );
 	}
 
 	/**

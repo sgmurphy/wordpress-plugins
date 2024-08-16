@@ -36,6 +36,8 @@ class BeRocket_aapf_variations_tables_addon extends BeRocket_framework_addon_lib
         parent::__construct();
         add_action('init', array($this, 'init_tables'), 3);
         add_action('admin_footer', array($this, 'init_tables'), 3);
+        add_filter('brfr_ajax_filters_purge_additional_tables', array($this, 'section_purge_additional_tables'), 10, 3);
+        add_action( "wp_ajax_brapf_regenerate_additional_tables", array ( $this, 'regenerate_additional_tables' ) );
     }
     function init_tables() {
         if( $this->run_additional_tables ) {
@@ -759,6 +761,43 @@ class BeRocket_aapf_variations_tables_addon extends BeRocket_framework_addon_lib
             'status' => 0,
             'run' => false,
         ));
+    }
+    public function section_purge_additional_tables ( $html, $item, $options ) {
+        $html = '<tr>
+            <th scope="row">' . __('Regenerate Additional Tables', 'BeRocket_AJAX_domain') . '</th>
+            <td>';
+        $old_filter_widgets = get_option('widget_berocket_aapf_widget');
+        if( ! is_array($old_filter_widgets) ) {
+            $old_filter_widgets = array();
+        }
+        foreach ($old_filter_widgets as $key => $value) {
+            if (!is_numeric($key)) {
+                unset($old_filter_widgets[$key]);
+            }
+        }
+        $nonce = wp_create_nonce('regenerate_additional_tables');
+        $html .= '
+                <span class="button berocket_purge_additional_tables" data-time="'.time().'">
+                    ' . __('Regenerate Additional Tables', 'BeRocket_AJAX_domain') . '
+                </span>
+                <p>' . __('Clear all tables from add-on Additional Tables', 'BeRocket_AJAX_domain') . '</p>
+                <script>
+                    jQuery(".berocket_purge_additional_tables").click(function() {
+                        var $this = jQuery.get(window.ajaxurl, {action:"brapf_regenerate_additional_tables",nonce:"' . $nonce . '"}, function() {
+                            location.reload();
+                        });
+                    });
+                </script>
+            </td>
+        </tr>';
+        return $html;
+    }
+    public function regenerate_additional_tables() {
+        $nonce = (empty($_REQUEST['nonce']) ? '' : $_REQUEST['nonce']);
+        if( ! wp_verify_nonce($nonce, 'regenerate_additional_tables') ) {
+            wp_die();
+        }
+        $this->reset_all_table();
     }
 }
 new BeRocket_aapf_variations_tables_addon();

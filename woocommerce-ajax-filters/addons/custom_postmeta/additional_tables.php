@@ -316,7 +316,7 @@ if( ! class_exists('BeRocket_aapf_variations_tables_postmeta_addon') ) {
                 $meta_result = $wpdb->get_results($get_meta_id);
                 
                 $not_exist_meta = $values;
-                if( is_array($result) && count($result) > 0 ) {
+                if( is_array($meta_result) && count($meta_result) > 0 ) {
                     foreach($meta_result as $meta_value) {
                         if( isset($not_exist_meta[$meta_value->slug]) ) {
                             unset($not_exist_meta[$meta_value->slug]);
@@ -423,6 +423,9 @@ if( ! class_exists('BeRocket_aapf_variations_tables_postmeta_addon') ) {
             $table_name = $wpdb->prefix . 'braapf_product_post_meta';
             $taxonomy = substr($filter['taxonomy'],4);
             $val_ids = $filter['val_ids'];
+            if( empty($val_ids) || ! is_array($val_ids) ) {
+                $val_ids = array();
+            }
             $args['join'] .= " JOIN {$table_name} as {$table_name_custom} ON {$wpdb->posts}.ID = {$table_name_custom}.product_id ";
             $args['where'] .= " AND {$table_name_custom}.meta_id IN ('" . implode("','", $val_ids) . "')";
             return $args;

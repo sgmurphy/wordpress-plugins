@@ -98,6 +98,16 @@ function rafflepress_lite_admin_enqueue_scripts( $hook_suffix ) {
 }
 add_action( 'admin_enqueue_scripts', 'rafflepress_lite_admin_enqueue_scripts' );
 
+add_filter( 'learn-press/admin-default-scripts', 'modify_admin_default_scripts' );
+function modify_admin_default_scripts( $scripts ) {
+	if ( is_admin() ) {
+		$screen = get_current_screen();
+		if ( $screen && false !== strpos( $screen->id, 'rafflepress_lite' ) ) {
+			$scripts = array();
+		}
+	}
+	return $scripts;
+}
 
 function rafflepress_lite_wp_enqueue_scripts() {
 	wp_register_script(
@@ -252,6 +262,7 @@ function rafflepress_lite_db_setup() {
         `terms_consent` tinyint(4) NULL DEFAULT 0,
         `winning_entry_id` int(10) unsigned NULL DEFAULT 0,
         `token` varchar(16) NOT NULL,
+        `action_token` varchar(50) DEFAULT NULL,
         `status` enum('unconfirmed','confirmed','invalid') NOT NULL DEFAULT 'unconfirmed',
         `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `deleted_at` timestamp NULL DEFAULT NULL,

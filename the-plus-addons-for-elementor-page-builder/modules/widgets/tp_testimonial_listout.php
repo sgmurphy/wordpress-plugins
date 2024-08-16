@@ -174,15 +174,15 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$this->add_control(
 			'content_alignment_4',
 			array(
-				'label'       => esc_html__( 'Content Alignment', 'theplus' ),
+				'label'       => esc_html__( 'Content Alignment', 'tpebl' ),
 				'type'        => Controls_Manager::CHOOSE,
 				'options'     => array(
 					'left'  => array(
-						'title' => esc_html__( 'Left', 'theplus' ),
+						'title' => esc_html__( 'Left', 'tpebl' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'right' => array(
-						'title' => esc_html__( 'Right', 'theplus' ),
+						'title' => esc_html__( 'Right', 'tpebl' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
@@ -1227,7 +1227,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$this->add_control(
 			'content_box_shadow_options',
 			array(
-				'label'     => esc_html__( 'Box Shadow Options', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow Options', 'tpebl' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -1236,7 +1236,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_content_shadow_normal',
 			array(
-				'label' => esc_html__( 'Normal', 'theplus' ),
+				'label' => esc_html__( 'Normal', 'tpebl' ),
 			)
 		);
 		$this->add_group_control(
@@ -1250,7 +1250,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_content_shadow_hover',
 			array(
-				'label' => esc_html__( 'Hover', 'theplus' ),
+				'label' => esc_html__( 'Hover', 'tpebl' ),
 			)
 		);
 		$this->add_group_control(
@@ -1589,7 +1589,18 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 				'type'    => Controls_Manager::SELECT,
 				'default' => '1',
 				'options' => array(
-					'1' => esc_html__( 'Column 1', 'tpebl' ),
+					'1'  => esc_html__( 'Column 1', 'tpebl' ),
+					'2'  => esc_html__( 'Column 2', 'tpebl' ),
+					'3'  => esc_html__( 'Column 3', 'tpebl' ),
+					'4'  => esc_html__( 'Column 4', 'tpebl' ),
+					'5'  => esc_html__( 'Column 5', 'tpebl' ),
+					'6'  => esc_html__( 'Column 6', 'tpebl' ),
+					'7'  => esc_html__( 'Column 7', 'tpebl' ),
+					'8'  => esc_html__( 'Column 8', 'tpebl' ),
+					'9'  => esc_html__( 'Column 9', 'tpebl' ),
+					'10' => esc_html__( 'Column 10', 'tpebl' ),
+					'11' => esc_html__( 'Column 11', 'tpebl' ),
+					'12' => esc_html__( 'Column 12', 'tpebl' ),
 				),
 			)
 		);
@@ -2166,7 +2177,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$con_from       = ! empty( $settings['tlContentFrom'] ) ? $settings['tlContentFrom'] : 'tlcontent';
 		$testi_list     = ! empty( $settings['testiAllList'] ) ? $settings['testiAllList'] : array();
 
-		$content_alignment_4 = ( $settings['content_alignment_4'] != '' ) ? 'content-' . $settings['content_alignment_4'] : '';
+		$content_alignment_4 = ! empty( $settings['content_alignment_4'] ) ? 'content-' . $settings['content_alignment_4'] : '';
 
 		$descby_limit  = ! empty( $settings['descByLimit'] ) ? $settings['descByLimit'] : 'default';
 		$desc_limit    = ! empty( $settings['descLimit'] ) ? $settings['descLimit'] : 30;
@@ -2222,7 +2233,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$carousel_slider    = '';
 
 		if ( 'carousel' === $layout ) {
-			$carousel_direction = ! empty( $settings['carousel_direction'] ) ? $settings['carousel_direction'] : 'ltr';
+			$carousel_direction = ! empty( $settings['carousel_direction'] ) ? esc_attr( tp_senitize_js_input ( $settings['carousel_direction'] ) ) : 'ltr';
 
 			if ( ! empty( $carousel_direction ) ) {
 				$carousel_data   = array(
@@ -2288,7 +2299,6 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 						$testi_title    = ! empty( $item['testiTitle'] ) ? $item['testiTitle'] : '';
 						$testi_label    = ! empty( $item['testiLabel'] ) ? $item['testiLabel'] : '';
 						$testi_design   = ! empty( $item['testiDesign'] ) ? $item['testiDesign'] : '';
-						$testiImage     = ! empty( $item['testiImage']['url'] ) ? $item['testiImage']['url'] : '';
 						$testi_image_id = ! empty( $item['testiImage']['id'] ) ? $item['testiImage']['id'] : '';
 						$testi_logo     = ! empty( $item['testiLogo']['url'] ) ? $item['testiLogo']['url'] : '';
 
@@ -2311,28 +2321,32 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		} elseif ( ! $query->have_posts() ) {
 				$output .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'Posts not found', 'tpebl' ) . '</h3>';
 		} elseif ( 'style-1' === $style || 'style-2' === $style || 'style-4' === $style ) {
-				$output .= '<div id="theplus-testimonial-post-list" class="testimonial-list ' . esc_attr( $uid ) . ' ' . esc_attr( $data_class ) . ' ' . esc_attr( $animated_class ) . '" ' . $layout_attr . ' ' . $data_attr . ' ' . $animation_attr . ' ' . $carousel_slider . ' dir=' . esc_attr( $carousel_direction ) . ' data-enable-isotope="1">';
+			$output .= '<div id="theplus-testimonial-post-list" class="testimonial-list ' . esc_attr( $uid ) . ' ' . esc_attr( $data_class ) . ' ' . esc_attr( $animated_class ) . '" ' . $layout_attr . ' ' . $data_attr . ' ' . $animation_attr . ' ' . $carousel_slider . ' dir=' . esc_attr( $carousel_direction ) . ' data-enable-isotope="1">';
 
-					$output .= '<div class="tp-row post-inner-loop ' . esc_attr( $uid ) . ' ' . esc_attr( $content_alignment_4 ) . '">';
+			$output .= '<div class="tp-row post-inner-loop ' . esc_attr( $uid ) . ' ' . esc_attr( $content_alignment_4 ) . '">';
+
 			while ( $query->have_posts() ) {
 
 				$query->the_post();
 				$post = $query->post;
 
 				$output .= '<div class="grid-item ' . $desktop_class . ' ' . $tablet_class . ' ' . $mobile_class . '">';
+
 				if ( ! empty( $style ) ) {
 					ob_start();
 					include L_THEPLUS_PATH . 'includes/testimonial/testimonial-' . sanitize_file_name( $style ) . '.php';
 					$output .= ob_get_contents();
 					ob_end_clean();
 				}
+
 				$output .= '</div>';
 
 				++$i;
 			}
-					$output .= '</div>';
 
-				$output .= '</div>';
+			$output .= '</div>';
+
+			$output .= '</div>';
 		} else {
 			$output .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'This Style Premium Version', 'tpebl' ) . '</h3>';
 		}
@@ -2372,6 +2386,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 				}
 			}
 		}
+
 		$query_args = array(
 			'post_type'           => $post_name,
 			$taxonomy_name        => $category,
@@ -2388,6 +2403,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		if ( $offset ) {
 			$query_args['offset'] = $offset;
 		}
+
 		global $paged;
 		if ( get_query_var( 'paged' ) ) {
 			$paged = get_query_var( 'paged' );
@@ -2396,6 +2412,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		} else {
 			$paged = 1;
 		}
+
 		$query_args['paged'] = $paged;
 
 		$query = new \WP_Query( $query_args );
@@ -2421,9 +2438,11 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$infinite_mode = ! empty( $settings['slider_infinite'] ) ? $settings['slider_infinite'] : '';
 		$draggable_on  = ! empty( $settings['slider_draggable'] ) ? $settings['slider_draggable'] : '';
 
+		$desktop_column = ! empty( $settings['slider_desktop_column'] ) ? $settings['slider_desktop_column'] : '1';
+
 			$data_slider .= ' data-slide_speed="' . esc_attr( $settings['slide_speed']['size'] ) . '"';
 
-			$data_slider .= ' data-slider_desktop_column="1"';
+			$data_slider .= ' data-slider_desktop_column="' . esc_attr( $desktop_column ) . '"';
 			$data_slider .= ' data-steps_slide="1"';
 
 			$slider_draggable = ( 'yes' === $draggable_on ) ? 'true' : 'false';
@@ -2432,10 +2451,12 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 			$data_slider     .= ' data-slider_infinite="' . esc_attr( $slider_infinite ) . '"';
 
 			$slider_adaptive_height = ( 'yes' === $slider_height ) ? 'true' : 'false';
-			$data_slider           .= ' data-slider_adaptive_height="' . esc_attr( $slider_adaptive_height ) . '"';
-			$slider_autoplay        = ( 'yes' === $autoplay ) ? 'true' : 'false';
-			$data_slider           .= ' data-slider_autoplay="' . esc_attr( $slider_autoplay ) . '"';
-			$data_slider           .= ' data-autoplay_speed="' . esc_attr( ! empty( $settings['autoplay_speed']['size'] ) ? $settings['autoplay_speed']['size'] : 3000 ) . '"';
+
+			$data_slider    .= ' data-slider_adaptive_height="' . esc_attr( $slider_adaptive_height ) . '"';
+			$slider_autoplay = ( 'yes' === $autoplay ) ? 'true' : 'false';
+
+			$data_slider .= ' data-slider_autoplay="' . esc_attr( $slider_autoplay ) . '"';
+			$data_slider .= ' data-autoplay_speed="' . esc_attr( ! empty( $settings['autoplay_speed']['size'] ) ? $settings['autoplay_speed']['size'] : 3000 ) . '"';
 
 			$slider_dots  = ( 'yes' === $slider_on ) ? 'true' : 'false';
 			$data_slider .= ' data-slider_dots="' . esc_attr( $slider_dots ) . '"';

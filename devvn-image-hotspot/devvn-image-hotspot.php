@@ -4,7 +4,7 @@ Plugin Name: Image Hotspot by DevVN
 Plugin URI: https://levantoan.com/devvn-image-hotspot
 Description: Image Hotspot help you add hotspot to your images.
 Author: Le Van Toan
-Version: 1.2.3
+Version: 1.2.5
 Author URI: https://levantoan.com/
 Text Domain: devvn-image-hotspot
 Domain Path: /languages
@@ -29,12 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-define('DEVVN_IHOTSPOT_VER', '1.2.3');
+define('DEVVN_IHOTSPOT_VER', '1.2.5');
 define('DEVVN_IHOTSPOT_DEV_MOD', true);
+
 if ( !defined( 'DEVVN_IHOTSPOT_BASENAME' ) )
     define( 'DEVVN_IHOTSPOT_BASENAME', plugin_basename( __FILE__ ) );
 
-define('DEVVN_IHOTSPOT_POINT_DEFAULT',serialize(array(
+define('DEVVN_IHOTSPOT_POINT_DEFAULT', json_encode(array(
 	'countPoint'	=>	'',
 	'content'		=>	'',
 	'left'			=>	'',
@@ -45,7 +46,7 @@ define('DEVVN_IHOTSPOT_POINT_DEFAULT',serialize(array(
 	'pins_id'       =>  '',
 	'pins_class'    =>  ''
 )));
-define('DEVVN_IHOTSPOT_PINS_DEFAULT',serialize(array(
+define('DEVVN_IHOTSPOT_PINS_DEFAULT', json_encode(array(
 	'countPoint'	=>	'',
 	'imgPoint'		=>	'',
 	'top'			=>	'',
@@ -98,12 +99,35 @@ function devvn_ihotspot_meta_box_callback( $post ) {
 
 	$data_post = get_post_meta($post->ID, 'hotspot_content', true);
 
+    if(!is_serialized($data_post) && !is_array($data_post) && is_string($data_post)){
+        $data_post = json_decode($data_post, true);
+    }
+
 	if(!$data_post){
 	    $data_post = maybe_unserialize( $post->post_content );
 	}
 
 	$maps_images = (isset($data_post['maps_images']))?$data_post['maps_images']:'';
-	$data_points = (isset($data_post['data_points']))?$data_post['data_points']:'';
+    $data_points = isset($data_post['data_points']) && $data_post['data_points'] ? $data_post['data_points'] : array();
+
+    if(!empty($data_points)){
+
+        $decoded_array = array();
+
+        foreach ($data_points as $key => $array_value) {
+            foreach ($array_value as $key2 => $encoded_value) {
+                if($encoded_value && is_string($encoded_value) && devvn_ihotspot_is_base64($encoded_value)){
+                    $decoded_array[$key][$key2] = base64_decode($encoded_value);
+                }else{
+                    $decoded_array[$key][$key2] = $encoded_value;
+                }
+            }
+        }
+
+        $data_points = $decoded_array;
+
+    }
+
 	$pins_image = (isset($data_post['pins_image']))?$data_post['pins_image']:'';
 	$pins_image_hover = (isset($data_post['pins_image_hover']))?$data_post['pins_image_hover']:'';
 	$pins_more_option = (isset($data_post['pins_more_option']))?$data_post['pins_more_option']:array();
@@ -194,7 +218,7 @@ function devvn_ihotspot_meta_box_callback( $post ) {
 			<?php endif;?>
 		</div>	
 		<?php if(is_array($data_points)):?>
-			<?php $stt = 1;foreach ($data_points as $point):?>		 
+			<?php $stt = 1; foreach ($data_points as $point):?>
 			<?php 
 		 	$data_input = array(
 		 		'countPoint'	=>	$stt,
@@ -238,6 +262,23 @@ function devvn_ihotspot_meta_box_callback( $post ) {
 	</div>
 	<?php
 }
+
+function devvn_ihotspot_is_base64($string) {
+    // Check if string length is a multiple of 4
+    if (strlen($string) % 4 !== 0) {
+        return false;
+    }
+
+    // Check if string contains only base64 valid characters
+    // ^: start of the string
+    // [A-Za-z0-9+/]: valid base64 characters
+    // {4}: repeated 4 times (base64 encoding groups)
+    // *(?:[A-Za-z0-9+/]{4})*: match these groups zero or more times
+    // (?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?: optional padding groups of 2 or 3 characters followed by '='
+    // $: end of the string
+    return preg_match('/^[A-Za-z0-9+\/]+={0,2}$/', $string);
+}
+
 function devvn_ihotspot_shortcode_callback( $post ){
 	if(get_post_status($post->ID) == "publish"):
 	?>
@@ -272,12 +313,12 @@ function devvn_ihotspot_save_meta_box_data( $post_id ) {
 		return;
 	}
 
-	$my_data = esc_url( (isset($_POST['maps_images']))?$_POST['maps_images']:'' );	
+	$my_data = isset($_POST['maps_images']) && $_POST['maps_images'] ? esc_url($_POST['maps_images']) :'';
 	
 	$dataPoints = array();	
 	
 	/*sanitize in devvn_ihotspot_convert_array_data*/
-	$pointdata = (isset($_POST['pointdata']))?$_POST['pointdata']:'';		
+	$pointdata = isset($_POST['pointdata']) ? $_POST['pointdata'] : '';
 	
 	$choose_type = sanitize_text_field((isset($_POST['choose_type']))?$_POST['choose_type']:'');
 	
@@ -307,7 +348,7 @@ function devvn_ihotspot_save_meta_box_data( $post_id ) {
 		'pins_more_option'	=>	$pins_more_option,
 		'data_points'		=>	$dataPoints
 	);
-	update_post_meta($post_id, 'hotspot_content', $data_post);
+	update_post_meta($post_id, 'hotspot_content', json_encode($data_post));
 	/*remove_action( 'save_post', 'devvn_ihotspot_save_meta_box_data' );
 	wp_update_post(array(
 		'ID'			=>	$post_id,
@@ -357,12 +398,11 @@ function devvn_ihotspot_admin_script() {
 		wp_enqueue_media();	
 		
 	    wp_enqueue_script( 'jquery-ui-core' );
-		wp_enqueue_script('jquery-ui-droppable');		
-	    
-		/*wp_register_script( 'bootstrap-js', plugin_dir_url( __FILE__ ) . 'admin/js/bootstrap.min.js', array( 'jquery' ), DEVVN_IHOTSPOT_VER, true );
-		wp_enqueue_script( 'bootstrap-js' );*/
+		wp_enqueue_script('jquery-ui-droppable');
 
-		wp_register_script( 'maps_points', plugin_dir_url( __FILE__ ) . 'admin/js/maps_points.js', array( 'jquery' ), DEVVN_IHOTSPOT_VER, true );
+		wp_register_script( 'devvn-tinymce', home_url('/wp-includes/js/tinymce/wp-tinymce.js'), array(), DEVVN_IHOTSPOT_VER, true );
+
+		wp_register_script( 'maps_points', plugin_dir_url( __FILE__ ) . 'admin/js/maps_points.js', array( 'jquery', 'quicktags', 'devvn-tinymce', 'editor'), DEVVN_IHOTSPOT_VER, true );
 		wp_localize_script( 'maps_points', 'meta_image',
 			array(
 				'title' 		=> __( 'Select image', 'devvn-image-hotspot' ),
@@ -404,7 +444,7 @@ add_action( 'wp_enqueue_scripts', 'devvn_ihotspot_frontend_scripts' );
 
 function devvn_ihotspot_get_input_point_default($data = array()){
 	if(!is_array($data)) $data = array();
-	$data = wp_parse_args($data,unserialize(DEVVN_IHOTSPOT_POINT_DEFAULT));
+	$data = wp_parse_args($data, json_decode(DEVVN_IHOTSPOT_POINT_DEFAULT, true));
 		
 	$countPoint 				= isset($data['countPoint'])?$data['countPoint']:'';
 	$pointContent 				= isset($data['content'])?$data['content']:'';
@@ -515,7 +555,7 @@ function devvn_ihotspot_get_input_point_default($data = array()){
 		  		</div>
 			  	<div class="devvn-hotspot-popup-modal-footer">
 					<button type="button" class="button button-danger button-large button_delete"><?php esc_html_e('Delete','devvn-image-hotspot')?></button>
-					<button type="button" class="button button-primary button-large" data-popup-close="info_draggable<?php echo esc_attr($countPoint)?>"><?php esc_html_e('Done','devvn-image-hotspot')?></button>
+					<button type="button" class="button button-primary button-large" data-popup-close="info_draggable<?php echo esc_attr($countPoint)?>"><?php esc_html_e('Done & Close','devvn-image-hotspot')?></button>
 			  	</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -526,12 +566,12 @@ function devvn_ihotspot_get_input_point_default($data = array()){
 
 function devvn_ihotspot_get_pins_default($datapin = array()){
 	if(!is_array($datapin)) $datapin = array();
-	$datapin = wp_parse_args($datapin,unserialize(DEVVN_IHOTSPOT_PINS_DEFAULT));
+	$datapin = wp_parse_args($datapin, json_decode(DEVVN_IHOTSPOT_PINS_DEFAULT, true));
 	$countPoint = $datapin['countPoint'];
 	$imgPin = $datapin['imgPoint'];
 	$topPin = $datapin['top'];
 	$leftPin = $datapin['left'];
-	$pins_image_custom = $datapin['pins_image_custom'];
+	$pins_image_custom = isset($datapin['pins_image_custom']) && $datapin['pins_image_custom'] ? $datapin['pins_image_custom'] : '';
 	if($pins_image_custom) $imgPin = $pins_image_custom;
 	ob_start();
 	?>
@@ -586,7 +626,7 @@ function devvn_ihotspot_convert_array_data($inputArray = array()){
 	for ($i =0; $i<$nCountKey;$i++){
 		$element = array();
 		foreach ($inputArray as $key => $value){
-			$element[$key] = wp_kses_post($value[$i]);
+			$element[$key] = base64_encode(wp_kses_post($value[$i]));
 		}
 		array_push($aOutput,$element);
 	}

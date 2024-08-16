@@ -259,7 +259,7 @@ if ( ! class_exists( 'Responsive_Ready_Sites_Importer' ) ) :
 				if ( $xml_path['success'] ) {
 					if ( isset( $xml_path['data']['file'] ) ) {
 						$givexmldata               = simplexml_load_file( $xml_path['data']['file'] );
-						$give_xmldataencode        = json_encode( $givexmldata );
+						$give_xmldataencode        = wp_json_encode( $givexmldata );
 						$give_xmldatadecoderesults = json_decode( $give_xmldataencode, true );
 						$xmldataguids              = '';
 						foreach ( $give_xmldatadecoderesults['channel']['item'] as $give_xmldatadecodeitem ) {
@@ -273,7 +273,7 @@ if ( ! class_exists( 'Responsive_Ready_Sites_Importer' ) ) :
 							$giveformmeta_table_name = $wpdb->prefix . 'give_formmeta';
 							$formresults             = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $giveformmeta_table_name WHERE form_id=450" ), ARRAY_A );
 							if ( ! empty( $formresults ) ) {
-								$assoc_formresults = array_values( json_decode( json_encode( $formresults ), true ) );
+								$assoc_formresults = array_values( wp_json_encode( wp_json_encode( $formresults ), true ) );
 
 								foreach ( $formresults as $formresult ) {
 									$form_metakey .= ',' . $formresult['meta_key'];

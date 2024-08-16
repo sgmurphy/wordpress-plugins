@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-24 06:20+0000\n"
+"POT-Creation-Date: 2024-08-16 04:26+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -402,7 +402,7 @@ msgstr ""
 msgid "Hover"
 msgstr ""
 
-#: includes/addons/BundleCategories.php:219, includes/addons/BundleOverview.php:285, includes/addons/CourseCategories.php:219, includes/addons/CourseEnrolmentBox.php:1095, includes/addons/CoursePurchase.php:1759
+#: includes/addons/BundleCategories.php:219, includes/addons/BundleOverview.php:285, includes/addons/CourseCategories.php:172, includes/addons/CourseCategories.php:219, includes/addons/CourseEnrolmentBox.php:1095, includes/addons/CoursePurchase.php:1759
 msgid "Label Typography"
 msgstr ""
 
@@ -840,10 +840,6 @@ msgstr ""
 
 #: includes/addons/CourseCarousel.php:2173, includes/addons/CourseCarousel.php:2194, includes/addons/CourseContent.php:1321, includes/addons/CourseReviews.php:225
 msgid "Fill Color"
-msgstr ""
-
-#: includes/addons/CourseCategories.php:172
-msgid "Label ypography"
 msgstr ""
 
 #: includes/addons/CourseContent.php:233, includes/addons/CourseCurriculum.php:98

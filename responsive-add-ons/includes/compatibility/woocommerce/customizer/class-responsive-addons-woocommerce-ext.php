@@ -176,7 +176,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 
 			// load content template.
 			load_template( dirname( __FILE__ ) . '/template-parts/quick-view-product.php' );
-			echo ob_get_clean();
+			echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			die();
 		}
@@ -260,6 +260,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 		 */
 		function add_quick_view_button() {
 			global $product;
+			$allowed_html = wp_kses_allowed_html( 'post' );
 
 			$product_id = $product->get_id();
 			// Get label.
@@ -270,7 +271,9 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 			$button .= '</div>';
 			$button  = apply_filters( 'responsive_woo_add_quick_view_button_html', $button, $label, $product );
 
-			echo $button;
+			echo wp_kses_post( $button, $allowed_html );
+			//echo  $button;
+
 		}
 
 		/**
@@ -279,6 +282,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 		function add_quick_view_on_img() {
 
 			global $product;
+			$allowed_html = wp_kses_allowed_html( 'post' );
 
 			$product_id = $product->get_id();
 
@@ -288,7 +292,8 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 			$button = '<div class="responsive-shop-thumbnail-wrap"><a href="#" class="responsive-quick-view-text" data-product_id="' . $product_id . '">' . $label . '</a></div>';
 			$button = apply_filters( 'responsive_woo_add_quick_view_text_html', $button, $label, $product );
 
-			echo $button;
+			echo wp_kses_post( $button, $allowed_html );
+			//echo $button;
 		}
 
 		/**
@@ -297,13 +302,15 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 		function add_quick_view_on_img_click() {
 
 			global $product;
+			$allowed_html = wp_kses_allowed_html( 'post' );
 
 			$product_id = $product->get_id();
 
 			$button = '<div class="responsive-quick-view-data" data-product_id="' . $product_id . '"></div>';
 			$button = apply_filters( 'responsive_woo_add_quick_view_data_html', $button, $product );
 
-			echo $button;
+			echo wp_kses_post( $button, $allowed_html );
+			//echo $button;
 		}
 
 		/**
@@ -329,7 +336,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 			if ( SCRIPT_DEBUG ) {
 				$file_prefix = '';
 			}
-			
+
 			$js_gen_path     = plugin_dir_url( __FILE__ ) . 'assets/js/';
 			$shop_quick_view = get_theme_mod( 'shop_pagination_quick_view' );
 			if ( 'disabled' !== $shop_quick_view ) {
@@ -455,7 +462,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 					</div>
 					<?php if ( 'click' === $infinite_event ) { ?>
 						<span class="responsive-load-more active">
-							<?php echo $load_more_text; ?>
+							<?php echo esc_html( $load_more_text ); ?>
 						</span>
 					<?php } ?>
 				</nav>
@@ -504,7 +511,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 				$add_to_cart = woocommerce_template_single_add_to_cart();
 			}
 
-			echo $add_to_cart;
+			echo $add_to_cart; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 		/**
 		 * Update the cart fragments on AJAX

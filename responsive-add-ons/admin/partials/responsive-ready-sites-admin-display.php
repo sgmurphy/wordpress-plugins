@@ -364,17 +364,35 @@ $plan_status = $status->get_plan();
 							<path d="M10.0004 12.218C9.90534 12.218 9.81319 12.2019 9.72398 12.1699C9.63477 12.1378 9.55118 12.0828 9.47319 12.0048L5.71517 8.24682C5.59445 8.1261 5.53623 7.98187 5.5405 7.81413C5.54477 7.64639 5.60727 7.50217 5.728 7.38144C5.84872 7.26072 5.99509 7.20036 6.16709 7.20036C6.33909 7.20036 6.48545 7.26072 6.60617 7.38144L10.0004 10.7757L13.4075 7.36863C13.5282 7.24791 13.6724 7.18968 13.8402 7.19394C14.0079 7.19822 14.1521 7.26072 14.2728 7.38144C14.3936 7.50217 14.4539 7.64853 14.4539 7.82055C14.4539 7.99255 14.3936 8.13891 14.2728 8.25963L10.5276 12.0048C10.4497 12.0828 10.3674 12.1378 10.2809 12.1699C10.1943 12.2019 10.1008 12.218 10.0004 12.218Z" fill="#334155"/>
 							</g>
 						</svg>';
+
+	$svg_args = array(
+					    'svg'   => array(
+					        'class'           => true,
+					        'aria-hidden'     => true,
+					        'aria-labelledby' => true,
+					        'role'            => true,
+					        'xmlns'           => true,
+					        'width'           => true,
+					        'height'          => true,
+					        'viewbox'         => true // <= Must be lower case!
+					    ),
+					    'g'     => array( 'fill' => true ),
+					    'title' => array( 'title' => true ),
+					    'path'  => array(
+					        'd'               => true,
+					        'fill'            => true
+					    )
+					);
 	?>
 	<div id="responsive-sites__category-filter" class="dropdown-check-list" tabindex="100">
 		<span class="responsive-sites__category-filter-anchor" data-slug="" style="display: none;"><?php esc_html_e( 'All', 'responsive-addons' ); ?></span>
 		<div class="rst-business-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="business">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Business', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Business', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Business', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $business_subcategories as $key => $value ) {
 					?>
@@ -387,11 +405,10 @@ $plan_status = $status->get_plan();
 		<div class="rst-health-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="health-wellness">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Health', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Health', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Health', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $health_subcategories as $key => $value ) {
 					?>
@@ -404,11 +421,10 @@ $plan_status = $status->get_plan();
 		<div class="rst-health-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="fashion-style">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Fashion', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Fashion', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Fashion', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $fashion_subcategories as $key => $value ) {
 					?>
@@ -421,11 +437,10 @@ $plan_status = $status->get_plan();
 		<div class="rst-restaurant-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="restaurants-food">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Restaurants', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Restaurants', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Restaurants', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $restaurant_subcategories as $key => $value ) {
 					?>
@@ -438,11 +453,10 @@ $plan_status = $status->get_plan();
 		<div class="rst-travel-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="travel-tourism">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Travel', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Travel', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Travel', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $travel_subcategories as $key => $value ) {
 					?>
@@ -455,11 +469,10 @@ $plan_status = $status->get_plan();
 		<div class="rst-services-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="services">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Services', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Services', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Services', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $services_subcategories as $key => $value ) {
 					?>
@@ -472,11 +485,10 @@ $plan_status = $status->get_plan();
 		<div class="rst-creative-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="creative">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Creative', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Creative', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Creative', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $creative_subcategories as $key => $value ) {
 					?>
@@ -489,11 +501,10 @@ $plan_status = $status->get_plan();
 		<div class="rst-community-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="community">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Community', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Community', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Community', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $community_subcategories as $key => $value ) {
 					?>
@@ -506,11 +517,10 @@ $plan_status = $status->get_plan();
 		<div class="rst-ecommerce-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="ecommerce">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Ecommerce', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Ecommerce', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Ecommerce', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $ecommerce_subcategories as $key => $value ) {
 					?>
@@ -523,11 +533,10 @@ $plan_status = $status->get_plan();
 		<div class="rst-blog-category-group rst-menu-parent-category-group">
 			<div class="rst-menu-parent-category responsive-sites_category" data-slug="blog">
 				<span class="rst-menu-parent-category-title">
-					<span><?php esc_html_e( 'Blog', 'responsive-addons' ); ?></span><?php echo $expand_more_svg; ?>
+					<span><?php esc_html_e( 'Blog', 'responsive-addons' ); ?></span><?php echo wp_kses( $expand_more_svg, $svg_args ); ?>
 				</span>
 			</div>
 			<div class="rst-menu-child-category-group">
-				<span class="rst-menu-category-section-title"><?php esc_html_e( 'Blog', 'responsive-addons' ); ?></span>
 				<?php
 				foreach ( $blog_subcategories as $key => $value ) {
 					?>
@@ -655,54 +664,54 @@ $plan_status = $status->get_plan();
 				<div class="responsive-addons-import-btns">
 					<button class="responsive-addons-go-back-btn responsive-addons"><span class="responsive-addons-go-back-btn-text"><?php esc_html_e( 'Go Back', 'responsive-addons' ); ?></span></button>
 					<# if ( data.is_responsive_addons_pro_installed && data.is_responsive_addons_pro_license_active  ) { #>
-	
+
 						<button class="button button-primary responsive-addons responsive-demo-import-options-{{{data.demo_type}}}"><?php esc_html_e( 'Import Site', 'responsive-addons' ); ?></button>
-		
+
 						<# if ( data.allow_pages ) { #>
-	
+
 						<button class="button button-primary responsive-addons responsive-page-import-options-{{{data.demo_type}}}"><?php esc_html_e( 'Import Template', 'responsive-addons' ); ?></button>
-	
+
 						<# } #>
-					<# } else if ( data.has_app_auth ) { 
+					<# } else if ( data.has_app_auth ) {
 						<?php if ( $plan_status === 'free' ) : ?>
 							if( data.demo_type === 'free'){
 							#>
-		
+
 							<button class="button button-primary responsive-addons responsive-addons-demo-import-options"><?php esc_html_e( 'Import Site', 'responsive-addons' ); ?></button>
-			
+
 								<# if ( data.allow_pages ) { #>
-			
+
 								<button class="button button-primary responsive-addons responsive-addons-page-import-options"><?php esc_html_e( 'Import Template', 'responsive-addons' ); ?></button>
-			
+
 							<# }} else{ #>
 									<button class="button button-primary responsive-addons responsive-demo-import-unlock-preminum-templates raddons-upgrade-the-plan"><?php esc_html_e( 'Import Site', 'responsive-addons' ); ?></button>
 								<# if ( data.allow_pages ) { #>
 									<button class="button button-primary responsive-addons  responsive-page-import-unlock-preminum-templates raddons-upgrade-the-plan"><?php esc_html_e( 'Import Template', 'responsive-addons' ); ?></button>
 								<#
 							}}
-						 #> 
+						 #>
 
-					<# 
+					<#
 							<?php
 						else :
 							?>
 						 #>
 						<button class="button button-primary responsive-addons responsive-addons-demo-import-options"><?php esc_html_e( 'Import Site', 'responsive-addons' ); ?></button>
-			
+
 								<# if ( data.allow_pages ) { #>
-			
+
 									<button class="button button-primary responsive-addons responsive-addons-page-import-options"><?php esc_html_e( 'Import Template', 'responsive-addons' ); ?></button>
-			
+
 								<# } #>
 					<# <?php endif; ?>
 				}
-					
+
 					 else {
 						if( data.demo_type === 'free'){
 						#>
-	
+
 							<button class="button button-primary responsive-addons responsive-demo-import-options-no-auth"><?php esc_html_e( 'Import Site', 'responsive-addons' ); ?></button>
-		
+
 							<# if ( data.allow_pages ) { #>
 
 							<button class="button button-primary responsive-addons responsive-page-import-options-no-auth"><?php esc_html_e( 'Import Template', 'responsive-addons' ); ?></button>
@@ -711,17 +720,17 @@ $plan_status = $status->get_plan();
 						<# }
 						else { #>
 							<button class="button button-primary responsive-addons responsive-demo-import-options-no-auth-unlock-access responsive-demo-import-unlock-preminum-templates"><?php esc_html_e( 'Import Site', 'responsive-addons' ); ?></button>
-		
+
 							<# if ( data.allow_pages ) { #>
 
 							<button class="button button-primary responsive-addons responsive-page-import-options-no-auth-unlock-access responsive-page-import-unlock-preminum-templates"><?php esc_html_e( 'Import Template', 'responsive-addons' ); ?></button>
 
-							<# 
-						}}	
-						 #> 
-	
+							<#
+						}}
+						 #>
+
 					<# }
-					
+
 					#>
 				</div>
 				<div class="responsive-addons-modal responsive-addons-app-connect-modal" style="display: none;">
@@ -733,7 +742,7 @@ $plan_status = $status->get_plan();
 						<p class=""><?php esc_html_e( 'Already have an account? ', 'responsive-addons' ); ?><span class="rst-start-auth rst-start-auth-exist"><?php esc_html_e( 'Connect your existing account', 'responsive-addons' ); ?><span id="loader"></span></span></p>
 					</div>
 				</div>
-				
+
 				<!-- Unlock Premium Template Access Popup -->
 				<div class="responsive-addons-modal responsive-addons-app-unlock-access-modal" style="display: none;">
 					<div class="responsive-addons-app-unlock-access-modal-content">
@@ -741,7 +750,7 @@ $plan_status = $status->get_plan();
 							<p class="responsive-addons-app-unlock-template-heading"><?php esc_html_e( 'Premium template requires a Personal plan subscription or higher!', 'responsive-addons' ); ?></p>
 							<span id="responsive-addons-app-unlock-template-modal-close"><img src="<?php echo esc_url( RESPONSIVE_ADDONS_URI . 'admin/images/svgs/unlock-template-close-btn.svg' ); ?>"></span>
 						</div>
-						<div class="responsive-addons-app-unlock-access-modal-body">						
+						<div class="responsive-addons-app-unlock-access-modal-body">
 							<h2><?php esc_html_e( 'Connect Your Website to Cyberchimps Responsive', 'responsive-addons' ); ?></h2>
 							<p><?php esc_html_e( 'Create a free account to connect with Cyberchimps Responsive.', 'responsive-addons' ); ?></p>
 							<button type="button" class="raddons-upgrade-the-plan"><?php esc_html_e( 'Unlock Premium Template Access at just $1.97/month', 'responsive-addons' ); ?><span style="margin-left: 8px" class="dashicons dashicons-lock"></span><span id="loader"></span></button>
@@ -866,18 +875,18 @@ $plan_status = $status->get_plan();
 						if ( $elementor_option_value == 'inactive' ) {
 							?>
 						<div class="elementor-sites-error-msg-container">
-							<div class="elementor-sites-error-msg"> 
+							<div class="elementor-sites-error-msg">
 								<div>
 									<svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:-4px" width="16" height="16" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588l-2.29.287l-.082.38l.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319c.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246c-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0z"/></g></svg>
 								</div>
 								<div class="elementor-error-msg">
-									<span> 
+									<span>
 										<?php esc_html_e( 'This starter template is built using Elementor flexbox containers. Please mark the Flexbox Container setting as \'active\' in Elementor Features settings.', 'responsive-addons' ); ?>
 									</span>
 									<a href="
 									<?php
 									$elementor_settings_url = admin_url( 'admin.php?page=elementor#tab-experiments' );
-									echo $elementor_settings_url;
+									echo esc_url( $elementor_settings_url );
 									?>
 										">
 										<?php esc_html_e( 'Go to settings', 'responsive-addons' ); ?>
@@ -1130,7 +1139,7 @@ $plan_status = $status->get_plan();
 						<div class="current-importing-status-error-title"></div>
 					</div>
 				</div>
-				<# 
+				<#
 					var hasElementorPlugin = data.required_plugins.some(function(plugin) {
 					return plugin.name === 'Elementor';
 					});
@@ -1149,13 +1158,13 @@ $plan_status = $status->get_plan();
 								<svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:-4px" width="16" height="16" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588l-2.29.287l-.082.38l.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319c.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246c-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0z"/></g></svg>
 							</div>
 							<div class="elementor-error-msg">
-								<span> 
+								<span>
 									<?php esc_html_e( 'This starter template is built using Elementor flexbox containers. Please mark the Flexbox Container setting as \'active\' in Elementor Features settings.', 'responsive-addons' ); ?>
 								</span>
 								<a href="
 								<?php
 								$elementor_settings_url = admin_url( 'admin.php?page=elementor#tab-experiments' );
-								echo $elementor_settings_url;
+								echo esc_url( $elementor_settings_url );
 								?>
 									">
 									<?php esc_html_e( 'Go to settings', 'responsive-addons' ); ?>

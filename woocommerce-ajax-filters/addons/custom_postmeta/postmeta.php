@@ -1,5 +1,6 @@
 <?php
 class BeRocket_aapf_add_postmeta_filters {
+    public $acf_fields = array();                                                     
     function __construct() {
         add_filter('berocket_filter_filter_type_array', array($this, 'filter_type'), 10000, 1);
         add_action('braapf_single_filter_filter_type', array($this, 'filter_type_additional'), 10000, 2);
@@ -150,7 +151,7 @@ class BeRocket_aapf_add_postmeta_filters {
         $slugs = array();
         if( is_array($post_metas) ) {
             foreach($post_metas as $post_meta) {
-                $meta_name = ( property_exists($post_meta, 'meta_name') ? $post_meta->meta_name : $this->style_name($post_meta->meta_value) );
+                $meta_name = ( property_exists($post_meta, 'meta_name') ? $this->style_meta_name($post_meta->meta_name, $post_meta->meta_name, $name) : $this->style_name($post_meta->meta_value, $name) );
                 $meta_slug = $this->style_slug($post_meta->meta_value);
                 $meta_id   = ( property_exists($post_meta, 'meta_id') ? intval($post_meta->meta_id) : $meta_slug );
                 if( ! in_array($meta_slug, $slugs) || ! $exclude_same ) {
@@ -286,11 +287,70 @@ GROUP BY meta_value ORDER BY meta_value");
         }
         return $terms;
     }
-    function style_name($text) {
-        $text = str_replace(array('_'), array(' '), $text);
-        $text = trim($text);
-        $text = ucfirst($text);
-        return $text;
+    function style_meta_name($name, $slug, $postname = false) {
+        if( ! empty($postname) && function_exists('get_field') ) {
+            $text_field = $this->acf_field_detect($postname, $name);
+        } else {
+            $text_field = maybe_unserialize($slug);
+        }
+        if( is_array($text_field) ) {
+            $text_field = implode(', ', $text_field);
+        }
+        return $text_field;
+    }
+    function style_name($text, $postname = false) {
+        if( ! empty($postname) && function_exists('get_field') ) {
+            $text_field = $this->acf_field_detect($postname, $text);
+        } else {
+            $text_field = maybe_unserialize($text);
+        }
+        if( is_array($text_field) ) {
+            $text_field = implode(', ', $text_field);
+        }
+        $text_field = str_replace(array('_'), array(' '), $text_field);
+        $text_field = trim($text_field);
+        $text_field = ucfirst($text_field);
+        return $text_field;
+    }
+    function acf_field_detect($postname, $text) {
+        if( empty($this->acf_fields[$postname]) ) {
+            $this->acf_fields[$postname] = acf_get_field($postname);
+        }
+        $field = $this->acf_fields[$postname];
+        $value = maybe_unserialize($text);
+        switch($field['type']) {
+            case 'image':
+                return wp_get_attachment_url($value);
+                break;
+            case 'true_false':
+                return ( empty($value) ? __('False', 'BeRocket_AJAX_domain') : __('True', 'BeRocket_AJAX_domain') );
+                break;
+            case 'date_picker':
+            case 'date_time_picker':
+            case 'time_picker':
+                $date = new DateTime($value);
+                $value = $date->format($field['display_format']);
+                return $value;
+                break;
+            case 'user':
+                if( is_array($value) ) {
+                    $values = array();
+                    foreach($value as $user_id) {
+                        $values[] = get_the_author_meta('user_nicename', $user_id);
+                    }
+                    return implode(', ', $values);
+                } else {
+                    $value = get_the_author_meta('user_nicename', $value);
+                }
+                return $value;
+                break;
+            default:
+                if( is_array($value) ) {
+                    return implode(', ', $value);
+                } else {
+                    return $value;
+                }
+        }
     }
     function style_slug($text) {
         $text = sanitize_title($text);

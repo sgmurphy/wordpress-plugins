@@ -38,6 +38,27 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
             <!-- Google Ads  -->
             <?php
             $google_ads_id = (isset($googleDetail->google_ads_id) && $googleDetail->google_ads_id != "") ? $googleDetail->google_ads_id : "";
+            $countries = json_decode(file_get_contents(ENHANCAD_PLUGIN_DIR . "includes/setup/json/countries.json"));
+            $credit = json_decode(file_get_contents(ENHANCAD_PLUGIN_DIR . "includes/setup/json/country_reward.json"));
+            $off_country = "";
+            $off_credit_amt = "";
+            if (is_array($countries) || is_object($countries)) {
+                foreach ($countries as $key => $value) {
+                    if ($value->code == $tvc_data['user_country']) {
+                        $off_country = $value->name;
+                        break;
+                    }
+                }
+            }
+
+            if (is_array($credit) || is_object($credit)) {
+                foreach ($credit as $key => $value) {
+                    if ($value->name == $off_country) {
+                        $off_credit_amt = $value->price;
+                        break;
+                    }
+                }
+            }
             ?>
             <div id="analytics_box_ads" class="py-1">
                 <div class="row pt-2">
@@ -52,7 +73,9 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
                             <option value="">Select Account</option>
                         </select>
                     </div>
-
+                    <div id="spinner_mcc_check" class="mt-4 spinner-border text-primary d-none" role="status" style="margin-top: 32px !important;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                     <div class="col-2 d-flex align-items-end">
                         <button type="button" class="btn btn-sm d-flex conv-enable-selection conv-link-blue align-items-center">
                             <span class="material-symbols-outlined md-18">edit</span>
@@ -61,16 +84,39 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
                             </span>
                         </button>
                     </div>
-
+                    <div id="conv_mcc_alert" class="my-3 mx-2 alert alert-danger d-none" role="alert">
+                        <?php esc_html_e("You have selected a MCC account. Please select other google ads account to proceed further.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </div>
                     <div class="col-12 flex-row pt-1">
                         <h6 class="fw-normal mb-1">
                             <?php esc_html_e("OR", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         </h6>
-                        <div class="col-12">
-                            <button id="conv_create_gads_new_btn" type="button" class="btn conv-blue-bg text-white" data-bs-toggle="modal" data-bs-target="#conv_create_gads_new">
-                                <?php esc_html_e("Create New", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </button>
-                            <img style="cursor: default;" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/BFriday-Google-Ads-Screen-Image.png'); ?>" />
+
+                        <div class="d-flex conv_create_gads_new_card rounded px-3 py-3">
+
+                            <?php if ($off_credit_amt != "") { ?>
+                                <div class="div">
+                                    <h4 class="text-white">
+                                        <?php esc_html_e("Redeem upto " . $off_credit_amt, "enhanced-e-commerce-for-woocommerce-store") ?>
+                                    </h4>
+                                    <span class="text-white">
+                                        <?php esc_html_e("Create your first Google Ads account with us and redeem upto " . esc_attr($off_credit_amt) . " on the spend you make in the next 60 days.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    </span>
+                                </div>
+                            <?php } else { ?>
+                                <div class="d-flex">
+                                    <span class="text-white d-flex align-items-center">
+                                        <?php esc_html_e("Create your first Google Ads account with us and receive a credit of up to " . esc_attr($off_credit_amt) . " on your spending in the next 60 days.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    </span>
+                                </div>
+                            <?php } ?>
+
+                            <div class="align-self-end ms-auto">
+                                <button id="conv_create_gads_new_btn" type="button" class="bg-white btn btn-outline-primary px-5 me-3" data-bs-toggle="modal" data-bs-target="#conv_create_gads_new">
+                                    <?php esc_html_e("Create Now", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                </button>
+                            </div>
+
                         </div>
                     </div>
 
@@ -384,7 +430,7 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
 
 <!-- Modal -->
 <div class="modal fade" id="convgadseditconfirm" tabindex="-1" aria-labelledby="convgadseditconfirmLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="convgadseditconfirmLabel">Change Google Ads Account</h5>
@@ -395,7 +441,12 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="conv_changegadsacc_but" type="button" class="btn btn-primary">Change Now</button>
+                <button id="conv_changegadsacc_but" type="button" class="btn btn-primary">
+                    Change Now
+                    <div class="spinner-border spinner-border-sm d-none" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
             </div>
         </div>
     </div>
@@ -642,6 +693,9 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
         });
 
         jQuery("#conv_changegadsacc_but").click(function() {
+            jQuery("#conv_changegadsacc_but").addClass("disabled");
+            jQuery("#conv_changegadsacc_but").find(".spinner-border").removeClass("d-none");
+
             conv_change_loadingbar("show");
             jQuery(".conv-enable-selection").addClass('disabled');
             list_google_ads_account(tvc_data);
@@ -998,7 +1052,48 @@ $gtm_container_id = isset($ee_options['gtm_settings']['gtm_container_id']) ? $ee
             cleargadsconversions();
         })
 
-       
+        jQuery(document).on("change", "#google_ads_id", function() {
+            if (jQuery("#google_ads_conversion_tracking").is(":checked")) {
+                get_conversion_list();
+            }
+            var selectedAcc = jQuery("#google_ads_id").val();
+            if (selectedAcc != "") {
+                jQuery("#spinner_mcc_check").removeClass("d-none");
+                jQuery("#conv_mcc_alert").addClass("d-none");
+                //console.log("selected ads acc is "+selectedAcc);
+                var data = {
+                    action: "conv_checkMcc",
+                    ads_accountId: selectedAcc,
+                    subscription_id: "<?php echo esc_attr($subscriptionId); ?>",
+                    CONVNonce: "<?php echo esc_html(wp_create_nonce('conv_checkMcc-nonce')); ?>"
+                };
+                jQuery.ajax({
+                    type: "POST",
+                    url: tvc_ajax_url,
+                    data: data,
+                    success: function(response) {
+                        var newResponse = JSON.parse(response);
+                        if (newResponse.status == 200 && newResponse?.data[0] != "") {
+                            var managerStatus = newResponse.data[0]?.managerStatus;
+                            if (managerStatus) { //mcc true
+                                //console.log("mcc is there");
+                                jQuery("#conv_mcc_alert").removeClass("d-none");
+                                jQuery("#google_ads_id").val('').trigger('change');
+                                jQuery("#save_gads_finish").addClass("disabledsection");
+                            } else {
+                                jQuery("#save_gads_finish").removeClass("disabledsection");
+                            }
+                        }
+                        jQuery("#spinner_mcc_check").addClass("d-none");
+                        jQuery("#accordionFlushExample .accordion-body").removeClass("disabledsection");
+                    }
+                });
+            } else {
+                jQuery("#accordionFlushExample .accordion-body").addClass("disabledsection");
+                jQuery("#save_gads_finish").addClass("disabledsection");
+            }
+            //cleargadsconversions();
+        });
 
     });
 </script>

@@ -466,6 +466,7 @@ class BeRocket_AAPF_Widget_functions {
         $set_query_var_color = array();
         $set_query_var_color['terms'] = $terms;
         $set_query_var_color['taxonomy'] = braapf_get_data_taxonomy_from_post($br_filter);
+        $set_query_var_color['clrimg_use_attrval'] = ! empty($br_filter['clrimg_use_attrval']);
         $set_query_var_color['type'] = $type;
         $set_query_var_color['load_script'] = $load_script;
         set_query_var( 'berocket_query_var_color', $set_query_var_color );

@@ -2045,7 +2045,7 @@ class L_ThePlus_Process_Steps extends Widget_Base {
 					} elseif ( isset( $item['loop_image_icon'] ) && 'lottie' === $item['loop_image_icon'] ) {
 						$ext = pathinfo( $item['lottieUrl']['url'], PATHINFO_EXTENSION );
 						if ( 'json' !== $ext ) {
-							$list_img .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'Opps!! Please Enter Only JSON File Extension.', 'theplus' ) . '</h3>';
+							$list_img .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'Opps!! Please Enter Only JSON File Extension.', 'tpebl' ) . '</h3>';
 						} else {
 							$lottie_width = isset( $settings['lottieWidth']['size'] ) ? $settings['lottieWidth']['size'] : 40;
 							if ( ! empty( $item['lottieWidth']['size'] ) ) {

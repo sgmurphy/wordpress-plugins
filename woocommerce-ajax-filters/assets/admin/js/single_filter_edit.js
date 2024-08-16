@@ -142,7 +142,14 @@ braapf_checked_style_parent;
         var old_filtertype = $('.braapf_widget_color_pick').data('filtertype');
         if( filtertype != old_filtertype ) {
             $('.braapf_widget_color_pick').data('filtertype', filtertype);
-            var data = 'action=berocket_aapf_color_listener&tax_color_name='+taxonomy_name+'&type='+specific+'&'+filtertype;
+            var clrimg_use_attrval = $('.clrimg_use_attrval').prop('checked');
+            if( clrimg_use_attrval ) {
+                clrimg_use_attrval = 1;
+            } else {
+                clrimg_use_attrval = 0;
+            }
+            console.log(clrimg_use_attrval);
+            var data = 'action=berocket_aapf_color_listener&tax_color_name='+taxonomy_name+'&type='+specific+'&'+filtertype+'&br_product_filter[clrimg_use_attrval]='+clrimg_use_attrval;
             if ( specific == 'color' || specific == 'image' ) {
                 $.post(ajaxurl, data, function(data) {
                     $('.braapf_widget_color_pick').html(data);

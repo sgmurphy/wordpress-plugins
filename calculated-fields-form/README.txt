@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.28
+Stable tag: 5.2.29
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.29 =
+
+* Modifies the Equations Advanced Editor to allow the sidebar to collapse to give more space to the code editor.
+* Moves the calculated-fields-form-bk directory for forms backup to the /wp-content/uploads directory.
+* Adds a new predefined template.
+
 = 5.2.28 =
 
 * Fixes an issue in the calculated fields conditional rules.
@@ -483,8 +489,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.24 =
 
 * Adds new predefined form templates.
-
-= 5.2.23 =
-
-* Improves the user experience in creating forms by assigning placeholders to the form attributes.
-* Implements a fields filtering box in the fields list popup windows to facilitate searching the fields in the form.

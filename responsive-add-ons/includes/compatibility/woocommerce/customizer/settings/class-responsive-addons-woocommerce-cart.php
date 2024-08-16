@@ -52,7 +52,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Cart' ) ) :
 						'responsive_cart_icon',
 						array(
 							'label'    => __( 'Icon', 'responsive-addons-pro' ),
-							'section'  => 'responsive_woocommerce_cart_layout',
+							'section'  => 'responsive_woocommerce_cart',
 							'settings' => 'responsive_cart_icon',
 							'priority' => 20,
 							'choices'  => array(
@@ -85,7 +85,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Cart' ) ) :
 						'responsive_cart_style',
 						array(
 							'label'    => __( 'Style', 'responsive-addons-pro' ),
-							'section'  => 'responsive_woocommerce_cart_layout',
+							'section'  => 'responsive_woocommerce_cart',
 							'settings' => 'responsive_cart_style',
 							'priority' => 30,
 							'choices'  => array(
@@ -118,7 +118,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Cart' ) ) :
 						'responsive_cart_color',
 						array(
 							'label'    => __( 'Color', 'responsive-addons-pro' ),
-							'section'  => 'responsive_woocommerce_cart_layout',
+							'section'  => 'responsive_woocommerce_cart',
 							'settings' => 'responsive_cart_color',
 							'required' => array( get_theme_mod( 'responsive_cart_style' ), '!=', 'none' ),
 							'priority' => 40,
@@ -146,7 +146,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Cart' ) ) :
 						'responsive_cart_title',
 						array(
 							'label'    => __( 'Display Cart Title', 'responsive-addons-pro' ),
-							'section'  => 'responsive_woocommerce_cart_layout',
+							'section'  => 'responsive_woocommerce_cart',
 							'settings' => 'responsive_cart_title',
 							'priority' => 50,
 						)
@@ -173,7 +173,7 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Cart' ) ) :
 						'responsive_cart_count',
 						array(
 							'label'    => __( 'Display Cart Total', 'responsive-addons-pro' ),
-							'section'  => 'responsive_woocommerce_cart_layout',
+							'section'  => 'responsive_woocommerce_cart',
 							'settings' => 'responsive_cart_count',
 							'priority' => 50,
 						)

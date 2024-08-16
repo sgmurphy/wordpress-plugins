@@ -2,15 +2,15 @@
 Contributors: seedprod, smub 
 Tags: giveaways, contests, sweepstakes, competition, loyalty, rewards, facebook, instagram, youtube, pinterest, twitter, giveaway, contest, social media, traffic, email list, website traffic, wordpress giveaway, lead generation, marketing, growth, poll, refer a friend, promotions, referral marketing, prize, engagement
 Requires at least: 4.8
-Tested up to: 6.5
-Stable tag: 1.12.13
+Tested up to: 6.6
+Stable tag: 1.12.14
 Requires PHP: 5.3.3
 License: GNU General Public License v2.0 or later
 
 The best WordPress giveaway plugin. Grow your email list, website traffic, and social media followers with viral contests, giveaways, and sweepstakes.
 
 == Description ==
-> RafflePress helps you drive more traffic, grow your email list, and boost social media engagement through viral giveaways and contests. With its intuitive drag-and-drop interface and pre-built actions like ( Share and Like on FaceBook, Share on Twitter, plus more...), setting up your first campaign is a breeze, no coding required. Perfect for marketersanyone seeking to engage more deeply with their audience, RafflePress is the go-to tool for accelerating your growth.
+> RafflePress helps you drive more traffic, grow your email list, and boost social media engagement through viral giveaways and contests. With its intuitive drag-and-drop interface and pre-built actions like ( Share and Like on FaceBook, Share on Twitter, plus more...), setting up your first campaign is a breeze, no coding required. Perfect for anyone seeking to engage more deeply with their audience, RafflePress is the go-to tool for accelerating your growth.
 
 Discover more at: [RafflePress.com](https://rafflepress.com/?utm_source=wprepo&utm_medium=link&utm_campaign=wp_org_summary)
 
@@ -202,7 +202,7 @@ RafflePress is a trademark of SeedProd LLC. When writing about the giveaway plug
 
 If you like this plugin, then consider checking out our other projects:
 
-[WPForms](https://wpforms.com/) - Drag & Drop WordPress Form Builder - Most Popular WordPress Contact Form Plugin.
+* [WPForms](https://wpforms.com/) - Drag & Drop WordPress Form Builder - Most Popular WordPress Contact Form Plugin.
 * [MonsterInsights](https://www.monsterinsights.com/) - See the Stats that Matter and Grow Your Business with Confidence. Best Google Analytics Plugin for WordPress.
 * [OptinMonster](https://optinmonster.com/) - Get More Email Subscribers with the most popular conversion optimization plugin for WordPress.
 * [SeedProd](https://www.seedprod.com/) - Jumpstart your website with the #1 Coming Soon & Maintenance Mode Plugin for WordPress.
