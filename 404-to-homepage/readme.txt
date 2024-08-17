@@ -1,6 +1,6 @@
 === Redirect 404 to Homepage ===
 Contributors: pipdig
-Requires at least: 4.0
+Requires at least: 4.8
 Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: trunk

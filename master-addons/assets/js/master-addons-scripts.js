@@ -3392,7 +3392,7 @@
 
 
     // Start of Wrapper Link
-    $('body').on('click.onMaWrapperLink', '[data-jltma-wrapper-link]', function ()
+    $('body').on('click.onMaWrapperLink', '.elementor-element[data-jltma-wrapper-link]', function ()
     {
         var $wrapper = $(this),
             data = $wrapper.data('jltma-wrapper-link'),
@@ -3400,20 +3400,21 @@
             anchor = document.createElement('a'),
             anchorReal,
             timeout;
-        anchor.id = 'master-addons-wrapper-link-' + id;
-        anchor.href = data.url;
-        anchor.target = data.is_external ? '_blank' : '_self';
-        anchor.rel = data.nofollow ? 'nofollow noreferer' : '';
-        anchor.style.display = 'none';
-        document.body.appendChild(anchor);
-        anchorReal = document.getElementById(anchor.id);
-        anchorReal.click();
-        timeout = setTimeout(function ()
-        {
-            document.body.removeChild(anchorReal);
-            clearTimeout(timeout);
-        });
-    });
+            anchor.id = 'master-addons-wrapper-link-' + id;
+            anchor.href = data.url;
+            anchor.target = data.is_external ? '_blank' : '_self';
+            anchor.rel = data.nofollow ? 'nofollow noreferer' : '';
+            anchor.style.display = 'none';
+            document.body.appendChild(anchor);
+            anchorReal = document.getElementById(anchor.id);
+            anchorReal.click();
+            timeout = setTimeout(function ()
+            {
+                document.body.removeChild(anchorReal);
+                clearTimeout(timeout);
+            });
+        }
+    );
     // End of Wrapper Link
 
     $(window).on('elementor/frontend/init', function ()

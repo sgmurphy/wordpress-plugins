@@ -24,6 +24,7 @@ class JLTMA_Extension_Wrapper_Link
 
     private function __construct()
     {
+        add_action('elementor/element/container/section_layout/after_section_end', [$this, 'jltma_wrapper_link_add_controls_section'], 10, 3);
         add_action('elementor/element/column/section_advanced/after_section_end', [$this, 'jltma_wrapper_link_add_controls_section'], 10, 3);
         add_action('elementor/element/section/section_advanced/after_section_end', [$this, 'jltma_wrapper_link_add_controls_section'], 10, 1);
         add_action('elementor/element/common/_section_style/after_section_end', [$this, 'jltma_wrapper_link_add_controls_section'], 10, 1);

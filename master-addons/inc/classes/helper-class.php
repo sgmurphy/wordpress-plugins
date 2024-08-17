@@ -4,7 +4,6 @@ namespace MasterAddons\Inc\Helper;
 
 use Elementor\Utils;
 use Elementor\Icons_Manager;
-use Elementor\Core\Responsive\Responsive;
 
 class Master_Addons_Helper
 {
@@ -363,23 +362,13 @@ class Master_Addons_Helper
 	/**
 	 * Get breakpoints.
 	 *
-	 * Retrieve the responsive breakpoints with BC for Elementor version < 3.2.0.
+	 * Retrieve the responsive breakpoints.
 	 *
 	 * @return array Responsive breakpoints.
 	 */
 	public static function get_breakpoints()
 	{
-		if (version_compare(ELEMENTOR_VERSION, '3.2.0', '>=')) {
-			$breakpoints = self::jltma_elementor()->breakpoints->get_breakpoints();
-		} else {
-			$old_breakpoints = Responsive::get_breakpoints();
-			$breakpoints = $old_breakpoints;
-
-			$breakpoints['mobile'] = $old_breakpoints['md'];
-			$breakpoints['tablet'] = $old_breakpoints['lg'];
-		}
-
-		return $breakpoints;
+		return self::jltma_elementor()->breakpoints->get_breakpoints();
 	}
 
 	/**

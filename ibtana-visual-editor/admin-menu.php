@@ -110,7 +110,7 @@ class Ibtana_Visual_Editor_Menu_Class
 						<div class="name column-name">
 							<h3>
 								<a href="<?php echo esc_url($plugin->permalink); ?>" target="_blank" class="plugin-name">
-									<?php esc_html_e($plugin->name); ?>
+									<?php esc_html($plugin->name); ?>
 									<img class="plugin-icon" src="<?php if (isset($plugin->image) && ($plugin->image != '')) {
 										echo esc_url($plugin->image);
 									} else {
@@ -169,7 +169,7 @@ class Ibtana_Visual_Editor_Menu_Class
 						</div>
 						<div class="desc column-description">
 							<p>
-								<?php esc_html_e($plugin->description, 'ibtana-visual-editor'); ?>
+								<?php esc_html($plugin->description, 'ibtana-visual-editor'); ?>
 							</p>
 							<p class="authors"> <cite><?php esc_html_e('By', 'ibtana-visual-editor') ?> <a href="https://www.vwthemes.com/" target="_blank">
 										<?php esc_html_e('VW Themes', 'ibtana-visual-editor'); ?></a></cite>

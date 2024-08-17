@@ -1,1 +1,177 @@
-(()=>{var t;(t=jQuery)("body").on("click",".jltma-popup .popup-dismiss",(function(a){a.preventDefault(),t(this).closest(".jltma-popup").fadeOut(200)})),t("body").on("click",".disabled",(function(a){a.preventDefault(),t(".jltma-popup").fadeIn(200)})),t("body").on("click",".plugin-action-buttons .install-now",(function(a){if(a.preventDefault(),!t(this).hasClass("updating-message")){var e=t(this).attr("data-install-url");!function(t,a){t.removeClass("button-primary"),t.addClass("updating-message"),t.text("Installing..."),jQuery.ajax({url:JLTMACORE.admin_ajax,type:"POST",data:{action:"jltma_recommended_upgrade_plugin",type:"install",plugin:a,nonce:JLTMACORE.recommended_nonce},success:function(e){!0===e.success?(t.removeClass("updating-message"),t.addClass("updated-message installed button-disabled"),t.attr("disabled","disabled"),t.removeAttr("data-install-url"),t.text("Installed!"),setTimeout((function(){var e=jQuery(".plugin-status .plugin-status-not-install[data-plugin-url='"+a+"']");e.text("Active"),e.addClass("plugin-status-active"),e.removeClass("plugin-status-not-install"),e.removeAttr("data-install-url"),t.removeClass("install-now updated-message installed"),t.text("Activated"),t.removeAttr("aria-label")}),500)):(t.removeClass("updating-message"),t.addClass("button-primary"),t.text("Install Now"))}})}(t(this),e)}})),t("body").on("click",".plugin-action-buttons .activate-now",(function(){var a=t(this).attr("data-plugin-file");!function(t,a){t.addClass("button-disabled"),t.attr("disabled","disabled"),t.text("Processing..."),jQuery.ajax({url:JLTMACORE.admin_ajax,type:"POST",data:{action:"jltma_recommended_activate_plugin",file:a,nonce:JLTMACORE.recommended_nonce},success:function(e){if(!0===e.success){var s=jQuery(".plugin-status .plugin-status-inactive[data-plugin-file='"+a+"']");s.text("Active"),s.addClass("plugin-status-active"),s.removeClass("plugin-status-inactive"),t.removeClass("active-now"),t.text("Activated")}else t.removeClass("button-disabled"),t.prop("disabled",!1),t.text("Activated")}})}(t(this),a)})),t("body").on("click",".plugin-action-buttons .update-now",(function(){if(!t(this).hasClass("updating-message")){var a=t(this).attr("data-plugin");!function(t,a){t.addClass("updating-message"),t.text("Updating..."),jQuery.ajax({url:JLTMACORE.admin_ajax,type:"POST",data:{action:"jltma_recommended_upgrade_plugin",type:"update",plugin:a,nonce:JLTMACORE.recommended_nonce},success:function(e){if(!0===e.success){if(t.removeClass("updating-message"),t.addClass("updated-message button-disabled"),t.attr("disabled","disabled"),t.text("Updated!"),!1===e.data.active){var s=jQuery(".plugin-status .plugin-status-inactive[data-plugin-file='"+a+"']");s.text("Active"),s.addClass("plugin-status-active"),s.removeClass("plugin-status-inactive"),s.removeAttr("data-plugin-file")}}else t.removeClass("updating-message"),t.text("Update Now")}})}(t(this),a)}})),t(".filter-links").on("click","a",(function(a){a.preventDefault();var e=t(this).data("type");t(this).addClass("current").parent().siblings().find("a").removeClass("current"),t("#the-list .plugin-card").each((function(a,s){"all"==e||t(this).hasClass(e)?t(this).removeClass("hide"):t(this).addClass("hide")}))})),t(".jltma-search-plugins #search-plugins").on("keyup",(function(){var a=t(this).val(),e=new RegExp(a,"i");t("#the-list .plugin-card").each((function(){var a=t(this);a.find(".name h3 a, .desc p").text().search(e)>=0||a.addClass("hide"),a.find(".name h3 a, .desc p").text().search(e)>=0&&a.removeClass("hide")}))}))})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!**********************************************!*\
+  !*** ./dev/admin/master-addons-admin-sdk.js ***!
+  \**********************************************/
+(function ($) {
+  // Notice Hide
+  $('body').on('click', '.jltma-popup .popup-dismiss', function (evt) {
+    evt.preventDefault();
+    $(this).closest('.jltma-popup').fadeOut(200);
+  });
+
+  // Notice Show
+  $('body').on('click', '.disabled', function (evt) {
+    evt.preventDefault();
+    $('.jltma-popup').fadeIn(200);
+  });
+
+  // Recommended Plugins
+
+  // Install
+  $('body').on('click', '.plugin-action-buttons .install-now', function (e) {
+    e.preventDefault();
+    if (!$(this).hasClass("updating-message")) {
+      var plugin = $(this).attr("data-install-url");
+      installPlugin($(this), plugin);
+    }
+  });
+
+  // Active
+  $('body').on('click', '.plugin-action-buttons .activate-now', function () {
+    var file = $(this).attr("data-plugin-file");
+    activatePlugin($(this), file);
+  });
+
+  // Update
+  $('body').on('click', '.plugin-action-buttons .update-now', function () {
+    if (!$(this).hasClass("updating-message")) {
+      var plugin = $(this).attr("data-plugin");
+      updatePlugin($(this), plugin);
+    }
+  });
+
+  // Tab
+  $('.filter-links').on('click', 'a', function (e) {
+    e.preventDefault();
+    var cls = $(this).data('type');
+    $(this).addClass('current').parent().siblings().find('a').removeClass('current');
+    $('#the-list .plugin-card').each(function (i, el) {
+      if (cls == 'all') {
+        $(this).removeClass('hide');
+      } else {
+        if ($(this).hasClass(cls)) {
+          $(this).removeClass('hide');
+        } else {
+          $(this).addClass('hide');
+        }
+      }
+    });
+  });
+
+  // Search
+  $('.jltma-search-plugins #search-plugins').on('keyup', function () {
+    var value = $(this).val();
+    var srch = new RegExp(value, "i");
+    $('#the-list .plugin-card').each(function () {
+      var $this = $(this);
+      if (!($this.find('.name h3 a, .desc p').text().search(srch) >= 0)) {
+        $this.addClass('hide');
+      }
+      if ($this.find('.name h3 a, .desc p').text().search(srch) >= 0) {
+        $this.removeClass('hide');
+      }
+    });
+  });
+})(jQuery);
+function activatePlugin(element, file) {
+  element.addClass("button-disabled");
+  element.attr("disabled", "disabled");
+  element.text("Processing...");
+  jQuery.ajax({
+    url: JLTMACORE.admin_ajax,
+    type: "POST",
+    data: {
+      action: "jltma_recommended_activate_plugin",
+      file: file,
+      nonce: JLTMACORE.recommended_nonce
+    },
+    success: function success(response) {
+      if (response.success === true) {
+        var pluginStatus = jQuery(".plugin-status .plugin-status-inactive[data-plugin-file='" + file + "']");
+        pluginStatus.text("Active");
+        pluginStatus.addClass("plugin-status-active");
+        pluginStatus.removeClass("plugin-status-inactive");
+        element.removeClass("active-now");
+        element.text("Activated");
+      } else {
+        element.removeClass("button-disabled");
+        element.prop("disabled", false);
+        element.text("Activated");
+      }
+    }
+  });
+}
+function installPlugin(element, plugin) {
+  element.removeClass("button-primary");
+  element.addClass("updating-message");
+  element.text("Installing...");
+  jQuery.ajax({
+    url: JLTMACORE.admin_ajax,
+    type: "POST",
+    data: {
+      action: "jltma_recommended_upgrade_plugin",
+      type: 'install',
+      plugin: plugin,
+      nonce: JLTMACORE.recommended_nonce
+    },
+    success: function success(response) {
+      if (response.success === true) {
+        element.removeClass("updating-message");
+        element.addClass("updated-message installed button-disabled");
+        element.attr("disabled", "disabled");
+        element.removeAttr("data-install-url");
+        element.text("Installed!");
+        setTimeout(function () {
+          var pluginStatus = jQuery(".plugin-status .plugin-status-not-install[data-plugin-url='" + plugin + "']");
+          pluginStatus.text("Active");
+          pluginStatus.addClass("plugin-status-active");
+          pluginStatus.removeClass("plugin-status-not-install");
+          pluginStatus.removeAttr("data-install-url");
+          element.removeClass("install-now updated-message installed");
+          element.text("Activated");
+          element.removeAttr("aria-label");
+        }, 500);
+      } else {
+        element.removeClass("updating-message");
+        element.addClass("button-primary");
+        element.text("Install Now");
+      }
+    }
+  });
+}
+function updatePlugin(element, plugin) {
+  element.addClass("updating-message");
+  element.text("Updating...");
+  jQuery.ajax({
+    url: JLTMACORE.admin_ajax,
+    type: "POST",
+    data: {
+      action: "jltma_recommended_upgrade_plugin",
+      type: "update",
+      plugin: plugin,
+      nonce: JLTMACORE.recommended_nonce
+    },
+    success: function success(response) {
+      if (response.success === true) {
+        element.removeClass("updating-message");
+        element.addClass("updated-message button-disabled");
+        element.attr("disabled", "disabled");
+        element.text("Updated!");
+        if (response.data.active === false) {
+          var pluginStatus = jQuery(".plugin-status .plugin-status-inactive[data-plugin-file='" + plugin + "']");
+          pluginStatus.text("Active");
+          pluginStatus.addClass("plugin-status-active");
+          pluginStatus.removeClass("plugin-status-inactive");
+          pluginStatus.removeAttr("data-plugin-file");
+        }
+      } else {
+        element.removeClass("updating-message");
+        element.text("Update Now");
+      }
+    }
+  });
+}
+/******/ })()
+;
+//# sourceMappingURL=master-addons-admin-sdk.js.map

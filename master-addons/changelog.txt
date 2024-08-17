@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.0.6.4 (17-08-2024) =
+* Updated: Security Bugs fixed
+
 = 2.0.6.3 (08-07-2024) =
 * Updated: Security Bugs fixed
 * Updated: Blog Addon updated
