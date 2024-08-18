@@ -86,7 +86,6 @@ abstract class ReadMoreTypes {
 
     public function getDefaultDataByName($optionName) {
         global $YRM_OPTIONS;
-
         if(empty($YRM_OPTIONS)) {
             return array();
         }

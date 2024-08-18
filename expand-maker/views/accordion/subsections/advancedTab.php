@@ -96,4 +96,35 @@
 			</div>
 		</div>
 	</div>
+	<div class="row form-group">
+		<div class="col-md-5">
+			<label for="yrm-accordion-active-header"><?php _e('Enable active header styles', YRM_LANG);?></label>
+		</div>
+		<div class="col-md-6">
+			<div class="yrm-switch-wrapper">
+				<label class="yrm-switch">
+					<input type="checkbox" name="yrm-accordion-active-header" id="yrm-accordion-active-header" class="yrm-accordion-checkbox" <?php echo esc_attr($this->getOptionValue('yrm-accordion-active-header', true)); ?>>
+					<span class="yrm-slider yrm-round"></span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="yrm-accordion-content yrm-sub-accordion yrm-hide-content form-group">
+			<div class="row form-group">
+				<div class="col-xs-5">
+					<label class="control-label" for="yrm-accordion-advanced-active-tab-color"><?php _e('Color', YRM_LANG);?></label>
+				</div>
+				<div class="col-xs-4">
+					<input type="text" id="yrm-accordion-advanced-active-tab-color" class="input-md yrm-accordion-colors yrm-accordion-advanced-tab-color" name="yrm-accordion-advanced-active-tab-color" value="<?php echo esc_attr($this->getOptionValue('yrm-accordion-advanced-active-tab-color'))?>"><br>
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-xs-5">
+					<label class="control-label" for="yrm-accordion-advanced-active-tab-bg-color"><?php _e('Background Color', YRM_LANG);?></label>
+				</div>
+				<div class="col-xs-4">
+					<input type="text" id="yrm-accordion-advanced-active-tab-bg-color" class="input-md yrm-accordion-colors yrm-accordion-advanced-tab-bg-color" name="yrm-accordion-advanced-active-tab-bg-color" value="<?php echo esc_attr($this->getOptionValue('yrm-accordion-advanced-active-tab-bg-color'))?>"><br>
+				</div>
+			</div>
+	</div>
 </div>

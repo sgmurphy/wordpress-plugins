@@ -57,6 +57,7 @@ YrmAccordion.prototype.init = function () {
 
 				});
 			}
+			parentItem.addClass('yrm-opened')
 			parentItem.find('.accordion-header-icon').removeClass(openClass).addClass(closeClass)
 			accordionContent.slideToggle(duration, easings, function () {
 				parentItem.data('expanded', true);
@@ -64,6 +65,7 @@ YrmAccordion.prototype.init = function () {
 			});
 		}
 		else {
+			parentItem.removeClass('yrm-opened')
 			parentItem.find('.accordion-header-icon').removeClass(closeClass).addClass(openClass)
 			accordionContent.removeClass('yrm-show')
 			accordionContent.slideUp(duration, easings, function () {

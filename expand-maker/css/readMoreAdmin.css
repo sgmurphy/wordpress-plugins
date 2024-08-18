@@ -659,6 +659,10 @@ input:checked + .yrm-slider:before {
 	padding-left: 15px;
 }
 
+.yrm-accordion-content.yrm-sub-accordion div label {
+	padding-left: 40px;
+}
+
 .control-label-checkbox {
 	margin-top: 4px !important;
 }
