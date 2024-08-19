@@ -64,7 +64,13 @@ class WPMUDev {
 		} else {
 			$domain = untrailingslashit( get_site_url( null, null, 'https' ) );
 		}
+
 		$resolver = str_replace( array( 'http://', 'https://' ), '', $domain ) . ':443:127.0.0.1';
+
+		// To purge only the home page / we need to append a $ character as the purge URL is a regex.
+		if ( '/' === $path ) {
+			$path = '/$';
+		}
 
 		$url = empty( $path ) ? $domain . '/*' : $domain . $path;
 

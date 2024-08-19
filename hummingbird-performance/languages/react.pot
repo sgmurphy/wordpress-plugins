@@ -666,34 +666,34 @@ msgid ""
 "next time someone visits your website."
 msgstr ""
 
-#: _src/react/modules/setup.jsx:304
+#: _src/react/modules/setup.jsx:305
 msgid "Setup wizard"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:310
+#: _src/react/modules/setup.jsx:311
 msgid "Hummingbird"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:311
+#: _src/react/modules/setup.jsx:312
 msgid "Wizard"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:316
+#: _src/react/modules/setup.jsx:317
 msgid ""
 "Get Hummingbird Pro for our full WordPress speed optimization suite, "
 "including uptime monitoring and enhanced CDN."
 msgstr ""
 
-#: _src/react/modules/setup.jsx:322
+#: _src/react/modules/setup.jsx:323
 #: _src/react/views/minify/summary.jsx:355
 msgid "UPGRADE TO PRO"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:333
+#: _src/react/modules/setup.jsx:334
 msgid "Quit wizard"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:340
+#: _src/react/modules/setup.jsx:341
 msgid "Documentation"
 msgstr ""
 

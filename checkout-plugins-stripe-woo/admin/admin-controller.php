@@ -161,7 +161,7 @@ class Admin_Controller {
 		add_filter( 'admin_footer_text', [ $this, 'add_manual_connect_link' ] );
 
 		if ( isset( $_GET['section'] ) && 0 === strpos( sanitize_text_field( $_GET['section'] ), 'cpsw_' ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			add_filter( 'woocommerce_get_sections_checkout', [ $this, 'add_settings_links' ] );
+			add_filter( 'woocommerce_get_sections_checkout', [ $this, 'add_settings_links' ], 20 );
 			add_filter( 'woocommerce_get_sections_cpsw_api_settings', [ $this, 'add_settings_links' ] );
 		}
 		add_filter( 'woocommerce_get_settings_checkout', [ $this, 'checkout_settings' ], 10, 2 );

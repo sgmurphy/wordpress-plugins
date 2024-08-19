@@ -142,7 +142,7 @@ class Local_Payments extends AbstractPaymentMethodType {
 				'enable_saved_cards'        => Helper::get_setting( 'enable_saved_card', $this->name ),
 				'allowed_countries'         => $allowed_countries,
 				'supported_countries'       => wp_json_encode( $this->supported_countries ),
-				'order_button_text'         => Helper::get_setting( 'order_button_text', $this->name ),
+				'order_button_text'         => Helper::get_order_button_text( $this->name ),
 				'features'                  => $this->features,
 				'stripe_local_nonce'        => wp_create_nonce( 'stripe_local_nonce' ),
 			];

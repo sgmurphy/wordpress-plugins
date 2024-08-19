@@ -3,6 +3,7 @@
 
 namespace WpAssetCleanUp;
 
+use WpAssetCleanUp\Admin\MiscAdmin;
 use WpAssetCleanUp\OptimiseAssets\DynamicLoadedAssets;
 use WpAssetCleanUp\OptimiseAssets\OptimizeCommon;
 
@@ -342,7 +343,7 @@ class AssetsManager
 		}
 
 		// Check privileges
-		if (! Menu::userCanManageAssets()) {
+		if (! Menu::userCanAccessAssetCleanUp()) {
 			echo 'Error: Not enough privileges to perform this action.';
 			exit();
 		}
@@ -384,7 +385,7 @@ class AssetsManager
 		}
 
 		// Check privileges
-		if (! Menu::userCanManageAssets()) {
+		if (! Menu::userCanAccessAssetCleanUp()) {
 			echo 'Error: Not enough privileges to perform this action.';
 			exit();
 		}

@@ -1366,7 +1366,11 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             </div>
             <h1 class="wp-heading-inline">
                 <?php
-                echo $heading;
+                    echo $heading;
+                ?>
+            </h1>
+            <div class="ays-quiz-add-new-button-box">
+            <?php
                 $other_attributes = array();
 
                 $other_attributes_only_save = array(
@@ -1375,12 +1379,11 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                     'data-delay'=> '{"show":"1000"}'
                 );
                 
-                submit_button(__('Save and close', $this->plugin_name), 'primary ays-quiz-loader-banner', 'ays_submit_top', false, $other_attributes);
+                submit_button(__('Save and close', $this->plugin_name), 'primary ays-quiz-loader-banner ays-quiz-submit-button-margin-unset', 'ays_submit_top', false, $other_attributes);
                 submit_button(__('Save', $this->plugin_name), 'ays-quiz-loader-banner', 'ays_apply_top', false, $other_attributes_only_save);
                 echo $loader_iamge;
-                ?>
-            </h1>
-
+            ?>
+            </div>
             <div>
                 <div class="ays-quiz-subtitle-main-box">
                     <p class="ays-subtitle">
@@ -3834,7 +3837,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                 <div class="col-sm-5">
                                     <label for="ays_quiz_wrong_answers_font_weight">
                                         <?php echo __('Font weight',$this->plugin_name); ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Specify the font weight for the Right answer. Note: By default, it is set as Normal.',$this->plugin_name); ?>">
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Specify the font weight for the Wrong answer. Note: By default, it is set as Normal.',$this->plugin_name); ?>">
                                             <i class="ays_fa ays_fa_info_circle"></i>
                                         </a>
                                     </label>
@@ -4129,7 +4132,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                 <i class="ays_fa ays_fa_info_circle"></i>
                             </a>
                         </label>
-                        <p class="ays_quiz_small_hint_text_for_not_recommended">
+                        <p class="ays_quiz_small_hint_text_for_message_variables">
                             <span><?php echo __( "Please Note" , $this->plugin_name ); ?></span>
                             <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Note: If you notice, that the ordering is not being changed on the Front-end, then, most presumably, there is a cache problem for you. Please exclude the link, where the given quiz is located from the Cache plugin settings. Also, clear all the cache types (DB, plugin, browser). After clearing all the caches, check the case with either the Incognito mode or another browser/device.',$this->plugin_name); ?>">
                                 <i class="ays_fa ays_fa_info_circle"></i>
@@ -4137,9 +4140,16 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                         </p>
                     </div>
                     <div class="col-sm-8">
-                        <input type="checkbox" class="ays-enable-timerl" id="ays_enable_randomize_questions"
-                               name="ays_enable_randomize_questions"
-                               value="on" <?php echo (isset($options['randomize_questions']) && $options['randomize_questions'] == 'on') ? 'checked' : ''; ?>/>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <input type="checkbox" class="ays-enable-timerl" id="ays_enable_randomize_questions" name="ays_enable_randomize_questions" value="on" <?php echo (isset($options['randomize_questions']) && $options['randomize_questions'] == 'on') ? 'checked' : ''; ?>/>
+                           </div>
+                           <div class="col-sm-12">
+                                <p class="ays_quiz_small_hint_text_for_message_variables">
+                                    <span><?php echo __( "Note: If you are using a Cache plugin, make sure to exclude the URL, where the given quiz is located so that the feature can work correctly for you." , $this->plugin_name ); ?></span>
+                                </p>
+                            </div>
+                       </div>
                     </div>
                 </div> <!-- Enable randomize questions -->
                 <hr/>
@@ -4151,7 +4161,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                 <i class="ays_fa ays_fa_info_circle"></i>
                             </a>
                         </label>
-                        <p class="ays_quiz_small_hint_text_for_not_recommended">
+                        <p class="ays_quiz_small_hint_text_for_message_variables">
                             <span><?php echo __( "Please Note" , $this->plugin_name ); ?></span>
                             <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Note: If you notice, that the ordering is not being changed on the Front-end, then, most presumably, there is a cache problem for you. Please exclude the link, where the given quiz is located from the Cache plugin settings. Also, clear all the cache types (DB, plugin, browser). After clearing all the caches, check the case with either the Incognito mode or another browser/device.',$this->plugin_name); ?>">
                                 <i class="ays_fa ays_fa_info_circle"></i>
@@ -4159,13 +4169,20 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                         </p>
                     </div>
                     <div class="col-sm-8">
-                        <input type="checkbox" class="ays-enable-timerl" id="ays_enable_randomize_answers"
-                               name="ays_enable_randomize_answers"
-                               value="on" <?php echo (isset($options['randomize_answers']) && $options['randomize_answers'] == 'on') ? 'checked' : ''; ?>/>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <input type="checkbox" class="ays-enable-timerl" id="ays_enable_randomize_answers" name="ays_enable_randomize_answers" value="on" <?php echo (isset($options['randomize_answers']) && $options['randomize_answers'] == 'on') ? 'checked' : ''; ?>/>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="ays_quiz_small_hint_text_for_message_variables">
+                                    <span><?php echo __( "Note: If you are using a Cache plugin, make sure to exclude the URL, where the given quiz is located so that the feature can work correctly for you." , $this->plugin_name ); ?></span>
+                                </p>
+                            </div>
+                       </div>
                     </div>
                 </div> <!--  Enable randomize answers -->
                 <hr/>
-                <div class="form-group row ays_toggle_parent">
+                <div class="form-group row ays_toggle_parent" style="margin-bottom: 0;">
                     <div class="col-sm-4">
                         <label for="ays_enable_question_bank">
                             <?php echo __('Enable question bank',$this->plugin_name)?>
@@ -4256,6 +4273,15 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                         </div>
                     </div>
                 </div> <!-- Enable question bank -->
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-8">
+                        <p class="ays_quiz_small_hint_text_for_message_variables">
+                            <span><?php echo __( "Note: If you are using a Cache plugin, make sure to exclude the URL, where the given quiz is located so that the feature can work correctly for you." , $this->plugin_name ); ?></span>
+                        </p>
+                    </div>
+                </div>
                 <hr/>
                 <div class="form-group row ays_toggle_parent">
                     <div class="col-sm-4">

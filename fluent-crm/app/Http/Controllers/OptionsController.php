@@ -660,4 +660,14 @@ class OptionsController extends Controller
         ];
 
     }
+
+    public function getCascadeSelections(Request $request)
+    {
+        $provider = $request->get('provider');
+
+        return apply_filters('fluent_crm/cascade_selection_options_'.$provider, [
+            'options' => [],
+            'has_more' => true
+        ], $request->all());
+    }
 }

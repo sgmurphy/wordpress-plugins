@@ -1704,6 +1704,7 @@ class TransStrings
             'No Shipping Address found'                                                              => __('No Shipping Address found', 'fluent-crm'),
             'Set up an automation'                                                                   => __('Set up an automation', 'fluent-crm'),
             'No active Abandoned Cart automation.'                                                   => __('No active Abandoned Cart automation.', 'fluent-crm'),
+            'Site URL'                                                                               => __('Site URL', 'fluent-crm'),
         ];
     }
 }

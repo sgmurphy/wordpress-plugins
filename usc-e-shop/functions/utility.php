@@ -5,6 +5,9 @@
  * @package Welcart
  */
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+// phpcs:disable WordPress.PHP.DevelopmentFunctions, WordPress.PHP.NoSilencedErrors
+
 /**
  * Upgrade 143
  *

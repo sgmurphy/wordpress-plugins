@@ -7,6 +7,9 @@
  * @package Welcart
  */
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+// phpcs:disable WordPress.PHP.DevelopmentFunctions, WordPress.PHP.NoSilencedErrors
+
 /**
  * Get postmeta.
  *
@@ -1536,12 +1539,14 @@ function usces_responce_wcsite() {
  * Welcart activate.
  */
 function usces_wcsite_activate() {
-	$usces                       = get_option( 'usces', array() );
-	$metas['usces_company_name'] = $usces['company_name'];
-	$metas['usces_inquiry_mail'] = $usces['inquiry_mail'];
-	$metas['usces_base_country'] = $usces['system']['base_country'];
-	$acting_settings             = get_option( 'usces_settlement_selected', array() );
-	$metas['usces_used_sett']    = '';
+	$usces                             = get_option( 'usces', array() );
+	$metas['usces_company_name']       = $usces['company_name'];
+	$metas['usces_inquiry_mail']       = $usces['inquiry_mail'];
+	$metas['usces_base_country']       = $usces['system']['base_country'];
+	$metas['usces_circulating_amount'] = wel_get_circulating_amount();
+
+	$metas['usces_used_sett'] = '';
+	$acting_settings          = get_option( 'usces_settlement_selected', array() );
 	foreach ( $acting_settings as $acting ) {
 		$metas['usces_used_sett'] .= $acting . ',';
 	}

@@ -16,7 +16,7 @@ ob_start();
  * Plugin Name:       Quiz Maker
  * Plugin URI:        https://ays-pro.com/wordpress/quiz-maker
  * Description:       This plugin allows you make unlimited number of quizes.
- * Version:           6.6.0.6
+ * Version:           6.6.0.7
  * Author:            Quiz Maker team
  * Author URI:        https://ays-pro.com/
  * License:           GPL-2.0+
@@ -36,8 +36,8 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'AYS_QUIZ_NAME_VERSION', '6.6.0.6' );
-define( 'AYS_QUIZ_VERSION', '6.6.0.6' );
+define( 'AYS_QUIZ_NAME_VERSION', '6.6.0.7' );
+define( 'AYS_QUIZ_VERSION', '6.6.0.7' );
 define( 'AYS_QUIZ_NAME', 'quiz-maker' );
 
 if( ! defined( 'AYS_QUIZ_BASENAME' ) )
@@ -146,7 +146,7 @@ function quiz_maker_general_admin_notice(){
                         </div>
                         <div class="ays-quiz-upgrade-container">
                             <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=quiz-top-banner-upgrade-button" target="_blank" target="_blank">
-                                <img src="<?php echo esc_attr(AYS_QUIZ_ADMIN_URL) . '/images/icons/lightning.svg'; ?>">
+                                <!-- <img src="<?php echo esc_attr(AYS_QUIZ_ADMIN_URL) . '/images/icons/lightning.svg'; ?>"> -->
                                 <img src="<?php echo esc_attr(AYS_QUIZ_ADMIN_URL) . '/images/icons/lightning-white.svg'; ?>" class="ays-quiz-svg-light-hover">
                                 <span><?php echo __( "Upgrade", AYS_QUIZ_NAME ); ?></span>
                             </a>

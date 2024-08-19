@@ -41,13 +41,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 <?php else : ?>
 	<?php
+	$score = ! empty( $audit->score ) ? $audit->score : 0;
 	$this->admin_notices->show_inline(
 		sprintf(
 			/* translators: %s - nodes in total */
 			esc_html__( 'Your DOM has %s in total.', 'wphb' ),
 			esc_html( $audit->displayValue )
 		),
-		\Hummingbird\Core\Modules\Performance::get_impact_class( $audit->score )
+		\Hummingbird\Core\Modules\Performance::get_impact_class( $score )
 	);
 	?>
 

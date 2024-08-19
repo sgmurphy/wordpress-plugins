@@ -3,7 +3,7 @@ Contributors: brainstormforce
 Tags: stripe, credit card, apple pay, google pay, express checkout
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 1.9.2
+Stable tag: 1.9.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,10 @@ We understand the need for a quality product backed by dedicated support that ca
 4. Express Checkout Button on Checkout Page
 
 == Changelog ==
+
+= 1.9.3 - MONDAY, 19th August 2024 =
+* Fix: Fixed an issue where the orders status was getting set as pending when the guest checkout option is disabled.
+* Fix: Resolved conflicts of payment's setting menu between WooPayments plugin.
 
 = 1.9.2 - MONDAY, 5th August 2024 =
 * Improvement: Added a notice about the upcoming deprecation of Giropay. [Read more](https://support.stripe.com/questions/availability-of-giropay-june-2024-update)

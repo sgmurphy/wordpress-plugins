@@ -58,6 +58,7 @@ return array(
     'Hummingbird\\Core\\Integration\\Opcache' => $baseDir . '/core/integration/class-opcache.php',
     'Hummingbird\\Core\\Integration\\OxygenBuilder' => $baseDir . '/core/integration/class-oxygenbuilder.php',
     'Hummingbird\\Core\\Integration\\SiteGround' => $baseDir . '/core/integration/class-siteground.php',
+    'Hummingbird\\Core\\Integration\\WCML' => $baseDir . '/core/integration/class-wcml.php',
     'Hummingbird\\Core\\Integration\\WPH' => $baseDir . '/core/integration/class-wph.php',
     'Hummingbird\\Core\\Integration\\WPMUDev' => $baseDir . '/core/integration/class-wpmudev.php',
     'Hummingbird\\Core\\Integration\\Weglot' => $baseDir . '/core/integration/class-weglot.php',

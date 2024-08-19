@@ -506,14 +506,10 @@ class AdminMenu
 
     public function loadCssJs()
     {
-        wp_enqueue_script('fluentcrm_global_admin.js', fluentCrmMix('admin/js/global_admin.js'), array('jquery', 'lodash'), $this->version);
-
-        $app = FluentCrm();
-
-        $this->emailBuilderBlockInit();
-
+        wp_enqueue_script('fluentcrm_global_admin.js', fluentCrmMix('admin/js/global_admin.js'), array('jquery'), $this->version);
         wp_enqueue_script('fluentcrm_admin_app_boot', fluentCrmMix('admin/js/boot.js'), array('moment'), $this->version);
 
+        $this->emailBuilderBlockInit();
         /**
          * Action Hook when global admin scripts are loaded
          */
@@ -537,7 +533,7 @@ class AdminMenu
                 document.addEventListener('DOMContentLoaded', function () {
                     if (_ && _.noConflict) {
                         window._ = _.noConflict();
-                        window.lodash = window._;
+                       // window.lodash = window._;
                     }
                 });
             </script>

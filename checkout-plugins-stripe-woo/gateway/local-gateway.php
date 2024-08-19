@@ -568,14 +568,6 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 	public function verify_intent() {
 		$checkout_url = wc_get_checkout_url();
 
-		// Nonce verification.
-		if ( ! isset( $_GET['confirm_payment_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_GET['confirm_payment_nonce'] ), 'cpsw_confirm_payment_intent' ) ) {
-			wc_add_notice( __( 'Order is not complete! Payment not confirmed. Please try again.', 'checkout-plugins-stripe-woo' ), 'error' );
-			Logger::error( __( 'Invalid order! the nonce security check didn’t pass.', 'checkout-plugins-stripe-woo' ) );
-			wp_safe_redirect( $checkout_url );
-			exit();
-		}
-
 		$order_id = isset( $_GET['order'] ) ? sanitize_text_field( $_GET['order'] ) : 0; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		// Check for empty order id.
@@ -596,7 +588,7 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 			exit();
 		}
 
-		if ( ! isset( $_GET['order_key'] ) || ! $order->key_is_valid( wc_clean( $_GET['order_key'] ) ) ) {
+		if ( ! isset( $_GET['order_key'] ) || ! $order->key_is_valid( wc_clean( $_GET['order_key'] ) ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			wc_add_notice( __( 'Invalid order key received.', 'checkout-plugins-stripe-woo' ), 'error' );
 			Logger::error( __( 'Invalid order key.', 'checkout-plugins-stripe-woo' ) );
 			wp_safe_redirect( $checkout_url );

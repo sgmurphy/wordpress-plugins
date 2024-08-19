@@ -159,6 +159,7 @@ class Advanced extends Page {
 				'cart_fragments'       => $options['cart_fragments'],
 				'emoji'                => $remove_emoji,
 				'post_revisions'       => $options['post_revisions'],
+				'viewport_meta'        => $options['viewport_meta'],
 				'emoji_global'         => $options['emoji_global'],
 				'prefetch'             => trim( $prefetch ),
 				'preconnect'           => trim( $preconnect ),

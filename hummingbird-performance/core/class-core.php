@@ -96,6 +96,7 @@ class Core {
 		new Integration\OxygenBuilder();
 		new Integration\Google_Site_Kit();
 		new Integration\WooCommerce();
+		new Integration\WCML();
 		new Integration\Gtranslate();
 	}
 

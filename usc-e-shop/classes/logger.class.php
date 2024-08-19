@@ -827,6 +827,53 @@ class Logger {
 	 * @return array
 	 */
 	private function get_order_display_fields() {
+		$order_check_display_fields = array(
+			'ordermail'      => array(
+				'group' => 'other',
+				'label' => __( 'Mail for confirmation of order', 'usces' ),
+			),
+			'changemail'     => array(
+				'group' => 'other',
+				'label' => __( 'Mail for confiemation of change', 'usces' ),
+			),
+			'receiptmail'    => array(
+				'group' => 'other',
+				'label' => __( 'Mail for confirmation of transter', 'usces' ),
+			),
+			'mitumorimail'   => array(
+				'group' => 'other',
+				'label' => __( 'estimate mail', 'usces' ),
+			),
+			'cancelmail'     => array(
+				'group' => 'other',
+				'label' => __( 'Cancelling mail', 'usces' ),
+			),
+			'othermail'      => array(
+				'group' => 'other',
+				'label' => __( 'Other mail', 'usces' ),
+			),
+			'completionmail' => array(
+				'group' => 'other',
+				'label' => __( 'Mail for Shipping', 'usces' ),
+			),
+			'mitumoriprint'  => array(
+				'group' => 'other',
+				'label' => __( 'print out the estimate', 'usces' ),
+			),
+			'nohinprint'     => array(
+				'group' => 'other',
+				'label' => __( 'print out Delivery Statement', 'usces' ),
+			),
+			'billprint'      => array(
+				'group' => 'other',
+				'label' => __( 'Print Invoice', 'usces' ),
+			),
+			'receiptprint'   => array(
+				'group' => 'other',
+				'label' => __( 'Print Receipt', 'usces' ),
+			),
+		);
+		$order_check_display_fields = apply_filters( 'usces_filter_logger_order_check_display_fields', $order_check_display_fields );
 		return array(
 			'order_payment_name'    => array(
 				'group' => 'other',
@@ -1054,52 +1101,7 @@ class Logger {
 				'is_group' => true,
 				'group'    => 'other',
 				'label'    => __( 'Show the mail/print field', 'usces' ),
-				'fields'   => array(
-					'ordermail'      => array(
-						'group' => 'other',
-						'label' => __( 'Mail for confirmation of order', 'usces' ),
-					),
-					'changemail'     => array(
-						'group' => 'other',
-						'label' => __( 'Mail for confiemation of change', 'usces' ),
-					),
-					'receiptmail'    => array(
-						'group' => 'other',
-						'label' => __( 'Mail for confirmation of transter', 'usces' ),
-					),
-					'mitumorimail'   => array(
-						'group' => 'other',
-						'label' => __( 'estimate mail', 'usces' ),
-					),
-					'cancelmail'     => array(
-						'group' => 'other',
-						'label' => __( 'Cancelling mail', 'usces' ),
-					),
-					'othermail'      => array(
-						'group' => 'other',
-						'label' => __( 'Other mail', 'usces' ),
-					),
-					'completionmail' => array(
-						'group' => 'other',
-						'label' => __( 'Mail for Shipping', 'usces' ),
-					),
-					'mitumoriprint'  => array(
-						'group' => 'other',
-						'label' => __( 'print out the estimate', 'usces' ),
-					),
-					'nohinprint'     => array(
-						'group' => 'other',
-						'label' => __( 'print out Delivery Statement', 'usces' ),
-					),
-					'billprint'      => array(
-						'group' => 'other',
-						'label' => __( 'Print Invoice', 'usces' ),
-					),
-					'receiptprint'   => array(
-						'group' => 'other',
-						'label' => __( 'Print Receipt', 'usces' ),
-					),
-				),
+				'fields'   => $order_check_display_fields,
 			),
 			'acting_welcart_card'   => array(
 				'is_group'            => true,

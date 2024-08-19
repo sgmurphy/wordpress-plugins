@@ -1000,7 +1000,7 @@ class Subscriber extends Model
             $status = $data['status'];
             if ($forceUpdate) {
                 $subscriberData['status'] = $status;
-            } else if ( $exist && $exist->status == 'subscribed' ) {
+            } else if ($exist && $exist->status == 'subscribed') {
                 unset($subscriberData['status']);
             } else if ($exist && in_array($exist->status, ['bounced', 'complained'])) {
                 unset($subscriberData['status']);
@@ -1008,7 +1008,7 @@ class Subscriber extends Model
                 $subscriberData['status'] = $status;
             }
 
-            if($status == 'unsubscribed') {
+            if ($status == 'unsubscribed') {
                 $subscriberData['status'] = 'unsubscribed';
             }
         }
@@ -1614,6 +1614,27 @@ class Subscriber extends Model
                     $filter['method'] = 'whereDoesntHave';
                 }
                 $carry['contactCommerceCheck'][] = $filter;
+            } else if ($filter['property'] == 'variation_purchased') {
+                $filter['property'] = 'item_sub_id';
+                $filter['method'] = 'whereHas';
+                if ($filter['operator'] == 'not_exist') {
+                    $filter['method'] = 'whereDoesntHave';
+                }
+
+                if (is_array($filter['value']) && $filter['value']) {
+                    $formattedVariationIds = [];
+                    foreach ($filter['value'] as $value) {
+                        $ids = explode('||', $value);
+                        if ($ids && count($ids) == 2) {
+                            $formattedVariationIds[] = (int)$ids[1];
+                        }
+                    }
+                    $formattedVariationIds = array_values(array_unique($formattedVariationIds));
+                    if ($formattedVariationIds) {
+                        $filter['value'] = $formattedVariationIds;
+                        $carry['contactSubFieldItems'][] = $filter;
+                    }
+                }
             } else {
                 $carry['contactRelations'][] = $filter;
             }
@@ -1638,13 +1659,18 @@ class Subscriber extends Model
 
         if (array_key_exists('contactRelationsItems', $filters)) {
             foreach ($filters['contactRelationsItems'] as $filter) {
-
                 if ($filter['operator'] == 'not_in_all') {
                     $query = static::buildChildRelationFilterQuery('commerce_by_provider', 'items', $query, 'whereDoesntHave', 'item_id', $filter['value'], true, $provider);
                 } else {
                     list($method, $subMethod) = static::parseRelationalFilterQueryMethods($filter);
                     $query = static::buildRelationFilterQuery('contact_commerce_items', $query, $method, $subMethod, 'item_id', $filter, $provider);
                 }
+            }
+        }
+
+        if (array_key_exists('contactSubFieldItems', $filters)) {
+            foreach ($filters['contactSubFieldItems'] as $filter) {
+                $query = static::buildRelationFilterQuery('contact_commerce_items', $query, $filter['method'], 'whereIn', $filter['property'], $filter, $provider);
             }
         }
 
@@ -1779,6 +1805,11 @@ class Subscriber extends Model
                     continue;
                 }
 
+                $query = $query->where(function ($q) use ($filter) {
+                    $q->whereNotNull($filter['property'])
+                        ->where($filter['property'], '!=', '0000-00-00');
+                });
+
                 $query = self::applyGeneralFilterQuery($query, $filter, $filter['property']);
             } else if ($filter['property'] == 'search') {
                 $query = $this->buildSearchableQuery($query, $searchTerm, $operator);
@@ -1885,21 +1916,21 @@ class Subscriber extends Model
             } else if ($prop == 'company_industry') {
                 $operator = $filter['operator'];
                 $queryOperator = '>=';
-                if($operator == 'not_in') {
+                if ($operator == 'not_in') {
                     $queryOperator = '<';
                 }
 
                 $query = $query->has('companies', $queryOperator, 1, 'and', function ($q) use ($filter) {
-                    $values = (array) $filter['value'];
+                    $values = (array)$filter['value'];
                     $q->whereIn('industry', $values);
                 });
             } else if ($prop == 'company_type') {
                 $queryOperator = '>=';
-                if($operator == 'not_in') {
+                if ($operator == 'not_in') {
                     $queryOperator = '<';
                 }
                 $query = $query->has('companies', $queryOperator, 1, 'and', function ($q) use ($filter) {
-                    $values = (array) $filter['value'];
+                    $values = (array)$filter['value'];
                     $q->whereIn('type', $values);
                 });
             } else {

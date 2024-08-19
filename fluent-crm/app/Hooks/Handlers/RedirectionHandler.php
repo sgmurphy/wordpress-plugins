@@ -44,6 +44,8 @@ class RedirectionHandler
         $redirectUrl = htmlspecialchars_decode($redirectUrl);
 
         if ($redirectUrl) {
+            // remove zero width space
+            $redirectUrl = str_replace(["\xE2\x80\x8B", '%E2%80%8B'], '', $redirectUrl);
             do_action('fluentcrm_email_url_click', $redirectUrl, $mailId, $urlData);
             wp_redirect($redirectUrl, 307);
             exit;

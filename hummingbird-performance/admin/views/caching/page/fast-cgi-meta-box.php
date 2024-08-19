@@ -9,6 +9,8 @@
  * @var bool        $is_fast_cgi_supported Is FastCGI supported.
  */
 
+use Hummingbird\Core\Utils;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -18,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p><?php esc_html_e( 'Hummingbird stores static HTML copies of your pages and posts to decrease page load time.', 'wphb' ); ?></p>
 
 <?php
-$notice = esc_html__( 'Static Server Cache is currently active.', 'wphb' );
-$this->admin_notices->show_inline( $notice, 'success' );
+$notice = Utils::is_member() ? esc_html__( 'Static Server Cache is currently active.', 'wphb' ) : esc_html__( 'Static Server Cache is currently active. If you wish to update settings or switch to Local Page Cache, please ensure you are connected to the WPMU DEV Dashboard plugin.', 'wphb' );
+$this->admin_notices->show_inline( $notice, Utils::is_member() ? 'success' : 'warning' );
 if ( ! $is_fast_cgi_supported ) {
 	return;
 }

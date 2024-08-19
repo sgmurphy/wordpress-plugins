@@ -41,12 +41,13 @@ if ( isset( $audit->errorMessage ) && ! isset( $audit->score ) ) {
 	?>
 <?php else : ?>
 	<?php
+	$score = ! empty( $audit->score ) ? $audit->score : 0;
 	$this->admin_notices->show_inline(
 		sprintf( /* translators: %s - size in kb */
 			esc_html__( 'Your page makes %s of total network requests and following are the resources with large size.', 'wphb' ),
 			esc_html( str_replace( 'Total size was ', '', $audit->displayValue ) )
 		),
-		\Hummingbird\Core\Modules\Performance::get_impact_class( $audit->score )
+		\Hummingbird\Core\Modules\Performance::get_impact_class( $score )
 	);
 	?>
 

@@ -4,7 +4,7 @@ Tags: Welcart, e-Commerce, shopping, cart, eShop, store, admin, calendar, manage
 Requires at least: 5.5
 Tested up to: 6.5
 Requires PHP: 7.4 - 8.1
-Stable tag: 2.10.5
+Stable tag: 2.10.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,13 @@ Please see [Welcart Forum(Japanese)](https://www.welcart.com/community/forums).
 
 
 == Changelog ==
+
+19 August 2024
+= V2.10.6 =
+-----------
+* Fixed JavaScript errors.
+* Added hooks to the operation log in the admin page.
+* Added hooks for PDF output.
 
 16 July 2024
 = V2.10.5 =

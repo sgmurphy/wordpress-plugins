@@ -3,9 +3,9 @@
 Contributors: happyforms
 Tags: contact form, contact form plugin, forms, form builder, custom form, intake form, registration form, survey form, quiz form, payment form, newsletter form, giveaway form, fundraising form, donation form, nomination form, order form, questionnaire form, onboarding form, contract form, estimate form, research form, qualitative form, quantitative form, membership form, mobile form, feedback form, release form, inquiry form, request form, evaluation form, RSVP form, reservation form, sales lead form, popup form, quote form, event form, booking form, application form, agreement form, safety form, compliance form, assessment form, sponsorship form, report form, file upload form, satisfaction form
 Requires at least: 5.0
-Tested up to: 6.5.2
+Tested up to: 6.6.1
 Requires PHP: 7.0
-Stable tag: 1.26.0
+Stable tag: 1.26.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -159,6 +159,14 @@ If you ever have questions, [just ask us](https://wordpress.org/support/plugin/h
 And so you know, we don't outsource support. You can expect plain-talkin' help from someone who has a hand in making Happyforms.
 
 == Changelog ==
+
+= August 19, 2024 =
+
+Version 1.26.1 changelog:
+
+* Fixed: Security issue on XSS scripting
+* Fixed: Accessibility issues on Honeypot and Headings
+* Tested up until verion 6.6.1 of Wordpress
 
 = April 17, 2024 =
 
@@ -1595,6 +1603,10 @@ Version 1.0.0 changelog:
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.26.1 =
+
+* Fixed XSS issue and Accessibility issues on the form.
 
 = 1.26.0 =
 

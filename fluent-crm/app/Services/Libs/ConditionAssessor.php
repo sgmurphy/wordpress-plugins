@@ -62,8 +62,8 @@ class ConditionAssessor
             $sourceValue = Arr::get($inputs, $conditional['data_key']);
             $dataValue = $conditional['data_value'];
 
-            if ( $conditional['data_key'] === 'order_status'  && !strpos('wc-', $sourceValue )) {
-                $sourceValue = str_replace($sourceValue, 'wc-'.$sourceValue, $sourceValue);
+            if ($conditional['data_key'] === 'order_status' && !strpos('wc-', $sourceValue)) {
+                $sourceValue = str_replace($sourceValue, 'wc-' . $sourceValue, $sourceValue);
             }
 
             switch ($conditional['operator']) {
@@ -162,14 +162,29 @@ class ConditionAssessor
                     }
                     return !in_array($sourceValue, $dataValue);
                 case 'before':
-                    return strtotime($sourceValue) < strtotime($dataValue);
+                    if (!$sourceValue || $sourceValue == '0000-00-00') {
+                        return false;
+                    }
+
+                    return  strtotime($sourceValue) < strtotime($dataValue);
                 case 'after':
+                    if (!$sourceValue || $sourceValue == '0000-00-00') {
+                        return false;
+                    }
+
                     return strtotime($sourceValue) > strtotime($dataValue);
                 case 'date_equal':
                     return date('YMD', strtotime($sourceValue)) == date('YMD', strtotime($dataValue));
                 case 'days_before':
+                    if (!$sourceValue || $sourceValue == '0000-00-00') {
+                        return false;
+                    }
+
                     return strtotime($sourceValue) < strtotime("-{$dataValue} days", current_time('timestamp'));
                 case 'days_within':
+                    if (!$sourceValue || $sourceValue == '0000-00-00') {
+                        return false;
+                    }
                     return strtotime($sourceValue) > strtotime("-{$dataValue} days", current_time('timestamp'));
                 case 'is_null':
                     return !$sourceValue;

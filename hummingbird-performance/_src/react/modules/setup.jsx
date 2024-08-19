@@ -178,6 +178,7 @@ class SetupWizard extends React.Component {
 					window.wphbMixPanel.track( 'plugin_scan_started', {
 						score_mobile_previous: '-',
 						score_desktop_previous: '-',
+						Location: 'setup_wizard',
 					} );
 				}
 

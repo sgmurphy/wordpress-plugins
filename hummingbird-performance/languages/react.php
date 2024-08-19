@@ -444,26 +444,26 @@ $generated_i18n_strings = array(
 	// Reference: _src/react/modules/minify.jsx:54
 	__( 'Your cache has been successfully cleared. Your assets will regenerate the next time someone visits your website.', 'wphb' ),
 
-	// Reference: _src/react/modules/setup.jsx:304
+	// Reference: _src/react/modules/setup.jsx:305
 	__( 'Setup wizard', 'wphb' ),
 
-	// Reference: _src/react/modules/setup.jsx:310
+	// Reference: _src/react/modules/setup.jsx:311
 	__( 'Hummingbird', 'wphb' ),
 
-	// Reference: _src/react/modules/setup.jsx:311
+	// Reference: _src/react/modules/setup.jsx:312
 	__( 'Wizard', 'wphb' ),
 
-	// Reference: _src/react/modules/setup.jsx:316
+	// Reference: _src/react/modules/setup.jsx:317
 	__( 'Get Hummingbird Pro for our full WordPress speed optimization suite, including uptime monitoring and enhanced CDN.', 'wphb' ),
 
-	// Reference: _src/react/modules/setup.jsx:322
+	// Reference: _src/react/modules/setup.jsx:323
 	// Reference: _src/react/views/minify/summary.jsx:355
 	__( 'UPGRADE TO PRO', 'wphb' ),
 
-	// Reference: _src/react/modules/setup.jsx:333
+	// Reference: _src/react/modules/setup.jsx:334
 	__( 'Quit wizard', 'wphb' ),
 
-	// Reference: _src/react/modules/setup.jsx:340
+	// Reference: _src/react/modules/setup.jsx:341
 	__( 'Documentation', 'wphb' ),
 
 	// Reference: _src/react/modules/tutorials.jsx:29

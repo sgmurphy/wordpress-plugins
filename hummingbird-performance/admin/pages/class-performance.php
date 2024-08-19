@@ -109,7 +109,7 @@ class Performance extends Page {
 			$run_url = wp_nonce_url( $run_url, 'wphb-run-performance-test' );
 			?>
 			<div class="sui-actions-right">
-				<a href="<?php echo esc_url( $run_url ); ?>" class="sui-button sui-button-blue" id="performance-run-test">
+				<a href="<?php echo esc_url( $run_url ); ?>" class="sui-button sui-button-blue" id="performance-run-test" data-location='test_page_existing'>
 					<?php esc_html_e( 'New Test', 'wphb' ); ?>
 				</a>
 			</div>

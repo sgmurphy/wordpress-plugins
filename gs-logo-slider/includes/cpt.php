@@ -39,6 +39,8 @@ class Cpt {
 			'show_ui'            	=> true,
 			'exclude_from_search' 	=> true,
 			'public'            	=> true,
+			'publicly_queryable' 	=> false,
+			'rewrite'            	=> false,
 			'has_archive'       	=> false,
 			'hierarchical'       	=> false,
 			'show_in_rest'       	=> true,
@@ -47,6 +49,11 @@ class Cpt {
 			'menu_icon'          	=> GSL_PLUGIN_URI . 'assets/img/icon.svg',
 			'supports'           	=> array( 'title', 'editor', 'thumbnail', 'excerpt')
 		);
+
+		if ( plugin()->builder->get( 'enable_single_page' ) == 'on' ) {
+			$args['publicly_queryable'] = true;
+			$args['rewrite'] = [ 'slug' => 'gs-logo-slider' ];
+		}
 	
 		register_post_type( 'gs-logo-slider', $args );
 	}

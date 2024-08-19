@@ -180,9 +180,9 @@ class SSP_Output {
 	 */
 	private static function output_meta_tags() {
 
-		// if ( ! wp_is_block_theme() && ! empty( self::$title ) ) {
-		//  echo '<title>' . esc_html( self::$title ) . '</title>' . PHP_EOL;
-		// }
+		if ( ! wp_is_block_theme() && ! current_theme_supports( 'title-tag' ) && ! empty( self::$title ) ) {
+			echo '<title>' . esc_html( self::$title ) . '</title>' . PHP_EOL;
+		}
 
 		if ( ! empty( self::$robots ) ) {
 			echo '<meta name="robots" content="' . esc_attr( self::$robots ) . '">' . PHP_EOL;
@@ -764,6 +764,9 @@ class SSP_Output {
 		$snipets = preg_match_all( '/%_([^%]+)_%/', $str, $matched, PREG_SET_ORDER );
 		if ( ! $snipets ) return $str;
 
+		// 区切り文字が最後にきたときに削除するか
+		$flag_rtrim_sepator = false;
+
 		// replace each snippets
 		foreach ( $matched as $snipet ) {
 			$snipet_tag  = $snipet[0];
@@ -776,6 +779,9 @@ class SSP_Output {
 				case '%_phrase_%': // old
 				case '%_tagline_%':
 					$replace = \SSP_Data::$site_catch_phrase;
+					if ( empty( $replace ) ) {
+						$flag_rtrim_sepator = true;
+					}
 					break;
 				case '%_description_%': // old
 				case '%_front_description_%':
@@ -870,6 +876,11 @@ class SSP_Output {
 		// 区切り文字が続いてしまう場合は削除
 		if ( 'title' === $context ) {
 			$str = str_replace( "$separator $separator", $separator, $str );
+		}
+
+		// 区切り文字が最後にきたときに削除
+		if ( $flag_rtrim_sepator ) {
+			$str = rtrim( $str, " $separator " );
 		}
 
 		// 空白が続いてる場合は1つに

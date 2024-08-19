@@ -161,17 +161,6 @@ script id"><?php echo esc_html( $delay_js_excludes ); ?></textarea>
 			</span>
 			<span class="sui-description">
 				<?php esc_html_e( 'Drastically reduce your page load time and eliminate render-blocking CSS by automatically generating the critical CSS required to load your page.', 'wphb' ); ?>
-				<br/>
-				<br/>
-				<?php
-				if ( ! empty( $css ) ) {
-					printf( /* translators: %1$s - Opening <a> tag, %2$s - Closing </a> tag */
-						esc_html__( 'You can switch to %1$smanual mode%2$s to add the critical CSS manually.', 'wphb' ),
-						'<a href="javascript:;" onClick="return window.WPHB_Admin.minification.criticalCSSSwitchMode(\'manual_css\');">',
-						'</a>'
-					);
-				}
-				?>
 			</span>
 	</div>
 

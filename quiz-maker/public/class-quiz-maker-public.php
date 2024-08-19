@@ -1552,13 +1552,14 @@ class Quiz_Maker_Public
         $quiz_start_button = "<input type='button' $empty_questions_button $start_button_disabled class='ays_next start_button action-button' value='". $this->buttons_texts['startButton'] ."' ". $enable_leave_page ." />" . $empty_questions_notification;
 
 
+        $is_elementor_exists = $this->ays_quiz_is_elementor();
+        $is_editor_exists    = $this->ays_quiz_is_editor();
+        
         if ( $enable_start_button_loader ) {
-            $is_elementor_exists = $this->ays_quiz_is_elementor();
             if ( $is_elementor_exists ) {
                 $enable_start_button_loader = false;
             }
 
-            $is_editor_exists = $this->ays_quiz_is_editor();
             if ( $is_editor_exists ) {
                 $enable_start_button_loader = false;
             }
@@ -1574,6 +1575,12 @@ class Quiz_Maker_Public
                     <img src="'. AYS_QUIZ_ADMIN_URL .'/images/loaders/tail-spin.svg" class="ays_quiz_start_button_loader">
                 </div>';
             }
+        }
+
+        $quiz_block_preview_message = "";
+        if( $is_elementor_exists || $is_editor_exists ){
+            $quiz_block_preview_message = '
+                <span class="ays_quiz_small_hint_text" style="color: #ccc;font-size: 15px;">'. esc_attr( __( "You're in the preview mode. Note: All elements work correctly on the front end." , "quiz-maker") ) .'</span>';
         }
         
         
@@ -3039,6 +3046,7 @@ class Quiz_Maker_Public
                     {$quiz_password_message_html}
                     {$password_message}
                     {$quiz_start_button}
+                    {$quiz_block_preview_message}
                     </div>
                 </div>";
         

@@ -34,7 +34,7 @@ function auto_sizes_update_image_attributes( $attr ): array {
 	}
 
 	// Don't add 'auto' to the sizes attribute if it already exists.
-	if ( str_contains( $attr['sizes'], 'auto,' ) ) {
+	if ( auto_sizes_attribute_includes_valid_auto( $attr['sizes'] ) ) {
 		return $attr;
 	}
 
@@ -57,26 +57,50 @@ function auto_sizes_update_content_img_tag( $html ): string {
 		$html = '';
 	}
 
-	// Bail early if the image is not lazy-loaded.
-	if ( false === strpos( $html, 'loading="lazy"' ) ) {
+	$processor = new WP_HTML_Tag_Processor( $html );
+
+	// Bail if there is no IMG tag.
+	if ( ! $processor->next_tag( array( 'tag_name' => 'IMG' ) ) ) {
 		return $html;
 	}
+
+	// Bail early if the image is not lazy-loaded.
+	$value = $processor->get_attribute( 'loading' );
+	if ( ! is_string( $value ) || 'lazy' !== strtolower( trim( $value, " \t\f\r\n" ) ) ) {
+		return $html;
+	}
+
+	$sizes = $processor->get_attribute( 'sizes' );
 
 	// Bail early if the image is not responsive.
-	if ( false === strpos( $html, 'sizes="' ) ) {
+	if ( ! is_string( $sizes ) ) {
 		return $html;
 	}
 
-	// Don't double process content images.
-	if ( false !== strpos( $html, 'sizes="auto,' ) ) {
+	// Don't add 'auto' to the sizes attribute if it already exists.
+	if ( auto_sizes_attribute_includes_valid_auto( $sizes ) ) {
 		return $html;
 	}
 
-	$html = str_replace( 'sizes="', 'sizes="auto, ', $html );
-
-	return $html;
+	$processor->set_attribute( 'sizes', "auto, $sizes" );
+	return $processor->get_updated_html();
 }
 add_filter( 'wp_content_img_tag', 'auto_sizes_update_content_img_tag' );
+
+/**
+ * Checks whether the given 'sizes' attribute includes the 'auto' keyword as the first item in the list.
+ *
+ * Per the HTML spec, if present it must be the first entry.
+ *
+ * @since 1.2.0
+ *
+ * @param string $sizes_attr The 'sizes' attribute value.
+ * @return bool True if the 'auto' keyword is present, false otherwise.
+ */
+function auto_sizes_attribute_includes_valid_auto( string $sizes_attr ): bool {
+	$token = strtok( strtolower( $sizes_attr ), ',' );
+	return false !== $token && 'auto' === trim( $token, " \t\f\r\n" );
+}
 
 /**
  * Displays the HTML generator tag for the plugin.
@@ -115,8 +139,8 @@ function auto_sizes_get_width( string $layout_width, int $image_width ): string 
  *
  * @since 1.1.0
  *
- * @param string               $content      The block content about to be rendered.
- * @param array<string, mixed> $parsed_block The parsed block.
+ * @param string                                                   $content      The block content about to be rendered.
+ * @param array{ attrs?: array{ align?: string, width?: string } } $parsed_block The parsed block.
  * @return string The updated block content.
  */
 function auto_sizes_filter_image_tag( string $content, array $parsed_block ): string {
@@ -126,15 +150,13 @@ function auto_sizes_filter_image_tag( string $content, array $parsed_block ): st
 	// Only update the markup if an image is found.
 	if ( $has_image ) {
 		$processor->set_attribute( 'data-needs-sizes-update', true );
-		$align = $parsed_block['attrs']['align'] ?? '';
-		if ( $align ) {
-			$processor->set_attribute( 'data-align', $align );
+		if ( isset( $parsed_block['attrs']['align'] ) ) {
+			$processor->set_attribute( 'data-align', $parsed_block['attrs']['align'] );
 		}
 
 		// Resize image width.
-		$resize_image_width = $parsed_block['attrs']['width'] ?? '';
-		if ( $resize_image_width ) {
-			$processor->set_attribute( 'data-resize-width', $resize_image_width );
+		if ( isset( $parsed_block['attrs']['width'] ) ) {
+			$processor->set_attribute( 'data-resize-width', $parsed_block['attrs']['width'] );
 		}
 
 		$content = $processor->get_updated_html();
@@ -158,6 +180,18 @@ function auto_sizes_improve_image_sizes_attributes( string $content ): string {
 		return $content;
 	}
 
+	$remove_data_attributes = static function () use ( $processor ): void {
+		$processor->remove_attribute( 'data-needs-sizes-update' );
+		$processor->remove_attribute( 'data-align' );
+		$processor->remove_attribute( 'data-resize-width' );
+	};
+
+	// Bail early if the responsive images are disabled.
+	if ( null === $processor->get_attribute( 'sizes' ) ) {
+		$remove_data_attributes();
+		return $processor->get_updated_html();
+	}
+
 	// Skips second time parsing if already processed.
 	if ( null === $processor->get_attribute( 'data-needs-sizes-update' ) ) {
 		return $content;
@@ -167,7 +201,7 @@ function auto_sizes_improve_image_sizes_attributes( string $content ): string {
 
 	// Retrieve width from the image tag itself.
 	$image_width = $processor->get_attribute( 'width' );
-	if ( ! $image_width && ! in_array( $align, array( 'full', 'wide' ), true ) ) {
+	if ( ! is_string( $image_width ) && ! in_array( $align, array( 'full', 'wide' ), true ) ) {
 		return $content;
 	}
 
@@ -204,13 +238,11 @@ function auto_sizes_improve_image_sizes_attributes( string $content ): string {
 			break;
 	}
 
-	if ( $sizes ) {
+	if ( is_string( $sizes ) ) {
 		$processor->set_attribute( 'sizes', $sizes );
 	}
 
-	$processor->remove_attribute( 'data-needs-sizes-update' );
-	$processor->remove_attribute( 'data-align' );
-	$processor->remove_attribute( 'data-resize-width' );
+	$remove_data_attributes();
 
 	return $processor->get_updated_html();
 }

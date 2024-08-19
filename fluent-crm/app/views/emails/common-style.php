@@ -198,14 +198,13 @@ if(fluentcrm_is_rtl()) {
         border-radius: 0px;
         padding: 12px 18px;
         display: block;
-        border: 0px solid white;
     }
 
-    .fc_d_btn_bg a {
-        background: #32373c;
-        border: 1px solid #32373c;
+    .fc_d_btn_bg.is-style-outline a {
+        border-style: solid;
     }
-    .fc_d_btn_color a {
+    .fc_btn.is-style-fill a,
+    .fc_btn:not(.is-style-outline) a {
         color: white;
     }
 

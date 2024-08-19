@@ -19,6 +19,8 @@ class UrlStores extends Model
 
     public static function getUrlSlug($longUrl)
     {
+        // remove zero width space
+        $longUrl = str_replace("\xE2\x80\x8B", '', $longUrl);
 
         static $urls = [];
 

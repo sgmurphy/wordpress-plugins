@@ -3,6 +3,7 @@
 namespace FluentCrm\App\Services\Libs\Parser;
 
 use FluentCrm\App\Models\Subscriber;
+use FluentCrm\App\Services\Helper;
 use FluentCrm\Framework\Support\Arr;
 
 class ShortcodeParser
@@ -274,7 +275,7 @@ class ShortcodeParser
     protected function getSubscriberValue($subscriber, $valueKey, $defaultValue)
     {
         if (!$subscriber || !$subscriber instanceof Subscriber) {
-            return ''; // We don't have subscriber
+            return $defaultValue; // We don't have subscriber
         }
 
         $valueKeys = explode('.', $valueKey);
@@ -287,6 +288,7 @@ class ShortcodeParser
             }
 
             $value = Arr::get($data, $valueKey);
+
             return ($value) ? $value : $defaultValue;
         }
 
@@ -308,6 +310,64 @@ class ShortcodeParser
             if ($value) {
                 return $value;
             }
+        }
+
+        if ($customKey == 'company') {
+            if (!Helper::isCompanyEnabled()) {
+                return $defaultValue;
+            }
+
+            $company = $subscriber->company;
+            if (!$company) {
+                return $defaultValue;
+            }
+
+            if ($customProperty == 'address') {
+                $address = array_filter([
+                    $company->address_line_1,
+                    $company->address_line_2,
+                    $company->city,
+                    $company->state,
+                    $company->postal_code,
+                    $company->country
+                ]);
+
+                if (!$address) {
+                    return $defaultValue;
+                }
+
+                return implode(', ', $address);
+            }
+
+            $acceptedFields = [
+                'name',
+                'industry',
+                'email',
+                'timezone',
+                'address_line_1',
+                'address_line_2',
+                'postal_code',
+                'city',
+                'state',
+                'country',
+                'employees_number',
+                'description',
+                'phone',
+                'logo',
+                'website',
+                'linkedin_url',
+                'twitter_url',
+                'facebook_url',
+                'date_of_start',
+            ];
+
+            if (!in_array($customProperty, $acceptedFields)) {
+                return $defaultValue;
+            }
+
+            $companyValue = $company->{$customProperty};
+
+            return ($companyValue) ? $companyValue : $defaultValue;
         }
 
         if ($customKey == 'tags') {

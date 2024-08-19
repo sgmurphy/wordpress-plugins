@@ -89,26 +89,26 @@ class Notices {
 
 		if ( is_multisite() ) {
 			add_action( 'network_admin_notices', array( $this, 'upgrade_to_pro' ) );
-			add_action( 'network_admin_notices', array( $this, 'redis_deprecation_notice' ) );
 			add_action( 'network_admin_notices', array( $this, 'free_version_deactivated' ) );
 			add_action( 'network_admin_notices', array( $this, 'free_version_rate' ) );
 			add_action( 'network_admin_notices', array( $this, 'plugin_compat_check' ) );
+			add_action( 'network_admin_notices', array( $this, 'legacy_critical_css_deprecation_notice' ) );
 		} else {
 			add_action( 'admin_notices', array( $this, 'upgrade_to_pro' ) );
-			add_action( 'admin_notices', array( $this, 'redis_deprecation_notice' ) );
 			add_action( 'admin_notices', array( $this, 'free_version_deactivated' ) );
 			add_action( 'admin_notices', array( $this, 'free_version_rate' ) );
 			add_action( 'admin_notices', array( $this, 'plugin_compat_check' ) );
+			add_action( 'admin_notices', array( $this, 'legacy_critical_css_deprecation_notice' ) );
 		}
 	}
 
 	/**
 	 * Show notice about Redis deprecation.
 	 *
-	 * @since 3.8.0
+	 * @since 3.9.3
 	 */
-	public function redis_deprecation_notice() {
-		if ( $this->is_dismissed( 'redis-deprecation', 'option' ) ) {
+	public function legacy_critical_css_deprecation_notice() {
+		if ( $this->is_dismissed( 'legacy-critical-css', 'option' ) ) {
 			return;
 		}
 
@@ -116,23 +116,37 @@ class Notices {
 			return;
 		}
 
-		$redis_vars = Utils::get_module( 'redis' )->get_status_related_vars();
-
-		if ( ! $redis_vars['redis_connected'] ) {
+		$minify = Utils::get_module( 'minify' );
+		if ( ! $minify->is_active() || Utils::get_module( 'critical_css' )->is_active() ) {
 			return;
 		}
 
-		$heading = __( 'Important Update: Redis Integration Changes in Hummingbird', 'wphb' );
-		$message = __( '🚨 Heads Up! We’re streamlining our services and the Redis integration will soon be removed. Please be sure to migrate your data or adjust your settings before updating the plugin to the next version.', 'wphb' );
+		$critical_css_mode = Settings::get_setting( 'critical_css_mode', 'minify' );
+		$css               = $minify::get_css();
+		if ( ! $critical_css_mode ) {
+			$critical_css_mode = ( $css ? 'manual_css' : 'critical_css' );
+		}
+
+		if ( 'manual_css' !== $critical_css_mode ) {
+			return;
+		}
+
+		$heading = __( 'Important Update: CSS Optimization Changes in Hummingbird', 'wphb' );
+		$message = __( '🚨 Heads Up! We’re streamlining our services and the Optimize CSS Delivery feature will soon be removed. We suggest switching to the new and improved Generate Critical CSS feature immediately for optimal performance.', 'wphb' );
 		$message = '<h3>' . $heading . '</h3><p>' . $message . '</p>';
 
-		$dismiss_url = wp_nonce_url( add_query_arg( 'wphb-dismiss', 'redis-deprecation' ), 'wphb-dismiss-notice' );
+		$dismiss_url = wp_nonce_url( add_query_arg( 'wphb-dismiss', 'legacy-critical-css' ), 'wphb-dismiss-notice' );
 		?>
 		<div class="notice-warning notice wphb-notice">
 			<?php echo wp_kses_post( $message ); ?>
 			<p>
-				<a href="<?php echo esc_url( $dismiss_url ); ?>">
-					<?php esc_html_e( 'I Understand', 'wphb' ); ?>
+				<?php if ( ! is_multisite() ) { ?>
+					<a href="javascript:void(0)" id="wphb-switch-critical-from-legacy" class="button button-primary">
+						<?php esc_html_e( 'Switch To Automatic CSS Optimization', 'wphb' ); ?>
+					</a>
+				<?php } ?>
+				<a href="<?php echo esc_url( $dismiss_url ); ?>" style="<?php if ( ! is_multisite() ) { echo 'margin-left: 10px;color: #888;'; } ?>text-decoration: none;">
+					<?php esc_html_e( 'I Understand, Remove This Notice', 'wphb' ); ?>
 				</a>
 			</p>
 		</div>
@@ -272,7 +286,7 @@ class Notices {
 			'free-deactivated',
 			'free-rated',
 			'cache-cleaned',
-			'redis-deprecation',
+			'legacy-critical-css',
 		);
 
 		if ( in_array( $notice, $user_notices, true ) ) {

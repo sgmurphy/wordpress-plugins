@@ -4,6 +4,7 @@ namespace FluentCrm\App\Http\Controllers;
 
 use FluentCrm\App\Models\Campaign;
 use FluentCrm\App\Models\CampaignUrlMetric;
+use FluentCrm\App\Services\Helper;
 use FluentCrm\Framework\Request\Request;
 
 /**
@@ -29,20 +30,44 @@ class CampaignAnalyticsController extends Controller
         $limit = intval($request->get('per_page', 10));
         $offset = (intval($request->get('page', 1)) - 1) * $limit;
 
-        // We have Woo Here
-        $orderMetas = fluentCrmDb()->table('postmeta')
-            ->select('post_id')
-            ->where('meta_key', '_fc_cid')
-            ->where('meta_value', $campaignId)
-            ->orderBy('meta_id', 'DESC')
-            ->limit($limit)
-            ->offset($offset)
-            ->get();
 
         if (defined('WC_PLUGIN_FILE')) {
+
+            if(Helper::isWooHposEnabled()) {
+                $orderMetas = fluentCrmDb()->table('wc_orders_meta')
+                    ->select('order_id')
+                    ->where('meta_key', '_fc_cid')
+                    ->where('meta_value', $campaignId)
+                    ->orderBy('id', 'DESC')
+                    ->limit($limit)
+                    ->offset($offset)
+                    ->get();
+
+                $totalOrders = fluentCrmDb()->table('wc_orders_meta')
+                    ->where('meta_key', '_fc_cid')
+                    ->where('meta_value', $campaignId)
+                    ->count();
+            } else {
+                $orderMetas = fluentCrmDb()->table('postmeta')
+                    ->select(fluentCrmDb()->raw('post_id as order_id'))
+                    ->where('meta_key', '_fc_cid')
+                    ->where('meta_value', $campaignId)
+                    ->orderBy('meta_id', 'DESC')
+                    ->limit($limit)
+                    ->offset($offset)
+                    ->get();
+
+                $totalOrders = fluentCrmDb()->table('postmeta')
+                    ->select('post_id')
+                    ->where('meta_key', '_fc_cid')
+                    ->where('meta_value', $campaignId)
+                    ->count();
+            }
+
+
             $orders = [];
             foreach ($orderMetas as $orderMeta) {
-                $order = wc_get_order($orderMeta->post_id);
+                $order = wc_get_order($orderMeta->order_id);
                 if (!$order || !$order->get_id()) {
                     continue;
                 }
@@ -81,13 +106,20 @@ class CampaignAnalyticsController extends Controller
                     'date'   => __('Date', 'fluent-crm'),
                     'total'  => __('Total', 'fluent-crm')
                 ],
-                'total'  => fluentCrmDb()->table('postmeta')
-                    ->select('post_id')
-                    ->where('meta_key', '_fc_cid')
-                    ->where('meta_value', $campaignId)
-                    ->count()
+                'total'  => $totalOrders
             ];
         } else if (class_exists('\Easy_Digital_Downloads')) {
+
+            // We have Edd 2 Here
+            $orderMetas = fluentCrmDb()->table('postmeta')
+                ->select('post_id')
+                ->where('meta_key', '_fc_cid')
+                ->where('meta_value', $campaignId)
+                ->orderBy('meta_id', 'DESC')
+                ->limit($limit)
+                ->offset($offset)
+                ->get();
+
             foreach ($orderMetas as $orderMeta) {
                 $payment = new \EDD_Payment($orderMeta->post_id);
                 if (!$payment || !$payment->ID) {

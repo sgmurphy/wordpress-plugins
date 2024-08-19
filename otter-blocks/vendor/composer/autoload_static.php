@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a
+class ComposerStaticInit18ed4dd0b06fec53cd1aff8cd42a1394
 {
     public static $files = array (
         '16e4325dd9bdbbd2ce8c9530b088e50b' => __DIR__ . '/..' . '/codeinwp/themeisle-sdk/load.php',
@@ -268,6 +268,7 @@ class ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a
         'Stripe\\Service\\BillingPortal\\BillingPortalServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/BillingPortal/BillingPortalServiceFactory.php',
         'Stripe\\Service\\BillingPortal\\ConfigurationService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/BillingPortal/ConfigurationService.php',
         'Stripe\\Service\\BillingPortal\\SessionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/BillingPortal/SessionService.php',
+        'Stripe\\Service\\Billing\\AlertService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Billing/AlertService.php',
         'Stripe\\Service\\Billing\\BillingServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Billing/BillingServiceFactory.php',
         'Stripe\\Service\\Billing\\MeterEventAdjustmentService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Billing/MeterEventAdjustmentService.php',
         'Stripe\\Service\\Billing\\MeterEventService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Billing/MeterEventService.php',
@@ -550,9 +551,9 @@ class ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb79a1419a8cd0329d649c8c1b895488a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit18ed4dd0b06fec53cd1aff8cd42a1394::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit18ed4dd0b06fec53cd1aff8cd42a1394::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit18ed4dd0b06fec53cd1aff8cd42a1394::$classMap;
 
         }, null, ClassLoader::class);
     }

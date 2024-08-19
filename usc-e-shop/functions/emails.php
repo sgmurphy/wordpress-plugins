@@ -479,12 +479,13 @@ function usces_get_thanksmail_htmlbody( $args ) {
 			$pc = '';
 		}
 		$meisai .= '<p style="margin-top: 10px; font-size: 13px;">';
-		if ( 0 < $usces_tax->tax_rate_reduced ) {
+		$reduced_output_even_empty = apply_filters( 'usces_filter_mail_reduced_output_even_empty', false, $usces_tax, $condition['tax_mode'] );
+		if ( 0 < $usces_tax->tax_rate_reduced || $reduced_output_even_empty ) {
 			$meisai .= $usces_tax->reduced_taxrate_mark . __( ' is reduced tax rate', 'usces' ) . '<br>';
 		}
 		$meisai .= sprintf( __( 'Applies to %s%%', 'usces' ), $usces_tax->tax_rate_standard ) . ' : ' . usces_crform( $usces_tax->subtotal_standard + $usces_tax->discount_standard, true, false, 'return' ) . '<br>'; /* translators: %s is replaced with "string" */
 		$meisai .= sprintf( __( '%s%% consumption tax', 'usces' ), $usces_tax->tax_rate_standard ) . ' : ' . $po . usces_crform( $usces_tax->tax_standard, true, false, 'return' ) . $pc . '<br>'; /* translators: %s is replaced with "string" */
-		if ( 0 < $usces_tax->tax_rate_reduced ) {
+		if ( 0 < $usces_tax->tax_rate_reduced || $reduced_output_even_empty ) {
 			$meisai .= sprintf( __( 'Applies to %s%%', 'usces' ), $usces_tax->tax_rate_reduced ) . ' : ' . usces_crform( $usces_tax->subtotal_reduced + $usces_tax->discount_reduced, true, false, 'return' ) . '<br>'; /* translators: %s is replaced with "string" */
 			$meisai .= sprintf( __( '%s%% consumption tax', 'usces' ), $usces_tax->tax_rate_reduced ) . ' : ' . $po . usces_crform( $usces_tax->tax_reduced, true, false, 'return' ) . $pc . '<br>'; /* translators: %s is replaced with "string" */
 		}
@@ -710,12 +711,13 @@ function usces_get_thanksmail_textbody( $args ) {
 		}
 		$meisai .= sprintf( __( 'Applies to %s%%', 'usces' ), $usces_tax->tax_rate_standard ) . ' : ' . usces_crform( $usces_tax->subtotal_standard + $usces_tax->discount_standard, true, false, 'return' ) . "\r\n"; /* translators: %s is replaced with "string" */
 		$meisai .= sprintf( __( '%s%% consumption tax', 'usces' ), $usces_tax->tax_rate_standard ) . ' : ' . $po . usces_crform( $usces_tax->tax_standard, true, false, 'return' ) . $pc . "\r\n"; /* translators: %s is replaced with "string" */
-		if ( 0 < $usces_tax->tax_rate_reduced ) {
+		$reduced_output_even_empty = apply_filters( 'usces_filter_mail_reduced_output_even_empty', false, $usces_tax, $condition['tax_mode'] );
+		if ( 0 < $usces_tax->tax_rate_reduced || $reduced_output_even_empty ) {
 			$meisai .= sprintf( __( 'Applies to %s%%', 'usces' ), $usces_tax->tax_rate_reduced ) . ' : ' . usces_crform( $usces_tax->subtotal_reduced + $usces_tax->discount_reduced, true, false, 'return' ) . "\r\n"; /* translators: %s is replaced with "string" */
 			$meisai .= sprintf( __( '%s%% consumption tax', 'usces' ), $usces_tax->tax_rate_reduced ) . ' : ' . $po . usces_crform( $usces_tax->tax_reduced, true, false, 'return' ) . $pc . "\r\n"; /* translators: %s is replaced with "string" */
 		}
 		$meisai .= usces_mail_line( 2, $data['order_email'] ); // --------------------
-		if ( 0 < $usces_tax->tax_rate_reduced ) {
+		if ( 0 < $usces_tax->tax_rate_reduced || $reduced_output_even_empty ) {
 			$meisai .= $usces_tax->reduced_taxrate_mark . __( ' is reduced tax rate', 'usces' ) . "\r\n";
 		}
 	}
@@ -971,12 +973,13 @@ function usces_get_adminmail_htmlbody( $args ) {
 			$pc = '';
 		}
 		$meisai .= '<p style="margin-top: 10px; font-size: 13px;">';
-		if ( 0 < $usces_tax->tax_rate_reduced ) {
+		$reduced_output_even_empty = apply_filters( 'usces_filter_mail_reduced_output_even_empty', false, $usces_tax, $condition['tax_mode'] );
+		if ( 0 < $usces_tax->tax_rate_reduced || $reduced_output_even_empty ) {
 			$meisai .= $usces_tax->reduced_taxrate_mark . __( ' is reduced tax rate', 'usces' ) . '<br>';
 		}
 		$meisai .= sprintf( __( 'Applies to %s%%', 'usces' ), $usces_tax->tax_rate_standard ) . ' : ' . usces_crform( $usces_tax->subtotal_standard + $usces_tax->discount_standard, true, false, 'return' ) . '<br>'; /* translators: %s is replaced with "string" */
 		$meisai .= sprintf( __( '%s%% consumption tax', 'usces' ), $usces_tax->tax_rate_standard ) . ' : ' . $po . usces_crform( $usces_tax->tax_standard, true, false, 'return' ) . $pc . '<br>'; /* translators: %s is replaced with "string" */
-		if ( 0 < $usces_tax->tax_rate_reduced ) {
+		if ( 0 < $usces_tax->tax_rate_reduced || $reduced_output_even_empty ) {
 			$meisai .= sprintf( __( 'Applies to %s%%', 'usces' ), $usces_tax->tax_rate_reduced ) . ' : ' . usces_crform( $usces_tax->subtotal_reduced + $usces_tax->discount_reduced, true, false, 'return' ) . '<br>'; /* translators: %s is replaced with "string" */
 			$meisai .= sprintf( __( '%s%% consumption tax', 'usces' ), $usces_tax->tax_rate_reduced ) . ' : ' . $po . usces_crform( $usces_tax->tax_reduced, true, false, 'return' ) . $pc . '<br>'; /* translators: %s is replaced with "string" */
 		}
@@ -1257,12 +1260,13 @@ function usces_get_adminmail_textbody( $args ) {
 		}
 		$meisai .= sprintf( __( 'Applies to %s%%', 'usces' ), $usces_tax->tax_rate_standard ) . ' : ' . usces_crform( $usces_tax->subtotal_standard + $usces_tax->discount_standard, true, false, 'return' ) . "\r\n"; /* translators: %s is replaced with "string" */
 		$meisai .= sprintf( __( '%s%% consumption tax', 'usces' ), $usces_tax->tax_rate_standard ) . ' : ' . $po . usces_crform( $usces_tax->tax_standard, true, false, 'return' ) . $pc . "\r\n"; /* translators: %s is replaced with "string" */
-		if ( 0 < $usces_tax->tax_rate_reduced ) {
+		$reduced_output_even_empty = apply_filters( 'usces_filter_mail_reduced_output_even_empty', false, $usces_tax, $condition['tax_mode'] );
+		if ( 0 < $usces_tax->tax_rate_reduced || $reduced_output_even_empty ) {
 			$meisai .= sprintf( __( 'Applies to %s%%', 'usces' ), $usces_tax->tax_rate_reduced ) . ' : ' . usces_crform( $usces_tax->subtotal_reduced + $usces_tax->discount_reduced, true, false, 'return' ) . "\r\n"; /* translators: %s is replaced with "string" */
 			$meisai .= sprintf( __( '%s%% consumption tax', 'usces' ), $usces_tax->tax_rate_reduced ) . ' : ' . $po . usces_crform( $usces_tax->tax_reduced, true, false, 'return' ) . $pc . "\r\n"; /* translators: %s is replaced with "string" */
 		}
 		$meisai .= usces_mail_line( 2, $data['order_email'] ); // --------------------
-		if ( 0 < $usces_tax->tax_rate_reduced ) {
+		if ( 0 < $usces_tax->tax_rate_reduced || $reduced_output_even_empty ) {
 			$meisai .= $usces_tax->reduced_taxrate_mark . __( ' is reduced tax rate', 'usces' ) . "\r\n";
 		}
 	}

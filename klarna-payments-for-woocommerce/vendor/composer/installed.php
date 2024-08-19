@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'krokedil/klarna-onsite-messaging' => array(
-            'pretty_version' => '1.0.2',
-            'version' => '1.0.2.0',
-            'reference' => '5f4f168d13a026f6b0da1671bcb370d6df89d7d7',
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'reference' => '86028bbbcbbd484124b761ad2c50698fc982dad6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../krokedil/klarna-onsite-messaging',
             'aliases' => array(),

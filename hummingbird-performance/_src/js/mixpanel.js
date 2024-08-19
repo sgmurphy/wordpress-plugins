@@ -207,10 +207,11 @@ const MixPanel = require( 'mixpanel-browser' );
 		 *
 		 * @param {string} eventName Event name.
 		 * @param {string} action    Action.
+		 * @param {string} location  Location.
 		 */
-		trackProUpsell( eventName, action ) {	
+		trackProUpsell( eventName, action, location = 'submenu' ) {
 			this.track( eventName, {
-				'Location': 'submenu',
+				'Location': location,
 				'User Action': action,
 			} );
 		},

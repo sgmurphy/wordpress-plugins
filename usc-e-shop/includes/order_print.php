@@ -342,6 +342,7 @@ function usces_pdfSetHeader( $pdf, $data, $page, $font ) {
 	$order_number    = apply_filters( 'usces_filter_pdf_order_number', usces_get_deco_order_id( $data->order['ID'] ), $type, $data );
 	$juchubi         = apply_filters( 'usces_filter_pdf_purchase_date', $juchubi, $type, $data );
 	$free_note       = apply_filters( 'usces_filter_pdf_free_note', '', $type, $data );
+	$siharai         = apply_filters( 'usces_filter_pdf_payment_method', $siharai, $type, $data );
 
 	$pdf->SetLineWidth( 0.4 );
 	$pdf->Line( 65, 23, 110, 23 );

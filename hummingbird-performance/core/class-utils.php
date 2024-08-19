@@ -1355,6 +1355,14 @@ class Utils {
 			$active_features[] = Fast_CGI::is_high_frequency_hosted_site() ? 'hosted_high_frequency' : 'hosted_regular';
 		}
 
+		// Track browser cache status.
+		$active_features[] = self::wphb_get_browser_status_for_mp();
+
+		// Viewport_meta (Advanced tools).
+		if ( ! empty( $advanced_options['viewport_meta'] ) ) {
+			$active_features[] = 'viewport_meta';
+		}
+
 		/**
 		 * Filters the HB active features for MP.
 		 *
@@ -1367,6 +1375,22 @@ class Utils {
 		$active_features = apply_filters( 'wphb_tracking_active_features', $active_features );
 
 		return $active_features;
+	}
+
+	/**
+	 * Returns browser caching status for MP.
+	 *
+	 * @return string
+	 */
+	public static function wphb_get_browser_status_for_mp() {
+		$caching_data = self::get_module( 'caching' )->get_analysis_data( true );
+		foreach ( $caching_data as $data ) {
+			if ( empty( $data ) || $data < YEAR_IN_SECONDS ) {
+				return 'browser_caching_fail';
+			}
+		}
+
+		return 'browser_caching_pass';
 	}
 
 	/**

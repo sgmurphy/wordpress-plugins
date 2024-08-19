@@ -214,6 +214,7 @@ class Settings {
 				'query_strings_global' => false, // If true, will force query_string on all subsites.
 				'emoji'                => false,
 				'post_revisions'       => false,
+				'viewport_meta'        => true,
 				'emoji_global'         => false, // If true, will force emoji on all subsites.
 				'prefetch'             => array(),
 				'preconnect'           => array(),
@@ -292,7 +293,7 @@ class Settings {
 			'minify'      => array( 'minify_blog', 'view', 'type', 'do_assets', 'block', 'dont_minify', 'dont_combine', 'position', 'defer', 'inline', 'nocdn', 'fonts', 'preload', 'async', 'ao_completed_time', 'delay_js', 'delay_js_exclusions', 'delay_js_exclusion_list', 'delay_js_timeout', 'critical_css', 'critical_css_type', 'critical_css_remove_type', 'critical_css_mode', 'critical_page_types', 'critical_skipped_custom_post_types', 'font_optimization', 'preload_fonts', 'font_swap', 'font_display_value', 'preload_fonts_mode' ),
 			'page_cache'  => array( 'cache_blog' ),
 			'performance' => array( 'dismissed', 'reports' ),
-			'advanced'    => array( 'query_string', 'emoji', 'post_revisions', 'prefetch', 'preconnect', 'cart_fragments' ),
+			'advanced'    => array( 'query_string', 'viewport_meta', 'emoji', 'post_revisions', 'prefetch', 'preconnect', 'cart_fragments' ),
 			'cloudflare'  => array( 'enabled', 'connected', 'last_check', 'email', 'api_key', 'account_id', 'zone', 'zone_name', 'plan', 'page_rules', 'cache_expiry', 'apo_paid', 'apo' ),
 		);
 

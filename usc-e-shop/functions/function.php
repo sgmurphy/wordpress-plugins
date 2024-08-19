@@ -836,10 +836,10 @@ function usces_update_ordercartdata( $order_id ) {
 		foreach ( $item_opts as $key => $iopts ) {
 			if ( 3 === (int) $iopts['means'] || 4 === (int) $iopts['means'] ) {
 				$cart_meta    = usces_get_ordercart_meta( 'option', $cart_id, $iopts['name'] );
-				$cart_meta_id = $cart_meta[0]['cartmeta_id'];
+				$cart_meta_id = isset( $cart_meta[0]['cartmeta_id'] ) ? $cart_meta[0]['cartmeta_id'] : 'notfound';
+
 				// POSTが無ければmeta_valueをNULLに変更.
-				// $cart_meta['meta_value']にデータがある場合は変更せず.
-				if ( ! isset( $_POST['itemOption'][ $cart_meta_id ] ) && WCUtils::is_blank( $cart_meta[0]['meta_value'] ) ) {
+				if ( ! isset( $_POST['itemOption'][ $cart_meta_id ] ) ) {
 					$query = $wpdb->prepare(
 						"UPDATE $ordercart_meta_table_name SET meta_value = %s WHERE cartmeta_id = %d",
 						NULL, $cart_meta_id
@@ -969,7 +969,10 @@ function usces_update_ordercheck() {
 	$query = $wpdb->prepare( "SELECT `order_check` FROM $tableName WHERE ID = %d", $order_id );
 	$res   = $wpdb->get_var( $query );
 
-	$checkfield = unserialize( $res );
+	$checkfield = unserialize( $res ?? '' );
+	if ( false === $checkfield ) {
+		$checkfield = array();
+	}
 	if ( ! isset( $checkfield[ $checked ] ) ) {
 		$checkfield[ $checked ] = $checked;
 	}
@@ -4125,7 +4128,7 @@ function usces_get_itemOption( $field_data, $materials, $label = '#default#' ) {
 			}
 			$diff = array_diff( (array) $value, $selects );
 
-			if ( ! empty( $diff ) ) {
+			if ( isset( $diff[0] ) && ! empty( $diff[0] ) ) {
 
 				$value_str = '';
 				foreach ( $value as $mv ) {

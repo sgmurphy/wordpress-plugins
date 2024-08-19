@@ -234,6 +234,30 @@ class Contacts
         return $this->instance;
     }
 
+    public function getCustomFields($types = [], $byOptions = false)
+    {
+        $customFields = fluentcrm_get_custom_contact_fields();
+
+        if ($types) {
+            $customFields = array_filter($customFields, function ($field) use ($types) {
+                return in_array($field['type'], $types);
+            });
+        }
+
+        if ($byOptions) {
+            $formatted = [];
+            foreach ($customFields as $field) {
+                $formatted[] = [
+                    'id'    => $field['slug'],
+                    'title' => $field['label']
+                ];
+            }
+            return $formatted;
+        }
+
+        return $customFields;
+    }
+
     public function __call($method, $params)
     {
         if (in_array($method, $this->allowedInstanceMethods)) {

@@ -330,8 +330,15 @@ class FunnelHelper
         } else if ($unit == 'minutes') {
             $converter = 60;
         }
+
         $time = Arr::get($settings, 'wait_time_amount');
-        return (int)$time * $converter;
+        $delay = (int)$time * $converter;
+
+        if (!$delay || $delay < 1) {
+            $delay = 1;
+        }
+
+        return $delay;
     }
 
     public static function getCurrentDelayInSeconds($settings, $sequence = null, $funnerSubId = null)
@@ -374,6 +381,60 @@ class FunnelHelper
             return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', $waitTimes, $settings, $sequence, $funnerSubId);
         }
 
+
+        if ($waitType == 'by_custom_field') {
+            if (!$funnerSubId) {
+                return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', 60, $settings, $sequence, $funnerSubId);
+            }
+
+            $funnelSub = FunnelSubscriber::where('id', $funnerSubId)->first();
+
+            if (!$funnelSub || !$funnelSub->subscriber) {
+                return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', 60, $settings, $sequence, $funnerSubId);
+            }
+
+            $customFieldKey = Arr::get($settings, 'by_custom_field', '');
+
+            if (!$customFieldKey) {
+                return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', 60, $settings, $sequence, $funnerSubId);
+            }
+
+            $dateTime = null;
+
+            if ($customFieldKey == '__date_of_birth__') {
+                $dateTime = $funnelSub->subscriber->date_of_birth;
+
+                if ($dateTime) {
+                    // should be this current year's date
+                    $dateTime = date('Y') . '-' . date('m-d', strtotime($dateTime));
+
+                    // if the date is passed, then next year
+                    if (strtotime($dateTime) < current_time('timestamp')) {
+                        $dateTime = (date('Y') + 1) . '-' . date('m-d', strtotime($dateTime));
+                    }
+                }
+            } else {
+                $meta = $funnelSub->subscriber->custom_field_meta()->where('key', $customFieldKey)->first();
+                if ($meta) {
+                    $dateTime = $meta->value;
+                }
+            }
+
+            if (!$dateTime) {
+                return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', 60, $settings, $sequence, $funnerSubId);
+            }
+
+            $timeStamp = strtotime($dateTime);
+
+            $waitTimes = $timeStamp - current_time('timestamp');
+
+            if ($waitTimes < 1) {
+                $waitTimes = 60;
+            }
+
+            return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', $waitTimes, $settings, $sequence, $funnerSubId);
+        }
+
         $unit = Arr::get($settings, 'wait_time_unit');
         $converter = 86400; // default day
         if ($unit == 'hours') {
@@ -384,6 +445,10 @@ class FunnelHelper
 
         $time = Arr::get($settings, 'wait_time_amount');
         $waitTimes = (int)$time * $converter;
+
+        if (!$waitTimes || $waitTimes < 1) {
+            $waitTimes = 1;
+        }
 
         return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', $waitTimes, $settings, $sequence, $funnerSubId);
     }

@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Checkout Plugins - Stripe for WooCommerce 1.9.2\n"
+"Project-Id-Version: Checkout Plugins - Stripe for WooCommerce 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/checkout-plugins-stripe-woo\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-05T09:01:11+00:00\n"
+"POT-Creation-Date: 2024-08-16T13:59:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: checkout-plugins-stripe-woo\n"
@@ -53,49 +53,49 @@ msgstr ""
 #: admin/admin-controller.php:106
 #: gateway/block-support/alipay-payments.php:50
 #: gateway/stripe/alipay.php:59
-#: inc/helper.php:353
+#: inc/helper.php:387
 msgid "Alipay"
 msgstr ""
 
 #: admin/admin-controller.php:107
 #: gateway/block-support/ideal-payments.php:36
 #: gateway/stripe/ideal.php:45
-#: inc/helper.php:359
+#: inc/helper.php:393
 msgid "iDEAL"
 msgstr ""
 
 #: admin/admin-controller.php:108
 #: gateway/block-support/klarna-payments.php:44
 #: gateway/stripe/klarna.php:53
-#: inc/helper.php:365
+#: inc/helper.php:399
 msgid "Klarna"
 msgstr ""
 
 #: admin/admin-controller.php:109
 #: gateway/block-support/sepa-payments.php:53
 #: gateway/stripe/sepa.php:61
-#: inc/helper.php:389
+#: inc/helper.php:423
 msgid "SEPA"
 msgstr ""
 
 #: admin/admin-controller.php:110
 #: gateway/block-support/p24-payments.php:36
 #: gateway/stripe/p24.php:45
-#: inc/helper.php:371
+#: inc/helper.php:405
 msgid "Przelewy24"
 msgstr ""
 
 #: admin/admin-controller.php:111
 #: gateway/block-support/wechat-payments.php:34
 #: gateway/stripe/wechat.php:46
-#: inc/helper.php:383
+#: inc/helper.php:417
 msgid "WeChat"
 msgstr ""
 
 #: admin/admin-controller.php:112
 #: gateway/block-support/bancontact-payments.php:36
 #: gateway/stripe/bancontact.php:46
-#: inc/helper.php:377
+#: inc/helper.php:411
 msgid "Bancontact"
 msgstr ""
 
@@ -768,28 +768,28 @@ msgid "%1$sCheckout Plugins - Stripe for WooCommerce is currently inactive.%2$s 
 msgstr ""
 
 #. translators: 1 - 4 html entities
-#: compatibility/apple-pay.php:169
+#: compatibility/apple-pay.php:166
 msgid "Unable to create domain association folder to domain root due to file permissions. Please create %1$1s.well-known%2$2s directory under domain root and place %3$3sdomain verification file%4$4s under it and refresh."
 msgstr ""
 
-#: compatibility/apple-pay.php:177
+#: compatibility/apple-pay.php:174
 msgid "Unable to copy domain association file to domain root."
 msgstr ""
 
-#: compatibility/apple-pay.php:245
+#: compatibility/apple-pay.php:242
 msgid "We cannot find live secret key in database, Live secret key is required for Apple Pay domain verification. "
 msgstr ""
 
-#: compatibility/apple-pay.php:254
+#: compatibility/apple-pay.php:251
 msgid "Apple Pay domain verification successful."
 msgstr ""
 
-#: compatibility/apple-pay.php:263
+#: compatibility/apple-pay.php:260
 msgid "SSL is required for Express Pay Checkout."
 msgstr ""
 
 #. translators: %1s - %3s HTML Entities, %4s Error Message
-#: compatibility/apple-pay.php:273
+#: compatibility/apple-pay.php:270
 msgid "%1$1sApple Pay domain verification failed! %2$2sReason%3$3s: %4$4s"
 msgstr ""
 
@@ -841,13 +841,13 @@ msgid " Status : Failed "
 msgstr ""
 
 #: gateway/abstract-payment-gateway.php:363
-#: gateway/stripe/sepa.php:619
+#: gateway/stripe/sepa.php:611
 msgid "Payment will be completed once payment_intent.succeeded webhook received from Stripe."
 msgstr ""
 
 #. translators: transaction id, other info
 #: gateway/abstract-payment-gateway.php:366
-#: gateway/stripe/sepa.php:622
+#: gateway/stripe/sepa.php:614
 msgid "Stripe charge awaiting payment: %1$s. %2$s"
 msgstr ""
 
@@ -1109,75 +1109,61 @@ msgstr ""
 msgid "Stripe error:  %1$1s"
 msgstr ""
 
-#: gateway/local-gateway.php:573
-#: gateway/stripe/card-payments.php:386
-#: gateway/stripe/payment-element.php:531
-#: gateway/stripe/sepa.php:553
-msgid "Order is not complete! Payment not confirmed. Please try again."
-msgstr ""
-
-#: gateway/local-gateway.php:574
-#: gateway/stripe/card-payments.php:387
-#: gateway/stripe/payment-element.php:532
-#: gateway/stripe/sepa.php:554
-msgid "Invalid order! the nonce security check didn’t pass."
-msgstr ""
-
-#: gateway/local-gateway.php:583
-#: gateway/stripe/card-payments.php:397
-#: gateway/stripe/payment-element.php:542
-#: gateway/stripe/sepa.php:563
+#: gateway/local-gateway.php:575
+#: gateway/stripe/card-payments.php:390
+#: gateway/stripe/payment-element.php:534
+#: gateway/stripe/sepa.php:555
 msgid "No orders are found for provided order ID."
 msgstr ""
 
-#: gateway/local-gateway.php:584
-#: gateway/stripe/card-payments.php:398
-#: gateway/stripe/payment-element.php:543
-#: gateway/stripe/sepa.php:564
+#: gateway/local-gateway.php:576
+#: gateway/stripe/card-payments.php:391
+#: gateway/stripe/payment-element.php:535
+#: gateway/stripe/sepa.php:556
 msgid "Invalid order Id."
 msgstr ""
 
-#: gateway/local-gateway.php:593
-#: gateway/stripe/card-payments.php:407
-#: gateway/stripe/payment-element.php:552
-#: gateway/stripe/sepa.php:573
+#: gateway/local-gateway.php:585
+#: gateway/stripe/card-payments.php:400
+#: gateway/stripe/payment-element.php:544
+#: gateway/stripe/sepa.php:565
 msgid "No valid order found."
 msgstr ""
 
-#: gateway/local-gateway.php:594
-#: gateway/stripe/card-payments.php:408
-#: gateway/stripe/payment-element.php:553
-#: gateway/stripe/sepa.php:574
+#: gateway/local-gateway.php:586
+#: gateway/stripe/card-payments.php:401
+#: gateway/stripe/payment-element.php:545
+#: gateway/stripe/sepa.php:566
 msgid "Invalid order. No order found for provided order ID."
 msgstr ""
 
-#: gateway/local-gateway.php:600
-#: gateway/stripe/card-payments.php:414
-#: gateway/stripe/payment-element.php:559
-#: gateway/stripe/sepa.php:580
+#: gateway/local-gateway.php:592
+#: gateway/stripe/card-payments.php:407
+#: gateway/stripe/payment-element.php:551
+#: gateway/stripe/sepa.php:572
 msgid "Invalid order key received."
 msgstr ""
 
-#: gateway/local-gateway.php:601
-#: gateway/stripe/card-payments.php:415
-#: gateway/stripe/payment-element.php:560
-#: gateway/stripe/sepa.php:581
+#: gateway/local-gateway.php:593
+#: gateway/stripe/card-payments.php:408
+#: gateway/stripe/payment-element.php:552
+#: gateway/stripe/sepa.php:573
 msgid "Invalid order key."
 msgstr ""
 
 #. translators: %s: payment fail message.
-#: gateway/local-gateway.php:630
-#: gateway/stripe/card-payments.php:446
-#: gateway/stripe/payment-element.php:593
-#: gateway/stripe/sepa.php:629
+#: gateway/local-gateway.php:622
+#: gateway/stripe/card-payments.php:439
+#: gateway/stripe/payment-element.php:585
+#: gateway/stripe/sepa.php:621
 msgid "Payment failed. %s"
 msgstr ""
 
 #. translators: %1$1s order id, %2$2s payment fail message.
-#: gateway/local-gateway.php:632
-#: gateway/stripe/card-payments.php:448
-#: gateway/stripe/payment-element.php:591
-#: gateway/stripe/sepa.php:631
+#: gateway/local-gateway.php:624
+#: gateway/stripe/card-payments.php:441
+#: gateway/stripe/payment-element.php:583
+#: gateway/stripe/sepa.php:623
 msgid "Payment failed for Order id - %1$1s. %2$2s"
 msgstr ""
 
@@ -1374,37 +1360,37 @@ msgid "New payment method added successfully"
 msgstr ""
 
 #. translators: %1$1s order id, %2$2s token id
-#: gateway/stripe/card-payments.php:434
-#: gateway/stripe/payment-element.php:579
-#: gateway/stripe/sepa.php:603
+#: gateway/stripe/card-payments.php:427
+#: gateway/stripe/payment-element.php:571
+#: gateway/stripe/sepa.php:595
 msgid "Payment method tokenized for Order id - %1$1s with token id - %2$2s"
 msgstr ""
 
 #. translators: %1$1s, %2$2s: HTML Markup
-#: gateway/stripe/card-payments.php:593
+#: gateway/stripe/card-payments.php:586
 msgid "Live Stripe.js integrations must use HTTPS. %1$1s For more information:%2$2s"
 msgstr ""
 
-#: gateway/stripe/card-payments.php:623
+#: gateway/stripe/card-payments.php:616
 msgid "Enter Card Details"
 msgstr ""
 
-#: gateway/stripe/card-payments.php:626
+#: gateway/stripe/card-payments.php:619
 #: build/block/block.js:2100
 msgid "Expiry Date"
 msgstr ""
 
-#: gateway/stripe/card-payments.php:630
+#: gateway/stripe/card-payments.php:623
 msgid "CVC"
 msgstr ""
 
-#: gateway/stripe/card-payments.php:635
+#: gateway/stripe/card-payments.php:628
 #: gateway/stripe/payment-element.php:314
 msgid "Save Card for Future Payments"
 msgstr ""
 
 #. translators: %1$1s - %6$6s: HTML Markup
-#: gateway/stripe/card-payments.php:641
+#: gateway/stripe/card-payments.php:634
 msgid "%1$1s Test Mode Enabled:%2$2s Use demo card 4242424242424242 with any future date and CVV. Check more %3$3sdemo cards%4$4s"
 msgstr ""
 
@@ -1918,98 +1904,198 @@ msgstr ""
 msgid "The card has been declined (Stolen card). Please try again with another card."
 msgstr ""
 
+#: inc/helper.php:271
 #: inc/helper.php:272
-msgid "The request contains one or more unexpected parameters. Remove these and try again."
-msgstr ""
-
 #: inc/helper.php:273
-msgid "Your card number is incomplete."
+#: inc/helper.php:277
+#: inc/helper.php:278
+#: inc/helper.php:290
+#: inc/helper.php:298
+#: inc/helper.php:299
+#: inc/helper.php:300
+#: inc/helper.php:301
+#: inc/helper.php:302
+msgid "The card has been declined for an unknown reason. Please try again with another card."
 msgstr ""
 
 #: inc/helper.php:274
-msgid "Your card's expiration date is incomplete."
+msgid "This card does not support this type of purchase. Please try again with another card."
 msgstr ""
 
 #: inc/helper.php:275
-msgid "Your card's security code is incomplete."
+msgid "This card has been declined for making repeated attempts too frequently or exceeding its amount limit. Please try again with another card."
 msgstr ""
 
 #: inc/helper.php:276
-msgid "Your card's zip code is incomplete."
-msgstr ""
-
-#: inc/helper.php:277
-msgid "There was an error processing your credit card."
-msgstr ""
-
-#: inc/helper.php:278
-msgid "Your card's expiration year is in the past."
+msgid "This card does not support the specified currency. Please try again with another card."
 msgstr ""
 
 #: inc/helper.php:279
-msgid "The bank account cannot be verified, either because the microdeposit amounts provided do not match the actual amounts, or because verification has failed too many times."
+msgid "A transaction with identical amount and credit card information was submitted very recently. Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:280
+msgid "This card has been expired. Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:281
+msgid "This card has been declined because Stripe suspects that it's fraudulent. Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:282
+#: inc/helper.php:287
+msgid "The PIN entered for the card is incorrect. Please try again."
 msgstr ""
 
 #: inc/helper.php:283
-msgid "This card has been declined too many times. You can try to charge this card again after 24 hours. We suggest reaching out to your customer to make sure they have entered all of their information correctly and that there are no issues with their card."
+msgid "The card, or account the card is connected to, is invalid. Please try again with another card."
 msgstr ""
 
-#: inc/helper.php:287
-msgid "The charge you're attempting to capture has already been captured. Update the request with an uncaptured charge ID."
+#: inc/helper.php:284
+msgid "The payment amount is invalid, or exceeds the amount that's allowed by this card. Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:285
+msgid "Your card's expiration month is incorrect. Please check or try again with another card."
+msgstr ""
+
+#: inc/helper.php:286
+msgid "The payment couldn't be authorized because the card issuer was unreachable. Please try again with another card."
 msgstr ""
 
 #: inc/helper.php:288
-msgid "The charge you're attempting to refund has already been refunded. Update the request to use the ID of a charge that has not been refunded."
+msgid "The card has been declined (Merchant blacklist). Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:289
+msgid "This card, or account the card is connected to, is invalid. Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:291
+msgid "The card has been declined because the payment isn't permitted. Please try again with another card."
 msgstr ""
 
 #: inc/helper.php:292
-msgid "The charge you're attempting to refund has been charged back. Check the disputes documentation to learn how to respond to the dispute."
+msgid "The card has been declined because it requires a offline PIN. Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:293
+msgid "The card has been declined because it requires a PIN. Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:294
+#: inc/helper.php:297
+msgid "You can't use this card to make this payment. Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:295
+msgid "The allowable number of PIN tries was exceeded. Please try again with another card."
 msgstr ""
 
 #: inc/helper.php:296
-msgid "This charge would cause you to exceed your rolling-window processing limit for this source type. Please retry the charge later, or contact us to request a higher processing limit."
+msgid "The payment couldn't be processed by the issuer for an unknown reason. Please try again."
 msgstr ""
 
-#: inc/helper.php:300
-msgid "The charge cannot be captured as the authorization has expired. Auth and capture charges must be captured within seven days."
+#: inc/helper.php:303
+msgid "The card was declined because a Stripe test card number was used. Please try again with another card."
 msgstr ""
 
 #: inc/helper.php:304
-msgid "One or more provided parameters was not allowed for the given operation on the Charge. Check our API reference or the returned error message to see which values were not correct for that Charge."
+msgid "This card has been declined because it exceeded the available balance or credit limit. Please try again with another card."
+msgstr ""
+
+#: inc/helper.php:306
+msgid "The request contains one or more unexpected parameters. Remove these and try again."
+msgstr ""
+
+#: inc/helper.php:307
+msgid "Your card number is incomplete."
 msgstr ""
 
 #: inc/helper.php:308
-msgid "The bank account number provided is invalid (e.g., missing digits). Bank account information varies from country to country. We recommend creating validations in your entry forms based on the bank account formats we provide."
+msgid "Your card's expiration date is incomplete."
 msgstr ""
 
 #: inc/helper.php:309
-msgid "An error occurred while processing the payment. Use a different payment method or try again later."
+msgid "Your card's security code is incomplete."
 msgstr ""
 
 #: inc/helper.php:310
-msgid "Payments with Cash App Pay support only US country."
+msgid "Your card's zip code is incomplete."
 msgstr ""
 
 #: inc/helper.php:311
+msgid "There was an error processing your credit card."
+msgstr ""
+
+#: inc/helper.php:312
+msgid "Your card's expiration year is in the past."
+msgstr ""
+
+#: inc/helper.php:313
+msgid "The bank account cannot be verified, either because the microdeposit amounts provided do not match the actual amounts, or because verification has failed too many times."
+msgstr ""
+
+#: inc/helper.php:317
+msgid "This card has been declined too many times. You can try to charge this card again after 24 hours. We suggest reaching out to your customer to make sure they have entered all of their information correctly and that there are no issues with their card."
+msgstr ""
+
+#: inc/helper.php:321
+msgid "The charge you're attempting to capture has already been captured. Update the request with an uncaptured charge ID."
+msgstr ""
+
+#: inc/helper.php:322
+msgid "The charge you're attempting to refund has already been refunded. Update the request to use the ID of a charge that has not been refunded."
+msgstr ""
+
+#: inc/helper.php:326
+msgid "The charge you're attempting to refund has been charged back. Check the disputes documentation to learn how to respond to the dispute."
+msgstr ""
+
+#: inc/helper.php:330
+msgid "This charge would cause you to exceed your rolling-window processing limit for this source type. Please retry the charge later, or contact us to request a higher processing limit."
+msgstr ""
+
+#: inc/helper.php:334
+msgid "The charge cannot be captured as the authorization has expired. Auth and capture charges must be captured within seven days."
+msgstr ""
+
+#: inc/helper.php:338
+msgid "One or more provided parameters was not allowed for the given operation on the Charge. Check our API reference or the returned error message to see which values were not correct for that Charge."
+msgstr ""
+
+#: inc/helper.php:342
+msgid "The bank account number provided is invalid (e.g., missing digits). Bank account information varies from country to country. We recommend creating validations in your entry forms based on the bank account formats we provide."
+msgstr ""
+
+#: inc/helper.php:343
+msgid "An error occurred while processing the payment. Use a different payment method or try again later."
+msgstr ""
+
+#: inc/helper.php:344
+msgid "Payments with Cash App Pay support only US country."
+msgstr ""
+
+#: inc/helper.php:345
 msgid "There seems to be a issue loading Payment Element: "
 msgstr ""
 
 #. translators: HTML Entities.
-#: inc/helper.php:406
+#: inc/helper.php:440
 msgid "%1$1sTest Mode Enabled :%2$2s You will be redirected to an authorization page hosted by Stripe."
 msgstr ""
 
 #. translators: HTML Entities.
-#: inc/helper.php:515
+#: inc/helper.php:549
 msgid "%1$1s Test Mode Enabled %2$2s : Use demo IBAN number DE89370400440532013000 for test payment. %3$3s Check more %4$4sDemo IBAN Number%5$5s"
 msgstr ""
 
 #. translators: HTML Entities.
-#: inc/helper.php:528
+#: inc/helper.php:562
 msgid "By providing your IBAN and confirming this payment, you are authorizing %s and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited."
 msgstr ""
 
-#: inc/helper.php:540
+#: inc/helper.php:574
 msgid "Place order"
 msgstr ""
 

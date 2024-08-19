@@ -4,7 +4,7 @@ Tags: email marketing, newsletter, crm, email newsletter, subscribers
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.1
-Stable tag: 2.9.22
+Stable tag: 2.9.23
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -260,6 +260,17 @@ You can report any security bugs found in the source code of FluentCRM plugins t
 10. Pro Integrations
 
 == Changelog ==
+
+= 2.9.23 (Date: August 19, 2024) =
+- Added Custom Field or Date of Birth on Wait Time in Automation
+- Added WooCommerce Variation Product on Advanced Filter and Automation Conditions
+- Added keyboard ⌘ (or ctr) + s to save emails and automations
+- Added Links Report for Individual Contacts
+- Fixed: Dynamic Segment Contact Count Issue
+- Fixed: WooCommerce Revenue Report Issue fixed on Contact Profile
+- Added contact.company.* smartcodes
+- Added SMTP2GO Bounce Handler
+- Improvement on Email Builder
 
 = 2.9.22 (Date: August 14, 2024) =
 - Hotfix:  Lodash & _ conflict issue for Email Editor

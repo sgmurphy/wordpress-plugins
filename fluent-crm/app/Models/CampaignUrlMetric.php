@@ -29,6 +29,11 @@ class CampaignUrlMetric extends Model
         return $this->belongsTo(__NAMESPACE__ . '\Subscriber', 'subscriber_id', 'id');
     }
 
+    public function url_stores()
+    {
+        return $this->belongsTo(__NAMESPACE__ . '\UrlStores', 'url_id', 'id');
+    }
+
     public static function maybeInsert($data)
     {
         $query = static::where([

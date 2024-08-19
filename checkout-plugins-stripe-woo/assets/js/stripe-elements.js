@@ -802,7 +802,12 @@
 						$( '.woocommerce-error' ).remove();
 						wcCheckoutForm.unblock();
 						logError( result.error );
-						$( '.woocommerce-notices-wrapper:first-child' ).html( '<div class="woocommerce-error cpsw-errors">' + getStripeLocalizedMessage( result.error.code, result.error.message ) + '</div>' ).show();
+						let errorCode = result.error?.code;
+
+						if ( 'card_declined' === errorCode ) {
+							errorCode = result.error?.decline_code;
+						}
+						$( '.woocommerce-notices-wrapper:first-child' ).html( '<div class="woocommerce-error cpsw-errors">' + getStripeLocalizedMessage( errorCode, result.error.message ) + '</div>' ).show();
 						window.scrollTo( { top: 0, behavior: 'smooth' } );
 						wcCheckoutForm.removeClass( 'processing' );
 					}

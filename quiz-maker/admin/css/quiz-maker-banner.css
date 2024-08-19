@@ -2758,12 +2758,10 @@ div#ays-quiz-dicount-black-friday-month-main.ays_quiz_dicount_info  {
 
 /* New Mega Bundle Banner quiz by Emma | Start */
 
-div#ays-quiz-new-mega-bundle-dicount-month-main-2024 {
-    /*border: 1px solid #E5E5E5;*/
+/*div#ays-quiz-new-mega-bundle-dicount-month-main-2024 {
     border: 0;
     background: #FFF;
     border-radius: 20px;
-    /*box-shadow: 0 1px 1px 0 rgb(0 0 0 / 5%);*/
     box-shadow: unset;
     position: relative;
     z-index: 1;
@@ -2801,8 +2799,6 @@ div#ays-quiz-new-mega-bundle-dicount-month-main-2024 .btn-link {
 
 div#ays-quiz-new-mega-bundle-dicount-month-main-2024.ays_quiz_dicount_info {
     background-color: #fff6df;
-    /* background-color: #191919; */
-    /*background-image: linear-gradient(45deg, #dbdbdb, transparent);*/
 }
 
 #ays-quiz-new-mega-bundle-dicount-month-main-2024 .ays_quiz_dicount_month {
@@ -2827,7 +2823,6 @@ div#ays-quiz-new-mega-bundle-dicount-month-main-2024.ays_quiz_dicount_info {
     font-size:14px;
     padding: 4px;
     text-align: center;
-    /*width: 50%;*/
 }
 
 #ays-quiz-new-mega-bundle-dicount-month-main-2024 .ays-quiz-dicount-wrap-box.ays-quiz-dicount-wrap-text-box {
@@ -2880,7 +2875,6 @@ div#ays-quiz-new-mega-bundle-dicount-month-main-2024.ays_quiz_dicount_info {
 #ays-quiz-new-mega-bundle-dicount-month-main-2024 .ays-quiz-new-mega-bundle-limited-text {
     background-image: url(../images/icons/rectangle-bundle-2024.png);
     background-size: 100% 100%;
-    /*width: 102px;*/
     width: auto;
     display: inline-block;
     height: auto;
@@ -2934,7 +2928,6 @@ div#ays-quiz-new-mega-bundle-dicount-month-main-2024.ays_quiz_dicount_info {
     font-size: 13px;
     font-size: 13px;
     color: #ffffff;
-    /* margin-left: 0 !important; */
 
 }
 
@@ -3083,7 +3076,6 @@ div#ays-quiz-new-mega-bundle-dicount-month-main-2024 button.notice-dismiss:befor
     }
 
     #ays-quiz-maker-countdown-main-container li span {
-        /*font-size: 20px;*/
     }
 
     div#ays-quiz-new-mega-bundle-dicount-month-main-2024 .ays-quiz-dicount-wrap-box.ays-quiz-dicount-wrap-text-box {
@@ -3103,12 +3095,9 @@ div#ays-quiz-new-mega-bundle-dicount-month-main-2024 button.notice-dismiss:befor
     }
 
     div#ays-quiz-new-mega-bundle-dicount-month-main-2024.ays_quiz_dicount_info.notice {
-        /* background-image: url(../images/black_friday_greate_bundle_mobile.png); */
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        /* background-color: #191919;
-        background-size: 35%; */
     }
 
     #ays-quiz-new-mega-bundle-dicount-month-main-2024 #ays-quiz-dismiss-buttons-content .ays-button {
@@ -3173,12 +3162,9 @@ div#ays-quiz-new-mega-bundle-dicount-month-main-2024 button.notice-dismiss:befor
 
 @media screen and (max-width: 1305px) and (min-width: 768px){
     div#ays-quiz-new-mega-bundle-dicount-month-main-2024.ays_quiz_dicount_info.notice {
-        /* background-image: url(../images/black_friday_greate_bundle_mobile.png); */
         background-position: bottom right;
         background-repeat: no-repeat;
         background-size: cover;
-        /* background-color: #191919; */
-        /* background-size: 20%; */
     }
 
     div#ays-quiz-new-mega-bundle-dicount-month-main-2024 .ays-quiz-dicount-wrap-box .ays-quiz-dicount-wrap-text-box-texts {
@@ -3199,5 +3185,5 @@ div#ays-quiz-new-mega-bundle-dicount-month-main-2024 button.notice-dismiss:befor
         height: 110px;
         margin-bottom: 25px;
     }
-}
+}*/
 /* New Mega Bundle Banner quiz by Emma | End */

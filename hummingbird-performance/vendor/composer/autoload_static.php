@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit31332f4f67fa1b028424e8fceffc2002
+class ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
@@ -86,6 +86,7 @@ class ComposerStaticInit31332f4f67fa1b028424e8fceffc2002
         'Hummingbird\\Core\\Integration\\Opcache' => __DIR__ . '/../..' . '/core/integration/class-opcache.php',
         'Hummingbird\\Core\\Integration\\OxygenBuilder' => __DIR__ . '/../..' . '/core/integration/class-oxygenbuilder.php',
         'Hummingbird\\Core\\Integration\\SiteGround' => __DIR__ . '/../..' . '/core/integration/class-siteground.php',
+        'Hummingbird\\Core\\Integration\\WCML' => __DIR__ . '/../..' . '/core/integration/class-wcml.php',
         'Hummingbird\\Core\\Integration\\WPH' => __DIR__ . '/../..' . '/core/integration/class-wph.php',
         'Hummingbird\\Core\\Integration\\WPMUDev' => __DIR__ . '/../..' . '/core/integration/class-wpmudev.php',
         'Hummingbird\\Core\\Integration\\Weglot' => __DIR__ . '/../..' . '/core/integration/class-weglot.php',
@@ -408,9 +409,9 @@ class ComposerStaticInit31332f4f67fa1b028424e8fceffc2002
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit31332f4f67fa1b028424e8fceffc2002::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit31332f4f67fa1b028424e8fceffc2002::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit31332f4f67fa1b028424e8fceffc2002::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321::$classMap;
 
         }, null, ClassLoader::class);
     }

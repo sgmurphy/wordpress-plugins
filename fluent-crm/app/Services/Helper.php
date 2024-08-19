@@ -147,7 +147,7 @@ class Helper
 
     public static function getGlobalSmartCodes()
     {
-        $smartCodes[] = [
+        $subscriberCodes = [
             'key'        => 'contact',
             'title'      => __('Contact', 'fluent-crm'),
             'shortcodes' => apply_filters('fluentcrm_contact_smartcodes', [
@@ -169,6 +169,14 @@ class Helper
                 '{{contact.date_of_birth}}'  => __('Date of Birth', 'fluent-crm')
             ])
         ];
+
+        if (self::isCompanyEnabled()) {
+            $subscriberCodes['shortcodes']['{{contact.company.name}}'] = __('Company Name', 'fluent-crm');
+            $subscriberCodes['shortcodes']['{{contact.company.industry}}'] = __('Company Industry', 'fluent-crm');
+            $subscriberCodes['shortcodes']['{{contact.company.address}}'] = __('Company Address', 'fluent-crm');
+        }
+
+        $smartCodes[] = $subscriberCodes;
 
         $customFields = fluentcrm_get_option('contact_custom_fields', []);
 
@@ -957,6 +965,11 @@ class Helper
                         'value' => 'source'
                     ],
                     [
+                        'label' => __('Date of Birth', 'fluent-crm'),
+                        'value' => 'date_of_birth',
+                        'type'  => 'dates',
+                    ],
+                    [
                         'label' => __('Last Activity', 'fluent-crm'),
                         'value' => 'last_activity',
                         'type'  => 'dates',
@@ -971,6 +984,7 @@ class Helper
                         'value' => 'date_of_birth',
                         'type'  => 'dates',
                     ],
+
                 ],
             ],
             'segment'    => [
@@ -1909,5 +1923,17 @@ class Helper
         }
 
         return $nextRun;
+    }
+
+    public static function isWooHposEnabled()
+    {
+        static $enabled = null;
+        if ($enabled !== null) {
+            return $enabled;
+        }
+
+        $enabled = class_exists('\Automattic\WooCommerce\Utilities\OrderUtil') && \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+
+        return $enabled;
     }
 }

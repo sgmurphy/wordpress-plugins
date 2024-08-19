@@ -76,7 +76,8 @@ function happyforms_honeypot( $form ) {
 	$name = $names[$key];
 
 	if ( $controller->has_honeypot_protection( $form ) ) : ?>
-	<input type="text" name="<?php echo $form['ID']; ?>-<?php echo $name; ?>" style="position:absolute;left:-5000px;" tabindex="-1" autocomplete="off" aria-hidden="true"> <span class="screen-reader-text"><?php _e( 'Leave this field blank', 'happyforms' ); ?></span>
+	<label for="<?php echo $form['ID']; ?>-<?php echo $name; ?>" class="screen-reader-text"><?php _e( 'Leave this field blank', 'happyforms' ); ?></label>
+	<input type="text" id="<?php echo $form['ID']; ?>-<?php echo $name; ?>" name="<?php echo $form['ID']; ?>-<?php echo $name; ?>" style="display: none;" tabindex="-1" autocomplete="off" aria-hidden="true">
 	<?php endif;
 }
 

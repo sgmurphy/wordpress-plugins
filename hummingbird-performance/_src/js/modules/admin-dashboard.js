@@ -95,26 +95,18 @@ import Fetcher from '../utils/fetcher';
 		/**
 		 * Hide upgrade summary modal.
 		 *
+		 * @param {Object} event   Event.
 		 * @param {Object} element Target button that was clicked.
 		 */
-		 hideUpgradeSummary: ( element ) => {
-			const switchCache = element.getAttribute( 'data-switch-to-fastcgi' );
-			if ( 'switch' !== switchCache ) {
-				window.SUI.closeModal();
-			}
-
+		 hideUpgradeSummary: ( e, element ) => {
+			e.preventDefault();
+			window.SUI.closeModal();
 			Fetcher.common.call( 'wphb_hide_upgrade_summary' ).then( () => {
-				if ( 'switch' === switchCache ) {
-					element.classList.add( 'sui-button', 'sui-button-onload-text' );
-					Fetcher.caching.switchCacheMethod( 'hosting_static_cache' ).then( ( response ) => {
-						if ( 'undefined' !== typeof response && 'error' !== response.isFastCGIActivated ) {
-							window.location.href = wphb.links.cachingPageURL;
-						} else {
-							window.SUI.closeModal();
-							const errorMessage = 'undefined' !== typeof response && 'error' === response.isFastCGIActivated ? response.fastCGIResponse : getString( 'errorSettingsUpdate' );
-							WPHB_Admin.notices.show( errorMessage, 'error' );
-						}
-					} );
+				const trackAction = element.getAttribute( 'data-track-action' );
+				if ( trackAction && trackAction !== '' ) {
+					window.wphbMixPanel.track('update_modal_displayed', {
+						'Action': trackAction,
+					});
 				}
 
 				if ( element.hasAttribute( 'href' ) && element.href.indexOf( 'wpmudev.com' ) === -1 ) {

@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Hummingbird 3.9.2\n"
+"Project-Id-Version: Hummingbird 3.9.3\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
-"POT-Creation-Date: 2024-07-24 12:28:30+00:00\n"
+"POT-Creation-Date: 2024-08-19 11:05:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -39,12 +39,12 @@ msgstr ""
 msgid "Speedy"
 msgstr ""
 
-#: admin/ajax/class-minify.php:511 admin/class-ajax.php:1795
+#: admin/ajax/class-minify.php:511 admin/class-ajax.php:1797
 msgid "Error removing asset file."
 msgstr ""
 
-#: admin/ajax/class-minify.php:535 admin/class-ajax.php:1561
-#: admin/class-ajax.php:2213 admin/class-ajax.php:2655 core/class-utils.php:190
+#: admin/ajax/class-minify.php:535 admin/class-ajax.php:1563
+#: admin/class-ajax.php:2222 admin/class-ajax.php:2664 core/class-utils.php:190
 #: core/modules/class-minify.php:1701
 msgid "Settings updated"
 msgstr ""
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: admin/class-admin.php:162 admin/class-notices.php:522
+#: admin/class-admin.php:162 admin/class-notices.php:536
 msgid "Rate Hummingbird"
 msgstr ""
 
@@ -167,8 +167,8 @@ msgstr ""
 #: admin/pages/class-minification.php:429 admin/pages/class-performance.php:146
 #: admin/pages/class-performance.php:287 admin/pages/class-uptime.php:130
 #: admin/pages/class-uptime.php:145
-#: admin/views/caching/page/fast-cgi-meta-box.php:71
-#: admin/views/caching/page/meta-box.php:232
+#: admin/views/caching/page/fast-cgi-meta-box.php:73
+#: admin/views/caching/page/meta-box.php:240
 #: admin/views/settings/data-meta-box.php:31 languages/react.php:373
 msgid "Settings"
 msgstr ""
@@ -186,195 +186,198 @@ msgid "Setup Wizard"
 msgstr ""
 
 #: admin/class-admin.php:272 admin/pages/class-minification.php:550
+#: admin/views/advanced/general-meta-box.php:46
 msgid "NEW"
 msgstr ""
 
-#: admin/class-ajax.php:347
+#: admin/class-ajax.php:349
 msgid "Cache purged."
 msgstr ""
 
-#: admin/class-ajax.php:1129
+#: admin/class-ajax.php:1131
 msgid ""
 "Cannot process the form. Please define either the Email/API key or the API "
 "token."
 msgstr ""
 
-#: admin/class-ajax.php:1541
+#: admin/class-ajax.php:1543
 #. translators: %s - number of assets
 msgid "%s assets found!"
 msgstr ""
 
-#: admin/class-ajax.php:1647 core/class-utils.php:216
+#: admin/class-ajax.php:1649 core/class-utils.php:216
 msgid "Settings updated. Generating Critical CSS, this could take about a minute."
 msgstr ""
 
-#: admin/class-ajax.php:1934
+#: admin/class-ajax.php:1936
 msgid "Invalid type specified."
 msgstr ""
 
-#: admin/class-ajax.php:1945
+#: admin/class-ajax.php:1947
 msgid "Error deleting data."
 msgstr ""
 
-#: admin/class-ajax.php:1953
+#: admin/class-ajax.php:1955
 #. translators: %d: number of database entries
 msgid "%d database entries were deleted successfully."
 msgstr ""
 
-#: admin/class-ajax.php:2150
+#: admin/class-ajax.php:2159
 msgid "Module not found"
 msgstr ""
 
-#: admin/class-ajax.php:2161
+#: admin/class-ajax.php:2170
 msgid "Log file not found or empty"
 msgstr ""
 
-#: admin/class-ajax.php:2169
+#: admin/class-ajax.php:2178
 msgid "Log file purged"
 msgstr ""
 
-#: admin/class-ajax.php:2326
+#: admin/class-ajax.php:2335
 msgid "Import failed - No settings file has been submitted."
 msgstr ""
 
-#: admin/class-ajax.php:2335
+#: admin/class-ajax.php:2344
 msgid "Import failed - Something went wrong on uploading settings file."
 msgstr ""
 
-#: admin/class-ajax.php:2343 admin/class-ajax.php:2351
+#: admin/class-ajax.php:2352 admin/class-ajax.php:2360
 msgid "Import failed - You selected wrong settings file."
 msgstr ""
 
-#: admin/class-ajax.php:2360
+#: admin/class-ajax.php:2369
 msgid "Import failed - Settings data is empty."
 msgstr ""
 
-#: admin/class-ajax.php:2369
+#: admin/class-ajax.php:2378
 msgid "Import failed - Asset optimization settings data not found."
 msgstr ""
 
-#: admin/class-ajax.php:2378
+#: admin/class-ajax.php:2387
 msgid "Settings imported and configured successfully."
 msgstr ""
 
-#: admin/class-ajax.php:2445
+#: admin/class-ajax.php:2454
 msgid "Missing config ID"
 msgstr ""
 
-#: admin/class-ajax.php:2506 admin/class-ajax.php:2546
+#: admin/class-ajax.php:2515 admin/class-ajax.php:2555
 msgid "There was some error in generating Critical CSS"
 msgstr ""
 
-#: admin/class-ajax.php:2508
+#: admin/class-ajax.php:2517
 msgid "Critical CSS is being generated"
 msgstr ""
 
-#: admin/class-ajax.php:2510
+#: admin/class-ajax.php:2519
 msgid "Critical CSS generated"
 msgstr ""
 
-#: admin/class-ajax.php:2542
+#: admin/class-ajax.php:2551
 msgid "Critical CSS is being re-generated"
 msgstr ""
 
-#: admin/class-ajax.php:2548
+#: admin/class-ajax.php:2557
 msgid "Critical CSS re-generated"
 msgstr ""
 
-#: admin/class-ajax.php:2578
+#: admin/class-ajax.php:2587
 msgid "Critical CSS file deleted successfully"
 msgstr ""
 
-#: admin/class-notices.php:125
-msgid "Important Update: Redis Integration Changes in Hummingbird"
-msgstr ""
-
-#: admin/class-notices.php:126
-msgid ""
-"🚨 Heads Up! We’re streamlining our services and the Redis integration will "
-"soon be removed. Please be sure to migrate your data or adjust your "
-"settings before updating the plugin to the next version."
+#: admin/class-notices.php:134
+msgid "Important Update: CSS Optimization Changes in Hummingbird"
 msgstr ""
 
 #: admin/class-notices.php:135
-msgid "I Understand"
+msgid ""
+"🚨 Heads Up! We’re streamlining our services and the Optimize CSS Delivery "
+"feature will soon be removed. We suggest switching to the new and improved "
+"Generate Critical CSS feature immediately for optimal performance."
 msgstr ""
 
-#: admin/class-notices.php:204
+#: admin/class-notices.php:145
+msgid "Switch To Automatic CSS Optimization"
+msgstr ""
+
+#: admin/class-notices.php:149
+msgid "I Understand, Remove This Notice"
+msgstr ""
+
+#: admin/class-notices.php:218
 msgid "Dismiss this notice."
 msgstr ""
 
-#: admin/class-notices.php:421 admin/class-notices.php:641
+#: admin/class-notices.php:435 admin/class-notices.php:655
 #: admin/pages/class-minification.php:297 core/class-utils.php:198
 #: core/externals/free-dashboard/classes/notices/class-rating.php:82
 #: core/externals/plugin-notice/notice.php:485
 msgid "Dismiss"
 msgstr ""
 
-#: admin/class-notices.php:465
+#: admin/class-notices.php:479
 #. translators: %s: Upgrade URL
 msgid ""
 "Awww yeah! You’ve got access to Hummingbird Pro! Let’s upgrade your free "
 "version so you can start using premium features. <a href=\"%s\">Upgrade</a>"
 msgstr ""
 
-#: admin/class-notices.php:490
+#: admin/class-notices.php:504
 msgid ""
 "We noticed you’re running both the free and pro versions of Hummingbird. No "
 "biggie! We’ve deactivated the free version for you. Enjoy the pro features!"
 msgstr ""
 
-#: admin/class-notices.php:521
+#: admin/class-notices.php:535
 msgid ""
 "We've spent countless hours developing Hummingbird and making it free for "
 "you to use. We would really appreciate it if you dropped us a quick rating!"
 msgstr ""
 
-#: admin/class-notices.php:549
+#: admin/class-notices.php:563
 msgid ""
 "We've noticed you've made changes to your website. We recommend you clear "
 "Hummingbird's page cache to avoid any issues."
 msgstr ""
 
-#: admin/class-notices.php:562
+#: admin/class-notices.php:576
 msgid ""
 "We've noticed you've made changes to your website. If you’ve installed new "
 "plugins or themes, we recommend you re-check Hummingbird's Asset "
 "Optimization configuration to ensure those new files are added\tcorrectly."
 msgstr ""
 
-#: admin/class-notices.php:565
+#: admin/class-notices.php:579
 msgid "Re-check Asset Optimization"
 msgstr ""
 
-#: admin/class-notices.php:569 admin/modals/clear-cache-modal.php:47
-#: admin/pages/class-dashboard.php:190
-#: admin/views/caching/integrations/meta-box.php:153
-#: admin/views/caching/integrations/meta-box.php:157 languages/react.php:576
+#: admin/class-notices.php:583 admin/modals/clear-cache-modal.php:47
+#: admin/pages/class-dashboard.php:190 languages/react.php:576
 msgid "Clear Cache"
 msgstr ""
 
-#: admin/class-notices.php:573
+#: admin/class-notices.php:587
 msgid "Adjust notification settings"
 msgstr ""
 
-#: admin/class-notices.php:593
+#: admin/class-notices.php:607
 msgid ""
 "You have multiple WordPress performance plugins installed. This may cause "
 "unpredictable behavior and can even break your site. For best results, use "
 "only one performance plugin at a time. "
 msgstr ""
 
-#: admin/class-notices.php:596
+#: admin/class-notices.php:610
 msgid "These plugins may cause issues with Hummingbird:"
 msgstr ""
 
-#: admin/class-notices.php:607
+#: admin/class-notices.php:621
 #. translators: %s - plugin name
 msgid "%s plugin may cause issues with Hummingbird."
 msgstr ""
 
-#: admin/class-notices.php:640
+#: admin/class-notices.php:654
 msgid "Manage plugins"
 msgstr ""
 
@@ -941,9 +944,7 @@ msgid "Need help getting your Global API key?"
 msgstr ""
 
 #: admin/modals/integration-cloudflare-modal.php:150
-#: admin/modals/integration-redis-connect-modal.php:156
-#: admin/views/caching/integrations/meta-box.php:162
-#: admin/views/caching/integrations/meta-box.php:167 languages/react.php:289
+#: admin/modals/integration-redis-connect-modal.php:156 languages/react.php:289
 msgid "Connect"
 msgstr ""
 
@@ -1039,8 +1040,6 @@ msgstr ""
 
 #: admin/modals/integration-redis-connect-modal.php:35
 #: admin/modals/integration-redis-connect-modal.php:45
-#: admin/views/caching/integrations/meta-box.php:66
-#: admin/views/caching/integrations/meta-box.php:67
 msgid "Connect Redis"
 msgstr ""
 
@@ -1102,8 +1101,7 @@ msgstr ""
 msgid "Database ID"
 msgstr ""
 
-#: admin/modals/integration-redis-connect-modal.php:148
-#: admin/views/caching/integrations/meta-box.php:133 languages/react.php:579
+#: admin/modals/integration-redis-connect-modal.php:148 languages/react.php:579
 msgid "Disconnect"
 msgstr ""
 
@@ -1376,7 +1374,7 @@ msgstr ""
 
 #: admin/modals/minification-advanced-modal.php:54
 #: admin/modals/minification-basic-modal.php:70
-#: admin/modals/upgrade-summary-modal.php:63
+#: admin/modals/upgrade-summary-modal.php:58
 msgid "Got it"
 msgstr ""
 
@@ -1609,44 +1607,24 @@ msgid "Keep my current settings"
 msgstr ""
 
 #: admin/modals/upgrade-summary-modal.php:41
-msgid "Turbocharge your Page Caching with improved Static Server Cache integration"
+msgid "Experience Enhanced Mobile Responsiveness"
 msgstr ""
 
 #: admin/modals/upgrade-summary-modal.php:50
 msgid ""
-"You can now seamlessly switch to WPMU DEV hosting's Static Server Cache "
-"from within Hummingbird. Get 10x more visitor load capacity and greater "
-"cache control right in the plugin"
+"We’ve added automatic viewport meta optimization to improve your site’s "
+"mobile performance and user experience. Enjoy better responsiveness and "
+"faster load times on mobile devices."
 msgstr ""
 
-#: admin/modals/upgrade-summary-modal.php:55
-msgid "Available only with WPMU DEV Hosting."
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:66
+#: admin/modals/upgrade-summary-modal.php:61
 #. translators: %1$s - opening p tag, %2$s - opening <strong> tag, %3$s -
 #. closing <strong> tag, %4$s - closing p tag
-msgid "%1$sTo enable this feature, go to %2$sCaching%3$s.%4$s"
+msgid "%1$sTo enable this feature, go to %2$sAdvanced Tools%3$s.%4$s"
 msgstr ""
 
-#: admin/modals/upgrade-summary-modal.php:73
-msgid "CHECK IT OUT NOW"
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:77
-#: admin/views/dashboard/caching/page-caching-module-meta-box-footer.php:28
-#: admin/views/dashboard/caching/page-caching-module-meta-box-footer.php:40
-msgid "Switch to Static Server Cache"
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:81
-msgid "SEE PLANS"
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:105
-#: admin/views/caching/page/meta-box-header.php:46
-#: admin/views/dashboard/caching/page-caching-module-meta-box-footer.php:32
-msgid "Switching"
+#: admin/modals/upgrade-summary-modal.php:68
+msgid "CHECK IT OUT"
 msgstr ""
 
 #: admin/pages/class-advanced.php:37 admin/pages/class-advanced.php:52
@@ -1678,12 +1656,12 @@ msgstr ""
 #: admin/pages/class-caching.php:106 admin/pages/class-caching.php:115
 #: admin/pages/class-caching.php:324
 #: admin/views/dashboard/welcome/subsite-meta-box.php:112
-#: core/class-utils.php:1589 languages/react.php:363
+#: core/class-utils.php:1613 languages/react.php:363
 msgid "Page Caching"
 msgstr ""
 
 #: admin/pages/class-caching.php:131 admin/pages/class-caching.php:328
-#: admin/views/caching/page/meta-box.php:184
+#: admin/views/caching/page/meta-box.php:192
 msgid "Integrations"
 msgstr ""
 
@@ -1870,8 +1848,6 @@ msgid "Get Started"
 msgstr ""
 
 #: admin/pages/class-notifications.php:48
-#: admin/views/caching/integrations/meta-box.php:137
-#: admin/views/caching/integrations/meta-box.php:144
 #: admin/views/dashboard/advanced/module-meta-box-footer.php:19
 #: admin/views/dashboard/caching/browser-meta-box-footer.php:18
 #: admin/views/dashboard/caching/gravatar-module-meta-box-footer.php:18
@@ -2076,8 +2052,8 @@ msgid "Entries"
 msgstr ""
 
 #: admin/views/advanced/db-meta-box.php:44
-#: admin/views/caching/page/meta-box.php:310
-#: admin/views/minification/settings-meta-box.php:207 core/class-core.php:199
+#: admin/views/caching/page/meta-box.php:318
+#: admin/views/minification/settings-meta-box.php:207 core/class-core.php:200
 msgid "Clear"
 msgstr ""
 
@@ -2112,49 +2088,63 @@ msgstr ""
 msgid "Saving changes"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:27 languages/react.php:1121
+#: admin/views/advanced/general-meta-box.php:28 languages/react.php:1121
 msgid ""
 "Here are a few additional tweaks you can make to further reduce your page "
 "load times."
 msgstr ""
 
 #: admin/views/advanced/general-meta-box.php:36
-msgid "URL Query Strings"
+msgid "Viewport Meta Optimization"
 msgstr ""
 
 #: admin/views/advanced/general-meta-box.php:38
+msgid ""
+"Automatically set the viewport meta tag on your site for improved mobile "
+"responsiveness and Core Web Vitals scores."
+msgstr ""
+
+#: admin/views/advanced/general-meta-box.php:46
+msgid "Enable Viewport Meta Tag"
+msgstr ""
+
+#: admin/views/advanced/general-meta-box.php:55
+msgid "URL Query Strings"
+msgstr ""
+
+#: admin/views/advanced/general-meta-box.php:57
 msgid ""
 "Some proxy caching servers and even some CDNs cannot cache static assets "
 "with query strings, resulting in a large missed opportunity for increased "
 "speeds."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:46 languages/react.php:1091
+#: admin/views/advanced/general-meta-box.php:65 languages/react.php:1091
 msgid "Remove query strings from my assets"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:53
-#: admin/views/advanced/general-meta-box.php:157
+#: admin/views/advanced/general-meta-box.php:72
+#: admin/views/advanced/general-meta-box.php:176
 msgid "Apply this setting globally"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:56
-#: admin/views/advanced/general-meta-box.php:160
+#: admin/views/advanced/general-meta-box.php:75
+#: admin/views/advanced/general-meta-box.php:179
 msgid ""
 "By default, subsites are able to overwrite this setting. Enabling this "
 "option will force the network settings on all subsites."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:62
-#: admin/views/advanced/general-meta-box.php:166
+#: admin/views/advanced/general-meta-box.php:81
+#: admin/views/advanced/general-meta-box.php:185
 msgid "This option is overwritten by global network settings."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:74
+#: admin/views/advanced/general-meta-box.php:93
 msgid "WooCommerce Cart Fragments"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:76 languages/react.php:1043
+#: admin/views/advanced/general-meta-box.php:95 languages/react.php:1043
 msgid ""
 "WooCommerce uses ajax calls to update cart totals without refreshing the "
 "page. These ajax calls run on every page and can drastically increase page "
@@ -2162,29 +2152,29 @@ msgid ""
 "pages."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:84 languages/react.php:1094
+#: admin/views/advanced/general-meta-box.php:103 languages/react.php:1094
 msgid "Disable cart fragments"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:95
+#: admin/views/advanced/general-meta-box.php:114
 msgid ""
 "Choose whether to disable this feature on only non-WooCommerce pages, or "
 "all pages."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:98
+#: admin/views/advanced/general-meta-box.php:117
 msgid "Disable cart fragments on"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:103
+#: admin/views/advanced/general-meta-box.php:122
 msgid "Non-WooCommerce Pages"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:107
+#: admin/views/advanced/general-meta-box.php:126
 msgid "All Pages"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:114
+#: admin/views/advanced/general-meta-box.php:133
 #. translators: %1$s - opening a tag, %2$s - closing a tag
 msgid ""
 "After disabling cart fragments, be sure to enable the %1$sRedirect to the "
@@ -2193,71 +2183,71 @@ msgid ""
 "item to be added to the cart."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:127
+#: admin/views/advanced/general-meta-box.php:146
 msgid "This option requires WooCommerce to be installed and activated."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:140
+#: admin/views/advanced/general-meta-box.php:159
 msgid "Emojis"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:142 languages/react.php:1046
+#: admin/views/advanced/general-meta-box.php:161 languages/react.php:1046
 msgid ""
 "WordPress adds Javascript and CSS files to convert common symbols like “:)” "
 "to visual emojis. If you don’t need emojis this will remove two unnecessary "
 "assets."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:150 languages/react.php:1097
+#: admin/views/advanced/general-meta-box.php:169 languages/react.php:1097
 msgid "Remove the default Emoji JS & CSS files"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:178
-#: core/modules/class-advanced.php:304
+#: admin/views/advanced/general-meta-box.php:197
+#: core/modules/class-advanced.php:326
 msgid "Post Revisions"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:180
+#: admin/views/advanced/general-meta-box.php:199
 msgid ""
 "WordPress post revisions track and save every content edit, allowing for "
 "easy comparison, restoration, and collaboration by storing each change."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:187
+#: admin/views/advanced/general-meta-box.php:206
 msgid ""
 "Limit revisions to any number by entering it here, or disable revisions by "
 "entering \"0\"."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:195
-#: admin/views/advanced/general-meta-box.php:215
+#: admin/views/advanced/general-meta-box.php:214
+#: admin/views/advanced/general-meta-box.php:234
 msgid "Prefetch DNS Requests"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:197
+#: admin/views/advanced/general-meta-box.php:216
 msgid ""
 "Speeds up web pages by pre-resolving DNS. In essence it tells a browser it "
 "should resolve the DNS of a specific domain prior to it being explicitly "
 "called – very useful if you use third party services."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:219
+#: admin/views/advanced/general-meta-box.php:238
 msgid ""
 "Add one host entry per line replacing the http:// or https:// with // e.g. "
 "//fonts.googleapis.com. We’ve added a few common DNS requests to get you "
 "started."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:220
+#: admin/views/advanced/general-meta-box.php:239
 msgid "Paste in recommended defaults."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:228
-#: admin/views/advanced/general-meta-box.php:243
+#: admin/views/advanced/general-meta-box.php:247
+#: admin/views/advanced/general-meta-box.php:262
 msgid "Preconnect"
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:230
+#: admin/views/advanced/general-meta-box.php:249
 msgid ""
 "If you load resources from other domains, using Preconnect can provide a "
 "faster page loading experience for your users. It tells the browser to set "
@@ -2265,7 +2255,7 @@ msgid ""
 "server., and includes DNS lookup, TCP handshake, TLS negotiation, etc."
 msgstr ""
 
-#: admin/views/advanced/general-meta-box.php:249
+#: admin/views/advanced/general-meta-box.php:268
 #. translators: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid ""
 "Add hosts one per line, with no http or https. We’ve added a few common "
@@ -2578,7 +2568,7 @@ msgstr ""
 #: admin/views/caching/gravatar/disabled-meta-box.php:28
 #: admin/views/caching/page/disabled-meta-box.php:32
 #: admin/views/dashboard/caching/gravatar-module-meta-box.php:26
-#: admin/views/dashboard/caching/page-caching-module-meta-box.php:28
+#: admin/views/dashboard/caching/page-caching-module-meta-box.php:36
 #: admin/views/dashboard/minification/disabled-meta-box.php:18
 #: admin/views/dashboard/uptime/disabled-meta-box.php:18
 #: admin/views/minification/empty-files-meta-box.php:34
@@ -2596,10 +2586,10 @@ msgstr ""
 
 #: admin/views/caching/gravatar/meta-box.php:27
 #: admin/views/caching/gravatar/meta-box.php:35
-#: admin/views/caching/page/fast-cgi-meta-box.php:165
-#: admin/views/caching/page/fast-cgi-meta-box.php:175
-#: admin/views/caching/page/meta-box.php:499
-#: admin/views/caching/page/meta-box.php:510
+#: admin/views/caching/page/fast-cgi-meta-box.php:167
+#: admin/views/caching/page/fast-cgi-meta-box.php:177
+#: admin/views/caching/page/meta-box.php:507
+#: admin/views/caching/page/meta-box.php:518
 #: admin/views/caching/page/subsite-meta-box.php:58
 #: admin/views/caching/page/subsite-meta-box.php:66
 #: admin/views/minification/settings-meta-box.php:237
@@ -2623,127 +2613,6 @@ msgstr ""
 msgid "Available Integrations"
 msgstr ""
 
-#: admin/views/caching/integrations/meta-box.php:50
-#: admin/views/caching/integrations/meta-box.php:53
-msgid "Redis"
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:55
-msgid ""
-"Redis cache is disabled for your website because object caching is already "
-"enabled on your server."
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:61
-msgid "Connect with Redis to enable object caching for your site."
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:75
-#: admin/views/performance/audit-template.php:67 languages/react.php:302
-msgid "Open item"
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:85
-#: admin/views/performance/audits/bootup-time.php:17
-#: admin/views/performance/audits/dom-size.php:17
-#: admin/views/performance/audits/duplicated-javascript.php:19
-#: admin/views/performance/audits/efficient-animated-content.php:17
-#: admin/views/performance/audits/font-display.php:17
-#: admin/views/performance/audits/largest-contentful-paint-element.php:17
-#: admin/views/performance/audits/layout-shift-elements.php:17
-#: admin/views/performance/audits/mainthread-work-breakdown.php:17
-#: admin/views/performance/audits/modern-image-formats.php:18
-#: admin/views/performance/audits/offscreen-images.php:18
-#: admin/views/performance/audits/redirects.php:17
-#: admin/views/performance/audits/render-blocking-resources.php:25
-#: admin/views/performance/audits/server-response-time.php:20
-#: admin/views/performance/audits/total-byte-weight.php:18
-#: admin/views/performance/audits/unminified-css.php:17
-#: admin/views/performance/audits/unminified-javascript.php:17
-#: admin/views/performance/audits/unused-css-rules.php:25
-#: admin/views/performance/audits/uses-long-cache-ttl.php:17
-#: admin/views/performance/audits/uses-optimized-images.php:18
-#: admin/views/performance/audits/uses-rel-preconnect.php:17
-#: admin/views/performance/audits/uses-rel-preload.php:17
-#: admin/views/performance/audits/uses-responsive-images.php:18
-#: admin/views/performance/audits/uses-text-compression.php:17
-#: languages/react.php:261
-msgid "Overview"
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:87
-msgid ""
-"Redis is an open source tool for storing data in memory which is used as a "
-"database, cache and message broker. It supports many data structures such "
-"as strings, hashes and lists and can be easily enabled."
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:90
-#: admin/views/dashboard/gzip/module-meta-box.php:55
-#: admin/views/notifications/configure-meta-box.php:27
-#: admin/views/performance/audits/bootup-time.php:22
-#: admin/views/performance/audits/dom-size.php:22
-#: admin/views/performance/audits/duplicated-javascript.php:28
-#: admin/views/performance/audits/efficient-animated-content.php:22
-#: admin/views/performance/audits/font-display.php:29
-#: admin/views/performance/audits/largest-contentful-paint-element.php:30
-#: admin/views/performance/audits/layout-shift-elements.php:26
-#: admin/views/performance/audits/mainthread-work-breakdown.php:22
-#: admin/views/performance/audits/modern-image-formats.php:23
-#: admin/views/performance/audits/offscreen-images.php:23
-#: admin/views/performance/audits/redirects.php:22
-#: admin/views/performance/audits/render-blocking-resources.php:33
-#: admin/views/performance/audits/server-response-time.php:25
-#: admin/views/performance/audits/total-byte-weight.php:23
-#: admin/views/performance/audits/unminified-css.php:22
-#: admin/views/performance/audits/unminified-javascript.php:22
-#: admin/views/performance/audits/unused-css-rules.php:30
-#: admin/views/performance/audits/uses-long-cache-ttl.php:22
-#: admin/views/performance/audits/uses-optimized-images.php:23
-#: admin/views/performance/audits/uses-rel-preconnect.php:28
-#: admin/views/performance/audits/uses-rel-preload.php:28
-#: admin/views/performance/audits/uses-responsive-images.php:23
-#: admin/views/performance/audits/uses-text-compression.php:22
-#: languages/react.php:267
-msgid "Status"
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:93
-msgid "Redis is connected."
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:95
-msgid "Object Cache"
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:97
-msgid ""
-"Object cache keeps the database query results and provides the cached "
-"version without requesting it every time. We recommend using object cache "
-"if your site gets a lot of traffic and you have a lot of data across your "
-"pages."
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:105
-msgid "Enable object caching"
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:110
-msgid "Exclusion"
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:114
-#. translators: %1$s - opening <strong> tag, %2$s - closing </strong> tag, %3$s
-#. - opening a tag, %4$s - closing a tag
-msgid ""
-"Manually configure the Exclusion List for object caching in your "
-"%1$swp-config.php%2$s file by following the guide %3$shere%4$s."
-msgstr ""
-
-#: admin/views/caching/integrations/meta-box.php:124
-msgid "Redis is not connected."
-msgstr ""
-
 #: admin/views/caching/meta-box-footer.php:18
 #: admin/views/caching/page/meta-box-footer.php:16
 msgid "Save Settings"
@@ -2761,40 +2630,48 @@ msgid ""
 "the best performance feature ever."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:18
+#: admin/views/caching/page/fast-cgi-meta-box.php:20
 #: admin/views/caching/page/fastcgi-subsite-meta-box.php:13
-#: admin/views/caching/page/meta-box.php:29
+#: admin/views/caching/page/meta-box.php:31
 #: admin/views/caching/page/subsite-meta-box.php:19
 msgid ""
 "Hummingbird stores static HTML copies of your pages and posts to decrease "
 "page load time."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:21
-#: admin/views/dashboard/caching/page-caching-module-meta-box.php:18
+#: admin/views/caching/page/fast-cgi-meta-box.php:23
+#: admin/views/dashboard/caching/page-caching-module-meta-box.php:24
 msgid "Static Server Cache is currently active."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:30
-#: admin/views/caching/page/meta-box.php:102
-msgid "Preload caching"
+#: admin/views/caching/page/fast-cgi-meta-box.php:23
+#: admin/views/dashboard/caching/page-caching-module-meta-box.php:21
+msgid ""
+"Static Server Cache is currently active. If you wish to update settings or "
+"switch to Local Page Cache, please ensure you are connected to the WPMU DEV "
+"Dashboard plugin."
 msgstr ""
 
 #: admin/views/caching/page/fast-cgi-meta-box.php:32
-#: admin/views/caching/page/meta-box.php:104
+#: admin/views/caching/page/meta-box.php:110
+msgid "Preload caching"
+msgstr ""
+
+#: admin/views/caching/page/fast-cgi-meta-box.php:34
+#: admin/views/caching/page/meta-box.php:112
 msgid ""
 "Enable this feature to automatically create cached versions of your "
 "homepage or any page or post. This can be a resource-intensive operation, "
 "so use it only when required."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:41
-#: admin/views/caching/page/meta-box.php:113
+#: admin/views/caching/page/fast-cgi-meta-box.php:43
+#: admin/views/caching/page/meta-box.php:121
 msgid "Enable preload caching"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:44
-#: admin/views/caching/page/meta-box.php:116
+#: admin/views/caching/page/fast-cgi-meta-box.php:46
+#: admin/views/caching/page/meta-box.php:124
 msgid ""
 "The homepage will be preloaded once you enable this feature and then "
 "automatically whenever an action triggers your cache to be cleared. A page "
@@ -2802,121 +2679,121 @@ msgid ""
 "version is cleared."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:50
-#: admin/views/caching/page/meta-box.php:122
+#: admin/views/caching/page/fast-cgi-meta-box.php:52
+#: admin/views/caching/page/meta-box.php:130
 msgid ""
 "Choose which pages you want to trigger cache preload. We recommend you "
 "always preload the homepage."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:56
-#: admin/views/caching/page/meta-box.php:128
+#: admin/views/caching/page/fast-cgi-meta-box.php:58
+#: admin/views/caching/page/meta-box.php:136
 msgid "Homepage"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:61
-#: admin/views/caching/page/meta-box.php:133
+#: admin/views/caching/page/fast-cgi-meta-box.php:63
+#: admin/views/caching/page/meta-box.php:141
 msgid "Any page or post that's been updated, or for which the cache was cleared"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:73
-#: admin/views/caching/page/meta-box.php:234
+#: admin/views/caching/page/fast-cgi-meta-box.php:75
+#: admin/views/caching/page/meta-box.php:242
 msgid "Fine tune page caching to work how you want it to."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:83
-#: admin/views/caching/page/meta-box.php:385 languages/react.php:1082
+#: admin/views/caching/page/fast-cgi-meta-box.php:85
+#: admin/views/caching/page/meta-box.php:393 languages/react.php:1082
 msgid "Clear cache on comment post"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:86
-#: admin/views/caching/page/meta-box.php:388 languages/react.php:1028
+#: admin/views/caching/page/fast-cgi-meta-box.php:88
+#: admin/views/caching/page/meta-box.php:396 languages/react.php:1028
 msgid "The page cache will be cleared after each comment made on a post."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:95
+#: admin/views/caching/page/fast-cgi-meta-box.php:97
 msgid "Allow Caching Query String (Params)"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:97
+#: admin/views/caching/page/fast-cgi-meta-box.php:99
 msgid "Specify any query string you want to cache"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:108
+#: admin/views/caching/page/fast-cgi-meta-box.php:110
 msgid "Enter query string one per line"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:110
+#: admin/views/caching/page/fast-cgi-meta-box.php:112
 msgid ""
 "All query strings added to this list will be cached. Enter one string per "
 "line."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:118
+#: admin/views/caching/page/fast-cgi-meta-box.php:120
 msgid "Exclude Urls From Caching"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:120
-#: admin/views/caching/page/meta-box.php:436
+#: admin/views/caching/page/fast-cgi-meta-box.php:122
+#: admin/views/caching/page/meta-box.php:444
 msgid "Specify any particular URLs you don’t want to cache at all."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:131
+#: admin/views/caching/page/fast-cgi-meta-box.php:133
 msgid "Enter relative URLs here, one per line"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:133
+#: admin/views/caching/page/fast-cgi-meta-box.php:135
 msgid ""
 "Allows excluding URLs or URL strings from Static Site Cache. E.g., if you "
 "add /blog it will also exclude /blog/samplepost or parentpage/blog from the "
 "cache."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:141
+#: admin/views/caching/page/fast-cgi-meta-box.php:143
 msgid "Cache Lifetime"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:143
+#: admin/views/caching/page/fast-cgi-meta-box.php:145
 msgid "Change the expiry of the static server cache if needed."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:150
+#: admin/views/caching/page/fast-cgi-meta-box.php:152
 #: core/modules/class-caching.php:289
 msgid "1 hour"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:151
+#: admin/views/caching/page/fast-cgi-meta-box.php:153
 #: core/modules/class-caching.php:291 core/modules/class-cloudflare.php:677
 msgid "4 hours"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:152
+#: admin/views/caching/page/fast-cgi-meta-box.php:154
 #: core/modules/class-cloudflare.php:679
 msgid "8 hours"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:153
+#: admin/views/caching/page/fast-cgi-meta-box.php:155
 #: core/modules/class-caching.php:294 core/modules/class-cloudflare.php:680
 msgid "12 hours"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:154
+#: admin/views/caching/page/fast-cgi-meta-box.php:156
 msgid "24 hours"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:157
+#: admin/views/caching/page/fast-cgi-meta-box.php:159
 msgid "Specify the duration for which the static server cache will be valid."
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:167
+#: admin/views/caching/page/fast-cgi-meta-box.php:169
 msgid "You can deactivate Static Server Cache at any time. "
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:180
+#: admin/views/caching/page/fast-cgi-meta-box.php:182
 msgid "Deactivating"
 msgstr ""
 
-#: admin/views/caching/page/fast-cgi-meta-box.php:184
+#: admin/views/caching/page/fast-cgi-meta-box.php:186
 msgid ""
 "Note: You won’t lose any site data by deactivating. Only the cached pages "
 "will be removed and will no longer be served to your site visitors. "
@@ -2956,13 +2833,18 @@ msgstr ""
 msgid "Switch to %s method"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:34
-#: admin/views/caching/page/subsite-meta-box.php:25
-#: admin/views/dashboard/caching/page-caching-module-meta-box.php:18
-msgid "Page caching is currently active."
+#: admin/views/caching/page/meta-box-header.php:46
+#: admin/views/dashboard/caching/page-caching-module-meta-box-footer.php:32
+msgid "Switching"
 msgstr ""
 
 #: admin/views/caching/page/meta-box.php:36
+#: admin/views/caching/page/subsite-meta-box.php:25
+#: admin/views/dashboard/caching/page-caching-module-meta-box.php:24
+msgid "Page caching is currently active."
+msgstr ""
+
+#: admin/views/caching/page/meta-box.php:38
 #: admin/views/caching/page/subsite-meta-box.php:27
 msgid ""
 "Page caching is currently active. You are storing your assets on the CDN in "
@@ -2970,193 +2852,200 @@ msgid ""
 "cache when assets on the CDN expire (after every two months)."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:45
+#: admin/views/caching/page/meta-box.php:43
+#: admin/views/dashboard/caching/page-caching-module-meta-box.php:21
+msgid ""
+"Local page caching is currently active. To switch to Static Server Cache, "
+"please connect the WPMU Dev Dashboard plugin."
+msgstr ""
+
+#: admin/views/caching/page/meta-box.php:53
 msgid "Page Types"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:47
+#: admin/views/caching/page/meta-box.php:55
 msgid " Select which page types you wish to cache."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:51
+#: admin/views/caching/page/meta-box.php:59
 msgid ""
 "Subsites will inherit the settings you use here, except any additional "
 "custom post types or taxonomies will be cached by default."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:54
+#: admin/views/caching/page/meta-box.php:62
 msgid ""
 "Your subsite admins can use the DONOTCACHEPAGE constant to prevent caching "
 "on their custom post types."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:65
-#: admin/views/minification/tools-meta-box.php:290
+#: admin/views/caching/page/meta-box.php:73
+#: admin/views/minification/tools-meta-box.php:279
 msgid "Your blog is your frontpage"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:91
+#: admin/views/caching/page/meta-box.php:99
 #. translators: %s: code snippet.
 msgid ""
 "You can use the %s constant to instruct Hummingbird not to cache specific "
 "pages or templates."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:143
+#: admin/views/caching/page/meta-box.php:151
 msgid "Cache interval"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:145
+#: admin/views/caching/page/meta-box.php:153
 msgid ""
 "Enable this feature to automatically clear cache at regular intervals only "
 "if you are required to do so. Frequent cache clearing can create "
 "significant server issues."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:154
+#: admin/views/caching/page/meta-box.php:162
 msgid "Clear cache on interval"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:159
+#: admin/views/caching/page/meta-box.php:167
 msgid ""
 "A cache cleanup will occur following page or post updates at the interval "
 "you set."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:164
+#: admin/views/caching/page/meta-box.php:172
 msgid "Clear cache timing"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:170
+#: admin/views/caching/page/meta-box.php:178
 msgid "hours"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:171
+#: admin/views/caching/page/meta-box.php:179
 msgid "days"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:175
+#: admin/views/caching/page/meta-box.php:183
 msgid ""
 "We recommend setting the interval to no less than 24 hours. Short intervals "
 "increase server loads and could negatively impact performance."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:186
+#: admin/views/caching/page/meta-box.php:194
 msgid ""
 "Hummingbird will detect and enable the integrated caching options and will "
 "use those when clearing the cache."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:195
+#: admin/views/caching/page/meta-box.php:203
 msgid "Purge Varnish caching"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:198
+#: admin/views/caching/page/meta-box.php:206
 msgid ""
 "Varnish caching increases response to HTTP requests and reduces server "
 "workload, significantly accelerating delivery. When enabled it will purge "
 "Varnish cache when you publish posts, pages or comments."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:208 core/class-configs.php:513
+#: admin/views/caching/page/meta-box.php:216 core/class-configs.php:513
 msgid "Purge OpCache"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:211
+#: admin/views/caching/page/meta-box.php:219
 msgid ""
 "OpCache stores script bytecode in memory so PHP scripts don't have to be "
 "loaded and parsed with every request. OpCache cache will be cleared when "
 "you click “Clear cache” button located in the admin bar."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:216
+#: admin/views/caching/page/meta-box.php:224
 msgid ""
 "Note: OpCache is only available if you have the service setup on your "
 "server."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:218
+#: admin/views/caching/page/meta-box.php:226
 msgid ""
 "OpCache is already enabled and optimally preconfigured in our servers. It "
 "will automatically detect and recache any php file changes."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:243
+#: admin/views/caching/page/meta-box.php:251
 msgid "Include logged in users"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:246
+#: admin/views/caching/page/meta-box.php:254
 msgid ""
 "Caching pages for logged in users can reduce load on your server, but can "
 "cause strange behavior with some themes/plugins."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:256
+#: admin/views/caching/page/meta-box.php:264
 msgid "Cache URL queries"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:259
+#: admin/views/caching/page/meta-box.php:267
 msgid ""
 "You can turn on caching pages with GET parameters (?x=y at the end of a "
 "url), though generally this isn’t a good idea if those pages are dynamic."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:269
+#: admin/views/caching/page/meta-box.php:277
 msgid "Cache 404 requests"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:272
+#: admin/views/caching/page/meta-box.php:280
 msgid ""
 "Even though 404s are bad and you will want to avoid them with redirects, "
 "you can still choose to cache your 404 page to avoid additional load on "
 "your server."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:282
+#: admin/views/caching/page/meta-box.php:290
 msgid "Clear full cache when post/page is updated"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:285
+#: admin/views/caching/page/meta-box.php:293
 msgid ""
 "If one of your pages or posts gets updated, turning this setting on will "
 "also regenerate all cached archives and taxonomies for all post types."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:295
+#: admin/views/caching/page/meta-box.php:303
 #: admin/views/minification/settings-meta-box.php:192
 msgid "Enable debug log"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:298
+#: admin/views/caching/page/meta-box.php:306
 msgid ""
 "If you’re having issues with page caching, turn on the debug log to get "
 "insight into what’s going on."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:302
+#: admin/views/caching/page/meta-box.php:310
 #: admin/views/minification/settings-meta-box.php:198
 msgid ""
 "Debug logging is active. Logs are stored for 30 days, you can download the "
 "log file below."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:306
+#: admin/views/caching/page/meta-box.php:314
 #: admin/views/minification/settings-meta-box.php:203
 msgid "Download Logs"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:331
+#: admin/views/caching/page/meta-box.php:339
 msgid "Identify cached pages"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:333
+#: admin/views/caching/page/meta-box.php:341
 #: admin/views/dashboard/minification/module-meta-box.php:81
 #: admin/views/dashboard/minification/module-meta-box.php:99
 #: admin/views/dashboard/uptime/module-meta-box-header.php:20
 #: admin/views/dashboard/welcome/upsell-meta-box-header.php:19
 #: admin/views/minification/tools-meta-box.php:51
 #: admin/views/minification/tools-meta-box.php:159
-#: admin/views/minification/tools-meta-box.php:521
+#: admin/views/minification/tools-meta-box.php:510
 #: admin/views/notifications/configure-meta-box.php:40
 #: admin/views/notifications/configure-meta-box.php:49
 #: admin/views/notifications/configure-meta-box.php:58
@@ -3164,78 +3053,78 @@ msgstr ""
 msgid "Pro"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:337
+#: admin/views/caching/page/meta-box.php:345
 msgid ""
 "Hummingbird will insert a comment into your page’s <head> tag to easily "
 "identify if it’s cached or not."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:347
+#: admin/views/caching/page/meta-box.php:355
 msgid "Serve compressed versions of cached files"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:350
+#: admin/views/caching/page/meta-box.php:358
 msgid ""
 "Improves performance on servers, where gzip compression is disabled or not "
 "available."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:356
+#: admin/views/caching/page/meta-box.php:364
 msgid "Note: Gzip compression already enabled on the server."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:371 languages/react.php:1079
+#: admin/views/caching/page/meta-box.php:379 languages/react.php:1079
 msgid "Cache on mobile devices"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:374 languages/react.php:1025
+#: admin/views/caching/page/meta-box.php:382 languages/react.php:1025
 msgid ""
 "By default, page caching is enabled for mobile devices. If you don't want "
 "to use mobile caching, simply disable this setting."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:399 languages/react.php:1085
+#: admin/views/caching/page/meta-box.php:407 languages/react.php:1085
 msgid "Cache HTTP headers"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:402 languages/react.php:1031
+#: admin/views/caching/page/meta-box.php:410 languages/react.php:1031
 msgid ""
 "By default, Hummingbird won't cache HTTP headers. Enable this feature to "
 "include them."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:412
+#: admin/views/caching/page/meta-box.php:420
 #: admin/views/minification/network-settings-meta-box.php:27
 #: admin/views/performance/settings-meta-box.php:49
 msgid "Subsites"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:421 core/class-configs.php:507
+#: admin/views/caching/page/meta-box.php:429 core/class-configs.php:507
 msgid "Allow subsites to disable page caching"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:424
+#: admin/views/caching/page/meta-box.php:432
 msgid ""
 "This setting adds the Page Caching tab to Hummingbird and allows a network "
 "or subsite admin to disable Page Caching if they wish to. Note: It does not "
 "allow them to modify your network settings."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:434 languages/react.php:884
+#: admin/views/caching/page/meta-box.php:442 languages/react.php:884
 msgid "Exclusions"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:440
+#: admin/views/caching/page/meta-box.php:448
 msgid "URL Strings"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:442
+#: admin/views/caching/page/meta-box.php:450
 msgid ""
 "You can tell Hummingbird not to cache specific URLs, or any URLs that "
 "contain strings. Add one entry per line."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:457
+#: admin/views/caching/page/meta-box.php:465
 #. translators: %1$s - opening a tag, %2$s - closing a tag
 msgid ""
 "For example, if you want to not cache any pages that are nested under your "
@@ -3247,29 +3136,29 @@ msgid ""
 "valid regex syntax."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:467
+#: admin/views/caching/page/meta-box.php:475
 msgid "User agents"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:469
+#: admin/views/caching/page/meta-box.php:477
 msgid ""
 "Specify any user agents you don’t want to send cached pages to like bots, "
 "spiders and crawlers. We’ve added a couple of common ones for you."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:481
+#: admin/views/caching/page/meta-box.php:489
 msgid "Cookies"
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:483
+#: admin/views/caching/page/meta-box.php:491
 msgid "Specify the cookie IDs you don't want cached. Add one ID per line."
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:501
+#: admin/views/caching/page/meta-box.php:509
 msgid "You can deactivate page caching at any time. "
 msgstr ""
 
-#: admin/views/caching/page/meta-box.php:513
+#: admin/views/caching/page/meta-box.php:521
 msgid ""
 "Note: Deactivating won’t lose any of your website data, only the cached "
 "pages will be removed and won’t be served to your visitors any longer. "
@@ -3564,12 +3453,17 @@ msgstr ""
 msgid "Gravatar caching is currently active."
 msgstr ""
 
+#: admin/views/dashboard/caching/page-caching-module-meta-box-footer.php:28
+#: admin/views/dashboard/caching/page-caching-module-meta-box-footer.php:40
+msgid "Switch to Static Server Cache"
+msgstr ""
+
 #: admin/views/dashboard/caching/page-caching-module-meta-box-footer.php:47
 #. translators: %1$s: opening a tag, %2$s: closing a tag
 msgid "Requires %1$sWPMU DEV Hosting%2$s"
 msgstr ""
 
-#: admin/views/dashboard/caching/page-caching-module-meta-box.php:21
+#: admin/views/dashboard/caching/page-caching-module-meta-box.php:29
 msgid ""
 "Store static HTML copies of your pages and posts to reduce the processing "
 "load on your server and dramatically speed up your page load time."
@@ -3596,6 +3490,35 @@ msgstr ""
 
 #: admin/views/dashboard/gzip/module-meta-box.php:48 languages/react.php:686
 msgid "Gzip compression is currently active. Good job!"
+msgstr ""
+
+#: admin/views/dashboard/gzip/module-meta-box.php:55
+#: admin/views/notifications/configure-meta-box.php:27
+#: admin/views/performance/audits/bootup-time.php:22
+#: admin/views/performance/audits/dom-size.php:22
+#: admin/views/performance/audits/duplicated-javascript.php:28
+#: admin/views/performance/audits/efficient-animated-content.php:22
+#: admin/views/performance/audits/font-display.php:29
+#: admin/views/performance/audits/largest-contentful-paint-element.php:30
+#: admin/views/performance/audits/layout-shift-elements.php:26
+#: admin/views/performance/audits/mainthread-work-breakdown.php:22
+#: admin/views/performance/audits/modern-image-formats.php:23
+#: admin/views/performance/audits/offscreen-images.php:23
+#: admin/views/performance/audits/redirects.php:22
+#: admin/views/performance/audits/render-blocking-resources.php:33
+#: admin/views/performance/audits/server-response-time.php:25
+#: admin/views/performance/audits/total-byte-weight.php:23
+#: admin/views/performance/audits/unminified-css.php:22
+#: admin/views/performance/audits/unminified-javascript.php:22
+#: admin/views/performance/audits/unused-css-rules.php:30
+#: admin/views/performance/audits/uses-long-cache-ttl.php:22
+#: admin/views/performance/audits/uses-optimized-images.php:23
+#: admin/views/performance/audits/uses-rel-preconnect.php:28
+#: admin/views/performance/audits/uses-rel-preload.php:28
+#: admin/views/performance/audits/uses-responsive-images.php:23
+#: admin/views/performance/audits/uses-text-compression.php:22
+#: languages/react.php:267
+msgid "Status"
 msgstr ""
 
 #: admin/views/dashboard/gzip/module-meta-box.php:62
@@ -3671,8 +3594,8 @@ msgid "Delay JavaScript Execution"
 msgstr ""
 
 #: admin/views/dashboard/minification/module-meta-box.php:97
-#: admin/views/minification/tools-meta-box.php:185
-#: admin/views/minification/tools-meta-box.php:193
+#: admin/views/minification/tools-meta-box.php:174
+#: admin/views/minification/tools-meta-box.php:182
 #: admin/views/wphb-upgrade-page.php:49 languages/react.php:964
 msgid "Generate Critical CSS"
 msgstr ""
@@ -3821,7 +3744,7 @@ msgstr ""
 #: admin/views/dashboard/smush/meta-box.php:35
 #: admin/views/performance/audits/modern-image-formats.php:103
 #: admin/views/performance/audits/offscreen-images.php:102
-#: admin/views/performance/audits/total-byte-weight.php:117
+#: admin/views/performance/audits/total-byte-weight.php:118
 #: admin/views/performance/audits/uses-optimized-images.php:110
 #: admin/views/performance/audits/uses-responsive-images.php:106
 msgid "Install Smush"
@@ -3840,7 +3763,7 @@ msgstr ""
 #: admin/views/dashboard/smush/meta-box.php:54
 #: admin/views/performance/audits/modern-image-formats.php:99
 #: admin/views/performance/audits/offscreen-images.php:98
-#: admin/views/performance/audits/total-byte-weight.php:113
+#: admin/views/performance/audits/total-byte-weight.php:114
 #: admin/views/performance/audits/uses-optimized-images.php:106
 #: admin/views/performance/audits/uses-responsive-images.php:102
 msgid "Activate Smush"
@@ -4345,93 +4268,88 @@ msgid ""
 "automatically generating the critical CSS required to load your page."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:169
-#. translators: %1$s - Opening <a> tag, %2$s - Closing </a> tag
-msgid "You can switch to %1$smanual mode%2$s to add the critical CSS manually."
-msgstr ""
-
-#: admin/views/minification/tools-meta-box.php:208
+#: admin/views/minification/tools-meta-box.php:197
 msgid "Choose how to load critical CSS."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:213
+#: admin/views/minification/tools-meta-box.php:202
 msgid "Full Page CSS Optimization (Recommended)"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:214
+#: admin/views/minification/tools-meta-box.php:203
 msgid "Above the fold CSS Optimization"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:236
+#: admin/views/minification/tools-meta-box.php:225
 msgid "Inline above-the-fold CSS, load the rest asynchronously."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:239
+#: admin/views/minification/tools-meta-box.php:228
 msgid "Inline all used CSS, delay/remove the rest."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:244
+#: admin/views/minification/tools-meta-box.php:233
 msgid "How to handle the Unused CSS"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:249
+#: admin/views/minification/tools-meta-box.php:238
 msgid "Load on User Interaction"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:255
+#: admin/views/minification/tools-meta-box.php:244
 msgid "Remove Unused"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:271
+#: admin/views/minification/tools-meta-box.php:260
 msgid "Post type"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:282
+#: admin/views/minification/tools-meta-box.php:271
 msgid "Toggling on will include the Critical CSS generation for these pages"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:321
+#: admin/views/minification/tools-meta-box.php:310
 msgid "Manual Inclusions (Advanced)"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:331
-#: admin/views/minification/tools-meta-box.php:397
+#: admin/views/minification/tools-meta-box.php:320
+#: admin/views/minification/tools-meta-box.php:386
 msgid "Add CSS here"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:335
+#: admin/views/minification/tools-meta-box.php:324
 msgid ""
 "Only use this option if you see a broken element on your site to add the "
 "critical elements manually. This might affect your PageSpeed negatively."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:353
+#: admin/views/minification/tools-meta-box.php:342
 msgid "CSS Above the fold"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:356
+#: admin/views/minification/tools-meta-box.php:345
 msgid ""
 "Paste your Manual critical CSS and remove render-blocking CSS from your "
 "site. Drastically reduce your page load time by moving all of your "
 "stylesheets to the footer to force them to load after your content."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:367
+#: admin/views/minification/tools-meta-box.php:356
 #. translators: %1$s - opening span tag, %2$s - closing </span> tag
 msgid "%1$sPro%2$s"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:375
+#: admin/views/minification/tools-meta-box.php:364
 #. translators: %1$s - opening span tag, %2$s - closing </span> tag
 msgid "%1$sNEW%2$s"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:381
+#: admin/views/minification/tools-meta-box.php:370
 #. translators: %1$s - opening a tag, %2$s - closing a tag
 msgid "%1$sSwitch now%2$s"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:388
+#: admin/views/minification/tools-meta-box.php:377
 #. translators: %1$s: opening span tag, %2$s: closing span tag, %3$s: pro tag,
 #. %4$s: switch critical mode href link, %5$s: closing a tag
 msgid ""
@@ -4440,60 +4358,60 @@ msgid ""
 "automatically migrated as Manual Inclusions. %2$s"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:395
+#: admin/views/minification/tools-meta-box.php:384
 msgid "CSS to insert into your <head> area"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:398
+#: admin/views/minification/tools-meta-box.php:387
 msgid "Directions:"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:401
+#: admin/views/minification/tools-meta-box.php:390
 msgid ""
 "Add critical layout and styling CSS here. We will insert into <style> tags "
 "in your <head> section of each page."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:404
+#: admin/views/minification/tools-meta-box.php:393
 msgid ""
 "Next, switch to the manual mode in asset optimization and move all of your "
 "CSS files to the footer area."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:412
+#: admin/views/minification/tools-meta-box.php:401
 msgid "Font Optimization"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:415
+#: admin/views/minification/tools-meta-box.php:404
 msgid ""
 "Improve performance, PageSpeed, and user experience by preloading critical "
 "fonts and enabling fallbacks."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:425
+#: admin/views/minification/tools-meta-box.php:414
 msgid "Swap Web Fonts"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:428
+#: admin/views/minification/tools-meta-box.php:417
 msgid ""
 "Apply a similar fallback font that visitors will temporarily see until the "
 "primary font loads."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:441
-#: admin/views/minification/tools-meta-box.php:513
+#: admin/views/minification/tools-meta-box.php:430
+#: admin/views/minification/tools-meta-box.php:502
 msgid "Choose Method"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:447
+#: admin/views/minification/tools-meta-box.php:436
 msgid "Safe"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:452
+#: admin/views/minification/tools-meta-box.php:441
 msgid "Performant"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:461
+#: admin/views/minification/tools-meta-box.php:450
 #. translators: %1$s - Opening <strong> tag, %2$s - Closing </strong> tag, %3$s
 #. - New line, %4$s - Opening <span> tag, %4$s - Closing </span> tag
 msgid ""
@@ -4502,7 +4420,7 @@ msgid ""
 "%3$s(Uses %4$sfont-display: swap%5$s attribute)%6$s"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:474
+#: admin/views/minification/tools-meta-box.php:463
 #. translators: %1$s - Opening <strong> tag, %2$s - Closing </strong> tag, %3$s
 #. - New line, %4$s - Opening <span> tag, %4$s - Closing </span> tag
 msgid ""
@@ -4512,25 +4430,25 @@ msgid ""
 "optional%5$s attribute)%6$s"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:496
+#: admin/views/minification/tools-meta-box.php:485
 msgid "Preload Fonts"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:499
+#: admin/views/minification/tools-meta-box.php:488
 msgid ""
 "Instruct browsers to preload fonts that are critical to your site's user "
 "experience (e.g., content users are likely to interact with first)."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:519
+#: admin/views/minification/tools-meta-box.php:508
 msgid "Automatic (Needs Critical CSS)"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:527
+#: admin/views/minification/tools-meta-box.php:516
 msgid "Manual Only"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:536
+#: admin/views/minification/tools-meta-box.php:525
 #. translators: %1$s - Opening <bold> tag, %2$s - Closing </bold> tag
 msgid ""
 "Fetches critical fonts from the generated Critical CSS and preloads them in "
@@ -4538,18 +4456,18 @@ msgid ""
 "regressions if your site uses a large number of fonts.%2$s"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:545
+#: admin/views/minification/tools-meta-box.php:534
 #. translators: %1$s - Opening <bold> tag, %2$s - Closing </bold> tag
 msgid ""
 "Only preloads the fonts which are specified manually in the given field. "
 "%1$sMore suitable for sites with a large number of fonts.%2$s"
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:557
+#: admin/views/minification/tools-meta-box.php:546
 msgid "Enter the URLs of the font files you wish to preload (one per line)."
 msgstr ""
 
-#: admin/views/minification/tools-meta-box.php:562
+#: admin/views/minification/tools-meta-box.php:551
 msgid ""
 "The domain component of the URL will be removed automatically if included. "
 "Accepted font extensions: otf, ttf, svg, woff, and woff2."
@@ -4624,6 +4542,37 @@ msgstr ""
 msgid "Potential savings of %s ms"
 msgstr ""
 
+#: admin/views/performance/audit-template.php:67 languages/react.php:302
+msgid "Open item"
+msgstr ""
+
+#: admin/views/performance/audits/bootup-time.php:17
+#: admin/views/performance/audits/dom-size.php:17
+#: admin/views/performance/audits/duplicated-javascript.php:19
+#: admin/views/performance/audits/efficient-animated-content.php:17
+#: admin/views/performance/audits/font-display.php:17
+#: admin/views/performance/audits/largest-contentful-paint-element.php:17
+#: admin/views/performance/audits/layout-shift-elements.php:17
+#: admin/views/performance/audits/mainthread-work-breakdown.php:17
+#: admin/views/performance/audits/modern-image-formats.php:18
+#: admin/views/performance/audits/offscreen-images.php:18
+#: admin/views/performance/audits/redirects.php:17
+#: admin/views/performance/audits/render-blocking-resources.php:25
+#: admin/views/performance/audits/server-response-time.php:20
+#: admin/views/performance/audits/total-byte-weight.php:18
+#: admin/views/performance/audits/unminified-css.php:17
+#: admin/views/performance/audits/unminified-javascript.php:17
+#: admin/views/performance/audits/unused-css-rules.php:25
+#: admin/views/performance/audits/uses-long-cache-ttl.php:17
+#: admin/views/performance/audits/uses-optimized-images.php:18
+#: admin/views/performance/audits/uses-rel-preconnect.php:17
+#: admin/views/performance/audits/uses-rel-preload.php:17
+#: admin/views/performance/audits/uses-responsive-images.php:18
+#: admin/views/performance/audits/uses-text-compression.php:17
+#: languages/react.php:261
+msgid "Overview"
+msgstr ""
+
 #: admin/views/performance/audits/bootup-time.php:19
 msgid ""
 "This audit measures the total impact of JavaScript on your page's load "
@@ -4669,20 +4618,20 @@ msgstr ""
 msgid "Nice! Your page has a very low JavaScript bootup time i.e %s"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:46
+#: admin/views/performance/audits/bootup-time.php:47
 #. translators: %s - number of seconds
 msgid ""
 "Your JavaScript bootup time is %s. Following are the scripts behind the "
 "high bootup time."
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:57
+#: admin/views/performance/audits/bootup-time.php:58
 #: admin/views/performance/audits/efficient-animated-content.php:50
 #: admin/views/performance/audits/modern-image-formats.php:50
 #: admin/views/performance/audits/offscreen-images.php:49
 #: admin/views/performance/audits/redirects.php:48
 #: admin/views/performance/audits/render-blocking-resources.php:59
-#: admin/views/performance/audits/total-byte-weight.php:57
+#: admin/views/performance/audits/total-byte-weight.php:58
 #: admin/views/performance/audits/unminified-css.php:48
 #: admin/views/performance/audits/unminified-javascript.php:48
 #: admin/views/performance/audits/unused-css-rules.php:56
@@ -4695,31 +4644,31 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:58
+#: admin/views/performance/audits/bootup-time.php:59
 msgid "Evaluation"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:59
+#: admin/views/performance/audits/bootup-time.php:60
 msgid "Parsing"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:60
+#: admin/views/performance/audits/bootup-time.php:61
 msgid "Total"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:80
-#: admin/views/performance/audits/dom-size.php:100
+#: admin/views/performance/audits/bootup-time.php:81
+#: admin/views/performance/audits/dom-size.php:101
 #: admin/views/performance/audits/duplicated-javascript.php:81
 #: admin/views/performance/audits/efficient-animated-content.php:71
 #: admin/views/performance/audits/font-display.php:72
 #: admin/views/performance/audits/layout-shift-elements.php:68
-#: admin/views/performance/audits/mainthread-work-breakdown.php:69
+#: admin/views/performance/audits/mainthread-work-breakdown.php:70
 #: admin/views/performance/audits/modern-image-formats.php:72
 #: admin/views/performance/audits/offscreen-images.php:71
 #: admin/views/performance/audits/redirects.php:72
 #: admin/views/performance/audits/render-blocking-resources.php:80
 #: admin/views/performance/audits/server-response-time.php:54
-#: admin/views/performance/audits/total-byte-weight.php:76
+#: admin/views/performance/audits/total-byte-weight.php:77
 #: admin/views/performance/audits/unminified-css.php:69
 #: admin/views/performance/audits/unminified-javascript.php:70
 #: admin/views/performance/audits/unused-css-rules.php:77
@@ -4732,76 +4681,76 @@ msgstr ""
 msgid "How to fix"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:83
-#: admin/views/performance/audits/mainthread-work-breakdown.php:72
+#: admin/views/performance/audits/bootup-time.php:84
+#: admin/views/performance/audits/mainthread-work-breakdown.php:73
 msgid ""
 "Optimizing JavaScript files removes unnecessary or redundant bytes of code "
 "and hence reduces payload size and script parse time. Hummingbird’s Asset "
 "Optimization module can help you to minify your JavaScript files."
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:86
-#: admin/views/performance/audits/mainthread-work-breakdown.php:75
+#: admin/views/performance/audits/bootup-time.php:87
+#: admin/views/performance/audits/mainthread-work-breakdown.php:76
 #: admin/views/performance/audits/render-blocking-resources.php:89
-#: admin/views/performance/audits/total-byte-weight.php:82
+#: admin/views/performance/audits/total-byte-weight.php:83
 #: admin/views/performance/audits/unminified-css.php:77
 #: admin/views/performance/audits/unminified-javascript.php:78
 #: admin/views/performance/audits/unused-css-rules.php:84
 msgid "Configure Asset Optimization"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:91
+#: admin/views/performance/audits/bootup-time.php:92
 msgid ""
 "JavaScript files should be served with GZIP compression to minimize total "
 "network bytes. Fewer bytes downloaded means faster page loads. Hummingbird "
 "can help you compress your JavaScript files."
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:94
-#: admin/views/performance/audits/mainthread-work-breakdown.php:83
-#: admin/views/performance/audits/total-byte-weight.php:90
+#: admin/views/performance/audits/bootup-time.php:95
+#: admin/views/performance/audits/mainthread-work-breakdown.php:84
+#: admin/views/performance/audits/total-byte-weight.php:91
 #: admin/views/performance/audits/uses-text-compression.php:74
 msgid "Configure Gzip Compression"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:99
+#: admin/views/performance/audits/bootup-time.php:100
 msgid ""
 "Caching your JavaScript files can reduce network cost as the browser can "
 "serve cached resources instead of fetching them from the network. You can "
 "configure caching of your JavaScript files using Hummingbird."
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:102
-#: admin/views/performance/audits/mainthread-work-breakdown.php:91
-#: admin/views/performance/audits/total-byte-weight.php:98
+#: admin/views/performance/audits/bootup-time.php:103
+#: admin/views/performance/audits/mainthread-work-breakdown.php:92
+#: admin/views/performance/audits/total-byte-weight.php:99
 msgid "Configure Browser Compression"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:108
+#: admin/views/performance/audits/bootup-time.php:109
 #: admin/views/performance/audits/font-display.php:113
-#: admin/views/performance/audits/mainthread-work-breakdown.php:97
+#: admin/views/performance/audits/mainthread-work-breakdown.php:98
 #: admin/views/performance/audits/unminified-javascript.php:82
 #: admin/views/performance/audits/uses-long-cache-ttl.php:85
 msgid "Additional notes"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:109
+#: admin/views/performance/audits/bootup-time.php:110
 msgid ""
 "Unfortunately, there is no way to improve bootup time for scripts served "
 "from another domain. Scripts from other domains mentioned in the Status "
 "section are likely being added by a plugin or your theme. You can:"
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:111
-#: admin/views/performance/audits/mainthread-work-breakdown.php:100
+#: admin/views/performance/audits/bootup-time.php:112
+#: admin/views/performance/audits/mainthread-work-breakdown.php:101
 #: admin/views/performance/audits/uses-long-cache-ttl.php:88
 msgid ""
 "Deactivate the theme and/or your plugins one by one to find the culprit, "
 "then remove it or find a comparable substitute."
 msgstr ""
 
-#: admin/views/performance/audits/bootup-time.php:112
-#: admin/views/performance/audits/mainthread-work-breakdown.php:101
+#: admin/views/performance/audits/bootup-time.php:113
+#: admin/views/performance/audits/mainthread-work-breakdown.php:102
 #: admin/views/performance/audits/uses-long-cache-ttl.php:89
 msgid ""
 "Continue using the theme or plugin. This may be a perfectly valid option "
@@ -4824,31 +4773,31 @@ msgstr ""
 msgid "Nice! Your DOM only has %s in total."
 msgstr ""
 
-#: admin/views/performance/audits/dom-size.php:47
+#: admin/views/performance/audits/dom-size.php:48
 #. translators: %s - nodes in total
 msgid "Your DOM has %s in total."
 msgstr ""
 
-#: admin/views/performance/audits/dom-size.php:58
+#: admin/views/performance/audits/dom-size.php:59
 msgid "Total DOM Nodes"
 msgstr ""
 
-#: admin/views/performance/audits/dom-size.php:67
+#: admin/views/performance/audits/dom-size.php:68
 msgid "Maximum DOM Depth"
 msgstr ""
 
-#: admin/views/performance/audits/dom-size.php:82
+#: admin/views/performance/audits/dom-size.php:83
 msgid "Maximum Child Elements"
 msgstr ""
 
-#: admin/views/performance/audits/dom-size.php:101
+#: admin/views/performance/audits/dom-size.php:102
 msgid ""
 "The score depends solely on the total number of nodes found on the page. "
 "The median is 1400 nodes; however, for a perfect score, your DOM’s total "
 "nodes should be lower than 275. Try the following to improve your score:"
 msgstr ""
 
-#: admin/views/performance/audits/dom-size.php:103
+#: admin/views/performance/audits/dom-size.php:104
 msgid ""
 "Most of the time, your theme is responsible for adding redundant DOM nodes "
 "to your site. Activate the default TwentyNinteen theme, and compare the "
@@ -4857,7 +4806,7 @@ msgid ""
 "work with the developer to see what changes can be made."
 msgstr ""
 
-#: admin/views/performance/audits/dom-size.php:104
+#: admin/views/performance/audits/dom-size.php:105
 msgid ""
 "Since the total number of nodes depends on the size of the page, break "
 "large pages into multiple smaller ones to reduce the total node count."
@@ -4927,7 +4876,7 @@ msgstr ""
 #: admin/views/performance/audits/modern-image-formats.php:51
 #: admin/views/performance/audits/offscreen-images.php:50
 #: admin/views/performance/audits/render-blocking-resources.php:60
-#: admin/views/performance/audits/total-byte-weight.php:58
+#: admin/views/performance/audits/total-byte-weight.php:59
 #: admin/views/performance/audits/unminified-css.php:49
 #: admin/views/performance/audits/unminified-javascript.php:49
 #: admin/views/performance/audits/unused-css-rules.php:57
@@ -5127,39 +5076,39 @@ msgid ""
 "breakdown of your main thread."
 msgstr ""
 
-#: admin/views/performance/audits/mainthread-work-breakdown.php:41
+#: admin/views/performance/audits/mainthread-work-breakdown.php:42
 #. translators: %s - time to complete in seconds
 msgid ""
 "Your main thread took %s to complete and following is the breakdown of your "
 "main thread."
 msgstr ""
 
-#: admin/views/performance/audits/mainthread-work-breakdown.php:53
+#: admin/views/performance/audits/mainthread-work-breakdown.php:54
 #: admin/views/performance/metrics-meta-box.php:210
 #: admin/views/performance/metrics-meta-box.php:280
 msgid "Category"
 msgstr ""
 
-#: admin/views/performance/audits/mainthread-work-breakdown.php:54
+#: admin/views/performance/audits/mainthread-work-breakdown.php:55
 #: admin/views/performance/audits/redirects.php:49
 msgid "Time Spent"
 msgstr ""
 
-#: admin/views/performance/audits/mainthread-work-breakdown.php:80
+#: admin/views/performance/audits/mainthread-work-breakdown.php:81
 msgid ""
 "JavaScript files should be served with GZIP compression to minimize total "
 "network bytes. Fewer bytes downloaded means faster page loads. Hummingbird "
 "can help compress your JavaScript files."
 msgstr ""
 
-#: admin/views/performance/audits/mainthread-work-breakdown.php:88
+#: admin/views/performance/audits/mainthread-work-breakdown.php:89
 msgid ""
 "Caching your JavaScript files can reduce network cost as the browser can "
 "serve cached resources instead of fetching them from network. You can "
 "configure caching of your JavaScript files using Hummingbird."
 msgstr ""
 
-#: admin/views/performance/audits/mainthread-work-breakdown.php:98
+#: admin/views/performance/audits/mainthread-work-breakdown.php:99
 msgid ""
 "Unfortunately, there is no way to optimize scripts served from another "
 "domain. Scripts from other domains mentioned in the Status section are "
@@ -5194,13 +5143,13 @@ msgid ""
 msgstr ""
 
 #: admin/views/performance/audits/modern-image-formats.php:92
-#: admin/views/performance/audits/total-byte-weight.php:106
+#: admin/views/performance/audits/total-byte-weight.php:107
 #: admin/views/performance/audits/uses-responsive-images.php:95
 msgid "Configure Smush"
 msgstr ""
 
 #: admin/views/performance/audits/modern-image-formats.php:113
-#: admin/views/performance/audits/total-byte-weight.php:128
+#: admin/views/performance/audits/total-byte-weight.php:129
 msgid "Get WP Smush Pro"
 msgstr ""
 
@@ -5214,7 +5163,7 @@ msgid ""
 msgstr ""
 
 #: admin/views/performance/audits/modern-image-formats.php:124
-#: admin/views/performance/audits/total-byte-weight.php:139
+#: admin/views/performance/audits/total-byte-weight.php:140
 #. translators: %1$s - opening a tag, %2$s - closing a tag
 msgid "%1$sLearn More%2$s"
 msgstr ""
@@ -5470,35 +5419,35 @@ msgstr ""
 msgid "Nice! Your page makes only %s of total network requests."
 msgstr ""
 
-#: admin/views/performance/audits/total-byte-weight.php:46
+#: admin/views/performance/audits/total-byte-weight.php:47
 #. translators: %s - size in kb
 msgid ""
 "Your page makes %s of total network requests and following are the "
 "resources with large size."
 msgstr ""
 
-#: admin/views/performance/audits/total-byte-weight.php:79
+#: admin/views/performance/audits/total-byte-weight.php:80
 msgid ""
 "Optimizing your resources removes unnecessary or redundant bytes of code "
 "and hence reduces payload size and script parse time. Hummingbird’s Asset "
 "Optimization module can help you to minify your resources."
 msgstr ""
 
-#: admin/views/performance/audits/total-byte-weight.php:87
+#: admin/views/performance/audits/total-byte-weight.php:88
 msgid ""
 "Text-based resources such as your HTML, CSS, and JavaScript files should be "
 "served with GZIP compression to minimize total network bytes. Hummingbird "
 "can enable GZIP compression for all the compressible resources."
 msgstr ""
 
-#: admin/views/performance/audits/total-byte-weight.php:95
+#: admin/views/performance/audits/total-byte-weight.php:96
 msgid ""
 "Caching your files can reduce network cost as the browser can serve cached "
 "resources instead of fetching them from network. You can configure file "
 "caching using Hummingbird."
 msgstr ""
 
-#: admin/views/performance/audits/total-byte-weight.php:103
+#: admin/views/performance/audits/total-byte-weight.php:104
 msgid ""
 "Serve compressed images, and serve them in WebP format whenever possible "
 "since it provides better compression than PNG or JPEG, which means faster "
@@ -5508,7 +5457,7 @@ msgid ""
 "non-compatible browsers."
 msgstr ""
 
-#: admin/views/performance/audits/total-byte-weight.php:132
+#: admin/views/performance/audits/total-byte-weight.php:133
 #. translators: %1$s - link to Smush project page, %2$s - closing a tag
 msgid ""
 "Upgrade to %1$sSmush Pro%2$s, and start serving your images in WebP format "
@@ -6326,8 +6275,8 @@ msgid ""
 msgstr ""
 
 #: admin/views/uptime/downtime-meta-box.php:30
-#: admin/views/uptime/meta-box.php:79 core/modules/class-advanced.php:660
-#: core/modules/class-advanced.php:669 core/modules/class-advanced.php:670
+#: admin/views/uptime/meta-box.php:79 core/modules/class-advanced.php:682
+#: core/modules/class-advanced.php:691 core/modules/class-advanced.php:692
 msgid "Unknown"
 msgstr ""
 
@@ -6712,7 +6661,7 @@ msgstr ""
 msgid "Unknown Error"
 msgstr ""
 
-#: core/class-configs.php:106 core/class-installer.php:610
+#: core/class-configs.php:106 core/class-installer.php:614
 msgid "Default config"
 msgstr ""
 
@@ -6843,32 +6792,32 @@ msgstr ""
 msgid "Cache control in admin bar"
 msgstr ""
 
-#: core/class-core.php:183
+#: core/class-core.php:184
 msgid "Clear all cache"
 msgstr ""
 
-#: core/class-core.php:192
+#: core/class-core.php:193
 msgid "Clear Cloudflare cache"
 msgstr ""
 
-#: core/class-core.php:209
+#: core/class-core.php:210
 msgid "Clear page cache on all subsites"
 msgstr ""
 
-#: core/class-core.php:217
+#: core/class-core.php:218
 msgid "See this page minified"
 msgstr ""
 
-#: core/class-core.php:217
+#: core/class-core.php:218
 msgid "See this page unminified"
 msgstr ""
 
-#: core/class-core.php:313
+#: core/class-core.php:314
 #. translators: %1$s - Text, %2$s - Link to privacy policy page
 msgid "Third parties"
 msgstr ""
 
-#: core/class-core.php:316
+#: core/class-core.php:317
 #. translators: %1$s - opening a tag, %2$s - closing a tag
 msgid ""
 "Hummingbird uses the Stackpath Content Delivery Network (CDN). Stackpath "
@@ -6878,29 +6827,29 @@ msgid ""
 "your own. Stackpath’s privacy policy can be found %1$shere%2$s."
 msgstr ""
 
-#: core/class-core.php:391
+#: core/class-core.php:392
 #: core/externals/free-dashboard/classes/notices/class-email.php:95
 #: core/externals/free-dashboard/classes/notices/class-email.php:213
 msgid "Get Fast!"
 msgstr ""
 
-#: core/class-core.php:446
+#: core/class-core.php:447
 msgid "Go Back"
 msgstr ""
 
-#: core/class-core.php:450
+#: core/class-core.php:451
 msgid "Copy Test Link"
 msgstr ""
 
-#: core/class-core.php:451
+#: core/class-core.php:452
 msgid "Link Copied"
 msgstr ""
 
-#: core/class-core.php:453 languages/react.php:777
+#: core/class-core.php:454 languages/react.php:777
 msgid "Publish"
 msgstr ""
 
-#: core/class-core.php:456
+#: core/class-core.php:457
 msgid ""
 "You are currently viewing the frontend of your website in Safe Mode "
 "preview. Check for any errors in your browser's console or broken UI. You "
@@ -7188,19 +7137,19 @@ msgstr ""
 msgid "Redis Cache"
 msgstr ""
 
-#: core/class-utils.php:1428
+#: core/class-utils.php:1452
 msgid "Unlock now for Peak Performance  ️⚡️ - 80% Off!"
 msgstr ""
 
-#: core/class-utils.php:1428
+#: core/class-utils.php:1452
 msgid "Unlock now"
 msgstr ""
 
-#: core/class-utils.php:1586
+#: core/class-utils.php:1610
 msgid "Page Caching - Static Server Cache"
 msgstr ""
 
-#: core/class-utils.php:1589
+#: core/class-utils.php:1613
 msgid "Page Caching - Local Page Cache"
 msgstr ""
 
@@ -7347,134 +7296,134 @@ msgstr ""
 msgid "Every %d Minutes"
 msgstr ""
 
-#: core/modules/class-advanced.php:305
+#: core/modules/class-advanced.php:327
 msgid ""
 "Historic versions of your posts and pages. If you don't need to revert to "
 "older versions, delete these entries"
 msgstr ""
 
-#: core/modules/class-advanced.php:308
+#: core/modules/class-advanced.php:330
 msgid "Draft Posts"
 msgstr ""
 
-#: core/modules/class-advanced.php:309
+#: core/modules/class-advanced.php:331
 msgid ""
 "Draft posts are auto-saved versions of your posts and pages. If you don't "
 "use drafts, you can clear those entries here and move them to trash. "
 "Trashed posts can be permanently deleted below."
 msgstr ""
 
-#: core/modules/class-advanced.php:312
+#: core/modules/class-advanced.php:334
 msgid "Trashed Posts"
 msgstr ""
 
-#: core/modules/class-advanced.php:313
+#: core/modules/class-advanced.php:335
 msgid "Posts or pages you've marked as trash but haven't permanently deleted yet"
 msgstr ""
 
-#: core/modules/class-advanced.php:316
+#: core/modules/class-advanced.php:338
 msgid "Spam Comments"
 msgstr ""
 
-#: core/modules/class-advanced.php:317
+#: core/modules/class-advanced.php:339
 msgid "Comments marked as spam that haven't been deleted yet"
 msgstr ""
 
-#: core/modules/class-advanced.php:320
+#: core/modules/class-advanced.php:342
 msgid "Trashed Comments"
 msgstr ""
 
-#: core/modules/class-advanced.php:321
+#: core/modules/class-advanced.php:343
 msgid "Comments you've marked as trash but haven't permanently deleted yet"
 msgstr ""
 
-#: core/modules/class-advanced.php:324
+#: core/modules/class-advanced.php:346
 msgid "Expired Transients"
 msgstr ""
 
-#: core/modules/class-advanced.php:325
+#: core/modules/class-advanced.php:347
 msgid ""
 "Cached data that themes and plugins have stored, except these ones have "
 "expired and can be deleted"
 msgstr ""
 
-#: core/modules/class-advanced.php:328
+#: core/modules/class-advanced.php:350
 msgid "All Transients"
 msgstr ""
 
-#: core/modules/class-advanced.php:329
+#: core/modules/class-advanced.php:351
 msgid ""
 "Cached data that themes and plugins have stored, but may still be in use. "
 "Note: the next page to load could take a bit longer due to WordPress "
 "regenerating transients."
 msgstr ""
 
-#: core/modules/class-advanced.php:584
+#: core/modules/class-advanced.php:606
 msgid "Version"
 msgstr ""
 
-#: core/modules/class-advanced.php:618
+#: core/modules/class-advanced.php:640
 msgid "Error Reporting"
 msgstr ""
 
-#: core/modules/class-advanced.php:621
+#: core/modules/class-advanced.php:643
 msgid "Extensions"
 msgstr ""
 
-#: core/modules/class-advanced.php:769
+#: core/modules/class-advanced.php:791
 msgid "Software Name"
 msgstr ""
 
-#: core/modules/class-advanced.php:770
+#: core/modules/class-advanced.php:792
 msgid "Software Version"
 msgstr ""
 
-#: core/modules/class-advanced.php:771
+#: core/modules/class-advanced.php:793
 msgid "Server IP"
 msgstr ""
 
-#: core/modules/class-advanced.php:771 core/modules/class-advanced.php:772
-#: core/modules/class-advanced.php:773 core/modules/class-advanced.php:793
+#: core/modules/class-advanced.php:793 core/modules/class-advanced.php:794
+#: core/modules/class-advanced.php:795 core/modules/class-advanced.php:815
 msgid "undefined"
 msgstr ""
 
-#: core/modules/class-advanced.php:772
+#: core/modules/class-advanced.php:794
 msgid "Server Hostname"
 msgstr ""
 
-#: core/modules/class-advanced.php:773
+#: core/modules/class-advanced.php:795
 msgid "Server Admin"
 msgstr ""
 
-#: core/modules/class-advanced.php:774
+#: core/modules/class-advanced.php:796
 msgid "Server local time"
 msgstr ""
 
-#: core/modules/class-advanced.php:775
+#: core/modules/class-advanced.php:797
 msgid "Operating System"
 msgstr ""
 
-#: core/modules/class-advanced.php:776
+#: core/modules/class-advanced.php:798
 msgid "OS Hostname"
 msgstr ""
 
-#: core/modules/class-advanced.php:777
+#: core/modules/class-advanced.php:799
 msgid "OS Version"
 msgstr ""
 
-#: core/modules/class-advanced.php:800
+#: core/modules/class-advanced.php:822
 msgid "FALSE"
 msgstr ""
 
-#: core/modules/class-advanced.php:802
+#: core/modules/class-advanced.php:824
 msgid "TRUE"
 msgstr ""
 
-#: core/modules/class-advanced.php:1101
+#: core/modules/class-advanced.php:1123
 msgid "We could not validate the request, try reloading the page."
 msgstr ""
 
-#: core/modules/class-advanced.php:1107
+#: core/modules/class-advanced.php:1129
 msgid ""
 "Something went wrong. Try reloading the page to see if the comments load "
 "for you."
@@ -7559,57 +7508,57 @@ msgstr ""
 msgid "2 hours"
 msgstr ""
 
-#: core/modules/class-critical-css.php:1049
+#: core/modules/class-critical-css.php:1048
 #. translators: %1$s - page type, %2$s - Used css content, %3$s - manual
 #. critical css
 msgid "HB critical unknown error"
 msgstr ""
 
-#: core/modules/class-critical-css.php:1509
+#: core/modules/class-critical-css.php:1508
 msgid "<em> Error: "
 msgstr ""
 
-#: core/modules/class-critical-css.php:1512
+#: core/modules/class-critical-css.php:1511
 #. translators: %1$s = error message.
 msgid "<br />%1$s"
 msgstr ""
 
-#: core/modules/class-critical-css.php:1534
+#: core/modules/class-critical-css.php:1533
 #. translators: %1$s = message.
 msgid ""
 "Critical CSS generation failed. Please review the below error to "
 "troubleshoot.%1$s"
 msgstr ""
 
-#: core/modules/class-critical-css.php:1612
+#: core/modules/class-critical-css.php:1611
 msgid "Optimizing "
 msgstr ""
 
-#: core/modules/class-critical-css.php:1615
+#: core/modules/class-critical-css.php:1614
 msgid "Generating Critical CSS, this could take about a minute."
 msgstr ""
 
-#: core/modules/class-critical-css.php:1618 languages/react.php:929
+#: core/modules/class-critical-css.php:1617 languages/react.php:929
 msgid "Optimized"
 msgstr ""
 
-#: core/modules/class-critical-css.php:1618
+#: core/modules/class-critical-css.php:1617
 msgid "Error"
 msgstr ""
 
-#: core/modules/class-critical-css.php:1621
+#: core/modules/class-critical-css.php:1620
 msgid "Last Generated: "
 msgstr ""
 
-#: core/modules/class-critical-css.php:1623
+#: core/modules/class-critical-css.php:1622
 msgid "Unoptimized"
 msgstr ""
 
-#: core/modules/class-critical-css.php:1626
+#: core/modules/class-critical-css.php:1625
 msgid "Select settings and saves changes to generate Critical CSS"
 msgstr ""
 
-#: core/modules/class-critical-css.php:1631
+#: core/modules/class-critical-css.php:1630
 #. translators: %1$s = tooltip text, %2$s = sui tag, %3$s = info icon, %4$s =
 #. text for tag.
 msgid ""

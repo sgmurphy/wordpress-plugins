@@ -3,6 +3,7 @@
 namespace CTXFeed\V5\API\V1;
 
 use CTXFeed\V5\API\RestController;
+use CTXFeed\V5\Common\Helper;
 use CTXFeed\V5\Helper\FeedHelper;
 use CTXFeed\V5\Merchant\TemplateConfig;
 use CTXFeed\V5\Query\WCQuery;
@@ -131,6 +132,24 @@ class DropDown extends RestController {
 				],
 			]
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/composite_plugins',
+			[
+				/**
+				 * @endpoint: wp-json/ctxfeed/v1/drop_down/initial_feed_rules
+				 *
+				 * @param $template String  feed template name.
+				 */
+				[
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => [ $this, 'get_initialed_composite_plugins' ],
+					'permission_callback' => [ $this, 'get_item_permissions_check' ],
+					'args'                => [],
+				],
+			]
+		);
 	}
 
 
@@ -248,6 +267,13 @@ class DropDown extends RestController {
 		$this->response['data'] = TemplateConfig::getMultiple( $templates );
 		$response               = $this->success( $this->response['data'] );
 		$response->header( 'X-WP-Total', count( $this->response['data'] ) );
+
+		return $response;
+	}
+
+	public function get_initialed_composite_plugins( $request ) {
+		$this->response['data'] = Helper::ctx_feed_has_composite_product_plugin();
+		$response               = $this->success( $this->response['data'] );
 
 		return $response;
 	}

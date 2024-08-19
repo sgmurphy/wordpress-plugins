@@ -21,6 +21,8 @@
  * @var array         $settings            Settings array.
  */
 
+use Hummingbird\Core\Utils;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -36,7 +38,13 @@ if ( is_wp_error( $error ) ) {
 		$notice = esc_html__( 'Page caching is currently active. You are storing your assets on the CDN in the Asset Optimization module. Hummingbird will automatically purge your cache when assets on the CDN expire (after every two months).', 'wphb' );
 	}
 
-	$this->admin_notices->show_inline( $notice );
+	$notice_type = 'success';
+	if ( ! Utils::is_member() && Utils::is_site_hosted_on_wpmudev() ) {
+		$notice      = esc_html__( 'Local page caching is currently active. To switch to Static Server Cache, please connect the WPMU Dev Dashboard plugin.', 'wphb' );
+		$notice_type = 'warning';
+	}
+
+	$this->admin_notices->show_inline( $notice, $notice_type );
 }
 ?>
 

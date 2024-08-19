@@ -14,6 +14,7 @@
  * @var string $preconnect            Preconnect URLs.
  * @var bool   $woo_active            Is WooCommerce activated.
  * @var string $woo_link              Link to WooCommerce Settings - Products page.
+ * @var bool   $viewport_meta         Viewport meta tag enabled or disabled.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,6 +30,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <?php do_action( 'wphb_advanced_tools_notice' ); ?>
+
+<div class="sui-box-settings-row">
+	<div class="sui-box-settings-col-1">
+		<span class="sui-settings-label"><?php esc_html_e( 'Viewport Meta Optimization', 'wphb' ); ?></span>
+		<span class="sui-description">
+			<?php esc_html_e( 'Automatically set the viewport meta tag on your site for improved mobile responsiveness and Core Web Vitals scores.', 'wphb' ); ?>
+		</span>
+	</div>
+	<div class="sui-box-settings-col-2">
+		<div class="sui-form-field">
+			<label for="viewport_meta" class="sui-toggle">
+				<input type="checkbox" name="viewport_meta" id="viewport_meta" aria-labelledby="viewport-meta-label" <?php checked( $viewport_meta ); ?> >
+				<span class="sui-toggle-slider" aria-hidden="true"></span>
+				<span id="viewport-meta-label" class="sui-toggle-label"><?php esc_html_e( 'Enable Viewport Meta Tag', 'wphb' ); ?><span class="sui-tag sui-tag-green sui-tag-sm" style="margin-left: 10px;vertical-align: middle;"><?php esc_html_e( 'NEW', 'wphb' ); ?></span></span>
+			</label>
+		</div>
+	</div>
+</div>
 
 <?php if ( ! apply_filters( 'wphb_query_strings_disabled', false ) ) : ?>
 	<div class="sui-box-settings-row">

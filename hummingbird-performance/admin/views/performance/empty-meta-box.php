@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	<?php } ?>
 
-	<button role="button" class="sui-button sui-button-blue" id="run-performance-test">
+	<button role="button" class="sui-button sui-button-blue" id="run-performance-test" data-location='test_page_new'>
 		<?php esc_html_e( 'Test my website', 'wphb' ); ?>
 	</button>
 </div>

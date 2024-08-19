@@ -248,7 +248,7 @@ class BlockParser
         $hasTextColor = Arr::get($data, 'attrs.style.color.text') || Arr::get($data, 'attrs.textColor');
 
         $btn_wrapper_class = $defaultClass . ' ';
-        if (!$backgroundColor && $defaultClass != 'is-style-outline') {
+        if (!$backgroundColor && strpos($defaultClass, 'is-style-outline') !== true) {
             $btn_wrapper_class .= 'fc_d_btn_bg ';
             $backgroundColor = '#32373c';
         }
@@ -257,29 +257,18 @@ class BlockParser
             $btn_wrapper_class .= 'fc_d_btn_color ';
         }
 
-        $additionalStyle = '';
-        if ($defaultClass == 'is-style-outline') {
+        if (strpos($defaultClass, 'is-style-outline') !== false) {
+            $backgroundColor = Arr::get($data, 'attrs.style.color.background');
             if (!$backgroundColor) {
                 $backgroundColor = 'white';
             }
-            $textColor = Arr::get($data, 'attrs.style.color.text');
-            if (!$textColor) {
-                $textColorName = Arr::get($data, 'attrs.textColor');
-                $textColor = Helper::getColorSchemeValue($textColorName);
-            }
-
-            if (!$textColor) {
-                $textColor = '#000000';
-            }
-
-            $additionalStyle = 'border: 1px solid ' . $textColor;
         }
 
         $borderRadius = Arr::get($data, 'attrs.style.border.radius', '0px');
 
         $content = trim(preg_replace("/<\/?div[^>]*\>/i", "", $content));
 
-        $td = '<td class="fc_btn ' . trim($btn_wrapper_class) . '" align="center" style="border-radius: ' . $borderRadius . '; ' . $additionalStyle . '" bgcolor="' . $backgroundColor . '">';
+        $td = '<td class="fc_btn ' . trim($btn_wrapper_class) . '" align="center" style="border-radius: ' . $borderRadius . ';" bgcolor="' . $backgroundColor . '" border-radius="30px">';
 
         $align = Arr::get($data, 'parent_attrs.parent_attrs.layout.justifyContent', 'center');
 

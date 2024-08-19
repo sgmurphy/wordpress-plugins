@@ -78,6 +78,8 @@ $router->prefix('subscribers')->withPolicy('SubscriberPolicy')->group(function (
     $router->get('{id}/tracking-events', 'SubscriberController@getTrackingEvents')->int('id');
     $router->post('track-event', 'SubscriberController@trackEvent');
 
+    $router->get('{id}/url-metrics', 'SubscriberController@getUrlMetrics')->int('id');
+
 });
 
 $router->prefix('campaigns')->withPolicy('CampaignPolicy')->group(function ($router) {
@@ -203,6 +205,7 @@ $router->prefix('reports')->withPolicy('ReportPolicy')->group(function ($router)
     $router->get('options', 'OptionsController@index');
     $router->get('ajax-options', 'OptionsController@getAjaxOptions');
     $router->get('taxonomy-terms', 'OptionsController@getTaxonomyTerms');
+    $router->get('cascade_selections', 'OptionsController@getCascadeSelections');
 
     $router->get('emails', 'ReportingController@getEmails');
     $router->delete('emails', 'ReportingController@deleteEmails');

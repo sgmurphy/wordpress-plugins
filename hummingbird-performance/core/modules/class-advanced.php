@@ -114,6 +114,28 @@ class Advanced extends Module {
 		}
 
 		add_filter( 'wp_revisions_to_keep', array( $this, 'set_revisions_to_keep' ), 10, 2 );
+		add_filter( 'wphb_buffer', array( $this, 'wphb_add_viewport_meta_tag' ) );
+	}
+
+	/**
+	 * Add viewport meta tag to the HTML content.
+	 *
+	 * @param string $html HTML content.
+	 *
+	 * @return string
+	 */
+	public function wphb_add_viewport_meta_tag( $html ) {
+		$options = Settings::get_settings( 'advanced' );
+		if ( isset( $options['viewport_meta'] ) && $options['viewport_meta'] ) {
+			// Define the regex pattern for the viewport meta tag.
+			$pattern = '/<meta[^>]*name=["\']viewport["\'][^>]*>/i';
+			// Search for the viewport meta tag in the HTML content.
+			if ( ! preg_match( $pattern, $html ) ) {
+				$html = preg_replace( '#<head>#iU', '<head> <meta name="viewport" content="width=device-width, initial-scale=1">', $html, 1 );
+			}
+		}
+
+		return $html;
 	}
 
 	/**

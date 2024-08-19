@@ -3,6 +3,8 @@
 
 namespace WpAssetCleanUp;
 
+use WpAssetCleanUp\Admin\Overview;
+use WpAssetCleanUp\Admin\SettingsAdmin;
 use WpAssetCleanUp\OptimiseAssets\OptimizeCommon;
 
 /**
@@ -30,7 +32,7 @@ class Maintenance
 		}
 
 		add_action('init', static function() {
-			if ( is_user_logged_in() && Menu::userCanManageAssets() ) {
+			if ( is_user_logged_in() && Menu::userCanAccessAssetCleanUp() ) {
 				Maintenance::combineNewOptionUpdate(); // Since v1.1.7.3 (Pro) & v1.3.6.4 (Lite)
 			}
 		});
@@ -60,7 +62,7 @@ class Maintenance
 	public function scheduleTrigger()
 	{
 		// Debugging purposes: trigger directly the code meant to be scheduled
-		if (current_user_can('administrator')) {
+		if (Menu::userCanAccessAssetCleanUp()) {
 			if (isset($_GET['wpacu_toggle_inline_code_to_combined_assets'])) {
 				self::updateAppendOrNotInlineCodeToCombinedAssets(true);
 			}
@@ -179,7 +181,7 @@ class Maintenance
 
 		if ( ($pluginSettings['combine_loaded_css'] === 'for_admin' ||
 		     (isset($pluginSettings['combine_loaded_css_for_admin_only']) && $pluginSettings['combine_loaded_css_for_admin_only'] == 1) )
-		    && Menu::userCanManageAssets() ) {
+		    && Menu::userCanAccessAssetCleanUp() ) {
             $settingsAdminClass = new SettingsAdmin();
             $settingsAdminClass->updateOption('combine_loaded_css', '');
             $settingsAdminClass->updateOption('combine_loaded_css_for_admin_only', '');
@@ -187,7 +189,7 @@ class Maintenance
 
 		if ( ($pluginSettings['combine_loaded_js'] === 'for_admin' ||
 		     (isset($pluginSettings['combine_loaded_js_for_admin_only']) && $pluginSettings['combine_loaded_js_for_admin_only'] == 1) )
-		    && Menu::userCanManageAssets() ) {
+		    && Menu::userCanAccessAssetCleanUp() ) {
             $settingsAdminClass = new SettingsAdmin();
             $settingsAdminClass->updateOption('combine_loaded_js', '');
             $settingsAdminClass->updateOption('combine_loaded_js_for_admin_only', '');

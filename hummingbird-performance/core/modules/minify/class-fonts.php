@@ -33,9 +33,23 @@ class Fonts {
 	 * @since  3.8.0
 	 */
 	public function __construct() {
-		add_filter( 'wphb_buffer', array( $this, 'wphb_preload_fonts' ) );
+		add_filter( 'wphb_buffer', array( $this, 'wphb_process_buffer' ), 9999 );
 		add_filter( 'wphb_minify_file_content', array( $this, 'wphb_minify_file_content' ), 10, 4 );
 		add_filter( 'wp_hummingbird_default_options', array( $this, 'wp_hummingbird_default_options' ) );
+	}
+
+	/**
+	 * Process the buffer.
+	 *
+	 * @param string $html Buffer content.
+	 *
+	 * @return string
+	 */
+	public function wphb_process_buffer( $html ) {
+		$html = $this->add_font_display_swap_to_all_font_faces( $html );
+		$html = $this->wphb_preload_fonts( $html );
+
+		return $html;
 	}
 
 	/**

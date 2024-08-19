@@ -72,8 +72,24 @@ class TRP_Translate_PressCompatibility {
 				'woo_feed_filter_product_yoast_wpseo_title',
 				'woo_feed_filter_product_rank_math_title',
 				'woo_feed_filter_product_aioseop_title',
+
+				'woo_feed_get_google_g:color_attribute',
+				'woo_feed_get_google_color_attribute',
+				'woo_feed_get_google_g:brand_attribute',
+				'woo_feed_get_google_brand_attribute',
 			)
 		);
+
+		$category = apply_filters(
+			'woo_feed_translatepress_attributes_filters_list',
+			array(
+				'woo_feed_filter_product_categories',
+				'woo_feed_filter_product_primary_category' )
+			);
+
+		foreach ( $category as $category_filter ) {
+			add_filter( $category_filter, array( $this, 'trp_category_translate_strings' ), 999, 3 );
+		}
 
 		$filters_description_with_param_3 = apply_filters(
 			'woo_feed_translatepress_attributes_filters_list',
@@ -94,6 +110,8 @@ class TRP_Translate_PressCompatibility {
 		foreach ( $filters_description_with_param_3 as $filter ) {
 			add_filter( $filter, array( $this, 'trp_translate_strings' ), 999, 3 );
 		}
+
+//		add_filter( 'woo_feed_filter_product_categories', array( $this, 'trp_category_translate_strings' ), 999, 3 );
 
 		/**
 		 * Apply the filter if any of the attribute is not translated by translatepress.
@@ -310,6 +328,34 @@ class TRP_Translate_PressCompatibility {
 		return $output;
 
 	}
+	public function trp_category_translate_strings( $output, $product, $config ) { // phpcs:ignore
+		$original_output        = $output;
+		$genreArray = explode(">", $output);
+		if( is_array( $genreArray ) &&  count( $genreArray )> 0 ){
+			$translated = [];
+			foreach ( $genreArray as $values ){
+				$strings               = self::get_translatable_strings( $values );
+				$strings                = array_map( 'trp_full_trim', $strings );
+				$translated_strings_new = $this->translatepress_renderer->process_strings( array_values( $strings ), $config->get_feed_language() );
+				// If the translated strings array is not empty then implode the array with space.
+				$get_output = '';
+				if ( is_array( $translated_strings_new ) && count( $translated_strings_new ) ) {
+					$values = implode( ' ', $translated_strings_new );
+					$values = trim( $values );
+				}
+				$translated[] = $values;
+			}
+			if( count( $translated )){
+				$output = implode(" > ", $translated );
+			}
+		}
+		if ( $output == '' ) {
+			$output = $original_output;
+		}
+
+		return $output;
+
+	}
 
 
 	/**
@@ -371,7 +417,7 @@ class TRP_Translate_PressCompatibility {
 		$slug            = $this->get_url_slug( $feed_language );
 
 		// If the url is not translated then add the slug at the end of the url.
-		if ( count( $exploded_output ) > 1 && false === strpos( $exploded_output[1], $slug ) ) {
+		if ( is_array( $exploded_output ) && count( $exploded_output ) > 1 && false === strpos( $exploded_output[1], $slug ) ) {
 			$output = home_url() . $this->get_url_slug( $feed_language ) . $exploded_output[1];
 		}
 
@@ -390,6 +436,8 @@ class TRP_Translate_PressCompatibility {
 
 		if ( $slug ) {
 			$slug = '/' . $slug;
+		}else{
+			$slug = '';
 		}
 
 		return $slug;

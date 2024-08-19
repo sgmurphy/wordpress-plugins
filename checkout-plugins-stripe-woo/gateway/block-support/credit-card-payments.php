@@ -133,7 +133,7 @@ final class Credit_Card_Payments extends AbstractPaymentMethodType {
 				'stripe_cc_nonce'    => wp_create_nonce( 'stripe_cc_nonce' ),
 				'inline_cc'          => Helper::get_setting( 'inline_cc', 'cpsw_stripe' ),
 				'allowed_cards'      => Helper::get_setting( 'allowed_cards', 'cpsw_stripe' ),
-				'order_button_text'  => Helper::get_setting( 'order_button_text', 'cpsw_stripe' ),
+				'order_button_text'  => Helper::get_order_button_text( 'cpsw_stripe' ),
 				'features'           => $this->features,
 			];
 

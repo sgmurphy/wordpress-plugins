@@ -5,6 +5,9 @@
  * @package Welcart
  */
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+// phpcs:disable WordPress.PHP.DevelopmentFunctions, WordPress.PHP.NoSilencedErrors
+
 /**
  * Front scripts.
  */
@@ -535,7 +538,47 @@ function wel_is_first_install() {
 	} else {
 		return true;
 	}
+}
 
+/**
+ * Get the circulation amount in the last month.
+ *
+ * @return int
+ */
+function wel_get_circulating_amount() {
+	global $wpdb;
+
+	$current_time    = current_time( 'timestamp' );
+	$last_month_time = strtotime( 'first day of last month 00:00:00', $current_time );
+	$last_month      = wp_date( 'Y-m-d H:i:s', $last_month_time );
+	$this_month_time = strtotime( 'first day of this month 00:00:00', $current_time );
+	$this_month      = wp_date( 'Y-m-d H:i:s', $this_month_time );
+
+	$table_name = $wpdb->prefix . 'usces_order';
+	$result     = $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT SUM(
+				order_item_total_price + order_shipping_charge + order_cod_fee + order_tax - order_usedpoint + order_discount
+			    ) AS total_full_price
+			FROM {$table_name}
+			WHERE order_status NOT LIKE %s
+			AND order_status NOT LIKE %s
+			AND order_status NOT LIKE %s
+			AND order_date >= %s
+			AND order_date < %s",
+			'%%mitumori%%',
+			'%%cancel%%',
+			'%%pending%%',
+			$last_month,
+			$this_month
+		)
+	);
+
+	if ( $result ) {
+		return $result;
+	} else {
+		return 0;
+	}
 }
 
 /**

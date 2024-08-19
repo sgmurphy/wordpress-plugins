@@ -32,29 +32,20 @@ final class Builder {
         add_action( 'show_admin_bar', array($this, 'hide_admin_bar_from_preview') );
 
         return $this;
-
     }
 
     public static function is_gslogo_shortcode_preview() {
-
         return isset( $_REQUEST['gslogo_shortcode_preview'] ) && !empty($_REQUEST['gslogo_shortcode_preview']);
-
     }
 
     public function hide_admin_bar_from_preview( $visibility ) {
-
         if ( $this->is_gslogo_shortcode_preview() ) return false;
-
         return $visibility;
-
     }
 
     public function add_shortcode_body_class( $classes ) {
-
         if ( $this->is_gslogo_shortcode_preview() ) return array_merge( $classes, array( 'gslogo-shortcode-preview--page' ) );
-
         return $classes;
-
     }
 
     public function populate_shortcode_preview( $template ) {
@@ -150,7 +141,6 @@ final class Builder {
     }
 
     public function view() {
-
         include_once GSL_PLUGIN_DIR . 'includes/shortcode-builder/page.php';
     }
 
@@ -564,6 +554,9 @@ final class Builder {
             'gs-l-theme' => __('Style & Theming', 'gslogo'),
             'gs-l-theme--placeholder' => __('Select Theme', 'gslogo'),
             'gs-l-theme--help' => __('Select preferred Style & Theme', 'gslogo'),
+            
+            'enable_single_page' => __('Enable Single Pages', 'gslogo'),
+            'enable_single_page-details' => __('Enable Single Pages for logos', 'gslogo'),
             
             'disable_lazy_load' => __('Disable Lazy Load', 'gslogo'),
             'disable_lazy_load-details' => __('Disable Lazy Load for logos', 'gslogo'),
@@ -1008,10 +1001,11 @@ final class Builder {
 
     public function get_shortcode_default_prefs() {
         return [
-            'gs_logo_slider_custom_css' => '',
+            'enable_single_page' => 'off',
             'disable_lazy_load' => 'off',
             'lazy_load_class' => 'skip-lazy',
-            'anchor_tag_rel' => 'noopener'
+            'anchor_tag_rel' => 'noopener',
+            'gs_logo_slider_custom_css' => ''
         ];
     }
 
@@ -1092,71 +1086,74 @@ final class Builder {
         ];
     }
 
-    public function _save_shortcode_pref( $nonce, $settings, $is_ajax ) {
+    public function _save_shortcode_pref( $nonce, $prefs, $is_ajax ) {
 
         if ( ! wp_verify_nonce( $nonce, '_gslogo_save_shortcode_pref_gs_') ) {
             if ( $is_ajax ) wp_send_json_error( __('Unauthorised Request', 'gslogo'), 401 );
             return false;
         }
 
-        // Maybe add validation?
-        update_option( $this->option_name, $settings, 'yes' );
+        $prefs = $this->validate_preference( $prefs );
+        update_option( $this->option_name, $prefs, 'yes' );
         
         // Clean permalink flush
         delete_option( 'GS_Logo_Slider_plugin_permalinks_flushed' );
-
         do_action( 'gs_logo_preference_update' );
-
         do_action( 'gsp_preference_update' );
     
         if ( $is_ajax ) wp_send_json_success( __('Preference saved', 'gslogo') );
-
     }
 
     public function save_shortcode_pref( $nonce = null ) {
-
         if ( ! $nonce ) {
             $nonce = wp_create_nonce('_gslogo_save_shortcode_pref_gs_');
         }
-
         if ( empty($_POST['prefs']) ) {
             wp_send_json_error( __('No preference provided', 'gslogo'), 400 );
         }
-
-        $prefs = $this->validate_preference( $_POST['prefs'] );
-
-        $this->_save_shortcode_pref( $nonce, $prefs, true );
-
+        $this->_save_shortcode_pref( $nonce, $_POST['prefs'], true );
     }
 
     public function validate_preference( $settings ) {
-        $settings['gs_logo_slider_custom_css'] = wp_strip_all_tags( $settings['gs_logo_slider_custom_css'] );
+
+        $defaults = $this->get_shortcode_default_prefs();
+        $settings = shortcode_atts( $defaults, $settings );
+
+        $settings['enable_single_page']        = sanitize_text_field( $settings['enable_single_page'] );
         $settings['disable_lazy_load']         = sanitize_text_field( $settings['disable_lazy_load'] );
         $settings['lazy_load_class']           = sanitize_text_field( $settings['lazy_load_class'] );
+        $settings['gs_logo_slider_custom_css'] = wp_strip_all_tags( $settings['gs_logo_slider_custom_css'] );
+
         return $settings;
     }
 
+    /**
+     * Returns option based on the option key.
+     * 
+     * @since  2.0.12
+     * 
+     * @param string $option  The option key.
+     * @param string $default The default value incase doesn't get the actual value.
+     * 
+     * @return mixed option value.
+     */
+    public function get( $option, $default = '' ) {
+        $options = $this->_get_shortcode_pref( false );
+        if ( isset( $options[ $option ] ) ) {
+            return $options[ $option ];
+        }
+        return $default;
+    }
+
     public function _get_shortcode_pref( $is_ajax ) {
-
-        $pref = get_option( $this->option_name );
-
-        if ( empty($pref) ) {
-            $pref = $this->get_shortcode_default_prefs();
-            $this->_save_shortcode_pref( wp_create_nonce('_gslogo_save_shortcode_pref_gs_'), $pref, false );
-        }
-
-        if ( $is_ajax ) {
-            wp_send_json_success( $pref );
-        }
-
-        return $pref;
-
+        $prefs = get_option( $this->option_name, [] );
+        $prefs = $this->validate_preference( $prefs );
+        if ( $is_ajax ) wp_send_json_success( $prefs );
+        return $prefs;
     }
 
     public function get_shortcode_pref() {
-
         return $this->_get_shortcode_pref( wp_doing_ajax() );
-
     }
 
     static function maybe_create_shortcodes_table() {

@@ -472,4 +472,11 @@ class Helper
 		return apply_filters('ctx_feed_should_init_new_cron_system', $should_init_new_cron_system);
 	}
 
+	public static function ctx_feed_has_composite_product_plugin() {
+		return (
+			class_exists( 'WC_Product_Composite', false ) ||
+			class_exists( 'WC_Product_Yith_Composite', false )
+		);
+	}
+
 }

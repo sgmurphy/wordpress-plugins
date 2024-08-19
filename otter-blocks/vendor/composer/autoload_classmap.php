@@ -220,6 +220,7 @@ return array(
     'Stripe\\Service\\BillingPortal\\BillingPortalServiceFactory' => $vendorDir . '/stripe/stripe-php/lib/Service/BillingPortal/BillingPortalServiceFactory.php',
     'Stripe\\Service\\BillingPortal\\ConfigurationService' => $vendorDir . '/stripe/stripe-php/lib/Service/BillingPortal/ConfigurationService.php',
     'Stripe\\Service\\BillingPortal\\SessionService' => $vendorDir . '/stripe/stripe-php/lib/Service/BillingPortal/SessionService.php',
+    'Stripe\\Service\\Billing\\AlertService' => $vendorDir . '/stripe/stripe-php/lib/Service/Billing/AlertService.php',
     'Stripe\\Service\\Billing\\BillingServiceFactory' => $vendorDir . '/stripe/stripe-php/lib/Service/Billing/BillingServiceFactory.php',
     'Stripe\\Service\\Billing\\MeterEventAdjustmentService' => $vendorDir . '/stripe/stripe-php/lib/Service/Billing/MeterEventAdjustmentService.php',
     'Stripe\\Service\\Billing\\MeterEventService' => $vendorDir . '/stripe/stripe-php/lib/Service/Billing/MeterEventService.php',

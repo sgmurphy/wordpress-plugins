@@ -2384,6 +2384,10 @@ div.step {
     margin-right: 10px;
 }
 
+#ays_submit_top.ays-quiz-submit-button-margin-unset {
+    margin-left: 0px;
+}
+
 .ays-quiz-add-new-button {
     margin-left: 10px !important;
     margin-right: 10px !important;
@@ -6778,9 +6782,11 @@ a.ays-quick-quiz-add-question:hover {
     text-decoration: none;
     font-size: 13px;
     font-weight: 700;
-    color: #0B328E;
+    /*color: #0B328E;*/
     padding: 5px 15px;
     border-radius: 20px;
+    color: #fff;
+    background-color: #2275EA;
 }
 
 .ays-quiz-logo-container-upgrade span.ays-quiz-logo-container-one-time-text{
@@ -6816,17 +6822,17 @@ a.ays-quick-quiz-add-question:hover {
 
 .ays-quiz-upgrade-container a:hover {
     color: white;
-    background-color: #2275EA;
+    background-color: #0056cf;
 }
 
 .ays-quiz-upgrade-container a:focus {
     box-shadow: unset;
 }
 
-.ays-quiz-svg-light-hover,
+/*.ays-quiz-svg-light-hover,
 .ays-quiz-upgrade-container a:hover img:not(.ays-quiz-svg-light-hover){
     display: none;
-}
+}*/
 
 .ays-quiz-upgrade-container a:hover .ays-quiz-svg-light-hover{
     display: flex;

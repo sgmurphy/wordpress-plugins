@@ -495,12 +495,14 @@ class PurchaseHistory
                                     ->where('customer_id', 0);
                             });
                     })
+                    ->orderBy('id', 'DESC')
                     ->get();
             } else {
                 $hposOrders = fluentCrmDb()->table('wc_orders')
                     ->select(['id'])
                     ->where('billing_email', $email)
                     ->where('customer_id', 0)
+                    ->orderBy('id', 'DESC')
                     ->get();
             }
 
@@ -516,7 +518,6 @@ class PurchaseHistory
                 }
             }
 
-            ksort($orders);
             return array_values($orders);
         }
 

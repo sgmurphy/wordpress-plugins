@@ -28,9 +28,16 @@ function webp_uploads_wrap_image_in_picture( string $image, string $context, int
 		return $image;
 	}
 
+	$image_sizes = $image_meta['sizes'];
+
+	// Append missing full size image in $image_sizes array for srcset.
+	if ( isset( $image_meta['sources'], $image_meta['width'], $image_meta['height'] ) ) {
+		array_unshift( $image_sizes, $image_meta );
+	}
+
 	// Collect all the sub size image mime types.
 	$mime_type_data = array();
-	foreach ( $image_meta['sizes'] as $size ) {
+	foreach ( $image_sizes as $size ) {
 		if ( isset( $size['sources'] ) && isset( $size['width'] ) && isset( $size['height'] ) ) {
 			foreach ( $size['sources'] as $mime_type => $data ) {
 				$mime_type_data[ $mime_type ]                         = $mime_type_data[ $mime_type ] ?? array();
@@ -41,15 +48,22 @@ function webp_uploads_wrap_image_in_picture( string $image, string $context, int
 	}
 	$sub_size_mime_types = array_keys( $mime_type_data );
 
+	// If original image type fallback is not available, don't wrap in picture element.
+	if ( ! in_array( $original_file_mime_type, $sub_size_mime_types, true ) ) {
+		return $image;
+	}
+
 	/**
 	 * Filter the image mime types that can be used for the <picture> element.
 	 *
-	 * Default is: ['image/avif', 'image/webp', 'image/jpeg']. Returning an empty array will skip using the `picture` element.
+	 * Default is: ['image/avif', 'image/webp']. Returning an empty array will skip using the `picture` element.
 	 *
 	 * The mime types will output in the picture element in the order they are provided.
 	 * The original image will be used as the fallback image for browsers that don't support the picture element.
 	 *
 	 * @since 2.0.0
+	 * @since 2.1.0 The default value was updated, removing 'image/jpeg'.
+	 *
 	 * @param string[] $mime_types    Mime types than can be used.
 	 * @param int      $attachment_id The id of the image being evaluated.
 	 */
@@ -58,7 +72,6 @@ function webp_uploads_wrap_image_in_picture( string $image, string $context, int
 		array(
 			'image/avif',
 			'image/webp',
-			'image/jpeg',
 		),
 		$attachment_id
 	);
@@ -95,12 +108,10 @@ function webp_uploads_wrap_image_in_picture( string $image, string $context, int
 	list( $src, $width, $height ) = $image_src;
 	$size_array                   = array( absint( $width ), absint( $height ) );
 
-	foreach ( $mime_types as $image_mime_type ) {
-		$sizes = wp_calculate_image_sizes( $size_array, $src, $image_meta, $attachment_id );
-		if ( false === $sizes ) {
-			continue;
-		}
+	// Get the sizes from the IMG tag.
+	$sizes = $processor->get_attribute( 'sizes' );
 
+	foreach ( $mime_types as $image_mime_type ) {
 		// Filter core's wp_get_attachment_image_srcset to return the sources for the current mime type.
 		$filter = static function ( $sources ) use ( $mime_type_data, $image_mime_type ): array {
 			$filtered_sources = array();
@@ -124,10 +135,10 @@ function webp_uploads_wrap_image_in_picture( string $image, string $context, int
 			continue;
 		}
 		$picture_sources .= sprintf(
-			'<source type="%s" srcset="%s" sizes="%s">',
+			'<source type="%s"%s%s>',
 			esc_attr( $image_mime_type ),
-			esc_attr( $image_srcset ),
-			esc_attr( $sizes )
+			is_string( $image_srcset ) ? sprintf( ' srcset="%s"', esc_attr( $image_srcset ) ) : '',
+			is_string( $sizes ) ? sprintf( ' sizes="%s"', esc_attr( $sizes ) ) : ''
 		);
 	}
 

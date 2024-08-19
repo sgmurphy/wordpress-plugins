@@ -4,6 +4,7 @@ namespace FluentCrm\App\Http\Controllers;
 
 use FluentCrm\App\Hooks\Handlers\PurchaseHistory;
 use FluentCrm\App\Models\CampaignEmail;
+use FluentCrm\App\Models\CampaignUrlMetric;
 use FluentCrm\App\Models\Company;
 use FluentCrm\App\Models\CustomEmailCampaign;
 use FluentCrm\App\Models\EventTracker;
@@ -556,10 +557,10 @@ class SubscriberController extends Controller
         $result = is_array($result) ? $result : func_get_args();
 
         foreach ($result as $key => $row) {
-            $result[$key]            = array_map('maybe_unserialize', (array) $row);
-            $result[$key]['id']      = (int)$result[$key]['id'];
+            $result[$key] = array_map('maybe_unserialize', (array)$row);
+            $result[$key]['id'] = (int)$result[$key]['id'];
             $result[$key]['retries'] = (int)$result[$key]['retries'];
-            $result[$key]['from']    = htmlspecialchars($result[$key]['from']);
+            $result[$key]['from'] = htmlspecialchars($result[$key]['from']);
             $result[$key]['subject'] = wp_kses_post(wp_unslash($result[$key]['subject']));
         }
 
@@ -926,13 +927,13 @@ class SubscriberController extends Controller
             Helper::deleteContacts($subscriberIds);
             return $this->sendSuccess([
                 'completed_contacts' => count($subscriberIds),
-                'last_contact_id' => $lastContactId,
+                'last_contact_id'    => $lastContactId,
                 'message'            => __('Selected Contacts has been deleted permanently', 'fluent-crm'),
             ]);
         } elseif ($actionName == 'send_double_optin') {
             Helper::sendDoubleOptin($subscriberIds);
             return $this->sendSuccess([
-                'last_contact_id' => $lastContactId,
+                'last_contact_id'    => $lastContactId,
                 'completed_contacts' => count($subscriberIds),
                 'message'            => __('Double optin sent to selected contacts', 'fluent-crm'),
             ]);
@@ -963,7 +964,7 @@ class SubscriberController extends Controller
             if ($validSubscribers->isEmpty()) {
                 if ($doingAllBulk) {
                     return $this->sendSuccess([
-                        'last_contact_id' => $lastContactId,
+                        'last_contact_id'    => $lastContactId,
                         'completed_contacts' => count($subscriberIds),
                         'message'            => __('No valid active subscribers found for this chunk', 'fluent-crm')
                     ]);
@@ -975,7 +976,7 @@ class SubscriberController extends Controller
 
             $sequence->subscribe($validSubscribers);
             return [
-                'last_contact_id' => $lastContactId,
+                'last_contact_id'    => $lastContactId,
                 'completed_contacts' => count($subscriberIds),
                 'message'            => sprintf(__('%d subscribers has been attached to the selected email sequence', 'fluent-crm'), count($validSubscribers))
             ];
@@ -1001,7 +1002,7 @@ class SubscriberController extends Controller
 
                 if ($doingAllBulk) {
                     return $this->sendSuccess([
-                        'last_contact_id' => $lastContactId,
+                        'last_contact_id'    => $lastContactId,
                         'completed_contacts' => count($subscriberIds),
                         'message'            => __('No valid active subscribers found for this chunk', 'fluent-crm')
                     ]);
@@ -1022,7 +1023,7 @@ class SubscriberController extends Controller
                 }
             }
             return [
-                'last_contact_id' => $lastContactId,
+                'last_contact_id'    => $lastContactId,
                 'completed_contacts' => count($subscriberIds),
                 'message'            => sprintf(__('%d subscribers has been attached to the selected company', 'fluent-crm'), count($validSubscribers))
             ];
@@ -1048,7 +1049,7 @@ class SubscriberController extends Controller
 
                 if ($doingAllBulk) {
                     return $this->sendSuccess([
-                        'last_contact_id' => $lastContactId,
+                        'last_contact_id'    => $lastContactId,
                         'completed_contacts' => count($subscriberIds),
                         'message'            => __('No valid active subscribers found for this chunk', 'fluent-crm')
                     ]);
@@ -1069,7 +1070,7 @@ class SubscriberController extends Controller
                 }
             }
             return [
-                'last_contact_id' => $lastContactId,
+                'last_contact_id'    => $lastContactId,
                 'completed_contacts' => count($subscriberIds),
                 'message'            => sprintf(__('%d subscribers has been detached from the selected company', 'fluent-crm'), count($validSubscribers))
             ];
@@ -1094,7 +1095,7 @@ class SubscriberController extends Controller
             }
 
             return [
-                'last_contact_id' => $lastContactId,
+                'last_contact_id'    => $lastContactId,
                 'completed_contacts' => count($subscriberIds),
                 'message'            => __('Status has been changed for the selected subscribers', 'fluent-crm')
             ];
@@ -1125,7 +1126,7 @@ class SubscriberController extends Controller
 
                 if ($doingAllBulk) {
                     return $this->sendSuccess([
-                        'last_contact_id' => $lastContactId,
+                        'last_contact_id'    => $lastContactId,
                         'completed_contacts' => count($subscriberIds),
                         'message'            => __('No valid active subscribers found for this chunk', 'fluent-crm')
                     ]);
@@ -1143,7 +1144,7 @@ class SubscriberController extends Controller
             }
 
             return [
-                'last_contact_id' => $lastContactId,
+                'last_contact_id'    => $lastContactId,
                 'completed_contacts' => count($subscriberIds),
                 'message'            => sprintf(__('%d subscribers has been attached to the selected automation funnel', 'fluent-crm'), count($validSubscribers)),
                 'subscribers'        => $validSubscribers
@@ -1166,7 +1167,7 @@ class SubscriberController extends Controller
             }
 
             return [
-                'last_contact_id' => $lastContactId,
+                'last_contact_id'    => $lastContactId,
                 'completed_contacts' => count($subscriberIds),
                 'message'            => __('Contact Type has been updated for the selected subscribers', 'fluent-crm')
             ];
@@ -1216,7 +1217,7 @@ class SubscriberController extends Controller
         }
 
         return [
-            'last_contact_id' => $lastContactId,
+            'last_contact_id'    => $lastContactId,
             'completed_contacts' => count($subscriberIds),
             'message'            => __('Selected bulk action has been successfully completed', 'fluent-crm')
         ];
@@ -1422,5 +1423,47 @@ class SubscriberController extends Controller
             'message' => __('Event has been tracked', 'fluent-crm'),
             'id'      => $result->id
         ]);
+    }
+
+    public function getUrlMetrics(Request $request, $id)
+    {
+        $sort_by    = sanitize_sql_orderby($this->request->get('sort_by', 'id'));
+        $sort_type  = sanitize_sql_orderby($this->request->get('sort_type', 'DESC'));
+        $subscriber = Subscriber::findOrFail($id);
+
+        $urlActivityQuery = CampaignUrlMetric::with('url_stores')
+            ->where('subscriber_id', $subscriber->id)
+            ->where('type', 'click');
+        
+        // Apply custom sorting if provided
+        if (!empty($sort_by) && !empty($sort_type)) {
+            $urlActivityQuery->orderBy($sort_by, $sort_type);
+        } else {
+            $urlActivityQuery->orderBy('id', 'DESC');
+        }
+
+        $urlActivity = $urlActivityQuery->paginate();
+
+        $urlMetrics = $urlActivity->toArray();
+
+        if (!empty($urlMetrics['data'])) {
+            $urlMetrics['data'] = $this->formatUrlActivityData($urlMetrics['data']);
+        }
+
+        return [
+            'urlMetrics' => $urlMetrics
+        ];
+    }
+
+    public function formatUrlActivityData($data)
+    {
+        $result = [];
+        foreach ($data as $item) {
+            $result[] = [
+                'url'   => $item['url_stores']['url'],
+                'count' => $item['counter']
+            ];
+        }
+        return $result;
     }
 }

@@ -373,6 +373,13 @@ class SettingsController extends Controller
                 'input_title' => __('Postal Server Bounce Handler Webhook URL', 'fluent-crm'),
                 'input_info'  => __('Please paste this URL into your Postal Server\'s Webhook settings to enable Bounce Handling with FluentCRM. Please select only MessageBounced & MessageDeliveryFailed event', 'fluent-crm')
             ],
+            'smtp2go' => [
+                'label' => 'SMTP2Go',
+                'webhook_url' => get_rest_url(null, 'fluent-crm/v2/public/bounce_handler/smtp2go/handle/' . $securityCode),
+                'doc_url' => 'https://fluentcrm.com/docs/bounce-handling-with-smtp2go/',
+                'input_title' => 'SMTP2Go Bounce Handler Webhook URL',
+                'input_info' => 'Please paste this URL into your SMTP2Go\'s Webhook settings to enable Bounce Handling with FluentCRM'
+            ]
         ];
 
         $data = [

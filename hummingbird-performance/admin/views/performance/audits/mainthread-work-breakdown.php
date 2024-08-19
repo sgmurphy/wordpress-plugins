@@ -36,12 +36,13 @@ if ( isset( $audit->score ) && 1 === $audit->score ) {
 		)
 	);
 } else {
+	$score = ! empty( $audit->score ) ? $audit->score : 0;
 	$this->admin_notices->show_inline(
 		sprintf( /* translators: %s - time to complete in seconds */
 			esc_html__( 'Your main thread took %s to complete and following is the breakdown of your main thread.', 'wphb' ),
 			esc_html( $audit->displayValue )
 		),
-		\Hummingbird\Core\Modules\Performance::get_impact_class( $audit->score )
+		\Hummingbird\Core\Modules\Performance::get_impact_class( $score )
 	);
 }
 ?>

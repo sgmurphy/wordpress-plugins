@@ -3,6 +3,8 @@
 
 namespace WpAssetCleanUp;
 
+use WpAssetCleanUp\Admin\SettingsAdminOnlyForAdmin;
+
 /**
  * Class Main
  * @package WpAssetCleanUp
@@ -246,16 +248,24 @@ SQL;
             self::$domGetType = $this->settings['dom_get_type'];
         }
 
-        // is_super_admin() has to be called in 'init' (not too early)
+        // Menu::userCanAccessAssetCleanUp() has to be called in 'init' (not too early)
         add_action('init', function() {
             // Conditions
             // 1) User has rights to manage the assets and the option is enabled in plugin's Settings
             // 2) Not an AJAX call from the Dashboard
             // 3) Not inside the Dashboard
             self::instance()->isFrontendEditView =
-              is_super_admin() && Menu::userCanManageAssets('skip_is_super_admin') && AssetsManager::instance()->frontendShow() // 1
-              && ! self::instance()->isGetAssetsCall // 2
+                Menu::userCanAccessAssetCleanUp() && AssetsManager::instance()->frontendShow() // 1
+                && ! self::instance()->isGetAssetsCall // 2
               && ! is_admin(); // 3
+
+            Main::instance()->settings = SettingsAdminOnlyForAdmin::getAnySpecifiedAdminsForAccessToAssetsManager(Main::instance()->settings);
+
+            if (self::instance()->isFrontendEditView && ! AssetsManager::currentUserCanViewAssetsList()) {
+                // Viewing the CSS/JS manager is not for every admin, as mentioned here: "Settings" -- "Plugin Usage Preferences" -- "Allow managing assets to:"
+                // The logged-in admimn is not in the particular list, thus, no CSS/JS manager will show in the front-end view
+                self::instance()->isFrontendEditView = false;
+            }
         }, 0);
     }
 
@@ -1013,7 +1023,7 @@ SQL;
             $settings = self::instance()->settings;
         }
 
-        $wpacuIsTestModeActive = ! empty($settings['test_mode']) && ! Menu::userCanManageAssets();
+        $wpacuIsTestModeActive = ! empty($settings['test_mode']) && ! Menu::userCanAccessAssetCleanUp();
 
         define('WPACU_IS_TEST_MODE_ACTIVE', $wpacuIsTestModeActive);
 

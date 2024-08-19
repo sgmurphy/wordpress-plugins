@@ -223,6 +223,8 @@ class AJAX {
 		add_action( 'wp_ajax_wphb_react_minify_toggle_delay_js', array( $this, 'minification_toggle_delay' ) );
 		// Toggle Critical CSS.
 		add_action( 'wp_ajax_wphb_react_minify_toggle_critical_css', array( $this, 'minify_toggle_critical_css' ) );
+		// Switch critical CSS.
+		add_action( 'wp_ajax_wphb_switch_to_critical_css_from_legacy', array( $this, 'wphb_switch_to_critical_css_from_legacy' ) );
 	}
 
 	/**
@@ -1980,6 +1982,7 @@ class AJAX {
 		$prefetch_dns           = $options['prefetch'];
 		$lazy_comments          = $options['lazy_load']['enabled'];
 		$preconnect             = $options['preconnect'];
+		$viewport_meta          = $options['viewport_meta'];
 
 		// General settings tab.
 		if ( 'advanced-general-settings' === $form ) {
@@ -2005,6 +2008,8 @@ class AJAX {
 			if ( isset( $data['post_revisions'] ) && $data['post_revisions'] >= 0 ) {
 				$options['post_revisions'] = $data['post_revisions'];
 			}
+
+			$options['viewport_meta'] = isset( $data['viewport_meta'] ) && 'on' === $data['viewport_meta'];
 
 			$options['prefetch'] = array();
 			if ( isset( $data['url_strings'] ) && ! empty( $data['url_strings'] ) ) {
@@ -2052,6 +2057,10 @@ class AJAX {
 
 		if ( $lazy_comments !== $options['lazy_load']['enabled'] ) {
 			$mp_events[] = array( 'lazy_comments' => $options['lazy_load']['enabled'] );
+		}
+
+		if ( $viewport_meta !== $options['viewport_meta'] ) {
+			$mp_events[] = array( 'viewport_meta' => $options['viewport_meta'] );
 		}
 
 		$adv_module->update_options( $options );
@@ -2684,5 +2693,23 @@ class AJAX {
 				'mode'             => Settings::get_setting( 'critical_css_type', 'minify' ),
 			)
 		);
+	}
+
+	/**
+	 * Switch Critical CSS.
+	 */
+	public function wphb_switch_to_critical_css_from_legacy() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) { // Input var okay.
+			die();
+		}
+
+		delete_option( 'wphb-notice-legacy-critical-css-show' );
+		if ( Utils::is_member() ) {
+			Utils::get_module( 'critical_css' )->toggle_critical_css( true );
+		}
+
+		wp_send_json_success();
 	}
 }

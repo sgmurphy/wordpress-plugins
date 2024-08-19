@@ -448,7 +448,7 @@ class Performance extends Module {
 			}
 		}
 
-		return ! empty( $performance_audit ) ? implode( ',', $performance_audit ) : 'na';
+		return ! empty( $performance_audit ) ? $performance_audit : 'na';
 	}
 
 	/** Get performance report error message if any.

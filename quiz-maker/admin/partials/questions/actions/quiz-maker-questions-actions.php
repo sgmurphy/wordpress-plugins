@@ -1,4 +1,4 @@
-<?php
+    <?php
 if(isset($_GET['tab'])){
     $ays_question_tab = sanitize_key( $_GET['tab'] );
 }else{
@@ -355,6 +355,10 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
             <h1 class="wp-heading-inline">
             <?php
                 echo $heading;
+            ?>
+            </h1>
+            <div class="ays-quiz-add-new-button-box" style="margin-bottom: 10px;">
+            <?php
                 $other_attributes = array('id' => 'ays-button-save-top');
                 submit_button(__('Save and close', $this->plugin_name), 'primary ays-button ays-quiz-loader-banner', 'ays_submit_top', false, $other_attributes);
                 $other_attributes = array('id' => 'ays-button-save-new-top');
@@ -370,7 +374,7 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                 submit_button(__('Save', $this->plugin_name), 'ays-button ays-quiz-loader-banner', 'ays_apply_top', false, $other_attributes);
                 echo $loader_iamge;
             ?>
-            </h1>
+            </div>
             <div class="nav-tab-wrapper">
                 <a href="#tab1" data-tab="tab1" class="nav-tab <?php echo ($ays_question_tab == 'tab1') ? 'nav-tab-active' : ''; ?>">
                     <?php echo __("General", $this->plugin_name);?>

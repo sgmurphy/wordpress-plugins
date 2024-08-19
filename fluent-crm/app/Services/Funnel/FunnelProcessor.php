@@ -138,10 +138,8 @@ class FunnelProcessor
                 }
             }
 
-            FunnelSubscriber::where('id', $funnelSubscriber->id)
-                ->update([
-                    'status' => 'completed'
-                ]);
+            $this->completeFunnelSequence($funnelSubscriber);
+
             return;
         }
 
@@ -185,10 +183,7 @@ class FunnelProcessor
         foreach ($sequencePoints->getCurrentSequences() as $sequence) {
             $this->processSequence($subscriber, $sequence, $funnelSubscriber->id);
             if ($sequence->action_name == 'end_this_funnel') {
-                FunnelSubscriber::where('id', $funnelSubscriber->id)
-                    ->update([
-                        'status' => 'completed'
-                    ]);
+                $this->completeFunnelSequence($funnelSubscriber);
                 return;
             }
         }

@@ -52,13 +52,21 @@ class CategoryMapping {
 			$cmapping = is_array( $getValue['cmapping'] ) ? array_reverse( $getValue['cmapping'], true ) : $getValue['cmapping'];
 		}
 
+		$term_ids = [];
 		// Fixes empty mapped category issue
 		if ( ! empty( $categories ) && is_array( $categories ) && count( $categories ) ) {
 			$categories = array_reverse( $categories );
 			foreach ( $categories as $category ) {
-				if ( isset( $cmapping[ $category->term_id ] ) && ! empty( $cmapping[ $category->term_id ] ) ) {
+				$term_ids[] = $category->term_id;
+				/*if ( isset( $cmapping[ $category->term_id ] ) && ! empty( $cmapping[ $category->term_id ] ) ) {
 					$cat_map_value = $cmapping[ $category->term_id ];
 					break;
+				}*/
+			}
+			if( is_array( $term_ids ) && count( $term_ids ) > 0 ){
+				$child_term = max( $term_ids );
+				if ( isset( $cmapping[ $child_term ] ) && ! empty( $cmapping[ $child_term ] ) ) {
+					$cat_map_value = $cmapping[ $child_term ];
 				}
 			}
 		}

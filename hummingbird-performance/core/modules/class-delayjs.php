@@ -165,7 +165,7 @@ class Delayjs extends Module {
 		}
 
 		$options          = Utils::get_module( 'minify' )->get_options();
-		$delay_js_file    = WPHB_DIR_URL . 'admin/assets/js/wphb-add-delay.min.js';
+		$delay_js_file    = WPHB_DIR_PATH . 'admin/assets/js/wphb-add-delay.min.js';
 		$delay_js_content = file_get_contents( $delay_js_file );
 
 		if ( ! empty( $delay_js_content ) ) {

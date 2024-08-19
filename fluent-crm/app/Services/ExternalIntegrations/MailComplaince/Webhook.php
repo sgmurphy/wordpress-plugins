@@ -352,4 +352,42 @@ class Webhook
 
         return (new ExternalPages())->recordUnsubscribe($unsubscribeData);
     }
+
+    private function handleSmtp2go($request)
+    {
+        $event = strtolower($request->get('event'));
+
+        $processStatuses = [
+            'bounce',
+            'spam',
+            'unsubscribe'
+        ];
+        
+        if (!in_array($event, $processStatuses)) {
+            return false;
+        }
+
+        $reason = sanitize_textarea_field($request->get('message', 'Unknown Reason'));
+
+        if ($event == 'bounce') {
+            $bounceType = $request->get('bounce');
+            if ($bounceType == 'soft') {
+                return false;
+            }
+        }
+
+        $toEmail = $request->get('rcpt');
+        if (!$toEmail || !is_email($toEmail)) {
+            return false;
+        }
+
+        $unsubscribeData = [
+            'email'  => $toEmail,
+            'reason' => $reason,
+            'status' => ($event == 'unsubscribe') ? 'unsubscribed' : 'bounced',
+            'unsubscribe_reason' => $reason
+        ];
+
+        return (new ExternalPages())->recordUnsubscribe($unsubscribeData);
+    }
 }
