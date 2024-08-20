@@ -3737,6 +3737,9 @@ form.fl-builder-settings {
 	box-shadow:none;
 	background: #e7ebef;
 }
+.mce-panel div.wp-link-input input {
+	width: auto;
+}
 
 /* Slim - Shadow */
 .fl-lightbox-width-slim .fl-shadow-field .fl-dimension-field-units {

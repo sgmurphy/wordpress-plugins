@@ -3,6 +3,9 @@
 namespace FSVendor\WPDesk\Logger;
 
 use Psr\Log\LogLevel;
+/**
+ * @deprecated
+ */
 final class Settings
 {
     /** @var string */
@@ -21,5 +24,9 @@ final class Settings
         $this->level = $level;
         $this->use_wc_log = $use_wc_log;
         $this->use_wp_log = $use_wp_log;
+    }
+    public function to_array() : array
+    {
+        return ['level' => $this->level, 'use_wc_log' => $this->use_wc_log, 'use_wp_log' => $this->use_wp_log];
     }
 }

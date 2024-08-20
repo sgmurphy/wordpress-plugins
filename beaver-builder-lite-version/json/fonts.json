@@ -1184,6 +1184,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Bungee Tint": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Butcherman": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -4124,6 +4129,11 @@
     "fallback": "serif"
   }
 }, {
+  "Matemasie": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Material Icons": {
     "variants": ["regular"],
     "fallback": "monospace"
@@ -4331,6 +4341,11 @@
 }, {
   "Modern Antiqua": {
     "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Moderustic": {
+    "variants": ["300", "regular", "500", "600", "700", "800"],
     "fallback": "sans-serif"
   }
 }, {
@@ -4597,6 +4612,11 @@
   "Neuton": {
     "variants": ["200", "300", "regular", "italic", "700", "800"],
     "fallback": "serif"
+  }
+}, {
+  "New Amsterdam": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
   }
 }, {
   "New Rocker": {

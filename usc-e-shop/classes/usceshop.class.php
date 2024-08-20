@@ -3406,6 +3406,8 @@ class usc_e_shop
 		}elseif( 'newcompletion' == $res ){
 			$this->page = 'newcompletion';
 			add_filter('yoast-ga-push-after-pageview', 'usces_trackPageview_newcompletion');
+		} elseif ( 'updatememberform' == $res ) {
+			$this->page = 'member_edit';
 		}else{
 			$this->page = $res;
 		}
@@ -3952,7 +3954,7 @@ class usc_e_shop
 			$this->error_message = $error_mes;
 			return $mode;
 
-		} elseif ( $_POST['member_regmode'] == 'editmemberform' ) {
+		} elseif ( $_POST['member_regmode'] == 'editmemberform' || $_POST['member_regmode'] == 'updatememberform' ) {
 
 			$this->get_current_member();
 			$mem_id = $this->current_member['id'];
@@ -4028,7 +4030,8 @@ class usc_e_shop
 				usces_send_updmembermail( $user );
 
 				$this->get_current_member();
-				return 'editmemberform';
+				// return 'editmemberform';
+				return $mode;
 
 			} else {
 				$this->error_message = __('Error:failure in update', 'usces');
@@ -4569,6 +4572,7 @@ class usc_e_shop
 	}
 
 	function member_logout() {
+		do_action( 'usces_action_before_logout' );
 		$cookie = $this->get_cookie();
 		$cookie['name'] = '';
 		$cookie['rme'] = '';
@@ -5023,15 +5027,17 @@ class usc_e_shop
 		$mes = '';
 		$usces_member_old = $_SESSION['usces_member'];
 		foreach ( $_POST['member'] as $key => $vlue ) {
-			if( 'password1' !== $key && 'password2' !== $key ){
+			if( 'password1' !== $key && 'password2' !== $key && 'mailaddress2' !== $key ){
 				$_SESSION['usces_member'][$key] = trim($vlue);
 			}
 		}
-		if( $_POST['member_regmode'] == 'newmemberform' || ($_POST['member_regmode'] === 'editmemberform' && !( WCUtils::is_blank($_POST['member']['password1']) && WCUtils::is_blank($_POST['member']['password2']))) ){
+		if ( $_POST['member_regmode'] == 'newmemberform' ||
+			( $_POST['member_regmode'] === 'editmemberform' && ! ( WCUtils::is_blank( $_POST['member']['password1'] ) && WCUtils::is_blank( $_POST['member']['password2'] ) ) ) ||
+			( $_POST['member_regmode'] === 'updatememberform' && ! ( WCUtils::is_blank( $_POST['member']['password1'] ) && WCUtils::is_blank( $_POST['member']['password2'] ) ) ) ) {
 			$mes = $this->get_pwd_errors($_POST['member']['password1']);
 		}
 
-		if ( $_POST['member_regmode'] == 'editmemberform' ) {
+		if ( $_POST['member_regmode'] == 'editmemberform' || $_POST['member_regmode'] == 'updatememberform' ) {
 			if ( trim($_POST['member']['password1']) != trim($_POST['member']['password2']) ) {
 				$mes .= __('Password confirm does not match.', 'usces') . "<br />";
 			}
@@ -5043,6 +5049,18 @@ class usc_e_shop
 				$id = $this->check_member_email( $_POST['member']['mailaddress1'] );
 				if( !empty( $id ) && $id != $mem_id ) {
 					$mes .= __( 'This e-mail address can not be registered.', 'usces' ) . "<br />";
+				} else {
+					if ( isset( $_POST['member']['mailaddress2'] ) ) {
+						if ( WCUtils::is_blank( $_POST['member']['mailaddress2'] )  ) {
+							if ( $usces_member_old['mailaddress1'] !== $_POST['member']['mailaddress1'] ) {
+								$mes .= __( 'e-mail address is not correct', 'usces' ) . '<br />';
+							}
+						} else {
+							if ( trim( $_POST['member']['mailaddress1'] ) != trim( $_POST['member']['mailaddress2'] ) ) {
+								$mes .= __( 'e-mail address is not correct', 'usces' ) . '<br />';
+							}
+						}
+					}
 				}
 			}
 		} else if ( $_POST['member_regmode'] == 'newmemberform' ){
@@ -5109,7 +5127,7 @@ class usc_e_shop
 			$mes .= __('Please input a phone number with a half size number.', 'usces') . "<br />";
 		}
 
-		if( $_POST['member_regmode'] !== 'editmemberform' && isset( $this->options['agree_member']) && 'activate' === $this->options['agree_member'] ){
+		if ( $_POST['member_regmode'] !== 'editmemberform' && $_POST['member_regmode'] !== 'updatememberform' && isset( $this->options['agree_member'] ) && 'activate' === $this->options['agree_member'] ) {
 			if( !isset($_POST['agree_member_check']) ){
 				$mes .= __('Please accept the membership agreement.', 'usces') . "<br />";
 			}
@@ -5117,7 +5135,7 @@ class usc_e_shop
 
 		$mes = apply_filters('usces_filter_member_check', $mes);
 
-		if ( $_POST['member_regmode'] == 'editmemberform' && '' != $mes ) {
+		if ( ( $_POST['member_regmode'] == 'editmemberform' || $_POST['member_regmode'] == 'updatememberform' ) && '' != $mes ) {
 			$_SESSION['usces_member'] = $usces_member_old;
 		}
 

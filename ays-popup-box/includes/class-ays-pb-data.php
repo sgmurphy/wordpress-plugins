@@ -193,7 +193,7 @@ class Ays_Pb_Data {
             $ays_popup_box_flag = intval(get_option('ays_pb_sale_btn'));
             if ($ays_popup_box_flag == 0 ) {
                 if (isset($_GET['page']) && strpos($_GET['page'], AYS_PB_NAME) !== false) {
-                    $this->ays_pb_new_banner_message_2024($ays_popup_box_flag);
+                    $this->ays_pb_new_banner_message($ays_popup_box_flag);
                 }
             }
         }
@@ -711,11 +711,11 @@ class Ays_Pb_Data {
                             //     $content[] = __( "<span><a href='https://ays-pro.com/mega-bundle' target='_blank' style='color:#ffffff; text-decoration: underline;'>Mega Bundle</a></span> (pb + Survey + Poll)", AYS_PB_NAME );
                             // $content[] = '</span>';
                             $content[] = '<span class="ays-pb-new-mega-bundle-title">';
-                            $content[] = __( "Limited Time <span style='color:#ffffff;'>20%</span> SALE on <span><a href='https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner' target='_blank' style='color:#ffffff; text-decoration: underline;'>Popup Box</a></span>", "ays-popup-box" );
+                            $content[] = __( "Limited Time <span style='color:#ffffff;'>30%</span> SALE on <span><a href='https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner' target='_blank' style='color:#ffffff; text-decoration: underline;'>Popup Box</a></span>", "ays-popup-box" );
                         $content[] = '</span>';
                             $content[] = '</br>';
                             $content[] = '<div class="ays-pb-new-mega-bundle-mobile-image-display-block display_none">';
-                                $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-20-guaranteeicon.svg" style="width: 70px;">';
+                                $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-30-guaranteeicon.svg" style="width: 70px;">';
                             $content[] = '</div>';
 
                             $content[] = '<span class="ays-pb-new-mega-bundle-desc">';
@@ -725,7 +725,7 @@ class Ays_Pb_Data {
                         $content[] = '</div>';
 
                         $content[] = '<div>';
-                            $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-20-guaranteeicon.svg" class="ays-pb-new-mega-bundle-mobile-image-display-none" style="width: 70px;">';
+                            $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-30-guaranteeicon.svg" class="ays-pb-new-mega-bundle-mobile-image-display-none" style="width: 70px;">';
                         $content[] = '</div>';
 
                         // $content[] = '<br>';

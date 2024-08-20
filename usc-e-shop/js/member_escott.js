@@ -127,11 +127,13 @@ jQuery( function($) {
 	});
 
 	$(document).on( "click", ".escott_agreement", function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		$("#escott_settlement_mode").val($(this).attr("data-mode"));
-		$("#escott-agree-dialog").dialog("open");
-		return false;
+		if( escott_params.edit_auth.length > 0 ) {
+			e.preventDefault();
+			e.stopPropagation();
+			$("#escott_settlement_mode").val($(this).attr("data-mode"));
+			$("#escott-agree-dialog").dialog("open");
+			return false;
+		}
 	});
 });
 

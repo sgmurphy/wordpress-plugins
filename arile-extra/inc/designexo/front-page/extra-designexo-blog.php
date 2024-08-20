@@ -38,7 +38,7 @@ if($designexo_blog_disabled == true): ?>
 			{	
 				while(have_posts()):the_post();
 				{ ?>
-					<div class="col-lg-<?php if($activate_theme == 'Architect Decor' || $activate_theme == 'Monster Dark' || 'DesignTech' == $activate_theme || 'InteriorX' == $activate_theme || 'Interior Decor' == $activate_theme || 'Interior House' == $activate_theme || 'BeautyCare' == $activate_theme || 'Architect House' == $activate_theme || 'Fitnessgo' == $activate_theme || 'Interior Trends' == $activate_theme){ echo '4';}else{echo '6';} ?> col-md-6 col-sm-12">
+					<div class="col-lg-<?php if($activate_theme == 'Architect Decor' || $activate_theme == 'Monster Dark' || 'DesignTech' == $activate_theme || 'InteriorX' == $activate_theme || 'Interior Decor' == $activate_theme || 'Interior House' == $activate_theme || 'BeautyCare' == $activate_theme || 'Architect House' == $activate_theme || 'Fitnessgo' == $activate_theme || 'Interior Trends' == $activate_theme || 'Business Model' == $activate_theme){ echo '4';}else{echo '6';} ?> col-md-6 col-sm-12">
 					
 					<?php if($activate_theme == 'IntecoPress'){ ?>
 			

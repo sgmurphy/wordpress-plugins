@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Welcart e-Commerce\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/usc-e-shop\n"
 "POT-Creation-Date: 2020-10-19T15:20:12+09:00\n"
-"PO-Revision-Date: 2024-07-11 14:37+0900\n"
+"PO-Revision-Date: 2024-08-08 17:56+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -11680,3 +11680,81 @@ msgstr "会員リストの「削除」リンク"
 
 msgid "Show/hide the \"Delete\" link in the member list"
 msgstr "会員リストの「削除」リンクの表示、非表示を切り替えます。"
+
+msgid "Security on membership"
+msgstr "会員に関するセキュリティ"
+
+msgid "Email verification for new registration"
+msgstr "新規登録時のメール認証"
+
+msgid "Email verification for editing information"
+msgstr "会員情報編集時のメール認証"
+
+msgid "When editing membership information, an email will be sent to the member's email address to confirm that the change is indeed made by the member. Membership information cannot be edited unless the authentication link is clicked."
+msgstr "会員情報を編集する際、会員ご本人による変更であることを確認するためのメールを、会員ご本人のメールアドレスに送信します。認証リンクがクリックされない限り、会員情報を編集することはできません。"
+
+msgid "Login Notification"
+msgstr "ログイン通知"
+
+msgid "An email will be sent to the member notifying them that they have logged in."
+msgstr "ログインがあったことを通知するメールを会員に送信します。"
+
+msgid "%s : Login Notification"
+msgstr "【%s】ログイン通知"
+
+msgid "There has been a login on your account. Please review the following information and if you are not familiar with it, please change your password for your own safety."
+msgstr "お客様のアカウントでログインがありました。以下の内容をご確認いただき、お心当たりがない場合、安全のためパスワードの変更をお願いいたします。"
+
+msgid "Login date and time"
+msgstr "ログイン日時"
+
+msgid "Identity verification is required to edit your membership information. Are you sure you want to send an authentication email to your registered email address?"
+msgstr "会員情報を編集するには本人認証が必要です。ご登録のメールアドレスに認証メールを送信してもよろしいですか？"
+
+msgid "Identity verification is required to register credit card information. Are you sure you want to send an authentication email to your registered email address?"
+msgstr "クレジットカード情報を登録するには本人認証が必要です。ご登録のメールアドレスに認証メールを送信してもよろしいですか？"
+
+msgid "Identity verification is required to change credit card information. Are you sure you want to send an authentication email to your registered email address?"
+msgstr "クレジットカード情報を変更するには本人認証が必要です。ご登録のメールアドレスに認証メールを送信してもよろしいですか？"
+
+msgid "Authentication email sent."
+msgstr "認証メールを送信しました"
+
+msgid "When updating important information, you will need to authenticate your identity by email."
+msgstr "重要な情報を更新する場合は、メールによる本人認証が必要となります。"
+
+msgid "You will receive an authentication email to your registered email address. Please click the URL in the body of the email to approve it."
+msgstr "登録されているメール宛に認証メールが届きますので、メール本文のURLをクリックして承認してください。"
+
+msgid "The URL for authentication expires in 15 minutes from now."
+msgstr "認証用のURLの有効期限は只今より15分です。"
+
+msgid "If the expiration date has passed, please click the menu again to send the authentication email."
+msgstr "有効期限が過ぎてしまった場合は、再度メニューをクリックして認証メールの送信を行ってください。"
+
+msgid "Identity Verification Email"
+msgstr "本人確認メール"
+
+msgid "This email is a verification email for updating your membership information at \"%s\"."
+msgstr "このメールは、「%s」での会員情報更新に伴う本人確認メールです。"
+
+msgid "By clicking on the URL below, your identity will be authenticated."
+msgstr "下記のURLをクリックすることで、本人であることが認証されます。"
+
+msgid "After authentication, My Page will be displayed, so please click the menu again to proceed."
+msgstr "認証後マイページが表示されますので、再度メニューをクリックして処理に進んでください。"
+
+msgid "Please note that this URL is valid until %s."
+msgstr "なお、このURLの有効期限は%sまでとなります。"
+
+msgid "Y-n-j G:i"
+msgstr "Y年n月j日G:i"
+
+msgid "Email Authentication Error"
+msgstr "メール認証エラー"
+
+msgid "Authentication by email has failed."
+msgstr "メールによる本人認証に失敗しました。"
+
+msgid "Authentication URL has expired or invalid access."
+msgstr "認証URLの有効期限が切れているか無効なアクセスです。"

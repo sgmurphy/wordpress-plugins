@@ -75,7 +75,6 @@ do_action("sjb_job_features_before");
                         foreach ($keys as $key):
                             if (substr($key, 0, 11) == 'jobfeature_') {
                                 $val = get_post_meta($post->ID, $key, TRUE);
-                                $val = maybe_unserialize($val);
 
                                 /**
                                  * New Label Index Insertion:
@@ -103,7 +102,7 @@ do_action("sjb_job_features_before");
                     echo apply_filters('sjb_job_features', $metas);
                 }
                 else{
-                    $settings_options = maybe_unserialize(get_option('jobfeature_settings_options'));
+                    $settings_options = get_option('jobfeature_settings_options');
 
                     if (NULL == $settings_options) {
                         $settings_options = '';

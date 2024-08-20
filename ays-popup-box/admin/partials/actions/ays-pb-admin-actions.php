@@ -51,6 +51,23 @@ $social_links_default = array(
     'behance_link' => '',
 );
 
+$font_families = array(
+    'inherit' => __('Inherit', "ays-popup-box"),
+    'arial' => __('Arial', "ays-popup-box"),
+    'arial black' => __('Arial Black', "ays-popup-box"),
+    'book antique' => __('Book Antique', "ays-popup-box"),
+    'courier new' => __('Courier New', "ays-popup-box"),
+    'cursive' => __('Cursive', "ays-popup-box"),
+    'fantasy' => __('Fantasy', "ays-popup-box"),
+    'georgia' => __('Georgia', "ays-popup-box"),
+    'helvetica' => __('Helvetia', "ays-popup-box"),
+    'impact' => __('Impact', "ays-popup-box"),
+    'lusida console' => __('Lusida Console', "ays-popup-box"),
+    'palatino linotype' => __('Palatino Linotype', "ays-popup-box"),
+    'tahoma' => __('Tahoma', "ays-popup-box"),
+    'times new roman' => __('Times New Roman', "ays-popup-box"),
+);
+
 $options = array(
     // General
     'author' => $author,
@@ -769,7 +786,7 @@ $popup_width_by_percentage_px = (isset($options['popup_width_by_percentage_px'])
 $mobile_width = (isset($options['mobile_width']) && $options['mobile_width'] != 0) ? abs( intval($options['mobile_width']) ) : '';
 
 // Width | On mobile | Measurement unit
-$popup_width_by_percentage_px_mobile = (isset($options['popup_width_by_percentage_px_mobile']) && $options['popup_width_by_percentage_px_mobile'] != '') ? stripslashes( esc_attr($options['popup_width_by_percentage_px_mobile']) ) : 'percentage';
+$popup_width_by_percentage_px_mobile = (isset($options['popup_width_by_percentage_px_mobile']) && $options['popup_width_by_percentage_px_mobile'] != '') ? esc_attr( stripslashes($options['popup_width_by_percentage_px_mobile']) ) : 'percentage';
 
 // Max-width for mobile
 $mobile_max_width = (isset($options['mobile_max_width']) && $options['mobile_max_width'] != '') ? abs( intval($options['mobile_max_width']) ) : '';
@@ -779,6 +796,159 @@ $height = (isset($popupbox['height']) && $popupbox['height'] != '') ? abs( intva
 
 // Height | On mobile
 $mobile_height = (isset($options['mobile_height']) && $options['mobile_height'] != '') ? abs( intval($options['mobile_height']) ) : '';
+
+// Popup max-height | On PC |
+$popup_max_height = (isset($options['pb_max_height']) && $options['pb_max_height'] != '' && $options['pb_max_height'] != 0) ? absint( intval($options['pb_max_height']) ) : '';
+
+// Popup max-height | On PC | Measurement unit
+$popup_max_height_by_percentage_px = ( isset($options['popup_max_height_by_percentage_px']) && $options['popup_max_height_by_percentage_px'] != '' ) ? esc_attr( stripslashes($options['popup_max_height_by_percentage_px']) ) : 'pixels';
+
+// Popup max-height | On mobile
+$popup_max_height_mobile = ( isset($options['pb_max_height_mobile']) && $options['pb_max_height_mobile'] != '' && $options['pb_max_height_mobile'] != 0 ) ? absint( intval($options['pb_max_height_mobile']) ) : '';
+
+// Popup max-height | On mobile | Measurement unit
+$popup_max_height_by_percentage_px_mobile = ( isset($options['popup_max_height_by_percentage_px_mobile']) && $options['popup_max_height_by_percentage_px_mobile'] != '' ) ? esc_attr( stripslashes($options['popup_max_height_by_percentage_px_mobile']) ) : 'pixels';
+
+if ($popup_max_height_by_percentage_px == 'percentage' && $popup_max_height > 100) {
+    $popup_max_height = 100;
+}
+
+if ($popup_max_height_by_percentage_px_mobile == 'percentage' && $popup_max_height_mobile > 100) {
+    $popup_max_height_mobile = 100;
+}
+
+// Popup min-height
+$pb_min_height = (isset($options['pb_min_height']) && $options['pb_min_height'] != '') ? absint( intval($options['pb_min_height']) ) : '';
+
+// Full-screen mode
+$ays_enable_pb_fullscreen = (isset($options['enable_pb_fullscreen']) && $options['enable_pb_fullscreen'] == 'on') ? 'on' : 'off';
+
+// Content padding
+$default_padding_value = ($view_type == 'minimal' || $modal_content == 'image_type') ? 0 : 20;
+$padding = isset($options['popup_content_padding']) && ($options['popup_content_padding']) >= 0 ? abs( intval($options['popup_content_padding']) ) : $default_padding_value;
+
+// Content padding | Measurement unit
+$popup_padding_by_percentage_px = (isset($options['popup_padding_by_percentage_px']) && $options['popup_padding_by_percentage_px'] != '') ? esc_attr( stripslashes($options['popup_padding_by_percentage_px']) ) : 'pixels';
+
+// Text color
+$textcolor = (isset($popupbox['textcolor']) && $popupbox['textcolor'] != '') ? esc_attr( stripslashes($popupbox['textcolor']) ) : '#000000';
+
+// Font family
+$font_family_option = (isset($options['pb_font_family']) && $options['pb_font_family'] != '') ? esc_attr( stripslashes($options['pb_font_family']) ) : 'inherit';
+
+// Description font size | On PC
+$pb_font_size = (isset($options['pb_font_size']) && $options['pb_font_size'] != '') ? absint( intval($options['pb_font_size']) ) : 13;
+
+// Description font size | On mobile
+$pb_font_size_for_mobile = (isset($options['pb_font_size_for_mobile']) && $options['pb_font_size_for_mobile'] != '') ? absint( intval($options['pb_font_size_for_mobile']) ) : 13;
+
+// Title text shadow | On PC
+$options['enable_pb_title_text_shadow'] = (isset($options['enable_pb_title_text_shadow']) && $options['enable_pb_title_text_shadow'] == 'on') ? 'on' : 'off';
+$enable_pb_title_text_shadow = (isset($options['enable_pb_title_text_shadow']) && $options['enable_pb_title_text_shadow'] == 'on') ? true : false;
+
+// Title text shadow | On PC | Color
+$pb_title_text_shadow = (isset($options['pb_title_text_shadow']) && $options['pb_title_text_shadow'] != '') ? stripslashes( esc_attr($options['pb_title_text_shadow']) ) : 'rgba(255,255,255,0)';
+
+// Title text shadow | On PC | X
+$pb_title_text_shadow_x_offset = (isset($options['pb_title_text_shadow_x_offset']) && $options['pb_title_text_shadow_x_offset'] != '') ? absint( intval($options['pb_title_text_shadow_x_offset']) ) : 2;
+
+// Title text shadow | On PC | Y
+$pb_title_text_shadow_y_offset = (isset($options['pb_title_text_shadow_y_offset']) && $options['pb_title_text_shadow_y_offset'] != '') ? absint( intval($options['pb_title_text_shadow_y_offset']) ) : 2;
+
+// Title text shadow | On PC | Z
+$pb_title_text_shadow_z_offset = (isset($options['pb_title_text_shadow_z_offset']) && $options['pb_title_text_shadow_z_offset'] != '') ? absint( intval($options['pb_title_text_shadow_z_offset']) ) : 0;
+
+// Title text shadow | On mobile
+if (isset($options['enable_pb_title_text_shadow_mobile'])) {
+    $options['enable_pb_title_text_shadow_mobile'] = $options['enable_pb_title_text_shadow_mobile'] == 'on' ? 'on' : 'off';
+} else {
+    $options['enable_pb_title_text_shadow_mobile'] = $options['enable_pb_title_text_shadow'];
+}
+$enable_pb_title_text_shadow_mobile = (isset($options['enable_pb_title_text_shadow_mobile']) && $options['enable_pb_title_text_shadow_mobile'] == 'on') ? true : false;
+
+// Title text shadow | On mobile | Color
+if (isset($options['pb_title_text_shadow_mobile'])) {
+    $pb_title_text_shadow_mobile = ($options['pb_title_text_shadow_mobile'] != '') ? stripslashes( esc_attr($options['pb_title_text_shadow_mobile']) ) : 'rgba(255,255,255,0)';
+} else {
+    $pb_title_text_shadow_mobile = $pb_title_text_shadow;
+}
+
+// Title text shadow | On mobile | X
+if (isset($options['pb_title_text_shadow_x_offset_mobile'])) {
+    $pb_title_text_shadow_x_offset_mobile = ($options['pb_title_text_shadow_x_offset_mobile'] != '') ? absint( intval($options['pb_title_text_shadow_x_offset_mobile']) ) : 2;
+} else {
+    $pb_title_text_shadow_x_offset_mobile = $pb_title_text_shadow_x_offset;
+}
+
+// Title text shadow | On mobile | Y
+if (isset($options['pb_title_text_shadow_y_offset_mobile'])) {
+    $pb_title_text_shadow_y_offset_mobile = ($options['pb_title_text_shadow_y_offset_mobile'] != '') ? absint( intval($options['pb_title_text_shadow_y_offset_mobile']) ) : 2;
+} else {
+    $pb_title_text_shadow_y_offset_mobile = $pb_title_text_shadow_y_offset;
+}
+
+// Title text shadow | On mobile | Z
+if (isset($options['pb_title_text_shadow_z_offset_mobile'])) {
+    $pb_title_text_shadow_z_offset_mobile = ($options['pb_title_text_shadow_z_offset_mobile'] != '') ? absint( intval($options['pb_title_text_shadow_z_offset_mobile']) ) : 0;
+} else {
+    $pb_title_text_shadow_z_offset_mobile = $pb_title_text_shadow_z_offset;
+}
+
+// Opening animation
+$animate_in = (isset($popupbox['animate_in']) && $popupbox['animate_in'] != '') ? stripslashes( esc_attr($popupbox['animate_in']) ) : '';
+
+// Enable different opening animation Mobile
+$enable_animate_in_mobile = (isset($options['enable_animate_in_mobile']) && $options['enable_animate_in_mobile'] == 'on') ? true : false;
+
+// Opening animation mobile
+if (isset($options['animate_in_mobile'])) {
+    $animate_in_mobile = $options['animate_in_mobile'] !== '' ? stripslashes( esc_attr($options['animate_in_mobile']) ) : '';
+} else {
+    $animate_in_mobile = $animate_in;
+}
+
+// Closing animation
+$animate_out = (isset($popupbox['animate_out']) && $popupbox['animate_out'] != '') ? stripslashes( esc_attr($popupbox['animate_out']) ) : '';
+
+// Enable different closing animation mobile
+$enable_animate_out_mobile = (isset($options['enable_animate_out_mobile']) && $options['enable_animate_out_mobile'] == 'on') ? true : false;
+
+// Closing animation mobile
+if (isset($options['animate_out_mobile'])) {
+    $animate_out_mobile = $options['animate_out_mobile'] !== '' ? stripslashes( esc_attr($options['animate_out_mobile']) ) : '';
+} else {
+    $animate_out_mobile = $animate_out;
+}
+
+// Opening animation speed
+$animation_speed = (isset($options['animation_speed']) && $options['animation_speed'] !== '') ? abs( intval($options['animation_speed']) ) : 1;
+
+// Enable different opening animation speed mobile
+$enable_animation_speed_mobile = (isset($options['enable_animation_speed_mobile']) && $options['enable_animation_speed_mobile'] == 'on') ? true : false;
+
+// Opening animation speed mobile
+if (isset($options['animation_speed_mobile'])) {
+    $animation_speed_mobile = $options['animation_speed_mobile'] !== '' ? abs( intval($options['animation_speed_mobile']) ) : 1;
+} else {
+    $animation_speed_mobile = $animation_speed;
+}
+
+// Close Animation Speed
+if (isset($options['close_animation_speed'])) {
+    $close_animation_speed = (isset($options['close_animation_speed']) && $options['close_animation_speed'] !== '') ? abs( intval($options['close_animation_speed']) ) : 1;
+} else {
+    $close_animation_speed = $animation_speed;
+}
+
+// Enable different close animation speed mobile
+$enable_close_animation_speed_mobile = (isset($options['enable_close_animation_speed_mobile']) && $options['enable_close_animation_speed_mobile'] == 'on') ? true : false;
+
+// Close animation speed mobile
+if (isset($options['close_animation_speed_mobile'])) {
+    $close_animation_speed_mobile = $options['close_animation_speed_mobile'] !== '' ? abs( intval($options['close_animation_speed_mobile']) ) : 1;
+} else {
+    $close_animation_speed_mobile = $close_animation_speed;
+}
 
 // Custom class for quiz container
 $custom_class = (isset($popupbox['custom_class']) && $popupbox['custom_class'] != "") ? esc_attr( stripslashes($popupbox['custom_class']) ) : '';
@@ -882,44 +1052,6 @@ if (isset($options['overlay_color_mobile'])) {
     $overlay_color_mobile = $overlay_color;
 }
 
-//Animation Speed
-$animation_speed = (isset($options['animation_speed']) && $options['animation_speed'] !== '') ? esc_attr( abs($options['animation_speed']) ) : 1;
-
-//Enable Different Animation Speed Mobile
-if (isset( $options['enable_animation_speed_mobile'])) {
-    $enable_animation_speed_mobile = $options['enable_animation_speed_mobile'] == 'on' ? true : false;
-} else {
-    $enable_animation_speed_mobile = false;
-}
-
-//Animation Speed Mobile
-if (isset($options['animation_speed_mobile'])) {
-    $animation_speed_mobile =  $options['animation_speed_mobile'] !== '' ? esc_attr( abs($options['animation_speed_mobile']) ) : 1;
-} else {
-    $animation_speed_mobile = $animation_speed;
-}
-
-// Close Animation Speed
-$close_animation_speed = (isset($options['close_animation_speed']) && $options['close_animation_speed'] !== '') ? esc_attr( abs($options['close_animation_speed']) ) : 1;
-
-if(!isset($options["close_animation_speed"])){
-    $close_animation_speed = $animation_speed;
-}
-
-//Enable Different Close Animation Speed Mobile
-if (isset( $options['enable_close_animation_speed_mobile'])) {
-    $enable_close_animation_speed_mobile = $options['enable_close_animation_speed_mobile'] == 'on' ? true : false;
-} else {
-    $enable_close_animation_speed_mobile = false;
-}
-
-//Animation Speed Mobile
-if (isset($options['close_animation_speed_mobile'])) {
-    $close_animation_speed_mobile =  $options['close_animation_speed_mobile'] !== '' ? esc_attr( abs($options['close_animation_speed_mobile']) ) : 1;
-} else {
-    $close_animation_speed_mobile = $close_animation_speed;
-}
-
 //Hide popupbox on mobile
 $ays_pb_mobile = (isset($options['pb_mobile']) && $options['pb_mobile'] == 'on') ? esc_attr($options['pb_mobile']) : 'off';
 
@@ -946,27 +1078,6 @@ if ( isset($options['bgcolor_mobile']) ) {
     $bgcolor_mobile =  $options['bgcolor_mobile'] !== '' ? esc_attr($options['bgcolor_mobile']) : '';
 } else {
     $bgcolor_mobile = $bgcolor;
-}
-
-//popup padding size by percentage
-$popup_padding_by_percentage_px = (isset($options['popup_padding_by_percentage_px']) && $options['popup_padding_by_percentage_px'] != '') ? stripslashes( esc_attr($options['popup_padding_by_percentage_px']) ) : 'pixels';
-
-//popup content padding
-if (isset($options["popup_content_padding"]) && ($options["popup_content_padding"]) >= 0) {
-    $padding = stripslashes( esc_attr($options["popup_content_padding"]) );
-} else {
-    if ($view_type == 'minimal' || $modal_content == 'image_type') {
-        $padding = 0;
-    } else {
-        $padding = 20;
-    }
-}
-
-//popup content padding default value 
-if (($view_type == 'minimal' || $modal_content == 'image_type')) {
-    $default_padding_value = 0;        
-} else {
-    $default_padding_value = 20;
 }
 
 switch ($view_type) {
@@ -1036,7 +1147,6 @@ $enable_pb_bg_image_sizing_mobile = isset($options['enable_pb_bg_image_sizing_mo
 // Background Image Sizing Mobile
 $pb_bg_image_sizing_mobile = isset($options['pb_bg_image_sizing_mobile']) && $options['pb_bg_image_sizing_mobile'] !== '' ? stripslashes( esc_attr($options['pb_bg_image_sizing_mobile']) ) : 'cover';
 
-$textcolor = (isset($popupbox['textcolor']) && $popupbox['textcolor'] != "") ? esc_attr( stripslashes( $popupbox['textcolor'] )) : "";
 $custom_css = (isset($popupbox['custom_css']) && $popupbox['custom_css'] != "") ? stripslashes ( esc_attr($popupbox['custom_css'] ) ) : "";
 
 //Border Radius
@@ -1056,40 +1166,6 @@ if ( isset($options['border_radius_mobile']) ) {
     $border_radius_mobile = $border_radius;
 }
 
-//Opening Animation
-$animate_in = (isset($popupbox['animate_in']) && $popupbox['animate_in'] != "") ? esc_attr($popupbox['animate_in']) : "";
-
-//Enable Different Opening Animation Mobile
-if ( isset($options['enable_animate_in_mobile']) ) {
-    $enable_animate_in_mobile = $options['enable_animate_in_mobile'] == 'on' ? true : false;
-} else {
-    $enable_animate_in_mobile = false;
-}
-
-//Opening Animation Mobile
-if ( isset($options['animate_in_mobile']) ) {
-    $animate_in_mobile = $options['animate_in_mobile'] !== '' ? esc_attr($options['animate_in_mobile']) : '';
-} else {
-    $animate_in_mobile = $animate_in;
-}
-
-//Closing Animation
-$animate_out = (isset($popupbox['animate_out']) && $popupbox['animate_out'] != "") ? esc_attr($popupbox['animate_out']) : "";
-
-//Enable Different Closing Animation Mobile
-if ( isset($options['enable_animate_out_mobile']) ) {
-    $enable_animate_out_mobile = $options['enable_animate_out_mobile'] == 'on' ? true : false;
-} else {
-    $enable_animate_out_mobile = false;
-}
-
-//Closing Animation Mobile
-if ( isset($options['animate_out_mobile']) ) {
-    $animate_out_mobile =  $options['animate_out_mobile'] !== '' ? esc_attr($options['animate_out_mobile']) : '';
-} else {
-    $animate_out_mobile = $animate_out;
-}
-
 //Popup Border Color
 $bordercolor = (isset($popupbox['bordercolor']) && $popupbox['bordercolor'] != "") ? esc_attr( stripslashes( $popupbox['bordercolor'] )) : "";
 
@@ -1106,28 +1182,6 @@ if ( isset($options['bordercolor_mobile']) ) {
 } else {
     $bordercolor_mobile = $bordercolor;
 }
-
-//font-family option
-$font_families = array(
-    'inherit'             => __('Inherit', "ays-popup-box"),
-    'arial'               => __('Arial', "ays-popup-box"),
-    'arial black'         => __('Arial Black', "ays-popup-box"),
-    'book antique'        => __('Book Antique', "ays-popup-box"),
-    'courier new'         => __('Courier New', "ays-popup-box"),
-    'cursive'             => __('Cursive', "ays-popup-box"),
-    'fantasy'             => __('Fantasy', "ays-popup-box"),
-    'georgia'             => __('Georgia', "ays-popup-box"),
-    'helvetica'           => __('Helvetia', "ays-popup-box"),
-    'impact'              => __('Impact', "ays-popup-box"),
-    'lusida console'      => __('Lusida Console', "ays-popup-box"),
-    'palatino linotype'   => __('Palatino Linotype', "ays-popup-box"),
-    'tahoma'              => __('Tahoma', "ays-popup-box"),
-    'times new roman'     => __('Times New Roman', "ays-popup-box"),
-);
-$font_family_option = (isset($options['pb_font_family']) && $options['pb_font_family'] != '') ? esc_attr($options['pb_font_family']) : 'inherit';
-
-//open full screen
-$ays_enable_pb_fullscreen = (isset($options['enable_pb_fullscreen']) && $options['enable_pb_fullscreen'] == 'on') ? 'on' : 'off';
 
 $ays_pb_show_hide_timer_box = true;
 if ($enable_autoclose_delay_text_mobile) {
@@ -1235,86 +1289,6 @@ if ( isset($options['border_style_mobile']) ) {
     $ays_pb_border_style_mobile =  $options['border_style_mobile'] !== '' ? esc_attr( stripslashes($options['border_style_mobile']) ) : '';
 } else {
     $ays_pb_border_style_mobile = $ays_pb_border_style;
-}
-
-// Max-Height
-$popup_max_height = ( isset($options['pb_max_height']) && $options['pb_max_height'] != '' && $options['pb_max_height'] != 0 ) ? absint( intval($options['pb_max_height']) ) : '';
-
-// Max-Height Measurement Unit
-$popup_max_height_by_percentage_px = ( isset($options['popup_max_height_by_percentage_px']) && $options['popup_max_height_by_percentage_px'] != '' ) ? stripslashes( esc_attr($options['popup_max_height_by_percentage_px']) ) : 'pixels';
-
-if ($popup_max_height_by_percentage_px == 'percentage' && $popup_max_height > 100) {
-    $popup_max_height = 100;
-}
-
-// Max-Height Mobile
-$popup_max_height_mobile = ( isset($options['pb_max_height_mobile']) && $options['pb_max_height_mobile'] != '' && $options['pb_max_height_mobile'] != 0 ) ? absint( intval($options['pb_max_height_mobile']) ) : '';
-
-// Max-Height Measurement Unit Mobile
-$popup_max_height_by_percentage_px_mobile = ( isset($options['popup_max_height_by_percentage_px_mobile']) && $options['popup_max_height_by_percentage_px_mobile'] != '' ) ? stripslashes( esc_attr($options['popup_max_height_by_percentage_px_mobile']) ) : 'pixels';
-
-if ($popup_max_height_by_percentage_px_mobile == 'percentage' && $popup_max_height_mobile > 100) {
-    $popup_max_height_mobile = 100;
-}
-
-// Popup Min Height
-$pb_min_height = (isset($options['pb_min_height']) && $options['pb_min_height'] != '') ? absint(intval($options['pb_min_height'])) : '';
-
-// Font Size 
-$pb_font_size = (isset($options['pb_font_size']) && $options['pb_font_size'] != '') ? absint( esc_attr($options['pb_font_size']) ) : 13;
-$pb_font_size_for_mobile = (isset($options['pb_font_size_for_mobile']) && $options['pb_font_size_for_mobile'] != '') ? absint( esc_attr($options['pb_font_size_for_mobile']) ) : 13;
-
-// Title text shadow
-
-$options['enable_pb_title_text_shadow'] = (isset($options['enable_pb_title_text_shadow']) && $options['enable_pb_title_text_shadow'] == 'on') ? 'on' : 'off'; 
-$enable_pb_title_text_shadow = (isset($options['enable_pb_title_text_shadow']) && $options['enable_pb_title_text_shadow'] == 'on') ? true : false; 
-
-// Title text shadow mobile
-if ( isset($options['enable_pb_title_text_shadow_mobile']) ) {
-    $options['enable_pb_title_text_shadow_mobile'] = $options['enable_pb_title_text_shadow_mobile'] == 'on' ? 'on' : 'off';
-} else {
-    $options['enable_pb_title_text_shadow_mobile'] = $options['enable_pb_title_text_shadow'];
-}
-$enable_pb_title_text_shadow_mobile = ( isset( $options['enable_pb_title_text_shadow_mobile'] ) && $options['enable_pb_title_text_shadow_mobile'] == 'on' ) ? true : false;
-
-// Title text shadow color 
-$pb_title_text_shadow = (isset($options['pb_title_text_shadow']) && $options['pb_title_text_shadow'] != '') ? stripslashes( esc_attr( $options['pb_title_text_shadow'] ) ) : 'rgba(255,255,255,0)';
-
-// Title text shadow color mobile
-if ( isset($options['pb_title_text_shadow_mobile']) ) {
-    $pb_title_text_shadow_mobile = ($options['pb_title_text_shadow_mobile'] != '') ? stripslashes( esc_attr( $options['pb_title_text_shadow_mobile'] ) ) : 'rgba(255,255,255,0)';
-} else {
-    $pb_title_text_shadow_mobile = $pb_title_text_shadow;
-}
-
-// Title text shadow x offset
-$pb_title_text_shadow_x_offset = (isset($options['pb_title_text_shadow_x_offset']) && $options['pb_title_text_shadow_x_offset'] != '') ? stripslashes( esc_attr( $options['pb_title_text_shadow_x_offset'] ) ) : 2;
-
-// Title text shadow x offset mobile
-if ( isset($options['pb_title_text_shadow_x_offset_mobile']) ) {
-    $pb_title_text_shadow_x_offset_mobile = ($options['pb_title_text_shadow_x_offset_mobile'] != '') ? stripslashes( esc_attr( $options['pb_title_text_shadow_x_offset_mobile'] ) ) : 2;
-} else {
-    $pb_title_text_shadow_x_offset_mobile = $pb_title_text_shadow_x_offset;
-}
-
-// Title text shadow y offset
-$pb_title_text_shadow_y_offset = (isset($options['pb_title_text_shadow_y_offset']) && $options['pb_title_text_shadow_y_offset'] != '') ? stripslashes( esc_attr( $options['pb_title_text_shadow_y_offset'] ) ) : 2;
-
-// Title text shadow y offset mobile
-if ( isset($options['pb_title_text_shadow_y_offset_mobile']) ) {
-    $pb_title_text_shadow_y_offset_mobile = ($options['pb_title_text_shadow_y_offset_mobile'] != '') ? stripslashes( esc_attr( $options['pb_title_text_shadow_y_offset_mobile'] ) ) : 2;
-} else {
-    $pb_title_text_shadow_y_offset_mobile = $pb_title_text_shadow_y_offset;
-}
-
-// Title text shadow X offset
-$pb_title_text_shadow_z_offset = (isset($options['pb_title_text_shadow_z_offset']) && $options['pb_title_text_shadow_z_offset'] != '') ? stripslashes( esc_attr( $options['pb_title_text_shadow_z_offset'] ) ) : 0;
-
-// Title text shadow z offset mobile
-if ( isset($options['pb_title_text_shadow_z_offset_mobile']) ) {
-    $pb_title_text_shadow_z_offset_mobile = ($options['pb_title_text_shadow_z_offset_mobile'] != '') ? stripslashes( esc_attr( $options['pb_title_text_shadow_z_offset_mobile'] ) ) : 0;
-} else {
-    $pb_title_text_shadow_z_offset_mobile = $pb_title_text_shadow_z_offset;
 }
 
 $next_popup_id = "";
@@ -1454,24 +1428,25 @@ $ays_users_roles = $wp_roles->roles;
                     </a>
                 </div>
             </div>
-            <h1 class="wp-heading-inline" style="display:flex; flex-wrap: wrap;">
-                <?php
-                    echo $heading;
-                    $save_attributes = array(
-                        'id' => 'ays-button-top-apply',
-                        'title' => 'Ctrl + s',
-                        'data-toggle' => 'tooltip',
-                        'data-delay'=> '{"show":"300"}'
-                    );
-                    $save_close_attributes = array('id' => 'ays-button-top');
-                    submit_button(__('Save and close', "ays-popup-box"), 'primary', 'ays_submit_top', false, $save_close_attributes);
-                    submit_button(__('Save', "ays-popup-box"), '', 'ays_apply_top', false, $save_attributes);
-                ?>
+            <h1 class="wp-heading-inline" style="display:flex; flex-wrap: wrap;"></h1>
+            <div class="ays-pb-heading-buttons">
+            <?php
+                echo $heading;
+                $save_attributes = array(
+                    'id' => 'ays-button-top-apply',
+                    'title' => 'Ctrl + s',
+                    'data-toggle' => 'tooltip',
+                    'data-delay'=> '{"show":"300"}'
+                );
+                $save_close_attributes = array('id' => 'ays-button-top');
+                submit_button(__('Save and close', "ays-popup-box"), 'primary', 'ays_submit_top', false, $save_close_attributes);
+                submit_button(__('Save', "ays-popup-box"), '', 'ays_apply_top', false, $save_attributes);
+            ?>
                 <a href="<?php echo $ays_pb_page_url; ?>" class="button" style="margin-left:10px;" ><?php echo __('Cancel',"ays-popup-box");?></a>
                 <?php
                     echo $loader_image;
                 ?>
-            </h1>
+            </div>
             <div>
                 <div class="ays-pb-subtitle-main-box">
                     <p class="ays_pb_subtitle">

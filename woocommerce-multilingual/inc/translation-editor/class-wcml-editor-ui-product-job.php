@@ -599,7 +599,7 @@ class WCML_Editor_UI_Product_Job extends WPML_Editor_UI_Job {
 						}
 					} else {
 
-						$custom_fields            = $this->get_custom_field_values( $this->product_id, $custom_field );
+						$custom_fields            = $this->get_custom_field_values( $element_id, $custom_field );
 						$translated_custom_fields = [];
 
 						if ( $custom_fields ) {

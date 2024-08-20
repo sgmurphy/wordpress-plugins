@@ -4064,6 +4064,8 @@ jQuery(document).ready( function( $ ) {
 						USCES_MEMBER_URL
 					)
 				);
+				$member                                   = $usces->get_member();
+				$escott_params['edit_auth']               = ( isset( $member['edit_auth'] ) ) ? $member['edit_auth'] : '';
 				wp_localize_script( 'usces_member_escott', 'escott_params', $escott_params );
 				wp_enqueue_script( 'usces_member_escott' );
 			}
@@ -4363,7 +4365,7 @@ jQuery(document).ready( function( $ ) {
 			$response_member = $this->escott_member_reference( $member['ID'] );
 			if ( 'OK' === $response_member['ResponseCd'] ) {
 				if ( 'on' === $acting_opts['sec3d_activate'] ) {
-					$html .= '<li class="gotoedit"><a href="javascript:void(0);" class="escott_agreement" data-mode="update">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
+					$html .= '<li class="settlement-update gotoedit"><a href="javascript:void(0);" class="escott_agreement" data-mode="update">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
 				} else {
 					$update_settlement_url = add_query_arg(
 						array(
@@ -4372,11 +4374,11 @@ jQuery(document).ready( function( $ ) {
 						),
 						USCES_MEMBER_URL
 					);
-					$html                 .= '<li class="gotoedit"><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
+					$html                 .= '<li class="settlement-update gotoedit"><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
 				}
 			} else {
 				if ( 'on' === $acting_opts['sec3d_activate'] ) {
-					$html .= '<li class="gotoedit"><a href="javascript:void(0);" class="escott_agreement" data-mode="register">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
+					$html .= '<li class="settlement-register gotoedit"><a href="javascript:void(0);" class="escott_agreement" data-mode="register">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
 				} else {
 					$register_settlement_url = add_query_arg(
 						array(
@@ -4385,7 +4387,7 @@ jQuery(document).ready( function( $ ) {
 						),
 						USCES_MEMBER_URL
 					);
-					$html                   .= '<li class="gotoedit"><a href="' . $register_settlement_url . '">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
+					$html                   .= '<li class="settlement-register gotoedit"><a href="' . $register_settlement_url . '">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
 				}
 			}
 		}

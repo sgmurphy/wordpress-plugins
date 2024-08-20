@@ -2,7 +2,6 @@
 
 namespace Simply_Static;
 
-// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -34,10 +33,12 @@ class Integrations {
 			'elementor-pro' => Elementor_Pro_Integration::class,
 			'cookieyes'     => CookieYes_Integration::class,
 			'brizy'         => Brizy_Integration::class,
+			'complianz'     => Complianz_Integration::class,
 			'jetpack'       => Jetpack_Integration::class,
 			'multilingual'  => Multilingual_Integration::class,
 			'github'        => Github_Integration::class,
-			'shortpixel'    => Shortpixel_Integration::class
+			'shortpixel'    => Shortpixel_Integration::class,
+			'redirection'   => Redirection_Integration::class
 		] );
 	}
 
@@ -64,6 +65,8 @@ class Integrations {
 		require_once $path . 'pro/class-github-integration.php';
 		require_once $path . 'pro/class-multilingual-integration.php';
 		require_once $path . 'pro/class-shortpixel-integration.php';
+		require_once $path . 'pro/class-complianz-integration.php';
+		require_once $path . 'pro/class-redirection-integration.php';
 
 		// SimplyCDN.
 		require_once $path . 'simply-cdn/class-simply-cdn-integration.php';

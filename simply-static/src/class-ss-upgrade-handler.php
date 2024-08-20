@@ -90,6 +90,7 @@ class Upgrade_Handler {
 			'ssh_security_token'            => '',
 			'ssh_use_forms'                 => true,
 			'iframe_urls'                   => '',
+			'iframe_custom_css'             => '',
 			'ssh_404_page_id'               => '',
 			'ssh_thank_you_page_id'         => '',
 			'tiiny_email'                   => get_bloginfo( 'admin_email' ),
@@ -174,7 +175,6 @@ class Upgrade_Handler {
 			'archive_name'                  => null,
 			'archive_start_time'            => null,
 			'archive_end_time'              => null,
-			'http_basic_auth_digest'        => null,
 		);
 
 		$version = self::$options->get( 'version' );

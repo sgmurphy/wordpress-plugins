@@ -919,7 +919,9 @@ class SBPS_MAIN {
 				if ( 'on' === $acting_opts['wallet_yahoowallet'] ) {
 					$pay_method .= ',yahoowallet';
 				}
-				if ( 'on' === $acting_opts['wallet_rakuten'] ) {
+				if ( 'on' === $acting_opts['wallet_rakutenv2'] ) {
+					$pay_method .= ',rakutenv2';
+				} elseif ( 'on' === $acting_opts['wallet_rakuten'] ) {
 					$pay_method .= ',rakuten';
 				}
 				if ( 'on' === $acting_opts['wallet_paypal'] ) {

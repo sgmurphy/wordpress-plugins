@@ -998,7 +998,6 @@ if (!function_exists('sjb_job_features_count')) {
             foreach ($keys as $key):
                 if (substr($key, 0, 11) == 'jobfeature_') {
                     $val = get_post_meta($post->ID, $key, TRUE);
-                    $val = maybe_unserialize($val);
                     if (!empty($val['value'])) {
                         $count++;
                     }

@@ -157,7 +157,8 @@ if ( ! class_exists( 'UserSubmitsBricksBuilderForm' ) ) :
 					if ( ! empty( $form_fields ) ) {
 						foreach ( $form_fields as $field ) {
 							if ( isset( $fields[ $field['id'] ] ) ) {
-								$context[ $this->modify_field_label( $field['label'] ) ] = $fields[ $field['id'] ];
+								$fd_label = ! empty( $field['label'] ) ? $field['label'] : $field['id'];
+								$context[ $this->modify_field_label( $fd_label ) ] = $fields[ $field['id'] ];
 							} else {
 								$file_fields[]                     = $field['id'];
 								$file_field_labels[ $field['id'] ] = $field['label'];

@@ -656,6 +656,14 @@ $elements = array(
 				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-woocommerce-products-listing-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 			),
 			array(
+				'key'      => 'woo-cta',
+				'title'    => __( 'Woo CTA', 'premium-addons-for-elementor' ),
+				'name'     => 'premium-woo-cta',
+				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-woocommerce-cta-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-woo-cta-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'draw_svg' => true,
+			),
+			array(
 				'key'   => 'premium-world-clock',
 				'name'  => 'premium-world-clock',
 				'title' => __( 'World Clock', 'premium-addons-for-elementor' ),

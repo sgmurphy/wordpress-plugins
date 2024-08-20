@@ -101,6 +101,7 @@ final class FLBuilderCompatibility {
 		add_filter( 'fl_builder_loop_query', array( __CLASS__, 'fix_tribe_events_pagination' ), 20, 2 );
 		add_filter( 'option_iubenda_cookie_law_solution', array( __CLASS__, 'fix_iubenda' ) );
 		add_filter( 'fl_builder_is_post_editable', array( __CLASS__, 'fix_theme_my_login' ) );
+		add_filter( 'fl_is_tour_enabled', array( __CLASS__, 'fix_classicpress_v2_ad_js' ) );
 	}
 
 	/**
@@ -1345,6 +1346,9 @@ final class FLBuilderCompatibility {
 	}
 
 	public static function fix_classicpress_v2() {
+		if ( ! function_exists( 'classicpress_version' ) ) {
+			return false;
+		}
 		global $wp_scripts;
 		$deps = $wp_scripts->registered['media-views']->deps;
 		foreach ( $deps as $key => $dep ) {
@@ -1356,6 +1360,10 @@ final class FLBuilderCompatibility {
 				break;
 			}
 		}
+	}
+
+	public static function fix_classicpress_v2_ad_js( $enabled ) {
+		return function_exists( 'classicpress_version' ) ? false : $enabled;
 	}
 }
 FLBuilderCompatibility::init();

@@ -862,6 +862,8 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 																		<option value="gpt-3.5-turbo" <?php selected($openaiapimodel, 'gpt-3.5-turbo'); ?>><?php esc_html_e("gpt-3.5-turbo", 'greenshift-animation-and-page-builder-blocks'); ?> </option>
 																		<option value="gpt-4" <?php selected($openaiapimodel, 'gpt-4'); ?>> <?php esc_html_e("gpt-4", 'greenshift-animation-and-page-builder-blocks'); ?> </option>
 																		<option value="gpt-4-32k" <?php selected($openaiapimodel, 'gpt-4-32k'); ?>> <?php esc_html_e("gpt-4-32k", 'greenshift-animation-and-page-builder-blocks'); ?> </option>
+																		<option value="gpt-4o" <?php selected($openaiapimodel, 'gpt-4o'); ?>> <?php esc_html_e("gpt-4o", 'greenshift-animation-and-page-builder-blocks'); ?> </option>
+																		<option value="gpt-4o-mini" <?php selected($openaiapimodel, 'gpt-4o-mini'); ?>> <?php esc_html_e("gpt-4o-mini", 'greenshift-animation-and-page-builder-blocks'); ?> </option>
 																	</select>
 																</td>
 															</tr>
@@ -1314,6 +1316,12 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 						'width' => [],
 						'style' => []
 					],
+					'iframe' => [
+						'height' => [],
+						'src' => [],
+						'width' => [],
+						'style' => []
+					],
 					'noscript' => []
 				]);
 			}
@@ -1374,6 +1382,12 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 					],
 					'img' => [
 						'alt' => [],
+						'height' => [],
+						'src' => [],
+						'width' => [],
+						'style' => []
+					],
+					'iframe' => [
 						'height' => [],
 						'src' => [],
 						'width' => [],

@@ -61,10 +61,10 @@ class Admin_Notices {
 
 		self::$notices = array(
 			'pa-review',
-			'woo_cats',
+			'woo_cta',
 		);
 
-		delete_option( 'animated_text' );
+		delete_option( 'woo_cats' );
 
 	}
 
@@ -106,7 +106,7 @@ class Admin_Notices {
 			return;
 		}
 
-		$this->get_woo_cats_notice();
+		$this->get_woo_cta_notice();
 
 	}
 
@@ -235,22 +235,22 @@ class Admin_Notices {
 
 	/**
 	 *
-	 * Shows admin notice for Animated Text widget.
+	 * Shows admin notice for WooCommerce CTA button widget.
 	 *
-	 * @since 4.10.35
+	 * @since 4.10.45
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function get_woo_cats_notice() {
+	public function get_woo_cta_notice() {
 
-		$option = get_option( 'woo_cats' );
+		$option = get_option( 'woo_cta' );
 
 		if ( '1' === $option ) {
 			return;
 		}
 
-		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-woocommerce-categories-widget/', 'woo-categories-notification', 'wp-dash', 'woo-categories' );
+		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-woocommerce-cta-widget/', 'woo-cta-notification', 'wp-dash', 'woo-cta' );
 
 		?>
 
@@ -260,11 +260,11 @@ class Admin_Notices {
 			</div>
 			<div class="pa-text-wrap">
 				<p>
-					<strong><?php echo __( 'Elementor WooCommerce Categories widget', 'premium-addons-for-elementor' ); ?></strong>
+					<strong><?php echo __( 'Elementor WooCommerce CTA widget', 'premium-addons-for-elementor' ); ?></strong>
 					<?php echo sprintf( __( 'is now available in Premium Addons for Elementor. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
 				</p>
 			</div>
-			<div class="pa-notice-close" data-notice="woo-cats">
+			<div class="pa-notice-close" data-notice="woo-cta">
 				<span class="dashicons dashicons-dismiss"></span>
 			</div>
 		</div>

@@ -571,6 +571,15 @@ class WCML_Products {
 	}
 
 	public function switch_product_variations_language() {
+		if ( ! isset( $_POST['nonce'] ) ) {
+			return;
+		}
+		if ( ! wp_verify_nonce( $_POST['nonce'], \WPML_Post_Edit_Ajax::AJAX_ACTION_SWITCH_POST_LANGUAGE ) ) {// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			return;
+		}
+		if ( ! current_user_can( 'edit_products' ) ) {
+			return;
+		}
 
 		$lang_to = false;
 		$post_id = false;

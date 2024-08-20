@@ -137,6 +137,7 @@ class SBPS_SETTLEMENT extends SBPS_MAIN {
 		$options['acting_settings']['sbps']['payeasy_activate']     = ( isset( $options['acting_settings']['sbps']['payeasy_activate'] ) ) ? $options['acting_settings']['sbps']['payeasy_activate'] : 'off';
 		$options['acting_settings']['sbps']['wallet_yahoowallet']   = ( isset( $options['acting_settings']['sbps']['wallet_yahoowallet'] ) ) ? $options['acting_settings']['sbps']['wallet_yahoowallet'] : 'off';
 		$options['acting_settings']['sbps']['wallet_rakuten']       = ( isset( $options['acting_settings']['sbps']['wallet_rakuten'] ) ) ? $options['acting_settings']['sbps']['wallet_rakuten'] : 'off';
+		$options['acting_settings']['sbps']['wallet_rakutenv2']     = ( isset( $options['acting_settings']['sbps']['wallet_rakutenv2'] ) ) ? $options['acting_settings']['sbps']['wallet_rakutenv2'] : 'off';
 		$options['acting_settings']['sbps']['wallet_paypal']        = ( isset( $options['acting_settings']['sbps']['wallet_paypal'] ) ) ? $options['acting_settings']['sbps']['wallet_paypal'] : 'off';
 		$options['acting_settings']['sbps']['wallet_netmile']       = 'off';
 		$options['acting_settings']['sbps']['wallet_alipay']        = ( isset( $options['acting_settings']['sbps']['wallet_alipay'] ) ) ? $options['acting_settings']['sbps']['wallet_alipay'] : 'off';
@@ -1009,6 +1010,7 @@ jQuery( document ).ready( function( $ ) {
 		$options['acting_settings']['sbps']['payeasy_activate']     = ( isset( $post_data['payeasy_activate'] ) ) ? $post_data['payeasy_activate'] : 'off';
 		$options['acting_settings']['sbps']['wallet_yahoowallet']   = ( isset( $post_data['wallet_yahoowallet'] ) ) ? $post_data['wallet_yahoowallet'] : 'off';
 		$options['acting_settings']['sbps']['wallet_rakuten']       = ( isset( $post_data['wallet_rakuten'] ) ) ? $post_data['wallet_rakuten'] : 'off';
+		$options['acting_settings']['sbps']['wallet_rakutenv2']     = ( isset( $post_data['wallet_rakutenv2'] ) ) ? $post_data['wallet_rakutenv2'] : 'off';
 		$options['acting_settings']['sbps']['wallet_paypal']        = ( isset( $post_data['wallet_paypal'] ) ) ? $post_data['wallet_paypal'] : 'off';
 		$options['acting_settings']['sbps']['wallet_netmile']       = 'off';
 		$options['acting_settings']['sbps']['wallet_alipay']        = ( isset( $post_data['wallet_alipay'] ) ) ? $post_data['wallet_alipay'] : 'off';
@@ -1066,6 +1068,10 @@ jQuery( document ).ready( function( $ ) {
 			}
 		}
 
+		if ( 'on' === $options['acting_settings']['sbps']['wallet_rakuten'] && 'on' === $options['acting_settings']['sbps']['wallet_rakutenv2'] ) {
+			$this->error_mes .= '※楽天ペイと楽天ペイV2の併用はできません。楽天ペイV2をご利用ください。<br />';
+		}
+
 		if ( '' === $this->error_mes ) {
 			$usces->action_status  = 'success';
 			$usces->action_message = __( 'Options are updated.', 'usces' );
@@ -1102,6 +1108,7 @@ jQuery( document ).ready( function( $ ) {
 			}
 			if ( 'on' === $options['acting_settings']['sbps']['wallet_yahoowallet'] ||
 				'on' === $options['acting_settings']['sbps']['wallet_rakuten'] ||
+				'on' === $options['acting_settings']['sbps']['wallet_rakutenv2'] ||
 				'on' === $options['acting_settings']['sbps']['wallet_paypal'] ||
 				'on' === $options['acting_settings']['sbps']['wallet_alipay'] ) {
 				$options['acting_settings']['sbps']['wallet_activate'] = 'on';
@@ -1377,9 +1384,22 @@ jQuery( document ).ready( function( $ ) {
 				</td>
 			</tr>
 			<tr>
-				<th>楽天ペイ（オンライン決済）</th>
+				<th><a class="explanation-label" id="label_ex_wallet_rakuten_sbps">楽天ペイ（オンライン決済）</a></th>
+			<?php if ( 'on' === $acting_opts['wallet_rakuten'] ) : ?>
 				<td><label><input name="wallet_rakuten" type="radio" id="wallet_rakuten_sbps_1" value="on"<?php checked( $acting_opts['wallet_rakuten'], 'on' ); ?> /><span><?php esc_html_e( 'Use', 'usces' ); ?></span></label><br />
 					<label><input name="wallet_rakuten" type="radio" id="wallet_rakuten_sbps_2" value="off"<?php checked( $acting_opts['wallet_rakuten'], 'off' ); ?> /><span><?php esc_html_e( 'Do not Use', 'usces' ); ?></span></label>
+				</td>
+			<?php else : ?>
+				<td><label><input name="wallet_rakuten" type="radio" id="wallet_rakuten_sbps_1" value="on" disabled="disabled" /><span><?php esc_html_e( 'Use', 'usces' ); ?></span></label><br />
+					<label><input name="wallet_rakuten" type="radio" id="wallet_rakuten_sbps_2" value="off" checked="checked" /><span><?php esc_html_e( 'Do not Use', 'usces' ); ?></span></label>
+				</td>
+			<?php endif; ?>
+			</tr>
+			<tr id="ex_wallet_rakuten_sbps" class="explanation"><td colspan="2">楽天ペイの新規ご契約は終了しました。楽天ペイV2をご利用ください。</td></tr>
+			<tr>
+				<th>楽天ペイV2（オンライン決済）</th>
+				<td><label><input name="wallet_rakutenv2" type="radio" id="wallet_rakutenv2_sbps_1" value="on"<?php checked( $acting_opts['wallet_rakutenv2'], 'on' ); ?> /><span><?php esc_html_e( 'Use', 'usces' ); ?></span></label><br />
+					<label><input name="wallet_rakutenv2" type="radio" id="wallet_rakutenv2_sbps_2" value="off"<?php checked( $acting_opts['wallet_rakutenv2'], 'off' ); ?> /><span><?php esc_html_e( 'Do not Use', 'usces' ); ?></span></label>
 				</td>
 			</tr>
 			<tr>
@@ -3399,7 +3419,7 @@ jQuery( document ).ready( function( $ ) {
 					),
 					USCES_MEMBER_URL
 				);
-				$html                 .= '<li class="gotoedit"><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
+				$html                 .= '<li class="settlement-update gotoedit"><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
 			} else {
 				$register_settlement_url = add_query_arg(
 					array(
@@ -3408,7 +3428,7 @@ jQuery( document ).ready( function( $ ) {
 					),
 					USCES_MEMBER_URL
 				);
-				$html                   .= '<li class="gotoedit"><a href="' . $register_settlement_url . '">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
+				$html                   .= '<li class="settlement-register gotoedit"><a href="' . $register_settlement_url . '">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
 			}
 		}
 		return $html;

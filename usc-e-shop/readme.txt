@@ -4,7 +4,7 @@ Tags: Welcart, e-Commerce, shopping, cart, eShop, store, admin, calendar, manage
 Requires at least: 5.5
 Tested up to: 6.5
 Requires PHP: 7.4 - 8.1
-Stable tag: 2.10.6
+Stable tag: 2.11.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,7 +102,15 @@ Please see [Welcart Forum(Japanese)](https://www.welcart.com/community/forums).
 
 == Changelog ==
 
-19 August 2024
+20 Aug 2024
+= V2.11 =
+-----------
+* [Security Enhancement] Added an optional email verification feature when editing member information.
+* [Security Enhancement] Added an optional feature to send an email to members upon login.
+* [SB Payment Service] Added support for Rakuten Pay V2.
+* Changed the specification to display thumbnails in the product image file tab.
+
+19 Aug 2024
 = V2.10.6 =
 -----------
 * Fixed JavaScript errors.

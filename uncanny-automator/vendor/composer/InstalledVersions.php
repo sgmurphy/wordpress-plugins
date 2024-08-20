@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '4f82bee1d760f04fb0568a919ee424a98ae8695a',
+    'reference' => 'a6da90d62be73daa6e7729fd8318f869bb1ee726',
     'name' => 'uncanny-owl/uncanny-automator',
   ),
   'versions' => 
@@ -51,7 +51,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '4f82bee1d760f04fb0568a919ee424a98ae8695a',
+      'reference' => 'a6da90d62be73daa6e7729fd8318f869bb1ee726',
     ),
   ),
 );

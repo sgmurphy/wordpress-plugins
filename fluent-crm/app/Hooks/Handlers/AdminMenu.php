@@ -496,10 +496,10 @@ class AdminMenu
                 if (!$isMatched) {
                     continue;
                 }
+
                 wp_dequeue_script($wp_scripts->registered[$script]->handle);
             }
-
-        });
+        }, 1);
 
         $this->loadCssJs();
     }
@@ -532,8 +532,10 @@ class AdminMenu
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     if (_ && _.noConflict) {
-                        window._ = _.noConflict();
-                       // window.lodash = window._;
+                        if(window._.each.length == 2) {
+                            window.lodash =  _.noConflict();
+                            console.log('_.noConflict() Loaded');
+                        }
                     }
                 });
             </script>

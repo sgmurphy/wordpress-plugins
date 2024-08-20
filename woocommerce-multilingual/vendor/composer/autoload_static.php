@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd9fd793efa38e09e52d7e938934f5421
+class ComposerStaticInit33c115143e0e235b5beea059a6d9c27c
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -194,9 +194,10 @@ class ComposerStaticInitd9fd793efa38e09e52d7e938934f5421
         'WCML\\Rest\\Hooks' => __DIR__ . '/../..' . '/classes/Rest/Hooks.php',
         'WCML\\Rest\\Language\\Set' => __DIR__ . '/../..' . '/classes/Rest/Language/Set.php',
         'WCML\\Rest\\ProductSaveActions' => __DIR__ . '/../..' . '/classes/Rest/ProductSaveActions.php',
-        'WCML\\Rest\\Store\\Hooks' => __DIR__ . '/../..' . '/classes/Rest/Store/Hooks.php',
         'WCML\\Rest\\Store\\HooksFactory' => __DIR__ . '/../..' . '/classes/Rest/Store/HooksFactory.php',
+        'WCML\\Rest\\Store\\MulticurrencyHooks' => __DIR__ . '/../..' . '/classes/Rest/Store/MulticurrencyHooks.php',
         'WCML\\Rest\\Store\\PriceRangeHooks' => __DIR__ . '/../..' . '/classes/Rest/Store/PriceRangeHooks.php',
+        'WCML\\Rest\\Store\\ReviewsHooks' => __DIR__ . '/../..' . '/classes/Rest/Store/ReviewsHooks.php',
         'WCML\\Rest\\Wrapper\\Composite' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Composite.php',
         'WCML\\Rest\\Wrapper\\Factory' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Factory.php',
         'WCML\\Rest\\Wrapper\\Handler' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Handler.php',
@@ -425,9 +426,9 @@ class ComposerStaticInitd9fd793efa38e09e52d7e938934f5421
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd9fd793efa38e09e52d7e938934f5421::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd9fd793efa38e09e52d7e938934f5421::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd9fd793efa38e09e52d7e938934f5421::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit33c115143e0e235b5beea059a6d9c27c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit33c115143e0e235b5beea059a6d9c27c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit33c115143e0e235b5beea059a6d9c27c::$classMap;
 
         }, null, ClassLoader::class);
     }

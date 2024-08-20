@@ -56,7 +56,7 @@ class Simple_Job_Board_Meta_Box_Job_Features {
                 $keys = get_post_custom_keys($post->ID);
 
                 //getting setting page saved options
-                $settings_options = maybe_unserialize(get_option('jobfeature_settings_options'));
+                $settings_options = get_option('jobfeature_settings_options');
 
                 //check Array differnce when $keys is not NULL
                 if (NULL == $keys) {
@@ -77,7 +77,6 @@ class Simple_Job_Board_Meta_Box_Job_Features {
                     foreach ($keys as $key):
                         if (substr($key, 0, 11) == 'jobfeature_') {
                             $val = get_post_meta($post->ID, $key, TRUE);
-                            $val = maybe_unserialize($val);
                             $val = ( is_array($val) ) ? array_map('esc_attr', $val) : esc_attr($val);
 
                             /**

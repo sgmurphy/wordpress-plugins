@@ -474,7 +474,23 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gspb_interactions',
 		GREENSHIFT_DIR_URL . 'libs/interactionlayer/index.js',
 		array(),
-		'2.3',
+		'2.4',
+		true
+	);
+
+	wp_register_script(
+		'gspb_motion_spring',
+		GREENSHIFT_DIR_URL . 'build/gspbMotionSpring.js',
+		array(),
+		'10.18',
+		true
+	);
+
+	wp_register_script(
+		'gspb_motion_one',
+		GREENSHIFT_DIR_URL . 'build/gspbMotion.js',
+		array(),
+		'10.18',
 		true
 	);
 
@@ -1108,6 +1124,31 @@ function gspb_greenShift_block_script_assets($html, $block)
 			}
 			if (function_exists('GSPB_make_dynamic_text') && !empty($block['attrs']['dynamictext']['dynamicEnable']) && !empty($block['attrs']['textContent'])) {
 				$html = GSPB_make_dynamic_text($html, $block['attrs'], $block, $block['attrs']['dynamictext'], $block['attrs']['textContent']);
+				if(!empty($block['attrs']['splitText'])){
+					//ensure to split also dynamic text
+					$type = !empty($block['attrs']['splitTextType']) ? $block['attrs']['splitTextType'] : 'words';
+					$html = greenshift_split_dynamic_text($html, $block['attrs']['splitTextType']);
+				}
+				
+			}
+			if(!empty($block['attrs']['dynamicAttributes'])){
+				$dynamicAttributes = [];
+				foreach($block['attrs']['dynamicAttributes'] as $index=>$value){
+					$dynamicAttributes[$index] = $value;
+					if(!empty($value['dynamicEnable']) && function_exists('GSPB_make_dynamic_text')){
+						$dynamicAttributes[$index]['value'] = GSPB_make_dynamic_text($dynamicAttributes[$index]['value'], $block['attrs'], $block, $value);
+					}else{
+						$dynamicAttributes[$index]['value'] = sanitize_text_field($value['value']);
+					}
+				}
+				if(!empty($dynamicAttributes)){
+					$p = new WP_HTML_Tag_Processor( $html );
+					foreach($dynamicAttributes as $index=>$value){
+						$p->next_tag();
+						$p->set_attribute( $value['name'], $value['value']);
+					}
+					$html = $p->get_updated_html();
+				}
 			}
 		}
 
@@ -1285,6 +1326,23 @@ function gspb_greenShift_block_script_assets($html, $block)
 		}
 
 		if(!empty($block['attrs']['interactionLayers'])){
+			foreach($block['attrs']['interactionLayers'] as $layer){
+				$actions = $layer['actions'];
+				if(!empty($actions)){
+					foreach($actions as $action){
+						if(!empty($action['actionname']) && $action['actionname'] == 'animation'){
+							wp_enqueue_script('gspb_motion_one');
+							if(!empty($action['aprops']) && is_array($action['aprops'])){
+								foreach($action['aprops'] as $prop){
+									if(!empty($prop['type']) && $prop['type'] == 'easing' && !empty($prop['value']) && $prop['value'] == 'spring'){
+										wp_enqueue_script('gspb_motion_spring');
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 			wp_enqueue_script('gspb_interactions');
 		}
 
@@ -1369,6 +1427,7 @@ function gspb_greenShift_editor_assets()
 	$googleapi = (!empty($sitesettings['googleapi'])) ? esc_attr($sitesettings['googleapi']) : '';
 	$default_attributes = (!empty($sitesettings['default_attributes'])) ? $sitesettings['default_attributes'] : '';
 	$global_classes = (!empty($sitesettings['global_classes'])) ? $sitesettings['global_classes'] : [];
+	$global_interactions = (!empty($sitesettings['global_interactions'])) ? $sitesettings['global_interactions'] : [];
 	$framework_classes = (!empty($sitesettings['framework_classes'])) ? $sitesettings['framework_classes'] : [];
 	$preset_classes = greenshift_render_preset_classes();
 	$global_variables = (!empty($sitesettings['variables'])) ? $sitesettings['variables'] : [];
@@ -1565,6 +1624,7 @@ function gspb_greenShift_editor_assets()
 			'localfont' => apply_filters('gspb_local_font_array', $localfont),
 			'googleapi' => apply_filters('gspb_google_api_key', $googleapi),
 			'global_classes' => apply_filters('gspb_global_classes', $global_classes),
+			'global_interactions' => apply_filters('gspb_global_interactions', $global_interactions),
 			'framework_classes' => apply_filters('gspb_framework_classes', $framework_classes),
 			'preset_classes' => $preset_classes,
 			'colours' => $colours,
@@ -1743,6 +1803,16 @@ function gspb_global_variables()
 			wp_add_inline_style('greenshift-global-css', $gs_global_css);
 		}
 
+		if (!empty($options['global_interactions']) && is_array($options['global_interactions'])) {
+			wp_enqueue_script('gspb_motion_one');
+			wp_enqueue_script('gspb_interactions');
+			$script = '';
+			foreach ($options['global_interactions'] as $index => $value) {
+				$script .= 'GSPB_Trigger_Actions("front", document.querySelectorAll(".'.esc_attr($index).'"), window, document, null, \''.json_encode($value).'\');';
+			}
+			wp_add_inline_script('gspb_interactions', $script, 'after');
+		}
+
 	}else{
 		//Here we inject our scripts into editor > WP 6.3
 
@@ -1906,7 +1976,18 @@ function gspb_global_variables()
 		//animated text
 		wp_enqueue_script('gstextanimate');
 		// interactions
+		wp_enqueue_script('gspb_motion_spring');
+		wp_enqueue_script('gspb_motion_one');
 		wp_enqueue_script('gspb_interactions');
+
+
+		if (!empty($options['global_interactions']) && is_array($options['global_interactions'])) {
+			$script = '';
+			foreach ($options['global_interactions'] as $index => $value) {
+				$script .= 'GSPB_Trigger_Actions("editor", document.querySelectorAll(".'.esc_attr($index).'"), window, document, null, \''.json_encode($value).'\');';
+			}
+			wp_add_inline_script('gspb_interactions', $script, 'after');
+		}
 
 		if(!empty($options['dark_accent_scheme'])){
 			wp_enqueue_style('greenShift-dark-accent-css', GREENSHIFT_DIR_URL . 'templates/admin/dark_accent_ui.css', array(), '1.0');
@@ -2393,7 +2474,7 @@ function gspb_update_global_wp_settings($request)
 				if (empty($contentclean['settings']['color']['palette']['theme'])) {
 					$contentclean['settings']['color']['palette']['theme'] = $settings['color']['palette']['theme'];
 					$contentclean["isGlobalStylesUserThemeJSON"] = true;
-					$contentclean["version"] = 2;
+					$contentclean["version"] = 3;
 				}
 				if(!empty($colors)){
 					foreach($colors as $key=>$value){
@@ -2404,6 +2485,8 @@ function gspb_update_global_wp_settings($request)
 				// Update post data as needed
 				$post_data = array(
 					'ID'   =>  $stylesPostId,
+					'post_name' => $post_name, // Replace with the new slug
+					'post_status' => 'publish',
 					'post_title' => $stylesObject->post_title, // Replace with the new title
 					'post_content' => wp_slash(json_encode($contentclean)), // Replace with the new content
 				);
@@ -2414,7 +2497,7 @@ function gspb_update_global_wp_settings($request)
 				$contentclean = array();
 				$contentclean['settings']['color']['palette']['theme'] = $settings['color']['palette']['theme'];
 				$contentclean["isGlobalStylesUserThemeJSON"] = true;
-				$contentclean["version"] = 2;
+				$contentclean["version"] = 3;
 				if(!empty($colors)){
 					foreach($colors as $key=>$value){
 						$contentclean['settings']['color']['palette']['theme'][$key]['color'] = $value;

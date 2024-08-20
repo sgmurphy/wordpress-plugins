@@ -5,7 +5,7 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.6.1
 Requires PHP: 7.0
-Stable Tag: 4.10.44
+Stable Tag: 4.10.45
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -20,26 +20,23 @@ Supercharge your [Elementor Page Builder](https://wordpress.org/plugins/elemento
 ### Useful Links
 [Support](https://my.leap13.com/contact-support/) | [Docs](https://premiumaddons.com/docs/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) | [Video Tutorials](https://www.youtube.com/channel/UCXcJ9BeO2sKKHor7Q9VglTQ) | [Facebook Group](https://facebook.com/groups/premiumAddons) | [Upgrade to Pro](https://premiumaddons.com/pro/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme)
 
+### New: WooCommerce CTA and Categories Listing Widgets
+Add a WooCommerce CTA button that can be used to add a product to cart, wishlist or compare using the Woo CTA widget. We have also released Woo Categories widget to showcase your Woo categories in four neat skins. Check from [here](premiumaddons.com/elementor-woocommerce-cta-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) and [here](https://premiumaddons.com/elementor-woocommerce-categories-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
+
 ### New: Mobile Nav Menu Widget
 Create a neat mobile menu on your website with just few click with this powerful widget. You can set the click action of each menu item to a link or to open an off-canvas content. [Check it out now!](https://premiumaddons.com/elementor-mobile-menu-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
 ### New: AJAX Search Form Widget
 The ultimate solution to add a search form widget on Elementor websites. Customize the search results, add pagination or carousel and select between three different neat skins. [Check it out now!](https://premiumaddons.com/elementor-ajax-search-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
-### New: Animated Shape Divider Addon
+### Animated Shape Divider Addon
 Add animated shape dividers for Elementor flexbox containers, sections and columns. You can select between 40+ shape dividers or use a custom SVG code to add your own divider. [Check it out now!](https://premiumaddons.com/elementor-animated-shape-divider-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
 ### Advanced Media Carousel Widget
 You can now create carousel using images, videos, Elementor templates to create the carousel you want. Select between four animations and dozens of customization options. [Check it out now!](https://premiumaddons.com/elementor-advanced-carousel-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
-### Global Tooltips Addon
-Add icon, image gallery, Lottie animation or Elementor template as a tooltip for any element. You can also use the tooltips addon to create a tour steps. [Check it out now!](https://premiumaddons.com/elementor-tooltip-global-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
-
 ### New: Magazine Bundle
 Smart Post Listing, Weather, World Clock, News Ticker, Tags Cloud and Recent Posts Notification widgets newly added to create the magazine website you ever dreamed. [Check it out now!](https://premiumaddons.com/elementor-news-magazine-widgets-bundle/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
-
-### SVG Draw Widget
-You can now draw any Font Awesome icon or SVG path using Premium SVG Draw widget. Not just that, we have added Draw Icon option in all premium widgets that has icon option in them. [Check it out now!](https://premiumaddons.com/elementor-svg-draw-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
 ### Elementor Navigation/Mega Menu Widget
 Now, you build outstanding navigation menus and mega menus using Premium Navigation/Mega Menu Widget which allows you to select between four different layouts with dozens of options to create a responsive menu. [Check it out now!](https://premiumaddons.com/elementor-mega-menu-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
@@ -234,6 +231,12 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.45 =
+
+- New: Added WooCommerce CTA widget - [here](https://premiumaddons.com/elementor-woocommerce-cta-widget/).
+- Fixed: PHP warnings in Counter widget when Elementor Optimized Control Loading feature is enabled.
+- Fixed: Reverse Animation not working on RTL sites in Advanced Carousel widget.
 
 = 4.10.44 =
 

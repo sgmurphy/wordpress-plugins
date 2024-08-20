@@ -638,8 +638,16 @@ foreach ( $welcart_information['target_market'] as $key => $value ) {
 		<td><?php echo esc_html( ( $welcart_information['datalistup_memberlist_flag'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ); ?></td>
 	</tr>
 	<tr>
-		<td data-export-label="Verify New Member Email"><?php esc_html_e( 'Verify New Member Email', 'usces' ); ?> :</td>
+		<td data-export-label="Email verification for new registration"><?php esc_html_e( 'Email verification for new registration', 'usces' ); ?> :</td>
 		<td><?php echo esc_html( ( $welcart_information['verifyemail_switch_flag'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ); ?></td>
+	</tr>
+	<tr>
+		<td data-export-label="Email verification for editing information"><?php esc_html_e( 'Email verification for editing information', 'usces' ); ?> :</td>
+		<td><?php echo esc_html( ( $welcart_information['verifyemail_edit_flag'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ); ?></td>
+	</tr>
+	<tr>
+		<td data-export-label="Login Notification"><?php esc_html_e( 'Login Notification', 'usces' ); ?> :</td>
+		<td><?php echo esc_html( ( $welcart_information['verifyemail_login_notify'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ); ?></td>
 	</tr>
 	<tr>
 		<td data-export-label="Google reCAPTCHA v3"><?php esc_html_e( 'Google reCAPTCHA v3', 'usces' ); ?> :</td>

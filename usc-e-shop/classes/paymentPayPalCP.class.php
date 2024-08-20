@@ -3724,7 +3724,7 @@ jQuery( document ).ready( function( $ ) {
 					),
 					USCES_MEMBER_URL
 				);
-				$form                 .= '<li class="gotoedit"><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
+				$form                 .= '<li class="settlement-update gotoedit"><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
 			} else {
 				$register_settlement_url = add_query_arg(
 					array(
@@ -3733,7 +3733,7 @@ jQuery( document ).ready( function( $ ) {
 					),
 					USCES_MEMBER_URL
 				);
-				$form                   .= '<li class="gotoedit"><a href="' . $register_settlement_url . '">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
+				$form                   .= '<li class="settlement-register gotoedit"><a href="' . $register_settlement_url . '">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
 			}
 		}
 		return $form;

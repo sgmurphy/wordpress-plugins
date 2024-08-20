@@ -102,12 +102,35 @@ class Utils extends Base {
 		return $platform === 'elementor' ? new ElementorHelper() : new GutenbergHelper();
 	}
 
+	public static function get_backup_options() {
+		global $wpdb;
+
+		$prefix = '__templately_';
+		$table_name = $wpdb->options; // Assuming default options table name
+
+		$sql = "SELECT option_name, option_value FROM {$table_name} WHERE option_name LIKE %s";
+		$prepared_sql = $wpdb->prepare($sql, array("$prefix%")); // Escape wildcard for security
+
+		$results = $wpdb->get_results($prepared_sql);
+
+		$templately_options = array();
+		foreach ($results as $row) {
+			$name = str_replace($prefix, '', $row->option_name);
+			$templately_options[$name] = maybe_unserialize($row->option_value);
+		}
+
+		return $templately_options;
+	}
+
 	public static function update_option( $key, $value, $autoload = 'no' ){
-		$bk_value = get_option("__templately_$key");
-		if($bk_value === false){
-			$old_value = get_option($key);
+		$old_value = get_option($key);
+		if($old_value){
+			update_option( "__templately_$key", $old_value, $autoload );
+		}
+		else{
 			add_option( "__templately_$key", $old_value, '', $autoload );
 		}
+
 		return update_option( $key, $value, $autoload );
 	}
 

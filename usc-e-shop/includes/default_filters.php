@@ -202,6 +202,7 @@ add_action( 'usces_action_confirm_page_point_inform', 'usces_use_point_nonce' );
 
 add_action( 'usces_action_newmember_page_inform', 'usces_post_member_nonce' );
 add_action( 'usces_action_memberinfo_page_inform', 'usces_post_member_nonce' );
+add_action( 'usces_action_memberedit_page_inform', 'usces_post_member_nonce' );
 add_action( 'usces_action_newpass_page_inform', 'usces_post_member_nonce' );
 add_action( 'usces_action_changepass_page_inform', 'usces_post_member_nonce' );
 add_action( 'usces_action_customer_page_inform', 'usces_post_member_nonce' );

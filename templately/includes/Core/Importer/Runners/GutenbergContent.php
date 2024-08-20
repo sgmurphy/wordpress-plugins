@@ -62,6 +62,7 @@ class GutenbergContent extends BaseRunner {
 				$site_logo_id = $data['logo']['id'];
 				$settings['site_logo'] = $site_logo_id;
 				Utils::update_option( 'site_logo', $site_logo_id );
+				$this->origin->update_imported_list('attachment', $data['logo']['id']);
 			}
 			else if(!empty($data['logo']) && empty(get_option('site_logo'))){
 				// demo logo
@@ -69,6 +70,7 @@ class GutenbergContent extends BaseRunner {
 				if(!empty($site_logo['id'])){
 					$settings['site_logo'] = $site_logo['id'];
 					Utils::update_option( 'site_logo', $site_logo['id'] );
+					$this->origin->update_imported_list('attachment', $site_logo['id']);
 				}
 			}
 

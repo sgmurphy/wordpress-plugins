@@ -8,7 +8,7 @@ Requires at least: 6.3
 Tested up to: 6.6
 Requires PHP: 7.0
 License: GPLv2 or later
-Stable tag: 9.2.2
+Stable tag: 9.3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 More than 20 special blocks for Gutenberg to build complex pages and animations with highest possible web vitals score.
@@ -28,10 +28,11 @@ Plugin doesn't use predefined styles, frameworks, icon fonts and script librarie
 = SOME EXCLUSIVE BENEFITS =
 
 ✅ Ready library of sections and layouts with FSE support
-✅ SVG shape libraries. Add extended formating to each block or animated dividers
-✅ Advanced containers and Rows. Control every aspect of align, spacing, position, flexible position, responsive up to 4 breakpoints, flexbox and css grid options.
-✅ Advanced position control. You can set css position via CSS transform, position or margins. 
-✅ Mobile smart scroll for sections. Turn your regular columns and blocks to scrollable items on mobiles or carousels.
+✅ Interaction Layes. Add interactivity to blocks with triggers, conditions and actions
+✅ Dynamic attributes and dynamic motion. Make chains of animations and connections with dynamic data
+✅ Advanced containers, Rows, CSS grid. Control every aspect of align, spacing, position, flexible position, responsive up to 4 breakpoints, flexbox and css grid options.
+✅ Design helpers in editor. Change position, spacing, border, size directly in editor
+✅ Mobile smart scroll for sections and Marquee block. Turn your regular columns and blocks to scrollable items on mobiles or carousels.
 ✅ Advanced sliders and tabs. Make any kind of content as carousel/slider/tabs. Convert regular gallery to advanced 3d slider
 ✅ Extended background options (color/gradient/videos) and overlays with hover transitions.
 ✅ CSS scroll animations and hover transitions without libraries. 
@@ -39,11 +40,11 @@ Plugin doesn't use predefined styles, frameworks, icon fonts and script librarie
 ✅ Dynamic blocks: animated headlines, countdown, counters, videos, tabs, togglers, Table of content, progress bars etc.
 ✅ Easily control all options for separate resolutions
 ✅ Parent Hover transitions and background animations
-✅ Up to 3 shadows for making 3d design effects
 ✅ Custom side and dropdown slide panels, popup builder
 ✅ Local font, GDPR ready
-✅ Figma CSS to block design convertion
-✅ Reusable styles (global styles)
+✅ Figma Converter (soon)
+✅ Dynamic data, repeaters, Meta getter to get any data from custom fields, user meta, site options, transients, external feeds, etc
+✅ Visibility options
 
 = ADVANCED PAGE DESIGNS AND ANIMATIONS =
 With Greenshift's features, you can create complex pages and animations without code skills and directly inside core editor. Add spacing, positioning, css transform, shadows, borders like you can't do in any other page builder. Use Shadow presets, hover transition presets, overlay transitions, infinite css animations, Headline Effects, Custom Animations, Gradient Backgrounds, Shape Dividers, parental transitions and many more.
@@ -70,6 +71,9 @@ Query addon is usefull if you want to extend dynamic functionality. It has a lot
 
 = SEO AND MARKETING ADDON =
 We have very long 10 year story of developing different tools for affiliate, review, comparison sites. In coordination with best affiliate professionals and bloggers, we built set of special, highly conversion blocks to earn more profit from your sites. Link parser helpers, offer blocks, comparison and versus tables, listings, score and review boxes, woocommerce boxes. All blocks have special mobile layouts.
+
+= WOOCOMMERCE ADDON =
+Add woocommerce blocks to FSE. Extend your shop with extra features like Buy now button, Free shipping, Sold out counters, Bundles, Combos, sliding panels, swatches, attribute groups, extra single product templates, custom tabs, ajax search and many more.
 
 == Installation ==
 Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
@@ -107,6 +111,19 @@ Yes, we guarantee that Greenshift is built on top of google recommendations and 
 7. **Sliding panels, popups.** Build custom sliding panels, add any block, use for mega menus
 
 == Changelog ==
+
+= 9.3 =
+
+* Added: [Dynamic Attributes](https://greenshiftwp.com/dynamic-attributes/)
+* Added: [Dynamic Motion](https://greenshiftwp.com/documentation/greenshift-extra/dynamic-motion/)
+* Added: Split Text Block
+* Added: Interaction classes (when you create global classes, you can also attach interactions to them)
+* Added: Copy - Paste supports now Interaction layers copying
+* Added: Updated UI for Interaction layers
+* Added: Motion Scroll trigger
+* Added: More dynamic placeholders for interactions (random value, style retrieval, attribute data retrieval, position retrieval)
+* Fix: fixes and improvements according to reports
+
 
 = 9.2.2 =
 

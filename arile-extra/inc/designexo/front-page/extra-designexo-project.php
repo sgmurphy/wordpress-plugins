@@ -9,7 +9,7 @@ $designexo_project_area_des = get_theme_mod('designexo_project_area_des', __('AL
 if('Architect House' == $activate_theme){
 $designexo_project_area_des = get_theme_mod('designexo_project_area_des', __('ALL Architect DESIGN SOLUTIONS','arile-extra'));
 }
-if('Empresa' == $activate_theme || 'Monster Dark' == $activate_theme || 'NewsMedia' == $activate_theme || 'SpiceMag' == $activate_theme || 'DesignTech' == $activate_theme || 'Technoex' == $activate_theme || 'Atlanta Blog' == $activate_theme || 'Atlanta Blog' == $activate_theme){
+if('Empresa' == $activate_theme || 'Monster Dark' == $activate_theme || 'NewsMedia' == $activate_theme || 'SpiceMag' == $activate_theme || 'DesignTech' == $activate_theme || 'Technoex' == $activate_theme || 'Atlanta Blog' == $activate_theme || 'Atlanta Blog' == $activate_theme || 'Business Model' == $activate_theme){
 $designexo_project_area_des = get_theme_mod('designexo_project_area_des', __('Our latest works','arile-extra'));
 }
 if('Interior Decor' == $activate_theme){
@@ -270,7 +270,7 @@ if($designexo_project_disabled == true): ?>
 							
 						<?php } ?>
 						
-						<?php if('Monster Dark' == $activate_theme || 'DesignTech' == $activate_theme){ ?>
+						<?php if('Monster Dark' == $activate_theme || 'DesignTech' == $activate_theme || 'Business Model' == $activate_theme){ ?>
 							<div class="col-lg-3 col-md-6 col-sm-12">	
 								<article class="theme-project-content mb-0 wow animate zoomIn" data-wow-delay=".3s">
 									<figure class="portfolio-thumbnail">

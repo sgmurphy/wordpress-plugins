@@ -40,6 +40,8 @@ class Admin_Settings {
 		add_action( 'rest_api_init', array( $this, 'rest_api_init' ) );
 
 		$this->failed_tests = intval( get_transient( 'simply_static_failed_tests' ) );
+
+		Admin_Meta::get_instance();
 	}
 
 	/**
@@ -129,6 +131,7 @@ class Admin_Settings {
 			$initial = '/diagnostics';
 		}
 
+
 		// Check if directory exists, if not, create it.
 		$upload_dir = wp_upload_dir();
 		$temp_dir   = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'simply-static' . DIRECTORY_SEPARATOR . 'temp-files';
@@ -163,6 +166,15 @@ class Admin_Settings {
 
 		if ( defined( 'SIMPLY_STATIC_PRO_VERSION' ) ) {
 			$args['version_pro'] = SIMPLY_STATIC_PRO_VERSION;
+
+			// Pass in additional data.
+			$data = get_option( 'fs_accounts' );
+
+			if ( ! empty( $data['plugin_data']['simply-static-pro'] ) ) {
+				if ( isset( $data['plugin_data']['simply-static-pro']['connectivity_test'] ) ) {
+					$args['connect'] = $data['plugin_data']['simply-static-pro']['connectivity_test'];
+				}
+			}
 		}
 
 		// Multisite?
@@ -210,6 +222,11 @@ class Admin_Settings {
 
 		if ( floatval( $version ) < floatval( '3.0.4' ) ) {
 			$args['need_upgrade'] = 'yes';
+		}
+
+		// Forms enabled?
+		if ( ! empty( $options->get( 'use_forms' ) ) ) {
+			$args['form_connection_url'] = esc_url( get_admin_url() . 'post-new.php?post_type=ssp-form' );
 		}
 
 		wp_localize_script( 'simplystatic-settings', 'options', $args );
@@ -269,6 +286,14 @@ class Admin_Settings {
 		register_rest_route( 'simplystatic/v1', '/pages', array(
 			'methods'             => 'GET',
 			'callback'            => [ $this, 'get_pages' ],
+			'permission_callback' => function () {
+				return current_user_can( apply_filters( 'ss_user_capability', 'manage_options', 'settings' ) );
+			},
+		) );
+
+		register_rest_route( 'simplystatic/v1', '/pages-slugs', array(
+			'methods'             => 'GET',
+			'callback'            => [ $this, 'get_pages_slugs' ],
 			'permission_callback' => function () {
 				return current_user_can( apply_filters( 'ss_user_capability', 'manage_options', 'settings' ) );
 			},
@@ -437,6 +462,7 @@ class Admin_Settings {
 				'urls_to_exclude',
 				'search_excludable',
 				'iframe_urls',
+				'iframe_custom_css',
 				'whitelist_plugins'
 			];
 
@@ -455,13 +481,6 @@ class Admin_Settings {
 					}
 					$options[ $key ] = sanitize_text_field( $value );
 				}
-			}
-
-			// Handle basic auth.
-			if ( isset( $options['http_basic_auth_username'] ) && $options['http_basic_auth_username'] && isset( $options['http_basic_auth_password'] ) && $options['http_basic_auth_password'] ) {
-				$options['http_basic_auth_digest'] = base64_encode( $options['http_basic_auth_username'] . ':' . $options['http_basic_auth_password'] );
-			} else {
-				$options['http_basic_auth_digest'] = '';
 			}
 
 			// Maybe update network settings.
@@ -496,13 +515,6 @@ class Admin_Settings {
 
 			// Reset options.
 			$options = sanitize_option( 'simply-static', $request->get_params() );
-
-			// Handle basic auth.
-			if ( isset( $options['http_basic_auth_username'] ) && $options['http_basic_auth_username'] && isset( $options['http_basic_auth_password'] ) && $options['http_basic_auth_password'] ) {
-				$options['http_basic_auth_digest'] = base64_encode( $options['http_basic_auth_username'] . ':' . $options['http_basic_auth_password'] );
-			} else {
-				$options['http_basic_auth_digest'] = '';
-			}
 
 			// Update settings.
 			update_option( 'simply-static', $options );
@@ -566,6 +578,31 @@ class Admin_Settings {
 
 		foreach ( $pages as $page ) {
 			$selectable_pages[] = array( 'label' => $page->post_title, 'value' => $page->ID );
+		}
+
+		return $selectable_pages;
+	}
+
+	/**
+	 * Get pages slugs for settings.
+	 * @return array
+	 */
+	public function get_pages_slugs() {
+		$args = array(
+			'post_type'   => 'page',
+			'post_status' => 'publish',
+			'numberposts' => - 1,
+		);
+
+		$pages = get_posts( $args );
+
+		// Build selectable pages array.
+		$selectable_pages = array();
+
+		foreach ( $pages as $page ) {
+			$permalink = get_permalink( $page->ID );
+
+			$selectable_pages[] = array( 'label' => $page->post_title, 'value' => $permalink );
 		}
 
 		return $selectable_pages;

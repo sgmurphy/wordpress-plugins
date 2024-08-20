@@ -61,7 +61,7 @@ class Simple_Job_Board_Meta_Box_Job_Application {
                 $keys = get_post_custom_keys($post->ID);
 
                 // Getting setting page saved options
-                $jobapp_settings_options = maybe_unserialize(get_option('jobapp_settings_options'));
+                $jobapp_settings_options = get_option('jobapp_settings_options');
             
                 //check Array differnce when $keys is not NULL
                 if (NULL == $keys) {
@@ -80,8 +80,7 @@ class Simple_Job_Board_Meta_Box_Job_Application {
                 if (NULL != $keys):
                     foreach ($keys as $key):
                         if (substr($key, 0, 7) == 'jobapp_'):
-                            $val = get_post_meta($post->ID, $key, TRUE);
-                            $val = maybe_unserialize($val);
+                            $val = get_post_meta($post->ID, $key, TRUE);                            
                             $val = ( is_array($val) ) ? array_map('esc_attr', $val) : esc_attr($val);
                             $key = preg_replace('/[^\p{L} 0-9]/u', '_', $key);
 

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Image optimization service by Optimole
  * Description:       Complete handling of your website images.
- * Version:           3.13.5
+ * Version:           3.13.6
  * Author:            Optimole
  * Author URI:        https://optimole.com
  * License:           GPL-2.0+
@@ -19,17 +19,17 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Autoloader function.
  *
- * @param string $class Class to load.
+ * @param string $class_name Class to load.
  */
-function optml_autoload( $class ) {
+function optml_autoload( $class_name ) {
 	$prefix = 'Optml';
-	if ( strpos( $class, $prefix ) !== 0 ) {
+	if ( strpos( $class_name, $prefix ) !== 0 ) {
 		return;
 	}
 	foreach ( [ '/inc/', '/inc/traits/', '/inc/image_properties/', '/inc/asset_properties/', '/inc/compatibilities/', '/inc/conflicts/', '/inc/cli/' ] as $folder ) {
-		$file = str_replace( $prefix . '_', '', $class );
+		$file = str_replace( $prefix . '_', '', $class_name );
 		$file = strtolower( $file );
-		$file = dirname( __FILE__ ) . $folder . $file . '.php';
+		$file = __DIR__ . $folder . $file . '.php';
 		if ( file_exists( $file ) ) {
 			require $file;
 		}
@@ -89,7 +89,7 @@ function optml() {
 	}
 	define( 'OPTML_URL', plugin_dir_url( __FILE__ ) );
 	define( 'OPTML_PATH', plugin_dir_path( __FILE__ ) );
-	define( 'OPTML_VERSION', '3.13.5' );
+	define( 'OPTML_VERSION', '3.13.6' );
 	define( 'OPTML_NAMESPACE', 'optml' );
 	define( 'OPTML_BASEFILE', __FILE__ );
 	// Fallback for old PHP versions when this constant is not defined.

@@ -34,7 +34,7 @@
         <ul id="settings_app_form_fields">
             <?php
             // Get Application Form Data
-            $jobapp_fields = maybe_unserialize(get_option('jobapp_settings_options'));
+            $jobapp_fields = get_option('jobapp_settings_options');
 
             // Display Job Application From DB
             if (NULL != $jobapp_fields) :

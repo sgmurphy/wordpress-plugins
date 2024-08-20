@@ -2,6 +2,7 @@
 
 namespace Templately\Builder;
 
+use Templately\Core\Importer\FullSiteImport;
 use Templately\Utils\Helper;
 use WP_Post;
 use WP_Query;
@@ -216,6 +217,7 @@ class Source {
 
 		$template_types = [];
 		$status_args    = [ 'post_type' => 'templately_library' ];
+		$has_revert     = FullSiteImport::has_revert();
 
 		$template_types['all'] = [
 			'url'   => add_query_arg( $status_args, 'edit.php' ),
@@ -234,7 +236,13 @@ class Source {
 			];
 		}
 
-		$this->builder::$views->get( 'builder/tabs', [ 'tabs' => $tabs, 'template_types' => $template_types ] );
+		$status_args['type']          = 'settings';
+		$template_types['settings'] = [
+			'url'   => add_query_arg( $status_args, 'edit.php' ),
+			'label' => __( 'Miscellaneous', 'templately' )
+		];
+
+		$this->builder::$views->get( 'builder/tabs', [ 'tabs' => $tabs, 'template_types' => $template_types, 'has_revert' => $has_revert ] );
 		return [];
 	}
 

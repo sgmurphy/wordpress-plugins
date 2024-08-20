@@ -6,7 +6,7 @@ if('Designexo' == $activate_theme || 'InteriorWP' == $activate_theme || 'Designe
 $designexo_testimonial_area_des = get_theme_mod('designexo_testimonial_area_des', __('WHAT OUR CLIENTS SAY ABOUT US','arile-extra'));
 }
 if('IntecoPress' == $activate_theme){ $designexo_testimonial_area_des = get_theme_mod('designexo_testimonial_area_des', __('WHAT OUR CLIENTS SAY','arile-extra')); }
-if('Empresa' == $activate_theme || 'Monster Dark' == $activate_theme || 'NewsMedia' == $activate_theme || 'SpiceMag' == $activate_theme || 'DesignTech' == $activate_theme || 'Technoex' == $activate_theme || 'Atlanta Blog' == $activate_theme){
+if('Empresa' == $activate_theme || 'Monster Dark' == $activate_theme || 'NewsMedia' == $activate_theme || 'SpiceMag' == $activate_theme || 'DesignTech' == $activate_theme || 'Technoex' == $activate_theme || 'Atlanta Blog' == $activate_theme || 'Business Model' == $activate_theme){
 $designexo_testimonial_area_des = get_theme_mod('designexo_testimonial_area_des', __('Happy clients say','arile-extra'));
 }
 if('BeautyCare' == $activate_theme ){

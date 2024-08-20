@@ -57,8 +57,11 @@ class ElementorContent extends BaseRunner {
 
 		if(isset($this->manifest['has_settings']) && $this->manifest['has_settings']){
 			// backing up the active kit id before updating the new one
-			if(!get_option("__templately_el_active_kit")){
-				add_option("__templately_el_active_kit", $active_kit, '', 'no');
+			if(!get_option("__templately_" . $kits_manager::OPTION_ACTIVE)){
+				add_option("__templately_" . $kits_manager::OPTION_ACTIVE, $active_kit, '', 'no');
+			}
+			else{
+				update_option("__templately_" . $kits_manager::OPTION_ACTIVE, $active_kit, 'no');
 			}
 
 			$file     = $this->dir_path . "settings.json";
@@ -79,16 +82,19 @@ class ElementorContent extends BaseRunner {
 
 			if (!empty($data['logo']['id'])) {
 				$settings['site_logo'] = $data['logo'];
+				$this->origin->update_imported_list('attachment', $data['logo']['id']);
 			} elseif (!empty($data['logo'])) {
+				$settings['site_logo'] = $old_logo;
+
 				// If there's no old logo id, try to upload a new logo
 				if (empty($old_logo['id'])) {
 					$site_logo = Utils::upload_logo($data['logo']);
 
 					// If the upload was successful, use the new logo, otherwise use the old one
-					$settings['site_logo'] = !empty($site_logo['id']) ? $site_logo : $old_logo;
-				} else {
-					// If there's an old logo id, use the old logo
-					$settings['site_logo'] = $old_logo;
+					if(!empty($site_logo['id'])){
+						$settings['site_logo'] = $site_logo;
+						$this->origin->update_imported_list('attachment', $site_logo['id']);
+					}
 				}
 			}
 

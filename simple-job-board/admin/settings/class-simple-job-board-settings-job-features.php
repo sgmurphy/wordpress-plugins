@@ -89,7 +89,7 @@ class Simple_Job_Board_Settings_Job_Features {
                         <?php
                         // Get Job Features From DB
                         $job_features = get_option('jobfeature_settings_options');
-                        $fields = maybe_unserialize($job_features);
+                        $fields = $job_features;
 
                         // Display Job Features
                         if (NULL != $fields):

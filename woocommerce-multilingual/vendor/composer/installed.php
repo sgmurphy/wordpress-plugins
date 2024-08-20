@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '5.3.6',
-        'version' => '5.3.6.0',
+        'pretty_version' => '5.3.7',
+        'version' => '5.3.7.0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '77162b6a7317129b34bef3cf0559f24789bd48b9',
+        'reference' => '4dca679f6a10e5fa5780a1a539428980a7c5f2aa',
         'name' => 'wcml/woocommerce-multilingual',
         'dev' => false,
     ),
@@ -79,12 +79,12 @@
             ),
         ),
         'wcml/woocommerce-multilingual' => array(
-            'pretty_version' => '5.3.6',
-            'version' => '5.3.6.0',
+            'pretty_version' => '5.3.7',
+            'version' => '5.3.7.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '77162b6a7317129b34bef3cf0559f24789bd48b9',
+            'reference' => '4dca679f6a10e5fa5780a1a539428980a7c5f2aa',
             'dev_requirement' => false,
         ),
         'wpml-shared/wpml-lib-cache' => array(

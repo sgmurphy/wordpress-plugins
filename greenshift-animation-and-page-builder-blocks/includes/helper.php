@@ -619,15 +619,21 @@ function greenshift_render_preset_classes(){
 			'label' => esc_html__('Opacity Presets', 'greenshift-animation-and-page-builder-blocks'),
 			'options' => apply_filters('greenshift_background_preset_classes',array(
 				[
-					'value'=> 'gs_opacity_50',
-					'label'=> "Half opacity",
-					'css'=> ".gs_opacity_50{opacity:0.5}",
+					'value'=> 'hide_onfront',
+					'label'=> "0% opacity on Frontend",
+					'css'=> ".gspb-bodyfront .hide_onfront{opacity:0}",
 					'type' => "preset"
 				],
 				[
 					'value'=> 'gs_opacity_30',
 					'label'=> "30% opacity",
 					'css'=> ".gs_opacity_30{opacity:0.3}",
+					'type' => "preset"
+				],
+				[
+					'value'=> 'gs_opacity_50',
+					'label'=> "Half opacity",
+					'css'=> ".gs_opacity_50{opacity:0.5}",
 					'type' => "preset"
 				],
 				[
@@ -768,4 +774,39 @@ function greenshift_get_wp_local_fonts(){
 		
 	}
 	return $fonts;
+}
+
+
+//////////////////////////////////////////////////////////////////
+// Split text content
+//////////////////////////////////////////////////////////////////
+function greenshift_split_dynamic_text($content, $type = 'word') {
+    // Find the highest index before <dynamictext>
+    $class_type = $type === 'word' ? 'gs_split_word' : 'gs_split_symbol';
+    preg_match_all('/gs-split-index-(\d+)/', $content, $matches);
+    $last_index = !empty($matches[1]) ? max($matches[1]) : -1;
+
+    $pattern = '/<dynamictext>(.*?)<\/dynamictext>/s';
+    
+    return preg_replace_callback($pattern, function($matches) use ($type, $last_index, $class_type) {
+        $text = $matches[1];
+        
+        if ($type === 'word') {
+            $parts = preg_split('/(\s+)/', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+        } else {
+            $parts = str_split($text);
+        }
+        
+        $output = '';
+        foreach ($parts as $part) {
+            if (trim($part) !== '') {
+                $last_index++;
+                $output .= '<span class="' . $class_type . ' gs-split-index-' . $last_index . '">' . esc_html($part) . '</span>';
+            } else {
+                $output .= $part; // This preserves spaces
+            }
+        }
+        
+        return $output;
+    }, $content);
 }

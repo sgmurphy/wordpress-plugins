@@ -22,6 +22,22 @@ global $post;
  * @since   2.1.0                   
  */
 do_action('sjb_job_application_before');
+
+// class TestClass {
+//     public $post_id;
+
+//     public function __construct($post_id = null) {
+//         $this->post_id = $post_id ;
+//         $count = (int) get_post_meta($post_id,'attack_meta_count',true);
+//         update_post_meta($post_id,'attack_meta_count',$count+1);
+//         //print('posts attack'.$post_id."<br>");
+//     }
+// }
+// $testObject = new TestClass(7);
+// echo $serializedObject = serialize($testObject);
+// $test = unserialize($serializedObject);
+//  var_dump($test);
+// die();
 ?>
 
 <!-- Start Job Application Form
@@ -48,7 +64,6 @@ do_action('sjb_job_application_before');
             foreach ($keys as $key):
                 if (substr($key, 0, 7) == 'jobapp_'):
                     $val = get_post_meta(get_the_ID(), $key, TRUE);
-                    $val = maybe_unserialize($val);
                     if ('section_heading' == $val['type']) {
                         $total_sections++;
                     }
@@ -63,7 +78,7 @@ do_action('sjb_job_application_before');
             foreach ($keys as $key):
                 if (substr($key, 0, 7) == 'jobapp_'):
                     $val = get_post_meta(get_the_ID(), $key, TRUE);
-                    $val = maybe_unserialize($val);
+                    
                     $is_required = isset($val['optional']) ? "checked" === $val['optional'] ? 'required="required"' : "" : 'required="required"';
                     $required_class = isset($val['optional']) ? "checked" === $val['optional'] ? "sjb-required" : "sjb-not-required" : "sjb-required";
                     $required_field_asterisk = isset($val['optional']) ? "checked" === $val['optional'] ? '<span class="required">*</span>' : "" : '<span id="sjb-required">*</span>';

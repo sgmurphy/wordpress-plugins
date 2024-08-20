@@ -3,8 +3,8 @@ Contributors: rpetersen29
 Donate link: https://www.paypal.me/rpetersenDev
 Tags: banner, bar, announcement, notification, notice
 Requires at least: 3.0.1
-Tested up to: 6.5.3
-Stable tag: 2.17.3
+Tested up to: 6.6.1
+Stable tag: 2.17.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,9 @@ Try setting the "Prepend element" setting to <code>header</code>. If that doesn'
 4. This is the settings page... and the fourth screen shot.
 
 == Changelog ==
+
+= 2.17.4 =
+* tested to WP 6.6.1
 
 = 2.17.3 =
 * Bug fixes
@@ -359,6 +362,9 @@ Try setting the "Prepend element" setting to <code>header</code>. If that doesn'
 * First Version.
 
 == Upgrade Notice ==
+
+= 2.17.4 =
+* tested to WP 6.6.1
 
 = 2.17.3 =
 * Bug fixes

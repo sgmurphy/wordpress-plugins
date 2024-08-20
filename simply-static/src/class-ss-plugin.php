@@ -127,7 +127,7 @@ class Plugin {
 	public function get_integrations() {
 		return $this->integrations->get_integrations();
 	}
-
+    
 	public function get_integration( $integration ) {
 		$integrations = $this->integrations->get_integrations();
 		if ( empty( $integrations[ $integration ] ) ) {
@@ -174,6 +174,7 @@ class Plugin {
 		require_once $path . 'src/class-ss-page-handlers.php';
 		require_once $path . 'src/class-ss-integrations.php';
 		require_once $path . 'src/admin/inc/class-ss-admin-settings.php';
+		require_once $path . 'src/admin/inc/class-ss-admin-meta.php';
 		require_once $path . 'src/admin/inc/class-ss-migrate-settings.php';
 		require_once $path . 'src/class-ss-multisite.php';
 		require_once $path . 'src/class-ss-plugin-compatibility.php';
@@ -183,6 +184,7 @@ class Plugin {
 	 * Old method to include admin menu.
 	 *
 	 * @return void
+     * @deprecated
 	 */
 	public function add_plugin_admin_menu() {
 		// Deprecated, only for upgrade support.
@@ -201,6 +203,10 @@ class Plugin {
 		}
 		do_action( 'ss_before_static_export', $blog_id, $type );
 
+        // Clear transients.
+        Util::clear_transients();
+
+        // Start export.
 		$this->archive_creation_job->start( $blog_id, $type );
 
 		// Exit if Basic Auth but no credentials were provided.
@@ -411,7 +417,7 @@ class Plugin {
 	public function add_http_filters( $parsed_args, $url ) {
 		// Check for Basic Auth credentials.
 		if ( strpos( $url, get_bloginfo( 'url' ) ) !== false ) {
-			$digest = self::$instance->options->get( 'http_basic_auth_digest' );
+			$digest = base64_encode( self::$instance->options->get('http_basic_auth_username') . ':' . self::$instance->options->get('http_basic_auth_password') );
 
 			if ( $digest ) {
 				$parsed_args['headers']['Authorization'] = 'Basic ' . $digest;
@@ -438,5 +444,4 @@ class Plugin {
 
 		return $parsed_args;
 	}
-
 }

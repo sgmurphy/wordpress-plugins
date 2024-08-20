@@ -210,7 +210,6 @@ class Simple_Job_Board_Ajax {
         // Save Applicant Details
         foreach ( $POST_data as $key => $val ) :
             if (substr($key, 0, 7) == 'jobapp_'):
-                // $val = is_array( $val ) ? maybe_serialize($val) : $val; 
                 $allow_special_char = apply_filters("allow_special_char",false);
                 if (is_array($val)) {
                     $string_val = implode(', ', $val);
@@ -219,7 +218,7 @@ class Simple_Job_Board_Ajax {
                     }else{
                         $sanitized_string_val = sanitize_text_field(preg_replace('/[^a-zA-Z0-9_@. -]/s', '', $string_val));
                     }
-                    $val = maybe_serialize($sanitized_string_val);
+                    $val = $sanitized_string_val;
                     update_post_meta( $pid, $key, $val );
                 }else{
                     if($allow_special_char == true){

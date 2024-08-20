@@ -8,7 +8,7 @@ $designexo_service_area_des = get_theme_mod('designexo_service_area_des', __('We
 if('Architect House' == $activate_theme){
 $designexo_service_area_des = get_theme_mod('designexo_service_area_des', __('We build creative architect design','arile-extra'));
 }
-if('Empresa' == $activate_theme || 'Monster Dark' == $activate_theme || 'NewsMedia' == $activate_theme || 'SpiceMag' == $activate_theme || 'DesignTech' == $activate_theme || 'Technoex' == $activate_theme || 'Atlanta Blog' == $activate_theme){
+if('Empresa' == $activate_theme || 'Monster Dark' == $activate_theme || 'NewsMedia' == $activate_theme || 'SpiceMag' == $activate_theme || 'DesignTech' == $activate_theme || 'Technoex' == $activate_theme || 'Atlanta Blog' == $activate_theme || 'Business Model' == $activate_theme){
 $designexo_service_area_des = get_theme_mod('designexo_service_area_des', __('We offer many services to growth','arile-extra'));
 }
 if('BeautyCare' == $activate_theme){
@@ -257,7 +257,7 @@ if($designexo_service_area_disabled == true): ?>
 				</div>
 			<?php } ?>
 			
-		<?php if('Monster Dark' == $activate_theme || 'DesignTech' == $activate_theme){ ?>
+		<?php if('Monster Dark' == $activate_theme || 'DesignTech' == $activate_theme || 'Business Model' == $activate_theme){ ?>
 				<div class="col-lg-4 col-md-6 col-sm-12">				
 					<article class="service-content wow animate fadeInUp" data-wow-delay=".3s">
 						<figure class="service-content-thumbnail">

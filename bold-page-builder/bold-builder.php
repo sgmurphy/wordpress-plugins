@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 5.0.3
+ * Version: 5.0.4
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '5.0.3' );
+define( 'BT_BB_VERSION', '5.0.4' );
 // VERSION --------------------------------------------------------- \\
  
 define( 'BT_BB_FEATURE_ADD_ELEMENTS', true );
@@ -311,7 +311,7 @@ BT_BB_Root::$has_footer = false;
 
 add_action( 'wp_loaded', 'bt_bb_has_footer' );
 function bt_bb_has_footer() {
-	if ( function_exists( 'boldthemes_get_option' ) && function_exists( 'boldthemes_get_id_by_slug' ) && class_exists( 'BoldThemes_Customize_Default' ) && property_exists( 'BoldThemes_Customize_Default', 'footer_page_slug' ) ) {
+	if ( function_exists( 'boldthemes_get_option' ) && function_exists( 'boldthemes_get_id_by_slug' ) && class_exists( 'BoldThemes_Customize_Default' ) && isset( BoldThemes_Customize_Default::$data['footer_page_slug'] ) ) {
 		$page_slug = boldthemes_get_option( 'footer_page_slug' );
 		if ( $page_slug != '' ) {
 			$page_id = boldthemes_get_id_by_slug( $page_slug );

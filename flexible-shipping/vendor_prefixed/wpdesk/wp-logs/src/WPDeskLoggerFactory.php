@@ -15,6 +15,8 @@ use FSVendor\WPDesk\Logger\WP\WPCapture;
 /**
  * Manages and facilitates creation of logger
  *
+ * @deprecated 1.13.0 Creates shared log file, which is discouraged. Prefer using {@see SimpleLoggerFactory}.
+ *
  * @package WPDesk\Logger
  */
 class WPDeskLoggerFactory extends \FSVendor\WPDesk\Logger\BasicLoggerFactory

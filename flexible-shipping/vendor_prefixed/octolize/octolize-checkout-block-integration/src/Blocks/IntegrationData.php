@@ -53,10 +53,10 @@ class IntegrationData
     /**
      * @param string $key
      *
-     * @return string|bool|array
+     * @return string|bool|array|null
      */
     protected function get_data(string $key)
     {
-        return $this->data[$key];
+        return $this->data[$key] ?? null;
     }
 }

@@ -4,7 +4,7 @@ Tags: email marketing, newsletter, crm, email newsletter, subscribers
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.1
-Stable tag: 2.9.23
+Stable tag: 2.9.24
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -260,6 +260,9 @@ You can report any security bugs found in the source code of FluentCRM plugins t
 10. Pro Integrations
 
 == Changelog ==
+
+= 2.9.24 (Date: August 20, 2024) =
+- Hotfix: Compatibility issues fixed for Email Editor with some woo addons
 
 = 2.9.23 (Date: August 19, 2024) =
 - Added Custom Field or Date of Birth on Wait Time in Automation

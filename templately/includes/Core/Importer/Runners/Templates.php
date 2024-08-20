@@ -41,6 +41,7 @@ class Templates extends BaseRunner {
 
 		$total     = count( $templates );
 		$processed = 0;
+		$this->create_page_template();
 		foreach ( $templates as $id => $template_settings ) {
 			$template_content = Utils::read_json_file( $path . $id . '.json' );
 
@@ -154,6 +155,35 @@ class Templates extends BaseRunner {
 			return $archive_page;
 		} catch ( \Exception $e ) {
 			return false;
+		}
+	}
+
+	/**
+	 * Only for gutenberg create a single page template.
+	 * @return void
+	 */
+	private function create_page_template() {
+		try {
+			if ( $this->manifest['platform'] !== 'gutenberg' ) {
+				return;
+			}
+
+			$post_data = [
+				'post_title'   => 'Single Page - (by Templately)',
+				'post_status'  => 'publish',
+				'post_type'    => 'templately_library',
+			];
+
+			$meta = [];
+
+			$meta['_wp_page_template'] = PageTemplates::TEMPLATE_HEADER_FOOTER;
+
+			$template = $this->factory->create( 'page_single', $post_data, $meta );
+			$template->import( ['content' => '<!-- wp:post-content /-->'] );
+
+			// return $archive_page;
+		} catch ( \Exception $e ) {
+			return;
 		}
 	}
 }

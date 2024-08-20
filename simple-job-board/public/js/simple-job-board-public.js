@@ -56,7 +56,7 @@
                     type: "POST",
                     dataType: "json",
                     data: datastring,
-                    async: false,
+                    async: true,
                     cache: false,
                     contentType: false,
                     processData: false,

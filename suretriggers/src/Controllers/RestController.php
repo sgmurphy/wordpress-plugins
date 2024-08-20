@@ -279,7 +279,7 @@ class RestController {
 		$args = [
 			'headers'   => [
 				'Authorization' => 'Bearer ' . $this->secret_key,
-				'Referer'       => str_replace( '/wp-json/', '', get_rest_url() ),
+				'Referer'       => str_replace( '/wp-json/', '', get_site_url() ),
 			],
 			'body'      => json_decode( wp_json_encode( $trigger_data ), 1 ),
 			'sslverify' => false,

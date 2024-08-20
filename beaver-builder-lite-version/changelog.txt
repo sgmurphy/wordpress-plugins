@@ -1,3 +1,12 @@
+<h4>2.8.3.5 - 08/15/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Text Editor Module: Fix not being able to access link settings when settings are pinned to the right (#3560)</li>
+	<li>Global Colors: Fix colors rendering requiring a refresh  (#3543)</li>
+	<li>Accordion Module: Fix issue with functionality when Expand on Tab is enabled (#3469)</li>
+	<li>Fix conflict with at.js script (#3546)</li>
+</ul>
+
 <h4>2.8.3.4 - 08/06/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

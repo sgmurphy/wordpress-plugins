@@ -2,17 +2,17 @@
 # This file is distributed under the GPL-3.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Square 4.7.2\n"
+"Project-Id-Version: WooCommerce Square 4.7.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-square\n"
-"POT-Creation-Date: 2024-07-29 14:08:59+00:00\n"
+"POT-Creation-Date: 2024-08-15 18:35:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.7\n"
 
 #: includes/AJAX.php:114
 msgid "Invalid permissions."
@@ -2789,7 +2789,7 @@ msgstr ""
 msgid "Gateway settings migration from %1$s to %2$s completed."
 msgstr ""
 
-#: includes/Plugin.php:315
+#: includes/Plugin.php:319
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Heads up! There may be a problem with your connection to Square. In order "
@@ -2797,24 +2797,24 @@ msgid ""
 "site%2$s."
 msgstr ""
 
-#: includes/Plugin.php:332
+#: includes/Plugin.php:336
 msgid "You are connected to Square!"
 msgstr ""
 
-#: includes/Plugin.php:339
+#: includes/Plugin.php:343
 msgid "To get started, set your business location."
 msgstr ""
 
-#: includes/Plugin.php:345
+#: includes/Plugin.php:349
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "Visit the %1$splugin settings%2$s to set your business location."
 msgstr ""
 
-#: includes/Plugin.php:355
+#: includes/Plugin.php:359
 msgid "You are ready to sync products!"
 msgstr ""
 
-#: includes/Plugin.php:361
+#: includes/Plugin.php:365
 #. translators: Placeholders: %1$s - <strong> tag, %2$s - product count, %3$s -
 #. </strong> tag, %4$s - <a> tag, %5$s - </a> tag
 msgid ""
@@ -2822,7 +2822,7 @@ msgid ""
 "now &raquo;%5$s"
 msgstr ""
 
-#: includes/Plugin.php:373
+#: includes/Plugin.php:377
 #. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s -
 #. <a> tag, %4$s - </a> tag
 msgid ""
@@ -2830,7 +2830,7 @@ msgid ""
 "products to sync data &raquo;%4$s"
 msgstr ""
 
-#: includes/Plugin.php:389
+#: includes/Plugin.php:393
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Heads up! Square is configured to sync product inventory, but WooCommerce "
@@ -2838,21 +2838,21 @@ msgid ""
 "ensure product inventory counts are kept in sync."
 msgstr ""
 
-#: includes/Plugin.php:408
+#: includes/Plugin.php:412
 msgid "To get started, connect with Square."
 msgstr ""
 
-#: includes/Plugin.php:412
+#: includes/Plugin.php:416
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "To get started, %1$sconnect with Square &raquo;%2$s"
 msgstr ""
 
-#: includes/Plugin.php:421
+#: includes/Plugin.php:425
 #. translators: Placeholders: %1$s - plugin name
 msgid "Thanks for installing %1$s!"
 msgstr ""
 
-#: includes/Plugin.php:442
+#: includes/Plugin.php:446
 #. translators: Placeholders: %1$s - plugin name, %2$ - plugin version number,
 #. %3$s - opening <a> HTML link tag, %4$s - closing </a> HTML link tag,  %5$s -
 #. opening <a> HTML link tag, %6$s - closing </a> HTML link tag
@@ -2863,7 +2863,7 @@ msgid ""
 "%5$supdated documentation%6$s."
 msgstr ""
 
-#: includes/Plugin.php:482
+#: includes/Plugin.php:486
 #. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s -
 #. 2-character country code, %4$s - comma separated list of 2-character country
 #. codes
@@ -2872,7 +2872,7 @@ msgid ""
 "accept transactions from merchants outside of %4$s."
 msgstr ""
 
-#: includes/Plugin.php:525
+#: includes/Plugin.php:529
 #. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s -
 #. <a> tag, %4$s - </a> tag
 msgid ""
@@ -2880,7 +2880,7 @@ msgid ""
 "Square is inactive. Please disconnect and reconnect to resolve."
 msgstr ""
 
-#: includes/Plugin.php:560
+#: includes/Plugin.php:564
 #. translators: Placeholders: %1$s = <strong> tag, %2$s = </strong> tag
 msgid ""
 "%1$sWooCommerce Square:%2$s Product prices are entered inclusive of tax, "
@@ -2888,7 +2888,7 @@ msgid ""
 "your Square tax rates match your WooCommerce tax rates."
 msgstr ""
 
-#: includes/Plugin.php:593
+#: includes/Plugin.php:597
 #. translators: Placeholders: %1$s = store currency, %2$s = configured Square
 #. business location currency, %3$s = <a> tag, %4$s = </a> tag, %5$s = <a> tag,
 #. %6$s = </a> tag

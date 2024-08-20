@@ -46,12 +46,12 @@ class Import {
 	private function register_runners() {
 		$this->runners = [
 			// TODO: Site Settings Import Runner
+			new Customizer( $this->full_site_import ),
 			new ExtraContent( $this->full_site_import ),
 			new Templates( $this->full_site_import ),
 			new GutenbergContent( $this->full_site_import ),
 			new ElementorContent( $this->full_site_import ),
 			new WPContent( $this->full_site_import ),
-			new Customizer( $this->full_site_import ),
 			new Finalizer( $this->full_site_import )
 		];
 	}

@@ -27,7 +27,7 @@ a.wprev_media_img_a{display:inline-block}img.wprev_media_img{height:50px!importa
   border-radius: 100px;
 }
 
-.wprs_unslider{overflow:visible;margin:0;padding:0;position:relative}.wprs_unslider-wrap{position:relative}.wprs_unslider-wrap.wprs_unslider-carousel>li{float:left}.wprs_unslider-vertical>ul{height:100%}.wprs_unslider-vertical li{float:none;width:100%}.wprs_unslider-fade{position:relative}.wprs_unslider-fade .wprs_unslider-wrap li{position:absolute;left:0;top:0;right:0;z-index:8;list-style-type:none}.wprs_unslider-fade .wprs_unslider-wrap li.wprs_unslider-active{z-index:10}.wprs_unslider li,.wprs_unslider ol,.wprs_unslider ul{list-style:none;margin:0;padding:0!important;border:none;list-style-type:none}.wprs_unslider-arrow{position:absolute;z-index:2;cursor:pointer}.wprs_unslider-arrow.next{left:auto;background-position-x: 52%;    background-position-y: 50%;}.wprs_unslider-arrow{display:block;width:25px;height:25px;top:50%;right:10px;left:auto;margin-top:-30px;overflow:hidden;background:rgba(0,0,0,.2) no-repeat 58% 51%;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAQCAQAAABuQZ3IAAAAi0lEQVR4AU3OISBEQQBAwS0AACS9NxqQgCZpkiYBVddFvWhAAUABAPQCAGC4g/0vTnrBqCfDIZl70J+kMUBPpEwT4FNXxBxz4F1HxHyr4EVTxBLb4EFNxEon4CJSlVNw9AcV9sC16h8osgke1P1ArgXwouVvdQq86ww/GQefusNf7kBviBlxpT8k+gL/Wox4r1d4MwAAAABJRU5ErkJggg==');background-size:7px 11px;border-radius:32px;text-indent:-999em;opacity:.6;transition:opacity .2s;border-width:0!important}.wprs_unslider-arrow.prev{left:10px;right:auto;-ms-transform:rotate(-180deg);transform:rotate(-180deg);background-position-x: 52%;background-position-y: 50%;}.wprs_unslider-nav ol{list-style:none;text-align:center}.wprs_unslider-nav ol li{display:inline-block;width:9px;height:9px;margin:0 4px!important;background:0 0;border-radius:5px;overflow:hidden;text-indent:-999em;border:1px solid #c3c3c3;cursor:pointer}.wprs_unslider-nav ol li.wprs_unslider-active{background:#c3c3c3;cursor:default}
+.wprs_unslider{overflow:visible;margin:0;padding:0;position:relative}.wprs_unslider-wrap{position:relative}.wprs_unslider-wrap.wprs_unslider-carousel>li{float:left}.wprs_unslider-vertical>ul{height:100%}.wprs_unslider-vertical li{float:none;width:100%}.wprs_unslider-fade{position:relative}.wprs_unslider-fade .wprs_unslider-wrap li{position:absolute;left:0;top:0;right:0;z-index:8;list-style-type:none}.wprs_unslider-fade .wprs_unslider-wrap li.wprs_unslider-active{z-index:10}.wprs_unslider li,.wprs_unslider ol,.wprs_unslider ul{list-style:none;margin:0!important;padding:0!important;border:none;list-style-type:none}.wprs_unslider-arrow{position:absolute;z-index:2;cursor:pointer}.wprs_unslider-arrow.next{left:auto;background-position-x: 52%;    background-position-y: 50%;}.wprs_unslider-arrow{display:block;width:25px;height:25px;top:50%;right:10px;left:auto;margin-top:-30px;overflow:hidden;background:rgba(0,0,0,.2) no-repeat 58% 51%;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAQCAQAAABuQZ3IAAAAi0lEQVR4AU3OISBEQQBAwS0AACS9NxqQgCZpkiYBVddFvWhAAUABAPQCAGC4g/0vTnrBqCfDIZl70J+kMUBPpEwT4FNXxBxz4F1HxHyr4EVTxBLb4EFNxEon4CJSlVNw9AcV9sC16h8osgke1P1ArgXwouVvdQq86ww/GQefusNf7kBviBlxpT8k+gL/Wox4r1d4MwAAAABJRU5ErkJggg==');background-size:7px 11px;border-radius:32px;text-indent:-999em;opacity:.6;transition:opacity .2s;border-width:0!important}.wprs_unslider-arrow.prev{left:10px;right:auto;-ms-transform:rotate(-180deg);transform:rotate(-180deg);background-position-x: 52%;background-position-y: 50%;}.wprs_unslider-nav ol{list-style:none;text-align:center}.wprs_unslider-nav ol li{display:inline-block;width:9px;height:9px;margin:0 4px!important;background:0 0;border-radius:5px;overflow:hidden;text-indent:-999em;border:1px solid #c3c3c3;cursor:pointer}.wprs_unslider-nav ol li.wprs_unslider-active{background:#c3c3c3;cursor:default}
 a.wprs_rd_more {
     cursor: pointer;
     text-decoration: none !important;
@@ -242,4 +242,19 @@ span.wprev-businessname {
 }
 img.wprev-google-powered-img {
     vertical-align: middle !important;
+}
+@media only screen and (max-width: 600px) {
+	.wprev_outer_wb {
+		flex-wrap: wrap;
+	}
+	.wprev_badge_div.badgeleft {
+		margin: 10px 10px 10px 10px !important;
+		width: -webkit-fill-available;
+	}
+	.wprev_outer_wb .wprs_unslider {
+		max-width: -webkit-fill-available;
+	}
+	.wprev_badge_div.badgeright {
+    width: -webkit-fill-available;
+}
 }

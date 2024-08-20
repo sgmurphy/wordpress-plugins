@@ -5216,7 +5216,8 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
     onPointerLeave: clearHighlight,
     onPointerCancel: clearHighlight,
     onContextMenu: function onContextMenu(e) {
-      // Already showing custom context menu, so show default browser menu.
+      var isGlobalRoot = global && type === FLBuilderConfig.userTemplateType; // Already showing custom context menu, so show default browser menu.
+
       if (false !== contextMenu && id === contextMenu.id) {
         clearContextMenu();
         return;
@@ -5234,14 +5235,14 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
         },
         clone: {
           label: 'Duplicate',
-          isEnabled: 'column-group' !== type && hasDefinition && !simpleUi,
+          isEnabled: !isGlobalRoot && 'column-group' !== type && hasDefinition && !simpleUi,
           onClick: function onClick() {
             return copyNode(id);
           }
         },
         "delete": {
           label: FLBuilderStrings.remove,
-          isEnabled: !simpleUi,
+          isEnabled: !isGlobalRoot && !simpleUi,
           status: 'destructive',
           onClick: function onClick() {
             return deleteNode(id);

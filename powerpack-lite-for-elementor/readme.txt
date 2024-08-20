@@ -1,25 +1,23 @@
-=== PowerPack Addons for Elementor (Free Widgets, Extensions and Templates) ===
+=== PowerPack Elementor Addons (Free Widgets, Extensions and Templates) ===
 Contributors: ideaboxcreations, simrandeep, puneetsahalot, ibachal, jainnidhi, nirbhay18, wpamitkumar
 Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.7.26
+Stable tag: 2.7.27
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A collection of 30+ Free Elementor addons & widgets. Take Elementor to the next level with PowerPack.
+Elevate your Elementor experience with PowerPack, a comprehensive collection of free Elementor addons & widgets designed to supercharge your website.
 
 == Description ==
 
-Extend Elementor with 60+ creative widgets and extensions with [PowerPack Addons](https://powerpackelements.com/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) - The fastest-growing library. Get 30+ Free widgets with PowerPack Lite. These widgets are designed with a focus on creativity and usability. With PowerPack, building Elementor websites will be faster than ever!  
+[PowerPack Elementor Addons](https://powerpackelements.com/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) offers a comprehensive collection of creative widgets, powerful extensions, and professionally crafted Elementor templates to elevate your website design experience. Unlock advanced design capabilities, streamline your workflow, and create stunning, professional websites effortlessly with PowerPack's versatile and user-friendly Elementor addons.
 
-PowerPack Addons is built by [IdeaBox Creations](https://ideabox.io/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link).
+Head over to [PowerPack Addons](https://powerpackelements.com/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) website to explore addons.
 
-Head over to [PowerPack Addons](https://powerpackelements.com/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) website to explore addon.
-
-## Top Features of PowerPack Addons
+## Top Features of PowerPack Elementor Addons
 
 - **UNIQUE WIDGETS**
 PowerPack includes a range of advanced elementor widgets that opens a whole new way of designing possibilities.
@@ -217,6 +215,9 @@ Absolutely no! It delivers the code only on pages where you use it.
 = Do I need coding experience to use PowerPack for Elementor? =
 Not at all! All the widgets and settings are easy to use with drag & drop interface.
 
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/powerpack-lite-for-elementor)
+
 
 == Screenshots ==
 
@@ -233,6 +234,11 @@ Not at all! All the widgets and settings are easy to use with drag & drop interf
 
 
 == Changelog ==
+
+= 2.7.27 - August 20, 2024 =
+* 	Fixed: Gravity Forms - Submit Button styling options were not working when button is set to inline position
+* 	Fixed: Gravity Forms - Submit Button full width option
+* 	Fixed: Posts - Row Spacing option
 
 = 2.7.26 - July 17, 2024 =
 * 	Fixed: Instagram Feed - PHP error

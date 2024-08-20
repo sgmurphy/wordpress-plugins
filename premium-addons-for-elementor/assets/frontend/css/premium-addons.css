@@ -2,8 +2,8 @@
 
 @font-face {
   font-family: "pa-elements";
-  src: url("../../editor/fonts/pa-elements.eot?v5piwz");
-  src: url("../../editor/fonts/pa-elements.eot?v5piwz#iefix") format("embedded-opentype"), url("../../editor/fonts/pa-elements.ttf?v5piwz") format("truetype"), url("../../editor/fonts/pa-elements.woff?v5piwz") format("woff"), url("../../editor/fonts/pa-elements.svg?v5piwz#pa-elements") format("svg");
+  src: url("../../editor/fonts/pa-elements.eot?vjgn7e");
+  src: url("../../editor/fonts/pa-elements.eot?vjgn7e#iefix") format("embedded-opentype"), url("../../editor/fonts/pa-elements.ttf?vjgn7e") format("truetype"), url("../../editor/fonts/pa-elements.woff?vjgn7e") format("woff"), url("../../editor/fonts/pa-elements.svg?vjgn7e#pa-elements") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -5446,8 +5446,8 @@ ul[data-list-animation*="animated-"] .premium-bullet-list-divider-inline {
 
 @font-face {
   font-family: "pa-elements";
-  src: url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.eot?v5piwz");
-  src: url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.eot?v5piwz#iefix") format("embedded-opentype"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.ttf?v5piwz") format("truetype"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.woff?v5piwz") format("woff"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.svg?v5piwz#pa-elements") format("svg");
+  src: url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.eot?vjgn7e");
+  src: url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.eot?vjgn7e#iefix") format("embedded-opentype"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.ttf?vjgn7e") format("truetype"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.woff?vjgn7e") format("woff"), url("../../plugins/premium-addons-for-elementor/assets/editor/fonts/pa-elements.svg?vjgn7e#pa-elements") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -13335,15 +13335,15 @@ ul.premium-person-social-list {
 
 @-webkit-keyframes pa-noise-anim-1 {
   0% {
-    clip: rect(52px, 9999px, 297px, 0);
+    clip: rect(52px, 9999px, 6px, 0);
   }
 
   5% {
-    clip: rect(88px, 9999px, 103px, 0);
+    clip: rect(88px, 9999px, 106px, 0);
   }
 
   10% {
-    clip: rect(81px, 9999px, 160px, 0);
+    clip: rect(81px, 9999px, 268px, 0);
   }
 
   15% {
@@ -13351,85 +13351,85 @@ ul.premium-person-social-list {
   }
 
   20% {
-    clip: rect(62px, 9999px, 1px, 0);
+    clip: rect(62px, 9999px, 199px, 0);
   }
 
   25% {
-    clip: rect(5px, 9999px, 181px, 0);
+    clip: rect(5px, 9999px, 232px, 0);
   }
 
   30% {
-    clip: rect(9px, 9999px, 190px, 0);
+    clip: rect(9px, 9999px, 226px, 0);
   }
 
   35% {
-    clip: rect(17px, 9999px, 296px, 0);
+    clip: rect(17px, 9999px, 125px, 0);
   }
 
   40% {
-    clip: rect(97px, 9999px, 44px, 0);
+    clip: rect(97px, 9999px, 69px, 0);
   }
 
   45% {
-    clip: rect(9px, 9999px, 21px, 0);
+    clip: rect(9px, 9999px, 49px, 0);
   }
 
   50% {
-    clip: rect(94px, 9999px, 19px, 0);
+    clip: rect(94px, 9999px, 286px, 0);
   }
 
   55% {
-    clip: rect(53px, 9999px, 236px, 0);
+    clip: rect(53px, 9999px, 81px, 0);
   }
 
   60% {
-    clip: rect(2px, 9999px, 29px, 0);
+    clip: rect(2px, 9999px, 214px, 0);
   }
 
   65% {
-    clip: rect(24px, 9999px, 264px, 0);
+    clip: rect(24px, 9999px, 208px, 0);
   }
 
   70% {
-    clip: rect(45px, 9999px, 236px, 0);
+    clip: rect(45px, 9999px, 45px, 0);
   }
 
   75% {
-    clip: rect(75px, 9999px, 78px, 0);
+    clip: rect(75px, 9999px, 77px, 0);
   }
 
   80% {
-    clip: rect(9px, 9999px, 186px, 0);
+    clip: rect(9px, 9999px, 153px, 0);
   }
 
   85% {
-    clip: rect(56px, 9999px, 289px, 0);
+    clip: rect(56px, 9999px, 163px, 0);
   }
 
   90% {
-    clip: rect(53px, 9999px, 83px, 0);
+    clip: rect(53px, 9999px, 181px, 0);
   }
 
   95% {
-    clip: rect(86px, 9999px, 254px, 0);
+    clip: rect(86px, 9999px, 187px, 0);
   }
 
   100% {
-    clip: rect(63px, 9999px, 180px, 0);
+    clip: rect(63px, 9999px, 25px, 0);
   }
 }
 
 @keyframes pa-noise-anim-1 {
   0% {
-    clip: rect(52px, 9999px, 297px, 0);
+    clip: rect(52px, 9999px, 6px, 0);
   }
 
   5% {
-    clip: rect(88px, 9999px, 103px, 0);
+    clip: rect(88px, 9999px, 106px, 0);
   }
 
   10% {
-    clip: rect(81px, 9999px, 160px, 0);
+    clip: rect(81px, 9999px, 268px, 0);
   }
 
   15% {
@@ -13437,243 +13437,243 @@ ul.premium-person-social-list {
   }
 
   20% {
-    clip: rect(62px, 9999px, 1px, 0);
+    clip: rect(62px, 9999px, 199px, 0);
   }
 
   25% {
-    clip: rect(5px, 9999px, 181px, 0);
+    clip: rect(5px, 9999px, 232px, 0);
   }
 
   30% {
-    clip: rect(9px, 9999px, 190px, 0);
+    clip: rect(9px, 9999px, 226px, 0);
   }
 
   35% {
-    clip: rect(17px, 9999px, 296px, 0);
+    clip: rect(17px, 9999px, 125px, 0);
   }
 
   40% {
-    clip: rect(97px, 9999px, 44px, 0);
+    clip: rect(97px, 9999px, 69px, 0);
   }
 
   45% {
-    clip: rect(9px, 9999px, 21px, 0);
+    clip: rect(9px, 9999px, 49px, 0);
   }
 
   50% {
-    clip: rect(94px, 9999px, 19px, 0);
+    clip: rect(94px, 9999px, 286px, 0);
   }
 
   55% {
-    clip: rect(53px, 9999px, 236px, 0);
+    clip: rect(53px, 9999px, 81px, 0);
   }
 
   60% {
-    clip: rect(2px, 9999px, 29px, 0);
+    clip: rect(2px, 9999px, 214px, 0);
   }
 
   65% {
-    clip: rect(24px, 9999px, 264px, 0);
+    clip: rect(24px, 9999px, 208px, 0);
   }
 
   70% {
-    clip: rect(45px, 9999px, 236px, 0);
+    clip: rect(45px, 9999px, 45px, 0);
   }
 
   75% {
-    clip: rect(75px, 9999px, 78px, 0);
+    clip: rect(75px, 9999px, 77px, 0);
   }
 
   80% {
-    clip: rect(9px, 9999px, 186px, 0);
+    clip: rect(9px, 9999px, 153px, 0);
   }
 
   85% {
-    clip: rect(56px, 9999px, 289px, 0);
+    clip: rect(56px, 9999px, 163px, 0);
   }
 
   90% {
-    clip: rect(53px, 9999px, 83px, 0);
+    clip: rect(53px, 9999px, 181px, 0);
   }
 
   95% {
-    clip: rect(86px, 9999px, 254px, 0);
+    clip: rect(86px, 9999px, 187px, 0);
   }
 
   100% {
-    clip: rect(63px, 9999px, 180px, 0);
+    clip: rect(63px, 9999px, 25px, 0);
   }
 }
 
 @-webkit-keyframes pa-noise-anim-2 {
   0% {
-    clip: rect(14px, 9999px, 249px, 0);
+    clip: rect(14px, 9999px, 258px, 0);
   }
 
   5% {
-    clip: rect(19px, 9999px, 285px, 0);
+    clip: rect(19px, 9999px, 18px, 0);
   }
 
   10% {
-    clip: rect(17px, 9999px, 149px, 0);
+    clip: rect(17px, 9999px, 248px, 0);
   }
 
   15% {
-    clip: rect(46px, 9999px, 115px, 0);
+    clip: rect(46px, 9999px, 128px, 0);
   }
 
   20% {
-    clip: rect(28px, 9999px, 257px, 0);
+    clip: rect(28px, 9999px, 42px, 0);
   }
 
   25% {
-    clip: rect(64px, 9999px, 124px, 0);
+    clip: rect(64px, 9999px, 292px, 0);
   }
 
   30% {
-    clip: rect(58px, 9999px, 198px, 0);
+    clip: rect(58px, 9999px, 2px, 0);
   }
 
   35% {
-    clip: rect(18px, 9999px, 209px, 0);
+    clip: rect(18px, 9999px, 219px, 0);
   }
 
   40% {
-    clip: rect(61px, 9999px, 15px, 0);
+    clip: rect(61px, 9999px, 184px, 0);
   }
 
   45% {
-    clip: rect(63px, 9999px, 200px, 0);
+    clip: rect(63px, 9999px, 244px, 0);
   }
 
   50% {
-    clip: rect(59px, 9999px, 90px, 0);
+    clip: rect(59px, 9999px, 68px, 0);
   }
 
   55% {
-    clip: rect(20px, 9999px, 188px, 0);
+    clip: rect(20px, 9999px, 224px, 0);
   }
 
   60% {
-    clip: rect(49px, 9999px, 164px, 0);
+    clip: rect(49px, 9999px, 17px, 0);
   }
 
   65% {
-    clip: rect(70px, 9999px, 264px, 0);
+    clip: rect(70px, 9999px, 181px, 0);
   }
 
   70% {
-    clip: rect(70px, 9999px, 216px, 0);
+    clip: rect(70px, 9999px, 188px, 0);
   }
 
   75% {
-    clip: rect(82px, 9999px, 196px, 0);
+    clip: rect(82px, 9999px, 255px, 0);
   }
 
   80% {
-    clip: rect(25px, 9999px, 19px, 0);
+    clip: rect(25px, 9999px, 137px, 0);
   }
 
   85% {
-    clip: rect(76px, 9999px, 31px, 0);
+    clip: rect(76px, 9999px, 56px, 0);
   }
 
   90% {
-    clip: rect(2px, 9999px, 277px, 0);
+    clip: rect(2px, 9999px, 90px, 0);
   }
 
   95% {
-    clip: rect(9px, 9999px, 228px, 0);
+    clip: rect(9px, 9999px, 38px, 0);
   }
 
   100% {
-    clip: rect(41px, 9999px, 63px, 0);
+    clip: rect(41px, 9999px, 92px, 0);
   }
 }
 
 @keyframes pa-noise-anim-2 {
   0% {
-    clip: rect(14px, 9999px, 249px, 0);
+    clip: rect(14px, 9999px, 258px, 0);
   }
 
   5% {
-    clip: rect(19px, 9999px, 285px, 0);
+    clip: rect(19px, 9999px, 18px, 0);
   }
 
   10% {
-    clip: rect(17px, 9999px, 149px, 0);
+    clip: rect(17px, 9999px, 248px, 0);
   }
 
   15% {
-    clip: rect(46px, 9999px, 115px, 0);
+    clip: rect(46px, 9999px, 128px, 0);
   }
 
   20% {
-    clip: rect(28px, 9999px, 257px, 0);
+    clip: rect(28px, 9999px, 42px, 0);
   }
 
   25% {
-    clip: rect(64px, 9999px, 124px, 0);
+    clip: rect(64px, 9999px, 292px, 0);
   }
 
   30% {
-    clip: rect(58px, 9999px, 198px, 0);
+    clip: rect(58px, 9999px, 2px, 0);
   }
 
   35% {
-    clip: rect(18px, 9999px, 209px, 0);
+    clip: rect(18px, 9999px, 219px, 0);
   }
 
   40% {
-    clip: rect(61px, 9999px, 15px, 0);
+    clip: rect(61px, 9999px, 184px, 0);
   }
 
   45% {
-    clip: rect(63px, 9999px, 200px, 0);
+    clip: rect(63px, 9999px, 244px, 0);
   }
 
   50% {
-    clip: rect(59px, 9999px, 90px, 0);
+    clip: rect(59px, 9999px, 68px, 0);
   }
 
   55% {
-    clip: rect(20px, 9999px, 188px, 0);
+    clip: rect(20px, 9999px, 224px, 0);
   }
 
   60% {
-    clip: rect(49px, 9999px, 164px, 0);
+    clip: rect(49px, 9999px, 17px, 0);
   }
 
   65% {
-    clip: rect(70px, 9999px, 264px, 0);
+    clip: rect(70px, 9999px, 181px, 0);
   }
 
   70% {
-    clip: rect(70px, 9999px, 216px, 0);
+    clip: rect(70px, 9999px, 188px, 0);
   }
 
   75% {
-    clip: rect(82px, 9999px, 196px, 0);
+    clip: rect(82px, 9999px, 255px, 0);
   }
 
   80% {
-    clip: rect(25px, 9999px, 19px, 0);
+    clip: rect(25px, 9999px, 137px, 0);
   }
 
   85% {
-    clip: rect(76px, 9999px, 31px, 0);
+    clip: rect(76px, 9999px, 56px, 0);
   }
 
   90% {
-    clip: rect(2px, 9999px, 277px, 0);
+    clip: rect(2px, 9999px, 90px, 0);
   }
 
   95% {
-    clip: rect(9px, 9999px, 228px, 0);
+    clip: rect(9px, 9999px, 38px, 0);
   }
 
   100% {
-    clip: rect(41px, 9999px, 63px, 0);
+    clip: rect(41px, 9999px, 92px, 0);
   }
 }
 
@@ -15734,6 +15734,252 @@ ul.premium-person-social-list {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+}
+
+.premium-woo-btn-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.premium-woo-btn-container .premium-woo-cta-button {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  border: none;
+}
+
+.premium-woo-btn-container .premium-woo-btn-text {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-woo-btn-container .premium-add-icon-image {
+  border-color: #000;
+  width: 100%;
+  height: 100%;
+}
+
+.premium-woo-btn-container .premium-woo-btn-icon {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-woo-btn-container .premium-woo-icon-hidden .premium-woo-btn-icon {
+  display: none;
+}
+
+.premium-woo-btn-container .premium-woo-cta-button:focus {
+  outline: none;
+}
+
+.premium-woo-btn-container .premium-button-text-icon-wrapper {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.premium-woo-btn-container img {
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-woo-btn-container .quantity-input-wrapper {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: 7px;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  height: inherit;
+}
+
+.premium-woo-btn-container input[type="number"].product-quantity::-webkit-inner-spin-button,
+.premium-woo-btn-container input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.premium-wrapper-woo-cta .quantity-grouped-wrapper {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: 7px;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  height: inherit;
+}
+
+.premium-wrapper-woo-cta .product-quantity,
+.premium-wrapper-woo-cta .grouped_product_qty {
+  color: #222222;
+  background-color: #ffffff !important;
+  border-color: #e0e0e0 !important;
+  font-size: 16px;
+  height: 43px;
+  width: 70px !important;
+  border-style: solid !important;
+  border-width: 1px 1px 1px 1px !important;
+  text-align: center;
+  border-radius: 0 !important;
+  -webkit-appearance: textfield;
+  appearance: textfield;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+.premium-wrapper-woo-cta input[type="number"].grouped_product_qty::-webkit-inner-spin-button,
+.premium-wrapper-woo-cta input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.premium-wrapper-woo-cta .add-to-cart-icons-quantity-wrapper {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+}
+
+.premium-wrapper-woo-cta .add-to-cart-icons-quantity-wrapper .quantity-button {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #222222;
+  background-color: #ffffff;
+  border-color: #e0e0e0;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  height: -webkit-calc(43px / 2);
+  height: calc(43px / 2);
+  font-size: 13px;
+  width: 33px;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  cursor: pointer;
+  border-radius: 0;
+  height: 100%;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-wrapper-woo-cta .add-to-cart-icons-quantity-wrapper .fa-plus:before {
+  content: "\f067";
+}
+
+.premium-wrapper-woo-cta .add-to-cart-icons-quantity-wrapper .fa-minus:before {
+  content: "\f068";
+}
+
+.premium-wrapper-woo-cta .view-cart-button {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+.premium-wrapper-woo-cta .premium-cta-message-box {
+  text-align: center;
+}
+
+.premium-wrapper-woo-cta .unavailable-message {
+  text-align: center;
+}
+
+.premium-wrapper-woo-cta .premium-variations,
+.premium-wrapper-woo-cta .premium-grouped-product {
+  border-collapse: separate;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-wrapper-woo-cta .premium-variations th,
+.premium-wrapper-woo-cta .premium-grouped-product th {
+  border: none;
+  vertical-align: middle;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-wrapper-woo-cta .premium-variations td,
+.premium-wrapper-woo-cta .premium-grouped-product td {
+  border: none;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.premium-wrapper-woo-cta .premium-grouped-product .pa-qty-wrapper {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.premium-wrapper-woo-cta .pro-wish {
+  display: inline;
+  margin-left: 10px;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+.premium-wrapper-woo-cta .premium-woo-cta__spinner {
+  position: relative;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+.premium-wrapper-woo-cta .premium-woo-cta__spinner.loader-visible {
+  margin-left: 10px;
+}
+
+.premium-wrapper-woo-cta .premium-woo-cta__spinner .premium-loading-feed {
+  display: block !important;
+  position: relative !important;
+}
+
+.pa-grouped .quantity-input-wrapper,
+.pa-external .quantity-input-wrapper {
+  display: none;
 }
 
 /********** Premium Woo Products **********/

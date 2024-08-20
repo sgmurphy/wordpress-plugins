@@ -47,7 +47,6 @@ do_action('sjb_job_application_before');
             foreach ($keys as $key):
                 if (substr($key, 0, 7) == 'jobapp_'):
                     $val = get_post_meta(get_the_ID(), $key, TRUE);
-                    $val = maybe_unserialize($val);
                     if ('section_heading' == $val['type']) {
                         $total_sections++;
                     }
@@ -62,7 +61,6 @@ do_action('sjb_job_application_before');
             foreach ($keys as $key):
                 if (substr($key, 0, 7) == 'jobapp_'):
                     $val = get_post_meta(get_the_ID(), $key, TRUE);
-                    $val = maybe_unserialize($val);
                     $is_required = isset($val['optional']) ? "checked" === $val['optional'] ? 'required="required"' : "" : 'required="required"';
                     $required_class = isset($val['optional']) ? "checked" === $val['optional'] ? "sjb-required" : "sjb-not-required" : "sjb-required";
                     $required_field_asterisk = isset($val['optional']) ? "checked" === $val['optional'] ? '<span class="required">*</span>' : "" : '<span id="sjb-required">*</span>';

@@ -115,6 +115,7 @@ class Circle_Progress_Bar extends Stratum_Widget_Base {
 				"description"	=> esc_html__( 'In Pixels (px)', 'stratum' ),
                 'type' => Controls_Manager::SLIDER,
                 'render_type' => 'ui',
+                'frontend_available' => true,
                 'default' => [
                     'size' => 150,
                 ],
@@ -261,6 +262,7 @@ class Circle_Progress_Bar extends Stratum_Widget_Base {
                             'type' => Controls_Manager::COLOR,
                             'value' => $first_color,
                             'default' => $first_color,
+                            'frontend_available' => true,
                             'render_type' => 'ui',
                             'selectors' => [
                                 '{{WRAPPER}} .stratum-circle-progress-bar svg .donut-fill' => 'stroke: {{VALUE}}',
@@ -276,6 +278,7 @@ class Circle_Progress_Bar extends Stratum_Widget_Base {
                             'value' => '#4682b426',
                             'default' => '#4682b426',
                             'render_type' => 'ui',
+                            'frontend_available' => true,
                             'selectors' => [
                                 '{{WRAPPER}} .stratum-circle-progress-bar svg .donut-bg' => 'stroke: {{VALUE}}',
                             ],

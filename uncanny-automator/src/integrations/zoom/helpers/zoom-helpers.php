@@ -34,7 +34,7 @@ class Zoom_Helpers {
 	/**
 	 * @var bool
 	 */
-	public $load_options;
+	public $load_options = true;
 
 	private $default_questions;
 	private $tab_url;
@@ -252,6 +252,7 @@ class Zoom_Helpers {
 		return array(
 			'option_code'       => 'MEETINGQUESTIONS',
 			'input_type'        => 'repeater',
+			'relevant_tokens'   => array(),
 			'label'             => __( 'Meeting questions', 'uncanny-automator' ),
 			/* translators: 1. Button */
 			'description'       => '',

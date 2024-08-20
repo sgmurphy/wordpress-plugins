@@ -922,7 +922,7 @@ class REMISE_SETTLEMENT {
 					),
 					USCES_MEMBER_URL
 				);
-				$html                 .= '<li><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
+				$html                 .= '<li class="settlement-update gotoedit"><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
 			}
 		}
 		return $html;

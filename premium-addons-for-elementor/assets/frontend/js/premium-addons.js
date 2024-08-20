@@ -4332,6 +4332,9 @@
                         $mediaItemsContainer.find('.premium-adv-carousel__item-outer-wrapper').css('right', 0);
                     } else {
                         $mediaItemsContainer.css('left', '-' + horAlignWidth / $mediaItem.length + 'px');
+                        if ('rtl' === document.dir) {
+                            $mediaItemsContainer.css('direction', 'ltr');
+                        }
                     }
 
                     var slidesSpacing = getComputedStyle($scope[0]).getPropertyValue('--pa-wheel-spacing') || 0,

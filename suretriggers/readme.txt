@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 1.0.56
+Stable tag: 1.0.57
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,11 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.57 - Tuesday, 20th August 2024 =
+* Improvement: "Bricks Builder" - Added improvements for form response with empty labels
+* Improvement: "Groundhogg" - Added fix for listing tags in Actions
+* Fix: Multilingual WordPress sites URL issue
 
 = Version 1.0.56 - Thursday, 15th August 2024 =
 * Improvement: "Advanced Custom Fields" - Enhanced response for "Field Updated on Post" Trigger

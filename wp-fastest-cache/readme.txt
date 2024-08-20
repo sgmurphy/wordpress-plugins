@@ -4,7 +4,7 @@ Donate link: https://profiles.wordpress.org/emrevona/
 Tags: cache, Optimize, performance, PageSpeed, core web vitals
 Requires at least: 3.3
 Tested up to: 6.6
-Stable tag: 1.2.9
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,11 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 18. Database Cleanup
 
 == Changelog ==
+
+= 1.3.0 =
+* Prevent caching of 403 Forbidden error pages
+* Fix issue: Exclude JS files with the "data-no-minify" attribute from the combining process
+* Fixed PHP Notice: Undefined index: HTTP_HOST in wpFastestCache.php on line 489
 
 = 1.2.9 =
 * Refactored 'Clear Cache via URL' feature

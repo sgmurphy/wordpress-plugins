@@ -63,14 +63,14 @@ class woocommerce_wpml {
 	public $translation_editor;
 
 	/**
-	 * @depreacted Use `make( WCML_Dependencies::class )` instead.
+	 * @deprecated Use `make( WCML_Dependencies::class )` instead.
 	 *
 	 * @var WCML_Dependencies
 	 */
 	public $dependencies;
 
 	/**
-	 * @depreacted Use `make( WCML_Dependencies::class )->check()` instead.
+	 * @deprecated Use `make( WCML_Dependencies::class )->check()` instead.
 	 *
 	 * @var bool|int
 	 */
@@ -119,7 +119,6 @@ class woocommerce_wpml {
 
 		$wc_shortccode_product_category = new WCML_WC_Shortcode_Product_Category( $sitepress );
 		$wc_shortccode_product_category->add_hooks();
-
 	}
 
 	private function load_rest_api() {
@@ -360,15 +359,15 @@ class woocommerce_wpml {
 	 * Get setting
 	 *
 	 * @param string      $key
-	 * @param null|string $default
+	 * @param null|string $fallback
 	 *
 	 * @return null|string|array
 	 */
-	public function get_setting( $key, $default = null ) {
+	public function get_setting( $key, $fallback = null ) {
 		if ( array_key_exists( $key, $this->settings ) ) {
 			return $this->settings[ $key ];
 		}
-		return get_option( 'wcml_' . $key, $default );
+		return get_option( 'wcml_' . $key, $fallback );
 	}
 
 	/**
@@ -518,7 +517,7 @@ class woocommerce_wpml {
 		$sitepress = getSitePress();
 
 		return $sitepress->get_wp_api()->version_compare( $this->get_constant( 'ICL_SITEPRESS_VERSION' ), '4.2.0', '<' ) ||
-			   $sitepress->get_wp_api()->version_compare( $this->get_constant( 'WPML_TM_VERSION' ), '2.8.0', '<' );
+			$sitepress->get_wp_api()->version_compare( $this->get_constant( 'WPML_TM_VERSION' ), '2.8.0', '<' );
 	}
 
 	/**

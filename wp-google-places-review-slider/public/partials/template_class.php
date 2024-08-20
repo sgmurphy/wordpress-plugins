@@ -42,7 +42,7 @@ class Template_Functions {
 								//is youtube
 								$tempclass = 'youtu';
 							}
-							$media= $media . '<a class="wprev_media_img_a '.$tempclass.'" href="'.$urlvalue.'" data-lity><img src="'.$thumburl.'" class="wprev_media_img"  alt="media thumbnail '.$n.'"></a>';
+							$media= $media . '<a data-fslightbox="wprevgallery'.$review->id.'" class="wprev_media_img_a '.$tempclass.'" href="'.$urlvalue.'" ><img src="'.$thumburl.'" class="wprev_media_img"  alt="media thumbnail '.$n.'"></a>';
 						}
 						$n++;
 					}

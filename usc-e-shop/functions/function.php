@@ -5235,6 +5235,8 @@ function get_welcart_system_information() {
 		'datalistup_orderlist_flag'      => $options_ex['system']['datalistup']['orderlist_flag'],
 		'datalistup_memberlist_flag'     => $options_ex['system']['datalistup']['memberlist_flag'],
 		'verifyemail_switch_flag'        => $options_ex['system']['verifyemail']['switch_flag'],
+		'verifyemail_edit_flag'          => $options_ex['system']['verifyemail']['edit_flag'],
+		'verifyemail_login_notify'       => $options_ex['system']['verifyemail']['login_notify'],
 		'number_of_orders'               => usces_get_total_orders(),
 		'number_of_members'              => usces_get_total_members(),
 		'settlement_selected'            => get_option( 'usces_settlement_selected' ),
@@ -5432,7 +5434,9 @@ function usces_generate_system_information_text( $environment, $theme, $active_p
 	$data .= __( 'Linkage Order Collective Upadate', 'usces' ) . ' : ' . ( ( $welcart_information['stocklink_collective_flag'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";
 	$data .= __( '[New] Order List', 'usces' ) . ' : ' . ( ( $welcart_information['datalistup_orderlist_flag'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";
 	$data .= __( '[New] Member List', 'usces' ) . ' : ' . ( ( $welcart_information['datalistup_memberlist_flag'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";
-	$data .= __( 'Verify New Member Email', 'usces' ) . ' : ' . ( ( $welcart_information['verifyemail_switch_flag'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";
+	$data .= __( 'Email verification for new registration', 'usces' ) . ' : ' . ( ( $welcart_information['verifyemail_switch_flag'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";
+	$data .= __( 'Email verification for editing information', 'usces' ) . ' : ' . ( ( $welcart_information['verifyemail_edit_flag'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";
+	$data .= __( 'Login Notification', 'usces' ) . ' : ' . ( ( $welcart_information['verifyemail_login_notify'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";
 	$data .= __( 'Google reCAPTCHA v3', 'usces' ) . ' : ' . ( ( $welcart_information['google_recaptcha_status'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";
 	$data .= __( 'Brute-force attack countermeasures', 'usces' ) . ' : ' . ( ( $welcart_information['brute_force_status'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";
 	$data .= __( 'Structured data measures', 'usces' ) . ' : ' . ( ( $welcart_information['structured_data_product_status'] ) ? __( 'Enabled', 'usces' ) : __( 'Disabled', 'usces' ) ) . "\r\n";

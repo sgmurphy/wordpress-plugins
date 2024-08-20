@@ -2,7 +2,9 @@
 
 namespace Templately\Core\Importer;
 
+use Elementor\Plugin;
 use Exception;
+use Templately\Core\Importer\Utils\Utils;
 use Templately\Utils\Base;
 use Templately\Utils\Helper;
 use Templately\Utils\Installer;
@@ -30,68 +32,70 @@ class FullSiteImport extends Base {
 	private   $is_import_status_handled = false;
 
 	public function __construct() {
-		$this->dev_mode = defined( 'TEMPLATELY_DEV' ) && TEMPLATELY_DEV;
-		$this->api_key  = Options::get_instance()->get( 'api_key' );
+		$this->dev_mode = defined('TEMPLATELY_DEV') && TEMPLATELY_DEV;
+		$this->api_key  = Options::get_instance()->get('api_key');
 
-		add_action( 'wp_ajax_templately_import_settings', [ $this, 'import_settings' ] );
-		add_action( 'wp_ajax_templately_pack_import_status', [ $this, 'import_status' ] );
-		add_action( 'wp_ajax_templately_pack_import', [ $this, 'import' ] );
-		add_action( 'wp_ajax_templately_pack_import_info', [ $this, 'import_info' ] );
-		add_action( 'admin_init', [ $this, 'admin_init' ] );
+		add_action('wp_ajax_templately_import_settings', [$this, 'import_settings']);
+		add_action('wp_ajax_templately_pack_import_status', [$this, 'import_status']);
+		add_action('wp_ajax_templately_pack_import', [$this, 'import']);
+		add_action('wp_ajax_templately_pack_import_revert', [$this, 'import_revert']);
+		add_action('wp_ajax_templately_pack_import_info', [$this, 'import_info']);
+		add_action('admin_init', [$this, 'admin_init']);
+		// add_action('admin_notices', [$this, 'add_revert_button']);
 
-		if(isset($_GET['action']) && $_GET['action'] == 'templately_pack_import') {
+		if (isset($_GET['action']) && $_GET['action'] == 'templately_pack_import') {
 			add_filter('wp_redirect', '__return_false', 999);
 		}
 
-		if ( $this->dev_mode ) {
-			add_filter( 'http_request_host_is_external', '__return_true' );
-			add_filter( 'http_request_args', function ( $args ) {
+		if ($this->dev_mode) {
+			add_filter('http_request_host_is_external', '__return_true');
+			add_filter('http_request_args', function ($args) {
 				$args['sslverify'] = false;
 
 				return $args;
-			} );
+			});
 		}
 	}
 
-	public function admin_init(){
-		if(get_option('templately_flush_rewrite_rules', false)){
+	public function admin_init() {
+		if (get_option('templately_flush_rewrite_rules', false)) {
 			flush_rewrite_rules();
 			delete_option('templately_flush_rewrite_rules');
 		}
 	}
 
 	public function import_settings() {
-		if( ! current_user_can( 'edit_posts' ) ) {
+		if (!current_user_can('edit_posts')) {
 			// @todo show error in ui. Currently getting stack.
-			wp_send_json_error( __( 'Unauthorized action.', 'templately' ) );
+			wp_send_json_error(__('Unauthorized action.', 'templately'));
 		}
 
-		$data = wp_unslash( $_POST );
+		$data = wp_unslash($_POST);
 
-		update_option( self::SESSION_OPTION_KEY, $data );
+		update_option(self::SESSION_OPTION_KEY, $data);
 
 		delete_transient('templately_fsi_log');
 
-		wp_send_json_success( [
+		wp_send_json_success([
 			'is_lightspeed' => !Helper::should_flush(),
-		] );
+		]);
 	}
 
-	private function update_session_data( $data ): bool {
-		$old_data = get_option( self::SESSION_OPTION_KEY, [] );
+	private function update_session_data($data): bool {
+		$old_data = get_option(self::SESSION_OPTION_KEY, []);
 
-		return update_option( self::SESSION_OPTION_KEY, wp_parse_args( $data, $old_data ) );
+		return update_option(self::SESSION_OPTION_KEY, wp_parse_args($data, $old_data));
 	}
 
 	public function get_session_data(): array {
-		$data = get_option( self::SESSION_OPTION_KEY, [] );
+		$data = get_option(self::SESSION_OPTION_KEY, []);
 
 		$options = [];
 
-		if ( is_array( $data ) && ! empty( $data ) ) {
-			foreach ( $data as $key => $value ) {
-				$json            = json_decode( $value, true );
-				$options[ $key ] = $json !== null ? $json : $value;
+		if (is_array($data) && !empty($data)) {
+			foreach ($data as $key => $value) {
+				$json            = json_decode($value, true);
+				$options[$key] = $json !== null ? $json : $value;
 			}
 		}
 
@@ -100,51 +104,52 @@ class FullSiteImport extends Base {
 
 	public function initialize_props() {
 		$data = $this->get_session_data();
-		if(isset($data['session_id'])){
+		if (isset($data['session_id'])) {
 			$this->session_id = $data['session_id'];
 		}
-		if(isset($data['dir_path'])){
+		if (isset($data['dir_path'])) {
 			$this->dir_path = $data['dir_path'];
 		}
-		if(isset($data['download_key'])){
+		if (isset($data['download_key'])) {
 			$this->download_key = $data['download_key'];
 		}
-		if(isset($data['dependency_data'])){
+		if (isset($data['dependency_data'])) {
 			$this->dependency_data = $data['dependency_data'];
 		}
-
 	}
 
 	private function clear_session_data(): bool {
-		return delete_site_option( self::SESSION_OPTION_KEY );
+		return delete_site_option(self::SESSION_OPTION_KEY);
 	}
 
 	public function import() {
-		 if ( ! $this->dev_mode && ! wp_doing_ajax() ) {
-		 	exit;
-		 }
-
-		 delete_transient( 'templately_fsi_log' );
-
-		 if(Helper::should_flush()){
-			header( "Cache-Control: no-store, no-cache" );
-			header( 'Content-Type: text/event-stream, charset=UTF-8' );
-			header( "Connection: Keep-Alive" );
+		if (!$this->dev_mode && !wp_doing_ajax()) {
+			exit;
 		}
 
-		if ( $GLOBALS['is_nginx'] ) {
-			header( 'X-Accel-Buffering: no' );
-			header( 'Content-Encoding: none' );
+		delete_transient('templately_fsi_log');
+		delete_option('templately_fsi_imported_list');
+
+		if (Helper::should_flush()) {
+			header("Cache-Control: no-store, no-cache");
+			header('Content-Type: text/event-stream, charset=UTF-8');
+			header("Connection: Keep-Alive");
 		}
 
-		register_shutdown_function( [ $this, 'register_shutdown' ] );
+		if ($GLOBALS['is_nginx']) {
+			header('X-Accel-Buffering: no');
+			header('Content-Encoding: none');
+		}
+
+		register_shutdown_function([$this, 'register_shutdown']);
+		$this->add_revert_hooks();
 
 		// Ignore user aborts and allow the script
 		// to run forever
 		ignore_user_abort(true);
 
 		// Time to run the import!
-		set_time_limit( 0 );
+		set_time_limit(0);
 
 
 
@@ -154,7 +159,7 @@ class FullSiteImport extends Base {
 		// } elseif ( function_exists( 'litespeed_finish_request' ) ) {
 		// 	litespeed_finish_request();
 		// }
-		if(Helper::should_flush()){
+		if (Helper::should_flush()) {
 			flush();
 			wp_ob_end_flush_all();
 		}
@@ -164,14 +169,14 @@ class FullSiteImport extends Base {
 
 			$this->request_params = $this->get_session_data();
 
-			$_id = isset( $this->request_params['id'] ) ? (int) $this->request_params['id'] : null;
+			$_id = isset($this->request_params['id']) ? (int) $this->request_params['id'] : null;
 
-			if ( $_id === null ) {
-				$this->throw( __( 'Invalid Pack ID.', 'templately' ) );
+			if ($_id === null) {
+				$this->throw(__('Invalid Pack ID.', 'templately'));
 			}
 
-			if(!isset($_GET['part'])){
-				$this->throw( __( 'Invalid request.', 'templately' ) );
+			if (!isset($_GET['part'])) {
+				$this->throw(__('Invalid request.', 'templately'));
 			}
 
 			switch ($_GET['part']) {
@@ -184,7 +189,7 @@ class FullSiteImport extends Base {
 					/**
 					 * Download the zip
 					 */
-					$this->download_zip( $_id );
+					$this->download_zip($_id);
 
 					/**
 					 * Reading Manifest File
@@ -194,11 +199,11 @@ class FullSiteImport extends Base {
 					/**
 					 * Version Check
 					 */
-					if ( ! empty( $this->manifest['version'] ) && version_compare( $this->manifest['version'], $this->version, '>' ) ) {
+					if (!empty($this->manifest['version']) && version_compare($this->manifest['version'], $this->version, '>')) {
 						/**
 						 * FIXME: The message should be re-written (by content/support team).
 						 */
-						$this->throw( __( 'Please update the templately plugin.', 'templately' ) );
+						$this->throw(__('Please update the templately plugin.', 'templately'));
 					}
 
 					/**
@@ -206,11 +211,11 @@ class FullSiteImport extends Base {
 					 */
 					$this->install_dependencies();
 
-					$this->sse_message( [
+					$this->sse_message([
 						'type'    => 'complete',
 						'action'  => 'downloadComplete',
 						'results' => '',
-					] );
+					]);
 					break;
 				case 'import':
 					/**
@@ -232,50 +237,49 @@ class FullSiteImport extends Base {
 					$this->start_content_import();
 					break;
 				default:
-					$this->throw( __( 'Invalid request.', 'templately' ) );
+					$this->throw(__('Invalid request.', 'templately'));
 					break;
 			}
-
-		} catch ( Exception $e ) {
+		} catch (Exception $e) {
 			$this->handle_import_status('failed', $e->getMessage());
-			$this->sse_message( [
+			$this->sse_message([
 				'action'   => 'error',
 				'status'   => 'error',
 				'type'     => "error",
 				'title'    => __("Oops!", "templately"),
 				'message'  => $e->getMessage()
-			] );
+			]);
 		}
 
-		if($_GET['part'] === 'import'){
+		if ($_GET['part'] === 'import') {
 			// TODO: cleanup
 			$this->clear_session_data();
 		}
 	}
 
-	public function import_status(){
-		$log = get_transient( 'templately_fsi_log' );
-		if(!empty($log) && is_array($log)){
+	public function import_status() {
+		$log = get_transient('templately_fsi_log');
+		if (!empty($log) && is_array($log)) {
 			$lastLogIndex = isset($_GET['lastLogIndex']) ? (int) $_GET['lastLogIndex'] : 0;
 			$log = array_slice($log, $lastLogIndex);
 
 			// delete log after complete
 			$data = end($log);
-			if(isset($data, $data['action']) && ($data['action'] === 'complete' || $data['action'] === 'downloadComplete' || $data['action'] === 'error')){
-				delete_transient( 'templately_fsi_log' );
+			if (isset($data, $data['action']) && ($data['action'] === 'complete' || $data['action'] === 'downloadComplete' || $data['action'] === 'error')) {
+				delete_transient('templately_fsi_log');
 			}
 		}
-		wp_send_json( ['log' => $log] );
+		wp_send_json(['log' => $log]);
 	}
 
 	/**
 	 * @throws Exception
 	 */
-	private function throw( $message, $code = 0 ) {
-		if ( $this->dev_mode ) {
-			error_log( print_r( $message, 1 ) );
+	private function throw($message, $code = 0) {
+		if ($this->dev_mode) {
+			error_log(print_r($message, 1));
 		}
-		throw new Exception( $message );
+		throw new Exception($message);
 	}
 
 	/**
@@ -284,82 +288,81 @@ class FullSiteImport extends Base {
 	private function check_writing_permission() {
 		$upload_dir = wp_upload_dir();
 
-		if ( ! is_writable( $upload_dir['basedir'] ) ) {
-			$this->throw( __( 'Upload directory is not writable.', 'templately' ) );
+		if (!is_writable($upload_dir['basedir'])) {
+			$this->throw(__('Upload directory is not writable.', 'templately'));
 		}
 
-		$this->tmp_dir = trailingslashit( $upload_dir['basedir'] ) . 'templately' . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
+		$this->tmp_dir = trailingslashit($upload_dir['basedir']) . 'templately' . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
 
-		if ( ! is_dir( $this->tmp_dir ) ) {
-			wp_mkdir_p( $this->tmp_dir );
+		if (!is_dir($this->tmp_dir)) {
+			wp_mkdir_p($this->tmp_dir);
 		}
 
-		$this->sse_log( 'writing_permission_check', __( 'Permission Passed', 'templately' ), 100 );
+		$this->sse_log('writing_permission_check', __('Permission Passed', 'templately'), 100);
 	}
 
-	private function get_api_url( $version, $end_point ): string {
+	private function get_api_url($version, $end_point): string {
 		return $this->dev_mode ? "https://app.templately.dev/api/$version/" . $end_point : "https://app.templately.com/api/$version/" . $end_point;
 	}
 
-	private function info_get_api_url( $id ): string {
+	private function info_get_api_url($id): string {
 		return $this->dev_mode ? 'https://app.templately.dev/api/v1/import/info/pack/' . $id : 'https://app.templately.com/api/v1/import/info/pack/' . $id;
 	}
 
 	/**
 	 * @throws Exception
 	 */
-	private function download_zip( $id ) {
+	private function download_zip($id) {
 		// $this->sse_log( 'download', __( 'Downloading Template Pack', 'templately' ), 1 );
-		$response = wp_remote_get( $this->get_api_url( "v2", "import/pack/$id" ), [
+		$response = wp_remote_get($this->get_api_url("v2", "import/pack/$id"), [
 			'timeout' => 30,
 			'headers' => [
 				'Content-Type'         => 'application/json',
 				'Authorization'        => 'Bearer ' . $this->api_key,
 				'x-templately-ip'      => Helper::get_ip(),
-				'x-templately-url'     => home_url( '/' ),
+				'x-templately-url'     => home_url('/'),
 				'x-templately-version' => TEMPLATELY_VERSION,
 			]
-		] );
+		]);
 
-		$response_code = wp_remote_retrieve_response_code( $response );
-		$content_type  = wp_remote_retrieve_header( $response, 'content-type' );
-		$this->download_key  = wp_remote_retrieve_header( $response, 'download-key' );
+		$response_code = wp_remote_retrieve_response_code($response);
+		$content_type  = wp_remote_retrieve_header($response, 'content-type');
+		$this->download_key  = wp_remote_retrieve_header($response, 'download-key');
 
-		if ( is_wp_error( $response ) ) {
-			$this->throw( __( 'Template pack download failed', 'templately' ) . $response->get_error_message() );
-		}
-		else if ($response_code != 200) {
+		if (is_wp_error($response)) {
+			$this->throw(__('Template pack download failed', 'templately') . $response->get_error_message());
+		} else if ($response_code != 200) {
 			if (strpos($content_type, 'application/json') !== false) {
 				// Retrieve Data from Response Body.
-				$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
+				$response_body = json_decode(wp_remote_retrieve_body($response), true);
 
 				// If the response body is JSON and it contains an error, throw an exception with the error message
 				if (isset($response_body['status']) && $response_body['status'] === 'error') {
-					$this->throw( $response_body['message'] );
+					$this->throw($response_body['message']);
 				}
 			}
-			$this->throw( __( 'Template pack download failed with response code: ', 'templately' ) . $response_code );
+			$this->throw(__('Template pack download failed with response code: ', 'templately') . $response_code);
 		}
 
-		$this->sse_log( 'download', __( 'Template is getting ready', 'templately' ), 57 );
+		$this->sse_log('download', __('Template is getting ready', 'templately'), 57);
 
 		$session_id       = uniqid();
 		$this->dir_path   = $this->tmp_dir . $session_id . DIRECTORY_SEPARATOR;
 		$this->filePath   = $this->tmp_dir . "{$session_id}.zip";
 		$this->session_id = $session_id;
 
-		$this->update_session_data( [
+		$this->update_session_data([
 			'session_id'   => $this->session_id,
 			'dir_path'     => $this->dir_path,
 			'download_key' => $this->download_key,
-		] );
+		]);
 
-		if ( file_put_contents( $this->filePath, $response['body'] ) ) { // phpcs:ignore
-			$this->sse_log( 'download', __( 'Template is getting ready', 'templately' ), 100 );
+		if (file_put_contents($this->filePath, $response['body'])) { // phpcs:ignore
+			$this->sse_log('download', __('Template is getting ready', 'templately'), 100);
 
 			$this->unzip();
 		} else {
-			$this->throw( __( 'Downloading Failed. Please try again', 'templately' ) );
+			$this->throw(__('Downloading Failed. Please try again', 'templately'));
 		}
 	}
 
@@ -367,30 +370,29 @@ class FullSiteImport extends Base {
 	 * @throws Exception
 	 */
 	protected function unzip() {
-		if ( ! WP_Filesystem() ) {
-			$this->throw( __( 'WP_Filesystem cannot be initialized', 'templately' ) );
+		if (!WP_Filesystem()) {
+			$this->throw(__('WP_Filesystem cannot be initialized', 'templately'));
 		}
 
-		$unzip = unzip_file( $this->filePath, $this->dir_path );
-		if ( is_wp_error( $unzip ) ) {
-			$unzip = $this->unzip_file( $this->filePath, $this->dir_path );
+		$unzip = unzip_file($this->filePath, $this->dir_path);
+		if (is_wp_error($unzip)) {
+			$unzip = $this->unzip_file($this->filePath, $this->dir_path);
 		}
 
-		if ( is_wp_error( $unzip ) ) {
+		if (is_wp_error($unzip)) {
 			$error = $unzip->get_error_message();
-			if(empty($error)){
+			if (empty($error)) {
 				// Generic error message
-				Helper::log( $unzip );
+				Helper::log($unzip);
 				$error_message = sprintf(__("It seems we're experiencing technical difficulties. Please try again or contact <a href='%s' target='_blank'>support</a>.", "templately"), 'https://wpdeveloper.com/support');
-				$this->throw( $error_message );
-			}
-			else{
-				$this->throw( $unzip->get_error_message() );
+				$this->throw($error_message);
+			} else {
+				$this->throw($unzip->get_error_message());
 			}
 		}
 
-		if ( $unzip ) {
-			unlink( $this->filePath );
+		if ($unzip) {
+			unlink($this->filePath);
 		}
 	}
 
@@ -427,13 +429,13 @@ class FullSiteImport extends Base {
 	 * @throws Exception
 	 */
 	private function read_manifest() {
-		$manifest_content = file_get_contents( $this->dir_path . DIRECTORY_SEPARATOR . 'manifest.json' );
-		if ( empty( $manifest_content ) ) {
-			$this->throw( __( 'Cannot be imported, as the manifest file is corrupted', 'templately' ) );
+		$manifest_content = file_get_contents($this->dir_path . DIRECTORY_SEPARATOR . 'manifest.json');
+		if (empty($manifest_content)) {
+			$this->throw(__('Cannot be imported, as the manifest file is corrupted', 'templately'));
 		}
 
-		$this->manifest = json_decode( $manifest_content, true );
-		$this->removeLog( 'temp' );
+		$this->manifest = json_decode($manifest_content, true);
+		$this->removeLog('temp');
 
 		// TODO: Read & Broadcast the LOG for waiting list
 		// $this->sse_log( 'plugin', 'Installing required plugins', '--', 'updateLog', 'processing' );
@@ -445,13 +447,13 @@ class FullSiteImport extends Base {
 	}
 
 	private function skipped_plugin(): bool {
-		return empty( $this->request_params['plugins'] ) || ! is_array( $this->request_params['plugins'] );
+		return empty($this->request_params['plugins']) || !is_array($this->request_params['plugins']);
 	}
 
 	private function install_dependencies() {
 		$allowed_themes  = ['hello-elementor', 'twentytwentyfour'];
 
-		if ( ! empty( $this->request_params['theme'] ) && is_array( $this->request_params['theme'] ) ) {
+		if (!empty($this->request_params['theme']) && is_array($this->request_params['theme'])) {
 			// activate theme
 			$theme = $this->request_params['theme'];
 
@@ -459,17 +461,22 @@ class FullSiteImport extends Base {
 
 			if (isset($theme['stylesheet']) && in_array($theme['stylesheet'], $allowed_themes)) {
 				// do_action('before_theme_activation', $theme); // Trigger action before theme activation
-				$this->sse_log( 'theme', 'Installing and activating theme: ' . $theme['name'], 0 );
-				$plugin_status      = Installer::get_instance()->install_and_activate_theme( $theme['stylesheet'] );
+				$this->sse_log('theme', 'Installing and activating theme: ' . $theme['name'], 0);
+				if (!get_option("__templately_stylesheet")) {
+					$stylesheet = get_option('stylesheet');
+					add_option("__templately_stylesheet", $stylesheet, '', 'no');
+				}
+
+				$plugin_status      = Installer::get_instance()->install_and_activate_theme($theme['stylesheet']);
 
 				if (!$plugin_status['success']) {
-					$this->sse_message( [
+					$this->sse_message([
 						'action'   => 'updateLog',
 						'status'   => 'error',
 						'message'  => "Failed to activate theme: " . $theme['name'],
 						'type'     => "theme",
 						'progress' => 0
-					] );
+					]);
 					$this->dependency_data['theme'] = [
 						'success' => false,
 						'name'    => $theme['name'],
@@ -479,13 +486,13 @@ class FullSiteImport extends Base {
 				} else {
 					// do_action('after_theme_activation', $theme); // Trigger action after theme activation
 
-					$this->sse_message( [
+					$this->sse_message([
 						'action'   => 'updateLog',
 						'status'   => 'complete',
 						'message'  => "Activated theme: " . $theme['name'],
 						'type'     => "theme",
 						'progress' => 100
-					] );
+					]);
 					$this->dependency_data['theme'] = [
 						'success' => true,
 						'name'    => $theme['name'],
@@ -496,38 +503,37 @@ class FullSiteImport extends Base {
 			}
 
 			$this->after_install_hook();
+		} else {
+			$this->removeLog('theme');
 		}
-		else {
-			$this->removeLog( 'theme' );
-		}
-		if ( ! empty( $this->request_params['plugins'] ) && is_array( $this->request_params['plugins'] ) ) {
+		if (!empty($this->request_params['plugins']) && is_array($this->request_params['plugins'])) {
 			// $this->sse_log( 'plugin', 'Installing Plugins', 1 );
-			$total_plugin = count( $this->request_params['plugins'] );
+			$total_plugin = count($this->request_params['plugins']);
 
 			$total_plugin_installed = $total_plugin;
 			$_installed_plugins     = 0;
 
 			$this->before_install_hook();
 
-			foreach ( $this->request_params['plugins'] as $dependency ) {
-				$this->sse_log( 'plugin', 'Installing required plugins: ' . $dependency['name'], floor( ( 100 * $_installed_plugins / $total_plugin ) ) );
+			foreach ($this->request_params['plugins'] as $dependency) {
+				$this->sse_log('plugin', 'Installing required plugins: ' . $dependency['name'], floor((100 * $_installed_plugins / $total_plugin)));
 
 				$dependency['slug'] = $dependency['plugin_original_slug'];
-				$plugin_status      = Installer::get_instance()->install( $dependency );
+				$plugin_status      = Installer::get_instance()->install($dependency);
 
-				if ( ! $plugin_status['success'] ) {
-					$this->sse_message( [
+				if (!$plugin_status['success']) {
+					$this->sse_message([
 						'position' => 'plugin',
 						'action'   => 'updateLog',
 						'status'   => 'error',
-						'message'  => 'Installation Failed: ' . $dependency['name'] . ' (' . ( $plugin_status['message'] ?? '' ) . ')',
+						'message'  => 'Installation Failed: ' . $dependency['name'] . ' (' . ($plugin_status['message'] ?? '') . ')',
 						'type'     => "plugin_{$dependency['plugin_original_slug']}",
 						'progress' => 0
-					] );
+					]);
 
-					if(isset($dependency['mustHave']) && $dependency['mustHave']){
-						$this->removeLog( 'plugin' );
-						$this->throw( 'Installation Failed: ' . $dependency['name'] . ' (' . ( $plugin_status['message'] ?? '' ) . ')' );
+					if (isset($dependency['mustHave']) && $dependency['mustHave']) {
+						$this->removeLog('plugin');
+						$this->throw('Installation Failed: ' . $dependency['name'] . ' (' . ($plugin_status['message'] ?? '') . ')');
 					}
 
 					$this->dependency_data['plugins']['failed'][] = [
@@ -544,23 +550,23 @@ class FullSiteImport extends Base {
 
 			$this->after_install_hook();
 
-			$this->sse_message( [
+			$this->sse_message([
 				'action'   => 'updateLog',
 				'status'   => 'complete',
 				'message'  => "Installed required plugins ($_installed_plugins/$total_plugin)",
 				'type'     => "plugin",
 				'progress' => 100
-			] );
+			]);
 			$this->dependency_data['plugins']['total'] = $total_plugin;
 			$this->dependency_data['plugins']['succeed'] = $_installed_plugins;
 		} else {
-			$this->removeLog( 'plugin' );
+			$this->removeLog('plugin');
 		}
 
 
-		$this->update_session_data( [
+		$this->update_session_data([
 			'dependency_data'   => json_encode($this->dependency_data),
-		] );
+		]);
 		// $this->sse_log( 'plugin', 'Skipped Installing Plugins', '--', 'updateLog', 'skipped' );
 	}
 
@@ -588,44 +594,44 @@ class FullSiteImport extends Base {
 		add_filter('upload_mimes', array($this, 'allow_svg_upload'));
 		add_filter('elementor/files/allow_unfiltered_upload', '__return_true');
 
-		$import        = new Import( $this );
+		$import        = new Import($this);
 		$imported_data = $import->run();
 
 		$this->handle_import_status('success');
 
 		update_option('templately_flush_rewrite_rules', true, false);
 
-		$this->sse_message( [
+		$this->sse_message([
 			'type'    => 'complete',
 			'action'  => 'complete',
-			'results' => $this->normalize_imported_data( $imported_data )
-		] );
+			'results' => $this->normalize_imported_data($imported_data)
+		]);
 	}
 
-	private function normalize_imported_data( $data ) {
-		$templates = ! empty( $data['templates']['succeed'] ) ? count( $data['templates']['succeed'] ) : 0;
-		$template_types = ! empty( $data['templates']['template_types'] ) ? $data['templates']['template_types'] : [];
+	private function normalize_imported_data($data) {
+		$templates = !empty($data['templates']['succeed']) ? count($data['templates']['succeed']) : 0;
+		$template_types = !empty($data['templates']['template_types']) ? $data['templates']['template_types'] : [];
 
 		$post_types = [];
 		$content_templates = [];
-		if ( ! empty( $data['content'] ) && is_array( $data['content'] ) ) {
-			foreach ( $data['content'] as $type => $type_data ) {
-				$content_templates[ $type ] = ! empty( $type_data['succeed'] ) ? count( $type_data['succeed'] ) : 0;
+		if (!empty($data['content']) && is_array($data['content'])) {
+			foreach ($data['content'] as $type => $type_data) {
+				$content_templates[$type] = !empty($type_data['succeed']) ? count($type_data['succeed']) : 0;
 				$post_types[] = $this->get_post_type_label_by_slug($type);
 			}
 		}
 
 		$contents = [];
-		if ( ! empty( $data['wp-content'] ) && is_array( $data['wp-content'] ) ) {
-			foreach ( $data['wp-content'] as $type => $type_data ) {
-				$contents[ $type ] = ! empty( $type_data['succeed'] ) ? count( $type_data['succeed'] ) : 0;
-				if(!in_array($type, ['wp_navigation', 'nav_menu_item'])){
+		if (!empty($data['wp-content']) && is_array($data['wp-content'])) {
+			foreach ($data['wp-content'] as $type => $type_data) {
+				$contents[$type] = !empty($type_data['succeed']) ? count($type_data['succeed']) : 0;
+				if (!in_array($type, ['wp_navigation', 'nav_menu_item'])) {
 					$post_types[] = $this->get_post_type_label_by_slug($type);
 				}
 			}
 		}
 
-		Helper::log( $data );
+		Helper::log($data);
 
 		return [
 			'templates'         => $templates,
@@ -648,10 +654,10 @@ class FullSiteImport extends Base {
 		// }
 	}
 
-	public function redirect_for_archives( $link, $post_id ) {
-		$archive_settings = get_option( 'templately_post_archive' );
-		if ( ! empty( $archive_settings ) && intval( $archive_settings['post_id'] ) === intval( $post_id ) ) {
-			$link = str_replace( $post_id, $archive_settings['archive_id'], $link );
+	public function redirect_for_archives($link, $post_id) {
+		$archive_settings = get_option('templately_post_archive');
+		if (!empty($archive_settings) && intval($archive_settings['post_id']) === intval($post_id)) {
+			$link = str_replace($post_id, $archive_settings['archive_id'], $link);
 		}
 
 		return $link;
@@ -663,7 +669,7 @@ class FullSiteImport extends Base {
 		return $mimes;
 	}
 
-	public function register_shutdown(){
+	public function register_shutdown() {
 		$status     = connection_status();
 		$last_error = error_get_last();
 		if ($status != CONNECTION_NORMAL && $last_error && $last_error['type'] === E_ERROR) {
@@ -683,7 +689,7 @@ class FullSiteImport extends Base {
 
 			$this->handle_import_status('failed', $error_message);
 			// Handle the error, e.g. log it or display a message to the user
-			$this->sse_message( [
+			$this->sse_message([
 				'action'   => 'error',
 				'status'   => 'error',
 				'type'     => "error",
@@ -691,12 +697,12 @@ class FullSiteImport extends Base {
 				'message'  => $error_message,
 				// 'position' => 'plugin',
 				// 'progress' => '--',
-			] );
+			]);
 		}
 
-		$this->debug_log( "Shutdown:....." );
-		$this->debug_log( "connection_status: " . $this->getConnectionStatusText() );
-		$this->debug_log( $last_error );
+		$this->debug_log("Shutdown:.....");
+		$this->debug_log("connection_status: " . $this->getConnectionStatusText());
+		$this->debug_log($last_error);
 	}
 
 	public function handle_import_status($status, $description = '') {
@@ -709,12 +715,12 @@ class FullSiteImport extends Base {
 		$download_key = $this->download_key;
 
 		$headers = [
-            'Content-Type'     => 'application/json',
+			'Content-Type'     => 'application/json',
 			'Authorization'    => 'Bearer ' . $this->api_key,
 			'download_key'     => $download_key,
 			'download-key'     => $download_key,
 			'x-templately-ip'  => Helper::get_ip(),
-			'x-templately-url' => home_url( '/' ),
+			'x-templately-url' => home_url('/'),
 		];
 
 		$args = [
@@ -723,11 +729,11 @@ class FullSiteImport extends Base {
 
 
 		if ($status === 'success') {
-			$url          = $this->get_api_url( "v1", 'import/success');
+			$url          = $this->get_api_url("v1", 'import/success');
 			$args['body'] = json_encode(['type' => 'pack']);
 			$response     = wp_remote_post($url, $args);
 		} elseif ($status === 'failed') {
-			$url          = $this->get_api_url( "v1", 'import/failed');
+			$url          = $this->get_api_url("v1", 'import/failed');
 			$args['body'] = json_encode(['type' => 'pack', 'description' => $description ?: "Something Went wrong....."]);
 			$response     = wp_remote_post($url, $args);
 		}
@@ -763,39 +769,39 @@ class FullSiteImport extends Base {
 
 	protected function get_post_type_label_by_slug($slug) {
 		$post_type_obj = get_post_type_object($slug);
-		if($post_type_obj) {
+		if ($post_type_obj) {
 			return $post_type_obj->label;
 		}
 		return null;
 	}
 
-	public function import_info(){
+	public function import_info() {
 
 		$platform = isset($_GET['platform']) ? $_GET['platform'] : 'elementor';
 		$id       = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-		$response = wp_remote_get( $this->info_get_api_url($id), [
+		$response = wp_remote_get($this->info_get_api_url($id), [
 			'timeout' => 30,
 			'headers' => [
 				'Authorization'        => 'Bearer ' . $this->api_key,
 				'x-templately-ip'      => Helper::get_ip(),
-				'x-templately-url'     => home_url( '/' ),
+				'x-templately-url'     => home_url('/'),
 				'x-templately-version' => TEMPLATELY_VERSION,
 			]
-		] );
+		]);
 
-		if( is_wp_error( $response ) ){
-			wp_send_json_error( $response->get_error_message() );
+		if (is_wp_error($response)) {
+			wp_send_json_error($response->get_error_message());
 			return;
 		}
 		// If the response code is not 200, return the error message
-		if( wp_remote_retrieve_response_code( $response ) != 200 ){
-			wp_send_json_error( json_decode(wp_remote_retrieve_body( $response )) );
+		if (wp_remote_retrieve_response_code($response) != 200) {
+			wp_send_json_error(json_decode(wp_remote_retrieve_body($response)));
 			return;
 		}
 		// If the response body is JSON and it contains an error, return the error message
 		// Retrieve Data from Response Body.
-		$body = wp_remote_retrieve_body( $response );
+		$body = wp_remote_retrieve_body($response);
 		$data = json_decode($body, true);
 
 		if (isset($data['error'])) {
@@ -803,10 +809,10 @@ class FullSiteImport extends Base {
 			return;
 		}
 
-		if(isset($data['data']['manifest'])){
+		if (isset($data['data']['manifest'])) {
 			$data['data']['manifest'] = json_decode($data['data']['manifest'], true);
 		}
-		if(isset($data['data']['settings'])){
+		if (isset($data['data']['settings'])) {
 			$data['data']['settings'] = json_decode($data['data']['settings'], true);
 		}
 
@@ -814,4 +820,156 @@ class FullSiteImport extends Base {
 		wp_send_json($data);
 	}
 
+	public function update_imported_list($type, $id) {
+		$imported_list = get_option('templately_fsi_imported_list', []);
+		$imported_list[$type][] = $id;
+		update_option('templately_fsi_imported_list', $imported_list);
+	}
+
+	/**
+	 *
+	 *
+	 * @return void
+	 */
+	protected function add_revert_hooks() {
+		add_action('wp_insert_post', function ($post_id) {
+			$this->update_imported_list('posts', $post_id);
+		});
+		add_action('add_attachment', function ($post_id) {
+			$this->update_imported_list('attachment', $post_id);
+		});
+		add_action('created_term', function ($term_id, $tt_id, $taxonomy, $args) {
+			$this->update_imported_list('term', [$term_id, $taxonomy]);
+		}, 10, 4);
+		add_action('registered_taxonomy', function ($taxonomy, $object_type, $taxonomy_object) {
+			$this->update_imported_list('taxonomy', $taxonomy);
+		}, 10, 3);
+	}
+
+	public static function has_revert(){
+		$options = Utils::get_backup_options();
+		$imported_list = get_option('templately_fsi_imported_list', []);
+		if(!empty($options) || !empty($imported_list)){
+			return true;
+		}
+		return false;
+	}
+
+	public function import_revert() {
+
+		// // Get the nonce value from the request (usually from $_POST or $_GET)
+		// $received_nonce = isset($_REQUEST['_wpnonce']) ? $_REQUEST['_wpnonce'] : '';
+
+		// // Verify the nonce using wp_verify_nonce()
+		// $verified = wp_verify_nonce($received_nonce, 'templately_pack_import_revert_nonce');
+
+		// if (!$verified) {
+		// 	wp_send_json_error("Nonce not verified.");
+		// }
+
+		$options_deleted       = false;
+		$imported_list_deleted = false;
+		$options               = Utils::get_backup_options();
+		$kits_manager          = Plugin::$instance->kits_manager;
+		$status_args           = [ 'post_type' => 'templately_library' ];
+		$all_post_url          = admin_url(add_query_arg( $status_args, 'edit.php' ));
+		// wp_send_json_success([$options]);
+
+		$kit = $kits_manager->get_active_kit();
+		if ( ! $kit->get_id() ) {
+			$kit = $kits_manager->create_default();
+			update_option( $kits_manager::OPTION_ACTIVE, $kit );
+		}
+
+
+		if (!empty($options) && is_array($options)) {
+			foreach ($options as $key => $value) {
+				if ('stylesheet' === $key) {
+					if (get_option('stylesheet') !== $value) {
+						switch_theme($value);
+					}
+				} else {
+					update_option($key, $value);
+				}
+				delete_option("__templately_$key");
+				$options_deleted = true;
+			}
+		}
+
+		$imported_list = get_option('templately_fsi_imported_list', []);
+		if (!empty($imported_list) && is_array($imported_list)) {
+			$_GET['force_delete_kit'] = 1; // Fallback GET Ready!
+			foreach ($imported_list as $type => $list) {
+				if (empty($list) || !is_array($list)) {
+					continue;
+				}
+				// Loop through each item ID and delete it
+				foreach ($list as $key => $item_id) {
+					switch ($type) {
+						case 'posts':
+							// making sure default kit don't get deleted.
+							if(isset($options[$kits_manager::OPTION_ACTIVE]) && $options[$kits_manager::OPTION_ACTIVE] == $item_id){
+								break;
+							}
+							wp_delete_post($item_id, true); // Set true for permanent deletion
+							break;
+						case 'attachment':
+							wp_delete_attachment($item_id, true); // Set true for permanent deletion
+							break;
+						case 'term':
+							list($term_id, $taxonomy) = $item_id;
+							wp_delete_term($term_id, $taxonomy); // Use corresponding taxonomy
+							break;
+						case 'taxonomy':
+							// Taxonomies cannot be directly deleted. Consider de-registering it.
+							break;
+					}
+				}
+			}
+
+			$imported_list_deleted = true;
+			delete_option('templately_fsi_imported_list');
+		}
+
+
+		if($options_deleted || $imported_list_deleted){
+			sleep(5);
+			wp_send_json_success([ 'options' => $options_deleted, 'imported_list' => $imported_list_deleted, 'site_url' => home_url(), 'redirect' => $all_post_url ]);
+		}
+
+		wp_send_json_error([ 'options' => $options_deleted, 'imported_list' => $imported_list_deleted, 'site_url' => home_url() ]);
+	}
+
+	/**
+	 * Adds "Import" button on module list page
+	 */
+	public function add_revert_button() {
+		$screen = get_current_screen();
+		// Not our post type, exit earlier
+		// You can remove this if condition if you don't have any specific post type to restrict to.
+		if ('templately_library' != $screen->post_type) {
+			return;
+		}
+
+		// Generate a nonce with a unique action name for security
+		$revert_nonce = wp_create_nonce('templately_pack_import_revert_nonce');
+
+		// Build the URL with the nonce
+		$revert_url = add_query_arg('action', 'templately_pack_import_revert', admin_url('admin-ajax.php'));
+		$revert_url = add_query_arg('_wpnonce', $revert_nonce, $revert_url);
+		?>
+
+		<div class="templately-fsi-revert-wrapper clearfix" style="clear: both; background: #fff; padding: 20px; display: none;">
+			<div class="templately-fsi-revert-notice__content">
+				<h3>Revert to previous website</h3>
+
+				<p>This usually takes a few moments. Please don’t close the window until the process in finished.</p>
+
+				<div class="templately-fsi-revert-notice__actions">
+					<a href="<?php echo $revert_url;?>" class="button"><span>Revert Now</span></a>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
 }

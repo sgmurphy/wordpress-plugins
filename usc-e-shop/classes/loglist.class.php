@@ -1367,6 +1367,7 @@ class Log_List_Table extends WP_List_Table {
 						$( '.log-dialog-button' ).on( 'click', function () {
 							let a = '#' + $( this ).attr( 'for' );
 							$( a ).dialog( 'open' );
+							$( a ).find( 'input[type="radio"]:checked' ).focus();
 						} );
 					},
 					onChangeSelect: function ( name ) {

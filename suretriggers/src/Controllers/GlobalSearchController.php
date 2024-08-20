@@ -13596,15 +13596,16 @@ class GlobalSearchController {
 	 * @return array
 	 */
 	public function search_groundhogg_tag_list( $data ) {
-		if ( ! class_exists( '\Groundhogg\DB\Tags' ) ) {
+
+		if ( ! function_exists( 'Groundhogg\get_db' ) ) {
 			return [];
 		}
 
-		$tags    = new \Groundhogg\DB\Tags();
+		$tags    = \Groundhogg\get_db( 'tags' )->query( [] );
 		$options = [];
 
-		if ( ! empty( $tags->get_tags() ) ) {
-			foreach ( $tags->get_tags() as $tag ) {
+		if ( ! empty( $tags ) ) {
+			foreach ( $tags as $tag ) {
 				$options[] = [
 					'label' => $tag->tag_name,
 					'value' => $tag->tag_id,
@@ -18497,6 +18498,95 @@ class GlobalSearchController {
 		return $context;
 	}
 	
+	/**
+	 * Get SurelyWP Services - SureCart Addons Last Data
+	 *
+	 * @param array $data data.
+	 *
+	 * @return array
+	 */
+	public function search_services_sc_triggers_last_data( $data ) {
+		$context = [];
+		global $wpdb;
+		$term = $data['search_term'] ? $data['search_term'] : '';
+		$data = [];
+		
+		if ( 'new_service_created' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_services WHERE service_status LIKE 'service_created' ORDER BY service_id DESC Limit 1", ARRAY_A );
+		} elseif ( 'requirement_submitted' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_requirements ORDER BY requirement_id DESC Limit 1", ARRAY_A );
+		} elseif ( 'message_sent' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_messages ORDER BY message_id DESC Limit 1", ARRAY_A );
+		} elseif ( 'message_final_delivery_sent' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_messages WHERE is_final_delivery = 1 ORDER BY message_id DESC Limit 1", ARRAY_A );
+		} elseif ( 'customer_request_revision' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_services WHERE service_status LIKE 'service_start' ORDER BY service_id DESC Limit 1", ARRAY_A );
+		} elseif ( 'customer_approves_final_delivery' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_services WHERE service_status LIKE 'service_complete' ORDER BY service_id DESC Limit 1", ARRAY_A );
+		} elseif ( 'delivery_date_changed' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_services WHERE delivery_date IS NOT NULL ORDER BY service_id DESC Limit 1", ARRAY_A );
+		} elseif ( 'service_cancel' === $term || 'service_marked_canceled' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_services WHERE service_status LIKE 'service_canceled' ORDER BY service_id DESC Limit 1", ARRAY_A );
+		} elseif ( 'service_completed' === $term || 'service_mark_completed' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_services WHERE service_status LIKE 'service_complete' ORDER BY service_id DESC Limit 1", ARRAY_A );
+		} elseif ( 'contract_signed' === $term ) {
+			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_contracts ORDER BY contract_id DESC Limit 1", ARRAY_A );
+		}
+		if ( ! empty( $result ) ) {
+			if ( 'new_service_created' === $term ) {
+				$service_data              = [
+					'service_setting_id' => $result['service_id'],
+					'order_id'           => $result['order_id'],
+					'product_id'         => $result['product_id'],
+					'service_status'     => $result['service_status'],
+					'delivery_date'      => $result['delivery_date'],
+					'user_id'            => $result['user_id'],
+				];
+				$context['pluggable_data'] = $service_data;
+			} elseif ( 'requirement_submitted' === $term ) {
+				$requirement_data          = [
+					'req_title' => $result['requirement_title'],
+					'req_desc'  => $result['requirement_desc'],
+				];
+				$context['pluggable_data'] = $requirement_data;
+			} elseif ( 'message_sent' === $term || 'message_final_delivery_sent' === $term ) {
+				$message_data              = [
+					'sender_id'            => $result['sender_id'],
+					'receiver_id'          => $result['receiver_id'],
+					'service_id'           => $result['service_id'],
+					'message_text'         => $result['message_text'],
+					'attachment_file_name' => $result['attachment_file_name'],
+					'is_final_delivery'    => $result['is_final_delivery'],
+				];
+				$context['pluggable_data'] = $message_data;
+			} elseif ( 'customer_request_revision' === $term || 'customer_approves_final_delivery' === $term || 'delivery_date_changed' === $term || 'service_cancel' === $term || 'service_marked_canceled' === $term || 'service_completed' === $term || 'service_mark_completed' === $term ) {
+				$context['pluggable_data'] = $result;
+			} elseif ( 'contract_signed' === $term ) {
+				$contract_data             = [
+					'service_id'       => $result['service_id'],
+					'signature'        => $result['signature'],
+					'contract_details' => $result['contract_details'],
+				];
+				$context['pluggable_data'] = $contract_data;
+			}
+			$context['response_type'] = 'live';
+		} else {
+			if ( 'new_service_created' === $term || 'customer_request_revision' === $term || 'customer_approves_final_delivery' === $term || 'delivery_date_changed' === $term ) {
+				$context = json_decode( '{"pluggable_data":{"delivery_date": null,"order_id": "a3830048-9a43-4088-a78e-285537f16ecc","product_id": "f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_setting_id": "2","service_status": "service_created","user_id": "84"},"response_type":"sample"}', true );
+			} elseif ( 'requirement_submitted' === $term ) {
+				$context = json_decode( '{"pluggable_data":{req_title: "Requirement Title",req_desc: "Requirement Description"},"response_type":"sample"}', true );
+			} elseif ( 'message_sent' === $term || 'message_final_delivery_sent' === $term ) {
+				$context = json_decode( '{"pluggable_data":{sender_id: "1",receiver_id: "2",service_id: "1",message_text: "Message Text",attachment_file_name: "Attachment File Name",is_final_delivery: "1"},"response_type":"sample"}', true );
+			} elseif ( 'service_cancel' === $term ) {
+				$context = json_decode( '{"pluggable_data":{"delivery_date": null,"order_id": "a3830048-9a43-4088-a78e-285537f16ecc","product_id": "f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_setting_id": "2","service_status": "service_canceled","user_id": "84"},"response_type":"sample"}', true );
+			} elseif ( 'service_marked_canceled' === $term || 'service_completed' === $term || 'service_mark_completed' === $term ) {
+				$context = json_decode( '{"pluggable_data":{"delivery_date": null,"order_id": "a3830048-9a43-4088-a78e-285537f16ecc","product_id": "f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_setting_id": "2","service_status": "service_completed","user_id": "84"},"response_type":"sample"}', true );
+			} elseif ( 'contract_signed' === $term ) {
+				$context = json_decode( '{"pluggable_data":{service_id: "1",signature: "Signature",contract_details: "Contract Details"},"response_type":"sample"}', true );
+			}
+		}
+		return (array) $context;
+	}
 }
 
 GlobalSearchController::get_instance();

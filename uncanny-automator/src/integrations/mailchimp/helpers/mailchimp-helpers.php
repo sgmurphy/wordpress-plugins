@@ -39,7 +39,7 @@ class Mailchimp_Helpers {
 	 *
 	 * @var bool
 	 */
-	public $load_options;
+	public $load_options = true;
 
 	/**
 	 * Mailchimp Endpoint.
@@ -1336,5 +1336,4 @@ class Mailchimp_Helpers {
 		);
 
 	}
-
 }

@@ -5,7 +5,7 @@ Tags: templates, elementor template, Gutenberg template, landing page, WoCommerc
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,11 @@ Every month we are adding new Elementor templates, along with Gutenberg template
 
 
 == Changelog ==
+= 3.1.3 – 20-08-2024 =
+Added: Option to revert Full Site Import (FSI).
+Fixed: Header and footer issues with Gutenberg templates after full site import.
+Few minor bug fixes and improvements.
+
 = 3.1.2 – 31-07-2024 =
 Fixed: Conflict with Elementor during full site import.
 Fixed: Missing validation messages for workspace.

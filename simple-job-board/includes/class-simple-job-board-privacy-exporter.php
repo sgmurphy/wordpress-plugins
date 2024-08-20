@@ -105,17 +105,16 @@ class Simple_Job_Board_Privacy_Exporter {
                 if (substr($key, 0, 7) == 'jobapp_') {
                     $count = 0;
 
-                    if (!is_serialized(get_post_meta($applicant_id, $key, TRUE))) {
+                    if (!is_array(get_post_meta($applicant_id, $key, TRUE))) {
                         $data_to_export[] = array(
                             'name' => ucwords(str_replace('_', ' ', substr($key, 7))),
                             'value' => get_post_meta($applicant_id, $key, TRUE),
                         );
                     } else {
-                        $values = maybe_unserialize(get_post_meta($applicant_id, $key, TRUE));
+                        $values = get_post_meta($applicant_id, $key, TRUE);
                         if (is_array($values)) {
 
                             foreach ($values as $val):
-                                $val = $val;
                                 if ($count > 1) {
                                     $val.= ',&nbsp';
                                 }

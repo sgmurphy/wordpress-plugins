@@ -480,6 +480,32 @@ if ( ! function_exists( 'arileextra_designexo_main_slider_default_content' ) ) :
 						
 					) );
 				}
+				
+				if('Business Model' == $activate_theme){
+						$designexo_main_slider_data->default = json_encode( array(
+						array(
+						'title'      => esc_html__( 'Perfect for any purpose business & Agency', 'arile-extra' ),
+						'subtitle'       => esc_html__( 'Unique & Endless Possibilities', 'arile-extra' ),
+						'text'       => esc_html__( 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum.', 'arile-extra' ),
+						'button_text'      => __('Check it out','arile-extra'),
+						'link'       => '#',
+						'image_url'  => arile_extra_plugin_url .'/inc/designexo/images/theme-slide34.jpg',
+						'open_new_tab' => 'no',
+						'id'         => 'customizer_repeater_56d7ea7f40b10',				
+						),
+						array(
+						'title'      => esc_html__( 'We Make Creative Solutions', 'arile-extra' ),
+						'subtitle'       => esc_html__( 'Design Agency', 'arile-extra' ),
+						'text'       => esc_html__( 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum.', 'arile-extra' ),
+						'button_text'      => __('Check it out','arile-extra'),
+						'link'       => '#',
+						'image_url'  => arile_extra_plugin_url .'/inc/arilewp/images/theme-slide4.jpg',
+						'open_new_tab' => 'no',
+						'id'         => 'customizer_repeater_56d7ea7f40b14',
+						),
+						
+					) );
+				}
  				
 					
 				}
@@ -890,7 +916,7 @@ if ( ! function_exists( 'arileextra_designexo_service_default_content' ) ) :
 					
 				}
 				
-				if('Monster Dark' == $activate_theme || 'DesignTech' == $activate_theme){	
+				if('Monster Dark' == $activate_theme || 'DesignTech' == $activate_theme || 'Business Model' == $activate_theme){	
 					
 					$designexo_service_data->default = json_encode( array(
 
@@ -1273,7 +1299,7 @@ if ( ! function_exists( 'arileextra_designexo_project_default_content' ) ) :
 					) );
 				}
 				
-			    if('Monster Dark' == $activate_theme || 'DesignTech' == $activate_theme){	
+			    if('Monster Dark' == $activate_theme || 'DesignTech' == $activate_theme || 'Business Model' == $activate_theme){	
 					$designexo_project_data->default = json_encode( array(
 						array(
 						'image_url'  => arile_extra_plugin_url .'/inc/designexo/images/theme-project13.jpg',

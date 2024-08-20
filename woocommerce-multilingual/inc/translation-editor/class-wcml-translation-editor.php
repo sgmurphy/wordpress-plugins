@@ -158,7 +158,7 @@ class WCML_Translation_Editor {
 		);
 
 		if ( ! $update ) {
-			$job_id = $iclTranslationManagement->add_translation_job( $rid, $user_id, $translation_package );
+			wpml_tm_add_translation_job( $rid, $user_id, $translation_package, [] );
 		}
 
 	}

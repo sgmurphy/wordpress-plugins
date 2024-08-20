@@ -5,6 +5,7 @@ namespace Templately\Builder\Conditions;
 class Singular extends Condition {
 	protected $sub_conditions = [
 		'front',
+		'page',
 		'error'
 	];
 

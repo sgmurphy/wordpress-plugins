@@ -876,6 +876,7 @@ class Advanced_Posts extends Stratum_Widget_Base {
 					'default' => [
 						'size' => 20,
 					],
+					'frontend_available' => true,
 					'range' => [
 						'px' => [
 							'min' => 0,
@@ -903,6 +904,7 @@ class Advanced_Posts extends Stratum_Widget_Base {
 					'default' => [
 						'size' => 20,
 					],
+					'frontend_available' => true,
 					'range' => [
 						'px' => [
 							'min' => 0,

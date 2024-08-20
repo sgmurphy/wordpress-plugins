@@ -111,10 +111,9 @@ class Simple_Job_Board_Applicants {
                         if (substr($key, 0, 7) == 'jobapp_') {
                             
                             $val = get_post_meta( $parent_id, $key, TRUE );
-                            $val = maybe_unserialize($val);
                             $label = isset($val['label']) ? $val['label'] : ucwords(str_replace('_', ' ', substr($key, 7)));
                            
-                            if (!is_serialized(get_post_meta($post->ID, $key, TRUE))) {
+                            if (!is_array(get_post_meta($post->ID, $key, TRUE))) {
                                 
                                 $mail = strpos($key, 'mail');
                                 $phone = strpos($key, 'phone');
@@ -130,7 +129,7 @@ class Simple_Job_Board_Applicants {
                                     echo '<tr><td>' . esc_attr( $label ) . '</td><td>' . wp_kses_post( get_post_meta($post->ID, $key, TRUE) ) . '</td></tr>';
                                 }
                             } else {
-                                $values = maybe_unserialize(get_post_meta($post->ID, $key, TRUE));
+                                $values = get_post_meta($post->ID, $key, TRUE);
                                 if (is_array($values)) {
                                     echo '<tr><td>' . esc_attr( $label ) . '</td><td>';
                                     $count = sizeof($values);

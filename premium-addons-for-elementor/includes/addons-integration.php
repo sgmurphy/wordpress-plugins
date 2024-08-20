@@ -180,7 +180,7 @@ class Addons_Integration {
 
 	/**
 	 * Check Temp Validity.
-     *
+	 *
 	 * Checks if the template is valid ( has content) or not,
 	 * And DELETE the post if it's invalid.
 	 *
@@ -360,6 +360,23 @@ class Addons_Integration {
 			);
 		}
 
+        $time_limit = ini_get( 'max_execution_time' );
+
+        if( $time_limit <= 120 ) {
+
+            $link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/im-getting-a-blank-page-on-elementor-after-activating-premium-add-ons/', 'editor-page', 'wp-editor', 'panel-issues' );
+
+            wp_localize_script(
+				'pa-eq-editor',
+				'PremiumEditorLink',
+                array(
+                    $link
+                ),
+			);
+
+        }
+
+
 		wp_localize_script(
 			'pa-eq-editor',
 			'PremiumPanelSettings',
@@ -515,7 +532,15 @@ class Addons_Integration {
 			'all'
 		);
 
-		$assets_gen_enabled = self::$modules['premium-assets-generator'] ? true : false;
+		// wp_register_style(
+		// 	'premium-woo-cta',
+		// 	PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/premium-woo-cta' . $suffix . '.css',
+		// 	array(),
+		// 	PREMIUM_ADDONS_VERSION,
+		// 	'all'
+		// );
+
+        $assets_gen_enabled = self::$modules['premium-assets-generator'] ? true : false;
 
 		$type = get_post_type();
 
@@ -610,6 +635,7 @@ class Addons_Integration {
 					array(
 						'ajaxurl' => esc_url( admin_url( 'admin-ajax.php' ) ),
 						'nonce'   => wp_create_nonce( 'pa-blog-widget-nonce' ),
+
 					)
 				);
 
@@ -625,6 +651,7 @@ class Addons_Integration {
 							'woo_cart_url'   => get_permalink( wc_get_page_id( 'cart' ) ),
 						)
 					);
+
 				}
 			}
 		}
@@ -952,31 +979,31 @@ class Addons_Integration {
 			);
 		}
 
-        // Localize jQuery with required data for Global Add-ons.
+		// Localize jQuery with required data for Global Add-ons.
 		if ( self::$modules['premium-countdown'] ) {
 
 			wp_localize_script(
 				'pa-countdown',
 				'premiumCountDownStrings',
 				array(
-					'singule' => [
-                        __('Year', 'premium-addons-for-elementor'),
-                        __('Month', 'premium-addons-for-elementor'),
-                        __('Week', 'premium-addons-for-elementor'),
-                        __('Day', 'premium-addons-for-elementor'),
-                        __('Hour', 'premium-addons-for-elementor'),
-                        __('Minute', 'premium-addons-for-elementor'),
-                        __('Second', 'premium-addons-for-elementor'),
-                    ],
-                    'plural' => [
-                        __('Years', 'premium-addons-for-elementor'),
-                        __('Months', 'premium-addons-for-elementor'),
-                        __('Weeks', 'premium-addons-for-elementor'),
-                        __('Days', 'premium-addons-for-elementor'),
-                        __('Hours', 'premium-addons-for-elementor'),
-                        __('Minutes', 'premium-addons-for-elementor'),
-                        __('Seconds', 'premium-addons-for-elementor')
-                    ]
+					'singule' => array(
+						__( 'Year', 'premium-addons-for-elementor' ),
+						__( 'Month', 'premium-addons-for-elementor' ),
+						__( 'Week', 'premium-addons-for-elementor' ),
+						__( 'Day', 'premium-addons-for-elementor' ),
+						__( 'Hour', 'premium-addons-for-elementor' ),
+						__( 'Minute', 'premium-addons-for-elementor' ),
+						__( 'Second', 'premium-addons-for-elementor' ),
+					),
+					'plural'  => array(
+						__( 'Years', 'premium-addons-for-elementor' ),
+						__( 'Months', 'premium-addons-for-elementor' ),
+						__( 'Weeks', 'premium-addons-for-elementor' ),
+						__( 'Days', 'premium-addons-for-elementor' ),
+						__( 'Hours', 'premium-addons-for-elementor' ),
+						__( 'Minutes', 'premium-addons-for-elementor' ),
+						__( 'Seconds', 'premium-addons-for-elementor' ),
+					),
 				)
 			);
 		}
@@ -1011,12 +1038,29 @@ class Addons_Integration {
 				true
 			);
 
-            wp_register_script(
+			wp_register_script(
 				'premium-woo-cats',
 				PREMIUM_ADDONS_URL . 'assets/frontend/' . $directory . '/premium-woo-categories' . $suffix . '.js',
 				array( 'jquery' ),
 				PREMIUM_ADDONS_VERSION,
 				true
+			);
+
+			wp_register_script(
+				'premium-woo-cta',
+				PREMIUM_ADDONS_URL . 'assets/frontend/' . $directory . '/premium-woo-cta' . $suffix . '.js',
+				array( 'jquery' ),
+				PREMIUM_ADDONS_VERSION,
+				true
+			);
+
+			wp_localize_script(
+				'premium-woo-cta',
+				'PremiumWooSettings',
+				array(
+					'ajaxurl'        => esc_url( admin_url( 'admin-ajax.php' ) ),
+					'cta_nonce'      => wp_create_nonce( 'pa-woo-cta-nonce' ),
+				)
 			);
 
 			wp_localize_script(
@@ -1030,6 +1074,7 @@ class Addons_Integration {
 					'woo_cart_url'   => get_permalink( wc_get_page_id( 'cart' ) ),
 				)
 			);
+
 		}
 	}
 
@@ -1073,7 +1118,6 @@ class Addons_Integration {
 		wp_add_inline_style( 'premium-addons', $custom_css );
 
 		wp_enqueue_style( 'pa-slick' );
-
 	}
 
 	/**
@@ -1443,7 +1487,7 @@ class Addons_Integration {
 			wp_send_json_error( 'Empty Template ID' );
 		}
 
-        if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( ! current_user_can( 'edit_posts' ) ) {
 			wp_send_json_error( 'Insufficient user permission' );
 		}
 
@@ -1544,7 +1588,7 @@ class Addons_Integration {
 			self::$modules['premium-smart-post-listing'],
 			self::$modules['premium-post-ticker'],
 			self::$modules['premium-notifications'],
-            self::$modules['premium-search-form'],
+			self::$modules['premium-search-form'],
 		);
 
 		$load_controls = in_array( true, $modules, true );
@@ -1620,7 +1664,7 @@ class Addons_Integration {
 			Floating_Effects::get_instance();
 		}
 
-		if ( class_exists( 'woocommerce' ) && ( self::$modules['woo-products'] || self::$modules['woo-categories'] ) ) {
+		if ( class_exists( 'woocommerce' ) && ( self::$modules['woo-products'] || self::$modules['woo-categories'] || self::$modules['woo-cta'] ) ) {
 			Woocommerce::get_instance();
 		}
 

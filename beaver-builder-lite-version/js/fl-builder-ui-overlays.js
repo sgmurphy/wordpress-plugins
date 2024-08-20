@@ -268,6 +268,17 @@
 			parents.each( function( i ) {
 				var parent = $( this );
 
+				// Don't show top most parent when editing global nodes.
+				if ( parent.hasClass( 'fl-node-global' ) ) {
+					if ( parent.hasClass( 'fl-row' ) && 'row' === FLBuilderConfig.userTemplateType ) {
+						return;
+					} else if ( parent.hasClass( 'fl-col' ) && 'column' === FLBuilderConfig.userTemplateType ) {
+						return;
+					} else if ( parent.hasClass( 'fl-module' ) && 'module' === FLBuilderConfig.userTemplateType ) {
+						return;
+					}
+				}
+
 				data[ i ] = {
 					node: parent.data( 'node' )
 				};

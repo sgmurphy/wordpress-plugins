@@ -1,3 +1,8 @@
+Version 1.0.57 - Tuesday, 20th August 2024
+- Improvement: "Bricks Builder" - Added improvements for form response with empty labels
+- Improvement: "Groundhogg" - Added fix for listing tags in Actions
+- Fix: Multilingual WordPress sites URL issue
+
 Version 1.0.56 - Thursday, 15th August 2024
 - Improvement: "Advanced Custom Fields" - Enhanced response for "Field Updated on Post" Trigger
 - Improvement: "FluentCRM" - Added improvements for lists and tags for "Send Email" Action and added new Actions

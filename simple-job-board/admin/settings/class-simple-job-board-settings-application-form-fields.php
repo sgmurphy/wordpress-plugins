@@ -118,7 +118,7 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
                         );
                         
                         // Retrieve jobapp_settings_options and unserialize it
-                        $jobapp_fields = maybe_unserialize(get_option('jobapp_settings_options'));
+                        $jobapp_fields = get_option('jobapp_settings_options');
                          // If jobapp_settings_options is empty or missing, initialize it with default fields
                          if ($count === 0 || $count == '0') {
                             // Update jobapp_settings_options with default fields

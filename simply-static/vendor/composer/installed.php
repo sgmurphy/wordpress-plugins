@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
-        'name' => 'patrickposner/simply-static',
+        'name' => 'simplystatic/simply-static',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b2b7b087c4236525c765c8e6bb6e2aca8c0ce2ae',
+        'reference' => 'a16c03b3a2562c6db18971d5b513ec8f63c42e86',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -19,10 +19,10 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'patrickposner/simply-static' => array(
+        'simplystatic/simply-static' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b2b7b087c4236525c765c8e6bb6e2aca8c0ce2ae',
+            'reference' => 'a16c03b3a2562c6db18971d5b513ec8f63c42e86',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -80,6 +80,16 @@ class WCML_WC_Shipping {
 	}
 
 	public function save_shipping_zone_method_from_ajax() {
+		if ( ! isset( $_POST['wc_shipping_zones_nonce'] ) ) {
+			return;
+		}
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['wc_shipping_zones_nonce'] ), 'wc_shipping_zones_nonce' ) ) {// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			return;
+		}
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return;
+		}
+
 		foreach ( $_POST['data'] as $key => $value ) {
 			if ( strstr( $key, '_title' ) ) {
 				$shipping_id = str_replace( 'woocommerce_', '', $key );
@@ -228,6 +238,15 @@ class WCML_WC_Shipping {
 	}
 
 	public function update_woocommerce_shipping_settings_for_class_costs_from_ajax() {
+		if ( ! isset( $_POST['wc_shipping_zones_nonce'] ) ) {
+			return;
+		}
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['wc_shipping_zones_nonce'] ), 'wc_shipping_zones_nonce' ) ) {// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			return;
+		}
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return;
+		}
 
 		if ( isset( $_POST['data']['woocommerce_flat_rate_type'] ) && $_POST['data']['woocommerce_flat_rate_type'] == 'class' ) {
 

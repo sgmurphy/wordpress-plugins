@@ -179,9 +179,6 @@ class ZEUS_SETTLEMENT {
 
 		if ( $this->is_validity_acting( 'card' ) ) {
 			if ( $this->is_activate_card( 'api' ) && 1 === (int) $this->acting_opts['3dsecur'] ) {
-				remove_action( 'wp_ajax_welcart_confirm_check', 'welcart_confirm_check_ajax' );
-				remove_action( 'wp_ajax_nopriv_welcart_confirm_check', 'welcart_confirm_check_ajax' );
-				remove_filter( 'usces_filter_uscesL10n', 'usces_confirm_uscesL10n', 11, 2 );
 				add_action( 'wp_ajax_zeus_3dsecure_enrol', array( $this, 'zeus_3dsecure_enrol' ) );
 				add_action( 'wp_ajax_nopriv_zeus_3dsecure_enrol', array( $this, 'zeus_3dsecure_enrol' ) );
 			}
@@ -4157,7 +4154,6 @@ var zeusTokenIpcode = "<?php echo esc_attr( $acting_opts['clientip'] ); ?>";
 			}).then( function(res) {
 				return res.json();
 			}).then( function(data) {
-				//console.log('EnrolReq='+data);
 				if( 'stock' == data.action && 'error' == data.status ) {
 					location.href = "<?php echo esc_js( USCES_CART_URL ); ?>";
 				}
@@ -4187,7 +4183,6 @@ var zeusTokenIpcode = "<?php echo esc_attr( $acting_opts['clientip'] ); ?>";
 					location.href = "<?php echo esc_js( trailingslashit( USCES_CART_URL ) ); ?>?acting=zeus_card&acting_return=0&status="+data.status+"&code="+data.code;
 				}
 			}).catch((reason) => {
-				//console.log(reason);
 				loading_img.style.display = 'none';
 			});
 		}
@@ -4334,7 +4329,7 @@ jQuery(document).ready(function($) {
 					),
 					USCES_MEMBER_URL
 				);
-				$form                 .= '<li class="gotoedit"><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
+				$form                 .= '<li class="settlement-update gotoedit"><a href="' . $update_settlement_url . '">' . __( 'Change the credit card is here >>', 'usces' ) . '</a></li>';
 			} elseif ( 'on' === $acting_opts['batch'] ) {
 				$register_settlement_url = add_query_arg(
 					array(
@@ -4343,7 +4338,7 @@ jQuery(document).ready(function($) {
 					),
 					USCES_MEMBER_URL
 				);
-				$form                   .= '<li class="gotoedit"><a href="' . $register_settlement_url . '">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
+				$form                   .= '<li class="settlement-register gotoedit"><a href="' . $register_settlement_url . '">' . __( 'Credit card registration is here >>', 'usces' ) . '</a></li>';
 			}
 		}
 		return $form;

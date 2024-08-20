@@ -1,11 +1,11 @@
 @font-face {
     font-family: "pa-elements";
-    src: url("../fonts/pa-elements.eot?v5piwz");
+    src: url("../fonts/pa-elements.eot?vjgn7e");
     src:
-        url("../fonts/pa-elements.eot?v5piwz#iefix") format("embedded-opentype"),
-        url("../fonts/pa-elements.ttf?v5piwz") format("truetype"),
-        url("../fonts/pa-elements.woff?v5piwz") format("woff"),
-        url("../fonts/pa-elements.svg?v5piwz#pa-elements") format("svg");
+        url("../fonts/pa-elements.eot?vjgn7e#iefix") format("embedded-opentype"),
+        url("../fonts/pa-elements.ttf?vjgn7e") format("truetype"),
+        url("../fonts/pa-elements.woff?vjgn7e") format("woff"),
+        url("../fonts/pa-elements.svg?vjgn7e#pa-elements") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -155,12 +155,16 @@
 }
 
 .pa-woo-products:before {
-    content: "\e939";
+    content: "\e952";
 }
 
 .pa-woo-cats:before {
-    content: "\e94f";
-  }
+    content: "\e950";
+}
+
+.pa-woo-cta:before {
+    content: "\e951";
+}
 
 .pa-mega-menu:before {
     content: "\e928";
@@ -831,4 +835,14 @@ html:not([dir="rtl"]) .premium-promotion-pro-btn {
     top: 0;
     left: 0;
     right: 0;
+}
+
+#elementor-panel-state-loading .pa-editor-panel-loader {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+#elementor-panel-state-loading .pa-editor-panel-loader a {
+    transition: all 0.3s ease-in-out;
 }

@@ -176,14 +176,20 @@ void 0!==jQuery.event.swipe||function(e){"function"==typeof define&&define.amd?d
 			if(mediadiv.length){
 				//load js and css files.
 				//console.log(wprevpublicjs_script_vars);
+				/*
 				$('<link/>', {
 				   rel: 'stylesheet',
 				   type: 'text/css',
 				   href: wprevpublicjs_script_vars.wprevpluginsurl+"/public/css/lity.min.css"
 				}).appendTo('head');
-				$.getScript(wprevpublicjs_script_vars.wprevpluginsurl+"/public/js/lity.min.js", function() {
+				*/
+				//$.getScript(wprevpublicjs_script_vars.wprevpluginsurl+"/public/js/lity.min.js", function() {
+					//script is loaded and ran on document root.
+				//});
+				$.getScript(wprevpublicjs_script_vars.wprevpluginsurl+"/public/js/fslightbox.js", function() {
 					//script is loaded and ran on document root.
 				});
+				//setTimeout(function(){ refreshFsLightbox(); }, 1000);
 			}
 		}
 

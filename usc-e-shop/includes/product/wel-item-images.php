@@ -225,6 +225,7 @@ function wel_build_list_detail_tab_file( $post_id ) {
 		?>
 		<div class="tab_file_item_pict" id="<?php echo esc_attr( $pict_id ); ?>">
 			<input type="checkbox" value="<?php echo esc_attr( $pict_id ); ?>" name="file_item_picts[]">
+			<?php echo wp_get_attachment_image( $pict_id, array( 30, 30 ), true ); ?>
 			<label><?php echo esc_html( $filename ) . '(' . esc_attr( $pict_id ) . ')'; ?></label>
 		</div>
 		<?php

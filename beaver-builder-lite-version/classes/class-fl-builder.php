@@ -973,7 +973,7 @@ final class FLBuilder {
 			wp_enqueue_script( 'clipboard', $js_url . 'clipboard.min.js', array(), $ver );
 			if ( FLBuilder::is_tour_enabled() ) {
 				wp_enqueue_script( 'bootstrap-tour', $js_url . 'bootstrap-tour-standalone.min.js', array(), $ver );
-				wp_enqueue_script( 'fl-builder-tour', $js_url . 'fl-builder-tour.js', array( 'jquery', 'media-models', 'media-editor', 'media-views' ), $ver );
+				wp_enqueue_script( 'fl-builder-tour', $js_url . 'fl-builder-tour.js', array( 'jquery' ), $ver );
 			}
 
 			wp_enqueue_script( 'ace', $js_url . 'ace/ace.js', array(), $ver );
@@ -1624,7 +1624,7 @@ final class FLBuilder {
 				);
 			}
 
-			if ( $help['tour'] ) {
+			if ( FLBuilder::is_tour_enabled() ) {
 				$help_view['items'][20] = array(
 					'label'     => __( 'Take A Tour', 'fl-builder' ),
 					'type'      => 'event',
@@ -4560,7 +4560,7 @@ final class FLBuilder {
 	 */
 	static public function is_tour_enabled() {
 		$settings = FLBuilderModel::get_help_button_settings();
-		return $settings['tour'];
+		return apply_filters( 'fl_is_tour_enabled', $settings['tour'] );
 	}
 
 	/**

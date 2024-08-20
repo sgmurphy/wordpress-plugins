@@ -183,7 +183,6 @@ if (!class_exists('Simple_Job_Board_Post_Type_Applicants')) {
                         foreach ($parent_keys as $key) :
                             if (substr($key, 0, 7) == 'jobapp_'):
                                 $val = get_post_meta($parent_id, $key, TRUE);
-                                $val = maybe_unserialize($val);
                                 if (isset($val['applicant_column']) && 'checked' === $val['applicant_column']) {
                                     $is_checked = 1;
                                     $column_key = $key;
@@ -214,8 +213,7 @@ if (!class_exists('Simple_Job_Board_Post_Type_Applicants')) {
                         }
                     endif;
 
-                    if (is_serialized($selected_info)) {
-                        $selected_info = maybe_unserialize($selected_info);
+                    if (is_array($selected_info)) {
                         if (NULL != $selected_info) {
                             $count = sizeof($selected_info);
                             foreach ($selected_info as $val) {

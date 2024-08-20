@@ -39,7 +39,7 @@ class License_Checker
 			return;
 		}
 
-		$this->run();
+		// $this->run();
 	}
 
 	public function run()

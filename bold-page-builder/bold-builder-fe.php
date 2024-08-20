@@ -673,7 +673,7 @@ function bt_bb_fe_footer() {
 		echo '</div>';
 	echo '</div>';
 	
-	if ( BT_BB_Root::$has_footer ) {
+	if ( BT_BB_Root::$has_footer && ! isset( $_GET[ 'bt_bb_edit_footer' ] ) ) {
 		echo '<a href="' . add_query_arg( 'bt_bb_edit_footer', '', get_post_permalink( BT_BB_Root::$footer_page_id ) ) . '" target="_blank" class="bt_bb_fe_preview_toggler bt_bb_fe_preview_toggler_footer">' . esc_html__( 'Edit Footer', 'bold-builder' ) . '</a>';
 	}
 	

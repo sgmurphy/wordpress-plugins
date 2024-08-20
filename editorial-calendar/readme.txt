@@ -2,7 +2,7 @@
 Contributors: marketingfire
 Tags: schedule post, editorial calendar, quickedit post, manage post
 Requires at least: 4.0
-Tested up to: 6.3
+Tested up to: 6.5.5
 Requires PHP: 5.6
 Stable tag: 3.8.5
 License: GPLv2 or later
