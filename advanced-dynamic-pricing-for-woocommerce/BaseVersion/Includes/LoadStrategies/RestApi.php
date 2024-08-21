@@ -33,6 +33,9 @@ class RestApi implements LoadStrategy
 
     public function start()
     {
+        $settings = $this->context->getSettings();
+        $settings->set('show_onsale_badge', true);
+
         add_filter('woocommerce_coupon_discount_types',function ($coupon_types) {
             if ( ! in_array(WcAdpMergedCoupon::COUPON_DISCOUNT_TYPE, $coupon_types) )
                 $coupon_types[WcAdpMergedCoupon::COUPON_DISCOUNT_TYPE] = __('ADP Coupon', 'advanced-dynamic-pricing-for-woocommerce');
@@ -44,8 +47,8 @@ class RestApi implements LoadStrategy
                 $coupon_types[WcCouponFacade::TYPE_ADP_RULE_TRIGGER] = __('ADP Coupon  (rule trigger)', 'advanced-dynamic-pricing-for-woocommerce');
             return $coupon_types;
         });
-        
-        if (!apply_filters("adp_wp_rest_api_strategy_load", 
+
+        if (!apply_filters("adp_wp_rest_api_strategy_load",
             $this->context->getOption('update_prices_while_doing_rest_api') OR $this->context->isWCStoreAPIRequest() )) {
 
             return false;

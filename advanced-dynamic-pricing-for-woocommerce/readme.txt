@@ -4,8 +4,8 @@ Donate link: https://paypal.me/ipprokaev/0usd
 Tags: woocommerce, dynamic pricing, discount, pricing rule, bulk discount
 Requires PHP: 7.0
 Requires at least: 4.8
-Tested up to: 6.5
-Stable tag: 4.8.2
+Tested up to: 6.6
+Stable tag: 4.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,6 +105,16 @@ You should be PHP programmer to do it. [Please, review sample addon and adapt it
 
 
 == Changelog ==
+
+= 4.8.3 - 2024-08-21 =
+* Fixed bug - wrong coupon amount for the gift (block-based cart)
+* Fixed bug - can't add the free product if this product had stock qty = 1
+* Fixed bug - wrong price range displayed for variable products if option "Add products to cart at normal cost and show discount as a coupon" was active
+* Fixed bug - option "Replace price with lowest bulk price" incorrectly displayed WooCommerce sale price
+* Fixed bug - sale prices was not set for variable products in product feed
+* Fixed bug - REST api returned wrong sale price for product if option "Show On Sale badge for Simple product if price was modified" was inactive
+* Updated compatibility with "WooCommerce Composite Products"
+* Updated compatibility with "WPC Product Bundles for WooCommerce"
 
 = 4.8.2 - 2024-06-26 =
 * Fully support Block-Based Checkout

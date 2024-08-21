@@ -39,8 +39,12 @@ class BackupFinderConfiguration
         $host = wp_umbrella_get_service('HostResolver')->getCurrentHost();
 
         $source = ABSPATH;
-        if ($host === Host::FLYWHEEL) {
-            $source = untrailingslashit(WP_CONTENT_DIR) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+
+        switch($host) {
+			case Host::FLYWHEEL:
+            case Host::PRESSABLE:
+				$source = untrailingslashit(WP_CONTENT_DIR) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+				break;
         }
 
         if (empty($source)) {
@@ -59,8 +63,8 @@ class BackupFinderConfiguration
         $host = wp_umbrella_get_service('HostResolver')->getCurrentHost();
 
         $source = ABSPATH;
-        if ($host === Host::FLYWHEEL) {
-            $source = untrailingslashit(WP_CONTENT_DIR) . '/../';
+        if ($host === Host::FLYWHEEL || $host === Host::PRESSABLE) {
+            $source = untrailingslashit(WP_CONTENT_DIR) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
         } else {
             try {
                 if (!is_dir(untrailingslashit(ABSPATH) . '/wp-content')) { // Compatibility with Bedrock

@@ -433,6 +433,18 @@ jQuery(function(){
                         <br />
 	    			</td>
 	    		</tr>
+                <tr valign="top">
+	    			<th scope="row">
+	    				<label><?php _e('Language of the dashboard area','appointment-hour-booking'); ?></label>
+	    			</th>
+	    			<td>
+	    				<select id="cp_cpappb_admin_language" name="cp_cpappb_admin_language">
+	    					<option value=""  <?php if (get_option('cp_cpappb_admin_language', '') == '') echo 'selected'; ?> ><?php _e('Automatically detected from WordPress settings','appointment-hour-booking'); ?></option>
+                            <option value="english"  <?php if (get_option('cp_cpappb_admin_language','') == 'english') echo 'selected'; ?>  >English</option>
+	    				</select>     
+                        <br />                         
+	    			</td>
+	    		</tr> 				
 	    	</tbody>
 	    </table>
 	    <input type="submit" value="<?php _e('Update Changes','appointment-hour-booking'); ?>" class="button button-primary" />

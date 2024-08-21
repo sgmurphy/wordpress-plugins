@@ -750,4 +750,8 @@ class Context
     {
         return $this->containerCompatibilityManager;
     }
+
+    public function isBaseVersion(): bool {
+        return defined('WC_ADP_PRO_VERSION_PATH');
+    }
 }

@@ -156,7 +156,7 @@ class Wpil_Base
     {
         $plugin_data = get_plugin_data(WP_INTERNAL_LINKING_PLUGIN_DIR . 'link-whisper.php');
 
-        return "<p style='float: right'>version <b>".$plugin_data['Version']."</b></p>";
+        return "<p style='float: right'>version <b>".esc_html($plugin_data['Version'])."</b></p>";
     }
 
     /**
@@ -266,6 +266,8 @@ class Wpil_Base
             }
         }
 
+        wp_register_script('wpil_helper', WP_INTERNAL_LINKING_PLUGIN_URL . 'js/wpil_helper.js', array(), filemtime(WP_INTERNAL_LINKING_PLUGIN_DIR . '/js/wpil_helper.js'), true);
+
         wp_register_script('wpil_sweetalert_script_min', WP_INTERNAL_LINKING_PLUGIN_URL . 'js/sweetalert.min.js', array('jquery'), $ver=false, true);
         wp_enqueue_script('wpil_sweetalert_script_min');
 
@@ -274,14 +276,14 @@ class Wpil_Base
         $ver = filemtime($f_path);
         $current_screen = get_current_screen();
 
-        wp_register_script('wpil_admin_script', WP_INTERNAL_LINKING_PLUGIN_URL.$js_path, array('jquery'), $ver, true);
+        wp_register_script('wpil_admin_script', WP_INTERNAL_LINKING_PLUGIN_URL.$js_path, array('jquery', 'wpil_helper'), $ver, true);
         wp_enqueue_script('wpil_admin_script');
 
         if(isset($_GET['page']) && ($_GET['page'] == 'link_whisper_settings')){
             $js_path = 'js/wpil_admin_settings.js';
             $ver = filemtime(WP_INTERNAL_LINKING_PLUGIN_DIR.$js_path);
     
-            wp_register_script('wpil_admin_settings_script', WP_INTERNAL_LINKING_PLUGIN_URL.$js_path, array('jquery', 'wpil_select2'), $ver, true);
+            wp_register_script('wpil_admin_settings_script', WP_INTERNAL_LINKING_PLUGIN_URL.$js_path, array('jquery', 'wpil_select2', 'wpil_helper'), $ver, true);
             wp_enqueue_script('wpil_admin_settings_script');
 
             wp_register_style('wpil_select2_css', WP_INTERNAL_LINKING_PLUGIN_URL . 'css/select2.min.css');
@@ -614,7 +616,7 @@ class Wpil_Base
                 $status = (!empty($status_obj)) ? $status_obj->label: ucfirst($post_status);
                 ?>
                 <span class="wpil-link-stats-column-display wpil-link-stats-content">
-                    <strong><?php _e('Links: ', 'wpil'); ?></strong>
+                    <strong><?php esc_html_e('Links: ', 'wpil'); ?></strong>
                     <span><span><?php echo sprintf(__('%s post processing %s.', 'wpil'), $status, '<a href="' . admin_url("admin.php?page=link_whisper_settings") . '">' . __('not set', 'wpil') . '</a>'); ?></span></span>
                 </span>
                 <?php
@@ -630,16 +632,16 @@ class Wpil_Base
             ?>
             <span class="wpil-link-stats-column-display wpil-link-stats-content">
                 <?php if($post_scanned){ ?>
-                <strong><?php _e('Links: ', 'wpil'); ?></strong>
-                <span title="<?php _e('Inbound Internal Links', 'wpil'); ?>"><span class="dashicons dashicons-arrow-down-alt <?php echo (!empty($inbound_internal)) ? 'wpil-has-inbound': ''; ?>"></span><span><?php echo $inbound_internal; ?></span></span>
+                <strong><?php esc_html_e('Links: ', 'wpil'); ?></strong>
+                <span title="<?php esc_attr_e('Inbound Internal Links', 'wpil'); ?>"><span class="dashicons dashicons-arrow-down-alt <?php echo (!empty($inbound_internal)) ? 'wpil-has-inbound': ''; ?>"></span><span><?php echo $inbound_internal; ?></span></span>
                 <span class="divider"></span>
-                <span title="<?php _e('Outbound Internal Links', 'wpil'); ?>"><a href="<?php echo esc_url(get_edit_post_link($post_id)); ?>"><span class="dashicons dashicons-external  <?php echo (!empty($outbound_internal)) ? 'wpil-has-outbound': ''; ?>"></span> <span><?php echo $outbound_internal; ?></span></a></span>
+                <span title="<?php esc_attr_e('Outbound Internal Links', 'wpil'); ?>"><a href="<?php echo esc_url(get_edit_post_link($post_id)); ?>"><span class="dashicons dashicons-external  <?php echo (!empty($outbound_internal)) ? 'wpil-has-outbound': ''; ?>"></span> <span><?php echo $outbound_internal; ?></span></a></span>
                 <span class="divider"></span>
-                <span title="<?php _e('Outbound External Links', 'wpil'); ?>"><span class="dashicons dashicons-admin-site-alt3 <?php echo (!empty($outbound_external)) ? 'wpil-has-outbound': ''; ?>"></span> <span><?php echo $outbound_external; ?></span></span>
+                <span title="<?php esc_attr_e('Outbound External Links', 'wpil'); ?>"><span class="dashicons dashicons-admin-site-alt3 <?php echo (!empty($outbound_external)) ? 'wpil-has-outbound': ''; ?>"></span> <span><?php echo $outbound_external; ?></span></span>
                 <?php }else{ ?>
                     <?php $scan_link = $post->getLinks()->refresh; ?>
-                    <strong><?php _e('Links: Not Scanned', 'wpil'); ?></strong>
-                    <span title="<?php _e('Scan Links', 'wpil'); ?>"><a target=_blank href="<?php echo esc_url($scan_link); ?>"><span><?php _e('Scan Links', 'wpil'); ?></span> <span class="dashicons dashicons-update-alt wpil-refresh-links"></span></a></span>
+                    <strong><?php esc_html_e('Links: Not Scanned', 'wpil'); ?></strong>
+                    <span title="<?php esc_attr_e('Scan Links', 'wpil'); ?>"><a target=_blank href="<?php echo esc_url($scan_link); ?>"><span><?php esc_html_e('Scan Links', 'wpil'); ?></span> <span class="dashicons dashicons-update-alt wpil-refresh-links"></span></a></span>
                 <?php } ?>
             </span>
         <?php

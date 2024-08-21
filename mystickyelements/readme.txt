@@ -5,6 +5,7 @@ Requires at least: 3.1
 Tested up to: 6.6
 Stable tag: 2.2
 Plugin URI: https://premio.io/downloads/mystickyelements/
+License: GPLv3
 
 🔥 Get leads with a floating contact form tab, chat & social buttons like Facebook Messenger, WhatsApp, Viber, Telegram, Twitter, Instagram & more 🎉
 

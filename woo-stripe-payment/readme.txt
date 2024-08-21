@@ -4,7 +4,7 @@ Tags: stripe, ach, klarna, credit card, apple pay, google pay
 Requires at least: 3.0.1
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 3.3.74
+Stable tag: 3.3.75
 Copyright: Payment Plugins
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -63,6 +63,13 @@ If your site is not loading over https, then Stripe won't render the Payment Req
 9. Stripe Link for high conversion
 
 == Changelog ==
+= 3.3.75 - 08/20/24 =
+* Fixed - If currency changes on checkout page, update universal payment element so available methods is current.
+* Fixed - Only re-render the card form if the updated_checkout event results in the HTML being replaced. [Support thread](https://wordpress.org/support/topic/changing-field-contents-reloads-stripe-dialog-and-empties-it/)
+* Fixed - Error related to micro-deposits when using ACH
+* Added - WC Tested to 9.2
+* Added - Scheduled action to ensure dropped card orders get processed if they're successful within Stripe but interrupted by a 3rd party plugin issue.
+* Updated - Webhook API version to 2022-08-01
 = 3.3.74 - 07/16/2024 =
 * Added - WordPress 6.6 compatibility
 = 3.3.73 - 06/27/2024 =

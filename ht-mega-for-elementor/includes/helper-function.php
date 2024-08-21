@@ -750,7 +750,12 @@ function htmega_get_html_allowed_tags($tag_type = 'title') {
  */
 
 function htmega_kses_title( $string = '' ) {
-	return wp_kses($string, htmega_get_html_allowed_tags( 'title' ));
+
+    if ( ! is_string( $string ) ) {
+        $string = ''; 
+    }
+
+	return wp_kses( $string, htmega_get_html_allowed_tags( 'title' ) );
 }
 
 
@@ -759,7 +764,10 @@ function htmega_kses_title( $string = '' ) {
  * Description escaping function
  */
 function htmega_kses_desc( $string = '' ) {
-	return wp_kses($string, htmega_get_html_allowed_tags( 'desc' ));
+    if ( ! is_string( $string ) ) {
+        $string = ''; 
+    }
+	return wp_kses( $string, htmega_get_html_allowed_tags( 'desc' ) );
 }
 
 /**

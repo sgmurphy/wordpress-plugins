@@ -249,23 +249,6 @@ if ( ! class_exists( 'Mo2f_SMS_Handler' ) ) {
 		}
 
 		/**
-		 * Show Email configuration prompt on dashboard.
-		 *
-		 * @return mixed
-		 */
-		public function mo2f_prompt_2fa_setup_wizard() {
-			global $mo2fdb_queries;
-			$current_user = wp_get_current_user();
-			$mo2fdb_queries->insert_user( $current_user->ID );
-			$common_helper = new Mo2f_Common_Helper();
-			$skeleton      = $common_helper->mo2f_sms_common_skeleton( $current_user->ID );
-			$html          = $common_helper->mo2f_otp_based_methods_configuration_screen( $skeleton, $this->mo2f_current_method, '', $current_user->ID, '', '', 'setupwizard' );
-			$html         .= $common_helper->mo2f_get_script_for_otp_based_methods( 'setupwizard' );
-			$html         .= $common_helper->mo2f_get_skipbutton_script_setupwizard( $current_user->ID );
-			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped the necessary in the definition.
-		}
-
-		/**
 		 * Show SMS Testing prompt on dashboard.
 		 *
 		 * @return mixed

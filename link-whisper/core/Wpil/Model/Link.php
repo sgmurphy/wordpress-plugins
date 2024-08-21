@@ -17,6 +17,9 @@ class Wpil_Model_Link
     public $location = 'content';
     public $link_whisper_created = 0;
     public $is_autolink = 0;
+    public $tracking_id = 0;
+    public $module_link = 0; // was the link added by a pagebuilder or shortcode or module that we're not likely to be able to manipulate?
+    public $link_context = 0;
 
     public function __construct($params = [])
     {

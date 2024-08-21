@@ -36,10 +36,12 @@ class rtTPGElementorQuery {
 	 */
 	public static function post_query( $data, $prefix = '' ): array {
 
-		$post_type = isset( $data['post_type'] ) ? esc_html( $data['post_type'] ) : 'post';
-		$args      = [
-			'post_type'   => [ $post_type ],
-			'post_status' => isset( $data['post_status'] ) ? esc_html( $data['post_status'] ) : 'publish',
+		$post_type   = isset( $data['post_type'] ) ? esc_html( $data['post_type'] ) : 'post';
+		$post_status = isset( $data['post_status'] ) ? esc_html( $data['post_status'] ) : 'publish';
+
+		$args = [
+			'post_type'   => [ Fns::available_post_type( $post_type ) ],
+			'post_status' => Fns::available_user_post_status( $post_status ),
 		];
 
 		if ( $data['post_id'] ) {

@@ -1887,6 +1887,7 @@ jQuery(document).ready(function ($) {
             if (data.value) {
                 var html = '';
                 $.each(data.value, function (i, id) {
+                  id = id.replace(/"/g, '&quot;');
                     var title = wdp_data.titles[data.type] && wdp_data.titles[data.type][id] ? wdp_data.titles[data.type][id] : id;
 					var link = wdp_data.links && wdp_data.links[data.type] && wdp_data.links[data.type][id] ? wdp_data.links[data.type][id] : '';
                     html += '<option selected data-link="' + link + '" value="' + id + '">' + title + '</option>';

@@ -1,6 +1,6 @@
 <?php
 
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  *
@@ -18,15 +18,13 @@ class Autoloader
      */
     public static function Register()
     {
-        if (function_exists('__autoload')) {
+        if (\function_exists('lw__autoload')) {
             //    Register any existing autoloader function with SPL, so we don't get any clashes
-            spl_autoload_register('__autoload');
+            \spl_autoload_register('lw__autoload');
         }
         //    Register ourselves with SPL
-        return spl_autoload_register(['Complex\\Autoloader', 'Load']);
+        return \spl_autoload_register(['LWVendor\\Complex\\Autoloader', 'Load']);
     }
-
-
     /**
      * Autoload a class identified by name
      *
@@ -34,20 +32,15 @@ class Autoloader
      */
     public static function Load($pClassName)
     {
-        if ((class_exists($pClassName, false)) || (strpos($pClassName, 'Complex\\') !== 0)) {
+        if (\class_exists($pClassName, \false) || \strpos($pClassName, 'Complex\\') !== 0) {
             // Either already loaded, or not a Complex class request
-            return false;
+            return \false;
         }
-
-        $pClassFilePath = __DIR__ . DIRECTORY_SEPARATOR .
-                          'src' . DIRECTORY_SEPARATOR .
-                          str_replace(['Complex\\', '\\'], ['', '/'], $pClassName) .
-                          '.php';
-
-        if ((file_exists($pClassFilePath) === false) || (is_readable($pClassFilePath) === false)) {
+        $pClassFilePath = __DIR__ . \DIRECTORY_SEPARATOR . 'src' . \DIRECTORY_SEPARATOR . \str_replace(['Complex\\', '\\'], ['', '/'], $pClassName) . '.php';
+        if (\file_exists($pClassFilePath) === \false || \is_readable($pClassFilePath) === \false) {
             // Can't load
-            return false;
+            return \false;
         }
-        require($pClassFilePath);
+        require $pClassFilePath;
     }
 }

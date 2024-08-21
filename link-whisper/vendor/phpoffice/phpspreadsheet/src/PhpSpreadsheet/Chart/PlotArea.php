@@ -1,9 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Chart;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Chart;
 
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class PlotArea
 {
     /**
@@ -12,14 +11,12 @@ class PlotArea
      * @var Layout
      */
     private $layout;
-
     /**
      * Plot Series.
      *
      * @var DataSeries[]
      */
     private $plotSeries = [];
-
     /**
      * Create a new PlotArea.
      *
@@ -30,7 +27,6 @@ class PlotArea
         $this->layout = $layout;
         $this->plotSeries = $plotSeries;
     }
-
     /**
      * Get Layout.
      *
@@ -40,7 +36,6 @@ class PlotArea
     {
         return $this->layout;
     }
-
     /**
      * Get Number of Plot Groups.
      *
@@ -48,9 +43,8 @@ class PlotArea
      */
     public function getPlotGroupCount()
     {
-        return count($this->plotSeries);
+        return \count($this->plotSeries);
     }
-
     /**
      * Get Number of Plot Series.
      *
@@ -62,10 +56,8 @@ class PlotArea
         foreach ($this->plotSeries as $plot) {
             $seriesCount += $plot->getPlotSeriesCount();
         }
-
         return $seriesCount;
     }
-
     /**
      * Get Plot Series.
      *
@@ -75,7 +67,6 @@ class PlotArea
     {
         return $this->plotSeries;
     }
-
     /**
      * Get Plot Series by Index.
      *
@@ -87,7 +78,6 @@ class PlotArea
     {
         return $this->plotSeries[$index];
     }
-
     /**
      * Set Plot Series.
      *
@@ -98,11 +88,9 @@ class PlotArea
     public function setPlotSeries(array $plotSeries)
     {
         $this->plotSeries = $plotSeries;
-
         return $this;
     }
-
-    public function refresh(Worksheet $worksheet): void
+    public function refresh(Worksheet $worksheet) : void
     {
         foreach ($this->plotSeries as $plotSeries) {
             $plotSeries->refresh($worksheet);

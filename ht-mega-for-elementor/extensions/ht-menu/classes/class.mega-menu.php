@@ -3,6 +3,7 @@
 class HTMegaMenu_Elementor {
 
     private static $_instance = null;
+    protected $mode;
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();

@@ -101,6 +101,9 @@ class SSA_Templates_Api extends WP_REST_Controller {
 		);
 
 		$twig = new Twig\Environment( $loader );
+
+		$twig->addExtension( $this->plugin->templates->getCustomTwigSandboxExtension() );
+		
 		$twig->addExtension( new SSA_Twig_Extension() );
 		$twig->getExtension( \Twig\Extension\CoreExtension::class )->setTimezone( 'UTC' );
 

@@ -838,6 +838,10 @@ class SSA_Upgrade {
 	 * @return void
 	 */
 	public function migrate_appointment_type_labels(){
+		
+		if( ! empty( $GLOBALS["_COOKIE"]["__cypress_initial"] ) ) {
+			return;
+		}
 
 		// First let's make sure we have a fresh appt type labels tabel for the IDs to be reset
 		$this->plugin->appointment_type_label_model->truncate();

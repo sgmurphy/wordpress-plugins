@@ -8,13 +8,13 @@ $table = new Wpil_Table_Report;
         <thead>
             <tr>
                 <th scope="col" id="wpil_links_inbound_internal_count" class="manage-column column-wpil_links_inbound_internal_count">
-                    <a href="#"><span><?php _e('Inbound internal links', 'wpil'); ?></span></a>
+                    <a href="#"><span><?php esc_html_e('Inbound internal links', 'wpil'); ?></span></a>
                 </th>
                 <th scope="col" id="wpil_links_outbound_internal_count" class="manage-column column-wpil_links_outbound_internal_count">
-                    <a href="#"><span><?php _e('Outbound internal links', 'wpil'); ?></span></a>
+                    <a href="#"><span><?php esc_html_e('Outbound internal links', 'wpil'); ?></span></a>
                 </th>
                 <th scope="col" id="wpil_links_outbound_external_count" class="manage-column column-wpil_links_outbound_external_count">
-                    <a href="#"><span><?php _e('Outbound external links', 'wpil'); ?></span></a>
+                    <a href="#"><span><?php esc_html_e('Outbound external links', 'wpil'); ?></span></a>
                 </th>
             </tr>
         </thead>

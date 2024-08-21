@@ -774,15 +774,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 			$script = 'jQuery("#mo2f_2factor_test_prompt_cross").submit();';
 			return $script;
 		}
-		/**
-		 * Gets script respnse for setupwizard.
-		 *
-		 * @return string
-		 */
-		public function mo2f_get_validate_success_response_setupwizard_script() {
-			$script = 'window.location.href ="' . esc_url( admin_url() ) . '" + \'admin.php?page=mo2f-setup-wizard&current-step=step_4_of_4\';';
-			return $script;
-		}
+
 		/**
 		 * Gets script respnse for inline.
 		 *
@@ -842,14 +834,13 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 			$html                .= '<div class="login mo_customer_validation-modal-content">';
 			$html                .= '<div class="mo2f_modal-header">
 			<h4 class="mo2f_modal-title">';
-			$html                .= 'setupwizard' === $prev_screen ? '' :
+			$html                .=
 				'<button type="button" class="mo2f_close" data-dismiss="modal" aria-label="Close" title="' . esc_attr__( 'Back to login', 'miniorange-2-factor-authentication' ) . '" onclick="mologinback();">
 					<span aria-hidden="true">&times;</span>
 				</button>';
 				$html            .= esc_html__( 'Configure ' . MoWpnsConstants::mo2f_convert_method_name( $current_selected_method, 'cap_to_small' ), 'miniorange-2-factor-authentication' ); // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText -- This is a string literal.
 				$html            .= '</h4>
 				</div>';
-				$html            .= 'setupwizard' === $prev_screen ? '<hr>' : '';
 			$html                .= '<div class="mo2f_modal-body">
 						<div id="otpMessaghide" style="display: none;">
 							<p class="mo2fa_display_message_frontend" style="text-align: left !important; ">' . wp_kses( $login_message, array( 'b' => array() ) ) . '</p>
@@ -938,9 +929,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 				$prev_screen = 'mo2f_inline_form';
 				$html       .= $common_helper->mo2f_go_back_link_form( $prev_screen );
 			}
-			if ( 'setupwizard' !== $prev_screen ) {
 				$html .= $common_helper->mo2f_customize_logo();
-			}
 				$html .= '
 					</div>
 				</div>
@@ -1130,7 +1119,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 					nonce: nonce,
 				};
 				jQuery.post(ajaxurl, data, function(response) {
-				jQuery("#mo2f_2fa_popup_dashboard_loader").css("display", "none");
+				    jQuery("#mo2f_2fa_popup_dashboard_loader").css("display", "none");
 					if (response.success) {
 						' . call_user_func( $success_response ) . '
 					} else {
@@ -1190,26 +1179,6 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 		}
 
 		/**
-		 * Gets script respnse for setupwizard.
-		 *
-		 * @return string
-		 */
-		public function mo2f_get_mo_login_registration_success_response_setupwizard_script() {
-			$script = 'window.location.href ="' . esc_url( admin_url() ) . '" + \'admin.php?page=mo2f-setup-wizard&current-step=step_3_of_4&twofa-method=SMS\';';
-			return $script;
-		}
-
-		/**
-		 * Gets script respnse for setupwizard.
-		 *
-		 * @return string
-		 */
-		public function mo2f_get_mo_login_registration_error_response_setupwizard_script() {
-			$script = 'mo2f_show_message(response.data);';
-			return $script;
-		}
-
-		/**
 		 * This function shows KBA setup screen.
 		 *
 		 * @param int    $user_id User id.
@@ -1224,14 +1193,13 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 			$html     .= '<div class="login mo_customer_validation-modal-content">';
 			$html     .= '<div class="mo2f_modal-header">
 			<h4 class="mo2f_modal-title">';
-			$html     .= 'setupwizard' === $prev_screen ? '' :
+			$html     .=
 				'<button type="button" class="mo2f_close" data-dismiss="modal" aria-label="Close" title="' . esc_attr__( 'Back to login', 'miniorange-2-factor-authentication' ) . '" onclick="mologinback();">
 					<span aria-hidden="true">&times;</span>
 				</button>';
 				$html .= esc_html__( 'Configure ' . MoWpnsConstants::mo2f_convert_method_name( MoWpnsConstants::SECURITY_QUESTIONS, 'cap_to_small' ), 'miniorange-2-factor-authentication' ); // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText -- This is a string literal.
 				$html .= '</h4>
 				</div>';
-				$html .= 'setupwizard' === $prev_screen ? '<hr>' : '';
 				$html .= '<div class="mo2f_modal-body">';
 				$html .= '	<div id="otpMessaghide" style="display: none;">
 				<p class="mo2fa_display_message_frontend" style="text-align: left !important; ">' . wp_kses( $login_message, array( 'b' => array() ) ) . '</p>
@@ -1253,9 +1221,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 				$prev_screen = 'mo2f_inline_form';
 				$html       .= $common_helper->mo2f_go_back_link_form( $prev_screen );
 			}
-			if ( 'setupwizard' !== $prev_screen ) {
-				$html .= $common_helper->mo2f_customize_logo();
-			}
+			$html .= $common_helper->mo2f_customize_logo();
 			$html .= '</div></div></div>';
 			$html .= '<script>';
 			$html .= "
@@ -1535,37 +1501,6 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 		}
 
 		/**
-		 * Gets skip button script for setupwizard.
-		 *
-		 * @param int $user_id User id.
-		 * @return string
-		 */
-		public function mo2f_get_skipbutton_script_setupwizard( $user_id ) {
-			$script = '<script>
-			jQuery(document).ready(function($){
-				jQuery(function(){	
-			jQuery(\'a[href="#skiptwofactor3"]\').click(function() {
-				localStorage.setItem("last_tab", "setup_2fa");
-				var ajax_url = "' . esc_url( admin_url( 'admin-ajax.php' ) ) . '";
-				var skiptwofactorstage = "configuration";
-				var nonce = "' . esc_js( wp_create_nonce( 'mo-two-factor-ajax-nonce' ) ) . '";
-				var data = {
-					\'action\': \'mo_two_factor_ajax\',
-					\'mo_2f_two_factor_ajax\': \'mo2f_skiptwofactor_wizard\',
-					\'nonce\': nonce,
-					\'twofactorskippedon\': skiptwofactorstage
-				};
-				jQuery.post(ajax_url, data, function(response) {
-					window.location.href = "' . esc_url( admin_url() ) . '"  + "admin.php?page=mo_2fa_two_fa";
-				});
-			});
-		});
-	});
-		</script>';
-			return $script;
-		}
-
-		/**
 		 * Gets html for Google authentication
 		 *
 		 * @param string $gauth_name Gauth name.
@@ -1587,7 +1522,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 					<div class="login mo_customer_validation-modal-content">';
 					$html .= '<h4>';
 
-						$html                 .= 'setupwizard' === $prev_screen ? '' : '<button type="button" class="mo2f_close" data-dismiss="modal" aria-label="Close"
+						$html                 .= '<button type="button" class="mo2f_close" data-dismiss="modal" aria-label="Close"
 						title="' . esc_attr__( 'Back to login', 'miniorange-2-factor-authentication' ) . '"
 						onclick="mologinback();"><span aria-hidden="true">&times;</span></button>';
 						$html                 .= esc_html__( 'Configure Google/Authy/Microsoft Authenticator', 'miniorange-2-factor-authentication' ) .
@@ -1641,7 +1576,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 													$html .= '</div>';
 													$html .= '	</ol>
 										</div>';
-			if ( 'dashboard' !== $prev_screen && 'setupwizard' !== $prev_screen ) {
+			if ( 'dashboard' !== $prev_screen ) {
 				$html .= '<br>' . $common_helper->mo2f_go_back_link_form( $prev_screen ) . '<br>';
 			}
 													$html .= '<br>
@@ -1697,7 +1632,7 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 											<span id="links_to_apps"></span>
 										</div>';
 										$html             .= '<div class="mo2f_customize_logo">';
-			if ( 'dashboard' !== $prev_screen && 'setupwizard' !== $prev_screen ) {
+			if ( 'dashboard' !== $prev_screen ) {
 				$html .= $common_helper->mo2f_customize_logo();
 			}
 										$html             .= '</div>';

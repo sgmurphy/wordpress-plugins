@@ -210,6 +210,11 @@ cff_forms_templates = {
             "description": "Calculate the age when the person will meet the minimum required years of work.",
             "id": 49
         }, {
+            "title": "Net Salary Calculator",
+            "category": "Financial",
+            "description": "Calculate the net salary based on gross salary and country.",
+            "id": 53
+        }, {
             "title": "Transportation Cost",
             "category": "Transportation",
             "description": "Basic algorithm to calculate transportation cost.",

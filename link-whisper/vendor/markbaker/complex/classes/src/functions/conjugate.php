@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the complex conjugate of a complex number
@@ -19,10 +19,5 @@ namespace Complex;
 function conjugate($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
-    return new Complex(
-        $complex->getReal(),
-        -1 * $complex->getImaginary(),
-        $complex->getSuffix()
-    );
+    return new Complex($complex->getReal(), -1 * $complex->getImaginary(), $complex->getSuffix());
 }

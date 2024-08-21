@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the hyperbolic cotangent of a complex number.
@@ -20,5 +20,5 @@ namespace Complex;
 function coth($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-    return inverse(tanh($complex));
+    return inverse(\tanh($complex));
 }

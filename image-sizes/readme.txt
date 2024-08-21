@@ -4,7 +4,7 @@ Donate link: https://thumbpress.co/?utm_source=free-plugins&utm_medium=readme&ut
 Tags: compress images, disable thumbnails, image editor, optimize images, regenerate thumbnails
 Requires at least: 5.0
 Tested up to: 6.6
-Stable tag: 5.6.1
+Stable tag: 5.7
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -163,94 +163,98 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 
 == Changelog ==
 
-= 2024-08-11 – v5.6.1 =
+= 2024-08-21 – v5.7 =
+* [add] added escaping functions for output
+* [imp] corrected escaping attribute format
+* [fix] solved string and translation issue
+* [rem] removed unnecessary DS_Store files
 
-- [fix] fixed thumbpress constant issue
-- [fix] fixed font-awesome enqueue issue
-- [imp] updated text-domain
-- [imp] updated css classes
+= 2024-08-11 – v5.6.1 =
+* [fix] fixed thumbpress constant issue
+* [fix] fixed font-awesome enqueue issue
+* [imp] updated text-domain
+* [imp] updated css classes
 
 = 2024-08-08 – v5.6 =
-
-- [fix] fixed background actions for modules
-- [fix] fixed offset count issue
-- [add] new progress messages added
-- [imp] improved progress bar design
-- [imp] updated settings for modules
-- [imp] restricted double click on action buttons
-- [imp] optimized javascript code
+* [fix] fixed background actions for modules
+* [fix] fixed offset count issue
+* [add] new progress messages added
+* [imp] improved progress bar design
+* [imp] updated settings for modules
+* [imp] restricted double click on action buttons
+* [imp] optimized javascript code
 
 = 2024-07-30 – v5.5.1 =
-- [fix] convert images action scheduler issue fixed
-- [fix] regenerate thumbnails real time ajax issue fixed
+* [fix] convert images action scheduler issue fixed
+* [fix] regenerate thumbnails real time ajax issue fixed
 
 = 2024-07-30 – v5.5 =
-- [fix] convert images offset fixed
-- [imp] progress completion system improved
-- [imp] javascript code optimized
-- [imp] improved regenerate thumbnails progress
-- [imp] plugin activation time condition updated
-- [imp] code structure updated for compress images
-- [add] new css class added for buttons
-- [add] not found message added in multiple modules
-- [add] real time actions added using ajax in multiple modules
+* [fix] convert images offset fixed
+* [imp] progress completion system improved
+* [imp] javascript code optimized
+* [imp] improved regenerate thumbnails progress
+* [imp] plugin activation time condition updated
+* [imp] code structure updated for compress images
+* [add] new css class added for buttons
+* [add] not found message added in multiple modules
+* [add] real time actions added using ajax in multiple modules
 
 = 2024-07-15 – v5.4 =
-- [imp] integrated Action Scheduler into convert to WebP module
-- [imp] integrated Action Scheduler into some other modules
-- [imp] improved background process of regenerate thumbnails module
-- [imp] improved design issues of some modules
+* [imp] integrated Action Scheduler into convert to WebP module
+* [imp] integrated Action Scheduler into some other modules
+* [imp] improved background process of regenerate thumbnails module
+* [imp] improved design issues of some modules
 
 = 2024-06-09 – v5.3 =
-- [fix] fixed disable thumbnails drag-n-drop not working issue
-- [fix] fixed module interconnecting links not working issue
-- [imp] moved overview page contents to advanced features page
+* [fix] fixed disable thumbnails drag-n-drop not working issue
+* [fix] fixed module interconnecting links not working issue
+* [imp] moved overview page contents to advanced features page
 
 = 2024-05-31 – v5.2.4 =
-- [imp] Removed unnecessary `wporg-assets` folder
+* [imp] Removed unnecessary `wporg-assets` folder
 
 = 2024-05-29 – v5.2.3 =
-- [imp] optimized code and reduced plugin file size
-- [imp] improved style of disable thumbnails module
-- [imp] added links for interconnecting two modules
+* [imp] optimized code and reduced plugin file size
+* [imp] improved style of disable thumbnails module
+* [imp] added links for interconnecting two modules
 
 = 2024-05-21 – v5.2.2 =
-- [fix] Fixed the issue of stopping generating thumbnails
+* [fix] Fixed the issue of stopping generating thumbnails
 
 = 2024-05-21 – v5.2.1 =
-- [imp] removed pointer notice
+* [imp] removed pointer notice
 
 = 2024-05-21 – v5.2 =
-- [fix] solved regenerate thumbnails issue
-- [imp] optimized javascript code
+* [fix] solved regenerate thumbnails issue
+* [imp] optimized javascript code
 
 = 2024-05-20 – v5.1.2 =
-- [imp] removed admin notice from dashboard
-- [mod] changed leave a review button url
+* [imp] removed admin notice from dashboard
+* [mod] changed leave a review button url
 
 = 2024-05-15 – v5.1.1 =
-- [fix] `Add New Plugin` page refersh button onclick issue fixed
+* [fix] `Add New Plugin` page refersh button onclick issue fixed
 
 = 2024-05-09 – v5.1.0.2 =
-- [imp] code structure improved
-- [fix] sub-menu text changed
-- [fix] replace images issue fixed
-- [fix] convert all images issue fixed
-- [fix] convert images scaled issue fixed
-- [fix] delete original image after conversion issue fixed
-- [add] get image from attached file with scaled name function added
-- [imp] code cleaned and image mime type updated
-- [fix] action scheduler table issue fixed
-- [imp] check action scheduler table function updated
-- [add] create action scheduler tables if missing
-- [imp] check action table before activation and delete option table data
-- [imp] plugin settings slug changed
-- [fix] dashboard pointer issue solved
-- [imp] dashboard banner logic updated
-- [add] social share image single post check added
-- [add] social share image extra check added to avoid warning
-- [fix] scaled image regenerate issue fixed
-- [fix] scaled image thumbnail regenerate in background issue fixed
+* [imp] code structure improved
+* [fix] sub-menu text changed
+* [fix] replace images issue fixed
+* [fix] convert all images issue fixed
+* [fix] convert images scaled issue fixed
+* [fix] delete original image after conversion issue fixed
+* [add] get image from attached file with scaled name function added
+* [imp] code cleaned and image mime type updated
+* [fix] action scheduler table issue fixed
+* [imp] check action scheduler table function updated
+* [add] create action scheduler tables if missing
+* [imp] check action table before activation and delete option table data
+* [imp] plugin settings slug changed
+* [fix] dashboard pointer issue solved
+* [imp] dashboard banner logic updated
+* [add] social share image single post check added
+* [add] social share image extra check added to avoid warning
+* [fix] scaled image regenerate issue fixed
+* [fix] scaled image thumbnail regenerate in background issue fixed
 
 = 2024-05-01 – v5.0.2 =
 * [fix] fixed pinterest thumbnail in social share images module

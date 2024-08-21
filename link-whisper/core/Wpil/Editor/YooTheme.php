@@ -34,12 +34,12 @@ class Wpil_Editor_YooTheme
         'switcher_item'
     );
 
-    public const PATTERN = '/<!--\s*?(\{(?:.*?)\})\s*?-->/';
+    public static $pattern = '/<!--\s*?(\{(?:.*?)\})\s*?-->/';
 
     public static function matchContent($content)
     {
         return str_contains((string) $content, '<!--') &&
-            preg_match(static::PATTERN, $content, $matches)
+            preg_match(self::$pattern, $content, $matches)
             ? $matches[1]
             : null;
     }

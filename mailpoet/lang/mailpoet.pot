@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.58.2\n"
+"Project-Id-Version: MailPoet 5.0.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-13T06:37:08+00:00\n"
+"POT-Creation-Date: 2024-08-19T15:17:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1070,8 +1070,6 @@ msgid "Select a field type:"
 msgstr ""
 
 #: views/form/templatesLegacy/settings/field_form.hbs:16
-#: lib/Models/CustomField.php:35
-#: lib/Models/Newsletter.php:73
 msgid "Please specify a type."
 msgstr ""
 
@@ -1084,8 +1082,6 @@ msgstr ""
 #: lib/API/JSON/v1/DynamicSegments.php:123
 #: lib/API/JSON/v1/ImportExport.php:124
 #: lib/API/JSON/v1/Segments.php:133
-#: lib/Models/CustomField.php:32
-#: lib/Models/Segment.php:35
 msgid "Please specify a name."
 msgstr ""
 
@@ -1153,7 +1149,6 @@ msgid "Forms"
 msgstr ""
 
 #: views/forms.html:36
-#: views/logs.html:22
 #: views/segments/translations.html:3
 #: views/segments/translations.html:142
 #: views/subscribers/subscribers.html:17
@@ -1194,7 +1189,6 @@ msgid "Apply"
 msgstr ""
 
 #: views/forms.html:43
-#: views/logs.html:27
 #: views/subscribers/subscribers.html:26
 msgid "Filter"
 msgstr ""
@@ -1317,7 +1311,6 @@ msgid "%1$d items"
 msgstr ""
 
 #: views/forms.html:63
-#: views/logs.html:19
 #: views/segments/translations.html:10
 #: views/subscribers/importExport/import/step_data_manipulation.html:7
 #: assets/dist/js/admin.js:2
@@ -2436,35 +2429,9 @@ msgid_plural "You’ve been using MailPoet for [months] months now, and we would
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/logs.html:18
+#: views/logs.html:19
 #: lib/Config/Menu.php:509
 msgid "Logs"
-msgstr ""
-
-#: views/logs.html:20
-msgid "Message"
-msgstr ""
-
-#: views/logs.html:21
-msgid "Created On"
-msgstr ""
-
-#: views/logs.html:23
-msgid "Offset"
-msgstr ""
-
-#: views/logs.html:24
-msgid "Limit"
-msgstr ""
-
-#: views/logs.html:25
-msgctxt "date from"
-msgid "From"
-msgstr ""
-
-#: views/logs.html:26
-msgctxt "date to"
-msgid "To"
 msgstr ""
 
 #: views/mss_pitch_translations.html:17
@@ -6336,9 +6303,7 @@ msgctxt "This is a value in a select box for \"Set new subscribers’ status to\
 msgid "Don’t update"
 msgstr ""
 
-#. translators: %1$s is the name of the database column.
 #: views/subscribers/importExport/import/step_data_manipulation.html:17
-#: lib/Models/Model.php:269
 msgid "Another record already exists. Please specify a different \"%1$s\"."
 msgstr ""
 
@@ -6499,8 +6464,7 @@ msgid "Lists to which the subscriber was subscribed."
 msgstr ""
 
 #: views/subscribers/subscribers.html:98
-#: lib/Models/Segment.php:127
-#: lib/Segments/SegmentsRepository.php:78
+#: lib/Segments/SegmentsRepository.php:79
 msgid "WordPress Users"
 msgstr ""
 
@@ -7319,7 +7283,7 @@ msgstr ""
 #: lib/API/JSON/v1/Newsletters.php:290
 #: lib/API/JSON/v1/Newsletters.php:307
 #: lib/API/JSON/v1/Newsletters.php:322
-#: lib/API/JSON/v1/Newsletters.php:345
+#: lib/API/JSON/v1/Newsletters.php:346
 #: assets/dist/js/admin.js:2
 msgid "This email does not exist."
 msgstr ""
@@ -7343,7 +7307,7 @@ msgstr ""
 msgid "Newsletter data is missing."
 msgstr ""
 
-#: lib/API/JSON/v1/Newsletters.php:338
+#: lib/API/JSON/v1/Newsletters.php:339
 msgid "Please specify receiver information."
 msgstr ""
 
@@ -7442,136 +7406,136 @@ msgstr ""
 msgid "Failed sending task not found!"
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:92
-#: lib/API/JSON/v1/Services.php:168
+#: lib/API/JSON/v1/Services.php:93
+#: lib/API/JSON/v1/Services.php:169
 msgid "Please specify a key."
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:119
+#: lib/API/JSON/v1/Services.php:120
 msgid "Your MailPoet Sending Service key has been successfully validated"
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:121
-#: lib/API/JSON/v1/Services.php:187
+#: lib/API/JSON/v1/Services.php:122
+#: lib/API/JSON/v1/Services.php:188
 msgid "Your Premium key has been successfully validated, but is not valid for MailPoet Sending Service"
 msgstr ""
 
 #. translators: %s is the expiration date.
-#: lib/API/JSON/v1/Services.php:125
+#: lib/API/JSON/v1/Services.php:126
 msgid "Your MailPoet Sending Service key expires on %s!"
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:140
+#: lib/API/JSON/v1/Services.php:141
 #: assets/dist/js/commons.js:9
 msgid "Your key is not valid for the MailPoet Sending Service"
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:143
+#: lib/API/JSON/v1/Services.php:144
 msgid "Your MailPoet Sending Service key is already <a>used on another site</a>"
 msgstr ""
 
 #. translators: %s is the error message.
-#: lib/API/JSON/v1/Services.php:148
+#: lib/API/JSON/v1/Services.php:149
 msgid "Error validating MailPoet Sending Service key, please try again later (%s)."
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:151
+#: lib/API/JSON/v1/Services.php:152
 msgid "Note that it doesn't work on localhost."
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:185
+#: lib/API/JSON/v1/Services.php:186
 msgid "Your Premium key has been successfully validated"
 msgstr ""
 
 #. translators: %s is the expiration date.
-#: lib/API/JSON/v1/Services.php:191
+#: lib/API/JSON/v1/Services.php:192
 msgid "Your Premium key expires on %s"
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:209
+#: lib/API/JSON/v1/Services.php:210
 #: assets/dist/js/commons.js:9
 msgid "Your key is not valid for MailPoet Premium"
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:212
+#: lib/API/JSON/v1/Services.php:213
 msgid "Your Premium key is already <a>used on another site</a>"
 msgstr ""
 
 #. translators: %s is the error message.
-#: lib/API/JSON/v1/Services.php:218
+#: lib/API/JSON/v1/Services.php:219
 msgid "Error validating Premium key, please try again later (%s)"
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:255
+#: lib/API/JSON/v1/Services.php:256
 #: assets/dist/js/commons.js:9
 msgid "MailPoet Sending Service is not active."
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:260
+#: lib/API/JSON/v1/Services.php:261
 msgid "Sender email address is not set."
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:271
+#: lib/API/JSON/v1/Services.php:272
 msgid "No FROM email addresses are authorized."
 msgstr ""
 
 #. translators: %s is the email address, which is not authorized.
-#: lib/API/JSON/v1/Services.php:276
+#: lib/API/JSON/v1/Services.php:277
 msgid "Sender email address '%s' is not authorized."
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:285
+#: lib/API/JSON/v1/Services.php:286
 msgid "Sending of congratulatory email failed."
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:327
+#: lib/API/JSON/v1/Services.php:328
 msgid "Service unavailable"
 msgstr ""
 
-#: lib/API/JSON/v1/Services.php:330
+#: lib/API/JSON/v1/Services.php:331
 msgid "Contact your hosting support to check the connection between your host and https://bridge.mailpoet.com"
 msgstr ""
 
 #. translators: %s is the code.
-#: lib/API/JSON/v1/Services.php:334
+#: lib/API/JSON/v1/Services.php:335
 msgctxt "Error code (inside parentheses)"
 msgid "code: %s"
 msgstr ""
 
-#: lib/API/JSON/v1/Settings.php:139
+#: lib/API/JSON/v1/Settings.php:133
 msgid "You have not specified any settings to be saved."
 msgstr ""
 
-#: lib/API/JSON/v1/Settings.php:182
+#: lib/API/JSON/v1/Settings.php:176
 msgid "You have not specified any setting to be deleted."
 msgstr ""
 
-#: lib/API/JSON/v1/Settings.php:193
+#: lib/API/JSON/v1/Settings.php:187
 msgid "Setting doesn't exist."
 msgstr ""
 
-#: lib/API/JSON/v1/Settings.php:225
-#: lib/API/JSON/v1/Settings.php:252
-#: lib/API/JSON/v1/Settings.php:282
+#: lib/API/JSON/v1/Settings.php:219
+#: lib/API/JSON/v1/Settings.php:246
+#: lib/API/JSON/v1/Settings.php:276
 msgid "No email address specified."
 msgstr ""
 
-#: lib/API/JSON/v1/Settings.php:234
+#: lib/API/JSON/v1/Settings.php:228
 msgid "Can’t use this email yet! Please authorize it first."
 msgstr ""
 
-#: lib/API/JSON/v1/Settings.php:298
-#: lib/API/JSON/v1/Settings.php:313
-#: lib/API/JSON/v1/Settings.php:342
+#: lib/API/JSON/v1/Settings.php:292
+#: lib/API/JSON/v1/Settings.php:307
+#: lib/API/JSON/v1/Settings.php:336
 msgid "No sender domain specified."
 msgstr ""
 
-#: lib/API/JSON/v1/Settings.php:366
+#: lib/API/JSON/v1/Settings.php:360
 msgid "Sender domain verification failed."
 msgstr ""
 
 #. translators: %s is the error message.
-#: lib/API/JSON/v1/Settings.php:444
+#: lib/API/JSON/v1/Settings.php:438
 msgid "Unable to deactivate re-engagement emails: %s"
 msgstr ""
 
@@ -7599,12 +7563,10 @@ msgid "This tag does not exist."
 msgstr ""
 
 #: lib/API/JSON/v1/Subscribers.php:340
-#: lib/Models/Subscriber.php:57
 msgid "Please enter your email address"
 msgstr ""
 
 #: lib/API/JSON/v1/Subscribers.php:342
-#: lib/Models/Subscriber.php:58
 msgid "Your email address is invalid!"
 msgstr ""
 
@@ -7907,9 +7869,9 @@ msgstr ""
 #. translators: %s is the campaign name of the mail which has been copied.
 #. translators: %s is the name of the segment
 #: lib/Automation/Engine/Builder/DuplicateAutomationController.php:52
-#: lib/Form/FormSaveController.php:28
-#: lib/Newsletter/NewsletterSaveController.php:179
-#: lib/Newsletter/NewsletterSaveController.php:205
+#: lib/Form/FormSaveController.php:22
+#: lib/Newsletter/NewsletterSaveController.php:180
+#: lib/Newsletter/NewsletterSaveController.php:206
 #: lib/Segments/DynamicSegments/SegmentSaveController.php:55
 #: lib/Segments/SegmentSaveController.php:47
 msgid "Copy of %s"
@@ -9020,10 +8982,6 @@ msgstr ""
 msgid "View MailPoet settings"
 msgstr ""
 
-#: lib/Config/Initializer.php:233
-msgid "Unable to connect to the database (the database is unable to open a file or folder), the connection is likely not configured correctly. Please read our [link] Knowledge Base article [/link] for steps how to resolve it."
-msgstr ""
-
 #: lib/Config/Menu.php:182
 #: lib/Config/Menu.php:183
 msgid "Welcome Wizard"
@@ -9999,25 +9957,21 @@ msgstr ""
 msgid "Failed to render template \"%1$s\". Please ensure the template cache folder \"%2$s\" exists and has write permissions. Terminated with error: \"%3$s\""
 msgstr ""
 
-#: lib/Config/RequirementsChecker.php:48
+#: lib/Config/RequirementsChecker.php:46
 msgid "MailPoet requires write permissions inside the /wp-content/uploads folder. Please read our [link]instructions[/link] on how to resolve this issue."
 msgstr ""
 
-#: lib/Config/RequirementsChecker.php:69
-msgid "MailPoet requires a PDO_MYSQL PHP extension. Please read our [link]instructions[/link] on how to resolve this issue."
-msgstr ""
-
-#: lib/Config/RequirementsChecker.php:79
+#: lib/Config/RequirementsChecker.php:67
 msgid "MailPoet requires an XML PHP extension. Please read our [link]instructions[/link] on how to resolve this issue."
 msgstr ""
 
 #. translators: %s is the dependency.
-#: lib/Config/RequirementsChecker.php:92
+#: lib/Config/RequirementsChecker.php:80
 msgid "A MailPoet dependency (%s) does not appear to be loaded correctly, thus MailPoet will not work correctly. Please reinstall the plugin."
 msgstr ""
 
 #. translators: %1$s is the dependency and %2$s the plugin.
-#: lib/Config/RequirementsChecker.php:104
+#: lib/Config/RequirementsChecker.php:92
 msgid "MailPoet has detected a dependency conflict (%1$s) with another plugin (%2$s), which may cause unexpected behavior. Please disable the offending plugin to fix this issue."
 msgstr ""
 
@@ -11099,48 +11053,13 @@ msgstr ""
 msgid "Filter \"mailpoet_mailer_smtp_instance\" must return an instance of PHPMailer."
 msgstr ""
 
-#: lib/Models/Newsletter.php:198
-msgid "This is an empty email without any content and it cannot be sent. Please update [link]the email[/link]."
+#: lib/Newsletter/Editor/PostContentManager.php:144
+msgid "Click here to view media."
 msgstr ""
 
-#: lib/Models/Newsletter.php:268
-msgid "Deleted list"
-msgstr ""
-
-#: lib/Models/Segment.php:129
-#: lib/Segments/SegmentsRepository.php:80
-msgid "This list contains all of your WordPress users."
-msgstr ""
-
-#: lib/Models/Segment.php:149
-#: lib/Segments/SegmentsRepository.php:95
-msgid "WooCommerce Customers"
-msgstr ""
-
-#: lib/Models/Segment.php:151
-#: lib/Segments/SegmentsRepository.php:97
-msgid "This list contains all of your WooCommerce customers."
-msgstr ""
-
-#: lib/Models/SendingQueue.php:42
-msgid "Rendered newsletter body is invalid!"
-msgstr ""
-
-#: lib/Models/Subscriber.php:209
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:62
 #: lib/Subscribers/SubscriberListingRepository.php:296
 msgid "All Lists"
-msgstr ""
-
-#. translators: %s is the number of subscribers without a segment.
-#. translators: %s is the number of subscribers without a list.
-#: lib/Models/Subscriber.php:218
-#: lib/Subscribers/SubscriberListingRepository.php:282
-msgid "Subscribers without a list (%s)"
-msgstr ""
-
-#: lib/Newsletter/Editor/PostContentManager.php:144
-msgid "Click here to view media."
 msgstr ""
 
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:127
@@ -11153,7 +11072,7 @@ msgstr ""
 msgid "Not active"
 msgstr ""
 
-#: lib/Newsletter/NewsletterSaveController.php:465
+#: lib/Newsletter/NewsletterSaveController.php:466
 msgid "New Email"
 msgstr ""
 
@@ -11202,15 +11121,15 @@ msgid "Couldn't find the coupon. Please update the email if the coupon was remov
 msgstr ""
 
 #. translators: %s is the type which was given.
-#: lib/Newsletter/Scheduler/AutomationEmailScheduler.php:41
+#: lib/Newsletter/Scheduler/AutomationEmailScheduler.php:35
 msgid "Email with type 'automation' or 'automation_transactional' expected, '%s' given."
 msgstr ""
 
-#: lib/Newsletter/Sending/ScheduledTasksRepository.php:359
+#: lib/Newsletter/Sending/ScheduledTasksRepository.php:354
 msgid "Only scheduled and running tasks can be cancelled"
 msgstr ""
 
-#: lib/Newsletter/Sending/ScheduledTasksRepository.php:369
+#: lib/Newsletter/Sending/ScheduledTasksRepository.php:364
 msgid "Only cancelled tasks can be rescheduled"
 msgstr ""
 
@@ -11324,6 +11243,18 @@ msgstr ""
 
 #: lib/Segments/SegmentDependencyValidator.php:145
 msgid "Your current MailPoet plan does not support advanced segments. Please [link]upgrade to a MailPoet Premium plan[/link] to reactivate this segment."
+msgstr ""
+
+#: lib/Segments/SegmentsRepository.php:81
+msgid "This list contains all of your WordPress users."
+msgstr ""
+
+#: lib/Segments/SegmentsRepository.php:96
+msgid "WooCommerce Customers"
+msgstr ""
+
+#: lib/Segments/SegmentsRepository.php:98
+msgid "This list contains all of your WooCommerce customers."
 msgstr ""
 
 #: lib/Segments/SegmentsSimpleListRepository.php:57
@@ -11626,6 +11557,11 @@ msgstr ""
 #. translators: %s is the name of the custom field.
 #: lib/Subscribers/RequiredCustomFieldValidator.php:31
 msgid "Missing value for custom field \"%s\""
+msgstr ""
+
+#. translators: %s is the number of subscribers without a list.
+#: lib/Subscribers/SubscriberListingRepository.php:282
+msgid "Subscribers without a list (%s)"
 msgstr ""
 
 #: lib/Subscribers/SubscriberListingRepository.php:335
@@ -13616,6 +13552,35 @@ msgstr ""
 
 #: assets/dist/js/admin.js:2
 msgid "Get improved features and fixes faster by sharing with us [link]non-sensitive data about how you use MailPoet[/link]. No personal data is tracked or stored."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Show less"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Show more"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Offset"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Limit"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgctxt "verb"
+msgid "Filter"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Message"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Created On"
 msgstr ""
 
 #: assets/dist/js/admin.js:2

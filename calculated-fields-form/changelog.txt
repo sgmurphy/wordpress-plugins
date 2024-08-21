@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.30 =
+
+* Modifies the position of the validation error messages in the form.
+* Reimplements the Phone control to support dynamic field structure and validation rules based on the country code.
+* Adds a new predefined template.
+
 = 5.2.29 =
 
 * Modifies the Equations Advanced Editor to allow the sidebar to collapse to give more space to the code editor.

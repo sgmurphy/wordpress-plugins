@@ -7,6 +7,13 @@
     "file": "css/WelcomeOverlay.css",
     "src": "WelcomeOverlay.css"
   },
+  "_ReportReAuth-61360c4f.min.js": {
+    "file": "js/chunks/ReportReAuth-61360c4f.min.js",
+    "imports": [
+      "_vendor-008d034f.min.js",
+      "_SettingsInfoTooltip-61cb2dba.min.js"
+    ]
+  },
   "_SettingsInfoTooltip-61cb2dba.min.js": {
     "file": "js/chunks/SettingsInfoTooltip-61cb2dba.min.js",
     "imports": [
@@ -22,14 +29,14 @@
       "_vendor-008d034f.min.js"
     ]
   },
-  "_WelcomeOverlay-1ca4e47e.min.js": {
+  "_WelcomeOverlay-a37a152b.min.js": {
     "css": [
       "css/WelcomeOverlay.css"
     ],
-    "file": "js/chunks/WelcomeOverlay-1ca4e47e.min.js",
+    "file": "js/chunks/WelcomeOverlay-a37a152b.min.js",
     "imports": [
       "_vendor-008d034f.min.js",
-      "_index-50f466e9.min.js",
+      "_index-f32ade64.min.js",
       "_SettingsInfoTooltip-61cb2dba.min.js",
       "_SlideDownUp-38353d0b.min.js"
     ]
@@ -40,11 +47,11 @@
       "_vendor-008d034f.min.js"
     ]
   },
-  "_date-intervals-aab17a1e.min.js": {
-    "file": "js/chunks/date-intervals-aab17a1e.min.js",
+  "_date-intervals-1516c30d.min.js": {
+    "file": "js/chunks/date-intervals-1516c30d.min.js",
     "imports": [
       "_vendor-008d034f.min.js",
-      "_SettingsInfoTooltip-61cb2dba.min.js"
+      "_index-f32ade64.min.js"
     ]
   },
   "_html2canvas-d5400ab8.min.js": {
@@ -53,12 +60,6 @@
       "_vendor-008d034f.min.js"
     ],
     "isDynamicEntry": true
-  },
-  "_index-50f466e9.min.js": {
-    "file": "js/chunks/index-50f466e9.min.js",
-    "imports": [
-      "_vendor-008d034f.min.js"
-    ]
   },
   "_index-71743d89.min.js": {
     "assets": [
@@ -91,11 +92,10 @@
       "_SlideDownUp-38353d0b.min.js"
     ]
   },
-  "_index-be4eb4c2.min.js": {
-    "file": "js/chunks/index-be4eb4c2.min.js",
+  "_index-f32ade64.min.js": {
+    "file": "js/chunks/index-f32ade64.min.js",
     "imports": [
-      "_vendor-008d034f.min.js",
-      "_index-50f466e9.min.js"
+      "_vendor-008d034f.min.js"
     ]
   },
   "_vendor-008d034f.min.js": {
@@ -1051,9 +1051,9 @@
     "file": "js/frontend.min.js",
     "imports": [
       "_vendor-008d034f.min.js",
-      "_index-be4eb4c2.min.js",
+      "_date-intervals-1516c30d.min.js",
       "_WidgetReportError-9afd455d.min.js",
-      "_index-50f466e9.min.js"
+      "_index-f32ade64.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/frontend/frontend.js"
@@ -1152,11 +1152,11 @@
     "file": "js/reports.min.js",
     "imports": [
       "_vendor-008d034f.min.js",
-      "_index-be4eb4c2.min.js",
+      "_date-intervals-1516c30d.min.js",
       "_SettingsInfoTooltip-61cb2dba.min.js",
-      "_date-intervals-aab17a1e.min.js",
+      "_ReportReAuth-61360c4f.min.js",
       "_index-71743d89.min.js",
-      "_index-50f466e9.min.js",
+      "_index-f32ade64.min.js",
       "_SlideDownUp-38353d0b.min.js"
     ],
     "isEntry": true,
@@ -1301,9 +1301,9 @@
     "file": "js/settings.min.js",
     "imports": [
       "_vendor-008d034f.min.js",
-      "_index-50f466e9.min.js",
+      "_index-f32ade64.min.js",
       "_SlideDownUp-38353d0b.min.js",
-      "_WelcomeOverlay-1ca4e47e.min.js",
+      "_WelcomeOverlay-a37a152b.min.js",
       "_SettingsInfoTooltip-61cb2dba.min.js",
       "_index-71743d89.min.js"
     ],
@@ -1401,11 +1401,11 @@
     "file": "js/widget.min.js",
     "imports": [
       "_vendor-008d034f.min.js",
-      "_index-be4eb4c2.min.js",
-      "_date-intervals-aab17a1e.min.js",
+      "_date-intervals-1516c30d.min.js",
+      "_ReportReAuth-61360c4f.min.js",
       "_SettingsInfoTooltip-61cb2dba.min.js",
       "_WidgetReportError-9afd455d.min.js",
-      "_index-50f466e9.min.js"
+      "_index-f32ade64.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/widget/widget.js"
@@ -1453,9 +1453,9 @@
     "file": "js/wizard.min.js",
     "imports": [
       "_vendor-008d034f.min.js",
-      "_WelcomeOverlay-1ca4e47e.min.js",
+      "_WelcomeOverlay-a37a152b.min.js",
       "_SettingsInfoTooltip-61cb2dba.min.js",
-      "_index-50f466e9.min.js",
+      "_index-f32ade64.min.js",
       "_SlideDownUp-38353d0b.min.js"
     ],
     "isEntry": true,

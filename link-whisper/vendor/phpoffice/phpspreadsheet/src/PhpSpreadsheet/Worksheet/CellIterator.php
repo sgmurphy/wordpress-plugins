@@ -1,9 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Worksheet;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Worksheet;
 
 use Iterator;
-
 abstract class CellIterator implements Iterator
 {
     /**
@@ -12,14 +11,12 @@ abstract class CellIterator implements Iterator
      * @var Worksheet
      */
     protected $worksheet;
-
     /**
      * Iterate only existing cells.
      *
      * @var bool
      */
-    protected $onlyExistingCells = false;
-
+    protected $onlyExistingCells = \false;
     /**
      * Destructor.
      */
@@ -27,7 +24,6 @@ abstract class CellIterator implements Iterator
     {
         $this->worksheet = null;
     }
-
     /**
      * Get loop only existing cells.
      *
@@ -37,21 +33,18 @@ abstract class CellIterator implements Iterator
     {
         return $this->onlyExistingCells;
     }
-
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
      */
-    abstract protected function adjustForExistingOnlyRange();
-
+    protected abstract function adjustForExistingOnlyRange();
     /**
      * Set the iterator to loop only existing cells.
      *
      * @param bool $value
      */
-    public function setIterateOnlyExistingCells($value): void
+    public function setIterateOnlyExistingCells($value) : void
     {
         $this->onlyExistingCells = (bool) $value;
-
         $this->adjustForExistingOnlyRange();
     }
 }

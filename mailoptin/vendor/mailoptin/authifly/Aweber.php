@@ -4,6 +4,9 @@ namespace Authifly\Provider;
 
 use Authifly\Adapter\OAuth1;
 use Authifly\Exception\Exception;
+use Authifly\Exception\HttpClientFailureException;
+use Authifly\Exception\HttpRequestFailedException;
+use Authifly\Exception\InvalidAccessTokenException;
 use Authifly\Exception\InvalidArgumentException;
 use Authifly\Data;
 
@@ -29,6 +32,45 @@ class Aweber extends OAuth1
      * {@inheritdoc}
      */
     protected $apiDocumentation = 'https://labs.aweber.com/docs/authentication';
+
+    /**
+     * @throws InvalidAccessTokenException
+     * @throws HttpRequestFailedException
+     * @throws HttpClientFailureException
+     */
+    protected function validateApiResponse($error = '')
+    {
+        $error .= !empty($error) ? '. ' : '';
+
+        if ($this->httpClient->getResponseClientError()) {
+            throw new HttpClientFailureException(
+                $error.'HTTP client error: '.$this->httpClient->getResponseClientError().'.'
+            );
+        }
+
+        // if validateApiResponseHttpCode is set to false, we by pass verification of http status code
+        if (! $this->validateApiResponseHttpCode) {
+            return;
+        }
+
+        $status = $this->httpClient->getResponseHttpCode();
+
+        // https://help.aweber.com/hc/en-us/articles/360035908933-When-should-a-failed-API-request-be-retried#:~:text=Message%3A%20Varies-,Do%20not%20retry%20these,-.%20A%20401%20status
+        if (401 === $status) {
+
+            throw new InvalidAccessTokenException(
+                $this->httpClient->getResponseBody(),
+                $status
+            );
+        }
+
+        if ($status < 200 || $status > 299 ) {
+            throw new HttpRequestFailedException(
+                $error . 'HTTP error '.$this->httpClient->getResponseHttpCode().
+                '. Raw Provider API response: '.$this->httpClient->getResponseBody().'.'
+            );
+        }
+    }
 
     /**
      * Fetch account details

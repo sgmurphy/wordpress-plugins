@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
-            "version": "v3.0.8",
-            "version_normalized": "3.0.8.0",
+            "version": "v3.0.9",
+            "version_normalized": "3.0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-autoloader.git",
-                "reference": "1e1e4a6d2757f3ecbb9d98dcdd817a6c7c02a67d"
+                "reference": "a571038214fc3e142e10f38d1bb97e470fa7b0ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/1e1e4a6d2757f3ecbb9d98dcdd817a6c7c02a67d",
-                "reference": "1e1e4a6d2757f3ecbb9d98dcdd817a6c7c02a67d",
+                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/a571038214fc3e142e10f38d1bb97e470fa7b0ec",
+                "reference": "a571038214fc3e142e10f38d1bb97e470fa7b0ec",
                 "shasum": ""
             },
             "require": {
@@ -20,11 +20,11 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.2.4",
+                "automattic/jetpack-changelogger": "^4.2.5",
                 "composer/composer": "^1.1 || ^2.0",
                 "yoast/phpunit-polyfills": "1.1.0"
             },
-            "time": "2024-05-29T09:45:26+00:00",
+            "time": "2024-07-10T07:51:07+00:00",
             "type": "composer-plugin",
             "extra": {
                 "autotagger": true,
@@ -63,23 +63,23 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.0.8"
+                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.0.9"
             },
             "install-path": "../automattic/jetpack-autoloader"
         },
         {
             "name": "bitapps/wp-database",
-            "version": "1.4",
-            "version_normalized": "1.4.0.0",
+            "version": "1.6",
+            "version_normalized": "1.6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bit-Apps-Pro/wp-database.git",
-                "reference": "be9e80ca5e6c8b3ee13c98f160d4967b7b90a6ca"
+                "reference": "1df65bf8f0f20008d93cb902afece85a4c1f7569"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-database/zipball/be9e80ca5e6c8b3ee13c98f160d4967b7b90a6ca",
-                "reference": "be9e80ca5e6c8b3ee13c98f160d4967b7b90a6ca",
+                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-database/zipball/1df65bf8f0f20008d93cb902afece85a4c1f7569",
+                "reference": "1df65bf8f0f20008d93cb902afece85a4c1f7569",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
                 "phpcompatibility/phpcompatibility-wp": "*",
                 "sirbrillig/phpcs-variable-analysis": "*"
             },
-            "time": "2024-03-23T08:24:01+00:00",
+            "time": "2024-07-27T07:40:01+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -128,17 +128,17 @@
         },
         {
             "name": "bitapps/wp-kit",
-            "version": "1.4",
-            "version_normalized": "1.4.0.0",
+            "version": "1.5",
+            "version_normalized": "1.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bit-Apps-Pro/wp-kit.git",
-                "reference": "3e0822c60bd05069949617cb3d05cd9e7e2fec22"
+                "reference": "f222cf1c7fbb575e1195b5680dba658452f7c85c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-kit/zipball/3e0822c60bd05069949617cb3d05cd9e7e2fec22",
-                "reference": "3e0822c60bd05069949617cb3d05cd9e7e2fec22",
+                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-kit/zipball/f222cf1c7fbb575e1195b5680dba658452f7c85c",
+                "reference": "f222cf1c7fbb575e1195b5680dba658452f7c85c",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "phpcompatibility/phpcompatibility-wp": "*",
                 "sirbrillig/phpcs-variable-analysis": "*"
             },
-            "time": "2024-04-02T06:23:27+00:00",
+            "time": "2024-07-03T12:16:24+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -175,7 +175,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Bit-Apps-Pro/wp-kit/issues",
-                "source": "https://github.com/Bit-Apps-Pro/wp-kit/tree/1.4"
+                "source": "https://github.com/Bit-Apps-Pro/wp-kit/tree/1.5"
             },
             "install-path": "../bitapps/wp-kit"
         },
@@ -236,17 +236,17 @@
         },
         {
             "name": "bitapps/wp-validator",
-            "version": "1.0.4",
-            "version_normalized": "1.0.4.0",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bit-Apps-Pro/wp-validator.git",
-                "reference": "415508a219dd518ccfdeb0ff3ff1e65544482ac5"
+                "reference": "9d29785718350c4fed8d9b16989175ce86f6343c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-validator/zipball/415508a219dd518ccfdeb0ff3ff1e65544482ac5",
-                "reference": "415508a219dd518ccfdeb0ff3ff1e65544482ac5",
+                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-validator/zipball/9d29785718350c4fed8d9b16989175ce86f6343c",
+                "reference": "9d29785718350c4fed8d9b16989175ce86f6343c",
                 "shasum": ""
             },
             "require": {
@@ -257,7 +257,7 @@
                 "phpcompatibility/php-compatibility": "*",
                 "squizlabs/php_codesniffer": "*"
             },
-            "time": "2024-02-29T09:59:08+00:00",
+            "time": "2024-07-25T10:32:42+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {

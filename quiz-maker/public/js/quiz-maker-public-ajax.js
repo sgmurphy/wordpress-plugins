@@ -223,7 +223,7 @@
                                 break;
                             }
                             case "ays_user_email": {
-                                if (!(emailValivatePattern.test(required_inputs.eq(i).val()))) {
+                                if (!(emailValivatePattern.test(required_inputs.eq(i).val().trim()))) {
                                     required_inputs.eq(i).addClass('ays_red_border');
                                     required_inputs.eq(i).addClass('shake');
                                     empty_inputs++;
@@ -260,7 +260,7 @@
                     if(emailInput.val() != ''){
                         emailInput.removeClass('ays_red_border');
                         emailInput.removeClass('ays_green_border');
-                        if (!(emailValivatePattern.test(emailInput.val()))) {
+                        if (!(emailValivatePattern.test(emailInput.val().trim()))) {
                             if (emailInput.attr('type') !== 'hidden') {
                                 emailInput.addClass('ays_red_border');
                                 emailInput.addClass('shake');
@@ -305,7 +305,7 @@
                         if(emailInput.val() != ''){
                             emailInput.removeClass('ays_red_border');
                             emailInput.removeClass('ays_green_border');
-                            if (!(emailValivatePattern.test(emailInput.val()))) {
+                            if (!(emailValivatePattern.test(emailInput.val().trim()))) {
                                 if (emailInput.attr('type') !== 'hidden') {
                                     emailInput.addClass('ays_red_border');
                                     emailInput.addClass('shake');

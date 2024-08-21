@@ -112,17 +112,17 @@ include("tabmenu.php");
 <?php
 $crawlcount = 0;
 foreach ($googlecrawlsarray as $key =>$savedplace) {
-
-    if(isset($key) && $key !=0 && $key!=""){
+//echo "<br>key:".$key;
+   // if(isset($key) && $key!=0 && $key!=""){
+	if(is_array($savedplace['crawl_check'])){
 		$crawlcount++;
 		$tempbusines ="";
 		$tempfoundplaceid ="";
 		$nhful="";
-		if(is_array($savedplace['crawl_check'])){
+		
 				$tempbusiness = $savedplace['crawl_check']['businessname'];
 				$tempfoundplaceid = $savedplace['crawl_check']['foundplaceid'];
 				$nhful = $savedplace['nhful'];
-		}
 
 		echo "<tr><td> ".$tempbusiness ."</td><td>".$tempfoundplaceid."</td><td> Crawl : ".$savedplace['nhful'] ."</td><td> 
 		<a class='w3-button w3-red w3-padding-small' href='?page=wp_google-googlesettings&ract=del&place=".urlencode($key)."&placeid=".urlencode($tempfoundplaceid)."&type=crawl'>Delete</a>
@@ -136,15 +136,15 @@ foreach ($googlecrawlsarray as $key =>$savedplace) {
 foreach ($googleapisarray as $key =>$savedplace) {
 
         //echo "$key => $savedplace\n <br>";
-		if(isset($key) && $key !=0 && $key!=""){
+	if(is_array($savedplace['google_location_set']) && $savedplace['google_location_set']['place_id']!=""){
 		$tempbusines ="";
 		$tempfoundplaceid ="";
 		$nhful="";
-		if(is_array($savedplace['google_location_set'])){
+
 				$tempbusiness = $savedplace['google_location_set']['location'];
 				$tempfoundplaceid = $savedplace['google_location_set']['place_id'];
 				
-		}
+
 		$nhful = $savedplace['google_location_sort'];
 		echo "<tr><td> ".$tempbusiness ."</td><td>".$tempfoundplaceid."</td><td> Places API : ".$savedplace['google_location_sort'] ."</td><td> 
 		<a class='w3-button w3-red w3-padding-small' href='?page=wp_google-googlesettings&ract=del&place=".urlencode($key)."&placeid=".urlencode($tempfoundplaceid)."&type=api'>Delete</a>
@@ -247,11 +247,12 @@ foreach ($googleapisarray as $key =>$savedplace) {
 </div>
 
 <?php
-/*
+	/*
+echo "googlecrawlsarray:";
 print "<pre>";
 print_r($googlecrawlsarray);
 print "</pre>";	
-
+echo "googleapisarray:";
 print "<pre>";
 print_r($googleapisarray);
 print "</pre>";	
@@ -261,9 +262,9 @@ $options = get_option('wpfbr_google_options');
 print "<pre>";
 print_r($options);
 print "</pre>";
-*/
-//echo $options;
 
+//echo $options;
+*/
 ?>
 
 	<div id="popup" class="popup-wrapper wpfbr_hide">

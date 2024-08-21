@@ -386,6 +386,11 @@ class Notice{
 				set_transient( $notice_id, true, $expired_time );
 			}
 
+            if( $notice_id == 'metform-edit_with_emailkit_banner' ) {
+                $counter = get_option('metform-edit_with_emailkit_banner_dismissed_'.get_current_user_id(), 0);
+                update_option('metform-edit_with_emailkit_banner_dismissed_'.get_current_user_id(), $counter+1);
+            }
+
 			wp_send_json_success();
 		}
 

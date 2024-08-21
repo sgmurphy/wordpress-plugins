@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the square root of a complex number.
@@ -19,11 +19,9 @@ namespace Complex;
 function sqrt($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
     $theta = theta($complex);
     $delta1 = \cos($theta / 2);
     $delta2 = \sin($theta / 2);
     $rho = \sqrt(rho($complex));
-
     return new Complex($delta1 * $rho, $delta2 * $rho, $complex->getSuffix());
 }

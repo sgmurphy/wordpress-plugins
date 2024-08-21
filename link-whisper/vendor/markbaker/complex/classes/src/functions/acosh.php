@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the inverse hyperbolic cosine of a complex number.
@@ -19,16 +19,12 @@ namespace Complex;
 function acosh($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
-    if ($complex->isReal() && ($complex->getReal() > 1)) {
+    if ($complex->isReal() && $complex->getReal() > 1) {
         return new Complex(\acosh($complex->getReal()));
     }
-
-    $acosh = acos($complex)
-        ->reverse();
+    $acosh = \acos($complex)->reverse();
     if ($acosh->getReal() < 0.0) {
         $acosh = $acosh->invertReal();
     }
-
     return $acosh;
 }

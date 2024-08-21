@@ -6,11 +6,11 @@ Requires at least:5.0
 Tested up to:6.6
 Requires PHP: 5.6
 Loco Translate Tested Up to: 2.6.11
-Stable tag: 2.4.3
+Stable tag: 2.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Automatic language translator add-on for Loco Translate official plugin to translate WordPress plugins and themes translation / PO files automatically.
+Automatic language translator addon for Loco Translate to translate WordPress plugins and themes translation / PO files automatically.
 
 == Description ==
 
@@ -97,6 +97,17 @@ In addition to its efficiency and ease of use, the Automatic Translate Addon als
 
 > **Important Notice:-** This plugin works as an auto-translate addon for the Loco Translate official plugin latest version(2.4.4 or higher).
 
+Check out our new [Automatic Translations For Polylang](https://coolplugins.net/product/automatic-translations-for-polylang/?utm_source=atlt_plugin&utm_medium=readme&utm_campaign=cross_promotion&utm_content=check_out)
+
+[Automatic Translations For Polylang](https://coolplugins.net/product/automatic-translations-for-polylang/?utm_source=atlt_plugin&utm_medium=readme&utm_campaign=cross_promotion&utm_content=check_out)  is a powerful addon that streamlines the process of translating WordPress content. By automatically copying and translating posts, including titles, content, images, and meta fields, this plugin helps you efficiently manage multilingual websites. Compatible with Gutenberg and popular third-party blocks, it preserves all styles and formats, ensuring a consistent look across languages. 
+
+Check out our [Automatic Translate Addon For TranslatePress](https://coolplugins.net/product/automatic-translate-addon-for-translatepress-pro/?utm_source=atlt_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=check_out)
+
+Check out our [Automatic Translate Addon For TranslatePress](https://coolplugins.net/product/automatic-translate-addon-for-translatepress-pro/?utm_source=atlt_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=check_out) helps you to translate entire page content with one click. You don’t need to translate page content manually one by one.
+
+
+
+
 ### 😎 Who's Behind
 
 This plugin is not developed by or affiliated with the "**Loco Translate**" official plugin. It is a third-party addon that provides automatic machine translations to quickly translate your theme or plugin language files.
@@ -175,6 +186,10 @@ Yes, to access Gemini AI translations, you will need to obtain Free API keys and
 4. DeepL Doc Translator (Premium)
 
 == Changelog ==
+<strong>Version 2.4.4 |21/08/2024 </strong>
+<pre>
+Tweaks:Textual changes on dashboard page and readme file.
+</pre>
 <strong>Version 2.4.3 |22/07/2024 </strong>
 <pre>
 Added:Gemini translation button inside popup.

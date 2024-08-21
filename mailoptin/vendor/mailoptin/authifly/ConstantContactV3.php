@@ -47,7 +47,7 @@ class ConstantContactV3 extends OAuth2
         parent::initialize();
 
         $this->tokenExchangeHeaders = [
-            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Content-Type'  => 'application/x-www-form-urlencoded',
             'Authorization' => sprintf('Basic %s', base64_encode($this->clientId . ':' . $this->clientSecret))
         ];
 
@@ -78,7 +78,6 @@ class ConstantContactV3 extends OAuth2
             ];
         }
     }
-
 
 
     /**
@@ -172,7 +171,7 @@ class ConstantContactV3 extends OAuth2
      */
     public function getContactsCustomFields()
     {
-        $response = $this->apiRequest('contact_custom_fields');
+        $response = $this->apiRequest('contact_custom_fields', 'GET', ['limit' => 100]);
 
         $data          = new Collection($response);
         $custom_fields = $data->filter('custom_fields')->toArray();

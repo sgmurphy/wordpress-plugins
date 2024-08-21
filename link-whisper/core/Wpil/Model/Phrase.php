@@ -14,6 +14,7 @@ class Wpil_Model_Phrase
     public $sentence_text = '';
     public $suggestions = [];
     public $opacity = 1;
+    public $words_uniq = array();
 
     public function __construct($params = [])
     {

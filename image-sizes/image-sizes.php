@@ -1,25 +1,32 @@
 <?php
+
 /**
- * Plugin Name: ThumbPress
- * Description: A complete image and thumbnail management solution for WordPress.
- * Plugin URI: https://thumbpress.co
- * Author: ThumbPress
- * Author URI: https://thumbpress.co
- * Version: 5.6.1
- * Requires at least: 5.0
- * Requires PHP: 7.0
- * Text Domain: image-sizes
- * Domain Path: /languages
+ * Plugin Name:			ThumbPress
+ * Plugin URI:			https://thumbpress.co
+ * Description:			A complete image and thumbnail management solution for WordPress.
+ * Version:				5.7
+ * Requires at least:	5.0
+ * Requires PHP:		7.0
+ * Tested up to:		6.6
+ * Author:				ThumbPress
+ * Author URI:			https://thumbpress.co
+ * License:				GPL v2 or later
+ * License URI:			https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:			image-sizes
+ * Domain Path:			/languages
+ */
+
+/**
+ * ThumbPress is free software: you can redistribute it and/or modify it under 
+ * the terms of the GNU General Public License as published by the Free Software 
+ * Foundation, either version 3 of the License, or any later version.
  *
- * ThumbPress is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * ThumbPress is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
+ * ThumbPress is distributed in the hope that it will be useful, but WITHOUT ANY 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR 
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License 
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 namespace Codexpert\ThumbPress;

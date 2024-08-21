@@ -64,9 +64,9 @@ if ( $status == 'failed' ) {
 				</button>
 			</div>
 		</div>
-		<div class="thumbpress-actions-right" style="background-color:<?php esc_attr_e( $background_color ); ?>">
-			<p class="thumbpress-processs-message" style="display: <?php esc_attr_e( $show_process ); ?>;">
-				<?php esc_html_e( $message ); ?>
+		<div class="thumbpress-actions-right" style="background-color:<?php echo esc_attr( $background_color ); ?>">
+			<p class="thumbpress-processs-message" style="display: <?php echo esc_attr( $show_process ); ?>;">
+				<?php echo esc_html( $message ); ?>
 			</p>
 			<div id="thumbpress-action-result" style="display: <?php esc_attr_e( $show_process ); ?>;">
 				<div class="thumbpress-progress-content">
@@ -93,19 +93,19 @@ if ( $status == 'failed' ) {
 					</p>
 				</div>
 			</div>
-			<div class="thumbpress-action-no-process" style="display: <?php esc_attr_e( $show_no_process ); ?>">
+			<div class="thumbpress-action-no-process" style="display: <?php echo esc_attr( $show_no_process ); ?>">
 				<img src="<?php echo esc_url( plugins_url( 'assets/img/no-action.png', THUMBPRESS ) ); ?>" alt="no-action">
 				<p>
 					<?php _e('Please click the button to start detecting images.','image-sizes'); ?>
 				</p>
 			</div>
-			<div class="thumbpress-action-no-result" style="display: <?php esc_attr_e( $show_no_results ); ?>">
+			<div class="thumbpress-action-no-result" style="display: <?php echo esc_attr( $show_no_results ); ?>;">
 				<img src="<?php echo esc_url( plugins_url( 'assets/img/no-images.png', THUMBPRESS ) ); ?>" alt="no-action">
 				<p>
 					<?php _e('You have no images to convert please upload new images.','image-sizes'); ?>
 				</p>
 			</div>
-			<div class="thumbpress-action-failed" style="display: <?php esc_attr_e( $show_failed ); ?>;">
+			<div class="thumbpress-action-failed" style="display: <?php echo esc_attr( $show_failed ); ?>;">
 				<img src="<?php echo esc_url( plugins_url( 'assets/img/failed-action.png', THUMBPRESS ) ); ?>" alt="failed-action">
 				<p class='failed-warning'>
 					<?php _e( 'Something went wrong!.', 'image-sizes' ); ?>

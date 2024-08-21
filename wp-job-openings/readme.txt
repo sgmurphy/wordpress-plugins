@@ -1,13 +1,15 @@
 === WP Job Openings - Job Listing, Career Page and Recruitment Plugin ===
 Contributors: awsmin, aravindajith, anantajitjg, sarathar, adhun, nithi22
-Tags: jobs, job listing, job openings, job board, careers page, jobs page, wp job opening, jobs plugin
+Tags: jobs, job listing, job openings, job board, careers page, jobs page
 Requires at least: 4.8
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.buymeacoffee.com/awsm
+
+Super simple Job Listing plugin to manage job applications on your WordPress site.
 
 == Summary ==
 

@@ -87,7 +87,7 @@ echo '<div class="theplus-panel-welcome-page">';
 				echo '<div class="theplus-sec-subtitle">'.esc_html__('Notable additions made to The Plus Addons for Elementor.','tpebl').'</div>';
 				echo '<div class="theplus-sec-border"></div>';
 				echo '<div class="theplus-changelog-list">';
-					echo '<div class="changelog-date">August 16 , 2024 <span class="changelog-version">Lite Version 5.6.3</span></div>';
+					echo '<div class="changelog-date">August 21 , 2024 <span class="changelog-version">Lite Version 5.6.4</span></div>';
 						echo '<ul class="changelog-list">';
 							echo '<li>'.esc_html__('Fix : Video : Security Patch ( Low security )', 'tpebl').'</li>';
 							echo '<li>'.esc_html__('Fix : Testimonial : Security Patch ( Low security )', 'tpebl').'</li>';

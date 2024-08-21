@@ -115,29 +115,6 @@ if ( ! class_exists( 'Mo2f_GOOGLEAUTHENTICATOR_Handler' ) ) {
 		}
 
 		/**
-		 * Show KBA configuration prompt on dashboard.
-		 *
-		 * @return mixed
-		 */
-		public function mo2f_prompt_2fa_setup_wizard() {
-			global $mo2fdb_queries;
-			$current_user = wp_get_current_user();
-			$mo2fdb_queries->insert_user( $current_user->ID );
-			$common_helper = new Mo2f_Common_Helper();
-			$gauth_name    = get_option( 'mo2f_google_appname', DEFAULT_GOOGLE_APPNAME );
-			$gauth_obj     = new Google_auth_onpremise();
-			$secret        = $this->mo2f_create_secret();
-			$issuer        = get_option( 'mo2f_google_appname', DEFAULT_GOOGLE_APPNAME );
-			$email         = $current_user->user_email;
-			$ga_url        = $this->mo2f_geturl( $secret, $issuer, $email );
-			$microsoft_url = $gauth_obj->mo2f_geturl( $secret, $gauth_name, '' );
-			$html          = $common_helper->mo2f_google_authenticator_popup_common_html( $gauth_name, $ga_url, $microsoft_url, $secret, 'setupwizard', null, null );
-			$html         .= $this->mo2f_get_script( 'setupwizard', '', '' );
-			$html         .= $common_helper->mo2f_get_skipbutton_script_setupwizard( $current_user->ID );
-			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped the necessary in the definition.
-		}
-
-		/**
 		 * Show E Testing prompt on dashboard.
 		 *
 		 * @return mixed

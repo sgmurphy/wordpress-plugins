@@ -81,7 +81,7 @@ if ( $status == 'failed' ) {
 			<p class="thumbpress-processs-message" style="display: <?php esc_attr_e( $show_process ); ?>;">
 				<?php esc_html_e( $message ); ?>
 			</p>
-			<div id="thumbpress-action-result" style="display: <?php esc_attr_e( $show_process ); ?>;">
+			<div id="thumbpress-action-result" style="display: <?php echo esc_attr( $show_process ); ?>;">
 				<div class="thumbpress-progress-content">
 					<div class="thumbpress-progressbar" data-content="<?php esc_attr_e( $progress ) ?>" style="--value: <?php esc_attr_e( $progress ) ?>"></div>
 				</div>

@@ -1,49 +1,19 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-// add_action('admin_notices', 'stla_promo');
-
-function stla_promo() {
-
-	// delete_option('stla_promo_offers');
-
-	if ( ! class_exists( 'GFForms' ) || ! GFForms::is_gravity_page() ) {
-		return;
-	}
-
-	$current_promos = get_option( 'stla_promo_offers' );
-
-	if ( ! empty( $current_promos ) && ! empty( $current_promos['black_friday_2022'] ) ) {
-		return;
-	}
-
-	if ( isset( $_GET['stla_promo_dismiss'] ) ) {
-
-		if ( ! empty( $current_promos ) ) {
-			$current_promos['black_friday_2022'] = true;
-		} else {
-			$current_promos = array( 'black_friday_2022' => true );
-		}
-
-		update_option( 'stla_promo_offers', $current_promos );
-		return;
-	}
-
-	$dismiss_url = add_query_arg( 'stla_promo_dismiss', 'true' );
-
-	$class   = 'notice gf-wordpress-notices';
-	$message = '<a href="https://gravityconversational.com/downloads/gravity-conversational-pro/" target="_blank"><img style="max-width:1080px;" src="' . GF_STLA_URL . '/admin-menu/images/banner.jpg" /></a>';
-
-	$dismiss = '<span style="position:absolute; top: 5px; right:5px;"><a href="' . $dismiss_url . '"><img src="' . GF_STLA_URL . '/admin-menu/images/cancel.png" /></a></span>';
-
-	printf( '<div style="max-width: 1080px;" class="%1$s"><p style="position:relative" >%2$s %3$s</p></div>', esc_attr( $class ), $message, $dismiss );
-}
-
+/**
+ * Give options to WP users so they can add review of plugin.
+ */
 class Gf_Stla_Review {
 
+	/**
+	 * Execute actions and filters.
+	 *
+	 * @return void
+	 */
 	public static function init() {
+		if ( ! defined( 'ABSPATH' ) ) {
+			exit;
+		}
+
 		add_action( 'init', array( __CLASS__, 'hooks' ) );
 		add_action( 'wp_ajax_gf_stla_review_action', array( __CLASS__, 'ajax_handler' ) );
 	}
@@ -61,28 +31,26 @@ class Gf_Stla_Review {
 		}
 	}
 
-
-
-
 	/**
 	 * Get the install date for comparisons. Sets the date to now if none is found.
 	 *
 	 * @return false|string
 	 */
 	public static function installed_on() {
-		// delete_optionalled_on', $installed_on );( 'gf_stla_reviews_inst
+
 		$installed_on = get_option( 'gf_stla_reviews_installed_on', false );
-		// update_option( 'gf_stla_reviews_installed_on', date('Y-m-d', strtotime('-90 days')) );
 		if ( ! $installed_on ) {
 			$installed_on = current_time( 'mysql' );
 			update_option( 'gf_stla_reviews_installed_on', $installed_on );
 		}
-		// var_dump(get_option( 'gf_stla_reviews_installed_on', false ));
+
 		return $installed_on;
 	}
 
 	/**
+	 * Runs via ajax on actions over review notice.
 	 *
+	 * @return void
 	 */
 	public static function ajax_handler() {
 		$args = wp_parse_args(
@@ -95,8 +63,10 @@ class Gf_Stla_Review {
 			)
 		);
 
-		if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'gf_stla_review_action' ) ) {
-			wp_send_json_error();
+		// Nonce verification.
+		$nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ) : '';
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'gf_stla_review_action' ) ) {
+			wp_send_json_error( 'Invalid nonce' );
 		}
 
 		try {
@@ -124,7 +94,8 @@ class Gf_Stla_Review {
 		}
 	}
 
-	/**
+	/** Get Which Group to trigger.
+	 *
 	 * @return int|string
 	 */
 	public static function get_trigger_group() {
@@ -138,7 +109,7 @@ class Gf_Stla_Review {
 
 			foreach ( $triggers as $g => $group ) {
 				foreach ( $group['triggers'] as $t => $trigger ) {
-					if ( ! in_array( false, $trigger['conditions'] ) && ( empty( $dismissed_triggers[ $g ] ) || $dismissed_triggers[ $g ] < $trigger['pri'] ) ) {
+					if ( ! in_array( false, $trigger['conditions'], true ) && ( empty( $dismissed_triggers[ $g ] ) || $dismissed_triggers[ $g ] < $trigger['pri'] ) ) {
 						$selected = $g;
 						break;
 					}
@@ -153,7 +124,8 @@ class Gf_Stla_Review {
 		return $selected;
 	}
 
-	/**
+	/** Get Which code to trigger in Group.
+	 *
 	 * @return int|string
 	 */
 	public static function get_trigger_code() {
@@ -162,10 +134,9 @@ class Gf_Stla_Review {
 		if ( ! isset( $selected ) ) {
 
 			$dismissed_triggers = self::dismissed_triggers();
-			// echo '<pre>';print_r($dismissed_triggers);die;
 			foreach ( self::triggers() as $g => $group ) {
 				foreach ( $group['triggers'] as $t => $trigger ) {
-					if ( ! in_array( false, $trigger['conditions'] ) && ( empty( $dismissed_triggers[ $g ] ) || $dismissed_triggers[ $g ] < $trigger['pri'] ) ) {
+					if ( ! in_array( false, $trigger['conditions'], true ) && ( empty( $dismissed_triggers[ $g ] ) || $dismissed_triggers[ $g ] < $trigger['pri'] ) ) {
 						$selected = $t;
 						break;
 					}
@@ -176,12 +147,12 @@ class Gf_Stla_Review {
 				}
 			}
 		}
-		// echo '<pre>';print_r( self::triggers());die;
 		return $selected;
 	}
-	/**
-	 * @param null $key
+
+	/** Get the current trigger.
 	 *
+	 * @param string $key the status to look inside trigger.
 	 * @return bool|mixed|void
 	 */
 	public static function get_current_trigger( $key = null ) {
@@ -229,9 +200,6 @@ class Gf_Stla_Review {
 	 */
 	public static function already_did( $set = false ) {
 		$user_id = get_current_user_id();
-		// var_dump(delete_user_meta( $user_id, '_gf_stla_reviews_dismissed_triggers' ));
-		// delete_user_meta( $user_id, '_gf_stla_reviews_last_dismissed' );
-		// delete_user_meta( $user_id, '_gf_stla_reviews_already_did' );
 		if ( $set ) {
 			update_user_meta( $user_id, '_gf_stla_reviews_already_did', true );
 
@@ -243,8 +211,8 @@ class Gf_Stla_Review {
 	/**
 	 * Gets a list of triggers.
 	 *
-	 * @param null $group
-	 * @param null $code
+	 * @param string $group which group to pick from triggers.
+	 * @param string $code which code to pick from group.
 	 *
 	 * @return bool|mixed|void
 	 */
@@ -253,11 +221,8 @@ class Gf_Stla_Review {
 
 		if ( ! isset( $triggers ) ) {
 			$current_user = wp_get_current_user();
-			$time_message = __(
-				'<p>Hi %1$s! </p>
-            <p>You\'ve been using Styles & Layouts for Gravity Forms on your site for %2$s </p><p> We hope it\'s been helpful. If you\'re enjoying this plugin, please consider leaving a positive review on WordPress plugin repository. It really helps.</p>',
-				'gf_stla'
-			);
+			$time_message = '<p>Hi %1$s! </p>
+            <p>You\'ve been using Styles & Layouts for Gravity Forms on your site for %2$s </p><p> We hope it\'s been helpful. If you\'re enjoying this plugin, please consider leaving a positive review on WordPress plugin repository. It really helps.</p>';
 			$triggers     = array(
 				'time_installed' => array(
 					'triggers' => array(
@@ -294,7 +259,7 @@ class Gf_Stla_Review {
 
 			$triggers = apply_filters( 'gf_stla_reviews_triggers', $triggers );
 
-			// Sort Groups
+			// Sort Groups.
 			uasort( $triggers, array( __CLASS__, 'rsort_by_priority' ) );
 
 			// Sort each groups triggers.
@@ -335,15 +300,14 @@ class Gf_Stla_Review {
 
 		// Used to anonymously distinguish unique site+user combinations in terms of effectiveness of each trigger.
 		$uuid = wp_hash( home_url() . '-' . get_current_user_id() );
-		// var_dump($group, $code,$pri, $trigger ); die;
 		?>
 
 		<script type="text/javascript">
 			(function ($) {
 				var trigger = {
-					group: '<?php echo $group; ?>',
-					code: '<?php echo $code; ?>',
-					pri: '<?php echo $pri; ?>'
+					group: '<?php echo esc_html( $group ); ?>',
+					code: '<?php echo esc_html( $code ); ?>',
+					pri: '<?php echo esc_html( $pri ); ?>'
 				};
 
 				function dismiss(reason) {
@@ -353,7 +317,7 @@ class Gf_Stla_Review {
 						url: ajaxurl,
 						data: {
 							action: 'gf_stla_review_action',
-							nonce: '<?php echo wp_create_nonce( 'gf_stla_review_action' ); ?>',
+							nonce: '<?php echo esc_html( wp_create_nonce( 'gf_stla_review_action' ) ); ?>',
 							group: trigger.group,
 							code: trigger.code,
 							pri: trigger.pri,
@@ -365,12 +329,12 @@ class Gf_Stla_Review {
 					$.ajax({
 						method: "POST",
 						dataType: "json",
-						url: '<?php echo self::$api_url; ?>',
+						url: '<?php echo esc_url( self::$api_url ); ?>',
 						data: {
 							trigger_group: trigger.group,
 							trigger_code: trigger.code,
 							reason: reason,
-							uuid: '<?php echo $uuid; ?>'
+							uuid: '<?php echo esc_url( $uuid ); ?>'
 						}
 					});
 					<?php endif; ?>
@@ -430,26 +394,26 @@ class Gf_Stla_Review {
 		<div class="notice notice-success is-dismissible gf_stla-notice">
 
 			<p>
-				<img class="logo" src="<?php echo GF_STLA_URL; ?>/admin-menu/images/icon.png" />
+				<img class="logo" src="<?php echo esc_url( GF_STLA_URL ); ?>/admin-menu/images/icon.png" />
 				<strong>
-					<?php echo $trigger['message']; ?>
+					<?php echo esc_html( $trigger['message'] ); ?>
 					-WpMonks
 				</strong>
 			</p>
 			<ul>
 				<li>
-					<a class="gf_stla-dismiss" target="_blank" href="<?php echo $trigger['link']; ?>" data-reason="am_now">
-						<strong><?php _e( 'Ok, you deserve it', 'gf_stla' ); ?></strong>
+					<a class="gf_stla-dismiss" target="_blank" href="<?php echo esc_url( $trigger['link'] ); ?>" data-reason="am_now">
+						<strong><?php esc_html_e( 'Ok, you deserve it', 'gf_stla' ); ?></strong>
 					</a>
 				</li>
 				<li>
 					<a href="#" class="gf_stla-dismiss" data-reason="maybe_later">
-						<?php _e( 'Nope, maybe later', 'gf_stla' ); ?>
+						<?php esc_html_e( 'Nope, maybe later', 'gf_stla' ); ?>
 					</a>
 				</li>
 				<li>
 					<a href="#" class="gf_stla-dismiss" data-reason="already_did">
-						<?php _e( 'I already did', 'gf_stla' ); ?>
+						<?php esc_html_e( 'I already did', 'gf_stla' ); ?>
 					</a>
 				</li>
 			</ul>
@@ -473,7 +437,7 @@ class Gf_Stla_Review {
 			empty( $trigger_code ),
 		);
 
-		return in_array( true, $conditions );
+		return in_array( true, $conditions, true );
 	}
 
 	/**
@@ -488,11 +452,10 @@ class Gf_Stla_Review {
 	}
 
 	/**
-	 * Sort array by priority value
+	 * Sort array by priority value.
 	 *
-	 * @param $a
-	 * @param $b
-	 *
+	 * @param array $a sorting value to compare.
+	 * @param array $b sorting value to compare.
 	 * @return int
 	 */
 	public static function sort_by_priority( $a, $b ) {
@@ -506,9 +469,8 @@ class Gf_Stla_Review {
 	/**
 	 * Sort array in reverse by priority value
 	 *
-	 * @param $a
-	 * @param $b
-	 *
+	 * @param array $a sorting value to compare.
+	 * @param array $b sorting value to compare.
 	 * @return int
 	 */
 	public static function rsort_by_priority( $a, $b ) {

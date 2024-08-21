@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 class PowerBestFit extends BestFit
 {
@@ -11,7 +11,6 @@ class PowerBestFit extends BestFit
      * @var string
      */
     protected $bestFitType = 'power';
-
     /**
      * Return the Y-Value for a specified value of X.
      *
@@ -23,7 +22,6 @@ class PowerBestFit extends BestFit
     {
         return $this->getIntersect() * ($xValue - $this->xOffset) ** $this->getSlope();
     }
-
     /**
      * Return the X-Value for a specified value of Y.
      *
@@ -35,7 +33,6 @@ class PowerBestFit extends BestFit
     {
         return (($yValue + $this->yOffset) / $this->getIntersect()) ** (1 / $this->getSlope());
     }
-
     /**
      * Return the Equation of the best-fit line.
      *
@@ -47,10 +44,8 @@ class PowerBestFit extends BestFit
     {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
-
         return 'Y = ' . $intersect . ' * X^' . $slope;
     }
-
     /**
      * Return the Value of X where it intersects Y = 0.
      *
@@ -61,12 +56,10 @@ class PowerBestFit extends BestFit
     public function getIntersect($dp = 0)
     {
         if ($dp != 0) {
-            return round(exp($this->intersect), $dp);
+            return \round(\exp($this->intersect), $dp);
         }
-
-        return exp($this->intersect);
+        return \exp($this->intersect);
     }
-
     /**
      * Execute the regression and calculate the goodness of fit for a set of X and Y data values.
      *
@@ -74,28 +67,26 @@ class PowerBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    private function powerRegression($yValues, $xValues, $const): void
+    private function powerRegression($yValues, $xValues, $const) : void
     {
         foreach ($xValues as &$value) {
             if ($value < 0.0) {
-                $value = 0 - log(abs($value));
+                $value = 0 - \log(\abs($value));
             } elseif ($value > 0.0) {
-                $value = log($value);
+                $value = \log($value);
             }
         }
         unset($value);
         foreach ($yValues as &$value) {
             if ($value < 0.0) {
-                $value = 0 - log(abs($value));
+                $value = 0 - \log(\abs($value));
             } elseif ($value > 0.0) {
-                $value = log($value);
+                $value = \log($value);
             }
         }
         unset($value);
-
         $this->leastSquareFit($yValues, $xValues, $const);
     }
-
     /**
      * Define the regression and calculate the goodness of fit for a set of X and Y data values.
      *
@@ -103,10 +94,9 @@ class PowerBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    public function __construct($yValues, $xValues = [], $const = true)
+    public function __construct($yValues, $xValues = [], $const = \true)
     {
         parent::__construct($yValues, $xValues);
-
         if (!$this->error) {
             $this->powerRegression($yValues, $xValues, $const);
         }

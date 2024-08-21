@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Worksheet;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Worksheet;
 
 class Column
 {
@@ -10,14 +10,12 @@ class Column
      * @var Worksheet
      */
     private $parent;
-
     /**
      * Column index.
      *
      * @var string
      */
     private $columnIndex;
-
     /**
      * Create a new column.
      *
@@ -30,7 +28,6 @@ class Column
         $this->parent = $parent;
         $this->columnIndex = $columnIndex;
     }
-
     /**
      * Destructor.
      */
@@ -38,7 +35,6 @@ class Column
     {
         $this->parent = null;
     }
-
     /**
      * Get column index as string eg: 'A'.
      *
@@ -48,7 +44,6 @@ class Column
     {
         return $this->columnIndex;
     }
-
     /**
      * Get cell iterator.
      *

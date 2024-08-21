@@ -17,7 +17,7 @@ class RuleRepository implements RuleRepositoryInterface {
         global $wpdb;
         $table = $wpdb->prefix . Rule::TABLE_NAME;
 
-        $sql = "SELECT COUNT(*) FROM $table WHERE advertising NOT LIKE '%\"sale_badge\";s:0:%' AND `advertising` NOT LIKE \"a:0:{}\" AND NOT deleted AND enabled";
+        $sql = "SELECT COUNT(*) FROM $table WHERE `advertising` NOT LIKE \"a:0:{}\" AND NOT deleted AND enabled";
         $count = $wpdb->get_var($sql);
         return $count>0;
     }

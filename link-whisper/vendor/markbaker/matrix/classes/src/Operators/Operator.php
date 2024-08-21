@@ -1,10 +1,9 @@
 <?php
 
-namespace Matrix\Operators;
+namespace LWVendor\Matrix\Operators;
 
-use Matrix\Matrix;
-use Matrix\Exception;
-
+use LWVendor\Matrix\Matrix;
+use LWVendor\Matrix\Exception;
 abstract class Operator
 {
     /**
@@ -13,21 +12,18 @@ abstract class Operator
      * @property mixed[][] $matrix
      **/
     protected $matrix;
-
     /**
      * Number of rows in the matrix
      *
      * @property integer $rows
      **/
     protected $rows;
-
     /**
      * Number of columns in the matrix
      *
      * @property integer $columns
      **/
     protected $columns;
-
     /**
      * Create an new handler object for the operation
      *
@@ -39,7 +35,6 @@ abstract class Operator
         $this->columns = $matrix->columns;
         $this->matrix = $matrix->toArray();
     }
-
     /**
      * Compare the dimensions of the matrices being operated on to see if they are valid for addition/subtraction
      *
@@ -48,11 +43,10 @@ abstract class Operator
      */
     protected function validateMatchingDimensions(Matrix $matrix)
     {
-        if (($this->rows != $matrix->rows) || ($this->columns != $matrix->columns)) {
+        if ($this->rows != $matrix->rows || $this->columns != $matrix->columns) {
             throw new Exception('Matrices have mismatched dimensions');
         }
     }
-
     /**
      * Compare the dimensions of the matrices being operated on to see if they are valid for multiplication/division
      *
@@ -65,7 +59,6 @@ abstract class Operator
             throw new Exception('Matrices have mismatched dimensions');
         }
     }
-
     /**
      * Return the result of the operation
      *

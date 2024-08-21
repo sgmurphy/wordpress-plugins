@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the exponential of a complex number.
@@ -19,16 +19,9 @@ namespace Complex;
 function exp($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
-    if (($complex->getReal() == 0.0) && (\abs($complex->getImaginary()) == M_PI)) {
+    if ($complex->getReal() == 0.0 && \abs($complex->getImaginary()) == \M_PI) {
         return new Complex(-1.0, 0.0);
     }
-
     $rho = \exp($complex->getReal());
- 
-    return new Complex(
-        $rho * \cos($complex->getImaginary()),
-        $rho * \sin($complex->getImaginary()),
-        $complex->getSuffix()
-    );
+    return new Complex($rho * \cos($complex->getImaginary()), $rho * \sin($complex->getImaginary()), $complex->getSuffix());
 }

@@ -94,7 +94,7 @@ class Wpil_Table_Report extends WP_List_Table
                                                     <div>
                                                         <div style="margin: 3px 0;"><b>Origin Post Title:</b> ' . esc_html($link->post->getTitle()) . '</div>
                                                         <div style="margin: 3px 0;"><b>Anchor Text:</b> ' . esc_html(strip_tags($link->anchor)) . '</div>';
-                                        $rep .=         Wpil_Report::get_dropdown_icons($link->post, $link->url, 'inbound-internal');
+                                        $rep .=         Wpil_Report::get_dropdown_icons($link->post, $link, 'inbound-internal');
                                         $rep .=         '<a href="' . admin_url('post.php?post=' . $link->post->id . '&action=edit') . '" target="_blank">[edit]</a> 
                                                         <a href="' . esc_url($link->post->getLinks()->view) . '" target="_blank">[view]</a>
                                                         <br>
@@ -117,7 +117,7 @@ class Wpil_Table_Report extends WP_List_Table
                                             <div>
                                                 <div style="margin: 3px 0;"><b>Link:</b> <a href="' . esc_url($link->url) . '" target="_blank" style="text-decoration: underline">' . esc_html($link->url) . '</a></div>
                                                 <div style="margin: 3px 0;"><b>Anchor Text:</b> ' . esc_html(strip_tags($link->anchor)) . '</div>';
-                                $rep .=         Wpil_Report::get_dropdown_icons($item['post'], $link->url, 'outbound-internal');
+                                $rep .=         Wpil_Report::get_dropdown_icons($item['post'], $link, 'outbound-internal');
                                 $rep .=     '</div>
                                         </li>';
                             }
@@ -135,7 +135,7 @@ class Wpil_Table_Report extends WP_List_Table
                                                 <div>
                                                     <div style="margin: 3px 0;"><b>Link:</b> <a href="' . esc_url($link->url) . '" target="_blank" style="text-decoration: underline">' . esc_html($link->url) . '</a></div>
                                                     <div style="margin: 3px 0;"><b>Anchor Text:</b> ' . esc_html(strip_tags($link->anchor)) . '</div>';
-                                    $rep .=         Wpil_Report::get_dropdown_icons($item['post'], $link->url, 'outbound-external');
+                                    $rep .=         Wpil_Report::get_dropdown_icons($item['post'], $link, 'outbound-external');
                                     $rep .=     '</div>
                                             </li>';
                             }

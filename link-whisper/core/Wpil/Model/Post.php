@@ -952,11 +952,21 @@ class Wpil_Model_Post
     }
 
     /**
+     * Get when the link syncing was last done
+     *
+     * @return array
+     */
+    function getSyncReportTime()
+    {
+        return $this->getLinksData('wpil_sync_report2_time', true);
+    }
+
+    /**
      * Get Post Links list
      *
      * @return array|int
      */
-    function getLinksData($key, $count)
+    function getLinksData($key, $count = false)
     {
         if (!$count) {
             $key .= '_data';

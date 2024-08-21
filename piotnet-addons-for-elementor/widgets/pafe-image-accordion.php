@@ -624,7 +624,7 @@
 									<?php echo wp_kses_post($item['pafe_image_accordion_item_wysiwyg']);?>
 								<?php endif; ?>
 								<?php if (!empty($item['pafe_image_accordion_item_link']) && !empty($item['pafe_image_accordion_item_button_text'])) : ?>		
-								<a class="pafe-image-accordion__item-content__link" href="<?php echo esc_html($item['pafe_image_accordion_item_link']); ?>"><?php echo esc_html($item['pafe_image_accordion_item_button_text']); ?></a>
+								<a class="pafe-image-accordion__item-content__link" href="<?php echo esc_url($item['pafe_image_accordion_item_link']); ?>"><?php echo esc_html($item['pafe_image_accordion_item_button_text']); ?></a>
 								<?php endif; ?>	
 							</div>								
 						</div>							

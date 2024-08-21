@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Style;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Style;
 
 class Fill extends Supervisor
 {
@@ -26,45 +26,38 @@ class Fill extends Supervisor
     const FILL_PATTERN_LIGHTUP = 'lightUp';
     const FILL_PATTERN_LIGHTVERTICAL = 'lightVertical';
     const FILL_PATTERN_MEDIUMGRAY = 'mediumGray';
-
     /**
      * @var int
      */
     public $startcolorIndex;
-
     /**
      * @var int
      */
     public $endcolorIndex;
-
     /**
      * Fill type.
      *
      * @var string
      */
     protected $fillType = self::FILL_NONE;
-
     /**
      * Rotation.
      *
      * @var float
      */
     protected $rotation = 0;
-
     /**
      * Start color.
      *
      * @var Color
      */
     protected $startColor;
-
     /**
      * End color.
      *
      * @var Color
      */
     protected $endColor;
-
     /**
      * Create a new Fill.
      *
@@ -75,25 +68,22 @@ class Fill extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false, $isConditional = false)
+    public function __construct($isSupervisor = \false, $isConditional = \false)
     {
         // Supervisor?
         parent::__construct($isSupervisor);
-
         // Initialise values
         if ($isConditional) {
             $this->fillType = null;
         }
         $this->startColor = new Color(Color::COLOR_WHITE, $isSupervisor, $isConditional);
         $this->endColor = new Color(Color::COLOR_BLACK, $isSupervisor, $isConditional);
-
         // bind parent if we are a supervisor
         if ($isSupervisor) {
             $this->startColor->bindParent($this, 'startColor');
             $this->endColor->bindParent($this, 'endColor');
         }
     }
-
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
@@ -104,7 +94,6 @@ class Fill extends Supervisor
     {
         return $this->parent->getSharedComponent()->getFill();
     }
-
     /**
      * Build style array from subcomponents.
      *
@@ -116,7 +105,6 @@ class Fill extends Supervisor
     {
         return ['fill' => $array];
     }
-
     /**
      * Apply styles from array.
      *
@@ -161,10 +149,8 @@ class Fill extends Supervisor
                 $this->getEndColor()->applyFromArray($pStyles['color']);
             }
         }
-
         return $this;
     }
-
     /**
      * Get Fill Type.
      *
@@ -175,10 +161,8 @@ class Fill extends Supervisor
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getFillType();
         }
-
         return $this->fillType;
     }
-
     /**
      * Set Fill Type.
      *
@@ -194,10 +178,8 @@ class Fill extends Supervisor
         } else {
             $this->fillType = $pValue;
         }
-
         return $this;
     }
-
     /**
      * Get Rotation.
      *
@@ -208,10 +190,8 @@ class Fill extends Supervisor
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getRotation();
         }
-
         return $this->rotation;
     }
-
     /**
      * Set Rotation.
      *
@@ -227,10 +207,8 @@ class Fill extends Supervisor
         } else {
             $this->rotation = $pValue;
         }
-
         return $this;
     }
-
     /**
      * Get Start Color.
      *
@@ -240,7 +218,6 @@ class Fill extends Supervisor
     {
         return $this->startColor;
     }
-
     /**
      * Set Start Color.
      *
@@ -250,17 +227,14 @@ class Fill extends Supervisor
     {
         // make sure parameter is a real color and not a supervisor
         $color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;
-
         if ($this->isSupervisor) {
             $styleArray = $this->getStartColor()->getStyleArray(['argb' => $color->getARGB()]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->startColor = $color;
         }
-
         return $this;
     }
-
     /**
      * Get End Color.
      *
@@ -270,7 +244,6 @@ class Fill extends Supervisor
     {
         return $this->endColor;
     }
-
     /**
      * Set End Color.
      *
@@ -280,17 +253,14 @@ class Fill extends Supervisor
     {
         // make sure parameter is a real color and not a supervisor
         $color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;
-
         if ($this->isSupervisor) {
             $styleArray = $this->getEndColor()->getStyleArray(['argb' => $color->getARGB()]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->endColor = $color;
         }
-
         return $this;
     }
-
     /**
      * Get hash code.
      *
@@ -303,12 +273,6 @@ class Fill extends Supervisor
         }
         // Note that we don't care about colours for fill type NONE, but could have duplicate NONEs with
         //  different hashes if we don't explicitly prevent this
-        return md5(
-            $this->getFillType() .
-            $this->getRotation() .
-            ($this->getFillType() !== self::FILL_NONE ? $this->getStartColor()->getHashCode() : '') .
-            ($this->getFillType() !== self::FILL_NONE ? $this->getEndColor()->getHashCode() : '') .
-            __CLASS__
-        );
+        return \md5($this->getFillType() . $this->getRotation() . ($this->getFillType() !== self::FILL_NONE ? $this->getStartColor()->getHashCode() : '') . ($this->getFillType() !== self::FILL_NONE ? $this->getEndColor()->getHashCode() : '') . __CLASS__);
     }
 }

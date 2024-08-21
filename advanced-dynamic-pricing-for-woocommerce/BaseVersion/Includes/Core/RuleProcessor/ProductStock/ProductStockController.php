@@ -137,7 +137,7 @@ class ProductStockController
         static $last_items = [];
         static $last_cart_key = "";
 
-        $cart_key = md5(json_encode($cart));
+        $cart_key = md5(json_encode($cart->expose()));
         if($cart_key == $last_cart_key) {
             $this->stockItems = $last_items;
             return;

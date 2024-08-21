@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 class ExponentialBestFit extends BestFit
 {
@@ -11,7 +11,6 @@ class ExponentialBestFit extends BestFit
      * @var string
      */
     protected $bestFitType = 'exponential';
-
     /**
      * Return the Y-Value for a specified value of X.
      *
@@ -23,7 +22,6 @@ class ExponentialBestFit extends BestFit
     {
         return $this->getIntersect() * $this->getSlope() ** ($xValue - $this->xOffset);
     }
-
     /**
      * Return the X-Value for a specified value of Y.
      *
@@ -33,9 +31,8 @@ class ExponentialBestFit extends BestFit
      */
     public function getValueOfXForY($yValue)
     {
-        return log(($yValue + $this->yOffset) / $this->getIntersect()) / log($this->getSlope());
+        return \log(($yValue + $this->yOffset) / $this->getIntersect()) / \log($this->getSlope());
     }
-
     /**
      * Return the Equation of the best-fit line.
      *
@@ -47,10 +44,8 @@ class ExponentialBestFit extends BestFit
     {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
-
         return 'Y = ' . $intersect . ' * ' . $slope . '^X';
     }
-
     /**
      * Return the Slope of the line.
      *
@@ -61,12 +56,10 @@ class ExponentialBestFit extends BestFit
     public function getSlope($dp = 0)
     {
         if ($dp != 0) {
-            return round(exp($this->slope), $dp);
+            return \round(\exp($this->slope), $dp);
         }
-
-        return exp($this->slope);
+        return \exp($this->slope);
     }
-
     /**
      * Return the Value of X where it intersects Y = 0.
      *
@@ -77,12 +70,10 @@ class ExponentialBestFit extends BestFit
     public function getIntersect($dp = 0)
     {
         if ($dp != 0) {
-            return round(exp($this->intersect), $dp);
+            return \round(\exp($this->intersect), $dp);
         }
-
-        return exp($this->intersect);
+        return \exp($this->intersect);
     }
-
     /**
      * Execute the regression and calculate the goodness of fit for a set of X and Y data values.
      *
@@ -90,20 +81,18 @@ class ExponentialBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    private function exponentialRegression($yValues, $xValues, $const): void
+    private function exponentialRegression($yValues, $xValues, $const) : void
     {
         foreach ($yValues as &$value) {
             if ($value < 0.0) {
-                $value = 0 - log(abs($value));
+                $value = 0 - \log(\abs($value));
             } elseif ($value > 0.0) {
-                $value = log($value);
+                $value = \log($value);
             }
         }
         unset($value);
-
         $this->leastSquareFit($yValues, $xValues, $const);
     }
-
     /**
      * Define the regression and calculate the goodness of fit for a set of X and Y data values.
      *
@@ -111,10 +100,9 @@ class ExponentialBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    public function __construct($yValues, $xValues = [], $const = true)
+    public function __construct($yValues, $xValues = [], $const = \true)
     {
         parent::__construct($yValues, $xValues);
-
         if (!$this->error) {
             $this->exponentialRegression($yValues, $xValues, $const);
         }

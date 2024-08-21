@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.6
-Stable tag: 2.6.0
+Stable tag: 2.6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -290,6 +290,8 @@ This simple twitter widget for WordPress is simple and easy to use, and it allow
 
 <strong>[Audio Player Widget](https://wphtmega.com/widget/elementor-audio-player/)</strong> - The Audio Player Widget offers a convenient solution with simple controls to display your audio files on your WordPress site. Whether it's music, podcasts, or any other audio content, this widget allows you to effortlessly integrate it into your web pages. You can also customize the player with your own thumbnail image and adjust settings to enhance the audio playback experience. If you're looking to showcase your audio content in a professional and engaging manner, give this audio player widget a try.
 
+<strong>[Calendly](https://wphtmega.com/widget/elementor-calendly/)</strong> - The Calendly Widget for Elementor allows you to seamlessly integrate Calendly's scheduling tool directly into your Elementor-powered WordPress site. With this widget, you can easily display your Calendly scheduling page, customize the appearance with colors, and control event details visibility. Perfect for professionals who want to offer a simple, user-friendly way for clients to book appointments or meetings.
+
 == Features: ==
 
 * Fully responsive and mobile ready.
@@ -526,6 +528,13 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 
 == Changelog ==
+
+= Version 2.6.1 - Date: 2024-08-21 =
+* Added: Calendly Widgets.
+* Fixed: Deprecated error in Mega Menu Module.
+* Fixed: PHP Error in Post Carousel Widget.
+* Fixed: A few minor issues.
+* Tested: Compatibility with the PHP version 8.2.
 
 = Version 2.6.0 - Date: 2024-08-11 =
 * Added: Option to hide empty thumbnail posts in all Posts Widgets.

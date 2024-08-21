@@ -14,7 +14,6 @@ use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\InvalidStateException;
 use MailPoet\Newsletter\Sending\ScheduledTaskSubscribersRepository;
-use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
@@ -24,17 +23,12 @@ class AutomationEmailScheduler {
 
   private ScheduledTaskSubscribersRepository $scheduledTaskSubscribersRepository;
 
-  /** @var WPFunctions */
-  private $wp;
-
   public function __construct(
     EntityManager $entityManager,
-    ScheduledTaskSubscribersRepository $scheduledTaskSubscribersRepository,
-    WPFunctions $wp
+    ScheduledTaskSubscribersRepository $scheduledTaskSubscribersRepository
   ) {
     $this->entityManager = $entityManager;
     $this->scheduledTaskSubscribersRepository = $scheduledTaskSubscribersRepository;
-    $this->wp = $wp;
   }
 
   public function createSendingTask(NewsletterEntity $email, SubscriberEntity $subscriber, array $meta): ScheduledTaskEntity {
@@ -48,7 +42,7 @@ class AutomationEmailScheduler {
     $task = new ScheduledTaskEntity();
     $task->setType(SendingQueue::TASK_TYPE);
     $task->setStatus(ScheduledTaskEntity::STATUS_SCHEDULED);
-    $task->setScheduledAt(Carbon::createFromTimestamp($this->wp->currentTime('timestamp')));
+    $task->setScheduledAt(Carbon::now()->millisecond(0));
     $task->setPriority(ScheduledTaskEntity::PRIORITY_MEDIUM);
     $task->setMeta($meta);
     $this->entityManager->persist($task);

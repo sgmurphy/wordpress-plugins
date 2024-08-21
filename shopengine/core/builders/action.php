@@ -331,11 +331,13 @@ class Action
     {
         $activated_templates = get_option( self::ACTIVATED_TEMPLATES );
 
-        if (false === $activated_templates || !is_serialized($activated_templates)) {
+        if (false === $activated_templates) {
             return [];
         }
 
-        return unserialize( $activated_templates );
+        $activated_templates = maybe_unserialize($activated_templates);
+
+        return is_array($activated_templates) ? $activated_templates : [];
     }
 
     /**

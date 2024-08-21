@@ -18,16 +18,23 @@ $enables_count 			= count( $image_sizes ) - $disables_count;
 		<div class="image_sizes-default-thumbnails-panel-top">
 			<div class="thumbpress-desc-panel">
 				<?php
-				echo '<p class="thumbpress-desc">' . sprintf( __( 'You currently have <strong>%1$d thumbnails</strong> registered. It means, if you upload an image, it\'ll generate %1$d duplicates along with the original image.', 'image-sizes' ), count( $image_sizes ) ) . '</p>'; 
+                // Translators: %1$d refers to the number of thumbnails currently registered.
+                echo '<p class="thumbpress-desc">' . sprintf( __( 'You currently have <strong>%1$d thumbnails</strong> registered. It means, if you upload an image, it\'ll generate %1$d duplicates along with the original image.', 'image-sizes' ), count( $image_sizes ) ) . '</p>';
 				echo '<p class="thumbpress-desc">' . __( 'Drag the image sizes you don\'t want to generate to the right side. The image sizes on the left will be generated.', 'image-sizes' ) . '</p>'; 
 				?>
 			</div>
 			<div class="image_sizes-count">
 				<h4>
-					<span class="disables-count"><?php esc_html_e( $disables_count ); ?></span><?php _e( 'Thumbnails disabled', 'image-sizes' ); ?>
+                    <span class="disables-count">
+                        <?php echo esc_html( $disables_count ); ?>
+                    </span>
+                    <?php esc_html_e( ' Thumbnails disabled', 'image-sizes' ); ?>
 				</h4>
 				<h4 class="tp-criomson">
-					<span class="enables-count"><?php esc_html_e( $enables_count ); ?></span><?php _e( 'Thumbnails will be generated', 'image-sizes' ); ?>
+                    <span class="enables-count">
+                        <?php echo esc_html( $enables_count ); ?>
+                    </span>
+                    <?php esc_html_e( ' Thumbnails will be generated', 'image-sizes' ); ?>
 				</h4>
 			</div>
 		</div>

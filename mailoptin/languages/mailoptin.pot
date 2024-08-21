@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailOptin - Lite 1.2.70.1\n"
+"Project-Id-Version: MailOptin - Lite 1.2.70.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-17T14:55:09+00:00\n"
+"POT-Creation-Date: 2024-08-21T09:43:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: mailoptin\n"
@@ -40,7 +40,7 @@ msgid "ActiveCampaign API key not found."
 msgstr ""
 
 #: src/connections/ActiveCampaignConnect/Connect.php:86
-#: src/connections/AweberConnect/Connect.php:59
+#: src/connections/AweberConnect/Connect.php:60
 #: src/connections/ConvertFoxConnect/Connect.php:69
 #: src/connections/DripConnect/Connect.php:110
 #: src/connections/EmailOctopusConnect/Connect.php:58
@@ -51,7 +51,7 @@ msgid "Lead Tags"
 msgstr ""
 
 #: src/connections/ActiveCampaignConnect/Connect.php:88
-#: src/connections/AweberConnect/Connect.php:61
+#: src/connections/AweberConnect/Connect.php:62
 #: src/connections/ConvertFoxConnect/Connect.php:71
 #: src/connections/DripConnect/Connect.php:111
 #: src/connections/EmailOctopusConnect/Connect.php:60
@@ -402,12 +402,16 @@ msgstr ""
 msgid "AWeber access_token and/or access token secret not found."
 msgstr ""
 
-#: src/connections/AweberConnect/Connect.php:67
+#: src/connections/AweberConnect/AbstractAweberConnect.php:63
+msgid "AWeber previous 401 error. No more retry. Reconnect to fix issue."
+msgstr ""
+
+#: src/connections/AweberConnect/Connect.php:68
 #: src/connections/EmailOctopusConnect/Connect.php:66
 msgid "Upgrade to %sMailOptin Premium%s to apply tags to leads as well as get access to loads of conversion features."
 msgstr ""
 
-#: src/connections/AweberConnect/Connect.php:93
+#: src/connections/AweberConnect/Connect.php:94
 #: src/connections/AweberConnect/ConnectSettingsPage.php:52
 msgid "AWeber"
 msgstr ""

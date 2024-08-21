@@ -106,7 +106,8 @@
     <div class="wp-analytify-modal-footer">
       <form class="" action="<?php echo admin_url( 'plugins.php' ) ?>" method="post">
         <span class="wp-analytify-optout-spinner"><img src="<?php echo admin_url( '/images/spinner.gif' ); ?>" alt=""></span>
-        <button type='submit' name='analytify-submit-optout' id='analytify_optout_button'  class="button button-secondary button-opt-out" tabindex="1">Opt Out</button>
+        <?php $nonce = wp_create_nonce( 'analytify_optout_nonce' ); ?>
+        <button type='submit' name='analytify-submit-optout' id='analytify_optout_button' data-nonce="<?php echo esc_attr( $nonce ); ?>"  class="button button-secondary button-opt-out" tabindex="1">Opt Out</button>
         <button class="button button-primary button-close" tabindex="2">On second thought - I want to continue helping</button>
       </form>
     </div>
@@ -135,11 +136,13 @@
 
     $(document).on('click','#analytify_optout_button', function(event) {
       event.preventDefault();
+      var nonce = $(this).data('nonce');
       $.ajax({
         url: ajaxurl,
         type: 'POST',
         data: {
-          action: 'analytify_optout_yes'
+          action: 'analytify_optout_yes',
+          _ajax_nonce: nonce,
         },
         beforeSend: function(){
           $(".wp-analytify-optout-spinner").show();

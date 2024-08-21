@@ -1,5 +1,21 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.43 - 2024-08-13
+
+### Fixes
+
+- Issues with gcal_cleanup action on the client site
+- Missing Booking Flows Views
+- Fix reported vulnerability - twig executing commands
+- Some time-slots incorrectly marked as un-available
+
+### Features and Improvements
+
+- Improve handling for team member's excluded calendars
+- Add Alipay as an enabled Stripe payment method
+- Add support for Bancontact - Stripe payment method
+- Pass customer email to Stripe payment intents API
+
 ## SSA-VERSION-PREFIX.6.7.42 - 2024-08-06
 
 ### Fixes

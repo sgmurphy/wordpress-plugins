@@ -4,7 +4,7 @@ Donate link:       https://simplyscheduleappointments.com
 Tags:              booking system, appointments, booking, scheduling, appointment booking
 Requires at least: 5.1
 Tested up to:      6.6
-Stable tag:        1.6.7.42
+Stable tag:        1.6.7.43
 Requires PHP:      7.4
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -237,6 +237,22 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 
 === Changelog ===
 
+== 1.6.7.43 - 2024-08-13 ==
+
+= Fixes =
+
+- Issues with gcal_cleanup action on the client site
+- Missing Booking Flows Views
+- Fix reported vulnerability - twig executing commands
+- Some time-slots incorrectly marked as un-available
+
+= Features and Improvements =
+
+- Improve handling for team member's excluded calendars
+- Add Alipay as an enabled Stripe payment method
+- Add support for Bancontact - Stripe payment method
+- Pass customer email to Stripe payment intents API
+
 == 1.6.7.42 - 2024-08-06 ==
 
 = Fixes =
@@ -289,22 +305,6 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 
 - Removed standard timezones.
 - Added missing actions to revisions model.
-
-== 1.6.7.28 - 2024-06-18 ==
-
-= Fixes =
-
-- Upcoming appointments module previous appointments bug
-- Avoid adding multiple payment records with same payment ID
-- Fix round robin assignment to staff with zero appointments
-- Fix notification template rendering non valid tags
-- Fix | Team reassignment not working on rescheduling
-
-= Features and Improvements =
-
-- Fixing translation strings
-- Updated the author and author URI.
-- Added unique ids and classes to the input fields.
 
 
 For older changelog entries, please see the [additional CHANGELOG.md file](https://plugins.svn.wordpress.org/simply-schedule-appointments/trunk/CHANGELOG.md) delivered with the plugin.

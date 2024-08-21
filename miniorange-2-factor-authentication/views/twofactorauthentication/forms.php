@@ -68,8 +68,8 @@ $registration_forms = array(
 
 ?>
 <div id="toggle" class="mo2f_forms_toggle">
-	<div id="mo2f_login_btn" class="mo2f_forms_toggle_login active mo2f-active">Login Forms</div>
-	<div id="mo2f_register_button" class="mo2f_forms_toggle_register">Registration Forms</div>
+	<div id="mo2f_login_btn" class="mo2f_forms_toggle_login mo2f-active">Login Forms</div>
+	<div id="mo2f_register_button" class="mo2f_forms_toggle_register mo2f-active">Registration Forms</div>
 </div>
 <div class="" id="mo2f_login_form_settings">
 	<div class="mo2f-settings-div">

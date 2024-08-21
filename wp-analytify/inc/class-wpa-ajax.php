@@ -42,7 +42,7 @@ class WPANALYTIFY_AJAX {
 			'load_default_reffers' => false,
 			'dismiss_pointer'	=> true,
 			'remove_comparison_gif' => false,
-			'deactivate' => true,
+//			'deactivate' => false,
 			'optin_yes' => false,
 			'optout_yes' => false,
 			'optin_skip' => false,
@@ -149,11 +149,11 @@ class WPANALYTIFY_AJAX {
 			);
 
 			// New users.
-			$new_users_stats = $wp_analytify->get_reports( 
+			$new_users_stats = $wp_analytify->get_reports(
 				'show-default-new-returning-dashboard',
 				array(
 					'newUsers',
-				), 
+				),
 				array(
 					'start' => $start_date,
 					'end'   => $end_date,
@@ -161,11 +161,11 @@ class WPANALYTIFY_AJAX {
 			);
 
 			// Returning users.
-			$returning_users_stats = $wp_analytify->get_reports( 
+			$returning_users_stats = $wp_analytify->get_reports(
 				'show-default-new-returning-dashboard',
 				array(
 					'activeUsers',
-				), 
+				),
 				array(
 					'start' => $start_date,
 					'end'   => $end_date,
@@ -178,11 +178,11 @@ class WPANALYTIFY_AJAX {
 			);
 
 			// Device category.
-			$device_category_stats = $wp_analytify->get_reports( 
+			$device_category_stats = $wp_analytify->get_reports(
 				'show-default-overall-device-dashboard',
 				array(
 					'sessions'
-				), 
+				),
 				array(
 					'start' => $start_date,
 					'end'   => $end_date,
@@ -198,7 +198,7 @@ class WPANALYTIFY_AJAX {
 			);
 
 			// Get prev stats.
-			$compare_stats = $wp_analytify->get_reports( 
+			$compare_stats = $wp_analytify->get_reports(
 				'show-default-overall-dashboard-compare',
 				array(
 					'sessions',
@@ -208,13 +208,13 @@ class WPANALYTIFY_AJAX {
 					'bounceRate',
 					'screenPageViewsPerSession',
 					'newUsers'
-				), 
+				),
 				array(
 					'start' => $compare_start_date,
 					'end'   => $compare_end_date,
 				)
 			);
-	
+
 			// Create view for general stats.
 			include ANALYTIFY_ROOT_PATH . '/views/default/admin/general-stats.php';
 			fetch_ga_general_stats( $wp_analytify, $stats, $device_category_stats, $compare_stats, $date_different, $new_returning_stats );
@@ -224,17 +224,17 @@ class WPANALYTIFY_AJAX {
 
 			// New vs returning users.
 			$new_returning_stats = $wp_analytify->pa_get_analytics_dashboard( 'ga:users', $start_date, $end_date, 'ga:userType', false, false, false, 'show-default-new-returning-dashboard' );
-	
+
 			// Device category.
 			$device_category_stats = $wp_analytify->pa_get_analytics_dashboard( 'ga:sessions', $start_date, $end_date, 'ga:deviceCategory', '-ga:sessions',  false, false, 'show-default-overall-device-dashboard' );
-	
+
 			// Get prev stats.
 			$compare_stats = $wp_analytify->pa_get_analytics_dashboard( 'ga:sessions,ga:users,ga:pageviews,ga:avgSessionDuration,ga:bounceRate,ga:pageviewsPerSession,ga:percentNewSessions,ga:newUsers', $compare_start_date, $compare_end_date, false, false, false, false, 'show-default-overall-dashboard-compare' );
-	
+
 			if ( isset( $stats->totalsForAllResults ) ) {
 				include ANALYTIFY_ROOT_PATH . '/views/default/admin/general-stats-deprecated.php';
 				fetch_general_stats( $wp_analytify , $stats , $device_category_stats, $compare_stats , $date_different, $new_returning_stats );
-			}	
+			}
 		}
 
 		wp_die();
@@ -519,8 +519,8 @@ class WPANALYTIFY_AJAX {
 			$countries_stats 	= $wp_analytify->pa_get_analytics_dashboard( 'ga:sessions', $start_date, $end_date , 'ga:country' , '-ga:sessions' , 'ga:country!=(not set)', false, 'show-geographic-countries-dashboard' );
 
 			$cities_stats 		= $wp_analytify->pa_get_analytics_dashboard( 'ga:sessions', $start_date, $end_date , 'ga:city,ga:country' , '-ga:sessions' , 'ga:city!=(not set);ga:country!=(not set)', 5, 'show-geographic-cities-dashboard' );
-	
-			if ( $countries_stats ) {				
+
+			if ( $countries_stats ) {
 				include ANALYTIFY_ROOT_PATH . '/views/default/admin/geographic-stats-deprecated.php';
 				fetch_geographic_stats( $wp_analytify, $countries_stats, $cities_stats, true, $report_url, $report_date_range );
 			}
@@ -691,11 +691,11 @@ class WPANALYTIFY_AJAX {
 
 			// ga_missing
 
-			// $social_stats = $wp_analytify->get_reports( 
+			// $social_stats = $wp_analytify->get_reports(
 			// 	'show-top-pages-dashboard',
 			// 	array(
 			// 		'sessions'
-			// 	), 
+			// 	),
 			// 	array(
 			// 		'start' => $start_date,
 			// 		'end'   => $end_date,
@@ -763,9 +763,9 @@ class WPANALYTIFY_AJAX {
 			$dashboard_profile_ID = $_GET['dashboard_profile_ID'];
 			$start_date           = $_GET['start_date'];
 			$end_date             = $_GET['end_date'];
-	
+
 			$referr_stats = $wp_analytify->pa_get_analytics_dashboard( 'ga:sessions', $start_date, $end_date, 'ga:source,ga:medium', '-ga:sessions', false, 7, 'show-default-reffers-dashboard' );
-	
+
 			if ( $referr_stats ) {
 				include ANALYTIFY_ROOT_PATH . '/views/default/admin/referrers-stats-deprecated.php';
 				fetch_referrers_stats( $wp_analytify, $referr_stats );
@@ -782,7 +782,7 @@ class WPANALYTIFY_AJAX {
 		ob_start();
 
 		self::output_diagnostic_info();
-		
+
 		echo ob_get_clean();
 
 		wp_die();
@@ -1037,13 +1037,13 @@ class WPANALYTIFY_AJAX {
 		$analytify_dashboard = get_option( 'wp-analytify-dashboard' );
 
 		WPANALYTIFY_Utils::print_settings_array( $analytify_dashboard );
-	
+
 		echo "\r\n";
 
 		do_action( 'analytify_settings_logs' );
 
 		echo "\r\n";
-		
+
 		echo "-- Analytify Advance Setting --\r\n \r\n";
 
 		$analytify_advance = get_option( 'wp-analytify-advanced' );
@@ -1133,8 +1133,6 @@ class WPANALYTIFY_AJAX {
 			'reason_detail'     => $reason_detail,
 		);
 
-		analytify_send_data( $fields );
-
 		wp_die();
 	}
 
@@ -1148,18 +1146,23 @@ class WPANALYTIFY_AJAX {
 
 		// Track in user database
 		update_site_option( '_analytify_optin', 'yes' );
-
-		$fields = array(
-			'action'	=>	'Activate',
-			'track_mailchimp' =>	'yes'
-			);
-		analytify_send_data( $fields );
 		wp_die();
 	}
 
 	// delete opt-in beacon
 	public static function optout_yes() {
-		update_site_option( '_analytify_optin', 'no' );
+
+        // Verify the nonce
+        if (!isset($_POST['_ajax_nonce']) || !wp_verify_nonce($_POST['_ajax_nonce'], 'analytify_optout_nonce')) {
+            wp_die(__( 'Nonce verification failed.', 'wp-analytify' ));
+        }
+
+        // Check if the current user has the 'manage_options' capability
+        if (!current_user_can( 'manage_options' ) ) {
+            wp_die(__('You do not have sufficient permissions to access this page.','wp-analytify'));
+        }
+
+		update_site_option('_analytify_optin','no');
 		wp_die();
 	}
 
@@ -1172,10 +1175,6 @@ class WPANALYTIFY_AJAX {
 
 		update_site_option( '_analytify_optin', 'no' );
 
-		$fields = array(
-			'action'	=>	'Skip',
-		);
-		analytify_send_data( $fields );
 		wp_die();
 	}
 
@@ -1233,12 +1232,12 @@ class WPANALYTIFY_AJAX {
 		if ( ! current_user_can( 'manage_options' ) ) {
 		  wp_die( 'No cheating, huh!' );
 		}
-  
+
 		$imp_tmp_name =  $_FILES['file']['tmp_name'];
 
 		$file_content = file_get_contents( $imp_tmp_name );
 		$settings_json = json_decode( $file_content, true );
-  
+
 		if ( json_last_error() !== JSON_ERROR_NONE ) {
 			echo 'failed';
 		}
@@ -1247,7 +1246,7 @@ class WPANALYTIFY_AJAX {
 			$old_value_array = get_option( $setting );
 
 			if ( ! empty( $value_array ) ) {
-				if ( 'wp-analytify-profile' === $setting && ! empty( $old_value_array ) ) { // For profile tab settings update except authentication values. 
+				if ( 'wp-analytify-profile' === $setting && ! empty( $old_value_array ) ) { // For profile tab settings update except authentication values.
 					$old_value_array['install_ga_code'] = $value_array['install_ga_code'];
 					$old_value_array['exclude_users_tracking'] = $value_array['exclude_users_tracking'];
 					update_option( $setting, $old_value_array );

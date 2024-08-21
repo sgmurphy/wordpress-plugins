@@ -107,6 +107,14 @@ class Wpil_Report
             delete_transient('wpil_redirected_post_ids');
             delete_transient('wpil_redirected_post_urls');
 
+            // delete the total post transient if it's still with us
+            delete_transient('wpil_total_process_post_count');
+
+            // delete the post stat update caches if they're still here
+            delete_transient('wpil_refresh_all_stat_not_update_count');
+            delete_transient('wpil_refresh_all_stat_post_not_update');
+            delete_transient('wpil_refresh_all_stat_term_not_update');
+
             // set the clear data flag to false now that we're done clearing the data
             $status['clear_data'] = false;
             // signal that the data setup is complete
@@ -264,23 +272,32 @@ class Wpil_Report
         $post_types = Wpil_Settings::getPostTypes();
         $process_terms = !empty(Wpil_Settings::getTermTypes());
 
+        $cache_not_updated = get_transient('wpil_refresh_all_stat_not_update_count');
+        $cache_post_not_updated = get_transient('wpil_refresh_all_stat_post_not_update');
+        $cache_term_not_updated = get_transient('wpil_refresh_all_stat_term_not_update');
+
         //get all posts count
         $all = self::get_total_post_count();
         $post_type_replace_string = !empty($post_types) ? " AND {$wpdb->posts}.post_type IN ('" . (implode("','", $post_types)) . "') " : "";
 
-        $updated = 0;
-        if($post_types){
-            // get the total number of posts that have been updated
-            $updated += $wpdb->get_var("SELECT COUNT({$post_table}.ID) FROM {$post_table} LEFT JOIN {$meta_table} ON ({$post_table}.ID = {$meta_table}.post_id ) WHERE 1=1 AND ( {$meta_table}.meta_key = 'wpil_sync_report3' AND {$meta_table}.meta_value = 1 ) {$post_type_replace_string} AND {$post_table}.post_status = 'publish'");
+        if(empty($cache_not_updated)){
+            $updated = 0;
+            if($post_types){
+                // get the total number of posts that have been updated
+                $statuses_query = Wpil_Query::postStatuses($wpdb->posts);
+                $updated += $wpdb->get_var("SELECT COUNT({$post_table}.ID) FROM {$post_table} LEFT JOIN {$meta_table} ON ({$post_table}.ID = {$meta_table}.post_id ) WHERE 1=1 AND ( {$meta_table}.meta_key = 'wpil_sync_report3' AND {$meta_table}.meta_value = 1 ) {$post_type_replace_string} $statuses_query");
+            }
+            // if categories are a selected type
+            if($process_terms){
+                // add the total number of categories that have been updated
+                $updated += $wpdb->get_var("SELECT COUNT(`term_id`) FROM {$wpdb->termmeta} WHERE meta_key = 'wpil_sync_report3' AND meta_value = '1'");
+            }
+            // and subtract them from the total post count to get the number that have yet to be updated
+            $not_updated_count = ($all - $updated);
+        }else{
+            $not_updated_count = $cache_not_updated;
         }
-        // if categories are a selected type
-        if($process_terms){
-            // add the total number of categories that have been updated
-            $updated += $wpdb->get_var("SELECT COUNT(`term_id`) FROM {$wpdb->termmeta} WHERE meta_key = 'wpil_sync_report3' AND meta_value = '1'");
-        }
-        // and subtract them from the total post count to get the number that have yet to be updated
-        $not_updated_count = ($all - $updated);
-        
+
         // get the post processing limit and add it to the query variables
         $limit = (Wpil_Settings::getProcessingBatchSize()/10);
 
@@ -289,13 +306,22 @@ class Wpil_Report
         $memory_break_point = self::get_mem_break_point();
         $processed_link_count = 0;
         while(true){
-            // get the posts that haven't been updated, subject to the proccessing limit
-            $posts_not_updated = $wpdb->get_results("SELECT {$post_table}.ID FROM {$post_table} LEFT JOIN {$meta_table} ON ({$post_table}.ID = {$meta_table}.post_id AND {$meta_table}.meta_key = 'wpil_sync_report3' ) WHERE 1=1 AND ( {$meta_table}.meta_value != 1 ) {$post_type_replace_string} AND {$post_table}.post_status = 'publish' GROUP BY {$post_table}.ID ORDER BY {$post_table}.post_date DESC LIMIT $limit");
-            
-            if($process_terms){
-                $terms_not_updated = $wpdb->get_results("SELECT `term_id` FROM {$wpdb->termmeta} WHERE meta_key = 'wpil_sync_report3' AND meta_value = '0'");
+            if(empty($cache_post_not_updated)){
+                // get the posts that haven't been updated, subject to the proccessing limit
+                $statuses_query = Wpil_Query::postStatuses($wpdb->posts);
+                $posts_not_updated = $wpdb->get_results("SELECT {$post_table}.ID FROM {$post_table} LEFT JOIN {$meta_table} ON ({$post_table}.ID = {$meta_table}.post_id AND {$meta_table}.meta_key = 'wpil_sync_report3' ) WHERE 1=1 AND ( {$meta_table}.meta_value != 1 ) {$post_type_replace_string} $statuses_query GROUP BY {$post_table}.ID ORDER BY {$post_table}.post_date DESC LIMIT $limit");
             }else{
-                $terms_not_updated = 0;
+                $posts_not_updated = $cache_post_not_updated;
+            }
+
+            if(empty($cache_term_not_updated)){
+                if($process_terms){
+                    $terms_not_updated = $wpdb->get_results("SELECT `term_id` FROM {$wpdb->termmeta} WHERE meta_key = 'wpil_sync_report3' AND meta_value = '0'");
+                }else{
+                    $terms_not_updated = 0;
+                }
+            }else{
+                $terms_not_updated = $cache_term_not_updated;
             }
 
             // break if there's no posts/cats to update, or the loop is out of time.
@@ -305,7 +331,7 @@ class Wpil_Report
 
             //update posts statistics
             if (!empty($posts_not_updated)) {
-                foreach($posts_not_updated as $post){
+                foreach($posts_not_updated as $key => $post){
                     if (microtime(true) - $start > $time_limit) {
                         break;
                     }
@@ -320,13 +346,14 @@ class Wpil_Report
 
                     $post_obj = new Wpil_Model_Post($post->ID);
                     self::statUpdate($post_obj, $report_building);
+
                     $processed_link_count++;
                 }
             }
 
             //update term statistics
             if (!empty($terms_not_updated)) {
-                foreach($terms_not_updated as $cat){
+                foreach($terms_not_updated as $key => $cat){
                     if (microtime(true) - $start > $time_limit) {
                         break;
                     }
@@ -341,14 +368,19 @@ class Wpil_Report
 
                     $post_obj = new Wpil_Model_Post($cat->term_id, 'term');
                     self::statUpdate($post_obj, $report_building);
+
                     $processed_link_count++;
                 }
             }
-
-            update_option('wpil_2_report_last_updated', date('c'));
         }
 
+        update_option('wpil_2_report_last_updated', date('c'));
+
         $not_updated_count -= $processed_link_count;
+
+        set_transient('wpil_refresh_all_stat_not_update_count', $not_updated_count, MINUTE_IN_SECONDS * 5);
+        set_transient('wpil_refresh_all_stat_post_not_update', $posts_not_updated, MINUTE_IN_SECONDS * 5);
+        set_transient('wpil_refresh_all_stat_term_not_update', $terms_not_updated, MINUTE_IN_SECONDS * 5);
 
         //create array with results
         $r = ['time'=> microtime(true),
@@ -420,7 +452,7 @@ class Wpil_Report
             }
         }
 
-        $limit = Wpil_Settings::getProcessingBatchSize();
+        $limit = Wpil_Settings::getProcessingBatchSize() * 100;
         $args[] = $limit;
         while(true){
             // select a batch of posts that haven't had their link meta updated yet
@@ -671,6 +703,11 @@ class Wpil_Report
                 'internal' => true,
                 'post' => $post_objs[$cache_id],
                 'anchor' => !empty($data->anchor) ? $data->anchor : '',
+                'link_whisper_created' => (isset($data->link_whisper_created) && !empty($data->link_whisper_created)) ? 1: 0,
+                'is_autolink' => (isset($data->is_autolink) && !empty($data->is_autolink)) ? 1: 0,
+                'tracking_id' => (isset($data->tracking_id) && !empty($data->tracking_id)) ? $data->tracking_id: 0,
+                'module_link' => (isset($data->module_link) && !empty($data->module_link)) ? $data->module_link: 0,
+                'link_context' => (isset($data->link_context) && !empty($data->link_context)) ? $data->link_context: 0,
             ]);
         }
 
@@ -798,8 +835,14 @@ class Wpil_Report
                     'url' => $link->raw_url,
                     'anchor' => $link->anchor,
                     'host' => $link->host,
-                    'internal' => ($link->internal) ? true : false,
-                    'post' => $p
+                    'internal' => Wpil_Link::isInternal($link->raw_url),
+                    'post' => $p,
+                    'location' => isset($link->location) ? $link->location: 'content',
+                    'link_whisper_created' => (isset($link->link_whisper_created) && !empty($link->link_whisper_created)) ? 1: 0,
+                    'is_autolink' => (isset($link->is_autolink) && !empty($link->is_autolink)) ? 1: 0,
+                    'tracking_id' => (isset($link->tracking_id) && !empty($link->tracking_id)) ? $link->tracking_id: 0,
+                    'module_link' => (isset($link->module_link) && !empty($link->module_link)) ? $link->module_link: 0,
+                    'link_context' => (isset($link->link_context) && !empty($link->link_context)) ? $link->link_context: 0,
             ]);
             
             if ($link->internal) {
@@ -948,37 +991,30 @@ class Wpil_Report
 
     /**
      * Updates the link counts for all posts that the current post is linking to.
-     * Link data is from the link table.
+     * Link data is from the post meta.
      *
-     * @param object $post
+     * @param Wpil_Model_Post $post
      **/
     public static function updateReportInternallyLinkedPosts($post, $removed_links = array()){
-        global $wpdb;
-        $links_table = $wpdb->prefix . "wpil_report_links";
 
         if(empty($post) || !is_object($post)){
             return false;
         }
         // get all the outbound internal links for the current post
-        $links = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$links_table} WHERE `post_id` = '%d' AND `post_type` = '%s' AND `internal` = 1", array($post->id, $post->type)));
+        $links = $post->getOutboundInternalLinks();
 
         // check over the linked posts to remove any that are already up to date
         if(!empty($links)){
             $meta_cache = array();
             foreach($links as $link_key => $link){
-                if(empty($link->target_id) || empty($link->target_type) || !isset($link->raw_url) || !isset($link->anchor)){
+                if(!isset($link->post) || empty($link->post->id) || empty($link->post->type) || !isset($link->url) || !isset($link->anchor)){
                     continue;
                 }
 
-                $id = $link->target_id . '_' . $link->target_type;
+                $id = $link->post->id . '_' . $link->post->type;
 
                 if(!isset($meta_cache[$id])){
-                    if($link->target_type === 'post'){
-                        $meta_cache[$id] = Wpil_Toolbox::get_encoded_post_meta($link->target_id, 'wpil_links_inbound_internal_count_data', true);
-                    }else{
-                        $meta_cache[$id] = Wpil_Toolbox::get_encoded_term_meta($link->target_id, 'wpil_links_inbound_internal_count_data', true);
-                    }
-                    
+                    $meta_cache[$id] = $link->post->getLinksData('wpil_links_inbound_internal_count');
                 }
 
                 $meta_links = $meta_cache[$id];
@@ -991,7 +1027,7 @@ class Wpil_Report
                         // if there's a reference of a link that matches the current one
                         if( (int)$meta_link->post->id === (int)$post->id && 
                             $meta_link->post->type === $post->type && 
-                            rtrim($link->raw_url, '/') === rtrim($meta_link->url, '/') && 
+                            rtrim($link->url, '/') === rtrim($meta_link->url, '/') && 
                             $link->anchor === $meta_link->anchor)
                         {
                             // remove the link from processing
@@ -1013,47 +1049,32 @@ class Wpil_Report
             // go over each link
             foreach($links as $link_key => $link){
                 // if we have a valid link and the post has been scanned into the system
-                if( !isset($link->target_id) || 
-                    !isset($link->target_type) || 
-                    empty($link->target_id) || 
-                    empty($link->target_type) || 
-                    !isset($link->raw_url) || 
+                if( !isset($link->post) || 
+                    !isset($link->post->id) || 
+                    empty($link->post->id) || 
+                    empty($link->post->type) || 
+                    !isset($link->url) || 
                     !isset($link->anchor) || 
-                    ($link->target_type === 'post' ? empty(get_post_meta($link->target_id, 'wpil_sync_report3', true)): empty(get_term_meta($link->target_id, 'wpil_sync_report3', true))) )
+                    ($link->post->type === 'post' ? empty(get_post_meta($link->post->id, 'wpil_sync_report3', true)): empty(get_term_meta($link->post->id, 'wpil_sync_report3', true))) )
                 {
                     continue;
                 }
 
-                if($link->target_type === 'post'){
-                    $meta_links = Wpil_Toolbox::get_encoded_post_meta($link->target_id, 'wpil_links_inbound_internal_count_data', true);
-                }else{
-                    $meta_links = Wpil_Toolbox::get_encoded_term_meta($link->target_id, 'wpil_links_inbound_internal_count_data', true);
-                }
+                $link_post = $link->post; //new Wpil_Model_Post($link->target_id, $link->target_type);
+                $meta_links = $link_post->getLinksData('wpil_links_inbound_internal_count');
 
                 if(!is_array($meta_links)){
                     continue;
                 }
 
-                $new_link = new Wpil_Model_Link([
-                    'url' => $link->raw_url,
-                    'anchor' => $link->anchor,
-                    'host' => $link->host,
-                    'internal' => (bool) $link->internal,
-                    'post' => new Wpil_Model_Post($link->target_id, $link->target_type),
-                    'added_by_plugin' => false,
-                    'location' => $link->location,
-                    'link_whisper_created' => (isset($link->link_whisper_created) && !empty($link->link_whisper_created)) ? 1: 0,
-                    'is_autolink' => (isset($link->is_autolink) && !empty($link->is_autolink)) ? 1: 0,
-                ]);
+                $meta_links[] = $link;
 
-                $meta_links[] = $new_link;
-
-                if($link->target_type === 'post'){
-                    Wpil_Toolbox::update_encoded_post_meta($link->target_id, 'wpil_links_inbound_internal_count_data', $meta_links);
-                    update_post_meta($link->target_id, 'wpil_links_inbound_internal_count', count($meta_links));
+                if($link->post->type === 'post'){
+                    Wpil_Toolbox::update_encoded_post_meta($link->post->id, 'wpil_links_inbound_internal_count_data', $meta_links);
+                    update_post_meta($link->post->id, 'wpil_links_inbound_internal_count', count($meta_links));
                 }else{
-                    Wpil_Toolbox::update_encoded_term_meta($link->target_id, 'wpil_links_inbound_internal_count_data', $meta_links);
-                    update_term_meta($link->target_id, 'wpil_links_inbound_internal_count', count($meta_links));
+                    Wpil_Toolbox::update_encoded_term_meta($link->post->id, 'wpil_links_inbound_internal_count_data', $meta_links);
+                    update_term_meta($link->post->id, 'wpil_links_inbound_internal_count', count($meta_links));
                 }
 
                 unset($links[$link_key]);
@@ -1079,7 +1100,7 @@ class Wpil_Report
         //add links to array from post content
         foreach($links as $link){
             // skip if there's no link
-            if(empty($link->clean_url)){
+            if(empty($link->url)){
                 continue;
             }
 
@@ -1087,14 +1108,14 @@ class Wpil_Report
             $p = null;
 
             // check to see if we've come across the link before
-            if(!isset($updated[$link->clean_url])){
+            if(!isset($updated[$link->url])){
                 // if we haven't, get the post/term that the link points at
-                $p = Wpil_Post::getPostByLink($link->clean_url);
+                $p = Wpil_Post::getPostByLink($link->url);
 
                 // if we haven't found a post with the link, and there's a record of a redirect
-                if(!is_a($p, 'Wpil_Model_Post') && isset($redirected[$link->clean_url])){
+                if(!is_a($p, 'Wpil_Model_Post') && isset($redirected[$link->url])){
                     // try getting the post with the redirect link
-                    $p = Wpil_Post::getPostByLink($redirected[$link->clean_url]);
+                    $p = Wpil_Post::getPostByLink($redirected[$link->url]);
                 }
 
                 // if there is a post/term
@@ -1104,7 +1125,7 @@ class Wpil_Report
                 }
 
                 // store the post/term url so we don't update the same post multiple times
-                $updated[$link->clean_url] = true;
+                $updated[$link->url] = true;
             }
         }
 
@@ -1117,9 +1138,10 @@ class Wpil_Report
      *
      * @param $post The WPIL post object to check for links
      * @param bool $ignore_post Should we skip tracing internal URLs to their destination posts? The URL-to-post functionality is intense for some systems, and not all processes require the post data
+     * @param string $content Pre-pulled post data so we can skip over most of the database query steps
      * @return array
      */
-    public static function getContentLinks($post, $ignore_post = false)
+    public static function getContentLinks($post, $ignore_post = false, $content = '')
     {
         $data = [];
         $my_host = parse_url(get_home_url(), PHP_URL_HOST);
@@ -1382,67 +1404,35 @@ class Wpil_Report
 
         $u = admin_url("admin.php?page=link_whisper");
 
-        if ($post->type == 'term') {
-            $prev_t = get_term_meta($post->id, 'wpil_sync_report2_time', true);
+        $prev_t = $post->getSyncReportTime();
 
-            $prev_count = [
-                'inbound_internal' => (int)get_term_meta($post->id, 'wpil_links_inbound_internal_count', true),
-                'outbound_internal' => (int)get_term_meta($post->id, 'wpil_links_outbound_internal_count', true),
-                'outbound_external' => (int)get_term_meta($post->id, 'wpil_links_outbound_external_count', true)
-            ];
+        $prev_count = [
+            'inbound_internal' => (int)$post->getInboundInternalLinks(true),
+            'outbound_internal' => (int)$post->getOutboundInternalLinks(true),
+            'outbound_external' => (int)$post->getOutboundExternalLinks(true)
+        ];
 
-            if(WPIL_STATUS_LINK_TABLE_EXISTS){
-                self::update_post_in_link_table($post);
-            }
-            self::statUpdate($post);
-
-            wp_cache_delete($post->id, 'term_meta');
-
-            $time = microtime(true) - $start;
-            $new_time = get_term_meta($post->id, 'wpil_sync_report2_time', true);
-
-            $count = [
-                'inbound_internal' => (int)get_term_meta($post->id, 'wpil_links_inbound_internal_count', true),
-                'outbound_internal' => (int)get_term_meta($post->id, 'wpil_links_outbound_internal_count', true),
-                'outbound_external' => (int)get_term_meta($post->id, 'wpil_links_outbound_external_count', true)
-            ];
-
-            $links_data = [
-                'inbound_internal' => Wpil_Toolbox::get_encoded_term_meta($post->id, 'wpil_links_inbound_internal_count_data', true),
-                'outbound_internal' => Wpil_Toolbox::get_encoded_term_meta($post->id, 'wpil_links_outbound_internal_count_data', true),
-                'outbound_external' => Wpil_Toolbox::get_encoded_term_meta($post->id, 'wpil_links_outbound_external_count_data', true)
-            ];
-        } else {
-            $prev_t = get_post_meta($post->id, 'wpil_sync_report2_time', true);
-
-            $prev_count = [
-                'inbound_internal' => (int)get_post_meta($post->id, 'wpil_links_inbound_internal_count', true),
-                'outbound_internal' => (int)get_post_meta($post->id, 'wpil_links_outbound_internal_count', true),
-                'outbound_external' => (int)get_post_meta($post->id, 'wpil_links_outbound_external_count', true)
-            ];
-
-            if(WPIL_STATUS_LINK_TABLE_EXISTS){
-                self::update_post_in_link_table($post);
-            }
-            self::statUpdate($post);
-
-            wp_cache_delete($post->id, 'post_meta');
-
-            $time = microtime(true) - $start;
-            $new_time = get_post_meta($post->id, 'wpil_sync_report2_time', true);
-
-            $count = [
-                'inbound_internal' => (int)get_post_meta($post->id, 'wpil_links_inbound_internal_count', true),
-                'outbound_internal' => (int)get_post_meta($post->id, 'wpil_links_outbound_internal_count', true),
-                'outbound_external' => (int)get_post_meta($post->id, 'wpil_links_outbound_external_count', true)
-            ];
-
-            $links_data = [
-                'inbound_internal' => Wpil_Toolbox::get_encoded_post_meta($post->id, 'wpil_links_inbound_internal_count_data', true),
-                'outbound_internal' => Wpil_Toolbox::get_encoded_post_meta($post->id, 'wpil_links_outbound_internal_count_data', true),
-                'outbound_external' => Wpil_Toolbox::get_encoded_post_meta($post->id, 'wpil_links_outbound_external_count_data', true)
-            ];    
+        if(WPIL_STATUS_LINK_TABLE_EXISTS){
+            self::update_post_in_link_table($post);
         }
+        self::statUpdate($post);
+
+        wp_cache_delete($post->id, (isset($post->type) && $post->type === 'post') ? 'post_meta':'term_meta');
+
+        $time = microtime(true) - $start;
+        $new_time = $post->getSyncReportTime();
+
+        $count = [
+            'inbound_internal' => (int)$post->getInboundInternalLinks(true),
+            'outbound_internal' => (int)$post->getOutboundInternalLinks(true),
+            'outbound_external' => (int)$post->getOutboundExternalLinks(true)
+        ];
+
+        $links_data = [
+            'inbound_internal' => $post->getInboundInternalLinks(),
+            'outbound_internal' => $post->getOutboundInternalLinks(),
+            'outbound_external' => $post->getOutboundExternalLinks()
+        ];
 
         include dirname(__DIR__).'/../templates/post_links_count_update.php';
     }
@@ -1460,6 +1450,7 @@ class Wpil_Report
     public static function getData($start = 0, $orderby = '', $order = 'DESC', $search='', $limit=20, $orphaned = false)
     {
         global $wpdb;
+        $link_table = $wpdb->prefix . "wpil_report_links";
 
         //check if it need to show categories in the list
         $options = get_user_meta(get_current_user_id(), 'report_options', true);
@@ -1519,10 +1510,10 @@ class Wpil_Report
                 case 'post_title':
                 case 'post_type':
                 case 'title_search':
+                case 'organic_traffic':
                 case 'wpil_links_inbound_internal_count':
                 case 'wpil_links_outbound_internal_count':
                 case 'wpil_links_outbound_external_count':
-                case 'organic_traffic':
                     // no worries mon
                     break;
                 default:
@@ -1585,13 +1576,14 @@ class Wpil_Report
 
             if ($processing_terms) {
                 $taxonomies = Wpil_Settings::getTermTypes();
-                $query .= " UNION
-                            SELECT t.term_id as `ID`, CONVERT(t.name USING {$post_charset}) {$collation} as `post_title`, CONVERT(tt.taxonomy USING {$post_charset}) {$collation} as `post_type`, '1970-01-01 00:00:00' as `post_date`, m.meta_value {$collation} AS 'meta_value', 'term' as `type` $term_title_search  
-                            FROM {$wpdb->prefix}termmeta m INNER JOIN {$wpdb->prefix}terms t ON m.term_id = t.term_id INNER JOIN {$wpdb->prefix}term_taxonomy tt ON t.term_id = tt.term_id
-                            WHERE t.term_id in ($report_term_ids) $ignored_terms AND tt.taxonomy IN ('" . implode("', '", $taxonomies) . "') AND m.meta_key LIKE '$orderby' $term_search";
-            }
+                $query .= " UNION 
+                    SELECT t.term_id as `ID`, CONVERT(t.name USING {$post_charset}) {$collation} as `post_title`, CONVERT(tt.taxonomy USING {$post_charset}) {$collation} as `post_type`, '1970-01-01 00:00:00' as `post_date`, m.meta_value {$collation} AS 'meta_value', 'term' as `type` $term_title_search  
+                    FROM {$wpdb->termmeta} m INNER JOIN {$wpdb->terms} t ON m.term_id = t.term_id INNER JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id
+                    WHERE t.term_id in ($report_term_ids) $ignored_terms AND tt.taxonomy IN ('" . implode("', '", $taxonomies) . "') AND m.meta_key LIKE '$orderby' $term_search";
+                }
 
-            $query .= "ORDER BY meta_value+0 $order 
+                $query .= "
+                        ORDER BY meta_value $order 
                         LIMIT {$limit} OFFSET {$offset}";
         }
 
@@ -1626,14 +1618,8 @@ class Wpil_Report
             ];
 
             //get meta data
-            if ($post->type == 'term') {
-                foreach (self::$meta_keys as $meta_key) {
-                    $item[$meta_key] = get_term_meta($post->ID, $meta_key, true);
-                }
-            } else {
-                foreach (self::$meta_keys as $meta_key) {
-                    $item[$meta_key] = get_post_meta($post->ID, $meta_key, true);
-                }
+            foreach (self::$meta_keys as $meta_key) {
+                $item[$meta_key] = $p->getLinksData($meta_key, true);
             }
 
             $data[$key] = $item;
@@ -1783,11 +1769,10 @@ class Wpil_Report
                     }
                     if (!empty($link->post)) {
                         $rep .= '<li>
-                                    <input type="checkbox" class="wpil_link_select" data-post_id="'.$link->post->id.'" data-post_type="'.$link->post->type.'" data-anchor="'.base64_encode($link->anchor).'" data-url="'.base64_encode($link->url).'">
                                     <div>
                                         <div style="margin: 3px 0;"><b>Origin Post Title:</b> ' . esc_html($link->post->getTitle()) . '</div>
                                         <div style="margin: 3px 0;"><b>Anchor Text:</b> ' . esc_html(strip_tags($link->anchor)) . '</div>';
-                        $rep .= self::get_dropdown_icons($link->post, $link->url, 'inbound-internal');
+                        $rep .= self::get_dropdown_icons($link->post, $link, 'inbound-internal');
                         $rep .=         '<a href="' . admin_url('post.php?post=' . $link->post->id . '&action=edit') . '" target="_blank">[edit]</a> 
                                         <a href="' . esc_url($link->post->getLinks()->view) . '" target="_blank">[view]</a>
                                         <br>
@@ -1808,11 +1793,10 @@ class Wpil_Report
                         continue;
                     }
                     $rep .= '<li>
-                                <input type="checkbox" class="wpil_link_select" data-post_id="' . $post->id . '" data-post_type="' . $post->type . '" data-anchor="' . base64_encode($link->anchor) . '" data-url="' . base64_encode($link->url) . '">
                                 <div>
                                     <div style="margin: 3px 0;"><b>Link:</b> <a href="' . esc_url($link->url) . '" target="_blank" style="text-decoration: underline">' . esc_html($link->url) . '</a></div>
                                     <div style="margin: 3px 0;"><b>Anchor Text:</b> ' . esc_html(strip_tags($link->anchor)) . '</div>';
-                    $rep .= self::get_dropdown_icons($post, $link->url, 'outbound-internal');
+                    $rep .= self::get_dropdown_icons($post, $link, 'outbound-internal');
                     $rep .=     '</div>
                             </li>';
                 }
@@ -1827,11 +1811,10 @@ class Wpil_Report
                         continue;
                     }
                     $rep .= '<li>
-                                <input type="checkbox" class="wpil_link_select" data-post_id="' . $post->id . '" data-post_type="' . $post->type . '" data-anchor="' . base64_encode($link->anchor) . '" data-url="' . base64_encode($link->url) . '">
                                 <div>
                                     <div style="margin: 3px 0;"><b>Link:</b> <a href="' . esc_url($link->url) . '" target="_blank" style="text-decoration: underline">' . esc_html($link->url) . '</a></div>
                                     <div style="margin: 3px 0;"><b>Anchor Text:</b> ' . esc_html(strip_tags($link->anchor)) . '</div>';
-                    $rep .= self::get_dropdown_icons(array(), $link->url, 'outbound-external');
+                    $rep .= self::get_dropdown_icons(array(), $link, 'outbound-external');
                     $rep .=     '</div>
                             </li>';
                 }
@@ -1891,6 +1874,10 @@ class Wpil_Report
             $user_id = get_current_user_id();
             $options = get_user_meta($user_id, $report, true);
 
+            if(empty($options) || is_string($options)){
+                $options = array();
+            }
+
             foreach($_POST['options'] as $key => $value){
                 if(!isset($index[$key])){
                     continue;
@@ -1938,6 +1925,15 @@ class Wpil_Report
                 case 'link_report_trash_post':
                     $ignore_popups['link_report_trash_post'] = 1;
                     break;
+                case 'delete_link':
+                    $ignore_popups['delete_link'] = 1;
+                    break;
+                case 'update_domain_attribute':
+                    $ignore_popups['update_domain_attribute'] = 1;
+                    break;
+                case 'update_broken_link_url':
+                    $ignore_popups['update_broken_link_url'] = 1;
+                    break;
             }
         }
 
@@ -1948,8 +1944,9 @@ class Wpil_Report
     /**
      * Obtains the status icons for the URLs in the linking dropdowns
      * @param object $post
+     * @param object $link
      **/
-    public static function get_dropdown_icons($post = array(), $url = '', $disposition = 'inbound-internal'){
+    public static function get_dropdown_icons($post = array(), $link = array(), $disposition = 'inbound-internal'){
         $icons = '';
         $stats = array();
 
@@ -2002,12 +1999,20 @@ class Wpil_Report
 
         }
 
-        $redirected_url = Wpil_Link::get_url_redirection($url);
+        $redirected_url = Wpil_Link::get_url_redirection($link->url);
         if(!empty($redirected_url)){
             $icon = '';
             $icon .= '<div class="wpil_help">';
             $icon .= '<i class="dashicons dashicons-redo"></i>';
             $icon .= '<div class="wpil-help-text" style="display: none;">' . __('URL being redirected to: ', 'wpil') . esc_url($redirected_url) . '</div>';
+            $icon .= '</div>';
+            $stats[] = $icon;
+        }
+
+        if(isset($link->link_context) && !empty($link->link_context)){
+            $icon = '';
+            $icon .= '<div class="wpil_help">';
+            $icon .= self::get_link_context_icon($link->link_context);
             $icon .= '</div>';
             $stats[] = $icon;
         }
@@ -2038,6 +2043,26 @@ class Wpil_Report
         }
 
         return $icons;
+    }
+
+    public static function get_link_context_icon($context_id = 0){
+        $context = '';
+        switch (Wpil_Toolbox::get_link_context($context_id)) {
+            case 'normal':
+                $context .= '<i class="dashicons dashicons-admin-links"></i>';
+                $context .= '<div class="wpil-help-text" style="display: none;">' . __('Normal Link', 'wpil') . '</div>';
+                break;
+            case 'related-post-link':
+                $context .= '<i class="dashicons dashicons-migrate"></i>';
+                $context .= '<div class="wpil-help-text" style="display: none;">' . __('Related Post Link', 'wpil') . '</div>';
+                break;
+            case 'page-builder-link':
+                $context .= '<i class="dashicons dashicons-admin-page"></i>';
+                $context .= '<div class="wpil-help-text" style="display: none;">' . __('Page Builder or Module Link. (may not be deletable)', 'wpil') . '</div>';
+                break;
+        }
+
+        return $context;
     }
 
     public static function getCustomFieldsInboundLinks($url)
@@ -2081,15 +2106,22 @@ class Wpil_Report
                                     anchor text,
                                     internal tinyint(1) DEFAULT 0,
                                     has_links tinyint(1) NOT NULL DEFAULT 0,
-                                    post_type text,
+                                    post_type varchar(8),
                                     location varchar(20),
                                     broken_link_scanned tinyint(1) DEFAULT 0,
                                     link_whisper_created tinyint(1) DEFAULT 0,
                                     is_autolink tinyint(1) DEFAULT 0,
+                                    tracking_id bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+                                    module_link tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+                                    link_context tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
                                     PRIMARY KEY  (link_id),
                                     INDEX (post_id),
+                                    INDEX (post_type),
+                                    INDEX (target_id),
+                                    INDEX (target_type),
                                     INDEX (clean_url(500)),
-                                    INDEX (host(64))
+                                    INDEX (host(64)),
+                                    INDEX (tracking_id)
                                 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;";
         // create DB table if it doesn't exist
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -2122,7 +2154,6 @@ class Wpil_Report
         global $wpdb;
         $links_table = $wpdb->prefix . "wpil_report_links";
         $count = 0;
-        $start = microtime(true);
         $memory_break_point = self::get_mem_break_point();
 
         // get the ids that haven't been added to the link table yet
@@ -2172,7 +2203,7 @@ class Wpil_Report
             return array('completed' => true, 'inserted_posts' => 0);
         }
 
-        foreach($unprocessed_ids as $key =>  $id){
+        foreach($unprocessed_ids as $key => $id){
             // exit the loop if we've been at this for 30 seconds or we've passed the memory breakpoint
             if(Wpil_Base::overTimeLimit(15, 30) || ('disabled' !== $memory_break_point && memory_get_usage() > $memory_break_point)){
                 break; 
@@ -2311,7 +2342,7 @@ class Wpil_Report
             if(empty($link) || empty($link->internal)){
                 continue;
             }
-            $existing[self::getCleanUrl($link->url . '_' . $link->anchor)] = true;
+            $existing[self::getCleanUrl($link->url) . '_' . $link->anchor] = true;
         }
 
         // now get all the ones that are stored in the links table
@@ -2382,9 +2413,10 @@ class Wpil_Report
     /**
      * Extracts the links from the given post and inserts them into the link table.
      * @param object $post 
+     * @param array $posts An array of post objects that already have the content pulled for quicker bulk processing 
      * @return int $count (1 if success, 0 if failure)
      **/
-    public static function insert_links_into_link_table($post){
+    public static function insert_links_into_link_table($post, $posts = array()){
         global $wpdb;
         $links_table = $wpdb->prefix . "wpil_report_links";
 
@@ -2498,30 +2530,37 @@ class Wpil_Report
      **/
     public static function get_total_post_count(){
         global $wpdb;
-        $post_table  = $wpdb->prefix . "posts";
-        $term_table  = $wpdb->prefix . "term_taxonomy";
 
         if(isset(self::$all_post_count) && !empty(self::$all_post_count)){
             return self::$all_post_count;
         }else{
-            // get all of the site's posts that are in our settings group
-            $post_types = Wpil_Settings::getPostTypes();
-            $post_type_replace_string = !empty($post_types) ? " AND post_type IN ('" . (implode("','", $post_types)) . "') " : "";
-            $statuses_query = Wpil_Query::postStatuses();
 
-            $post_count = $wpdb->get_var("SELECT COUNT(ID) FROM {$post_table} WHERE 1=1 {$post_type_replace_string} {$statuses_query}");
-            // if term is a selected type
-            if(!empty(Wpil_Settings::getTermTypes())){
-                // get all the site's categories that aren't empty
-                $taxonomies = Wpil_Settings::getTermTypes();
+            $total = get_transient('wpil_total_process_post_count');
 
-                $cat_count = $wpdb->get_var("SELECT COUNT(DISTINCT term_id) FROM {$term_table} WHERE `taxonomy`IN ('" . implode("', '", $taxonomies) . "')");
+            if(empty($total)){
+                // get all of the site's posts that are in our settings group
+                $post_types = Wpil_Settings::getPostTypes();
+                $post_type_replace_string = !empty($post_types) ? " AND post_type IN ('" . (implode("','", $post_types)) . "') " : "";
+                $statuses_query = Wpil_Query::postStatuses();
+
+                $post_count = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE 1=1 {$post_type_replace_string} {$statuses_query}");
+                // if term is a selected type
+                if(!empty(Wpil_Settings::getTermTypes())){
+                    // get all the site's categories that aren't empty
+                    $taxonomies = Wpil_Settings::getTermTypes();
+                    $cat_count = $wpdb->get_var("SELECT COUNT(DISTINCT term_id) FROM {$wpdb->term_taxonomy} WHERE `taxonomy`IN ('" . implode("', '", $taxonomies) . "')");
+                }else{
+                    $cat_count = 0;
+                }
+
+                // add the post count and term count together and return
+                self::$all_post_count = ($post_count + $cat_count);
+
+                set_transient('wpil_total_process_post_count', self::$all_post_count, MINUTE_IN_SECONDS * 60); // should be cleared when a new scan runs, so we can put a long time on this
             }else{
-                $cat_count = 0;
+                self::$all_post_count = $total;
             }
 
-            // add the post count and term count together and return
-            self::$all_post_count = ($post_count + $cat_count);
             return self::$all_post_count;
         }
     }
@@ -2655,5 +2694,18 @@ class Wpil_Report
         $unfilled_posts = array_flip(array_filter($all_post_ids, 'strlen'));
 
         return $unfilled_posts;
+    }
+
+    /**
+     * Resets the number of items to display in the report tables back to the default 20
+     **/
+    public static function reset_display_counts(){
+        $user_id = get_current_user_id();
+        $report_options = get_user_meta($user_id, 'report_options', true);
+
+        if(!empty($report_options) && isset($report_options['per_page'])){
+            $report_options['per_page'] = 20;
+            update_user_meta($user_id, 'report_options', $report_options);
+        }
     }
 }

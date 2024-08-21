@@ -39,11 +39,19 @@
       "_vendor-e2c2538e.min.js"
     ]
   },
-  "_exactmetrics-reports-helper-plugin-eaa2a2d9.min.js": {
-    "file": "js/chunks/exactmetrics-reports-helper-plugin-eaa2a2d9.min.js",
+  "_date-intervals-153fd6db.min.js": {
+    "file": "js/chunks/date-intervals-153fd6db.min.js",
     "imports": [
       "_vendor-e2c2538e.min.js",
-      "_SettingsInfoTooltip-aec0fac1.min.js"
+      "_index-f4fe00a5.min.js"
+    ]
+  },
+  "_exactmetrics-reports-helper-plugin-f99e77aa.min.js": {
+    "file": "js/chunks/exactmetrics-reports-helper-plugin-f99e77aa.min.js",
+    "imports": [
+      "_vendor-e2c2538e.min.js",
+      "_SettingsInfoTooltip-aec0fac1.min.js",
+      "_date-intervals-153fd6db.min.js"
     ]
   },
   "_html2canvas-a566020c.min.js": {
@@ -52,19 +60,6 @@
       "_vendor-e2c2538e.min.js"
     ],
     "isDynamicEntry": true
-  },
-  "_index-11983aa0.min.js": {
-    "file": "js/chunks/index-11983aa0.min.js",
-    "imports": [
-      "_vendor-e2c2538e.min.js"
-    ]
-  },
-  "_index-758bc124.min.js": {
-    "file": "js/chunks/index-758bc124.min.js",
-    "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_index-11983aa0.min.js"
-    ]
   },
   "_index-b90f4c1f.min.js": {
     "assets": [
@@ -95,6 +90,12 @@
     "imports": [
       "_vendor-e2c2538e.min.js",
       "_ContentIconList-47765506.min.js"
+    ]
+  },
+  "_index-f4fe00a5.min.js": {
+    "file": "js/chunks/index-f4fe00a5.min.js",
+    "imports": [
+      "_vendor-e2c2538e.min.js"
     ]
   },
   "_vendor-e2c2538e.min.js": {
@@ -1037,9 +1038,9 @@
     "file": "js/frontend.min.js",
     "imports": [
       "_vendor-e2c2538e.min.js",
-      "_index-758bc124.min.js",
+      "_date-intervals-153fd6db.min.js",
       "_WidgetReportError-f0c116b2.min.js",
-      "_index-11983aa0.min.js"
+      "_index-f4fe00a5.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/frontend/frontend.js"
@@ -1140,11 +1141,11 @@
     "file": "js/reports.min.js",
     "imports": [
       "_vendor-e2c2538e.min.js",
-      "_index-758bc124.min.js",
-      "_exactmetrics-reports-helper-plugin-eaa2a2d9.min.js",
+      "_date-intervals-153fd6db.min.js",
+      "_exactmetrics-reports-helper-plugin-f99e77aa.min.js",
       "_SettingsInfoTooltip-aec0fac1.min.js",
       "_index-b90f4c1f.min.js",
-      "_index-11983aa0.min.js",
+      "_index-f4fe00a5.min.js",
       "_ContentIconList-47765506.min.js"
     ],
     "isEntry": true,
@@ -1322,7 +1323,7 @@
     "file": "js/settings.min.js",
     "imports": [
       "_vendor-e2c2538e.min.js",
-      "_index-11983aa0.min.js",
+      "_index-f4fe00a5.min.js",
       "_ContentIconList-47765506.min.js",
       "_AboutTestimonialsSlider-b8133d98.min.js",
       "_index-b90f4c1f.min.js",
@@ -1426,11 +1427,11 @@
     "file": "js/widget.min.js",
     "imports": [
       "_vendor-e2c2538e.min.js",
-      "_index-758bc124.min.js",
-      "_exactmetrics-reports-helper-plugin-eaa2a2d9.min.js",
+      "_date-intervals-153fd6db.min.js",
+      "_exactmetrics-reports-helper-plugin-f99e77aa.min.js",
       "_SettingsInfoTooltip-aec0fac1.min.js",
       "_WidgetReportError-f0c116b2.min.js",
-      "_index-11983aa0.min.js"
+      "_index-f4fe00a5.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/widget/widget.js"
@@ -1507,7 +1508,7 @@
       "_vendor-e2c2538e.min.js",
       "_AboutTestimonialsSlider-b8133d98.min.js",
       "_SettingsInfoTooltip-aec0fac1.min.js",
-      "_index-11983aa0.min.js",
+      "_index-f4fe00a5.min.js",
       "_ContentIconList-47765506.min.js"
     ],
     "isEntry": true,

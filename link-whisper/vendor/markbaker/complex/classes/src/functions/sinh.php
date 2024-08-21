@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the hyperbolic sine of a complex number.
@@ -19,14 +19,8 @@ namespace Complex;
 function sinh($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
     if ($complex->isReal()) {
         return new Complex(\sinh($complex->getReal()));
     }
-
-    return new Complex(
-        \sinh($complex->getReal()) * \cos($complex->getImaginary()),
-        \cosh($complex->getReal()) * \sin($complex->getImaginary()),
-        $complex->getSuffix()
-    );
+    return new Complex(\sinh($complex->getReal()) * \cos($complex->getImaginary()), \cosh($complex->getReal()) * \sin($complex->getImaginary()), $complex->getSuffix());
 }

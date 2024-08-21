@@ -3,7 +3,7 @@ defined('ABSPATH') or die('No script kiddies please!');
 ?>
 <div class="ti-box ti-rate-us-box">
 <div class="ti-box-header"><?php echo esc_html(__("Do you like our free plugin?", 'trustindex-plugin')); ?></div>
-<p><?php echo esc_html(__('Support our work by leaving a review!', 'trustindex-plugin')); ?></p>
+<p><strong><?php echo esc_html(__('Support our work by leaving a review!', 'trustindex-plugin')); ?></strong></p>
 <div class="ti-quick-rating" data-nonce="<?php echo esc_attr(wp_create_nonce('ti-rate-us')); ?>">
 <?php for ($i = 5; $i >= 1; $i--): ?><div class="ti-star-check" data-value="<?php echo esc_attr($i); ?>"></div><?php endfor; ?>
 </div>

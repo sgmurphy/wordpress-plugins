@@ -8,7 +8,7 @@
  * License:             GPLv2 or later
  * Requires at least:	4.7
  * Tested up to:		6.5
- * Version:				1.9.4
+ * Version:				1.9.7
  *
  *
  * Text Domain: apollo13-framework-extensions

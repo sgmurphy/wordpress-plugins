@@ -1,10 +1,9 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Shared;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Shared;
 
 use DateTimeZone;
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 class TimeZone
 {
     /**
@@ -13,7 +12,6 @@ class TimeZone
      * @var string
      */
     protected static $timezone = 'UTC';
-
     /**
      * Validate a Timezone name.
      *
@@ -23,9 +21,8 @@ class TimeZone
      */
     private static function validateTimeZone($timezone)
     {
-        return in_array($timezone, DateTimeZone::listIdentifiers(DateTimeZone::ALL_WITH_BC));
+        return \in_array($timezone, DateTimeZone::listIdentifiers(DateTimeZone::ALL_WITH_BC));
     }
-
     /**
      * Set the Default Timezone used for date/time conversions.
      *
@@ -37,13 +34,10 @@ class TimeZone
     {
         if (self::validateTimezone($timezone)) {
             self::$timezone = $timezone;
-
-            return true;
+            return \true;
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * Return the Default Timezone used for date/time conversions.
      *
@@ -53,7 +47,6 @@ class TimeZone
     {
         return self::$timezone;
     }
-
     /**
      *    Return the Timezone offset used for date/time conversions to/from UST
      * This requires both the timezone and the calculated date/time to allow for local DST.
@@ -72,10 +65,8 @@ class TimeZone
         } else {
             $timezone = self::$timezone;
         }
-
         $objTimezone = new DateTimeZone($timezone);
         $transitions = $objTimezone->getTransitions($timestamp, $timestamp);
-
-        return (count($transitions) > 0) ? $transitions[0]['offset'] : 0;
+        return \count($transitions) > 0 ? $transitions[0]['offset'] : 0;
     }
 }

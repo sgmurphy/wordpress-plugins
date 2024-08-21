@@ -214,6 +214,7 @@ class Rule
         );
         $rule = array_merge($rule, $data);
 
+        $rule['filters']           = stripslashes_deep($rule['filters']);
         $rule['advertising']       = stripslashes_deep($rule['advertising']);
         $rule['cart_adjustments']  = stripslashes_deep($rule['cart_adjustments']);
         $rule['condition_message'] = stripslashes_deep($rule['condition_message']);

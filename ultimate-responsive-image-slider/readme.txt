@@ -2,12 +2,12 @@
 Contributors: FARAZFRANK 
 Tags: slider, best slider plugin, image slide show, responsive slider, wordpress image slider plugin
 Requires at least: 4.0
-Tested up to: 6.5.4
+Tested up to: 6.6.1
 Stable tag: 3.5.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Responsive image slider plugin is best and most popular plugin. Make slide show of photos, images, albums, portfolio and gallery image into responsive slider easily.
+The responsive image slider plugin is the most popular. Make a slide show of photos, images, albums, and portfolios images into a responsive slider.
 
 == Description ==
 

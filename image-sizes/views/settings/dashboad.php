@@ -160,8 +160,8 @@
             <img src="<?php echo esc_url( THUMBPRESS_ASSET . '/img/settings/dashboard/get-support.png' ); ?>">
         </div>
         <div class="tp-best-out-container">
-            <h3><?php esc_html_e( __( 'Get Support', 'image-sizes' ) ); ?></h3>
-            <p><?php esc_html_e( __( 'Stuck with something? Our support team is always ready to help you out.', 'image-sizes' ) ); ?></p>
+            <h3><?php esc_html_e( 'Get Support', 'image-sizes' ); ?></h3>
+            <p><?php esc_html_e( 'Stuck with something? Our support team is always ready to help you out.', 'image-sizes' ); ?></p>
 
             <?php
 
@@ -172,8 +172,8 @@
             $enabled = get_option( 'thumbpress_live_chat_enabled' ) == 1;
             printf(
                 '<a href="%2$s" class="%3$s">%1$s</a>',
-                $enabled ? __( 'Start Live Chat', 'image-sizes' ) : __( 'Enable Live Chat', 'image-sizes' ),
-                $enabled ? '#' : add_query_arg( 'live-chat', 'enable', admin_url( 'admin.php?page=thumbpress' ) ),
+                $enabled ? esc_html__( 'Start Live Chat', 'image-sizes' ) : esc_html__( 'Enable Live Chat', 'image-sizes' ),
+                $enabled ? '#' : esc_url( add_query_arg( 'live-chat', 'enable', admin_url( 'admin.php?page=thumbpress' ) ) ),
                 $enabled ? 'tp-live-chat' : ''
             );
             ?>

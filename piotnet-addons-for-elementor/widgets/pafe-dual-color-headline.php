@@ -389,7 +389,7 @@ $this->start_controls_tabs(
 		?>
 	<<?php echo $html_tag; ?> class="pafe-dual-color-headline"> 
 		<?php if (!empty($settings['pafe_dual_color_link']['url'])): 
-			echo '<a href="' . esc_attr($settings['pafe_dual_color_link']['url']) . '"' . esc_attr($target) . esc_attr($nofollow) . '>'
+			echo '<a href="' . esc_url($settings['pafe_dual_color_link']['url']) . '"' . esc_attr($target) . esc_attr($nofollow) . '>'
 			?>
 		<?php endif ?>
 			

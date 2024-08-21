@@ -69,13 +69,15 @@ class Image_Max_Size extends Base {
 
 			// Check if image exceeds the max size
 			if ( $max_image_size && $file[ 'size' ] > ( $max_image_size * 1024 ) ) {
-				$file[ 'error' ] = sprintf( __( '[ ThumbPress Alert ] Image exceeds the maximum allowed size of %s KB.', 'image-sizes' ), $max_image_size );
+				// translators: %s: maximum allowed image size in KB
+				$file['error'] = sprintf( __( '[ ThumbPress Alert ] Image exceeds the maximum allowed size of %s KB.', 'image-sizes' ), $max_image_size );
 			}
 
 			// Check if image exceeds the max resolution
 			if ( $max_image_width && $max_image_height ) {
 				if ( $image_width > $max_image_width || $image_height > $max_image_height ) {
-					$file[ 'error' ] = sprintf( __( '[ ThumbPress Alert ] Image exceeds the maximum allowed resolution of %sx%s pixels.', 'image-sizes' ), $max_image_width, $max_image_height );
+					// translators: %1$s: maximum allowed image width in pixels, %2$s: maximum allowed image height in pixels
+					$file['error'] = sprintf( __( '[ ThumbPress Alert ] Image exceeds the maximum allowed resolution of %1$sx%2$s pixels.', 'image-sizes' ), $max_image_width, $max_image_height );
 				}
 			}
 		}

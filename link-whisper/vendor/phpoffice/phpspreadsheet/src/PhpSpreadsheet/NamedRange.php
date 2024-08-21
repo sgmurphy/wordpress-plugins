@@ -1,9 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet;
+namespace LWVendor\PhpOffice\PhpSpreadsheet;
 
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class NamedRange
 {
     /**
@@ -12,35 +11,30 @@ class NamedRange
      * @var string
      */
     private $name;
-
     /**
      * Worksheet on which the named range can be resolved.
      *
      * @var Worksheet
      */
     private $worksheet;
-
     /**
      * Range of the referenced cells.
      *
      * @var string
      */
     private $range;
-
     /**
      * Is the named range local? (i.e. can only be used on $this->worksheet).
      *
      * @var bool
      */
     private $localOnly;
-
     /**
      * Scope.
      *
      * @var Worksheet
      */
     private $scope;
-
     /**
      * Create a new NamedRange.
      *
@@ -49,21 +43,19 @@ class NamedRange
      * @param bool $pLocalOnly
      * @param null|Worksheet $pScope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      */
-    public function __construct($pName, Worksheet $pWorksheet, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
+    public function __construct($pName, Worksheet $pWorksheet, $pRange = 'A1', $pLocalOnly = \false, $pScope = null)
     {
         // Validate data
-        if (($pName === null) || ($pWorksheet === null) || ($pRange === null)) {
+        if ($pName === null || $pWorksheet === null || $pRange === null) {
             throw new Exception('Parameters can not be null.');
         }
-
         // Set local members
         $this->name = $pName;
         $this->worksheet = $pWorksheet;
         $this->range = $pRange;
         $this->localOnly = $pLocalOnly;
-        $this->scope = ($pLocalOnly == true) ? (($pScope == null) ? $pWorksheet : $pScope) : null;
+        $this->scope = $pLocalOnly == \true ? $pScope == null ? $pWorksheet : $pScope : null;
     }
-
     /**
      * Get name.
      *
@@ -73,7 +65,6 @@ class NamedRange
     {
         return $this->name;
     }
-
     /**
      * Set name.
      *
@@ -86,25 +77,20 @@ class NamedRange
         if ($value !== null) {
             // Old title
             $oldTitle = $this->name;
-
             // Re-attach
             if ($this->worksheet !== null) {
                 $this->worksheet->getParent()->removeNamedRange($this->name, $this->worksheet);
             }
             $this->name = $value;
-
             if ($this->worksheet !== null) {
                 $this->worksheet->getParent()->addNamedRange($this);
             }
-
             // New title
             $newTitle = $this->name;
             ReferenceHelper::getInstance()->updateNamedFormulas($this->worksheet->getParent(), $oldTitle, $newTitle);
         }
-
         return $this;
     }
-
     /**
      * Get worksheet.
      *
@@ -114,7 +100,6 @@ class NamedRange
     {
         return $this->worksheet;
     }
-
     /**
      * Set worksheet.
      *
@@ -127,10 +112,8 @@ class NamedRange
         if ($value !== null) {
             $this->worksheet = $value;
         }
-
         return $this;
     }
-
     /**
      * Get range.
      *
@@ -140,7 +123,6 @@ class NamedRange
     {
         return $this->range;
     }
-
     /**
      * Set range.
      *
@@ -153,10 +135,8 @@ class NamedRange
         if ($value !== null) {
             $this->range = $value;
         }
-
         return $this;
     }
-
     /**
      * Get localOnly.
      *
@@ -166,7 +146,6 @@ class NamedRange
     {
         return $this->localOnly;
     }
-
     /**
      * Set localOnly.
      *
@@ -178,10 +157,8 @@ class NamedRange
     {
         $this->localOnly = $value;
         $this->scope = $value ? $this->worksheet : null;
-
         return $this;
     }
-
     /**
      * Get scope.
      *
@@ -191,7 +168,6 @@ class NamedRange
     {
         return $this->scope;
     }
-
     /**
      * Set scope.
      *
@@ -201,10 +177,8 @@ class NamedRange
     {
         $this->scope = $value;
         $this->localOnly = $value != null;
-
         return $this;
     }
-
     /**
      * Resolve a named range to a regular cell range.
      *
@@ -217,18 +191,17 @@ class NamedRange
     {
         return $pSheet->getParent()->getNamedRange($pNamedRange, $pSheet);
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
+            if (\is_object($value)) {
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.29';
+	$.fbuilder['version'] = '5.2.30';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -401,7 +401,7 @@
 			errorElement: "div",
 			errorPlacement: function(e, element)
 				{
-					var _parent = element.closest( '.dfield' ),
+					var _parent = element.closest( '.uh_phone,.dfield' ),
 						_uh =  _parent.find( 'span.uh:visible' ),
 						_arg = {'position' : 'absolute'},
 						_t  = _parent.find('input[type="button"],input[type="reset"],input[type="text"],input[type="number"],input[type="email"],input[type="file"],input[type="color"],input[type="date"],input[type="password"],input[type="email"],select,textarea');

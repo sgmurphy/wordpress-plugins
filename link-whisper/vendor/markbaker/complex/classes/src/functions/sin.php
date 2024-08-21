@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the sine of a complex number.
@@ -19,14 +19,8 @@ namespace Complex;
 function sin($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
     if ($complex->isReal()) {
         return new Complex(\sin($complex->getReal()));
     }
-
-    return new Complex(
-        \sin($complex->getReal()) * \cosh($complex->getImaginary()),
-        \cos($complex->getReal()) * \sinh($complex->getImaginary()),
-        $complex->getSuffix()
-    );
+    return new Complex(\sin($complex->getReal()) * \cosh($complex->getImaginary()), \cos($complex->getReal()) * \sinh($complex->getImaginary()), $complex->getSuffix());
 }

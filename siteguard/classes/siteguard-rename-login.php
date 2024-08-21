@@ -206,7 +206,11 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		$request = parse_url( $_SERVER['REQUEST_URI'] );
 		$denied_slugs = array( 'wp-register' );
 		$denied_slugs_to_regex = implode( '|', $denied_slugs );
-		$is_denied = preg_match( '#\/(' . $denied_slugs_to_regex . ')(\.php)?$#i', untrailingslashit( $request['path'] ) );
+
+		$is_denied = false;
+		if ( is_array( $request ) && isset( $request['path'] ) ) {
+			$is_denied = preg_match( '#\/(' . $denied_slugs_to_regex . ')(\.php)?$#i', untrailingslashit( $request['path'] ) );
+		}
 		if ( $is_denied && ! is_admin() ) {
 			$this->denied_login = true;
 		}

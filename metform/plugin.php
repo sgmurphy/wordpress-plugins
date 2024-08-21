@@ -25,7 +25,7 @@ final class Plugin {
 
     public function version()
     {
-        return '3.8.9';
+        return '3.9.0';
     }
 
     public function package_type()
@@ -305,17 +305,8 @@ final class Plugin {
         )
         ->call();
     
-        if( !did_action('edit_with_emailkit_loaded') && class_exists('\Wpmet\Libs\Emailkit') && \MetForm\Utils\Util::get_settings( 'metform_user_consent_for_banner', 'yes' ) == 'yes') {
-            
-            $current_theme = '';
-
-            if( function_exists('wp_get_theme') ) {
-                $mf_theme = wp_get_theme();
-                $current_theme = $mf_theme->get( 'TextDomain' );
-            }
-            if( $current_theme != 'marketo' && $current_theme != 'blo' ) {
-                new \Wpmet\Libs\Emailkit();
-            }            
+        if( class_exists('WooCommerce') && !class_exists('EmailKit') && !did_action('edit_with_emailkit_loaded') && class_exists('\Wpmet\Libs\Emailkit') && \MetForm\Utils\Util::get_settings( 'metform_user_consent_for_banner', 'yes' ) == 'yes') {
+            new \Wpmet\Libs\Emailkit();        
         }
 
         // Check if Elementor installed and activated.

@@ -214,6 +214,13 @@ class PriceDisplay
             add_filter('woocommerce_product_get_sale_price', array($this, 'hookGetSalePrice'), $priority, 2);
             add_filter('woocommerce_product_get_regular_price', array($this, 'hookGetRegularPrice'), $priority, 2);
         }
+
+        if ($context->isBaseVersion() AND apply_filters('adp_show_onsale_badge_for_variable', false)) {
+            add_filter('woocommerce_product_variation_get_sale_price', array($this, 'hookGetSalePrice'), $priority,
+                2);
+            add_filter('woocommerce_product_variation_get_regular_price', array($this, 'hookGetRegularPrice'),
+                $priority, 2);
+        }
     }
 
     /**

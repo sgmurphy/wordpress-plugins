@@ -1051,10 +1051,12 @@ function chapters_tab($EnclosureURL, $FeedSlug, $object, $GeneralSettings, $PCIT
                         </div>
                         <?php
                         $chapters_count = 0;
-                        foreach ($chaptersParsedJson as $chapter) {
-                            echo print_table_body($chapter, $FeedSlug, $object, $chapters_count);
-                            $chapters_count++;
-                        } ?>
+                        if (!empty($chaptersParsedJson)) {
+                            foreach ($chaptersParsedJson as $chapter) {
+                                echo print_table_body($chapter, $FeedSlug, $object, $chapters_count);
+                                $chapters_count++;
+                            }
+                        }?>
                         <div id="<?php echo $FeedSlug?>-chapter-end"></div>
                         <div style="padding-left: 25px; padding-right: 15px; width: 80%; padding-bottom: 50px;" class="row">
                             <div class="col-sm-3">
@@ -1070,7 +1072,7 @@ function chapters_tab($EnclosureURL, $FeedSlug, $object, $GeneralSettings, $PCIT
                 </div>
 
             </div>
-            <?php if ($PCIChapters == 1 && count($chaptersParsedJson) > 0) { ?>
+            <?php if ($PCIChapters == 1 && is_array($chaptersParsedJson) && count($chaptersParsedJson) > 0) { ?>
                 <p><strong><?php echo esc_html(__("Note:", 'powerpress')) ?></strong> <?php echo esc_html(__("The Blubrry Podcast Player supports 'Skip To' functions which allow a listener to click on the time and skip to that position in the podcast. To leverage this feature, click the button below and paste the generated HTML in your show notes for this episode. Please save any changes before copying your HTML.", 'powerpress')) ?></p>
                 <div class="powerpress_row">
                     <div class="powerpress_row_content">

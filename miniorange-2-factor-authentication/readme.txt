@@ -6,7 +6,7 @@ Donate link: https://miniorange.com/
 Requires at least: 3.0.1
 Tested up to: 6.6.1
 Requires PHP: 7.2.24
-Stable tag: 6.0.1
+Stable tag: 6.0.2
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -215,6 +215,10 @@ You should go to <b>2FA For Me</b> Tab and click on <b>Reconfigure</b> to reconf
 
 == Changelog ==
 
+= 6.0.2 =
+* Setup Wizard flow changes.
+* Bug Fix in Setup Wizard flow.
+
 = 6.0.1 =
 * Bug fixes for UI/UX plugin release
 
@@ -327,6 +331,10 @@ You should go to <b>2FA For Me</b> Tab and click on <b>Reconfigure</b> to reconf
 For older changelog entries, please see the [additional changelog.txt file](https://plugins.svn.wordpress.org/miniorange-2-factor-authentication/trunk/changelog.txt) provided with the plugin.
 
 == Upgrade Notice ==
+
+= 6.0.2 =
+* Setup Wizard flow changes.
+* Bug Fix in Setup Wizard flow.
 
 = 6.0.1 =
 * Bug fixes for UI/UX plugin release

@@ -6,7 +6,7 @@ License URI: https://www.gnu.org/licenses/gpl.html
 Tags: recaptcha, recaptcha, hcaptcha, cloudflare turnstile, antispam protection, captcha for WooCommerce
 Requires at least: 5.0
 Tested up to: 6.5.2
-Stable tag: 2.5.0
+Stable tag: 7.5.0
 Requires PHP: 7.4.0
 
 Use CAPTCHA to stop spam and allow customers & users to interact with your website easily. Block fake accounts and orders. Avoid false positives.

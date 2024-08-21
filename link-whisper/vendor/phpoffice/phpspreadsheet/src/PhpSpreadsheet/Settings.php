@@ -1,12 +1,11 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet;
+namespace LWVendor\PhpOffice\PhpSpreadsheet;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer;
-use PhpOffice\PhpSpreadsheet\Collection\Memory;
-use Psr\SimpleCache\CacheInterface;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use LWVendor\PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer;
+use LWVendor\PhpOffice\PhpSpreadsheet\Collection\Memory;
+use LWVendor\Psr\SimpleCache\CacheInterface;
 class Settings
 {
     /**
@@ -16,14 +15,12 @@ class Settings
      * @var string
      */
     private static $chartRenderer;
-
     /**
      * Default options for libxml loader.
      *
      * @var int
      */
     private static $libXmlLoaderOptions = null;
-
     /**
      * Allow/disallow libxml_disable_entity_loader() call when not thread safe.
      * Default behaviour is to do the check, but if you're running PHP versions
@@ -33,15 +30,13 @@ class Settings
      *
      * @var bool
      */
-    private static $libXmlDisableEntityLoader = true;
-
+    private static $libXmlDisableEntityLoader = \true;
     /**
      * The cache implementation to be used for cell collection.
      *
      * @var CacheInterface
      */
     private static $cache;
-
     /**
      * Set the locale code to use for formula translations and any special formatting.
      *
@@ -53,22 +48,19 @@ class Settings
     {
         return Calculation::getInstance()->setLocale($locale);
     }
-
     /**
      * Identify to PhpSpreadsheet the external library to use for rendering charts.
      *
      * @param string $rendererClass Class name of the chart renderer
      *    eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph
      */
-    public static function setChartRenderer($rendererClass): void
+    public static function setChartRenderer($rendererClass) : void
     {
-        if (!is_a($rendererClass, IRenderer::class, true)) {
+        if (!\is_a($rendererClass, IRenderer::class, \true)) {
             throw new Exception('Chart renderer must implement ' . IRenderer::class);
         }
-
         self::$chartRenderer = $rendererClass;
     }
-
     /**
      * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
      *
@@ -79,20 +71,18 @@ class Settings
     {
         return self::$chartRenderer;
     }
-
     /**
      * Set default options for libxml loader.
      *
      * @param int $options Default options for libxml loader
      */
-    public static function setLibXmlLoaderOptions($options): void
+    public static function setLibXmlLoaderOptions($options) : void
     {
-        if ($options === null && defined('LIBXML_DTDLOAD')) {
-            $options = LIBXML_DTDLOAD | LIBXML_DTDATTR;
+        if ($options === null && \defined('LIBXML_DTDLOAD')) {
+            $options = \LIBXML_DTDLOAD | \LIBXML_DTDATTR;
         }
         self::$libXmlLoaderOptions = $options;
     }
-
     /**
      * Get default options for libxml loader.
      * Defaults to LIBXML_DTDLOAD | LIBXML_DTDATTR when not set explicitly.
@@ -101,15 +91,13 @@ class Settings
      */
     public static function getLibXmlLoaderOptions()
     {
-        if (self::$libXmlLoaderOptions === null && defined('LIBXML_DTDLOAD')) {
-            self::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR);
+        if (self::$libXmlLoaderOptions === null && \defined('LIBXML_DTDLOAD')) {
+            self::setLibXmlLoaderOptions(\LIBXML_DTDLOAD | \LIBXML_DTDATTR);
         } elseif (self::$libXmlLoaderOptions === null) {
-            self::$libXmlLoaderOptions = true;
+            self::$libXmlLoaderOptions = \true;
         }
-
         return self::$libXmlLoaderOptions;
     }
-
     /**
      * Enable/Disable the entity loader for libxml loader.
      * Allow/disallow libxml_disable_entity_loader() call when not thread safe.
@@ -120,11 +108,10 @@ class Settings
      *
      * @param bool $state
      */
-    public static function setLibXmlDisableEntityLoader($state): void
+    public static function setLibXmlDisableEntityLoader($state) : void
     {
         self::$libXmlDisableEntityLoader = (bool) $state;
     }
-
     /**
      * Return the state of the entity loader (disabled/enabled) for libxml loader.
      *
@@ -134,15 +121,13 @@ class Settings
     {
         return self::$libXmlDisableEntityLoader;
     }
-
     /**
      * Sets the implementation of cache that should be used for cell collection.
      */
-    public static function setCache(CacheInterface $cache): void
+    public static function setCache(CacheInterface $cache) : void
     {
         self::$cache = $cache;
     }
-
     /**
      * Gets the implementation of cache that should be used for cell collection.
      *
@@ -153,7 +138,6 @@ class Settings
         if (!self::$cache) {
             self::$cache = new Memory();
         }
-
         return self::$cache;
     }
 }

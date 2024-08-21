@@ -1322,8 +1322,10 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
     function data_management() {
         global $wpdb;
 
-
-        load_plugin_textdomain( 'appointment-hour-booking', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+        if (!is_admin() || 
+           (get_option('cp_cpappb_admin_language', '') != 'english' && empty($_POST["cp_cpappb_admin_language"])) || 
+           (isset($_POST["cp_cpappb_admin_language"]) && $_POST["cp_cpappb_admin_language"] != 'english'))
+            load_plugin_textdomain( 'appointment-hour-booking', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
         if(!empty($_REQUEST['cp_app_action']))
         {
@@ -2164,6 +2166,7 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
                 $honeypot = 'cpapphb'.substr(sanitize_key(md5(wp_generate_uuid4())),0,5);
             update_option( 'cp_cpappb_honeypot', $honeypot);
             update_option( 'cp_cpappb_storeip', sanitize_text_field($posted_items["cp_cpappb_storeip"]));
+			update_option( 'cp_cpappb_admin_language', sanitize_text_field($_POST["cp_cpappb_admin_language"]));
         }
         else if (isset($_POST["gotab"]) && $_POST["gotab"] == 'schedulecalarea')
         {

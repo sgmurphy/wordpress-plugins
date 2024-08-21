@@ -224,29 +224,9 @@ function a13fe_import_demo_data() {
  */
 function a13fe_get_demo_list() {
 
-	$demos_definition = array();
+    $demos_definition = require_once 'demo_definitions/'.A13FRAMEWORK_TPL_SLUG . '_demos_definition_list.php';
 
-	//try import by https
-	$response = wp_remote_get( A13FRAMEWORK_IMPORT_SERVER . '/definitions/' . A13FRAMEWORK_TPL_SLUG . '_demos_definition.php', array('timeout' => 20) );
-	if( !is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) == 200 ){
-		$demos_definition = json_decode( wp_remote_retrieve_body( $response ), true );
-	}
-	else{
-		// try http import
-		$response = wp_remote_get( str_replace( 'https:', 'http:', A13FRAMEWORK_IMPORT_SERVER ) . '/definitions/' . A13FRAMEWORK_TPL_SLUG . '_demos_definition.php', array('timeout' => 20) );
-		if( !is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) == 200 ){
-			$demos_definition = json_decode( wp_remote_retrieve_body( $response ), true );
-
-			//inform the whole import process that this server has issues with SSL
-			update_option( 'a13fe_import_by_http', 'on' );
-		}
-	}
-
-	if(!isset($demos_definition['demos'])){
-		return false;
-	}
-
-	return $demos_definition;
+    return $demos_definition;
 }
 
 

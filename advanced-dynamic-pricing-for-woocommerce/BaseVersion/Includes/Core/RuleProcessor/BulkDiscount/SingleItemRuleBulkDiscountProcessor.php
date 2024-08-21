@@ -7,6 +7,7 @@ use ADP\BaseVersion\Includes\Context;
 use ADP\BaseVersion\Includes\Core\Cart\Cart;
 use ADP\BaseVersion\Includes\Core\Cart\CartItem\Type\Basic\BasicCartItem;
 use ADP\BaseVersion\Includes\Core\Rule\SingleItemRule;
+use ADP\BaseVersion\Includes\Core\Rule\Structures\DiscountForRange;
 use ADP\BaseVersion\Includes\Core\Rule\Structures\Filter;
 use ADP\BaseVersion\Includes\Core\RuleProcessor\PriceCalculator;
 use ADP\BaseVersion\Includes\Core\RuleProcessor\ProductFiltering;
@@ -311,8 +312,12 @@ class SingleItemRuleBulkDiscountProcessor
                     $range->getData()
                 );
 
-                foreach ($itemsToApply as $item) {
-                    $priceCalculator->applyItemDiscount($item, $cart, $handler);
+                if ($range->getData() instanceof DiscountForRange) {
+                    $priceCalculator->calculatePriceForItemsSplitDiscountByCost($itemsToApply, $cart, $handler);
+                } else {
+                    foreach ($itemsToApply as $item) {
+                        $priceCalculator->applyItemDiscount($item, $cart, $handler);
+                    }
                 }
             }
         }

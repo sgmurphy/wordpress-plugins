@@ -71,7 +71,8 @@ class Wpil_Editor_Oxygen
         // if we're not removing the items we can't process
         if(!$remove_unprocessable){
             // try getting the shortcode data
-            $dat = get_post_meta($post_id, 'ct_builder_shortcodes', true);
+            $oxy_prefix = (!empty(get_option('oxy_meta_keys_prefixed', false))) ? '_ct_': 'ct_';
+            $dat = get_post_meta($post_id, $oxy_prefix . 'builder_shortcodes', true);
             if(!empty($dat)){
                 if(Wpil_Settings::getContentFormattingLevel() > 0){
                     return (function_exists('do_oxygen_elements')) ? do_oxygen_elements($dat): do_shortcode($dat);
@@ -275,6 +276,9 @@ class Wpil_Editor_Oxygen
         if(empty($post_id) || !defined('CT_VERSION')){
             return array();
         }
+
+        $oxy_prefix = (!empty(get_option('oxy_meta_keys_prefixed', false))) ? '_ct_': 'ct_';
+
         // if the version is 4.0 or above
         if(self::$json_data){
             // obtain the json data
@@ -285,12 +289,12 @@ class Wpil_Editor_Oxygen
             if(self::$post_saving){
                 $data = trim(wp_unslash($_POST['ct_builder_json']));
             }else{
-                $data = get_post_meta($post_id, 'ct_builder_json', true);
+                $data = get_post_meta($post_id, $oxy_prefix . 'builder_json', true);
             }
 
         }else{
             // otherwise, go for shortcodes
-            $data = get_post_meta($post_id, 'ct_builder_shortcodes', true);
+            $data = get_post_meta($post_id, $oxy_prefix . 'builder_shortcodes', true);
         }
 
         // if there's no data, return an empty array

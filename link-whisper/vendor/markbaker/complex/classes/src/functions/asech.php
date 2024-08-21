@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the inverse hyperbolic secant of a complex number.
@@ -20,10 +20,8 @@ namespace Complex;
 function asech($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
     if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
-        return INF;
+        return \INF;
     }
-
-    return acosh(inverse($complex));
+    return \acosh(inverse($complex));
 }

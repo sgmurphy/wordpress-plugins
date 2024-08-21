@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Reader;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Reader;
 
 interface IReader
 {
@@ -8,7 +8,6 @@ interface IReader
      * IReader constructor.
      */
     public function __construct();
-
     /**
      * Can the current IReader read the file?
      *
@@ -17,7 +16,6 @@ interface IReader
      * @return bool
      */
     public function canRead($pFilename);
-
     /**
      * Read data only?
      *        If this is true, then the Reader will only read data values for cells, it will not read any formatting information.
@@ -26,7 +24,6 @@ interface IReader
      * @return bool
      */
     public function getReadDataOnly();
-
     /**
      * Set read data only
      *        Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.
@@ -37,7 +34,6 @@ interface IReader
      * @return IReader
      */
     public function setReadDataOnly($pValue);
-
     /**
      * Read empty cells?
      *        If this is true (the default), then the Reader will read data values for all cells, irrespective of value.
@@ -46,7 +42,6 @@ interface IReader
      * @return bool
      */
     public function getReadEmptyCells();
-
     /**
      * Set read empty cells
      *        Set to true (the default) to advise the Reader read data values for all cells, irrespective of value.
@@ -57,7 +52,6 @@ interface IReader
      * @return IReader
      */
     public function setReadEmptyCells($pValue);
-
     /**
      * Read charts in workbook?
      *        If this is true, then the Reader will include any charts that exist in the workbook.
@@ -67,7 +61,6 @@ interface IReader
      * @return bool
      */
     public function getIncludeCharts();
-
     /**
      * Set read charts in workbook
      *        Set to true, to advise the Reader to include any charts that exist in the workbook.
@@ -79,7 +72,6 @@ interface IReader
      * @return IReader
      */
     public function setIncludeCharts($pValue);
-
     /**
      * Get which sheets to load
      * Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
@@ -88,7 +80,6 @@ interface IReader
      * @return mixed
      */
     public function getLoadSheetsOnly();
-
     /**
      * Set which sheets to load.
      *
@@ -99,7 +90,6 @@ interface IReader
      * @return IReader
      */
     public function setLoadSheetsOnly($value);
-
     /**
      * Set all sheets to load
      *        Tells the Reader to load all worksheets from the workbook.
@@ -107,21 +97,18 @@ interface IReader
      * @return IReader
      */
     public function setLoadAllSheets();
-
     /**
      * Read filter.
      *
      * @return IReadFilter
      */
     public function getReadFilter();
-
     /**
      * Set read filter.
      *
      * @return IReader
      */
     public function setReadFilter(IReadFilter $pValue);
-
     /**
      * Loads PhpSpreadsheet from file.
      *

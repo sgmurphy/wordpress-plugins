@@ -2,7 +2,7 @@
 /*
 Plugin Name:Automatic Translate Addon For Loco Translate
 Description:Loco Translate plugin addon to automatic translate plugins and themes translatable string with one click in any language.
-Version:2.4.3
+Version:2.4.4
 License:GPL2
 Text Domain:loco-auto-translate
 Domain Path:languages
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ATLT_FILE', __FILE__ );
 define( 'ATLT_URL', plugin_dir_url( ATLT_FILE ) );
 define( 'ATLT_PATH', plugin_dir_path( ATLT_FILE ) );
-define( 'ATLT_VERSION', '2.4.3' );
+define( 'ATLT_VERSION', '2.4.4' );
 
 /**
  * @package Loco Automatic Translate Addon
@@ -558,10 +558,25 @@ if ( ! class_exists( 'LocoAutoTranslateAddon' ) ) {
 						</ol>
 						<br/>
 						<a class="button button-primary" href='https://locoaddon.com/plugin/automatic-translate-addon-for-loco-translate-pro/?utm_[%E2%80%A6]m_medium=inside&utm_campaign=get_pro&utm_content=d' target='_blank'>Buy Pro Plugin</a>
+						
+						<h3>Explore Our Other Automatic Translation Plugins</h3>
+						<ul style="list-style:disc">
+							<li><strong><a target="_blank" href="https://coolplugins.net/product/automatic-translate-addon-for-translatepress-pro/?utm_source=atlt_plugin&utm_medium=inside&utm_campaign=get_pro&utm_content=check_out">Automatic Translate Addon For TranslatePress</a></strong>
+							It enables you to translate entire page content with a single click, removing the need to manually translate each element individually.
+							</br><a style="margin-top:5px" class="button button-primary" target="_blank" href="https://coolplugins.net/product/automatic-translate-addon-for-translatepress-pro/?utm_source=atlt_plugin&utm_medium=inside&utm_campaign=get_pro&utm_content=check_out">Try It Now</a>
+							</li>
+							<li><strong><a target="_blank" href="https://coolplugins.net/product/automatic-translations-for-polylang/?utm_source=atlt_plugin&utm_medium=inside&utm_campaign=cross_promotion&utm_content=check_out">Automatic Translations For Polylang</a></strong>
+								It allows you to translate entire Polylang-created pages, posts, and meta fields with a single click, eliminating the need for manual translation of each element. Compatible with Gutenberg and popular blocks, it makes managing multilingual websites effortless.
+								</br><a  style="margin-top:5px" class="button button-primary" target="_blank" href="https://coolplugins.net/product/automatic-translations-for-polylang/?utm_source=atlt_plugin&utm_medium=inside&utm_campaign=cross_promotion&utm_content=check_out">Try It Now</a>
+							</li>
+						</ul>
+
+						
 						<div class="el-pluginby">
 							Plugin by<br/>
 							<a href="https://coolplugins.net" target="_blank"><img src="<?php echo ATLT_URL . '/assets/images/coolplugins-logo.png'; ?>"/></a>
 						</div>
+
 					</div>
 				</div>
 			</div>

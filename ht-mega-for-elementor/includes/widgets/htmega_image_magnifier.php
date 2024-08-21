@@ -179,7 +179,7 @@ class HTMega_Elementor_Widget_Image_Magnifier extends Widget_Base {
 
         $magnifierimg_attr = [
             'id'                    => 'thumb-'. esc_attr( $id ),
-            'src'                   => isset( $image_url[0] ) ? esc_url( $image_url[0] ) : '',
+            'src'                   => isset( $image_url[0] ) ? esc_url( $image_url[0] ) : $settings['magnifier_image']['url'],
             'alt'                   => esc_attr( $settings['magnifier_image_size_size'] ),
             'data-large-img-url'    => esc_url( $settings['magnifier_image']['url'] ),
             'data-mode'             => 'inside',

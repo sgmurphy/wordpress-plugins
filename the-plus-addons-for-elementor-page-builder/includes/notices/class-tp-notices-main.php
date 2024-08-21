@@ -57,7 +57,7 @@ if ( ! class_exists( 'Tp_Widget_Notice' ) ) {
 		 * Instance
 		 *
 		 * @since 6.5.6
-		 * 
+		 *
 		 * @var w_d_s_i_g_n_k_i_t_slug
 		 */
 		public $w_d_s_i_g_n_k_i_t_slug = 'wdesignkit/wdesignkit.php';
@@ -123,18 +123,20 @@ if ( ! class_exists( 'Tp_Widget_Notice' ) ) {
 				include L_THEPLUS_PATH . 'includes/notices/class-tp-notices-remove.php';
 			}
 
-			// if ( is_admin() && current_user_can( 'install_plugins' ) ) {
+			// if ( is_admin() && current_user_can( 'install_plugins' ) ) {.
 				// include L_THEPLUS_PATH . 'includes/notices/class-tp-tpag-install-notice.php';
-			// }
+			// }.
 
-			// if ( current_user_can( 'install_plugins' ) && $this->tp_check_plugin_status() ) {
+			if ( current_user_can( 'install_plugins' ) && current_user_can( 'manage_options' ) && $this->tp_check_plugin_status() ) {
 
-			// 	$option_value = get_option( 'tp_wdkit_preview_popup' );
+				if ( empty( $this->whitelabel ) || 'on' !== $this->hidden_label ) {
+					$option_value = get_option( 'tp_wdkit_preview_popup' );
 
-			// 	if ( empty( $option_value ) || 'yes' !== $option_value ) {
-			// 		include L_THEPLUS_PATH . 'includes\notices\class-tp-wdkit-preview-popup.php';
-			// 	}
-			// }
+					if ( empty( $option_value ) || 'yes' !== $option_value ) {
+						include L_THEPLUS_PATH . 'includes/notices/class-tp-wdkit-preview-popup.php';
+					}
+				}
+			}
 		}
 
 		/**
@@ -150,7 +152,11 @@ if ( ! class_exists( 'Tp_Widget_Notice' ) ) {
 
 			$installed_plugins = $this->get_plugins();
 
-			if ( is_plugin_active( $this->w_d_s_i_g_n_k_i_t_slug ) || isset( $installed_plugins[ $this->w_d_s_i_g_n_k_i_t_slug ] ) ) {
+			if ( empty( $installed_plugins ) ) {
+				return false;
+			}
+
+			if ( is_plugin_active( $this->w_d_s_i_g_n_k_i_t_slug ) || ( ! empty( $installed_plugins ) && isset( $installed_plugins[ $this->w_d_s_i_g_n_k_i_t_slug ] ) ) ) {
 				return false;
 			} else {
 				return true;
@@ -168,9 +174,9 @@ if ( ! class_exists( 'Tp_Widget_Notice' ) ) {
 		private function get_plugins() {
 			if ( ! function_exists( 'get_plugins' ) ) {
 				require_once \ABSPATH . 'wp-admin/includes/plugin.php';
-			}
 
-			return get_plugins();
+				return get_plugins();
+			}
 		}
 	}
 

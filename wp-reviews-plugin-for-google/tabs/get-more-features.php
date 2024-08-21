@@ -12,6 +12,7 @@ defined('ABSPATH') or die('No script kiddies please!');
 <ul class="ti-check-list">
 <li><?php echo __('Display unlimited number of reviews', 'trustindex-plugin'); ?></li>
 <li><?php echo __('Create unlimited number of widgets', 'trustindex-plugin'); ?></li>
+<li><?php echo __('Display reviews with photos', 'trustindex-plugin'); ?></li>
 <li><?php echo sprintf(__('%d review platforms', 'trustindex-plugin'), 133); ?></li>
 <li><?php echo __('Mix reviews from different platforms', 'trustindex-plugin'); ?></li>
 <li><?php echo __('Get more reviews', 'trustindex-plugin'); ?></li>
@@ -21,7 +22,7 @@ defined('ABSPATH') or die('No script kiddies please!');
 <?php echo $pluginManagerInstance->getProFeatureButton('wp-google-3'); ?>
 <div class="ti-special-offer">
 <img src="<?php echo $pluginManagerInstance->get_plugin_file_url('static/img/special_30.jpg'); ?>">
-<p><?php echo __('Now we offer you a 30%% discount off your subscription! Create your free account and benefit from the onboarding discount now!', 'trustindex-plugin'); ?></p>
+<p><?php echo str_replace('%%', '%', __('Now we offer you a 30%% discount off for your first subscription! Create your free account and benefit from the onboarding discount now!', 'trustindex-plugin')); ?></p>
 <div class="clear"></div>
 </div>
 </div>

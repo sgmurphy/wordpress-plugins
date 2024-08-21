@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the hyperbolic tangent of a complex number.
@@ -26,10 +26,5 @@ function tanh($complex)
     if ($divisor == 0.0) {
         throw new \InvalidArgumentException('Division by zero');
     }
-
-    return new Complex(
-        \sinh($real) * \cosh($real) / $divisor,
-        0.5 * \sin(2 * $imaginary) / $divisor,
-        $complex->getSuffix()
-    );
+    return new Complex(\sinh($real) * \cosh($real) / $divisor, 0.5 * \sin(2 * $imaginary) / $divisor, $complex->getSuffix());
 }

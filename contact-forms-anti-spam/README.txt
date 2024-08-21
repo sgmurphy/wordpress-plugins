@@ -1,14 +1,15 @@
 === Maspik - Advanced Spam Protection ===
 Contributors: yonifre
 Donate link: paypal.me/yonifre
-Tags: spam, blacklist, antispam, Honeypot, security
+Tags: spam, blacklist, anti spam, Honeypot, black list
 Tested up to: 6.6
+Requires at least: 5.0
 Requires PHP: 7.0
-Stable tag: 2.1.4
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Maspik makes unwanted messages a rarity and spam a thing of the past!
+Block spam in several ways, blacklist words/ honeypot and more, integrate with almost any contact form plugin and comments. 
 
 == Description ==
 
@@ -141,6 +142,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.1.5 - 21/08/2024 =
+* Bug fix - Fixed some toggle buttons in the admin setting page that did not work properly.
 
 = 2.1.4 - 15/08/2024 =
 * Bug fix - fix "parsererror" in honeypot check on Elementor form 

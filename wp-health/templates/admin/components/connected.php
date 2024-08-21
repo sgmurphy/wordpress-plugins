@@ -78,11 +78,11 @@ $allowOneClick = $data['allow_one_click_access'];
 		<div class="flex items-center gap-4 mt-8">
 			<div class="w-3/4">
 				<p>Enable Error Monitoring</p>
-				<p class="underline cursor-pointer inline-flex items-center gap-2">
+				<a class="underline cursor-pointer inline-flex items-center gap-2" href="https://support.wp-umbrella.com/article/101-what-information-do-we-collect" target="_blank">
 					What information will we collect?
 
 					<svg class="w-3 h-3 opacity-50" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10 14L20 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 4H20V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-				</p>
+				</a>
 			</div>
 
 			<button
@@ -114,10 +114,10 @@ $allowOneClick = $data['allow_one_click_access'];
 		<div class="flex items-center gap-4 mt-4">
 			<div class="w-3/4">
 				<p>Enable 1-Click Access</p>
-				<p class="underline cursor-pointer inline-flex items-center gap-2">
+				<a class="underline cursor-pointer inline-flex items-center gap-2" href="https://support.wp-umbrella.com/article/102-understanding-wp-umbrella-1-click-access" target="_blank">
 					<span>What is the 1-Click Admin Access?</span>
 					<svg class="w-3 h-3 opacity-50" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10 14L20 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 4H20V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-				</p>
+				</a>
 			</div>
 			<button
 				class="<?php echo $allowOneClick ? 'bg-indigo-600' : 'bg-gray-200'; ?> relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 js-toggle-one-click">

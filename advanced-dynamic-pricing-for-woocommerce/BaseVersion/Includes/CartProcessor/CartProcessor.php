@@ -9,7 +9,6 @@ use ADP\BaseVersion\Includes\Compatibility\GiftCardsSomewhereWarmCmp;
 use ADP\BaseVersion\Includes\Compatibility\PDFProductVouchersCmp;
 use ADP\BaseVersion\Includes\Compatibility\PhoneOrdersCmp;
 use ADP\BaseVersion\Includes\Compatibility\ShoptimizerCmp;
-use ADP\BaseVersion\Includes\Compatibility\SomewhereWarmCompositesCmp;
 use ADP\BaseVersion\Includes\Compatibility\Addons\TmExtraOptionsCmp;
 use ADP\BaseVersion\Includes\Compatibility\WcDepositsCmp;
 use ADP\BaseVersion\Includes\Compatibility\WcChainedProductsCmp;
@@ -128,11 +127,6 @@ class CartProcessor
     protected $vouchers;
 
     /**
-     * @var SomewhereWarmCompositesCmp
-     */
-    protected $compositesCmp;
-
-    /**
      * @var wcDepositsCmp
      */
     protected $wcDepositsCmp;
@@ -222,7 +216,6 @@ class CartProcessor
         $this->wcSubsCmp             = new WcSubscriptionsCmp();
         $this->wcsAttCmp             = new WcsAttCmp();
         $this->vouchers              = new PDFProductVouchersCmp();
-        $this->compositesCmp         = new SomewhereWarmCompositesCmp();
         $this->wcDepositsCmp         = new WcDepositsCmp();
         $this->yithGiftCardsCmp      = new YithGiftCardsCmp();
         $this->giftCart              = new GiftCardsSomewhereWarmCmp();
@@ -271,7 +264,6 @@ class CartProcessor
         $this->wcSubsCmp->withContext($context);
         $this->wcsAttCmp->withContext($context);
         $this->vouchers->withContext($context);
-        $this->compositesCmp->withContext($context);
         $this->wcDepositsCmp->withContext($context);
         $this->giftCart->withContext($context);
         $this->facebookCommerce->withContext($context);
@@ -624,10 +616,6 @@ class CartProcessor
             if (
                 $this->wcSubsCmp->isActive() && $this->wcsAttCmp->isActive()
             ) {
-                $flags[] = $wcNoFilterWorker::FLAG_ALLOW_PRICE_HOOKS;
-            }
-
-            if ($this->compositesCmp->isActive()) {
                 $flags[] = $wcNoFilterWorker::FLAG_ALLOW_PRICE_HOOKS;
             }
 
@@ -1317,14 +1305,13 @@ class CartProcessor
                 $facade->setNewPrice($hostFacade->getProduct()->get_price('edit'));
 
                 if ($facade->getReplaceWithCoupon() && $facade->getReplaceCouponCode()) {
-                    $cartItemQty = $hostFacade->getQty();
 
                     if ($this->context->priceSettings->isIncludeTax()) {
-                        $couponAmount = $hostFacade->getSubtotal() + $hostFacade->getExactSubtotalTax();
+                        $couponAmount = $hostFacade->getOriginalPriceWithoutTax() + $facade->getOriginalPriceTax();
                     } else {
-                        $couponAmount = $hostFacade->getSubtotal();
+                        $couponAmount = $hostFacade->getOriginalPriceWithoutTax();
                     }
-                    $couponAmount = ($couponAmount / $cartItemQty) * $freeItem->getQty();
+                    $couponAmount = $couponAmount * $freeItem->getQty();
 
                     $coupon = new CouponCartItem(
                         $this->context,

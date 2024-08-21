@@ -1,9 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Writer\Ods;
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Spreadsheet;
 class Mimetype extends WriterPart
 {
     /**

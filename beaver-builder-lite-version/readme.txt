@@ -107,12 +107,12 @@ For general questions or questions about purchasing a license, check out our [Fr
 
 == Screenshots ==
 
-1. Starting Beaver Builder from the backend.
-2. Starting Beaver Builder from the front end.
-3. The main editing interface.
-4. Editing basic text.
-5. Adding content to the page.
-6. Accessing the pre-made Templates.
+1. Launch Beaver Builder from the top bar of your pages to open the Beaver Builder Page Builder interface
+2. Drag and Drop modules rows and columns to build layouts
+3. Images can easily be modified to fit your needs, both inline and background
+4. Stylize heading and paragraph text using module settings
+5. You'll love  our ready made responsive design features and straightforward responsive editor
+6. Access templates from the Beaver Builder interface and find more on Assistant.Pro
 
 == Changelog ==
 

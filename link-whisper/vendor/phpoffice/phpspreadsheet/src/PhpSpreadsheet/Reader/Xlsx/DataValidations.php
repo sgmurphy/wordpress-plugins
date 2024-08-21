@@ -1,32 +1,27 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use LWVendor\PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use LWVendor\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
-
 class DataValidations
 {
     private $worksheet;
-
     private $worksheetXml;
-
     public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml)
     {
         $this->worksheet = $workSheet;
         $this->worksheetXml = $worksheetXml;
     }
-
-    public function load(): void
+    public function load() : void
     {
         foreach ($this->worksheetXml->dataValidations->dataValidation as $dataValidation) {
             // Uppercase coordinate
-            $range = strtoupper($dataValidation['sqref']);
-            $rangeSet = explode(' ', $range);
+            $range = \strtoupper($dataValidation['sqref']);
+            $rangeSet = \explode(' ', $range);
             foreach ($rangeSet as $range) {
                 $stRange = $this->worksheet->shrinkRangeToFit($range);
-
                 // Extract all cell references in $range
                 foreach (Coordinate::extractAllCellReferencesInRange($stRange) as $reference) {
                     // Create validation

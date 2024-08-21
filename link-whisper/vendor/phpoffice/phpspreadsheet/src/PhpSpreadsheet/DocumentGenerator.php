@@ -1,18 +1,17 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet;
+namespace LWVendor\PhpOffice\PhpSpreadsheet;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Category;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use LWVendor\PhpOffice\PhpSpreadsheet\Calculation\Category;
+use LWVendor\PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use ReflectionClass;
 use UnexpectedValueException;
-
 class DocumentGenerator
 {
     /**
      * @param array[] $phpSpreadsheetFunctions
      */
-    public static function generateFunctionListByCategory(array $phpSpreadsheetFunctions): string
+    public static function generateFunctionListByCategory(array $phpSpreadsheetFunctions) : string
     {
         $result = "# Function list by category\n";
         foreach (self::getCategories() as $categoryConstant => $category) {
@@ -29,52 +28,43 @@ class DocumentGenerator
                 }
             }
         }
-
         return $result;
     }
-
-    private static function getCategories(): array
+    private static function getCategories() : array
     {
         return (new ReflectionClass(Category::class))->getConstants();
     }
-
-    private static function tableRow(array $lengths, ?array $values = null): string
+    private static function tableRow(array $lengths, ?array $values = null) : string
     {
         $result = '';
-        foreach (array_map(null, $lengths, $values ?? []) as $i => [$length, $value]) {
+        foreach (\array_map(null, $lengths, $values ?? []) as $i => [$length, $value]) {
             $pad = $value === null ? '-' : ' ';
             if ($i > 0) {
                 $result .= '|' . $pad;
             }
-            $result .= str_pad($value ?? '', $length, $pad);
+            $result .= \str_pad($value ?? '', $length, $pad);
         }
-
-        return rtrim($result, ' ');
+        return \rtrim($result, ' ');
     }
-
-    private static function getPhpSpreadsheetFunctionText($functionCall): string
+    private static function getPhpSpreadsheetFunctionText($functionCall) : string
     {
-        if (is_string($functionCall)) {
+        if (\is_string($functionCall)) {
             return $functionCall;
         }
         if ($functionCall === [Functions::class, 'DUMMY']) {
             return '**Not yet Implemented**';
         }
-        if (is_array($functionCall)) {
+        if (\is_array($functionCall)) {
             return "\\{$functionCall[0]}::{$functionCall[1]}";
         }
-
-        throw new UnexpectedValueException(
-            '$functionCall is of type ' . gettype($functionCall) . '. string or array expected'
-        );
+        throw new UnexpectedValueException('$functionCall is of type ' . \gettype($functionCall) . '. string or array expected');
     }
-
     /**
      * @param array[] $phpSpreadsheetFunctions
      */
-    public static function generateFunctionListByName(array $phpSpreadsheetFunctions): string
+    public static function generateFunctionListByName(array $phpSpreadsheetFunctions) : string
     {
-        $categoryConstants = array_flip(self::getCategories());
+        $categoryConstants = \array_flip(self::getCategories());
         $result = "# Function list by name\n";
         $lastAlphabet = null;
         foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
@@ -91,7 +81,6 @@ class DocumentGenerator
             $phpFunction = self::getPhpSpreadsheetFunctionText($functionInfo['functionCall']);
             $result .= self::tableRow($lengths, [$excelFunction, $category, $phpFunction]) . "\n";
         }
-
         return $result;
     }
 }

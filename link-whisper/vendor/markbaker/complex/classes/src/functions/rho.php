@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the rho of a complex number.
@@ -20,9 +20,5 @@ namespace Complex;
 function rho($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
-    return \sqrt(
-        ($complex->getReal() * $complex->getReal()) +
-        ($complex->getImaginary() * $complex->getImaginary())
-    );
+    return \sqrt($complex->getReal() * $complex->getReal() + $complex->getImaginary() * $complex->getImaginary());
 }

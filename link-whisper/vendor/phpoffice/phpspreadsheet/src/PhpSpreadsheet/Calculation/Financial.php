@@ -1,15 +1,12 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Calculation;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Shared\Date;
 class Financial
 {
     const FINANCIAL_MAX_ITERATIONS = 128;
-
-    const FINANCIAL_PRECISION = 1.0e-08;
-
+    const FINANCIAL_PRECISION = 1.0E-8;
     /**
      * isLastDayOfMonth.
      *
@@ -23,37 +20,29 @@ class Financial
     {
         return $testDate->format('d') == $testDate->format('t');
     }
-
     private static function couponFirstPeriodDate($settlement, $maturity, $frequency, $next)
     {
         $months = 12 / $frequency;
-
         $result = Date::excelToDateTimeObject($maturity);
         $eom = self::isLastDayOfMonth($result);
-
         while ($settlement < Date::PHPToExcel($result)) {
             $result->modify('-' . $months . ' months');
         }
         if ($next) {
             $result->modify('+' . $months . ' months');
         }
-
         if ($eom) {
             $result->modify('-1 day');
         }
-
         return Date::PHPToExcel($result);
     }
-
     private static function isValidFrequency($frequency)
     {
-        if (($frequency == 1) || ($frequency == 2) || ($frequency == 4)) {
-            return true;
+        if ($frequency == 1 || $frequency == 2 || $frequency == 4) {
+            return \true;
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * daysPerYear.
      *
@@ -76,36 +65,29 @@ class Financial
             case 2:
             case 4:
                 $daysPerYear = 360;
-
                 break;
             case 3:
                 $daysPerYear = 365;
-
                 break;
             case 1:
-                $daysPerYear = (DateTime::isLeapYear($year)) ? 366 : 365;
-
+                $daysPerYear = DateTime::isLeapYear($year) ? 366 : 365;
                 break;
             default:
                 return Functions::NAN();
         }
-
         return $daysPerYear;
     }
-
     private static function interestAndPrincipal($rate = 0, $per = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
     {
         $pmt = self::PMT($rate, $nper, $pv, $fv, $type);
         $capital = $pv;
         for ($i = 1; $i <= $per; ++$i) {
-            $interest = ($type && $i == 1) ? 0 : -$capital * $rate;
+            $interest = $type && $i == 1 ? 0 : -$capital * $rate;
             $principal = $pmt - $interest;
             $capital += $principal;
         }
-
         return [$interest, $principal];
     }
-
     /**
      * ACCRINT.
      *
@@ -142,29 +124,25 @@ class Financial
         $firstinterest = Functions::flattenSingleValue($firstinterest);
         $settlement = Functions::flattenSingleValue($settlement);
         $rate = Functions::flattenSingleValue($rate);
-        $par = ($par === null) ? 1000 : Functions::flattenSingleValue($par);
-        $frequency = ($frequency === null) ? 1 : Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
-
+        $par = $par === null ? 1000 : Functions::flattenSingleValue($par);
+        $frequency = $frequency === null ? 1 : Functions::flattenSingleValue($frequency);
+        $basis = $basis === null ? 0 : Functions::flattenSingleValue($basis);
         //    Validate
-        if ((is_numeric($rate)) && (is_numeric($par))) {
+        if (\is_numeric($rate) && \is_numeric($par)) {
             $rate = (float) $rate;
             $par = (float) $par;
-            if (($rate <= 0) || ($par <= 0)) {
+            if ($rate <= 0 || $par <= 0) {
                 return Functions::NAN();
             }
             $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
+            if (!\is_numeric($daysBetweenIssueAndSettlement)) {
                 //    return date error
                 return $daysBetweenIssueAndSettlement;
             }
-
             return $par * $rate * $daysBetweenIssueAndSettlement;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * ACCRINTM.
      *
@@ -192,28 +170,24 @@ class Financial
         $issue = Functions::flattenSingleValue($issue);
         $settlement = Functions::flattenSingleValue($settlement);
         $rate = Functions::flattenSingleValue($rate);
-        $par = ($par === null) ? 1000 : Functions::flattenSingleValue($par);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
-
+        $par = $par === null ? 1000 : Functions::flattenSingleValue($par);
+        $basis = $basis === null ? 0 : Functions::flattenSingleValue($basis);
         //    Validate
-        if ((is_numeric($rate)) && (is_numeric($par))) {
+        if (\is_numeric($rate) && \is_numeric($par)) {
             $rate = (float) $rate;
             $par = (float) $par;
-            if (($rate <= 0) || ($par <= 0)) {
+            if ($rate <= 0 || $par <= 0) {
                 return Functions::NAN();
             }
             $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
+            if (!\is_numeric($daysBetweenIssueAndSettlement)) {
                 //    return date error
                 return $daysBetweenIssueAndSettlement;
             }
-
             return $par * $rate * $daysBetweenIssueAndSettlement;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * AMORDEGRC.
      *
@@ -250,10 +224,9 @@ class Financial
         $purchased = Functions::flattenSingleValue($purchased);
         $firstPeriod = Functions::flattenSingleValue($firstPeriod);
         $salvage = Functions::flattenSingleValue($salvage);
-        $period = floor(Functions::flattenSingleValue($period));
+        $period = \floor(Functions::flattenSingleValue($period));
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
+        $basis = $basis === null ? 0 : (int) Functions::flattenSingleValue($basis);
         //    The depreciation coefficients are:
         //    Life of assets (1/rate)        Depreciation coefficient
         //    Less than 3 years            1
@@ -270,31 +243,26 @@ class Financial
         } else {
             $amortiseCoeff = 2.5;
         }
-
         $rate *= $amortiseCoeff;
-        $fNRate = round(DateTime::YEARFRAC($purchased, $firstPeriod, $basis) * $rate * $cost, 0);
+        $fNRate = \round(DateTime::YEARFRAC($purchased, $firstPeriod, $basis) * $rate * $cost, 0);
         $cost -= $fNRate;
         $fRest = $cost - $salvage;
-
         for ($n = 0; $n < $period; ++$n) {
-            $fNRate = round($rate * $cost, 0);
+            $fNRate = \round($rate * $cost, 0);
             $fRest -= $fNRate;
-
             if ($fRest < 0.0) {
                 switch ($period - $n) {
                     case 0:
                     case 1:
-                        return round($cost * 0.5, 0);
+                        return \round($cost * 0.5, 0);
                     default:
                         return 0.0;
                 }
             }
             $cost -= $fNRate;
         }
-
         return $fNRate;
     }
-
     /**
      * AMORLINC.
      *
@@ -328,32 +296,26 @@ class Financial
         $salvage = Functions::flattenSingleValue($salvage);
         $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
+        $basis = $basis === null ? 0 : (int) Functions::flattenSingleValue($basis);
         $fOneRate = $cost * $rate;
         $fCostDelta = $cost - $salvage;
         //    Note, quirky variation for leap years on the YEARFRAC for this function
         $purchasedYear = DateTime::YEAR($purchased);
         $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
-
-        if (($basis == 1) && ($yearFrac < 1) && (DateTime::isLeapYear($purchasedYear))) {
+        if ($basis == 1 && $yearFrac < 1 && DateTime::isLeapYear($purchasedYear)) {
             $yearFrac *= 365 / 366;
         }
-
         $f0Rate = $yearFrac * $rate * $cost;
         $nNumOfFullPeriods = (int) (($cost - $salvage - $f0Rate) / $fOneRate);
-
         if ($period == 0) {
             return $f0Rate;
         } elseif ($period <= $nNumOfFullPeriods) {
             return $fOneRate;
-        } elseif ($period == ($nNumOfFullPeriods + 1)) {
+        } elseif ($period == $nNumOfFullPeriods + 1) {
             return $fCostDelta - $fOneRate * $nNumOfFullPeriods - $f0Rate;
         }
-
         return 0.0;
     }
-
     /**
      * COUPDAYBS.
      *
@@ -386,31 +348,23 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $basis = $basis === null ? 0 : (int) Functions::flattenSingleValue($basis);
+        if (\is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (\is_string($maturity = DateTime::getDateValue($maturity))) {
             return Functions::VALUE();
         }
-
-        if (($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))) {
+        if ($settlement >= $maturity || !self::isValidFrequency($frequency) || ($basis < 0 || $basis > 4)) {
             return Functions::NAN();
         }
-
         $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
-        $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
-
+        $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, \false);
         if ($basis == 1) {
-            return abs(DateTime::DAYS($prev, $settlement));
+            return \abs(DateTime::DAYS($prev, $settlement));
         }
-
         return DateTime::YEARFRAC($prev, $settlement, $basis) * $daysPerYear;
     }
-
     /**
      * COUPDAYS.
      *
@@ -443,21 +397,16 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $basis = $basis === null ? 0 : (int) Functions::flattenSingleValue($basis);
+        if (\is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (\is_string($maturity = DateTime::getDateValue($maturity))) {
             return Functions::VALUE();
         }
-
-        if (($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))) {
+        if ($settlement >= $maturity || !self::isValidFrequency($frequency) || ($basis < 0 || $basis > 4)) {
             return Functions::NAN();
         }
-
         switch ($basis) {
             case 3:
                 // Actual/365
@@ -466,19 +415,16 @@ class Financial
                 // Actual/actual
                 if ($frequency == 1) {
                     $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
-
                     return $daysPerYear / $frequency;
                 }
-                $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
-                $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
-
+                $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, \false);
+                $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, \true);
                 return $next - $prev;
             default:
                 // US (NASD) 30/360, Actual/360 or European 30/360
                 return 360 / $frequency;
         }
     }
-
     /**
      * COUPDAYSNC.
      *
@@ -511,27 +457,20 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $basis = $basis === null ? 0 : (int) Functions::flattenSingleValue($basis);
+        if (\is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (\is_string($maturity = DateTime::getDateValue($maturity))) {
             return Functions::VALUE();
         }
-
-        if (($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))) {
+        if ($settlement >= $maturity || !self::isValidFrequency($frequency) || ($basis < 0 || $basis > 4)) {
             return Functions::NAN();
         }
-
         $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
-        $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
-
+        $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, \true);
         return DateTime::YEARFRAC($settlement, $next, $basis) * $daysPerYear;
     }
-
     /**
      * COUPNCD.
      *
@@ -565,24 +504,18 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $basis = $basis === null ? 0 : (int) Functions::flattenSingleValue($basis);
+        if (\is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (\is_string($maturity = DateTime::getDateValue($maturity))) {
             return Functions::VALUE();
         }
-
-        if (($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))) {
+        if ($settlement >= $maturity || !self::isValidFrequency($frequency) || ($basis < 0 || $basis > 4)) {
             return Functions::NAN();
         }
-
-        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
+        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, \true);
     }
-
     /**
      * COUPNUM.
      *
@@ -616,26 +549,19 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $basis = $basis === null ? 0 : (int) Functions::flattenSingleValue($basis);
+        if (\is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (\is_string($maturity = DateTime::getDateValue($maturity))) {
             return Functions::VALUE();
         }
-
-        if (($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))) {
+        if ($settlement >= $maturity || !self::isValidFrequency($frequency) || ($basis < 0 || $basis > 4)) {
             return Functions::NAN();
         }
-
         $yearsBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, 0);
-
-        return ceil($yearsBetweenSettlementAndMaturity * $frequency);
+        return \ceil($yearsBetweenSettlementAndMaturity * $frequency);
     }
-
     /**
      * COUPPCD.
      *
@@ -669,24 +595,18 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $basis = $basis === null ? 0 : (int) Functions::flattenSingleValue($basis);
+        if (\is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (\is_string($maturity = DateTime::getDateValue($maturity))) {
             return Functions::VALUE();
         }
-
-        if (($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))) {
+        if ($settlement >= $maturity || !self::isValidFrequency($frequency) || ($basis < 0 || $basis > 4)) {
             return Functions::NAN();
         }
-
-        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
+        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, \false);
     }
-
     /**
      * CUMIPMT.
      *
@@ -715,7 +635,6 @@ class Financial
         $start = (int) Functions::flattenSingleValue($start);
         $end = (int) Functions::flattenSingleValue($end);
         $type = (int) Functions::flattenSingleValue($type);
-
         // Validate parameters
         if ($type != 0 && $type != 1) {
             return Functions::NAN();
@@ -723,16 +642,13 @@ class Financial
         if ($start < 1 || $start > $end) {
             return Functions::VALUE();
         }
-
         // Calculate
         $interest = 0;
         for ($per = $start; $per <= $end; ++$per) {
             $interest += self::IPMT($rate, $per, $nper, $pv, 0, $type);
         }
-
         return $interest;
     }
-
     /**
      * CUMPRINC.
      *
@@ -761,7 +677,6 @@ class Financial
         $start = (int) Functions::flattenSingleValue($start);
         $end = (int) Functions::flattenSingleValue($end);
         $type = (int) Functions::flattenSingleValue($type);
-
         // Validate parameters
         if ($type != 0 && $type != 1) {
             return Functions::NAN();
@@ -769,16 +684,13 @@ class Financial
         if ($start < 1 || $start > $end) {
             return Functions::VALUE();
         }
-
         // Calculate
         $principal = 0;
         for ($per = $start; $per <= $end; ++$per) {
             $principal += self::PPMT($rate, $per, $nper, $pv, 0, $type);
         }
-
         return $principal;
     }
-
     /**
      * DB.
      *
@@ -811,9 +723,8 @@ class Financial
         $life = Functions::flattenSingleValue($life);
         $period = Functions::flattenSingleValue($period);
         $month = Functions::flattenSingleValue($month);
-
         //    Validate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period)) && (is_numeric($month))) {
+        if (\is_numeric($cost) && \is_numeric($salvage) && \is_numeric($life) && \is_numeric($period) && \is_numeric($month)) {
             $cost = (float) $cost;
             $salvage = (float) $salvage;
             $life = (int) $life;
@@ -821,33 +732,29 @@ class Financial
             $month = (int) $month;
             if ($cost == 0) {
                 return 0.0;
-            } elseif (($cost < 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($month < 1)) {
+            } elseif ($cost < 0 || $salvage / $cost < 0 || $life <= 0 || $period < 1 || $month < 1) {
                 return Functions::NAN();
             }
             //    Set Fixed Depreciation Rate
             $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
-            $fixedDepreciationRate = round($fixedDepreciationRate, 3);
-
+            $fixedDepreciationRate = \round($fixedDepreciationRate, 3);
             //    Loop through each period calculating the depreciation
             $previousDepreciation = 0;
             $depreciation = 0;
             for ($per = 1; $per <= $period; ++$per) {
                 if ($per == 1) {
                     $depreciation = $cost * $fixedDepreciationRate * $month / 12;
-                } elseif ($per == ($life + 1)) {
+                } elseif ($per == $life + 1) {
                     $depreciation = ($cost - $previousDepreciation) * $fixedDepreciationRate * (12 - $month) / 12;
                 } else {
                     $depreciation = ($cost - $previousDepreciation) * $fixedDepreciationRate;
                 }
                 $previousDepreciation += $depreciation;
             }
-
             return $depreciation;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * DDB.
      *
@@ -877,35 +784,30 @@ class Financial
         $life = Functions::flattenSingleValue($life);
         $period = Functions::flattenSingleValue($period);
         $factor = Functions::flattenSingleValue($factor);
-
         //    Validate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period)) && (is_numeric($factor))) {
+        if (\is_numeric($cost) && \is_numeric($salvage) && \is_numeric($life) && \is_numeric($period) && \is_numeric($factor)) {
             $cost = (float) $cost;
             $salvage = (float) $salvage;
             $life = (int) $life;
             $period = (int) $period;
             $factor = (float) $factor;
-            if (($cost <= 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($factor <= 0.0) || ($period > $life)) {
+            if ($cost <= 0 || $salvage / $cost < 0 || $life <= 0 || $period < 1 || $factor <= 0.0 || $period > $life) {
                 return Functions::NAN();
             }
             //    Set Fixed Depreciation Rate
             $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
-            $fixedDepreciationRate = round($fixedDepreciationRate, 3);
-
+            $fixedDepreciationRate = \round($fixedDepreciationRate, 3);
             //    Loop through each period calculating the depreciation
             $previousDepreciation = 0;
             $depreciation = 0;
             for ($per = 1; $per <= $period; ++$per) {
-                $depreciation = min(($cost - $previousDepreciation) * ($factor / $life), ($cost - $salvage - $previousDepreciation));
+                $depreciation = \min(($cost - $previousDepreciation) * ($factor / $life), $cost - $salvage - $previousDepreciation);
                 $previousDepreciation += $depreciation;
             }
-
             return $depreciation;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * DISC.
      *
@@ -937,27 +839,23 @@ class Financial
         $price = Functions::flattenSingleValue($price);
         $redemption = Functions::flattenSingleValue($redemption);
         $basis = Functions::flattenSingleValue($basis);
-
         //    Validate
-        if ((is_numeric($price)) && (is_numeric($redemption)) && (is_numeric($basis))) {
+        if (\is_numeric($price) && \is_numeric($redemption) && \is_numeric($basis)) {
             $price = (float) $price;
             $redemption = (float) $redemption;
             $basis = (int) $basis;
-            if (($price <= 0) || ($redemption <= 0)) {
+            if ($price <= 0 || $redemption <= 0) {
                 return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if (!\is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
-
             return (1 - $price / $redemption) / $daysBetweenSettlementAndMaturity;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * DOLLARDE.
      *
@@ -977,7 +875,6 @@ class Financial
     {
         $fractional_dollar = Functions::flattenSingleValue($fractional_dollar);
         $fraction = (int) Functions::flattenSingleValue($fraction);
-
         // Validate parameters
         if ($fractional_dollar === null || $fraction < 0) {
             return Functions::NAN();
@@ -985,15 +882,12 @@ class Financial
         if ($fraction == 0) {
             return Functions::DIV0();
         }
-
-        $dollars = floor($fractional_dollar);
-        $cents = fmod($fractional_dollar, 1);
+        $dollars = \floor($fractional_dollar);
+        $cents = \fmod($fractional_dollar, 1);
         $cents /= $fraction;
-        $cents *= 10 ** ceil(log10($fraction));
-
+        $cents *= 10 ** \ceil(\log10($fraction));
         return $dollars + $cents;
     }
-
     /**
      * DOLLARFR.
      *
@@ -1013,7 +907,6 @@ class Financial
     {
         $decimal_dollar = Functions::flattenSingleValue($decimal_dollar);
         $fraction = (int) Functions::flattenSingleValue($fraction);
-
         // Validate parameters
         if ($decimal_dollar === null || $fraction < 0) {
             return Functions::NAN();
@@ -1021,15 +914,12 @@ class Financial
         if ($fraction == 0) {
             return Functions::DIV0();
         }
-
-        $dollars = floor($decimal_dollar);
-        $cents = fmod($decimal_dollar, 1);
+        $dollars = \floor($decimal_dollar);
+        $cents = \fmod($decimal_dollar, 1);
         $cents *= $fraction;
-        $cents *= 10 ** (-ceil(log10($fraction)));
-
+        $cents *= 10 ** (-\ceil(\log10($fraction)));
         return $dollars + $cents;
     }
-
     /**
      * EFFECT.
      *
@@ -1048,15 +938,12 @@ class Financial
     {
         $nominal_rate = Functions::flattenSingleValue($nominal_rate);
         $npery = (int) Functions::flattenSingleValue($npery);
-
         // Validate parameters
         if ($nominal_rate <= 0 || $npery < 1) {
             return Functions::NAN();
         }
-
         return (1 + $nominal_rate / $npery) ** $npery - 1;
     }
-
     /**
      * FV.
      *
@@ -1085,20 +972,16 @@ class Financial
         $pmt = Functions::flattenSingleValue($pmt);
         $pv = Functions::flattenSingleValue($pv);
         $type = Functions::flattenSingleValue($type);
-
         // Validate parameters
         if ($type != 0 && $type != 1) {
             return Functions::NAN();
         }
-
         // Calculate
         if ($rate !== null && $rate != 0) {
             return -$pv * (1 + $rate) ** $nper - $pmt * (1 + $rate * $type) * ((1 + $rate) ** $nper - 1) / $rate;
         }
-
         return -$pv - $pmt * $nper;
     }
-
     /**
      * FVSCHEDULE.
      *
@@ -1117,14 +1000,11 @@ class Financial
     {
         $principal = Functions::flattenSingleValue($principal);
         $schedule = Functions::flattenArray($schedule);
-
         foreach ($schedule as $rate) {
             $principal *= 1 + $rate;
         }
-
         return $principal;
     }
-
     /**
      * INTRATE.
      *
@@ -1155,27 +1035,23 @@ class Financial
         $investment = Functions::flattenSingleValue($investment);
         $redemption = Functions::flattenSingleValue($redemption);
         $basis = Functions::flattenSingleValue($basis);
-
         //    Validate
-        if ((is_numeric($investment)) && (is_numeric($redemption)) && (is_numeric($basis))) {
+        if (\is_numeric($investment) && \is_numeric($redemption) && \is_numeric($basis)) {
             $investment = (float) $investment;
             $redemption = (float) $redemption;
             $basis = (int) $basis;
-            if (($investment <= 0) || ($redemption <= 0)) {
+            if ($investment <= 0 || $redemption <= 0) {
                 return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if (!\is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
-
-            return (($redemption / $investment) - 1) / ($daysBetweenSettlementAndMaturity);
+            return ($redemption / $investment - 1) / $daysBetweenSettlementAndMaturity;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * IPMT.
      *
@@ -1201,7 +1077,6 @@ class Financial
         $pv = Functions::flattenSingleValue($pv);
         $fv = Functions::flattenSingleValue($fv);
         $type = (int) Functions::flattenSingleValue($type);
-
         // Validate parameters
         if ($type != 0 && $type != 1) {
             return Functions::NAN();
@@ -1209,13 +1084,10 @@ class Financial
         if ($per <= 0 || $per > $nper) {
             return Functions::VALUE();
         }
-
         // Calculate
         $interestAndPrincipal = self::interestAndPrincipal($rate, $per, $nper, $pv, $fv, $type);
-
         return $interestAndPrincipal[0];
     }
-
     /**
      * IRR.
      *
@@ -1238,31 +1110,29 @@ class Financial
      */
     public static function IRR($values, $guess = 0.1)
     {
-        if (!is_array($values)) {
+        if (!\is_array($values)) {
             return Functions::VALUE();
         }
         $values = Functions::flattenArray($values);
         $guess = Functions::flattenSingleValue($guess);
-
         // create an initial range, with a root somewhere between 0 and guess
         $x1 = 0.0;
         $x2 = $guess;
         $f1 = self::NPV($x1, $values);
         $f2 = self::NPV($x2, $values);
         for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
-            if (($f1 * $f2) < 0.0) {
+            if ($f1 * $f2 < 0.0) {
                 break;
             }
-            if (abs($f1) < abs($f2)) {
+            if (\abs($f1) < \abs($f2)) {
                 $f1 = self::NPV($x1 += 1.6 * ($x1 - $x2), $values);
             } else {
                 $f2 = self::NPV($x2 += 1.6 * ($x2 - $x1), $values);
             }
         }
-        if (($f1 * $f2) > 0.0) {
+        if ($f1 * $f2 > 0.0) {
             return Functions::VALUE();
         }
-
         $f = self::NPV($x1, $values);
         if ($f < 0.0) {
             $rtb = $x1;
@@ -1271,7 +1141,6 @@ class Financial
             $rtb = $x2;
             $dx = $x1 - $x2;
         }
-
         for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
             $dx *= 0.5;
             $x_mid = $rtb + $dx;
@@ -1279,14 +1148,12 @@ class Financial
             if ($f_mid <= 0.0) {
                 $rtb = $x_mid;
             }
-            if ((abs($f_mid) < self::FINANCIAL_PRECISION) || (abs($dx) < self::FINANCIAL_PRECISION)) {
+            if (\abs($f_mid) < self::FINANCIAL_PRECISION || \abs($dx) < self::FINANCIAL_PRECISION) {
                 return $x_mid;
             }
         }
-
         return Functions::VALUE();
     }
-
     /**
      * ISPMT.
      *
@@ -1307,16 +1174,14 @@ class Financial
     {
         // Return value
         $returnValue = 0;
-
         // Get the parameters
         $aArgs = Functions::flattenArray($args);
-        $interestRate = array_shift($aArgs);
-        $period = array_shift($aArgs);
-        $numberPeriods = array_shift($aArgs);
-        $principleRemaining = array_shift($aArgs);
-
+        $interestRate = \array_shift($aArgs);
+        $period = \array_shift($aArgs);
+        $numberPeriods = \array_shift($aArgs);
+        $principleRemaining = \array_shift($aArgs);
         // Calculate
-        $principlePayment = ($principleRemaining * 1.0) / ($numberPeriods * 1.0);
+        $principlePayment = $principleRemaining * 1.0 / ($numberPeriods * 1.0);
         for ($i = 0; $i <= $period; ++$i) {
             $returnValue = $interestRate * $principleRemaining * -1;
             $principleRemaining -= $principlePayment;
@@ -1325,10 +1190,8 @@ class Financial
                 $returnValue = 0;
             }
         }
-
         return $returnValue;
     }
-
     /**
      * MIRR.
      *
@@ -1348,17 +1211,15 @@ class Financial
      */
     public static function MIRR($values, $finance_rate, $reinvestment_rate)
     {
-        if (!is_array($values)) {
+        if (!\is_array($values)) {
             return Functions::VALUE();
         }
         $values = Functions::flattenArray($values);
         $finance_rate = Functions::flattenSingleValue($finance_rate);
         $reinvestment_rate = Functions::flattenSingleValue($reinvestment_rate);
-        $n = count($values);
-
+        $n = \count($values);
         $rr = 1.0 + $reinvestment_rate;
         $fr = 1.0 + $finance_rate;
-
         $npv_pos = $npv_neg = 0.0;
         foreach ($values as $i => $v) {
             if ($v >= 0) {
@@ -1367,17 +1228,12 @@ class Financial
                 $npv_neg += $v / $fr ** $i;
             }
         }
-
-        if (($npv_neg == 0) || ($npv_pos == 0) || ($reinvestment_rate <= -1)) {
+        if ($npv_neg == 0 || $npv_pos == 0 || $reinvestment_rate <= -1) {
             return Functions::VALUE();
         }
-
-        $mirr = ((-$npv_pos * $rr ** $n)
-                / ($npv_neg * ($rr))) ** (1.0 / ($n - 1)) - 1.0;
-
-        return is_finite($mirr) ? $mirr : Functions::VALUE();
+        $mirr = (-$npv_pos * $rr ** $n / ($npv_neg * $rr)) ** (1.0 / ($n - 1)) - 1.0;
+        return \is_finite($mirr) ? $mirr : Functions::VALUE();
     }
-
     /**
      * NOMINAL.
      *
@@ -1392,16 +1248,13 @@ class Financial
     {
         $effect_rate = Functions::flattenSingleValue($effect_rate);
         $npery = (int) Functions::flattenSingleValue($npery);
-
         // Validate parameters
         if ($effect_rate <= 0 || $npery < 1) {
             return Functions::NAN();
         }
-
         // Calculate
         return $npery * (($effect_rate + 1) ** (1 / $npery) - 1);
     }
-
     /**
      * NPER.
      *
@@ -1422,27 +1275,22 @@ class Financial
         $pv = Functions::flattenSingleValue($pv);
         $fv = Functions::flattenSingleValue($fv);
         $type = Functions::flattenSingleValue($type);
-
         // Validate parameters
         if ($type != 0 && $type != 1) {
             return Functions::NAN();
         }
-
         // Calculate
         if ($rate !== null && $rate != 0) {
             if ($pmt == 0 && $pv == 0) {
                 return Functions::NAN();
             }
-
-            return log(($pmt * (1 + $rate * $type) / $rate - $fv) / ($pv + $pmt * (1 + $rate * $type) / $rate)) / log(1 + $rate);
+            return \log(($pmt * (1 + $rate * $type) / $rate - $fv) / ($pv + $pmt * (1 + $rate * $type) / $rate)) / \log(1 + $rate);
         }
         if ($pmt == 0) {
             return Functions::NAN();
         }
-
         return (-$pv - $fv) / $pmt;
     }
-
     /**
      * NPV.
      *
@@ -1454,24 +1302,20 @@ class Financial
     {
         // Return value
         $returnValue = 0;
-
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
-
         // Calculate
-        $rate = array_shift($aArgs);
-        $countArgs = count($aArgs);
+        $rate = \array_shift($aArgs);
+        $countArgs = \count($aArgs);
         for ($i = 1; $i <= $countArgs; ++$i) {
             // Is it a numeric value?
-            if (is_numeric($aArgs[$i - 1])) {
+            if (\is_numeric($aArgs[$i - 1])) {
                 $returnValue += $aArgs[$i - 1] / (1 + $rate) ** $i;
             }
         }
-
         // Return
         return $returnValue;
     }
-
     /**
      * PDURATION.
      *
@@ -1488,17 +1332,14 @@ class Financial
         $rate = Functions::flattenSingleValue($rate);
         $pv = Functions::flattenSingleValue($pv);
         $fv = Functions::flattenSingleValue($fv);
-
         // Validate parameters
-        if (!is_numeric($rate) || !is_numeric($pv) || !is_numeric($fv)) {
+        if (!\is_numeric($rate) || !\is_numeric($pv) || !\is_numeric($fv)) {
             return Functions::VALUE();
         } elseif ($rate <= 0.0 || $pv <= 0.0 || $fv <= 0.0) {
             return Functions::NAN();
         }
-
-        return (log($fv) - log($pv)) / log(1 + $rate);
+        return (\log($fv) - \log($pv)) / \log(1 + $rate);
     }
-
     /**
      * PMT.
      *
@@ -1519,20 +1360,16 @@ class Financial
         $pv = Functions::flattenSingleValue($pv);
         $fv = Functions::flattenSingleValue($fv);
         $type = Functions::flattenSingleValue($type);
-
         // Validate parameters
         if ($type != 0 && $type != 1) {
             return Functions::NAN();
         }
-
         // Calculate
         if ($rate !== null && $rate != 0) {
             return (-$fv - $pv * (1 + $rate) ** $nper) / (1 + $rate * $type) / (((1 + $rate) ** $nper - 1) / $rate);
         }
-
         return (-$pv - $fv) / $nper;
     }
-
     /**
      * PPMT.
      *
@@ -1555,7 +1392,6 @@ class Financial
         $pv = Functions::flattenSingleValue($pv);
         $fv = Functions::flattenSingleValue($fv);
         $type = (int) Functions::flattenSingleValue($type);
-
         // Validate parameters
         if ($type != 0 && $type != 1) {
             return Functions::NAN();
@@ -1563,40 +1399,35 @@ class Financial
         if ($per <= 0 || $per > $nper) {
             return Functions::VALUE();
         }
-
         // Calculate
         $interestAndPrincipal = self::interestAndPrincipal($rate, $per, $nper, $pv, $fv, $type);
-
         return $interestAndPrincipal[1];
     }
-
     private static function validatePrice($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis)
     {
-        if (is_string($settlement)) {
+        if (\is_string($settlement)) {
             return Functions::VALUE();
         }
-        if (is_string($maturity)) {
+        if (\is_string($maturity)) {
             return Functions::VALUE();
         }
-        if (!is_numeric($rate)) {
+        if (!\is_numeric($rate)) {
             return Functions::VALUE();
         }
-        if (!is_numeric($yield)) {
+        if (!\is_numeric($yield)) {
             return Functions::VALUE();
         }
-        if (!is_numeric($redemption)) {
+        if (!\is_numeric($redemption)) {
             return Functions::VALUE();
         }
-        if (!is_numeric($frequency)) {
+        if (!\is_numeric($frequency)) {
             return Functions::VALUE();
         }
-        if (!is_numeric($basis)) {
+        if (!\is_numeric($basis)) {
             return Functions::VALUE();
         }
-
         return '';
     }
-
     public static function PRICE($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0)
     {
         $settlement = Functions::flattenSingleValue($settlement);
@@ -1606,7 +1437,6 @@ class Financial
         $redemption = Functions::flattenSingleValue($redemption);
         $frequency = Functions::flattenSingleValue($frequency);
         $basis = Functions::flattenSingleValue($basis);
-
         $settlement = DateTime::getDateValue($settlement);
         $maturity = DateTime::getDateValue($maturity);
         $rslt = self::validatePrice($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
@@ -1618,31 +1448,23 @@ class Financial
         $redemption = (float) $redemption;
         $frequency = (int) $frequency;
         $basis = (int) $basis;
-
-        if (($settlement > $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))) {
+        if ($settlement > $maturity || !self::isValidFrequency($frequency) || ($basis < 0 || $basis > 4)) {
             return Functions::NAN();
         }
-
         $dsc = self::COUPDAYSNC($settlement, $maturity, $frequency, $basis);
         $e = self::COUPDAYS($settlement, $maturity, $frequency, $basis);
         $n = self::COUPNUM($settlement, $maturity, $frequency, $basis);
         $a = self::COUPDAYBS($settlement, $maturity, $frequency, $basis);
-
-        $baseYF = 1.0 + ($yield / $frequency);
+        $baseYF = 1.0 + $yield / $frequency;
         $rfp = 100 * ($rate / $frequency);
         $de = $dsc / $e;
-
         $result = $redemption / $baseYF ** (--$n + $de);
         for ($k = 0; $k <= $n; ++$k) {
-            $result += $rfp / ($baseYF ** ($k + $de));
+            $result += $rfp / $baseYF ** ($k + $de);
         }
         $result -= $rfp * ($a / $e);
-
         return $result;
     }
-
     /**
      * PRICEDISC.
      *
@@ -1670,24 +1492,20 @@ class Financial
         $discount = (float) Functions::flattenSingleValue($discount);
         $redemption = (float) Functions::flattenSingleValue($redemption);
         $basis = (int) Functions::flattenSingleValue($basis);
-
         //    Validate
-        if ((is_numeric($discount)) && (is_numeric($redemption)) && (is_numeric($basis))) {
-            if (($discount <= 0) || ($redemption <= 0)) {
+        if (\is_numeric($discount) && \is_numeric($redemption) && \is_numeric($basis)) {
+            if ($discount <= 0 || $redemption <= 0) {
                 return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if (!\is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
-
             return $redemption * (1 - $discount * $daysBetweenSettlementAndMaturity);
         }
-
         return Functions::VALUE();
     }
-
     /**
      * PRICEMAT.
      *
@@ -1717,43 +1535,37 @@ class Financial
         $rate = Functions::flattenSingleValue($rate);
         $yield = Functions::flattenSingleValue($yield);
         $basis = (int) Functions::flattenSingleValue($basis);
-
         //    Validate
-        if (is_numeric($rate) && is_numeric($yield)) {
-            if (($rate <= 0) || ($yield <= 0)) {
+        if (\is_numeric($rate) && \is_numeric($yield)) {
+            if ($rate <= 0 || $yield <= 0) {
                 return Functions::NAN();
             }
             $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
-            if (!is_numeric($daysPerYear)) {
+            if (!\is_numeric($daysPerYear)) {
                 return $daysPerYear;
             }
             $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
+            if (!\is_numeric($daysBetweenIssueAndSettlement)) {
                 //    return date error
                 return $daysBetweenIssueAndSettlement;
             }
             $daysBetweenIssueAndSettlement *= $daysPerYear;
             $daysBetweenIssueAndMaturity = DateTime::YEARFRAC($issue, $maturity, $basis);
-            if (!is_numeric($daysBetweenIssueAndMaturity)) {
+            if (!\is_numeric($daysBetweenIssueAndMaturity)) {
                 //    return date error
                 return $daysBetweenIssueAndMaturity;
             }
             $daysBetweenIssueAndMaturity *= $daysPerYear;
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if (!\is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
             $daysBetweenSettlementAndMaturity *= $daysPerYear;
-
-            return (100 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate * 100)) /
-                   (1 + (($daysBetweenSettlementAndMaturity / $daysPerYear) * $yield)) -
-                   (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate * 100);
+            return (100 + $daysBetweenIssueAndMaturity / $daysPerYear * $rate * 100) / (1 + $daysBetweenSettlementAndMaturity / $daysPerYear * $yield) - $daysBetweenIssueAndSettlement / $daysPerYear * $rate * 100;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * PV.
      *
@@ -1774,20 +1586,16 @@ class Financial
         $pmt = Functions::flattenSingleValue($pmt);
         $fv = Functions::flattenSingleValue($fv);
         $type = Functions::flattenSingleValue($type);
-
         // Validate parameters
         if ($type != 0 && $type != 1) {
             return Functions::NAN();
         }
-
         // Calculate
         if ($rate !== null && $rate != 0) {
             return (-$pmt * (1 + $rate * $type) * (((1 + $rate) ** $nper - 1) / $rate) - $fv) / (1 + $rate) ** $nper;
         }
-
         return -$fv - $pmt * $nper;
     }
-
     /**
      * RATE.
      *
@@ -1822,28 +1630,25 @@ class Financial
         $nper = (int) Functions::flattenSingleValue($nper);
         $pmt = Functions::flattenSingleValue($pmt);
         $pv = Functions::flattenSingleValue($pv);
-        $fv = ($fv === null) ? 0.0 : Functions::flattenSingleValue($fv);
-        $type = ($type === null) ? 0 : (int) Functions::flattenSingleValue($type);
-        $guess = ($guess === null) ? 0.1 : Functions::flattenSingleValue($guess);
-
+        $fv = $fv === null ? 0.0 : Functions::flattenSingleValue($fv);
+        $type = $type === null ? 0 : (int) Functions::flattenSingleValue($type);
+        $guess = $guess === null ? 0.1 : Functions::flattenSingleValue($guess);
         $rate = $guess;
         // rest of code adapted from python/numpy
-        $close = false;
+        $close = \false;
         $iter = 0;
         while (!$close && $iter < self::FINANCIAL_MAX_ITERATIONS) {
             $nextdiff = self::rateNextGuess($rate, $nper, $pmt, $pv, $fv, $type);
-            if (!is_numeric($nextdiff)) {
+            if (!\is_numeric($nextdiff)) {
                 break;
             }
             $rate1 = $rate - $nextdiff;
-            $close = abs($rate1 - $rate) < self::FINANCIAL_PRECISION;
+            $close = \abs($rate1 - $rate) < self::FINANCIAL_PRECISION;
             ++$iter;
             $rate = $rate1;
         }
-
         return $close ? $rate : Functions::NAN();
     }
-
     private static function rateNextGuess($rate, $nper, $pmt, $pv, $fv, $type)
     {
         if ($rate == 0) {
@@ -1852,16 +1657,12 @@ class Financial
         $tt1 = ($rate + 1) ** $nper;
         $tt2 = ($rate + 1) ** ($nper - 1);
         $numerator = $fv + $tt1 * $pv + $pmt * ($tt1 - 1) * ($rate * $type + 1) / $rate;
-        $denominator = $nper * $tt2 * $pv - $pmt * ($tt1 - 1) * ($rate * $type + 1) / ($rate * $rate)
-             + $nper * $pmt * $tt2 * ($rate * $type + 1) / $rate
-             + $pmt * ($tt1 - 1) * $type / $rate;
+        $denominator = $nper * $tt2 * $pv - $pmt * ($tt1 - 1) * ($rate * $type + 1) / ($rate * $rate) + $nper * $pmt * $tt2 * ($rate * $type + 1) / $rate + $pmt * ($tt1 - 1) * $type / $rate;
         if ($denominator == 0) {
             return Functions::NAN();
         }
-
         return $numerator / $denominator;
     }
-
     /**
      * RECEIVED.
      *
@@ -1889,24 +1690,20 @@ class Financial
         $investment = (float) Functions::flattenSingleValue($investment);
         $discount = (float) Functions::flattenSingleValue($discount);
         $basis = (int) Functions::flattenSingleValue($basis);
-
         //    Validate
-        if ((is_numeric($investment)) && (is_numeric($discount)) && (is_numeric($basis))) {
-            if (($investment <= 0) || ($discount <= 0)) {
+        if (\is_numeric($investment) && \is_numeric($discount) && \is_numeric($basis)) {
+            if ($investment <= 0 || $discount <= 0) {
                 return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if (!\is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
-
-            return $investment / (1 - ($discount * $daysBetweenSettlementAndMaturity));
+            return $investment / (1 - $discount * $daysBetweenSettlementAndMaturity);
         }
-
         return Functions::VALUE();
     }
-
     /**
      * RRI.
      *
@@ -1923,17 +1720,14 @@ class Financial
         $nper = Functions::flattenSingleValue($nper);
         $pv = Functions::flattenSingleValue($pv);
         $fv = Functions::flattenSingleValue($fv);
-
         // Validate parameters
-        if (!is_numeric($nper) || !is_numeric($pv) || !is_numeric($fv)) {
+        if (!\is_numeric($nper) || !\is_numeric($pv) || !\is_numeric($fv)) {
             return Functions::VALUE();
         } elseif ($nper <= 0.0 || $pv <= 0.0 || $fv < 0.0) {
             return Functions::NAN();
         }
-
         return ($fv / $pv) ** (1 / $nper) - 1;
     }
-
     /**
      * SLN.
      *
@@ -1950,19 +1744,15 @@ class Financial
         $cost = Functions::flattenSingleValue($cost);
         $salvage = Functions::flattenSingleValue($salvage);
         $life = Functions::flattenSingleValue($life);
-
         // Calculate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life))) {
+        if (\is_numeric($cost) && \is_numeric($salvage) && \is_numeric($life)) {
             if ($life < 0) {
                 return Functions::NAN();
             }
-
             return ($cost - $salvage) / $life;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * SYD.
      *
@@ -1981,19 +1771,15 @@ class Financial
         $salvage = Functions::flattenSingleValue($salvage);
         $life = Functions::flattenSingleValue($life);
         $period = Functions::flattenSingleValue($period);
-
         // Calculate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period))) {
-            if (($life < 1) || ($period > $life)) {
+        if (\is_numeric($cost) && \is_numeric($salvage) && \is_numeric($life) && \is_numeric($period)) {
+            if ($life < 1 || $period > $life) {
                 return Functions::NAN();
             }
-
-            return (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
+            return ($cost - $salvage) * ($life - $period + 1) * 2 / ($life * ($life + 1));
         }
-
         return Functions::VALUE();
     }
-
     /**
      * TBILLEQ.
      *
@@ -2012,27 +1798,22 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $discount = Functions::flattenSingleValue($discount);
-
         //    Use TBILLPRICE for validation
         $testValue = self::TBILLPRICE($settlement, $maturity, $discount);
-        if (is_string($testValue)) {
+        if (\is_string($testValue)) {
             return $testValue;
         }
-
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (\is_string($maturity = DateTime::getDateValue($maturity))) {
             return Functions::VALUE();
         }
-
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
             ++$maturity;
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
         } else {
-            $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
+            $daysBetweenSettlementAndMaturity = DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement);
         }
-
-        return (365 * $discount) / (360 - $discount * $daysBetweenSettlementAndMaturity);
+        return 365 * $discount / (360 - $discount * $daysBetweenSettlementAndMaturity);
     }
-
     /**
      * TBILLPRICE.
      *
@@ -2051,43 +1832,35 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $discount = Functions::flattenSingleValue($discount);
-
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (\is_string($maturity = DateTime::getDateValue($maturity))) {
             return Functions::VALUE();
         }
-
         //    Validate
-        if (is_numeric($discount)) {
+        if (\is_numeric($discount)) {
             if ($discount <= 0) {
                 return Functions::NAN();
             }
-
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
                 ++$maturity;
                 $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
-                if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+                if (!\is_numeric($daysBetweenSettlementAndMaturity)) {
                     //    return date error
                     return $daysBetweenSettlementAndMaturity;
                 }
             } else {
-                $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
+                $daysBetweenSettlementAndMaturity = DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement);
             }
-
             if ($daysBetweenSettlementAndMaturity > 360) {
                 return Functions::NAN();
             }
-
-            $price = 100 * (1 - (($discount * $daysBetweenSettlementAndMaturity) / 360));
+            $price = 100 * (1 - $discount * $daysBetweenSettlementAndMaturity / 360);
             if ($price <= 0) {
                 return Functions::NAN();
             }
-
             return $price;
         }
-
         return Functions::VALUE();
     }
-
     /**
      * TBILLYIELD.
      *
@@ -2106,86 +1879,74 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $price = Functions::flattenSingleValue($price);
-
         //    Validate
-        if (is_numeric($price)) {
+        if (\is_numeric($price)) {
             if ($price <= 0) {
                 return Functions::NAN();
             }
-
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
                 ++$maturity;
                 $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
-                if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+                if (!\is_numeric($daysBetweenSettlementAndMaturity)) {
                     //    return date error
                     return $daysBetweenSettlementAndMaturity;
                 }
             } else {
-                $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
+                $daysBetweenSettlementAndMaturity = DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement);
             }
-
             if ($daysBetweenSettlementAndMaturity > 360) {
                 return Functions::NAN();
             }
-
-            return ((100 - $price) / $price) * (360 / $daysBetweenSettlementAndMaturity);
+            return (100 - $price) / $price * (360 / $daysBetweenSettlementAndMaturity);
         }
-
         return Functions::VALUE();
     }
-
     private static function bothNegAndPos($neg, $pos)
     {
         return $neg && $pos;
     }
-
     private static function xirrPart2(&$values)
     {
-        $valCount = count($values);
-        $foundpos = false;
-        $foundneg = false;
+        $valCount = \count($values);
+        $foundpos = \false;
+        $foundneg = \false;
         for ($i = 0; $i < $valCount; ++$i) {
             $fld = $values[$i];
-            if (!is_numeric($fld)) {
+            if (!\is_numeric($fld)) {
                 return Functions::VALUE();
             } elseif ($fld > 0) {
-                $foundpos = true;
+                $foundpos = \true;
             } elseif ($fld < 0) {
-                $foundneg = true;
+                $foundneg = \true;
             }
         }
         if (!self::bothNegAndPos($foundneg, $foundpos)) {
             return Functions::NAN();
         }
-
         return '';
     }
-
     private static function xirrPart1(&$values, &$dates)
     {
-        if ((!is_array($values)) && (!is_array($dates))) {
+        if (!\is_array($values) && !\is_array($dates)) {
             return Functions::NA();
         }
         $values = Functions::flattenArray($values);
         $dates = Functions::flattenArray($dates);
-        if (count($values) != count($dates)) {
+        if (\count($values) != \count($dates)) {
             return Functions::NAN();
         }
-
-        $datesCount = count($dates);
+        $datesCount = \count($dates);
         for ($i = 0; $i < $datesCount; ++$i) {
             $dates[$i] = DateTime::getDateValue($dates[$i]);
-            if (!is_numeric($dates[$i])) {
+            if (!\is_numeric($dates[$i])) {
                 return Functions::VALUE();
             }
         }
-
         return self::xirrPart2($values);
     }
-
     private static function xirrPart3($values, $dates, $x1, $x2)
     {
-        $f = self::xnpvOrdered($x1, $values, $dates, false);
+        $f = self::xnpvOrdered($x1, $values, $dates, \false);
         if ($f < 0.0) {
             $rtb = $x1;
             $dx = $x2 - $x1;
@@ -2193,25 +1954,21 @@ class Financial
             $rtb = $x2;
             $dx = $x1 - $x2;
         }
-
         $rslt = Functions::VALUE();
         for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
             $dx *= 0.5;
             $x_mid = $rtb + $dx;
-            $f_mid = self::xnpvOrdered($x_mid, $values, $dates, false);
+            $f_mid = self::xnpvOrdered($x_mid, $values, $dates, \false);
             if ($f_mid <= 0.0) {
                 $rtb = $x_mid;
             }
-            if ((abs($f_mid) < self::FINANCIAL_PRECISION) || (abs($dx) < self::FINANCIAL_PRECISION)) {
+            if (\abs($f_mid) < self::FINANCIAL_PRECISION || \abs($dx) < self::FINANCIAL_PRECISION) {
                 $rslt = $x_mid;
-
                 break;
             }
         }
-
         return $rslt;
     }
-
     /**
      * XIRR.
      *
@@ -2235,35 +1992,31 @@ class Financial
         if ($rslt) {
             return $rslt;
         }
-
         // create an initial range, with a root somewhere between 0 and guess
         $guess = Functions::flattenSingleValue($guess);
         $x1 = 0.0;
         $x2 = $guess ? $guess : 0.1;
-        $f1 = self::xnpvOrdered($x1, $values, $dates, false);
-        $f2 = self::xnpvOrdered($x2, $values, $dates, false);
-        $found = false;
+        $f1 = self::xnpvOrdered($x1, $values, $dates, \false);
+        $f2 = self::xnpvOrdered($x2, $values, $dates, \false);
+        $found = \false;
         for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
-            if (!is_numeric($f1) || !is_numeric($f2)) {
+            if (!\is_numeric($f1) || !\is_numeric($f2)) {
                 break;
             }
-            if (($f1 * $f2) < 0.0) {
-                $found = true;
-
+            if ($f1 * $f2 < 0.0) {
+                $found = \true;
                 break;
-            } elseif (abs($f1) < abs($f2)) {
-                $f1 = self::xnpvOrdered($x1 += 1.6 * ($x1 - $x2), $values, $dates, false);
+            } elseif (\abs($f1) < \abs($f2)) {
+                $f1 = self::xnpvOrdered($x1 += 1.6 * ($x1 - $x2), $values, $dates, \false);
             } else {
-                $f2 = self::xnpvOrdered($x2 += 1.6 * ($x2 - $x1), $values, $dates, false);
+                $f2 = self::xnpvOrdered($x2 += 1.6 * ($x2 - $x1), $values, $dates, \false);
             }
         }
         if (!$found) {
             return Functions::NAN();
         }
-
         return self::xirrPart3($values, $dates, $x1, $x2);
     }
-
     /**
      * XNPV.
      *
@@ -2286,35 +2039,32 @@ class Financial
      */
     public static function XNPV($rate, $values, $dates)
     {
-        return self::xnpvOrdered($rate, $values, $dates, true);
+        return self::xnpvOrdered($rate, $values, $dates, \true);
     }
-
     private static function validateXnpv($rate, $values, $dates)
     {
-        if (!is_numeric($rate)) {
+        if (!\is_numeric($rate)) {
             return Functions::VALUE();
         }
-        $valCount = count($values);
-        if ($valCount != count($dates)) {
+        $valCount = \count($values);
+        if ($valCount != \count($dates)) {
             return Functions::NAN();
         }
-        if ($valCount > 1 && ((min($values) > 0) || (max($values) < 0))) {
+        if ($valCount > 1 && (\min($values) > 0 || \max($values) < 0)) {
             return Functions::NAN();
         }
         $date0 = DateTime::getDateValue($dates[0]);
-        if (is_string($date0)) {
+        if (\is_string($date0)) {
             return Functions::VALUE();
         }
-
         return '';
     }
-
-    private static function xnpvOrdered($rate, $values, $dates, $ordered = true)
+    private static function xnpvOrdered($rate, $values, $dates, $ordered = \true)
     {
         $rate = Functions::flattenSingleValue($rate);
         $values = Functions::flattenArray($values);
         $dates = Functions::flattenArray($dates);
-        $valCount = count($values);
+        $valCount = \count($values);
         $date0 = DateTime::getDateValue($dates[0]);
         $rslt = self::validateXnpv($rate, $values, $dates);
         if ($rslt) {
@@ -2322,11 +2072,11 @@ class Financial
         }
         $xnpv = 0.0;
         for ($i = 0; $i < $valCount; ++$i) {
-            if (!is_numeric($values[$i])) {
+            if (!\is_numeric($values[$i])) {
                 return Functions::VALUE();
             }
             $datei = DateTime::getDateValue($dates[$i]);
-            if (is_string($datei)) {
+            if (\is_string($datei)) {
                 return Functions::VALUE();
             }
             if ($date0 > $datei) {
@@ -2334,15 +2084,13 @@ class Financial
             } else {
                 $dif = DateTime::DATEDIF($date0, $datei, 'd');
             }
-            if (!is_numeric($dif)) {
+            if (!\is_numeric($dif)) {
                 return $dif;
             }
             $xnpv += $values[$i] / (1 + $rate) ** ($dif / 365);
         }
-
-        return is_finite($xnpv) ? $xnpv : Functions::VALUE();
+        return \is_finite($xnpv) ? $xnpv : Functions::VALUE();
     }
-
     /**
      * YIELDDISC.
      *
@@ -2370,29 +2118,25 @@ class Financial
         $price = Functions::flattenSingleValue($price);
         $redemption = Functions::flattenSingleValue($redemption);
         $basis = (int) Functions::flattenSingleValue($basis);
-
         //    Validate
-        if (is_numeric($price) && is_numeric($redemption)) {
-            if (($price <= 0) || ($redemption <= 0)) {
+        if (\is_numeric($price) && \is_numeric($redemption)) {
+            if ($price <= 0 || $redemption <= 0) {
                 return Functions::NAN();
             }
             $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
-            if (!is_numeric($daysPerYear)) {
+            if (!\is_numeric($daysPerYear)) {
                 return $daysPerYear;
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if (!\is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
             $daysBetweenSettlementAndMaturity *= $daysPerYear;
-
-            return (($redemption - $price) / $price) * ($daysPerYear / $daysBetweenSettlementAndMaturity);
+            return ($redemption - $price) / $price * ($daysPerYear / $daysBetweenSettlementAndMaturity);
         }
-
         return Functions::VALUE();
     }
-
     /**
      * YIELDMAT.
      *
@@ -2422,40 +2166,35 @@ class Financial
         $rate = Functions::flattenSingleValue($rate);
         $price = Functions::flattenSingleValue($price);
         $basis = (int) Functions::flattenSingleValue($basis);
-
         //    Validate
-        if (is_numeric($rate) && is_numeric($price)) {
-            if (($rate <= 0) || ($price <= 0)) {
+        if (\is_numeric($rate) && \is_numeric($price)) {
+            if ($rate <= 0 || $price <= 0) {
                 return Functions::NAN();
             }
             $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
-            if (!is_numeric($daysPerYear)) {
+            if (!\is_numeric($daysPerYear)) {
                 return $daysPerYear;
             }
             $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
+            if (!\is_numeric($daysBetweenIssueAndSettlement)) {
                 //    return date error
                 return $daysBetweenIssueAndSettlement;
             }
             $daysBetweenIssueAndSettlement *= $daysPerYear;
             $daysBetweenIssueAndMaturity = DateTime::YEARFRAC($issue, $maturity, $basis);
-            if (!is_numeric($daysBetweenIssueAndMaturity)) {
+            if (!\is_numeric($daysBetweenIssueAndMaturity)) {
                 //    return date error
                 return $daysBetweenIssueAndMaturity;
             }
             $daysBetweenIssueAndMaturity *= $daysPerYear;
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if (!\is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
             $daysBetweenSettlementAndMaturity *= $daysPerYear;
-
-            return ((1 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate) - (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) /
-                   (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) *
-                   ($daysPerYear / $daysBetweenSettlementAndMaturity);
+            return (1 + $daysBetweenIssueAndMaturity / $daysPerYear * $rate - ($price / 100 + $daysBetweenIssueAndSettlement / $daysPerYear * $rate)) / ($price / 100 + $daysBetweenIssueAndSettlement / $daysPerYear * $rate) * ($daysPerYear / $daysBetweenSettlementAndMaturity);
         }
-
         return Functions::VALUE();
     }
 }

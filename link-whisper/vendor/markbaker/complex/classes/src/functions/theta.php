@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the theta of a complex number.
@@ -20,19 +20,17 @@ namespace Complex;
 function theta($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
     if ($complex->getReal() == 0.0) {
         if ($complex->isReal()) {
             return 0.0;
         } elseif ($complex->getImaginary() < 0.0) {
-            return M_PI / -2;
+            return \M_PI / -2;
         }
-        return M_PI / 2;
+        return \M_PI / 2;
     } elseif ($complex->getReal() > 0.0) {
         return \atan($complex->getImaginary() / $complex->getReal());
     } elseif ($complex->getImaginary() < 0.0) {
-        return -(M_PI - \atan(\abs($complex->getImaginary()) / \abs($complex->getReal())));
+        return -(\M_PI - \atan(\abs($complex->getImaginary()) / \abs($complex->getReal())));
     }
-
-    return M_PI - \atan($complex->getImaginary() / \abs($complex->getReal()));
+    return \M_PI - \atan($complex->getImaginary() / \abs($complex->getReal()));
 }

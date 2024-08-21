@@ -85,7 +85,7 @@ class Wpil_Word
         $text = mb_ereg_replace($regex, '', $text);
 
         // decode any abbrs.
-        if(false !== strpos($text, 'wpil-ignore-replace_')){
+        if(!empty($text) && false !== strpos($text, 'wpil-ignore-replace_')){
             $text = Wpil_Suggestion::decodeIgnoredText($text);
         }
 
@@ -294,9 +294,12 @@ class Wpil_Word
             ['Ü', '\u00DC'],
             ['ÿ', '\u00FF'],
             ['Ÿ', '\u0178'],
-            ['-', '\u2013'],
-            ["'", '\u2019'],
-            ["’", '\u2019']
+            ['-', '\u2012'],
+            ['–', '\u2013'],
+            ['—', '\u2014'],
+            ["‘", '\u2018'],
+            ["’", '\u2019'],
+            ["'", '\u0027'],
         ];
 
         $from = [];
@@ -396,7 +399,7 @@ class Wpil_Word
     }
 
     /** 
-     * Accounts for the "Offest not contained in string" error that plagues strpos functions.
+     * Accounts for the "Offset not contained in string" error that plagues strpos functions.
      * In this case, mb_strpos.
      * Virtually the same function, just with error handling
      **/
@@ -406,5 +409,18 @@ class Wpil_Word
         }
 
         return mb_strpos($haystack, $needle, $offset);
+    }
+
+    /** 
+     * Accounts for the "Offset not contained in string" error that plagues strpos functions.
+     * In this case, mb_strrpos.
+     * Virtually the same function, just with error handling
+     **/
+    public static function mb_strrpos($haystack, $needle, $offset = 0){
+        if(mb_strlen($haystack) < $offset){
+            return false; // how hard is that?
+        }
+
+        return mb_strrpos($haystack, $needle, $offset);
     }
 }

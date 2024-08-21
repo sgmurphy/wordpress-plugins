@@ -1,8 +1,8 @@
 <?php
 
-require_once WP_INTERNAL_LINKING_PLUGIN_DIR . 'vendor/autoload.php';
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer as Writer;
+require_once WP_INTERNAL_LINKING_PLUGIN_DIR . 'vendor/scoper-autoload.php';
+use LWVendor\PhpOffice\PhpSpreadsheet\Spreadsheet;
+use LWVendor\PhpOffice\PhpSpreadsheet\Writer as Writer;
 
 /**
  * Class to work with Excel

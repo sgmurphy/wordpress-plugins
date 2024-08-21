@@ -102,7 +102,7 @@ class SendWebhookRequest extends AbstractConnect
                 $request_url = add_query_arg(urlencode_deep($request_data), $request_url);
             }
 
-            if (in_array($request_method, array('POST', 'PUT')) && 'json' == $request_format) {
+            if (in_array($request_method, array('POST', 'PUT', 'PATCH')) && 'json' == $request_format) {
 
                 $request_headers['Content-Type'] = 'application/json';
 

@@ -78,10 +78,6 @@ class Wpil_Query
             $ids2 = $wpdb->get_col("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'wpil_links_inbound_internal_count' AND meta_value = '0'");
             $ids = array_intersect($ids1, $ids2);
 
-            // remove any links that are on the ignore orphan list
-            $ignored = Wpil_Settings::getItemTypeIds(Wpil_Settings::getIgnoreOrphanedPosts(), 'post');
-            $ids = array_diff($ids, $ignored);
-
             // also remove any posts that are hidden by redirects
             $redirected = Wpil_Settings::getRedirectedPosts();
             $ids = array_diff($ids, $redirected);

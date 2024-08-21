@@ -1504,8 +1504,10 @@
 					});
 
                 $(".helpfbuilder").off('click');
-				$(".helpfbuilder").on('click', function()
+				$(".helpfbuilder").on('click', function(evt)
 					{
+						evt.preventDefault();
+						evt.stopPropagation();
 						alert($(this).attr("text"));
 					});
 				$("#sDeveloperNotes").on("keyup", {obj: this}, function(e)

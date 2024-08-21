@@ -318,7 +318,7 @@ if ( ! class_exists( 'WP_Analytify_Settings' ) ) {
 					),
 					array(
 						'name'  => 'gtag_tracking_mode',
-						'label' => __( 'Tracking mode', 'wp-analytify' ),
+						'label' => __( 'Tracking Mode', 'wp-analytify' ),
 						'desc'  => apply_filters( 'analytify_gtag_tracking_mode_text', __( 'Recommended: Upgrade to the gtag.js tracking mode for the latest Google Analytics tracking features.', 'wp-analytify' ) ),
 						'type'  => 'select',
 						'options' => array(
@@ -455,8 +455,8 @@ if ( ! class_exists( 'WP_Analytify_Settings' ) ) {
 					),
                     array(
 						'name'  => 'uninstall_analytify_settings',
-						'label' => __( 'Remove Settings on Uninstall', 'wp-analytify' ),
-						'desc'  => __( 'This will remove all Analytify Settings from your website on uninstall.', 'wp-analytify' ),
+						'label' => __( 'Remove All Data On Uninstall', 'wp-analytify' ),
+						'desc'  => __( 'Upon uninstall, this will remove all defined settings and their data from your website and reset them to default.', 'wp-analytify' ),
 						'type'  => 'checkbox',
 					),
 					array(

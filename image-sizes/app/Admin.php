@@ -203,7 +203,7 @@ class Admin extends Base {
 						<input type="hidden" name="email" value="'. esc_attr( $admin_email ) .'">
 						<input type="hidden" name="full_name" value="'. esc_attr( $name ) .'">
 						<div class="plugin-header">
-							<h3 class="heading">' . sprintf(__('We are sorry to hear that our plugin didn\'t fully meet your expectations.', 'thumbpress')) . '</h3>
+							<h3 class="heading">' . esc_html( sprintf( __( 'We are sorry to hear that our plugin didn\'t fully meet your expectations.', 'thumbpress' ) ) ) . '</h3>
 							<p class="heading">' . __('Could you spare a moment to provide your valuable insights on how we can make it better?<br> It means a lot to us.', 'thumbpress') . '</p>
 						</div>
 						<div class="plugin-dsm-body">
@@ -221,8 +221,8 @@ class Admin extends Base {
 					</div>
 					<div class="plugin-dsm-footer footer">
 						<div style="display: flex; justify-content: space-between;">
-							<button class="button plugin-dsm-btn plugin-dsm-close">' . __('Skip', 'thumbpress') . '</button>
-							<button class="button button-primary plugin-dsm-btn plugin-dsm-submit" type="submit">' . __('Submit', 'thumbpress') . '</button>
+							<button class="button plugin-dsm-btn plugin-dsm-close">' . esc_html__( 'Skip', 'thumbpress' ) . '</button>
+							<button class="button button-primary plugin-dsm-btn plugin-dsm-submit" type="submit">' . esc_html__( 'Submit', 'thumbpress' ) . '</button>
 						</div>
 					</div>
 				</form>
@@ -305,9 +305,9 @@ class Admin extends Base {
 								</div>
 							</div>
 						</div>',
-						plugins_url('../assets/img/icon.png', __FILE__),
-						$days_since_install,
-						wp_create_nonce(),
+						esc_url( plugins_url( '../assets/img/icon.png', __FILE__ ) ),
+						absint( $days_since_install ),	// Ensuring the value is sanitized
+						esc_attr( wp_create_nonce() ),	// Properly escaping the nonce
 					);
 						update_user_meta( $user_id, 'thumbpress_notice_display_count_combined', $combined_display_count + 1 );
 				}

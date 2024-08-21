@@ -1,11 +1,10 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\RichText;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\RichText;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\IComparable;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Cell\Cell;
+use LWVendor\PhpOffice\PhpSpreadsheet\Cell\DataType;
+use LWVendor\PhpOffice\PhpSpreadsheet\IComparable;
 class RichText implements IComparable
 {
     /**
@@ -14,7 +13,6 @@ class RichText implements IComparable
      * @var ITextElement[]
      */
     private $richTextElements;
-
     /**
      * Create a new RichText instance.
      *
@@ -24,7 +22,6 @@ class RichText implements IComparable
     {
         // Initialise variables
         $this->richTextElements = [];
-
         // Rich-Text string attached to cell?
         if ($pCell !== null) {
             // Add cell text and style
@@ -33,12 +30,10 @@ class RichText implements IComparable
                 $objRun->setFont(clone $pCell->getWorksheet()->getStyle($pCell->getCoordinate())->getFont());
                 $this->addText($objRun);
             }
-
             // Set parent value
             $pCell->setValueExplicit($this, DataType::TYPE_STRING);
         }
     }
-
     /**
      * Add text.
      *
@@ -49,10 +44,8 @@ class RichText implements IComparable
     public function addText(ITextElement $pText)
     {
         $this->richTextElements[] = $pText;
-
         return $this;
     }
-
     /**
      * Create text.
      *
@@ -64,10 +57,8 @@ class RichText implements IComparable
     {
         $objText = new TextElement($pText);
         $this->addText($objText);
-
         return $objText;
     }
-
     /**
      * Create text run.
      *
@@ -79,10 +70,8 @@ class RichText implements IComparable
     {
         $objText = new Run($pText);
         $this->addText($objText);
-
         return $objText;
     }
-
     /**
      * Get plain text.
      *
@@ -92,15 +81,12 @@ class RichText implements IComparable
     {
         // Return value
         $returnValue = '';
-
         // Loop through all ITextElements
         foreach ($this->richTextElements as $text) {
             $returnValue .= $text->getText();
         }
-
         return $returnValue;
     }
-
     /**
      * Convert to string.
      *
@@ -110,7 +96,6 @@ class RichText implements IComparable
     {
         return $this->getPlainText();
     }
-
     /**
      * Get Rich Text elements.
      *
@@ -120,7 +105,6 @@ class RichText implements IComparable
     {
         return $this->richTextElements;
     }
-
     /**
      * Set Rich Text elements.
      *
@@ -131,10 +115,8 @@ class RichText implements IComparable
     public function setRichTextElements(array $textElements)
     {
         $this->richTextElements = $textElements;
-
         return $this;
     }
-
     /**
      * Get hash code.
      *
@@ -146,24 +128,19 @@ class RichText implements IComparable
         foreach ($this->richTextElements as $element) {
             $hashElements .= $element->getHashCode();
         }
-
-        return md5(
-            $hashElements .
-            __CLASS__
-        );
+        return \md5($hashElements . __CLASS__);
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
+            if (\is_object($value)) {
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

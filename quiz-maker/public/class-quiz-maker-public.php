@@ -5571,7 +5571,7 @@ class Quiz_Maker_Public
                     'correctness' => $correctness_results,
                     'user_answered' => $user_answered
                 );
-                $ays_user_name = isset( $_REQUEST['ays_user_name'] ) && $_REQUEST['ays_user_name'] != '' ? esc_sql( sanitize_text_field( $_REQUEST['ays_user_name'] ) ) : '';
+                $ays_user_name = isset( $_REQUEST['ays_user_name'] ) && $_REQUEST['ays_user_name'] != '' ? trim( esc_sql( sanitize_text_field( $_REQUEST['ays_user_name'] ) ) ) : '';
                 $ays_user_email = isset( $_REQUEST['ays_user_email'] ) && $_REQUEST['ays_user_email'] != '' ? esc_sql( sanitize_email( $_REQUEST['ays_user_email'] ) ) : '';
                 $ays_user_phone = isset( $_REQUEST['ays_user_phone'] ) && $_REQUEST['ays_user_phone'] != '' ? esc_sql( sanitize_text_field( $_REQUEST['ays_user_phone'] ) ) : '';
                 $start_date = isset( $_REQUEST['start_date'] ) && $_REQUEST['start_date'] != '' ? sanitize_text_field( $_REQUEST['start_date'] ) : current_time( 'mysql' );

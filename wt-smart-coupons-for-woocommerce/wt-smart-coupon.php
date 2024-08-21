@@ -15,7 +15,7 @@
  * Plugin Name:       Smart Coupons For WooCommerce Coupons 
  * Plugin URI:        
  * Description:       Smart Coupons For WooCommerce Coupons plugin adds advanced coupon features to your store to strengthen your marketing efforts and boost sales.
- * Version:           1.8.1
+ * Version:           1.8.2
  * Author:            WebToffee
  * Author URI:        https://www.webtoffee.com/
  * License:           GPLv3
@@ -46,7 +46,7 @@ if(is_plugin_active('wt-smart-coupon-pro/wt-smart-coupon-pro.php'))
  */
 
 if (!defined('WEBTOFFEE_SMARTCOUPON_VERSION')) {
-    define('WEBTOFFEE_SMARTCOUPON_VERSION', '1.8.1');
+    define('WEBTOFFEE_SMARTCOUPON_VERSION', '1.8.2');
 }
 
 if (!defined('WT_SMARTCOUPON_FILE_NAME')) {

@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the natural logarithm of a complex number.
@@ -20,14 +20,8 @@ namespace Complex;
 function ln($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
-    if (($complex->getReal() == 0.0) && ($complex->getImaginary() == 0.0)) {
+    if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
         throw new \InvalidArgumentException();
     }
-
-    return new Complex(
-        \log(rho($complex)),
-        theta($complex),
-        $complex->getSuffix()
-    );
+    return new Complex(\log(rho($complex)), theta($complex), $complex->getSuffix());
 }

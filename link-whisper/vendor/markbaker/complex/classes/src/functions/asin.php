@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the inverse sine of a complex number.
@@ -19,19 +19,11 @@ namespace Complex;
 function asin($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
     $square = multiply($complex, $complex);
     $invsqrt = new Complex(1.0);
     $invsqrt = subtract($invsqrt, $square);
-    $invsqrt = sqrt($invsqrt);
-    $adjust = new Complex(
-        $invsqrt->getReal() - $complex->getImaginary(),
-        $invsqrt->getImaginary() + $complex->getReal()
-    );
+    $invsqrt = \sqrt($invsqrt);
+    $adjust = new Complex($invsqrt->getReal() - $complex->getImaginary(), $invsqrt->getImaginary() + $complex->getReal());
     $log = ln($adjust);
-
-    return new Complex(
-        $log->getImaginary(),
-        -1 * $log->getReal()
-    );
+    return new Complex($log->getImaginary(), -1 * $log->getReal());
 }

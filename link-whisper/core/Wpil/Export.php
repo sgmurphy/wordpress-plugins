@@ -65,8 +65,9 @@ class Wpil_Export
         $beaver_content = get_post_meta($post->id, '_fl_builder_data', true);
         $elementor_content = get_post_meta($post->id, '_elementor_data', true);
         $enfold_content = get_post_meta($post->id, '_aviaLayoutBuilderCleanData', true);
-        $old_oxygen_content = get_post_meta($post->id, 'ct_builder_shortcodes', true);
-        $new_oxygen_content = get_post_meta($post->id, 'ct_builder_json', true);
+        $oxy_prefix = (!empty(get_option('oxy_meta_keys_prefixed', false))) ? '_ct_': 'ct_';
+        $old_oxygen_content = get_post_meta($post->id, $oxy_prefix . 'builder_shortcodes', true);
+        $new_oxygen_content = get_post_meta($post->id, $oxy_prefix . 'builder_json', true);
 
         set_transient('wpil_transients_enabled', 'true', 600);
         $transient_enabled = (!empty(get_transient('wpil_transients_enabled'))) ? true: false;
@@ -144,13 +145,8 @@ class Wpil_Export
 
         $report = [];
         foreach($keys as $key) {
-            if ($post->type == 'term') {
-                $report[$key] = get_term_meta($post->id, $key, true);
-                $report[$key.'_data'] = Wpil_Toolbox::get_encoded_term_meta($post->id, $key.'_data', true);
-            } else {
-                $report[$key] = get_post_meta($post->id, $key, true);
-                $report[$key.'_data'] = Wpil_Toolbox::get_encoded_post_meta($post->id, $key.'_data', true);
-            }
+            $report[$key] = $post->getLinksData($key);
+            $report[$key.'_data'] = $post->getLinksData($key, true);
         }
 
         if ($post->type == 'term') {
@@ -220,7 +216,7 @@ class Wpil_Export
 
         $type = !empty($_POST['type']) ? $_POST['type'] : null;
         $count = !empty($_POST['count']) ? $_POST['count'] : null;
-        $id = !empty($_POST['id']) ? (int) $_POST['id']: 0;
+        $id = !empty($_POST['id']) ? preg_replace('/[^a-zA-Z0-9]/', '', sanitize_text_field($_POST['id'])): hash('sha256', str_shuffle(time() . 'Link Whisper is Awesome!') . time()/2);
         $capability = apply_filters('wpil_filter_main_permission_check', 'manage_categories');
 
         if (!$type || !$count || !current_user_can($capability)) {
@@ -348,7 +344,8 @@ class Wpil_Export
         wp_send_json([
             'filename' => '',
             'type' => $type,
-            'count' => $count
+            'count' => $count,
+            'id' => $id
         ]);
 
         die;

@@ -1,23 +1,21 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Cell\Cell;
+use LWVendor\PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 /**
  * @author     Alexander Pervakov <frost-nzcr4@jagmort.com>
  */
 class Comment
 {
-    public static function write(XMLWriter $objWriter, Cell $cell): void
+    public static function write(XMLWriter $objWriter, Cell $cell) : void
     {
         $comments = $cell->getWorksheet()->getComments();
         if (!isset($comments[$cell->getCoordinate()])) {
             return;
         }
         $comment = $comments[$cell->getCoordinate()];
-
         $objWriter->startElement('office:annotation');
         $objWriter->writeAttribute('svg:width', $comment->getWidth());
         $objWriter->writeAttribute('svg:height', $comment->getHeight());

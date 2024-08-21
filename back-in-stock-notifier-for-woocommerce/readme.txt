@@ -5,7 +5,7 @@ Donate link: [https://codewoogeek.online/product-category/back-in-stock-notifier
 Requires at least: 4.7
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.4.0
+Stable tag: 5.4.1
 License: GPL-3.0+
 License URI: [https://www.gnu.org/licenses/gpl-3.0.txt](https://www.gnu.org/licenses/gpl-3.0.txt)
 
@@ -162,15 +162,21 @@ Actually, we sync and send the email to your subscribers in a background process
 You can do this by using the native way of WordPress. Go to Admin Dashboard -> Tools -> Export -> Subscribers -> Download Export File (xml). Later, you can import that data into your new site by visiting Admin Dashboard -> Tools -> Import -> Upload Downloaded XML file and Finish Import. Now you've successfully migrated subscribers' data.
 = Something went wrong error upon subscription and how to get rid of such error?  =
 Actually,
-We use one layer of security for our ajax requests, which is WP Nonce. However, due to the caching mechanism of third-party plugins or hosting, this security nonce can also get cached. This can cause the error "something went wrong, please try again after some time." In some cases, setting the cache timeout in the plugin settings can reduce this kind of issue.
+= Something went wrong error upon subscription and how to get rid of such error?  =
 
-From version 2.0, we added different techniques to avoid the "Something Went Wrong" error. If your site has encountered such issues, we suggest you try the following steps to get rid of the error:
+Actually,
 
-1. Go to Admin Dashboard -> Instock Notifier -> Settings -> Troubleshoot Settings Section -> Frontend Subscribe Form Submission via. It has two options: WordPress AJAX (default) and WordPress REST API Route. Try changing that option to WordPress REST API Route and check it out (purge your cache and check it out).
+We use one layer of security to our ajax request which is WP Nonce – but due to caching mechanism from third party plugins/hosting this security nonce also cached which cause this error "something went wrong, please try again after some time", some cases by setting up cache timeout in plugin settings reduce this kind of issue.
 
-2. If the above steps are not helpful, then try the another method, which is Google reCAPTCHA v3 (Invisible Recaptcha). For this, you need the Site Key and Secret Key of v3. Go to Admin Dashboard -> Instock Notifier -> Settings -> Google reCAPTCHA Settings -> Enable Google reCAPTCHA and Choose Version -> V3, followed by Site Key and Secret Key (both fields are required to function properly).
+How to get rid of this error?
 
-3. If v3 does not help, try v2 of Google reCAPTCHA.
+We added new techniques in version 2.0 to avoid the Something Went Wrong Error –If your site has encountered such issues, we suggest you try the below steps to get rid of the Something Went Wrong Error.
+
+1. Switch to the WordPress REST API Route: Go to Admin Dashboard -> Instock Notifier -> Settings -> Troubleshoot Settings Section -> Frontend Subscribe Form Submission via Oneis WordPress AJAX (default) and the other one is WordPress REST API Route. Try changing that option to "WordPress REST API Route" and checking it out (purge your cache and check it out).
+
+2. Google reCAPTCHA: Consider using Google reCAPTCHA v2 or v3. You will need a Site Key and a Secret Key for this. (Go to Admin Dashboard -> Instock Notifier -> Settings -> Bot Protection -> Bot Protection through -> Google reCAPTCHA -> 1. Enable Google reCAPTCHA in Subscribe Form : Enable  2. Select Google reCAPTCHA version -> v2/v3. Enter the Site Key and Secret Key corresponding to the selected version for proper operation.)
+
+3. Turnstile: Consider using Turnstile as an additional bot protection option. You will need a Site Key and a Secret Key for this. Go to Admin Dashboard -> Instock Notifier -> Settings -> Bot Protection -> Bot Protection through -> Turnstile -> Enable Turnstile in Subscribe Form (Enable) -> Turnstile Site Key -> Turnstile Secret Key.                                                  
 
 = How to override/create a custom template for the front-end subscribe form? =
 
@@ -228,6 +234,11 @@ You can contact us via the support Forum of WordPress or by creating a support t
 
 
 == Changelog ==
+= 5.4.1 2024-08-21 =
+* Fix: Fatal error – Cannot access offset of type string on string in the file "class-copy-mailer.php"
+* Tweak: Tested with WooCommerce 9.1.4
+* Tweak: Tested with WordPress 6.6.1
+
 = 5.4.0 2024-06-03 =
 * New: Added a new setting "Keep Subscription Entry to Subscribed Status even Instock Email Sent (Unless it is Unsubscribed)".
 * Tweak:Tested with WooCommerce 8.9.1

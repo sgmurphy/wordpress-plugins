@@ -330,8 +330,10 @@ class Notice{
 
                     <?php if(!empty($this->buttons)): ?>
                         <div class="button-container notice-vert-space">
-                            <?php foreach($this->buttons as $button): ?>
-                                <a id="<?php echo (!isset($button['id']) ? '' : esc_attr($button['id'])); ?>" href="<?php echo esc_url($button['url']); ?>" class="wpmet-notice-button <?php echo esc_attr($button['class']); ?>">
+                            <?php foreach($this->buttons as $button):
+                                $is_target_blank = isset($button['target']) && $button['target'] === '_blank' ? 'target="_blank"' : '';
+                             ?>
+                                <a <?php echo esc_attr($is_target_blank); ?> id="<?php echo (!isset($button['id']) ? '' : esc_attr($button['id'])); ?>" href="<?php echo esc_url($button['url']); ?>" class="wpmet-notice-button <?php echo esc_attr($button['class']); ?>">
                                     <?php if(!empty($button['icon'])) :?>
                                         <i class="notice-icon <?php echo esc_attr($button['icon']); ?>"></i>
                                     <?php endif; ?>
@@ -380,6 +382,11 @@ class Notice{
 			} else {
 				set_transient( $notice_id, true, $expired_time );
 			}
+
+            if( $notice_id == 'shopengine-edit_with_emailkit_banner' ) {
+                $counter = get_option('shopengine-edit_with_emailkit_banner_dismissed_'.get_current_user_id(), 0);
+                update_option('shopengine-edit_with_emailkit_banner_dismissed_'.get_current_user_id(), $counter+1);
+            }
 
 			wp_send_json_success();
 		}

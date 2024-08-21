@@ -3,7 +3,7 @@
  * Plugin Name: Analytify Dashboard
  * Plugin URI: https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=plugin-uri
  * Description: Analytify brings a brand new and modern feeling of Google Analytics superbly integrated within the WordPress.
- * Version: 5.3.1
+ * Version: 5.4.0
  * Author: Analytify
  * Author URI: https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=author-uri
  * License: GPLv3
@@ -13,6 +13,44 @@
  *
  * @package WP_ANALYTIFY
  */
+
+
+if ( ! function_exists( 'wa_wpb78834179' ) ) {
+    // Create a helper function for easy SDK access.
+    function wa_wpb78834179() {
+        global $wa_wpb78834179;
+
+        if ( ! isset( $wa_wpb78834179 ) ) {
+            // Include Telemetry SDK.
+            require_once dirname(__FILE__) . '/lib/wpb-sdk/start.php';
+
+            $wa_wpb78834179 = wpb_dynamic_init([
+                'id'                  => '7',
+                'slug'                => 'wp-analytify',
+                'type'                => 'plugin',
+                'public_key'          => '1|4aOA8EuyIN4pi2miMvC23LLpnHbBZFNki9R9pVmwd673d3c8',
+                'secret_key'          => 'sk_b36c525848fee035',
+                'is_premium'          => false,
+                'has_addons'          => false,
+                'has_paid_plans'      => false,
+                'menu'                => [
+                    'slug'           => 'wp-analytify',
+                    'account'        => false,
+                    'support'        => false,
+                ],
+                'settings'           => [ 'wp_analytify_modules' => '' , 'wp-analytify-tracking' => '' , 'wp-analytify-email' => '' , 'wp-analytify-front' => '' , 'wp-analytify-events-tracking' => '' , 'wp-analytify-custom-dimensions' => '' , 'wp-analytify-forms' => '' , 'analytify_widget_date_differ' => '' , 'wp-analytify-profile' => '' , 'wp-analytify-admin' => '' , 'wp-analytify-dashboard' => '' , 'wp-analytify-advanced' => '' , 'analytify_ua_code' => '' , 'analytify_date_differ' => '' , 'wp_analytify_review_dismiss_4_1_8' => '' , 'wpanalytify_settings' => '' , 'analytify_license_key' => '' , 'analytify_license_status' => '' , 'analytify_campaigns_license_status' => '' , 'analytify_campaigns_license_key' => '' , 'analytify_goals_license_status' => '' , 'analytify_goals_license_key' => '' , 'analytify_forms_license_status' => '' , 'analytify_forms_license_key' => '' , 'analytify_authors_license_status' => '' , 'analytify_authors_license_key' => '' , 'analytify_woo_license_status' => '' , 'analytify_woo_license_key' => '' , 'analytify_email_license_status' => '' , 'analytify_email_license_key' => '' , 'analytify-google-ads-tracking' => '' , '_analytify_optin' => '' , 'analytify_cache_timeout' => '' , 'analytify_csv_data' => '' , 'analytify_active_date' => '' , 'analytify_edd_license_status' => '' , 'analytify_edd_license_key' => '' , '_transient_timeout_analytify_api_addons' => '' , '_transient_analytify_api_addons' => '' , 'analytify_ga4_exceptions' => '' , 'analytify-ga-properties-summery' => '' , 'analytify-ga4-streams' => '' , 'analytify_tracking_property_info' => '' , 'analytify_reporting_property_info' => '' , 'analytify_gtag_move_to_notice' => '' , 'analytify_current_version' => '' , 'analytify_logs_setup' => '' , 'analytify_pro_default_settings' => '' , 'analytify_pro_active_date' => '' , 'analytify_pro_upgrade_routine' => '' , 'analytify_pro_current_version' => '' , 'WP_ANALYTIFY_PRO_PLUGIN_VERSION' => '' , 'wp-analytify-google-optimize' => '' , 'wp-analytify-license' => '' , 'analytify_authentication_date' => '' , 'WP_ANALYTIFY_PLUGIN_VERSION_OLD' => '' , 'WP_ANALYTIFY_PRO_PLUGIN_VERSION_OLD' => '' , 'analytify_default_settings' => '' , 'analytify_free_upgrade_routine' => '' , 'WP_ANALYTIFY_PLUGIN_VERSION' => '' , 'wp_analytify_active_time' => '' , 'wp-analytify-authentication' => '' , 'wp-analytify-help' => '' , 'WP_ANALYTIFY_NEW_LOGIN' => '' , 'profiles_list_summary' => '' , 'pa_google_token' => '' , 'post_analytics_token' => '' ],
+            ]);
+        }
+
+        return $wa_wpb78834179;
+    }
+
+    // Init Telemetry.
+    wa_wpb78834179();
+    // Signal that SDK was initiated.
+    do_action( 'wa_wpb78834179_loaded' );
+}
+
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -269,7 +307,6 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 				return;
 			}
 			include ANALYTIFY_PLUGIN_DIR . 'inc/analytify-optout-form.php';
-			include ANALYTIFY_PLUGIN_DIR . 'inc/analytify-deactivate-form.php';
 		}
 
 		/**
@@ -2754,7 +2791,7 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 
 register_activation_hook( __FILE__, 'wp_analytify_activate' ); // active
 register_deactivation_hook( __FILE__, 'wp_analytify_de_activate' ); // in-active
-register_uninstall_hook( __FILE__, 'wp_analytify_uninstall' ); // delete
+add_action( 'wp_wpb_sdk_after_uninstall',  'wp_analytify_uninstall' ); // delete
 
 /**
  * Run on plugin activation.
@@ -2763,10 +2800,6 @@ register_uninstall_hook( __FILE__, 'wp_analytify_uninstall' ); // delete
  * @return      void
  */
 function wp_analytify_activate() {
-	// If user has opt-in send activate notification.
-	if ( get_site_option( '_analytify_optin' ) == 'yes' ) {
-		analytify_send_data( array( 'action' => 'Activate' ) );
-	}
 
 	// update version.
 	if ( ! get_option( 'pa_google_token' ) ) {
@@ -2845,10 +2878,6 @@ function wp_analytify_de_activate() {
  */
 function wp_analytify_uninstall() {
 
-	if ( 'enabled' == get_option( 'analytify_opt' ) ) {
-		analytify_send_data( array( 'action' => 'Uninstall' ) );
-	}
-
 	require_once ANALYTIFY_PLUGIN_DIR . '/classes/analytify-utils.php';
 
 	$remove_settings_on_uninstall  = WPANALYTIFY_Utils::get_option( 'uninstall_analytify_settings', 'wp-analytify-advanced', false );
@@ -2895,45 +2924,6 @@ function send_status_analytify( $email, $status ) {
 		)
 	);
 }
-
-/**
- * Wrapper function to send data.
- *
- * @param  array $args.
- *
- * @since 2.0.14
- */
-function analytify_send_data( $args ) {
-	$cuurent_user = wp_get_current_user();
-	$fields       = array(
-		'email'             => get_option( 'admin_email' ),
-		'website'           => get_site_url(),
-		'action'            => '',
-		'reason'            => '',
-		'reason_detail'     => '',
-		'display_name'      => $cuurent_user->display_name,
-		'blog_language'     => get_bloginfo( 'language' ),
-		'wordpress_version' => get_bloginfo( 'version' ),
-		'plugin_version'    => ANALYTIFY_VERSION,
-		'php_version'       => PHP_VERSION,
-		'plugin_name'       => 'Analytify',
-	);
-
-	$args     = array_merge( $fields, $args );
-	$response = wp_remote_post(
-		'https://analytify.io/',
-		array(
-			'method'      => 'POST',
-			'timeout'     => 5,
-			'httpversion' => '1.0',
-			'blocking'    => true,
-			'headers'     => array(),
-			'body'        => $args,
-		)
-	);
-}
-
-
 
 
 /**

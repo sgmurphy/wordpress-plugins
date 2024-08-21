@@ -129,7 +129,7 @@ class RangeDiscountTable
         if ( ! $productId) {
             global $product;
 
-            if ( ! isset($product)) {
+            if ( ! isset($product) || ! is_object($product)) {
                 return "";
             }
 
@@ -286,7 +286,7 @@ class RangeDiscountTable
             //to correctly show prices in bulk table
             $rule->getProductRangeAdjustmentHandler()->setReplaceAsCartAdjustment(false);
         }
-        
+
         $cachedRule = $rule;
         return $rule;
     }
@@ -311,7 +311,7 @@ class RangeDiscountTable
 
             $newRules[] = $newLoopRule;
         }
-        
+
         /** @var CartCalculator $calc */
         $calc = Factory::get("Core_CartCalculator", new RulesCollection($newRules));
 
@@ -344,6 +344,49 @@ class RangeDiscountTable
             foreach (CacheHelper::loadActiveRules()->getRules() as $loopRule) {
                 $newLoopRule = clone $loopRule;
                 $newLoopRule->setConditions(array());
+                $newRules[] = $newLoopRule;
+            }
+        } else {
+            return null;
+        }
+
+        /** @var CartCalculator $calc */
+        $calc           = Factory::get("Core_CartCalculator", new RulesCollection($newRules));
+        $priceProcessor = new Processor($calc);
+
+        $priceProcessor->withCart($cart);
+
+        return $priceProcessor;
+    }
+
+    /**
+     * @param SingleItemRule $rule
+     *
+     * @return Processor|null
+     */
+    public function makePriceProcessorWithoutBulk($rule)
+    {
+        $context     = $this->context;
+        $cartBuilder = new CartBuilder($context);
+        $cart        = $cartBuilder->create(WC()->customer, WC()->session);
+
+        $bulk_table_calculation_mode = $context->getOption('bulk_table_calculation_mode');
+
+        $newRules = [];
+        if ($bulk_table_calculation_mode === 'only_bulk_rule_table') {
+            $newRule = clone $rule;
+            $newRule->setConditions(array());
+            if ($newRule->getProductRangeAdjustmentHandler()) {
+                $newRule->installProductRangeAdjustmentHandler($newRule->getProductRangeAdjustmentHandler()->setRanges(array()));
+            }
+            $newRules[] = $newRule;
+        } elseif ($bulk_table_calculation_mode === 'all') {
+            foreach (CacheHelper::loadActiveRules()->getRules() as $loopRule) {
+                $newLoopRule = clone $loopRule;
+                $newLoopRule->setConditions(array());
+                if ($newLoopRule instanceof SingleItemRule && $newLoopRule->getProductRangeAdjustmentHandler()) {
+                    $newLoopRule->installProductRangeAdjustmentHandler($newLoopRule->getProductRangeAdjustmentHandler()->setRanges(array()));
+                }
                 $newRules[] = $newLoopRule;
             }
         } else {
@@ -462,6 +505,12 @@ class RangeDiscountTable
                 $table->addColumn($key, $title);
             }
 
+
+            if ($rule->getProductRangeAdjustmentHandler()->getMeasurement()->equals(BulkMeasurementEnum::SUM())) {
+                $priceProcessorWithoutBulk = $this->makePriceProcessorWithoutBulk($rule);
+                $processedProductWithoutBulk = $priceProcessorWithoutBulk->calculateProduct($product);
+            }
+
             /** ROWS */
             foreach ($ranges as $range) {
                 $row = array();
@@ -473,7 +522,8 @@ class RangeDiscountTable
                         $priceProcessor,
                         $product,
                         $rule,
-                        $dataRow
+                        $dataRow,
+                        $processedProductWithoutBulk ?? null
                     );
                     $row[$key] = ! is_null($value) ? $value : "-";
                 }
@@ -708,7 +758,8 @@ class RangeDiscountTable
         $priceProcessor,
         $product,
         $rule,
-        &$dataRow
+        &$dataRow,
+        $processedProductWithoutBulk = null
     ) {
         $value    = null;
         $discount = $range->getData();
@@ -778,7 +829,7 @@ class RangeDiscountTable
                 ]);
                 break;
             case 'discounted_price':
-                $processedProd = $this->calculateProductDependsOnMeasurement($rule, $range, $priceProcessor, $product);
+                $processedProd = $this->calculateProductDependsOnMeasurement($rule, $range, $priceProcessor, $product, $processedProductWithoutBulk);
                 $from = $processedProd->getQty();
 
                 $price         = null;
@@ -1362,7 +1413,8 @@ class RangeDiscountTable
         SingleItemRule $rule,
         $range,
         Processor $priceProcessor,
-        WC_Product $product
+        WC_Product $product,
+        $processedProductWithoutBulk = null
     ) {
         $processedProd = null;
         $measurement = $rule->getProductRangeAdjustmentHandler()->getMeasurement();
@@ -1379,7 +1431,12 @@ class RangeDiscountTable
                 }
             } else {
                 if ($measurement->equals(BulkMeasurementEnum::SUM())) {
-                    $price = floatval($product->get_price("edit"));
+                    if ($processedProductWithoutBulk) {
+                        $price = $processedProductWithoutBulk->getPrice();
+                    } else {
+                        $price = floatval($product->get_price("edit"));
+                    }
+
                     if ($price) {
                         $processedProd = $priceProcessor->calculateProduct(
                             $product,

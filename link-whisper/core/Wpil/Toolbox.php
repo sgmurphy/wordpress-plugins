@@ -163,6 +163,60 @@ class Wpil_Toolbox
     }
 
     /**
+     * Compresses and base64's the given data so it can be saved in the db.
+     * Compresses to JSON for plain datasets that don't require intact objects
+     * 
+     * @param string $data The data to be compressed
+     * @return null|string Returns a string of compressed and base64 encoded data 
+     **/
+    public static function json_compress($data = false){
+        // first serialize the data
+        $data = json_encode($data);
+
+        // if zlib is available
+        if(extension_loaded('zlib')){
+            // use it to compress the data
+            $data = gzcompress($data);
+        }elseif(extension_loaded('Bz2')){// if zlib isn't available, but bzip2 is
+            // use that to compress the data
+            $data = bzcompress($data);
+        }
+
+        // now base64 and return the (hopefully) compressed data
+        return base64_encode($data);
+    }
+
+    /**
+     * Decompresses stored data that was compressed with compress.
+     * 
+     * @param string $data The data to be decompressed
+     * @return mixed $data 
+     **/
+    public static function json_decompress($data, $return_assoc = null){
+        if(empty($data) || !is_string($data) || !Wpil_Link::checkIfBase64ed($data, true)){
+            return $data;
+        }
+
+        // first un-64 the data
+        $data = base64_decode($data);
+        // then determine what our flavor of encoding is and decode the data
+        // if zlib is available
+        if(extension_loaded('zlib')){
+            // if the data is zipped
+            if(self::is_gz_compressed($data)){
+                // use it to decompress the data
+                $data = gzuncompress($data);
+            }
+        }elseif(extension_loaded('Bz2')){// if zlib isn't available, but bzip2 is
+            // use that to decompress the data
+            $data = bzdecompress($data);
+        }
+
+        // and return our unserialized and hopefully de-compressed data
+        return json_decode($data, $return_assoc);
+    }
+
+    /**
      * Gets post meta that _should_ be encoded and compressed and decompresses and decodes it before returning it
      **/
     public static function get_encoded_post_meta($id, $key, $single = false){

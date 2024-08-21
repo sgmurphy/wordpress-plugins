@@ -5625,7 +5625,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                     <div class="col-sm-4">
                         <label for="ays_enable_live_bar_option">
                             <?php echo __('Enable live progress bar',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the current state of the user passing the quiz. It will be shown at the top of the quiz container.',$this->plugin_name); ?>">
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the current state of the user passing the quiz. It will be shown at the top of the quiz container. Note: If the Display all questions on one page option is enabled, then, the Progress Bar will display the 100% value. If the Question count per page option is enabled and you have a multipage quiz, then, the Progress Bar value will be displayed by stages.',$this->plugin_name); ?>">
                                 <i class="ays_fa ays_fa_info_circle"></i>
                             </a>
                         </label>

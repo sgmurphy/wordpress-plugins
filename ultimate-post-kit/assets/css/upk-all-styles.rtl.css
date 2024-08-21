@@ -11987,10 +11987,21 @@
 .upk-noxe-slider .upk-noxe-item {
   background: #fff;
   padding: 30px;
+  position: relative;
+  height: auto;
+}
+.upk-noxe-slider .upk-noxe-item-box-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .upk-noxe-slider .upk-noxe-image-wrap {
   position: relative;
   margin-bottom: 1.5rem;
+  overflow: hidden;
+  height: 100%;
+  z-index: 10;
 }
 .upk-noxe-slider .upk-noxe-img {
   width: 100%;
@@ -12035,10 +12046,7 @@
 }
 .upk-noxe-slider .upk-noxe-content {
   display: inline-block;
-  overflow: hidden;
-}
-.upk-noxe-slider .upk-noxe-content .upk-noxe-inner-content {
-  overflow: hidden;
+  z-index: -1;
 }
 .upk-noxe-slider .upk-title {
   font-size: 16px;
@@ -13696,7 +13704,7 @@
   z-index: 11;
   transform: translateY(-50%);
   width: 40%;
-  min-width: 240px;
+  min-width: 275px;
 }
 .upk-snog-slider-wrap .upk-content-slider .swiper-slide-active .upk-link-btn a,
 .upk-snog-slider-wrap .upk-content-slider .swiper-slide-duplicate .upk-link-btn a {
@@ -13712,6 +13720,7 @@
   top: 50%;
   transform: translateY(-50%);
   padding: 30px 20px 30px 55px;
+  width: 100%;
 }
 .upk-snog-slider-wrap .upk-category {
   margin-bottom: 10px;

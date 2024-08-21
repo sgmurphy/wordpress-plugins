@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 6.6
-Stable tag: 7.7.9
+Stable tag: 7.7.10
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -251,6 +251,11 @@ If you like The Post Grid Plugin, then consider checking out our other WordPress
 11. Elementor Page builder
 
 == Changelog ==
+
+= 7.7.10 (21 Aug, 2024) =
+* Fixed: Sanitize and Validate Query args for Gutenberg - /app/Controllers/Blocks/BlockBase.php (Line 74-308)
+* Fixed: Sanitize and Validate Query args for Elementor - /app/Widgets/elementor/rtTPGElementorQuery.php (Line 37-410)
+* Improved: Role-based restrictions on post_type and post_status parameters.
 
 = 7.7.9 (13 Aug, 2024) =
 * Fixed: Vulnerability issue on app/Controllers/Blocks/BlockBase.php (Line 84-264)

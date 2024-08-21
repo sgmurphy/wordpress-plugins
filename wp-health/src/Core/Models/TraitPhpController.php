@@ -36,11 +36,11 @@ trait TraitPhpController
 
         try {
             $authorize = $this->permissionPhp();
-			if(!$authorize){
-				return;
-			}
+            if (!$authorize) {
+                return;
+            }
         } catch (\Exception $e) {
-			return;
+            return;
         }
 
         if (!\method_exists($this, $callback)) {
@@ -118,28 +118,28 @@ trait TraitPhpController
     public function permissionPhp()
     {
         $method = $this->getMethod();
-		$permission = $this->getPermission();
+        $permission = $this->getPermission();
 
-		if (empty($permission)) {
-			return true;
-		}
+        if (empty($permission)) {
+            return true;
+        }
 
-		if (isset($this->options['prevent_active']) && $this->options['prevent_active']) {
+        if (isset($this->options['prevent_active']) && $this->options['prevent_active']) {
             $this->preventNotActive();
         }
 
-		$request = UmbrellaRequest::createFromGlobals();
+        $request = UmbrellaRequest::createFromGlobals();
 
-		switch ($permission) {
-			case Controller::PERMISSION_ONLY_API_TOKEN:
-				return wp_umbrella_get_service('RequestPermissionsByUmbrellaRequest')->isOnlyTokenAuthorized($request);
-				break;
-			case Controller::PERMISSION_WITH_SECRET_TOKEN:
-				return wp_umbrella_get_service('RequestPermissionsByUmbrellaRequest')->isFullyAuthorized($request);
-				break;
-			default:
-				return true;
-		}
+        switch ($permission) {
+            case Controller::PERMISSION_ONLY_API_TOKEN:
+                return wp_umbrella_get_service('RequestPermissionsByUmbrellaRequest')->isOnlyTokenAuthorized($request);
+                break;
+            case Controller::PERMISSION_WITH_SECRET_TOKEN:
+                return wp_umbrella_get_service('RequestPermissionsByUmbrellaRequest')->isFullyAuthorized($request);
+                break;
+            default:
+                return true;
+        }
 
         return true;
     }
@@ -166,9 +166,9 @@ trait TraitPhpController
         header('Content-Type: application/json');
 
         http_response_code($status);
-		if($status !== 200) {
-			status_header($status);
-		}
+        if ($status !== 200) {
+            status_header($status);
+        }
 
         echo json_encode($data);
         exit;

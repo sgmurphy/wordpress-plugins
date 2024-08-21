@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the hyperbolic cosine of a complex number.
@@ -19,14 +19,8 @@ namespace Complex;
 function cosh($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
     if ($complex->isReal()) {
         return new Complex(\cosh($complex->getReal()));
     }
-
-    return new Complex(
-        \cosh($complex->getReal()) * \cos($complex->getImaginary()),
-        \sinh($complex->getReal()) * \sin($complex->getImaginary()),
-        $complex->getSuffix()
-    );
+    return new Complex(\cosh($complex->getReal()) * \cos($complex->getImaginary()), \sinh($complex->getReal()) * \sin($complex->getImaginary()), $complex->getSuffix());
 }

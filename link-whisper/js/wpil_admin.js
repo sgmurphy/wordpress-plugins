@@ -3,35 +3,35 @@
 (function ($)
 {
 
-	var reloadGutenberg = false;
+    var reloadGutenberg = false;
 
-	/////////// preloading
-	function getSuggestions(manualActivate = false){
-		$('[data-wpil-ajax-container]').each(function(k, el){
-			var $el = $(el);
-			var url = $el.attr('data-wpil-ajax-container-url');
-			var count = 0;
-			var urlParams = parseURLParams(url);
+    /////////// preloading
+    function getSuggestions(manualActivate = false){
+        $('[data-wpil-ajax-container]').each(function(k, el){
+            var $el = $(el);
+            var url = $el.attr('data-wpil-ajax-container-url');
+            var count = 0;
+            var urlParams = parseURLParams(url);
 
-			// don't load the suggestions automatically if the user has selected manual activation
-			if($el.data('wpil-manual-suggestions') == 1 && !manualActivate){
-				return
-			}
+            // don't load the suggestions automatically if the user has selected manual activation
+            if($el.data('wpil-manual-suggestions') == 1 && !manualActivate){
+                return
+            }
 
-			$el.css({'display': 'block'});
-			$('.wpil-get-manual-suggestions-container').css({'display': 'none'});
+            $el.css({'display': 'block'});
+            $('.wpil-get-manual-suggestions-container').css({'display': 'none'});
 
 			if(urlParams.type && 'outbound_suggestions_ajax' === urlParams.type[0]){
 				ajaxGetSuggestionsOutbound($el, url, count);
 			}
 
-			setupProcessingError();
-		});
-	}
+            setupProcessingError();
+        });
+    }
 
-	getSuggestions();
+    getSuggestions();
 
-	$(document).on('click', '#wpil-get-manual-suggestions', function(e){e.preventDefault(); getSuggestions(true)});
+    $(document).on('click', '#wpil-get-manual-suggestions', function(e){e.preventDefault(); getSuggestions(true)});
 
 	function ajaxGetSuggestionsOutbound($el, url, count, post_count = 0, key = null)
 	{
@@ -43,53 +43,57 @@
             }
         }
 
-		var urlParams = parseURLParams(url);
-		var post_id = (urlParams.post_id) ? urlParams.post_id[0] : null;
-		var term_id = (urlParams.term_id) ? urlParams.term_id[0] : null;
-		var linkOrphaned = (urlParams.link_orphaned) ? urlParams.link_orphaned[0] : null;
-		var sameParent = (urlParams.same_parent) ? urlParams.same_parent[0] : null;
-		var sameCategory = (urlParams.same_category) ? urlParams.same_category[0] : '';
-		var selectedCategory = (urlParams.selected_category) ? urlParams.selected_category[0].split(',') : '';
-		var sameTag = (urlParams.same_tag) ? urlParams.same_tag[0] : '';
-		var selectedTag = (urlParams.selected_tag) ? urlParams.selected_tag[0].split(',') : '';
-		var selectPostTypes = (urlParams.select_post_types) ? urlParams.select_post_types[0] : '';
-		var selectedPostTypes = (urlParams.selected_post_types) ? urlParams.selected_post_types[0].split(',') : '';
+        var urlParams = parseURLParams(url);
+        var post_id = (urlParams.post_id) ? urlParams.post_id[0] : null;
+        var term_id = (urlParams.term_id) ? urlParams.term_id[0] : null;
+        var linkOrphaned = (urlParams.link_orphaned) ? urlParams.link_orphaned[0] : null;
+        var sameParent = (urlParams.same_parent) ? urlParams.same_parent[0] : null;
+        var sameCategory = (urlParams.same_category) ? urlParams.same_category[0] : '';
+        var selectedCategory = (urlParams.selected_category) ? urlParams.selected_category[0].split(',') : '';
+        var sameTag = (urlParams.same_tag) ? urlParams.same_tag[0] : '';
+        var selectedTag = (urlParams.selected_tag) ? urlParams.selected_tag[0].split(',') : '';
+        var selectPostTypes = (urlParams.select_post_types) ? urlParams.select_post_types[0] : '';
+        var selectedPostTypes = (urlParams.selected_post_types) ? urlParams.selected_post_types[0].split(',') : '';
         var nonce = (urlParams.nonce) ? urlParams.nonce[0]: '';
 
         if(!nonce){
             return;
         }
 
-		// start the clock on the error notice
-		setupProcessingError();
+        // start the clock on the error notice
+        setupProcessingError();
 
-		jQuery.ajax({
-			type: 'POST',
-			url: ajaxurl,
-			data: {
-				action: 'get_post_suggestions',
+        jQuery.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: {
+                action: 'get_post_suggestions',
                 nonce: nonce,
-				count: count,
-				post_count: (post_count) ? parseInt(post_count): 0,
-				post_id: post_id,
+                count: count,
+                post_count: (post_count) ? parseInt(post_count): 0,
+                post_id: post_id,
                 term_id: term_id,
-				link_orphaned: linkOrphaned,
-				same_parent: sameParent,
-				same_category: sameCategory,
-				selected_category: selectedCategory,
-				same_tag: sameTag,
-				selected_tag: selectedTag,
-				select_post_types: selectPostTypes,
-				selected_post_types: selectedPostTypes,
-				type: 'outbound_suggestions',
+                link_orphaned: linkOrphaned,
+                same_parent: sameParent,
+                same_category: sameCategory,
+                selected_category: selectedCategory,
+                same_tag: sameTag,
+                selected_tag: selectedTag,
+                select_post_types: selectPostTypes,
+                selected_post_types: selectedPostTypes,
+                type: 'outbound_suggestions',
                 key: key,
-			},
-			success: function(response){
-				console.log({response, count});
+            },
+            success: function(response){
+                console.log({response, count});
 
-				// stop the error clock and hide any visible message
-				setupProcessingError(true);
-				hideProcessingError();
+                if(!isJSON(response)){
+                    response = extractAndValidateJSON(response, ['error', 'info', 'message', 'batch_size', 'post_count']);
+                }
+
+                // stop the error clock and hide any visible message
+                setupProcessingError(true);
+                hideProcessingError();
 
                 // if there was an error
                 if(response.error){
@@ -107,7 +111,7 @@
                     return;
                 }
 
-				$el.find('.progress_count').html(response.message);
+                $el.find('.progress_count').html(response.message);
 
 				if((count * response.batch_size) < response.post_count){
 					ajaxGetSuggestionsOutbound($el, url, response.count, response.post_count, key);
@@ -120,8 +124,8 @@
                 console.log({jqXHR, textStatus, errorThrown});
 //				setupProcessingError(true);
             }
-		});
-	}
+        });
+    }
 
 	function updateSuggestionDisplay(postId, termId, nonce, $el, type = 'outbound_suggestions', linkOrphaned, sameParent, sameCategory = '', key = null, selectedCategory, sameTag, selectedTag, selectPostTypes, selectedPostTypes){
 		jQuery.ajax({
@@ -130,7 +134,7 @@
 			data: {
 				action: 'update_suggestion_display',
                 nonce: nonce,
-				post_id: postId,
+                post_id: postId,
                 term_id: termId,
                 key: key,
 				type: type,
@@ -159,206 +163,179 @@
     /**
      * Helper function that parses urls to get their query vars.
      **/
-	function parseURLParams(url) {
-		var queryStart = url.indexOf("?") + 1,
-			queryEnd   = url.indexOf("#") + 1 || url.length + 1,
-			query = url.slice(queryStart, queryEnd - 1),
-			pairs = query.replace(/\+/g, " ").split("&"),
-			parms = {}, i, n, v, nv;
-	
-		if (query === url || query === "") return;
-	
-		for (i = 0; i < pairs.length; i++) {
-			nv = pairs[i].split("=", 2);
-			n = decodeURIComponent(nv[0]);
-			v = decodeURIComponent(nv[1]);
-	
-			if (!parms.hasOwnProperty(n)) parms[n] = [];
-			parms[n].push(nv.length === 2 ? v : null);
-		}
-		return parms;
-	}
-
-	function wpilImplodeEls(sep, els)
-	{
-		var res = [];
-		$(els).each(function(k, el) {
-			res.push(el.outerHTML);
-		});
-
-		return res.join(sep);
-	}
-
-	function wpilImplodeText(sep, els)
-	{
-		var res = [];
-		$(els).each(function(k, el) {
-			var $el = $(el);
-			res.push($el.text());
-		});
-
-		return res.join(sep);
-	}
-
-	function wpilPushFix($ex)
-	{
-		var $div = $("<div/>");
-		$div.append($ex);
-		return $div.html();
-	}
+    function parseURLParams(url) {
+        var queryStart = url.indexOf("?") + 1,
+            queryEnd   = url.indexOf("#") + 1 || url.length + 1,
+            query = url.slice(queryStart, queryEnd - 1),
+            pairs = query.replace(/\+/g, " ").split("&"),
+            parms = {}, i, n, v, nv;
+    
+        if (query === url || query === "") return;
+    
+        for (i = 0; i < pairs.length; i++) {
+            nv = pairs[i].split("=", 2);
+            n = decodeURIComponent(nv[0]);
+            v = decodeURIComponent(nv[1]);
+    
+            if (!parms.hasOwnProperty(n)) parms[n] = [];
+            parms[n].push(nv.length === 2 ? v : null);
+        }
+        return parms;
+    }
 
 	$(document).on('click', '.sentence a', function (e) {
 		e.preventDefault();
 	});
 
-	var same_category_loading = false;
+    var same_category_loading = false;
 
-	$(document).on('click', '#wpil-regenerate-suggestions', function(){
-		if (!same_category_loading) {
-			same_category_loading = true;
-			var container = $(this).closest('[data-wpil-ajax-container]');
-			var url = container.attr('data-wpil-ajax-container-url');
-			var urlParams = parseURLParams(url);
-			var sameCategory = container.find('#field_same_category').prop('checked');
-			var selectedCategories = container.find('select[name="wpil_selected_category"').val();
-			var sameTag = container.find('#field_same_tag').prop('checked');
-			var selectedTags = container.find('select[name="wpil_selected_tag"').val();
-			var category_checked = '';
-			var tag_checked = '';
-			var post_id = (urlParams.post_id) ? urlParams.post_id[0] : 0;
-			var postTypeSelect = container.find('#field_select_post_types').prop('checked');
-			var postTypes = container.find('select[name="selected_post_types"').val();
+    $(document).on('click', '#wpil-regenerate-suggestions', function(){
+        if (!same_category_loading) {
+            same_category_loading = true;
+            var container = $(this).closest('[data-wpil-ajax-container]');
+            var url = container.attr('data-wpil-ajax-container-url');
+            var urlParams = parseURLParams(url);
+            var linkOrphaned = container.find('#field_link_orphaned').prop('checked');
+            var sameParent = container.find('#field_same_parent').prop('checked');
+            var sameCategory = container.find('#field_same_category').prop('checked');
+            var selectedCategories = container.find('select[name="wpil_selected_category"').val();
+            var sameTag = container.find('#field_same_tag').prop('checked');
+            var selectedTags = container.find('select[name="wpil_selected_tag"').val();
+            var category_checked = '';
+            var tag_checked = '';
+            var post_id = (urlParams.post_id) ? urlParams.post_id[0] : 0;
+            var postTypeSelect = container.find('#field_select_post_types').prop('checked');
+            var postTypes = container.find('select[name="selected_post_types"').val();
 
-			// remove any active filtering settings
-			url = url.replace(new RegExp("(&link_orphaned[^&]*)|(&same_parent[^&]*)|(&same_category[^&]*)|(&same_tag[^&]*)|(&select_post_types[^&]*)|(&selected_category[^&]*)|(&selected_tag[^&]*)|(&selected_post_types[^&]*)", 'ig'), '');
+            // remove any active filtering settings
+            url = url.replace(new RegExp("(&link_orphaned[^&]*)|(&same_parent[^&]*)|(&same_category[^&]*)|(&same_tag[^&]*)|(&select_post_types[^&]*)|(&selected_category[^&]*)|(&selected_tag[^&]*)|(&selected_post_types[^&]*)", 'ig'), '');
 
-			//category
-			if (sameCategory) {
-				url += "&same_category=true";
-				url += "&selected_category=" + selectedCategories.join(',');
-				category_checked = 'checked="checked"';
-			}
+            //link to orphaned
+            if (linkOrphaned) {
+                url += "&link_orphaned=true";
+            }
 
-			//tag
-			if (sameTag) {
-				url += "&same_tag=true";
-				url += "&selected_tag=" + selectedTags.join(',');
-				tag_checked = 'checked="checked"';
-			}
+            //same parent
+            if (sameParent) {
+                url += "&same_parent=true";
+            }
 
-			// selected post types
-			if(postTypeSelect && postTypes){
-				url += "&select_post_types=true";
-				url += "&selected_post_types=" + postTypes.join(',');
-			}
+            //category
+            if (sameCategory) {
+                url += "&same_category=true";
+                url += "&selected_category=" + selectedCategories.join(',');
+                category_checked = 'checked="checked"';
+            }
 
-			if(urlParams.wpil_no_preload && '1' === urlParams.wpil_no_preload[0]){
-				var checkAndButton = '<div style="margin-bottom: 30px;">' +
-						'<input style="margin-bottom: -5px;" type="checkbox" name="same_category" id="field_same_category_page" ' + category_checked + '>' +
-						'<label for="field_same_category_page">Only Show Link Suggestions in the Same Category as This Post</label> <br>' +
-					'</div>' +
-					'<button id="inbound_suggestions_button" class="sync_linking_keywords_list button-primary" data-id="' + post_id + '" data-type="inbound_suggestions_page_container" data-page="inbound">Custom links</button>';
-				container.html(checkAndButton);
-			}else{
-				container.html('<div class="progress_panel loader"><div class="progress_count" style="width: 100%"></div></div>');
-			}
+            //tag
+            if (sameTag) {
+                url += "&same_tag=true";
+                url += "&selected_tag=" + selectedTags.join(',');
+                tag_checked = 'checked="checked"';
+            }
 
-			if(urlParams.type && 'outbound_suggestions_ajax' === urlParams.type[0]){
-				ajaxGetSuggestionsOutbound(container, url, 0);
-			}
+            // selected post types
+            if(postTypeSelect && postTypes){
+                url += "&select_post_types=true";
+                url += "&selected_post_types=" + postTypes.join(',');
+            }
 
-			same_category_loading = false;
-		}
-	});
+            if(urlParams.wpil_no_preload && '1' === urlParams.wpil_no_preload[0]){
+                var checkAndButton = '<div style="margin-bottom: 30px;">' +
+                        '<input style="margin-bottom: -5px;" type="checkbox" name="same_category" id="field_same_category_page" ' + category_checked + '>' +
+                        '<label for="field_same_category_page">Only Show Link Suggestions in the Same Category as This Post</label> <br>' +
+                    '</div>' +
+                    '<button id="inbound_suggestions_button" class="sync_linking_keywords_list button-primary" data-id="' + post_id + '" data-type="inbound_suggestions_page_container" data-page="inbound">Custom links</button>';
+                container.html(checkAndButton);
+            }else{
+                container.html('<div class="progress_panel loader"><div class="progress_count" style="width: 100%"></div></div>');
+            }
 
-	$(document).on('change', '#field_link_orphaned, #field_same_parent, #field_same_category, #field_same_tag, #field_select_post_types, select[name="wpil_selected_category"], select[name="wpil_selected_tag"], select[name="selected_post_types"], .wpil-suggestions-can-be-regenerated', function(){
-		var inputs = $('.wpil-suggestion-input');
-		var changed = false;
-		inputs.each(function(index, element){
-			var el = $(element);
-			var initial = el.data('suggestion-input-initial-value');
-			if(el.is("input") && el.attr('type') === 'checkbox' && el.is(":checked") != initial){
-				changed = true;
-			}else if(el.is("input") && el.attr('type') === 'hidden' && el.val() != initial){
-				changed = true;
-			}else if(el.is("select") && initial.toString() !== el.val().join(',')){
-				changed = true;
-			}
-		});
+            if(urlParams.type && 'outbound_suggestions_ajax' === urlParams.type[0]){
+                ajaxGetSuggestionsOutbound(container, url, 0);
+            }
 
-		if(changed){
-			$('#wpil-regenerate-suggestions').removeClass('disabled').prop('disabled', false);
-		}else{
-			$('#wpil-regenerate-suggestions').addClass('disabled').prop('disabled', true);
-		}
-	});
+            same_category_loading = false;
+        }
+    });
 
-	$(document).on('change', '#field_select_post_types,#field_same_tag,#field_same_category', function(){
-		var name = $(this).attr('name');
+    $(document).on('change', '#field_link_orphaned, #field_same_parent, #field_same_category, #field_same_tag, #field_select_post_types, select[name="wpil_selected_category"], select[name="wpil_selected_tag"], select[name="selected_post_types"], .wpil-suggestions-can-be-regenerated', function(){
+        var inputs = $('.wpil-suggestion-input');
+        var changed = false;
+        inputs.each(function(index, element){
+            var el = $(element);
+            var initial = el.data('suggestion-input-initial-value');
+            if(el.is("input") && el.attr('type') === 'checkbox' && el.is(":checked") != initial){
+                changed = true;
+            }else if(el.is("input") && el.attr('type') === 'hidden' && el.val() !== initial){
+                changed = true;
+            }else if(el.is("select") && initial.toString() !== el.val().join(',')){
+                changed = true;
+            }
+        });
+
+        if(changed){
+            $('#wpil-regenerate-suggestions').removeClass('disabled').prop('disabled', false);
+        }else{
+            $('#wpil-regenerate-suggestions').addClass('disabled').prop('disabled', true);
+        }
+    });
+
+    $(document).on('change', '#field_select_post_types,#field_same_tag,#field_same_category', function(){
+        var name = $(this).attr('name');
 		if($(this).is(":checked")){
 			$('.wpil_styles .' + name + '-aux .select2, .' + name + '-aux').css({'display': 'inline-block'});
 		}else{
 			$('.wpil_styles .' + name + '-aux .select2, .' + name + '-aux').css({'display': 'none'});
 		}
-	});
+    });
 
+    function stristr(haystack, needle, bool)
+    {
+        // http://jsphp.co/jsphp/fn/view/stristr
+        // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+        // +   bugfxied by: Onno Marsman
+        // *     example 1: stristr('Kevin van Zonneveld', 'Van');
+        // *     returns 1: 'van Zonneveld'
+        // *     example 2: stristr('Kevin van Zonneveld', 'VAN', true);
+        // *     returns 2: 'Kevin '
+        var pos = 0;
 
-	$(document).on('change', '#field_same_category_page', function(){
-		var url = document.URL;
-		if ($(this).prop('checked')) {
-			url += "&same_category=true";
-		} else {
-			url = url.replace('/&same_category=true/g', '');
-		}
+        haystack += '';
+        pos = haystack.toLowerCase().indexOf((needle + '').toLowerCase());
 
-		location.href = url;
-	});
-	function stristr(haystack, needle, bool)
-	{
-		// http://jsphp.co/jsphp/fn/view/stristr
-		// +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-		// +   bugfxied by: Onno Marsman
-		// *     example 1: stristr('Kevin van Zonneveld', 'Van');
-		// *     returns 1: 'van Zonneveld'
-		// *     example 2: stristr('Kevin van Zonneveld', 'VAN', true);
-		// *     returns 2: 'Kevin '
-		var pos = 0;
+        if (pos == -1) {
+            return false;
+        } else {
+            if (bool) {
+                return haystack.substr(0, pos);
+            } else {
+                return haystack.slice(pos);
+            }
+        }
+    }
 
-		haystack += '';
-		pos = haystack.toLowerCase().indexOf((needle + '').toLowerCase());
+    function wpil_handle_errors(resp)
+    {
+        if (stristr(resp, "520") && stristr(resp, "unknown error") && stristr(resp, "Cloudflare")) {
+            wpil_swal('Error', "It seems you are using CloudFlare and CloudFlare is hiding some error message. Please temporary disable CloudFlare, open reporting page again, look if it has any new errors and send it to us", 'error')
+                .then(wpil_report_next_step);
+            return true;
+        }
 
-		if (pos == -1) {
-			return false;
-		} else {
-			if (bool) {
-				return haystack.substr(0, pos);
-			} else {
-				return haystack.slice(pos);
-			}
-		}
-	}
+        if (stristr(resp, "504") && stristr(resp, "gateway")) {
+            wpil_swal('Error', "504 error: Gateway timeout - please ask your hosting support about this error", 'error')
+                .then(wpil_report_next_step);
+            return true;
+        }
 
-	function wpil_handle_errors(resp)
-	{
-		if (stristr(resp, "520") && stristr(resp, "unknown error") && stristr(resp, "Cloudflare")) {
-			wpil_swal('Error', "It seems you are using CloudFlare and CloudFlare is hiding some error message. Please temporary disable CloudFlare, open reporting page again, look if it has any new errors and send it to us", 'error')
-				.then(wpil_report_next_step);
-			return true;
-		}
+        return false;
+    }
 
-		if (stristr(resp, "504") && stristr(resp, "gateway")) {
-			wpil_swal('Error', "504 error: Gateway timeout - please ask your hosting support about this error", 'error')
-				.then(wpil_report_next_step);
-			return true;
-		}
-
-		return false;
-	}
-
-	function wpil_report_next_step()
-	{
-		location.reload();
-	}
+    function wpil_report_next_step()
+    {
+        location.reload();
+    }
 
     /**
      * Makes the call to reset the report data when the user clicks on the "Reset Data" button.
@@ -367,7 +344,7 @@
         e.preventDefault();
         var form = $(this);
         var nonce = form.find('[name="reset_data_nonce"]').val();
-       
+    
         if(!nonce || form.attr('disabled')){
             return;
         }
@@ -408,28 +385,32 @@
         }
 
         jQuery.ajax({
-			type: 'POST',
-			url: ajaxurl,
-			data: {
-				action: 'reset_report_data',
+            type: 'POST',
+            url: ajaxurl,
+            data: {
+                action: 'reset_report_data',
                 nonce: nonce,
                 loop_count: loopCount,
                 clear_data: clearData,
-			},
+            },
             error: function (jqXHR, textStatus) {
-				var resp = jqXHR.responseText;
+                var resp = jqXHR.responseText;
 
-				if (wpil_handle_errors(resp)) {
-					wpil_report_next_step();
-					return;
-				}
+                if (wpil_handle_errors(resp)) {
+                    wpil_report_next_step();
+                    return;
+                }
 
-				var wrapper = document.createElement('div');
-				$(wrapper).append('<strong>' + textStatus + '</strong><br>');
-				$(wrapper).append(jqXHR.responseText);
-				wpil_swal({"title": "Error", "content": wrapper, "icon": "error"}).then(wpil_report_next_step());
-			},
-			success: function(response){
+                var wrapper = document.createElement('div');
+                $(wrapper).append('<strong>' + textStatus + '</strong><br>');
+                $(wrapper).append(jqXHR.responseText);
+                wpil_swal({"title": "Error", "content": wrapper, "icon": "error"}).then(wpil_report_next_step());
+            },
+            success: function(response){
+                if(!isJSON(response)){
+                    response = extractAndValidateJSON(response, ['error', 'links_to_process_count', 'data_setup_complete', 'loop_count', 'loading_screen', 'nonce', 'time']);
+                }
+
                 // if there was an error
                 if(response.error){
                     wpil_swal(response.error.title, response.error.text, 'error');
@@ -456,8 +437,8 @@
                     // if we're not done processing links, go around again
                     processReportReset(response.nonce, (response.loop_count + 1), true);
                 }
-			}
-		});
+            }
+        });
     }
 
     // listen for clicks on the "Reset Data" button
@@ -466,35 +447,35 @@
     // also listen for when the user wants to resume an existing scan
     $('#wpil_report_reset_data_form .wpil-resume-link-scan').on('click', resumeReportData);
 
-	/**
-	 * Keeps track of the loop's progress in a global context so the scan is less susceptible to minor errors like timeouts
-	 **/
-	var globalScan = {
-		'nonce': '', 						// nonce
-		'loop': 0, 							// loop count
-		'link_posts_to_process_count': 0, 	// posts/cats to process count
-		'processed': 0, 					// how many have been processed so far
-		'link_posts_to_process_diff': 0,	// the difference between the number of posts to process and the ones that have been processed
-		'meta_filled': false, 				// if the meta processing is complete
-		'links_filled': false,				// if the link processing is complete
-		'error_count': 0,					// the number of times the scan has errored
-		'loops_unchanged': 0				// the number of loops we've gone over without a change in the total number of processed posts
-	};
+    /**
+     * Keeps track of the loop's progress in a global context so the scan is less susceptible to minor errors like timeouts
+     **/
+    var globalScan = {
+        'nonce': '', 						// nonce
+        'loop': 0, 							// loop count
+        'link_posts_to_process_count': 0, 	// posts/cats to process count
+        'processed': 0, 					// how many have been processed so far
+        'link_posts_to_process_diff': 0,	// the difference between the number of posts to process and the ones that have been processed
+        'meta_filled': false, 				// if the meta processing is complete
+        'links_filled': false,				// if the link processing is complete
+        'error_count': 0,					// the number of times the scan has errored
+        'loops_unchanged': 0				// the number of loops we've gone over without a change in the total number of processed posts
+    };
 
     /**
      * Process runner that handles the report data generation process.
      * Loops around until all the site's links are inserted into the LW link table
      **/
     function processReportData(	nonce = null, 
-								loopCount = 0, 
-								linkPostsToProcessCount = 0, 
-								linkPostsProcessed = 0, 
-								linkPostProcessDiff = 0,
-								metaFilled = false, 
-								linksFilled = false,
-								loopsUnchanged = 0,
-								resumeScan = false)
-	{
+                                loopCount = 0, 
+                                linkPostsToProcessCount = 0, 
+                                linkPostsProcessed = 0, 
+                                linkPostProcessDiff = 0,
+                                metaFilled = false, 
+                                linksFilled = false,
+                                loopsUnchanged = 0,
+                                resumeScan = false)
+    {
         if(!nonce){
             return;
         }
@@ -510,52 +491,69 @@
         }
 
         jQuery.ajax({
-			type: 'POST',
-			url: ajaxurl,
-			data: {
-				action: 'process_report_data',
+            type: 'POST',
+            url: ajaxurl,
+            data: {
+                action: 'process_report_data',
                 nonce: nonce,
                 loop_count: loopCount,
                 link_posts_to_process_count: linkPostsToProcessCount,
                 link_posts_processed: linkPostsProcessed,
-				link_posts_to_process_diff: linkPostProcessDiff,
+                link_posts_to_process_diff: linkPostProcessDiff,
                 meta_filled: metaFilled,
                 links_filled: linksFilled,
-				loops_unchanged: loopsUnchanged,
-				resume_scan: (resumeScan) ? 1: 0 
-			},
+                loops_unchanged: loopsUnchanged,
+                resume_scan: (resumeScan) ? 1: 0 
+            },
             error: function (jqXHR, textStatus, errorThrown) {
-				console.log('There has been an error during the scan!');
-				console.log(globalScan);
-				globalScan.error_count += 1;
+                console.log('There has been an error during the scan!');
+                console.log(globalScan);
+                globalScan.error_count += 1;
 
-				// if the scan has errored less than 5 times, try it again
-				if(globalScan.error_count < 5){
-					processReportData(
-						globalScan.nonce,
-						globalScan.loop,
-						globalScan.link_posts_to_process_count,
-						globalScan.processed,
-						globalScan.link_posts_to_process_diff,
-						globalScan.meta_filled,
-						globalScan.links_filled,
-						globalScan.loops_unchanged
-					);
-				}else{
-					var resp = jqXHR.responseText;
-					if (wpil_handle_errors(resp)) {
-						wpil_report_next_step();
-						return;
-					}
+                // if the scan has errored less than 5 times, try it again
+                if(globalScan.error_count < 5){
+                    processReportData(
+                        globalScan.nonce,
+                        globalScan.loop,
+                        globalScan.link_posts_to_process_count,
+                        globalScan.processed,
+                        globalScan.link_posts_to_process_diff,
+                        globalScan.meta_filled,
+                        globalScan.links_filled,
+                        globalScan.loops_unchanged
+                    );
+                }else{
+                    var resp = jqXHR.responseText;
+                    if (wpil_handle_errors(resp)) {
+                        wpil_report_next_step();
+                        return;
+                    }
 
-					var wrapper = document.createElement('div');
-					$(wrapper).append('<strong>' + textStatus + '</strong><br>');
-					$(wrapper).append(jqXHR.responseText);
-					wpil_swal({"title": "Error", "content": wrapper, "icon": "error"}).then(wpil_report_next_step());
-				}
-			},
-			success: function(response){
+                    var wrapper = document.createElement('div');
+                    $(wrapper).append('<strong>' + textStatus + '</strong><br>');
+                    $(wrapper).append(jqXHR.responseText);
+                    wpil_swal({"title": "Error", "content": wrapper, "icon": "error"}).then(wpil_report_next_step());
+                }
+            },
+            success: function(response){
                 console.log(response);
+
+                if(!isJSON(response)){
+                    response = extractAndValidateJSON(response, [
+                        'error', 
+                        'links_to_process_count', 
+                        'data_setup_complete', 
+                        'loop_count', 
+                        'loading_screen',
+                        'processed',
+                        'meta_filled',
+                        'links_filled',
+                        'error_count',
+                        'loops_unchanged',
+                        'processing_complete',
+                        'nonce', 
+                        'time']);
+                }
 
                 // if there was an error
                 if(response.error){
@@ -568,30 +566,30 @@
                 // log the time
                 timeList.push(response.time);
 
-				// update the global stats
-				globalScan.nonce = response.nonce;
-				globalScan.loop = 0;
-				globalScan.link_posts_to_process_count = response.link_posts_to_process_count;
-				globalScan.processed = response.link_posts_processed;
-				globalScan.link_posts_to_process_diff = response.link_posts_to_process_diff;
-				globalScan.meta_filled = response.meta_filled;
-				globalScan.links_filled = response.links_filled;
-				globalScan.error_count = 0;
-				globalScan.loops_unchanged = response.loops_unchanged;
+                // update the global stats
+                globalScan.nonce = response.nonce;
+                globalScan.loop = 0;
+                globalScan.link_posts_to_process_count = response.link_posts_to_process_count;
+                globalScan.processed = response.link_posts_processed;
+                globalScan.link_posts_to_process_diff = response.link_posts_to_process_diff;
+                globalScan.meta_filled = response.meta_filled;
+                globalScan.links_filled = response.links_filled;
+                globalScan.error_count = 0;
+                globalScan.loops_unchanged = response.loops_unchanged;
 
                 // if the meta has been successfully processed
-				if(response.processing_complete){
-					// if the processing is complete
-					// console.log the time if available
-					if(timeList > 1){
-						console.log('The post processing took: ' + (timeList[(timeList.length - 1)] - timeList[0]) + ' seconds.');
-					}
+                if(response.processing_complete){
+                    // if the processing is complete
+                    // console.log the time if available
+                    if(timeList > 1){
+                        console.log('The post processing took: ' + (timeList[(timeList.length - 1)] - timeList[0]) + ' seconds.');
+                    }
 
-					// update the loading bar one more time
-					animateTheReportLoadingBar(response);
+                    // update the loading bar one more time
+                    animateTheReportLoadingBar(response);
 
 					// and show the user a success message!
-					wpil_swal('Success!', 'Synchronization has been completed.', 'success').then(wpil_report_next_step);
+					wpil_swal('Success!', 'The Link Scan is complete!', 'success').then(wpil_report_next_step);
 					return;
 				} else if(response.link_processing_complete){
 					// if we've finished loading links into the link table
@@ -600,55 +598,55 @@
 						$('#wpbody-content').html(response.loading_screen);
 					}
 
-					// console.log the time if available
-					if(timeList > 1){
-						console.log('The link processing took: ' + (timeList[(timeList.length - 1)] - timeList[0]) + ' seconds.');
-					}
+                    // console.log the time if available
+                    if(timeList > 1){
+                        console.log('The link processing took: ' + (timeList[(timeList.length - 1)] - timeList[0]) + ' seconds.');
+                    }
 
-					// re-call the function for the final round of processing
-					processReportData(  response.nonce,
-						0,
-						response.link_posts_to_process_count,
-						0,
-						response.link_posts_to_process_diff,
-						response.meta_filled,
-						response.links_filled,
-						response.loops_unchanged);
+                    // re-call the function for the final round of processing
+                    processReportData(  response.nonce,
+                        0,
+                        response.link_posts_to_process_count,
+                        0,
+                        response.link_posts_to_process_diff,
+                        response.meta_filled,
+                        response.links_filled,
+                        response.loops_unchanged);
 
-				} else if(response.meta_filled){
-					// show the link processing loading screen
-					if(response.loading_screen){
-						$('#wpbody-content').html(response.loading_screen);
-					}
-					// console.log the time if available
-					if(timeList > 1){
-						console.log('The meta processing took: ' + (timeList[(timeList.length - 1)] - timeList[0]) + ' seconds.');
-					}
+                } else if(response.meta_filled){
+                    // show the link processing loading screen
+                    if(response.loading_screen){
+                        $('#wpbody-content').html(response.loading_screen);
+                    }
+                    // console.log the time if available
+                    if(timeList > 1){
+                        console.log('The meta processing took: ' + (timeList[(timeList.length - 1)] - timeList[0]) + ' seconds.');
+                    }
 
-					// update the loading bar
-					animateTheReportLoadingBar(response);
+                    // update the loading bar
+                    animateTheReportLoadingBar(response);
 
-					// and recall the function to begin the link processing (loading the site's links into the link table)
-					processReportData(  response.nonce,			// nonce
-						0,                                      // loop count
-						response.link_posts_to_process_count,   // posts/cats to process count
-						0,                                      // how many have been processed so far
-						response.link_posts_to_process_diff,	// what's the difference between the posts processed and the ones coming up
-						response.meta_filled,                   // if the meta processing is complete
-						response.links_filled,					// if the link processing is complete
-						response.loops_unchanged);				// how many loops have we gone through without processing posts
-				} else{
-					// update the loop count
-					globalScan.loop = (response.loop_count + 1);
+                    // and recall the function to begin the link processing (loading the site's links into the link table)
+                    processReportData(  response.nonce,                         // nonce
+                        0,                                      // loop count
+                        response.link_posts_to_process_count,   // posts/cats to process count
+                        0,                                      // how many have been processed so far
+                        response.link_posts_to_process_diff,	// what's the difference between the posts processed and the ones coming up
+                        response.meta_filled,                   // if the meta processing is complete
+                        response.links_filled,					// if the link processing is complete
+                        response.loops_unchanged);				// how many loops have we gone through without processing posts
+                } else{
+                    // update the loop count
+                    globalScan.loop = (response.loop_count + 1);
                     // if we're not done processing, go around again
                     processReportData(  response.nonce, 
                                         (response.loop_count + 1), 
                                         response.link_posts_to_process_count, 
                                         response.link_posts_processed,
-										response.link_posts_to_process_diff,
+                                        response.link_posts_to_process_diff,
                                         response.meta_filled,
                                         response.links_filled,
-										response.loops_unchanged);
+                                        response.loops_unchanged);
                     
                     // if the meta has been processed
                     if(response.meta_filled){
@@ -656,8 +654,8 @@
                         animateTheReportLoadingBar(response);
                     }
                 }
-			}
-		});
+            }
+        });
     }
 
     /**
@@ -672,7 +670,6 @@
         // create some variable to update the display with
         var percentCompleted = Math.floor((response.link_posts_processed/response.link_posts_to_process_count) * 100);
         var displayedStatus = percentCompleted + '%' + ((response.links_filled) ? (', ' + response.link_posts_processed + '/' + response.link_posts_to_process_count) : '') + ' ' + wpil_ajax.completed;
-//        var oldPercent = parseInt(loadingDisplay.find('.progress_count').css('width'));
 
         // update the display with the new info
         loadingDisplay.find('.wpil-loading-status').text(displayedStatus);
@@ -722,23 +719,8 @@
         });
     }
 
-    /**
-     * Updates the loading bars for linked sites during the link scan.
-     * Increases the length of the loading bars and the text content contained in the bar as the data is downloaded.
-	 * 
-     **/
-    function animateLinkedSiteLoadingBar(site, response){
-        // create some variables to update the display with
-        var percentCompleted = Math.floor((response.saved/response.total) * 100);
-        var displayedStatus = percentCompleted + '%' + ((response.saved) ? (', ' + response.saved + '/' + response.total) : '');
-
-        // update the display with the new info
-        site.find('.wpil-loading-status').text(displayedStatus);
-        site.find('.progress_count').css({'width': percentCompleted + '%'});
-    }
-
-	$(document).on('click', '.wpil-collapsible', function (e) {
-		if ($(this).hasClass('wpil-no-action') ||
+    $(document).on('click', '.wpil-collapsible', function (e) {
+        if ($(this).hasClass('wpil-no-action') ||
             $(e.target).hasClass('wpil_word') || 
             $(e.target).hasClass('add-internal-links') ||
             $(e.target).hasClass('add-outbound-internal-links') ||
@@ -752,93 +734,93 @@
 			$(e.target).hasClass('button-secondary')
         ) 
         {
-			return;
-		}
+            return;
+        }
 
-		// exit if the user clicked the "Add" button in the link report
-		if($(e.srcElement).hasClass('add-internal-links') || $(e.srcElement).hasClass('add-outbound-internal-links')){
-			return;
-		}
-		e.preventDefault();
+        // exit if the user clicked the "Add" button in the link report
+        if($(e.srcElement).hasClass('add-internal-links') || $(e.srcElement).hasClass('add-outbound-internal-links')){
+            return;
+        }
+        e.preventDefault();
 
-		var $el = $(this);
-		var $content = $el.closest('.wpil-collapsible-wrapper').find('.wpil-content');
-		var cl_active = 'wpil-active';
-		var wrapper = $el.parents('.wpil-collapsible-wrapper');
+        var $el = $(this);
+        var $content = $el.closest('.wpil-collapsible-wrapper').find('.wpil-content');
+        var cl_active = 'wpil-active';
+        var wrapper = $el.parents('.wpil-collapsible-wrapper');
 
-		if ($el.hasClass(cl_active)) {
-			$el.removeClass(cl_active);
-			wrapper.removeClass(cl_active);
-			$content.hide();
-		} else {
-			// if this is the link report or target keyword report or autolink table or the domains table
-			if($('.tbl-link-reports').length || $('#wpil_target_keyword_table').length || $('#wpil_keywords_table').length || $('#report_domains').length){
-				// hide any open dropdowns in the same row
-				$(this).closest('tr').find('td .wpil-collapsible').removeClass('wpil-active');
-				$(this).closest('tr').find('td .wpil-collapsible-wrapper').removeClass('wpil-active');
-				$(this).closest('tr').find('td .wpil-collapsible-wrapper').find('.wpil-content').hide();
-			}
-			$el.addClass(cl_active);
-			wrapper.addClass(cl_active);
-			$content.show();
-		}
-	});
+        if ($el.hasClass(cl_active)) {
+            $el.removeClass(cl_active);
+            wrapper.removeClass(cl_active);
+            $content.hide();
+        } else {
+            // if this is the link report or target keyword report or autolink table or the domains table
+            if($('.tbl-link-reports').length || $('#wpil_target_keyword_table').length || $('#wpil_keywords_table').length || $('#report_domains').length){
+                // hide any open dropdowns in the same row
+                $(this).closest('tr').find('td .wpil-collapsible').removeClass('wpil-active');
+                $(this).closest('tr').find('td .wpil-collapsible-wrapper').removeClass('wpil-active');
+                $(this).closest('tr').find('td .wpil-collapsible-wrapper').find('.wpil-content').hide();
+            }
+            $el.addClass(cl_active);
+            wrapper.addClass(cl_active);
+            $content.show();
+        }
+    });
 
-	$(document).on('click', '#select_all', function () {
-		if ($(this).prop('checked')) {
-			if ($('.best_keywords').hasClass('outbound')) {
-				$(this).closest('table').find('.sentence:visible input[type="checkbox"].chk-keywords:visible').prop('checked', true);
-			} else {
-				$(this).closest('table').find('input[type="checkbox"].chk-keywords:visible').prop('checked', true);
-			}
+    $(document).on('click', '#select_all', function () {
+        if ($(this).prop('checked')) {
+            if ($('.best_keywords').hasClass('outbound')) {
+                $(this).closest('table').find('.sentence:visible input[type="checkbox"].chk-keywords:visible').prop('checked', true);
+            } else {
+                $(this).closest('table').find('input[type="checkbox"].chk-keywords:visible').prop('checked', true);
+            }
 
-			$('.suggestion-select-all').prop('checked', true);
-		} else {
-			$(this).closest('table').find('input[type="checkbox"].chk-keywords').prop('checked', false);
-			$('.suggestion-select-all').prop('checked', false);
-		}
-	});
+            $('.suggestion-select-all').prop('checked', true);
+        } else {
+            $(this).closest('table').find('input[type="checkbox"].chk-keywords').prop('checked', false);
+            $('.suggestion-select-all').prop('checked', false);
+        }
+    });
 
-	$(document).on('click', '.best_keywords.outbound .wpil-collapsible-wrapper input[type="radio"]', function () {
-		var id = $(this).data('id');
-		var data = $(this).closest('li').find('.data').html();
-		var type = $(this).data('type');
-		var suggestion = $(this).data('suggestion');
-		var origin = $(this).data('post-origin');
-		var siteUrl = $(this).data('site-url');
+    $(document).on('click', '.best_keywords.outbound .wpil-collapsible-wrapper input[type="radio"]', function () {
+        var id = $(this).data('id');
+        var data = $(this).closest('li').find('.data').html();
+        var type = $(this).data('type');
+        var suggestion = $(this).data('suggestion');
+        var origin = $(this).data('post-origin');
+        var siteUrl = $(this).data('site-url');
 
-		var additionalData = [
-			'data-wpil-post-published-date="' + $(this).data('wpil-post-published-date') + '"',
-			'data-wpil-suggestion-score="' + $(this).data('wpil-suggestion-score') + '"',
-			'data-wpil-inbound-internal-links="' + $(this).data('wpil-inbound-internal-links') + '"',
-			'data-wpil-outbound-internal-links="' + $(this).data('wpil-outbound-internal-links') + '"',
-			'data-wpil-outbound-external-links="' + $(this).data('wpil-outbound-external-links') + '"',
-		];
+        var additionalData = [
+            'data-wpil-post-published-date="' + $(this).data('wpil-post-published-date') + '"',
+            'data-wpil-suggestion-score="' + $(this).data('wpil-suggestion-score') + '"',
+            'data-wpil-inbound-internal-links="' + $(this).data('wpil-inbound-internal-links') + '"',
+            'data-wpil-outbound-internal-links="' + $(this).data('wpil-outbound-internal-links') + '"',
+            'data-wpil-outbound-external-links="' + $(this).data('wpil-outbound-external-links') + '"',
+        ];
 
-		$(this).closest('ul').find('input').prop('checked', false);
+        $(this).closest('ul').find('input').prop('checked', false);
 
-		$(this).prop('checked', true);
-		$(this).closest('tr').find('input[type="checkbox"]').prop('checked', false);
-		$(this).closest('tr').find('input[type="checkbox"]').val(suggestion + ',' + id);
+        $(this).prop('checked', true);
+        $(this).closest('tr').find('input[type="checkbox"]').prop('checked', false);
+        $(this).closest('tr').find('input[type="checkbox"]').val(suggestion + ',' + id);
 
-		if (!$(this).closest('tr').find('input[data-wpil-custom-anchor]').length && $(this).closest('tr').find('.sentence[data-id="'+id+'"][data-type="'+type+'"]').length) {
-			$(this).closest('tr').find('.sentences > div').hide();
-			$(this).closest('tr').find('.sentence[data-id="'+id+'"][data-type="'+type+'"]').show();
-		}
-	});
+        if (!$(this).closest('tr').find('input[data-wpil-custom-anchor]').length && $(this).closest('tr').find('.sentence[data-id="'+id+'"][data-type="'+type+'"]').length) {
+            $(this).closest('tr').find('.sentences > div').hide();
+            $(this).closest('tr').find('.sentence[data-id="'+id+'"][data-type="'+type+'"]').show();
+        }
+    });
 
-	/**
-	 * Asks the user if they want to consign a post to the trash when they click the "Trash Post" button
-	 **/
-	 $(document).on('click', '.wpil-trash-post-link', function (e) {
-		e.preventDefault();
+    /**
+     * Asks the user if they want to consign a post to the trash when they click the "Trash Post" button
+     **/
+    $(document).on('click', '.wpil-trash-post-link', function (e) {
+        e.preventDefault();
 
-		var rowItem = $(this),
-			trashLink = rowItem.attr('href');
+        var rowItem = $(this),
+            trashLink = rowItem.attr('href');
 
-		if(trashLink.length < 1){
-			return;
-		}
+        if(trashLink.length < 1){
+            return;
+        }
 
         if ((wpil_ajax.dismissed_popups && wpil_ajax.dismissed_popups['link_report_trash_post'] !== 1)) {
             var popupWrapper = document.createElement('div');
@@ -857,7 +839,7 @@
                     $.post(trashLink, function(){
                         rowItem.closest('tr').fadeOut(300);
                     });
-                  }
+                }
 
                 var checkbox = $('#wpil-perma-dismiss-popup');
                 if(checkbox.is(':checked') && wpil_ajax.dismiss_popup_nonce){
@@ -882,10 +864,11 @@
                 rowItem.closest('tr').fadeOut(300);
             });
         }
-	});
+    });
 
 	$(document).ready(function(){
 		var saving = false;
+        runStandardTippy();
 
 		$(document).on('click', '#select_all', function () {
 			if ($(this).prop('checked')) {
@@ -1192,261 +1175,222 @@
 				});
 			}
 		});
-
-		//show links chart in dashboard
-		if ($('#wpil_links_chart').length) {
-			var internal = $('input[name="internal_links_count"]').val();
-			var external = $('input[name="total_links_count"]').val() - $('input[name="internal_links_count"]').val();
-
-			$('#wpil_links_chart').jqChart({
-				title: { text: '' },
-				legend: {
-					title: '',
-					font: '15px sans-serif',
-					location: 'top',
-					border: {visible: false}
-				},
-				border: { visible: false },
-				animation: { duration: 1 },
-				shadows: {
-					enabled: true
-				},
-				series: [
-					{
-						type: 'pie',
-						fillStyles: ['#33c7fd', '#7646b0'],
-						labels: {
-							stringFormat: '%d',
-							valueType: 'dataValue',
-							font: 'bold 15px sans-serif',
-							fillStyle: 'white',
-							fontWeight: 'bold'
-						},
-						explodedRadius: 8,
-						explodedSlices: [1],
-						data: [['Internal', internal], ['External', external]],
-						labelsPosition: 'inside', // inside, outside
-						labelsAlign: 'circle', // circle, column
-						labelsExtend: 20,
-						leaderLineWidth: 1,
-						leaderLineStrokeStyle: 'black'
-					}
-				]
-			});
-		}
 	});
 
-	var mouseExit;
-	$(document).on('mouseover', '.wpil_help i, .wpil_help div', function(){
-		clearTimeout(mouseExit);
-		$('.wpil_help div').hide();
-		$(this).parent().children('div').show();
-	});
+    var mouseExit;
+    $(document).on('mouseover', '.wpil_help i, .wpil_help div', function(){
+        clearTimeout(mouseExit);
+        $('.wpil_help div').hide();
+        $(this).parent().children('div').show();
+    });
 
-	$(document).on('mouseout', '.wpil_help i, .wpil_help div', function(){
-		var element = this;
-		mouseExit = setTimeout(function(){
-			$(element).parent().children('div').hide();
-		}, 250);
-		
-	});
+    $(document).on('mouseout', '.wpil_help i, .wpil_help div', function(){
+        var element = this;
+        mouseExit = setTimeout(function(){
+            $(element).parent().children('div').hide();
+        }, 250);
+        
+    });
 
-	$(document).on('click', '.csv_button', function(){
-		if($(this).hasClass('file-downloadable')){
-			return;
-		}
+    $(document).on('click', '.csv_button', function(){
+        if($(this).hasClass('file-downloadable')){
+            return;
+        }
 
-		$(this).addClass('wpil_button_is_active');
-		var type = $(this).data('type');
-		var data = null;
-		var id = Math.floor(Math.random() * 100000);
-		if(type === 'error'){ data = $(this).data('codes'); }
-		wpil_csv_request(type, 1, data, id);
-	});
+        $(this).addClass('wpil_button_is_active');
+        var type = $(this).data('type');
+        var data = null;
+        if(type === 'error'){ data = $(this).data('codes'); }
+        wpil_csv_request(type, 1, data);
+    });
 
-	function wpil_csv_request(type, count, data = null, id = 0) {
-		$.post(ajaxurl, {
-			count: count,
-			type: type,
-			action: 'wpil_csv_export',
-			export_data: data,
-			id: id
-		}, function (response) {
-			if (response.error) {
-				wpil_swal(response.error.title, response.error.text, 'error');
-			} else {
-				console.log(response);
-				if (response.filename) {
-					if(undefined !== response.fileExists && !response.fileExists){
-						wpil_swal('File Not Creatable', 'Unfortunately, it wasn\'t possible to create the export file. It is most likely caused by server settings preventing Link Whisper from writing in it\'s current directory', 'error');
-						$('#wpil_report_reset_data_form .csv_button').removeClass('wpil_button_is_active');
-						return;
-					}
+    function wpil_csv_request(type, count, data = null, id = 0) {
+        $.post(ajaxurl, {
+            count: count,
+            type: type,
+            action: 'wpil_csv_export',
+            export_data: data,
+            id: id
+        }, function (response) {
+            if(!isJSON(response)){
+                response = extractAndValidateJSON(response, ['error', 'filename', 'fileExists', 'type', 'count', 'id']);
+            }
 
-					// get the current button and remove the loading from it
-					var currentButton = $('.csv_button[data-type="'+type+'"]');
-					currentButton.removeClass('wpil_button_is_active');
+            if (response.error) {
+                wpil_swal(response.error.title, response.error.text, 'error');
+            } else {
+                console.log(response);
+                if (response.filename) {
+                    if(undefined !== response.fileExists && !response.fileExists){
+                        wpil_swal('File Not Creatable', 'Unfortunately, it wasn\'t possible to create the export file. It is most likely caused by server settings preventing Link Whisper from writing in it\'s current directory', 'error');
+                        $('#wpil_report_reset_data_form .csv_button').removeClass('wpil_button_is_active');
+                        return;
+                    }
 
-					// create our download link and try downloading the file
-					var link = document.createElement('a');
-					link.href = response.filename;
-					link.download = currentButton.data('file-name');
-					document.body.appendChild(link);
-					link.click();
-					document.body.removeChild(link);
+                    // get the current button and remove the loading from it
+                    var currentButton = $('.csv_button[data-type="'+type+'"]');
+                    currentButton.removeClass('wpil_button_is_active');
 
-					// as a backup, convert the csv button the user clicked into a download button
-					currentButton.addClass('file-downloadable');
-					var text = 'Download ' + currentButton.first().text();
-					currentButton.text(text);
-					currentButton.attr('download', currentButton.data('file-name'));
-					currentButton.attr('href', response.filename);
+                    // create our download link and try downloading the file
+                    var link = document.createElement('a');
+                    link.href = response.filename;
+                    link.download = currentButton.data('file-name');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    // as a backup, convert the csv button the user clicked into a download button
+                    currentButton.addClass('file-downloadable');
+                    var text = 'Download ' + currentButton.first().text();
+                    currentButton.text(text);
+                    currentButton.attr('download', currentButton.data('file-name'));
+                    currentButton.attr('href', response.filename);
 
 //					location.href = response.filename;
-				} else {
-					wpil_csv_request(response.type, ++response.count, data, id);
-				}
-			}
-		});
-	}
+                } else {
+                    wpil_csv_request(response.type, ++response.count, data, response.id);
+                }
+            }
+        });
+    }
 
-	$(document).on('click', '.return_to_report', function(e){
-		e.preventDefault();
+    $(document).on('click', '.return_to_report', function(e){
+        e.preventDefault();
 
-		// if a link is specified
-		if(undefined !== this.href){
-			// parse the url
-			var params = parseURLParams(this.href);
-			// if the url is back to an edit page
-			if(	undefined !== typeof params &&
-				( (undefined !== params.action && undefined !== params.post && 'edit' === params.action[0]) || params.direct_return || true) // NOTE: if we make it to 2.2.8 without issues, make the checks a little neater. I'm seeing about doing away with the JS report redirect thing to save some system resources for customers.
-			){
-				if(params.ret_url && params.ret_url[0]){
-					var link = atob(decodeURI(params.ret_url[0]));
-				}else{
-					var link = this.href;
-				}
+        // if a link is specified
+        if(undefined !== this.href){
+            // parse the url
+            var params = parseURLParams(this.href);
+            // if the url is back to an edit page
+            if(	undefined !== typeof params &&
+                ( (undefined !== params.action && undefined !== params.post && 'edit' === params.action[0]) || params.direct_return || true) // NOTE: if we make it to 2.2.8 without issues, make the checks a little neater. I'm seeing about doing away with the JS report redirect thing to save some system resources for customers.
+            ){
+                if(params.ret_url && params.ret_url[0]){
+                    var link = atob(decodeURI(params.ret_url[0]));
+                }else{
+                    var link = this.href;
+                }
 
-				// redirect back to the page
-				location.href = link;
-				return;
-			}
-		}
-	});
+                // redirect back to the page
+                location.href = link;
+                return;
+            }
+        }
+    });
 
-	/** Showing processing errors **/
-	var processingError;
-	// sets up a notice that will display if it's not cleared
-	function setupProcessingError(clear = false){
-		clearTimeout(processingError);
-		if(!clear){
-			processingError = setTimeout(function(){
-				$('.wpil-process-loading-error-message').css({'display': 'inline-block'});
-			}, 180 * 1000); // the max processing time for a LW process _should_ be 90 seconds, but this allows more breathing room
-		}
-	}
+    /** Showing processing errors **/
+    var processingError;
+    // sets up a notice that will display if it's not cleared
+    function setupProcessingError(clear = false){
+        clearTimeout(processingError);
+        if(!clear){
+            processingError = setTimeout(function(){
+                $('.wpil-process-loading-error-message').css({'display': 'inline-block'});
+            }, 180 * 1000); // the max processing time for a LW process _should_ be 90 seconds, but this allows more breathing room
+        }
+    }
 
-	// hides the error message in case it's showing
-	function hideProcessingError(){
-		$('.wpil-process-loading-error-message').css({'display': 'none'});
-	}
-	/** /Showing processing errors **/
+    // hides the error message in case it's showing
+    function hideProcessingError(){
+        $('.wpil-process-loading-error-message').css({'display': 'none'});
+    }
+    /** /Showing processing errors **/
 
     /** Sticky Header **/
-	// Makes the thead sticky to the top of the screen when scrolled down far enough
-	if($('.wpil_styles .wp-list-table:not(.sticky-ignore)').length){
-		var theadTop = $('.wpil_styles .wp-list-table:not(.sticky-ignore)').offset().top;
-		var adminBarHeight = parseInt(document.getElementById('wpadminbar').offsetHeight);
-		var scrollLine = (theadTop - adminBarHeight);
-		var sticky = false;
+    // Makes the thead sticky to the top of the screen when scrolled down far enough
+    if($('.wpil_styles .wp-list-table:not(.sticky-ignore)').length){
+        var theadTop = $('.wpil_styles .wp-list-table:not(.sticky-ignore)').offset().top;
+        var adminBarHeight = parseInt(document.getElementById('wpadminbar').offsetHeight);
+        var scrollLine = (theadTop - adminBarHeight);
+        var sticky = false;
 
-		// duplicate the footer and insert in the table head
-		$('.wpil_styles .wp-list-table:not(.sticky-ignore) tfoot tr').clone().addClass('wpil-sticky-header').css({'display': 'none', 'top': adminBarHeight + 'px'}).appendTo('.wp-list-table thead');
+        // duplicate the footer and insert in the table head
+        $('.wpil_styles .wp-list-table:not(.sticky-ignore) tfoot tr').clone().addClass('wpil-sticky-header').css({'display': 'none', 'top': adminBarHeight + 'px'}).appendTo('.wp-list-table thead');
 
-		// resizes the header elements
-		function sizeHeaderElements(){
-			// get the width of the normal header
-			var headerWidth = $('.wpil_styles .wp-list-table:not(.sticky-ignore) thead tr').width();
+        // resizes the header elements
+        function sizeHeaderElements(){
+            // get the width of the normal header
+            var headerWidth = $('.wpil_styles .wp-list-table:not(.sticky-ignore) thead tr').width();
 
-			// adjust for any change in the admin bar
-			adminBarHeight = parseInt(document.getElementById('wpadminbar').offsetHeight);
-			$('.wpil-sticky-header').css({'top': adminBarHeight + 'px', 'width': headerWidth});
+            // adjust for any change in the admin bar
+            adminBarHeight = parseInt(document.getElementById('wpadminbar').offsetHeight);
+            $('.wpil-sticky-header').css({'top': adminBarHeight + 'px', 'width': headerWidth});
 
-			// adjust the size of the header columns
-			var elements = $('.wpil-sticky-header').find('th');
-			$('.wpil_styles .wp-list-table:not(.sticky-ignore) thead tr').not('.wpil-sticky-header').find('th').each(function(index, element){
-				//var width = getComputedStyle(element).width;
-				var width = $(element).get(0).scrollWidth - (parseInt(getComputedStyle(element).paddingLeft) + parseInt(getComputedStyle(element).paddingRight));
-				$(elements[index]).attr('style', 'width:' + width + "px !important;");
-			});
-		}
-		sizeHeaderElements();
+            // adjust the size of the header columns
+            var elements = $('.wpil-sticky-header').find('th');
+            $('.wpil_styles .wp-list-table:not(.sticky-ignore) thead tr').not('.wpil-sticky-header').find('th').each(function(index, element){
+                //var width = getComputedStyle(element).width;
+                var width = $(element).get(0).scrollWidth - (parseInt(getComputedStyle(element).paddingLeft) + parseInt(getComputedStyle(element).paddingRight));
+                $(elements[index]).attr('style', 'width:' + width + "px !important;");
+            });
+        }
+        sizeHeaderElements();
 
-		function resetScrollLinePositions(){
-			if($('.wpil_styles .wp-list-table:not(.sticky-ignore)').length < 1){
-				return;
-			}
-			theadTop = $('.wpil_styles .wp-list-table:not(.sticky-ignore)').offset().top;
-			adminBarHeight = parseInt(document.getElementById('wpadminbar').offsetHeight);
-			scrollLine = (theadTop - adminBarHeight);
-		}
+        function resetScrollLinePositions(){
+            if($('.wpil_styles .wp-list-table:not(.sticky-ignore)').length < 1){
+                return;
+            }
+            theadTop = $('.wpil_styles .wp-list-table:not(.sticky-ignore)').offset().top;
+            adminBarHeight = parseInt(document.getElementById('wpadminbar').offsetHeight);
+            scrollLine = (theadTop - adminBarHeight);
+        }
 
-		$(window).on('scroll', function(e){
-			var scroll = parseInt(document.documentElement.scrollTop);
+        $(window).on('scroll', function(e){
+            var scroll = parseInt(document.documentElement.scrollTop);
 
-			// if we've passed the scroll line and the head is not sticky
-			if(scroll > scrollLine && !sticky){
-				// sticky the header
-				$('.wpil-sticky-header').css({'display': 'table-row'});
-				sticky = true;
-			}else if(scroll < scrollLine && sticky){
-				// if we're above the scroll line and the header is sticky, unsticky it
-				$('.wpil-sticky-header').css({'display': 'none'});
-				sticky = false;
-			}
-		});
+            // if we've passed the scroll line and the head is not sticky
+            if(scroll > scrollLine && !sticky){
+                // sticky the header
+                $('.wpil-sticky-header').css({'display': 'table-row'});
+                sticky = true;
+            }else if(scroll < scrollLine && sticky){
+                // if we're above the scroll line and the header is sticky, unsticky it
+                $('.wpil-sticky-header').css({'display': 'none'});
+                sticky = false;
+            }
+        });
 
-		var wait;
-		$(window).on('resize', function(){
-			clearTimeout(wait);
-			setTimeout(function(){ 
-				sizeHeaderElements(); 
-				resetScrollLinePositions();
-			}, 150);
-		});
+        var wait;
+        $(window).on('resize', function(){
+            clearTimeout(wait);
+            setTimeout(function(){ 
+                sizeHeaderElements(); 
+                resetScrollLinePositions();
+            }, 150);
+        });
 
-		setTimeout(function(){ 
-			resetScrollLinePositions();
-		}, 1500);
-	}
+        setTimeout(function(){ 
+            resetScrollLinePositions();
+        }, 1500);
+    }
     /** /Sticky Header **/
 
-	/** General Items **/
-	$(document).on('keyup', '.wpil_styles #current-page-selector', maybeChangePage);
-	function maybeChangePage(e){
-		if(!e || !e.target || e.keyCode !== 13){
-			return;
-		}
+    /** General Items **/
+    $(document).on('keyup', '.wpil_styles #current-page-selector', maybeChangePage);
+    function maybeChangePage(e){
+        if(!e || !e.target || e.keyCode !== 13){
+            return;
+        }
 
-		// if the selector isn't in a form
-		if($(e.target).parents('form').length < 1){
-			// manually perform the page updating
-			var page = parseInt($(e.target).val());
+        // if the selector isn't in a form
+        if($(e.target).parents('form').length < 1){
+            // manually perform the page updating
+            var page = parseInt($(e.target).val());
 
-			if(page > 1){
-				if(-1 !== window.location.href.indexOf('paged')){
-					window.location.href = window.location.href.replace(/paged=([0-9]*)/, 'paged=' + page);
-				}else{
-					window.location.href += '&paged=' + page;
-				}
-			}else if(-1 !== window.location.href.indexOf('paged')){
-				window.location.href = window.location.href.replace(/paged=([0-9]*)/, '');
-			}
-		}
-	}
-	/** /General Items */
+            if(page > 1){
+                if(-1 !== window.location.href.indexOf('paged')){
+                    window.location.href = window.location.href.replace(/paged=([0-9]*)/, 'paged=' + page);
+                }else{
+                    window.location.href += '&paged=' + page;
+                }
+            }else if(-1 !== window.location.href.indexOf('paged')){
+                window.location.href = window.location.href.replace(/paged=([0-9]*)/, '');
+            }
+        }
+    }
+    /** /General Items */
 	/** Lazyload the dropdowns */
-	$(document).on('click', 'td .wpil-collapsible-wrapper', maybeAjaxDownloadData);
+    $(document).on('click', 'td .wpil-collapsible-wrapper', maybeAjaxDownloadData);
 
 	/**
      * Checks to see if the clicked dropdown has all of its data.
@@ -1532,60 +1476,65 @@
 
 	/** /Lazyload the dropdowns */
 
-	/** Ajax saving for Screen Options **/
-	var savingScreenOptions = false;
-	$(document).on('submit', '#adv-settings', ajaxSaveScreenOptions);
-	function ajaxSaveScreenOptions(e){
-		// exit if this is not a Link Whisper page
-		if($('body').find('.wpil_styles').length < 1 || savingScreenOptions){
-			return;
-		}
-		// stop the form submit
-		e.preventDefault();
+    /** Ajax saving for Screen Options **/
+    var savingScreenOptions = false;
+    $(document).on('submit', '#adv-settings', ajaxSaveScreenOptions);
+    function ajaxSaveScreenOptions(e){
+        // exit if this is not a Link Whisper page
+        if($('body').find('.wpil_styles').length < 1 || savingScreenOptions){
+            return;
+        }
+        // stop the form submit
+        e.preventDefault();
 
-		// get the form
-		var form = $(this);
+        // get the form
+        var form = $(this);
 
-		// get the values from the screen options
-		var saveOptions = {};
+        // get the values from the screen options
+        var saveOptions = {};
 
-		$(this).find('input').each(function(index, element){
-			if(!element.id){
-				return;
-			}
+        $(this).find('input').each(function(index, element){
+            if(!element.id){
+                return;
+            }
 
-			var el = $(element);
-			if(el.attr('type') === 'checkbox'){
-				saveOptions[element.id] = el.is(':checked') ? 'on': 'off';
-			}else{
-				saveOptions[element.id] = $(element).val();
-			}
-		});
+            var el = $(element);
+            if(el.attr('type') === 'checkbox'){
+                saveOptions[element.id] = el.is(':checked') ? 'on': 'off';
+            }else{
+                saveOptions[element.id] = $(element).val();
+            }
+        });
 
-		if(Object.keys(saveOptions).length > 0){
-			$.ajax({
-				type: "POST",
-				url: ajaxurl,
-				data: {
-					action: 'wpil_save_screen_options',
-					nonce: $(this).find('#screenoptionnonce').val(),
-					options: saveOptions,
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					console.log(textStatus);
-				},
-				success: function(response){
-					if(response.success){
-						window.location.reload();
-					}else{
-						savingScreenOptions = true;
-						form.submit();
-					}
-					console.log(response);
-				}
-			});
-		}
-	}
+        if(Object.keys(saveOptions).length > 0){
+            $.ajax({
+                type: "POST",
+                url: ajaxurl,
+                data: {
+                    action: 'wpil_save_screen_options',
+                    nonce: $(this).find('#screenoptionnonce').val(),
+                    options: saveOptions,
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                },
+                success: function(response){
+                    if(!isJSON(response)){
+                        response = extractAndValidateJSON(response, ['success']);
+                    }
 
-	/** /Ajax saving for Screen Options **/
+                    if(response.success){
+                        window.location.reload();
+                    }else{
+                        savingScreenOptions = true;
+                        form.submit();
+                    }
+                    console.log(response);
+                }
+            });
+        }
+    }
+
+    /** /Ajax saving for Screen Options **/
+
 })(jQuery);

@@ -314,37 +314,24 @@ if ( ! class_exists( 'Mo2f_Onprem_Setup' ) ) {
 						if (status == 1) {
 							if ( requestType == "configure_2fa") {
 								jQuery("#mo2f_2factor_test_prompt_cross").submit();
-							} else if( requestType == "setupwizard") {
-								window.location.href ="' . esc_url( admin_url() ) . '" + \'admin.php?page=mo2f-setup-wizard&current-step=step_4_of_4\';
 							} else {
 								jQuery("#mo2f_2fa_popup_dashboard").css("display", "none");
 								success_msg("You have successfully completed the test.");
 							}
 						} else if (status == \'ERROR\' || status == \'FAILED\' || status == \'DENIED\' || status == 0) {
-							if( requestType == "setupwizard") {
-								mo2f_show_message("You have denied the transaction. Please click on Skip Setup to proceed.");
-								jQuery("#showPushImage").css("display","none");
-								jQuery("#verify").css("display","block");
-							} else{
-								jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
-								closeVerification = true;
-								error_msg("You have denied the transaction.");
-							}
+							jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
+							closeVerification = true;
+							error_msg("You have denied the transaction.");
 						} else {
 							if(calls<300)
 							{
 								timeout = setTimeout(emailVerificationPoll, 1000);
 							}
 							else
-							{	if( requestType == "setupwizard") {
-									mo2f_show_message("Session timeout. Please click on Skip Setup to proceed.");
-									jQuery("#showPushImage").css("display","none");
-									jQuery("#verify").css("display","block");
-							    } else{
-									jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
-									closeVerification = true;
-									error_msg("Session timeout.");
-								}
+							{	
+								jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
+								closeVerification = true;
+								error_msg("Session timeout.");
 							}
 						}
 					}

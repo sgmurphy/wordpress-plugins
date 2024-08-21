@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the common logarithm (base 10) of a complex number.
@@ -20,13 +20,10 @@ namespace Complex;
 function log10($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
-    if (($complex->getReal() == 0.0) && ($complex->getImaginary() == 0.0)) {
+    if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
         throw new \InvalidArgumentException();
-    } elseif (($complex->getReal() > 0.0) && ($complex->getImaginary() == 0.0)) {
+    } elseif ($complex->getReal() > 0.0 && $complex->getImaginary() == 0.0) {
         return new Complex(\log10($complex->getReal()), 0.0, $complex->getSuffix());
     }
-
-    return ln($complex)
-        ->multiply(\log10(Complex::EULER));
+    return ln($complex)->multiply(\log10(Complex::EULER));
 }

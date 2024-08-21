@@ -968,6 +968,20 @@ class Wpil_Suggestion
             return $content;
         }
 
+        $pos = self::get_paragraph_offset($content, $skip_count);
+
+        // make sure that content is longer than the skip pos
+        if(mb_strlen($content) > $pos){
+            $content = mb_substr($content, $pos);
+        }
+
+        return $content;
+    }
+
+    /**
+     * Gets the paragraph offset for a specific piece of text so we can tell how far down a specific paragraph break is
+     **/
+    public static function get_paragraph_offset($content, $paragraph_num = 0, $reverse = false) {
         // create an offset index for the tags we're searching for
         $char_count = array(
             'p' => 4,
@@ -976,44 +990,61 @@ class Wpil_Suggestion
             'blockquote' => 12
         );
 
+        // if we're counting backwards
+        if($reverse){
+            // add an extra loop to account for the fact the search works from the end of a paragraph.
+            // That way, entering a 2 for $paragraph_num will give us "before the second to last paragraph"
+            $paragraph_num++;
+        }
+
         $i = 0;
+        $len = mb_strlen($content);
         $pos = 0;
-        while($i < $skip_count && $pos < mb_strlen($content)){
+        while($i < $paragraph_num && $pos >= 0 && $pos < $len){
+
+            $reverse_search = ($pos) ? ($len - $pos) * -1: $pos;
+
             // search for the possible paragraph endings
             $pos_search = array(
-                'p' => Wpil_Word::mb_strpos($content, '</p>', $pos),
-                'div' => Wpil_Word::mb_strpos($content, '</div>', $pos),
-                'newline' => Wpil_Word::mb_strpos($content, '\n', $pos), // newlines mainly apply to module-based builder content since we separate the modules with "\n"
-                'blockquote' => Wpil_Word::mb_strpos($content, '</blockquote>', $pos)
+                'p' => $reverse ? Wpil_Word::mb_strrpos($content, '</p>', $reverse_search) : Wpil_Word::mb_strpos($content, '</p>', $pos),
+                'div' => $reverse ? Wpil_Word::mb_strrpos($content, '</div>', $reverse_search) : Wpil_Word::mb_strpos($content, '</div>', $pos),
+                'newline' => $reverse ? Wpil_Word::mb_strrpos($content, '\n', $reverse_search) : Wpil_Word::mb_strpos($content, '\n', $pos),
+                'blockquote' => $reverse ? Wpil_Word::mb_strrpos($content, '</blockquote>', $reverse_search) : Wpil_Word::mb_strpos($content, '</blockquote>', $pos)
             );
 
             // sort the results and remove the empties
             asort($pos_search);
             $pos_search = array_filter($pos_search);
 
-            // exit if nothing is found
+            // if nothing is found
             if(empty($pos_search)){
+                // and we're going backwards AND there are more paragraphs to go or we're at the limit
+                if($reverse && $i <= $paragraph_num){
+                    // set the position for start
+                    $pos = 0;
+                }
+
+                // exit the loop
                 break;
             }
 
-            // get the closest paragraph ending and it's type
+            // get the closest paragraph ending and its type
             $temp_pos = reset($pos_search);
             $temp_ind = key($pos_search);
-
+    
             // if the ending was a div
             if($temp_ind === 'div'){
                 // see if there's an opening tag before the last pos
-                $div_pos = Wpil_Word::mb_strpos($content, '<div', $pos);
+                $div_pos = $reverse ? Wpil_Word::mb_strrpos($content, '<div', $temp_pos) : Wpil_Word::mb_strpos($content, '<div', $pos);
 
                 // if there is
-                if(false !== $div_pos){
+                if (false !== $div_pos) {
                     // check if there's any text between the tags
                     $div_content = mb_substr($content, $div_pos, ($temp_pos - $div_pos)); // full-length string ending - div start == div_content. If we don't remove the div start the string is too long
                     $div_content = trim(strip_tags(mb_ereg_replace('<a[^>]*>.*?</a>|<h[1-6][^>]*>.*?</h[1-6]>', '', $div_content))); // remove links, headings, strip tags that might have text attrs, and trim
 
                     // if there isn't any content, but there is a runner-up tag
-                    if(empty($div_content) && count($pos_search) > 1){
-                        // go with it's position since the div wasn't actually a paragraph
+                    if (empty($div_content) && count($pos_search) > 1) {
                         $slice = array_slice($pos_search, 1, 1);
                         $temp_pos = reset($slice);
                         $temp_ind = key($slice);
@@ -1029,17 +1060,16 @@ class Wpil_Suggestion
                 }
             }
 
-            $pos = ($temp_pos + $char_count[$temp_ind]);
-
             $i++;
+
+            if($reverse && $i < $paragraph_num && $pos >= 0 && $pos < $len) {
+                $pos = ($temp_pos - $char_count[$temp_ind]);
+            }else {
+                $pos = ($temp_pos + $char_count[$temp_ind]);
+            }
         }
 
-        // make sure that content is longer than the skip pos
-        if(mb_strlen($content) > $pos){
-            $content = mb_substr($content, $pos);
-        }
-
-        return $content;
+        return $pos;
     }
 
     /**
@@ -1286,10 +1316,10 @@ class Wpil_Suggestion
                     $words[$word][] = $p;
                 }
             }
-
+/* TODO: Remove if no timeouts are reported by version 0.8.0
             if ($key % 100 == 0 && microtime(true) - $start > 20) {
                 break;
-            }
+            }*/
         }
 
         return $words;

@@ -418,6 +418,11 @@ class HTMega_Widgets_Control{
                 'option-tab'=>'htmega_element_tabs', 
                 'is_pro'   => false,
             ],
+            'calendly' =>[
+                'title' => 'Calendly',
+                'option-tab'=>'htmega_element_tabs', 
+                'is_pro'   => false,
+            ],
 
             'bbpress' => [   
                 'title' => 'Bbpress',

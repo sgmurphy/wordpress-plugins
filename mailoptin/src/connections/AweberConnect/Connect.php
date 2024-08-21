@@ -2,6 +2,7 @@
 
 namespace MailOptin\AweberConnect;
 
+use Authifly\Exception\InvalidAccessTokenException;
 use MailOptin\Core\Connections\ConnectionInterface;
 
 class Connect extends AbstractAweberConnect implements ConnectionInterface
@@ -135,6 +136,7 @@ class Connect extends AbstractAweberConnect implements ConnectionInterface
             $lists_array = [];
 
             while ($loop === true) {
+
                 $response = $this->aweber_instance()->fetchEmailListNameAndId($this->account_id, $offset, $limit);
 
                 // an array with list id as key and name as value.
@@ -155,8 +157,15 @@ class Connect extends AbstractAweberConnect implements ConnectionInterface
 
             return $lists_array;
 
+        } catch (InvalidAccessTokenException $e) {
+
+            if (401 == $e->getCode()) {
+
+                update_option('mailoptin_aweber_connection_401_block', 'true');
+            }
 
         } catch (\Exception $e) {
+
             self::save_optin_error_log($e->getMessage(), 'aweber');
         }
     }

@@ -6,6 +6,7 @@ use ADP\BaseVersion\Includes\Compatibility\Addons\TmExtraOptionsCmp;
 use ADP\BaseVersion\Includes\Compatibility\AeliaSwitcherCmp;
 use ADP\BaseVersion\Includes\Compatibility\AlgWcCurrencySwitcherCmp;
 use ADP\BaseVersion\Includes\Compatibility\Container\MixAndMatchCmp;
+use ADP\BaseVersion\Includes\Compatibility\Container\SomewhereWarmCompositesCmp;
 use ADP\BaseVersion\Includes\Compatibility\Container\SomewhereWarmBundlesCmp;
 use ADP\BaseVersion\Includes\Compatibility\Container\WpcBundleCmp;
 use ADP\BaseVersion\Includes\Compatibility\Container\YithBundlesCmp;
@@ -36,6 +37,7 @@ class ContextBuilder
         $context->getContainerCompatibilityManager()->register(new WpcBundleCmp($context));
         $context->getContainerCompatibilityManager()->register(new MixAndMatchCmp($context));
         $context->getContainerCompatibilityManager()->register(new YithBundlesCmp($context));
+        $context->getContainerCompatibilityManager()->register(new SomewhereWarmCompositesCmp($context));
     }
 
     protected function registerCurrencyCompatibility(Context $context)

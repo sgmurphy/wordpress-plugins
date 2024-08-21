@@ -1546,12 +1546,12 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$this->add_control(
 			'carousel_direction',
 			array(
-				'label'   => esc_html__( 'Slide Direction', 'theplus' ),
+				'label'   => esc_html__( 'Slide Direction', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'ltr',
 				'options' => array(
-					'rtl' => esc_html__( 'Right to Left', 'theplus' ),
-					'ltr' => esc_html__( 'Left to Right', 'theplus' ),
+					'rtl' => esc_html__( 'Right to Left', 'tpebl' ),
+					'ltr' => esc_html__( 'Left to Right', 'tpebl' ),
 				),
 			)
 		);

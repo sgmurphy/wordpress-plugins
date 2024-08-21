@@ -72,10 +72,12 @@ abstract class BlockBase {
 	 * @return array
 	 */
 	public function post_query_guten( $data, $prefix = '' ) {
-		$post_type = isset( $data['post_type'] ) ? esc_html( $data['post_type'] ) : 'post';
-		$args      = [
-			'post_type'   => [ $post_type ],
-			'post_status' => isset( $data['post_status'] ) ? esc_html( $data['post_status'] ) : 'publish',
+		$_post_type  = isset( $data['post_type'] ) ? esc_html( $data['post_type'] ) : 'post';
+		$post_status = isset( $data['post_status'] ) ? esc_html( $data['post_status'] ) : 'publish';
+		$post_type   = Fns::available_post_type( $_post_type );
+		$args        = [
+			'post_type'   => [ Fns::available_post_type( $post_type ) ],
+			'post_status' => Fns::available_user_post_status( $post_status ),
 		];
 
 		if ( $data['post_id'] ) {
@@ -122,7 +124,7 @@ abstract class BlockBase {
 			];
 		}
 
-		$_taxonomies             = get_object_taxonomies( $data['post_type'], 'objects' );
+		$_taxonomies             = get_object_taxonomies( $post_type, 'objects' );
 		$_taxonomy_list          = $data['taxonomy_lists'];
 		$filtered_taxonomy_lists = [];
 

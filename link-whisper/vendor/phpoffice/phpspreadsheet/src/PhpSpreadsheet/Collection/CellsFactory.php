@@ -1,10 +1,9 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Collection;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Collection;
 
-use PhpOffice\PhpSpreadsheet\Settings;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Settings;
+use LWVendor\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 abstract class CellsFactory
 {
     /**

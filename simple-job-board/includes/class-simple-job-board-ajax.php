@@ -382,7 +382,16 @@ class Simple_Job_Board_Ajax {
 
                         // Make Upload Directory 
                         if (!is_dir($upload_dir['path'])) {
-                            wp_mkdir_p($upload_dir['path']);
+                            if (wp_mkdir_p($upload_dir['path'])) {
+                                // Path to the index.php file
+                                $index_file = trailingslashit($upload_dir['path']) . '/index.php';
+                        
+                                // Check if index.php already exists
+                                if (!file_exists($index_file)) {
+                                    // Create a basic index.php file to prevent directory browsing
+                                    file_put_contents($index_file, "<?php\n// Silence is golden.\n");
+                                }
+                            }
                         }
 
                         // Uploaded File Parameters 

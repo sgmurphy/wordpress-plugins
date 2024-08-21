@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-10T07:32:51+00:00\n"
+"POT-Creation-Date: 2024-08-21T06:13:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: file-manager\n"
@@ -67,15 +67,15 @@ msgid "You are not authorized to run this command [ %s ] on file manager"
 msgstr ""
 
 #. translators: 1: Temporary file path
-#: app/Providers/FileEditValidator.php:57
+#: app/Providers/FileEditValidator.php:64
 msgid "Errors parsing the file [ %s ] as php script"
 msgstr ""
 
-#: app/Providers/FileEditValidator.php:85
+#: app/Providers/FileEditValidator.php:86
 msgid "File edit is disabled. To allow edit, please set DISALLOW_FILE_EDIT to false in wp-config file"
 msgstr ""
 
-#: app/Providers/FileEditValidator.php:89
+#: app/Providers/FileEditValidator.php:90
 msgid "Not Authorized to edit file"
 msgstr ""
 

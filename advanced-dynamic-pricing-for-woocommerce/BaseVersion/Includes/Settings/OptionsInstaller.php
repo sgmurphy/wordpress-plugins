@@ -234,11 +234,6 @@ class OptionsInstaller
                 __('Apply pricing rules while doing REST API', 'advanced-dynamic-pricing-for-woocommerce')
             ),
             $builder::boolean(
-                'allow_to_edit_prices_in_po',
-                false,
-                __('Allow to edit prices in Phone Orders', 'advanced-dynamic-pricing-for-woocommerce')
-            ),
-            $builder::boolean(
                 'suppress_other_pricing_plugins',
                 false,
                 __('Suppress other pricing plugins in frontend', 'advanced-dynamic-pricing-for-woocommerce')

@@ -2,8 +2,8 @@ Link Whisper Free
 Contributors: linkwhspr
 Tags: links, SEO, internal linking, link building, orphan content
 Requires at least: 4.6
-Tested up to: 6.5
-Stable Tag: 0.7.5
+Tested up to: 6.6
+Stable Tag: 0.7.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -158,6 +158,18 @@ We are confident that you’ll be happy with Link Whisper Premium. However, if y
 15. [Premium] The URL Changer allows you to update old links to point to new URLs.
 
 == Changelog ==
+= 0.7.6 =
+* [COMPATIBILITY] Updating Oxygen support for 4.8.3 and above
+* [COMPATIBILITY] Scoping all included PHP libraries to prevent conflicts with other plugins
+* [ADJUSTMENT] Increasing the batch size for the initial stages of the Link Scan so they are completed faster.
+* [IMPROVEMENT] Improving the Report page's filter queries to improve loading speed.
+* [IMPROVEMENT] Improving data caching during link scans for faster scanning speeds.
+* [IMPROVEMENT] Making the suggestion and link scan data processing much more robust to prevent issues when other plugins or custom code create unexpected output.
+* [IMPROVEMENT] Improving the link stat updating that runs when a post is updated so it's faster and more effective.
+* [BUGFIX] Fixing styling bug that pop the Run Link Scan button out of alignment with the other buttons.
+* [BUGFIX] Fixing minor "class" error notice on PHP 5.6
+* [BUGFIX] Fixing "dynamic property" notices when loading suggestions.
+
 = 0.7.5 =
 * [BUGFIX] Fixing bug that would cause the suggestions to get stuck during loading.
 

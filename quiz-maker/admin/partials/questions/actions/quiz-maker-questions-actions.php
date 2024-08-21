@@ -468,6 +468,7 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                 <th class="th-150 removable ays-quiz-question-answer-ordering-row"><?php echo __('Ordering', $this->plugin_name); ?></th>
                                 <th class="th-150 removable ays-quiz-question-answer-correct-row"><?php echo __('Correct', $this->plugin_name); ?></th>
                             <?php endif; ?>
+                                <th <?php echo ($is_text_type) ? 'class="th-650"' : 'class="ays-quiz-question-answer-answer-row" style="width:500px;"'; ?>><?php echo __('Answer', $this->plugin_name); ?></th>
                                 <th class="only_pro ays-weight-row ays-quiz-question-answer-weight-point-row" style="width:120px;padding:0;"><?php echo __('Weight/Point', $this->plugin_name); ?><br>
                                     <a href="https://ays-pro.com/wordpress/quiz-maker" tabindex="-1" target="_blank" class="ays-quiz-new-upgrade-button-link ays-quiz-new-upgrade-button-without-text-link">
                                         <div class="ays-quiz-new-upgrade-button-box">
@@ -491,7 +492,6 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                     </a>
                                 </th>
                             <?php endif; ?>
-                                <th <?php echo ($is_text_type) ? 'class="th-650"' : 'class="ays-quiz-question-answer-answer-row" style="width:500px;"'; ?>><?php echo __('Answer', $this->plugin_name); ?></th>
                             <?php if(! $is_text_type): ?>
                                 <th class="th-150 removable ays-quiz-question-answer-image-row" style="padding:0;"><?php echo __('Image', $this->plugin_name); ?><br>
                                     <a href="https://ays-pro.com/wordpress/quiz-maker" tabindex="-1" target="_blank" class="ays-quiz-new-upgrade-button-link ays-quiz-new-upgrade-button-without-text-link">
@@ -516,13 +516,13 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                             if($question["type"] == 'number'):
                             ?>
                             <tr class="ays-answer-row ui-state-default">
-                                <td title="This property available only in pro version" class="only_pro">
-                                    <div class="pro_features"></div>
-                                    <input class="w-100" type="number" value="2" tabindex="-1"/>
-                                </td>
                                 <td>
                                     <input style="display:none;" class="ays-correct-answer" type="checkbox" name="ays-correct-answer[]" value="1" checked/>
                                     <input type="number" step="any" name="ays-correct-answer-value[]" class="ays-correct-answer-value" value=""/>
+                                </td>
+                                <td title="This property available only in pro version" class="only_pro">
+                                    <div class="pro_features"></div>
+                                    <input class="w-100" type="number" value="2" tabindex="-1"/>
                                 </td>
                                 <td>
                                     <input type="text" name="ays-answer-placeholder[]" class="ays-correct-answer-value" value=""/>
@@ -532,13 +532,13 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                             elseif($question["type"] == 'short_text'):
                             ?>
                             <tr class="ays-answer-row ui-state-default">
-                                <td title="This property available only in pro version" class="only_pro">
-                                    <div class="pro_features"></div>
-                                    <input class="w-100" type="number" value="2" tabindex="-1"/>
-                                </td>
                                 <td>
                                     <input style="display:none;" class="ays-correct-answer" type="checkbox" name="ays-correct-answer[]" value="1" checked/>
                                     <input type="text" name="ays-correct-answer-value[]" class="ays-correct-answer-value" value=""/>
+                                </td>
+                                <td title="This property available only in pro version" class="only_pro">
+                                    <div class="pro_features"></div>
+                                    <input class="w-100" type="number" value="2" tabindex="-1"/>
                                 </td>
                                 <td>
                                     <input type="text" name="ays-answer-placeholder[]" class="ays-correct-answer-value" value=""/>
@@ -548,13 +548,13 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                             elseif($question["type"] == 'text'):
                             ?>
                             <tr class="ays-answer-row ui-state-default">
-                                <td title="This property available only in pro version" class="only_pro">
-                                    <div class="pro_features"></div>
-                                    <input class="w-100" type="number" value="2" tabindex="-1"/>
-                                </td>
                                 <td>
                                     <input style="display:none;" class="ays-correct-answer" type="checkbox" name="ays-correct-answer[]" value="1" checked/>
                                     <textarea type="text" name="ays-correct-answer-value[]" class="ays-correct-answer-value"></textarea>
+                                </td>
+                                <td title="This property available only in pro version" class="only_pro">
+                                    <div class="pro_features"></div>
+                                    <input class="w-100" type="number" value="2" tabindex="-1"/>
                                 </td>
                                 <td>
                                     <input type="text" name="ays-answer-placeholder[]" class="ays-correct-answer-value" value=""/>
@@ -564,13 +564,13 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                             elseif($question["type"] == 'date'):
                             ?>
                             <tr class="ays-answer-row ui-state-default">
-                                <td title="This property available only in pro version" class="only_pro">
-                                    <div class="pro_features"></div>
-                                    <input class="w-100" type="number" value="2" tabindex="-1"/>
-                                </td>
                                 <td>
                                     <input style="display:none;" class="ays-correct-answer" type="checkbox" name="ays-correct-answer[]" value="1" checked/>
                                     <input type="date" name="ays-correct-answer-value[]" class="ays-date-input ays-correct-answer-value" placeholder="<?php echo "e. g. " . current_time( 'Y-m-d' ); ?>">
+                                </td>
+                                <td title="This property available only in pro version" class="only_pro">
+                                    <div class="pro_features"></div>
+                                    <input class="w-100" type="number" value="2" tabindex="-1"/>
                                 </td>
                             </tr>
                             <?php
@@ -595,6 +595,8 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                         <label for="ays-correct-answer-<?php echo $ays_i+1; ?>"></label>
                                     </span>
                                 </td>
+                                <td class="ays-quiz-question-answer-answer-row"><input type="text" name="ays-correct-answer-value[]" class="ays-correct-answer-value"/ value="<?php echo $true_or_false_val; ?>"></td>
+                                
                                 <td title="This property available only in pro version" class="only_pro ays-quiz-question-answer-weight-point-row">
                                     <div class="pro_features"></div>
                                     <input class="w-100" type="number" value="2" tabindex="-1"/>
@@ -605,8 +607,6 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                         <option value="A">A</option>
                                     </select>
                                 </td>
-                                <td class="ays-quiz-question-answer-answer-row"><input type="text" name="ays-correct-answer-value[]" class="ays-correct-answer-value"/ value="<?php echo $true_or_false_val; ?>"></td>
-                                
                                 <td title="This property available only in pro version" class="ays-quiz-question-answer-image-row">
                                     <label class='ays-label' for='ays-answer'>
                                         <a style="opacity: 0.4" href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="add-answer-image" tabindex="-1"><?php echo __('Add',$this->plugin_name)?></a>
@@ -652,13 +652,13 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                     <?php
                                         if($question["type"] == 'number'):
                                     ?>
-                                    <td title="This property available only in pro version" class="only_pro">
-                                        <div class="pro_features"></div>
-                                        <input class="w-100" type="number" value="2" tabindex="-1"/>
-                                    </td>
                                     <td>
                                         <input style="display:none;" class="ays-correct-answer" type="checkbox" name="ays-correct-answer[]" value="1" checked/>
                                         <input type="<?php echo $question_type; ?>" step="any" name="ays-correct-answer-value[]" class="ays-correct-answer-value" value="<?php echo stripslashes(esc_attr($answer["answer"])); ?>"/>
+                                    </td>
+                                    <td title="This property available only in pro version" class="only_pro">
+                                        <div class="pro_features"></div>
+                                        <input class="w-100" type="number" value="2" tabindex="-1"/>
                                     </td>
                                     <td>
                                         <input type="text" name="ays-answer-placeholder[]" class="ays-correct-answer-value" value="<?php echo stripslashes(esc_attr($answer["placeholder"])); ?>"/>
@@ -666,13 +666,13 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                     <?php
                                         elseif($question["type"] == 'short_text'):
                                     ?>
-                                    <td title="This property available only in pro version" class="only_pro">
-                                        <div class="pro_features"></div>
-                                        <input class="w-100" type="number" value="2" tabindex="-1"/>
-                                    </td>
                                     <td>
                                         <input style="display:none;" class="ays-correct-answer" type="checkbox" name="ays-correct-answer[]" value="1" checked/>
                                         <input type="<?php echo $question_type; ?>" name="ays-correct-answer-value[]" class="ays-correct-answer-value" value="<?php echo stripslashes(esc_attr($answer["answer"])); ?>"/>
+                                    </td>
+                                    <td title="This property available only in pro version" class="only_pro">
+                                        <div class="pro_features"></div>
+                                        <input class="w-100" type="number" value="2" tabindex="-1"/>
                                     </td>
                                     <td>
                                         <input type="text" name="ays-answer-placeholder[]" class="ays-correct-answer-value" value="<?php echo stripslashes(esc_attr($answer["placeholder"])); ?>"/>
@@ -680,13 +680,13 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                     <?php
                                         elseif($question["type"] == 'text'):
                                     ?>
-                                    <td title="This property available only in pro version" class="only_pro">
-                                        <div class="pro_features"></div>
-                                        <input class="w-100" type="number" value="2" tabindex="-1"/>
-                                    </td>
                                     <td>
                                         <input style="display:none;" class="ays-correct-answer" type="checkbox" name="ays-correct-answer[]" value="1" checked/>
                                         <textarea type="text" name="ays-correct-answer-value[]" class="ays-correct-answer-value"><?php echo stripslashes(esc_attr($answer["answer"])); ?></textarea>
+                                    </td>
+                                    <td title="This property available only in pro version" class="only_pro">
+                                        <div class="pro_features"></div>
+                                        <input class="w-100" type="number" value="2" tabindex="-1"/>
                                     </td>
                                     <td>
                                         <input type="text" name="ays-answer-placeholder[]" class="ays-correct-answer-value" value="<?php echo stripslashes(esc_attr($answer["placeholder"])); ?>"/>
@@ -694,13 +694,13 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                     <?php
                                     elseif($question["type"] == 'date'):
                                     ?>
-                                    <td title="This property available only in pro version" class="only_pro">
-                                        <div class="pro_features"></div>
-                                        <input class="w-100" type="number" value="2" tabindex="-1"/>
-                                    </td>
                                     <td>
                                         <input style="display:none;" class="ays-correct-answer" type="checkbox" name="ays-correct-answer[]" value="1" checked/>
                                         <input type="date" name="ays-correct-answer-value[]" class="ays-date-input ays-correct-answer-value" placeholder="<?php echo "e. g. " . current_time( 'Y-m-d' ); ?>" value="<?php echo stripslashes(esc_attr($answer["answer"])); ?>">
+                                    </td>
+                                    <td title="This property available only in pro version" class="only_pro">
+                                        <div class="pro_features"></div>
+                                        <input class="w-100" type="number" value="2" tabindex="-1"/>
                                     </td>
                                     <?php
                                         else:
@@ -712,6 +712,8 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                             <label for="ays-correct-answer-<?php echo($index + 1); ?>"></label>
                                         </span>
                                     </td>
+                                    <td class="ays-quiz-question-answer-answer-row"><input type="text" name="ays-correct-answer-value[]" class="ays-correct-answer-value" value="<?php echo stripslashes(esc_attr($answer["answer"])); ?>"/></td>
+
                                     <td title="This property available only in pro version" class="only_pro ays-quiz-question-answer-weight-point-row">
                                         <div class="pro_features"></div>
                                         <input class="w-100" type="number" value="2" tabindex="-1"/>
@@ -723,8 +725,6 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                             <option value="A">A</option>
                                         </select>
                                     </td>
-
-                                    <td class="ays-quiz-question-answer-answer-row"><input type="text" name="ays-correct-answer-value[]" class="ays-correct-answer-value" value="<?php echo stripslashes(esc_attr($answer["answer"])); ?>"/></td>
                                     <td title="This property available only in pro version" class="ays-quiz-question-answer-image-row">
                                         <label class='ays-label' for='ays-answer'>
                                             <a style="opacity: 0.4" href="https://ays-pro.com/wordpress/quiz-maker" tabindex="-1" target="_blank" class="add-answer-image"><?php echo __('Add',$this->plugin_name)?></a>

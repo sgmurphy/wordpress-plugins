@@ -6299,18 +6299,18 @@ body.wp-core-ui .button-primary:active {
 #ays-answers-table .ays-quiz-question-answer-correct-row,
 #ays-answers-table .ays-quiz-question-answer-image-row,
 #ays-answers-table .ays-quiz-question-answer-delete-row {
-    width: 10% !important;
+    width: 5% !important;
     max-width: 100%;
 }
 
 #ays-answers-table .ays-quiz-question-answer-weight-point-row,
 #ays-answers-table .ays-quiz-question-answer-keyword-row {
-    width: 12% !important;
+    width: 5% !important;
     max-width: 100%;
 }
 
 #ays-answers-table .ays-quiz-question-answer-answer-row {
-    width: 40% !important;
+    width: 70% !important;
     max-width: 100%;
 }
 

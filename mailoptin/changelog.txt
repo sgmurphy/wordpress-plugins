@@ -1,5 +1,9 @@
 ﻿== Changelog ==
 
+= 1.2.70.2 =
+* Added content-type header to PATCH webhook request
+* Stop AWeber retry if 401 error is detected.
+
 = 1.2.70.1 =
 * Added mo_new_publish_post_condition_check filter.
 * Fixed bug where whitespace in From and Replyto emails could lead to email campaign not sending.

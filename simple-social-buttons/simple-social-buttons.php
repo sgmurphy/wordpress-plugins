@@ -3,7 +3,7 @@
  * Plugin Name: Simple Social Buttons
  * Plugin URI: https://simplesocialbuttons.com/?utm_source=simple-social-buttons-lite&utm_medium=plugin-url-link
  * Description: Simple Social Buttons adds an advanced set of social media sharing buttons to your WordPress sites, such as: Facebook, Twitter, WhatsApp, Viber, Reddit, LinkedIn and Pinterest. This makes it the most <code>Flexible Social Sharing Plugin ever for Everyone.</code>
- * Version: 5.3.0
+ * Version: 5.3.1
  * Author: WPBrigade
  * Author URI: https://www.WPBrigade.com/?utm_source=simple-social-buttons-lite&utm_medium=author-url-link
  * Text Domain: simple-social-buttons
@@ -35,7 +35,7 @@ if ( ! function_exists( 'ssb_wpb68931334' ) ) {
 
         if ( ! isset( $ssb_wpb68931334 ) ) {
             // Include Telemetry SDK.
-            require_once dirname(__FILE__) . '/wpb-sdk/start.php';
+            require_once dirname(__FILE__) . '/lib/wpb-sdk/start.php';
 
             $ssb_wpb68931334 = wpb_dynamic_init([
                 'id'                  => '1',
@@ -81,7 +81,7 @@ class SimpleSocialButtonsPR {
 	 * @isnce
 	 * @var string
 	 */
-	public $pluginVersion = '5.2.0';
+	public $pluginVersion = '5.3.1';
 
 	/**
 	 * Plugin Prefix

@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the cosine of a complex number.
@@ -19,16 +19,8 @@ namespace Complex;
 function cos($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
     if ($complex->isReal()) {
         return new Complex(\cos($complex->getReal()));
     }
-
-    return conjugate(
-        new Complex(
-            \cos($complex->getReal()) * \cosh($complex->getImaginary()),
-            \sin($complex->getReal()) * \sinh($complex->getImaginary()),
-            $complex->getSuffix()
-        )
-    );
+    return conjugate(new Complex(\cos($complex->getReal()) * \cosh($complex->getImaginary()), \sin($complex->getReal()) * \sinh($complex->getImaginary()), $complex->getSuffix()));
 }

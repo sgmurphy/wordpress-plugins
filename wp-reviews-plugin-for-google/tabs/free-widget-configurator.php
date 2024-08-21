@@ -481,8 +481,8 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <span class="ti-checkbox">
 <input type="radio" name="layout-select" value="<?php echo esc_attr($category); ?>" data-ids="<?php echo esc_attr($ids); ?>">
 <label><?php
-$categoryUcfirst = ucfirst($category);
-echo esc_html(__($categoryUcfirst, 'trustindex-plugin'));
+$categoryName = ucwords(str_replace('-', ' ', $category));
+echo esc_html(__($categoryName, 'trustindex-plugin'));
 ?></label>
 </span>
 <?php endforeach; ?>
@@ -789,12 +789,19 @@ break;
 <?php if ($widgetHasReviews && $styleId != 52): ?>
 <span class="ti-checkbox ti-checkbox-row">
 <input type="checkbox" name="show-reviewers-photo" value="1"<?php if ($pluginManagerInstance->getWidgetOption('show-reviewers-photo')): ?> checked<?php endif; ?> />
-<label><?php echo __("Show reviewers' photo", 'trustindex-plugin'); ?></label>
+<label><?php echo __("Show reviewer's profile picture", 'trustindex-plugin'); ?></label>
 </span>
 <span class="ti-checkbox ti-checkbox-row ti-disabled">
 <input type="checkbox" value="1" disabled />
 <label class="ti-tooltip">
-<?php echo __("Show reviewers' photos locally, from a single image (less requests)", 'trustindex-plugin'); ?>
+<?php echo __("Show reviewer's profile picture locally, from a single image (less requests)", 'trustindex-plugin'); ?>
+<span class="ti-tooltip-message"><?php echo __('Paid package feature', 'trustindex-plugin'); ?></span>
+</label>
+</span>
+<span class="ti-checkbox ti-checkbox-row ti-disabled">
+<input type="checkbox" value="1" disabled />
+<label class="ti-tooltip">
+<?php echo __('Show photos in reviews', 'trustindex-plugin'); ?>
 <span class="ti-tooltip-message"><?php echo __('Paid package feature', 'trustindex-plugin'); ?></span>
 </label>
 </span>

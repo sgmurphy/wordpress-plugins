@@ -1,9 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Calculation;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 class Exception extends PhpSpreadsheetException
 {
     /**
@@ -15,12 +14,11 @@ class Exception extends PhpSpreadsheetException
      * @param mixed $line
      * @param mixed $context
      */
-    public static function errorHandlerCallback($code, $string, $file, $line, $context): void
+    public static function errorHandlerCallback($code, $string, $file, $line, $context) : void
     {
         $e = new self($string, $code);
         $e->line = $line;
         $e->file = $file;
-
         throw $e;
     }
 }

@@ -15,7 +15,7 @@ define( 'ANALYTIFY_LIB_PATH', dirname( __FILE__ ) . '/lib/' );
 define( 'ANALYTIFY_ID', 'wp-analytify-options' );
 define( 'ANALYTIFY_NICK', 'Analytify' );
 define( 'ANALYTIFY_ROOT_PATH', dirname( __FILE__ ) );
-define( 'ANALYTIFY_VERSION', '5.3.1' );
+define( 'ANALYTIFY_VERSION', '5.4.0' );
 define( 'ANALYTIFY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ANALYTIFY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -1181,7 +1181,7 @@ if ( ! class_exists( 'Analytify_General' ) ) {
 				}
 			}
 
-			$domain_stream_url_filtered = preg_replace("(^(https?:\/\/([wW]{3}\.)?)?)", "", $stream_url);
+			$domain_stream_url_filtered = preg_replace("/^(https?:\/\/)?(www\.)?([^\/]+)(\/.*)?$/i", "$3", $stream_url);
 			$domain_stream_url = "sc-domain:$domain_stream_url_filtered";
 			
 			$urls = [

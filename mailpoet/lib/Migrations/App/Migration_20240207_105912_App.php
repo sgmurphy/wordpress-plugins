@@ -11,7 +11,7 @@ use MailPoet\Entities\ScheduledTaskSubscriberEntity;
 use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Entities\StatisticsNewsletterEntity;
 use MailPoet\Migrator\AppMigration;
-use MailPoetVendor\Doctrine\DBAL\Connection;
+use MailPoetVendor\Doctrine\DBAL\ArrayParameterType;
 
 /**
  * We've had a set of bugs where campaign type newsletters (see NewsletterEntity::CAMPAIGN_TYPES),
@@ -122,7 +122,7 @@ class Migration_20240207_105912_App extends AppMigration {
         WHERE t.id IN (:ids)
       ",
       ['sent' => NewsletterEntity::STATUS_SENT, 'ids' => $ids],
-      ['ids' => Connection::PARAM_INT_ARRAY]
+      ['ids' => ArrayParameterType::INTEGER]
     );
   }
 
@@ -186,7 +186,7 @@ class Migration_20240207_105912_App extends AppMigration {
         WHERE q.newsletter_id IN (:ids)
       ",
       ['ids' => $ids],
-      ['ids' => Connection::PARAM_INT_ARRAY]
+      ['ids' => ArrayParameterType::INTEGER]
     );
   }
 }

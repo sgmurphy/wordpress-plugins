@@ -619,7 +619,7 @@
 					<?php endif;?>        
 					        <?php if (!empty($item['pafe_vertical_timeline_button_link']) && !empty($item['pafe_vertical_timeline_button_text'])) : ?>	
 					        <div class="pafe_vertical_timeline__btn">
-					        	<a href="<?php echo esc_html($item['pafe_vertical_timeline_button_link']); ?>" class="btn btn--subtle pafe-vertical-timeline__readmore"><?php echo esc_html($item['pafe_vertical_timeline_button_text']); ?></a>
+					        	<a href="<?php echo esc_url($item['pafe_vertical_timeline_button_link']); ?>" class="btn btn--subtle pafe-vertical-timeline__readmore"><?php echo esc_html($item['pafe_vertical_timeline_button_text']); ?></a>
 					        </div>	
 					        <?php endif;?>	
 					    </div> 							

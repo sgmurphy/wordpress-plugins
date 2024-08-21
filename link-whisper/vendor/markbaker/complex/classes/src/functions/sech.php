@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the hyperbolic secant of a complex number.
@@ -20,6 +20,5 @@ namespace Complex;
 function sech($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
-    return inverse(cosh($complex));
+    return inverse(\cosh($complex));
 }

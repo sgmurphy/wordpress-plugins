@@ -101,15 +101,15 @@ $taxonomies = (!empty($taxonomies)) ? array_keys($taxonomies): array();
                         <div class="wpil-collapsible-wrapper">
                             <div class="wpil-collapsible wpil-collapsible-static wpil-links-count">
                                 <div style="opacity:<?=$phrase->suggestions[$index]->opacity?>" <?php echo $suggestion_datas ?>>
-                                    <div class="suggested-post-data-container"><strong><?php _e('Title:', 'wpil'); ?></strong> <span class="suggested-post-title" style="opacity:<?=$suggestion->opacity?>"><?=esc_html($a_post->getTitle())?></span></div>
-                                    <div class="suggested-post-data-container"><strong><?php _e('Type: ', 'wpil'); ?></strong> <?=esc_html($a_post->getType())?><br></div>
-                                    <div class="suggested-post-data-container"><strong><?php _e('Published:', 'wpil'); ?></strong> <span class="suggested-post-published"><?=esc_attr($post_published_date)?></span></div>
+                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Title:', 'wpil'); ?></strong> <span class="suggested-post-title" style="opacity:<?=$suggestion->opacity?>"><?=esc_html($a_post->getTitle())?></span></div>
+                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Type: ', 'wpil'); ?></strong> <?=esc_html($a_post->getType())?><br></div>
+                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Published:', 'wpil'); ?></strong> <span class="suggested-post-published"><?=esc_attr($post_published_date)?></span></div>
                                     <div class="suggested-post-data-container"><?php echo (!empty($categories)) ? '<b>' . _n(__('Category: ', 'wpil'), __('Categories: ', 'wpil'), $cats_found) . '</b>' . $categories . '<br>': ''; ?></div>
                                     <div class="suggested-post-data-container"><?php echo (!empty($tags)) ? '<b>' . _n(__('Tag: ', 'wpil'), __('Tags: ', 'wpil'), $tags_found) . '</b>' . $tags . '<br>': ''; ?></div>
-                                    <div class="suggested-post-data-container"><strong><?php _e('Inbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getInboundInternalLinks(true) . '<br>'; ?></div>
-                                    <div class="suggested-post-data-container"><strong><?php _e('Outbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getOutboundInternalLinks(true) . '<br>'; ?></div>
-                                    <div class="suggested-post-data-container"><strong><?php _e('Outbound External Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getOutboundExternalLinks(true) . '<br>'; ?></div>
-                                    <div class="suggested-post-data-container"><strong><?php _e('URL:', 'wpil'); ?></strong> <a class="post-slug" target="_blank" href="<?=esc_url($a_post->getLinks()->view)?>"><?php echo esc_html($a_post->getSlug()); ?></a></div>
+                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Inbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getInboundInternalLinks(true) . '<br>'; ?></div>
+                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Outbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getOutboundInternalLinks(true) . '<br>'; ?></div>
+                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Outbound External Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getOutboundExternalLinks(true) . '<br>'; ?></div>
+                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('URL:', 'wpil'); ?></strong> <a class="post-slug" target="_blank" href="<?=esc_url($a_post->getLinks()->view)?>"><?php echo esc_html($a_post->getSlug()); ?></a></div>
                                 </div>
                             </div>
                             <div class="wpil-content" style="display: none;">
@@ -168,15 +168,15 @@ $taxonomies = (!empty($taxonomies)) ? array_keys($taxonomies): array();
                                             <div>
                                                 <input type="radio" <?=$key_suggestion==$first?'checked':''?> <?php echo $suggestion_datas ?>>
                                                 <span class="data">
-                                                    <div class="suggested-post-data-container"><strong><?php _e('Title:', 'wpil'); ?></strong> <span class="suggested-post-title" style="opacity:<?=$suggestion->opacity?>"><?=esc_html($suggestion->post->getTitle())?></span></div>
-                                                    <div class="suggested-post-data-container"><strong><?php _e('Type: ', 'wpil'); ?></strong> <?=esc_html($suggestion->post->getType())?><br></div>
-                                                    <div class="suggested-post-data-container"><strong><?php _e('Published:', 'wpil'); ?></strong> <span class="suggested-post-published"><?=esc_attr($post_published_date)?></span></div>
+                                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Title:', 'wpil'); ?></strong> <span class="suggested-post-title" style="opacity:<?=$suggestion->opacity?>"><?=esc_html($suggestion->post->getTitle())?></span></div>
+                                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Type: ', 'wpil'); ?></strong> <?=esc_html($suggestion->post->getType())?><br></div>
+                                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Published:', 'wpil'); ?></strong> <span class="suggested-post-published"><?=esc_attr($post_published_date)?></span></div>
                                                     <div class="suggested-post-data-container"><?php echo (!empty($categories)) ? '<b>' . _n(__('Category: ', 'wpil'), __('Categories: ', 'wpil'), $cats_found) . '</b>' . $categories . '<br>': ''; ?></div>
                                                     <div class="suggested-post-data-container"><?php echo (!empty($tags)) ? '<b>' . _n(__('Tag: ', 'wpil'), __('Tags: ', 'wpil'), $tags_found) . '</b>' . $tags . '<br>': ''; ?></div>
-                                                    <div class="suggested-post-data-container"><strong><?php _e('Inbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$suggestion->post->getInboundInternalLinks(true) . '<br>'; ?></div>
-                                                    <div class="suggested-post-data-container"><strong><?php _e('Outbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$suggestion->post->getOutboundInternalLinks(true) . '<br>'; ?></div>
-                                                    <div class="suggested-post-data-container"><strong><?php _e('Outbound External Links: ', 'wpil'); ?></strong> <?=(int)$suggestion->post->getOutboundExternalLinks(true) . '<br>'; ?></div>
-                                                    <div class="suggested-post-data-container"><strong><?php _e('URL:', 'wpil'); ?></strong> <a class="post-slug" target="_blank" href="<?=esc_url($suggestion->post->getLinks()->view)?>"><?php echo esc_html($suggestion->post->getSlug()); ?></a></div>
+                                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Inbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$suggestion->post->getInboundInternalLinks(true) . '<br>'; ?></div>
+                                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Outbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$suggestion->post->getOutboundInternalLinks(true) . '<br>'; ?></div>
+                                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('Outbound External Links: ', 'wpil'); ?></strong> <?=(int)$suggestion->post->getOutboundExternalLinks(true) . '<br>'; ?></div>
+                                                    <div class="suggested-post-data-container"><strong><?php esc_html_e('URL:', 'wpil'); ?></strong> <a class="post-slug" target="_blank" href="<?=esc_url($suggestion->post->getLinks()->view)?>"><?php echo esc_html($suggestion->post->getSlug()); ?></a></div>
                                                 </span>
                                             </div>
                                         </li>
@@ -227,15 +227,15 @@ $taxonomies = (!empty($taxonomies)) ? array_keys($taxonomies): array();
                         }
                         ?>
                         <div style="opacity:<?=$phrase->suggestions[$index]->opacity?>" class="suggestion dated-outbound-suggestion" data-id="<?=esc_attr($a_post->id)?>" data-type="<?=esc_attr($a_post->type)?>" data-wpil-post-published-date="<?php echo strtotime(get_the_date('', $a_post->id)); ?>" data-post-origin="<?php echo (!isset($a_post->site_url)) ? 'internal': 'external'; ?>" data-site-url="<?php echo (isset($a_post->site_url)) ? esc_url($a_post->site_url): ''; ?>">
-                            <div class="suggested-post-data-container"><strong><?php _e('Title:', 'wpil'); ?></strong> <span class="suggested-post-title"><?=esc_html($a_post->getTitle())?></span></div>
-                            <div class="suggested-post-data-container"><strong><?php _e('Type: ', 'wpil'); ?></strong> <?=esc_html($a_post->getType())?><br></div>
-                            <div class="suggested-post-data-container"><strong><?php _e('Published:', 'wpil'); ?></strong> <span class="suggested-post-published"><?=esc_attr($post_published_date)?></span></div>
+                            <div class="suggested-post-data-container"><strong><?php esc_html_e('Title:', 'wpil'); ?></strong> <span class="suggested-post-title"><?=esc_html($a_post->getTitle())?></span></div>
+                            <div class="suggested-post-data-container"><strong><?php esc_html_e('Type: ', 'wpil'); ?></strong> <?=esc_html($a_post->getType())?><br></div>
+                            <div class="suggested-post-data-container"><strong><?php esc_html_e('Published:', 'wpil'); ?></strong> <span class="suggested-post-published"><?=esc_attr($post_published_date)?></span></div>
                             <div class="suggested-post-data-container"><?php echo (!empty($categories)) ? '<b>' . _n(__('Category: ', 'wpil'), __('Categories: ', 'wpil'), $cats_found) . '</b>' . $categories . '<br>': ''; ?></div>
                             <div class="suggested-post-data-container"><?php echo (!empty($tags)) ? '<b>' . _n(__('Tag: ', 'wpil'), __('Tags: ', 'wpil'), $tags_found) . '</b>' . $tags . '<br>': ''; ?></div>
-                            <div class="suggested-post-data-container"><strong><?php _e('Inbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getInboundInternalLinks(true) . '<br>'; ?></div>
-                            <div class="suggested-post-data-container"><strong><?php _e('Outbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getOutboundInternalLinks(true) . '<br>'; ?></div>
-                            <div class="suggested-post-data-container"><strong><?php _e('Outbound External Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getOutboundExternalLinks(true) . '<br>'; ?></div>
-                            <div class="suggested-post-data-container"><strong><?php _e('URL:', 'wpil'); ?></strong> <a class="post-slug" target="_blank" href="<?=esc_url($a_post->getLinks()->view)?>"><?php echo esc_html(urldecode($a_post->getSlug())); ?></a></div>
+                            <div class="suggested-post-data-container"><strong><?php esc_html_e('Inbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getInboundInternalLinks(true) . '<br>'; ?></div>
+                            <div class="suggested-post-data-container"><strong><?php esc_html_e('Outbound Internal Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getOutboundInternalLinks(true) . '<br>'; ?></div>
+                            <div class="suggested-post-data-container"><strong><?php esc_html_e('Outbound External Links: ', 'wpil'); ?></strong> <?=(int)$a_post->getOutboundExternalLinks(true) . '<br>'; ?></div>
+                            <div class="suggested-post-data-container"><strong><?php esc_html_e('URL:', 'wpil'); ?></strong> <a class="post-slug" target="_blank" href="<?=esc_url($a_post->getLinks()->view)?>"><?php echo esc_html(urldecode($a_post->getSlug())); ?></a></div>
                         </div>
                     <?php endif; ?>
                 </td>
@@ -260,7 +260,7 @@ $taxonomies = (!empty($taxonomies)) ? array_keys($taxonomies): array();
         </thead>
         <tbody>
             <tr>
-                <td><?php _e('No suggestions found', 'wpil'); ?></td>
+                <td><?php esc_html_e('No suggestions found', 'wpil'); ?></td>
             </tr>
         </tbody>
     <?php endif; ?>

@@ -362,7 +362,7 @@ class Addons_Integration {
 
         $time_limit = ini_get( 'max_execution_time' );
 
-        if( $time_limit <= 120 ) {
+        if( $time_limit < 300 ) {
 
             $link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/im-getting-a-blank-page-on-elementor-after-activating-premium-add-ons/', 'editor-page', 'wp-editor', 'panel-issues' );
 

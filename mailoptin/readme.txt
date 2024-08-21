@@ -5,7 +5,7 @@ Tags: popup, popup maker, popups, newsletter, mailchimp
 Requires at least: 5.8
 Requires PHP: 7.3
 Tested up to: 6.6
-Stable tag: 1.2.70.1
+Stable tag: 1.2.70.2
 License: GPL-2.0+
 
 Create popup, optin forms using easy form builder & popup maker. Send automated email to subscribers — Mailchimp, ActiveCampaign, Campaign Monitor etc
@@ -183,6 +183,10 @@ Yes, MailOptin has complete translation and localization support. All .mo and .p
 10. Elementor form integration with MailOptin
 
 == Changelog ==
+
+= 1.2.70.2 =
+* Added content-type header to PATCH webhook request
+* Stop AWeber retry if 401 error is detected.
 
 = 1.2.70.1 =
 * Added mo_new_publish_post_condition_check filter.

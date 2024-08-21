@@ -7,7 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
-namespace Complex;
+namespace LWVendor\Complex;
 
 /**
  * Returns the inverse cosine of a complex number.
@@ -19,20 +19,12 @@ namespace Complex;
 function acos($complex)
 {
     $complex = Complex::validateComplexArgument($complex);
-
     $square = clone $complex;
     $square = multiply($square, $complex);
     $invsqrt = new Complex(1.0);
     $invsqrt = subtract($invsqrt, $square);
-    $invsqrt = sqrt($invsqrt);
-    $adjust = new Complex(
-        $complex->getReal() - $invsqrt->getImaginary(),
-        $complex->getImaginary() + $invsqrt->getReal()
-    );
+    $invsqrt = \sqrt($invsqrt);
+    $adjust = new Complex($complex->getReal() - $invsqrt->getImaginary(), $complex->getImaginary() + $invsqrt->getReal());
     $log = ln($adjust);
-
-    return new Complex(
-        $log->getImaginary(),
-        -1 * $log->getReal()
-    );
+    return new Complex($log->getImaginary(), -1 * $log->getReal());
 }

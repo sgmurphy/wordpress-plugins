@@ -13,37 +13,37 @@
 ?>
 <div class="wrap wpil_styles" id="settings_page">
     <?=Wpil_Base::showVersion()?>
-    <h1 class="wp-heading-inline"><?php _e('Link Whisper Settings', 'wpil'); ?></h1>
+    <h1 class="wp-heading-inline"><?php esc_html_e('Link Whisper Settings', 'wpil'); ?></h1>
     <hr class="wp-header-end">
     <div id="poststuff">
         <div id="post-body" class="metabox-holder">
             <div id="post-body-content" style="position: relative;">
                 <?php if (isset($_REQUEST['success'])) : ?>
                     <div class="notice update notice-success" id="wpil_message" >
-                        <p><?php _e('The Link Whisper Settings have been updated successfully!', 'wpil'); ?></p>
+                        <p><?php esc_html_e('The Link Whisper Settings have been updated successfully!', 'wpil'); ?></p>
                     </div>
                 <?php endif; ?>
                 <?php if(!extension_loaded('mbstring')){?>
                     <div class="notice update notice-error" id="wpil_message" >
-                        <p><?php _e('Dependency Missing: Multibyte String.', 'wpil'); ?></p>
-                        <p><?php _e('The Multibyte String PHP extension is not active on your site. Link Whisper uses this extension to process text when making suggestions. Without this extension, Link Whisper will not be able to make suggestions.', 'wpil'); ?></p>
-                        <p><?php _e('Please contact your hosting provider about enabling the Multibyte String PHP extension.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('Dependency Missing: Multibyte String.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('The Multibyte String PHP extension is not active on your site. Link Whisper uses this extension to process text when making suggestions. Without this extension, Link Whisper will not be able to make suggestions.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('Please contact your hosting provider about enabling the Multibyte String PHP extension.', 'wpil'); ?></p>
                     </div>
                 <?php } ?>
                 <?php if(!extension_loaded('zlib') && !extension_loaded('Bz2')){?>
                     <div class="notice update notice-error" id="wpil_message" >
-                        <p><?php _e('Dependency Missing: Data Compression Library.', 'wpil'); ?></p>
-                        <p><?php _e('Link Whisper hasn\'t detected a useable compression library on this site. Link Whisper uses compression libraries to reduce how much memory is used when generating suggestions.', 'wpil'); ?></p>
-                        <p><?php _e('It will try to generate suggestions without compressing the suggestion data. If Link Whisper runs out of memory, the suggestion loading will hang in place indefinitely.', 'wpil'); ?></p>
-                        <p><?php _e('If you experience this, please contact your hosting provider about enabling either the "Zlib" compression library, or the "Bzip2" compression library.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('Dependency Missing: Data Compression Library.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('Link Whisper hasn\'t detected a useable compression library on this site. Link Whisper uses compression libraries to reduce how much memory is used when generating suggestions.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('It will try to generate suggestions without compressing the suggestion data. If Link Whisper runs out of memory, the suggestion loading will hang in place indefinitely.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('If you experience this, please contact your hosting provider about enabling either the "Zlib" compression library, or the "Bzip2" compression library.', 'wpil'); ?></p>
                     </div>
                 <?php } ?>
                 <?php if(!function_exists('base64_decode') || !function_exists('base64_encode')){?>
                     <div class="notice update notice-error" id="wpil_message" >
-                        <p><?php _e('Dependency Missing: Base64 String Processing.', 'wpil'); ?></p>
-                        <p><?php _e('It appears that the "base64_decode" or the "base64_encode" functions aren\'t available. Link Whisper uses these functions to store and process text data in a way that prevents formatting mistakes.', 'wpil'); ?></p>
-                        <p><?php _e('Without these functions, Link Whisper won\'t be able to preform many of it\'s operations, including Suggestion Generation, Link Deleting, and Autolink Creating.', 'wpil'); ?></p>
-                        <p><?php _e('Please contact your hosting provider or developer about enabling these functions.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('Dependency Missing: Base64 String Processing.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('It appears that the "base64_decode" or the "base64_encode" functions aren\'t available. Link Whisper uses these functions to store and process text data in a way that prevents formatting mistakes.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('Without these functions, Link Whisper won\'t be able to preform many of it\'s operations, including Suggestion Generation, Link Deleting, and Autolink Creating.', 'wpil'); ?></p>
+                        <p><?php esc_html_e('Please contact your hosting provider or developer about enabling these functions.', 'wpil'); ?></p>
                     </div>
                 <?php } ?>
                 <form name="frmSaveSettings" id="frmSaveSettings" action='' method='post'>
@@ -60,7 +60,7 @@
                             </td>
                         </tr>
                         <tr class="wpil-general-settings wpil-setting-row">
-                            <td scope='row'><?php _e('Selected Language', 'wpil'); ?></td>
+                            <td scope='row'><?php esc_html_e('Selected Language', 'wpil'); ?></td>
                             <td>
                                 <select id="wpil-selected-language" name="wpil_selected_language">
                                     <?php
@@ -77,7 +77,7 @@
                             </td>
                         </tr>
                         <tr class="wpil-general-settings wpil-setting-row">
-                            <td scope='row'><?php _e('Words to be Ignored', 'wpil'); ?></td>
+                            <td scope='row'><?php esc_html_e('Words to be Ignored', 'wpil'); ?></td>
                             <td>
                                 <?php
                                     $lang_data = array();
@@ -89,7 +89,7 @@
                                 <input type="hidden" name='ignore_words' id='ignore_words' value="<?php echo base64_encode(implode("\n", $lang_data[$selected_language])); ?>">
                                 <div class="wpil_help">
                                     <i class="dashicons dashicons-editor-help"></i>
-                                    <div><?php _e('Link Whisper will ignore these words when making linking suggestions. Please enter each word on a new line', 'wpil'); ?></div>
+                                    <div><?php esc_html_e('Link Whisper will ignore these words when making linking suggestions. Please enter each word on a new line', 'wpil'); ?></div>
                                 </div>
                                 <input type="hidden" id="wpil-available-language-word-lists" value="<?php echo esc_attr( wp_json_encode($lang_data, JSON_UNESCAPED_UNICODE) ); ?>">
                             </td>
@@ -102,11 +102,11 @@
                                         <i class="dashicons dashicons-editor-help" style="margin-top: 6px;"></i>
                                         <div>
                                             <?php
-                                                _e('This setting controls the post types that Link Whisper is active in.', 'wpil');
+                                                esc_html_e('This setting controls the post types that Link Whisper is active in.', 'wpil');
                                                 echo '<br /><br />';
-                                                _e('Link Whisper will create links in the selected post types, scan the post types for links, and will operate all of Link Whisper\'s Advanced Functionality in the post types.', 'wpil');
+                                                esc_html_e('Link Whisper will create links in the selected post types, scan the post types for links, and will operate all of Link Whisper\'s Advanced Functionality in the post types.', 'wpil');
                                                 echo '<br /><br />';
-                                                _e('After changing the post type selection, please go to the Report page and click the "Run a Link Scan" button to clear the old link data.', 'wpil');
+                                                esc_html_e('After changing the post type selection, please go to the Report page and click the "Run a Link Scan" button to clear the old link data.', 'wpil');
                                             ?>
                                         </div>
                                     </div>
@@ -117,15 +117,15 @@
                             </td>
                         </tr>
                         <tr class="wpil-general-settings wpil-setting-row wpil-suggestion-post-type-limit-setting <?php echo (empty(get_option('wpil_limit_suggestions_to_post_types', false))) ? 'hide-setting': '';?>">
-                            <td scope='row'><?php _e('Post Types to Point Suggestions to', 'wpil'); ?></td>
+                            <td scope='row'><?php esc_html_e('Post Types to Point Suggestions to', 'wpil'); ?></td>
                             <td>
                                 <div style="display: inline-block;">
                                     <div class="wpil_help" style="float:right; position: relative; left: 30px;">
                                         <i class="dashicons dashicons-editor-help" style="margin-top: 6px;"></i>
                                         <div>
-                                            <?php _e('Link Whisper will only offer suggestions that point to posts in the selected post types.', 'wpil'); ?>
+                                            <?php esc_html_e('Link Whisper will only offer suggestions that point to posts in the selected post types.', 'wpil'); ?>
                                             <br /><br />
-                                            <?php _e('Only post types that Link Whisper is set to process will be listed here. If you don\'t see a post type listed here, please try selecting it in the "Post Types to Create Links For" setting.', 'wpil'); ?>
+                                            <?php esc_html_e('Only post types that Link Whisper is set to process will be listed here. If you don\'t see a post type listed here, please try selecting it in the "Post Types to Create Links For" setting.', 'wpil'); ?>
                                         </div>
                                     </div>
                                     <?php foreach ($types_available as $type => $label) : ?>
@@ -139,18 +139,18 @@
                             </td>
                         </tr>
                         <tr class="wpil-general-settings wpil-setting-row">
-                            <td scope='row'><?php _e('Term Types to Process', 'wpil'); ?></td>
+                            <td scope='row'><?php esc_html_e('Term Types to Process', 'wpil'); ?></td>
                             <td>
                                 <div style="display: inline-block;">
                                     <div class="wpil_help" style="float:right; position: relative; left: 30px;">
                                         <i class="dashicons dashicons-editor-help" style="margin-top: 6px;"></i>
                                         <div>
                                             <?php
-                                                _e('This setting controls the term types that Link Whisper is active in.', 'wpil');
+                                                esc_html_e('This setting controls the term types that Link Whisper is active in.', 'wpil');
                                                 echo '<br /><br />';
-                                                _e('Link Whisper will create links in the selected term\'s archive pages, scan the term\'s archive pages for links, and will operate all of Link Whisper\'s Advanced Functionality in the term\'s archive pages.', 'wpil');
+                                                esc_html_e('Link Whisper will create links in the selected term\'s archive pages, scan the term\'s archive pages for links, and will operate all of Link Whisper\'s Advanced Functionality in the term\'s archive pages.', 'wpil');
                                                 echo '<br /><br />';
-                                                _e('After changing the term type selection, please go to the Report page and click the "Run a Link Scan" button to clear the old link data.', 'wpil');
+                                                esc_html_e('After changing the term type selection, please go to the Report page and click the "Run a Link Scan" button to clear the old link data.', 'wpil');
                                             ?>
                                         </div>
                                     </div>
@@ -161,12 +161,12 @@
                             </td>
                         </tr>
                         <tr class="wpil-general-settings wpil-setting-row">
-                            <td scope="row"><span><?php _e('Number of', 'wpil'); ?></span>
+                            <td scope="row"><span><?php esc_html_e('Number of', 'wpil'); ?></span>
                                 <select name="wpil_skip_section_type" class="wpil-setting-inline-select">
-                                    <option value="sentences"<?php selected($skip_type, 'sentences');?>><?php _e('Sentences', 'wpil'); ?></option>
-                                    <option value="paragraphs"<?php selected($skip_type, 'paragraphs');?>><?php _e('Paragraphs', 'wpil'); ?></option>
+                                    <option value="sentences"<?php selected($skip_type, 'sentences');?>><?php esc_html_e('Sentences', 'wpil'); ?></option>
+                                    <option value="paragraphs"<?php selected($skip_type, 'paragraphs');?>><?php esc_html_e('Paragraphs', 'wpil'); ?></option>
                                 </select>
-                                <span><?php _e('to Skip', 'wpil');?></span>
+                                <span><?php esc_html_e('to Skip', 'wpil');?></span>
                             </td>
                             <td>
                                 <select name="wpil_skip_sentences" style="float:left; max-width:100px">
@@ -176,15 +176,15 @@
                                 </select>
                                 <div class="wpil_help">
                                     <i class="dashicons dashicons-editor-help" style="margin-top: 4px;"></i>
-                                    <div><?php _e('Link Whisper will not suggest links for this number of sentences or paragraphs appearing at the beginning of a post.', 'wpil'); ?></div>
+                                    <div><?php esc_html_e('Link Whisper will not suggest links for this number of sentences or paragraphs appearing at the beginning of a post.', 'wpil'); ?></div>
                                 </div>
                             </td>
                         </tr>
                         <tr class="wpil-general-settings wpil-setting-row">
-                            <td scope="row"><?php _e('Max Number of Suggestions to Display', 'wpil'); ?></td>
+                            <td scope="row"><?php esc_html_e('Max Number of Suggestions to Display', 'wpil'); ?></td>
                             <td>
                                 <select name="wpil_max_suggestion_count" style="float:left; max-width:100px">
-                                    <option value="0" <?=0===(int)$max_suggestion_count ? 'selected' : '' ?>><?php _e('No Limit', 'wpil'); ?></option>
+                                    <option value="0" <?=0===(int)$max_suggestion_count ? 'selected' : '' ?>><?php esc_html_e('No Limit', 'wpil'); ?></option>
                                     <?php for($i = 1; $i <= 100; $i++) : ?>
                                         <option value="<?=$i?>" <?=$i===(int)$max_suggestion_count ? 'selected' : '' ?>><?php echo $i; ?></option>
                                     <?php endfor; ?>
@@ -193,7 +193,7 @@
                                     <i class="dashicons dashicons-editor-help" style="margin-top: 4px;"></i>
                                     <div style="margin: -130px 0px 0px 30px;">
                                         <?php 
-                                        _e('This is the maximum number of suggestions that Link Whisper will show you at once in the Suggestion Panels.', 'wpil');
+                                        esc_html_e('This is the maximum number of suggestions that Link Whisper will show you at once in the Suggestion Panels.', 'wpil');
                                         ?>
                                     </div>
                                 </div>
@@ -201,7 +201,7 @@
                         </tr>
                         <?php if(class_exists('ACF')){ ?>
                         <tr>
-                            <td scope='row'><?php _e('Disable Linking for Advanced Custom Fields', 'wpil'); ?></td>
+                            <td scope='row'><?php esc_html_e('Disable Linking for Advanced Custom Fields', 'wpil'); ?></td>
                             <td>
                                 <input type="hidden" name="wpil_disable_acf" value="0" />
                                 <div style="max-width: 80px;">
@@ -209,9 +209,9 @@
                                     <div class="wpil_help" style="float: right;">
                                         <i class="dashicons dashicons-editor-help" style="margin-top: 6px;"></i>
                                         <div style="margin-left: 30px; margin-top: -190px;">
-                                            <p><?php _e('Checking this will tell Link Whisper to not process any data created by Advanced Custom Fields.', 'wpil'); ?></p>
-                                            <p><?php _e('This will speed up the suggestion making and data saving, but will not update the ACF data.', 'wpil'); ?></p>
-                                            <p><?php _e('If you don\'t see Advanced Custom Fields in your Installed Plugins list, it may be included as a component in a plugin or your theme.', 'wpil'); ?></p>
+                                            <p><?php esc_html_e('Checking this will tell Link Whisper to not process any data created by Advanced Custom Fields.', 'wpil'); ?></p>
+                                            <p><?php esc_html_e('This will speed up the suggestion making and data saving, but will not update the ACF data.', 'wpil'); ?></p>
+                                            <p><?php esc_html_e('If you don\'t see Advanced Custom Fields in your Installed Plugins list, it may be included as a component in a plugin or your theme.', 'wpil'); ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -219,50 +219,50 @@
                         </tr>
                         <?php } ?>
                         <tr class="wpil-advanced-settings wpil-setting-row">
-                            <td scope='row'><?php _e('Content Formatting Level in Link Scan', 'wpil'); ?></td>
+                            <td scope='row'><?php esc_html_e('Content Formatting Level in Link Scan', 'wpil'); ?></td>
                             <td>
                                 <input type="range" name="wpil_content_formatting_level" class="wpil-thick-range" min="0" max="2" value="<?php echo $formatting_level; ?>">
                                 <div class="wpil_help" style="display: inline-block; float: none; margin: 0px 0 0 5px;">
                                     <i class="dashicons dashicons-editor-help"></i>
                                     <div style="width: 340px;margin-top: -280px;">
-                                        <?php _e('The setting controls how much content formatting Link Whisper does with content when searching it for links.', 'wpil'); ?>
+                                        <?php esc_html_e('The setting controls how much content formatting Link Whisper does with content when searching it for links.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        <?php _e('By default, Link Whisper fully formats the content with WordPress\'s "the_content" filter so it\'s closer to what a visitor would see.', 'wpil'); ?>
+                                        <?php esc_html_e('By default, Link Whisper fully formats the content with WordPress\'s "the_content" filter so it\'s closer to what a visitor would see.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        <?php _e('But for some themes and page builders, this causes issues with links. And the answer is to reduce how much Link Whisper formats the content.', 'wpil'); ?>
+                                        <?php esc_html_e('But for some themes and page builders, this causes issues with links. And the answer is to reduce how much Link Whisper formats the content.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        <?php _e('Setting this to "Only Shortcodes" will render the shortcodes in post content, but otherwise leave the content unchanged. Setting it to "No Formatting" will disable the formatting entirely.', 'wpil'); ?>
+                                        <?php esc_html_e('Setting this to "Only Shortcodes" will render the shortcodes in post content, but otherwise leave the content unchanged. Setting it to "No Formatting" will disable the formatting entirely.', 'wpil'); ?>
                                     </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <span style="<?php echo ($formatting_level === 0) ? '': 'display:none';?>" class="wpil-content-formatting-text wpil-format-0"><?php _e('No Formatting', 'wpil'); ?></span>
-                                    <span style="<?php echo ($formatting_level === 1) ? '': 'display:none';?>" class="wpil-content-formatting-text wpil-format-1"><?php _e('Only Shortcodes', 'wpil'); ?></span>
-                                    <span style="<?php echo ($formatting_level === 2) ? '': 'display:none';?>" class="wpil-content-formatting-text wpil-format-2"><?php _e('Full Formatting', 'wpil'); ?></span>
+                                    <span style="<?php echo ($formatting_level === 0) ? '': 'display:none';?>" class="wpil-content-formatting-text wpil-format-0"><?php esc_html_e('No Formatting', 'wpil'); ?></span>
+                                    <span style="<?php echo ($formatting_level === 1) ? '': 'display:none';?>" class="wpil-content-formatting-text wpil-format-1"><?php esc_html_e('Only Shortcodes', 'wpil'); ?></span>
+                                    <span style="<?php echo ($formatting_level === 2) ? '': 'display:none';?>" class="wpil-content-formatting-text wpil-format-2"><?php esc_html_e('Full Formatting', 'wpil'); ?></span>
                                 </div>
                             </td>
                         </tr>
                         <tr class="wpil-advanced-settings wpil-setting-row">
-                            <td scope='row'><?php _e('Override Global Post During Link Scan', 'wpil'); ?></td>
+                            <td scope='row'><?php esc_html_e('Override Global Post During Link Scan', 'wpil'); ?></td>
                             <td>
                                 <input type="hidden" name="wpil_override_global_post_during_scan" value="0" />
                                 <input type="checkbox" name="wpil_override_global_post_during_scan" <?=!empty(get_option('wpil_override_global_post_during_scan', false))?'checked':''?> value="1" />
                                 <div class="wpil_help" style="display: inline-block; float: none; margin: 0px 0 0 5px;">
                                     <i class="dashicons dashicons-editor-help"></i>
                                     <div style="width: 340px; margin-top: -300px;">
-                                        <?php _e('This setting temporarily overrides global WordPress $post variable with one that matches the post currently being scanned.', 'wpil'); ?>
+                                        <?php esc_html_e('This setting temporarily overrides global WordPress $post variable with one that matches the post currently being scanned.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        <?php _e('This is a compatibility measure for shortcodes that rely on the global $post variable to get content information, or to conditionally display content.', 'wpil'); ?>
+                                        <?php esc_html_e('This is a compatibility measure for shortcodes that rely on the global $post variable to get content information, or to conditionally display content.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        <?php _e('When the post scanning is completed, the $post variable is reset to its original value.', 'wpil'); ?>
+                                        <?php esc_html_e('When the post scanning is completed, the $post variable is reset to its original value.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        <?php _e('One of the main indicators that this needs to be activated is if after the Link Scan completes, many posts are reporting that they have the same links. Especially if they\'re from "related post" sections.', 'wpil'); ?>
+                                        <?php esc_html_e('One of the main indicators that this needs to be activated is if after the Link Scan completes, many posts are reporting that they have the same links. Especially if they\'re from "related post" sections.', 'wpil'); ?>
                                     </div>
                                     </div>
                                 </div>
@@ -302,23 +302,23 @@
                             </td>
                         </tr>
                         <tr class="wpil-advanced-settings wpil-setting-row">
-                            <td scope='row'><?php _e('Use "Ugly" Permalinks In Reports', 'wpil'); ?></td>
+                            <td scope='row'><?php esc_html_e('Use "Ugly" Permalinks In Reports', 'wpil'); ?></td>
                             <td>
                                 <input type="hidden" name="wpil_use_ugly_permalinks" value="0" />
                                 <input type="checkbox" name="wpil_use_ugly_permalinks" <?=!empty(get_option('wpil_use_ugly_permalinks', false))?'checked':''?> value="1" />
                                 <div class="wpil_help" style="display: inline-block; float: none; margin: 0px 0 0 5px;">
                                     <i class="dashicons dashicons-editor-help"></i>
                                     <div style="width: 300px;">
-                                        <?php _e('Checking this will tell Link Whisper to use WordPress\' "Ugly Permalinks" for the "View" links in the Link Whisper Reports.', 'wpil'); ?>
+                                        <?php esc_html_e('Checking this will tell Link Whisper to use WordPress\' "Ugly Permalinks" for the "View" links in the Link Whisper Reports.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        <?php _e('Using the "Ugly" permalinks can save a surprising amount of time when loading the reports because we don\'t have to process all the rules required to calculate the correct URL for each post.', 'wpil'); ?>
+                                        <?php esc_html_e('Using the "Ugly" permalinks can save a surprising amount of time when loading the reports because we don\'t have to process all the rules required to calculate the correct URL for each post.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        <?php _e('One downside is that the Link Report\'s "Hidden by Redirect" icons may not be able to tell that the post is hidden, so the icons may fail to display on redirected posts.', 'wpil'); ?>
+                                        <?php esc_html_e('One downside is that the Link Report\'s "Hidden by Redirect" icons may not be able to tell that the post is hidden, so the icons may fail to display on redirected posts.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        (<?php _e('This won\'t affect the inserted links or Suggestions, and it also won\'t change the links on the site itself. The "Ugly" permalinks will only be used for the Link Whisper "View" buttons in the Reports.', 'wpil'); ?>)
+                                        (<?php esc_html_e('This won\'t affect the inserted links or Suggestions, and it also won\'t change the links on the site itself. The "Ugly" permalinks will only be used for the Link Whisper "View" buttons in the Reports.', 'wpil'); ?>)
                                     </div>
                                 </div>
                             </td>
@@ -375,16 +375,16 @@
                                     <div class="wpil_help" style="float:right;">
                                         <i class="dashicons dashicons-editor-help" style="margin-top: 6px;"></i>
                                         <div style="margin: -260px 0 0 30px;">
-                                            <?php _e("Activating this will tell Link Whisper to delete ALL link Whisper related data when the plugin is deleted.", 'wpil'); ?>
+                                            <?php esc_html_e("Activating this will tell Link Whisper to delete ALL link Whisper related data when the plugin is deleted.", 'wpil'); ?>
                                             <br>
                                             <br>
-                                            <?php _e("This includes any Settings, Autolinking Rules, URL Changing Rules, and Report Data. This will not delete any links that have been created.", 'wpil'); ?>
+                                            <?php esc_html_e("This includes any Settings, Autolinking Rules, URL Changing Rules, and Report Data. This will not delete any links that have been created.", 'wpil'); ?>
                                             <br>
                                             <br>
-                                            <?php _e("Please only activate this option if you're sure you want to delete ALL link Whisper data.", 'wpil'); ?>
+                                            <?php esc_html_e("Please only activate this option if you're sure you want to delete ALL link Whisper data.", 'wpil'); ?>
                                             <br>
                                             <br>
-                                            <?php _e("It is not required to delete the data when upgrading to the Premium version of Link Whisper.", 'wpil'); ?>
+                                            <?php esc_html_e("It is not required to delete the data when upgrading to the Premium version of Link Whisper.", 'wpil'); ?>
                                         </div>
                                     </div>
                                 </div>

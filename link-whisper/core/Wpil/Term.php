@@ -32,7 +32,7 @@ class Wpil_Term
         $user = wp_get_current_user();
         ?>
         <div id="wpil_link-articles" class="postbox">
-            <h2 class="hndle no-drag"><span><?php _e('Link Whisper Suggested Links', 'wpil'); ?></span></h2>
+            <h2 class="hndle no-drag"><span><?php esc_html_e('Link Whisper Suggested Links', 'wpil'); ?></span></h2>
             <div class="inside">
                 <?php include WP_INTERNAL_LINKING_PLUGIN_DIR . '/templates/link_list_v2.php';?>
             </div>

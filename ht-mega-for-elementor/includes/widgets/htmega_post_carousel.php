@@ -2041,7 +2041,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
 
         $settings  = $this->get_settings_for_display();
         $sectionid = "sid". $this-> get_id();
-        $post_slider_image_overlay_hover = $settings['post_slider_image_overlay_hover_background'];
+        $post_slider_image_overlay_hover = isset( $settings['post_slider_image_overlay_hover_background'] ) ? $settings['post_slider_image_overlay_hover_background'] : '';
         $htmega_post_image  =  $this->get_settings_for_display('htmega_post_image_size');
         $post_type =  isset( $settings['carousel_post_type'] ) ? $settings['carousel_post_type'] : 'post';
         $post_categorys = [];

@@ -1,10 +1,9 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use LWVendor\PhpOffice\PhpSpreadsheet\Spreadsheet;
 class Csv extends BaseWriter
 {
     /**
@@ -13,57 +12,49 @@ class Csv extends BaseWriter
      * @var Spreadsheet
      */
     private $spreadsheet;
-
     /**
      * Delimiter.
      *
      * @var string
      */
     private $delimiter = ',';
-
     /**
      * Enclosure.
      *
      * @var string
      */
     private $enclosure = '"';
-
     /**
      * Line ending.
      *
      * @var string
      */
-    private $lineEnding = PHP_EOL;
-
+    private $lineEnding = \PHP_EOL;
     /**
      * Sheet index to write.
      *
      * @var int
      */
     private $sheetIndex = 0;
-
     /**
      * Whether to write a BOM (for UTF8).
      *
      * @var bool
      */
-    private $useBOM = false;
-
+    private $useBOM = \false;
     /**
      * Whether to write a Separator line as the first line of the file
      *     sep=x.
      *
      * @var bool
      */
-    private $includeSeparatorLine = false;
-
+    private $includeSeparatorLine = \false;
     /**
      * Whether to write a fully Excel compatible CSV file.
      *
      * @var bool
      */
-    private $excelCompatibility = false;
-
+    private $excelCompatibility = \false;
     /**
      * Create a new CSV.
      *
@@ -73,47 +64,43 @@ class Csv extends BaseWriter
     {
         $this->spreadsheet = $spreadsheet;
     }
-
     /**
      * Save PhpSpreadsheet to file.
      *
      * @param resource|string $pFilename
      */
-    public function save($pFilename): void
+    public function save($pFilename) : void
     {
         // Fetch sheet
         $sheet = $this->spreadsheet->getSheet($this->sheetIndex);
-
         $saveDebugLog = Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
-        Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
+        Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(\false);
         $saveArrayReturnType = Calculation::getArrayReturnType();
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
-
         // Open file
         $this->openFileHandle($pFilename);
-
         if ($this->excelCompatibility) {
-            $this->setUseBOM(true); //  Enforce UTF-8 BOM Header
-            $this->setIncludeSeparatorLine(true); //  Set separator line
-            $this->setEnclosure('"'); //  Set enclosure to "
-            $this->setDelimiter(';'); //  Set delimiter to a semi-colon
+            $this->setUseBOM(\true);
+            //  Enforce UTF-8 BOM Header
+            $this->setIncludeSeparatorLine(\true);
+            //  Set separator line
+            $this->setEnclosure('"');
+            //  Set enclosure to "
+            $this->setDelimiter(';');
+            //  Set delimiter to a semi-colon
             $this->setLineEnding("\r\n");
         }
-
         if ($this->useBOM) {
             // Write the UTF-8 BOM code if required
-            fwrite($this->fileHandle, "\xEF\xBB\xBF");
+            \fwrite($this->fileHandle, "﻿");
         }
-
         if ($this->includeSeparatorLine) {
             // Write the separator line if required
-            fwrite($this->fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
+            \fwrite($this->fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
         }
-
         //    Identify the range that we need to extract from the worksheet
         $maxCol = $sheet->getHighestDataColumn();
         $maxRow = $sheet->getHighestDataRow();
-
         // Write rows to file
         for ($row = 1; $row <= $maxRow; ++$row) {
             // Convert the row to an array...
@@ -121,12 +108,10 @@ class Csv extends BaseWriter
             // ... and write to the file
             $this->writeLine($this->fileHandle, $cellsArray[0]);
         }
-
         $this->maybeCloseFileHandle();
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
-
     /**
      * Get delimiter.
      *
@@ -136,7 +121,6 @@ class Csv extends BaseWriter
     {
         return $this->delimiter;
     }
-
     /**
      * Set delimiter.
      *
@@ -147,10 +131,8 @@ class Csv extends BaseWriter
     public function setDelimiter($pValue)
     {
         $this->delimiter = $pValue;
-
         return $this;
     }
-
     /**
      * Get enclosure.
      *
@@ -160,7 +142,6 @@ class Csv extends BaseWriter
     {
         return $this->enclosure;
     }
-
     /**
      * Set enclosure.
      *
@@ -171,10 +152,8 @@ class Csv extends BaseWriter
     public function setEnclosure($pValue)
     {
         $this->enclosure = $pValue ? $pValue : '"';
-
         return $this;
     }
-
     /**
      * Get line ending.
      *
@@ -184,7 +163,6 @@ class Csv extends BaseWriter
     {
         return $this->lineEnding;
     }
-
     /**
      * Set line ending.
      *
@@ -195,10 +173,8 @@ class Csv extends BaseWriter
     public function setLineEnding($pValue)
     {
         $this->lineEnding = $pValue;
-
         return $this;
     }
-
     /**
      * Get whether BOM should be used.
      *
@@ -208,7 +184,6 @@ class Csv extends BaseWriter
     {
         return $this->useBOM;
     }
-
     /**
      * Set whether BOM should be used.
      *
@@ -219,10 +194,8 @@ class Csv extends BaseWriter
     public function setUseBOM($pValue)
     {
         $this->useBOM = $pValue;
-
         return $this;
     }
-
     /**
      * Get whether a separator line should be included.
      *
@@ -232,7 +205,6 @@ class Csv extends BaseWriter
     {
         return $this->includeSeparatorLine;
     }
-
     /**
      * Set whether a separator line should be included as the first line of the file.
      *
@@ -243,10 +215,8 @@ class Csv extends BaseWriter
     public function setIncludeSeparatorLine($pValue)
     {
         $this->includeSeparatorLine = $pValue;
-
         return $this;
     }
-
     /**
      * Get whether the file should be saved with full Excel Compatibility.
      *
@@ -256,7 +226,6 @@ class Csv extends BaseWriter
     {
         return $this->excelCompatibility;
     }
-
     /**
      * Set whether the file should be saved with full Excel Compatibility.
      *
@@ -268,10 +237,8 @@ class Csv extends BaseWriter
     public function setExcelCompatibility($pValue)
     {
         $this->excelCompatibility = $pValue;
-
         return $this;
     }
-
     /**
      * Get sheet index.
      *
@@ -281,7 +248,6 @@ class Csv extends BaseWriter
     {
         return $this->sheetIndex;
     }
-
     /**
      * Set sheet index.
      *
@@ -292,43 +258,35 @@ class Csv extends BaseWriter
     public function setSheetIndex($pValue)
     {
         $this->sheetIndex = $pValue;
-
         return $this;
     }
-
     /**
      * Write line to CSV file.
      *
      * @param resource $pFileHandle PHP filehandle
      * @param array $pValues Array containing values in a row
      */
-    private function writeLine($pFileHandle, array $pValues): void
+    private function writeLine($pFileHandle, array $pValues) : void
     {
         // No leading delimiter
-        $writeDelimiter = false;
-
+        $writeDelimiter = \false;
         // Build the line
         $line = '';
-
         foreach ($pValues as $element) {
             // Escape enclosures
-            $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
-
+            $element = \str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
             // Add delimiter
             if ($writeDelimiter) {
                 $line .= $this->delimiter;
             } else {
-                $writeDelimiter = true;
+                $writeDelimiter = \true;
             }
-
             // Add enclosed string
             $line .= $this->enclosure . $element . $this->enclosure;
         }
-
         // Add line ending
         $line .= $this->lineEnding;
-
         // Write to file
-        fwrite($pFileHandle, $line);
+        \fwrite($pFileHandle, $line);
     }
 }

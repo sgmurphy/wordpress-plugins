@@ -1,11 +1,10 @@
 <?php
 
-namespace Matrix\Operators;
+namespace LWVendor\Matrix\Operators;
 
-use Matrix\Matrix;
-use \Matrix\Builder;
-use Matrix\Exception;
-
+use LWVendor\Matrix\Matrix;
+use LWVendor\Matrix\Builder;
+use LWVendor\Matrix\Exception;
 class Multiplication extends Operator
 {
     /**
@@ -17,19 +16,16 @@ class Multiplication extends Operator
      **/
     public function execute($value)
     {
-        if (is_array($value)) {
+        if (\is_array($value)) {
             $value = new Matrix($value);
         }
-
-        if (is_object($value) && ($value instanceof Matrix)) {
+        if (\is_object($value) && $value instanceof Matrix) {
             return $this->multiplyMatrix($value);
-        } elseif (is_numeric($value)) {
+        } elseif (\is_numeric($value)) {
             return $this->multiplyScalar($value);
         }
-
         throw new Exception('Invalid argument for multiplication');
     }
-
     /**
      * Execute the multiplication for a scalar
      *
@@ -43,10 +39,8 @@ class Multiplication extends Operator
                 $this->matrix[$row][$column] *= $value;
             }
         }
-
         return $this;
     }
-
     /**
      * Execute the multiplication for a matrix
      *
@@ -57,11 +51,9 @@ class Multiplication extends Operator
     protected function multiplyMatrix(Matrix $value)
     {
         $this->validateReflectingDimensions($value);
-
         $newRows = $this->rows;
         $newColumns = $value->columns;
-        $matrix = Builder::createFilledMatrix(0, $newRows, $newColumns)
-            ->toArray();
+        $matrix = Builder::createFilledMatrix(0, $newRows, $newColumns)->toArray();
         for ($row = 0; $row < $newRows; ++$row) {
             for ($column = 0; $column < $newColumns; ++$column) {
                 $columnData = $value->getColumns($column + 1)->toArray();
@@ -71,7 +63,6 @@ class Multiplication extends Operator
             }
         }
         $this->matrix = $matrix;
-
         return $this;
     }
 }

@@ -511,11 +511,11 @@
         },
         {
             "name": "mailoptin/authifly",
-            "version": "0.2.1721221854",
-            "version_normalized": "0.2.1721221854.0",
+            "version": "0.2.1724232716",
+            "version_normalized": "0.2.1724232716.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_b6gWF/mailoptinauthifly-0-2-1721221854.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1eL79z/mailoptinauthifly-0-2-1724232716.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -567,11 +567,11 @@
         },
         {
             "name": "mailoptin/connections",
-            "version": "0.2.1721221896",
-            "version_normalized": "0.2.1721221896.0",
+            "version": "0.2.1724232754",
+            "version_normalized": "0.2.1724232754.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1gvgqv/mailoptinconnections-0-2-1721221896.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_wTlnB/mailoptinconnections-0-2-1724232754.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -1441,17 +1441,17 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v5.4.40",
-            "version_normalized": "5.4.40.0",
+            "version": "v5.4.42",
+            "version_normalized": "5.4.42.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "bb51d7f183756d1ac03f50ea47dc5726518cc7e8"
+                "reference": "1d702caccb9f091b738696185f778b1bfef7b5b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/bb51d7f183756d1ac03f50ea47dc5726518cc7e8",
-                "reference": "bb51d7f183756d1ac03f50ea47dc5726518cc7e8",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/1d702caccb9f091b738696185f778b1bfef7b5b2",
+                "reference": "1d702caccb9f091b738696185f778b1bfef7b5b2",
                 "shasum": ""
             },
             "require": {
@@ -1490,7 +1490,7 @@
                 "symfony/config": "",
                 "symfony/yaml": ""
             },
-            "time": "2024-05-31T14:33:22+00:00",
+            "time": "2024-07-26T12:14:19+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1521,7 +1521,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v5.4.40"
+                "source": "https://github.com/symfony/translation/tree/v5.4.42"
             },
             "funding": [
                 {

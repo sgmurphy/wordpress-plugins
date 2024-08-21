@@ -1,11 +1,10 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use LWVendor\PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use LWVendor\PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 /**
  * Matrix class.
  *
@@ -26,28 +25,24 @@ class Matrix
     const MATRIX_DIMENSION_EXCEPTION = 'Matrix dimensions are not equal.';
     const ARRAY_LENGTH_EXCEPTION = 'Array length must be a multiple of m.';
     const MATRIX_SPD_EXCEPTION = 'Can only perform operation on symmetric positive definite matrix.';
-
     /**
      * Matrix storage.
      *
      * @var array
      */
     public $A = [];
-
     /**
      * Matrix row dimension.
      *
      * @var int
      */
     private $m;
-
     /**
      * Matrix column dimension.
      *
      * @var int
      */
     private $n;
-
     /**
      * Polymorphic constructor.
      *
@@ -55,40 +50,36 @@ class Matrix
      */
     public function __construct(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 //Rectangular matrix - m x n initialized from 2D array
                 case 'array':
-                    $this->m = count($args[0]);
-                    $this->n = count($args[0][0]);
+                    $this->m = \count($args[0]);
+                    $this->n = \count($args[0][0]);
                     $this->A = $args[0];
-
                     break;
                 //Square matrix - n x n
                 case 'integer':
                     $this->m = $args[0];
                     $this->n = $args[0];
-                    $this->A = array_fill(0, $this->m, array_fill(0, $this->n, 0));
-
+                    $this->A = \array_fill(0, $this->m, \array_fill(0, $this->n, 0));
                     break;
                 //Rectangular matrix - m x n
                 case 'integer,integer':
                     $this->m = $args[0];
                     $this->n = $args[1];
-                    $this->A = array_fill(0, $this->m, array_fill(0, $this->n, 0));
-
+                    $this->A = \array_fill(0, $this->m, \array_fill(0, $this->n, 0));
                     break;
                 //Rectangular matrix - m x n initialized from packed array
                 case 'array,integer':
                     $this->m = $args[1];
                     if ($this->m != 0) {
-                        $this->n = count($args[0]) / $this->m;
+                        $this->n = \count($args[0]) / $this->m;
                     } else {
                         $this->n = 0;
                     }
-                    if (($this->m * $this->n) == count($args[0])) {
+                    if ($this->m * $this->n == \count($args[0])) {
                         for ($i = 0; $i < $this->m; ++$i) {
                             for ($j = 0; $j < $this->n; ++$j) {
                                 $this->A[$i][$j] = $args[0][$i + $j * $this->m];
@@ -97,18 +88,15 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARRAY_LENGTH_EXCEPTION);
                     }
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
         } else {
             throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
     }
-
     /**
      * getArray.
      *
@@ -118,7 +106,6 @@ class Matrix
     {
         return $this->A;
     }
-
     /**
      * getRowDimension.
      *
@@ -128,7 +115,6 @@ class Matrix
     {
         return $this->m;
     }
-
     /**
      * getColumnDimension.
      *
@@ -138,7 +124,6 @@ class Matrix
     {
         return $this->n;
     }
-
     /**
      * get.
      *
@@ -153,7 +138,6 @@ class Matrix
     {
         return $this->A[$i][$j];
     }
-
     /**
      * getMatrix.
      *
@@ -163,9 +147,8 @@ class Matrix
      */
     public function getMatrix(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 //A($i0...; $j0...)
                 case 'integer,integer':
@@ -186,19 +169,17 @@ class Matrix
                             $R->set($i, $j, $this->A[$i][$j]);
                         }
                     }
-
                     return $R;
-
                     break;
                 //A($i0...$iF; $j0...$jF)
                 case 'integer,integer,integer,integer':
                     [$i0, $iF, $j0, $jF] = $args;
-                    if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) {
+                    if ($iF > $i0 && $this->m >= $iF && $i0 >= 0) {
                         $m = $iF - $i0;
                     } else {
                         throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
-                    if (($jF > $j0) && ($this->n >= $jF) && ($j0 >= 0)) {
+                    if ($jF > $j0 && $this->n >= $jF && $j0 >= 0) {
                         $n = $jF - $j0;
                     } else {
                         throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
@@ -209,20 +190,18 @@ class Matrix
                             $R->set($i - $i0, $j - $j0, $this->A[$i][$j]);
                         }
                     }
-
                     return $R;
-
                     break;
                 //$R = array of row indices; $C = array of column indices
                 case 'array,array':
                     [$RL, $CL] = $args;
-                    if (count($RL) > 0) {
-                        $m = count($RL);
+                    if (\count($RL) > 0) {
+                        $m = \count($RL);
                     } else {
                         throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
-                    if (count($CL) > 0) {
-                        $n = count($CL);
+                    if (\count($CL) > 0) {
+                        $n = \count($CL);
                     } else {
                         throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
@@ -232,20 +211,18 @@ class Matrix
                             $R->set($i, $j, $this->A[$RL[$i]][$CL[$j]]);
                         }
                     }
-
                     return $R;
-
                     break;
                 //A($i0...$iF); $CL = array of column indices
                 case 'integer,integer,array':
                     [$i0, $iF, $CL] = $args;
-                    if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) {
+                    if ($iF > $i0 && $this->m >= $iF && $i0 >= 0) {
                         $m = $iF - $i0;
                     } else {
                         throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
-                    if (count($CL) > 0) {
-                        $n = count($CL);
+                    if (\count($CL) > 0) {
+                        $n = \count($CL);
                     } else {
                         throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
@@ -255,19 +232,17 @@ class Matrix
                             $R->set($i - $i0, $j, $this->A[$i][$CL[$j]]);
                         }
                     }
-
                     return $R;
-
                     break;
                 //$RL = array of row indices
                 case 'array,integer,integer':
                     [$RL, $j0, $jF] = $args;
-                    if (count($RL) > 0) {
-                        $m = count($RL);
+                    if (\count($RL) > 0) {
+                        $m = \count($RL);
                     } else {
                         throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
-                    if (($jF >= $j0) && ($this->n >= $jF) && ($j0 >= 0)) {
+                    if ($jF >= $j0 && $this->n >= $jF && $j0 >= 0) {
                         $n = $jF - $j0;
                     } else {
                         throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
@@ -278,20 +253,16 @@ class Matrix
                             $R->set($i, $j - $j0, $this->A[$RL[$i]][$j]);
                         }
                     }
-
                     return $R;
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
         } else {
             throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
     }
-
     /**
      * checkMatrixDimensions.
      *
@@ -304,18 +275,14 @@ class Matrix
     public function checkMatrixDimensions($B = null)
     {
         if ($B instanceof self) {
-            if (($this->m == $B->getRowDimension()) && ($this->n == $B->getColumnDimension())) {
-                return true;
+            if ($this->m == $B->getRowDimension() && $this->n == $B->getColumnDimension()) {
+                return \true;
             }
-
             throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
         }
-
         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
     }
-
     //    function checkMatrixDimensions()
-
     /**
      * set.
      *
@@ -332,9 +299,7 @@ class Matrix
         // Optimized set version just has this
         $this->A[$i][$j] = $c;
     }
-
     //    function set()
-
     /**
      * identity.
      *
@@ -349,7 +314,6 @@ class Matrix
     {
         return $this->diagonal($m, $n, 1);
     }
-
     /**
      * diagonal.
      *
@@ -367,10 +331,8 @@ class Matrix
         for ($i = 0; $i < $m; ++$i) {
             $R->set($i, $i, $c);
         }
-
         return $R;
     }
-
     /**
      * getMatrixByRow.
      *
@@ -383,17 +345,14 @@ class Matrix
      */
     public function getMatrixByRow($i0 = null, $iF = null)
     {
-        if (is_int($i0)) {
-            if (is_int($iF)) {
+        if (\is_int($i0)) {
+            if (\is_int($iF)) {
                 return $this->getMatrix($i0, 0, $iF + 1, $this->n);
             }
-
             return $this->getMatrix($i0, 0, $i0 + 1, $this->n);
         }
-
         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
     }
-
     /**
      * getMatrixByCol.
      *
@@ -406,17 +365,14 @@ class Matrix
      */
     public function getMatrixByCol($j0 = null, $jF = null)
     {
-        if (is_int($j0)) {
-            if (is_int($jF)) {
+        if (\is_int($j0)) {
+            if (\is_int($jF)) {
                 return $this->getMatrix(0, $j0, $this->m, $jF + 1);
             }
-
             return $this->getMatrix(0, $j0, $this->m, $j0 + 1);
         }
-
         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
     }
-
     /**
      * transpose.
      *
@@ -432,12 +388,9 @@ class Matrix
                 $R->set($j, $i, $this->A[$i][$j]);
             }
         }
-
         return $R;
     }
-
     //    function transpose()
-
     /**
      * trace.
      *
@@ -448,14 +401,12 @@ class Matrix
     public function trace()
     {
         $s = 0;
-        $n = min($this->m, $this->n);
+        $n = \min($this->m, $this->n);
         for ($i = 0; $i < $n; ++$i) {
             $s += $this->A[$i][$i];
         }
-
         return $s;
     }
-
     /**
      * uminus.
      *
@@ -466,7 +417,6 @@ class Matrix
     public function uminus()
     {
     }
-
     /**
      * plus.
      *
@@ -476,9 +426,8 @@ class Matrix
      */
     public function plus(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -486,15 +435,12 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -503,13 +449,10 @@ class Matrix
                     $M->set($i, $j, $M->get($i, $j) + $this->A[$i][$j]);
                 }
             }
-
             return $M;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * plusEquals.
      *
@@ -519,9 +462,8 @@ class Matrix
      */
     public function plusEquals(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -529,28 +471,25 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
             for ($i = 0; $i < $this->m; ++$i) {
                 for ($j = 0; $j < $this->n; ++$j) {
-                    $validValues = true;
+                    $validValues = \true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
+                    if (\is_string($this->A[$i][$j]) && \strlen($this->A[$i][$j]) > 0 && !\is_numeric($this->A[$i][$j])) {
+                        $this->A[$i][$j] = \trim($this->A[$i][$j], '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
+                    if (\is_string($value) && \strlen($value) > 0 && !\is_numeric($value)) {
+                        $value = \trim($value, '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -560,13 +499,10 @@ class Matrix
                     }
                 }
             }
-
             return $this;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * minus.
      *
@@ -576,9 +512,8 @@ class Matrix
      */
     public function minus(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -586,15 +521,12 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -603,13 +535,10 @@ class Matrix
                     $M->set($i, $j, $M->get($i, $j) - $this->A[$i][$j]);
                 }
             }
-
             return $M;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * minusEquals.
      *
@@ -619,9 +548,8 @@ class Matrix
      */
     public function minusEquals(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -629,28 +557,25 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
             for ($i = 0; $i < $this->m; ++$i) {
                 for ($j = 0; $j < $this->n; ++$j) {
-                    $validValues = true;
+                    $validValues = \true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
+                    if (\is_string($this->A[$i][$j]) && \strlen($this->A[$i][$j]) > 0 && !\is_numeric($this->A[$i][$j])) {
+                        $this->A[$i][$j] = \trim($this->A[$i][$j], '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
+                    if (\is_string($value) && \strlen($value) > 0 && !\is_numeric($value)) {
+                        $value = \trim($value, '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -660,13 +585,10 @@ class Matrix
                     }
                 }
             }
-
             return $this;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * arrayTimes.
      *
@@ -677,9 +599,8 @@ class Matrix
      */
     public function arrayTimes(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -687,15 +608,12 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -704,13 +622,10 @@ class Matrix
                     $M->set($i, $j, $M->get($i, $j) * $this->A[$i][$j]);
                 }
             }
-
             return $M;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * arrayTimesEquals.
      *
@@ -721,9 +636,8 @@ class Matrix
      */
     public function arrayTimesEquals(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -731,28 +645,25 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
             for ($i = 0; $i < $this->m; ++$i) {
                 for ($j = 0; $j < $this->n; ++$j) {
-                    $validValues = true;
+                    $validValues = \true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
+                    if (\is_string($this->A[$i][$j]) && \strlen($this->A[$i][$j]) > 0 && !\is_numeric($this->A[$i][$j])) {
+                        $this->A[$i][$j] = \trim($this->A[$i][$j], '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
+                    if (\is_string($value) && \strlen($value) > 0 && !\is_numeric($value)) {
+                        $value = \trim($value, '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -762,13 +673,10 @@ class Matrix
                     }
                 }
             }
-
             return $this;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * arrayRightDivide.
      *
@@ -779,9 +687,8 @@ class Matrix
      */
     public function arrayRightDivide(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -789,28 +696,25 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
             for ($i = 0; $i < $this->m; ++$i) {
                 for ($j = 0; $j < $this->n; ++$j) {
-                    $validValues = true;
+                    $validValues = \true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
+                    if (\is_string($this->A[$i][$j]) && \strlen($this->A[$i][$j]) > 0 && !\is_numeric($this->A[$i][$j])) {
+                        $this->A[$i][$j] = \trim($this->A[$i][$j], '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
+                    if (\is_string($value) && \strlen($value) > 0 && !\is_numeric($value)) {
+                        $value = \trim($value, '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -825,13 +729,10 @@ class Matrix
                     }
                 }
             }
-
             return $M;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * arrayRightDivideEquals.
      *
@@ -842,9 +743,8 @@ class Matrix
      */
     public function arrayRightDivideEquals(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -852,15 +752,12 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -869,13 +766,10 @@ class Matrix
                     $this->A[$i][$j] = $this->A[$i][$j] / $M->get($i, $j);
                 }
             }
-
             return $M;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * arrayLeftDivide.
      *
@@ -886,9 +780,8 @@ class Matrix
      */
     public function arrayLeftDivide(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -896,15 +789,12 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -913,13 +803,10 @@ class Matrix
                     $M->set($i, $j, $M->get($i, $j) / $this->A[$i][$j]);
                 }
             }
-
             return $M;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * arrayLeftDivideEquals.
      *
@@ -930,9 +817,8 @@ class Matrix
      */
     public function arrayLeftDivideEquals(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -940,15 +826,12 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -957,13 +840,10 @@ class Matrix
                     $this->A[$i][$j] = $M->get($i, $j) / $this->A[$i][$j];
                 }
             }
-
             return $M;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * times.
      *
@@ -973,9 +853,8 @@ class Matrix
      */
     public function times(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -999,10 +878,8 @@ class Matrix
                                 $C->A[$i][$j] = $s;
                             }
                         }
-
                         return $C;
                     }
-
                     throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
                 case 'array':
                     $B = new self($args[0]);
@@ -1017,10 +894,8 @@ class Matrix
                                 $C->A[$i][$j] = $s;
                             }
                         }
-
                         return $C;
                     }
-
                     throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
                 case 'integer':
                     $C = new self($this->A);
@@ -1029,7 +904,6 @@ class Matrix
                             $C->A[$i][$j] *= $args[0];
                         }
                     }
-
                     return $C;
                 case 'double':
                     $C = new self($this->m, $this->n);
@@ -1038,7 +912,6 @@ class Matrix
                             $C->A[$i][$j] = $args[0] * $this->A[$i][$j];
                         }
                     }
-
                     return $C;
                 case 'float':
                     $C = new self($this->A);
@@ -1047,7 +920,6 @@ class Matrix
                             $C->A[$i][$j] *= $args[0];
                         }
                     }
-
                     return $C;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -1056,7 +928,6 @@ class Matrix
             throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
     }
-
     /**
      * power.
      *
@@ -1066,9 +937,8 @@ class Matrix
      */
     public function power(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -1076,28 +946,25 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
             for ($i = 0; $i < $this->m; ++$i) {
                 for ($j = 0; $j < $this->n; ++$j) {
-                    $validValues = true;
+                    $validValues = \true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
+                    if (\is_string($this->A[$i][$j]) && \strlen($this->A[$i][$j]) > 0 && !\is_numeric($this->A[$i][$j])) {
+                        $this->A[$i][$j] = \trim($this->A[$i][$j], '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
+                    if (\is_string($value) && \strlen($value) > 0 && !\is_numeric($value)) {
+                        $value = \trim($value, '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -1107,13 +974,10 @@ class Matrix
                     }
                 }
             }
-
             return $this;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * concat.
      *
@@ -1123,9 +987,8 @@ class Matrix
      */
     public function concat(...$args)
     {
-        if (count($args) > 0) {
-            $match = implode(',', array_map('gettype', $args));
-
+        if (\count($args) > 0) {
+            $match = \implode(',', \array_map('gettype', $args));
             switch ($match) {
                 case 'object':
                     if ($args[0] instanceof self) {
@@ -1133,30 +996,24 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
-
                     break;
                 case 'array':
                     $M = new self($args[0]);
-
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-
                     break;
             }
             $this->checkMatrixDimensions($M);
             for ($i = 0; $i < $this->m; ++$i) {
                 for ($j = 0; $j < $this->n; ++$j) {
-                    $this->A[$i][$j] = trim($this->A[$i][$j], '"') . trim($M->get($i, $j), '"');
+                    $this->A[$i][$j] = \trim($this->A[$i][$j], '"') . \trim($M->get($i, $j), '"');
                 }
             }
-
             return $this;
         }
-
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
-
     /**
      * Solve A*X = B.
      *
@@ -1168,14 +1025,11 @@ class Matrix
     {
         if ($this->m == $this->n) {
             $LU = new LUDecomposition($this);
-
             return $LU->solve($B);
         }
         $QR = new QRDecomposition($this);
-
         return $QR->solve($B);
     }
-
     /**
      * Matrix inverse or pseudoinverse.
      *
@@ -1185,7 +1039,6 @@ class Matrix
     {
         return $this->solve($this->identity($this->m, $this->m));
     }
-
     /**
      * det.
      *
@@ -1196,7 +1049,6 @@ class Matrix
     public function det()
     {
         $L = new LUDecomposition($this);
-
         return $L->det();
     }
 }

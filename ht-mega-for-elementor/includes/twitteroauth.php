@@ -21,6 +21,7 @@ if( class_exists('TwitterOAuth') ){
 		class OAuthConsumer {
 		  public $key;
 		  public $secret;
+		  public $callback_url;
 
 		  function __construct($key, $secret, $callback_url=NULL) {
 			$this->key = $key;
@@ -28,9 +29,9 @@ if( class_exists('TwitterOAuth') ){
 			$this->callback_url = $callback_url;
 		  }
 
-		  function __toString() {
-			return "OAuthConsumer[key=$this->key,secret=$this->secret]";
-		  }
+		//   function __toString() {
+		// 	return "OAuthConsumer[key=$this->key,secret=$this->secret]";
+		//   }
 		}
 
 		class OAuthToken {
@@ -452,9 +453,9 @@ if( class_exists('TwitterOAuth') ){
 			return $out;
 		  }
 
-		  public function __toString() {
-			return $this->to_url();
-		  }
+		//   public function __toString() {
+		// 	return $this->to_url();
+		//   }
 
 
 		  public function sign_request($signature_method, $consumer, $token) {
@@ -964,6 +965,9 @@ class TwitterOAuth {
   public $useragent = 'TwitterOAuth v0.2.0-beta2';
   /* Immediately retry the API call if the response was not successful. */
   //public $retry = TRUE;
+  public $sha1_method;
+  public $consumer;
+  public $token;
 
 
 

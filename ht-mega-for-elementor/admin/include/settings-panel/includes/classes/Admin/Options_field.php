@@ -694,6 +694,15 @@ class Options_Field {
                     'label_off' => __( 'Off', 'htmega-addons' ),
                     'default'=> 'off',
                 ),
+                array(
+                    'id'  => 'calendly',
+                    'name'  => __( 'Calendly', 'htmega-addons' ),
+                    'type'  => 'element',
+                    'label_on' => __( 'On', 'htmega-addons' ),
+                    'label_off' => __( 'Off', 'htmega-addons' ),
+                    'default'=> 'on',
+                ),
+
                 // pro addon list
                 array(
                     'id'  => 'info_boxp',

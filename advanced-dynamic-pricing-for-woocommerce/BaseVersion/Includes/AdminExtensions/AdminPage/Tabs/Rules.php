@@ -750,6 +750,13 @@ class Rules implements AdminTabInterface
         );
     }
 
+    protected static function rangeDiscountAmount() {
+        return array(
+            'key'   => 'range_discount__amount',
+            'label' => __('Fixed discount for the range', 'advanced-dynamic-pricing-for-woocommerce'),
+        );
+    }
+
     protected static function discountPercentage()
     {
         return array(
@@ -771,6 +778,14 @@ class Rules implements AdminTabInterface
         return array(
             'key'   => 'set_price__fixed',
             'label' => __('Fixed price for set', 'advanced-dynamic-pricing-for-woocommerce'),
+        );
+    }
+
+    protected static function rangePriceFixed()
+    {
+        return array(
+            'key'   => 'range_price__fixed',
+            'label' => __('Fixed price for the range', 'advanced-dynamic-pricing-for-woocommerce'),
         );
     }
 

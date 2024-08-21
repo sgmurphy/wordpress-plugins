@@ -159,8 +159,11 @@ class Wpil_Post
             return;
         }
 
+        $post = new Wpil_Model_Post($post_id);
+
         // get the inbound links from the post meta
-        $inbound = Wpil_Toolbox::get_encoded_post_meta($post_id, 'wpil_links_inbound_internal_count_data', true);
+        $inbound = $post->getInboundInternalLinks();
+
         // if there are links
         if(!empty($inbound)){
             // remove each of the outbound links from the posts linking to this one
@@ -169,10 +172,11 @@ class Wpil_Post
                     continue;
                 }
 
-                if($link->post->type === 'post'){
-                    $stored_links = Wpil_Toolbox::get_encoded_post_meta($link->post->id, 'wpil_links_outbound_internal_count_data', true);
-                }else{
-                    $stored_links = Wpil_Toolbox::get_encoded_term_meta($link->post->id, 'wpil_links_outbound_internal_count_data', true);
+                $stored_link = array();
+                try {
+                    $stored_links = $link->post->getOutboundInternalLinks();
+                } catch (Throwable $t) {
+                } catch (Exception $e) {
                 }
 
                 // if the current post does have links

@@ -19,7 +19,7 @@ class ToPricingCartItemAdapter
     public function __construct()
     {
         $this->chain = [
-            new CompositeToPricingCartItemAdapter(),
+//            new CompositeToPricingCartItemAdapter(),
             new SubscriptionToPricingCartItemAdapter(),
             new ContainerToPricingCartItemAdapter(),
             new SimpleToPricingCartItemAdapter()

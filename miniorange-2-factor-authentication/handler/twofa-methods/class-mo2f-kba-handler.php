@@ -155,22 +155,6 @@ if ( ! class_exists( 'Mo2f_KBA_Handler' ) ) {
 		}
 
 		/**
-		 * Show KBA configuration prompt on dashboard.
-		 *
-		 * @return mixed
-		 */
-		public function mo2f_prompt_2fa_setup_wizard() {
-			global $mo2fdb_queries;
-			$current_user = wp_get_current_user();
-			$mo2fdb_queries->insert_user( $current_user->ID );
-			$common_helper = new Mo2f_Common_Helper();
-			$html          = $common_helper->prompt_user_for_kba_setup( $current_user->ID, '', '', '', 'setupwizard' );
-			$html         .= $this->mo2f_get_script( $current_user->ID, 'setupwizard' );
-			$html         .= $common_helper->mo2f_get_skipbutton_script_setupwizard( $current_user->ID );
-			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped the necessary in the definition.
-		}
-
-		/**
 		 * Show SMS Testing prompt on dashboard.
 		 *
 		 * @return mixed

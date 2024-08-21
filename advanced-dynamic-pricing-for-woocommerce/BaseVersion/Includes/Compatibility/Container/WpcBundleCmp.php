@@ -142,9 +142,14 @@ class WpcBundleCmp extends AbstractContainerCompatibility
             return [];
         }
 
-        return array_map(
+        return array_filter(array_map(
             function ($bundleItem) use ($product) {
                 $bundledProduct = CacheHelper::getWcProduct($bundleItem['id']);
+                
+                if(!($bundledProduct instanceof \WC_Product)) {
+                    return false;
+                }
+
                 $price = $bundledProduct->get_price('edit');
 
                 return ContainerPartProduct::of(
@@ -156,7 +161,7 @@ class WpcBundleCmp extends AbstractContainerCompatibility
                 );
             },
             $product->get_items()
-        );
+        ));
     }
 
     public function getContainerPriceTypeByParentFacade(WcCartItemFacade $facade): ?ContainerPriceTypeEnum

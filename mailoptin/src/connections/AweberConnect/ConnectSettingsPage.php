@@ -98,8 +98,9 @@ class ConnectSettingsPage extends AbstractAweberConnect
         unset($old_data['aweber_access_token_secret']);
         unset($old_data['aweber_account_id']);
 
-
         update_option($option_name, $old_data);
+
+        delete_option('mailoptin_aweber_connection_401_block');
 
         $connection = Connect::$connectionName;
 
@@ -131,6 +132,8 @@ class ConnectSettingsPage extends AbstractAweberConnect
             $new_data = array_filter($new_data, [$this, 'data_filter']);
 
             update_option($option_name, array_merge($old_data, $new_data));
+
+            delete_option('mailoptin_aweber_connection_401_block');
 
             $connection = Connect::$connectionName;
 

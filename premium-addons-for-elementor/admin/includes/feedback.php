@@ -50,7 +50,7 @@ class Feedback {
 			return false;
 		}
 
-		$wordpress = self::collect_wordpress_data( false );
+		$wordpress = self::collect_wordpress_data( true );
 
 		$wordpress['deactivated_plugin']['uninstall_reason']  = $reason;
 		$wordpress['deactivated_plugin']['uninstall_details'] = '';
@@ -171,7 +171,7 @@ class Feedback {
 							</label>
 						</section>
 						<section class="messages-wrap hidden" data-feedback>
-							<?php if( ini_get( 'max_execution_time' ) < 300 ) : 
+							<?php if( ini_get( 'max_execution_time' ) < 300 ) :
 								$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/im-getting-a-blank-page-on-elementor-after-activating-premium-add-ons/', 'plugins-page', 'wp-dash', 'deactivate-form' );
 							?>
 								<p class="options-wrap pa-info-notice">
@@ -198,7 +198,7 @@ class Feedback {
 			<?php
 	}
 
-	private static function collect_wordpress_data( $detailed = false ) {
+	private static function collect_wordpress_data( $detailed = true ) {
 
 		$current_plugin = get_plugin_data( PREMIUM_ADDONS_FILE );
 
@@ -213,13 +213,14 @@ class Feedback {
 			),
 		);
 
-		if ( ! ! $detailed ) {
-			$data['locale']      = ( get_bloginfo( 'version' ) >= 4.7 ) ? get_user_locale() : get_locale();
-			$data['wp_version']  = get_bloginfo( 'version' );
-			$data['multisite']   = is_multisite();
-			$data['php_version'] = PHP_VERSION;
-			$data['themes']      = self::get_themes();
-			$data['plugins']     = self::get_plugins();
+		if ( $detailed ) {
+
+            $data['extra'] = array(
+                'locale'      => ( get_bloginfo( 'version' ) >= 4.7 ) ? get_user_locale() : get_locale(),
+                'themes'      => self::get_themes(),
+                'plugins'     => self::get_plugins(),
+            );
+
 		}
 
 		return $data;
@@ -229,24 +230,26 @@ class Feedback {
 	 * Get a list of installed plugins
 	 */
 	private static function get_plugins() {
+
 		if ( ! function_exists( 'get_plugins' ) ) {
 			include ABSPATH . '/wp-admin/includes/plugin.php';
 		}
 
-		$plugins   = get_plugins();
+		// $plugins   = get_plugins();
 		$option    = get_option( 'active_plugins', array() );
 		$active    = array();
-		$installed = array();
-		foreach ( $plugins as $id => $info ) {
-			if ( in_array( $id, $active ) ) {
-				continue;
-			}
 
-			$id = explode( '/', $id );
-			$id = ucwords( str_replace( '-', ' ', $id[0] ) );
+		// $installed = array();
+		// foreach ( $plugins as $id => $info ) {
+		// 	if ( in_array( $id, $active ) ) {
+		// 		continue;
+		// 	}
 
-			$installed[] = $id;
-		}
+		// 	$id = explode( '/', $id );
+		// 	$id = ucwords( str_replace( '-', ' ', $id[0] ) );
+
+		// 	$installed[] = $id;
+		// }
 
 		foreach ( $option as $id ) {
 			$id = explode( '/', $id );
@@ -256,7 +259,7 @@ class Feedback {
 		}
 
 		return array(
-			'installed' => $installed,
+			// 'installed' => $installed,
 			'active'    => $active,
 		);
 	}
@@ -267,15 +270,13 @@ class Feedback {
 	 * @return array
 	 */
 	private static function get_themes() {
+
 		$theme = wp_get_theme();
 
 		return array(
-			'installed' => self::get_installed_themes(),
+			// 'installed' => self::get_installed_themes(),
 			'active'    => array(
-				'slug'    => get_stylesheet(),
 				'name'    => $theme->get( 'Name' ),
-				'version' => $theme->get( 'Version' ),
-				'author'  => $theme->get( 'Author' ),
 			),
 		);
 	}
@@ -296,10 +297,7 @@ class Feedback {
 			}
 
 			$data[ $slug ] = array(
-				'slug'    => $slug,
 				'name'    => $info->get( 'Name' ),
-				'version' => $info->get( 'Version' ),
-				'author'  => $info->get( 'Author' ),
 			);
 		}
 

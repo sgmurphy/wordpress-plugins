@@ -22,7 +22,7 @@
             <input type="hidden" class="wpil-suggestion-input wpil-suggestions-can-be-regenerated" value="0" data-suggestion-input-initial-value="0">
             <br>
             <?php if(!empty($categories)){ ?>
-            <input style="margin-bottom: -5px;" type="checkbox" name="same_category" id="field_same_category" class="wpil-suggestion-input" data-suggestion-input-initial-value="<?php echo !empty($same_category) ? 1: 0;?>" <?=(isset($same_category) && !empty($same_category)) ? 'checked' : ''?>> <label for="field_same_category"><?php _e('Only Show Link Suggestions in the Same Category as This Post', 'wpil'); ?></label>
+            <input style="margin-bottom: -5px;" type="checkbox" name="same_category" id="field_same_category" class="wpil-suggestion-input" data-suggestion-input-initial-value="<?php echo !empty($same_category) ? 1: 0;?>" <?=(isset($same_category) && !empty($same_category)) ? 'checked' : ''?>> <label for="field_same_category"><?php esc_html_e('Only Show Link Suggestions in the Same Category as This Post', 'wpil'); ?></label>
             <br>
             <div class="same_category-aux wpil-aux">
                 <select multiple name="wpil_selected_category" class="wpil-suggestion-input wpil-suggestion-multiselect" data-suggestion-input-initial-value="<?php echo implode(',', $selected_categories);?>" style="width: 400px;">
@@ -43,7 +43,7 @@
                 <?php } ?>
             <?php } ?>
             <?php if(!empty($tags)){ ?>
-            <input type="checkbox" name="same_tag" id="field_same_tag" class="wpil-suggestion-input" data-suggestion-input-initial-value="<?php echo !empty($same_tag) ? 1: 0;?>"  <?=!empty($same_tag) ? 'checked' : ''?>> <label for="field_same_tag"><?php _e('Only Show Link Suggestions with the Same Tag as This Post', 'wpil'); ?></label>
+            <input type="checkbox" name="same_tag" id="field_same_tag" class="wpil-suggestion-input" data-suggestion-input-initial-value="<?php echo !empty($same_tag) ? 1: 0;?>"  <?=!empty($same_tag) ? 'checked' : ''?>> <label for="field_same_tag"><?php esc_html_e('Only Show Link Suggestions with the Same Tag as This Post', 'wpil'); ?></label>
             <br>
             <div class="same_tag-aux wpil-aux">
                 <select multiple name="wpil_selected_tag" class="wpil-suggestion-input wpil-suggestion-multiselect" data-suggestion-input-initial-value="<?php echo implode(',', $selected_tags);?>" style="width: 400px;">
@@ -65,7 +65,7 @@
             <?php } ?>
             <br />
             <br />
-            <button id="wpil-regenerate-suggestions" class="button disabled" disabled><?php _e('Regenerate Suggestions', 'wpil'); ?></button>
+            <button id="wpil-regenerate-suggestions" class="button disabled" disabled><?php esc_html_e('Regenerate Suggestions', 'wpil'); ?></button>
             <?php if(!empty($select_post_types)){ ?>
             <style>
                 .best_keywords .select_post_types-aux{

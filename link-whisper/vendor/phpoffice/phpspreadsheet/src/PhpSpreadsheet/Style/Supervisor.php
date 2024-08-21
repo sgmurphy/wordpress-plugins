@@ -1,11 +1,10 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Style;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Style;
 
-use PhpOffice\PhpSpreadsheet\IComparable;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\IComparable;
+use LWVendor\PhpOffice\PhpSpreadsheet\Spreadsheet;
+use LWVendor\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 abstract class Supervisor implements IComparable
 {
     /**
@@ -14,21 +13,18 @@ abstract class Supervisor implements IComparable
      * @var bool
      */
     protected $isSupervisor;
-
     /**
      * Parent. Only used for supervisor.
      *
      * @var Spreadsheet|Style
      */
     protected $parent;
-
     /**
      * Parent property name.
      *
      * @var null|string
      */
     protected $parentPropertyName;
-
     /**
      * Create a new Supervisor.
      *
@@ -36,12 +32,11 @@ abstract class Supervisor implements IComparable
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false)
+    public function __construct($isSupervisor = \false)
     {
         // Supervisor?
         $this->isSupervisor = $isSupervisor;
     }
-
     /**
      * Bind parent. Only used for supervisor.
      *
@@ -54,10 +49,8 @@ abstract class Supervisor implements IComparable
     {
         $this->parent = $parent;
         $this->parentPropertyName = $parentPropertyName;
-
         return $this;
     }
-
     /**
      * Is this a supervisor or a cell style component?
      *
@@ -67,7 +60,6 @@ abstract class Supervisor implements IComparable
     {
         return $this->isSupervisor;
     }
-
     /**
      * Get the currently active sheet. Only used for supervisor.
      *
@@ -77,7 +69,6 @@ abstract class Supervisor implements IComparable
     {
         return $this->parent->getActiveSheet();
     }
-
     /**
      * Get the currently active cell coordinate in currently active sheet.
      * Only used for supervisor.
@@ -88,7 +79,6 @@ abstract class Supervisor implements IComparable
     {
         return $this->getActiveSheet()->getSelectedCells();
     }
-
     /**
      * Get the currently active cell coordinate in currently active sheet.
      * Only used for supervisor.
@@ -99,18 +89,17 @@ abstract class Supervisor implements IComparable
     {
         return $this->getActiveSheet()->getActiveCell();
     }
-
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if ((is_object($value)) && ($key != 'parent')) {
-                $this->$key = clone $value;
+            if (\is_object($value) && $key != 'parent') {
+                $this->{$key} = clone $value;
             } else {
-                $this->$key = $value;
+                $this->{$key} = $value;
             }
         }
     }

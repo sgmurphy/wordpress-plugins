@@ -50,6 +50,7 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 		add_action( 'ssa/appointment_type/after_delete', array( $this, 'invalidate_appointment_type_cache'), 1000 );
 		add_filter( 'ssa/appointment_type/prepare_item_for_response', array( $this, 'set_default_attributes' ), 100);
 		
+		add_filter( 'ssa/appointment_type/before_update', array( $this, 'recheck_capacity_settings'), 10, 3 );
 		add_action( 'ssa/settings/staff/updated', array( $this, 'recheck_appointment_types_capacity_staff_toggled' ), 10, 2 );
 		add_action( 'ssa/settings/resources/updated', array( $this, 'recheck_appointment_types_capacity_resources_toggled' ), 10, 2 );
 		add_action( 'ssa/staff/after_update', array( $this, 'invalidate_appointment_type_cache'), 1000 );
@@ -108,13 +109,25 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 					continue;
 				}
 
+				// Check Staff is enabled and not empty and required for this appt type 
+				$appointment_type_staff_settings = $appointment_type['staff'];
+				if ( 
+					! empty( $all_settings['staff']['enabled'] ) && 
+					! empty( $appointment_type_staff_settings ) && 
+					! empty( $appointment_type_staff_settings['required'] ) 
+					) {
+						$appointment_type_update_data = array(
+							'resource_capacity' => $appointment_type['staff_capacity'],
+						);
+				}
+
 				// Check capacity for appointment type
 				if ( $appointment_type['capacity'] == 1 ) {
 					$appointment_type_update_data = array(
 						'capacity' => SSA_Constants::CAPACITY_MAX,
 					);
-					$this->update( $appointment_type['id'], $appointment_type_update_data );
 				}
+				$this->update( $appointment_type['id'], $appointment_type_update_data );
 			}
 		}
 	}
@@ -162,13 +175,20 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 					continue;
 				}
 
+				// Check Resources is enabled and not empty for this appt type
+				if ( ! empty( $all_settings['resources']['enabled'] ) && ! empty( $appointment_type_resource_settings ) ) {
+					$appointment_type_update_data = array(
+						'staff_capacity' => $appointment_type['resource_capacity'],
+					);
+				}
+
 				// Check capacity for appointment type
 				if ( $appointment_type['capacity'] == 1 ) {
 					$appointment_type_update_data = array(
 						'capacity' => SSA_Constants::CAPACITY_MAX,
 					);
-					$this->update( $appointment_type['id'], $appointment_type_update_data );
 				}
+				$this->update( $appointment_type['id'], $appointment_type_update_data );
 			}
 		}
 	}
@@ -1076,7 +1096,7 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 
 		if ( ! empty( $appointment_type['has_max_capacity'] )
 			&& ! empty( $appointment_type['has_max_capacity'] )
-			&& 100000 == $appointment_type['capacity']
+			&& SSA_Constants::CAPACITY_MAX == $appointment_type['capacity']
 		) {
 			$appointment_type['has_max_capacity'] = 0;
 		}
@@ -1415,47 +1435,81 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 			return;
 		}
 		
-		$client = $this->plugin->google_calendar_client->client_init()->service_init( 0 );
-		$calendar_list = $client->get_calendar_list();
-		// should never be empty unless something failed
-		if( empty( $calendar_list ) ) {
-			return;
-		}
-		
-		$calendar_list_ids = array_column( $calendar_list, 'id' );
-		$invalid_calendar_ids = array();
-		
-		$all_appointment_types = $this->plugin->appointment_type_model->get_all_appointment_types();
-		foreach( $all_appointment_types as $appointment_type ) {
-			if( empty( $appointment_type['google_calendars_availability'] ) ) {
-				continue;
+		try {
+			$client = $this->plugin->google_calendar_client->client_init()->service_init( 0 );
+			$calendar_list = $client->get_calendar_list();
+			
+			// should never be empty unless something failed
+			if( empty( $calendar_list ) ) {
+				return;
 			}
 			
-			$excluded_calendars = $appointment_type['google_calendars_availability'];
-			// filter, if not in array $calendar_list remove it
-			$valid_excluded_calendars = array_filter( $excluded_calendars, function (string $calendar_id) use ( $calendar_list_ids, &$invalid_calendar_ids ) { 
-				if( in_array( $calendar_id, $calendar_list_ids ) ) {
-					return true;
+			$calendar_list_ids = array_column( $calendar_list, 'id' );
+			$invalid_calendar_ids = array();
+			
+			$all_appointment_types = $this->plugin->appointment_type_model->get_all_appointment_types();
+			foreach( $all_appointment_types as $appointment_type ) {
+				if( empty( $appointment_type['google_calendars_availability'] ) ) {
+					continue;
 				}
-				$invalid_calendar_ids[] = $calendar_id;
-				return false;
-			} );
-			
-			if( count( $valid_excluded_calendars ) === count( $excluded_calendars ) ) {
-				continue;
+				
+				$excluded_calendars = $appointment_type['google_calendars_availability'];
+				// filter, if not in array $calendar_list remove it
+				$valid_excluded_calendars = array_filter( $excluded_calendars, function (string $calendar_id) use ( $calendar_list_ids, &$invalid_calendar_ids ) { 
+					if( in_array( $calendar_id, $calendar_list_ids ) ) {
+						return true;
+					}
+					$invalid_calendar_ids[] = $calendar_id;
+					return false;
+				} );
+				
+				if( count( $valid_excluded_calendars ) === count( $excluded_calendars ) ) {
+					continue;
+				}
+				
+				$appointment_type['google_calendars_availability'] = $valid_excluded_calendars;
+				
+				$this->plugin->appointment_type_model->update( $appointment_type['id'], $appointment_type );
 			}
 			
-			$appointment_type['google_calendars_availability'] = $valid_excluded_calendars;
-			
-			$this->plugin->appointment_type_model->update( $appointment_type['id'], $appointment_type );
+			$invalid_calendar_ids = array_unique( $invalid_calendar_ids );
+			foreach( $invalid_calendar_ids as $invalid_calendar_id ) {
+				$deleted_count = $this->plugin->availability_external_model->bulk_delete( array(
+					'calendar_id_hash' => ssa_int_hash( $invalid_calendar_id ),
+					'service' => 'google',
+				) );
+			}
+		} catch (\Throwable $th) {
+			// do nothing
+			// this cleanup is not critical
+		}
+	}
+	
+	/**
+	 * Prevents and edge case where availability would be incorrectly limited by the capacity setting when teams or resources are enabled
+	 * 
+	 */
+	public function recheck_capacity_settings ( $data, $data_before, $appointment_type_id ) {
+		// if has_max_capacity is truthy → capacity stays at the set value
+		if( ! isset( $data['has_max_capacity'] ) || ! empty( $data['has_max_capacity'] ) ) {
+			return $data;
 		}
 		
-		$invalid_calendar_ids = array_unique( $invalid_calendar_ids );
-		foreach( $invalid_calendar_ids as $invalid_calendar_id ) {
-			$deleted_count = $this->plugin->availability_external_model->bulk_delete( array(
-				'calendar_id_hash' => ssa_int_hash( $invalid_calendar_id ),
-				'service' => 'google',
-			) );
+		$teams_feature_enabled = $this->plugin->settings_installed->is_enabled( 'staff' );
+		$resources_feature_enabled = $this->plugin->settings_installed->is_enabled( 'resources' );
+		
+		// if no team & no resources → capacity stays at the set value
+		if( ! $teams_feature_enabled && ! $resources_feature_enabled ){
+			return $data;
 		}
+		
+		if( ! empty( $data['staff_ids'] ) || ! empty( $data['resource_group_ids'] ) ){
+			// teams or resources enabled on type & has_max_capacity is 0 → set capacity to CAPACITY_MAX
+			$data['capacity'] = SSA_Constants::CAPACITY_MAX;
+		}
+		// else - do nothing
+		// if no team & no resources (on the type itself) → capacity stays at the set value
+		
+		return $data;
 	}
 }

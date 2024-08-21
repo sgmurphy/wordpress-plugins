@@ -116,7 +116,7 @@ function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manu
     toggle_ready_check($dbrow_name); //make db row if there's none yet
 
     if($type == "form-toggle"){
-        $checked = maspik_get_settings($dbrow_name, 'form-toggle') == 'yes' ? 'checked': "";
+        $checked = maspik_get_settings($dbrow_name, 'form-toggle') == "yes" ? 'checked': "";
     }
     elseif($type == "yes-no"){
         $checked = maspik_get_settings($dbrow_name) == 'yes' ? 'checked': "";
@@ -128,9 +128,9 @@ function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manu
         $checked = maspik_is_contain_api($api_array) ? 'checked' : $checked ;
     }
 
-    if($manual_switch == 0){
+    if($manual_switch === 0 ){
         $checked = "";
-    } elseif($manual_switch === 1 && maspik_get_settings($dbrow_name) == ""){
+    } elseif($manual_switch && maspik_get_settings($dbrow_name) == ""){
         $checked = "checked";
     }
 
@@ -825,4 +825,3 @@ unset($args);
     } // render_settings_field
 
 }
-

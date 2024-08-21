@@ -362,6 +362,10 @@ class SSA_Templates {
 		);
 
 		$twig = new Twig\Environment( $loader );
+		
+		// enable sandbox mode
+		$twig->addExtension( $this->getCustomTwigSandboxExtension() );
+		
 		$twig->addExtension( new SSA_Twig_Extension() );
 		$twig->getExtension( \Twig\Extension\CoreExtension::class )->setTimezone( 'UTC' );
 		try {
@@ -371,6 +375,24 @@ class SSA_Templates {
 		}
 
 		return $rendered_template;
+	}
+	
+	
+	/**
+	 * Initialize sandbox extension with custom policy to prevent template-injections
+	 *
+	 * @return \Twig\Extension\SandboxExtension
+	 */
+	public function getCustomTwigSandboxExtension()
+	{
+		$tags = array('if', 'else', 'elseif', 'endif', 'include', 'import', 'block', 'set', 'for');
+		$filters = array( 'internationalize', 'trim', 'join', 'number_format', 'date', 'escape', 'trans', 'split', 'length', 'slice', 'lower', 'raw', 'filter', 'date', 'upper', 'link');
+		$methods = array();
+		$properties = array();
+		$functions = array('include', 'path', 'absolute_url', 'asset', 'is_granted', 'attribute');
+
+		$policy = new \Twig\Sandbox\SecurityPolicy($tags, $filters, $methods, $properties, $functions);
+		return new \Twig\Extension\SandboxExtension( $policy, true );
 	}
 
 

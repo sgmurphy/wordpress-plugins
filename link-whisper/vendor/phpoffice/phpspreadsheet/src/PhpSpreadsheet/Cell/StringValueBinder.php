@@ -1,9 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Cell;
+namespace LWVendor\PhpOffice\PhpSpreadsheet\Cell;
 
-use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-
+use LWVendor\PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 class StringValueBinder implements IValueBinder
 {
     /**
@@ -17,13 +16,11 @@ class StringValueBinder implements IValueBinder
     public function bindValue(Cell $cell, $value)
     {
         // sanitize UTF-8 strings
-        if (is_string($value)) {
+        if (\is_string($value)) {
             $value = StringHelper::sanitizeUTF8($value);
         }
-
         $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
-
         // Done!
-        return true;
+        return \true;
     }
 }
