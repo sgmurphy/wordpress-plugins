@@ -4,6 +4,9 @@ namespace H5VP\Model;
 class ImportData{
 
     public static function importMeta(){
+        if(!current_user_can('edit_posts')){
+            return false;
+        }
         $controls_meta = [
             'play-large' => 'h5vp_hide_large_play_btn',
             'restart' => 'h5vp_hide_restart_btn',

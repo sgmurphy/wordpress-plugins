@@ -84,10 +84,10 @@ if ( ! function_exists( 'wfacp_get_order_meta' ) ) {
 		}
 
 		if ( ! empty( $meta_value ) ) {
-			return $meta_value;
+			return maybe_unserialize( $meta_value );
 		}
 
-		return get_post_meta( $order->get_id(), $key, true );;
+		return get_post_meta( $order->get_id(), $key, true );
 	}
 }
 

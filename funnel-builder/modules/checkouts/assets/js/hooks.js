@@ -215,9 +215,13 @@
 
             if (fragments.hasOwnProperty('place_order_text') && '' !== fragments.place_order_text) {
                 let place_order_btn = $('#place_order');
-                place_order_btn.val(fragments.place_order_text)
+                place_order_btn.val(fragments.place_order_text);
                 place_order_btn.html(fragments.place_order_text);
                 place_order_btn.attr('data-value', fragments.place_order_text);
+
+                let tempElement = document.createElement('textarea');
+                tempElement.innerHTML = fragments.place_order_text;
+                place_order_btn.data('value', tempElement.value);
             }
             unblockElements();
         }
@@ -235,6 +239,14 @@
                 wfacp_frontend.call_backs[callback_id](data.fragments.wfacp_ajax_data, data.fragments);
             }
             unblockElements();
+        }
+    });
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            $('form.checkout').unblock();
+            $('body').aero_unblock();
+            unblockElements()
+
         }
     });
 })(jQuery);

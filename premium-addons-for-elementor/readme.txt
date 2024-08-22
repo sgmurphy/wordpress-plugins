@@ -5,7 +5,7 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.6.1
 Requires PHP: 7.0
-Stable Tag: 4.10.45
+Stable Tag: 4.10.46
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -72,7 +72,7 @@ You can use Premium Addons to build multilingual websites easily as our plugin i
 Each widget and addon has been tested on different screen sizes, mobile devices, and tablets keeping in mind to add special responsive controls for the tricky widgets and addons we create. We always test Premium Addons on [BrowserStack](https://www.browserstack.com) to make sure that everything is stable.
 
 ### Editor Panel Not Loading
-[How to resolve Elementor editor panel loading issue when Premium Addons is active](https://premiumaddons.com/docs/im-getting-a-blank-page-on-elementor-after-activating-premium-add-ons/).
+[How to resolve Elementor editor panel loading issue when Premium Addons is active](https://premiumaddons.com/docs/fix-elementor-editor-panel-loading-issues/).
 
 ## Widgets & Addons Included
 
@@ -231,6 +231,11 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.46 =
+
+- Tweak: Improved comatibility between Mobile Menu widget and one-page websites.
+- Fixed: Dynamic Assets not working correctly with some caching plugins.
 
 = 4.10.45 =
 

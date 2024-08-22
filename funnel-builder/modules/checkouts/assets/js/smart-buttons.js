@@ -135,10 +135,24 @@
             if (null == container) {
                 return;
             }
-            container.addEventListener('DOMNodeInserted', () => {
-                this.showButton(parent);
-                this.showButtonOnMobile();
-            });
+            if (window.MutationObserver) {
+                const observer = new MutationObserver((mutationsList) => {
+                    for (let mutation of mutationsList) {
+                        if (mutation.type === 'childList') {
+                            this.showButton(parent);
+                            this.showButtonOnMobile();
+                        }
+                    }
+                });
+
+                observer.observe(container, { childList: true, subtree: true });
+            } else {
+                // Fallback code for older browsers that do not support MutationObserver
+                container.addEventListener('DOMNodeInserted', () => {
+                    this.showButton(parent);
+                    this.showButtonOnMobile();
+                });
+            }
         }
 
         showButtonOnMobile() {

@@ -258,14 +258,6 @@ SQL;
                 Menu::userCanAccessAssetCleanUp() && AssetsManager::instance()->frontendShow() // 1
                 && ! self::instance()->isGetAssetsCall // 2
               && ! is_admin(); // 3
-
-            Main::instance()->settings = SettingsAdminOnlyForAdmin::getAnySpecifiedAdminsForAccessToAssetsManager(Main::instance()->settings);
-
-            if (self::instance()->isFrontendEditView && ! AssetsManager::currentUserCanViewAssetsList()) {
-                // Viewing the CSS/JS manager is not for every admin, as mentioned here: "Settings" -- "Plugin Usage Preferences" -- "Allow managing assets to:"
-                // The logged-in admimn is not in the particular list, thus, no CSS/JS manager will show in the front-end view
-                self::instance()->isFrontendEditView = false;
-            }
         }, 0);
     }
 

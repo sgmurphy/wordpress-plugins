@@ -5,7 +5,7 @@ Tags: optimize,pagespeed,performance,speed up,cache
 Requires PHP: 7.1
 Requires at least: 4.5
 Tested up to: 6.6
-Stable tag: 2.22.3
+Stable tag: 2.22.4
 License: GPLv2 or later (if another license is not provided)
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Privacy policy: https://www.s-sols.com/privacy-policy
@@ -161,6 +161,20 @@ We kindly ask you to [post reviews](https://wordpress.org/support/plugin/seraphi
 17. Settings - Advanced.
 
 == Changelog ==
+
+= 2.22.4 =
+
+Improvements:
+
+* Defining SERAPH_ACCEL_SALT constant.
+* Deleting old backed up settings.
+* Postponing of User Agent while updating.
+* Security while using 'echo'.
+* SourceException renamed to SrcExcptn to avoid conflicts with other wrong written plugins.
+
+Fixes:
+
+* Truncating '%7C' symbols from 'class' attribute.
 
 = 2.22.3 =
 

@@ -12,7 +12,7 @@ require_once( __DIR__ . '/Cmn/Db.php' );
 require_once( __DIR__ . '/Cmn/Img.php' );
 require_once( __DIR__ . '/Cmn/Plugin.php' );
 
-const PLUGIN_SETT_VER								= 135;
+const PLUGIN_SETT_VER								= 136;
 const PLUGIN_DATA_VER								= 1;
 const PLUGIN_EULA_VER								= 1;
 const QUEUE_DB_VER									= 4;
@@ -787,6 +787,11 @@ function OnOptRead_Sett( $sett, $verFrom )
 		Gen::SetArrField( $sett, array( 'contPr', 'cp', 'diviDataAni' ), false );
 	}
 
+	if( $verFrom && $verFrom < 136 )
+	{
+		Gen::SetArrField( $sett, array( 'cache', 'opAgentPostpone' ), false );
+	}
+
 	return( $sett );
 }
 
@@ -851,6 +856,7 @@ function OnOptGetDef_Sett()
 			'normAgent' => true,
 			'chkNotMdfSince' => true,
 			'cntLen' => true,
+			'opAgentPostpone' => true,
 
 			'srv' => false,
 			'srvClr' => false,
@@ -1644,7 +1650,7 @@ function OnOptGetDef_Sett()
 
 					'wp-block-ultimate-post-slider'	=> array( 'enable' => true,		'descr' => 'Block Ultimate Post Slider',	'data' => "[class*=wp-block-ultimate-post-post-slider] .ultp-block-items-wrap:not(.slick-initialized) > .ultp-block-item:not(:first-child)\n{\n\tdisplay: none!important;\n}" ),
 
-					'preloaders'	=> array( 'enable' => true,		'descr' => 'Preloaders',				'data' => "#preloader, #page_preloader, #page-preloader, #loader-wrapper, #royal_preloader, #loftloader-wrapper, #page-loading, #the7-body > #load, #loader, #loaded, #loader-container,\r\n.rokka-loader, .page-preloader-cover, .apus-page-loading, .medizco-preloder, e-page-transition, .loadercontent, .shadepro-preloader-wrap, .tslg-screen, .page-preloader, .pre-loading, .preloader-outer, .page-loader, .martfury-preloader, body.theme-dotdigital > .preloader, .loader-wrap {\r\n\tdisplay: none !important;\r\n}\r\n\r\nbody.royal_preloader {\r\n\tvisibility: hidden !important;\r\n}" ),
+					'preloaders'	=> array( 'enable' => true,		'descr' => 'Preloaders',				'data' => "#preloader, #page_preloader, #page-preloader, #loader-wrapper, #royal_preloader, #loftloader-wrapper, #page-loading, #the7-body > #load, #loader, #loaded, #loader-container,\r\n.rokka-loader, .page-preloader-cover, .apus-page-loading, .medizco-preloder, e-page-transition, .loadercontent, .shadepro-preloader-wrap, .tslg-screen, .page-preloader, .pre-loading, .preloader-outer, .page-loader, .martfury-preloader, body.theme-dotdigital > .preloader, .loader-wrap, .site-loader {\r\n\tdisplay: none !important;\r\n}\r\n\r\nbody.royal_preloader {\r\n\tvisibility: hidden !important;\r\n}" ),
 
 					'elementor-vis'		=> array( 'enable' => false, 'descr' => 'Elementor (visibility and animation)', 'data' => "body.seraph-accel-js-lzl-ing-ani .elementor-invisible {\r\n\tvisibility: visible !important;\r\n}\r\n\r\n.elementor-element[data-settings*=\"animation\\\"\"] {\r\n\tanimation-name: none !important;\r\n}" ),
 
@@ -1877,6 +1883,15 @@ function GetCacheViewsDir( $siteCacheRootPath, $siteSubId = null )
 	if( $siteSubId )
 		$siteCacheRootPath .= '-' . $siteSubId;
 	return( $siteCacheRootPath );
+}
+
+function GetSalt()
+{
+	if( defined( 'SERAPH_ACCEL_SALT' ) )
+		return( SERAPH_ACCEL_SALT );
+	if( defined( 'NONCE_SALT' ) )
+		return( NONCE_SALT );
+	return( '' );
 }
 
 function _GetCacheCurUserSessionHash( $sessionId, $userSessionId, $userId, $expiration )
@@ -3131,7 +3146,7 @@ function ContProcIsCompatView( $settCache, $userAgent  )
 
 function GetViewTypeUserAgent( $viewsDeviceGrp )
 {
-	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.3 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
+	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.4 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
 }
 
 function CorrectRequestScheme( &$serverArgs, $target = null )
@@ -3695,7 +3710,7 @@ function OnAsyncTask_CacheProcessItem( $args )
 		unset( $aInitial, $aProgress, $lock );
 	}
 
-	$prepArgs = array( 'nonce' => hash_hmac( 'md5', '' . $tmBegin, NONCE_SALT ), '_tm' => '' . $tmBegin, 'pc' => $data[ 'pc' ] );
+	$prepArgs = array( 'nonce' => hash_hmac( 'md5', '' . $tmBegin, GetSalt() ), '_tm' => '' . $tmBegin, 'pc' => $data[ 'pc' ] );
 	if( $priorOrig == -480 )
 		$prepArgs[ 'lrn' ] = (isset($data[ 'l' ])?$data[ 'l' ]:null);
 
@@ -4183,7 +4198,7 @@ function GetExtContents( $url, &$contMimeType = null, $userAgentCmn = true, $tim
 
 	$args = array( 'sslverify' => false, 'timeout' => $timeout );
 	if( $userAgentCmn )
-		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.3';
+		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.4';
 
 	global $seraph_accel_g_aGetExtContentsFailedSrvs;
 
@@ -4221,7 +4236,7 @@ function CacheExtractPreparePageParams( &$args )
 	Net::CurRequestRemoveArgs( $args, array( 'seraph_accel_prep' ) );
 
 	$prms = @json_decode( @base64_decode( Gen::SanitizeTextData( $prms ) ), true );
-	if( hash_hmac( 'md5', '' . (isset($prms[ '_tm' ])?$prms[ '_tm' ]:null), NONCE_SALT ) != (isset($prms[ 'nonce' ])?$prms[ 'nonce' ]:null) )
+	if( hash_hmac( 'md5', '' . (isset($prms[ '_tm' ])?$prms[ '_tm' ]:null), GetSalt() ) != (isset($prms[ 'nonce' ])?$prms[ 'nonce' ]:null) )
 		return( false );
 
 	unset( $prms[ '_tm' ] );
@@ -4426,7 +4441,7 @@ function LogGetRelativeFile()
 	static $g_fileRel;
 
 	if( $g_fileRel === null )
-		$g_fileRel = '/logs/log.' . Gen::GetNonce( 'logFileSfx', NONCE_SALT ) . '.txt';
+		$g_fileRel = '/logs/log.' . Gen::GetNonce( 'logFileSfx', GetSalt() ) . '.txt';
 
 	return( $g_fileRel );
 }

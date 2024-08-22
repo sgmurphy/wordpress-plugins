@@ -4,16 +4,16 @@ Tags: گرویتی فرم,گراویتی فرم,gravityforms,فارسی,iran
 author URI: https://profiles.wordpress.org/persianscript/
 plugin URI: https://wordpress.org/plugins/persian-gravity-forms/
 Requires at least: 4.5
-Tested up to: 6.2.2
-Requires PHP: 7.2
-Stable tag: 2.7.7.1
+Tested up to: 6.6.1
+Requires PHP: 7.4
+Stable tag: 2.8.0
 License: GPL 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-بسته کامل ایرانی ساز گرویتی فرم
+بسته کامل فارسی ساز گرویتی فرم
 
 == Description ==
 **گرویتی فرم فارسی**
-بسته کامل ایرانی ساز گرویتی فرم
+بسته کامل فارسی ساز گرویتی فرم
 با کمک افزونه گرویتی فرم فارسی می توانید تمامی بخش های گرویتی فرم را فارسی کنید ، فیلد کد ملی را اضافه کنید و همچنین لیست شهر ها و استان های ایران را به گرویتی فر م اضافه نمایید.
 همچنین این بسته حاوی بومی ساز کامل گرویتی فرم می باشد
 
@@ -54,6 +54,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+= 2.8.0 =
+* بروزرسانی ترجمه گرویتی فرم
+* رفع مشکل نمایش ماه های میلادی به جای شمسی
 = 2.7.7.1 =
 * سازگاری با گرویتی فرم سری 2.7
 * رفع مشکل واحد پولی
@@ -183,5 +186,5 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * انتشار نسخه اولیه
 
 == Upgrade Notice ==
-= 2.7.7.1 =
-* سازگاری با اخرین نسخه گرویتی فرم - رفع مشکل واحد پولی
+= 2.8.0 =
+* رفع مشکل ماه های شمسی  - بروزرسانی ترجمه

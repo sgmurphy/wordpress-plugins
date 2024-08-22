@@ -624,6 +624,26 @@ function wpbc_is_today_date( $some_day ) {
 }
 
 
+/**
+ * Check if this date is Tomorrow day
+ *
+ * @param string $some_day  : '2024-08-18'
+ * @return boolean          : true | false
+ */
+function wpbc_is_tomorrow_date( $some_day ) {
+
+	$some_day_d   = date( 'Y-m-d 00:00:00', mysql2date( 'U', $some_day ) );
+	$today_day    = date( 'Y-m-d 00:00:00' );
+	$tomorrow_day = date( 'Y-m-d 00:00:00', strtotime( '+1 day', strtotime( $today_day ) ) );
+
+	if ( $tomorrow_day == $some_day_d ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
 //FixIn: 8.8.1.2
 /**
  * Check if this date in past

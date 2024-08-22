@@ -3,7 +3,7 @@
  * Plugin Name: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more
  * Plugin URI: https://www.iubenda.com
  * Description: The iubenda plugin is an <strong>all-in-one</strong>, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly <strong>scans your site and auto-configures to match your specific setup</strong>.  It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, USPR, CalOPPA, PECR and more.
- * Version: 3.10.6
+ * Version: 3.11.0
  * Author: iubenda
  * Author URI: https://www.iubenda.com
  * License: MIT License
@@ -45,7 +45,7 @@ define( 'IUB_DEBUG', false );
  * @property Iubenda_Legal_Widget       $widget
  *
  * @class   iubenda
- * @version 3.10.6
+ * @version 3.11.0
  */
 class iubenda {
 // phpcs:enable
@@ -71,27 +71,28 @@ class iubenda {
 	 */
 	public $defaults = array(
 		'cs'   => array(
-			'parse'                      => true, // iubenda_parse.
-			'skip_parsing'               => false, // skip_parsing.
-			'ctype'                      => true, // iubenda_ctype.
-			'parser_engine'              => 'new', // parser_engine.
-			'output_feed'                => true, // iubenda_output_feed.
-			'output_post'                => true,
-			'block_gtm'                  => false,
-			'code_default'               => false, // iubenda-code-default,.
-			'menu_position'              => 'topmenu',
-			'amp_support'                => false,
-			'amp_source'                 => 'local',
-			'amp_template_done'          => false,
-			'amp_template'               => '',
-			'custom_scripts'             => array(),
-			'custom_iframes'             => array(),
-			'deactivation'               => false,
-			'configured'                 => false,
-			'configuration_type'         => 'manual',
-			'us_legislation_handled'     => false,
-			'stop_showing_cs_for_admins' => false,
-			'simplified'                 => array(
+			'parse'                         => true, // iubenda_parse.
+			'skip_parsing'                  => false, // skip_parsing.
+			'ctype'                         => true, // iubenda_ctype.
+			'parser_engine'                 => 'new', // parser_engine.
+			'output_feed'                   => true, // iubenda_output_feed.
+			'output_post'                   => true,
+			'block_gtm'                     => false,
+			'code_default'                  => false, // iubenda-code-default,.
+			'menu_position'                 => 'topmenu',
+			'amp_support'                   => false,
+			'amp_source'                    => 'local',
+			'amp_template_done'             => false,
+			'amp_template'                  => '',
+			'custom_scripts'                => array(),
+			'custom_iframes'                => array(),
+			'deactivation'                  => false,
+			'configured'                    => false,
+			'configuration_type'            => 'manual',
+			'us_legislation_handled'        => false,
+			'stop_showing_cs_for_admins'    => false,
+			'integrate_with_wp_consent_api' => true,
+			'simplified'                    => array(
 				'position'               => 'float-top-center',
 				'background_overlay'     => false,
 				'banner_style'           => 'dark',
@@ -138,7 +139,7 @@ class iubenda {
 	 *
 	 * @var string
 	 */
-	public $version = '3.10.6';
+	public $version = '3.11.0';
 
 	/**
 	 * Plugin activation info.
@@ -480,6 +481,12 @@ class iubenda {
 			return;
 		}
 
+		$wp_consent_api_integration = new Wp_Consent_Api_Integration();
+		// If integrate_with_wp_consent_api checked, Enqueue the script to integration with the WP Consent API plugin.
+		if ( $wp_consent_api_integration->is_wp_consent_api_installed() && $wp_consent_api_integration->is_wp_consent_api_integrate_enabled() ) {
+			$wp_consent_api_integration->enqueue_integration_script();
+		}
+
 		try {
 			( new Iubenda_Code_Extractor() )->enqueue_embed_code( $iubenda_code );
 		} catch ( Exception $e ) {
@@ -501,7 +508,7 @@ class iubenda {
 	public function plugin_action_links( $actions, $plugin_file ) {
 		static $plugin;
 		if ( ! isset( $plugin ) ) {
-			$plugin = plugin_basename( __FILE__ );
+			$plugin = IUBENDA_PLUGIN_BASENAME;
 		}
 
 		if ( (string) $plugin_file === (string) $plugin ) {
@@ -520,7 +527,8 @@ class iubenda {
 	 */
 	private function define_constants() {
 		define( 'IUBENDA_PLUGIN_URL', plugins_url( '', __FILE__ ) );
-		define( 'IUBENDA_PLUGIN_REL_PATH', dirname( plugin_basename( __FILE__ ) ) . '/' );
+		define( 'IUBENDA_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+		define( 'IUBENDA_PLUGIN_REL_PATH', dirname( IUBENDA_PLUGIN_BASENAME ) . '/' );
 		define( 'IUBENDA_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 	}
 
@@ -557,7 +565,8 @@ class iubenda {
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-auto-blocking-script-appender.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-sync-script-appender.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-radar-dashboard-widget.php';
-		include_once IUBENDA_PLUGIN_PATH . 'integrations/cons/class-woocommerce-form-consent.php';
+		include_once IUBENDA_PLUGIN_PATH . 'includes/integrations/cons/class-woocommerce-form-consent.php';
+		include_once IUBENDA_PLUGIN_PATH . 'includes/integrations/class-wp-consent-api-integration.php';
 	}
 
 	/**
@@ -698,7 +707,7 @@ class iubenda {
 	 */
 	private function set_transient_flag_on_plugin_upgrade( $options ) {
 		// the path to our plugin's main file.
-		$our_plugin = plugin_basename( __FILE__ );
+		$our_plugin = IUBENDA_PLUGIN_BASENAME;
 
 		// Check our plugin is there and being updated.
 		if ( isset( $options['plugins'] ) && is_array( $options['plugins'] ) && in_array( $our_plugin, $options['plugins'], true ) ) {
@@ -1535,7 +1544,7 @@ class iubenda {
 add_filter(
 	'plugin_row_meta',
 	function ( $meta_fields, $file ) {
-		if ( plugin_basename( __FILE__ ) === (string) $file ) {
+		if ( IUBENDA_PLUGIN_BASENAME === (string) $file ) {
 			$plugin_url     = 'https://wordpress.org/support/plugin/iubenda-cookie-law-solution/reviews/?rate=5#new-post';
 			$new_meta_field = "<a href='%s' target='_blank' title='%s'><i class='iubenda-rate-stars'><svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-star'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg><svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-star'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg><svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-star'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg><svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-star'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg><svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-star'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg></i></a>";
 			$meta_fields[]  = sprintf( $new_meta_field, esc_url( $plugin_url ), esc_html__( 'Rate', 'iubenda' ) );

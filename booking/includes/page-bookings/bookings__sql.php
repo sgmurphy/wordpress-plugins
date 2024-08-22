@@ -2229,7 +2229,8 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 
 	            if ( ! class_exists('wpdev_bk_personal') ) {
 
-	                $booking_form_show  = wpbc_get_free_booking_show_form();
+	                $booking_form_show  = wpbc_simple_form__get_form_show__as_shortcodes();
+					$booking_form_show = wpbc_bf__replace_custom_html_shortcodes( $booking_form_show );
 
 	            } else {
 

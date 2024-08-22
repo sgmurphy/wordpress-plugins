@@ -1672,6 +1672,12 @@ function wpbc_auto_select_dates_in_calendar( resource_id, check_in_ymd, check_ou
 		var check_in_js = wpbc__get__js_date( check_in_ymd );
 		var td_cell     = wpbc_get_clicked_td( inst.id, check_in_js );
 
+		// Is ome type of error, then select multiple days selection  mode.
+		if ( '' === _wpbc.calendar__get_param_value( resource_id, 'days_select_mode' ) ) {
+ 			_wpbc.calendar__set_param_value( resource_id, 'days_select_mode', 'multiple' );
+		}
+
+
 		// ---------------------------------------------------------------------------------------------------------
 		//  == DYNAMIC ==
 		if ( 'dynamic' === _wpbc.calendar__get_param_value( resource_id, 'days_select_mode' ) ){

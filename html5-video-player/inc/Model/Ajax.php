@@ -40,7 +40,7 @@ class Ajax{
 
     public function prepareAjax(){
         if(!wp_verify_nonce(sanitize_text_field( $_POST['nonce'] ), 'wp_ajax' )){
-            wp_send_json_error('invalid request');
+            wp_send_json_error('403 Forbidden');
         }
         
         $this->params = $_POST;
@@ -87,6 +87,10 @@ class Ajax{
         }
 
         $key = sanitize_text_field($_POST['key']);
+
+        if(!strpos( $key, 'h5vp_')){
+            wp_send_json_error('403 Forbidden');
+        }
 
         $data = [
             'key' => $key,

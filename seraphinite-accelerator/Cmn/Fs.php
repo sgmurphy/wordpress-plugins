@@ -95,12 +95,23 @@ class Fs
 				if( $begin )
 					@fseek( $file, $begin, 0 );
 
+				$fileOut = @fopen( 'php://output', 'w' );
+				if( !$fileOut )
+				{
+					@fclose( $file );
+
+					http_response_code( 599 );
+					return;
+				}
+
 				while( !@feof( $file ) && $cur < $end && ( @connection_status() == 0 ) )
 				{
 					$nRead = min( $bufSize, $end - $cur );
-					print( @fread( $file, $nRead ) );
+					@fwrite( $fileOut, @fread( $file, $nRead ) );
 					$cur += $nRead;
 				}
+
+				@fclose( $fileOut );
 			}
 			else
 				@readfile( $fileName );

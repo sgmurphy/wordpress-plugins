@@ -94,6 +94,15 @@ function _Process( $sites, $args )
 
 	}
 
+	{
+		if( isset( $_SERVER[ 'HTTP_X_SERAPH_ACCEL_POSTPONE_USER_AGENT' ] ) )
+		{
+			$_SERVER[ 'HTTP_USER_AGENT' ] = $_SERVER[ 'HTTP_X_SERAPH_ACCEL_POSTPONE_USER_AGENT' ];
+			unset( $_SERVER[ 'HTTP_X_SERAPH_ACCEL_POSTPONE_USER_AGENT' ] );
+
+		}
+	}
+
 	if( !GetContCacheEarlySkipData( $pathOrig, $path, $pathIsDir, $args ) )
 	{
 		$addrSite = GetRequestHost( $_SERVER );
@@ -462,7 +471,7 @@ function _ProcessOutHdrTrace( $sett, $bHdr, $bLog, $state, $data = null, $dscFil
 		}
 
 	if( $bHdr )
-		@header( 'X-Seraph-Accel-Cache: 2.22.3;' . $debugInfo );
+		@header( 'X-Seraph-Accel-Cache: 2.22.4;' . $debugInfo );
 
 	if( $bLog )
 	{
@@ -1031,7 +1040,7 @@ function _CacheSetRequestToPrepareAsyncEx( $siteId, $url, $hdrs, $tmp = false )
 	{
 		$tmBegin = Gen::GetCurRequestTime();
 		wp_remote_get(
-			add_query_arg( array( 'seraph_accel_prep' => @rawurlencode( @base64_encode( @json_encode( array( 'nonce' => hash_hmac( 'md5', '' . $tmBegin, NONCE_SALT ), '_tm' => '' . $tmBegin ) ) ) ) ), $url ),
+			add_query_arg( array( 'seraph_accel_prep' => @rawurlencode( @base64_encode( @json_encode( array( 'nonce' => hash_hmac( 'md5', '' . $tmBegin, GetSalt() ), '_tm' => '' . $tmBegin ) ) ) ) ), $url ),
 			array( 'timeout' => 0.01, 'blocking' => false, 'sslverify' => false, 'headers' => $hdrs ) );
 
 		return;
@@ -1041,7 +1050,7 @@ function _CacheSetRequestToPrepareAsyncEx( $siteId, $url, $hdrs, $tmp = false )
 	{
 		$tmBegin = Gen::GetCurRequestTime();
 		wp_remote_get(
-			add_query_arg( array( 'seraph_accel_prep' => @rawurlencode( @base64_encode( @json_encode( array( 'nonce' => hash_hmac( 'md5', '' . $tmBegin, NONCE_SALT ), 'tmp' => true, '_tm' => '' . $tmBegin ) ) ) ) ), $url ),
+			add_query_arg( array( 'seraph_accel_prep' => @rawurlencode( @base64_encode( @json_encode( array( 'nonce' => hash_hmac( 'md5', '' . $tmBegin, GetSalt() ), 'tmp' => true, '_tm' => '' . $tmBegin ) ) ) ) ), $url ),
 			array( 'timeout' => 0.01, 'blocking' => false, 'sslverify' => false, 'headers' => $hdrs ) );
 	}
 
@@ -1289,7 +1298,7 @@ function GetCacheViewId( $ctxCache, $settCache, $userAgent, $path, $pathOrig, &$
 	if( (isset($settCache[ 'normAgent' ])?$settCache[ 'normAgent' ]:null) )
 	{
 		$_SERVER[ 'SERAPH_ACCEL_ORIG_USER_AGENT' ] = (isset($_SERVER[ 'HTTP_USER_AGENT' ])?$_SERVER[ 'HTTP_USER_AGENT' ]:'');
-		$_SERVER[ 'HTTP_USER_AGENT' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.3';
+		$_SERVER[ 'HTTP_USER_AGENT' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.4';
 	}
 
 	if( (isset($settCache[ 'views' ])?$settCache[ 'views' ]:null) )

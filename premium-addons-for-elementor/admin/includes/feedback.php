@@ -172,7 +172,7 @@ class Feedback {
 						</section>
 						<section class="messages-wrap hidden" data-feedback>
 							<?php if( ini_get( 'max_execution_time' ) < 300 ) :
-								$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/im-getting-a-blank-page-on-elementor-after-activating-premium-add-ons/', 'plugins-page', 'wp-dash', 'deactivate-form' );
+								$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/fix-elementor-editor-panel-loading-issues/', 'plugins-page', 'wp-dash', 'deactivate-form' );
 							?>
 								<p class="options-wrap pa-info-notice">
 									<?php echo __( 'Having Elementor editor not loading issue? Your website PHP limits might be the reason. Here\'s', 'premium-addons-for-elementor') .

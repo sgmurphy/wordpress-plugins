@@ -646,8 +646,10 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                 , 'default'     => $default_options_values['booking_is_use_captcha']           //'Off'
                                 , 'title'       => __('CAPTCHA' ,'booking')
                                 , 'label'       => __('Check the box to activate CAPTCHA inside the booking form.' ,'booking')
-								, 'description' =>  '<strong>' . __('Note' ,'booking') . '!</strong> ' .
+								, 'description' =>  '<div class="wpbc-general-settings-notice wpbc-settings-notice notice-warning" style="margin-top:-10px;">'
+												   .  '<strong>' . __('Note' ,'booking') . '!</strong> ' .
 								                    __( 'If your website uses a cache plugin or system, exclude pages with booking forms from caching to ensure CAPTCHA functions correctly.', 'booking' )
+												   .'</div>'
                                 , 'group'       => 'form'
             );
         $this->fields['booking_is_use_autofill_4_logged_user'] = array(
@@ -1335,16 +1337,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
         // Show hide Notes
         $this->fields = apply_filters( 'wpbc_settings_booking_show_hide_options', $this->fields, $default_options_values );         //FixIn: 8.1.3.32
 
-        // Is show help hints on the admin panel ///////////////////////////////
-        $this->fields['booking_is_use_hints_at_admin_panel'] = array(   
-                                'type'          => 'checkbox'
-                                , 'default'     => $default_options_values['booking_is_use_hints_at_admin_panel']         //'On'            
-                                , 'title'       => __('Show / hide hints' ,'booking')
-                                , 'label'       => __('Check this box if you want to show help hints on the admin panel.' ,'booking')
-                                , 'description' => ''
-                                , 'group'       => 'booking_listing'
-            );       
-        
+
         // </editor-fold>
         
         
@@ -2146,12 +2139,12 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
         // If selected Dark  theme then  select  Dark  calendar  skin,  as well.
         $js_script .= " jQuery('#set_gen_booking_form_theme').on( 'change', function(){           
                             var wpbc_selected_theme = jQuery('select[name=\"set_gen_booking_form_theme\"] option:selected').val(); 
-                            var wpbc_cal_dark_skin_path = '/css/skins/black-2.css';		                            							  
+                            var wpbc_cal_dark_skin_path = '/css/skins/24_9__dark_1.css';		                            							  
                             if ( 'wpbc_theme_dark_1' === wpbc_selected_theme ) {
 								jQuery( '#set_gen_booking_skin' ).find( 'option' ).prop( 'selected', false );								
 								jQuery( '#set_gen_booking_skin' ).find( 'option[value=\"'+ wpbc_cal_dark_skin_path  +'\"]' ).prop( 'selected', true ).trigger('change');																
                             }
-                            var wpbc_cal_light_skin_path = '/css/skins/green-01.css';		
+                            var wpbc_cal_light_skin_path = '/css/skins/24_9__light.css';		
                             if ( '' === wpbc_selected_theme ) {
 								jQuery( '#set_gen_booking_skin' ).find( 'option' ).prop( 'selected', false );								
 								jQuery( '#set_gen_booking_skin' ).find( 'option[value=\"'+ wpbc_cal_light_skin_path  +'\"]' ).prop( 'selected', true ).trigger('change');																

@@ -4545,6 +4545,55 @@ class WpFakePostContainer
 
 class Wp
 {
+	static function GetKsesSanitizeCtx( $context = '' )
+	{
+		if( is_array( $context ) )
+			return( $context );
+
+		static $g_aScope = array();
+
+		if( !isset( $g_aScope[ $context ] ) )
+		{
+			switch( $context )
+			{
+			case 'admin':
+				$g_aScope[ $context ] = array_replace_recursive( wp_kses_allowed_html( 'post' ),
+					array(
+						'input' => array(
+							'type' => true,
+							'value' => true,
+							'onclick' => true,
+							'class' => true,
+							'style' => true,
+						),
+
+						'div' => array(
+						    'class' => true,
+						    'style' => true,
+						    'id' => true,
+							'data-*' => true,
+						),
+					)
+				);
+
+				add_filter( 'safe_style_css', function( $aRule ) { return( array_merge( $aRule, array( 'display' ) ) ); }, 10 );
+				break;
+
+			case 'script':
+				$g_aScope[ $context ] = array_replace_recursive( array(),
+					array(
+						'script' => array(
+							'type' => true,
+						),
+					)
+				);
+				break;
+			}
+		}
+
+		return( (isset($g_aScope[ $context ])?$g_aScope[ $context ]:null) );
+	}
+
 	static function SanitizeId( $id )
 	{
 		return( Gen::SanitizeId( sanitize_text_field( $id ) ) );
@@ -5324,7 +5373,7 @@ class Wp
 		if( Gen::DoesFuncExist( '\\wp_add_inline_script' ) )
 			return( \wp_add_inline_script( $handle, $data, $position ) );
 
-		echo( Ui::ScriptInlineContent( $data ) );
+		echo( wp_kses( Ui::ScriptInlineContent( $data ), Wp::GetKsesSanitizeCtx( 'script' ) ) );
 		return( true );
 	}
 

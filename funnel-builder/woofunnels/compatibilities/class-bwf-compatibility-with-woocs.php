@@ -15,6 +15,12 @@ class BWF_Compatibility_With_WOOCS {
 		return false;
 	}
 
+	public function get_currency_symbol( $currency ) {
+		global $WOOCS;
+		$WOOCS->current_currency = $currency;
+
+		return get_woocommerce_currency_symbol( $currency );
+	}
 
 	/**
 	 *
@@ -25,7 +31,6 @@ class BWF_Compatibility_With_WOOCS {
 	 * @return float
 	 */
 	public function alter_fixed_amount( $price, $currency = null ) {
-
 		return $GLOBALS['WOOCS']->woocs_exchange_value( $price );
 	}
 
@@ -46,11 +51,6 @@ class BWF_Compatibility_With_WOOCS {
 
 		return $price;
 	}
-
-
 }
 
 BWF_Plugin_Compatibilities::register( new BWF_Compatibility_With_WOOCS(), 'woocs' );
-
-
-

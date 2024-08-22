@@ -3,7 +3,7 @@
 Plugin Name: Softaculous
 Plugin URI: https://softaculous.com/wordpress-plugin/
 Description: Softaculous provides a centralized panel where you can manage all your WordPress websites singularly, unitedly as well as efficiently.
-Version: 2.0.6
+Version: 2.0.7
 Author: Softaculous
 Author URI: https://softaculous.com
 License: LGPL v2.1
@@ -30,7 +30,7 @@ if(in_array('wp-central/wpcentral.php', $softaculous_active_plugins)){
 	deactivate_plugins(array('wp-central/wpcentral.php'));
 }
 
-define('SOFTACULOUS_VERSION', '2.0.6');
+define('SOFTACULOUS_VERSION', '2.0.7');
 define('SOFTACULOUS_BASE', 'softaculous/softaculous.php');
 define('SOFTACULOUS_PANEL', 'cloud.softaculous.com');
 define('SOFTACULOUS_PANEL_IP', '138.201.40.162');

@@ -109,7 +109,8 @@ class Bulk_Optimization {
 			$oi = new Optimize_Image(
 				$image_id,
 				'bulk',
-				$bulk_token
+				$bulk_token,
+				true
 			);
 
 			$oi->optimize();

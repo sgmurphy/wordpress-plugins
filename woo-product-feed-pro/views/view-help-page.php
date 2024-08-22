@@ -41,5 +41,10 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </ul>
             </div>
         </div>
+        <div class="row">
+            <div class="col xs-text-center">
+                <iframe src="https://adtribes.io/in-app-optin/?utm_source=pfp&utm_medium=helppage&utm_campaign=helppageinappoptin" width="100%" height="500" frameborder="0"></iframe>
+            </div>
+        </div>
     </div>
 </div>

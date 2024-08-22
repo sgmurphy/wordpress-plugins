@@ -257,6 +257,9 @@ final class WooFunnels_AS_DS {
 	 * @param WP_REST_Request $request
 	 */
 	public function rest_worker_callback( WP_REST_Request $request ) {
+		/** Update execution time */
+		bwf_options_update( 'fk_core_worker_let', time() );
+
 		$this->worker_as_run();
 		$resp['msg']       = 'success';
 		$resp['time']      = date_i18n( 'Y-m-d H:i:s' );

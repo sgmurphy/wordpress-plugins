@@ -34,9 +34,7 @@
 
             self.initElementsTabs($elementsTabs);
 
-            if (settings.isTrackerAllowed) {
-                self.getUnusedWidget();
-            }
+            self.getUnusedWidget();
 
             self.handleElementsActions();
 
@@ -242,7 +240,7 @@
             );
 
             // Clear saved site cursor settings.
-            $('.pa-btn-clear-cusror').on('click', function() {
+            $('.pa-btn-clear-cusror').on('click', function () {
                 var _this = $(this);
                 _this.addClass("loading");
                 console.log('hellooooo');

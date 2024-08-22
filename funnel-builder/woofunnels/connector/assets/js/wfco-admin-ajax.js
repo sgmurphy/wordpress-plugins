@@ -3,7 +3,7 @@ const bwf_ajax = function (cls, is_form, cb) {
     const self = this;
     let element = null;
     let handler = {};
-    let prefix = "bwf_";
+    let prefix = "bwfan_";
     this.action = null;
     this.change_prefix = function (new_prefix) {
         if (new_prefix !== undefined) {

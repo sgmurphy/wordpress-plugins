@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.4.7
+Stable tag: 3.5.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,26 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+= 3.5.0 (Aug 22, 2024) =
+* Added: Compatibility with the Breakdance builder. (#6527)
+* Added: Checkout - Added compatibility with the Yay Currency Switcher plugin to support multi-currency transactions. (#6454)
+* Improved: Checkout - Updated compatibility with Klaviyo. (#6510)
+* Improved: Checkout - Updated compatibility with FooEvents. (#6515)
+* Improved: Checkout - Form attributes are now assigned to all fields within the mini cart, ensuring they are included in the place order request. (#6511)
+* Improved: Frontend-facing JavaScript is now prevented from loading on page builder previews, improving performance. (#6505)
+* Improved: Enhanced the admin app with support for React v19, in preparation for upcoming WordPress versions. (#6445)
+* Improved: Strengthened compatibility with the Avada theme when used alongside Elementor, particularly for version 7.11.8. (#6522)
+* Improved: Checkout - Enhanced the generate URL checkout tool to handle scenarios where no products are present. (#6530)
+* Fixed: Resolved an issue where the font size in the placeholder setting under the opt-in customization preview was not functioning correctly. (#6500)
+* Fixed: Redirection from '?wffn-next-link=yes' now properly retains other query parameters. (#6501)
+* Fixed: Addressed issues caused by Elementor v3.23.0's Element Caching (beta feature) that affected certain thank you page designs. (#6521)
+* Fixed: Checkout - Resolved an issue where Express Checkout buttons were not displaying on Chrome Browser v127 or later. (#6544)
+* Fixed: Checkout - Corrected the modern label application on the password field to ensure proper styling. (#6556)
+* Fixed: Restricted the admin bar menu visibility to users with the necessary permissions to access the funnel menu. (#6559)
+* Fixed: Checkout - Prevented the price displayed in button HTML from causing the payment gateway section to refresh after each order review update. (#6566)
+* Fixed: Checkout - Updated compatibility with RY WooCommerce ECPay Invoice by Yang to resolve any integration issues. (#6529)
+* Fixed: Checkout - Aligned the consent checkbox added by FunnelKit Automations correctly on checkout pages to improve user experience. (#6568)
+* Fixed: Checkout- CSS conflict with Optimonk styling for the advanced phone field. (#6590)
 
 = 3.4.7 (Jul 22, 2024) =
 * Improved: Plugin security improved for logged in user executing ajax requests scenarios on legacy admin interfaces before version 3.0 (#5919)
@@ -1474,4 +1494,3 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 
 = 1.0.0 (Nov 26, 2020) =
 * Public Release Launch Date
-

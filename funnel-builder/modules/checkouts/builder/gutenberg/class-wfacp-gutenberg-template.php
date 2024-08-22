@@ -1,8 +1,7 @@
 <?php
 
 #[AllowDynamicProperties]
-
- abstract class WFACP_Gutenberg_Template extends WFACP_Template_Common {
+abstract class WFACP_Gutenberg_Template extends WFACP_Template_Common {
 	public $default_setting_el = [];
 	public $set_bredcrumb_data = [];
 	public $stepsData = [];
@@ -180,7 +179,7 @@
 
 			if ( is_array( $this->form_data ) ) {
 
-				$mbDevices = [ 'wfacp_collapsible_order_summary_wrap',$label_position ];
+				$mbDevices = [ 'wfacp_collapsible_order_summary_wrap', $label_position ];
 
 				if ( isset( $this->form_data['enable_callapse_order_summary'] ) && true === $this->form_data['enable_callapse_order_summary'] ) {
 					$mbDevices[] = 'wfacp_desktop';
@@ -302,6 +301,9 @@
 
 	public function change_place_order_button_text( $text ) {
 
+		if ( did_action( 'woocommerce_checkout_update_order_review' ) > 0 && current_action() === 'woocommerce_order_button_text' ) {
+			return $text;
+		}
 		if ( ! empty( $_GET['woo-paypal-return'] ) && ! empty( $_GET['token'] ) && ! empty( $_GET['PayerID'] ) ) {
 			return $text;
 		}
@@ -575,7 +577,7 @@
 		$number_of_steps = $this->get_step_count();
 		$steps_arr       = [ 'single_step', 'two_step', 'third_step' ];
 		$devices         = [];
-		if ( $number_of_steps <= 1 || $this->form_data['enable_progress_bar'] === '' || $this->form_data['enable_progress_bar'] === false ) {
+		if ( $number_of_steps <= 1 || ! isset( $this->form_data['enable_progress_bar'] ) || $this->form_data['enable_progress_bar'] === '' || $this->form_data['enable_progress_bar'] === false ) {
 			return;
 		}
 		if ( isset( $this->form_data['enable_progress_bar'] ) && true === $this->form_data['enable_progress_bar'] ) {

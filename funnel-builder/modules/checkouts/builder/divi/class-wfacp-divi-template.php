@@ -262,7 +262,9 @@
 	}
 
 	public function change_place_order_button_text( $text ) {
-
+		if ( did_action( 'woocommerce_checkout_update_order_review' ) > 0 && current_action() === 'woocommerce_order_button_text' ) {
+			return $text;
+		}
 		if ( ! empty( $_GET['woo-paypal-return'] ) && ! empty( $_GET['token'] ) && ! empty( $_GET['PayerID'] ) ) {
 			return $text;
 		}
@@ -510,7 +512,7 @@
 		$progress_form_data = [];
 
 		//_tablet append for tablet _phone append for Mobile Devices
-		if ( $this->form_data['enable_progress_bar'] == '' || $this->form_data['enable_progress_bar'] == 'off' ) {
+		if (!isset($this->form_data['enable_progress_bar']) || $this->form_data['enable_progress_bar'] == '' || $this->form_data['enable_progress_bar'] == 'off' ) {
 			return;
 		}
 
@@ -719,7 +721,9 @@
 
 		$devices = [];
 
-		if ( $number_of_steps <= 1 || $this->form_data['enable_progress_bar'] == '' || $this->form_data['enable_progress_bar'] == 'no' ) {
+
+
+		if ( $number_of_steps <= 1 || ! isset( $this->form_data['enable_progress_bar'] ) || $this->form_data['enable_progress_bar'] == '' || $this->form_data['enable_progress_bar'] == 'no' ) {
 			return;
 		}
 

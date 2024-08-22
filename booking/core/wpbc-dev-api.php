@@ -486,11 +486,10 @@ function wpbc_api_get_booking_by_id( $booking_id = '' ) {
  */
 function wpbc_get_form_fields_free() {
 	$obj = array();
-	if ( class_exists( 'WPBC_Page_SettingsFormFieldsFree' ) ) {
+	if ( function_exists( 'wpbc_simple_form__db__get_visual_form_structure' ) ) {
 
-		//FixIn: 8.7.8.7
-		$form_free = new WPBC_Page_SettingsFormFieldsFree();
-		$form_fields = $form_free->get_booking_form_structure_for_visual();
+		$form_fields = wpbc_simple_form__db__get_visual_form_structure();
+
 		foreach ( $form_fields as $field ) {
 			//FixIn: 8.7.8.7
 			if (    ( ! empty( $field['name'] ) )

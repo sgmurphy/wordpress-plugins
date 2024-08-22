@@ -36,24 +36,18 @@ if(!class_exists('H5VP_Block')){
             wp_register_style( 'html5-player-video-style', plugin_dir_url( __FILE__ ). 'dist/frontend.css' , array('bplugins-plyrio'), H5VP_PRO_VER );
 
 
-
-            wp_localize_script('html5-player-blocks', 'h5vpBlock', [
+            $localize_data = [
                 'siteUrl' => site_url(),
                 'userId' => get_current_user_id(),
                 'isPipe' => (boolean) h5vp_fs()->can_use_premium_code(),
                 'hls' => H5VP_PRO_PLUGIN_DIR . 'public/js/hls.min.js',
                 'dash' => H5VP_PRO_PLUGIN_DIR . 'public/js/dash.min.js',
                 'nonce' => wp_create_nonce( 'wp_ajax')
-            ]);
+            ];
 
-            wp_localize_script('html5-player-video-view-script', 'h5vpBlock', [
-                'siteUrl' => site_url(),
-                'userId' => get_current_user_id(),
-                'isPipe' => (boolean) h5vp_fs()->can_use_premium_code(),
-                'hls' => H5VP_PRO_PLUGIN_DIR . 'public/js/hls.min.js',
-                'dash' => H5VP_PRO_PLUGIN_DIR . 'public/js/dash.min.js',
-                'nonce' => wp_create_nonce( 'wp_ajax')
-            ]);
+            wp_localize_script('html5-player-blocks', 'h5vpBlock', $localize_data);
+
+            wp_localize_script('html5-player-video-view-script', 'h5vpBlock', $localize_data);
 
             register_block_type('html5-player/parent', array(
                 'editor_script' => 'html5-player-blocks',

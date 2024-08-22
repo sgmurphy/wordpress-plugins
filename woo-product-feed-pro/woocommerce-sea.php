@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Product Feed PRO for WooCommerce
- * Version:     13.3.4
+ * Version:     13.3.5.1
  * Plugin URI:  https://www.adtribes.io/support/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=woosea_product_feed_pro
  * Description: Configure and maintain your WooCommerce product feeds for Google Shopping, Catalog managers, Remarketing, Bing, Skroutz, Yandex, Comparison shopping websites and over a 100 channels more.
  * Author:      AdTribes.io
@@ -10,14 +10,14 @@
  * Developer:   AdTribes.io
  * License:     GPL3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
- * Requires at least: 4.5
+ * Requires at least: 5.4
  * Tested up to: 6.6
  *
  * Text Domain: woo-product-feed-pro
  * Domain Path: /languages
  *
  * WC requires at least: 4.4
- * WC tested up to: 8.7
+ * WC tested up to: 9.1.2
  *
  * Product Feed PRO for WooCommerce is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define plugin constants.
  */
-define( 'WOOCOMMERCESEA_PLUGIN_VERSION', '13.3.4' );
+define( 'WOOCOMMERCESEA_PLUGIN_VERSION', '13.3.5.1' );
 define( 'WOOCOMMERCESEA_PLUGIN_NAME', 'woocommerce-product-feed-pro' );
 define( 'WOOCOMMERCESEA_PLUGIN_NAME_SHORT', 'woo-product-feed-pro' );
 
@@ -73,6 +73,9 @@ if ( ! defined( 'WOOCOMMERCESEA_IMAGES_URL' ) ) {
 
 // Define the option name for the installed version.
 define( 'WOOCOMMERCESEA_OPTION_INSTALLED_VERSION', 'woocommercesea_option_installed_version' );
+
+// Define the option name for temporary feed creation data.
+define( 'ADT_OPTION_TEMP_PRODUCT_FEED', 'adt_temp_product_feed' );
 
 /***************************************************************************
  * Loads plugin text domain.

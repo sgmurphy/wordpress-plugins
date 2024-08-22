@@ -12,8 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 if ( ! class_exists( 'WFFN_REST_Licenses' ) ) {
 	#[AllowDynamicProperties]
-
-  class WFFN_REST_Licenses extends WP_REST_Controller {
+	class WFFN_REST_Licenses extends WP_REST_Controller {
 
 		public static $_instance = null;
 
@@ -100,7 +99,7 @@ if ( ! class_exists( 'WFFN_REST_Licenses' ) ) {
 				$result = $this->process_deactivation( $plugin_name );
 
 				if ( ( isset( $result['deactivated'] ) && $result['deactivated'] === true ) || ( isset( $result['code'] ) && 100 === absint( $result['code'] ) ) ) {
-					$msg = __( 'License deactivated successfully.', 'wp-marketing-automations' );
+					$msg = __( 'License deactivated successfully.', 'funnel-builder' );
 
 					return [
 						'code' => 200,
@@ -108,7 +107,7 @@ if ( ! class_exists( 'WFFN_REST_Licenses' ) ) {
 
 					];
 				} else {
-					$msg = is_array( $result['error'] ) && isset( $result['error'] ) ? $result['error'] : __( 'Invalid Request.', 'wp-marketing-automations' );
+					$msg = is_array( $result['error'] ) && isset( $result['error'] ) ? $result['error'] : __( 'Invalid Request.', 'funnel-builder' );
 
 					return [ 'code' => 400, 'msg' => $msg ];
 				}
@@ -118,15 +117,29 @@ if ( ! class_exists( 'WFFN_REST_Licenses' ) ) {
 			if ( 'activate' === $action ) {
 				$data = $this->process_activation( $plugin_name, $key );
 
-				if ( isset( $data['error'] ) ) {
-					return [ 'code' => 400, 'error' => __( 'Sorry, we are unable to activate your license for this domain. Please contact support ' ) ];
+
+				/**
+				 * error: 103 - product mismatch
+				 * error: 101 - No license in our db
+				 * error: 999 - Expired
+				 */
+				if ( isset( $data['error'] ) && isset( $data['code'] ) && 105 === absint( $data['code'] ) ) {
+					return [
+						'code'  => 400,
+						'error' => __( 'The license key you\'re using is for a <strong>different product</strong>. Please double-check and enter the correct key for this product.', 'funnel-builder' )
+					];
+				} elseif ( isset( $data['error'] ) ) {
+					return [ 'code' => 400, 'error' => __( 'Sorry, we are unable to activate your license for this domain. Please contact support ', 'funnel-builder' ) ];
+
 				}
+
+
 				$license_data = '';
 				if ( isset( $data['activated'] ) && true === $data['activated'] && isset( $data['data_extra'] ) ) {
 					$license_data = $data['data_extra'];
 				}
 
-				$msg = __( 'License activated successfully.', 'wp-marketing-automations' );
+				$msg = __( 'License activated successfully.', 'funnel-builder' );
 
 				return [
 					'code'         => 200,

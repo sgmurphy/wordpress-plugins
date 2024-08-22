@@ -4,9 +4,199 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
+function wpbc_welcome_section_10_5( $obj ){
+
+	$section_param_arr = array( 'version_num' => '10.5', 'show_expand' => false );
+
+	$obj->expand_section_start( $section_param_arr );
+
+	 //$obj->asset_path = 'http://beta/assets/';	// TODO: 2024-06-01 comment this
+	
+	// <editor-fold     defaultstate="collapsed"                        desc=" = F R E E = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = F R E E =
+	// -----------------------------------------------------------------------------------------------------------------
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+<!--			<h2>--><?php //echo wpbc_replace_to_strong_symbols( 'New Modern Calendar Themes and More!' ); ?><!--</h2>-->
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Added New Modern Calendar Themes featuring rounded day cells' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing a Fresh Calendar Color Skin! We\'ve added the new \'24_9__light\' skin featuring rounded day cells for a modern and sleek look.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Fresh Color Scheme! We\'ve added the "24_9__light_square_1" color scheme for the "24_9__light" Calendar Skin, giving your calendar a stylish new look with square rounded day cells.' ); ?></li>
+					<!--li><?php echo wpbc_replace_to_strong_symbols( '&bull; Fresh Color Scheme! We\'ve added the "24_9__light_violet_1" color scheme for the "24_9__light" Calendar Skin, giving your calendar a stylish new look.' ); ?></li-->
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.5/wp_booking_calendar__appointments__bookings_01.gif' ); ?>" style="margin:10px 0;width:98%;" />
+				<div style="font-size:10px;text-align: center">Image from  paid versions of Booking Calendar</div>
+				<img src="<?php echo $obj->section_img_url( '10.5/wp_booking_calendar__changeover_days__bookings_01.gif' ); ?>" style="margin:10px 0;width:98%;" />
+				<div style="font-size:10px;text-align: center">Image from  paid versions of Booking Calendar</div>
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Flexible Customization of Calendars' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Easy Configuration of Calendar Skin Parameters! Now you can easily customize your calendar skin using CSS parameter variables, including day cell radius, various colors, and other settings. This feature allows you to create your custom calendar skin quickly and efficiently.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.5/wp_booking_calendar__calendar_skins_setup_02.gif' ); ?>" style="margin:10px 0;width:auto;max-height: 280px;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'New Dark Calendar Theme' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing a Dark Calendar Theme! We\'ve added a new dark calendar theme based on the \'24_9__light\' skin, featuring rounded day cells for a sleek and modern look.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.5/wp_booking_calendar__dark_theme1.png' ); ?>" style="margin:10px 0;width:auto;max-height: 300px;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Updated Booking Form Fields Setup' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Updated Booking Form Fields UI! We\'ve revamped the interface for setting up booking form fields, with refactored code and updated UI elements. The new design is cleaner and more intuitive, providing a smoother user experience.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; We\'ve added new field blocks for the Calendar, Captcha, and Send button. You can now organize the order of these fields in the booking form and customize their labels or titles to suit your needs.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.5/wp_booking_calendar__simple_forms__setup_03.gif' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'New Dashboard Statistic Options' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( 'We\'ve added new statistic options to the Dashboard Agenda, including:' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Check in - Today' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Check out - Today' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Check in - Tomorrow' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Check out - Tomorrow' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.5/wp_booking_calendar__dashboard_statistic.png' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Enhanced Timeline View' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Multiple time slot bookings in the admin panel are now displayed with a small margin, offering a clearer and more organized layout.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.5/wp_booking_calendar__timeline_week_view_one_resource.png' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Create and Use Multiple Custom Booking Forms in **Simple Form Setup** mode' ); ?></h3>
+				<img src="<?php echo $obj->section_img_url( '10.5/wp_booking_calendar__custom_forms_in_simple_form_setup_02.gif' ); ?>" style="margin:10px 0;width:98%;" />
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Create **Multiple Custom Booking Forms**! You can now create and use multiple custom booking forms while in "**Simple Form Setup**" mode. This enhancement offers a quicker and easier way for users to configure their booking forms.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced UI for Advanced Form Mode! We\'ve updated the UI of booking forms while in "Advanced Form" mode. The code has been refactored, and toolbar UI elements have been refreshed for a smoother setup experience.' ); ?></li>
+					<li style="font-size:0.9em;"><?php echo wpbc_replace_to_strong_symbols( '&bull; Ths feature available in the Business Medium or higher versions.' ); ?></li>
+				</ul>
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+
+
+	// </editor-fold>
+if (1){
+	// <editor-fold     defaultstate="collapsed"                        desc="  = M I X E D = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = M I X E D =
+	// -----------------------------------------------------------------------------------------------------------------
+	?>
+	<div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Additional Improvements in Free and Pro versions' ); ?></h2>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<ul>
+					<?php // Free ?>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Under the Hood: New Hook Added! We\'ve introduced a new hook that triggers after showing cost/dates hints. You can bind this event using the following JavaScript:' ); ?></li>
+					<li><code>jQuery(".booking_form_div").on('after_show_cost_hints', function(event, resource_id) {
+    // Your code here
+});</code></li>
+				</ul>
+				<!--
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Improvements in Pro Versions' ); ?></h3>
+				<ul>
+					<?php // Pro ?>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Spinners for Cost and Date Hints! The spinners in the booking form for cost and date hints have been updated for a smoother and more intuitive user experience. *(Business Medium/Large, MultiUser)*' ); ?></li>
+				</ul>
+				<div style="clear:both;height:20px;"></div>
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Translations' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Korean Translation! The translation has been updated and is now 96% complete, courtesy of modelaid.' ); ?></li>
+				</ul>
+				-->
+			</div>
+
+		</div>
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Bug Fixes' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Resolved Compatibility Issue! We\'ve fixed a potential issue that could occur when downgrading from the Paid to the Free version while using the \'Range Days\' selection mode, which is not supported in the Free version.' ); ?></li>
+				</ul>
+			</div>
+		</div>
+
+	</div><?php
+	// </editor-fold>
+}
+
+	$obj->expand_section_end( $section_param_arr );
+}
+
+
 function wpbc_welcome_section_10_4( $obj ){
 
-	$section_param_arr = array( 'version_num' => '10.4', 'show_expand' => false );
+	$section_param_arr = array( 'version_num' => '10.4', 'show_expand' => !false );
 
 	$obj->expand_section_start( $section_param_arr );
 
@@ -20,13 +210,14 @@ function wpbc_welcome_section_10_4( $obj ){
 	// -----------------------------------------------------------------------------------------------------------------
 	?><div class="wpbc_wn_container">
 		<div class="wpbc_wn_section">
-<!--			<h2>--><?php //echo wpbc_replace_to_strong_symbols( 'New Modern Calendar Themes and More!' ); ?><!--</h2>-->
+			<!-- <h2>--><?php //echo wpbc_replace_to_strong_symbols( 'New Modern Calendar Themes and More!' ); ?><!--</h2>-->
 			<div class="wpbc_wn_col">
 				<h3><?php echo wpbc_replace_to_strong_symbols( 'New Modern Calendar Themes and More!' ); ?></h3>
 				<ul>
 					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing a Modern Calendar Skin! Try the new \'Light 24_8\' skin for a fresh, contemporary look.' ); ?></li>
 					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Discover 10 New Color Schemes for the \'Light 24_8\' Calendar Skin! Customize your calendar with a variety of fresh, modern color options.' ); ?></li>
-					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing a Modern Time Picker Skin - \'Light 24_8\'.' ); //sleek and contemporary look. ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing a Modern Time Picker Skin - \'Light 24_8\'.' ); //sleek and contemporary look.
+						?></li>
 				</ul>
 			</div>
 			<div class="wpbc_wn_col">

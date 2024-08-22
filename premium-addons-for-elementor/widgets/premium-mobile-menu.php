@@ -382,7 +382,7 @@ class Premium_Mobile_Menu extends Widget_Base {
 				)
 			);
 
-            $repeater->add_control(
+			$repeater->add_control(
 				'frames',
 				array(
 					'label'       => __( 'Speed', 'premium-addons-for-elementor' ),
@@ -398,19 +398,19 @@ class Premium_Mobile_Menu extends Widget_Base {
 				)
 			);
 
-            $repeater->add_control(
-                'svg_color',
-                array(
-                    'label'     => __( 'After Draw Fill Color', 'premium-addons-for-elementor' ),
-                    'type'      => Controls_Manager::COLOR,
-                    'global'    => false,
-                    'separator' => 'after',
-                    'condition' => array(
-                        'icon_type' => array( 'icon', 'svg' ),
+			$repeater->add_control(
+				'svg_color',
+				array(
+					'label'     => __( 'After Draw Fill Color', 'premium-addons-for-elementor' ),
+					'type'      => Controls_Manager::COLOR,
+					'global'    => false,
+					'separator' => 'after',
+					'condition' => array(
+						'icon_type' => array( 'icon', 'svg' ),
 						'draw_svg'  => 'yes',
-                    ),
-                )
-            );
+					),
+				)
+			);
 
 		} else {
 
@@ -592,13 +592,13 @@ class Premium_Mobile_Menu extends Widget_Base {
 			)
 		);
 
-        $repeater->add_control(
+		$repeater->add_control(
 			'home_page',
 			array(
-				'label'       => __( 'Is Homepage', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'condition'   => array(
-					'action'      => 'link',
+				'label'     => __( 'Is Homepage', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'condition' => array(
+					'action' => 'link',
 				),
 			)
 		);
@@ -1141,7 +1141,7 @@ class Premium_Mobile_Menu extends Widget_Base {
 			)
 		);
 
-        do_action( 'pa_mobile_menu_carousel_controls', $this );
+		do_action( 'pa_mobile_menu_carousel_controls', $this );
 
 		$this->end_controls_section();
 
@@ -1576,7 +1576,7 @@ class Premium_Mobile_Menu extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-        $papro_activated = apply_filters( 'papro_activated', false );
+		$papro_activated = apply_filters( 'papro_activated', false );
 
 		if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.17', '<' ) ) {
 
@@ -1603,11 +1603,11 @@ class Premium_Mobile_Menu extends Widget_Base {
 
 		$id = $this->get_id();
 
-        $is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
+		$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
 
 		$current_page_url = $_SERVER['REQUEST_URI'];
 
-        $is_home = is_front_page();
+		$is_home = is_front_page();
 
 		$this->add_render_attribute( 'wrap', 'class', 'premium-mobile-menu__wrap' );
 
@@ -1633,22 +1633,22 @@ class Premium_Mobile_Menu extends Widget_Base {
 						<?php
 						foreach ( $menu_items as $index => $item ) {
 
-                            if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.17', '<' ) ) {
+							if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.17', '<' ) ) {
 
-                                if ( 'offcanvas' === $item['action'] || 'yes' === $item['show_badge'] ) {
+								if ( 'offcanvas' === $item['action'] || 'yes' === $item['show_badge'] ) {
 
-                                    ?>
-                                    <div class="premium-error-notice">
-                                        <?php
-                                            $message = __( 'This option is available in <b>Premium Addons Pro</b>.', 'premium-addons-for-elementor' );
-                                            echo wp_kses_post( $message );
-                                        ?>
-                                    </div>
-                                    <?php
-                                    return false;
+									?>
+									<div class="premium-error-notice">
+										<?php
+											$message = __( 'This option is available in <b>Premium Addons Pro</b>.', 'premium-addons-for-elementor' );
+											echo wp_kses_post( $message );
+										?>
+									</div>
+									<?php
+									return false;
 
-                                }
-                            }
+								}
+							}
 
 							$this->add_render_attribute(
 								'menu-item-' . $index,
@@ -1677,7 +1677,7 @@ class Premium_Mobile_Menu extends Widget_Base {
 											'data-svg-hover' => $item['svg_hover'],
 											'data-svg-sync' => $item['svg_sync'],
 											'data-svg-fill' => $item['svg_color'],
-                                            'data-svg-frames'  => $item['frames'],
+											'data-svg-frames' => $item['frames'],
 											'data-svg-yoyo' => $item['svg_yoyo'],
 											'data-svg-point' => $item['lottie_reverse'] ? $item['end_point']['size'] : $item['start_point']['size'],
 										)
@@ -1718,32 +1718,31 @@ class Premium_Mobile_Menu extends Widget_Base {
 									$this->add_link_attributes( $item_link, $link_url );
 
 									$link = $link_url['url'];
+
+                                    $segments    = explode( '/', $link );
+                                    $target_link = end( $segments );
+
+                                    $this->add_render_attribute( 'menu-item-' . $index, 'data-target', $target_link );
+
 								} else {
 									$this->add_render_attribute( $item_link, 'href', $link_url );
 
 									$link = $link_url;
 								}
 
-                                if( $is_edit_mode && $index == 2 ) {
-                                    $this->add_render_attribute( 'menu-item-' . $index, 'class', 'active-menu-item' );
-                                } else {
-
-                                    if ( false !== strpos( $link, $current_page_url ) && ! $is_home ) {
-                                        $this->add_render_attribute( 'menu-item-' . $index, 'class', 'active-menu-item' );
-                                    } elseif( 'yes' === $item['home_page'] && $is_home ) {
-                                        $this->add_render_attribute( 'menu-item-' . $index, 'class', 'active-menu-item' );
-                                    }
-
-                                }
-
-
+								if ( $is_edit_mode && 2 === $index ) {
+									$this->add_render_attribute( 'menu-item-' . $index, 'class', 'active-menu-item' );
+								} elseif ( false !== strpos( $link, $current_page_url ) && ! $is_home && false === strpos( $link, '#' ) ) {
+										$this->add_render_attribute( 'menu-item-' . $index, 'class', 'active-menu-item' );
+								} elseif ( 'yes' === $item['home_page'] && $is_home ) {
+									$this->add_render_attribute( 'menu-item-' . $index, 'class', 'active-menu-item' );
+								}
 							} else {
 								$this->add_render_attribute( 'menu-item-' . $index, 'id', $item['offcanvas_id'] );
 							}
 
 							?>
-
-							<li <?php echo wp_kses_post( $this->get_render_attribute_string( 'menu-item-' . $index ) ); ?>>
+							<li <?php echo wp_kses_post( $this->get_render_attribute_string( 'menu-item-' . $index ) ); ?> >
 								<div class="premium-mobile-menu__item-inner">
 
 									<a <?php echo wp_kses_post( $this->get_render_attribute_string( $item_link ) ); ?>>

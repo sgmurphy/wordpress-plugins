@@ -755,7 +755,7 @@ class WFACP_OXY_Form extends WFACP_OXY_HTML_BLOCK {
 
 		$normal_color = [
 			'#wfacp-e-form .wfacp_main_form.woocommerce .wfacp-next-btn-wrap button',
-			'#wfacp-e-form .wfacp_main_form.woocommerce #payment button#place_order',
+			'#wfacp-e-form .wfacp_main_form.woocommerce #wfacp_checkout_form button#place_order',
 			'#wfacp-e-form .wfacp_main_form.woocommerce  button#place_order',
 			'#wfacp_qr_model_wrap .wfacp_qr_wrap .wfacp_qv-summary .button',
 			'#wfacp-e-form .wfacp_main_form.woocommerce  #ppcp-hosted-fields .button',

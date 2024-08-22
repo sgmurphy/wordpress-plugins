@@ -388,7 +388,7 @@ class Iubenda_Code_Extractor {
 		$document = new DOMDocument();
 		$document->loadHTML(
 			'<html>' . $this->code . '</html>',
-			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_SCHEMA_CREATE
 		);
 
 		$scripts = $document->getElementsByTagName( 'script' );

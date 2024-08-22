@@ -4,7 +4,7 @@ Tags: image optimization, image compression, convert webp, convert avif, perform
 Requires at least: 6.2
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPL-3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -114,6 +114,15 @@ Yes, the Elementor team offers full support for image optimization questions. Yo
 3. Image Optimizer - Bulk Actions and Individual Actions in the Media Library
 
 == Changelog ==
+= 1.5.2 - 2024-08-21 =
+* New: Implemented a solution for site URL update
+* Tweak: Added an fallback for AVIF dimensions calculation when coming from 3rd party solution
+* Tweak: Added asynchronous size calculation for large image galleries
+* Tweak: Updated plugin CTAs on the plugins page
+* Fix: File extension issues
+* Fix: Optimization button stuck on edge cases
+* Fix: Stats calculation for the total/optimized count on edge cases
+
 = 1.5.1 - 2024-07-29 =
 * Fix: Optimized on upload not working in edge cases
 

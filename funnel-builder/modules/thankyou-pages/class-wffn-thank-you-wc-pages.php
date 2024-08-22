@@ -344,6 +344,18 @@ if ( ! class_exists( 'WFFN_Thank_You_WC_Pages' ) ) {
 					add_filter( 'woocommerce_is_order_received_page', array( $this, 'declare_wc_order_received_page' ) );
 				}
 
+				/**
+				 * Check if its a page built using elementor, delete the cache for the page
+				 */
+				if ( defined('ELEMENTOR_VERSION') && version_compare(ELEMENTOR_VERSION,'3.23.0','>=') && class_exists( 'Elementor\Core\Base\Document' ) && method_exists( 'Elementor\Core\Base\Document', 'is_built_with_elementor' ) ) {
+					$document = Elementor\Plugin::$instance->documents->get( get_the_ID() );
+
+					if ( $document && $document->is_built_with_elementor() ) {
+
+						delete_post_meta( get_the_ID(), delete_post_meta_by_key( Elementor\Core\Base\Document::CACHE_META_KEY ) );
+					}
+
+				}
 			}
 		}
 

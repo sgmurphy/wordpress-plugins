@@ -2208,7 +2208,14 @@ if(1)
 										$booking_id_title = array();
 
 										?>
-										<div class="in_cell_date_container in_cell_date_container_<?php echo $row_settings['what_to_show'] ?>"><?php
+										<div class="in_cell_date_container in_cell_date_container_<?php echo $row_settings['what_to_show'];
+
+										//FixIn: 10.5.0.1
+										if (count($bookings_in_day_cell)>1){
+											echo ' in_cell_date_container_has_several_bookings ';
+										}
+
+										?>"><?php
 
 											foreach ( $bookings_in_day_cell as $booking_id ) {
 

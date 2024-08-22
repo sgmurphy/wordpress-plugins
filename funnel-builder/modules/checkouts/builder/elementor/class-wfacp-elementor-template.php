@@ -2,8 +2,7 @@
 
 
 #[AllowDynamicProperties]
-
- abstract class WFACP_Elementor_Template extends WFACP_Template_Common {
+abstract class WFACP_Elementor_Template extends WFACP_Template_Common {
 	public $default_setting_el = [];
 	public $set_bredcrumb_data = [];
 	public $stepsData = [];
@@ -27,7 +26,6 @@
 
 		add_action( 'wfacp_checkout_preview_form_start', [ $this, 'element_start_before_the_form' ], 9 );
 		add_action( 'wfacp_checkout_preview_form_end', [ $this, 'element_end_after_the_form' ], 9 );
-
 
 
 		add_filter( 'wfacp_css_js_deque', [ $this, 'remove_theme_styling' ], 10, 4 );
@@ -129,7 +127,7 @@
 
 			if ( is_array( $this->form_data ) ) {
 
-				$mbDevices = [ 'wfacp_collapsible_order_summary_wrap' ,$label_position];
+				$mbDevices = [ 'wfacp_collapsible_order_summary_wrap', $label_position ];
 
 
 				if ( isset( $this->form_data['enable_callapse_order_summary'] ) && "yes" === $this->form_data['enable_callapse_order_summary'] ) {
@@ -152,13 +150,12 @@
 					$deviceClass = 'wfacp_not_active';
 				}
 
-				if ( $this->form_data['enable_callapse_order_summary'] != 'no' ) {
+				if ( isset( $this->form_data['enable_callapse_order_summary'] ) && $this->form_data['enable_callapse_order_summary'] != 'no' ) {
 					echo "<div class='" . $deviceClass . "'>";
 
 					$template->get_mobile_mini_cart( $this->form_data );
 					echo "</div>";
 				}
-
 
 			}
 
@@ -266,7 +263,9 @@
 
 
 	public function change_place_order_button_text( $text ) {
-
+		if ( did_action( 'woocommerce_checkout_update_order_review' ) > 0 && current_action() === 'woocommerce_order_button_text' ) {
+			return $text;
+		}
 		if ( ! empty( $_GET['woo-paypal-return'] ) && ! empty( $_GET['token'] ) && ! empty( $_GET['PayerID'] ) ) {
 			return $text;
 		}
@@ -541,7 +540,7 @@
 		$step_form_data     = [];
 		$progress_form_data = [];
 
-		if ( $this->form_data['enable_progress_bar'] == '' || $this->form_data['enable_progress_bar'] == 'no' ) {
+		if ( ! isset( $this->form_data['enable_progress_bar'] ) || $this->form_data['enable_progress_bar'] == '' || $this->form_data['enable_progress_bar'] == 'no' ) {
 			return;
 		}
 
@@ -730,7 +729,7 @@
 
 		$devices = [];
 
-		if ( $number_of_steps <= 1 || $this->form_data['enable_progress_bar'] == '' || $this->form_data['enable_progress_bar'] == 'no' ) {
+		if ( $number_of_steps <= 1 || ! isset( $this->form_data['enable_progress_bar'] ) || $this->form_data['enable_progress_bar'] == '' || $this->form_data['enable_progress_bar'] == 'no' ) {
 			return;
 		}
 
@@ -1136,7 +1135,6 @@
 	}
 
 
-
 	/*------------------------------Primay Color Fields-------------------------------------*/
 	public function primary_colors() {
 		$template = wfacp_template();
@@ -1222,11 +1220,10 @@
 			$key = str_replace( '{{WRAPPER}} ', 'body ', $key );
 
 
-
-			if ( false !== strpos( $value,'{{VALUE}}' ) ) {
-				echo $key.'{'.str_replace( '{{VALUE}}', $primary_color_value, $value ).'}';
-			}else{
-				echo $key.'{'.$value.'}';
+			if ( false !== strpos( $value, '{{VALUE}}' ) ) {
+				echo $key . '{' . str_replace( '{{VALUE}}', $primary_color_value, $value ) . '}';
+			} else {
+				echo $key . '{' . $value . '}';
 			}
 
 

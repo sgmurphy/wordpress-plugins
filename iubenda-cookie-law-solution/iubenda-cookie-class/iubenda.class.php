@@ -656,7 +656,7 @@ class iubendaParser {
 				$document->preserveWhiteSpace = false;
 
 				// load HTML
-				$document->loadHTML( $this->content_page );
+				$document->loadHTML( $this->content_page, LIBXML_SCHEMA_CREATE );
 
 				// search for scripts
 				$scripts = $document->getElementsByTagName( 'script' );
@@ -818,7 +818,7 @@ class iubendaParser {
 				$document->preserveWhiteSpace = false;
 
 				// load HTML
-				$document->loadHTML( $this->content_page );
+				$document->loadHTML( $this->content_page, LIBXML_SCHEMA_CREATE );
 
 				// search for iframes
 				$iframes = $document->getElementsByTagName( 'iframe' );

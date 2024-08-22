@@ -373,7 +373,8 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Modules' ) ) {
 							continue;
 						}
 						$formatted_name = $product_object->get_formatted_name();
-						$products[]     = [ 'id' => $product_object->get_id(), 'name' => rawurldecode( wp_strip_all_tags( $formatted_name ) ) ];
+						$product_id     = $product_object->get_id();
+						$products[]     = [ 'id' => $product_id, 'name' => rawurldecode( wp_strip_all_tags( $formatted_name ) ) . "(#". $product_id .")" ];
 					}
 				}
 				if ( ! empty( $products ) ) {

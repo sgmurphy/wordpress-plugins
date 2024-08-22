@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /*
- * plugin Name: Breakdance by Breakdance (1.1)
+ * plugin Name: Breakdance by Breakdance (2.0.0)
  *
  */
 
@@ -17,6 +17,9 @@ class WFACP_Compatibility_With_Breakdance {
 		add_filter( 'wfacp_detect_shortcode', [ $this, 'send_builder_content' ] );
 
 		add_action( 'wp_head', [ $this, 'breakdance_buffer_output' ], 9 );
+
+		add_action( 'wfacp_after_checkout_page_found', [ $this, 'checkout_add_action' ] );
+
 	}
 
 	public function breakdance_buffer_output() {
@@ -108,8 +111,23 @@ class WFACP_Compatibility_With_Breakdance {
 		return ! empty( $this->shortcode_content ) ? $this->shortcode_content : $post_content;
 	}
 
+	public function checkout_add_action() {
+
+		/**
+		 * Add Body Class of breakdance
+		 */
+		add_filter( 'body_class', function ( $body_class ) {
+
+			if ( is_array( $body_class ) && count( $body_class ) > 0 ) {
+				if ( ! in_array( 'breakdance', $body_class ) ) {
+					$body_class[] = 'breakdance';
+				}
+			}
+
+			return $body_class;
+		} );
+	}
+
 }
 
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_Breakdance(), 'wfacp-breakdance-builder' );
-
-

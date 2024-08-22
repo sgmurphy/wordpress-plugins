@@ -8,7 +8,7 @@
  * License: GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: cost-calculator-builder
- * Version: 3.2.27
+ * Version: 3.2.28
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'CALC_DIR', __DIR__ );
 define( 'CALC_FILE', __FILE__ );
-define( 'CALC_VERSION', '3.2.27' );
+define( 'CALC_VERSION', '3.2.28' );
 define( 'CALC_WP_TESTED_UP', '6.6.1' );
 define( 'CALC_DB_VERSION', '3.2.26' );
 define( 'CALC_PATH', dirname( CALC_FILE ) );

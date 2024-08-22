@@ -3,8 +3,8 @@ Contributors: nsp-code, tdgu
 Donate link: https://www.nsp-code.com/
 Tags: wordpress hide, security, security headers, custom login, login hide
 Requires at least: 2.8
-Tested up to: 6.6
-Stable tag: 2.4.2
+Tested up to: 6.6.1
+Stable tag: 2.4.4
 License: GPLv2 or later
 
 Secure your site by hiding exploitable WordPress traces ( plugins, themes, wp-content, wp-includes, wp-admin, login URL). Enhanced Security Headers.
@@ -416,6 +416,11 @@ Please get in touch with us and we’ll do our best to include it inthe next ver
 2. Sample front html code.
 
 == Changelog ==
+
+= 2.4.4 =
+* Prevent redirection to the login page when using GravityForms and use the query gf_page.
+* On option_block_revert check if the variable is serialized before processing the reverting for the block. 
+* WordPress 6.6.1 compatibility check and tag update. 
 
 = 2.4.2 =
 * Undefined function fix.

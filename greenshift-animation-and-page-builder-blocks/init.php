@@ -490,7 +490,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gspb_motion_one',
 		GREENSHIFT_DIR_URL . 'build/gspbMotion.js',
 		array(),
-		'10.18',
+		'10.19',
 		true
 	);
 

@@ -4,7 +4,7 @@ Donate link: https://paypal.me/Analytify
 Tags: google analytics, google analytics dashboard, google analytics 4, WordPress Analytics, analytics
 Requires at least: 3.6
 Tested up to: 6.6
-Stable tag: 5.4.0
+Stable tag: 5.4.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -302,6 +302,10 @@ We listen to each of our users and are active (Monday to Friday) at the <a href=
 
 
 == Changelog ==
+
+= 5.4.1 - 2024-08-22 =
+* Bug Fix: TikTok plugin conflict fixed.
+* Compatibility: Compatible to WordPress 6.6
 
 = 5.4.0 - 2024-08-21 =
 * Security Fix: Nonce and High User Permission in Opt-Out Action fixed.
@@ -1011,7 +1015,7 @@ We listen to each of our users and are active (Monday to Friday) at the <a href=
 
 == Upgrade Notice ==
 
-= 5.4.0 =
+= 5.4.1 =
 * Update This Google Analytics Plugin Now.
 
 == Notes ==

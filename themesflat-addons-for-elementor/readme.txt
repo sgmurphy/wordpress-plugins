@@ -17,7 +17,10 @@ You will have the full wdiget build kit export, import display results as demo l
 
 <p>Themesflat Addons included 20+ useful widgets to enhance your Elementor Page Building experience.</p>
 
-<p>After installing the plugin, you can set show/hide each element through the Themesflat Addons Options setting and save option.</p>
+<p>
+<strong> Note Version 2.1.8</strong>
+ We added the function to turn on/off widgets to optimize SEO. So after updating to this version, please go to settings to show the widgets you want to use. Avoid the case of not displaying errors.
+ </p>
 <ol>
 
 <li><strong>Image Box</strong> <a href="https://themesflat-addons.com/tf-imagebox-addons-for-elementor/" target="_blank">Live Demo</a> <br>

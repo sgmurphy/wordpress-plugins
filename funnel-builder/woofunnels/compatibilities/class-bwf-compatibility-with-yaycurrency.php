@@ -27,7 +27,6 @@ class BWF_Compatibility_With_YayCurrency {
 		return Yay_Currency\Helpers\YayCurrencyHelper::calculate_price_by_currency( $price, false, $currency );
 	}
 
-
 	function get_fixed_currency_price_reverse( $price, $from = null, $base = null ) {
 		if ( ! $this->is_enable() ) {
 			return $price;
@@ -46,17 +45,19 @@ class BWF_Compatibility_With_YayCurrency {
 			return [];
 		}
 
-		$currencies     = Yay_Currency\Helpers\Helper::get_currencies_post_type();
-		$apply_currency = [];
-		foreach ( $currencies as $currency ) {
-			if ( ! $currency instanceof WP_Post || $currency->post_title !== $from ) {
-				continue;
-			}
+		return Yay_Currency\Helpers\YayCurrencyHelper::get_currency_by_currency_code( $from );
+	}
 
-			$apply_currency = Yay_Currency\Helpers\YayCurrencyHelper::get_currency_by_ID( $currency->ID );
+	public function get_currency_symbol( $currency ) {
+		if ( ! class_exists( 'Yay_Currency\Helpers\YayCurrencyHelper' ) ) {
+			return '';
 		}
+		$apply_currency = $this->get_formatted_currency( $currency );
+		add_filter( 'yay_currency_detect_current_currency', function () use ( $apply_currency ) {
+			return $apply_currency;
+		} );
 
-		return $apply_currency;
+		return Yay_Currency\Helpers\YayCurrencyHelper::get_symbol_by_currency_code( $currency );
 	}
 }
 

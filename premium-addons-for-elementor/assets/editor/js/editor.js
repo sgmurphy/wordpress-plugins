@@ -1,20 +1,20 @@
 (function () {
 
+    var $ = jQuery;
+
     window.elementor.on('panel:init', function () {
 
         if ('undefined' !== typeof PremiumEditorLink) {
 
             setTimeout(function () {
 
-                jQuery("body.elementor-panel-loading #elementor-panel-state-loading").prepend("<div class='premium-editor-panel-loader'>Still loading? <br/><a href='" + PremiumEditorLink[0] + "' target='_blank' class='premium-editor-panel-loader-info'>Check Solution</a></div>");
+                $("body.elementor-panel-loading #elementor-panel-state-loading").prepend("<div class='premium-editor-panel-loader'>Still loading? <br/><a href='" + PremiumEditorLink[0] + "' target='_blank' class='premium-editor-panel-loader-info'>Check Solution</a></div>");
 
             }, 10000);
 
         }
 
     });
-
-    var $ = jQuery;
 
     var pinterestToken = null;
 

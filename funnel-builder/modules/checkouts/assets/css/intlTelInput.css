@@ -1506,15 +1506,16 @@
     background-position: -5632px 0px;
 }
 
-.iti__flag {
+
+body .iti__flag {
     height: 15px;
     box-shadow: 0px 0px 1px 0px #888;
     background-image: url("../img/flags.png");
     background-repeat: no-repeat;
     background-color: #DBDBDB;
     background-position: 20px 0;
+    background-size: auto;
 }
-
 /* RTL FIELD */
 body:not(.wfacp-top) #wfacp-e-form #wfacp_checkout_form .wfacp-intl-phone-flag-field label.wfacp-form-control-label,
 body:not(.wfacp-top) .wfacp_main_form #wfacp_checkout_form .wfacp-intl-phone-flag-field label.wfacp-form-control-label,
@@ -1560,7 +1561,7 @@ body.rtl:not(.wfacp-top) .wfacp_main_form #wfacp-intl-phone-flag-field #shipping
 
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .iti__flag {
+    body .iti__flag {
         background-image: url("../img/flags@2x.png");
     }
 }

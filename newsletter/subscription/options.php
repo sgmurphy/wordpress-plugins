@@ -157,8 +157,12 @@ foreach (['confirmed_text', 'confirmed_message', 'confirmation_text', 'confirmat
                                 </th>
                                 <td>
                                     <?php
-                                    $controls->select('multiple', ['0' => __('Not allowed', 'newsletter'), '1' => __('Allowed', 'newsletter'),
-                                        '2' => __('Allowed force single opt-in', 'newsletter')]);
+                                    $controls->select('multiple', [
+                                        '0' => __('Not allowed', 'newsletter'),
+                                        '1' => __('Allowed', 'newsletter'),
+                                        '2' => __('Allowed (single opt-in)', 'newsletter'),
+                                        '3' => __('Allowed (double opt-in)', 'newsletter')
+                                        ]);
                                     ?>
                                     <br><br>
 

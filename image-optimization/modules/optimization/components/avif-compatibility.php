@@ -2,8 +2,7 @@
 
 namespace ImageOptimization\Modules\Optimization\Components;
 
-use ImageOptimization\Classes\Logger;
-use Throwable;
+use ImageOptimization\Classes\Image\Image_Dimensions;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -52,13 +51,10 @@ class Avif_Compatibility {
 			return $metadata;
 		}
 
-		if ( empty( $metadata['width'] ) ) {
-			$metadata['width'] = 0;
-		}
+		$dimensions = Image_Dimensions::get_by_path( $file );
 
-		if ( empty( $metadata['height'] ) ) {
-			$metadata['height'] = 0;
-		}
+		$metadata['width'] = $dimensions->width;
+		$metadata['height'] = $dimensions->height;
 
 		if ( empty( $metadata['file'] ) ) {
 			$metadata['file'] = _wp_relative_upload_path( $file );
@@ -66,22 +62,6 @@ class Avif_Compatibility {
 
 		if ( empty( $metadata['sizes'] ) ) {
 			$metadata['sizes'] = [];
-		}
-
-		if ( class_exists( 'Imagick' ) ) {
-			try {
-				$im = new \Imagick( $file );
-				$image_geometry = $im->getImageGeometry();
-				$im->clear();
-
-				$metadata['width'] = $image_geometry['width'];
-				$metadata['height'] = $image_geometry['height'];
-			} catch ( Throwable $t ) {
-				Logger::log(
-					Logger::LEVEL_ERROR,
-					'AVIF image dimensions calculation error: ' . $t->getMessage()
-				);
-			}
 		}
 
 		return $metadata;

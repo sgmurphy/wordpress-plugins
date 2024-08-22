@@ -2,13 +2,31 @@
 Contributors: metagauss
 Tags: plugin, plugins, download-plugin, download-plugin-zip, plugin-zip, download, zip, wordpress, admin, download-plugin-from-wordpress-admin-panel, code, development, plugin-download
 Requires at least: 2.7
-Tested up to: 6.5
-Stable tag: 2.1.0
+Tested up to: 6.6.1
+Stable tag: 2.2.0
 License: GPLv3
 
-Download any plugin from your wordpress admin panel's Plugins page by just one click!
+Download any plugin from your WordPress admin panel's Plugins page by just one click! Now, download themes, users, blog posts, pages, custom posts, comments, attachments and much more.
 
 == Description ==
+
+= Download Plugin for WordPress =
+ 
+Download Plugin can easily download plugins, themes, users, blog posts, pages, comments, attachments, and more directly from your WordPress dashboard. Download Plugin can also download data from any plugin that uses custom post types, including WooCommerce products, Easy Digital Downloads, Portfolio Post Types, Slider Revolution, bbPress, WP Job Manager, JetPack, and many more.
+ 
+**Download Plugins**: A download button is placed beside each plugin, allowing you to download the plugin in a zip file format. You can also select multiple plugins and use the bulk download option to download all selected plugins with a single click.
+
+**Download Themes**: Similar to plugins, a download button is placed beside each theme in your WordPress dashboard. You can download themes in a zip file format.
+ 
+**Download Users**: With the Download Plugin, you can download individual user data or multiple users’ metadata in a CSV file format. This feature simplifies user data management, allowing easy download and save user information.
+ 
+**Download Blog Posts**: Export blog posts individually or in bulk with just a click. Download Plugin allows you to download blog posts in a CSV format for backup or migration purposes.
+
+**Download Pages**: Download single or multiple pages from your WordPress site. This feature is perfect for backing up your content or transferring pages between sites.
+
+**Download Custom Posts**: Download data from plugin that use custom post types. Download single custom post or a bulk download of multiple posts.
+
+**Download Comments**: Download comments either individually or in bulk. Save user feedback and engagement safely.
 
 1. Just activate this plugin.
 2. You can see <b>Download</b> link below each plugin name on plugins page.
@@ -59,6 +77,16 @@ If you DIY type and made modifications to plugin files to suit your requirements
 1. Download link below each plugin name. Click on any of them and that plugin's zip will be downloaded to your computer.
 
 == Changelog ==
+
+= 2.2.0: August 21, 2024 =
+* Added: Option to download single user.
+* Added: Option to bulk download users.
+* Added: Option to download single page/blog post.
+* Added: Option to bulk download pages/blog posts.
+* Added: Option to download single custom post.
+* Added: Option to bulk download custom posts.
+* Added: Option to download single comment. 
+* Added: Option to bulk download comments.
 
 = 2.1.0: May 09, 2024 =
 * Fixed: Minor Design Improvement

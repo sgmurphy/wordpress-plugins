@@ -4,8 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 #[AllowDynamicProperties]
-
-  class WFACP_Plugins_Compatibility {
+class WFACP_Plugins_Compatibility {
 
 	public function __construct() {
 		add_action( 'wfacp_loaded', array( $this, 'register_fake_kirki' ) );
@@ -100,7 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 		$cssHtml .= $bodyClass . "#wfacp-sec-wrapper .wfacp-top label.wfacp-form-control-label {position: relative;left: 0;right: 0;bottom: 0;top: 0;margin-top: 0;line-height:1.5;background: transparent;display: block;margin-bottom: 4px;opacity:1;}";
-		$cssHtml .= $bodyClass . ".wfacp-top .wfacp_main_form.woocommerce #wfacp_checkout_form p.wfacp-form-control-wrapper:not(.wfacp_checkbox_field):not(.checkbox):not(.wfacp_textarea_fields):not(.wfacp_collapsible_field_wrap) {min-height:78px;}";
+		$cssHtml .= $bodyClass . ".wfacp-top .wfacp_main_form.woocommerce #wfacp_checkout_form p.wfacp-form-control-wrapper:not(.wfacp_checkbox_field):not(.checkbox):not(.wfacp_textarea_fields):not(.wfacp_collapsible_field_wrap):not(.wfacp-checkbox-radio) {min-height:78px;}";
 		$cssHtml .= $bodyClass . ".none{display: block $important; }";
 		$cssHtml .= $bodyClass . ".wfacp-top .wfacp_main_form.woocommerce input[type=email]{padding: 12px 12px $important;}";
 		$cssHtml .= $bodyClass . ".wfacp-top .wfacp_main_form.woocommerce input[type=number]{padding: 12px 12px $important;}";

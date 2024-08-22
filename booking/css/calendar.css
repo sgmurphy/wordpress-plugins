@@ -353,6 +353,10 @@ div.datepick-inline .datepick-title-row th{
     width: 14.28571429%;  
     overflow: hidden;
 }
+/* Fix to  show calendar day cell borders with  correct thickness */
+.datepick-inline .datepick-days-cell{
+    overflow: visible;
+}
 .datepick-inline .datepick-days-cell a,
 .datepick-inline .datepick-days-cell span{                                      /* FixIn: 6.0.1.2 */
     position:relative;

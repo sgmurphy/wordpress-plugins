@@ -1152,17 +1152,12 @@ class WPANALYTIFY_AJAX {
 	// delete opt-in beacon
 	public static function optout_yes() {
 
-        // Verify the nonce
-        if (!isset($_POST['_ajax_nonce']) || !wp_verify_nonce($_POST['_ajax_nonce'], 'analytify_optout_nonce')) {
-            wp_die(__( 'Nonce verification failed.', 'wp-analytify' ));
-        }
-
-        // Check if the current user has the 'manage_options' capability
-        if (!current_user_can( 'manage_options' ) ) {
-            wp_die(__('You do not have sufficient permissions to access this page.','wp-analytify'));
+        if( ! current_user_can( 'manage_options' ) || ! check_ajax_referer( 'analytify_optout_page_nonce', 'optout_yes_nonce' ) ){
+            wp_die( '<p>' . __( 'Sorry, you are not allowed to edit this item.' ) . '</p>', 403 );
         }
 
 		update_site_option('_analytify_optin','no');
+
 		wp_die();
 	}
 

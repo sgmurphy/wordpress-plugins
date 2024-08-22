@@ -41,6 +41,8 @@ class Base {
         add_action( 'wp_ajax_dpwap_plugin_download_url', array( $this, 'dpwap_plugin_multiple_download_func' ) );
         // upload multiple plugin handler
         add_action( 'admin_notices', array( $this, 'dpwap_multiple_upload_admin_func' ) );
+        
+        add_action('network_admin_notices', array( $this, 'dpwap_multiple_upload_admin_func' ) );
         // plugin activation handler
         add_action( 'wp_ajax_dpwap_plugin_activate', array( $this, 'dpwap_plugin_activate_func' ) );
         // feature select

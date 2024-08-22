@@ -1,11 +1,12 @@
 <?php
 
-class Logger
+class WPBRIGADE_Logger
 {
     private static $_instances = array();
-    private static $product_data;
+    private static $product_data = array();
     private static $_module_id;
-    private $_slug;
+
+    private static $current_uninstall_slug = null;
 
     // Constructor for the Logger class
     private function __construct($module_id, $slug = false, $is_init = false)
@@ -14,7 +15,7 @@ class Logger
             return false;
         }
         self::$_module_id = $module_id;
-        $this->_slug = $slug;
+        self::$current_uninstall_slug = $slug; // Set current uninstall slug
     }
 
     // Method to create or retrieve a Logger instance
@@ -26,42 +27,68 @@ class Logger
         if (!$is_init && true === $slug) {
             $is_init = true;
         }
-        $key = 'm_' . $slug;
 
-        if (!isset(self::$_instances[$key])) {
-            self::$_instances[$key] = new Logger($module_id, $slug, $is_init);
+        if (!isset(self::$_instances[$slug])) {
+            self::$_instances[$slug] = new WPBRIGADE_Logger($module_id, $slug, $is_init);
         }
 
-        return self::$_instances[$key];
+        return self::$_instances[$slug];
     }
 
     // Method to initialize the Logger with module data
     public function wpb_init(array $module)
     {
-        self::$product_data = $module;
-        $this->hooks();
+        $key = $module['slug'];
+        self::$product_data[$key] = [];
+        self::$product_data[$key]['module'] = $module;
+        $this->hooks($module['slug']);
     }
 
     // Method to attach hooks for scheduled events and AJAX
-    public function hooks()
+    public function hooks($slug)
     {
-        $slug = self::$product_data['slug'];
+        // Initialize custom schedules
+        add_action('init', function () use ($slug) {
+            $this->set_logs_schedule($slug);
+        });
 
-        add_action('init', array($this, 'set_logs_schedule'));
-        add_action('wpb_logger_cron_' . $slug, array($this, 'weekly_log_plugin'));
-        add_action('wpb_daily_sync_cron_' . $slug, array($this, 'daily_log_plugin'));
-        add_action('admin_footer', array($this, 'deactivation_model'));
-        add_action('wp_ajax_wpb_sdk_' . $slug . '_deactivation', array($this, 'ajax_deactivation'));
+        // Weekly log plugin execution
+        add_action('wpb_logger_cron_' . $slug, function () use ($slug) {
+            $this->weekly_log_plugin($slug);
+        });
 
-        register_activation_hook(wpb_get_plugin_path($slug), array($this, 'log_activation'));
-        register_deactivation_hook(wpb_get_plugin_path($slug), array($this, 'product_deactivation'));
+        // Daily log plugin execution
+        add_action('wpb_daily_sync_cron_' . $slug, function () use ($slug) {
+            $this->daily_log_plugin($slug);
+        });
+
+        // Admin footer hook
+        add_action('admin_footer', function () use ($slug) {
+            $this->deactivation_model($slug);
+        });
+
+        // AJAX deactivation action
+        add_action('wp_ajax_wpb_sdk_' . $slug . '_deactivation', function () use ($slug) {
+            $this->ajax_deactivation($slug);
+        });
+
+        // Plugin activation hook
+        register_activation_hook(wpb_get_plugin_path($slug), function () use ($slug) {
+            $this->log_activation($slug);
+        });
+
+        // Plugin deactivation hook
+        register_deactivation_hook(wpb_get_plugin_path($slug), function () use ($slug) {
+            $this->product_deactivation($slug);
+        });
+
+        // Plugin uninstallation hook
         register_uninstall_hook(wpb_get_plugin_path($slug), array(__CLASS__, 'log_uninstallation'));
     }
 
     // Method to set scheduled events for logging
-    public function set_logs_schedule()
+    public function set_logs_schedule($slug)
     {
-        $slug = self::$product_data['slug'];
         // Calculate future timestamps for scheduling
         $daily_start_time = strtotime('+1 day');
         $weekly_start_time = strtotime('+1 week');
@@ -78,10 +105,10 @@ class Logger
     }
 
     // Method to log plugin activity on daily scheduled events
-    public function daily_log_plugin()
+    public function daily_log_plugin($slug)
     {
         $logs_data = array_merge(
-            self::get_logs_data(),
+            self::get_logs_data($slug),
             array(
                 'explicit_logs' => array(
                     'action' => 'daily',
@@ -89,14 +116,14 @@ class Logger
             )
         );
 
-        self::send($logs_data);
+        self::send($slug, $logs_data);
     }
 
     // Method to log plugin activity on weekly scheduled events
-    public function weekly_log_plugin()
+    public function weekly_log_plugin($slug)
     {
         $logs_data = array_merge(
-            self::get_logs_data(),
+            self::get_logs_data($slug),
             array(
                 'explicit_logs' => array(
                     'action' => 'weekly',
@@ -104,16 +131,14 @@ class Logger
             )
         );
 
-        self::send($logs_data);
+        self::send($slug, $logs_data);
     }
 
     // Method to log plugin activation
-    public function log_activation()
+    public function log_activation($slug)
     {
-        $slug = self::$product_data['slug'];
-
         $logs_data = array_merge(
-            self::get_logs_data(),
+            self::get_logs_data($slug),
             array(
                 'explicit_logs' => array(
                     'action' => 'activate',
@@ -121,30 +146,28 @@ class Logger
             )
         );
 
-        self::send($logs_data);
+        self::send($slug, $logs_data);
     }
 
     // Method to add deactivation model HTML to admin footer
-    public function deactivation_model()
+    public function deactivation_model($slug)
     {
         if (function_exists('get_current_screen')) {
             $screen = get_current_screen();
 
             if ('plugins.php' === $screen->parent_file) {
-                $product_slug = self::$product_data['slug'];
-
-                $plugin_data = wpb_get_plugin_details($product_slug);
+                $plugin_data = wpb_get_plugin_details($slug);
                 $product_name = $plugin_data['Name'];
-                $has_pro_version = self::$product_data['is_premium'] === true;
+                $product_slug = $slug;
+                $has_pro_version = self::$product_data[$slug]['module']['is_premium'] === true;
                 include dirname(__DIR__) . '/views/wpb-sdk-deactivate-form.php';
             }
         }
     }
 
     // Method to handle AJAX request for plugin deactivation
-    public function ajax_deactivation()
+    public function ajax_deactivation($slug)
     {
-        $slug = self::$product_data['slug'];
         $path = wpb_get_plugin_path($slug);
 
         if (isset($_POST['nonce']) && empty($_POST['nonce'])) {
@@ -158,28 +181,26 @@ class Logger
             return;
         }
 
-        $this->log_deactivation();
+        $this->log_deactivation($slug);
 
         wp_die();
     }
 
     // Method to handle plugin deactivation
-    public function product_deactivation()
+    public function product_deactivation($slug)
     {
-        $slug = self::$product_data['slug'];
-
         wp_clear_scheduled_hook('wpb_logger_cron_' . $slug);
         wp_clear_scheduled_hook('wpb_daily_sync_cron_' . $slug);
     }
 
     // Method to log plugin deactivation
-    public function log_deactivation()
+    public function log_deactivation($slug)
     {
         $reason = isset($_POST['reason']) ? $_POST['reason'] : '';
         $reason_detail = isset($_POST['reason_detail']) ? $_POST['reason_detail'] : '';
 
         $logs_data = array_merge(
-            self::get_logs_data(),
+            self::get_logs_data($slug),
             array(
                 'explicit_logs' => array(
                     'action' => 'deactivate',
@@ -189,38 +210,39 @@ class Logger
             )
         );
 
-        self::send($logs_data);
+        self::send($slug, $logs_data);
     }
 
     // Method to log plugin uninstallation
     public static function log_uninstallation()
     {
+        $slug = self::$current_uninstall_slug;
         $logs_data = array_merge(
-            self::get_logs_data(),
+            self::get_logs_data($slug),
             array(
                 'explicit_logs' => array(
                     'action' => 'uninstall',
                 ),
             )
         );
-        self::send($logs_data);
+        self::send($slug, $logs_data);
         // Call Plugin uninstall hook
         do_action('wp_wpb_sdk_after_uninstall');
     }
+
+
 
     /**
      * Collect all data for logging.
      *
      * @return array
      */
-    public static function get_logs_data()
+    public static function get_logs_data($slug)
     {
         global $wpdb;
 
         // Get product data
-        $module = self::$product_data;
-        $slug = $module['slug'];
-
+        $module = self::$product_data[$slug]['module'];
         // Initialize variables
         $data = array();
         $theme_data = wp_get_theme();
@@ -300,7 +322,7 @@ class Logger
         $data['sdk_version'] = WP_WPBRIGADE_SDK_VERSION;
         $data['location_details'] = $location !== null ? $location : '';
         $data['product_info'] = self::get_product_data($slug);
-        $data['product_settings'] = self::get_product_settings();
+        $data['product_settings'] = self::get_product_settings($slug);
         $data['site_plugins_info'] = self::get_plugins();
 
         return $data;
@@ -312,9 +334,9 @@ class Logger
      *
      * @return array
      */
-    private static function get_product_settings()
+    private static function get_product_settings($slug)
     {
-        $product_data = self::$product_data;
+        $product_data = self::$product_data[$slug]['module'];
         $plugin_options = array();
 
         // Pull settings data from db.
@@ -482,7 +504,7 @@ class Logger
      *
      * @param array $payload The log data payload.
      */
-    private static function send($payload)
+    private static function send($slug, $payload)
     {
         // Add timestamp to the payload
         $payload['sent_at'] = current_time('mysql', 1);
@@ -491,20 +513,8 @@ class Logger
         $logStatus = 'new';
         $payload['log_status'] = $logStatus;
 
-        if ($logStatus === 'new') {
-            self::sendNewLog($payload);
-        }
-    }
+        self::sendDataToAPI($slug, $payload);
 
-
-    /**
-     * Send new log to the API.
-     *
-     * @param array $payload The log data payload.
-     */
-    private static function sendNewLog($payload)
-    {
-        self::sendDataToAPI($payload);
     }
 
 
@@ -513,9 +523,9 @@ class Logger
      *
      * @param array $data The data to be sent.
      */
-    private static function sendDataToAPI($data)
+    private static function sendDataToAPI($slug, $data)
     {
-        $token = self::$product_data['public_key'];
+        $token = self::$product_data[$slug]['module']['public_key'];
 
         $response = wp_remote_post(
             WPBRIGADE_SDK_API_ENDPOINT . '/logger',

@@ -20,7 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc-debug.php' );                       // Debug                                            = Package: WPBC =
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc-core.php' );                        // Core
 
-
 require_once( WPBC_PLUGIN_DIR . '/core/any/class-css-js.php' );                 // Abstract. Loading CSS & JS files                 = Package: Any =
 require_once( WPBC_PLUGIN_DIR . '/core/any/class-admin-settings-api.php' );     // Abstract. Settings API.        
 require_once( WPBC_PLUGIN_DIR . '/core/any/class-admin-page-structure.php' );   // Abstract. Page Structure in Admin Panel    
@@ -36,10 +35,10 @@ if( is_admin() ) {
 require_once( WPBC_PLUGIN_DIR . '/includes/_functions/nonce_func.php' );                // Nonce functions - front-end excluding
 require_once( WPBC_PLUGIN_DIR . '/includes/_functions/regex_str.php' );                 // String and Regex functions for shortcodes
 require_once( WPBC_PLUGIN_DIR . '/includes/_functions/parse_booking_data.php' );        // Booking form data parsing and replacement
+require_once( WPBC_PLUGIN_DIR . '/includes/_functions/simple_html_tags.php' );          // Simple HTML Tags             -   Custom Shortcodes
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc_functions.php' );                   // Functions
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc_functions_dates.php' );             // Function Dates                       New in 9.8
 require_once( WPBC_PLUGIN_DIR . '/core/form_parser.php' );                      // Parser for booking form              New in 9.8
-require_once( WPBC_PLUGIN_DIR . '/core/custom_html_shortcodes.php' );		    // Integrate Custom  booking form HTML shortcodes
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc-dates.php' );                       // Dates
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc_welcome.php' );                     // Welcome Panel Functions
 
@@ -108,8 +107,11 @@ require_once( WPBC_PLUGIN_DIR . '/includes/_booking_hash/booking_hash.php' );   
 
 require_once( WPBC_PLUGIN_DIR . '/includes/_news/wpbc_news.php' );
 
-// Booking Listing
+// UI Elements
+require_once( WPBC_PLUGIN_DIR . '/includes/_toolbar_ui/flex_ui_elements.php' );
 require_once( WPBC_PLUGIN_DIR . '/includes/_toolbar_ui/toolbar_ui.php' );
+
+// Booking Listing
 require_once( WPBC_PLUGIN_DIR . '/includes/_listing_css_js/listing_ui.php' );
 require_once( WPBC_PLUGIN_DIR . '/includes/_pagination/pagination.php' );
 require_once( WPBC_PLUGIN_DIR . '/includes/print/bookings_print.php' );
@@ -157,8 +159,6 @@ require_once( WPBC_PLUGIN_DIR . '/core/admin/wpbc-gutenberg.php' );             
 
 ////////////////////////////////////////////////////////////////////////////////
 
-require_once( WPBC_PLUGIN_DIR . '/includes/page-form-simple/preview_form.php' );         	 // Preview - Booking Form
-require_once( WPBC_PLUGIN_DIR . '/includes/page-form-simple/templates_form_simple.php' );  	 // Templates - Simple Booking Form
 
 if ( file_exists( WPBC_PLUGIN_DIR.'/inc/_ps/personal.php' ) ){   
     require_once WPBC_PLUGIN_DIR . '/inc/_ps/personal.php';  

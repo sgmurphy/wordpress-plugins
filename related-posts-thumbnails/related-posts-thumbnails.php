@@ -3,7 +3,7 @@
  * Plugin Name:  WordPress Related Posts Thumbnails
  * Plugin URI:   https://wpbrigade.com/wordpress/plugins/related-posts/?utm_source=related-posts-lite&utm_medium=plugin-uri&utm_campaign=pro-upgrade-rp
  * Description:  Showing related posts thumbnails under the posts.
- * Version:      4.0.0
+ * Version:      4.0.1
  * Author:       WPBrigade
  * Author URI:   https://WPBrigade.com/?utm_source=related-posts-lite&utm_medium=author-link&utm_campaign=pro-upgrade-rp
  */
@@ -23,8 +23,84 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 */
+
+
+if ( ! function_exists( 'rpt_wpb92640233' ) ) {
+    // Create a helper function for easy SDK access.
+    function rpt_wpb92640233() {
+        global $rpt_wpb92640233;
+
+        if ( ! isset( $rpt_wpb92640233 ) ) {
+            // Include Telemetry SDK.
+            require_once dirname(__FILE__) . '/lib/wpb-sdk/start.php';
+
+            $rpt_wpb92640233 = wpb_dynamic_init([
+                'id'                  => '3',
+                'slug'                => 'related-posts-thumbnails',
+                'type'                => 'plugin',
+                'public_key'          => '1|4aOA8EuyIN4pi2miMvC23LLpnHbBZFNki9R9pVmwd673d3c8',
+                'secret_key'          => 'sk_b36c525848fee035',
+                'is_premium'          => false,
+                'has_addons'          => false,
+                'has_paid_plans'      => false,
+                'menu'                => [
+                    'slug'           => 'related-posts-thumbnails',
+                    'account'        => false,
+                    'support'        => false,
+                ],
+                'settings'	=> [
+                    'relpoststh_default_image'      => false,
+                    'rpt_active_time'               => false,
+                    'relpoststh_single_only'        => false,
+                    'relpoststh_mobile_view'        => false,
+                    'relpoststh_post_types'         => false,
+                    'relpoststh_onlywiththumbs'     => false,
+                    'relpoststh_output_style'       => false,
+                    'relpoststh_cleanhtml'          => false,
+                    'relpoststh_auto'               => false,
+                    'relpoststh_top_text'           => false,
+                    'relpoststh_number'             => false,
+                    'relpoststh_relation'           => false,
+                    'relpoststh_poststhname'        => false,
+                    'relpoststh_background'         => false,
+                    'relpoststh_hoverbackground'    => false,
+                    'relpoststh_bordercolor'        => false,
+                    'relpoststh_fontcolor'          => false,
+                    'relpoststh_fontsize'           => false,
+                    'relpoststh_fontfamily'         => false,
+                    'relpoststh_textlength'         => false,
+                    'relpoststh_excerptlength'      => false,
+                    'relpoststh_thsource'           => false,
+                    'relpoststh_customfield'        => false,
+                    'relpoststh_theme_resize_url'   => false,
+                    'relpoststh_customwidth'        => false,
+                    'relpoststh_customheight'       => false,
+                    'relpoststh_textblockheight'    => false,
+                    'rpt_post_sort'                 => false,
+                    'relpoststh_categories'         => false,
+                    'relpoststh_categoriesall'      => false,
+                    'relpoststh_show_categoriesall' => false,
+                    'relpoststh_show_categories'    => false,
+                    'relpoststh_devmode'            => false,
+                    'relpoststh_startdate'          => false,
+                    'relpoststh_custom_taxonomies'  => false,
+                    'relpoststh_show_taxonomy'           => false,
+                ]
+            ]);
+        }
+
+        return $rpt_wpb92640233;
+    }
+
+    // Init Telemetry.
+    rpt_wpb92640233();
+    // Signal that SDK was initiated.
+    do_action( 'rpt_wpb92640233_loaded' );
+}
+
+
 class RelatedPostsThumbnails {
-	/* Default values. 
+	/* Default values.
 	 * PHP 8.0 compatible
 	 * */
 	public $single_only        = '1';
@@ -59,7 +135,7 @@ class RelatedPostsThumbnails {
 	protected static $instance = null;
 
 	/**
-	 * Function Constructor 
+	 * Function Constructor
 	 */
 	function __construct() {
 
@@ -69,54 +145,6 @@ class RelatedPostsThumbnails {
 		load_plugin_textdomain( 'related-posts-thumbnails', false, basename( dirname( __FILE__ ) ) . '/locale' );
 		$this->default_image = esc_url( plugins_url( 'img/default.png', __FILE__ ) );
 
-		include_once RELATED_POSTS_THUMBNAILS_PLUGIN_DIR . '/lib/wpb-sdk/init.php';
-		new RPT_WPB_SDK\Logger( array(
-			'name'	=> 'Related Posts Thumbnails Plugin for WordPress',
-			'slug'	=> 'related-posts-thumbnails',
-			'path'	=> __FILE__,
-			'version'	=> RELATED_POSTS_THUMBNAILS_VERSION,
-			'license'	=> '',
-			'settings'	=> array(
-				'relpoststh_default_image'      => false,
-				'rpt_active_time'               => false,
-				'relpoststh_single_only'        => false,
-				'relpoststh_mobile_view'        => false,
-				'relpoststh_post_types'         => false,
-				'relpoststh_onlywiththumbs'     => false,
-				'relpoststh_output_style'       => false,
-				'relpoststh_cleanhtml'          => false,
-				'relpoststh_auto'               => false,
-				'relpoststh_top_text'           => false,
-				'relpoststh_number'             => false,
-				'relpoststh_relation'           => false,
-				'relpoststh_poststhname'        => false,
-				'relpoststh_background'         => false,
-				'relpoststh_hoverbackground'    => false,
-				'relpoststh_bordercolor'        => false,
-				'relpoststh_fontcolor'          => false,
-				'relpoststh_fontsize'           => false,
-				'relpoststh_fontfamily'         => false,
-				'relpoststh_textlength'         => false,
-				'relpoststh_excerptlength'      => false,
-				'relpoststh_thsource'           => false,
-				'relpoststh_customfield'        => false,
-				'relpoststh_theme_resize_url'   => false,
-				'relpoststh_customwidth'        => false,
-				'relpoststh_customheight'       => false,
-				'relpoststh_textblockheight'    => false,
-				'rpt_post_sort'                 => false,
-				'relpoststh_categories'         => false,
-				'relpoststh_categoriesall'      => false,
-				'relpoststh_show_categoriesall' => false,
-				'relpoststh_show_categories'    => false,
-				'relpoststh_devmode'            => false,
-				'relpoststh_startdate'          => false,
-				'relpoststh_custom_taxonomies'  => false,
-				'relpoststh_show_taxonomy'           => false,
-
-			),
-		) );
-
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		// Compatibility for old default image path.
@@ -124,7 +152,7 @@ class RelatedPostsThumbnails {
 		update_option( 'relpoststh_default_image', $this->default_image );
 
 		if ( get_option( 'relpoststh_auto', $this->auto ) ) {
-			$priority = apply_filters( 'rpt_content_prioirty', 10 ); //    Alter priority of the related post content				
+			$priority = apply_filters( 'rpt_content_prioirty', 10 ); //    Alter priority of the related post content
 
 			if ( $this->prevent_on_editors() ) {
 				return;
@@ -153,7 +181,7 @@ class RelatedPostsThumbnails {
 
 	/**
 	* Prevent related posts on editor screen (builders).
-	* 
+	*
 	* @return bool $return
 	*/
 	function prevent_on_editors() {
@@ -186,7 +214,7 @@ class RelatedPostsThumbnails {
 			'posts_number'	=> '3',
 			'posts_sort'	=> 'random',
 			'main_title'	=> '',
-			'exclude_post'		=> '' ), 
+			'exclude_post'		=> '' ),
 			$atts, 'related-posts-thumbnails'
 		);
 
@@ -219,7 +247,7 @@ class RelatedPostsThumbnails {
 	* @return void
 	* @since 1.7.0
 	* @version 1.9.0
-	* 
+	*
 	*/
 	function admin_scripts( $page ) {
 		if ( 'toplevel_page_related-posts-thumbnails' === $page ) {
@@ -233,21 +261,21 @@ class RelatedPostsThumbnails {
 			if (!wp_script_is('jquery', 'enqueued')) {
 				wp_enqueue_script('jquery');
 			}
-			
+
 			// Enqueue Chosen JS
 			wp_enqueue_script('rpt-chosen', plugins_url('assets/js/chosen.jquery.min.js', __FILE__), array('jquery'), RELATED_POSTS_THUMBNAILS_VERSION, true);
-			
+
 			// Enqueue other scripts
 			wp_enqueue_style('wp-color-picker');
 			wp_enqueue_script( 'wp-color-picker-alpha', plugins_url( 'assets/js/wp-color-picker-alpha.js',  __FILE__ ), array( 'wp-color-picker' ), RELATED_POSTS_THUMBNAILS_VERSION, true );
-		
-			wp_enqueue_script( 'rpt_admin_js', plugins_url( 'assets/js/admin.js', __FILE__ ), 
+
+			wp_enqueue_script( 'rpt_admin_js', plugins_url( 'assets/js/admin.js', __FILE__ ),
 				array(
 					'jquery',
 					'wp-color-picker',
 					'jquery-ui-datepicker',
 					'rpt-chosen'
-				), RELATED_POSTS_THUMBNAILS_VERSION 
+				), RELATED_POSTS_THUMBNAILS_VERSION
 			);
 		}
 	}
@@ -259,7 +287,7 @@ class RelatedPostsThumbnails {
 	* @return void
 	* @since 1.7.0
 	* @version 1.9.0
-	* 
+	*
 	*/
 	function front_scripts() {
 		wp_enqueue_style( 'rpt_front_style', plugins_url( 'assets/css/front.css', __FILE__ ), false, RELATED_POSTS_THUMBNAILS_VERSION );
@@ -267,7 +295,7 @@ class RelatedPostsThumbnails {
 
 	/**
 	* Function to define plugin Constants
-	* 
+	*
 	* @return void
 	*/
 	function constant() {
@@ -375,7 +403,7 @@ class RelatedPostsThumbnails {
 			</div>
 		</div>
 
-		<?php 
+		<?php
 	}
 
 	/**
@@ -411,7 +439,7 @@ class RelatedPostsThumbnails {
 
 	/**
 	* [is_old_default_img Check the compatibility for old default image path.]
-	* 
+	*
 	* @return boolean Return true if path is old.
 	*/
 	function is_old_default_img() {
@@ -428,7 +456,7 @@ class RelatedPostsThumbnails {
 	* Automatically displaying related posts under post body
 	*
 	* @param $content
-	* 
+	*
 	* @return void
 	*/
 	function auto_show( $content ) {
@@ -439,7 +467,7 @@ class RelatedPostsThumbnails {
 	* Getting related posts HTML
 	*
 	* @param boolean $show_top
-	* 
+	*
 	*/
 	function get_html( $show_top = false ) {
 		if ( $this->is_relpoststh_show() ) {
@@ -457,7 +485,7 @@ class RelatedPostsThumbnails {
 	 * @param string $sort_by sort The thumbnails by some filter.
 	 * @param string $main_title Thumbnail title.
 	 * @param string $exclude post_ids To exclude from related posts thumbnails.
-	 * 
+	 *
 	 * @since 1.0.0
 	 * @version 3.0.2
 	 *
@@ -469,13 +497,13 @@ class RelatedPostsThumbnails {
 		$time         = microtime( true );
 
 		$amp_endpoint = ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) ? true : false;
-		
+
 		$show_category = get_option( 'relpoststh_show_taxonomy' );
 
 		// Stop execution if RPT is disabled in AMP view
 		if ( ( $amp_endpoint ) && ( 'disable' === apply_filters( 'rpth_amp', true ) ) ) {
 
-			$debug .= 'AMP view disabled'; 
+			$debug .= 'AMP view disabled';
 			return $this->finish_process( '', $debug, $time );
 		}
 
@@ -541,7 +569,7 @@ class RelatedPostsThumbnails {
 				$object_terms = wp_get_object_terms( $id, $taxonomy, array(
 					'fields' => 'ids'
 				) );
-				
+
 				if ( empty( $object_terms ) || !is_array( $object_terms ) ) { // no terms to get taxonomy
 					$output = '';
 					return $this->finish_process( $output, $debug . __( 'No taxonomy terms to get posts;' ), $time );
@@ -599,7 +627,7 @@ class RelatedPostsThumbnails {
 		 * @since 1.9.3
 		 */
 		$custom_relations = apply_filters( 'rpt_custom_relationship', array( get_post_type() ) );
-		
+
 		if ( ! is_array( $custom_relations ) ) {
 			$custom_relations = array( $custom_relations );
 		}
@@ -617,7 +645,7 @@ class RelatedPostsThumbnails {
 		// $where     = " WHERE post_type = '" . $post_type . "' AND post_status = 'publish' AND ID<>" . $id; // not the current post
 		$where     = " WHERE post_type IN (" . $checked_post_type . ") AND post_status = 'publish' AND ID<>" . $id; // not the current post
 		$startdate = get_option( 'relpoststh_startdate' );
-		
+
 		if ( !empty( $startdate ) && preg_match( '/^\d\d\d\d-\d\d-\d\d$/', $startdate ) ) { // If startdate was set
 			$debug .= "Startdate: $startdate;";
 			$where .= " AND post_date >= '" . $startdate . "'";
@@ -636,7 +664,7 @@ class RelatedPostsThumbnails {
 		}
 
 		$order_query = ' ORDER BY ' . $sort_by;
-		$limit_order = $order_query . ' LIMIT ' . $posts_number;    
+		$limit_order = $order_query . ' LIMIT ' . $posts_number;
 		$random_posts = $wpdb->get_results( $query . $join . $where . $limit_order );
 
 		/* Get posts by their IDs */
@@ -658,11 +686,11 @@ class RelatedPostsThumbnails {
 
 		}
 		/**
-		* 
+		*
 		* Filter rpt_exclude_post to exclude post from RPT thumbnails
-		* 
+		*
 		* @since 1.9.0
-		* 
+		*
 		*/
 		$exclude_by_filter = apply_filters( 'rpt_exclude_post', '' );
 
@@ -690,7 +718,7 @@ class RelatedPostsThumbnails {
 			$debug .= 'Custom sizes;';
 			$width  = get_option( 'relpoststh_customwidth', $this->custom_width );
 			$height = get_option( 'relpoststh_customheight', $this->custom_height );
-		} else { 
+		} else {
 			// post-thumbnails source
 			if ( $poststhname == 'thumbnail' || $poststhname == 'medium' || $poststhname == 'large' ) { // get thumbnail size for basic sizes
 				$debug .= 'Basic sizes;';
@@ -782,7 +810,7 @@ class RelatedPostsThumbnails {
 			if ( $show_category ) {
 				$category_list = $this->relpoststh_category_list( $post->ID, $taxonomies[0], $post_type );
 			}
-			
+
 			if ( $thsource == 'custom-field' ) {
 				$custom_field = get_option( 'relpoststh_customfield', $this->custom_field );
 				$custom_field_meta = get_post_meta( $post->ID, $custom_field  );
@@ -833,7 +861,7 @@ class RelatedPostsThumbnails {
 				$from_post_body = true;
 
 				// using built in WordPress Thumbnails Feature
-				if ( current_theme_supports( 'post-thumbnails' ) ) { 
+				if ( current_theme_supports( 'post-thumbnails' ) ) {
 
 					$post_thumbnail_id = get_post_thumbnail_id( $post->ID );
 					$debug .= 'Post-thumbnails enabled in theme;';
@@ -861,7 +889,7 @@ class RelatedPostsThumbnails {
 				$wud = wp_upload_dir();
 
 				// search the first uploaded image in content
-				preg_match_all( '|<img.*?src=[\'"](' . $wud[ 'baseurl' ] . '.*?)[\'"].*?>|i', $post->post_content, $matches ); 
+				preg_match_all( '|<img.*?src=[\'"](' . $wud[ 'baseurl' ] . '.*?)[\'"].*?>|i', $post->post_content, $matches );
 
 				if ( isset( $matches ) && isset( $matches[ 1 ][ 0 ] ) ) {
 					$image = $matches[ 1 ][ 0 ];
@@ -888,7 +916,7 @@ class RelatedPostsThumbnails {
 							$debug .= 'Unable to determine parsed image size';
 						}
 
-						if ( ( $image_sizes !== false && isset( $image_sizes[ 0 ] ) ) && $image_sizes[ 0 ] == $width ) { 
+						if ( ( $image_sizes !== false && isset( $image_sizes[ 0 ] ) ) && $image_sizes[ 0 ] == $width ) {
 						// if this image is the same size
 							$debug .= 'Image used is the required size;';
 							$url = $image;
@@ -896,7 +924,7 @@ class RelatedPostsThumbnails {
 							// if this image is samll than required size
 							$debug .= 'Image used is smaller than the required size, rpt_prevent_img_size_check filter is active;';
 							$url = $image;
-						} else { 
+						} else {
 							// search for resized thumbnail according to Wordpress thumbnails naming function
 							$debug .= 'Changing image according to Wordpress standards;';
 							$url = preg_replace( '/(-[0-9]+x[0-9]+)?(\.[^\.]*)$/', '-' . $width . 'x' . $height . '$2', $image );
@@ -915,7 +943,7 @@ class RelatedPostsThumbnails {
 			}
 
 			// parsed URL is empty or no image found
-			if ( empty( $url ) ) { 
+			if ( empty( $url ) ) {
 				$debug .= 'Image URL: ' . $url . ';';
 				$debug .= 'Image is empty or no file. Using default image;';
 				$url = get_option( 'relpoststh_default_image', $this->default_image );
@@ -1002,9 +1030,9 @@ class RelatedPostsThumbnails {
 						'class'  => '',
 						'target' => false,
 					);
-					
+
 					/**
-					 * Filter to enhance the related post thumbnail anchor attribute such as open post in a new tab. 
+					 * Filter to enhance the related post thumbnail anchor attribute such as open post in a new tab.
 					 *
 					 * @param int $post->ID Current post ID.
 					 * @param array $rpt_anchor_attrs array of the attributes.
@@ -1036,7 +1064,7 @@ class RelatedPostsThumbnails {
 								$relpost_attributes .=  ' ' . $value ;
 							}
 						}
-					} 
+					}
 					$relpost_attributes .= '" ';
 
 					foreach ( $rpt_anchor_attr_filter as $rel_post_a_attr => $value ) {
@@ -1098,7 +1126,7 @@ class RelatedPostsThumbnails {
 	 * @since 2.2.0
 	 */
 	function relpoststh_category_list( $id, $taxonomy, $post_type ) {
-		
+
 		$category_list_struct = '';
 
 		$category_list = $this->relpoststh_get_featured_category( $id, $taxonomy, $post_type );
@@ -1195,33 +1223,33 @@ class RelatedPostsThumbnails {
 	//     )
 	//   );
 
-	//   return $response['response']['code']; 
+	//   return $response['response']['code'];
 	// }
 
 	/**
 	* This will add debugging information in HTML source
 	*
 	* @param $output
-	* @param  $debug 
-	* @param int $time time took to create the thumbnails 
-	* 
-	* @return $output debugged information 
+	* @param  $debug
+	* @param int $time time took to create the thumbnails
+	*
+	* @return $output debugged information
 	*/
 	function finish_process( $output, $debug, $time ) {
-		
+
 		$devmode = get_option( 'relpoststh_devmode', $this->devmode );
-		
+
 		if ( $devmode ) {
 			$time = microtime( true ) - $time;
 			$debug .= "Plugin execution time: $time sec;";
 			$output .= '<!-- ' . $debug . ' -->';
 		}
-		
+
 		return $output;
 	}
 
 		function process_text_cut( $text, $length ) {
-		
+
 		if ( $length == 0 ) {
 			return '';
 		} else {
@@ -1245,7 +1273,7 @@ class RelatedPostsThumbnails {
 		if ( !is_single() && get_option( 'relpoststh_single_only', $this->single_only ) ) { // single only
 			return false;
 		}
-		// Check post type 
+		// Check post type
 		$post_types = get_option( 'relpoststh_post_types', $this->post_types );
 		$post_type  = get_post_type();
 
@@ -1260,13 +1288,13 @@ class RelatedPostsThumbnails {
 
 			$post_categories       = wp_get_object_terms( $id, array( 'category' ), array( 'fields' => 'ids' ) );
 			$relpoststh_categories = get_option( 'relpoststh_categories' );
-			
+
 			if ( !is_array( $relpoststh_categories ) || !is_array( $post_categories ) ) { // no categories were selcted or post doesn't belong to any
 				return false;
 			}
 
 			$common_categories = array_intersect( $relpoststh_categories, $post_categories );
-			
+
 			if ( empty( $common_categories ) ) { // post doesn't belong to specified categories
 				return false;
 			}
@@ -1296,7 +1324,7 @@ class RelatedPostsThumbnails {
 	/**
 	* Category List in Settings
 	*
-	* @param  $categoriesall 
+	* @param  $categoriesall
 	* @param  $categories
 	* @param  $selected_categories
 	* @param  $all_name
@@ -1312,8 +1340,8 @@ class RelatedPostsThumbnails {
 			<?php _e( 'All', 'related-posts-thumbnails' ); ?>
 		</label>
 		<div class="select_specific" <?php echo esc_attr( $specific_name );
-			if ( $categoriesall == '1' ): ?> 
-				style="display:none" 
+			if ( $categoriesall == '1' ): ?>
+				style="display:none"
 			<?php endif; ?> >
 		</div>
 		<select class="chosen-select <?php echo esc_attr( $all_name ); ?>" data-placeholder="<?php _e( 'Select Categories', 'related-posts-thumbnails' ); ?>" id="<?php echo esc_attr( $all_name ); ?>" name="<?php echo esc_attr( $specific_name ); ?>[]" multiple>
@@ -1358,7 +1386,7 @@ class RelatedPostsThumbnails {
 
 	<?php
 	}
-	
+
 	/**
 	 * Main Instance
 	 *

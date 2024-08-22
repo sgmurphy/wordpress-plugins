@@ -21,12 +21,13 @@ class Iubenda_Plugin_Setting_Service extends Iubenda_Abstract_Product_Service {
 	 * @var array
 	 */
 	private $default_options = array(
-		'ctype'                      => true,
-		'output_feed'                => true,
-		'output_post'                => true,
-		'menu_position'              => 'topmenu',
-		'deactivation'               => false,
-		'stop_showing_cs_for_admins' => false,
+		'ctype'                         => true,
+		'output_feed'                   => true,
+		'output_post'                   => true,
+		'menu_position'                 => 'topmenu',
+		'deactivation'                  => false,
+		'stop_showing_cs_for_admins'    => false,
+		'integrate_with_wp_consent_api' => true,
 	);
 
 	/**

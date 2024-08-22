@@ -2684,7 +2684,7 @@ abstract class WFACP_Template_Common {
 	}
 
 	public function add_place_order_btn_text( $fragments ) {
-		$fragments['place_order_text'] = $this->place_order_btn_text;
+		$fragments['place_order_text'] = $this->change_place_order_button_text( '' );;
 
 		return $fragments;
 	}

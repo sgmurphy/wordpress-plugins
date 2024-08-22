@@ -291,7 +291,6 @@ class Admin_Helper {
 					'generate_nonce'    => wp_create_nonce( 'pa-generate-nonce' ),
 					'site_cursor_nonce' => wp_create_nonce( 'pa-site-cursor-nonce' ),
 					'theme'             => $theme_slug,
-					'isTrackerAllowed'  => 'yes' === get_option( 'elementor_allow_tracking', 'no' ) ? true : false,
 				),
 				'premiumRollBackConfirm' => array(
 					'home_url' => home_url(),
@@ -1312,15 +1311,13 @@ class Admin_Helper {
 	public static function get_used_widgets() {
 
 		$used_widgets = array();
-		// $tracker_allowed = 'yes' === get_option( 'elementor_allow_tracking' ) ? true : false;
-
-		// if ( ! $tracker_allowed ) {
-		// return false;
-		// }
 
 		if ( class_exists( 'Elementor\Modules\Usage\Module' ) ) {
 
 			$module   = Module::instance();
+
+            $module->recalc_usage();
+
 			$elements = $module->get_formatted_usage( 'raw' );
 
 			$pa_elements = self::get_pa_elements_names();

@@ -91,7 +91,8 @@ class Cookie_Solution_Generator {
 
 		// If legislation is USPR or All.
 		if ( $legislation_uspr_status || $legislation_all_status ) {
-			$cs_configuration['enableUspr'] = true;
+			$cs_configuration['enableUspr']      = true;
+			$cs_configuration['showBannerForUS'] = true;
 		}
 
 		// If legislation is LGDP or All.

@@ -333,6 +333,14 @@ if ( ! can_use_dom_document_class() ) {
 		<span><?php esc_html_e( 'Do not show Cookie Banner for admin users (recommended)', 'iubenda' ); ?></span>
 	</label>
 </div>
-<div class="pt-3">
-
-</div>
+<?php
+$wp_consent_api_integration = new Wp_Consent_Api_Integration();
+if ( $wp_consent_api_integration->is_wp_consent_api_installed() ) :
+	?>
+	<div class="d-flex align-items-center pt-3">
+		<label class="checkbox-regular">
+			<input type="checkbox" class="mr-2" name="iubenda_cookie_law_solution[integrate_with_wp_consent_api]" value="1" <?php checked( true, $wp_consent_api_integration->is_wp_consent_api_integrate_enabled() ); ?>>
+			<span><?php esc_html_e( 'Integrate with WP Consent API (recommended)', 'iubenda' ); ?> <a target="_blank" href="https://wordpress.org/plugins/wp-consent-api/" class="ml-1 tooltip-icon">?</a></span>
+		</label>
+	</div>
+<?php endif; ?>

@@ -117,12 +117,19 @@ class Integrations
                         // if integration has very own way to get complete base_call_data
                         $base_call_data = $integration_base_call_data;
                     } else {
+                        $sender_info = [];
+                        if ( ! empty($data['sender_url']) ) {
+                            $sender_info['sender_url'] = $data['sender_url'];
+                        }
+                        if ( ! empty($data['emails_array']) ) {
+                            $sender_info['sender_emails_array'] = $data['emails_array'];
+                        }
                         // common case
                         $base_call_data = array(
                             'message'         => ! empty($data['message']) ? json_encode($data['message']) : '',
                             'sender_email'    => ! empty($data['email']) ? $data['email'] : '',
                             'sender_nickname' => ! empty($data['nickname']) ? $data['nickname'] : '',
-                            'sender_info'     => ! empty($data['sender_url']) ? array('sender_url' => $data['sender_url']) : '',
+                            'sender_info'     => $sender_info,
                             'event_token' => ! empty($data['event_token']) ? $data['event_token'] : '',
                             'post_info'       => array(
                                 'comment_type' => 'contact_form_wordpress_' . strtolower($current_integration),
@@ -144,7 +151,7 @@ class Integrations
                     $integration->base_call_result = $base_call_result;
 
 
-                    $ct_result = $base_call_result['ct_result'];
+                    $ct_result = isset($base_call_result['ct_result']) ? $base_call_result['ct_result'] : '';
                     $cleantalk_executed = true;
 
                     /**
@@ -155,7 +162,9 @@ class Integrations
                     /**
                      * Actions on deny.
                      */
-                    if ( $ct_result->allow == 0 ) {
+                    if (
+                        is_object($ct_result) && $ct_result->allow == 0
+                    ) {
                         // Do blocking if it is a spam
                         $return_arg =  $integration->doBlock($ct_result->comment);
                     }
@@ -163,7 +172,7 @@ class Integrations
                     /**
                      * Actions on allow.
                      */
-                    if ( $ct_result->allow != 0 && method_exists($integration, 'allow') ) {
+                    if ( is_object($ct_result) && $ct_result->allow != 0 && method_exists($integration, 'allow') ) {
                         $return_arg = $integration->allow();
                     }
                 } else {

@@ -1190,7 +1190,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		 * Get Legacy calendar skin
 		 *
 		 * @param $skin_name		=	'Black-2'
-		 * @param $skin_arr			=   ["black-2.css", "/css/skins/blac...", "Black-2"]
+		 * @param $skin_arr			=   ["24_9__dark_1.css", "/css/skins/blac...", "Black-2"]
 		 *
 		 * @return mixed
 		 */

@@ -1086,13 +1086,14 @@ if ( ! class_exists( 'WFFN_Ecomm_Tracking' ) ) {
 
 			if ( is_order_received_page() ) {
 				global $wp;
-				$order_id = $wp->query_vars['order-received'];
+				if ( isset( $wp->query_vars['order-received'] ) ) {
+					$order_id = $wp->query_vars['order-received'];
+					if ( $order_id > 0 ) {
+						$wfacp_id = BWF_WC_Compatibility::get_order_meta( wc_get_order( $order_id ), '_wfacp_post_id' );
 
-				if ( $order_id > 0 ) {
-					$wfacp_id = BWF_WC_Compatibility::get_order_meta( wc_get_order( $order_id ), '_wfacp_post_id' );
-
-					if ( $wfacp_id > 0 ) {
-						return $wfacp_id;
+						if ( $wfacp_id > 0 ) {
+							return $wfacp_id;
+						}
 					}
 				}
 			}

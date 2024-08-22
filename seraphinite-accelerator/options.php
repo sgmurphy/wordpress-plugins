@@ -157,7 +157,7 @@ function _SettingsPage()
 {
 
 	Plugin::CmnScripts( array( 'Cmn', 'Gen', 'Ui', 'Net', 'AdminUi' ) );
-	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.22.3' );
+	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.22.4' );
 	Plugin::Loc_ScriptLoad( Plugin::ScriptId( 'Admin' ) );
 	wp_enqueue_script( Plugin::ScriptId( 'Admin' ) );
 
@@ -4944,6 +4944,17 @@ function _SettingsPage()
 							}
 							$o .= ( Ui::TagClose( 'tr' ) );
 
+							$o .= ( Ui::TagOpen( 'tr', array( 'style' => array( 'display' => $adminMsModes[ 'global' ] ? null : 'none' ) ) ) );
+							{
+								$o .= ( Ui::TagOpen( 'td' ) );
+								{
+									$fldId = 'cache/opAgentPostpone';
+									$o .= ( Ui::CheckBox( esc_html_x( 'OpAgentPostponeChk', 'admin.Settings_Advanced_Common', 'seraphinite-accelerator' ) . Ui::AdminBtnsBlock( array( Plugin::AdminBtnsBlock_GetPaidContent( $isPaidLockedContent ) ), Ui::AdminHelpBtnModeChkRad ), 'seraph_accel/' . $fldId, Gen::GetArrField( $sett, $fldId, false, '/' ), true ) );
+								}
+								$o .= ( Ui::TagClose( 'td' ) );
+							}
+							$o .= ( Ui::TagClose( 'tr' ) );
+
 							$o .= ( Ui::TagOpen( 'tr', array( 'style' => array( 'display' => 'none' ) ) ) );
 							{
 								$o .= ( Ui::TagOpen( 'td' ) );
@@ -5279,6 +5290,7 @@ function _OnSaveSettings( $args )
 		{ $fldId = 'cache/procWorkInt';						Gen::SetArrField( $sett, $fldId, @floatval( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
 		{ $fldId = 'cache/procPauseInt';					Gen::SetArrField( $sett, $fldId, @floatval( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
 		{ $fldId = 'cache/forceAdvCache';					Gen::SetArrField( $sett, $fldId, isset( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
+		{ $fldId = 'cache/opAgentPostpone';					Gen::SetArrField( $sett, $fldId, isset( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
 
 		{ $fldId = 'asyncUseCron';							Gen::SetArrField( $sett, $fldId, isset( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
 		{ $fldId = 'asyncMode';								Gen::SetArrField( $sett, $fldId, Gen::SanitizeId( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }

@@ -62,21 +62,22 @@ jQuery( document ).ready(function(){
 }); 
 
 function wpbc_animate_border( element, time, colors, x ) {
-    
-    if (x >= colors.length) {
+
+    if ( x >= colors.length ) {
         x = 0;
     } else {
         x++;
         var color;
-        if ( colors[x] === '' ) {
-            color = ''
+        if ( colors[ x ] === '' ) {
+            color = '';
         } else {
-            color = '#'+colors[x]
-        }        
-        element.css('border-color', color)
-        setTimeout(function() {
+            color = '#' + colors[ x ];
+        }
+        element.css( 'border-color', color );
+        element.css( 'color', color );
+        setTimeout( function () {
             wpbc_animate_border( element, time, colors, x );
-        }, time)
+        }, time );
     }
 }
 
@@ -89,7 +90,7 @@ function wpbc_field_highlight( object_name ) {
         wpbc_animate_border( 
                                 jQuery( object_name )                           // Element 
                                 , 200                                           // Time in ms
-                                , ['f87000', '', 'f87000', '', 'f87000', '', 'f87000', '', 'f87000', '', 'f87000', '']      // Colors Array
+                                , ['d63637', '', 'd63637', '', 'd63637', '', 'd63637', '', 'd63637', '', 'd63637', '']      // Colors Array
                                 , 0
                             ); 
     }

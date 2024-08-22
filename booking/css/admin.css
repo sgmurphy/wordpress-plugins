@@ -366,8 +366,21 @@ select option.wpbc_child_resource{
     margin-bottom: 10px;
       margin-left: 10px;
 }
+/* Collapse left Navigation  menu*/
+.wpbc_settings_flex_container .wpbc_container_collapsed{
+    flex: 0 0 45px;
+    position: sticky;
+    top: 50px;
+}
+.wpbc_settings_flex_container .wpbc_container_collapsed .wpbc_settings_navigation_item.wpbc_navigation_sub_item a{
+    padding-left: 0;
+}
+.wpbc_settings_flex_container .wpbc_container_collapsed .wpbc_settings_navigation_item a span{
+    display: none;
+}
+/* End Collapse left Navigation  menu*/
     @media (max-width: 782px) {
-        .wpbc_settings_flex_container .wpbc_settings_flex_container_left{
+        .wpbc_settings_flex_container .wpbc_settings_flex_container_left:not(.wpbc_container_collapsed){
             flex: 1 1 100%;
             margin-right: 0;
         }
@@ -656,7 +669,10 @@ select option.wpbc_child_resource{
 .wp-core-ui .wpbc_page .button.wpbc_bs_button_red {
     border: 1px solid #de605c !important;
 }
-.wp-core-ui .wpbc_page .button.wpbc_bs_button_green {
+.wp-core-ui .wpbc_page .wpbc_ui_button.wpbc_bs_button_green,
+.wp-core-ui .wpbc_page .wpbc_ui_button.wpbc_bs_button_green:active,
+.wp-core-ui .wpbc_page .wpbc_ui_button.wpbc_bs_button_green:hover,
+.wp-core-ui .wpbc_page .wpbc_ui_button.wpbc_bs_button_green:focus {
     background: #64aa45;
     text-shadow: none;
     box-shadow: none;

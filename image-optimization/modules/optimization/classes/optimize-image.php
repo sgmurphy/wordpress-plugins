@@ -14,13 +14,14 @@ use ImageOptimization\Classes\Image\{
 	Image_Backup,
 	Image_Conversion,
 	Image_DB_Update,
+	Image_Dimensions,
 	Image_Meta,
 	Image_Status,
-	WP_Image_Meta};
+	WP_Image_Meta
+};
 use ImageOptimization\Classes\Logger;
 use ImageOptimization\Classes\Utils;
 use ImageOptimization\Classes\Exceptions\Quota_Exceeded_Error;
-use ImageOptimization\Modules\Oauth\Components\Connect;
 use ImageOptimization\Modules\Optimization\Classes\{
 	Exceptions\Image_File_Already_Exists_Error,
 	Exceptions\Image_Optimization_Error,
@@ -54,6 +55,7 @@ class Optimize_Image {
 	private bool $keep_backups;
 	private array $current_size_duplicates;
 	protected Image_Conversion $image_conversion;
+	private bool $is_reoptimize;
 
 	/**
 	 * @throws Quota_Exceeded_Error|Bulk_Token_Expired_Error|Image_File_Already_Exists_Error|Image_Optimization_Error
@@ -85,7 +87,7 @@ class Optimize_Image {
 			$image_meta = new Image_Meta( $this->image->get_id() );
 
 			// If the current size was already optimized -- ignore it.
-			if ( in_array( $size_exist, $image_meta->get_optimized_sizes(), true ) ) {
+			if ( ! $this->is_reoptimize && in_array( $size_exist, $image_meta->get_optimized_sizes(), true ) ) {
 				Logger::log(
 					Logger::LEVEL_INFO,
 					"Size `$size_exist` is already optimized"
@@ -144,12 +146,12 @@ class Optimize_Image {
 			// This should only be updated after meta
 			$this->update_attachment_post();
 		} catch ( Image_Already_Optimized_Error $iao ) {
-			// If we can't optimize it further, just file update the meta
+			// If we can't optimize it further, just update the meta
 			$original_size = $this->wp_meta->get_file_size( $this->current_image_size )
 				?? File_System::size( $this->image->get_file_path( $this->current_image_size ) );
 
-			$this->update_attachment_meta( $original_size );
-			$this->update_attachment_post();
+			$this->update_attachment_meta( $original_size, true );
+			$this->update_attachment_post( true );
 		} catch ( Bulk_Token_Expired_Error | Quota_Exceeded_Error | Image_File_Already_Exists_Error $e ) {
 			throw $e;
 		} catch ( Throwable $t ) {
@@ -280,10 +282,10 @@ class Optimize_Image {
 	 *
 	 * @return void
 	 */
-	private function update_attachment_post() {
+	private function update_attachment_post( ?bool $is_fully_optimized = false ) {
 		$update_query = [];
 
-		if ( $this->image_conversion->is_enabled() ) {
+		if ( $this->image_conversion->is_enabled() && ! $is_fully_optimized ) {
 			$attachment_object = $this->image->get_attachment_object();
 
 			$update_query['guid'] = File_Utils::replace_extension(
@@ -304,13 +306,13 @@ class Optimize_Image {
 	 * Updates attachment records in the `wp_postmeta` table.
 	 *
 	 * @param int $optimized_size
+	 * @param bool|null $is_fully_optimized
 	 *
 	 * @return void
 	 */
-	private function update_attachment_meta( int $optimized_size ) {
+	private function update_attachment_meta( int $optimized_size, ?bool $is_fully_optimized = false ) {
 		$meta = new Image_Meta( $this->image->get_id() );
-
-		list($width, $height) = getimagesize( $this->current_image_path );
+		$dimensions = Image_Dimensions::get_by_path( $this->current_image_path );
 
 		$sizes_to_update = [ $this->current_image_size, ...$this->current_size_duplicates ];
 
@@ -321,11 +323,11 @@ class Optimize_Image {
 				->add_original_data( $size, $this->wp_meta->get_size_data( $size ) );
 
 			$this->wp_meta
-				->set_width( $size, $width )
-				->set_height( $size, $height )
+				->set_width( $size, $dimensions->width )
+				->set_height( $size, $dimensions->height )
 				->set_file_size( $size, $optimized_size );
 
-			if ( $this->image_conversion->is_enabled() ) {
+			if ( $this->image_conversion->is_enabled() && ! $is_fully_optimized ) {
 				$this->wp_meta
 					->set_file_path( $size, $this->current_image_path )
 					->set_mime_type( $size, $this->image_conversion->get_current_mime_type() );
@@ -367,11 +369,12 @@ class Optimize_Image {
 	/**
 	 * @throws Invalid_Image_Exception
 	 */
-	public function __construct( int $image_id, string $initiator, ?string $bulk_token = null ) {
+	public function __construct( int $image_id, string $initiator, ?string $bulk_token = null, ?bool $is_reoptimize = false ) {
 		$this->image = new Image( $image_id );
 		$this->wp_meta = new WP_Image_Meta( $image_id, $this->image );
 		$this->initiator = $initiator;
 		$this->bulk_token = $bulk_token;
+		$this->is_reoptimize = $is_reoptimize;
 		$this->image_conversion = new Image_Conversion();
 		$this->keep_backups = Settings::get( Settings::BACKUP_ORIGINAL_IMAGES_OPTION_NAME );
 	}

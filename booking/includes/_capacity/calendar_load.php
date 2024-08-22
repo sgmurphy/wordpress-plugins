@@ -117,6 +117,11 @@ function wpbc__calendar__set_js_params__before_show( $params ) {
 			$data_arr['dynamic__days_specific']     = $specific_days_selection;                                                        /* Example: '5,7' */
 			$data_arr['dynamic__week_days__start']  = get_bk_option( 'booking_range_start_day_dynamic' );                              /* { -1 - Any | 0 - Su,  1 - Mo,  2 - Tu, 3 - We, 4 - Th, 5 - Fr, 6 - Sat } */
 
+			// Fix about possible issue of downgrade from  Paid to  free version  and try  to  use 'Range days' selection,  which  is not supports in that  version.      //FixIn: 10.4.0.4
+			if ( ( ! class_exists( 'wpdev_bk_biz_s' ) ) && ( in_array( $data_arr['days_select_mode'], array( 'dynamic', 'fixed' ) ) ) ) {
+				$data_arr['days_select_mode'] = 'multiple';
+			}
+
 			return $data_arr;
 		}
 

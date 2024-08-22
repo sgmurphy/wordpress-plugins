@@ -85,7 +85,47 @@ class Maintenance
 		self::updateAppendOrNotInlineCodeToCombinedAssets();
 		self::clearCacheConditionally();
 
+        // Fix v1.2.5.6 (duplicates in "usermeta" table)
+        self::removeAnyDuplicateMetaKeysFromUsersTable();
+
 		}
+
+    /**
+     * @return void
+     */
+    public static function removeAnyDuplicateMetaKeysFromUsersTable()
+    {
+        global $wpdb;
+
+        $pluginId = WPACU_PLUGIN_ID;
+
+        $sqlQuery = <<<SQL
+SELECT umeta_id, user_id, COUNT(CONCAT(user_id, meta_key)) as total_count
+FROM `{$wpdb->usermeta}`
+WHERE meta_key='{$pluginId}_user_chosen_for_access_to_assets_manager'
+GROUP BY CONCAT(user_id, meta_key)
+HAVING total_count > 1;
+SQL;
+        $rows = $wpdb->get_results($sqlQuery, ARRAY_A);
+
+        if ( ! empty($rows) ) {
+            foreach ($rows as $row) {
+                $deleteSqlQuery = <<<SQL
+DELETE FROM `{$wpdb->usermeta}`
+WHERE umeta_id != '%d' AND user_id='%d' AND meta_key='%s'
+SQL;
+
+                $deleteSqlQueryPrepared = $wpdb->prepare(
+                    $deleteSqlQuery,
+                    (int)$row['umeta_id'],
+                    (int)$row['user_id'],
+                    $pluginId . '_user_chosen_for_access_to_assets_manager'
+                );
+
+                $wpdb->query($deleteSqlQueryPrepared);
+            }
+        }
+    }
 
 	/**
 	 * @param false $isDebug

@@ -862,7 +862,7 @@ class Iubenda_Forms {
 						$document->preserveWhiteSpace = false;
 
 						// load HTML.
-						$document->loadHTML( $checkout_form );
+						$document->loadHTML( $checkout_form, LIBXML_SCHEMA_CREATE );
 
 						// search for nodes.
 						foreach ( $input_fields as $input_field ) {
@@ -977,7 +977,7 @@ class Iubenda_Forms {
 						$document->preserveWhiteSpace = false;
 
 						// load HTML.
-						$document->loadHTML( $comment_form );
+						$document->loadHTML( $comment_form, LIBXML_SCHEMA_CREATE );
 
 						// search for nodes.
 						foreach ( $input_fields as $input_field ) {

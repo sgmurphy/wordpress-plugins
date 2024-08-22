@@ -20,6 +20,7 @@ class WFACP_RY_WC_Ecpay {
 		/* internal css for plugin */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
+		add_filter( 'wfacp_show_shipping_options', '__return_true' );
 
 
 		/* prevent third party fields and wrapper*/

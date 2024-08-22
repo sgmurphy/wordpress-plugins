@@ -14,7 +14,7 @@ jQuery(function ($) {
     tab_value = url.searchParams.get('tab');
   }
 
-  if (get_value == 'woosea_manage_feed') {
+  if (get_value == 'woosea_manage_feed' && woosea_manage_params.total_product_feeds > 0) {
     jQuery(function ($) {
       var nonce = $('#_wpnonce').val();
 
@@ -646,11 +646,10 @@ jQuery(function ($) {
             },
           })
 
-          .done(function (data) {
-            data = JSON.parse(data);
+          .done(function (response) {
             $('#woosea_main_table').append(
               '<tr class><td>&nbsp;</td><td colspan="5"><span>The plugin is creating a new product feed now: <b><i>"' +
-                data.projectname +
+                response.data.projectname +
                 '"</i></b>. Please refresh your browser to manage the copied product feed project.</span></span></td></tr>'
             );
           });
@@ -765,19 +764,17 @@ jQuery(function ($) {
             security: nonce,
             project_hash: hash,
           },
-          success: function (data) {
-            data = JSON.parse(data);
-
-            if (data.proc_perc < 100) {
-              if (data.running != 'stopped') {
+          success: function (response) {
+            if (response.data.proc_perc < 100) {
+              if (response.data.running != 'stopped') {
                 $('#woosea_proc_' + hash).addClass('woo-product-feed-pro-blink_me');
-                return $('#woosea_proc_' + hash).text('processing (' + data.proc_perc + '%)');
+                return $('#woosea_proc_' + hash).text('processing (' + response.data.proc_perc + '%)');
               }
-            } else if (data.proc_perc == 100) {
+            } else if (response.data.proc_perc == 100) {
               //	clearInterval(myInterval);
               $('#woosea_proc_' + hash).removeClass('woo-product-feed-pro-blink_me');
               return $('#woosea_proc_' + hash).text('ready');
-            } else if (data.proc_perc == 999) {
+            } else if (response.data.proc_perc == 999) {
               // Do not do anything
             } else {
               //	clearInterval(myInterval);
@@ -796,9 +793,8 @@ jQuery(function ($) {
               security: nonce,
             },
           })
-          .done(function (data) {
-            data = JSON.parse(data);
-            if (data.processing == 'false') {
+          .done(function (response) {
+            if (response.data.processing == 'false') {
               clearInterval(myInterval);
               console.log('Kill interval, all feeds are ready');
             }
@@ -808,6 +804,41 @@ jQuery(function ($) {
           });
       });
   }
+
+  $('#adt_migrate_to_custom_post_type').on('click', function () {
+    var nonce = $('#_wpnonce').val();
+    var popup_dialog = confirm('Are you sure you want to migrate your products to a custom post type?');
+    var $button = $(this);
+
+    if (popup_dialog == true) {
+      // Disable the button
+      $button.prop('disabled', true);
+
+      jQuery
+        .ajax({
+          method: 'POST',
+          url: ajaxurl,
+          data: {
+            action: 'adt_migrate_to_custom_post_type',
+            security: nonce,
+          },
+        })
+        .done(function (response) {
+          // Enable the button
+          $button.prop('disabled', false);
+
+          if (response.success) {
+            alert('Migration completed successfully');
+          } else {
+            alert('Migration failed');
+          }
+        })
+        .fail(function (data) {
+          // Enable the button
+          $button.prop('disabled', false);
+        });
+    }
+  });
 
   // Add copy to clipboard functionality for the debug information content box.
   new ClipboardJS('.copy-product-feed-pro-debug-info');

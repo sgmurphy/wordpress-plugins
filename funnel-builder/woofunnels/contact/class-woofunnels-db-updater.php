@@ -371,7 +371,7 @@ class WooFunnels_DB_Updater {
 
 			/** Save uid as cookie */
 			if ( ! empty( $bwf_contact->get_uid() ) && ! headers_sent() ) {
-				setcookie( '_fk_contact_uid', $bwf_contact->get_uid(), time() + ( 10 * YEAR_IN_SECONDS ), ( COOKIEPATH ? COOKIEPATH : '/' ), COOKIE_DOMAIN, is_ssl(), true );
+				setcookie( '_fk_contact_uid', $bwf_contact->get_uid(), time() + ( 10 * YEAR_IN_SECONDS ), ( COOKIEPATH ? COOKIEPATH : '/' ), COOKIE_DOMAIN, is_ssl(), false );
 			}
 
 			$order->update_meta_data( '_woofunnel_cid', $bwf_contact->get_id() );
@@ -399,7 +399,7 @@ class WooFunnels_DB_Updater {
 
 		/** Save uid as cookie */
 		if ( ! empty( $bwf_contact->get_uid() ) && ! headers_sent() ) {
-			setcookie( '_fk_contact_uid', $bwf_contact->get_uid(), time() + ( 10 * YEAR_IN_SECONDS ), ( COOKIEPATH ? COOKIEPATH : '/' ), COOKIE_DOMAIN, is_ssl(), true );
+			setcookie( '_fk_contact_uid', $bwf_contact->get_uid(), time() + ( 10 * YEAR_IN_SECONDS ), ( COOKIEPATH ? COOKIEPATH : '/' ), COOKIE_DOMAIN, is_ssl(), false );
 		}
 
 		$order->update_meta_data( '_woofunnel_cid', $bwf_contact->get_id() );

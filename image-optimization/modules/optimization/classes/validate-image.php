@@ -94,7 +94,7 @@ class Validate_Image {
 		$formats_list = join( ', ', array_map( 'strtoupper', $formats ) );
 
 		return sprintf(
-			__( 'Wrong file format. Only %1$s, or %2$s are accepted', 'image-optimization' ),
+			__( 'Unsupported file format. Only %1$s, or %2$s are supported', 'image-optimization' ),
 			$formats_list,
 			$last_item
 		);

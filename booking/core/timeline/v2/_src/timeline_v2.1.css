@@ -773,7 +773,7 @@ hr.wpbc_tl_popover_booking_separator {
 }
 .flex_tl_table .flex_tl_table_row_bookings .flex_tl_collumn_1 .flex_tl_row_height {
 	display: flex;
-	flex-flow: row wrap;
+	flex-flow: row nowrap;
 	justify-content: flex-start;
 	align-items: center;
 }
@@ -783,6 +783,7 @@ hr.wpbc_tl_popover_booking_separator {
 	font-weight: 400;
 	overflow: hidden;
 	white-space: nowrap;
+	text-overflow: ellipsis;
 }
  .flex_tl_table .flex_tl_table_row_bookings .flex_tl_collumn_1 .flex_tl_resource_title {
 	padding-left: 8px;
@@ -961,6 +962,20 @@ hr.wpbc_tl_popover_booking_separator {
 	margin-top:2px;
 	margin-bottom:3px;
 }
+	/* Show several  time slot bookings  //FixIn: 10.5.0.1*/
+	.flex_tl_table .flex_tl_table_row_bookings .flex_tl_collumn_2 .flex_tl_dates_bar .flex_tl_day_cell .in_cell_date_container_show_bookings.in_cell_date_container_has_several_bookings  .booking_id{
+		margin-top:0.2px;
+		margin-bottom:0.3px;
+	}
+	.flex_tl_table .flex_tl_table_row_bookings .flex_tl_collumn_2 .flex_tl_dates_bar .flex_tl_day_cell .in_cell_date_container_show_bookings.in_cell_date_container_has_several_bookings  .booking_id:first-child{
+		margin-top:2px;
+	}
+	.flex_tl_table .flex_tl_table_row_bookings .flex_tl_collumn_2 .flex_tl_dates_bar .flex_tl_day_cell .in_cell_date_container_show_bookings.in_cell_date_container_has_several_bookings  .booking_id:last-child{
+		margin-bottom:3px;
+	}
+	.flex_tl_table .flex_tl_table_row_bookings .flex_tl_collumn_2 .flex_tl_dates_bar .flex_tl_day_cell .in_cell_date_container_show_bookings.in_cell_date_container_has_several_bookings .booking_id.start_new_booking {
+	  border-radius: 0;
+	}
 /* Start New Booking */
 .flex_tl_table .flex_tl_table_row_bookings .flex_tl_collumn_2 .flex_tl_dates_bar .flex_tl_day_cell .in_cell_date_container_show_bookings .booking_id.start_new_booking{
 	border-left:2px solid #f3a844;

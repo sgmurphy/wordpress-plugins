@@ -106,8 +106,8 @@
     <div class="wp-analytify-modal-footer">
       <form class="" action="<?php echo admin_url( 'plugins.php' ) ?>" method="post">
         <span class="wp-analytify-optout-spinner"><img src="<?php echo admin_url( '/images/spinner.gif' ); ?>" alt=""></span>
-        <?php $nonce = wp_create_nonce( 'analytify_optout_nonce' ); ?>
-        <button type='submit' name='analytify-submit-optout' id='analytify_optout_button' data-nonce="<?php echo esc_attr( $nonce ); ?>"  class="button button-secondary button-opt-out" tabindex="1">Opt Out</button>
+          <?php $analytify_optout_page_nonce = wp_create_nonce( 'analytify_optout_page_nonce' ); ?>
+          <button type='submit' name='analytify-submit-optout' id='analytify_optout_button' data-nonce="<?php echo esc_attr( $analytify_optout_page_nonce ); ?>"  class="button button-secondary button-opt-out" tabindex="1">Opt Out</button>
         <button class="button button-primary button-close" tabindex="2">On second thought - I want to continue helping</button>
       </form>
     </div>
@@ -142,7 +142,7 @@
         type: 'POST',
         data: {
           action: 'analytify_optout_yes',
-          _ajax_nonce: nonce,
+          optout_yes_nonce: nonce,
         },
         beforeSend: function(){
           $(".wp-analytify-optout-spinner").show();

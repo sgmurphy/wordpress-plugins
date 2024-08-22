@@ -61,6 +61,30 @@ class BWF_Plugin_Compatibilities {
 		return $price;
 	}
 
+	/**
+	 * Get currency symbol
+	 *
+	 * @param $currency
+	 *
+	 * @return mixed|string
+	 */
+	public static function get_currency_symbol( $currency ) {
+		if ( empty( self::$plugin_compatibilities ) ) {
+			BWF_Plugin_Compatibilities::load_all_compatibilities();
+		}
+		if ( empty( self::$plugin_compatibilities ) ) {
+			return '';
+		}
+
+		foreach ( self::$plugin_compatibilities as $plugins_class ) {
+			if ( method_exists( $plugins_class, 'is_enable' ) && $plugins_class->is_enable() && is_callable( array( $plugins_class, 'get_fixed_currency_price_reverse' ) ) ) {
+				return call_user_func( array( $plugins_class, 'get_currency_symbol' ), $currency );
+			}
+		}
+
+		return '';
+	}
+
 	public static function add_files( $paths ) {
 		try {
 			foreach ( $paths as $file => $condition ) {

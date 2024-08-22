@@ -7,9 +7,14 @@
 
 /* Set  general background color for menu  tab as white */
 .wpdvlp-top-tabs .nav-tabs{
-  background: #fff;
-  padding: 0 0 0;
-  border-radius: 2px;   /* ?? */
+	background: #fff;
+	padding: 0 0 0;
+	border-radius: 2px; /* ?? */
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
 }
 /* Navigation  tabs */
 .wpdvlp-top-tabs .nav-tab {
@@ -21,6 +26,9 @@
   border-bottom: 4px solid transparent;
   padding: 9px 20px;
   margin: 0 1px 0 0;
+}
+.wpdevelop .pull-right {
+  margin-left: auto;
 }
 /* Menu Icons */
 .wpdvlp-top-tabs .nav-tab .menu_icon::before {
@@ -505,7 +513,9 @@ a.wpbc_is_new_button:hover {
 #wpbc-resources-admin-page .wpdvlp-top-tabs .nav-tabs,
 #wpbc-availability-admin-page .wpdvlp-top-tabs .nav-tabs,
 #toolbar_booking_resources .wpdvlp-top-tabs .nav-tabs,
-.wpbc_ajx_toolbar .wpdvlp-top-tabs .nav-tabs{
+.wpbc_ajx_toolbar .wpdvlp-top-tabs .nav-tabs,
+.wpbc_page_tab__form .wpdvlp-top-tabs .nav-tabs
+{
 	border-bottom: 1px solid #d6d6d6;
 }
 /* Make "Seasons" filter Tab last  in line */

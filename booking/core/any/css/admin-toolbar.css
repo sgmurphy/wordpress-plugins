@@ -17,6 +17,18 @@
 /* Drop Down Menu */  
 .wpdevelop ul.dropdown-menu {
     display: none;
+
+    display: block;
+    transition: opacity 0.1s cubic-bezier(.23,1,.73,1.3);
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+.wpdevelop .open > .dropdown-menu {
+  display: block;
+  transition: opacity 0.15s ease-in-out;
+  opacity: 1;
+  height: auto;
 }
 .wpdevelop .dropdown-menu li {
     padding:0;

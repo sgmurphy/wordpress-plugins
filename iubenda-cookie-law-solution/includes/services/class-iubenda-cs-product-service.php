@@ -59,12 +59,13 @@ class Iubenda_CS_Product_Service extends Iubenda_Abstract_Product_Service {
 		$codes_statues = array();
 		if ( ! $default_options ) {
 			// CS plugin general options.
-			$new_cs_option['parse']                      = isset( $new_cs_option['parse'] );
-			$new_cs_option['parser_engine']              = $this->get_only_valid_values( iub_array_get( $new_cs_option, 'parser_engine' ), $this->accepted_options['parser_engine'], iubenda()->defaults['cs']['parser_engine'] );
-			$new_cs_option['skip_parsing']               = isset( $new_cs_option['skip_parsing'] );
-			$new_cs_option['block_gtm']                  = isset( $new_cs_option['block_gtm'] );
-			$new_cs_option['amp_support']                = isset( $new_cs_option['amp_support'] );
-			$new_cs_option['stop_showing_cs_for_admins'] = isset( $new_cs_option['stop_showing_cs_for_admins'] );
+			$new_cs_option['parse']                         = isset( $new_cs_option['parse'] );
+			$new_cs_option['parser_engine']                 = $this->get_only_valid_values( iub_array_get( $new_cs_option, 'parser_engine' ), $this->accepted_options['parser_engine'], iubenda()->defaults['cs']['parser_engine'] );
+			$new_cs_option['skip_parsing']                  = isset( $new_cs_option['skip_parsing'] );
+			$new_cs_option['block_gtm']                     = isset( $new_cs_option['block_gtm'] );
+			$new_cs_option['amp_support']                   = isset( $new_cs_option['amp_support'] );
+			$new_cs_option['stop_showing_cs_for_admins']    = isset( $new_cs_option['stop_showing_cs_for_admins'] );
+			$new_cs_option['integrate_with_wp_consent_api'] = isset( $new_cs_option['integrate_with_wp_consent_api'] );
 		}
 
 		$new_cs_option['custom_scripts'] = isset( $new_cs_option['custom_scripts'] ) ? $this->prepare_custom_scripts_iframes( (array) iub_array_get( $new_cs_option, 'custom_scripts' ), 'script' ) : array();

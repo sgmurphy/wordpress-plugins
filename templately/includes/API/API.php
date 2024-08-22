@@ -125,6 +125,19 @@ abstract class API extends Base {
 	 *
 	 * @return WP_Error|boolean
 	 */
+	public function _permission_check( WP_REST_Request $request ) {
+		if(!current_user_can('delete_posts')){
+			return false;
+		}
+
+		return $this->permission_check( $request );
+	}
+
+	/**
+	 * @param $request WP_REST_Request for getting all route request in time.
+	 *
+	 * @return WP_Error|boolean
+	 */
 	public function permission_check( WP_REST_Request $request ) {
 		$this->request = $request;
 		$this->api_key = $this->utils('options')->get( 'api_key' );
@@ -186,7 +199,7 @@ abstract class API extends Base {
 			[
 				'methods'             => $methods,
 				'callback'            => $callback,
-				'permission_callback' => [ $this, 'permission_check' ],
+				'permission_callback' => [ $this, '_permission_check' ],
 				'args'                => $args,
 			]
 		);

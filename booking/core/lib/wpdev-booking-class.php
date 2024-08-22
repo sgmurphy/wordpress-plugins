@@ -206,7 +206,7 @@ class wpdev_booking {
         
         $booking_is_show_powered_by_notice = get_bk_option( 'booking_is_show_powered_by_notice' );
 	    if ( ( ! class_exists( 'wpdev_bk_personal' ) ) && ( $booking_is_show_powered_by_notice == 'On' ) ) {
-		    $calendar .= '<div style="font-size:7px;text-align:left;margin:0 0 10px;text-shadow: none;">Powered by <a href="https://wpbookingcalendar.com" target="_blank" title="Booking Calendar plugin for WordPress">Booking Calendar</a></div>';
+		    $calendar .= '<div style="font-size:7px;text-align:left;margin:0 0 10px;text-shadow: none;">Powered by <a href="https://wpbookingcalendar.com" style="font-size:7px;" target="_blank" title="Booking Calendar plugin for WordPress">Booking Calendar</a></div>';
 	    }
                 
         $calendar .= '<textarea id="date_booking' . $resource_id . '" name="date_booking' . $resource_id . '" autocomplete="off" style="display:none;"></textarea>';   // Calendar code
@@ -225,15 +225,8 @@ class wpdev_booking {
 
         return $calendar;
     }
-    
 
-    // Get form
-    function get_booking_form( $my_boook_type ) {
-        
-        $my_form = apply_bk_filter( 'wpbc_get_free_booking_form' , $my_boook_type );
 
-        return  $my_form;
-    }
 
     // Get booking form
 	function get_booking_form_action( $resource_id = 1, $my_boook_count = 1, $my_booking_form = 'standard', $my_selected_dates_without_calendar = '', $start_month_calendar = false, $bk_otions = array() ) {
@@ -434,7 +427,7 @@ class wpdev_booking {
 		if ( $this->wpdev_bk_personal !== false ) {
 			$form .= $this->wpdev_bk_personal->get_booking_form( $resource_id, $my_booking_form, $custom_params );
 		} else {
-			$form .= $this->get_booking_form( $resource_id );
+			$form .= wpbc_simple_form__get_booking_form__as_html( $resource_id );
 		}
 
 

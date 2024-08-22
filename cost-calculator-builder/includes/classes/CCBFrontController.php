@@ -383,6 +383,17 @@ class CCBFrontController {
 		if ( $id ) {
 			$meta_data = get_option( 'calc_meta_data_order_' . $id, array() );
 			$ccb_order = CCBOrderController::get_orders_by_id( $id );
+
+			$totals    = json_decode( $meta_data['totals'], true );
+			$discounts = array();
+			if ( is_array( $totals ) && count( $totals ) > 0 ) {
+				foreach ( $totals as $total ) {
+					if ( ! empty( $total['hasDiscount'] ) ) {
+						$discounts[] = $total['discount'];
+					}
+				}
+			}
+
 			return array(
 				'id'            => $ccb_order['id'],
 				'calc_id'       => $ccb_order['calc_id'],
@@ -391,7 +402,9 @@ class CCBFrontController {
 				'paymentMethod' => $ccb_order['paymentMethod'],
 				'orderDate'     => $ccb_order['date_formatted'],
 				'converted'     => $meta_data['converted'],
-				'totals'        => json_decode( $meta_data['totals'] ),
+				'totals'        => $totals,
+				'promocodes'    => $ccb_order['promocodes'] ?? array(),
+				'discounts'     => $discounts,
 			);
 		}
 

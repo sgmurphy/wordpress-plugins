@@ -4,6 +4,9 @@ namespace Cleantalk\ApbctWP\AdjustToEnvironmentModule\AdjustToEnv;
 
 class AdjustToEnvW3TotalCache extends AdjustToEnvAbstract
 {
+    /**
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function __construct($info)
     {
         parent::__construct($info);

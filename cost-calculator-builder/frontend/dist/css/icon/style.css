@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'ccb-fonts';
-  src:  url('fonts/ccb-fonts.eot?d7ivjk');
-  src:  url('fonts/ccb-fonts.eot?d7ivjk#iefix') format('embedded-opentype'),
-    url('fonts/ccb-fonts.ttf?d7ivjk') format('truetype'),
-    url('fonts/ccb-fonts.woff?d7ivjk') format('woff'),
-    url('fonts/ccb-fonts.svg?d7ivjk#ccb-fonts') format('svg');
+  src:  url('fonts/ccb-fonts.eot?m2fbd9');
+  src:  url('fonts/ccb-fonts.eot?m2fbd9#iefix') format('embedded-opentype'),
+    url('fonts/ccb-fonts.ttf?m2fbd9') format('truetype'),
+    url('fonts/ccb-fonts.woff?m2fbd9') format('woff'),
+    url('fonts/ccb-fonts.svg?m2fbd9#ccb-fonts') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -853,4 +853,7 @@
 .ccb-icon-AI:before {
   content: "\ea10";
   color: #1ab163;
+}
+.ccb-icon-multi-step:before {
+  content: "\ea11";
 }

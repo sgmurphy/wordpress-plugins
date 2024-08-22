@@ -407,11 +407,6 @@ class Settings
      */
 	public function filterSettings($settings)
 	{
-        // "only to the following administrator(s):" can not be empty; if that's the case, reset it to "any administrator"
-        if ($settings['allow_manage_assets_to'] === 'chosen' && empty($settings['allow_manage_assets_to_list'])) {
-            $settings['allow_manage_assets_to'] = 'any_admin';
-        }
-
 		// Renamed "hide_assets_meta_box" to "show_assets_meta_box" (legacy)
 		if ( isset($settings['show_assets_meta_box'], $settings['hide_assets_meta_box']) && $settings['hide_assets_meta_box'] == 1 ) { // legacy
 			$settings['show_assets_meta_box'] = '0';
@@ -611,8 +606,6 @@ class Settings
         // This will not triggered on the first getAll() call (very early, before other WordPress functions are set)
         // Instead, it will be triggered later on when the values below are relevant
         if (is_admin() && function_exists('wp_get_current_user')) {
-            $settings = Main::instance()->settings;
-
             if (current_user_can(Menu::$defaultAccessRole)) {
                 $allowManageAssetsArray                          = SettingsAdminOnlyForAdmin::getAnySpecifiedAdminsForAccessToAssetsManager();
                 $nonAdminRolesArray                              = SettingsAdminOnlyForAdmin::getAllNonAdminUserRolesWithAnyPluginAccessCap();
@@ -622,6 +615,11 @@ class Settings
                 $settings['allow_manage_assets_to_list']         = $allowManageAssetsArray['allow_manage_assets_to_list'];
                 $settings['access_via_non_admin_user_roles']     = ! empty($nonAdminRolesArray['non_admin_role_slugs_with_cap']) ? $nonAdminRolesArray['non_admin_role_slugs_with_cap'] : array();
                 $settings['access_via_specific_non_admin_users'] = $nonAdminsWithPluginAccessCap;
+
+                // "only to the following administrator(s):" can not be empty; if that's the case, reset it to "any administrator"
+                if ($settings['allow_manage_assets_to'] === 'chosen' && empty($settings['allow_manage_assets_to_list'])) {
+                    $settings['allow_manage_assets_to'] = 'any_admin';
+                }
             } else {
                 // Non-admins have no business with these settings
                 $settings['allow_manage_assets_to']              = 'any_admin';

@@ -4,7 +4,7 @@ Plugin Name: Image Hotspot by DevVN
 Plugin URI: https://levantoan.com/devvn-image-hotspot
 Description: Image Hotspot help you add hotspot to your images.
 Author: Le Van Toan
-Version: 1.2.5
+Version: 1.2.6
 Author URI: https://levantoan.com/
 Text Domain: devvn-image-hotspot
 Domain Path: /languages
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-define('DEVVN_IHOTSPOT_VER', '1.2.5');
+define('DEVVN_IHOTSPOT_VER', '1.2.6');
 define('DEVVN_IHOTSPOT_DEV_MOD', true);
 
 if ( !defined( 'DEVVN_IHOTSPOT_BASENAME' ) )
@@ -44,7 +44,8 @@ define('DEVVN_IHOTSPOT_POINT_DEFAULT', json_encode(array(
 	'link_target'	=>	'',
 	'placement'     =>  '',
 	'pins_id'       =>  '',
-	'pins_class'    =>  ''
+	'pins_class'    =>  '',
+	'pinsalt'       =>  ''
 )));
 define('DEVVN_IHOTSPOT_PINS_DEFAULT', json_encode(array(
 	'countPoint'	=>	'',
@@ -104,7 +105,12 @@ function devvn_ihotspot_meta_box_callback( $post ) {
     }
 
 	if(!$data_post){
-	    $data_post = maybe_unserialize( $post->post_content );
+        $post_content = $post->post_content;
+        if ( is_serialized( $post_content ) ) {
+            $data_post = @unserialize( trim( $post_content ), array('allowed_classes' => false));
+        }else {
+            $data_post = $post_content;
+        }
 	}
 
 	$maps_images = (isset($data_post['maps_images']))?$data_post['maps_images']:'';
@@ -231,7 +237,8 @@ function devvn_ihotspot_meta_box_callback( $post ) {
 				'pins_image_hover_custom'	=>	isset($point['pins_image_hover_custom'])?$point['pins_image_hover_custom']:'',
 				'placement'	=>	isset($point['placement'])?$point['placement']:'',
 				'pins_id'	=>	isset($point['pins_id'])?$point['pins_id']:'',
-				'pins_class'	=>	isset($point['pins_class'])?$point['pins_class']:''
+				'pins_class'	=>	isset($point['pins_class'])?$point['pins_class']:'',
+				'pinsalt'	=>	isset($point['pinsalt'])?$point['pinsalt']:''
 		 	);
 		 	echo devvn_ihotspot_get_pins_default($data_input); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped	?>
 			<?php $stt++;endforeach;?>
@@ -252,7 +259,8 @@ function devvn_ihotspot_meta_box_callback( $post ) {
 				'pins_image_hover_custom'		=>	isset($point['pins_image_hover_custom'])?$point['pins_image_hover_custom']:'',
 				'placement'		=>	isset($point['placement'])?$point['placement']:'',
 				'pins_id'	=>	isset($point['pins_id'])?$point['pins_id']:'',
-				'pins_class'	=>	isset($point['pins_class'])?$point['pins_class']:''
+				'pins_class'	=>	isset($point['pins_class'])?$point['pins_class']:'',
+				'pinsalt'	=>	isset($point['pinsalt'])?$point['pinsalt']:''
 		 	);
 		 	echo devvn_ihotspot_get_input_point_default($data_input);//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped?>
 	 	 <?php $stt++;endforeach;?>
@@ -457,6 +465,7 @@ function devvn_ihotspot_get_input_point_default($data = array()){
 	$placement	= isset($data['placement'])?$data['placement']:'';
 	$pins_id	= isset($data['pins_id'])?$data['pins_id']:'';
 	$pins_class	= isset($data['pins_class'])?$data['pins_class']:'';
+	$pinsalt	= isset($data['pinsalt'])?$data['pinsalt']:'';
 	ob_start();
 	?>	
 	<div class="devvn-hotspot-popup list_points" tabindex="-1" role="dialog" id="info_draggable<?php echo intval($countPoint)?>" data-popup="info_draggable<?php echo intval($countPoint)?>" data-points="<?php echo intval($countPoint)?>">
@@ -492,6 +501,7 @@ function devvn_ihotspot_get_input_point_default($data = array()){
 
 						</div>	
 						<div class="devvn_col_3">
+
 							<label><?php esc_html_e('Pin Image Custom','devvn-image-hotspot');?></label>
 							<div class="svl-upload-image <?php echo ($pins_image_custom)?'has-image':''?>">
 								<div class="view-has-value">
@@ -501,8 +511,7 @@ function devvn_ihotspot_get_input_point_default($data = array()){
 								</div>
 								<div class="hidden-has-value"><input type="button" class="button-upload button" value="<?php esc_attr_e( 'Select pins', 'devvn-image-hotspot' )?>" /></div>
 							</div>
-						</div>
-						<div class="devvn_col_3">
+
 							<label><?php esc_html_e( 'Pins hover image custom', 'devvn-image-hotspot' )?></label>
 							<div class="svl-upload-image <?php echo ($pins_image_hover_custom)?'has-image':''?>">
 								<div class="view-has-value">
@@ -512,7 +521,13 @@ function devvn_ihotspot_get_input_point_default($data = array()){
 								</div>
 								<div class="hidden-has-value"><input type="button" class="button-upload button" value="<?php esc_attr_e( 'Select pins hover', 'devvn-image-hotspot' )?>" /></div>
 							</div>
-						</div>					
+
+						</div>
+						<div class="devvn_col_3">
+							<label><?php esc_html_e( 'Pins Alt', 'devvn-image-hotspot' )?><br>
+							<input type="text" name="pointdata[pinsalt][]" value="<?php echo esc_attr($pinsalt)?>" placeholder="Type a ALT"/>
+							</label>
+						</div>
 					</div>
 					<div class="devvn_row">
 						<div class="devvn_col_3">

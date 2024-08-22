@@ -4,8 +4,8 @@ Donate link: https://wpbrigade.com/go/donate-related-posts
 Author URI: https://loginpress.pro/?utm_source=related-posts-lite&utm_medium=author-url-link
 Tags: easy related posts, Related Posts thumbnails, Free Related Posts, related posts, similar related posts
 Requires at least: 3.6
-Tested up to: 6.5
-Stable tag: 4.0.0
+Tested up to: 6.6
+Stable tag: 4.0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -72,10 +72,14 @@ If there are no images of the specified size in the post, or file does not exist
 
 == Upgrade Notice ==
 
-= 4.0.0 =
+= 4.0.1 =
 * Upgrade immediately.
 
 == Changelog ==
+
+= 4.0.1 - 2024-08-22 =
+* Enhancement: Code re-factorization and optimization.
+* Compatibility: Compatible with WordPress 6.6
 
 = 4.0.0 - 2024-06-11 =
 * Enhancement: Implemented a new feature on the dashboard settings page allowing users to "Copy code to clipboard".

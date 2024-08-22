@@ -953,34 +953,44 @@ function CacheOpGetViewsHeaders( $settCache, $viewId = null )
 	$res = array();
 
 	if( $viewId === null || $viewId === 'cmn' )
-		$res[ 'cmn' ] = array( 'User-Agent' => 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.3' );
+		$res[ 'cmn' ] = array( 'User-Agent' => 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.4' );
 
-	if( !(isset($settCache[ 'views' ])?$settCache[ 'views' ]:null) )
-		return( $res );
-
-	$viewsDeviceGrps = Gen::GetArrField( $settCache, array( 'viewsDeviceGrps' ), array() );
-	foreach( $viewsDeviceGrps as $viewsDeviceGrp )
+	if( (isset($settCache[ 'views' ])?$settCache[ 'views' ]:null) )
 	{
-		if( !(isset($viewsDeviceGrp[ 'enable' ])?$viewsDeviceGrp[ 'enable' ]:null) )
-			continue;
+		$viewsDeviceGrps = Gen::GetArrField( $settCache, array( 'viewsDeviceGrps' ), array() );
+		foreach( $viewsDeviceGrps as $viewsDeviceGrp )
+		{
+			if( !(isset($viewsDeviceGrp[ 'enable' ])?$viewsDeviceGrp[ 'enable' ]:null) )
+				continue;
 
-		$id = (isset($viewsDeviceGrp[ 'id' ])?$viewsDeviceGrp[ 'id' ]:null);
-		if( $viewId !== null && $viewId !== $id )
-			continue;
+			$id = (isset($viewsDeviceGrp[ 'id' ])?$viewsDeviceGrp[ 'id' ]:null);
+			if( $viewId !== null && $viewId !== $id )
+				continue;
 
-		$res[ $id ] = array( 'User-Agent' => GetViewTypeUserAgent( $viewsDeviceGrp ) );
+			$res[ $id ] = array( 'User-Agent' => GetViewTypeUserAgent( $viewsDeviceGrp ) );
 
+		}
+
+		if( Gen::GetArrField( $settCache, array( 'viewsGeo', 'enable' ) ) )
+		{
+			$ip = gethostbyname( Gen::GetArrField( Net::UrlParse( Wp::GetSiteRootUrl() ), array( 'host' ), '' ) );
+			$viewGeoId = GetViewGeoIdByIp( $settCache, $ip );
+
+			foreach( $res as $id => &$aHdr )
+			{
+				$aHdr[ 'X-Seraph-Accel-Geoid' ] = $viewGeoId;
+				$aHdr[ 'X-Seraph-Accel-Geo-Remote-Addr' ] = $ip;
+			}
+			unset( $aHdr );
+		}
 	}
 
-	if( Gen::GetArrField( $settCache, array( 'viewsGeo', 'enable' ) ) )
+	if( (isset($settCache[ 'opAgentPostpone' ])?$settCache[ 'opAgentPostpone' ]:null) )
 	{
-		$ip = gethostbyname( Gen::GetArrField( Net::UrlParse( Wp::GetSiteRootUrl() ), array( 'host' ), '' ) );
-		$viewGeoId = GetViewGeoIdByIp( $settCache, $ip );
-
 		foreach( $res as $id => &$aHdr )
 		{
-		    $aHdr[ 'X-Seraph-Accel-Geoid' ] = $viewGeoId;
-		    $aHdr[ 'X-Seraph-Accel-Geo-Remote-Addr' ] = $ip;
+			$aHdr[ 'X-Seraph-Accel-Postpone-User-Agent' ] = $aHdr[ 'User-Agent' ];
+			unset( $aHdr[ 'User-Agent' ] );
 		}
 		unset( $aHdr );
 	}

@@ -193,8 +193,10 @@ class CompatibilityFactory {
 			'translatepress-multilingual/index.php'                                     => 'TRP_Translate_Press',
 			// DONE
 			// https://wordpress.org/plugins/translatepress-multilingual/
-//			'polylang-pro/polylang.php'                                                     => 'Polylang',
+			// 'polylang-pro/polylang.php'                                                     => 'Polylang',
 			// DONE
+
+			'divigrid/divigrid.php' => 'DIVI_GRID_PLUGIN',
 		];
 		$compatible_plugins = array_merge( $compatible_plugins, $AWDP_Discount, $polylang );
 

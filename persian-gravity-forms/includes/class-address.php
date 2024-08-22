@@ -164,22 +164,24 @@ class GFPersian_Adress extends GFPersian_Core {
 		?>
         <style type="text/css">
             <?php
+			/*
 			foreach ( $form['fields'] as &$field ) {
 				if ( $this->is_iran_cities( $field ) ) {
 				    $id = $form['id'] . '_' . $field['id'];
 					echo '
 					html[dir="rtl"] #input_' . $id . '_4_container{
-						float: right !important;
-						padding-right: 0 !important;
-						padding-left: 16px !important;
+						float: right;
+						padding-right: 0;
+						padding-left: 16px;
 					}
 					html[dir="rtl"] #input_' . $id . '_3_container{
-						float: left !important;
-						padding-right: 0 !important;
-						padding-left: 0 !important;
+						float: left;
+						padding-right: 0;
+						padding-left: 0;
 					}';
 				}
 			}
+			*/
 			?>
         </style>
 		<?php
@@ -203,7 +205,8 @@ class GFPersian_Adress extends GFPersian_Core {
 				          '}).on("change", ".has_city #input_' . $id . '_3" ,function(){' .
 				          '$(this).attr("data-selected", $(this).val());' .
 				          '})' .
-				          '})';
+				          '});';
+						  /* BUG */
 				GFFormDisplay::add_init_script( $form['id'], 'iran_address_city_' . $id, GFFormDisplay::ON_PAGE_RENDER, $script );
 			}
 		}
@@ -214,5 +217,6 @@ class GFPersian_Adress extends GFPersian_Core {
 	}
 
 }
+
 
 new GFPersian_Adress();

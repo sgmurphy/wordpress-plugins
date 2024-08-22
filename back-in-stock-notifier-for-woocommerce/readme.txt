@@ -3,9 +3,9 @@ Contributors: codewoogeek
 Tags: email, notification, outofstock, waitlist, stock
 Donate link: [https://codewoogeek.online/product-category/back-in-stock-notifier/](https://codewoogeek.online/product-category/back-in-stock-notifier/)
 Requires at least: 4.7
-Tested up to: 6.5
+Tested up to: 6.6.1
 Requires PHP: 7.0
-Stable tag: 5.4.1
+Stable tag: 5.4.2
 License: GPL-3.0+
 License URI: [https://www.gnu.org/licenses/gpl-3.0.txt](https://www.gnu.org/licenses/gpl-3.0.txt)
 
@@ -234,6 +234,9 @@ You can contact us via the support Forum of WordPress or by creating a support t
 
 
 == Changelog ==
+= 5.4.2 2024-08-22 =
+* Tweak : Tested with WooCommerce 9.2.1
+
 = 5.4.1 2024-08-21 =
 * Fix: Fatal error – Cannot access offset of type string on string in the file "class-copy-mailer.php"
 * Tweak: Tested with WooCommerce 9.1.4

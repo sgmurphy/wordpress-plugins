@@ -16,7 +16,12 @@ function devvn_ihotspot_shortcode_func($atts){
     }
 
 	if(!$data_post){
-		$data_post = maybe_unserialize(get_post_field('post_content', $idPost));
+        $post_content = get_post_field('post_content', $idPost);
+        if ( is_serialized( $post_content ) ) {
+            $data_post = @unserialize( trim( $post_content ), array('allowed_classes' => false));
+        }else {
+            $data_post = $post_content;
+        }
 	}
 		
 	$maps_images = (isset($data_post['maps_images']))?$data_post['maps_images']:'';
@@ -74,6 +79,7 @@ function devvn_ihotspot_shortcode_func($atts){
 		 $placement = (isset($point['placement']) && $point['placement'] != '')?esc_attr($point['placement']):'n';
 		 $pins_id = (isset($point['pins_id']) && $point['pins_id'] != '')?esc_attr($point['pins_id']):'';
          $pins_class = (isset($point['pins_class']) && $point['pins_class'] != '')?esc_attr($point['pins_class']):'';
+         $pinsalt = (isset($point['pinsalt']) && $point['pinsalt'] != '')?esc_attr($point['pinsalt']):'';
 
          if($pins_image_custom) $pins_image = $pins_image_custom;
 		 if($pins_image_hover_custom) $pins_image_hover = $pins_image_hover_custom;
@@ -96,8 +102,8 @@ function devvn_ihotspot_shortcode_func($atts){
 			 		<?php if($pins_more_option['pins_animation'] != 'none'):?>
 			 			<div class="pins_animation ihotspot_<?php echo esc_attr($pins_more_option['pins_animation']);?>" style="top:-<?php echo esc_attr($pins_more_option['custom_top'])?>px;left:-<?php echo esc_attr($pins_more_option['custom_left'])?>px;height:<?php echo intval($pins_more_option['custom_top']*2)?>px;width:<?php echo intval($pins_more_option['custom_left']*2)?>px"></div>
 			 		<?php endif;?>
-			 		<img src="<?php echo esc_attr($pins_image)?>" class="pins_image <?php if(!$noTooltip):?>ihotspot_hastooltop<?php endif;?>" style="top:-<?php echo esc_attr($pins_more_option['custom_top'])?>px;left:-<?php echo esc_attr($pins_more_option['custom_left'])?>px">
-			 		<?php if($pins_image_hover):?><img src="<?php echo esc_attr($pins_image_hover)?>" class="pins_image_hover <?php if(!$noTooltip):?>ihotspot_hastooltop<?php endif;?>"  style="top:-<?php echo esc_attr($pins_more_option['custom_hover_top'])?>px;left:-<?php echo esc_attr($pins_more_option['custom_hover_left'])?>px"><?php endif;?>
+			 		<img src="<?php echo esc_attr($pins_image)?>" class="pins_image <?php if(!$noTooltip):?>ihotspot_hastooltop<?php endif;?>" style="top:-<?php echo esc_attr($pins_more_option['custom_top'])?>px;left:-<?php echo esc_attr($pins_more_option['custom_left'])?>px" alt="<?php echo esc_attr($pinsalt);?>">
+			 		<?php if($pins_image_hover):?><img src="<?php echo esc_attr($pins_image_hover)?>" class="pins_image_hover <?php if(!$noTooltip):?>ihotspot_hastooltop<?php endif;?>"  style="top:-<?php echo esc_attr($pins_more_option['custom_hover_top'])?>px;left:-<?php echo esc_attr($pins_more_option['custom_hover_left'])?>px" alt="<?php echo esc_attr($pinsalt);?>"><?php endif;?>
 		 		<?php if($linkpins):?></a><?php endif;?>
 		 	</div>
 		 </div>

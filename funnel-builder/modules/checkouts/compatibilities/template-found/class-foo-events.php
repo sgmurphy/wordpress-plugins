@@ -117,6 +117,10 @@ class WFACP_Compatibility_With_FooEvent {
                 font-family: dashicons !important;
             }
 
+            body #wfacp-sec-wrapper .wfacp_main_form p.wfacp_field_type_hidden {
+                display: none;
+            }
+
 
         </style>
         <script>
@@ -160,14 +164,21 @@ class WFACP_Compatibility_With_FooEvent {
 
 		if ( strpos( $key, 'attendee' ) !== false || strpos( $key, 'fooevents' ) !== false ) {
 
-			$all_cls     = array_merge( [ 'wfacp-form-control-wrapper wfacp-col-full ' ], $args['class'] );
-			$input_class = array_merge( [ 'wfacp-form-control' ], $args['input_class'] );
-			$label_class = array_merge( [ 'wfacp-form-control-label' ], $args['label_class'] );
 
-			$args['class']       = $all_cls;
-			$args['cssready']    = [ 'wfacp-col-full' ];
-			$args['input_class'] = $input_class;
-			$args['label_class'] = $label_class;
+			if ( isset( $args['type'] ) && ( 'checkbox' !== $args['type'] && 'radio' !== $args['type'] && 'wfacp_radio' !== $args['type'] ) ) {
+				$args['input_class'] = array_merge( [ 'wfacp-form-control' ], $args['input_class'] );
+				$args['label_class'] = array_merge( [ 'wfacp-form-control-label' ], $args['label_class'] );
+				$args['class']       = array_merge( [ 'wfacp-form-control-wrapper wfacp-col-full ' ], $args['class'] );
+				$args['cssready']    = [ 'wfacp-col-full' ];
+
+
+			} else {
+				$args['class']    = array_merge( [ 'wfacp-form-control-wrapper wfacp-col-full ' ], $args['class'] );
+				$args['cssready'] = [ 'wfacp-col-full' ,'wfacp-checkbox-radio'];
+			}
+			if ( false !== strpos( $args['type'], 'hidden' ) ) {
+				$args['class'][] = 'wfacp_field_type_hidden';
+			}
 
 
 			/**

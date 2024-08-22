@@ -1,18 +1,18 @@
 <?php
 /*
-Plugin Name: myStickymenu
+Plugin Name: My Sticky Bar
 Plugin URI: https://premio.io/
-Description: Simple sticky (fixed on top) menu implementation for navigation menu and Welcome bar for announcements and promotion. After install go to Settings / myStickymenu and change Sticky Class to .your_navbar_class or #your_navbar_id.
-Version: 2.7.5
+Description: Create a notification bar for your website with My Sticky Bar. You can customize the design, collect leads, and enjoy other advanced features. You can also make your menu sticky using My Sticky Bar.
+Version: 2.7.6
 Author: Premio
 Author URI: https://premio.io/downloads/mystickymenu/
 Text Domain: mystickymenu
 Domain Path: /languages
-License: GPLv2 or later
+License: GPLv3
 */
 
 defined('ABSPATH') or die("Cannot access pages directly.");
-define( 'MYSTICKY_VERSION', '2.7.5' );
+define( 'MYSTICKY_VERSION', '2.7.6' );
 define('MYSTICKYMENU_URL', plugins_url('/', __FILE__));  // Define Plugin URL
 define('MYSTICKYMENU_PATH', plugin_dir_path(__FILE__));  // Define Plugin Directory Path
 
@@ -345,6 +345,9 @@ class MyStickyMenuBackend
 
 		wp_enqueue_style('mystickymenuAdminStyle', plugins_url('/css/mystickymenu-admin.css', __FILE__), array(), MYSTICKY_VERSION );
 		wp_style_add_data( 'mystickymenuAdminStyle', 'rtl', 'replace' );
+		wp_enqueue_style('mystickybar-style', plugins_url('/css/mystickybar-admin.css', __FILE__), array(), MYSTICKY_VERSION );
+		wp_style_add_data( 'mystickybar-style', 'rtl', 'replace' );
+		
 		wp_enqueue_style('mystickymenuHelpStyle', plugins_url('/css/mystickymenu-help.css', __FILE__), array(), MYSTICKY_VERSION );
 		wp_style_add_data( 'mystickymenuHelpStyle', 'rtl', 'replace' );
 		wp_enqueue_style( 'wp-color-picker' );				
@@ -428,6 +431,26 @@ class MyStickyMenuBackend
 			'my-stickymenu-new-welcomebar',				
 			array( $this, 'mystickystickymenu_admin_new_welcomebar_page' )
 		);
+		
+		if( class_exists( 'POPTIN_Plugin_Base' ) ) {
+			add_submenu_page(
+				'my-stickymenu-welcomebar',
+				'Settings Admin',
+				'Poptin Popups',
+				'manage_options',
+				'manage-poptin-plugin',
+				array( $this, 'mystickymenu_manage_poptin_plugin' )
+			);
+		} else {
+			add_submenu_page(
+				'my-stickymenu-welcomebar',
+				'Settings Admin',
+				'Poptin Popups',
+				'manage_options',
+				'install-poptin-plugin',
+				array( $this, 'mystickymenu_install_poptin_plugin' )
+			);
+		}
 
 		add_submenu_page(
 			'my-stickymenu-welcomebar',
@@ -1027,11 +1050,11 @@ class MyStickyMenuBackend
 			return;
 		} 
 		
+		
 		/* 
 			DATE : 2022-08-04
 			Welcome bar save data function
-		*/
-		
+		*/		
 		if (isset($_POST['mysticky_option_welcomebar']) && !empty($_POST['mysticky_option_welcomebar']) && isset($_POST['nonce'])) {
 			if(!empty($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'mysticky_option_welcomebar_update')) {		
 				
@@ -1093,7 +1116,7 @@ class MyStickyMenuBackend
 				
 				$this->mysticky_clear_all_caches();				
 				
-				if( isset($_POST['submit']) && $_POST['submit'] == 'SAVE & VIEW DASHBOARD'){
+				if(isset($_POST['submit']) && ( $_POST['submit'] == 'SAVE & VIEW DASHBOARD' || $_POST['submit']== '' ) ){
 					if ( isset($is_first_widget) && $is_first_widget == 1 ) { ?>
 						<script>
 						window.location.href = '<?php echo admin_url("admin.php?page=my-stickymenu-welcomebar&first_widget=".$is_first_widget);?>';
@@ -1166,7 +1189,7 @@ class MyStickyMenuBackend
 					
 					$welcomebars_widgets = get_option( 'mysticky_option_welcomebar' );
 					if ( !isset($_GET['widget']) && isset( $_GET['page'] ) && $_GET['page'] == 'my-stickymenu-welcomebar' ) {
-						include_once( 'stickymenu-dashboard.php');
+						include_once( 'admin/stickymenu-dashboard.php');
 					}elseif ( !isset($_GET['isedit']) && !isset($_GET['save']) && isset($welcomebars_widgets) && !empty($welcomebars_widgets) ) {
 						?>
 						<div id="mystickymenu" class="wrap mystickymenu mystickymenu-new-widget-wrap">		 
@@ -1174,7 +1197,8 @@ class MyStickyMenuBackend
 						</div>
 						<?php
 					}else{
-						mysticky_welcome_bar_backend(); 	
+						include_once( 'admin/bar-settings.php');
+						//mysticky_welcome_bar_backend(); 	
 					}
 					
 					if( isset($_GET['first_widget']) && $_GET['first_widget'] == 1 ) : ?>
@@ -1231,12 +1255,25 @@ class MyStickyMenuBackend
 		}else{ ?>
 			<div id="mystickymenu" class="wrap mystickymenu">
 				<div id="sticky-header-welcome-bar" class="sticky-header-content">
-					<?php mysticky_welcome_bar_backend(); ?>
+					<?php 
+					include_once( 'admin/bar-settings.php');
+					//mysticky_welcome_bar_backend(); ?>
 				</div>
 			</div>
 			<?php
 		}
 		
+	}
+	public function mystickymenu_manage_poptin_plugin() {
+		?>
+			<script>
+				window.location.href= '<?php echo admin_url( "admin.php?page=Poptin" )?>'
+			</script>
+			<?php
+			exit;
+	}
+	public function mystickymenu_install_poptin_plugin() {
+		include_once 'admin/poptin-plugin.php';
 	}
 	public function mystickymenu_admin_widget_analytics_page(){
 		

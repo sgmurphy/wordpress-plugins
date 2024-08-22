@@ -101,7 +101,7 @@ $filter_css_editor = apply_filters( 'yp_css_editor', TRUE);
 	<?php
 
 		// Get Link
-		$frameLink = esc_url(urldecode($_GET['href']));
+		$frameLink = esc_url(wp_strip_all_tags(urldecode($_GET['href'])));
 
 		// Fix frameLink
 		if(empty($frameLink)){
@@ -115,8 +115,8 @@ $filter_css_editor = apply_filters( 'yp_css_editor', TRUE);
     	$rand = rand(136900, 963100);
 
 		// Only normal mode
-		$mode = trim( wp_strip_all_tags( $_GET['wyp_mode'] ) );
-		$type = trim( wp_strip_all_tags( $_GET['wyp_page_type'] ) );
+		$mode = trim( sanitize_key( $_GET['wyp_mode'] ) );
+		$type = trim( sanitize_key( $_GET['wyp_page_type'] ) );
 		$id = intval($_GET['wyp_page_id']);
 
 		$frame = add_query_arg(array('yellow_pencil_frame' => '','wyp_page_type' => $type,'wyp_page_id' => $id,'wyp_mode' => $mode,'wyp_rand' => $rand), $frameLink);

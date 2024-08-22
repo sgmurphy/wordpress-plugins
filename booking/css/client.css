@@ -29,7 +29,8 @@
 
 }
 /* form_center - in Free version */
-.wpbc_booking_form_structure.wpbc_form_center {         /* FixIn: 8.8.3.10  */
+.wpbc_booking_form_structure.wpbc_form_center,
+.wpbc_booking_form_structure.wpbc_form_center > .wpbc__form__div{         /* FixIn: 8.8.3.10  */
     display:flex;
     flex-flow: column wrap;
     justify-content: space-between;
@@ -1195,7 +1196,7 @@ div.wpbc_container.wpbc_form .wpdev-form-control-wrap .wpdev-list-item input[typ
     }
     #wpbc-new-admin-page .datepick-inline .datepick-days-cell div.date-content-bottom,
     #wpbc-new-admin-page .datepick-inline .datepick-days-cell div.date-content-top{
-        font-size: 0.7em;
+        /*font-size: 0.7em;*/
     }
 
 .booking_form_div .wpbc_times_selector div,

@@ -351,6 +351,7 @@ class Ays_Pb_Activator {
             'notification_type_components_order' => array(),
             'notification_logo_image' => '',
             'notification_logo_redirect_url' => '',
+            'notification_logo_redirect_to_new_tab' => 'off',
             'notification_main_content' => '',
             'notification_button_1_text' => 'Click!',
             'notification_button_1_redirect_url' => '',

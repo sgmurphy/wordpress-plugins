@@ -63,10 +63,8 @@ class Optimization_Stats {
 		$output = self::get_image_stats_chunk( 1, $image_id );
 		$pages_count = $output['pages'];
 
-		if ( 1 === $pages_count ) {
+		if ( $pages_count <= 1 ) {
 			unset( $output['pages'] );
-
-			self::set_stored_stats( $output );
 
 			return $output;
 		}
@@ -122,8 +120,6 @@ class Optimization_Stats {
 				Validate_Image::is_valid( $attachment_id );
 				$wp_meta = new WP_Image_Meta( $attachment_id );
 			} catch ( Invalid_Image_Exception | Image_Validation_Error $ie ) {
-				Logger::log( Logger::LEVEL_ERROR, $ie->getMessage() );
-
 				continue;
 			}
 

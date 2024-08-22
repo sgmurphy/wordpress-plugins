@@ -1769,6 +1769,17 @@
                 
             function option_block_revert( $data, $replacement_list )
                 {
+                    $is_serialized  =   FALSE;
+                    if ( is_serialized( $data ) )
+                        {
+                            $unserialized_data = @unserialize( $data );
+                            if ( $unserialized_data !== FALSE )
+                                {
+                                    $is_serialized  =   TRUE;
+                                    $data          =   $unserialized_data;
+                                }
+                        }
+                    
                     switch (gettype($data))
                         {
                             case 'array':
@@ -1790,6 +1801,10 @@
                                             
                                             break;            
                         }
+                    
+                    
+                    if ( $is_serialized === TRUE )
+                        $data  =   maybe_serialize( $data );
                     
                     return $data;
                 }           

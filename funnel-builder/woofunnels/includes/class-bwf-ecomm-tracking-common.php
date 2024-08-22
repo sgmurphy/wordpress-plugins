@@ -66,6 +66,13 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 				$min = '';
 			}
 
+			if ( class_exists( 'WFFN_Common' ) ) {
+				$is_preview_mode = WFFN_Common::is_page_builder_preview();
+				if ( $is_preview_mode ) {
+					return;
+				}
+			}
+
 			$data = apply_filters( 'wffn_conversion_tracking_localize_data', [
 				'utc_offset'         => esc_attr( $this->get_timezone_offset() ),
 				'site_url'           => esc_url( site_url() ),
@@ -374,23 +381,23 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 		public function insert_tracking_data_from_order_meta( $order_id ) {
 			$order = apply_filters( 'bwf_tracking_insert_order', wc_get_order( $order_id ) );
 
-			if ( ! $order instanceof WC_Order ) {
+			if ( ! $order instanceof WC_Order || $this->is_order_renewal( $order ) ) {
 				return;
 			}
 
-			if ( $this->is_order_renewal( $order ) ) {
-				return;
-			}
-
-			$tracking_data = BWF_WC_Compatibility::get_order_meta( $order, '_wffn_tracking_data' );
-
-			if ( ! in_array( $order->get_status(), wc_get_is_paid_statuses(), true ) ) {
-				$order->update_meta_data( '_wffn_tracking_data', $tracking_data );
+			/**
+			 * Prevent duplicate insertion for ipn gateway and handel by order status changed
+			 * or data not insert if order status not paid
+			 */
+			$payment_method = $order->get_payment_method();
+			if ( in_array( $payment_method, $this->get_ipn_gateways(), true ) || ! in_array( $order->get_status(), wc_get_is_paid_statuses(), true ) ) {
 				$order->update_meta_data( '_wffn_need_normalize', 'yes' );
 				$order->save_meta_data();
 
 				return false;
 			}
+
+			$tracking_data = BWF_WC_Compatibility::get_order_meta( $order, '_wffn_tracking_data' );
 
 			if ( ! empty ( $tracking_data ) && is_array( $tracking_data ) ) {
 				$this->insert_tracking_order( $order, $tracking_data );
@@ -436,7 +443,7 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 				return false;
 			}
 
-			$ipn_gateways = WFACP_Core()->reporting->get_ipn_gateways();
+			$ipn_gateways = $this->get_ipn_gateways();
 
 			/**
 			 * condition1 : if one of IPN gateways
@@ -1124,6 +1131,14 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 
 				}
 			}
+		}
+
+		public function get_ipn_gateways() {
+			if ( ! class_exists( 'WFACP_Core' ) ) {
+				return [];
+			}
+
+			return WFACP_Core()->reporting->get_ipn_gateways();
 		}
 
 		public function conversion_table_name() {

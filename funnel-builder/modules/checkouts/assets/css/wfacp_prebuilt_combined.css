@@ -1242,6 +1242,7 @@ body #wfacp_smart_buttons.wfacp_smart_buttons #pay_with_amazon {
 #wfacp_smart_buttons.wfacp_amazon_blocked .dynamic-checkout__skeleton {
     display: block;
 }
+
 #wfacp_smart_buttons.wfacp_smart_buttons .woocommerce-info.info.wc-amazon-payments-advanced-info {
     background: none;
     padding: 0 !important;
@@ -5536,6 +5537,7 @@ body .wfacp_main_form.woocommerce #wfacp_checkout_form p.form-row.wfacp_collapsi
 body #wfacp-sec-wrapper #wfacp_checkout_form .wfacp_collapsible_enable .select2-container {
     width: 100% !important;
 }
+
 #wfacp-e-form .wfacp_main_form .wfacp_collapsible svg {
     display: inline;
 }
@@ -5761,6 +5763,14 @@ body #wfacp-sec-wrapper .wfacp_main_form.woocommerce #payment ul.payment_methods
 
 body #wfacp-sec-wrapper .woocommerce-checkout {
     display: block;
+}
+
+/* add default css when field type hidden */
+body #wfacp-sec-wrapper .wfacp_main_form p.wfacp_field_type_hidden {
+    display: none;
+}
+body #wfacp-sec-wrapper .wfacp_main_form #payment .place-order .bwfan_user_consent.wfacp-consent-term-condition {
+    padding: 0;
 }
 
 /* -----------------------------------------------MEDIA QUERY---------------------------------------- */

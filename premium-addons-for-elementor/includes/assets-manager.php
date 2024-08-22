@@ -363,7 +363,7 @@ class Assets_Manager {
 
 		// If no premium elements exist on the page, then don't generate files
 		if ( empty( $content ) ) {
-			return;
+			return 'empty';
 		}
 
 		if ( 'css' === $ext && is_rtl() ) {
@@ -377,9 +377,20 @@ class Assets_Manager {
 		if ( 'css' === $ext ) {
 
 			if ( is_rtl() ) {
+
+                if( empty ( $content['rtl'] ) ) {
+                    return 'empty';
+                }
+
 				// Make sure to delete the file before creating the new one.
                 file_put_contents( $rtl_file_name, '@charset "UTF-8";' . $content['rtl'] );  // phpcs:ignore
+
 			} else {
+
+                if( empty ( $content['main'] ) ) {
+                    return 'empty';
+                }
+
                 file_put_contents( $main_file_name, '@charset "UTF-8";' . $content['main'] ); // phpcs:ignore
 			}
 		} else {

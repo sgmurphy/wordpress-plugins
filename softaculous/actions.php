@@ -78,8 +78,8 @@ function softaculous_site_actions(){
 	if($request == 'create_post'){
 		// Create post object
 		$my_post = array(
-			'post_title'    => sanitize_text_field($_POST['post_title']),
-			'post_content'  => sanitize_text_field($_POST['post_content']),
+			'post_title'    => $_POST['post_title'], //WP handles sanitization in wp_insert_post fn
+			'post_content'  => $_POST['post_content'],
 			'post_status'   => 'publish',
 			'post_author'   => 1
 		);
@@ -88,53 +88,15 @@ function softaculous_site_actions(){
 		$create_post_response = wp_insert_post($my_post);
 		
 		$post_featured_image = softaculous_optPOST('featured_image');
-		
-		if(!empty($create_post_response) && !empty($post_featured_image)){		    
-		    
-			$image_url        = $post_featured_image; // Define the image URL here
-			$image_name       = basename($image_url);
-			$upload_dir       = wp_upload_dir(); // Set upload folder
-			$image_data       = file_get_contents($image_url); // Get image data
-			$unique_file_name = wp_unique_filename($upload_dir['path'], $image_name); // Generate unique name
-			$filename         = basename($unique_file_name); // Create image file name
+	
+		if(!empty($create_post_response) && !empty($post_featured_image)){
+			
+			$image_id = media_sideload_image($post_featured_image, $create_post_response, null, 'id');
 
-			// Check folder permission and define file location
-			if(wp_mkdir_p($upload_dir['path'])){
-				$file = $upload_dir['path'].'/'.$filename;
-			}else{
-				$file = $upload_dir['basedir'].'/'.$filename;
+			if (!is_wp_error($image_id)) {
+				set_post_thumbnail($create_post_response, $image_id);
 			}
-
-			// Create the image file on the server
-			file_put_contents($file, $image_data);
-
-			// Check image file type
-			$wp_filetype = wp_check_filetype($filename, null);
-
-			// Set attachment data
-			$attachment = array(
-				'post_mime_type' => $wp_filetype['type'],
-				'post_title'     => sanitize_file_name($filename),
-				'post_content'   => '',
-				'post_status'    => 'inherit'
-			);
-
-			$post_id = $create_post_response;
-
-			// Create the attachment
-			$attach_id = wp_insert_attachment($attachment, $file, $post_id);
-
-			// Include image.php
-			require_once(ABSPATH.'wp-admin/includes/image.php');
-
-			// Define attachment metadata
-			$attach_data = wp_generate_attachment_metadata($attach_id, $file);
-
-			// Assign metadata to attachment
-			wp_update_attachment_metadata($attach_id, $attach_data);
-
-			// And finally assign featured image to post
-			set_post_thumbnail($post_id, $attach_id);		    
+		    
 		}
 		
 		$return['create_post_response'] = $create_post_response;

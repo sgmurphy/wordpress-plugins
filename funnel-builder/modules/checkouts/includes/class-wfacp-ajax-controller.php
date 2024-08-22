@@ -20,7 +20,6 @@ abstract class WFACP_AJAX_Controller {
 	}
 
 
-
 	public static function handle_public_ajax() {
 
 		add_action( 'woocommerce_checkout_update_order_review', [ __CLASS__, 'check_actions' ], - 10 );
@@ -267,7 +266,7 @@ abstract class WFACP_AJAX_Controller {
 		if ( ! is_array( $switcher_products ) || empty( $switcher_products ) ) {
 			return ( $resp );
 		}
-
+		do_action( 'wfacp_after_update_cart_multiple_page', $post, $success, $wfacp_id );
 		WC()->cart->empty_cart();
 		WFACP_Common::set_id( $wfacp_id );
 		WFACP_Core()->public->get_page_data( $wfacp_id );
@@ -358,7 +357,7 @@ abstract class WFACP_AJAX_Controller {
 		do_action( 'wfacp_after_add_to_cart' );
 
 		if ( count( $success ) > 0 ) {
-
+			do_action( 'wfacp_before_update_cart_multiple_page', $post, $success, $wfacp_id );
 			WC()->session->set( 'wfacp_id', WFACP_Common::get_id() );
 			WC()->session->set( 'wfacp_cart_hash', md5( maybe_serialize( WC()->cart->get_cart_contents() ) ) );
 			WC()->session->set( 'wfacp_product_objects_' . WFACP_Common::get_id(), $added_products );
@@ -544,8 +543,6 @@ abstract class WFACP_AJAX_Controller {
 	}
 
 
-
-
 	public static function get_divi_form_data() {
 
 
@@ -594,7 +591,7 @@ abstract class WFACP_AJAX_Controller {
 			$source = $_SERVER['HTTP_REFERER'];
 		}
 
-		$pixel      = WFACP_Analytics_Pixel::get_instance();
+		$pixel = WFACP_Analytics_Pixel::get_instance();
 
 		$get_all_fb_pixel  = $pixel->get_key();
 		$get_each_pixel_id = explode( ',', $get_all_fb_pixel );

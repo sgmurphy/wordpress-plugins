@@ -13,9 +13,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit;                                             // Exit, if accessed directly
 
 
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 //   T o o l b a r s
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 
 //FixIn: 9.6.3.5
 
@@ -244,9 +244,9 @@ function wpbc_add_new_booking_toolbar() {
 }
 
 
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 //   HTML elements for Toolbar
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 
 /**
 	 * Expand or Collapse Advanced Filter set
@@ -348,9 +348,9 @@ function wpbc_toolbar_search_by_id_bookings() {
 }
 
 
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 //   U I    E l e m e n t s
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 
 /** Help   -   Drop Down Menu  -  T a b  */
 function wpbc_bs_dropdown_menu_help() {
@@ -425,9 +425,9 @@ function wpbc_toolbar_btn__view_mode() {
 
 //FixIn: 9.6.3.5
 
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 // Toolbar   Actions    B u t t o n s   -   T i m e l i n e   //////////////////
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 
 
 /** View Mode Timeline   -   B u t t o n s */
@@ -866,9 +866,9 @@ function wpbc_toolbar_btn__timeline_navigation() {
 
 
 
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 // Toolbar   Options    B u t t o n s   -   Add New Booking   //////////////////
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 
 /** Genereate URL based on GET parameters */
 function wpbc_get_new_booking_url__base( $skip_parameters = array() ) {
@@ -1387,9 +1387,9 @@ sprop:
 	}
 
 }
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 // Toolbar   Other UI elements - General
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 
 /**
 	 * Selection elements in toolbar UI selectbox
@@ -1454,9 +1454,9 @@ function wpbc_toolbar_btn__selection_element( $params ) {
 }
 
 
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 // Toolbar     S e a r c h    F o r m     at    Top  Right side of Settings page
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 
 //FixIn: 8.0.1.12
 /**
@@ -1707,21 +1707,19 @@ if(0){
 
 //FixIn: 9.6.3.5
 
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 // JS & CSS
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 
-/** Load suport JavaScript for "Bookings" page*/
+/**
+ * Load support JavaScript for "Bookings" page
+ */
 function wpbc_js_for_bookings_page() {
 
-    $is_use_hints = get_bk_option( 'booking_is_use_hints_at_admin_panel'  );
-    if ( $is_use_hints == 'On' )
-      wpbc_bs_javascript_tooltips();                                            // JS Tooltips
-
-    wpbc_bs_javascript_popover();                                               // JS Popover
-
-    wpbc_datepicker_js();                                                       // JS  Datepicker
-    wpbc_datepicker_css();                                                      // CSS DatePicker
+	wpbc_bs_javascript_tooltips();		// JS Tooltips
+	wpbc_bs_javascript_popover();		// JS Popover
+	wpbc_datepicker_js();				// JS  Datepicker
+	wpbc_datepicker_css();				// CSS DatePicker
 }
 
 
@@ -1730,39 +1728,36 @@ function wpbc_datepicker_js() {
 
     ?><script type="text/javascript">
         jQuery(document).ready( function(){
-
 			if ( 'function' === typeof( jQuery('input.wpdevbk-filters-section-calendar').datepick ) ) {
-
-				function applyCSStoDays( date ){
-					return [true, 'date_available'];
-				}
-				jQuery('input.wpdevbk-filters-section-calendar').datepick(
-					{   beforeShowDay: applyCSStoDays,
-						showOn: 'focus',
-						multiSelect: 0,
-						numberOfMonths: 1,
-						stepMonths: 1,
-						prevText: '&laquo;',
-						nextText: '&raquo;',
-						dateFormat: 'yy-mm-dd',
-						changeMonth: false,
-						changeYear: false,
-						minDate: null,
-						maxDate: null, //'1Y',
-						showStatus: false,
-						multiSeparator: ', ',
-						closeAtTop: null,//!false,
-						firstDay:<?php echo get_bk_option( 'booking_start_day_weeek' ); ?>,
-						gotoCurrent: false,
-						hideIfNoPrevNext:true,
-						useThemeRoller :false,
-						mandatory: true
+				jQuery( 'input.wpdevbk-filters-section-calendar' ).datepick(
+					{
+						beforeShowDay   : function ( date ) {
+							return [true, 'date_available'];
+						},
+						showOn          : 'focus',
+						multiSelect     : 0,
+						numberOfMonths  : 1,
+						stepMonths      : 1,
+						prevText        : '&lsaquo;',
+						nextText        : '&rsaquo;',
+						dateFormat      : 'yy-mm-dd',
+						changeMonth     : false,
+						changeYear      : false,
+						minDate         : null,
+						maxDate         : null, 																		//'1Y',
+						showStatus      : false,
+						multiSeparator  : ', ',
+						closeAtTop      : null,																			//!false,
+						firstDay        :<?php echo get_bk_option( 'booking_start_day_weeek' ); ?>,
+						gotoCurrent     : false,
+						hideIfNoPrevNext: true,
+						useThemeRoller  : false,
+						mandatory       : true
 					}
 				);
 			} else {
 				alert( 'WPBC Error. JavaScript library "datepick" was not defined.' );
 			}
-
         });
         </script><?php
 }

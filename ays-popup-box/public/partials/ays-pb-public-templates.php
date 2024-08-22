@@ -4187,11 +4187,14 @@ class Ays_Pb_Public_Templates {
             $notification_logo = "<img src='" . $notification_logo_image_src . "'>";
         }
 
-        // Notification button 1 redirect URL
+        // Notification logo redirect URL
         $notification_logo_redirect_url = (isset($options->notification_logo_redirect_url) && $options->notification_logo_redirect_url != '') ? esc_url($options->notification_logo_redirect_url) : '';
 
+        // Notification logo redirect to the new tab
+        $notification_logo_redirect_to_new_tab = (isset($options->notification_logo_redirect_to_new_tab) && $options->notification_logo_redirect_to_new_tab == 'on') ? true : false;
+
         if ($notification_logo_redirect_url != '') {
-            $notification_logo = $this->ays_pb_wrap_into_link($notification_logo_redirect_url, $notification_logo, false);
+            $notification_logo = $this->ays_pb_wrap_into_link($notification_logo_redirect_url, $notification_logo, $notification_logo_redirect_to_new_tab);
         }
 
         // Notification main content

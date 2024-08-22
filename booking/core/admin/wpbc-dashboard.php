@@ -63,12 +63,21 @@ function wpbc_db_dashboard_get_bookings_count_arr(){
             if ( !isset( $bk_array[$v->id] ) )
                 $bk_array[$v->id] = array(
                                           'dates' => array()
+                                        , 'check_in_date' => array()
+                                        , 'check_out_date' => array()
                                         , 'bk_today' => 0
                                         , 'm_today' => 0
                                         );
             $bk_array[$v->id]['id']       = $v->id;
             $bk_array[$v->id]['approved'] = $v->approved;
             $bk_array[$v->id]['dates'][]  = $v->booking_date;
+
+			if ( intval( substr(  $v->booking_date, -1 ) ) == 1 ) {
+				$bk_array[$v->id]['check_in_date'][]  = $v->booking_date;
+	        }
+			if ( intval( substr(  $v->booking_date, -1 ) ) == 2 ) {
+				$bk_array[$v->id]['check_out_date'][]  = $v->booking_date;
+	        }
             $bk_array[$v->id]['m_date']   = $v->m_date;                         // Modification Booking date
             $bk_array[$v->id]['new']      = $v->new;
 	        if ( wpbc_is_today_date( $v->booking_date ) ) {
@@ -86,6 +95,10 @@ function wpbc_db_dashboard_get_bookings_count_arr(){
                     , 'approved' => 0
                     , 'booking_today' => 0
                     , 'was_made_today' => 0
+                    , 'check_in_today' => 0
+                    , 'check_out_today' => 0
+                    , 'check_in_tomorrow' => 0
+                    , 'check_out_tomorrow' => 0
     );
     foreach ( $bk_array as $k => $v ) {
 
@@ -104,6 +117,47 @@ function wpbc_db_dashboard_get_bookings_count_arr(){
 	    } else {
 		    $counter['pending'] ++;
 	    }
+
+
+		// Check  in
+	    if ( ! empty( $v['check_in_date'] ) ) {
+		    foreach ( $v['check_in_date'] as $check_in ) {
+				if ( wpbc_is_today_date( $check_in ) ) {
+					$counter['check_in_today']++;
+				}
+				if ( wpbc_is_tomorrow_date( $check_in ) ) {
+					$counter['check_in_tomorrow']++;
+				}
+			}
+		} else {
+			$check_in = $v['dates'][0];
+			if ( wpbc_is_today_date( $check_in ) ) {
+				$counter['check_in_today']++;
+			}
+			if ( wpbc_is_tomorrow_date( $check_in ) ) {
+				$counter['check_in_tomorrow']++;
+			}
+		}
+		// Check out
+	    if ( ! empty( $v['check_out_date'] ) ) {
+		    foreach ( $v['check_out_date'] as $check_out ) {
+				if ( wpbc_is_today_date( $check_out ) ) {
+					$counter['check_out_today']++;
+				}
+				if ( wpbc_is_tomorrow_date( $check_out ) ) {
+					$counter['check_out_tomorrow']++;
+				}
+			}
+		} else {
+			$check_out = $v['dates'][ ( count( $v['dates'] ) - 1 ) ];
+			if ( wpbc_is_today_date( $check_out ) ) {
+				$counter['check_out_today']++;
+			}
+			if ( wpbc_is_tomorrow_date( $check_out ) ) {
+				$counter['check_out_tomorrow']++;
+			}
+		}
+
     }
     // </editor-fold>
 
@@ -172,22 +226,22 @@ function wpbc_dashboard_widget_show() {
 
        wpbc_dashboard_section_statistic( $counter );  
 
-	   ?><div style="clear:both;margin-bottom:20px;"></div><?php
-
-	   wpbc_dashboard_section_news();
-
 	   ?><div style="clear:both;"></div><?php
 	   wpbc_dashboard_section_version();
 
 	   wpbc_dashboard_section_support();
+	   ?><div style="clear:both;margin-bottom:20px;"></div><?php
 
+	   wpbc_dashboard_section_news();
+
+/*
 	   ?><div style="clear:both;"></div><?php
 
 
 	   wpbc_dashboard_section_video_f();
 
 	   wpbc_dashboard_section_video_p();
-
+*/
 
 
 	   ?><div style="clear:both;"></div>
@@ -327,6 +381,7 @@ function wpbc_dashboard_widget_css() {
 //FixIn: 8.1.3.11
 /** Dashboard Section  - Video 1 */
 function wpbc_dashboard_section_video_f() {
+	return;
     ?>
     <div id='wpbc_dashboard_section_video_f' class="wpbc_dashboard_section bk_left">
         <span class="bk_header"><?php _e('Video guide' ,'booking');?> (free):</span>
@@ -340,6 +395,7 @@ function wpbc_dashboard_section_video_f() {
 //FixIn: 8.1.3.11
 /** Dashboard Section  - Video 2 */
 function wpbc_dashboard_section_video_p() {
+	return;
     ?>
     <div id='wpbc_dashboard_section_video_p' class="wpbc_dashboard_section bk_right">
 		<?php  wpbc_is_dismissed( 'wpbc_dashboard_section_video_p' );        //FixIn: 8.1.3.10 ?>
@@ -364,7 +420,7 @@ function wpbc_dashboard_section_support() {
 		<?php */ ?>
         <table class="bk_table">
             <tr class="first">
-                <td style="text-align:center;" class="bk_spec_font"><a href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-getting-started' ), 'index.php' ) ) ); ?>"
+                <td style="text-align:center;" class="bk_spec_font"><a href="<?php echo 'https://wpbookingcalendar.com/faq/#using'; //echo esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-getting-started' ), 'index.php' ) ) ); ?>"
                     ><?php _e('Getting Started' ,'booking');?></a>
                 </td>
             </tr>
@@ -581,6 +637,14 @@ function wpbc_dashboard_section_statistic( $counter ) {
 		<div class="wpbc_dashboard_section bk_right">
 			<span class="bk_header"><?php _e('Statistic' ,'booking');?>:</span>
 			<table class="bk_table">
+				<tr>
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>"><span><?php echo $counter['booking_today']; ?></span></a> </td>
+					<td class="actual-bookings"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Bookings for today' ,'booking');?></a> </td>
+				</tr>
+				<tr class="first">
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><span><?php echo $counter['was_made_today']; ?></span></a> </td>
+					<td class="new-bookings"><a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('New booking(s) made today' ,'booking');?></a> </td>
+				</tr>
 				<tr class="first">
 					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><span class=""><?php echo $counter['new']; ?></span></a> </td>
 					<td class=""> <a href="<?php echo $bk_admin_url,'&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><?php _e('New (unverified) booking(s)' ,'booking');?></a></td>
@@ -594,14 +658,23 @@ function wpbc_dashboard_section_statistic( $counter ) {
 		<div class="wpbc_dashboard_section" >
 			<span class="bk_header"><?php _e('Agenda' ,'booking');?>:</span>
 			<table class="bk_table">
-				<tr class="first">
-					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><span><?php echo $counter['was_made_today']; ?></span></a> </td>
-					<td class="new-bookings"><a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('New booking(s) made today' ,'booking');?></a> </td>
+				<tr>
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=10&view_mode=vm_listing&overwrite=1'; ?>"><span class=""><?php echo $counter['check_in_today']; ?></span></a></td>
+					<td class="pending"><a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=10&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Check in - Today', 'booking');?></a></td>
 				</tr>
 				<tr>
-					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>"><span><?php echo $counter['booking_today']; ?></span></a> </td>
-					<td class="actual-bookings"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Bookings for today' ,'booking');?></a> </td>
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=11&view_mode=vm_listing&overwrite=1'; ?>"><span class=""><?php echo $counter['check_out_today']; ?></span></a></td>
+					<td class=""><a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=11&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Check out - Today', 'booking');?></a></td>
 				</tr>
+				<tr>
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=7&view_mode=vm_listing&overwrite=1'; ?>"><span class=""><?php echo $counter['check_in_tomorrow']; ?></span></a></td>
+					<td class="new-bookings"><a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=7&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Check in - Tomorrow', 'booking');?></a></td>
+				</tr>
+				<tr>
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=8&view_mode=vm_listing&overwrite=1'; ?>"><span class=""><?php echo $counter['check_out_tomorrow']; ?></span></a></td>
+					<td class="actual-bookings"><a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=8&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Check out - Tomorrow', 'booking');?></a></td>
+				</tr>
+
 			</table>
 		</div>
 		<?php } ?>

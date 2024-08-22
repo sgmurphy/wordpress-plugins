@@ -73,7 +73,8 @@ SQL;
             $allowManageAssetsTo = $_POST[WPACU_PLUGIN_ID . '_settings']['allow_manage_assets_to_list'];
 
             foreach ($allowManageAssetsTo as $specificUserId) {
-                add_user_meta($specificUserId, WPACU_PLUGIN_ID . '_user_chosen_for_access_to_assets_manager', 1);
+                delete_user_meta($specificUserId, $metaKeyTargeted);
+                add_user_meta($specificUserId, $metaKeyTargeted, 1);
             }
         }
         // [END] Allow managing assets
@@ -420,6 +421,8 @@ SQL;
      */
     public static function getAnySpecifiedAdminsForAccessToAssetsManager($data = array())
     {
+        $metaKeyTargeted = WPACU_PLUGIN_ID . '_user_chosen_for_access_to_assets_manager';
+
         // [START] Old plugin version transition
         // First move it, if an old version of the plugin is used
         if ( isset($data['allow_manage_assets_to'], $data['allow_manage_assets_to_list'])
@@ -435,7 +438,8 @@ SQL;
                     continue;
                 }
 
-                add_user_meta($specificUserId, WPACU_PLUGIN_ID . '_user_chosen_for_access_to_assets_manager', 1);
+                delete_user_meta($specificUserId, $metaKeyTargeted);
+                add_user_meta($specificUserId, $metaKeyTargeted, 1);
             }
 
             if ( ! empty($data['allow_manage_assets_to_list']) ) {
@@ -451,8 +455,6 @@ SQL;
         // Refill the values for $data['allow_manage_assets_to'] and $data['allow_manage_assets_to_list']
         // In order to use the same code as before in [...]/templates/_admin-page-settings-plugin-areas/_plugin-usage-settings/_assets-management.php
         global $wpdb;
-
-        $metaKeyTargeted = WPACU_PLUGIN_ID . '_user_chosen_for_access_to_assets_manager';
 
         $query = <<<SQL
 SELECT `user_id` FROM `{$wpdb->usermeta}` WHERE `meta_key`='{$metaKeyTargeted}'

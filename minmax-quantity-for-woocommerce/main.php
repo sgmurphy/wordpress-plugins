@@ -1120,7 +1120,6 @@ class BeRocket_MM_Quantity extends BeRocket_Framework {
             if( count($check_errors) ) {
                 $return_result = false;
                 $br_minmax_notices[$prevent_add_type] = array_merge($br_minmax_notices[$prevent_add_type], $new_errors);
-        echo '<pre>', print_r($br_minmax_notices), '</pre>';
             } else {
                 $br_minmax_notices['error'] = array_merge($br_minmax_notices['error'], $new_errors);
             }

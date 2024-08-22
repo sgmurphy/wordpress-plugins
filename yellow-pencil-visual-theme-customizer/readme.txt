@@ -169,6 +169,9 @@ Yes, In the WordPress Dashboard, go to Appearance > YellowPencil Editor. Select 
 
 
 == Changelog ==
+= 7.6.4 =
+- Fixed: A minor security bug.
+
 = 7.6.1 =
 - Fixed: a few minor bugs.
 

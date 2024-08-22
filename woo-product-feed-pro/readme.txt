@@ -5,7 +5,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: Google Shopping Feed, Meta feed, Facebook catalog feed, WooCommerce Product Feed, Product Feed
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 13.3.4
+Stable tag: 13.3.5.1
 
 Most popular WooCommerce product feed plugin supporting Google shopping feed, meta/facebook feed, bing product feed & more.
 
@@ -380,6 +380,18 @@ Questions left or unanswered? Please do not hesitate to contact us at support@ad
 8. Set the basic configurations for your product feed
 
 === Changelog ===
+
+= 13.3.5.1 (2024-08-22) =
+* Bug Fix: Product Feed data is not migrated to custom post type on update
+
+= 13.3.5 (2024-08-21) =
+* Bug Fix: Identifier requires to update for Google Local Products Inventory feed
+* Bug Fix: Field mapping prefix and suffix adding space after prefix and before suffix
+* Bug Fix: The 'g:' prefix for google feeds channel is not stripped for TSV format
+* Bug Fix: The product category fields is generated with empty value in the first index
+* Improvement: Update menu item to new branding colors
+* Improvement: Refactor product feeds to use custom post type
+* Improvement: Declare WooCommerce HPOS compatibility
 
 = 13.3.4 (2024-07-03) =
 * Improvement: UI/UX: Use Select2 js on large select option input

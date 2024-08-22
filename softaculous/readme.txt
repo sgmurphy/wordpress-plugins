@@ -2,9 +2,9 @@
 Contributors: softaculous, pagelayer
 Tags: softaculous, sites, manage sites, backup, plugins, themes, manage wordpress, 
 Requires at least: 4.4
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.3
-Stable tag: 2.0.6
+Stable tag: 2.0.7
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -39,6 +39,9 @@ Should you have any suggestions to improve Softaculous, want to see some related
 6. It's Done! You can now start exploring.
 
 == Changelog ==
+
+= 2.0.7 = 
+* [Bug Fix] Fixed Bulk Posts Publishing to maintain the formatting and feature image
 
 = 2.0.5 = 
 * Changes for WordPress directory submission.

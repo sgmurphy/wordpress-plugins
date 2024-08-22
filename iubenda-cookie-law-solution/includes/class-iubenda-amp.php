@@ -363,12 +363,18 @@ class Iubenda_AMP {
 	_iub.csConfiguration = {
 	  ';
 			// print configuration.
-			$html .= $configuration . ',';
-			$html .= '
+			$html                      .= $configuration . ',';
+			$html                      .= '
 	  banner: ' . $banner_configuration . '
     };
 	</script>
-	<script async type="text/javascript" src="' . esc_url( $script_src ) . '"></script>
+	<script async type="text/javascript" src="' . esc_url( $script_src ) . '"></script>';
+			$wp_consent_api_integration = new Wp_Consent_Api_Integration();
+			if ( $wp_consent_api_integration->is_wp_consent_api_installed() && $wp_consent_api_integration->is_wp_consent_api_integrate_enabled() ) {
+				$wp_consent_api_integrate_script_src = sprintf( '%s/assets/js/wp-consent-api-integration.js', IUBENDA_PLUGIN_URL );
+				$html                               .= '<script async type="text/javascript" src="' . esc_url( $wp_consent_api_integrate_script_src ) . '"></script>';
+			}
+			$html .= '
 </body>
 </html>';
 			// phpcs:enable

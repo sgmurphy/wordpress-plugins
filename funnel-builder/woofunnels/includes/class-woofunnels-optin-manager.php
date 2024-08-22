@@ -21,8 +21,8 @@ class WooFunnels_OptIn_Manager {
 		add_action( 'admin_init', array( __CLASS__, 'maybe_push_optin_notice' ), 15 );
 		add_action( 'admin_init', array( __CLASS__, 'maybe_clear_optin' ), 15 );
 		// track usage user callback
-		add_action( 'bwf_maybe_track_usage_scheduled', array( __CLASS__, 'maybe_track_usage' ) );
-		add_action( 'bwf_track_usage_scheduled_single', array( __CLASS__, 'maybe_track_usage' ) );
+		add_action( 'bwf_maybe_track_usage_scheduled', array( __CLASS__, 'maybe_track_usage' ), 10, 2 );
+		add_action( 'bwf_track_usage_scheduled_single', array( __CLASS__, 'maybe_track_usage' ), 10, 2 );
 
 		//initializing schedules
 		add_action( 'wp', array( __CLASS__, 'initiate_schedules' ) );
@@ -57,8 +57,6 @@ class WooFunnels_OptIn_Manager {
 	 * Reset optin
 	 */
 	public static function reset_optin() {
-
-
 		$get_action = filter_input( INPUT_GET, 'action', FILTER_UNSAFE_RAW );
 		if ( 'yes' === $get_action ) {
 			self::Allow_optin();
@@ -68,14 +66,12 @@ class WooFunnels_OptIn_Manager {
 		if ( false !== wp_next_scheduled( 'bwf_maybe_track_usage_scheduled' ) ) {
 			wp_clear_scheduled_hook( 'bwf_maybe_track_usage_scheduled' );
 		}
-
 	}
 
 	/**
 	 * Set function to allow
 	 */
-	public static function Allow_optin( $pass_jit = false ) {
-
+	public static function Allow_optin( $pass_jit = false, $product = 'FB' ) {
 		if ( 'yes' === self::get_optIn_state() ) {
 			return;
 		}
@@ -83,19 +79,16 @@ class WooFunnels_OptIn_Manager {
 			wp_clear_scheduled_hook( 'bwf_track_usage_scheduled_single' );
 		}
 		if ( true === $pass_jit ) {
-			wp_schedule_single_event( current_time( 'timestamp' ), 'bwf_track_usage_scheduled_single', array( 'yes' ) );
+			wp_schedule_single_event( current_time( 'timestamp' ), 'bwf_track_usage_scheduled_single', array( 'yes', $product ) );
 		} else {
-			wp_schedule_single_event( current_time( 'timestamp' ), 'bwf_track_usage_scheduled_single' );
-
+			wp_schedule_single_event( current_time( 'timestamp' ), 'bwf_track_usage_scheduled_single', array( false, $product ) );
 		}
 		update_option( 'bwf_is_opted', 'yes', true );
-
-
 	}
 
 	/**
 	 * Collect some data and let the hook left for our other plugins to add some more info that can be tracked down
-	 * <br/>
+	 *
 	 * @return array data to track
 	 */
 	public static function collect_data() {
@@ -130,7 +123,7 @@ class WooFunnels_OptIn_Manager {
 			$product_count['total'] = property_exists( $product_count_data, 'publish' ) ? $product_count_data->publish : 0;
 
 			$product_statuses = get_terms( 'product_type', array( 'hide_empty' => 0 ) );
-			if ( is_array( $product_statuses ) || count( $product_statuses ) > 0 ) {
+			if ( is_array( $product_statuses ) && count( $product_statuses ) > 0 ) {
 				foreach ( $product_statuses as $product_status ) {
 					$product_count[ $product_status->name ] = $product_status->count;
 				}
@@ -216,7 +209,6 @@ class WooFunnels_OptIn_Manager {
 	public static function maybe_push_optin_notice() {
 		if ( self::get_optIn_state() === false && apply_filters( 'woofunnels_optin_notif_show', self::$should_show_optin ) ) {
 			do_action( 'bwf_maybe_push_optin_notice_state_action' );
-
 		}
 	}
 
@@ -232,15 +224,15 @@ class WooFunnels_OptIn_Manager {
 	/**
 	 * Callback function to run on schedule hook
 	 */
-	public static function maybe_track_usage( $is_jit = false ) {
+	public static function maybe_track_usage( $is_jit = false, $product = 'FB' ) {
 		//checking optin state
 		if ( 'yes' === self::get_optIn_state() ) {
-
 			$data = self::collect_data();
 
 			if ( $is_jit === 'yes' ) {
 				$data['jit'] = 'yes';
 			}
+			$data['product'] = $product;
 			//posting data to api
 			WooFunnels_API::post_tracking_data( $data );
 		}
@@ -308,7 +300,6 @@ class WooFunnels_OptIn_Manager {
 
 		return $schedules;
 	}
-
 }
 
 // Initialization

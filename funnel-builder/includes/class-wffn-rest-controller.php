@@ -712,13 +712,13 @@ if ( ! class_exists( 'WFFN_REST_Controller' ) ) {
 				'orderby'          => 'date',
 				'order'            => 'DESC',
 				'include'          => array(),
-				'exclude'          => array(),
+				'exclude'          => array(),//phpcs:ignore
 				'post_type'        => 'product',
-				'suppress_filters' => true,
+				'suppress_filters' => true,//phpcs:ignore
 				'fields'           => 'ids',
 			);
 			$current          = isset( $field['choices'] ) ? array( $field['choices'] ) : array();
-			$product_ids      = ! empty( $current ) ? array_map( 'absint', array_unique( array_merge( get_posts( $product_defaults ), $current[0] ) ) ) : get_posts( $product_defaults );
+			$product_ids      = ! empty( $current ) ? array_map( 'absint', array_unique( array_merge( get_posts( $product_defaults ), $current[0] ) ) ) : get_posts( $product_defaults );//phpcs:ignore
 
 			if ( empty( $current ) ) {
 				$current = $product_ids;
@@ -726,7 +726,7 @@ if ( ! class_exists( 'WFFN_REST_Controller' ) ) {
 			if ( $product_ids ) {
 				foreach ( $product_ids as $product_id ) {
 					$product                 = wc_get_product( $product_id );
-					$product_name            = strip_tags( BWF_WC_Compatibility::woocommerce_get_formatted_product_name( $product ) );
+					$product_name            = strip_tags( BWF_WC_Compatibility::woocommerce_get_formatted_product_name( $product ) ) . "(#" . $product_id . ")";//phpcs:ignore
 					$products[ $product_id ] = $product_name;
 				}
 			}
@@ -1013,13 +1013,13 @@ if ( ! class_exists( 'WFFN_REST_Controller' ) ) {
 				'orderby'          => 'date',
 				'order'            => 'DESC',
 				'include'          => array(),
-				'exclude'          => array(),
+				'exclude'          => array(),//phpcs:ignore
 				'post_type'        => 'product',
-				'suppress_filters' => true,
+				'suppress_filters' => true,//phpcs:ignore
 				'fields'           => 'ids',
 			);
 			$current          = isset( $field['choices'] ) ? array( $field['choices'] ) : array();
-			$product_ids      = ! empty( $current ) ? array_map( 'absint', array_unique( array_merge( get_posts( $product_defaults ), $current[0] ) ) ) : get_posts( $product_defaults );
+			$product_ids      = ! empty( $current ) ? array_map( 'absint', array_unique( array_merge( get_posts( $product_defaults ), $current[0] ) ) ) : get_posts( $product_defaults );//phpcs:ignore
 
 			if ( empty( $current ) ) {
 				$current = $product_ids;
@@ -1027,7 +1027,7 @@ if ( ! class_exists( 'WFFN_REST_Controller' ) ) {
 			if ( $product_ids ) {
 				foreach ( $product_ids as $product_id ) {
 					$product                 = wc_get_product( $product_id );
-					$product_name            = strip_tags( BWF_WC_Compatibility::woocommerce_get_formatted_product_name( $product ) );
+					$product_name            = strip_tags( BWF_WC_Compatibility::woocommerce_get_formatted_product_name( $product ) );//phpcs:ignore
 					$products[ $product_id ] = $product_name;
 				}
 			}

@@ -953,7 +953,7 @@ function wpbc_get_default_options( $option_name = '', $is_get_multiuser_general_
 
     $default_options['booking_admin_cal_count'] = ($is_demo) ? '3' : '2';       
  $mu_option4delete[]='booking_admin_cal_count';                                 // $multiuser_general_option[] = implode( '', array_keys( array_slice( $default_options, -1 ) ) );
-    $default_options['booking_skin'] = '/css/skins/light__24_8.css';
+    $default_options['booking_skin'] = '/css/skins/24_9__light_square_1.css';
  $mu_option4delete[]='booking_skin';
 	//FixIn: 9.6.3.5
     $default_options['booking_listing_default_view_mode'] = 'vm_booking_listing';	// 'vm_calendar';		//FixIn: 9.6.3.5
@@ -1216,7 +1216,7 @@ if ( WPBC_customize_plugin ){
 	$default_options['booking_legend_text_for_item_partially'] = __( 'Partially booked', 'booking' );
  $mu_option4delete[]='booking_legend_text_for_item_partially';
 
-    $default_options['booking_legend_is_show_numbers'] = 'Off';                    //FixIn:6.0.1.4						//FixIn: 8.1.3.8
+    $default_options['booking_legend_is_show_numbers'] = 'On';                    //FixIn:6.0.1.4						//FixIn: 8.1.3.8
  $mu_option4delete[]='booking_legend_is_show_numbers';
     $default_options['booking_legend_is_vertical'] = 'Off';                    											//FixIn:9.4.3.6
  $mu_option4delete[]='booking_legend_is_vertical';
@@ -1435,7 +1435,7 @@ if ( WPBC_customize_plugin ){
      $mu_option4delete[]='booking_unavailable_extra_days_in';
         $default_options['booking_unavailable_extra_days_out'] = '';
      $mu_option4delete[]='booking_unavailable_extra_days_out';
-        
+
         $default_options['booking_forms_extended'] = serialize( array() );
         $default_options['booking_advanced_costs_values'] = serialize( array() );
         $default_options['booking_is_resource_deposit_payment_active'] = 'On';

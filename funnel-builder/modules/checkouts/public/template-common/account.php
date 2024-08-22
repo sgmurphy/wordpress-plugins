@@ -6,7 +6,6 @@ $checkout       = WC()->checkout();
 $account_Fields = $checkout->get_checkout_fields( 'account' );
 
 
-
 ?>
 <?php if ( ! is_user_logged_in() && $checkout->is_registration_enabled() ) : ?>
     <div class="woocommerce-account-fields">
@@ -22,13 +21,14 @@ $account_Fields = $checkout->get_checkout_fields( 'account' );
 		<?php if ( count( $account_Fields ) > 0 ) : ?>
             <div class="create-account">
 				<?php
+				$instance = wfacp_template();
 				foreach ( $account_Fields as $key => $field ) :
 
 
 					$field['input_class'][] = 'wfacp-create-account';
 					$field['class'][]       = 'wfacp-form-control-wrapper';
 
-					if ( $field['type'] != 'checkbox' ) {
+					if ( isset( $field['type'] ) && $field['type'] != 'checkbox' ) {
 						$field['input_class'][] = 'wfacp-form-control';
 						$field['label_class'][] = 'wfacp-form-control-label';
 					} else {
@@ -38,6 +38,9 @@ $account_Fields = $checkout->get_checkout_fields( 'account' );
 
 					if ( 'account_password' == $key ) {
 						$field['class'][] = 'wfacp-create-account-label';
+					}
+					if ( $instance instanceof WFACP_Template_Common ) {
+						$field = $instance->modern_label( $field );
 					}
 					?>
 					<?php wfacp_form_field( $key, $field, $checkout->get_value( $key ) ); ?>

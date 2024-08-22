@@ -34,6 +34,13 @@ class Addons_Integration {
 	 */
 	private static $instance = null;
 
+    /**
+	 * CSS Content
+	 *
+	 * @var css_content
+	 */
+	private static $css_content = null;
+
 	/**
 	 * Modules
 	 *
@@ -364,7 +371,7 @@ class Addons_Integration {
 
         if( $time_limit < 300 ) {
 
-            $link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/im-getting-a-blank-page-on-elementor-after-activating-premium-add-ons/', 'editor-page', 'wp-editor', 'panel-issues' );
+            $link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/fix-elementor-editor-panel-loading-issues/', 'editor-page', 'wp-editor', 'panel-issues' );
 
             wp_localize_script(
 				'pa-eq-editor',
@@ -564,7 +571,7 @@ class Addons_Integration {
 			$pa_elements = get_option( 'pa_elements_' . Assets_Manager::$post_id, array() );
 
 			// If the assets are not updated, or they are updated but the dynamic CSS file has not been loaded for any reason.
-			if ( ! Assets_Manager::$is_updated || ( ! empty( $pa_elements ) && ! wp_style_is( 'pa-frontend', 'enqueued' ) ) ) {
+			if ( 'empty' === self::$css_content || ! Assets_Manager::$is_updated || ( ! empty( $pa_elements ) && ! wp_style_is( 'pa-frontend', 'enqueued' ) ) ) {
 				$this->enqueue_old_styles( $dir, $is_rtl, $suffix );
 			}
 		}
@@ -614,7 +621,7 @@ class Addons_Integration {
 			// If the elemens are cached and ready to generate.
 			if ( Assets_Manager::$is_updated ) {
 				Assets_Manager::generate_asset_file( 'js' );
-				Assets_Manager::generate_asset_file( 'css' );
+				self::$css_content = Assets_Manager::generate_asset_file( 'css' );
 			}
 
 			$js_path = '/pa-frontend-' . Assets_Manager::$post_id . $suffix . '.js';
@@ -657,7 +664,7 @@ class Addons_Integration {
 		}
 
 		// If the assets are not ready, or file does not exist for any reson.
-		if ( ! wp_script_is( 'pa-frontend', 'enqueued' ) ) {
+		if ( ! wp_script_is( 'pa-frontend', 'enqueued' ) || 'empty' === self::$css_content ) {
 			$this->register_old_scripts( $dir, $suffix );
 		}
 

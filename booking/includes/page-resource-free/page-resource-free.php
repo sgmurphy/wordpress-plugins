@@ -229,7 +229,7 @@ class WPBC_Page_Settings__bresources extends WPBC_Page_Structure {
 					<div class="wpdvlp-tabs-wrapper">
 						<div class="nav-tabs">
 							<a href="javascript:void(0);" class="nav-tab nav-tab-active ">
-								<i class="menu_icon icon-1x wpbc_icn_add_circle_outline"></i>
+								<i class="menu_icon icon-1x wpbc_icn_add _circle_outline"></i>
 								<span class="nav-tab-text">&nbsp;&nbsp;<?php echo __('Add Resource', 'booking') . ' ( ' . __('Calendar', 'booking') . ' )'; ?></span>
 							</a>
 							<a href="javascript:void(0);" class="nav-tab ">
@@ -254,7 +254,7 @@ class WPBC_Page_Settings__bresources extends WPBC_Page_Structure {
 									<a  class="wpbc_ui_control wpbc_ui_button wpbc_ui_button_primary tooltip_top " id="ui_btn_erase_availability"
 										href="javascript:void(0);"
 										data-original-title="<?php esc_attr_e( 'Add New Booking Resource(s)' ,'booking'); ?>>"><span><?php _e('Add New', 'booking'); ?>&nbsp;&nbsp;&nbsp;</span><i
-											class="menu_icon icon-1x wpbc_icn_add_circle_outline"></i></a>
+											class="menu_icon icon-1x wpbc_icn_add _circle_outline"></i></a>
 								</div>
 								<div class="ui_element" style="margin-left:15px;">
 									<label for="resources_count"

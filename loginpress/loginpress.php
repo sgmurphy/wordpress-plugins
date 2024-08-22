@@ -3,7 +3,7 @@
 * Plugin Name: LoginPress
 * Plugin URI: https://loginpress.pro?utm_source=loginpress-lite&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=plugin-uri
 * Description: LoginPress is the best <code>wp-login</code> Login Page Customizer plugin by <a href="https://wpbrigade.com/?utm_source=loginpress-lite&utm_medium=plugins&utm_campaign=wpbrigade-home&utm_content=WPBrigade-text-link">WPBrigade</a> which allows you to completely change the layout of login, register and forgot password forms.
-* Version: 3.1.1
+* Version: 3.1.2
 * Author: LoginPress
 * Author URI: https://loginpress.pro?utm_source=loginpress-lite&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=author-uri
 * Text Domain: loginpress
@@ -15,6 +15,42 @@
 */
 
 
+if ( ! function_exists( 'loginpress_wpb53407382' ) ) {
+    // Create a helper function for easy SDK access.
+    function loginpress_wpb53407382() {
+        global $loginpress_wpb53407382;
+
+        if ( ! isset( $loginpress_wpb53407382 ) ) {
+            // Include Telemetry SDK.
+            require_once dirname(__FILE__) . '/lib/wpb-sdk/start.php';
+
+            $loginpress_wpb53407382 = wpb_dynamic_init([
+                'id'                  => '6',
+                'slug'                => 'loginpress',
+                'type'                => 'plugin',
+                'public_key'          => '1|4aOA8EuyIN4pi2miMvC23LLpnHbBZFNki9R9pVmwd673d3c8',
+                'secret_key'          => 'sk_b36c525848fee035',
+                'is_premium'          => false,
+                'has_addons'          => false,
+                'has_paid_plans'      => false,
+                'menu'                => [
+                    'slug'           => 'loginpress',
+                    'account'        => false,
+                    'support'        => false,
+                ],
+                'settings'           => [ 'loginpress_customization' => '' , 'loginpress_setting' => '' , 'loginpress_addon_active_time' => '' , 'loginpress_addon_dismiss_1' => '' , 'loginpress_review_dismiss' => '' , 'loginpress_active_time' => '' , '_loginpress_optin' => '' , 'loginpress_friday_sale_active_time' => '' , 'loginpress_friday_sale_dismiss' => '' , 'loginpress_friday_21_sale_dismiss' => '' ],
+            ]);
+        }
+
+        return $loginpress_wpb53407382;
+    }
+
+    // Init Telemetry.
+    loginpress_wpb53407382();
+    // Signal that SDK was initiated.
+    do_action( 'loginpress_wpb53407382_loaded' );
+}
+
 if ( ! class_exists( 'LoginPress' ) ) :
 
 	final class LoginPress {
@@ -22,7 +58,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
 		/**
 		* @var string
 		*/
-		public $version = '3.1.1';
+		public $version = '3.1.2';
 
 		/**
 		* @var The single instance of the class
@@ -129,6 +165,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
 			add_action( 'plugin_action_links', 	  array( $this, 'loginpress_action_links' ), 10, 2 );
 			add_action( 'admin_init',             array( $this, 'redirect_optin' ) );
 			add_filter( 'auth_cookie_expiration', array( $this, '_change_auth_cookie_expiration' ), 10, 3 );
+            add_action( 'wp_wpb_sdk_after_uninstall', array( $this, 'plugin_uninstallation' ) );
 			//add_filter( 'plugins_api',            array( $this, 'get_addon_info_' ) , 100, 3 );
 			if ( is_multisite() ) {
 				add_action( 'admin_init', array( $this, 'redirect_loginpress_edit_page' ) );
@@ -182,21 +219,11 @@ if ( ! class_exists( 'LoginPress' ) ) :
 						return;
 					}
 					update_option( '_loginpress_optin', 'no' );
-					$this->_send_data( array(
-					'action'	=>	'Skip',
-					) );
-
 				} elseif ( isset( $_POST['loginpress-submit-optin'] ) ) {
 					if ( ! wp_verify_nonce( sanitize_text_field( $_POST['loginpress_submit_optin_nonce'] ), 'loginpress_submit_optin_nonce' ) ) {
 						return;
 					}
 					update_option( '_loginpress_optin', 'yes' );
-					$fields = array(
-						'action'          => 'Activate',
-						'track_mailchimp' => 'yes'
-					);
-					$this->_send_data( $fields );
-
 				} elseif ( ! get_option( '_loginpress_optin' ) && isset( $_GET['page'] ) && ( $_GET['page'] === 'loginpress-settings' || $_GET['page'] === 'loginpress' || $_GET['page'] === 'abw' ) ) {
 
 				/**
@@ -338,42 +365,6 @@ if ( ! class_exists( 'LoginPress' ) ) :
 		}
 
 		/**
-		* Wrapper function to send data.
-		* @param  [arrays]  $args.
-		*
-		* @since  1.0.15
-		* @version 1.0.23
-		*/
-		function _send_data( $args ) {
-
-			$current_user = wp_get_current_user();
-			$fields = array(
-				'email'				=> get_option( 'admin_email' ),
-				'website'			=> get_site_url(),
-				'action'			=> '',
-				'reason'			=> '',
-				'reason_detail'		=> '',
-				'display_name'		=> $current_user->display_name,
-				'blog_language'		=> get_bloginfo( 'language' ),
-				'wordpress_version'	=> get_bloginfo( 'version' ),
-				'php_version'		=> PHP_VERSION,
-				'plugin_version'	=> LOGINPRESS_VERSION,
-				'plugin_name'		=> 'LoginPress Free',
-			);
-
-			$args = array_merge( $fields, $args );
-			$response = wp_remote_post( LOGINPRESS_FEEDBACK_SERVER, array(
-				'method'      => 'POST',
-				'timeout'     => 5,
-				'httpversion' => '1.0',
-				'blocking'    => true,
-				'headers'     => array(),
-				'body'        => $args,
-			) );
-			//  echo '<pre>'; print_r( $args ); echo '</pre>';
-		}
-
-		/**
 		* Session Expiration
 		*
 		* @since  1.0.18
@@ -493,7 +484,6 @@ if ( ! class_exists( 'LoginPress' ) ) :
 				return;
 			}
 
-			include LOGINPRESS_DIR_PATH . 'include/deactivate_modal.php';
 			include LOGINPRESS_DIR_PATH . 'include/loginpress-optout-form.php';
 		}
 
@@ -519,34 +509,9 @@ if ( ! class_exists( 'LoginPress' ) ) :
 			}
 		}
 
-		static function plugin_uninstallation() {
-
-			$email         = get_option( 'admin_email' );
-
-			$fields = array(
-				'email'				=> $email,
-				'website'			=> get_site_url(),
-				'action'			=> 'Uninstall',
-				'reason'			=> '',
-				'reason_detail'		=> '',
-				'blog_language'		=> get_bloginfo( 'language' ),
-				'wordpress_version'	=> get_bloginfo( 'version' ),
-				'php_version'		=> PHP_VERSION,
-				'plugin_version'	=> LOGINPRESS_VERSION,
-				'plugin_name'		=> 'LoginPress Free',
-			);
-
-			$response = wp_remote_post( LOGINPRESS_FEEDBACK_SERVER, array(
-				'method'      => 'POST',
-				'timeout'     => 5,
-				'httpversion' => '1.0',
-				'blocking'    => false,
-				'headers'     => array(),
-				'body'        => $fields,
-			) );
-
+        function plugin_uninstallation() {
+            include_once (LOGINPRESS_DIR_PATH . 'include/uninstall.php');
 		}
-
 
 
 		/**
@@ -665,4 +630,3 @@ if ( ! class_exists( 'TAV_Remote_Notification_Client' ) ) {
 $notification = new TAV_Remote_Notification_Client( 125, '16765c0902705d62', 'https://wpbrigade.com?post_type=notification' );
 
 register_activation_hook( __FILE__, array( 'LoginPress', 'plugin_activation' ) );
-register_uninstall_hook( __FILE__, array( 'LoginPress', 'plugin_uninstallation' ) );

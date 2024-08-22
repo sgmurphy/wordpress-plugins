@@ -941,7 +941,8 @@ var hs_gf = jQuery.noConflict();
                 w = i ? '<div class="ui-datepicker-buttonpane ui-widget-content">' + (a ? M : "") + (this._isInRange(t, y) ? '<button type="button" class="ui-datepicker-current ui-state-default ui-priority-secondary ui-corner-all" onclick="DP_jQuery_' + dpuuid + ".datepicker._gotoToday('#" + t.id + "');\">" + v + "</button>" : "") + (a ? "" : M) + "</div>" : "",
                 b = parseInt(this._get(t, "firstDay"), 10);
             b = isNaN(b) ? 0 : b;
-            for (var C = this._get(t, "showWeek"), I = this._get(t, "dayNames"), N = (this._get(t, "dayNamesShort"), this._get(t, "dayNamesMin")), x = this._get(t, "monthNames"), S = this._get(t, "monthNamesShort"), Y = this._get(t, "beforeShowDay"), T = this._get(t, "showOtherMonths"), A = this._get(t, "selectOtherMonths"), j = (this._get(t, "calculateWeek") || this.iso8601Week, this._getDefaultDate(t)), F = "", O = 0; O < n[0]; O++) {
+            /* BUG */
+            for (var C = this._get(t, "showWeek"), I = this._get(t, "dayNames"), N = (this.regional.fa.dayNamesShort, this.regional.fa.dayNamesMin), x = this._get(t, "monthNames"), S = this._get(t, "monthNamesShort"), Y = this._get(t, "beforeShowDay"), T = this._get(t, "showOtherMonths"), A = this._get(t, "selectOtherMonths"), j = (this._get(t, "calculateWeek") || this.iso8601Week, this._getDefaultDate(t)), F = "", O = 0; O < n[0]; O++) {
                 var P = "";
                 this.maxRows = 4;
                 for (var R = 0; R < n[1]; R++) {
@@ -992,7 +993,8 @@ var hs_gf = jQuery.noConflict();
             if (r || !o) l += '<span class="ui-datepicker-month">' + n[e] + "</span>"; else {
                 var _ = i && i.getFullYear() == a, f = s && s.getFullYear() == a;
                 l += '<select class="ui-datepicker-month" onchange="DP_jQuery_' + dpuuid + ".datepicker._selectMonthYear('#" + t.id + "', this, 'M');\" onclick=\"DP_jQuery_" + dpuuid + ".datepicker._clickMonthYear('#" + t.id + "');\">";
-                for (var p = 0; 12 > p; p++) (!_ || p >= i.getMonth()) && (!f || p <= s.getMonth()) && (l += '<option value="' + p + '"' + (p == e ? ' selected="selected"' : "") + ">" + c[p] + "</option>");
+                /* BUG */
+                for (var p = 0; 12 > p; p++) (!_ || p >= i.getMonth()) && (!f || p <= s.getMonth()) && (l += '<option value="' + p + '"' + (p == e ? ' selected="selected"' : "") + ">" + n[p] + "</option>");
                 l += "</select>"
             }
             if (d || (u += l + (!r && o && h ? "" : "&#xa0;")), !t.yearshtml) if (t.yearshtml = "", r || !h) u += '<span class="ui-datepicker-year">' + a + "</span>"; else {

@@ -889,9 +889,9 @@ class Ui
 
 	static function PostBoxes_BottomGroupPanel( $callback, $callbacks_args = null )
 	{
-		echo( Ui::TagOpen( 'div' ) );
+		echo( wp_kses_post( Ui::TagOpen( 'div' ) ) );
 		call_user_func( $callback, $callbacks_args );
-		echo( Ui::TagClose( 'div' ) );
+		echo( wp_kses_post( Ui::TagClose( 'div' ) ) );
 	}
 
 	static function PostBoxes_MetaboxAdd( $id, $title, $expandable = true, $callback = null, $callbacks_args = null, $context = 'body', $classesAdd = null, $classesRemove = null, $visible = true )
@@ -966,8 +966,8 @@ class Ui
 
 		?>
 
-		<div<?php echo( self::_GetTagAttrs( $blocksAttrs[ 'wrap' ] ) ); ?>">
-			<h1><?php echo( Wp::SanitizeHtml( $title ) ); ?></h1>
+		<?php echo( wp_kses( Ui::TagOpen( 'div', $blocksAttrs[ 'wrap' ] ), Wp::GetKsesSanitizeCtx( 'admin' ) ) ); ?>
+			<h1><?php echo( wp_kses_post( ( string )$title ) ); ?></h1>
 
 			<?php
 
@@ -1070,7 +1070,7 @@ class Ui
 
 		<?php
 
-		echo( Ui::ViewInitContent( '.wrap.seraph_accel' ) );
+		echo( wp_kses( Ui::ViewInitContent( '.wrap.seraph_accel' ), Wp::GetKsesSanitizeCtx( 'script' ) ) );
 	}
 
 	static function ViewInitContent( $viewCssSelector )
@@ -1418,16 +1418,16 @@ class UiPopups
 
 			$attrs[ 'id' ] = 'seraph_accel_popup_' . $id;
 			$attrs[ 'style' ][ 'display' ] = 'none';
-			$attrs[ 'attr-modal' ][ 'display' ] = $prms[ 'modal' ];
-			$attrs[ 'attr-body' ] = rawurlencode( $body );
+			$attrs[ 'data-attr-modal' ][ 'display' ] = $prms[ 'modal' ];
+			$attrs[ 'data-attr-body' ] = rawurlencode( $body );
 
 			Gen::SetArrField( $attrs, 'class.+', 'seraph_accel popup' );
 
-			echo( Ui::Tag( 'div', null, $attrs ) );
+			echo( wp_kses( Ui::Tag( 'div', null, $attrs ), Wp::GetKsesSanitizeCtx( 'admin' ) ) );
 		}
 
 		if( $needModal )
-			echo( Ui::Tag( 'div', null, array( 'class' => 'seraph_accel popup_modal_overlay', 'style' => array( 'display' => 'none' ) ) ) );
+			echo( wp_kses( Ui::Tag( 'div', null, array( 'class' => 'seraph_accel popup_modal_overlay', 'style' => array( 'display' => 'none' ) ) ), Wp::GetKsesSanitizeCtx( 'admin' ) ) );
 	}
 }
 

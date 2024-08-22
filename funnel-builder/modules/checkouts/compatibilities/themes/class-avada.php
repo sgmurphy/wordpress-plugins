@@ -11,9 +11,10 @@ class WFACP_Compatibility_With_Active_Avada {
 
 	public function __construct() {
 
-		add_action( 'wp', [ $this, 'remove_actions' ] ,999);
+		add_action( 'wp', [ $this, 'remove_actions' ], 999 );
 
 		add_filter( 'wfacp_do_not_allow_shortcode_printing', [ $this, 'do_not_execute_shortcode' ] );
+		add_filter( 'elementor/frontend/builder_content_data', [ $this, 'remove_avada_parse_elementor_content' ], 9, 2 );
 	}
 
 	public function wp_enqueue_script() {
@@ -75,6 +76,23 @@ class WFACP_Compatibility_With_Active_Avada {
 				}
 			}
 		}
+	}
+
+	public function remove_avada_parse_elementor_content( $data, $post_id ) {
+
+
+		if ( $post_id <= 0 ) {
+			return $data;
+		}
+		$post = get_post( $post_id );
+		if ( is_null( $post ) || $post->post_type !== WFACP_Common::get_post_type_slug() ) {
+			return $data;
+		}
+
+		WFACP_Common::remove_actions( 'elementor/frontend/builder_content_data', 'FusionBuilder', 'parse_elementor_content' );
+
+
+		return $data;
 	}
 
 	public function internal_css() {

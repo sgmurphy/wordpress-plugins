@@ -78,7 +78,7 @@ if ( ! function_exists( 'wffn_maybe_import_funnel_in_background' ) ) {
 			BWF_Logger::get_instance()->log( "Running the callback wffn_maybe_import_funnel_in_background: $funnel_id ", 'wffn_template_import' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			if ( $funnel_id > 0 ) {
 				BWF_Logger::get_instance()->log( 'Importing template for funnel: ' . print_r( $funnel_id, true ) . '-fn- ' . __FUNCTION__, 'wffn_template_import' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-
+                do_action('wffn_import_template_background', $funnel_id);
 				$funnel = new WFFN_Funnel( $funnel_id );
 
 				$funnel_steps = $funnel->get_steps();
@@ -97,6 +97,31 @@ if ( ! function_exists( 'wffn_maybe_import_funnel_in_background' ) ) {
 								'selected'      => $has_scheduled['template'],
 								'selected_type' => $has_scheduled['template_type'],
 							] );
+							if ( $get_object->slug === 'wc_thankyou' ) {
+								do_action( 'wfty_page_design_updated', $funnel_step['id'], [
+									'selected'      => $has_scheduled['template'],
+									'selected_type' => $has_scheduled['template_type'],
+								] );
+							}
+							if ( $get_object->slug === 'optin' ) {
+								do_action( 'wfop_page_design_updated', $funnel_step['id'], [
+									'selected'      => $has_scheduled['template'],
+									'selected_type' => $has_scheduled['template_type'],
+								] );
+							}
+							if ( $get_object->slug === 'optin_ty' ) {
+								do_action( 'wfoty_page_design_updated', $funnel_step['id'], [
+									'selected'      => $has_scheduled['template'],
+									'selected_type' => $has_scheduled['template_type'],
+								] );
+							}
+							if ( $get_object->slug === 'landing' ) {
+								do_action( 'wflp_page_design_updated', $funnel_step['id'], [
+									'selected'      => $has_scheduled['template'],
+									'selected_type' => $has_scheduled['template_type'],
+								] );
+							}
+
 						}
 					}
 				}
@@ -501,13 +526,13 @@ WHERE s2.min_id IS NULL" );
 		 * delete all order from conversion if order not exists in wc_order_stats table
 		 */
 
-		$bumps_data   = $wpdb->get_results( $wpdb->prepare( "select * from {$wpdb->prefix}wfob_stats where oid IN (%1s)", $order_ids_string ), ARRAY_A );
+		$bumps_data   = $wpdb->get_results( $wpdb->prepare( "select * from {$wpdb->prefix}wfob_stats where oid IN (%1s)", $order_ids_string ), ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder
 		$upsells_data = $wpdb->get_results( $wpdb->prepare( "SELECT sess.order_id,
     event_t.object_id AS offer_id, 
     event_t.action_type_id AS action_type,
     event_t.value AS total_revenue  
  FROM `{$wpdb->prefix}wfocu_session` AS sess JOIN `{$wpdb->prefix}wfocu_event` AS event_t ON sess.id = event_t.sess_id 
-WHERE sess.order_id IN (%1s) AND event_t.action_type_id IN (4,6);", $order_ids_string ), ARRAY_A );
+WHERE sess.order_id IN (%1s) AND event_t.action_type_id IN (4,6);", $order_ids_string ), ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder
 
 
 		/***

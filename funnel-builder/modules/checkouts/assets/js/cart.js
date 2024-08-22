@@ -1183,9 +1183,24 @@
         });
 
     }
+    /* assign form=wfacp_checkout_form to input field except our field qty field inside the mini cart or collapsible summary
+            some plugin add input field just below the cart item like woocommerce subscription gifting
+         */
+    function push_mini_input_field_to_checkout_form() {
+        $('body').on('updated_checkout', function () {
+            let available_inputs = $('.wfacp_mini_cart_items input , .wfacp_mini_cart_items select').not('.wfacp_mini_cart_update_qty');
+            if (available_inputs.length === 0) {
+                return;
+            }
+            available_inputs.each(function () {
+                $(this).attr('form', 'wfacp_checkout_form');
+            })
+        })
+    }
 
     $(document.body).on('wfacp_setup', function () {
         product_switchers();
+        push_mini_input_field_to_checkout_form();
         wc_checkout_coupons_main.init();
         wc_checkout_coupon_field.init();
     });

@@ -430,7 +430,7 @@ class Iubenda_Legal_Block {
 
 		$dom->loadHTML(
 			$footer_content,
-			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_SCHEMA_CREATE
 		);
 		libxml_clear_errors();
 

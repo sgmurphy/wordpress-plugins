@@ -9,6 +9,8 @@ namespace AdTribes\PFP\Classes;
 
 use AdTribes\PFP\Abstracts\Abstract_Class;
 use AdTribes\PFP\Helpers\Helper;
+use AdTribes\PFP\Helpers\Product_Feed_Helper;
+use AdTribes\PFP\Updates\Version_13_3_5_Update;
 
 /**
  * General wp-admin related functionalities and/or overrides.
@@ -157,6 +159,32 @@ class WP_Admin extends Abstract_Class {
         }
     }
 
+    /***************************************************************************
+     * AJAX ACTIONS
+     * **************************************************************************
+     */
+
+    /**
+     * Migrate to custom post type.
+     *
+     * @since 13.3.5
+     * @access public
+     */
+    public function ajax_migrate_to_custom_post_type() {
+        if ( ! Product_Feed_Helper::is_current_user_allowed() ) {
+            wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'woo-product-feed-pro' ) ) );
+        }
+
+        if ( ! wp_verify_nonce( $_REQUEST['security'], 'woosea_ajax_nonce' ) ) {
+            wp_send_json_error( __( 'Invalid security token', 'woo-product-feed-pro' ) );
+        }
+
+        // Run the migration.
+        ( new Version_13_3_5_Update( true ) )->run();
+
+        wp_send_json_success( array( 'message' => __( 'Migration successful.', 'woo-product-feed-pro' ) ) );
+    }
+
     /**
      * Run the class
      *
@@ -180,5 +208,8 @@ class WP_Admin extends Abstract_Class {
 
         // Add notice bar.
         add_action( 'in_admin_header', array( $this, 'show_notice_bar_lite' ), 10 );
+
+        // Ajax actions.
+        add_action( 'wp_ajax_adt_migrate_to_custom_post_type', array( $this, 'ajax_migrate_to_custom_post_type' ) );
     }
 }

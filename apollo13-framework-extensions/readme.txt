@@ -50,6 +50,15 @@ All themes compatible are listed above in description.
 
 == Changelog ==
 
+= 1.9.8(11.07.2024) =
+
+Tested with WordPress 6.5
+
+Fixed:
+-anime.js embedding and dependencies fix
+
+----------------
+
 = 1.9.6(21.08.2024) =
 
 Tested with WordPress 6.6

@@ -1037,7 +1037,7 @@ if ( $this->wp_version >= 3 ) {
 				<ul>
 					<li>
 						<?php 
-							echo sprintf( '<a href="%1$s%2$s%3$s" data-count="%4$s" class="%5$s" target="%6$s" title="%7$s"> %8$s </a>', "https://twitter.com/share?text=", "This is Best Related Post Thumbnails Plugin for WordPress", "&url=https://wordpress.org/support/view/plugin-reviews/related-posts-thumbnails", 'none', ' twitter' , '_blank', __( 'Post to Twitter Now', 'related-posts-thumbnails'), __( 'Share on X/Twitter', 'related-posts-thumbnails' ) ); 
+							echo sprintf( '<a href="%1$s%2$s%3$s" data-count="%4$s" class="%5$s" target="%6$s" title="%7$s"> %8$s </a>', "https://twitter.com/share?text=", "This is Best Related Post Thumbnails Plugin for WordPress", "&url=https://wordpress.org/support/view/plugin-reviews/related-posts-thumbnails", 'none', ' twitter' , '_blank', __( 'Post to Twitter Now', 'related-posts-thumbnails'), __( 'Share on X', 'related-posts-thumbnails' ) ); 
 						?>
 					</li>
 					<li>
@@ -1047,7 +1047,7 @@ if ( $this->wp_version >= 3 ) {
 					</li>
 					<li> 
 						<?php 
-							echo sprintf( '<a href="%1$s" class="%3$s" target="%4$s" title="%5$s"> %6$s </a>', "https://wordpress.org/support/view/plugin-reviews/related-posts-thumbnails?filter=5", 'none', ' wordpress' , '_blank', __( 'Rate on Wordpress.org.', 'related-posts-thumbnails'), __( 'Rate on Wordpress.org', 'related-posts-thumbnails' ) );
+							echo sprintf( '<a href="%1$s" class="%3$s" target="%4$s" title="%5$s"> %6$s </a>', "https://wordpress.org/support/view/plugin-reviews/related-posts-thumbnails?filter=5", 'none', ' wordpress' , '_blank', __( 'Rate on WordPress.org.', 'related-posts-thumbnails'), __( 'Rate on WordPress.org', 'related-posts-thumbnails' ) );
 						?>
 					</li>
 				</ul>

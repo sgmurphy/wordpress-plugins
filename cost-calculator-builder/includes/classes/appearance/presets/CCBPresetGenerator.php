@@ -226,7 +226,7 @@ class CCBPresetGenerator {
 		if ( isset( $presets[ $key ] ) && isset( $new_data['desktop'] ) && isset( $new_data['mobile'] ) ) {
 			$desktop            = $new_data['desktop'];
 			$desktop_colors     = $desktop['colors']['data'];
-			$desktop_layout     = $desktop['layout']['data'];
+			$desktop_layout     = $desktop['layout']['data'] ?? array();
 			$desktop_typography = $desktop['typography']['data'];
 			$desktop_borders    = $desktop['borders']['data'];
 			$desktop_shadows    = $desktop['shadows']['data'];

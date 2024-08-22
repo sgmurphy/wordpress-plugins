@@ -288,7 +288,7 @@ if ( ! class_exists( 'WFFN_Admin' ) ) {
 
 
 				if ( WFFN_Core()->admin->is_wffn_flex_page() ) {
-					$this->load_react_app( 'main-1721646685' ); //phpcs:ignore WordPressVIPMinimum.Security.Mustache.OutputNotation
+					$this->load_react_app( 'main-1724322913' ); //phpcs:ignore WordPressVIPMinimum.Security.Mustache.OutputNotation
 					if ( isset( $_GET['page'] ) && $_GET['page'] === 'bwf' && method_exists( 'BWF_Admin_General_Settings', 'get_localized_bwf_data' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						wp_localize_script( 'wffn-contact-admin', 'bwfAdminGen', BWF_Admin_General_Settings::get_instance()->get_localized_bwf_data() );
 
@@ -1490,6 +1490,11 @@ if ( ! class_exists( 'WFFN_Admin' ) ) {
 		 * @throws Exception
 		 */
 		public function add_menu_in_admin_bar( WP_Admin_Bar $wp_admin_bar ) {
+			$user = WFFN_Core()->role->user_access( 'menu', 'read' );
+			if ( ! $user ) {
+				return;
+			}
+
 			global $post;
 			$wp_admin_bar->add_node( [
 				'id'    => 'wffn_funnel',

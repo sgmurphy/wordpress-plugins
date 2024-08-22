@@ -101,6 +101,8 @@ class WPBC_CSS extends WPBC_JS_CSS{
 			        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) { margin-top: 10px;border-top: 1px solid #535454; } ";
 		        }
 	        } else {
+
+		        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-child(4) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";         //FixIn: 10.1.3.1
 		        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";         //FixIn: 10.1.3.1
 	        }
 

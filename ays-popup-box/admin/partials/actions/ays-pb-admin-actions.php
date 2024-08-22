@@ -82,6 +82,7 @@ $options = array(
     'notification_type_components_order' => array(),
     'notification_logo_image' => '',
     'notification_logo_redirect_url' => '',
+    'notification_logo_redirect_to_new_tab' => 'off',
     'notification_main_content' => 'Write the custom notification banner text here.',
     'notification_button_1_text' => 'Click!',
     'notification_button_1_redirect_url' => '',
@@ -113,7 +114,7 @@ $options = array(
     'enable_open_delay_mobile' => 'off',
     'open_delay_mobile' => 0,
     'enable_scroll_top_mobile' => 'off',
-    'scroll_top_mobile' => 0, 
+    'scroll_top_mobile' => 0,
     'close_popup_esc' => 'on',
     'close_popup_overlay' => 'off',
     'close_popup_overlay_mobile' => 'off',
@@ -427,6 +428,9 @@ $notification_logo_image = (isset($options['notification_logo_image']) && $optio
 // Notification type | Logo redirect URL
 $notification_logo_redirect_url = (isset($options['notification_logo_redirect_url']) && $options['notification_logo_redirect_url'] != '') ? esc_url($options['notification_logo_redirect_url']) : '';
 
+// Notification type | Logo redirect to the new tab
+$notification_logo_redirect_to_new_tab = (isset($options['notification_logo_redirect_to_new_tab']) && $options['notification_logo_redirect_to_new_tab'] == 'on') ? true : false;
+
 // Notification type | Main content
 $notification_main_content = (isset($options['notification_main_content']) && $options['notification_main_content'] != '') ? stripslashes($options['notification_main_content']) : 'Write the custom notification banner text here.';
 
@@ -594,7 +598,7 @@ $close_button_hover_text = (isset($options['close_button_hover_text']) && $optio
 $autoclose_default_value = ($modal_content == 'image_type') ? 0 : 20;
 $autoclose = (isset($popupbox['autoclose']) && $popupbox['autoclose'] != "") ? abs( intval($popupbox['autoclose']) ) : $autoclose_default_value;
 
-// Enable autoclose delay mobile
+// Enable different autoclose delay mobile
 $enable_autoclose_delay_text_mobile = (isset($options['enable_autoclose_delay_text_mobile']) && $options['enable_autoclose_delay_text_mobile'] == 'on') ? true : false;
 
 // Autoclose delay mobile (in seconds)
@@ -616,7 +620,7 @@ $ays_pb_autoclose_on_completion = (isset($options['enable_autoclose_on_completio
 // Close button delay
 $close_button_delay = (isset($options['close_button_delay']) && $options['close_button_delay'] != '') ? abs( intval($options['close_button_delay']) ) : 0;
 
-// Enable close button delay mobile
+// Enable different close button delay mobile
 $enable_close_button_delay_for_mobile = (isset($options['enable_close_button_delay_for_mobile']) && $options['enable_close_button_delay_for_mobile'] == 'on') ? true : false;
 
 // Close button delay mobile
@@ -950,6 +954,44 @@ if (isset($options['close_animation_speed_mobile'])) {
     $close_animation_speed_mobile = $close_animation_speed;
 }
 
+// Background color
+$bgcolor = (isset($popupbox['bgcolor']) && $popupbox['bgcolor'] != '') ? esc_attr( stripslashes($popupbox['bgcolor']) ) : '';
+
+// Enable different background color mobile
+$enable_bgcolor_mobile = (isset($options['enable_bgcolor_mobile']) && $options['enable_bgcolor_mobile'] == 'on') ? true : false;
+
+// Background color mobile
+if (isset($options['bgcolor_mobile'])) {
+    $bgcolor_mobile = $options['bgcolor_mobile'] !== '' ? esc_attr( stripslashes($options['bgcolor_mobile']) ) : '';
+} else {
+    $bgcolor_mobile = $bgcolor;
+}
+
+// Background image
+switch ($view_type) {
+    case 'image':
+        $ays_pb_themes_bg_images = AYS_PB_ADMIN_URL . '/images/elefante.jpg';
+        break;
+    case 'template':
+        $ays_pb_themes_bg_images = AYS_PB_ADMIN_URL . '/images/girl-scaled.jpg';
+        break;
+    default:
+        $ays_pb_themes_bg_images = '';
+        break;
+}
+
+$bg_image = (isset($popupbox['bg_image']) && $popupbox['bg_image'] != '') ? esc_url($popupbox['bg_image']) : $ays_pb_themes_bg_images;
+
+// Enable different background image mobile
+$enable_bg_image_mobile = (isset($options['enable_bg_image_mobile']) && $options['enable_bg_image_mobile'] == 'on') ? true : false;
+
+// Background image mobile
+if (isset($options['bg_image_mobile'])) {
+    $bg_image_mobile = $options['bg_image_mobile'] !== '' ? esc_url($options['bg_image_mobile']) : '';
+} else {
+    $bg_image_mobile = $bg_image;
+}
+
 // Custom class for quiz container
 $custom_class = (isset($popupbox['custom_class']) && $popupbox['custom_class'] != "") ? esc_attr( stripslashes($popupbox['custom_class']) ) : '';
 $users_role   = (isset($popupbox['users_role']) && $popupbox['users_role'] != "") ? json_decode($popupbox['users_role'], true) : array();
@@ -1062,68 +1104,6 @@ $show_only_once = (isset($options['show_only_once']) && $options['show_only_once
 $ays_close_button_size = (isset($options['close_button_size']) && $options['close_button_size'] != '') ? esc_attr( abs($options['close_button_size']) ) : '1';
 
 $cookie             = (isset($popupbox['cookie']) && $popupbox['cookie'] != "") ? esc_attr( abs($popupbox['cookie']) ) : "";
-
-//Popup Background Color
-$bgcolor = (isset($popupbox['bgcolor']) && $popupbox['bgcolor'] != "") ? esc_attr( stripslashes(  $popupbox['bgcolor'] )) : "";
-
-//Enable Different Background Color Mobile
-if ( isset($options['enable_bgcolor_mobile']) ) {
-    $enable_bgcolor_mobile = $options['enable_bgcolor_mobile'] == 'on' ? true : false;
-} else {
-    $enable_bgcolor_mobile = false;
-}
-
-//Background Color Mobile
-if ( isset($options['bgcolor_mobile']) ) {
-    $bgcolor_mobile =  $options['bgcolor_mobile'] !== '' ? esc_attr($options['bgcolor_mobile']) : '';
-} else {
-    $bgcolor_mobile = $bgcolor;
-}
-
-switch ($view_type) {
-    case "image":
-        $ays_pb_themes_bg_images = AYS_PB_ADMIN_URL."/images/elefante.jpg";
-        break;
-    case "template":
-        $ays_pb_themes_bg_images = AYS_PB_ADMIN_URL."/images/girl-scaled.jpg";
-        break;  
-    default:
-        $ays_pb_themes_bg_images = "";
-        break;
-}
-
-// Background Image
-$bg_image = (isset($popupbox['bg_image']) && $popupbox['bg_image'] != "") ? esc_url($popupbox['bg_image']) : $ays_pb_themes_bg_images;
-
-// Enable Different Background Image Mobile
-$enable_bg_image_mobile = isset($options['enable_bg_image_mobile']) && $options['enable_bg_image_mobile'] == 'on' ? true : false;
-
-// Background Image Mobile
-if ( isset($options['bg_image_mobile']) ) {
-    $bg_image_mobile =  $options['bg_image_mobile'] !== '' ? esc_url($options['bg_image_mobile']) : '';
-} else {
-    $bg_image_mobile = $bg_image;
-}
-
-$image_text_bg = __('Add Image', "ays-popup-box");
-$style_bg = "display: none;";
-$data_add_bg_image = 'false';
-
-if (isset($bg_image) && $bg_image != '' && !empty( $bg_image )) {
-    $image_text_bg = __('Edit Image', "ays-popup-box");
-    $style_bg = "display: block;";
-    $data_add_bg_image = 'true';
-}
-
-$image_text_bg_mobile = __('Add Image', "ays-popup-box");
-$style_bg_mobile = "display: none;";
-$data_add_bg_image_mobile = 'false';
-
-if ( isset($bg_image_mobile) && $bg_image_mobile != '' && !empty($bg_image_mobile) ) {
-    $image_text_bg_mobile = __('Edit Image', "ays-popup-box");
-    $style_bg_mobile = "display: block;";
-    $data_add_bg_image_mobile = 'true';
-}
 
 // Background Image Position
 $pb_bg_image_position = (isset($options['pb_bg_image_position']) && $options['pb_bg_image_position'] != '') ? stripslashes( esc_attr($options['pb_bg_image_position']) ) : "center-center";
@@ -1428,10 +1408,11 @@ $ays_users_roles = $wp_roles->roles;
                     </a>
                 </div>
             </div>
-            <h1 class="wp-heading-inline" style="display:flex; flex-wrap: wrap;"></h1>
+            <h1 class="wp-heading-inline" style="display:flex; flex-wrap: wrap;">
+                <?php echo $heading ?>
+            </h1>
             <div class="ays-pb-heading-buttons">
             <?php
-                echo $heading;
                 $save_attributes = array(
                     'id' => 'ays-button-top-apply',
                     'title' => 'Ctrl + s',
@@ -1442,7 +1423,7 @@ $ays_users_roles = $wp_roles->roles;
                 submit_button(__('Save and close', "ays-popup-box"), 'primary', 'ays_submit_top', false, $save_close_attributes);
                 submit_button(__('Save', "ays-popup-box"), '', 'ays_apply_top', false, $save_attributes);
             ?>
-                <a href="<?php echo $ays_pb_page_url; ?>" class="button" style="margin-left:10px;" ><?php echo __('Cancel',"ays-popup-box");?></a>
+                <a href="<?php echo $ays_pb_page_url; ?>" class="button"><?php echo __('Cancel',"ays-popup-box");?></a>
                 <?php
                     echo $loader_image;
                 ?>
@@ -1809,6 +1790,20 @@ $ays_users_roles = $wp_roles->roles;
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="text" id="ays_pb_notification_logo_redirect_url" class="ays-text-input" name="ays_pb_notification_logo_redirect_url" value="<?php echo $notification_logo_redirect_url ?>" />
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="ays_pb_notification_logo_redirect_to_new_tab">
+                                            <?php  echo __('Redirect to the new tab', "ays-popup-box" ) ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Tick this option to redirect to another tab.", "ays-popup-box"); ?>" >
+                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="checkbox" id="ays_pb_notification_logo_redirect_to_new_tab" name="ays_pb_notification_logo_redirect_to_new_tab" <?php echo $notification_logo_redirect_to_new_tab ? 'checked' : ''; ?>>
                                     </div>
                                 </div>
                             </div>
@@ -5209,11 +5204,11 @@ $ays_users_roles = $wp_roles->roles;
                                     <div>
                                         <div>
                                             <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_bg_image_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 85px;"><?php echo __('PC', "ays-popup-box") ?></div>
-                                            <a href="javascript:void(0)" class="button ays-pb-add-bg-image" data-add='<?php echo $data_add_bg_image ?>'>
-                                                <?php echo $image_text_bg; ?>
+                                            <a href="javascript:void(0)" class="button ays-pb-add-bg-image" data-add='<?php echo $bg_image != '' ? 'true' : 'false'; ?>'>
+                                                <?php echo $bg_image != '' ? __('Edit Image', "ays-popup-box") : __('Add Image', "ays-popup-box"); ?>
                                             </a>
                                         </div>
-                                        <div style="<?php echo $style_bg; ?>">
+                                        <div style="<?php echo $bg_image != '' ? 'display: block' : 'display: none'; ?>">
                                             <div class="ays-pb-bg-image-container ays-pb-edit-image-container">
                                                 <span class="ays-remove-bg-img ays-pb-edit-image-container-remove-img"></span>
                                                 <img src="<?php echo $bg_image ; ?>" id="ays-pb-bg-img"/>
@@ -5225,11 +5220,11 @@ $ays_users_roles = $wp_roles->roles;
                                         <hr>
                                         <div>
                                             <div class="ays_pb_current_device_name show" style="text-align: center; margin-bottom: 10px; max-width: 85px;"><?php echo __('Mobile', "ays-popup-box") ?></div>
-                                            <a href="javascript:void(0)" class="button ays-pb-add-bg-image-mobile" data-add='<?php echo $data_add_bg_image_mobile ?>'>
-                                                <?php echo $image_text_bg_mobile; ?>
+                                            <a href="javascript:void(0)" class="button ays-pb-add-bg-image-mobile" data-add='<?php echo $bg_image != '' ? 'true' : 'false'; ?>'>
+                                                <?php echo $bg_image_mobile != '' ? __('Edit Image', "ays-popup-box") : __('Add Image', "ays-popup-box"); ?>
                                             </a>
                                         </div>
-                                        <div style="<?php echo $style_bg_mobile; ?>">
+                                        <div style="<?php echo $bg_image != '' ? 'display: block' : 'display: none'; ?>">
                                             <div class="ays-pb-bg-image-container-mobile ays-pb-edit-image-container">
                                                 <span class="ays-remove-bg-img-mobile ays-pb-edit-image-container-remove-img"></span>
                                                 <img src="<?php echo $bg_image_mobile ; ?>" id="ays-pb-bg-img-mobile"/>

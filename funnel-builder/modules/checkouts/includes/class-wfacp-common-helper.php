@@ -1964,7 +1964,7 @@ abstract class WFACP_Common_Helper {
 			'label'      => __( 'Order Summary', 'funnel-builder' ),
 		];
 
-		$field['order_total']  = [
+		$field['order_total']             = [
 			'type'       => 'wfacp_html',
 			'field_type' => 'advanced',
 			'class'      => [ 'wfacp_order_total' ],
@@ -1974,8 +1974,8 @@ abstract class WFACP_Common_Helper {
 			'label'      => __( 'Order Total', 'funnel-builder' ),
 			'is_pro'     => true,
 		];
-		$success_message       = sprintf( __( 'Congrats! Coupon code %s %s applied successfully.', 'funnel-builder' ), '{{coupon_code}}', '({{coupon_value}})' );
-		$field['order_coupon'] = [
+		$success_message                  = sprintf( __( 'Congrats! Coupon code %s %s applied successfully.', 'funnel-builder' ), '{{coupon_code}}', '({{coupon_value}})' );
+		$field['order_coupon']            = [
 			'type'                           => 'wfacp_html',
 			'field_type'                     => 'advanced',
 			'class'                          => [ 'wfacp_order_coupon' ],
@@ -1989,7 +1989,7 @@ abstract class WFACP_Common_Helper {
 			'id'             => 'wc_advanced_order_field',
 			'type'           => 'wfacp_html',
 			'label'          => __( 'Extra Advanced Fields' ),
-			'placeholder'   => '',
+			'placeholder'    => '',
 			'data_label'     => __( 'Extra Advanced Fields' ),
 			'required'       => false,
 			'default'        => '',
@@ -1997,6 +1997,7 @@ abstract class WFACP_Common_Helper {
 			'is_wfacp_field' => 'true',
 			'class'          => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_date_field' ],
 		];
+
 		return apply_filters( 'wfacp_advanced_fields', $field );
 	}
 
@@ -2912,4 +2913,22 @@ abstract class WFACP_Common_Helper {
 
 
 	}
+
+	/**
+	 * Return subscription version if woocommerce payment or Main Subscription
+	 * @return string
+	 *
+	 */
+	public static function get_subscription_version() {
+
+		if ( class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
+			$instance = WC_Subscriptions_Core_Plugin::instance();
+
+			return $instance->get_plugin_version();
+		}
+
+		return WC_Subscriptions::$version;
+
+	}
+
 }

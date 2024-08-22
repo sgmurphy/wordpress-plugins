@@ -88,6 +88,11 @@ if ( ! class_exists( 'WFFN_Public' ) ) {
 				return;
 			}
 
+			$is_preview_mode = WFFN_Common::is_page_builder_preview();
+			if ( $is_preview_mode ) {
+				return;
+			}
+
 			global $post;
 
 			if ( is_null( $post ) ) {
@@ -118,9 +123,8 @@ if ( ! class_exists( 'WFFN_Public' ) ) {
 			 * Go ahead and enqueue the scripts
 			 */
 			$this->funnel_setup_result['setup_time'] = strtotime( gmdate( 'c' ) );
-			$this->funnel_setup_result['is_preview'] = WFFN_Common::is_page_builder_preview();
+			$this->funnel_setup_result['is_preview'] = $is_preview_mode;
 			add_action( 'wp_enqueue_scripts', array( $this, 'maybe_add_script' ) );
-
 		}
 
 		/**
@@ -608,6 +612,10 @@ if ( ! class_exists( 'WFFN_Public' ) ) {
 
 
 		public function maybe_setup_tracking_script() {
+			$is_preview_mode = WFFN_Common::is_page_builder_preview();
+			if ( $is_preview_mode ) {
+				return;
+			}
 			WFFN_Tracking_SiteWide::get_instance()->tracking_script();
 		}
 

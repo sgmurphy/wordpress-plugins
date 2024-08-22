@@ -215,7 +215,8 @@ div.datepick-inline .datepick-title-row th{
 .datepick-inline .datepick-days-cell div.date-content-bottom,
 .datepick-inline .datepick-days-cell div.date-content-top {
 	font-weight: 400;
-    color:#0000006b;
+    color: var(--wpbc_cal-available-text-color);
+	color: rgb(from var(--wpbc_cal-available-text-color) r g b / 50%);
     font-size: var(--wpbc_cal-text-cost-size);
 }
 /* Selected dates - Top and bottom "cost text" in day cells */

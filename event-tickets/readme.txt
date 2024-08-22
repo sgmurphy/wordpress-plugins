@@ -197,6 +197,7 @@ Make sure you are reporting in a safe and responsible way. We take security very
 
 * [Report security bugs through the Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/event-tickets)
 * Reach out directly to us on `security [at] stellarwp.com`.
+* Check our [Bug Bounty Program](https://www.liquidweb.com/policies/bug-bounty-program/)
 
 = I've still got questions. Where can I find answers? =
 

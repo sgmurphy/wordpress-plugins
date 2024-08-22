@@ -192,6 +192,16 @@
                                 return $login_url;
                         }
                     
+                    //Gravity Forms
+                    if ( isset ( $_GET['gf_page'] ))
+                        {
+                            include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+                            if ( is_plugin_active( 'gravityforms/gravityforms.php' ))
+                                {
+                                    return home_url( );   
+                                }
+                        }
+                    
                     //check for redirect fro admin to login url and the disable redirect option
                     $new_admin_url          =   $this->wph->functions->get_module_item_setting('admin_url');
                     $disable_redirect_url   =   $this->wph->functions->get_module_item_setting('disable_admin_redirect_to_login');

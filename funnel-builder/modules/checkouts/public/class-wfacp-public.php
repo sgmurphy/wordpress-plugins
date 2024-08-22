@@ -744,7 +744,7 @@ class WFACP_Public {
 		WC()->session->__unset( 'wfacp_sustain_cart_content_' . $checkout_id );
 		WC()->session->__unset( 'removed_cart_contents' );
 		WC()->session->__unset( 'wfacp_woocommerce_applied_coupon_' . $checkout_id );
-
+		do_action( 'wfacp_reset_checkout_session_data', $checkout_id );
 		return $data;
 	}
 

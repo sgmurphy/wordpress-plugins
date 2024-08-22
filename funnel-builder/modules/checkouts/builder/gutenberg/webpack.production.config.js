@@ -25,7 +25,7 @@ module.exports = {
             ignoreOrder: true,
             chunkFilename: '[id].[contenthash].css',
         }),
-        new BundleAnalyzerPlugin(),
+      //  new BundleAnalyzerPlugin(),
         new DependencyExtractionWebpackPlugin({injectPolyfill: true}),
         new webpack.DefinePlugin({envMode: 'production'})
     ],

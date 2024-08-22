@@ -372,7 +372,7 @@ function wpbc_get__custom_booking_form_name( $resource_id = 1, $form_data = '' )
 function wpbc_get__booking_form_fields__configuration( $resource_id = 1, $form_name = 'standard' ) {
 
 	if ( ! class_exists( 'wpdev_bk_personal' ) ) {
-		$booking_form_configuration = wpbc_get_free_form_fields_configuration();
+		$booking_form_configuration = wpbc_simple_form__get_booking_form__as_shortcodes();
 	} else {
 		$booking_form_configuration = get_bk_option( 'booking_form' );
 
@@ -421,7 +421,8 @@ function wpbc_get__booking_form_data_configuration( $resource_id = 1, $form_data
 
 	if ( ! class_exists( 'wpdev_bk_personal' ) ) {
 
-		$booking_form_show = wpbc_get_free_booking_show_form();
+		$booking_form_show = wpbc_simple_form__get_form_show__as_shortcodes();
+		$booking_form_show = wpbc_bf__replace_custom_html_shortcodes( $booking_form_show );
 
 	} else {
 
@@ -459,24 +460,7 @@ function wpbc_get__booking_form_data_configuration( $resource_id = 1, $form_data
 }
 
 
-/**
- * Get (in Free version) configuration  of 'BOOKING FORM DATA'  from  -  Booking > Settings > Form page
- *
- * @return false|mixed
- */
-function wpbc_get_free_booking_show_form() {
 
-	$booking_form_show = apply_bk_filter( 'wpbc_get_free_booking_show_form' );
-	return  $booking_form_show;
-}
-
-// Get form
-function wpbc_get_free_form_fields_configuration() {
-
-	$my_form = apply_bk_filter( 'wpbc_get_free_booking_form_shortcodes' );
-
-	return  $my_form;
-}
 
 // -------------------------------------------------------------------------------------------------------------
 

@@ -1,7 +1,11 @@
+
 (function ($) {
     $(window).on('elementor/frontend/init', function () {
 
         var PremiumMobileMenuHandler = elementorModules.frontend.handlers.Base.extend({
+
+            observer: null, // Reference to the IntersectionObserver
+            isNotScrolling: false, // Flag to determine if the user is scrolling manually
 
             getDefaultSettings: function () {
 
@@ -16,24 +20,26 @@
                     },
                     selectors: {
                         wrap: '.premium-mobile-menu__wrap',
-                        list: '.premium-mobile-menu__list'
-
+                        list: '.premium-mobile-menu__list',
+                        item: '.premium-mobile-menu__item',
                     }
                 }
             },
 
             getDefaultElements: function () {
-
                 var selectors = this.getSettings('selectors');
 
                 return {
                     $wrap: this.$element.find(selectors.wrap),
                     $list: this.$element.find(selectors.list),
+                    $items: this.$element.find(selectors.item),
                 }
 
             },
             bindEvents: function () {
                 this.run();
+                this.handleItemClick();
+                this.observeSections();
             },
 
             getSlickSettings: function () {
@@ -94,14 +100,92 @@
 
             run: function () {
 
-                var $list = this.elements.$list;
-
-                var carousel = this.getElementSettings('carousel');
+                var $list = this.elements.$list,
+                    carousel = this.getElementSettings('carousel');
 
                 if (carousel)
                     $list.slick(this.getSlickSettings());
 
-            }
+            },
+
+            handleItemClick: function () {
+                var self = this,
+                    $items = this.elements.$items;
+
+                var currentPageURL = window.location.href;
+                // //Loop through each menu item
+                $items.each(function () {
+                    var $item = $(this);
+                    var menuItemHref = $item.find('a').attr('href');
+                    console.log(menuItemHref, currentPageURL);
+                    // Check if the menu item's link matches the current page URL
+                    if (menuItemHref === currentPageURL) {
+                        // Add the active class if it matches
+                        $item.addClass('active-menu-item');
+                    }
+                });
+
+                $items.on('click', function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+
+                    if (!$this.hasClass('active-menu-item')) {
+                        $items.removeClass('active-menu-item');
+                        $this.addClass('active-menu-item');
+                    }
+
+                    // Pause the IntersectionObserver
+                    self.isNotScrolling = true;
+
+                    // Scroll to the corresponding section
+                    var targetId = $this.data('target');
+                    if (targetId) {
+                        var targetElement = $(targetId);
+                        $(window).animate({
+                            scrollTop: targetElement.offset().top
+                        }, 500, function () {
+                            // enable the IntersectionObserver after scroll completes
+                            self.isNotScrolling = false;
+                        });
+                    }
+                });
+            },
+
+            observeSections: function () {
+                var self = this,
+                    observerOptions = {
+                        root: null,
+                        rootMargin: '0px',
+                        threshold: 0.5,
+                    };
+
+                var observerCallback = function (entries) {
+
+                    if (!self.isNotScrolling) {
+                        entries.forEach(function (entry) {
+                            var $item = self.elements.$items.filter('[data-target="#' + entry.target.id + '"]');
+
+                            if (entry.isIntersecting) {
+                                self.elements.$items.removeClass('active-menu-item');
+                                $item.addClass('active-menu-item');
+                            }
+                        });
+                    }
+                };
+
+                self.observer = new IntersectionObserver(observerCallback, observerOptions);
+                //Observe sections dynamically based on menu items' data-target attributes
+                this.elements.$items.each(function () {
+                    var targetId = $(this).data('target');
+                    if (targetId) {
+                        var targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            self.observer.observe(targetElement);
+                        }
+                    }
+                });
+            },
+
 
         });
 

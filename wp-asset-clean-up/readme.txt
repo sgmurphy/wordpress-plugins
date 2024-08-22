@@ -4,7 +4,7 @@ Tags: minify css, minify javascript, defer css javascript, page speed, dequeue
 Donate link: https://www.gabelivan.com/items/wp-asset-cleanup-pro/?utm_source=wp_org_lite&utm_medium=donate
 Requires at least: 4.6
 Tested up to: 6.6.1
-Stable tag: 1.3.9.5
+Stable tag: 1.3.9.6
 Requires PHP: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -192,6 +192,9 @@ With the recently released "Test Mode" feature, you can safely unload assets on 
 4. Homepage CSS & JS Management (List sorted by location)
 
 == Changelog ==
+= 1.3.9.6 =
+* Fix: The "usermeta" table is populated with duplicate entries, leading to a larger database, and sometimes, leading to a high CPU usage
+
 = 1.3.9.5 =
 * New Option: "Settings" -- "Plugin Usage Preferences" -- "Plugin Access" / Choose user roles or particular users, apart from administrators, that could have access to the plugin area * e.g. the admin could give Asset CleanUp Pro access within the Dashboard to a developer that is optimizing the website, but the developer does not have the "administrator" role for security reasons
 * "wpacu_access_role" filter is no longer active (related to the option mentioned above), as it wasn't 100% effective into changing who accesses the Asset CleanUp Pro area
