@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 5.0.4
+ * Version: 5.0.5
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '5.0.4' );
+define( 'BT_BB_VERSION', '5.0.5' );
 // VERSION --------------------------------------------------------- \\
  
 define( 'BT_BB_FEATURE_ADD_ELEMENTS', true );
@@ -32,6 +32,12 @@ if ( file_exists( get_template_directory() . '/bt_bb_config.php' ) ) {
 add_filter( 'the_content', 'bt_bb_parse_content', 20 );
 function bt_bb_parse_content( $content ) {
 	
+	global $wp_query;
+	global $post;
+	if ( $post->ID != $wp_query->queried_object->ID ) { // latest posts fix (The Loop & bt_bb_active_for_post_type_fe())
+		return $content;
+	}
+	
 	if ( ! ( is_singular() && in_the_loop() && is_main_query() ) ) {
 		return $content;
 	}	
@@ -39,14 +45,14 @@ function bt_bb_parse_content( $content ) {
 	if ( BT_BB_Root::$fe_wrap_count > 1 ) {
 		return $content;
 	}
-	
-	BT_BB_Root::$fe_wrap_count++;
-	
+
 	if ( bt_bb_active_for_post_type_fe() ) {
+		
+		BT_BB_Root::$fe_wrap_count++;
 		
 		$content = str_ireplace( array( '``', '`{`', '`}`' ), array( '&quot;', '&#91;', '&#93;' ), $content );
 		$content = str_ireplace( array( '*`*`*', '*`*{*`*', '*`*}*`*' ), array( '``', '`{`', '`}`' ), $content );
-		
+
 		if ( is_singular() ) {
 			
 			$data_templates_time = '';
@@ -136,6 +142,12 @@ function bt_bb_disable_gutenberg( $is_enabled, $post_type ) {
 add_filter( 'use_block_editor_for_post_type', 'bt_bb_disable_gutenberg', 10, 2 );
 
 function bt_bb_parse_content_admin( $content ) {
+	
+	global $wp_query;
+	global $post;
+	if ( $post->ID != $wp_query->queried_object->ID ) { // latest posts fix
+		return $content;
+	}
 	
 	if ( ! ( is_singular() && in_the_loop() && is_main_query() ) ) {
 		return $content;
@@ -1255,6 +1267,13 @@ class BT_BB_Remove_Params_Proxy {
  * Remove wpautop
  */
 function bt_bb_wpautop( $content ) {
+	
+	global $wp_query;
+	global $post;
+	if ( $post->ID != $wp_query->queried_object->ID ) {
+		return $content;
+	}	
+	
 	if ( ! ( is_singular() && in_the_loop() && is_main_query() ) ) {
 		return $content;
 	}	
@@ -1626,7 +1645,11 @@ class BT_BB_Basic_Element {
 		add_shortcode( $this->shortcode, array( $this, 'handle_shortcode' ) );
 		
 		// add_action( 'wp_loaded', array( $this, 'map_shortcode' ) );
-		add_action( 'admin_bar_init', array( $this, 'map_shortcode' ) );
+		add_action( 'admin_bar_init', array( $this, 'map_shortcode' ), 8 ); // priority 9 in admin_bar_init in bold-builder-fe.php
+		
+		if ( ! is_admin() ) {
+			add_action( 'admin_bar_init', array( $this, 'enqueue' ) );
+		}
 		
 		//$this->map_shortcode();
 		$this->add_params();
@@ -1636,6 +1659,10 @@ class BT_BB_Basic_Element {
 		add_filter( $this->shortcode . '_class', array( $this, 'animation_callback' ), 10, 2 );
 		add_action( $this->shortcode . '_before_extra_responsive_param', array( $this, 'extra_responsive_param' ) );
 		add_filter( $this->shortcode . '_output', array( $this, 'data_shortcode_fe_editor' ), 10, 2 );
+	}
+	
+	function enqueue() {
+		
 	}
 	
 	function add_params() {

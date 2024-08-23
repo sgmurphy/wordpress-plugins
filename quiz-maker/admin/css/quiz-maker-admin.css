@@ -7353,3 +7353,35 @@ div .wp-picker-container .wp-color-result.button {
         margin-top: 10px;
     }
 }
+
+/* Quiz options accordion | Start */
+
+.ays-quiz-accordion-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.ays-quiz-accordion-container p.ays-subtitle {
+    margin: 0px;
+}
+
+.ays-quiz-accordion-container .ays-quiz-accordion-arrow-box {
+    cursor: pointer;
+}
+
+.ays-quiz-accordion-container .ays-quiz-accordion-arrow {
+    transition: .3s ease;
+}
+
+.ays-quiz-accordion-container .ays-quiz-accordion-arrow-right,
+.ays-quiz-accordion-container .ays-quiz-accordion-arrow-right path {
+    fill: #c4c4c4;
+}
+
+.ays-quiz-accordion-container .ays-quiz-accordion-arrow-down {
+    transform: rotate(90deg);
+}
+
+/* Quiz options accordion | End */

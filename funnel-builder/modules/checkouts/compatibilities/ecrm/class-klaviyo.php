@@ -15,6 +15,8 @@ class WFACP_Compatibility_With_Klaviyo {
 		'kl_sms_consent_checkbox',
 	];
 
+	private $klavio_settings = [];
+
 
 	public function __construct() {
 
@@ -244,17 +246,25 @@ class WFACP_Compatibility_With_Klaviyo {
 	}
 
 	public function remove_other_action() {
+
+		$this->klavio_settings = get_option( 'klaviyo_settings' );
+
 		remove_filter( 'woocommerce_after_checkout_billing_form', 'kl_sms_compliance_text' );
 	}
 
 	public function kl_sms_consent() {
-		if ( ! function_exists( 'kl_sms_compliance_text' ) ) {
+		if ( ! function_exists( 'kl_sms_compliance_text' ) || ! is_array( $this->klavio_settings ) || count( $this->klavio_settings ) <= 0 ) {
 			return;
 		}
 
-		echo '<p class="kl_sms_compliance_text form-row wfacp-form-control-wrapper wfacp-col-full kl_sms_consent_checkbox_field ">';
-		kl_sms_compliance_text();
-		echo '</p>';
+
+		if ( isset( $this->klavio_settings['klaviyo_sms_subscribe_checkbox'] ) && !empty($this->klavio_settings['klaviyo_sms_subscribe_checkbox']) && isset( $this->klavio_settings['klaviyo_sms_list_id'] ) && ! empty( $this->klavio_settings['klaviyo_sms_list_id'] ) ) {
+			echo '<p class="kl_sms_compliance_text form-row wfacp-form-control-wrapper wfacp-col-full kl_sms_consent_checkbox_field ">';
+			kl_sms_compliance_text();
+			echo '</p>';
+		}
+
+
 	}
 
 	public function disabled_third_party_billing_fields( $fields ) {

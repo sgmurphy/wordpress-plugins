@@ -492,7 +492,6 @@ if ( ! function_exists( 'bt_bb_get_posts' ) ) {
 		}
 		
 		/* Get non sticky posts */
-		
 
 		if ( $number > 0 ) {
 			$recent_posts_q = array();
@@ -532,7 +531,6 @@ if ( ! function_exists( 'bt_bb_get_posts' ) ) {
  */
 if ( ! function_exists( 'bt_bb_get_posts_array' ) ) {
 	function bt_bb_get_posts_array( $recent_posts_q, $post_type, $sticky_arr ) {
-		
 		$posts_data = array();
 		if ( isset( $recent_posts_q ) && $recent_posts_q->have_posts() ) {
 			while ( $recent_posts_q->have_posts() ) {
@@ -545,9 +543,8 @@ if ( ! function_exists( 'bt_bb_get_posts_array' ) ) {
 				}
 				$posts_data[] = bt_bb_get_posts_array_item( $post_type, $post_id, $post_author );
 			}
-			wp_reset_postdata();			
-		} 
-
+		}
+		wp_reset_postdata();
 		
 		return $posts_data;
 	}

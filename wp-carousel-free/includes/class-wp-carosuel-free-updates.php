@@ -100,8 +100,6 @@ class WP_Carousel_Free_Updates {
 		}
 
 		update_option( 'wp_carousel_free_version', WPCAROUSELF_VERSION );
-
 	}
-
 }
 new WP_Carousel_Free_Updates();

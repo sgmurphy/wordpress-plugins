@@ -156,6 +156,15 @@ class Ezoic_AdTester_Content_Inserter2 extends Ezoic_AdTester_Inserter {
 		$content = \ez_substr_replace( $content, $placeholder_markup, $position + $this->position_offset );
 		$this->position_offset += $placeholder_markup_len;
 
+		if ( EZOIC_DEBUG ) {
+			$debugInfo = "";
+			$debugInfo .= 'Placeholder ID: ' . $placeholder->position_id . PHP_EOL;
+			$debugInfo .= 'Paragraph Insertion Number: ' . $paragraph_number . PHP_EOL;
+			$debugInfo .= 'Mode: ' . $mode . PHP_EOL;
+			$commented_content = "<!--[if IE 3 ]>Debugging Placeholder Insert: \n" . print_r($debugInfo, true) . "\n<![endif]-->";
+			$content = $content . $commented_content;
+		}
+		
 		return $content;
 	}
 

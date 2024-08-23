@@ -84,6 +84,7 @@ These features are part of our Image Widget Plus plugin. You can learn more abou
 Make sure you are reporting in a safe and responsible way. We take security very seriously. If you discover a security issue, please bring it to our attention right away! Below you will find all the methods to report security vulnerabilities:
 
 * [Report security bugs through the Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/image-widget)
+* Check our [Bug Bounty Program](https://www.liquidweb.com/policies/bug-bounty-program/)
 * Reach out directly to us on `security [at] stellarwp.com`.
 
 = Where do I go to file a bug or ask a question? =

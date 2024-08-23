@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: FunnelKit Funnel Builder 3.5.0\n"
+"Project-Id-Version: FunnelKit Funnel Builder 3.5.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/funnel-builder\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-22T16:05:48+05:30\n"
+"POT-Creation-Date: 2024-08-23T16:09:03+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: funnel-builder\n"
@@ -62,7 +62,7 @@ msgstr ""
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/53.7766dcf981a9d671ef04.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/upsell-stripe-notice/index.js:55
 #: admin/views/contact/src/onboarding/components/stripe-action-button/index.js:97
 msgid "Stripe"
@@ -90,7 +90,7 @@ msgstr ""
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/53.7766dcf981a9d671ef04.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnelSidebar/index.js:41
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:454
 #: admin/views/contact/src/client/hooks/use-storeCheckout-nav.js:376
@@ -120,7 +120,7 @@ msgstr ""
 #: admin/views/contact/dist/26.fce6a7ef3536277da76c.js:1
 #: admin/views/contact/dist/28.91ef5a5d2bbfaa80ed53.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/pages/analytics/conversion-analytics.js:34
 #: admin/views/contact/src/client/pages/analytics/conversion-analytics.js:41
 #: admin/views/contact/src/client/pages/analytics/conversion-analytics.js:48
@@ -155,7 +155,7 @@ msgstr ""
 
 #: admin/class-wffn-admin-dashboard-widget.php:240
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:137
 msgid "Installs from WordPress.org"
 msgstr ""
@@ -168,8 +168,8 @@ msgstr ""
 #: admin/class-wffn-admin-dashboard-widget.php:376
 #: admin/views/contact/dist/22.490fc1de5b4bf4b58c74.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:1
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:90
 #: admin/views/contact/src/onboarding/components/onboarding.js:153
 #: admin/views/contact/src/onboarding/components/stripe-action-button/index.js:93
@@ -209,8 +209,8 @@ msgstr ""
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:1
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-header-menu/index.js:406
 #: admin/views/contact/src/settings/components/settings-tab-content.js:70
 #: admin/views/contact/src/settings/components/settings-tab-content.js:438
@@ -252,8 +252,8 @@ msgstr ""
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:1
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/automations/components/automation.js:45
 #: admin/views/contact/src/automations/components/automation.js:57
 #: admin/views/contact/src/cart/fkcart.js:147
@@ -268,8 +268,8 @@ msgstr ""
 #: admin/class-wffn-admin-dashboard-widget.php:365
 #: admin/includes/class-wffn-stripe-admin-controller.php:359
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:1
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:91
 #: admin/views/contact/src/components/notification/stripe-install.js:96
 #: admin/views/contact/src/onboarding/components/stripe-action-button/index.js:123
@@ -283,7 +283,7 @@ msgstr ""
 
 #: admin/class-wffn-admin-notifications.php:63
 #: admin/views/contact/dist/22.490fc1de5b4bf4b58c74.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:167
 #: admin/views/contact/src/onboarding/components/onboarding.js:64
 msgid "Learn More"
@@ -308,7 +308,7 @@ msgid "Learn more"
 msgstr ""
 
 #: admin/class-wffn-admin-notifications.php:144
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/templates/index.js:112
 #: admin/views/contact/src/templates/index.js:158
 #: admin/views/contact/src/user-setup/steps/storeCheckoutCreated.js:29
@@ -412,19 +412,19 @@ msgid " Switch to Classic Checkout"
 msgstr ""
 
 #: admin/class-wffn-admin-notifications.php:478
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/quickSetup.js:15
 msgid "Funnel Builder Quick Setup"
 msgstr ""
 
 #: admin/class-wffn-admin-notifications.php:480
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/quickSetup.js:21
 msgid "Thank you for activating Funnel Builder by FunnelKit. Go through a quick setup to ensure most optimal experience."
 msgstr ""
 
 #: admin/class-wffn-admin-notifications.php:482
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/quickSetup.js:31
 msgid "Start Wizard"
 msgstr ""
@@ -444,14 +444,14 @@ msgstr ""
 
 #: admin/class-wffn-admin.php:215
 #: admin/includes/class-wffn-header.php:82
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-page-heading/index.js:50
 msgid "Automations"
 msgstr ""
 
 #: admin/class-wffn-admin.php:232
 #: admin/includes/class-wffn-header.php:52
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-page-heading/index.js:26
 msgid "Dashboard"
 msgstr ""
@@ -464,7 +464,7 @@ msgstr ""
 #: admin/views/contact/dist/21.e9f110cd420defb45d4a.js:1
 #: admin/views/contact/dist/33.5894a9e63789913903fa.js:1
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/analytics/sidebar.js:19
 #: admin/views/contact/src/client/funnel.js:29
 #: admin/views/contact/src/client/hooks/use-analytics-nav.js:166
@@ -490,7 +490,7 @@ msgstr ""
 #: admin/includes/class-wffn-header.php:473
 #: admin/views/contact/dist/33.5894a9e63789913903fa.js:1
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/analytics/index.js:60
 #: admin/views/contact/src/analytics/sidebar.js:69
 #: admin/views/contact/src/client/components/flow/modal/type/lite.js:12
@@ -507,7 +507,7 @@ msgstr ""
 #: admin/views/contact/dist/23.1870a400a2db962e0a01.js:1
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-header-menu/useStoreCheckoutMenu.js:15
 #: admin/views/contact/src/components/bwf-header-menu/useStoreCheckoutMenu.js:25
 #: admin/views/contact/src/components/bwf-header-menu/useStoreCheckoutMenu.js:34
@@ -546,13 +546,13 @@ msgstr ""
 #: admin/class-wffn-admin.php:482
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:748
 msgid "Lite"
 msgstr ""
 
 #: admin/class-wffn-admin.php:483
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/index.js:146
 msgid "PRO"
 msgstr ""
@@ -565,7 +565,7 @@ msgstr ""
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/22.490fc1de5b4bf4b58c74.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:32
 #: admin/views/contact/src/onboarding/components/onboarding.js:631
 msgid "One Click Upsells"
@@ -588,7 +588,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:3
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/flow/modal/type/lite.js:64
 #: admin/views/contact/src/client/components/funnel/add-step/select-step.js:68
 #: admin/views/contact/src/client/components/global/get-pro-modal.js:16
@@ -637,7 +637,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:1
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/canvas/modal/select-step.js:86
 #: admin/views/contact/src/client/components/templates/templates.js:57
 #: admin/views/contact/src/client/pages/analytics/funnel-analytics/funnel-table.js:117
@@ -673,7 +673,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:1
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/canvas/modal/select-step.js:102
 #: admin/views/contact/src/client/components/flow/modal/type/select-step.js:83
 #: admin/views/contact/src/client/components/leads_list/lead-delete-modal.js:67
@@ -734,7 +734,7 @@ msgid "Edit Optin Confirmation"
 msgstr ""
 
 #: admin/class-wffn-admin.php:1574
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/global/funnel-edit-modal.js:92
 msgid "Edit Funnel"
 msgstr ""
@@ -819,7 +819,7 @@ msgstr ""
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/analytics/reset.js:89
 #: admin/views/contact/src/client/components/canvas/modal/delete-step.js:102
 #: admin/views/contact/src/client/components/contact_list/bulk-action/index.js:127
@@ -921,7 +921,7 @@ msgstr ""
 #: admin/includes/class-wffn-header.php:75
 #: modules/checkouts/builder/divi/modules/class-divi-form.php:211
 #: modules/checkouts/builder/elementor/widgets/class-elementor-form.php:500
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-page-heading/index.js:53
 #: modules/checkouts/builder/gutenberg/dist/wfacp-block-editor.js:1
 msgid "Cart"
@@ -946,7 +946,7 @@ msgstr ""
 #: admin/includes/class-wffn-header.php:204
 #: admin/views/contact/dist/9.35e05c8121ba9e3b4b80.js:1
 #: admin/views/contact/dist/24.309a01447bb28007a4b4.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/experiments/add-variant.js:156
 #: admin/views/contact/src/client/hooks/use-contacts-nav.js:65
 #: admin/views/contact/src/components/bwf-header-menu/index.js:452
@@ -964,7 +964,7 @@ msgstr ""
 #: modules/checkouts/builder/elementor/widgets/class-elementor-form.php:562
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnelSidebar/index.js:25
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:339
 #: admin/views/contact/src/client/hooks/use-storeCheckout-nav.js:331
@@ -1012,20 +1012,20 @@ msgstr ""
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/53.7766dcf981a9d671ef04.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:122
 #: admin/views/contact/src/components/upsell-stripe-notice/index.js:22
 msgid "Better Express Payment with Apple & Google Pay"
 msgstr ""
 
 #: admin/includes/class-wffn-stripe-admin-controller.php:354
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:126
 msgid "Supports One Click Upsells with Express Pay Options"
 msgstr ""
 
 #: admin/includes/class-wffn-stripe-admin-controller.php:355
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:130
 msgid "Personalised Support for any payments related issues"
 msgstr ""
@@ -1517,7 +1517,7 @@ msgstr ""
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/contact_list/contact-details/index.js:367
 #: admin/views/contact/src/client/components/flow/modal/canvas-contact/contact-details.js:294
 #: admin/views/contact/src/client/components/flow/modal/type/lite.js:10
@@ -1599,7 +1599,7 @@ msgstr ""
 #: admin/views/contact/dist/44.ea5011b909f465394998.js:5
 #: admin/views/contact/dist/46.e8e4fcc70ebcccb1f838.js:5
 #: admin/views/contact/dist/47.0af878e196ef78ea36f6.js:5
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/FunnelModal/index.js:149
 #: admin/views/contact/src/client/components/global/create-funnel-modal.js:289
 #: admin/views/contact/src/client/components/leads_list/index.js:234
@@ -2286,7 +2286,7 @@ msgstr ""
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
 #: admin/views/contact/dist/46.e8e4fcc70ebcccb1f838.js:1
 #: admin/views/contact/dist/47.0af878e196ef78ea36f6.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:603
 #: admin/views/contact/src/client/components/experiments/variant.js:661
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:499
@@ -3744,7 +3744,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:1
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/canvas/modal/select-step.js:90
 #: admin/views/contact/src/client/components/contact_list/contact-details/index.js:361
 #: admin/views/contact/src/client/components/flow/modal/canvas-contact/contact-details.js:288
@@ -3776,7 +3776,7 @@ msgstr ""
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/pages/analytics/funnel-analytics/steps-table.js:231
 #: admin/views/contact/src/utils/index.js:651
 #: admin/views/contact/src/utils/index.js:685
@@ -3789,7 +3789,7 @@ msgstr ""
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/canvas/modal/select-step.js:98
 #: admin/views/contact/src/client/pages/analytics/funnel-analytics/steps-table.js:235
 #: admin/views/contact/src/utils/index.js:687
@@ -3810,7 +3810,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:1
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/canvas/modal/select-step.js:106
 #: admin/views/contact/src/client/components/flow/modal/type/select-step.js:87
 #: admin/views/contact/src/client/components/templates/templates.js:63
@@ -3863,7 +3863,7 @@ msgstr ""
 #: admin/rest-api/class-wffn-rest-global-settings.php:239
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:33
 msgid "Order Bumps"
 msgstr ""
@@ -4246,7 +4246,7 @@ msgstr ""
 #: admin/views/contact/dist/9.35e05c8121ba9e3b4b80.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/use-node-creator.js:812
 #: admin/views/contact/src/client/components/canvas/use-node-creator.js:825
 #: admin/views/contact/src/client/components/experiments/panel.js:486
@@ -4627,7 +4627,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:3
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/flow/flow-layout.js:149
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:315
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:359
@@ -5557,7 +5557,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:1
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/global/funnel-edit-modal.js:133
 #: admin/views/contact/src/client/pages/listing/bwf-edit-modal.js:54
 #: admin/views/contact/src/steps/modules/tabs/fields/edit/products.js:205
@@ -5648,7 +5648,7 @@ msgstr ""
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/modal/dynamic-offer-path.js:218
 #: admin/views/contact/src/client/components/global/edit-experiment-title-modal.js:165
 #: admin/views/contact/src/client/pages/listing/bwf-edit-modal.js:72
@@ -5711,7 +5711,7 @@ msgid "Want to offer users different product options?"
 msgstr ""
 
 #: modules/checkouts/includes/class-wfacp-common-helper.php:753
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/get-pro-modal/index.js:9
 msgid "Unlock this Pro feature now and experience the fully-loaded version."
 msgstr ""
@@ -5737,7 +5737,7 @@ msgstr ""
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/modal/delete-step.js:119
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:788
 #: admin/views/contact/src/client/components/contact_list/bulk-action/index.js:115
@@ -5860,7 +5860,7 @@ msgstr ""
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/modal/dynamic-offer-path.js:232
 #: admin/views/contact/src/client/components/experiments/weight-distribution.js:291
 #: admin/views/contact/src/client/pages/import/modal.js:236
@@ -6261,7 +6261,7 @@ msgstr ""
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/global/funnel-edit-modal.js:124
 #: admin/views/contact/src/steps/modules/tabs/fields/add-field.js:512
 #: admin/views/contact/src/steps/modules/tabs/fields/edit/address.js:202
@@ -6902,7 +6902,7 @@ msgstr ""
 #: admin/views/contact/dist/23.1870a400a2db962e0a01.js:1
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/flow/modal/type/select-step.js:71
 #: admin/views/contact/src/client/pages/analytics/funnel-analytics/steps-table.js:206
 #: admin/views/contact/src/templates/templates.js:401
@@ -6969,7 +6969,7 @@ msgstr ""
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/contact-export/steps/contact-table.js:175
 #: admin/views/contact/src/client/components/contact_list/contact-list.js:205
 #: admin/views/contact/src/client/components/flow/modal/canvas-contact/contact-list.js:119
@@ -8015,7 +8015,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:1
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/global/create-funnel-modal.js:180
 #: admin/views/contact/src/client/components/templates/templates.js:60
 #: admin/views/contact/src/utils/index.js:700
@@ -8073,7 +8073,7 @@ msgstr ""
 #: modules/thankyou-pages/compatibilities/page-builders/oxygen/modules/class-oxygen-wfty-customer-details-widget.php:62
 #: modules/thankyou-pages/compatibilities/page-builders/oxygen/modules/class-oxygen-wfty-order-details-widget.php:61
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/contact_list/total-spend-dropdown/index.js:86
 #: admin/views/contact/src/client/components/flow/modal/canvas-contact/contact-list.js:147
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:466
@@ -8562,7 +8562,7 @@ msgstr ""
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
 #: admin/views/contact/dist/53.7766dcf981a9d671ef04.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/global/funnel-edit-modal.js:174
 #: admin/views/contact/src/client/components/settings/tracking-ids/index.js:225
 #: admin/views/contact/src/components/templates/preview/previewSidebarCustomize.js:82
@@ -8677,7 +8677,7 @@ msgstr ""
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
 #: admin/views/contact/dist/46.e8e4fcc70ebcccb1f838.js:1
 #: admin/views/contact/dist/47.0af878e196ef78ea36f6.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/canvas/modal/select-step.js:480
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:818
 #: admin/views/contact/src/client/components/flow/modal/type/select-step.js:79
@@ -8712,7 +8712,7 @@ msgstr ""
 #: admin/views/contact/dist/44.ea5011b909f465394998.js:1
 #: admin/views/contact/dist/46.e8e4fcc70ebcccb1f838.js:1
 #: admin/views/contact/dist/47.0af878e196ef78ea36f6.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/contact_list/bulk-action/index.js:137
 #: admin/views/contact/src/client/components/leads_list/lead-bulk-action.js:96
 #: admin/views/contact/src/client/pages/listing/bulk-action.js:203
@@ -8892,7 +8892,7 @@ msgstr ""
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
 #: admin/views/contact/dist/46.e8e4fcc70ebcccb1f838.js:1
 #: admin/views/contact/dist/47.0af878e196ef78ea36f6.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/canvas/modal/select-step.js:94
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/LiteCard.js:92
 #: admin/views/contact/src/client/components/funnel/steps-list/steps-list.js:21
@@ -9078,8 +9078,8 @@ msgstr ""
 #: admin/views/contact/dist/44.ea5011b909f465394998.js:5
 #: admin/views/contact/dist/46.e8e4fcc70ebcccb1f838.js:5
 #: admin/views/contact/dist/47.0af878e196ef78ea36f6.js:5
-#: admin/views/contact/dist/main-1724322913.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:1
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnel/add-step/index.js:273
 #: admin/views/contact/src/client/components/global/create-funnel-modal.js:53
 #: admin/views/contact/src/components/dashboard-banner/utils.js:70
@@ -9095,7 +9095,7 @@ msgstr ""
 #: admin/views/contact/dist/44.ea5011b909f465394998.js:5
 #: admin/views/contact/dist/46.e8e4fcc70ebcccb1f838.js:5
 #: admin/views/contact/dist/47.0af878e196ef78ea36f6.js:5
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/global/create-funnel-modal.js:54
 #: admin/views/contact/src/client/pages/listing/index.js:889
 #: admin/views/contact/src/components/dashboard-banner/utils.js:108
@@ -9586,7 +9586,7 @@ msgstr ""
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:741
 #: admin/views/contact/src/client/components/experiments/variant.js:258
 #: admin/views/contact/src/client/components/experiments/variant.js:847
@@ -9642,7 +9642,7 @@ msgstr ""
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:771
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:971
 #: admin/views/contact/src/client/components/experiments/variant.js:547
@@ -9700,7 +9700,7 @@ msgstr ""
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
 #: admin/views/contact/dist/33.5894a9e63789913903fa.js:1
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/analytics/sidebar.js:30
 #: admin/views/contact/src/client/components/experiments/variant.js:603
 #: admin/views/contact/src/client/components/experiments/variant.js:975
@@ -9885,7 +9885,7 @@ msgstr ""
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/modal/delete-step.js:152
 #: admin/views/contact/src/client/components/experiments/weight-distribution.js:320
 #: admin/views/contact/src/client/components/funnel/add-step/step-details.js:126
@@ -9908,7 +9908,7 @@ msgstr ""
 
 #: admin/views/contact/dist/9.35e05c8121ba9e3b4b80.js:1
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/experiments/weight-distribution.js:401
 #: admin/views/contact/src/steps/Header/warning-modal.js:49
 #: admin/views/contact/src/storeCheckout/components/store-checkout-header.js:248
@@ -9939,7 +9939,7 @@ msgstr ""
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
 #: admin/views/contact/dist/53.7766dcf981a9d671ef04.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:471
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:153
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:263
@@ -10044,7 +10044,7 @@ msgstr ""
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:429
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:599
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:489
@@ -10061,7 +10061,7 @@ msgstr ""
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/experiments/utils.js:6
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:172
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/checkout.js:139
@@ -10076,7 +10076,7 @@ msgstr ""
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/experiments/utils.js:7
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:173
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/checkout.js:140
@@ -10132,7 +10132,7 @@ msgstr ""
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/modal/delete-step.js:47
 #: admin/views/contact/src/client/components/contact_list/bulk-action/index.js:83
 #: admin/views/contact/src/client/components/funnel/steps-list/delete-step-modal.js:164
@@ -10258,7 +10258,7 @@ msgstr ""
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/components/contact_list/contact-details/utils.js:7
 #: admin/views/contact/src/client/pages/analytics/referrers/utils.js:18
 #: admin/views/contact/src/components/upgradeProModal/index.js:111
@@ -10303,7 +10303,7 @@ msgstr ""
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/analytics/conversion-analytics/campaignTable.js:174
 #: admin/views/contact/src/client/components/contact_list/contact-details/index.js:117
 #: admin/views/contact/src/client/components/flow/modal/canvas-contact/contact-details.js:438
@@ -10496,7 +10496,7 @@ msgstr ""
 #: admin/views/contact/dist/33.5894a9e63789913903fa.js:1
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/analytics/sidebar.js:40
 #: admin/views/contact/src/client/components/contact_list/contact-details/index.js:314
 #: admin/views/contact/src/client/components/leads_list/index.js:246
@@ -10924,35 +10924,35 @@ msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:29
 msgid "Single & Multi Step Checkout"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:30
 msgid "Flexible Field Editor"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:31
 msgid "Pro Template Library"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:34
 msgid "Pixel Tracking"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:35
 msgid "Cart upsells"
 msgstr ""
@@ -10960,7 +10960,7 @@ msgstr ""
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:297
 #: admin/views/contact/src/client/hooks/use-storeCheckout-nav.js:285
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:36
@@ -10969,70 +10969,70 @@ msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:37
 msgid "AB Testing"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:38
 msgid "UTM and Referrer tracking"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:165
 msgid "FunnelKit has generated revenue worth"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:92
 msgid "Activate your license to continue using premium features without interruption."
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-overlay/index.js:96
 msgid "This feature is locked. To get full access of funnelkit upgrade to PRO"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/error-404-component/index.js:114
 msgid "PAGE NOT FOUND"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/error-404-component/index.js:117
 msgid "The page you are looking for doesn’t exist"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/error-404-component/index.js:129
 msgid "GO TO DASHBOARD"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-delta/index.js:29
 msgid "0%"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-delta/index.js:28
 msgid "%f%%"
 msgstr ""
@@ -11140,7 +11140,7 @@ msgstr ""
 #: admin/views/contact/dist/26.fce6a7ef3536277da76c.js:1
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/export/export-status.js:51
 #: admin/views/contact/src/client/components/flow/modal/canvas-contact/contact-list.js:174
 #: admin/views/contact/src/dashboard/components/campaign-chart.js:58
@@ -11664,7 +11664,7 @@ msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/date.js:86
 #: admin/views/contact/src/utils/date.js:125
 msgid "All Time"
@@ -11678,7 +11678,7 @@ msgstr ""
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/bwf-filters/utils.js:102
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:42
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:42
@@ -11690,7 +11690,7 @@ msgstr ""
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:46
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:46
 #: admin/views/contact/src/utils/date.js:88
@@ -11702,7 +11702,7 @@ msgstr ""
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:50
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:50
 #: admin/views/contact/src/utils/date.js:89
@@ -11717,7 +11717,7 @@ msgstr ""
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/bwf-filters/utils.js:105
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:54
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:54
@@ -11727,14 +11727,14 @@ msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/date.js:91
 msgid "Last 7 Days"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/date.js:92
 msgid "Last 30 Days"
 msgstr ""
@@ -11743,7 +11743,7 @@ msgstr ""
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:58
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:58
 #: admin/views/contact/src/utils/date.js:93
@@ -11758,7 +11758,7 @@ msgstr ""
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/bwf-filters/utils.js:107
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:62
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:62
@@ -11774,7 +11774,7 @@ msgstr ""
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/bwf-filters/utils.js:108
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:66
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:66
@@ -11790,7 +11790,7 @@ msgstr ""
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/bwf-filters/utils.js:109
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:70
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:70
@@ -11806,7 +11806,7 @@ msgstr ""
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/bwf-filters/utils.js:110
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:74
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:74
@@ -11822,7 +11822,7 @@ msgstr ""
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/bwf-filters/utils.js:111
 #: admin/views/contact/src/components/date-range-filter-picker/preset-periods.js:78
 #: admin/views/contact/src/components/date-range-filter/preset-periods.js:78
@@ -11836,7 +11836,7 @@ msgstr ""
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/bwf-filters/utils.js:112
 #: admin/views/contact/src/utils/date.js:99
 msgid "On Specific Date"
@@ -11848,7 +11848,7 @@ msgstr ""
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
 #: admin/views/contact/dist/35.16ea604cf4a60b723d35.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/bwf-filters/utils.js:113
 #: admin/views/contact/src/utils/date.js:100
 msgid "Custom Date Range"
@@ -11859,7 +11859,7 @@ msgstr ""
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/compare-dropdown/index.js:21
 #: admin/views/contact/src/components/date-range-filter-picker/compare-periods.js:38
 #: admin/views/contact/src/components/date-range-filter/compare-periods.js:38
@@ -11872,7 +11872,7 @@ msgstr ""
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/compare-dropdown/index.js:22
 #: admin/views/contact/src/components/date-range-filter-picker/compare-periods.js:42
 #: admin/views/contact/src/components/date-range-filter/compare-periods.js:42
@@ -11882,42 +11882,42 @@ msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/date.js:106
 msgid "No Compare"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:483
 msgid "Following pages will require to create store checkout"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:489
 msgid "1. Checkout page"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:491
 msgid "2. Thank You page"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:494
 msgid "Note: You have to custom build and design your pages. We will auto add the checkout and thankyou step"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:652
 #: admin/views/contact/src/utils/index.js:653
 #: modules/thankyou-pages/compatibilities/page-builders/gutenberg/dist/wfty-block-editor.js:1
@@ -11927,7 +11927,7 @@ msgstr ""
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/client/pages/analytics/funnel-analytics/steps-table.js:214
 #: admin/views/contact/src/utils/index.js:677
 msgid "Optin Thankyou"
@@ -11935,7 +11935,7 @@ msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:742
 msgid "You're using FunnelKit %s. Sorry, to get full access to Template Library "
 msgstr ""
@@ -11948,7 +11948,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:3
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/steps/modules/tabs/fields/index.js:1507
 #: admin/views/contact/src/steps/modules/tabs/form/index.js:552
 #: admin/views/contact/src/utils/index.js:747
@@ -11957,14 +11957,14 @@ msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:750
 msgid "You're using FunnelKit Lite. To unlock more features consider "
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:755
 #: admin/views/contact/src/utils/index.js:762
 msgid "Upgrade to Plus Plan"
@@ -11972,42 +11972,42 @@ msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:758
 msgid "Upgrading to PRO"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/19.eba8ed99a0637ced0014.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/utils/index.js:764
 msgid "Don't miss out on atleast 10-15% additional revenue"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/upgradeProModal/index.js:35
 msgid "FunnelKit PRO"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/upgradeProModal/index.js:40
 msgid "We're sorry, this feature is not available on your plan. Please upgrade to the premium plan to unlock all these awesome features."
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/upgradeProModal/index.js:44
 msgid "{{ Feature Name }}"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:3
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
+#: admin/views/contact/dist/main-1724409503.js:1
 #: admin/views/contact/src/components/upgrade-pro-notice-bar/index.js:85
 msgid "Attention:"
 msgstr ""
@@ -12015,35 +12015,35 @@ msgstr ""
 #. translators: %s: product name.
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:5
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-notice-bar/index.js:89
 msgid " Update FunnelKit Funnel Builder %s "
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:5
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-notice-bar/index.js:95
 msgid "to version 3.0 for smoother functioning of features."
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:5
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-notice-bar/index.js:105
 msgid "Go to plugin updates"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:5
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-cta/index.js:114
 msgid "Top Checkout & Funnel Builder:"
 msgstr ""
 
 #: admin/views/contact/dist/18.6e8b1cafccc8e8d25507.js:5
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/upgrade-pro-cta/index.js:116
 msgid " 21,000+ Users, 600+ Five-Star Reviews!"
 msgstr ""
@@ -12172,7 +12172,7 @@ msgstr ""
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/modal/delete-step.js:49
 #: admin/views/contact/src/client/components/contact_list/contact-delete-modal/index.js:111
 #: admin/views/contact/src/client/components/funnel/steps-list/delete-step-modal.js:171
@@ -12391,7 +12391,7 @@ msgid "Pick a template, add a checkout and thank you page. Optionally mark check
 msgstr ""
 
 #: admin/views/contact/dist/22.490fc1de5b4bf4b58c74.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/utils.js:53
 #: admin/views/contact/src/onboarding/components/onboarding.js:90
 msgid "Create"
@@ -12428,7 +12428,7 @@ msgid "Improve Ads Performance"
 msgstr ""
 
 #: admin/views/contact/dist/22.490fc1de5b4bf4b58c74.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/utils.js:100
 #: admin/views/contact/src/onboarding/components/onboarding.js:129
 msgid "Enable Pixel Tracking"
@@ -12440,7 +12440,7 @@ msgid "Send data to 8 popular ad networks such as Facebook, Google Analytics and
 msgstr ""
 
 #: admin/views/contact/dist/22.490fc1de5b4bf4b58c74.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/utils.js:56
 #: admin/views/contact/src/onboarding/components/onboarding.js:134
 msgid "Go to Settings"
@@ -12493,7 +12493,7 @@ msgstr ""
 
 #: admin/views/contact/dist/22.490fc1de5b4bf4b58c74.js:1
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/sidebar-nav/index.js:58
 #: admin/views/contact/src/onboarding/components/onboarding.js:269
 msgid "Recommended"
@@ -13040,7 +13040,7 @@ msgstr ""
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/analytics/reset.js:158
 #: admin/views/contact/src/client/components/contact_list/contact-delete-modal/index.js:160
 #: admin/views/contact/src/client/components/funnel/steps-list/duplicate-step-modal.js:142
@@ -13056,7 +13056,7 @@ msgid "There are some technical difficulties while reset analytics. Please conta
 msgstr ""
 
 #: admin/views/contact/dist/27.e408246872ec20efa1f0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/pages/analytics/funnel-analytics/funnel-table.js:106
 #: admin/views/contact/src/client/pages/analytics/funnel-analytics/index.js:193
 #: admin/views/contact/src/components/analytics-filter/funnel-list-filter.js:32
@@ -13156,7 +13156,7 @@ msgstr ""
 
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnel/add-step/index.js:274
 #: admin/views/contact/src/components/bwf-page-heading/index.js:56
 msgid "Funnel Templates"
@@ -13180,7 +13180,7 @@ msgstr ""
 
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnel/steps-list/duplicate-step-modal.js:69
 #: admin/views/contact/src/client/components/global/funnel-edit-modal.js:56
 msgid "There are some technical difficulties while duplicating step. Contact Support"
@@ -13223,7 +13223,7 @@ msgstr ""
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:1217
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:718
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/checkout.js:872
@@ -13241,7 +13241,7 @@ msgstr ""
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:1220
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:721
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/default.js:872
@@ -13258,7 +13258,7 @@ msgstr ""
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:1221
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:722
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/default.js:873
@@ -13275,7 +13275,7 @@ msgstr ""
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:9
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:9
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:1222
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:723
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/default.js:874
@@ -13299,7 +13299,7 @@ msgstr ""
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:410
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:100
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/checkout.js:179
@@ -13310,7 +13310,7 @@ msgstr ""
 
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:165
 #: admin/views/contact/src/client/pages/publish-modal/index.js:220
 #: admin/views/contact/src/client/pages/publish-modal/index.js:251
@@ -13322,7 +13322,7 @@ msgstr ""
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/experiments/utils.js:5
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:171
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/checkout.js:138
@@ -13333,7 +13333,7 @@ msgstr ""
 
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:277
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/checkout.js:343
 #: admin/views/contact/src/steps/Header/StepHeader.js:282
@@ -13362,7 +13362,7 @@ msgstr ""
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/nodes/step-nodes.js:505
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:304
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/checkout.js:396
@@ -13374,7 +13374,7 @@ msgstr ""
 
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:643
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/checkout.js:712
 #: admin/views/contact/src/steps/Header/StepHeader.js:854
@@ -13383,7 +13383,7 @@ msgstr ""
 
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/bump.js:650
 #: admin/views/contact/src/client/components/funnel/steps-list/cards/checkout.js:719
 #: admin/views/contact/src/steps/Header/StepHeader.js:861
@@ -13538,7 +13538,7 @@ msgstr ""
 
 #: admin/views/contact/dist/30.66952827effc6f011c24.js:1
 #: admin/views/contact/dist/40.edf1b6e762e61bce283e.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/FunnelModal/index.js:317
 #: admin/views/contact/src/client/pages/funnel/index.js:462
 msgid "Unable to load Funnel Steps"
@@ -13741,7 +13741,7 @@ msgid "You are about to delete optin "
 msgstr ""
 
 #: admin/views/contact/dist/31.16c73a2a73d8f6413137.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/contact_list/contact-delete-modal/index.js:163
 #: admin/views/contact/src/client/components/global/funnel-edit-modal.js:246
 #: admin/views/contact/src/client/components/leads_list/lead-delete-modal.js:105
@@ -13901,7 +13901,7 @@ msgstr ""
 
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
 #: admin/views/contact/dist/47.0af878e196ef78ea36f6.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/StepHeader.js:537
 #: admin/views/contact/src/steps/optin/index.js:45
 #: admin/views/contact/src/storeCheckout/components/store-checkout-header.js:298
@@ -13944,14 +13944,14 @@ msgid "Import Store Checkout"
 msgstr ""
 
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:292
 #: admin/views/contact/src/client/hooks/use-storeCheckout-nav.js:280
 msgid "List Mode"
 msgstr ""
 
 #: admin/views/contact/dist/37.ffb2bc3f5866f769eeb0.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:383
 #: admin/views/contact/src/client/hooks/use-storeCheckout-nav.js:351
 msgid " - A/B Test"
@@ -13997,7 +13997,7 @@ msgstr ""
 
 #: admin/views/contact/dist/41.34c2b45a8899dfd1aee9.js:1
 #: admin/views/contact/dist/45.5a8954eaf4608d8510e8.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/canvas/modal/delete-step.js:34
 #: admin/views/contact/src/client/components/canvas/modal/delete-step.js:55
 #: admin/views/contact/src/client/components/funnel/steps-list/delete-step-modal.js:177
@@ -14502,7 +14502,7 @@ msgstr ""
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:1
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:1
 #: admin/views/contact/dist/53.7766dcf981a9d671ef04.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:179
 #: admin/views/contact/src/components/upsell-stripe-notice/index.js:76
 msgid "How to setup Stripe with FunnelKit"
@@ -15056,7 +15056,7 @@ msgstr ""
 #: admin/views/contact/dist/48.4e78ccd2370c2f42a9d6.js:3
 #: admin/views/contact/dist/51.1d5728e4c93db3dcb560.js:3
 #: admin/views/contact/dist/52.d1a29c6a9f441d0c1d1c.js:3
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-validate-modal/index.js:9
 #: admin/views/contact/src/components/close-modal.js/index.js:17
 #: admin/views/contact/src/steps/Header/draft-modal.js:18
@@ -16030,83 +16030,83 @@ msgid "We are performing the action"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/utils.js:5
 msgid "Express Payment with Apple & Google Pay"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/utils.js:124
 msgid "Supports Affirm, Klarna and AfterPay Buy Now Pay Later Services."
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/utils.js:268
 msgid "Cart and One Click Upsells with Express Pay"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/utils.js:288
 msgid "Personalised Support for payments"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:38
 msgid "Stripe Connect"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:48
 #: admin/views/contact/src/components/support-box/index.js:57
 msgid "Need help?"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:53
 msgid "Watch Video, "
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:61
 msgid "Read Docs,"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:70
 #: admin/views/contact/src/components/bwf-tech-error/index.js:90
 msgid "Contact Support"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:86
 msgid "Activate Stripe"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:1
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:90
 #: admin/views/contact/src/onboarding/components/stripe-action-button/index.js:85
 msgid "Connected"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:131
 msgid "Get FunneKit Stripe"
 msgstr ""
 
 #: admin/views/contact/dist/50.2acbf92147c4be488f34.js:1
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/stripe-connect/index.js:147
 msgid "Thousands of businesses use FunneKit Stripe to receive their payments"
 msgstr ""
@@ -16117,280 +16117,280 @@ msgstr ""
 msgid "Rules"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-tech-error/index.js:43
 msgid "Oops! Something went wrong. Try Refreshing."
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-tech-error/index.js:63
 msgid "Refresh Page"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-tech-error/index.js:68
 msgid "Still facing issues?"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-tech-error/index.js:75
 msgid "Press F12 "
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-tech-error/index.js:77
 msgid "for console details. "
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-tech-error/index.js:80
 msgid "Send screenshot to our support team for help "
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/edit-page-modal.js:64
 msgid "Sales Page URL Slug"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/StepHeader.js:143
 msgid "A/B Test Completed"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/StepHeader.js:477
 msgid "Create New A/B Test"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/StepHeader.js:504
 msgid "Edit 2.0"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/StepHeader.js:691
 msgid "This step is in Draft. Click Publish to make it accessible to everyone."
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/warning-modal.js:19
 msgid "Draft Step"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/warning-modal.js:30
 msgid "You are about to draft this Step. It will be no longer available to visitors when drafted. Cancel to stop, Confirm to proceed."
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/draft-modal.js:29
 msgid "The A/B test is already running at this step. A/B test will be paused in Draft mode."
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/steps/Header/draft-modal.js:48
 msgid "Make Draft"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/get-pro-modal/index.js:8
 msgid "This is a PRO feature"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:605
 msgid "Result"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:606
 msgid "Results"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:316
 msgid "Funnel templates"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:542
 #: admin/views/contact/src/client/hooks/use-funnel-nav.js:556
 #: admin/views/contact/src/components/bwf-page-heading/index.js:38
 msgid "Create New Funnel"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnel/steps-list/delete-step-modal.js:122
 msgid "Successfully step deleted"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/funnel/steps-list/delete-step-modal.js:126
 msgid "There are some technical difficulties while deleting step. Contact Support"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/support-box/index.js:71
 msgid "Contact Now"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/support-box/index.js:79
 msgid "View Docs"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/lite-noticebar/index.js:21
 msgid "Upgrade to Pro Now"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/store/reducers/contacts-side-panel.js:17
 msgid "Unable to load contact data"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:116
 msgid "Start Onboarding"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:143
 msgid "Switch to"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:144
 msgid "Use"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/notification/stripe-install.js:145
 msgid " FunnelKit's Stripe for Maximum Compatibility & Trustworthy Support"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/utils.js:62
 msgid "Setup Wizard"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/utils.js:78
 msgid "Create Order Bump"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/utils.js:89
 msgid "Create One Click Upsell Offer"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/utils.js:134
 msgid "%d/%d Completed"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/setup-list.js:90
 msgid "Activate License"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:26
 #: admin/views/contact/src/components/dashboard-banner/modal.js:24
 msgid "Welcome to Funnel Builder"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/modal.js:41
 msgid "Quick Setup"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/modal.js:53
 msgid "Dismiss the incomplete setup?"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/modal.js:59
 msgid "Complete the setup to get maximum out of FunnelKit."
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/modal.js:69
 msgid "I’ll do it later"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:41
 msgid "Dismiss Setup"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:49
 msgid "Increase Revenue by 15-20%"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:55
 msgid "Set up optimised checkouts, order bumps ,one click upsells & let your buyer go through easy checkout process while accepting more offers."
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:61
 msgid "Set up store checkout for your storefront"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:67
 msgid "Sell specific products with funnels"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:73
 msgid "Increase average order value with order bump and upsells"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:90
 msgid "View Documentation"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:111
 msgid "Get Support"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/dashboard-banner/index.js:132
 msgid "To do list"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-header-menu/useStoreCheckoutMenu.js:16
 msgid "Setup"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/components/bwf-header-menu/useStoreCheckoutMenu.js:26
 msgid "Disabled"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/global/funnel-edit-modal.js:91
 msgid "Edit Store Checkout"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/global/funnel-edit-modal.js:137
 msgid "Optional"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/client/components/global/funnel-edit-modal.js:231
 msgid "Funnel Updated"
 msgstr ""
 
-#: admin/views/contact/dist/main-1724322913.js:3
+#: admin/views/contact/dist/main-1724409503.js:3
 #: admin/views/contact/src/templates/index.js:102
 #: admin/views/contact/src/templates/index.js:152
 msgid "The Store Checkout is already setup. To change the template, delete the current steps and re-import new template again."

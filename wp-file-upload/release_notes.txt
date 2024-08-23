@@ -1,7 +1,6 @@
 <!--  -->
 <div class="wfu-releasenotes-container">
-	<span><strong>Version 4.24.9</strong> is a regular update that improves the plugin's protection against <strong>XSS</strong> attacks by adding <strong>MIME type validation</strong> and <strong>content scanning</strong> of uploaded files for detecting scripts and other suspicious entities.<br/><br/>
-	It also limits the list of <strong>whitelisted extensions</strong> to only those that are associated with a <strong>valid MIME type</strong>.<br /><br />
+	<span><strong>Version 4.24.10</strong> is a minor update that fixes a bug in <strong>FTP uploads</strong> that appeared after the previous release 4.24.9 and made all FTP uploads be rejected.<br /><br />
 	Please note that since Version 4.24.0 the <strong>Professional</strong> version of the plugin introduces some significant changes, such as <strong>licensing</strong> and <strong>external extensions</strong>.
 	<br /><br />
 	For more details about this version's changes please visit the <strong>Release Notes</strong> of the plugin's </span>

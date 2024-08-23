@@ -94,6 +94,7 @@ class WP_Carousel_Free_Public {
 			wp_enqueue_script( 'wpcf-fancybox-config' );
 		}
 	}
+
 	/**
 	 * Register the All scripts for the public-facing side of the site.
 	 *
@@ -132,8 +133,8 @@ class WP_Carousel_Free_Public {
 				'ajaxTheme'   => $ajax_theme,
 			)
 		);
-
 	}
+
 	/**
 	 * Delete page shortcode ids array option on save
 	 *
@@ -146,12 +147,11 @@ class WP_Carousel_Free_Public {
 			if ( get_site_option( $option_key ) ) {
 				delete_site_option( $option_key );
 			}
-		} else {
-			if ( get_option( 'sp_wp_carousel_page_id' . $post_ID ) ) {
+		} elseif ( get_option( 'sp_wp_carousel_page_id' . $post_ID ) ) {
 				delete_option( 'sp_wp_carousel_page_id' . $post_ID );
-			}
 		}
 	}
+
 	/**
 	 * Minify output
 	 *

@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,11 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.5.1 (Aug 23, 2024) =
+* Fixed: Checkout - Advanced phone field flag were not showing correctly in devices with Retina Display since last update. (#6599)
+* Fixed: Checkout - Compatibility with Klavio showing sms consent text always since last update. (#6604)
+
 = 3.5.0 (Aug 22, 2024) =
 * Added: Compatibility with the Breakdance builder. (#6527)
 * Added: Checkout - Added compatibility with the Yay Currency Switcher plugin to support multi-currency transactions. (#6454)

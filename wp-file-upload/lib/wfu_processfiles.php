@@ -392,7 +392,7 @@ function wfu_process_files($params, $method) {
 					   to 'all'. */
 					if ( $allowed_file_ok && is_uploaded_file($fileprops['tmp_name']) && !$only_check ) {
 						//$allowed_file_ok = !wfu_file_has_php_tags($fileprops['tmp_name'], strtolower(wfu_fileext($only_filename)));
-						$allowed_file_ok = wfu_during_upload_security_checks($fileprops['tmp_name'], $only_filename);
+						$allowed_file_ok = wfu_during_upload_security_checks($fileprops['tmp_name'], $only_filename, $params);
 						if ( $allowed_file_ok !== true ) {
 							$not_allowed_admin_error = $allowed_file_ok;
 							$allowed_file_ok = false;
@@ -675,7 +675,7 @@ function wfu_process_files($params, $method) {
 			/* Perform additional security checks after file has fully loaded.
 			   These checks refer to MIME type and content scanning. */
 			if ( $file_finished_successfully ) {
-				$check = wfu_post_load_security_checks($target_path);
+				$check = wfu_post_load_security_checks($target_path, $params);
 				if ( $check !== true ) {
 					$file_finished_successfully = false;
 					$file_finished_unsuccessfully = true;

@@ -17,7 +17,6 @@ ob_start();
 <?php
 
 foreach ( $get_fields_options as $field_id => $get_field_option ) {
-
 	// Inputs.
 	if ( isset( $get_fields_options[ $field_id ]['text-fields'] ) ) {
 		?>
@@ -36,8 +35,26 @@ foreach ( $get_fields_options as $field_id => $get_field_option ) {
 		}
 		?>
 		}
-		
+
 		<?php
+		if ( $get_fields_options[ $field_id ]['text-fields']['max-width'] !== '' ) {
+			?>
+
+			#gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gform_body .gform_fields .gfield#field_<?php echo esc_html( $css_form_id ); ?>_<?php echo esc_html( $field_id ); ?> .ginput_complex.ginput_container,
+		#gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gform_body .gform_fields .gfield#field_<?php echo esc_html( $css_form_id ); ?>_<?php echo esc_html( $field_id ); ?> .ginput_container.ginput_container_list
+		{
+			width: <?php echo esc_html( $get_fields_options[ $field_id ]['text-fields']['max-width'] ); ?>;
+			max-width: 100%;
+		}
+
+		#gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gform_body .gform_fields .gfield#field_<?php echo esc_html( $css_form_id ); ?>_<?php echo esc_html( $field_id ); ?> .ginput_complex.ginput_container input[type="text"],
+		#gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gform_body .gform_fields .gfield#field_<?php echo esc_html( $css_form_id ); ?>_<?php echo esc_html( $field_id ); ?> .ginput_container.ginput_container_list input[type="text"] {
+			width: 100%;
+			max-width: 100%;
+		}
+
+			<?php
+		}
 	}
 
 	// Labels.

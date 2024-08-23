@@ -2,8 +2,8 @@
 Contributors: bosathemes, kanchha-kaji-prajapati
 Tags: elementor addons, woocommerce, elementor widgets, elementor templates, one click template import
 Requires at least: 4.0
-Tested up to: 6.5
-Stable tag: 1.0.15
+Tested up to: 6.6
+Stable tag: 1.0.16
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,6 +27,7 @@ You can view all <a href="https://bosathemes.com/bosa-elementor-for-woocommerce/
 
 == ELEMENTOR WIDGETS FOR WOOCOMMERCE ==
 
+* Site Logo Widget – Show your site logo <a href="https://demo.bosathemes.com/elementor-for-woocommerce/site-logo-widget/">Live Demo</a>
 * WooCommerce Products List Widget – WooCommerce products in list mode <a href="https://demo.bosathemes.com/elementor-for-woocommerce/woocommerce-products-list-widget/">Live Demo</a>
 * WooCommerce Carousel Widget – WooCommerce products in carousel mode <a href="https://demo.bosathemes.com/elementor-for-woocommerce/woocommerce-carousel-widget/">Live Demo</a>
 * WooCommerce Products Widget – WooCommerce products in grid mode <a href="https://demo.bosathemes.com/elementor-for-woocommerce/woocommerce-products-widget/">Live Demo</a>
@@ -87,6 +88,10 @@ No, Elementor PRO or any other PRO addon is not required.
 10. WooCommerce Elementor Widgets
 
 == Changelog ==
+
+= 1.0.16 =
+= Add =
+* Site logo widget added.
 
 = 1.0.15 =
 * Readme updated.

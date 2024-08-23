@@ -450,6 +450,7 @@ class WPF_Public
 								}
 							}
 						}
+                        $val = apply_filters( 'wpf_filter_by_price', $val );
 
 					} else {
 						$val = is_array( $post[ $key ] ) ? $post[ $key ] : sanitize_text_field( urldecode( $post[ $key ] ) );

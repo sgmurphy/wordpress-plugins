@@ -386,6 +386,15 @@ if ( ! class_exists( '\SktThemes\PageTemplatesDirectory' ) ) {
 				'required_plugins' => array( 'elementor' => array( 'title' => __( 'Elementor Page Builder', 'skt-templates' ) ) ),
 			);
 			$templates_list = array(
+			'skt-enterprise-elementor'              => array(
+					'title'       => __( 'SKT Enterprise', 'skt-templates' ),
+					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
+					'theme_url'   => esc_url('#'),
+					'demo_url'    => esc_url('https://demosktthemes.com/free/startup/'),
+					'screenshot'  => esc_url('https://demosktthemes.com/free/startup/startup.jpg'),
+					'import_file' => esc_url('https://demosktthemes.com/free/startup/startup.json'),
+					'keywords'    => __( ' startup, small business, startup business, attractive, appealing, impressive, responsive, visually appealing, white color theme, corporate, businesses, multipurpose, ecommerce, consulting, black and white, white design, lightweighted template, clean, whitespaces, portfolio, profilt, resume, CV, Startup, SKT Enterprise, enterprise, Enterprise' ),
+			),			
 			'skt-roofing-lite-elementor'              => array(
 					'title'       => __( 'SKT Roofing Lite', 'skt-templates' ),
 					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
@@ -1139,16 +1148,7 @@ if ( ! class_exists( '\SktThemes\PageTemplatesDirectory' ) ) {
 					'screenshot'  => esc_url('https://demosktthemes.com/free/therapist/therapist.jpg'),
 					'import_file' => esc_url('https://demosktthemes.com/free/therapist/therapist.json'),
 					'keywords'    => __( ' therapist, analyst, healer, psychologist, psychotherapist, therapy, counselor, internist, taking care, medical doctor, psychiatry, doctor of psychology, headshrinker, general practitioner, sychiatric, nursemaid, grief counselor, chiropractor, medicine, medical,life coach, clinician, counselor, psychical, nurse, Therapist, massager, massage' ),
-				),		
-				'startup-elementor'              => array(
-					'title'       => __( 'Startup', 'skt-templates' ),
-					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
-					'theme_url'   => esc_url('#'),
-					'demo_url'    => esc_url('https://demosktthemes.com/free/startup/'),
-					'screenshot'  => esc_url('https://demosktthemes.com/free/startup/startup.jpg'),
-					'import_file' => esc_url('https://demosktthemes.com/free/startup/startup.json'),
-					'keywords'    => __( ' startup, small business, startup business, attractive, appealing, impressive, responsive, visually appealing, white color theme, corporate, businesses, multipurpose, ecommerce, consulting, black and white, white design, lightweighted template, clean, whitespaces, portfolio, profilt, resume, CV, Startup' ),
-				),		
+				),				
 				'webake-elementor'              => array(
 					'title'       => __( 'We Bake', 'skt-templates' ),
 					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),

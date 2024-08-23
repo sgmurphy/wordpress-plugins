@@ -3,7 +3,7 @@ Contributors: linkwhspr
 Tags: links, SEO, internal linking, link building, orphan content
 Requires at least: 4.6
 Tested up to: 6.6
-Stable Tag: 0.7.6
+Stable Tag: 0.7.7
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -158,6 +158,9 @@ We are confident that you’ll be happy with Link Whisper Premium. However, if y
 15. [Premium] The URL Changer allows you to update old links to point to new URLs.
 
 == Changelog ==
+= 0.7.7 =
+* [BUGFIX] Fixing missing database table error when running the Link Scan for the first time.
+
 = 0.7.6 =
 * [COMPATIBILITY] Updating Oxygen support for 4.8.3 and above
 * [COMPATIBILITY] Scoping all included PHP libraries to prevent conflicts with other plugins
@@ -507,153 +510,3 @@ We are confident that you’ll be happy with Link Whisper Premium. However, if y
 * Improving sentence processing to better handle sentences with headings. (h1,h2,h3...)
 * Improving the processing of text with accented letters.
 * Fixing some empty variable notices.
-
-= 0.3.9 =
-* Fixing fatal error when loading the Link Report.
-
-= 0.3.8 =
-* Adding support for content from the Cornerstone Builder!
-* Adding option to skip ACF field processing.
-* Adding option to delete all Link Whisper related data.
-* Improving the embedded link detection.
-* Showing suggestion processing progress.
-* Scanning a broader number of possible link formats.
-* Speeding up the suggestion generation by caching Frequently used data.
-* Fixing some empty variable notices.
-
-= 0.3.7 =
-* Making the link scanner more sensitive to embedded links.
-* Making LW fonts disableable. (Pass FALSE on the filter 'wpil_disable_fonts')
-* Fixing a few empty index notices.
-* Fixing notification popup conflict.
-
-= 0.3.6 =
-* Fixing bug that made the suggestion text unselectable.
-
-= 0.3.5 =
-* Adding sample permalink support for draft posts.
-
-= 0.3.4 =
-* Adding support for Enfold content!
-* Adding sticky header to the link report.
-* Making the help text display on top of other elements when active.
-
-= 0.3.3 =
-* Improving text searching a little.
-* Moving the "Published" column in the Link Report.
-* Adding more site specific data to the data exports to help with support.
-* Cleaning up some setting page help text.
-
-= 0.3.2 =
-* Adding Norwegian language support!
-* Made some improvements to speed up the suggestion process.
-* Adding option to ignore ACF fields in the suggestion process.
-* Fixing data export download bug.
-
-= 0.3.1 =
-* Fixing bug in ACF field query.
-
-= 0.3.0 =
-* Fixing bug that would prevent the link report from showing results.
-
-= 0.2.9 =
-* Reworking the report page to show more data.
-* Adjusting the styling of the buttons a little.
-* Shortening the length of processing batches to reduce timeouts.
-* Optimizing a number of queries.
-* Fixing bug that would prevent deselecting all categories and terms from processing.
-
-= 0.2.8 =
-* Fixing bug with no suggestions being shown on custom post types when WPML is active.
-* Moving terms out of the "Post Types to Create Links For" setting section into their own section.
-
-= 0.2.7 =
-* Adding Muffin builder support.
-
-= 0.2.6 =
-* Improving support for Thrive Theme Builder Templates.
-
-= 0.2.5 =
-* Adding support for Thrive Theme Builder Templates.
-* Optimizing some queries.
-
-= 0.2.4 =
-* Adding suggestion support for WooCommerce Tags.
-
-= 0.2.3 =
-* Adding Italian Language support!
-* Adding matching for specific categories.
-* Fixing bug with the screen options not saving.
-
-= 0.2.2 =
-* Adding Danish language support!
-* Adding a post type column to the Internal Links Report so it's easier to tell what kind of content an entry is.
-* Fixed a suggestion bug that was causing lots of suggestions.
-* Fixed a bug that was causing keyword searches to not turn up expected results.
-
-= 0.2.1 =
-* Adding support for the Oxygen builder!
-* Adding the option to export data to Excel.
-* Optimizing some queries for ACF data.
-* Fixed a bug where words with apostrophies would be ignored.
-* Fixing some suggestion panel display bugs.
-* Improving link scanning to better identify links.
-
-= 0.2.0 =
-* Adding Polish language support!
-* Adding the ability to export data to Excel format.
-* Prioritizing Thrive Architect data for reports when available.
-* Minor other bug fixes.
-
-= 0.1.9 =
-* Making some styling tweaks.
-* Adding an export data option to make support easier.
-* Fixing a database error on Pantheon hosting.
-
-= 0.1.8 =
-* Fixing empty index bug when loading suggestions.
-* Styling notices a bit.
-
-= 0.1.7 =
-* Adding new styling!
-* Adding Kadence support.
-* Fixing bug with unicode charactors.
-* Fixing conflict with WP editor.
-* Fixing bug with long anchors.
-* Fixing bug with that allowed adding links to sentences that already had one.
-* Fixing bug with tag/category link processing.
-* Fixing some "invalid index" errors.
-
-= 0.1.6 =
-* Adding Dutch support!
-* Adding ability to show post type in Link Report columns
-* Removing unneeded cron task
-* Fixing syntax error in the language stemmer code
-* Restricting report access to users that can manage categories
-
-= 0.1.5 =
-* Adding support for post tag suggestions
-* Updating word stemmer index bug
-* Fixing a bug with adding links to a list item
-
-= 0.1.4 =
-* Adding support for Page Builder by SiteOrigin
-* Reducing link batch processing size to save memory
-* Optimizing report building meta queries
-* Using img title as anchor text for links that only have images in them
-* Additional small fixes and improvements
-
-= 0.1.3 =
-* Fixing class name bug on PHP 5.6
-
-= 0.1.2 =
-* Adding check for link table existance on post delete actions
-* Adding check for WPML existance
-* Fixing Report processing bug on PHP 5.6
-* Making internal link checks http/s insensitive
-
-= 0.1.1 =
-* Version bump
-
-= 0.1.0 =
-* Initial release!

@@ -108,6 +108,7 @@ if ( ! class_exists( 'WPCF_Helper' ) ) {
 			// Return what we found.
 			return $template;
 		}
+
 		/**
 		 * Section title
 		 *
@@ -251,6 +252,7 @@ if ( ! class_exists( 'WPCF_Helper' ) ) {
 				endif;
 			}
 		}
+
 		/**
 		 * Get pagination
 		 *
@@ -290,6 +292,7 @@ if ( ! class_exists( 'WPCF_Helper' ) ) {
 				}
 			}
 		}
+
 		/**
 		 * Post and product query
 		 *
@@ -411,8 +414,6 @@ if ( ! class_exists( 'WPCF_Helper' ) ) {
 
 			return $post_query;
 		}
-
 	}
 
 }
-

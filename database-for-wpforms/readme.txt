@@ -31,7 +31,7 @@ By simply installing the plugin, it will automatically begin to capture form sub
 
 
 = Form Email Testing Tool =
-* [MailMug](https://youtu.be/fAXevTJ0r8I) 
+* [MailMug - Sandbox SMTP Account](https://www.youtube.com/watch?v=_0SZmTypRrc) 
 
 == Installation ==
 

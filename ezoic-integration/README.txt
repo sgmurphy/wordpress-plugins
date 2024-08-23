@@ -85,6 +85,9 @@ You will need to enable API access to the Ezoic Cloud to utilize caching feature
 Once you have your API key from your Ezoic dashboard, it can be added to your Ezoic plugin settings inside the site’s WordPress admin dashboard under Ezoic > CDN settings.
 
 == Changelog ==
+= 2.12.2 =
+* Added Debugging logs
+
 = 2.12.1 =
 * Minor bug fixes
 

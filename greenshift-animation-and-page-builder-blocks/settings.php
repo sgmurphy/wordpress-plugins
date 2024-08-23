@@ -1342,6 +1342,9 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 					}
 				}
 			}
+			if (!empty($sitesettings['sitesettings']['smoothscroll'])) {
+				echo '<style>html.lenis, html.lenis body {height: auto;}.lenis.lenis-smooth {scroll-behavior: auto !important;}.lenis.lenis-smooth [data-lenis-prevent] {overscroll-behavior: contain;}.lenis.lenis-stopped {overflow: hidden;}.lenis.lenis-smooth iframe {pointer-events: none;}</style>';
+			}
 		}
 
 		function greenshift_additional__footer_elements()
@@ -1352,6 +1355,9 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 					$color = !empty($sitesettings['sitesettings']['mousecolor']) ? $sitesettings['sitesettings']['mousecolor'] : '#2184f9';
 					echo '<div class="gsmouseball"></div><div class="gsmouseballsmall"></div><style scoped>.gsmouseball{width:33px;height:33px;position:fixed;top:0;left:0;z-index:99999;border:1px solid ' . esc_attr($color) . ';border-radius:50%;pointer-events:none;opacity:0}.gsmouseballsmall{width:4px;height:4px;position:fixed;top:0;left:0;background:' . esc_attr($color) . ';border-radius:50%;pointer-events:none;opacity:0; z-index:99999}</style>';
 					wp_enqueue_script('gsap-mousefollow-init');
+				}
+				if (!empty($sitesettings['sitesettings']['smoothscroll'])) {
+					wp_enqueue_script('gs-smooth-scroll');
 				}
 			}
 			$theme_settings = get_option('greenshift_theme_options');

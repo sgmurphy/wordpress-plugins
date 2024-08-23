@@ -210,7 +210,7 @@ class bt_bb_section extends BT_BB_Element {
 		} else if ( ( $background_video_mp4 != '' || $background_video_ogg != '' || $background_video_webm != '' ) && ! ( wp_is_mobile() && ! $show_video_on_mobile ) ) {
 			$class[] = $this->prefix . 'video';
 			if ( ! $show_video_on_mobile ) $class[] = $this->prefix . 'hide_video_on_mobile';
-			$video_html = '<video autoplay loop muted playsinline onplay="bt_bb_video_callback( this )">';
+			$video_html = '<video autoplay loop muted playsinline onplay="if ( window.bt_bb_video_callback ) { window.bt_bb_video_callback( this ); } else { let t = this; jQuery( document ).ready(function() { window.bt_bb_video_callback( t ); }); }">';
 			if ( $background_video_mp4 != '' ) {
 				$video_html .= '<source src="' . esc_url_raw( $background_video_mp4 ) . '" type="video/mp4">';
 			}

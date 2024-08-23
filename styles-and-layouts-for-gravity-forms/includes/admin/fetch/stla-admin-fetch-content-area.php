@@ -288,22 +288,37 @@ class Stla_Admin_Fetch_Content_Area {
 
 		$form_id         = isset( $_POST['formId'] ) ? sanitize_text_field( wp_unslash( $_POST['formId'] ) ) : 0;
 		$styler_settings = isset( $_POST['stylerSettings'] ) ? sanitize_text_field( wp_unslash( $_POST['stylerSettings'] ) ) : 0;
-		$styler_settings = stripslashes( $styler_settings );
 		$styler_settings = json_decode( $styler_settings, true );
 
-		$general_settings = isset( $_POST['generalSettings'] ) ? sanitize_text_field( wp_unslash( $_POST['generalSettings'] ) ) : 0;
-		$general_settings = stripslashes( $general_settings );
+		$general_settings = isset( $_POST['generalSettings'] ) ? sanitize_textarea_field( wp_unslash( $_POST['generalSettings'] ) ) : 0;
 		$general_settings = json_decode( $general_settings, true );
 
 		$styler_fields_settings = isset( $_POST['stylerFieldsSettings'] ) ? sanitize_text_field( wp_unslash( $_POST['stylerFieldsSettings'] ) ) : 0;
-		$styler_fields_settings = stripslashes( $styler_fields_settings );
 		$styler_fields_settings = json_decode( $styler_fields_settings, true );
 
 		update_option( 'gf_stla_form_id_' . $form_id, $styler_settings );
 		update_option( 'gf_stla_general_settings' . $form_id, $general_settings );
 		update_option( 'gf_stla_field_id_' . $form_id, $styler_fields_settings );
 
-		wp_send_json_success( '' );
+		// Get styler settings.
+		$styler_settings = get_option( 'gf_stla_form_id_' . $form_id );
+		$styler_settings = empty( $styler_settings ) ? array() : $styler_settings;
+
+		// Get styler field specific settings.
+		$styler_field_settings = get_option( 'gf_stla_field_id_' . $form_id );
+		$styler_field_settings = empty( $styler_field_settings ) ? array() : $styler_field_settings;
+
+		// Get general settings.
+		$general_settings = get_option( 'gf_stla_general_settings' . $form_id );
+		$general_settings = empty( $general_settings ) ? array() : $general_settings;
+
+		$saved_settings = array(
+			'stylerSettings'      => $styler_settings,
+			'stylerFieldSettings' => $styler_field_settings,
+			'generalSettings'     => $general_settings,
+		);
+
+		wp_send_json_success( $saved_settings );
 	}
 
 	/**
@@ -318,18 +333,18 @@ class Stla_Admin_Fetch_Content_Area {
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'stla_gravity_booster_nonce' ) ) {
 			wp_send_json_error( 'Invalid nonce' );
 		}
-
+		// Validate booster settings.
 		$booster_settings = isset( $_POST['boosterSettings'] ) ? sanitize_text_field( wp_unslash( $_POST['boosterSettings'] ) ) : '';
 		if ( empty( $booster_settings ) ) {
 			wp_send_json_error( 'Booster Settings are empty' );
 		}
-
+		// Save booster settings.
 		$booster_settings = stripslashes( $booster_settings );
 		$booster_settings = json_decode( $booster_settings, true );
-
 		update_option( 'gf_stla_booster_settings', $booster_settings );
-
-		wp_send_json_success( '' );
+		// Get booster settings.
+		$settings = $this->stla_get_booster_settings();
+		wp_send_json_success( $settings );
 	}
 
 
@@ -362,21 +377,32 @@ class Stla_Admin_Fetch_Content_Area {
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'stla_gravity_booster_nonce' ) ) {
 			wp_send_json_error( 'Invalid nonce' );
 		}
+		// Get the booster settings.
+		$settings = $this->stla_get_booster_settings();
 
-		$form_id             = isset( $_POST['formId'] ) ? sanitize_text_field( wp_unslash( $_POST['formId'] ) ) : '';
+		wp_send_json_success( $settings );
+	}
+
+	/**
+	 * Retrieves the Booster settings for the Gravity Forms plugin.
+	 *
+	 * This function fetches the license status for various Booster addons and the
+	 * overall Booster settings, and returns them as an array.
+	 *
+	 * @return array The Booster settings, including license status and other settings.
+	 */
+	public function stla_get_booster_settings() {
+
 		$license_status_keys = array( 'custom_themes_addon_license_status', 'ai_addon_license_status', 'field_icons_addon_license_status', 'gravity_forms_tooltips_addon_license_status', 'bootstrap_design_addon_license_status', 'gravity_forms_checkbox_radio_license_status', 'material_design_addon_license_status' );
 
 		$license_status = array();
-
 		foreach ( $license_status_keys as $license_status_key ) {
 			$license_status[ $license_status_key ] = get_option( $license_status_key );
 		}
 
-		$booster_settings = get_option( 'gf_stla_booster_settings' );
-
-		$stla_licenses    = get_option( 'stla_licenses' );
-		$booster_settings = empty( $booster_settings ) ? array() : $booster_settings;
-		$licenses         = array(
+		$stla_licenses = get_option( 'stla_licenses' );
+		$stla_licenses = empty( $stla_licenses ) ? array() : $stla_licenses;
+		$licenses      = array(
 			'licenses' => array(
 				'keys'   => $stla_licenses,
 				'status' => $license_status,
@@ -384,8 +410,11 @@ class Stla_Admin_Fetch_Content_Area {
 
 		);
 
-		$settings = array_merge( $licenses, $booster_settings );
-		wp_send_json_success( $settings );
+		$booster_settings = get_option( 'gf_stla_booster_settings' );
+		$booster_settings = empty( $booster_settings ) ? array() : $booster_settings;
+		$settings         = array_merge( $licenses, $booster_settings );
+
+		return $settings;
 	}
 
 	/**

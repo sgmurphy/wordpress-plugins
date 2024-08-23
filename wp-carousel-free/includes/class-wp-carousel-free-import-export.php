@@ -115,6 +115,7 @@ class Wp_Carousel_Free_Import_Export {
 
 		wp_send_json( $export, 200 );
 	}
+
 	/**
 	 * Insert an attachment from an URL address.
 	 *
@@ -170,7 +171,6 @@ class Wp_Carousel_Free_Import_Export {
 		wp_update_attachment_metadata( $attach_id, $attach_data );
 
 		return $attach_id;
-
 	}
 
 	/**

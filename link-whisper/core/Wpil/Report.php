@@ -2100,6 +2100,8 @@ class Wpil_Report
         $wpil_link_table_query = "CREATE TABLE IF NOT EXISTS {$wpil_links_table} (
                                     link_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                                     post_id bigint(20) unsigned NOT NULL,
+                                    target_id bigint(20) unsigned NOT NULL,
+                                    target_type varchar(8),
                                     clean_url text,
                                     raw_url text,
                                     host text,

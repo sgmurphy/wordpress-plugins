@@ -19,6 +19,8 @@ function bt_bb_fe_init() {
 		
 		BT_BB_FE::$editor_active = true;
 		
+		BT_BB_Root::$elements = apply_filters( 'bt_bb_elements', BT_BB_Root::$elements );
+		
 		BT_BB_FE::$elements = apply_filters( 'bt_bb_fe_elements', array(
 		
 			'bt_bb_accordion' => array(

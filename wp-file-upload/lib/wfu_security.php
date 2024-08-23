@@ -95,7 +95,7 @@ function wfu_file_extension_whitelisted($filename) {
  *
  * @return bool True if validation passes, false otherwise.
  */
-function wfu_validate_mime_type($filepath, &$result) {
+function wfu_validate_mime_type($filepath, $filename, &$result) {
 	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
 	// Mime type validation exceptions:
 	//  A: pass files having no mime type
@@ -112,7 +112,7 @@ function wfu_validate_mime_type($filepath, &$result) {
 	}
 	$mime_type = strtolower($mime_type);
 	$mime_types = wfu_extensions_mime_types();
-	$ext = wfu_basename(wfu_fileext($filepath));
+	$ext = wfu_fileext($filename);
 	// check if file has an extension
 	if ( empty($ext) ) {
 		$result = "B";
@@ -136,32 +136,37 @@ function wfu_validate_mime_type($filepath, &$result) {
  * Post-Load File Security Checks.
  *
  * This function runs security checks on an uploaded file after it has been
- * fully loaded. For the moment it only performs MIME type check.
+ * fully loaded. It only performs MIME type check and content check.
  *
  * @since 4.24.9
  *
  * @param string $filepath The path to the file.
+ * @param array $params The uploader instance shortcode params.
  *
  * @return bool|string True if file passes security checks, otherwise an admin
  *         error message.
  */
-function wfu_post_load_security_checks($filepath) {
+function wfu_post_load_security_checks($filepath, $params) {
 	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
-	// perform MIME type check
-	$mime_check_result = "";
-	if ( !wfu_validate_mime_type($filepath, $mime_check_result) ) {
-		$code = substr($mime_check_result, 0, 1);
-		if ( $code === "A" ) return WFU_ERROR_ADMIN_FILE_NOMIME;
-		elseif ( $code === "B" ) return WFU_ERROR_ADMIN_FILE_NOEXT;
-		elseif ( $code === "C" ) return WFU_ERROR_ADMIN_FILE_NOASSOCMIME;
-		elseif ( $code === "D" ) return WFU_ERROR_ADMIN_FILE_INVALIDMIME.substr($mime_check_result, 2);
-		else return WFU_ERROR_ADMIN_FILE_MIMEUKNOWN;
-	}
-	// perform file content scan for scripts and suspicious patterns
-	$content_check = wfu_security_filecontent_checks($filepath);
-	if ( $content_check !== true ) {
-		return $content_check;
-	}
+	// By default for simple uploads the security checks are not executed after
+	// file has fully loaded and stored.
+	$execute_file_security_checks = false;
+	/**
+	 * Customize Security Checks Execution.
+	 *
+	 * This filter allows custom actions to customize whether the security
+	 * checks will be executed or not.
+	 *
+	 * @since 4.24.10
+	 *
+	 * @param bool $execute_file_security_checks Whether checks will run or not.
+	 * @param string $filepath The path of the file.
+     * @param array $params The uploader instance shortcode params.
+	 */
+	$execute_file_security_checks = apply_filters( "_wfu_post_load_security_checks", $execute_file_security_checks, $filepath, $params );
+	if ( $execute_file_security_checks ) {
+		return wfu_execute_file_security_checks(array( 'mime', 'content' ), $filepath, wfu_basename($filepath), $params);
+	}	
 	
 	return true;
 }
@@ -169,22 +174,91 @@ function wfu_post_load_security_checks($filepath) {
 /**
  * During-Upload File Security Checks.
  *
- * This function runs security checks on a partially uploaded file. For the
- * moment it performs no checks, but it exists for future compatibility.
+ * This function runs security checks on a partially uploaded file. The checks
+ * are executed for non-chunked uploads only. Since the file is in a temporary
+ * location with a temporary filename, the tru filename of the file must also be
+ * provided.
  *
  * @since 4.24.9
  *
  * @redeclarable
  *
  * @param string $filepath The path to the file.
- * @param string $filename The filename of the uploaded file.
+ * @param string $filename The filename of the file.
+ * @param array $params The uploader instance shortcode params.
  *
  * @return bool|string True if file passes security checks, otherwise an admin
  *         error message.
  */
-function wfu_during_upload_security_checks($filepath, $filename) {
+function wfu_during_upload_security_checks($filepath, $filename, $params) {
 	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
-	// check contents
+	// By default for simple uploads the security checks are executed on the
+	// temporarily uploaded file during the upload.
+	$execute_file_security_checks = true;
+	/**
+	 * Customize Security Checks Execution.
+	 *
+	 * This filter allows custom actions to customize whether the security
+	 * checks will be executed or not.
+	 *
+	 * @since 4.24.10
+	 *
+	 * @param bool $execute_file_security_checks Whether checks will run or not.
+	 * @param string $filepath The path of the file.
+	 * @param string $filename The filename of the file.
+     * @param array $params The uploader instance shortcode params.
+	 */
+	$execute_file_security_checks = apply_filters( "_wfu_during_upload_security_checks", $execute_file_security_checks, $filepath, $filename, $params );
+	if ( $execute_file_security_checks ) {
+		return wfu_execute_file_security_checks(array( 'mime', 'content' ), $filepath, $filename, $params);
+	}	
+	
+	return true;
+}
+
+/**
+ * Execute File Security Checks.
+ *
+ * This function runs security checks on a file. The type of security checks is
+ * determined by $checks parameter. In case the file is stored in a temporary
+ * place with a temporary filename, the real filename of the file must also be
+ * provided.
+ *
+ * @since 4.24.10
+ *
+ * @redeclarable
+ *
+ * @param array $checks An array of checks to perform. It currently supports
+ *        'mime' and 'content' checks.
+ * @param string $filepath The path to the file.
+ * @param string $filename The filename of the uploaded file.
+ * @param array $params The uploader shortcode params.
+ *
+ * @return bool|string True if file passes security checks, otherwise an admin
+ *         error message.
+ */
+function wfu_execute_file_security_checks($checks, $filepath, $filename, $params) {
+	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
+	if ( in_array( 'mime', $checks ) ) {
+		// perform MIME type check
+		$mime_check_result = "";
+		if ( !wfu_validate_mime_type($filepath, $filename, $mime_check_result) ) {
+			$code = substr($mime_check_result, 0, 1);
+			if ( $code === "A" ) return WFU_ERROR_ADMIN_FILE_NOMIME;
+			elseif ( $code === "B" ) return WFU_ERROR_ADMIN_FILE_NOEXT;
+			elseif ( $code === "C" ) return WFU_ERROR_ADMIN_FILE_NOASSOCMIME;
+			elseif ( $code === "D" ) return WFU_ERROR_ADMIN_FILE_INVALIDMIME.substr($mime_check_result, 2);
+			else return WFU_ERROR_ADMIN_FILE_MIMEUKNOWN;
+		}
+	}
+	if ( in_array( 'content', $checks ) ) {
+		// perform file content scan for scripts and suspicious patterns
+		$content_check = wfu_security_filecontent_checks($filepath, $filename);
+		if ( $content_check !== true ) {
+			return $content_check;
+		}
+	}
+	
 	return true;
 }
 
@@ -199,18 +273,19 @@ function wfu_during_upload_security_checks($filepath, $filename) {
  * @redeclarable
  *
  * @param string $filepath The path to the file.
+ * @param string $filename The filename of the file.
  *
  * @return bool|string True if file passes security checks, otherwise an admin
  *         error message.
  */
-function wfu_security_filecontent_checks($filepath) {
+function wfu_security_filecontent_checks($filepath, $filename) {
 	$a = func_get_args(); $a = WFU_FUNCTION_HOOK(__FUNCTION__, $a, $out); if (isset($out['vars'])) foreach($out['vars'] as $p => $v) $$p = $v; switch($a) { case 'R': return $out['output']; break; case 'D': die($out['output']); }
 	$patterns = array();
 	// determine script patterns to be included in scan
-	$script_pattern = wfu_content_scan_script_pattern($filepath);
+	$script_pattern = wfu_content_scan_script_pattern($filepath, $filename);
 	if ( !empty($script_pattern) ) $patterns['script'] = $script_pattern;
 	// determine heuristic patterns to be included in scan
-	$heuristic_pattern = wfu_content_scan_heuristic_pattern($filepath);
+	$heuristic_pattern = wfu_content_scan_heuristic_pattern($filepath, $filename);
 	if ( !empty($heuristic_pattern) ) $patterns['heuristic'] = $heuristic_pattern;
 	if ( count($patterns) === 0 ) return true;
 	// perform the scan and analyze results
@@ -390,12 +465,13 @@ function wfu_file_has_php_tags($file, $ext) {
  * @since 4.24.9
  *
  * @param string $filepath The path of the file.
+ * @param string $filename The filename of the file.
  *  
  * @return string The script pattern.
  */
-function wfu_content_scan_script_pattern($filepath) {
+function wfu_content_scan_script_pattern($filepath, $filename) {
 	$mime = wfu_mime_type_of_file($filepath);
-	$ext = strtolower(wfu_fileext(wfu_basename($filepath)));
+	$ext = strtolower(wfu_fileext($filename));
 	$pattern = "";
 	// on text files seatch for opening PHP or script tags
 	if ( $mime !== null && substr(strtolower($mime), 0, 4) === "text" ) {
@@ -413,10 +489,11 @@ function wfu_content_scan_script_pattern($filepath) {
 	 *
 	 * @param string $pattern The initial scan script pattern.
 	 * @param string $filepath The path of the file.
+	 * @param string $filename The filename of the file.
      * @param string $mime The MIME type of the file.
      * @param string $ext The file extension.
 	 */
-	$pattern = apply_filters( "_wfu_content_scan_script_pattern", $pattern, $filepath, $mime, $ext );
+	$pattern = apply_filters( "_wfu_content_scan_script_pattern", $pattern, $filepath, $filename, $mime, $ext );
 	return $pattern;
 }
 
@@ -429,12 +506,13 @@ function wfu_content_scan_script_pattern($filepath) {
  * @since 4.24.9
  *
  * @param string $filepath The path of the file.
+ * @param string $filename The filename of the file.
  *  
  * @return string The script pattern.
  */
-function wfu_content_scan_heuristic_pattern($filepath) {
+function wfu_content_scan_heuristic_pattern($filepath, $filename) {
 	$mime = wfu_mime_type_of_file($filepath);
-	$ext = strtolower(wfu_fileext(wfu_basename($filepath)));
+	$ext = strtolower(wfu_fileext($filename));
 	$pattern = "";
 	// on text files seatch for eval(), base64_decode() and shell_exec()
 	// provided that the security level is higher that zero
@@ -450,10 +528,11 @@ function wfu_content_scan_heuristic_pattern($filepath) {
 	 *
 	 * @param string $pattern The initial scan heuristic pattern.
 	 * @param string $filepath The path of the file.
+	 * @param string $filename The filename of the file.
      * @param string $mime The MIME type of the file.
      * @param string $ext The file extension.
 	 */
-	$pattern = apply_filters( "_wfu_content_scan_heuristic_pattern", $pattern, $filepath, $mime, $ext );
+	$pattern = apply_filters( "_wfu_content_scan_heuristic_pattern", $pattern, $filepath, $filename, $mime, $ext );
 	return $pattern;
 }
 

@@ -815,7 +815,7 @@ $className = 'TrustindexPlugin_' . $forcePlatform;
 if (!class_exists($className)) {
 return $this->error_box_for_admins(ucfirst($forcePlatform) . ' plugin is not active or not found!');
 }
-$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-12.1", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-12.1.1", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -7119,7 +7119,7 @@ public function is_table_exists($name = "")
 {
 global $wpdb;
 $tableName = $this->get_tablename($name);
-return ($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName);
+return ($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) || ($wpdb->get_var("SHOW TABLES LIKE '". strtolower($tableName) ."'") == strtolower($tableName));
 }
 }
 ?>

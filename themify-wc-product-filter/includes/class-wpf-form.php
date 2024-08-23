@@ -555,6 +555,9 @@ class WPF_Form {
                     'count' => __('Count', 'wpf'),
                     'id' => __('ID', 'wpf'),
                 );
+                if ( $type === 'wpf_tag' ) {
+                    unset( $order['term_order'] );
+                }
                 $orderby = array(
                     'asc' => __('Ascending', 'wpf'),
                     'desc' => __('Descending', 'wpf')
@@ -618,13 +621,14 @@ class WPF_Form {
 								</small>
 							</label>
 						</div>
-						<div class="wpf_back_active_module_input">
+						<div class="wpf_back_active_module_input wpf_include_children wpf_changed">
 							<?php foreach ($include_children as $k => $v): ?>
 								<label>
 									<input type="radio" name="[<?php echo $type ?>][include]" value="<?php echo $k ?>" <?php if ((isset($module['include']) && $module['include'] === $k) || (!isset($module['include']) && $k === 'yes')): ?>checked="checked"<?php endif; ?>  />
 									<?php echo $v ?>
 								</label>
 							<?php endforeach; ?>
+                            <p class="wpf_include_children_warning" style="display: <?php echo ( ( ! isset( $module['include'] ) || $module['include'] === 'yes' ) && ( isset( $module['logic'] ) && $module['logic'] === 'and' ) ) ? 'block' : 'none'; ?>"><mark class="error"><span class="dashicons dashicons-warning"></span><?php esc_attr_e( 'When logic is AND and "Include Children" is enabled, it will only show products that assigned to ALL sub categories.', 'wpf' ) ?></mark></p>
 						</div>
 					</div>
 				<?php endif; ?>
@@ -658,7 +662,7 @@ class WPF_Form {
 							</small>
 						</label>
                     </div>
-                    <div class="wpf_back_active_module_input wpf_logic">
+                    <div class="wpf_back_active_module_input wpf_logic wpf_changed">
                         <?php foreach ($logic as $k => $v): ?>
                             <label>
                                 <input type="radio" name="[<?php echo $type ?>][logic]" value="<?php echo $k ?>" <?php if ((isset($module['logic']) && $module['logic'] === $k) || (!isset($module['logic']) && $k === 'or')): ?>checked="checked"<?php endif; ?>  />
@@ -912,7 +916,8 @@ class WPF_Form {
     }
 
 	public function get_min_max_price() {
-		/**
+		$result = [ 0, 0 ];
+        /**
 		 * Note, the result is not filtered by language, this returns min & max prices from products in ALL languages
 		 */
 		$query_args = array(
@@ -932,10 +937,10 @@ class WPF_Form {
 			$min_query = get_posts( $query_args );
 			$min = get_post_meta( $min_query[0]->ID, '_price', true );
 
-			return array( $min, $max );
+			$result = apply_filters( 'wpf_min_max_price', [ $min, $max ] );
 		}
 
-		return array( 0, 0 );
+		return $result;
 	}
 
     /**
@@ -958,9 +963,7 @@ class WPF_Form {
         switch ($type):
             case 'title':
             case 'sku':
-                if ( ! wp_script_is( 'jquery-ui-autocomplete' ) ) {
-                    wp_enqueue_style($this->plugin_name . 'ui-css');
-                }
+                wp_enqueue_style($this->plugin_name . 'ui-css');
 				$search_variation = ( $type === 'title' && isset( $args['variation'] ) && $args['variation'] === 'no' ) ? 'data-variation="no"' : '';
                 ?>
                 <div class="wpf_autocomplete">
@@ -1038,9 +1041,7 @@ class WPF_Form {
 						return;
 					}
 
-					if ( ! wp_script_is( 'jquery-ui-slider' ) ) {
-						wp_enqueue_style( $this->plugin_name . 'ui-css' );
-					}
+                    wp_enqueue_style( $this->plugin_name . 'ui-css' );
 
 					$step = ($min >= 0 && $min < 1 && ceil($max) <=1)? 0.1 : 1;
 					if (isset($args['step'])){

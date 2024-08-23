@@ -8,7 +8,7 @@ $notCreatedTables = [];
 $mysqlError = "";
 foreach (array_keys($ti_db_schema) as $tableName) {
 if (!$this->is_table_exists($tableName)) {
-dbDelta($ti_db_schema[ $tableName ]);
+dbDelta(trim($ti_db_schema[ $tableName ]));
 }
 if ($wpdb->last_error) {
 $mysqlError = $wpdb->last_error;

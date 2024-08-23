@@ -32,6 +32,10 @@ class bt_bb_headline extends BT_BB_Element {
 		$superheadline = html_entity_decode( $superheadline, ENT_QUOTES, 'UTF-8' );
 		$subheadline = html_entity_decode( $subheadline, ENT_QUOTES, 'UTF-8' );
 		$headline = html_entity_decode( $headline, ENT_QUOTES, 'UTF-8' );
+		
+		$superheadline = wp_kses_post( $superheadline );
+		$subheadline = wp_kses_post( $subheadline );
+		$headline = wp_kses_post( $headline );
 
 		if ( $font != '' && $font != 'inherit' ) {
 			require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );

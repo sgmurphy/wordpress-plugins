@@ -71,7 +71,6 @@ class WP_Carousel_Free_Admin {
 
 		// Scripts.
 		wp_enqueue_script( $this->plugin_name . 'admin', WPCAROUSELF_URL . 'admin/js/wp-carousel-free-admin' . $this->suffix . '.js', array( 'jquery' ), $this->version, true );
-
 	}
 
 	/**
@@ -205,6 +204,7 @@ class WP_Carousel_Free_Admin {
 
 		return $text;
 	}
+
 	/**
 	 * Bottom review notice.
 	 *

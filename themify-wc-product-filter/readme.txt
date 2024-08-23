@@ -2,11 +2,13 @@
 Contributors: themifyme
 Plugin Name: Themify - WooCommerce Product Filter
 Tags: product-search, woocommerce-product-search, product-filter, woocommerce-product-filter, product-sort
-Requires at least: 4.5
-Tested up to: 6.5.4
-Stable tag: 1.5.0
+Requires at least: 5.0
+Tested up to: 6.6.1
+Stable tag: 1.5.1
+License: GPL v2
+License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-This plugin help shoppers easily find products on your WooCommerce shop. It allows users to easily filter through products by price range, categories, attributes, tags, and much more. 
+This plugin helps shoppers quickly find products in your WooCommerce shop by filtering through price, categories, attributes, tags, and more.
 
 == Description ==
 

@@ -1360,7 +1360,8 @@ class WoofiltersWpf extends ModuleWpf {
 				$metaDataTable   = DbWpf::getTableName( 'meta_data' );
 				//$args['join']   .= ' LEFT JOIN ' . $metaDataTable . ' AS wpf_price_order ON (wpf_price_order.product_id=' . $wpdb->posts . '.ID AND wpf_price_order.key_id=' . $metaKeyId . ')';
 				//$args['orderby'] = ' wpf_price_order.val_dec ASC, wpf_price_order.product_id ';
-				$args['join'] .= ' LEFT JOIN (SELECT wpf_t.product_id, min(wpf_t.val_dec) as wpf_price FROM ' . $metaDataTable . ' as wpf_t WHERE wpf_t.key_id=' . $metaKeyId . ' GROUP BY wpf_t.product_id) as wpf_price_order ON (wpf_price_order.product_id=' . $wpdb->posts . '.ID)';
+				$func = ( FrameWpf::_()->getModule('options')->get('use_max_price') == 1 ? 'max' : 'min' );
+				$args['join'] .= ' LEFT JOIN (SELECT wpf_t.product_id, ' . $func . '(wpf_t.val_dec) as wpf_price FROM ' . $metaDataTable . ' as wpf_t WHERE wpf_t.key_id=' . $metaKeyId . ' GROUP BY wpf_t.product_id) as wpf_price_order ON (wpf_price_order.product_id=' . $wpdb->posts . '.ID)';
 				$args['orderby'] = ' wpf_price_order.wpf_price ASC, ' . $wpdb->posts . '.ID ';
 			
 			} else {

@@ -150,6 +150,9 @@ There is an option in plugin's settings in Dashboard to relax the CSS rules, so 
 
 == Changelog ==
 
+= 4.24.10 =
+* corrected bug where FTP uploads where all rejected after release of version 4.24.9 due to fail of MIME type check
+
 = 4.24.9 =
 * verified compatibility with Wordpress version 6.6.1
 * limited the number of whitelisted extensions to those having an associated MIME type, in order to avoid XSS attacks
@@ -1044,6 +1047,9 @@ Added the option to allow anyone to upload files, by setting the attribute uploa
 Initial version.
 
 == Upgrade Notice ==
+
+= 4.24.10 =
+Minor update to fix some bugs.
 
 = 4.24.9 =
 Regular update to fix some security issues.

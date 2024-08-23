@@ -212,11 +212,6 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 
 	body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gform_body .gform_fields .gfield textarea {
 		<?php
-		if ( isset( $get_form_options['paragraph-textarea'] ) ) {
-			echo esc_html( $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'paragraph-textarea', $important ) );
-		}
-		?>
-		<?php
 		if ( ! isset( $get_form_options['text-fields']['border-size'] ) ) {
 			echo 'border-width: 1px;';
 		}
@@ -233,7 +228,6 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 		<?php
 
 
-
 		if ( ! empty( $get_form_options['text-fields']['border-radius'] ) ) {
 			echo 'border-radius: ' . esc_html( $get_form_options['text-fields']['border-radius'] ) . esc_html( $main_class_object->gf_stla_add_px_to_value( $get_form_options['text-fields']['border-radius'] ) ) . ';';
 			echo '-web-border-radius: ' . esc_html( $get_form_options['text-fields']['border-radius'] ) . esc_html( $main_class_object->gf_stla_add_px_to_value( $get_form_options['text-fields']['border-radius'] ) ) . ';';
@@ -244,7 +238,7 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 
 	<?php
 	if ( isset( $get_form_options['paragraph-textarea'] ) ) {
-		echo $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'paragraph-textarea', $important );
+		echo esc_html( $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'paragraph-textarea', $important ) );
 	}
 	?>
 	}
@@ -295,7 +289,14 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 
 <?php if ( isset( $get_form_options['field-labels'] ) ) { ?>
 	body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gform_body .gform_fields .gfield .gfield_label {
-		<?php echo esc_html( $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'field-labels', $important ) ); ?>
+		<?php
+		echo esc_html( $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'field-labels', $important ) );
+		if ( isset( $get_form_options['field-labels']['text-align'] ) ) {
+			echo 'justify-content:' . esc_html( $get_form_options['field-labels']['text-align'] ) . ';';
+		}
+		?>
+
+		
 	}
 
 	<?php if ( ! empty( $get_form_options['field-labels']['asterisk-color'] ) ) { ?>

@@ -4,7 +4,7 @@ Plugin Name: Themesflat Addons For Elementor
 Description: The theme's components
 Author: Themesflat
 Author URI: http://themesflat-addons.com/
-Version: 2.1.8
+Version: 2.1.9
 Text Domain: themesflat-addons-for-elementor
 Domain Path: /languages
 
@@ -506,7 +506,12 @@ final class ThemesFlat_Addon_For_Elementor_Free {
             wp_register_style('tf-regular', ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/regular.min.css', __FILE__);
             wp_enqueue_style( 'tf-font-awesome' );
             wp_enqueue_style( 'tf-regular' );
-        }        
+        }    
+        
+        // Header footer
+        wp_register_style( 'tf-header-footer', plugins_url( '/assets/css/tf-header-footer.css', __FILE__ ) );
+        wp_enqueue_style( 'tf-header-footer' );
+
         // 
         wp_register_style( 'slide-vegas', plugins_url( '/assets/css/vegas.css', __FILE__ ) );
         

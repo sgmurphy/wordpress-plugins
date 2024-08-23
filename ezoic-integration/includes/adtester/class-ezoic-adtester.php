@@ -411,9 +411,11 @@ class Ezoic_AdTester extends Ezoic_Feature
 		try {
 			// If unicode support isn't loaded, encode the html
 			$content = \ez_encode_unicode( $content );
-
 		 	$inserter = new Ezoic_AdTester_Content_Inserter2( $this->config );
-
+			if ( EZOIC_DEBUG ) {
+				$commented_content = "<!--[if IE 3 ]>Debugging Pre Insertion Content Start: \n" . print_r($content, true) . "\n<![endif]-->";
+				$content = $content . $commented_content;
+			}
 			$content = $inserter->insert( $content );
 		} catch (\Exception $ex) {
 			$inserter = new Ezoic_AdTester_Content_Inserter( $this->config );

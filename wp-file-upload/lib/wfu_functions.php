@@ -3297,11 +3297,11 @@ function wfu_unlink($path, $caller = null) {
 function wfu_mime_type_of_file($path) {
 	$mimetype = null;
 	if ( function_exists('mime_content_type') ) { 
-		$mimetype = mime_content_type($path);
+		$mimetype = @mime_content_type($path);
 	}
 	elseif ( function_exists('finfo_open') ) { 
 		$finfo = finfo_open(FILEINFO_MIME_TYPE); 
-		$mimetype = finfo_file($finfo, $path); 
+		$mimetype = @finfo_file($finfo, $path); 
 		finfo_close($finfo); 
 	}
 	return $mimetype;

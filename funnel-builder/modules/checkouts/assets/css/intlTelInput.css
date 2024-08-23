@@ -1563,6 +1563,7 @@ body.rtl:not(.wfacp-top) .wfacp_main_form #wfacp-intl-phone-flag-field #shipping
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     body .iti__flag {
         background-image: url("../img/flags@2x.png");
+        background-size: auto 15px;
     }
 }
 

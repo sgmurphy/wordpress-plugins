@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Link Whisper Free
- * Version: 0.7.6
+ * Version: 0.7.7
  * Description: Quickly build smart internal links both to and from your content. Additionally, gain valuable insights with in-depth internal link reporting.
  * Author: Link Whisper
  * Author URI: https://linkwhisper.com
- * Tested up to: 6.5
+ * Tested up to: 6.6
  * Text Domain: wpil
  */
 
@@ -19,7 +19,7 @@ function wpil_autoloader( $class_name ) {
     }
 }
 define( 'WPIL_STORE_URL', 'https://linkwhisper.com');
-define( 'WPIL_VERSION_NUMBER', '0.7.6');
+define( 'WPIL_VERSION_NUMBER', '0.7.7');
 define( 'WP_INTERNAL_LINKING_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define( 'WP_INTERNAL_LINKING_PLUGIN_URL', plugin_dir_url(__FILE__));
 define( 'WPIL_PLUGIN_NAME', plugin_basename( __FILE__ ));

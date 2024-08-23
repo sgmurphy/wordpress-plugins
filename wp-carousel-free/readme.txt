@@ -2,8 +2,8 @@
 Contributors: shapedplugin, khalilu, shamimmiashuhagh, rubel_miah
 Tags: slider, carousel, slideshow, gallery, video slider
 Requires at least: 5.0
-Tested up to: 6.6
-Stable tag: 2.6.7
+Tested up to: 6.6.1
+Stable tag: 2.6.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -326,6 +326,12 @@ Thank you!
 
 == Changelog ==
 
+= 2.6.8 – Aug 23, 2024 =
+* Fix: Some strings translation issue.
+* Updated: The language (.pot) file.
+* Tested: WordPress 6.6.1 compatibility.
+* Tested: WooCommerce 9.1.4 compatibility.
+
 = 2.6.7 – Jul 18, 2024 =
 * Tested: WordPress 6.6 compatibility.
 * Tested: WooCommerce 9.1.2 compatibility.
@@ -361,7 +367,7 @@ Thank you!
 * New: The Zoom In, Zoom Out feature
 * Improved: The Tool Tip/Help text of the plugin options to make it more user-friendly.
 * Improved: The Margin Bottom of the Section Title option has moved to the Typography Section.
-* Improved: SVG icons have been optimized. 
+* Improved: SVG icons have been optimized.
 * Improved: The Carousel options were reorganized by the Nested Tab system.
 * Improved: The Carousel Navigation and Pagination's Hide in mobile option have been separated.
 * Improved: Set the default image size to medium size.

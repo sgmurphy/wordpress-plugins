@@ -3937,6 +3937,11 @@
             aysQuizDeleteCookie('ays_quiz_created_new');
         }
 
+        $(document).find('.ays-quiz-accordion-arrow-box').on('click', function(e) {
+            var _this = $(this);
+            openCloseAccordion( _this );
+        });
+
     });
 
     function showConfirmationIfDelete(e) {
@@ -4385,6 +4390,27 @@
         // #ampm#     "am" or "pm"             pm
         // #AMPM#     "AM" or "PM"             PM
     };
+
+    function openCloseAccordion( _this ){
+        var parent = _this.closest(".ays-quiz-accordion-options-main-container");
+        var container = parent.find('.ays-quiz-accordion-options-box');
+
+        if( parent.attr('data-collapsed') === 'true' ){
+            setTimeout( function() {
+                container.slideDown();
+                parent.find('.ays-quiz-accordion-arrow-box .ays-quiz-accordion-arrow').removeClass('ays-quiz-accordion-arrow-right').addClass('ays-quiz-accordion-arrow-down');
+                parent.attr('data-collapsed', 'false');
+                parent.find('.ays-quiz-accordion-options-main-container').attr('data-collapsed', 'false');
+            }, 150);
+        }else{
+            setTimeout( function() {
+                container.slideUp();
+                parent.find('.ays-quiz-accordion-arrow-box .ays-quiz-accordion-arrow').removeClass('ays-quiz-accordion-arrow-down').addClass('ays-quiz-accordion-arrow-right');
+                parent.attr('data-collapsed', 'true');
+                parent.find('.ays-quiz-accordion-options-main-container').attr('data-collapsed', 'true');
+            }, 150);
+        }
+    }
     
 })(jQuery);
 

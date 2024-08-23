@@ -182,6 +182,7 @@ class WPF {
 	public static function plugins_compatibility() {
 		$plugins = array(
 			'PremiumAddonsForElementor' => defined( 'PREMIUM_ADDONS_VERSION' ),
+			'wooPayments' => defined( 'WCPAY_ABSPATH' ),
 		);
 		$plugindir = plugin_dir_path(dirname(__FILE__));
 		foreach ( $plugins as $plugin => $active_check ) {
