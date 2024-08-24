@@ -77,8 +77,31 @@ $rowsperpage = 20;
 		if($rid > 0){
 			$delete = $wpdb->query("DELETE FROM `".$table_name."` WHERE id = ".$rid);
 		}
-		
 	}
+	//hiding a review.
+	if(isset($_GET['hiderev'])){
+		//security
+		$nonce = $_REQUEST['_wpnonce'];
+		if ( ! wp_verify_nonce( $nonce, 'my-nonce' ) ) {
+			// This nonce is not valid.
+			die( __( 'Failed security check.', 'wp-google-reviews' ) ); 
+		}
+		
+		$rid = htmlentities($_GET['hiderev']);
+		$rid = intval($rid);
+		$newvalue = htmlentities($_GET['newvalue']);
+		//for updating
+		if($rid > 0){
+			$data = array( 
+				'hide' => "$newvalue"
+				);
+			$format = array( 
+					'%s'
+				); 
+			$updatetempquery = $wpdb->update($table_name, $data, array( 'id' => $rid ), $format, array( '%d' ));
+		}
+	}
+	
 	//delete by pageid
 	//$deletepageid = add_query_arg( 'delbypage', $reviewsrow->id,$currenturl );
 	//$deletepageid = esc_url( add_query_arg( '_wpnonce', $nonce, $deletepageid ) );
@@ -328,7 +351,7 @@ _e('Search reviews, hide certain reviews, manually add reviews, download a CSV f
 		<table class="wp-list-table widefat striped posts">
 			<thead>
 				<tr>
-					<th scope="col" width="70px" class="manage-column"><i class="dashicons dashicons-sort '.$sorticoncolor[0].'" aria-hidden="true"></i> '.__('Edit', 'wp-google-reviews').'</th>
+					<th scope="col" width="70px" class="manage-column">'.__('Edit', 'wp-google-reviews').'</th>
 					<th scope="col" width="50px" class="manage-column">'.__('Pic', 'wp-google-reviews').'</th>
 					<th scope="col" style="min-width:70px" class="manage-column"><a href="'.esc_url( add_query_arg( 'sortby', 'reviewer_name',$currenturl ) ).$sortdirection.'"><i class="dashicons dashicons-sort '.$sorticoncolor[1].'" aria-hidden="true"></i> '.__('Name', 'wp-google-reviews').'</a></th>
 					<th scope="col" width="85px" class="manage-column"><a href="'.esc_url( add_query_arg( 'sortby', 'rating',$currenturl ) ).$sortdirection.'"><i class="dashicons dashicons-sort '.$sorticoncolor[2].'" aria-hidden="true"></i> '.__('Rating', 'wp-google-reviews').'</a></th>
@@ -357,8 +380,22 @@ _e('Search reviews, hide certain reviews, manually add reviews, download a CSV f
 		if($reviewtotalcount>0){
 			foreach ( $reviewsrows as $reviewsrow ) 
 			{
-				$hideicon = '<i class="dashicons dashicons-admin-tools editrev" aria-hidden="true"></i>';
+				//print_r($reviewsrow );
+				$editicon = '<i class="dashicons dashicons-admin-tools editrev" aria-hidden="true"></i>';
 				$deleteicon = '<i class="dashicons dashicons-trash deleterev" aria-hidden="true"></i>';
+				
+				//see if it is hidden or shown
+				if($reviewsrow->hide=='yes'){
+					$hideicon = '<i class="dashicons dashicons-hidden hiderev" aria-hidden="true"></i>';
+					$hideurl = add_query_arg( 'hiderev', $reviewsrow->id,$currenturl );
+					$hideurl = add_query_arg( 'newvalue', "no", $hideurl );
+					$hiddentrclass = 'hiddenrow';
+				} else {
+					$hideicon = '<i class="dashicons dashicons-visibility hiderev" aria-hidden="true"></i>';
+					$hideurl = add_query_arg( 'hiderev', $reviewsrow->id,$currenturl );
+					$hideurl =  add_query_arg( 'newvalue', "yes", $hideurl );
+					$hiddentrclass = '';
+				}
 
 				//user image
 				if($reviewsrow->userpic!=""){
@@ -376,12 +413,12 @@ _e('Search reviews, hide certain reviews, manually add reviews, download a CSV f
 				}
 				$editurl = add_query_arg( 'editrev', $reviewsrow->id,$currenturl );
 				$deleteurl = add_query_arg( 'deleterev', $reviewsrow->id,$currenturl );
+
 				
 				//security
 				$editurl = esc_url( add_query_arg( '_wpnonce', $nonce, $editurl ) );
 				$deleteurl = esc_url( add_query_arg( '_wpnonce', $nonce, $deleteurl ) );
-				
-				
+				$hideurl = esc_url( add_query_arg( '_wpnonce', $nonce, $hideurl ) );
 				
 				//get userimages
 				$mediahtml ='';
@@ -396,8 +433,10 @@ _e('Search reviews, hide certain reviews, manually add reviews, download a CSV f
 					$mediahtml = $mediahtml.'</div>';
 				}
 				
-				$html .= '<tr id="'.$reviewsrow->id.'">
-						<th scope="col" class="manage-column"><a title="edit" alt="edit" href="'.$editurl.'">'.$hideicon.'</a><a title="delete" alt="delete" href="'.$deleteurl.'">'.$deleteicon.'</a></th>
+				$html .= '<tr id="'.$reviewsrow->id.'" class="'.$hiddentrclass.'">
+						<th scope="col" class="manage-column"><a title="edit" alt="edit" href="'.$editurl.'">'.$editicon.'</a><br><a title="delete" alt="delete" href="'.$deleteurl.'">'.$deleteicon.'</a><br>
+						<a title="hide/unhide" alt="hide/unhide" href="'.$hideurl.'">'.$hideicon.'</a>
+						</th>
 						<th scope="col" class="manage-column">'.$userpic.'</th>
 						<th scope="col" class="manage-column">'.$reviewsrow->reviewer_name.'</th>
 						<th scope="col" class="manage-column">'.$reviewsrow->rating.'</th>

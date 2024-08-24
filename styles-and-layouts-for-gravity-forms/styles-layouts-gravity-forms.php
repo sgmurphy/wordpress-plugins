@@ -3,7 +3,7 @@
  * Plugin Name: Gravity Booster ( Style & Layouts )
  * Plugin URI:  http://wpmonks.com/styles-layouts-gravity-forms
  * Description: Create beautiful styles for your gravity forms
- * Version:     5.13
+ * Version:     5.15
  * Author:      Sushil Kumar
  * Author URI:  http://wpmonks.com/
  * License:     GPL2License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'GF_STLA_DIR', WP_PLUGIN_DIR . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_URL', plugins_url() . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_STORE_URL', 'https://wpmonks.com' );
-define( 'GF_STLA_VERSION', '5.13' );
+define( 'GF_STLA_VERSION', '5.15' );
 
 if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 	include_once GF_STLA_DIR . '/admin-menu/EDD_SL_Plugin_Updater.php';
@@ -678,9 +678,11 @@ class Gravity_customizer_admin {
 		}
 		$input_styles .= $this->is_css_not_set( $settings[ $category ], 'color' ) ? '' : 'color:' . $settings[ $category ]['color'] . $important . ';';
 		$input_styles .= $this->is_css_not_set( $settings[ $category ], 'background-color' ) ? '' : 'background-color:' . $settings[ $category ]['background-color'] . $important . ';';
+
 		// Gradient for themes.
 		$input_styles .= $this->is_css_not_set( $settings[ $category ], 'background-color1' ) ? '' : 'background:-webkit-linear-gradient(to left,' . $settings[ $category ]['background-color'] . ',' . $settings[ $category ]['background-color1'] . ') ' . $important . ';';
 		$input_styles .= $this->is_css_not_set( $settings[ $category ], 'background-color1' ) ? '' : 'background:linear-gradient(to left,' . $settings[ $category ]['background-color'] . ',' . $settings[ $category ]['background-color1'] . ') ' . $important . ';';
+
 		$input_styles .= $this->is_css_not_set( $settings[ $category ], 'width' ) ? '' : 'width:' . $settings[ $category ]['width'] . $this->gf_stla_add_px_to_value( $settings[ $category ]['width'] ) . $important . ';';
 		$input_styles .= $this->is_css_not_set( $settings[ $category ], 'height' ) ? '' : 'height:' . $settings[ $category ]['height'] . $this->gf_stla_add_px_to_value( $settings[ $category ]['height'] ) . $important . ';';
 		$input_styles .= $this->is_css_not_set( $settings[ $category ], 'title-position' ) ? '' : 'text-align:' . $settings[ $category ]['title-position'] . $important . ';';
@@ -929,6 +931,11 @@ class Gravity_customizer_admin {
 	 * @return string
 	 */
 	public function hex_rgba( $hex_code, $background_opacity ) {
+
+		if ( empty( $hex_code ) ) {
+			return '';
+		}
+
 		$r               = '';
 		$g               = '';
 		$b               = '';

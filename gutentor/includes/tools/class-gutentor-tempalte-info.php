@@ -740,19 +740,21 @@ if ( ! class_exists( 'Gutentor_Template_Info' ) ) {
 		public function get_template_part_info( $attributes ) {
 
 			$template_part_query = new WP_Query(
-				array(
-					'post_type'      => 'wp_template_part',
-					'post_status'    => 'publish',
-					'post_name__in'  => array( $attributes['slug'] ),
-					'tax_query'      => array(
-						array(
-							'taxonomy' => 'wp_theme',
-							'field'    => 'slug',
-							'terms'    => $attributes['theme'],
+				gutentor_get_query(
+					array(
+						'post_type'      => 'wp_template_part',
+						'post_status'    => 'publish',
+						'post_name__in'  => array( $attributes['slug'] ),
+						'tax_query'      => array(
+							array(
+								'taxonomy' => 'wp_theme',
+								'field'    => 'slug',
+								'terms'    => $attributes['theme'],
+							),
 						),
-					),
-					'posts_per_page' => 1,
-					'no_found_rows'  => true,
+						'posts_per_page' => 1,
+						'no_found_rows'  => true,
+					)
 				)
 			);
 			return $template_part_query->have_posts() ? $template_part_query->next_post() : null;

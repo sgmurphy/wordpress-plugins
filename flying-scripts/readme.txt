@@ -4,11 +4,12 @@ Contributors: gijo
 Donate link: https://www.buymeacoffee.com/gijovarghese
 Tags: defer javascript, 3rd party scripts
 Requires at least: 4.5
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Flying Scripts - Download and execute JavaScript on user interaction.
 
 == Description ==
 

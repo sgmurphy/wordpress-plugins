@@ -348,7 +348,7 @@ if ( ! class_exists( 'Gutentor_Self_Api_Handler' ) ) {
 				$query_args['post__not_in'] = explode( ',', $request->get_param( 'post__not_in' ) );
 			}
 			// the query
-			$the_query = new WP_Query( $query_args );
+			$the_query = new WP_Query( gutentor_get_query( $query_args ) );
 			wp_reset_postdata();
 			return rest_ensure_response( $the_query->max_num_pages );
 		}
@@ -602,7 +602,7 @@ ORDER BY post_count DESC"
 			if ( $search_text ) {
 				$tax_array['name__like'] = $search_text;
 			}
-			$tex_terms = get_terms( $tax_array );
+			$tex_terms = get_terms( gutentor_get_term_query( $tax_array ) );
 			if ( ! empty( $tex_terms ) ) :
 				return rest_ensure_response( $tex_terms );
 			endif;
@@ -694,7 +694,7 @@ ORDER BY post_count DESC"
 				}
 			}
 			// return $term_args;
-			$term_obj = get_terms( $term_args );
+			$term_obj = get_terms( gutentor_get_term_query( $term_args ) );
 			$terms    = array();
 			foreach ( $term_obj as $term ) {
 				$data    = $this->prepare_term_for_response( $term, $request );
@@ -1082,36 +1082,6 @@ ORDER BY post_count DESC"
 		}
 
 		/**
-		 * set order and order by.
-		 *
-		 * @param string $orderby
-		 * @param string $order .
-		 * @param array  $args .
-		 * @return array $args.
-		 * @since 2.1.3
-		 */
-		public function set_product_order_order_by( $orderby, $order, $args ) {
-			switch ( $orderby ) {
-				case 'price':
-					$args['orderby']  = 'meta_value_num';
-					$args['order']    = $order;
-					$args['meta_key'] = '_price';
-					break;
-				case 'popularity':
-					$args['orderby']  = 'meta_value_num';
-					$args['order']    = $order;
-					$args['meta_key'] = 'total_sales';
-					break;
-				case 'rating':
-					$args['orderby']  = 'meta_value_num';
-					$args['order']    = $order;
-					$args['meta_key'] = '_wc_average_rating';
-					break;
-			}
-			return $args;
-		}
-
-		/**
 		 * Prepares a single post output for response.
 		 * Copied from WP_REST_Posts_Controller->prepare_item_for_response
 		 *
@@ -1258,10 +1228,9 @@ ORDER BY post_count DESC"
 				$query_args['post__not_in'] = explode( ',', $request->get_param( 'post__not_in' ) );
 			}
 			if ( $post_type === 'product' ) {
-				$product_order_by    = $request->get_param( 'orderby' ) ? $request->get_param( 'orderby' ) : 'date';
-				$product_order       = $request->get_param( 'order' ) ? $request->get_param( 'order' ) : 'desc';
-				$query_args['order'] = $request->get_param( 'order' ) ? $request->get_param( 'order' ) : 'desc';
-				$query_args          = $this->set_product_order_order_by( $product_order_by, $product_order, $query_args );
+				$product_order_by = $request->get_param( 'orderby' ) ? $request->get_param( 'orderby' ) : 'date';
+				$product_order    = $request->get_param( 'order' ) ? $request->get_param( 'order' ) : 'desc';
+				$query_args       = gutentor_set_product_order_order_by( $product_order_by, $product_order, $query_args );
 			} else {
 				$query_args['orderby'] = $request->get_param( 'orderby' ) ? $request->get_param( 'orderby' ) : 'date';
 				$query_args['order']   = $request->get_param( 'order' ) ? $request->get_param( 'order' ) : 'desc';
@@ -1448,7 +1417,7 @@ ORDER BY post_count DESC"
 				}
 			}
 			$posts_query  = new WP_Query();
-			$query_result = $posts_query->query( $query_args );
+			$query_result = $posts_query->query( gutentor_get_query( $query_args ) );
 
 			$posts = array();
 
@@ -1466,7 +1435,7 @@ ORDER BY post_count DESC"
 				unset( $query_args['paged'] );
 
 				$count_query = new WP_Query();
-				$count_query->query( $query_args );
+				$count_query->query( gutentor_get_query( $query_args ) );
 				$total_posts = $count_query->found_posts;
 			}
 

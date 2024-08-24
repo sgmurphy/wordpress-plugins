@@ -3,7 +3,7 @@ Contributors: gVectors Team
 Tags: comment, comments, ajax comments, comment form, comment fields
 Requires at least: 5.0
 Tested up to: 6.6
-Stable tag: 7.6.22
+Stable tag: 7.6.23
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -189,6 +189,10 @@ Nothing will be lost!  **Comments - wpDiscuz** will show all old comments.
 
 Please don't forget delete all caches and purge CDN after the update.
 
+= Comments - wpDiscuz v7.6.23 - 24.08.2024 =
+
+* Fixed: Issue with "bulk delete comments" via link in the email
+
 = Comments - wpDiscuz v7.6.22 - 24.07.2024 =
 
 * Added: A new hook "wpdiscuz_generate_thumbnails_check" to disable thumbnails generation cron
@@ -215,49 +219,3 @@ Please don't forget delete all caches and purge CDN after the update.
 = Comments - wpDiscuz v7.6.18 - 24.04.2024 =
 
 * Fixed: Timout error on dashboard statistics page when comments count are too many
-
-= Comments - wpDiscuz v7.6.17 - 03.04.2024 =
-
-* Fixed: An issue on post meta update
-* Fixed: An issue with tinymce - Failed to initialize plugin: wpDiscuz ReferenceError: wpdObject is not defined
-
-= Comments - wpDiscuz v7.6.16 - 27.03.2024 =
-
-* Fixed: Issue in the unsubscribe template HTML
-* Fixed: Vulnerability in uploaded files
-* Added: Support of inline commenting in ACF rich editor
-
-= Comments - wpDiscuz v7.6.15 - 03.02.2024 =
-
-* Added: Inline Comment integration to Elementor rich editor
-* Added: wpDiscuz comments in Elementor builder
-* Added: [wpdiscuz_comments] shortcode
-
-= Comments - wpDiscuz v7.6.14 - 07.01.2024 =
-
-* Added: Comment author URL validation for the comments that weren't added by wpDiscuz
-* Fixed: Post authors URLs on comment author label
-* Fixed: Automatically adding wpDiscuz as a default comment form/system on block themes
-* Fixed: Ensure text remains visible during webfont load
-* Fixed: An issue with notifications with the type of "all my comments"
-
-= Comments - wpDiscuz v7.6.13 - 16.11.2023 =
-
-* Fixed: Undefined array keys on PHP8
-* Fixed: vulnerable to Cross Site Scripting (XSS)
-
-= Comments - wpDiscuz v7.6.12 - 31.10.2023 =
-
-* Fixed: Readable Unicode URLs
-* Fixed: XSS Vulnerability on file upload
-* Fixed: Vulnerable endpoint
-* Fixed: Links are not crawlable (Google Pagespeed)
-
-= Comments - wpDiscuz v7.6.11 - 19.10.2023 =
-
-* Updated: Subscriptions/Follows confirmation and cancellation emails logic
-* Fixed: Comment to trashed post (Vulnerability)
-* Fixed: Issue with the Default Avatar Source option
-* Fixed: Security issue (Variables and options must be escaped when echo'd)
-* Fixed: Conflict with "Sign In with LinkedIn using OpenID Connect"
-* Fixed: Conflict with BuddyPress mentioning

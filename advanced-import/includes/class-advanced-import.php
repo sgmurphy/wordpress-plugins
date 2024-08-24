@@ -232,7 +232,6 @@ class Advanced_Import {
 		require_once ADVANCED_IMPORT_PATH . 'includes/theme-template-library/acmethemes.php'; /*acmethemes*/
 
 		$this->loader = new Advanced_Import_Loader();
-
 	}
 
 	/**
@@ -249,7 +248,6 @@ class Advanced_Import {
 		$this->plugin_i18n = new Advanced_Import_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $this->plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -271,6 +269,7 @@ class Advanced_Import {
 
 		/*add menu*/
 		$this->loader->add_action( 'admin_menu', $this->admin, 'import_menu' );
+		$this->loader->add_filter( 'plugin_action_links_advanced-import/advanced-import.php', $this->admin, 'add_plugin_links', 10, 4 );
 		$this->loader->add_action( 'current_screen', $this->admin, 'help_tabs' );
 
 		/*ajax process*/
@@ -287,7 +286,6 @@ class Advanced_Import {
 		$this->loader->add_action( 'admin_init', advanced_import_reset_wordpress(), 'reset_wizard_actions', -1 );
 		$this->loader->add_action( 'admin_notices', advanced_import_reset_wordpress(), 'reset_wizard_notice', -1 );
 		$this->loader->add_action( 'wp_ajax_advanced_import_before_reset', advanced_import_reset_wordpress(), 'before_reset' );
-
 	}
 
 	/**

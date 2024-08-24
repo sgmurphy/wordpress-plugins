@@ -107,10 +107,10 @@ if ( ! class_exists( 'Tp_Widget_Notice' ) ) {
 		 * Initiate our hooks
 		 *
 		 * @since 5.3.3
-		 * @version 5.6.3
+		 * @version 5.6.5
 		 */
 		public function tp_notices_manage() {
-
+			
 			if ( is_admin() && current_user_can( 'manage_options' ) ) {
 				include L_THEPLUS_PATH . 'includes/notices/class-tp-plugin-page.php';
 
@@ -126,6 +126,20 @@ if ( ! class_exists( 'Tp_Widget_Notice' ) ) {
 			// if ( is_admin() && current_user_can( 'install_plugins' ) ) {.
 				// include L_THEPLUS_PATH . 'includes/notices/class-tp-tpag-install-notice.php';
 			// }.
+
+			if ( current_user_can( 'manage_options' ) ) {
+				$current_user_id = get_current_user_id();
+				$meta_value = get_user_meta( $current_user_id, 'elementor_introduction', true );
+
+				$ai_get_started_announcement = ( ! empty( $meta_value ) && ! empty( $meta_value['ai-get-started-announcement'] ) ) ? $meta_value['ai-get-started-announcement'] : 0;
+
+				if( '0' != $ai_get_started_announcement ){
+					$option_eop = get_option( 'tp_editor_onbording_popup' );
+					if ( empty( $option_eop ) || 'yes' !== $option_eop ) {	
+						include L_THEPLUS_PATH . 'includes/notices/class-tp-editor-onbording.php';
+					}
+				}
+			}
 
 			if ( current_user_can( 'install_plugins' ) && current_user_can( 'manage_options' ) && $this->tp_check_plugin_status() ) {
 

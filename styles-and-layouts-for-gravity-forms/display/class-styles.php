@@ -34,6 +34,7 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 		 * If a user a set an image for background but the background type is not set then set it to 'image'.
 		 */
 		if ( ! isset( $get_form_options['form-wrapper']['background-type'] ) ) {
+
 			if ( ! empty( $get_form_options['form-wrapper']['background-image'] ) ) {
 				$get_form_options['form-wrapper']['background-type'] = 'image';
 			} else {
@@ -65,7 +66,7 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 
 
 		if ( isset( $get_form_options['form-wrapper']['background-type'] ) && ( 'color' === $get_form_options['form-wrapper']['background-type'] ) ) {
-			if ( isset( $get_form_options['form-wrapper']['background-color'] ) ) {
+			if ( ! empty( $get_form_options['form-wrapper']['background-color'] ) ) {
 				$background_opacity = isset( $get_form_options['form-wrapper']['background-opacity'] ) ? $get_form_options['form-wrapper']['background-opacity'] : 1;
 				echo 'background-color:' . esc_html( $main_class_object->hex_rgba( $get_form_options['form-wrapper']['background-color'], $background_opacity ) ) . ';';
 			}
@@ -257,9 +258,9 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 <?php } ?>
 
 <?php if ( isset( $get_form_options['radio-inputs'] ) ) { ?>
-	body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_radio label {
+	body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_radio .gchoice label {
 		<?php echo esc_html( $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'radio-inputs', $important ) ); ?>
-		width: auto;
+		<?php echo ! empty( $get_form_options['radio-inputs']['max-width'] ) ? 'width: 100%;' : ''; ?>
 	}
 	<?php if ( ! empty( $get_form_options['radio-inputs']['max-width'] ) ) { ?>
 		body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield .ginput_container_radio .gfield_radio {
@@ -269,15 +270,18 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 <?php } ?>
 
 <?php if ( isset( $get_form_options['checkbox-inputs'] ) ) { ?>
-	body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_checkbox label,
+	body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_checkbox .gchoice label,
 	body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield .ginput_container_consent label{
 		<?php echo esc_html( $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'checkbox-inputs', $important ) ); ?>
+		<?php echo ! empty( $get_form_options['checkbox-inputs']['max-width'] ) ? 'width: 100%;' : ''; ?>
 	}
-	<?php // Compatible with legacy markup. ?>
-	body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> li .gfield_checkbox label,
-	body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> li.gfield .ginput_container_consent label{
-		width: 100%;
-	}
+	<?php if ( ! empty( $get_form_options['checkbox-inputs']['max-width'] ) ) { ?>
+		<?php // Compatible with legacy markup. ?>
+		body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> li .gfield_checkbox label,
+		body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> li.gfield .ginput_container_consent label{
+			width: 100%;
+		}
+	<?php } ?>
 
 	<?php if ( ! empty( $get_form_options['checkbox-inputs']['max-width'] ) ) { ?>
 		body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield .ginput_container_checkbox .gfield_checkbox,
@@ -545,9 +549,9 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 	<?php } ?>
 
 	<?php if ( stla_isset_checker( $get_form_options, 'radio-inputs', array( 'font-size-tab', 'max-width-tab', 'line-height-tab' ) ) ) { ?>
-			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_radio label {
+			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_radio .gchoice label {
 				<?php echo esc_html( $main_class_object->gf_sb_get_saved_styles_tab( $css_form_id, 'radio-inputs', $important ) ); ?>
-				width: auto;
+				<?php echo ! empty( $get_form_options['radio-inputs']['max-width-tab'] ) ? 'width: 100%;' : ''; ?>
 			}
 
 			<?php if ( ! empty( $get_form_options['radio-inputs']['max-width-tab'] ) ) { ?>
@@ -558,10 +562,10 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 	<?php } ?>
 
 	<?php if ( stla_isset_checker( $get_form_options, 'checkbox-inputs', array( 'font-size-tab', 'max-width-tab', 'line-height-tab' ) ) ) { ?>
-			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_checkbox label,
+			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_checkbox .gchoice label,
 			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield .ginput_container_consent label {
 				<?php echo esc_html( $main_class_object->gf_sb_get_saved_styles_tab( $css_form_id, 'checkbox-inputs', $important ) ); ?>
-				width: 100%;
+				<?php echo ! empty( $get_form_options['checkbox-inputs']['max-width-tab'] ) ? 'width: 100%;' : ''; ?>
 			}
 
 			<?php if ( ! empty( $get_form_options['checkbox-inputs']['max-width-tab'] ) ) { ?>
@@ -761,9 +765,9 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 	<?php } ?>
 
 	<?php if ( stla_isset_checker( $get_form_options, 'radio-inputs', array( 'font-size-phone', 'max-width-phone' ), 'line-height-phone' ) ) { ?>
-			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_radio label {
+			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_radio .gchoice label {
 				<?php echo esc_html( $main_class_object->gf_sb_get_saved_styles_phone( $css_form_id, 'radio-inputs', $important ) ); ?>
-				width: auto;
+				<?php echo ! empty( $get_form_options['radio-inputs']['max-width-phone'] ) ? 'width: 100%;' : ''; ?>
 			}
 
 			<?php if ( ! empty( $get_form_options['radio-inputs']['max-width-phone'] ) ) { ?>
@@ -774,15 +778,17 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 	<?php } ?>
 
 	<?php if ( stla_isset_checker( $get_form_options, 'checkbox-inputs', array( 'font-size-phone', 'max-width-phone', 'line-height-phone' ) ) ) { ?>
-			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_checkbox label,
+			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield_checkbox .gchoice label,
 			body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield .ginput_container_consent label {
 				<?php echo esc_html( $main_class_object->gf_sb_get_saved_styles_phone( $css_form_id, 'checkbox-inputs', $important ) ); ?>
+				<?php echo ! empty( $get_form_options['checkbox-inputs']['max-width-phone'] ) ? 'width: 100%;' : ''; ?>
 			}
 			<?php if ( ! empty( $get_form_options['checkbox-inputs']['max-width-phone'] ) ) { ?>
 				body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield .ginput_container_checkbox .gfield_checkbox,
 				body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gfield .ginput_container_consent {
 					width: <?php echo esc_html( $get_form_options['checkbox-inputs']['max-width-phone'] ) . esc_html( $main_class_object->gf_stla_add_px_to_value( $get_form_options['checkbox-inputs']['max-width-phone'] ) ); ?>;
 				}
+
 			<?php } ?>
 	<?php } ?>
 

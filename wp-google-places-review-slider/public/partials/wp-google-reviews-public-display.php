@@ -93,9 +93,9 @@
 		} else {
 			$totalreviews = $wpdb->get_results(
 				$wpdb->prepare("SELECT * FROM ".$table_name."
-				WHERE id>%d AND review_length >= %d AND type = %s".$ratingquery.$sourcelocationfilter."
+				WHERE id>%d AND review_length >= %d AND type = %s AND hide != %s" .$ratingquery.$sourcelocationfilter."
 				ORDER BY ".$sorttable." ".$sortdir." 
-				LIMIT ".$tablelimit." ", "0","$rlength","$rtype")
+				LIMIT ".$tablelimit." ", "0","$rlength","$rtype","yes")
 			);
 		}
 

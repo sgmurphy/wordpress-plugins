@@ -135,6 +135,7 @@
 		$templatemiscarray['bradius']=sanitize_text_field($_POST['wprevpro_template_misc_bradius']);
 		$templatemiscarray['showmedia']=sanitize_text_field($_POST['wprevpro_t_showmedia']);
 		$templatemiscarray['verified']=sanitize_text_field($_POST['wprevpro_template_misc_verified']);
+		$templatemiscarray['lastnameformat']=sanitize_text_field($_POST['wprevpro_template_misc_lastname']);
 		
 		//badge options
 		$templatemiscarray['blocation']=sanitize_text_field($_POST['wprevpro_t_blocation']);
@@ -460,6 +461,9 @@ echo $dbmsg;
 								<?php _e('Show Date:', 'wp-google-reviews'); ?>
 								</div>
 								<div class="wprevpre_temp_label_row">
+								<?php _e('Last Name:', 'wp-review-slider-pro'); ?>
+								</div>
+								<div class="wprevpre_temp_label_row">
 								<?php _e('Display Avatar:', 'wp-google-reviews'); ?>
 								</div>
 								<div class="wprevpre_temp_label_row">
@@ -514,6 +518,9 @@ echo $dbmsg;
 				if(!isset($template_misc_array['verified'])){
 					$template_misc_array['verified']="yes1";
 				}
+				if(!isset($template_misc_array['lastnameformat'])){
+					$template_misc_array['lastnameformat']='show';
+				}
 				?>
 								<div class="wprevpre_temp_label_row">
 									<select name="wprevpro_template_misc_showstars" id="wprevpro_template_misc_showstars">
@@ -530,8 +537,16 @@ echo $dbmsg;
 								</div>
 								<div class="wprevpre_temp_label_row">
 									<select name="wprevpro_template_misc_showdate" id="wprevpro_template_misc_showdate">
-									  <option value="yes" <?php if($template_misc_array['showdate']=='yes'){echo "selected";} ?>>Yes</option>
-									  <option value="no" <?php if($template_misc_array['showdate']=='no'){echo "selected";} ?>>No</option>
+									  <option value="yes" <?php if($template_misc_array['showdate']=='yes'){echo "selected";} ?>><?php _e('Yes', 'wp-google-reviews'); ?></option>
+									  <option value="no" <?php if($template_misc_array['showdate']=='no'){echo "selected";} ?>><?php _e('No', 'wp-google-reviews'); ?></option>
+									</select>
+								</div>
+								
+								<div class="wprevpre_temp_label_row firstlastnamerow">
+									<select name="wprevpro_template_misc_lastname" id="wprevpro_template_misc_lastname">
+									  <option value="show" <?php if($template_misc_array['lastnameformat']=='show'){echo "selected";} ?>><?php _e('Show', 'wp-google-reviews'); ?></option>
+									  <option value="hide" <?php if($template_misc_array['lastnameformat']=='hide'){echo "selected";} ?>><?php _e('Hide', 'wp-google-reviews'); ?></option>
+									  <option value="initial" <?php if($template_misc_array['lastnameformat']=='initial'){echo "selected";} ?>><?php _e('Initial', 'wp-google-reviews'); ?></option>
 									</select>
 								</div>
 								

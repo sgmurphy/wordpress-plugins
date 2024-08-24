@@ -12,7 +12,7 @@ function flying_pages_faq() {
     <p>Flying Pages preload links after the website is loaded and only improves the speed on clicking links. It doesn’t help you to speed up the initial load.</p>
 
     <h3>Do I need a cache plugin?</h3>
-    <p>Every time a page/link is preloaded, it executes some PHP code and MySQL queries which is resource-intensive. So it's highly recommended to use a cache plugin like <a href="https://flying-press.com" target="_blank">FlyingPress</a>.</p>
+    <p>Every time a page/link is preloaded, it executes some PHP code and MySQL queries which is resource-intensive. So it's highly recommended to use a cache plugin like <a href="https://flyingpress.com" target="_blank">FlyingPress</a>.</p>
 
     <h3>Do Flying Pages affect Google Analytics or similar tracking scripts?</h3>
     <p>Flying Pages only downloads the HTML content. It doesn't execute any code inside it. So it will not affect Google Analytics or similar scripts.</p>
@@ -21,7 +21,7 @@ function flying_pages_faq() {
     <p>It's mostly videos and images that consume 80% of the bandwidth. Flying Pages only preloads HTML pages (which is usually <30KB) and doesn't download any resources inside it (like images, css, js). Installing Flying Pages won't increase your bandwidth usage not even by 5%.</p>
 
     <h3>Do Flying Pages increase server load?</h3>
-    <p>In short, yes. But you can configure Flying Pages to limit the number of preloads per second or preload only on mouse hover which reduces the server load. Also, make sure to use a cache plugin like <a href="https://flying-press.com/" target="_blank">FlyingPress</a>. This will reduce server load dramatically.</p>
+    <p>In short, yes. But you can configure Flying Pages to limit the number of preloads per second or preload only on mouse hover which reduces the server load. Also, make sure to use a cache plugin like <a href="https://flyingpress.com/" target="_blank">FlyingPress</a>. This will reduce server load dramatically.</p>
 
     <h3>How to get support?</h3>
     <p>Please create a support request in the official <a href="https://wordpress.org/support/plugin/flying-pages/" target="_blank">support forum</a>. You can also get help from WP Speed Matters' <a href="https://www.facebook.com/groups/wpspeedmatters" target="_blank">Facebook group</a>.</p>

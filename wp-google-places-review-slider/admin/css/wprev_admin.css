@@ -436,3 +436,6 @@ input#wpfbr_t_display_num_rows {
 img.wprev_wpproimg {
     margin-bottom: 20px;
 }
+tr.hiddenrow {
+    background-color: #9c9c9c !important;
+}

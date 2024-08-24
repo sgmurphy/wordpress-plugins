@@ -89,6 +89,7 @@
     wp_localize_script(POST_ID.'-insert', 'FB3D_ADMIN_LOCALE', array(
       'key'=> POST_ID,
       'templates'=> $fb3d['templates'],
+      'bookTemplates'=> $bookTemplates,
       'lightboxes'=> $fb3d['lightboxes'],
       'dictionary'=> $fb3d['dictionary'],
       'shortcodeGeneratorMountNode'=> POST_ID.'-shortcode-generator'

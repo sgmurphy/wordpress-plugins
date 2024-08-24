@@ -2149,17 +2149,8 @@ function fifu_get_strings_cloud() {
     $fifu['title']['price'] = function () {
         return _e("Pricing", FIFU_SLUG);
     };
-    $fifu['title']['getting'] = function () {
-        return _e("Getting started", FIFU_SLUG);
-    };
-    $fifu['title']['signup'] = function () {
-        return _e("Sign up", FIFU_SLUG);
-    };
-    $fifu['title']['login'] = function () {
-        return _e("Log in", FIFU_SLUG);
-    };
-    $fifu['title']['logout'] = function () {
-        return _e("Log out", FIFU_SLUG);
+    $fifu['title']['account'] = function () {
+        return _e("Account", FIFU_SLUG);
     };
     $fifu['title']['cancel'] = function () {
         return _e("Close account", FIFU_SLUG);
@@ -2187,9 +2178,6 @@ function fifu_get_strings_cloud() {
     $fifu['tabs']['welcome'] = function () {
         return _e("Welcome", FIFU_SLUG);
     };
-    $fifu['tabs']['login'] = function () {
-        return _e("Log in", FIFU_SLUG);
-    };
     $fifu['tabs']['send'] = function () {
         return _e("Upload", FIFU_SLUG);
     };
@@ -2214,13 +2202,13 @@ function fifu_get_strings_cloud() {
         _e("You'll receive an access link via email.", FIFU_SLUG);
     };
     $fifu['ws']['down'] = function () {
-        return __("web service is down", FIFU_SLUG);
+        return __("Web service is down", FIFU_SLUG);
     };
     $fifu['ws']['connection']['ok'] = function () {
-        return __("connected", FIFU_SLUG);
+        return __("Connected", FIFU_SLUG);
     };
     $fifu['ws']['connection']['fail'] = function () {
-        return __("not connected", FIFU_SLUG);
+        return __("Not connected", FIFU_SLUG);
     };
 
     // table
@@ -2259,12 +2247,6 @@ function fifu_get_strings_cloud() {
     };
     $fifu['table']['dialog']['cancel'] = function () {
         return __("Cancel", FIFU_SLUG);
-    };
-    $fifu['table']['dialog']['ok'] = function () {
-        return __("OK", FIFU_SLUG);
-    };
-    $fifu['table']['dialog']['sure'] = function () {
-        return __("Are you sure?", FIFU_SLUG);
     };
     $fifu['table']['dialog']['yes'] = function () {
         return __("Yes", FIFU_SLUG);
@@ -2324,26 +2306,6 @@ function fifu_get_strings_cloud() {
     };
     $fifu['support']['hotlink-desc'] = function () {
         _e("Protecting your website's content, including text and image URLs, from unauthorized access and extraction by bots can be a challenging task. Once this data is obtained, it can be replicated elsewhere, diverting the rightful visitors to other platforms. Fortunately, FIFU Cloud offers a solution with hotlink protection. This feature restricts other websites (excluding social media platforms) from displaying your images. While it may not completely solve the problem, it significantly hinders the unauthorized usage of your content, as posts with blocked images are less appealing to those attempting to extract information.", FIFU_SLUG);
-    };
-
-    // getting started
-    $fifu['getting']['signup']['title'] = function () {
-        _e("Sign up", FIFU_SLUG);
-    };
-    $fifu['getting']['login']['title'] = function () {
-        _e("Log in", FIFU_SLUG);
-    };
-    $fifu['getting']['upload']['title'] = function () {
-        _e("Upload", FIFU_SLUG);
-    };
-    $fifu['getting']['signup']['description'] = function () {
-        _e("Email confirmation + Stripe subscription", FIFU_SLUG);
-    };
-    $fifu['getting']['login']['description'] = function () {
-        _e("Two-factor authentication app", FIFU_SLUG);
-    };
-    $fifu['getting']['upload']['description'] = function () {
-        _e("Selected images", FIFU_SLUG);
     };
 
     // pricing
@@ -2462,69 +2424,8 @@ function fifu_get_strings_cloud() {
     $fifu['reset']['button'] = function () {
         _e("Reset credentials", FIFU_SLUG);
     };
-    $fifu['reset']['resetting'] = function () {
-        _e("Resetting your credentials", FIFU_SLUG);
-    };
-    $fifu['reset']['smartphone'] = function () {
-        _e("1. Get your smartphone", FIFU_SLUG);
-    };
-    $fifu['reset']['authenticator'] = function () {
-        _e("2. Open the Google Authenticator app", FIFU_SLUG);
-    };
-    $fifu['reset']['scan'] = function () {
-        _e("3. Scan this new QR Code", FIFU_SLUG);
-    };
-    $fifu['reset']['email'] = function () {
-        _e("4. Access your email and confirm the reset", FIFU_SLUG);
-    };
-
-    // login
-    $fifu['login']['button'] = function () {
-        _e("Log in", FIFU_SLUG);
-    };
-    $fifu['login']['first'] = function () {
-        _e("First log in", FIFU_SLUG);
-    };
-    $fifu['login']['email'] = function () {
-        _e("1. Access your email and confirm your subscription", FIFU_SLUG);
-    };
-    $fifu['login']['smartphone'] = function () {
-        _e("2. Get your smartphone", FIFU_SLUG);
-    };
-    $fifu['login']['authenticator'] = function () {
-        _e("3. Open the Google Authenticator app", FIFU_SLUG);
-    };
-    $fifu['login']['scan'] = function () {
-        _e("4. Scan this QR Code", FIFU_SLUG);
-    };
-    $fifu['login']['2fa'] = function () {
-        _e("5. Enter the 6-digit code in the 2FA Code field", FIFU_SLUG);
-    };
-    $fifu['login']['click'] = function () {
-        _e("6. Click the log in button", FIFU_SLUG);
-    };
-
-    // logout
-    $fifu['logout']['button'] = function () {
-        _e("Log out", FIFU_SLUG);
-    };
 
     // signup
-    $fifu['signup']['first']['field'] = function () {
-        _e("First name", FIFU_SLUG);
-    };
-    $fifu['signup']['first']['message'] = function () {
-        _e("Please enter your first name", FIFU_SLUG);
-    };
-    $fifu['signup']['last']['field'] = function () {
-        _e("Last name", FIFU_SLUG);
-    };
-    $fifu['signup']['last']['message'] = function () {
-        _e("Please enter your last name", FIFU_SLUG);
-    };
-    $fifu['signup']['email']['field'] = function () {
-        _e("Email", FIFU_SLUG);
-    };
     $fifu['signup']['email']['message'] = function () {
         _e("Please enter your email", FIFU_SLUG);
     };
@@ -2578,23 +2479,6 @@ function fifu_get_strings_cloud() {
     };
     $fifu['close']['delete'] = function () {
         _e("All the images you uploaded to FIFU Cloud will be deleted. Are you sure?", FIFU_SLUG);
-    };
-
-    // reset dialog
-    $fifu['reset']['dialog']['intro'] = function () {
-        _e("After that, you will need", FIFU_SLUG);
-    };
-    $fifu['reset']['dialog']['smartphone'] = function () {
-        _e("1. Get your smartphone", FIFU_SLUG);
-    };
-    $fifu['reset']['dialog']['authenticator'] = function () {
-        _e("2. Open the Google Authenticator app", FIFU_SLUG);
-    };
-    $fifu['reset']['dialog']['scan'] = function () {
-        _e("3. Scan a new QR Code", FIFU_SLUG);
-    };
-    $fifu['reset']['dialog']['email'] = function () {
-        _e("4. Access your email and confirm the reset", FIFU_SLUG);
     };
 
     // delete dialog

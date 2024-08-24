@@ -1954,6 +1954,8 @@ class WP_Google_Reviews_Admin {
 		$templatemiscarray['bradius']=sanitize_text_field($formarray['wprevpro_template_misc_bradius']);
 		$templatemiscarray['showmedia']=sanitize_text_field($formarray['wprevpro_t_showmedia']);
 		$templatemiscarray['verified']=sanitize_text_field($formarray['wprevpro_template_misc_verified']);
+		$templatemiscarray['lastnameformat']=sanitize_text_field($formarray['wprevpro_template_misc_lastname']);
+		
 		//badge options
 		$templatemiscarray['blocation']=sanitize_text_field($formarray['wprevpro_t_blocation']);
 		$templatemiscarray['filtersource']=sanitize_text_field($formarray['wprevpro_t_filtersource']);

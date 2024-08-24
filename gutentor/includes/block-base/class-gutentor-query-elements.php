@@ -221,7 +221,7 @@ if ( ! class_exists( 'Gutentor_Query_Elements' ) ) {
 				$overlay_class  = ( $overlay_enable ) ? 'gutentor-overlay' : '';
 				if ( $avatar_url ) {
 					$output .= '<div class="g-avatar-wrap">';
-					$output .= '<div class="' . esc_atr( gutentor_concat_space( 'gutentor-avatar', $overlay_class ) ) . '">';
+					$output .= '<div class="' . esc_attr( gutentor_concat_space( 'gutentor-avatar', $overlay_class ) ) . '">';
 					$output .= '<img class="gutentor-avatar-img" src="' . esc_url( $avatar_url ) . '"/>';
 					$output .= '</div>';
 					if ( $enable_by_author && $author_name ) {

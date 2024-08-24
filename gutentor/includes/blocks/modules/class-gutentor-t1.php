@@ -241,9 +241,9 @@ if ( ! class_exists( 'Gutentor_T1' ) ) {
 				$tTermQueryJson  = isset( $attributes['tTermQuery'] ) ? $attributes['tTermQuery'] : false;
 				$tTermQueryData  = json_decode( $tTermQueryJson, true );
 				$term_query_args = array_merge( $term_query_args, $tTermQueryData );
-				$term_query_args = gutentor_get_term_query( $term_query_args );
 			}
-			$terms = get_terms( $term_query_args );
+
+			$terms = get_terms( gutentor_get_term_query( $term_query_args ) );
 			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 				$tag = gutentor_get_module_tag( $tag );
 

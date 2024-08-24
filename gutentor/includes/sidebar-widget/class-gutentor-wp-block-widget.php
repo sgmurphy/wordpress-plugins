@@ -67,7 +67,7 @@ if ( ! class_exists( 'Gutentor_WP_Block_Widget' ) ) {
 				'post_status'    => 'publish',
 				'order'          => 'DESC',
 			);
-			$item_query = new WP_Query( $item_arg );
+			$item_query = new WP_Query( gutentor_get_query( $item_arg ) );
 			if ( $item_query->have_posts() ) :
 				printf(
 					'<p><label for="%1$s">%2$s</label><br/><small>%4$s</small>' .
@@ -142,7 +142,7 @@ if ( ! class_exists( 'Gutentor_WP_Block_Widget' ) ) {
 					'p'         => $wp_block_id,
 					'post_type' => 'wp_block',
 				);
-				$g_query = new WP_Query( $g_args );
+				$g_query = new WP_Query( gutentor_get_query( $g_args ) );
 				/*The Loop*/
 				if ( $g_query->have_posts() ) :
 					echo '<div class="gutentor-widget gutentor-wp-block-widget">';
@@ -204,7 +204,7 @@ if ( ! class_exists( 'Gutentor_WP_Block_Widget' ) ) {
 							'p'         => $wp_block_id,
 							'post_type' => 'wp_block',
 						);
-						$g_query     = new WP_Query( $g_args );
+						$g_query     = new WP_Query( gutentor_get_query( $g_args ) );
 						/*The Loop*/
 						if ( $g_query->have_posts() ) :
 							while ( $g_query->have_posts() ) :

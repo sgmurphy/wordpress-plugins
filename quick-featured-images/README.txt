@@ -231,7 +231,7 @@ BECAUSE THE ProGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE Pro
 
 For that use the plugin twice:
 
-1. In 'Bulk Edit' **remove** all undesired featured images if there are some. If desired remove the images using the option 'Overwrite existing featured images'.
+1. In 'Bulk Edit' **remove** all undesired featured images if there are some. If desired, remove the images using the option 'Overwrite existing featured images'.
 2. Then choose the desired image and **set** it to the posts **without the option 'Overwrite existing featured images'**. This will set the image to all posts without a featured image.
 
 = How can I set a default featured image for future posts? =
@@ -241,40 +241,44 @@ For that use the plugin twice:
 Look at some examples:
 
 1. To set a default featured image for every new post of the category 'Lorem ipsum':
-	1. choose the image
-	2. choose the taxonomy 'Category' and
-	3. choose the value 'Lorem ipsum'.
-	4. save the settings.
+	1. Choose image
+	2. Choose the taxonomy 'Category' and
+	3. Choose the value 'Lorem ipsum'.
+	4. Save the settings.
 2. To set a default featured image for every new post: 
-	1. choose the image
-	2. choose the taxonomy 'Post Type' and
-	3. choose the value 'Post'
-	4. save the settings.
-3. To set a default featured image for every new custom taxonomy of a theme or a plugin, e.g. events of the category 'Concert':
-	1. choose the image
-	2. choose the taxonomy 'Event Category' and
-	3. choose the value 'Concert'.
-	4. save the settings.
+	1. Choose image
+	2. Choose the taxonomy 'Post Type' and
+	3. Choose the value 'Post'
+	4. Save the settings.
+3. To set a default featured image for every new custom taxonomy of a theme or a plugin, e.g., events of the category 'Concert':
+	1. Choose image
+	2. Choose the taxonomy 'Event Category' and
+	3. Choose the value 'Concert'.
+	4. Save the settings.
 
 = Who can see Quick Featured Images in the WordPress backend? =
 
-All users who have the right to **edit others posts** have the access to Quick Featured Images. As long as the user roles are untouched after a fresh standard WordPress installation both **Administrators** and **Editors** can use this plugin.
+All users who have the right to **edit other posts** have access to Quick Featured Images. As long as the user roles are untouched after a fresh standard WordPress installation both **Administrators** and **Editors** can use this plugin.
 
-For these users the menu item 'Featured Images' with its sub pages appears in the WordPress backend. All other users will not see this menu item or will get an error message if they would request a Quick Featured Images page via a direct link.
+For these users, the menu item 'Featured Images' with its subpages appears in the WordPress backend. All other users will not see this menu item or will get an error message if they would request a Quick Featured Images page via a direct link.
 
 = Does the plugin work in a WordPress Multisite installation? =
 
 Yes. It works either activated for all sites (network wide) or activated in each single site. It changes only the posts of the site where you use it.
 
-= Will I lose all the featured images if I will delete the plugin? =
+= Does Quick Featured Images works WooCommerce =
+
+The free version of Quick Featured Images does not support setting featured images for WooCommerce products. But, you can achieve this with the [Pro version](https://www.quickfeaturedimages.com/?utm_source=wordpress_org&utm_medium=plugin&utm_campaign=quick-featured-images&utm_content=readme), which is available for a small fee.
+
+= Will I lose all the featured images if I delete the plugin? =
 
 No. The featured images you have already set will remain set if you deactivate or delete the plugin.
 
 = Why does the plugin say &#8220;No matches found&#8221; after confirmation? =
 
-This could be the case if the images were not uploaded via WordPress' own media uploader. If you have uploaded images via FTP or other ways the plugin can not find images.
+This could be the case if the images were not uploaded via WordPress' own media uploader. If you have uploaded images via FTP or other ways, the plugin cannot find images.
 
-It does not matter where the images are stored on your server. They can be in any folder. But they have to be uploaded via WordPress' own media uploader to be found by this plugin. If this is the case the plugin will work fine.
+It does not matter where the images are stored on your server. They can be in any folder. But they have to be uploaded via WordPress' own media uploader to be found by this plugin. If this is the case, the plugin will work fine.
 
 = Where is the *.pot file for translating the plugin in any language? =
 
@@ -286,7 +290,7 @@ The translations are handled on WordPress.org. Please be part of the community a
 2. The second screen: select a filter to narrow down to posts and pages you want to modify with the image. Alternatively, you can drop filtering and jump to Screen 4 directly.
 3. The third screen: refine the filters.
 4. The fourth screen: take a preview. If the filtering does not correspond to your expectations you can refine the filters again under the list on this page.
-5. The fifth screen: take an overview the success of the action.
+5. The fifth screen: take an overview of the success of the action.
 6. The sixth screen: take a look on the extra column (marked red) for assigned featured images.
 7. The seventh and last screen: take an overview of your rules for future default featured images.
 
@@ -299,7 +303,7 @@ The translations are handled on WordPress.org. Please be part of the community a
 * Improved performance when displaying post-thumbnails (thanks to @odoremieux)
 
 = 13.6.0 =
-* improved styles and starting using minify
+* improved styles and starting using minifying
 * added free vs. pro-section
 
 = 13.5.7 =

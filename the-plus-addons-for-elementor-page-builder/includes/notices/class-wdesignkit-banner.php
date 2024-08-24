@@ -91,7 +91,6 @@ if ( ! class_exists( 'Wdesignkit_Banner' ) ) {
 			if ( 'toplevel_page_theplus_welcome_page' === $page || 'theplus-settings_page_theplus_import_data' === $page || 'theplus-settings_page_theplus_options' === $page ) {
 				wp_enqueue_script( 'theplus-onbording-js', L_THEPLUS_URL . 'assets/js/admin/tp-wdkit-banner.js', array(), L_THEPLUS_VERSION, true );
 				wp_enqueue_style( 'tp-wdkit-banner.css', L_THEPLUS_URL . 'assets/css/admin/tp-wdkit-banner.css', array(), L_THEPLUS_VERSION );
-
 			}
 		}
 

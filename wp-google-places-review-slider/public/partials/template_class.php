@@ -54,6 +54,53 @@ class Template_Functions {
 		return $media;
 	}
 	
+	public function wprevpro_get_reviewername($review,$template_misc_array) {
+		$tempreviewername = stripslashes(strip_tags($review->reviewer_name));
+		$words = explode(" ", $tempreviewername);
+		$firstname = $words[0];
+
+		if(!isset($template_misc_array['lastnameformat'])){
+			$template_misc_array['lastnameformat'] = 'show';
+		}
+
+		$tempreviewername = $firstname;
+		if(isset($template_misc_array['lastnameformat'])){
+			if($template_misc_array['lastnameformat']=="hide"){
+				$tempreviewername=$firstname;
+			} else if($template_misc_array['lastnameformat']=="initial"){
+				$tempfirst = $firstname;
+				if(isset($words[1])){
+					$templast = $words[1];
+					$templast =mb_substr($templast,0,1);
+					$tempreviewername = $tempfirst.' '.$templast.'.';
+				} else {
+					$tempreviewername = $tempfirst;
+				}
+			} else {
+				if(isset($words[1])){
+				$templast = $words[1];
+				} else {
+					$templast = '';
+				}
+				$tempreviewername = $firstname. ' '.$templast;
+			}
+		}
+
+		//add twitter handle
+		if($review->type=="Twitter"){
+			$metaarray = json_decode($review->meta_data,true);
+			if(isset($metaarray['screenname'])){
+			$screename = $metaarray['screenname'];
+			$tempreviewername = $tempreviewername."<div class='wppro_twscrname'><a rel='nofollow noreferrer' target='_blank' href='https://twitter.com/".$screename."'>@".$screename."</a></div>";
+			}
+			
+		}
+		
+			return $tempreviewername;
+	}
+	
+	
+	
 }
 	
 	//========================================

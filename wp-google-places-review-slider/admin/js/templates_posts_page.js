@@ -60,6 +60,7 @@
 		var starhtml = '<span class="starloc1 wprevpro_star_imgs wprevpro_star_imgsloc1"><span class="svgicons svg-wprsp-star"></span><span class="svgicons svg-wprsp-star"></span><span class="svgicons svg-wprsp-star"></span><span class="svgicons svg-wprsp-star"></span><span class="svgicons svg-wprsp-star"></span></span>';
 		var sampltext = 'This is a sample review. Hands down the best experience we have had in the southeast! Awesome accommodations, great staff. We will gladly drive four hours for this gem!';
 		var datehtml = '<span id="wprev_showdate">1/12/2017</span>';
+		var lastnamehtml = '<span id="wprev_lastname">Doe</span>';
 		var imagehref = adminjs_script_vars.pluginsUrl + '/admin/partials/sample_avatar.jpg';
 		var iconhref = adminjs_script_vars.pluginsUrl + '/admin/partials/google_small_icon.png';
 		var imagehrefmystery = adminjs_script_vars.pluginsUrl + '/admin/partials/google_mystery_man.png';
@@ -72,7 +73,7 @@
 									<p class="wprevpro_t1_P_3 wprev_preview_tcolor1">	\
 										'+starhtml+''+verified1+''+sampltext+'		</p>	\
 										<img id="wprev_showicon" src="'+iconhref+'" alt="Google Logo" class="wprevpro_t1_site_logo siteicon">	\
-								</div><span class="wprevpro_t1_A_8"><img src="'+avatarimg+'" alt="thumb" class="wprevpro_t1_IMG_4 wprev_avatar_opt"></span> <span class="wprevpro_t1_SPAN_5 wprev_preview_tcolor2">Josh W.<br>'+datehtml+' </span>	\
+								</div><span class="wprevpro_t1_A_8"><img src="'+avatarimg+'" alt="thumb" class="wprevpro_t1_IMG_4 wprev_avatar_opt"></span> <span class="wprevpro_t1_SPAN_5 wprev_preview_tcolor2">John '+lastnamehtml+'<br>'+datehtml+' </span>	\
 							</div>	\
 							</div>';
 		
@@ -135,6 +136,11 @@
 		$( "#wprevpro_template_misc_verified" ).change(function() {
 				changepreviewhtml();
 		});
+		
+		$( "#wprevpro_template_misc_lastname" ).change(function() {
+				changepreviewhtml();
+		});
+		
 		//custom css change preview
 		var lastValue = '';
 		$("#wpfbr_template_css").on('change keyup paste mouseup', function() {
@@ -154,6 +160,7 @@
 			var tcolor3 = $( "#wprevpro_template_misc_tcolor3" ).val();
 			var avataropt = $( "#wprevpro_template_misc_avataropt" ).val();
 			var verified = $( "#wprevpro_template_misc_verified" ).val();
+			var lastname = $( "#wprevpro_template_misc_lastname" ).val();
 			
 			if($( "#wpfbr_template_css" ).val()!=""){
 				var customcss = '<style>'+$( "#wpfbr_template_css" ).val()+'</style>';
@@ -206,6 +213,16 @@
 				$( ".verifiedloc1" ).show();
 			} else {
 				$( ".verifiedloc1" ).hide();
+			}
+			
+			//last name format
+			//alert(lastname);
+			if(lastname=="show"){
+				$("#wprev_lastname").html("Doe");
+			} else if(lastname=="hide"){
+				$( "#wprev_lastname" ).hide();
+			} else if(lastname=="initial"){
+				$("#wprev_lastname").html("D.");
 			}
 			
 		}

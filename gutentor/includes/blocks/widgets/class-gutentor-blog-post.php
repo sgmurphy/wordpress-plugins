@@ -464,7 +464,7 @@ if ( ! class_exists( 'Gutentor_Blog_Post' ) ) {
 			$blockComponentAnimation = isset( $attributes['blockComponentAnimation'] ) ? $attributes['blockComponentAnimation'] : '';
 			$blockItemsWrapAnimation = isset( $attributes['blockItemsWrapAnimation'] ) ? $attributes['blockItemsWrapAnimation'] : '';
 
-			$the_query = new WP_Query( $args );
+			$the_query = new WP_Query( gutentor_get_query( $args ) );
 
 			if ( $the_query->have_posts() ) :
 				$tag = gutentor_get_module_tag( $tag );

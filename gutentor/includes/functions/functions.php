@@ -7,13 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Check Isset
  *
- * @param  [mix] $var
+ * @param  mix $value value to check.
  * @return [boolean]
  */
 if ( ! function_exists( 'gutentor_isset' ) ) {
-	function gutentor_isset( $var ) {
-		if ( isset( $var ) ) {
-			return $var;
+	function gutentor_isset( $value ) {
+		if ( isset( $value ) ) {
+			return $value;
 		} else {
 			return '';
 		}
@@ -279,9 +279,8 @@ if ( ! function_exists( 'gutentor_get_dynamic_css' ) ) {
 				}
 			}
 		}
-		$output = $getCSS;
 
-		return $output;
+		return $getCSS;
 	}
 }
 
@@ -336,9 +335,9 @@ if ( ! function_exists( 'GutentorBackgroundOptionsCSSClasses' ) ) {
 }
 
 /**
- *  gutentor_get_youtube_id_from_url
+ * Get youtube id from url.
  *
- * @param $url
+ * @param string $url utl of youtube
  * @return string id
  *
  * @since Gutentor 3.0.1
@@ -352,7 +351,7 @@ function gutentor_get_youtube_id_from_url( $url ) {
 }
 
 /**
- *  gutentor_get_vimeo_id_from_url
+ * Get vimeo id from url.
  *
  * @param $url
  * @return string id
@@ -416,7 +415,7 @@ if ( ! function_exists( 'GutentorUpdatedBackgroundVideoOutput' ) ) {
 			$video_container = '<iframe
 				height="100%"
 				width="100%"
-			    class="gutentor-bg-video"
+                class="gutentor-bg-video"
 				src="' . $videoUrl . '"
 				frameborder="0"
 				allowfullscreen
@@ -1287,13 +1286,12 @@ function gutentor_set_product_order_order_by( $orderby, $order, $args ) {
 function gutentor_get_query( $attr ) {
 
 	$query_args = array(
-		'posts_per_page'      => isset( $attr['posts_per_page'] ) ? $attr['posts_per_page'] : 3,
-		'post_type'           => isset( $attr['post_type'] ) ? $attr['post_type'] : 'post',
-		'orderby'             => isset( $attr['orderby'] ) ? $attr['orderby'] : 'date',
-		'order'               => isset( $attr['order'] ) ? $attr['order'] : 'desc',
-		'paged'               => isset( $attr['paged'] ) ? $attr['paged'] : 1,
-		'ignore_sticky_posts' => true,
-		'post_status'         => 'publish',
+		'posts_per_page' => isset( $attr['posts_per_page'] ) ? $attr['posts_per_page'] : 3,
+		'post_type'      => isset( $attr['post_type'] ) ? $attr['post_type'] : 'post',
+		'orderby'        => isset( $attr['orderby'] ) ? $attr['orderby'] : 'date',
+		'order'          => isset( $attr['order'] ) ? $attr['order'] : 'desc',
+		'paged'          => isset( $attr['paged'] ) ? $attr['paged'] : 1,
+		'post_status'    => isset( $attr['post_status'] ) ? $attr['post_status'] : 'publish',
 	);
 	/*general*/
 	if ( isset( $attr['post_status'] ) && $attr['post_status'] ) {
@@ -1302,11 +1300,19 @@ function gutentor_get_query( $attr ) {
 	if ( isset( $attr['offset'] ) && $attr['offset'] && ! ( $query_args['paged'] > 1 ) ) {
 		$query_args['offset'] = $attr['offset'];
 	}
-	if ( isset( $attr['post__in'] ) && $attr['post__in'] && is_string( $attr['post__in'] ) ) {
-		$query_args['post__in'] = explode( ',', $attr['post__in'] );
+	if ( isset( $attr['post__in'] ) && $attr['post__in'] ) {
+		if ( is_string( $attr['post__in'] ) ) {
+			$query_args['post__in'] = explode( ',', $attr['post__in'] );
+		} else {
+			$query_args['post__in'] = $attr['post__in'];
+		}
 	}
-	if ( isset( $attr['post__not_in'] ) && $attr['post__not_in'] && is_string( $attr['post__not_in'] ) ) {
-		$query_args['post__not_in'] = explode( ',', $attr['post__not_in'] );
+	if ( isset( $attr['post__not_in'] ) && $attr['post__not_in'] ) {
+		if ( is_string( $attr['post__not_in'] ) ) {
+			$query_args['post__not_in'] = explode( ',', $attr['post__not_in'] );
+		} else {
+			$query_args['post__not_in'] = $attr['post__not_in'];
+		}
 	}
 
 	$post_type = isset( $attr['post_type'] ) ? $attr['post_type'] : 'post';
@@ -1338,14 +1344,27 @@ function gutentor_get_query( $attr ) {
 	if ( isset( $attr['category_name'] ) && $attr['category_name'] ) {
 		$query_args['category_name'] = $attr['category_name'];
 	}
-	if ( isset( $attr['category__in'] ) && $attr['category__in'] && is_string( $attr['category_name'] ) ) {
-		$query_args['category__in'] = explode( ',', $attr['category_name'] );
+	if ( isset( $attr['category__in'] ) && $attr['category__in'] ) {
+		if ( is_string( $attr['category__in'] ) ) {
+			$query_args['category__in'] = explode( ',', $attr['category__in'] );
+		} else {
+			$query_args['category__in'] = $attr['category__in'];
+
+		}
 	}
-	if ( isset( $attr['category__and'] ) && $attr['category__and'] && is_string( $attr['category__and'] ) ) {
-		$query_args['category__and'] = explode( ',', $attr['category__and'] );
+	if ( isset( $attr['category__and'] ) && $attr['category__and'] ) {
+		if ( is_string( $attr['category__and'] ) ) {
+			$query_args['category__and'] = explode( ',', $attr['category__and'] );
+		} else {
+			$query_args['category__and'] = $attr['category__and'];
+		}
 	}
-	if ( isset( $attr['category__not_in'] ) && $attr['category__not_in'] && is_string( $attr['category__not_in'] ) ) {
-		$query_args['category__not_in'] = explode( ',', $attr['category__not_in'] );
+	if ( isset( $attr['category__not_in'] ) && $attr['category__not_in'] ) {
+		if ( is_string( $attr['category__not_in'] ) ) {
+			$query_args['category__not_in'] = explode( ',', $attr['category__not_in'] );
+		} else {
+			$query_args['category__not_in'] = $attr['category__not_in'];
+		}
 	}
 
 	/*Tag*/
@@ -1355,14 +1374,28 @@ function gutentor_get_query( $attr ) {
 	if ( isset( $attr['tag_id'] ) && $attr['tag_id'] ) {
 		$query_args['tag_id'] = $attr['tag_id'];
 	}
-	if ( isset( $attr['tag__and'] ) && $attr['tag__and'] && is_string( $attr['tag__and'] ) ) {
-		$query_args['tag__and'] = explode( ',', $attr['tag__and'] );
+	if ( isset( $attr['tag__and'] ) && $attr['tag__and'] ) {
+		if ( is_string( $attr['tag__and'] ) ) {
+			$query_args['tag__and'] = explode( ',', $attr['tag__and'] );
+		} else {
+			$query_args['tag__and'] = explode( $attr['tag__and'] );
+		}
 	}
-	if ( isset( $attr['tag__in'] ) && $attr['tag__in'] && is_string( $attr['tag__in'] ) ) {
-		$query_args['tag__in'] = explode( ',', $attr['tag__in'] );
+	if ( isset( $attr['tag__in'] ) && $attr['tag__in'] ) {
+		if ( is_string( $attr['tag__in'] ) ) {
+			$query_args['tag__in'] = explode( ',', $attr['tag__in'] );
+
+		} else {
+			$query_args['tag__in'] = $attr['tag__in'];
+
+		}
 	}
-	if ( isset( $attr['tag__not_in'] ) && $attr['tag__not_in'] && is_string( $attr['tag__not_in'] ) ) {
-		$query_args['tag__not_in'] = explode( ',', $attr['tag__not_in'] );
+	if ( isset( $attr['tag__not_in'] ) && $attr['tag__not_in'] ) {
+		if ( is_string( $attr['tag__not_in'] ) ) {
+			$query_args['tag__not_in'] = explode( ',', $attr['tag__not_in'] );
+		} else {
+			$query_args['tag__not_in'] = $attr['tag__not_in'];
+		}
 	}
 
 	/*author*/
@@ -1373,14 +1406,19 @@ function gutentor_get_query( $attr ) {
 		$query_args['author_name'] = $attr['author_name'];
 	}
 	if ( isset( $attr['author__in'] ) && $attr['author__in'] ) {
-		if ( is_array( $attr['author__in'] ) ) {
-			$query_args['author__in'] = $attr['author__in'];
-		} elseif ( is_string( $attr['author__in'] ) ) {
+		if ( is_string( $attr['author__in'] ) ) {
 			$query_args['author__in'] = explode( ',', $attr['author__in'] );
+		} else {
+			$query_args['author__in'] = $attr['author__in'];
 		}
 	}
-	if ( isset( $attr['author__not_in'] ) && $attr['author__not_in'] && is_string( $attr['author__not_in'] ) ) {
-		$query_args['author__not_in'] = explode( ',', $attr['author__not_in'] );
+	if ( isset( $attr['author__not_in'] ) && $attr['author__not_in'] ) {
+		if ( is_string( $attr['author__not_in'] ) ) {
+			$query_args['author__not_in'] = explode( ',', $attr['author__not_in'] );
+		} else {
+			$query_args['author__not_in'] = $attr['author__not_in'];
+
+		}
 	}
 
 	/*search*/
@@ -1404,8 +1442,14 @@ function gutentor_get_query( $attr ) {
 	if ( isset( $attr['post_parent'] ) && $attr['post_parent'] ) {
 		$query_args['post_parent'] = $attr['post_parent'];
 	}
-	if ( isset( $attr['post_parent__in'] ) && $attr['post_parent__in'] && is_string( $attr['post_parent__in'] ) ) {
-		$query_args['post_parent__in'] = explode( ',', $attr['post_parent__in'] );
+	if ( isset( $attr['post_parent__in'] ) && $attr['post_parent__in'] ) {
+		if ( is_string( $attr['post_parent__in'] ) ) {
+			$query_args['post_parent__in'] = explode( ',', $attr['post_parent__in'] );
+
+		} else {
+			$query_args['post_parent__in'] = $attr['post_parent__in'];
+
+		}
 	}
 
 	/*permission*/
@@ -1434,16 +1478,22 @@ function gutentor_get_query( $attr ) {
 	if ( isset( $attr['page'] ) && $attr['page'] ) {
 		$query_args['page'] = $attr['page'];
 	}
-	if ( isset( $attr['ignore_sticky_posts'] ) && $attr['ignore_sticky_posts'] ) {
+	if ( isset( $attr['ignore_sticky_posts'] ) ) {
 		$query_args['ignore_sticky_posts'] = $attr['ignore_sticky_posts'];
+	} else {
+		$query_args['ignore_sticky_posts'] = true;
 	}
 
 	/*permission , mimetype, cache*/
 	if ( isset( $attr['perm'] ) && $attr['perm'] ) {
 		$query_args['perm'] = $attr['perm'];
 	}
-	if ( isset( $attr['post_mime_type'] ) && $attr['post_mime_type'] && is_string( $attr['post_mime_type'] ) ) {
-		$query_args['post_mime_type'] = explode( ',', $attr['post_mime_type'] );
+	if ( isset( $attr['post_mime_type'] ) && $attr['post_mime_type'] ) {
+		if ( is_string( $attr['post_mime_type'] ) ) {
+			$query_args['post_mime_type'] = explode( ',', $attr['post_mime_type'] );
+		} else {
+			$query_args['post_mime_type'] = $attr['post_mime_type'];
+		}
 	}
 	if ( isset( $attr['cache_results'] ) && $attr['cache_results'] ) {
 		$query_args['cache_results'] = $attr['cache_results'];
@@ -1456,94 +1506,157 @@ function gutentor_get_query( $attr ) {
 	}
 
 	/*tax query*/
-	if ( isset( $attr['tax_query'] ) && $attr['tax_query'] ) {
-		if ( is_array( $attr['tax_query'] ) ) {
-			$query_args['tax_query'] = $attr['tax_query'];
+	if (
+	isset( $attr['tax_query'] ) &&
+	$attr['tax_query'] &&
+	is_array( $attr['tax_query'] )
+	) {
+		$query_args['tax_query'] = $attr['tax_query'];
+
+		// Check if the first item's 'terms' is a string.
+		if ( isset( $attr['tax_query'][0]['terms'] ) && is_string( $attr['tax_query'][0]['terms'] ) ) {
+			// Assume 'terms' is a string for all items and explode.
 			foreach ( $attr['tax_query'] as $number => $number_array ) {
-				foreach ( $number_array as $data => $data_val ) {
-					if ( isset( $number_array['terms'] ) ) {
-						$query_args['tax_query'][ $number ]['terms'] = explode( ',', $number_array['terms'] );
-					}
-				}
+				$query_args['tax_query'][ $number ]['terms'] = explode( ',', $number_array['terms'] );
 			}
 		}
 	}
+
 	if ( isset( $attr['tax_query_relation'] ) && $attr['tax_query_relation'] ) {
 		$query_args['tax_query']['relation'] = $attr['tax_query_relation'];
 	}
 	/*meta query*/
-	if ( isset( $attr['meta_query'] ) && $attr['meta_query'] ) {
-		if ( is_array( $attr['meta_query'] ) ) {
-			$query_args['meta_query'] = $attr['meta_query'];
-		}
+	if ( isset( $attr['meta_query'] ) && $attr['meta_query'] && is_array( $attr['meta_query'] ) ) {
+		$query_args['meta_query'] = $attr['meta_query'];
 	}
 	if ( isset( $attr['meta_query_relation'] ) && $attr['meta_query_relation'] ) {
-			$query_args['meta_query']['relation'] = $attr['meta_query_relation'];
+		$query_args['meta_query']['relation'] = $attr['meta_query_relation'];
 	}
 	/*date query*/
-	if ( isset( $attr['date_query'] ) && $attr['date_query'] ) {
-		if ( is_array( $attr['date_query'] ) ) {
-			$query_args['date_query'] = $attr['date_query'];
-		}
+	if ( isset( $attr['date_query'] ) && $attr['date_query'] && is_array( $attr['date_query'] ) ) {
+		$query_args['date_query'] = $attr['date_query'];
 	}
 	if ( isset( $attr['date_query_relation'] ) && $attr['date_query_relation'] ) {
 		$query_args['date_query']['relation'] = $attr['date_query_relation'];
 	}
 
-	return $query_args;
+	return apply_filters( 'gutentor_get_query', $query_args );
 }
 
 /**
  * Function to create terms query args
  *
- * @param  [array] $attr
- * @return array
+ * @param  array $attr Query args.
+ * @return array build query args.
  */
 function gutentor_get_term_query( $attr ) {
 
 	$query_args = $attr;
 	if ( isset( $attr['taxonomy'] ) && $attr['taxonomy'] ) {
-		$query_args['taxonomy'] = explode( ',', $attr['taxonomy'] );
+		if ( is_string( $attr['taxonomy'] ) ) {
+			$term_args['taxonomy'] = explode( ',', $attr['taxonomy'] );
+		} else {
+			$query_args['taxonomy'] = $attr['taxonomy'];
+		}
+	}
+	if ( isset( $attr['hide_empty'] ) ) {
+		$query_args['hide_empty'] = $attr['hide_empty'];
+	}
+	if ( isset( $attr['count'] ) ) {
+		$query_args['count'] = $attr['count'];
+	}
+	if ( isset( $attr['hierarchical'] ) ) {
+		$query_args['hierarchical'] = $attr['hierarchical'];
+	}
+	if ( isset( $attr['childless'] ) ) {
+		$query_args['childless'] = $attr['childless'];
+	}
+	if ( isset( $attr['term_ids'] ) && $attr['term_ids'] ) {
+		if ( is_string( $attr['term_ids'] ) ) {
+			$query_args['term_ids'] = explode( ',', $attr['term_ids'] );
+		} else {
+			$query_args['term_ids'] = $attr['term_ids'];
+		}
+	}
+	if ( isset( $attr['orderby'] ) ) {
+		$query_args['orderby'] = $attr['orderby'];
+	}
+	if ( isset( $attr['order'] ) ) {
+		$query_args['order'] = $attr['order'];
+	}
+	if ( isset( $attr['include'] ) && $attr['include'] ) {
+		if ( is_string( $attr['include'] ) ) {
+			$query_args['include'] = explode( ',', $attr['include'] );
+		} else {
+			$query_args['include'] = $attr['include'];
+		}
+	}
+	if ( isset( $attr['exclude'] ) && $attr['exclude'] ) {
+		if ( is_string( $attr['exclude'] ) ) {
+			$query_args['exclude'] = explode( ',', $attr['exclude'] );
+		} else {
+			$query_args['exclude'] = $attr['exclude'];
+		}
+	}
+	if ( isset( $attr['exclude_tree'] ) && $attr['exclude_tree'] ) {
+		if ( is_string( $attr['exclude_tree'] ) ) {
+			$query_args['exclude_tree'] = explode( ',', $attr['exclude_tree'] );
+		} else {
+			$query_args['exclude_tree'] = $attr['exclude_tree'];
+		}
 	}
 	if ( isset( $attr['number'] ) && $attr['number'] ) {
 		$query_args['number'] = $attr['number'];
 	} else {
 		$query_args['number'] = 6;
 	}
-	if ( isset( $attr['term_ids'] ) && $attr['term_ids'] ) {
-		$query_args['term_ids'] = explode( ',', $attr['term_ids'] );
-	}
-	if ( isset( $attr['include'] ) && $attr['include'] ) {
-		$query_args['include'] = explode( ',', $attr['include'] );
-	}
-	if ( isset( $attr['exclude'] ) && $attr['exclude'] ) {
-		$query_args['exclude'] = explode( ',', $attr['exclude'] );
-	}
-	if ( isset( $attr['exclude_tree'] ) && $attr['exclude_tree'] ) {
-		$query_args['exclude_tree'] = explode( ',', $attr['exclude_tree'] );
+	if ( isset( $attr['offset'] ) ) {
+		$query_args['offset'] = $attr['offset'];
 	}
 	if ( isset( $attr['name'] ) && $attr['name'] ) {
-		$query_args['name'] = explode( ',', $attr['name'] );
+		if ( is_string( $attr['name'] ) ) {
+			$term_args['name'] = explode( ',', $attr['name'] );
+		} else {
+			$query_args['name'] = $attr['name'];
+		}
 	}
 	if ( isset( $attr['slug'] ) && $attr['slug'] ) {
-		$query_args['slug'] = explode( ',', $attr['slug'] );
+		if ( is_string( $attr['slug'] ) ) {
+			$term_args['slug'] = explode( ',', $attr['slug'] );
+		} else {
+			$query_args['slug'] = $attr['slug'];
+		}
 	}
 	if ( isset( $attr['term_taxonomy_id'] ) && $attr['term_taxonomy_id'] ) {
-		$query_args['term_taxonomy_id'] = explode( ',', $attr['term_taxonomy_id'] );
+		if ( is_string( $attr['term_taxonomy_id'] ) ) {
+			$term_args['term_taxonomy_id'] = explode( ',', $attr['term_taxonomy_id'] );
+		} else {
+			$query_args['term_taxonomy_id'] = $attr['term_taxonomy_id'];
+		}
 	}
-	if ( isset( $attr['term_taxonomy_id'] ) && $attr['term_taxonomy_id'] ) {
-		$query_args['term_taxonomy_id'] = explode( ',', $attr['term_taxonomy_id'] );
+	if ( isset( $attr['search'] ) ) {
+		$query_args['search'] = $attr['search'];
+	}
+	if ( isset( $attr['name__like'] ) ) {
+		$query_args['name__like'] = $attr['name__like'];
+	}
+	if ( isset( $attr['description__like'] ) ) {
+		$query_args['description__like'] = $attr['description__like'];
+	}
+	if ( isset( $attr['child_of'] ) ) {
+		$query_args['child_of'] = $attr['child_of'];
+	}
+	if ( isset( $attr['parent'] ) ) {
+		$query_args['parent'] = $attr['parent'];
 	}
 	/*meta query*/
-	if ( isset( $attr['meta_query'] ) && $attr['meta_query'] ) {
-		if ( is_array( $attr['meta_query'] ) ) {
-			$query_args['meta_query'] = $attr['meta_query'];
-		}
+	if ( isset( $attr['meta_query'] ) && $attr['meta_query'] && is_array( $attr['meta_query'] ) ) {
+		$query_args['meta_query'] = $attr['meta_query'];
 	}
 	if ( isset( $attr['meta_query_relation'] ) && $attr['meta_query_relation'] ) {
 		$query_args['meta_query']['relation'] = $attr['meta_query_relation'];
 	}
-	return $query_args;
+	return apply_filters( 'gutentor_get_term_query', $query_args );
 }
 
 /**
@@ -1572,7 +1685,8 @@ function gutentor_get_block_by_id( $blocks, $blockId ) {
 /**
  * Function create pagination
  *
- * @param  [array] $attr
+ * @param  integer|boolean $paged paged data.
+ * @param   integer|boolean $max_num_pages max number.
  * @return String
  */
 function gutentor_pagination( $paged = false, $max_num_pages = false ) {
@@ -1666,7 +1780,7 @@ function gutentor_is_array_empty( $array ) {
 }
 
 /**
- * check if Gutentor Pro activated
+ * Check if Gutentor Pro activated
  */
 if ( ! function_exists( 'gutentor_pro_active' ) ) {
 
@@ -1676,7 +1790,7 @@ if ( ! function_exists( 'gutentor_pro_active' ) ) {
 }
 
 /**
- * check if WooCommerce activated
+ * Check if WooCommerce activated
  */
 if ( ! function_exists( 'gutentor_is_woocommerce_active' ) ) {
 
@@ -1686,7 +1800,7 @@ if ( ! function_exists( 'gutentor_is_woocommerce_active' ) ) {
 }
 
 /**
- * check if Edd activated
+ * Check if Edd activated
  */
 if ( ! function_exists( 'gutentor_is_edd_active' ) ) {
 
@@ -1696,7 +1810,7 @@ if ( ! function_exists( 'gutentor_is_edd_active' ) ) {
 }
 
 /**
- * check if Edd Rating activated
+ * Check if Edd Rating activated
  */
 if ( ! function_exists( 'gutentor_is_edd_review_active' ) ) {
 
@@ -1706,7 +1820,7 @@ if ( ! function_exists( 'gutentor_is_edd_review_active' ) ) {
 }
 
 /**
- * check if Edd Whishlist activated
+ * Check if Edd Whishlist activated
  */
 if ( ! function_exists( 'gutentor_is_edd_wishlist_active' ) ) {
 
@@ -1715,7 +1829,7 @@ if ( ! function_exists( 'gutentor_is_edd_wishlist_active' ) ) {
 	}
 }
 /**
- * check if Edd Whishlist activated
+ * Check if Edd Whishlist activated
  */
 if ( ! function_exists( 'gutentor_is_edd_favorites_active' ) ) {
 
@@ -1725,7 +1839,7 @@ if ( ! function_exists( 'gutentor_is_edd_favorites_active' ) ) {
 }
 
 /**
- * check if Templateberg activated
+ * Check if Templateberg activated
  */
 if ( ! function_exists( 'gutentor_is_templateberg_active' ) ) {
 
@@ -1735,7 +1849,7 @@ if ( ! function_exists( 'gutentor_is_templateberg_active' ) ) {
 }
 
 /**
- * check if Templateberg connect status
+ * Check if Templateberg connect status
  *
  * @retun boolean
  */
@@ -1757,7 +1871,7 @@ if ( ! function_exists( 'gutentor_custom_edd_review' ) ) {
 
 	function gutentor_custom_edd_review( $id ) {
 
-		// make sure edd reviews is active
+		// make sure edd reviews is active.
 		if ( ! function_exists( 'edd_reviews' ) ) {
 			return '';
 		}
@@ -1804,7 +1918,7 @@ if ( ! function_exists( 'gutentor_custom_edd_review' ) ) {
  *  ERROR | Extension 'mysql_' is deprecated since PHP 5.5 and removed since PHP 7.0; Use mysqli instead
  *  ERROR | Extension 'mysql_' is deprecated since PHP 5.5 and removed since PHP 7.0; Use mysqli instead
  *
- * function mysql_to_rfc3339 Copied from wp-includes\functions.php.
+ * @link function mysql_to_rfc3339 Copied from wp-includes\functions.php.
  *
  * @param string $date_string Date string to parse and format.
  * @return string Date formatted for ISO8601 without time zone.

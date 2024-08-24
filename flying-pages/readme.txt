@@ -4,7 +4,7 @@ Contributors: gijo
 Donate link: https://www.buymeacoffee.com/gijovarghese
 Tags: performance, speed, fast, prefetch, optimization
 Requires at least: 4.5
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: 2.4.6
 License: GPLv2 or later
@@ -79,7 +79,7 @@ See the [video](https://www.youtube.com/watch?v=T658UlOKdx8) and you'll find 'pr
 Flying Pages preload links after the website is loaded and only improves the speed on clicking links. It doesn’t help you to speed up the initial load.
 
 = Do I need a cache plugin? =
-Every time a page/link is preloaded, it executes some PHP code and MySQL queries which is resource-intensive. So it's highly recommended to use a cache plugin like [FlyingPress](https://flying-press.com/).
+Every time a page/link is preloaded, it executes some PHP code and MySQL queries which is resource-intensive. So it's highly recommended to use a cache plugin like [FlyingPress](https://flyingpress.com/).
 
 = Do Flying Pages affect Google Analytics or similar tracking scripts? =
 Flying Pages only downloads the HTML content. It doesn't execute any code inside it. So it will not affect Google Analytics or similar scripts.
@@ -88,7 +88,7 @@ Flying Pages only downloads the HTML content. It doesn't execute any code inside
 It's mostly videos and images that consume 80% of the bandwidth. Flying Pages only preloads HTML pages (which is usually <30KB) and doesn't download any resources inside it (like images, css, js). Installing Flying Pages won't increase your bandwidth usage not even by 5%.
 
 = Do Flying Pages increase server load? =
-In short, yes. But you can configure Flying Pages to limit the number of preloads per second or preload only on mouse hover which reduces the server load. Also, make sure to use a good cache plugin like [FlyingPress](https://flying-press.com/). This will reduce server load dramatically.
+In short, yes. But you can configure Flying Pages to limit the number of preloads per second or preload only on mouse hover which reduces the server load. Also, make sure to use a good cache plugin like [FlyingPress](https://flyingpress.com/). This will reduce server load dramatically.
 
 = How to get support? =
 Please create a support request in the official [support forum](https://wordpress.org/support/plugin/flying-pages/). You can also get help from WP Speed Matters' [Facebook group](https://www.facebook.com/groups/wpspeedmatters).

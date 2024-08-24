@@ -159,14 +159,16 @@ if ( ! class_exists( 'Gutentor_T2' ) ) {
 			$exclude    = isset( $attributes['t2ExcludeTerms'] ) ? $attributes['t2ExcludeTerms'] : '';
 			$number     = isset( $attributes['t2Number'] ) ? $attributes['t2Number'] : 5;
 			$terms      = get_terms(
-				array(
-					'taxonomy'   => $taxonomy,
-					'orderby'    => $orderby,
-					'order'      => $order,
-					'hide_empty' => $hide_empty,
-					'include'    => $include,
-					'exclude'    => $exclude,
-					'number'     => $number,
+				gutentor_get_term_query(
+					array(
+						'taxonomy'   => $taxonomy,
+						'orderby'    => $orderby,
+						'order'      => $order,
+						'hide_empty' => $hide_empty,
+						'include'    => $include,
+						'exclude'    => $exclude,
+						'number'     => $number,
+					)
 				)
 			);
 			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {

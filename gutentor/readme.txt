@@ -6,7 +6,7 @@ Tags: blocks, gutenberg blocks, page-builder, gutenberg editor, WordPress blocks
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 5.6.20
-Stable tag: 3.3.6
+Stable tag: 3.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -338,6 +338,16 @@ Yes, We provide Free Support via [WordPress Support Forum](https://wordpress.org
 9. Gutentor Blocks: Gutentor provide complete site-building blocks and elements
 
 == Changelog ==
+
+= 3.3.8 - 2024-08-24 =
+* Fixed:    [Gutentor Post Type Query](https://wordpress.org/support/topic/post-type-in-3-3-7/)
+* Fixed:    Gutentor Term Query
+
+= 3.3.7 - 2024-08-24 =
+* Added:    Plugin link to Getting Started.
+* Added:    Added filter on gutentor_get_query and gutentor_get_term_query, [Language support](https://wordpress.org/support/topic/filter-all-for-posts-shows-all-posts-should-show-only-added-categories/)
+* Fixed:    [Post Widget Button](https://wordpress.org/support/topic/i-cant-turn-off-enable-button/)
+* Fixed:    [Post (Type) Avatar](https://wordpress.org/support/topic/i-cant-turn-off-enable-button/)
 
 = 3.3.6 - 2024-08-02 =
 * Added:    Validation of text tag

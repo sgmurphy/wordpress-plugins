@@ -13,41 +13,42 @@
         }
 
         elementor.on("preview:loaded", function () {
-            $(elementor.$previewContents[0].body).on("click", ".elementor-action-tp-wdkit-button", function (event) {
-                window.tp_wdkit_editor = elementorCommon.dialogsManager.createWidget(
-                    "lightbox",
-                    {
-                        id: "tp-wdkit-elementorp",
-                        headerMessage: !1,
-                        message: "",
-                        hide: {
-                            auto: !1,
-                            onClick: !1,
-                            onOutsideClick: false,
-                            onOutsideContextMenu: !1,
-                            onBackgroundClick: !0,
-                        },
-                        position: {
-                            my: "center",
-                            at: "center",
-                        },
-                        onShow: function () {
-                            var dialogLightboxContent = $(".dialog-lightbox-message"),
-                                clonedWrapElement = $("#tp-wdkit-wrap");
+            
+            window.tp_wdkit_editor = elementorCommon.dialogsManager.createWidget(
+                "lightbox",
+                {
+                    id: "tp-wdkit-elementorp",
+                    headerMessage: !1,
+                    message: "",
+                    hide: {
+                        auto: !1,
+                        onClick: !1,
+                        onOutsideClick: false,
+                        onOutsideContextMenu: !1,
+                        onBackgroundClick: !0,
+                    },
+                    position: {
+                        my: "center",
+                        at: "center",
+                    },
+                    onShow: function () {
+                        var dialogLightboxContent = $(".dialog-lightbox-message"),
+                            clonedWrapElement = $("#tp-wdkit-wrap");
 
-                                clonedWrapElement = clonedWrapElement.clone(true).show()
-                                dialogLightboxContent.html(clonedWrapElement);
+                            clonedWrapElement = clonedWrapElement.clone(true).show()
+                            dialogLightboxContent.html(clonedWrapElement);
 
-                                dialogLightboxContent.on("click", ".tp-close-btn", function () {
-                                    window.tp_wdkit_editor.hide();
-                                });
-                        },
-                        onHide: function () {
-                            window.tp_wdkit_editor.destroy();
-                        }
+                            dialogLightboxContent.on("click", ".tp-close-btn", function () {
+                                window.tp_wdkit_editor.hide();
+                            });
+                    },
+                    onHide: function () {
+                        window.tp_wdkit_editor.destroy();
                     }
-                );
+                }
+            );
 
+            $(elementor.$previewContents[0].body).on("click", ".elementor-action-tp-wdkit-button", function (event) {
                 window.tp_wdkit_editor.show();
             });
 
