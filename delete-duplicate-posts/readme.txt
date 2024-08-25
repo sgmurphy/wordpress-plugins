@@ -5,8 +5,8 @@ Tags: delete duplicate posts, duplicates, optimization, cleanup, performance
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
-Tested up to: 6.5
-Stable tag: 4.9.7
+Tested up to: 6.5.3
+Stable tag: 4.9.8
 Requires PHP: 5.6
 
 Get rid of duplicate posts and pages (any post type) on your blog with manual or automatic modes.
@@ -15,7 +15,7 @@ Get rid of duplicate posts and pages (any post type) on your blog with manual or
 
 **Delete Duplicate Posts** helps you declutter your WordPress site by removing duplicate posts along with their metadata. Whether you choose to run the cleanup process manually or set it to operate automatically on a schedule, our plugin ensures a thorough cleanup, improving your website's loading speed and overall performance.
 
-Try it out on our **Free Test Site**: [Launch Demo](https://app.instawp.io/launch?t=ddp-492-demo-template&d=v2)
+Try it out on your **Free Test Site**: [Launch Demo](https://app.instawp.io/launch?t=ddp-492-demo-template&d=v2)
 
 ### Why Choose Delete Duplicate Posts?
 
@@ -63,6 +63,9 @@ You should restore the backup you took of your website before you ran this tool.
 3. Settings
 
 == Changelog ==
+
+= 4.9.8 =
+* Finally fixing the ajax datatables error - maybe?
 
 = 4.9.7 =
 * More bugfixes

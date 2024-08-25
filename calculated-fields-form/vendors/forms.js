@@ -155,6 +155,11 @@ cff_forms_templates = {
             "description": "Hip to Waist Ratio (HWR) is an essential indicator of the body’s fat distribution and overall health.",
             "id": 46
         }, {
+            "title": "Percentile Deviation",
+            "category": "Health",
+            "description": "Calculate the percentile deviation of a baby's height based on their age in months.",
+            "id": 54
+        }, {
             "title": "Lease Calculator",
             "category": "Financial",
             "description": "Lease calculator based on loan amount, residual value, interest rate, and time interval.",

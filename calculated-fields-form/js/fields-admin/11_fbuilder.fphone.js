@@ -78,13 +78,15 @@
 
                     '<label>Countries</label>'+
                     '<select name="sCountries" id="sCountries" class="large" multiple size="10">';
-                    for(var i in db) output += '<option value="'+cff_esc_attr(i)+'" '+(!this.countries.length || this.countries.indexOf(i) != -1 ? 'SELECTED' : '')+'>'+cff_esc_attr(i)+'</option>';
+
+					let country_codes = Object.keys(db).sort();
+					for(let i in country_codes) output += '<option value="'+cff_esc_attr(country_codes[i])+'" '+(!this.countries.length || this.countries.indexOf(country_codes[i]) != -1 ? 'SELECTED' : '')+'>'+cff_esc_attr(country_codes[i])+'</option>';
                     output += '</select><br><br>'+
                     '<input type="button" class="button-secondary large" value="Select all" id="sSelectAll" /><br>'+
 
                     '<label>Select country by default</label>'+
                     '<select name="sDefaultCountry" id="sDefaultCountry" class="large">';
-                    for(var i in db) output += '<option value="'+cff_esc_attr(i)+'" '+(this.defaultCountry == i ? 'SELECTED' : '')+'>'+cff_esc_attr(i)+'</option>';
+                    for(let i in country_codes) output += '<option value="'+cff_esc_attr(country_codes[i])+'" '+(this.defaultCountry == country_codes[i] ? 'SELECTED' : '')+'>'+cff_esc_attr(country_codes[i])+'</option>';
                     output += '</select><hr />';
 
                     return output;

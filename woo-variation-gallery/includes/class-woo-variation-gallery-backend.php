@@ -129,18 +129,9 @@ if ( ! class_exists( 'Woo_Variation_Gallery_Backend', false ) ):
 
 		public function admin_enqueue_scripts() {
 
-			$screen           = get_current_screen();
-			$screen_post_type = $screen ? $screen->post_type : '';
-			$screen_base = $screen ? $screen->base : '';
-			$is_valid_screen = 'product' === $screen_post_type && 'post' === $screen_base;
-
-			if( !$is_valid_screen ){
-				return;
-			}
-
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-			// wp_enqueue_media();
+			wp_enqueue_media();
 
 			wp_enqueue_style( 'woo-variation-gallery-admin', esc_url( woo_variation_gallery()->assets_url( "/css/admin{$suffix}.css" ) ), array(), woo_variation_gallery()->assets_version( "/css/admin{$suffix}.css" ) );
 

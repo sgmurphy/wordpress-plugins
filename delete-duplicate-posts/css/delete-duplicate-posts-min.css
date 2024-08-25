@@ -6,6 +6,16 @@
 	margin-right: 20px;
 }
 
+#ddp_dupetable th:first-child,
+#ddp_dupetable td:first-child {
+	width: 65% !important;
+}
+
+#ddp_dupetable th:last-child,
+#ddp_dupetable td:last-child {
+	width: 35% !important;
+}
+
 
 #cp-ddp-newsletter .ml-block-form button {
 	height: 30px;
@@ -13,7 +23,7 @@
 
 
 .ddp_content_wrapper #delete-duplicate-posts-tabs .ui-tabs-active a {
-	background-color:#ffffff !important;
+	background-color: #ffffff !important;
 }
 
 .premium_ver #delete-duplicate-posts-tabs .ui-tab .pro a:after {
@@ -22,10 +32,10 @@
 
 #delete-duplicate-posts-tabs ul.ui-tabs-nav .pro a:after {
 	content: 'Pro';
-	background:#00a0d2;
+	background: #00a0d2;
 	border-radius: 4px;
 	color: #ffffff;
-	padding:2px 4px;
+	padding: 2px 4px;
 	margin-left: 5px;
 	font-size: .8em;
 }
@@ -60,6 +70,7 @@
 	border: none;
 	border-bottom: 4px solid transparent;
 }
+
 #delete-duplicate-posts-tabs #log ul li {
 	margin-bottom: 6px;
 }
@@ -99,15 +110,15 @@
 
 .newsletter p.ppolicy {
 	font-size: .8em;
-	color:#555;
+	color: #555;
 }
 
 .sidebarrow .newsletter .form-control {
 	width: 100%;
 	margin-bottom: 10px;
 	padding: 0 8px;
-    line-height: 2;
-    min-height: 30px;
+	line-height: 2;
+	min-height: 30px;
 }
 
 .sidebarrow .newsletter .form-control button {
@@ -132,7 +143,7 @@ ul.striped>:nth-child(odd):hover {
 /* Target the first td of each tr and apply styles */
 #ddp_dupetable tr.wp-list-table>td:first-child {
 
-	color: #d8000c;
+	color: #666666;
 	/* Darker red text color */
 	font-weight: bold;
 	/* Make the font bold */
@@ -145,6 +156,7 @@ ul.striped>:nth-child(odd):hover {
 	text-decoration: underline;
 	color: #ffffff;
 }
+
 #ddp_redirtable_length,
 #ddp_dupetable_length {
 	margin-top: 10px;
@@ -397,18 +409,18 @@ ul.striped>:nth-child(even):hover {
 
 #sidebar-container {
 	display: table-cell;
-    height: 500px;
-    margin: 0;
-    padding: 0;
-    vertical-align: top;
-		width: 260px;
-		background: #ffffff;
+	height: 500px;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+	width: 260px;
+	background: #ffffff;
 
-		border: 1px solid #ccd0d4;
-	
-		box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
-		margin: 5px 15px 2px;
-		padding: 1px 12px;
+	border: 1px solid #ccd0d4;
+
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+	margin: 5px 15px 2px;
+	padding: 1px 12px;
 }
 
 

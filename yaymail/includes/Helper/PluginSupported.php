@@ -259,6 +259,7 @@ class PluginSupported {
 					'dokan_staff_new_order',
 					'Dokan_Email_Wholesale_Register',
 					'dokan_email_shipping_status_tracking',
+					'dokan_marked_order_receive',
 					'dokan_email_subscription_invoice',
 					'updates_for_store_followers',
 					'vendor_new_store_follower',

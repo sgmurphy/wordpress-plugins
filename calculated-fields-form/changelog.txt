@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.31 =
+
+* Fixes some issues in the Phone control.
+* Adds a new predefined template.
+* Improves the PayPal Checkout add-on (Platinum plugin distribution).
+
 = 5.2.30 =
 
 * Modifies the position of the validation error messages in the form.

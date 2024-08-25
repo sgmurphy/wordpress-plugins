@@ -4784,6 +4784,14 @@ class Premium_Nav_Menu extends Widget_Base {
 			if ( ! empty( $item['link']['url'] ) ) {
 
 				$this->add_link_attributes( $item_link, $item['link'] );
+
+				$current_link = get_permalink();
+
+				$is_active_item = $item['link']['url'] === $current_link;
+
+				if ( $is_active_item ) {
+					$this->add_render_attribute( 'menu-item-' . $index, 'class', 'premium-active-item' );
+				}
 			}
 
 			$this->add_render_attribute(
@@ -4795,6 +4803,7 @@ class Premium_Nav_Menu extends Widget_Base {
 						'premium-nav-menu-item',
 						'elementor-repeater',
 						'elementor-repeater-item-' . $item['_id'],
+						// $is_active_item ? 'premium-active-item' : ''
 					),
 				)
 			);

@@ -25,7 +25,7 @@ function cp_ddp_freemius_opt_in(element) { // eslint-disable-line no-unused-vars
 	});
 }
 
-jQuery(document).ready(function () {
+jQuery(document).ready(function ($) {
 
 	ddp_refresh_log();
 
@@ -135,90 +135,84 @@ jQuery(document).ready(function () {
 
 
 
+var startTime; // Removed unused elapsedTime variable
 
-	
-
-	var startTime, elapsedTime = 0;
-
-	var interval; // Make sure this is accessible in both beforeSend and complete
-
-	// Initialize DataTable
-	var table = jQuery('#ddp_dupetable').DataTable({
-		"select": {
-			style: 'multi'
-		},
-		"autoWidth": true,
-		"processing": true,
-		language: {
-			processing: '<div id="processingMessage">Looking for duplicates</div>'
-	},
-		"serverSide": true,
-		"searching": false, 
+// Initialize DataTable
+var table = jQuery('#ddp_dupetable').DataTable({
+    "select": {
+        style: 'multi'
+    },
+    "autoWidth": true,
+    "processing": true,
+    language: {
+        processing: '<div id="processingMessage">Looking for duplicates</div>'
+    },
+    "serverSide": true,
+    "searching": false,
     "ordering": false,
-		"dom": 'BflrtipB',
-		"ajax": {
-			"url": ajaxurl,
-			"type": "POST",
-			"data": function (d) {
-				return jQuery.extend({}, d, {
-					"action": "ddp_get_duplicates",
-					"_ajax_nonce": cp_ddp.nonce
-				});
-			},
-			"dataSrc": function (json) {
-				return json.data;
-			},
-			"beforeSend": function () {
-				startTime = new Date().getTime();
-				interval = setInterval(updateTime, 1000);
-				jQuery("#ddp_dupetable .dt-button").prop('disabled', true);
-				jQuery('#ddp_dupetable tbody').css('opacity', '0.5'); // Grey out the tbody	 
-			},
-			"complete": function () {
-				clearInterval(interval);
-				jQuery('#ddp_dupetable tbody').css('opacity', '1'); // Restore tbody opacity
-				jQuery("#ddp_dupetable .dt-button").prop('disabled', false);
-				ddp_refresh_log();
-			}
-		},
-		
+    "dom": '<"top"ip>rt<"bottom"ip><"clear">',
+    "ajax": {
+        "url": ajaxurl,
+        "type": "POST",
+        "data": function (d) {
+            return jQuery.extend({}, d, {
+                "action": "ddp_get_duplicates",
+                "_ajax_nonce": cp_ddp.nonce
+            });
+        },
+        "dataSrc": function (json) {
+            if (json.error) {
+                jQuery("#ddp-dashboard .errormessage").html(json.error).show();
+                return [];
+            }
+            return json.data;
+        },
+        "beforeSend": function () {
+            startTime = new Date().getTime();
+            jQuery('#requestTime').html("Request: 0 sec.");
+            interval = setInterval(updateTime, 1000);
+            jQuery("#ddp_dupetable .dt-button").prop('disabled', true);
+            jQuery('#ddp_dupetable tbody').css('opacity', '0.5');
+        },
+        "complete": function () {
+            clearInterval(interval);
+            jQuery('#ddp_dupetable tbody').css('opacity', '1');
+            jQuery("#ddp_dupetable .dt-button").prop('disabled', false);
+            ddp_refresh_log();
+        },
+        "error": function (jqXHR, textStatus, errorThrown) {
+            // Handle the error and display the message in a specific div
+            var errorMessage = "Failed to load data: " + textStatus + " - " + errorThrown;
+            jQuery("#ddp-dashboard .errormessage").html(errorMessage).show();
+        }
+    },
     "columns": [
-			{ "data": "ID", "visible": false },
-			{ "data": "orgID", "visible": false },
-			{ "data": "duplicate", "title": "Duplicate", "orderable": false }, // Disable sorting for this column
-			{ "data": "original", "title": "Original", "orderable": false }   // Disable sorting for this column
-	],
-	"rowCallback": function (row, data) {
-			jQuery(row).addClass('wp-list-table widefat fixed striped table-view-list'); // WordPress table classes
-	},
-	"lengthMenu": [[10, 25, 50, 100, 250, 500], [10, 25, 50, 100, 250, 500]] 
-	});
+        { "data": "ID", "visible": false },
+        { "data": "orgID", "visible": false },
+        { "data": "duplicate", "title": "Duplicate", "orderable": false },
+        { "data": "original", "title": "Original", "orderable": false }
+    ],
+    "rowCallback": function (row) {
+        jQuery(row).addClass('wp-list-table widefat fixed striped table-view-list');
+    },
+    "lengthMenu": [[10, 25, 50, 100, 250, 500], [10, 25, 50, 100, 250, 500]] 
+});
 
-
-
+// Custom error handling for DataTables to prevent default alert
+table.on('error.dt', function (e, settings, techNote, message) {
+    // Prevent default alert
+    e.preventDefault();
+    
+    // Display the error message in the specified div
+    jQuery("#ddp-dashboard .errormessage").html("DataTables error: " + message).show();
+});
 // #ddp_redirtable
-
-
-
 
     // Create and insert buttons
     var buttonsDiv = createButtons();
-    buttonsDiv.insertBefore('#ddp_dupetable_length');
+    buttonsDiv.insertBefore('#ddp_dupetable_paginate');
 
-
-	// Initialize button as disabled
-	// var deleteButton = jQuery('.ddp-delete-selected');
-	// deleteButton.prop('disabled', true);
-
-
-
-
-
-
-
-
-
-
+		
 	/**
 	 * refreshTable.
 	 *
@@ -230,12 +224,6 @@ jQuery(document).ready(function () {
 	function refreshTable() {
     table.ajax.reload();
 }
-
-
-
-
-
-
 
 
 /**
@@ -369,7 +357,7 @@ function createButtons() {
         class: 'dt-button button button-secondary button-small'
     }));
 
-    return buttonsDiv;
+		return buttonsDiv;
 }
 
 
@@ -502,6 +490,7 @@ function createButtons() {
 				}
 				if ('-1' == response.data.nextstep) {
 					// Something went wrong.
+					jQuery('#ddp_container #dashboard .statusdiv .errormessage').text('Something went wrong.').show();
 				}
 				else {
 					if (parseInt(response.data.nextstep) > 0) {

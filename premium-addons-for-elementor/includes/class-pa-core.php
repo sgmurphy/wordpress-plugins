@@ -110,9 +110,32 @@ if ( ! class_exists( 'PA_Core' ) ) {
 			set_transient( $cache_key, true, $expiration );
 
 			$install_time = get_option( 'pa_install_time' );
-			
-			if( ! $install_time ) {
-				update_option( 'pa_install_time', date( 'j F, Y', time() ) );
+
+			if ( ! $install_time ) {
+
+				$current_time = date( 'j F, Y', time() );
+
+				update_option( 'pa_install_time', $current_time );
+
+				$api_url = 'https://feedback.premiumaddons.com/wp-json/install/v2/add';
+
+				$response = wp_safe_remote_request(
+					$api_url,
+					array(
+						'headers'     => array(
+							'Content-Type' => 'application/json',
+						),
+						'body'        => wp_json_encode(
+							array(
+								'time' => $current_time,
+							)
+						),
+						'timeout'     => 20,
+						'method'      => 'POST',
+						'httpversion' => '1.1',
+					)
+				);
+
 			}
 		}
 

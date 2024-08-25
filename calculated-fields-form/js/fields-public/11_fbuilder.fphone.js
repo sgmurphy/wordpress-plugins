@@ -82,8 +82,7 @@
 				},
 			show:function()
 				{
-                    var me  = this,
-                        db = JSON.parse( JSON.stringify( me.country_db ) );
+                    var me  = this;
 
 					me.predefined = String(me._getAttr('predefined', true)).trim().replace(/\s/g, '');
                     me.dformat = String(me.dformat).trim().replace(/\s+/g, ' ');
@@ -98,8 +97,18 @@
 
 					str = '<div class="'+me.size+' components_container">';
                     if(me.countryComponent) {
+						let db = {}, countries;
+
+						if(!me.countries.length) me.countries = Object.keys(me.country_db);
+						for( let i in me.countries ) {
+							if ( me.countries[i] in me.country_db )
+								db[me.countries[i]] = me.country_db[me.countries[i]];
+						}
+						countries = JSON.parse(JSON.stringify(me.countries));
+
 						cw = me.toDisplay == 'iso' ? 60 : 90;
 						str += '<div class="uh_phone" style="width:'+cw+'px;"><select id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field" style="'+cff_esc_attr(me.getCSSComponent('prefix'))+'">';
+
 						if(me.toDisplay != 'iso') {
 							db = Object.fromEntries(Object.entries(db).sort(
 								function(a,b) {
@@ -110,10 +119,14 @@
 
 							delete db[ me.defaultCountry == 'CA' ? 'US' : 'CA' ];
 							delete db[ me.defaultCountry == 'RU' ? 'KZ' : 'RU' ];
+							countries = Object.keys(db);
+						} else {
+							countries = countries.sort();
 						}
-                        if(!me.countries.length) me.countries = Object.keys(db);
-                        for(let i in me.countries) {
-                            str += '<option value="'+db[me.countries[i]]['prefix']+'" '+(me.defaultCountry == me.countries[i] ? 'SELECTED' : '')+'>'+(me.toDisplay == 'iso' ? me.countries[i] : db[me.countries[i]]['prefix'])+'</option>';
+
+                        for(let i in countries) {
+							let prefix = db[countries[i]]['prefix'];
+							str += '<option value="'+prefix+'" '+(me.defaultCountry == countries[i] ? 'SELECTED' : '')+'>'+(me.toDisplay == 'iso' ? countries[i] : prefix)+'</option>';
 						}
                         str += '</select></div>';
                         c++;
@@ -123,7 +136,7 @@
 					{
 						let l = tmp[i].length;
 
-						str += '<div class="uh_phone" style="min-width:calc( ( 100% - '+cw+'px ) / '+nc+' * '+l+');"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+l+'" '+attr+'="'+tmpv.substring(0,l)+'" maxlength="'+l+'" minlength="'+l+'" '+((me.readonly)?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" /><div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+tmp[i]+'</div></div>';
+						str += '<div class="uh_phone" style="min-width:calc( ( 100% - '+cw+'px ) / '+Math.max(1, nc)+' * '+Math.max(1, l)+');"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+l+'" '+attr+'="'+tmpv.substring(0,l)+'" maxlength="'+l+'" minlength="'+l+'" '+((me.readonly)?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" /><div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+tmp[i]+'</div></div>';
 
 						tmpv = tmpv.substring(l);
 						c++;
@@ -166,7 +179,7 @@
 					}
                     $('#'+me.name+'_0').trigger('change');
 					if (me.countryComponent && me.dynamic) {
-						$('#'+me.name+'_0').on('change', function(){ me._input_boxes(); });
+						$('#'+me.name+'_0').on('change', function(){ me._input_boxes(); }).trigger('change');
 					}
 				},
 			val:function(raw, no_quotes)

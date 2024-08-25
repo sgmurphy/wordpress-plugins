@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.30
+Stable tag: 5.2.31
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.31 =
+
+* Fixes some issues in the Phone control.
+* Adds a new predefined template.
+* Improves the PayPal Checkout add-on (Platinum plugin distribution).
+
 = 5.2.30 =
 
 * Modifies the position of the validation error messages in the form.
@@ -485,9 +491,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Fixes a minor issue with Dropdown choices with large text when the Select2 component is enabled.
 * Includes minor modifications in the form builder.
 * Adds new predefined templates.
-
-= 5.2.25 =
-
-* Modifies the checkbox behavior when one choice is entered as the maximum number of choices to select allowed.
-* Display a frame with invalid validation rules to allow identifying the hidden fields that fail.
-* Fixes an issue by selecting the fields for notification emails.

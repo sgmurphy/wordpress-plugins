@@ -10,8 +10,7 @@ if ( !defined( 'ABSPATH' ) ) {
 
 <div id="sidebar-container">
 	<?php 
-global  $ddp_fs ;
-
+global $ddp_fs;
 if ( !$ddp_fs->is_registered() && !$ddp_fs->is_pending_activation() ) {
     ?>
 		<div class="sidebarrow optin">
@@ -28,31 +27,28 @@ if ( !$ddp_fs->is_registered() && !$ddp_fs->is_pending_activation() ) {
     esc_html_e( 'Click here to opt in.', 'delete-duplicate-posts' );
     ?></a>
 			<div id="cp-ddp-opt-spin" class="spinner"></div><input type="hidden" id="cp-ddp-freemius-opt-nonce" value="<?php 
-    echo  esc_attr( wp_create_nonce( 'cp-ddp-freemius-opt' ) ) ;
+    echo esc_attr( wp_create_nonce( 'cp-ddp-freemius-opt' ) );
     ?>" />
 		</div>
 		<?php 
 }
-
 $my_current_user = wp_get_current_user();
 $ddp_deleted_duplicates = get_option( 'ddp_deleted_duplicates' );
-
 if ( $ddp_deleted_duplicates ) {
     ?>
 		<div class="sidebarrow">
 			<h3>
 				<?php 
-    printf(
+    printf( 
         /* translators: %s: Number of deleted posts */
         esc_html__( '%s duplicates deleted!', 'delete-duplicate-posts' ),
         esc_html( number_format_i18n( $ddp_deleted_duplicates ) )
-    );
+     );
     ?>
 			</h3>
 		</div>
 		<?php 
 }
-
 ?>
 
 	<div class="sidebarrow">
@@ -69,10 +65,10 @@ esc_html_e( 'We recommend you always make a backup before running this tool.', '
 			<p>Sign up to receive the latest tips and updates directly to your inbox. Ensure your WordPress site remains efficient and duplicate-free!</p>
 			<form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/16490/forms/106309157552916248/subscribe" data-code="" method="post" target="_blank">
 				<input type="text" class="form-control" data-inputmask="" name="fields[name]" placeholder="Name" autocomplete="given-name" value="<?php 
-echo  esc_html( $my_current_user->display_name ) ;
+echo esc_html( $my_current_user->display_name );
 ?>" required="required">
 				<input type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email" value="<?php 
-echo  esc_html( $my_current_user->user_email ) ;
+echo esc_html( $my_current_user->user_email );
 ?>" required="required">
 				<input type="hidden" name="fields[signupsource]" value="PluginInstall">
 				<input type="hidden" name="ml-submit" value="1">
@@ -88,7 +84,6 @@ echo  esc_html( $my_current_user->user_email ) ;
 
 	<?php 
 $display_promotion = true;
-
 if ( $display_promotion ) {
     ?>
 		<div class="sidebarrow ddppro">
@@ -108,22 +103,20 @@ if ( $display_promotion ) {
     $target_url = 'https://checkout.freemius.com/mode/dialog/plugin/925/plan/9473/licenses/1/?billing_cycle=annually';
     $lifetime_url = 'https://checkout.freemius.com/mode/dialog/plugin/925/plan/9473/licenses/1/?billing_cycle=lifetime';
     // if $my_current_user->user_email is set, then add it as a pararmeter to the URL, &user_email= using add_query_arg()
-    
     if ( $my_current_user->user_email ) {
         $target_url = add_query_arg( 'user_email', $my_current_user->user_email, $target_url );
         $lifetime_url = add_query_arg( 'user_email', $my_current_user->user_email, $lifetime_url );
     }
-    
     ?>
 				
 			<a href="<?php 
-    echo  esc_url( $target_url ) ;
+    echo esc_url( $target_url );
     ?>" class="button button-primary button-hero" id="ddpprobutton" target="_blank"><?php 
     esc_html_e( 'Click here', 'delete-duplicate-posts' );
     ?></a>
 			<p>
 				<center><em>Or get <a href="<?php 
-    echo  esc_url( $lifetime_url ) ;
+    echo esc_url( $lifetime_url );
     ?>" target="_blank">a lifetime license for only $49.99</a></em> - You can transfer your license to other websites.</center>
 			</p>
 			<div class="moneybackguarantee">
@@ -134,7 +127,6 @@ if ( $display_promotion ) {
 
 		<?php 
 }
-
 ?>
 
 	
@@ -144,7 +136,7 @@ if ( $display_promotion ) {
 esc_html_e( 'Our other plugins', 'delete-duplicate-posts' );
 ?></h3>
 		<a href="https://wpsecurityninja.com" target="_blank" style="float: right;" rel="noopener"><img src="<?php 
-echo  esc_url( plugin_dir_url( __FILE__ ) . 'images/security-ninja-logo.png' ) ;
+echo esc_url( plugin_dir_url( __FILE__ ) . 'images/security-ninja-logo.png' );
 ?>" alt="Visit wpsecurityninja.com" class="logo"></a>
 
 		<strong>WordPress Security made easy</strong>
@@ -153,7 +145,7 @@ echo  esc_url( plugin_dir_url( __FILE__ ) . 'images/security-ninja-logo.png' ) ;
 		<p><a href="https://wpsecurityninja.com/" target="_blank" rel="noopener" class="button button-primary">Visit wpsecurityninja.com</a></p>
 		<br />
 		<a href="https://cleverplugins.com" target="_blank" style="float: right;" rel="noopener"><img src="<?php 
-echo  esc_url( plugin_dir_url( __FILE__ ) . 'images/seoboosterlogo.png' ) ;
+echo esc_url( plugin_dir_url( __FILE__ ) . 'images/seoboosterlogo.png' );
 ?>" alt="Visit cleverplugins.com" class="logo"></a>
 		<p>SEO Booster is a powerful tool for anyone serious about SEO. <a href="https://wordpress.org/plugins/seo-booster/" target="_blank" rel="noopener">wordpress.org/plugins/seo-booster/</a><br />
 		<p><a href="https://cleverplugins.com/" target="_blank" rel="noopener" class="button button-primary">Visit cleverplugins.com</a></p>

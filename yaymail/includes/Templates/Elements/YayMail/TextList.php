@@ -14,7 +14,7 @@ switch ( $attrs['numberCol'] ) {
 }
 ?>
 <table
-
+width="<?php esc_attr_e( $general_attrs['tableWidth'], 'woocommerce' ); ?>"
 cellspacing="0"
 cellpadding="0"
 border="0"
@@ -22,8 +22,7 @@ align="center"
 style="display: table;
 <?php echo esc_attr( 'width: ' . $general_attrs['tableWidth'] ); ?>;
 <?php echo esc_attr( 'background-color: ' . $attrs['backgroundColor'] ); ?>;
-<?php echo ! $isInColumns ? esc_attr( 'max-width:' . $general_attrs['tableWidth'] . 'px' ) : esc_attr( 'width: 100%' ); ?>;
-width: 100%;
+<?php echo ! $isInColumns ? esc_attr( 'min-width:' . $general_attrs['tableWidth'] . 'px' ) : esc_attr( 'width: 100%' ); ?>
 "
 class="web-main-row nta-web-text-list-wrap"
 id="web<?php echo esc_attr( $id ); ?>"

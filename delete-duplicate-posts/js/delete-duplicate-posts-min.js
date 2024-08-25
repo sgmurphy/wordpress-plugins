@@ -27,7 +27,7 @@ function cp_ddp_freemius_opt_in(element) {
     }
   });
 }
-jQuery(document).ready(function () {
+jQuery(document).ready(function ($) {
   ddp_refresh_log();
   jQuery('#ddp_redirtable').DataTable({
     "processing": true,
@@ -129,9 +129,7 @@ jQuery(document).ready(function () {
       }
     });
   });
-  var startTime,
-    elapsedTime = 0;
-  var interval; // Make sure this is accessible in both beforeSend and complete
+  var startTime; // Removed unused elapsedTime variable
 
   // Initialize DataTable
   var table = jQuery('#ddp_dupetable').DataTable({
@@ -146,7 +144,7 @@ jQuery(document).ready(function () {
     "serverSide": true,
     "searching": false,
     "ordering": false,
-    "dom": 'BflrtipB',
+    "dom": '<"top"ip>rt<"bottom"ip><"clear">',
     "ajax": {
       "url": ajaxurl,
       "type": "POST",
@@ -157,20 +155,29 @@ jQuery(document).ready(function () {
         });
       },
       "dataSrc": function (json) {
+        if (json.error) {
+          jQuery("#ddp-dashboard .errormessage").html(json.error).show();
+          return [];
+        }
         return json.data;
       },
       "beforeSend": function () {
         startTime = new Date().getTime();
+        jQuery('#requestTime').html("Request: 0 sec.");
         interval = setInterval(updateTime, 1000);
         jQuery("#ddp_dupetable .dt-button").prop('disabled', true);
-        jQuery('#ddp_dupetable tbody').css('opacity', '0.5'); // Grey out the tbody	 
+        jQuery('#ddp_dupetable tbody').css('opacity', '0.5');
       },
-
       "complete": function () {
         clearInterval(interval);
-        jQuery('#ddp_dupetable tbody').css('opacity', '1'); // Restore tbody opacity
+        jQuery('#ddp_dupetable tbody').css('opacity', '1');
         jQuery("#ddp_dupetable .dt-button").prop('disabled', false);
         ddp_refresh_log();
+      },
+      "error": function (jqXHR, textStatus, errorThrown) {
+        // Handle the error and display the message in a specific div
+        var errorMessage = "Failed to load data: " + textStatus + " - " + errorThrown;
+        jQuery("#ddp-dashboard .errormessage").html(errorMessage).show();
       }
     },
     "columns": [{
@@ -183,31 +190,30 @@ jQuery(document).ready(function () {
       "data": "duplicate",
       "title": "Duplicate",
       "orderable": false
-    },
-    // Disable sorting for this column
-    {
+    }, {
       "data": "original",
       "title": "Original",
       "orderable": false
-    } // Disable sorting for this column
-    ],
-
-    "rowCallback": function (row, data) {
-      jQuery(row).addClass('wp-list-table widefat fixed striped table-view-list'); // WordPress table classes
+    }],
+    "rowCallback": function (row) {
+      jQuery(row).addClass('wp-list-table widefat fixed striped table-view-list');
     },
-
     "lengthMenu": [[10, 25, 50, 100, 250, 500], [10, 25, 50, 100, 250, 500]]
   });
 
+  // Custom error handling for DataTables to prevent default alert
+  table.on('error.dt', function (e, settings, techNote, message) {
+    // Prevent default alert
+    e.preventDefault();
+
+    // Display the error message in the specified div
+    jQuery("#ddp-dashboard .errormessage").html("DataTables error: " + message).show();
+  });
   // #ddp_redirtable
 
   // Create and insert buttons
   var buttonsDiv = createButtons();
-  buttonsDiv.insertBefore('#ddp_dupetable_length');
-
-  // Initialize button as disabled
-  // var deleteButton = jQuery('.ddp-delete-selected');
-  // deleteButton.prop('disabled', true);
+  buttonsDiv.insertBefore('#ddp_dupetable_paginate');
 
   /**
    * refreshTable.
@@ -261,16 +267,14 @@ jQuery(document).ready(function () {
         'checked_posts': checked_posts
       },
       success: function (response) {
-        // Check if the response indicates success
         if (response.success) {
-          table.ajax.reload(null, false); // Keep current pagination
+          table.ajax.reload(null, false);
           ddp_refresh_log();
         } else {
-          // Handle the soft failure
-          alert("Reponse from the server: " + response.data); // Show the error message from the response
+          var errorMessage = response.data && response.data.message ? response.data.message : "Unknown error occurred";
+          alert("Response from the server: " + errorMessage);
         }
       },
-
       error: function (jqXHR, textStatus, errorThrown) {
         // Handle other types of errors (e.g., network errors, server errors)
         alert("An error occurred: " + textStatus);
@@ -447,6 +451,7 @@ jQuery(document).ready(function () {
         }
         if ('-1' == response.data.nextstep) {
           // Something went wrong.
+          jQuery('#ddp_container #dashboard .statusdiv .errormessage').text('Something went wrong.').show();
         } else {
           if (parseInt(response.data.nextstep) > 0) {
             ddp_get_duplicates(parseInt(response.data.nextstep), data, self);
