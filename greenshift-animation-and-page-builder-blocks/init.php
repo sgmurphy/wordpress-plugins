@@ -223,7 +223,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gstabs',
 		GREENSHIFT_DIR_URL . 'libs/tabs/tabs.js',
 		array(),
-		'1.5',
+		'1.6',
 		true
 	);
 

@@ -362,7 +362,7 @@ class Assets_Manager {
 		$content = self::get_asset_file_content( $ext );
 
 		// If no premium elements exist on the page, then don't generate files
-		if ( empty( $content ) ) {
+		if ( empty( $content ) || 'empty' === $content ) {
 			return 'empty';
 		}
 
@@ -378,18 +378,18 @@ class Assets_Manager {
 
 			if ( is_rtl() ) {
 
-                if( empty ( $content['rtl'] ) ) {
-                    return 'empty';
-                }
+				if ( empty( $content['rtl'] ) ) {
+					return 'empty';
+				}
 
 				// Make sure to delete the file before creating the new one.
                 file_put_contents( $rtl_file_name, '@charset "UTF-8";' . $content['rtl'] );  // phpcs:ignore
 
 			} else {
 
-                if( empty ( $content['main'] ) ) {
-                    return 'empty';
-                }
+				if ( empty( $content['main'] ) ) {
+					return 'empty';
+				}
 
                 file_put_contents( $main_file_name, '@charset "UTF-8";' . $content['main'] ); // phpcs:ignore
 			}
@@ -474,7 +474,13 @@ class Assets_Manager {
 				continue;
 			}
 
-			$content .= self::get_file_content( $path );
+			$file_content = self::get_file_content( $path );
+
+			if ( 'empty' === $file_content ) {
+				return 'empty';
+			}
+
+			$content .= $file_content;
 
 			if ( 'css' === $ext && is_rtl() ) {
 				$rtl_path     = self::get_file_path( $element, $ext, '-rtl' );
@@ -556,8 +562,9 @@ class Assets_Manager {
 		$file_content = rplg_urlopen( $path );
 
 		if ( isset( $file_content['code'] ) ) {
-			if ( in_array( $file_content['code'], array( 404, 401 ), true ) ) {
-				return '';
+
+			if ( in_array( $file_content['code'], array( 0, 404, 401 ), true ) ) {
+				return 'empty';
 			}
 		}
 

@@ -35,7 +35,7 @@ function metaseo_clean(str) {
     if (str === '' || typeof str === "undefined")
         return '';
     try {
-        str = jQuery('<div/>').html(str).text();
+        str = jQuery('<div/>').text(str).text();
         str = str.replace(/<\/?[^>]+>/gi, '');
         str = str.replace(/\[(.+?)\](.+?\[\/\\1\])?/g, '');
     } catch (e) {

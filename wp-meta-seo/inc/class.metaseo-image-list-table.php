@@ -23,6 +23,20 @@ class MetaSeoImageListTable extends WP_List_Table
     public $months;
 
     /**
+     * Default allow image MIME types
+     *
+     * @var array
+     */
+    private static $allowed_mime_type = array(
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/gif',
+        'image/webp',
+        'image/svg+xml'
+    );
+
+    /**
      * MetaSeoImageListTable constructor.
      */
     public function __construct()
@@ -394,12 +408,14 @@ class MetaSeoImageListTable extends WP_List_Table
     public function getMonths()
     {
         global $wpdb;
+        $mime_types = implode('","', self::$allowed_mime_type);
         $months = $wpdb->get_results(
-            $wpdb->prepare('
-			SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month
-			FROM ' . $wpdb->posts . '
-			WHERE post_type = %s  AND ((post_mime_type="image/jpeg") OR (post_mime_type="image/jpg")  OR (post_mime_type="image/png") OR (post_mime_type="image/gif"))   
-			ORDER BY post_date DESC ', 'attachment')
+            $wpdb->prepare(
+                'SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month
+                FROM ' . $wpdb->posts . '
+                WHERE post_type = %s AND post_mime_type IN ("' . $mime_types . '") ORDER BY post_date DESC ', // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+                'attachment'
+            )
         );
 
         $months = apply_filters('months_dropdown_results', $months, 'attachment');
@@ -417,8 +433,7 @@ class MetaSeoImageListTable extends WP_List_Table
         $this->months = $this->getMonths();
         $where        = array();
         // phpcs:disable WordPress.Security.NonceVerification.Recommended -- No action, nonce is not required
-        $where[] = ' post_type="attachment" AND ((post_mime_type="image/jpeg") OR (post_mime_type="image/jpg")
-         OR (post_mime_type="image/png") OR (post_mime_type="image/gif")) ';
+        $where[] = ' post_type="attachment" AND post_mime_type IN ("' . implode('","', self::$allowed_mime_type) . '") ';
         if (!empty($_REQUEST['search'])) {
             if (!empty($_REQUEST['txtkeyword'])) {
                 $txtkeyword = stripslashes($_REQUEST['txtkeyword']);
@@ -725,12 +740,15 @@ class MetaSeoImageListTable extends WP_List_Table
                     $img_height = 0;
                 } else {
                     $size = $size / 1024;
-                    if ($size > 1024) {
-                        $img_size = ($size / 1024);
-                        $img_sizes = ' MB';
-                    } else {
-                        $img_size = ($size);
+                    if ($size < 1) {
+                        $img_size = $size * 1024;
+                        $img_sizes = ' B';
+                    } elseif ($size >= 1 && $size < 1024) {
+                        $img_size = $size;
                         $img_sizes = ' KB';
+                    } else {
+                        $img_size = $size / 1024;
+                        $img_sizes = ' MB';
                     }
                     $img_size = round($img_size, 1);
                 }
@@ -2114,16 +2132,18 @@ class MetaSeoImageListTable extends WP_List_Table
         global $wpdb;
         $limit        = 1;
         $ofset        = ((int) $_POST['paged'] - 1) * $limit;
-        $count_images = $wpdb->get_var('SELECT COUNT(ID) FROM ' . $wpdb->posts . ' as posts WHERE post_type="attachment" AND ((post_mime_type="image/jpeg") OR (post_mime_type="image/jpg")
-         OR (post_mime_type="image/png") OR (post_mime_type="image/gif"))');
+        $mime_types = implode('","', self::$allowed_mime_type);
+        $count_images = $wpdb->get_var('SELECT COUNT(ID) FROM ' . $wpdb->posts . ' as posts WHERE post_type="attachment" AND post_mime_type IN ("' . $mime_types . '")');// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $present      = (100 / $count_images) * $limit;
 
         $k           = 0;
-        $attachments = $wpdb->get_results($wpdb->prepare('SELECT ID FROM ' . $wpdb->posts . ' WHERE post_type="attachment" AND ((post_mime_type="image/jpeg") OR (post_mime_type="image/jpg")
-         OR (post_mime_type="image/png") OR (post_mime_type="image/gif")) LIMIT %d OFFSET %d', array(
-            $limit,
-            $ofset
-        )));
+        $attachments = $wpdb->get_results($wpdb->prepare(
+            'SELECT ID FROM ' . $wpdb->posts . ' WHERE post_type="attachment" AND post_mime_type IN ("' . $mime_types . '") LIMIT %d OFFSET %d', // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            array(
+                $limit,
+                $ofset
+            )
+        ));
         if (empty($attachments)) {
             wp_send_json(array('status' => 'ok'));
         }

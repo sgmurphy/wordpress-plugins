@@ -121,13 +121,18 @@ class AccordionTypeReadMore extends ReadMoreTypes {
 	public function create($postData) {
 		$editorKey = 'yrm-accordion-content-';
 		$postType = 'yrm-accordion-content-post-';
-
+		$youtubeKey = 'yrm-accordion-content-url-';
+	
 		foreach ($postData['yrm-accordion'] as $index => $value) {
 			if (isset($postData[$editorKey.$index])) {
 				$postData['yrm-accordion'][$index]['content'] = $postData[$editorKey.$index];
 			}
 			if (isset($postData[$postType.$index])) {
 				$postData['yrm-accordion'][$index]['post'] = $postData[$postType.$index];
+			}
+			if (isset($postData[$youtubeKey.$index])) {
+				$postData['yrm-accordion'][$index]['url'] = $postData[$youtubeKey.$index];
+				$postData['yrm-accordion'][$index]['iframeHeight'] = $postData[$youtubeKey.$index.'-height'];
 			}
 		}
 		parent::create($postData);

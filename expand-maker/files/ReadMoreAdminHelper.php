@@ -289,6 +289,7 @@ class ReadMoreAdminHelper {
 				'style' => array()
 			),
 			"style" => $generalArray,
+			"iframe" => $generalArray,
 			'a' => $generalArray,
 			'i' => $generalArray,
 			'script' => $generalArray,

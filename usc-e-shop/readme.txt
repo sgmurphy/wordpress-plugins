@@ -2,9 +2,9 @@
 Contributors: Welcart Inc., uscnanbu
 Tags: Welcart, e-Commerce, shopping, cart, eShop, store, admin, calendar, manage, plugin, shortcode, widgets, membership
 Requires at least: 5.5
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4 - 8.1
-Stable tag: 2.11.0
+Stable tag: 2.11.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,14 @@ Please see [Welcart Forum(Japanese)](https://www.welcart.com/community/forums).
 
 
 == Changelog ==
+
+26 Aug 2024
+= V2.11.1 =
+-----------
+* Fixed a bug that the "Register/Change Credit Card" button did not function when "Email Verification for Member Information Editing" was disabled.
+* Fixed a bug that two "Edit Member Information" links were displayed when "Email Verification for Member Information Editing" was enabled using the built-in template.
+* [Paygent] Fixed a bug that the transaction history was not displayed in chronological order.
+* [Paygent] Added "Merchant Transaction ID" to the transaction history.
 
 20 Aug 2024
 = V2.11 =

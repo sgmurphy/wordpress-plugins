@@ -69,6 +69,7 @@ else
      <input type="button" value="<?php esc_html_e('Change to Schedule Calendar View','appointment-hour-booking'); ?>" class="button button-primary" onclick="document.location='?page=<?php echo esc_attr($this->menu_parameter); ?>&cal=<?php echo intval($this->item); ?>&schedule=1&calendarview=1';" />
     <?php } else { ?>
      <input type="button" value="<?php esc_html_e('Change to Schedule List View','appointment-hour-booking'); ?>" class="button button-primary" onclick="document.location='?page=<?php echo esc_attr($this->menu_parameter); ?>&cal=<?php echo intval($this->item); ?>&schedule=1';" />
+	 <input type="button" value="<?php esc_html_e('Customize Contents of this Calendar','appointment-hour-booking'); ?>" class="button" style="margin-left:20px;" onclick="document.location='?page=<?php echo esc_attr($this->menu_parameter); ?>_settings&gotab=schedulecalarea';" />
     <?php } ?>
 	<a href="<?php print esc_attr(admin_url('admin.php?page='.$this->menu_parameter));?>" class="ahb-return-link">&larr;<?php esc_html_e('Return to the calendars list','appointment-hour-booking'); ?></a>
 	<div class="clear"></div>

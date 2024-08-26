@@ -3096,7 +3096,7 @@ class Premium_Search_Form extends Widget_Base {
 
 		if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.15', '<' ) ) {
 
-			if ( 'elements' === $settings['query_type'] || 'yes' === $settings['remove_button_switcher'] || 'yes' === $settings['type_select'] || '' !== $settings['field_effects'] ) {
+			if ( 'elements' === $settings['query_type'] || 'yes' === $settings['remove_button_switcher'] || 'yes' === $settings['type_select'] || ( '' !== $settings['field_effects'] && 'yes' === $settings['show_label'] ) ) {
 
 				?>
 				<div class="premium-error-notice">

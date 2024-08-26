@@ -113,6 +113,9 @@ class WPMSEOMetabox extends WPMSEOMeta
                     $data = MetaSeoAdmin::convertCanonicalUrlToSave($data);
                 }
 
+                if ($data && $key === 'title') {
+                    $data = sanitize_title($data);
+                }
                 if (isset($data)) {
                     self::setValue($key, $data, $post_id);
                 }

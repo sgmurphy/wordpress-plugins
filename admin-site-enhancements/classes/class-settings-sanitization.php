@@ -582,6 +582,10 @@ class Settings_Sanitization {
             $options['obfuscate_email_address_in_content'] = false;
         }
         $options['obfuscate_email_address_in_content'] = ( 'on' == $options['obfuscate_email_address_in_content'] ? true : false );
+        if ( !isset( $options['obfuscate_email_address_visitor_only'] ) ) {
+            $options['obfuscate_email_address_visitor_only'] = false;
+        }
+        $options['obfuscate_email_address_visitor_only'] = ( 'on' == $options['obfuscate_email_address_visitor_only'] ? true : false );
         // Disable XML-RPC
         if ( !isset( $options['disable_xmlrpc'] ) ) {
             $options['disable_xmlrpc'] = false;

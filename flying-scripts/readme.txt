@@ -1,4 +1,4 @@
-=== Flying Scripts ===
+=== Flying Scripts: Delay JavaScript to Improve Site Speed & Performance ===
 
 Contributors: gijo
 Donate link: https://www.buymeacoffee.com/gijovarghese
@@ -9,7 +9,8 @@ Requires PHP: 5.6
 Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Flying Scripts - Download and execute JavaScript on user interaction.
+
+Delay JavaScript to improve speed and performance by loading scripts only when needed, reducing render-blocking for a faster and smoother user experience.
 
 == Description ==
 

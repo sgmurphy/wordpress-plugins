@@ -17,7 +17,7 @@
             var animation_speed = parseInt(settings['animation_speed']) || 300;
             var pause_on_hover = settings['pause_on_hover'];
             var center_mode = settings['center_mode'];
-            var center_padding = settings['center_padding'] ? settings['center_padding'] : '50px';
+            var center_padding = settings['center_padding'] ? settings['center_padding']+'px' : '50px';
             var display_columns = parseInt(settings['display_columns']) || 1;
             var scroll_columns = parseInt(settings['scroll_columns']) || 1;
             var tablet_width = parseInt(settings['tablet_width']) || 800;

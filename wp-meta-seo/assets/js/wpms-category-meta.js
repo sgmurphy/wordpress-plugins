@@ -3,9 +3,6 @@ jQuery(document).ready(function ($) {
     $('.wpms-cat-meta-title').on('change', function (e) {
         wpmsUpdateCatMetaTitle(this.id);
     });
-    $('.wpms-cat-meta-desc').on('change', function (e) {
-        wpmsUpdateCatMetaDesc(this.id);
-    });
     $('.wpms-cat-meta-title').on('keyup', function (e) {
         wpmsUpdateTitleLen(this.id);
     });
@@ -13,14 +10,15 @@ jQuery(document).ready(function ($) {
     $('.wpms-cat-meta-title').each(function () {
         wpmsUpdateTitleLen(this.id);
     });
-    $('.wpms-cat-meta-title').on('keyup', function (e) {
-        wpmsUpdateTitleLen(this.id);
+
+    $('.wpms-cat-meta-desc').on('keyup', function (e) {
+        wpmsUpdateDescLen(this.id);
+    });
+    $('.wpms-cat-meta-desc').on('change', function (e) {
+        wpmsUpdateCatMetaDesc(this.id);
     });
     // Description counter
     $('.wpms-cat-meta-desc').each(function () {
-        wpmsUpdateDescLen(this.id);
-    });
-    $('.wpms-cat-meta-desc').on('keyup', function (e) {
         wpmsUpdateDescLen(this.id);
     });
 

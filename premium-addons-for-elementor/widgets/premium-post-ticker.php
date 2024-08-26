@@ -3876,7 +3876,7 @@ class Premium_Post_Ticker extends Widget_Base {
 				</div>
 				<?php
 				if ( 'yes' === $item['txt_icon_sw'] ) {
-					$item['text_icon_color'] = $settings['text_icon_color'];
+					$item['text_icon_color'] = isset( $settings['text_icon_color'] ) ? $settings['text_icon_color'] : '';
 					$item['index']           = $index;
 					$this->render_ticker_icon( $item, true );
 				}

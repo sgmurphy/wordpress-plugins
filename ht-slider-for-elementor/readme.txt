@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, zenaulislam, aslamhasib, tarekh
 Tags: Slider, Elementor, Widgets, Post type slider, Elementor Addons
 Requires at least: 5.0
 Tested up to: 6.6
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -203,6 +203,13 @@ HT Slider allows you to design and customize banner sliders that can effectively
 
 
 == Changelog ==
+
+= Version: 1.5.7 - Date: 2024-08-26 =
+
+* Added: Option to adjust the Slider column gap in all HT Slider Widgets
+* Fixed: Issue with adding Center Padding in the HT Advanced Slider and HT Posts Slider Widgets
+* Fixed: A few minor issues
+* Tested: Compatibility with the latest version of Elementor
 
 = Version: 1.5.6 - Date: 2024-07-30 =
 

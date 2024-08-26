@@ -1,4 +1,4 @@
-=== Flying Pages ===
+=== Flying Pages: Preload Pages for Faster Navigation & Improved User Experience ===
 
 Contributors: gijo
 Donate link: https://www.buymeacoffee.com/gijovarghese
@@ -10,7 +10,7 @@ Stable tag: 2.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Load inner pages instantly, intelligently!
+Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.
 
 == Description ==
 

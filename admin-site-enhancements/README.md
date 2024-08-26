@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.1  
-Stable tag: 7.3.1  
+Stable tag: 7.3.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -186,34 +186,22 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **73 _point_ releases** (e.g. 1.1.0 ) and **109 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **73 _point_ releases** (e.g. 1.1.0 ) and **110 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.3.1 (2024.08.19) - ASE Free and Pro
+### 7.3.2 (2024.08.26) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Clean Up Admin Bar**: when 'Howdy' is removed, the account menu item will now be positioned towards the right-most part of the admin bar. Props to Basil B. and Tony B. for reporting the issue.
+* **[IMPROVED in Pro] Security >> Email Address Obfuscator**: add option to only auto-obfuscate email addresses in post content for site visitors, not for logged-in users. This is useful for when you need to enable users to export post content that contains email addresses. Props to Wence W. for suggesting this improvement.
 
-* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: properly hide notices on user deletion confirmation screen. Props to [@tomislo](https://wordpress.org/support/users/tomislo/) for [reporting the issue](https://wordpress.org/support/topic/hide-admin-notices-2/).
+* **[FIXED in Free and Pro] Security >> Limit Login Attempts**: fix PHP warning. Props to [@malaga16](https://wordpress.org/support/topic/some-php-warning-in-debug-log/) for [reporting this](https://wordpress.org/support/topic/some-php-warning-in-debug-log/).
 
-* **[FIXED in Free and Pro] Content Management >> Content Order**: fix an issue where checks on non-public post types were not saved in the module settings. Props to Robert G. for reporting the issue.
-
-* **[FIXED in Free and Pro] Utilities >> Password Protection**: fix an issue for WordPress subfolder install where entering the correct password does not work, i.e. does not remove password protection allowing to see the page content. Props to Manny C. and Markus F. for reporting the issue and facilitating the troubleshooting process.
-
-* **[FIXED in Free and Pro] Security >> Email Address Obfuscator**: fix an issue where the obfuscated email address is not being output in human-readable form when the shortcode for it is used inside an ACF options page (WYSIWYG Editor) and rendered via a Bricks builder template. Props to Aleš S. for reporting the issue and facilitatiing the troubleshooting process.
-
-* **[FIXED in Free and Pro] Content Management >> Content Order**: fixed a bug where in a certain scenario, not all posts from a non-hierarchical post type is shown in the post ordering screen. Props to Henry R. for reporting the issue and facilitating the troubleshooting process.
-
-* **[FIXED in Pro] Utilities >> Search Engine Visibility Status**: fix an issue where on certain scenarios, search engine indexing was being disabled unintentionally. Props to Val J. and Andreas K. for reporting the issue and facilitating the troubleshooting process.
-
-* **[TRANSLATION in Free and Pro]** Added Indonesian and Romanian translation. ASE is now translated into 22 languages:
+* **[TRANSLATION in Free and Pro]** ASE is now translated into 22 languages:
   * **Added new/improved translation** for:
-    * Completed for ASE Free: Indonesian, Romanian
-    * Completed for ASE Pro: Indonesian
-    * Updated for ASE Free: Spanish, Norwegian, Dutch, Polish, Brazilian Portuguese, Ukrainian, Vietnamese
-    * Updated for ASE Pro: Norwegian
+    * Free: Arabic, Italian, Polish
+    * Pro: Italian, Norwegian
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

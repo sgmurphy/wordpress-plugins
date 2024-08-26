@@ -24,10 +24,19 @@ class ReadMoreAccordionView {
 			$arrowClass = '';
 			$showClass = 'yrm-show';
 		}
+		$contentType = $value['contentType'];
 		$content = do_shortcode($value['content']);
-		if ($value['contentType'] == 'post' && !yrm_is_free()) {
+		if ($contentType == 'post' && !yrm_is_free()) {
 			$content = ReadMoreAdminHelperPro::getPostContentById($value['post']);
 		}
+		else if($contentType == 'youtube') {
+			$height = 'auto';
+			if (!empty($value['iframeHeight'])) {
+				$height = $value['iframeHeight'];
+			}
+			$content .= "<iframe style='width: 100%;height: ".esc_attr($height)."' src='".esc_attr($this->convert_to_embed_url($value['url']))."'></iframe>";
+		}
+	
 		$iconPosition = $typeObj->getOptionValue('yrm-accordion-icons-position');
 		$style = "style='float: left;'";
 		if ($iconPosition === 'right') {
@@ -59,6 +68,27 @@ class ReadMoreAccordionView {
 		ob_end_clean();
 
 		return $content;
+	}
+
+	function convert_to_embed_url($url) {
+		$parsed_url = parse_url($url);
+		$host = $parsed_url['host'];
+	
+		// Check if the host is YouTube or other video platforms
+		if (strpos($host, 'youtube.com') !== false || strpos($host, 'youtu.be') !== false) {
+			parse_str($parsed_url['query'], $query_params);
+			$video_id = $query_params['v'];
+			$embed_url = 'https://www.youtube.com/embed/' . $video_id;
+		} elseif (strpos($host, 'vimeo.com') !== false) {
+			$path_parts = explode('/', trim($parsed_url['path'], '/'));
+			$video_id = end($path_parts);
+			$embed_url = 'https://player.vimeo.com/video/' . $video_id;
+		} else {
+			// Handle other platforms or default
+			$embed_url = $url;
+		}
+	
+		return $embed_url;
 	}
 
 	private function getRenderOptions() {

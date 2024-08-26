@@ -4,7 +4,7 @@ Plugin Name: Image Hotspot by DevVN
 Plugin URI: https://levantoan.com/devvn-image-hotspot
 Description: Image Hotspot help you add hotspot to your images.
 Author: Le Van Toan
-Version: 1.2.6
+Version: 1.2.7
 Author URI: https://levantoan.com/
 Text Domain: devvn-image-hotspot
 Domain Path: /languages
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-define('DEVVN_IHOTSPOT_VER', '1.2.6');
+define('DEVVN_IHOTSPOT_VER', '1.2.7');
 define('DEVVN_IHOTSPOT_DEV_MOD', true);
 
 if ( !defined( 'DEVVN_IHOTSPOT_BASENAME' ) )
@@ -60,8 +60,17 @@ include 'admin/inc/add_shortcode_devvn_ihotspot.php';
 include 'admin/inc/metabox-donate.php';
 include 'admin/inc/settings.php';
 
-load_textdomain('devvn-image-hotspot', dirname(__FILE__) . '/languages/devvn-image-hotspot-' . get_locale() . '.mo');
-load_plugin_textdomain( 'devvn-image-hotspot', false, plugin_basename( dirname( __FILE__ ) ) . '/i18n/languages' );
+//load_textdomain('devvn-image-hotspot', dirname(__FILE__) . '/languages/devvn-image-hotspot-' . get_locale() . '.mo');
+//load_plugin_textdomain( 'devvn-image-hotspot', false, plugin_basename( dirname( __FILE__ ) ) . '/i18n/languages' );
+
+function ihotspot_load_my_own_textdomain( $mofile, $domain ) {
+	if ( 'devvn-image-hotspot' === $domain && false !== strpos( $mofile, WP_LANG_DIR . '/plugins/' ) ) {
+		$locale = apply_filters( 'plugin_locale', determine_locale(), $domain );
+		$mofile = WP_PLUGIN_DIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/languages/' . $domain . '-' . $locale . '.mo';
+	}
+	return $mofile;
+}
+add_filter( 'load_textdomain_mofile', 'ihotspot_load_my_own_textdomain', 10, 2 );
 
 //metabox
 function devvn_ihotspot_meta_box() {

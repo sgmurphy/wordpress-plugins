@@ -169,7 +169,25 @@ class Htslider_Elementor_Widget_Sliders extends Widget_Base {
                     'default' => 1
                 ]
             );
-
+            $this->add_responsive_control(
+                'column_gap',
+                [
+                    'label' => esc_html__( 'Column Gap', 'ht-slider' ),
+                    'type' => Controls_Manager::SLIDER,
+                    'description' => esc_html__( 'Add Column gap Ex. 15px', 'ht-slider' ),
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 1000,
+                        ],
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .htslider-carousel-activation' => 'margin: 0 -{{SIZE}}px',
+                        '{{WRAPPER}} .htslider-carousel-activation .slick-track' => 'margin: 0',
+                        '{{WRAPPER}} .htslider-carousel-activation .slick-track .slick-slide' => 'padding-left:{{SIZE}}px;padding-right: {{SIZE}}px',
+                    ],
+                ]
+            );
             $this->add_control(
                 'slarrows',
                 [

@@ -3,7 +3,7 @@
  * Plugin Name: Headers Security Advanced & HSTS WP
  * Plugin URI: https://www.tentacleplugins.com/
  * Description: Headers Security Advanced & HSTS WP - Simple, Light and Fast. The plugin uses advanced security rules that provide huge levels of protection and it is important that your site uses it. This step is important to submit your website and/or domain to an approved HSTS list. Google officially compiles this list and it is used by Chrome, Firefox, Opera, Safari, IE11 and Edge. You can forward your site to the official HSTS preload directory. Cross Site Request Forgery (CSRF) is a common attack with the installation of Headers Security Advanced & HSTS WP will help you mitigate CSRF on your WordPress site.
- * Version: 5.0.37
+ * Version: 5.0.38
  * Text Domain: headers-security-advanced-hsts-wp
  * Domain Path: /languages
  * Author: 🐙 Andrea Ferro
@@ -23,7 +23,7 @@ if ( ! function_exists( 'add_action' ) ) {
     die( 'Don\'t try to be smart with us, only real ninjas can enter here!' );
 }
 
-const HSTS_PLUGIN_VERSION = '5.0.37';
+const HSTS_PLUGIN_VERSION = '5.0.38';
 const HSTS_STANDARD_VALUE_CSP = 'upgrade-insecure-requests;';
 const HSTS_STANDARD_VALUE_PERMISSIONS_POLICY = 'accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(self), encrypted-media=(), fullscreen=*, geolocation=(self), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=*, picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), xr-spatial-tracking=(), gamepad=(), serial=()';
 
@@ -38,7 +38,6 @@ function hsts_plugin_get_headers( array $headers = array() ): array {
         }
 
         $headers['Cross-Origin-Embedder-Policy']             = "unsafe-none; report-to='default'";
-        $headers['Content-Security-Policy-Report-Only']      = hsts_plugin_get_csp_report_only_header();
         $headers['Cross-Origin-Embedder-Policy-Report-Only'] = "unsafe-none; report-to='default'";
         $headers['Cross-Origin-Opener-Policy']               = 'unsafe-none';
         $headers['Cross-Origin-Opener-Policy-Report-Only']   = "unsafe-none; report-to='default'";
@@ -408,6 +407,8 @@ function hsts_plugin_settings_init(): void {
 }
 add_action( 'admin_init', 'hsts_plugin_settings_init' );
 
+add_action('wp_loaded', 'hsts_plugin_flush_rewrite_rules');
+
 function hsts_plugin_get_hsts_header(): string {
     $max_age            = get_option( 'hsts_max_age' );
     $include_subdomains = get_option( 'hsts_include_subdomains' );
@@ -553,11 +554,13 @@ function hsts_plugin_cleanup_htaccess(): void {
 
 function hsts_plugin_flush_rewrite_rules(): void {
     global $wp_rewrite;
-    $wp_rewrite->flush_rules();
+    if ( $wp_rewrite instanceof WP_Rewrite ) {
+        $wp_rewrite->flush_rules();
+    }
 }
 
 function hsts_plugin_delete_old_options(): void {
-    // Last referenced by plugin version 5.0.37.
+    // Last referenced by plugin version 5.0.38.
     delete_option( 'HEADERS_SECURITY_ADVANCED_HSTS_WP_PLUGIN_VERSION' );
 }
 

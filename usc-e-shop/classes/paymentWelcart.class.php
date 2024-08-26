@@ -4066,6 +4066,7 @@ jQuery(document).ready( function( $ ) {
 				);
 				$member                                   = $usces->get_member();
 				$escott_params['edit_auth']               = ( isset( $member['edit_auth'] ) ) ? $member['edit_auth'] : '';
+				$escott_params['edit_flag']               = USCES_VERIFY_MEMBERS_EMAIL::$opts['edit_flag'];
 				wp_localize_script( 'usces_member_escott', 'escott_params', $escott_params );
 				wp_enqueue_script( 'usces_member_escott' );
 			}

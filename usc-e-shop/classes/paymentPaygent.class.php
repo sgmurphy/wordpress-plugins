@@ -3448,7 +3448,7 @@ jQuery( document ).ready( function( $ ) {
 			$num      = count( $log_data );
 			$history  = '<table class="settlement-history">';
 			$history .= '<thead class="settlement-history-head">';
-			$history .= '<tr><th></th><th>' . __( 'Processing date', 'usces' ) . '</th><th>決済ID</th><th>' . __( 'Processing classification', 'usces' ) . '</th><th>' . __( 'Amount', 'usces' ) . '</th><th>' . __( 'Result', 'usces' ) . '</th></tr>';
+			$history .= '<tr><th></th><th>' . __( 'Processing date', 'usces' ) . '</th><th>決済ID</th><th>マーチャント取引ID</th><th>' . __( 'Processing classification', 'usces' ) . '</th><th>' . __( 'Amount', 'usces' ) . '</th><th>' . __( 'Result', 'usces' ) . '</th></tr>';
 			$history .= '</thead>';
 			$history .= '<tbody class="settlement-history-body">';
 			foreach ( (array) $log_data as $data ) {
@@ -3473,6 +3473,7 @@ jQuery( document ).ready( function( $ ) {
 				$history .= '<td class="num">' . $num . '</td>';
 				$history .= '<td class="datetime">' . $data['datetime'] . '</td>';
 				$history .= '<td class="transactionid">' . $payment_id . '</td>';
+				$history .= '<td class="tradingid">' . $trading_id . '</td>';
 				$history .= '<td class="status">' . $status_name . '</td>';
 				$history .= '<td class="amount">' . $amount . '</td>';
 				$history .= '<td class="result' . $class . '">' . $err_code . '</td>';
@@ -7954,13 +7955,13 @@ jQuery.event.add( window, "load", function() {
 		if ( empty( $order_id ) ) {
 			if ( RESULT_STATUS_NORMAL == $result ) {
 				$query = $wpdb->prepare(
-					"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `tracking_id` = %s AND `result` = %s ORDER BY `ID` DESC, `datetime` DESC",
+					"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `tracking_id` = %s AND `result` = %s ORDER BY `datetime` DESC, `ID` DESC",
 					$trading_id,
 					RESULT_STATUS_NORMAL
 				);
 			} else {
 				$query = $wpdb->prepare(
-					"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `tracking_id` = %s ORDER BY `ID` DESC, `datetime` DESC",
+					"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `tracking_id` = %s ORDER BY `datetime` DESC, `ID` DESC",
 					$trading_id
 				);
 			}
@@ -7968,27 +7969,27 @@ jQuery.event.add( window, "load", function() {
 			if ( empty( $trading_id ) ) {
 				if ( RESULT_STATUS_NORMAL == $result ) {
 					$query = $wpdb->prepare(
-						"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `datetime` IN( SELECT MAX( `datetime` ) FROM {$wpdb->prefix}usces_acting_log GROUP BY `tracking_id` ) AND `order_id` = %d AND `result` = %s ORDER BY `ID` DESC, `datetime` DESC",
+						"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `datetime` IN( SELECT MAX( `datetime` ) FROM {$wpdb->prefix}usces_acting_log GROUP BY `tracking_id` ) AND `order_id` = %d AND `result` = %s ORDER BY `datetime` DESC, `ID` DESC",
 						$order_id,
 						RESULT_STATUS_NORMAL
 					);
 				} else {
 					$query = $wpdb->prepare(
-						"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `datetime` IN( SELECT MAX( `datetime` ) FROM {$wpdb->prefix}usces_acting_log GROUP BY `tracking_id` ) AND `order_id` = %d ORDER BY `ID` DESC, `datetime` DESC",
+						"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `datetime` IN( SELECT MAX( `datetime` ) FROM {$wpdb->prefix}usces_acting_log GROUP BY `tracking_id` ) AND `order_id` = %d ORDER BY `datetime` DESC, `ID` DESC",
 						$order_id
 					);
 				}
 			} else {
 				if ( RESULT_STATUS_NORMAL == $result ) {
 					$query = $wpdb->prepare(
-						"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `order_id` = %d AND `tracking_id` = %s AND `result` = %s ORDER BY `ID` DESC, `datetime` DESC",
+						"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `order_id` = %d AND `tracking_id` = %s AND `result` = %s ORDER BY `datetime` DESC, `ID` DESC",
 						$order_id,
 						$trading_id,
 						RESULT_STATUS_NORMAL
 					);
 				} else {
 					$query = $wpdb->prepare(
-						"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `order_id` = %d AND `tracking_id` = %s ORDER BY `ID` DESC, `datetime` DESC",
+						"SELECT * FROM {$wpdb->prefix}usces_acting_log WHERE `order_id` = %d AND `tracking_id` = %s ORDER BY `datetime` DESC, `ID` DESC",
 						$order_id,
 						$trading_id
 					);

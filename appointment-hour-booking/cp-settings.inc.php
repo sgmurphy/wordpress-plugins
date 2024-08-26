@@ -300,7 +300,9 @@ jQuery(function(){
 <!-- TAB 6 -->
 <div class="ahb-tab<?php if ($gotab == 'schedulecalarea') echo ' tab-active'; ?>" data-tab="6">
 	<h2><?php _e('Schedule Calendar Contents','appointment-hour-booking'); ?></h2>
-    <p>In this area you can customize the data displayed in the "<strong>Schedule Calendar View</strong>" of the dashboard accessible through the "<strong>Schedule</strong>" button in the <a href="<?php print esc_attr(admin_url('admin.php?page='.$this->menu_parameter));?>">calendars list</a>. For the commercial version of the plugin this also allows to customize the data displayed in the schedule calendar view you can publish in the public website.
+    <p>In this area you can customize the data displayed in the "<strong>Schedule Calendar View</strong>" of the dashboard accessible through the "<strong>Schedule</strong>" button in the <a href="<?php print esc_attr(admin_url('admin.php?page='.$this->menu_parameter));?>">calendars list</a>. For the commercial version of the plugin this also allows to customize the data displayed in the schedule calendar view you can publish in the public website.</p>
+	<p>For <strong>help and more configuration options</strong> check "<a href="https://apphourbooking.dwbooster.com/blog/2018/11/01/schedule-calendar-contents-customization/" target="_blank">Customizing the schedule calendar contents and colors</a>".
+	
     <form  method="post" action="" name="cpformconf6">
         <input name="nonce" type="hidden" value="<?php echo esc_attr($nonce); ?>" />
         <input name="<?php echo esc_attr($cpid); ?>_post_edition" type="hidden" value="1" />

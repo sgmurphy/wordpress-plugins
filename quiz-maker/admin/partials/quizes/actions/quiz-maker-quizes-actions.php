@@ -1464,95 +1464,88 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             </div>
 
             <div id="tab1" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab1') ? 'ays-quiz-tab-content-active' : ''; ?>">
-              <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
-                <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_acardion_svg_html; ?>
-                    <p class="ays-subtitle"><?php echo __('General Settings',$this->plugin_name)?></p>
-                </div>
+                <p class="ays-subtitle"><?php echo __('General Settings',$this->plugin_name)?></p>
                 <hr class="ays-quiz-bolder-hr"/>
-                <div class="ays-quiz-accordion-options-box">
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            <label for='ays-quiz-title'>
-                                <?php echo __('Title', $this->plugin_name); ?>
-                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Title of the quiz',$this->plugin_name)?>">
-                                    <i class="ays_fa ays_fa_info_circle"></i>
-                                </a>
-                            </label>
-                        </div>
-                        <div class="col-sm-10">
-                            <input type="text" class="ays-text-input" id='ays-quiz-title' name='ays_quiz_title'
-                                   value="<?php echo $quiz_title; ?>"/>
-                        </div>
-                    </div> <!-- Title of the quiz -->
-                    <hr/>
-                    <div class='ays-field'>
-                        <label>
-                            <?php echo __('Quiz image', $this->plugin_name); ?>
-                            <a href="javascript:void(0)" class="add-quiz-image"><?php echo $image_text; ?></a>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Add image to the starting page of the quiz',$this->plugin_name)?>">
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label for='ays-quiz-title'>
+                            <?php echo __('Title', $this->plugin_name); ?>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Title of the quiz',$this->plugin_name)?>">
                                 <i class="ays_fa ays_fa_info_circle"></i>
                             </a>
                         </label>
-                        <div class="ays-quiz-image-container" style="<?php echo $style; ?>">
-                            <span class="ays-remove-quiz-img"></span>
-                            <img src="<?php echo esc_url($quiz_image); ?>" id="ays-quiz-img"/>
-                        </div>
-                    </div> <!-- Quiz Image -->
-                    <hr/>
-                    <input type="hidden" name="ays_quiz_image" id="ays-quiz-image"
-                           value="<?php echo esc_url($quiz_image); ?>"/>
-                    <div class='ays-field ays-quiz-result-message-vars-parent'>
-                        <label for='ays-quiz-description'>
-                            <?php echo __('Description', $this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Provide more information about the quiz. You can choose whether to show it or not in the front end in the “Settings” tab',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                        <?php
-                        echo $quiz_message_vars_description_html;
-                        $content = $quiz_description;
-                        $editor_id = 'ays-quiz-description';
-                        $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_quiz_description', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                        wp_editor($content, $editor_id, $settings);
-                        ?>
                     </div>
-                    <hr/>
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            <label for="ays-category">
-                                <?php echo __('Category', $this->plugin_name); ?>
-                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Category of the quiz. For making a category please visit Quiz Categories page from the left navbar.',$this->plugin_name); ?>">
-                                    <i class="ays_fa ays_fa_info_circle"></i>
-                                </a>
-                            </label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select id="ays-category" name="ays_quiz_category">
-                                <option></option>
-                                <?php
-                                $cat = 0;
-                                foreach ($quiz_categories as $key => $quiz_category) {
-
-                                    $quiz_category_id = (isset( $quiz['quiz_category_id'] ) && $quiz['quiz_category_id'] != "") ? $quiz['quiz_category_id'] : 1;
-                                    $q_category_id = (isset( $quiz_category['id'] ) && $quiz_category['id'] != "") ? $quiz_category['id'] : 1;
-
-                                    $quiz_category_title = (isset( $quiz_category['title'] ) && $quiz_category['title'] != "") ? esc_attr( stripslashes($quiz_category['title']) ) : "";
-
-                                    $selected = (intval($q_category_id) == intval($quiz_category_id)) ? "selected" : "";
-                                    if ($cat == 0 && intval($quiz_category_id) == 0) {
-                                        $selected = 'selected';
-                                    }
-                                    echo '<option value="' . $q_category_id . '" ' . $selected . '>' . $quiz_category_title . '</option>';
-                                    $cat++;
-                                }
-                                ?>
-                            </select>
-                        </div>
+                    <div class="col-sm-10">
+                        <input type="text" class="ays-text-input" id='ays-quiz-title' name='ays_quiz_title'
+                               value="<?php echo $quiz_title; ?>"/>
                     </div>
-                    <hr/>
+                </div> <!-- Title of the quiz -->
+                <hr/>
+                <div class='ays-field'>
+                    <label>
+                        <?php echo __('Quiz image', $this->plugin_name); ?>
+                        <a href="javascript:void(0)" class="add-quiz-image"><?php echo $image_text; ?></a>
+                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Add image to the starting page of the quiz',$this->plugin_name)?>">
+                            <i class="ays_fa ays_fa_info_circle"></i>
+                        </a>
+                    </label>
+                    <div class="ays-quiz-image-container" style="<?php echo $style; ?>">
+                        <span class="ays-remove-quiz-img"></span>
+                        <img src="<?php echo esc_url($quiz_image); ?>" id="ays-quiz-img"/>
+                    </div>
+                </div> <!-- Quiz Image -->
+                <hr/>
+                <input type="hidden" name="ays_quiz_image" id="ays-quiz-image"
+                       value="<?php echo esc_url($quiz_image); ?>"/>
+                <div class='ays-field ays-quiz-result-message-vars-parent'>
+                    <label for='ays-quiz-description'>
+                        <?php echo __('Description', $this->plugin_name); ?>
+                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Provide more information about the quiz. You can choose whether to show it or not in the front end in the “Settings” tab',$this->plugin_name)?>">
+                            <i class="ays_fa ays_fa_info_circle"></i>
+                        </a>
+                    </label>
+                    <?php
+                    echo $quiz_message_vars_description_html;
+                    $content = $quiz_description;
+                    $editor_id = 'ays-quiz-description';
+                    $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_quiz_description', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                    wp_editor($content, $editor_id, $settings);
+                    ?>
                 </div>
-               </div>
+                <hr/>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label for="ays-category">
+                            <?php echo __('Category', $this->plugin_name); ?>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Category of the quiz. For making a category please visit Quiz Categories page from the left navbar.',$this->plugin_name); ?>">
+                                <i class="ays_fa ays_fa_info_circle"></i>
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <select id="ays-category" name="ays_quiz_category">
+                            <option></option>
+                            <?php
+                            $cat = 0;
+                            foreach ($quiz_categories as $key => $quiz_category) {
+
+                                $quiz_category_id = (isset( $quiz['quiz_category_id'] ) && $quiz['quiz_category_id'] != "") ? $quiz['quiz_category_id'] : 1;
+                                $q_category_id = (isset( $quiz_category['id'] ) && $quiz_category['id'] != "") ? $quiz_category['id'] : 1;
+
+                                $quiz_category_title = (isset( $quiz_category['title'] ) && $quiz_category['title'] != "") ? esc_attr( stripslashes($quiz_category['title']) ) : "";
+
+                                $selected = (intval($q_category_id) == intval($quiz_category_id)) ? "selected" : "";
+                                if ($cat == 0 && intval($quiz_category_id) == 0) {
+                                    $selected = 'selected';
+                                }
+                                echo '<option value="' . $q_category_id . '" ' . $selected . '>' . $quiz_category_title . '</option>';
+                                $cat++;
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <hr/>
                 <div class='form-group row ays-field ays_items_count_div'>
                     <div class="col-sm-3" style="display: flex; align-items: center;">
                         <div style='display: flex;align-items: center;margin-right: 15px;'>

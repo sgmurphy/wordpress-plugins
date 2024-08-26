@@ -22,7 +22,7 @@ function msClean(str) {
     try {
         str = str.replace(/<\/?[^>]+>/gi, '');
         str = str.replace(/\[(.+?)](.+?\[\/\\1])?/g, '');
-        str = jQuery('<div/>').html(str).text();
+        str = jQuery('<div/>').text(str).text();
     } catch (e) {
     }
 

@@ -1,10 +1,8 @@
 <?php
 /**
- * The main file of the Flying Pages
- *
- * Plugin Name: Flying Pages
+ * Plugin Name: Flying Pages: Preload Pages for Faster Navigation & Improved User Experience
  * Plugin URI: https://wordpress.org/plugins/flying-pages/
- * Description: Load inner pages instantly, intelligently!
+ * Description: Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.
  * Author: WP Speed Matters
  * Author URI: https://wpspeedmatters.com/
  * Version: 2.4.6

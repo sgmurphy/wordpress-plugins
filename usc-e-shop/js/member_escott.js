@@ -127,7 +127,7 @@ jQuery( function($) {
 	});
 
 	$(document).on( "click", ".escott_agreement", function(e) {
-		if( escott_params.edit_auth.length > 0 ) {
+		if( 1 != escott_params.edit_flag || escott_params.edit_auth.length > 0 ) {
 			e.preventDefault();
 			e.stopPropagation();
 			$("#escott_settlement_mode").val($(this).attr("data-mode"));

@@ -528,18 +528,18 @@ class Premium_Fancytext extends Widget_Base {
 		);
 
 		// $this->add_control(
-		// 	'premium_fancy_text_cursor_text',
-		// 	array(
-		// 		'label'     => __( 'Cursor Mark', 'premium-addons-for-elementor' ),
-		// 		'type'      => Controls_Manager::TEXT,
-		// 		'dynamic'   => array( 'active' => true ),
-		// 		'default'   => '|',
-		// 		'condition' => array(
-		// 			'style'                          => 'switch',
-		// 			'premium_fancy_text_effect'      => 'typing',
-		// 			'premium_fancy_text_show_cursor' => 'yes',
-		// 		),
-		// 	)
+		// 'premium_fancy_text_cursor_text',
+		// array(
+		// 'label'     => __( 'Cursor Mark', 'premium-addons-for-elementor' ),
+		// 'type'      => Controls_Manager::TEXT,
+		// 'dynamic'   => array( 'active' => true ),
+		// 'default'   => '|',
+		// 'condition' => array(
+		// 'style'                          => 'switch',
+		// 'premium_fancy_text_effect'      => 'typing',
+		// 'premium_fancy_text_show_cursor' => 'yes',
+		// ),
+		// )
 		// );
 
 		$this->add_control(
@@ -721,17 +721,41 @@ class Premium_Fancytext extends Widget_Base {
 		$this->add_control(
 			'premium_fancy_text_color',
 			array(
-				'label'     => __( 'Color', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
+				'label'      => __( 'Color', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::COLOR,
+				'global'     => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
-				'selectors' => array(
+				'selectors'  => array(
 					'{{WRAPPER}} .premium-atext__text' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .premium-fancy-svg-text .premium-fancy-list-items, {{WRAPPER}} .text' => 'fill : {{VALUE}};',
 				),
-				'condition' => array(
-					'highlight_effect!' => array( 'fill', 'reveal' ),
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'  => 'style',
+							'value' => 'switch',
+						),
+						array(
+							'terms' => array(
+								array(
+									'name'  => 'style',
+									'value' => 'highlight',
+								),
+								array(
+									'name'     => 'highlight_effect',
+									'operator' => '!==',
+									'value'    => 'fill',
+								),
+								array(
+									'name'     => 'highlight_effect',
+									'operator' => '!==',
+									'value'    => 'reveal',
+								),
+							),
+						),
+					),
 				),
 			)
 		);
@@ -854,13 +878,32 @@ class Premium_Fancytext extends Widget_Base {
 		$this->add_control(
 			'premium_fancy_text_background_color',
 			array(
-				'label'     => __( 'Background Color', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
+				'label'      => __( 'Background Color', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::COLOR,
+				'selectors'  => array(
 					'{{WRAPPER}} .premium-atext__text' => 'background-color: {{VALUE}}',
 				),
-				'condition' => array(
-					'highlight_effect!' => 'fill',
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'  => 'style',
+							'value' => 'switch',
+						),
+						array(
+							'terms' => array(
+								array(
+									'name'  => 'style',
+									'value' => 'highlight',
+								),
+								array(
+									'name'     => 'highlight_effect',
+									'operator' => '!==',
+									'value'    => 'fill',
+								),
+							),
+						),
+					),
 				),
 			)
 		);
@@ -868,10 +911,34 @@ class Premium_Fancytext extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			array(
-				'name'      => 'text_shadow',
-				'selector'  => '{{WRAPPER}} .premium-atext__text',
-				'condition' => array(
-					'highlight_effect!' => array( 'shadow', 'lines' ),
+				'name'       => 'text_shadow',
+				'selector'   => '{{WRAPPER}} .premium-atext__text',
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'  => 'style',
+							'value' => 'switch',
+						),
+						array(
+							'terms' => array(
+								array(
+									'name'  => 'style',
+									'value' => 'highlight',
+								),
+								array(
+									'name'     => 'highlight_effect',
+									'operator' => '!==',
+									'value'    => 'shadow',
+								),
+								array(
+									'name'     => 'highlight_effect',
+									'operator' => '!==',
+									'value'    => 'lines',
+								),
+							),
+						),
+					),
 				),
 			)
 		);
@@ -891,12 +958,31 @@ class Premium_Fancytext extends Widget_Base {
 		$this->add_control(
 			'stroke_text_color',
 			array(
-				'label'     => __( 'Stroke Color', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'condition' => array(
-					'highlight_effect!' => 'lines',
+				'label'      => __( 'Stroke Color', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::COLOR,
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'  => 'style',
+							'value' => 'switch',
+						),
+						array(
+							'terms' => array(
+								array(
+									'name'  => 'style',
+									'value' => 'highlight',
+								),
+								array(
+									'name'     => 'highlight_effect',
+									'operator' => '!==',
+									'value'    => 'lines',
+								),
+							),
+						),
+					),
 				),
-				'selectors' => array(
+				'selectors'  => array(
 					'{{WRAPPER}} .premium-atext__text' => '-webkit-text-stroke-color: {{VALUE}}',
 				),
 			)
@@ -965,9 +1051,9 @@ class Premium_Fancytext extends Widget_Base {
 				'label'     => __( 'Cursor', 'premium-addons-for-elementor' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
-					'style'                           => 'switch',
+					'style'                     => 'switch',
 					// 'premium_fancy_text_cursor_text!' => '',
-					'premium_fancy_text_effect'       => 'typing',
+					'premium_fancy_text_effect' => 'typing',
 				),
 			)
 		);
@@ -1194,14 +1280,14 @@ class Premium_Fancytext extends Widget_Base {
 				$atext_settings = array(
 					'effect' => $effect,
 					'delay'  => $settings['premium_fancy_text_zoom_delay'],
-					'count'  => $settings['loop_count']
+					'count'  => $settings['loop_count'],
 				);
 
 				if ( 'custom' === $effect ) {
 					$atext_settings['animation'] = $settings['custom_animation'];
-				} elseif( 'clip' === $effect ) {
-                    $atext_settings['speed'] = $settings['premium_fancy_text_zoom_speed'];
-                }
+				} elseif ( 'clip' === $effect ) {
+					$atext_settings['speed'] = $settings['premium_fancy_text_zoom_speed'];
+				}
 			}
 
 			$atext_settings['loading'] = $loading_bar;
@@ -1344,13 +1430,12 @@ class Premium_Fancytext extends Widget_Base {
 			)
 		);
 
-        if( 'reveal' === $settings['highlight_effect'] ) {
+		if ( 'reveal' === $settings['highlight_effect'] ) {
 
-            $image_url = PREMIUM_ADDONS_URL . 'assets/frontend/images/reveal_background.jpg';
-            $this->add_render_attribute( 'text', 'style', "background-image: url('$image_url')" );
+			$image_url = PREMIUM_ADDONS_URL . 'assets/frontend/images/reveal_background.jpg';
+			$this->add_render_attribute( 'text', 'style', "background-image: url('$image_url')" );
 
-
-        }
+		}
 
 		?>
 

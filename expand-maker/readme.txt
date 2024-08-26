@@ -80,14 +80,16 @@ Shortcode example:
 We do web development and if you need a developer or if you think you have found a bug in Read more plugin, if you have any question, please feel free to contact us by this email <b>edmon.parker@gmail.com</b>.
 
 == Changelog ==
+= 3.3.9.4 =
+* Added accordion content type Video
+
 = 3.3.9.3 =
 * Added possibility active accordion header change background color
 * Added possibility active accordion header change color
 
 = 3.3.9.2 =
-* Rad more tooltip font size
-* Rad more tooltip color
-* Rad more tooltip background color
+* Improve read more database 
+* Improve helper text design
 
 = 3.3.9.1 =
 * Improve read more database 

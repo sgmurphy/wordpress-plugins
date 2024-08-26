@@ -11,6 +11,7 @@ namespace FSVendor;
  * @category    Class
  * @author        WP Desk
  */
+use Psr\Log\LoggerInterface;
 if (!\defined('ABSPATH')) {
     exit;
 }
@@ -22,6 +23,12 @@ if (!\class_exists('FSVendor\\WPDesk_Tracker_Factory_Prefixed')) {
      */
     class WPDesk_Tracker_Factory_Prefixed
     {
+        /** @var LoggerInterface|null */
+        private $logger;
+        public function __construct(?\Psr\Log\LoggerInterface $logger = null)
+        {
+            $this->logger = $logger;
+        }
         /**
          * Builds tracker instance.
          *
@@ -32,7 +39,7 @@ if (!\class_exists('FSVendor\\WPDesk_Tracker_Factory_Prefixed')) {
         private function build_tracker($basename)
         {
             $sender = \apply_filters('wpdesk/tracker/sender/' . $basename, new \FSVendor\WPDesk_Tracker_Sender_Wordpress_To_WPDesk());
-            $sender = new \FSVendor\WPDesk_Tracker_Sender_Logged($sender instanceof \WPDesk_Tracker_Sender ? $sender : new \FSVendor\WPDesk_Tracker_Sender_Wordpress_To_WPDesk());
+            $sender = new \FSVendor\WPDesk_Tracker_Sender_Logged($sender instanceof \WPDesk_Tracker_Sender ? $sender : new \FSVendor\WPDesk_Tracker_Sender_Wordpress_To_WPDesk(), $this->logger);
             $tracker = new \FSVendor\WPDesk_Tracker($basename, $sender);
             $tracker->add_data_provider(new \FSVendor\WPDesk_Tracker_Data_Provider_Gateways());
             $tracker->add_data_provider(new \FSVendor\WPDesk_Tracker_Data_Provider_Identification());

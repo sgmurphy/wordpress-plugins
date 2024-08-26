@@ -1120,6 +1120,7 @@ class Quiz_Maker_Admin
 
         $quick_quiz_quest_animation                         = "shake";
         $quick_quiz_question_font_size                      = 16;
+        $quick_quiz_question_mobile_font_size               = 16;
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1235,6 +1236,9 @@ class Quiz_Maker_Admin
 
             // Question Font Size | desktop
             $quick_quiz_question_font_size = (isset($_REQUEST['ays_quick_quiz_question_font_size']) && $_REQUEST['ays_quick_quiz_question_font_size'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_question_font_size'] ) ) : 16;
+
+            // Question Font Size | mobile
+            $quick_quiz_question_mobile_font_size = (isset($_REQUEST['ays_quick_quiz_question_mobile_font_size']) && $_REQUEST['ays_quick_quiz_question_mobile_font_size'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_question_mobile_font_size'] ) ) : 16;
 
         }
         
@@ -1444,7 +1448,7 @@ class Quiz_Maker_Admin
             'quiz_message_before_timer'                     => '',
             'enable_full_screen_mode'                       => 'off',
             'quiz_enable_password_visibility'               => 'off',
-            'question_mobile_font_size'                     => 16,
+            'question_mobile_font_size'                     => $quick_quiz_question_mobile_font_size,
             'answers_mobile_font_size'                      => 15,
             'social_buttons_heading'                        => '',
             'quiz_enable_vkontakte_share_button'            => 'on',

@@ -66,6 +66,9 @@ class AjaxUserFeedbackDataHandler implements \FSVendor\WPDesk\PluginBuilder\Plug
     public function handle_ajax_request()
     {
         \check_ajax_referer(self::AJAX_ACTION . $this->user_feedback_data->get_thickbox_id());
+        if (!\current_user_can('edit_posts')) {
+            \wp_send_json_error();
+        }
         if (isset($_REQUEST[self::REQUEST_SELECTED_OPTION])) {
             $payload = $this->prepare_payload($_REQUEST);
             $this->send_payload_to_wpdesk($this->prepare_payload($_REQUEST));

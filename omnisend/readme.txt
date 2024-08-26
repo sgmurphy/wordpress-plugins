@@ -4,8 +4,8 @@ Contributors: Omnisend
 Tags: email marketing, marketing, newsletter, sms, form
 Requires at least: 4.7.0
 Tested up to: 6.4
-Requires PHP: 7.1
-Stable tag: 1.4.1
+Requires PHP: 7.4
+Stable tag: 1.5.1
 License: GPLv3 or later
 URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,7 +96,7 @@ None.
 Will be updated support article here.
 
 = What are the technical requirements for the plugin installation? =
-* PHP 7.1+
+* PHP 7.4+
 * WordPress 4.0.1+
 * Omnisend account
 
@@ -120,6 +120,16 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Convert more visitors with highly-targeted landing pages
 
 == Changelog ==
+
+= 1.5.1 =
+
+* Update supported php version
+
+= 1.5.0 =
+
+* Improve SDK client
+* Added new functionality for save contact and get contact by email
+* Deprecate create_contact
 
 = 1.4.1 =
 

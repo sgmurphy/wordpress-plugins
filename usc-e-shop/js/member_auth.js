@@ -1,12 +1,18 @@
 jQuery(document).ready( function($) {
 	if( $('#memberinfo form').has('table.customer_form') ) {
 		$('#memberinfo form').has('table.customer_form').hide();
+		$('#memberinfo h2 a[name="edit"]').parent().hide();
 		$('#memberinfo h3 a[name="edit"]').parent().hide();
 		$('#memberinfo #edit').hide();
 		$('#memberinfo .error_message').hide();
 		// $('#memberinfo').append('<div class="send"><input name="top" class="top" type="button" value="'+member_params.label.go2top+'" onclick="location.href=\''+member_params.url.go2top+'\'" /></div>');
 		if( $('.member_submenu').length > 0 ) {
-			if( $('.member_submenu .member-edit').length === 0 ) {
+			if( $('.member_submenu .edit_member').length > 0 ) {
+				$('.member_submenu .edit_member').each(function() {
+					$(this).addClass('member-edit');
+				});
+				$('.member-edit a').attr('href',member_params.url.edit);
+			} else if( $('.member_submenu .member-edit').length === 0 ) {
 				$('.member_submenu').prepend('<li class="member-edit"><a href="'+member_params.url.edit+'">'+member_params.label.edit+'</a></li>');
 			} else {
 				$('.member-edit a').attr('href',member_params.url.edit);
@@ -25,6 +31,8 @@ jQuery(document).ready( function($) {
 			if( $('.p-wc-member_submenu').length > 0 ) {
 				if( $('.p-wc-member_submenu .member-edit').length === 0 ) {
 					$('.p-wc-member_submenu').prepend('<li class="member-edit"><a href="'+member_params.url.edit+'">'+member_params.label.edit+'</a></li>');
+				} else if( $('.member-edit').length > 0 ) {
+					$('.member-edit a').attr('href',member_params.url.edit);
 				} else {
 					$('.p-wc-member-edit a').attr('href',member_params.url.edit);
 				}

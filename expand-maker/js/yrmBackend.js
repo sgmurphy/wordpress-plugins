@@ -61,7 +61,7 @@ yrmBackend.prototype.colors = function () {
 }
 
 yrmBackend.prototype.accordionTypeSwitcher = function () {
-	var keysId = ['content', 'post'];
+	var keysId = ['content', 'youtube', 'post'];
 	var handler =
 	jQuery('.yrm-accordion-switcher-label').each(function () {
 		var key = jQuery(this).data('key');
