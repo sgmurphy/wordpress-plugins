@@ -28,6 +28,7 @@ use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Options\NewsletterOptionFieldsRepository;
 use MailPoet\Newsletter\Options\NewsletterOptionsRepository;
 use MailPoet\Newsletter\Scheduler\AutomationEmailScheduler;
+use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\SubscriberSegmentRepository;
 use MailPoet\Subscribers\SubscribersRepository;
@@ -65,29 +66,23 @@ class SendEmailAction implements Action {
     'woocommerce-subscriptions:trial-started',
   ];
 
-  /** @var AutomationController */
-  private $automationController;
+  private AutomationController $automationController;
 
-  /** @var SettingsController */
-  private $settings;
+  private SettingsController $settings;
 
-  /** @var NewslettersRepository */
-  private $newslettersRepository;
+  private NewslettersRepository $newslettersRepository;
 
-  /** @var SubscriberSegmentRepository */
-  private $subscriberSegmentRepository;
+  private SubscriberSegmentRepository $subscriberSegmentRepository;
 
-  /** @var SubscribersRepository  */
-  private $subscribersRepository;
+  private SubscribersRepository $subscribersRepository;
 
-  /** @var AutomationEmailScheduler */
-  private $automationEmailScheduler;
+  private SegmentsRepository $segmentsRepository;
 
-  /** @var NewsletterOptionsRepository */
-  private $newsletterOptionsRepository;
+  private AutomationEmailScheduler $automationEmailScheduler;
 
-  /** @var NewsletterOptionFieldsRepository */
-  private $newsletterOptionFieldsRepository;
+  private NewsletterOptionsRepository $newsletterOptionsRepository;
+
+  private NewsletterOptionFieldsRepository $newsletterOptionFieldsRepository;
 
   public function __construct(
     AutomationController $automationController,
@@ -95,6 +90,7 @@ class SendEmailAction implements Action {
     NewslettersRepository $newslettersRepository,
     SubscriberSegmentRepository $subscriberSegmentRepository,
     SubscribersRepository $subscribersRepository,
+    SegmentsRepository $segmentsRepository,
     AutomationEmailScheduler $automationEmailScheduler,
     NewsletterOptionsRepository $newsletterOptionsRepository,
     NewsletterOptionFieldsRepository $newsletterOptionFieldsRepository
@@ -104,6 +100,7 @@ class SendEmailAction implements Action {
     $this->newslettersRepository = $newslettersRepository;
     $this->subscriberSegmentRepository = $subscriberSegmentRepository;
     $this->subscribersRepository = $subscribersRepository;
+    $this->segmentsRepository = $segmentsRepository;
     $this->automationEmailScheduler = $automationEmailScheduler;
     $this->newsletterOptionsRepository = $newsletterOptionsRepository;
     $this->newsletterOptionFieldsRepository = $newsletterOptionFieldsRepository;
@@ -155,17 +152,20 @@ class SendEmailAction implements Action {
     try {
       $this->getEmailForStep($args->getStep());
     } catch (InvalidStateException $exception) {
+      $exception = ValidationException::create()
+        ->withMessage(__('Cannot send the email because it was not found. Please, go to the automation editor and update the email contents.', 'mailpoet'));
+
       $emailId = $args->getStep()->getArgs()['email_id'] ?? '';
       if (empty($emailId)) {
-        throw ValidationException::create()
-          ->withError('email_id', __("Automation email not found.", 'mailpoet'));
-      }
-      throw ValidationException::create()
-        ->withError(
+        $exception->withError('email_id', __("Automation email not found.", 'mailpoet'));
+      } else {
+        $exception->withError(
           'email_id',
           // translators: %s is the ID of email.
           sprintf(__("Automation email with ID '%s' not found.", 'mailpoet'), $emailId)
         );
+      }
+      throw $exception;
     }
   }
 
@@ -177,18 +177,20 @@ class SendEmailAction implements Action {
       // run #1: schedule email sending
       $subscriberStatus = $subscriber->getStatus();
       if ($newsletter->getType() !== NewsletterEntity::TYPE_AUTOMATION_TRANSACTIONAL && $subscriberStatus !== SubscriberEntity::STATUS_SUBSCRIBED) {
-        throw InvalidStateException::create()->withMessage(sprintf("Cannot schedule a newsletter for subscriber ID '%s' because their status is '%s'.", $subscriber->getId(), $subscriberStatus));
+        // translators: %s is the subscriber's status.
+        throw InvalidStateException::create()->withMessage(sprintf(__("Cannot send the email because the subscriber's status is '%s'.", 'mailpoet'), $subscriberStatus));
       }
 
       if ($subscriberStatus === SubscriberEntity::STATUS_BOUNCED) {
-        throw InvalidStateException::create()->withMessage(sprintf("Cannot schedule an email for subscriber ID '%s' because their status is '%s'.", $subscriber->getId(), $subscriberStatus));
+        // translators: %s is the subscriber's status.
+        throw InvalidStateException::create()->withMessage(sprintf(__("Cannot send the email because the subscriber's status is '%s'.", 'mailpoet'), $subscriberStatus));
       }
 
       $meta = $this->getNewsletterMeta($args);
       try {
         $this->automationEmailScheduler->createSendingTask($newsletter, $subscriber, $meta);
       } catch (Throwable $e) {
-        throw InvalidStateException::create()->withMessage('Could not create sending task.');
+        throw InvalidStateException::create()->withMessage(__('Could not create sending task.', 'mailpoet'));
       }
 
     } else {
@@ -210,21 +212,24 @@ class SendEmailAction implements Action {
   public function handleEmailSent($data): void {
     if (!is_array($data)) {
       throw InvalidStateException::create()->withMessage(
-        sprintf('Invalid automation step data. Array expected, got: %s', gettype($data))
+      // translators: %s is the type of $data.
+        sprintf(__('Invalid automation step data. Array expected, got: %s', 'mailpoet'), gettype($data))
       );
     }
 
     $runId = $data['run_id'] ?? null;
     if (!is_int($runId)) {
       throw InvalidStateException::create()->withMessage(
-        sprintf("Invalid automation step data. Expected 'run_id' to be an integer, got: %s", gettype($runId))
+      // translators: %s is the type of $runId.
+        sprintf(__("Invalid automation step data. Expected 'run_id' to be an integer, got: %s", 'mailpoet'), gettype($runId))
       );
     }
 
     $stepId = $data['step_id'] ?? null;
     if (!is_string($stepId)) {
       throw InvalidStateException::create()->withMessage(
-        sprintf("Invalid automation step data. Expected 'step_id' to be a string, got: %s", gettype($runId))
+        // translators: %s is the type of $runId.
+        sprintf(__("Invalid automation step data. Expected 'step_id' to be a string, got: %s", 'mailpoet'), gettype($runId))
       );
     }
 
@@ -234,13 +239,14 @@ class SendEmailAction implements Action {
   private function checkSendingStatus(StepRunArgs $args, NewsletterEntity $newsletter, SubscriberEntity $subscriber): bool {
     $scheduledTaskSubscriber = $this->automationEmailScheduler->getScheduledTaskSubscriber($newsletter, $subscriber, $args->getAutomationRun());
     if (!$scheduledTaskSubscriber) {
-      throw InvalidStateException::create()->withMessage('Email failed to schedule.');
+      throw InvalidStateException::create()->withMessage(__('Email failed to schedule.', 'mailpoet'));
     }
 
     // email sending failed
     if ($scheduledTaskSubscriber->getFailed() === ScheduledTaskSubscriberEntity::FAIL_STATUS_FAILED) {
       throw InvalidStateException::create()->withMessage(
-        sprintf('Email failed to send. Error: %s', $scheduledTaskSubscriber->getError() ?: 'Unknown error')
+        // translators: %s is the error message.
+        sprintf(__('Email failed to send. Error: %s', 'mailpoet'), $scheduledTaskSubscriber->getError() ?: 'Unknown error')
       );
     }
 
@@ -249,7 +255,7 @@ class SendEmailAction implements Action {
 
     // email was never sent
     if (!$wasSent && $isLastRun) {
-      $error = 'Email sending process timed out.';
+      $error = __('Email sending process timed out.', 'mailpoet');
       $this->automationEmailScheduler->saveError($scheduledTaskSubscriber, $error);
       throw InvalidStateException::create()->withMessage($error);
     }
@@ -301,7 +307,12 @@ class SendEmailAction implements Action {
     ]);
 
     if (!$subscriberSegment) {
-      throw InvalidStateException::create()->withMessage(sprintf("Subscriber ID '%s' is not subscribed to segment ID '%s'.", $subscriberId, $segmentId));
+      $segment = $this->segmentsRepository->findOneById($segmentId);
+      if (!$segment) { // This state should not happen because it is checked in the validation.
+        throw InvalidStateException::create()->withMessage(__('Cannot send the email because the list was not found.', 'mailpoet'));
+      }
+      // translators: %s is the name of the list.
+      throw InvalidStateException::create()->withMessage(sprintf(__("Cannot send the email because the subscriber is not subscribed to the '%s' list.", 'mailpoet'), $segment->getName()));
     }
 
     $subscriber = $subscriberSegment->getSubscriber();

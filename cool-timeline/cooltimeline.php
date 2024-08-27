@@ -3,7 +3,7 @@
   Plugin Name: Cool Timeline
   Plugin URI:https://cooltimeline.com
   Description:Cool Timeline is a responsive WordPress timeline plugin that allows you to create beautiful vertical storyline. You simply create posts, set images and date then Cool Timeline will automatically populate these posts in chronological order, based on the year and date
-  Version:2.9.3
+  Version:2.9.4
   Author:Cool Plugins
   Author URI:https://coolplugins.net
   License:GPLv2 or later
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** Configuration */
 if ( ! defined( 'CTL_V' ) ) {
-	define( 'CTL_V', '2.9.3' );
+	define( 'CTL_V', '2.9.4' );
 }
 // define constants for later use
 define( 'CTL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -149,6 +149,24 @@ if ( ! class_exists( 'CoolTimeline' ) ) {
 		}
 		public function onInit() {
 
+			if(self::is_theme_activate('Divi')){
+				ctl_free_create_admin_notice(
+					array(
+						'id'              => 'ctl-divi-module-notice',
+						'message'         => __(
+							'Greetings! We have noticed that you are currently using the <strong>Divi Page Builder</strong>.</br> 
+					We would like to suggest trying out the latest <strong> <a href="https://wordpress.org/plugins/timeline-module-for-divi/" target="_blank"> Timeline Module For Divi </a></strong> plugin. <a class="button button-primary" href="https://wordpress.org/plugins/timeline-module-for-divi/" target="_blank">Try it now!</a> </br>Showcase your life story or <strong>company history</strong> an <strong>elegant & precise</strong> way.
+					
+					',
+							'cool-timeline'
+						),
+						'review_interval' => 3,
+						'logo'            => CTL_PLUGIN_URL . 'assets/images/divi-timeline-logo.png',
+						'plugin_name' => 'Timeline Module For Divi',
+					)
+				);
+			}
+
 			if ( did_action( 'elementor/loaded' ) ) {
 				$old_user_ele_install_notice = get_option( 'dismiss_ele_addon_notice' ) != false ? get_option( 'dismiss_ele_addon_notice' ) : 'no';
 				// check user already rated
@@ -166,6 +184,7 @@ if ( ! class_exists( 'CoolTimeline' ) ) {
 							),
 							'review_interval' => 3,
 							'logo'            => CTL_PLUGIN_URL . 'assets/images/elementor-addon.png',
+							'plugin_name' => 'Timeline Widget Pro for Elementor'
 						)
 					);
 
@@ -264,6 +283,13 @@ if ( ! class_exists( 'CoolTimeline' ) ) {
 
 
 
+		public static function is_theme_activate($target){
+			$theme = wp_get_theme();
+			if ($theme->name == $target || stripos($theme->parent_theme, $target) !== false) {
+				return true;
+			}
+			return false;
+		}
 		/* Activating plugin and adding some info */
 		public function ctl_activate() {
 

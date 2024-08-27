@@ -139,7 +139,7 @@ class WPRWPAdmin {
 
 	public function settingsLink($links, $file) {
 		#XNOTE: Fix this
-		if ( $file == plugin_basename( dirname(__FILE__).'/blogvault.php' ) ) {
+		if ( $file == plugin_basename( dirname(__FILE__).'/plugin.php' ) ) {
 			$brand = $this->bvinfo->getPluginWhitelabelInfo();
 			if (!array_key_exists('hide_plugin_details', $brand)) {
 				$links[] = '<a href="'.$this->mainUrl().'">'.__( 'Settings' ).'</a>';

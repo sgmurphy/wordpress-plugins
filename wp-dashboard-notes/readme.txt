@@ -3,7 +3,7 @@ Contributors: sormano
 Tags: note, notes, dashboard notes, wordpress notes, admin note, private note, notification, collaboration, workflow, to do list, note list, note widget
 Requires at least: 4.0
 Tested up to: 6.4
-Stable tag: 1.0.11
+Stable tag: 1.0.13
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,7 +139,15 @@ function wpdn_add_style() {
 
 == Changelog ==
 
-= 1.0.10 - 03/01/2024 =
+= 1.0.13 - 27/08/2024 =
+
+* Fix - Checkboxes not always saved
+
+= 1.0.12 - 14/08/2024 =
+
+* Fix - Escape everything for security; Credit justakazh@Patchstack.
+
+= 1.0.11 - 03/01/2024 =
 
 * Fix - PHP 8.2 warnings
 * Fix - Check author ID on change

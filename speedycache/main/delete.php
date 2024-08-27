@@ -50,17 +50,24 @@ class Delete{
 	}
 	
 	// Deletes a single page
-	static function cache($post_id){
+	static function cache($post_id = false){
+		global $speedycache;
+
 		if(!isset($post_id) || $post_id === FALSE || !is_numeric($post_id)){
 			return;
 		}
-		
+
 		$link = get_permalink($post_id);
+
+		// If its 0 then it's a homepage
+		if($post_id == 0){
+			$link = home_url();
+		}
 
 		if(empty($link)){
 			return;
 		}
-		
+
 		$parsed_url = wp_parse_url($link);
 		$path = $parsed_url['path'];
 		
@@ -287,8 +294,40 @@ class Delete{
 			}
 		}
 	}
+	
+	static function on_status_change($new_status, $old_status, $post){
+		global $speedycache;
 
-	function fetch_linked_posts($post_id){
+		if($old_status == $new_status && $old_status !== 'publish') return;
+
+		if($old_status !== 'publish' && $new_status !== 'publish'){
+			return;
+		}
+
+		if(empty($speedycache->options['status'])){
+			return;
+		}
+
+		if(!empty(wp_is_post_revision($post->ID))){
+			return;
+		}
+
+		// Current post should not be deleted when its anything other than publish,
+		// As in some states its URL changes to ?page_id=
+		if($new_status == 'publish'){
+			self::cache($post->ID);
+		}
+
+		$home_page_id = get_option('page_on_front');
+		self::cache($home_page_id);
+
+		$blog_page_id = get_option('page_for_posts');
+		if($home_page_id !== $blog_page_id){
+			self::cache($blog_page_id);
+		}
+	}
+
+	static function fetch_linked_posts($post_id){
 		if(!$post_id){
 			return [];
 		}

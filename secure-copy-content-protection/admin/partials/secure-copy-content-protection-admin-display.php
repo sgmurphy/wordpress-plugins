@@ -210,7 +210,14 @@ $loader_iamge = "<span class='ays_display_none ays_sccp_loader_box'><img src='".
                 <form autocomplete="off" method="post" enctype="multipart/form-data" id="ays_sccp_form">
                     <input type="hidden" class="sccp_wp_editor_height" value="<?php echo $sccp_wp_editor_height; ?>">
                     <h1 class="wp-heading-inline">
-                        <?= esc_html(get_admin_page_title()); ?>
+                        <?= esc_html(get_admin_page_title()); ?>                        
+                    </h1>
+                    <?php
+                        if (isset($_REQUEST['status'])) {
+                            $actions->sccp_protection_notices();
+                        }
+                    ?>
+                    <div class="ays-sccp-save-button">
                         <?php
                         $save_attributes = array(
                             'id' => 'ays-button-top',
@@ -221,12 +228,7 @@ $loader_iamge = "<span class='ays_display_none ays_sccp_loader_box'><img src='".
                         submit_button(__('Save changes', $this->plugin_name), 'primary ays-button ays-sccp-save-comp', 'ays_submit', false, $save_attributes);
                         echo $loader_iamge;
                         ?>
-                    </h1>
-                    <?php
-                        if (isset($_REQUEST['status'])) {
-                            $actions->sccp_protection_notices();
-                        }
-                    ?>
+                    </div>
                     <hr>
                     <input type="hidden" name="sccp_tab" value="<?= htmlentities($sccp_tab); ?>">
                     <?php

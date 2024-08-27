@@ -7,6 +7,8 @@
  * @version 4.0.1
  */
 
+use LearnPress\Models\CoursePostModel;
+
 defined( 'ABSPATH' ) || exit();
 
 if ( ! class_exists( 'LP_Course' ) ) {
@@ -558,7 +560,6 @@ if ( ! class_exists( 'LP_Course' ) ) {
 			if ( ! empty( $param['c_suggest'] ) ) {
 				$filter->only_fields = [ 'ID', 'post_title' ];
 				$filter->limit       = apply_filters( 'learn-press/rest-api/courses/suggest-limit', 10 );
-				$filter->max_limit   = apply_filters( 'learn-press/rest-api/courses/suggest-max-limit', 10 );
 			}
 
 			$return_type = $param['return_type'] ?? 'html';
@@ -1076,6 +1077,15 @@ if ( ! class_exists( 'LP_Course' ) ) {
 			$duration = get_post_meta( $this->get_id(), '_lp_duration', true );
 
 			return $duration;
+		}
+
+		/**
+		 * Check if a course is enabled Offline
+		 *
+		 * @return bool
+		 */
+		public function is_offline(): bool {
+			return get_post_meta( $this->get_id(), CoursePostModel::META_KEY_OFFLINE_COURSE, 'no' ) === 'yes';
 		}
 	}
 }

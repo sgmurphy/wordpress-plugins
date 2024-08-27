@@ -258,6 +258,17 @@ class Woo_CTA extends Widget_Base {
 		);
 
 		$this->add_control(
+			'redirect_to_cart',
+			array(
+				'label'     => __( 'Automatically Redirect to Cart Page', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'condition' => array(
+					'button_action' => array( 'add_to_cart' ),
+				),
+			)
+		);
+
+		$this->add_control(
 			'product_unavailable_message',
 			array(
 				'label'       => __( 'Product Unavailable Message', 'premium-addons-for-elementor' ),
@@ -292,7 +303,7 @@ class Woo_CTA extends Widget_Base {
 			)
 		);
 
-        do_action( 'pa_woo_cta_text_controls', $this );
+		do_action( 'pa_woo_cta_text_controls', $this );
 
 		$common_conditions = array(
 			'icon_switcher' => 'yes',
@@ -1010,263 +1021,407 @@ class Woo_CTA extends Widget_Base {
 
 		}
 
-			$this->add_group_control(
-				Group_Control_Background::get_type(),
-				array(
-					'name'           => 'woo_cta_button_background',
-					'types'          => array( 'classic', 'gradient' ),
-					'fields_options' => array(
-						'color' => array(
-							'global' => array(
-								'default' => Global_Colors::COLOR_PRIMARY,
-							),
-						),
-					),
-					'selector'       => '{{WRAPPER}} .premium-woo-cta-button, {{WRAPPER}} .premium-button-style2-shutinhor:before , {{WRAPPER}} .premium-button-style2-shutinver:before , {{WRAPPER}} .premium-button-style5-radialin:before , {{WRAPPER}} .premium-button-style5-rectin:before',
-				)
-			);
+        $this->add_group_control(
+            Group_Control_Background::get_type(),
+            array(
+                'name'           => 'woo_cta_button_background',
+                'types'          => array( 'classic', 'gradient' ),
+                'fields_options' => array(
+                    'color' => array(
+                        'global' => array(
+                            'default' => Global_Colors::COLOR_PRIMARY,
+                        ),
+                    ),
+                ),
+                'selector'       => '{{WRAPPER}} .premium-woo-cta-button, {{WRAPPER}} .premium-button-style2-shutinhor:before , {{WRAPPER}} .premium-button-style2-shutinver:before , {{WRAPPER}} .premium-button-style5-radialin:before , {{WRAPPER}} .premium-button-style5-rectin:before',
+            )
+        );
 
-			$this->add_group_control(
-				Group_Control_Border::get_type(),
-				array(
-					'name'     => 'woo_cta_button_border',
-					'selector' => '{{WRAPPER}} .premium-woo-cta-button',
-				)
-			);
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            array(
+                'name'     => 'woo_cta_button_border',
+                'selector' => '{{WRAPPER}} .premium-woo-cta-button',
+            )
+        );
 
-			$this->add_control(
-				'woo_box_button_radius',
-				array(
-					'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
-					'type'       => Controls_Manager::SLIDER,
-					'size_units' => array( 'px', 'em', '%' ),
-					'default'    => array(
-						'size' => 0,
-					),
-					'selectors'  => array(
-						'{{WRAPPER}} .premium-woo-cta-button' => 'border-radius: {{SIZE}}{{UNIT}};',
-					),
-				)
-			);
+        $this->add_control(
+            'woo_box_button_radius',
+            array(
+                'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
+                'type'       => Controls_Manager::SLIDER,
+                'size_units' => array( 'px', 'em', '%' ),
+                'default'    => array(
+                    'size' => 0,
+                ),
+                'selectors'  => array(
+                    '{{WRAPPER}} .premium-woo-cta-button' => 'border-radius: {{SIZE}}{{UNIT}};',
+                ),
+            )
+        );
 
-			$this->add_group_control(
-				Group_Control_Box_Shadow::get_type(),
-				array(
-					'label'    => __( 'Shadow', 'premium-addons-for-elementor' ),
-					'name'     => 'woo_cta_button_box_shadow',
-					'selector' => '{{WRAPPER}} .premium-woo-cta-button',
-				)
-			);
+        $this->add_group_control(
+            Group_Control_Box_Shadow::get_type(),
+            array(
+                'label'    => __( 'Shadow', 'premium-addons-for-elementor' ),
+                'name'     => 'woo_cta_button_box_shadow',
+                'selector' => '{{WRAPPER}} .premium-woo-cta-button',
+            )
+        );
 
-			$this->add_responsive_control(
-				'woo_cta_button_margin',
-				array(
-					'label'      => __( 'Margin', 'premium-addons-for-elementor' ),
-					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => array( 'px', 'em', '%' ),
-					'selectors'  => array(
-						'{{WRAPPER}} .premium-woo-btn-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					),
-				)
-			);
+        $this->add_responsive_control(
+            'woo_cta_button_margin',
+            array(
+                'label'      => __( 'Margin', 'premium-addons-for-elementor' ),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => array( 'px', 'em', '%' ),
+                'selectors'  => array(
+                    '{{WRAPPER}} .premium-woo-btn-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
 
-			$this->add_responsive_control(
-				'woo_cta_button_padding',
-				array(
-					'label'      => __( 'Padding', 'premium-addons-for-elementor' ),
-					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => array( 'px', 'em', '%' ),
-					'selectors'  => array(
-						'{{WRAPPER}} .premium-woo-cta-button, {{WRAPPER}} .premium-button-line6::after' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					),
-				)
-			);
+        $this->add_responsive_control(
+            'woo_cta_button_padding',
+            array(
+                'label'      => __( 'Padding', 'premium-addons-for-elementor' ),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => array( 'px', 'em', '%' ),
+                'selectors'  => array(
+                    '{{WRAPPER}} .premium-woo-cta-button, {{WRAPPER}} .premium-button-line6::after' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
 
-			$this->end_controls_tab();
+        $this->end_controls_tab();
 
-			$this->start_controls_tab(
-				'woo_cta_button_style_hover',
-				array(
-					'label' => __( 'Hover', 'premium-addons-for-elementor' ),
-				)
-			);
+        $this->start_controls_tab(
+            'woo_cta_button_style_hover',
+            array(
+                'label' => __( 'Hover', 'premium-addons-for-elementor' ),
+            )
+        );
 
-			$this->add_control(
-				'woo_button_text_hover_color',
-				array(
-					'label'     => __( 'Text Color', 'premium-addons-for-elementor' ),
-					'type'      => Controls_Manager::COLOR,
-					'global'    => array(
-						'default' => Global_Colors::COLOR_PRIMARY,
-					),
-					'selectors' => array(
-						'{{WRAPPER}} .premium-woo-cta-button:hover .premium-woo-btn-text , {{WRAPPER}} .premium-button-line6::after'  => 'color: {{VALUE}};',
-					),
-				)
-			);
+        $this->add_control(
+            'woo_button_text_hover_color',
+            array(
+                'label'     => __( 'Text Color', 'premium-addons-for-elementor' ),
+                'type'      => Controls_Manager::COLOR,
+                'global'    => array(
+                    'default' => Global_Colors::COLOR_PRIMARY,
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .premium-woo-cta-button:hover .premium-woo-btn-text , {{WRAPPER}} .premium-button-line6::after'  => 'color: {{VALUE}};',
+                ),
+            )
+        );
 
-			$this->add_control(
-				'button_icon_color_hover',
-				array(
-					'label'      => __( 'Icon Color', 'premium-addons-pro' ),
-					'type'       => Controls_Manager::COLOR,
-					'global'     => array(
-						'default' => Global_Colors::COLOR_PRIMARY,
-					),
-					'selectors'  => array(
-						'{{WRAPPER}} .premium-woo-cta-button:hover i' => 'color: {{VALUE}};',
-						'{{WRAPPER}} .premium-woo-cta-button:hover .premium-woo-btn-icon *' => 'fill: {{VALUE}}',
-					),
-					'conditions' => array(
-						'relation' => 'or',
-						'terms'    => array(
-							array(
-								'terms' => array(
-									array(
-										'name'  => 'icon_switcher',
-										'value' => 'yes',
-									),
-									array(
-										'name'  => 'icon_type',
-										'value' => 'icon',
-									),
-								),
-							),
-						),
-					),
-				)
-			);
+        $this->add_control(
+            'button_icon_color_hover',
+            array(
+                'label'      => __( 'Icon Color', 'premium-addons-pro' ),
+                'type'       => Controls_Manager::COLOR,
+                'global'     => array(
+                    'default' => Global_Colors::COLOR_PRIMARY,
+                ),
+                'selectors'  => array(
+                    '{{WRAPPER}} .premium-woo-cta-button:hover i' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .premium-woo-cta-button:hover .premium-woo-btn-icon *' => 'fill: {{VALUE}}',
+                ),
+                'conditions' => array(
+                    'relation' => 'or',
+                    'terms'    => array(
+                        array(
+                            'terms' => array(
+                                array(
+                                    'name'  => 'icon_switcher',
+                                    'value' => 'yes',
+                                ),
+                                array(
+                                    'name'  => 'icon_type',
+                                    'value' => 'icon',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            )
+        );
 
-			$this->add_control(
-				'underline_color',
-				array(
-					'label'     => __( 'Line Color', 'premium-addons-for-elementor' ),
-					'type'      => Controls_Manager::COLOR,
-					'global'    => array(
-						'default' => Global_Colors::COLOR_SECONDARY,
-					),
-					'selectors' => array(
-						'{{WRAPPER}} .premium-btn-svg' => 'stroke: {{VALUE}};',
-						'{{WRAPPER}} .premium-button-line2::before,  {{WRAPPER}} .premium-button-line4::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before' => 'background-color: {{VALUE}};',
-					),
-					'condition' => array(
-						'premium_button_hover_effect' => 'style8',
-					),
-				)
-			);
+        $this->add_control(
+            'underline_color',
+            array(
+                'label'     => __( 'Line Color', 'premium-addons-for-elementor' ),
+                'type'      => Controls_Manager::COLOR,
+                'global'    => array(
+                    'default' => Global_Colors::COLOR_SECONDARY,
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .premium-btn-svg' => 'stroke: {{VALUE}};',
+                    '{{WRAPPER}} .premium-button-line2::before,  {{WRAPPER}} .premium-button-line4::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before' => 'background-color: {{VALUE}};',
+                ),
+                'condition' => array(
+                    'premium_button_hover_effect' => 'style8',
+                ),
+            )
+        );
 
-			$this->add_control(
-				'first_layer_hover',
-				array(
-					'label'     => __( 'Layer #1 Color', 'premium-addons-for-elementor' ),
-					'type'      => Controls_Manager::COLOR,
-					'global'    => array(
-						'default' => Global_Colors::COLOR_SECONDARY,
-					),
-					'selectors' => array(
-						'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:before' => 'background-color: {{VALUE}}',
-					),
-					'condition' => array(
-						'premium_button_hover_effect' => 'style7',
+        $this->add_control(
+            'first_layer_hover',
+            array(
+                'label'     => __( 'Layer #1 Color', 'premium-addons-for-elementor' ),
+                'type'      => Controls_Manager::COLOR,
+                'global'    => array(
+                    'default' => Global_Colors::COLOR_SECONDARY,
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:before' => 'background-color: {{VALUE}}',
+                ),
+                'condition' => array(
+                    'premium_button_hover_effect' => 'style7',
 
-					),
-				)
-			);
+                ),
+            )
+        );
 
-			$this->add_control(
-				'second_layer_hover',
-				array(
-					'label'     => __( 'Layer #2 Color', 'premium-addons-for-elementor' ),
-					'type'      => Controls_Manager::COLOR,
-					'global'    => array(
-						'default' => Global_Colors::COLOR_TEXT,
-					),
-					'selectors' => array(
-						'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:after' => 'background-color: {{VALUE}}',
-					),
-					'condition' => array(
-						'premium_button_hover_effect' => 'style7',
-					),
-				)
-			);
+        $this->add_control(
+            'second_layer_hover',
+            array(
+                'label'     => __( 'Layer #2 Color', 'premium-addons-for-elementor' ),
+                'type'      => Controls_Manager::COLOR,
+                'global'    => array(
+                    'default' => Global_Colors::COLOR_TEXT,
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:after' => 'background-color: {{VALUE}}',
+                ),
+                'condition' => array(
+                    'premium_button_hover_effect' => 'style7',
+                ),
+            )
+        );
 
-			$this->add_group_control(
-				Group_Control_Background::get_type(),
-				array(
-					'name'           => 'woo_cta_button_background_hover',
-					'types'          => array( 'classic', 'gradient' ),
-					'fields_options' => array(
-						'color' => array(
-							'global' => array(
-								'default' => Global_Colors::COLOR_TEXT,
-							),
-						),
-					),
-					'selector'       => '{{WRAPPER}} .premium-button-none:hover, {{WRAPPER}} .premium-button-style8:hover, {{WRAPPER}} .premium-button-style1:before, {{WRAPPER}} .premium-button-style2-shutouthor:before, {{WRAPPER}} .premium-button-style2-shutoutver:before, {{WRAPPER}} .premium-button-style2-shutinhor, {{WRAPPER}} .premium-button-style2-shutinver, {{WRAPPER}} .premium-button-style2-dshutinhor:before, {{WRAPPER}} .premium-button-style2-dshutinver:before, {{WRAPPER}} .premium-button-style2-scshutouthor:before, {{WRAPPER}} .premium-button-style2-scshutoutver:before, {{WRAPPER}} .premium-button-style5-radialin, {{WRAPPER}} .premium-button-style5-radialout:before, {{WRAPPER}} .premium-button-style5-rectin, {{WRAPPER}} .premium-button-style5-rectout:before, {{WRAPPER}} .premium-button-style6-bg, {{WRAPPER}} .premium-button-style6:before',
-					'condition'      => array(
-						'premium_button_hover_effect!' => 'style7',
-					),
+        $this->add_group_control(
+            Group_Control_Background::get_type(),
+            array(
+                'name'           => 'woo_cta_button_background_hover',
+                'types'          => array( 'classic', 'gradient' ),
+                'fields_options' => array(
+                    'color' => array(
+                        'global' => array(
+                            'default' => Global_Colors::COLOR_TEXT,
+                        ),
+                    ),
+                ),
+                'selector'       => '{{WRAPPER}} .premium-button-none:hover, {{WRAPPER}} .premium-button-style8:hover, {{WRAPPER}} .premium-button-style1:before, {{WRAPPER}} .premium-button-style2-shutouthor:before, {{WRAPPER}} .premium-button-style2-shutoutver:before, {{WRAPPER}} .premium-button-style2-shutinhor, {{WRAPPER}} .premium-button-style2-shutinver, {{WRAPPER}} .premium-button-style2-dshutinhor:before, {{WRAPPER}} .premium-button-style2-dshutinver:before, {{WRAPPER}} .premium-button-style2-scshutouthor:before, {{WRAPPER}} .premium-button-style2-scshutoutver:before, {{WRAPPER}} .premium-button-style5-radialin, {{WRAPPER}} .premium-button-style5-radialout:before, {{WRAPPER}} .premium-button-style5-rectin, {{WRAPPER}} .premium-button-style5-rectout:before, {{WRAPPER}} .premium-button-style6-bg, {{WRAPPER}} .premium-button-style6:before',
+                'condition'      => array(
+                    'premium_button_hover_effect!' => 'style7',
+                ),
+            ),
+        );
+
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            array(
+                'name'     => 'woo_cta_button_border_hover',
+                'selector' => '{{WRAPPER}} .premium-woo-cta-button:hover',
+            )
+        );
+
+        $this->add_control(
+            'woo_cta_button_border_radius_hover',
+            array(
+                'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
+                'type'       => Controls_Manager::SLIDER,
+                'size_units' => array( 'px', 'em', '%' ),
+                'selectors'  => array(
+                    '{{WRAPPER}} .premium-woo-cta-button:hover' => 'border-radius: {{SIZE}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->add_group_control(
+            Group_Control_Box_Shadow::get_type(),
+            array(
+                'label'    => __( 'Shadow', 'premium-addons-for-elementor' ),
+                'name'     => 'woo_cta_button_shadow_hover',
+                'selector' => '{{WRAPPER}} .premium-woo-cta-button:hover',
+            )
+        );
+
+        $this->add_responsive_control(
+            'woo_cta_button_margin_hover',
+            array(
+                'label'      => __( 'Margin', 'premium-addons-for-elementor' ),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => array( 'px', 'em', '%' ),
+                'selectors'  => array(
+                    '{{WRAPPER}} .premium-woo-cta-button:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->add_responsive_control(
+            'woo_cta_button_padding_hover',
+            array(
+                'label'      => __( 'Padding', 'premium-addons-for-elementor' ),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => array( 'px', 'em', '%' ),
+                'selectors'  => array(
+                    '{{WRAPPER}} .premium-woo-cta-button:hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+
+        $this->end_controls_section();
+
+		// Quantity style section.
+		$this->start_controls_section(
+			'quantity_style',
+			array(
+				'label'     => __( ' Quantity style', 'premium-addons-for-elementor' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'button_action' => array( 'add_to_cart' ),
+					'show_quantity' => 'yes',
+
 				),
-			);
+			)
+		);
 
-			$this->add_group_control(
-				Group_Control_Border::get_type(),
-				array(
-					'name'     => 'woo_cta_button_border_hover',
-					'selector' => '{{WRAPPER}} .premium-woo-cta-button:hover',
-				)
-			);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'quantity_typography',
+				'label'    => __( 'Typography', 'premium-addons-for-elementor' ),
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+				'selector' => '{{WRAPPER}} .product-quantity , {{WRAPPER}} .grouped_product_qty',
+			)
+		);
 
-			$this->add_control(
-				'woo_cta_button_border_radius_hover',
-				array(
-					'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
-					'type'       => Controls_Manager::SLIDER,
-					'size_units' => array( 'px', 'em', '%' ),
-					'selectors'  => array(
-						'{{WRAPPER}} .premium-woo-cta-button:hover' => 'border-radius: {{SIZE}}{{UNIT}};',
-					),
-				)
-			);
+		$this->add_control(
+			'product_qunatity_color',
+			array(
+				'label'     => __( 'Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .product-quantity , {{WRAPPER}} .grouped_product_qty'   => 'color: {{VALUE}};',
+				),
+			)
+		);
 
-			$this->add_group_control(
-				Group_Control_Box_Shadow::get_type(),
-				array(
-					'label'    => __( 'Shadow', 'premium-addons-for-elementor' ),
-					'name'     => 'woo_cta_button_shadow_hover',
-					'selector' => '{{WRAPPER}} .premium-woo-cta-button:hover',
-				)
-			);
+		$this->add_responsive_control(
+			'quantity_spacing',
+			array(
+				'label'     => __( 'Quantity Spacing', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'default'   => array(
+					'size' => 10,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-woo-btn-container' => 'gap: {{SIZE}}px;',
+				),
+			)
+		);
 
-			$this->add_responsive_control(
-				'woo_cta_button_margin_hover',
-				array(
-					'label'      => __( 'Margin', 'premium-addons-for-elementor' ),
-					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => array( 'px', 'em', '%' ),
-					'selectors'  => array(
-						'{{WRAPPER}} .premium-woo-cta-button:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					),
-				)
-			);
+		$this->start_controls_tabs( 'woo_cta_quantity_style_tabs' );
 
-			$this->add_responsive_control(
-				'woo_cta_button_padding_hover',
-				array(
-					'label'      => __( 'Padding', 'premium-addons-for-elementor' ),
-					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => array( 'px', 'em', '%' ),
-					'selectors'  => array(
-						'{{WRAPPER}} .premium-woo-cta-button:hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					),
-				)
-			);
+		$this->start_controls_tab(
+			'woo_cta_quantity_style_normal',
+			array(
+				'label' => __( 'Normal', 'premium-addons-for-elementor' ),
+			)
+		);
 
-			$this->end_controls_tab();
+		$this->add_control(
+			'quantity_input_background_color',
+			array(
+				'label'     => __( 'Input Background Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .product-quantity , {{WRAPPER}} .grouped_product_qty'  => 'background-color: {{VALUE}};',
+				),
+			)
+		);
 
-			$this->end_controls_tabs();
+		$this->add_control(
+			'quantity_icons_background_color',
+			array(
+				'label'     => __( 'Plus And Minus Background Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .quantity-button' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
 
-			$this->end_controls_section();
+		$this->add_control(
+			'quantity_border_color',
+			array(
+				'label'     => __( 'Border Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .product-quantity , {{WRAPPER}} .grouped_product_qty , {{WRAPPER}} .quantity-button' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'woo_cta_quantity_style_hover',
+			array(
+				'label' => __( 'Hover', 'premium-addons-for-elementor' ),
+			)
+		);
+
+		$this->add_control(
+			'quantity_input_background_color_hover',
+			array(
+				'label'     => __( 'Input Background Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .product-quantity:hover , {{WRAPPER}} .grouped_product_qty:hover'  => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'quantity_icons_background_color_hover',
+			array(
+				'label'     => __( 'Plus And Minus Background Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .quantity-button:hover' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'quantity_border_color_hover',
+			array(
+				'label'     => __( 'Border Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .product-quantity:hover , {{WRAPPER}} .grouped_product_qty:hover , {{WRAPPER}} .quantity-button:hover' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs( 'woo_cta_quantity_style_tabs' );
+
+		$this->end_controls_section();
 
 		// product message unavilabe style section.
 		$this->start_controls_section(
@@ -1776,7 +1931,7 @@ class Woo_CTA extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-        $papro_activated = apply_filters( 'papro_activated', false );
+		$papro_activated = apply_filters( 'papro_activated', false );
 
 		if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.20', '<' ) ) {
 
@@ -1819,24 +1974,24 @@ class Woo_CTA extends Widget_Base {
 			array(
 				'class' => array(
 					'pa-woo-cta-widget',
-					'premium-wrapper-woo-cta'
+					'premium-wrapper-woo-cta',
 				),
 				'id'    => 'pa-woo-cta-widget-' . $id,
 			)
 		);
 
-        $product_type = $product->get_type();
+		$product_type = $product->get_type();
 
-        if( 'grouped' === $product_type ) {
-            $this->add_render_attribute( 'woo_cta_wrapper', 'class', 'pa-grouped' );
-        } elseif ( 'external' === $product_type ) {
-            $this->add_render_attribute( 'woo_cta_wrapper', 'class', 'pa-external' );
+		if ( 'grouped' === $product_type ) {
+			$this->add_render_attribute( 'woo_cta_wrapper', 'class', 'pa-grouped' );
+		} elseif ( 'external' === $product_type ) {
+			$this->add_render_attribute( 'woo_cta_wrapper', 'class', 'pa-external' );
 
-            // Handle external/affiliate product.
-            $external_url = $product->get_product_url();
-            $button_text  = $product->get_button_text();
+			// Handle external/affiliate product.
+			$external_url = $product->get_product_url();
+			$button_text  = $product->get_button_text();
 
-        } elseif ( 'variable' === $product_type ) {
+		} elseif ( 'variable' === $product_type ) {
 			$attributes = $this->get_woocommerce_product_attributes_for_add_to_cart( $product_id );
 		}
 
@@ -1844,30 +1999,36 @@ class Woo_CTA extends Widget_Base {
 
 		$show_quantity = $settings['show_quantity'];
 
-        $effect_class = Helper_Functions::get_button_class( $settings );
+		$effect_class = Helper_Functions::get_button_class( $settings );
 
-        $this->add_render_attribute( 'button', 'class', $effect_class );
+		$this->add_render_attribute( 'button', 'class', $effect_class );
 
-        $this->add_render_attribute(
-            'button',
-            array(
-                'class'             => array(
-                    'premium-woo-cta-button',
-                    $effect_class,
-                    $button_size,
-                ),
-                'id'                => 'woo-cta-btn-' . $id,
-                'data-product-id'   => $product_id,
-                'data-actions'      => $button_action,
-                'data-product-type' => $product->get_type(),
-                'data-external-url' => 'external' === $product_type ? esc_url( $external_url ) : '',
-            )
-        );
+		$this->add_render_attribute(
+			'button',
+			array(
+				'class'             => array(
+					'premium-woo-cta-button',
+					$effect_class,
+					$button_size,
+				),
+				'id'                => 'woo-cta-btn-' . $id,
+				'data-product-id'   => $product_id,
+				'data-actions'      => $button_action,
+				'data-product-type' => $product->get_type(),
+				'data-external-url' => 'external' === $product_type ? esc_url( $external_url ) : '',
+			)
+		);
 
 		$in_wishlist    = false;
 		$in_mc_wishlist = false;
 
-		if ( 'add_to_wishlist' === $button_action ) {
+		if ( 'add_to_cart' === $button_action ) {
+
+            $redirect_to_cart = $settings['redirect_to_cart'];
+
+			$this->add_render_attribute( 'button', 'data-redirect-to-cart', $redirect_to_cart );
+
+		} elseif ( 'add_to_wishlist' === $button_action ) {
 
 			$product_added_wishlist = $settings['wishlist_message'];
 			$wishlist_remove_text   = $settings['wishlist_remove_text'];
@@ -1881,7 +2042,7 @@ class Woo_CTA extends Widget_Base {
 				$in_mc_wishlist = class_exists( 'WLFMC' ) ? WLFMC()->is_product_in_wishlist( $product_id ) : false;
 			}
 
-			if( $in_wishlist || $in_mc_wishlist ) {
+			if ( $in_wishlist || $in_mc_wishlist ) {
 				$this->add_render_attribute( 'button', 'class', 'premium-woo-icon-hidden' );
 			}
 
@@ -1904,12 +2065,12 @@ class Woo_CTA extends Widget_Base {
 			// For Ever Compare.
 			if ( class_exists( 'Ever_Compare' ) ) {
 				$cookie_name = 'ever_compare_compare_list';
-				$products    = isset( $_COOKIE[ $cookie_name ] ) ? json_decode( sanitize_text_field(wp_unslash( $_COOKIE[ $cookie_name ] )) ) : array();
+				$products    = isset( $_COOKIE[ $cookie_name ] ) ? json_decode( sanitize_text_field( wp_unslash( $_COOKIE[ $cookie_name ] ) ) ) : array();
 				$in_compare  = in_array( strval( $product_id ), $products, true );
-			} else if ( class_exists( 'YITH_Woocompare_Frontend' ) ) {
+			} elseif ( class_exists( 'YITH_Woocompare_Frontend' ) ) {
 				// For YITH Compare.
 				$yith_cookie_name = 'yith_woocompare_list';
-				$yith_products    = isset( $_COOKIE[ $yith_cookie_name ] ) ? json_decode( stripslashes( sanitize_text_field(wp_unslash( $_COOKIE[ $yith_cookie_name ] ) ))) : array();
+				$yith_products    = isset( $_COOKIE[ $yith_cookie_name ] ) ? json_decode( stripslashes( sanitize_text_field( wp_unslash( $_COOKIE[ $yith_cookie_name ] ) ) ) ) : array();
 				$in_yith_compare  = in_array( intval( $product_id ), $yith_products, true );
 			}
 
@@ -1984,160 +2145,161 @@ class Woo_CTA extends Widget_Base {
 		}
 		?>
 
-        <div <?php echo wp_kses_post( $this->get_render_attribute_string( 'woo_cta_wrapper' ) ); ?> >
-            <?php
-            if ( ! $product || ! $product->is_in_stock() ) {
-                // Display message if the product is not available.
-                ?>
-                <?php if ( ! empty( $product_unavailable_message ) ) { ?>
-                <div class="premium-unavailable-message"><?php echo wp_kses_post( $product_unavailable_message ); ?></div>
-                    <?php
-                }
-            } else {
-                ?>
-                <?php if ( 'add_to_cart' === $button_action ) { ?>
-                    <?php
-                    if ( 'grouped' === $product_type ) {
-                        $child_products = $product->get_children()
-                        ?>
-                        <table class='premium-grouped-product'>
-                            <tr><th>Product</th><th>Price</th><th>Quantity</th></tr>
-                            <?php
-                            foreach ( $child_products as $child_id ) {
-                                $child_product = wc_get_product( $child_id )
-                                ?>
-                                <tr>
-                                    <td><?php echo wp_kses_post( $child_product->get_name() ); ?></td>
-                                    <td><?php echo wp_kses_post( wc_price( $child_product->get_price() ) ); ?></td>
-                                    <td>
-                                    <div class='pa-qty-wrapper'>
-                                        <div class="quantity-grouped-wrapper">
-                                            <input type="number" class="grouped_product_qty" name="<?php echo wp_kses_post( $child_id ); ?>" value="0" min="0">
-                                            <div class="add-to-cart-icons-quantity-wrapper">
-                                                <i type="button" class="fas fa-plus quantity-button g-plus"></i>
-                                                <i type="button" class="fas fa-minus quantity-button g-minus"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                <?php } ?>
-                    <?php if ( 'variable' === $product_type ) { ?>
-                        <?php if ( ! empty( $attributes ) ) : ?>
-                    <table class="premium-variations" cellspacing="0" role="presentation">
-                        <tbody>
-                            <?php foreach ( $attributes as $attribute_name => $terms ) : ?>
-                                <tr>
-                                    <th class="label">
-                                        <label for="<?php echo wp_kses_post( $attribute_name ); ?>">
-                                            <?php echo wp_kses_post( wc_attribute_label( $attribute_name ) ); ?>
-                                        </label>
-                                    </th>
-                                    <td class="value">
-                                        <select id="<?php echo wp_kses_post( $attribute_name ); ?>" class="product-attribute" name="attribute_<?php echo wp_kses_post( $attribute_name ); ?>" data-attribute_name="attribute_<?php echo wp_kses_post( $attribute_name ); ?>" data-show_option_none="yes">
-                                            <option value="">Choose an option</option>
-                                                <?php foreach ( $terms as $term ) : ?>
-                                            <option value="<?php echo wp_kses_post( is_object( $term ) ? $term->slug : $term ); ?>" class="attached enabled">
-                                                    <?php echo wp_kses_post( is_object( $term ) ? $term->name : $term ); ?>
-                                            </option>
-                                                <?php endforeach; ?>
-                                        </select>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                <?php endif; ?>
-            <?php } ?>
-            <?php } ?>
+		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'woo_cta_wrapper' ) ); ?> >
+			<?php
+			if ( ! $product || ! $product->is_in_stock() ) {
+				// Display message if the product is not available.
+				?>
+				<?php if ( ! empty( $product_unavailable_message ) ) { ?>
+				<div class="premium-unavailable-message"><?php echo wp_kses_post( $product_unavailable_message ); ?></div>
+					<?php
+				}
+			} else {
+				?>
+				<?php if ( 'add_to_cart' === $button_action ) { ?>
+					<?php
+					if ( 'grouped' === $product_type ) {
+						$child_products = $product->get_children()
+						?>
+						<table class='premium-grouped-product'>
+							<tr><th>Product</th><th>Price</th><th>Quantity</th></tr>
+							<?php
+							foreach ( $child_products as $child_id ) {
+								$child_product = wc_get_product( $child_id )
+								?>
+								<tr>
+									<td><?php echo wp_kses_post( $child_product->get_name() ); ?></td>
+									<td><?php echo wp_kses_post( wc_price( $child_product->get_price() ) ); ?></td>
+									<td>
+									<div class='pa-qty-wrapper'>
+										<div class="quantity-grouped-wrapper">
+											<input type="number" class="grouped_product_qty" name="<?php echo wp_kses_post( $child_id ); ?>" value="0" min="0">
+											<div class="add-to-cart-icons-quantity-wrapper">
+												<i type="button" class="fas fa-plus quantity-button g-plus"></i>
+												<i type="button" class="fas fa-minus quantity-button g-minus"></i>
+											</div>
+										</div>
+									</div>
+									</td>
+								</tr>
+							<?php } ?>
+						</table>
+				<?php } ?>
+					<?php if ( 'variable' === $product_type ) { ?>
+						<?php if ( ! empty( $attributes ) ) : ?>
+					<table class="premium-variations" cellspacing="0" role="presentation">
+						<tbody>
+							<?php foreach ( $attributes as $attribute_name => $terms ) : ?>
+								<tr>
+									<th class="label">
+										<label for="<?php echo wp_kses_post( $attribute_name ); ?>">
+											<?php echo wp_kses_post( wc_attribute_label( $attribute_name ) ); ?>
+										</label>
+									</th>
+									<td class="value">
+										<select id="<?php echo wp_kses_post( $attribute_name ); ?>" class="product-attribute" name="attribute_<?php echo wp_kses_post( $attribute_name ); ?>" data-attribute_name="attribute_<?php echo wp_kses_post( $attribute_name ); ?>" data-show_option_none="yes">
+											<option value="">Choose an option</option>
+												<?php foreach ( $terms as $term ) : ?>
+											<option value="<?php echo wp_kses_post( is_object( $term ) ? $term->slug : $term ); ?>" class="attached enabled">
+													<?php echo wp_kses_post( is_object( $term ) ? $term->name : $term ); ?>
+											</option>
+												<?php endforeach; ?>
+										</select>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				<?php endif; ?>
+			<?php } ?>
+			<?php } ?>
 
-            <div class='premium-woo-btn-container'>
-                <?php if ( $show_quantity ) : ?>
-                <div class="quantity-input-wrapper">
-                    <input type="number" class="product-quantity"  value="1" min="1">
-                        <div class="add-to-cart-icons-quantity-wrapper">
-                            <i type="button" class="fas fa-plus quantity-button plus"></i>
-                            <i type="button" class="fas fa-minus quantity-button minus"></i>
-                        </div>
-                </div>
-                <?php endif; ?>
-            <button <?php echo wp_kses_post( $this->get_render_attribute_string( 'button' ) ); ?> >
-                <?php
-                if ( 'yes' === $settings['icon_switcher'] ) :
+			<div class='premium-woo-btn-container'>
+				<?php if ( $show_quantity ) : ?>
+				<div class="quantity-input-wrapper">
+					<input type="number" class="product-quantity"  value="1" min="1">
+						<div class="add-to-cart-icons-quantity-wrapper">
+							<i type="button" class="fas fa-plus quantity-button plus"></i>
+							<i type="button" class="fas fa-minus quantity-button minus"></i>
+						</div>
+				</div>
+				<?php endif; ?>
+			<button <?php echo wp_kses_post( $this->get_render_attribute_string( 'button' ) ); ?> >
+				<?php
+				if ( 'yes' === $settings['icon_switcher'] ) :
 
-                    if ( 'icon' === $icon_type ) :
+					if ( 'icon' === $icon_type ) :
 
-                        if ( 'yes' !== $settings['draw_svg'] ) :
-                            Icons_Manager::render_icon(
-                                $settings['icon'],
-                                array(
-                                    'class'       => array( 'premium-woo-btn-icon', 'premium-svg-nodraw' ),
-                                    'aria-hidden' => 'true',
-                                )
-                            );
-                            ?>
-                            <?php else : ?>
-                            <i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
-                                <?php
-                        endif;
+						if ( 'yes' !== $settings['draw_svg'] ) :
+							Icons_Manager::render_icon(
+								$settings['icon'],
+								array(
+									'class'       => array( 'premium-woo-btn-icon', 'premium-svg-nodraw' ),
+									'aria-hidden' => 'true',
+								)
+							);
+							?>
+							<?php else : ?>
+							<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+								<?php
+						endif;
 
-                    elseif ( 'image' === $icon_type ) :
+					elseif ( 'image' === $icon_type ) :
 
-                        $this->render_image_icon();
+						$this->render_image_icon();
 
-                    elseif ( 'lottie' === $icon_type ) :
-                        ?>
+					elseif ( 'lottie' === $icon_type ) :
+						?>
 
-                        <div <?php echo wp_kses_post( $this->get_render_attribute_string( 'lottie_icon' ) ); ?>></div>
+						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'lottie_icon' ) ); ?>></div>
 
-                    <?php else : ?>
-                        <div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
-                            <?php $this->print_unescaped_setting( 'custom_svg' ); ?>
-                        </div>
-                        <?php
-                    endif;
-                        endif;
-                ?>
-                <?php if ( ! empty( $settings['cart_button_text'] || $settings['wishlist_button_text'] || $settings['compare_button_text'] ) ) : ?>
-                    <div class="premium-button-text-icon-wrapper">
-                        <span class="premium-woo-btn-text">
-                            <?php
-                                if ( 'external' === $product_type ) {
-                                    echo wp_kses_post( $button_text );
-                                } elseif ( 'add_to_cart' === $button_action ) {
-                                        echo wp_kses_post( $settings['cart_button_text'] );
-                                } elseif ( 'add_to_wishlist' === $button_action ) {
-                                    if ( $in_wishlist || $in_mc_wishlist ) {
-                                        echo wp_kses_post( $settings['wishlist_remove_text'] );
-                                    } else {
-                                        echo wp_kses_post( $settings['wishlist_button_text'] );
-                                    }
-                                } elseif ( $in_compare || $in_yith_compare ) {
-                                    echo wp_kses_post( $settings['compare_remove_text'] );
-                                } else {
-                                    echo wp_kses_post( $settings['compare_button_text'] );
-                                }
-                            ?>
+					<?php else : ?>
+						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
+							<?php $this->print_unescaped_setting( 'custom_svg' ); ?>
+						</div>
+						<?php
+					endif;
+						endif;
+				?>
+				<?php if ( ! empty( $settings['cart_button_text'] || $settings['wishlist_button_text'] || $settings['compare_button_text'] ) ) : ?>
+					<div class="premium-button-text-icon-wrapper">
+						<span class="premium-woo-btn-text">
+							<?php
+							if ( 'external' === $product_type ) {
+								echo wp_kses_post( $button_text );
+							} elseif ( 'add_to_cart' === $button_action ) {
+									echo wp_kses_post( $settings['cart_button_text'] );
+							} elseif ( 'add_to_wishlist' === $button_action ) {
+								if ( $in_wishlist || $in_mc_wishlist ) {
+									echo wp_kses_post( $settings['wishlist_remove_text'] );
+								} else {
+									echo wp_kses_post( $settings['wishlist_button_text'] );
+								}
+							} elseif ( $in_compare || $in_yith_compare ) {
+								echo wp_kses_post( $settings['compare_remove_text'] );
+							} else {
+								echo wp_kses_post( $settings['compare_button_text'] );
+							}
+							?>
 
-                        </span>
-                    </div>
-                <?php endif; ?>
-                <?php if ( 'style6' === $settings['premium_button_hover_effect'] && 'yes' === $settings['mouse_detect'] ) : ?>
-                    <span class="premium-button-style6-bg"></span>
-                <?php endif; ?>
+						</span>
+					</div>
+				<?php endif; ?>
+				<?php if ( 'style6' === $settings['premium_button_hover_effect'] && 'yes' === $settings['mouse_detect'] ) : ?>
+					<span class="premium-button-style6-bg"></span>
+				<?php endif; ?>
 
-                <?php if ( 'style8' === $settings['premium_button_hover_effect'] ) : ?>
-                    <?php echo Helper_Functions::get_btn_svgs( $settings['underline_style'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                <?php endif; ?>
+				<?php if ( 'style8' === $settings['premium_button_hover_effect'] ) : ?>
+					<?php echo Helper_Functions::get_btn_svgs( $settings['underline_style'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php endif; ?>
 
-            </button>
-                <div class="premium-woo-cta__spinner"></div>
+			</button>
+				<div class="premium-woo-cta__spinner"></div>
 
-            </div>
-            <?php } ?>
-        </div>
+			</div>
+			<?php } ?>
+
+		</div>
 
 		<?php
 	}

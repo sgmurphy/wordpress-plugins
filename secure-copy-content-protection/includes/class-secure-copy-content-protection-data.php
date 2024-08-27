@@ -47,8 +47,8 @@ class Ays_Sccp_Data {
                 // self::ays_sccp_sale_message2($ays_sccp_ishmar);
                 // self::ays_sccp_helloween_message($ays_sccp_ishmar);
                 // self::ays_sccp_black_friday_message($ays_sccp_ishmar);
-                // self::ays_sccp_new_mega_bundle_message($ays_sccp_ishmar);
-                self::ays_sccp_new_mega_bundle_message_2024( $ays_sccp_ishmar );
+                // self::ays_sccp_new_mega_bundle_message_2024( $ays_sccp_ishmar );
+                self::ays_sccp_new_mega_bundle_message($ays_sccp_ishmar);
             }
         }
     } 
@@ -194,7 +194,7 @@ class Ays_Sccp_Data {
                             $content[] = '</span>';                                
                         $content[] = '</div>';
                         $content[] = '<div>';
-                            $content[] = '<img src="' . SCCP_ADMIN_URL . '/images/ays-sccp-banner-sale-20.svg" style="width: 70px;">';
+                            $content[] = '<img src="' . SCCP_ADMIN_URL . '/images/ays-sccp-banner-sale-30.svg" style="width: 70px;">';
                         $content[] = '</div>';
                         
                         $content[] = '</div>'; 

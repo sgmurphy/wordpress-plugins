@@ -232,7 +232,7 @@ foreach ( $get_fields_options as $field_id => $get_field_option ) {
 		<?php
 	}
 
-	if ( isset( $$get_fields_options[ $field_id ]['list-field-cell'] ) ) {
+	if ( isset( $get_fields_options[ $field_id ]['list-field-cell'] ) ) {
 		?>
 		body #gform_wrapper_<?php echo esc_html( $css_form_id ); ?> .gform_body .gform_fields .gfield#field_<?php echo esc_html( $css_form_id ); ?>_<?php echo esc_html( $field_id ); ?> .ginput_list .gfield_list .gfield_list_cell input {
 		<?php echo esc_html( $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'list-field-cell', $important, $field_id ) ); ?>

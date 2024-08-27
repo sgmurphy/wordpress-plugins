@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/wpmonks
 Tags: Gravity Forms CSS, gravity forms themes, gravity forms styler, Gravity Forms Design, Gravity Forms Material Design, Gravity Forms Tooltips
 Requires at least: 4.0
 Tested up to: 6.6
-Stable tag: 5.15
+Stable tag: 5.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,13 @@ Yes, Gravity Forms embedded in Divi themes is also supported. Please check the t
 4. Options in settings
 
 == Changelog ==
+= 5.17 (27th August 2024) =
+* Fixed custom CSS not working
+
+= 5.16 (27th August 2024) =
+* Fixed review link
+* Fixed minor code issues
+
 = 5.15 (24th August 2024) =
 * Fixed width of checkbox & radio labels
 

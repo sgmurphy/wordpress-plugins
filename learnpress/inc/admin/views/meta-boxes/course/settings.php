@@ -1,5 +1,9 @@
 <?php
 
+use LearnPress\Helpers\Config;
+use LearnPress\Models\CourseModel;
+use LearnPress\Models\CoursePostModel;
+
 class LP_Meta_Box_Course extends LP_Meta_Box {
 	/**
 	 * Instance
@@ -10,7 +14,18 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 
 	public $post_type = LP_COURSE_CPT;
 
-	public function add_meta_box() {
+	/**
+	 * @param WP_Post $post
+	 *
+	 * @return void
+	 */
+	public function add_meta_boxes( $post ) {
+		$course                   = CourseModel::find( $post->ID, true );
+		$is_enable_offline_course = false;
+		if ( $course instanceof CourseModel ) {
+			$is_enable_offline_course = $course->get_meta_value_by_key( CoursePostModel::META_KEY_OFFLINE_COURSE, 'no' ) === 'yes';
+		}
+
 		add_meta_box(
 			'course-settings',
 			esc_html__( 'Course Settings', 'learnpress' ),
@@ -19,6 +34,17 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 			'normal',
 			'high'
 		);
+
+		if ( ! $is_enable_offline_course ) {
+			add_meta_box(
+				'course-editor',
+				esc_html__( 'Curriculum', 'learnpress' ),
+				array( $this, 'admin_editor' ),
+				$this->post_type,
+				'normal',
+				'high'
+			);
+		}
 	}
 
 	public function metabox( $post_id ) {
@@ -31,6 +57,13 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 					'icon'     => 'dashicons-admin-tools',
 					'priority' => 10,
 					'content'  => $this->general( $post_id ),
+				),
+				'offline'    => array(
+					'label'    => esc_html__( 'Offline Course', 'learnpress' ),
+					'target'   => 'offline_course_data',
+					'icon'     => 'dashicons-welcome-view-site',
+					'priority' => 10,
+					'content'  => $this->tab_offline( $post_id ),
 				),
 				'price'      => array(
 					'label'    => esc_html__( 'Pricing', 'learnpress' ),
@@ -78,20 +111,21 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 	}
 
 	public function general( $post_id ) {
+		$course                 = CourseModel::find( $post_id, true );
 		$repurchase_option_desc = sprintf( '1. %s', __( 'Reset course progress: The course progress and results of student will be removed.' ) );
 		$repurchase_option_desc .= '<br/>' . sprintf( '2. %s', __( 'Keep course progress: The course progress and results of student will remain.' ) );
 		$repurchase_option_desc .= '<br/>' . sprintf( '3. %s', __( 'Open popup: The student can decide whether their course progress will be reset with the confirm popup.' ) );
+		$max_students_desc      = esc_html__( 'The maximum number of students that can join a course. Set 0 for unlimited.', 'learnpress' );
+		$max_students_desc      .= '<br/>' . esc_html__( 'Not apply for case "No enroll requirement".', 'learnpress' );
 
-		$is_enable_allow_course_repurchase = get_post_meta( $post_id, '_lp_allow_course_repurchase', true ) === 'yes';
+		$is_enable_allow_course_repurchase = false;
+		if ( $course instanceof CourseModel ) {
+			$is_enable_allow_course_repurchase = $course->get_meta_value_by_key( CoursePostModel::META_KEY_ALLOW_COURSE_REPURCHASE, 'no' ) === 'yes';
+		}
 
 		return apply_filters(
 			'lp/course/meta-box/fields/general',
 			array(
-				/*'_lp_offline_course'                 => new LP_Meta_Box_Checkbox_Field(
-					esc_html__( 'Enable offline course', 'learnpress' ),
-					esc_html__( 'Set to 0 for the lifetime access.', 'learnpress' ),
-					'no'
-				),*/
 				'_lp_duration'                 => new LP_Meta_Box_Duration_Field(
 					esc_html__( 'Duration', 'learnpress' ),
 					esc_html__( 'Set to 0 for the lifetime access.', 'learnpress' ),
@@ -124,12 +158,12 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 					$repurchase_option_desc,
 					'reset',
 					array(
-						'options' => array(
+						'options'    => array(
 							'reset' => esc_html__( 'Reset course progress', 'learnpress' ),
 							'keep'  => esc_html__( 'Keep course progress', 'learnpress' ),
 							'popup' => esc_html__( 'Open popup', 'learnpress' ),
 						),
-						'dependency'        => [
+						'dependency' => [
 							'name'       => '_lp_allow_course_repurchase',
 							'is_disable' => ! $is_enable_allow_course_repurchase
 						],
@@ -159,7 +193,7 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 				),
 				'_lp_max_students'             => new LP_Meta_Box_Text_Field(
 					esc_html__( 'Max student', 'learnpress' ),
-					esc_html__( 'The maximum number of students that can join a course. Set 0 for unlimited.', 'learnpress' ),
+					$max_students_desc,
 					0,
 					array(
 						'type_input'        => 'number',
@@ -205,7 +239,82 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 						'desc_tip' => 'You can apply for case: user register form.<br> You accept for user can learn courses by add manual order on backend',
 					)
 				),
-			)
+			),
+			$post_id
+		);
+	}
+
+	/**
+	 * Tab setting offline course
+	 *
+	 * @param $post_id
+	 *
+	 * @return array
+	 * @since 4.2.7
+	 * @version 1.0.0
+	 */
+	public function tab_offline( $post_id ): array {
+		$course = CourseModel::find( $post_id, true );
+
+		$is_offline_course = false;
+		if ( $course instanceof CourseModel ) {
+			$is_offline_course = $course->is_offline();
+		}
+
+		return apply_filters(
+			'lp/course/meta-box/fields/offline',
+			array(
+				CoursePostModel::META_KEY_OFFLINE_COURSE       => new LP_Meta_Box_Checkbox_Field(
+					esc_html__( 'Enable offline course', 'learnpress' ),
+					esc_html__(
+						'When you enable the offline course feature, the system will disable certain online course functions,
+						such as curriculum, finish button, re-take course, block content, repurchase.
+						After checking the checkbox, make sure to click the "Update" button to apply the changes successfully.',
+						'learnpress'
+					),
+					'no'
+				),
+				CoursePostModel::META_KEY_OFFLINE_LESSON_COUNT => new LP_Meta_Box_Text_Field(
+					esc_html__( 'Lessons', 'learnpress' ),
+					esc_html__( 'Total lessons of the course.', 'learnpress' ),
+					10,
+					[
+						'type_input'        => 'number',
+						'custom_attributes' => array(
+							'min'  => '0',
+							'step' => '1',
+						),
+						'dependency'        => [
+							'name'       => '_lp_offline_course',
+							'is_disable' => ! $is_offline_course
+						],
+					]
+				),
+				CoursePostModel::META_KEY_DELIVER              => new LP_Meta_Box_Select_Field(
+					esc_html__( 'Deliver Type', 'learnpress' ),
+					esc_html__( 'How your content is conveyed to students.', 'learnpress' ),
+					'private_1_1',
+					[
+						'options'    => Config::instance()->get( 'course-deliver-type' ),
+						'dependency' => [
+							'name'       => '_lp_offline_course',
+							'is_disable' => ! $is_offline_course
+						],
+					]
+				),
+				CoursePostModel::META_KEY_ADDRESS              => new LP_Meta_Box_Text_Field(
+					esc_html__( 'Address', 'learnpress' ),
+					esc_html__( 'You can enter the physical address of your class or specify the meeting method (e.g., Zoom, Google Meet, etc.).', 'learnpress' ),
+					'',
+					[
+						'dependency' => [
+							'name'       => '_lp_offline_course',
+							'is_disable' => ! $is_offline_course
+						],
+					]
+				),
+			),
+			$post_id
 		);
 	}
 
@@ -273,7 +382,7 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 					array(
 						'wrapper_class' => 'lp_sale_start_dates_fields',
 						'placeholder'   => _x( 'From&hellip;', 'placeholder', 'learnpress' ),
-						'dependency'        => [
+						'dependency'    => [
 							'name'       => '_lp_no_required_enroll',
 							'is_disable' => $is_enable_no_required_enroll
 						],
@@ -287,7 +396,7 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 						'wrapper_class' => 'lp_sale_end_dates_fields',
 						'placeholder'   => _x( 'To&hellip;', 'placeholder', 'learnpress' ),
 						'cancel'        => true,
-						'dependency'        => [
+						'dependency'    => [
 							'name'       => '_lp_no_required_enroll',
 							'is_disable' => $is_enable_no_required_enroll
 						],
@@ -298,7 +407,8 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 					esc_html__( 'Students can see the content of all course items and take the quiz without logging in.', 'learnpress' ),
 					'no'
 				),
-			)
+			),
+			$post_id
 		);
 	}
 
@@ -385,6 +495,10 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 		$course_results     = get_post_meta( $thepostid, '_lp_course_result', true );
 
 		$course_result_desc .= __( 'The method of evaluating a student\'s performance in a course.', 'learnpress' );
+		$course_result_desc .= sprintf(
+			'<br/><i style="color: red">%s</i>',
+			__( 'Note: changing the evaluation type will affect the assessment results of student learning.', 'learnpress' )
+		);
 
 		if ( $course_results == 'evaluate_final_quiz' && ! get_post_meta( $thepostid, '_lp_final_quiz', true ) ) {
 			$course_result_desc .= __( '<br /><strong>Note! </strong>There is no final quiz in the course. Please add a final quiz.', 'learnpress' );
@@ -542,6 +656,15 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 		</div>
 
 		<?php
+	}
+
+	/**
+	 * Template Editor Curriculum.
+	 *
+	 * @return void
+	 */
+	public function admin_editor() {
+		learn_press_admin_view( 'course/editor' );
 	}
 
 	/*public function save( $post_id ) {

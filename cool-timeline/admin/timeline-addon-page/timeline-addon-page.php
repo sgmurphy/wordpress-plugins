@@ -350,6 +350,7 @@ if ( ! class_exists( 'cool_plugins_timeline_addons' ) ) {
 				'cool-timeline-pro'                       => 'cool-timeline-pro.png',
 				'timeline-block'                          => 'timeline-block.png',
 				'timeline-builder-pro'                    => 'timeline-builder-pro.png',
+				'timeline-module-for-divi'                => 'timeline-module-for-divi.png',
 			);
 			if ( isset( $logos_arr[ $slug ] ) ) {
 				return $logo_url = CTL_PLUGIN_URL . 'admin/timeline-addon-page/assets/images/' . $logos_arr[ $slug ];

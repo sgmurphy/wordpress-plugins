@@ -17,9 +17,7 @@
 			data: { action: 'cpsw_onboarding_install_woocommerce', security: onboarding_vars.cpsw_onboarding_install_woocommerce },
 			success( response ) {
 				if ( response.success === true ) {
-					window.location.replace(
-						onboarding_vars.base_url,
-					);
+					window.location.href = onboarding_vars.base_url;
 				}
 			},
 			error() {

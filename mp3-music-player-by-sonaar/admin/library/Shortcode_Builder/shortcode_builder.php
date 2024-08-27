@@ -1101,22 +1101,22 @@ class SRMP3_ShortcodeBuilder {
                 </div>
                 <div id="shortcode-import-from-library-bt" class="srmp3-bt-shortcode-ui">
                 <span class="dashicons dashicons-format-gallery"></span><a href="' . admin_url( 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=srmp3-import-shortcode-templates' ) . '" target="_self">
-                '  . esc_html('Browse Library', 'sonaar-music') . '</a></div>
+                '  . esc_html__('Browse Library', 'sonaar-music') . '</a></div>
                 <div id="shortcode-import-open-textarea-bt" class="srmp3-bt-shortcode-ui">
                     <span class="dashicons dashicons-download"></span>
-                    '  . esc_html('Import', 'sonaar-music') . '</div>
+                    '  . esc_html__('Import', 'sonaar-music') . '</div>
                 <div id="shortcode-export-template-bt" class="srmp3-bt-shortcode-ui">
                     <span class="dashicons dashicons-upload"></span>
-                    <span class="export-text">'  . esc_html('Export', 'sonaar-music'). '</span>
+                    <span class="export-text">'  . esc_html__('Export', 'sonaar-music'). '</span>
                 </div>
                 <div id="shortcode-delete-template-bt" class="srmp3-bt-shortcode-ui">
                     <span class="dashicons dashicons-trash"></span>
-                    '  .  esc_html('Delete template', 'sonaar-music'). '
+                    '  .  esc_html__('Delete template', 'sonaar-music'). '
                 </div>
         
                 <div id="shortcode-import-container" style="display:none;">
-                    <textarea id="shortcode-import-textarea" placeholder="' . esc_html('Paste your template to import here', 'sonaar-music') . '"></textarea><br>
-                    <button id="shortcode-import-template-bt">' . esc_html('Import', 'sonaar-music') . '</button>
+                    <textarea id="shortcode-import-textarea" placeholder="' . esc_html__('Paste your template to import here', 'sonaar-music') . '"></textarea><br>
+                    <button id="shortcode-import-template-bt">' . esc_html__('Import', 'sonaar-music') . '</button>
                 </div>',
             'id'   => 'save_template_name',
             'type' => 'text_medium',

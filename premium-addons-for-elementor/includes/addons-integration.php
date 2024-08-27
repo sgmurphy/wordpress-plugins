@@ -34,7 +34,7 @@ class Addons_Integration {
 	 */
 	private static $instance = null;
 
-    /**
+	/**
 	 * CSS Content
 	 *
 	 * @var css_content
@@ -171,7 +171,7 @@ class Addons_Integration {
 			wp_send_json_error( 'Post has no title.' );
 		}
 
-        if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( 'Insufficient user permission' );
 		}
 
@@ -202,7 +202,7 @@ class Addons_Integration {
 			wp_send_json_error( 'template ID is not set' );
 		}
 
-        if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( 'Insufficient user permission' );
 		}
 
@@ -367,22 +367,21 @@ class Addons_Integration {
 			);
 		}
 
-        $time_limit = ini_get( 'max_execution_time' );
+		$time_limit = ini_get( 'max_execution_time' );
 
-        if( $time_limit < 300 ) {
+		if ( $time_limit < 300 ) {
 
-            $link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/fix-elementor-editor-panel-loading-issues/', 'editor-page', 'wp-editor', 'panel-issues' );
+			$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/fix-elementor-editor-panel-loading-issues/', 'editor-page', 'wp-editor', 'panel-issues' );
 
-            wp_localize_script(
+			wp_localize_script(
 				'pa-eq-editor',
 				'PremiumEditorLink',
-                array(
-                    $link
-                ),
+				array(
+					$link,
+				),
 			);
 
-        }
-
+		}
 
 		wp_localize_script(
 			'pa-eq-editor',
@@ -539,15 +538,7 @@ class Addons_Integration {
 			'all'
 		);
 
-		// wp_register_style(
-		// 	'premium-woo-cta',
-		// 	PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/premium-woo-cta' . $suffix . '.css',
-		// 	array(),
-		// 	PREMIUM_ADDONS_VERSION,
-		// 	'all'
-		// );
-
-        $assets_gen_enabled = self::$modules['premium-assets-generator'] ? true : false;
+		$assets_gen_enabled = self::$modules['premium-assets-generator'] ? true : false;
 
 		$type = get_post_type();
 
@@ -656,6 +647,7 @@ class Addons_Integration {
 							'qv_nonce'       => wp_create_nonce( 'pa-woo-qv-nonce' ),
 							'cta_nonce'      => wp_create_nonce( 'pa-woo-cta-nonce' ),
 							'woo_cart_url'   => get_permalink( wc_get_page_id( 'cart' ) ),
+							'view_cart'      => __( 'View cart', 'woocommerce' ),
 						)
 					);
 
@@ -1065,8 +1057,9 @@ class Addons_Integration {
 				'premium-woo-cta',
 				'PremiumWooSettings',
 				array(
-					'ajaxurl'        => esc_url( admin_url( 'admin-ajax.php' ) ),
-					'cta_nonce'      => wp_create_nonce( 'pa-woo-cta-nonce' ),
+					'ajaxurl'   => esc_url( admin_url( 'admin-ajax.php' ) ),
+					'cta_nonce' => wp_create_nonce( 'pa-woo-cta-nonce' ),
+					'view_cart' => __( 'View cart', 'woocommerce' ),
 				)
 			);
 
@@ -1079,6 +1072,7 @@ class Addons_Integration {
 					'qv_nonce'       => wp_create_nonce( 'pa-woo-qv-nonce' ),
 					'cta_nonce'      => wp_create_nonce( 'pa-woo-cta-nonce' ),
 					'woo_cart_url'   => get_permalink( wc_get_page_id( 'cart' ) ),
+					'view_cart'      => __( 'View cart', 'woocommerce' ),
 				)
 			);
 

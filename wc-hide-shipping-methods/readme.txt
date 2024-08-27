@@ -4,7 +4,7 @@ Contributors: rynald0s, riaanknoetze
 Tags: woocommerce, free shipping, local pickup, hide, hide shipping methods, hide shipping rates, force free shipping, hide other shipping methods, disable other shipping, keep local pickup
 Requires at least: 6.5.0
 Tested up to: 6.5
-Stable tag: 1.7
+Stable tag: 1.8
 WC requires at least: 3.9.4
 WC tested up to: 8.1
 License: GPLv3 or later License
@@ -22,6 +22,7 @@ Key features:
 - Option to keep "Local Pickup" available with "Free Shipping".
 - Easy integration with WooCommerce settings.
 - Compatible with WooCommerce shipping zones.
+- Compatible with both classic and modern block-based checkout methods (i.e. Gutenberg & WooCommerce blocks).
 
 == Installation ==
 
@@ -39,15 +40,22 @@ Key features:
 A: Yes, the plugin is fully compatible with WooCommerce's shipping zones feature.
 
 = Q: Where can I go if I find an issue or want to recommend a feature? =
-A: You can submit issues or feature requests on the [Public GitHub Repository](https://github.com/rynaldos/wc-hide-shipping-methods-free).
+A: You can submit issues or feature requests on the [Public GitHub Repository](https://github.com/riaanknoetze/wc-hide-shipping-methods-free/issues).
 
 == Screenshots ==
 
 1. Plugin settings.
 2. Checkout showing only "Free Shipping".
-3. Checkout showing "Free Shipping" and "Local Pickup".
 
 == Changelog ==
+
+= 1.8 =
+* New - Refactor code to use classes [#2](https://github.com/RiaanKnoetze/wc-hide-shipping-methods/issues/2)
+* New - Add admin dependency notice when WooCommerce is disabled [#8](https://github.com/RiaanKnoetze/wc-hide-shipping-methods/issues/8)
+* New - Add plugin action links for easy access to settings page [#1](https://github.com/RiaanKnoetze/wc-hide-shipping-methods/issues/1)
+* Fix - Display all free shipping methods instead of just the first matched one [#3](https://github.com/RiaanKnoetze/wc-hide-shipping-methods/issues/3)
+* Tweak - Add fallback values when checking plugin options [#2](https://github.com/RiaanKnoetze/wc-hide-shipping-methods/issues/7)
+* Tweak - Add Local Pickup compatibility notice [#9](https://github.com/RiaanKnoetze/wc-hide-shipping-methods/issues/9)
 
 = 1.7 =
 * New - Add HPOS compatibility

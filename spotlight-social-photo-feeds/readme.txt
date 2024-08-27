@@ -1,11 +1,11 @@
-=== Spotlight Social Feeds [Block, Shortcode, and Widget] ===
+=== Spotlight Social Feeds - Block, Shortcode, and Widget ===
 
 Contributors: RebelCode, spotlightsocialfeeds, markzahra, Mekku, jeangalea, gabygalea
 Plugin URI: https://spotlightwp.com
 Tags: Instagram, Instagram feed, Instagram feeds, Instagram block, Instagram embed, social media, social media feed, Instagram widget, link in bio, Instagram gallery, shoppable Instagram, hashtag feed
 Requires at least: 5.7
 Requires PHP: 7.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.6.13
 License: GPLv3
 

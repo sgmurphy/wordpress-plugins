@@ -4,7 +4,7 @@ Tags: cache, minify, pagespeed, seo, cdn, wordpress cache, website cache, lazy l
 Requires at least: 4.7
 Tested up to: 6.6
 Requires PHP: 7.3
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -129,9 +129,6 @@ Data cleanup cleans the database by removing the following data:-
 5. All Transient options
 6. Expired Transient Options
 
-== Credits ==
-SpeedyCache version 1.1.9 and below was a forked software from WP Fastest Cache [https://wordpress.org/plugins/wp-fastest-cache/](https://wordpress.org/plugins/wp-fastest-cache/). SpeedyCache 1.2.0 is a new software written from scratch.
-
 == Frequently Asked Questions ==
 
 = How to install SpeedyCache =
@@ -151,6 +148,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 4. SpeedyCache Exclude page
 
 == Changelog ==
+
+= 1.2.1 (27th August 2024) =
+* [Improvement] Cache purge on post status change has been improved.
+* [Bug-Fix] There was an issue with htaccess rule in case the admin username had a space.
+* [Bug-Fix] There was an issue in which user was unable to open SpeedyCache settings page, that has been fixed.
+* [Bug-Fix] There was an issue with serving Mobile specific cache that has been fixed.
 
 = 1.2.0 (23nd August 2024) =
 * [Improvement] The UI has been improved, by reducing some unnecessary options or making them default.

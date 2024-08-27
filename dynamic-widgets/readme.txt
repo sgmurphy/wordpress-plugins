@@ -1,8 +1,8 @@
 === Dynamic Widgets ===
 Contributors: vivwebs, Qurl
-Tags: widget, dynamic, sidebar, custom, rules, logic, display, condition, conditional content, hide, show
+Tags: widget, dynamic, rules, logic, condition
 Tested up to: 6.4
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 
 Dynamic Widgets gives you full control on which pages a widget will display. It lets you dynamicly show or hide widgets on WordPress pages.
 
@@ -176,6 +176,10 @@ Since version 3.8, WPEC uses the by WordPress provided Custom Post Types and Cus
 
 == Changelog ==
 
+= Version 1.6.4 =
+
+* Reduced number of tags
+* Removed @version $Id
 
 = Version 1.6.3 =
 

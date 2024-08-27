@@ -16,7 +16,7 @@
  * Plugin Name:       Secure Copy Content Protection
  * Plugin URI:        https://ays-pro.com/wordpress/secure-copy-content-protection/
  * Description:       Copy Protection plugin is activated it disables the right click, copy paste, content selection and copy shortcut keys
- * Version:           4.2.1
+ * Version:           4.2.2
  * Author:            Copy Content Protection Team
  * Author URI:        https://ays-pro.com/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('SCCP_NAME_VERSION', '4.2.1');
+define('SCCP_NAME_VERSION', '4.2.2');
 define('SCCP_NAME', 'secure-copy-content-protection');
 if (!defined('SCCP_ADMIN_URL')) {
 	define('SCCP_ADMIN_URL', plugin_dir_url(__FILE__) . 'admin');
@@ -117,8 +117,7 @@ function sccp_admin_notice() {
                         </div>
                         <div class="ays-upgrade-container">
                             <a href="https://ays-pro.com/wordpress/secure-copy-content-protection?utm_source=dashboard-sccp&utm_medium=free-sccp&utm_campaign=top-menu-sccp" target="_blank">
-                                <img src="<?php echo esc_attr(SCCP_ADMIN_URL) . '/images/icons/lightning.svg'; ?>">
-                                <img src="<?php echo esc_attr(SCCP_ADMIN_URL) . '/images/icons/lightning-hover.svg'; ?>" class= "ays-svg-light-hover">
+                                <img src="<?php echo esc_attr(SCCP_ADMIN_URL) . '/images/icons/lightning-hover.svg'; ?>">
                                 <span><?php echo __( "Upgrade", SCCP_NAME ); ?></span>
                             </a>
                             <span class="ays-sccp-logo-container-one-time-text"><?php echo __( "One-time payment", 'secure-copy-content-protection' ); ?></span>

@@ -150,11 +150,11 @@ class OptimizerCache
             $file = 'default.php';
             $phpcode = file_get_contents(TENWEB_SO_PLUGIN_DIR . 'config/' . $file);
             $phpcode = str_replace(['%%CONTENT%%', 'exit;'], [$mime, ''], $phpcode);
-            file_put_contents($this->cachedir . $this->filename, $phpcode); // phpcs:ignore
-            file_put_contents($this->cachedir . $this->filename . '.none', $data); // phpcs:ignore
+            @file_put_contents($this->cachedir . $this->filename, $phpcode); // phpcs:ignore
+            @file_put_contents($this->cachedir . $this->filename . '.none', $data); // phpcs:ignore
         } else {
             // Write code to cache without doing anything else.
-            file_put_contents($this->cachedir . $this->filename, $data); // phpcs:ignore
+            @file_put_contents($this->cachedir . $this->filename, $data); // phpcs:ignore
         }
 
         if (!empty($this->hashes)) {
@@ -169,7 +169,7 @@ class OptimizerCache
                 $oldData = [];
             }
             $oldData[$this->filename] = ['media' => $this->media, 'hashes' => $this->hashes];
-            file_put_contents($cacheFile, json_encode($oldData)); // phpcs:ignore
+            @file_put_contents($cacheFile, json_encode($oldData)); // phpcs:ignore
         }
     }
 

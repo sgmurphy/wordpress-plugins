@@ -305,9 +305,9 @@ class Gf_Stla_Review {
 		<script type="text/javascript">
 			(function ($) {
 				var trigger = {
-					group: '<?php echo esc_html( $group ); ?>',
-					code: '<?php echo esc_html( $code ); ?>',
-					pri: '<?php echo esc_html( $pri ); ?>'
+					group: '<?php echo wp_kses_post( $group ); ?>',
+					code: '<?php echo wp_kses_post( $code ); ?>',
+					pri: '<?php echo wp_kses_post( $pri ); ?>'
 				};
 
 				function dismiss(reason) {
@@ -396,7 +396,7 @@ class Gf_Stla_Review {
 			<p>
 				<img class="logo" src="<?php echo esc_url( GF_STLA_URL ); ?>/admin-menu/images/icon.png" />
 				<strong>
-					<?php echo esc_html( $trigger['message'] ); ?>
+					<?php echo wp_kses_post( $trigger['message'] ); ?>
 					-WpMonks
 				</strong>
 			</p>

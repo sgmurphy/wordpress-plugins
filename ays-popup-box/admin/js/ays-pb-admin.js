@@ -685,6 +685,12 @@
         });
         // Close cache note start
 
+        // Options accordion effect start
+        $(document).on('click', '.ays-pb-accordion-arrow-box', function() {
+            toggleOptionsAccordion($(this));
+        });
+        // Options accordion effect end
+
         // Toggle mobile settings start
         $(document).find('.ays_pb_different_settings_for_mobile').on('change', toggleMobileSettings);
         $(document).find('.ays_pb_option_for_desktop, .ays_pb_option_for_mobile_device_cb').on('click', toggleMobileSettingsCb);
@@ -1884,6 +1890,15 @@
                 warningNoteContainer.fadeOut('slow');
             }
         });
+    }
+
+    function toggleOptionsAccordion(arrowBtn) {
+        var arrowSvg = arrowBtn.find('svg');
+        var accordionMainContainer = arrowBtn.parents('.ays-pb-accordion-options-main-container');
+        var accordionBody = accordionMainContainer.find('.ays-pb-accordion-body');
+
+        arrowSvg.toggleClass('ays-pb-accordion-arrow-active');
+        accordionBody.slideToggle();
     }
 
     function toggleMobileSettings() {

@@ -84,6 +84,7 @@ class WPDN_Ajax {
 			'visibility' => sanitize_text_field( $_POST['note_visibility'] ),
 			'note_type'  => sanitize_text_field( $_POST['note_type'] ),
 		);
+
 		update_post_meta( $post_id, '_note', $note_meta );
 
 		die();
@@ -127,8 +128,8 @@ class WPDN_Ajax {
 
 		?>
 		<style>
-			#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_meta['color']; ?>; }
-			#note_<?php echo $note->ID; ?> .hndle { border: none; }
+			#note_<?php echo absint( $note->ID ); ?> { background-color: <?php echo esc_attr( $note_meta['color'] ); ?>; }
+			#note_<?php echo absint( $note->ID ); ?> .hndle { border: none; }
 		</style>
 		<?php
 		if ( $_POST['note_type'] == 'regular' ) :

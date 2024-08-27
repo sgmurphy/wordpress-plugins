@@ -34,7 +34,7 @@ use CPSW\Gateway\BlockSupport\Sepa_Payments;
 use CPSW\Gateway\BlockSupport\Wechat_Payments;
 use CPSW\Gateway\BlockSupport\P24_Payments;
 use CPSW\Gateway\BlockSupport\Bancontact_Payments;
-
+use CPSW\Inc\Notice;
 
 /**
  * CPSW_Loader
@@ -173,8 +173,9 @@ class CPSW_Loader {
 	public function load_classes() {
 		// Initializing Onboarding.
 		Onboarding::get_instance();
+		Notice::get_instance();
 		if ( ! class_exists( 'woocommerce' ) ) {
-			add_action( 'admin_notices', [ $this, 'wc_is_not_active' ] );
+			Notice::add_custom( 'inactive_wc_notice', 'notice-error', $this->wc_is_not_active(), true );
 			return;
 		}
 		// Initializing Gateways.
@@ -196,7 +197,7 @@ class CPSW_Loader {
 	/**
 	 * Loads classes on plugins_loaded hook.
 	 *
-	 * @return void
+	 * @return string
 	 * @since 1.0.0
 	 */
 	public function wc_is_not_active() {
@@ -210,10 +211,11 @@ class CPSW_Loader {
 			),
 			'install-plugin_woocommerce'
 		);
-		echo '<div class="notice notice-error is-dismissible"><p>';
+		$output      = '<p>';
 		// translators: 1$-2$: opening and closing <strong> tags, 3$-4$: link tags, takes to woocommerce plugin on wp.org, 5$-6$: opening and closing link tags, leads to plugins.php in admin.
-		echo sprintf( esc_html__( '%1$sCheckout Plugins - Stripe for WooCommerce is currently inactive.%2$s The %3$sWooCommerce plugin%4$s must be active for Checkout Plugins - Stripe for WooCommerce to work. Please %5$sinstall & activate WooCommerce &raquo;%6$s', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . esc_url( $install_url ) . '">', '</a>' );
-		echo '</p></div>';
+		$output .= sprintf( esc_html__( '%1$sCheckout Plugins - Stripe for WooCommerce is currently inactive.%2$s The %3$sWooCommerce plugin%4$s must be active for Checkout Plugins - Stripe for WooCommerce to work. Please %5$sinstall & activate WooCommerce &raquo;%6$s', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . esc_url( $install_url ) . '">', '</a>' );
+		$output .= '</p>';
+		return $output;
 	}
 
 	/**

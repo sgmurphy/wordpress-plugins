@@ -931,6 +931,34 @@ class Admin_Helper {
 		return $pa_elements;
 	}
 
+    /**
+	 * Get Info By Key
+     *
+     * Returns elements by its key
+	 *
+	 * @since 4.10.49
+	 * @access public
+	 *
+	 * @return array
+	 */
+	public static function get_info_by_key( $key ) {
+
+		$elements = self::get_elements_list()['cat-1']['elements'];
+
+        $element = false;
+
+        foreach ( $elements as $elem ) {
+
+            if( $key === $elem['name'] ) {
+                $element = $elem;
+                break;
+            }
+
+        }
+
+		return $element;
+	}
+
 	/**
 	 * Get Global Elements Switchers.
 	 * Construct an associative array of addon_switcher => 'yes' pairs

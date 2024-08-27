@@ -1,9 +1,7 @@
 <?php
-if(isset($_COOKIE['__smUser'])){
-    $sumomeStatus = 'status-logged-in';
-}else{
-    $sumomeStatus = 'status-logged-out';
-}
+$sumomeStatus = (isset($_COOKIE['__smUser']) && !is_null($_COOKIE['__smUser']))
+    ? 'status-logged-in'
+    : 'status-logged-out';
 ?>
 
 <div class="sumome-plugin-container">

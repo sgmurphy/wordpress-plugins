@@ -1,5 +1,3 @@
-/* Default Css*/
-
 [class*="elementor-widget-htmega-"] h1 a,
 [class*="elementor-widget-htmega-"] h2 a,
 [class*="elementor-widget-htmega-"] h3 a,
@@ -6998,9 +6996,6 @@ ul.htmega-testimonial-rating * {
       margin-top: 0;
       z-index: 5;
   }
-  .htmega-instragram-style-2 a.instagram_follow_btn i{
-    /* display: none; */
-  }
   
   /*Instagram Style 03*/
   .htmega-instragram-style-3 ul li {
@@ -7844,11 +7839,7 @@ ul.htmega-testimonial-rating * {
     float: left;
     /* margin-top: 5px; */
   }
-  
-  .htmega-tab-nav a i,.htmega-tab-nav a svg{
-    /* margin-right: 10px; */
-  }
-  
+    
   .htmega-tab-nav a.htb-active {
       background: #575757;
       color: #fff;

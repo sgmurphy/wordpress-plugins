@@ -111,13 +111,7 @@ class WP_Plugin_SumoMe
             }
         </script>
         <?php
-        echo sprintf(
-            '<textarea type="text" name="%s" id="%s" class="sumome-site-id">%s</textarea><button onclick="%s" class="button">Get New Site ID</button>',
-            esc_attr($field),
-            esc_attr($field),
-            esc_textarea($value),
-            esc_js('sumome_generate_site_id(); return false;')
-        );
+        echo sprintf('<textarea type="text" name="%s" id="%s" class="sumome-site-id" />%s</textarea><button onclick="sumome_generate_site_id(); return false;" class="button">Get New Site ID</button>', $field, $field, esc_attr($value));
     }
 
     public function check_generate_site_id(){
@@ -218,7 +212,7 @@ class WP_Plugin_SumoMe
         $site_id = get_option('sumome_site_id');
 
         if($site_id){
-            echo("<script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='" . esc_attr($site_id) . "';j.dataset.sumoPlatform='" . esc_js($this->dataSumoPlatform) . "';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumome.com/');</script>");
+            echo("<script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='" . esc_attr($site_id) . "';j.dataset.sumoPlatform='" . $this->dataSumoPlatform . "';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumome.com/');</script>");
         }
     }
 
@@ -233,7 +227,7 @@ class WP_Plugin_SumoMe
 
         if($site_id){
             include(SUMOME__PLUGIN_DIR . '/js/preload.php');
-            echo("<script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='" . esc_attr($site_id) . "';j.dataset.sumoPlatform='" . esc_attr($this->dataSumoPlatform) . "';j.dataset.sumoMode='admin';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumome.com/');</script>");
+            echo("<script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='" . esc_attr($site_id) . "';j.dataset.sumoPlatform='" . $this->dataSumoPlatform . "';j.dataset.sumoMode='admin';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumome.com/');</script>");
         }
     }
 
@@ -260,7 +254,7 @@ class WP_Plugin_SumoMe
      * Renders the SumoMe statistics page with appropriate styles.
      */
     public function sumome_render_statistics_page(){
-        echo '<link rel="stylesheet" type="text/css" href="' . esc_url( plugins_url( 'styles/statistics.css', __DIR__) ) . '">';
+        print '<link rel="stylesheet" type="text/css" href="' . plugins_url('styles/statistics.css', __DIR__) . '">';
         include(SUMOME__PLUGIN_DIR . '/views/statistics.php');
         $this->sumome_plugin_only();
     }
@@ -275,7 +269,7 @@ class WP_Plugin_SumoMe
         <script>
             function sumo_logout_redirect() {
                 setTimeout(function () {
-                    document.location.href = '<?php echo esc_url(admin_url('admin.php?page=sumo')); ?>';
+                    document.location.href = '<?php print admin_url('admin.php?page=sumo')?>';
                 }, 500);
             }
         </script>
@@ -347,7 +341,7 @@ class WP_Plugin_SumoMe
         }
 
         include_once(SUMOME__PLUGIN_DIR . '/js/general.php');
-        echo '<div class="sumome-plugin-dashboard-widget ' . esc_attr($dashboardWidgetClass) . '"></div>';
+        echo '<div class="sumome-plugin-dashboard-widget ' . $dashboardWidgetClass . '"></div>';
         ?>
         <script>
             jQuery.post(ajaxurl, {action: 'sumome_dashboard_welcome'},
@@ -366,16 +360,12 @@ class WP_Plugin_SumoMe
     }
 
     public function ajax_sumo_add_woocommerce_coupon(){
-        check_ajax_referer('sumo_nonce', 'security');
-
         $code = $_POST['code'];
         WC()->cart->apply_coupon($code);
         wp_die();
     }
 
     public function ajax_sumo_remove_woocommerce_coupon(){
-        check_ajax_referer('sumo_nonce', 'security');
-
         //If the current logged-in user is an Administrator
         if(current_user_can('manage_options')){
             $code = $_POST['code'];
@@ -385,20 +375,19 @@ class WP_Plugin_SumoMe
     }
 
     public function ajax_sumo_get_woocommerce_cart_subtotal(){
-        echo wp_json_encode( wp_kses_post( WC()->cart->subtotal ) );
+        echo WC()->cart->subtotal;
         wp_die();
     }
 
     public function woocommerce_cart_scripts(){
         ?>
         <script type="application/javascript">
-            const ajaxURL = "<?php echo esc_url(admin_url('admin-ajax.php')); ?>";
+            const ajaxURL = "<?php echo admin_url('admin-ajax.php'); ?>";
 
             function sumo_add_woocommerce_coupon(code) {
                 jQuery.post(ajaxURL, {
                     action: 'sumo_add_woocommerce_coupon',
                     code: code,
-                    security: '<?php echo esc_js(wp_create_nonce("sumo_nonce")); ?>',
                 });
             }
 

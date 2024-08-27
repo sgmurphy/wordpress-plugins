@@ -128,7 +128,7 @@ class Ays_Pb_Admin {
 
         $pb_ajax_data = array(
             'ajax' => admin_url('admin-ajax.php'),
-            'post_types' => $all_post_types,   
+            'post_types' => $all_post_types,
             'nextPopupPage' => __( 'Are you sure you want to go to the next popup page?', "ays-popup-box"),
             'prevPopupPage' => __( 'Are you sure you want to go to the previous popup page?', "ays-popup-box"),
             'AYS_PB_ADMIN_URL' => AYS_PB_ADMIN_URL,
@@ -138,10 +138,10 @@ class Ays_Pb_Admin {
             'addImage' => __( "Add Image", "ays-popup-box" ),
             'editImage' => __( "Edit Image", "ays-popup-box" ),
             'pleaseEnterMore' => __( "Please select more", "ays-popup-box" ),
+            'loadResource' => __( "Can't load resource.", "ays-popup-box" ),
             'errorMsg' => __( "Error", "ays-popup-box" ),
             'somethingWentWrong' => __( "Maybe something went wrong.", "ays-popup-box" ),
             'activated' => __( "Activated", "ays-popup-box" ),
-            'loadResource' => __( "Can't load resource.", "ays-popup-box" ),
             'pbBannerDate' => $pb_banner_date,
         );
 
@@ -163,8 +163,8 @@ class Ays_Pb_Admin {
 		wp_enqueue_script( $this->plugin_name . '-bootstrap', plugin_dir_url(__FILE__) . '/js/bootstrap.min.js', array( 'jquery' ), $this->version, true );
         wp_enqueue_script( $this->plugin_name . '-select2', plugin_dir_url(__FILE__) . '/js/select2.min.js', array('jquery'), $this->version, true );
         wp_enqueue_script( $this->plugin_name . '-sweetalert', plugin_dir_url(__FILE__) . '/js/ays-pb-sweetalert2.all.min.js', array('jquery'), $this->version, true );
-        wp_enqueue_script( $this->plugin_name . '-jquery.datetimepicker', plugin_dir_url( __FILE__ ) . 'js/jquery-ui-timepicker-addon.js', array( 'jquery' ), $this->version, true );
-        wp_enqueue_script( $this->plugin_name . '-wp-color-picker-alpha', plugin_dir_url( __FILE__ ) . 'js/wp-color-picker-alpha.min.js',array( 'wp-color-picker' ),$this->version, true );
+        wp_enqueue_script( $this->plugin_name . '-jquery.datetimepicker', plugin_dir_url(__FILE__) . 'js/jquery-ui-timepicker-addon.js', array( 'jquery' ), $this->version, true );
+        wp_enqueue_script( $this->plugin_name . '-wp-color-picker-alpha', plugin_dir_url(__FILE__) . 'js/wp-color-picker-alpha.min.js',array( 'wp-color-picker' ),$this->version, true );
         wp_enqueue_script( $this->plugin_name . '-dropdown-min', plugin_dir_url(__FILE__) . '/js/dropdown.min.js', array('jquery'), $this->version, true );
         wp_enqueue_script( $this->plugin_name . '-transition-min', plugin_dir_url(__FILE__) . '/js/transition.min.js', array('jquery'), $this->version, true );
         wp_localize_script( $this->plugin_name . '-wp-color-picker-alpha', 'wpColorPickerL10n', $color_picker_strings );
@@ -175,8 +175,8 @@ class Ays_Pb_Admin {
         wp_enqueue_script( $this->plugin_name . 'custom-dropdown-adapter', plugin_dir_url( __FILE__ ) . 'js/ays-select2-dropdown-adapter.js', array('jquery'), $this->version, true );
         wp_localize_script( $this->plugin_name, 'pb', $pb_ajax_data );
 
-        if( Ays_Pb_Data::ays_version_compare( $wp_version, '>=', '5.5' ) ){
-            wp_enqueue_script( $this->plugin_name . 'ays-wp-load-scripts', plugin_dir_url(__FILE__) . 'js/ays-wp-load-scripts.js', array(), $this->version, true );
+        if (Ays_Pb_Data::ays_version_compare($wp_version, '>=', '5.5')) {
+            wp_enqueue_script( $this->plugin_name . '-wp-load-scripts', plugin_dir_url(__FILE__) . 'js/ays-wp-load-scripts.js', array(), $this->version, true );
         }
 	}
 

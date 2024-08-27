@@ -802,12 +802,16 @@
 						$( '.woocommerce-error' ).remove();
 						wcCheckoutForm.unblock();
 						logError( result.error );
+						let errorMessage = result.error?.message;
 						let errorCode = result.error?.code;
 
 						if ( 'card_declined' === errorCode ) {
 							errorCode = result.error?.decline_code;
 						}
-						$( '.woocommerce-notices-wrapper:first-child' ).html( '<div class="woocommerce-error cpsw-errors">' + getStripeLocalizedMessage( errorCode, result.error.message ) + '</div>' ).show();
+
+						errorMessage = errorMessage?.replace( new RegExp( '`billing_details\\[address\\]\\[country\\]`', 'g' ), 'Billing country' );
+
+						$( '.woocommerce-notices-wrapper:first-child' ).html( '<div class="woocommerce-error cpsw-errors">' + getStripeLocalizedMessage( errorCode, errorMessage ) + '</div>' ).show();
 						window.scrollTo( { top: 0, behavior: 'smooth' } );
 						wcCheckoutForm.removeClass( 'processing' );
 					}

@@ -1607,8 +1607,17 @@ class Cartflows_Checkout_Markup {
 			return $message;
 		}
 
-		$message = "<span class='wcf-shipping-tooltip'><span class='dashicons dashicons-editor-help'></span><span class='wcf-tooltip-msg'>" . $message . '</span></span>';
+		$flow_id                         = wcf()->utils->get_flow_id_from_step_id( $checkout_id );
+		$enabled_custom_shipping_message = wcf()->options->get_flow_meta_value( $flow_id, 'enable-custom-no-shipping-method-message' );
 
+		if ( 'yes' === $enabled_custom_shipping_message ) {
+			$custom_shipping_message = wcf()->options->get_flow_meta_value( $flow_id, 'custom-no-shipping-method-message' );
+
+			$message = ! empty( $custom_shipping_message ) ? $custom_shipping_message : $message;
+
+		} else {
+			$message = "<span class='wcf-shipping-tooltip'><span class='dashicons dashicons-editor-help'></span><span class='wcf-tooltip-msg'>" . $message . '</span></span>';
+		}
 		return $message;
 	}
 

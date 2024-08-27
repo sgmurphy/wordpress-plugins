@@ -586,12 +586,22 @@ class HTMega_Elementor_Widget_Image_Comparison extends Widget_Base {
 
                 <div <?php echo $this->get_render_attribute_string( 'image_comparison_before_attr' ); ?> >
                     <?php
-                        echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'before_image_size', 'before_image' );
-                    ?>
+                        $image1 = wp_get_attachment_image_url( $settings['before_image']['id'], $settings['before_image_size_size']);
+                        if ( ! $image1 ) {
+                            $image1 = $settings['before_image']['url'];
+                        }
+                        ?>
+                        <img src="<?php echo esc_url( $image1 ); ?>" class="no-lazy-htmega" alt="<?php echo esc_attr( $settings['before_image']['alt']); ?>">
+                        
                     <div <?php echo $this->get_render_attribute_string( 'image_comparison_after_attr' ); ?> >
                         <?php
-                            echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'after_image_size', 'after_image' );
+
+                        $image2 = wp_get_attachment_image_url( $settings['after_image']['id'], $settings['after_image_size_size']);
+                        if ( ! $image2 ) {
+                            $image2 = $settings['after_image']['url'];
+                        }
                         ?>
+                        <img src="<?php echo esc_url( $image2 ); ?>" class="no-lazy-htmega" alt="<?php echo esc_attr( $settings['after_image']['alt']); ?>">
                     </div>
                 </div>
 

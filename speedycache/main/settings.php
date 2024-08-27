@@ -125,10 +125,10 @@ class Settings{
 		
 		
 		$speedycache->object_memory = 'None';	
-		if(class_exists('Redis') && class_exists('\SpeedyCache\ObjectCache')){
+		if(!empty($speedycache->object['enable']) && class_exists('Redis') && class_exists('\SpeedyCache\ObjectCache')){
 			try{
 				$speedycache->object_memory = \SpeedyCache\ObjectCache::get_memory();
-			} catch(Exception $e) {
+			} catch(\Exception $e) {
 				$memory = 'None';
 			}
 		}
@@ -186,7 +186,7 @@ class Settings{
 				<div class="speedycache-is-block">
 					<h4>Cache Info</h4>
 					<span>File Cache: '.(!empty($speedycache->options['status']) ? esc_html__('Enabled') : esc_html__('Disabled')).'</span>
-					<span>Object Cache: Disabled</span>
+					<span>Object Cache: '.(!empty($speedycache->object['enable']) ? esc_html__('Enabled') : esc_html__('Disabled')).'</span>
 					<span>CDN: '.(!empty($speedycache->cdn) && !empty($speedycache->cdn['cdn_type']) ? esc_html(ucfirst($speedycache->cdn['cdn_type'])) : 'OFF').'</span>
 				</div>
 				</div>
@@ -455,7 +455,7 @@ class Settings{
 				</label>
 				<div class="speedycache-option-info">
 					<span class="speedycache-option-name">'.esc_html__('Minify HTML', 'speedycache').'</span>
-					<span class="speedycache-option-desc">'.esc_html__('Removes comments, extra spaces', 'speedycache').'span>
+					<span class="speedycache-option-desc">'.esc_html__('Removes comments, extra spaces', 'speedycache').'</span>
 				</div>
 			</div>';
 		} else {

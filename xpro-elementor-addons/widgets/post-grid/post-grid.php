@@ -1888,11 +1888,12 @@ class Post_Grid extends Widget_Base {
 				<?php
 
 				if ( $found_posts > $args['posts_per_page'] && 'yes' === $settings['show_pagination'] ) {
-					$prev_icon_class = $settings['arrow'];
-					$next_icon_class = str_replace( 'left', 'right', $settings['arrow'] );
 
-					$prev_text = '<i class="' . $prev_icon_class . '"></i><span class="xpro-elementor-post-pagination-prev-text">' . $settings['prev_label'] . '</span>';
-					$next_text = '<span class="xpro-elementor-post-pagination-next-text">' . $settings['next_label'] . '</span><i class="' . $next_icon_class . '"></i>';
+					$prev_icon_class = sanitize_html_class( $settings['arrow'] );
+					$next_icon_class = sanitize_html_class( str_replace( 'left', 'right', $settings['arrow'] ) );
+					
+					$prev_text = '<i class="' . esc_attr( $prev_icon_class ) . '"></i><span class="xpro-elementor-post-pagination-prev-text">' . esc_html( $settings['prev_label'] ) . '</span>';
+					$next_text = '<span class="xpro-elementor-post-pagination-next-text">' . esc_html( $settings['next_label'] ) . '</span><i class="' . esc_attr( $next_icon_class ) . '"></i>';
 
 					$paginate_args = array(
 						'type'      => 'array',

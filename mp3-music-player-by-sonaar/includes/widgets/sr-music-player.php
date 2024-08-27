@@ -174,7 +174,7 @@ class SR_Audio_Player extends Widget_Base {
 				[
 					'label' => sprintf( esc_html__( 'Select %1$s Post(s)', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('playlist')) ),
 					'label_block' => true,
-					'description' => sprintf( __('To create new %1$s %2$s Leave blank if you want to display your latest published %1$s', 'sonaar-music'), Sonaar_Music_Admin::sr_GetString('playlist'), __('<a href="' . esc_url(get_admin_url( null, 'post-new.php?post_type=sr_playlist' )) . '" target="_blank">click here</a><br>','sonaar-music')),
+					'description' => sprintf( esc_html__('To create new %1$s %2$sclick here%3$s Leave blank if you want to display your latest published %1$s', 'sonaar-music'), Sonaar_Music_Admin::sr_GetString('playlist'), '<a href="' . esc_url(get_admin_url( null, 'post-new.php?post_type=sr_playlist' )) . '" target="_blank">', '</a><br>'),
 					'type' 							=> \Elementor\Controls_Manager::SELECT2,
 					'multiple' 						=> true,
 					'options'               		=> sr_plugin_elementor_select_playlist(),   
@@ -326,7 +326,7 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'recentlyplayed_notice',
 					[
-						'raw' => __( 'User history tracking is currently <strong>DISABLED</strong>. To enable it, activate the <strong>Track User Listening History</strong> option found in WP-Admin > MP3 Player > Settings > General, and refresh this page.', 'sonaar-music' ),
+						'raw' => sprintf( esc_html__( 'User history tracking is currently %1$sDISABLED%2$s. To enable it, activate the %1$sTrack User Listening History%2$s option found in WP-Admin > MP3 Player > Settings > General, and refresh this page.', 'sonaar-music' ), '<strong>', '</strong>' ),
 						'type' => Controls_Manager::RAW_HTML,
 						'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 						'render_type' => 'ui',
@@ -360,7 +360,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'lazyload_notice',
 				[
-					'raw' => '<strong>' . __( 'Lazy load is activated.', 'sonaar-music' ) . '</strong> ' . __( 'Max number of post (see above) has no effect. Go to Style > Pagination to change the number of tracks per page.', 'sonaar-music' ),
+					'raw' => sprintf( esc_html__('%1$sLazy load is activated%2$s Max number of post (see above) has no effect. Go to Style > Pagination to change the number of tracks per page.', 'sonaar-music' ), '<strong>', '</strong>'),
 					'type' => Controls_Manager::RAW_HTML,
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 					'render_type' => 'ui',
@@ -1343,12 +1343,12 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'order',
 				[
-					'label'   	=> __( 'Order', 'sonaar-music' ),
+					'label'   	=> esc_html__( 'Order', 'sonaar-music' ),
 					'type'    	=> Controls_Manager::SELECT,
 					'default' 	=> 'DESC',
 					'options' 	=> [
-						'DESC' 	=> __( 'DESC', 'sonaar-music' ),
-						'ASC'  	=> __( 'ASC', 'sonaar-music' ),
+						'DESC' 	=> esc_html__( 'DESC', 'sonaar-music' ),
+						'ASC'  	=> esc_html__( 'ASC', 'sonaar-music' ),
 					],
 					'condition' => [
 						'reverse_tracklist' 	=> '',
@@ -1359,7 +1359,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'orderby',
 				[
-					'label'   => __( 'Order by', 'sonaar-music' ),
+					'label'   => esc_html__( 'Order by', 'sonaar-music' ),
 					'type'    => Controls_Manager::SELECT,
 					'default' => 'date',
 					'options' => $this->get_orderby(),
@@ -1371,11 +1371,11 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'posts_not_in',
 				[
-					'label'       => __( 'Exclude posts by IDs', 'sonaar-music' ),
+					'label'       => esc_html__( 'Exclude posts by IDs', 'sonaar-music' ),
 					'type'        => Controls_Manager::TEXT,
 					'label_block' => true,
 					'default'     => '',
-					'description' => __( 'Eg. 12, 24, 33', 'sonaar-music' ),
+					'description' => esc_html__( 'Eg. 12, 24, 33', 'sonaar-music' ),
 					'dynamic' => array(
 						'active' => true,
 					),
@@ -2181,7 +2181,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'slider_move_content_below_image',
 				[
-					'label' 						=> sprintf( esc_html__( 'Move content below artwork', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('playlist/podcast')) ),
+					'label' 						=> esc_html__( 'Move content below artwork', 'sonaar-music' ),
 					'type' 							=> Controls_Manager::SWITCHER,
 					'separator'						=> 'before',
 					'default'						=> '',
@@ -2635,7 +2635,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'slider_hide_artist',
 				[
-					'label' 						=> sprintf( esc_html__( 'Hide Artist Name', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('playlist/podcast')) ),
+					'label' 						=> esc_html__( 'Hide Artist Name', 'sonaar-music' ), 
 					'type' 							=> Controls_Manager::SWITCHER,
 					'separator'						=> 'before',
 					'default'						=> '',
@@ -2649,7 +2649,7 @@ class SR_Audio_Player extends Widget_Base {
 				Group_Control_Typography::get_type(),
 				[
 					'name' 							=> 'slider_artist_typography',
-					'label' => sprintf( esc_html__( 'Artist Name Typography', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('playlist/podcast')) ),
+					'label' 						=> 	esc_html__( 'Artist Name Typography', 'sonaar-music' ), 
 					'scheme' 						=> Typography::TYPOGRAPHY_1,
 					'conditions'                    => [
 						'relation' => 'and',
@@ -2839,7 +2839,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'hide_slider_navigation',
 				[
-					'label' 						=> sprintf( esc_html__( 'Hide Arrows', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('track')) ),
+					'label' 						=> esc_html__( 'Hide Arrows', 'sonaar-music' ),
 					'type' 							=> Controls_Manager::SWITCHER,
 					'default'						=> '',
 					'return_value' 					=> 'yes',
@@ -3247,7 +3247,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'hide_slider_pagination',
 				[
-					'label' 						=> sprintf( esc_html__( 'Hide Bullets', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('track')) ),
+					'label' 						=> esc_html__( 'Hide Bullets', 'sonaar-music' ), 
 					'type' 							=> Controls_Manager::SWITCHER,
 					'default'						=> 'yes',
 					'return_value' 					=> 'yes',
@@ -4219,7 +4219,7 @@ class SR_Audio_Player extends Widget_Base {
 			$miniplayer_meta_repeater->add_control(
 				'miniplayer_custom_heading',
 				[
-					'label'       => __( 'Text', 'sonaar-music' ),
+					'label'       => esc_html__( 'Text', 'sonaar-music' ),
 					'type'        => Controls_Manager::TEXT,
 					'default'     => '',
 					'dynamic' => [
@@ -4232,7 +4232,7 @@ class SR_Audio_Player extends Widget_Base {
 			);
 			$miniplayer_meta_repeater->add_control(
 				'custom_field_key', [
-					'label'     => __( 'Custom Meta Key', 'sonaar-music' ),
+					'label'     => esc_html__( 'Custom Meta Key', 'sonaar-music' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
 					'condition' => [
 						'miniplayer_order_meta' => 'key',
@@ -4242,7 +4242,7 @@ class SR_Audio_Player extends Widget_Base {
 			$miniplayer_meta_repeater->add_control(
 				'miniplayer_meta_acf',
 				[
-					'label'     => __( 'ACF Field', 'sonaar-music' ),
+					'label'     => esc_html__( 'ACF Field', 'sonaar-music' ),
 					'type'      => \Elementor\Controls_Manager::SELECT,
 					'default'   => '',
 					'groups'    => $this->get_fields_goups( 'fields' ),
@@ -4254,7 +4254,7 @@ class SR_Audio_Player extends Widget_Base {
 			$miniplayer_meta_repeater->add_control(
 				'miniplayer_prefix',
 				[
-					'label'       => __( 'Prefix Label', 'sonaar-music' ),
+					'label'       => esc_html__( 'Prefix Label', 'sonaar-music' ),
 					'type'        => Controls_Manager::TEXT,
 					'default'     => '',
 				]
@@ -5439,7 +5439,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'button_hover_animation',
 				[
-					'label' => __( 'Hover Animation', 'elementor-sonaar' ),
+					'label' => esc_html__( 'Hover Animation', 'elementor-sonaar' ),
 					'type'  => Controls_Manager::HOVER_ANIMATION,
 					'condition' 					=> [
 						'player_layout' 	=> 'skin_button'
@@ -6130,7 +6130,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'spectro_notice',
 				[
-					'raw' => '<strong>' . __( 'Audio Not Playing? Spectrum Not Showing?', 'sonaar-music' ) . '</strong> ' . __( 'If you don\'t see the Live Spectrum or Audio does not start when using this feature, <a href="https://bit.ly/3HtbC9u" target="_blank">Click here</a> for possible cause and work-around.', 'sonaar-music' ),
+					'raw' => sprintf( esc_html__('%1$sAudio Not Playing? Spectrum Not Showing?%2$s If you don\'t see the Live Spectrum or Audio does not start when using this feature, %3$sClick here%4$s for possible cause and work-around.', 'sonaar-music' ), '<strong>', '</strong>', '<a href="https://bit.ly/3HtbC9u" target="_blank">', '</a>' ),
 					'type' => Controls_Manager::RAW_HTML,
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 					'render_type' => 'ui',
@@ -6962,7 +6962,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'track_artwork_play_button',
 				[
-					'label' 						=> sprintf( esc_html__( 'Play Icon overlay Image', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('track')) ),
+					'label' 						=> esc_html__( 'Play Icon overlay Image', 'sonaar-music' ), 
 					'type' 							=> Controls_Manager::SWITCHER,
 					'default'						=> '',
 					'return_value' 					=> 'yes',
@@ -6975,7 +6975,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'grid_track_artwork_play_button',
 				[
-					'label' 						=> sprintf( esc_html__( 'Play Icon overlay Image', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('track')) ),
+					'label' 						=> esc_html__( 'Play Icon overlay Image', 'sonaar-music' ), 
 					'type' 							=> Controls_Manager::SWITCHER,
 					'default'						=> 'yes',
 					'return_value' 					=> 'yes',
@@ -9193,7 +9193,7 @@ class SR_Audio_Player extends Widget_Base {
 			$column_repeater->add_control(
 				'column_name',
 				[
-					'label'     => __( 'Heading Title', 'sonaar-music' ),
+					'label'     => esc_html__( 'Heading Title', 'sonaar-music' ),
 					'type' 		=> Controls_Manager::TEXT,
 					'dynamic' 						=> [
 						'active' 					=> true,
@@ -9215,7 +9215,7 @@ class SR_Audio_Player extends Widget_Base {
 			$column_repeater->add_control(
 				'column_fields_acf',
 				[
-					'label'     => __( 'ACF Field', 'sonaar-music' ),
+					'label'     => esc_html__( 'ACF Field', 'sonaar-music' ),
 					'type'      => \Elementor\Controls_Manager::SELECT,
 					'default'   => '',
 					'groups'    => $this->get_fields_goups( 'fields' ),
@@ -9231,7 +9231,7 @@ class SR_Audio_Player extends Widget_Base {
 					$column_repeater->add_control(
 						'column_fields_jetengine',
 						[
-							'label'     => __( 'Meta Field', 'sonaar-music' ),
+							'label'     => esc_html__( 'Meta Field', 'sonaar-music' ),
 							'type'      => \Elementor\Controls_Manager::SELECT,
 							'default'   => '',
 							'groups'    => $meta_fields,
@@ -9245,7 +9245,7 @@ class SR_Audio_Player extends Widget_Base {
 			$column_repeater->add_control(
 				'column_fields_object',
 				[
-					'label'     => __( 'Object Field', 'sonaar-music' ),
+					'label'     => esc_html__( 'Object Field', 'sonaar-music' ),
 					'type'      => \Elementor\Controls_Manager::SELECT,
 					'default'   => '',
 					'groups'    => $this->get_object_fields(),
@@ -9287,7 +9287,7 @@ class SR_Audio_Player extends Widget_Base {
 			);
 			$column_repeater->add_control(
 				'custom_field_key', [
-					'label'     => __( 'Custom Meta Key', 'sonaar-music' ),
+					'label'     => esc_html__( 'Custom Meta Key', 'sonaar-music' ),
 					'type' => \Elementor\Controls_Manager::TEXT,
 					'label_block' => true,
 					'condition' => [
@@ -9594,7 +9594,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'force_cta_dl',
 				[
-					'label'							=> sprintf( esc_html__( 'DOWNLOAD Buttons display', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('track')) ),
+					'label'							=> esc_html__( 'DOWNLOAD Buttons display', 'sonaar-music' ), 
 					'separator' 					=> 'before',
 					'type' 							=> Controls_Manager::SELECT,
 					'options' 		=> [
@@ -9620,7 +9620,7 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_dl_dv_enable',
 					[
-						'label'							=> __( 'Enable Dynamic Visibility', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Enable Dynamic Visibility', 'sonaar-music' ),
 						'type' 							=> \Elementor\Controls_Manager::SWITCHER,
 						'label_on' 						=> esc_html__( 'Yes', 'sonaar-music' ),
 						'label_off' 					=> esc_html__( 'No', 'sonaar-music' ),
@@ -9631,13 +9631,13 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_dl_dv_state',
 					[
-						'label'							=> __( 'Visibility State', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Visibility State', 'sonaar-music' ),
 						'show_label' 					=> false,
 						'type' 							=> Controls_Manager::SELECT,
 						'options' 						=> [
-							'' 							=> __( 'Select a State', 'sonaar-music' ),
-							'show' 						=> __( 'Show button if condition met', 'sonaar-music' ),
-							'hide' 						=> __( 'Hide button if condition met', 'sonaar-music' ),
+							'' 							=> esc_html__( 'Select a State', 'sonaar-music' ),
+							'show' 						=> esc_html__( 'Show button if condition met', 'sonaar-music' ),
+							'hide' 						=> esc_html__( 'Hide button if condition met', 'sonaar-music' ),
 						],
 						'default' 						=> '',
 						'conditions' 					=> [
@@ -9655,15 +9655,15 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_dl_dv_condition',
 					[
-						'label'							=> __( 'Visibility Condition', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Visibility Condition', 'sonaar-music' ),
 						'show_label' 					=> false,
 						'type' 							=> Controls_Manager::SELECT,
 						'default' 						=> '',
 						'options' 						=> [
-							'' 							=> __( 'Select Condition', 'sonaar-music' ),
-							'user_logged_in' 			=> __( 'User logged in', 'sonaar-music' ),
-							'user_logged_out' 			=> __( 'User logged out', 'sonaar-music' ),
-							'user_role_is' 				=> __( 'User Role is', 'sonaar-music' ),
+							'' 							=> esc_html__( 'Select Condition', 'sonaar-music' ),
+							'user_logged_in' 			=> esc_html__( 'User logged in', 'sonaar-music' ),
+							'user_logged_out' 			=> esc_html__( 'User logged out', 'sonaar-music' ),
+							'user_role_is' 				=> esc_html__( 'User Role is', 'sonaar-music' ),
 						],
 						'conditions' 					=> [
 							'relation' => 'and',
@@ -9681,7 +9681,7 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_dl_dv_role',
 					[
-						'label'							=> __( 'Role is', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Role is', 'sonaar-music' ),
 						'show_label' 					=> false,
 						'type' 							=> \Elementor\Controls_Manager::SELECT2,
 						'multiple' 						=> true,
@@ -9707,8 +9707,8 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_dl_dv_enable_redirect',
 					[
-						'label'							=> __( 'Enable Redirection when condition is not met', 'sonaar-music' ),
-						'description' 					=> __( 'If condition not met, display the button but redirect people to a link or popup', 'sonaar-music'),
+						'label'							=> esc_html__( 'Enable Redirection when condition is not met', 'sonaar-music' ),
+						'description' 					=> esc_html__( 'If condition not met, display the button but redirect people to a link or popup', 'sonaar-music'),
 						'type' 							=> \Elementor\Controls_Manager::SWITCHER,
 						'label_on' 						=> esc_html__( 'Yes', 'sonaar-music' ),
 						'label_off' 					=> esc_html__( 'No', 'sonaar-music' ),
@@ -9730,7 +9730,7 @@ class SR_Audio_Player extends Widget_Base {
 					'cta_dl_dv_redirect_url',
 					[
 						'label'							=> esc_html__( 'Redirection URL', 'sonaar-music' ),
-						'description' 					=> __('Enter Page URL. If you are using Elementor Popup, set this to #popup and in your Popup Template, go to Advanced Tab > Open By Selector and set a[href="#popup"]','sonaar-music'),
+						'description' 					=> esc_html__('Enter Page URL. If you are using Elementor Popup, set this to #popup and in your Popup Template, go to Advanced Tab > Open By Selector and set a[href="#popup"]','sonaar-music'),
 						'type' 							=> \Elementor\Controls_Manager::TEXT,
 						'input_type' => 'url',
 						'placeholder'       			=> esc_html__( 'Paste URL or type', 'sonaar-music' ),
@@ -9758,7 +9758,7 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'force_cta_favorite',
 					[
-						'label'							=> sprintf( esc_html__( 'FAVORITE Buttons Display', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('track')) ),
+						'label'							=> esc_html__( 'FAVORITE Buttons Display', 'sonaar-music' ), 
 						'separator' 					=> 'before',
 						'type' 							=> Controls_Manager::SELECT,
 						'options' 		=> [
@@ -9785,7 +9785,7 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_favorites_dv_enable',
 					[
-						'label'							=> __( 'Enable Dynamic Visibility', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Enable Dynamic Visibility', 'sonaar-music' ),
 						'type' 							=> \Elementor\Controls_Manager::SWITCHER,
 						'label_on' 						=> esc_html__( 'Yes', 'sonaar-music' ),
 						'label_off' 					=> esc_html__( 'No', 'sonaar-music' ),
@@ -9796,13 +9796,13 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_favorites_dv_state',
 					[
-						'label'							=> __( 'Visibility State', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Visibility State', 'sonaar-music' ),
 						'show_label' 					=> false,
 						'type' 							=> Controls_Manager::SELECT,
 						'options' 						=> [
-							'' 							=> __( 'Select a State', 'sonaar-music' ),
-							'show' 						=> __( 'Show button if condition met', 'sonaar-music' ),
-							'hide' 						=> __( 'Hide button if condition met', 'sonaar-music' ),
+							'' 							=> esc_html__( 'Select a State', 'sonaar-music' ),
+							'show' 						=> esc_html__( 'Show button if condition met', 'sonaar-music' ),
+							'hide' 						=> esc_html__( 'Hide button if condition met', 'sonaar-music' ),
 						],
 						'default' 						=> '',
 						'conditions' 					=> [
@@ -9820,15 +9820,15 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_favorites_dv_condition',
 					[
-						'label'							=> __( 'Visibility Condition', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Visibility Condition', 'sonaar-music' ),
 						'show_label' 					=> false,
 						'type' 							=> Controls_Manager::SELECT,
 						'default' 						=> '',
 						'options' 						=> [
-							'' 							=> __( 'Select Condition', 'sonaar-music' ),
-							'user_logged_in' 			=> __( 'User logged in', 'sonaar-music' ),
-							'user_logged_out' 			=> __( 'User logged out', 'sonaar-music' ),
-							'user_role_is' 				=> __( 'User Role is', 'sonaar-music' ),
+							'' 							=> esc_html__( 'Select Condition', 'sonaar-music' ),
+							'user_logged_in' 			=> esc_html__( 'User logged in', 'sonaar-music' ),
+							'user_logged_out' 			=> esc_html__( 'User logged out', 'sonaar-music' ),
+							'user_role_is' 				=> esc_html__( 'User Role is', 'sonaar-music' ),
 						],
 						'conditions' 					=> [
 							'relation' => 'and',
@@ -9846,7 +9846,7 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_favorites_dv_role',
 					[
-						'label'							=> __( 'Role is', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Role is', 'sonaar-music' ),
 						'show_label' 					=> false,
 						'type' 							=> \Elementor\Controls_Manager::SELECT2,
 						'multiple' 						=> true,
@@ -9872,8 +9872,8 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_favorites_dv_enable_redirect',
 					[
-						'label'							=> __( 'Enable Redirection when condition is not met', 'sonaar-music' ),
-						'description' 					=> __( 'If condition not met, display the button but redirect people to a link or popup', 'sonaar-music'),
+						'label'							=> esc_html__( 'Enable Redirection when condition is not met', 'sonaar-music' ),
+						'description' 					=> esc_html__( 'If condition not met, display the button but redirect people to a link or popup', 'sonaar-music'),
 						'type' 							=> \Elementor\Controls_Manager::SWITCHER,
 						'label_on' 						=> esc_html__( 'Yes', 'sonaar-music' ),
 						'label_off' 					=> esc_html__( 'No', 'sonaar-music' ),
@@ -9895,7 +9895,7 @@ class SR_Audio_Player extends Widget_Base {
 					'cta_favorites_dv_redirect_url',
 					[
 						'label'							=> esc_html__( 'Redirection URL', 'sonaar-music' ),
-						'description' 					=> __('Enter Page URL. If you are using Elementor Popup, set this to #popup and in your Popup Template, go to Advanced Tab > Open By Selector and set a[href="#popup"]','sonaar-music'),
+						'description' 					=> esc_html__('Enter Page URL. If you are using Elementor Popup, set this to #popup and in your Popup Template, go to Advanced Tab > Open By Selector and set a[href="#popup"]','sonaar-music'),
 						'type' 							=> \Elementor\Controls_Manager::TEXT,
 						'input_type' => 'url',
 						'placeholder'       			=> esc_html__( 'Paste URL or type', 'sonaar-music' ),
@@ -9922,7 +9922,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'force_cta_share',
 				[
-					'label'							=> sprintf( esc_html__( 'SHARE Buttons Display', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('track')) ),
+					'label'							=> esc_html__( 'SHARE Buttons Display', 'sonaar-music' ), 
 					'separator' 					=> 'before',
 					'type' 							=> Controls_Manager::SELECT,
 					'options' 		=> [
@@ -9948,7 +9948,7 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_share_dv_enable',
 					[
-						'label'							=> __( 'Enable Dynamic Visibility', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Enable Dynamic Visibility', 'sonaar-music' ),
 						'type' 							=> \Elementor\Controls_Manager::SWITCHER,
 						'label_on' 						=> esc_html__( 'Yes', 'sonaar-music' ),
 						'label_off' 					=> esc_html__( 'No', 'sonaar-music' ),
@@ -9959,13 +9959,13 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_share_dv_state',
 					[
-						'label'							=> __( 'Visibility State', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Visibility State', 'sonaar-music' ),
 						'show_label' 					=> false,
 						'type' 							=> Controls_Manager::SELECT,
 						'options' 						=> [
-							'' 							=> __( 'Select a State', 'sonaar-music' ),
-							'show' 						=> __( 'Show button if condition met', 'sonaar-music' ),
-							'hide' 						=> __( 'Hide button if condition met', 'sonaar-music' ),
+							'' 							=> esc_html__( 'Select a State', 'sonaar-music' ),
+							'show' 						=> esc_html__( 'Show button if condition met', 'sonaar-music' ),
+							'hide' 						=> esc_html__( 'Hide button if condition met', 'sonaar-music' ),
 						],
 						'default' 						=> '',
 						'conditions' 					=> [
@@ -9983,15 +9983,15 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_share_dv_condition',
 					[
-						'label'							=> __( 'Visibility Condition', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Visibility Condition', 'sonaar-music' ),
 						'show_label' 					=> false,
 						'type' 							=> Controls_Manager::SELECT,
 						'default' 						=> '',
 						'options' 						=> [
-							'' 							=> __( 'Select Condition', 'sonaar-music' ),
-							'user_logged_in' 			=> __( 'User logged in', 'sonaar-music' ),
-							'user_logged_out' 			=> __( 'User logged out', 'sonaar-music' ),
-							'user_role_is' 				=> __( 'User Role is', 'sonaar-music' ),
+							'' 							=> esc_html__( 'Select Condition', 'sonaar-music' ),
+							'user_logged_in' 			=> esc_html__( 'User logged in', 'sonaar-music' ),
+							'user_logged_out' 			=> esc_html__( 'User logged out', 'sonaar-music' ),
+							'user_role_is' 				=> esc_html__( 'User Role is', 'sonaar-music' ),
 						],
 						'conditions' 					=> [
 							'relation' => 'and',
@@ -10009,7 +10009,7 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_share_dv_role',
 					[
-						'label'							=> __( 'Role is', 'sonaar-music' ),
+						'label'							=> esc_html__( 'Role is', 'sonaar-music' ),
 						'show_label' 					=> false,
 						'type' 							=> \Elementor\Controls_Manager::SELECT2,
 						'multiple' 						=> true,
@@ -10035,8 +10035,8 @@ class SR_Audio_Player extends Widget_Base {
 				$this->add_control(
 					'cta_share_dv_enable_redirect',
 					[
-						'label'							=> __( 'Enable Redirection when condition is not met', 'sonaar-music' ),
-						'description' 					=> __( 'If condition not met, display the button but redirect people to a link or popup', 'sonaar-music'),
+						'label'							=> esc_html__( 'Enable Redirection when condition is not met', 'sonaar-music' ),
+						'description' 					=> esc_html__( 'If condition not met, display the button but redirect people to a link or popup', 'sonaar-music'),
 						'type' 							=> \Elementor\Controls_Manager::SWITCHER,
 						'label_on' 						=> esc_html__( 'Yes', 'sonaar-music' ),
 						'label_off' 					=> esc_html__( 'No', 'sonaar-music' ),
@@ -10058,7 +10058,7 @@ class SR_Audio_Player extends Widget_Base {
 					'cta_share_dv_redirect_url',
 					[
 						'label'							=> esc_html__( 'Redirection URL', 'sonaar-music' ),
-						'description' 					=> __('Enter Page URL. If you are using Elementor Popup, set this to #popup and in your Popup Template, go to Advanced Tab > Open By Selector and set a[href="#popup"]','sonaar-music'),
+						'description' 					=> esc_html__('Enter Page URL. If you are using Elementor Popup, set this to #popup and in your Popup Template, go to Advanced Tab > Open By Selector and set a[href="#popup"]','sonaar-music'),
 						'type' 							=> \Elementor\Controls_Manager::TEXT,
 						'input_type' => 'url',
 						'placeholder'       			=> esc_html__( 'Paste URL or type', 'sonaar-music' ),
@@ -10085,7 +10085,7 @@ class SR_Audio_Player extends Widget_Base {
 			$this->add_control(
 				'force_cta_singlepost',
 				[
-					'label'							=> sprintf( esc_html__( 'Link to Post Buttons Display', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('track')) ),
+					'label'							=> esc_html__( 'Link to Post Buttons Display', 'sonaar-music' ), 
 					'separator' 					=> 'before',
 					'type' 							=> Controls_Manager::SELECT,
 					'options' 		=> [
@@ -12260,7 +12260,7 @@ class SR_Audio_Player extends Widget_Base {
 			
 			if($post_type == SR_PLAYLIST_CPT){
 				$groups[] = array(
-					'label'  => __( 'Tracks', 'sonaar-music' ),
+					'label'  => esc_html__( 'Tracks', 'sonaar-music' ),
 					'options' => array(
 						''	        	=> __( 'Select...', 'sonaar-music' ),
 						'srmp3_cf_album_title'  => sprintf( esc_html__( '%1$s Title', 'sonaar-music' ), ucfirst(Sonaar_Music_Admin::sr_GetString('album/podcast')) ),//__( 'Audio Image', 'sonaar-music' ),__( 'Album Title', 'sonaar-music' ),
@@ -12297,7 +12297,7 @@ class SR_Audio_Player extends Widget_Base {
 			
 				// Append to the groups array
 				$groups[] = array(
-					'label'   => __('WooCommerce', 'sonaar-music'),
+					'label'   => esc_html__('WooCommerce', 'sonaar-music'),
 					'options' => $wcOptions
 				);
 			} else {

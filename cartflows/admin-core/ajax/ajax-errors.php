@@ -59,6 +59,7 @@ class AjaxErrors {
 			'permission' => __( 'Sorry, you are not allowed to do this operation.', 'cartflows' ),
 			'nonce'      => __( 'Nonce validation failed', 'cartflows' ),
 			'default'    => __( 'Sorry, something went wrong.', 'cartflows' ),
+			'parameter'  => __( 'Required parameter is missing from the posted data.', 'cartflows' ),
 		);
 	}
 

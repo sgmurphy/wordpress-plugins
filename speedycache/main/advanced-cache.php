@@ -47,6 +47,8 @@ function speedycache_ac_serve_cache(){
 
 		$uri = $parsed_uri['path'] . (!empty($parsed_query) ? '?'.http_build_query($parsed_query) : '');
 	}
+
+	$uri = preg_replace('/\.{2,}/', '', $uri); // Cleaning the path
 	
 	// We dont know if the site is a /directory based so we just hit and try
 	$site_dir = '';
@@ -107,10 +109,10 @@ function speedycache_ac_serve_cache(){
 	$cache_path = WP_CONTENT_DIR.'/cache/speedycache/' . $_SERVER['HTTP_HOST'];
 
 	// Check for Mobile
-	if(preg_match('/Mobile|Android|Silk\/|Kindle|BlackBerry|Opera (Mini|Mobi)/i', $_SERVER['HTTP_USER_AGENT'])) {
+	if(!empty($speedycache_ac_config['settings']['mobile']) && preg_match('/Mobile|Android|Silk\/|Kindle|BlackBerry|Opera (Mini|Mobi)/i', $_SERVER['HTTP_USER_AGENT'])) {
 		if(!empty($speedycache_ac_config['settings']['mobile_theme'])){
 			$cache_path .= '/mobile-cache' . $uri;
-		} else if(!empty($speedycache_ac_config['settings']['mobile'])){
+		} else {
 			return; // If just mobile is enabled then we don't want to show desktop verison of cache on mobile.
 		}
 	} else {

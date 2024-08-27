@@ -24,7 +24,7 @@
     jQuery(document).ready(function () {
         <?php
         if(isset($_COOKIE['__smUser'])){
-            print esc_js('sumo_login_start_page_refresh();');
+            print 'sumo_login_start_page_refresh();';
         }
         ?>
 
@@ -32,7 +32,7 @@
             jQuery('.main-bottom').hide();
             setTimeout(function () {
                 jQuery('.logged-in').html('');
-                jQuery('.logged-in').append('<div class="loading"><img src="<?php echo esc_url(plugins_url('images/sumome-loading.gif', dirname(__FILE__))) ?>"></div>');
+                jQuery('.logged-in').append('<div class="loading"><img src="<?php echo plugins_url('images/sumome-loading.gif', dirname(__FILE__)) ?>"></div>');
             }, 500);
 
             jQuery('.logged-out').hide();
@@ -46,7 +46,7 @@
         function sumo_login_start_page_refresh() {
             jQuery('.main-bottom').hide();
             jQuery('.logged-in').html('');
-            jQuery('.logged-in').append('<div class="loading"><img src="<?php echo esc_url(plugins_url('images/sumome-loading.gif', dirname(__FILE__))) ?>"></div>');
+            jQuery('.logged-in').append('<div class="loading"><img src="<?php echo plugins_url('images/sumome-loading.gif', dirname(__FILE__)) ?>"></div>');
             jQuery('.logged-out').hide();
             jQuery('.logged-in').show();
             sumo_login();
@@ -89,7 +89,7 @@
             }
 
             if (dataName === "sumome-control-advanced-settings") {
-                document.location.href = '<?php print esc_url(admin_url('admin.php?page=sumo-siteID'))?>';
+                document.location.href = '<?php print admin_url('admin.php?page=sumo-siteID')?>';
             } else if (jQuery(this).hasClass('sumome-popup-iframe')) {
                 let popupHref = jQuery(this).data('href');
                 if (jQuery(this).attr('href')) popupHref = jQuery(this).attr('href');
@@ -103,13 +103,11 @@
                 return false;
 
             } else if (dataName === "sumome-control-help") {
-                window.open('https://help.sumome.com');
+                window.open('https://help.bdow.com');
             } else if (dataName === "sumome-control-about") {
                 window.open('https://sumome.com/about?src=wpplugin');
             } else if (dataName === "sumome-control-account-settings") {
                 window.open('https://sumome.com/account');
-            } else if (dataName === "sumome-control-statistics") {
-                document.location.href = '<?php print esc_url(admin_url('admin.php?page=sumo-statistics'))?>';
             } else {
                 jQuery('.' + dataName).click();
             }
@@ -153,7 +151,7 @@
 
     jQuery(window).load(function () {
         <?php
-        if (isset($_GET['changeSiteKey']) && $_GET['changeSiteKey']) {
+        if (isset($_GET['changeSiteKey']) && $_GET['changeSiteKey'] && !$_POST) {
         ?>
         jQuery('.sumome-link-button.sumome-tile-advanced-settings').click();
         <?php

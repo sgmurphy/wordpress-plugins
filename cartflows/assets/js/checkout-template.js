@@ -330,10 +330,15 @@
 			}
 			coupon_field.removeClass( 'field-required' );
 
+			const billing_email = $(
+				'.wcf-embed-checkout-form #billing_email'
+			).val();
+
 			const data = {
 				coupon_code: coupon_value,
 				action: 'wcf_woo_apply_coupon',
 				security: cartflows.wcf_validate_coupon_nonce,
+				billing_email,
 			};
 
 			$.ajax( {

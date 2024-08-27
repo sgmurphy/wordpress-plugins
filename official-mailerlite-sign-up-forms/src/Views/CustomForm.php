@@ -100,6 +100,9 @@ class CustomForm
                 </div>
             </div>
         <script type="text/javascript" src='<?php echo MAILERLITE_PLUGIN_URL ?>/assets/js/localization/validation-messages.js'></script>
+        <?php
+        ob_start();
+        ?>
         <script type="text/javascript">
                 var selectedLanguage = "<?php echo $form_data['language'] ?? false; ?>";
                 var validationMessages = messages["en"];
@@ -215,7 +218,7 @@ class CustomForm
                             }
                         }, 50);
                     }
-                }
+                };
 
                 function validateEmail(email){
                     if(email.match(
@@ -227,5 +230,7 @@ class CustomForm
                 }
             </script>
         <?php
+            $content = ob_get_clean();
+            echo preg_replace('/\s+/', ' ', $content);
     }
 }

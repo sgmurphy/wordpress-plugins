@@ -58,6 +58,7 @@ class Htaccess {
 		if(!empty($admin_users) && is_array($admin_users)){
 			$user_names = '';
 			$user_names = implode('|', $admin_users);
+			$user_names = preg_replace("/\s/", "\s", $user_names);
 			$admin_cookie = 'RewriteCond %{HTTP:Cookie} !wordpress_logged_in_[^\=]+\='.$user_names;
 		}
 

@@ -285,6 +285,7 @@ if ( class_exists( 'CSF' ) ) {
 				<button class="button ctl_class_post_button ctl_tab_active">Classic Timeline Shortcode</button>
 				<button class="button ctl_block_timeline_button">Modern Timeline Block</button>
 				<button class="button button-info ctl_elementor_addon_button">Elementor Timeline Widgets</button>
+				<button class="button button-info ctl_divi_module_button">Timeline Module For Divi</button>
 			</div>
 			<div class="tab_panel">
 				<div class="wrapper_first">
@@ -504,6 +505,7 @@ if ( class_exists( 'CSF' ) ) {
 			const ClassicPostButton = jQuery(".ctl_class_post_button");
 			const BlockTimelineButton = jQuery(".ctl_block_timeline_button");
 			const ElementAddonsButton = jQuery(".ctl_elementor_addon_button");
+			const DiviModuleButton = jQuery(".ctl_divi_module_button");
 			const firstWrapper = jQuery(".wrapper_first");
 			const secondWrapper = jQuery(".wrapper_second");
 			ClassicPostButton.on("click", (event) => {
@@ -522,6 +524,10 @@ if ( class_exists( 'CSF' ) ) {
 			});
 			ElementAddonsButton.on("click",(event)=>{
 				window.open("https://coolplugins.net/product/elementor-timeline-widget-pro-addon/?utm_source=ctl_plugin&utm_medium=inside&utm_campaign=get_pro&utm_content=get-started-tabs", "_blank");
+				event.preventDefault();
+			})
+			DiviModuleButton.on("click",(event)=>{
+				window.open("https://wordpress.org/plugins/timeline-module-for-divi");
 				event.preventDefault();
 			})
 		</script>

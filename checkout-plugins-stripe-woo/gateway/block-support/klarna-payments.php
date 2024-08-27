@@ -8,6 +8,7 @@
 
 namespace CPSW\Gateway\BlockSupport;
 
+use CPSW\Inc\Helper;
 use WC_HTTPS;
 
 /**
@@ -32,7 +33,7 @@ final class Klarna_Payments extends Local_Payments {
 	 * @var array
 	 * @since 1.7.0
 	 */
-	public $supported_countries = [ 'AT', 'AU', 'BE', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FI', 'FR', 'GB', 'GR', 'IE', 'IT', 'NL', 'NO', 'NZ', 'PL', 'PT', 'SE', 'US' ];
+	public $supported_countries;
 
 	/**
 	 * Constructor
@@ -41,6 +42,7 @@ final class Klarna_Payments extends Local_Payments {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->default_title = __( 'Klarna', 'checkout-plugins-stripe-woo' );
+		$this->supported_countries = Helper::get_supported_currency_country_for_gateway( 'klarna' )['country'];
+		$this->default_title       = __( 'Klarna', 'checkout-plugins-stripe-woo' );
 	}
 }

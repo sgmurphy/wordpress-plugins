@@ -902,7 +902,7 @@ if ( isset( $get_form_options['text-fields'] ) ) {
 /*Option to add custom CSS */
 <?php
 if ( stla_isset_checker( $get_form_options, 'general-settings', array( 'custom-css' ) ) ) {
-	echo esc_html( $get_form_options['general-settings']['custom-css'] );
+	echo $get_form_options['general-settings']['custom-css'];
 }
 ?>
 

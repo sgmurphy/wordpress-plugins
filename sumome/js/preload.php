@@ -148,7 +148,7 @@
 
 
     function sumome_login_refresh() {
-        document.location.href = '<?php print esc_url(admin_url('admin.php?page=sumo'))?>';
+        document.location.href = '<?php print admin_url('admin.php?page=sumo')?>';
     }
 
 </script>

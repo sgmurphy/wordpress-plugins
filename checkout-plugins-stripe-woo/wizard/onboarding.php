@@ -28,6 +28,14 @@ class Onboarding {
 	public $woocommerce_slug = 'woocommerce/woocommerce.php';
 
 	/**
+	 * Admin_Controller Object
+	 *
+	 * @var Admin_Controller
+	 * @since 1.3.0
+	 */
+	public $admin_controller = '';
+
+	/**
 	 * Constructor
 	 *
 	 * @since 1.3.0
@@ -41,12 +49,13 @@ class Onboarding {
 
 		add_action( 'admin_menu', [ $this, 'admin_menus' ] );
 		add_action( 'admin_init', [ $this, 'setup_wizard' ] );
-		add_action( 'admin_notices', [ $this, 'show_onboarding_wizard_notice' ] );
 		add_filter( 'cpsw_stripe_connect_redirect_url', [ $this, 'redirect_to_onboarding' ], 5 );
 		add_action( 'cpsw_after_connect_with_stripe', [ $this, 'update_connect_with_stripe_status' ] );
 		add_action( 'wp_ajax_cpsw_onboarding_install_woocommerce', [ $this, 'cpsw_onboarding_install_woocommerce' ] );
 		add_action( 'wp_ajax_cpsw_onboarding_enable_gateway', [ $this, 'cpsw_onboarding_enable_gateway' ] );
 		add_action( 'wp_ajax_cpsw_onboarding_enable_express_checkout', [ $this, 'cpsw_onboarding_enable_express_checkout' ] );
+		add_action( 'wp_ajax_cpsw_onboarding_enable_webhooks', [ $this, 'cpsw_onboarding_enable_webhooks' ] );
+		add_action( 'wp_ajax_cpsw_onboarding_exit', [ $this, 'cpsw_onboarding_exit' ] );
 		add_action( 'admin_init', [ $this, 'hide_notices' ] );
 		add_action( 'admin_bar_menu', [ $this, 'admin_bar_icon' ], 999 );
 	}
@@ -153,46 +162,6 @@ class Onboarding {
 	}
 
 	/**
-	 * Shows admin notice to initiate onboarding process
-	 *
-	 * @return void
-	 * @since 1.3.0
-	 */
-	public function show_onboarding_wizard_notice() {
-		$screen          = get_current_screen();
-		$screen_id       = $screen ? $screen->id : '';
-		$allowed_screens = [
-			'woocommerce_page_wc-settings',
-			'dashboard',
-			'plugins',
-		];
-
-		if ( ! in_array( $screen_id, $allowed_screens, true ) || $this->admin_controller->is_stripe_connected() ) {
-			return;
-		}
-
-		$status         = get_option( 'cpsw_setup_status', false );
-		$onboarding_url = admin_url( 'index.php?page=cpsw-onboarding' );
-
-		if ( ! class_exists( 'woocommerce' ) ) {
-			$onboarding_url = add_query_arg( 'cpsw_call', 'setup-woocommerce', $onboarding_url );
-		}
-
-		if ( false === $status ) {
-			?>
-			<div class="notice notice-info wcf-notice">
-				<p><b><?php esc_html_e( 'Thanks for installing Checkout Plugins - Stripe for WooCommerce!', 'checkout-plugins-stripe-woo' ); ?></b></p>
-				<p><?php esc_html_e( 'Follow Onboarding process to connect your Stripe account', 'checkout-plugins-stripe-woo' ); ?></p>
-				<p>
-					<a href="<?php echo esc_url( $onboarding_url ); ?>" class="button button-primary"> <?php esc_html_e( 'Configure Stripe', 'checkout-plugins-stripe-woo' ); ?></a>
-					<a class="button-secondary" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'cpsw-hide-notice', 'install' ), 'cpsw_hide_notices_nonce', '_cpsw_notice_nonce' ) ); ?>"><?php esc_html_e( 'Skip Setup', 'checkout-plugins-stripe-woo' ); ?></a>
-				</p>
-			</div>
-			<?php
-		}
-	}
-
-	/**
 	 * Return url for stripe connect success
 	 *
 	 * @param string $return_url default return url to admin page.
@@ -239,6 +208,8 @@ class Onboarding {
 			'cpsw_onboarding_enable_gateway'          => wp_create_nonce( 'cpsw_onboarding_enable_gateway' ),
 			'cpsw_onboarding_enable_express_checkout' => wp_create_nonce( 'cpsw_onboarding_enable_express_checkout' ),
 			'cpsw_onboarding_install_woocommerce'     => wp_create_nonce( 'cpsw_onboarding_install_woocommerce' ),
+			'cpsw_onboarding_enable_webhooks'         => wp_create_nonce( 'cpsw_onboarding_enable_webhooks' ),
+			'cpsw_onboarding_exit'                    => wp_create_nonce( 'cpsw_onboarding_exit' ),
 			'woocommerce_installed'                   => $this->is_woocommerce_installed(),
 			'woocommerce_activated'                   => class_exists( 'woocommerce' ),
 			'navigator_base'                          => '/wp-admin/index.php?page=cpsw-onboarding',
@@ -247,6 +218,8 @@ class Onboarding {
 			'get_webhook_secret'                      => Helper::get_webhook_secret(),
 			'webhook_url'                             => esc_url( get_home_url() . '/wp-json/cpsw/v1/webhook' ),
 			'get_element'                             => Helper::get_setting( 'cpsw_element_type' ),
+			'plugins_page_url'                        => admin_url( 'plugins.php' ),
+			'incomplete_step'                         => get_option( 'cpsw_exit_setup_step' ),
 		];
 	}
 
@@ -257,12 +230,18 @@ class Onboarding {
 	 * @since 1.3.0
 	 */
 	public function available_gateways() {
+
+		// Return if WooCommerce is not active.
+		if ( ! function_exists( 'WC' ) ) {
+			return;
+		}
+
 		// Retrieves available payment gateways, does not save anything. Nonce verification may not be required.
-		if ( empty( $_GET['cpsw_call'] ) || 'success' !== $_GET['cpsw_call'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( empty( $_GET['cpsw_call'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return false;
 		}
 
-		$gateways = WC()->payment_gateways->payment_gateways();
+		$gateways = \WC()->payment_gateways->payment_gateways();
 		if ( empty( $gateways ) ) {
 			return false;
 		}
@@ -431,6 +410,7 @@ class Onboarding {
 			return;
 		}
 
+		// Return if he setup is not skipped and connected to the Stripe.
 		if (
 			'skipped' !== get_option( 'cpsw_setup_status', false ) &&
 			$this->admin_controller->is_stripe_connected()
@@ -438,29 +418,77 @@ class Onboarding {
 			return;
 		}
 
-		$iconurl = CPSW_URL . 'wizard/images/cpsw-logo-light.svg';
-
-		$iconspan = '<span class="cpsw-logo-icon" style="float: left;
-		width: 22px !important;
-		height: 22px !important;
-		margin-left: 5px !important;
-		margin-top: 5px !important;
-		background-size: 22px 22px;
-		background-image:url(\'' . $iconurl . '\');"></span>';
-
-		$title = $iconspan . '';
+		$title = '<span class="cpsw-setup-payment-link" style="float: left;" title="' . __( 'Connect to Stripe for accepting the payments.', 'checkout-plugins-stripe-woo' ) . '">' . __( 'Setup Payments', 'checkout-plugins-stripe-woo' ) . '</span>';
 
 		$onboarding_url = admin_url( 'index.php?page=cpsw-onboarding' );
 
+		// If WooCommerce is not installed then install the WooCommerce first.
 		if ( ! class_exists( 'woocommerce' ) ) {
 			$onboarding_url = add_query_arg( 'cpsw_call', 'setup-woocommerce', $onboarding_url );
 		}
+
 		$args = [
 			'id'    => 'cpsw-onboarding-link',
 			'title' => $title,
 			'href'  => $onboarding_url,
 		];
 		$admin_bar->add_node( $args );
+	}
+
+	/**
+	 * Handles webhooks enabling call from onboarding wizard
+	 *
+	 * @return void
+	 * @since 1.10.0
+	 */
+	public function cpsw_onboarding_enable_webhooks() {
+		if ( ! check_ajax_referer( 'cpsw_onboarding_enable_webhooks', 'security', false ) ) {
+			wp_send_json_error( [ 'message' => __( 'Nonce verification failed.', 'checkout-plugins-stripe-woo' ) ] );
+		}
+
+		$cpsw_mode = Helper::get_payment_mode();
+
+		if ( ! empty( $_POST['cpsw_mode'] ) ) {
+			$cpsw_mode = sanitize_text_field( wp_unslash( $_POST['cpsw_mode'] ) );
+		}
+
+		// Updating mode.
+		update_option( 'cpsw_mode', $cpsw_mode );
+
+		// Function call to create webhook.
+		$creation_response = $this->admin_controller->create_webhooks( 'manually', sanitize_text_field( $cpsw_mode ) );
+
+		// Sending JSON response.
+		if ( true === $creation_response ) {
+			wp_send_json_success( [ 'webhook_secret' => true ] );
+		} else {
+			// translators: %s - Error reason sent from stripe.
+			wp_send_json_error( [ 'message' => sprintf( __( 'Webhook secret key not created.%s', 'checkout-plugins-stripe-woo' ), PHP_EOL . $creation_response ) ] );
+		}
+	}
+
+	/**
+	 * Update option.
+	 *
+	 * @since 1.10.0
+	 * @return void
+	 */
+	public function cpsw_onboarding_exit() {
+		// Nonce verification.
+		if ( ! check_ajax_referer( 'cpsw_onboarding_exit', 'security', false ) ) {
+			wp_send_json_error( [ 'message' => __( 'Nonce verification failed.', 'checkout-plugins-stripe-woo' ) ] );
+		}
+		$completed = isset( $_POST['completed'] ) && 'true' === $_POST['completed'];
+		$step      = isset( $_POST['current_step'] ) ? sanitize_text_field( wp_unslash( $_POST['current_step'] ) ) : '';
+		if ( $completed ) {
+			update_option( 'cpsw_setup_complete', 1 );
+			delete_option( 'cpsw_exit_setup_step' );
+		} else {
+			update_option( 'cpsw_setup_complete', 'no' );
+			update_option( 'cpsw_exit_setup_step', $step );
+		}
+
+		wp_send_json_success();
 	}
 
 }

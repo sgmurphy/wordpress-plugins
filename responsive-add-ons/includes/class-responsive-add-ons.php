@@ -500,7 +500,7 @@ class Responsive_Add_Ons {
 						</div>
 					</div>
 				</div>
-				<a href="<?php echo esc_url( 'https://cyberchimps.com/pricing/?utm_source=RST_plugin&utm_medium=intro_banner&utm_campaign=free-to-pro' ); ?>" target="_blank" class="responsive-welcome_banner-upgrade-button">
+				<a href="<?php echo esc_url( 'https://cyberchimps.com/pricing/?utm_source=wpdash&utm_medium=RST_plugin&utm_campaign=intro_banner&utm_content=upgrade-to-pro' ); ?>" target="_blank" class="responsive-welcome_banner-upgrade-button">
 					<p class="upgrade-button-text"><?php echo esc_html__( 'Upgrade To Pro', 'responsive-addons' ); ?> </p>
 					<span class="dashicons dashicons-arrow-right-alt"></span>
 				</a>
@@ -2361,9 +2361,10 @@ class Responsive_Add_Ons {
 		$user_email                    = $_POST['user_email'];
 		$template_name                 = $_POST['template_name'];
 
-		if ( ! $ready_site_subscribe_checkbox && filter_var( $user_email, FILTER_VALIDATE_EMAIL ) ) { // Add Email in moosend.
-			$request_uri      = 'https://api.moosend.com/v3/subscribers/0aef6ee1-1d89-4fec-9b5d-55bdcb97b136/subscribe.json?apikey=baa844a9-093b-4281-ba03-958661505919';
-			$wp_args['Email'] = $user_email;
+		if ( ! empty( $ready_site_subscribe_checkbox ) && 'false' !== $ready_site_subscribe_checkbox && filter_var( $user_email, FILTER_VALIDATE_EMAIL ) ) { // Add Email in moosend.
+			$request_uri         = 'https://api.moosend.com/v3/subscribers/0aef6ee1-1d89-4fec-9b5d-55bdcb97b136/subscribe.json?apikey=baa844a9-093b-4281-ba03-958661505919';
+			$wp_args['Email']    = $user_email;
+			$wp_args['Template'] = $template_name;
 			$request          = wp_remote_post( $request_uri, array( 'body' => $wp_args ) );
 			if ( is_wp_error( $request ) || '200' != wp_remote_retrieve_response_code( $request ) ) {
 				// error.

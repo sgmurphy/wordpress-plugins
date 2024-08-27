@@ -11,7 +11,8 @@ function PluginsInstallStep() {
 
 	const { buttonText } = processing;
 
-	const [ { action_button }, dispatch ] = useStateValue();
+	const [ { action_button, selected_page_builder }, dispatch ] =
+		useStateValue();
 	const history = useHistory();
 
 	const required_plugins = cartflows_wizard.plugins;
@@ -32,7 +33,7 @@ function PluginsInstallStep() {
 	 */
 	const handleOnClickProcessing = function () {
 		const processing_buttonText = __(
-			'Installing required plugins',
+			'Installing Required Plugins',
 			'cartflows'
 		);
 
@@ -103,7 +104,7 @@ function PluginsInstallStep() {
 
 		history.push( {
 			pathname: 'index.php',
-			search: `?page=cartflow-setup&step=global-checkout`,
+			search: `?page=cartflow-setup&step=store-checkout`,
 		} );
 
 		setProcessing( false );
@@ -119,14 +120,6 @@ function PluginsInstallStep() {
 					<h1 className="wcf-step-heading mb-4">
 						<span className="flex items-center justify-center gap-3">
 							{ __( 'Great job!', 'cartflows' ) }
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								className="h-8 w-8 align-middle text-2xl mr-1.5 fill-[#ffc83d]"
-								viewBox="0 0 20 20"
-								fill="currentColor"
-							>
-								<path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-							</svg>
 						</span>
 						{ __(
 							"Now let's install some required plugins.",
@@ -135,78 +128,81 @@ function PluginsInstallStep() {
 					</h1>
 					<p className="text-center overflow-hidden max-w-2xl mb-10 mx-auto text-lg font-normal text-slate-500 block">
 						{ __(
-							'Since CartFlows uses WooCommerce, we will install it for you with Cart Abandonment Recovery to recover the abandoned orders.',
+							"Since CartFlows uses WooCommerce, we'll set it up for you along with Cart Abandonment and Stripe Payments so you can recover abandoned orders and easily accept payments.",
 							'cartflows'
 						) }
 					</p>
-					<p className="text-center overflow-hidden max-w-2xl mb-10 mx-auto text-lg font-normal text-slate-500 block">
+					<p className="text-center overflow-hidden max-w-2xl mb-6 mx-auto text-lg font-normal text-slate-500 block">
 						{ __(
-							'The following plugin will be installed and activated for you:',
+							'The following plugins will be installed and activated for you:',
 							'cartflows'
 						) }
 					</p>
 
-					<div className="flex justify-center w-11/12 text-left text-base text-[#1F2937] mt-8 mx-auto">
+					<div className="flex justify-center w-11/12 text-left text-base text-[#1F2937] mx-auto">
 						<fieldset className="">
 							<form
 								method="post"
-								className="wcf-install-plugin-form grid grid-cols-2 space-y-1 text-gray-500 list-inside dark:text-gray-400"
+								className="wcf-install-plugin-form flex gap-3 space-y-1 text-gray-500 list-inside dark:text-gray-400"
 							>
-								{ Object.keys( required_plugins ).map(
-									( plugin ) => {
-										const plugin_name = plugin.replace(
-												/-/g,
-												' '
-											),
-											plugin_stat =
-												required_plugins[ plugin ];
+								{ required_plugins.map( ( plugin, index ) => {
+									const plugin_name = plugin.name,
+										plugin_stat = plugin.status;
 
-										if ( 'active' === plugin_stat ) {
-											installed_plugins_count++;
-										}
-
-										return (
-											<div
-												className="relative flex items-start"
-												key={ plugin }
-											>
-												<div className="!m-0 flex items-center gap-3 text-sm leading-6">
-													<input
-														id={ plugin }
-														aria-describedby={
-															plugin
-														}
-														name="required_plugins[]"
-														type="checkbox"
-														data-status={
-															plugin_stat
-														}
-														data-slug={ plugin }
-														className="!m-0 !h-5 !w-5 !rounded !border-gray-300 !text-[#f06434] focus:!ring-offset-2 focus:!ring-2 focus:!ring-[#f06434] checked:bg-[#f06434]"
-														defaultChecked={
-															'active' ===
-															plugin_stat
-														}
-														disabled={
-															'active' ===
-															plugin_stat
-														}
-													/>
-
-													<label
-														htmlFor={ plugin }
-														className="font-medium text-gray-500 capitalize"
-													>
-														{ plugin_name }{ ' ' }
-														<span className="capitalize text-xs italic">
-															({ plugin_stat })
-														</span>
-													</label>
-												</div>
-											</div>
-										);
+									// Skip the display of Spectra plugin if default page builder is set other than gutenberg.
+									if (
+										'gutenberg' !== selected_page_builder &&
+										'ultimate-addons-for-gutenberg' ===
+											plugin.slug
+									) {
+										return '';
 									}
-								) }
+
+									if ( 'active' === plugin_stat ) {
+										installed_plugins_count++;
+									}
+
+									return (
+										<div
+											className="relative !m-0"
+											key={ index }
+										>
+											<div className="!m-0 text-sm leading-6 py-2 px-3 border border-gray-200 rounded-md">
+												<input
+													id={ plugin.slug }
+													aria-describedby={
+														plugin.slug
+													}
+													name="required_plugins[]"
+													type="checkbox"
+													data-status={ plugin_stat }
+													data-slug={ plugin.slug }
+													className="!hidden !m-0 !h-5 !w-5 !rounded !border-gray-300 !text-[#f06434] focus:!ring-offset-2 focus:!ring-2 focus:!ring-[#f06434] checked:bg-[#f06434]"
+													defaultChecked={ true }
+													disabled={
+														'active' === plugin_stat
+													}
+												/>
+
+												<label
+													htmlFor={ plugin.slug }
+													className="font-medium text-slate-800 capitalize"
+												>
+													{ 'ultimate-addons-for-gutenberg' ===
+													plugin
+														? __(
+																'Spectra',
+																'cartflows'
+														  )
+														: plugin_name }{ ' ' }
+													<span className="capitalize text-xs italic sr-only">
+														({ plugin_stat })
+													</span>
+												</label>
+											</div>
+										</div>
+									);
+								} ) }
 							</form>
 						</fieldset>
 					</div>

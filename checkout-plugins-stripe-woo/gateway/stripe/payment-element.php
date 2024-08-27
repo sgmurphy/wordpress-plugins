@@ -245,8 +245,7 @@ class Payment_Element extends Abstract_Payment_Gateway {
 	 * @return boolean
 	 */
 	public function is_current_section() {
-		$notice = Notice::get_instance();
-		return $notice->is_cpsw_section( $this->id );
+		return Notice::is_cpsw_section( $this->id );
 	}
 
 	/**
@@ -260,8 +259,6 @@ class Payment_Element extends Abstract_Payment_Gateway {
 		if ( 'yes' !== $this->enabled ) {
 			return;
 		}
-
-		$notice = Notice::get_instance();
 
 		if ( ! $this->is_current_section() ) {
 			return;
@@ -528,7 +525,7 @@ class Payment_Element extends Abstract_Payment_Gateway {
 
 		$order_id = isset( $_GET['order'] ) ? sanitize_text_field( $_GET['order'] ) : 0; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$redirect = isset( $_GET['redirect_to'] ) ? esc_url_raw( wp_unslash( $_GET['redirect_to'] ) ) : ''; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		
+
 		// Check for empty order id.
 		if ( empty( $order_id ) ) {
 			wc_add_notice( __( 'No orders are found for provided order ID.', 'checkout-plugins-stripe-woo' ), 'error' );

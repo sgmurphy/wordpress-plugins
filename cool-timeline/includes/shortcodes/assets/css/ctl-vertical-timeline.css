@@ -568,10 +568,13 @@
 
 .ctl-pagination {
     display: flex;
-    justify-content: center;
     align-items: stretch;
     gap: 5px;
-  }
+}
+
+.cool-timeline-wrapper:not(.ctl-one-sided) .ctl-pagination {
+    justify-content: center;
+}
 
 .ctl-vertical-wrapper .ctl-pagination a,
 .ctl-vertical-wrapper .ctl-pagination span {

@@ -270,6 +270,14 @@ class AdminMenu {
 				'admin.php?page=' . $this->menu_slug . '&' . $global_checkout_param
 			);
 
+			add_submenu_page(
+				$parent_slug,
+				__( 'Add-ons', 'cartflows' ),
+				__( 'Add-ons', 'cartflows' ),
+				$capability,
+				'admin.php?page=' . $this->menu_slug . '&path=addons'
+			);
+
 			if ( current_user_can( 'cartflows_manage_settings' ) ) {
 
 				if ( ! get_option( 'wcf_setup_page_skipped', false ) && '1' === get_option( 'wcf_setup_skipped', false ) && $this->maybe_skip_setup_menu() ) {
@@ -393,6 +401,9 @@ class AdminMenu {
 	public function styles_scripts() {
 
 		$admin_slug = 'cartflows-admin';
+
+		// Load the custom font for admin area.
+		wp_enqueue_style( $admin_slug . '-font', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap', array(), CARTFLOWS_VER );
 
 		// Styles.
 		wp_enqueue_style( $admin_slug . '-common', CARTFLOWS_ADMIN_CORE_URL . 'assets/css/common.css', array(), CARTFLOWS_VER );
@@ -632,6 +643,35 @@ class AdminMenu {
 	}
 
 	/**
+	 * Get plugin status
+	 *
+	 * @since 1.1.4
+	 *
+	 * @param  string $theme_name Theme slug file.
+	 * @return string
+	 */
+	public function get_themes_status( $theme_name ) {
+
+		$theme = wp_get_theme();
+
+		// Theme installed and activate.
+		if ( $theme_name === $theme->name || $theme_name === $theme->parent_theme ) {
+			return 'active';
+		}
+
+		// Theme installed but not activate.
+		foreach ( (array) wp_get_themes() as $theme_dir => $theme ) {
+			if ( $theme_name === $theme->name || $theme_name === $theme->parent_theme ) {
+				return 'inactive';
+			}
+		}
+
+		// If none of the above conditions are found then the theme is not installed.
+		return 'not-installed';
+
+	}
+
+	/**
 	 * Settings app scripts
 	 *
 	 * @param array $localize Variable names.
@@ -821,70 +861,136 @@ class AdminMenu {
 	 */
 	public function get_recommendation_integrations() {
 
-		return apply_filters(
-			'cartflows_admin_integrated_plugins',
-			array(
+		return array(
+			'plugins' => apply_filters(
+				'cartflows_admin_integrated_plugins',
 				array(
-					'title'       => __( 'WooCommerce', 'cartflows' ),
-					'subtitle'    => __( 'WooCommerce is a customizable, open-source ecommerce platform built on WordPress.', 'cartflows' ),
-					'isPro'       => false,
-					'status'      => $this->get_plugin_status( 'woocommerce/woocommerce.php' ),
-					'slug'        => 'woocommerce',
-					'path'        => 'woocommerce/woocommerce.php',
-					'redirection' => admin_url( 'admin.php?page=wc-admin' ),
-					'logoPath'    => array(
-						'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/woo.svg',
+					array(
+						'title'       => __( 'Stripe Payments For WooCommerce', 'cartflows' ),
+						'subtitle'    => __( 'Accept credit card payments in your store with Stripe for WooCommerce.', 'cartflows' ),
+						'isPro'       => false,
+						'status'      => $this->get_plugin_status( 'checkout-plugins-stripe-woo/checkout-plugins-stripe-woo.php' ),
+						'redirection' => admin_url( 'index.php?page=cpsw-onboarding' ),
+						'slug'        => 'checkout-plugins-stripe-woo',
+						'path'        => 'checkout-plugins-stripe-woo/checkout-plugins-stripe-woo.php',
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/cpsw.gif',
+						),
 					),
-				),
+					array(
+						'title'       => __( 'PayPal Payments For WooCommerce', 'cartflows' ),
+						'subtitle'    => __( 'Accept payments in your store with PayPal for WooCommerce.', 'cartflows' ),
+						'isPro'       => false,
+						'status'      => $this->get_plugin_status( 'checkout-paypal-woo/checkout-paypal-woo.php' ),
+						'slug'        => 'checkout-paypal-woo',
+						'path'        => 'checkout-paypal-woo/checkout-paypal-woo.php',
+						'redirection' => admin_url( 'admin.php?page=wc-settings&tab=cppw_api_settings' ),
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/cppw.svg',
+						),
+					),
+					array(
+						'title'       => __( 'WooCommerce', 'cartflows' ),
+						'subtitle'    => __( 'WooCommerce is a customizable, open-source ecommerce platform built on WordPress.', 'cartflows' ),
+						'isPro'       => false,
+						'status'      => $this->get_plugin_status( 'woocommerce/woocommerce.php' ),
+						'slug'        => 'woocommerce',
+						'path'        => 'woocommerce/woocommerce.php',
+						'redirection' => admin_url( 'admin.php?page=wc-admin' ),
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/woo.svg',
+						),
+					),
+					array(
+						'title'       => __( 'SureMembers', 'cartflows' ),
+						'subtitle'    => __( 'Transform your WordPress form-building experience with stunning designs, ai integration, and no-code flexibility.', 'cartflows' ),
+						'isPro'       => true,
+						'status'      => $this->get_plugin_status( 'suremembers/suremembers.php' ),
+						'slug'        => 'suremembers',
+						'path'        => 'suremembers/suremembers.php',
+						'link'        => 'https://suremembers.com/pricing/',
+						'redirection' => admin_url( 'edit.php?post_type=wsm_access_group' ),
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/suremembers.svg',
+						),
+					),
+					array(
+						'title'       => __( 'SureForms', 'cartflows' ),
+						'subtitle'    => __( 'Transform your WordPress form-building experience with stunning designs, ai integration, and no-code flexibility.', 'cartflows' ),
+						'isPro'       => false,
+						'status'      => $this->get_plugin_status( 'sureforms/sureforms.php' ),
+						'slug'        => 'sureforms',
+						'path'        => 'sureforms/sureforms.php',
+						'redirection' => admin_url( 'admin.php?page=sureforms_menu' ),
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/sureforms.svg',
+						),
+					),
+					array(
+						'title'       => __( 'Spectra', 'cartflows' ),
+						'subtitle'    => __( 'Power-up the Gutenberg editor with advanced and powerful blocks.', 'cartflows' ),
+						'isPro'       => false,
+						'status'      => $this->get_plugin_status( 'ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php' ),
+						'slug'        => 'ultimate-addons-for-gutenberg',
+						'path'        => 'ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php',
+						'redirection' => admin_url( 'options-general.php?page=spectra' ),
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/spectra.svg',
+						),
+					),
+					array(
+						'title'       => __( 'Cart Abandonment', 'cartflows' ),
+						'subtitle'    => __( 'Recover abandonded carts with ease in less than 10 minutes.', 'cartflows' ),
+						'isPro'       => false,
+						'status'      => $this->get_plugin_status( 'woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php' ),
+						'slug'        => 'woo-cart-abandonment-recovery',
+						'path'        => 'woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php',
+						'redirection' => admin_url( 'admin.php?page=woo-cart-abandonment-recovery' ),
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/wcar.svg',
+						),
+					),
+					array(
+						'title'       => __( 'Variation Swatches for WooCommerce', 'cartflows' ),
+						'subtitle'    => __( 'Convert dropdown boxes into highly engaging variation swatches.', 'cartflows' ),
+						'isPro'       => false,
+						'status'      => $this->get_plugin_status( 'variation-swatches-woo/variation-swatches-woo.php' ),
+						'slug'        => 'variation-swatches-woo',
+						'path'        => 'variation-swatches-woo/variation-swatches-woo.php',
+						'redirection' => admin_url( 'admin.php?page=variation-swatches-woo' ),
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/variation-swatches-woo.svg',
+						),
+					),
+				)
+			),
+			'themes'  => apply_filters(
+				'cartflows_admin_integrated_themes',
 				array(
-					'title'       => __( 'Cart Abandonment', 'cartflows' ),
-					'subtitle'    => __( 'Recover abandonded carts with ease in less than 10 minutes.', 'cartflows' ),
-					'isPro'       => false,
-					'status'      => $this->get_plugin_status( 'woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php' ),
-					'slug'        => 'woo-cart-abandonment-recovery',
-					'path'        => 'woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php',
-					'redirection' => admin_url( 'admin.php?page=woo-cart-abandonment-recovery' ),
-					'logoPath'    => array(
-						'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/wcar.svg',
+					array(
+						'title'       => __( 'Astra', 'cartflows' ),
+						'subtitle'    => __( 'Astra is fast, fully customizable & beautiful WordPress theme suitable for blog, personal portfolio, business website and WooCommerce storefront.', 'cartflows' ),
+						'isPro'       => false,
+						'status'      => $this->get_themes_status( 'Astra' ),
+						'slug'        => 'astra',
+						'redirection' => admin_url( 'admin.php?page=wc-admin' ),
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/themes/astra-icon.svg',
+						),
 					),
-				),
-				array(
-					'title'       => __( 'Spectra', 'cartflows' ),
-					'subtitle'    => __( 'Power-up the Gutenberg editor with advanced and powerful blocks.', 'cartflows' ),
-					'isPro'       => false,
-					'status'      => $this->get_plugin_status( 'ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php' ),
-					'slug'        => 'ultimate-addons-for-gutenberg',
-					'path'        => 'ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php',
-					'redirection' => admin_url( 'options-general.php?page=spectra' ),
-					'logoPath'    => array(
-						'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/spectra.svg',
+					array(
+						'title'       => __( 'Spectra One', 'cartflows' ),
+						'subtitle'    => __( 'Spectra One is a beautiful and modern WordPress theme built with the Full Site Editing (FSE) feature. It\'s a versatile theme that can be used for blogs, portfolios, businesses, and more.', 'cartflows' ),
+						'isPro'       => false,
+						'status'      => $this->get_themes_status( 'Spectra One' ),
+						'slug'        => 'spectra-one',
+						'redirection' => admin_url( 'admin.php?page=wc-admin' ),
+						'logoPath'    => array(
+							'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/themes/spectra-one.svg',
+						),
 					),
-				),
-				array(
-					'title'       => __( 'Stripe Payments For WooCommerce', 'cartflows' ),
-					'subtitle'    => __( 'Accept credit card payments in your store with Stripe for WooCommerce.', 'cartflows' ),
-					'isPro'       => false,
-					'status'      => $this->get_plugin_status( 'checkout-plugins-stripe-woo/checkout-plugins-stripe-woo.php' ),
-					'redirection' => admin_url( 'index.php?page=cpsw-onboarding' ),
-					'slug'        => 'checkout-plugins-stripe-woo',
-					'path'        => 'checkout-plugins-stripe-woo/checkout-plugins-stripe-woo.php',
-					'logoPath'    => array(
-						'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/cpsw.svg',
-					),
-				),
-				array(
-					'title'       => __( 'PayPal Payments For WooCommerce', 'cartflows' ),
-					'subtitle'    => __( 'Accept payments in your store with PayPal for WooCommerce.', 'cartflows' ),
-					'isPro'       => false,
-					'status'      => $this->get_plugin_status( 'checkout-paypal-woo/checkout-paypal-woo.php' ),
-					'slug'        => 'checkout-paypal-woo',
-					'path'        => 'checkout-paypal-woo/checkout-paypal-woo.php',
-					'redirection' => admin_url( 'admin.php?page=wc-settings&tab=cppw_api_settings' ),
-					'logoPath'    => array(
-						'icon_path' => CARTFLOWS_ADMIN_CORE_URL . 'assets/images/plugins/cppw.svg',
-					),
-				),
-			)
+				)
+			),
 		);
 	}
 }

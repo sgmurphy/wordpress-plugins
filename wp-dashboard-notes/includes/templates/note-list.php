@@ -1,12 +1,12 @@
-		<div class='wp-dashboard-note-wrap list-note' data-note-type='list' data-color-text='<?php echo $note_meta['color_text']; ?>' data-note-color='<?php echo $note_meta['color']; ?>'>
+		<div class='wp-dashboard-note-wrap list-note' data-note-type='list' data-color-text='<?php echo esc_attr( $note_meta['color_text'] ); ?>' data-note-color='<?php echo esc_attr( $note_meta['color'] ); ?>'>
 
 			<div class='wp-dashboard-note'>
-				<?php echo $content; ?>
+				<?php echo wp_kses( $content, WP_Dashboard_Notes()->allowed_tags() ); ?>
 			</div>
 
 			<div class='wp-dashboard-note-options'>
 				<div class='dashicons dashicons-plus wpdn-add-item'></div>
-				<input type='text' name='list_item' class='add-list-item' data-id='<?php echo $note->ID; ?>' placeholder='<?php _e( 'List item', 'wp-dashboard-notes' ); ?>'>
+				<input type='text' name='list_item' class='add-list-item' data-id='<?php echo absint( $note->ID ); ?>' placeholder='<?php _e( 'List item', 'wp-dashboard-notes' ); ?>'>
 				<span class='status'></span>
 				<div class='wpdn-extra'>
 					<span class='wpdn-option-visibility'>
@@ -21,15 +21,15 @@
 							$status['visibility'] = 'public';
 						endif; ?>
 
-						<span class='wpdn-toggle-visibility' title='<?php _e( 'Visibility:', 'wp-dashboard-notes' ); ?> <?php echo $status['title']; ?>' data-visibility='<?php echo $status['visibility']; ?>'>
-							<div class='wpdn-visibility visibility-publish dashicons <?php echo $status['icon']; ?>'></div>
+						<span class='wpdn-toggle-visibility' title='<?php _e( 'Visibility:', 'wp-dashboard-notes' ); ?> <?php echo esc_attr( $status['title'] ); ?>' data-visibility='<?php echo esc_attr( $status['visibility'] ); ?>'>
+							<div class='wpdn-visibility visibility-publish dashicons <?php echo esc_attr( $status['icon'] ); ?>'></div>
 						</span>
 
 						<span class='wpdn-color-note' title='<?php _e( 'Give me a color!', 'wp-dashboard-notes' ); ?>'>
 							<span class='wpdn-color-palette'>
 
 								<?php foreach ( $colors as $name => $color ) : ?>
-									<span class='color color-<?php echo $name;?>' data-select-color-text='<?php echo $name; ?>'	data-select-color='<?php echo $color; ?>' style='background-color: <?php echo $color; ?>'></span>
+									<span class='color color-<?php echo esc_attr( $name );?>' data-select-color-text='<?php echo esc_attr( $name ); ?>'	data-select-color='<?php echo esc_attr( $color ); ?>' style='background-color: <?php echo esc_attr( $color ); ?>'></span>
 								<?php endforeach; ?>
 
 							</span>

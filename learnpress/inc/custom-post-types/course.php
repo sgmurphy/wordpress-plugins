@@ -175,7 +175,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		 */
 		public function before_delete( int $post_id ) {
 			// Delete course from table learnpress_courses
-			$courseModel = CourseModel::find( $post_id );
+			$courseModel = CourseModel::find( $post_id, true );
 			if ( $courseModel ) {
 				$courseModel->delete();
 			}
@@ -302,7 +302,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 			$order = $this->get_order_sort();
 			switch ( $this->get_order_by() ) {
 				case 'price':
-					$orderby = "pm_price.meta_value {$order}";
+					$orderby = "CAST(pm_price.meta_value AS UNSIGNED) {$order}";
 			}
 
 			return $orderby;
@@ -325,11 +325,11 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		 *
 		 * @return void
 		 */
-		public function admin_editor() {
+		/*public function admin_editor() {
 			$course = LP_Course::get_course();
 
 			learn_press_admin_view( 'course/editor' );
-		}
+		}*/
 
 		/**
 		 * Delete all sections in a course and reset auto increment
@@ -489,7 +489,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 			}
 		}
 
-		public function meta_boxes() {
+		/*public function meta_boxes() {
 			return array(
 				'course-editor' => array(
 					'title'    => esc_html__( 'Curriculum', 'learnpress' ),
@@ -498,7 +498,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 					'priority' => 'high',
 				),
 			);
-		}
+		}*/
 
 		/**
 		 * Save course post
@@ -522,15 +522,24 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 				if ( $post->post_status === 'auto-draft' ) {
 					return;
 				}
-				$courseModel = CourseModel::find( $post_id );
+
+				$courseModel = CourseModel::find( $post_id, true );
 				if ( ! $courseModel ) {
 					$courseModel = new CourseModel( $post );
 				}
-				// Merge object
+
+				// Merge object post and courseModel
 				$new_obj     = (array) $post;
 				$old_obj     = (array) $courseModel;
 				$old_now     = array_merge( $old_obj, $new_obj );
 				$courseModel = new CourseModel( $old_now );
+
+				// Get all meta data of course
+				if ( $is_update && empty( $wp_screen ) ) {
+					$coursePost = new CoursePostModel( $courseModel );
+					$coursePost->get_all_metadata();
+					$courseModel->meta_data = $coursePost->meta_data;
+				}
 
 				// Save option single course
 				include_once LP_PLUGIN_PATH . 'inc/admin/class-lp-admin.php';

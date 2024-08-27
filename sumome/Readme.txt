@@ -3,7 +3,7 @@ Contributors: SumoMe
 Tags: ecommerce, marketing, WooCommerce, email marketing, marketing strategies, analytics, campaign monitor, click to tweet, contact form, content analytics, convertkit, drip, email form, ExactTarget, exit-intent, Facebook, facebook share, FeedBlitz, floating social buttons, growth, heat map, heatmaps, Hubspot, image sharing, inbound marketing, Inbox First, infusionsoft, landing page, lightbox, links, mailchimp, mailerlite, mailing list, mailjet, MyEmma, MyNewsletterBuilder, newsletter, Ontraport, pardot, popup, sailthru, scroll box, share, share buttons, share image, sharebar, sharing, site traffic, sms, social, social bookmarking, social media buttons, social plugin, social sharing, subscribers, subscription, traffic growth, tweet button, twitter, twitter share, vero, vertical response, welcome mat, WhatCounts, widget, zapier
 Requires at least: 4.7
 Tested up to: 6.4.1
-Stable tag: 1.34
+Stable tag: 1.41
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -102,7 +102,7 @@ Yes, we provide instant integration with MailChimp, Aweber, Constant Contact, Ca
 
 == Screenshots ==
 
-[See all of our screenshots at Sumome.com](http://sumome.com/?src=wordpress_ss)
+[See all of our screenshots at bdow.com](http://bdow.com/?src=wordpress_ss)
 
 1. Reduce Cart Abandonment Shortcut
 2. Grow Email List Shortcut
@@ -112,8 +112,8 @@ Yes, we provide instant integration with MailChimp, Aweber, Constant Contact, Ca
 
 == Changelog ==
 
-= 1.35 =
-* Bug Patch: Improved security.
+= 1.40 =
+* Sumo transition. Updated about page to new BDOW! design, new BDOW logo and icon.
 
 = 1.34 =
 * Bug Patch: Added permission check, and updated the ReadMe and switched the order of the changelog so that the newest changes are at the top.

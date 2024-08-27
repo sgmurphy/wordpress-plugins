@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, funnel builder, sales funnels, elementor, beaver builder
 Requires at least: 5.8
 Tested up to: 6.6
-Stable tag: 2.0.9
+Stable tag: 2.0.10
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -321,6 +321,11 @@ This includes, but is not limited to:
 5. Easily edit anything with your page builder.
 
 == Changelog ==
+
+= Version 2.0.10 - Tuesday, 27th August 2024 =
+* New: Added a setting in the backend to modify the "no shipping" message displayed during checkout.
+* New: Introducing recommended plugins page, that suggests useful plugins to enhance your experience.
+* Fix: Addressed a bug where WooCommerce coupons restricted to specific emails were causing an invalid email error during checkout.
 
 = Version 2.0.9 - Thursday, 11th July 2024 =
 * Fix: The redirect from product page was showing 404 page if the selected flow is deleted or trashed.

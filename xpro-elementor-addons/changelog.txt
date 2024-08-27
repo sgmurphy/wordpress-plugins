@@ -1,3 +1,7 @@
+= V 1.4.4.4 – 27 Aug 2024
+
+- Fix: XSS security issue for the Post Grid widget.
+
 = V 1.4.4.3 – 01 Aug 2024
 
 - Fix: XSS security issue for the Info List widget.

@@ -22,16 +22,11 @@ class Ezoic_Cdn extends Ezoic_Feature {
 	}
 
 	public function register_public_hooks( $loader ) {
-		// include these for non is_admin() calls
-		$loader->add_action( 'publish_future_post', $this, 'ezoic_cdn_future_post', 10 );
-		$loader->add_action( 'publish_post', $this, 'ezoic_cdn_published', 10, 2 );
-		$loader->add_action( 'publish_page', $this, 'ezoic_cdn_published', 10, 2 );
+		//$loader->add_action( 'publish_future_post', $this, 'ezoic_cdn_future_post', 10 );
+		//$loader->add_action( 'publish_post', $this, 'ezoic_cdn_published', 10, 2 );
+		//$loader->add_action( 'publish_page', $this, 'ezoic_cdn_published', 10, 2 );
 
 		$loader->add_action( 'comment_post', $this, 'ezoic_cdn_comment_post', 100, 3 );
-		$loader->add_action( 'edit_comment', $this, 'ezoic_cdn_edit_comment', 100, 2 );
-		$loader->add_action( 'delete_comment', $this, 'ezoic_cdn_delete_comment', 100, 2 );
-		$loader->add_action( 'trash_comment', $this, 'ezoic_cdn_delete_comment', 100, 2 );
-		$loader->add_action( 'wp_set_comment_status', $this, 'ezoic_cdn_comment_change_status', 100, 2 );
 
 		$loader->add_action( 'ezoic_purge_domain', $this, 'ezoic_cdn_purge_domain_hook', 10, 0 );
 		$loader->add_action( 'ezoic_purge_url', $this, 'ezoic_cdn_purge_url_hook', 10, 1 );
@@ -45,47 +40,55 @@ class Ezoic_Cdn extends Ezoic_Feature {
 		$loader->add_action( 'publish_post', $this, 'ezoic_cdn_published', 10, 2 );
 		$loader->add_action( 'publish_page', $this, 'ezoic_cdn_published', 10, 2 );
 		$loader->add_action( 'post_updated', $this, 'ezoic_cdn_post_updated', 10, 3 );
-		//$loader->add_action( 'save_post', $this, 'ezoic_cdn_save_post', 100, 3 );
+		$loader->add_action( 'after_delete_post', $this, 'ezoic_cdn_post_deleted', 100, 2 );
 
 		$loader->add_action( 'template_redirect', $this, 'ezoic_cdn_add_headers' );
 		$loader->add_action( 'admin_notices', $this, 'ezoic_cdn_display_admin_notices' );
 
-		$loader->add_action( 'comment_post', $this, 'ezoic_cdn_comment_post', 100, 3 );
+		// Comment-related hooks in admin
 		$loader->add_action( 'edit_comment', $this, 'ezoic_cdn_edit_comment', 100, 2 );
 		$loader->add_action( 'delete_comment', $this, 'ezoic_cdn_delete_comment', 100, 2 );
 		$loader->add_action( 'trash_comment', $this, 'ezoic_cdn_delete_comment', 100, 2 );
-		$loader->add_action( 'wp_set_comment_status', $this, 'ezoic_cdn_comment_change_status', 100, 2 );
-
-		$loader->add_action( 'after_delete_post', $this, 'ezoic_cdn_post_deleted', 100, 2 );
-		$loader->add_action( 'ezoic_cdn_scheduled_clear', $this, 'ezoic_cdn_scheduled_clear_action', 1, 1 );
+		//$loader->add_action( 'wp_set_comment_status', $this, 'ezoic_cdn_comment_change_status', 100, 2 );
 
 		$loader->add_action( 'switch_theme', $this, 'ezoic_cdn_switch_theme', 100, 3 );
 		$loader->add_action( 'activated_plugin', $this, 'ezoic_cdn_activated_plugin', 100, 2 );
-		$loader->add_action( 'deleted_plugin', $this, 'ezoic_cdn_deleted_plugin', 100, 2 );
 		$loader->add_action( 'deactivated_plugin', $this, 'ezoic_cdn_deactivated_plugin', 100, 2 );
 
-        $loader->add_action( 'wp_create_nav_menu', $this, 'ezoic_cdn_purge_domain_hook', 10, 0 );
-        $loader->add_action( 'wp_update_nav_menu', $this, 'ezoic_cdn_purge_domain_hook', 10, 0 );
-        $loader->add_action( 'wp_delete_nav_menu', $this, 'ezoic_cdn_purge_domain_hook', 10, 0 );
+		$loader->add_action( 'wp_create_nav_menu', $this, 'ezoic_cdn_purge_domain_hook', 10, 0 );
+		$loader->add_action( 'wp_update_nav_menu', $this, 'ezoic_cdn_purge_domain_hook', 10, 0 );
+		$loader->add_action( 'wp_delete_nav_menu', $this, 'ezoic_cdn_purge_domain_hook', 10, 0 );
 
-		// When W3TC is instructed to purge cache for entire site, also purge cache from Ezoic CDN.
+		// Cache plugin hooks
 		$loader->add_action( 'w3tc_flush_posts', $this, 'ezoic_cdn_cachehook_purge_posts_action', 2100 );
-		// When W3TC is instructed to purge cache for a post, also purge cache from Ezoic CDN.
 		$loader->add_action( 'w3tc_flush_post', $this, 'ezoic_cdn_cachehook_purge_post_action', 2100, 1 );
 		$loader->add_action( 'w3tc_flush_all', $this, 'ezoic_cdn_cachehook_purge_posts_action', 2100 );
-
-		// Hook into WP Super Cache's wp_cache_cleared action.
 		$loader->add_action( 'wp_cache_cleared', $this, 'ezoic_cdn_cachehook_purge_posts_action', 2100 );
-
-		// WP-Rocket Purge Cache Hook.
 		$loader->add_action( 'rocket_purge_cache', $this, 'ezoic_cdn_rocket_purge_action', 2100, 4 );
 		$loader->add_action( 'after_rocket_clean_post', $this, 'ezoic_cdn_rocket_clean_post_action', 2100, 3 );
 
-		$loader->add_action('ezoic_purge_domain', $this, 'ezoic_cdn_purge_domain_hook', 10, 0 );
-		$loader->add_action('ezoic_purge_url', $this, 'ezoic_cdn_purge_url_hook', 10, 1 );
-		$loader->add_action('ezoic_purge_urls', $this, 'ezoic_cdn_purge_urls_hook', 10, 1 );
-		$loader->add_action('ezoic_purge_home', $this, 'ezoic_cdn_purge_home_hook', 10, 0 );
+		$loader->add_action( 'ezoic_cdn_scheduled_clear', $this, 'ezoic_cdn_scheduled_clear_action', 1, 1 );
+		$loader->add_action( 'ezoic_purge_domain', $this, 'ezoic_cdn_purge_domain_hook', 10, 0 );
+		$loader->add_action( 'ezoic_purge_url', $this, 'ezoic_cdn_purge_url_hook', 10, 1 );
+		$loader->add_action( 'ezoic_purge_urls', $this, 'ezoic_cdn_purge_urls_hook', 10, 1 );
+		$loader->add_action( 'ezoic_purge_home', $this, 'ezoic_cdn_purge_home_hook', 10, 0 );
 		$loader->add_action( 'ezoic_purge_post', $this, 'ezoic_cdn_purge_post_hook', 10, 1 );
+	}
+
+
+	private static function get_api_url($endpoint) {
+		$base_url = EZOIC_API_URL . $endpoint;
+		$query_args = array(
+			'developerKey' => self::ezoic_cdn_api_key()
+		);
+
+		$current_hook = current_filter();
+		if (!empty($current_hook)) {
+			$query_args['wpHook'] = $current_hook;
+		}
+
+		$url = add_query_arg($query_args, $base_url);
+		return $url;
 	}
 
 	/**
@@ -497,7 +500,7 @@ class Ezoic_Cdn extends Ezoic_Feature {
 			return;
 		}
 
-		$api_url = EZOIC_API_URL . '/gateway/cdnservices/clearcache?developerKey=' . self::ezoic_cdn_api_key();
+		$api_url = $this->get_api_url('/gateway/cdnservices/clearcache');
 
 		$verbose = self::ezoic_cdn_verbose_mode();
 
@@ -558,7 +561,7 @@ class Ezoic_Cdn extends Ezoic_Feature {
 			return;
 		}
 
-		$api_url = EZOIC_API_URL . '/gateway/cdnservices/bulkclearcache?developerKey=' . self::ezoic_cdn_api_key();
+		$api_url = $this->get_api_url('/gateway/cdnservices/bulkclearcache');
 
 		$verbose = self::ezoic_cdn_verbose_mode();
 
@@ -599,7 +602,7 @@ class Ezoic_Cdn extends Ezoic_Feature {
 			return array( false, "Please enter a valid CDN API key." );
 		}
 
-		$api_url = EZOIC_API_URL . '/gateway/cdnservices/ping?developerKey=' . self::ezoic_cdn_api_key();
+		$api_url = self::get_api_url('/gateway/cdnservices/ping');
 
 		$args = array(
 				'timeout'     => 45,
@@ -775,7 +778,7 @@ class Ezoic_Cdn extends Ezoic_Feature {
 			return;
 		}
 
-		$api_url = EZOIC_API_URL . '/gateway/cdnservices/clearbysurrogatekeys?developerKey=' . self::ezoic_cdn_api_key();
+		$api_url = $this->get_api_url('/gateway/cdnservices/clearbysurrogatekeys');
 
 		$verbose = self::ezoic_cdn_verbose_mode();
 
@@ -959,6 +962,9 @@ class Ezoic_Cdn extends Ezoic_Feature {
 		}
 
 		$comment = get_comment( $comment_id );
+		if (!$comment) {
+			return;
+		}
 		$post_id = $comment->comment_post_ID;
 
 		$urls = self::ezoic_cdn_get_recache_urls_by_post( $post_id );
@@ -990,6 +996,9 @@ class Ezoic_Cdn extends Ezoic_Feature {
 		}
 
 		$comment = get_comment( $comment_id );
+		if (!$comment) {
+			return;
+		}
 		$post_id = $comment->comment_post_ID;
 
 		$urls = self::ezoic_cdn_get_recache_urls_by_post( $post_id );
@@ -1022,6 +1031,9 @@ class Ezoic_Cdn extends Ezoic_Feature {
 
 		if ( empty( $comment ) ) {
 			$comment = get_comment( $comment_id );
+			if (!$comment) {
+				return;
+			}
 		}
 
 		$post_id = $comment->comment_post_ID;
@@ -1054,6 +1066,9 @@ class Ezoic_Cdn extends Ezoic_Feature {
 
 		if ( 'approve' === $comment_status ) {
 			$comment = get_comment( $comment_id );
+			if (!$comment) {
+				return;
+			}
 			$post_id = $comment->comment_post_ID;
 
 			$urls = self::ezoic_cdn_get_recache_urls_by_post( $post_id );
@@ -1378,7 +1393,7 @@ class Ezoic_Cdn extends Ezoic_Feature {
 			return;
 		}
 
-		$api_url = EZOIC_API_URL . '/gateway/cdnservices/purgecache?developerKey=' . self::ezoic_cdn_api_key();
+		$api_url = $this->get_api_url('/gateway/cdnservices/purgecache');
 
 		$verbose = self::ezoic_cdn_verbose_mode();
 

@@ -76,7 +76,7 @@ Our exit intent trigger is included in the free plan. Create any type of exit po
 
 * Run your popup with our Autopilot trigger and get optimized results
 
-* SEO friendly mobile and desktop popups, and inline forms
+* SEO friendly mobile & desktop popups, and inline forms
 
 * Ways to automate Poptin with Zapier:
   - Send an autoresponder with a Gmail account

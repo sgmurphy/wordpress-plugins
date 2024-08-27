@@ -310,8 +310,26 @@ class WizardCore {
 		$vars = array();
 
 		$plugins = array(
-			'woocommerce'                   => $this->get_plugin_status( 'woocommerce/woocommerce.php' ),
-			'woo-cart-abandonment-recovery' => $this->get_plugin_status( 'woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php' ),
+			array(
+				'name'   => 'WooCommerce',
+				'slug'   => 'woocommerce',
+				'status' => $this->get_plugin_status( 'woocommerce/woocommerce.php' ),
+			),
+			array(
+				'name'   => 'Cart Abandonment',
+				'slug'   => 'woo-cart-abandonment-recovery',
+				'status' => $this->get_plugin_status( 'woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php' ),
+			),
+			array(
+				'name'   => 'Stripe Payments',
+				'slug'   => 'checkout-plugins-stripe-woo',
+				'status' => $this->get_plugin_status( 'checkout-plugins-stripe-woo/checkout-plugins-stripe-woo.php' ),
+			),
+			array(
+				'name'   => 'Spectra',
+				'slug'   => 'ultimate-addons-for-gutenberg',
+				'status' => $this->get_plugin_status( 'ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php' ),
+			),
 		);
 
 		$installed_plugins = get_plugins();

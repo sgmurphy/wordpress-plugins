@@ -5,7 +5,7 @@ Donate link: https://sonaar.io
 Requires at least: 4.7
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 5.7.0.1
+Stable tag: 5.7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,7 +19,7 @@ You can display an optional stunning waveform bar under any of your audio player
 
 Upload your MP3 file from your page, post, WC product, custom post, or directly in Elementor!
 
-[youtube https://youtu.be/5_d59QwubT0]
+[youtube https://youtu.be/YXVHGj3ZA1c]
 
 There are 5 different ways to use the audio player. 
 
@@ -73,7 +73,7 @@ Want to broadcast your Icecast stream on your website? No problem! Users can eas
 [Live demos of the MUSIC PLAYER](https://sonaar.io/mp3-audio-player-pro/music-player-for-wordpress/examples/?utm_source=Sonaar+Music+Free+Plugin&utm_medium=plugin)
 [Live demo of the PODCAST PLAYER](https://sonaar.io/mp3-audio-player-pro/podcast-player-for-wordpress/examples/?utm_source=Sonaar+Music+Free+Plugin&utm_medium=plugin)
 [Live demo of a BEATSTORE/WooCommerce](https://templates.sonaar.io/audience/?utm_source=Sonaar+Music+Free+Plugin&utm_medium=plugin)
-[Watch Videos Tutorial](https://youtu.be/5_d59QwubT0)
+[Watch Videos Tutorial](https://youtu.be/YXVHGj3ZA1c)
 
 ### EASY-TO-USE AUDIO PLAYER
 
@@ -339,6 +339,17 @@ Yes, with the pro version, you can click on the 'Add to Favorite' icon to store 
 10. Shortcode Builder: Create, Import and Customize audio players using shortcodes in real-time
 
 == Changelog ==
+= 5.7.1 =
+- New: Setup Wizard to get started when you activate the plugin a first time.
+- Tweak: Improved translation strings so they can be much easier to translate
+- Tweak: Display notice to admin user when max_input_vars is not enough
+- Fix: Issue when removing Favorites if you are not using the sticky player
+- Fix: Issue with Most Recent Played Track in some conditions
+- Fix: Issue with pagination if you are not using the sticky player
+- Fix: Issue with Preview Generation when using .dev domain
+- Fix: PHP 8.2 Warning - Creation of dynamic property is deprecated
+= Fix: Security Patch
+
 = 5.7.0.1 =
 Fix: Audio Preview not generating with WooCommerce or Classic Editor Post
 Fix: Warning: Undefined array key "show_miniplayer_note_bt"

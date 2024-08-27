@@ -88,9 +88,19 @@ class Courses {
 			$filter->exclude_fields = $fields_exclude;
 		}
 
+		// Find by ids
+		$course_ids_str = LP_Helper::sanitize_params_submitted( urldecode( $param['ids'] ?? '' ) );
+		if ( ! empty( $course_ids_str ) ) {
+			$course_ids       = explode( ',', $course_ids_str );
+			$filter->post_ids = $course_ids;
+		}
+
 		// Author
-		$filter->post_author = LP_Helper::sanitize_params_submitted( $param['c_author'] ?? 0 );
-		$author_ids_str      = LP_Helper::sanitize_params_submitted( $param['c_authors'] ?? 0 );
+		$c_author = LP_Helper::sanitize_params_submitted( $param['c_author'] ?? 0 );
+		if ( ! empty( $c_author ) ) {
+			$filter->post_author = $c_author;
+		}
+		$author_ids_str = LP_Helper::sanitize_params_submitted( $param['c_authors'] ?? '' );
 		if ( ! empty( $author_ids_str ) ) {
 			$author_ids           = explode( ',', $author_ids_str );
 			$filter->post_authors = $author_ids;
@@ -138,7 +148,6 @@ class Courses {
 		if ( ! empty( $param['c_suggest'] ) ) {
 			$filter->only_fields = [ 'ID', 'post_title' ];
 			$filter->limit       = apply_filters( 'learn-press/rest-api/courses/suggest-limit', 10 );
-			$filter->max_limit   = apply_filters( 'learn-press/rest-api/courses/suggest-max-limit', 10 );
 		}
 
 		$return_type = $param['return_type'] ?? 'html';

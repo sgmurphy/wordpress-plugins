@@ -3,8 +3,8 @@ Contributors: wpdevteam, re_enter_rupok, asif2bd, rahat89, priyomukul, jamilbd07
 Tags: WordPress Block Editor, Gutenberg Blocks Plugin, WooCommerce, Gutenberg Templates, Page Builder
 Requires at least: 5.8
 Tested up to: 6.6
-Requires PHP: 7.0
-Stable tag: 4.8.4
+Requires PHP: 7.4
+Stable tag: 4.9.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -230,25 +230,23 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 
 == Changelog ==
 
+= 4.9.0 - 27/08/2024 =
+- Improved: Optimized codebase for better performance and efficiency
+- Fixed: Synced Pattern re-render issue in some blocks
+- Fixed: EB Post Carousel | Throwing PHP warning
+- Few minor bug fixes & improvements
+
 = 4.8.4 - 13/08/2024 =
 - Fixed: Style generation conflict with Generatepres
 - Fixed: Image Gallery | URL removed when new image add
 - Fixed: Slider | Images appeared broken at first glance
 - Improved: Security enhancement
 
-= 4.8.3 - 27/07/2024 =
-- Fixed: Google Map | Incorrect map Pointer placement
-- Fixed: Color Picker not working in Firefox and Safari
-- Improved: Security enhancement
-
-= 4.8.2 - 16/07/2024 =
-- Fixed: Resolved an error in the editor for WordPress 6.6
-- Minor bug fixes & improvements
-
 [See changelog for all versions](https://essential-blocks.com/changelog).
 
 
 == Upgrade Notice ==
 
-= 4.8.0 =
-- Essential Blocks is now Compatible with WPML.
+= 4.9.0 =
+- Optimized the codebase for better performance and efficiency
+- Fixed Synced Pattern rerender issue

@@ -3,6 +3,8 @@
 namespace PremiumAddons\Includes\Templates\Classes;
 
 use PremiumAddons\Includes\Templates;
+use PremiumAddons\Admin\Includes\Admin_Helper;
+use PremiumAddons\Includes\Helper_Functions;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -36,6 +38,8 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 			// Register AJAX hooks
 			add_action( 'wp_ajax_premium_get_templates', array( $this, 'get_templates' ) );
 			add_action( 'wp_ajax_premium_inner_template', array( $this, 'insert_inner_template' ) );
+
+			add_action( 'wp_ajax_get_pa_element_name', array( $this, 'get_pa_element_name' ) );
 
 			add_action( 'elementor/ajax/register_actions', array( $this, 'register_ajax_actions' ), 20 );
 
@@ -181,6 +185,48 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 			}
 
 			wp_send_json_success( $result );
+		}
+
+		/**
+		 * Get template
+		 *
+		 * Get templates grid data.
+		 *
+		 * @since 3.6.0
+		 * @access public
+		 */
+		public function get_pa_element_name() {
+
+			if ( ! isset( $_GET['element'] ) ) {
+				wp_send_json_error();
+			}
+
+			$key = isset( $_GET['element'] ) ? sanitize_text_field( wp_unslash( $_GET['element'] ) ) : '';
+
+			$info = Admin_Helper::get_info_by_key( $key );
+
+			if ( ! $info ) {
+				wp_send_json_error();
+			}
+
+			$url = add_query_arg(
+				array(
+					'page' => sprintf( 'premium-addons&search=%s#tab=elements', $info['title'] ),
+				),
+				esc_url( admin_url( 'admin.php' ) )
+			);
+
+            $demo_link = strstr( $info['demo'], '/?', true );
+
+            $demo_link = Helper_Functions::get_campaign_link( $demo_link, 'editor-page', 'wp-editor', 'template-issues' );
+
+			$data = array(
+				'name' => $info['title'],
+                'widgetURL'  => $demo_link,
+                'url'  => $url,
+			);
+
+			wp_send_json_success( $data );
 		}
 
 		/**

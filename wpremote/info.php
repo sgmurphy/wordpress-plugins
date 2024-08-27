@@ -10,7 +10,7 @@ if (!class_exists('WPRInfo')) :
 		public $badgeinfo = 'wprbadge';
 		public $ip_header_option = 'wpripheader';
 		public $brand_option = 'bv_whitelabel_infos';
-		public $version = '5.65';
+		public $version = '5.68';
 		public $webpage = 'https://wpremote.com';
 		public $appurl = 'https://app.wpremote.com';
 		public $slug = 'wpremote/plugin.php';
@@ -21,7 +21,8 @@ if (!class_exists('WPRInfo')) :
 		public $author = 'WP Remote';
 		public $title = 'WP Remote';
 
-		const DB_VERSION = '4';
+		const DB_VERSION = '5';
+		const AL_CONF_VERSION = '1.1';
 
 		public function __construct($settings) {
 			$this->settings = $settings;

@@ -14,6 +14,7 @@ namespace LearnPress\Models;
 use Exception;
 use LearnPress;
 use LP_Course_Cache;
+use LP_Course_Filter;
 use LP_Datetime;
 
 use Throwable;
@@ -50,6 +51,10 @@ class CoursePostModel extends PostModel {
 	const META_KEY_EXTERNAL_LINK_BY_COURSE = '_lp_external_link_buy_course';
 	const META_KEY_IS_SALE = '_lp_course_is_sale';
 	const META_KEY_NO_REQUIRED_ENROLL = '_lp_no_required_enroll';
+	const META_KEY_OFFLINE_COURSE = '_lp_offline_course';
+	const META_KEY_ADDRESS = '_lp_address';
+	const META_KEY_DELIVER = '_lp_deliver_type';
+	const META_KEY_OFFLINE_LESSON_COUNT = '_lp_offline_lesson_count';
 
 	/**
 	 * Get the price of course.
@@ -169,7 +174,7 @@ class CoursePostModel extends PostModel {
 
 			$price_html .= sprintf( '<span class="free">%s</span>', esc_html__( 'Free', 'learnpress' ) );
 			$price_html = apply_filters( 'learn_press_course_price_html_free', $price_html, $this );
-		}  elseif ( $this->get_meta_value_by_key( self::META_KEY_NO_REQUIRED_ENROLL, 'no' ) === 'yes' ) {
+		} elseif ( $this->get_meta_value_by_key( self::META_KEY_NO_REQUIRED_ENROLL, 'no' ) === 'yes' ) {
 			$price_html .= '';
 		} else {
 			if ( $this->has_sale_price() ) {
@@ -195,5 +200,20 @@ class CoursePostModel extends PostModel {
 		$price = learn_press_format_price( $this->get_regular_price(), true );
 
 		return apply_filters( 'learnPress/course/regular-price', $price, $this );
+	}
+
+	/**
+	 * Get post course by ID
+	 *
+	 * @param int $post_id
+	 * @param bool $check_cache
+	 *
+	 * @return false|static
+	 */
+	public static function find( int $post_id, bool $check_cache = false ) {
+		$filter_post     = new LP_Course_Filter();
+		$filter_post->ID = $post_id;
+
+		return self::get_item_model_from_db( $filter_post );
 	}
 }

@@ -333,7 +333,7 @@ final class HTMega_Addons_Elementor {
         if ( get_option( 'htmega_do_activation_redirect', false ) ) {
             delete_option('htmega_do_activation_redirect');
             if( !isset( $_GET['activate-multi'] ) ){
-                wp_redirect( admin_url("admin.php?page=htmega-addons_extensions") );
+                wp_redirect( admin_url("admin.php?page=htmega-addons") );
             }
         }
     }
@@ -372,13 +372,10 @@ final class HTMega_Addons_Elementor {
         require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/class.enqueue_scripts.php' );
 
         // HT Builder
-        if ( 'on' == htmega_get_module_option( 'htmega_themebuilder_module_settings','themebuilder','themebuilder_enable','off' ) ) {
+        if ( ( 'on' == htmega_get_module_option( 'htmega_themebuilder_module_settings','themebuilder','themebuilder_enable','off' ) ) ||
+         (  htmega_get_option( 'themebuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_themebuilder_module_settings') ) )) {
             require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-builder/init.php' );
 
-        } else {
-            if ( htmega_get_option( 'themebuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_themebuilder_module_settings') ) ){
-                require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-builder/init.php' );
-            }
         }
         // WC Sales Notification
         if( htmega_get_option( 'salenotification', 'htmega_advance_element_tabs', 'off' ) === 'on' && is_plugin_active('woocommerce/woocommerce.php') ){
@@ -394,22 +391,13 @@ final class HTMega_Addons_Elementor {
         }
 
         // HT Menu
-        if ( 'on' == htmega_get_module_option( 'htmega_megamenu_module_settings','megamenubuilder','megamenubuilder_enable','off' ) ) {
+        if ( ( 'on' == htmega_get_module_option( 'htmega_megamenu_module_settings','megamenubuilder','megamenubuilder_enable','off' ) ) ||
+         ( htmega_get_option( 'megamenubuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_megamenu_module_settings') )) ) {
 
             if ( is_plugin_active( 'htmega-pro/htmega_pro.php' ) ) {
                 require_once( HTMEGA_ADDONS_PL_PATH_PRO . 'extensions/ht-menu/classes/class.mega-menu.php' );
             } else {
                 require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-menu/classes/class.mega-menu.php' );
-            }
-
-        } else {
-
-            if ( htmega_get_option( 'megamenubuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_megamenu_module_settings') ) ){
-                if ( is_plugin_active( 'htmega-pro/htmega_pro.php' ) ) {
-                    require_once( HTMEGA_ADDONS_PL_PATH_PRO . 'extensions/ht-menu/classes/class.mega-menu.php' );
-                } else {
-                    require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-menu/classes/class.mega-menu.php' );
-                }
             }
         }
 

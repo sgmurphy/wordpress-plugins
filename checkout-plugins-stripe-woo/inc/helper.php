@@ -508,10 +508,10 @@ class Helper {
 			'bancontact' => [ 'EUR' ],
 			'eps'        => [ 'EUR' ],
 			'p24'        => [ 'EUR', 'PLN' ],
-			'alipay'     => self::get_supported_currency_for_gateway( 'alipay' ),
-			'klarna'     => self::get_supported_currency_for_gateway( 'klarna' ),
+			'alipay'     => self::get_supported_currency_country_for_gateway( 'alipay' )['currency'],
+			'klarna'     => self::get_supported_currency_country_for_gateway( 'klarna' )['currency'],
 			'sepa_debit' => [ 'EUR' ],
-			'wechat_pay' => self::get_supported_currency_for_gateway( 'wechat_pay' ),
+			'wechat_pay' => self::get_supported_currency_country_for_gateway( 'wechat_pay' )['currency'],
 			'cashapp'    => [ 'USD' ],
 		];
 	}
@@ -615,122 +615,176 @@ class Helper {
 	 * @param string $gateway_name The name of the payment gateway.
 	 * @return array Returns supported currency/currencies.
 	 */
-	public static function get_supported_currency_for_gateway( $gateway_name ) {
-		$country_info = self::get_stripe_default_country();
-		$country      = $country_info['country'] ?? null;
-		$currency     = $country_info['currency'] ?? null;
+	public static function get_supported_currency_country_for_gateway( $gateway_name ) {
+		$country_info    = self::get_stripe_default_country();
+		$country         = $country_info['country'] ?? null;
+		$currency        = $country_info['currency'] ?? null;
+		$gateway_support = [
+			'currency' => [],
+			'country'  => [],
+		];
 
 		switch ( $gateway_name ) {
 			case 'alipay':
 				$alipay_currency = [ 'CNY' ];
-				switch ( $country ) {
-					case 'AU':
-						$alipay_currency = [ 'AUD', 'CNY' ];
-						break;
-					case 'CA':
-						$alipay_currency = [ 'CAD', 'CNY' ];
-						break;
-					case 'UK':
-						$alipay_currency = [ 'GBP', 'CNY' ];
-						break;
-					case 'HK':
-						$alipay_currency = [ 'HKD', 'CNY' ];
-						break;
-					case 'JP':
-						$alipay_currency = [ 'JPY', 'CNY' ];
-						break;
-					case 'MY':
-						$alipay_currency = [ 'MYR', 'CNY' ];
-						break;
-					case 'NZ':
-						$alipay_currency = [ 'NZD', 'CNY' ];
-						break;
-					case 'SG':
-						$alipay_currency = [ 'SGD', 'CNY' ];
-						break;
-					case 'US':
-						$alipay_currency = [ 'USD', 'CNY' ];
-						break;
-				}
+				if ( null !== $country ) {
+					switch ( $country ) {
+						case 'AU':
+							$alipay_currency = [ 'AUD', 'CNY' ];
+							break;
+						case 'CA':
+							$alipay_currency = [ 'CAD', 'CNY' ];
+							break;
+						case 'UK':
+							$alipay_currency = [ 'GBP', 'CNY' ];
+							break;
+						case 'HK':
+							$alipay_currency = [ 'HKD', 'CNY' ];
+							break;
+						case 'JP':
+							$alipay_currency = [ 'JPY', 'CNY' ];
+							break;
+						case 'MY':
+							$alipay_currency = [ 'MYR', 'CNY' ];
+							break;
+						case 'NZ':
+							$alipay_currency = [ 'NZD', 'CNY' ];
+							break;
+						case 'SG':
+							$alipay_currency = [ 'SGD', 'CNY' ];
+							break;
+						case 'US':
+							$alipay_currency = [ 'USD', 'CNY' ];
+							break;
+					}
 
-				$alipay_euro_countries = [ 'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'NO', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH' ];
-				if ( in_array( $country, $alipay_euro_countries, true ) ) {
-					$alipay_currency = [ 'EUR', 'CNY' ];
+					$alipay_euro_countries = [ 'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'NO', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH' ];
+					if ( in_array( $country, $alipay_euro_countries, true ) ) {
+						$alipay_currency = [ 'EUR', 'CNY' ];
+					}
 				}
-
-				return $alipay_currency;
+				$gateway_support['currency'] = $alipay_currency;
+				return $gateway_support;
 
 			case 'klarna':
-				$klarna_currency                 = [ $currency ];
-				$klarna_eea_uk_switzerland_codes = [ 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'IE', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'CH' ];
+				// List of supported countries and their presentment currencies for Klarna.
+				$klarna_supported_countries = [
+					'AU' => 'AUD',
+					'AT' => 'EUR',
+					'BE' => 'EUR',
+					'CA' => 'CAD',
+					'CZ' => 'CZK', 
+					'DK' => 'DKK',
+					'FI' => 'EUR',
+					'FR' => 'EUR',
+					'DE' => 'EUR',
+					'GR' => 'EUR', 
+					'IE' => 'EUR',
+					'IT' => 'EUR',
+					'NL' => 'EUR',
+					'NZ' => 'NZD',
+					'NO' => 'NOK', 
+					'PL' => 'PLN',
+					'PT' => 'EUR',
+					'ES' => 'EUR',
+					'SE' => 'SEK',
+					'CH' => 'CHF', 
+					'GB' => 'GBP',
+					'US' => 'USD',
+				];
+				$klarna_currency            = array_values( $klarna_supported_countries );
+				$klarna_country             = array_keys( $klarna_supported_countries );
 
-				if ( in_array( $country, $klarna_eea_uk_switzerland_codes, true ) ) {
-					$klarna_currency = [ 'AUD', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'NOK', 'NZD', 'PLN', 'SEK', 'USD' ];
+				if ( null !== $country ) {
+					// EEA, UK, and Switzerland country codes.
+					$klarna_eea_uk_switzerland_codes = [ 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'IE', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'CH' ];
+
+					// Checking the stripe account is based in an EEA, UK, or Switzerland country.
+					if ( in_array( $country, $klarna_eea_uk_switzerland_codes, true ) ) {
+						$klarna_supported_currency = [ 'AUD', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'NOK', 'NZD', 'PLN', 'SEK', 'USD' ];
+						$klarna_country            = $klarna_eea_uk_switzerland_codes;
+
+						// Extract the supported currencies for the given country codes.
+						$filtered_currencies = array_unique( array_intersect_key( $klarna_supported_countries, array_flip( $klarna_eea_uk_switzerland_codes ) ) );
+
+						// Filter the klarna_currency array.
+						$klarna_currency = array_values( array_intersect( $klarna_supported_currency, $filtered_currencies ) );
+
+					} else {
+						// Ensure only the business's currency is used outside EEA, UK, or Switzerland.
+						$klarna_currency = [ $klarna_supported_countries[ $country ] ];
+						$klarna_country  = [ $country ];
+					}
 				}
 
-				return $klarna_currency;
+				$gateway_support['currency'] = $klarna_currency;
+				$gateway_support['country']  = $klarna_country;
+				return $gateway_support;
 
 			case 'wechat_pay':
 				$wechat_currency = [ 'CNY' ];
 
-				switch ( $country ) {
-					case 'AU':
-						$wechat_currency = [ 'AUD', 'CNY' ];
-						break;
-					case 'CA':
-						$wechat_currency = [ 'CAD', 'CNY' ];
-						break;
-					case 'AT':
-					case 'BE':
-					case 'DK':
-					case 'FI':
-					case 'FR':
-					case 'DE':
-					case 'IE':
-					case 'IT':
-					case 'LU':
-					case 'NL':
-					case 'NO':
-					case 'PT':
-					case 'ES':
-					case 'SE':
-						$wechat_currency = [ 'EUR', 'CNY' ];
-						break;
-					case 'UK':
-						$wechat_currency = [ 'GBP', 'CNY' ];
-						break;
-					case 'HK':
-						$wechat_currency = [ 'HKD', 'CNY' ];
-						break;
-					case 'JP':
-						$wechat_currency = [ 'JPY', 'CNY' ];
-						break;
-					case 'SG':
-						$wechat_currency = [ 'SGD', 'CNY' ];
-						break;
-					case 'US':
-						$wechat_currency = [ 'USD', 'CNY' ];
-						break;
-					case 'DK':
-						$wechat_currency = [ 'DKK', 'CNY' ];
-						break;
-					case 'NO':
-						$wechat_currency = [ 'NOK', 'CNY' ];
-						break;
-					case 'SE':
-						$wechat_currency = [ 'SEK', 'CNY' ];
-						break;
-					case 'CH':
-						$wechat_currency = [ 'CHF', 'CNY' ];
-						break;
+				if ( null !== $country ) {
+					switch ( $country ) {
+						case 'AU':
+							$wechat_currency = [ 'AUD', 'CNY' ];
+							break;
+						case 'CA':
+							$wechat_currency = [ 'CAD', 'CNY' ];
+							break;
+						case 'AT':
+						case 'BE':
+						case 'DK':
+						case 'FI':
+						case 'FR':
+						case 'DE':
+						case 'IE':
+						case 'IT':
+						case 'LU':
+						case 'NL':
+						case 'NO':
+						case 'PT':
+						case 'ES':
+						case 'SE':
+							$wechat_currency = [ 'EUR', 'CNY' ];
+							break;
+						case 'UK':
+							$wechat_currency = [ 'GBP', 'CNY' ];
+							break;
+						case 'HK':
+							$wechat_currency = [ 'HKD', 'CNY' ];
+							break;
+						case 'JP':
+							$wechat_currency = [ 'JPY', 'CNY' ];
+							break;
+						case 'SG':
+							$wechat_currency = [ 'SGD', 'CNY' ];
+							break;
+						case 'US':
+							$wechat_currency = [ 'USD', 'CNY' ];
+							break;
+						case 'DK':
+							$wechat_currency = [ 'DKK', 'CNY' ];
+							break;
+						case 'NO':
+							$wechat_currency = [ 'NOK', 'CNY' ];
+							break;
+						case 'SE':
+							$wechat_currency = [ 'SEK', 'CNY' ];
+							break;
+						case 'CH':
+							$wechat_currency = [ 'CHF', 'CNY' ];
+							break;
+					}
 				}
 
-				return $wechat_currency;
+				$gateway_support['currency'] = $wechat_currency;
+				return $gateway_support;
 
 			// Add cases for other gateways as needed...
 
 			default:
-				return [];
+				return $gateway_support;
 		}
 	}
 
@@ -823,7 +877,7 @@ class Helper {
 
 	/**
 	 * Checks if the current page is a CPSW settings page for a specific payment method.
-	 * 
+	 *
 	 * @since 1.9.1
 	 * @return bool
 	 */
@@ -842,23 +896,32 @@ class Helper {
 				'cpsw_stripe_element',
 			)
 		);
-	
+
 		if ( ! is_admin() ) {
 			return false;
 		}
-	
+
 		if ( ! isset( $_GET['page'] ) || 'wc-settings' !== $_GET['page'] || ! isset( $_GET['tab'] ) ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return false; // Basic checks for settings page.
 		}
-	
+
 		if ( 'cpsw_api_settings' === $_GET['tab'] ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return true; // Matches the "cpsw_api_settings" tab.
 		}
-	
+
 		if ( isset( $_GET['section'] ) && in_array( sanitize_text_field( $_GET['section'] ), $allowed_sections, true ) ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return true; // Matches a section starting with "cpsw_" and in the allowed list.
 		}
-	
+
 		return false;
+	}
+
+	/**
+	 * Check weather the WooCommerce plugin is active.
+	 *
+	 * @return boolean Returns true or false if WooCommerce is active or inactive.
+	 */
+	public static function is_woo_active() {
+		return class_exists( 'woocommerce' ) ? true : false;
 	}
 }

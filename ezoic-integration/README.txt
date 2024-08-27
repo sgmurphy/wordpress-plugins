@@ -85,6 +85,9 @@ You will need to enable API access to the Ezoic Cloud to utilize caching feature
 Once you have your API key from your Ezoic dashboard, it can be added to your Ezoic plugin settings inside the site’s WordPress admin dashboard under Ezoic > CDN settings.
 
 == Changelog ==
+= 2.13.2 =
+* Minor bug fixes
+
 = 2.12.2 =
 * Added Debugging logs
 
@@ -144,33 +147,3 @@ Once you have your API key from your Ezoic dashboard, it can be added to your Ez
 
 = 2.8.40 =
 * Update WordPress Compatibility
-
-= 2.8.39 =
-* Minor bug fixes
-
-= 2.8.38 =
-* Minor bug fixes
-
-= 2.8.37 =
-* Minor bug fixes
-
-= 2.8.36 =
-* Minor bug fixes
-
-= 2.8.35 =
-* Fixed Humix page
-
-= 2.8.34 =
-* Minor bug fixes
-
-= 2.8.33 =
-* Minor bug fixes
-
-= 2.8.32 =
-* Minor bug fixes
-
-= 2.8.31 =
-* Minor troubleshooting enhancements
-
-= 2.8.30 =
-* Facebook cache clearing fix

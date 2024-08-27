@@ -13,6 +13,7 @@ use CPSW\Inc\Traits\Get_Instance;
 use CPSW\Inc\Logger;
 use CPSW\Inc\Helper;
 use CPSW\Gateway\Stripe\Webhook;
+use CPSW\Inc\Notice;
 use Stripe\OAuth;
 use WC_Admin_Settings;
 use Exception;
@@ -141,7 +142,7 @@ class Admin_Controller {
 		add_action( 'woocommerce_admin_field_express_checkout_notice', [ $this, 'express_checkout_notice' ] );
 
 		add_action( 'admin_init', [ $this, 'admin_options' ] );
-		add_action( 'admin_init', [ $this, 'initialise_warnings' ] );
+		add_action( 'admin_init', [ $this, 'initialize_warnings' ] );
 
 		add_action( 'wp_ajax_cpsw_test_stripe_connection', [ $this, 'connection_test' ] );
 		add_action( 'wp_ajax_cpsw_disconnect_account', [ $this, 'disconnect_account' ] );
@@ -149,7 +150,6 @@ class Admin_Controller {
 		add_action( 'wp_ajax_cpsw_create_webhook', [ $this, 'create_webhook_action' ] );
 		add_action( 'wp_ajax_cpsw_js_errors', [ $this, 'js_errors' ] );
 		add_action( 'wp_ajax_nopriv_cpsw_js_errors', [ $this, 'js_errors' ] );
-		add_action( 'wp_ajax_dismiss_cpsw_notice', [ $this, 'dismiss_admin_notice' ] );
 
 		add_action( 'woocommerce_settings_save_cpsw_api_settings', [ $this, 'check_connection_on_updates' ] );
 		add_filter( 'woocommerce_save_settings_checkout_cpsw_express_checkout', [ $this, 'cpsw_express_checkout_option_updates' ] );
@@ -165,6 +165,7 @@ class Admin_Controller {
 			add_filter( 'woocommerce_get_sections_cpsw_api_settings', [ $this, 'add_settings_links' ] );
 		}
 		add_filter( 'woocommerce_get_settings_checkout', [ $this, 'checkout_settings' ], 10, 2 );
+		add_action( 'wp_dashboard_setup', [ $this, 'dashboard_widget' ] );
 	}
 
 	/**
@@ -225,15 +226,31 @@ class Admin_Controller {
 	 *
 	 * @since 0.0.1
 	 */
-	public function initialise_warnings() {
+	public function initialize_warnings() {
+
+		if ( Helper::is_woo_active() && false === $this->is_stripe_connected() ) {
+			// Notice to connect the website to stripe for accepting the payments via orders.
+			Notice::add_custom( 'connect_stripe_notice', 'notice-info mega-notice', $this->connect_stripe_notice(), true );
+		}
+
+		// Display the review notice only if the WooCommerce is active and website is connected to the Stripe.
+		if ( Helper::is_woo_active() && $this->is_stripe_connected() ) {
+			// Notice to share the feedback and review for the plugin.
+			Notice::add_custom( 'wp_rating_notice', 'notice-info', $this->star_rating_notice(), true, 2 * WEEK_IN_SECONDS );
+		}
+
 		// If Payment element is not enabled, show payment element info notice.
-		if ( 'payment' !== Helper::get_setting( 'cpsw_element_type' ) ) {
-			add_action( 'admin_notices', [ $this, 'stripe_checkout_notice' ] );
+		if ( Helper::is_woo_active() && 'payment' !== Helper::get_setting( 'cpsw_element_type' ) ) {
+			Notice::add_custom( 'payment_element_notice', 'notice-info', $this->stripe_checkout_notice(), true );
 		}
 
 		// Add giropay deprecated warning, if giropay enabled with active payment element type.
-		if ( 'payment' === Helper::get_setting( 'cpsw_element_type' ) ) {
-			add_action( 'admin_notices', [ $this, 'giropay_deprecated_notice' ] );
+		if ( Helper::is_woo_active() && 'payment' === Helper::get_setting( 'cpsw_element_type' ) ) {
+			// Checking giropay is enabled or not.
+			$additional_gateways = Helper::get_setting( 'additional_methods', 'cpsw_stripe_element' );
+			if ( ! empty( $additional_gateways ) && is_array( $additional_gateways ) && in_array( 'giropay', $additional_gateways ) ) {
+				Notice::add_custom( 'giropay_deprecated_notice', 'notice-error', $this->giropay_deprecated_notice(), true );
+			}
 		}
 
 		// If keys are not set bail.
@@ -460,14 +477,9 @@ class Admin_Controller {
 	 *
 	 * @since 1.9.0
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function stripe_checkout_notice() {
-		$notice_id = 'payment_element_notice';
-		if ( 'no' === get_option( 'cpsw_show_' . $notice_id . '_notice' ) ) {
-			return;
-		}
-
 		$setting_url = esc_url( admin_url( 'admin.php?page=wc-settings&tab=cpsw_api_settings' ) );
 		$message     = sprintf(
 				// Translators: %1$s, %2$s are placeholders for HTML tags.
@@ -482,17 +494,15 @@ class Admin_Controller {
 			'</a>'
 		);
 
-		$output              = '<div id="' . $notice_id . '" class="cpsw-notice cpsw-dismissible-notice notice notice-info is-dismissible">';
-			$output         .= '<div class="cpsw-notice-container">';
-				$output     .= '<div class="cpsw-notice-message">';
-					$output .= '<h3 class="cpsw-notice-heading" style="font-size:15px;">' . __( 'Discover a smarter way to display payment methods!', 'checkout-plugins-stripe-woo' ) . '</h3>';
-					$output .= '<p class="cpsw-notice-description">' . $message . '</p>';
-					$output .= '<p class="cpsw-notice-cta">' . $cta_action . '</p>';
-				$output     .= '</div>';
-			$output         .= '</div>';
-		$output             .= '</div>';
+		$output          = '<div class="cpsw-notice-container">';
+			$output     .= '<div class="cpsw-notice-message">';
+				$output .= '<h3 class="cpsw-notice-heading" style="font-size:15px;">' . __( 'Discover a smarter way to display payment methods!', 'checkout-plugins-stripe-woo' ) . '</h3>';
+				$output .= '<p class="cpsw-notice-description">' . $message . '</p>';
+				$output .= '<p class="cpsw-notice-cta">' . $cta_action . '</p>';
+			$output     .= '</div>';
+		$output         .= '</div>';
 
-		echo wp_kses_post( $output );
+		return $output;
 	}
 
 	/**
@@ -500,61 +510,20 @@ class Admin_Controller {
 	 *
 	 * @since 1.9.2
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function giropay_deprecated_notice() {
-		// Checking giropay is enabled or not.
-		$additional_gateways = Helper::get_setting( 'additional_methods', 'cpsw_stripe_element' );
-		if ( empty( $additional_gateways ) || ! is_array( $additional_gateways ) || ! in_array( 'giropay', $additional_gateways ) ) {
-			return;
-		}
-
-		// Checking if the notice is already dismissed.
-		$notice_id = 'giropay_deprecated_notice';
-		if ( 'no' === get_option( 'cpsw_show_' . $notice_id . '_notice' ) ) {
-			return;
-		}
-
 		$setting_url = esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=cpsw_stripe_element' ) );
 
 		$message = __( 'As of July 1st, 2024, Stripe will no longer support Giropay as a payment method. If you are currently using the Giropay with Stripe then, you need to remove it from additional payment method list in [stripe options tab]. In our next major update we will be removing the Giropay integration from the plugin. To maintain a smooth checkout experience for your customers, we recommend switching to one of our alternative payment gateways: Card, SEPA, or Klarna.', 'checkout-plugins-stripe-woo' );
 
-		$output              = '<div id="' . $notice_id . '" class="cpsw-notice cpsw-dismissible-notice notice notice-error is-dismissible">';
-			$output         .= '<div class="cpsw-notice-container">';
-					$output .= '<h3 class="cpsw-notice-heading">' . __( 'Attention!! Giropay is no longer available.', 'checkout-plugins-stripe-woo' ) . '</h3>';
-					$output .= '<p class="cpsw-notice-description">' . $message . '</p>';
-					$output .= '<p><a class="cpsw-action-button button button-primary" href="' . $setting_url . '">' . __( 'Check Settings', 'checkout-plugins-stripe-woo' ) . '</a></p>';
-			$output         .= '</div>';
-		$output             .= '</div>';
+		$output          = '<div class="cpsw-notice-container">';
+				$output .= '<h3 class="cpsw-notice-heading">' . __( 'Attention!! Giropay is no longer available.', 'checkout-plugins-stripe-woo' ) . '</h3>';
+				$output .= '<p class="cpsw-notice-description">' . $message . '</p>';
+				$output .= '<p><a class="cpsw-action-button button button-primary" href="' . $setting_url . '">' . __( 'Check Settings', 'checkout-plugins-stripe-woo' ) . '</a></p>';
+		$output         .= '</div>';
 
-		echo wp_kses_post( $output );
-	}
-
-	/**
-	 * Ajax callback function triggered when a notice is dismissed.
-	 *
-	 * @since 1.9.1
-	 *
-	 * @return void
-	 */
-	public function dismiss_admin_notice() {
-		if ( ! is_admin() ) {
-			return;
-		}
-
-		if ( ! isset( $_POST['_security'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['_security'] ), 'cpsw_notice_nonce' ) ) {
-			wp_send_json_error( [ 'message' => __( 'Invalid Nonce', 'checkout-plugins-stripe-woo' ) ] );
-			return;
-		}
-
-		// Get the notice ID.
-		$notice_id = isset( $_POST['notice_id'] ) ? sanitize_key( $_POST['notice_id'] ) : '';
-
-		// Update an option to mark notice as dismissed.
-		update_option( 'cpsw_show_' . $notice_id . '_notice', 'no' );
-
-		// Success response.
-		wp_send_json_success( null, 200 );
+		return $output;
 	}
 
 	/**
@@ -1538,6 +1507,7 @@ class Admin_Controller {
 	 * @return void
 	 */
 	public function admin_options() {
+
 		if ( ! isset( $_GET['cpsw_connect_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_GET['cpsw_connect_nonce'] ), 'stripe-connect' ) ) {
 			return;
 		}
@@ -1580,7 +1550,7 @@ class Admin_Controller {
 				$this->settings['cpsw_mode']            = 'test';
 				$this->settings['cpsw_con_status']      = 'success';
 				$this->settings['cpsw_test_con_status'] = 'success';
-				$redirect_url                           = add_query_arg( 'cpsw_call', 'success', $redirect_url );
+				$redirect_url                           = add_query_arg( 'cpsw_call', 'webhooks', $redirect_url );
 			} else {
 				$this->settings['cpsw_pub_key']         = '';
 				$this->settings['cpsw_secret_key']      = '';
@@ -1740,6 +1710,10 @@ class Admin_Controller {
 		foreach ( $this->settings_keys as $key ) {
 			update_option( $key, '' );
 		}
+
+		// Delete the transient where we store stripe account country and currency.
+		delete_transient( 'cpsw_stripe_account_default_country_currency' );
+
 		wp_send_json_success( [ 'message' => __( 'Stripe keys are reset successfully.', 'checkout-plugins-stripe-woo' ) ] );
 	}
 
@@ -2416,5 +2390,171 @@ class Admin_Controller {
 		}
 
 		return apply_filters( 'cpsw_express_checkout_settings', $settings );
+	}
+
+	/**
+	 * Init dashboard widgets.
+	 */
+	public function dashboard_widget() {
+
+		// Return if the current user don't have manage condition.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		// Show the widget if setup is skipped or it is not completed.
+		if ( 'skipped' === get_option( 'cpsw_setup_status', false ) || '1' !== get_option( 'cpsw_setup_complete', false ) ) {
+			wp_add_dashboard_widget(
+				'cpsw_setup_dashboard_widget',
+				__( 'Checkout Plugins Setup', 'checkout-plugins-stripe-woo' ),
+				array( $this, 'status_widget' )
+			);
+		}
+	}
+
+	/**
+	 * Show status widget.
+	 */
+	public function status_widget() {
+
+		$admin_url = '/wp-admin/index.php?page=cpsw-onboarding';
+
+		$steps = array(
+			'welcome'          => $admin_url . '&cpsw_call=welcome',
+			'webhooks'         => $admin_url . '&cpsw_call=webhooks',
+			'success'          => $admin_url . '&cpsw_call=success',
+			'express-checkout' => $admin_url . '&cpsw_call=express-checkout',
+			'thank-you'        => $admin_url . '&cpsw_call=thank-you',
+		);
+
+		$exit_step = get_option( 'cpsw_exit_setup_step', 'welcome' );
+
+		$incompleted_steps = array_search( $exit_step, array_keys( $steps ), true );
+		$remianing_steps   = array_slice( $steps, 0, $incompleted_steps );
+
+		$completed_tasks_count = count( $remianing_steps ) + 1;
+		$tasks_count           = count( $steps );
+		$button_link           = ! empty( $exit_step ) ? $steps[ $exit_step ] : '';
+
+		$progress_percentage = ( $completed_tasks_count / $tasks_count ) * 100;
+		$circle_r            = 6.5;
+		$circle_dashoffset   = ( ( 100 - $progress_percentage ) / 100 ) * ( pi() * ( $circle_r * 2 ) );
+		?>
+
+		<div class="cpsw-dashboard-widget-finish-setup">
+			<span class='progress-wrapper'>
+				<svg class="circle-progress" width="17" height="17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+				<circle r="6.5" cx="10" cy="10" fill="transparent" stroke-dasharray="40.859" stroke-dashoffset="0"></circle>
+				<circle class="bar" r="6.5" cx="190" cy="10" fill="transparent" stroke-dasharray="40.859" stroke-dashoffset="<?php echo esc_attr( $circle_dashoffset ); ?>" transform='rotate(-90 100 100)'></circle>
+				</svg>
+				<span><?php echo esc_html_e( 'Step', 'checkout-plugins-stripe-woo' ); ?> <?php echo esc_html( $completed_tasks_count ); ?> <?php echo esc_html_e( 'of', 'checkout-plugins-stripe-woo' ); ?> <?php echo esc_html( $tasks_count ); ?></span>
+			</span>
+
+			<div class="description">
+				<div class="wcf-left-column">
+					<p>
+						<?php echo esc_html_e( 'You\'re almost there! Once you complete Checkout plugins setup you can start receiving orders from stripe.', 'checkout-plugins-stripe-woo' ); ?>
+					</p>
+					<a href='<?php echo esc_url( $button_link ); ?>' class='button button-primary'><?php echo esc_html_e( 'Complete Setup', 'checkout-plugins-stripe-woo' ); ?></a>
+				</div>
+				<div class="wcf-right-column">
+					<img src="<?php echo esc_url( CPSW_URL . 'admin/assets/images/home-widget.svg' ); ?>" alt="CPSW Setup Wizard"/>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Display notice for adding rating on wordpress.org.
+	 *
+	 * @since 1.10.0
+	 *
+	 * @return string
+	 */
+	public function star_rating_notice() {
+		$image_path = esc_url( CPSW_URL . 'admin/assets/images/cpsw-logo.svg' );
+
+		// Initialising duration to 2 weeks.
+		$duration = MONTH_IN_SECONDS;
+		$output   = sprintf(
+			'<div class="cpsw-notice-image" style="display: flex;">
+                        <img src="%1$s" class="notice-image" alt="Logo Icon" itemprop="logo" style="max-width: 40px;">
+					</div>
+                    <div class="cpsw-notice-content">
+						<div class="cpsw-notice-heading">
+							%2$s
+						</div>
+						%3$s<br />
+						<div class="cpsw-notice-action-container">
+							<a href="%4$s" class="cpsw-notice-btn button-primary cpsw-notice-close-btn" target="_blank">
+							%5$s
+							</a>
+							<a href="#"  data-repeat-notice-after="%6$s" class="cpsw-notice-skip-btn">
+								<span class="dashicons dashicons-calendar"></span>
+								%7$s
+							</a>
+							<a href="#" class="cpsw-notice-close-btn">
+								<span class="dashicons dashicons-smiley"></span>
+								%8$s
+							</a>
+						</div>
+					</div>',
+			$image_path,
+			__( 'You\'re All Set to Start Receiving Payments on Your Website!', 'checkout-plugins-stripe-woo' ),
+			__( 'Could you do us a favor and leave a 5-star rating on WordPress? It helps others choose Stripe for WooCommerce plugin with confidence. Thank you!', 'checkout-plugins-stripe-woo' ),
+			'https://wordpress.org/support/plugin/checkout-plugins-stripe-woo/reviews/?filter=5#new-post',
+			__( 'Ok, you deserve it', 'checkout-plugins-stripe-woo' ),
+			$duration,
+			__( 'Nope, maybe later', 'checkout-plugins-stripe-woo' ),
+			__( 'I already did', 'checkout-plugins-stripe-woo' )
+		);
+
+		return $output;
+	}
+
+	/**
+	 * Display notice for users who are not connected stripe yet.
+	 *
+	 * @since 1.10.0
+	 *
+	 * @return string
+	 */
+	public function connect_stripe_notice() {
+		$image_path = esc_url( CPSW_URL . 'admin/assets/images/stripe-connect.svg' );
+
+		$output = sprintf(
+			'
+				<div class="cpsw-notice-content">
+					<div class="cpsw-notice-heading">
+						%2$s
+					</div>
+					<div class="cpsw-notice-description">
+						%3$s
+					</div>
+					<div class="cpsw-notice-action-container">
+						<a href="%4$s" class="cpsw-notice-btn">
+						%5$s
+						</a>
+					</div>
+				</div>
+				<div class="cpsw-notice-image" style="display: flex;">
+					<img src="%1$s" class="notice-image" alt="Connect to Stripe" itemprop="logo" >
+				</div>
+			',
+			$image_path,
+			__( 'You\'re Almost There! Connect Your Stripe Account to Start Accepting Payments.', 'checkout-plugins-stripe-woo' ),
+			sprintf(
+				/* translators: HTML Markup - Break line HTML. The placeholders %1$s is for opening of bold tag, %2$s is for closing of bold tag, %2$s is for break line tag */
+				__( 'Thank you for installing %1$sStripe for WooCommerce!%2$s Let\'s quickly set up Stripe so you can start %3$s accepting payments on your site.', 'checkout-plugins-stripe-woo' ),
+				'<b>',
+				'</b>',
+				'<br>'
+			),
+			$this->get_stripe_connect_url(),
+			__( 'Connect Stripe Account', 'checkout-plugins-stripe-woo' ),
+		);
+
+		return $output;
 	}
 }

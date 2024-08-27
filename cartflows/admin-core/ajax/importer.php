@@ -60,6 +60,7 @@ class Importer extends AjaxBase {
 			'import_step',
 
 			'activate_plugin',
+			'activate_theme',
 
 			'sync_library',
 			'request_count',
@@ -463,6 +464,49 @@ class Importer extends AjaxBase {
 			array(
 				'success' => true,
 				'message' => 'Plugin activated successfully.',
+			)
+		);
+	}
+
+	/**
+	 * Activate theme
+	 *
+	 * @since x.x.x
+	 * @return void
+	 */
+	public function activate_theme() {
+
+		// Verify Nonce.
+		$response_data = array( 'message' => $this->get_error_msg( 'permission' ) );
+
+		if ( ! current_user_can( 'cartflows_manage_flows_steps' ) ) {
+			wp_send_json_error( $response_data );
+		}
+
+		/**
+		 * Nonce verification
+		 */
+		if ( ! check_ajax_referer( 'cartflows_activate_theme', 'security', false ) ) {
+			$response_data = array( 'message' => $this->get_error_msg( 'nonce' ) );
+			wp_send_json_error( $response_data );
+		}
+
+		// Check the theme slug is available or not.
+		$theme_slug = ( isset( $_POST['theme_slug'] ) ) ? sanitize_text_field( $_POST['theme_slug'] ) : '';
+
+		// If the theme slug is not available then bail.
+		if ( empty( $theme_slug ) ) {
+			$response_data = array( 'message' => $this->get_error_msg( 'parameter' ) );
+			wp_send_json_error( $response_data );
+		}
+
+		// Pass the theme slug and switch the theme and activate it.
+		switch_theme( $theme_slug );
+
+		wp_send_json_success(
+			array(
+				'success' => true,
+				'message' => __( 'Theme Activated', 'cartflows' ),
 			)
 		);
 	}

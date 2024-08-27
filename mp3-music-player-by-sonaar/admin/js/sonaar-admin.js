@@ -49,6 +49,7 @@
 			addTrackTitletoTrackRepeater();
 			init_toggleTracklistBox();
 			hideShowTracklistStorelist();
+			init_CheckMaxInputVars();
 			
 			$( document ).on('cmb2_add_row', function (event, newRow) {
 				init_TrackTitleOnRepeater(newRow);
@@ -2081,7 +2082,18 @@
 
 	var observer;
 	var addNewTrackButtonLabel;
+
+	function init_CheckMaxInputVars(){
+		var increaseMaxInputVars = sonaar_admin_ajax?.translations?.increaseMaxInputVars;
+
+		if (increaseMaxInputVars) {
+			increaseMaxInputVars = JSON.parse(increaseMaxInputVars); // Only parse if it's defined
+			alert(increaseMaxInputVars);
+		}
+
+	}
 	function init_TrackTitleOnRepeater(newRow){
+		
 		 // PREVENT MULTIPLE PLAY AT THE SAME TIME
 		jQuery('audio').on('play', function(event) {
 			var playingAudio = event.currentTarget; // Get the current target for the event

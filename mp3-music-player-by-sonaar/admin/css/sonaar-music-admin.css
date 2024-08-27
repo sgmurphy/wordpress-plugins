@@ -219,6 +219,30 @@
   content: '\e86a'; }
 
 /* '' */
+.sricon-repeat:before {
+  content: '\e83b'; }
+
+/* '' */
+.sricon-repeat-track:before {
+  content: '\e83c'; }
+
+/* '' */
+.sricon-shuffle-off:before {
+  content: '\e83e'; }
+
+/* '' */
+.sricon-spinner:before {
+  content: '\e97b'; }
+
+/* '' */
+.sricon-shuffle:before {
+  content: '\e83d'; }
+
+/* '' */
+.sricon-share:before {
+  content: '\e836'; }
+
+/* '' */
 .sricons-logo:before,
 #menu-posts-album .dashicons-before.dashicons-format-audio:before, #menu-posts-sr_playlist .dashicons-before:before {
   content: "\e812" !important; }

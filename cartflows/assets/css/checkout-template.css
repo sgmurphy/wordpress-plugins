@@ -649,6 +649,7 @@
 	border-color: var( --wcf-btn-bg-hover-color );
 	background-color: var( --wcf-btn-bg-hover-color );
 	color: var( --wcf-btn-hover-text-color );
+	opacity: 0.9;
 }
 
 /**

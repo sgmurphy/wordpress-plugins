@@ -170,14 +170,15 @@ div.ays-notice-banner {
 .ays-upgrade-container a {
     display: flex;
     align-items: center;
-    border: 1px solid #10A37F;
+    border: 1px solid #099472;
     text-decoration: none;
     font-size: 13px;
     font-weight: 700;
-    color: #10A37F;
+    color: #fff;
     padding: 5px 15px;
     border-radius: 20px;
     max-width:100px;
+    background-color: #10A37F;
 }
 
 .ays-upgrade-container {
@@ -196,19 +197,11 @@ div.ays-notice-banner {
 }
 
 .ays-upgrade-container a:hover {
-    color: white;
-    background-color: #10A37F;
+    background-color: #099472;
 }
 
 .ays-upgrade-container a:focus {
     box-shadow: unset;
-}
-
-.ays-svg-light-hover, .ays-upgrade-container a:hover img:not(.ays-svg-light-hover){
-    display: none;
-}
-.ays-upgrade-container a:hover .ays-svg-light-hover{
-    display: flex;
 }
 
 .ays-notice-banner .navigation-bar {
@@ -224,19 +217,6 @@ div.ays-notice-banner {
     float: left;
     width: 80px;
 }
-
-/* .ays-notice-banner .navigation-bar ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: stretch;
-    align-content: stretch;
-    padding: 0;
-    margin: 0 20px 0 0;
-    max-width: 630px;
-    min-width: 400px;
-} */
 
 .ays-notice-banner .navigation-bar li {
     padding: 0px;

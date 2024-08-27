@@ -16,6 +16,7 @@ use MailPoet\Cron\Workers\StatsNotifications\Worker;
 use MailPoet\Cron\Workers\SubscriberLinkTokens;
 use MailPoet\Cron\Workers\SubscribersLastEngagement;
 use MailPoet\Cron\Workers\UnsubscribeTokens;
+use MailPoet\Doctrine\WPDB\Connection;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\NewsletterOptionFieldEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
@@ -613,6 +614,21 @@ class Populator {
     $conditions = implode(' AND ', $conditions);
 
     $table = esc_sql($table);
+
+    // SQLite doesn't support JOIN in DELETE queries, we need to use a subquery.
+    if (Connection::isSQLite()) {
+      return $wpdb->query(
+        $wpdb->prepare(
+          "DELETE FROM $table WHERE id IN (
+            SELECT t1.id
+            FROM $table t1
+            JOIN $table t2 ON t1.id < t2.id AND $conditions
+          )",
+          $values
+        )
+      );
+    }
+
     return $wpdb->query(
       $wpdb->prepare(
         "DELETE t1 FROM $table t1, $table t2 WHERE t1.id < t2.id AND $conditions",
@@ -624,6 +640,12 @@ class Populator {
   private function createSourceForSubscribers() {
     $statisticsFormTable = $this->entityManager->getClassMetadata(StatisticsFormEntity::class)->getTableName();
     $subscriberTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+
+    // Temporarily skip the queries in WP Playground.
+    // UPDATE with JOIN is not yet supported by the SQLite integration.
+    if (Connection::isSQLite()) {
+      return;
+    }
 
     $this->entityManager->getConnection()->executeStatement(
       ' UPDATE LOW_PRIORITY `' . $subscriberTable . '` subscriber ' .

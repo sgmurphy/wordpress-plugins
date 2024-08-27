@@ -88,7 +88,7 @@ class PostModel {
 	/**
 	 * @var stdClass all meta data
 	 */
-	public $is_got_meta_data = 0;
+	public $is_got_meta_data;
 	/**
 	 * @var string only for set same property with class WP_Post
 	 */
@@ -126,9 +126,7 @@ class PostModel {
 			$author_id = get_post_field( 'post_author', $this );
 		}
 
-		$filter       = new LP_User_Filter();
-		$filter->ID   = $author_id;
-		$this->author = UserModel::get_user_model_from_db( $filter );
+		$this->author = UserModel::find( $author_id, true );
 
 		return $this->author;
 	}
@@ -157,11 +155,11 @@ class PostModel {
 	 * If exists, return PostModel.
 	 *
 	 * @param LP_Course_Filter $filter
-	 * @param bool $no_cache
+	 * @param bool $check_cache
 	 *
 	 * @return PostModel|false|static
 	 */
-	public static function get_item_model_from_db( LP_Post_Type_Filter $filter, bool $no_cache = true ) {
+	public static function get_item_model_from_db( LP_Post_Type_Filter $filter, bool $check_cache = false ) {
 		$lp_post_db = LP_Post_DB::getInstance();
 		$post_model = false;
 
@@ -169,9 +167,11 @@ class PostModel {
 			if ( empty( $filter->post_type ) ) {
 				$filter->post_type = ( new static() )->post_type;
 			}
+
 			$lp_post_db->get_query_single_row( $filter );
 			$query_single_row = $lp_post_db->get_posts( $filter );
 			$post_rs          = $lp_post_db->wpdb->get_row( $query_single_row );
+
 			if ( $post_rs instanceof stdClass ) {
 				$post_model = new static( $post_rs );
 			}
@@ -189,11 +189,12 @@ class PostModel {
 	 * @throws Exception
 	 */
 	public function get_all_metadata() {
-		if ( empty( $this->is_got_meta_data ) ) {
+		if ( ! isset( $this->is_got_meta_data ) ) {
 			$lp_item_meta_db         = LP_Post_Meta_DB::getInstance();
 			$filter                  = new LP_Post_Meta_Filter();
 			$filter->post_id         = $this->get_id();
 			$filter->run_query_count = false;
+			$filter->limit           = - 1;
 
 			$metadata_rs = $lp_item_meta_db->get_post_metas( $filter );
 			if ( ! $metadata_rs instanceof stdClass ) {
@@ -320,5 +321,27 @@ class PostModel {
 		}
 
 		return $permalink;
+	}
+
+	/**
+	 * Get the content of WP
+	 *
+	 * @return string
+	 */
+	public function get_the_content(): string {
+		$content = get_the_content( null, false, $this );
+		$content = apply_filters( 'the_content', $content );
+		$content = str_replace( ']]>', ']]&gt;', $content );
+
+		return $content;
+	}
+
+	/**
+	 * Get title of course
+	 *
+	 * @return string
+	 */
+	public function get_the_title(): string {
+		return get_the_title( $this );
 	}
 }

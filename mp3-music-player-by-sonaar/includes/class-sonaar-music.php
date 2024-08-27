@@ -678,7 +678,7 @@ class Sonaar_Music {
 	
 		// Delete the file on the server if it's temporary
 		if($is_temp == 'true'){
-			$this->removeTempFiles();
+			$this->removeTempFiles(true);
 		}
 
 		$file_path 		= $peaks_dir . $file_name;
@@ -736,22 +736,31 @@ class Sonaar_Music {
 		return $file;
 	}
 	
-	public function removeTempFiles(){
-		// will unlink the temporary peak file and generate another one automatically.
+	public function removeTempFiles($called_from_internal = false){
+		 // Ensure the user has the proper capability
+		 if (!current_user_can('manage_options')) {
+			return;
+		}
 
-		check_ajax_referer('sonaar_music_admin_ajax_nonce', 'nonce');
-	
+		// Verify nonce only when called via AJAX directly from JS
+		if (!$called_from_internal) {
+			check_ajax_referer('sonaar_music_admin_ajax_nonce', 'nonce');
+		}
+
 		$is_temp = filter_input(INPUT_POST, 'is_temp', FILTER_VALIDATE_BOOLEAN);
-		$file = filter_input(INPUT_POST, 'file', FILTER_SANITIZE_STRING);
-	
+		$file = filter_input(INPUT_POST, 'file', FILTER_SANITIZE_SPECIAL_CHARS);
 		if ($is_temp && $file) {
+
 			$upload_dir = wp_get_upload_dir();
-			
 			$peaks_dir = $this->get_peak_dir();
 	
 			$file_path_temp = str_replace($upload_dir['baseurl'] . $this->get_peak_dir(true), $peaks_dir, $file);
-	
-			if (strpos($file_path_temp, $peaks_dir) === 0 && file_exists($file_path_temp)) {
+
+			$file_path_temp = wp_normalize_path($file_path_temp);
+			$file_path_temp = preg_replace('~/\.\./~', '/', $file_path_temp); // Removes any '..' traversal attempts
+		
+			// Ensure the file path is within the allowed directory and file exists
+			if (strpos($file_path_temp, wp_normalize_path($peaks_dir)) === 0 && file_exists($file_path_temp)) {
 				wp_delete_file($file_path_temp);
 			}
 		}

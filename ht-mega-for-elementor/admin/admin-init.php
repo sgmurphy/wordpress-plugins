@@ -5,6 +5,7 @@ if( ! defined( 'ABSPATH' ) ) exit(); // Exit if accessed directly
 class HTMega_Admin_Setting{
 
     public function __construct(){
+        $this->remove_all_notices();
         add_action( 'admin_enqueue_scripts', [ $this, 'htmega_enqueue_admin_scripts' ] );
         $this->HTMega_Admin_Settings_page();
 
@@ -46,20 +47,11 @@ class HTMega_Admin_Setting{
         }
 
         // HT Builder
-        if ( 'on' == htmega_get_module_option( 'htmega_themebuilder_module_settings','themebuilder','themebuilder_enable','off' ) ) {
+        if ( ( 'on' == htmega_get_module_option( 'htmega_themebuilder_module_settings','themebuilder','themebuilder_enable','off' ) ) || (htmega_get_option( 'themebuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_themebuilder_module_settings') ) ) ) {
             if( is_plugin_active('htmega-pro/htmega_pro.php') ){
                 require_once( HTMEGA_ADDONS_PL_PATH_PRO.'extensions/ht-builder/admin/setting.php' );
             }else{
                 require_once( HTMEGA_ADDONS_PL_PATH.'extensions/ht-builder/admin/setting.php' );
-            }
-
-        } else {
-            if ( htmega_get_option( 'themebuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_themebuilder_module_settings') ) ){
-                if( is_plugin_active('htmega-pro/htmega_pro.php') ){
-                    require_once( HTMEGA_ADDONS_PL_PATH_PRO.'extensions/ht-builder/admin/setting.php' );
-                }else{
-                    require_once( HTMEGA_ADDONS_PL_PATH.'extensions/ht-builder/admin/setting.php' );
-                }
             }
         }
 
@@ -72,15 +64,9 @@ class HTMega_Admin_Setting{
             }
         }
         // HT Mega Menu
-        if ( 'on' == htmega_get_module_option( 'htmega_megamenu_module_settings','megamenubuilder','megamenubuilder_enable','off' ) ) {
-
+        if ( ( 'on' == htmega_get_module_option( 'htmega_megamenu_module_settings','megamenubuilder','megamenubuilder_enable','off' ) ) ||
+         ( htmega_get_option( 'megamenubuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_megamenu_module_settings') ) ) ) {
             require_once( HTMEGA_ADDONS_PL_PATH.'extensions/ht-menu/admin/setting.php' );
-
-        } else {
-
-            if ( htmega_get_option( 'megamenubuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_megamenu_module_settings') ) ){
-                require_once( HTMEGA_ADDONS_PL_PATH.'extensions/ht-menu/admin/setting.php' );
-            }
         }
     }
 
@@ -207,6 +193,25 @@ class HTMega_Admin_Setting{
         if ( file_exists( $tmp_file ) ) {
             include_once( $tmp_file );
         }
+    }
+
+
+    /**
+     * [remove_all_notices] remove addmin notices
+     * @return [void]
+     */
+    public function remove_all_notices(){
+        add_action('in_admin_header', function (){
+            $screen = get_current_screen(); 
+            if ( 'toplevel_page_htmega-addons' == $screen->base  ||
+             'htmega-addons_page_htmega_addons_templates_library'  == $screen->base ||
+              'htmega-addons_page_htmeganotification'  == $screen->base  ||
+              'htmega-addons_page_htmega-pro'  == $screen->base  ||
+               'htmega-addons_page_htmega-addons_extensions'  == $screen->base ) {
+                remove_all_actions('admin_notices');
+                remove_all_actions('all_admin_notices');
+            }
+        }, 1000);
     }
 
 }

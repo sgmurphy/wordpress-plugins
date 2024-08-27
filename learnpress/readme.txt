@@ -2,10 +2,10 @@
 Contributors: thimpress, tungnx89, nhamdv, nguyenlammanh, tunnhn, phonglq.foobla, thongta, kendy73, leehld
 Donate link:
 Tags: elearning, education, course, lms, learning management system
-Requires at least: 6.3
+Requires at least: 6.0
 Tested up to: 6.6.1
 Requires PHP: 7.0
-Stable tag: 4.2.6.9.4
+Stable tag: 4.2.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -209,6 +209,16 @@ https://www.transifex.com/projects/p/learnpress/
 8. Add-ons of LearnPress.
 
 == Changelog ==
+
+= 4.2.7 (2024-08-27) =
+~ Added: feature course offline.
+~ Added: duration info for App API list courses.
+~ Tweak: API get instructor info.
+~ Fixed: error empty email content reset password.
+~ Fixed: error empty image header.
+~ Fixed: error create new section not send section_order.
+~ Fixed: case search LP orders by user.
+~ Fixed: error sort by total on list orders.
 
 = 4.2.6.9.4 (2024-08-07) =
 ~ Fixed: security.

@@ -4,7 +4,7 @@ Tags: timeline, history, roadmap, horizontal timeline, vertical timeline
 Donate link: https://cooltimeline.com
 Requires at least:5.0
 Tested up to: 6.6
-Stable tag:2.9.3
+Stable tag:2.9.4
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,9 +33,11 @@ It is really important to let your audience know about the **history** of your *
 </li>
 <li><strong>Timeline Block For Gutenberg PRO [PRO]</strong>- <a href="https://cooltimeline.com/demo/timeline-block-pro/?utm_source=ctl_plugin&utm_medium=readme&utm_campaign=demo&utm_content=tbg_demo" target="_blank">View Demo</a>
 </li>
+<li><strong>Timeline Module Pro For Divi [Pro]</strong>- <a href="https://cooltimeline.com/divi/?utm_source=ctl_plugin&utm_medium=readme&utm_campaign=demo&utm_content=tmdivi_free_demo" target="_blank">View Demo</a>
+</li>
 </ul>
 
-https://youtu.be/GElgo91RAmE?si=JR9GSE-04AYvIwy3
+https://youtu.be/wvD2-m0FEcE?si=M4ZRZCSzQMl8NLWi
 
 https://youtu.be/INcC6XrN1nI?si=Gteu7PEhsiTaphfw
 
@@ -308,6 +310,13 @@ You can find the Cool Timeline plugin on its official GitHub repository at <a hr
 7. Create any type of timeline using Cool Timeline PRO.
 
 == Changelog ==
+
+= Version 2.9.4 | 26 Aug 2024 =
+**Added:**
+- Divi timeline module admin notice and tab on get started page.
+**Fixed:**
+- Vertical one-side pagination alignment issue.
+
 = Version 2.9.3 | 11 June 2024 =
 **Added:**
 -Added popup open link on date label in horizontal layout

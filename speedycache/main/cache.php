@@ -79,6 +79,8 @@ class Cache {
 		if(strpos($cache_path, 'mobile-cache') !== FALSE){
 			$mobile = 'Mobile: ';
 		}
+		
+		$cache_path = wp_normalize_path($cache_path);
 
 		file_put_contents($cache_path, $content . "\n<!-- ".esc_html($mobile)."Cache by SpeedyCache https://speedycache.com -->");
 		delete_option('speedycache_html_size');
@@ -93,7 +95,8 @@ class Cache {
 		}
 
 		$host = $_SERVER['HTTP_HOST'];
-		$request_uri = $_SERVER['REQUEST_URI'];
+		$request_uri = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
+		$request_uri = preg_replace('/\.{2,}/', '', $request_uri); // Cleaning the path
 		$path = SPEEDYCACHE_CACHE_DIR;
 		$path .= '/' . $host;
 		
@@ -127,6 +130,8 @@ class Cache {
 		if(preg_match('/(wp-(?:admin|login|register|comments-post|cron|json))/', $_SERVER['REQUEST_URI'])) return false;
 		
 		if(preg_match('/html.*\s(amp|⚡)\s/', substr($content, 0, 300))) return false;
+		
+		if(wp_is_mobile() && !empty($speedycache->options['mobile']) && empty($speedycache->options['mobile_theme'])) return false;
 
 		if(is_admin()) return false;
 		

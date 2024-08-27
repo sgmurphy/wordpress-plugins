@@ -3,7 +3,7 @@
  * Plugin Name:		WP Dashboard Notes
  * Plugin URI:		https://wordpress.org/plugins/wp-dashboard-notes/
  * Description:		Working in a team? Want to make notes? You can do just that with WP Dashboard Notes. Create beautiful notes with a nice user experience.
- * Version:			1.0.11
+ * Version:			1.0.13
  * Author:			Jeroen Sormani
  * Author URI:		https://jeroensormani.com/
  * Text Domain:		wp-dashboard-notes
@@ -30,7 +30,7 @@ class WP_Dashboard_Notes {
 	 * @since 1.0.3
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.0.11';
+	public $version = '1.0.13';
 
 
 	/**
@@ -90,7 +90,7 @@ class WP_Dashboard_Notes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return object Instance of the class.
+	 * @return WP_Dashboard_Notes Instance of the class.
 	 */
 	public static function instance() {
 
@@ -247,7 +247,7 @@ class WP_Dashboard_Notes {
 			// Add widget
 			wp_add_dashboard_widget(
 				'note_' . $note->ID,
-				'<span contenteditable="true" class="wpdn-title">' . $note->post_title . '</span><div class="wpdn-edit-title dashicons dashicons-edit"></div><span class="status"></span>',
+				'<span contenteditable="true" class="wpdn-title">' . esc_html( $note->post_title ) . '</span><div class="wpdn-edit-title dashicons dashicons-edit"></div><span class="status"></span>',
 				array( $this, 'wpdn_render_dashboard_widget' ),
 				'',
 				$note
@@ -285,7 +285,7 @@ class WP_Dashboard_Notes {
 
 		// Inline styling required for note depending colors.
 		?><style>
-			#note_<?php echo $note->ID; ?> { background-color: <?php echo $note_meta['color']; ?>; }
+			#note_<?php echo $note->ID; ?> { background-color: <?php echo esc_attr( $note_meta['color'] ); ?>; }
 			#note_<?php echo $note->ID; ?> .hndle { border: none; }
 		</style>
 		<script>
@@ -318,6 +318,23 @@ class WP_Dashboard_Notes {
 	}
 
 
+	/**
+	 * @return array Allowed tags for notes.
+	 */
+	public function allowed_tags() {
+		global $allowedposttags;
+		$allowed_html_tags          = $allowedposttags;
+		$allowed_html_tags['input'] = array(
+			'type'    => 1,
+			'checked' => 1,
+		);
+		$allowed_html_tags['span']  = array(
+			'contenteditable' => 1,
+			'class'           => 1,
+		);
+
+		return $allowed_html_tags;
+	}
 }
 
 

@@ -31,8 +31,15 @@ $plus_icon_svg = "<span class=''><img src='". SCCP_ADMIN_URL ."/images/icons/plu
     <div class="container-fluid">
         <form method="post">
             <h1 class="wp-heading-inline">
+                <?php echo __('Subscribe to view', $this->plugin_name); ?>
+            </h1>
+            <?php
+            if (isset($_REQUEST['status'])) {
+                $actions->sccp_subscribe_notices($_REQUEST['status']);
+            }
+            ?>
+            <div class="ays-sccp-save-button">
                 <?php
-                echo __('Subscribe to view', $this->plugin_name);
                 $save_attributes = array(
                     'id' => 'ays-button',
                     'title' => 'Ctrl + s',
@@ -42,12 +49,7 @@ $plus_icon_svg = "<span class=''><img src='". SCCP_ADMIN_URL ."/images/icons/plu
                 submit_button(__('Save changes', $this->plugin_name), 'primary ays-button ays-sccp-save-comp', 'ays_submit', false, $save_attributes);
                 echo $loader_iamge;
                 ?>
-            </h1>
-            <?php
-            if (isset($_REQUEST['status'])) {
-                $actions->sccp_subscribe_notices($_REQUEST['status']);
-            }
-            ?>
+            </div>
             <hr/>
             <div class="row">        
                 <div class="col-sm-12">

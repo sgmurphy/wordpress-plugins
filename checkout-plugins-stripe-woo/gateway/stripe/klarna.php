@@ -11,6 +11,7 @@ namespace CPSW\Gateway\Stripe;
 use CPSW\Inc\Helper;
 use CPSW\Inc\Traits\Get_Instance;
 use CPSW\Gateway\Local_Gateway;
+use CPSW\Inc\Logger;
 
 /**
  * Klarna
@@ -40,7 +41,7 @@ class Klarna extends Local_Gateway {
 	 *
 	 * @var array
 	 */
-	public $allow_countries = [ 'AT', 'AU', 'BE', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FI', 'FR', 'GB', 'GR', 'IE', 'IT', 'NL', 'NO', 'NZ', 'PL', 'PT', 'SE', 'US' ];
+	public $allow_countries;
 
 	/**
 	 * Constructor
@@ -49,7 +50,7 @@ class Klarna extends Local_Gateway {
 	 */
 	public function __construct() {
 		parent::__construct();
-
+		$this->allow_countries    = Helper::get_supported_currency_country_for_gateway( 'klarna' )['country'];
 		$this->method_title       = __( 'Klarna', 'checkout-plugins-stripe-woo' );
 		$this->method_description = $this->method_description();
 		$this->has_fields         = true;
@@ -73,9 +74,16 @@ class Klarna extends Local_Gateway {
 	 */
 	public function method_description() {
 		$payment_description = $this->payment_description();
-		/* translators: HTML Entities.*/
-		$extra_description = $this->is_current_section() ? sprintf( __( 'Klarna is supported only for billing countries %1$sAustralia (AU), Austria (AT), Belgium (BE), Canada (CA), Czechia (CZ), Denmark (DK), Finland (FI), France (FR), Germany (DE), Greece (GR), Ireland (IE), Italy (IT), Netherlands (NL), New Zealand (NZ), Norway (NO), Poland (PL), Portugal (PT), Spain (ES), Sweden (SE), Switzerland (CH), United Kingdom (UK) (GB), United States (US)%2$s.', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>' ) : '';
-
+		$extra_description   = $this->is_current_section() ? sprintf(
+			/* translators: 1: <strong> tag, 2: </strong> tag, 3: <br/> tag, 4: <a> tag, 5: </a> tag. */
+			__( 'Klarna is supported only for billing countries %1$sAustralia (AU), Austria (AT), Belgium (BE), Canada (CA), Czechia (CZ), Denmark (DK), Finland (FI), France (FR), Germany (DE), Greece (GR), Ireland (IE), Italy (IT), Netherlands (NL), New Zealand (NZ), Norway (NO), Poland (PL), Portugal (PT), Spain (ES), Sweden (SE), Switzerland (CH), United Kingdom (UK) (GB), United States (US)%2$s. %3$sPlease note that supported countries may change based on the country of your Stripe account. %4$sRead more%5$s.', 'checkout-plugins-stripe-woo' ),
+			'<strong>',
+			'</strong>',
+			'<br/>',
+			'<a href="https://docs.stripe.com/payments/klarna" target="_blank">',
+			'</a>'
+		) : '';
+		
 		return sprintf(
 			/* translators: %1$s: Break, %2$s: Gateway appear message, %3$s: Break, %4$s: Gateway appear message currency wise, %4$s:  HTML entities */
 			__( 'Accept payments using Klarna. %1$s %2$s %3$s %4$s', 'checkout-plugins-stripe-woo' ),
@@ -96,14 +104,7 @@ class Klarna extends Local_Gateway {
 	public function get_supported_currency() {
 		return apply_filters(
 			'cpsw_klarna_supported_currencies',
-			[
-				'EUR',
-				'USD',
-				'GBP',
-				'DKK',
-				'SEK',
-				'NOK',
-			]
+			Helper::get_supported_currency_country_for_gateway( 'klarna' )['currency']
 		);
 	}
 
@@ -120,11 +121,8 @@ class Klarna extends Local_Gateway {
 		}
 
 		// Perform a conditional check based on billing country.
-		// This check is applicable only for the classic checkout. For checkout blocks, it's handled in JavaScript.
-		if ( ! Helper::is_block_checkout() ) {
-			if ( ! in_array( $this->get_billing_country(), $this->allow_countries, true ) ) {
-				return false;
-			}
+		if ( ! in_array( $this->get_billing_country(), $this->allow_countries, true ) ) {
+			return false;
 		}
 
 		return parent::is_available();

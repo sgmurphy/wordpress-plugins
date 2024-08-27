@@ -3,7 +3,7 @@
         <div class="statistics-container">
             <div class="statistics"></div>
         </div>
-        <div class="loading"><img src="<?php echo esc_url(plugins_url('images/sumome-loading.gif', dirname(__FILE__))) ?>"></div>
+        <div class="loading"><img src="<?php echo plugins_url('images/sumome-loading.gif', dirname(__FILE__)) ?>"></div>
     </div>
 </div>
 <script>
@@ -12,17 +12,17 @@
     });
 
     function getSumomeStats() {
-        const siteID = '<?php print esc_js(get_option('sumome_site_id')); ?>';
+        const siteID = '<?php print get_option('sumome_site_id'); ?>';
         let statisticsDate = jQuery('.sumome-dashboard-date-select').val();
         if (statisticsDate == null) {
-            statisticsDate = '<?php print esc_js(date('Y-m-d'))?>'; //default=last week
+            statisticsDate = '<?php print date('Y-m-d')?>'; //default=last week
         }
         jQuery.ajax({
             url: 'https://sumome.com/apps/dashboard/stats',
             type: 'POST',
             dataType: 'json',
             beforeSend: function (req) {
-                req.setRequestHeader('X-Sumo-Auth', '<?php print esc_js($_COOKIE['__smToken'])?>');
+                req.setRequestHeader('X-Sumo-Auth', '<?php print $_COOKIE['__smToken']?>');
             },
             xhrFields: {
                 withCredentials: false

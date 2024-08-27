@@ -257,8 +257,9 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 
 			// Search by author id
 			if ( ! empty( $wp_query->get( 'author' ) ) ) {
-				$user_id = $wp_query->get( 'author' );
-				$where   .= $wpdb->prepare( ' AND uu.ID like %s ', $user_id );
+				$user_id = absint( $wp_query->get( 'author' ) );
+				//$where   .= $wpdb->prepare( ' AND uu.ID like %s ', $user_id );
+				$where   .= " AND ( pm1.meta_value like '%\"$user_id\"%' OR pm1.meta_value = $user_id ) ";
 			}
 
 			if ( ! empty( $wp_query->get( 'm' ) ) ) {
@@ -305,14 +306,14 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 				case 'title':
 					$orderby = "{$wpdb->posts}.ID {$order}";
 					break;
-				case 'student':
+				/*case 'student':
 					$orderby = "uu.user_login {$order}";
-					break;
+					break;*/
 				case 'date':
 					$orderby = "{$wpdb->posts}.post_date {$order}";
 					break;
 				case 'order_total':
-					$orderby = " pm2.meta_value {$order}";
+					$orderby = "CAST(pm2.meta_value AS UNSIGNED) {$order}";
 					break;
 			}
 
@@ -329,9 +330,13 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 			}
 
 			if ( ! empty( $wp_query->get( 'author' ) ) ) {
-				$join .= " INNER JOIN {$lp_db->tb_postmeta} pm1 ON {$wpdb->posts}.ID = pm1.post_id AND pm1.meta_key = '_user_id'";
+				$author_id = $wp_query->get( 'author' );
+				$join     .= " INNER JOIN {$lp_db->tb_postmeta} pm1 ON {$wpdb->posts}.ID = pm1.post_id AND pm1.meta_key = '_user_id'";
+				$join     .= " LEFT JOIN {$lp_db->tb_users} uu ON uu.ID = $author_id";
+			}
+
+			if ( $this->get_order_by() === 'order_total' ) {
 				$join .= " INNER JOIN {$lp_db->tb_postmeta} pm2 ON {$wpdb->posts}.ID = pm2.post_id AND pm2.meta_key = '_order_total'";
-				$join .= " LEFT JOIN {$lp_db->tb_users} uu ON pm1.meta_value = uu.ID";
 			}
 
 			return $join;
@@ -345,7 +350,6 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 		 * @return mixed
 		 */
 		public function sortable_columns( $columns ) {
-			$columns['order_student'] = 'student';
 			$columns['order_date']    = 'date';
 			$columns['order_total']   = 'order_total';
 
@@ -545,7 +549,7 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 							if ( $count > 1 ) {
 								$link = sprintf( '<li>%s</li>', $link );
 							}
-							$links[] = apply_filters( 'learn-press/order-item-link', $link, $item );
+							$links[] = apply_filters( 'learn-press/order-item-link', $link, $item, $lp_order );
 
 						}
 					}
@@ -717,7 +721,6 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 		 * @version 1.0.0
 		 */
 		public function deleted_post( int $order_id ) {
-
 		}
 
 		public function meta_boxes() {

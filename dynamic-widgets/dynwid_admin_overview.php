@@ -2,7 +2,6 @@
 /**
  * dynwid_admin_overview.php - Overview page
  *
- * @version $Id: dynwid_admin_overview.php 2968917 2023-09-19 21:10:22Z vivalex $
  * @copyright 2011 Jacco Drabbe
  */
 

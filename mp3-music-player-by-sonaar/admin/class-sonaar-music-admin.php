@@ -86,7 +86,7 @@ class Sonaar_Music_Admin {
             add_action( 'admin_init', array( $this, 'srmp3_load_plugin_action' ) );
             add_action( 'admin_notices', array( $this, 'businessplan_required') );
             add_filter( 'enter_title_here', array( $this, 'srmp3_title_place_holder' ), 20 , 2 );
-            add_filter( 'cmb2_sanitize_group',  array( $this, 'srmp3_save_alb_tracklist' ), 10, 5 );     
+            add_filter( 'cmb2_sanitize_group',  array( $this, 'srmp3_save_alb_tracklist' ), 10, 5 );
         }
         
         if ( is_admin() ) {
@@ -102,13 +102,16 @@ class Sonaar_Music_Admin {
             
             add_action( 'plugins_loaded', array( $this, 'srmp3_addon_api_check' ) );
             add_action( 'wp_ajax_copy_SR_theme_playlist_to_MP3AudioPlayer_playlist', array($this, 'copy_SR_theme_playlist_to_MP3AudioPlayer_playlist'));
+            add_action( 'save_post', array( $this, 'count_input_vars_on_save_post' ) );
+
+            require_once plugin_dir_path(__FILE__) . 'class-sonaar-music-setup-wizard.php';
             
         }
      
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-sonaar-music-widget.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-sonaar-music-block.php';
     }
-    
+
     public function save_cmb2_defaults_on_first_load() {
         /* If main settings are not saved yet, save them with default values */
         $option_keys = [
@@ -142,6 +145,47 @@ class Sonaar_Music_Admin {
             update_option($option_key, $defaults);
         }
     }
+    // Method to count input vars on save post
+    public function count_input_vars_on_save_post( $post_id ) {
+         // Check if the user has permission to edit the post
+        if ( !current_user_can('edit_post', $post_id) ) {
+            return;
+        }
+
+        $post_types = Sonaar_Music_Admin::get_cpt();
+        // Only proceed for your specific custom post type (CPT) if necessary
+        if ( !isset($_GET['page']) && ( get_post_type() == 'sr_playlist' || (is_array($post_types) && in_array(get_post_type(), $post_types)))) { 
+            // Get the actual max_input_vars value from the server
+            $max_input_vars = ini_get('max_input_vars');
+            //error_log('Max input vars from server: ' . $max_input_vars);
+
+            // Count the number of $_POST variables
+            $post_vars_count = $this->count_recursive($_POST);
+
+            //error_log('Post vars count: ' . $post_vars_count);
+
+            // Check if post vars count exceeds 90% of the max_input_vars
+            if ( $post_vars_count >= ( $max_input_vars * 0.9 ) ) {
+                //error_log('Setting transient, post vars count is over 90% of max_input_vars');
+                // Store the count in a transient
+                set_transient( 'srmp3_input_vars_count_' . $post_id, array(
+                    'input_vars_count' => $post_vars_count,
+                    'max_input_vars'   => $max_input_vars,
+                ), 30 ); // 30 seconds transient lifespan
+            }
+        }
+    }
+
+    // Helper method to recursively count variables
+    private function count_recursive($array) {
+        $count = 0;
+        foreach ($array as $item) {
+            $count += is_array($item) ? $this->count_recursive($item) : 1;
+        }
+        return $count;
+    }
+
+
     /**
     * Filter CMB2 alb_tracklist when save post. We dont want to display a player without a MP3 set. Prevent to show 'Track 1' on the frontend. 
     **/
@@ -398,7 +442,7 @@ class Sonaar_Music_Admin {
             wp_enqueue_script( 'sonaar-list', plugin_dir_url( __DIR__ ) . 'public/js/list.min.js' , array(), $this->version, false );
         }
        
-		if ( !isset($_GET['page']) && ( get_post_type() == 'sr_playlist' || (is_array($post_types) && in_array(get_post_type(), $post_types)))) {
+		if ( !isset($_GET['page']) && ( get_post_type() == 'sr_playlist' || (is_array($post_types) && in_array(get_post_type(), $post_types)))) {           
 			wp_enqueue_script( 'jqueryfontselector',  plugin_dir_url( __FILE__ ) . 'library/cmb2-field-faiconselect/js/jquery.fonticonpicker.min.js', array( 'jquery' ), $this->version, true );
 			wp_enqueue_script( 'mainjsiselect', plugin_dir_url( __FILE__ ) . 'library/cmb2-field-faiconselect/js/main.js', array( 'jqueryfontselector' ), $this->version, true );
             if (!wp_script_is('sonaar-music-mp3player', 'enqueued')){
@@ -430,16 +474,44 @@ class Sonaar_Music_Admin {
         }
        
         if (wp_script_is('sonaar-admin', 'enqueued')) {
+
+            // Create an array for translations
+            $translations = array(
+                'reset_shortcode' => esc_html__('Are you sure you want to start with a new shortcode? This will reset the shortcode to its initial state.', 'sonaar-music'),
+                'shortcode_template_imported' => esc_html__('Template imported successfully!', 'sonaar-music'),
+                'notice_from_current_post' => esc_html__('This is a dynamic shortcode and will fetch your single post\'s track(s).', 'sonaar-music'),
+                'category_not_found' => esc_html__('Category is empty. Please assign a track\'s post to a category first.', 'sonaar-music'),
+                
+            );
+
+            global $post;
+            // Try to get the max_input_vars value.
+           
+            if ( isset( $post->ID ) ) {
+                $input_vars_data = get_transient( 'srmp3_input_vars_count_' . $post->ID );
+                if ( $input_vars_data ) {
+                    // Retrieve the input_vars_count and max_input_vars from the transient
+                    $input_vars_count = $input_vars_data['input_vars_count'];
+                    $max_input_vars = $input_vars_data['max_input_vars'];
+
+                    // Pass inputvars and increaseMaxInputVars to the translations
+                    $translations['increaseMaxInputVars'] = wp_json_encode(
+                        sprintf(
+                            esc_html__( 'Warning: Server limitations are preventing more tracks from being added. Your post contains %d input variables, which is approaching or exceeding your server limit of %d max_input_vars. To fix this, increase the max_input_vars setting in your PHP configuration to 6000 or higher. Contact your hosting support for assistance.', 'sonaar-music' ),
+                            esc_html( $input_vars_count ), // Escaping input vars count for safety
+                            esc_html( $max_input_vars )    // Escaping max input vars for safety
+                        )
+                    );
+                }
+            }
+        
+        
+            // Localize the script with the translations
             wp_localize_script('sonaar-admin', 'sonaar_admin_ajax', array(
-                'translations' => array(
-                    'reset_shortcode' => esc_html__('Are you sure you want to start with a new shortcode? This will reset the shortcode to its initial state.', 'sonaar-music'),
-                    'shortcode_template_imported' => esc_html__('Template imported successfully!', 'sonaar-music'),
-                    'notice_from_current_post' => esc_html__('This is a dynamic shortcode and will fetch your single post\'s track(s).', 'sonaar-music'),
-                    'category_not_found' => esc_html__('Category is empty. Please assign a track\'s post to a category first.', 'sonaar-music'),
-                ),
+                'translations' => $translations,
                 'ajax' => array(
-                    'ajax_url' => admin_url( 'admin-ajax.php' ),
-                    'ajax_nonce' => wp_create_nonce( 'sonaar_music_admin_ajax_nonce' ),
+                    'ajax_url' => admin_url('admin-ajax.php'),
+                    'ajax_nonce' => wp_create_nonce('sonaar_music_admin_ajax_nonce'),
                 ),
             ));
         }
@@ -781,7 +853,7 @@ class Sonaar_Music_Admin {
                 'label_cb'         => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => esc_html__('What is your style?', 'sonaar-music'),
-                    'text'      => __('Either you run a Music, Podcast, Audiobook or Radio website, we\'ve got you covered. This only affect how we assign labels & strings in the admin dashboard.<br><br>Turning Podcast Mode On will unlock dedicated podcast features such as an RSS Importer, Subscribe Buttons, Podcast Show taxonomy and other neat features for podcast and audiobooks. <br><br>If you have Music AND Podcast, set Podcast Oriented. This will unlock extra features for the podcast and can also be used for music.', 'sonaar-music'),
+                    'text'      => sprintf( esc_html__('Either you run a Music, Podcast, Audiobook or Radio website, we\'ve got you covered. This only affect how we assign labels & strings in the admin dashboard.%1$sTurning Podcast Mode On will unlock dedicated podcast features such as an RSS Importer, Subscribe Buttons, Podcast Show taxonomy and other neat features for podcast and audiobooks. %1$sIf you have Music AND Podcast, set Podcast Oriented. This will unlock extra features for the podcast and can also be used for music.', 'sonaar-music'), '<br><br>'),
                     'image'     => '',
                     'pro'       => '',
                 ),
@@ -798,7 +870,7 @@ class Sonaar_Music_Admin {
                 'label_cb'      => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => esc_html__('Default Player Layout', 'sonaar-music'),
-                    'text'      => sprintf(__('We have designed 2 different audio player layouts. One has a floated style with tracklist and the cover image side-by-side while the other has a boxed layout with full-width playlist below the player.<br><br> The player layout is used in the playlist/episode single page. <br><br>You can customize the default player look and feel in Settings > Widget tab.<br><br>You can also customize each player\'s instance with shortcode attributes, Elementor Widget or Gutenberg block. %1$sLearn More%2$s', 'sonaar-music'), '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>' ),
+                    'text'      => sprintf(esc_html__('We have designed 2 different audio player layouts. One has a floated style with tracklist and the cover image side-by-side while the other has a boxed layout with full-width playlist below the player.%3$s The player layout is used in the playlist/episode single page. %3$sYou can customize the default player look and feel in Settings > Widget tab.%3$sYou can also customize each player\'s instance with shortcode attributes, Elementor Widget or Gutenberg block. %1$sLearn More%2$s', 'sonaar-music'), '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>', '<br><br>' ),
                     'image'     => '',
                 ),
                 'id'   =>   'player_widget_type',
@@ -814,11 +886,11 @@ class Sonaar_Music_Admin {
                 'name'                  => esc_html__('Post Types', 'sonaar-music'),
                 'type'                  => 'title',
                 'id'                    => 'srmp3_posttypes_title',
-                'description'           => esc_html('Choose the post types for which you want to enable audio uploads.', 'sonaar-music'),
+                'description'           => esc_html__('Choose the post types for which you want to enable audio uploads.', 'sonaar-music'),
             ) );
             $general_options->add_field( array(
-                'name'          => esc_html('Post Types', 'sonaar-music'),
-                //'desc'          => esc_html('Select the post types for which you want to enable playlist creation', 'sonaar-music'),
+                'name'          => esc_html__('Post Types', 'sonaar-music'),
+                //'desc'          => esc_html__('Select the post types for which you want to enable playlist creation', 'sonaar-music'),
                 'label_cb'      => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => esc_html__('Where are you using the player?', 'sonaar-music'),
@@ -859,9 +931,9 @@ class Sonaar_Music_Admin {
                 'label_cb'      => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => '',
-                    'text'      => __('Choose between 2 different types of progress bars.<br><br>
-                    Waveform:<br>Creates an automatic, real soundwave, with a fallback to a simulated one if needed, especially for external audio URLs or > 45 min audio tracks. Use Tools > Generate Peaks to force peak generation for all tracks.<br><br>
-                    Simple Bar:<br>Offers a straightforward, clean progress bar without waveform generation.', 'sonaar-music'),
+                    'text'      => sprintf( esc_html__('Choose between 2 different types of progress bars.%1$s%1$s
+                    Waveform:%1$sCreates an automatic, real soundwave, with a fallback to a simulated one if needed, especially for external audio URLs or > 45 min audio tracks. Use Tools > Generate Peaks to force peak generation for all tracks.%1$s%1$s
+                    Simple Bar:%1$sOffers a straightforward, clean progress bar without waveform generation.', 'sonaar-music'), '<br>'),
                     'image'     => 'waveform.svg',
                 ),
                 'options'       => array(
@@ -1050,7 +1122,7 @@ class Sonaar_Music_Admin {
                     'label_cb'      => 'srmp3_add_tooltip_to_label',
                     'tooltip'       => array(
                         'title'     => '',
-                        'text'      => __('Enable this feature on your player widget to have tracks resume from where the user last stopped listening. Useful for Audio Books, Podcasts and eLearning.', 'sonaar-music'),
+                        'text'      => esc_html__('Enable this feature on your player widget to have tracks resume from where the user last stopped listening. Useful for Audio Books, Podcasts and eLearning.', 'sonaar-music'),
                     ),
                 ) ); 
                 $general_options->add_field( array(
@@ -1060,7 +1132,7 @@ class Sonaar_Music_Admin {
                     'label_cb'      => 'srmp3_add_tooltip_to_label',
                     'tooltip'       => array(
                         'title'     => '',
-                        'text'      => __('We will display filenames as track title when this option is enabled.', 'sonaar-music'),
+                        'text'      => esc_html__('We will display filenames as track title when this option is enabled.', 'sonaar-music'),
                     ),
                 ) );
                 $general_options->add_field( array(
@@ -1080,7 +1152,7 @@ class Sonaar_Music_Admin {
                     'id'            => 'force_cta_download_settings_title'
                 ) );
                 $general_options->add_field( array(
-                    'name'          => __('Download Button Label', 'sonaar-music'),
+                    'name'          => esc_html__('Download Button Label', 'sonaar-music'),
                     'id'            => 'force_cta_download_label',
                     'type'          => 'text_small',
                     'default'       => esc_html__('Download', 'sonaar-music'),
@@ -1166,7 +1238,7 @@ class Sonaar_Music_Admin {
                         'label_cb'      => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => '',
-                            'text'      => __( 'If user is logged out or not met the conditions, display the button but redirect people to a link or popup', 'sonaar-music'),
+                            'text'      => esc_html__( 'If user is logged out or not met the conditions, display the button but redirect people to a link or popup', 'sonaar-music'),
                             'image'     => '',
                         ),
                         'attributes'    => array(
@@ -1182,7 +1254,7 @@ class Sonaar_Music_Admin {
                         'label_cb'      => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => '',
-                            'text'      => __('The URL to redirect when user click on the button. If you are using Elementor Popup, set this to #popup and in the Advanced Tab of your Popup > Open By Selector create an anchor trigger link shortcode (example: a[href="#popup"] )', 'sonaar-music'),
+                            'text'      => esc_html__('The URL to redirect when user click on the button. If you are using Elementor Popup, set this to #popup and in the Advanced Tab of your Popup > Open By Selector create an anchor trigger link shortcode (example: a[href="#popup"] )', 'sonaar-music'),
                             'image'     => '',
                         ),
                         'attributes'    => array(
@@ -1198,7 +1270,7 @@ class Sonaar_Music_Admin {
                     'id'            => 'force_cta_postlink_settings_title'
                 ) );
                 $general_options->add_field( array(
-                    'name'          => __('Link Button Label', 'sonaar-music'),
+                    'name'          => esc_html__('Link Button Label', 'sonaar-music'),
                     'id'            => 'force_cta_singlepost_label',
                     'type'          => 'text_small',
                     'default'       => esc_html__('View Details', 'sonaar-music'),
@@ -1232,7 +1304,7 @@ class Sonaar_Music_Admin {
                     'label_cb'      => 'srmp3_add_tooltip_to_label',
                     'tooltip'       => array(
                         'title'     => '',
-                        'text'      => __('Enabled Listening history for logged-in user (via user_meta)<br><br><a href="https://sonaar.io/docs/user-recently-played-tracks-feature/" target="_blank">View Documentation</a><br>', 'sonaar-music'),
+                        'text'      => sprintf( esc_html__('Enabled Listening history for logged-in user (via user_meta)%1$sView Documentation%2$s', 'sonaar-music'), '<br><br><a href="https://sonaar.io/docs/user-recently-played-tracks-feature/" target="_blank">', '</a><br>' ),
                         'image'     => '',
                     ),
                 ) );
@@ -1244,7 +1316,7 @@ class Sonaar_Music_Admin {
                     'default'       => 'true',
                     'tooltip'       => array(
                         'title'     => '',
-                        'text'      => __('Enabled Listening history for NON logged-in user (via browser cookie)<br><br><a href="https://sonaar.io/docs/user-recently-played-tracks-feature/" target="_blank">View Documentation</a><br>', 'sonaar-music'),
+                        'text'      => sprintf( esc_html__('Enabled Listening history for NON logged-in user (via browser cookie)%1$sView Documentation%2$s', 'sonaar-music'), '<br><br><a href="https://sonaar.io/docs/user-recently-played-tracks-feature/" target="_blank">', '</a><br>' ),
                         'image'     => '',
                     ),
                     'attributes'    => array(
@@ -1333,7 +1405,7 @@ class Sonaar_Music_Admin {
                 'label_cb'      => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => '',
-                    'text'      => __('By enabling this feature, you\'ll be able to use an HTML Text Editor for your Track/Episode Descriptions. This editor provides a richer and more flexible way to format your descriptions.<br><br>IMPORTANT! If your posts have a lot of tracks, activating this feature might make your admin page load slower. This is because for every track on your admin page, a separate HTML Editor needs to be loaded. So, the more tracks you have, the more editors the page has to load, which can lead to noticeable delays.', 'sonaar-music'),
+                    'text'      => sprintf( esc_html__('By enabling this feature, you\'ll be able to use an HTML Text Editor for your Track/Episode Descriptions. This editor provides a richer and more flexible way to format your descriptions.%1$sIMPORTANT! If your posts have a lot of tracks, activating this feature might make your admin page load slower. This is because for every track on your admin page, a separate HTML Editor needs to be loaded. So, the more tracks you have, the more editors the page has to load, which can lead to noticeable delays.', 'sonaar-music'), '<br><br>' ),
                     'image'     => '',
                 ),
             ) );
@@ -1568,7 +1640,7 @@ class Sonaar_Music_Admin {
                     'after'         => 'srmp3_add_tooltip_to_label',
                     'tooltip'       => array(
                         'title'     => esc_html__('', 'sonaar-music'),
-                        'text'      => sprintf(__('Each single %2$s page has a unique URL and is represented by a slug name. You can replace it by anything you like.<br><br>eg: http://www.domain.com/<strong>%1$s</strong>/post-title', 'sonaar-music'), $this->sr_GetString('album_slug'), $this->sr_GetString('playlist')),
+                        'text'      => sprintf(esc_html__('Each single %1$s page has a unique URL and is represented by a slug name. You can replace it by anything you like.%2$seg: http://www.domain.com/%3$s%4$s%5$s/post-title', 'sonaar-music'), $this->sr_GetString('playlist'), '<br><br>', '<strong>', $this->sr_GetString('album_slug'), '</strong>'),
                         'image'     => '',
                         'pro'       => true,
                     ),
@@ -1581,7 +1653,7 @@ class Sonaar_Music_Admin {
                     'after'         => 'srmp3_add_tooltip_to_label',
                     'tooltip'       => array(
                         'title'     => esc_html__('', 'sonaar-music'),
-                        'text'      => sprintf(__('Each %2$s\'s category page has a unique URL and is represented by a slug name. You can replace it by anything you like.<br><br>eg: http://www.domain.com/<strong>%1$s</strong>/category-title', 'sonaar-music'), $this->sr_GetString('category_slug'), $this->sr_GetString('playlist')),
+                        'text'      => sprintf(esc_html__('Each %1$s\'s category page has a unique URL and is represented by a slug name. You can replace it by anything you like.%2$seg: http://www.domain.com/%3$s%4$s%5$s/category-title', 'sonaar-music'), $this->sr_GetString('playlist'), '<br><br>', '<strong>', $this->sr_GetString('category_slug'), '</strong>' ),
                         'image'     => '',
                         'pro'       => true,
                     ),
@@ -1596,7 +1668,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => __('A podcast show is like a podcast category but its dedicated for Podcast shows. Main difference is that the podcast show taxonomy contains your podcast settings for your RSS feed.<br><br>Each podcast show page has a unique URL and is represented by a slug name. You can replace it by anything you like.<br><br>eg: http://www.domain.com/<strong>podcast-show</strong>/show-title', 'sonaar-music'),
+                            'text'      => sprintf( esc_html__('A podcast show is like a podcast category but its dedicated for Podcast shows. Main difference is that the podcast show taxonomy contains your podcast settings for your RSS feed.%1$sEach podcast show page has a unique URL and is represented by a slug name. You can replace it by anything you like.%1$seg: http://www.domain.com/%2$spodcast-show%3$sshow-title', 'sonaar-music'), '<br><br>', '<strong>', '</strong>'),
                             'image'     => '',
                             'pro'       => true,
                         ),
@@ -1623,7 +1695,7 @@ class Sonaar_Music_Admin {
                     'after'         => 'srmp3_add_tooltip_to_label',
                     'tooltip'       => array(
                         'title'     => esc_html__('Custom Shortcode in Single Post', 'sonaar-music'),
-                        'text'      => sprintf(__('The player in your single %3$s page can be changed/tweaked by entering our shortcode and our supported attributes.<br><br>Will override the default player widget in the single post page by your own shortcode and attributes.<br><br>View shortcode & supported attributes %1$sdocumentation%2$s', 'sonaar-music'), '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>', $this->sr_GetString('playlist')),
+                        'text'      => sprintf(esc_html__('The player in your single %1$s page can be changed/tweaked by entering our shortcode and our supported attributes.%2$sWill override the default player widget in the single post page by your own shortcode and attributes.%2$sView shortcode & supported attributes %3$sdocumentation%4$s', 'sonaar-music'), $this->sr_GetString('playlist'), '<br><br>', '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>'),
                         'image'     => '',
                         'pro'       => true,
                     ),
@@ -1635,7 +1707,7 @@ class Sonaar_Music_Admin {
                     'id'            => 'sr_single_post_shortcode',
                     'description' => sprintf( 
                         wp_kses( 
-                            __( 'To create your shortcode, %1$suse our Shortcode Builder%2$s.<br>Choose \'Current Post\' in your Audio Source', 'sonaar-music' ), 
+                            esc_html__( 'To create your shortcode, %1$suse our Shortcode Builder%2$s.%3$sChoose \'Current Post\' in your Audio Source', 'sonaar-music' ), 
                             array(
                                 'a' => array( 
                                     'href' => array(), 
@@ -1645,7 +1717,8 @@ class Sonaar_Music_Admin {
                             )
                         ), 
                         '<a href="' . esc_url( admin_url( 'edit.php?post_type=sr_playlist&page=srmp3_settings_shortcodebuilder' ) ) . '" target="_blank">', 
-                        '</a>'
+                        '</a>',
+                        '<br>'
                     ),
                     'default'       => '[sonaar_audioplayer player_layout="skin_boxed_tracklist" sticky_player="true" post_link="false" hide_artwork="false" show_playlist="true" show_track_market="true" show_album_market="true" hide_progressbar="false" hide_times="false" hide_track_title="true"]',
                     'attributes'    => array(
@@ -1891,7 +1964,7 @@ class Sonaar_Music_Admin {
                     'after'         => 'srmp3_add_tooltip_to_label',
                     'tooltip'       => array(
                         'title'     => '',
-                        'text'      => __('By default, we display only the most popular and widely-used icons in the call-to-action icon selector. Activating this feature will show all icons in the CTA\'s icon picker.<br><br>Be aware, this could potentially reduce the speed of your admin page due to numerous entries. With this setting, over 1000 icons become accessible in the selector. Opt for this only if it\'s absolutely necessary.', 'sonaar-music'),
+                        'text'      => sprintf( esc_html__('By default, we display only the most popular and widely-used icons in the call-to-action icon selector. Activating this feature will show all icons in the CTA\'s icon picker.%sBe aware, this could potentially reduce the speed of your admin page due to numerous entries. With this setting, over 1000 icons become accessible in the selector. Opt for this only if it\'s absolutely necessary.', 'sonaar-music'), '<br><br>' ),
                         'image'     => '',
                         'pro'       => true,
                     ),
@@ -2023,18 +2096,18 @@ class Sonaar_Music_Admin {
                 'after'         => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => esc_html__('Date Format', 'sonaar-music'),
-                    'text'      => sprintf(__('Here are some examples of date format with the result output.<br><br>
-                    F j, Y g:i a – November 6, 2010 12:50 am<br>
-                    F j, Y – November 6, 2010<br>
-                    F, Y – November, 2010<br>
-                    g:i a – 12:50 am<br>
-                    g:i:s a – 12:50:48 am<br>
-                    l, F jS, Y – Saturday, November 6th, 2010<br>
-                    M j, Y @ G:i – Nov 6, 2010 @ 0:50<br>
-                    Y/m/d \a\t g:i A – 2010/11/06 at 12:50 AM<br>
-                    Y/m/d \a\t g:ia – 2010/11/06 at 12:50am<br>
-                    Y/m/d g:i:s A – 2010/11/06 12:50:48 AM<br>
-                    Y/m/d – 2010/11/06<br><br>%1$sView documentation%2$s on date and time formatting.', 'sonaar-music'), '<a href="https://wordpress.org/support/article/formatting-date-and-time/" target="_blank">', '</a>' ),
+                    'text'      => sprintf(esc_html__('Here are some examples of date format with the result output.%1$s%1$s
+                    F j, Y g:i a – November 6, 2010 12:50 am%1$s
+                    F j, Y – November 6, 2010%1$s
+                    F, Y – November, 2010%1$s
+                    g:i a – 12:50 am%1$s
+                    g:i:s a – 12:50:48 am%1$s
+                    l, F jS, Y – Saturday, November 6th, 2010%1$s
+                    M j, Y @ G:i – Nov 6, 2010 @ 0:50%1$s
+                    Y/m/d \a\t g:i A – 2010/11/06 at 12:50 AM%1$s
+                    Y/m/d \a\t g:ia – 2010/11/06 at 12:50am%1$s
+                    Y/m/d g:i:s A – 2010/11/06 12:50:48 AM%1$s
+                    Y/m/d – 2010/11/06%1$s%1$s%2$sView documentation%3$s on date and time formatting.', 'sonaar-music'), '<br>', '<a href="https://wordpress.org/support/article/formatting-date-and-time/" target="_blank">', '</a>' ),
                     'pro'       => true,
                 ),
             ) );
@@ -2225,7 +2298,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('Each single %2$s page has a unique URL and is represented by a slug name. You can replace it by anything you like.<br><br>eg: http://www.domain.com/<strong>%1$s</strong>/post-title', 'sonaar-music'), $this->sr_GetString('album_slug'), $this->sr_GetString('playlist')),
+                            'text'      => sprintf(esc_html__('Each single %1$s page has a unique URL and is represented by a slug name. You can replace it by anything you like.%2$seg: http://www.domain.com/%3$s%4$s%5$s/post-title', 'sonaar-music'), $this->sr_GetString('playlist'), '<br><br>', '<strong>', $this->sr_GetString('album_slug'), '</strong>'),
                             'image'     => '',
                             'pro'       => true,
                         ),
@@ -2239,7 +2312,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('Each %2$s\'s category page has a unique URL and is represented by a slug name. You can replace it by anything you like.<br><br>eg: http://www.domain.com/<strong>%1$s</strong>/category-title', 'sonaar-music'), $this->sr_GetString('category_slug'), $this->sr_GetString('playlist')),
+                            'text'      => sprintf(esc_html__('Each %1$s\'s category page has a unique URL and is represented by a slug name. You can replace it by anything you like.%2$seg: http://www.domain.com/%3$s%4$s%5$s/category-title', 'sonaar-music'), $this->sr_GetString('playlist'), '<br><br>', '<strong>', $this->sr_GetString('category_slug'), '</strong>' ),
                             'image'     => '',
                             'pro'       => true,
                         ),
@@ -2254,7 +2327,7 @@ class Sonaar_Music_Admin {
                             'after'         => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => esc_html__('', 'sonaar-music'),
-                                'text'      => __('A podcast show is like a podcast category but its dedicated for Podcast shows. Main difference is that the podcast show taxonomy contains your podcast settings for your RSS feed.<br><br>Each podcast show page has a unique URL and is represented by a slug name. You can replace it by anything you like.<br><br>eg: http://www.domain.com/<strong>podcast-show</strong>/show-title', 'sonaar-music'),
+                                'text'      => sprintf( esc_html__('A podcast show is like a podcast category but its dedicated for Podcast shows. Main difference is that the podcast show taxonomy contains your podcast settings for your RSS feed.%1$sEach podcast show page has a unique URL and is represented by a slug name. You can replace it by anything you like.%1$seg: http://www.domain.com/%2$spodcast-show%3$sshow-title', 'sonaar-music'), '<br><br>', '<strong>', '</strong>'),
                                 'image'     => '',
                                 'pro'       => true,
                             ),
@@ -2269,7 +2342,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('Custom Shortcode in Single Post', 'sonaar-music'),
-                            'text'      => sprintf(__('The player in your single %3$s page can be changed/tweaked by entering our shortcode and our supported attributes.<br><br>Will override the default player widget in the single post page by your own shortcode and attributes.<br><br>View shortcode & supported attributes %1$sdocumentation%2$s', 'sonaar-music'), '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>', $this->sr_GetString('playlist')),
+                            'text'      => sprintf(esc_html__('The player in your single %1$s page can be changed/tweaked by entering our shortcode and our supported attributes.%2$sWill override the default player widget in the single post page by your own shortcode and attributes.%2$sView shortcode & supported attributes %3$sdocumentation%4$s', 'sonaar-music'), $this->sr_GetString('playlist'), '<br><br>', '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>'),
                             'image'     => '',
                             'pro'       => true,
                         ),
@@ -2317,7 +2390,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('We will automatically display the sticky footer player on your site.<br><br>Create a %1$s post in WP-Admin > MP3 Player then set your audio track(s) using our custom fields.<br><br>Come back here and choose the %1$s(s) post to play in the sticky player.<br><br>Note that you can also enable the sticky player on each player instance and widget.', 'sonaar-music'), $this->sr_GetString('playlist')),
+                            'text'      => sprintf(esc_html__('We will automatically display the sticky footer player on your site.%1$sCreate a %2$s post in WP-Admin > MP3 Player then set your audio track(s) using our custom fields.%1$sCome back here and choose the %2$s(s) post to play in the sticky player.%1$sNote that you can also enable the sticky player on each player instance and widget.', 'sonaar-music'), '<br><br>', $this->sr_GetString('playlist')),
                             'image'     => 'sticky.svg',
                             'pro'       => true,
                         ),
@@ -2331,7 +2404,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('Having a continuous audio playback is a stunning feature and will improve the overall UX of your website.<br><br>The concept is pretty simple. Your visitor starts the audio player from any player on your site. We save the revelant times in a cookie. When user loads a new page, everything is reloaded but the audio player resume where it left.<br><br>You can also exclude pages to prevent sticky player loads on them.<br><br>%1$sLearn More About Continuous Player%2$s', 'sonaar-music'), '<a href="https://sonaar.io/tips-and-tricks/continuous-audio-player-on-wordpress/" target="_blank">', '</a>'),
+                            'text'      => sprintf(esc_html__('Having a continuous audio playback is a stunning feature and will improve the overall UX of your website.%1$sThe concept is pretty simple. Your visitor starts the audio player from any player on your site. We save the revelant times in a cookie. When user loads a new page, everything is reloaded but the audio player resume where it left.%1$sYou can also exclude pages to prevent sticky player loads on them.%1$s%2$sLearn More About Continuous Player%3$s', 'sonaar-music'), '<br><br>', '<a href="https://sonaar.io/tips-and-tricks/continuous-audio-player-on-wordpress/" target="_blank">', '</a>'),
                             'image'     => 'continuous.svg',
                             'pro'       => true,
                         ),
@@ -2348,7 +2421,7 @@ class Sonaar_Music_Admin {
                         'id'            => 'overall_sticky_playlist',
                         'type'          => 'post_search_text', // This field type
                         'post_type'     => Sonaar_Music_Admin::get_cpt($all = true),
-                        'desc'          => sprintf(__('Enter a comma separated list of playlist IDs. Enter <i>latest</i> to always load the latest published %1$s playlist. Click Select Button to search for playlist','sonaar-music'), $this->sr_GetString('playlist') ),
+                        'desc'          => sprintf(esc_html__('Enter a comma separated list of playlist IDs. Enter %1$slatest%2$s to always load the latest published %3$s playlist. Click Select Button to search for playlist','sonaar-music'), '<i>', '</i>', $this->sr_GetString('playlist') ),
                         // Default is 'checkbox', used in the modal view to select the post type
                         'select_type'   => 'checkbox',
                         // Will replace any selection with selection from modal. Default is 'add'
@@ -2356,7 +2429,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('We will automatically display the sticky footer player on your site.<br><br>Create a %1$s post in WP-Admin > MP3 Player then set your audio track(s) using our custom fields.<br><br>Come back here and enter the %1$s(s) post ID to play in the sticky player.<br><br>Enter \'latest\' (without single quotes) to automatically play the latest published post.<br><br>Note that you can also enable the sticky player on each player instance and widget.', 'sonaar-music'), $this->sr_GetString('playlist')),
+                            'text'      => sprintf(esc_html__('We will automatically display the sticky footer player on your site.%1$sCreate a %2$s post in WP-Admin > MP3 Player then set your audio track(s) using our custom fields.%1$sCome back here and enter the %2$s(s) post ID to play in the sticky player.%1$sEnter \'latest\' (without single quotes) to automatically play the latest published post.%1$sNote that you can also enable the sticky player on each player instance and widget.', 'sonaar-music'), '<br><br>', $this->sr_GetString('playlist')),
                             'image'     => 'sticky.svg',
                             'pro'       => true,
                         ),
@@ -2369,20 +2442,20 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('Launch the sticky player when user click play from the single %1$s post page. Default is disabled.', 'sonaar-music'), $this->sr_GetString('playlist')),
+                            'text'      => sprintf(esc_html__('Launch the sticky player when user click play from the single %1$s post page. Default is disabled.', 'sonaar-music'), $this->sr_GetString('playlist')),
                             'image'     => '',
                             'pro'       => true,
                         ),
                     ) );
                     $sticky_player_options->add_field( array(
-                        'name'          => sprintf(__('Display %1$s Title', 'sonaar-music'),  ucfirst($this->sr_GetString('album/podcast'))), 
+                        'name'          => sprintf(esc_html__('Display %1$s Title', 'sonaar-music'),  ucfirst($this->sr_GetString('album/podcast'))), 
                         'id'            => 'sticky_show_album_title',
                         'type'          => 'switch',
                         'default'       => 'true',
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('Display the %1$s Title in the sticky player. Default is enabled.', 'sonaar-music'),  ucfirst($this->sr_GetString('album/podcast'))), 
+                            'text'      => sprintf(esc_html__('Display the %1$s Title in the sticky player. Default is enabled.', 'sonaar-music'),  ucfirst($this->sr_GetString('album/podcast'))), 
                             'pro'       => true,
                         ),
                     ) );
@@ -2446,7 +2519,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('When enabled, we will show all tracks from all posts related to the same category than the current track being played.<br><br>These tracks will appear when tracklist button is clicked in the sticky player.<br><br>This is useful if sticky player is launched from a single post by example, and you want to show all other %1$s related to this post in the sticky.', 'sonaar-music'), $this->sr_GetString('playlist')),
+                            'text'      => sprintf(esc_html__('When enabled, we will show all tracks from all posts related to the same category than the current track being played.%1$sThese tracks will appear when tracklist button is clicked in the sticky player.%1$sThis is useful if sticky player is launched from a single post by example, and you want to show all other %2$s related to this post in the sticky.', 'sonaar-music'), '<br><br>', $this->sr_GetString('playlist')),
                             'image'     => 'tracklist.svg',
                             'pro'       => true,
                         ),
@@ -2502,7 +2575,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => __('We have 3 different layouts for the sticky player. <br><br><strong>Fullwidth</strong> is a full width and 90px tall player.<br><br><strong>Mini Fullwidth</strong> is a full width player but 42px tall.<br><br><strong>Float</strong> is a floated & draggable sticky player that can be positioned on the left, center or right bottom of your screen. It\'s more discreet.', 'sonaar-music'),
+                            'text'      => sprintf( esc_html__('We have 3 different layouts for the sticky player. %1$sFullwidth%2$s is a full width and 90px tall player.%1$sMini Fullwidth%2$s is a full width player but 42px tall.%1$sFloat%2$s is a floated & draggable sticky player that can be positioned on the left, center or right bottom of your screen. It\'s more discreet.', 'sonaar-music'), '<br><br><strong>', '</strong>' ),
                             'image'     => '',
                             'pro'       => true,
                         ),
@@ -2700,7 +2773,7 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('Having a continuous audio playback is a stunning feature and will improve the overall UX of your website.<br><br>The concept is pretty simple. Your visitor starts the audio player from any player on your site. We save the revelant times in a cookie. When user loads a new page, everything is reloaded but the audio player resume where it left.<br><br>You can also exclude pages to prevent sticky player loads on them.<br><br>%1$sLearn More About Continuous Player%2$s', 'sonaar-music'), '<a href="https://sonaar.io/tips-and-tricks/continuous-audio-player-on-wordpress/" target="_blank">', '</a>'),
+                            'text'      => sprintf(esc_html__('Having a continuous audio playback is a stunning feature and will improve the overall UX of your website.%1$sThe concept is pretty simple. Your visitor starts the audio player from any player on your site. We save the revelant times in a cookie. When user loads a new page, everything is reloaded but the audio player resume where it left.%1$sYou can also exclude pages to prevent sticky player loads on them.%1$s%2$sLearn More About Continuous Player%3$s', 'sonaar-music'), '<br><br>', '<a href="https://sonaar.io/tips-and-tricks/continuous-audio-player-on-wordpress/" target="_blank">', '</a>'),
                             'image'     => 'continuous.svg',
                             'pro'       => true,
                         ),
@@ -3073,7 +3146,7 @@ class Sonaar_Music_Admin {
                             'after'         => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => esc_html__('WC Shop Loop', 'sonaar-music'),
-                                'text'      => __('When you display your WooCommerce products in a grid, shop page or archive, you may want to display audio players on each instance.<br><br>You can choose to display audio controls over or below the thumbnail.', 'sonaar-music'),
+                                'text'      => sprintf( esc_html__('When you display your WooCommerce products in a grid, shop page or archive, you may want to display audio players on each instance.%sYou can choose to display audio controls over or below the thumbnail.', 'sonaar-music'), '<br><br>' ),
                                 'image'     => 'wc_shoploop.svg',
                                 'pro'       => true,
                             ),
@@ -3087,9 +3160,9 @@ class Sonaar_Music_Admin {
                             'after'         => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => esc_html__('Enable Player in WC Single Page', 'sonaar-music'),
-                                'text'      => sprintf(__('For each single product page, we automatically display the audio player if you have set tracks using our custom fields.<br><br>The player is shown within the product\'s detail page.
-                                You can either use the settings below to setup the player layout, or use our shortcode with any of our supported attributes for more flexibility.<br><br>
-                                View shortcode & supported attributes %1$sdocumentation%2$s.', 'sonaar-music'),'<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>' ),
+                                'text'      => sprintf(esc_html__('For each single product page, we automatically display the audio player if you have set tracks using our custom fields.%1$sThe player is shown within the product\'s detail page.
+                                You can either use the settings below to setup the player layout, or use our shortcode with any of our supported attributes for more flexibility. %1$s
+                                View shortcode & supported attributes %2$sdocumentation%3$s.', 'sonaar-music'), '<br><br>', '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>' ),
                                 'image'     => '',
                                 'pro'       => true,
                             ),
@@ -3122,15 +3195,21 @@ class Sonaar_Music_Admin {
                             'after'         => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => esc_html__('Call-to-Action Buttons', 'sonaar-music'),
-                                'text'      => __('When tracks are added through a WooCommerce product post, we automatically display Buy Now / Add to Cart call-to-action buttons beside each track.<br><br>
-                                Here you can set what to display in the call-to-action buttons.<br><br>
-                                Example:<br><br>
-                                <strong>Label + Price</strong> = [ Buy Now $9.99 ]<br>
-                                <strong>Label Only</strong> = [ Buy Now ]<br>
-                                <strong>Price Only</strong> = [ $9.99 ]<br>
-                                <strong>Inactive</strong> = No button will be displayed<br><br>
-                                You can disable call-to-action buttons for specific products by editing the product post.<br><br>
-                                You can change or translate the label strings below.', 'sonaar-music'),
+                                'text'      => sprintf( 
+                                    /* translators: %1$s: Used to insert HTML line breaks (<br>) in the text, %2$s: Used to insert the HTML <strong> tag to bold the text, %3$s: Used to insert the HTML </strong> tag to close the bold formatting.*/
+                                    esc_html__('When tracks are added through a WooCommerce product post, we automatically display Buy Now / Add to Cart call-to-action buttons beside each track.%1$s%1$s
+                                    Here you can set what to display in the call-to-action buttons.%1$s%1$s
+                                    Example:%1$s%1$s
+                                    %2$sLabel + Price%3$s = [ Buy Now $9.99 ]%1$s
+                                    %2$sLabel Only%3$s = [ Buy Now ]%1$s
+                                    %2$sPrice Only%3$s = [ $9.99 ]%1$s
+                                    %2$sInactive%3$s = No button will be displayed%1$s%1$s
+                                    You can disable call-to-action buttons for specific products by editing the product post.%1$s%1$s
+                                    You can change or translate the label strings below.', 'sonaar-music'), 
+                                    '<br>', // %1$s
+                                    '<strong>', // %2$s
+                                    '</strong>' // %3$s
+                                ),
                                 'image'     => 'woocommerce_cta.svg',
                                 'pro'       => true,
                             ),
@@ -3152,15 +3231,21 @@ class Sonaar_Music_Admin {
                             'after'         => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => esc_html__('Call-to-Action Buttons', 'sonaar-music'),
-                                'text'      => __('When tracks are added through a WooCommerce product post, we automatically display Buy Now / Add to Cart call-to-action buttons beside each track.<br><br>
-                                Here you can set what to display in the call-to-action buttons.<br><br>
-                                Example:<br><br>
-                                <strong>Label + Price</strong> = [ Buy Now $9.99 ]<br>
-                                <strong>Label Only</strong> = [ Buy Now ]<br>
-                                <strong>Price Only</strong> = [ $9.99 ]<br>
-                                <strong>Inactive</strong> = No button will be displayed<br><br>
-                                You can disable call-to-action buttons for specific products by editing the product post.<br><br>
-                                You can change or translate the label strings below.', 'sonaar-music'),
+                                'text'      => sprintf( 
+                                    /* translators: %1$s: Used to insert HTML line breaks (<br>) in the text, %2$s: Used to insert the HTML <strong> tag to bold the text, %3$s: Used to insert the HTML </strong> tag to close the bold formatting.*/
+                                    esc_html__('When tracks are added through a WooCommerce product post, we automatically display Buy Now / Add to Cart call-to-action buttons beside each track.%1$s%1$s
+                                    Here you can set what to display in the call-to-action buttons.%1$s%1$s
+                                    Example:%1$s%1$s
+                                    %2$sLabel + Price%3$s = [ Buy Now $9.99 ]%1$s
+                                    %2$sLabel Only%3$s = [ Buy Now ]%1$s
+                                    %2$sPrice Only%3$s = [ $9.99 ]%1$s
+                                    %2$sInactive%3$s = No button will be displayed%1$s%1$s
+                                    You can disable call-to-action buttons for specific products by editing the product post.%1$s%1$s
+                                    You can change or translate the label strings below.', 'sonaar-music'), 
+                                    '<br>', // %1$s
+                                    '<strong>', // %2$s
+                                    '</strong>' // %3$s
+                                ),
                                 'image'     => 'woocommerce_cta.svg',
                                 'pro'       => true,
                             ),
@@ -3279,7 +3364,7 @@ class Sonaar_Music_Admin {
                             'label_cb'      => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => '',
-                                'text'      => __('The URL to redirect when user click on the button. If you are using Elementor Popup, set this to #popup and in the Advanced Tab of your Popup > Open By Selector create an anchor trigger link shortcode (example: a[href="#popup"] )', 'sonaar-music'),
+                                'text'      => esc_html__('The URL to redirect when user click on the button. If you are using Elementor Popup, set this to #popup and in the Advanced Tab of your Popup > Open By Selector create an anchor trigger link shortcode (example: a[href="#popup"] )', 'sonaar-music'),
                                 'image'     => '',
                             ),
                             'attributes'    => array(
@@ -3339,7 +3424,7 @@ class Sonaar_Music_Admin {
                             'after'         => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => esc_html__('WC Shop Loop', 'sonaar-music'),
-                                'text'      => __('When you display your WooCommerce products in a grid, shop page or archive, you may want to display audio players on each instance.<br><br>You can choose to display audio controls over or below the thumbnail.', 'sonaar-music'),
+                                'text'      => sprintf( esc_html__('When you display your WooCommerce products in a grid, shop page or archive, you may want to display audio players on each instance.%sYou can choose to display audio controls over or below the thumbnail.', 'sonaar-music'), '<br><br>' ),
                                 'image'     => 'wc_shoploop.svg',
                                 'pro'       => true,
                             ),
@@ -3388,7 +3473,7 @@ class Sonaar_Music_Admin {
                             'classes'       => 'srmp3-settings--subitem',
                             'type'          => 'textarea_small',
                             'id'            => 'sr_woo_shop_player_shortcode',
-                            'description'          => sprintf( wp_kses( __('For shortcode attributes, %1$s read this article%2$s.','sonaar-music'), $escapedVar), '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>'),
+                            'description'          => sprintf( wp_kses( esc_html__('For shortcode attributes, %1$s read this article%2$s.','sonaar-music'), $escapedVar), '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>'),
                             'default'       => '[sonaar_audioplayer sticky_player="true" hide_artwork="true" show_playlist="false" show_track_market="false" show_album_market="false" hide_progressbar="false" hide_times="true" hide_track_title="true"]',
                             'attributes'    => array(
                                 'data-conditional-id'    => 'sr_woo_skin_shop',
@@ -3455,9 +3540,9 @@ class Sonaar_Music_Admin {
                             'after'         => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => esc_html__('', 'sonaar-music'),
-                                'text'      => sprintf(__('For each single product page, we automatically display the audio player if you have set tracks using our custom fields.<br><br>The player is shown within the product\'s detail page.
-                                You can either use the settings below to setup the player layout, or use our shortcode with any of our supported attributes for more flexibility.<br><br>
-                                View shortcode & supported attributes %1$sdocumentation%2$s.', 'sonaar-music'),'<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>' ),
+                                'text'      => sprintf(esc_html__('For each single product page, we automatically display the audio player if you have set tracks using our custom fields.%1$sThe player is shown within the product\'s detail page.
+                                You can either use the settings below to setup the player layout, or use our shortcode with any of our supported attributes for more flexibility. %1$s
+                                View shortcode & supported attributes %2$sdocumentation%3$s.', 'sonaar-music'), '<br><br>', '<a href="https://sonaar.io/go/mp3player-shortcode-attributes" target="_blank">', '</a>' ),
                                 'image'     => '',
                                 'pro'       => true,
                             ),
@@ -3503,7 +3588,7 @@ class Sonaar_Music_Admin {
                             'id'            => 'sr_woo_product_player_shortcode',
                             'description' => sprintf( 
                                 wp_kses( 
-                                    __( 'To create your shortcode, %1$suse our Shortcode Builder%2$s.<br>Choose \'Current Post\' in your Audio Source', 'sonaar-music' ), 
+                                    esc_html__( 'To create your shortcode, %1$suse our Shortcode Builder%2$s.Choose \'Current Post\' in your Audio Source', 'sonaar-music' ), 
                                     array(
                                         'a' => array( 
                                             'href' => array(), 
@@ -3513,7 +3598,8 @@ class Sonaar_Music_Admin {
                                     )
                                 ), 
                                 '<a href="' . esc_url( admin_url( 'edit.php?post_type=sr_playlist&page=srmp3_settings_shortcodebuilder' ) ) . '" target="_blank">', 
-                                '</a>'
+                                '</a>',
+                                '<br>'
                             ),
                             'default'       => '[sonaar_audioplayer sticky_player="true" hide_artwork="true" show_playlist="false" show_track_market="false" show_album_market="false" hide_progressbar="false" hide_times="true" hide_track_title="true"]',
                             'attributes'    => array(
@@ -3659,7 +3745,7 @@ class Sonaar_Music_Admin {
                         'label_cb'      => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => '',
-                            'text'      => __('This will add a "Favorite" icon to each tracks on all your player instances. Adding favorite icons will enable users to conveniently mark tracks they love.<br><br>This option can also be enabled/disabled independantly on each player instances.<br><br>For users to easily access and listen to all their marked favorites, you would need to manually set up a player on your page, and designate the favorite tracks as the source for this player.<br><br>This way, all favorited songs can be found and enjoyed in one centralized player.', 'sonaar-music'),
+                            'text'      => sprintf( esc_html__('This will add a "Favorite" icon to each tracks on all your player instances. Adding favorite icons will enable users to conveniently mark tracks they love.%sThis option can also be enabled/disabled independantly on each player instances.<br><br>For users to easily access and listen to all their marked favorites, you would need to manually set up a player on your page, and designate the favorite tracks as the source for this player.<br><br>This way, all favorited songs can be found and enjoyed in one centralized player.', 'sonaar-music'), '<br><br>' ),
                             'image'     => '',
                         ),
                     ) );
@@ -3786,7 +3872,7 @@ class Sonaar_Music_Admin {
                         'label_cb'      => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => '',
-                            'text'      => __('Unauthentificated users will be able to add favorites via a browser cookie.<br>For logged in users, favorites are saved in the user\'s metadata instead of cookies.', 'sonaar-music'),
+                            'text'      => sprintf( esc_html__('Unauthentificated users will be able to add favorites via a browser cookie.%sFor logged in users, favorites are saved in the user\'s metadata instead of cookies.', 'sonaar-music'), '<br>' ),
                             'image'     => '',
                         ),
                     ) );
@@ -3862,7 +3948,7 @@ class Sonaar_Music_Admin {
                         'label_cb'      => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => '',
-                            'text'      => __( 'If user is logged out or not met the conditions, display the button but redirect people to a link or popup', 'sonaar-music'),
+                            'text'      => esc_html__( 'If user is logged out or not met the conditions, display the button but redirect people to a link or popup', 'sonaar-music'),
                             'image'     => '',
                         ),
                         'attributes'    => array(
@@ -3878,7 +3964,7 @@ class Sonaar_Music_Admin {
                         'label_cb'      => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => '',
-                            'text'      => __('The URL to redirect when user click on the button. If you are using Elementor Popup, set this to #popup and in the Advanced Tab of your Popup > Open By Selector create an anchor trigger link shortcode (example: a[href="#popup"] )', 'sonaar-music'),
+                            'text'      => esc_html__('The URL to redirect when user click on the button. If you are using Elementor Popup, set this to #popup and in the Advanced Tab of your Popup > Open By Selector create an anchor trigger link shortcode (example: a[href="#popup"] )', 'sonaar-music'),
                             'image'     => '',
                         ),
                         'attributes'    => array(
@@ -3972,7 +4058,7 @@ class Sonaar_Music_Admin {
                         'label_cb'      => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => '',
-                            'text'      => __('A share button will be included next to every audio track, enabling users to distribute the audio via a link or on social media platforms.<br><br>Additionally, this feature can be managed individually for each player widget.', 'sonaar-music'),
+                            'text'      => sprintf( esc_html__('A share button will be included next to every audio track, enabling users to distribute the audio via a link or on social media platforms.%1$sAdditionally, this feature can be managed individually for each player widget.', 'sonaar-music'), '<br><br>'),
                             'image'     => '',
                         ),
                     ) );
@@ -4021,7 +4107,7 @@ class Sonaar_Music_Admin {
                         ),
                     ) );
                     $share_options->add_field( array(
-                        'name'          => __('Share Button Label', 'sonaar-music'),
+                        'name'          => esc_html__('Share Button Label', 'sonaar-music'),
                         'classes'       => 'srmp3-settings--subitem',
                         'id'            => 'force_cta_share_label',
                         'type'          => 'text_small',
@@ -4040,7 +4126,7 @@ class Sonaar_Music_Admin {
                         'label_cb'      => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => '',
-                            'text'      => __('Upon opening the share popup, users encounter a "Full URL" leading to the specific post related to the track or product they want to share.<br><br>With this feature enabled, we add a checkbox option beneath the Full URL, allowing users to share the URL of the current page they\'re browsing, with the Sticky Player pre-loaded with shared track.<br><br>Useful if a user is enjoying a podcast on your site and decides to share it with their network, the shared link will open the webpage with the same podcast ready to play in the sticky player.<br><br>This seamless shareability helps to enrich the user experience of your site, making it easy for your audience to share their favorite tracks, podcasts, or any audio content you provide.', 'sonaar-music'),
+                            'text'      => sprintf( esc_html__('Upon opening the share popup, users encounter a "Full URL" leading to the specific post related to the track or product they want to share.%1$sWith this feature enabled, we add a checkbox option beneath the Full URL, allowing users to share the URL of the current page they\'re browsing, with the Sticky Player pre-loaded with shared track.%1$sUseful if a user is enjoying a podcast on your site and decides to share it with their network, the shared link will open the webpage with the same podcast ready to play in the sticky player.%1$sThis seamless shareability helps to enrich the user experience of your site, making it easy for your audience to share their favorite tracks, podcasts, or any audio content you provide.', 'sonaar-music'), '<br><br>' ),
                             'image'     => '',
                         ),
                     ) );
@@ -4191,7 +4277,7 @@ class Sonaar_Music_Admin {
                             'label_cb'      => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => '',
-                                'text'      => __( 'If user is logged out or not met the conditions, display the button but redirect people to a link or popup', 'sonaar-music'),
+                                'text'      => esc_html__( 'If user is logged out or not met the conditions, display the button but redirect people to a link or popup', 'sonaar-music'),
                                 'image'     => '',
                             ),
                             'attributes'    => array(
@@ -4207,7 +4293,7 @@ class Sonaar_Music_Admin {
                             'label_cb'      => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => '',
-                                'text'      => __('The URL to redirect when user click on the button. If you are using Elementor Popup, set this to #popup and in the Advanced Tab of your Popup > Open By Selector create an anchor trigger link shortcode (example: a[href="#popup"] )', 'sonaar-music'),
+                                'text'      => esc_html__('The URL to redirect when user click on the button. If you are using Elementor Popup, set this to #popup and in the Advanced Tab of your Popup > Open By Selector create an anchor trigger link shortcode (example: a[href="#popup"] )', 'sonaar-music'),
                                 'image'     => '',
                             ),
                             'attributes'    => array(
@@ -4220,7 +4306,7 @@ class Sonaar_Music_Admin {
                     $share_options->add_field( array(
                         'name'          => esc_html__('Things to know', 'sonaar-music'),
                         //'desc'          => __('When a link is shared on social media platforms such as Facebook, Twitter, or LinkedIn, these platforms crawl and parse the webpage information in order to display a link preview.<br>The link preview typically includes a title, a description, and an image, if available. Different platforms use different metadata protocols to extract this information.<br><br>WordPress users can use SEO plugins, like Yoast SEO or All-in-One SEO, which provide user-friendly interfaces to set these meta tags on a per-page or per-post basis. They can also provide default settings for posts where custom tags are not set.', 'sonaar-music'),
-                        'desc' => __('When a link is shared on social media platforms such as Facebook, Twitter, or LinkedIn, these platforms crawl and parse the webpage information in order to display a link preview.<br>The link preview typically includes a title, a description, and an image, if available. Different platforms use different metadata protocols to extract this information.<br><br>WordPress users can use SEO plugins, like <a href="https://wordpress.org/plugins/wordpress-seo/" target="_blank" rel="noopener noreferrer">Yoast SEO</a> or <a href="https://wordpress.org/plugins/all-in-one-seo-pack/" target="_blank" rel="noopener noreferrer">All-in-One SEO</a>, which provide user-friendly interfaces to set these meta tags on a per-page or per-post basis. They can also provide default settings for posts where custom tags are not set.', 'sonaar-music'),
+                        'desc' => sprintf(esc_html__('When a link is shared on social media platforms such as Facebook, Twitter, or LinkedIn, these platforms crawl and parse the webpage information in order to display a link preview.%1$sThe link preview typically includes a title, a description, and an image, if available. Different platforms use different metadata protocols to extract this information.%1$s%1$sWordPress users can use SEO plugins, like %2$sYoast SEO%3$s or %4$sAll-in-One SEO%3$s, which provide user-friendly interfaces to set these meta tags on a per-page or per-post basis. They can also provide default settings for posts where custom tags are not set.', 'sonaar-music'),'<br>', '<a href="https://wordpress.org/plugins/wordpress-seo/" target="_blank" rel="noopener noreferrer">', '</a>', '<a href="https://wordpress.org/plugins/all-in-one-seo-pack/" target="_blank" rel="noopener noreferrer">'),
                         'type'          => 'title',
                         'id'            => 'share_title_admin'
                     ) );
@@ -4239,7 +4325,7 @@ class Sonaar_Music_Admin {
                     'option_key'   => 'srmp3_settings_audiopreview', // The option key and admin menu page slug. 'yourprefix_tertiary_options',
                     'parent_slug'  => 'edit.php?post_type=' . SR_PLAYLIST_CPT, // Make options page a submenu item of the themes menu. //'yourprefix_main_options',
                     'tab_group'    => 'yourprefix_main_options',
-                    'tab_title'    => __( 'Audio Preview & Restrictions<br><span class="srmp3-nav-tab-desc">Generate Previews, Ads, Watermarks & Fades</span>', 'sonaar-music' ),
+                    'tab_title'    => sprintf( esc_html__( 'Audio Preview & Restrictions%1$sGenerate Previews, Ads, Watermarks & Fades%2$s', 'sonaar-music' ), '<br><span class="srmp3-nav-tab-desc">', '</span>'),
                 );
 
                 // 'tab_group' property is supported in > 2.4.0.
@@ -4264,21 +4350,33 @@ class Sonaar_Music_Admin {
                         'default'       => '',
                         'after'      => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
-                            'title'     => __('What is Audio Preview?', 'sonaar-music'),
-                            'text'      => __('
-                            Generate audio previews, audio watermarks, fade-in/fade-out, pre-roll and post-roll Ads of this audio automatically in 1 click!<br><br>
-                            <div class="srmp3_tooltip_title">Audio Preview</div>
-                            An Audio Preview, or <em>"audio snippet"</em>, is a brief segment of a longer recording. It offers listeners a glimpse of the full content, aiding decisions in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, and protecting against <strong>unauthorized downloads</strong>.<br><br>
-                            <div class="srmp3_tooltip_title">Audio Watermarks</div>
-                            Audio Watermarks may include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
-                            <div class="srmp3_tooltip_title">Audio Pre-roll / Post-roll Ads</div>
-                            Audio Pre-roll and Post-roll Ads play at the start or end of an audio track. Audio rolls engage listeners, leave a lasting impression, and aid in monetizing content.
-                            Popular in <strong>podcasts</strong> and <strong>music streaming services</strong>, these ads deliver targeted messages, enhance brand awareness, save editing time, and increase audience retention and recall.<br><br>
-                            <div class="srmp3_tooltip_title">How it works?</div>
-                            When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set the restricted role in MP3 Player > Settings > Audio Preview & Restrictions<br><br>
-                            <p>Learn more <a href="https://sonaar.io/docs/how-to-add-audio-preview-in-wordpress/" target="_blank">here</a></p><br><br>
-                            <p>An active license of MP3 Audio Player Pro - <strong>Business Plan or higher</strong> is required to use these features. </strong> <a href="https://sonaar.io/mp3-audio-player-pro/pricing/" target="_blank">View Pricing</a></p>
-                            ', 'sonaar-music'),
+                            'title'     => esc_html__('What is Audio Preview?', 'sonaar-music'),
+                            'text' => sprintf(
+                                /* translators: %1$s: line break, %2$s: title div opening, %3$s: title div closing, %4$s: italic opening, %5$s: italic closing, %6$s: strong opening, %7$s: strong closing, %8$s: paragraph opening, %9$s: paragraph closing */
+                                esc_html__('
+                                    Generate audio previews, audio watermarks, fade-in/fade-out, pre-roll and post-roll Ads of this audio automatically in 1 click!%1$s%2$sAudio Preview%3$s
+                                    An Audio Preview, or %4$s"audio snippet"%5$s, is a brief segment of a longer recording. It offers listeners a glimpse of the full content, aiding decisions in %6$sonline music stores%7$s and %6$saudiobook platforms%7$s, and protecting against %6$sunauthorized downloads%7$s.%1$s%2$sAudio Watermarks%3$s
+                                    Audio Watermarks may include voiceovers or watermarks like %6$s"sample"%7$s to deter misuse.%1$s%2$sAudio Pre-roll / Post-roll Ads%3$s
+                                    Audio Pre-roll and Post-roll Ads play at the start or end of an audio track. Audio rolls engage listeners, leave a lasting impression, and aid in monetizing content.
+                                    Popular in %6$spodcasts%7$s and %6$smusic streaming services%7$s, these ads deliver targeted messages, enhance brand awareness, save editing time, and increase audience retention and recall.%1$s%2$sHow it works?%3$s
+                                    When a user %6$s(with restricted role)%7$s visits your website, it\'s this audio snippet they hear or download. You can set the restricted role in MP3 Player > Settings > Audio Preview & Restrictions%1$s
+                                    %8$sLearn more %10$s here%11$s%9$s%1$s
+                                    %8$sAn active license of MP3 Audio Player Pro - %6$sBusiness Plan or higher%7$s is required to use these features. %8$s %12$sView Pricing%11$s%9$s',
+                                    'sonaar-music'
+                                ),
+                                '<br><br>', // %1$s
+                                '<div class="srmp3_tooltip_title">', // %2$s
+                                '</div>', // %3$s
+                                '<em>', // %4$s
+                                '</em>', // %5$s
+                                '<strong>', // %6$s
+                                '</strong>', // %7$s
+                                '<p>', // %8$s
+                                '</p>', // %9$s
+                                '<a href="https://sonaar.io/docs/how-to-add-audio-preview-in-wordpress/" target="_blank">', // %10$s
+                                '</a>', // %11$s
+                                '<a href="https://sonaar.io/mp3-audio-player-pro/pricing/" target="_blank">' // %12$s
+                            ),
                             'image'     => '',
                             'pro'       => true,
                         ),
@@ -4308,7 +4406,7 @@ class Sonaar_Music_Admin {
                     ) );
                     $audiopreview_options->add_field( array(
                         'id'            => 'trimstart',
-                        'name'          => __( 'Trim Start at', 'sonaar-music' ),
+                        'name'          => esc_html__( 'Trim Start at', 'sonaar-music' ),
                         'classes'       => 'ffmpeg_field',
                         'type'          => 'text_time',
                         'default'       => '00:00:00',
@@ -4332,7 +4430,7 @@ class Sonaar_Music_Admin {
                     ) );
                     $audiopreview_options->add_field( array(
                         'id'            => 'audiopreview_duration',
-                        'name'          => __( 'Preview Length', 'sonaar-music' ),
+                        'name'          => esc_html__( 'Preview Length', 'sonaar-music' ),
                         'classes'       => 'ffmpeg_field',
                         'type'          => 'text_time',
                         'default'       => '00:00:30',
@@ -4355,7 +4453,7 @@ class Sonaar_Music_Admin {
                         ),
                     ) );
                     $audiopreview_options->add_field( array(
-                        'name'          => __( 'Fade In Length', 'sonaar-music' ),
+                        'name'          => esc_html__( 'Fade In Length', 'sonaar-music' ),
                         'classes'       => 'ffmpeg_field',
                         'id'            => 'fadein_duration',
                         'default'       => 3,
@@ -4371,7 +4469,7 @@ class Sonaar_Music_Admin {
                         'value_suffix_label' => esc_html__('&nbsp;seconds', 'sonaar-music'),
                     ) );
                     $audiopreview_options->add_field( array(
-                        'name'          => __( 'Fade Out Length', 'sonaar-music' ),
+                        'name'          => esc_html__( 'Fade Out Length', 'sonaar-music' ),
                         'classes'       => 'ffmpeg_field',
                         'id'            => 'fadeout_duration',
                         'default'       => 3,
@@ -4413,7 +4511,7 @@ class Sonaar_Music_Admin {
                         ),
                     ) );
                     $audiopreview_options->add_field( array(
-                        'name'          => __( 'Loop Watermark every', 'sonaar-music' ),
+                        'name'          => esc_html__( 'Loop Watermark every', 'sonaar-music' ),
                         'classes'       => 'ffmpeg_field srmp3-settings--subitem',
                         'id'            => 'watermark_spacegap',
                         'default'       => 6,
@@ -4495,7 +4593,7 @@ class Sonaar_Music_Admin {
                     ) );
                     $audiopreview_options->add_field( array(
                         'id'            => 'preview_folder_name',
-                        'name'          => __( 'Folder Output', 'sonaar-music' ),
+                        'name'          => esc_html__( 'Folder Output', 'sonaar-music' ),
                         'classes'       => 'ffmpeg_field',
                         'type'          => 'text_medium',
                         'default'       => 'audio_preview',
@@ -4532,17 +4630,21 @@ class Sonaar_Music_Admin {
                     $audiopreview_options->add_field( array(
                         'id'            => 'srmp3-settings-generate-bt-container',
                         'classes'       => 'ffmpeg_field srmp3-settings-generate-bt-container',
-                        'description'   => __('
-                        <div class="srmp3-bulk-wrapper">
-                            <div>
-                                <button id="srmp3_index_audio_preview" class="srmp3-generate-bt srmp3-audiopreview-bt showSpinner">Generate Files</button>
-                                <span id="srmp3_indexTracks_status"></span>
-                                <progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress>
-                                <span id="progressText"></span>
-                            </div>
-                            <button id="srmp3-bulkRemove-bt" class="srmp3-generate-bt"><span class="dashicons dashicons-trash"></span>Remove All Preview Files</button>
-                        </div>
-                        ','sonaar-music'),
+                        'description' => '
+                            <div class="srmp3-bulk-wrapper">
+                                <div>
+                                    <button id="srmp3_index_audio_preview" class="srmp3-generate-bt srmp3-audiopreview-bt showSpinner">'
+                                        . esc_html__('Generate Files', 'sonaar-music') .
+                                    '</button>
+                                    <span id="srmp3_indexTracks_status"></span>
+                                    <progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress>
+                                    <span id="progressText"></span>
+                                </div>
+                                <button id="srmp3-bulkRemove-bt" class="srmp3-generate-bt">
+                                    <span class="dashicons dashicons-trash"></span>'
+                                    . esc_html__('Remove All Preview Files', 'sonaar-music') .
+                                '</button>
+                            </div>',
                         'type'          => 'text_small',
                         'attributes' => array(
                             'data-conditional-id'    => 'force_audio_preview',
@@ -4597,9 +4699,14 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => esc_html__('', 'sonaar-music'),
-                                'text'      => sprintf(__('You can display call-to-action buttons beside each track, by editing your %1$s\'s post.<br><br>For each button, you can choose its action between a link URL or a Popup to display content such as text, forms or any third party plugin shortcodes in a popup window.<br><br>
-                                You can also display track description and we will display it within a lightbox. Useful for episode and show notes!<br><br>
-                                This is the popup lightbox look and feel settings', 'sonaar-music'), $this->sr_GetString('playlist')),
+                                'text' => sprintf(
+                                    /* translators: %1$s: playlist placeholder, %2$s: line break */
+                                    esc_html__('You can display call-to-action buttons beside each track, by editing your %1$s\'s post.%2$sFor each button, you can choose its action between a link URL or a Popup to display content such as text, forms or any third party plugin shortcodes in a popup window.%2$s
+                                    You can also display track description and we will display it within a lightbox. Useful for episode and show notes!%2$s
+                                    This is the popup lightbox look and feel settings', 'sonaar-music'),
+                                    $this->sr_GetString('playlist'), // %1$s
+                                    '<br><br>' // %2$s
+                                ),
                                 'image'     => 'popup.svg',
                                 'pro'       => true,
                             ),
@@ -4615,11 +4722,14 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                             'tooltip'       => array(
                                 'title'     => esc_html__('', 'sonaar-music'),
-                                'text'      => sprintf(__('You can display call-to-action buttons beside each track, by editing your %1$s\'s post.<br><br>For each button, you can choose its action between a link URL or a Popup to display content such as text, forms or any third party plugin shortcodes in a popup window.<br><br>
-                                You can also display track description and we will display it within a lightbox. Useful for episode and show notes!<br><br>
-                                This is the popup lightbox look and feel settings', 'sonaar-music'), $this->sr_GetString('playlist')),
-                                'image'     => 'popup.svg',
-                                'pro'       => true,
+                                'text' => sprintf(
+                                    /* translators: %1$s: playlist placeholder, %2$s: line break */
+                                    esc_html__('You can display call-to-action buttons beside each track, by editing your %1$s\'s post.%2$sFor each button, you can choose its action between a link URL or a Popup to display content such as text, forms or any third party plugin shortcodes in a popup window.%2$s
+                                    You can also display track description and we will display it within a lightbox. Useful for episode and show notes!%2$s
+                                    This is the popup lightbox look and feel settings', 'sonaar-music'),
+                                    $this->sr_GetString('playlist'), // %1$s
+                                    '<br><br>' // %2$s
+                                ),
                             ),
                     ) );
                     $popup_options->add_field( array(
@@ -4758,7 +4868,17 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('MP3 Audio Player PRO can connect to your Google Analytics so you will receive statistics report such as number of plays and number of downloads for each tracks directly in your Google Analytics Dashboard. GA_MEASUREMENT_ID should be replaced with the Google Analytics property ID for the website you want to track. All you need is a %1$sGoogle Analytics%2$s account.<br><br>Read %3$sthis article%2$s to learn more', 'sonaar-music'), '<a href="http://www.google.com/analytics/" target="_blank">', '</a>', '<a href="https://sonaar.io/docs/use-google-analytics-to-track-audio-player-statistics/" target="_blank">'),
+                            'text' => sprintf(
+                                /* translators: %1$s: Google Analytics link opening, %2$s: link closing, %3$s: article link opening, %4$s: line break */
+                                esc_html__(
+                                    'MP3 Audio Player PRO can connect to your Google Analytics so you will receive statistics report such as number of plays and number of downloads for each track directly in your Google Analytics Dashboard. GA_MEASUREMENT_ID should be replaced with the Google Analytics property ID for the website you want to track. All you need is a %1$sGoogle Analytics%2$s account.%4$s%4$sRead %3$sthis article%2$s to learn more',
+                                    'sonaar-music'
+                                ),
+                                '<a href="http://www.google.com/analytics/" target="_blank">', // %1$s
+                                '</a>', // %2$s
+                                '<a href="https://sonaar.io/docs/use-google-analytics-to-track-audio-player-statistics/" target="_blank">', // %3$s
+                                '<br><br>' // %4$s
+                            ),
                             'image'     => '',
                             'pro'       => true,
                         ),
@@ -4767,25 +4887,45 @@ class Sonaar_Music_Admin {
                 if ( function_exists( 'run_sonaar_music_pro' ) && get_site_option( 'sonaar_music_licence', '' )){
                     // POP-UP IF PRO PLUGIN IS INSTALLED
                     if(class_exists( 'PiwikTracker' )){
-                        $matomoActivated = __('<br><br><div style="color:green;">Matomo activated and currently tracking!</div>', 'sonaar-music');
+                        $matomoActivated = '<br><br><div style="color:green;">' . esc_html__('Matomo activated and currently tracking!', 'sonaar-music') . '</div>';
                     }else{
-                        $matomoActivated = __('<br><br><div style="color:gray;">Matomo is not installed</div>', 'sonaar-music');;
+                        $matomoActivated = '<br><br><div style="color:gray;">' . esc_html__('Matomo is not installed', 'sonaar-music') . '</div>';
                     }
                     $stats_options->add_field( array(
                         'name'          => esc_html__('Matomo Analytics Free Plugin [Recommended]', 'sonaar-music'),
                         'type'          => 'title',
-                        'description'   => __( 'Matomo is a popular open-source web analytics plugin that offers a range of features for tracking and analyzing website traffic and user behavior!<br>
-                        MP3 Audio Player Pro integrates Matomo seamlessly and allows you to see how many times your track have been played or downloaded. All Free!<br>
-                        <a href="https://wordpress.org/plugins/matomo/" target="_blank">Download Matomo for WP!</a>', 'sonaar-music'),
+                        'description'   => sprintf(
+                            /* translators: %1$s: line break, %2$s: anchor tag opening, %3$s: anchor tag closing */
+                            esc_html__(
+                                'Matomo is a popular open-source web analytics plugin that offers a range of features for tracking and analyzing website traffic and user behavior!%1$s
+                                MP3 Audio Player Pro integrates Matomo seamlessly and allows you to see how many times your track have been played or downloaded. All Free!%1$s
+                                %2$sDownload Matomo for WP!%3$s',
+                                'sonaar-music'
+                            ),
+                            '<br>', // %1$s
+                            '<a href="https://wordpress.org/plugins/matomo/" target="_blank">', // %2$s
+                            '</a>' // %3$s
+                        ),
                         'id'            => 'stats_report_matomo_title',
                         'after'         => $matomoActivated,
                         'after_field'   => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => 'What is Matomo?',
-                            'text'      => __('Matomo, formerly known as Piwik, is a popular open-source web analytics platform that offers a range of features for tracking and analyzing website traffic and user behavior.<br><br>
-                            MP3 Audio Player Pro integrates Matomo seamlessly and allows you to see how many times your track have been played or downloaded. All Free!<br><br><a href="https://wordpress.org/plugins/matomo/" target="_blank">Download Matomo for WP!</a>
-                            <br><br>
-                            Wait, there is more! If you are a professional and want powerful insights into how your audience listens to your audio, Matomo has a <strong>premium addon</strong> called <a href="https://plugins.matomo.org/MediaAnalytics?wp=1" target="_blank">Media Analytics</a>.<br><br>With Media Analytics, you can obtain metrics such as who and how often a media was played, the duration for which they played it, real-time reports of interactions with your audio content, etc.', 'sonaar-music'),
+                            'text' => sprintf(
+                                /* translators: %1$s: line break, %2$s: anchor tag opening, %3$s: anchor tag closing, %4$s: strong opening, %5$s: strong closing */
+                                esc_html__(
+                                    'Matomo, formerly known as Piwik, is a popular open-source web analytics platform that offers a range of features for tracking and analyzing website traffic and user behavior.%1$s%1$s
+                                    MP3 Audio Player Pro integrates Matomo seamlessly and allows you to see how many times your track have been played or downloaded. All Free!%1$s%1$s%2$sDownload Matomo for WP!%3$s%1$s%1$s
+                                    Wait, there is more! If you are a professional and want powerful insights into how your audience listens to your audio, Matomo has a %4$spremium addon%5$s called %2$sMedia Analytics%3$s.%1$s%1$s
+                                    With Media Analytics, you can obtain metrics such as who and how often a media was played, the duration for which they played it, real-time reports of interactions with your audio content, etc.',
+                                    'sonaar-music'
+                                ),
+                                '<br>', // %1$s
+                                '<a href="https://wordpress.org/plugins/matomo/" target="_blank">', // %2$s
+                                '</a>', // %3$s
+                                '<strong>', // %4$s
+                                '</strong>' // %5$s
+                            ),
                             'image'     => '',
                             'pro'       => true,
                         ),
@@ -4799,8 +4939,8 @@ class Sonaar_Music_Admin {
                             'after'         => 'srmp3_add_tooltip_to_label',
                             //This option allows Media Analytics to take over the tracking of audio analytics, ensuring precise data while preventing duplicate tracking entries from your MP3 Audio Player Plugin.
                             'tooltip'       => array(
-                                'title'     => __('Delegate analytics to MediaAnalytics', 'sonaar-music'),
-                                'text'      => __('This option allows Matomo\'s Media Analytics to take over the tracking of audio analytics, ensuring precise data while preventing duplicate tracking entries from your MP3 Audio Player Pro Plugin.', 'sonaar-music'),
+                                'title'     => esc_html__('Delegate analytics to MediaAnalytics', 'sonaar-music'),
+                                'text'      => esc_html__('This option allows Matomo\'s Media Analytics to take over the tracking of audio analytics, ensuring precise data while preventing duplicate tracking entries from your MP3 Audio Player Pro Plugin.', 'sonaar-music'),
                                 'image'     => '',
                                 'pro'       => true,
                             ),
@@ -4808,7 +4948,7 @@ class Sonaar_Music_Admin {
                     }
                     $stats_options->add_field( array(
                         'name'          => esc_html__('Google Analytics', 'sonaar-music'),
-                        'description'   => __('MP3 Audio Player Pro is able to connect to your Google Analytics so you will receive statistics report such as number of plays and number of downloads for each tracks directly in your Google Analytics Dashboard', 'sonaar-music'),
+                        'description'   => esc_html__('MP3 Audio Player Pro is able to connect to your Google Analytics so you will receive statistics report such as number of plays and number of downloads for each tracks directly in your Google Analytics Dashboard', 'sonaar-music'),
                         'type'          => 'title',
                         'id'            => 'stats_report_ga_title',
                     ) );
@@ -4820,7 +4960,18 @@ class Sonaar_Music_Admin {
                         'after'         => 'srmp3_add_tooltip_to_label',
                         'tooltip'       => array(
                             'title'     => esc_html__('', 'sonaar-music'),
-                            'text'      => sprintf(__('MP3 Audio Player PRO can connect to your Google Analytics so you will receive statistics report such as number of plays and number of downloads for each tracks directly in your Google Analytics Dashboard. GA_MEASUREMENT_ID should be replaced with the Google Analytics property ID for the website you want to track. All you need is a %1$sGoogle Analytics%2$s account.<br><br>Read %3$sthis article%2$s to learn more', 'sonaar-music'), '<a href="http://www.google.com/analytics/" target="_blank">', '</a>', '<a href="https://sonaar.io/docs/use-google-analytics-to-track-audio-player-statistics/" target="_blank">'),
+                            'text' => sprintf(
+                                /* translators: %1$s: anchor tag opening for Google Analytics, %2$s: anchor tag closing for Google Analytics, %3$s: anchor tag opening for article, %4$s: anchor tag closing for article */
+                                esc_html__(
+                                    'MP3 Audio Player PRO can connect to your Google Analytics so you will receive statistics report such as number of plays and number of downloads for each track directly in your Google Analytics Dashboard. GA_MEASUREMENT_ID should be replaced with the Google Analytics property ID for the website you want to track. All you need is a %1$sGoogle Analytics%2$s account.%3$s%3$sRead %4$sthis article%5$s to learn more',
+                                    'sonaar-music'
+                                ),
+                                '<a href="http://www.google.com/analytics/" target="_blank">', // %1$s
+                                '</a>', // %2$s
+                                '<br><br>', // %3$s
+                                '<a href="https://sonaar.io/docs/use-google-analytics-to-track-audio-player-statistics/" target="_blank">', // %4$s
+                                '</a>' // %5$s
+                            ),
                             'image'     => '',
                             'pro'       => true,
                         ),
@@ -4884,25 +5035,42 @@ class Sonaar_Music_Admin {
                 $album_query = new WP_Query( $args );
                 if ( $album_query->have_posts() ){
                     $setting_tools->add_field( array(
-                        'name'          => esc_html__('Export old ' . esc_html($postLabel) . ' posts into MP3 Audio Player', 'sonaar-music'),
-                        'type'          => 'title',
-                        'description'   => __('We\'ve discovered outdated ' . esc_html($postLabel) . ' that were previously created with the Sonaar Theme (found in WP-Admin > ' . esc_html($postLabel) . ' [Obsolete]). As you are now using MP3 Audio Player, these old posts are considered obsolete and are no longer in use on this website. You can utilize this tool to efficiently export them into MP3 Audio Player, saving you the time and effort of manually recreating them. <br><br> To hide this tool, go to Theme Options > General Settings > disable ' . esc_html($postLabel) . ' CPT', 'sonaar-music'),
-                        'id'            => 'srtools_sonaar_theme_to_player_title'
+                        'name'        => sprintf(
+                                            /* translators: %1$s: post label */
+                                            esc_html__('Export old %1$s posts into MP3 Audio Player', 'sonaar-music'),
+                                            esc_html($postLabel)
+                                        ),
+                        'type'        => 'title',
+                        'description' => sprintf(
+                                            /* translators: %1$s: post label, %2$s: post label with 'Obsolete', %3$s: post label with CPT */
+                                            esc_html__('We\'ve discovered outdated %1$s that were previously created with the Sonaar Theme (found in WP-Admin > %2$s [Obsolete]). As you are now using MP3 Audio Player, these old posts are considered obsolete and are no longer in use on this website. You can utilize this tool to efficiently export them into MP3 Audio Player, saving you the time and effort of manually recreating them. %3$s To hide this tool, go to Theme Options > General Settings > disable %4$s CPT', 'sonaar-music'),
+                                            esc_html($postLabel),
+                                            esc_html($postLabel),
+                                            '<br><br>',
+                                            esc_html($postLabel) 
+                                        ),
+                        'id'          => 'srtools_sonaar_theme_to_player_title'
                     ) );
                 
                     $setting_tools->add_field( array(
                         'id'            => 'srmp3-settings-convertcpt-bt-container',
                         'classes'       => 'srmp3-settings-convertcpt-bt-container',
-                        'description'   => __('
-                        <div class="srmp3-bulk-wrapper">
-                            <div>
-                                <button id="srmp3_convertcpt" class="srmp3-generate-bt showSpinner">Export ' . esc_html($postLabel) . ' into MP3 Audio Player</button>
-                                <span id="srmp3_indexTracks_status"></span>
-                                <progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress>
-                                <span id="progressText"></span>
-                            </div>
-                        </div>
-                        ','sonaar-music'),
+                        'description'   => sprintf(
+                            /* translators: %s: post label */
+                            '<div class="srmp3-bulk-wrapper">
+                                <div>
+                                    <button id="srmp3_convertcpt" class="srmp3-generate-bt showSpinner">%s</button>
+                                    <span id="srmp3_indexTracks_status"></span>
+                                    <progress id="indexationProgress" style="width:100%%;margin-top:10px;display:none;" value="0" max="100"></progress>
+                                    <span id="progressText"></span>
+                                </div>
+                            </div>',
+                            sprintf(
+                                /* translators: %1$s: post label */
+                                esc_html__('Export %1$s into MP3 Audio Player', 'sonaar-music'),
+                                esc_html($postLabel)
+                            )
+                        ),
                         'type'          => 'text_small',
                     ) );
                 }
@@ -4913,8 +5081,19 @@ class Sonaar_Music_Admin {
             $setting_tools->add_field( array(
                 'name'          => esc_html__('Waveform & Peaks Generation', 'sonaar-music'),
                 'type'          => 'title',
-                'description'   => __('Use this tool to batch generate waveform and peaks for all your tracks.', 'sonaar-music'),
-                'id'            => 'srtools_peak_gen_title'
+                'description'   => esc_html__('Use this tool to batch generate waveform and peaks for all your tracks.', 'sonaar-music'),
+                'id'            => 'srtools_peak_gen_title',
+                'after'         => 'srmp3_add_tooltip_to_label',
+                    'tooltip'       => array(
+                        'title'     => '',
+                        'text'      => sprintf(
+                            /* translators: %1$s and %2$s are HTML tags for a link to "Learn More" */
+                            esc_html__( 'Waveform & Peaks Generation is a seamless feature that enhances the user experience by visually representing audio tracks. While it usually happens automatically, for longer or external tracks, manual generation is a quick and efficient way to ensure your player looks great and performs well. %1$sLearn More%2$s ', 'sonaar-music' ),
+                            '<a href="https://sonaar.io/docs/waveform-peaks-generation-how-it-works/" target="_blank">', // %1$s
+                            '</a>'), // %2$s
+                        'image'     => 'waveform.svg',
+                        'pro'       => false,
+                    ),
             ) );
             $setting_tools->add_field( array(
                 'id'            => 'peaks_overwrite',
@@ -4927,17 +5106,20 @@ class Sonaar_Music_Admin {
             $setting_tools->add_field( array(
                 'id'            => 'srmp3-settings-generatepeaks-bt-container',
                 'classes'       => 'srmp3-settings-generatepeaks-bt-container',
-                'description'   => __('
-                <div class="srmp3-bulk-wrapper">
-                    <div>
-                        <button id="srmp3_index_audio_peak" class="srmp3-generate-bt srmp3-generatepeaks-bt showSpinner">Generate Peaks</button>
-                        <span id="srmp3_indexTracks_status"></span>
-                        <progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress>
-                        <span id="progressText"></span>
-                    </div>
-                    <button id="srmp3-bulkRemove-bt" class="srmp3-generate-bt"><span class="dashicons dashicons-trash"></span>Remove All Peaks</button>
-                </div>
-                ','sonaar-music'),
+                'description'   => sprintf(
+                    /* translators: HTML structure for the MP3 peak generation and removal buttons, and progress status */
+                    '<div class="srmp3-bulk-wrapper">
+                        <div>
+                            <button id="srmp3_index_audio_peak" class="srmp3-generate-bt srmp3-generatepeaks-bt showSpinner">%1$s</button> <!-- %1$s: Generate Peaks button -->
+                            <span id="srmp3_indexTracks_status"></span>
+                            <progress id="indexationProgress" style="width:100%%;margin-top:10px;display:none;" value="0" max="100"></progress>
+                            <span id="progressText"></span>
+                        </div>
+                        <button id="srmp3-bulkRemove-bt" class="srmp3-generate-bt"><span class="dashicons dashicons-trash"></span>%2$s</button> <!-- %2$s: Remove All Peaks button -->
+                    </div>',
+                    esc_html__('Generate Peaks', 'sonaar-music'), // %1$s
+                    esc_html__('Remove All Peaks', 'sonaar-music') // %2$s
+                ),
                 'type'          => 'text_small',
             ) );
 
@@ -4945,7 +5127,12 @@ class Sonaar_Music_Admin {
                 $setting_tools->add_field( array(
                     'name'          => esc_html__('Podcast RSS Importer', 'sonaar-music'),
                     'type'          => 'title',
-                    'description'   => sprintf( __( '%1$sImport your existing Podcast Episodes%2$s by using your RSS Feed URL provided by your Podcast provider. We support all major podcast distributors!', 'sonaar-music' ), '<a href="' . esc_url(get_admin_url( null, 'admin.php?import=podcast-rss' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', '</a>' ),
+                    'description'   => sprintf(
+                        /* translators: %1$s: opening anchor tag, %2$s: closing anchor tag */
+                        esc_html__( '%1$sImport your existing Podcast Episodes%2$s by using your RSS Feed URL provided by your Podcast provider. We support all major podcast distributors!', 'sonaar-music' ),
+                        '<a href="' . esc_url(get_admin_url(null, 'admin.php?import=podcast-rss')) . '" target="' . wp_strip_all_tags('_self') . '">',
+                        '</a>'
+                    ),
                     'id'            => 'srtools_podcast_importer'
                 ) );
                 if ( !function_exists('run_sonaar_music_pro')){
@@ -4955,14 +5142,24 @@ class Sonaar_Music_Admin {
                         'plan_required' => 'starter',
                         'classes'       => array('srmp3-pro-feature', 'prolabel--nomargin', 'prolabel--nohide'),
                         'type'          => 'title',
-                        'description'   => sprintf( __( 'Give you the ability to automatically fetch/import new episodes on your website from your existing Podcast distributor as soon as a new episode came out! %1$sLearn More%2$s ', 'sonaar-music' ), '<a href="https://sonaar.io/docs/automatically-fetch-import-new-episodes-from-your-podcast-rss-feed/" target="_blank">', '</a>' ),
+                        'description'   => sprintf(
+                            /* translators: %1$s and %2$s are HTML tags for a link to "Learn More" */
+                            esc_html__( 'Give you the ability to automatically fetch/import new episodes on your website from your existing Podcast distributor as soon as a new episode came out! %1$sLearn More%2$s ', 'sonaar-music' ),
+                            '<a href="https://sonaar.io/docs/automatically-fetch-import-new-episodes-from-your-podcast-rss-feed/" target="_blank">', // %1$s
+                            '</a>' // %2$s
+                        ),
                         'id'            => 'srtools_podcast_importer_cron'
                     ) );
                 }else{
                     $setting_tools->add_field( array(
                         'name'          => esc_html__('Podcast Fetcher : Automatically import New Episode', 'sonaar-music'),
                         'type'          => 'title',
-                        'description'   => sprintf( __( 'Give you the ability to automatically fetch/import new episodes on your website from your existing Podcast distributor as soon as a new episode came out! %1$sLearn More%2$s ', 'sonaar-music' ), '<a href="https://sonaar.io/docs/automatically-fetch-import-new-episodes-from-your-podcast-rss-feed/" target="_blank">', '</a>' ),
+                        'description'   => sprintf(
+                            /* translators: %1$s and %2$s are HTML tags for a link to "Learn More" */
+                            esc_html__( 'Give you the ability to automatically fetch/import new episodes on your website from your existing Podcast distributor as soon as a new episode came out! %1$sLearn More%2$s ', 'sonaar-music' ),
+                            '<a href="https://sonaar.io/docs/automatically-fetch-import-new-episodes-from-your-podcast-rss-feed/" target="_blank">', // %1$s
+                            '</a>' // %2$s
+                        ),
                         'id'            => 'srtools_podcast_importer_cron'
                     ) );
                 }
@@ -4973,16 +5170,21 @@ class Sonaar_Music_Admin {
                     'plan_required' => 'starter',
                     //'classes'       => array('srmp3-pro-feature', 'prolabel--nomargin', 'prolabel--nohide'),
                     'classes'       => array('srmp3-pro-feature', 'prolabel--nomargin', 'prolabel--nohide'),
-                    'name'          => esc_html__('Playlist Bulk Importer', 'sonaar-music'),
+                    'name'          => esc_html__('Bulk Importer', 'sonaar-music'),
                     'type'          => 'title',
                     'description'   =>  esc_html__( 'Import Audio from CSV file or Media Library and create post(s) or product(s) in 1-click!', 'sonaar-music' ),
                     'id'            => 'srtools_importer'
                 ) );
             }else{
                 $setting_tools->add_field( array(
-                    'name'          => esc_html__('Playlist Bulk Importer', 'sonaar-music'),
+                    'name'          => esc_html__('Bulk Importer', 'sonaar-music'),
                     'type'          => 'title',
-                    'description'   => sprintf( __( '%1$sImport Audio from CSV file or Media Library and create post(s) or product(s) in 1-click!%2$s', 'sonaar-music' ), '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=sonaar_music_pro_tools' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', '</a>' ),
+                    'description'   => sprintf(
+                        /* translators: %1$s and %2$s are HTML tags for a link to import audio from CSV or Media Library */
+                        esc_html__( '%1$sImport Audio from CSV file or Media Library and create post(s) or product(s) in 1-click!%2$s', 'sonaar-music' ),
+                        '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=sonaar_music_pro_tools' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', // %1$s
+                        '</a>' // %2$s
+                    ),
                     'id'            => 'srtools_importer'
                 ) );
                 
@@ -4990,11 +5192,11 @@ class Sonaar_Music_Admin {
                     $setting_tools->add_field( array(
                         'name'          => esc_html__('Tracks Indexation', 'sonaar-music'),
                         'type'          => 'title',
-                        'description'   => __('This tool indexes the music track titles for efficient search when using the Lazyload Pagination', 'sonaar_music'),
+                        'description'   => esc_html__('This tool indexes the music track titles for efficient search when using the Lazyload Pagination', 'sonaar_music'),
                         'id'            => 'srtools_regenerate_track'
                     ) );
                     $setting_tools->add_field( array(
-                        'name'          => esc_html('General Fields', 'sonaar-music'),
+                        'name'          => esc_html__('General Fields', 'sonaar-music'),
                         'id'            => 'srtools_regenerate_generalfields',
                         'type'          => 'multicheck',
                         'select_all_button' => false,
@@ -5054,9 +5256,18 @@ class Sonaar_Music_Admin {
                         ) );
                     }
                     $setting_tools->add_field( array(
-                        'name'          => esc_html('Taxonomies', 'sonaar-music'),
+                        'name'          => esc_html__('Taxonomies', 'sonaar-music'),
                         'id'            => 'srtools_regenerate_tax',
-                        'description'   => __('<br><br><button id="srmp3_indexTracks" class="srmp3-generate-bt showSpinner">Rebuild Index</button> <span id="srmp3_indexTracks_status"></span><progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress><span id="progressText"></span>','sonaar-music'),
+                        'description'   => '<br><br><button id="srmp3_indexTracks" class="srmp3-generate-bt showSpinner">' . esc_html__('Rebuild Index', 'sonaar-music') . '</button> <span id="srmp3_indexTracks_status"></span><progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress><span id="progressText"></span>',
+                        'description' => sprintf(
+                            /* translators: This HTML structure includes a button and progress indicators for rebuilding the index in the Sonaar music plugin */
+                            '<br><br>
+                            <button id="srmp3_indexTracks" class="srmp3-generate-bt showSpinner">%1$s</button> <!-- %1$s: "Rebuild Index" button text -->
+                            <span id="srmp3_indexTracks_status"></span>
+                            <progress id="indexationProgress" style="width:100%%;margin-top:10px;display:none;" value="0" max="100"></progress>
+                            <span id="progressText"></span>',
+                            esc_html__('Rebuild Index', 'sonaar-music') // %1$s
+                        ),
                         'type'          => 'multicheck',
                         'select_all_button' => false,
                         'options'    => index_get_taxonomies(),
@@ -5071,26 +5282,46 @@ class Sonaar_Music_Admin {
                 $setting_tools->add_field( array(
                     'name'          => esc_html__('Import Player Elementor Templates', 'sonaar-music'),
                     'type'          => 'title',
-                    'description'   => sprintf( __( '%1$sImport stylish and beautiful audio player skins in Elementor%2$s', 'sonaar-music' ), '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=srmp3-import-templates' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', '</a>' ),
+                    'description'   => sprintf(
+                        /* translators: %1$s and %2$s are HTML tags for a link to import audio player skins in Elementor */
+                        esc_html__( '%1$sImport stylish and beautiful audio player skins in Elementor%2$s', 'sonaar-music' ),
+                        '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=srmp3-import-templates' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', // %1$s
+                        '</a>' // %2$s
+                    ),
                     'id'            => 'srtools_templates_importer'
                 ) );
             }
             $setting_tools->add_field( array(
                 'name'          => esc_html__('Import Player Shortcode Templates', 'sonaar-music'),
                 'type'          => 'title',
-                'description'   => sprintf( __( '%1$sImport stylish and beautiful audio player shortcode skins%2$s', 'sonaar-music' ), '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=srmp3-import-shortcode-templates' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', '</a>' ),
+                'description'   => sprintf(
+                    /* translators: %1$s and %2$s are HTML tags for a link to import audio player shortcode skins */
+                    esc_html__( '%1$sImport stylish and beautiful audio player shortcode skins%2$s', 'sonaar-music' ),
+                    '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=srmp3-import-shortcode-templates' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', // %1$s
+                    '</a>' // %2$s
+                ),
                 'id'            => 'srtools_templates_shortcode_importer'
             ) );
             $setting_tools->add_field( array(
                 'name'          => esc_html__('Player Shortcode Builder', 'sonaar-music'),
                 'type'          => 'title',
-                'description'   => sprintf( __( '%1$sCreate player shortcode with our visual shortcode builder%2$s', 'sonaar-music' ), '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=srmp3_settings_shortcodebuilder' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', '</a>' ),
+                'description'   => sprintf(
+                    /* translators: %1$s and %2$s are HTML tags for a link to create a player shortcode using the visual shortcode builder */
+                    esc_html__( '%1$sCreate player shortcode with our visual shortcode builder%2$s', 'sonaar-music' ),
+                    '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=srmp3_settings_shortcodebuilder' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', // %1$s
+                    '</a>' // %2$s
+                ),
                 'id'            => 'srtools_shortcode_builder'
             ) );
             $setting_tools->add_field( array(
                 'name'          => esc_html__('Global Settings Import/Export', 'sonaar-music'),
                 'type'          => 'title',
-                'description'   => sprintf( __( '%1$sImport/Export plugin settings from/to another website%2$s', 'sonaar-music' ), '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=srmp3-import-page' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', '</a>' ),
+                'description'   => sprintf(
+                    /* translators: %1$s and %2$s are HTML tags for a link to import/export plugin settings */
+                    esc_html__( '%1$sImport/Export plugin settings from/to another website%2$s', 'sonaar-music' ),
+                    '<a href="' . esc_url(get_admin_url( null, 'edit.php?post_type=' . SR_PLAYLIST_CPT . '&page=srmp3-import-page' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', // %1$s
+                    '</a>' // %2$s
+                ),
                 'id'            => 'srtools_option_importer'
             ) );
 
@@ -5248,7 +5479,15 @@ class Sonaar_Music_Admin {
                 $srmp3_settings_podcast_tag_tool->add_field( array(
                     'name'          => esc_html__('RSS Importer', 'sonaar-music'),
                     'type'          => 'title',
-                    'description'   => sprintf( __( 'Import your existing Podcast Episodes %1$shere.%2$s', 'sonaar-music' ), '<a href="' . esc_url(get_admin_url( null, 'admin.php?import=podcast-rss' )) . '" target="' . wp_strip_all_tags( '_self' ) . '">', '</a>' ),
+                    'description' => sprintf(
+                        /* translators: %1$s and %2$s are HTML tags for a link to automatically fetch/import new podcast episodes */
+                        esc_html__( 
+                            'Give you the ability to automatically fetch/import new episodes on your website from your existing Podcast distributor as soon as a new episode came out! %1$sLearn More%2$s', 
+                            'sonaar-music' 
+                        ), 
+                        '<a href="https://sonaar.io/docs/automatically-fetch-import-new-episodes-from-your-podcast-rss-feed/" target="_blank">', // %1$s
+                        '</a><br><br>' // %2$s
+                    ),
                     'id'            => 'srpodcast_importer'
                 ) );
                 if ( !function_exists('run_sonaar_music_pro')){
@@ -5258,14 +5497,30 @@ class Sonaar_Music_Admin {
                         'plan_required' => 'starter',
                         'classes'       => array('srmp3-pro-feature', 'prolabel--nomargin', 'prolabel--nohide'),
                         'type'          => 'title',
-                        'description'   => sprintf( __( 'Give you the ability to automatically fetch/import new episodes on your website from your existing Podcast distributor as soon as a new episode came out! %1$sLearn More%2$s<br><br>', 'sonaar-music' ), '<a href="https://sonaar.io/docs/automatically-fetch-import-new-episodes-from-your-podcast-rss-feed/" target="_blank">', '</a>' ),
+                        'description' => sprintf(
+                            /* translators: %1$s: URL de la page d'apprentissage, %2$s: Balise de fermeture du lien. */
+                            esc_html__( 
+                                'Give you the ability to automatically fetch/import new episodes on your website from your existing Podcast distributor as soon as a new episode came out! %1$sLearn More%2$s', 
+                                'sonaar-music' 
+                            ), 
+                            '<a href="https://sonaar.io/docs/automatically-fetch-import-new-episodes-from-your-podcast-rss-feed/" target="_blank">', 
+                            '</a><br><br>'
+                        ),
                         'id'            => 'srpodcast_importer_cronjob'
                     ) );
                 }else{
                     $srmp3_settings_podcast_tag_tool->add_field( array(
                         'name'          => esc_html__('Podcast Fetcher : Automatically import New Episode', 'sonaar-music'),
                         'type'          => 'title',
-                        'description'   => sprintf( __( 'Give you the ability to automatically fetch/import new episodes on your website from your existing Podcast distributor as soon as a new episode came out! %1$sLearn More%2$s<br><br>', 'sonaar-music' ), '<a href="https://sonaar.io/docs/automatically-fetch-import-new-episodes-from-your-podcast-rss-feed/" target="_blank">', '</a>' ),
+                        'description' => sprintf(
+                            /* translators: %1$s and %2$s are HTML tags for a link to automatically fetch/import new podcast episodes */
+                            esc_html__( 
+                                'Give you the ability to automatically fetch/import new episodes on your website from your existing Podcast distributor as soon as a new episode came out! %1$sLearn More%2$s<br><br>', 
+                                'sonaar-music' 
+                            ), 
+                            '<a href="https://sonaar.io/docs/automatically-fetch-import-new-episodes-from-your-podcast-rss-feed/" target="_blank">', // %1$s
+                            '</a>' // %2$s
+                        ),
                         'id'            => 'srpodcast_importer_cronjob'
                     ) );
                 }
@@ -5312,13 +5567,18 @@ class Sonaar_Music_Admin {
                     'name'          => esc_html__('RSS Feed Settings', 'sonaar-music'),
                     'type'          => 'title',
                     'id'            => 'srpodcast_rss_feed_settings',
-                    'description'   => sprintf( __( '
-                    Your Podcast Show ID is %4$s<br>
-                    Your WordPress RSS Feed URL is %1$s %3$s %2$s<br><br>
-                    An RSS feed is the only way an audience can access a podcast\'s content. Without an RSS feed, your podcast will not appear on your website or any podcasting directories, making it impossible for people to listen to it. Every podcast needs an RSS feed, there are not any exceptions.', 'sonaar-music' ),
-                    '<a href="' . esc_url(get_site_url( null, '/feed/'. $podcast_feed_slug .'/?show=' . $slug )) . '" target="' . wp_strip_all_tags( '_blank' ) . '">',
-                    '</a>',
-                    esc_url(get_site_url( null, '/feed/'. $podcast_feed_slug .'/?show=' . $slug )), $podcast_cat_id),
+                    'description'   => sprintf(
+                        /* translators: %1$s: RSS feed URL wrapped in an anchor tag, %2$s: closing anchor tag, %3$s: plain RSS feed URL, %4$s: Podcast Show ID, %5$s: HTML line break */
+                        esc_html__( '
+                        Your Podcast Show ID is %4$s%5$s
+                        Your WordPress RSS Feed URL is %1$s %3$s %2$s%5$s%5$s
+                        An RSS feed is the only way an audience can access a podcast\'s content. Without an RSS feed, your podcast will not appear on your website or any podcasting directories, making it impossible for people to listen to it. Every podcast needs an RSS feed, there are not any exceptions.', 'sonaar-music' ),
+                        '<a href="' . esc_url(get_site_url( null, '/feed/'. $podcast_feed_slug .'/?show=' . $slug )) . '" target="' . wp_strip_all_tags( '_blank' ) . '">',
+                        '</a>',
+                        esc_url(get_site_url( null, '/feed/'. $podcast_feed_slug .'/?show=' . $slug )),
+                        $podcast_cat_id,
+                        '<br>'
+                    ),
                 ) );
 
             }else{
@@ -5326,7 +5586,12 @@ class Sonaar_Music_Admin {
                 $podcast_rss->add_field( array(
                     'name'          => esc_html__('RSS Feed Settings', 'sonaar-music'),
                     'type'          => 'title',
-                    'description'   =>  __( 'Your RSS Feed is <strong>currently disabled</strong>. Go to WP-Admin > MP3 Player > Settings to enable it', 'sonaar-music'),
+                    'description' => sprintf(
+                        /* translators: %1$s is the HTML tag for emphasis in the message. */
+                        esc_html__( 'Your RSS Feed is %1$scurrently disabled%2$s. Go to WP-Admin > MP3 Player > Settings to enable it', 'sonaar-music' ),
+                        '<strong>', // %1$s
+                        '</strong>' // %2$s
+                    ),
                     'id'            => 'srpodcast_rss_feed_settings',
                 ));
 
@@ -5388,7 +5653,12 @@ class Sonaar_Music_Admin {
                 'name'          => esc_html__('Podcast Language', 'sonaar-music'),
                 'id'            => 'srpodcast_data_language',
                 'type'          => 'text_small',
-                'description'   => sprintf( __( 'Your podcast\'s language in %1$sISO-639-1 format%2$s.', 'sonaar' ), '<a href="' . esc_url( 'http://www.loc.gov/standards/iso639-2/php/code_list.php' ) . '" target="' . wp_strip_all_tags( '_blank' ) . '">', '</a>' ),
+                'description' => sprintf(
+                    /* translators: %1$s is the HTML tag for the link to ISO-639-1 format code list, %2$s is the closing HTML tag for the link. */
+                    esc_html__( 'Your podcast\'s language in %1$sISO-639-1 format%2$s.', 'sonaar' ),
+                    '<a href="' . esc_url( 'http://www.loc.gov/standards/iso639-2/php/code_list.php' ) . '" target="' . wp_strip_all_tags( '_blank' ) . '">', // %1$s
+                    '</a>' // %2$s
+                ),
                 'default'       => get_bloginfo ( 'language' )
             ) );
             $podcast_rss->add_field( array(
@@ -5400,7 +5670,7 @@ class Sonaar_Music_Admin {
             $podcast_rss->add_field( array(
                 'id'                => 'srpodcast_data_category',
                 'type'              => 'select',
-                'name'              => esc_html('Podcast Catergory', 'sonaar-music'),
+                'name'              => esc_html__('Podcast Catergory', 'sonaar-music'),
                 'show_option_none'  => false,
                 'options'           => $category_options,
             ) );
@@ -5428,13 +5698,18 @@ class Sonaar_Music_Admin {
             $podcast_rss->add_field( array(
                 'id'                => 'srpodcast_consume_order',
                 'type'              => 'select',
-                'name'              => esc_html('Show Type', 'sonaar-music'),
+                'name'              => esc_html__('Show Type', 'sonaar-music'),
                 'show_option_none'  => false,
                 'options'     => array(
                     'episodic' => esc_html__( 'Episodic', 'sonaar-music' ),
                     'serial'   => esc_html__( 'Serial', 'sonaar-music' )
                 ),
-                'description'   => sprintf( __( 'The order your podcast episodes will be listed. %1$sMore details here.%2$s', 'sonaar-music' ), '<a href="' . esc_url( 'https://www.google.com/search?q=apple+podcast+episodes+serial+vs+episodic' ) . '" target="' . wp_strip_all_tags( '_blank' ) . '">', '</a>' ),
+                'description' => sprintf(
+                    /* translators: %1$s and %2$s are HTML tags for a link to more details about podcast episode ordering. */
+                    esc_html__( 'The order your podcast episodes will be listed. %1$sMore details here.%2$s', 'sonaar-music' ),
+                    '<a href="' . esc_url( 'https://www.google.com/search?q=apple+podcast+episodes+serial+vs+episodic' ) . '" target="' . wp_strip_all_tags( '_blank' ) . '">', // %1$s
+                    '</a>' // %2$s
+                ),
             ) );
             $podcast_rss->add_field( array(
                 'name'          => esc_html__('Redirect this feed to a new URL', 'sonaar-music'),
@@ -5683,7 +5958,7 @@ class Sonaar_Music_Admin {
                 'srmp3_settings_tools' => [
                     'cmb2-id-srtools-peak-gen-title'                => esc_html__( 'Waveform & Peaks Generator', 'sonaar-music' ),
                     'cmb2-id-srtools-podcast-importer'              => esc_html__( 'Podcast RSS Importer', 'sonaar-music' ),
-                    'cmb2-id-srtools-importer'                      => esc_html__( 'Playlist Bulk Importer', 'sonaar-music' ),
+                    'cmb2-id-srtools-importer'                      => esc_html__( 'Bulk Importer', 'sonaar-music' ),
                     'conditional2' => [
                         'condition' => 'run_sonaar_music_pro',
                         'exist'     => true,
@@ -6126,7 +6401,7 @@ class Sonaar_Music_Admin {
                 'after'         => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => esc_html__('Add to Cart button link', 'sonaar-music'),
-                    'text'      => sprintf( __('Display an Add to Cart button in the %s', 'sonaar-music'), (function_exists( 'run_sonaar_music_pro' )) ? 'Sticky Player and in the "Available On" module.' : '"Available On" module.' ),
+                    'text'      => sprintf( esc_html__('Display an Add to Cart button in the %s', 'sonaar-music'), (function_exists( 'run_sonaar_music_pro' )) ? 'Sticky Player and in the "Available On" module.' : '"Available On" module.' ),
                     'pro'       => true,
                 ),
                 'type'          => 'switch'            
@@ -6144,7 +6419,7 @@ class Sonaar_Music_Admin {
                 'after'         => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => esc_html__('Buy Now button link', 'sonaar-music'),
-                    'text'      => sprintf( __('Display a Buy Now button in the %s', 'sonaar-music'), (function_exists( 'run_sonaar_music_pro' )) ? 'Sticky Player and in the "Available On" module.' : '"Available On" module.' ),
+                    'text'      => sprintf( esc_html__('Display a Buy Now button in the %s', 'sonaar-music'), (function_exists( 'run_sonaar_music_pro' )) ? 'Sticky Player and in the "Available On" module.' : '"Available On" module.' ),
                     'pro'       => true,
                 ),
                 'type'          => 'switch'
@@ -6161,7 +6436,7 @@ class Sonaar_Music_Admin {
                 'after'         => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => esc_html__('Add to Cart button link', 'sonaar-music'),
-                    'text'      => sprintf( __('Display an Add to Cart button in the %s', 'sonaar-music'), (function_exists( 'run_sonaar_music_pro' )) ? 'Sticky Player and in the "Available On" module.' : '"Available On" module.' ),
+                    'text'      => sprintf( esc_html__('Display an Add to Cart button in the %s', 'sonaar-music'), (function_exists( 'run_sonaar_music_pro' )) ? 'Sticky Player and in the "Available On" module.' : '"Available On" module.' ),
                     'pro'       => true,
                 ),
                 'type'          => 'switch'            
@@ -6177,7 +6452,7 @@ class Sonaar_Music_Admin {
                 'after'         => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => esc_html__('Buy Now button link', 'sonaar-music'),
-                    'text'      => sprintf( __('Display a Buy Now button in the %s', 'sonaar-music'), (function_exists( 'run_sonaar_music_pro' )) ? 'Sticky Player and in the "Available On" module.' : '"Available On" module.' ),
+                    'text'      => sprintf( esc_html__('Display a Buy Now button in the %s', 'sonaar-music'), (function_exists( 'run_sonaar_music_pro' )) ? 'Sticky Player and in the "Available On" module.' : '"Available On" module.' ),
                     'pro'       => true,
                 ),
                 'type'          => 'switch'
@@ -6223,12 +6498,20 @@ class Sonaar_Music_Admin {
                 'tooltip'       => array(
                     'title'     => '',
                     'text' => sprintf(
-                        __('Also known as an <em>"audio snippet"</em> or <em>"sample,"</em> it is a brief segment from a longer audio recording. It provides listeners a glimpse of the full content without playing the entire track.<br><br>
-                        Used predominantly in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, these short clips, lasting from a few seconds to minutes, assist potential buyers in their purchasing decisions.<br><br>
-                        They also serve as a protective measure against <strong>unauthorized downloads</strong> by only showcasing a segment. Some previews might even include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
-                        When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set restricted roles in <a href="%s" target="_blank">Audio Preview & Restrictions</a><br><br>You can also disable this audio preview to allow everyone to listen and download your full track.<br><br> Remember: If you do not set audio preview, it\'s OK! In this case, the full track will be available.', 'sonaar-music'),
-                        esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview'))
-                    ),'image'     => '',
+                        /* translators: %1$s and %2$s are HTML emphasis tags, %3$s and %4$s are HTML strong tags, %5$s is an HTML link tag, %7$s is the line break tag. */
+                        esc_html__('Also known as an %1$s"audio snippet"%2$s or %1$s"sample,"%2$s it is a brief segment from a longer audio recording. It provides listeners a glimpse of the full content without playing the entire track.%7$s
+                        Used predominantly in %3$sonline music stores%4$s and %3$saudiobook platforms%4$s, these short clips, lasting from a few seconds to minutes, assist potential buyers in their purchasing decisions.%7$s
+                        They also serve as a protective measure against %3$sunauthorized downloads%4$s by only showcasing a segment. Some previews might even include voiceovers or watermarks like %3$s"sample"%4$s to deter misuse.%7$s
+                        When a user %3$s(with restricted role)%4$s visits your website, it\'s this audio snippet they hear or download. You can set restricted roles in %5$sAudio Preview & Restrictions%6$s.%7$sYou can also disable this audio preview to allow everyone to listen and download your full track.%7$s Remember: If you do not set an audio preview, it\'s OK! In this case, the full track will be available.', 'sonaar-music'),
+                        '<em>', // %1$s
+                        '</em>', // %2$s
+                        '<strong>', // %3$s
+                        '</strong>', // %4$s
+                        '<a href="' . esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview')) . '" target="_blank">', // %5$s
+                        '</a>', // %6$s
+                        '<br><br>' // %7$s
+                    ),
+                    'image'     => '',
                 ),
                 'options'       => array(
                    // 'default'   => esc_html__('Default (Use options in the General Settings)', 'sonaar-music'),
@@ -6240,11 +6523,15 @@ class Sonaar_Music_Admin {
             $cmb_album->add_field( array(
                 'classes'       => 'ffmpeg_field srmp3-settings-generate-bt-container srmp3-cmb2-row-mini',
                 'name'          => '_',
-                'description'   => __('
-                <button id="srmp3_index_audio_preview" class="srmp3-generate-bt srmp3-post-all-audiopreview-bt showSpinner">Generate Preview Files for ALL TRACKS below</button> 
-                <span id="srmp3_indexTracks_status"></span><progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress>
-                <span id="progressText"></span>
-                ','sonaar-music'),
+                'description' => sprintf(
+                    /* translators: %1$s is a button tag, %2$s is a span tag for status, %3$s is a progress tag, %4$s is a span tag for progress text. */
+                    esc_html__('%1$sGenerate Preview Files for ALL TRACKS below%5$s%2$s%3$s%4$s', 'sonaar-music'),
+                    '<button id="srmp3_index_audio_preview" class="srmp3-generate-bt srmp3-post-all-audiopreview-bt showSpinner">', // %1$s
+                    '</button>', // %5$s
+                    '<span id="srmp3_indexTracks_status"></span>', // %2$s
+                    '<progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress>', // %3$s
+                    '<span id="progressText"></span>' // %4$s
+                ),
                 'id'            => 'srmp3-settings-generate-bt-container',
                 'type'          => 'text_small',
                 'attributes'        => array(
@@ -6256,7 +6543,7 @@ class Sonaar_Music_Admin {
         }
         $cmb_album->add_field( array(
             'classes'       => 'srmp3-cmb2-row-mini',
-            'name'          => __('Tracklist Source','sonaar-music'),
+            'name'          => esc_html__('Tracklist Source','sonaar-music'),
             'id'            => 'post_playlist_source',
             'type'          => 'select',
             'options'       => array(
@@ -6275,7 +6562,8 @@ class Sonaar_Music_Admin {
             'name'          => esc_html__('Tracklist CSV File','sonaar-music'),
             'type'          => 'file',
             'description' => sprintf(
-                esc_html__('Example of CSV File format %1s.', 'sonaar-music'),
+                /* translators: %1$s is an HTML link to a CSV file format example. */
+                esc_html__('Example of CSV File format %1$s.', 'sonaar-music'),
                 '<a href="' . esc_url( plugin_dir_url(dirname(__FILE__)) ) . 'templates/example_of_csv_file_to_import.csv' . '" target="_blank">' . esc_html__('here', 'sonaar-music') . '</a>'
             ),
             'query_args'    => array(
@@ -6294,8 +6582,9 @@ class Sonaar_Music_Admin {
             'id'            => 'playlist_rss',
             'name'          => esc_html__('RSS Feed URL','sonaar-music'),
             'description' => sprintf(
-                esc_html__('Make sure you have a valid RSS Feed. You can validate it %1s.', 'sonaar-music'),
-                '<a href="https://podba.se/validate/' . '" target="_blank">' . esc_html__('here', 'sonaar-music') . '</a>'
+                /* translators: %1$s is an HTML link to an RSS Feed validation tool. */
+                esc_html__('Make sure you have a valid RSS Feed. You can validate it %1$s.', 'sonaar-music'),
+                '<a href="https://podba.se/validate/" target="_blank">' . esc_html__('here', 'sonaar-music') . '</a>'
             ),
             'type'          => 'text_url',
             'attributes'        => array(
@@ -6333,14 +6622,18 @@ class Sonaar_Music_Admin {
         $cmb_album->add_group_field( $tracklist ,array(
             'name'              => esc_html__('Source File', 'sonaar-music'),
             'classes'           => 'srmp3-fileorstream',
-            'description'       => 'Please select which type of audio source you want for this track' .  wp_kses($player, $escapedVar),
+           'description' => sprintf(
+                /* translators: %1$s is the HTML for the audio source options. */
+                esc_html__('Please select which type of audio source you want for this track%1$s', 'sonaar-music'),
+                wp_kses($player, $escapedVar)
+            ),
             'id'                => 'FileOrStream',
             'type'              => 'select',
             'show_option_none'  => false,
             'options'           => array(
-                'mp3'               => 'Local MP3',
-                'stream'            => 'External Audio File',
-                'icecast'           => 'Icecast'
+                'mp3'               => esc_html__('Local MP3', 'sonaar-music'),
+                'stream'            => esc_html__('External Audio File', 'sonaar-music'),
+                'icecast'           => esc_html__('Icecast', 'sonaar-music')
             ),
             'default'           => 'mp3'
         ));
@@ -6370,7 +6663,11 @@ class Sonaar_Music_Admin {
             'classes'       => 'sr-stream-url-field srmp3-settings--subitem',
             'name'          => esc_html__('External Audio link','sonaar-music'),
             'type'          => 'text_url',
-            'description'   => sprintf( esc_html__('Enter URL that points to your audio file. See %s for supported providers', 'sonaar-music'), '<a href="https://sonaar.io/docs/supported-audio-streaming-providers/" target="_blank">this article</a>'),
+            'description' => sprintf(
+                /* translators: %s is an HTML link to an article about supported audio streaming providers. */
+                esc_html__('Enter URL that points to your audio file. See %s for supported providers', 'sonaar-music'),
+                '<a href="https://sonaar.io/docs/supported-audio-streaming-providers/" target="_blank">this article</a>'
+            ),
             'attributes'    => array(
                 'required'               => false, // Will be required only if visible.
                 'data-conditional-id'    => wp_json_encode( array( $tracklist, 'FileOrStream' )),
@@ -6426,9 +6723,9 @@ class Sonaar_Music_Admin {
         $cmb_album->add_group_field($tracklist, array(
             'id'            => 'icecast_link',
             'classes'       => 'sr-stream-url-field  srmp3-cmb2-file srmp3-settings--subitem',
-            'name'          => __('Icecast Feed','sonaar-music'),
+            'name'          => esc_html__('Icecast Feed','sonaar-music'),
             'type'          => 'text_url',
-            'description'   => __('Enter URL that points to your Icecast Feed.', 'sonaar-music'),
+            'description'   => esc_html__('Enter URL that points to your Icecast Feed.', 'sonaar-music'),
             'attributes'    => array(
                 'required'               => false, // Will be required only if visible.
                 'data-conditional-id'    => wp_json_encode( array( $tracklist, 'FileOrStream' )),
@@ -6440,7 +6737,7 @@ class Sonaar_Music_Admin {
             'before'            => array($this, 'promo_ad_text_cb'),
             'plan_required' => 'starter',
             'id'            => 'icecast_json',
-            'name'          => __('Icecast JSON file', 'sonaar-music'),
+            'name'          => esc_html__('Icecast JSON file', 'sonaar-music'),
             'description'   => esc_html__("Allow to fetch the content of what is currently playing from your feed (Track Title, Artist Name, Image Cover). Usually https://yourstream.com:xxxx/status-json.xsl )",'sonaar-music'),
             'type'          => 'text_url',
             'attributes'    => array(
@@ -6457,7 +6754,7 @@ class Sonaar_Music_Admin {
             'before'            => array($this, 'promo_ad_text_cb'),
             'plan_required' => 'starter',
             'id'            => 'icecast_mount',
-            'name'          => __('Icecast Mountpoint', 'sonaar-music'),
+            'name'          => esc_html__('Icecast Mountpoint', 'sonaar-music'),
             'description'   => esc_html__("Optional. Enter your mountpoint if you have one and include the '/'. Icecast mountpoint is a unique URL path representing a single audio stream on an Icecast server.",'sonaar-music'),
             'type'          => 'text',
             'attributes'    => array(
@@ -6472,7 +6769,7 @@ class Sonaar_Music_Admin {
         $cmb_album->add_group_field($tracklist, array(
             'id'            => 'icecast_title',
             'classes'       => 'sr-stream-title-field',
-            'name'          => __('Feed Title', 'sonaar-music'),
+            'name'          => esc_html__('Feed Title', 'sonaar-music'),
             'description'   => esc_html__("If we cannot retrieve what is currently playing from Icecast, we will show this default title",'sonaar-music'),
             'type'          => 'text',
             'attributes'    => array(
@@ -6484,7 +6781,7 @@ class Sonaar_Music_Admin {
         $cmb_album->add_group_field($tracklist, array(
             'id'            => 'icecast_album',
             'classes'       => 'sr-stream-album-field',
-            'name'          => __('Station Name', 'sonaar-music'),
+            'name'          => esc_html__('Station Name', 'sonaar-music'),
             'description'   => esc_html__("If you leave this field blank, we use the post title as fallback",'sonaar-music'),
             'type'          => 'text',
             'attributes'    => array(
@@ -6495,7 +6792,7 @@ class Sonaar_Music_Admin {
         ));
         $cmb_album->add_group_field($tracklist, array(
             'id'            => 'icecast_hostname',
-            'name'          => __('Station Host', 'sonaar-music'),
+            'name'          => esc_html__('Station Host', 'sonaar-music'),
             'description'   => esc_html__("Name of the person or company hosting this station",'sonaar-music'),
             'type'          => 'text',
             'attributes'    => array(
@@ -6513,20 +6810,27 @@ class Sonaar_Music_Admin {
                 'tooltip'       => array(
                     'title'     => '',
                     'text' => sprintf(
-                        __('
-                        Generate audio previews, audio watermarks, fade-in/fade-out, pre-roll and post-roll Ads of this audio automatically in 1 click!<br><br>
-                        <div class="srmp3_tooltip_title">Audio Preview</div>
-                        An Audio Preview, or <em>"audio snippet"</em>, is a brief segment of a longer recording. It offers listeners a glimpse of the full content, aiding decisions in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, and protecting against <strong>unauthorized downloads</strong>.<br><br>
-                        <div class="srmp3_tooltip_title">Audio Watermarks</div>
-                        Audio Watermarks may include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
-                        <div class="srmp3_tooltip_title">Audio Pre-roll / Post-roll Ads</div>
-                        Audio Pre-roll and Post-roll Ads play at the start or end of an audio track. Audio rolls engage listeners, leave a lasting impression, and aid in monetizing content.
-                        Popular in <strong>podcasts</strong> and <strong>music streaming services</strong>, these ads deliver targeted messages, enhance brand awareness, save editing time, and increase audience retention and recall.<br><br>
-                        <div class="srmp3_tooltip_title">How it works?</div>
-                        When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set the restricted role in <a href="%s" target="_blank">Audio Preview & Restrictions</a><br><br>
-                        <p>Learn more <a href="https://sonaar.io/docs/how-to-add-audio-preview-in-wordpress/" target="_blank">here</a></p><br><br>
-                        <p>An active license of MP3 Audio Player Pro - <strong>Business Plan or higher</strong> is required to use these features. </strong> <a href="https://sonaar.io/mp3-audio-player-pro/pricing/" target="_blank">View Pricing</a></p>', 'sonaar-music'),
-                        esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview'))
+                        /* translators: %1$s, %3$s, %5$s, %7$s, and %9$s are opening HTML tags, and %2$s, %4$s, %6$s, %8$s, and %10$s are closing HTML tags. */
+                        esc_html__(
+                            'Generate audio previews, audio watermarks, fade-in/fade-out, pre-roll and post-roll Ads of this audio automatically in 1 click!%1$s%2$s
+                            %3$sAudio Preview%4$s An Audio Preview, or %5$s"audio snippet"%6$s, is a brief segment of a longer recording. It offers listeners a glimpse of the full content, aiding decisions in %7$sonline music stores%8$s and %7$saudiobook platforms%8$s, and protecting against %7$sunauthorized downloads%8$s.%1$s%2$s
+                            %3$sAudio Watermarks%4$s Audio Watermarks may include voiceovers or watermarks like %7$s"sample"%8$s to deter misuse.%1$s%2$s
+                            %3$sAudio Pre-roll / Post-roll Ads%4$s Audio Pre-roll and Post-roll Ads play at the start or end of an audio track. Audio rolls engage listeners, leave a lasting impression, and aid in monetizing content. Popular in %7$spodcasts%8$s and %7$smusic streaming services%8$s, these ads deliver targeted messages, enhance brand awareness, save editing time, and increase audience retention and recall.%1$s%2$s
+                            %3$sHow it works?%4$s When a user %7$s(with restricted role)%8$s visits your website, it\'s this audio snippet they hear or download. You can set the restricted role in %9$sAudio Preview & Restrictions%10$s.%1$s%2$s
+                            Learn more %9$shere%10$s.%1$s%2$s
+                            An active license of MP3 Audio Player Pro - %7$sBusiness Plan or higher%8$s is required to use these features. %9$sView Pricing%10$s.',
+                            'sonaar-music'
+                        ),
+                        '<br><br>', // %1$s
+                        '', // %2$s 
+                        '<div class="srmp3_tooltip_title">', // %3$s
+                        '</div>', // %4$s
+                        '<em>', // %5$s
+                        '</em>', // %6$s
+                        '<strong>', // %7$s
+                        '</strong>', // %8$s
+                        '<a href="' . esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview')) . '" target="_blank">', // %9$s
+                        '</a>' // %10$s
                     ),
                     'image'     => '',
                     'pro'       => true,
@@ -6544,11 +6848,29 @@ class Sonaar_Music_Admin {
                 'tooltip'       => array(
                     'title'     => '',
                     'text' => sprintf(
-                        __('Also known as an <em>"audio snippet"</em> or <em>"sample,"</em> it is a brief segment from a longer audio recording. It provides listeners a glimpse of the full content without playing the entire track.<br><br>
-                        Used predominantly in <strong>online music stores</strong> and <strong>audiobook platforms</strong>, these short clips, lasting from a few seconds to minutes, assist potential buyers in their purchasing decisions.<br><br>
-                        They also serve as a protective measure against <strong>unauthorized downloads</strong> by only showcasing a segment. Some previews might even include voiceovers or watermarks like <strong>"sample"</strong> to deter misuse.<br><br>
-                        When a user <strong>(with restricted role)</strong> visit your website, it\'s this audio snippet they hear or download. You can set restricted roles in <a href="%s" target="_blank">Audio Preview & Restrictions</a><br><br>You can also disable this audio preview to allow everyone to listen and download your full track.<br><br> Remember: If you do not set audio preview, it\'s OK! In this case, the full track will be available.', 'sonaar-music'),
-                        esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview'))
+                        /* translators: %1$s, %3$s, %5$s, %7$s, %9$s, %11$s, and %13$s are HTML tags, %2$s, %4$s, %6$s, %8$s, %10$s, %12$s, and %14$s are closing HTML tags */
+                        esc_html__(
+                            'Also known as an %1$s"audio snippet"%2$s or %1$s"sample"%2$s, it is a brief segment from a longer audio recording. It provides listeners a glimpse of the full content without playing the entire track.%3$s%4$s
+                            Used predominantly in %5$sonline music stores%6$s and %5$saudiobook platforms%6$s, these short clips, lasting from a few seconds to minutes, assist potential buyers in their purchasing decisions.%3$s%4$s
+                            They also serve as a protective measure against %5$unauthorized downloads%6$s by only showcasing a segment. Some previews might even include voiceovers or watermarks like %5$s"sample"%6$s to deter misuse.%3$s%4$s
+                            When a user %5$s(with restricted role)%6$s visits your website, it\'s this audio snippet they hear or download. You can set restricted roles in %7$sAudio Preview & Restrictions%8$s.%3$s%4$s
+                            You can also disable this audio preview to allow everyone to listen and download your full track.%3$s%4$s Remember: If you do not set audio preview, it\'s OK! In this case, the full track will be available.',
+                            'sonaar-music'
+                        ),
+                        '<em>', // %1$s
+                        '</em>', // %2$s
+                        '<br><br>', // %3$s
+                        '', // %4$s (vide pour être utilisé après chaque <br><br>)
+                        '<strong>', // %5$s
+                        '</strong>', // %6$s
+                        '<a href="' . esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview')) . '" target="_blank">', // %7$s
+                        '</a>', // %8$s
+                        '<p>', // %9$s
+                        '</p>', // %10$s
+                        '<a href="https://sonaar.io/docs/how-to-add-audio-preview-in-wordpress/" target="_blank">', // %11$s
+                        '</a>', // %12$s
+                        '<a href="https://sonaar.io/mp3-audio-player-pro/pricing/" target="_blank">', // %13$s
+                        '</a>' // %14$s
                     ),
                     'image'     => '',
                 ),
@@ -6578,9 +6900,14 @@ class Sonaar_Music_Admin {
                 ),
                 'tooltip'       => array(
                     'title'     => '',
-                    'text'      => sprintf(
-                        __('Use Custom Settings if you want to use custom setup for this preview instead of the general <a href="%s" target="_blank">Audio Preview Settings</a>', 'sonaar-music'),
-                        esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview'))
+                   'text' => sprintf(
+                        /* translators: %1$s is the HTML tag for a link to Audio Preview Settings */
+                        esc_html__(
+                            'Use Custom Settings if you want to use custom setup for this preview instead of the general %1$sAudio Preview Settings%2$s',
+                            'sonaar-music'
+                        ),
+                        '<a href="' . esc_url(get_site_url(null, 'wp-admin/admin.php?page=srmp3_settings_audiopreview')) . '" target="_blank">', // %1$s
+                        '</a>' // %2$s
                     ),
                     /*'text'      => sprintf(
                         esc_html__('If you want to use custom settings for this preview (and by-pass the general settings located in WP-Admin > MP3 Player > <a href="%s" target="_blank">Audio Preview & Restrictions</a>), use Custom Settings.', 'sonaar-music'),
@@ -6595,7 +6922,7 @@ class Sonaar_Music_Admin {
             ) );
             $cmb_album->add_group_field($tracklist, array(
                 'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem2',
-                'name'          => __( 'Trim Start at', 'sonaar-music' ),
+                'name'          => esc_html__( 'Trim Start at', 'sonaar-music' ),
                 'id'            => 'post_trimstart',
                 'type'          => 'text_small',
                 'default'       => '00:00:00',
@@ -6613,7 +6940,7 @@ class Sonaar_Music_Admin {
             ) );
             $cmb_album->add_group_field($tracklist, array(
                 'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem2',
-                'name'          => __( 'Preview Length', 'sonaar-music' ),
+                'name'          => esc_html__( 'Preview Length', 'sonaar-music' ),
                 'id'            => 'post_audiopreview_duration',
                 'type'          => 'text_small',
                 'default'       => '00:00:30',
@@ -6631,7 +6958,7 @@ class Sonaar_Music_Admin {
             ) );
             $cmb_album->add_group_field($tracklist, array(
                 'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem2',
-                'name'          => __( 'Fade In Length', 'sonaar-music' ),
+                'name'          => esc_html__( 'Fade In Length', 'sonaar-music' ),
                 'id'            => 'post_fadein_duration',
                 'type'          => 'text_small',
                 'default'       => 3,
@@ -6645,7 +6972,7 @@ class Sonaar_Music_Admin {
             ) );
             $cmb_album->add_group_field($tracklist, array(
                 'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem2',
-                'name'          => __( 'Fade Out Length', 'sonaar-music' ),
+                'name'          => esc_html__( 'Fade Out Length', 'sonaar-music' ),
                 'id'            => 'post_fadeout_duration',
                 'type'          => 'text_small',
                 'default'       => 3,
@@ -6684,7 +7011,7 @@ class Sonaar_Music_Admin {
             ) );
             $cmb_album->add_group_field($tracklist, array(
                 'classes'       => 'ffmpeg_field srmp3-settings--subitem srmp3-settings--subitem3',
-                'name'          => __( 'Loop Watermark every', 'sonaar-music' ),
+                'name'          => esc_html__( 'Loop Watermark every', 'sonaar-music' ),
                 'id'            => 'post_audio_watermark_gap',
                 'type'          => 'text_small',
                 'default'       => 6,
@@ -6748,8 +7075,16 @@ class Sonaar_Music_Admin {
             ) );
             $cmb_album->add_group_field($tracklist, array(
                 'classes'       => 'srmp3-cmb2-preview-file srmp3-settings--subitem',
-                'name'          => __( 'Preview File', 'sonaar-music' ),
-                'before'   => __('<button id="srmp3_index_audio_preview" class="srmp3-generate-bt srmp3-audiopreview-bt showSpinner">Generate Preview File</button> <span id="srmp3_indexTracks_status"></span><progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress><span id="progressText"></span><br><br>','sonaar-music'),
+                'name'          => esc_html__( 'Preview File', 'sonaar-music' ),
+                'before' => sprintf(
+                    /* translators: %1$s is the HTML tag for the button (including closing tag), %2$s is for the span, %3$s is for the progress element, %4$s is for the line breaks, %5$s is the translatable text for the button */
+                    '%1$s%5$s%2$s%3$s%4$s', // Format string, not translated
+                    '<button id="srmp3_index_audio_preview" class="srmp3-generate-bt srmp3-audiopreview-bt showSpinner">', // %1$s
+                    '</button><span id="srmp3_indexTracks_status"></span>', // %2$s
+                    '<progress id="indexationProgress" style="width:100%;margin-top:10px;display:none;" value="0" max="100"></progress><span id="progressText"></span>', // %3$s
+                    '<br><br>', // %4$s
+                    esc_html__('Generate Preview File', 'sonaar-music') // %5$s
+                ),
                 'id'            => 'audio_preview',
                 'type'          => 'file',
                 'default'       => '',
@@ -6765,11 +7100,18 @@ class Sonaar_Music_Admin {
                 'label_cb'      => 'srmp3_add_tooltip_to_label',
                 'tooltip'       => array(
                     'title'     => '',
-                    'text'      => __('Click Generate Preview to generate automatically an audio snippet from your original file.<br><br>You can also upload your own preview file. If you do so, make sure to NOT click the Generate Preview button otherwise it will be overwritten.<br><br>If you do not set audio preview, it\'s OK! In this case, the full track will be available.', 'sonaar-music'),
+                    'text' => sprintf(
+                        /* translators: %1$s is for line breaks */
+                        esc_html__(
+                            'Click Generate Preview to generate automatically an audio snippet from your original file.%1$s%1$sYou can also upload your own preview file. If you do so, make sure to NOT click the Generate Preview button otherwise it will be overwritten.%1$s%1$sIf you do not set audio preview, it\'s OK! In this case, the full track will be available.',
+                            'sonaar-music'
+                        ),
+                        '<br>' // %1$s
+                    ),
                     'image'     => '',
                 ),
                 'attributes' => array(
-                    'placeholder'   => __('No preview set. Full track will be played.', 'sonaar-music'),
+                    'placeholder'   => esc_html__('No preview set. Full track will be played.', 'sonaar-music'),
                     'data-conditional-id'    => wp_json_encode( array( $tracklist, 'post_audiopreview' )),
                     'data-conditional-value' => 'enabled',
                 ),
@@ -7130,7 +7472,7 @@ class Sonaar_Music_Admin {
                     ),
                 ));
                 $cmb_post_usageterms->add_group_field( $cmb_post_usageterms_custom_group ,array(
-                    'name' => __( 'Icon', 'sonaar-music' ),
+                    'name' => esc_html__( 'Icon', 'sonaar-music' ),
                     'id'   => 'usageterms_custom_options_item_icon',
                     'type' => 'faiconselect',
                     'options_cb' => 'srmp3_returnRayFaPre'
@@ -7153,75 +7495,96 @@ class Sonaar_Music_Admin {
                         'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
                         'quicktags' => true, // load Quicktags, can be used to pass settings directly to Quicktags using an array()
                     ),
-                    'default'           => __('
-                    <h1>{LICENSE_NAME}</h1>
+                    'default'           => sprintf(
+                         /* translators: %1$s: company name, %2$s: section spacing, %3$s: effective date, %4$s: producer name, %5$s: licensee name, %6$s: licensee address, %7$s: beat title, %8$s: payment type, %9$s: section break, %10$s: may or may not (conditional text), %11$s: number of radio stations, %12$s: number or name of an audiovisual work, %13$s: number of allowed downloads, %14$s: number of allowed monetized streams, %15$s: number of allowed monetized video streams, %16$s: number of allowed free downloads, %19$s: section header, %20$s: colon after section header, */
+                         esc_html__('%1$s
+%2$sThis License Agreement (the “Agreement”), having been made on and effective as of %3$s (the “Effective Date”) by and between %4$s (the “Producer” or “Licensor”); and you, %5$s (“You” or “Licensee”), residing at %6$s, sets forth the terms and conditions of the Licensee’s use, and the rights granted in, the Producer’s instrumental music file entitled %7$s (the “Beat”) in consideration for Licensee’s payment, on a so-called “%8$s” basis.%9$s
 
-                    <p>This License Agreement (the “Agreement”), having been made on and effective as of <strong>{CONTRACT_DATE}</strong> (the “Effective Date”) by and between <strong>{PRODUCER_ALIAS}</strong> (the “Producer” or “Licensor”); and you, <strong>{CUSTOMER_FULLNAME}</strong> (“You” or “Licensee”), residing at <strong>{CUSTOMER_ADDRESS}</strong>, sets forth the terms and conditions of the Licensee’s use, and the rights granted in, the Producer’s instrumental music file entitled <strong>{PRODUCT_TITLE}</strong> (the “Beat”) in consideration for Licensee’s payment, on a so-called “<strong>{LICENSE_NAME}</strong>” basis.</p>
+%2$sThis Agreement is issued solely in connection with and for Licensee use of the Beat pursuant and subject to all terms and conditions set forth herein.%9$s
 
-                    <p>This Agreement is issued solely in connection with and for Licensee use of the Beat pursuant and subject to all terms and conditions set forth herein.</p>
+%19$sLicense Fee:%20$s
+%2$sThe Licensee to shall make payment of the License Fee to Licensor on the date of this Agreement. All rights granted to Licensee by Producer in the Beat are conditional upon Licensee’s timely payment of the License Fee. The License Fee is a one-time payment for the rights granted to Licensee and this Agreement is not valid until the License Fee has been paid.%9$s
 
-                    <h3>License Fee:</h3>
-                    <p>The Licensee to shall make payment of the License Fee to Licensor on the date of this Agreement. All rights granted to Licensee by Producer in the Beat are conditional upon Licensee’s timely payment of the License Fee. The License Fee is a one-time payment for the rights granted to Licensee and this Agreement is not valid until the License Fee has been paid.</p>
+%19$sDelivery of the Beat:%20$s
+%2$sLicensor agrees to deliver the Beat as a high-quality file, as such terms are understood in the music industry. Licensor shall use commercially reasonable efforts to deliver the Beat to Licensee immediately after payment of the License Fee is made. Licensee will receive the Beat via email, to the email address Licensee provided to Licensor.%9$s
 
-                    <h3>Delivery of the Beat:</h3>
-                    <p>Licensor agrees to deliver the Beat as a high-quality file, as such terms are understood in the music industry. Licensor shall use commercially reasonable efforts to deliver the Beat to Licensee immediately after payment of the License Fee is made. Licensee will receive the Beat via email, to the email address Licensee provided to Licensor.</p>
+%19$sTerm:%20$s
+%2$sThe Term of this Agreement shall be ten (10) years and this license shall expire on the ten (10) year anniversary of the Effective Date.%9$s
 
-                    <h3>Term:</h3>
-                    <p>The Term of this Agreement shall be ten (10) years and this license shall expire on the ten (10) year anniversary of the Effective Date.</p>
+%19$sUse of the Beat:%20$s
+%2$sIn consideration for Licensee’s payment of the License Fee, the Producer hereby grants Licensee a limited non-exclusive, nontransferable license and the right to incorporate, include and/or use the Beat in the preparation of one (1) new song or to incorporate the Beat into a new piece of instrumental music created by the Licensee. Licensee may create the new song or new instrumental music by recording his/her written lyrics over the Beat and/or by incorporating portions/samples of the Beat into pre-existing instrumental music written, produced and/or owned by Licensee. The new song or piece of instrumental music created by the Licensee which incorporates some or all of the Beat shall be referred to as the “New Song”. Permission is granted to Licensee to modify the arrangement, length, tempo, or pitch of the Beat in preparation of the New Song for public release.%9$s
+%2$sThis License grants Licensee a worldwide, non-exclusive license to use the Beat as incorporated in the New Song in the manners and for the purposes expressly provided for herein, subject to the sale restrictions, limitations and prohibited uses stated in this Agreement. Licensee acknowledges and agrees that any and all rights granted to Licensee in the Beat pursuant to this Agreement are on a NON-EXCLUSIVE basis and Producer shall continue to license the Beat upon the same or similar terms and conditions as this Agreement to other potential third-party licensees.%9$s
+%2$sThe New Song may be used for any promotional purposes, including but not limited to, a release in a single format, for inclusion in a mixtape or free compilation of music bundled together (EP or album), and/or promotional, non-monetized digital streaming;%9$s
+%2$sLicensee %10$s perform the song publicly for-profit performances, including but not limited to, at a live performance (i.e. concert, festival, nightclub etc.), on terrestrial or satellite radio, and/or on the internet via third-party streaming services (Spotify, YouTube, iTunes Radio etc.). The New Song may be played on %11$s terrestrial or satellite radio stations;%9$s
+%2$sThe Licensee may use the New Song in synchronization with %12$s audiovisual work no longer than five (5) minutes in length (a “Video”). In the event that the New Song itself is longer than five (5) minutes in length, the Video may not play for longer than the length of the New Song. The Video may be broadcast on any television network and/or uploaded to the internet for digital streaming and/or free download by the public including but not limited to on YouTube and/or Vevo. Producer grants no other synchronization rights to Licensee;%9$s
+%2$sThe Licensee may make the New Song available for sale in physical and/or digital form and sell %13$s downloads/physical music products and are allowed %14$s monetized audio streams, %15$s monetized video streams and are allowed %16$s free downloads. The New Song may be available for sale as a single and/or included in a compilation of other songs bundled together by Licensee as an EP or a full-length Album. The New Song may be sold via digital retailers for permanent digital download in mp3 format and/or physical format, including compact disc and vinyl records. For clarity and avoidance of doubt, the Licensee does NOT have the right to sell the Beat in the form that it was delivered to Licensee. The Licensee must create a New Song (or instrumental as detailed above) for its rights under this provision to a vest. Any sale of the Beat in its original form by Licensee shall be a material breach of this Agreement and the Licensee shall be liable to the Licensor for damages as provided hereunder.%9$s
+%2$sSubject to the Licensee’s compliance with the terms and conditions of this Agreement, Licensee shall not be required to account or pay to Producer any royalties, fees, or monies paid to or collected by the Licensee (expressly excluding mechanical royalties), or which would otherwise be payable to Producer in connection with the use/exploitation of the New Song as set forth in this Agreement.%9$s
+%2$sRestrictions on the Use of the Beat: Licensee hereby agrees and acknowledges that it is expressly prohibited from taking any action(s) and from engaging in any use of the Beat or New Song in the manners, or for the purposes, set forth below:%9$s
+%2$sThe rights granted to Licensee are NON-TRANSFERABLE and that Licensee may not transfer or assign any of its rights hereunder to any third-party;%9$s
+%2$sThe Licensee shall not synchronize, or permit third parties to synchronize, the Beat or New Song with any audiovisual works EXCEPT as expressly provided for and pursuant to Paragraph 4(b)(iii) of this Agreement for use in one (1) Video. This restriction includes, but is not limited to, use of the Beat and/or New Song in television, commercials, film/movies, theatrical works, video games, and in any other form on the Internet which is not expressly permitted herein.%9$s
+%2$sThe Licensee shall not have the right to license or sublicense any use of the Beat or of the New Song, in whole or in part, for any so-called “samples”.%9$s
+%2$sLicensee shall not engage in any unlawful copying, streaming, duplicating, selling, lending, renting, hiring, broadcasting, uploading, or downloading to any database, servers, computers, peer to peer sharing, or other file-sharing services, posting on websites, or distribution of the Beat in the form, or a substantially similar form, as delivered to Licensee. Licensee may send the Beat file to any individual musician, engineer, studio manager or other people who are working on the New Song.%9$s
+%2$sTHE LICENSEE IS EXPRESSLY PROHIBITED FROM REGISTERING THE BEAT AND/OR NEW SONG WITH ANY CONTENT IDENTIFICATION SYSTEM, SERVICE PROVIDER, MUSIC DISTRIBUTOR, RECORD LABEL OR DIGITAL AGGREGATOR (for example TuneCore or CDBaby, and any other provider of user-generated content identification services). The purpose of this restriction is to prevent you from receiving a copyright infringement takedown notice from a third party who also received a non-exclusive license to use the Beat in a New Song. The Beat has already been tagged for Content Identification (as that term is used in the music industry) by Producer as a pre-emptive measure to protect all interested parties in the New Song. If you do not adhere to this policy, you are in violation of the terms of this License and your license to use the Beat and/or New Song may be revoked without notice or compensation to you.%9$s
+%2$sAs applicable to both the underlying composition in the Beat and to the master recording of the Beat: (i) The parties acknowledge and agree that the New Song is a “derivative work”, as that term is used in the United States Copyright Act; (ii) As applicable to the Beat and/or the New Song, there is no intention by the parties to create a joint work; and (iii) There is no intention by the Licensor to grant any rights in and/or to any other derivative works that may have been created by other third-party licensees.%9$s
 
-                    <h3>Use of the Beat:</h3>
-                    <p>In consideration for Licensee’s payment of the License Fee, the Producer hereby grants Licensee a limited non-exclusive, nontransferable license and the right to incorporate, include and/or use the Beat in the preparation of one (1) new song or to incorporate the Beat into a new piece of instrumental music created by the Licensee. Licensee may create the new song or new instrumental music by recording his/her written lyrics over the Beat and/or by incorporating portions/samples of the Beat into pre-existing instrumental music written, produced and/or owned by Licensee. The new song or piece of instrumental music created by the Licensee which incorporates some or all of the Beat shall be referred to as the “New Song”. Permission is granted to Licensee to modify the arrangement, length, tempo, or pitch of the Beat in preparation of the New Song for public release.</p>
-                    <p>This License grants Licensee a worldwide, non-exclusive license to use the Beat as incorporated in the New Song in the manners and for the purposes expressly provided for herein, subject to the sale restrictions, limitations and prohibited uses stated in this Agreement. Licensee acknowledges and agrees that any and all rights granted to Licensee in the Beat pursuant to this Agreement are on a NON-EXCLUSIVE basis and Producer shall continue to license the Beat upon the same or similar terms and conditions as this Agreement to other potential third-party licensees.</p>
-                    <p>The New Song may be used for any promotional purposes, including but not limited to, a release in a single format, for inclusion in a mixtape or free compilation of music bundled together (EP or album), and/or promotional, non-monetized digital streaming;</p>
-                    <p>Licensee <strong>{PERFORMANCES_FOR_PROFIT}</strong> perform the song publicly for-profit performances, including but not limited to, at a live performance (i.e. concert, festival, nightclub etc.), on terrestrial or satellite radio, and/or on the internet via third-party streaming services (Spotify, YouTube, iTunes Radio etc.). The New Song may be played on {NUMBER_OF_RADIO_STATIONS} terrestrial or satellite radio stations;</p>
-                    <p>The Licensee may use the New Song in synchronization with <strong>{MONETIZED_MUSIC_VIDEOS}</strong> audiovisual work no longer than five (5) minutes in length (a “Video”). In the event that the New Song itself is longer than five (5) minutes in length, the Video may not play for longer than the length of the New Song. The Video may be broadcast on any television network and/or uploaded to the internet for digital streaming and/or free download by the public including but not limited to on YouTube and/or Vevo. Producer grants no other synchronization rights to Licensee;</p>
-                    <p>The Licensee may make the New Song available for sale in physical and/or digital form and sell <strong>{DISTRIBUTE_COPIES}</strong> downloads/physical music products and are allowed <strong>{AUDIO_STREAMS}</strong> monetized audio streams, <strong>{MONETIZED_VIDEO_STREAMS_ALLOWED}</strong> monetized video streams and are allowed <strong>{FREE_DOWNLOADS}</strong> free downloads. The New Song may be available for sale as a single and/or included in a compilation of other songs bundled together by Licensee as an EP or a full-length Album. The New Song may be sold via digital retailers for permanent digital download in mp3 format and/or physical format, including compact disc and vinyl records. For clarity and avoidance of doubt, the Licensee does NOT have the right to sell the Beat in the form that it was delivered to Licensee. The Licensee must create a New Song (or instrumental as detailed above) for its rights under this provision to a vest. Any sale of the Beat in its original form by Licensee shall be a material breach of this Agreement and the Licensee shall be liable to the Licensor for damages as provided hereunder.</p>
-                    <p>Subject to the Licensee’s compliance with the terms and conditions of this Agreement, Licensee shall not be required to account or pay to Producer any royalties, fees, or monies paid to or collected by the Licensee (expressly excluding mechanical royalties), or which would otherwise be payable to Producer in connection with the use/exploitation of the New Song as set forth in this Agreement.</p>
-                    <p>Restrictions on the Use of the Beat: Licensee hereby agrees and acknowledges that it is expressly prohibited from taking any action(s) and from engaging in any use of the Beat or New Song in the manners, or for the purposes, set forth below:</p>
-                    <p>The rights granted to Licensee are NON-TRANSFERABLE and that Licensee may not transfer or assign any of its rights hereunder to any third-party;</p>
-                    <p>The Licensee shall not synchronize, or permit third parties to synchronize, the Beat or New Song with any audiovisual works EXCEPT as expressly provided for and pursuant to Paragraph 4(b)(iii) of this Agreement for use in one (1) Video. This restriction includes, but is not limited to, use of the Beat and/or New Song in television, commercials, film/movies, theatrical works, video games, and in any other form on the Internet which is not expressly permitted herein.</p>
-                    <p>The Licensee shall not have the right to license or sublicense any use of the Beat or of the New Song, in whole or in part, for any so-called “samples”.</p>
-                    <p>Licensee shall not engage in any unlawful copying, streaming, duplicating, selling, lending, renting, hiring, broadcasting, uploading, or downloading to any database, servers, computers, peer to peer sharing, or other file-sharing services, posting on websites, or distribution of the Beat in the form, or a substantially similar form, as delivered to Licensee. Licensee may send the Beat file to any individual musician, engineer, studio manager or other people who are working on the New Song.</p>
-                    <p>THE LICENSEE IS EXPRESSLY PROHIBITED FROM REGISTERING THE BEAT AND/OR NEW SONG WITH ANY CONTENT IDENTIFICATION SYSTEM, SERVICE PROVIDER, MUSIC DISTRIBUTOR, RECORD LABEL OR DIGITAL AGGREGATOR (for example TuneCore or CDBaby, and any other provider of user-generated content identification services). The purpose of this restriction is to prevent you from receiving a copyright infringement takedown notice from a third party who also received a non-exclusive license to use the Beat in a New Song. The Beat has already been tagged for Content Identification (as that term is used in the music industry) by Producer as a pre-emptive measure to protect all interested parties in the New Song. If you do not adhere to this policy, you are in violation of the terms of this License and your license to use the Beat and/or New Song may be revoked without notice or compensation to you.</p>
-                    <p>As applicable to both the underlying composition in the Beat and to the master recording of the Beat: (i) The parties acknowledge and agree that the New Song is a “derivative work”, as that term is used in the United States Copyright Act; (ii) As applicable to the Beat and/or the New Song, there is no intention by the parties to create a joint work; and (iii) There is no intention by the Licensor to grant any rights in and/or to any other derivative works that may have been created by other third-party licensees.</p>
+%19$sOwnership:%20$s
+%2$sThe Producer is and shall remain the sole owner and holder of all rights, title, and interest in the Beat, including all copyrights to and in the sound recording and the underlying musical compositions written and composed by Producer. Nothing contained herein shall constitute an assignment by Producer to Licensee of any of the foregoing rights. Licensee may not, under any circumstances, register or attempt to register the New Song and/or the Beat with the U.S. Copyright Office. The aforementioned right to register the New Song and/or the Beat shall be strictly limited to Producer. Licensee will, upon request, execute, acknowledge and deliver to Producer such additional documents as Producer may deem necessary to evidence and effectuate Producer’s rights hereunder, and Licensee hereby grants to Producer the right as attorney-in-fact to execute, acknowledge, deliver and record in the U.S. Copyright Office or elsewhere any and all such documents if Licensee shall fail to execute same within five (5) days after so requested by Producer.%9$s
+%2$sFor the avoidance of doubt, you do not own the master or the sound recording rights in the New Song. You have been licensed the right to use the Beat in the New Song and to commercially exploit the New Song based on the terms and conditions of this Agreement.%9$s
+%2$sNotwithstanding the above, you do own the lyrics or other original musical components of the New Song that were written or composed solely by you.%9$s
+%2$sWith respect to the publishing rights and ownership of the underlying composition embodied in the New Song, the Licensee, and the Producer hereby acknowledge and agree that the underlying composition shall be owned/split between them as follows:%9$s
+%2$sProducer shall own, control, and administer Fifty Percent (50%%) of the so-called “Publisher’s Share” of the underlying composition.%9$s
+%2$sIn the event that Licensee wishes to register his/her interests and rights to the underlying composition of the New Song with their Performing Rights Organization (“PRO”), Licensee must simultaneously identify and register the Producer’s share and ownership interest in the composition to indicate that Producer wrote and owns 50%% of the composition in the New Song and as the owner of 50%% of the Publisher’s share of the New Song.%9$s
+%2$sThe licensee shall be deemed to have signed, affirmed and ratified its acceptance of the terms of this Agreement by virtue of its payment of the License Fee to Licensor and its electronic acceptance of its terms and conditions at the time Licensee made payment of the License Fee.%9$s
+%2$sMechanical License: If any selection or musical composition, or any portion thereof, recorded in the New Song hereunder is written or composed by Producer, in whole or in part, alone or in collaboration with others, or is owned or controlled, in whole or in part, directly or indirectly, by Producer or any person, firm, or corporation in which Producer has a direct or indirect interest, then such selection and/or musical composition shall be hereinafter referred to as a “Controlled Composition”.%9$s
+%2$sProducer hereby agrees to issue or cause to be issued, as applicable, to Licensee, mechanical licenses in respect of each Controlled Composition, which are embodied on the New Song. For that license, on the United States and Canada sales, Licensee will pay mechanical royalties at one hundred percent (100%%) of the minimum statutory rate, subject to no cap of that rate for albums and/or EPs. For license outside the United States and Canada, the mechanical royalty rate will be the rate prevailing on an industry-wide basis in the country concerned on the date that this agreement has been entered into.%9$s
 
-                    <h3>Ownership:</h3>
-                    <p>The Producer is and shall remain the sole owner and holder of all rights, title, and interest in the Beat, including all copyrights to and in the sound recording and the underlying musical compositions written and composed by Producer. Nothing contained herein shall constitute an assignment by Producer to Licensee of any of the foregoing rights. Licensee may not, under any circumstances, register or attempt to register the New Song and/or the Beat with the U.S. Copyright Office. The aforementioned right to register the New Song and/or the Beat shall be strictly limited to Producer. Licensee will, upon request, execute, acknowledge and deliver to Producer such additional documents as Producer may deem necessary to evidence and effectuate Producer’s rights hereunder, and Licensee hereby grants to Producer the right as attorney-in-fact to execute, acknowledge, deliver and record in the U.S. Copyright Office or elsewhere any and all such documents if Licensee shall fail to execute same within five (5) days after so requested by Producer.</p>
-                    <p>For the avoidance of doubt, you do not own the master or the sound recording rights in the New Song. You have been licensed the right to use the Beat in the New Song and to commercially exploit the New Song based on the terms and conditions of this Agreement.</p>
-                    <p>Notwithstanding the above, you do own the lyrics or other original musical components of the New Song that were written or composed solely by you.</p>
-                    <p>With respect to the publishing rights and ownership of the underlying composition embodied in the New Song, the Licensee, and the Producer hereby acknowledge and agree that the underlying composition shall be owned/split between them as follows:</p>
-                    <p>Producer shall own, control, and administer Fifty Percent (50%) of the so-called “Publisher’s Share” of the underlying composition.</p>
-                    <p>In the event that Licensee wishes to register his/her interests and rights to the underlying composition of the New Song with their Performing Rights Organization (“PRO”), Licensee must simultaneously identify and register the Producer’s share and ownership interest in the composition to indicate that Producer wrote and owns 50% of the composition in the New Song and as the owner of 50% of the Publisher’s share of the New Song.</p>
-                    <p>The licensee shall be deemed to have signed, affirmed and ratified its acceptance of the terms of this Agreement by virtue of its payment of the License Fee to Licensor and its electronic acceptance of its terms and conditions at the time Licensee made payment of the License Fee.</p>
-                    <p>Mechanical License: If any selection or musical composition, or any portion thereof, recorded in the New Song hereunder is written or composed by Producer, in whole or in part, alone or in collaboration with others, or is owned or controlled, in whole or in part, directly or indirectly, by Producer or any person, firm, or corporation in which Producer has a direct or indirect interest, then such selection and/or musical composition shall be hereinafter referred to as a “Controlled Composition”.</p>
-                    <p>Producer hereby agrees to issue or cause to be issued, as applicable, to Licensee, mechanical licenses in respect of each Controlled Composition, which are embodied on the New Song. For that license, on the United States and Canada sales, Licensee will pay mechanical royalties at one hundred percent (100%) of the minimum statutory rate, subject to no cap of that rate for albums and/or EPs. For license outside the United States and Canada, the mechanical royalty rate will be the rate prevailing on an industry-wide basis in the country concerned on the date that this agreement has been entered into.</p>
+%19$sCredit:%20$s
+%2$sLicensee shall have the right to use and permit others to use Producer’s approved name, approved likeness, and other approved identification and approved biographical material concerning the Producer solely for purposes of trade and otherwise without restriction solely in connection with the New Song recorded hereunder.%9$s
+%2$sLicensee shall use best efforts to have Producer credited as a “producer” and shall give Producer appropriate production and songwriting credit on all compact discs, record, music video, and digital labels or any other record configuration manufactured which is now known or created in the future that embodies the New Song created hereunder and on all cover liner notes, any records containing the New Song and on the front and/or back cover of any album listing the New Song and other musician credits. The licensee shall use its best efforts to ensure that Producer is properly credited and Licensee shall check all proofs for the accuracy of credits, and shall use its best efforts to cure any mistakes regarding Producers credit. In the event of any failure by Licensee to issue the credit to Producer, Licensee must use reasonable efforts to correct any such failure immediately and on a prospective basis. Such credit shall be in the substantial form: “Produced by %4$s”.%9$s
+%2$sLicensor Option: Licensor shall have the option, at Licensors sole discretion, to terminate this License at any time within three (3) years of the date of this Agreement upon written notice to Licensee. In the event that Licensor exercises this option, Licensor shall pay to Licensee a sum equal to Two Hundred Percent (200%%) of the License Fee paid by Licensee. Upon Licensor’s exercise of the option, Licensee must immediately remove the New Song from any and all digital and physical distribution channels and must immediately cease access to any streams and/or downloads of the New Song by the general public.%9$s
 
-                    <h3>Credit:</h3>
-                    <p>Licensee shall have the right to use and permit others to use Producer’s approved name, approved likeness, and other approved identification and approved biographical material concerning the Producer solely for purposes of trade and otherwise without restriction solely in connection with the New Song recorded hereunder.</p>
-                    <p>Licensee shall use best efforts to have Producer credited as a “producer” and shall give Producer appropriate production and songwriting credit on all compact discs, record, music video, and digital labels or any other record configuration manufactured which is now known or created in the future that embodies the New Song created hereunder and on all cover liner notes, any records containing the New Song and on the front and/or back cover of any album listing the New Song and other musician credits. The licensee shall use its best efforts to ensure that Producer is properly credited and Licensee shall check all proofs for the accuracy of credits, and shall use its best efforts to cure any mistakes regarding Producers credit. In the event of any failure by Licensee to issue the credit to Producer, Licensee must use reasonable efforts to correct any such failure immediately and on a prospective basis. Such credit shall be in the substantial form: “Produced by <strong>{PRODUCER_ALIAS}</strong>”.</p>
-                    <p>Licensor Option: Licensor shall have the option, at Licensors sole discretion, to terminate this License at any time within three (3) years of the date of this Agreement upon written notice to Licensee. In the event that Licensor exercises this option, Licensor shall pay to Licensee a sum equal to Two Hundred Percent (200%) of the License Fee paid by Licensee. Upon Licensor’s exercise of the option, Licensee must immediately remove the New Song from any and all digital and physical distribution channels and must immediately cease access to any streams and/or downloads of the New Song by the general public.</p>
+%19$sBreach by Licensee:%20$s
+%2$sThe licensee shall have five (5) business days from its receipt of written notice by Producer and/or Producer’s authorized representative to cure any alleged breach of this Agreement by Licensee. Licensee’s failure to cure the alleged breach within five (5) business days shall result in Licensee’s default of its obligations, its breach of this Agreement, and at Producer’s sole discretion, the termination of Licensee’s rights hereunder.%9$s
+%2$sIf Licensee engages in the commercial exploitation and/or sale of the Beat or New Song outside of the manner and amount expressly provided for in this Agreement, Licensee shall be liable to Producer for monetary damages in an amount equal to any and all monies paid, collected by, or received by Licensee, or any third party on its behalf, in connection with such unauthorized commercial exploitation of the Beat and/or New Song.%9$s
+%2$sLicensee recognizes and agrees that a breach or threatened breach of this Agreement by Licensee give rise to irreparable injury to Producer, which may not be adequately compensated by damages. Accordingly, in the event of a breach or threatened breach by the Licensee of the provisions of this Agreement, Producer may seek and shall be entitled to a temporary restraining order and a preliminary injunction restraining the Licensee from violating the provisions of this Agreement. Nothing herein shall prohibit Producer from pursuing any other available legal or equitable remedy from such breach or threatened breach, including but not limited to the recovery of damages from the Licensee. The Licensee shall be responsible for all costs, expenses or damages that Producer incurs as a result of any violation by the Licensee of any provision of this Agreement. Licensee’ obligation shall include court costs, litigation expenses, and reasonable attorneys’ fees.%9$s
 
-                    <h3>Breach by Licensee:</h3>
-                    <p>The licensee shall have five (5) business days from its receipt of written notice by Producer and/or Producer’s authorized representative to cure any alleged breach of this Agreement by Licensee. Licensee’s failure to cure the alleged breach within five (5) business days shall result in Licensee’s default of its obligations, its breach of this Agreement, and at Producer’s sole discretion, the termination of Licensee’s rights hereunder.</p>
-                    <p>If Licensee engages in the commercial exploitation and/or sale of the Beat or New Song outside of the manner and amount expressly provided for in this Agreement, Licensee shall be liable to Producer for monetary damages in an amount equal to any and all monies paid, collected by, or received by Licensee, or any third party on its behalf, in connection with such unauthorized commercial exploitation of the Beat and/or New Song.</p>
-                    <p>Licensee recognizes and agrees that a breach or threatened breach of this Agreement by Licensee give rise to irreparable injury to Producer, which may not be adequately compensated by damages. Accordingly, in the event of a breach or threatened breach by the Licensee of the provisions of this Agreement, Producer may seek and shall be entitled to a temporary restraining order and a preliminary injunction restraining the Licensee from violating the provisions of this Agreement. Nothing herein shall prohibit Producer from pursuing any other available legal or equitable remedy from such breach or threatened breach, including but not limited to the recovery of damages from the Licensee. The Licensee shall be responsible for all costs, expenses or damages that Producer incurs as a result of any violation by the Licensee of any provision of this Agreement. Licensee’ obligation shall include court costs, litigation expenses, and reasonable attorneys’ fees.</p>
+%19$sWarranties, Representations, and Indemnification:%20$s
+%2$sLicensee hereby agrees that Licensor has not made any guarantees or promises that the Beat fits the particular creative use or musical purpose intended or desired by the Licensee. The Beat, its sound recording, and the underlying musical composition embodied therein are licensed to the Licensee “as is” without warranties of any kind or fitness for a particular purpose.%9$s
+%2$sProducer warrants and represents that he has the full right and ability to enter into this agreement, and is not under any disability, restriction, or prohibition with respect to the grant of rights hereunder. Producer warrants that the manufacture, sale, distribution, or other exploitation of the New Song hereunder will not infringe upon or violate any common law or statutory right of any person, firm, or corporation; including, without limitation, contractual rights, copyrights, and right(s) of privacy and publicity and will not constitute libel and/or slander.%9$s
+%2$sLicensee warrants that the manufacture, sale, distribution, or other exploitation of the New Song hereunder will not infringe upon or violate any common law or statutory right of any person, firm, or corporation; including, without limitation, contractual rights, copyrights, and right(s) of privacy and publicity and will not constitute libel and/or slander. The foregoing notwithstanding, Producer undertakes no responsibility whatsoever as to any elements added to the New Song by Licensee, and Licensee indemnifies and holds Producer harmless for any such elements. Producer warrants that he did not “sample” (as that term is commonly understood in the recording industry) any copyrighted material or sound recordings belonging to any other person, firm, or corporation (hereinafter referred to as “Owner”) without first having notified Licensee.%9$s
+%2$sThe licensee shall have no obligation to approve the use of any sample thereof; however, if approved, any payment in connection therewith, including any associated legal clearance costs, shall be borne by Licensee. Knowledge by Licensee that “samples” were used by Producer which was not affirmatively disclosed by Producer to Licensee shall shift, in whole or in part, the liability for infringement or violation of the rights of any third party arising from the use of any such “sample” from Producer to Licensee.%9$s
+%2$sParties hereto shall indemnify and hold each other harmless from any and all third party claims, liabilities, costs, losses, damages or expenses as are actually incurred by the non-defaulting party and shall hold the non-defaulting party, free, safe, and harmless against and from any and all claims, suits, demands, costs, liabilities, loss, damages, judgments, recoveries, costs, and expenses; (including, without limitation, reasonable attorneys’ fees), which may be made or brought, paid, or incurred by reason of any breach or claim of breach of the warranties and representations hereunder by the defaulting party, their agents, heirs, successors, assigns and employees, which have been reduced to final judgment;%9$s
+%2$sprovided that prior to final judgment, arising out of any breach of any representations or warranties of the defaulting party contained in this agreement or any failure by defaulting party to perform any obligations on its part to be performed hereunder the non-defaulting party has given the defaulting party prompt written notice of all claims and the right to participate in the defense with counsel of its choice at its sole expense. In no event shall Artist be entitled to seek injunctive or any other equitable relief for any breach or non-compliance with any provision of this agreement.%9$s
 
-                    <h3>Warranties, Representations, and Indemnification:</h3>
-                    <p>Licensee hereby agrees that Licensor has not made any guarantees or promises that the Beat fits the particular creative use or musical purpose intended or desired by the Licensee. The Beat, its sound recording, and the underlying musical composition embodied therein are licensed to the Licensee “as is” without warranties of any kind or fitness for a particular purpose.</p>
-                    <p>Producer warrants and represents that he has the full right and ability to enter into this agreement, and is not under any disability, restriction, or prohibition with respect to the grant of rights hereunder. Producer warrants that the manufacture, sale, distribution, or other exploitation of the New Song hereunder will not infringe upon or violate any common law or statutory right of any person, firm, or corporation; including, without limitation, contractual rights, copyrights, and right(s) of privacy and publicity and will not constitute libel and/or slander.</p>
-                    <p>Licensee warrants that the manufacture, sale, distribution, or other exploitation of the New Song hereunder will not infringe upon or violate any common law or statutory right of any person, firm, or corporation; including, without limitation, contractual rights, copyrights, and right(s) of privacy and publicity and will not constitute libel and/or slander. The foregoing notwithstanding, Producer undertakes no responsibility whatsoever as to any elements added to the New Song by Licensee, and Licensee indemnifies and holds Producer harmless for any such elements. Producer warrants that he did not “sample” (as that term is commonly understood in the recording industry) any copyrighted material or sound recordings belonging to any other person, firm, or corporation (hereinafter referred to as “Owner”) without first having notified Licensee.</p>
-                    <p>The licensee shall have no obligation to approve the use of any sample thereof; however, if approved, any payment in connection therewith, including any associated legal clearance costs, shall be borne by Licensee. Knowledge by Licensee that “samples” were used by Producer which was not affirmatively disclosed by Producer to Licensee shall shift, in whole or in part, the liability for infringement or violation of the rights of any third party arising from the use of any such “sample” from Producer to Licensee.</p>
-                    <p>Parties hereto shall indemnify and hold each other harmless from any and all third party claims, liabilities, costs, losses, damages or expenses as are actually incurred by the non-defaulting party and shall hold the non-defaulting party, free, safe, and harmless against and from any and all claims, suits, demands, costs, liabilities, loss, damages, judgments, recoveries, costs, and expenses; (including, without limitation, reasonable attorneys’ fees), which may be made or brought, paid, or incurred by reason of any breach or claim of breach of the warranties and representations hereunder by the defaulting party, their agents, heirs, successors, assigns and employees, which have been reduced to final judgment;</p>
-                    <p>provided that prior to final judgment, arising out of any breach of any representations or warranties of the defaulting party contained in this agreement or any failure by defaulting party to perform any obligations on its part to be performed hereunder the non-defaulting party has given the defaulting party prompt written notice of all claims and the right to participate in the defense with counsel of its choice at its sole expense. In no event shall Artist be entitled to seek injunctive or any other equitable relief for any breach or non-compliance with any provision of this agreement.</p>
-
-                    <h3>Miscellaneous:</h3>
-                    <p>This Agreement constitutes the entire understanding of the parties and is intended as a final expression of their agreement and cannot be altered, modified, amended or waived, in whole or in part, except by written instrument (email being sufficient) signed by both parties hereto. This agreement supersedes all prior agreements between the parties, whether oral or written. Should any provision of this agreement be held to be void, invalid or inoperative, such decision shall not affect any other provision hereof, and the remainder of this agreement shall be effective as though such void, invalid or inoperative provision had not been contained herein.</p>
-                    <p>No failure by Licensor hereto to perform any of its obligations hereunder shall be deemed a material breach of this agreement until the Licensee gives Licensor written notice of its failure to perform, and such failure has not been corrected within thirty (30) days from and after the service of such notice, or, if such breach is not reasonably capable of being cured within such thirty (30) day period, Licensor does not commence to cure such breach within said time period, and proceed with reasonable diligence to complete the curing of such breach thereafter. This agreement shall be governed by and interpreted in accordance with the laws of the <strong>{STATE_PROVINCE_COUNTRY}</strong> applicable to agreements entered into and wholly performed in said State, without regard to any conflict of laws principles.</p>
-                    <p>You hereby agree that the exclusive jurisdiction and venue for any action, suit or proceeding based upon any matter, claim or controversy arising hereunder or relating hereto shall be in the state or federal courts located in the <strong>{STATE_PROVINCE_COUNTRY}</strong>. You shall not be entitled to any monies in connection with the Master(s) other than as specifically set forth herein.</p>
-                    <p>All notices pursuant to this agreement shall be in writing and shall be given by registered or certified mail, return receipt requested (prepaid) at the respective addresses hereinabove set forth or such other address or addresses as may be designated by either party. Such notices shall be deemed given when received. A copy of all such notices sent to Producer shall be concurrently sent to [[lawfirm_name_address]]. Any notice mailed will be deemed to have been received five (5) business days after it is mailed; any notice dispatched by expedited delivery service will be deemed to be received two (2) business days after it is dispatched.</p>
-                    <p>YOU ACKNOWLEDGE AND AGREE THAT YOU HAVE READ THIS AGREEMENT AND HAVE BEEN ADVISED BY US OF THE SIGNIFICANT IMPORTANCE OF RETAINING AN INDEPENDENT ATTORNEY OF YOUR CHOICE TO REVIEW THIS AGREEMENT ON YOUR BEHALF. YOU ACKNOWLEDGE AND AGREE THAT YOU HAVE HAD THE UNRESTRICTED OPPORTUNITY TO BE REPRESENTED BY AN INDEPENDENT ATTORNEY. IN THE EVENT OF YOUR FAILURE TO OBTAIN AN INDEPENDENT ATTORNEY OR WAIVER THEREOF, YOU HEREBY WARRANT AND REPRESENT THAT YOU WILL NOT ATTEMPT TO USE SUCH FAILURE AND/OR WAIVER as a basis to avoid any obligations under this agreement, or to invalidate this agreement or To render this agreement or any part thereof unenforceable.</p>
-                    <p>This agreement may be executed in counterparts, each of which shall be deemed an original, and said counterparts shall constitute one and the same instrument. In addition, a signed copy of this agreement transmitted by facsimile or scanned into an image file and transmitted via email shall, for all purposes, be treated as if it was delivered containing an original manual signature of the party whose signature appears thereon and shall be binding upon such party as though an originally signed document had been delivered. Notwithstanding the foregoing, in the event that you do not sign this Agreement, your acknowledgment that you have reviewed the terms and conditions of this Agreement and your payment of the License Fee shall serve as your signature and acceptance of the terms and conditions of this Agreement.</p>
-                    ', 'sonaar-music'),
+%19$sMiscellaneous:%20$s
+%2$sThis Agreement constitutes the entire understanding of the parties and is intended as a final expression of their agreement and cannot be altered, modified, amended or waived, in whole or in part, except by written instrument (email being sufficient) signed by both parties hereto. This agreement supersedes all prior agreements between the parties, whether oral or written. Should any provision of this agreement be held to be void, invalid or inoperative, such decision shall not affect any other provision hereof, and the remainder of this agreement shall be effective as though such void, invalid or inoperative provision had not been contained herein.%9$s
+%2$sNo failure by Licensor hereto to perform any of its obligations hereunder shall be deemed a material breach of this agreement until the Licensee gives Licensor written notice of its failure to perform, and such failure has not been corrected within thirty (30) days from and after the service of such notice, or, if such breach is not reasonably capable of being cured within such thirty (30) day period, Licensor does not commence to cure such breach within said time period, and proceed with reasonable diligence to complete the curing of such breach thereafter. This agreement shall be governed by and interpreted in accordance with the laws of the %17$s applicable to agreements entered into and wholly performed in said State, without regard to any conflict of laws principles.%9$s
+%2$sYou hereby agree that the exclusive jurisdiction and venue for any action, suit or proceeding based upon any matter, claim or controversy arising hereunder or relating hereto shall be in the state or federal courts located in the %17$s. You shall not be entitled to any monies in connection with the Master(s) other than as specifically set forth herein.%9$s
+%2$sAll notices pursuant to this agreement shall be in writing and shall be given by registered or certified mail, return receipt requested (prepaid) at the respective addresses hereinabove set forth or such other address or addresses as may be designated by either party. Such notices shall be deemed given when received. A copy of all such notices sent to Producer shall be concurrently sent to  %18$s. Any notice mailed will be deemed to have been received five (5) business days after it is mailed; any notice dispatched by expedited delivery service will be deemed to be received two (2) business days after it is dispatched.%9$s
+%2$sYOU ACKNOWLEDGE AND AGREE THAT YOU HAVE READ THIS AGREEMENT AND HAVE BEEN ADVISED BY US OF THE SIGNIFICANT IMPORTANCE OF RETAINING AN INDEPENDENT ATTORNEY OF YOUR CHOICE TO REVIEW THIS AGREEMENT ON YOUR BEHALF. YOU ACKNOWLEDGE AND AGREE THAT YOU HAVE HAD THE UNRESTRICTED OPPORTUNITY TO BE REPRESENTED BY AN INDEPENDENT ATTORNEY. IN THE EVENT OF YOUR FAILURE TO OBTAIN AN INDEPENDENT ATTORNEY OR WAIVER THEREOF, YOU HEREBY WARRANT AND REPRESENT THAT YOU WILL NOT ATTEMPT TO USE SUCH FAILURE AND/OR WAIVER as a basis to avoid any obligations under this agreement, or to invalidate this agreement or To render this agreement or any part thereof unenforceable.%9$s
+%2$sThis agreement may be executed in counterparts, each of which shall be deemed an original, and said counterparts shall constitute one and the same instrument. In addition, a signed copy of this agreement transmitted by facsimile or scanned into an image file and transmitted via email shall, for all purposes, be treated as if it was delivered containing an original manual signature of the party whose signature appears thereon and shall be binding upon such party as though an originally signed document had been delivered. Notwithstanding the foregoing, in the event that you do not sign this Agreement, your acknowledgment that you have reviewed the terms and conditions of this Agreement and your payment of the License Fee shall serve as your signature and acceptance of the terms and conditions of this Agreement.%9$s
+                        ', 'sonaar-music'), 
+                        '<h1>{LICENSE_NAME}</h1>', //%1$s
+                        '<p>', //%2$s
+                        '<strong>{CONTRACT_DATE}</strong>', //%3$s
+                        '<strong>{PRODUCER_ALIAS}</strong>', //%4$s
+                        '<strong>{CUSTOMER_FULLNAME}</strong>', //%5$s
+                        '<strong>{CUSTOMER_ADDRESS}</strong>', //%6$s
+                        '<strong>{PRODUCT_TITLE}</strong>', //%7$s
+                        '<strong>{LICENSE_TYPE}</strong>', //%8$s
+                        '</p>', //%9$s
+                        '<strong>{PERFORMANCES_FOR_PROFIT}</strong>', //%10$s
+                        '{NUMBER_OF_RADIO_STATIONS}', //%11$s
+                        '{NUMBER_OF_VIDEO_STREAMS}', //%12$s
+                        '<strong>{DISTRIBUTE_COPIES}</strong>', //%13$s
+                        '<strong>{AUDIO_STREAMS}</strong>', //%14$s
+                        '<strong>{MONETIZED_VIDEO_STREAMS_ALLOWED}</strong>', //%15$s
+                        '<strong>{FREE_DOWNLOADS}</strong>', //%16$s
+                        '<strong>{STATE_PROVINCE_COUNTRY}</strong>', //%17$s
+                        '[[lawfirm_name_address]]', //%18$s
+                        '<h3>', //%19$s
+                        '</h3>', //%20$s
+                        ),
                 ));
                 $cmb_post_usageterms->add_field( array(
                     'name'          => esc_html__('Use the variables below to build your contract', 'sonaar-music'),
@@ -7231,130 +7594,130 @@ class Sonaar_Music_Admin {
                 if(function_exists('acf')){
                     $cmb_post_usageterms->add_field( array(
                         'classes'       => 'srmp3-var-licensecontract',
-                        'name'          => esc_html__('{acf_Your-ACF-ID-Here}', 'sonaar-music'),
+                        'name'          => esc_html('{acf_Your-ACF-ID-Here}'),
                         'type'          => 'title',
-                        'description'   => __( 'Want to use ACF Field from your product ?<br> use the ACF ID prefixed with {acf_xxxx}', 'sonaar-music' ),
+                        'description'   => sprintf( esc_html__( 'Want to use ACF Field from your product ?%s use the ACF ID prefixed with {acf_xxxx}', 'sonaar-music' ), '<br>' ),
                         'id'            => 'var_usageterms_acf'
                     ) );
                 }
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{LICENSE_NAME}', 'sonaar-music'),
+                    'name'          => esc_html('{LICENSE_NAME}'),
                     'type'          => 'title',
-                    'description'   => __( 'Name of this license', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Name of this license', 'sonaar-music' ),
                     'id'            => 'var_usageterms_license'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{CONTRACT_DATE}', 'sonaar-music'),
+                    'name'          => esc_html('{CONTRACT_DATE}'),
                     'type'          => 'title',
-                    'description'   => __( 'Date of the contract', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Date of the contract', 'sonaar-music' ),
                     'id'            => 'var_usageterms_date'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{CUSTOMER_FULLNAME}', 'sonaar-music'),
+                    'name'          => esc_html('{CUSTOMER_FULLNAME}'),
                     'type'          => 'title',
-                    'description'   => __( 'Customer fullname', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Customer fullname', 'sonaar-music' ),
                     'id'            => 'var_usageterms_fullname'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{CUSTOMER_EMAIL}', 'sonaar-music'),
+                    'name'          => esc_html('{CUSTOMER_EMAIL}'),
                     'type'          => 'title',
-                    'description'   => __( 'Customer email address', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Customer email address', 'sonaar-music' ),
                     'id'            => 'var_usageterms_email'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{CUSTOMER_ADDRESS}', 'sonaar-music'),
+                    'name'          => esc_html('{CUSTOMER_ADDRESS}'),
                     'type'          => 'title',
-                    'description'   => __( 'Customer address', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Customer address', 'sonaar-music' ),
                     'id'            => 'var_usageterms_address'
                 ) );
                 
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{PRODUCER_ALIAS}', 'sonaar-music'),
+                    'name'          => esc_html('{PRODUCER_ALIAS}'),
                     'type'          => 'title',
-                    'description'   => __( 'Producer Name', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Producer Name', 'sonaar-music' ),
                     'id'            => 'var_usageterms_producer_alias'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{PRODUCT_TITLE}', 'sonaar-music'),
+                    'name'          => esc_html('{PRODUCT_TITLE}'),
                     'type'          => 'title',
-                    'description'   => __( 'Title of the purchased product', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Title of the purchased product', 'sonaar-music' ),
                     'id'            => 'var_usageterms_product_title'
                 ) );
                 /*$cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{PRODUCT_PRICE}', 'sonaar-music'),
+                    'name'          => esc_html('{PRODUCT_PRICE}'),
                     'type'          => 'title',
                     'description'   => __( 'Price of the purchased product', 'sonaar-music' ),
                     'id'            => 'var_usageterms_product_price'
                 ) );*/
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{PERFORMANCES_FOR_PROFIT}', 'sonaar-music'),
+                    'name'          => esc_html('{PERFORMANCES_FOR_PROFIT}'),
                     'type'          => 'title',
-                    'description'   => __( 'Allowed for profit live performance ?', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Allowed for profit live performance ?', 'sonaar-music' ),
                     'id'            => 'var_usageterms_performances_for_profit'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{NUMBER_OF_RADIO_STATIONS}', 'sonaar-music'),
+                    'name'          => esc_html('{NUMBER_OF_RADIO_STATIONS}'),
                     'type'          => 'title',
-                    'description'   => __( 'Number of radio stations allowed', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Number of radio stations allowed', 'sonaar-music' ),
                     'id'            => 'var_usageterms_radio_station'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{DISTRIBUTE_COPIES}', 'sonaar-music'),
+                    'name'          => esc_html('{DISTRIBUTE_COPIES}'),
                     'type'          => 'title',
-                    'description'   => __( 'Number of distribution copies allowed', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Number of distribution copies allowed', 'sonaar-music' ),
                     'id'            => 'var_usageterms_dist_copies'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{AUDIO_STREAMS}', 'sonaar-music'),
+                    'name'          => esc_html('{AUDIO_STREAMS}'),
                     'type'          => 'title',
-                    'description'   => __( 'Number of audio streams allowed', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Number of audio streams allowed', 'sonaar-music' ),
                     'id'            => 'var_usageterms_audiostreams'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{MONETIZED_VIDEO_STREAMS_ALLOWED}', 'sonaar-music'),
+                    'name'          => esc_html('{MONETIZED_VIDEO_STREAMS_ALLOWED}'),
                     'type'          => 'title',
-                    'description'   => __( 'Number of monitized music videos streams allowed', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Number of monitized music videos streams allowed', 'sonaar-music' ),
                     'id'            => 'var_usageterms_musicvideosstreams'
                 ) );
                 /*$cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{NONMONETIZED_VIDEO_STREAMS_ALLOWED}', 'sonaar-music'),
+                    'name'          => esc_html('{NONMONETIZED_VIDEO_STREAMS_ALLOWED}'),
                     'type'          => 'title',
                     'description'   => __( 'Number of non-monitized music videos streams allowed', 'sonaar-music' ),
                     'id'            => 'var_usageterms_nonmonitezmusicvideosstreams'
                 ) );*/
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{MONETIZED_MUSIC_VIDEOS}', 'sonaar-music'),
+                    'name'          => esc_html('{MONETIZED_MUSIC_VIDEOS}'),
                     'type'          => 'title',
-                    'description'   => __( 'Number of monitized music videos allowed', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Number of monitized music videos allowed', 'sonaar-music' ),
                     'id'            => 'var_usageterms_musicvideos'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{FREE_DOWNLOADS}', 'sonaar-music'),
+                    'name'          => esc_html('{FREE_DOWNLOADS}'),
                     'type'          => 'title',
-                    'description'   => __( 'Number of free downloads allowed', 'sonaar-music' ),
+                    'description'   => esc_html__( 'Number of free downloads allowed', 'sonaar-music' ),
                     'id'            => 'var_usageterms_freedownloads'
                 ) );
                 $cmb_post_usageterms->add_field( array(
                     'classes'       => 'srmp3-var-licensecontract',
-                    'name'          => esc_html__('{STATE_PROVINCE_COUNTRY}', 'sonaar-music'),
+                    'name'          => esc_html('{STATE_PROVINCE_COUNTRY}'),
                     'type'          => 'title',
-                    'description'   => __( 'States/Provinces and Country of the seller', 'sonaar-music' ),
+                    'description'   => esc_html__( 'States/Provinces and Country of the seller', 'sonaar-music' ),
                     'id'            => 'var_usageterms_state'
                 ) );
 
@@ -7473,7 +7836,7 @@ class Sonaar_Music_Admin {
     public function initCPT(){
         define('SR_PLAYLIST_CPT', $this->setPlaylistCPTName());
         delete_option('player_type');
-        
+        do_action('srmp3_cpt_defined');
 	}
     
     public function srmp3_create_postType(){

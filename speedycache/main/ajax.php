@@ -224,7 +224,6 @@ class Ajax{
 		$options['non_cache_group'] = !empty('non_cache_group') ? explode("\n", sanitize_textarea_field(wp_unslash('non_cache_group'))) : [];
 	
 		$speedycache->object = $options;
-		update_option('speedycache_object_cache', $options);
 		
 		if(!file_put_contents(\SpeedyCache\ObjectCache::$conf_file, json_encode($speedycache->object))){
 			wp_send_json_error(__('Unable to modify Object Cache Conf file, the issue might be related to permission on your server.', 'speedycache'));
@@ -239,13 +238,15 @@ class Ajax{
 		
 		try{
 			\SpeedyCache\ObjectCache::boot();
-		} catch(Exception $e) {
+		} catch(\Exception $e) {
 			wp_send_json_error($e->getMessage());
 			return;
 		}
 
 		\SpeedyCache\ObjectCache::flush_db();
 		\SpeedyCache\ObjectCache::$instance = null;
+		
+		update_option('speedycache_object_cache', $options); // We need to update at last only after object cache can be enabled.
 
 		wp_send_json_success();
 	}
@@ -583,7 +584,7 @@ class Ajax{
 
 		try{
 			\SpeedyCache\ObjectCache::boot();
-		} catch(Exception $e){
+		} catch(\Exception $e){
 			wp_send_json_error($e->getMessage());
 		}
 		

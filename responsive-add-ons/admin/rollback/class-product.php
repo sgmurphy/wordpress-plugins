@@ -64,6 +64,12 @@ class Product {
 	 */
 	private $store_url;
 	/**
+	 * Product author url.
+	 *
+	 * @var string $author_url The author url.
+	 */
+	private $author_url;
+	/**
 	 * Product install timestamp.
 	 *
 	 * @var int $install The date of install.
