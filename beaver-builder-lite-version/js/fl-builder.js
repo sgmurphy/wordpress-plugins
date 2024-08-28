@@ -6162,6 +6162,7 @@
 			}
 
 			FLBuilder._focusFirstSettingsControl();
+			FLBuilder._hideEditorPopups();
 
 			e.preventDefault();
 		},
@@ -9538,6 +9539,16 @@
 
 			$( '.wplink-autocomplete', window.parent.document ).remove();
 			$( '.ui-helper-hidden-accessible', window.parent.document ).remove();
+		},
+
+		/**
+		 * Hide all TinyMCE popups.
+		 *
+		 * @since 2.8
+		 */
+		_hideEditorPopups: function()
+		{
+			$( '.mce-inline-toolbar-grp', window.parent.document ).hide();
 		},
 
 		/**

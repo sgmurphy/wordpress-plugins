@@ -1,3 +1,9 @@
+#####   Version 5.0.1 (2024-08-28)
+
+- Fixed critical error produced by the Cache status bar
+- Fixed Test Cache functionality and reliability for Cloudflare
+- Improved the domain rules for caching
+
 ####   Version 5.0.0 (2024-08-27)
 
 - Super Page Cache for Cloudflare is now becoming Super Page Cache. While you can still enjoy the Cloudflare functionality, it is now optional. The plugin will work for your non-Cloudflare sites as well, with much more to come.

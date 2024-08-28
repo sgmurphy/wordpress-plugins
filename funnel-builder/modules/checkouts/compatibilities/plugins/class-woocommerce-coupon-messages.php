@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		ob_start();
 		foreach ( WFACP_Common::get_coupons() as $code => $coupon ) {
 
-			$remove_link = sprintf( "<a href='javascript:void(0)' class='wfacp_remove_coupon' data-coupon='%s'>%s</a>", $code, __( 'Remove', 'funnel-builder' ) );
+			$remove_link = sprintf( "<a href='javascript:void(0)' class='wfacp_remove_coupon' data-coupon='%s'>%s</a>", $code, __( 'Remove', 'woocommerce' ) );
 			$messages    .= sprintf( '<div class="wfacp_single_coupon_msg">%s %s</div>', $success_message, $remove_link );
 
 

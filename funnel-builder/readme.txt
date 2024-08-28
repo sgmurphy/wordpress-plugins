@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.5.1
+Stable tag: 3.5.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,9 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.5.2 (Aug 28, 2024) =
+* Fixed: Checkout - Field label for different billing/shipping was not editable in the backend. (#6616)
 
 = 3.5.1 (Aug 23, 2024) =
 * Fixed: Checkout - Advanced phone field flag were not showing correctly in devices with Retina Display since last update. (#6599)

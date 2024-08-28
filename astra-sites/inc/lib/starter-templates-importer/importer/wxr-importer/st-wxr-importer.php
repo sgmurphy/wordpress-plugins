@@ -391,6 +391,29 @@ class ST_WXR_Importer {
 			$defaults['ext']  = 'svg';
 		}
 
+		if ( 'svgz' === pathinfo( $filename, PATHINFO_EXTENSION ) ) {
+			// Perform SVG sanitization using the sanitize_svg function.
+			$svg_content     = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$decoded_content = gzdecode( $svg_content );
+
+			if ( false !== $decoded_content ) {
+				$svg_content = $decoded_content;
+			}
+			$sanitized_svg_content = $this->sanitize_svg( $svg_content );
+
+			if ( false !== $decoded_content ) {
+				$sanitized_svg_content = gzencode( $sanitized_svg_content );
+			}
+
+			// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents
+			file_put_contents( $file, $sanitized_svg_content );
+			// phpcs:enable WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents
+
+			// Update mime type and extension.
+			$defaults['type'] = 'image/svg+xml';
+			$defaults['ext']  = 'svgz';
+		}
+
 		return $defaults;
 	}
 	/**

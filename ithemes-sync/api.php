@@ -19,7 +19,7 @@ Version History
 	1.3.0 - 2014-03-25 - Chris Jean
 		Added: get-notices.
 	1.4.0 - 2014-07-01 - Chris Jean
-		Added: get-comment-details, get-options, get-role-details, get-user-details, manage-commments, manage-roles, manage-users.
+		Added: get-comment-details, get-options, get-role-details, get-user-details, manage-comments, manage-roles, manage-users.
 		register() now returns true when a Verb has been successfully registered.
 	1.4.1 - 2014-11-10 - Chris Jean
 		Changed init hook priority to 11 in order to avoid issues with some plugin updates not appearing.
@@ -28,9 +28,10 @@ Version History
 
 class Ithemes_Sync_API {
 	private $verbs = array();
-	
+
 	private $default_verbs = array(
 		'check-nonce'                  => 'Ithemes_Sync_Verb_Check_Nonce',
+		'create-application-password'  => 'Ithemes_Sync_Verb_Create_Application_Password',
 		'db-optimization'              => 'Ithemes_Sync_Verb_DB_Optimization',
 		'deauthenticate-user'          => 'Ithemes_Sync_Verb_Deauthenticate_User',
 		'do-update'                    => 'Ithemes_Sync_Verb_Do_Update',
@@ -48,6 +49,7 @@ class Ithemes_Sync_API {
 		'get-notices'                  => 'Ithemes_Sync_Verb_Get_Notices',
 		'get-role-details'             => 'Ithemes_Sync_Verb_Get_Role_Details',
 		'get-server-details'           => 'Ithemes_Sync_Verb_Get_Server_Details',
+		'get-server-lite-details'      => 'Ithemes_Sync_Verb_Get_Server_Lite_Details',
 		'get-status'                   => 'Ithemes_Sync_Verb_Get_Status',
 		'get-status-elements'          => 'Ithemes_Sync_Verb_Get_Status_Elements',
 		'get-supported-verbs'          => 'Ithemes_Sync_Verb_Get_Supported_Verbs',
@@ -73,159 +75,159 @@ class Ithemes_Sync_API {
 		'update-show-sync'             => 'Ithemes_Sync_Verb_Update_Show_Sync',
 		'update-google-site-verification-token' => 'Ithemes_Sync_Verb_Update_Google_Site_Verification_Token',
 	);
-	
+
 	public function __construct() {
 		@ini_set( 'display_errors', 0 );
 
 		$GLOBALS['ithemes-sync-api'] = $this;
-		
+
 		require_once( $GLOBALS['ithemes_sync_path'] . '/functions.php' );
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-		
+
 		// Gravity Forms Verbs
 		if ( class_exists( 'GFForms' ) ) {
 			$this->default_verbs['get-gf-forms']        = 'Ithemes_Sync_Verb_Get_GF_Forms';
 			$this->default_verbs['get-gf-form-entries'] = 'Ithemes_Sync_Verb_Get_GF_Form_Entries';
 		}
-		
+
 		// Yoast SEO Verbs
 		if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) || is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) ) {
 			$this->default_verbs['get-yoast-seo-summary'] = 'Ithemes_Sync_Verb_Get_Yoast_SEO_Summary';
 		}
-		
+
 		add_action( 'init', array( $this, 'init' ), 999999 );
 	}
-	
+
 	public function init() {
 		require_once( $GLOBALS['ithemes_sync_path'] . "/verbs/verb.php" );
-		
+
 		foreach ( $this->default_verbs as $name => $class ) {
 			$this->register( $name, $class, $GLOBALS['ithemes_sync_path'] . "/verbs/$name.php" );
 		}
-		
+
 		do_action( 'ithemes_sync_register_verbs', $this );
-		
+
 		do_action( 'ithemes_sync_verbs_registered' );
 	}
-	
+
 	public function register( $name, $class, $file = '' ) {
 		if ( isset( $this->verbs[$name] ) ) {
 			do_action( 'ithemes-sync-add-log', 'Tried to add a verb name that already exists.', compact( 'name', 'class', 'file' ) );
 			return false;
 		}
-		
+
 		$this->verbs[$name] = compact( 'name', 'class', 'file' );
-		
+
 		return true;
 	}
-	
+
 	public function get_names() {
 		return array_keys( $this->verbs );
 	}
-	
+
 	public function get_description( $name ) {
 		$class = $this->get_class( $name );
-		
+
 		if ( false === $class )
 			return '';
-		
-		
+
+
 		$vars = get_class_vars( $class );
-		
+
 		if ( isset( $vars['description'] ) )
 			return $vars['description'];
-		
+
 		return '';
 	}
-	
+
 	public function get_descriptions() {
 		$names = $this->get_names();
 		$descriptions = array();
-		
+
 		foreach ( $names as $name )
 			$descriptions[$name] = $this->get_description( $name );
-		
+
 		return $descriptions;
 	}
-	
+
 	public function get_status_element( $name ) {
 		$class = $this->get_class( $name );
-		
+
 		if ( false === $class ) {
 			return false;
 		}
-		
-		
+
+
 		$vars = get_class_vars( $class );
-		
+
 		if ( ! empty( $vars['status_element_name'] ) ) {
 			return $vars['status_element_name'];
 		}
-		
+
 		return false;
 	}
-	
+
 	public function get_status_elements() {
 		$names = $this->get_names();
 		$status_elements = array();
-		
+
 		foreach ( $names as $name ) {
 			$status_element = $this->get_status_element( $name );
-			
+
 			if ( false !== $status_element ) {
 				$status_elements[$status_element] = $name;
 			}
 		}
-		
+
 		return $status_elements;
 	}
-	
+
 	public function is_default_status_element( $name ) {
 		$class = $this->get_class( $name );
-		
+
 		if ( false === $class ) {
 			return false;
 		}
-		
-		
+
+
 		$vars = get_class_vars( $class );
-		
+
 		if ( ! empty( $vars['show_in_status_by_default'] ) ) {
 			return $vars['show_in_status_by_default'];
 		}
-		
+
 		return false;
 	}
-	
+
 	public function get_default_status_elements() {
 		$names = $this->get_names();
 		$default_status_elements = array();
-		
+
 		foreach ( $names as $name ) {
 			if ( $this->is_default_status_element( $name ) ) {
 				$default_status_elements[] = $this->get_status_element( $name );
 			}
 		}
-		
+
 		return $default_status_elements;
 	}
-	
+
 	public function run( $name, $arguments = array() ) {
 		$object = $this->get_object( $name );
-		
+
 		if ( false == $object ) {
 			return new WP_Error( 'invalid-verb-object', "Unable to find a valid object for the requested verb: $name" );
 		}
-		
+
 		return $object->run( $arguments );
 	}
-	
+
 	private function get_class( $name ) {
 		if ( ! isset( $this->verbs[$name] ) ) {
 			do_action( 'ithemes-sync-add-log', 'Unable to find requested verb.', array( 'name' => $name ) );
 			return false;
 		}
-		
+
 		if ( ! class_exists( $this->verbs[$name]['class'] ) ) {
 			if ( empty( $this->verbs[$name]['file'] ) ) {
 				do_action( 'ithemes-sync-add-log', 'Unable to find requested verb\'s class.', $this->verbs[$name] );
@@ -237,40 +239,40 @@ class Ithemes_Sync_API {
 			}
 			else {
 				include_once( $this->verbs[$name]['file'] );
-				
+
 				if ( ! class_exists( $this->verbs[$name]['class'] ) ) {
 					do_action( 'ithemes-sync-add-log', 'Unable to find requested verb\'s class even after loading its file.', $this->verbs[$name] );
 					return false;
 				}
-				
+
 				if ( ! is_subclass_of( $this->verbs[$name]['class'], 'Ithemes_Sync_Verb' ) ) {
 					do_action( 'ithemes-sync-add-log', 'Verb added without being a subclass of Ithemes_Sync_Verb', $this->verbs[$name] );
 					return false;
 				}
 			}
 		}
-		
+
 		return $this->verbs[$name]['class'];
 	}
-	
+
 	private function get_object( $name ) {
 		if ( ! isset( $this->verbs[$name] ) ) {
 			do_action( 'ithemes-sync-add-log', 'Unable to find requested verb.', array( 'name' => $name ) );
 			return false;
 		}
-		
+
 		if ( ! isset( $this->verbs[$name]['object'] ) ) {
 			$class = $this->get_class( $name );
-			
+
 			if ( false === $class ) {
 				return false;
 			}
-			
+
 			$object = new $class();
-			
+
 			$this->verbs[$name]['object'] = $object;
 		}
-		
+
 		return $this->verbs[$name]['object'];
 	}
 }

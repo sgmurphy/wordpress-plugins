@@ -21,6 +21,10 @@ class Ithemes_Sync_Admin {
 	private $page_name = 'solid-central';
 	
 	private $page_ref;
+
+	private $package_details;
+	
+	private $registration_link;
 	
 	
 	public function __construct() {

@@ -74,11 +74,7 @@ export const updateTemplatePart = (part, content) =>
 		content,
 	});
 
-const allowedHeaders = [
-	'header',
-	'header-with-center-nav-and-social',
-	'header-title-social-nav',
-];
+const allowedHeaders = ['header', 'header-with-center-nav-and-social'];
 const allowedFooters = [
 	'footer',
 	'footer-social-icons',

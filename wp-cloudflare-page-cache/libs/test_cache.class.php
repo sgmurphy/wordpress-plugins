@@ -156,7 +156,7 @@ class SWCFPC_Test_Cache {
     			return array();
     		}
 
-    		$this->saved_response = wp_remote_retrieve_headers( $response );
+    		$this->saved_response = $response;
 		}
 
 		return wp_remote_retrieve_headers( $this->saved_response );

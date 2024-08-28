@@ -598,11 +598,11 @@ class Options {
 		$fields = apply_filters(
 			'rt_tpg_advanced_filters',
 			[
-				'tpg_taxonomy'    => esc_html__( 'Taxonomy', 'the-post-grid' ),
-				'order'           => esc_html__( 'Order', 'the-post-grid' ),
-				'author'          => esc_html__( 'Author', 'the-post-grid' ),
-				'tpg_post_status' => esc_html__( 'Status', 'the-post-grid' ),
-				's'               => esc_html__( 'Search', 'the-post-grid' ),
+				'tpg_taxonomy' => esc_html__( 'Taxonomy', 'the-post-grid' ),
+				'order'        => esc_html__( 'Order', 'the-post-grid' ),
+				'author'       => esc_html__( 'Author', 'the-post-grid' ),
+				's'            => esc_html__( 'Search', 'the-post-grid' ),
+				// 'tpg_post_status' => esc_html__( 'Status', 'the-post-grid' ),
 			]
 		);
 

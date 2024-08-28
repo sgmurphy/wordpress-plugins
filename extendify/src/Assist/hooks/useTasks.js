@@ -1,9 +1,9 @@
+import { safeParseJson } from '@shared/lib/parsing';
 import {
 	showDomainTask,
 	showSecondaryDomainTask,
 	domainSearchUrl,
 } from '@assist/lib/domains';
-import { safeParseJson } from '@assist/lib/parsing';
 import addPage from '@assist/tasks/add-page';
 import demoCard from '@assist/tasks/demo-card';
 import domainRecommendation from '@assist/tasks/domain-recommendation';
@@ -15,6 +15,7 @@ import setupGivewp from '@assist/tasks/setup-givewp';
 import setupHubspot from '@assist/tasks/setup-hubspot';
 import setupMonsterInsights from '@assist/tasks/setup-monsterinsights';
 import setupSimplyAppointments from '@assist/tasks/setup-simply-appointments';
+import setupSimplyBook from '@assist/tasks/setup-simplybook';
 import setupTec from '@assist/tasks/setup-tec';
 import setupWoocommerceGermanizedStore from '@assist/tasks/setup-woocommerce-germanized-store';
 import setupWoocommerceStore from '@assist/tasks/setup-woocommerce-store';
@@ -52,6 +53,7 @@ export const useTasks = () => {
 		'setup-givewp': { ...setupGivewp },
 		'setup-tec': { ...setupTec },
 		'setup-simply-appointments': { ...setupSimplyAppointments },
+		'setup-simplybook': { ...setupSimplyBook },
 		'setup-aioses': { ...setupAioseo },
 		'setup-wpforms': { ...setupWpforms },
 		'setup-yourwebshop': { ...setupYourwebshop },

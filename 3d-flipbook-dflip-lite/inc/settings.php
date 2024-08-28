@@ -95,7 +95,7 @@ class DFlip_Settings {
   public function settings_page() {
     
     $tabs = array(
-        
+        'general'  => __( 'General', '3d-flipbook-dflip-lite' ),
         'advanced'  => __( 'Advanced', '3d-flipbook-dflip-lite' )
 
     );
@@ -185,7 +185,7 @@ class DFlip_Settings {
    *
    */
   public function general_tab() {
-    
+    $this->base->create_setting( 'viewerType' );
     
     ?>
 
@@ -339,6 +339,7 @@ class DFlip_Settings {
     // Sanitize all user inputs.
     
     $sanitized_data = array();
+    $sanitized_data['viewerType'] = sanitize_text_field( $_POST['_dflip']['viewerType'] );
     $sanitized_data['selectiveScriptLoading'] = sanitize_text_field( $_POST['_dflip']['selectiveScriptLoading'] );
     
     $settings = is_multisite() ? get_blog_option( null, '_dflip_settings', array() ) : get_option( '_dflip_settings', array() );

@@ -4,7 +4,7 @@ Tags: woocommerce, review plugin, review reminder, customer reviews, review for 
 Requires at least: 4.5
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 5.59.0
+Stable tag: 5.59.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
 
@@ -232,6 +232,8 @@ If you would like to change how reviews are sorted on product pages, it is possi
 
 == Changelog ==
 
+= 5.59.1 =
+* Bug fix: an issue in compatibility with WPML for filtering of reviews on product pages
 = 5.59.0 =
 * Improvement: [cusrev_all_reviews] shortcode performance optimization for websites on shared hosting
 * Improvement: a new parameter 'product_reviews' for the [cusrev_all_reviews] shortcode

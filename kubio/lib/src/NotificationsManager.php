@@ -78,6 +78,7 @@ class NotificationsManager {
 	 */
 	public static function updateNotificationsData() {
 		check_ajax_referer('kubio-remote-notifications-retrieve-nonce');
+		
 		$url = add_query_arg(
 			array(
 				'_fields'          => 'acf,id',
@@ -89,6 +90,7 @@ class NotificationsManager {
 				'template'         => get_template(),
 				'stylesheet'       => get_stylesheet(),
 				'source'           => Flags::get( 'start_source', 'other' ),
+				'f' => Flags::get( 'kubio_f'),
 				'activated_on'     => Flags::get( 'kubio_activation_time', '' ),
 				'pro_activated_on' => Flags::get( 'kubio_pro_activation_time', '' ),
 			),

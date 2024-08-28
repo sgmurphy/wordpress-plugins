@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 6.6
-Stable tag: 7.7.11
+Stable tag: 7.7.12
 Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -252,6 +252,11 @@ If you like The Post Grid Plugin, then consider checking out our other WordPress
 11. Elementor Page builder
 
 == Changelog ==
+
+= 7.7.12  =
+* Remove: Post status change option remove from all segment
+* Added: Only publish post can be display
+* Fixed: Undefined variable: posts_per_page - for shortcode slider layout
 
 = 7.7.11 (23 Aug, 2024) =
 * Fixed: Page not showing for log out users

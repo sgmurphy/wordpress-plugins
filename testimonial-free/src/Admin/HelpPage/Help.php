@@ -770,7 +770,7 @@ class Help {
 							</a>
 							<a target="_blank" class="sprtf-our-plugin-list-box" href="https://realtestimonials.io/">
 								<i class="sprtf-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/testimonial-free/assets/icon-256x256.png" alt="">
+								<img src="https://ps.w.org/testimonial-free/assets/icon-256x256.gif" alt="">
 								<h4>Real Testimonials</h4>
 								<p>Simply collect, manage, and display Testimonials on your website and boost conversions.</p>
 							</a>
@@ -789,7 +789,7 @@ class Help {
 							<a target="_blank" class="sprtf-our-plugin-list-box" href="https://shapedplugin.com/plugin/woocommerce-gallery-slider-pro/">
 								<i class="sprtf-icon-button-arrow-icon"></i>
 								<img src="https://ps.w.org/gallery-slider-for-woocommerce/assets/icon-256x256.gif" alt="">
-								<h4>Gallery Slider for WooCommerce</h4>
+								<h4>WooGallery</h4>
 								<p>Product gallery slider and additional variation images gallery for WooCommerce and boost your sales.</p>
 							</a>
 							<a target="_blank" class="sprtf-our-plugin-list-box" href="https://getwpteam.com/">
@@ -855,5 +855,4 @@ class Help {
 		</div>
 		<?php
 	}
-
 }

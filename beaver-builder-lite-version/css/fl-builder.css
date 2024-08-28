@@ -3737,6 +3737,15 @@ form.fl-builder-settings {
 	box-shadow:none;
 	background: #e7ebef;
 }
+
+/* Fix link popup position bug with right pinned settings. */
+.fl-builder-ui-is-pinned-right .mce-inline-toolbar-grp.mce-panel {
+	left: auto !important;
+	right: 10px;
+}
+.mce-panel .wp-link-preview {
+	max-width: 100px;
+}
 .mce-panel div.wp-link-input input {
 	width: auto;
 }

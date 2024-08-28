@@ -149,5 +149,7 @@
   "external_id_use_transient": true,
   "server_event_use_ajax": true,
   "server_static_event_use_ajax": true,
-  "google_consent_mode": true
+  "google_consent_mode": true,
+
+  "data_persistency": "keep_data"
 }

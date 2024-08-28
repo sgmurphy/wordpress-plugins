@@ -1,9 +1,10 @@
 import apiFetch from '@wordpress/api-fetch';
 import { useCallback, useEffect, useLayoutEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { safeParseJson } from '@shared/lib/parsing';
+import { useActivityStore } from '@shared/state/activity';
 import { create } from 'zustand';
 import { devtools, persist, createJSONStorage } from 'zustand/middleware';
-import { safeParseJson } from '@assist/lib/parsing';
 import { Dashboard } from '@assist/pages/Dashboard';
 import { homeIcon } from '@assist/svg';
 
@@ -39,6 +40,7 @@ const state = (set, get) => ({
 		}
 		// If history is the same, dont add (they pressed the same nav button)
 		if (get().history[0]?.slug === page.slug) return;
+		useActivityStore.getState().incrementActivity(`assist-${page.slug}`);
 		set((state) => {
 			const lastViewedAt = new Date().toISOString();
 			const firstViewedAt = lastViewedAt;

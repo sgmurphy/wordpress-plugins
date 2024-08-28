@@ -1,7 +1,8 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Real Testimonials 3.1.0\n"
-"POT-Creation-Date: 2024-07-29 16:59+0600\n"
+"POT-Creation-Date: 2024-08-23 12:42+0600\n"
 "PO-Revision-Date: 2024-07-29 17:18+0600\n"
 "Last-Translator: \n"
 "Language-Team: ShapedPlugin <support@shapedplugin.com>\n"
@@ -9,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_x;_n;_n_noop;esc_attr__;esc_attr_e;esc_attr_x;"
 "esc_html__;esc_html_x;esc_html_e;number_format_i18n\n"
@@ -293,39 +294,7 @@ msgstr ""
 msgid "Field not found!"
 msgstr ""
 
-#: src/Admin/Views/Framework/Classes/metabox.class.php:344
-#: src/Includes/TestimonialFree.php:262
-msgid "Shortcode"
-msgstr ""
-
-#: src/Admin/Views/Framework/Classes/metabox.class.php:347
-msgid "Copy and paste this shortcode into your posts or pages:"
-msgstr ""
-
-#: src/Admin/Views/Framework/Classes/metabox.class.php:356
-msgid "Page Builders"
-msgstr ""
-
-#: src/Admin/Views/Framework/Classes/metabox.class.php:363
-#, php-format
-msgid ""
-"Real Testimonials has seamless integration with %s, Classic Editor, "
-"Elementor, Divi, Bricks, Beaver, Oxygen, WPBakery Builder, etc."
-msgstr ""
-
-#: src/Admin/Views/Framework/Classes/metabox.class.php:364
-msgid "Gutenberg"
-msgstr ""
-
-#: src/Admin/Views/Framework/Classes/metabox.class.php:374
-msgid "Template Include"
-msgstr ""
-
-#: src/Admin/Views/Framework/Classes/metabox.class.php:377
-msgid "Paste the PHP code into your template file:"
-msgstr ""
-
-#: src/Admin/Views/Framework/Classes/metabox.class.php:453
+#: src/Admin/Views/Framework/Classes/metabox.class.php:393
 #: src/Admin/Views/Framework/Classes/options.class.php:797
 #: src/Admin/Views/Framework/fields/button_set/button_set.php:83
 #: src/Admin/Views/Framework/fields/checkbox/checkbox.php:104
@@ -335,17 +304,17 @@ msgstr ""
 msgid "No data available."
 msgstr ""
 
-#: src/Admin/Views/Framework/Classes/metabox.class.php:470
+#: src/Admin/Views/Framework/Classes/metabox.class.php:410
 #: src/Admin/Views/Framework/Classes/options.class.php:700
 #: src/Admin/Views/Framework/Classes/options.class.php:822
 msgid "Reset"
 msgstr ""
 
-#: src/Admin/Views/Framework/Classes/metabox.class.php:471
+#: src/Admin/Views/Framework/Classes/metabox.class.php:411
 msgid "update post"
 msgstr ""
 
-#: src/Admin/Views/Framework/Classes/metabox.class.php:471
+#: src/Admin/Views/Framework/Classes/metabox.class.php:411
 msgid "Cancel"
 msgstr ""
 
@@ -410,6 +379,7 @@ msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:32
 #: src/Admin/Views/Framework/configs/form.php:137
+#: src/Admin/Views/Framework/configs/metaboxs.php:28
 msgid "How To Use"
 msgstr ""
 
@@ -418,46 +388,46 @@ msgid "Testimonial Form Fields"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:70
-#: src/Admin/Views/Framework/configs/form.php:199
-#: src/Admin/Views/Framework/configs/form.php:206
-#: src/Admin/Views/Framework/configs/metaboxs.php:1040
-#: src/Admin/Views/Framework/configs/metaboxs.php:2734
+#: src/Admin/Views/Framework/configs/form.php:200
+#: src/Admin/Views/Framework/configs/form.php:207
+#: src/Admin/Views/Framework/configs/metaboxs.php:1409
+#: src/Admin/Views/Framework/configs/metaboxs.php:3221
 msgid "Full Name"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:71
-#: src/Admin/Views/Framework/configs/form.php:241
-#: src/Admin/Views/Framework/configs/form.php:248
-#: src/Admin/Views/Framework/configs/metaboxs.php:2772
+#: src/Admin/Views/Framework/configs/form.php:242
+#: src/Admin/Views/Framework/configs/form.php:249
+#: src/Admin/Views/Framework/configs/metaboxs.php:3259
 msgid "E-mail Address"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:72
-#: src/Admin/Views/Framework/configs/form.php:283
-#: src/Admin/Views/Framework/configs/form.php:290
-#: src/Admin/Views/Framework/configs/metaboxs.php:1135
-#: src/Admin/Views/Framework/configs/metaboxs.php:2740
+#: src/Admin/Views/Framework/configs/form.php:284
+#: src/Admin/Views/Framework/configs/form.php:291
+#: src/Admin/Views/Framework/configs/metaboxs.php:1444
+#: src/Admin/Views/Framework/configs/metaboxs.php:3227
 msgid "Designation"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:73
-#: src/Admin/Views/Framework/configs/form.php:324
-#: src/Admin/Views/Framework/configs/form.php:331
-#: src/Admin/Views/Framework/configs/metaboxs.php:858
+#: src/Admin/Views/Framework/configs/form.php:325
+#: src/Admin/Views/Framework/configs/form.php:332
+#: src/Admin/Views/Framework/configs/metaboxs.php:1226
 msgid "Testimonial Title"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:74
-#: src/Admin/Views/Framework/configs/form.php:400
-#: src/Admin/Views/Framework/configs/form.php:407
-#: src/Admin/Views/Framework/configs/metaboxs.php:843
-#: src/Admin/Views/Framework/configs/metaboxs.php:936
+#: src/Admin/Views/Framework/configs/form.php:401
+#: src/Admin/Views/Framework/configs/form.php:408
+#: src/Admin/Views/Framework/configs/metaboxs.php:1209
+#: src/Admin/Views/Framework/configs/metaboxs.php:1304
 msgid "Testimonial Content"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:75
-#: src/Admin/Views/Framework/configs/form.php:476
-#: src/Includes/TestimonialFree.php:299
+#: src/Admin/Views/Framework/configs/form.php:477
+#: src/Includes/TestimonialFree.php:305
 msgid "Image"
 msgstr ""
 
@@ -466,7 +436,7 @@ msgid "Company Name (Pro)"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:77
-#: src/Admin/Views/Framework/configs/metaboxs.php:198
+#: src/Admin/Views/Framework/configs/metaboxs.php:319
 msgid "Groups (Pro)"
 msgstr ""
 
@@ -507,22 +477,12 @@ msgstr ""
 msgid "Live Preview"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:172
+#: src/Admin/Views/Framework/configs/form.php:173
 msgid "Form Options"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:185
+#: src/Admin/Views/Framework/configs/form.php:186
 msgid "Form Editor"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/form.php:204
-#: src/Admin/Views/Framework/configs/form.php:246
-#: src/Admin/Views/Framework/configs/form.php:288
-#: src/Admin/Views/Framework/configs/form.php:329
-#: src/Admin/Views/Framework/configs/form.php:405
-#: src/Admin/Views/Framework/configs/form.php:481
-#: src/Admin/Views/Framework/configs/form.php:518
-msgid "Label"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:205
@@ -531,116 +491,127 @@ msgstr ""
 #: src/Admin/Views/Framework/configs/form.php:330
 #: src/Admin/Views/Framework/configs/form.php:406
 #: src/Admin/Views/Framework/configs/form.php:482
+#: src/Admin/Views/Framework/configs/form.php:519
+#: src/Admin/Views/Framework/configs/metaboxs.php:498
+msgid "Label"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/form.php:206
+#: src/Admin/Views/Framework/configs/form.php:248
+#: src/Admin/Views/Framework/configs/form.php:290
+#: src/Admin/Views/Framework/configs/form.php:331
+#: src/Admin/Views/Framework/configs/form.php:407
+#: src/Admin/Views/Framework/configs/form.php:483
 msgid "To hide this label, leave it empty."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:211
-#: src/Admin/Views/Framework/configs/form.php:253
-#: src/Admin/Views/Framework/configs/form.php:295
-#: src/Admin/Views/Framework/configs/form.php:336
-#: src/Admin/Views/Framework/configs/form.php:412
+#: src/Admin/Views/Framework/configs/form.php:212
+#: src/Admin/Views/Framework/configs/form.php:254
+#: src/Admin/Views/Framework/configs/form.php:296
+#: src/Admin/Views/Framework/configs/form.php:337
+#: src/Admin/Views/Framework/configs/form.php:413
 msgid "Placeholder"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:216
-#: src/Admin/Views/Framework/configs/form.php:258
-#: src/Admin/Views/Framework/configs/form.php:300
-#: src/Admin/Views/Framework/configs/form.php:375
-#: src/Admin/Views/Framework/configs/form.php:451
-#: src/Admin/Views/Framework/configs/form.php:488
+#: src/Admin/Views/Framework/configs/form.php:217
+#: src/Admin/Views/Framework/configs/form.php:259
+#: src/Admin/Views/Framework/configs/form.php:301
+#: src/Admin/Views/Framework/configs/form.php:376
+#: src/Admin/Views/Framework/configs/form.php:452
+#: src/Admin/Views/Framework/configs/form.php:489
 msgid "Before"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:221
-#: src/Admin/Views/Framework/configs/form.php:263
-#: src/Admin/Views/Framework/configs/form.php:305
-#: src/Admin/Views/Framework/configs/form.php:380
-#: src/Admin/Views/Framework/configs/form.php:456
-#: src/Admin/Views/Framework/configs/form.php:493
+#: src/Admin/Views/Framework/configs/form.php:222
+#: src/Admin/Views/Framework/configs/form.php:264
+#: src/Admin/Views/Framework/configs/form.php:306
+#: src/Admin/Views/Framework/configs/form.php:381
+#: src/Admin/Views/Framework/configs/form.php:457
+#: src/Admin/Views/Framework/configs/form.php:494
 msgid "After"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:222
+#: src/Admin/Views/Framework/configs/form.php:223
 msgid "What is your full name?"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:227
-#: src/Admin/Views/Framework/configs/form.php:269
-#: src/Admin/Views/Framework/configs/form.php:311
-#: src/Admin/Views/Framework/configs/form.php:386
-#: src/Admin/Views/Framework/configs/form.php:462
-#: src/Admin/Views/Framework/configs/form.php:499
-#: src/Admin/Views/Framework/configs/form.php:525
+#: src/Admin/Views/Framework/configs/form.php:228
+#: src/Admin/Views/Framework/configs/form.php:270
+#: src/Admin/Views/Framework/configs/form.php:312
+#: src/Admin/Views/Framework/configs/form.php:387
+#: src/Admin/Views/Framework/configs/form.php:463
+#: src/Admin/Views/Framework/configs/form.php:500
+#: src/Admin/Views/Framework/configs/form.php:526
 msgid "Required"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:264
+#: src/Admin/Views/Framework/configs/form.php:265
 msgid "What is your e-mail address?"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:306
+#: src/Admin/Views/Framework/configs/form.php:307
 msgid "What is your designation?"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/form.php:342
-#: src/Admin/Views/Framework/configs/form.php:418
-msgid "Maximum Length"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:343
 #: src/Admin/Views/Framework/configs/form.php:419
+msgid "Maximum Length"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/form.php:344
+#: src/Admin/Views/Framework/configs/form.php:420
 msgid "Leave empty to skip limit"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:356
-#: src/Admin/Views/Framework/configs/form.php:432
-#: src/Admin/Views/Framework/configs/metaboxs.php:980
+#: src/Admin/Views/Framework/configs/form.php:357
+#: src/Admin/Views/Framework/configs/form.php:433
+#: src/Admin/Views/Framework/configs/metaboxs.php:1348
 msgid "word"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/form.php:365
-#: src/Admin/Views/Framework/configs/form.php:441
-#: src/Admin/Views/Framework/configs/metaboxs.php:889
-#: src/Admin/Views/Framework/configs/metaboxs.php:988
-msgid "Characters"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:366
 #: src/Admin/Views/Framework/configs/form.php:442
-#: src/Admin/Views/Framework/configs/metaboxs.php:890
-#: src/Admin/Views/Framework/configs/metaboxs.php:989
+#: src/Admin/Views/Framework/configs/metaboxs.php:1257
+#: src/Admin/Views/Framework/configs/metaboxs.php:1356
+msgid "Characters"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/form.php:367
+#: src/Admin/Views/Framework/configs/form.php:443
+#: src/Admin/Views/Framework/configs/metaboxs.php:1258
+#: src/Admin/Views/Framework/configs/metaboxs.php:1357
 msgid "Words"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:381
+#: src/Admin/Views/Framework/configs/form.php:382
 msgid "A headline  or tagline for your testimonial."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:457
+#: src/Admin/Views/Framework/configs/form.php:458
 msgid "What do you think about us?"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:483
+#: src/Admin/Views/Framework/configs/form.php:484
 msgid "Photo"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:494
+#: src/Admin/Views/Framework/configs/form.php:495
 msgid "Would you like to include photo?"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:513
+#: src/Admin/Views/Framework/configs/form.php:514
 msgid "Submit Button"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:519
+#: src/Admin/Views/Framework/configs/form.php:520
 msgid "Type submit button label."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:520
+#: src/Admin/Views/Framework/configs/form.php:521
 msgid "Submit Testimonial"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:540
+#: src/Admin/Views/Framework/configs/form.php:541
 #, php-format
 msgid ""
 "To create unlimited Testimonial Forms and enhance them with additional "
@@ -648,40 +619,16 @@ msgid ""
 "%1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:555
+#: src/Admin/Views/Framework/configs/form.php:556
 msgid "Labels & Messages"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:561
+#: src/Admin/Views/Framework/configs/form.php:562
 msgid "Required Notice"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:562
-msgid "Display required notice at top of the form."
-msgstr ""
-
 #: src/Admin/Views/Framework/configs/form.php:563
-#: src/Admin/Views/Framework/configs/form.php:586
-#: src/Admin/Views/Framework/configs/form.php:760
-#: src/Admin/Views/Framework/configs/form.php:853
-#: src/Admin/Views/Framework/configs/form.php:919
-#: src/Admin/Views/Framework/configs/metaboxs.php:232
-#: src/Admin/Views/Framework/configs/metaboxs.php:289
-#: src/Admin/Views/Framework/configs/metaboxs.php:745
-#: src/Admin/Views/Framework/configs/metaboxs.php:810
-#: src/Admin/Views/Framework/configs/metaboxs.php:823
-#: src/Admin/Views/Framework/configs/metaboxs.php:834
-#: src/Admin/Views/Framework/configs/metaboxs.php:1448
-#: src/Admin/Views/Framework/configs/metaboxs.php:1791
-#: src/Admin/Views/Framework/configs/metaboxs.php:1844
-#: src/Admin/Views/Framework/configs/metaboxs.php:1859
-#: src/Admin/Views/Framework/configs/metaboxs.php:2226
-#: src/Admin/Views/Framework/configs/metaboxs.php:2237
-#: src/Admin/Views/Framework/configs/metaboxs.php:2248
-#: src/Admin/Views/Framework/configs/metaboxs.php:2260
-#: src/Admin/Views/Framework/configs/metaboxs.php:2271
-#: src/Admin/Views/Framework/fields/sorter/sorter.php:40
-msgid "Enabled"
+msgid "Display required notice at top of the form."
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/form.php:564
@@ -689,1075 +636,1314 @@ msgstr ""
 #: src/Admin/Views/Framework/configs/form.php:761
 #: src/Admin/Views/Framework/configs/form.php:854
 #: src/Admin/Views/Framework/configs/form.php:920
-#: src/Admin/Views/Framework/configs/metaboxs.php:233
-#: src/Admin/Views/Framework/configs/metaboxs.php:290
-#: src/Admin/Views/Framework/configs/metaboxs.php:746
-#: src/Admin/Views/Framework/configs/metaboxs.php:811
-#: src/Admin/Views/Framework/configs/metaboxs.php:824
-#: src/Admin/Views/Framework/configs/metaboxs.php:835
-#: src/Admin/Views/Framework/configs/metaboxs.php:1449
-#: src/Admin/Views/Framework/configs/metaboxs.php:1792
-#: src/Admin/Views/Framework/configs/metaboxs.php:1845
-#: src/Admin/Views/Framework/configs/metaboxs.php:1860
-#: src/Admin/Views/Framework/configs/metaboxs.php:2227
-#: src/Admin/Views/Framework/configs/metaboxs.php:2238
-#: src/Admin/Views/Framework/configs/metaboxs.php:2249
-#: src/Admin/Views/Framework/configs/metaboxs.php:2261
-#: src/Admin/Views/Framework/configs/metaboxs.php:2272
+#: src/Admin/Views/Framework/configs/metaboxs.php:353
+#: src/Admin/Views/Framework/configs/metaboxs.php:409
+#: src/Admin/Views/Framework/configs/metaboxs.php:518
+#: src/Admin/Views/Framework/configs/metaboxs.php:532
+#: src/Admin/Views/Framework/configs/metaboxs.php:1110
+#: src/Admin/Views/Framework/configs/metaboxs.php:1166
+#: src/Admin/Views/Framework/configs/metaboxs.php:1179
+#: src/Admin/Views/Framework/configs/metaboxs.php:1190
+#: src/Admin/Views/Framework/configs/metaboxs.php:1816
+#: src/Admin/Views/Framework/configs/metaboxs.php:1961
+#: src/Admin/Views/Framework/configs/metaboxs.php:2279
+#: src/Admin/Views/Framework/configs/metaboxs.php:2331
+#: src/Admin/Views/Framework/configs/metaboxs.php:2346
+#: src/Admin/Views/Framework/configs/metaboxs.php:2713
+#: src/Admin/Views/Framework/configs/metaboxs.php:2724
+#: src/Admin/Views/Framework/configs/metaboxs.php:2735
+#: src/Admin/Views/Framework/configs/metaboxs.php:2747
+#: src/Admin/Views/Framework/configs/metaboxs.php:2758
+#: src/Admin/Views/Framework/fields/sorter/sorter.php:40
+msgid "Enabled"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/form.php:565
+#: src/Admin/Views/Framework/configs/form.php:588
+#: src/Admin/Views/Framework/configs/form.php:762
+#: src/Admin/Views/Framework/configs/form.php:855
+#: src/Admin/Views/Framework/configs/form.php:921
+#: src/Admin/Views/Framework/configs/metaboxs.php:354
+#: src/Admin/Views/Framework/configs/metaboxs.php:410
+#: src/Admin/Views/Framework/configs/metaboxs.php:519
+#: src/Admin/Views/Framework/configs/metaboxs.php:533
+#: src/Admin/Views/Framework/configs/metaboxs.php:1111
+#: src/Admin/Views/Framework/configs/metaboxs.php:1167
+#: src/Admin/Views/Framework/configs/metaboxs.php:1180
+#: src/Admin/Views/Framework/configs/metaboxs.php:1191
+#: src/Admin/Views/Framework/configs/metaboxs.php:1817
+#: src/Admin/Views/Framework/configs/metaboxs.php:1962
+#: src/Admin/Views/Framework/configs/metaboxs.php:2280
+#: src/Admin/Views/Framework/configs/metaboxs.php:2332
+#: src/Admin/Views/Framework/configs/metaboxs.php:2347
+#: src/Admin/Views/Framework/configs/metaboxs.php:2714
+#: src/Admin/Views/Framework/configs/metaboxs.php:2725
+#: src/Admin/Views/Framework/configs/metaboxs.php:2736
+#: src/Admin/Views/Framework/configs/metaboxs.php:2748
+#: src/Admin/Views/Framework/configs/metaboxs.php:2759
 #: src/Admin/Views/Framework/fields/sorter/sorter.php:41
 msgid "Disabled"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:571
+#: src/Admin/Views/Framework/configs/form.php:572
 msgid "Notice Label"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:572
+#: src/Admin/Views/Framework/configs/form.php:573
 msgid "Set a label for the required notice."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:573
+#: src/Admin/Views/Framework/configs/form.php:574
 msgid "Red asterisk fields are required."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:578
+#: src/Admin/Views/Framework/configs/form.php:579
 msgid "FORM ACTIONS"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:584
+#: src/Admin/Views/Framework/configs/form.php:585
 msgid "Ajax Form Submission"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:585
+#: src/Admin/Views/Framework/configs/form.php:586
 msgid "Submit the form without reloading the page."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:594
+#: src/Admin/Views/Framework/configs/form.php:595
 msgid "Redirect"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:595
+#: src/Admin/Views/Framework/configs/form.php:596
 msgid "After successful submit, where the page will redirect to."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:597
+#: src/Admin/Views/Framework/configs/form.php:598
 msgid "Same page"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:598
+#: src/Admin/Views/Framework/configs/form.php:599
 msgid "To a page (Pro)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:599
+#: src/Admin/Views/Framework/configs/form.php:600
 msgid "To a custom URL (Pro)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:607
+#: src/Admin/Views/Framework/configs/form.php:608
 msgid "Successful Message"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:608
+#: src/Admin/Views/Framework/configs/form.php:609
 msgid "Set a submission success message."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:609
+#: src/Admin/Views/Framework/configs/form.php:610
 msgid "Thank you! Your testimonial is currently waiting to be approved."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:615
+#: src/Admin/Views/Framework/configs/form.php:616
 msgid "Error Message"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:617
+#: src/Admin/Views/Framework/configs/form.php:618
 msgid "Set a submission error message."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:618
+#: src/Admin/Views/Framework/configs/form.php:619
 msgid "We encountered an issue while processing your testimonial."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:624
+#: src/Admin/Views/Framework/configs/form.php:625
 msgid "Form Submission Message Position"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:625
+#: src/Admin/Views/Framework/configs/form.php:626
 msgid "Set a form submission message position."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:628
-#: src/Admin/Views/Framework/configs/form.php:1182
-#: src/Admin/Views/Framework/configs/metaboxs.php:688
-#: src/Admin/Views/Framework/configs/metaboxs.php:1492
-#: src/Admin/Views/Framework/configs/metaboxs.php:1518
-#: src/Admin/Views/Framework/configs/metaboxs.php:1749
-#: src/Admin/Views/Framework/configs/metaboxs.php:2207
+#: src/Admin/Views/Framework/configs/form.php:629
+#: src/Admin/Views/Framework/configs/form.php:1183
+#: src/Admin/Views/Framework/configs/metaboxs.php:657
+#: src/Admin/Views/Framework/configs/metaboxs.php:1053
+#: src/Admin/Views/Framework/configs/metaboxs.php:2019
+#: src/Admin/Views/Framework/configs/metaboxs.php:2237
+#: src/Admin/Views/Framework/configs/metaboxs.php:2694
 msgid "Top"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:629
-#: src/Admin/Views/Framework/configs/form.php:1184
-#: src/Admin/Views/Framework/configs/metaboxs.php:689
-#: src/Admin/Views/Framework/configs/metaboxs.php:1494
-#: src/Admin/Views/Framework/configs/metaboxs.php:1520
-#: src/Admin/Views/Framework/configs/metaboxs.php:1751
-#: src/Admin/Views/Framework/configs/metaboxs.php:2209
+#: src/Admin/Views/Framework/configs/form.php:630
+#: src/Admin/Views/Framework/configs/form.php:1185
+#: src/Admin/Views/Framework/configs/metaboxs.php:659
+#: src/Admin/Views/Framework/configs/metaboxs.php:1054
+#: src/Admin/Views/Framework/configs/metaboxs.php:2021
+#: src/Admin/Views/Framework/configs/metaboxs.php:2239
+#: src/Admin/Views/Framework/configs/metaboxs.php:2696
 msgid "Bottom"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:637
+#: src/Admin/Views/Framework/configs/form.php:638
 msgid "Page"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:638
+#: src/Admin/Views/Framework/configs/form.php:639
 msgid "Select redirect page."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:645
+#: src/Admin/Views/Framework/configs/form.php:646
 msgid "Custom URL"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:646
+#: src/Admin/Views/Framework/configs/form.php:647
 msgid "Type redirect custom url."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:651
+#: src/Admin/Views/Framework/configs/form.php:652
 msgid "FORM DISPLAY MODE"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:656
+#: src/Admin/Views/Framework/configs/form.php:657
 msgid "Display Mode"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:657
+#: src/Admin/Views/Framework/configs/form.php:658
 msgid "Choose a form display mode."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:659
+#: src/Admin/Views/Framework/configs/form.php:660
 msgid "On Page"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:661
-#: src/Admin/Views/Framework/configs/metaboxs.php:1018
-#: src/Admin/Views/Framework/configs/metaboxs.php:1584
+#: src/Admin/Views/Framework/configs/form.php:662
+#: src/Admin/Views/Framework/configs/metaboxs.php:1386
+#: src/Admin/Views/Framework/configs/metaboxs.php:2070
 msgid "Popup"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:672
+#: src/Admin/Views/Framework/configs/form.php:673
 #, php-format
 msgid ""
 "To open the Testimonial Form in popup or lightbox, %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:688
+#: src/Admin/Views/Framework/configs/form.php:689
 msgid "Status & Notifications"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:695
+#: src/Admin/Views/Framework/configs/form.php:696
 msgid "Testimonial Status"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:696
+#: src/Admin/Views/Framework/configs/form.php:697
 msgid "Select testimonial approval status for the front-end form submission."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:699
+#: src/Admin/Views/Framework/configs/form.php:700
 #, php-format
 msgid "%1$sTo access this feature, %2$sUpgrade to Pro!%3$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:705
+#: src/Admin/Views/Framework/configs/form.php:706
 msgid "Pending Review"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:706
+#: src/Admin/Views/Framework/configs/form.php:707
 msgid "Private"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:707
+#: src/Admin/Views/Framework/configs/form.php:708
 msgid "Draft"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:708
+#: src/Admin/Views/Framework/configs/form.php:709
 msgid "Auto Publish"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:709
+#: src/Admin/Views/Framework/configs/form.php:710
 msgid "Auto Publish Based on Star Rating"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:718
-#: src/Admin/Views/Framework/configs/metaboxs.php:210
+#: src/Admin/Views/Framework/configs/form.php:719
+#: src/Admin/Views/Framework/configs/metaboxs.php:331
 msgid "Based on Star Rating (Pro)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:719
+#: src/Admin/Views/Framework/configs/form.php:720
 msgid "Check which star-rated testimonials will be automatically published "
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:741
+#: src/Admin/Views/Framework/configs/form.php:742
 msgid "ADMIN NOTIFICATION"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:749
+#: src/Admin/Views/Framework/configs/form.php:750
 #, php-format
 msgid ""
 "To receive admin notifications when a testimonial is submitted by a "
 "reviewer, %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:759
+#: src/Admin/Views/Framework/configs/form.php:760
 msgid "Admin Notification"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:770
-#: src/Admin/Views/Framework/configs/form.php:863
-#: src/Admin/Views/Framework/configs/form.php:929
+#: src/Admin/Views/Framework/configs/form.php:771
+#: src/Admin/Views/Framework/configs/form.php:864
+#: src/Admin/Views/Framework/configs/form.php:930
 msgid "To"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:779
-#: src/Admin/Views/Framework/configs/form.php:871
-#: src/Admin/Views/Framework/configs/form.php:938
+#: src/Admin/Views/Framework/configs/form.php:780
+#: src/Admin/Views/Framework/configs/form.php:872
+#: src/Admin/Views/Framework/configs/form.php:939
 msgid "From"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:788
-#: src/Admin/Views/Framework/configs/form.php:879
-#: src/Admin/Views/Framework/configs/form.php:947
+#: src/Admin/Views/Framework/configs/form.php:789
+#: src/Admin/Views/Framework/configs/form.php:880
+#: src/Admin/Views/Framework/configs/form.php:948
 msgid "Subject"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:797
-#: src/Admin/Views/Framework/configs/form.php:887
-#: src/Admin/Views/Framework/configs/form.php:956
+#: src/Admin/Views/Framework/configs/form.php:798
+#: src/Admin/Views/Framework/configs/form.php:888
+#: src/Admin/Views/Framework/configs/form.php:957
 msgid "Message Body"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:834
+#: src/Admin/Views/Framework/configs/form.php:835
 msgid "AWAITING NOTIFICATION"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:842
+#: src/Admin/Views/Framework/configs/form.php:843
 #, php-format
 msgid ""
 "To send an awaiting message when a reviewer submits a testimonial, "
 "%1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:852
+#: src/Admin/Views/Framework/configs/form.php:853
 msgid "Reviewer Awaiting Notification"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:900
+#: src/Admin/Views/Framework/configs/form.php:901
 msgid "APPROVAL NOTIFICATION"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:908
+#: src/Admin/Views/Framework/configs/form.php:909
 #, php-format
 msgid ""
 "To send an approval email notification when a submitted testimonial is "
 "approved or published, %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:918
+#: src/Admin/Views/Framework/configs/form.php:919
 msgid "Testimonial Approval Notification"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:981
+#: src/Admin/Views/Framework/configs/form.php:982
 msgid "Form Styles"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:988
+#: src/Admin/Views/Framework/configs/form.php:989
 msgid "Form Layout"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:989
+#: src/Admin/Views/Framework/configs/form.php:990
 msgid "Choose a testimonial form layout."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:993
+#: src/Admin/Views/Framework/configs/form.php:994
 msgid "Style One"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:997
+#: src/Admin/Views/Framework/configs/form.php:998
 msgid "Style Two"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1007
+#: src/Admin/Views/Framework/configs/form.php:1008
 msgid "Form Width"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1008
+#: src/Admin/Views/Framework/configs/form.php:1009
 msgid "Set a custom width for the testimonial form."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1013
+#: src/Admin/Views/Framework/configs/form.php:1014
 #: src/Admin/Views/Framework/fields/custom_size/custom_size.php:51
 msgid "width"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1014
+#: src/Admin/Views/Framework/configs/form.php:1015
 #: src/Admin/Views/Framework/fields/border/border.php:58
 msgid "Width"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1025
+#: src/Admin/Views/Framework/configs/form.php:1026
 msgid "Label Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1026
+#: src/Admin/Views/Framework/configs/form.php:1027
 msgid "Set color for the field label."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1032
+#: src/Admin/Views/Framework/configs/form.php:1033
 msgid "Input Field"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1033
+#: src/Admin/Views/Framework/configs/form.php:1034
 msgid "Set input field style."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1052
+#: src/Admin/Views/Framework/configs/form.php:1053
 msgid "Form Background"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1053
+#: src/Admin/Views/Framework/configs/form.php:1054
 msgid "Set testimonial form background style."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1059
-#: src/Admin/Views/Framework/configs/metaboxs.php:599
-#: src/Admin/Views/Framework/configs/metaboxs.php:1394
+#: src/Admin/Views/Framework/configs/form.php:1060
+#: src/Admin/Views/Framework/configs/metaboxs.php:630
+#: src/Admin/Views/Framework/configs/metaboxs.php:964
+#: src/Admin/Views/Framework/configs/metaboxs.php:1907
 msgid "Border"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1060
+#: src/Admin/Views/Framework/configs/form.php:1061
 msgid "Set border for the testimonial form."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1081
+#: src/Admin/Views/Framework/configs/form.php:1082
 msgid "Record Button Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1082
+#: src/Admin/Views/Framework/configs/form.php:1083
 msgid "Set color for the record button."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1084
-#: src/Admin/Views/Framework/configs/form.php:1113
-#: src/Admin/Views/Framework/configs/metaboxs.php:420
-#: src/Admin/Views/Framework/configs/metaboxs.php:1603
-#: src/Admin/Views/Framework/configs/metaboxs.php:1708
-#: src/Admin/Views/Framework/configs/metaboxs.php:2031
-#: src/Admin/Views/Framework/configs/metaboxs.php:2177
-#: src/Admin/Views/Framework/configs/metaboxs.php:2181
+#: src/Admin/Views/Framework/configs/form.php:1085
+#: src/Admin/Views/Framework/configs/form.php:1114
+#: src/Admin/Views/Framework/configs/metaboxs.php:613
+#: src/Admin/Views/Framework/configs/metaboxs.php:791
+#: src/Admin/Views/Framework/configs/metaboxs.php:2089
+#: src/Admin/Views/Framework/configs/metaboxs.php:2196
+#: src/Admin/Views/Framework/configs/metaboxs.php:2518
+#: src/Admin/Views/Framework/configs/metaboxs.php:2664
+#: src/Admin/Views/Framework/configs/metaboxs.php:2668
 #: src/Admin/Views/Framework/fields/border/border.php:162
 #: src/Admin/Views/Framework/fields/box_shadow/box_shadow.php:121
 msgid "Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1085
-#: src/Admin/Views/Framework/configs/form.php:1114
-#: src/Admin/Views/Framework/configs/metaboxs.php:421
-#: src/Admin/Views/Framework/configs/metaboxs.php:1604
-#: src/Admin/Views/Framework/configs/metaboxs.php:1709
-#: src/Admin/Views/Framework/configs/metaboxs.php:2032
+#: src/Admin/Views/Framework/configs/form.php:1086
+#: src/Admin/Views/Framework/configs/form.php:1115
+#: src/Admin/Views/Framework/configs/metaboxs.php:792
+#: src/Admin/Views/Framework/configs/metaboxs.php:2090
+#: src/Admin/Views/Framework/configs/metaboxs.php:2197
+#: src/Admin/Views/Framework/configs/metaboxs.php:2519
 #: src/Admin/Views/Framework/fields/border/border.php:171
 #: src/Admin/Views/Framework/fields/box_shadow/box_shadow.php:131
 msgid "Hover Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1086
-#: src/Admin/Views/Framework/configs/form.php:1115
-#: src/Admin/Views/Framework/configs/metaboxs.php:422
-#: src/Admin/Views/Framework/configs/metaboxs.php:628
-#: src/Admin/Views/Framework/configs/metaboxs.php:1710
-#: src/Admin/Views/Framework/configs/metaboxs.php:2033
+#: src/Admin/Views/Framework/configs/form.php:1087
+#: src/Admin/Views/Framework/configs/form.php:1116
+#: src/Admin/Views/Framework/configs/metaboxs.php:615
+#: src/Admin/Views/Framework/configs/metaboxs.php:793
+#: src/Admin/Views/Framework/configs/metaboxs.php:993
+#: src/Admin/Views/Framework/configs/metaboxs.php:2198
+#: src/Admin/Views/Framework/configs/metaboxs.php:2520
 msgid "Background"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1087
-#: src/Admin/Views/Framework/configs/form.php:1116
-#: src/Admin/Views/Framework/configs/metaboxs.php:423
-#: src/Admin/Views/Framework/configs/metaboxs.php:1711
-#: src/Admin/Views/Framework/configs/metaboxs.php:2034
+#: src/Admin/Views/Framework/configs/form.php:1088
+#: src/Admin/Views/Framework/configs/form.php:1117
+#: src/Admin/Views/Framework/configs/metaboxs.php:794
+#: src/Admin/Views/Framework/configs/metaboxs.php:2199
+#: src/Admin/Views/Framework/configs/metaboxs.php:2521
 msgid "Hover Background"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1101
-#: src/Admin/Views/Framework/configs/metaboxs.php:1126
+#: src/Admin/Views/Framework/configs/form.php:1102
+#: src/Admin/Views/Framework/configs/metaboxs.php:1677
 msgid "Rating Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1102
+#: src/Admin/Views/Framework/configs/form.php:1103
 msgid "Set color for the star rating."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1110
+#: src/Admin/Views/Framework/configs/form.php:1111
 msgid "Submit Button Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1111
+#: src/Admin/Views/Framework/configs/form.php:1112
 msgid "Set color for the submit button."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1130
+#: src/Admin/Views/Framework/configs/form.php:1131
 msgid "Box-Shadow"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1131
+#: src/Admin/Views/Framework/configs/form.php:1132
 msgid "Choose box-shadow type for the testimonial form."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1133
-#: src/Admin/Views/Framework/configs/metaboxs.php:1412
+#: src/Admin/Views/Framework/configs/form.php:1134
+#: src/Admin/Views/Framework/configs/metaboxs.php:1925
 #: src/Admin/Views/Framework/fields/border/border.php:91
 msgid "Inset"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1134
-#: src/Admin/Views/Framework/configs/metaboxs.php:1413
+#: src/Admin/Views/Framework/configs/form.php:1135
+#: src/Admin/Views/Framework/configs/metaboxs.php:1926
 #: src/Admin/Views/Framework/fields/border/border.php:92
 msgid "Outset"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1135
-#: src/Admin/Views/Framework/configs/metaboxs.php:1414
-#: src/Admin/Views/Framework/configs/metaboxs.php:1467
+#: src/Admin/Views/Framework/configs/form.php:1136
+#: src/Admin/Views/Framework/configs/metaboxs.php:1927
 #: src/Admin/Views/Framework/fields/border/border.php:95
 #: src/Admin/Views/Framework/fields/typography/typography.php:269
 #: src/Admin/Views/Framework/fields/typography/typography.php:288
 msgid "None"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1144
-#: src/Admin/Views/Framework/configs/metaboxs.php:1426
+#: src/Admin/Views/Framework/configs/form.php:1145
+#: src/Admin/Views/Framework/configs/metaboxs.php:1939
 msgid "Box-Shadow Values"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1145
+#: src/Admin/Views/Framework/configs/form.php:1146
 msgid "Set box-shadow property values for the testimonial form."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1160
+#: src/Admin/Views/Framework/configs/form.php:1161
 msgid "Form Alignment"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1161
+#: src/Admin/Views/Framework/configs/form.php:1162
 msgid "Set alignment for the form."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1174
-#: src/Admin/Views/Framework/configs/metaboxs.php:1374
-#: src/Admin/Views/Framework/configs/metaboxs.php:1376
+#: src/Admin/Views/Framework/configs/form.php:1175
+#: src/Admin/Views/Framework/configs/metaboxs.php:1887
+#: src/Admin/Views/Framework/configs/metaboxs.php:1889
 msgid "Padding"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1175
+#: src/Admin/Views/Framework/configs/form.php:1176
 msgid "Set padding for testimonial form."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1183
-#: src/Admin/Views/Framework/configs/metaboxs.php:691
-#: src/Admin/Views/Framework/configs/metaboxs.php:1493
-#: src/Admin/Views/Framework/configs/metaboxs.php:1519
-#: src/Admin/Views/Framework/configs/metaboxs.php:1750
-#: src/Admin/Views/Framework/configs/metaboxs.php:2208
+#: src/Admin/Views/Framework/configs/form.php:1184
+#: src/Admin/Views/Framework/configs/metaboxs.php:658
+#: src/Admin/Views/Framework/configs/metaboxs.php:1056
+#: src/Admin/Views/Framework/configs/metaboxs.php:2020
+#: src/Admin/Views/Framework/configs/metaboxs.php:2238
+#: src/Admin/Views/Framework/configs/metaboxs.php:2695
 #: src/Admin/Views/Framework/fields/typography/typography.php:233
 msgid "Right"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/form.php:1185
-#: src/Admin/Views/Framework/configs/metaboxs.php:690
-#: src/Admin/Views/Framework/configs/metaboxs.php:1495
-#: src/Admin/Views/Framework/configs/metaboxs.php:1521
-#: src/Admin/Views/Framework/configs/metaboxs.php:1752
-#: src/Admin/Views/Framework/configs/metaboxs.php:2210
+#: src/Admin/Views/Framework/configs/form.php:1186
+#: src/Admin/Views/Framework/configs/metaboxs.php:660
+#: src/Admin/Views/Framework/configs/metaboxs.php:1055
+#: src/Admin/Views/Framework/configs/metaboxs.php:2022
+#: src/Admin/Views/Framework/configs/metaboxs.php:2240
+#: src/Admin/Views/Framework/configs/metaboxs.php:2697
 #: src/Admin/Views/Framework/fields/typography/typography.php:231
 msgid "Left"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:30
-msgid "Shortcode Options"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:43
-msgid "General Settings"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:49
-msgid "Layout Preset"
-msgstr ""
-
 #: src/Admin/Views/Framework/configs/metaboxs.php:50
-msgid "Select a layout to display the testimonials."
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:53
-#, php-format
-msgid ""
-"To create eye-catching testimonial layout designs and stand out from the "
-"competition, %1$sUpgrade To Pro!%2$s"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:62
-msgid "Slider"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:68
-msgid "Carousel"
+msgid "Page Builders"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/metaboxs.php:73
-msgid "Grid"
+#: src/Includes/TestimonialFree.php:263
+msgid "Layout"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:78
-msgid "Masonry"
+#: src/Admin/Views/Framework/configs/metaboxs.php:95
+msgid "Layout Preset"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:85
-msgid "List"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:92
-msgid "Isotope"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:104
-msgid "Slider Style"
+#: src/Admin/Views/Framework/configs/metaboxs.php:100
+msgid "Slider"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/metaboxs.php:105
-msgid "Choose a testimonials slider style."
+msgid "Carousel"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:109
+#: src/Admin/Views/Framework/configs/metaboxs.php:110
+msgid "Grid"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:115
+msgid "Thumbnails Slider"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:122
+msgid "Multi-row"
+msgstr ""
+
 #: src/Admin/Views/Framework/configs/metaboxs.php:129
-msgid "Standard"
+#: src/Admin/Views/Framework/configs/metaboxs.php:218
+msgid "Masonry"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:113
-msgid "Thumbnails"
+#: src/Admin/Views/Framework/configs/metaboxs.php:136
+msgid "List"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:124
+#: src/Admin/Views/Framework/configs/metaboxs.php:143
+msgid "Isotope"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:155
 msgid "Carousel Style"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:125
-msgid "Set a testimonials carousel style."
+#: src/Admin/Views/Framework/configs/metaboxs.php:159
+msgid "Standard"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:133
+#: src/Admin/Views/Framework/configs/metaboxs.php:163
 #: src/Admin/Views/Framework/fields/typography/typography.php:232
 msgid "Center"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:138
+#: src/Admin/Views/Framework/configs/metaboxs.php:168
 msgid "Ticker"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:143
-msgid "Multi Rows"
+#: src/Admin/Views/Framework/configs/metaboxs.php:179
+msgid "Thumbnails Style"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:153
-msgid "Column(s)"
+#: src/Admin/Views/Framework/configs/metaboxs.php:183
+msgid "Thumbs Top"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:154
-msgid "Set number of column(s) in different responsive devices."
+#: src/Admin/Views/Framework/configs/metaboxs.php:188
+msgid "Thumbs Bottom"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:168
-msgid "Space"
+#: src/Admin/Views/Framework/configs/metaboxs.php:193
+msgid "Thumbs Left"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:169
-msgid "Set space between the testimonials."
+#: src/Admin/Views/Framework/configs/metaboxs.php:198
+msgid "Thumbs Right"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:170
-msgid "Space Between Testimonials"
+#: src/Admin/Views/Framework/configs/metaboxs.php:209
+msgid "Isotope Style"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:189
-msgid "Filter Testimonials"
+#: src/Admin/Views/Framework/configs/metaboxs.php:213
+msgid "Even"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:190
-msgid "Select an option to display the testimonials."
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:194
-msgid "Latest"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:202
-msgid "Specific (Pro)"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:206
-msgid "Exclude (Pro)"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:219
-#: src/Admin/Views/Framework/configs/metaboxs.php:952
-msgid "Limit"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:220
+#: src/Admin/Views/Framework/configs/metaboxs.php:235
+#, php-format
 msgid ""
-"Limit number of testimonials to show. Leave it empty to show all "
-"testimonials."
+"To create eye-catching testimonial layout designs and access to advanced "
+"customizations, %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:230
-msgid "Random Order"
+#: src/Admin/Views/Framework/configs/metaboxs.php:256
+msgid "Shortcode Options"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:231
-msgid "Enable/Disable to display testimonials in random order."
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:241
-msgid "Order By"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:242
-msgid "Select an order by option."
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:245
-msgid "Testimonial ID"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:249
-#: src/Admin/Views/Framework/configs/metaboxs.php:1178
-#: src/Admin/Views/Framework/configs/metaboxs.php:2855
-#: src/Includes/TestimonialFree.php:264 src/Includes/TestimonialFree.php:303
-msgid "Date"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:253
-#: src/Includes/TestimonialFree.php:298
-msgid "Title"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:257
-msgid "Modified"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:261
-msgid "Drag & Drop (Pro)"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:271
-msgid "Order Type"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:272
-msgid "Select an order option."
+#: src/Admin/Views/Framework/configs/metaboxs.php:268
+msgid "General Settings"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/metaboxs.php:274
-msgid "Ascending"
+msgid "Columns"
 msgstr ""
 
 #: src/Admin/Views/Framework/configs/metaboxs.php:275
+msgid "Set number of columns in different devices."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:289
+msgid "Space"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:290
+msgid "Set space between the testimonials."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:291
+msgid "Space Between Testimonials"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:310
+msgid "Filter Testimonials"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:311
+msgid "Select an option to display the testimonials."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:315
+msgid "Latest"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:323
+msgid "Specific (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:327
+msgid "Exclude (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:340
+#: src/Admin/Views/Framework/configs/metaboxs.php:1320
+msgid "Limit"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:341
+msgid "Leave it empty to show all testimonials."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:351
+msgid "Random Order"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:352
+msgid "Enable/Disable to display testimonials in random order."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:362
+msgid "Order By"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:363
+msgid "Select an order by option."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:366
+msgid "Testimonial ID"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:370
+#: src/Admin/Views/Framework/configs/metaboxs.php:1520
+#: src/Admin/Views/Framework/configs/metaboxs.php:3356
+#: src/Includes/TestimonialFree.php:265 src/Includes/TestimonialFree.php:309
+msgid "Date"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:374
+#: src/Includes/TestimonialFree.php:304
+msgid "Title"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:378
+msgid "Modified"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:382
+msgid "Drag & Drop (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:392
+msgid "Order Type"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:393
+msgid "Select an order option."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:395
+msgid "Ascending"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:396
 msgid "Descending"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:283
+#: src/Admin/Views/Framework/configs/metaboxs.php:404
 msgid "Ajax Live Filters"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:287
-msgid "Enable/Disable ajax live filtering for testimonial groups."
+#: src/Admin/Views/Framework/configs/metaboxs.php:407
+msgid "Enable the Ajax Live Filters by groups or star ratings."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:288
+#: src/Admin/Views/Framework/configs/metaboxs.php:408
 msgid "Ajax Live Filter"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:288
+#: src/Admin/Views/Framework/configs/metaboxs.php:408
+msgid "Ajax Live Filter (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:408
+#: src/Admin/Views/Framework/configs/metaboxs.php:523
+#: src/Admin/Views/Framework/configs/metaboxs.php:537
+#: src/Admin/Views/Framework/configs/metaboxs.php:552
 #: src/Includes/TestimonialFree.php:212
 msgid "Live Demo"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:296
-msgid "LOAD MORE PAGINATION"
+#: src/Admin/Views/Framework/configs/metaboxs.php:416
+msgid "AJAX LIVE FILTERS"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:310
+#: src/Admin/Views/Framework/configs/metaboxs.php:424
 #, php-format
 msgid ""
-"To unlock the following ajax pagination settings for Grid, Masonry, & List "
-"layouts, %1$sUpgrade To Pro!%2$s"
+"To allow your visitors to filter reviews by %3$sGroups%2$s, %4$sStar "
+"Ratings%2$s, Ajax Search, and Sort on the frontend, %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:324
-#: src/Admin/Views/Framework/configs/metaboxs.php:2094
-#: src/Admin/Views/Framework/configs/metaboxs.php:2115
-msgid "Pagination"
+#: src/Admin/Views/Framework/configs/metaboxs.php:435
+msgid "Filter By"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:325
-msgid "Enqueue/Dequeue pagination."
+#: src/Admin/Views/Framework/configs/metaboxs.php:436
+msgid "Enable your filter(s)."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:326
-msgid "Enable"
+#: src/Admin/Views/Framework/configs/metaboxs.php:447
+#: src/Admin/Views/Framework/configs/metaboxs.php:1590
+#: src/Admin/Views/Framework/configs/metaboxs.php:1596
+#: src/Admin/Views/Framework/configs/metaboxs.php:3233
+msgid "Star Rating"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:327
-msgid "Disable"
+#: src/Admin/Views/Framework/configs/metaboxs.php:448
+#: src/Admin/Views/Framework/configs/metaboxs.php:458
+#: src/Admin/Views/Framework/configs/metaboxs.php:561
+#: src/Admin/Views/Framework/configs/metaboxs.php:574
+#: src/Admin/Views/Framework/configs/metaboxs.php:1141
+#: src/Admin/Views/Framework/configs/metaboxs.php:1154
+#: src/Admin/Views/Framework/configs/metaboxs.php:1228
+#: src/Admin/Views/Framework/configs/metaboxs.php:1297
+#: src/Admin/Views/Framework/configs/metaboxs.php:1306
+#: src/Admin/Views/Framework/configs/metaboxs.php:1371
+#: src/Admin/Views/Framework/configs/metaboxs.php:1411
+#: src/Admin/Views/Framework/configs/metaboxs.php:1446
+#: src/Admin/Views/Framework/configs/metaboxs.php:1459
+#: src/Admin/Views/Framework/configs/metaboxs.php:1471
+#: src/Admin/Views/Framework/configs/metaboxs.php:1482
+#: src/Admin/Views/Framework/configs/metaboxs.php:1522
+#: src/Admin/Views/Framework/configs/metaboxs.php:1598
+#: src/Admin/Views/Framework/configs/metaboxs.php:1769
+#: src/Admin/Views/Framework/configs/metaboxs.php:2056
+#: src/Admin/Views/Framework/configs/metaboxs.php:2129
+#: src/Admin/Views/Framework/configs/metaboxs.php:2416
+#: src/Admin/Views/Framework/configs/metaboxs.php:2606
+msgid "Show"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:341
-msgid "Pagination Type"
+#: src/Admin/Views/Framework/configs/metaboxs.php:449
+#: src/Admin/Views/Framework/configs/metaboxs.php:459
+#: src/Admin/Views/Framework/configs/metaboxs.php:562
+#: src/Admin/Views/Framework/configs/metaboxs.php:575
+#: src/Admin/Views/Framework/configs/metaboxs.php:1142
+#: src/Admin/Views/Framework/configs/metaboxs.php:1155
+#: src/Admin/Views/Framework/configs/metaboxs.php:1229
+#: src/Admin/Views/Framework/configs/metaboxs.php:1298
+#: src/Admin/Views/Framework/configs/metaboxs.php:1307
+#: src/Admin/Views/Framework/configs/metaboxs.php:1372
+#: src/Admin/Views/Framework/configs/metaboxs.php:1412
+#: src/Admin/Views/Framework/configs/metaboxs.php:1447
+#: src/Admin/Views/Framework/configs/metaboxs.php:1460
+#: src/Admin/Views/Framework/configs/metaboxs.php:1472
+#: src/Admin/Views/Framework/configs/metaboxs.php:1483
+#: src/Admin/Views/Framework/configs/metaboxs.php:1523
+#: src/Admin/Views/Framework/configs/metaboxs.php:1599
+#: src/Admin/Views/Framework/configs/metaboxs.php:1770
+#: src/Admin/Views/Framework/configs/metaboxs.php:2057
+#: src/Admin/Views/Framework/configs/metaboxs.php:2130
+#: src/Admin/Views/Framework/configs/metaboxs.php:2417
+#: src/Admin/Views/Framework/configs/metaboxs.php:2607
+msgid "Hide"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:342
-msgid "Choose a pagination type."
+#: src/Admin/Views/Framework/configs/metaboxs.php:457
+msgid "Groups"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:344
-msgid "Ajax Load More Button (Pro)"
+#: src/Admin/Views/Framework/configs/metaboxs.php:472
+msgid "Filter Style"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:345
-msgid "Ajax Number Pagination (Pro)"
+#: src/Admin/Views/Framework/configs/metaboxs.php:473
+msgid "Choose a filter style."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:346
-msgid "Ajax Infinite Scroll (Pro)"
+#: src/Admin/Views/Framework/configs/metaboxs.php:477
+msgid "Button"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:347
-msgid "No Ajax (Normal Pagination)"
+#: src/Admin/Views/Framework/configs/metaboxs.php:481
+msgid "Dropdown"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:361
-msgid "Testimonial(s) to Show Per Page"
+#: src/Admin/Views/Framework/configs/metaboxs.php:492
+msgid "Star Rating Label Style"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:362
-msgid "Set number of testimonial(s) to show per page."
+#: src/Admin/Views/Framework/configs/metaboxs.php:493
+msgid "Select a star rating label style."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:376
-#: src/Admin/Views/Framework/configs/metaboxs.php:1651
-msgid "Alignment"
+#: src/Admin/Views/Framework/configs/metaboxs.php:502
+msgid "Star"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:377
-msgid "Select pagination alignment."
+#: src/Admin/Views/Framework/configs/metaboxs.php:506
+msgid "Label with Star"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:395
-#: src/Admin/Views/Framework/configs/metaboxs.php:1484
-#: src/Admin/Views/Framework/configs/metaboxs.php:1509
-#: src/Admin/Views/Framework/configs/metaboxs.php:1739
-#: src/Admin/Views/Framework/configs/metaboxs.php:1741
-#: src/Admin/Views/Framework/configs/metaboxs.php:2198
+#: src/Admin/Views/Framework/configs/metaboxs.php:516
+#: src/Admin/Views/Framework/configs/metaboxs.php:523
+msgid "Star Rating Filter as Dropdown"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:517
+msgid "Enable the dropdown style."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:523
+msgid ""
+"When Enabled, the Star Rating filter will appear as a dropdown along with "
+"the button-styled Group filter."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:530
+msgid "Inline Filter Style"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:531
+msgid "Enable the testimonial inline filter style."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:537
+msgid "AInline Filter Style"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:537
+msgid "Inline Filter Style (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:537
+msgid ""
+"When Enabled, It will show the Group and Star Rating filters in inline "
+"style; when disabled, it will show the filters in horizontal style."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:544
+#: src/Admin/Views/Framework/configs/metaboxs.php:552
+msgid "Star Rating Filter Orientation"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:545
+msgid ""
+"Choose a star rating filter orientation, whether horizontal or vertical."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:552
+msgid "Star Rating Filter Orientation (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:552
+msgid ""
+"For the vertical style, when the average rating section is enabled with the "
+"rating star filter, the rating star filter will show as a side-by-side view."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:559
+msgid "Counter"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:560
+msgid "Show/Hide testimonial counter."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:572
+msgid "Display All Tab"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:573
+msgid "Show/Hide \"All\" tab."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:585
+msgid "All Tab Label"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:586
+msgid "Set \"All\" tab label text."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:595
+msgid "Button Alignment"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:596
+msgid "Set alignment for filter button."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:610
+msgid "Filter Button Color"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:611
+msgid "Set color for filter button."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:614
+#: src/Admin/Views/Framework/configs/metaboxs.php:2669
+msgid "Active Color"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:616
+msgid "Active Background"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:632
+msgid "Set border for the filter button."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:647
+#: src/Admin/Views/Framework/configs/metaboxs.php:766
+#: src/Admin/Views/Framework/configs/metaboxs.php:2010
+#: src/Admin/Views/Framework/configs/metaboxs.php:2227
+#: src/Admin/Views/Framework/configs/metaboxs.php:2229
+#: src/Admin/Views/Framework/configs/metaboxs.php:2685
 msgid "Margin"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:396
-#: src/Admin/Views/Framework/configs/metaboxs.php:2199
+#: src/Admin/Views/Framework/configs/metaboxs.php:649
+msgid "Set margin for filter."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:667
+msgid "LOAD MORE PAGINATION"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:681
+#, php-format
+msgid ""
+"To unlock the following ajax pagination settings for Grid, Masonry, & List "
+"layouts, %1$sUpgrade to Pro!%2$s"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:695
+#: src/Admin/Views/Framework/configs/metaboxs.php:2581
+#: src/Admin/Views/Framework/configs/metaboxs.php:2603
+msgid "Pagination"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:696
+msgid "Enqueue/Dequeue pagination."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:697
+msgid "Enable"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:698
+msgid "Disable"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:712
+msgid "Pagination Type"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:713
+msgid "Choose a pagination type."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:715
+msgid "Ajax Load More Button (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:716
+msgid "Ajax Number Pagination (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:717
+msgid "Ajax Infinite Scroll (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:718
+msgid "No Ajax (Normal Pagination)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:732
+msgid "Testimonial(s) to Show Per Page"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:733
+msgid "Set number of testimonial(s) to show per page."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:747
+#: src/Admin/Views/Framework/configs/metaboxs.php:2139
+msgid "Alignment"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:748
+msgid "Select pagination alignment."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:767
+#: src/Admin/Views/Framework/configs/metaboxs.php:2686
 msgid "Set pagination margin."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:416
+#: src/Admin/Views/Framework/configs/metaboxs.php:787
 msgid "Pagination Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:417
+#: src/Admin/Views/Framework/configs/metaboxs.php:788
 msgid "Set color for pagination."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:441
+#: src/Admin/Views/Framework/configs/metaboxs.php:812
 msgid "Pagination Border"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:442
+#: src/Admin/Views/Framework/configs/metaboxs.php:813
 msgid "Set pagination border."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:467
+#: src/Admin/Views/Framework/configs/metaboxs.php:838
 msgid "Theme Settings"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:475
+#: src/Admin/Views/Framework/configs/metaboxs.php:846
 #, php-format
 msgid ""
 "To impress your potential customers with professionally designed testimonial "
 "themes/templates, %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:484
+#: src/Admin/Views/Framework/configs/metaboxs.php:855
 msgid "Select Your Theme"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:487
+#: src/Admin/Views/Framework/configs/metaboxs.php:858
 #, php-format
 msgid ""
 "Select which theme style you want to use. %1$sPlease note:%2$s To get the "
 "perfect view for certain themes, you need to configure some settings below."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:493
+#: src/Admin/Views/Framework/configs/metaboxs.php:864
 #, php-format
 msgid ""
 "Get Access to 14 Professionally Designed Testimonial Themes with "
 "Customization options, %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:501
+#: src/Admin/Views/Framework/configs/metaboxs.php:872
 msgid "Theme One"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:505
+#: src/Admin/Views/Framework/configs/metaboxs.php:876
 msgid "Theme Two"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:511
+#: src/Admin/Views/Framework/configs/metaboxs.php:882
 msgid "Theme Three"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:516
+#: src/Admin/Views/Framework/configs/metaboxs.php:887
 msgid "Theme Four"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:521
+#: src/Admin/Views/Framework/configs/metaboxs.php:892
 msgid "Theme Five"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:526
+#: src/Admin/Views/Framework/configs/metaboxs.php:897
 msgid "Theme Six"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:531
+#: src/Admin/Views/Framework/configs/metaboxs.php:902
 msgid "Theme Seven"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:536
+#: src/Admin/Views/Framework/configs/metaboxs.php:907
 msgid "Theme Eight"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:541
+#: src/Admin/Views/Framework/configs/metaboxs.php:912
 msgid "Theme Nine"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:546
+#: src/Admin/Views/Framework/configs/metaboxs.php:917
 msgid "Theme Ten"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:551
+#: src/Admin/Views/Framework/configs/metaboxs.php:922
 msgid "Theme Eleven"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:556
+#: src/Admin/Views/Framework/configs/metaboxs.php:927
 msgid "Theme Twelve"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:561
+#: src/Admin/Views/Framework/configs/metaboxs.php:932
 msgid "Theme Thirteen"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:566
+#: src/Admin/Views/Framework/configs/metaboxs.php:937
 msgid "Theme Fourteen"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:575
+#: src/Admin/Views/Framework/configs/metaboxs.php:946
 msgid "CUSTOMIZE THEME"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:581
+#: src/Admin/Views/Framework/configs/metaboxs.php:952
 msgid "Reviewer Image Alignment"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:582
+#: src/Admin/Views/Framework/configs/metaboxs.php:953
 msgid "Set an alignment for the reviewer image."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:600
+#: src/Admin/Views/Framework/configs/metaboxs.php:965
 msgid "Set testimonial border."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:614
+#: src/Admin/Views/Framework/configs/metaboxs.php:979
 msgid "Background Color Type"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:615
+#: src/Admin/Views/Framework/configs/metaboxs.php:980
 msgid "Choose background color type."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:619
+#: src/Admin/Views/Framework/configs/metaboxs.php:984
 msgid "Gradient"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:629
+#: src/Admin/Views/Framework/configs/metaboxs.php:994
 msgid "Set testimonial background color."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:637
+#: src/Admin/Views/Framework/configs/metaboxs.php:1002
 #, php-format
 msgid ""
 "To unlock the Testimonial Theme-based Advanced Customization options, "
 "%1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:647
+#: src/Admin/Views/Framework/configs/metaboxs.php:1012
 msgid "Reviewer Image Position"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:648
+#: src/Admin/Views/Framework/configs/metaboxs.php:1013
 msgid "Select a position for the reviewer image."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:667
-#: src/Admin/Views/Framework/configs/metaboxs.php:669
+#: src/Admin/Views/Framework/configs/metaboxs.php:1032
+#: src/Admin/Views/Framework/configs/metaboxs.php:1034
 msgid "Inner Padding"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:668
+#: src/Admin/Views/Framework/configs/metaboxs.php:1033
 msgid "Set testimonial inner padding."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:685
+#: src/Admin/Views/Framework/configs/metaboxs.php:1050
 msgid "Info Position"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:686
+#: src/Admin/Views/Framework/configs/metaboxs.php:1051
 msgid "Select testimonial info position."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:700
+#: src/Admin/Views/Framework/configs/metaboxs.php:1065
 msgid "Info Border"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:701
+#: src/Admin/Views/Framework/configs/metaboxs.php:1066
 msgid "Set testimonial info border."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:715
+#: src/Admin/Views/Framework/configs/metaboxs.php:1080
 msgid "Testimonial Info Background"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:716
+#: src/Admin/Views/Framework/configs/metaboxs.php:1081
 msgid "Set background color for testimonial information."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:725
+#: src/Admin/Views/Framework/configs/metaboxs.php:1090
 msgid "Testimonial Info Inner Padding"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:726
+#: src/Admin/Views/Framework/configs/metaboxs.php:1091
 msgid "Set inner padding for testimonial information."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:741
-#: src/Admin/Views/Framework/configs/metaboxs.php:743
+#: src/Admin/Views/Framework/configs/metaboxs.php:1106
+#: src/Admin/Views/Framework/configs/metaboxs.php:1108
 msgid "Enable Equal Height"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:742
+#: src/Admin/Views/Framework/configs/metaboxs.php:1107
 msgid ""
 "Enable to adjust the height of all the testimonial items to match the "
 "tallest one."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:760
+#: src/Admin/Views/Framework/configs/metaboxs.php:1125
 msgid "Display Settings"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:768
+#: src/Admin/Views/Framework/configs/metaboxs.php:1133
 msgid "Basic Preferences"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:775
-#, php-format
-msgid ""
-"Want to display the Average Rating, Ajax Testimonial Search, and more? "
-"%1$sUpgrade to Pro!%2$s"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:783
+#: src/Admin/Views/Framework/configs/metaboxs.php:1139
 msgid "Section Title"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:784
+#: src/Admin/Views/Framework/configs/metaboxs.php:1140
 msgid "Show/Hide the testimonial section title."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:785
-#: src/Admin/Views/Framework/configs/metaboxs.php:798
-#: src/Admin/Views/Framework/configs/metaboxs.php:860
-#: src/Admin/Views/Framework/configs/metaboxs.php:929
-#: src/Admin/Views/Framework/configs/metaboxs.php:938
-#: src/Admin/Views/Framework/configs/metaboxs.php:1003
-#: src/Admin/Views/Framework/configs/metaboxs.php:1042
-#: src/Admin/Views/Framework/configs/metaboxs.php:1077
-#: src/Admin/Views/Framework/configs/metaboxs.php:1137
-#: src/Admin/Views/Framework/configs/metaboxs.php:1167
-#: src/Admin/Views/Framework/configs/metaboxs.php:1180
-#: src/Admin/Views/Framework/configs/metaboxs.php:1256
-#: src/Admin/Views/Framework/configs/metaboxs.php:1570
-#: src/Admin/Views/Framework/configs/metaboxs.php:1641
-#: src/Admin/Views/Framework/configs/metaboxs.php:1929
-#: src/Admin/Views/Framework/configs/metaboxs.php:2118
-msgid "Show"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:786
-#: src/Admin/Views/Framework/configs/metaboxs.php:799
-#: src/Admin/Views/Framework/configs/metaboxs.php:861
-#: src/Admin/Views/Framework/configs/metaboxs.php:930
-#: src/Admin/Views/Framework/configs/metaboxs.php:939
-#: src/Admin/Views/Framework/configs/metaboxs.php:1004
-#: src/Admin/Views/Framework/configs/metaboxs.php:1043
-#: src/Admin/Views/Framework/configs/metaboxs.php:1078
-#: src/Admin/Views/Framework/configs/metaboxs.php:1138
-#: src/Admin/Views/Framework/configs/metaboxs.php:1168
-#: src/Admin/Views/Framework/configs/metaboxs.php:1181
-#: src/Admin/Views/Framework/configs/metaboxs.php:1257
-#: src/Admin/Views/Framework/configs/metaboxs.php:1571
-#: src/Admin/Views/Framework/configs/metaboxs.php:1642
-#: src/Admin/Views/Framework/configs/metaboxs.php:1930
-#: src/Admin/Views/Framework/configs/metaboxs.php:2119
-msgid "Hide"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:794
-#: src/Admin/Views/Framework/configs/metaboxs.php:797
+#: src/Admin/Views/Framework/configs/metaboxs.php:1150
+#: src/Admin/Views/Framework/configs/metaboxs.php:1153
 msgid "Average Rating"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:796
+#: src/Admin/Views/Framework/configs/metaboxs.php:1152
 msgid "Show/Hide average rating."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:807
-#: src/Admin/Views/Framework/configs/metaboxs.php:809
+#: src/Admin/Views/Framework/configs/metaboxs.php:1163
+#: src/Admin/Views/Framework/configs/metaboxs.php:1165
 msgid "Ajax Testimonial Search"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:808
+#: src/Admin/Views/Framework/configs/metaboxs.php:1164
 msgid "Enable/Disable ajax search for testimonial."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:820
+#: src/Admin/Views/Framework/configs/metaboxs.php:1176
 msgid "Schema Markup"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:821
+#: src/Admin/Views/Framework/configs/metaboxs.php:1177
 msgid "Enable Schema.org Markup"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:821
+#: src/Admin/Views/Framework/configs/metaboxs.php:1177
 msgid ""
 "Reviews Schema.org markup will let search engines read the reviews and "
 "overall ratings on your website and display them in search results. It will "
@@ -1765,189 +1951,190 @@ msgid ""
 "will lead to a higher number of redirects from search engines."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:822
+#: src/Admin/Views/Framework/configs/metaboxs.php:1178
 msgid "Enable/Disable schema.org markup."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:832
+#: src/Admin/Views/Framework/configs/metaboxs.php:1188
 msgid "Preloader"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:833
+#: src/Admin/Views/Framework/configs/metaboxs.php:1189
 msgid "Enable/Disable preloader."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:850
+#: src/Admin/Views/Framework/configs/metaboxs.php:1201
+#, php-format
+msgid ""
+"Want to display the Average Rating, Ajax Testimonial Search, and more? "
+"%1$sUpgrade to Pro!%2$s"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1218
 #, php-format
 msgid ""
 "Looking to make your customer Testimonial Content more captivating with "
 "advanced customization options? %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:859
+#: src/Admin/Views/Framework/configs/metaboxs.php:1227
 msgid "Show/Hide testimonial tagline or title."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:872
+#: src/Admin/Views/Framework/configs/metaboxs.php:1240
 msgid "Set testimonial title length. Leave it empty to show full title."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:900
-#: src/Admin/Views/Framework/configs/metaboxs.php:1051
+#: src/Admin/Views/Framework/configs/metaboxs.php:1268
+#: src/Admin/Views/Framework/configs/metaboxs.php:1420
 msgid "HTML Tag"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:901
+#: src/Admin/Views/Framework/configs/metaboxs.php:1269
 msgid "Select testimonial title HTML tag."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:926
+#: src/Admin/Views/Framework/configs/metaboxs.php:1294
 msgid "Add a Quote Symbol"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:927
+#: src/Admin/Views/Framework/configs/metaboxs.php:1295
 msgid "Add a quote symbol before testimonial title."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:937
+#: src/Admin/Views/Framework/configs/metaboxs.php:1305
 msgid "Show/Hide testimonial content."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:947
+#: src/Admin/Views/Framework/configs/metaboxs.php:1315
 msgid "Content Display Type"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:948
+#: src/Admin/Views/Framework/configs/metaboxs.php:1316
 msgid "Choose content display type."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:950
+#: src/Admin/Views/Framework/configs/metaboxs.php:1318
 msgid "Full"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:970
+#: src/Admin/Views/Framework/configs/metaboxs.php:1338
 msgid "Set testimonial content length."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1001
+#: src/Admin/Views/Framework/configs/metaboxs.php:1369
 msgid "Read More"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1002
+#: src/Admin/Views/Framework/configs/metaboxs.php:1370
 msgid "Show/Hide testimonial read more button."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1014
+#: src/Admin/Views/Framework/configs/metaboxs.php:1382
 msgid "Read More Action Type"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1015
+#: src/Admin/Views/Framework/configs/metaboxs.php:1383
 msgid "Select read more link action type."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1017
+#: src/Admin/Views/Framework/configs/metaboxs.php:1385
 msgid "Expand"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1025
-#: src/Admin/Views/Framework/configs/metaboxs.php:2728
+#: src/Admin/Views/Framework/configs/metaboxs.php:1393
+#: src/Admin/Views/Framework/configs/metaboxs.php:3215
 msgid "Reviewer Information"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1032
+#: src/Admin/Views/Framework/configs/metaboxs.php:1401
 #, php-format
 msgid ""
 "Want to display more reviewer information and build trust & credibility? "
 "%1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1041
+#: src/Admin/Views/Framework/configs/metaboxs.php:1410
 msgid "Show/Hide reviewer full name."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1052
+#: src/Admin/Views/Framework/configs/metaboxs.php:1421
 msgid "Select reviewer name HTML tag."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1075
-#: src/Admin/Views/Framework/configs/metaboxs.php:2746
-msgid "Star Rating"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1076
-msgid "Show/Hide rating."
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1086
-msgid "Rating Icon"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1087
-msgid "Choose a rating icon."
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1127
-msgid "Set color for rating."
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1136
+#: src/Admin/Views/Framework/configs/metaboxs.php:1445
 msgid "Show/Hide identity or position."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1147
-msgid "Rating Position"
+#: src/Admin/Views/Framework/configs/metaboxs.php:1457
+#: src/Admin/Views/Framework/configs/metaboxs.php:3268
+msgid "Company Name"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1148
-msgid "Select a position for the star rating."
+#: src/Admin/Views/Framework/configs/metaboxs.php:1458
+msgid "Show/Hide company name."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1150
-msgid "Below Reviewer Name"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1151
-msgid "Below Reviewer Designation (Pro)"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1152
-msgid "Above Testimonial Title (Pro)"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1153
-msgid "Below Testimonial Title (Pro)"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1154
-msgid "Below Testimonial Content (Pro)"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1165
-#: src/Admin/Views/Framework/configs/metaboxs.php:2788
+#: src/Admin/Views/Framework/configs/metaboxs.php:1469
+#: src/Admin/Views/Framework/configs/metaboxs.php:3275
 msgid "Company Logo"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1166
+#: src/Admin/Views/Framework/configs/metaboxs.php:1470
 msgid "Show/Hide company Logo."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1179
+#: src/Admin/Views/Framework/configs/metaboxs.php:1479
+#: src/Admin/Views/Framework/configs/metaboxs.php:3285
+msgid "Location"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1480
+msgid "Show/Hide Reviewer location."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1491
+msgid "Country"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1492
+msgid "Choose a country display type."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1497
+msgid "Country Name (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1501
+msgid "Country Name with Flag (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1505
+msgid "Only Flag "
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1509
+msgid "None "
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1521
 msgid "Show/Hide testimonial date."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1189
+#: src/Admin/Views/Framework/configs/metaboxs.php:1531
 msgid "Date Format"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1190
+#: src/Admin/Views/Framework/configs/metaboxs.php:1532
 msgid "Set date format."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1193
+#: src/Admin/Views/Framework/configs/metaboxs.php:1535
 msgid "Time ago (human time)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1194
+#: src/Admin/Views/Framework/configs/metaboxs.php:1536
+#: src/Admin/Views/Framework/configs/metaboxs.php:1680
 #: src/Admin/Views/Framework/fields/typography/typography.php:174
 #: src/Admin/Views/Framework/fields/typography/typography.php:188
 #: src/Admin/Views/Framework/fields/typography/typography.php:201
@@ -1959,1044 +2146,1097 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1195
+#: src/Admin/Views/Framework/configs/metaboxs.php:1537
 msgid "Custom"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1205
-msgid " "
+#: src/Admin/Views/Framework/configs/metaboxs.php:1582
+msgid "Designation & Company Linking via Website URL"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1239
-#: src/Admin/Views/Framework/configs/metaboxs.php:1254
+#: src/Admin/Views/Framework/configs/metaboxs.php:1583
+msgid "Check to link designation & company name via website URL."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1597
+msgid "Show/Hide rating."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1608
+msgid "Rating Icon Style"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1609
+msgid "Choose a star rating icon style."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1678
+msgid "Set color for the rating."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1681
+msgid " Rating"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1693
+msgid "Rating Icon Size"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1694
+msgid "Set a size for the rating icon."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1713
+msgid "Gap"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1714
+msgid "Set a gap between the rating icons."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1734
+msgid "Rating Position"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1735
+msgid "Select a position for the star rating."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1737
+msgid "Below Reviewer Name"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1738
+msgid "Below Reviewer Designation (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1739
+msgid "Above Testimonial Title (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1740
+msgid "Below Testimonial Title (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1741
+msgid "Below Testimonial Content (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1750
+#: src/Admin/Views/Framework/configs/metaboxs.php:1767
 msgid "Reviewer Image"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1246
+#: src/Admin/Views/Framework/configs/metaboxs.php:1759
 #, php-format
 msgid ""
 "Want to enhance the Reviewer's Image using advanced customizations? "
 "%1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1255
+#: src/Admin/Views/Framework/configs/metaboxs.php:1768
 msgid "Show/Hide reviewer image."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1265
+#: src/Admin/Views/Framework/configs/metaboxs.php:1778
 msgid "Dimensions"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1266
+#: src/Admin/Views/Framework/configs/metaboxs.php:1779
 msgid "Select dimension for reviewer image."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1279
+#: src/Admin/Views/Framework/configs/metaboxs.php:1792
 msgid "Custom Dimensions"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1280
+#: src/Admin/Views/Framework/configs/metaboxs.php:1793
 msgid "Set a custom width and height for the reviewer image."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1301
+#: src/Admin/Views/Framework/configs/metaboxs.php:1814
 msgid "Load 2x Resolution Image in Retina Display"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1302
+#: src/Admin/Views/Framework/configs/metaboxs.php:1815
 msgid "You should upload 2x sized images to show in retina display."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1303
-msgid "ENABLED"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1304
-msgid "DISABLED"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1318
+#: src/Admin/Views/Framework/configs/metaboxs.php:1831
 msgid "Image Shape"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1319
+#: src/Admin/Views/Framework/configs/metaboxs.php:1832
 msgid "Choose a image shape."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1324
+#: src/Admin/Views/Framework/configs/metaboxs.php:1837
 msgid "Circle"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1328
+#: src/Admin/Views/Framework/configs/metaboxs.php:1841
 msgid "Rounded"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1333
+#: src/Admin/Views/Framework/configs/metaboxs.php:1846
 msgid "Square"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1348
+#: src/Admin/Views/Framework/configs/metaboxs.php:1861
 msgid "Reviewer Fallback Images"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1349
+#: src/Admin/Views/Framework/configs/metaboxs.php:1862
 msgid "If no Featured Image is set, a reviewer fallback image can be used."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1351
+#: src/Admin/Views/Framework/configs/metaboxs.php:1864
 msgid "No Fallback Image"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1352
+#: src/Admin/Views/Framework/configs/metaboxs.php:1865
 msgid "Mystery Person"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1353
+#: src/Admin/Views/Framework/configs/metaboxs.php:1866
 msgid "Smart Text Avatars"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1365
+#: src/Admin/Views/Framework/configs/metaboxs.php:1878
 msgid "Image Background"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1366
+#: src/Admin/Views/Framework/configs/metaboxs.php:1879
 msgid "Set reviewer image background color."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1375
+#: src/Admin/Views/Framework/configs/metaboxs.php:1888
 msgid "Set padding for reviewer image."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1395
+#: src/Admin/Views/Framework/configs/metaboxs.php:1908
 msgid "Set reviewer image border."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1409
+#: src/Admin/Views/Framework/configs/metaboxs.php:1922
 msgid "BoxShadow"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1410
+#: src/Admin/Views/Framework/configs/metaboxs.php:1923
 msgid "Set boxshadow for the reviewer image."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1427
+#: src/Admin/Views/Framework/configs/metaboxs.php:1940
 msgid "Set reviewer image box-shadow property values."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1446
+#: src/Admin/Views/Framework/configs/metaboxs.php:1959
 msgid "Lightbox "
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1447
+#: src/Admin/Views/Framework/configs/metaboxs.php:1960
 msgid "Enable/Disable reviewer image lightbox."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1464
-msgid "Zoom"
+#: src/Admin/Views/Framework/configs/metaboxs.php:1971
+msgid "Zoom Effect"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1465
+#: src/Admin/Views/Framework/configs/metaboxs.php:1972
 msgid "Set a zoom effect on hover for the reviewer image."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1468
-msgid "Zoom In (Pro)"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1469
-msgid "Zoom Out (Pro)"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1485
-#: src/Admin/Views/Framework/configs/metaboxs.php:1510
-msgid "Set margin for the reviewer image."
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1532
-msgid "Image Mode"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1533
-msgid "Select a image mode."
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:1536
+#: src/Admin/Views/Framework/configs/metaboxs.php:1974
+#: src/Admin/Views/Framework/configs/metaboxs.php:1993
 #: src/Admin/Views/Framework/fields/typography/typography.php:251
 msgid "Normal"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1537
+#: src/Admin/Views/Framework/configs/metaboxs.php:1975
+msgid "Zoom In (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1976
+msgid "Zoom Out (Pro)"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1989
+msgid "Image Mode"
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1990
+msgid "Select a image mode."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:1994
 msgid "Grayscale and normal on hover (Pro)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1538
+#: src/Admin/Views/Framework/configs/metaboxs.php:1995
 msgid "Grayscale on hover (Pro)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1539
+#: src/Admin/Views/Framework/configs/metaboxs.php:1996
 msgid "Always grayscale (Pro)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1551
-#: src/Admin/Views/Framework/configs/metaboxs.php:1568
+#: src/Admin/Views/Framework/configs/metaboxs.php:2011
+msgid "Set margin for the reviewer image."
+msgstr ""
+
+#: src/Admin/Views/Framework/configs/metaboxs.php:2033
+#: src/Admin/Views/Framework/configs/metaboxs.php:2054
 msgid "Video Testimonial"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1558
+#: src/Admin/Views/Framework/configs/metaboxs.php:2042
 #, php-format
 msgid ""
-"Want to Collect and Display Video Testimonials with ease to boost sales? "
-"%1$sUpgrade to Pro!%2$s"
+"To allow customers to %3$sRecord Videos%2$s or Collect them manually to "
+"easily display %4$sVideo Testimonials%2$s and boost sales, %1$sUpgrade to "
+"Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1569
+#: src/Admin/Views/Framework/configs/metaboxs.php:2055
 msgid "Show/Hide video testimonial."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1580
+#: src/Admin/Views/Framework/configs/metaboxs.php:2066
 msgid "Video Play Mode"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1581
+#: src/Admin/Views/Framework/configs/metaboxs.php:2067
 msgid "Select a mode video play."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1583
+#: src/Admin/Views/Framework/configs/metaboxs.php:2069
 msgid "Inline"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1592
+#: src/Admin/Views/Framework/configs/metaboxs.php:2078
 msgid "Icon Size"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1593
+#: src/Admin/Views/Framework/configs/metaboxs.php:2079
 msgid "Set testimonial icon size for video and lightbox."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1600
-#: src/Admin/Views/Framework/configs/metaboxs.php:1705
+#: src/Admin/Views/Framework/configs/metaboxs.php:2086
+#: src/Admin/Views/Framework/configs/metaboxs.php:2193
 msgid "Icon Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1601
+#: src/Admin/Views/Framework/configs/metaboxs.php:2087
 msgid "Set testimonial icon color for video and lightbox."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1615
+#: src/Admin/Views/Framework/configs/metaboxs.php:2101
 msgid "Icon Overlay Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1616
+#: src/Admin/Views/Framework/configs/metaboxs.php:2102
 msgid "Set testimonial icon overlay color for video and lightbox."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1622
+#: src/Admin/Views/Framework/configs/metaboxs.php:2108
 msgid "Social Media"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1629
+#: src/Admin/Views/Framework/configs/metaboxs.php:2117
 #, php-format
 msgid ""
 "Want to display Social Media Profiles with reviewer information? %1$sUpgrade "
 "to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1639
-#: src/Admin/Views/Framework/configs/metaboxs.php:2878
+#: src/Admin/Views/Framework/configs/metaboxs.php:2127
+#: src/Admin/Views/Framework/configs/metaboxs.php:3379
 msgid "Social Profiles"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1640
+#: src/Admin/Views/Framework/configs/metaboxs.php:2128
 msgid "Show/Hide social profiles."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1652
+#: src/Admin/Views/Framework/configs/metaboxs.php:2140
 msgid "Social profiles alignment."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1670
+#: src/Admin/Views/Framework/configs/metaboxs.php:2158
 msgid "Icon Border Radius"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1671
+#: src/Admin/Views/Framework/configs/metaboxs.php:2159
 msgid "Set social icon border radius."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1693
+#: src/Admin/Views/Framework/configs/metaboxs.php:2181
 msgid "Icon Color Type"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1694
+#: src/Admin/Views/Framework/configs/metaboxs.php:2182
 msgid "Choose icon color type."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1706
+#: src/Admin/Views/Framework/configs/metaboxs.php:2194
 msgid "Set social icon color."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1724
+#: src/Admin/Views/Framework/configs/metaboxs.php:2212
 msgid "Icon Border"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1725
+#: src/Admin/Views/Framework/configs/metaboxs.php:2213
 msgid "Set social icon border."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1740
+#: src/Admin/Views/Framework/configs/metaboxs.php:2228
 msgid "Set margin for social profiles."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1769
+#: src/Admin/Views/Framework/configs/metaboxs.php:2257
 msgid "Slider Settings"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1777
+#: src/Admin/Views/Framework/configs/metaboxs.php:2265
 msgid "Slider Basics"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1788
+#: src/Admin/Views/Framework/configs/metaboxs.php:2276
 msgid "AutoPlay"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1789
+#: src/Admin/Views/Framework/configs/metaboxs.php:2277
 msgid "Enable/Disable autoplay."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1801
+#: src/Admin/Views/Framework/configs/metaboxs.php:2288
 msgid "Disable on Mobile"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1810
+#: src/Admin/Views/Framework/configs/metaboxs.php:2297
 msgid "AutoPlay Delay"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1811
+#: src/Admin/Views/Framework/configs/metaboxs.php:2298
 msgid "Set auto play delay time in millisecond."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1812
+#: src/Admin/Views/Framework/configs/metaboxs.php:2299
 msgid "AutoPlay Delay Time"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1812
+#: src/Admin/Views/Framework/configs/metaboxs.php:2299
 msgid ""
 "Set autoplay delay or interval time. The amount of time to delay between "
 "automatically cycling a testimonial item. e.g. 1000 milliseconds(ms) = 1 "
 "second."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1818
-#: src/Admin/Views/Framework/configs/metaboxs.php:1831
+#: src/Admin/Views/Framework/configs/metaboxs.php:2305
+#: src/Admin/Views/Framework/configs/metaboxs.php:2318
 msgid "ms"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1828
-#: src/Admin/Views/Framework/configs/metaboxs.php:1830
+#: src/Admin/Views/Framework/configs/metaboxs.php:2315
+#: src/Admin/Views/Framework/configs/metaboxs.php:2317
 msgid "Pagination Speed"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1829
+#: src/Admin/Views/Framework/configs/metaboxs.php:2316
 msgid "Set pagination speed in millisecond."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1830
+#: src/Admin/Views/Framework/configs/metaboxs.php:2317
 msgid "Set carousel scrolling speed. e.g. 1000 milliseconds(ms) = 1 second."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1841
+#: src/Admin/Views/Framework/configs/metaboxs.php:2328
 msgid "Pause on Hover"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1842
+#: src/Admin/Views/Framework/configs/metaboxs.php:2329
 msgid "Enable/Disable slider pause on hover."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1857
+#: src/Admin/Views/Framework/configs/metaboxs.php:2344
 msgid "Infinite Loop"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1858
+#: src/Admin/Views/Framework/configs/metaboxs.php:2345
 msgid "Enable/Disable infinite loop mode."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1868
-msgid "Slider Animation"
+#: src/Admin/Views/Framework/configs/metaboxs.php:2355
+msgid "Transition Effect"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1869
-msgid "Fade effect works only on single column view."
+#: src/Admin/Views/Framework/configs/metaboxs.php:2356
+msgid "Select a transition effect or animation."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1872
+#: src/Admin/Views/Framework/configs/metaboxs.php:2359
 msgid "Slide"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1873
+#: src/Admin/Views/Framework/configs/metaboxs.php:2360
 msgid "Fade (Pro)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1874
+#: src/Admin/Views/Framework/configs/metaboxs.php:2361
 msgid "Flip Horizontally (Pro)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1875
+#: src/Admin/Views/Framework/configs/metaboxs.php:2362
 msgid "Flip Vertically (Pro)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1884
+#: src/Admin/Views/Framework/configs/metaboxs.php:2370
 msgid "Direction"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1885
+#: src/Admin/Views/Framework/configs/metaboxs.php:2371
 msgid "Slider direction."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1887
+#: src/Admin/Views/Framework/configs/metaboxs.php:2373
 msgid "Right to Left"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1888
+#: src/Admin/Views/Framework/configs/metaboxs.php:2374
 msgid "Left to Right"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1897
+#: src/Admin/Views/Framework/configs/metaboxs.php:2383
 #, php-format
 msgid ""
 "Ready to fascinate your audience with beautiful transitions, such as Fade, "
 "Flip Horizontally and Vertically? %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1905
-#: src/Admin/Views/Framework/configs/metaboxs.php:1926
+#: src/Admin/Views/Framework/configs/metaboxs.php:2391
+#: src/Admin/Views/Framework/configs/metaboxs.php:2413
 msgid "Navigation"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1912
+#: src/Admin/Views/Framework/configs/metaboxs.php:2399
 #, php-format
 msgid ""
 "Want even more fine-tuned control over your Slider Navigation display? "
 "%1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1927
+#: src/Admin/Views/Framework/configs/metaboxs.php:2414
 msgid "Show/Hide the navigation."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1938
-#: src/Admin/Views/Framework/configs/metaboxs.php:2126
+#: src/Admin/Views/Framework/configs/metaboxs.php:2425
+#: src/Admin/Views/Framework/configs/metaboxs.php:2614
 msgid "Hide on Mobile"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1948
+#: src/Admin/Views/Framework/configs/metaboxs.php:2435
 msgid "Select Position"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1949
+#: src/Admin/Views/Framework/configs/metaboxs.php:2436
 msgid "Select a position for the navigation arrows."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1952
+#: src/Admin/Views/Framework/configs/metaboxs.php:2439
 #, php-format
 msgid "%1$sThis is a %2$sPro Feature!%3$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1960
+#: src/Admin/Views/Framework/configs/metaboxs.php:2447
 msgid "Vertical Outer"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1961
+#: src/Admin/Views/Framework/configs/metaboxs.php:2448
 msgid "Top Right"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1962
+#: src/Admin/Views/Framework/configs/metaboxs.php:2449
 msgid "Top Center"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1963
+#: src/Admin/Views/Framework/configs/metaboxs.php:2450
 msgid "Top Left"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1964
+#: src/Admin/Views/Framework/configs/metaboxs.php:2451
 msgid "Bottom Left"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1965
+#: src/Admin/Views/Framework/configs/metaboxs.php:2452
 msgid "Bottom Center"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1966
+#: src/Admin/Views/Framework/configs/metaboxs.php:2453
 msgid "Bottom Right"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1967
+#: src/Admin/Views/Framework/configs/metaboxs.php:2454
 msgid "Vertical Inner"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1968
+#: src/Admin/Views/Framework/configs/metaboxs.php:2455
 msgid "Vertical Center"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1977
+#: src/Admin/Views/Framework/configs/metaboxs.php:2464
 msgid "Show On Hover"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1978
+#: src/Admin/Views/Framework/configs/metaboxs.php:2465
 msgid "Check to show navigation on hover."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1991
+#: src/Admin/Views/Framework/configs/metaboxs.php:2478
 msgid "Navigation Arrow Style"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:1992
+#: src/Admin/Views/Framework/configs/metaboxs.php:2479
 msgid "choose a navigation arrow icon style."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2015
+#: src/Admin/Views/Framework/configs/metaboxs.php:2502
 msgid "Navigation Icon Size"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2016
+#: src/Admin/Views/Framework/configs/metaboxs.php:2503
 msgid "Change navigation icon size."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2028
+#: src/Admin/Views/Framework/configs/metaboxs.php:2515
 msgid "Navigation Color"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2029
+#: src/Admin/Views/Framework/configs/metaboxs.php:2516
 msgid "Set the navigation color."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2052
+#: src/Admin/Views/Framework/configs/metaboxs.php:2539
 msgid "Navigation Border"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2053
+#: src/Admin/Views/Framework/configs/metaboxs.php:2540
 msgid "Set the navigation border."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2073
+#: src/Admin/Views/Framework/configs/metaboxs.php:2560
 msgid "Border Radius"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2074
+#: src/Admin/Views/Framework/configs/metaboxs.php:2561
 msgid "Set the navigation border radius."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2101
+#: src/Admin/Views/Framework/configs/metaboxs.php:2589
 #, php-format
 msgid ""
 "Want even more fine-tuned control over your Slider Pagination display? "
 "%1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2116
+#: src/Admin/Views/Framework/configs/metaboxs.php:2604
 msgid "Show/Hide the pagination."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2136
+#: src/Admin/Views/Framework/configs/metaboxs.php:2624
 msgid "Pagination Style"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2137
+#: src/Admin/Views/Framework/configs/metaboxs.php:2625
 msgid "Select carousel pagination type."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2141
+#: src/Admin/Views/Framework/configs/metaboxs.php:2629
 msgid "Bullets"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2145
+#: src/Admin/Views/Framework/configs/metaboxs.php:2633
 msgid "Dynamic"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2151
+#: src/Admin/Views/Framework/configs/metaboxs.php:2638
 msgid "Strokes"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2156
+#: src/Admin/Views/Framework/configs/metaboxs.php:2643
 msgid "Scrollbar"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2161
+#: src/Admin/Views/Framework/configs/metaboxs.php:2648
 msgid "Fraction"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2166
+#: src/Admin/Views/Framework/configs/metaboxs.php:2653
 msgid "Numbers"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2178
+#: src/Admin/Views/Framework/configs/metaboxs.php:2665
 msgid "Set the pagination color."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2182
-msgid "Active Color"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:2217
+#: src/Admin/Views/Framework/configs/metaboxs.php:2704
 msgid "Miscellaneous"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2223
+#: src/Admin/Views/Framework/configs/metaboxs.php:2710
 msgid "Adaptive Slider Height"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2224
+#: src/Admin/Views/Framework/configs/metaboxs.php:2711
 msgid "Dynamically adjust slider height based on each slide's height."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2234
+#: src/Admin/Views/Framework/configs/metaboxs.php:2721
 msgid "Touch Swipe"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2235
+#: src/Admin/Views/Framework/configs/metaboxs.php:2722
 msgid "Enable/Disable swipe mode."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2245
+#: src/Admin/Views/Framework/configs/metaboxs.php:2732
 msgid "Mouse Draggable"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2246
+#: src/Admin/Views/Framework/configs/metaboxs.php:2733
 msgid "Enable/Disable mouse draggable mode."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2257
+#: src/Admin/Views/Framework/configs/metaboxs.php:2744
 msgid "Free Mode"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2258
+#: src/Admin/Views/Framework/configs/metaboxs.php:2745
 msgid "Enable/Disable free mode."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2268
-msgid "Swipe To Slide"
+#: src/Admin/Views/Framework/configs/metaboxs.php:2755
+msgid "Mouse Wheel"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2269
-msgid "Enable/Disable swipe to slide."
+#: src/Admin/Views/Framework/configs/metaboxs.php:2756
+msgid "Enable/Disable mouse wheel."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2290
+#: src/Admin/Views/Framework/configs/metaboxs.php:2777
 msgid "Typography"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2299
+#: src/Admin/Views/Framework/configs/metaboxs.php:2786
 #, php-format
 msgid ""
 "Want to customize everything (Typography, Colors, Margin) easily? "
 "%1$sUpgrade to Pro!%2$s P.S. Note: The color fields work in the lite version."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2307
+#: src/Admin/Views/Framework/configs/metaboxs.php:2794
 msgid "Load Section Title Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2308
+#: src/Admin/Views/Framework/configs/metaboxs.php:2795
 msgid "On/Off google font for the section title."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2316
+#: src/Admin/Views/Framework/configs/metaboxs.php:2803
 msgid "Section Title Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2317
+#: src/Admin/Views/Framework/configs/metaboxs.php:2804
 msgid "Set testimonial section title font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2337
+#: src/Admin/Views/Framework/configs/metaboxs.php:2824
 msgid "Load Testimonial Title Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2338
+#: src/Admin/Views/Framework/configs/metaboxs.php:2825
 msgid "On/Off google font for the testimonial tagline or title."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2346
+#: src/Admin/Views/Framework/configs/metaboxs.php:2833
 msgid "Testimonial Title Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2347
+#: src/Admin/Views/Framework/configs/metaboxs.php:2834
 msgid "Set testimonial tagline or title font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2373
+#: src/Admin/Views/Framework/configs/metaboxs.php:2860
 msgid "Load Testimonial Content Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2374
+#: src/Admin/Views/Framework/configs/metaboxs.php:2861
 msgid "On/Off google font for the testimonial content."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2382
+#: src/Admin/Views/Framework/configs/metaboxs.php:2869
 msgid "Testimonial Content Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2383
+#: src/Admin/Views/Framework/configs/metaboxs.php:2870
 msgid "Set testimonial content font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2409
+#: src/Admin/Views/Framework/configs/metaboxs.php:2896
 msgid "Load Name Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2410
+#: src/Admin/Views/Framework/configs/metaboxs.php:2897
 msgid "On/Off google font for the name."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2418
+#: src/Admin/Views/Framework/configs/metaboxs.php:2905
 msgid "Name Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2419
+#: src/Admin/Views/Framework/configs/metaboxs.php:2906
 msgid "Set name font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2446
+#: src/Admin/Views/Framework/configs/metaboxs.php:2933
 msgid "Load Designation & Company Name Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2447
+#: src/Admin/Views/Framework/configs/metaboxs.php:2934
 msgid "On/Off google font for the Designation & company name."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2455
+#: src/Admin/Views/Framework/configs/metaboxs.php:2942
 msgid "Designation & Company Name Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2456
+#: src/Admin/Views/Framework/configs/metaboxs.php:2943
 msgid "Set Designation & company name font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2483
+#: src/Admin/Views/Framework/configs/metaboxs.php:2970
 msgid "Load Location Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2484
+#: src/Admin/Views/Framework/configs/metaboxs.php:2971
 msgid "On/Off google font for the location."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2492
+#: src/Admin/Views/Framework/configs/metaboxs.php:2979
 msgid "Location Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2493
+#: src/Admin/Views/Framework/configs/metaboxs.php:2980
 msgid "Set location font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2521
+#: src/Admin/Views/Framework/configs/metaboxs.php:3008
 msgid "Load Phone or Mobile Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2522
+#: src/Admin/Views/Framework/configs/metaboxs.php:3009
 msgid "On/Off google font for the phone or mobile."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2530
+#: src/Admin/Views/Framework/configs/metaboxs.php:3017
 msgid "Phone or Mobile Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2531
+#: src/Admin/Views/Framework/configs/metaboxs.php:3018
 msgid "Set phone or mobile font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2559
+#: src/Admin/Views/Framework/configs/metaboxs.php:3046
 msgid "Load Email Address Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2560
+#: src/Admin/Views/Framework/configs/metaboxs.php:3047
 msgid "On/Off google font for the email address."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2568
+#: src/Admin/Views/Framework/configs/metaboxs.php:3055
 msgid "Email Address Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2569
+#: src/Admin/Views/Framework/configs/metaboxs.php:3056
 msgid "Set email address font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2597
+#: src/Admin/Views/Framework/configs/metaboxs.php:3084
 msgid "Load Date Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2598
+#: src/Admin/Views/Framework/configs/metaboxs.php:3085
 msgid "On/Off google font for the date."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2606
+#: src/Admin/Views/Framework/configs/metaboxs.php:3093
 msgid "Date Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2607
+#: src/Admin/Views/Framework/configs/metaboxs.php:3094
 msgid "Set date font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2635
+#: src/Admin/Views/Framework/configs/metaboxs.php:3122
 msgid "Load Website Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2636
+#: src/Admin/Views/Framework/configs/metaboxs.php:3123
 msgid "On/Off google font for the website."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2644
+#: src/Admin/Views/Framework/configs/metaboxs.php:3131
 msgid "Website Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2645
+#: src/Admin/Views/Framework/configs/metaboxs.php:3132
 msgid "Set website font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2673
+#: src/Admin/Views/Framework/configs/metaboxs.php:3160
 msgid "Load Isotope Filter Button Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2674
+#: src/Admin/Views/Framework/configs/metaboxs.php:3161
 msgid "On/Off google font for the isotope filter button."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2682
+#: src/Admin/Views/Framework/configs/metaboxs.php:3169
 msgid "Isotope Filter Button Font"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2683
+#: src/Admin/Views/Framework/configs/metaboxs.php:3170
 msgid "Set isotope filter button font properties."
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2715
+#: src/Admin/Views/Framework/configs/metaboxs.php:3202
 msgid "Testimonial Options"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2748
+#: src/Admin/Views/Framework/configs/metaboxs.php:3235
 msgid "5 Stars"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2749
+#: src/Admin/Views/Framework/configs/metaboxs.php:3236
 msgid "4 Stars"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2750
+#: src/Admin/Views/Framework/configs/metaboxs.php:3237
 msgid "3 Stars"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2751
+#: src/Admin/Views/Framework/configs/metaboxs.php:3238
 msgid "2 Stars"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2752
+#: src/Admin/Views/Framework/configs/metaboxs.php:3239
 msgid "1 Star"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2762
+#: src/Admin/Views/Framework/configs/metaboxs.php:3249
 #, php-format
 msgid ""
 "To unlock the following extra reviewer information fields, %1$sUpgrade to "
 "Pro!%2$s"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2781
-msgid "Company Name"
-msgstr ""
-
-#: src/Admin/Views/Framework/configs/metaboxs.php:2790
+#: src/Admin/Views/Framework/configs/metaboxs.php:3277
 msgid "Upload"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2799
-msgid "Location"
+#: src/Admin/Views/Framework/configs/metaboxs.php:3297
+msgid "Select Country"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2807
+#: src/Admin/Views/Framework/configs/metaboxs.php:3308
 msgid "Phone or Mobile"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2815
+#: src/Admin/Views/Framework/configs/metaboxs.php:3316
 msgid "Website"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2823
+#: src/Admin/Views/Framework/configs/metaboxs.php:3324
 msgid "Video Testimonial URL"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2828
+#: src/Admin/Views/Framework/configs/metaboxs.php:3329
 msgid "ADDITIONAL CUSTOM FIELDS (PRO)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2835
+#: src/Admin/Views/Framework/configs/metaboxs.php:3336
 msgid "Add Field"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2843
+#: src/Admin/Views/Framework/configs/metaboxs.php:3344
 #: src/Admin/Views/Framework/fields/icon/icon.php:49
 #: src/Admin/Views/Framework/fields/icon/icon.php:91
 msgid "Add Icon"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2851
+#: src/Admin/Views/Framework/configs/metaboxs.php:3352
 msgid "Text"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2852
+#: src/Admin/Views/Framework/configs/metaboxs.php:3353
 msgid "Number"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2853
+#: src/Admin/Views/Framework/configs/metaboxs.php:3354
 msgid "Email"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2854
+#: src/Admin/Views/Framework/configs/metaboxs.php:3355
 msgid "Link"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2873
+#: src/Admin/Views/Framework/configs/metaboxs.php:3374
 msgid "SOCIAL MEDIA (PRO)"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2879
+#: src/Admin/Views/Framework/configs/metaboxs.php:3380
 msgid "Add Social"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2889
+#: src/Admin/Views/Framework/configs/metaboxs.php:3390
 msgid "Facebook"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2890
+#: src/Admin/Views/Framework/configs/metaboxs.php:3391
 msgid "Twitter"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2891
+#: src/Admin/Views/Framework/configs/metaboxs.php:3392
 msgid "LinkedIn"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2892
+#: src/Admin/Views/Framework/configs/metaboxs.php:3393
 msgid "Skype"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2893
+#: src/Admin/Views/Framework/configs/metaboxs.php:3394
 msgid "dropbox"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2894
+#: src/Admin/Views/Framework/configs/metaboxs.php:3395
 msgid "WordPress"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2895
+#: src/Admin/Views/Framework/configs/metaboxs.php:3396
 msgid "vimeo"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2896
+#: src/Admin/Views/Framework/configs/metaboxs.php:3397
 msgid "SlideShare"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2897
+#: src/Admin/Views/Framework/configs/metaboxs.php:3398
 msgid "VK"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2898
+#: src/Admin/Views/Framework/configs/metaboxs.php:3399
 msgid "Tumblr"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2899
-#: src/Admin/Views/Framework/configs/metaboxs.php:2903
+#: src/Admin/Views/Framework/configs/metaboxs.php:3400
+#: src/Admin/Views/Framework/configs/metaboxs.php:3404
 msgid "Yahoo"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2900
+#: src/Admin/Views/Framework/configs/metaboxs.php:3401
 msgid "Pinterest"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2901
+#: src/Admin/Views/Framework/configs/metaboxs.php:3402
 msgid "YouTube"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2902
+#: src/Admin/Views/Framework/configs/metaboxs.php:3403
 msgid "StumbleUpon"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2904
+#: src/Admin/Views/Framework/configs/metaboxs.php:3405
 msgid "Reddit"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2905
+#: src/Admin/Views/Framework/configs/metaboxs.php:3406
 msgid "Quora"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2906
+#: src/Admin/Views/Framework/configs/metaboxs.php:3407
 msgid "Yelp"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2907
+#: src/Admin/Views/Framework/configs/metaboxs.php:3408
 msgid "Weibo"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2908
+#: src/Admin/Views/Framework/configs/metaboxs.php:3409
 msgid "ProductHunt"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2909
+#: src/Admin/Views/Framework/configs/metaboxs.php:3410
 msgid "HackerNews"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2910
+#: src/Admin/Views/Framework/configs/metaboxs.php:3411
 msgid "Soundcloud"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2911
+#: src/Admin/Views/Framework/configs/metaboxs.php:3412
 msgid "WhatsApp"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2912
+#: src/Admin/Views/Framework/configs/metaboxs.php:3413
 msgid "Medium"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2913
+#: src/Admin/Views/Framework/configs/metaboxs.php:3414
 msgid "Vine"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2914
+#: src/Admin/Views/Framework/configs/metaboxs.php:3415
 msgid "Slack"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2915
+#: src/Admin/Views/Framework/configs/metaboxs.php:3416
 msgid "Instagram"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2916
+#: src/Admin/Views/Framework/configs/metaboxs.php:3417
 msgid "Dribble"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2917
+#: src/Admin/Views/Framework/configs/metaboxs.php:3418
 msgid "Flickr"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2918
+#: src/Admin/Views/Framework/configs/metaboxs.php:3419
 msgid "FourSquare"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2919
+#: src/Admin/Views/Framework/configs/metaboxs.php:3420
 msgid "Behance"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2920
+#: src/Admin/Views/Framework/configs/metaboxs.php:3421
 msgid "SnapChat"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2921
+#: src/Admin/Views/Framework/configs/metaboxs.php:3422
 msgid "Github"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2922
+#: src/Admin/Views/Framework/configs/metaboxs.php:3423
 msgid "Bitbucket"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2923
+#: src/Admin/Views/Framework/configs/metaboxs.php:3424
 msgid "Stack Overflow"
 msgstr ""
 
-#: src/Admin/Views/Framework/configs/metaboxs.php:2924
+#: src/Admin/Views/Framework/configs/metaboxs.php:3425
 msgid "Codepen"
 msgstr ""
 
@@ -3507,7 +3747,7 @@ msgstr ""
 msgid "click here"
 msgstr ""
 
-#: src/Frontend/Helper.php:308
+#: src/Frontend/Helper.php:310
 msgid "No testimonials found"
 msgstr ""
 
@@ -3515,11 +3755,11 @@ msgstr ""
 msgid "Our site is protected!"
 msgstr ""
 
-#: src/Includes/Import_Export.php:103 src/Includes/Import_Export.php:353
+#: src/Includes/Import_Export.php:104 src/Includes/Import_Export.php:356
 msgid "Nonce verification failed!"
 msgstr ""
 
-#: src/Includes/Import_Export.php:370
+#: src/Includes/Import_Export.php:373
 msgid "Nothing to import."
 msgstr ""
 
@@ -3583,10 +3823,14 @@ msgstr ""
 msgid "Slider Title"
 msgstr ""
 
-#: src/Includes/TestimonialFree.php:300
+#: src/Includes/TestimonialFree.php:262
+msgid "Shortcode"
+msgstr ""
+
+#: src/Includes/TestimonialFree.php:306
 msgid "Name"
 msgstr ""
 
-#: src/Includes/TestimonialFree.php:301
+#: src/Includes/TestimonialFree.php:307
 msgid "Rating"
 msgstr ""

@@ -181,6 +181,9 @@ class SQ_Models_Compatibility {
 	public function checkMultilingual() {
 		if ( SQ_Classes_Helpers_Tools::isPluginInstalled( 'sitepress-multilingual-cms/sitepress.php' ) || SQ_Classes_Helpers_Tools::isPluginInstalled( 'polylang/polylang.php' ) || SQ_Classes_Helpers_Tools::isPluginInstalled( 'polylang-pro/polylang.php' ) ) {
 
+            //for WPML language to load in sitemap
+			add_filter( 'sq_lateloading_sitemap', '__return_true' );
+
 			add_filter( 'sq_option_patterns', function ( $patterns ) {
 				$sq_ml_patterns = get_option( SQ_ML_PATTERNS );
 				if ( function_exists( 'pll_current_language' ) ) {
@@ -230,6 +233,7 @@ class SQ_Models_Compatibility {
 
 				return $url;
 			}, 11 );
+
 
 		}
 	}

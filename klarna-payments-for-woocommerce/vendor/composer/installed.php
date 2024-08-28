@@ -47,9 +47,9 @@
             'dev_requirement' => false,
         ),
         'krokedil/woocommerce' => array(
-            'pretty_version' => '1.6.1',
-            'version' => '1.6.1.0',
-            'reference' => 'c603dc52f8e1d3d41ad9781a20744d4467a375b8',
+            'pretty_version' => '1.6.2',
+            'version' => '1.6.2.0',
+            'reference' => '69053b9356755b751d6e42117af87159b96e0896',
             'type' => 'library',
             'install_path' => __DIR__ . '/../krokedil/woocommerce',
             'aliases' => array(),

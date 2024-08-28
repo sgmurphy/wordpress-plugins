@@ -175,7 +175,7 @@ function widget_logic_options_control()
                                     'plugins_loaded'    => __('when plugin starts', 'widget-logic'),
                                     'after_setup_theme' => __('after theme loads', 'widget-logic'),
                                     'wp_loaded'         => __('when all PHP loaded', 'widget-logic'),
-                                    'wp_head'           => __('during page header', 'widget-logic'),
+                                    'wp_head'           => __('during page header', 'widget-logic')
                                 );
                                 foreach ($wl_load_points as $action => $action_desc) {
                                     echo "<option value='" . esc_attr($action) . "'";

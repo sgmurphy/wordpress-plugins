@@ -990,7 +990,7 @@ abstract class WFACP_Template_Common {
 			ob_start();
 			foreach ( WC()->cart->get_coupons() as $code => $coupon ) {
 				$parse_message = WFACP_Product_Switcher_Merge_Tags::parse_coupon_merge_tag( $success_message, $coupon );
-				$remove_link   = sprintf( "<a href='javascript:void(0)' class='wfacp_remove_coupon' data-coupon='%s'>%s</a>", $code, __( 'Remove', 'funnel-builder' ) );
+				$remove_link   = sprintf( "<a href='javascript:void(0)' class='wfacp_remove_coupon' data-coupon='%s'>%s</a>", $code, __( 'Remove', 'woocommerce' ) );
 				$messages      .= sprintf( '<div class="wfacp_single_coupon_msg">%s %s</div>', $parse_message, $remove_link );
 			}
 
@@ -1751,7 +1751,9 @@ abstract class WFACP_Template_Common {
 <path d="M318,0S94,222,95.33,222L288.67,415.33,512,192V0Zm97.67,133.33a41,41,0,1,1,41-41A41,41,0,0,1,415.67,133.33Z" transform="translate(0 0)" style="fill:#999"/>
 </svg>';
 
-		$label = apply_filters( 'woocommerce_cart_totals_coupon_label', sprintf( esc_html__( 'Coupon %1$s %2$s', 'woocommerce' ), $svg, "<span class='wfacp_coupon_code'>" . $coupon->get_code() . '</span>' ), $coupon );
+
+		$coupon_text=__( 'Coupon', 'woocommerce' );
+		$label = apply_filters( 'woocommerce_cart_totals_coupon_label', $coupon_text.sprintf( esc_html__( '%1$s %2$s', 'woocommerce' ), $svg, "<span class='wfacp_coupon_code'>" . $coupon->get_code() . '</span>' ), $coupon );
 		if ( $echo ) {
 			echo $label;
 		} else {

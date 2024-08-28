@@ -4,7 +4,7 @@ Tags: page builder, beaver builder, landing page, front-end builder, drag and dr
 Requires at least: 4.6
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.8.3.5
+Stable tag: 2.8.3.6
 License: GPL2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,7 +111,7 @@ For general questions or questions about purchasing a license, check out our [Fr
 2. Drag and Drop modules rows and columns to build layouts
 3. Images can easily be modified to fit your needs, both inline and background
 4. Stylize heading and paragraph text using module settings
-5. You'll love  our ready made responsive design features and straightforward responsive editor
+5. You'll love our ready made responsive design features and straightforward responsive editor
 6. Access templates from the Beaver Builder interface and find more on Assistant.Pro
 
 == Changelog ==

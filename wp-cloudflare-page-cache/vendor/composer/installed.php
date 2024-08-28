@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/wp-cloudflare-super-page-cache',
-        'pretty_version' => 'v5.0.0',
-        'version' => '5.0.0.0',
-        'reference' => '3f75dc0cffbfc0b8cb8996f60636c83b3369a74a',
+        'pretty_version' => 'v5.0.1',
+        'version' => '5.0.1.0',
+        'reference' => 'e8b53ed8b4933322227d51e952e395961bbd23be',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'codeinwp/wp-cloudflare-super-page-cache' => array(
-            'pretty_version' => 'v5.0.0',
-            'version' => '5.0.0.0',
-            'reference' => '3f75dc0cffbfc0b8cb8996f60636c83b3369a74a',
+            'pretty_version' => 'v5.0.1',
+            'version' => '5.0.1.0',
+            'reference' => 'e8b53ed8b4933322227d51e952e395961bbd23be',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

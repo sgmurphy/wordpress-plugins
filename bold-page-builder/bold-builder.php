@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 5.0.5
+ * Version: 5.1.0
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '5.0.5' );
+define( 'BT_BB_VERSION', '5.1.0' );
 // VERSION --------------------------------------------------------- \\
  
 define( 'BT_BB_FEATURE_ADD_ELEMENTS', true );
@@ -34,7 +34,7 @@ function bt_bb_parse_content( $content ) {
 	
 	global $wp_query;
 	global $post;
-	if ( $post->ID != $wp_query->queried_object->ID ) { // latest posts fix (The Loop & bt_bb_active_for_post_type_fe())
+	if ( $post && $wp_query && $wp_query->queried_object && $post->ID != $wp_query->queried_object->ID ) { // latest posts fix (The Loop & bt_bb_active_for_post_type_fe())
 		return $content;
 	}
 	
@@ -145,7 +145,7 @@ function bt_bb_parse_content_admin( $content ) {
 	
 	global $wp_query;
 	global $post;
-	if ( $post->ID != $wp_query->queried_object->ID ) { // latest posts fix
+	if ( $post && $wp_query && $wp_query->queried_object && $post->ID != $wp_query->queried_object->ID ) { // latest posts fix
 		return $content;
 	}
 	
@@ -1270,7 +1270,7 @@ function bt_bb_wpautop( $content ) {
 	
 	global $wp_query;
 	global $post;
-	if ( $post->ID != $wp_query->queried_object->ID ) {
+	if ( $post && $wp_query && $wp_query->queried_object && $post->ID != $wp_query->queried_object->ID ) {
 		return $content;
 	}	
 	

@@ -655,6 +655,8 @@ if ( ! class_exists( 'CR_Reviews' ) ) :
 						}
 					}
 				}
+			} else {
+				$post_in = array( $product_id );
 			}
 		} else {
 			$post_in = array( $product_id );

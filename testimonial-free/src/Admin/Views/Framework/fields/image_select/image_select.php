@@ -68,13 +68,14 @@ if ( ! class_exists( 'SPFTESTIMONIAL_Field_image_select' ) ) {
 					$extra          = ( $args['multiple'] ) ? '[]' : '';
 					$active         = ( in_array( $key, $value ) ) ? ' spftestimonial--active' : '';
 					$pro_only_class = ( isset( $option['pro_only'] ) && $option['pro_only'] ) ? ' spftestimonial-pro-only' : '';
+					$disable_field  = ( isset( $option['pro_only'] ) && $option['pro_only'] ) ? ' disabled' : '';
 
 					$checked   = ( in_array( $key, $value ) ) ? ' checked' : '';
 					$opt_class = isset( $option['class'] ) && ! empty( $option['class'] ) ? $option['class'] : '';
 					echo '<div class="spftestimonial--sibling spftestimonial--image' . esc_attr( $active . $pro_only_class . ' ' . $opt_class ) . '">';
 					echo '<figure>';
 					echo '<img src="' . esc_url( $option['image'] ) . '" alt="img-' . esc_attr( $num++ ) . '" />';
-					echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>';// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo '<input ' . $disable_field . ' type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>';// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					if ( isset( $option['option_demo_url'] ) ) {
 						echo '<p class="testimonial-pro-img-title">' . esc_html( $option['name'] ) . '<a href="' . esc_url( $option['option_demo_url'] ) . '" tooltip="Demo" class="spt-live-demo-icon" target="_blank"><i class="sptfree-icon-demo_link"></i></a></p>';
 					}

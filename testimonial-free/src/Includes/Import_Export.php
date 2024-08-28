@@ -64,6 +64,7 @@ class Import_Export {
 						$terms            = get_the_terms( $shortcode->ID, 'testimonial_cat' );
 						$shortcode_export = array(
 							'title'           => $shortcode->post_title,
+							'post_date'       => $shortcode->post_date,
 							'original_id'     => $shortcode->ID,
 							'content'         => 'csv_file' === $file_type ? $this->filter_description_field( $shortcode->post_content ) : $shortcode->post_content,
 							'image'           => get_the_post_thumbnail_url( $shortcode->ID, 'single-post-thumbnail' ),
@@ -259,6 +260,7 @@ class Import_Export {
 	 * Import Testimonial ans shortcode.
 	 *
 	 * @param  array $shortcodes Import Testimonials shortcode array.
+	 * @param  array $file_type file type.
 	 *
 	 * @throws \Exception Error message.
 	 * @return object
@@ -279,6 +281,7 @@ class Import_Export {
 				$new_shortcode_id = wp_insert_post(
 					array(
 						'post_title'   => isset( $shortcode['title'] ) ? $shortcode['title'] : '',
+						'post_date'    => isset( $shortcode['post_date'] ) ? $shortcode['post_date'] : gmdate( 'Y/m/d' ),
 						'post_content' => isset( $shortcode['content'] ) ? $shortcode['content'] : '',
 						'post_status'  => 'publish',
 						'post_type'    => $spt_post_type,

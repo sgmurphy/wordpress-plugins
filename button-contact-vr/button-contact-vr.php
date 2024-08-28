@@ -3,7 +3,7 @@
  * Plugin Name: Button contact VR
  * Plugin URI: webvocuc.com
  * Description: Button contact call, zalo, whatsapp, messenger, popup form,...
- * Version: 4.7.3
+ * Version: 4.7.5
  * Author: VirusTran
  * Author URI: virustran
  * License: GPLv2
@@ -17,7 +17,7 @@ define( 'PZF_FILE', __FILE__ );
 define( 'PZF_NAME', basename( PZF_FILE ) );
 define( 'PZF_BASE_NAME', plugin_basename( PZF_FILE ) );
 define( 'PZF_PATH', plugin_dir_path( PZF_FILE ) );
-define( 'PZF_URL', plugin_dir_url( PZF_FILE ) );
+define( 'PZF_URL', plugin_dir_url( PZF_FILE ) ); 
 
 function register_mysettings() {
     register_setting( 'pzf-settings-group', 'pzf_phone' );
@@ -51,8 +51,8 @@ function register_mysettings() {
     register_setting( 'pzf-settings-group-setting', 'pzf_location_bottom' );
     register_setting( 'pzf-settings-group-setting', 'pzf_hide_mobile' );
     register_setting( 'pzf-settings-group-setting', 'pzf_hide_desktop' );
-    register_setting( 'pzf-settings-group-setting', 'pzf_add_css' ); // 4.0
-    register_setting( 'pzf-settings-group-setting', 'pzf_add_js' ); // 4.0
+    //register_setting( 'pzf-settings-group-setting', 'pzf_add_css' ); // 4.0
+    //register_setting( 'pzf-settings-group-setting', 'pzf_add_js' ); // 4.0
     register_setting( 'pzf-settings-group-setting', 'pzf_off_effects' ); // 4.3    
 
 // All in one: 3.0
@@ -65,11 +65,11 @@ function register_mysettings() {
 // contact form: 4.0
     register_setting( 'pzf_settings_contact_form', 'pzf_enable_contact_form' );
     register_setting( 'pzf_settings_contact_form', 'pzf_color_contact_form' );
-    register_setting( 'pzf_settings_contact_form', 'pzf_icon_contact_form' );    
-    register_setting( 'pzf_settings_contact_form', 'pzf_title_contact_form' );
-    register_setting( 'pzf_settings_contact_form', 'pzf_content_contact_form' );
-    register_setting( 'pzf_settings_contact_form', 'pzf_img_contact_form' );
-    register_setting( 'pzf_settings_contact_form', 'pzf_loco_img_contact_form' );
+   // register_setting( 'pzf_settings_contact_form', 'pzf_icon_contact_form' );    
+    //register_setting( 'pzf_settings_contact_form', 'pzf_title_contact_form' );
+    //register_setting( 'pzf_settings_contact_form', 'pzf_content_contact_form' );
+   // register_setting( 'pzf_settings_contact_form', 'pzf_img_contact_form' );
+   // register_setting( 'pzf_settings_contact_form', 'pzf_loco_img_contact_form' );
     register_setting( 'pzf_settings_contact_form', 'pzf_bg_contact_form' );
     register_setting( 'pzf_settings_contact_form', 'pzf_max_w_contact_form' ); 
 	
@@ -80,7 +80,7 @@ function register_mysettings() {
     register_setting( 'pzf_settings_showroom', 'pzf_link_showroom' );
     register_setting( 'pzf_settings_showroom', 'pzf_link_newtab_showroom' );
     register_setting( 'pzf_settings_showroom', 'pzf_enable_popup_showroom' );
-    register_setting( 'pzf_settings_showroom', 'pzf_content_showroom' );
+   // register_setting( 'pzf_settings_showroom', 'pzf_content_showroom' );
     register_setting( 'pzf_settings_showroom', 'pzf_bg_showroom' );
     register_setting( 'pzf_settings_showroom', 'pzf_max_w_showroom' );
 }

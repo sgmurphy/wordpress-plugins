@@ -107,7 +107,7 @@
                 </label>
             </td>
         </tr>
-        <tr valign="top">
+<!--         <tr valign="top">
             <th scope="row">ID fanpage</th>
             <td><input placeholder="" type="text" name="pzf_id_fanpage" value="<?php echo get_option('pzf_id_fanpage'); ?>" />
                 <label for="pzf_color_fb">
@@ -118,9 +118,9 @@
         <tr valign="top">
             <th scope="row">Fanpage logged in greeting</th>
             <td><input style=" max-width: 300px; width: 100%; " placeholder="Hello! How can I assist you today?" type="text" name="logged_in_greeting" value="<?php echo get_option('logged_in_greeting'); ?>" /></td>
-        </tr> 
+        </tr>  -->
     </table>
-<?php _e( 'Note: If the messenger is not working please refer to the instructions <a href="https://webvocuc.com/blog/cach-tich-hop-facebook-messenger-chat-vao-wordpress-phien-ban-moi-cua-facebook.html" target="_blank">here</a>.', 'support_pzf' ); ?>
+
     <?php submit_button(); ?>
 </form>
 

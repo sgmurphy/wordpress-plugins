@@ -29,6 +29,7 @@ use Extendify\Library\Controllers\SiteController;
 
 use Extendify\Shared\Controllers\UserSelectionController;
 use Extendify\Shared\Controllers\UserSettingsController as SharedUserSettingsController;
+use Extendify\Shared\Controllers\ActivityController;
 
 
 \add_action(
@@ -80,5 +81,7 @@ use Extendify\Shared\Controllers\UserSettingsController as SharedUserSettingsCon
         ApiRouter::get('/shared/user-selections-data', [UserSelectionController::class, 'get']);
         ApiRouter::post('/shared/user-selections-data', [UserSelectionController::class, 'store']);
         ApiRouter::post('/shared/update-user-meta', [SharedUserSettingsController::class, 'updateUserMeta']);
+        ApiRouter::get('/shared/activity', [ActivityController::class, 'get']);
+        ApiRouter::post('/shared/activity', [ActivityController::class, 'store']);
     }
 );

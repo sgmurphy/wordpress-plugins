@@ -3,7 +3,7 @@
  * Plugin Name:  Super Page Cache
  * Plugin URI:   https://wordpress.org/plugins/wp-cloudflare-page-cache/
  * Description:  A WordPress performance plugin that lets you get Edge Caching enabled on a Cloudflare free plan.
- * Version:      5.0.0
+ * Version:      5.0.1
  * Author:       Optimole
  * Author URI:   https://optimole.com/
  * License:      GPLv2 or later
@@ -45,7 +45,7 @@ if( !class_exists('SW_CLOUDFLARE_PAGECACHE') ) {
 
         private $config   = false;
         private $modules  = array();
-        private $version  = '5.0.0';
+        private $version  = '5.0.1';
 
         // Sorting Tool: https://onlinestringtools.com/sort-strings
         // Duplicate Finder: https://www.mynikko.com/tools/tool_duplicateremover.html
@@ -1673,7 +1673,9 @@ if( !class_exists('SW_CLOUDFLARE_PAGECACHE') ) {
                     $html_response .= '<p>' . __( 'Please check if the page caching is working by yourself by surfing the website in incognito mode \'cause sometimes Cloudflare bypass the cache for cURL requests. Reload a page two or three times. If you see the response header <strong>cf-cache-status: HIT</strong>, the page caching is working well.', 'wp-cloudflare-page-cache') . '</p>';
                 }
 
-                $html_response .= '<p><a href="' . esc_url( $test_file_url ) . '" target="_blank">' . __( 'Test Page', 'wp-cloudflare-page-cache' ) . '</a></p>';
+                if ( $is_cloudflare_enabled ) {
+                    $html_response .= '<p><a href="' . esc_url( $test_file_url ) . '" target="_blank">' . __( 'Cloudflare Test Page', 'wp-cloudflare-page-cache' ) . '</a></p>';
+                }
                 $html_response .= '</div>';
             }
 

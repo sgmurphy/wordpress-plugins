@@ -19,7 +19,7 @@ function widget_logic_widget_enqueue_block_editor_assets()
         'block-widget',
         esc_url(plugins_url('/css/widget.css', __FILE__)),
         array(),
-        filemtime(plugin_dir_path(__FILE__) . '/css/widget.css'),
+        filemtime(plugin_dir_path(__FILE__) . '/css/widget.css')
     );
 }
 add_action('enqueue_block_assets', 'widget_logic_widget_enqueue_block_editor_assets');

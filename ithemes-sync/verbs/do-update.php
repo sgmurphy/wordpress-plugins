@@ -23,11 +23,12 @@ Version History
 class Ithemes_Sync_Verb_Do_Update extends Ithemes_Sync_Verb {
 	public static $name = 'do-update';
 	public static $description = 'Update WordPress, plugins, and themes.';
-	
+
 	private $default_arguments = array();
 	private $original_update_details;
-	
-	
+	private $skin;
+
+
 	public function run( $arguments ) {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
 		require_once( $GLOBALS['ithemes_sync_path'] . '/upgrader-skin.php' );

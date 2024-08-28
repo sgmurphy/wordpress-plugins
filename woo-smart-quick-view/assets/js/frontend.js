@@ -171,7 +171,10 @@ function woosq_open(id, effect, context) {
     woosq_loading();
 
     var data = {
-      action: 'woosq_quickview', product_id: id, nonce: woosq_vars.nonce,
+      action: 'woosq_quickview',
+      product_id: id,
+      context: context,
+      nonce: woosq_vars.nonce,
     };
 
     jQuery.post(woosq_vars.wc_ajax_url.toString().

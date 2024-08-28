@@ -3177,6 +3177,15 @@
                                     <?php echo esc_attr( __( "Shows the admin's email that was filled in their WordPress profile.", $this->plugin_name) ); ?>
                                 </span>
                             </p>
+                            <p class="vmessage">
+                                <strong>
+                                    <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%site_title%%" />
+                                </strong>
+                                <span> - </span>
+                                <span style="font-size:18px;">
+                                    <?php echo esc_attr( __( "The title of the website.", $this->plugin_name) ); ?>
+                                </span>
+                            </p>
                         </fieldset> <!-- General Message Variables -->
                         <hr />
                         <fieldset>

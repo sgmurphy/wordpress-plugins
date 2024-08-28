@@ -4449,9 +4449,10 @@ final class FLBuilderModel {
 				}
 			} else {
 				if ( is_object( $value ) || is_array( $value ) ) {
-					if ( ! self::verify_settings_kses( $value ) ) {
+					$check = self::verify_settings_kses( $value );
+					if ( isset( $check['diff'] ) ) {
 						remove_filter( 'safe_style_css', '__return_empty_array' );
-						return false;
+						return $check;
 					}
 				}
 			}

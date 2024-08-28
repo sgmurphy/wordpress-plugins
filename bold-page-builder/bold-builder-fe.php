@@ -21,7 +21,7 @@ function bt_bb_fe_init() {
 		
 		BT_BB_Root::$elements = apply_filters( 'bt_bb_elements', BT_BB_Root::$elements );
 		
-		BT_BB_FE::$elements = apply_filters( 'bt_bb_fe_elements', array(
+		BT_BB_FE::$elements = array(
 		
 			'bt_bb_accordion' => array(
 				'edit_box_selector' => '',
@@ -429,7 +429,22 @@ function bt_bb_fe_init() {
 					'auto_play'           => array(),
 				),
 			),
-		) );
+		);
+
+		/*foreach( BT_BB_Root::$elements as $el_name => $arr ) {
+			if ( ! isset( BT_BB_FE::$elements[ $el_name ] ) ) {
+				BT_BB_FE::$elements[ $el_name ] = array( 'edit_box_selector' => '', 'params' => array() );
+			}
+			foreach( $arr['params'] as $param ) {
+				$param_name = $param['param_name'];
+				$param_type = $param['type'];
+				if ( ! isset( BT_BB_FE::$elements[ $el_name ]['params'][ $param_name ] ) && $param_type != 'hidden' ) {
+					BT_BB_FE::$elements[ $el_name ]['params'][ $param_name ] = array();
+				}
+			}
+		}*/
+		
+		BT_BB_FE::$elements = apply_filters( 'bt_bb_fe_elements', BT_BB_FE::$elements );
 		
 		BT_BB_FE::$templates = apply_filters( 'bt_bb_fe_templates', array(
 			'accordion' => array( // id; id.txt is name of the file in /templates

@@ -548,7 +548,7 @@
 }
 .df-ui-nav .df-ui-btn:before {
   color: white;
-  filter: drop-shadow(0 0 3px black);
+  filter: drop-shadow(0 0 3px rgb(0, 0, 0));
 }
 .df-ui-nav.df-ui-prev {
   left: 0;
@@ -1654,7 +1654,7 @@ html.df-lightbox-open, body.df-lightbox-open {
   height: 100%;
   width: 100%;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1%, rgba(0, 0, 0, 0.15) 3%, rgba(255, 255, 255, 0.15) 5%, rgba(255, 255, 255, 0) 7%);
-  box-shadow: inset 0px -1px 3px 0px #5050508c;
+  box-shadow: inset 0px -1px 3px 0px rgba(80, 80, 80, 0.5490196078);
   z-index: 3;
   position: absolute;
   top: 0;
@@ -1865,11 +1865,9 @@ df-post-shelf:before {
   .df-posts > .df-popup-thumb {
     width: calc(25% - 30px);
   }
-
   df-post-shelf:nth-of-type(n) {
     display: none;
   }
-
   df-post-shelf:nth-of-type(4n) {
     display: block;
   }
@@ -1878,11 +1876,9 @@ df-post-shelf:before {
   .df-posts > .df-popup-thumb {
     width: calc(33% - 30px);
   }
-
   df-post-shelf:nth-of-type(n) {
     display: none;
   }
-
   df-post-shelf:nth-of-type(3n) {
     display: block;
   }
@@ -1891,15 +1887,12 @@ df-post-shelf:before {
   .df-posts > .df-popup-thumb {
     width: calc(50% - 30px);
   }
-
   df-post-shelf:nth-of-type(n) {
     display: none;
   }
-
   df-post-shelf:nth-of-type(2n) {
     display: block;
   }
-
   df-post-shelf {
     background-size: 120px 480px;
   }
@@ -1915,7 +1908,6 @@ df-post-shelf:before {
   .df-posts > .df-popup-thumb, .df-popup-thumb {
     width: calc(100% - 30px);
   }
-
   df-post-shelf:nth-of-type(n) {
     display: block;
   }
@@ -1935,11 +1927,9 @@ df-post-shelf:nth-last-of-type(1) {
   .df-posts > .df-popup-thumb {
     width: calc(25% - 30px);
   }
-
   df-post-shelf:nth-of-type(n) {
     display: none;
   }
-
   df-post-shelf:nth-of-type(4n) {
     display: block;
   }
@@ -1948,11 +1938,9 @@ df-post-shelf:nth-last-of-type(1) {
   .df-posts > .df-popup-thumb {
     width: calc(33% - 30px);
   }
-
   df-post-shelf:nth-of-type(n) {
     display: none;
   }
-
   df-post-shelf:nth-of-type(3n) {
     display: block;
   }
@@ -1961,15 +1949,12 @@ df-post-shelf:nth-last-of-type(1) {
   .df-posts > .df-popup-thumb {
     width: calc(50% - 30px);
   }
-
   df-post-shelf:nth-of-type(n) {
     display: none;
   }
-
   df-post-shelf:nth-of-type(2n) {
     display: block;
   }
-
   df-post-shelf {
     background-size: 120px 480px;
   }
@@ -1985,7 +1970,6 @@ df-post-shelf:nth-last-of-type(1) {
   .df-posts > .df-popup-thumb {
     width: calc(100% - 30px);
   }
-
   df-post-shelf:nth-of-type(n) {
     display: block;
   }
@@ -2029,7 +2013,7 @@ df-post-shelf:nth-last-of-type(1) {
 .df-text-content .highlight {
   margin: -1px;
   padding: 1px;
-  background-color: #b400aa;
+  background-color: rgb(180, 0, 170);
   border-radius: 4px;
 }
 
@@ -2050,7 +2034,7 @@ df-post-shelf:nth-last-of-type(1) {
 }
 
 .df-text-content .highlight.selected {
-  background-color: darkgreen;
+  background-color: rgb(0, 100, 0);
 }
 
 .df-text-content .endOfContent {
@@ -2238,7 +2222,7 @@ section.squareAnnotation svg, section.textAnnotation svg {
   margin: 5px 0px 30px 0px;
   /* margin-bottom: 0; */
   height: 0px;
-  box-shadow: 0px 5px 40px 15px #00000050;
+  box-shadow: 0px 5px 40px 15px rgba(0, 0, 0, 0.3137254902);
 }
 .df-has-shelf df-post-shelf:before, .df-has-shelf df-post-shelf:after {
   background-size: auto;
@@ -2253,12 +2237,12 @@ section.squareAnnotation svg, section.textAnnotation svg {
   transform: translateY(-15px) rotateX(50deg);
   height: 50px;
   transform-origin: bottom;
-  box-shadow: inset 0px 3px 15px 0px #0000009c;
+  box-shadow: inset 0px 3px 15px 0px rgba(0, 0, 0, 0.6117647059);
 }
 .df-has-shelf df-post-shelf:after {
   transform: translateZ(0);
   height: 15px;
-  box-shadow: inset 0px 3px 3px #f3f3f352;
+  box-shadow: inset 0px 3px 3px rgba(243, 243, 243, 0.3215686275);
   background-position: 0 -50px;
 }
 
@@ -2362,35 +2346,8 @@ input.df-search-text:not(:placeholder-shown) ~ a.df-search-clear {
   cursor: pointer;
 }
 
-.df-element:hover a.df-edit-link {
-  display: inline-block;
-}
-
-a.df-edit-link {
-  display: none;
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  z-index: 50;
-  padding: 5px;
-  background: #eee;
-}
-
 .df-element[data-lightbox], .df-element[data-df-lightbox] {
   position: relative;
-}
-
-.df-element[data-lightbox] .df-edit-link, .df-element[data-df-lightbox] .df-edit-link {
-  right: 0;
-  bottom: 0;
-  padding: 0 5px;
-  transform: translateY(100%);
-  margin: 0 !important;
-}
-
-.df-element[data-lightbox=thumb] .df-edit-link, .df-element[data-df-lightbox=thumb] .df-edit-link {
-  padding: 10px 5px 5px;
-  height: 30px;
 }
 
 /*Test|Hot-Fixes Region End*/

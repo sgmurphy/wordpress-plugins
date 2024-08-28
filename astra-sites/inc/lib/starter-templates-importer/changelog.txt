@@ -1,3 +1,6 @@
+v1.1.7 - 28-August-2024
+- Improvement: Hardened the security of the plugin.
+
 v1.1.6 - 05-August-2024
 - Fix: Resolved an issue with some classic editor templates getting stuck during import.
 

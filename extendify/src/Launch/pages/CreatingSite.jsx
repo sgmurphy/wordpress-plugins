@@ -308,6 +308,7 @@ export const CreatingSite = () => {
 
 	return (
 		<Transition
+			as="div"
 			show={isShowing}
 			appear={true}
 			enter="transition-all ease-in-out duration-500"
@@ -332,6 +333,7 @@ export const CreatingSite = () => {
 							if (!index) {
 								return (
 									<Transition
+										as="div"
 										appear={true}
 										show={isShowing}
 										enter="transition-opacity duration-1000"
@@ -353,6 +355,7 @@ export const CreatingSite = () => {
 								if (!index) {
 									return (
 										<Transition
+											as="div"
 											appear={true}
 											show={isShowing}
 											enter="transition-opacity duration-1000"

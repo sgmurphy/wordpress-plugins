@@ -81,6 +81,7 @@ class Frontend {
 		}
 		$setting_options    = get_option( 'sp_testimonial_pro_options' );
 		$shortcode_data     = get_post_meta( $post_id, 'sp_tpro_shortcode_options', true );
+		$layout_data        = get_post_meta( $post_id, 'sp_tpro_layout_options', true );
 		$main_section_title = get_the_title( $post_id );
 		ob_start();
 		// Stylesheet loading problem solving here. Shortcode id to push page id option for getting how many shortcode in the page.
@@ -93,7 +94,7 @@ class Frontend {
 			wp_enqueue_style( 'tfree-font-awesome' );
 			wp_enqueue_style( 'tfree-deprecated-style' );
 			wp_enqueue_style( 'tfree-style' );
-			$dynamic_style = self::load_dynamic_style( $post_id, $shortcode_data );
+			$dynamic_style = self::load_dynamic_style( $post_id, $shortcode_data, $layout_data );
 			// Load dynamic style.
 			echo '<style id="sp_testimonial_dynamic_css' . esc_attr( $post_id ) . '">' . $dynamic_style['dynamic_css'] . '</style>';
 		}
@@ -101,7 +102,7 @@ class Frontend {
 		// Update options if the existing shortcode id option not found.
 		self::testimonial_update_options( $post_id, $get_page_data );
 
-		Helper::sp_testimonial_html_show( $post_id, $setting_options, $shortcode_data, $main_section_title );
+		Helper::sp_testimonial_html_show( $post_id, $setting_options, $shortcode_data, $layout_data, $main_section_title );
 		return Helper::minify_output( ob_get_clean() );
 	}
 
@@ -235,9 +236,10 @@ class Frontend {
 	 *
 	 * @param  mixed $found_generator_id to push id option for getting how many shortcode in the page.
 	 * @param  mixed $shortcode_data to push all options.
+	 * @param  mixed $layout_data to push all layout options.
 	 * @return array dynamic style use in the existing shortcodes in the current page.
 	 */
-	public static function load_dynamic_style( $found_generator_id, $shortcode_data = '' ) {
+	public static function load_dynamic_style( $found_generator_id, $shortcode_data = '', $layout_data = '' ) {
 		$setting_options = get_option( 'sp_testimonial_pro_options' );
 		$outline         = '';
 		// If multiple shortcode found in the current page.
@@ -245,6 +247,8 @@ class Frontend {
 			foreach ( $found_generator_id  as $post_id ) {
 				if ( $post_id && is_numeric( $post_id ) && get_post_status( $post_id ) !== 'trash' ) {
 					$shortcode_data = get_post_meta( $post_id, 'sp_tpro_shortcode_options', true );
+					$layout_data    = get_post_meta( $post_id, 'sp_tpro_layout_options', true );
+
 					include SP_TFREE_PATH . 'Frontend/Views/partials/dynamic-style.php';
 				}
 			}

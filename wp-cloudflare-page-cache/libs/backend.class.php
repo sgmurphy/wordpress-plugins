@@ -91,8 +91,8 @@ class SWCFPC_Backend
 
         $this->modules = $this->main_instance->get_modules();
 
-        $css_version = '1.7.5';
-        $js_version = '1.5.3';
+        $css_version = '1.8.0';
+        $js_version = '1.6.0';
 
         $screen = ( is_admin() && function_exists('get_current_screen') ) ? get_current_screen() : false;
 

@@ -353,6 +353,7 @@ if(!function_exists('mk_theme_editor_child_file_delete'))
 				{
 					if(strpos($value, '..') == false){
 						$child_file_dir = str_replace("/\\",'/',urldecode(htmlspecialchars_decode($value)));
+						$child_file_dir = str_replace('phar://', '', $child_file_dir);
 						unlink($child_file_dir);
 					}
 				}
@@ -506,6 +507,7 @@ if(!function_exists('mk_theme_editor_delete_images')){
 			foreach($images_array as $dkey => $dvalue){
 				if(strpos($dvalue, '..') == false){
 					$dvalue= str_replace("/\\",'/',$dvalue);
+					$dvalue = str_replace('phar://', '', $dvalue);
 					$success = unlink($dvalue);
 					if($success){
 						echo 'deleted';

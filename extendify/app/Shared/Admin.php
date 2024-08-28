@@ -30,6 +30,7 @@ class Admin
         \add_action('wp_enqueue_scripts', [$this, 'loadGlobalScripts']);
     }
 
+    // phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
     /**
      * Adds scripts to every page
      *
@@ -40,12 +41,28 @@ class Admin
         \wp_enqueue_media();
 
         $version = constant('EXTENDIFY_DEVMODE') ? uniqid() : Config::$version;
-        \wp_register_script(Config::$slug . '-shared-scripts', '', [], $version, true);
-        \wp_enqueue_script(Config::$slug . '-shared-scripts');
+        $scriptAssetPath = EXTENDIFY_PATH . 'public/build/' . Config::$assetManifest['extendify-shared.php'];
+        $fallback = [
+            'dependencies' => [],
+            'version' => $version,
+        ];
+        $scriptAsset = file_exists($scriptAssetPath) ? require $scriptAssetPath : $fallback;
+
+        foreach ($scriptAsset['dependencies'] as $style) {
+            \wp_enqueue_style($style);
+        }
+
+        \wp_enqueue_script(
+            Config::$slug . '-shared-scripts',
+            EXTENDIFY_BASE_URL . 'public/build/' . Config::$assetManifest['extendify-shared.js'],
+            $scriptAsset['dependencies'],
+            $scriptAsset['version'],
+            true
+        );
 
         $partnerData = PartnerData::getPartnerData();
         $userConsent = get_user_meta(get_current_user_id(), 'extendify_ai_consent', true);
-        $htmlWhitelist = [
+        $htmlAllowlist = [
             'a' => [
                 'target' => [],
                 'href' => [],
@@ -84,13 +101,14 @@ class Admin
                 ],
                 'resourceData' => \wp_json_encode((new ResourceData())->getData()),
                 'showAIConsent' => isset($partnerData['showAIConsent']) ? (bool) $partnerData['showAIConsent'] : false,
-                'consentTermsHTML' => \wp_kses((html_entity_decode(($partnerData['consentTermsHTML'] ?? '')) ?? ''), $htmlWhitelist),
+                'consentTermsHTML' => \wp_kses((html_entity_decode(($partnerData['consentTermsHTML'] ?? '')) ?? ''), $htmlAllowlist),
                 'userGaveConsent' => $userConsent ? (bool) $userConsent : false,
                 'installedPlugins' => array_map('esc_attr', array_keys(\get_plugins())),
                 'activePlugins' => array_map('esc_attr', array_values(\get_option('active_plugins', []))),
                 'frontPage' => \esc_attr(\get_option('page_on_front', 0)),
                 'globalStylesPostID' => \esc_attr(\WP_Theme_JSON_Resolver::get_user_global_styles_post_id()),
                 'showLocalizedCopy' => (bool) array_key_exists('showLocalizedCopy', $partnerData),
+                'activity' => \wp_json_encode(\get_option('extendify_shared_activity', null)),
             ]),
             'before'
         );

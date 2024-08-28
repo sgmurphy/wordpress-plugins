@@ -38,6 +38,7 @@ class Ithemes_Sync_Verb_DB_Optimization extends Ithemes_Sync_Verb {
 		'delete-akismet-metadata'       => 'delete_akismet_metadata',
 		'delete-expired-transients'     => 'delete_expired_transients',
 	);
+	private $arguments = array();
 
 	public function run( $arguments ) {
 		$this->arguments        = Ithemes_Sync_Functions::merge_defaults( $arguments, $this->default_arguments );

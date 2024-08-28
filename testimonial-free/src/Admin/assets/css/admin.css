@@ -785,10 +785,6 @@ div#sp_tpro_live_preview {
   padding: 0;
   margin: -7px -13px 6px;
 }
-
-#sp_tpro_shortcode_options.postbox #sp_tpro_live_preview .postbox-header {
-  display: block;
-}
 .sp-testimonial-column-image {
   width: 50px;
   height: auto;
@@ -837,4 +833,42 @@ a.sp_testimonial_block_edit_button {
 }
 .sprtf-footer-text-star {
   color: #dba617;
+}
+#sp_tpro_live_preview .handle-actions,
+#sp_tpro_builder_option .handle-actions,
+#sp_tpro_shortcode_show .handle-actions,
+.post-type-spt_testimonial_form #sp_tpro_form_code_options .handle-actions {
+	display: none;
+}
+
+#sp_tpro_live_preview .postbox-header,
+#sp_tpro_builder_option .postbox-header,
+#sp_tpro_shortcode_show .postbox-header,
+.post-type-spt_testimonial_form #sp_tpro_form_code_options .postbox-header {
+	pointer-events: none;
+}
+#sp_tpro_layout_options .handlediv,
+#sp_tpro_layout_options .hndle,
+#sp_tpro_layout_options .postbox-header,
+#sp_tpro_shortcode_options .postbox-header,
+#sp_tpro_meta_options .postbox-header,
+#sp_tpro_form_options .postbox-header,
+.js #sp_tpro_shortcode_options.postbox .handlediv,
+.js #sp_tpro_shortcode_options.postbox .hndle,
+.js #sp_tpro_meta_options.postbox .handlediv,
+.js #sp_tpro_meta_options.postbox .hndle {
+	display: none;
+}
+#sp_tpro_layout_options.postbox #sp_tpro_live_preview .postbox-header {
+	display: block;
+	border: 1px solid #dddddd;
+	border-top: none;
+}
+#sp_tpro_layout_options.postbox #sp_tpro_live_preview .spftestimonial-metabox {
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+}
+.spftestimonial-field-tabbed .spftestimonial-tabbed-nav i.testimonial--icon.fa.fa-star-o {
+	padding-right: 8px;
+	font-size: 16px;
 }

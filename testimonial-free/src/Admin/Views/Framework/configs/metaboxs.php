@@ -15,6 +15,233 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die; } // Cannot access directly.
 
 
+
+/**
+ * Shortcode metabox.
+ *
+ * @param string $prefix The metabox main Key.
+ * @return void
+ */
+SPFTESTIMONIAL::createMetabox(
+	'sp_tpro_shortcode_show',
+	array(
+		'title'             => __( 'How To Use', 'testimonial-free' ),
+		'post_type'         => 'spt_shortcodes',
+		'context'           => 'side',
+		'show_restore'      => false,
+		'sp_tpro_shortcode' => false,
+	)
+);
+SPFTESTIMONIAL::createSection(
+	'sp_tpro_shortcode_show',
+	array(
+		'fields' => array(
+			array(
+				'type'      => 'shortcode',
+				'shortcode' => 'manage_view',
+				'class'     => 'sp_tpro-admin-sidebar',
+			),
+		),
+	)
+);
+SPFTESTIMONIAL::createMetabox(
+	'sp_tpro_builder_option',
+	array(
+		'title'             => __( 'Page Builders', 'testimonial-free' ),
+		'post_type'         => 'spt_shortcodes',
+		'context'           => 'side',
+		'show_restore'      => false,
+		'sp_tpro_shortcode' => false,
+	)
+);
+SPFTESTIMONIAL::createSection(
+	'sp_tpro_builder_option',
+	array(
+		'fields' => array(
+			array(
+				'type'      => 'shortcode',
+				'shortcode' => false,
+				'class'     => 'sp_tpro-admin-sidebar',
+			),
+		),
+	)
+);
+
+SPFTESTIMONIAL::createMetabox(
+	'sp_tpro_layout_options',
+	array(
+		'title'             => __( 'Layout', 'testimonial-free' ),
+		'post_type'         => 'spt_shortcodes',
+		'show_restore'      => false,
+		'sp_tpro_shortcode' => false,
+		'context'           => 'normal',
+		'preview'           => true,
+	)
+);
+SPFTESTIMONIAL::createSection(
+	'sp_tpro_layout_options',
+	array(
+		'fields' => array(
+			array(
+				'type'    => 'heading',
+				'image'   => esc_url( SP_TFREE_URL ) . '/Admin/assets/images/real-testimonials-logo.svg',
+				'after'   => '<i class="fa fa-life-ring"></i> Support',
+				'link'    => 'https://shapedplugin.com/support/?user=lite',
+				'class'   => 'spftestimonial-admin-header',
+				'version' => SP_TFREE_VERSION,
+			),
+			array(
+				'id'      => 'layout',
+				'type'    => 'image_select',
+				'title'   => __( 'Layout Preset', 'testimonial-free' ),
+				'class'   => 'tfree-layout-preset',
+				'options' => array(
+					'slider'           => array(
+						'image'           => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/layouts/slider.svg',
+						'name'            => __( 'Slider', 'testimonial-free' ),
+						'option_demo_url' => 'https://realtestimonials.io/demos/slider/',
+					),
+					'carousel'         => array(
+						'image'           => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/layouts/carousel.svg',
+						'name'            => __( 'Carousel', 'testimonial-free' ),
+						'option_demo_url' => 'https://realtestimonials.io/demos/carousel/',
+					),
+					'grid'             => array(
+						'image'           => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/layouts/grid.svg',
+						'name'            => __( 'Grid', 'testimonial-free' ),
+						'option_demo_url' => 'https://realtestimonials.io/demos/grid/',
+					),
+					'thumbnail_slider' => array(
+						'image'           => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/layouts/thumbnails_slider.svg',
+						'name'            => __( 'Thumbnails Slider', 'testimonial-free' ),
+						'option_demo_url' => 'https://realtestimonials.io/demos/thumbnails-slider/',
+						'pro_only'        => true,
+						'class'           => 'pro-feature',
+					),
+					'multi_rows'       => array(
+						'image'           => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/carousel-mode/multi_rows.svg',
+						'name'            => __( 'Multi-row', 'testimonial-free' ),
+						'option_demo_url' => 'https://realtestimonials.io/demos/carousel/#multi-rows-carousel',
+						'pro_only'        => true,
+						'class'           => 'pro-feature',
+					),
+					'masonry'          => array(
+						'image'           => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/layouts/filter_masonry.svg',
+						'name'            => __( 'Masonry', 'testimonial-free' ),
+						'option_demo_url' => 'https://realtestimonials.io/demos/masonry/',
+						'pro_only'        => true,
+						'class'           => 'pro-feature',
+					),
+					'list'             => array(
+						'image'           => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/layouts/list.svg',
+						'name'            => __( 'List', 'testimonial-free' ),
+						'option_demo_url' => 'https://realtestimonials.io/demos/list/',
+						'pro_only'        => true,
+						'class'           => 'pro-feature',
+					),
+					'filter'           => array(
+						'image'           => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/layouts/isotope.svg',
+						'name'            => __( 'Isotope', 'testimonial-free' ),
+						'option_demo_url' => 'https://realtestimonials.io/demos/isotope-shuffle-filter/',
+						'pro_only'        => true,
+						'class'           => 'pro-feature',
+					),
+				),
+				'default' => 'slider',
+			),
+			array(
+				'id'         => 'carousel_mode',
+				'type'       => 'image_select',
+				'class'      => 'sp_carousel_mode',
+				'title'      => __( 'Carousel Style', 'testimonial-free' ),
+				'options'    => array(
+					'standard' => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/carousel-mode/standard.svg',
+						'name'  => __( 'Standard', 'testimonial-free' ),
+					),
+					'center'   => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/carousel-mode/center.svg',
+						'name'  => __( 'Center', 'testimonial-free' ),
+						'class' => 'pro-feature',
+					),
+					'ticker'   => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/carousel-mode/slider_ticker.svg',
+						'name'  => __( 'Ticker', 'testimonial-free' ),
+						'class' => 'pro-feature',
+					),
+				),
+				'default'    => 'standard',
+				'dependency' => array( 'layout', '==', 'carousel', true ),
+			),
+			array(
+				'id'         => 'theme_style_thumbnail',
+				'type'       => 'image_select',
+				'class'      => 'sp_carousel_mode',
+				'title'      => __( 'Thumbnails Style', 'testimonial-free' ),
+				'options'    => array(
+					'theme-one'   => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/thumbnail-style/thumbs_top.svg',
+						'name'  => __( 'Thumbs Top', 'testimonial-free' ),
+						'class' => 'pro-feature',
+					),
+					'theme-two'   => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/thumbnail-style/thumbs_bottom.svg',
+						'name'  => __( 'Thumbs Bottom', 'testimonial-free' ),
+						'class' => 'pro-feature',
+					),
+					'theme-three' => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/thumbnail-style/thumbs_left.svg',
+						'name'  => __( 'Thumbs Left', 'testimonial-free' ),
+						'class' => 'pro-feature',
+					),
+					'theme-four'  => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/thumbnail-style/thumbs_right.svg',
+						'name'  => __( 'Thumbs Right', 'testimonial-free' ),
+						'class' => 'pro-feature',
+					),
+				),
+				'default'    => 'theme-one',
+				'dependency' => array( 'layout', '==', 'thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'filter_style',
+				'class'      => 'filter_style sp_carousel_mode',
+				'type'       => 'image_select',
+				'title'      => __( 'Isotope Style', 'testimonial-free' ),
+				'options'    => array(
+					'even'    => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/layouts/grid_even.svg',
+						'name'  => __( 'Even', 'testimonial-free' ),
+						'class' => 'pro-feature',
+					),
+					'masonry' => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/layouts/masonry.svg',
+						'name'  => __( 'Masonry', 'testimonial-free' ),
+						'class' => 'pro-feature',
+					),
+				),
+				'default'    => 'even',
+				'dependency' => array(
+					'layout',
+					'==',
+					'filter',
+					true,
+				),
+			),
+			array(
+				'type'    => 'notice',
+				'class'   => 'ajax-notice layout',
+				'content' => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'To create eye-catching testimonial layout designs and access to advanced customizations, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+				),
+			),
+		),
+	)
+);
+
 //
 // Metabox of the testimonial shortcode generator.
 // Set a unique slug-like ID.
@@ -31,7 +258,6 @@ SPFTESTIMONIAL::createMetabox(
 		'class'     => 'spt-main-class',
 		'post_type' => 'spt_shortcodes',
 		'context'   => 'normal',
-		'preview'   => true,
 	)
 );
 //
@@ -44,114 +270,10 @@ SPFTESTIMONIAL::createSection(
 		'icon'   => 'sptfree-icon-cog',
 		'fields' => array(
 			array(
-				'id'       => 'layout',
-				'type'     => 'image_select',
-				'title'    => __( 'Layout Preset', 'testimonial-free' ),
-				'subtitle' => __( 'Select a layout to display the testimonials.', 'testimonial-free' ),
-				'desc'     => sprintf(
-					/* translators: 1: start link tag, 2: close tag. */
-					__( 'To create eye-catching testimonial layout designs and stand out from the competition, %1$sUpgrade To Pro!%2$s', 'testimonial-free' ),
-					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
-					'</b></a>',
-				),
-				'class'    => 'tfree-layout-preset',
-				'sanitize' => 'sanitize_text_field',
-				'options'  => array(
-					'slider'   => array(
-						'image'           => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/layouts/slider.svg',
-						'name'            => __( 'Slider', 'testimonial-free' ),
-						'class'           => 'free-feature',
-						'option_demo_url' => 'https://realtestimonials.io/demos/slider/',
-					),
-					'carousel' => array(
-						'image'           => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/layouts/carousel.svg',
-						'name'            => __( 'Carousel', 'testimonial-free' ),
-						'option_demo_url' => 'https://realtestimonials.io/demos/carousel/',
-					),
-					'grid'     => array(
-						'image'           => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/layouts/grid.svg',
-						'name'            => __( 'Grid', 'testimonial-free' ),
-						'option_demo_url' => 'https://realtestimonials.io/demos/grid/',
-					),
-					'masonry'  => array(
-						'image'           => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/layouts/masonry.svg',
-						'name'            => __( 'Masonry', 'testimonial-free' ),
-						'class'           => 'pro-feature',
-						'option_demo_url' => 'https://realtestimonials.io/demos/masonry/',
-						'pro_only'        => true,
-					),
-					'list'     => array(
-						'image'           => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/layouts/list.svg',
-						'name'            => __( 'List', 'testimonial-free' ),
-						'class'           => 'pro-feature',
-						'option_demo_url' => 'https://realtestimonials.io/demos/list/',
-						'pro_only'        => true,
-					),
-					'filter'   => array(
-						'image'           => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/layouts/isotope.svg',
-						'name'            => __( 'Isotope', 'testimonial-free' ),
-						'class'           => 'pro-feature',
-						'option_demo_url' => 'https://realtestimonials.io/demos/isotope-shuffle-filter/',
-						'pro_only'        => true,
-					),
-				),
-				'default'  => 'slider',
-			),
-			array(
-				'id'         => 'slider_mode',
-				'type'       => 'image_select',
-				'class'      => 'sp_slider_mode',
-				'title'      => __( 'Slider Style', 'testimonial-free' ),
-				'subtitle'   => __( 'Choose a testimonials slider style.', 'testimonial-free' ),
-				'options'    => array(
-					'standard'         => array(
-						'image' => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/slider-mode/slider_standard.svg',
-						'name'  => __( 'Standard', 'testimonial-free' ),
-					),
-					'thumbnail_slider' => array(
-						'image' => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/slider-mode/thumbnails_slider.svg',
-						'name'  => __( 'Thumbnails', 'testimonial-free' ),
-						'class' => 'pro-feature',
-					),
-				),
-				'default'    => 'standard',
-				'dependency' => array( 'layout', '==', 'slider', true ),
-			),
-			array(
-				'id'         => 'carousel_mode',
-				'type'       => 'image_select',
-				'class'      => 'sp_carousel_mode',
-				'title'      => __( 'Carousel Style', 'testimonial-free' ),
-				'subtitle'   => __( 'Set a testimonials carousel style.', 'testimonial-free' ),
-				'options'    => array(
-					'standard'   => array(
-						'image' => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/carousel-mode/standard.svg',
-						'name'  => __( 'Standard', 'testimonial-free' ),
-					),
-					'center'     => array(
-						'image' => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/carousel-mode/center.svg',
-						'name'  => __( 'Center', 'testimonial-free' ),
-						'class' => 'pro-feature',
-					),
-					'ticker'     => array(
-						'image' => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/carousel-mode/slider_ticker.svg',
-						'name'  => __( 'Ticker', 'testimonial-free' ),
-						'class' => 'pro-feature',
-					),
-					'multi_rows' => array(
-						'image' => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/carousel-mode/multi_rows.svg',
-						'name'  => __( 'Multi Rows', 'testimonial-free' ),
-						'class' => 'pro-feature',
-					),
-				),
-				'default'    => 'standard',
-				'dependency' => array( 'layout', '==', 'carousel', true ),
-			),
-			array(
 				'id'       => 'columns',
 				'type'     => 'column',
-				'title'    => __( 'Column(s)', 'testimonial-free' ),
-				'subtitle' => __( 'Set number of column(s) in different responsive devices.', 'testimonial-free' ),
+				'title'    => __( 'Columns', 'testimonial-free' ),
+				'subtitle' => __( 'Set number of columns in different devices.', 'testimonial-free' ),
 				'sanitize' => 'spftestimonial_sanitize_number_array_field',
 				'default'  => array(
 					'large_desktop' => '1',
@@ -217,7 +339,7 @@ SPFTESTIMONIAL::createSection(
 				'id'       => 'number_of_total_testimonials',
 				'type'     => 'spinner',
 				'title'    => __( 'Limit', 'testimonial-free' ),
-				'subtitle' => __( 'Limit number of testimonials to show. Leave it empty to show all testimonials.', 'testimonial-free' ),
+				'subtitle' => __( 'Leave it empty to show all testimonials.', 'testimonial-free' ),
 				'default'  => '12',
 				'sanitize' => 'spftestimonial_sanitize_number_field',
 				'min'      => -1,
@@ -228,10 +350,10 @@ SPFTESTIMONIAL::createSection(
 				'class'      => 'pro_switcher',
 				'attributes' => array( 'disabled' => 'disabled' ),
 				'title'      => __( 'Random Order', 'testimonial-free' ),
-				'subtitle'   => __( 'Enable/Disable to display testimonials in random order.', 'testimonial-free' ),
+				'subtitle'   => __( 'Enable to display testimonials in random order.', 'testimonial-free' ),
 				'text_on'    => __( 'Enabled', 'testimonial-free' ),
 				'text_off'   => __( 'Disabled', 'testimonial-free' ),
-				'text_width' => 95,
+				'text_width' => 100,
 				'default'    => false,
 				'sanitize'   => 'rest_sanitize_boolean',
 			),
@@ -282,14 +404,265 @@ SPFTESTIMONIAL::createSection(
 				'type'       => 'switcher',
 				'title'      => __( 'Ajax Live Filters', 'testimonial-free' ),
 				'class'      => 'testimonial-live-filter',
-				'class'      => 'pro_switcher',
 				'sanitize'   => 'rest_sanitize_boolean',
-				'subtitle'   => __( 'Enable/Disable ajax live filtering for testimonial groups.', 'testimonial-free' ),
-				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/ajax_live_filter.svg" alt="' . __( 'Ajax Live Filter', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Ajax Live Filter', 'testimonial-free' ) . '</div><a class="spftestimonial-open-live-demo" href="https://realtestimonials.io/demos/advanced-ajax-features/" target="_blank">' . __( 'Live Demo', 'testimonial-free' ) . '</a>',
+				'subtitle'   => __( 'Enable the Ajax Live Filters by groups or star ratings.', 'testimonial-free' ),
+				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/ajax_live_filter.svg" alt="' . __( 'Ajax Live Filter', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Ajax Live Filter (Pro)', 'testimonial-free' ) . '</div><a class="spftestimonial-open-live-demo" href="https://realtestimonials.io/demos/advanced-ajax-features/" target="_blank">' . __( 'Live Demo', 'testimonial-free' ) . '</a>',
 				'text_on'    => __( 'Enabled', 'testimonial-free' ),
 				'text_off'   => __( 'Disabled', 'testimonial-free' ),
-				'text_width' => 95,
+				'text_width' => 100,
+				'only_pro'   => true,
 				'default'    => false,
+			),
+			array(
+				'type'       => 'subheading',
+				'content'    => __( 'AJAX LIVE FILTERS', 'testimonial-free' ),
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'type'       => 'notice',
+				'class'      => 'ajax-notice',
+				'content'    => sprintf(
+					/* translators: 1: start link tag, 2: close tag. */
+					__( 'To allow your visitors to filter reviews by %3$sGroups%2$s, %4$sStar Ratings%2$s, Ajax Search, and Sort on the frontend, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+					'</b></a>',
+					'<a target="_blank" href="https://realtestimonials.io/demos/advanced-ajax-features/#group-wise-live-filter-carousel"><b>',
+					'<a target="_blank" href="https://realtestimonials.io/demos/advanced-ajax-features/#live-filter-by-star-rating"><b>',
+				),
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'live_filter_sorter',
+				'type'       => 'sortable',
+				'title'      => __( 'Filter By', 'testimonial-free' ),
+				'subtitle'   => __( 'Enable your filter(s).', 'testimonial-free' ),
+				'class'      => 'live_filter_sorter',
+				'only_pro'   => true,
+				'default'    => array(
+					'filter_by_star_rating' => true,
+					'filter_by_group'       => true,
+				),
+				'fields'     => array(
+					array(
+						'id'         => 'filter_by_star_rating',
+						'type'       => 'switcher',
+						'title'      => __( 'Star Rating', 'testimonial-free' ),
+						'text_on'    => __( 'Show', 'testimonial-free' ),
+						'text_off'   => __( 'Hide', 'testimonial-free' ),
+						'text_width' => 80,
+						'only_pro'   => true,
+						'class'      => 'pro_switcher',
+					),
+					array(
+						'id'         => 'filter_by_group',
+						'type'       => 'switcher',
+						'title'      => __( 'Groups', 'testimonial-free' ),
+						'text_on'    => __( 'Show', 'testimonial-free' ),
+						'text_off'   => __( 'Hide', 'testimonial-free' ),
+						'text_width' => 80,
+						'only_pro'   => true,
+						'class'      => 'pro_switcher',
+
+					),
+				),
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'live_filter_type',
+				'type'       => 'image_select',
+				'class'      => 'live_filter_type sp-testimonial-live-filters-options',
+				'title'      => __( 'Filter Style', 'testimonial-free' ),
+				'subtitle'   => __( 'Choose a filter style.', 'testimonial-free' ),
+				'options'    => array(
+					'filter_button'   => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/filter-button.svg',
+						'name'  => __( 'Button', 'testimonial-free' ),
+					),
+					'filter_dropdown' => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/filter-dropdown.svg',
+						'name'  => __( 'Dropdown', 'testimonial-free' ),
+					),
+				),
+				'only_pro'   => true,
+				'default'    => 'filter_button',
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'filter_ratings_label_type',
+				'type'       => 'image_select',
+				'class'      => 'filter_ratings_label_type sp-testimonial-live-filters-options',
+				'title'      => __( 'Star Rating Label Style', 'testimonial-free' ),
+				'subtitle'   => __( 'Select a star rating label style.', 'testimonial-free' ),
+				'only_pro'   => true,
+				'options'    => array(
+					'text'           => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-style/text-r.svg',
+						'name'  => __( 'Label', 'testimonial-free' ),
+					),
+					'icon'           => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-style/icon-r.svg',
+						'name'  => __( 'Star', 'testimonial-free' ),
+					),
+					'text_with_icon' => array(
+						'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-style/text-icon-r.svg',
+						'name'  => __( 'Label with Star', 'testimonial-free' ),
+					),
+				),
+				'default'    => 'text',
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'star_rating_filter_as_dropdown',
+				'type'       => 'switcher',
+				'class'      => 'pro_switcher',
+				'title'      => __( 'Star Rating Filter as Dropdown', 'testimonial-free' ),
+				'subtitle'   => __( 'Enable the dropdown style.', 'testimonial-free' ),
+				'text_on'    => __( 'Enabled', 'testimonial-free' ),
+				'text_off'   => __( 'Disabled', 'testimonial-free' ),
+				'only_pro'   => true,
+				'text_width' => 100,
+				'default'    => false,
+				'title_help' => '<div class="spftestimonial-info-label">' . __( 'Star Rating Filter as Dropdown', 'testimonial-free' ) . '</div><div class="spftestimonial-short-content">' . __( 'When Enabled, the Star Rating filter will appear as a dropdown along with the button-styled Group filter.', 'testimonial-free' ) . '</div><a class="spftestimonial-open-live-demo" href="https://realtestimonials.io/demos/advanced-ajax-features/#star-rating-filter-as-dropdown" target="_blank">' . __( 'Live Demo', 'testimonial-free' ) . '</a>',
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'enable_inline_filter_style',
+				'type'       => 'switcher',
+				'class'      => 'enable_inline_filter_style pro_switcher',
+				'title'      => __( 'Inline Filter Style', 'testimonial-free' ),
+				'subtitle'   => __( 'Enable the testimonial inline filter style.', 'testimonial-free' ),
+				'text_on'    => __( 'Enabled', 'testimonial-free' ),
+				'text_off'   => __( 'Disabled', 'testimonial-free' ),
+				'text_width' => 100,
+				'default'    => false,
+				'only_pro'   => true,
+				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/inline_filter_style.svg" alt="' . __( 'AInline Filter Style', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Inline Filter Style (Pro)', 'testimonial-free' ) . '</div><div class="spftestimonial-short-content">' . __( 'When Enabled, It will show the Group and Star Rating filters in inline style; when disabled, it will show the filters in horizontal style.', 'testimonial-free' ) . '</div><a class="spftestimonial-open-live-demo" href="https://realtestimonials.io/demos/advanced-ajax-features/#live-filter-inline-style" target="_blank">' . __( 'Live Demo', 'testimonial-free' ) . '</a>',
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'filter_by_rating_orientation',
+				'type'       => 'button_set',
+				'class'      => 'sp-testimonial-live-filters-options',
+				'title'      => __( 'Star Rating Filter Orientation', 'testimonial-free' ),
+				'subtitle'   => __( 'Choose a star rating filter orientation, whether horizontal or vertical.', 'testimonial-free' ),
+				'options'    => array(
+					'horizontal' => 'Horizontal',
+					'vertical'   => 'Vertical',
+				),
+				'only_pro'   => true,
+				'default'    => 'horizontal',
+				'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/star_rating_filter_orientation.svg" alt="' . __( 'Star Rating Filter Orientation', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Star Rating Filter Orientation (Pro)', 'testimonial-free' ) . '</div><div class="spftestimonial-short-content">' . __( 'For the vertical style, when the average rating section is enabled with the rating star filter, the rating star filter will show as a side-by-side view.', 'testimonial-free' ) . '</div><a class="spftestimonial-open-live-demo" href="https://realtestimonials.io/demos/advanced-ajax-features/#live-filter-by-star-rating" target="_blank">' . __( 'Live Demo', 'testimonial-free' ) . '</a>',
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'filter_testimonials_counter',
+				'type'       => 'switcher',
+				'class'      => 'pro_switcher',
+				'title'      => __( 'Counter', 'testimonial-free' ),
+				'subtitle'   => __( 'Show/Hide testimonial counter.', 'testimonial-free' ),
+				'text_on'    => __( 'Show', 'testimonial-free' ),
+				'text_off'   => __( 'Hide', 'testimonial-free' ),
+				'text_width' => 80,
+				'default'    => false,
+				'only_pro'   => true,
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'all_tab',
+				'type'       => 'switcher',
+				'class'      => 'pro_switcher',
+				'title'      => __( 'Display All Tab', 'testimonial-free' ),
+				'subtitle'   => __( 'Show/Hide "All" tab.', 'testimonial-free' ),
+				'text_on'    => __( 'Show', 'testimonial-free' ),
+				'text_off'   => __( 'Hide', 'testimonial-free' ),
+				'text_width' => 80,
+				'default'    => true,
+				'only_pro'   => true,
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'all_tab_text',
+				'type'       => 'text',
+				'class'      => 'all_tab_text sp-testimonial-live-filters-options',
+				'title'      => __( 'All Tab Label', 'testimonial-free' ),
+				'subtitle'   => __( 'Set "All" tab label text.', 'testimonial-free' ),
+				'default'    => 'All',
+				'only_pro'   => true,
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'filter_alignment',
+				'type'       => 'button_set',
+				'class'      => 'button_set_smaller sp-testimonial-live-filters-options',
+				'title'      => __( 'Button Alignment', 'testimonial-free' ),
+				'subtitle'   => __( 'Set alignment for filter button.', 'testimonial-free' ),
+				'options'    => array(
+					'left'   => '<i class="fa fa-align-left" title="left"></i>',
+					'center' => '<i class="fa fa-align-center" title="center"></i>',
+					'right'  => '<i class="fa fa-align-right" title="right"></i>',
+				),
+				'only_pro'   => true,
+				'default'    => 'center',
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'         => 'filter_colors',
+				'type'       => 'color_group',
+				'class'      => 'sp-testimonial-live-filters-options',
+				'title'      => __( 'Filter Button Color', 'testimonial-free' ),
+				'subtitle'   => __( 'Set color for filter button.', 'testimonial-free' ),
+				'options'    => array(
+					'color'             => __( 'Color', 'testimonial-free' ),
+					'active-color'      => __( 'Active Color', 'testimonial-free' ),
+					'background'        => __( 'Background', 'testimonial-free' ),
+					'active-background' => __( 'Active Background', 'testimonial-free' ),
+				),
+				'default'    => array(
+					'color'             => '#7e7e7e',
+					'active-color'      => '#ffffff',
+					'background'        => '#ffffff',
+					'active-background' => '#1595CE',
+				),
+				'only_pro'   => true,
+				'dependency' => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'          => 'filter_border',
+				'type'        => 'border',
+				'title'       => __( 'Border', 'testimonial-free' ),
+				'class'       => 'sp-testimonial-live-filters-options',
+				'subtitle'    => __( 'Set border for the filter button.', 'testimonial-free' ),
+				'all'         => true,
+				'hover_color' => true,
+				'default'     => array(
+					'all'         => '2',
+					'style'       => 'solid',
+					'color'       => '#aeaeae',
+					'hover-color' => '#1595CE',
+				),
+				'only_pro'    => true,
+				'dependency'  => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
+			),
+			array(
+				'id'          => 'filter_margin',
+				'type'        => 'spacing',
+				'title'       => __( 'Margin', 'testimonial-free' ),
+				'class'       => 'sp-testimonial-live-filters-options',
+				'subtitle'    => __( 'Set margin for filter.', 'testimonial-free' ),
+				'default'     => array(
+					'top'    => '0',
+					'right'  => '0',
+					'bottom' => '24',
+					'left'   => '0',
+					'unit'   => 'px',
+				),
+				'top_text'    => __( 'Top', 'testimonial-free' ),
+				'right_text'  => __( 'Right', 'testimonial-free' ),
+				'bottom_text' => __( 'Bottom', 'testimonial-free' ),
+				'left_text'   => __( 'Left', 'testimonial-free' ),
+				'units'       => array( 'px' ),
+				'only_pro'    => true,
+				'dependency'  => array( 'ajax_live_filter|layout', '==|not-any', 'true|filter,thumbnail_slider', true ),
 			),
 			array(
 				'type'       => 'subheading',
@@ -307,7 +680,7 @@ SPFTESTIMONIAL::createSection(
 				'style'      => 'info',
 				'content'    => sprintf(
 					/* translators: 1: start link tag, 2: close tag. */
-					__( 'To unlock the following ajax pagination settings for Grid, Masonry, & List layouts, %1$sUpgrade To Pro!%2$s', 'testimonial-free' ),
+					__( 'To unlock the following ajax pagination settings for Grid, Masonry, & List layouts, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
 					'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
 					'</b></a>',
 				),
@@ -325,7 +698,7 @@ SPFTESTIMONIAL::createSection(
 				'subtitle'   => __( 'Enqueue/Dequeue pagination.', 'testimonial-free' ),
 				'text_on'    => __( 'Enable', 'testimonial-free' ),
 				'text_off'   => __( 'Disable', 'testimonial-free' ),
-				'text_width' => 95,
+				'text_width' => 100,
 				'default'    => true,
 				'sanitize'   => 'rest_sanitize_boolean',
 				'dependency' => array(
@@ -586,12 +959,6 @@ SPFTESTIMONIAL::createSection(
 					'right'  => '<i class="fa fa-align-right" title="right"></i>',
 				),
 				'default'  => 'center',
-				// 'dependency' => array(
-				// 'client_image|theme_style|slider_mode',
-				// '==|any|!=',
-				// 'true|theme-one|thumbnail_slider',
-				// true,
-				// ),
 			),
 			array(
 				'id'       => 'testimonial_border_for_one',
@@ -744,7 +1111,7 @@ SPFTESTIMONIAL::createSection(
 				'default'    => false,
 				'text_on'    => __( 'Enabled', 'testimonial-free' ),
 				'text_off'   => __( 'Disabled', 'testimonial-free' ),
-				'text_width' => 95,
+				'text_width' => 100,
 				'dependency' => array( 'layout', 'any', 'slider,carousel,grid', true ),
 			),
 		),
@@ -768,15 +1135,6 @@ SPFTESTIMONIAL::createSection(
 						'title'  => __( 'Basic Preferences', 'testimonial-free' ),
 						'icon'   => '<i class="testimonial--icon sptfree-icon-basic-preferences"></i>',
 						'fields' => array(
-							array(
-								'type'    => 'notice',
-								'content' => sprintf(
-									/* translators: 1: start link tag, 2: close tag. */
-									__( 'Want to display the Average Rating, Ajax Testimonial Search, and more? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
-									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
-									'</b></a>',
-								),
-							),
 							array(
 								'id'         => 'section_title',
 								'type'       => 'switcher',
@@ -809,9 +1167,9 @@ SPFTESTIMONIAL::createSection(
 								'title_help' => '<div class="spftestimonial-img-tag"><img src="' . SP_TFREE_URL . 'Admin/Views/Framework/assets/images/help-visuals/ajax_testimonial_search.svg" alt="' . __( 'Ajax Testimonial Search', 'testimonial-free' ) . '"></div><div class="spftestimonial-info-label">' . __( 'Ajax Testimonial Search', 'testimonial-free' ) . '</div>',
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'default'    => false,
-								'dependency' => array( 'slider_mode', '!=', 'thumbnail_slider', true ),
+								// 'dependency' => array( 'slider_mode', '!=', 'thumbnail_slider', true ),
 							),
 
 							array(
@@ -822,7 +1180,7 @@ SPFTESTIMONIAL::createSection(
 								'subtitle'   => __( 'Enable/Disable schema.org markup.', 'testimonial-free' ),
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'default'    => false,
 								'sanitize'   => 'rest_sanitize_boolean',
 							),
@@ -833,9 +1191,19 @@ SPFTESTIMONIAL::createSection(
 								'subtitle'   => __( 'Enable/Disable preloader.', 'testimonial-free' ),
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'default'    => false,
 								'sanitize'   => 'rest_sanitize_boolean',
+							),
+							array(
+								'type'    => 'notice',
+								'class'   => 'ajax-notice',
+								'content' => sprintf(
+									/* translators: 1: start link tag, 2: close tag. */
+									__( 'Want to display the Average Rating, Ajax Testimonial Search, and more? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
+									'</b></a>',
+								),
 							),
 						),
 					),
@@ -845,6 +1213,8 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
+								'class'   => 'ajax-notice',
+
 								'content' => sprintf(
 									/* translators: %1$s: anchor tag starting, %2$s: anchor tag ending. */
 									__( 'Looking to make your customer Testimonial Content more captivating with advanced customization options? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
@@ -868,13 +1238,13 @@ SPFTESTIMONIAL::createSection(
 								'type'       => 'fieldset',
 								'title'      => 'Length',
 								'only_pro'   => true,
-								'class'      => 'testimonial_text_limit pro_only_field',
-								'subtitle'   => __( 'Set testimonial title length. Leave it empty to show full title.', 'testimonial-free' ),
+								'class'      => 'testimonial_text_limit',
+								'subtitle'   => __( 'Leave it empty to show full title.', 'testimonial-free' ),
 								'fields'     => array(
 									array(
-										'id'         => 'testimonial_title_limit',
-										'type'       => 'spinner',
-										'dependency' => array( 'testimonial_title_length_type', '==', 'characters', true ),
+										'id'    => 'testimonial_title_limit',
+										'class' => 'testimonial_limit_input',
+										'type'  => 'spinner',
 									),
 									array(
 										'id'         => 'testimonial_title_word_limit',
@@ -884,10 +1254,11 @@ SPFTESTIMONIAL::createSection(
 									),
 									array(
 										'id'      => 'testimonial_title_length_type',
+										'class'   => 'testimonial_length_type',
 										'type'    => 'select',
 										'options' => array(
-											'characters' => __( 'Characters', 'testimonial-free' ),
-											'words'      => __( 'Words', 'testimonial-free' ),
+											'characters' => __( 'Characters (Pro)', 'testimonial-free' ),
+											'words'      => __( 'Words (Pro)', 'testimonial-free' ),
 										),
 										'default' => 'characters',
 									),
@@ -965,14 +1336,14 @@ SPFTESTIMONIAL::createSection(
 								'id'         => 'testimonial_content_length',
 								'type'       => 'fieldset',
 								'only_pro'   => true,
-								'class'      => 'testimonial_text_limit pro_only_field',
+								'class'      => 'testimonial_text_limit',
 								'title'      => 'Length',
 								'subtitle'   => __( 'Set testimonial content length.', 'testimonial-free' ),
 								'fields'     => array(
 									array(
-										'id'         => 'testimonial_characters_limit',
-										'type'       => 'spinner',
-										'dependency' => array( 'testimonial_content_length_type', '==', 'characters', true ),
+										'id'    => 'testimonial_characters_limit',
+										'type'  => 'spinner',
+										'class' => 'testimonial_limit_input',
 									),
 									array(
 										'id'         => 'testimonial_word_limit',
@@ -984,9 +1355,10 @@ SPFTESTIMONIAL::createSection(
 									array(
 										'id'      => 'testimonial_content_length_type',
 										'type'    => 'select',
+										'class'   => 'testimonial_length_type',
 										'options' => array(
-											'characters' => __( 'Characters', 'testimonial-free' ),
-											'words'      => __( 'Words', 'testimonial-free' ),
+											'characters' => __( 'Characters (Pro)', 'testimonial-free' ),
+											'words'      => __( 'Words (Pro)', 'testimonial-free' ),
 										),
 										'default' => 'characters',
 									),
@@ -1027,6 +1399,7 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
+								'class'   => 'ajax-notice',
 								'content' => sprintf(
 									/* translators: 1: start link tag, 2: close tag. */
 									__( 'Want to display more reviewer information and build trust & credibility? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
@@ -1070,66 +1443,6 @@ SPFTESTIMONIAL::createSection(
 								),
 							),
 							array(
-								'id'         => 'testimonial_client_rating',
-								'type'       => 'switcher',
-								'title'      => __( 'Star Rating', 'testimonial-free' ),
-								'subtitle'   => __( 'Show/Hide rating.', 'testimonial-free' ),
-								'text_on'    => __( 'Show', 'testimonial-free' ),
-								'text_off'   => __( 'Hide', 'testimonial-free' ),
-								'text_width' => 80,
-								'default'    => true,
-								'sanitize'   => 'sanitize_text_field',
-							),
-							array(
-								'id'         => 'tpro_star_icon',
-								'type'       => 'icon_select',
-								'title'      => __( 'Rating Icon', 'testimonial-free' ),
-								'subtitle'   => __( 'Choose a rating icon.', 'testimonial-free' ),
-								'sanitize'   => 'sanitize_text_field',
-								'options'    => array(
-									'fa fa-star'      => 'fa fa-star',
-									'fa fa-heart'     => array(
-										'icon'     => 'fa fa-heart',
-										'pro_only' => true,
-									),
-									'fa fa-thumbs-up' => array(
-										'icon'     => 'fa fa-thumbs-up',
-										'pro_only' => true,
-									),
-									'fa fa-hourglass' => array(
-										'icon'     => 'fa fa-hourglass',
-										'pro_only' => true,
-									),
-									'fa fa-circle'    => array(
-										'icon'     => 'fa fa-circle',
-										'pro_only' => true,
-									),
-									'fa fa-square'    => array(
-										'icon'     => 'fa fa-square',
-										'pro_only' => true,
-									),
-									'fa fa-flag'      => array(
-										'icon'     => 'fa fa-flag',
-										'pro_only' => true,
-									),
-									'fa fa-smile-o'   => array(
-										'icon'     => 'fa fa-smile-o',
-										'pro_only' => true,
-									),
-								),
-								'default'    => 'fa fa-star',
-								'dependency' => array( 'testimonial_client_rating', '==', 'true' ),
-							),
-							array(
-								'id'         => 'testimonial_client_rating_color',
-								'type'       => 'color',
-								'title'      => __( 'Rating Color', 'testimonial-free' ),
-								'subtitle'   => __( 'Set color for rating.', 'testimonial-free' ),
-								'default'    => '#ffb900',
-								'dependency' => array( 'testimonial_client_rating', '==', 'true' ),
-								'sanitize'   => 'sanitize_text_field',
-							),
-							array(
 								'id'         => 'client_designation',
 								'type'       => 'switcher',
 								'title'      => __( 'Designation', 'testimonial-free' ),
@@ -1141,22 +1454,17 @@ SPFTESTIMONIAL::createSection(
 								'sanitize'   => 'sanitize_text_field',
 							),
 							array(
-								'id'         => 'rating_star_position',
-								'type'       => 'select',
+								'id'         => 'client_company_name',
+								'type'       => 'switcher',
+								'class'      => 'pro_switcher',
 								'only_pro'   => true,
-								'title'      => __( 'Rating Position', 'testimonial-free' ),
-								'subtitle'   => __( 'Select a position for the star rating.', 'testimonial-free' ),
-								'options'    => array(
-									'below_name'    => __( 'Below Reviewer Name', 'testimonial-free' ),
-									'below_reviewer_designation' => __( 'Below Reviewer Designation (Pro)', 'testimonial-free' ),
-									'above_title'   => __( 'Above Testimonial Title (Pro)', 'testimonial-free' ),
-									'below_title'   => __( 'Below Testimonial Title (Pro)', 'testimonial-free' ),
-									'below_content' => __( 'Below Testimonial Content (Pro)', 'testimonial-free' ),
-								),
-								'default'    => 'below_name',
-								'dependency' => array( 'testimonial_client_rating', '==', 'true', true ),
+								'title'      => __( 'Company Name', 'testimonial-free' ),
+								'subtitle'   => __( 'Show/Hide company name.', 'testimonial-free' ),
+								'text_on'    => __( 'Show', 'testimonial-free' ),
+								'text_off'   => __( 'Hide', 'testimonial-free' ),
+								'text_width' => 80,
+								'default'    => true,
 							),
-
 							array(
 								'id'         => 'client_company_logo',
 								'type'       => 'switcher',
@@ -1169,7 +1477,45 @@ SPFTESTIMONIAL::createSection(
 								'text_width' => 80,
 								'default'    => false,
 							),
-
+							array(
+								'id'         => 'testimonial_client_location',
+								'type'       => 'switcher',
+								'title'      => __( 'Location', 'testimonial-free' ),
+								'subtitle'   => __( 'Show/Hide Reviewer location.', 'testimonial-free' ),
+								'class'      => 'pro_switcher',
+								'text_on'    => __( 'Show', 'testimonial-free' ),
+								'text_off'   => __( 'Hide', 'testimonial-free' ),
+								'text_width' => 80,
+								'default'    => true,
+								'only_pro'   => true,
+							),
+							array(
+								'id'       => 'testimonial_client_location_country',
+								'type'     => 'select_f',
+								'title'    => __( 'Country', 'testimonial-free' ),
+								'subtitle' => __( 'Choose a country display type.', 'testimonial-free' ),
+								'sanitize' => 'sanitize_text_field',
+								'only_pro' => true,
+								'options'  => array(
+									'name'              => array(
+										'name'     => __( 'Country Name (Pro)', 'testimonial-free' ),
+										'pro_only' => false,
+									),
+									'country_with_flag' => array(
+										'name'     => __( 'Country Name with Flag (Pro)', 'testimonial-free' ),
+										'pro_only' => true,
+									),
+									'flag'              => array(
+										'name'     => __( 'Only Flag ', 'testimonial-free' ),
+										'pro_only' => true,
+									),
+									'none'              => array(
+										'name'     => __( 'None ', 'testimonial-free' ),
+										'pro_only' => true,
+									),
+								),
+								'default'  => 'name',
+							),
 							array(
 								'id'         => 'testimonial_client_date',
 								'type'       => 'switcher',
@@ -1202,7 +1548,7 @@ SPFTESTIMONIAL::createSection(
 								'class'      => 'pro_only_field',
 								'type'       => 'select',
 								'only_pro'   => true,
-								'title'      => __( ' ', 'testimonial-free' ),
+								'title'      => ' ',
 								'options'    => array(
 									'M j, Y' => date_i18n( 'M j, Y' ) . ' (M j, Y)',
 									'F j, Y' => date_i18n( 'F j, Y' ) . ' (F j, Y)',
@@ -1233,14 +1579,185 @@ SPFTESTIMONIAL::createSection(
 									true,
 								),
 							),
+							array(
+								'id'         => 'identity_linking_website',
+								'type'       => 'checkbox',
+								'class'      => 'pro_only_field',
+								'title'      => __( 'Designation & Company Linking via Website URL', 'testimonial-free' ),
+								'title_help' => __( 'Check to link designation & company name via website URL.', 'testimonial-free' ),
+								'default'    => false,
+								'only_pro'   => true,
+							),
 						),
 					),
+					array(
+						'title'  => __( 'Star Rating', 'testimonial-free' ),
+						'icon'   => '<i class="testimonial--icon fa fa-star-o"></i>',
+						'fields' => array(
+							array(
+								'id'         => 'testimonial_client_rating',
+								'type'       => 'switcher',
+								'title'      => __( 'Star Rating', 'testimonial-free' ),
+								'subtitle'   => __( 'Show/Hide rating.', 'testimonial-free' ),
+								'text_on'    => __( 'Show', 'testimonial-free' ),
+								'text_off'   => __( 'Hide', 'testimonial-free' ),
+								'text_width' => 80,
+								'default'    => true,
+								'sanitize'   => 'sanitize_text_field',
+							),
+							array(
+								'id'         => 'tpro_star_icon',
+								'class'      => 'tpro_star_icon',
+								'type'       => 'image_select',
+								'title'      => __( 'Rating Icon Style', 'testimonial-free' ),
+								'subtitle'   => __( 'Choose a star rating icon style.', 'testimonial-free' ),
+								'options'    => array(
+									'rating-star-1'  => array(
+										'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-1.svg',
+									),
+									'rating-star-2'  => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-2.svg',
+										'pro_only' => true,
+									),
+									'rating-star-3'  => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-3.svg',
+										'pro_only' => true,
+									),
+									'rating-star-4'  => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-4.svg',
+										'pro_only' => true,
+									),
+									'rating-star-5'  => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-5.svg',
+										'pro_only' => true,
+									),
+									'rating-star-6'  => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-6.svg',
+										'pro_only' => true,
+									),
+									'rating-star-6b' => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-6b.svg',
+										'pro_only' => true,
+									),
+									'rating-star-7'  => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-7.svg',
+										'pro_only' => true,
+									),
+									'rating-star-7b' => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-7b.svg',
+										'pro_only' => true,
+									),
+									'rating-star-8'  => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-8.svg',
+										'pro_only' => true,
+									),
+									'rating-star-9'  => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-9.svg',
+										'pro_only' => true,
+									),
+									'rating-star-10' => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-10.svg',
+										'pro_only' => true,
+									),
+									'rating-star-11' => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-11.svg',
+										'pro_only' => true,
+									),
+									'rating-star-12' => array(
+										'image'    => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-12.svg',
+										'pro_only' => true,
+									),
+									'rating-star-13' => array(
+										'image' => SP_TFREE_URL . '/Admin/Views/Framework/assets/images/rating-icon/rating-star-13.svg',
+										'class' => 'pro-feature',
+									),
+								),
+								'default'    => 'rating-star-1',
+								'dependency' => array( 'testimonial_client_rating', '==', 'true', true ),
+							),
+							array(
+								'id'         => 'testimonial_client_rating_color',
+								'type'       => 'color_group',
+								'title'      => __( 'Rating Color', 'testimonial-free' ),
+								'subtitle'   => __( 'Set color for the rating.', 'testimonial-free' ),
+								'options'    => array(
+									'color'       => __( 'Default', 'testimonial-free' ),
+									'hover-color' => __( ' Rating', 'testimonial-free' ),
+								),
+								'default'    => array(
+									'color'       => '#bbc2c7',
+									'hover-color' => '#ffb900',
+								),
+								'dependency' => array( 'testimonial_client_rating', '==', 'true', true ),
+							),
+							array(
+								'id'         => 'rating_icon_size',
+								'type'       => 'spacing',
+								'class'      => 'border_radius_by_spacing',
+								'title'      => __( 'Rating Icon Size', 'testimonial-free' ),
+								'subtitle'   => __( 'Set a size for the rating icon.', 'testimonial-free' ),
+								'all_text'   => '',
+								'all'        => true,
+								'units'      => array( 'px' ),
+								'default'    => array(
+									'all'  => '19',
+									'unit' => 'px',
+								),
+								'dependency' => array(
+									'client_image|testimonial_client_rating',
+									'==|==',
+									'true|true',
+									true,
+								),
+							),
+							array(
+								'id'         => 'rating_icon_gap',
+								'type'       => 'spacing',
+								'class'      => 'border_radius_by_spacing',
+								'title'      => __( 'Gap', 'testimonial-free' ),
+								'subtitle'   => __( 'Set a gap between the rating icons.', 'testimonial-free' ),
+								'all_text'   => '',
+								'all_icon'   => '<i class="fa fa-arrows-h"></i>',
+								'all'        => true,
+								'units'      => array( 'px' ),
+								'default'    => array(
+									'all'  => '2',
+									'unit' => 'px',
+								),
+								'dependency' => array(
+									'client_image|testimonial_client_rating',
+									'==|==',
+									'true|true',
+									true,
+								),
+							),
+							array(
+								'id'         => 'rating_star_position',
+								'type'       => 'select',
+								'only_pro'   => true,
+								'title'      => __( 'Rating Position', 'testimonial-free' ),
+								'subtitle'   => __( 'Select a position for the star rating.', 'testimonial-free' ),
+								'options'    => array(
+									'below_name'    => __( 'Below Reviewer Name', 'testimonial-free' ),
+									'below_reviewer_designation' => __( 'Below Reviewer Designation (Pro)', 'testimonial-free' ),
+									'above_title'   => __( 'Above Testimonial Title (Pro)', 'testimonial-free' ),
+									'below_title'   => __( 'Below Testimonial Title (Pro)', 'testimonial-free' ),
+									'below_content' => __( 'Below Testimonial Content (Pro)', 'testimonial-free' ),
+								),
+								'default'    => 'below_name',
+								'dependency' => array( 'testimonial_client_rating', '==', 'true', true ),
+							),
+						),
+					),
+
 					array(
 						'title'  => __( 'Reviewer Image', 'testimonial-free' ),
 						'icon'   => '<i class="testimonial--icon sptfree-icon-reviewer-image"></i>',
 						'fields' => array(
 							array(
 								'type'    => 'notice',
+								'class'   => 'ajax-notice',
+
 								'content' => sprintf(
 									/* translators: 1: start link tag, 2: close tag. */
 									__( 'Want to enhance the Reviewer\'s Image using advanced customizations? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
@@ -1300,9 +1817,9 @@ SPFTESTIMONIAL::createSection(
 								'attributes' => array( 'disabled' => 'disabled' ),
 								'title'      => __( 'Load 2x Resolution Image in Retina Display', 'testimonial-free' ),
 								'subtitle'   => __( 'You should upload 2x sized images to show in retina display.', 'testimonial-free' ),
-								'text_on'    => __( 'ENABLED', 'testimonial-free' ),
-								'text_off'   => __( 'DISABLED', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_on'    => __( 'Enabled', 'testimonial-free' ),
+								'text_off'   => __( 'Disabled', 'testimonial-free' ),
+								'text_width' => 100,
 								'default'    => false,
 								'sanitize'   => 'rest_sanitize_boolean',
 								'dependency' => array(
@@ -1345,12 +1862,12 @@ SPFTESTIMONIAL::createSection(
 								'id'         => 'reviewer_fallback_image',
 								'type'       => 'radio',
 								'class'      => 'pro_only_field',
-								'title'      => __( 'Reviewer Fallback Images', 'testimonial-pro' ),
-								'subtitle'   => __( 'If no Featured Image is set, a reviewer fallback image can be used.', 'testimonial-pro' ),
+								'title'      => __( 'Reviewer Fallback Images', 'testimonial-free' ),
+								'subtitle'   => __( 'If no Featured Image is set, a reviewer fallback image can be used.', 'testimonial-free' ),
 								'options'    => array(
-									'no_fallback_img' => __( 'No Fallback Image', 'testimonial-pro' ),
-									'mystery_person'  => __( 'Mystery Person', 'testimonial-pro' ),
-									'text_avatar'     => __( 'Smart Text Avatars', 'testimonial-pro' ),
+									'no_fallback_img' => __( 'No Fallback Image', 'testimonial-free' ),
+									'mystery_person'  => __( 'Mystery Person', 'testimonial-free' ),
+									'text_avatar'     => __( 'Smart Text Avatars', 'testimonial-free' ),
 								),
 								'default'    => 'no_fallback_img',
 								'dependency' => array(
@@ -1447,24 +1964,18 @@ SPFTESTIMONIAL::createSection(
 								'subtitle'   => __( 'Enable/Disable reviewer image lightbox.', 'testimonial-free' ),
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'default'    => false,
-								'dependency' => array(
-									'client_image|slider_mode',
-									'==|!=',
-									'true|thumbnail_slider',
-									true,
-								),
 							),
 							array(
 								'id'         => 'image_zoom_effect',
 								'type'       => 'select',
 								'class'      => 'chosen',
 								'only_pro'   => true,
-								'title'      => __( 'Zoom', 'testimonial-free' ),
+								'title'      => __( 'Zoom Effect', 'testimonial-free' ),
 								'subtitle'   => __( 'Set a zoom effect on hover for the reviewer image.', 'testimonial-free' ),
 								'options'    => array(
-									''         => __( 'None', 'testimonial-free' ),
+									''         => __( 'Normal', 'testimonial-free' ),
 									'zoom_in'  => __( 'Zoom In (Pro)', 'testimonial-free' ),
 									'zoom_out' => __( 'Zoom Out (Pro)', 'testimonial-free' ),
 								),
@@ -1477,28 +1988,22 @@ SPFTESTIMONIAL::createSection(
 								),
 							),
 							array(
-								'id'          => 'client_image_margin',
-								'type'        => 'spacing',
-								'class'       => 'pro_only_field',
-								'only_pro'    => true,
-								'title'       => __( 'Margin', 'testimonial-free' ),
-								'subtitle'    => __( 'Set margin for the reviewer image.', 'testimonial-free' ),
-								'default'     => array(
-									'top'    => '0',
-									'right'  => '0',
-									'bottom' => '22',
-									'left'   => '0',
+								'id'         => 'image_grayscale',
+								'type'       => 'select',
+								'title'      => __( 'Image Mode', 'testimonial-free' ),
+								'subtitle'   => __( 'Select a image mode.', 'testimonial-free' ),
+								'sanitize'   => 'sanitize_text_field',
+								'options'    => array(
+									'none'            => __( 'Normal', 'testimonial-free' ),
+									'normal_on_hover' => __( 'Grayscale and normal on hover (Pro)', 'testimonial-free' ),
+									'on_hover'        => __( 'Grayscale on hover (Pro)', 'testimonial-free' ),
+									'always'          => __( 'Always grayscale (Pro)', 'testimonial-free' ),
 								),
-								'top_text'    => __( 'Top', 'testimonial-free' ),
-								'right_text'  => __( 'Right', 'testimonial-free' ),
-								'bottom_text' => __( 'Bottom', 'testimonial-free' ),
-								'left_text'   => __( 'Left', 'testimonial-free' ),
-								'units'       => array( 'px' ),
-								'dependency'  => array(
-									'client_image|theme_style',
-									'==|any',
-									'true|theme-one,theme-eight,theme-ten',
-									true,
+								'default'    => 'none',
+								'dependency' => array(
+									'client_image',
+									'==',
+									'true',
 								),
 							),
 							array(
@@ -1526,25 +2031,6 @@ SPFTESTIMONIAL::createSection(
 									true,
 								),
 							),
-							array(
-								'id'         => 'image_grayscale',
-								'type'       => 'select',
-								'title'      => __( 'Image Mode', 'testimonial-free' ),
-								'subtitle'   => __( 'Select a image mode.', 'testimonial-free' ),
-								'sanitize'   => 'sanitize_text_field',
-								'options'    => array(
-									'none'            => __( 'Normal', 'testimonial-free' ),
-									'normal_on_hover' => __( 'Grayscale and normal on hover (Pro)', 'testimonial-free' ),
-									'on_hover'        => __( 'Grayscale on hover (Pro)', 'testimonial-free' ),
-									'always'          => __( 'Always grayscale (Pro)', 'testimonial-free' ),
-								),
-								'default'    => 'none',
-								'dependency' => array(
-									'client_image',
-									'==',
-									'true',
-								),
-							),
 						),
 					),
 					array(
@@ -1553,11 +2039,15 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
+								'class'   => 'ajax-notice',
+
 								'content' => sprintf(
 									/* translators: 1: start link tag, 2: close tag. */
-									__( 'Want to Collect and Display Video Testimonials with ease to boost sales? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
+									__( 'To allow customers to %4$sRecord Videos%2$s or Collect them manually to easily display %3$sVideo Testimonials%2$s and boost sales, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
 									'<a target="_blank" href="https://realtestimonials.io/pricing/?ref=1"><b>',
 									'</b></a>',
+									'<a target="_blank" href="https://realtestimonials.io/demos/video-testimonials/"><b>',
+									'<a target="_blank" href="https://realtestimonials.io/demos/testimonial-forms/#video-record-form"><b>'
 								),
 							),
 							array(
@@ -1624,6 +2114,8 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
+								'class'   => 'ajax-notice',
+
 								'content' => sprintf(
 									/* translators: 1: start link tag, 2: close tag. */
 									__( 'Want to display Social Media Profiles with reviewer information? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
@@ -1790,9 +2282,8 @@ SPFTESTIMONIAL::createSection(
 										'class'      => 'sp_testimonial_navigation',
 										'text_on'    => __( 'Enabled', 'testimonial-free' ),
 										'text_off'   => __( 'Disabled', 'testimonial-free' ),
-										'text_width' => 95,
+										'text_width' => 100,
 										'default'    => true,
-										// 'dependency' => array( 'carousel_mode', '!=', 'ticker', true ),
 									),
 									array(
 										'id'         => 'autoplay_disable_on_mobile',
@@ -1843,7 +2334,7 @@ SPFTESTIMONIAL::createSection(
 								'default'    => true,
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'sanitize'   => 'rest_sanitize_boolean',
 								'dependency' => array(
 									'slider_auto_play',
@@ -1858,15 +2349,15 @@ SPFTESTIMONIAL::createSection(
 								'subtitle'   => __( 'Enable/Disable infinite loop mode.', 'testimonial-free' ),
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'default'    => true,
 								'sanitize'   => 'rest_sanitize_boolean',
 							),
 							array(
 								'id'       => 'slider_animation',
 								'type'     => 'select',
-								'title'    => __( 'Slider Animation', 'testimonial-free' ),
-								'subtitle' => __( 'Fade effect works only on single column view.', 'testimonial-free' ),
+								'title'    => __( 'Transition Effect', 'testimonial-free' ),
+								'subtitle' => __( 'Select a transition effect or animation.', 'testimonial-free' ),
 								'sanitize' => 'sanitize_text_field',
 								'options'  => array(
 									'slide'            => __( 'Slide', 'testimonial-free' ),
@@ -1875,7 +2366,6 @@ SPFTESTIMONIAL::createSection(
 									'flipVertically'   => __( 'Flip Vertically (Pro)', 'testimonial-free' ),
 								),
 								'default'  => 'slide',
-								// 'dependency' => array( 'slider_mode', '==', 'standard' ),
 							),
 							array(
 								'id'       => 'slider_direction',
@@ -1891,7 +2381,7 @@ SPFTESTIMONIAL::createSection(
 							),
 							array(
 								'type'    => 'notice',
-								'class'   => 'slider-basic-notice',
+								'class'   => 'slider-basic-notice ajax-notice',
 								'content' => sprintf(
 									/* translators: 1: start link tag, 2: close tag. */
 									__( 'Ready to fascinate your audience with beautiful transitions, such as Fade, Flip Horizontally and Vertically? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
@@ -1907,6 +2397,7 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
+								'class'   => 'ajax-notice',
 								'content' => sprintf(
 									/* translators: 1: start link tag, 2: close tag. */
 									__( 'Want even more fine-tuned control over your Slider Navigation display? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
@@ -2096,6 +2587,7 @@ SPFTESTIMONIAL::createSection(
 						'fields' => array(
 							array(
 								'type'    => 'notice',
+								'class'   => 'ajax-notice',
 								'content' => sprintf(
 									/* translators: 1: start link tag, 2: close tag. */
 									__( 'Want even more fine-tuned control over your Slider Pagination display? %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
@@ -2143,7 +2635,6 @@ SPFTESTIMONIAL::createSection(
 									'dynamic'   => array(
 										'image' => SP_TFREE_URL . 'Admin/Views/Framework/assets/images/pagination/dynamic.svg',
 										'name'  => __( 'Dynamic', 'testimonial-free' ),
-										// 'pro_only' => true,
 										'class' => 'pro-feature',
 									),
 									'strokes'   => array(
@@ -2225,7 +2716,7 @@ SPFTESTIMONIAL::createSection(
 								'default'    => false,
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'sanitize'   => 'rest_sanitize_boolean',
 							),
 							array(
@@ -2236,7 +2727,7 @@ SPFTESTIMONIAL::createSection(
 								'default'    => true,
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'sanitize'   => 'rest_sanitize_boolean',
 							),
 							array(
@@ -2247,7 +2738,7 @@ SPFTESTIMONIAL::createSection(
 								'default'    => true,
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'dependency' => array( 'slider_swipe', '==', 'true' ),
 								'sanitize'   => 'rest_sanitize_boolean',
 							),
@@ -2259,18 +2750,18 @@ SPFTESTIMONIAL::createSection(
 								'default'    => false,
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'sanitize'   => 'rest_sanitize_boolean',
 							),
 							array(
 								'id'         => 'swipe_to_slide',
 								'type'       => 'switcher',
-								'title'      => __( 'Swipe To Slide', 'testimonial-free' ),
-								'subtitle'   => __( 'Enable/Disable swipe to slide.', 'testimonial-free' ),
+								'title'      => __( 'Mouse Wheel', 'testimonial-free' ),
+								'subtitle'   => __( 'Enable/Disable mouse wheel.', 'testimonial-free' ),
 								'default'    => false,
 								'text_on'    => __( 'Enabled', 'testimonial-free' ),
 								'text_off'   => __( 'Disabled', 'testimonial-free' ),
-								'text_width' => 95,
+								'text_width' => 100,
 								'sanitize'   => 'rest_sanitize_boolean',
 							),
 						),
@@ -2292,7 +2783,7 @@ SPFTESTIMONIAL::createSection(
 		'fields' => array(
 			array(
 				'type'    => 'notice',
-				'class'   => 'theme-settings-top-notice',
+				'class'   => 'ajax-notice',
 				'style'   => 'normal',
 				'content' => sprintf(
 					/* translators: 1: start link tag, 2: close tag. */
@@ -2756,7 +3247,7 @@ SPFTESTIMONIAL::createSection(
 			),
 			array(
 				'type'    => 'notice',
-				'class'   => 'sp-extra-field-notice',
+				'class'   => 'sp-extra-field-notice ajax-notice',
 				'content' => sprintf(
 					/* translators: 1: start link tag, 2: close tag. */
 					__( 'To unlock the following extra reviewer information fields, %1$sUpgrade to Pro!%2$s', 'testimonial-free' ),
@@ -2792,12 +3283,26 @@ SPFTESTIMONIAL::createSection(
 				'default' => 'upload',
 			),
 			array(
-				'id'         => 'tpro_location',
-				'type'       => 'text',
-				'class'      => 'pro_only_field',
-				'attributes' => array( 'disabled' => 'disabled' ),
-				'title'      => __( 'Location', 'testimonial-free' ),
-				'sanitize'   => 'spftestimonial_sanitize_text',
+				'id'     => 'testimonial_clients_location',
+				'class'  => 'sp-testimonial-location pro_only_field',
+				'type'   => 'fieldset',
+				'title'  => __( 'Location', 'testimonial-free' ),
+				'fields' => array(
+					array(
+						'id'       => 'tpro_location',
+						'type'     => 'text',
+						'sanitize' => 'sp_tpro_sanitize_text',
+					),
+					array(
+						'id'      => 'tpro_country',
+						'type'    => 'select',
+						'options' => 'select_country',
+						'options' => array(
+							'' => __( 'Select Country', 'testimonial-free' ),
+						),
+						'default' => '',
+					),
+				),
 			),
 			array(
 				'id'         => 'tpro_phone',

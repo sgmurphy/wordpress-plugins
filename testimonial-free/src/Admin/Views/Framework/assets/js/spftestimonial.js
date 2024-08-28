@@ -1870,7 +1870,7 @@
 		return this.each(function () {
 
 			var $this = $(this),
-				$siblings = $this.find('.spftestimonial--sibling:not(.spftestimonial-pro-only)'),
+				$siblings = $this.find('.spftestimonial--sibling'),
 				multiple = $this.data('multiple') || false;
 
 			$siblings.on('click', function () {
@@ -1926,14 +1926,14 @@
 					}
 
 					offset_left = SPFTESTIMONIAL.vars.is_rtl
-						? $this.offset().left + 33
-						: $this.offset().left + 33
+						? $this.offset().left - $tooltip.outerWidth()
+						: $this.offset().left + 24;
 					var $top = $this.offset().top - ($tooltip.outerHeight() / 2 - 14);
 
 					// this block used for support tooltip.
 					if ($this.find('.spftestimonial-support').length > 0) {
-						$top = $this.offset().top + 50;
-						offset_left = $this.offset().left - 215;
+						$top = $this.offset().top + 43;
+						offset_left = $this.offset().left - 221;
 					}
 
 					$tooltip.css({
@@ -2053,9 +2053,7 @@
 		$('.spftestimonial-confirm').spftestimonial_confirm();
 		$('.spftestimonial-expand-all').spftestimonial_expand_all();
 		$('.spftestimonial-onload').spftestimonial_reload_script();
-		$('.sp-tpro-banner').find('.spftestimonial-submit-options')
-			.spftestimonial_help();
-
+		$('.spftestimonial-admin-header').find('.spftestimonial-support-area').spftestimonial_help();
 	});
 
 	// Live Preview script for Testimonial-free.
@@ -2568,7 +2566,7 @@
 
 	/* Show/Hide dependency of 'Slider Settings' tab on page load. */
 	var layout_val = $(".tfree-layout-preset .spftestimonial--active").find('input:checked').val();
-	if (layout_val == 'slider' || layout_val == 'carousel') {
+	if (layout_val == 'slider' || layout_val == 'carousel' || layout_val == 'multi_rows' || layout_val == 'thumbnail_slider') {
 		$(".spftestimonial-metabox .spftestimonial-nav li a[data-section=sp_tpro_shortcode_options_3]").show();
 	} else {
 		$(".spftestimonial-metabox .spftestimonial-nav li a[data-section=sp_tpro_shortcode_options_3]").hide();
@@ -2604,7 +2602,7 @@
 		});
 
 		/* Show/Hide dependency of 'Slider Settings' tab. */
-		if (layout_val == 'slider' || layout_val == 'carousel') {
+		if (layout_val == 'slider' || layout_val == 'carousel' || layout_val == 'multi_rows' || layout_val == 'thumbnail_slider') {
 			$(".spftestimonial-metabox .spftestimonial-nav li a[data-section=sp_tpro_shortcode_options_3]").show();
 		} else {
 			$(".spftestimonial-metabox .spftestimonial-nav li a[data-section=sp_tpro_shortcode_options_3]").hide();
@@ -2638,6 +2636,21 @@
 		}
 	});
 
+	// Get the last activated or selected layout.
+	var lastSelectedOption = $('input[name="sp_tpro_layout_options[layout]"]:checked').val();
+	$('input[name="sp_tpro_layout_options[layout]"]').on('change', function () {
+		if (!$(this).is(':disabled')) {
+			lastSelectedOption = $(this).val();
+		}
+	});
+
+	// Revert the selection to the last valid activated option that was selected before if the disabled/pro option is chosen.
+	$('#publishing-action').on('click', '#publish', function (e) {
+		if ($('input[name="sp_tpro_layout_options[layout]"]:checked').is(':disabled')) {
+			$('input[name="sp_tpro_layout_options[layout]"][value="' + lastSelectedOption + '"]').prop('checked', true);
+		}
+	});
+
 	$('.spt-live-demo-icon').on('click', function (event) {
 		event.stopPropagation();
 		// Add any additional code here if needed
@@ -2664,6 +2677,12 @@
 
 	$('.spftestimonial-carousel-nav-position').on('change', function () {
 		navigationPositionPreview(".spftestimonial-carousel-nav-position", /carousel-navigation\/(.+)\.svg/);
+	});
+	// Disable specific select options by their values
+	var valuesToDisable = ['characters', 'words'];
+
+	valuesToDisable.forEach(function (value) {
+		$('.testimonial_text_limit .testimonial_length_type').find('select option[value="' + value + '"]').attr('disabled', 'disabled');
 	});
 
 })(jQuery, window, document);

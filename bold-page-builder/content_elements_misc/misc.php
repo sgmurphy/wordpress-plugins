@@ -42,7 +42,7 @@ if ( ! function_exists( 'bt_bb_get_url' ) ) {
 
 if ( ! function_exists( 'bt_bb_get_permalink_by_slug' ) ) {
 	function bt_bb_get_permalink_by_slug( $link, $post_type = 'page' ) {
-		if ( str_contains( strtolower( $link ), 'javascript:' ) ) {
+		if ( str_contains( strtolower( $link ), 'javascript:' ) || str_contains( strtolower( $link ), 'javascript&#58;' ) || str_contains( strtolower( $link ), 'javascript&amp;#58;' ) ) {
 			return '#';
 		} else if (
 			$link != '' && 

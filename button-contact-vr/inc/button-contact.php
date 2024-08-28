@@ -408,9 +408,9 @@ final class PZF {
 
 <!-- Add custom css and js -->
 	<style type="text/css">
-		<?php echo get_option('pzf_add_css'); ?>
+		<?php //echo get_option('pzf_add_css'); ?>
 	</style>
-	<?php echo get_option('pzf_add_js'); ?>
+	<?php //echo get_option('pzf_add_js'); ?>
 <!-- end Add custom css and js -->
 <!-- popup showroom -->
 <div id="popup-showroom-vr">

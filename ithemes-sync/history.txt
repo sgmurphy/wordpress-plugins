@@ -265,3 +265,5 @@
 	Tweak: All forms, inputs, and buttons have improvements in: functionality, responsiveness, and accessibility.
 3.0.1 - 2023-11-07 - John Hooks
 	Security: Harden SolidWP Updater against XSS attacks. Thanks to Robin Wood (digi.ninja) for disclosing this issue.
+3.1.0 - 2024-08-28 - Timothy Jacobs, Jared Hill, John Hooks, John Regan
+	New: Add support for tracking vulnerabilities reported by Solid Security in Solid Central.

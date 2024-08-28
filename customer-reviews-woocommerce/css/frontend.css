@@ -790,7 +790,7 @@ div.iv-comment-image img {
 .cr-reviews-grid .cr-review-form-submitting .cr-review-form-captcha,
 .cr-reviews-grid .cr-review-form-submitting .cr-onsite-question,
 .cr-reviews-grid .cr-review-form-submitting .cr-onsite-question-inp,
-.cr-reviews-grid .cr-review-form-submitting .cr-review-form-terms, {
+.cr-reviews-grid .cr-review-form-submitting .cr-review-form-terms {
 	pointer-events: none;
 }
 .cr-all-reviews-shortcode .cr-review-form-buttons .cr-review-form-submit span,
@@ -1187,6 +1187,9 @@ div.ivole-summaryBox.cr-summaryBar-updating,
 	box-shadow: none;
 	border-radius: 25px;
 	max-height: none;
+}
+.cr-all-reviews-shortcode ol li.review .comment_container.cr-comment-no-avatar .avatar {
+	display: none;
 }
 #reviews #comments .cr-avatar-check {
 	display: none;

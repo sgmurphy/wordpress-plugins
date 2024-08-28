@@ -25,11 +25,12 @@ class Helper {
 	 * @param array $post_id Shortcode ID.
 	 * @param array $setting_options get all layout options.
 	 * @param array $shortcode_data get all meta options.
+	 * @param array $layout_data get all layout meta options.
 	 * @param mixed $main_section_title section title.
 	 * @return void
 	 */
-	public static function sp_testimonial_html_show( $post_id, $setting_options, $shortcode_data, $main_section_title ) {
-		$layout      = isset( $shortcode_data['layout'] ) ? $shortcode_data['layout'] : 'slider';
+	public static function sp_testimonial_html_show( $post_id, $setting_options, $shortcode_data, $layout_data, $main_section_title ) {
+		$layout      = isset( $layout_data['layout'] ) ? $layout_data['layout'] : 'slider';
 		$theme_style = isset( $shortcode_data['theme_style'] ) ? $shortcode_data['theme_style'] : 'theme-one';
 		$space       = isset( $shortcode_data['testimonial_margin']['top'] ) ? $shortcode_data['testimonial_margin'] : array(
 			'top'   => '20',
@@ -97,7 +98,7 @@ class Helper {
 		}
 
 		$post_query        = self::testimonial_query( $shortcode_data, $post_id, $layout, $grid_pagination );
-		$testimonial_items = self::testimonial_items( $post_query, $shortcode_data, $post_id, $responsive_columns );
+		$testimonial_items = self::testimonial_items( $post_query, $shortcode_data, $layout_data, $post_id, $responsive_columns );
 		$sc_title          = get_the_title( $post_id ) ? get_the_title( $post_id ) : 'Testimonial';
 		wp_enqueue_script( 'sp-testimonial-scripts' );
 
@@ -216,12 +217,13 @@ class Helper {
 	 *
 	 * @param object $post_query Query.
 	 * @param array  $shortcode_data options.
+	 * @param array  $layout_data layout options.
 	 * @param array  $post_id post id.
 	 * @param array  $responsive_columns grid columns.
 	 * @return array
 	 */
-	public static function testimonial_items( $post_query, $shortcode_data, $post_id, $responsive_columns ) {
-		$layout                = isset( $shortcode_data['layout'] ) ? $shortcode_data['layout'] : 'slider';
+	public static function testimonial_items( $post_query, $shortcode_data, $layout_data, $post_id, $responsive_columns ) {
+		$layout                = isset( $layout_data['layout'] ) ? $layout_data['layout'] : 'slider';
 		$theme_style           = isset( $shortcode_data['theme_style'] ) ? $shortcode_data['theme_style'] : 'theme-one';
 		$show_schema_markup    = isset( $shortcode_data['schema_markup'] ) ? $shortcode_data['schema_markup'] : false;
 		$testimonial_title     = isset( $shortcode_data['testimonial_title'] ) ? $shortcode_data['testimonial_title'] : '';

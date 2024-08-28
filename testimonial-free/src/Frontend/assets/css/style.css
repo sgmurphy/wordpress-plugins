@@ -60,6 +60,9 @@ div.sp-testimonial-free-section.slick-initialized {
 	font-style: normal;
 	margin: 0px 0px 20px 0px;
 }
+.sp-testimonial-free-section .sp-testimonial-client-testimonial p{
+	padding: 0 10px;
+}
 
 .sp-testimonial-free-section .sp-testimonial-client-testimonial .wp-video {
 	margin-left: auto;
@@ -96,7 +99,6 @@ div.sp-testimonial-free-section.slick-initialized {
 
 .sp-testimonial-free-section .sp-testimonial-client-rating i.fa {
 	font-size: 19px;
-	margin-right: 2px;
 	font-family: 'FontAwesome';
 }
 

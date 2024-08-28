@@ -1093,15 +1093,17 @@ class GA extends Settings implements Pixel {
 			 * Price as is used for all events except Purchase to avoid wrong values in Product Performance report.
 			 */
 			if ( $context == 'purchase' ) {
-			 
-				$price = $cart_item['item_price'] - $cart_item['discount'];
-
-				if ( edd_prices_include_tax() ) {
-					$price -= $cart_item['tax'];
+			    if(!isset($cart_item['item_price']) || !isset($cart_item['discount']) || !isset($cart_item['tax'])) {
+					$price = getEddDownloadPriceToDisplay( $download_id, $price_index );
 				} else {
-					$price += $cart_item['tax'];
-				}
+				    $price = $cart_item['item_price'] - $cart_item['discount'];
 
+				    if ( edd_prices_include_tax() ) {
+					    $price -= $cart_item['tax'];
+				    } else {
+					    $price += $cart_item['tax'];
+				    }
+			    }
 			} else {
 				$price = getEddDownloadPriceToDisplay( $download_id, $price_index );
 			}

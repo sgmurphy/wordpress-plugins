@@ -138,5 +138,7 @@
   "external_id_use_transient": "checkbox",
   "server_event_use_ajax" : "checkbox",
   "server_static_event_use_ajax": "checkbox",
-  "google_consent_mode": "checkbox"
+  "google_consent_mode": "checkbox",
+
+  "data_persistency": "radio"
 }

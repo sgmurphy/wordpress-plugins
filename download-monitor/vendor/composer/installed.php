@@ -3,7 +3,7 @@
         'name' => 'wpchill/download-monitor',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'a90dc776d6666b0229be3c88d7ef6a19c1dbdfd0',
+        'reference' => '90749c36ee8226d5dbf9413a801e9cad6c85b593',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'wpchill/download-monitor' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'a90dc776d6666b0229be3c88d7ef6a19c1dbdfd0',
+            'reference' => '90749c36ee8226d5dbf9413a801e9cad6c85b593',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

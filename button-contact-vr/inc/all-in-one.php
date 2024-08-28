@@ -24,7 +24,7 @@
         </tr>   
         <tr valign="top">
             <th scope="row">Note:</th>
-            <td><input placeholder="contact" type="text" name="pzf_note_all_in_one" value="<?php echo get_option('pzf_note_all_in_one'); ?>" /><br>
+            <td><input placeholder="contact" type="text" name="pzf_note_all_in_one" value="<?php echo esc_attr(get_option('pzf_note_all_in_one')); ?>" /><br>
             <i>Show on hover</i></td>
         </tr>        
         <tr valign="top">

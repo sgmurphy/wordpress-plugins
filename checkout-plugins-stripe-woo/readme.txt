@@ -8,7 +8,7 @@ Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Use Stripe Payments For WooCommerce for easy, secure transactions, including credit cards, Apple Pay, and Google Pay. Boost sales with this free plugin!
+Use Stripe Payments for WooCommerce for secure credit card, Apple Pay, and Google Pay transactions. Boost sales with this free, easy-to-use plugin!
 
 == Description ==
 

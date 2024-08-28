@@ -28,6 +28,7 @@ class Ithemes_Sync_Settings_Page {
 	private $had_error = false;
 	private $messages = array();
 	private $sync_dashboard_url = 'https://central.solidwp.com/';
+	private $options;
 
 
 	public function __construct() {

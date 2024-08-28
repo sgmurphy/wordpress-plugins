@@ -22,7 +22,7 @@ class Widget_Logic_Live_Match_Widget extends WP_Widget {
 	 */
 	public function widget($args, $instance) {
 		$defaults = array(
-			'title'       => esc_html__('Live Match', 'widget-logic'),
+			'title'       => esc_html__('Live Match', 'widget-logic')
         );
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		$title    = apply_filters( 'widget_title', $instance['title'] );
@@ -47,7 +47,7 @@ class Widget_Logic_Live_Match_Widget extends WP_Widget {
 	 */
 	public function form($instance) {
 		$defaults = array(
-			'title' => esc_html__( 'Live Match', 'widget-logic' ),
+			'title' => esc_html__( 'Live Match', 'widget-logic' )
         );
 		$instance = wp_parse_args( (array) $instance, $defaults );
 

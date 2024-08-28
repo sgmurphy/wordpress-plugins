@@ -728,158 +728,164 @@ function swcfpc_update_toolbar_cache_status() {
 
 document.addEventListener('DOMContentLoaded', (event) => {
 
-  if (typeof swcfpc_cache_enabled == 'undefined') {
-    let swcfpc_cache_enabled = 0;
-  }
+  try {
+    if (typeof swcfpc_cache_enabled == 'undefined') {
+      let swcfpc_cache_enabled = 0;
+    }
 
-  if (document.getElementById("swcfpc_main_content") !== null) {
+    if (document.getElementById("swcfpc_main_content") !== null) {
 
-    swcfpc_cache_enabled = parseInt(document.getElementById("swcfpc_main_content").getAttribute("data-cache_enabled"));
+      swcfpc_cache_enabled = parseInt(document.getElementById("swcfpc_main_content").getAttribute("data-cache_enabled"));
 
-    if (swcfpc_cache_enabled == null || isNaN(swcfpc_cache_enabled))
-      swcfpc_cache_enabled = 0;
+      if (swcfpc_cache_enabled == null || isNaN(swcfpc_cache_enabled))
+        swcfpc_cache_enabled = 0;
 
-  }
- 
-  document.getElementById('swcfpc_clear_logs')?.addEventListener('click', (e) => {
-    e.preventDefault()
-    swcfpc_clear_logs()
-  })
-  
-  document.getElementById('swcfpc_start_preloader')?.addEventListener('click', (e) => {
-    e.preventDefault()
-    swcfpc_start_preloader()
-  })
- 
+    }
+
+    document.getElementById('swcfpc_clear_logs')?.addEventListener('click', (e) => {
+      e.preventDefault()
+      swcfpc_clear_logs()
+    })
+
+    document.getElementById('swcfpc_start_preloader')?.addEventListener('click', (e) => {
+      e.preventDefault()
+      swcfpc_start_preloader()
+    })
+
     document.getElementById('swcfpc_unlock_preloader')?.addEventListener('click', (e) => {
       e.preventDefault()
       swcfpc_unlock_preloader()
     })
-  
-  document.querySelector('#swcfpc_import_config_start')?.addEventListener('click', (e) => {
-    e.preventDefault()
-    const config_file = document.querySelector('#swcfpc_import_config_content').value
-    swcfpc_import_config_file(config_file)
-  })
-  
-  document.getElementById('swcfpc_fallback_page_cache_purge')?.addEventListener('click', (e) => {
-    e.preventDefault()
-    swcfpc_purge_fallback_page_cache()
-  })
-  
-  document.querySelector('#wp-admin-bar-wp-cloudflare-super-page-cache-toolbar-purge-all a')?.addEventListener('click', (e) => {
-    e.preventDefault()
-    swcfpc_purge_whole_cache()
-  })
-  
-  document.querySelector('#wp-admin-bar-wp-cloudflare-super-page-cache-toolbar-purge-single a')?.addEventListener('click', (e) => {
-    e.preventDefault()
-    const post_id = e.target.hash.replace('#', '')
-    swcfpc_purge_single_post_cache(post_id)
-  })
-  
-  document.querySelectorAll('.swcfpc_action_row_single_post_cache_purge').forEach((item) => {
-    item.addEventListener('click', (e) => {
+
+    document.querySelector('#swcfpc_import_config_start')?.addEventListener('click', (e) => {
       e.preventDefault()
-      const post_id = e.target.dataset.post_id
+      const config_file = document.querySelector('#swcfpc_import_config_content').value
+      swcfpc_import_config_file(config_file)
+    })
+
+    document.getElementById('swcfpc_fallback_page_cache_purge')?.addEventListener('click', (e) => {
+      e.preventDefault()
+      swcfpc_purge_fallback_page_cache()
+    })
+
+    document.querySelector('#wp-admin-bar-wp-cloudflare-super-page-cache-toolbar-purge-all a')?.addEventListener('click', (e) => {
+      e.preventDefault()
+      swcfpc_purge_whole_cache()
+    })
+
+    document.querySelector('#wp-admin-bar-wp-cloudflare-super-page-cache-toolbar-purge-single a')?.addEventListener('click', (e) => {
+      e.preventDefault()
+      const post_id = e.target.hash.replace('#', '')
       swcfpc_purge_single_post_cache(post_id)
     })
-  })
- 
-  document.getElementById('swcfpc_varnish_cache_purge')?.addEventListener('click', (e) => {
-    e.preventDefault()
-    swcfpc_purge_varnish_cache()
-  })
 
-  document.getElementById('swcfpc_form_purge_cache')?.addEventListener('submit', (e) => {
-    e.preventDefault()
-    swcfpc_purge_whole_cache()
-  })
-  
-  document.getElementById('swcfpc_purge_cache_everything')?.addEventListener('click', (e) => {
-    e.preventDefault()
-    swcfpc_force_purge_everything()
-  })
-
-  document.querySelector('#wp-admin-bar-wp-cloudflare-super-page-cache-toolbar-force-purge-everything a')?.addEventListener('click', (e) => {
-    e.preventDefault()
-    swcfpc_force_purge_everything()
-  })
-
-  document.getElementById('swcfpc_form_test_cache')?.addEventListener('submit', (e) => {
-    e.preventDefault()
-    swcfpc_test_page_cache()
-  })
-
-  document.getElementById('swcfpc_form_enable_cache')?.addEventListener('submit', (e) => {
-    e.preventDefault()
-    swcfpc_enable_page_cache()
-  })
-  
-  document.getElementById('swcfpc_form_disable_cache')?.addEventListener('submit', (e) => {
-    e.preventDefault()
-    swcfpc_disable_page_cache()
-  })
-
-  document.getElementById('swcfpc_form_reset_all')?.addEventListener('click', (e) => {
-    e.preventDefault()
-
-    if (confirm("Are you sure you want reset all?"))
-      swcfpc_reset_all()
-
-  })
-  
-  document.querySelector('select[name=swcfpc_cf_auth_mode]')?.addEventListener('change', (e) => {
-    e.preventDefault()
-
-    const method = e.target.value
-
-    if (method === '0') { // API Key
-      document.querySelectorAll('.api_token_method').forEach((item) => {
-        item.classList.add('swcfpc_hide')
+    document.querySelectorAll('.swcfpc_action_row_single_post_cache_purge').forEach((item) => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault()
+        const post_id = e.target.dataset.post_id
+        swcfpc_purge_single_post_cache(post_id)
       })
-      document.querySelectorAll('.api_key_method').forEach((item) => {
-        item.classList.remove('swcfpc_hide')
-      })
-    } else { // API Token
-      document.querySelectorAll('.api_token_method').forEach((item) => {
-        item.classList.remove('swcfpc_hide')
-      })
-      document.querySelectorAll('.api_key_method').forEach((item) => {
-        item.classList.add('swcfpc_hide')
-      })
-    }
-  })
- 
-  document.querySelectorAll('.conditional_item').forEach((mainItem) => {
-    // Run on first load after DOM is loaded
-    // Check if the item is checked as on the loaded event we are only setting style based on the data we got from server
-    if (mainItem.checked) {
-      swcfpc_handle_conditional_settings(mainItem)
-    }
-
-    // Add click add event listener to each mainItem so in future when a user clicks on them we can handle it accordingly
-    mainItem.addEventListener('click', (e) => {
-      swcfpc_handle_conditional_settings(e.target)
     })
-  })
-  
 
-  if (document.querySelector('.swcfpc_faq_accordion')) {
-    swcfpc_init_accordions();
+    document.getElementById('swcfpc_varnish_cache_purge')?.addEventListener('click', (e) => {
+      e.preventDefault()
+      swcfpc_purge_varnish_cache()
+    })
+
+    document.getElementById('swcfpc_form_purge_cache')?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      swcfpc_purge_whole_cache()
+    })
+
+    document.getElementById('swcfpc_purge_cache_everything')?.addEventListener('click', (e) => {
+      e.preventDefault()
+      swcfpc_force_purge_everything()
+    })
+
+    document.querySelector('#wp-admin-bar-wp-cloudflare-super-page-cache-toolbar-force-purge-everything a')?.addEventListener('click', (e) => {
+      e.preventDefault()
+      swcfpc_force_purge_everything()
+    })
+
+    document.getElementById('swcfpc_form_test_cache')?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      swcfpc_test_page_cache()
+    })
+
+    document.getElementById('swcfpc_form_enable_cache')?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      swcfpc_enable_page_cache()
+    })
+
+    document.getElementById('swcfpc_form_disable_cache')?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      swcfpc_disable_page_cache()
+    })
+
+    document.getElementById('swcfpc_form_reset_all')?.addEventListener('click', (e) => {
+      e.preventDefault()
+
+      if (confirm("Are you sure you want reset all?"))
+        swcfpc_reset_all()
+
+    })
+
+    document.querySelector('select[name=swcfpc_cf_auth_mode]')?.addEventListener('change', (e) => {
+      e.preventDefault()
+
+      const method = e.target.value
+
+      if (method === '0') { // API Key
+        document.querySelectorAll('.api_token_method').forEach((item) => {
+          item.classList.add('swcfpc_hide')
+        })
+        document.querySelectorAll('.api_key_method').forEach((item) => {
+          item.classList.remove('swcfpc_hide')
+        })
+      } else { // API Token
+        document.querySelectorAll('.api_token_method').forEach((item) => {
+          item.classList.remove('swcfpc_hide')
+        })
+        document.querySelectorAll('.api_key_method').forEach((item) => {
+          item.classList.add('swcfpc_hide')
+        })
+      }
+    })
+
+    document.querySelectorAll('.conditional_item').forEach((mainItem) => {
+      // Run on first load after DOM is loaded
+      // Check if the item is checked as on the loaded event we are only setting style based on the data we got from server
+      if (mainItem.checked) {
+        swcfpc_handle_conditional_settings(mainItem)
+      }
+
+      // Add click add event listener to each mainItem so in future when a user clicks on them we can handle it accordingly
+      mainItem.addEventListener('click', (e) => {
+        swcfpc_handle_conditional_settings(e.target)
+      })
+    })
+
+
+    if (document.querySelector('.swcfpc_faq_accordion')) {
+      swcfpc_init_accordions();
+    }
+
+    const active_tab_id = document?.querySelector('#swcfpc_tab_links .nav-tab-active')?.dataset?.tab
+
+    if (typeof active_tab_id !== undefined) {
+      const tabInput = document.querySelector('input[name=swcfpc_tab]');
+      if (tabInput) {
+        tabInput.value = active_tab_id
+      }
+    }
+
+    // Lock the screen when the form is submitted. Some forms take time to process.
+    document.querySelector('#swcfpc_options')?.addEventListener('submit', (e) => {
+      swcfpc_lock_screen();
+    })
+
+    swcfpc_toolbar_cache_status_interval = window.setInterval(swcfpc_update_toolbar_cache_status, 2000);
+  } catch (e) {
+    console.warn(e)
   }
-  
-  const active_tab_id = document?.querySelector('#swcfpc_tab_links .nav-tab-active')?.dataset?.tab
-
-  if (typeof active_tab_id !== undefined) {
-    document.querySelector('input[name=swcfpc_tab]').value = active_tab_id
-  }
-
-  // Lock the screen when the form is submitted. Some forms take time to process.
-  document.querySelector('#swcfpc_options')?.addEventListener('submit', (e) => {
-    swcfpc_lock_screen();
-  })
-
-  swcfpc_toolbar_cache_status_interval = window.setInterval(swcfpc_update_toolbar_cache_status, 2000);
-
 })

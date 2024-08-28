@@ -4,8 +4,9 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 /*
 Plugin Name: Widget Logic
 Description: Control widgets with WP's conditional tags is_home etc
-Version:     6.0.1
+Version:     6.02
 Author:      Widget Logic
+Author URI:  https://widgetlogic.org
 Text Domain: widget-logic
 License:     GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

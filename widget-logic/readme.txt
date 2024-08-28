@@ -3,7 +3,7 @@ Contributors: widgetlogics
 Tags: widget, sidebar, conditional tags, blocks, gutenberg widgets
 Requires at least: 3.0
 Tested up to: 6.6
-Stable tag: 6.0.1
+Stable tag: 6.02
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -18,7 +18,8 @@ PLEASE NOTE The widget logic you introduce is EVAL'd directly. Anyone who has ac
 The configuring and options are in the usual widget admin interface.
 
 BIG UPDATE:
-* Now you can control widget in Gutenberg Widgets editor as well as in Classic Editor. It is jus as easy as before but also in gutenberg view.
+
+* Now you can control widget in Gutenberg Widgets editor as well as in Classic Editor. It is just as easy as before but also in gutenberg view.
 
 * Pre-installed widgets let you add special widget with one click of the mouse. First pre-installed widget is Live Match that let you add widget of one random live football game with real time score updates (teams logos, livescore, minute of the match, tournament name). And more interesting widgets to come!
 
@@ -123,6 +124,14 @@ Tighten up your definitions with PHPs 'logical AND' &&, for example:
 5. Pre-installed 'Live Match' widget on website
 
 == Changelog ==
+
+= 6.02 =
+
+* fixed bug for php7.2
+
+= 6.0.1 =
+
+* Bug fixes
 
 = 6.0.0 =
 

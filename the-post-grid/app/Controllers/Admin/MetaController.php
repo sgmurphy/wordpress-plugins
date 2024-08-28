@@ -415,16 +415,6 @@ class MetaController {
 						add_post_meta( $post_id, 'author', trim( $authorID ) );
 					}
 				}
-			} elseif ( $filter == 'tpg_post_status' ) {
-				delete_post_meta( $post_id, $filter );
-
-				$statuses = isset( $_REQUEST[ $filter ] ) ? $_REQUEST[ $filter ] : [];
-
-				if ( is_array( $statuses ) && ! empty( $statuses ) && in_array( $filter, $post_filter ) ) {
-					foreach ( $statuses as $post_status ) {
-						add_post_meta( $post_id, $filter, trim( $post_status ) );
-					}
-				}
 			} elseif ( $filter == 's' ) {
 				delete_post_meta( $post_id, 's' );
 
@@ -469,6 +459,19 @@ class MetaController {
 					delete_post_meta( $post_id, $filter . '_end' );
 				}
 			}
+			/*
+			 * tpg_post_status has removed
+			 * elseif ( $filter == 'tpg_post_status' ) {
+				delete_post_meta( $post_id, $filter );
+
+				$statuses = isset( $_REQUEST[ $filter ] ) ? $_REQUEST[ $filter ] : [];
+
+				if ( is_array( $statuses ) && ! empty( $statuses ) && in_array( $filter, $post_filter ) ) {
+					foreach ( $statuses as $post_status ) {
+						add_post_meta( $post_id, $filter, trim( $post_status ) );
+					}
+				}
+			} */
 		}
 
 		// Extra css.

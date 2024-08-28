@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-define( 'PYS_FREE_VERSION', '9.7.1' );
+define( 'PYS_FREE_VERSION', '9.7.2' );
 define( 'PYS_FREE_PINTEREST_MIN_VERSION', '5.4.0' );
 define( 'PYS_FREE_BING_MIN_VERSION', '3.4.0' );
 define( 'PYS_FREE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -67,5 +67,6 @@ require_once PYS_FREE_PATH.'/includes/formEvents/WPForms/class-formEvent-WPForms
 require_once PYS_FREE_PATH.'/includes/formEvents/Formidable/class-formEvent-Formidable.php';
 require_once PYS_FREE_PATH.'/includes/formEvents/NinjaForm/class-formEvent-NinjaForm.php';
 require_once PYS_FREE_PATH.'/includes/formEvents/FluentForm/class-formEvent-FluentForm.php';
+require_once PYS_FREE_PATH.'/includes/formEvents/WSForm/class-formEvent-WSForm.php';
 // here we go...
 PixelYourSite\PYS();

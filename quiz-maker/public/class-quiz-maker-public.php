@@ -635,6 +635,8 @@ class Quiz_Maker_Public
             }
         }
 
+        $get_site_title = get_bloginfo('name');
+
         $message_data = array(
             'quiz_name'                     => $quiz_title,
             'time'                          => $this->secondsToWords($quiz_timer),
@@ -654,6 +656,7 @@ class Quiz_Maker_Public
             'home_page_url'                 => $wp_home_page_url,
             'quiz_id'                       => $id,
             'user_id'                       => $user_id,
+            'site_title'                    => $get_site_title,
         );
 
         return $message_data;
@@ -5584,6 +5587,8 @@ class Quiz_Maker_Public
                 // WP home page url
                 $home_main_url = home_url();
                 $wp_home_page_url = '<a href="'.$home_main_url.'" target="_blank">'.$home_main_url.'</a>';
+
+                $get_site_title = get_bloginfo('name');
                 
                 $message_data = array(
                     'quiz_name'                                 => stripslashes($quiz['title']),
@@ -5622,6 +5627,7 @@ class Quiz_Maker_Public
                     'quiz_id'                                   => $quiz_id,
                     'user_id'                                   => $user_id,
                     'current_quiz_question_categories_count'    => $current_quiz_question_categories_count,
+                    'site_title'                                => $get_site_title,
                 );
 
                 $data = array(

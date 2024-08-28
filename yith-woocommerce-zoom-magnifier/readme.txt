@@ -63,9 +63,6 @@ Important: First of all, you have to download and activate WooCommerce plugin, w
 
 YITH WooCommerce Product Gallery & Image Zoom will add a new tab called "Product Gallery & Image Zoom" in "YITH" menu item. There, you will find all YITH plugins with quick access to plugin setting page.
 
-= How can I report security bugs? =
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/yith-woocommerce-zoom-magnifier)
-
 == Screenshots ==
 
 1. The Zoom settings page. You can disable the zoom features for mobile devices and configure the zoom options.
@@ -75,6 +72,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 5. The zoom applied to a product image, showing zoomed image over the same image.
 6. The product image displayed in the plugin lightbox.
 7. The slider and arrows in the thumbnails gallery.
+
+== Frequently Asked Questions ==
+
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/yith-woocommerce-zoom-magnifier)
 
 == Changelog ==
 

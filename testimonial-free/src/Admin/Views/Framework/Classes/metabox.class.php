@@ -322,66 +322,6 @@ if ( ! class_exists( 'SPFTESTIMONIAL_Metabox' ) ) {
 				<?php
 			}
 			echo '<div class="spftestimonial spftestimonial-metabox' . esc_attr( $theme ) . '">';
-			$current_screen        = get_current_screen();
-			$the_current_post_type = $current_screen->post_type;
-			if ( 'spt_shortcodes' === $the_current_post_type && $shortcode_show ) {
-				?>
-				<div class="sp-testimonial-after-copy-text"><i class="fa fa-check-circle"></i> Shortcode Copied to Clipboard! </div>
-				<div class="sp-tpro-banner">
-					<div class="sp-tpro-logo"><img src="<?php echo esc_url( SP_TFREE_URL . 'Admin/assets/images/real-testimonials-logo.svg' ); ?>" alt="Real Testimonials"></div>
-					<div class="spftestimonial-submit-options">
-						<div class="sp-tpro-short-links">
-							<a href="https://shapedplugin.com/support/" target="_blank"><i class="fa fa-life-ring"></i>Support</a>
-						</div>
-						<div class="spftestimonial-help-text spftestimonial-support"><div class="spftestimonial-info-label">Documentation</div>Check out our documentation and more information about what you can do with the Real Testimonials Pro.<a class="spftestimonial-open-docs browser-docs" href="https://docs.shapedplugin.com/docs/testimonial-pro/introduction/" target="_blank">Browse Docs</a><div class="spftestimonial-info-label">Need Help or Missing a Feature?</div>Feel free to get help from our friendly support team or request a new feature if needed. We appreciate your suggestions to make the plugin better.<a class="spftestimonial-open-docs support" href="https://shapedplugin.com/create-new-ticket" target="_blank">Get Help</a><a class="spftestimonial-open-docs feature-request" href="https://shapedplugin.com/contact-us/" target="_blank">Request a Feature</a></div>
-					</div>
-				</div>
-				<div class="tpro_shortcode text-center">
-					<div class="tpro-col-lg-6">
-						<div class="tpro_shortcode_content">
-							<h2 class="tpro-shortcode-title">
-								<?php
-								esc_attr_e( 'Shortcode', 'testimonial-free' );
-								?>
-							</h2>
-							<p><?php esc_attr_e( 'Copy and paste this shortcode into your posts or pages:', 'testimonial-free' ); ?></p>
-							<div class="tpro-sc-code selectable">[sp_testimonial <?php echo 'id="' . esc_attr( $post->ID ) . '"'; ?>]
-							</div>
-						</div>
-					</div>
-					<div class="tpro-col-lg-6">
-						<div class="tpro_shortcode_content">
-							<h2 class="tpro-shortcode-title">
-								<?php
-								esc_attr_e( 'Page Builders', 'testimonial-free' );
-								?>
-							</h2>
-							<p>
-								<?php
-								printf(
-									/* translators: %s is replaced with "Gutenberg" */
-									esc_html__( 'Real Testimonials has seamless integration with %s, Classic Editor, Elementor, Divi, Bricks, Beaver, Oxygen, WPBakery Builder, etc.', 'testimonial-free' ),
-									'<strong>' . esc_html__( 'Gutenberg', 'testimonial-free' ) . '</strong>'
-								);
-								?>
-							</p>
-						</div>
-						</div>
-					<div class="tpro-col-lg-6">
-						<div class="tpro_shortcode_content">
-							<h2 class="tpro-shortcode-title">
-								<?php
-								esc_attr_e( 'Template Include', 'testimonial-free' );
-								?>
-							</h2>
-							<p><?php esc_attr_e( 'Paste the PHP code into your template file:', 'testimonial-free' ); ?></p>
-							<div class="tpro-sc-code selectable">&lt;?php sp_testimonial( <?php echo esc_attr( $post->ID ); ?> );?&gt;</div>
-						</div>
-					</div>
-				</div>
-				<div class="sp-testimonial-shortcode-divider"></div>
-				<?php
-			}
 			echo '<div class="spftestimonial-wrapper' . esc_attr( $show_all ) . '">';
 
 			if ( $has_nav ) {
@@ -611,91 +551,23 @@ if ( ! class_exists( 'SPFTESTIMONIAL_Metabox' ) ) {
 				return;
 			}
 
-			$data   = array();
-			$count  = 1;
-			$errors = array();
+			$setting = array();
 			// XSS ok.
-			// No worries, This "POST" requests is sanitizing in the below array foreach.
-			$request = ! empty( $_POST['data'] ) ? wp_unslash( $_POST['data'] )  : ''; // phpcs:ignore
-			parse_str( $request, $request );
+			// No worries, This "POST" requests is sanitizing in the below foreach.
+			$data = ! empty( $_POST['data'] ) ? wp_unslash( $_POST['data'] )  : ''; // phpcs:ignore
+			parse_str( $data, $setting );
 			// Preset Layouts.
-			$post_id            = absint( $request['post_ID'] );
+			$post_id            = absint( $setting['post_ID'] );
 			$setting_options    = get_option( 'sp_testimonial_pro_options' );
-			$main_section_title = wp_kses_post( $request['post_title'] );
-			$request            = $request['sp_tpro_shortcode_options'];
-			$outline            = '<style>';
-			$shortcode_data     = $request;
+			$main_section_title = wp_kses_post( $setting['post_title'] );
+			$shortcode_data     = $setting['sp_tpro_shortcode_options'];
+			$layout_data        = $setting['sp_tpro_layout_options'];
+
+			$outline = '<style>';
 			include SP_TFREE_PATH . 'Frontend/Views/partials/dynamic-style.php';
 			$outline .= '</style>';
 			echo $outline;
-			if ( ! empty( $request ) ) {
-
-				foreach ( $this->sections as $section ) {
-					if ( ! empty( $section['fields'] ) ) {
-						foreach ( $section['fields'] as $field ) {
-							if ( 'tabbed' === $field['type'] ) {
-								$tabs = $field['tabs'];
-								foreach ( $tabs as $fields ) {
-									$fields = $fields['fields'];
-									foreach ( $fields as $field ) {
-										if ( ! empty( $field['id'] ) && ! isset( $field['only_pro'] ) ) {
-
-											$field_id    = sanitize_key( $field['id'] );
-											$field_value = isset( $request[ $field_id ] ) ? $request[ $field_id ] : '';
-											// Sanitize "post" request of field.
-											if ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
-												$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
-											} elseif ( is_array( $field_value ) ) {
-													$data[ $field_id ] = wp_kses_post_deep( $field_value );
-											} else {
-												$data[ $field_id ] = wp_kses_post( $field_value );
-											}
-
-											// Validate "post" request of field.
-											if ( isset( $field['validate'] ) && is_callable( $field['validate'] ) ) {
-
-												$has_validated = call_user_func( $field['validate'], $field_value );
-												if ( ! empty( $has_validated ) ) {
-													$errors['sections'][ $count ]  = true;
-													$errors['fields'][ $field_id ] = $has_validated;
-													$data[ $field_id ]             = $this->get_meta_value( $field );
-												}
-											}
-										}
-									}
-								}
-							} elseif ( ! empty( $field['id'] ) && ! isset( $field['only_pro'] ) ) {
-
-								$field_id    = sanitize_key( $field['id'] );
-								$field_value = isset( $request[ $field_id ] ) ? $request[ $field_id ] : '';
-
-								// Sanitize "post" request of field.
-								if ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
-									$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
-								} elseif ( is_array( $field_value ) ) {
-									$data[ $field_id ] = wp_kses_post_deep( $field_value );
-								} else {
-									$data[ $field_id ] = wp_kses_post( $field_value );
-								}
-
-									// Validate "post" request of field.
-								if ( isset( $field['validate'] ) && is_callable( $field['validate'] ) ) {
-									$has_validated = call_user_func( $field['validate'], $field_value );
-
-									if ( ! empty( $has_validated ) ) {
-										$errors['sections'][ $count ]  = true;
-										$errors['fields'][ $field_id ] = $has_validated;
-										$data[ $field_id ]             = $this->get_meta_value( $field );
-									}
-								}
-							}
-						}
-					}
-
-					++$count;
-				}
-			}
-			Helper::sp_testimonial_html_show( $post_id, $setting_options, $data, $main_section_title );
+			Helper::sp_testimonial_html_show( $post_id, $setting_options, $shortcode_data, $layout_data, $main_section_title );
 			die();
 		}
 

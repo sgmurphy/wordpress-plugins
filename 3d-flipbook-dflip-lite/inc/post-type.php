@@ -79,12 +79,12 @@ class DFlip_Post_Type {
     
     register_taxonomy( 'dflip_category', 'dflip', array(
         'hierarchical'       => true,
-        'public'             => true,
+        'public'             => false,
         'publicly_queryable' => false,
         'show_ui'            => true, //display the category admin page
         'show_admin_column'  => true,
         'show_in_nav_menus'  => true,
-        'rewrite'            => array( 'slug' => 'dflip_category' ),
+	    'rewrite'            => array( 'slug' => 'book-category' ),
     ) );
     
     if ( is_admin() && !( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
@@ -112,10 +112,8 @@ class DFlip_Post_Type {
     
     add_filter( 'manage_edit-dflip_category_columns', array( $this, 'dflip_cat_columns' ) );
     add_filter( 'manage_dflip_category_custom_column', array( $this, 'dflip_cat_columns_content' ), 10, 3 );
-    
-    //Optimize the icons for retina display
-    add_action( 'admin_head', array( $this, 'menu_icon' ) );
-    
+	  
+    add_action( 'restrict_manage_posts',array($this,'dflip_category_filter'), 10, 2 );
   }
   
   public function init_front() {
@@ -186,7 +184,7 @@ class DFlip_Post_Type {
     
     switch ( $column_name ) {
       case 'shortcode':
-        echo '<code>[dflip id="' . esc_attr( $post_id ) . '"][/dflip]</code>';
+        echo '[dflip id="' . esc_attr( $post_id ) . '"][/dflip]';
         break;
       
       case 'modified' :
@@ -208,23 +206,11 @@ class DFlip_Post_Type {
    */
   public function dflip_cat_columns_content( $c, $column_name, $term_id = "" ) {
     
-    return '<code>[dflip books="' . get_term( $term_id, 'dflip_category' )->slug . '" limit="-1"][/dflip]</code>';
+    return '[dflip books="' . get_term( $term_id, 'dflip_category' )->slug . '" limit="-1"][/dflip]';
     
   }
   
   
-  /**
-   * Forces the dFlip menu icon width/height for Retina devices.
-   *
-   * @since 1.0.0
-   */
-  public function menu_icon() {
-    
-    ?>
-    <style type="text/css">#menu-posts-dflip .wp-menu-image img { width: 16px; height: 16px; }</style>
-    <?php
-    
-  }
   
   public function filter_the_pdf_attachment_content( $content ) {
     global $post;
@@ -247,6 +233,30 @@ class DFlip_Post_Type {
     return $content;
   }
   
+	// $which (the position of the filters form) is either 'top' or 'bottom'
+	function dflip_category_filter( $post_type, $which ) {
+		if (( 'top' === $which && 'dflip' === $post_type) ||
+          ('bar' === $which && 'attachment' === $post_type && isset($_REQUEST['page']) && $_REQUEST['page']==='dflip-pdfs') ) {
+			$taxonomy = $post_type === 'dflip' ? 'dflip_category':'dflip_pdf_category';
+			$tax = get_taxonomy( $taxonomy );            // get the taxonomy object/data
+			$cat = filter_input( INPUT_GET, $taxonomy ); // get the selected category slug
+			
+			echo '<label class="screen-reader-text" for="my_tax">Filter by ' .
+				esc_html( $tax->labels->singular_name ) . '</label>';
+			
+			wp_dropdown_categories( [
+				'show_option_all' => $tax->labels->all_items,
+				'hide_empty' => 0, // include categories that have no posts
+				'hierarchical' => $tax->hierarchical,
+				'show_count' => 0, // don't show the category's posts count
+				'orderby' => 'name',
+				'selected' => $cat,
+				'taxonomy' => $taxonomy,
+				'name' => $taxonomy,
+				'value_field' => 'slug',
+			] );
+		}
+	}
   
   /**
    * Returns the singleton instance of the class.

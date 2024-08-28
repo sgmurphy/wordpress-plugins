@@ -133,7 +133,7 @@ class Ithemes_Sync_Server {
 		$query['action'] = $action;
 		
 		$request = $action . '?' . http_build_query( $query, '', '&' );
-		
+
 		$post_data = array(
 			'request' => json_encode( $data ),
 		);
@@ -142,8 +142,12 @@ class Ithemes_Sync_Server {
 			'timeout' => 30,
 			'body'    => $post_data,
 		);
-		
-		
+
+		do_action( 'solid_central_server_request', [
+			'url' => $secure_url . $request,
+			'post_args' => $remote_post_args,
+		] );
+
 		$options = array(
 			'use_ca_patch' => false,
 			'use_ssl'      => true,
@@ -171,7 +175,9 @@ class Ithemes_Sync_Server {
 				}
 			}
 		}
-		
+
+		do_action( 'solid_central_server_response', $response );
+
 		if ( is_wp_error( $response ) ) {
 			$response = wp_remote_post( $secure_url . $request . '&insecure=1', $remote_post_args );
 			

@@ -277,7 +277,9 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		/*
+		 * the below code should remove from later
+		 * $ref->add_control(
 			'post_status',
 			[
 				'label'   => esc_html__( 'Post Status', 'the-post-grid' ),
@@ -285,7 +287,7 @@ class rtTPGElementorHelper {
 				'options' => Options::rtTPGPostStatus(),
 				'default' => 'publish',
 			]
-		);
+		);*/
 
 		$ref->add_control(
 			'ignore_sticky_posts',

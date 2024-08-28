@@ -53,7 +53,7 @@
             <td><input id="pzf_hide_mobile" name="pzf_hide_mobile" type="checkbox" value="1" <?php echo get_option('pzf_hide_mobile') == '1' ? 'checked="checked"' : '' ?> /> Mobile
             </td>
         </tr>
-        <tr valign="top">
+        <!-- <tr valign="top">
             <th scope="row">Custom CSS</th>
             <td><textarea placeholder="Add custom CSS here"  name="pzf_add_css" style="height: 150px;width: 100%;max-width: 700px;" /><?php echo get_option('pzf_add_css'); ?></textarea><br>
             <i>Add custom CSS here</i></td>
@@ -62,7 +62,7 @@
             <th scope="row">Custom JS</th>
             <td><textarea placeholder="Add custom JS here! You need to have a SCRIPT tag around scripts." name="pzf_add_js" style="height: 150px;width: 100%;max-width: 700px;" /><?php echo get_option('pzf_add_js'); ?></textarea><br>
             <i>You need to have a SCRIPT tag around scripts.</i></td>
-        </tr>   
+        </tr>  -->  
     </table>
     <?php submit_button(); ?>
 </form>

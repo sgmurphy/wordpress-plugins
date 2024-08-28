@@ -4,8 +4,8 @@ Donate link: https://wpclever.net
 Tags: woocommerce, wpc, quickview, quick-view
 Requires at least: 4.0
 Tested up to: 6.6
-Version: 4.1.0
-Stable tag: 4.1.0
+Version: 4.1.1
+Stable tag: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,8 +88,11 @@ Example:
 
 == Changelog ==
 
+= 4.1.1 =
+* Added: Filter hook 'woosq_product_id'
+
 = 4.1.0 =
-* Updated: Using WC_AJAX for frontend
+* Updated: Use WC_AJAX for frontend
 
 = 4.0.6 =
 * Fixed: Minor issues in backend

@@ -69,7 +69,7 @@ class El_WFACP_Form_Widget extends WFACP_Elementor_HTML_BLOCK {
 
 	private function coupon_fields() {
 
-		$this->add_tab( __( 'Coupon', 'funnel-builder' ), 1 );
+		$this->add_tab( __( 'Coupon', 'woocommerce' ), 1 );
 		$this->add_text( 'form_coupon_button_text', __( 'Coupon Button Text', 'funnel-builder' ), __( 'Apply', 'funnel-builder' ) );
 		$this->end_tab();
 
@@ -319,7 +319,7 @@ class El_WFACP_Form_Widget extends WFACP_Elementor_HTML_BLOCK {
 
 		$field_key = 'wfacp_collapsible_summary';
 		$condition = [ 'collapse_enable_coupon' => 'true' ];
-		$this->add_heading( __( 'Coupon', 'funnel-builder' ), '', $condition );
+		$this->add_heading( __( 'Coupon', 'woocommerce' ), '', $condition );
 		$this->add_heading( __( 'Link', 'funnel-builder' ), '', $condition );
 		$coupon_typography_opt = [
 			'{{WRAPPER}} #wfacp-e-form .wfacp_woocommerce_form_coupon .wfacp-coupon-section .woocommerce-info span',

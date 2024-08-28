@@ -36,12 +36,16 @@ class rtTPGElementorQuery {
 	 */
 	public static function post_query( $data, $prefix = '' ): array {
 
-		$post_type   = isset( $data['post_type'] ) ? esc_html( $data['post_type'] ) : 'post';
-		$post_status = isset( $data['post_status'] ) ? esc_html( $data['post_status'] ) : 'publish';
+		$post_type = isset( $data['post_type'] ) ? esc_html( $data['post_type'] ) : 'post';
 
+		/**
+		 * Post status has been removed. The commented code will be deleted later.
+		 */
+		//$post_status = isset( $data['post_status'] ) ? esc_html( $data['post_status'] ) : 'publish';
+		//'post_status' => Fns::available_user_post_status( $post_status ),
 		$args = [
 			'post_type'   => [ Fns::available_post_type( $post_type ) ],
-			'post_status' => Fns::available_user_post_status( $post_status ),
+			'post_status' => 'publish',
 		];
 
 		if ( $data['post_id'] ) {
@@ -60,7 +64,6 @@ class rtTPGElementorQuery {
 			$args['ignore_sticky_posts'] = 1;
 		}
 
-		// TODO: should display conditionally
 		if ( $orderby = $data['orderby'] ) {
 
 			$order_by        = ( $orderby == 'meta_value_datetime' ) ? 'meta_value_num' : $orderby;

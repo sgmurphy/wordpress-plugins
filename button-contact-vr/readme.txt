@@ -6,7 +6,7 @@ Requires at least: 4.7
 Tested up to: 6.5.2
 Requires PHP: 5.6
 Tested up to: 6.5.5
-Stable Tag: 1.0
+Stable Tag: 4.7.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -110,3 +110,9 @@ Tested up to wordpress: 6.2
 = 4.7.3
 * Release Date - 12/07/2024.
 * add link messenger
+
+= 4.7.4
+* It is currently under maintenance! showroom and contact
+
+= 4.7.5
+* hide css - js custome

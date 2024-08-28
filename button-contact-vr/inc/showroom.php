@@ -14,7 +14,11 @@
     </div>
 <?php } ?>
 
-<form method="post" action="options.php">
+    <h3>
+        It is currently under maintenance!
+    </h3>
+    
+<!-- <form method="post" action="options.php">
     <?php settings_fields( 'pzf_settings_showroom' ); ?>
     <table class="form-table">     
         <tr valign="top">
@@ -64,9 +68,9 @@
                             <input id="pzf_icon_contact_form5" name="pzf_icon_showroom" type="radio" value="5" <?php echo get_option('pzf_icon_showroom') == '5' ? 'checked="checked"' : '' ?> />icon 5
                         </label>
                     </li>
-					</ul>                
-				</td>
-			</tr>  
+                    </ul>                
+                </td>
+            </tr>  
             <tr valign="top">
                 <th scope="row">Link</th>
                 <td>
@@ -76,17 +80,17 @@
                     <i>Link google map, link showroom, location, ...</i>
                 </td>
             </tr>    
-			<tr valign="top"  style=" border-bottom: 1px dashed #bfbfbf; ">
-				<th scope="row">Open link new tab:</th>
-				<td><input id="pzf_link_newtab_showroom" name="pzf_link_newtab_showroom" type="checkbox" value="1" <?php echo get_option('pzf_link_newtab_showroom') == '1' ? 'checked="checked"' : '' ?> />
-				</td>
-			</tr> 
-			<tr><th>Use popups instead of links</th></tr>
+            <tr valign="top"  style=" border-bottom: 1px dashed #bfbfbf; ">
+                <th scope="row">Open link new tab:</th>
+                <td><input id="pzf_link_newtab_showroom" name="pzf_link_newtab_showroom" type="checkbox" value="1" <?php echo get_option('pzf_link_newtab_showroom') == '1' ? 'checked="checked"' : '' ?> />
+                </td>
+            </tr> 
+            <tr><th>Use popups instead of links</th></tr>
             <tr valign="top">
                 <th scope="row">List showroom</th>
                 <td><textarea class="tiny" placeholder="" name="pzf_content_showroom"/><?php echo get_option('pzf_content_showroom'); ?></textarea><br>
                     <i>Shortcode / showroom content</i></td>
-            </tr> 	
+            </tr>   
             <tr valign="top">
                 <th scope="row">Max width popup</th>
                 <td><input type="number" placeholder="" name="pzf_max_w_showroom" value="<?php echo get_option('pzf_max_w_showroom'); ?>" />px<br>
@@ -104,7 +108,7 @@
         </tr> 
     </table>
     <?php submit_button(); ?>
-</form>
+</form> -->
 
 <hr />
 

@@ -4,7 +4,7 @@ Tags: Meta Pixel, Meta Conversion API, Google Analytics 4, GA4, Google Consent M
 Requires at least: 3.0.1
 Requires PHP: 5.4
 Tested up to: 6.6
-Stable tag: 9.7.1
+Stable tag: 9.7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -471,6 +471,21 @@ NO, absolutely not! We don't track any type of data about your website. We simpl
 
 
 == Changelog ==
+
+= PixelYourSite 9.7.2 =
+
+August 28, 2024
+
+* Fix for a possible bug related to Litespeed cache. 
+
+* Fix for a possible bug related to Funnelkit checkout pages.
+
+* Fix related to the URL parameters events trigger logic.
+
+* Security enhancement related to the API logs. Now access is restricted based on the plugin’s permission settings. Only user types with permission can download the logs. 
+
+* UI changes to reflect some of the new PRO version features (Google Tag user data support  for multiple values, URL parameters tracking for API user data events, form fields tracking for events parameters, data persistency option for API user data, WSForm integration). 
+
 
 = PixelYourSite 9.7.1 =
 

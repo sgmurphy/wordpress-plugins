@@ -150,8 +150,9 @@ SPFTESTIMONIAL::createSection(
 		'fields' => array(
 
 			array(
-				'id'   => 'form_shortcode',
-				'type' => 'shortcode',
+				'id'        => 'form_shortcode',
+				'type'      => 'shortcode',
+				'shortcode' => 'form',
 			),
 
 		),

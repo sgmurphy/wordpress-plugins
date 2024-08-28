@@ -98,30 +98,59 @@ final class PYS extends Settings implements Plugin {
         add_action( 'deactivate_pixel-cost-of-goods/pixel-cost-of-goods.php',array($this,"restoreSettingsAfterCog"));
         add_action( 'woocommerce_checkout_create_order', array( $this,'add_order_external_meta_data'), 10, 2 );
 
+		/**
+		 * For Woo
+		 */
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'woo_checkout_process' ), 10, 3 );
+
+		/**
+		 * For EDD
+		 */
+		if(!$this->isCachePreload()){
+			add_action( 'edd_recurring_record_payment', array( $this, 'edd_recurring_payment' ), 10, 1 );
+		}
+
         $this->logger = new PYS_Logger();
 
     }
 
     public function init() {
 
-        if ( isset( $_GET[ 'download_logs' ] ) && $_GET['download_logs'] == 'meta' ) {
-            PYS()->getLog()->downloadLogFile();
-        }
-        elseif (isset( $_GET[ 'download_logs' ] ) && $_GET['download_logs'] == 'pinterest' && method_exists(Pinterest(), 'getLog')){
-            Pinterest()->getLog()->downloadLogFile();
+        $loggers = [
+            'meta' => [PYS()->getLog(), 'downloadLogFile'],
+        ];
+
+        $clearLoggers = [
+            'clear_plugin_logs' => [PYS()->getLog(), 'remove'],
+        ];
+
+        if (class_exists('Pinterest')) {
+            $loggers['pinterest'] = [Pinterest()->getLog(), 'downloadLogFile'];
+            $clearLoggers['clear_pinterest_logs'] = [Pinterest()->getLog(), 'remove'];
         }
 
-        if ( isset( $_GET[ 'clear_plugin_logs' ] ) ) {
-            PYS()->getLog()->remove();
-            $actual_link = ( isset( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] === 'on' ? "https" : "http" ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-            wp_redirect( remove_query_arg( 'clear_plugin_logs', $actual_link ) );
-            exit;
-        } elseif ( isset( $_GET[ 'clear_pinterest_logs' ] ) ) {
-            Pinterest()->getLog()->remove();
-            $actual_link = ( isset( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] === 'on' ? "https" : "http" ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-            wp_redirect( remove_query_arg( 'clear_pinterest_logs', $actual_link ) );
-            exit;
+        if (isset($_GET['download_logs']) && array_key_exists($_GET['download_logs'], $loggers)) {
+            $logger = $loggers[$_GET['download_logs']];
+            if (is_callable($logger)) {
+                call_user_func($logger);
+            } elseif (is_callable([$logger[0], $logger[1]])) {
+                call_user_func([$logger[0], $logger[1]]);
+            }
         }
+
+        foreach ($clearLoggers as $key => $logger) {
+            if (isset($_GET[$key]) && (is_callable($logger) || (is_callable([$logger[0], $logger[1]]) && method_exists($logger[0], $logger[1])))) {
+                if (is_callable($logger)) {
+                    call_user_func($logger);
+                } else {
+                    call_user_func([$logger[0], $logger[1]]);
+                }
+                $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                wp_redirect(remove_query_arg($key, $actual_link));
+                exit;
+            }
+        }
+
         register_post_type( 'pys_event', array(
             'public' => false,
             'supports' => array( 'title' )
@@ -371,6 +400,17 @@ final class PYS extends Settings implements Plugin {
      */
     function userLogin($user_login, $user) {
         update_user_meta($user->ID,'pys_just_login',true);
+
+		if ( !apply_filters( 'pys_disable_advanced_form_data_cookie', false ) && !apply_filters( 'pys_disable_advance_data_cookie', false ) ) {
+			$user_persistence_data = get_persistence_user_data( $user->user_email, $user->first_name, $user->last_name, '' );
+			$userData = array(
+				'first_name' => $user_persistence_data[ 'fn' ],
+				'last_name'  => $user_persistence_data[ 'ln' ],
+				'email'      => $user_persistence_data[ 'em' ],
+				'phone'      => $user_persistence_data[ 'tel' ]
+			);
+			setcookie( "pys_advanced_form_data", json_encode( $userData ), 2147483647, '/' );
+		}
     }
 
     public function userRegisterHandler( $user_id ) {
@@ -507,7 +547,7 @@ final class PYS extends Settings implements Plugin {
                 'AcoonBot', 'findlinks', 'proximic', 'OpenindexSpider', 'statdom.ru', 'Exabot', 'Spider',
                 'SeznamBot', 'oBot', 'C-T bot', 'Updownerbot', 'Snoopy', 'heritrix', 'Yeti', 'DomainVader',
                 'DCPbot', 'PaperLiBot', 'APIs-Google', 'AdsBot-Google-Mobile', 'AdsBot-Google-Mobile-Apps',
-                'FeedFetcher-Google', 'Google-Read-Aloud', 'DuplexWeb-Google', 'Storebot-Google', 'lscache_runner',
+                'FeedFetcher-Google', 'Google-Read-Aloud', 'DuplexWeb-Google', 'Storebot-Google',
                 'ClaudeBot', 'SeekportBot', 'GPTBot', 'Applebot',
                 'DuckDuckBot', 'Sogou', 'facebookexternalhit', 'Swiftbot', 'Slurp', 'CCBot', 'Go-http-client',
                 'Sogou Spider', 'Facebot', 'Alexa Crawler', 'Cốc Cốc Bot', 'Majestic-12', 'SemrushBot',
@@ -544,7 +584,7 @@ final class PYS extends Settings implements Plugin {
                 'externalID_disabled_by_api' => apply_filters( 'pys_disable_externalID_by_gdpr', false ),
                 'disabled_all_cookie'       => apply_filters( 'pys_disable_all_cookie', false ),
                 'disabled_start_session_cookie' => apply_filters( 'pys_disabled_start_session_cookie', false ),
-                'disabled_advanced_form_data_cookie' => apply_filters( 'pys_disable_advanced_form_data_cookie', false ),
+                'disabled_advanced_form_data_cookie' => apply_filters( 'pys_disable_advanced_form_data_cookie', false ) || apply_filters( 'pys_disable_advance_data_cookie', false ),
                 'disabled_landing_page_cookie'  => apply_filters( 'pys_disable_landing_page_cookie', false ),
                 'disabled_first_visit_cookie'  => apply_filters( 'pys_disable_first_visit_cookie', false ),
                 'disabled_trafficsource_cookie' => apply_filters( 'pys_disable_trafficsource_cookie', false ),
@@ -983,17 +1023,47 @@ final class PYS extends Settings implements Plugin {
 
         return false;
     }
-    public function isWPRocketPreload() {
-        if(!empty($_SERVER['HTTP_USER_AGENT'])){
-            $options = array('WP Rocket/Preload', 'WP-Rocket-Preload', 'WP Rocket/Homepage_Preload');
-            foreach($options as $row) {
-                if (stripos(strtolower($_SERVER['HTTP_USER_AGENT']), strtolower($row)) !== false) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+	public function isCachePreload() {
+		if(!empty($_SERVER['HTTP_USER_AGENT'])){
+			$options = array('WP Rocket/Preload', 'WP-Rocket-Preload', 'WP Rocket/Homepage_Preload', 'lscache_runner', 'LiteSpeed Cache', 'LiteSpeed-Cache');
+			foreach($options as $row) {
+				if (stripos(strtolower($_SERVER['HTTP_USER_AGENT']), strtolower($row)) !== false) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param $order_id
+	 * @param $posted_data
+	 * @param \WC_Order $order
+	 */
+	public function woo_checkout_process( $order_id, $posted_data, $order ) {
+		if ( !apply_filters( 'pys_disable_advanced_form_data_cookie', false ) && !apply_filters( 'pys_disable_advance_data_cookie', false ) ) {
+			$first_name = $order->get_billing_first_name();
+			$last_name = $order->get_billing_last_name();
+			$email = $order->get_billing_email();
+			$phone = $order->get_billing_phone();
+			$phone = preg_replace( '/[^0-9.]+/', '', $phone );
+
+			$user_persistence_data = get_persistence_user_data( $email, $first_name, $last_name, $phone );
+			$userData = array(
+				'first_name' => $user_persistence_data[ 'fn' ],
+				'last_name'  => $user_persistence_data[ 'ln' ],
+				'email'      => $user_persistence_data[ 'em' ],
+				'phone'      => $user_persistence_data[ 'tel' ]
+			);
+
+			setcookie( "pys_advanced_form_data", json_encode( $userData ), 2147483647, '/' );
+		}
+	}
+
+	function edd_recurring_payment( $payment_id ) {
+		EnrichOrder()->edd_save_subscription_meta( $payment_id );
+	}
+
 }
 
 /**

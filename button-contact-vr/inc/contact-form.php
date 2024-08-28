@@ -14,7 +14,11 @@
     </div>
 <?php } ?>
 
-<form method="post" action="options.php">
+    <h3>
+        It is currently under maintenance!
+    </h3>
+    
+<!-- <form method="post" action="options.php">
     <?php settings_fields( 'pzf_settings_contact_form' ); ?>
     <table class="form-table">     
         <tr valign="top">
@@ -66,7 +70,7 @@
                     </li>
                 </ul>                
             </td>
-		<tr><th>Form content:</th></tr>
+        <tr><th>Form content:</th></tr>
             <tr valign="top">
                 <th scope="row">Title</th>
                 <td><textarea class="tiny" placeholder="" name="pzf_title_contact_form" value="" /><?php echo get_option('pzf_title_contact_form'); ?></textarea></td>
@@ -103,13 +107,13 @@
                     <label for="pzf_bg_contact_form">
                         <input id="pzf_color_acontact_form" class="my-color-field" name="pzf_bg_contact_form" type="text" value="<?php echo get_option('pzf_bg_contact_form'); ?>" />
                     </label><br>
-                    <i>Default: #ffffff</i>
+                    <i>Default: #ffffff</i> 
                 </td>
             </tr> 
         </tr> 
     </table>
     <?php submit_button(); ?>
-</form>
+</form> -->
 
 <hr />
 

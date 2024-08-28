@@ -1,0 +1,16 @@
+{
+    "name": "ithemes/ithemes-sync",
+    "description": "A WordPress plugin to connect Sync with your WordPress website.",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "minimum-stability": "stable",
+    "autoload-dev": {
+        "psr-4": {
+            "iThemes\\Sync\\Tests\\": "tests/_support/Classes",
+            "iThemes\\Sync\\Tests\\Integration\\": "tests/Integration"
+        }
+    },
+    "require-dev": {
+        "lucatume/wp-browser": "^3.5 || ^4.0"
+    }
+}

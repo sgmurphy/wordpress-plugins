@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/otter-blocks',
-        'pretty_version' => '3.0.2',
-        'version' => '3.0.2.0',
+        'pretty_version' => '3.0.3',
+        'version' => '3.0.3.0',
         'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -11,8 +11,8 @@
     ),
     'versions' => array(
         'codeinwp/otter-blocks' => array(
-            'pretty_version' => '3.0.2',
-            'version' => '3.0.2.0',
+            'pretty_version' => '3.0.3',
+            'version' => '3.0.3.0',
             'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'codeinwp/themeisle-sdk' => array(
-            'pretty_version' => '3.3.28',
-            'version' => '3.3.28.0',
-            'reference' => 'cd35fd5356ba169b9a0419ba879764ffeb811b63',
+            'pretty_version' => '3.3.29',
+            'version' => '3.3.29.0',
+            'reference' => '4d63bc81ec0357c8675dac1e35511fd81104605d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../codeinwp/themeisle-sdk',
             'aliases' => array(),
@@ -56,9 +56,9 @@
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v15.6.0',
-            'version' => '15.6.0.0',
-            'reference' => '4209ec90509656623c8976e70b31c80070e355da',
+            'pretty_version' => 'v15.7.0',
+            'version' => '15.7.0.0',
+            'reference' => '3e8161c1d7d1e9fb79751a693cd6123550f6ce21',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),

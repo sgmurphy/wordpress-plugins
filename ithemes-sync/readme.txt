@@ -1,10 +1,10 @@
 === Solid Central – Site Management, Backups, Security, and Reporting ===
 Contributors: ithemes, layotte, oakesjosh, solidwp
-Tags: manage multiple websites, backup, security, , manage updates, report dashboard
+Tags: manage multiple websites, backup, security, manage updates, report dashboard
 Requires at least: 4.5
 Requires PHP: 5.6
-Tested up to: 6.3
-Stable tag: 3.0.1
+Tested up to: 6.6
+Stable tag: 3.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -14,12 +14,12 @@ Manage multiple WordPress sites from one dashboard.
 
 = 🏢 Your Headquarters for Multi-site Management  =
 
-What do you get when you use Solid Central to manage and maintain all your WordPress websites from one dashboard? Real-time visibility. Improved time management. Increased productivity. Enhanced performance for the websites you manage. And, you raise the bar on what you can deliver for your clients. 
+What do you get when you use Solid Central to manage and maintain all your WordPress websites from one dashboard? Real-time visibility. Improved time management. Increased productivity. Enhanced performance for the websites you manage. And, you raise the bar on what you can deliver for your clients.
 
 = 📊 One Central Dashboard to Save You Loads of Time =
-No more logging into each individual website to view important website data or perform remote WordPress admin actions. Solid Central lets you manage multiple WordPress websites from one dashboard while also allowing you to easily switch to individual view to perform site-specific admin functions when necessary. 
+No more logging into each individual website to view important website data or perform remote WordPress admin actions. Solid Central lets you manage multiple WordPress websites from one dashboard while also allowing you to easily switch to individual view to perform site-specific admin functions when necessary.
 
-What can you do quickly and easily with Solid Central? 
+What can you do quickly and easily with Solid Central?
 
 * **Stay on Top of WordPress Updates** – WordPress updates are important for the security and efficiency of WordPress websites. Solid Central completely changes the way you update your WordPress sites—update dozens of sites with one click.
 * **Bulk Install Themes and Plugins From WordPress.org or Zip Upload** – Search and install from WordPress.org and view your WordPress.org profile favorites. Upload theme or plugin zip files or install themes and plugins directly from your Solid Central membership.
@@ -33,7 +33,7 @@ Remotely Login to WordPress & Switch Between User Accounts – Quickly jump to t
 * **Remote WordPress Backups** – Run remote backups and restore with Central’s integration with Solid Backups, our WordPress backup plugin.
 
 = 🔐 Enhancing WordPress Site Security with Solid Central  =
-Improve security for all your WordPress websites by integrating Solid Security with Solid Central. 
+Improve security for all your WordPress websites by integrating Solid Security with Solid Central.
 
 * **WordPress User Manager** – WordPress user management in Solid Central allows you to view all users on a website, edit user profiles and delete users remotely. With Central’s Client Dashboard, you can customize how certain users see the WordPress dashboard.
 * **Two-factor Authentication** – Add an extra layer of protection to your Central dashboard login with two-factor authentication. Once enabled, Central will require both a password AND an SMS code sent to your mobile device to log in to the Central Dashboard.
@@ -81,7 +81,7 @@ Make steady, reliable income for WordPress maintenance with Solid Central Pro’
 * **Gravity Forms** – From Central, you can view all the forms you’ve created in Gravity Forms for that site. You can also quickly see how many responses and views each form has received.
 * **WP101 Plugin** – Easily add a complete series of WordPress onboarding tutorial videos to the WordPress dashboard of your client sites with Central’s WP101 plugin integration.
 
-== License== 
+== License==
 This file is part of Solid Central. This plugin is released under the terms of the GNU General Public License.
 
 DISCLAIMER: Under no circumstances do we release this plugin with any warranty, implied or otherwise. We cannot be held responsible for any damage that might arise from the use of this plugin.
@@ -115,11 +115,11 @@ Yes. We handle support for Solid Central users both from the WordPress.org forum
 
 = Is Solid Central secure? =
 
-Yes. Solid Central uses industry-standard SSL technology to encrypt all communication between your Central dashboard and the client sites you connect to it. Only Central account holders and the users they add can access the Central dashboard once they log in. You can require two-factor authentication to be used to access the Central dashboard. 
+Yes. Solid Central uses industry-standard SSL technology to encrypt all communication between your Central dashboard and the client sites you connect to it. Only Central account holders and the users they add can access the Central dashboard once they log in. You can require two-factor authentication to be used to access the Central dashboard.
 
 = Does Solid Central work with WordPress.com sites? =
 
-WordPress.com offers free website and paid website. Free websites on WordPress.com do not have the ability to install plugins. Paid WordPress.com plans do. Solid Central requires the use of this free plugin and therefore Solid Central only works on paid WordPress.com websites, not free ones. 
+WordPress.com offers free website and paid website. Free websites on WordPress.com do not have the ability to install plugins. Paid WordPress.com plans do. Solid Central requires the use of this free plugin and therefore Solid Central only works on paid WordPress.com websites, not free ones.
 
 = Help! I’m having problems adding a site to Sync. =
 
@@ -129,6 +129,9 @@ Solid Central includes an automatic “Add Site” prompt when you first login t
 Got more questions? [Contact us!](https://solidwp.com/contact.)
 
 == Changelog ==
+
+= 3.1.0 =
+* New: Add support for tracking vulnerabilities reported by Solid Security in Solid Central.
 
 = 3.0.1 =
 * Security: Harden SolidWP Updater against XSS attacks. Thanks to Robin Wood (digi.ninja) for disclosing this issue.

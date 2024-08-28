@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Solid Central
-Plugin URI: http://solidwp.com/central
+Plugin URI: https://solidwp.com/central
 Description: Maximize and amplify your admin with remote, multi-site management. One centralized dashboard to save time.
 Author: SolidWP
-Version: 3.0.1
-Author URI: http://solidwp.com/
+Version: 3.1.0
+Author URI: https://solidwp.com/
 Domain Path: /lang/
 iThemes Package: ithemes-sync
 */

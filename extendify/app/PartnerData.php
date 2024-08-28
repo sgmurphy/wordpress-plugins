@@ -58,7 +58,7 @@ class PartnerData
         'domainSearchURL' => '',
         'showDraft' => false,
         'showChat' => false,
-        'enableImageImports' => false,
+        'enableImageImports-1-14-6' => false,
         'disableLibraryAutoOpen' => false,
     ];
 
@@ -82,7 +82,7 @@ class PartnerData
         self::$logo = isset($data['logo'][0]['thumbnails']['large']['url']) ? $data['logo'][0]['thumbnails']['large']['url'] : self::$logo;
         self::$config['showDraft'] = ($data['showDraft'] ?? self::$config['showDraft']);
         self::$config['showChat'] = ($data['showChat'] ?? self::$config['showChat']);
-        self::$config['enableImageImports'] = ($data['enableImageImports'] ?? self::$config['enableImageImports']);
+        self::$config['enableImageImports-1-14-6'] = ($data['enableImageImports-1-14-6'] ?? self::$config['enableImageImports-1-14-6']);
         self::$config['disableLibraryAutoOpen'] = ($data['disableLibraryAutoOpen'] ?? self::$config['disableLibraryAutoOpen']);
         self::$name = ($data['Name'] ?? self::$name);
         self::$colors = [

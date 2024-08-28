@@ -3,7 +3,7 @@ Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: testimonials, testimonial slider, customer reviews, social proof, review form
 Requires at least: 4.7
 Tested up to: 6.6.1
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -316,6 +316,19 @@ Thank you!
 
 == Changelog ==
 
+= 3.1.2 - Aug 28, 2024 =
+* New: The Rating Star Fill Color and Empty Color option
+* New: The Gap between Rating Stars option.
+* New: The Rating Star Font Size option.
+* Improved: The plugin backend options have been enhanced.
+* Improved: The Layout Preset option was placed at the top of the manage view page.
+* Improved: The Carousel Style was placed after the Layout Preset option.
+* Improved: The How To Use Shortcode section moved to the right side of the page.
+* Improved: The rating options were moved to a sub-section called Star Rating.
+* Improved: The Swipe to Slide option was renamed to the MouseWheel option.
+* Fix: The testimonial date issue in the case of export-import testimonials.
+* Fix The grid layout item padding issue when the border is used.
+
 = 3.1.1 - Aug 09, 2024 =
 * New: Testimonial Form Block feature.
 * Updated: The language (.pot) file.
@@ -323,9 +336,9 @@ Thank you!
 
 = 3.1.0 - May 07, 2024 =
 * New: The CSV import and export feature to import or export testimonials.
-* New: The Form Live Preview feature to check the testimonial form design before using in any pages or posts. 
+* New: The Form Live Preview feature to check the testimonial form design before using in any pages or posts.
 * New: The Form Width option to increase or decrease the width of testimonial form.
-* Improved: The style of  Testimonial Form options and Testimoial View options.
+* Improved: The style of  Testimonial Form options and Testimonial View options.
 * Improved: The Testimonial Export Import feature.
 * Updated: The language (.pot) file.
 * Fix: When admin selects the based on star rating/auto publish status in the form settings, the submitted testimonial was not shown in all testimonial list.

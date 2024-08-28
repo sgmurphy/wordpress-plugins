@@ -6,7 +6,7 @@
  * @subpackage Testimonial_Free/Frontend
  */
 
-	$layout = isset( $shortcode_data['layout'] ) ? $shortcode_data['layout'] : 'slider';
+	$layout = isset( $layout_data['layout'] ) ? $layout_data['layout'] : 'slider';
 	// Slider Pagination.
 	$slider_pagination         = isset( $shortcode_data['spt_carousel_pagination']['pagination'] ) ? $shortcode_data['spt_carousel_pagination']['pagination'] : true;
 	$pagination_hide_on_mobile = isset( $shortcode_data['spt_carousel_pagination']['pagination_hide_on_mobile'] ) ? $shortcode_data['spt_carousel_pagination']['pagination_hide_on_mobile'] : '';
@@ -196,10 +196,23 @@
 	}
 
 	if ( $star_rating ) { // Load testimonial rating color if rating found.
-		$star_rating_color = isset( $shortcode_data['testimonial_client_rating_color'] ) ? $shortcode_data['testimonial_client_rating_color'] : '#f3bb00';
+		$star_rating_color = isset( $shortcode_data['testimonial_client_rating_color']['color'] ) ? $shortcode_data['testimonial_client_rating_color'] : array(
+			'color'       => '#bbc2c7',
+			'hover-color' => '#ffb900',
+		);
+		$gap               = isset( $shortcode_data['rating_icon_gap']['all'] ) ? $shortcode_data['rating_icon_gap']['all'] : '2';
+		$font_size         = isset( $shortcode_data['rating_icon_size']['all'] ) ? $shortcode_data['rating_icon_size']['all'] : '19';
 		$outline          .= '#sp-testimonial-free-wrapper-' . $post_id . ' .sp-testimonial-free-section .sp-testimonial-client-rating{
-		color: ' . $star_rating_color . ';
-	}';
+		    display: inline-flex;
+            gap: ' . $gap . 'px;
+		}
+		#sp-testimonial-free-wrapper-' . $post_id . ' .sp-testimonial-free-section .sp-testimonial-client-rating i.fa{
+		    color: ' . $star_rating_color['color'] . ';
+		    font-size: ' . $font_size . 'px;
+		}
+		#sp-testimonial-free-wrapper-' . $post_id . ' .sp-testimonial-free-section .sp-testimonial-client-rating i.fa-star{
+			color: ' . $star_rating_color['hover-color'] . ';
+		}';
 	}
 	if ( $reviewer_position ) { // Load testimonial designation color if designation/position found.
 		$client_designation_color = isset( $shortcode_data['client_designation_company_typography'] ) ? $shortcode_data['client_designation_company_typography']['color'] : '#444444';

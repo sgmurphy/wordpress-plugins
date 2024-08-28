@@ -7,10 +7,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-24T11:58:14+03:00\n"
+"POT-Creation-Date: 2024-08-28T14:18:27+03:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: kubio\n"
 "Plural-Forms: \n"
 
@@ -1157,15 +1157,15 @@ msgstr "Kubio Farbe %s"
 
 #: lib/integrations/third-party-themes/templates-importer.php:285
 #: lib/kubio-editor.php:164
-#: lib/src/Core/Activation.php:369
-#: lib/src/Core/Activation.php:551
+#: lib/src/Core/Activation.php:374
+#: lib/src/Core/Activation.php:556
 #: build/editor/index.js:17
 msgid "Blog"
 msgstr "Blog"
 
 #: lib/integrations/third-party-themes/templates-importer.php:323
-#: lib/src/Core/Activation.php:434
-#: lib/src/Core/Activation.php:537
+#: lib/src/Core/Activation.php:439
+#: lib/src/Core/Activation.php:542
 msgid "Home"
 msgstr "Startseite"
 
@@ -1540,7 +1540,7 @@ msgstr "Kubio Vorschau"
 msgid "Current preview state is unavailable"
 msgstr "Der aktuelle Vorschaustatus ist nicht verfügbar"
 
-#: lib/src/Core/Activation.php:487
+#: lib/src/Core/Activation.php:492
 msgid "Primary menu"
 msgstr "Hauptmenü"
 

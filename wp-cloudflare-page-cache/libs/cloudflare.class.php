@@ -1732,7 +1732,7 @@ class SWCFPC_Cloudflare
      */
     function get_cache_rule_expression() {
         // Rule expression reference: https://gist.github.com/isaumya/af10e4855ac83156cc210b7148135fa2
-        $wordpress_links_to_cache  = 'http.host eq "' . $this->zone_domain_name . '"';
+        $wordpress_links_to_cache  = 'http.host contains "' . $this->zone_domain_name . '"';
 
         $wordpress_links_to_ignore = '
             and http.cookie ne "comment_"

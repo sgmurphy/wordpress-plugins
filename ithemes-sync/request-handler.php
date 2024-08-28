@@ -42,7 +42,9 @@ class Ithemes_Sync_Request_Handler {
 	private $options = array();
 	private $old_update_data = array();
 	private $verb_time = false;
-	
+	public $original_display_errors = '';
+	public $original_error_reporting = 32767;
+	private $request;
 	
 	public function __construct() {
 		$this->show_errors();
@@ -86,6 +88,8 @@ class Ithemes_Sync_Request_Handler {
 
 		$request = json_decode( $request, true );
 		
+		do_action( 'solid_central_verb_request', $request );
+
 		if ( ! is_array( $request ) ) {
 			return;
 		}
@@ -206,15 +210,19 @@ class Ithemes_Sync_Request_Handler {
 		}
 		
 		$auth_details = $GLOBALS['ithemes-sync-settings']->get_authentication_details( $this->request['user_id'] );
-		
-		foreach( $users as $u ) {
-			if ( $u->data->user_login === $auth_details['local_user'] ) {
-				//Prioritize the Sync user first, if it doesn't match for some reason, we'll fall back to any administrator user
-				$user = $u;
-				break;
-			} else {
-				$user = $u;
+		if ($auth_details) {
+			foreach( $users as $u ) {
+				if ( $u->data->user_login === $auth_details['local_user'] ) {
+					//Prioritize the Sync user first, if it doesn't match for some reason, we'll fall back to any administrator user
+					$user = $u;
+					break;
+				} else {
+					$user = $u;
+				}
 			}
+		} else {
+			do_action( 'ithemes-sync-add-log', 'get_authentication_details returned false. Unable to set current user to admin.', $users );
+			return false;
 		}
 		
 		if ( isset( $user->ID ) ) {
@@ -245,7 +253,7 @@ class Ithemes_Sync_Request_Handler {
 	
 	private function parse_request( $request ) {
 
-		$this->request = $request;		
+		$this->request = $request;
 		
 		$required_vars = array(
 			'1' => 'action',
@@ -307,6 +315,9 @@ class Ithemes_Sync_Request_Handler {
 		}
 		
 		$response['verb_time'] = $this->verb_time;
+
+		do_action( 'solid_central_verb_response', $response );
+
 		$json = $this->json_encode( $response );
 		
 		echo "\n\nv56CHRcOT+%K\$fk[*CrQ9B5<~9T=h?xx9C</`Sqv;M{Q0ms:FR0w\n\n$json";
@@ -450,6 +461,8 @@ class Ithemes_Sync_Request_Handler {
 			$log['data'] = $data;
 		}
 		
+		do_action( 'solid_central_add_log', $log );
+
 		$this->logs[] = $log;
 	}
 

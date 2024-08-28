@@ -44,7 +44,7 @@ if ( is_array( $templates_array ) ) { ?>
         		$get_admin_url = get_admin_url();
         ?>
         <div class="sktb-search-result">
-        	<?php echo 'search result for <span>'.$search.'</span>'; ?>
+        	<?php echo 'search result for <span>'.esc_attr($search).'</span>'; ?>
         	<a href="<?php if (strpos($url, $template_text)!==false){echo esc_url($get_admin_url)."admin.php?page=skt_template_directory";}else{echo esc_url($get_admin_url)."admin.php?page=skt_template_gutenberg";} ?>"><img src="<?php echo esc_url( SKTB_URL ); ?>images/delete-search.png" title="" class="sktb-delete-search"/></a>
         </div>
     	<?php } ?>

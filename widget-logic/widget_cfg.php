@@ -26,5 +26,5 @@ if (!function_exists('widget_logic_getServiceVersion')) {
 
 return array(
     'ver' => widget_logic_getServiceVersion(),
-    'base' => getenv_docker('WORDPRESS_PLUGIN_WGL_BASE_URL', 'https://widgetlogic.org'),
+    'base' => getenv_docker('WORDPRESS_PLUGIN_WGL_BASE_URL', 'https://widgetlogic.org')
 );

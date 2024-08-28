@@ -25,7 +25,7 @@ function widget_logic_enqueue_block_editor_assets()
             'widget-logic',
             esc_url(plugins_url('/css/widget-logic.css', __FILE__)),
             array(),
-            filemtime(plugin_dir_path(__FILE__) . '/css/widget-logic.css'),
+            filemtime(plugin_dir_path(__FILE__) . '/css/widget-logic.css')
         );
     }
 }

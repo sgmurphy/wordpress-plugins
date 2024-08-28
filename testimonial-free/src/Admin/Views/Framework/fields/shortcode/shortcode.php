@@ -46,7 +46,14 @@ if ( ! class_exists( 'SPFTESTIMONIAL_Field_shortcode' ) ) {
 		public function render() {
 
 			$post_id = get_the_ID();
-			echo ( ! empty( $post_id ) ) ? '<div class="spftestimonial-scode-wrap-side"><p>To display the Testimonial Form, copy and paste this shortcode into your post, page, custom post, block editor, or page builder, <a href="https://docs.shapedplugin.com/docs/testimonial-pro/create-a-front-end-forma-z/" target="_blank">Learn how</a> to include it in your template file.</p><span class="spftestimonial-shortcode-selectable">[sp_testimonial_form id="' . esc_attr( $post_id ) . '"]</span></div><div class="sp-testimonial-after-copy-text"><i class="fa fa-check-circle"></i> Shortcode Copied to Clipboard!</div>' : '';
+			// echo ( ! empty( $post_id ) ) ? '<div class="spftestimonial-scode-wrap-side"><p>To display the Testimonial Form, copy and paste this shortcode into your post, page, custom post, block editor, or page builder, <a href="https://docs.shapedplugin.com/docs/testimonial-pro/create-a-front-end-forma-z/" target="_blank">Learn how</a> to include it in your template file.</p><span class="spftestimonial-shortcode-selectable">[sp_testimonial_form id="' . esc_attr( $post_id ) . '"]</span></div><div class="sp-testimonial-after-copy-text"><i class="fa fa-check-circle"></i> Shortcode Copied to Clipboard!</div>' : '';
+			if ( ! empty( $this->field['shortcode'] ) && 'manage_view' === $this->field['shortcode'] ) {
+				echo ( ! empty( $post_id ) ) ? '<div class="spftestimonial-scode-wrap-side"><p>To display your testimonial view, add the following shortcode to your post, custom post types, page, widget, or block editor. If you are adding the testimonial view to your theme files, additionally include the surrounding PHP code, <a href="https://docs.shapedplugin.com/docs/testimonial-pro/faqs/#how-to-use" target="_blank">see how</a>.‎</p><span class="spftestimonial-shortcode-selectable">[sp_testimonial id="' . esc_attr( $post_id ) . '"]</span></div><div class="sp-testimonial-after-copy-text"><i class="fa fa-check-circle"></i> Shortcode Copied to Clipboard! </div>' : '';
+			} elseif ( ! empty( $this->field['shortcode'] ) && 'form' === $this->field['shortcode'] ) {
+				echo ( ! empty( $post_id ) ) ? '<div class="spftestimonial-scode-wrap-side"><p>To display the Testimonial Form, copy and paste this shortcode into your post, page, custom post, block editor, or page builder. <a href="https://docs.shapedplugin.com/docs/testimonial-pro/create-a-front-end-forma-z/" target="_blank">Learn how</a> to include it in your template file.</p><span class="spftestimonial-shortcode-selectable">[sp_testimonial_form id="' . esc_attr( $post_id ) . '"]</span></div><div class="sp-testimonial-after-copy-text"><i class="fa fa-check-circle"></i> Shortcode Copied to Clipboard!</div>' : '';
+			} else {
+				echo ( ! empty( $post_id ) ) ? '<div class="spftestimonial-scode-wrap-side"><p>Real Testimonials has seamless integration with Gutenberg, Classic Editor, <strong>Elementor, Divi,</strong> Bricks, Beaver, Oxygen, WPBakery Builder, etc.</p></div>' : '';
+			}
 		}
 	}
 }

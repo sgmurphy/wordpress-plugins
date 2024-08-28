@@ -257,11 +257,12 @@ class TestimonialFree {
 	 * @return array
 	 */
 	public function add_shortcode_column() {
-		$new_columns['cb']        = '<input type="checkbox" />';
-		$new_columns['title']     = __( 'Slider Title', 'testimonial-free' );
-		$new_columns['shortcode'] = __( 'Shortcode', 'testimonial-free' );
-		$new_columns['']          = '';
-		$new_columns['date']      = __( 'Date', 'testimonial-free' );
+		$new_columns['cb']                 = '<input type="checkbox" />';
+		$new_columns['title']              = __( 'Slider Title', 'testimonial-free' );
+		$new_columns['shortcode']          = __( 'Shortcode', 'testimonial-free' );
+		$new_columns['testimonial_layout'] = __( 'Layout', 'testimonial-free' );
+		$new_columns['']                   = '';
+		$new_columns['date']               = __( 'Date', 'testimonial-free' );
 
 		return $new_columns;
 	}
@@ -275,12 +276,17 @@ class TestimonialFree {
 	 * @return void
 	 */
 	public function add_shortcode_form( $column, $post_id ) {
+		$column_data = get_post_meta( $post_id, 'sp_tpro_layout_options', true );
+		$layout      = isset( $column_data['layout'] ) ? $column_data['layout'] : '';
 
 		switch ( $column ) {
 
 			case 'shortcode':
 				echo '<input class="sp_tfree_input" style="width: 230px;padding: 4px 8px;" type="text" readonly="readonly" value="[sp_testimonial id=&quot;' . esc_attr( $post_id ) . '&quot;]"/>
                 <div class="sp-testimonial-after-copy-text"><i class="fa fa-check-circle"></i> Shortcode Copied to Clipboard! </div>';
+				break;
+			case 'testimonial_layout':
+				echo esc_html( ucwords( str_replace( '-', ' ', $layout ) ) );
 				break;
 			default:
 				break;

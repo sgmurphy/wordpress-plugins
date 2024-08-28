@@ -92,7 +92,7 @@
                     </tr>
                     <tr>
                         <td><?php echo __('Support for',$this->plugin_name)?></td>
-                        <td><?php echo __('1 site',$this->plugin_name)?></td>
+                        <td><span>–</span></td>
                         <td><?php echo __('5 site',$this->plugin_name)?></td>
                         <td><?php echo __('Unlimited sites',$this->plugin_name)?></td>
                         <td><?php echo __('Unlimited sites',$this->plugin_name)?></td>
@@ -103,7 +103,7 @@
                     </tr>
                     <tr class="compare-row">
                         <td><?php echo __('Upgrade for',$this->plugin_name)?></td>
-                        <td><?php echo __('1 months',$this->plugin_name)?></td>
+                        <td><span>–</span></td>
                         <td><?php echo __('12 months',$this->plugin_name)?></td>
                         <td><?php echo __('Lifetime',$this->plugin_name)?></td>
                         <td><?php echo __('Lifetime',$this->plugin_name)?></td>
@@ -114,7 +114,7 @@
                     </tr>
                     <tr>
                         <td><?php echo __('Support for',$this->plugin_name)?></td>
-                        <td><?php echo __('1 months',$this->plugin_name)?></td>
+                        <td><span>–</span></td>
                         <td><?php echo __('12 months',$this->plugin_name)?></td>
                         <td><?php echo __('Lifetime',$this->plugin_name)?></td>
                         <td><?php echo __('Lifetime',$this->plugin_name)?></td>

@@ -153,14 +153,16 @@ class Shortcode_Widget_Deprecated extends \Elementor\Widget_Base {
 		$generator_id = $sp_testimonial_shortcode;
 
 		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-			$post_id            = $generator_id;
-			$setting_options    = get_option( 'sp_testimonial_pro_options' );
-			$shortcode_data     = get_post_meta( $post_id, 'sp_tpro_shortcode_options', true );
+			$post_id         = $generator_id;
+			$setting_options = get_option( 'sp_testimonial_pro_options' );
+			$shortcode_data  = get_post_meta( $post_id, 'sp_tpro_shortcode_options', true );
+			$layout_data     = get_post_meta( $post_id, 'sp_tpro_layout_options', true );
+
 			$main_section_title = get_the_title( $post_id );
 			// Load dynamic style.
-			$dynamic_style = Frontend::load_dynamic_style( $post_id, $shortcode_data );
+			$dynamic_style = Frontend::load_dynamic_style( $post_id, $shortcode_data, $layout_data );
 			echo '<style>' . esc_html( $dynamic_style['dynamic_css'] ) . '</style>';
-			Helper::sp_testimonial_html_show( $post_id, $setting_options, $shortcode_data, $main_section_title );
+			Helper::sp_testimonial_html_show( $post_id, $setting_options, $shortcode_data, $layout_data, $main_section_title );
 			?>
 			<script>
 			jQuery('#sp-testimonial-preloader-' + <?php echo esc_attr( $generator_id ); ?>).animate({ opacity: 0, zIndex: -99 }, 600);

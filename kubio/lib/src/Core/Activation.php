@@ -173,6 +173,7 @@ class Activation {
 			}
 		}
 
+		Flags::set( 'kubio_f', get_option( 'fresh_site' ));
 		Flags::set( 'kubio_activation_time', time() );
 		Flags::set( 'stylesheet', get_stylesheet() );
 
@@ -185,6 +186,10 @@ class Activation {
 			add_filter( 'kubio/importer/content', array( $this, 'importCustomizerOptions' ), 20, 3 );
 		}
 
+		if ( $this->activeWithFrontpage() ) {
+			add_filter( 'kubio/activation/force_front_page_creation',  '__return_true');
+		}
+		
 		wp_cache_flush();
 		$this->importDesign();
 		$this->importTemplates();
@@ -409,7 +414,7 @@ class Activation {
 			$content = Importer::getTemplateContent( 'page', 'front-page' );
 		}
 
-		if ( $query->have_posts() ) {
+		if ( $query->have_posts() && !apply_filters( 'kubio/activation/force_front_page_creation', false )) {
 			if ( apply_filters( 'kubio/activation/override_front_page_content', false ) ) {
 				wp_update_post(
 					array(

@@ -89,6 +89,7 @@ if ( ! class_exists( 'SPFTESTIMONIAL_Field_spacing' ) ) {
 				$placeholder = ( ! empty( $args['all_placeholder'] ) ) ? $args['all_placeholder'] : '';
 
 				echo '<div class="spftestimonial--input">';
+				echo ( ! empty( $args['all_icon'] ) ) ? '<span class="spftestimonial--label spftestimonial--icon">' . wp_kses_post( $args['all_icon'] ) . '</span>' : '';
 				echo '<input type="number" name="' . esc_attr( $this->field_name( '[all]' ) ) . '" value="' . esc_attr( $value['all'] ) . '" placeholder="' . esc_attr( $placeholder ) . '" class="spftestimonial-input-number' . esc_attr( $is_unit ) . '" step="any" />';
 				echo ( $unit ) ? '<span class="spftestimonial--label spftestimonial--unit">' . esc_attr( $args['units'][0] ) . '</span>' : '';
 				echo '</div>';

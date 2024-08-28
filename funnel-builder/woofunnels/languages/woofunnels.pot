@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-23T16:09:54+05:30\n"
+"POT-Creation-Date: 2024-08-28T13:25:19+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: woofunnels\n"
@@ -320,7 +320,7 @@ msgid "294123501257422"
 msgstr ""
 
 #: helpers/settings.php:80
-msgid "Log into your Facebook ads account to find your Pixel ID. <a target=\"_blank\" href=\"https://www.facebook.com/ads/manager/pixel/facebook_pixel/\">Learn More</a>"
+msgid "Log into your Facebook ads account to find your Pixel ID. <a target=\"_blank\" href=\"https://funnelkit.com/docs/funnel-builder/how-to/configure-facebook-conversion-api/#step-4-go-to-settings\">Learn More</a>"
 msgstr ""
 
 #: helpers/settings.php:87
@@ -692,7 +692,7 @@ msgid "G-9F3K2TGHH4"
 msgstr ""
 
 #: helpers/settings.php:456
-msgid "Log into your Google Analytics account to find your Analytics ID. <a target=\"_blank\" href=\"https://support.google.com/analytics/answer/10269537\">Learn More</a>"
+msgid "Log into your Google Analytics account to find your Analytics ID. <a target=\"_blank\" href=\"https://funnelkit.com/docs/funnel-builder/how-to/set-up-google-analytics-4-property/\">Learn More</a>"
 msgstr ""
 
 #: helpers/settings.php:481
